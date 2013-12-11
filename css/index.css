@@ -42,7 +42,7 @@ div#noEntries			{ border-left: 5px solid transparent; }
 #entryListFix,
 #entryListScroller		{ -webkit-backface-visibility: hidden; }
 #entryListForm			{ width: 100%; height: 154px; position: relative; -webkit-backface-visibility: hidden; /*overflow-x: hidden;*/ z-index: 1; }
-#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; min-height: 180px; padding: 34px 0 44px 0; background-color: rgba(255,255,255,.88); overflow: hidden; -webkit-backface-visibility: hidden; }
+#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; min-height: 180px; padding: 36px 0 44px 0; background-color: rgba(255,255,255,.88); overflow: hidden; -webkit-backface-visibility: hidden; }
 /*#########
 ## TIMER ##
 #########*/
@@ -93,18 +93,51 @@ span#statusMain			{ opacity: .18; font-size: 100%; color: rgba(0,0,0,.925); text
 ## ENTRY LIST ##
 ###############*/
 #entryList				{ width: 100%; font-size: 13px; -webkit-backface-visibility: hidden; }
-#entryList div			{ width: auto; padding: 11px 0 11px 0; margin: 0; background-color: #fff; position: relative; -webkit-backface-visibility: hidden; border-bottom: 1px solid #eee; border-top: 1px solid transparent; }
+#entryList div			{ width: auto; padding: 11px 0 11px 0; margin: 0; background-color: #fff; position: relative; -webkit-backface-visibility: hidden; border-bottom: 1px solid #eee; border-top: 1px solid transparent; 
+ -webkit-backface-visibility: hidden;
+}
+#entryList div *		{ -webkit-backface-visibility: hidden; }
+
 span.delete				{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 3px 6px 0 0; padding: 7px 14px 7px 14px; border: 1px solid #953403; border-radius: 5px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 -1px 1px #953403; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ec4a0b),color-stop(1, #ad390c)); }
 span.delete:active		{ background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E0380A),color-stop(1, #9C2A09)); }
 span.delete				{ visibility: hidden; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(80px, 0, 0);  -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
 span.delete.open		{ visibility: visible; display: inline-block; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .150s; -webkit-backface-visibility: hidden; }
+
+
 /*#ROW STYLE#*/
-.entriesId				{ display: none; width: 31px; text-align: left; color: #999999; text-indent: 4px; }
-.entriesTitle			{ display: inline-block; width: 40px;  text-align: right; font-weight: bold; }
-.entriesKcals			{ display: inline-block; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
-.entriesBody			{ display: inline-block; width: 200px; text-align: left; color: #666; font-size: 10pt; text-indent: 12px; overflow: hidden; white-space: nowrap; width: auto; left: 72px; position: absolute; right: 9px; -webkit-backface-visibility: hidden; } 
-.entriesPublished		{ padding-top: 23px; -webkit-backface-visibility: hidden; display: inline-block; height: 13px; text-align: right; position: absolute; bottom: -2px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; text-shadow: none; opacity: .9; }
+.entriesTitle			{ display: inline; float: left; width: 40px;  text-align: right; font-weight: bold; }
+.entriesKcals			{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
+
+.entriesBody			{ 
+
+
+text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; 
+ 
+/* left: 72px; position: absolute; right: 9px; */
+ 
+ -webkit-backface-visibility: hidden;
+padding-left: 8px;
+margin-right: 9px;
+ 
+ height: 16px;
+  } 
+
+.entriesBody input			{ display: block; }
+
+
+.entriesPublished		{ padding-top: 28px; -webkit-backface-visibility: hidden; display: inline;
+
+ text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; text-shadow: none !important; 
+ 
+
+
+opacity: .9;
+ }
 .editing .entriesPublished { padding-top: 0 !important; }
+
+
+
+
 /*#EXPIRED#*/
 div.expired p			{ opacity: .3; }
 div.editing p			{ opacity: 1; }
@@ -179,13 +212,7 @@ div.submitActive		{ color: #000 !important; border-color: #aaa !important; -webk
 ## PAGE SLIDER ##
 ###############*/
 div#pageSlideInfo,
-div#pageSlideCalc		{ -webkit-backface-visibility: hidden; position: fixed; top: 51px; height: 100%; width: 100%; color: #fff; /*opacity: .925;*/ z-index: 999; overflow: auto;
--webkit-overflow-scrolling: touch;
-/*background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000);
-background: radial-gradient(at 100px,#373737,#000);*/
-background-color: #111;
-/*opacity: .925;*/
-}
+div#pageSlideCalc		{ -webkit-backface-visibility: hidden; position: fixed; top: 51px; height: 100%; width: 100%; color: #fff; /*opacity: .925;*/ z-index: 999; overflow: auto; -webkit-overflow-scrolling: touch; /*background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000); background: radial-gradient(at 100px,#373737,#000);*/ background-color: #111; /*opacity: .925;*/ }
 div#pageSlideInfo		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(-100%, 0, 0); -webkit-transition-duration: .25s; }
 div#pageSlideCalc		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d( 100%, 0, 0); -webkit-transition-duration: .25s; }
 div#pageSlideInfo.open	{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(    0, 0, 0); -webkit-transition-duration: .25s; }
@@ -199,18 +226,15 @@ div.infoContents,
 div#infoContents		{ display: block; margin-top: 70px; margin-left: 12px; -webkit-overflow-scrolling: touch; -webkit-backface-visibility: hidden; }
 div#sideMenuTopBar
 div#infoContents span	{ font-weight: bold; color: #fff; text-shadow: rgba(255,255,255,.5) 0 -1px 0; -webkit-backface-visibility: hidden; }
+/*ANDROID SLIDE*/
+body.android #entryListScroller			{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .25s; }
+body.android #entryListScroller.info	{ -webkit-transform: translate3d( 100%, 0, 0); -webkit-transition-duration: .25s; }
+body.android #entryListScroller.calc	{ -webkit-transform: translate3d(-100%, 0, 0); -webkit-transition-duration: .25s; }
+body.android #entryListScroller.food	{ -webkit-transform: translate3d(0, -100%, 0); -webkit-transition-duration: .25s; }
 /*#################
 ## FOOD DATABASE ##
 #################*/
-div#pageSlideFood		{ 
--webkit-backface-visibility: hidden; position: fixed; padding-top: 61px; left: 0; top: 51px;  
-height: 100%; width: 100%; color: #fff; z-index: 2; overflow: hidden;
-background-color: #111;
-/*opacity: .925;*/
-
-/* background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000); background: radial-gradient(at 100px,#373737,#000); opacity: 1; background-color: rgba(0,0,0,.925); */ 
-
-}
+div#pageSlideFood		{ -webkit-backface-visibility: hidden; position: fixed; padding-top: 61px; left: 0; top: 51px;   height: 100%; width: 100%; color: #fff; z-index: 2; overflow: hidden; background-color: #111; /*opacity: .925;*/ /* background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000); background: radial-gradient(at 100px,#373737,#000); opacity: 1; background-color: rgba(0,0,0,.925); */ }
 div#pageSlideInfo,
 div#pageSlideCalc,
 div#pageSlideFood		{ -webkit-backface-visibility: hidden !important; }
@@ -220,14 +244,16 @@ div#pageSlideFood * 	{ -webkit-backface-visibility: hidden !important; }
 /**/ 
 div#pageSlideFood		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .25s; }
 div#pageSlideFood.open	{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .25s; }
+
+
+
+
 /*food search*/
 input#foodSearch		{ position: absolute; left: 16px; right: 16px; top: 10px; font-size: 18px; opacity: .9; border: 5px solid #ffcc33; display: block; color: #666; padding: 6px 5px 4px 7px; background-color: rgba(255,255,255,1); z-index: 999; -webkit-user-select: auto; border-radius: 28px; }
 #foodList .exerciseType { /*border: 5px solid #ffcc33 !important;*/ }
 #foodList				{ /*margin: 50px 0px 0 22px; -webkit-backface-visibility: hidden;*/ margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; }
 /*#foodListWrapper		{ display: block; width: 100%; overflow: hidden; z-index: 3; position: relative; position: fixed; }*/
 #foodList .searcheable	{ position: relative; margin: 0; padding: 0; display: block; height: 54px; overflow: hidden; -webkit-backface-visibility: hidden; }
-#foodList .searcheable,
-#foodList .searcheable *{ -webkit-backface-visibility: hidden !important; }
 /*food subitens*/
 span#noMatches			{ color: #fff; position: absolute; top: 75px; left: 33px; overflow: hidden; display: block; opacity: 1; }
 span#iconClear			{ padding: 23px 18px 9px 18px; font-size: 28px; line-height: 24px; font-weight: bold; position: absolute; top: 0px; right:18px; display:none; color:#000; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .7; font-family: Arial, Helvetica, sans-serif; }
@@ -247,6 +273,33 @@ span.foodCar			{ display: none; display: inline-block; width: 65px; padding-top:
 span.foodFib			{ display: none; /*display: inline-block;*/ float: left; width: 50px; padding-top: 16px; font-size: 12px; text-align: left; color: #fff; font-weight: bold; }
 span.preSpan			{ padding-right: 5px; color: #ffdd33; /*opacity: 1;*/ }
 span.posSpan			{ padding-left: 5px; color:  rgba(255,102,0,1); opacity: .7;  display: none; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*prehide*/
 div#pageSlideInfo,
 div#pageSlideCalc,
@@ -283,7 +336,15 @@ div#pageSlideFood		{ display: none; -webkit-backface-visibility: hidden !importa
 ###############*/
 #editableDiv			{ -webkit-backface-visibility: hidden; color: transparent !important; background-color: transparent !important; position: absolute; top: 0px; right: 0px; display: block; width: 100px; height: 51px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; font-family: Helvetica; -webkit-user-select: none; }
 input#editable			{ -webkit-backface-visibility: hidden; color: #000; background-color: #fff !important; position: absolute; top: 24px; right: 66px; display: block !important; width: 56px !important; height: 27px; font-size: 18px !important; line-height: 20px; border: 0; padding: 0; margin: 0; opacity: .9; text-align: right; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; }  
-#editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; width: 95%; color: #000; font-size: 13px; }
+
+#editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; 
+
+
+display: block; width: 100%; color: #000; font-size: 13px; }
+
+
+
+
 #editableBlock			{ position: absolute; right: 0; top: 51px; width: 120px; height: 15px; background-color: transparent; z-index: 999; display: none; }
 /*#############
 ## CALC FORM ##
@@ -359,7 +420,7 @@ div#spinner div.bar12			{ -webkit-transform:rotate(330deg) translate(0, -142%); 
 .carpe-slider-panel:active		{ outline: none; }
 /* Slider Track */
 .carpe-slider-track				{ z-index: 0; top: 12px; margin: 0px 3px; padding: 0; height: 2px; border: 0px solid transparent; border-color: transparent; background-color: #444; opacity: .7; }
-.carpe-slider-knob				{ z-index: 1; top: -0px; left: 4px; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 12px; background: #fff; }
+.carpe-slider-knob				{ z-index: 1; top: -0px; left: 3px; width: 17px; height: 17px; border: 1px solid #ccc; border-radius: 12px; background: #fff; }
 .carpe-slider-knob:hover		{ border: 1px solid #aaa; }
 /*#///////////#//
 //# MODAL BOX #//

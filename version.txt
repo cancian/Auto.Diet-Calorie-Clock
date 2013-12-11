@@ -2,6 +2,24 @@
 ## VERSION LOG ##
 #################
 
+
+- search top input
+- larger top
+- android side-slide
+- remove doublespace on start entry edit ~ input focus
+- results list slowness
+- bolder tap to select
+- white menus
+- entrylistscroll 2px gap
+- indent ios7 - non-absolute divs
+- margem do entrywrapper empurrou o entrylistscroller - js
+- 
+- 
+
+
+$("body").addClass("android");
+
+
 # 1.0.4 [10/12/2013]
 • cleaner interface
 • menu height fix

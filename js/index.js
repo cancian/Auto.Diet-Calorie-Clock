@@ -16,12 +16,13 @@ function init() {
 //#////////////////#//
 function startApp() {
 //console.log("startApp()");
+afterShow(900);
 updateTimer();
 updateEntries();
-updateEntriesTime(); 
+updateEntriesTime();
 (function startTimer() {
 	updateTimer();
-	setTimeout(startTimer, 100);
+	setTimeout(startTimer,98.765);
 })();
 /////////////////////
 // ADJUST ELEMENTS //
@@ -61,6 +62,7 @@ var isMobile = {
 	// IOS VERSION //
 	/////////////////
 	if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+		$("body").addClass("ios");
 			if(/OS [1-5](.*) like Mac OS X/i.test(navigator.userAgent)) {
 				///////////
 				// IOS 5 //
@@ -670,6 +672,7 @@ setTimeout(function(){
 			if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
 				$('#pageSlideFood').addClass('busy');
 				$('#pageSlideFood').removeClass("open");
+				$('#entryListScroller').removeClass("food");
 				$('#pageSlideFood').on('webkitTransitionEnd',function(e) { $('#pageSlideFood').removeClass('busy'); /*$('#pageSlideFood').css("opacity","0");*/ $("#foodSearch").blur(); });
 			} else {
 				if(!$('#pageSlideCalc').hasClass('busy') && !$('#pageSlideInfo').hasClass('busy') && !$('#pageSlideFood').hasClass('busy')) {
@@ -686,6 +689,7 @@ setTimeout(function(){
 					//$('#pageSlideFood').css("opacity",".925");
 					$('#pageSlideFood').addClass('busy');
 					$('#pageSlideFood').addClass("open");
+					$('#entryListScroller').addClass("food");
 					$('#pageSlideFood').on('webkitTransitionEnd',function(e) { $('#pageSlideFood').removeClass('busy'); });
 				}}
 			}}
@@ -714,6 +718,7 @@ setTimeout(function(){
 			if($('#pageSlideInfo').hasClass("open") && !$('#pageSlideInfo').hasClass("busy")) {
 				$('#pageSlideInfo').addClass("busy");
 				$('#pageSlideInfo').removeClass("open");
+				$('#entryListScroller').removeClass("info");
 				$('#pageSlideInfo').on('webkitTransitionEnd',function(e) { $('#pageSlideInfo').removeClass('busy'); $("#CyclicInput1").blur(); $("#CyclicInput2").blur(); });
 				//wipe tmp
 				//$("#pageSlideInfo").html('');
@@ -728,6 +733,7 @@ setTimeout(function(){
 					}
 					//show
 					$('#pageSlideInfo').addClass("open");
+					$('#entryListScroller').addClass("info");
 					$('#pageSlideInfo').addClass('busy');
 					$('#pageSlideInfo').on('webkitTransitionEnd',function(e) { $('#pageSlideInfo').removeClass('busy');
 						//INTRO TOOLTIP
@@ -759,6 +765,7 @@ setTimeout(function(){
 			if($('#pageSlideCalc').hasClass("open") && !$('#pageSlideCalc').hasClass("busy")) {
 				$('#pageSlideCalc').addClass('busy');
 				$('#pageSlideCalc').removeClass("open");
+				$('#entryListScroller').removeClass("calc");
 				$('#pageSlideCalc').on('webkitTransitionEnd',function(e) { $('#pageSlideCalc').removeClass('busy'); $("*").blur(); });
 			} else {
 				if(!$('#pageSlideCalc').hasClass('busy') && !$('#pageSlideInfo').hasClass('busy') && !$('#pageSlideFood').hasClass('busy')  && !$('#pageSlideFood').hasClass('open')) {
@@ -772,6 +779,7 @@ setTimeout(function(){
 					//show
 					$('#pageSlideCalc').addClass('busy');
 					$('#pageSlideCalc').addClass("open");
+					$('#entryListScroller').addClass("calc");
 					$('#pageSlideCalc').on('webkitTransitionEnd',function(e) { $('#pageSlideCalc').removeClass('busy'); });
 					}}
 				}}
@@ -788,6 +796,7 @@ setTimeout(function(){
 		if($('#pageSlideInfo').hasClass("open") && !$('#pageSlideInfo').hasClass("busy")) {
 			$('#pageSlideInfo').addClass('busy');
 			$('#pageSlideInfo').removeClass("open");
+			$('#entryListScroller').removeClass("info");
 			$('#pageSlideInfo').on('webkitTransitionEnd',function(e) { $('#pageSlideInfo').removeClass('busy'); $("#CyclicInput1").blur(); $("#CyclicInput2").blur(); });
 			//wipe tmp
 			//$("#pageSlideInfo").html('');
@@ -796,6 +805,7 @@ setTimeout(function(){
 		if($('#pageSlideCalc').hasClass("open") && !$('#pageSlideCalc').hasClass("busy")) {
 			$('#pageSlideCalc').addClass('busy');
 			$('#pageSlideCalc').removeClass("open");
+			$('#entryListScroller').removeClass("calc");
 			$('#pageSlideCalc').on('webkitTransitionEnd',function(e) {
 				$('#pageSlideCalc').removeClass('busy'); 
 				//WIPE ON CLOSE
@@ -811,6 +821,7 @@ setTimeout(function(){
 			$("#foodSearch").blur();
 			$('#pageSlideFood').addClass('busy');
 			$('#pageSlideFood').removeClass("open");
+			$('#entryListScroller').removeClass("food");
 			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
 				$('#pageSlideFood').removeClass('busy'); 
 				//WIPE ON CLOSE

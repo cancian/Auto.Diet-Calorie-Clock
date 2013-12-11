@@ -583,7 +583,6 @@ $(document).ready(function() {
 	function carpeLoad() {
 		clearTimeout(carpeTimer);
 		CARPE.sliders.init();
-		afterShow(0);
 		if(document.getElementById('slider')) {
 			var sliderNum = document.getElementById('slider').slider.resetValue();
 		}
