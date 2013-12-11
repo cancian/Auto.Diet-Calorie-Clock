@@ -1,0 +1,357 @@
+<div id="infoContents" class="infoContents">
+
+<!--## TAB OVERVIEW ##-->
+	<div id="tab-overview">
+		<h2><strong>How does it work?</strong></h2>
+		<p><span>MyLiveDiet</span> is a weight management system that helps regulating your caloric intake.</p>
+		<p> It works by keeping track of your metabolic rate, plus meals and exercises, and translating that data into a clear overview of your current energetic needs, making it easy for you to plan things like when to have your next meal, or how big it should be.</p>
+		<h2><strong>Quick example</strong></h2>
+		<p>For instance, let&rsquo;s say you want to lose a few pounds, and you need 2000 kcals per day in order to keep your current weight. So, if you want to lose weight, you will need to create a modest caloric deficit; something around 400 kcals per day should be fine as an example.</p>
+		<p> After figuring that out (swipe left for the calculator), all you have to do is input that value to the counter (1600 kcals), and  it will calculate your current caloric balance as you go through the day, in real time.</p>
+		<h2><strong>Keep it simple</strong></h2>
+		<p>So, if it has been 6 hours since you started dieting, the counter will show you -400 kcals, meaning you have to eat 400 calories to keep in pace with your current dieting plans.</p>
+		<p>However, if you choose to have a 600 kcals meal, the counter will simply show you are 200 kcals above your goal. In that situation, you can compensate either by exercising or by waiting for your body to burn those calories.</p>
+		<h2><strong>Full flexibility</strong></h2>
+		<p>The goal then is simply to keep the counter around zero, and as long as you keep your intake balanced, you should be good to go - with strict caloric regulation, yet full control over your nutrition.</p>
+		<p>&nbsp;</p>
+       </div>
+<!--## TAB OVERVIEW ##-->
+
+
+<!--## TAB GESTURES ##-->
+	<div id="tab-gestures">
+		<ul>
+			<li><h3>header</h3></li>
+			<li><p>calorie calculator <span>swipe left</span></p></li>
+			<li><p>set kcals/day <span>tap</span></p></li>
+			<li><h3>entry list</h3></li>
+			<li><p>edit entry <span>double tap</span></p></li>
+			<li><p>delete entry <span>swipe</span></p></li>
+			<li><h3>footer</h3></li>
+			<li><p>reset timer <span>tap</span></p></li>
+			<li><p>wipe all data <span>hold</span></p></li>
+		</ul> 
+	</div>
+<!--## TAB GESTURES ##-->
+
+<!--## TAB SETTINGS ##-->
+	<div id="tab-settings">
+		<ul>
+            <!-- ##### OPTION ##### -->
+			<li class="contentToggleTitle">
+				<p class="contentTitle" id="contentToggleTitle">System of measurement<span>(height, weight etc.)</span></p>
+				<div id="tapSwitch">
+					<div id="leftOption"><span>imperial</span></div>
+					<div id="rightOption"><span>metric</span></div>
+				</div>
+			</li>
+            <!-- ##### OPTION ##### -->
+
+            <!-- ##### OPTION ##### -->
+            <!--
+			<li>
+				<p class="contentTitle" id="contentSnapTitle">Slider snap<span>(rounds to nearest 25)</span></p>
+				<div class="descriptionContent"></div>
+				<div class="ios7style"><input id="settingsSnap" class="ios7" type="checkbox" name="settingsSnap"></div>
+			</li>
+            -->
+            <!-- ##### OPTION ##### -->
+
+            <!-- ##### OPTION ##### -->
+			<li>
+				<p class="contentTitle" id="contentCyclicTitle">Calorie cycling <span>(kcals/day)</span></p>
+				<div class="descriptionContent">
+					<span class="readMoreToggle">read more</span>
+					<p>This option will allow you to cycle between two different caloric values along a period of 4 days. Days (a,b,c) will use the first value, while day (d) will use the later.</p>
+				</div>
+			    <div class="readMoreContent">
+					<p>This configuration is typically used to accommodate a "rest day" (maintenance level) in a dieting plan.</p>
+					<p>The reason for this is mostly the psychological comfort of having some kind a "reward" to look forward to, making it easier to endure the dieting days.</p>
+					<p>A second reason is that the cycling of calories (theoretically) keeps your body guessing, making it harder for your metabolic rate to adjust itself.</p>
+					<p>Note that this second reason is mostly speculative, as there is no solid scientific evidence that cycling calories will actually increase weight loss.</p>
+				</div>
+				<div class="ios7style"><input id="settingsCyclic" class="ios7" type="checkbox" name="settingsCyclic"></div>
+			</li>
+            <!-- ##### OPTION ##### -->
+
+		</ul>
+	</div>
+<!--## TAB SETTINGS ##-->
+</div>
+
+<!--<script type="text/javascript" src="js/jquery.mobileCheckbox.js"></script>-->
+<script type="text/javascript">
+/////////////////////
+// INSERT TOP MENU //
+/////////////////////
+!function() {
+//TOP MENU
+$("#sideMenuInfo").prepend("<div id='sideMenuTopBar'><h3 id='topBarItem-1'><span class='icon-bookmark'></span>overview</h3><h3 id='topBarItem-2'><span class='icon-hand-up'></span>gestures</h3><h3 id='topBarItem-3'><span class='icon-gear'></span>settings</h3></div>");
+// CYCLIC INPUTS
+$("#contentCyclicTitle").after("<div id='settingsCyclicWrapper'><div id='settingsCyclicDiv1'><span><input min='500' max='9999' type='number' name='CyclicInput1' id='CyclicInput1' />days a, b, c <span>(diet)</span></span></div><div id='settingsCyclicDiv2'><span><input min='500' max='9999' type='number' name='CyclicInput2' id='CyclicInput2' />day d <span>(rest)</span></span></div></div>");
+///////////////////////////////////
+// CYCLIC KCALS HARDCODED VALUES //
+///////////////////////////////////
+if(!window.localStorage.getItem("config_kcals_day_1")) {
+	$("#CyclicInput1").val(1600);
+	window.localStorage.setItem("config_kcals_day_1",1600);
+} else {
+	$("#CyclicInput1").val(window.localStorage.getItem("config_kcals_day_1"));	
+}
+if(!window.localStorage.getItem("config_kcals_day_2")) {
+	$("#CyclicInput2").val(2000);
+	window.localStorage.setItem("config_kcals_day_2",2000);
+} else {
+	$("#CyclicInput2").val(window.localStorage.getItem("config_kcals_day_2"));	
+}
+///////////////////
+// IF SET CYCLIC //
+///////////////////
+if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
+	$("#settingsCyclic").attr('checked','checked');
+	$("#settingsCyclicWrapper").show();
+}
+/////////////////////
+// ADJUST ELEMENTS //
+/////////////////////
+/////////////////////
+// CHECKBOX ON/OFF //
+/////////////////////
+$("#settingsCyclic").on(touchstart,function(evt){
+	evt.preventDefault();
+	evt.stopPropagation();
+});
+/////////////////
+// ON COMPLETE //
+/////////////////
+$("#settingsCyclic").on('complete',function(evt){
+	//CYCLIC
+	if($("input#settingsCyclic").is(":checked")) {
+		$("#settingsCyclicWrapper").show();
+		window.localStorage.setItem("config_kcals_type","cyclic");
+		$("#CyclicInput1").val(window.localStorage.getItem("config_kcals_day_1"));
+		$("#CyclicInput2").val(window.localStorage.getItem("config_kcals_day_2"));
+		if(window.localStorage.getItem("config_kcals_day") == "d") {
+			document.getElementById('editableDiv').innerHTML = window.localStorage.getItem("config_kcals_day_2");
+		} else {
+			document.getElementById('editableDiv').innerHTML = window.localStorage.getItem("config_kcals_day_1");
+		}
+	//SIMPLE
+	} else {
+		$("#settingsCyclicWrapper").hide();
+		window.localStorage.setItem("config_kcals_type","simple");
+		document.getElementById('editableDiv').innerHTML = window.localStorage.getItem("config_kcals_day_0");
+	}
+	updateTimer();
+	setTimeout(function() {
+		window.onscroll(scroll($('#pageSlideInfo')[0].scrollTop,0));
+	},0);
+});
+/////////////////////
+// FIRST LOAD TABS //
+/////////////////////
+if(!window.localStorage.getItem("lastInfoTab")) {
+	window.localStorage.setItem("lastInfoTab","topBarItem-1");
+	$("#topBarItem-1").addClass("onFocus");
+	$("#tab-overview").addClass("onFocus");
+}
+////////////
+// TAB #1 //
+////////////
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
+	$("#topBarItem-1").addClass("onFocus");
+	$("#tab-overview").addClass("onFocus");
+}
+////////////
+// TAB #2 //
+////////////
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
+	$("#topBarItem-2").addClass("onFocus");
+	$("#tab-gestures").addClass("onFocus");
+}
+////////////
+// TAB #3 //
+////////////
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
+	$("#topBarItem-3").addClass("onFocus");
+	$("#tab-settings").addClass("onFocus");
+	//LOAD CHECKBOX
+	$("input[type=checkbox]").mobileCheckbox();
+}
+////////////////////////
+// SWITCH VISIBLE TAB //
+////////////////////////
+$("#sideMenuTopBar h3").on(touchstart,function(evt) {
+	evt.preventDefault();
+	////////////
+	// TAB #1 //
+	////////////
+	if($(this).attr("id") == "topBarItem-1") {
+		$("#topBarItem-2,#topBarItem-3").removeClass("onFocus");
+		$("#topBarItem-1").addClass("onFocus");
+
+		$("#tab-gestures,#tab-settings").removeClass("onFocus");
+		$("#tab-overview").addClass("onFocus");
+		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));
+	}
+	////////////
+	// TAB #2 //
+	////////////
+	if($(this).attr("id") == "topBarItem-2") {
+		$("#topBarItem-1,#topBarItem-3").removeClass("onFocus");
+		$("#topBarItem-2").addClass("onFocus");
+
+		$("#tab-overview,#tab-settings").removeClass("onFocus");
+		$("#tab-gestures").addClass("onFocus");
+		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));
+	}
+	////////////
+	// TAB #3 //
+	////////////
+	if($(this).attr("id") == "topBarItem-3") {
+		$("#topBarItem-1,#topBarItem-2").removeClass("onFocus");
+		$("#topBarItem-3").addClass("onFocus");
+		
+		$("#tab-overview,#tab-gestures").removeClass("onFocus");
+		$("#tab-settings").addClass("onFocus");
+		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));		
+		//LOAD CHECKBOX		
+		$("input[type=checkbox]").mobileCheckbox();
+	}
+});
+//////////////////////
+// READ MORE TOGGLE //
+//////////////////////
+$(".readMoreToggle").on(touchstart,function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();
+	$(".readMoreContent").toggleClass("showAll");
+	window.onscroll(scroll($('#pageSlideInfo')[0].scrollTop,0));
+});
+//#///////////////////#//
+//# CYCLIC VALIDATION #//
+//#///////////////////#//
+// NUM ONLY //
+$("#CyclicInput1").on("keypress",function(evt) {
+	return isNumberKey(evt);
+});
+$("#CyclicInput2").on("keypress",function(evt) {
+	return isNumberKey(evt);
+});
+// MIN/MAX ROUNDED & NATURAL //
+$("#CyclicInput1").on("change blur",function(evt) {
+	if($(this).val() <= 0)   { $(this).val(1600); }
+	if($(this).val() < 500)  { $(this).val(500);  }
+	if($(this).val() > 9999) { $(this).val(9999); }
+	$(this).val(Math.round(Number($(this).val())));
+	window.localStorage.setItem("config_kcals_day_1",$(this).val());
+	//$("#editableDiv").html($(this).val());
+	if(window.localStorage.getItem("config_kcals_type") == "cyclic" && window.localStorage.getItem("config_kcals_day") != "d") {
+		document.getElementById('editableDiv').innerHTML = window.localStorage.getItem("config_kcals_day_1");
+		updateTimer();
+	}
+});
+$("#CyclicInput2").on("change blur",function(evt) {
+	if($(this).val() <= 0)   { $(this).val(2000); }
+	if($(this).val() < 500)  { $(this).val(500);  }
+	if($(this).val() > 9999) { $(this).val(9999); }
+	$(this).val(Math.round(Number($(this).val())));
+	window.localStorage.setItem("config_kcals_day_2",$(this).val());
+	//$("#editableDiv").html($(this).val());
+	if(window.localStorage.getItem("config_kcals_type") == "cyclic" && window.localStorage.getItem("config_kcals_day") == "d") {
+		document.getElementById('editableDiv').innerHTML = window.localStorage.getItem("config_kcals_day_2");
+		updateTimer();
+	}
+});
+////////////////////
+// BLUR INPUT TAP //
+////////////////////
+$("#tab-settings ul").off(touchmove);
+$("#tab-settings ul").on(touchmove, function(evt) {
+
+if($("#CyclicInput1").is(':focus')){
+	evt.preventDefault();
+	evt.stopPropagation();
+}
+if($("#CyclicInput2").is(':focus')){
+	evt.preventDefault();
+	evt.stopPropagation();	
+}
+});
+
+
+
+$("#tab-settings ul").off(touchstart);
+$("#tab-settings ul").on(touchstart, function(evt) {
+	evt.stopPropagation(); 
+	if(evt.target.id != "CyclicInput1" && evt.target.id != "CyclicInput2") {
+		$("#CyclicInput1").blur();
+		$("#CyclicInput2").blur();
+	}
+});
+//#///////////////#//
+//# TOGGLE BUTTON #//
+//#///////////////#//
+setTimeout(function() {
+	//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
+	$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
+},400);
+if(window.localStorage.getItem("config_measurement") == "metric") {
+	$("#rightOption").addClass("toggle");
+	window.localStorage.setItem("config_measurement","metric");	
+} else {
+//METRIC AS DEFAULT FOR PORTUGUESE
+if(LANG("LANGUAGE") == "pt") {
+	$("#rightOption").addClass("toggle");
+	window.localStorage.setItem("config_measurement","metric");	
+} else {
+	$("#leftOption").addClass("toggle");
+	window.localStorage.setItem("config_measurement","imperial");
+}
+}
+// TOGGLE ACTIVE //
+$("#leftOption").on(touchstart,function(evt){
+	evt.preventDefault();
+	evt.stopPropagation();
+	$("#leftOption").addClass("toggle");
+	$("#rightOption").removeClass("toggle");
+	window.localStorage.setItem("config_measurement","imperial");	
+	loadCalcValues();
+	//reload calc.html
+	setTimeout(function() {
+		//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
+		$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
+		feetInchesToMetric();
+		$('#do_recalc').trigger('click');
+		writeCalcValues();
+		window.localStorage.setItem("config_measurement","imperial");
+		window.localStorage.setItem("calcForm#pA2C","inches");
+		window.localStorage.setItem("calcForm#pA3C","pounds");
+		window.localStorage.setItem("calcForm#select","pounds");
+		window.localStorage.setItem("calcForm#select2","pounds");
+	},200);
+});
+$("#rightOption").on(touchstart,function(evt){
+	evt.preventDefault();
+	evt.stopPropagation();
+	$("#rightOption").addClass("toggle");
+	$("#leftOption").removeClass("toggle");
+	window.localStorage.setItem("config_measurement","metric");
+	loadCalcValues();
+	//reload calc.html	
+	setTimeout(function() {
+		//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
+		$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
+		feetInchesToMetric();
+		$('#do_recalc').trigger('click');
+		writeCalcValues();
+		window.localStorage.setItem("config_measurement","metric");
+		window.localStorage.setItem("calcForm#pA2C","centimetres");
+		window.localStorage.setItem("calcForm#pA3C","kilograms");
+		window.localStorage.setItem("calcForm#select","kilograms");
+		window.localStorage.setItem("calcForm#select2","kilograms");
+	},200);
+});
+}();
+</script>
+

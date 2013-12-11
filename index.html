@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyLiveDiet - RealTime Calorie Counter for iOS, Android and Mobile Web!</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no" />   
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- SCRIPTS -->
+	<script type="text/javascript">
+		var mobileOS = "";
+		if(navigator.userAgent.match(/Android/i)) {
+			var mobileOS = "_android";
+		} else {
+			var mobileOS = "_ios";
+		}
+		//APP OR BROWSER
+		//var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+		//if(app) {
+			//alert();
+			document.write("<script src='js/cordova" + mobileOS + ".js'><\/script>");
+			//document.write("<script src='js/cordova.js'><\/script>");
+			// PhoneGap application
+		//} else {
+		//Web page
+		//}
+	</script>
+	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
+	<script type="text/javascript" src="js/jquery.color-2.1.0.min.js"></script>
+	<script type="text/javascript" src="js/jquery.mobileCheckbox.js"></script>
+	<script type="text/javascript" src="js/quo.js"></script>
+	<script type="text/javascript" src="js/html5sql.js"></script>
+	<script type="text/javascript" src="js/UserVoice.js"></script>
+	<script type="text/javascript" src="js/calculator.js"></script>
+	<script type="text/javascript" src="js/carpe_slider.js"></script>
+
+	<script type="text/javascript">
+		var hostLocal = "";
+		var newDate   = "";
+		if(window.localStorage.getItem("config_debug") == "active") {
+			//if(window.location.hostname.search(/168/) > 0) { var hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/"; }
+			var hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
+			var newDate   = new Date().getTime();
+		}
+	</script>
+
+	<script type="text/javascript">
+		document.write("<script src='"+ hostLocal + "js/lang.js?"+newDate+"'><\/script>");
+		document.write("<script src='"+ hostLocal + "js/diary.js?"+newDate+"'><\/script>");
+		document.write("<script src='"+ hostLocal + "js/index.js?"+newDate+"'><\/script>");
+		//document.write("<script src='js/lang.js'><\/script>");
+		//document.write("<script src='js/diary.js'><\/script>");
+		//document.write("<script src='js/index.js'><\/script>");
+	</script>
+	<script type="text/javascript">
+		//TOOLTIP CONTENT STYLE
+		document.write("<style type='text/css'>.toolTip:before { content: '" + LANG('SWIPE_TOOLTIP') + "'; <\/style>");
+	</script>
+	<!-- SCRIPTS -->
+
+	<script type="text/javascript">
+		document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/index.css?"+newDate+"' />");
+		//document.write("<link rel='stylesheet' type='text/css' href='css/index.css' />");
+	</script>
+</head>
+<body>
+
+    <div id="timerTouch"></div>
+	<div id="afterLoad"></div>
+
+	<!-- ##// ENTRYLIST START //## -->
+	<div id="entryListFix">
+	<div id="underAfterLoad"></div>
+		<div id="entryListScroller">
+        
+			<a name="top"></a>
+
+			<!-- FORM START -->
+			<div id="entryListForm">
+
+				<!-- overscroll text -->
+				<div id="overscroll"><script>document.write(LANG("OVERSCROLL"));</script></div>
+				<!-- overscroll text -->
+
+				<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>
+				<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcals</div>
+				<div id="sliderNeg"><span></span><script>document.write(LANG("EXERCISE"));</script></div>
+				<div id="sliderPos"><script>document.write(LANG("FOOD"));</script><span></span></div>
+
+				<script>document.write('<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />');</script>
+				
+				<div id="entryBodySearch"><div></div></div>
+
+				<script>
+				document.write('<select id="entryTime" name="entryTime" tabindex="-1">\
+					<option value="0">' + LANG('NOW') + '</option>\
+					<option value="1">1 ' + LANG('HOUR_AGO') + '</option>\
+					<option value="2">2 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="3">3 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="4">4 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="5">5 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="6">6 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="7">7 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="8">8 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="9">9 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="10">10 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="11">11 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="12">12 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="13">13 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="14">14 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="15">15 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="16">16 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="17">17 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="18">18 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="19">19 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="20">20 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="21">21 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="22">22 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="23">23 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="24">1 ' + LANG('DAY_AGO') + '</option>\
+					<option value="48">2 ' + LANG('DAYS_AGO') + '</option>\
+					<option value="72">3 ' + LANG('DAYS_AGO') + '</option>\
+				</select>');
+                </script>
+                
+				<div id="entrySubmit"><script>document.write(LANG("ADD_ENTRY"));</script></div>
+			</div>
+			<!-- FORM END -->
+
+			<div id="entryListWrapper">
+			<div class="heading" id="go"><script>document.write(LANG("ACTIVITY_LOG"));</script>
+            <div id="iconInfo" class="icon-info-sign"></div>
+            </div>
+
+				<div id="entryList"></div>
+
+				<!-- RESET BAR -->
+				<div id="startDateBar"><input type="datetime-local" id="startDate" /></div>
+				<div id="iconRepeatToggle"></div>
+				<div id="startDateBarToggle"></div>
+				<div id="configNow">
+					<div class="icon-repeat"></div>
+					<div class="arrow-down"></div>
+					<script>document.write(LANG("RESET_COUNTER"));</script>
+				</div>
+				<!-- RESET BAR -->
+					</div>
+			</div>
+
+			<!-- PAGESLIDE -->
+			<div id="pageSlideCalc"></div>
+			<div id="pageSlideInfo"></div>
+	   		<div id="pageSlideFood"></div>
+			<!-- PAGESLIDE -->
+
+			<!-- underscroll -->
+			<div id="underscroll"></div>
+			<!-- underscroll -->
+
+		</div>
+	<!-- ## ENTRYLIST END ## -->
+
+	<!-- HEADER START -->
+	<div id="timerFix"><p id="timer"></p></div>
+	<!-- HEADER END -->
+
+	<!-- HIDDEN ELEMENTS -->
+	<div id="editableBlock"></div>
+	<!-- HIDDEN ELEMENTS -->
+    
+</body>
+</html>
+

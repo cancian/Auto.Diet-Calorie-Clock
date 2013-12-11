@@ -1,0 +1,288 @@
+<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+
+//////////
+// TRIM //
+//////////
+function trim(str) {
+    str = str.replace(/^\s+/, '');
+    for (var i = str.length - 1; i >= 0; i--) {
+        if (/\S/.test(str.charAt(i))) {
+            str = str.substring(0, i + 1);
+            break;
+        }
+    }
+    return str;
+}
+function stripQuotes(str) {
+
+str = str.substring(1);
+var len = str.length;
+str = str.substring(0,len-1);
+
+
+
+      return str;
+  }
+  
+
+  
+  
+
+function sanitize(str) {
+//	var result = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
+//	var searchQuery = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
+	//var result = str.split(" ").join("").split("~").join("").split("<").join("").split(">").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
+	var result = str.split(" ").join("").split("~").join("").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("â").join("a").split("ê").join("e").split("î").join("i").split("ô").join("o").split("û").join("u").split("à").join("a").split("ã").join("a").split("ç").join("c").split("<").join("").split(">").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
+
+	return result
+}
+
+
+
+
+$.get("searchdb_pt.txt", function(data) {
+	var foodDatabase = data.split("\n");
+	var foodListArray = [];
+	var EID = 1;
+	for(i = 0; i < foodDatabase.length; i++) {
+		foodListArray.push(foodDatabase[i].split("','"));
+	}
+
+
+
+	var foodListBasic = "";
+	var searchString  = "";
+	var mix           = "";
+	var tpl           = "";
+	for(f = 0; f < foodListArray.length; f++) {
+
+		var SEARCH = sanitize(foodListArray[f][2]);
+
+		var ID   = f;
+		var TYPE = foodListArray[f][1];
+		var AID  = foodListArray[f][2];
+		var NAME = foodListArray[f][3];
+		var TERM = foodListArray[f][4];
+		var KCAL = foodListArray[f][5];
+		var PRO  = foodListArray[f][6];
+		var CAR  = foodListArray[f][7];
+		var FAT  = foodListArray[f][8];
+		var FIB  = foodListArray[f][9];
+
+NAME = NAME.split("'").join("''");
+NAME = NAME.split("'''").join("''");
+NAME = NAME.split("'''").join("''");
+
+//		CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code TEXT,name TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);
+
+
+//ID = ID.substring(1);
+//ID = ID.substring(0,ID.length-1);
+//DESC = DESC.substring(1);
+//DESC = DESC.substring(0,DESC.length-1);
+
+// p:before { content:"\203A"; }
+
+// "\f021"; 
+
+// gears "\f085"  "\f013"
+//  content: "\f021";
+
+
+//if(KCAL > 0) {
+	//KCAL = KCAL*2*30;
+
+		//GENERATE SEARCH TERM
+		var TERMpt = "";
+		TERMpt = sanitize(NAME);
+
+if(!FIB) { FIB = 0.00; }
+		tpl = "<div>INSERT INTO \"diary_food\" VALUES(" + ID + ",'" + TYPE + "','" + AID + "','" + NAME + "','" + TERMpt + "','" + KCAL + "','" + PRO + "','" + CAR + "','" + FAT + "','" + FIB + "');</div>";
+
+
+		mix += tpl;
+		EID++;
+		
+
+//PESO = 100;
+//TIME = 30;
+
+//INSERT INTO "diary_food" VALUES(19,'food','01019','Cheese, feta','cheesefeta','264';
+
+//CIRCLED DASH	⊝		&#8861;	&#x229D
+//CIRCLED PLUS	⊕		&#8853;	&#x2295
+//CIRCLED MINUS	⊖		&#8854;	&#x2296
+
+//CIRCLED PLUS (Direct Sum)	⊕	&oplus;	&#8853;	&#x2295
+//CIRCLED TIMES (Vector Product)	⊗	&otimes;	&#8855;	&#x2297
+//CIRCLED MINUS	⊖	--	&#8854;	&#x2296
+//CIRCLED DIVISION SLASH	⊘	--	&#8856;	&#x2298
+//&oplus; 	⊕ 	&#8853; 	circled plus, a.k.a. direct sum 	u+2295 ISOamsb 	alert("\u2295");
+
+//  (4 x 3.5 x body weight in kg)/200 = calories/minute
+//alert("gasto total: " + "\f021 " + " \u2295" + "\u2296" +  Math.round(((KCAL * PESO)/60) * TIME));
+//Gasto total = ((calorias * peso)/60) * minutos
+
+
+//} else { KCAL = 0; }
+
+
+
+
+
+// * 1.655
+		
+}
+
+
+//alert('mi');
+
+
+$('#list').html(mix);
+
+});
+
+
+/*
+## SR26 ##
+0 full description
+1 NDB_No
+2 Shrt_Desc
+3 Water_(g)
+4 Energ_Kcal
+5 Protein_(g)
+6 Lipid_Tot_(g)
+7 Ash_(g)
+8 Carbohydrt_(g)
+9 Fiber_TD_(g)
+10 Sugar_Tot_(g)
+Calcium_(mg)
+Iron_(mg)
+Magnesium_(mg)
+Phosphorus_(mg)
+Potassium_(mg)
+Sodium_(mg)
+Zinc_(mg)
+Copper_mg)
+Manganese_(mg)
+Selenium_(µg)
+Vit_C_(mg)
+Thiamin_(mg)
+Riboflavin_(mg)
+Niacin_(mg)
+Panto_Acid_mg)
+Vit_B6_(mg)
+Folate_Tot_(µg)
+Folic_Acid_(µg)
+Food_Folate_(µg)
+Folate_DFE_(µg)
+Choline_Tot_ (mg)
+Vit_B12_(µg)
+Vit_A_IU
+Vit_A_RAE
+Retinol_(µg)
+Alpha_Carot_(µg)
+Beta_Carot_(µg)
+Beta_Crypt_(µg)
+Lycopene_(µg)
+Lut+Zea_ (µg)
+Vit_E_(mg)
+Vit_D_µg
+ViVit_D_IU
+Vit_K_*(µg)
+FA_Sat_(g)
+FA_Mono_(g)
+FA_Poly_(g)
+Cholestrl_(mg)
+GmWt_1
+GmWt_Desc1
+GmWt_2
+GmWt_Desc2
+Refuse_Pct
+*/
+
+
+
+
+			
+		foodListBasic += "<div>\
+		<span class='foodName'>" + name + "</span>\
+		<span class='foodKcal'>" + kcal + "</span>\
+		<span class='foodPro'>" + pro + "</span>\
+		<span class='foodFat'>" + fat + "</span>\
+		<span class='foodCar'>" + car + "</span>\
+		<span class='foodFib'>" + fib + "</span>\
+		</div>";
+	
+//
+//}
+
+
+/*
+/////////////
+// ARRAY 2 //
+/////////////
+$.get("list2.txt", function(data2) {
+	var foodDatabase2 = data2.split("\n");
+	var foodListArray2 = [];
+
+	for(i = 0; i < foodDatabase2.length; i++) {
+		foodListArray2.push(foodDatabase2[i].split("|"));
+	}
+	
+	var foodListBasic2 = "";
+	var searchString2  = "";
+
+	for(f = 0; f < foodListArray2.length; f++) {
+
+
+		var ZZ_PK                 = foodListArray2[f][0];
+		var ZZ_ENT                = foodListArray2[f][1];
+		var ZZ_OPT                = foodListArray2[f][2];
+		var ZZCARBOHYDRATE        = foodListArray2[f][3];
+		var ZZDIETARYFIBER        = foodListArray2[f][4];
+		var ZZFAT                 = foodListArray2[f][5];
+		var ZZKJ                  = foodListArray2[f][6];
+		var ZZKCAL                = foodListArray2[f][7];
+		var ZZPROTEIN             = foodListArray2[f][8];
+		var ZZSALT                = foodListArray2[f][9];
+		var ZZSATURATEDFAT        = foodListArray2[f][10];
+		var ZZSUGAR               = foodListArray2[f][11];
+		var ZZCARBOHYDRATEMEASURE = foodListArray2[f][12];
+		var ZZDIETARYFIBERMEASURE = foodListArray2[f][13];
+		var ZZFATMEASURE          = foodListArray2[f][14];
+		var ZZKJMEASURE           = foodListArray2[f][15];
+		var ZZKCALMEASURE         = foodListArray2[f][16];
+		var ZZPROTEINMEASURE      = foodListArray2[f][17];
+		var ZZSALTMEASURE         = foodListArray2[f][18];
+		var ZZSATURATEDFATMEASURE = foodListArray2[f][19];
+		var ZZSUGARMEASURE        = foodListArray2[f][20];
+
+	}
+	
+var mix = "";
+var tpl = "";
+
+
+for(c = 0; c < foodListArray.length; c++) {
+
+// ZPRODUCTNAME ZMANUFACTURERNAME ZZKCAL ZSERVING ZZPROTEIN ZZCARBOHYDRATE ZZFAT ZZSUGAR ZZSATURATEDFAT
+
+tpl  = "<div>" + foodListArray[c][15] + "^" + foodListArray[c][13] + "^" + foodListArray2[c][7]  + "^" + foodListArray[c][5] + "^" + foodListArray2[c][8] + "^" + foodListArray2[c][3] + "^" + foodListArray2[c][5] + "^" + foodListArray2[c][11] + "^" + foodListArray2[c][10] + "</div>";
+
+mix += tpl;
+
+// + " > " + foodListArray[f][15];  + " < " + foodListArray2[0][c];
+
+}
+
+
+
+
+});
+*/
+
+</script>
+
+<div id="list">....</div>

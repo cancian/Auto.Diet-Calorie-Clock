@@ -1,0 +1,33 @@
+#################
+## VERSION LOG ##
+#################
+
+# 1.0.4 [10/12/2013]
+• cleaner interface
+• menu height fix
+• 
+• 
+• 
+
+
+# 1.0.3 [04/12/2013]
+• Fixed input focus issue
+• Improved start-up stability
+• Performance and stability improvements
+
+# 1.0.2 [03/12/2013]
+• Added Brazilian Portuguese support
+• Fixed start date toggle issue
+• Fixed slider font issue
+• Improved reponsiveness
+• Performance and stability improvements
+
+# 1.0.1 [01/12/2013]
+• Expired entries now appear faded
+• Fixed cyclic input focus
+• Prevent empty rows in entry history
+• Maximum "time ago" reduced to 3 days
+• Performance and stability improvements
+
+# 1.0 [01/11/2013]
+• Public release
