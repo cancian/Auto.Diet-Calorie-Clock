@@ -19,8 +19,8 @@
 		//var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 		//if(app) {
 			//alert();
-			document.write("<script src='js/cordova" + mobileOS + ".js'><\/script>");
-			//document.write("<script src='js/cordova.js'><\/script>");
+			//document.write("<script src='js/cordova" + mobileOS + ".js'><\/script>");
+			document.write("<script src='js/cordova.js'><\/script>");
 			// PhoneGap application
 		//} else {
 		//Web page
@@ -56,7 +56,11 @@
 	</script>
 	<script type="text/javascript">
 		//TOOLTIP CONTENT STYLE
-		document.write("<style type='text/css'>.toolTip:before { content: '" + LANG('SWIPE_TOOLTIP') + "'; <\/style>");
+		document.write("\
+		<style type='text/css'>\
+			.toolTip:before	{ content: '" + LANG('SWIPE_TOOLTIP') + "';  }\
+			#startDate:before	{ content: '" + LANG('START_DATE') + "'; }\
+		<\/style>");
 	</script>
 	<!-- SCRIPTS -->
 

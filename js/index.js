@@ -1,3 +1,4 @@
+var appVersion = "1.0.4.1";
 ////////////////////////
 // DEVICE READY EVENT //
 ////////////////////////
@@ -16,13 +17,13 @@ function init() {
 //#////////////////#//
 function startApp() {
 //console.log("startApp()");
-afterShow(900);
+afterShow(750);
 updateTimer();
 updateEntries();
 updateEntriesTime();
 (function startTimer() {
 	updateTimer();
-	setTimeout(startTimer,98.765);
+	setTimeout(startTimer,100);
 })();
 /////////////////////
 // ADJUST ELEMENTS //
@@ -37,6 +38,10 @@ if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 	var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 }
 $("#timer").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
+
+
+$('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
+
 //if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
 //#///////////#//
 //# MOBILE OS #//
@@ -57,12 +62,15 @@ var isMobile = {
 	any: function() {
 		return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
 	}
-};	
+};
+	var scrollPad = 0;
 	/////////////////
 	// IOS VERSION //
 	/////////////////
 	if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
 		$("body").addClass("ios");
+		scrollPad = -1;
+		
 			if(/OS [1-5](.*) like Mac OS X/i.test(navigator.userAgent)) {
 				///////////
 				// IOS 5 //
@@ -106,7 +114,7 @@ if(hasTouch()) {
 	// MOBILE //
 	////////////
 	//set fixed height
-	$('#entryListWrapper').css("min-height",                       ($('#afterLoad').height() - (230 + $('#timer').height())) + "px");
+	$('#entryListWrapper').css("min-height",                       ($('#afterLoad').height() - (234 + scrollPad + $('#timer').height())) + "px");
 	$('#entryListScroller').css("height",                          ($('#afterLoad').height() - (      $('#timer').height())) + "px");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",($('#afterLoad').height() - (      $('#timer').height())) + "px");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
@@ -144,7 +152,7 @@ if(hasTouch()) {
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","fixed");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");	
 	//set fixed height  
-	$('#entryListWrapper').css("min-height",                       ($('#afterLoad').height() - (230 + $('#timer').height())) + "px");
+	$('#entryListWrapper').css("min-height",                       ($('#afterLoad').height() - (234 + scrollPad + $('#timer').height())) + "px");
 	$('#entryListScroller').css("height",                          ($('#afterLoad').height() - (      $('#timer').height())) + "px");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",($('#afterLoad').height() - (      $('#timer').height())) + "px");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
@@ -1064,7 +1072,7 @@ setTimeout(function(){
 		//main
 		$('#entryListWrapper').css("height","auto");
 		//RESIZE
-		$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((229 + $('#timer').height()))) + "px");
+		$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((234 + scrollPad + $('#timer').height()))) + "px");
 		//$('#entryListWrapper').css("min-height",(window.localStorage.getItem("absWindowHeight") - ((229 + $('#timer').height()))) + "px");		
 		$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
 		
@@ -1097,7 +1105,7 @@ setTimeout(function(){
 		$('#entryListWrapper').css("min-height",(Number($('#entryListWrapper').css("height").replace("px","")) - (1)) + "px");
 		//$('#entryListWrapper').css("height","auto");
 		$('#entryListWrapper').css("height","auto");
-		$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((229 + $('#timer').height()))) + "px");
+		$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((234 + scrollPad + $('#timer').height()))) + "px");
 		$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
 	},300);
 });

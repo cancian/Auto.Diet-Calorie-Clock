@@ -592,9 +592,14 @@ $(document).ready(function() {
 	}
 	carpeShow();
 	//initial resize
+	var scrollCarPad = 0;
+	if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+		scrollCarPad = -1;
+	}	
 	$('#entryListWrapper').css("height","auto");
-	$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((229 + $('#timer').height()))) + "px");
+	$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((234 + scrollCarPad + $('#timer').height()))) + "px");
 	$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
+
 });
 ////////////
 // RESIZE //

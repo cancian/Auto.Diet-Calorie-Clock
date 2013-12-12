@@ -219,19 +219,9 @@ var RANGE = {
 	en: "range",
 	pt: "(amplitude)"
 };
-//#///////////#//
-//# CALC.HTML #//
-//#///////////#//
-var XXXXXXX = {
-	en: "",
-	pt: ""
-};
-//#///////////#//
-//# INFO.HTML #//
-//#///////////#//
-var XXXXXXX = {
-	en: "",
-	pt: ""
+var START_DATE = {
+	en: "start date",
+	pt: "data inicial"
 };
 ////////////
 // OUTPUT //

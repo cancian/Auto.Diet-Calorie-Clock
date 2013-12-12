@@ -13,7 +13,7 @@
 - entrylistscroll 2px gap
 - indent ios7 - non-absolute divs
 - margem do entrywrapper empurrou o entrylistscroller - js
-- 
+- gap no menu info
 - 
 
 
@@ -23,6 +23,9 @@ $("body").addClass("android");
 # 1.0.4 [10/12/2013]
 • cleaner interface
 • menu height fix
+• start date
+• 
+• 
 • 
 • 
 • 
