@@ -17,14 +17,24 @@ function init() {
 //#////////////////#//
 function startApp() {
 //console.log("startApp()");
-afterShow(750);
+afterShow(700);
 updateTimer();
 updateEntries();
 updateEntriesTime();
 (function startTimer() {
 	updateTimer();
-	setTimeout(startTimer,100);
+	setTimeout(startTimer,99);
 })();
+///////////////
+// ANALYTICS //
+///////////////
+if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
+	var gaPlugin;
+	gaPlugin = window.plugins.gaPlugin;
+	gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
+	function successHandler(result) {}
+	function errorHandler(error)	{}
+}
 /////////////////////
 // ADJUST ELEMENTS //
 /////////////////////

@@ -1,6 +1,8 @@
 #################
 ## VERSION LOG ##
 #################
+
+- overlay blink issue - adjust transparency, remove background, buttons chevron
 - search top input
 - larger top
 - android side-slide

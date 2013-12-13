@@ -398,6 +398,8 @@ div#spinner div.bar12			{ -webkit-transform:rotate(330deg) translate(0, -142%); 
 #modalWindow		{ opacity: 0; position: absolute; top: 12px; left: 0; right: 0; height: 200px; background-color: #fff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 9999; -webkit-backface-visibility: hidden; }
 #modalWindow,
 #modalOverlay		{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .3s; }
+body.android #modalWindow,
+body.android #modalOverlay { -webkit-transition-timing-function: linear; -webkit-transition-duration: .01s; }
 #modalOverlay.show,
 #modalWindow.show	{ opacity: 1; }
 #modalContent		{ padding: 12px; font-size: 13px; font-weight: bold; max-height: 38px; overflow: hidden; color: #777; }
