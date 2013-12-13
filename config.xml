@@ -55,7 +55,6 @@
 	<preference name="SplashScreenDelay" value="0" />
 	<preference name="splash-screen-duration" value="0" />
 	
-
     <feature name="Notification">
         <param name="ios-package" value="CDVNotification" />
     </feature>
@@ -75,11 +74,10 @@
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
     </feature>
-	
-	
-	
-	
-	
+    <feature name="Version">
+        <param name="android-package" value="org.apache.cordova.version.plugin.Version" />
+    </feature>
+
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
     <!-- 

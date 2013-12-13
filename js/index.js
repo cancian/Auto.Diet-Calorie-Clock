@@ -125,7 +125,7 @@ if(hasTouch()) {
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","absolute");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");
 		$("body").addClass("android");
-		//$("#iconInfo").hide();
+		$("#iconInfo").hide();
 		//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","absolute");
 		//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");
 		// PRELOAD SIDE MENUS
@@ -1072,22 +1072,24 @@ setTimeout(function(){
 		//main
 		$('#entryListWrapper').css("height","auto");
 		//RESIZE
+		//RESIZE
+		//suspend animation
 		$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((234 + scrollPad + $('#timer').height()))) + "px");
-		//$('#entryListWrapper').css("min-height",(window.localStorage.getItem("absWindowHeight") - ((229 + $('#timer').height()))) + "px");		
+		$('#entryListScroller').css("-webkit-transition-duration","0");
 		$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
-		
+		setTimeout(function() { $('#entryListScroller').css("-webkit-transition-duration",".25s");},0);
 		//suspend animation
 		$('#pageSlideInfo').css("-webkit-transition-duration","0");
 		$('#pageSlideInfo').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
-		setTimeout(function() { $('#pageSlideInfo').css("-webkit-transition-duration",".35s");},0);
+		setTimeout(function() { $('#pageSlideInfo').css("-webkit-transition-duration",".25s");},0);
 		//suspend animation
 		$('#pageSlideCalc').css("-webkit-transition-duration","0");
 		$('#pageSlideCalc').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
-		setTimeout(function() { $('#pageSlideCalc').css("-webkit-transition-duration",".35s");},0);
+		setTimeout(function() { $('#pageSlideCalc').css("-webkit-transition-duration",".25s");},0);
 		//suspend animation
 		$('#pageSlideFood').css("-webkit-transition-duration","0");
 		$('#pageSlideFood').css("height",($('#entryListScroller').height() - (61)) + "px");
-		setTimeout(function() { $('#pageSlideFood').css("-webkit-transition-duration",".35s");},0);
+		setTimeout(function() { $('#pageSlideFood').css("-webkit-transition-duration",".25s");},0);
 			//adjust results scroller
 		//$('#sideMenuFood').css("height",window.localStorage.getItem("absWindowHeight") - ($('#timer').height()) + "px");
 		$('#foodList').css("height",($('#entryListScroller').height() - (61)) + "px");
@@ -1199,7 +1201,7 @@ $(document).on("pageload", function(evt) {
 								},
 								change: function() {
 									//save changes
-									var editableValue = $("#editableInput").val();
+									var editableValue = $("#editableInput").val().split("  ").join(" ").split("  ").join(" ").split("  ").join(" ");
 									diary.saveEntry({body:editableValue,id:$(this).closest('div').data("id")}, function() {
 										return false;
 									});
@@ -1394,6 +1396,8 @@ $(document).on("pageload", function(evt) {
 							if(!isNaN($(this).closest("div").attr("id"))) {
 								var editableValue = $("#editableInput").val();
 								if(editableValue == LANG("FOOD") || editableValue == LANG("EXERCISE")) { $("#editableInput").val(''); }
+								//remove double spaces
+								$("#editableInput").val($("#editableInput").val().split("  ").join(" ").split("  ").join(" ").split("  ").join(" "));
 								// FOCUS, THEN SET VALUE
 								//$("#editableInput").select();
 								$("#editableInput").focus();
