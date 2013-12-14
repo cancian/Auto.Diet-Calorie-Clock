@@ -147,10 +147,13 @@ input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; bo
 input#entryBody			{ position: absolute; margin-top: 26px; left: 16px; right: 16px; /*top: 64px; fix overflow bug*/ color: #444; font-weight: normal; background-color: rgba(255,255,255,.36); border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
 input#entryBody.focusMe	{ top: -25px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 9999; }
 input#entryBody.focusMy	{ top: 26px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip:padding-box; z-index: 9999; }
-div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .4; z-index: 1; }
-#entryBodySearch div	{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #999; position: relative; border-radius: 0.35em; }
-#entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #999; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
-div#entryBodySearch:active	{ opacity: .8; }
+
+div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 1; }
+#entryBodySearch div	{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
+#entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
+div#entryBodySearch:active	{ opacity: 1; }
+
+
 select#entryTime		{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; background-color: #fff; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 #entrySubmit			{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px;  top: 110px; background-color: #fff; font-size: 11pt; border: 1px solid #bababa; border-radius: 28px; opacity: .7; padding: 6px 28px 6px 28px; font-weight: bold; color: #777; }
 div.submitActive		{ color: #000 !important; border-color: #aaa !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; }
@@ -172,11 +175,11 @@ div.submitActive		{ color: #000 !important; border-color: #aaa !important; -webk
 .icon-repeat:before		{ content: "\f01e"; font-family: FontAwesome; display: inline-block; }
 .icon-repeat			{ vertical-align: baseline; font-family: FontAwesome; display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; font-weight: bold; text-indent: 7px; opacity: .12; background-color: transparent; -webkit-backface-visibility: hidden; }
 /*ICON*/
-#iconInfo				{ position: absolute; opacity: .14; top: 0px; right: 0px; padding: 8px 16px 8px 16px; font-size: 15pt; text-shadow: rgba(255,255,255,.2) 0 1px 0; }
+#iconInfo				{ position: absolute; color: #ddd; top: 0px; right: 0px; padding: 8px 16px 8px 16px; font-size: 15pt; text-shadow: rgba(255,255,255,.2) 0 1px 0; }
 #iconInfo				{ display:  }
 .icon-info-sign			{ font-family: FontAwesome; vertical-align: baseline; line-height: normal; font-weight: normal; }
 .icon-info-sign:before	{ content: "\f05a"; font-family: FontAwesome; display: inline-block; }
-#iconInfo:active		{ text-shadow: rgba(255,255,255,1) 0 0px 16px; vertical-align: baseline; line-height: normal; font-weight: normal;  }
+#iconInfo:active		{ text-shadow: rgba(0,0,0,0) 0 0px 16px; vertical-align: baseline; line-height: normal; font-weight: normal; color: #aaa; }
 /*###############
 ## PAGE SLIDER ##
 ###############*/
@@ -203,50 +206,51 @@ body.android #entryListScroller.food	{ -webkit-transform: translate3d(0, -100%, 
 /*#################
 ## FOOD DATABASE ##
 #################*/
-div#pageSlideFood		{ -webkit-backface-visibility: hidden; position: fixed; padding-top: 61px; left: 0; top: 51px;   height: 100%; width: 100%; color: #fff; z-index: 2; overflow: hidden; background-color: #111; /*opacity: .925;*/ /* background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000); background: radial-gradient(at 100px,#373737,#000); opacity: 1; background-color: rgba(0,0,0,.925); */ }
-div#pageSlideInfo,
-div#pageSlideCalc,
-div#pageSlideFood		{ -webkit-backface-visibility: hidden !important; }
-div#pageSlideInfo *,
-div#pageSlideCalc *,
-div#pageSlideFood * 	{ -webkit-backface-visibility: hidden !important; }
-/**/ 
+div#pageSlideFood		{ -webkit-backface-visibility: hidden; position: fixed; padding-top: 61px; left: 0; top: 51px; height: 100%; width: 100%; color: #fff; overflow: hidden; background-color: #000; z-index: 2; /*opacity: .925;*/ /* background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000); background: radial-gradient(at 100px,#373737,#000); opacity: 1; background-color: rgba(0,0,0,.925); */ }
 div#pageSlideFood		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .25s; }
 div#pageSlideFood.open	{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .25s; }
 
-
-
+div#pageSlideFood,
+div#pageSlideFood *		{ -webkit-backface-visibility: hidden !important; }
 
 /*food search*/
-input#foodSearch		{ position: absolute; left: 16px; right: 16px; top: 10px; font-size: 18px; opacity: .9; border: 5px solid #ffcc33; display: block; color: #666; padding: 6px 5px 4px 7px; background-color: rgba(255,255,255,1); z-index: 999; -webkit-user-select: auto; border-radius: 28px; }
+input#foodSearch		{ 
+position: absolute; left: 0px; right: 0; top: 0; font-size: 18px;
+border: 0px solid transparent; display: block; color: #fff; 
+padding: 21px 26px 16px 30px; background-color: #151515; z-index: 999; 
+-webkit-user-select: auto; border-radius: 0px; 
+margin: 0;
+}
+
 #foodList .exerciseType { /*border: 5px solid #ffcc33 !important;*/ }
 #foodList				{ /*margin: 50px 0px 0 22px; -webkit-backface-visibility: hidden;*/ margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; }
 /*#foodListWrapper		{ display: block; width: 100%; overflow: hidden; z-index: 3; position: relative; position: fixed; }*/
-#foodList .searcheable	{ position: relative; margin: 0; padding: 0; display: block; height: 54px; overflow: hidden; -webkit-backface-visibility: hidden; }
+#foodList .searcheable	{ position: relative; margin: 0; padding: 0; display: block; height: 60px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: hidden; }
 /*food subitens*/
 span#noMatches			{ color: #fff; position: absolute; top: 75px; left: 33px; overflow: hidden; display: block; opacity: 1; }
-span#iconClear			{ padding: 23px 18px 9px 18px; font-size: 28px; line-height: 24px; font-weight: bold; position: absolute; top: 0px; right:18px; display:none; color:#000; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .7; font-family: Arial, Helvetica, sans-serif; }
-span#iconRefresh:before { content: "\f021";font-family: FontAwesome; font-weight: normal; vertical-align: baseline; font-family: FontAwesome; display: inline-block; }
-span#iconRefresh		{ font-weight: normal; vertical-align: baseline; font-family: FontAwesome; display: inline-block; padding: 22px 18px 9px 18px; font-size: 27px; line-height: 24px; position: absolute; top: 0px; right:15px; /* color:#4D9AE5; color:#F7C475; */ color:#999; text-shadow: rgba(0,0,0,.58) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .4; }
-span#iconRefresh:active	{ opacity: .6; }
-div.foodName			{ color: #ffcc33; position: absolute; top: 0px; left: 23px; right: 8px; overflow: hidden; display:block; font-weight: bold; height: 40px; padding-right: 1px; z-index: 9999; }
-div#activeOverflow		{ color: #fff; overflow: auto; padding-right: 0px; border-right: 0px solid transparent; -webkit-backface-visibility: visible; display: inline-block; float: none; text-align: left; text-indent: 0px; }
+span#iconClear			{ padding: 23px 18px 9px 18px; font-size: 28px; line-height: 24px; font-weight: bold; position: absolute; top: -1px; right:18px;
+ display:none; color:#fff; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .99; font-family: Arial, Helvetica, sans-serif; }
+
+span#iconRefresh:before { content: "\f021"; color: #666; font-family: FontAwesome; font-weight: normal; vertical-align: baseline; font-family: FontAwesome; display: inline-block; }
+span#iconRefresh		{ font-weight: normal; vertical-align: baseline; font-family: FontAwesome; display: inline-block; 
+
+padding: 22px 18px 9px 18px; font-size: 27px; line-height: 24px; position: absolute; top: 0px; right:15px; 
+/* color:#4D9AE5; color:#F7C475; */ text-shadow: rgba(255,255,255,0) 0 1px 0;
+
+ -webkit-backface-visibility: hidden; z-index: 99999; opacity: .99; }
+span#iconRefresh:active	{ opacity: .99; }
+
+div.foodName			{ color: #ffcc33; position: absolute; top: 12px; left: 23px; right: 8px; overflow: hidden; display:block; font-weight: bold; height: 44px; padding-right: 1px; z-index: 9999; }
+div#activeOverflow		{ color: #fff; overflow: auto; padding-right: 0px; border-right: 0px solid transparent; -webkit-backface-visibility: visible; display: block; float: none; text-align: left; text-indent: 0px; }
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 1s; } 
 .yellow					{ background-color: rgba(255,200,0,.88); }
 .trans					{ background-color: rgba(255,255,255,0); }
 /*----*/
-span.foodKcal			{ display: none; display: inline-block; width: 65px; padding-top: 18px; font-size: 12px; color: #fff; font-weight: bold; padding-left: 26px; padding-right: 6px; }
-span.foodPro			{ display: none; display: inline-block; width: 65px; padding-top: 18px; font-size: 12px; color: #fff; font-weight: bold; }
-span.foodFat			{ display: none; display: inline-block; width: 65px; padding-top: 18px; font-size: 12px; color: #fff; font-weight: bold; }
-span.foodCar			{ display: none; display: inline-block; width: 65px; padding-top: 18px; font-size: 12px; color: #fff; font-weight: bold; }
-span.foodFib			{ display: none; /*display: inline-block;*/ float: left; width: 50px; padding-top: 16px; font-size: 12px; text-align: left; color: #fff; font-weight: bold; }
-span.preSpan			{ padding-right: 5px; color: #ffdd33; /*opacity: 1;*/ }
-span.posSpan			{ padding-left: 5px; color:  rgba(255,102,0,1); opacity: .7;  display: none; }
-
-
-
-
-
+span.foodKcal			{ float: left; width: 65px; padding-top: 31px; font-size: 12px; color: #fff; font-weight: bold; padding-left: 26px; padding-right: 6px; }
+span.foodPro			{ float: left; width: 65px; padding-top: 31px; font-size: 12px; color: #fff; font-weight: bold; }
+span.foodFat			{ float: left; width: 65px; padding-top: 31px; font-size: 12px; color: #fff; font-weight: bold; }
+span.foodCar			{ float: left; width: 65px; padding-top: 31px; font-size: 12px; color: #fff; font-weight: bold; }
+span.preSpan			{ padding-right: 5px; color: #ffcc33; /*opacity: 1;*/ }
 
 
 
@@ -272,10 +276,10 @@ span.posSpan			{ padding-left: 5px; color:  rgba(255,102,0,1); opacity: .7;  dis
 /*prehide*/
 div#pageSlideInfo,
 div#pageSlideCalc,
-div#pageSlideFood		{ display: none; -webkit-backface-visibility: hidden !important; }
+div#pageSlideFood		{ display: none; }
 #sideMenuFood,
 #sideMenuInfo,
-#sideMenuCalc			{ /*display: none;*/ -webkit-backface-visibility: hidden !important; }
+#sideMenuCalc			{ /*display: none;*/ }
 .busy #sideMenuFood,
 .open #sideMenuFood,
 .busy #sideMenuInfo,
@@ -303,17 +307,9 @@ div#pageSlideFood		{ display: none; -webkit-backface-visibility: hidden !importa
 /*###############
 ## AJAX INLINE ##
 ###############*/
-#editableDiv			{ -webkit-backface-visibility: hidden; color: transparent !important; background-color: transparent !important; position: absolute; top: 0px; right: 0px; display: block; width: 100px; height: 51px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; font-family: Helvetica; -webkit-user-select: none; }
+#editableDiv			{ -webkit-backface-visibility: hidden; color: transparent; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; height: 51px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; font-family: Helvetica; -webkit-user-select: none; overflow: hidden; }
 input#editable			{ -webkit-backface-visibility: hidden; color: #000; background-color: #fff !important; position: absolute; top: 24px; right: 66px; display: block !important; width: 56px !important; height: 27px; font-size: 18px !important; line-height: 20px; border: 0; padding: 0; margin: 0; opacity: .9; text-align: right; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; }  
-
-#editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; 
-
-
-display: block; width: 100%; color: #000; font-size: 13px; }
-
-
-
-
+#editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; font-size: 13px; }
 #editableBlock			{ position: absolute; right: 0; top: 51px; width: 120px; height: 15px; background-color: transparent; z-index: 999; display: none; }
 /*#############
 ## CALC FORM ##
@@ -384,36 +380,34 @@ div#spinner div.bar12			{ -webkit-transform:rotate(330deg) translate(0, -142%); 
 .carpe-slider-box 				{ position: absolute; top: 14px; left: 14px; right: 30px; height: 40px; -webkit-backface-visibility: hidden; }
 .carpe-slider-box,
 .carpe-slider-box *				{ position: relative; display: block; -webkit-backface-visibility: hidden; }
-.carpe-slider-panel				{ top: -22px; height: 40px; }
+.carpe-slider-panel				{ top: -30px; height: 60px; }
 .carpe-slider-panel:focus,
 .carpe-slider-panel:active		{ outline: none; }
 /* Slider Track */
-.carpe-slider-track				{ z-index: 0; top: 12px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #444; opacity: 1; }
+.carpe-slider-track				{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #444; opacity: 1; }
 .carpe-slider-knob				{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 12px; background: #fff; margin-left: 0px; }
 .carpe-slider-knob:hover		{ border: 1px solid #aaa; }
 /*#///////////#//
 //# MODAL BOX #//
 //#///////////#*/
-#modalOverlay		{ opacity: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 9998; background-color: rgba(255,255,255,.5); -webkit-backface-visibility: hidden; }
+#modalOverlay		{ opacity: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 9998; background-color: #fff; -webkit-backface-visibility: hidden; }
 #modalWindow		{ opacity: 0; position: absolute; top: 12px; left: 0; right: 0; height: 200px; background-color: #fff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 9999; -webkit-backface-visibility: hidden; }
-#modalWindow,
-#modalOverlay		{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .3s; }
-body.android #modalWindow,
-body.android #modalOverlay { -webkit-transition-timing-function: linear; -webkit-transition-duration: .01s; }
-#modalOverlay.show,
+#modalOverlay,
+#modalWindow		{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .25s; }
+#modalOverlay.show	{ opacity: .5; }
 #modalWindow.show	{ opacity: 1; }
 #modalContent		{ padding: 12px; font-size: 13px; font-weight: bold; max-height: 38px; overflow: hidden; color: #777; }
 #modalContent span	{ color: #3287F5; white-space: nowrap; }
 #modalButtons		{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; line-height: 46px; text-align: center; }
 #modalOk			{ position: absolute; bottom: 0; left: 0; right: 50%; height: 44px; background-color: #4D9AE5; color: #fff; font-weight: bold; text-shadow: rgba(0,0,0,.24) 0 1px 0; background-image: -webkit-linear-gradient(#4D9AE5,#4A93DA); }
-#modalCancel		{ position: absolute; bottom: 0; left: 50%; right: 0; height: 44px; background-color: #f5f5f5; text-shadow: rgba(0,0,0,.04) 0 1px 0; background-image: -webkit-linear-gradient(#f5f5f5,#eee); }
+#modalCancel		{ position: absolute; bottom: 0; left: 50%; right: 0; height: 44px; background-color: #f5f5f5; text-shadow: rgba(0,0,0,.04) 0 1px 0; background-image: -webkit-linear-gradient(#f9f9f9,#f1f1f1); }
 #modalAdjust		{ position: absolute; top: 65px; left: 0; background-color: #fff; width: 100%; height: 92px; z-index: 99999; }
-#modalPosBlock		{ position: absolute; top: 5px; right: 9px; display: block; width: 25%; height: 40px; background-color: #ddd; background-image: -webkit-linear-gradient(#eee,#ddd); border-radius: 0px 6px 6px 0; border: 1px solid transparent; border-width: 1px 0 1px 0; opacity: .4; color: #444; }
-#modalNegBlock		{ position: absolute; top: 5px; left:  9px;  display: block; width: 25%; height: 40px; background-color: #ddd; background-image: -webkit-linear-gradient(#eee,#ddd); border-radius: 6px 0 0 6px; border: 1px solid transparent; border-width: 1px 0 1px 0; opacity: .4; color: #444; }
+#modalPosBlock		{ position: absolute; top: 5px; right: 9px; display: block; width: 25%; height: 40px; background-color: #F9F9F9; background-image: -webkit-linear-gradient(#F9F9F9,#F1F1F1); border-radius: 0px 6px 6px 0; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; }
+#modalNegBlock		{ position: absolute; top: 5px; left:  9px;  display: block; width: 25%; height: 40px; background-color: #F9F9F9; background-image: -webkit-linear-gradient(#F9F9F9,#F1F1F1); border-radius: 6px 0 0 6px; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; }
 #modalNeg			{ font-size: 24px; display: block; position: absolute; top: 8px; right: 37%; }
 #modalPos			{ font-size: 24px; display: block; position: absolute; top: 8px; left: 37%; }
 #modalNeg.icon-chevron-sign-left,
-#modalPos.icon-chevron-sign-right			{ font-family: 'FontAwesome'; vertical-align: baseline; line-height: normal; font-weight: normal; -webkit-font-smoothing: antialiased; }
+#modalPos.icon-chevron-sign-right			{ font-family: 'FontAwesome'; vertical-align: baseline; line-height: normal; font-weight: normal; }
 #modalNeg.icon-chevron-sign-left:before		{ content: "\f137"; font-family: 'FontAwesome' }
 #modalPos.icon-chevron-sign-right:before	{ content: "\f138"; font-family: 'FontAwesome' }
 #modalAmmountBlock	{ position: absolute; top: 5px; left: 25%; display: block; width: 50%; height: 40px; border: 1px solid #eee; border-width: 1px 0 1px 0; }
@@ -443,11 +437,21 @@ span#carLabel		{ top:  8px; text-align: right; right: 47px; }
 span#fatLabel		{ top: 19px; text-align: right; right: 47px; }
 span#fibLabel		{ top: 30px; text-align: right; right: 47px; }
 #recentBlock		{ display: block; padding-left: 30px; }
-#recentBlock h3		{ color: #fff; margin-top: 15px; margin-bottom: 13px; }
-#recentBlock div	{ text-indent: 10px; }
+
+
+
+#recentBlock h3 { color: #fff; text-transform:uppercase; font-size: 12px; padding-top: 20px;  }
+
+#recentBlock div	{ text-indent: 0px; margin-left: 10px; }
 #recentBlock .searcheable,
-#recentBlock .foodName{ height: 34px !important; }
+#recentBlock .foodName{ height: 40px !important; margin-bottom: 0; }
+
 #recentBlock em		{ opacity: .5; font-weight: normal; }
+
+#recentBlock .searcheable.recentItem:before	{ content: "•"; position: absolute; top: 9px; left: 6px; font-size: 18pt; }
+
+
+
 /*#//////////////#//
 //# MENU TOP BAR #//
 //#//////////////#*/

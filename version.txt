@@ -1,36 +1,36 @@
 #################
 ## VERSION LOG ##
 #################
-
-- overlay blink issue - adjust transparency, remove background, buttons chevron
-- search top input
+E5E5E5
+D7D7D7
+#ADADAD
 - larger top
 - android side-slide
 - results list slowness
 - bolder tap to select
-- white menus
 - indent ios7 - non-absolute divs
 - gap no menu info
 - 
+D6D6D6
 
 
-
-# 1.0.4 [10/12/2013]
+# 1.0.5 [10/12/2013]
+• faster search
+• fixed database import issue
 • 
-• 
-•
 • 
 •  
-• 
+• performance and stability improvement
 •
+
+
 • 
-• 
+# 1.0.4 [10/12/2013]
 • cleaner interface
 • more detailed numeric display
 • improved input handling
 • menu height fix
 • start date overlap fix
-
 
 # 1.0.3 [04/12/2013]
 • Fixed input focus issue

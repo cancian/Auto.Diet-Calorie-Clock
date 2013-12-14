@@ -278,6 +278,15 @@ function spinner(size) {
 	if(!size || size == "") {
 		$("#tempHolder").fadeOut(125,function() {
 			$("#tempHolder").remove();
+			setTimeout(function() { $("#tempHolder").remove(); },150);
+			setTimeout(function() { $("#tempHolder").remove(); },250);
+			setTimeout(function() { $("#tempHolder").remove(); },500);
+			setTimeout(function() { $("#modalOverlay").remove(); },150);
+			setTimeout(function() { $("#modalOverlay").remove(); },250);
+			setTimeout(function() { $("#modalOverlay").remove(); },500);
+			setTimeout(function() { $("#spinner").remove(); },150);
+			setTimeout(function() { $("#spinner").remove(); },250);
+			setTimeout(function() { $("#spinner").remove(); },500);
 			return;
 		});
 	}
@@ -287,7 +296,12 @@ function spinner(size) {
 	if(!$("#tempHolder").html()) { 
 		$("body").prepend('<div id="tempHolder"></div');
 		$("#tempHolder").html('<div id="modalOverlay"><span id="spinnerMsg">' + LANG("PREPARING_DB") + '</span></div><div id="spinnerWrapper"><div id="spinner"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div><div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div><div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div></div></div>');
-		$("#modalOverlay").css("opacity",1);
+		$("#modalOverlay").css("opacity",.5);
+		//prevent tapping
+		$("#modalOverlay,#spinner,#tempHolder").on(touchstart, function(evt) {
+			evt.preventDefault();
+			evt.stopPropagation();
+		});
 		/////////////////
 		// FIND CENTER //
 		/////////////////
