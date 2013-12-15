@@ -366,16 +366,12 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 		updateTimer();
 	}
 });
-
 $("#pA7B,#pA7F,#pA7L").on(touchstart, function(evt) {
-$(this).addClass("white");
+	$(this).addClass("white");
 });
-
 $("#pA7B,#pA7F,#pA7L").on(touchend + " mouseout", function(evt) {
-$(this).removeClass("white");
+	$(this).removeClass("white");
 });
-
-
 
 $("#calcForm").on(touchstart, function(evt) {
 	/*

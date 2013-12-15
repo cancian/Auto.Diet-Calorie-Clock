@@ -4,7 +4,7 @@ var appVersion = "1.0.5";
 ////////////////////////
 //document.addEventListener('deviceready', init, false);
 $(document).ready(function() {
-	$("body").css("visibility","hidden");
+	$("body").css("opacity","0");
 	//console.log('deviceready');
 	init();
 });
