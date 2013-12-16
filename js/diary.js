@@ -251,7 +251,7 @@ function afterLoad() {
 	$('body').css("-webkit-transition-timing-function","linear");
 	$('body').css("-webkit-transition-duration",".1s");
 	//UNHIDE
-	$('body').css("opacity","1");
+	$('body,html').css("opacity","1");
 	setTimeout(function() { $('body').css("-webkit-transition-duration","0s"); },250);
 	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').show();
 	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("display","block");

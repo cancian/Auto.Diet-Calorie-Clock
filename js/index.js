@@ -127,13 +127,13 @@ if(hasTouch()) {
 	$('#entryListWrapper').css("min-height",                       ((window.innerHeight) - (234 + scrollPad + $('#timer').height())) + "px");
 	$('#entryListScroller').css("height",                          ((window.innerHeight) - (      $('#timer').height())) + "px");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",((window.innerHeight) - (      $('#timer').height())) + "px");
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
+	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
 	/////////////
 	// ANDROID //
 	/////////////
 	if(isMobile.Android()) {
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","absolute");
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");
+	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","absolute");
+	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");
 		$("body").addClass("android");
 		//$("#iconInfo").hide();
 		//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","absolute");
@@ -159,13 +159,13 @@ if(hasTouch()) {
 	////////////////////
 	// WEBKIT BROWSER //
 	////////////////////
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","fixed");
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");	
+	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","fixed");
+	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");	
 	//set fixed height  
 	$('#entryListWrapper').css("min-height",                       ((window.innerHeight) - (234 + scrollPad + $('#timer').height())) + "px");
 	$('#entryListScroller').css("height",                          ((window.innerHeight) - (      $('#timer').height())) + "px");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",((window.innerHeight) - (      $('#timer').height())) + "px");
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
+	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
 	//INTRO NOTICE
 	if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
 		$('#entryListForm').addClass("toolTip");
@@ -1150,12 +1150,14 @@ $(document).on("pageload", function(evt) {
 		//////////////
 		// TAP DATE //
 		//////////////
+		/*
 		if(event.target.id.length == 13 && !$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
 			$( "#" + event.target.id).html(dtFormat(Number(event.target.id)));
 			setTimeout(function() {
 				$("#" + event.target.id).html(dateDiff(event.target.id,(new Date()).getTime()));
 			},1500);
 		}
+		*/
 		//no delete
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
@@ -1164,18 +1166,22 @@ $(document).on("pageload", function(evt) {
 			$('.active').removeClass('active');
 			if(!$('.delete').hasClass('busy')) {
 				//counting
-				ix++;
-				var shit = meh;
-				var shot = this.id;
-				meh = this.id;
-				duh = new Date().getTime();
+				//ix++;
+				//var shit = meh;
+				//var shot = this.id;
+				//meh = this.id;
+				//duh = new Date().getTime();
 				//filter
-				if(shit == shot && (duh - deh) < 400 && ix >= 1) {
+				//if(shit == shot && (duh - deh) < 400 && ix >= 1) {
 					////////////////////////
 					// START ENTRY UPDATE //
 					////////////////////////
-					if(eP != 0) { return; }
-					eP++;
+				if(eP != 0) { return; }
+				//allow close ~ tap div / date bar
+				if($('#entryList div').is(':animated') || $('.editableInput').is(':visible') || $('#startDate').is(':visible')) {
+					return;
+				}
+				//	eP++;
 					if(!$('.editableInput').is(':visible')) {
 						if(!$(this).has('input').length) {
 							var value = $('.entriesBody',this).html();
@@ -1224,20 +1230,32 @@ $(document).on("pageload", function(evt) {
 							//start edit
 							$('.entriesBody',this).empty();
 							$('.entriesBody',this).html(input);
-							$('.entriesBody',this).after('<p id="kcalsAdjust"><span id="resetBlock"></span><span id="adjustNegBlock"><span id="adjustNeg"></span></span><span id="adjustPosBlock"><span id="adjustPos"></span></p>');
+							$('.entriesBody',this).after('\
+								<p id="kcalsAdjust">\
+									<span id="adjustPosBlock"><span id="adjustPos"></span></span>\
+									<span id="adjustNegBlock"><span id="adjustNeg"></span></span>\
+								</p>');
 							$("#editableInput").focus();
 							///////////////////////
 							// RESET ENTRY VALUE //
 							///////////////////////
-							$('#resetBlock').on(touchstart, function(evt) {
+							$("#kcalsDiv").off(touchstart);
+							$("#kcalsDiv").on(touchstart, function(evt) {
 								evt.preventDefault();
-								var thisRowId = $(this).closest('div').data("id");
+								//no reset block
+								if(!$(this).parent('div').hasClass("editing")) {
+									return;
+								}
 								//console.log("reset entry value");
 								function intoTheVoid(button) {
 									//ON CONFIRM
 									if(button == 1) {
 										document.getElementById('kcalsDiv').innerHTML = 0;
 										document.getElementById('kcalsDiv').style.color = '#333';
+										//EXPIRED
+										if($(this).closest("div").hasClass("expired")) {
+											document.getElementById('kcalsDiv').style.color = 'rgba(51,51,51,.3)';
+										}
 										//save
 										diary.saveEntry({title:'0',id:thisRowId});
 										updateTimer();
@@ -1271,6 +1289,10 @@ $(document).on("pageload", function(evt) {
 									}
 									if(Number(document.getElementById('kcalsDiv').innerHTML) >= 0) {
 										document.getElementById('kcalsDiv').style.color = '#333';
+										//EXPIRED
+										if($(this).closest("div").hasClass("expired")) {
+											document.getElementById('kcalsDiv').style.color = 'rgba(51,51,51,.3)';
+										}
 									}
 									//save value
 									diary.saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$(this).closest('div').data("id")}, function() {
@@ -1299,6 +1321,10 @@ $(document).on("pageload", function(evt) {
 									}
 									if(Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
 										document.getElementById('kcalsDiv').style.color = '#C00';
+										//EXPIRED
+										if($(this).closest("div").hasClass("expired")) {
+											document.getElementById('kcalsDiv').style.color = 'rgba(204,0,0,.3)';
+										}
 									}
 									//save value
 									diary.saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
@@ -1351,6 +1377,10 @@ $(document).on("pageload", function(evt) {
 									}
 									if(Number(document.getElementById('kcalsDiv').innerHTML) >= 0) {
 										document.getElementById('kcalsDiv').style.color = '#333';
+										//EXPIRED
+										if($(this).closest("div").hasClass("expired")) {
+											document.getElementById('kcalsDiv').style.color = 'rgba(51,51,51,.3)';
+										}
 									}
 									//save value
 									diary.saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
@@ -1391,6 +1421,10 @@ $(document).on("pageload", function(evt) {
 									}
 									if(Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
 										document.getElementById('kcalsDiv').style.color = '#C00';
+										//EXPIRED
+										if($(this).closest("div").hasClass("expired")) {
+											document.getElementById('kcalsDiv').style.color = 'rgba(204,0,0,.3)';
+										}
 									}
 									//save value
 									diary.saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
@@ -1429,11 +1463,11 @@ $(document).on("pageload", function(evt) {
 					//////////////////////
 					// END ENTRY UPDATE //
 					//////////////////////
-					var mi = "2";
-					ix = -1;
-					meh = "";
-				}
-				deh = duh;
+				//	var mi = "2";
+				//	ix = -1;
+				//	meh = "";
+				//}
+				//deh = duh;
 			}
 		}
 	//}});
