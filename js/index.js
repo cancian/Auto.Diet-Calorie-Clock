@@ -124,9 +124,9 @@ if(hasTouch()) {
 	// MOBILE //
 	////////////
 	//set fixed height
-	$('#entryListWrapper').css("min-height",                       ($('#afterLoad').height() - (234 + scrollPad + $('#timer').height())) + "px");
-	$('#entryListScroller').css("height",                          ($('#afterLoad').height() - (      $('#timer').height())) + "px");
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",($('#afterLoad').height() - (      $('#timer').height())) + "px");
+	$('#entryListWrapper').css("min-height",                       ((window.innerHeight) - (234 + scrollPad + $('#timer').height())) + "px");
+	$('#entryListScroller').css("height",                          ((window.innerHeight) - (      $('#timer').height())) + "px");
+	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",((window.innerHeight) - (      $('#timer').height())) + "px");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
 	/////////////
 	// ANDROID //
@@ -162,9 +162,9 @@ if(hasTouch()) {
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","fixed");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");	
 	//set fixed height  
-	$('#entryListWrapper').css("min-height",                       ($('#afterLoad').height() - (234 + scrollPad + $('#timer').height())) + "px");
-	$('#entryListScroller').css("height",                          ($('#afterLoad').height() - (      $('#timer').height())) + "px");
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",($('#afterLoad').height() - (      $('#timer').height())) + "px");
+	$('#entryListWrapper').css("min-height",                       ((window.innerHeight) - (234 + scrollPad + $('#timer').height())) + "px");
+	$('#entryListScroller').css("height",                          ((window.innerHeight) - (      $('#timer').height())) + "px");
+	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",((window.innerHeight) - (      $('#timer').height())) + "px");
 	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
 	//INTRO NOTICE
 	if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
@@ -1084,17 +1084,17 @@ setTimeout(function(){
 		//RESIZE
 		//RESIZE
 		//suspend animation
-		$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((234 + scrollPad + $('#timer').height()))) + "px");
+		$('#entryListWrapper').css("min-height",((window.innerHeight) - ((234 + scrollPad + $('#timer').height()))) + "px");
 		$('#entryListScroller').css("-webkit-transition-duration","0");
-		$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
+		$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
 		setTimeout(function() { $('#entryListScroller').css("-webkit-transition-duration",".25s");},0);
 		//suspend animation
 		$('#pageSlideInfo').css("-webkit-transition-duration","0");
-		$('#pageSlideInfo').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
+		$('#pageSlideInfo').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
 		setTimeout(function() { $('#pageSlideInfo').css("-webkit-transition-duration",".25s");},0);
 		//suspend animation
 		$('#pageSlideCalc').css("-webkit-transition-duration","0");
-		$('#pageSlideCalc').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
+		$('#pageSlideCalc').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
 		setTimeout(function() { $('#pageSlideCalc').css("-webkit-transition-duration",".25s");},0);
 		//suspend animation
 		$('#pageSlideFood').css("-webkit-transition-duration","0");
@@ -1117,8 +1117,8 @@ setTimeout(function(){
 		$('#entryListWrapper').css("min-height",(Number($('#entryListWrapper').css("height").replace("px","")) - (1)) + "px");
 		//$('#entryListWrapper').css("height","auto");
 		$('#entryListWrapper').css("height","auto");
-		$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((234 + scrollPad + $('#timer').height()))) + "px");
-		$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
+		$('#entryListWrapper').css("min-height",((window.innerHeight) - ((234 + scrollPad + $('#timer').height()))) + "px");
+		$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
 	},300);
 });
 ////#//

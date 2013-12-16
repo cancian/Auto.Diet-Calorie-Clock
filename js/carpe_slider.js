@@ -597,8 +597,8 @@ $(document).ready(function() {
 		scrollCarPad = -1;
 	}	
 	$('#entryListWrapper').css("height","auto");
-	$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - ((234 + scrollCarPad + $('#timer').height()))) + "px");
-	$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - ($('#timer').height())) + "px");
+	$('#entryListWrapper').css("min-height",((window.innerHeight) - ((234 + scrollCarPad + $('#timer').height()))) + "px");
+	$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
 
 });
 ////////////

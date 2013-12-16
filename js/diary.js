@@ -61,8 +61,8 @@ Diary.prototype.dropDB = function(t) {
 	$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
 	$.get("info_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideInfo").html("<div id='sideMenuInfo'>" + data + "</div>"); });
 	window.localStorage.clear();
-	window.localStorage.setItem("absWindowHeight",Number($('#afterLoad').height()));
-	window.localStorage.setItem("absWindowWidth",Number($('#afterLoad').width()));
+	window.localStorage.setItem("absWindowHeight",window.innerHeight);
+	window.localStorage.setItem("absWindowWidth",window.innerWidth);
 	window.localStorage.setItem("absOrientation",Number(window.orientation));
 	window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
 	window.localStorage.setItem("config_kcals_day_0",2000);	
@@ -258,8 +258,8 @@ function afterLoad() {
 	//document.getElementById('afterLoad').style.display = 'none';
 	clearTimeout(afterTimer);
 	//loaded();
-	window.localStorage.setItem("absWindowWidth",Number($('#afterLoad').width()));
-	window.localStorage.setItem("absWindowHeight",Number($('#afterLoad').height()));
+	window.localStorage.setItem("absWindowHeight",window.innerHeight);
+	window.localStorage.setItem("absWindowWidth",window.innerWidth);
 	window.localStorage.setItem("absOrientation",getOrientation());
 }
 function afterShow(t) {
@@ -315,8 +315,8 @@ function spinner(size) {
 		/////////////////
 		$("#spinner").width(size);
 		$("#spinner").height(size);
-		var xcenter = ($("#afterLoad").width()  / 2) - ($("#spinner").width()  / 2);
-		var ycenter = ($("#afterLoad").height() / 2) - ($("#spinner").height() / 2);
+		var xcenter = ((window.innerWidth)  / 2) - ($("#spinner").width()  / 2);
+		var ycenter = ((window.innerHeight) / 2) - ($("#spinner").height() / 2);
 		$("#spinnerWrapper").css("left",xcenter + "px");
 		$("#spinnerWrapper").css("top",ycenter  + "px");
 	}
