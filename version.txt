@@ -10,7 +10,7 @@ D7D7D7
 - bolder tap to select
 - indent ios7 - non-absolute divs
 - gap no menu info
-- edit with single tap
+- 
 D6D6D6
 
 

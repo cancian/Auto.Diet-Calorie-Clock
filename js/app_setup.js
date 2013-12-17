@@ -1,7 +1,8 @@
-var diary;
+var appVersion = "1.0.5";
 /////////////////
 // GLOBAL VARS //
 /////////////////
+var diary;
 function Diary() {
 	that = this;
 }
@@ -251,7 +252,7 @@ function afterLoad() {
 	$('body').css("-webkit-transition-timing-function","linear");
 	$('body').css("-webkit-transition-duration",".1s");
 	//UNHIDE
-	$('body,html').css("opacity","1");
+	$('body').css("opacity","1");
 	setTimeout(function() { $('body').css("-webkit-transition-duration","0s"); },250);
 	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').show();
 	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("display","block");

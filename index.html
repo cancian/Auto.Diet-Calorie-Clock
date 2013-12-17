@@ -46,9 +46,11 @@
 
 	<script type="text/javascript">
 		document.write("<script src='"+ hostLocal + "js/carpe_slider.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/lang.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/diary.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/index.js?"+newDate+"'><\/script>");
+		document.write("<script src='"+ hostLocal + "js/app_lang.js?"+newDate+"'><\/script>");
+		document.write("<script src='"+ hostLocal + "js/app_setup.js?"+newDate+"'><\/script>");
+		document.write("<script src='"+ hostLocal + "js/app_static.js?"+newDate+"'><\/script>");
+		document.write("<script src='"+ hostLocal + "js/app_dynamic.js?"+newDate+"'><\/script>");
+		document.write("<script src='"+ hostLocal + "js/app_custom_core.js?"+newDate+"'><\/script>");
 		//document.write("<script src='js/lang.js'><\/script>");
 		//document.write("<script src='js/diary.js'><\/script>");
 		//document.write("<script src='js/index.js'><\/script>");
@@ -70,108 +72,79 @@
 </head>
 <body>
 
-    <div id="timerTouch"></div>
+<ul id="appFooter">
+	<li id="tab1"></li>
+	<li id="tab2"></li>
+	<li id="tab3"></li>
+	<li id="tab4"></li>
+	<li id="tab5"></li>
+</ul>
 
-	<!-- ##// ENTRYLIST START //## -->
-	<div id="entryListFix">
-	<div id="underAfterLoad"></div>
-		<div id="entryListScroller">
-        
-			<a name="top"></a>
+<div id="appHeader">
+	<div id="block1"></div>
+	<div id="block2"></div>
+	<div id="block3"></div>
+	<div id="block4"></div>
+	<div id="block5"></div>
+</div>
 
-			<!-- FORM START -->
-			<div id="entryListForm">
+<div id="appContent">
+	<div id="blocka">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="blockb">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+   	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+   	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="blockc">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block1">ll ;ldkgf ;dk ;sfks;lfksd</div>
+  	<div id="blockd">ll ;ldkgf ;dk ;sfks;lfksd</div>
+	<div id="block2"></div>
+	<div id="block3"></div>
+	<div id="block4"></div>
+	<div id="block5"></div>
+</div>
 
-				<!-- overscroll text -->
-				<div id="overscroll"><script>document.write(LANG("OVERSCROLL"));</script></div>
-				<!-- overscroll text -->
 
-				<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>
-				<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcals</div>
-				<div id="sliderNeg"><span></span><script>document.write(LANG("EXERCISE"));</script></div>
-				<div id="sliderPos"><script>document.write(LANG("FOOD"));</script><span></span></div>
 
-				<script>document.write('<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />');</script>
-				
-				<div id="entryBodySearch"><div></div></div>
 
-				<script>
-				document.write('<select id="entryTime" name="entryTime" tabindex="-1">\
-					<option value="0">' + LANG('NOW') + '</option>\
-					<option value="1">1 ' + LANG('HOUR_AGO') + '</option>\
-					<option value="2">2 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="3">3 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="4">4 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="5">5 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="6">6 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="7">7 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="8">8 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="9">9 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="10">10 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="11">11 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="12">12 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="13">13 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="14">14 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="15">15 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="16">16 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="17">17 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="18">18 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="19">19 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="20">20 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="21">21 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="22">22 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="23">23 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="24">1 ' + LANG('DAY_AGO') + '</option>\
-					<option value="48">2 ' + LANG('DAYS_AGO') + '</option>\
-					<option value="72">3 ' + LANG('DAYS_AGO') + '</option>\
-				</select>');
-                </script>
-                
-				<div id="entrySubmit"><script>document.write(LANG("ADD_ENTRY"));</script></div>
-			</div>
-			<!-- FORM END -->
 
-			<div id="entryListWrapper">
-			<div class="heading" id="go"><script>document.write(LANG("ACTIVITY_LOG"));</script>
-            <div id="iconInfo" class="icon-info-sign"></div>
-            </div>
 
-				<div id="entryList"></div>
 
-				<!-- RESET BAR -->
-				<div id="startDateBar"><input type="datetime-local" id="startDate" /></div>
-				<div id="iconRepeatToggle"></div>
-				<div id="startDateBarToggle"></div>
-				<div id="configNow">
-					<div class="icon-repeat"></div>
-					<div class="arrow-down"></div>
-					<script>document.write(LANG("RESET_COUNTER"));</script>
-				</div>
-				<!-- RESET BAR -->
-					</div>
-			</div>
 
-			<!-- PAGESLIDE -->
-			<div id="pageSlideCalc"></div>
-			<div id="pageSlideInfo"></div>
-	   		<div id="pageSlideFood"></div>
-			<!-- PAGESLIDE -->
 
-			<!-- underscroll -->
-			<div id="underscroll"></div>
-			<!-- underscroll -->
-
-		</div>
-	<!-- ## ENTRYLIST END ## -->
-
-	<!-- HEADER START -->
-	<div id="timerFix"><p id="timer"></p></div>
-	<!-- HEADER END -->
-
-	<!-- HIDDEN ELEMENTS -->
-	<div id="editableBlock"></div>
-	<!-- HIDDEN ELEMENTS -->
-    
 </body>
 </html>
 
