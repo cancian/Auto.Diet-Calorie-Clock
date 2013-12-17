@@ -578,6 +578,7 @@
 ////////////////
 // INIT DELAY //
 ////////////////
+/*
 $(document).ready(function() {
 	var carpeTimer;
 	function carpeLoad() {
@@ -592,29 +593,19 @@ $(document).ready(function() {
 	}
 	carpeShow();
 	//initial resize
-	var scrollCarPad = 0;
-	if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
-		scrollCarPad = -1;
-	}	
-	$('#entryListWrapper').css("height","auto");
-	$('#entryListWrapper').css("min-height",((window.innerHeight) - ((234 + scrollCarPad + $('#timer').height()))) + "px");
-	$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
+	//var scrollCarPad = 0;
+	//if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+	//	scrollCarPad = -1;
+	//}	
+	//$('#entryListWrapper').css("height","auto");
+	//$('#entryListWrapper').css("min-height",((window.innerHeight) - ((234 + scrollCarPad + $('#timer').height()))) + "px");
+	//$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
 
-});
+});*/
 ////////////
 // RESIZE //
 ////////////
-/*
-	if('ontouchstart' in document) {
-		var mobileBrowserWindow = "orientationchange";
-	} else {
-		var mobileBrowserWindow = "resize";
-	}
-	$(window).on(mobileBrowserWindow, function(evt) {
-*/
-
 $(window).resize(function(evt) {
-//$(window).on("orientationchange", function(evt) {	
 	var carpeTimer;
 	function carpeLoad() {
 		clearTimeout(carpeTimer);
@@ -629,21 +620,4 @@ $(window).resize(function(evt) {
 	}
 	carpeShow();
 });
-/*
-$(document).on("reSlider", function(evt,step) {	
-	var carpeTimer;
-	function carpeLoad() {
-		clearTimeout(carpeTimer);
-
-		$("#sliderWrapper").html('<input id="slider" type="range" min="-750" max="750" step="3" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" />');
-		CARPE.sliders.init();
-		//makeRound();
-		document.getElementById('slider').slider.resetValue();
-	}
-	function carpeShow() {
-	    carpeTimer = setTimeout(carpeLoad,0);
-	}
-	carpeShow();
-});
-*/
 }());

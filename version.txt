@@ -1,3 +1,18 @@
+
+
+$(document).ready(
+
+  function() { 
+
+    $("html").niceScroll();
+
+  }
+
+);
+
+
+
+
 #################
 ## VERSION LOG ##
 #################

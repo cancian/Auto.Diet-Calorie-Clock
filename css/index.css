@@ -1,78 +1,85 @@
 /*## NORMALIZE ##*/
 html,
-body						{ position: relative; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
-body *						{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
-@font-face 					{ font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
+body							{ position: relative; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
+body *							{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
+@font-face 						{ -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
 /*##FOOTER##*/
-ul#appFooter				{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#303030,#101010); }
-ul#appFooter li				{ float: left; width: 25%; height: 44px; line-height: 66px; color: #999; font-size: 14px; }
-ul#appFooter li.active 		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); }
-ul#appFooter li#tab1		{  }
-ul#appFooter li#tab2		{  }
-ul#appFooter li#tab3		{  }
-ul#appFooter li#tab4		{  }
-ul#appFooter li#tab5		{ display: none;  }
-ul#appFooter li#tab1:before	{ content: ""; }
-ul#appFooter li#tab2:before	{ content: ""; }
-ul#appFooter li#tab3:before	{ content: ""; }
-ul#appFooter li#tab4:before	{ content: ""; }
-ul#appFooter li#tab5:before	{ content: ""; }
-ul#appFooter li#tab1:after	{ content: "diary"; }
-ul#appFooter li#tab2:after	{ content: "profile"; }
-ul#appFooter li#tab3:after	{ content: "settings"; }
-ul#appFooter li#tab4:after	{ content: "info"; }
-ul#appFooter li#tab5:after	{ content: ""; }
+ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); }
+ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; }
+ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); }
+ul#appFooter li.selected:before	{ color: #cbcbcb; }
+ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; }
+ul#appFooter li:after 			{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold; }
+ul#appFooter li#tab1			{  }
+ul#appFooter li#tab2			{  }
+ul#appFooter li#tab3			{  }
+ul#appFooter li#tab4			{  }
+ul#appFooter li#tab5			{ display: none; }
+ul#appFooter li#tab1:before		{ content: "\f02d"; }
+ul#appFooter li#tab2:before		{ content: "\f007"; }
+ul#appFooter li#tab3:before		{ content: "\f013"; }
+ul#appFooter li#tab4:before		{ content: "\f05a"; }
+ul#appFooter li#tab5:before		{ content: "";      }
+ul#appFooter li#tab1:after		{ content: "diary";    }
+ul#appFooter li#tab2:after		{ content: "profile";  }
+ul#appFooter li#tab3:after		{ content: "settings"; }
+ul#appFooter li#tab4:after		{ content: "info";     }
+ul#appFooter li#tab5:after		{ content: "";         }
+
+
+
 /*##CONTENT##*/
-div#appContent				{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; background-color: #fff; overflow: auto; -webkit-overflow-scrolling: touch; }
-div#appContent div#blocka   { position: absolute; top: 12px; left: 0; right: 0; height: 20px; background-color: #cc3300; }
-div#appContent div#blockb   { position: absolute; top: 25%;  left: 0; right: 0; height: 20px; background-color: #ffcc33; }
-div#appContent div#blockc   { position: absolute; bottom: 25%;  left: 0; right: 0; height: 20px; background-color: #0000ee; }
-div#appContent div#blockd   { position: absolute; bottom: 12px; left: 0; right: 0; height: 20px; background-color: #008800; }
+div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; background-color: #fff; overflow: auto; -webkit-overflow-scrolling: touch; }
+div#appContent > *				{ /*-webkit-transform: translateZ(0px); overflow: hidden;*/ }
+div#appContent div#blocka   	{ position: absolute; top: 12px; left: 0; right: 0; height: 20px; background-color: #cc3300; }
+div#appContent div#blockb		{ position: absolute; top: 25%;  left: 0; right: 0; height: 20px; background-color: #ffcc33; }
+div#appContent div#blockc		{ position: absolute; bottom: 25%;  left: 0; right: 0; height: 20px; background-color: #0000ee; }
+div#appContent div#blockd		{ position: absolute; bottom: 12px; left: 0; right: 0; height: 20px; background-color: #008800; }
 /*##HEADER##*/
-div#appHeader				{ position: absolute; top: 0; left: 0; right: 0; height: 72px; background-color: #fff; color: #fff; }
-div#appHeader div#block1	{  }
-div#appHeader div#block2	{  }
-div#appHeader div#block3	{  }
-div#appHeader div#block4	{  }
-div#appHeader div#block5	{  }
+div#appHeader					{ position: absolute; top: 0; left: 0; right: 0; height: 72px; background-color: #fff; color: #fff; }
+div#appHeader div#block1		{  }
+div#appHeader div#block2		{  }
+div#appHeader div#block3		{  }
+div#appHeader div#block4		{  }
+div#appHeader div#block5		{  }
 /*## TIMER ##*/
-#timer					{ position: absolute; top: 0; left: 0; right: 0; height: 62px; overflow: hidden; }
+#timer							{ position: absolute; top: 0; left: 0; right: 0; height: 62px; overflow: hidden; }
 /*TIMER COLOR*/
 div#deficit,
 div#surplus,
-div#balanced			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
-div#deficit				{ background-color: #C85834; }
-div#surplus				{ background-color: #309030; }
-div#balanced			{ background-color: #316ADC; }
+div#balanced				{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+div#deficit					{ background-color: #C85834; }
+div#surplus					{ background-color: #309030; }
+div#balanced				{ background-color: #316ADC; }
 
 
-span#timerBalance 		{ position: absolute; top: 0px; bottom: 0px; left: 12px; width: 100px; line-height: 50px; font-size: 32px; background-color: rgba(255,255,255,.0); text-align: left; }
+span#timerBalance 			{ position: absolute; top: 0px; bottom: 0px; left: 12px; width: 100px; line-height: 50px; font-size: 32px; background-color: rgba(255,255,255,.0); text-align: left; }
 
-span#timerFood 			{ position: absolute; top: 4px;    left: 150px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
-span#timerExercise 		{ position: absolute; bottom: 4px; left: 150px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
+span#timerFood 				{ position: absolute; top: 4px;    left: 150px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
+span#timerExercise 			{ position: absolute; bottom: 4px; left: 150px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
 
-span#subKcalsDay		{ position: absolute; top: 5px; bottom: 5px; right: 5px; width: 92px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: ; background-color: rgba(255,255,255,.3); }
+span#subKcalsDay			{ position: absolute; top: 5px; bottom: 5px; right: 5px; width: 92px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: ; background-color: rgba(255,255,255,.3); }
 
 
-span#timerBalance:after	{ content: "caloric balance"; position: absolute; bottom: -12px; left: 4px; font-size: 9px; text-transform: uppercase; }
-span#timerFood:after	{ content: "food";     position: absolute; bottom: -2px; left: 5px; font-size: 8px; text-transform: uppercase; }
-span#timerExercise:after{ content: "exercise"; position: absolute; bottom: -2px; left: 5px; font-size: 8px; text-transform: uppercase; }
-span#subKcalsDay:after	{ content: "daily calories"; position: absolute; bottom: -8px; left: 0px; font-size: 8px; text-transform: uppercase; }
+span#timerBalance:after		{ content: "caloric balance"; position: absolute; bottom: -12px; left: 4px; font-size: 9px; text-transform: uppercase; }
+span#timerFood:after		{ content: "food";     position: absolute; bottom: -2px; left: 5px; font-size: 8px; text-transform: uppercase; }
+span#timerExercise:after	{ content: "exercise"; position: absolute; bottom: -2px; left: 5px; font-size: 8px; text-transform: uppercase; }
+span#subKcalsDay:after		{ content: "daily calories"; position: absolute; bottom: -8px; left: 0px; font-size: 8px; text-transform: uppercase; }
 
 
 /*#SUB DATA#*/
 
-span#subStatusEq		{ /*display: none;*/ position: absolute; bottom: 0px; left: 13px;  font-size: 42%; line-height: normal; color: #fff; text-align: left;  text-shadow: none; text-indent: 0; opacity: .47; /*opacity: .54;*/ }
+span#subStatusEq			{ /*display: none;*/ position: absolute; bottom: 0px; left: 13px;  font-size: 42%; line-height: normal; color: #fff; text-align: left;  text-shadow: none; text-indent: 0; opacity: .47; /*opacity: .54;*/ }
 /*#SUB DATA CYCLIC#*/
-span#subDayName			{ /*display: none; font-size: 10px;*/ display: none; position: absolute; bottom: 27px; right: 16px; font-size: 42%; line-height: normal; color: #fff; text-align: right; text-transform: uppercase; text-shadow: none; text-indent: 0; opacity: .47; }
-span#subKcalsRange		{ /*display: none;*/ position: absolute; bottom: 38px; left: 12px; font-size: 10px; line-height: normal; color: rgba(255,255,255,.5); text-align: right; text-shadow: none; text-indent: 0; }
+span#subDayName				{ /*display: none; font-size: 10px;*/ display: none; position: absolute; bottom: 27px; right: 16px; font-size: 42%; line-height: normal; color: #fff; text-align: right; text-transform: uppercase; text-shadow: none; text-indent: 0; opacity: .47; }
+span#subKcalsRange			{ /*display: none;*/ position: absolute; bottom: 38px; left: 12px; font-size: 10px; line-height: normal; color: rgba(255,255,255,.5); text-align: right; text-shadow: none; text-indent: 0; }
 /*span#subCurrentDay span,*/
 span#subKcalsRange span,
-span#subDayName span	{ font-weight: bold !important; color: rgba(255,255,255,.67);}
+span#subDayName span		{ font-weight: bold !important; color: rgba(255,255,255,.67);}
 /*#SUB SPAN CYCLE#*/
-span#subCurrentDay span			{ font-size: 10px; font-weight: normal; color: rgba(255,255,255,.3); line-height: normal; height: auto; text-indent: 0; display: inline-block; margin: 0; -webkit-font-smoothing: antialiased; text-shadow: none; }
-span#subCurrentDay span span	{ margin-right: 3px; }
-span#subCurrentDay				{ position: absolute; bottom: 38px; right: 13px; font-size: 10px; font-weight: normal;  line-height: normal; height: auto; text-indent: 0; display: inline-block; margin: 0; }
+span#subCurrentDay span		{ font-size: 10px; font-weight: normal; color: rgba(255,255,255,.3); line-height: normal; height: auto; text-indent: 0; display: inline-block; margin: 0; -webkit-font-smoothing: antialiased; text-shadow: none; }
+span#subCurrentDay span span{ margin-right: 3px; }
+span#subCurrentDay			{ position: absolute; bottom: 38px; right: 13px; font-size: 10px; font-weight: normal;  line-height: normal; height: auto; text-indent: 0; display: inline-block; margin: 0; }
 span.currentDayA #subDayA,
 span.currentDayB #subDayB,
 span.currentDayC #subDayC,
@@ -82,14 +89,14 @@ span.currentDayB #subDayB span,
 span.currentDayC #subDayC span,
 span.currentDayD #subDayD span	{ color: rgba(255,255,255,1); font-weight: bold; }
 /*#TIMER TEXT*/
-span#surplus			{ color: #fff; }
-span#deficit			{ color: #fff; }
-span#balanced			{ color: #fff; }
+span#surplus				{ color: #fff; }
+span#deficit				{ color: #fff; }
+span#balanced				{ color: #fff; }
 /*TIMER ELEMENTS*/
-span#statusBalance		{  }
-span#statusContent		{ font-weight: bold; padding-right: 1px; text-shadow: none; }
-span#statusStop			{ color: #fff; font-weight: bold; display: inline-block; width: auto; text-indent: 3px; line-height: normal; -webkit-font-smoothing: antialiased; text-shadow: none; font-size: 16px; position: absolute; bottom: 15px; display: none; }
-span#statusMain			{ opacity: .18; font-size: 100%; color: rgba(0,0,0,.925); text-shadow: none; /*line-height: 52px;*/ display: none; }
+span#statusBalance			{  }
+span#statusContent			{ font-weight: bold; padding-right: 1px; text-shadow: none; }
+span#statusStop				{ color: #fff; font-weight: bold; display: inline-block; width: auto; text-indent: 3px; line-height: normal; -webkit-font-smoothing: antialiased; text-shadow: none; font-size: 16px; position: absolute; bottom: 15px; display: none; }
+span#statusMain				{ opacity: .18; font-size: 100%; color: rgba(0,0,0,.925); text-shadow: none; /*line-height: 52px;*/ display: none; }
 
 
 
