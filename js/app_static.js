@@ -30,14 +30,27 @@ $("body").html('\
 //#////////////////////#//
 //# RESIZE/ORIENTATION #//
 //#////////////////////#//
-//FIX BODY HEIGHT
-$('body').height(window.innerHeight);
-//RECALC ON ORIENTATION CHANGE (keyboard focus)
-$(window).on("orientationchange", function(evt) {
-	$('body').height(window.innerHeight);
+function appResizer(time) {
 	setTimeout(function() {
 		$('body').height(window.innerHeight);
-	},200);
+		$('#entryListWrapper').css("height","auto");
+		$('#entryListWrapper').css("min-height",(window.innerHeight) - (224 + $('#appHeader').height() + $('#appFooter').height()) + "px");
+		$("#appContent").getNiceScroll().onResize();
+	 },time);
+}
+$('body').height(window.innerHeight);
+///////////////////
+// MOBILE ROTATE //
+///////////////////
+$(window).on("orientationchange", function(evt) {
+	appResizer(100);
+	appResizer(300);
+});
+//RESIZE IF WINDOW > BODY
+$(window).on("resize", function(evt) {
+	if(window.innerHeight > $('body').height()) {
+		$('body').height(window.innerHeight);
+	}
 });
 //ALWAYS RESIZE DESKTOP
 $(window).on("resize", function(evt) {
@@ -45,7 +58,6 @@ $(window).on("resize", function(evt) {
 		$('body').height(window.innerHeight);
 	}
 });
-
 
 
 	//$('#entryListScroller').css("height","auto");

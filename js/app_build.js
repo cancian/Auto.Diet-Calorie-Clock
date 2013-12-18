@@ -5,7 +5,6 @@ function openDiary(string) {
 //RAW HTML
 var diaryHtml = '\
 <a name="top"></a>	\
-<!-- FORM START -->	\
 <div id="entryListForm">\
 <div id="sliderWrapper">\
 <input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
@@ -72,7 +71,7 @@ $("#appContent").html(diaryHtml);
 ///////////////////
 $(window).on("orientationchange", function(evt) {
 	$('#entryListWrapper').css("height","auto");
-	$('#entryListWrapper').css("min-height",(window.innerHeight) - (224 + $('#appHeader').height() + $('#appFooter').height() )      + "px");
+	$('#entryListWrapper').css("min-height",(window.innerHeight) - (224 + $('#appHeader').height() + $('#appFooter').height()) + "px");
 });
 //SLIDER
 $(window).trigger("orientationchange");
@@ -150,6 +149,13 @@ updateEntriesTime();
 			updateEntries(published);
 			updateTimer();
 			updateEntriesTime();
+			//SCROLLBAR UPDATE			
+			if(!isMobile.iOS()) {
+				$("#appContent").css("overflow","hidden");
+				setTimeout(function(){
+					$("#appContent").getNiceScroll().onResize();
+				},200);
+			}
 		}
 	});
 	//#//////////////#//
