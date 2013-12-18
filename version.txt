@@ -1,15 +1,8 @@
 
 
-$(document).ready(
+- timer crappy repeat on early android
 
-  function() { 
-
-    $("html").niceScroll();
-
-  }
-
-);
-
+- o delete entyr no android puxa a nicescrollbar erroneamente, colocar if.not.ios
 
 
 
@@ -27,6 +20,16 @@ D7D7D7
 - gap no menu info
 - 
 D6D6D6
+
+
+- min-height do appContent para evitar bug do teclado diminuindo a tela
+- add total cals +food + exercise on #go
+- start / reset timer
+- quick add/ double buttons switch ^ office
+- 
+- 
+- 
+- 
 
 
 # 1.0.5 [10/12/2013]

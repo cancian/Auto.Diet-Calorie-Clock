@@ -607,8 +607,10 @@ $(document).ready(function() {
 ////////////
 $(window).resize(function(evt) {
 	var carpeTimer;
+	var carpeTimer2;	
 	function carpeLoad() {
 		clearTimeout(carpeTimer);
+		clearTimeout(carpeTimer2);
 		$("#sliderWrapper").html('<input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" />');
 		CARPE.sliders.init();
 		//makeRound();
@@ -617,6 +619,7 @@ $(window).resize(function(evt) {
 	}
 	function carpeShow() {
 	    carpeTimer = setTimeout(carpeLoad,0);
+	    carpeTimer2 = setTimeout(carpeLoad,200);
 	}
 	carpeShow();
 });

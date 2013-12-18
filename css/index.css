@@ -1,8 +1,14 @@
 /*## NORMALIZE ##*/
 html,
-body							{ position: relative; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
+body							{ position: relative; display: block; width: 100%; height: 100%; overflow: visible; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
 body *							{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
 @font-face 						{ -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
+/*##HW ACCELERATION##*/
+/*
+div#appContent > * { -webkit-transform: translateZ(0px); }
+div#appContent > * { -webkit-transform: translate3d(0,0,0); }
+div#appContent > * { -webkit-backface-visibility: hidden; }
+*/
 /*##FOOTER##*/
 ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); }
 ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; }
@@ -25,23 +31,10 @@ ul#appFooter li#tab2:after		{ content: "profile";  }
 ul#appFooter li#tab3:after		{ content: "settings"; }
 ul#appFooter li#tab4:after		{ content: "info";     }
 ul#appFooter li#tab5:after		{ content: "";         }
-
-
-
 /*##CONTENT##*/
 div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; background-color: #fff; overflow: auto; -webkit-overflow-scrolling: touch; }
-div#appContent > *				{ /*-webkit-transform: translateZ(0px); overflow: hidden;*/ }
-div#appContent div#blocka   	{ position: absolute; top: 12px; left: 0; right: 0; height: 20px; background-color: #cc3300; }
-div#appContent div#blockb		{ position: absolute; top: 25%;  left: 0; right: 0; height: 20px; background-color: #ffcc33; }
-div#appContent div#blockc		{ position: absolute; bottom: 25%;  left: 0; right: 0; height: 20px; background-color: #0000ee; }
-div#appContent div#blockd		{ position: absolute; bottom: 12px; left: 0; right: 0; height: 20px; background-color: #008800; }
 /*##HEADER##*/
 div#appHeader					{ position: absolute; top: 0; left: 0; right: 0; height: 72px; background-color: #fff; color: #fff; }
-div#appHeader div#block1		{  }
-div#appHeader div#block2		{  }
-div#appHeader div#block3		{  }
-div#appHeader div#block4		{  }
-div#appHeader div#block5		{  }
 /*## TIMER ##*/
 #timer							{ position: absolute; top: 0; left: 0; right: 0; height: 62px; overflow: hidden; }
 /*TIMER COLOR*/
@@ -95,24 +88,8 @@ span#balanced				{ color: #fff; }
 /*TIMER ELEMENTS*/
 span#statusBalance			{  }
 span#statusContent			{ font-weight: bold; padding-right: 1px; text-shadow: none; }
-span#statusStop				{ color: #fff; font-weight: bold; display: inline-block; width: auto; text-indent: 3px; line-height: normal; -webkit-font-smoothing: antialiased; text-shadow: none; font-size: 16px; position: absolute; bottom: 15px; display: none; }
+span#statusStop				{ color: #fff; font-weight: bold; display: inline-block; width: auto; text-indent: 3px; line-height: normal; text-shadow: none; font-size: 16px; position: absolute; bottom: 15px; display: none; }
 span#statusMain				{ opacity: .18; font-size: 100%; color: rgba(0,0,0,.925); text-shadow: none; /*line-height: 52px;*/ display: none; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -127,40 +104,35 @@ span#statusMain				{ opacity: .18; font-size: 100%; color: rgba(0,0,0,.925); tex
 .show					{ display: inline; }
 .white					{ color: #fff !important; }
 .invisible				{ visibility: hidden; position: absolute; left: 0; top: 0; }
-div						{ /*-webkit-backface-visibility: hidden; -webkit-transform : translateZ(0); */ }
-
 p						{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
-input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; border-radius: 0; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: "Helvetica Neue", Helvetica, Arial; /*-webkit-backface-visibility: hidden;*/ }
+input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; border-radius: 0; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: "Helvetica Neue", Helvetica, Arial; }
 div#noEntries			{ border-left: 5px solid transparent; }
 #noEntries span			{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
 #overscroll				{ -webkit-user-select: none !important; -webkit-backface-visibility: hidden; position: absolute; left: 0; top: -40px; z-index: 9999; width: 100%; text-align: center; color: #aaa; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
 #underscroll			{ -webkit-user-select: none; -webkit-backface-visibility: hidden; position: absolute; left: 0; bottom: 15px; z-index: -1; width: 100%; text-align: center; color: #777; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
-.heading				{ -webkit-user-select: none; -webkit-backface-visibility: hidden; position: absolute; left: 0; top: 0; z-index: 1; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #eee; text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 10pt; color: #444; text-indent: 6px; padding: 10px 0 8px 9px; background-color: #f5f5f5; font-weight: bold; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; text-transform: uppercase; letter-spacing: 3px; /*color: rgb(255,242,818); -webkit-text-fill-color: transparent;*/  }
+.heading				{ -webkit-user-select: none; position: absolute; left: 0; top: 0; z-index: 1; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #eee; text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 10pt; color: #444; text-indent: 6px; padding: 10px 0 8px 9px; background-color: #f5f5f5; font-weight: bold; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; text-transform: uppercase; letter-spacing: 3px; }
 #appVersion				{ position: absolute; bottom: 2px; right: 2px; font-size: 9px; color: #aaa; }
 .toolTip:after			{ display: block; font-family: 'FontAwesome'; content: "\f0d8"; background-color: transparent; position: absolute; top: -7px; left: 27px; font-size: 32px; color: rgba(255,255,255,.9); -webkit-backface-visibility: hidden; z-index: 9; text-shadow: rgba(0,0,0,.1) 0 -1px 0; }
 .toolTip:before			{ display: block; position: absolute; top: 12px; left: 12px; font-size: 16px; color: #4D9AE5; background: rgba(255,255,255,.9); padding: 11px 16px 10px 16px; text-align: left; border-radius: 12px; text-shadow: rgba(0,0,0,.04) 0 -1px 0; -webkit-box-shadow: 0px 3px 9px rgba(0,0,0,.2); -webkit-backface-visibility: hidden; z-index: 9; }
-/*APP STORE*/
+
 #appStore				{ position: absolute; bottom: 42px; right: 0px; width: 100%; display: inline-block; text-align: right; }
 #appStore .ios img		{ width: 50%; height: auto; max-width: 200px; }
 #appStore .android img	{ width: 50%; height: auto; max-width: 200px; }
+
+
 /*###################
 ## SKELETONA MASKA ##
 ###################*/
-#entryListFix			{ position: relative; }
 #timer					{ position: absolute; top: 0; left: 0; text-shadow: rgba(255,255,255,.1) 0 1px 0; }
 #timerFix				{ position: absolute; top: 0; left: 0; }
-#entryListScroller		{ height: 100%; overflow: auto; /*-webkit-overflow-scrolling: touch;*/ /*background-color: rgba(214,217,222,.35);*/ }
-#entryListFix			{ /*position: absolute; top: 51px; left: 0; bottom: 0;*/  position: relative; /*height: 100%;*/ margin-top: 51px; overflow: hidden; margin: 51px auto 0 auto; -webkit-backface-visibility: hidden; }
 #entryList				{ width: 100%; min-height: 38px; -webkit-backface-visibility: hidden; }
-#entryListFix,
-#entryListScroller		{ -webkit-backface-visibility: hidden; }
-#entryListForm			{ width: 100%; height: 154px; position: relative; -webkit-backface-visibility: hidden; overflow: hidden; z-index: 1; }
-#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; min-height: 180px; padding: 36px 0 44px 0; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
+#entryListForm			{ width: 100%; height: 154px; position: relative;  overflow: hidden; z-index: 1; }
+#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; min-height: 180px; padding: 36px 0 44px 0; background-color: #fff; overflow: hidden; }
 /*##############
 ## ENTRY LIST ##
 ###############*/
 #entryList				{ width: 100%; font-size: 13px; -webkit-backface-visibility: hidden; }
-#entryList div			{ width: auto; padding: 11px 0 11px 0; margin: 0; position: relative; -webkit-backface-visibility: hidden; border-bottom: 1px solid #eee; border-top: 1px solid transparent; }
+#entryList div			{ width: auto; padding: 11px 0 11px 0; margin: 0; position: relative; border-bottom: 1px solid #eee; border-top: 1px solid transparent; }
 span.delete				{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 3px 6px 0 0; padding: 7px 14px 7px 14px; border: 1px solid #953403; border-radius: 5px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 -1px 1px #953403; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ec4a0b),color-stop(1, #ad390c)); }
 span.delete:active		{ background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E0380A),color-stop(1, #9C2A09)); }
 span.delete				{ /*visibility: hidden;*/ -webkit-transition-timing-function: linear; -webkit-transform: translate3d(80px, 0, 0);  -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
@@ -176,22 +148,24 @@ span.delete.open		{ /*visibility: visible;*/ display: inline-block; -webkit-tran
 div.expired p			{ opacity: .3; }
 div.editing p			{ opacity: 1; }
 /*#ROW COLOR#*/
+/*
 .rowMorning,
-.e-rowMorning			{ color: #000; border-left: 5px solid #FFEC3C; -webkit-transform: translate3d(0, 0, 0); border: none; }
+.e-rowMorning			{ color: #000; border-left: 5px solid #FFEC3C; }
 .rowAfternoon,
-.e-rowAfternoon			{ color: #000; border-left: 5px solid #F29D50; -webkit-transform: translate3d(0, 0, 0); border: none; }
+.e-rowAfternoon			{ color: #000; border-left: 5px solid #F29D50; }
 .rowNight,
-.e-rowNight				{ color: #000; border-left: 5px solid #4486E5; -webkit-transform: translate3d(0, 0, 0); border: none; }
+.e-rowNight				{ color: #000; border-left: 5px solid #4486E5; }
 .rowAfterhours,
-.e-rowAfterhours		{ color: #000; border-left: 5px solid #4141D1; -webkit-transform: translate3d(0, 0, 0); border: none; }
+.e-rowAfterhours		{ color: #000; border-left: 5px solid #4141D1; }
+*/
 .rowAfterhours p.entriesTitle,
 .rowMorning p.entriesTitle,
 .rowAfternoon p.entriesTitle,
-.rowNight p.entriesTitle			{ color: #333333; -webkit-transform: translate3d(0, 0, 0); }
+.rowNight p.entriesTitle			{ color: #333333; }
 .e-rowAfterhours p.entriesTitle,
 .e-rowMorning p.entriesTitle,
 .e-rowAfternoon p.entriesTitle,
-.e-rowNight p.entriesTitle			{ color: #CC0000; -webkit-transform: translate3d(0, 0, 0);  }
+.e-rowNight p.entriesTitle			{ color: #CC0000; }
 /*##################
 ## FORM-ENTRYLIST ##
 ##################*/
@@ -602,9 +576,4 @@ body.ios7 div#deficit,
 body.ios7 div#surplus,
 body.ios7 div#balanced			{ line-height: 83px; }
 body.ios7 #timerTouch			{ height: 74px; }
-/*####################
-## ANDROID SPECIFIC ##
-####################*/
-body.android #entryListWrapper	{ background-color: #fff; } 
-body.android #entryListWrapper	{ -webkit-box-shadow: none; }
 

@@ -1,10 +1,8 @@
 ////////////////////////
 // DEVICE READY EVENT //
 ////////////////////////
-//document.addEventListener('deviceready', init, false);
 $(document).ready(function() {
 	//$("body").css("opacity","0");
-	//console.log('deviceready');
 	init();
 });
 function init() {
@@ -15,10 +13,9 @@ function init() {
 //# CORE KICKSTART #//
 //#////////////////#//
 function startApp() {
-//console.log("startApp()");
-///////////////////////
-// DEFINE INDEX.HTML //
-///////////////////////
+//#////////////#//
+//# INDEX.HTML #//
+//#////////////#//
 $("body").html('\
 <ul id="appFooter">\
 	<li id="tab1"></li>\
@@ -30,25 +27,32 @@ $("body").html('\
 <div id="appHeader"></div>\
 <div id="appContent"></div>\
 ');
+//#////////////////////#//
+//# RESIZE/ORIENTATION #//
+//#////////////////////#//
+//FIX BODY HEIGHT
+$('body').height(window.innerHeight);
+//RECALC ON ORIENTATION CHANGE (keyboard focus)
+$(window).on("orientationchange", function(evt) {
+	$('body').height(window.innerHeight);
+	setTimeout(function() {
+		$('body').height(window.innerHeight);
+	},200);
+});
+//ALWAYS RESIZE DESKTOP
+$(window).on("resize", function(evt) {
+	if(!hasTouch()) {
+		$('body').height(window.innerHeight);
+	}
+});
 
 
 
-
-
-//#////////////#//
-//# DEFINE CSS #//
-//#////////////#//
-
-
-///////////////////
-// WINDOW RESIZE // ++keyb
-///////////////////
-	$(window).on("resize", function(evt) {
-		//$('#entryListScroller').css("height","auto");
-		//$('#entryListWrapper').css("height","auto");
-		//$('#entryListScroller').css("height","100%");
-		//$('#entryListWrapper').css("height","100%");
-		//$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - (51)) + "px");
+	//$('#entryListScroller').css("height","auto");
+	//$('#entryListWrapper').css("height","auto");
+	//$('#entryListScroller').css("height","100%");
+	//$('#entryListWrapper').css("height","100%");
+	//$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - (51)) + "px");
 		//$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - (279)) + "px");
 		//NO WHITE FLICKE 
 		//$('#entryListScroller').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - (($('#timer').height()))) + "px");
@@ -60,25 +64,18 @@ $("body").html('\
 		//$('#pageSlideInfo').css("height",(window.localStorage.getItem("absWindowHeight") - ($('#timer').height())) + "px");
 		//$('#pageSlideCalc').css("height",(window.localStorage.getItem("absWindowHeight") - ($('#timer').height())) + "px");
 		//$('#pageSlideFood').css("height",(window.localStorage.getItem("absWindowHeight") - ($('#timer').height())) + "px");
-	});
-	////////////////////////
-	// ORIENTATION CHANGE //
-	////////////////////////
-	if('ontouchstart' in document) {
-		var mobileBrowserWindow = "orientationchange";
-	} else {
-		var mobileBrowserWindow = "resize";
-	}
-	$(window).on(mobileBrowserWindow, function(evt) {
+	//});
+
+	//$(window).on(mobileBrowserWindow, function(evt) {
 //	$(window).on("orientationchange" + resizeDesktop, function(evt) {
 		//update if different than stored
-		if(getOrientation() != window.localStorage.getItem("absOrientation")) {
-			window.localStorage.setItem("absOrientation",getOrientation());
+	//	if(getOrientation() != window.localStorage.getItem("absOrientation")) {
+	//		window.localStorage.setItem("absOrientation",getOrientation());
 			//switch values
-			var prevHeight = window.localStorage.getItem("absWindowHeight");
-			var prevWidth  = window.localStorage.getItem("absWindowWidth");
-			window.localStorage.setItem("absWindowHeight",prevWidth);
-			window.localStorage.setItem("absWindowWidth",prevHeight);
+	//		var prevHeight = window.localStorage.getItem("absWindowHeight");
+	//		var prevWidth  = window.localStorage.getItem("absWindowWidth");
+	//		window.localStorage.setItem("absWindowHeight",prevWidth);
+	//		window.localStorage.setItem("absWindowWidth",prevHeight);
 			//$("#entryBody").val(window.localStorage.getItem("absWindowHeight") + " x " + window.localStorage.getItem("absWindowWidth"));
 		//reajust num
 //		adjustPos(0);
@@ -109,7 +106,7 @@ $("body").html('\
 		//setTimeout(function() { $('#pageSlideFood').css("-webkit-transition-duration",".25s");},0);
 		//adjust results scroller
 		//$('#foodList').css("height",($('#entryListScroller').height() - (61)) + "px");
-		}
+	//	}
 	//food input
 	//$('#foodSearch').css("left","0px");
 	//$('#foodSearch').css("right","0px");
@@ -128,39 +125,41 @@ $("body").html('\
 		$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
 	},300);
 	*/
-});
+//});
+
 
 
 
 //#///////////////#//
 //# DEFINE LAYOUT #//
 //#///////////////#//
-////////////////
-// APP FOOTER //
-////////////////
-function openProfile() {
-$("#appContent").html('openProfile');
-}
-
-function openSettings() {
-$("#appContent").html('openSettings ');
-}
-
-function openInfo() {
-$("#appContent").html('openInfo ');
-}
-
-
-
+$("#appHeader").append('<div id="timer"></div>');
+//#////////////#//
+//# APP FOOTER #//
+//#////////////#//
+function openSettings() { $("#appContent").html('openSettings '); }
+function openInfo()	 { $("#appContent").html('openInfo ');     }
 function appFooter(id) {
 	$("ul#appFooter li").removeClass("selected");
 	window.localStorage.setItem("app_last_tab",id);
 	$("#" + id).addClass("selected");
+	//RELOAD CONTAINER
+	$("#appContent").remove();
+	$("body").append("<div id='appContent'></div>");
+	//SCROLLBAR
+	if(!isMobile.iOS()) {
+		$("#appContent").css("overflow","hidden");
+		setTimeout(function(){
+			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursoropacitymax:0.4,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
+		},200);
+	}
+	//ACTION
 	if(id == "tab1") { openDiary();    }
 	if(id == "tab2") { openProfile();  }
 	if(id == "tab3") { openSettings(); }
-	if(id == "tab4") { openInfo();     }
+	if(id == "tab4") { openInfo();	  }
 }
+//PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
 	window.localStorage.setItem("app_last_tab","tab1");
 }
@@ -168,16 +167,10 @@ if(!window.localStorage.getItem("app_last_tab")) {
 appFooter(window.localStorage.getItem("app_last_tab"));
 //LISTEN FOR CLICKS
 $("ul#appFooter li").on(touchstart, function(e) {
+	e.preventDefault();
+	e.stopPropagation();
 	appFooter($(this).attr("id"));
 });
-
-
-
-
-
-$("#appHeader").append('<div id="timer"></div>');
-
-
 
 
 
@@ -223,30 +216,10 @@ if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 	var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 }
 $("#timer").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
-
 $('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
 
 //if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-//#///////////#//
-//# MOBILE OS #//
-//#///////////#//
-var isMobile = {
-	Android: function() {
-		return navigator.userAgent.match(/Android/i) ? true : false;
-	},
-	BlackBerry: function() {
-		return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-	},
-	iOS: function() {
-		return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-	},
-	Windows: function() {
-		return navigator.userAgent.match(/IEMobile/i) ? true : false;
-	},
-	any: function() {
-		return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
-	}
-};
+
 	var scrollPad = 0;
 	/////////////////
 	// IOS VERSION //
@@ -603,85 +576,10 @@ setTimeout(function(){
 			}}}}
 		}
 	});
-	// blur edit / entrybody
-	$('#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
-		evt.preventDefault();
-		//evt.stopPropagation();
-			if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
-				$("#entryTime").focus();
-			} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
-				$("#entryBody").focus();
-			} else if(evt.target.id != "entryTime" && evt.target.id != "entryBody") {
-				$("#editable").blur();
-				$("#entryTime").blur();
-				$("#entryBody").blur();
-			}
-	});
-	// timer blur
-	$('#timerTouch').on(touchstart, function(evt) {
-	//	evt.preventDefault();
-		if($(this).attr("id") == "timerTouch") {
-			$("#editable").blur();
-			$("#entryTime").blur();
-			$("#entryBody").blur();
-		}
-	});
-	////////////////////////
-	// QUICK FOCUS INPUTS //
-	////////////////////////
-	$('#entryBody').on(touchstart, function(evt) {
-		//evt.preventDefault();
-		evt.stopPropagation();
-		//android keyboard focus
-		$("#entryBody").focus();		
-		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
-			evt.preventDefault();
-			$("#entryBody").focus();
-		}
-	});
-	$('#entryTime').on(touchstart, function(evt) {
-		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
-			evt.preventDefault();
-			$("#entryTime").focus();
-		}
-	});
-	//SUPERBORDER FOCUS
-	$('#entryTime').focus(function(evt) {
-		$('#entryBody').removeClass("focusMy");
-		$('#entryBody').addClass("focusMe");
-	});
-	$('#entryBody').focus(function(evt) {
-		//evt.preventDefault();
-		//evt.stopPropagation();
-		//evt.stopImmediatePropagation();
-		$('#entryBody').removeClass("focusMe");
-		$('#entryBody').addClass("focusMy");
-	});	
-	$('#entryTime,#entryBody').blur(function(evt) {
-		$('#entryBody').removeClass("focusMe");
-		$('#entryBody').removeClass("focusMy");
-	});
-	//////////////////////////////
-	// FIX KEYBOARD PROPAGATION //
-	//////////////////////////////
-	$('#entryListForm,#go').on(touchstart, function(evt) {
-		if(evt.target.id == "entryTime") {
-			//$("#entryTime").focus();
-		} else if(evt.target.id == "entryBody") {
-			//$("#entryBody").focus();
-		} else {
-			if($("#entryTime").is(":focus") || $("#entryBody").is(":focus") ) {
-				//block re-keyboarding on dismiss
-				evt.preventDefault();
-				evt.stopPropagation();
-				//autoclose bug on return
-				if(evt.target.id != "entryBody") {
-					$("#entryBody").blur();
-				}
-				$("#entryTime").blur();
-			}
-		}
-	});
+
+
+
+
 ////#//
 } //#//
 ////#//
