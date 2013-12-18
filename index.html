@@ -8,24 +8,7 @@
 	<meta name="format-detection" content="telephone=no" />   
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-	<!-- SCRIPTS -->
-	<script type="text/javascript">
-		var mobileOS = "";
-		if(navigator.userAgent.match(/Android/i)) {
-			var mobileOS = "_android";
-		} else {
-			var mobileOS = "_ios";
-		}
-		//APP OR BROWSER
-		//var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-		//if(app) {
-			//document.write("<script src='js/cordova" + mobileOS + ".js'><\/script>");
-			document.write("<script src='js/cordova.js'><\/script>");
-			// PhoneGap application
-		//} else {
-		//Web page
-		//}
-	</script>
+	<script type="text/javascript" src="js/cordova.js"></script>
 	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
    	<script type="text/javascript" src="js/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
@@ -35,42 +18,36 @@
 	<script type="text/javascript" src="js/html5sql.js"></script>
 	<script type="text/javascript" src="js/UserVoice.js"></script>
 	<script type="text/javascript" src="js/calculator.js"></script>
-
 	<script type="text/javascript">
+		///////////////
+		// DEV DEBUG //
+		///////////////
 		var hostLocal = "";
 		var newDate   = "";
 		if(window.localStorage.getItem("config_debug") == "active") {
-			//if(window.location.hostname.search(/168/) > 0) { var hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/"; }
 			var hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
 			var newDate   = new Date().getTime();
 		}
 	</script>
-
 	<script type="text/javascript">
-		document.write("<script src='"+ hostLocal + "js/carpe_slider.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/app_lang.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/app_setup.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/app_build.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/app_static.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/app_dynamic.js?"+newDate+"'><\/script>");
-		document.write("<script src='"+ hostLocal + "js/app_custom_core.js?"+newDate+"'><\/script>");
-		//document.write("<script src='js/lang.js'><\/script>");
-		//document.write("<script src='js/diary.js'><\/script>");
-		//document.write("<script src='js/index.js'><\/script>");
+		document.write("<script src='" + hostLocal + "js/carpe_slider.js?"+newDate+"'><\/script>");
+		document.write("<script src='" + hostLocal + "js/app_lang.js?"+newDate+"'><\/script>");
+		document.write("<script src='" + hostLocal + "js/app_setup.js?"+newDate+"'><\/script>");
+		document.write("<script src='" + hostLocal + "js/app_build.js?"+newDate+"'><\/script>");
+		document.write("<script src='" + hostLocal + "js/app_static.js?"+newDate+"'><\/script>");
+		document.write("<script src='" + hostLocal + "js/app_dynamic.js?"+newDate+"'><\/script>");
+		document.write("<script src='" + hostLocal + "js/app_custom_core.js?"+newDate+"'><\/script>");
 	</script>
 	<script type="text/javascript">
-		//TOOLTIP CONTENT STYLE
+		// TOOLTIP //
 		document.write("\
 		<style type='text/css'>\
-			.toolTip:before	{ content: '" + LANG('SWIPE_TOOLTIP') + "';  }\
-			#startDate:before	{ content: '" + LANG('START_DATE') + "'; }\
+			.toolTip:before	  { content: '" + LANG('SWIPE_TOOLTIP') + "'; }\
+			#startDate:before { content: '" + LANG('START_DATE')    + "'; }\
 		<\/style>");
 	</script>
-	<!-- SCRIPTS -->
-
 	<script type="text/javascript">
 		document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/index.css?"+newDate+"' />");
-		//document.write("<link rel='stylesheet' type='text/css' href='css/index.css' />");
 	</script>
 </head>
 <body>
