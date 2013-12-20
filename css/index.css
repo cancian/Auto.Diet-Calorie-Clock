@@ -181,11 +181,11 @@ div#sliderPos:active	{ /*color: #645EDA;*/ }
 #adjustNegBlock			{ position: absolute; right: 60px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999; -webkit-transform: scaleX(-1); }
 /*#INPUT MAIN#*/
 input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; border: none; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 1px 1px 0 0; }
-input#entryBody			{ position: absolute; margin-top: 26px; left: 16px; right: 16px; /*top: 64px; fix overflow bug*/ color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
-input#entryBody.focusMe	{ top: -25px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 9999; }
-input#entryBody.focusMy	{ top: 26px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip:padding-box; z-index: 9999; }
+input#entryBody			{ position: absolute; margin-top: 6px; left: 16px; right: 16px; /*top: 64px; fix overflow bug*/ color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
 
-div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 1; }
+input#entryBody.focusMe	{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
+input#entryBody.focusMy	{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
+div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 999; }
 #entryBodySearch div	{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
 #entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
 div#entryBodySearch:active	{ opacity: 1; }
@@ -326,10 +326,17 @@ div#pageSlideFood		{ display: none; }*/
 /*###############
 ## AJAX INLINE ##
 ###############*/
-#editableDiv			{ -webkit-backface-visibility: hidden; color: transparent; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; height: 51px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; font-family: Helvetica; -webkit-user-select: none; overflow: hidden; }
-input#editable			{ -webkit-backface-visibility: hidden; color: #000; background-color: #fff !important; position: absolute; top: 24px; right: 66px; display: block !important; width: 56px !important; height: 27px; font-size: 18px !important; line-height: 20px; border: 0; padding: 0; margin: 0; opacity: .9; text-align: right; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; }  
+#editableDiv			{ color: transparent; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; font-family: Helvetica; -webkit-user-select: none; overflow: hidden; }
+input#editable			{ -webkit-backface-visibility: hidden; color: #000; 
+background-color: #fff !important;
+position: absolute; top: 10px; right: 9px; 
+display: block !important; width: 74px !important; height: 32px; font-size: 24px !important; line-height: 28px;
+border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold;
+
+overflow: hidden; 
+}
 #editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; font-size: 13px; }
-#editableBlock			{ position: absolute; right: 0; top: 51px; width: 120px; height: 15px; background-color: transparent; z-index: 999; display: none; }
+#editableBlock			{ position: absolute; right: 0;  width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
 /*#############
 ## CALC FORM ##
 #############*/
@@ -394,11 +401,11 @@ div#spinner div.bar12			{ -webkit-transform:rotate(330deg) translate(0, -142%); 
 /*################
 ## CARPE SLIDER ##
 ################*/
-#slider							{ position: absolute; left: 14px; right: 30px; -webkit-backface-visibility: hidden; }
+#slider							{ position: absolute; left: 14px; right: 30px; }
 #sliderWrapper					{ -webkit-backface-visibility: hidden; }
-.carpe-slider-box 				{ position: absolute; top: 14px; left: 14px; right: 30px; height: 40px; -webkit-backface-visibility: hidden; }
+.carpe-slider-box 				{ position: absolute; top: 14px; left: 14px; right: 30px; height: 60px; }
 .carpe-slider-box,
-.carpe-slider-box *				{ position: relative; display: block; -webkit-backface-visibility: hidden; }
+.carpe-slider-box *				{ position: relative; display: block; }
 .carpe-slider-panel				{ top: -30px; height: 60px; }
 .carpe-slider-panel:focus,
 .carpe-slider-panel:active		{ outline: none; }

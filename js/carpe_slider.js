@@ -575,33 +575,6 @@
         }
         return result; // If 'getter' return true or false.
     };
-////////////////
-// INIT DELAY //
-////////////////
-/*
-$(document).ready(function() {
-	var carpeTimer;
-	function carpeLoad() {
-		clearTimeout(carpeTimer);
-		CARPE.sliders.init();
-		if(document.getElementById('slider')) {
-			var sliderNum = document.getElementById('slider').slider.resetValue();
-		}
-	}
-	function carpeShow() {
-	    carpeTimer = setTimeout(carpeLoad,200);
-	}
-	carpeShow();
-	//initial resize
-	//var scrollCarPad = 0;
-	//if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
-	//	scrollCarPad = -1;
-	//}	
-	//$('#entryListWrapper').css("height","auto");
-	//$('#entryListWrapper').css("min-height",((window.innerHeight) - ((234 + scrollCarPad + $('#timer').height()))) + "px");
-	//$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
-
-});*/
 ////////////
 // RESIZE //
 ////////////
@@ -611,11 +584,11 @@ $(window).resize(function(evt) {
 	function carpeLoad() {
 		clearTimeout(carpeTimer);
 		clearTimeout(carpeTimer2);
+		var sliderMemory = $("#entryTitle").val();
 		$("#sliderWrapper").html('<input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" />');
 		CARPE.sliders.init();
-		//makeRound();
-		document.getElementById('slider').slider.resetValue();
 		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (22)) + "px");
+		document.getElementById('slider').slider.setValue(sliderMemory);
 	}
 	function carpeShow() {
 	    carpeTimer = setTimeout(carpeLoad,0);

@@ -152,8 +152,6 @@ if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 	var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 }
 /////////////////////
-$("#appHeader").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
-$('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
 ///////////
 // IOS 7 //
 ///////////
@@ -164,8 +162,13 @@ if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent)) {
 // ANDROID //
 /////////////
 if(isMobile.Android()) {
-		$("body").addClass("android");
+	$("body").addClass("android");
 }
+/////////////
+$("#appHeader").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
+$("#editableDiv").css("height",$("#appHeader").height());
+$('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
+
 //////////////////
 // INTRO NOTICE //
 //////////////////
@@ -233,18 +236,18 @@ if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
 					blur: function() {
 						var new_value = Math.ceil($(this).val());
 						//NULL-MIN-MAX
-						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)    { this.value = resetValue; document.getElementById('editableDiv').innerHTML = resetValue; }
-						if(this.value < 500 && !isNaN(this.value) && this.value > 1)             { this.value = 500;  document.getElementById('editableDiv').innerHTML = 500;  }
-						if(this.value > 9999)													{ this.value = 9999; document.getElementById('editableDiv').innerHTML = 9999; }
+						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)    { this.value = resetValue; $("#editableDiv").html(resetValue); }
+						if(this.value < 500 && !isNaN(this.value) && this.value > 1)             { this.value = 500;  $("#editableDiv").html(500);  }
+						if(this.value > 9999)													{ this.value = 9999; $("#editableDiv").html(9999); }
 						//filter zeros
 						this.value = Math.round(Number(this.value));
-						document.getElementById('editableDiv').innerHTML = this.value;
+						$("#editableDiv").html($(this).val());
 						//IF ENTERED VALUE WAS OK, PASS IT
 						window.localStorage.setItem(getKcalsKey,$(this).val());
 						//IF MAIN VALUE IS SOMESHOW STILL BOGUS, RESET BOTH TO 2000
 						if(isNaN(window.localStorage.getItem(getKcalsKey)) || window.localStorage.getItem(getKcalsKey) == 0 || window.localStorage.getItem(getKcalsKey) < 1) {
 							window.localStorage.setItem(getKcalsKey,resetValue);
-							document.getElementById('editableDiv').innerHTML = window.localStorage.getItem(getKcalsKey);
+							$("#editableDiv").html(window.localStorage.getItem(getKcalsKey));
 						}
 						$(this).replaceWith(new_value);
 						//update info inputs
@@ -253,8 +256,8 @@ if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
 						//WRITE TO DB
 						window.localStorage.setItem(getKcalsKey,$(this).val());
 						updateTimer();
-						updateEntriesTime();
-						$("#editableBlock").hide();
+						//updateEntriesTime();
+						$("#editableBlock").remove();
 					},
 					change: function() {
 						$("#editable").blur();
@@ -267,7 +270,10 @@ if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
 				$(this).append(input);
 				//FOCUS, THEN SET VALUE
 				var editableValue = $("#editable").val();
-				$("#editableBlock").show();
+				//slider temp blocker
+				$("body").append("<div id='editableBlock'></div>");
+				$("#editableBlock").css("top",$("#appHeader").height() + "px");
+				//$("#editableBlock").show();
 				$("#editable").focus();
 				$(this).val(editableValue);
 				$("#editable").select();

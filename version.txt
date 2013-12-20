@@ -20,9 +20,18 @@
 ################# 41A9DE
 ## VERSION LOG ##
 #################
-E5E5E5
-D7D7D7
-#ADADAD
+
+# 1.1.0 [25/12/2013]
+• improved user interface
+• fixed slider reset issue
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+
 - larger top
 - android side-slide
 - results list slowness
