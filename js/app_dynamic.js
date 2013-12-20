@@ -96,15 +96,23 @@ $(document).on("pageload", function(evt) {
 							//start edit
 							$('.entriesBody',this).empty();
 							$('.entriesBody',this).html(input);
-							$('.entriesBody',this).after('<p id="kcalsAdjust"><span id="resetBlock"></span><span id="adjustNegBlock"><span id="adjustNeg"></span></span><span id="adjustPosBlock"><span id="adjustPos"></span></p>');
+							$('.entriesBody',this).after('<p id="kcalsAdjust">\
+							<span id="adjustNegBlock"><span id="adjustNeg"></span></span>\
+							<span id="adjustPosBlock"><span id="adjustPos"></span></span>\
+							</p>');
 							$("#editableInput").focus();
 							///////////////////////
 							// RESET ENTRY VALUE //
 							///////////////////////
-							$('#resetBlock').on(touchstart, function(evt) {
+							$("#kcalsDiv").off(touchstart);
+							$("#kcalsDiv").on(touchstart, function(evt) {
 								evt.preventDefault();
+								//no reset block
+								if(!$(this).parent('div').hasClass("editing")) {
+									return;
+								}
 								var thisRowId = $(this).closest('div').data("id");
-								//console.log("reset entry value");
+								//INTOTHEVOID//
 								function intoTheVoid(button) {
 									//ON CONFIRM
 									if(button == 1) {
@@ -119,8 +127,9 @@ $(document).on("pageload", function(evt) {
 								//SHOW DIALOG
 								if(hasTouch()) {
 									navigator.notification.confirm(LANG("ARE_YOU_SURE"), intoTheVoid, LANG("RESET_ENTRY_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
+									return false;
 								} else {
-									if(confirm(LANG("RESET_ENTRY_DIALOG"))) { intoTheVoid(1); } else { }
+									if(confirm(LANG("RESET_ENTRY_DIALOG"))) { intoTheVoid(1); } else { return false; }
 								}
 								return false;
 							});
@@ -339,7 +348,7 @@ $(document).on("pageload", function(evt) {
 	/////////////////////
 	// STOP ENTRY EDIT //
 	/////////////////////
-	$("#timerTouch,#entryListForm,#go,#sliderBlock,#entryList div").on(touchstart, function(evt) {
+	$("#appHeader,#entryListForm,#go,#sliderBlock,#entryList div").on(touchstart, function(evt) {
 		if(!$('.editableInput').is(':visible')) { return; }
 		if($('.editableInput').is(':visible') && $("#editableInput").is(":focus")) {
 		//dismiss protection
@@ -375,7 +384,7 @@ $(document).on("pageload", function(evt) {
 	/////////////////
 	// GLOBAL HIDE //
 	/////////////////
-	$("#timerTouch,#entryListForm,#go,#sliderBlock,#entryListWrapper").on(tap + "swipeLeft swipeRight", function(evt) {
+	$("#appHeader,#entryListForm,#go,#sliderBlock,#entryListWrapper").on(tap + "swipeLeft swipeRight", function(evt) {
 		evt.preventDefault();
 		if(!$('.active').hasClass('busy')) {
 			$('.active').addClass('busy');
@@ -405,6 +414,13 @@ $(document).on("pageload", function(evt) {
 			$(this).parent('div').remove();
 			updateTimer();
 			updateEntriesTime();
+			//SCROLLBAR UPDATE			
+			if(!isMobile.iOS()) {
+				$("#appContent").css("overflow","hidden");
+				setTimeout(function(){
+					$("#appContent").getNiceScroll().onResize();
+				},200);
+			}
 			//force error
 			window.onscroll(scroll($('#entryListScroller')[0].scrollTop,0));
 			//window.scroll($('#entryListScroller')[0].scrollTop,0);
@@ -478,7 +494,7 @@ $(document).on("pageReload", function(evt) {
 		////////////////////
 		// RESULTS HEIGHT //
 		////////////////////
-		$('#foodList').css("height",window.localStorage.getItem("absWindowHeight") - ( ($('#timer').height() + 60) ) + "px");
+		$('#foodList').css("height",window.localStorage.getItem("absWindowHeight") - ( ($('#appHeader').height() + 60) ) + "px");
 		//#/////////////////#//
 		//# CORE SQL SEARCH #//
 		//#/////////////////#//
@@ -565,7 +581,7 @@ $(document).on("pageReload", function(evt) {
 				if(mr == 0) {
 					mr++;
 					$("#entryBody").val($("#activeOverflow").html());
-					$("#timerTouch").trigger(trim(tap));
+					$("#appHeader").trigger(trim(tap));
 					$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
 				}
 			});
@@ -970,7 +986,7 @@ $(document).on("pageReload", function(evt) {
 									$("#modalOverlay").remove();
 								});
 								//$("#modalOverlay").trigger(trim(tap));
-								$("#timerTouch").trigger(trim(tap));
+								$("#appHeader").trigger(trim(tap));
 								$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
 							}
 						});
@@ -1062,11 +1078,4 @@ $(document).on("pageReload", function(evt) {
 //////#//
 }); //#//
 //////#//
-
-
-
-
-
-
-
 

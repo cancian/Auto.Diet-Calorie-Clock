@@ -73,10 +73,7 @@ function replaceDivContent(id,content) {
 		kcalsHtmlOutput += "</div>";
 	//REPLACE
 	//console.log('kcalsHtmlOutput');
-	//$("#timer").hide();
-	//$("#timer").html('');
-	$("#timer").html(kcalsHtmlOutput);
-	//$("#timer").show();
+	$("#appHeader").html(kcalsHtmlOutput);
 }
 ///////////////////
 // TIME TO KCALS //
@@ -253,9 +250,9 @@ function updateTimer() {
 		var day2 = window.localStorage.getItem("config_kcals_day_2");
 		//READ SETTINGS
 		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-			replaceDivContent("timer",cyclicTimeToKcals(window.localStorage.getItem("config_start_time")));
+			replaceDivContent("appHeader",cyclicTimeToKcals(window.localStorage.getItem("config_start_time")));
 		} else {
-			replaceDivContent("timer",timeToKcals(window.localStorage.getItem("config_start_time")));
+			replaceDivContent("appHeader",timeToKcals(window.localStorage.getItem("config_start_time")));
 		}
 	});
 }

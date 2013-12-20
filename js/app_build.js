@@ -69,10 +69,6 @@ $("#appContent").html(diaryHtml);
 ///////////////////
 // RESIZE HEIGHT //
 ///////////////////
-$(window).on("orientationchange", function(evt) {
-	$('#entryListWrapper').css("height","auto");
-	$('#entryListWrapper').css("min-height",(window.innerHeight) - (224 + $('#appHeader').height() + $('#appFooter').height()) + "px");
-});
 //SLIDER
 $(window).trigger("orientationchange");
 $(window).trigger("resize");
@@ -170,12 +166,6 @@ updateEntriesTime();
 		updateEntriesTime();
 		//return false;
 	});
-	
-	
-$("#go").on("tap", function(evt) {
-window.location='';
-});
-
 	//////////////////
 	// SLIDER ROUND //
 	//////////////////
@@ -314,8 +304,7 @@ window.location='';
 		}
 	});
 	//TAP
-	$("#configNow").on('singleTap', function(evt) {
-		//console.log('reset timer');
+	$("#configNow").on("singleTap", function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		//CONFIRMATION DIALOG
@@ -534,7 +523,7 @@ window.location='';
 		}
 	});
 	// AUTOCLOSE n' hide //
-	$("#timerTouch,#editableDiv,#entryList,#go,#entryListForm").on(tap + "swipeLeft swipeRight", function(evt) {
+	$("#appHeader,#editableDiv,#entryList,#go,#entryListForm").on(tap + "swipeLeft swipeRight", function(evt) {
 		evt.preventDefault();
 		//save on close click
 		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
@@ -627,15 +616,6 @@ window.location='';
 				$("#entryBody").blur();
 			}
 	});
-	// timer blur
-	$('#timerTouch').on(touchstart, function(evt) {
-	//	evt.preventDefault();
-		if($(this).attr("id") == "timerTouch") {
-			$("#editable").blur();
-			$("#entryTime").blur();
-			$("#entryBody").blur();
-		}
-	});
 	////////////////////////
 	// QUICK FOCUS INPUTS //
 	////////////////////////
@@ -643,7 +623,7 @@ window.location='';
 		//evt.preventDefault();
 		evt.stopPropagation();
 		//android keyboard focus
-		$("#entryBody").focus();		
+		//$("#entryBody").focus();		
 		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
 			evt.preventDefault();
 			$("#entryBody").focus();
@@ -655,22 +635,24 @@ window.location='';
 			$("#entryTime").focus();
 		}
 	});
-	//SUPERBORDER FOCUS
-	$('#entryTime').focus(function(evt) {
-		$('#entryBody').removeClass("focusMy");
-		$('#entryBody').addClass("focusMe");
-	});
-	$('#entryBody').focus(function(evt) {
-		//evt.preventDefault();
-		//evt.stopPropagation();
-		//evt.stopImmediatePropagation();
-		$('#entryBody').removeClass("focusMe");
-		$('#entryBody').addClass("focusMy");
-	});	
-	$('#entryTime,#entryBody').blur(function(evt) {
-		$('#entryBody').removeClass("focusMe");
-		$('#entryBody').removeClass("focusMy");
-	});
+	//SUPERBORDER FOCUS (IOS)
+	if(isMobile.iOS()) {
+		$('#entryTime').focus(function(evt) {
+			$('#entryBody').removeClass("focusMy");
+			$('#entryBody').addClass("focusMe");
+		});
+		$('#entryBody').focus(function(evt) {
+			//evt.preventDefault();
+			//evt.stopPropagation();
+			//evt.stopImmediatePropagation();
+			$('#entryBody').removeClass("focusMe");
+			$('#entryBody').addClass("focusMy");
+		});	
+		$('#entryTime,#entryBody').blur(function(evt) {
+			$('#entryBody').removeClass("focusMe");
+			$('#entryBody').removeClass("focusMy");
+		});
+	}
 	//////////////////////////////
 	// FIX KEYBOARD PROPAGATION //
 	//////////////////////////////

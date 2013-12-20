@@ -4,11 +4,9 @@ body							{ position: relative; display: block; width: 100%; height: 100%; over
 body *							{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
 @font-face 						{ -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
 /*##HW ACCELERATION##*/
-/*
 div#appContent > * { -webkit-transform: translateZ(0px); }
 div#appContent > * { -webkit-transform: translate3d(0,0,0); }
 div#appContent > * { -webkit-backface-visibility: hidden; }
-*/
 /*##FOOTER##*/
 ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); }
 ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; }
@@ -32,11 +30,9 @@ ul#appFooter li#tab3:after		{ content: "settings"; }
 ul#appFooter li#tab4:after		{ content: "info";     }
 ul#appFooter li#tab5:after		{ content: "";         }
 /*##CONTENT##*/
-div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; background-color: #fff; overflow: auto; -webkit-overflow-scrolling: touch; }
+div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; overflow: auto; -webkit-overflow-scrolling: touch; }
 /*##HEADER##*/
-div#appHeader					{ position: absolute; top: 0; left: 0; right: 0; height: 72px; background-color: #fff; color: #fff; }
-/*## TIMER ##*/
-#timer							{ position: absolute; top: 0; left: 0; right: 0; height: 62px; overflow: hidden; }
+#appHeader						{ position: absolute; height: 62px; top: 0; left: 0; right: 0; color: #fff; }
 /*TIMER COLOR*/
 div#deficit,
 div#surplus,
@@ -110,7 +106,7 @@ div#noEntries			{ border-left: 5px solid transparent; }
 #noEntries span			{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
 #overscroll				{ -webkit-user-select: none !important; -webkit-backface-visibility: hidden; position: absolute; left: 0; top: -40px; z-index: 9999; width: 100%; text-align: center; color: #aaa; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
 #underscroll			{ -webkit-user-select: none; -webkit-backface-visibility: hidden; position: absolute; left: 0; bottom: 15px; z-index: -1; width: 100%; text-align: center; color: #777; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
-.heading				{ -webkit-user-select: none; position: absolute; left: 0; top: 0; z-index: 1; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #eee; text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 10pt; color: #444; text-indent: 6px; padding: 10px 0 8px 9px; background-color: #f5f5f5; font-weight: bold; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; text-transform: uppercase; letter-spacing: 3px; }
+.heading				{ -webkit-user-select: none; position: absolute; left: 0; top: 0; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #eee; text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 10pt; color: #444; text-indent: 6px; padding: 10px 0 8px 9px; background-color: #f5f5f5; font-weight: bold; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; text-transform: uppercase; letter-spacing: 3px; }
 #appVersion				{ position: absolute; bottom: 2px; right: 2px; font-size: 9px; color: #aaa; }
 .toolTip:after			{ display: block; font-family: 'FontAwesome'; content: "\f0d8"; background-color: transparent; position: absolute; top: -7px; left: 27px; font-size: 32px; color: rgba(255,255,255,.9); -webkit-backface-visibility: hidden; z-index: 9; text-shadow: rgba(0,0,0,.1) 0 -1px 0; }
 .toolTip:before			{ display: block; position: absolute; top: 12px; left: 12px; font-size: 16px; color: #4D9AE5; background: rgba(255,255,255,.9); padding: 11px 16px 10px 16px; text-align: left; border-radius: 12px; text-shadow: rgba(0,0,0,.04) 0 -1px 0; -webkit-box-shadow: 0px 3px 9px rgba(0,0,0,.2); -webkit-backface-visibility: hidden; z-index: 9; }
@@ -118,21 +114,18 @@ div#noEntries			{ border-left: 5px solid transparent; }
 #appStore				{ position: absolute; bottom: 42px; right: 0px; width: 100%; display: inline-block; text-align: right; }
 #appStore .ios img		{ width: 50%; height: auto; max-width: 200px; }
 #appStore .android img	{ width: 50%; height: auto; max-width: 200px; }
-
-
 /*###################
 ## SKELETONA MASKA ##
 ###################*/
-#timer					{ position: absolute; top: 0; left: 0; text-shadow: rgba(255,255,255,.1) 0 1px 0; }
-#timerFix				{ position: absolute; top: 0; left: 0; }
+#appHeader				{ text-shadow: rgba(255,255,255,.1) 0 1px 0; }
 #entryList				{ width: 100%; min-height: 38px; -webkit-backface-visibility: hidden; }
 #entryListForm			{ width: 100%; height: 154px; position: relative;  overflow: hidden; z-index: 1; }
-#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; min-height: 180px; padding: 36px 0 44px 0; background-color: #fff; overflow: hidden; }
+#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; /*min-height: 180px;*/ padding: 36px 0 44px 0; background-color: #fff; overflow: hidden; }
 /*##############
 ## ENTRY LIST ##
 ###############*/
 #entryList				{ width: 100%; font-size: 13px; -webkit-backface-visibility: hidden; }
-#entryList div			{ width: auto; padding: 11px 0 11px 0; margin: 0; position: relative; border-bottom: 1px solid #eee; border-top: 1px solid transparent; }
+#entryList div			{ width: auto; padding: 11px 0 11px 0; margin: 0; position: relative; border-bottom: 1px solid #eee; border-top: 1px solid transparent; overflow: hidden; }
 span.delete				{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 3px 6px 0 0; padding: 7px 14px 7px 14px; border: 1px solid #953403; border-radius: 5px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 -1px 1px #953403; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ec4a0b),color-stop(1, #ad390c)); }
 span.delete:active		{ background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E0380A),color-stop(1, #9C2A09)); }
 span.delete				{ /*visibility: hidden;*/ -webkit-transition-timing-function: linear; -webkit-transform: translate3d(80px, 0, 0);  -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
@@ -143,7 +136,9 @@ span.delete.open		{ /*visibility: visible;*/ display: inline-block; -webkit-tran
 .entriesBody			{ text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; -webkit-backface-visibility: hidden; padding-left: 8px; margin-right: 9px; height: 16px; } 
 .entriesBody input		{ display: block; }
 .entriesPublished		{ padding-top: 28px; -webkit-backface-visibility: hidden; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; text-shadow: none !important; }
-.editing .entriesPublished { padding-top: 0 !important; }
+.editing .entriesPublished { opacity: 0; }
+
+
 /*#EXPIRED#*/
 div.expired p			{ opacity: .3; }
 div.editing p			{ opacity: 1; }
@@ -176,12 +171,14 @@ div#sliderNeg span		{ width: 0; height: 0; border-style: solid; border-width: 7p
 div#sliderPos span		{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #7E78E2; position: absolute; top: 7px; right: 3px; }
 div#sliderNeg:active	{ /*color: #B93820;*/ }
 div#sliderPos:active	{ /*color: #645EDA;*/ }
-#kcalsAdjust			{ opacity: .10; color: #000; }
-#adjustNeg				{ width: 0; height: 0; border-style: solid; border-width: 9px 18px 9px 0; border-color: transparent #000 transparent transparent; position: absolute; top: 7px; right: 11px; }
-#adjustPos 				{ width: 0; height: 0; border-style: solid; border-width: 9px 0 9px 18px; border-color: transparent transparent transparent #000; position: absolute; top: 7px; left: 11px; }
-#adjustNegBlock			{ position: absolute; right: 50px; top: 0; display: block; width: 50px; height: 40px; }
-#adjustPosBlock			{ position: absolute; right: 0; top: 0; display: block; width: 50px; height: 40px; }
-#resetBlock				{ background-color: transparent; position: absolute; left: 0px; top: 0; display: block; width: 50px; height: 40px; z-index: 999; }
+/*entryList in-line adjust*/
+#kcalsAdjust			{ color: rgba(0,0,0,.1); }
+#adjustPos:before		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 44px; margin-left: -10px; }
+#adjustNeg:before 		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 44px; margin-left: -10px; -webkit-transform: scaleX(-1); }
+#adjustNegBlock:active,
+#adjustPosBlock:active	{ color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
+#adjustPosBlock			{ position: absolute; right:  1px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999;  }
+#adjustNegBlock			{ position: absolute; right: 60px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999; -webkit-transform: scaleX(-1); }
 /*#INPUT MAIN#*/
 input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; border: none; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 1px 1px 0 0; }
 input#entryBody			{ position: absolute; margin-top: 26px; left: 16px; right: 16px; /*top: 64px; fix overflow bug*/ color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
@@ -192,9 +189,11 @@ div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; 
 #entryBodySearch div	{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
 #entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
 div#entryBodySearch:active	{ opacity: 1; }
-select#entryTime		{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
-#entrySubmit			{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px;  top: 110px; font-size: 11pt; border: 1px solid #bababa; border-radius: 28px; opacity: .7; padding: 6px 28px 6px 28px; font-weight: bold; color: #777; }
+select#entryTime		{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+#entrySubmit			{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #bababa; border-radius: 28px; opacity: .7; padding: 6px 28px 6px 28px; font-weight: bold; color: #777; }
 div.submitActive		{ color: #000 !important; border-color: #aaa !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; }
+.android .submitActive	{ -webkit-box-shadow: none !important; }  
+.android #entrySubmit	{ text-shadow: none !important; }
 #sliderBlock			{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
 /*#SUB ELEMENTS#*/
 #configNow				{ -webkit-backface-visibility: hidden; margin: 0; text-align: center; background-color: #fff; position: absolute; left: 0; bottom: 0px; overflow: hidden; color: #333; display: block; font-weight: bold; width: 100%; border: 0; border-top: 0px solid rgba(137,3,6,.15); min-height: 40px; max-height: 44px; height: 44px; overflow: hidden; line-height: 44px; padding: 0; font-size: 18px; }
@@ -558,7 +557,7 @@ li.contentToggleTitle			{ height: 78px; }
 .ios7style .ios7:checked ~ .CheckboxHandle				{ border: 2px solid #53D769; }
 /*#////////////////////#//
 //#// IOS 7 HEIGHT FIX #//
-//#////////////////////#*/
+//#////////////////////#
 body.ios7 #timer,
 body.ios7 #timerFix,
 body.ios7 div#deficit,
@@ -576,4 +575,6 @@ body.ios7 div#deficit,
 body.ios7 div#surplus,
 body.ios7 div#balanced			{ line-height: 83px; }
 body.ios7 #timerTouch			{ height: 74px; }
-
+*/
+body.ios7 #appHeader	{ height: 72px; }
+body.ios7 #appContent	{ top:    72px; }

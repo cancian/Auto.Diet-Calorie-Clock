@@ -57,10 +57,6 @@ Diary.prototype.deSetup = function(callback) {
 Diary.prototype.dropDB = function(t) {
 	// REVERT TO DEFAULT
 	t.executeSql('DELETE FROM diary_entry');
-	document.getElementById('pageSlideInfo').innerHTML = "";
-	document.getElementById('pageSlideCalc').innerHTML = "";
-	$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-	$.get("info_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideInfo").html("<div id='sideMenuInfo'>" + data + "</div>"); });
 	window.localStorage.clear();
 	window.localStorage.setItem("absWindowHeight",window.innerHeight);
 	window.localStorage.setItem("absWindowWidth",window.innerWidth);
@@ -74,6 +70,13 @@ Diary.prototype.dropDB = function(t) {
 	//GET CURRENTS
 	document.getElementById('editableDiv').innerHTML = window.localStorage.getItem("config_kcals_day_0");
 	updateEntriesTime();
+	//SCROLLBAR UPDATE			
+	if(!isMobile.iOS()) {
+		$("#appContent").css("overflow","hidden");
+		setTimeout(function(){
+			$("#appContent").getNiceScroll().onResize();
+		},200);
+	}
 };
 /////////////////
 // GET ENTRIES //
@@ -237,7 +240,7 @@ function trim(str) {
 // GET WINDOW ORIENTATION //
 ////////////////////////////
 function getOrientation() {
-	if(window.orientation == 90 || window.orientation == -90) { //Landscape Mode
+	if(window.orientation == 90 || window.orientation == -90) {
 		return "landscape";
 	}
 	else if (window.orientation == 0 || window.orientation == 180) {
@@ -272,7 +275,7 @@ function afterShow(t) {
 function afterHide() {
 	setTimeout(function() { window.location=''; },500);
 	//SET CSS TRANSITION
-	$('body').css("-webkit-transition-timing-function","linear");
+	$('body').css("-webkit-transition-timing-function","ease");
 	$('body').css("-webkit-transition-duration",".25s");
 	$("body").css("opacity","0");
 }
@@ -417,6 +420,7 @@ function updateEntries(partial) {
 		//console.log('updateEntries()');
 		var s = "";
 		var p = "";
+		var rowClass;
 		var lastRow = "";
 		var lastId  = "";
 		for(var i=0, len=data.length; i<len; i++) {
@@ -447,7 +451,14 @@ function updateEntries(partial) {
 			if(window.localStorage.getItem("config_start_time") > dataPublished) { rowClass = rowClass + " expired"; }
 			// CORE OUTPUT
 			//<p class='entriesId'>#" + Number(i+1) + "</p>
-			var dataHandler = "<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='" + rowClass + "' name='" + dataPublished + "'><p class='entriesTitle'>" + dataTitle + "</p><p class='entriesKcals'>kcals</p><p class='entriesBody'>" + dataBody + "</p><p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p><span class='delete'>" + LANG('DELETE') + "</span></div>";
+			var dataHandler = "\
+			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='" + rowClass + "' name='" + dataPublished + "'>\
+				<p class='entriesTitle'>" + dataTitle + "</p>\
+				<p class='entriesKcals'>kcals</p>\
+				<p class='entriesBody'>" + dataBody + "</p>\
+				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
+				<span class='delete'>" + LANG('DELETE') + "</span>\
+			</div>";
 			// ROW++
 			s += dataHandler;
 			//partial == last row time

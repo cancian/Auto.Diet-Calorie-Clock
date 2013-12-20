@@ -9,9 +9,9 @@ function init() {
 	diary = new Diary();
 	diary.setup(startApp);
 }
-//#////////////////#//
-//# CORE KICKSTART #//
-//#////////////////#//
+//#///////////#//
+//# START APP #//
+//#///////////#//
 function startApp() {
 //#////////////#//
 //# INDEX.HTML #//
@@ -27,130 +27,11 @@ $("body").html('\
 <div id="appHeader"></div>\
 <div id="appContent"></div>\
 ');
-//#////////////////////#//
-//# RESIZE/ORIENTATION #//
-//#////////////////////#//
-function appResizer(time) {
-	setTimeout(function() {
-		$('body').height(window.innerHeight);
-		$('#entryListWrapper').css("height","auto");
-		$('#entryListWrapper').css("min-height",(window.innerHeight) - (224 + $('#appHeader').height() + $('#appFooter').height()) + "px");
-		$("#appContent").getNiceScroll().onResize();
-	 },time);
-}
-$('body').height(window.innerHeight);
-///////////////////
-// MOBILE ROTATE //
-///////////////////
-$(window).on("orientationchange", function(evt) {
-	appResizer(100);
-	appResizer(300);
-});
-//RESIZE IF WINDOW > BODY
-$(window).on("resize", function(evt) {
-	if(window.innerHeight > $('body').height()) {
-		$('body').height(window.innerHeight);
-	}
-});
-//ALWAYS RESIZE DESKTOP
-$(window).on("resize", function(evt) {
-	if(!hasTouch()) {
-		$('body').height(window.innerHeight);
-	}
-});
-
-
-	//$('#entryListScroller').css("height","auto");
-	//$('#entryListWrapper').css("height","auto");
-	//$('#entryListScroller').css("height","100%");
-	//$('#entryListWrapper').css("height","100%");
-	//$('#entryListScroller').css("height",(Number($('#afterLoad').css("height").replace("px","")) - (51)) + "px");
-		//$('#entryListWrapper').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - (279)) + "px");
-		//NO WHITE FLICKE 
-		//$('#entryListScroller').css("min-height",(Number($('#afterLoad').css("height").replace("px","")) - (($('#timer').height()))) + "px");
-		//$('#entryListWrapper').css("min-height",($('#entryListScroller').height() - ((229 + $('#timer').height()))) + "px");
-		//$('#pageSlideInfo').css("min-height",($('#entryListScroller').height()));		
-		//$('#pageSlideCalc').css("min-height",($('#entryListScroller').height()));		
-		//$('#pageSlideFood').css("min-height",($('#entryListScroller').height() - (61)) + "px");
-		//$('#foodList').css("min-height",($('#entryListScroller').height()));		
-		//$('#pageSlideInfo').css("height",(window.localStorage.getItem("absWindowHeight") - ($('#timer').height())) + "px");
-		//$('#pageSlideCalc').css("height",(window.localStorage.getItem("absWindowHeight") - ($('#timer').height())) + "px");
-		//$('#pageSlideFood').css("height",(window.localStorage.getItem("absWindowHeight") - ($('#timer').height())) + "px");
-	//});
-
-	//$(window).on(mobileBrowserWindow, function(evt) {
-//	$(window).on("orientationchange" + resizeDesktop, function(evt) {
-		//update if different than stored
-	//	if(getOrientation() != window.localStorage.getItem("absOrientation")) {
-	//		window.localStorage.setItem("absOrientation",getOrientation());
-			//switch values
-	//		var prevHeight = window.localStorage.getItem("absWindowHeight");
-	//		var prevWidth  = window.localStorage.getItem("absWindowWidth");
-	//		window.localStorage.setItem("absWindowHeight",prevWidth);
-	//		window.localStorage.setItem("absWindowWidth",prevHeight);
-			//$("#entryBody").val(window.localStorage.getItem("absWindowHeight") + " x " + window.localStorage.getItem("absWindowWidth"));
-		//reajust num
-//		adjustPos(0);
-		//resize input
-//		$('#entryBody').css("left","16px");
-//		$('#entryBody').css("right","16px");
-//		$('#entryBody').css("borderColor","transparent");
-		//main
-		//$('#entryListWrapper').css("height","auto");
-		//RESIZE
-		//RESIZE
-		//suspend animation
-		//$('#entryListWrapper').css("min-height",((window.innerHeight) - ((234 + scrollPad + $('#timer').height()))) + "px");
-		//$('#entryListScroller').css("-webkit-transition-duration","0");
-		//$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
-		//setTimeout(function() { $('#entryListScroller').css("-webkit-transition-duration",".25s");},0);
-		//suspend animation
-		//$('#pageSlideInfo').css("-webkit-transition-duration","0");
-		//$('#pageSlideInfo').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
-		//setTimeout(function() { $('#pageSlideInfo').css("-webkit-transition-duration",".25s");},0);
-		//suspend animation
-		//$('#pageSlideCalc').css("-webkit-transition-duration","0");
-		//$('#pageSlideCalc').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
-		//setTimeout(function() { $('#pageSlideCalc').css("-webkit-transition-duration",".25s");},0);
-		//suspend animation
-		//$('#pageSlideFood').css("-webkit-transition-duration","0");
-		//$('#pageSlideFood').css("height",($('#entryListScroller').height() - (61)) + "px");
-		//setTimeout(function() { $('#pageSlideFood').css("-webkit-transition-duration",".25s");},0);
-		//adjust results scroller
-		//$('#foodList').css("height",($('#entryListScroller').height() - (61)) + "px");
-	//	}
-	//food input
-	//$('#foodSearch').css("left","0px");
-	//$('#foodSearch').css("right","0px");
-	//$('#foodSearch').css("margin-bottom","1px");
-
-	/////////////////////////
-	// fix scrolling delay //
-	/////////////////////////
-	/*
-	scrollFix = setTimeout(function() {
-		$('#entryListWrapper').css("min-height",(Number($('#entryListWrapper').css("height").replace("px","")) + (1)) + "px");
-		$('#entryListWrapper').css("min-height",(Number($('#entryListWrapper').css("height").replace("px","")) - (1)) + "px");
-		//$('#entryListWrapper').css("height","auto");
-		$('#entryListWrapper').css("height","auto");
-		$('#entryListWrapper').css("min-height",((window.innerHeight) - ((234 + scrollPad + $('#timer').height()))) + "px");
-		$('#entryListScroller').css("height",((window.innerHeight) - ($('#timer').height())) + "px");
-	},300);
-	*/
-//});
-
-
-
-
-//#///////////////#//
-//# DEFINE LAYOUT #//
-//#///////////////#//
-$("#appHeader").append('<div id="timer"></div>');
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
-function openSettings() { $("#appContent").html('openSettings '); }
-function openInfo()	 { $("#appContent").html('openInfo ');     }
+	function openSettings() { $("#appContent").html('openSettings '); }
+	function openInfo()	 { $("#appContent").html('openInfo ');     }
 function appFooter(id) {
 	$("ul#appFooter li").removeClass("selected");
 	window.localStorage.setItem("app_last_tab",id);
@@ -158,6 +39,13 @@ function appFooter(id) {
 	//RELOAD CONTAINER
 	$("#appContent").remove();
 	$("body").append("<div id='appContent'></div>");
+	//DELAY CONTENT
+	$("#appContent").css("opacity","0");
+	//$('#appContent').css("-webkit-transition-timing-function","ease");
+	//$('#appContent').css("-webkit-transition-duration",".1s");
+	setTimeout(function() {
+		$("#appContent").css("opacity","1");
+	},50);
 	//SCROLLBAR
 	if(!isMobile.iOS()) {
 		$("#appContent").css("overflow","hidden");
@@ -170,6 +58,8 @@ function appFooter(id) {
 	if(id == "tab2") { openProfile();  }
 	if(id == "tab3") { openSettings(); }
 	if(id == "tab4") { openInfo();	  }
+	//NO 50ms FLICKER
+	appResizer(0);
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -183,21 +73,55 @@ $("ul#appFooter li").on(touchstart, function(e) {
 	e.stopPropagation();
 	appFooter($(this).attr("id"));
 });
-
-
-
-
-
-
-
-
-
-
-
-///////////////////
-// START WORKING //
-///////////////////
-afterShow(0);
+//#////////////////////#//
+//# RESIZE/ORIENTATION #//
+//#////////////////////#//
+function appResizer(time) {
+	setTimeout(function() {
+		$('body').height(window.innerHeight);
+		//NO < 0
+		var wrapperMinH = (window.innerHeight) - (234 + $('#appHeader').height() + $('#appFooter').height());
+		if(wrapperMinH < 0) {
+			wrapperMinH = 0;
+		}
+		$('#entryListWrapper').css("height","auto");
+		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
+		if(!isMobile.iOS()) { $("#appContent").getNiceScroll().onResize(); }
+	 },time);
+}
+////////////
+// ONLOAD //
+////////////
+appResizer(0);
+/////////////////
+// ORIENTATION //
+/////////////////
+$(window).on("orientationchange", function(evt) {
+	appResizer(0);
+	appResizer(100);
+	appResizer(300);
+	appResizer(600);
+});
+////////////
+// RESIZE //
+////////////
+$(window).on("resize", function(evt) {
+	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
+	if(window.innerHeight > $('body').height()) {
+		//IOS re-scrolling bug
+		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
+		$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);
+		appResizer(0);
+	}
+	//ALWAYS RESIZE DESKTOP
+	if(!hasTouch()) {
+		appResizer(0);
+	}
+});
+//#########################//
+//##    START WORKING    ##//
+//#########################//
+afterShow(250);
 updateTimer();
 //updateEntries();
 //updateEntriesTime();
@@ -227,116 +151,32 @@ if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 } else {
 	var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 }
-$("#timer").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
+/////////////////////
+$("#appHeader").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
 $('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
-
-//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-
-	var scrollPad = 0;
-	/////////////////
-	// IOS VERSION //
-	/////////////////
-/*
-	if(/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
-		$("body").addClass("ios");
-		scrollPad = -1;
-		
-			if(/OS [1-5](.*) like Mac OS X/i.test(navigator.userAgent)) {
-				///////////
-				// IOS 5 //
-				///////////
-				//document.getElementById('entryListScroller').style.WebkitOverflowScrolling = 'none';
-				document.getElementById('entryListScroller').style.WebkitOverflowScrolling = 'touch';
-				//stuff...
-			} else if(/OS [6](.*) like Mac OS X/i.test(navigator.userAgent)) {
-				///////////
-				// IOS 6 //
-				///////////
-				document.getElementById('entryListScroller').style.WebkitOverflowScrolling = 'touch';
-				//stuff...
-			} else if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent)) {
-				///////////
-				// IOS 7 //
-				///////////
-				document.getElementById('entryListScroller').style.WebkitOverflowScrolling = 'touch';
-				//IOS7 HEIGHT FIX
-				var ios7Height = "71px";
-				//$('input#editable').css("top", "44px");
-				//$("div#entryListFix").css("margin-top", "71px");
-				//$("div#deficit,div#surplus,div#balanced").css("line-height", "83px");
-				//$("div#timerFix,#timer,siv#deficit,div#surplus,div#balanced,div.editable").css("height", "71px");
-				//$('div#pageSlideInfo,div#pageSlideFood,div#pageSlideCalc,div#editableBlock').css("top", "71px");
-				$("body").addClass("ios7");
-				//$("span#subKcalsRange").css("bottom", "42px");
-				//$("span#subCurrentDay").css("bottom", "32px");
-				//$("span#statusStop").css("line-height", "66px");
-				//stuff...
-			}
-		} else {
-			/////////////
-			// NOT IOS //
-			/////////////
-//			document.getElementById('entryListScroller').style.WebkitOverflowScrolling = 'touch';
-			//stuff...
-		}
-*/
-if(hasTouch()) {
-	////////////
-	// MOBILE //
-	////////////
-	//set fixed height
-	//$('#entryListWrapper').css("min-height",                       ((window.innerHeight) - (234 + scrollPad + $('#timer').height())) + "px");
-	//$('#entryListScroller').css("height",                          ((window.innerHeight) - (      $('#timer').height())) + "px");
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",((window.innerHeight) - (      $('#timer').height())) + "px");
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
-	/////////////
-	// ANDROID //
-	/////////////
-	if(isMobile.Android()) {
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","absolute");
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");
+///////////
+// IOS 7 //
+///////////
+if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent)) {
+	$("body").addClass("ios7");
+}
+/////////////
+// ANDROID //
+/////////////
+if(isMobile.Android()) {
 		$("body").addClass("android");
-		//$("#iconInfo").hide();
-		//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","absolute");
-		//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");
-		// PRELOAD SIDE MENUS
-		setTimeout(function(){
-			//re-set fixed height
-			//$('#entryListWrapper').css("min-height",                       ($('#afterLoad').height() - (230 + $('#timer').height())) + "px");
-			//$('#entryListScroller').css("height",                          ($('#afterLoad').height() - (      $('#timer').height())) + "px");
-			//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",($('#afterLoad').height() - (      $('#timer').height())) + "px");
-		},1000);
-	}
-	//////////////////
-	// INTRO NOTICE //
-	//////////////////
-	if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
-		$('#entryListForm').addClass("toolTip");
-	}
-}// else {
-	//APP OR BROWSER
-	var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-	if(!app) {
-	////////////////////
-	// WEBKIT BROWSER //
-	////////////////////
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("position","fixed");
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top","0");	
-	//set fixed height  
-	//$('#entryListWrapper').css("min-height",                       ((window.innerHeight) - (234 + scrollPad + $('#timer').height())) + "px");
-	//$('#entryListScroller').css("height",                          ((window.innerHeight) - (      $('#timer').height())) + "px");
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("height",((window.innerHeight) - (      $('#timer').height())) + "px");
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("top",   ($('#timer').height()) + "px");
-	//INTRO NOTICE
-	if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
-		$('#entryListForm').addClass("toolTip");
-	}
-	//$("#configNow").html($("#configNow").html().replace(LANG("RESET_COUNTER"),"<a id='mailTo' href='#'>support@mylivediet.com</a>"))
-	$("#mailTo").on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		window.location='mailto:support@mylivediet.com?Subject=MyLiveDiet%20-%20Support';
-	});
+}
+//////////////////
+// INTRO NOTICE //
+//////////////////
+if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
+	$('#entryListForm').addClass("toolTip");
+}
+	//$("#mailTo").on(touchstart,function(evt) {
+	//	evt.preventDefault();
+	//	evt.stopPropagation();
+	//	window.location='mailto:support@mylivediet.com?Subject=MyLiveDiet%20-%20Support';
+	//});
 	//APP STORE ICONS ON DESKTOP
 	//$('#entryListWrapper').append("<div id='appStore'><span class='ios'><img src='http://mylivediet.com/img/appstore_ios.png' /></span><span class='android'><img src='http://mylivediet.com/img/appstore_android.png' /></span></div");	
 	//$(".ios img").on(touchstart,function(evt) {
@@ -345,160 +185,6 @@ if(hasTouch()) {
 	//$(".android img").on(touchstart,function(evt) {
 	//	window.location='https://play.google.com/store/apps/details?id=com.cancian.mylivediet';
 	//});
-	}
-//}
-// PRELOAD SIDE MENUS
-setTimeout(function(){
-	//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-	//$.get("info_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideInfo").html("<div id='sideMenuInfo'>" + data + "</div>"); });
-	//$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-	//$.get("info_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideInfo").html("<div id='sideMenuInfo'>" + data + "</div>"); });
-},1000);
-//$.get("food.html", function(data) { $("#pageSlideFood").html("<div id='sideMenuFood'>" + data + "</div>"); });
-
-
-
-
-
-
-
-	////////////////////
-	// READ INFO.HTML //
-	////////////////////
-	//$("#timerTouch,#editableDiv").on("swipeRight", function(evt) {
-	$("#timerTouch, #editableDiv").swipe({
-	swipe:function(evt,direction) {
-	if(direction == 'right') {
-		evt.preventDefault();
-		//not while editing
-		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') ) {
-		//NO SWIPE OVERLAP
-		if(!$('.active').hasClass('open')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
-			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-		//no overlap from calc
-		if(!$("#pageSlideCalc").hasClass("open")) {
-			//hide
-			if($('#pageSlideInfo').hasClass("open") && !$('#pageSlideInfo').hasClass("busy")) {
-				$('#pageSlideInfo').addClass("busy");
-				$('#pageSlideInfo').removeClass("open");
-				$('#entryListScroller').removeClass("info");
-				$('#pageSlideInfo').on('webkitTransitionEnd',function(e) { $('#pageSlideInfo').removeClass('busy'); $("#CyclicInput1").blur(); $("#CyclicInput2").blur(); });
-				//wipe tmp
-				//$("#pageSlideInfo").html('');
-			} else {
-				if(!$('#pageSlideInfo').hasClass('busy') && !$('#pageSlideCalc').hasClass('busy') && !$('#pageSlideFood').hasClass('busy')  && !$('#pageSlideFood').hasClass('open')) {
-					//load html
-					if(document.getElementById('pageSlideInfo').innerHTML == "") {
-						//$.get("info_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) {
-						$.get("info_" + LANG("LANGUAGE") + ".html", function(data) {
-							$("#pageSlideInfo").html("<div id='sideMenuInfo'>" + data + "</div>");
-						});
-					}
-					//show
-					$('#pageSlideInfo').addClass("open");
-					$('#entryListScroller').addClass("info");
-					$('#pageSlideInfo').addClass('busy');
-					$('#pageSlideInfo').on('webkitTransitionEnd',function(e) { $('#pageSlideInfo').removeClass('busy');
-						//INTRO TOOLTIP
-						window.localStorage.setItem("config_swipe_tooltip","seen");
-						$('#entryListForm').removeClass("toolTip");
-					});
-				}}
-			}}
-		}}
-	//});
-	////////////////////
-	// READ CALC.HTML //
-	////////////////////
-	//$("#timerTouch,#editableDiv").on("swipeLeft", function(evt) {
-	} else if(direction == 'left') {
-		evt.preventDefault();
-		//not while editing
-		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') ) {
-		//NO SWIPE OVERLAP
-		if(!$('.active').hasClass('open')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
-			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-		//no overlap from info
-		if(!$("#pageSlideInfo").hasClass("open")) {
-			//hide
-			if($('#pageSlideCalc').hasClass("open") && !$('#pageSlideCalc').hasClass("busy")) {
-				$('#pageSlideCalc').addClass('busy');
-				$('#pageSlideCalc').removeClass("open");
-				$('#entryListScroller').removeClass("calc");
-				$('#pageSlideCalc').on('webkitTransitionEnd',function(e) { $('#pageSlideCalc').removeClass('busy'); $("*").blur(); });
-			} else {
-				if(!$('#pageSlideCalc').hasClass('busy') && !$('#pageSlideInfo').hasClass('busy') && !$('#pageSlideFood').hasClass('busy')  && !$('#pageSlideFood').hasClass('open')) {
-					//load html
-					if(document.getElementById('pageSlideCalc').innerHTML == "") {
-						//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) {
-						$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) {
-							$("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>");
-						});
-					}
-					//show
-					$('#pageSlideCalc').addClass('busy');
-					$('#pageSlideCalc').addClass("open");
-					$('#entryListScroller').addClass("calc");
-					$('#pageSlideCalc').on('webkitTransitionEnd',function(e) { $('#pageSlideCalc').removeClass('busy'); });
-					}}
-				}}
-			}}
-		}}
-	});
-	$("#timerTouch, #editableDiv").swipe("option", "threshold", 20);
-	//////////////////////
-	// PAGESLIDE CLOSER //
-	//////////////////////
-	$("#timerTouch,#editableDiv").on(tap + "swipeLeft swipeRight", function(evt) {
-		evt.preventDefault();
-		//hide info
-		if($('#pageSlideInfo').hasClass("open") && !$('#pageSlideInfo').hasClass("busy")) {
-			$('#pageSlideInfo').addClass('busy');
-			$('#pageSlideInfo').removeClass("open");
-			$('#entryListScroller').removeClass("info");
-			$('#pageSlideInfo').on('webkitTransitionEnd',function(e) { $('#pageSlideInfo').removeClass('busy'); $("#CyclicInput1").blur(); $("#CyclicInput2").blur(); });
-			//wipe tmp
-			//$("#pageSlideInfo").html('');
-		}
-		//hide calc
-		if($('#pageSlideCalc').hasClass("open") && !$('#pageSlideCalc').hasClass("busy")) {
-			$('#pageSlideCalc').addClass('busy');
-			$('#pageSlideCalc').removeClass("open");
-			$('#entryListScroller').removeClass("calc");
-			$('#pageSlideCalc').on('webkitTransitionEnd',function(e) {
-				$('#pageSlideCalc').removeClass('busy'); 
-				//WIPE ON CLOSE
-				if(!$('#pageSlideCalc').hasClass("open")) {
-					$('#pageSlideCalc').html('');
-					//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-					$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-				}
-			});
-		}
-		//hide food
-		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
-			$("#foodSearch").blur();
-			$('#pageSlideFood').addClass('busy');
-			$('#pageSlideFood').removeClass("open");
-			$('#entryListScroller').removeClass("food");
-			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
-				$('#pageSlideFood').removeClass('busy'); 
-				//WIPE ON CLOSE
-				if(!$('#pageSlideFood').hasClass("open")) {
-					$('#pageSlideFood').removeClass('busy');
-					//$('#pageSlideFood').css("opacity","0");
-				}
-			});
-		}
-	});
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //
 	//////////////////////////
@@ -588,10 +274,6 @@ setTimeout(function(){
 			}}}}
 		}
 	});
-
-
-
-
 ////#//
 } //#//
 ////#//

@@ -1,12 +1,23 @@
 
 
-- timer crappy repeat on early android
 
+
+- start stop reset bar
+- position from bottom timer
+- update +food - exer on #go
+- lost weight / burned calories
+- 
+- 
+- 
+
+
+
+- timer crappy repeat on early android
 - o delete entyr no android puxa a nicescrollbar erroneamente, colocar if.not.ios
 
 
 
-#################
+################# 41A9DE
 ## VERSION LOG ##
 #################
 E5E5E5
