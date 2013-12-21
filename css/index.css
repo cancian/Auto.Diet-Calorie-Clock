@@ -1,12 +1,48 @@
 /*## NORMALIZE ##*/
 html,
-body							{ position: relative; display: block; width: 100%; height: 100%; overflow: visible; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
-body *							{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
-@font-face 						{ -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
+body					{ position: relative; display: block; width: 100%; height: 100%; overflow: visible; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
+*,
+h2,
+input[readonly]			{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
+@font-face				{ -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
+input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; border-radius: 0; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: "Helvetica Neue", Helvetica, Arial; }
 /*##HW ACCELERATION##*/
-div#appContent > * { -webkit-transform: translateZ(0px); }
-div#appContent > * { -webkit-transform: translate3d(0,0,0); }
-div#appContent > * { -webkit-backface-visibility: hidden; }
+/*
+div#appContent > *		{ -webkit-transform: translateZ(0px); -webkit-transform: translate3d(0,0,0); }
+*/
+body > *				{ -webkit-backface-visibility: hidden; }
+/*###################
+## SKELETONA MASKA ##
+###################*/
+.bold					{ font-weight: bold;  }
+.italic					{ font-style: italic; }
+.hidden					{ display: none !important; }
+.show					{ display: inline; }
+.white					{ color: #fff !important; }
+.invisible				{ visibility: hidden; position: absolute; left: 0; top: 0; }
+p						{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
+
+div#noEntries			{ border-left: 5px solid transparent; }
+#noEntries span			{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
+#overscroll				{ -webkit-user-select: none !important; -webkit-backface-visibility: hidden; position: absolute; left: 0; top: -40px; z-index: 9999; width: 100%; text-align: center; color: #aaa; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
+#underscroll			{ -webkit-user-select: none; -webkit-backface-visibility: hidden; position: absolute; left: 0; bottom: 15px; z-index: -1; width: 100%; text-align: center; color: #777; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
+.heading				{ -webkit-user-select: none; position: absolute; left: 0; top: 0; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #eee; text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 10pt; color: #444; text-indent: 6px; padding: 10px 0 8px 9px; background-color: #f5f5f5; font-weight: bold; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; text-transform: uppercase; letter-spacing: 3px; }
+#appVersion				{ position: absolute; bottom: 2px; right: 2px; font-size: 9px; color: #aaa; }
+.toolTip:after			{ display: block; font-family: 'FontAwesome'; content: "\f0d8"; background-color: transparent; position: absolute; top: -7px; left: 27px; font-size: 32px; color: rgba(255,255,255,.9); -webkit-backface-visibility: hidden; z-index: 9; text-shadow: rgba(0,0,0,.1) 0 -1px 0; }
+.toolTip:before			{ display: block; position: absolute; top: 12px; left: 12px; font-size: 16px; color: #4D9AE5; background: rgba(255,255,255,.9); padding: 11px 16px 10px 16px; text-align: left; border-radius: 12px; text-shadow: rgba(0,0,0,.04) 0 -1px 0; -webkit-box-shadow: 0px 3px 9px rgba(0,0,0,.2); -webkit-backface-visibility: hidden; z-index: 9; }
+
+#appStore				{ position: absolute; bottom: 42px; right: 0px; width: 100%; display: inline-block; text-align: right; }
+#appStore .ios img		{ width: 50%; height: auto; max-width: 200px; }
+#appStore .android img	{ width: 50%; height: auto; max-width: 200px; }
+/**/
+#appHeader				{ text-shadow: rgba(255,255,255,.1) 0 1px 0; }
+#entryList				{ width: 100%; min-height: 38px; -webkit-backface-visibility: hidden; }
+#entryListForm			{ width: 100%; height: 154px; position: relative;  overflow: hidden; z-index: 1; }
+#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; /*min-height: 180px;*/ padding: 36px 0 44px 0; background-color: #fff; overflow: hidden; }
+
+
+
+
 /*##FOOTER##*/
 ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); }
 ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; }
@@ -42,7 +78,7 @@ div#surplus					{ background-color: #309030; }
 div#balanced				{ background-color: #316ADC; }
 
 
-span#timerBalance 			{ position: absolute; top: 0px; bottom: 0px; left: 12px; width: 100px; line-height: 50px; font-size: 32px; background-color: rgba(255,255,255,.0); text-align: left; }
+span#timerBalance 			{ position: absolute; bottom: 12px; left: 12px; width: 100px; line-height: 50px; font-size: 28px; background-color: rgba(255,255,255,.0); text-align: left; white-space: nowrap; }
 
 span#timerFood 				{ position: absolute; top: 4px;    left: 150px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
 span#timerExercise 			{ position: absolute; bottom: 4px; left: 150px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
@@ -50,7 +86,7 @@ span#timerExercise 			{ position: absolute; bottom: 4px; left: 150px; width: 70p
 span#subKcalsDay			{ position: absolute; top: 5px; bottom: 5px; right: 5px; width: 92px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: ; background-color: rgba(255,255,255,.3); }
 
 
-span#timerBalance:after		{ content: "caloric balance"; position: absolute; bottom: -12px; left: 4px; font-size: 9px; text-transform: uppercase; }
+span#timerBalance:after		{ content: "caloric balance"; position: absolute; bottom: -23px; left: 19px; font-size: 9px; text-transform: uppercase; }
 span#timerFood:after		{ content: "food";     position: absolute; bottom: -2px; left: 5px; font-size: 8px; text-transform: uppercase; }
 span#timerExercise:after	{ content: "exercise"; position: absolute; bottom: -2px; left: 5px; font-size: 8px; text-transform: uppercase; }
 span#subKcalsDay:after		{ content: "daily calories"; position: absolute; bottom: -8px; left: 0px; font-size: 8px; text-transform: uppercase; }
@@ -58,7 +94,7 @@ span#subKcalsDay:after		{ content: "daily calories"; position: absolute; bottom:
 
 /*#SUB DATA#*/
 
-span#subStatusEq			{ /*display: none;*/ position: absolute; bottom: 0px; left: 13px;  font-size: 42%; line-height: normal; color: #fff; text-align: left;  text-shadow: none; text-indent: 0; opacity: .47; /*opacity: .54;*/ }
+span#subStatusEq			{ display: none; position: absolute; bottom: 0px; left: 13px;  font-size: 42%; line-height: normal; color: #fff; text-align: left;  text-shadow: none; text-indent: 0; opacity: .47; /*opacity: .54;*/ }
 /*#SUB DATA CYCLIC#*/
 span#subDayName				{ /*display: none; font-size: 10px;*/ display: none; position: absolute; bottom: 27px; right: 16px; font-size: 42%; line-height: normal; color: #fff; text-align: right; text-transform: uppercase; text-shadow: none; text-indent: 0; opacity: .47; }
 span#subKcalsRange			{ /*display: none;*/ position: absolute; bottom: 38px; left: 12px; font-size: 10px; line-height: normal; color: rgba(255,255,255,.5); text-align: right; text-shadow: none; text-indent: 0; }
@@ -92,35 +128,6 @@ span#statusMain				{ opacity: .18; font-size: 100%; color: rgba(0,0,0,.925); tex
 
 
 
-
-
-.bold					{ font-weight: bold;  }
-.italic					{ font-style: italic; }
-.hidden					{ display: none !important; }
-.show					{ display: inline; }
-.white					{ color: #fff !important; }
-.invisible				{ visibility: hidden; position: absolute; left: 0; top: 0; }
-p						{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
-input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; border-radius: 0; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: "Helvetica Neue", Helvetica, Arial; }
-div#noEntries			{ border-left: 5px solid transparent; }
-#noEntries span			{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
-#overscroll				{ -webkit-user-select: none !important; -webkit-backface-visibility: hidden; position: absolute; left: 0; top: -40px; z-index: 9999; width: 100%; text-align: center; color: #aaa; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
-#underscroll			{ -webkit-user-select: none; -webkit-backface-visibility: hidden; position: absolute; left: 0; bottom: 15px; z-index: -1; width: 100%; text-align: center; color: #777; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
-.heading				{ -webkit-user-select: none; position: absolute; left: 0; top: 0; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #eee; text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 10pt; color: #444; text-indent: 6px; padding: 10px 0 8px 9px; background-color: #f5f5f5; font-weight: bold; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; text-transform: uppercase; letter-spacing: 3px; }
-#appVersion				{ position: absolute; bottom: 2px; right: 2px; font-size: 9px; color: #aaa; }
-.toolTip:after			{ display: block; font-family: 'FontAwesome'; content: "\f0d8"; background-color: transparent; position: absolute; top: -7px; left: 27px; font-size: 32px; color: rgba(255,255,255,.9); -webkit-backface-visibility: hidden; z-index: 9; text-shadow: rgba(0,0,0,.1) 0 -1px 0; }
-.toolTip:before			{ display: block; position: absolute; top: 12px; left: 12px; font-size: 16px; color: #4D9AE5; background: rgba(255,255,255,.9); padding: 11px 16px 10px 16px; text-align: left; border-radius: 12px; text-shadow: rgba(0,0,0,.04) 0 -1px 0; -webkit-box-shadow: 0px 3px 9px rgba(0,0,0,.2); -webkit-backface-visibility: hidden; z-index: 9; }
-
-#appStore				{ position: absolute; bottom: 42px; right: 0px; width: 100%; display: inline-block; text-align: right; }
-#appStore .ios img		{ width: 50%; height: auto; max-width: 200px; }
-#appStore .android img	{ width: 50%; height: auto; max-width: 200px; }
-/*###################
-## SKELETONA MASKA ##
-###################*/
-#appHeader				{ text-shadow: rgba(255,255,255,.1) 0 1px 0; }
-#entryList				{ width: 100%; min-height: 38px; -webkit-backface-visibility: hidden; }
-#entryListForm			{ width: 100%; height: 154px; position: relative;  overflow: hidden; z-index: 1; }
-#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; /*min-height: 180px;*/ padding: 36px 0 44px 0; background-color: #fff; overflow: hidden; }
 /*##############
 ## ENTRY LIST ##
 ###############*/
@@ -340,44 +347,50 @@ overflow: hidden;
 /*#############
 ## CALC FORM ##
 #############*/
-#calcForm						{ font-size: 11px; overflow: hidden; padding-top: 16px; -webkit-backface-visibility: hidden; }
-#calcForm h2					{ margin: 9px 0 5px 0; padding: 6px 0 6px 10px; line-height: normal; background-color: #262626; display: block; width: 100%; font-size: 11pt; text-align: left; float: left; }
-#calcForm h2 span				{ font-size: 12px; font-weight: normal; color: #666; text-align: left; }
-#calcForm div					{ display: block; padding: 6px 0 0px 12px; border: 0px solid #fff; }
-#calcForm label+label			{  }
-#calcForm label					{ width: 120px; float: left; color: #fff; font-weight: bold; padding: 4px 0 4px 0; }
-#calcForm label#mantain			{ padding: 0; }
-#calcForm label span			{ color: #ffcc33; font-size: 12px; }
-#calcForm input					{ font-size: 11px; min-width: 65px; border: 0px solid #333; background-color: #fff; color: #000; padding: 2px 3px 2px 3px; border-radius: 0; }
-#calcForm select				{ font-size: 11px; background-color: #fff; min-width: 80px; color: #000; border: 0px solid #fff; border-radius: 0; -webkit-appearance: none; padding: 2px 2px 2px 2px; -webkit-backface-visibility: hidden; }
-#calcForm .selectArrow			{ position: relative; -webkit-backface-visibility: hidden; }
-#calcForm .selectArrow:after	{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 3px; right: 5px; color: #000; -webkit-backface-visibility: hidden; }
-#calcForm select#pA2C,
-#calcForm select#pA3C			{ width: 83px; margin-left: 2px; } 
-#calcForm #pA6M2,
-#calcForm #pA6G					{ min-width: 42px !important; width: 46px; margin-left: 3px; }
-#calcForm #pA5B					{ width: 95%; max-width: 300px; }
-/*#calcForm input[type="submit"]	{  }*/
-#calcForm input[readonly]		{ background-color: transparent !important; font-weight: bold; color: #FF7A46 !important; font-size: 10pt; -webkit-user-select: none !important; -webkit-appearance: none !important; -webkit-tap-highlight-color: rgba(0,0,0,0) !important; }
-#calcForm input[readonly]:active{ color: #fff !important; }
-#calcForm #pA3B,
-#calcForm #pA2B					{ width: 73px; margin-left: 2px; line-height: 14px; }
-#pA7B,#pA7F,#pA7L				{ z-index: 999; }
-#pA7B:active,
-#pA7F:active,
-#pA7L:active					{ color: #fff !important; }
-#calcForm input 				{ /*-webkit-appearance: none !important;*/ }
-#calcForm select				{ /*background-image: -webkit-linear-gradient(#666, #333); color: rgba(255,255,255,0.88) !important; -webkit-appearance: none !important; */ text-indent: 3px; }
-#calcForm #feet					{ margin-right: 3px; margin-left: 2px; }
+#calcForm							{ display: block; font-size: 12px; padding-top: 3px; color: #505050; overflow: hidden; }
+#calcForm div.calcRow				{ margin-left: 22px; padding: 11px 0 11px 0; display: block; min-width: 300px; }
+#calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
+#calcForm input,
+#calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
+#calcForm input						{ text-indent: 2px; }
+#calcForm select					{ text-indent: 3px; }
+#calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
+/*feet-inches*/
+#calcForm #feet						{ margin-right: 4px; }
 #calcForm #feet,
-#calcForm #inches				{ width: 32px !important; min-width: inherit; line-height: 14px; }
-#calcForm #inches.metric		{ width: 73px !important; margin-left: 2px; }
-#calcForm #feet.metric			{ display: none !important; }
-#calcForm input,#calcForm select{ border-radius: 2px !important; opacity: .925; }
+#calcForm #inches					{ width: 38px !important; min-width: 38px; }
+#calcForm #inches.metric			{ width: 80px !important; }
+#calcForm #feet.metric				{ display: none !important; }
+/*select arrow*/
+#calcForm .selectArrow				{ position: relative; }
+#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; }
+/*activity select*/
+#calcForm select#pA5B				{ width: 280px; margin-top: 3px; text-indent: 0; }
+/*h2 a.b.c.*/
+#calcForm h2						{ padding: 0; margin: 0; font-size: 16px; line-height: 32px; text-indent: 22px; background-color: #41A9DE; color: #fff; display: block; text-align: left; white-space: nowrap; }
+#calcForm h2 span					{ color: #ccc; padding-right: 1px; text-align: left; }
+/*by/unit*/
+#calcForm .calcResult				{ font-size: 13px; display: block; margin: 12px 12px 12px 18px; white-space: nowrap; }
+#calcForm .calcResult select		{ font-size: 13px; margin-left: 12px; margin-right: 0px; font-weight: bold ; color: #000; text-indent: 1px; }
+#calcForm .calcResult span			{ margin-left: 12px; }
+#calcForm .calcResult span + span	{ margin-left: 21px; }
+/*tap select*/
+#calcForm .tapSelect  				{ display: block; position: relative; margin: 12px; overflow: hidden; }
+#calcForm .tapSelect span			{ display: block; position: absolute; top: 19px; left: 128px; color: #aaa; }
+#calcForm .tapSelect input			{ width: 100%; padding: 15px 12px 14px 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: #eee; text-align: left; text-indent: 0; }
+
+#calcForm .tapSelect input.tapActive{ color: #cc3300 !important; }
+/*by/unit width*/
+#calcForm select#pA1B,
+#calcForm select#pA4B				{ min-width: 66px; width: 66px; }
+/*gender/age width*/
+#calcForm #pA6G,
+#calcForm #pA6M2					{ min-width: 56px; width: 56px; }
+/*focus*/
 #calcForm input:focus,
 #calcForm input:active,
 #calcForm select:focus,
-#calcForm select:active			{ color: #000; background-color: #ffffcc; }
+#calcForm select:active				{ color: #cc3300; }
 /*###########
 ## SPINNER ##
 ###########*/
@@ -583,5 +596,37 @@ body.ios7 div#surplus,
 body.ios7 div#balanced			{ line-height: 83px; }
 body.ios7 #timerTouch			{ height: 74px; }
 */
-body.ios7 #appHeader	{ height: 72px; }
-body.ios7 #appContent	{ top:    72px; }
+
+body.ios7 #appHeader	{ height: 77px; }
+body.ios7 #appContent	{ top:    77px; }
+
+body.ios7 span#subKcalsDay	{ top: 21px; }
+body.ios7 input#editable		{ top: 24px; }
+
+body.ios7 span#timerFood 				{ margin-top: 14px; }
+body.ios7 span#timerExercise 			{ margin-bottom: -4px; }
+body.ios7 span#timerFood:after		{ bottom: 2px; }
+body.ios7 span#timerExercise:after	{ bottom: 2px; }
+
+
+
+
+/*
+
+#editableDiv			{ 
+position: absolute; top: 10px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; font-family: Helvetica; -webkit-user-select: none; overflow: hidden; }
+input#editable			{ -webkit-backface-visibility: hidden; color: #000; 
+background-color: #fff !important;
+position: absolute; top: 10px; right: 9px; 
+display: block !important; width: 74px !important; height: 32px; font-size: 24px !important; line-height: 28px;
+border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold;
+
+overflow: hidden; 
+}
+
+
+#editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc;
+
+ display: block; width: 100%; color: #000; font-size: 13px; }
+#editableBlock			{ position: absolute; right: 0;  width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
+/*

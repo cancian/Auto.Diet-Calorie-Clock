@@ -603,7 +603,14 @@ updateEntriesTime();
 	///////////////////////////
 	// blur edit / entrybody //
 	///////////////////////////
-	$('#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
+	$('#appHeader').on(touchstart, function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		$("#editable").blur();
+		$("#entryTime").blur();
+		$("#entryBody").blur();
+	});
+	$('#appHeader,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
 		evt.preventDefault();
 		//evt.stopPropagation();
 			if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
@@ -682,36 +689,42 @@ function openProfile(string) {
 //RAW HTML
 var profileHtml = '\
 <div id="calcForm">\
-<form id="formc" name="formc" action="" method="post">\
-<!--<h2>Calories Per Day Calculator</h2>-->\
-<div>\
-	<label>Your gender</label>\
-    <span class="selectArrow"><select id="pA1B" tabindex="1" onchange="recalc_onclick(&#39;pA1B&#39;)" size="1" name="pA1B">\
-		<option value="Male" selected="selected">Male</option>\
-		<option value="Female">Female</option>\
-	</select></span>\
-</div>\
-<div>\
-	<label>Your height</label>\
-	<input type="hidden" class="ee101" id="pA2B" onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA2B&#39;)" tabindex="2" size="8" value="70" name="pA2B" />\
-	<input type="number" tabindex="2" id="feet" name="feet" value="5" size="2" onchange="document.getElementById(&#39;pA2B&#39;).value = (Number(document.getElementById(&#39;feet&#39;).value) * 12) + (Number(document.getElementById(&#39;inches&#39;).value));"><input tabindex="2" type="number" id="inches" name="inches" value="10" size="2" onchange="document.getElementById(&#39;pA2B&#39;).value = (Number(document.getElementById(&#39;feet&#39;).value) * 12) + (Number(document.getElementById(&#39;inches&#39;).value));">\
-    <span class="selectArrow"><select id="pA2C" tabindex="3" onchange="recalc_onclick(&#39;pA2C&#39;)" size="1" name="pA2C">\
-		<option value="centimetres">centimeters</option>\
-		<option value="inches" selected="selected">feet/inches</option>\
-	</select></span>\
-	<input class="ee101" id="pA2D" type="hidden" readonly size="4" name="pA2D" />\
-</div>\
-<div>\
-	<label>Your weight</label>\
-	<input type="number" id="pA3B" onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA3B&#39;)" tabindex="4" size="8" value="160" name="pA3B" />\
-    <span class="selectArrow"><select id="pA3C" tabindex="5" onchange="recalc_onclick(&#39;pA3C&#39;)" size="1" name="pA3C">\
-		<option value="kilograms">kilograms</option>\
-		<option value="pounds" selected="selected">pounds</option>\
-	</select></span>\
-    <input class="ee101" id="pA3D" type="hidden" readonly size="4" value="0" name="pA3D" />\
-</div>\
-<div>\
-	<label>Your age</label>\
+	<form id="formc" name="formc" action="" method="post">\
+		<!--<h2>Calories Per Day Calculator</h2>-->\
+		<div class="calcRow">\
+			<label>Your gender</label>\
+    		<span class="selectArrow">\
+				<select id="pA1B" tabindex="1" onchange="recalc_onclick(&#39;pA1B&#39;)" size="1" name="pA1B">\
+					<option value="Male" selected="selected">Male</option>\
+					<option value="Female">Female</option>\
+				</select>\
+			</span>\
+		</div>\
+		<div class="calcRow">\
+			<label>Your height</label>\
+			<input type="hidden" class="ee101" id="pA2B" onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA2B&#39;)" tabindex="2" size="8" value="70" name="pA2B" />\
+			<input type="number" tabindex="2" id="feet" name="feet" value="5" onchange="document.getElementById(&#39;pA2B&#39;).value = (Number(document.getElementById(&#39;feet&#39;).value) * 12) + (Number(document.getElementById(&#39;inches&#39;).value));"><input tabindex="2" type="number" id="inches" name="inches" value="10" size="2" onchange="document.getElementById(&#39;pA2B&#39;).value = (Number(document.getElementById(&#39;feet&#39;).value) * 12) + (Number(document.getElementById(&#39;inches&#39;).value));">\
+		    <span class="selectArrow">\
+				<select id="pA2C" tabindex="3" onchange="recalc_onclick(&#39;pA2C&#39;)" name="pA2C">\
+					<option value="centimetres">centimeters</option>\
+					<option value="inches" selected="selected">feet/inches</option>\
+				</select>\
+			</span>\
+			<input class="ee101" id="pA2D" type="hidden" readonly name="pA2D" />\
+		</div>\
+		<div class="calcRow">\
+			<label>Your weight</label>\
+			<input type="number" id="pA3B" onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA3B&#39;)" tabindex="4" size="8" value="160" name="pA3B" />\
+		    <span class="selectArrow">\
+				<select id="pA3C" tabindex="5" onchange="recalc_onclick(&#39;pA3C&#39;)" size="1" name="pA3C">\
+					<option value="kilograms">kilograms</option>\
+					<option value="pounds" selected="selected">pounds</option>\
+				</select>\
+			</span>\
+		    <input class="ee101" id="pA3D" type="hidden" readonly size="4" value="0" name="pA3D" />\
+		</div>\
+		<div class="calcRow">\
+			<label>Your age</label>\
 	<span class="selectArrow"><select class="ee100" id="pA4B" tabindex="6" onchange="recalc_onclick(&#39;pA4B&#39;)" size="1" name="pA4B">\
 		<option value="10">10</option>\
 		<option value="11">11</option>\
@@ -805,68 +818,27 @@ var profileHtml = '\
 		<option value="99">99</option>\
 		<option value="100">100</option>\
 	</select></span>\
-	years\
 </div>\
-<div>\
-	<label>Your activity</label>\
-	<span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
+<div class="calcRow">\
+	<label>Your activity</label><span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
 		<option selected="selected" value="Sedentary (little or no exercise, desk job)">Sedentary: Mostly sitting down (desk job, designer)</option>\
 		<option value="Lightly active (light exercise/sports 1-3 days/wk)">Lightly Active: Occasionally sitting (teacher, salesman)</option>\
 		<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">Active: Walking most of the time (waitress, mailman)</option>\
-		<option value="Very active (hard exercise/sports 6-7 days/wk)">Very Active: Physically hard work (construction worker)</option>\
-<!--                                                                                doing heavy physical activity\
-		<option selected="selected" value="Sedentary (little or no exercise, desk job)">Sedentary (little or no exercise, desk job)</option>\
-		<option value="Lightly active (light exercise/sports 1-3 days/wk)">Lightly active (light exercise 1-3 days/wk)</option>\
-		<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">Moderately active (moderate exercise 3-5 days/wk)</option>\
-		<option value="Very active (hard exercise/sports 6-7 days/wk)">Very active (hard exercise 6-7 days/wk)</option>\
-		<option value="Extremely active (hard daily exercise/sports &amp; physical job)">Extremely active (hard daily exercise &amp; physical job)</option>\
--->\
-	</select></span>\
+		<option value="Very active (hard exercise/sports 6-7 days/wk)">Very Active: Physically hard work (construction worker)</option></select></span>\
 </div>\
-<div class="invisible">\
-	<input type="checkbox" checked="checked" value="ON" name="automatic_recalc" />\
-	<label>Automatic recalculation</label>\
-</div>\
-<div class="invisible">\
-	<input onclick="recalc_onclick(&#39;&#39;)" type="button" value="Recalculate" name="do_recalc" id="do_recalc" />\
-</div>\
-<h2>Results<span> (tap to select)</span></h2>\
-<div class="invisible">\
-	<label>BMR</label>\
-	<input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" />\
-</div>\
-<div class="invisible">\
-	<h2>Nutrition requirements</h2>\
-</div>\
-<div>\
-	<label id="mantain"><span>A.</span> To maintain current weight:</label>\
-	<label class="invisible">Calories</label>\
-	<input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" />\
-	<span class="bold">kcals / day</span>\
-</div>\
-<div class="invisible">\
-	Carbohydrates (55%)\
-    <input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />\
-	cal =\
-    <input id="pA8D" readonly size="6" value="0" name="pA8D" />\
-    gm\
-</div>\
-<div class="invisible">\
-	Proteins (15%)\
-	<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />\
-	cal =\
-	<input id="pA9D2" readonly size="6" value="0" name="pA9D" />\
-	gm\
-</div>\
-<div class="invisible">\
-	Fats (30%)\
-	<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />\
-	cal =\
-	<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />\
-	gm\
-</div>\
-<div>\
-	<label><span>B.</span> To lose weight by:</label>\
+<div class="invisible"><input type="checkbox" checked="checked" value="ON" name="automatic_recalc" /><label>Automatic recalculation</label></div>\
+<div class="invisible"><input onclick="recalc_onclick(&#39;&#39;)" type="button" value="Recalculate" name="do_recalc" id="do_recalc" /></div>\
+<div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
+<div class="invisible"><h2>Nutrition requirements</h2></div>\
+\
+<h2 id="mantain"><span>A.</span> To maintain current weight:</h2>\
+<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcals / day</span></div>\
+<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
+<div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
+<div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
+\
+<h2><span>B.</span> To lose weight by:</h2>\
+<div class="calcResult">\
    <span class="selectArrow"> <select class="ee101" id="pA6G" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6G&#39;)" tabindex="8" size="1" value="1" name="pA6G">\
 		<option value="0.25">0.25</option>\
 		<option value="0.5">0.5</option>\
@@ -896,34 +868,13 @@ var profileHtml = '\
 	</select></span>\
 	<span>per week</span>\
 </div>\
-<div>\
-	<label><!--Calories--></label>\
-    <input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" />\
-	<span class="bold">kcals / day</span>\
-</div>\
-<div class="invisible">\
-    Carbohydrates (55%)\
-	<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />\
-	cal =\
-	<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />\
-	gm\
-</div>\
-<div class="invisible">\
-	Proteins (15%)\
-	<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />\
-	cal =\
-	<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />\
-	gm\
-</div>\
-<div class="invisible">\
-	Fats (30%)\
-	<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />\
-	cal =\
-	<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />\
-	gm\
-</div>\
-<div>\
-	<label><span>C.</span> To gain weight by:</label>\
+<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcals / day</span></div>\
+<div class="invisible">   Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
+<div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
+<div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
+\
+<h2><span>C.</span> To gain weight by:</h2>\
+<div class="calcResult">\
     <span class="selectArrow"><select class="ee101" id="pA6M2" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
 		<option value="0.25">0.25</option>\
 		<option value="0.5">0.5</option>\
@@ -953,32 +904,11 @@ var profileHtml = '\
 	</select></span>\
 	<span>per week</span>\
 </div>\
-<div>\
-	<label><!--Calories--></label>\
-	<input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" />\
-   	<span class="bold">kcals / day</span>\
-</div>\
-<div class="invisible">\
-	Carbohydrates (55%)\
-	<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />\
-	cal =\
-	<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\
-	gm\
-</div>\
-<div class="invisible">\
-	Proteins (15%)\
-	<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />\
-	cal =\
-	<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />\
-	gm\
-</div>\
-<div class="invisible">\
-	Fats (30%)\
-	<input class="ee101" id="pA10L" readonly size="7" value="0" name="pA10L" />\
-	cal =\
-	<input class="ee101" id="pA10N2" readonly size="7" value="0" name="pA10N" />\
-	gm\
-</div>\
+<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcals / day</span></div>\
+\
+<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
+<div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\
+<div class="invisible">Fats (30%)<input class="ee101" id="pA10L" readonly size="7" value="0" name="pA10L" />cal =<input class="ee101" id="pA10N2" readonly size="7" value="0" name="pA10N" />gm</div>\
 </form>\
 </div>';
 //#////////#//
@@ -1014,19 +944,20 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 		//update db
 		window.localStorage.setItem(getKcalsKey,calcResult);
 		document.getElementById('editableDiv').innerHTML = window.localStorage.getItem(getKcalsKey);
+		$(this).addClass("tapActive");
+		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); } ,200);
 		//document.getElementById('editableDiv').innerHTML = calcResult;
 		//window.localStorage.setItem("config_kcals_type","simple");
 		updateTimer();
 	}
 });
-$("#pA7B,#pA7F,#pA7L").on(touchstart, function(evt) {
-	$(this).addClass("white");
-});
+//$("#pA7B,#pA7F,#pA7L").on(touchstart, function(evt) {
+
 $("#pA7B,#pA7F,#pA7L").on(touchend + " mouseout", function(evt) {
-	$(this).removeClass("white");
+	//$(this).removeClass("tapActive");
 });
 
-$("#calcForm").on(touchstart, function(evt) {
+$("#calcForm").on(touchend, function(evt) {
 	/*
 	evt.preventDefault();
 	//evt.stopPropagation();
@@ -1043,15 +974,15 @@ $("#calcForm").on(touchstart, function(evt) {
 	}	
 */
 	if(evt.target.id == "") {
-	if(navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+	//if(navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
 		evt.preventDefault();
 		evt.stopPropagation();
-	}
+	//}
 //		$("#pA1B,#pA2B,#pA2C,#pA3B,#pA3C,#pA4B,#pA5B,#pA6G,#select,#pA6M2,#select2,#feet,#inches").blur();
 
 		writeCalcValues();
-		$("#formc input").blur();
-		$("#formc select").blur();
+		$("#calcForm input").blur();
+		$("#calcForm select").blur();
 //		$("input,select").blur();
 
 	} else {

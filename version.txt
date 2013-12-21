@@ -9,9 +9,6 @@
 - 
 - 
 - 
-
-
-
 - timer crappy repeat on early android
 - o delete entyr no android puxa a nicescrollbar erroneamente, colocar if.not.ios
 
@@ -23,8 +20,9 @@
 
 # 1.1.0 [25/12/2013]
 • improved user interface
-• fixed slider reset issue
-• 
+• fixed calorie calculator minor bugs
+• fixed slider reset issue on keyboard focus
+• fixed blur issue on entry editing
 • 
 • 
 • 
@@ -32,12 +30,12 @@
 • 
 • 
 
+
 - larger top
 - android side-slide
 - results list slowness
-- bolder tap to select
 - indent ios7 - non-absolute divs
-- gap no menu info
+- gap branco no cantinho do menu info
 - 
 D6D6D6
 

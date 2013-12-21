@@ -60,8 +60,9 @@ function replaceDivContent(id,content) {
 		//kcalsHtmlOutput += "<span id='subCurrentDay'>day <span>" + currentDay + "</span></span>";
 		kcalsHtmlOutput += "<span id='subCurrentDay' class='currentDay" + currentDay.toUpperCase() + "'><span id='subDayA'>" + LANG('DAY') + " <span>a</span></span><span id='subDayB'>" + LANG('DAY') + " <span>b</span></span><span id='subDayC'>" + LANG('DAY') + " <span>c</span></span><span id='subDayD'>" + LANG('DAY') + " <span>d</span></span></span>";
 	}
-	//minus bump
-	//if(kcalsInput == 0) { kcalsInput = "0.00"; }
+	//plus~minus de-bump
+	if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
+	if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
 		//insert
 		kcalsHtmlOutput += "<span id='timerBalance'>" + kcalsInput + "</span>";
 		kcalsHtmlOutput += "<span id='timerFood'>+1049</span>";

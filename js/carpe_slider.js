@@ -582,8 +582,6 @@ $(window).resize(function(evt) {
 	var carpeTimer;
 	var carpeTimer2;	
 	function carpeLoad() {
-		clearTimeout(carpeTimer);
-		clearTimeout(carpeTimer2);
 		var sliderMemory = $("#entryTitle").val();
 		$("#sliderWrapper").html('<input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" />');
 		CARPE.sliders.init();

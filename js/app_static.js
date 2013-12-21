@@ -226,6 +226,7 @@ if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
 			}	
 			//edit...
 			if(!$(this).has('input').length) {
+				var timedBlur = new Date().getTime();
 				var value = $(this).html();
 				var input = $('<input/>', {
 					'type':'number',
@@ -234,6 +235,19 @@ if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
 					'value': Number(value),
 					//ONCHANGE HANDLER
 					blur: function() {
+						////////////////
+						// TIMED BLUR //
+						////////////////
+						var nowBlur = new Date().getTime();
+						if(nowBlur - timedBlur < 500) {
+							var blurVal = $("#editable").val();
+							$("#editable").val('');
+							$("#editable").focus();
+							setTimeout( function() {
+								$("#editable").val(blurVal);
+							},0);
+						return; 
+						}
 						var new_value = Math.ceil($(this).val());
 						//NULL-MIN-MAX
 						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)    { this.value = resetValue; $("#editableDiv").html(resetValue); }
@@ -258,6 +272,7 @@ if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
 						updateTimer();
 						//updateEntriesTime();
 						$("#editableBlock").remove();
+
 					},
 					change: function() {
 						$("#editable").blur();

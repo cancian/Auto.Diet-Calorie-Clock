@@ -22,12 +22,13 @@ $(document).on("pageload", function(evt) {
 		//////////////
 		// TAP DATE //
 		//////////////
+		/*
 		if(event.target.id.length == 13 && !$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
 			$( "#" + event.target.id).html(dtFormat(Number(event.target.id)));
 			setTimeout(function() {
 				$("#" + event.target.id).html(dateDiff(event.target.id,(new Date()).getTime()));
 			},1500);
-		}
+		}*/
 		//no delete
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
@@ -42,7 +43,8 @@ $(document).on("pageload", function(evt) {
 				meh = this.id;
 				duh = new Date().getTime();
 				//filter
-				if(shit == shot && (duh - deh) < 400 && ix >= 1) {
+				//if(shit == shot && (duh - deh) < 400 && ix >= 1) {
+				if(0 == 0) {
 					////////////////////////
 					// START ENTRY UPDATE //
 					////////////////////////
@@ -52,6 +54,7 @@ $(document).on("pageload", function(evt) {
 						if(!$(this).has('input').length) {
 							var value = $('.entriesBody',this).html();
 							var kcals = $('.entriesTitle',this).html();
+							var timedBlur = new Date().getTime();
 							$('.entriesTitle',this).attr('id', 'kcalsDiv');
 							var input = $('<input/>', {
 								'type':'text',
@@ -60,6 +63,20 @@ $(document).on("pageload", function(evt) {
 								'value':value,
 								//ONCHANGE HANDLER
 								blur: function() {
+									////////////////
+									// TIMED BLUR //
+									////////////////
+									var nowBlur = new Date().getTime();
+									if(nowBlur - timedBlur < 600) {
+										var blurVal = $("#editableInput").val();
+										$("#editableInput").focus();
+										$("#editableInput").val('');
+
+										setTimeout( function() {
+											$("#editableInput").val(blurVal);
+										},0);
+										return;
+									}
 									var new_value = $(this).val();
 									//VALIDATE
 									if(this.value == "") {
