@@ -1,7 +1,7 @@
 //#//////////////////#//
 //# DYNAMIC HANDLERS #//
 //#//////////////////#//
-var eP = 0;
+//var eP = 0;
 $(document).on("pageload", function(evt) {
 	// PREVENT++ //
 	if((evt.target.id) > 0) {
@@ -12,9 +12,9 @@ $(document).on("pageload", function(evt) {
 	//////////////////
 	// TAP DIV EDIT //
 	//////////////////
-	var ix  = 0;
-	var meh = 0;
-	var duh;
+	//var ix  = 0;
+	//var meh = 0;
+	//var duh;
 	// TOUCHSWIPE //
 	//$("#entryList div" + tgt).on(tap, function(event) {
 	$("#entryList div" + tgt).swipe({tap:function(event) {
@@ -35,21 +35,14 @@ $(document).on("pageload", function(evt) {
 			$('.active').removeClass('open');
 			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
 			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-				//counting
-				ix++;
-				var shit = meh;
-				var shot = this.id;
-				meh = this.id;
-				duh = new Date().getTime();
-				//filter
-				//if(shit == shot && (duh - deh) < 400 && ix >= 1) {
-				if(0 == 0) {
+			if($('.delete').hasClass('busy'))  { return; }
+			if($('.delete').hasClass('busy'))  { return; }
+			if($('#kcalsDiv').is(':visible'))  { return; }
+			if($('#entryList div').is(':animated') || $('.editableInput').is(':visible')) { return; }
+			
 					////////////////////////
 					// START ENTRY UPDATE //
 					////////////////////////
-					if(eP != 0) { return; }
-					eP++;
 					if(!$('.editableInput').is(':visible')) {
 						if(!$(this).has('input').length) {
 							var value = $('.entriesBody',this).html();
@@ -71,7 +64,6 @@ $(document).on("pageload", function(evt) {
 										var blurVal = $("#editableInput").val();
 										$("#editableInput").focus();
 										$("#editableInput").val('');
-
 										setTimeout( function() {
 											$("#editableInput").val(blurVal);
 										},0);
@@ -102,11 +94,11 @@ $(document).on("pageload", function(evt) {
 									//save changes
 									var editableValue = $("#editableInput").val().split("  ").join(" ").split("  ").join(" ").split("  ").join(" ");
 									diary.saveEntry({body:editableValue,id:$(this).closest('div').data("id")}, function() {
-										return false;
+										//return false;
 									});
 									//set blur
 									if(!$("#entryList div").is(':animated')) {
-										$("#editableInput").blur();
+										//$("#editableInput").blur();
 									}
 								}
 							});
@@ -327,14 +319,7 @@ $(document).on("pageload", function(evt) {
 					//////////////////////
 					// END ENTRY UPDATE //
 					//////////////////////
-					var mi = "2";
-					ix = -1;
-					meh = "";
 				}
-				deh = duh;
-			}
-		}
-	//}});
 	//#///////////////#//
 	//# IOS ROW SWIPE #//
 	//#///////////////#//

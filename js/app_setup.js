@@ -223,6 +223,25 @@ function dateDiff(date1,date2) {
 
 	return days + lDays + hours + lHours + minutes + lMinutes + " " + LANG('AGO') + " ";
 }
+//////////////////
+// TIME ELAPSED //
+//////////////////
+function timeElapsed() {
+	var seconds = (new Date().getTime() - window.localStorage.getItem("config_start_time")) / 1000;
+var date = new Date(seconds * 1000);
+var dd   = Math.floor(seconds/86400);
+var hh   = date.getUTCHours();
+var mm   = date.getUTCMinutes();
+var ss   = date.getSeconds();
+//if (hh > 12) {hh = hh - 12;}
+if (hh < 10) { hh = "0" + hh; }
+if (mm < 10) { mm = "0" + mm; }
+if (ss < 10) { ss = "0" + ss; }
+// This formats your string to HH:MM:SS
+if(dd > 0) { dd = dd + "d "; } else { dd = ""; }
+return dd+hh+":"+mm+":"+ss;
+}
+
 //////////
 // TRIM //
 //////////

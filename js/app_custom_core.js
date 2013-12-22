@@ -45,6 +45,56 @@ function replaceDivContent(id,content) {
 	var eqRatio  = (60*60*24 / eqPerDay);
 	var eqDiff   = eqDate - Math.floor(Math.abs(kcalsInput*eqRatio));
 	var eqTime   = dateDiff(eqDiff*1000,eqDate*1000).replace(" " + LANG("AGO"),"");
+
+
+	/////////////////
+	// WEIGHT LOSS //
+	/////////////////
+	var startLoss    = Number(window.localStorage.getItem("config_start_time"));
+	var numberLoss   = Number(window.localStorage.getItem("calcForm#pA6G"));
+	var unitLoss     = Number(window.localStorage.getItem("calcForm#select"));
+	var week         = 60*60*24*7;
+	var elapsedLoss  = Number(new Date().getTime()) - startLoss;
+	// weeks elapsed
+	var elapsedRatio = elapsedLoss / week;
+	var weightLoss   = ((numberLoss * elapsedRatio) / 1000).toFixed(7);
+	////////////
+	// OUTPUT //
+	////////////
+
+/*
+	var kcalsHtmlOutput = '';
+	kcalsHtmlOutput += "<div id='" + cssClass + "' class='" + kcalsType + "'>";
+	// SIMPLE DATA //
+		kcalsHtmlOutput += "<span id='subStatusEq'> weight loss: <span class='bold'>" + weightLoss + " (kg)</span></span>";
+		kcalsHtmlOutput += "<span id='subKcalsDay'><span class='bold'>" + eqPerDay + " </span> kcals / " + LANG('DAY') + "</span>";
+	// CYCLIC DATA //
+	if(content[0] == "cyclic") {
+		kcalsHtmlOutput += "<span id='subKcalsRange'><span>" + window.localStorage.getItem("config_kcals_day_1") + "~" + window.localStorage.getItem("config_kcals_day_2") + "</span> kcals " + LANG('RANGE') + "</span>";
+		//kcalsHtmlOutput += "<span id='subDayName'><span>" + currentDayName + "</span></span>";
+		//kcalsHtmlOutput += "<span id='subCurrentDay'>day <span>" + currentDay + "</span></span>";
+		kcalsHtmlOutput += "<span id='subCurrentDay' class='currentDay" + currentDay.toUpperCase() + "'><span id='subDayA'>" + LANG('DAY') + " <span>a</span></span><span id='subDayB'>" + LANG('DAY') + " <span>b</span></span><span id='subDayC'>" + LANG('DAY') + " <span>c</span></span><span id='subDayD'>" + LANG('DAY') + " <span>d</span></span></span>";
+	}
+	//minus bump
+	//if(kcalsInput == 0) { kcalsInput = "0.00"; }
+		//insert
+		kcalsHtmlOutput += "<span id='statusContent'>" + kcalsInput + " kcals</span>";
+		kcalsHtmlOutput += "<span id='statusMain'>(" + status + ")</span>";
+		//kcalsHtmlOutput += "<span id='statusLoss'>weight loss: " + weightLoss + " <span id='titleLoss'>total weight loss (kg)</span></span>";
+		kcalsHtmlOutput += "<span id='statusStop'>" + statusStop + "</span>";
+		kcalsHtmlOutput += "</div>";
+	//REPLACE
+	//console.log('kcalsHtmlOutput');
+	//$("#timer").hide();
+	//$("#timer").html('');
+	$("#timer").html(kcalsHtmlOutput);
+	//$("#timer").show();
+}
+*/
+
+
+
+
 	////////////
 	// OUTPUT //
 	////////////
@@ -65,12 +115,11 @@ function replaceDivContent(id,content) {
 	if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
 		//insert
 		kcalsHtmlOutput += "<span id='timerBalance'>" + kcalsInput + "</span>";
-		kcalsHtmlOutput += "<span id='timerFood'>+1049</span>";
-		kcalsHtmlOutput += "<span id='timerExercise'>-450</span>";
-		
-		
-		kcalsHtmlOutput += "<span id='statusMain'>(" + status + ")</span>";
-		kcalsHtmlOutput += "<span id='statusStop'>" + statusStop + "</span>";
+		kcalsHtmlOutput += "<div id='timerBlock1'>" + weightLoss + "<span>weight loss (kg)</span></div>";
+		kcalsHtmlOutput += "<div id='timerBlock2'>" + timeElapsed() + "<span>time elapsed</span></div>";
+
+//		kcalsHtmlOutput += "<span id='statusMain'>(" + status + ")</span>";
+//		kcalsHtmlOutput += "<span id='statusStop'>" + statusStop + "</span>";
 		kcalsHtmlOutput += "</div>";
 	//REPLACE
 	//console.log('kcalsHtmlOutput');

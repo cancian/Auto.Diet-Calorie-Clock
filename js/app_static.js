@@ -22,7 +22,6 @@ $("body").html('\
 	<li id="tab2"></li>\
 	<li id="tab3"></li>\
 	<li id="tab4"></li>\
-	<li id="tab5"></li>\
 </ul>\
 <div id="appHeader"></div>\
 <div id="appContent"></div>\
@@ -30,8 +29,6 @@ $("body").html('\
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
-	function openSettings() { $("#appContent").html('openSettings '); }
-	function openInfo()	 { $("#appContent").html('openInfo ');     }
 function appFooter(id) {
 	$("ul#appFooter li").removeClass("selected");
 	window.localStorage.setItem("app_last_tab",id);
@@ -45,7 +42,7 @@ function appFooter(id) {
 	//$('#appContent').css("-webkit-transition-duration",".1s");
 	setTimeout(function() {
 		$("#appContent").css("opacity","1");
-	},50);
+	},99);
 	//SCROLLBAR
 	if(!isMobile.iOS()) {
 		$("#appContent").css("overflow","hidden");
@@ -54,10 +51,10 @@ function appFooter(id) {
 		},200);
 	}
 	//ACTION
-	if(id == "tab1") { openDiary();    }
-	if(id == "tab2") { openProfile();  }
-	if(id == "tab3") { openSettings(); }
-	if(id == "tab4") { openInfo();	  }
+	if(id == "tab1") { openStatus();   }
+	if(id == "tab2") { openDiary();    }
+	if(id == "tab3") { openProfile();  }
+	if(id == "tab4") { openSettings(); }
 	//NO 50ms FLICKER
 	appResizer(0);
 }
@@ -291,7 +288,7 @@ if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
 				//$("#editableBlock").show();
 				$("#editable").focus();
 				$(this).val(editableValue);
-				$("#editable").select();
+				//$("#editable").select();
 			}}}}
 		}
 	});

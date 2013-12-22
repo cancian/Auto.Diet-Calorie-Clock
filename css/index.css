@@ -54,17 +54,14 @@ ul#appFooter li#tab1			{  }
 ul#appFooter li#tab2			{  }
 ul#appFooter li#tab3			{  }
 ul#appFooter li#tab4			{  }
-ul#appFooter li#tab5			{ display: none; }
-ul#appFooter li#tab1:before		{ content: "\f02d"; }
-ul#appFooter li#tab2:before		{ content: "\f007"; }
-ul#appFooter li#tab3:before		{ content: "\f013"; }
-ul#appFooter li#tab4:before		{ content: "\f05a"; }
-ul#appFooter li#tab5:before		{ content: "";      }
-ul#appFooter li#tab1:after		{ content: "diary";    }
-ul#appFooter li#tab2:after		{ content: "profile";  }
-ul#appFooter li#tab3:after		{ content: "settings"; }
-ul#appFooter li#tab4:after		{ content: "info";     }
-ul#appFooter li#tab5:after		{ content: "";         }
+ul#appFooter li#tab1:before		{ content: "\f080"; }
+ul#appFooter li#tab2:before		{ content: "\f0f5"; }
+ul#appFooter li#tab3:before		{ content: "\f007"; }
+ul#appFooter li#tab4:before		{ content: "\f013"; }
+ul#appFooter li#tab1:after		{ content: "status";  }
+ul#appFooter li#tab2:after		{ content: "diary";   }
+ul#appFooter li#tab3:after		{ content: "profile"; }
+ul#appFooter li#tab4:after		{ content: "settings";}
 /*##CONTENT##*/
 div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; overflow: auto; -webkit-overflow-scrolling: touch; }
 /*##HEADER##*/
@@ -80,8 +77,16 @@ div#balanced				{ background-color: #316ADC; }
 
 span#timerBalance 			{ position: absolute; bottom: 12px; left: 12px; width: 100px; line-height: 50px; font-size: 28px; background-color: rgba(255,255,255,.0); text-align: left; white-space: nowrap; }
 
-span#timerFood 				{ position: absolute; top: 4px;    left: 150px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
-span#timerExercise 			{ position: absolute; bottom: 4px; left: 150px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
+#timerBlock1,
+#timerBlock2				{ position: absolute; background-color: rgba(255,255,255,0); }
+
+#timerBlock1				{ bottom: 33px; right: 99px; width: 84px; height: 24px; line-height: 19px; font-size: 12px; text-align: left; font-weight: bold; }
+#timerBlock1 span			{ position: absolute; width: 84px; bottom: -5px; left: 0; font-size: 8px; text-transform: uppercase; font-weight: normal; opacity: .7; }
+
+#timerBlock2				{ bottom: 5px; right: 99px; width: 84px; height: 24px; line-height: 19px; font-size: 12px; text-align: left; font-weight: bold; }
+#timerBlock2 span			{ position: absolute; width: 84px; bottom: -5px; left: 0; font-size: 8px; text-transform: uppercase; font-weight: normal; opacity: .7; }
+		
+span#timerExercise 			{ position: absolute; bottom: 4px; right: 100px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
 
 span#subKcalsDay			{ position: absolute; top: 5px; bottom: 5px; right: 5px; width: 92px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: ; background-color: rgba(255,255,255,.3); }
 
@@ -163,11 +168,11 @@ div.editing p			{ opacity: 1; }
 .rowAfterhours p.entriesTitle,
 .rowMorning p.entriesTitle,
 .rowAfternoon p.entriesTitle,
-.rowNight p.entriesTitle			{ color: #333333; }
+.rowNight p.entriesTitle			{ color: #333; }
 .e-rowAfterhours p.entriesTitle,
 .e-rowMorning p.entriesTitle,
 .e-rowAfternoon p.entriesTitle,
-.e-rowNight p.entriesTitle			{ color: #CC0000; }
+.e-rowNight p.entriesTitle			{ color: #C00; }
 /*##################
 ## FORM-ENTRYLIST ##
 ##################*/
@@ -180,11 +185,11 @@ div#sliderNeg:active	{ /*color: #B93820;*/ }
 div#sliderPos:active	{ /*color: #645EDA;*/ }
 /*entryList in-line adjust*/
 #kcalsAdjust			{ color: rgba(0,0,0,.1); }
-#adjustPos:before		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 44px; margin-left: -10px; }
-#adjustNeg:before 		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 44px; margin-left: -10px; -webkit-transform: scaleX(-1); }
+#adjustPos:before		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 42px; margin-left: -10px; }
+#adjustNeg:before 		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 42px; margin-left: -10px; -webkit-transform: scaleX(-1); }
 #adjustNegBlock:active,
 #adjustPosBlock:active	{ color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
-#adjustPosBlock			{ position: absolute; right:  1px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999;  }
+#adjustPosBlock			{ position: absolute; right:  2px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999;  }
 #adjustNegBlock			{ position: absolute; right: 60px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999; -webkit-transform: scaleX(-1); }
 /*#INPUT MAIN#*/
 input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; border: none; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 1px 1px 0 0; }
@@ -378,7 +383,6 @@ overflow: hidden;
 #calcForm .tapSelect  				{ display: block; position: relative; margin: 12px; overflow: hidden; }
 #calcForm .tapSelect span			{ display: block; position: absolute; top: 19px; left: 128px; color: #aaa; }
 #calcForm .tapSelect input			{ width: 100%; padding: 15px 12px 14px 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: #eee; text-align: left; text-indent: 0; }
-
 #calcForm .tapSelect input.tapActive{ color: #cc3300 !important; }
 /*by/unit width*/
 #calcForm select#pA1B,
@@ -390,7 +394,7 @@ overflow: hidden;
 #calcForm input:focus,
 #calcForm input:active,
 #calcForm select:focus,
-#calcForm select:active				{ color: #cc3300; }
+#calcForm select:active				{ color: #000; }
 /*###########
 ## SPINNER ##
 ###########*/

@@ -1,3 +1,35 @@
+/*###############################
+## HTML BUILDS ~ OPEN SETTINGS ##
+###############################*/
+function openSettings(string) {
+	//RAW HTML
+	var settingsHtml = '\
+	<a name="top"></a>\
+	<div id="settingsWrapper">\
+	mimmi settings\
+	</div>';
+	//#////////#//
+	//# OUTPUT #//
+	//#////////#//
+	//HTML
+	$("#appContent").html(settingsHtml);
+}
+/*#############################
+## HTML BUILDS ~ OPEN STATUS ##
+#############################*/
+function openStatus(string) {
+	//RAW HTML
+	var statusHtml = '\
+	<a name="top"></a>\
+	<div id="statusWrapper">\
+	mimimi status\
+	</div>';
+	//#////////#//
+	//# OUTPUT #//
+	//#////////#//
+	//HTML
+	$("#appContent").html(statusHtml);
+}
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
@@ -688,6 +720,7 @@ updateEntriesTime();
 function openProfile(string) {
 //RAW HTML
 var profileHtml = '\
+<a name="top"></a>\
 <div id="calcForm">\
 	<form id="formc" name="formc" action="" method="post">\
 		<!--<h2>Calories Per Day Calculator</h2>-->\
