@@ -1,49 +1,37 @@
-/*## NORMALIZE ##*/
+/*######################//
+//##  MYLIVEDIET 1.1  ##//
+//######################*/
 html,
 body					{ position: relative; display: block; width: 100%; height: 100%; overflow: visible; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
-*,
-h2,
-input[readonly]			{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
 @font-face				{ -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
-input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; border-radius: 0; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: "Helvetica Neue", Helvetica, Arial; }
-/*##HW ACCELERATION##*/
-/*
-div#appContent > *		{ -webkit-transform: translateZ(0px); -webkit-transform: translate3d(0,0,0); }
-*/
-body > *				{ -webkit-backface-visibility: hidden; }
-/*###################
-## SKELETONA MASKA ##
-###################*/
+*,h2,
+input[readonly]			{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
+input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: "Helvetica Neue", Helvetica, Arial; }
+p						{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
+/*## HW ##
+div,
+div > *					{ -webkit-backface-visibility: hidden; }*/
+/*## GENERIC ##*/
 .bold					{ font-weight: bold;  }
 .italic					{ font-style: italic; }
 .hidden					{ display: none !important; }
 .show					{ display: inline; }
 .white					{ color: #fff !important; }
 .invisible				{ visibility: hidden; position: absolute; left: 0; top: 0; }
-p						{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
-
-div#noEntries			{ border-left: 5px solid transparent; }
-#noEntries span			{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
 #overscroll				{ -webkit-user-select: none !important; -webkit-backface-visibility: hidden; position: absolute; left: 0; top: -40px; z-index: 9999; width: 100%; text-align: center; color: #aaa; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
 #underscroll			{ -webkit-user-select: none; -webkit-backface-visibility: hidden; position: absolute; left: 0; bottom: 15px; z-index: -1; width: 100%; text-align: center; color: #777; font-size: 13px; text-shadow: rgba(255,255,255,.35) 0 1px 0; }
+div#noEntries			{ border-left: 5px solid transparent; }
+#noEntries span			{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
 .heading				{ -webkit-user-select: none; position: absolute; left: 0; top: 0; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #eee; text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 10pt; color: #444; text-indent: 6px; padding: 10px 0 8px 9px; background-color: #f5f5f5; font-weight: bold; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; text-transform: uppercase; letter-spacing: 3px; }
 #appVersion				{ position: absolute; bottom: 2px; right: 2px; font-size: 9px; color: #aaa; }
 .toolTip:after			{ display: block; font-family: 'FontAwesome'; content: "\f0d8"; background-color: transparent; position: absolute; top: -7px; left: 27px; font-size: 32px; color: rgba(255,255,255,.9); -webkit-backface-visibility: hidden; z-index: 9; text-shadow: rgba(0,0,0,.1) 0 -1px 0; }
 .toolTip:before			{ display: block; position: absolute; top: 12px; left: 12px; font-size: 16px; color: #4D9AE5; background: rgba(255,255,255,.9); padding: 11px 16px 10px 16px; text-align: left; border-radius: 12px; text-shadow: rgba(0,0,0,.04) 0 -1px 0; -webkit-box-shadow: 0px 3px 9px rgba(0,0,0,.2); -webkit-backface-visibility: hidden; z-index: 9; }
-
 #appStore				{ position: absolute; bottom: 42px; right: 0px; width: 100%; display: inline-block; text-align: right; }
 #appStore .ios img		{ width: 50%; height: auto; max-width: 200px; }
 #appStore .android img	{ width: 50%; height: auto; max-width: 200px; }
-/**/
-#appHeader				{ text-shadow: rgba(255,255,255,.1) 0 1px 0; }
-#entryList				{ width: 100%; min-height: 38px; -webkit-backface-visibility: hidden; }
-#entryListForm			{ width: 100%; height: 154px; position: relative;  overflow: hidden; z-index: 1; }
-#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; /*min-height: 180px;*/ padding: 36px 0 44px 0; background-color: #fff; overflow: hidden; }
-
-
-
-
-/*##FOOTER##*/
+/*#///////////////#//
+//# GLOBAL FOOTER #//
+//#///////////////#*/
 ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); }
 ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; }
 ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); }
@@ -62,82 +50,276 @@ ul#appFooter li#tab1:after		{ content: "status";  }
 ul#appFooter li#tab2:after		{ content: "diary";   }
 ul#appFooter li#tab3:after		{ content: "profile"; }
 ul#appFooter li#tab4:after		{ content: "settings";}
-/*##CONTENT##*/
+/*#////////////////#//
+//# GLOBAL CONTENT #//
+//#////////////////#*/
 div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; overflow: auto; -webkit-overflow-scrolling: touch; }
-/*##HEADER##*/
+/*#///////////////#//
+//# GLOBAL HEADER #//
+//#///////////////#*/
 #appHeader						{ position: absolute; height: 62px; top: 0; left: 0; right: 0; color: #fff; }
-/*TIMER COLOR*/
-div#deficit,
-div#surplus,
-div#balanced				{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
-div#deficit					{ background-color: #C85834; }
-div#surplus					{ background-color: #309030; }
-div#balanced				{ background-color: #316ADC; }
+#appHeader.deficit				{ background-color: #C85834;  }
+#appHeader.balanced				{ background-color: #316ADC; }
+#appHeader.surplus				{ background-color: #309030; }
+/*SUB-BLOCKS*/
+#timerBlocks					{ position: absolute; height: 62px; bottom: 0; left: 0; right: 0; }
+/*calories remaining*/
+#timerKcals						{ position: absolute; bottom: 17px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; }
+#timerKcals span				{ position: absolute; bottom: -9px; left:  0px; font-size: 9px;  line-height: normal; text-transform: uppercase; }
+/*daily calories*/
+#timerDaily						{ position: absolute; bottom: 5px; top: 5px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: bold; background-color: rgba(255,255,255,.3); }
+#timerDaily span				{ position: absolute; bottom: 7px; left: 0px; font-size: 8px; line-height: normal; font-weight: normal; text-transform: uppercase;  }
+/*INLINE*/
+#editableDiv					{ color: transparent; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; overflow: hidden; }
+input#editable					{ color: #000; background-color: #fff !important; position: absolute; top: 10px; right: 8px; display: block !important; width: 75px !important; height: 32px; font-size: 24px !important; line-height: 28px; border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold; overflow: hidden; }
+#editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
+/*#######################
+## BUILD: APP SETTINGS ##
+#######################*/
+/*
+
+*/
+/*#####################
+## BUILD: APP STATUS ##
+#####################*/
+#statusWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 12px; background-color: #fff;; }
+#appStatus				{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; }
+#appStatus.start		{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background-color: #008800; text-align: center; line-height: 44px; font-weight: bold; color: #fff; }
+#appStatus.reset		{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background-color: #cccccc; text-align: center; line-height: 44px; font-weight: bold; color: #999; }
+#appStatus.start:active	{ background-color: #007700; }
+#appStatus.reset:active	{ background-color: #c1c1c1; }
+/**/
+#appStatusElapsed		{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
+#appStatusElapsed div	{ padding-top: 20px; text-align: center; display: block; font-size: 14px; }
+#appStatusElapsed span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatusWeight		{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; }
+#appStatusWeight div	{ padding-top: 20px; text-align: center; display: block; font-size: 14px; }
+#appStatusWeight span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatus1				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
+#appStatus1 div			{ padding-top: 20px; text-align: center; display: block; font-size: 14px; }
+#appStatus1 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatus2				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; }
+#appStatus2 div			{ padding-top: 20px; text-align: center; display: block; font-size: 14px; }
+#appStatus2 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+
+/**/
+#appStatus3				{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
+#appStatus3 div			{ padding-top: 12px; text-align: center; display: block; font-size: 18px; }
+#appStatus3 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatus4				{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
+#appStatus4 div			{ padding-top: 12px; text-align: center; display: block; font-size: 18px; }
+#appStatus4 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 
 
-span#timerBalance 			{ position: absolute; bottom: 12px; left: 12px; width: 100px; line-height: 50px; font-size: 28px; background-color: rgba(255,255,255,.0); text-align: left; white-space: nowrap; }
-
-#timerBlock1,
-#timerBlock2				{ position: absolute; background-color: rgba(255,255,255,0); }
-
-#timerBlock1				{ bottom: 33px; right: 99px; width: 84px; height: 24px; line-height: 19px; font-size: 12px; text-align: left; font-weight: bold; }
-#timerBlock1 span			{ position: absolute; width: 84px; bottom: -5px; left: 0; font-size: 8px; text-transform: uppercase; font-weight: normal; opacity: .7; }
-
-#timerBlock2				{ bottom: 5px; right: 99px; width: 84px; height: 24px; line-height: 19px; font-size: 12px; text-align: left; font-weight: bold; }
-#timerBlock2 span			{ position: absolute; width: 84px; bottom: -5px; left: 0; font-size: 8px; text-transform: uppercase; font-weight: normal; opacity: .7; }
-		
-span#timerExercise 			{ position: absolute; bottom: 4px; right: 100px; width: 70px; height: 40%; font-size: 14px; padding-left: 4px; font-weight: ; background-color: rgba(255,255,255,.03); }
-
-span#subKcalsDay			{ position: absolute; top: 5px; bottom: 5px; right: 5px; width: 92px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: ; background-color: rgba(255,255,255,.3); }
+/*#appStatus5 div			{ padding-top: 12px; text-align: center; display: block; font-size: 18px; }
+#appStatus5 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+#appStatus5 #app1		{ position: absolute; top: 10px; left: 12px; right: 9px; height: 15px; background-color: #ff3300; background-color: #0f0;border: 1px solid #ccc; }
+#appStatus5 #app2		{ position: absolute; top: 35px; left: 12px; right: 9px; height: 15px; background-color: #ffdd33; background-color: #0f0;border: 1px solid #ccc; }
+#appStatus5 #app3		{ position: absolute; top: 60px; left: 12px; right: 9px; height: 15px; background-color: #0f0; border: 1px solid #ccc; }
+*/
 
 
-span#timerBalance:after		{ content: "caloric balance"; position: absolute; bottom: -23px; left: 19px; font-size: 9px; text-transform: uppercase; }
-span#timerFood:after		{ content: "food";     position: absolute; bottom: -2px; left: 5px; font-size: 8px; text-transform: uppercase; }
-span#timerExercise:after	{ content: "exercise"; position: absolute; bottom: -2px; left: 5px; font-size: 8px; text-transform: uppercase; }
-span#subKcalsDay:after		{ content: "daily calories"; position: absolute; bottom: -8px; left: 0px; font-size: 8px; text-transform: uppercase; }
 
+#appStatus5				{ position: absolute; bottom: 88px; left: 0; right: 0; height: 88px; margin-right: 0px; background-color: #; }
+/*//////////////////
+// FORM-ENTRYLIST //
+//////////////////*/
 
-/*#SUB DATA#*/
+div#sliderNum			{ position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
+div#sliderPos			{ position: absolute; right: 0px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #7E78E2; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
+div#sliderNeg			{ position: absolute; left:  0px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #C85136; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
+div#sliderNeg span		{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #C85136 transparent transparent; position: absolute; top: 7px; left: 3px; }
+div#sliderPos span		{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #7E78E2; position: absolute; top: 7px; right: 3px; }
+div#sliderNeg:active	{ /*color: #B93820;*/ }
+div#sliderPos:active	{ /*color: #645EDA;*/ }
+/*#INPUT MAIN#*/
+input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; border: none; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 1px 1px 0 0; }
+input#entryBody			{ position: absolute; margin-top: 6px; left: 16px; right: 16px; color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
 
-span#subStatusEq			{ display: none; position: absolute; bottom: 0px; left: 13px;  font-size: 42%; line-height: normal; color: #fff; text-align: left;  text-shadow: none; text-indent: 0; opacity: .47; /*opacity: .54;*/ }
-/*#SUB DATA CYCLIC#*/
-span#subDayName				{ /*display: none; font-size: 10px;*/ display: none; position: absolute; bottom: 27px; right: 16px; font-size: 42%; line-height: normal; color: #fff; text-align: right; text-transform: uppercase; text-shadow: none; text-indent: 0; opacity: .47; }
-span#subKcalsRange			{ /*display: none;*/ position: absolute; bottom: 38px; left: 12px; font-size: 10px; line-height: normal; color: rgba(255,255,255,.5); text-align: right; text-shadow: none; text-indent: 0; }
-/*span#subCurrentDay span,*/
-span#subKcalsRange span,
-span#subDayName span		{ font-weight: bold !important; color: rgba(255,255,255,.67);}
-/*#SUB SPAN CYCLE#*/
-span#subCurrentDay span		{ font-size: 10px; font-weight: normal; color: rgba(255,255,255,.3); line-height: normal; height: auto; text-indent: 0; display: inline-block; margin: 0; -webkit-font-smoothing: antialiased; text-shadow: none; }
-span#subCurrentDay span span{ margin-right: 3px; }
-span#subCurrentDay			{ position: absolute; bottom: 38px; right: 13px; font-size: 10px; font-weight: normal;  line-height: normal; height: auto; text-indent: 0; display: inline-block; margin: 0; }
-span.currentDayA #subDayA,
-span.currentDayB #subDayB,
-span.currentDayC #subDayC,
-span.currentDayD #subDayD		{ color: rgba(255,255,255,1); text-shadow: none; }
-span.currentDayA #subDayA span,
-span.currentDayB #subDayB span,
-span.currentDayC #subDayC span,
-span.currentDayD #subDayD span	{ color: rgba(255,255,255,1); font-weight: bold; }
-/*#TIMER TEXT*/
-span#surplus				{ color: #fff; }
-span#deficit				{ color: #fff; }
-span#balanced				{ color: #fff; }
-/*TIMER ELEMENTS*/
-span#statusBalance			{  }
-span#statusContent			{ font-weight: bold; padding-right: 1px; text-shadow: none; }
-span#statusStop				{ color: #fff; font-weight: bold; display: inline-block; width: auto; text-indent: 3px; line-height: normal; text-shadow: none; font-size: 16px; position: absolute; bottom: 15px; display: none; }
-span#statusMain				{ opacity: .18; font-size: 100%; color: rgba(0,0,0,.925); text-shadow: none; /*line-height: 52px;*/ display: none; }
+input#entryBody.focusMe	{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
+input#entryBody.focusMy	{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
+
+div#entryBodySearch			{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 999; 
+display: none;
+}
+#entryBodySearch div		{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
+#entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
+div#entryBodySearch:active	{ opacity: 1; }
+
+select#entryTime			{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; 
+display: none;
+}
 
 
 
 
+/*quickform submit blur/focus*/
+#entrySubmit				{ display: none; position: absolute; left: 0; right: 0; top: 77px; font-size: 11pt; font-weight: bold; color: #fff; height: 44px; line-height: 44px; text-align: center; }
+#entryListForm:active #entrySubmit,
+#entrySubmit.submitActive	{ display: block !important; background-color: #0072BC; background-color: #41A9DE; }
+/*quickform blur*/
+#sliderNeg,
+#sliderPos,
+#sliderNum,
+#sliderWrapper				{ opacity: .4; -webkit-filter: grayscale(100%); }
+/*quickform focus*/
+#entryListForm:active #sliderWrapper,
+#entryListForm:active #sliderNeg,
+#entryListForm:active #sliderPos,
+#entryListForm:active #sliderNum,
+.submitActive #sliderWrapper,
+.submitActive #sliderNeg,
+.submitActive #sliderPos,
+.submitActive #sliderNum{ opacity: 1;  -webkit-filter: grayscale(0); }
 
 
-/*##############
-## ENTRY LIST ##
-###############*/
+
+
+#entryBody				{ opacity: 0; display: none; }
+#sliderBlock			{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
+/*////////////////
+// CARPE SLIDER //
+////////////////*/
+#slider							{ position: absolute; left: 15px; right: 0px; }
+#sliderWrapper					{ -webkit-backface-visibility: hidden; }
+.carpe-slider-box 				{ position: absolute; top: 14px; left: 0px; right: 0px; height: 60px; }
+.carpe-slider-box,
+.carpe-slider-box *				{ position: relative; display: block; }
+.carpe-slider-panel				{ top: -30px; height: 60px; }
+.carpe-slider-panel:focus,
+.carpe-slider-panel:active		{ outline: none; }
+/* Slider Track */
+.carpe-slider-track				{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #444; opacity: 1; }
+.carpe-slider-knob				{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 12px; background: #fff; margin-left: 0px; }
+.carpe-slider-knob:hover		{ border: 1px solid #aaa; }
+
+
+
+
+
+
+
+/*
+input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; border: none; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 1px 1px 0 0; }
+input#entryBody			{ position: absolute; margin-top: 6px; left: 16px; right: 16px; color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; 
+background-color: transparent
+}
+
+input#entryBody.focusMe	{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
+input#entryBody.focusMy	{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
+div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 999; }
+#entryBodySearch div	{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
+#entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
+div#entryBodySearch:active	{ opacity: 1; }
+select#entryTime		{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+
+
+
+#entrySubmit			{ 
+display: none;
+
+text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 0px; top: 70px; font-size: 11pt; 
+border: 0px solid #bababa;
+font-weight: bold; color: #777;
+height: 44px;
+
+line-height: 44px; 
+ color: #fff; font-weight: bold;
+ background-color: #; background-color: #;
+width: 100%;
+text-align: center;
+ 
+ }
+
+div.submitActive		{ color: #000 !important; border-color: #aaa !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important;
+background-color: #09F; display: block !important;
+
+}
+
+
+
+
+
+^food \/ exercise
+
+*/
+
+
+
+/*
+#appStatusElapsed		{ background-color: #c1c1c1; }
+#appStatusWeight		{ background-color: #c1c1c1; }
+*/
+
+
+
+
+
+/*######################
+## BUILD: APP PROFILE ##
+######################*/
+/*/////////////
+// CALC FORM //
+/////////////*/
+#calcForm							{ display: block; font-size: 12px; padding-top: 3px; color: #505050; overflow: hidden; }
+#calcForm div.calcRow				{ margin-left: 22px; padding: 11px 0 11px 0; display: block; min-width: 300px; }
+#calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
+#calcForm input,
+#calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
+#calcForm input						{ text-indent: 2px; }
+#calcForm select					{ text-indent: 3px; }
+#calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
+/*feet-inches*/
+#calcForm #feet						{ margin-right: 4px; }
+#calcForm #feet,
+#calcForm #inches					{ width: 38px !important; min-width: 38px; }
+#calcForm #inches.metric			{ width: 80px !important; }
+#calcForm #feet.metric				{ display: none !important; }
+/*select arrow*/
+#calcForm .selectArrow				{ position: relative; }
+#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; }
+/*activity select*/
+#calcForm select#pA5B				{ width: 280px; margin-top: 3px; text-indent: 0; }
+/*h2 a.b.c.*/
+#calcForm h2						{ padding: 0; margin: 0; font-size: 16px; line-height: 32px; text-indent: 22px; background-color: #41A9DE; color: #fff; display: block; text-align: left; white-space: nowrap; }
+#calcForm h2 span					{ color: #ccc; padding-right: 1px; text-align: left; }
+/*by/unit*/
+#calcForm .calcResult				{ font-size: 13px; display: block; margin: 12px 12px 12px 18px; white-space: nowrap; }
+#calcForm .calcResult select		{ font-size: 13px; margin-left: 12px; margin-right: 0px; font-weight: bold ; color: #000; text-indent: 1px; }
+#calcForm .calcResult span			{ margin-left: 12px; }
+#calcForm .calcResult span + span	{ margin-left: 21px; }
+/*tap select*/
+#calcForm .tapSelect  				{ display: block; position: relative; margin: 12px; overflow: hidden; }
+#calcForm .tapSelect span			{ display: block; position: absolute; top: 19px; left: 128px; color: #aaa; }
+#calcForm .tapSelect input			{ width: 100%; padding: 15px 12px 14px 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: #eee; text-align: left; text-indent: 0; }
+#calcForm .tapSelect input.tapActive{ color: #cc3300 !important; }
+/*by/unit width*/
+#calcForm select#pA1B,
+#calcForm select#pA4B				{ min-width: 66px; width: 66px; }
+/*gender/age width*/
+#calcForm #pA6G,
+#calcForm #pA6M2					{ min-width: 56px; width: 56px; }
+/*focus*/
+#calcForm input:focus,
+#calcForm input:active,
+#calcForm select:focus,
+#calcForm select:active				{ color: #000; }
+/*####################
+## BUILD: APP DIARY ##
+####################*/
+/*//////////////
+// ENTRY LIST //
+//////////////*/
 #entryList				{ width: 100%; font-size: 13px; -webkit-backface-visibility: hidden; }
 #entryList div			{ width: auto; padding: 11px 0 11px 0; margin: 0; position: relative; border-bottom: 1px solid #eee; border-top: 1px solid transparent; overflow: hidden; }
+#entryList				{ width: 100%; min-height: 38px; -webkit-backface-visibility: hidden; }
+#entryListWrapper		{ width: 100%; float: left; display: block; position: relative; /*min-height: 180px;*/ padding: 36px 0 44px 0; background-color: #fff; overflow: hidden; }
+#editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; font-size: 13px; }
+/*delete*/
 span.delete				{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 3px 6px 0 0; padding: 7px 14px 7px 14px; border: 1px solid #953403; border-radius: 5px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 -1px 1px #953403; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ec4a0b),color-stop(1, #ad390c)); }
 span.delete:active		{ background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E0380A),color-stop(1, #9C2A09)); }
 span.delete				{ /*visibility: hidden;*/ -webkit-transition-timing-function: linear; -webkit-transform: translate3d(80px, 0, 0);  -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
@@ -149,13 +331,10 @@ span.delete.open		{ /*visibility: visible;*/ display: inline-block; -webkit-tran
 .entriesBody input		{ display: block; }
 .entriesPublished		{ padding-top: 28px; -webkit-backface-visibility: hidden; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; text-shadow: none !important; }
 .editing .entriesPublished { opacity: 0; }
-
-
 /*#EXPIRED#*/
 div.expired p			{ opacity: .3; }
 div.editing p			{ opacity: 1; }
 /*#ROW COLOR#*/
-/*
 .rowMorning,
 .e-rowMorning			{ color: #000; border-left: 5px solid #FFEC3C; }
 .rowAfternoon,
@@ -164,7 +343,7 @@ div.editing p			{ opacity: 1; }
 .e-rowNight				{ color: #000; border-left: 5px solid #4486E5; }
 .rowAfterhours,
 .e-rowAfterhours		{ color: #000; border-left: 5px solid #4141D1; }
-*/
+/**/
 .rowAfterhours p.entriesTitle,
 .rowMorning p.entriesTitle,
 .rowAfternoon p.entriesTitle,
@@ -173,17 +352,9 @@ div.editing p			{ opacity: 1; }
 .e-rowMorning p.entriesTitle,
 .e-rowAfternoon p.entriesTitle,
 .e-rowNight p.entriesTitle			{ color: #C00; }
-/*##################
-## FORM-ENTRYLIST ##
-##################*/
-div#sliderNum			{ -webkit-backface-visibility: hidden; text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
-div#sliderPos			{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #7E78E2; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
-div#sliderNeg			{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #C85136; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
-div#sliderNeg span		{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #C85136 transparent transparent; position: absolute; top: 7px; left: 3px; }
-div#sliderPos span		{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #7E78E2; position: absolute; top: 7px; right: 3px; }
-div#sliderNeg:active	{ /*color: #B93820;*/ }
-div#sliderPos:active	{ /*color: #645EDA;*/ }
-/*entryList in-line adjust*/
+/*//////////////////////
+// IN-LINE ENTRY EDIT //
+//////////////////////*/
 #kcalsAdjust			{ color: rgba(0,0,0,.1); }
 #adjustPos:before		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 42px; margin-left: -10px; }
 #adjustNeg:before 		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 42px; margin-left: -10px; -webkit-transform: scaleX(-1); }
@@ -191,22 +362,13 @@ div#sliderPos:active	{ /*color: #645EDA;*/ }
 #adjustPosBlock:active	{ color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
 #adjustPosBlock			{ position: absolute; right:  2px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999;  }
 #adjustNegBlock			{ position: absolute; right: 60px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999; -webkit-transform: scaleX(-1); }
-/*#INPUT MAIN#*/
-input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; border: none; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 1px 1px 0 0; }
-input#entryBody			{ position: absolute; margin-top: 6px; left: 16px; right: 16px; /*top: 64px; fix overflow bug*/ color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
 
-input#entryBody.focusMe	{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
-input#entryBody.focusMy	{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
-div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 999; }
-#entryBodySearch div	{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
-#entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
-div#entryBodySearch:active	{ opacity: 1; }
-select#entryTime		{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
-#entrySubmit			{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #bababa; border-radius: 28px; opacity: .7; padding: 6px 28px 6px 28px; font-weight: bold; color: #777; }
-div.submitActive		{ color: #000 !important; border-color: #aaa !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; }
-.android .submitActive	{ -webkit-box-shadow: none !important; }  
-.android #entrySubmit	{ text-shadow: none !important; }
-#sliderBlock			{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
+
+
+
+
+
+
 /*#SUB ELEMENTS#*/
 #configNow				{ -webkit-backface-visibility: hidden; margin: 0; text-align: center; background-color: #fff; position: absolute; left: 0; bottom: 0px; overflow: hidden; color: #333; display: block; font-weight: bold; width: 100%; border: 0; border-top: 0px solid rgba(137,3,6,.15); min-height: 40px; max-height: 44px; height: 44px; overflow: hidden; line-height: 44px; padding: 0; font-size: 18px; }
 #configNow:active 		{ color: #cc3300; }
@@ -258,10 +420,8 @@ body.android #entryListScroller.food	{ -webkit-transform: translate3d(0, -100%, 
 div#pageSlideFood		{ -webkit-backface-visibility: hidden; position: fixed; padding-top: 61px; left: 0; top: 51px; height: 100%; width: 100%; color: #fff; overflow: hidden; background-color: #000; z-index: 2; /*opacity: .925;*/ /* background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000); background: radial-gradient(at 100px,#373737,#000); opacity: 1; background-color: rgba(0,0,0,.925); */ }
 div#pageSlideFood		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .25s; }
 div#pageSlideFood.open	{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .25s; }
-
 div#pageSlideFood,
 div#pageSlideFood *		{ -webkit-backface-visibility: hidden !important; }
-
 /*food search*/
 input#foodSearch		{ 
 position: absolute; left: 0px; right: 0; top: 0; font-size: 18px;
@@ -335,66 +495,17 @@ div#pageSlideFood		{ display: none; }*/
 /*height deforce / subpart scroll*/
 #sideMenuInfo,
 #infoContents { /*position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow: auto;*/ -webkit-backface-visibility: hidden !important; }
-/*###############
-## AJAX INLINE ##
-###############*/
-#editableDiv			{ color: transparent; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; font-family: Helvetica; -webkit-user-select: none; overflow: hidden; }
-input#editable			{ -webkit-backface-visibility: hidden; color: #000; 
-background-color: #fff !important;
-position: absolute; top: 10px; right: 9px; 
-display: block !important; width: 74px !important; height: 32px; font-size: 24px !important; line-height: 28px;
-border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold;
 
-overflow: hidden; 
-}
-#editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; font-size: 13px; }
-#editableBlock			{ position: absolute; right: 0;  width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
-/*#############
-## CALC FORM ##
-#############*/
-#calcForm							{ display: block; font-size: 12px; padding-top: 3px; color: #505050; overflow: hidden; }
-#calcForm div.calcRow				{ margin-left: 22px; padding: 11px 0 11px 0; display: block; min-width: 300px; }
-#calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
-#calcForm input,
-#calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
-#calcForm input						{ text-indent: 2px; }
-#calcForm select					{ text-indent: 3px; }
-#calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
-/*feet-inches*/
-#calcForm #feet						{ margin-right: 4px; }
-#calcForm #feet,
-#calcForm #inches					{ width: 38px !important; min-width: 38px; }
-#calcForm #inches.metric			{ width: 80px !important; }
-#calcForm #feet.metric				{ display: none !important; }
-/*select arrow*/
-#calcForm .selectArrow				{ position: relative; }
-#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; }
-/*activity select*/
-#calcForm select#pA5B				{ width: 280px; margin-top: 3px; text-indent: 0; }
-/*h2 a.b.c.*/
-#calcForm h2						{ padding: 0; margin: 0; font-size: 16px; line-height: 32px; text-indent: 22px; background-color: #41A9DE; color: #fff; display: block; text-align: left; white-space: nowrap; }
-#calcForm h2 span					{ color: #ccc; padding-right: 1px; text-align: left; }
-/*by/unit*/
-#calcForm .calcResult				{ font-size: 13px; display: block; margin: 12px 12px 12px 18px; white-space: nowrap; }
-#calcForm .calcResult select		{ font-size: 13px; margin-left: 12px; margin-right: 0px; font-weight: bold ; color: #000; text-indent: 1px; }
-#calcForm .calcResult span			{ margin-left: 12px; }
-#calcForm .calcResult span + span	{ margin-left: 21px; }
-/*tap select*/
-#calcForm .tapSelect  				{ display: block; position: relative; margin: 12px; overflow: hidden; }
-#calcForm .tapSelect span			{ display: block; position: absolute; top: 19px; left: 128px; color: #aaa; }
-#calcForm .tapSelect input			{ width: 100%; padding: 15px 12px 14px 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: #eee; text-align: left; text-indent: 0; }
-#calcForm .tapSelect input.tapActive{ color: #cc3300 !important; }
-/*by/unit width*/
-#calcForm select#pA1B,
-#calcForm select#pA4B				{ min-width: 66px; width: 66px; }
-/*gender/age width*/
-#calcForm #pA6G,
-#calcForm #pA6M2					{ min-width: 56px; width: 56px; }
-/*focus*/
-#calcForm input:focus,
-#calcForm input:active,
-#calcForm select:focus,
-#calcForm select:active				{ color: #000; }
+
+
+
+
+
+
+
+
+
+
 /*###########
 ## SPINNER ##
 ###########*/
@@ -415,21 +526,7 @@ div#spinner div.bar10			{ -webkit-transform:rotate(270deg) translate(0, -142%); 
 div#spinner div.bar11			{ -webkit-transform:rotate(300deg) translate(0, -142%); -webkit-animation-delay: -0.1667s;  }
 div#spinner div.bar12			{ -webkit-transform:rotate(330deg) translate(0, -142%); -webkit-animation-delay: -0.0833s;  }
 @-webkit-keyframes fade			{ from { opacity: 1; } to { opacity: 0.25; } }
-/*################
-## CARPE SLIDER ##
-################*/
-#slider							{ position: absolute; left: 14px; right: 30px; }
-#sliderWrapper					{ -webkit-backface-visibility: hidden; }
-.carpe-slider-box 				{ position: absolute; top: 14px; left: 14px; right: 30px; height: 60px; }
-.carpe-slider-box,
-.carpe-slider-box *				{ position: relative; display: block; }
-.carpe-slider-panel				{ top: -30px; height: 60px; }
-.carpe-slider-panel:focus,
-.carpe-slider-panel:active		{ outline: none; }
-/* Slider Track */
-.carpe-slider-track				{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #444; opacity: 1; }
-.carpe-slider-knob				{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 12px; background: #fff; margin-left: 0px; }
-.carpe-slider-knob:hover		{ border: 1px solid #aaa; }
+
 /*#///////////#//
 //# MODAL BOX #//
 //#///////////#*/
@@ -601,6 +698,7 @@ body.ios7 div#balanced			{ line-height: 83px; }
 body.ios7 #timerTouch			{ height: 74px; }
 */
 
+
 body.ios7 #appHeader	{ height: 77px; }
 body.ios7 #appContent	{ top:    77px; }
 
@@ -612,25 +710,3 @@ body.ios7 span#timerExercise 			{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
 
-
-
-
-/*
-
-#editableDiv			{ 
-position: absolute; top: 10px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; font-family: Helvetica; -webkit-user-select: none; overflow: hidden; }
-input#editable			{ -webkit-backface-visibility: hidden; color: #000; 
-background-color: #fff !important;
-position: absolute; top: 10px; right: 9px; 
-display: block !important; width: 74px !important; height: 32px; font-size: 24px !important; line-height: 28px;
-border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold;
-
-overflow: hidden; 
-}
-
-
-#editableInput			{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc;
-
- display: block; width: 100%; color: #000; font-size: 13px; }
-#editableBlock			{ position: absolute; right: 0;  width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
-/*

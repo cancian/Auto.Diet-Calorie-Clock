@@ -1,11 +1,15 @@
 ////////////////////////
 // DEVICE READY EVENT //
 ////////////////////////
-$(document).ready(function() {
-	//$("body").css("opacity","0");
+if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+	document.addEventListener("deviceready", init, false);
+	navigator.splashscreen.hide();
+} else {
 	init();
-});
+}
+//$(document).ready(function() { init(); });
 function init() {
+	//$("body").css("opacity","0");
 	diary = new Diary();
 	diary.setup(startApp);
 }
@@ -34,21 +38,26 @@ function appFooter(id) {
 	window.localStorage.setItem("app_last_tab",id);
 	$("#" + id).addClass("selected");
 	//RELOAD CONTAINER
-	$("#appContent").remove();
-	$("body").append("<div id='appContent'></div>");
+	//$("#appContent").remove();
+	//$("body").append("<div id='appContent'></div>");
+	
 	//DELAY CONTENT
-	$("#appContent").css("opacity","0");
+	//$("#appContent").hide();
 	//$('#appContent').css("-webkit-transition-timing-function","ease");
-	//$('#appContent').css("-webkit-transition-duration",".1s");
-	setTimeout(function() {
-		$("#appContent").css("opacity","1");
-	},99);
+	//$('#appContent').css("-webkit-transition-duration",".09s");
+	//$("#appContent").css("opacity","0");
+	//setTimeout(function() {
+	//$("#appContent").show();
+	//},50);
+	//setTimeout(function() {
+	//	$("#appContent").css("opacity","1");
+	//},0);
 	//SCROLLBAR
 	if(!isMobile.iOS()) {
 		$("#appContent").css("overflow","hidden");
 		setTimeout(function(){
 			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursoropacitymax:0.4,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
-		},200);
+		},0);
 	}
 	//ACTION
 	if(id == "tab1") { openStatus();   }
@@ -118,17 +127,18 @@ $(window).on("resize", function(evt) {
 //#########################//
 //##    START WORKING    ##//
 //#########################//
-afterShow(250);
+afterShow(500);
 updateTimer();
 //updateEntries();
 //updateEntriesTime();
 (function startTimer() {
 	updateTimer();
-	setTimeout(startTimer,99);
+	setTimeout(startTimer,100);
 })();
 ///////////////
 // ANALYTICS //
 ///////////////
+/*
 if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
 	var gaPlugin;
 	gaPlugin = window.plugins.gaPlugin;
@@ -136,9 +146,12 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	function successHandler(result) {}
 	function errorHandler(error)	{}
 }
+*/
 /////////////////////
 // ADJUST ELEMENTS //
 /////////////////////
+var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
+/*
 if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 	if(window.localStorage.getItem("config_kcals_day") == "d") {
 		var getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
@@ -146,9 +159,10 @@ if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 		var getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
 	}
 } else {
-	var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
+var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 }
-/////////////////////
+*/
+
 ///////////
 // IOS 7 //
 ///////////
@@ -169,9 +183,6 @@ $('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
 //////////////////
 // INTRO NOTICE //
 //////////////////
-if(window.localStorage.getItem("config_swipe_tooltip") != "seen") {
-	$('#entryListForm').addClass("toolTip");
-}
 	//$("#mailTo").on(touchstart,function(evt) {
 	//	evt.preventDefault();
 	//	evt.stopPropagation();

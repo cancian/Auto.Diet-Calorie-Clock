@@ -585,7 +585,7 @@ $(window).resize(function(evt) {
 		var sliderMemory = $("#entryTitle").val();
 		$("#sliderWrapper").html('<input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" />');
 		CARPE.sliders.init();
-		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (22)) + "px");
+		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (36)) + "px");
 		document.getElementById('slider').slider.setValue(sliderMemory);
 	}
 	function carpeShow() {

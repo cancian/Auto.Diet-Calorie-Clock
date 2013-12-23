@@ -50,6 +50,10 @@ var ADD_ENTRY = {
 	en: "add entry",
 	pt: "adicionar"
 };
+var QUICK_ADD = {
+	en: "quick add",
+	pt: "adição rápida"
+};
 var ACTIVITY_LOG = {
 	en: "activity log",
 	pt: "atividades"
@@ -144,7 +148,7 @@ var CANCEL = {
 	pt: "cancelar"
 };
 var RESET_DIALOG = {
-	en: "reset counter (set to now)",
+	en: "reset counter",
 	pt: "resetar contador"
 };
 var RESET_ENTRY_DIALOG = {

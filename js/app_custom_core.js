@@ -1,14 +1,14 @@
 //#############################################################//
 //##                      CUSTOM CORE                        ##//
 //#############################################################//
-/////////////////////////////
-// STATUS BAR REFRESH DATA //
-/////////////////////////////
-function replaceDivContent(id,content) {
+////////////////////////////
+// APP TIMER REFRESH DATA //
+////////////////////////////
+function appTimer(id,content) {
 		var kcalsType  = content[0];
 		var kcalsInput = content[1];
-		var currentDay = content[2];
-		var currentDayName = content[3];
+		var kcalsAll   = content[2];
+		var currentDay = content[3];
 	if(kcalsType == "cyclic") {
 		if(currentDay == "d") {
 			var getKcalsKey  = "config_kcals_day_2";
@@ -38,6 +38,7 @@ function replaceDivContent(id,content) {
 	else if(kcalsInput < -300)  { status = LANG('DEFICIT');  statusStop = " ";                 cssClass = "deficit";  }
 	else                        { status = LANG('BALANCED'); statusStop = " ";                 cssClass = "balanced"; }
 	//EQ TIME
+/*
 	var eqTime;
 	var eqStart  = Number(window.localStorage.getItem("config_start_time"));
 	var eqCals   = kcalsInput;
@@ -45,107 +46,82 @@ function replaceDivContent(id,content) {
 	var eqRatio  = (60*60*24 / eqPerDay);
 	var eqDiff   = eqDate - Math.floor(Math.abs(kcalsInput*eqRatio));
 	var eqTime   = dateDiff(eqDiff*1000,eqDate*1000).replace(" " + LANG("AGO"),"");
-
-
+*/
 	/////////////////
 	// WEIGHT LOSS //
 	/////////////////
+
 	var startLoss    = Number(window.localStorage.getItem("config_start_time"));
 	var numberLoss   = Number(window.localStorage.getItem("calcForm#pA6G"));
 	var unitLoss     = Number(window.localStorage.getItem("calcForm#select"));
+	var currentDaily = Number(window.localStorage.getItem("config_kcals_day_1"));
+	// tempo passado
+	// calorias por dia 
+	// total de calorias necessarias - total de calorias usadas 
+	// resto / 7700 = kg lost
 	var week         = 60*60*24*7;
 	var elapsedLoss  = Number(new Date().getTime()) - startLoss;
 	// weeks elapsed
 	var elapsedRatio = elapsedLoss / week;
 	var weightLoss   = ((numberLoss * elapsedRatio) / 1000).toFixed(7);
-	////////////
-	// OUTPUT //
-	////////////
-
-/*
-	var kcalsHtmlOutput = '';
-	kcalsHtmlOutput += "<div id='" + cssClass + "' class='" + kcalsType + "'>";
-	// SIMPLE DATA //
-		kcalsHtmlOutput += "<span id='subStatusEq'> weight loss: <span class='bold'>" + weightLoss + " (kg)</span></span>";
-		kcalsHtmlOutput += "<span id='subKcalsDay'><span class='bold'>" + eqPerDay + " </span> kcals / " + LANG('DAY') + "</span>";
-	// CYCLIC DATA //
-	if(content[0] == "cyclic") {
-		kcalsHtmlOutput += "<span id='subKcalsRange'><span>" + window.localStorage.getItem("config_kcals_day_1") + "~" + window.localStorage.getItem("config_kcals_day_2") + "</span> kcals " + LANG('RANGE') + "</span>";
-		//kcalsHtmlOutput += "<span id='subDayName'><span>" + currentDayName + "</span></span>";
-		//kcalsHtmlOutput += "<span id='subCurrentDay'>day <span>" + currentDay + "</span></span>";
-		kcalsHtmlOutput += "<span id='subCurrentDay' class='currentDay" + currentDay.toUpperCase() + "'><span id='subDayA'>" + LANG('DAY') + " <span>a</span></span><span id='subDayB'>" + LANG('DAY') + " <span>b</span></span><span id='subDayC'>" + LANG('DAY') + " <span>c</span></span><span id='subDayD'>" + LANG('DAY') + " <span>d</span></span></span>";
-	}
-	//minus bump
-	//if(kcalsInput == 0) { kcalsInput = "0.00"; }
-		//insert
-		kcalsHtmlOutput += "<span id='statusContent'>" + kcalsInput + " kcals</span>";
-		kcalsHtmlOutput += "<span id='statusMain'>(" + status + ")</span>";
-		//kcalsHtmlOutput += "<span id='statusLoss'>weight loss: " + weightLoss + " <span id='titleLoss'>total weight loss (kg)</span></span>";
-		kcalsHtmlOutput += "<span id='statusStop'>" + statusStop + "</span>";
-		kcalsHtmlOutput += "</div>";
-	//REPLACE
-	//console.log('kcalsHtmlOutput');
-	//$("#timer").hide();
-	//$("#timer").html('');
-	$("#timer").html(kcalsHtmlOutput);
-	//$("#timer").show();
-}
-*/
-
-
-
+	//$("#statusBlock1").html(kcalsAll);
 
 	////////////
 	// OUTPUT //
 	////////////
-	var kcalsHtmlOutput = '';
-	kcalsHtmlOutput += "<div id='" + cssClass + "' class='" + kcalsType + "'>";
-	// SIMPLE DATA //
-		kcalsHtmlOutput += "<span id='subStatusEq'>" + LANG('EQ_TIME') + ": <span class='bold'>" + eqTime + "</span></span>";
-		kcalsHtmlOutput += "<span id='subKcalsDay'><span class='bold'>" + eqPerDay + " </span></span>";
-	// CYCLIC DATA //
-	if(content[0] == "cyclic") {
-		kcalsHtmlOutput += "<span id='subKcalsRange'><span>" + window.localStorage.getItem("config_kcals_day_1") + "~" + window.localStorage.getItem("config_kcals_day_2") + "</span> kcals " + LANG('RANGE') + "</span>";
-		//kcalsHtmlOutput += "<span id='subDayName'><span>" + currentDayName + "</span></span>";
-		//kcalsHtmlOutput += "<span id='subCurrentDay'>day <span>" + currentDay + "</span></span>";
-		kcalsHtmlOutput += "<span id='subCurrentDay' class='currentDay" + currentDay.toUpperCase() + "'><span id='subDayA'>" + LANG('DAY') + " <span>a</span></span><span id='subDayB'>" + LANG('DAY') + " <span>b</span></span><span id='subDayC'>" + LANG('DAY') + " <span>c</span></span><span id='subDayD'>" + LANG('DAY') + " <span>d</span></span></span>";
-	}
+	var kcalsHtmlOutput = "";
+	kcalsHtmlOutput    += "<div id='timerBlocks'>";
+	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>calories avaliable</span></div>";
+	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>daily calories</span></div>";
+	//kcalsHtmlOutput    += "<div id='timerElapsed'>" + timeElapsed() + "<span>time elapsed</span></div>";
+	kcalsHtmlOutput    += "</div>";
 	//plus~minus de-bump
-	if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
-	if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
-		//insert
-		kcalsHtmlOutput += "<span id='timerBalance'>" + kcalsInput + "</span>";
-		kcalsHtmlOutput += "<div id='timerBlock1'>" + weightLoss + "<span>weight loss (kg)</span></div>";
-		kcalsHtmlOutput += "<div id='timerBlock2'>" + timeElapsed() + "<span>time elapsed</span></div>";
-
-//		kcalsHtmlOutput += "<span id='statusMain'>(" + status + ")</span>";
-//		kcalsHtmlOutput += "<span id='statusStop'>" + statusStop + "</span>";
-		kcalsHtmlOutput += "</div>";
-	//REPLACE
-	//console.log('kcalsHtmlOutput');
+	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
+	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
+	//STATUS
+	$("#appHeader").removeClass("deficit");
+	$("#appHeader").removeClass("balanced");
+	$("#appHeader").removeClass("surplus");
+	$("#appHeader").addClass(cssClass);
+	//////////////////
+	// UPDATE TIMER //
+	//////////////////
 	$("#appHeader").html(kcalsHtmlOutput);
+	///////////////////////
+	// UPDATE APP STATUS //
+	///////////////////////
+	$("#appStatusElapsed").html("<div>" + timeElapsed() + "<span>time elapsed</span></div");
+	$("#appStatusWeight").html("<div>" + weightLoss + " kg<span>weight loss</span></div");
+
+	$("#appStatus1").html("<div>" + status + "<span>caloric status</span></div");
+	$("#appStatus2").html("<div>+ 500  - 918<span>food exercise</span></div");
+	$("#appStatus3").html("<div>+ food</div");	
+	$("#appStatus4").html("<div>+ exercise</div");
+//	$("#appStatus5").html("<div>+ food</div");	
+//	$("#appStatus6").html("<div>+ exercise</div");
+
+
+
 }
-///////////////////
-// TIME TO KCALS //
-///////////////////
+//#////////////////////////#//
+//# *LINEAR* TIME TO KCALS #//
+//#////////////////////////#//
 function timeToKcals(start) {
 	var now             = (new Date()).getTime();
 	var timeSinceStart  = (now - start) / 1000;
 	var kcalsPerDay     = window.localStorage.getItem("config_kcals_day_0");
 	var KcalsTimeRatio  = 60*60*24 / kcalsPerDay;
 	//var kcalsSinceStart = Math.floor((timeSinceStart / KcalsTimeRatio)*31)*(-1);
-	var kcalsSinceStart = ((timeSinceStart / KcalsTimeRatio)*1)*(-1);
+	var kcalsSinceStart = ((timeSinceStart / KcalsTimeRatio)*1);
 	var kcalsEntrySum   = Number(window.localStorage.getItem("config_entry_sum"));
 
 	var content = [];
 		content.push("simple");
 		//content.push(((kcalsSinceStart/31) + (kcalsEntrySum)).toFixed(2));
 		content.push(((kcalsSinceStart/1) + (kcalsEntrySum)).toFixed(2));
+		content.push(kcalsSinceStart);
 	return content; // ((kcalsSinceStart/31) + (kcalsEntrySum)).toFixed(2);
 }
-//#//////////////////////#//
-//# CYCLIC TIME TO KCALS #//
-//#//////////////////////#//
 //#////////////////////////#//
 //# *CYCLIC* TIME TO KCALS #//
 //#////////////////////////#//
@@ -273,37 +249,173 @@ function cyclicTimeToKcals(startTime) {
 	var content = [];
 		content.push("cyclic");
 		content.push(kcalsOutput);
-		content.push(currentDay);
+		content.push(kcalsSinceStartA + kcalsSinceStartB + kcalsSinceStartC + kcalsSinceStartD);
 		content.push(currentDay);
 	return content; //((allKcalsSinceStart/31) + (kcalsEntrySum)).toFixed(2);
-	
 }
 //##################//
 //## CORE UPDATER ##//
 //##################//
 function updateTimer() {
-	//update every ~
-	if(new Date().getSeconds() == 30) { updateEntriesTime(); }
 	//MAKE SUM
 	diary.getEntries(function(data) {
-		//console.log('updating entrylist sum');
-		var ts = 0;
-		for(var i=0, len=data.length; i<len; i++) {
-			// EXPIRED
-			if(window.localStorage.getItem("config_start_time") < Number(data[i].published)) {
-				ts = Number(data[i].title) + ts;
-			}
-		}
-		//console.log('refreshing timer');
-		window.localStorage.setItem("config_entry_sum",ts);
-		var day1 = window.localStorage.getItem("config_kcals_day_1");
-		var day2 = window.localStorage.getItem("config_kcals_day_2");
-		//READ SETTINGS
-		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-			replaceDivContent("appHeader",cyclicTimeToKcals(window.localStorage.getItem("config_start_time")));
+		////////////////
+		// TIMER LOCK //
+		////////////////
+		if(window.localStorage.getItem("appStatus") != "running") {
+			window.localStorage.setItem("config_start_time",new Date().getTime());
+			window.localStorage.removeItem("config_entry_sum");
 		} else {
-			replaceDivContent("appHeader",timeToKcals(window.localStorage.getItem("config_start_time")));
+			//update every ~
+			if(new Date().getSeconds() == 30) { updateEntriesTime(); }
+			//console.log('updating entrylist sum');
+			var ts = 0;
+			for(var i=0, len=data.length; i<len; i++) {
+				// EXPIRED
+				if(window.localStorage.getItem("config_start_time") < Number(data[i].published)) {
+					ts = Number(data[i].title) + ts;
+				}
+			}
+			//console.log('refreshing timer');
+			window.localStorage.setItem("config_entry_sum",ts*-1);
+			var day1 = window.localStorage.getItem("config_kcals_day_1");
+			var day2 = window.localStorage.getItem("config_kcals_day_2");
+		}
+		///////////////////
+		// READ SETTINGS //
+		///////////////////
+		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
+			appTimer("appHeader",cyclicTimeToKcals(window.localStorage.getItem("config_start_time")));
+		} else {
+			appTimer("appHeader",timeToKcals(window.localStorage.getItem("config_start_time")));
 		}
 	});
 }
 
+
+
+
+/*
+
+<?php
+///////////////////////
+// BUILD NUTRI INDEX //
+///////////////////////
+$kfilename   = 'kcals_cals.txt';
+$kcheckit    = file_get_contents($kfilename);
+$kcheckdata  = explode("|",$kcheckit);
+$nutri_sum   = $kcheckdata[0];
+
+//read consumed stuff from list
+$_diary    = file_get_contents('kcals_diary.txt');
+$_zentries = explode("\n",$_diary);
+$_line     = 0;
+ 
+	foreach($_zentries as $_zentry)
+	{	
+		$sutri = explode('|',$_zentry);
+		$cata_time = $sutri[1];
+		
+		if($cata_time >= $startt)
+			{	
+				if($_zentry)
+				{
+					//RESET
+					$zata_cals = '';
+					$zata_time = '';
+					$zata_name = '';
+					$zata_gram = '';
+					$zata_pro =  '';
+					$zata_car =  '';
+					$zata_fat =  '';
+					$zata_fib =  '';
+	
+					$sutri = explode('|',$_zentry);
+		
+					$cata_cals = $sutri[0];
+						if($cata_cals > 0)
+						{
+							$zata_cals = $sutri[0];
+							$zata_time = $sutri[1];
+							$zata_name = $sutri[2];
+							$zata_gram = $sutri[3];
+							$zata_pro =  $sutri[4];
+							$zata_car =  $sutri[5];
+							$zata_fat =  $sutri[6];
+							$zata_fib =  $sutri[7];
+						}
+						else 
+						{
+							//add caloric usage to totals...
+							$zata_cals = $sutri[0];
+							$exercise_sum = $exercise_sum+$zata_cals;
+						}
+		
+					$tot_pro = $tot_pro+$zata_pro;
+					$tot_car = $tot_car+$zata_car;
+					$tot_fat = $tot_fat+$zata_fat;
+
+				}
+			}
+	}
+
+	
+//negative part of the exercises
+//NUTRI BAR PRE-ROOM
+$nutri_sum = $nutri_sum+$exercise_sum-600;
+
+//ratios
+$r_pro = 0.35;
+$r_car = 0.40;
+$r_fat = 0.25;
+
+$spro = abs(round($nutri_sum*($r_pro)/4));
+$scar = abs(round($nutri_sum*($r_car)/4));
+$sfat = abs(round($nutri_sum*($r_fat)/9));
+
+$nutri_pro = $tot_pro.' / '.$spro.'g';
+$nutri_car = $tot_car.' / '.$scar.'g';
+$nutri_fat = $tot_fat.' / '.$sfat.'g';
+
+$pro_width = $tot_pro/($spro);
+$car_width = $tot_car/($scar);
+$fat_width = $tot_fat/($sfat);
+
+$per_pro = abs($pro_width*200);
+$per_car = abs($car_width*200);
+$per_fat = abs($fat_width*200);
+
+    if($per_pro > 300) { $red_pro = $per_pro; $per_pro = 200; $pro_color = '#ff3300'; } 
+elseif($per_pro > 200) { $red_pro = $per_pro; $per_pro = 200; $pro_color = '#ffdd33'; } 
+else                   { $pro_color = '#00ff00'; $red_pro = ''; }
+
+    if($per_car > 300) { $red_car = $per_car; $per_car = 200; $car_color = '#ff3300'; } 
+elseif($per_car > 200) { $red_car = $per_car; $per_car = 200; $car_color = '#ffdd33'; }
+else                   { $car_color = '#00ff00'; $red_car = ''; }
+
+    if($per_fat > 300) { $red_fat = $per_fat; $per_fat = 200; $fat_color = '#ff3300'; }
+elseif($per_fat > 200) { $red_fat = $per_fat; $per_fat = 200; $fat_color = '#ffdd33'; }
+ else                  { $fat_color = '#00ff00'; $red_fat = ''; }
+?>
+
+<div style="font-size: 10px; color: #fff; line-height: 14px; text-indent: 5px; white-space: nowrap; max-width: 100px; background: #ccc;">
+
+	<div style="position:absolute; top: -80px; left: 150px; width: 200px; height: 12px; -moz-border-radius: 3px; background: #fff; border: 1px solid #ccc;"></div>
+	<div style="position:absolute; top: -65px; left: 150px; width: 200px; height: 12px; -moz-border-radius: 3px; background: #fff; border: 1px solid #ccc;"></div>
+	<div style="position:absolute; top: -50px; left: 150px; width: 200px; height: 12px; -moz-border-radius: 3px; background: #fff; border: 1px solid #ccc;"></div>
+
+	<div style="position:absolute; top: -80px; left: 150px; width: <?php print round($per_pro); ?>px; height: 12px; -moz-border-radius: 3px; background: <?php print $pro_color; ?>; border: 1px solid #888;"></div>
+	<div style="position:absolute; top: -65px; left: 150px; width: <?php print round($per_car); ?>px; height: 12px; -moz-border-radius: 3px; background: <?php print $car_color; ?>; border: 1px solid #888;"></div>
+	<div style="position:absolute; top: -50px; left: 150px; width: <?php print round($per_fat); ?>px; height: 12px; -moz-border-radius: 3px; background: <?php print $fat_color; ?>; border: 1px solid #888;"></div>
+
+	<div style="position:absolute; top: -80px; left: 350px; height: 11px; color: #666;">proteins (<?php print round($r_pro*100); ?>%)</div>
+	<div style="position:absolute; top: -65px; left: 350px; height: 11px; color: #666;">carbs (<?php print round($r_car*100); ?>%)</div>
+	<div style="position:absolute; top: -50px; left: 350px; height: 11px; color: #666;">fats (<?php print round($r_fat*100); ?>%)</div>
+
+	<div style="position:absolute; top: -80px; left: 150px; height: 12px; opacity: .6; color: #666;"><?php print $nutri_pro; ?></div>
+	<div style="position:absolute; top: -65px; left: 150px; height: 12px; opacity: .6; color: #666;"><?php print $nutri_car; ?></div>
+	<div style="position:absolute; top: -50px; left: 150px; height: 12px; opacity: .6; color: #666;"><?php print $nutri_fat; ?></div>
+		
+</div>
+</div>
+*/

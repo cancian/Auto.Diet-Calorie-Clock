@@ -22,13 +22,68 @@ function openStatus(string) {
 	var statusHtml = '\
 	<a name="top"></a>\
 	<div id="statusWrapper">\
-	mimimi status\
+		<div id="appStatusElapsed"></div>\
+		<div id="appStatusWeight"></div>\
+		<div id="appStatus1"></div>\
+		<div id="appStatus2"></div>\
+		<div id="appStatus3"></div>\
+		<div id="appStatus4"></div>\
+		<div id="appStatus5">\
+		<div id="app1"></div>\
+		<div id="app2"></div>\
+		<div id="app3"></div>\
+		</div>\
+		<div id="appStatus6"></div>\
+		<div id="appStatus"></div>\
 	</div>';
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
 	//HTML
 	$("#appContent").html(statusHtml);
+	//////////////
+	// HANDLERS //
+	//////////////
+	$("#appStatus").on(touchend,function(evt) {
+		if(window.localStorage.getItem("appStatus") == "running") {
+			function appReset(button) {
+				//ON CONFIRM
+				if(button == 1) {
+					$("#appStatus").removeClass("reset");
+					$("#appStatus").addClass("start");
+					$("#appStatus").html("start");
+					window.localStorage.removeItem("appStatus");
+				}
+				return false;
+			}
+			//SHOW DIALOG
+			if(hasTouch()) {
+				navigator.notification.confirm(LANG("ARE_YOU_SURE"), appReset, LANG("RESET_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
+				return false;
+			} else {
+				if(confirm(LANG("RESET_DIALOG"))) { appReset(1); } else { return false; }
+			}
+		} else {
+			$("#appStatus").removeClass("start");
+			$("#appStatus").addClass("reset");
+			$("#appStatus").html("reset");
+			window.localStorage.setItem("appStatus","running");
+		}
+	});
+	///////////////
+	// PAGE LOAD //
+	///////////////
+	quickAdd("#appStatus5");
+	
+	if(window.localStorage.getItem("appStatus") == "running") {
+		$("#appStatus").removeClass("start");
+		$("#appStatus").addClass("reset");
+		$("#appStatus").html("reset");
+	} else {
+		$("#appStatus").removeClass("reset");
+		$("#appStatus").addClass("start");
+		$("#appStatus").html("start");
+	}
 }
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##
@@ -36,62 +91,12 @@ function openStatus(string) {
 function openDiary(string) {
 //RAW HTML
 var diaryHtml = '\
-<a name="top"></a>	\
-<div id="entryListForm">\
-<div id="sliderWrapper">\
-<input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
-<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcals</div>\
-<div id="sliderNeg"><span></span>' + LANG('EXERCISE') + '</div>\
-<div id="sliderPos">' + LANG('FOOD') + '<span></span></div>\
-<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />\
-<div id="entryBodySearch"><div></div></div>\
-<select id="entryTime" name="entryTime" tabindex="-1">\
-					<option value="0">' + LANG('NOW') + '</option>\
-					<option value="1">1 ' + LANG('HOUR_AGO') + '</option>\
-					<option value="2">2 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="3">3 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="4">4 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="5">5 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="6">6 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="7">7 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="8">8 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="9">9 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="10">10 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="11">11 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="12">12 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="13">13 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="14">14 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="15">15 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="16">16 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="17">17 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="18">18 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="19">19 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="20">20 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="21">21 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="22">22 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="23">23 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="24">1 ' + LANG('DAY_AGO') + '</option>\
-					<option value="48">2 ' + LANG('DAYS_AGO') + '</option>\
-					<option value="72">3 ' + LANG('DAYS_AGO') + '</option>\
-				</select>\
-<div id="entrySubmit">' + LANG('ADD_ENTRY') + '</div>\
-			</div>\
+<a name="top"></a>\
 <div id="entryListWrapper">\
-<div class="heading" id="go">' + LANG('ACTIVITY_LOG') + '\
-<div id="iconInfo" class="icon-info-sign"></div>\
-            </div>\
-				<div id="entryList"></div>\
-				<div id="startDateBar"><input type="datetime-local" id="startDate" /></div>\
-				<div id="iconRepeatToggle"></div>\
-				<div id="startDateBarToggle"></div>\
-				<div id="configNow">\
-					<div class="icon-repeat"></div>\
-					<div class="arrow-down"></div>\
-					' + LANG('RESET_COUNTER') + '\
-				</div>\
-					</div>\
-			</div>\
-		</div>\
+	<div class="heading" id="go">' + LANG('ACTIVITY_LOG') + '\
+	</div>\
+<div id="entryList"></div>\
+</div>\
 ';
 //#////////#//
 //# OUTPUT #//
@@ -102,492 +107,14 @@ $("#appContent").html(diaryHtml);
 // RESIZE HEIGHT //
 ///////////////////
 //SLIDER
-$(window).trigger("orientationchange");
-$(window).trigger("resize");
+//$(window).trigger("orientationchange");
+//$(window).trigger("resize");
 //ENTRYLIST
 updateEntries();
-updateEntriesTime();
+//updateEntriesTime();
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//
-	//HIDE TOOLTIP //
-	$("#entryListForm").on(touchstart, function(evt) {
-		if($("#entryListForm").hasClass("toolTip")) {
-			evt.preventDefault();
-			evt.stopPropagation();
-			$("#entryListForm").removeClass("toolTip");
-			window.localStorage.setItem("config_swipe_tooltip","seen");
-		}
-	});
-	///////////////////
-	// ARROW BUTTONS //
-	///////////////////
-	$("#sliderNum").off().on(touchstart, function(evt) {
-		evt.preventDefault();
-		$("#entryTime").blur();
-		$("#entryBody").blur();
-		//console.log("reset slider value");
-		var sliderNum = document.getElementById('slider').slider.resetValue();
-		makeRound();
-				return false;
-	});
-	$("#sliderPos").off().on(touchstart, function(evt) {
-		evt.preventDefault();
-		//console.log("increase slider value");
-		var sliderPos = document.getElementById('slider').slider.increment(1);
-		makeRound();
-		return false;
-	});
-	$("#sliderNeg").off().on(touchstart, function(evt) {
-		evt.preventDefault();
-		//console.log("decrease slider value");
-		var sliderNeg = document.getElementById('slider').slider.increment(-1);
-		makeRound();
-		return false;
-	});
-	////////////////////////////////
-	// SAVE ENTRY (SUBMIT BUTTON) //
-	////////////////////////////////
-	$("#entrySubmit").on(touchstart, function(evt) {
-		evt.preventDefault();
-		makeRound();
-		//grab values
-		var title     = $("#entryTitle").val();
-		var body      = $("#entryBody").val();
-		var published = new Date().getTime();
-		//hours ago
-		if(Number($("#entryTime").val()) >= 1) {
-			published = published - (Number($("#entryTime").val()) * (60 * 60 * 1000) );
-		}
-		//SAVE (NOT NULL)
-		if(title != 0) {
-			//console.log("new entry added");
-			diary.saveEntry({title:title,body:body,published:published});
-		//}
-		//RELOAD IF-KCALS
-		//if(title != 0) {
-			var resetSlider = document.getElementById('slider').slider.resetValue();
-			document.getElementById('entryBody').value = "";
-			document.getElementById('entryTime').value = 0;
-			//DISMISS KEYBOARD
-			$('#entryTime').blur();
-			$('#entryBody').blur();
-			$('#editable').blur();
-			//REFRESH DATA
-			updateEntries(published);
-			updateTimer();
-			updateEntriesTime();
-			//SCROLLBAR UPDATE			
-			if(!isMobile.iOS()) {
-				$("#appContent").css("overflow","hidden");
-				setTimeout(function(){
-					$("#appContent").getNiceScroll().onResize();
-				},200);
-			}
-		}
-	});
-	//#//////////////#//
-	//# FORCE RELOAD #//
-	//#//////////////#//
-	$("#go").on("hold", function(evt) {
-		evt.preventDefault();
-		//evt.stopPropagation();
-		//REFRESH DATA
-		updateTimer();
-		updateEntries();
-		updateEntriesTime();
-		//return false;
-	});
-	//////////////////
-	// SLIDER ROUND //
-	//////////////////
-	function makeRound() {
-		n = document.getElementById('entryTitle').value / 25;
-		n = Math.round(n) * 25;
-		if($("#entryTitle").val() != n) {
-			$("#entryTitle").val(n);
-		}
-	}
-	//#//////////////////////#//
-	//# SLIDER VALUE CHANGES #//
-	//#//////////////////////#//
-	!function() {
-		document.getElementById('entryTitle').update = function() {
-			//UPDATE INPUT
-			document.getElementById('entryTitle').value = document.getElementById('slider').value;
-			//force reset < 25
-			if(document.getElementById('entryTitle').value == -0) {
-				document.getElementById('entryTitle').value = 0;
-			}
-			if(!(Math.abs(document.getElementById('entryTitle').value) >= 25)) {
-				makeRound();
-			}
-			////////////////////////
-			// CHANGE TRACK COLOR //
-			////////////////////////
-			function checkTrack() {
-				if(document.getElementById('entryTitle').value == 0) {
-					$('.carpe-slider-track').css("background-color", "#666");
-				} else
-				if(document.getElementById('entryTitle').value > 0) {
-					$('.carpe-slider-track').css("background-color", "#0000dd");
-				} else {
-					$('.carpe-slider-track').css("background-color", "#cc3300");
-				}
-			}
-			checkTrack();
-			/////////////////////////
-			// CHANGE SUBMIT COLOR //
-			/////////////////////////
-			function checkSubmit() {
-				if(document.getElementById('entryTitle').value == 0) {
-					if($('#entrySubmit').hasClass('submitActive')) {
-						$('#entrySubmit').removeClass('submitActive');
-					}
-				} else
-				if(!$('#entrySubmit').hasClass('submitActive')) {
-					$('#entrySubmit').addClass('submitActive');
-				}
-			}
-			checkSubmit();
-		return;
-		};
-	}();
-	/////////////////////
-	// REPEATER SHARED //
-	/////////////////////
-	function clearRepeater() {
-		clearTimeout(pressTimerNeg);
-		clearTimeout(pressTimerPos);
-		clearInterval(pressRepeatNeg);
-		clearInterval(pressRepeatPos);
-	}
-	///////////////
-	// autoclear //
-	///////////////
-	$("#sliderPos,#sliderNeg,#sliderNum").on(touchend + "mouseout", function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-	});
-	///////////////////////
-	// POSITIVE REPEATER //
-	///////////////////////
-	var pressTimerPos;
-	var pressRepeatPos;
-	$("#sliderPos").on(touchend, function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-	});
-	$("#sliderPos").on(touchstart, function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-		pressTimerPos  = window.setTimeout(function()  {
-		pressRepeatPos = window.setInterval(function() {
-			//ACTION
-			var repeatPos = document.getElementById('slider').slider.increment(1);
-			makeRound();
-		},275);
-		},275);
-	});
-	///////////////////////
-	// NEGATIVE REPEATER //
-	///////////////////////
-	var pressTimerNeg;
-	var pressRepeatNeg;
-	$("#sliderNeg").on(touchend, function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-	});
-	$("#sliderNeg").on(touchstart, function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-		pressTimerNeg  = window.setTimeout(function()  {
-		pressRepeatNeg = window.setInterval(function() {
-			//ACTION
-			var repeatNeg = document.getElementById('slider').slider.increment(-1);
-			makeRound();
-		},275);
-		},275);
-	});
-	/////////////////////
-	// NUM DE-REPEATER //
-	/////////////////////
-	$("#sliderNum").on(touchstart + "touchmove", function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-		var sliderNum = document.getElementById('slider').slider.resetValue();
-		return false;
-	});
-	//#//////////////////#//
-	//# BOTTOM RESET BAR #//
-	//#//////////////////#//
-	//LONG TAP
-	$("#configNow").on("hold", function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//console.log('wipe all data');
-		//CONFIRMATION DIALOG
-		//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-		if(hasTouch()) {
-			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
-		} else {
-			//if(confirm('Wipe all data?')) { onConfirmWipe(1); } else {  }
-			onConfirmWipe(1);
-		}
-	});
-	//TAP
-	$("#configNow").on("singleTap", function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//CONFIRMATION DIALOG
-		//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-		if(hasTouch()) {
-			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmReset, LANG("RESET_DIALOG") , [LANG("OK"),LANG("CANCEL")]);
-		} else {
-			//if(confirm('Reset counter? (set to now)')) { onConfirmReset(1); } else {  }
-			onConfirmReset(1);
-		}
-	});
-	////////////////////
-	// RESET FUNCTION //
-	////////////////////
-	function onConfirmReset(button) {
-		if(button == 1) {
-			//set to now
-			window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
-			fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
-			//reset form
-			document.getElementById('slider').slider.resetValue();
-			document.getElementById('entryBody').value = "";
-			document.getElementById('entryTime').value = 0;
-			//refresh timer
-			updateTimer();
-			updateEntries();
-			updateEntriesTime();
-		}
-	}
-	///////////////////
-	// WIPE FUNCTION //
-	///////////////////
-	function onConfirmWipe(button) {
-		if(button == 1) {
-			//drop
-			diary.deSetup();
-			//update entrylist
-			document.getElementById("entryList").style.display = 'none';
-			$("#entryList").html("<div id='noEntries'><span>" + LANG('NO_ENTRIES') + "</span></div>");
-			document.getElementById("entryList").style.display = 'block';
-			//refresh timer
-			updateTimer();
-			updateEntriesTime();
-			//reset form
-			document.getElementById('slider').slider.resetValue();
-			document.getElementById('entryBody').value = "";
-			document.getElementById('entryTime').value = 0;
-			window.location='#top';
-		}
-	}
-	//////////////////
-	// small tweaks //
-	//////////////////
-	//fixed bottom bar
-	$("#configNow, #startDateBarToggle, #iconRepeatToggle").on("touchmove", function(evt) {
-		evt.preventDefault();
-	});
-	//date fastfocus
-	$('#startDate').on(tap,function(evt) {
-		$('#startDate').focus();
-	});
-	//////////////////
-	// DEV KEYCODES //
-	//////////////////
-	//ICONINFO GREEN
-	if(window.localStorage.getItem("config_debug") == "active") {
-		$("#iconInfo").css("color","#00cc00");
-	}
-	///////////
-	// CODES //
-	///////////
-	$("#entryBody").keyup(function(evt) {
-		//DEV DEBUG
-		if($("#entryBody").val().toLowerCase() == "devdebug") {
-			if(window.localStorage.getItem("config_debug") == "active") {
-				window.localStorage.setItem("config_debug","inactive");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			} else {
-				window.localStorage.setItem("config_debug","active");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			}
-		}
-		//drop food db
-		if($("#entryBody").val().toLowerCase() == "devfood") {
-			window.localStorage.setItem("foodDbLoaded","empty");
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//refresh
-		if($("#entryBody").val().toLowerCase() == "devreload") {
-			window.location='';
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//wipe data
-		if($("#entryBody").val().toLowerCase() == "devwipe") {
-			onConfirmWipe(1);
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//rewipe
-		if($("#entryBody").val().toLowerCase() == "devrewipe") {
-			onConfirmWipe(1);
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-			afterHide();
-		}
-		if($("#entryBody").val().toLowerCase() == "devstress") {
-			stressTest.bookmarklet();
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-	});
-	$("#iconInfo").on("touchmove", function(evt) {
-		evt.preventDefault();
-	});
-	$("#iconInfo").on(tap, function(evt) {
-	//NATIVE USERVOICE
-	if(isMobile.iOS()) {
-		if(!$('.active').hasClass('open')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
-			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-				evt.preventDefault();
-				evt.stopPropagation();
-				var cfg = {
-					task:'launchFeedback',//[launchFeedback|contactUs|viewForum|postIdea]
-					site:'cancian.uservoice.com',
-					key:'62oo7AhcRoQuvozU6ya6A',
-					secret:'g911MyHj3qs92pDDa6f1XOgT9fHSi7pNBZoXO4E',
-					topicId:0,//[0|453|333 (any valid topicId as interger)]
-					showContactUs:1,//[0|1], Show/hide Contact us button
-					showForum:1,//[0|1] Show/hide Forum button
-					showPostIdea:1,//[0|1] Show/hide Post an idea button
-					showKnowledgeBase:1//[0|1] Show/hide Search
-				};
-				showUserVoice(cfg);
-			}}
-	//WEB URL
-	} else {
-		window.location='http://cancian.uservoice.com';
-	}
-		return false;
-	});
-	/////////////////
-	// RELOAD ICON //
-	/////////////////
-	$("#iconRepeatToggle").on(tap, function(evt) {
-		evt.preventDefault();
-		//prevent click
-		if(!$('#startDate').is(':visible')) {
-			afterHide();
-			return false;
-		}
-	});
-	////////////////////
-	// START DATE BAR //
-	////////////////////
-	$("#startDateBarToggle").on(tap, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//save on close click
-		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-			$('#startDate').blur();
-		}
-		//not while editing
-		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
-		//not with delete button
-		if(!$('.active').hasClass('open')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
-			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-			//edit...
-		//PRE-FILL WITH STORED DATE
-		fillDate((window.localStorage.getItem("config_start_time")),'startDate');
-		//ANIMATE
-		if(!$('#configNow').is(':animated')) {
-			if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-			} else {
-				//open and show
-				$('#startDate').show();
-				$('#configNow').animate({"bottom": '-48px'});
-			}}
-		}}}
-	});
-	// ON BLUR //
-	var onChange = 0;
-	$("#startDate").change(function(){
-		onChange++;
-	});
-	$("#startDate").blur(function(){
-		//write if changed
-		if(onChange > 0) {
-			//if not future
-			if(Number(Date.parse($("#startDate").val()) + ((((new Date($("#startDate").val())).getTimezoneOffset()) * 60 * 1000))) < Number((new Date().getTime())) ) {
-				//write input date as time
-				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date($("#startDate").val())).getTimezoneOffset()) * 60 * 1000))) );
-				//window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date()).getTimezoneOffset()) * 60 * 1000))) );
-			} else {
-				//REVERT TO STORED
-				fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
-			}
-		onChange = 0;
-		updateTimer();
-		updateEntries();
-		//updateEntriesTime();
-		}
-	});
-	// AUTOCLOSE n' hide //
-	$("#appHeader,#editableDiv,#entryList,#go,#entryListForm").on(tap + "swipeLeft swipeRight", function(evt) {
-		evt.preventDefault();
-		//save on close click
-		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-			$('#startDate').blur();
-		}
-		if(!$('#configNow').is(':animated')) {
-			if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-			}
-		}
-	});
-	// AUTOCLOSE WRAPPER //
-	$("#entryListWrapper").on(tap, function(evt) {
-		if(evt.target.id == "entryListWrapper") {
-			//save on close click
-			if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#startDate').blur();
-			}
-			if(!$('#configNow').is(':animated')) {
-				if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-					$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-				}
-			}
-		}
-	});
-	//##//////////////////////##//
-	//## MISC. GESTURE EVENTS ##//
-	//##//////////////////////##//
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').on("touchmove",function(evt) {
-		//evt.preventDefault();
-		evt.stopPropagation();		
-	});
 	//#//////////////////#//
 	//# FOOD SEARCH ICON #//
 	//#//////////////////#//
@@ -631,87 +158,6 @@ updateEntriesTime();
 				}}
 			}}
 		}}
-	});
-	///////////////////////////
-	// blur edit / entrybody //
-	///////////////////////////
-	$('#appHeader').on(touchstart, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		$("#editable").blur();
-		$("#entryTime").blur();
-		$("#entryBody").blur();
-	});
-	$('#appHeader,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
-		evt.preventDefault();
-		//evt.stopPropagation();
-			if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
-				$("#entryTime").focus();
-			} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
-				$("#entryBody").focus();
-			} else if(evt.target.id != "entryTime" && evt.target.id != "entryBody") {
-				$("#editable").blur();
-				$("#entryTime").blur();
-				$("#entryBody").blur();
-			}
-	});
-	////////////////////////
-	// QUICK FOCUS INPUTS //
-	////////////////////////
-	$('#entryBody').on(touchstart, function(evt) {
-		//evt.preventDefault();
-		evt.stopPropagation();
-		//android keyboard focus
-		//$("#entryBody").focus();		
-		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
-			evt.preventDefault();
-			$("#entryBody").focus();
-		}
-	});
-	$('#entryTime').on(touchstart, function(evt) {
-		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
-			evt.preventDefault();
-			$("#entryTime").focus();
-		}
-	});
-	//SUPERBORDER FOCUS (IOS)
-	if(isMobile.iOS()) {
-		$('#entryTime').focus(function(evt) {
-			$('#entryBody').removeClass("focusMy");
-			$('#entryBody').addClass("focusMe");
-		});
-		$('#entryBody').focus(function(evt) {
-			//evt.preventDefault();
-			//evt.stopPropagation();
-			//evt.stopImmediatePropagation();
-			$('#entryBody').removeClass("focusMe");
-			$('#entryBody').addClass("focusMy");
-		});	
-		$('#entryTime,#entryBody').blur(function(evt) {
-			$('#entryBody').removeClass("focusMe");
-			$('#entryBody').removeClass("focusMy");
-		});
-	}
-	//////////////////////////////
-	// FIX KEYBOARD PROPAGATION //
-	//////////////////////////////
-	$('#entryListForm,#go').on(touchstart, function(evt) {
-		if(evt.target.id == "entryTime") {
-			//$("#entryTime").focus();
-		} else if(evt.target.id == "entryBody") {
-			//$("#entryBody").focus();
-		} else {
-			if($("#entryTime").is(":focus") || $("#entryBody").is(":focus") ) {
-				//block re-keyboarding on dismiss
-				evt.preventDefault();
-				evt.stopPropagation();
-				//autoclose bug on return
-				if(evt.target.id != "entryBody") {
-					$("#entryBody").blur();
-				}
-				$("#entryTime").blur();
-			}
-		}
 	});
 }
 /*##############################
@@ -985,7 +431,6 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	}
 });
 //$("#pA7B,#pA7F,#pA7L").on(touchstart, function(evt) {
-
 $("#pA7B,#pA7F,#pA7L").on(touchend + " mouseout", function(evt) {
 	//$(this).removeClass("tapActive");
 });
@@ -1142,3 +587,395 @@ if(document.getElementById("pA2C").value == "centimetres") {
 }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*###########################
+## HTML BUILDS ~ QUICK ADD ##
+###########################*/
+function quickAdd(target) {
+//RAW HTML
+var quickAddHtml = '\
+<div id="entryListForm">\
+	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
+	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcals</div>\
+	<div id="sliderNeg"><span></span>' + LANG('EXERCISE') + '</div>\
+	<div id="sliderPos">' + LANG('FOOD') + '<span></span></div>\
+	<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />\
+	<div id="entryBodySearch"><div></div></div>\
+	<select id="entryTime" name="entryTime" tabindex="-1">\
+					<option value="0">' + LANG('NOW') + '</option>\
+					<option value="1">1 ' + LANG('HOUR_AGO') + '</option>\
+					<option value="2">2 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="3">3 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="4">4 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="5">5 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="6">6 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="7">7 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="8">8 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="9">9 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="10">10 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="11">11 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="12">12 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="13">13 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="14">14 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="15">15 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="16">16 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="17">17 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="18">18 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="19">19 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="20">20 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="21">21 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="22">22 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="23">23 ' + LANG('HOURS_AGO') + '</option>\
+					<option value="24">1 ' + LANG('DAY_AGO') + '</option>\
+					<option value="48">2 ' + LANG('DAYS_AGO') + '</option>\
+					<option value="72">3 ' + LANG('DAYS_AGO') + '</option>\
+				</select>\
+	<div id="entrySubmit">' + LANG('QUICK_ADD') + '</div>\
+</div>\
+';
+//#////////#//
+//# OUTPUT #//
+//#////////#//
+//HTML
+$(target).html(quickAddHtml);
+//SLIDER
+$(window).trigger("resize");
+//ENTRYLIST
+//#//////////#//
+//# HANDLERS #//
+//#//////////#//
+	///////////////////
+	// ARROW BUTTONS //
+	///////////////////
+	$("#sliderNum").off().on(touchstart, function(evt) {
+		evt.preventDefault();
+		$("#entryTime").blur();
+		$("#entryBody").blur();
+		//console.log("reset slider value");
+		var sliderNum = document.getElementById('slider').slider.resetValue();
+		makeRound();
+		return false;
+	});
+	$("#sliderPos").off().on(touchstart, function(evt) {
+		evt.preventDefault();
+		//console.log("increase slider value");
+		var sliderPos = document.getElementById('slider').slider.increment(1);
+		makeRound();
+		return false;
+	});
+	$("#sliderNeg").off().on(touchstart, function(evt) {
+		evt.preventDefault();
+		//console.log("decrease slider value");
+		var sliderNeg = document.getElementById('slider').slider.increment(-1);
+		makeRound();
+		return false;
+	});
+	////////////////////////////////
+	// SAVE ENTRY (SUBMIT BUTTON) //
+	////////////////////////////////
+	$("#entrySubmit").on(touchend, function(evt) {
+		evt.preventDefault();
+		makeRound();
+		//grab values
+		var title     = $("#entryTitle").val();
+		var body      = $("#entryBody").val();
+		var published = new Date().getTime();
+		//hours ago
+		if(Number($("#entryTime").val()) >= 1) {
+			published = published - (Number($("#entryTime").val()) * (60 * 60 * 1000) );
+		}
+		//SAVE (NOT NULL)
+		if(title != 0) {
+			diary.saveEntry({title:title,body:body,published:published});
+		//}
+		//RELOAD IF-KCALS
+		//if(title != 0) {
+			var resetSlider = document.getElementById('slider').slider.resetValue();
+			document.getElementById('entryBody').value = "";
+			document.getElementById('entryTime').value = 0;
+			//DISMISS KEYBOARD
+			$('#entryTime').blur();
+			$('#entryBody').blur();
+			$('#editable').blur();
+			//REFRESH DATA
+			//updateEntries(published);
+			//updateTimer();
+			//updateEntriesTime();
+			//SCROLLBAR UPDATE			
+			//if(!isMobile.iOS()) {
+			//	$("#appContent").css("overflow","hidden");
+			//	setTimeout(function(){
+			//		$("#appContent").getNiceScroll().onResize();
+			//	},200);
+			//}
+		}
+	});
+	//////////////////
+	// SLIDER ROUND //
+	//////////////////
+	function makeRound() {
+		n = document.getElementById('entryTitle').value / 25;
+		n = Math.round(n) * 25;
+		if($("#entryTitle").val() != n) {
+			$("#entryTitle").val(n);
+		}
+	}
+	//#//////////////////////#//
+	//# SLIDER VALUE CHANGES #//
+	//#//////////////////////#//
+	!function() {
+		document.getElementById('entryTitle').update = function() {
+			//UPDATE INPUT
+			document.getElementById('entryTitle').value = document.getElementById('slider').value;
+			//force reset < 25
+			if(document.getElementById('entryTitle').value == -0) {
+				document.getElementById('entryTitle').value = 0;
+			}
+			if(!(Math.abs(document.getElementById('entryTitle').value) >= 25)) {
+				makeRound();
+			}
+			////////////////////////
+			// CHANGE TRACK COLOR //
+			////////////////////////
+			function checkTrack() {
+				if(document.getElementById('entryTitle').value == 0) {
+					$('.carpe-slider-track').css("background-color", "#666");
+				} else
+				if(document.getElementById('entryTitle').value > 0) {
+					$('.carpe-slider-track').css("background-color", "#0000dd");
+				} else {
+					$('.carpe-slider-track').css("background-color", "#cc3300");
+				}
+			}
+			checkTrack();
+			/////////////////////////
+			// CHANGE SUBMIT COLOR //
+			/////////////////////////
+			function checkSubmit() {
+				if(document.getElementById('entryTitle').value == 0) {
+					if($('#entrySubmit').hasClass('submitActive')) {
+						$('#entrySubmit').removeClass('submitActive');
+						$('#entryListForm').removeClass('submitActive');
+					}
+				} else
+				if(!$('#entrySubmit').hasClass('submitActive')) {
+					$('#entrySubmit').addClass('submitActive');
+					$('#entryListForm').addClass('submitActive');					
+				}
+			}
+			checkSubmit();
+		return;
+		};
+	}();
+	/////////////////////
+	// REPEATER SHARED //
+	/////////////////////
+	function clearRepeater() {
+		clearTimeout(pressTimerNeg);
+		clearTimeout(pressTimerPos);
+		clearInterval(pressRepeatNeg);
+		clearInterval(pressRepeatPos);
+	}
+	///////////////
+	// autoclear //
+	///////////////
+	$("#sliderPos,#sliderNeg,#sliderNum").on(touchend + "mouseout", function(evt) {
+		evt.preventDefault();
+		clearRepeater();
+	});
+	///////////////////////
+	// POSITIVE REPEATER //
+	///////////////////////
+	var pressTimerPos;
+	var pressRepeatPos;
+	$("#sliderPos").on(touchend, function(evt) {
+		evt.preventDefault();
+		clearRepeater();
+	});
+	$("#sliderPos").on(touchstart, function(evt) {
+		evt.preventDefault();
+		clearRepeater();
+		pressTimerPos  = window.setTimeout(function()  {
+		pressRepeatPos = window.setInterval(function() {
+			//ACTION
+			var repeatPos = document.getElementById('slider').slider.increment(1);
+			makeRound();
+		},275);
+		},275);
+	});
+	///////////////////////
+	// NEGATIVE REPEATER //
+	///////////////////////
+	var pressTimerNeg;
+	var pressRepeatNeg;
+	$("#sliderNeg").on(touchend, function(evt) {
+		evt.preventDefault();
+		clearRepeater();
+	});
+	$("#sliderNeg").on(touchstart, function(evt) {
+		evt.preventDefault();
+		clearRepeater();
+		pressTimerNeg  = window.setTimeout(function()  {
+		pressRepeatNeg = window.setInterval(function() {
+			//ACTION
+			var repeatNeg = document.getElementById('slider').slider.increment(-1);
+			makeRound();
+		},275);
+		},275);
+	});
+	/////////////////////
+	// NUM DE-REPEATER //
+	/////////////////////
+	$("#sliderNum").on(touchstart + "touchmove", function(evt) {
+		evt.preventDefault();
+		clearRepeater();
+		var sliderNum = document.getElementById('slider').slider.resetValue();
+		return false;
+	});
+	//////////////////
+	// DEV KEYCODES //
+	//////////////////
+	//ICONINFO GREEN
+	if(window.localStorage.getItem("config_debug") == "active") {
+		$("#iconInfo").css("color","#00cc00");
+	}
+	///////////
+	// CODES //
+	///////////
+	$("#entryBody").keyup(function(evt) {
+		//DEV DEBUG
+		if($("#entryBody").val().toLowerCase() == "devdebug") {
+			if(window.localStorage.getItem("config_debug") == "active") {
+				window.localStorage.setItem("config_debug","inactive");
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+			} else {
+				window.localStorage.setItem("config_debug","active");
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+			}
+		}
+		//drop food db
+		if($("#entryBody").val().toLowerCase() == "devfood") {
+			window.localStorage.setItem("foodDbLoaded","empty");
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+		}
+		//refresh
+		if($("#entryBody").val().toLowerCase() == "devreload") {
+			window.location='';
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+		}
+		//wipe data
+		if($("#entryBody").val().toLowerCase() == "devwipe") {
+			onConfirmWipe(1);
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+		}
+		//rewipe
+		if($("#entryBody").val().toLowerCase() == "devrewipe") {
+			onConfirmWipe(1);
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+			afterHide();
+		}
+		if($("#entryBody").val().toLowerCase() == "devstress") {
+			stressTest.bookmarklet();
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+		}
+	});
+	$('#appHeader,#entryLstForm,#go,#entryListWrapper').on(tap, function(evt) {
+		evt.preventDefault();
+		//evt.stopPropagation();
+			if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
+				$("#entryTime").focus();
+			} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
+				$("#entryBody").focus();
+			} else if(evt.target.id != "entryTime" && evt.target.id != "entryBody") {
+				$("#editable").blur();
+				$("#entryTime").blur();
+				$("#entryBody").blur();
+			}
+	});
+	$('#entryTime').on(touchstart, function(evt) {
+		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
+			evt.preventDefault();
+			$("#entryTime").focus();
+		}
+	});
+	//SUPERBORDER FOCUS (IOS)
+	if(isMobile.iOS()) {
+		$('#entryTime').focus(function(evt) {
+			$('#entryBody').removeClass("focusMy");
+			$('#entryBody').addClass("focusMe");
+		});
+		$('#entryBody').focus(function(evt) {
+			//evt.preventDefault();
+			//evt.stopPropagation();
+			//evt.stopImmediatePropagation();
+			$('#entryBody').removeClass("focusMe");
+			$('#entryBody').addClass("focusMy");
+		});	
+		$('#entryTime,#entryBody').blur(function(evt) {
+			$('#entryBody').removeClass("focusMe");
+			$('#entryBody').removeClass("focusMy");
+		});
+	}
+	//////////////////////////////
+	// FIX KEYBOARD PROPAGATION //
+	//////////////////////////////
+	$('#entyListForm,#go').on(touchstart, function(evt) {
+		if(evt.target.id == "entryTime") {
+			//$("#entryTime").focus();
+		} else if(evt.target.id == "entryBody") {
+			//$("#entryBody").focus();
+		} else {
+			if($("#entryTime").is(":focus") || $("#entryBody").is(":focus") ) {
+				//block re-keyboarding on dismiss
+				evt.preventDefault();
+				evt.stopPropagation();
+				//autoclose bug on return
+				if(evt.target.id != "entryBody") {
+					$("#entryBody").blur();
+				}
+				$("#entryTime").blur();
+			}
+		}
+	});
+}
