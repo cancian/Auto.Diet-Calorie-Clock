@@ -446,7 +446,6 @@ diaryHtml += '</div>\
 //HTML
 pageLoad("#appContent",diaryHtml);
 $(document).trigger("sliderInit");
-
 //$(window).trigger("resize");
 //$("#appContent").html('');
 //$("#appContent").html();
@@ -810,7 +809,53 @@ $(document).trigger("sliderInit");
 	$("#iconInfo").on("touchmove", function(evt) {
 		evt.preventDefault();
 	});
+
+
+    $('#startDate').mobiscroll().datetime({
+		preset: 'datetime',
+       // minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+		minDate: new Date(2012, 3, 10, 9, 22),
+        maxDate: new Date(2014, 7, 30, 15, 44),
+        theme: 'android-ics light',
+		//lang: 'pt-BR',
+        display: 'modal',
+		stepMinute: 1,
+        animate: 'fade',
+        mode: 'scroller'
+    });    
+
+
 	$("#iconInfo").on(tap, function(evt) {
+$('#startDate').mobiscroll('show'); 
+
+
+
+/*
+
+
+$(function(){
+var curr = new Date().getFullYear();
+$('#date').scroller({
+    preset: 'date',
+    height: 30,
+    width: 20,
+    theme: 'default',
+    display: 'inline',
+    mode: 'scroller',
+    dateOrder: 'MD ddyy',
+    startYear: curr,
+    endYear: curr + 3,
+    minDate: new Date(),
+    showLabel: false,
+    onChange:function(){ upDATE(); }
+});    
+$('#date').scroller('setValue', [11,9,'2012']);
+
+*/
+   
+		
+		
+		/*
 	//NATIVE USERVOICE
 	if(isMobile.iOS()) {
 		if(!$('.active').hasClass('open')) {
@@ -839,6 +884,8 @@ $(document).trigger("sliderInit");
 		window.location='http://cancian.uservoice.com';
 	}
 		return false;
+		
+		*/
 	});
 	
 	

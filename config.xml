@@ -55,34 +55,36 @@
 	<preference name="SplashScreenDelay" value="0" />
 	<preference name="splash-screen-duration" value="0" />
 	
-    <feature name="Notification">
-        <param name="ios-package" value="CDVNotification" />
-    </feature>
-    <feature name="SplashScreen">
-        <param name="ios-package" value="CDVSplashScreen" />
-    </feature>
-    <feature name="UserVoiceCommand">
-        <param name="ios-package" value="UserVoiceCommand" />
-    </feature>
-    <feature name="GAPlugin">
-        <param name="ios-package" value="GAPlugin" />
-    </feature>
-	
-    <feature name="App">
-        <param name="android-package" value="org.apache.cordova.App" />
-    </feature>
-    <feature name="Notification">
-        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
-    </feature>
-    <feature name="GAPlugin">
-        <param name="android-package" value="com.adobe.plugins.GAPlugin" />
-    </feature>
+	<feature name="Notification">
+		<param name="ios-package" value="CDVNotification" />
+	</feature>
+	<feature name="SplashScreen">
+		<param name="ios-package" value="CDVSplashScreen" />
+	</feature>
+	<feature name="UserVoiceCommand">
+		<param name="ios-package" value="UserVoiceCommand" />
+	</feature>
+	<feature name="GAPlugin">
+		<param name="ios-package" value="GAPlugin" />
+	</feature>
 
-    <!-- Third party plugins -->
-    <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
-    <!-- 
-        <gap:plugin name="com.phonegap.plugins.barcodescanner" />
-    -->
+	
+	<feature name="App">
+		<param name="android-package" value="org.apache.cordova.App" />
+	</feature>
+	<feature name="Notification">
+		<param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+	</feature>
+	<feature name="GAPlugin">
+		<param name="android-package" value="com.adobe.plugins.GAPlugin" />
+	</feature>
+
+	<feature name="DatePickerPlugin">
+		<param name="android-package" value="com.bikasv.plugins.datepicker.DatePickerPlugin" />
+	</feature>
+	<feature name="Share">
+		<param name="android-package" value="com.bikasv.plugins.share.Share" />
+	</feature>
 
     <!-- ICON: ANDROIOD -->
     <icon src="res/icon/android/drawable/icon.png" />
