@@ -88,6 +88,42 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 #appStatus.reset		{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background-color: #cccccc; text-align: center; line-height: 44px; font-weight: bold; color: #999; }
 #appStatus.start:active	{ background-color: #007700; }
 #appStatus.reset:active	{ background-color: #c1c1c1; }
+
+
+#appStatusFix			{   }
+#appStatusTitle			{   }
+#appStatusReload		{ display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; font-weight: bold; text-indent: 7px; background-color: transparent; -webkit-backface-visibility: hidden;   }
+#appStatusReload:before	{ content: "\f01e"; font-family: FontAwesome; display: inline-block; font-weight: normal; opacity: .075; }
+#appStatusToggle		{ display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #fff; line-height: 49px; background-color: transparent; }
+#appStatusArrow			{ position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; opacity: .075; }
+
+
+
+/*#SUB ELEMENTS#*/
+#configNow				{ -webkit-backface-visibility: hidden; margin: 0; text-align: center; background-color: #fff; position: absolute; left: 0; bottom: 0px; overflow: hidden; color: #333; display: block; font-weight: bold; width: 100%; border: 0; border-top: 0px solid rgba(137,3,6,.15); min-height: 40px; max-height: 44px; height: 44px; overflow: hidden; line-height: 44px; padding: 0; font-size: 18px; }
+#configNow:active 		{ color: #cc3300; }
+#configNow :link		{ color: #fff !important; text-decoration: none; }
+/*##################
+## START DATE BAR ##
+##################*/
+#startDateBar			{ -webkit-backface-visibility: hidden; width: 100%; height: 44px; background-color: #fff; position: absolute; left: 0; bottom: 0; text-align: center; }
+#startDate 				{ -webkit-backface-visibility: hidden; display: none; color: #000; margin: 14px 0 0 0; width: ;  background-color: #fff; border: 0; font-size: 13pt; color: #555; -webkit-appearance: none; }
+#startDate:before		{ position: absolute; top: 5px; padding-left: 0px; font-weight: bold; text-align: center; font-size: 11px; color: #aaa; text-transform: uppercase; }
+/*TOGGLES*/
+#startDateBarToggle		{ -webkit-backface-visibility: hidden; position: absolute; bottom: 0; right: 0; width: 65px; height: 45px; background-color: transparent; z-index: 1; }
+.arrow-down				{ -webkit-backface-visibility: hidden; height: 0px; width: 0px; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; position: absolute; top: 14px; right: 13px; opacity: .12; }
+#iconRepeatToggle  		{ -webkit-backface-visibility: hidden; position: absolute; bottom: 0; left: 0; width: 65px; height: 45px; background-color: transparent; z-index: 1; }
+.icon-repeat:before		{ content: "\f01e"; font-family: FontAwesome; display: inline-block; }
+.icon-repeat			{ vertical-align: baseline; font-family: FontAwesome; display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; font-weight: bold; text-indent: 7px; opacity: .12; background-color: transparent; -webkit-backface-visibility: hidden; }
+/*ICON*/
+#iconInfo				{ position: absolute; color: #ddd; top: 0px; right: 0px; padding: 8px 16px 8px 16px; font-size: 15pt; text-shadow: rgba(255,255,255,.2) 0 1px 0; }
+#iconInfo				{ display:  }
+.icon-info-sign			{ font-family: FontAwesome; vertical-align: baseline; line-height: normal; font-weight: normal; }
+.icon-info-sign:before	{ content: "\f05a"; font-family: FontAwesome; display: inline-block; }
+#iconInfo:active		{ text-shadow: rgba(0,0,0,0) 0 0px 16px; vertical-align: baseline; line-height: normal; font-weight: normal; color: #aaa; }
+
+
+
 /**/
 #appStatusElapsed		{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
 #appStatusElapsed div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
@@ -138,12 +174,12 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 // CALC FORM //
 /////////////*/
 #calcForm							{ display: block; font-size: 12px; padding-top: 3px; color: #505050; overflow: hidden; }
-#calcForm div.calcRow				{ margin-left: 22px; padding: 11px 0 11px 0; display: block; min-width: 300px; }
+#calcForm div.calcRow				{ margin-left: 22px; padding: 0; display: block; min-width: 300px; }
 #calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
 #calcForm input,
 #calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
-#calcForm input						{ text-indent: 2px; }
-#calcForm select					{ text-indent: 3px; }
+#calcForm input						{ text-indent: 2px; height: 44px; background-color: #; vertical-align: bottom; }
+#calcForm select					{ text-indent: 3px; height: 44px; background-color: #; }
 #calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
 /*feet-inches*/
 #calcForm #feet						{ margin-right: 4px; }
@@ -153,11 +189,12 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 #calcForm #feet.metric				{ display: none !important; }
 /*select arrow*/
 #calcForm .selectArrow				{ position: relative; }
-#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; }
+#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; vertical-align: middle; }
 /*activity select*/
-#calcForm select#pA5B				{ width: 280px; margin-top: 3px; text-indent: 0; }
+#calcForm #yourActivity				{ padding-top: 12px !important; }
+#calcForm select#pA5B				{ min-width: 280px; max-width: 318px !important; width: 90%; margin-top: 3px; text-indent: 0; }
 /*h2 a.b.c.*/
-#calcForm h2						{ padding: 0; margin: 0; font-size: 16px; line-height: 32px; text-indent: 22px; background-color: #41A9DE; color: #fff; display: block; text-align: left; white-space: nowrap; }
+#calcForm h2						{ padding: 0; margin: 0 0 12px 0; font-size: 16px; line-height: 32px; text-indent: 22px; background-color: #41A9DE; color: #fff; display: block; text-align: left; white-space: nowrap; }
 #calcForm h2 span					{ color: #ccc; padding-right: 1px; text-align: left; }
 /*by/unit*/
 #calcForm .calcResult				{ font-size: 13px; display: block; margin: 12px 12px 12px 18px; white-space: nowrap; }
@@ -165,10 +202,10 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 #calcForm .calcResult span			{ margin-left: 12px; }
 #calcForm .calcResult span + span	{ margin-left: 21px; }
 /*tap select*/
-#calcForm .tapSelect  				{ display: block; position: relative; margin: 12px; overflow: hidden; }
-#calcForm .tapSelect span			{ display: block; position: absolute; top: 19px; left: 128px; color: #aaa; }
-#calcForm .tapSelect input			{ width: 100%; padding: 15px 12px 14px 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: #eee; text-align: left; text-indent: 0; }
-#calcForm .tapSelect input.tapActive{ color: #cc3300 !important; }
+#calcForm .tapSelect  				{ display: ; position: relative; margin: 0px 12px 12px 12px; overflow: hidden; height: 54px; }
+#calcForm .tapSelect span			{ display: block; position: absolute; top: 20px; left: 128px; color: #aaa; white-space: nowrap; }
+#calcForm .tapSelect input			{ position: absolute; top: -9px; left: 0; display: block; width: 100%; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: rgba(100,100,100,.1); text-align: left; z-index: 100; }
+#calcForm .tapSelect input.tapActive{ color: #cc0000 !important; }
 /*by/unit width*/
 #calcForm select#pA1B,
 #calcForm select#pA4B				{ min-width: 66px; width: 66px; }
@@ -403,28 +440,7 @@ div.editing p			{ opacity: 1; }
 
 
 
-/*#SUB ELEMENTS#*/
-#configNow				{ -webkit-backface-visibility: hidden; margin: 0; text-align: center; background-color: #fff; position: absolute; left: 0; bottom: 0px; overflow: hidden; color: #333; display: block; font-weight: bold; width: 100%; border: 0; border-top: 0px solid rgba(137,3,6,.15); min-height: 40px; max-height: 44px; height: 44px; overflow: hidden; line-height: 44px; padding: 0; font-size: 18px; }
-#configNow:active 		{ color: #cc3300; }
-#configNow :link		{ color: #fff !important; text-decoration: none; }
-/*##################
-## START DATE BAR ##
-##################*/
-#startDateBar			{ -webkit-backface-visibility: hidden; width: 100%; height: 44px; background-color: #fff; position: absolute; left: 0; bottom: 0; text-align: center; }
-#startDate 				{ -webkit-backface-visibility: hidden; display: none; color: #000; margin: 14px 0 0 0; width: ;  background-color: #fff; border: 0; font-size: 13pt; color: #555; -webkit-appearance: none; }
-#startDate:before		{ position: absolute; top: 5px; padding-left: 0px; font-weight: bold; text-align: center; font-size: 11px; color: #aaa; text-transform: uppercase; }
-/*TOGGLES*/
-#startDateBarToggle		{ -webkit-backface-visibility: hidden; position: absolute; bottom: 0; right: 0; width: 65px; height: 45px; background-color: transparent; z-index: 1; }
-.arrow-down				{ -webkit-backface-visibility: hidden; height: 0px; width: 0px; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; position: absolute; top: 14px; right: 13px; opacity: .12; }
-#iconRepeatToggle  		{ -webkit-backface-visibility: hidden; position: absolute; bottom: 0; left: 0; width: 65px; height: 45px; background-color: transparent; z-index: 1; }
-.icon-repeat:before		{ content: "\f01e"; font-family: FontAwesome; display: inline-block; }
-.icon-repeat			{ vertical-align: baseline; font-family: FontAwesome; display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; font-weight: bold; text-indent: 7px; opacity: .12; background-color: transparent; -webkit-backface-visibility: hidden; }
-/*ICON*/
-#iconInfo				{ position: absolute; color: #ddd; top: 0px; right: 0px; padding: 8px 16px 8px 16px; font-size: 15pt; text-shadow: rgba(255,255,255,.2) 0 1px 0; }
-#iconInfo				{ display:  }
-.icon-info-sign			{ font-family: FontAwesome; vertical-align: baseline; line-height: normal; font-weight: normal; }
-.icon-info-sign:before	{ content: "\f05a"; font-family: FontAwesome; display: inline-block; }
-#iconInfo:active		{ text-shadow: rgba(0,0,0,0) 0 0px 16px; vertical-align: baseline; line-height: normal; font-weight: normal; color: #aaa; }
+
 /*###############
 ## PAGE SLIDER ##
 ###############*/
@@ -558,7 +574,8 @@ div#pageSlideFood		{ display: none; }*/
 ## SPINNER ##
 ###########*/
 div#spinnerWrapper				{ display: none; position: absolute; display: block; height: 100px; width: 100px; z-index: 9999; }
-span#spinnerMsg					{ display: none; color: #fff; text-align: center; width: 100%; display: block; position: absolute; bottom: 25%; left: 0; font-size: 11pt; }
+span#spinnerMsg					{ display: none; color: #fff; text-align: center; width: 100%; display: block; position: absolute; bottom: 25%; left: 0; font-size: 11pt; z-index: 999;
+ }
 div#spinner						{ position: relative; width: 45px; height: 45px; display: inline-block; }
 div#spinner div					{ width: 9%; height: 28%; background: rgba(255,255,255,1); position: absolute; left: 44.5%; top: 37%; opacity: 0; -webkit-animation: fade 1s linear infinite; -webkit-border-radius: 12px; }
 div#spinner div.bar1			{ -webkit-transform:rotate(0deg)   translate(0, -142%); -webkit-animation-delay: -0;        }

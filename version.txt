@@ -14,9 +14,15 @@
 
 
 
+
+
 ################# 41A9DE
 ## VERSION LOG ##
 #################
+
+- melhorado foco do profile
+- efeito de clique
+- 
 
 # 1.1.0 [25/12/2013]
 • improved user interface

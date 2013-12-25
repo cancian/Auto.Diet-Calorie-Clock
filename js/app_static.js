@@ -280,7 +280,7 @@ $('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
 						var new_value = Math.ceil($(this).val());
 						//NULL-MIN-MAX
 						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)    { this.value = resetValue; $("#editableDiv").html(resetValue); }
-						if(this.value < 500 && !isNaN(this.value) && this.value > 1)             { this.value = 500;  $("#editableDiv").html(500);  }
+						if(this.value < 100 && !isNaN(this.value) && this.value > 1)             { this.value = 100;  $("#editableDiv").html(100);  }
 						if(this.value > 9999)													{ this.value = 9999; $("#editableDiv").html(9999); }
 						//filter zeros
 						this.value = Math.round(Number(this.value));

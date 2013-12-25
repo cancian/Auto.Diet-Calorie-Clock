@@ -28,7 +28,14 @@ function openStatus(string) {
 		<div id="appStatusIntake"></div>\
 		<div id="appStatusAddLeft"></div>\
 		<div id="appStatusAddRight"></div>\
-		<div id="appStatus"></div>\
+		<div id="appStatusFix">\
+			<div id="appStatus">\
+				<div id="appStatusTitle"></div>\
+				<div id="appStatusReload"></div>\
+				<div id="appStatusToggle"><div id="appStatusArrow"></div></div>\
+			</div>\
+			<div id="appStatusDate"></div>\
+		</div>\
 	</div>';
 	//#////////#//
 	//# OUTPUT #//
@@ -38,14 +45,14 @@ function openStatus(string) {
 	//////////////
 	// HANDLERS //
 	//////////////
-	$("#appStatus").on(touchend,function(evt) {
+	$("#appStatusTitle").on(touchend,function(evt) {
 		if(window.localStorage.getItem("appStatus") == "running") {
 			function appReset(button) {
 				//ON CONFIRM
 				if(button == 1) {
 					$("#appStatus").removeClass("reset");
 					$("#appStatus").addClass("start");
-					$("#appStatus").html("start");
+					$("#appStatusTitle").html("start");
 					window.localStorage.removeItem("appStatus");
 				}
 				return false;
@@ -60,7 +67,7 @@ function openStatus(string) {
 		} else {
 			$("#appStatus").removeClass("start");
 			$("#appStatus").addClass("reset");
-			$("#appStatus").html("reset");
+			$("#appStatusTitle").html("reset");
 			window.localStorage.setItem("appStatus","running");
 		}
 	});
@@ -77,17 +84,229 @@ function openStatus(string) {
 		window.localStorage.setItem("searchType","exercise");
 		$(document).trigger("pageReload");
 	});
+	
+	
+	//#/////////////////////#//
+	//# APP STATUS/DATE BAR #//
+	//#/////////////////////#//	
+	// RELOAD ICON //
+	/////////////////
+	$("#appStatusReload").on(tap,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		if(!$('#startDate').is(':visible')) {
+			afterHide();
+			return false;
+		}
+	});
+
+/*
+	//#//////////////////#//
+	//# BOTTOM RESET BAR #//
+	//#//////////////////#//
+	//LONG TAP
+	$("#configNow").on("hold", function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		//console.log('wipe all data');
+		//CONFIRMATION DIALOG
+		//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+		if(hasTouch()) {
+			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
+		} else {
+			//if(confirm('Wipe all data?')) { onConfirmWipe(1); } else {  }
+			onConfirmWipe(1);
+		}
+	});
+	//TAP
+	$("#configNow").on("singleTap", function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		//CONFIRMATION DIALOG
+		//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+		if(hasTouch()) {
+			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmReset, LANG("RESET_DIALOG") , [LANG("OK"),LANG("CANCEL")]);
+		} else {
+			//if(confirm('Reset counter? (set to now)')) { onConfirmReset(1); } else {  }
+			onConfirmReset(1);
+		}
+	});
+	////////////////////
+	// RESET FUNCTION //
+	////////////////////
+	function onConfirmReset(button) {
+		if(button == 1) {
+			//set to now
+			window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
+			fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
+			//reset form
+			document.getElementById('slider').slider.resetValue();
+			document.getElementById('entryBody').value = "";
+			document.getElementById('entryTime').value = 0;
+			//refresh timer
+			updateTimer();
+			updateEntries();
+			updateEntriesTime();
+		}
+	}
+	///////////////////
+	// WIPE FUNCTION //
+	///////////////////
+	function onConfirmWipe(button) {
+		if(button == 1) {
+			//drop
+			diary.deSetup();
+			//update entrylist
+			document.getElementById("entryList").style.display = 'none';
+			$("#entryList").html("<div id='noEntries'><span>" + LANG('NO_ENTRIES') + "</span></div>");
+			document.getElementById("entryList").style.display = 'block';
+			//refresh timer
+			updateTimer();
+			updateEntriesTime();
+			//reset form
+			document.getElementById('slider').slider.resetValue();
+			document.getElementById('entryBody').value = "";
+			document.getElementById('entryTime').value = 0;
+			window.location='#top';
+		}
+	}
+	//////////////////
+	// small tweaks //
+	//////////////////
+	//fixed bottom bar
+	$("#configNow, #startDateBarToggle, #iconRepeatToggle").on("touchmove", function(evt) {
+		evt.preventDefault();
+	});
+	//date fastfocus
+	$('#startDate').on(tap,function(evt) {
+		$('#startDate').focus();
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		/////////////////
+	// RELOAD ICON //
+	/////////////////
+	$("#iconRepeatToggle").on(tap, function(evt) {
+		evt.preventDefault();
+		//prevent click
+		if(!$('#startDate').is(':visible')) {
+			afterHide();
+			return false;
+		}
+	});
+	////////////////////
+	// START DATE BAR //
+	////////////////////
+	$("#startDateBarToggle").on(tap, function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		//save on close click
+		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
+			$('#startDate').blur();
+		}
+		//not while editing
+		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
+		//not with delete button
+		if(!$('.active').hasClass('open')) {
+			$('.active').addClass('busy');
+			$('.active').removeClass('open');
+			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
+			$('.active').removeClass('active');
+			if(!$('.delete').hasClass('busy')) {
+			//edit...
+		//PRE-FILL WITH STORED DATE
+		fillDate((window.localStorage.getItem("config_start_time")),'startDate');
+		//ANIMATE
+		if(!$('#configNow').is(':animated')) {
+			if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
+				$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
+			} else {
+				//open and show
+				$('#startDate').show();
+				$('#configNow').animate({"bottom": '-48px'});
+			}}
+		}}}
+	});
+	// ON BLUR //
+	var onChange = 0;
+	$("#startDate").change(function(){
+		onChange++;
+	});
+	$("#startDate").blur(function(){
+		//write if changed
+		if(onChange > 0) {
+			//if not future
+			if(Number(Date.parse($("#startDate").val()) + ((((new Date($("#startDate").val())).getTimezoneOffset()) * 60 * 1000))) < Number((new Date().getTime())) ) {
+				//write input date as time
+				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date($("#startDate").val())).getTimezoneOffset()) * 60 * 1000))) );
+				//window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date()).getTimezoneOffset()) * 60 * 1000))) );
+			} else {
+				//REVERT TO STORED
+				fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
+			}
+		onChange = 0;
+		updateTimer();
+		updateEntries();
+		//updateEntriesTime();
+		}
+	});
+	// AUTOCLOSE n' hide //
+	$("#appHeader,#editableDiv,#entryList,#go,#entryListForm").on(tap + "swipeLeft swipeRight", function(evt) {
+		evt.preventDefault();
+		//save on close click
+		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
+			$('#startDate').blur();
+		}
+		if(!$('#configNow').is(':animated')) {
+			if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
+				$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
+			}
+		}
+	});
+	// AUTOCLOSE WRAPPER //
+	$("#entryListWrapper").on(tap, function(evt) {
+		if(evt.target.id == "entryListWrapper") {
+			//save on close click
+			if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
+				$('#startDate').blur();
+			}
+			if(!$('#configNow').is(':animated')) {
+				if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
+					$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
+				}
+			}
+		}
+	});
+*/	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	///////////////
 	// PAGE LOAD //
 	///////////////
 	if(window.localStorage.getItem("appStatus") == "running") {
 		$("#appStatus").removeClass("start");
 		$("#appStatus").addClass("reset");
-		$("#appStatus").html("reset");
+		$("#appStatusTitle").html("reset");
 	} else {
 		$("#appStatus").removeClass("reset");
 		$("#appStatus").addClass("start");
-		$("#appStatus").html("start");
+		$("#appStatusTitle").html("start");
 	}
 }
 /*############################
@@ -202,7 +421,11 @@ diaryHtml += '\
 	////////////////
 	// UPDATE DIV //
 	////////////////
-	diaryHtml += s;
+		if(s == "") {
+			diaryHtml += '<div id="noEntries"><span>' + LANG("NO_ENTRIES") + '</span></div>';
+		} else {
+			diaryHtml += s;
+		}
 ///////////////////
 diaryHtml += '</div>\
 				<div id="startDateBar"><input type="datetime-local" id="startDate" /></div>\
@@ -616,6 +839,11 @@ $(document).trigger("sliderInit");
 	}
 		return false;
 	});
+	
+	
+	
+	
+	
 	/////////////////
 	// RELOAD ICON //
 	/////////////////
@@ -710,6 +938,12 @@ $(document).trigger("sliderInit");
 			}
 		}
 	});
+	
+	
+	
+	
+	
+	
 	//##//////////////////////##//
 	//## MISC. GESTURE EVENTS ##//
 	//##//////////////////////##//
@@ -945,8 +1179,8 @@ var profileHtml = '\
 		<option value="100">100</option>\
 	</select></span>\
 </div>\
-<div class="calcRow">\
-	<label>Your activity</label><span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
+<div class="calcRow" id="yourActivity">\
+	<label >Your activity</label><span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
 		<option selected="selected" value="Sedentary (little or no exercise, desk job)">Sedentary: Mostly sitting down (desk job, designer)</option>\
 		<option value="Lightly active (light exercise/sports 1-3 days/wk)">Lightly Active: Occasionally sitting (teacher, salesman)</option>\
 		<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">Active: Walking most of the time (waitress, mailman)</option>\
@@ -1047,15 +1281,11 @@ $("#appContent").html(profileHtml);
 ///////////////
 // TAP VALUE //
 ///////////////
-$("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
+$("#pA7B,#pA7F,#pA7L").on(touchend, function(evt) {
 	//RELOAD INFO HTML
-	setTimeout(function() {
-		//$.get("info_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideInfo").html("<div id='sideMenuInfo'>" + data + "</div>"); });
-		$.get("info_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideInfo").html("<div id='sideMenuInfo'>" + data + "</div>"); });
-	},400);
 	var calcResult = Math.round($(this).val());
 	//check n'updt
-	if(calcResult >= 500 && calcResult <= 9999) {
+	if(calcResult >= 100 && calcResult <= 9999) {
 	//adjust current value
 	if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
 		if(window.localStorage.getItem("config_kcals_day") == "d") {
@@ -1066,23 +1296,44 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 		} else {
 			var getKcalsKey  = "config_kcals_day_0";
 		}
-
 		//update db
 		window.localStorage.setItem(getKcalsKey,calcResult);
 		document.getElementById('editableDiv').innerHTML = window.localStorage.getItem(getKcalsKey);
+		//HIGHLIGHT
 		$(this).addClass("tapActive");
+		$(this).stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(100,100,100,0.1)" },450);
 		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); } ,200);
 		//document.getElementById('editableDiv').innerHTML = calcResult;
 		//window.localStorage.setItem("config_kcals_type","simple");
 		updateTimer();
+	} else {
+		//shake error
+		$(this).addClass("tapActive");
+		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); },400);
+		$(this).stop().parent("div").effect("shake",{times:3,direction:'left',distance:6},300);
 	}
 });
-//$("#pA7B,#pA7F,#pA7L").on(touchstart, function(evt) {
-$("#pA7B,#pA7F,#pA7L").on(touchend + " mouseout", function(evt) {
-	//$(this).removeClass("tapActive");
+
+$("#formc input,#formc select").on(tap, function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();
+//	$("#" + evt.target.id).focus();
 });
 
 $("#calcForm").on(touchend, function(evt) {
+/*
+	if(evt.target.id == "") {
+		writeCalcValues();
+		$("#formc input").blur();
+		$("#formc select").blur();
+		return;
+	} else if(navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		$("#" + evt.target.id).focus();
+	}
+*/
+
 	/*
 	evt.preventDefault();
 	//evt.stopPropagation();
@@ -1098,6 +1349,8 @@ $("#calcForm").on(touchend, function(evt) {
 		$("#" + evt.target.id).focus();
 	}	
 */
+
+
 	if(evt.target.id == "") {
 	//if(navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
 		evt.preventDefault();
@@ -1111,12 +1364,6 @@ $("#calcForm").on(touchend, function(evt) {
 //		$("input,select").blur();
 
 	} else {
-	if(navigator.userAgent.match(/iPhone|iPad|iPod/i) && evt.target.id != "pA7B" && evt.target.id != "pA7F" && evt.target.id != "pA7L") {
-//	if(navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		$("#" + evt.target.id).focus();
-	}
 	}
 });
 //////////////////////
