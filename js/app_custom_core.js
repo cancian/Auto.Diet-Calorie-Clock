@@ -86,22 +86,19 @@ function appTimer(id,content) {
 	//////////////////
 	// UPDATE TIMER //
 	//////////////////
+	$("#appHeader").html('');
 	$("#appHeader").html(kcalsHtmlOutput);
 	///////////////////////
 	// UPDATE APP STATUS //
 	///////////////////////
 	$("#appStatusElapsed").html("<div>" + timeElapsed() + "<span>time elapsed</span></div");
 	$("#appStatusWeight").html("<div>" + weightLoss + " kg<span>weight loss</span></div");
-
-	$("#appStatus1").html("<div>" + status + "<span>caloric status</span></div");
-	$("#appStatus2").html("<div>+ 500  - 918<span>food exercise</span></div");
-	$("#appStatus3").html("<div>+ food</div");	
-	$("#appStatus4").html("<div>+ exercise</div");
+	$("#appStatusBalance").html("<div>" + status + "<span>caloric status</span></div");
+	$("#appStatusIntake").html("<div>+ 500  - 918<span>food exercise</span></div");
+	$("#appStatusAddLeft").html("<div>+ food</div");	
+	$("#appStatusAddRight").html("<div>+ exercise</div");
 //	$("#appStatus5").html("<div>+ food</div");	
 //	$("#appStatus6").html("<div>+ exercise</div");
-
-
-
 }
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//
@@ -291,7 +288,6 @@ function updateTimer() {
 		}
 	});
 }
-
 
 
 

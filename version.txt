@@ -22,7 +22,7 @@
 • improved user interface
 • fixed calorie calculator minor bugs
 • fixed slider reset issue on keyboard focus
-• fixed blur issue on entry editing
+• fixed blur issue while editing entry description
 • 
 • 
 • 

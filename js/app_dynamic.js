@@ -433,10 +433,45 @@ $(document).on("pageload", function(evt) {
 }); //#//
 //////#//
 
+
+
+
+
+
+
+
+
+
 //#//////////////////////#//
 //# DYNAMIC HANDLERS 2.0 #//
 //#//////////////////////#//
 $(document).on("pageReload", function(evt) {
+		evt.preventDefault();
+		//evt.stopPropagation();
+		//not while editing ~
+		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#startDate').is(':visible')) {
+		//NO SWIPE OVERLAP
+		if(!$('.active').hasClass('open')) {
+			$('.active').addClass('busy');
+			$('.active').removeClass('open');
+			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
+			$('.active').removeClass('active');
+			if(!$('.delete').hasClass('busy')) {
+			//hide
+			if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
+				$('#pageSlideFood').addClass('busy');
+				$('#pageSlideFood').removeClass("open");
+				$('#pageSlideFood').on('webkitTransitionEnd',function(e) { $('#pageSlideFood').removeClass('busy'); /*$('#pageSlideFood').css("opacity","0");*/ $("#foodSearch").blur(); });
+			} else {
+				if(!$('#pageSlideCalc').hasClass('busy') && !$('#pageSlideInfo').hasClass('busy') && !$('#pageSlideFood').hasClass('busy')) {
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// PAGESLIDEFOOD DIV //
+	///////////////////////
+	$('#pageSlideFood').remove();
+	$('body').append("<div id='pageSlideFood'></div>");
+	$('#pageSlideFood').css("height",(window.innerHeight - $('#appHeader').height()) + "px");
+	$('#pageSlideFood').css("top",$('#appHeader').height() + "px");
 	///////////////
 	// CREATE DB //
 	///////////////
@@ -486,8 +521,8 @@ $(document).on("pageReload", function(evt) {
 		$("#pageSlideFood").html('<div id="sideMenuFood"><input type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
 		//PRE-ADJUST RESULTS HEIGHT
 		getRecentList();
-		$('#pageSlideFood').css("height",($('#entryListScroller').height() - (61)) + "px");
-		$('#foodList').css("height",($('#entryListScroller').height() - (61)) + "px");
+		//$('#pageSlideFood').css("height",($('#entryListScroller').height() - (61)) + "px");
+		//$('#foodList').css("height",($('#entryListScroller').height() - (61)) + "px");
 		//remember search type
 		if(window.localStorage.getItem("searchType") == "exercise") {
 			$("#foodSearch").attr('placeholder',LANG("EXERCISE_SEARCH"));
@@ -496,7 +531,17 @@ $(document).on("pageReload", function(evt) {
 		////////////////////
 		// RESULTS HEIGHT //
 		////////////////////
-		$('#foodList').css("height",window.localStorage.getItem("absWindowHeight") - ( ($('#appHeader').height() + 60) ) + "px");
+		$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+		$('#foodList').css("top",($('#appHeader').height()) + "px");
+		if(!isMobile.iOS()) {
+			$("#foodList").css("overflow","hidden");
+			setTimeout(function(){
+				$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#fff",cursorborder:"1px solid #000",cursoropacitymax:0.1,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
+				$("#foodList").getNiceScroll().onResize();
+				$("body").trigger("resize");
+			},300);
+		}
+		//$('#foodList').css("height",window.localStorage.getItem("absWindowHeight") - ( ($('#appHeader').height() + 60) ) + "px");
 		//#/////////////////#//
 		//# CORE SQL SEARCH #//
 		//#/////////////////#//
@@ -1077,6 +1122,27 @@ $(document).on("pageReload", function(evt) {
 		$(".foodName").css("overflow","hidden");
 		$("#activeOverflow").removeAttr("id");
 	});
+
+
+		
+		
+		
+		
+		
+		
+		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					//show
+					$("#entryBody").blur();
+					$("#entryTime").blur();
+					//$('#pageSlideFood').css("opacity",".925");
+					$('#pageSlideFood').addClass('busy');
+					$('#pageSlideFood').addClass("open");
+					$('#pageSlideFood').on('webkitTransitionEnd',function(e) { $('#pageSlideFood').removeClass('busy'); });
+				}}
+			}}
+		}
 //////#//
 }); //#//
 //////#//

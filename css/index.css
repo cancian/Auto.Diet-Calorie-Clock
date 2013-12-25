@@ -2,7 +2,7 @@
 //##  MYLIVEDIET 1.1  ##//
 //######################*/
 html,
-body					{ position: relative; display: block; width: 100%; height: 100%; overflow: visible; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
+body					{ position: relative; display: block; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
 @font-face				{ -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
 *,h2,
 input[readonly]			{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
@@ -90,29 +90,31 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 #appStatus.reset:active	{ background-color: #c1c1c1; }
 /**/
 #appStatusElapsed		{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
-#appStatusElapsed div	{ padding-top: 20px; text-align: center; display: block; font-size: 14px; }
+#appStatusElapsed div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
 #appStatusElapsed span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 /**/
 #appStatusWeight		{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; }
-#appStatusWeight div	{ padding-top: 20px; text-align: center; display: block; font-size: 14px; }
+#appStatusWeight div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
 #appStatusWeight span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 /**/
-#appStatus1				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
-#appStatus1 div			{ padding-top: 20px; text-align: center; display: block; font-size: 14px; }
-#appStatus1 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+#appStatusBalance		{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
+#appStatusBalance div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
+#appStatusBalance span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 /**/
-#appStatus2				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; }
-#appStatus2 div			{ padding-top: 20px; text-align: center; display: block; font-size: 14px; }
-#appStatus2 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+#appStatusIntake		{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; }
+#appStatusIntake div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
+#appStatusIntake span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatusAddLeft		{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
+#appStatusAddLeft div	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
+#appStatusAddLeft span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatusAddRight		{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
+#appStatusAddRight div	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
+#appStatusAddRight span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 
-/**/
-#appStatus3				{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
-#appStatus3 div			{ padding-top: 12px; text-align: center; display: block; font-size: 18px; }
-#appStatus3 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
-/**/
-#appStatus4				{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
-#appStatus4 div			{ padding-top: 12px; text-align: center; display: block; font-size: 18px; }
-#appStatus4 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+#appStatusAddRight div:active,
+#appStatusAddLeft div:active	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
 
 
 /*#appStatus5 div			{ padding-top: 12px; text-align: center; display: block; font-size: 18px; }
@@ -125,68 +127,105 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 
 
 #appStatus5				{ position: absolute; bottom: 88px; left: 0; right: 0; height: 88px; margin-right: 0px; background-color: #; }
+
+
+
+
+/*######################
+## BUILD: APP PROFILE ##
+######################*/
+/*/////////////
+// CALC FORM //
+/////////////*/
+#calcForm							{ display: block; font-size: 12px; padding-top: 3px; color: #505050; overflow: hidden; }
+#calcForm div.calcRow				{ margin-left: 22px; padding: 11px 0 11px 0; display: block; min-width: 300px; }
+#calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
+#calcForm input,
+#calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
+#calcForm input						{ text-indent: 2px; }
+#calcForm select					{ text-indent: 3px; }
+#calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
+/*feet-inches*/
+#calcForm #feet						{ margin-right: 4px; }
+#calcForm #feet,
+#calcForm #inches					{ width: 38px !important; min-width: 38px; }
+#calcForm #inches.metric			{ width: 80px !important; }
+#calcForm #feet.metric				{ display: none !important; }
+/*select arrow*/
+#calcForm .selectArrow				{ position: relative; }
+#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; }
+/*activity select*/
+#calcForm select#pA5B				{ width: 280px; margin-top: 3px; text-indent: 0; }
+/*h2 a.b.c.*/
+#calcForm h2						{ padding: 0; margin: 0; font-size: 16px; line-height: 32px; text-indent: 22px; background-color: #41A9DE; color: #fff; display: block; text-align: left; white-space: nowrap; }
+#calcForm h2 span					{ color: #ccc; padding-right: 1px; text-align: left; }
+/*by/unit*/
+#calcForm .calcResult				{ font-size: 13px; display: block; margin: 12px 12px 12px 18px; white-space: nowrap; }
+#calcForm .calcResult select		{ font-size: 13px; margin-left: 12px; margin-right: 0px; font-weight: bold ; color: #000; text-indent: 1px; }
+#calcForm .calcResult span			{ margin-left: 12px; }
+#calcForm .calcResult span + span	{ margin-left: 21px; }
+/*tap select*/
+#calcForm .tapSelect  				{ display: block; position: relative; margin: 12px; overflow: hidden; }
+#calcForm .tapSelect span			{ display: block; position: absolute; top: 19px; left: 128px; color: #aaa; }
+#calcForm .tapSelect input			{ width: 100%; padding: 15px 12px 14px 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: #eee; text-align: left; text-indent: 0; }
+#calcForm .tapSelect input.tapActive{ color: #cc3300 !important; }
+/*by/unit width*/
+#calcForm select#pA1B,
+#calcForm select#pA4B				{ min-width: 66px; width: 66px; }
+/*gender/age width*/
+#calcForm #pA6G,
+#calcForm #pA6M2					{ min-width: 56px; width: 56px; }
+/*focus*/
+#calcForm input:focus,
+#calcForm input:active,
+#calcForm select:focus,
+#calcForm select:active				{ color: #000; }
+
+
+/*####################
+## BUILD: APP DIARY ##
+####################*/
+#entryListForm			{ width: 100%; height: 154px; position: relative; overflow: hidden; z-index: 1; }
 /*//////////////////
 // FORM-ENTRYLIST //
 //////////////////*/
-
-div#sliderNum			{ position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
-div#sliderPos			{ position: absolute; right: 0px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #7E78E2; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
-div#sliderNeg			{ position: absolute; left:  0px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #C85136; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
+div#sliderNum			{ text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
+div#sliderPos			{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #7E78E2; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
+div#sliderNeg			{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #C85136; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
 div#sliderNeg span		{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #C85136 transparent transparent; position: absolute; top: 7px; left: 3px; }
 div#sliderPos span		{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #7E78E2; position: absolute; top: 7px; right: 3px; }
 div#sliderNeg:active	{ /*color: #B93820;*/ }
 div#sliderPos:active	{ /*color: #645EDA;*/ }
+/*entryList in-line adjust*/
+#kcalsAdjust			{ color: rgba(0,0,0,.1); }
+#adjustPos:before		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 42px; margin-left: -10px; }
+#adjustNeg:before 		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 42px; margin-left: -10px; -webkit-transform: scaleX(-1); }
+#adjustNegBlock:active,
+#adjustPosBlock:active	{ color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
+#adjustPosBlock			{ position: absolute; right:  2px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999;  }
+#adjustNegBlock			{ position: absolute; right: 60px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999; -webkit-transform: scaleX(-1); }
 /*#INPUT MAIN#*/
-input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; border: none; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 1px 1px 0 0; }
-input#entryBody			{ position: absolute; margin-top: 6px; left: 16px; right: 16px; color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
-
+input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 47px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 2px 1px 0 2px; border-radius: 0; text-indent: 0; margin: 0; border: none; }
+input#entryBody			{ position: absolute; margin-top: 6px; left: 16px; right: 16px; /*top: 64px; fix overflow bug*/ color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
 input#entryBody.focusMe	{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
 input#entryBody.focusMy	{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
-
-div#entryBodySearch			{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 999; 
-display: none;
-}
-#entryBodySearch div		{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
+div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 999; }
+#entryBodySearch div	{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
 #entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
 div#entryBodySearch:active	{ opacity: 1; }
-
-select#entryTime			{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; 
-display: none;
-}
-
-
-
-
-/*quickform submit blur/focus*/
-#entrySubmit				{ display: none; position: absolute; left: 0; right: 0; top: 77px; font-size: 11pt; font-weight: bold; color: #fff; height: 44px; line-height: 44px; text-align: center; }
-#entryListForm:active #entrySubmit,
-#entrySubmit.submitActive	{ display: block !important; background-color: #0072BC; background-color: #41A9DE; }
-/*quickform blur*/
-#sliderNeg,
-#sliderPos,
-#sliderNum,
-#sliderWrapper				{ opacity: .4; -webkit-filter: grayscale(100%); }
-/*quickform focus*/
-#entryListForm:active #sliderWrapper,
-#entryListForm:active #sliderNeg,
-#entryListForm:active #sliderPos,
-#entryListForm:active #sliderNum,
-.submitActive #sliderWrapper,
-.submitActive #sliderNeg,
-.submitActive #sliderPos,
-.submitActive #sliderNum{ opacity: 1;  -webkit-filter: grayscale(0); }
-
-
-
-
-#entryBody				{ opacity: 0; display: none; }
+select#entryTime		{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+#entrySubmit			{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #bababa; border-radius: 28px; opacity: .7; padding: 6px 28px 6px 28px; font-weight: bold; color: #777; }
+div.submitActive		{ color: #000 !important; border-color: #aaa !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; }
+.android .submitActive	{ -webkit-box-shadow: none !important; }  
+.android #entrySubmit	{ text-shadow: none !important; }
 #sliderBlock			{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
+
 /*////////////////
 // CARPE SLIDER //
 ////////////////*/
-#slider							{ position: absolute; left: 15px; right: 0px; }
+#slider							{ position: absolute; left: 14px; right: 30px; }
 #sliderWrapper					{ -webkit-backface-visibility: hidden; }
-.carpe-slider-box 				{ position: absolute; top: 14px; left: 0px; right: 0px; height: 60px; }
+.carpe-slider-box 				{ position: absolute; top: 14px; left: 14px; right: 30px; height: 60px; }
 .carpe-slider-box,
 .carpe-slider-box *				{ position: relative; display: block; }
 .carpe-slider-panel				{ top: -30px; height: 60px; }
@@ -197,6 +236,52 @@ display: none;
 .carpe-slider-knob				{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 12px; background: #fff; margin-left: 0px; }
 .carpe-slider-knob:hover		{ border: 1px solid #aaa; }
 
+
+/*
+div#sliderNum			{ position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
+div#sliderPos			{ position: absolute; right: 0px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #7E78E2; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
+div#sliderNeg			{ position: absolute; left:  0px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #C85136; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
+div#sliderNeg span		{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #C85136 transparent transparent; position: absolute; top: 7px; left: 3px; }
+div#sliderPos span		{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #7E78E2; position: absolute; top: 7px; right: 3px; }
+
+
+input#entryTitle		{ text-shadow: rgba(255,255,255,.36) 0 1px 0;  width: 48px; border: none; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 1px 1px 0 0; }
+input#entryBody			{ position: absolute; margin-top: 6px; left: 16px; right: 16px; color: #444; font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
+
+input#entryBody.focusMe	{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
+input#entryBody.focusMy	{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
+
+div#entryBodySearch			{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 999; 
+
+}
+#entryBodySearch div		{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
+#entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
+div#entryBodySearch:active	{ opacity: 1; }
+
+select#entryTime			{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; 
+
+}
+
+
+#entrySubmit				{ position: absolute; left: 0; right: 0; top: 77px; font-size: 11pt; font-weight: bold; color: #fff; height: 44px; line-height: 44px; text-align: center; }
+#entrySubmit.submitActive	{ background-color: #0072BC; background-color: #41A9DE; }
+
+#sliderBlock			{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
+
+#slider							{ position: absolute; left: 15px; right: 0px; }
+#sliderWrapper					{ -webkit-backface-visibility: hidden; }
+.carpe-slider-box 				{ position: absolute; top: 14px; left: 0px; right: 0px; height: 60px; }
+.carpe-slider-box,
+.carpe-slider-box *				{ position: relative; display: block; }
+.carpe-slider-panel				{ top: -30px; height: 60px; }
+.carpe-slider-panel:focus,
+.carpe-slider-panel:active		{ outline: none; }
+
+.carpe-slider-track				{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #444; opacity: 1; }
+.carpe-slider-knob				{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 12px; background: #fff; margin-left: 0px; }
+.carpe-slider-knob:hover		{ border: 1px solid #aaa; }
+
+*/
 
 
 
@@ -258,59 +343,6 @@ background-color: #09F; display: block !important;
 
 
 
-
-/*######################
-## BUILD: APP PROFILE ##
-######################*/
-/*/////////////
-// CALC FORM //
-/////////////*/
-#calcForm							{ display: block; font-size: 12px; padding-top: 3px; color: #505050; overflow: hidden; }
-#calcForm div.calcRow				{ margin-left: 22px; padding: 11px 0 11px 0; display: block; min-width: 300px; }
-#calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
-#calcForm input,
-#calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
-#calcForm input						{ text-indent: 2px; }
-#calcForm select					{ text-indent: 3px; }
-#calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
-/*feet-inches*/
-#calcForm #feet						{ margin-right: 4px; }
-#calcForm #feet,
-#calcForm #inches					{ width: 38px !important; min-width: 38px; }
-#calcForm #inches.metric			{ width: 80px !important; }
-#calcForm #feet.metric				{ display: none !important; }
-/*select arrow*/
-#calcForm .selectArrow				{ position: relative; }
-#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; }
-/*activity select*/
-#calcForm select#pA5B				{ width: 280px; margin-top: 3px; text-indent: 0; }
-/*h2 a.b.c.*/
-#calcForm h2						{ padding: 0; margin: 0; font-size: 16px; line-height: 32px; text-indent: 22px; background-color: #41A9DE; color: #fff; display: block; text-align: left; white-space: nowrap; }
-#calcForm h2 span					{ color: #ccc; padding-right: 1px; text-align: left; }
-/*by/unit*/
-#calcForm .calcResult				{ font-size: 13px; display: block; margin: 12px 12px 12px 18px; white-space: nowrap; }
-#calcForm .calcResult select		{ font-size: 13px; margin-left: 12px; margin-right: 0px; font-weight: bold ; color: #000; text-indent: 1px; }
-#calcForm .calcResult span			{ margin-left: 12px; }
-#calcForm .calcResult span + span	{ margin-left: 21px; }
-/*tap select*/
-#calcForm .tapSelect  				{ display: block; position: relative; margin: 12px; overflow: hidden; }
-#calcForm .tapSelect span			{ display: block; position: absolute; top: 19px; left: 128px; color: #aaa; }
-#calcForm .tapSelect input			{ width: 100%; padding: 15px 12px 14px 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: #eee; text-align: left; text-indent: 0; }
-#calcForm .tapSelect input.tapActive{ color: #cc3300 !important; }
-/*by/unit width*/
-#calcForm select#pA1B,
-#calcForm select#pA4B				{ min-width: 66px; width: 66px; }
-/*gender/age width*/
-#calcForm #pA6G,
-#calcForm #pA6M2					{ min-width: 56px; width: 56px; }
-/*focus*/
-#calcForm input:focus,
-#calcForm input:active,
-#calcForm select:focus,
-#calcForm select:active				{ color: #000; }
-/*####################
-## BUILD: APP DIARY ##
-####################*/
 /*//////////////
 // ENTRY LIST //
 //////////////*/
@@ -335,6 +367,7 @@ span.delete.open		{ /*visibility: visible;*/ display: inline-block; -webkit-tran
 div.expired p			{ opacity: .3; }
 div.editing p			{ opacity: 1; }
 /*#ROW COLOR#*/
+/*
 .rowMorning,
 .e-rowMorning			{ color: #000; border-left: 5px solid #FFEC3C; }
 .rowAfternoon,
@@ -343,6 +376,7 @@ div.editing p			{ opacity: 1; }
 .e-rowNight				{ color: #000; border-left: 5px solid #4486E5; }
 .rowAfterhours,
 .e-rowAfterhours		{ color: #000; border-left: 5px solid #4141D1; }
+*/
 /**/
 .rowAfterhours p.entriesTitle,
 .rowMorning p.entriesTitle,
@@ -417,11 +451,24 @@ body.android #entryListScroller.food	{ -webkit-transform: translate3d(0, -100%, 
 /*#################
 ## FOOD DATABASE ##
 #################*/
-div#pageSlideFood		{ -webkit-backface-visibility: hidden; position: fixed; padding-top: 61px; left: 0; top: 51px; height: 100%; width: 100%; color: #fff; overflow: hidden; background-color: #000; z-index: 2; /*opacity: .925;*/ /* background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000); background: radial-gradient(at 100px,#373737,#000); opacity: 1; background-color: rgba(0,0,0,.925); */ }
+div#pageSlideFood		{ 
+position: absolute;
+padding-top: 60px;
+top: 62px;
+left: 0;
+width: 100%;
+height: 100%;
+color: #fff;
+overflow: hidden;
+background-color: #000; z-index: 2;
+/*opacity: .925;*/ /* background: radial-gradient(at right center,#373737,#000); background: radial-gradient(at 100% 50%,#373737,#000); background: radial-gradient(at 100%,#373737,#000); background: radial-gradient(at 100px,#373737,#000); opacity: 1; background-color: rgba(0,0,0,.925); */ }
+/*
+<div id="pageSlideFood" style="height: 0px;" class="open"><div id="sideMenuFood"><input type="text" id="foodSearch" placeholder="Food search... (100g)"><span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList" style="height: 393px;"><div id="recentBlock"><h3 class="recentItem">Recent activities</h3><div class="searcheable"><div><em>no entries</em></div></div></div></div></div></div></div>
+*/
+
 div#pageSlideFood		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .25s; }
 div#pageSlideFood.open	{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .25s; }
-div#pageSlideFood,
-div#pageSlideFood *		{ -webkit-backface-visibility: hidden !important; }
+div#pageSlideFood		{ -webkit-backface-visibility: hidden; }
 /*food search*/
 input#foodSearch		{ 
 position: absolute; left: 0px; right: 0; top: 0; font-size: 18px;
@@ -433,7 +480,13 @@ margin: 0;
 
 #foodList .exerciseType { /*border: 5px solid #ffcc33 !important;*/ }
 #foodList				{ /*margin: 50px 0px 0 22px; -webkit-backface-visibility: hidden;*/ margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; }
-/*#foodListWrapper		{ display: block; width: 100%; overflow: hidden; z-index: 3; position: relative; position: fixed; }*/
+
+
+#foodListWrapper		{ display: block; width: 100%; overflow: hidden; z-index: 2; position: relative; position: absolute; 
+background-color: #000;
+}
+
+
 #foodList .searcheable	{ position: relative; margin: 0; padding: 0; display: block; height: 60px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: hidden; }
 /*food subitens*/
 span#noMatches			{ color: #fff; position: absolute; top: 75px; left: 33px; overflow: hidden; display: block; opacity: 1; }
@@ -495,11 +548,6 @@ div#pageSlideFood		{ display: none; }*/
 /*height deforce / subpart scroll*/
 #sideMenuInfo,
 #infoContents { /*position: absolute; top: 0; bottom: 0; left: 0; right: 0; overflow: auto;*/ -webkit-backface-visibility: hidden !important; }
-
-
-
-
-
 
 
 

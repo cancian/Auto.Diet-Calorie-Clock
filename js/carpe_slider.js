@@ -578,20 +578,32 @@
 ////////////
 // RESIZE //
 ////////////
-$(window).resize(function(evt) {
-	var carpeTimer;
-	var carpeTimer2;	
-	function carpeLoad() {
+function reSlider() {
+	if(document.getElementById('slider')) {
 		var sliderMemory = $("#entryTitle").val();
 		$("#sliderWrapper").html('<input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" />');
 		CARPE.sliders.init();
-		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (36)) + "px");
+		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (22)) + "px");
 		document.getElementById('slider').slider.setValue(sliderMemory);
 	}
-	function carpeShow() {
-	    carpeTimer = setTimeout(carpeLoad,0);
-	    carpeTimer2 = setTimeout(carpeLoad,200);
-	}
-	carpeShow();
+}
+
+$(window).resize(function(evt) {
+reSlider();
+setTimeout(function(evt) {
+	reSlider();
+},0);
+
 });
+
+$(document).on('sliderInit',function(evt) {
+reSlider();
+setTimeout(function(evt) {
+	reSlider();
+},0);
+
+});
+
+
 }());
+

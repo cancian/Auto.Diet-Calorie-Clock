@@ -30,10 +30,11 @@ var NO_ENTRIES = {
 	en: "no entries",
 	pt: "nenhum registro"
 };
+/*
 var OVERSCROLL = {
 	en: "swipe right for instructions ►<br />◄ swipe left for calorie calculator",
 	pt: "deslize à direita para instruções ►<br />◄ à esquerda para calculadora de calorias"
-};
+};*/
 var EXERCISE = {
 	en: "exercise",
 	pt: "exercício"
@@ -43,8 +44,8 @@ var FOOD = {
 	pt: "alimento"
 };
 var DESCRIPTION = {
-	en: "Brief description... (optional)",
-	pt: "Descrição... (opcional)"
+	en: "Description...",
+	pt: "Descrição..."
 };
 var ADD_ENTRY = {
 	en: "add entry",

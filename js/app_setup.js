@@ -274,16 +274,16 @@ function afterLoad() {
 	//$('body').css("-webkit-transition-timing-function","linear");
 	//$('body').css("-webkit-transition-duration",".1s");
 	//UNHIDE
-	//$('body').css("opacity","1");
+	$('body').css("opacity","1");
 	//setTimeout(function() { $('body').css("-webkit-transition-duration","0s"); },250);
 	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').show();
 	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("display","block");
 	//document.getElementById('afterLoad').style.display = 'none';
 	clearTimeout(afterTimer);
 	//loaded();
-	window.localStorage.setItem("absWindowHeight",window.innerHeight);
-	window.localStorage.setItem("absWindowWidth",window.innerWidth);
-	window.localStorage.setItem("absOrientation",getOrientation());
+	//window.localStorage.setItem("absWindowHeight",window.innerHeight);
+	//window.localStorage.setItem("absWindowWidth",window.innerWidth);
+	//window.localStorage.setItem("absOrientation",getOrientation());
 }
 function afterShow(t) {
     afterTimer = setTimeout(afterLoad,t);
@@ -442,6 +442,9 @@ function updateEntries(partial) {
 		var rowClass;
 		var lastRow = "";
 		var lastId  = "";
+		var langFood = LANG("FOOD");
+		var langExer = LANG("EXERCISE");
+		var langDel = LANG("DELETE");
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = Number(data[i].title);
@@ -450,9 +453,9 @@ function updateEntries(partial) {
 			// 0 : 1
 			if(data[i].body == "") {
                        if(dataTitle > 0) {
-					dataBody = LANG("FOOD");
+					dataBody = langFood;
 				} else if(dataTitle < 0) {
-					dataBody = LANG("EXERCISE");
+					dataBody = langExer;
 				} else {
 					dataBody = "";
 				}
@@ -476,7 +479,7 @@ function updateEntries(partial) {
 				<p class='entriesKcals'>kcals</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
 				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
-				<span class='delete'>" + LANG('DELETE') + "</span>\
+				<span class='delete'>" + langDel + "</span>\
 			</div>";
 			// ROW++
 			s += dataHandler;
@@ -520,7 +523,8 @@ function isNumberKey(evt){
 // TOUCH ? CLICK //
 ///////////////////
 function hasTouch() {
-	return ('ontouchstart' in document);
+	//return ('ontouchstart' in document);
+	return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
 }
 var touchstart = hasTouch() ? ' touchstart ' : ' mousedown ';
 var touchend   = hasTouch() ? ' touchend '   : ' mouseup ';

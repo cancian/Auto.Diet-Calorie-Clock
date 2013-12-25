@@ -9,7 +9,7 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 }
 //$(document).ready(function() { init(); });
 function init() {
-	//$("body").css("opacity","0");
+	$("body").css("opacity","0");
 	diary = new Diary();
 	diary.setup(startApp);
 }
@@ -21,6 +21,7 @@ function startApp() {
 //# INDEX.HTML #//
 //#////////////#//
 $("body").html('\
+<div id="appContent"></div>\
 <ul id="appFooter">\
 	<li id="tab1"></li>\
 	<li id="tab2"></li>\
@@ -28,7 +29,6 @@ $("body").html('\
 	<li id="tab4"></li>\
 </ul>\
 <div id="appHeader"></div>\
-<div id="appContent"></div>\
 ');
 //#////////////#//
 //# APP FOOTER #//
@@ -54,9 +54,9 @@ function appFooter(id) {
 	//},0);
 	//SCROLLBAR
 	if(!isMobile.iOS()) {
-		$("#appContent").css("overflow","hidden");
+		//$("#appContent").css("overflow","hidden");
 		setTimeout(function(){
-			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursoropacitymax:0.4,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
+			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.4,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 		},0);
 	}
 	//ACTION
@@ -65,7 +65,7 @@ function appFooter(id) {
 	if(id == "tab3") { openProfile();  }
 	if(id == "tab4") { openSettings(); }
 	//NO 50ms FLICKER
-	appResizer(0);
+	appResizer(200);
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -77,6 +77,7 @@ appFooter(window.localStorage.getItem("app_last_tab"));
 $("ul#appFooter li").on(touchstart, function(e) {
 	e.preventDefault();
 	e.stopPropagation();
+	window.location='#top';
 	appFooter($(this).attr("id"));
 });
 //#////////////////////#//
@@ -127,13 +128,13 @@ $(window).on("resize", function(evt) {
 //#########################//
 //##    START WORKING    ##//
 //#########################//
-afterShow(500);
-updateTimer();
+afterShow(250);
+//updateTimer();
 //updateEntries();
 //updateEntriesTime();
 (function startTimer() {
 	updateTimer();
-	setTimeout(startTimer,100);
+	setTimeout(startTimer,99);
 })();
 ///////////////
 // ANALYTICS //
@@ -196,6 +197,26 @@ $('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
 	//$(".android img").on(touchstart,function(evt) {
 	//	window.location='https://play.google.com/store/apps/details?id=com.cancian.mylivediet';
 	//});
+	
+	
+	//////////////////////
+	// PAGESLIDE CLOSER //
+	//////////////////////
+	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
+		evt.preventDefault();
+		//hide food
+		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
+			$("#foodSearch").blur();
+			$('#pageSlideFood').addClass('busy');
+			$('#pageSlideFood').removeClass("open");
+			$('#entryListScroller').removeClass("food");
+			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
+				$('#pageSlideFood').removeClass('busy'); 
+				//WIPE ON CLOSE
+				$('#pageSlideFood').remove(); 
+			});
+		}
+	});
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //
 	//////////////////////////
