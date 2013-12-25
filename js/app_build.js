@@ -564,6 +564,7 @@ $(document).trigger("sliderInit");
 	//# SLIDER VALUE CHANGES #//
 	//#//////////////////////#//
 	!function() {
+		if(!document.getElementById('entryTitle')) { return; }
 		document.getElementById('entryTitle').update = function() {
 			//UPDATE INPUT
 			document.getElementById('entryTitle').value = document.getElementById('slider').value;

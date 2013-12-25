@@ -71,7 +71,12 @@ div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 4
 #timerDaily span				{ position: absolute; bottom: 7px; left: 0px; font-size: 8px; line-height: normal; font-weight: normal; text-transform: uppercase;  }
 /*INLINE*/
 #editableDiv					{ color: transparent; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; overflow: hidden; }
-input#editable					{ color: #000; background-color: #fff !important; position: absolute; top: 10px; right: 8px; display: block !important; width: 75px !important; height: 32px; font-size: 24px !important; line-height: 28px; border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold; overflow: hidden; }
+input#editable					{ color: #000; 
+background-color: #fff !important; 
+position: absolute; top: 10px; right: 9px; display: block !important; width: 75px !important; 
+height: 32px; font-size: 24px !important; line-height: 28px; border: 0; padding: 0 0px 0 10px; margin: 0; 
+opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold; overflow: hidden; 
+}
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
 /*#######################
 ## BUILD: APP SETTINGS ##
@@ -88,8 +93,7 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 #appStatus.reset		{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background-color: #cccccc; text-align: center; line-height: 44px; font-weight: bold; color: #999; }
 #appStatus.start:active	{ background-color: #007700; }
 #appStatus.reset:active	{ background-color: #c1c1c1; }
-
-
+/**/
 #appStatusFix			{   }
 #appStatusTitle			{   }
 #appStatusReload		{ display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; font-weight: bold; text-indent: 7px; background-color: transparent; -webkit-backface-visibility: hidden;   }
@@ -148,25 +152,8 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 #appStatusAddRight		{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
 #appStatusAddRight div	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
 #appStatusAddRight span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
-
 #appStatusAddRight div:active,
 #appStatusAddLeft div:active	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
-
-
-/*#appStatus5 div			{ padding-top: 12px; text-align: center; display: block; font-size: 18px; }
-#appStatus5 span		{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
-#appStatus5 #app1		{ position: absolute; top: 10px; left: 12px; right: 9px; height: 15px; background-color: #ff3300; background-color: #0f0;border: 1px solid #ccc; }
-#appStatus5 #app2		{ position: absolute; top: 35px; left: 12px; right: 9px; height: 15px; background-color: #ffdd33; background-color: #0f0;border: 1px solid #ccc; }
-#appStatus5 #app3		{ position: absolute; top: 60px; left: 12px; right: 9px; height: 15px; background-color: #0f0; border: 1px solid #ccc; }
-*/
-
-
-
-#appStatus5				{ position: absolute; bottom: 88px; left: 0; right: 0; height: 88px; margin-right: 0px; background-color: #; }
-
-
-
-
 /*######################
 ## BUILD: APP PROFILE ##
 ######################*/
@@ -178,8 +165,8 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 #calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
 #calcForm input,
 #calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
-#calcForm input						{ text-indent: 2px; height: 44px; background-color: #; vertical-align: bottom; }
-#calcForm select					{ text-indent: 3px; height: 44px; background-color: #; }
+#calcForm input						{ text-indent: 2px; height: 44px; vertical-align: bottom; }
+#calcForm select					{ text-indent: 3px; height: 44px; }
 #calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
 /*feet-inches*/
 #calcForm #feet						{ margin-right: 4px; }
@@ -202,7 +189,7 @@ input#editable					{ color: #000; background-color: #fff !important; position: a
 #calcForm .calcResult span			{ margin-left: 12px; }
 #calcForm .calcResult span + span	{ margin-left: 21px; }
 /*tap select*/
-#calcForm .tapSelect  				{ display: ; position: relative; margin: 0px 12px 12px 12px; overflow: hidden; height: 54px; }
+#calcForm .tapSelect  				{ display: block; position: relative; margin: 0px 12px 12px 12px; overflow: hidden; height: 54px; }
 #calcForm .tapSelect span			{ display: block; position: absolute; top: 20px; left: 128px; color: #aaa; white-space: nowrap; }
 #calcForm .tapSelect input			{ position: absolute; top: -9px; left: 0; display: block; width: 100%; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: bold; color: #41A9DE !important; background-color: rgba(100,100,100,.1); text-align: left; z-index: 100; }
 #calcForm .tapSelect input.tapActive{ color: #cc0000 !important; }
@@ -595,8 +582,9 @@ div#spinner div.bar12			{ -webkit-transform:rotate(330deg) translate(0, -142%); 
 /*#///////////#//
 //# MODAL BOX #//
 //#///////////#*/
-#modalOverlay		{ opacity: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 9998; background-color: #fff; -webkit-backface-visibility: hidden; }
-#modalWindow		{ opacity: 0; position: absolute; top: 12px; left: 0; right: 0; height: 200px; background-color: #fff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 9999; -webkit-backface-visibility: hidden; }
+#modalOverlay		{ opacity: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 98; background-color: #fff; -webkit-backface-visibility: hidden; }
+#modalWindow		{ opacity: 0; position: absolute; top: 74px; left: 0; right: 0; height: 200px; background-color: #fff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 99; -webkit-backface-visibility: hidden; }
+body.ios7 #modalWindow	{ top: 94px; }
 #modalOverlay,
 #modalWindow		{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .25s; }
 #modalOverlay.show	{ opacity: .5; }

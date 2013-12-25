@@ -1,6 +1,24 @@
 
 
 
+- terminar a reset bar
+- menu settigs ~ unidades e about
+- bloquear inicio do timer sem reset
+- ver pq o android nao aceita zoom no diary
+- refinar o recent list
+- fazer o weight loss
+- presetar os quadados status
+- bloquear caracteres no input do calc
+- colocar as setas de icone colorido no food/exercise
+- apagar footer do diary
+- usar outro marcador para debug
+- alihar bolinhas do slider
+- fazer o pt-br completo
+- plugin de data no android ~ now
+- tap to alternatve view nos quadrados
+- 
+- 
+- notpad no settings
 
 - start stop reset bar
 - position from bottom timer
@@ -22,6 +40,7 @@
 
 - melhorado foco do profile
 - efeito de clique
+- startup function check existence
 - 
 
 # 1.1.0 [25/12/2013]

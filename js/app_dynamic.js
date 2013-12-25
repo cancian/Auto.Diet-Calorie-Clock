@@ -14,7 +14,7 @@ $(document).on("pageload", function(evt) {
 	//////////////////
 	//var ix  = 0;
 	//var meh = 0;
-	//var duh;
+	var duh;
 	// TOUCHSWIPE //
 	//$("#entryList div" + tgt).on(tap, function(event) {
 	$("#entryList div" + tgt).swipe({tap:function(event) {
@@ -621,15 +621,33 @@ $(document).on("pageReload", function(evt) {
 			});
 			// PRE-FILL RECENT //
 			var mr = 0;
-			$(".recentItem").off("doubleTap");
-			$(".recentItem").on("doubleTap",function(evt) {
+			$(".recentItem").off("singleTap");
+			$(".recentItem").on("singleTap",function(evt) {
 				evt.preventDefault();
 				evt.stopPropagation();
 				if(mr == 0) {
 					mr++;
-					$("#entryBody").val($("#activeOverflow").html());
-					$("#appHeader").trigger(trim(tap));
-					$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
+					///////////////
+					// DIARY TAB //
+					///////////////
+					var preFillTimer = 0;
+					if(window.localStorage.getItem("app_last_tab") != "tab2") {
+						var preFillTimer = 150;				
+						openDiary();
+					}
+					setTimeout(function(evt) {
+						$("#entryBody").val($("#activeOverflow").html());
+						//CSS FADE OUT
+						$('#modalWindow').removeClass('show');
+						$('#modalOverlay').removeClass('show');
+						//SELF-REMOVE
+						$('#modalWindow').on('webkitTransitionEnd',function(e) { 
+							$("#modalWindow").remove();
+							$("#modalOverlay").remove();
+						});
+						$("#appHeader").trigger(trim(touchstart));
+						$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
+					},preFillTimer);
 				}
 			});
 			});
@@ -765,27 +783,29 @@ $(document).on("pageReload", function(evt) {
 			/////////////////////////////////
 			// TAP FOOD-ENTRY EDIT (MODAL) //
 			/////////////////////////////////
-			var ix  = 0;
-			var meh = 0;
+			//var ix  = 0;
+			//var meh = 0;
 			var duh;
 			// TOUCHSWIPE //
-			$("#foodList div.searcheable").swipe({
-				tap:function(event) {
+			$("#foodList div.searcheable").on("singleTap",function(event) {
+			//$("#foodList div.searcheable").swipe({
+			//	tap:function(event) {
 					event.preventDefault();
 					//counting
-					ix++;
-					var shit = meh;
-					var shot = $("#activeOverflow").html(); //this.id;
-					meh      = $("#activeOverflow").html(); //this.id;
+					//ix++;
+					//var shit = meh;
+					//var shot = $("#activeOverflow").html(); //this.id;
+					//meh      = $("#activeOverflow").html(); //this.id;
 					duh      = new Date().getTime();
 					//filter
-					if(shit == shot && (duh - deh) < 400 && ix >= 1) {
+					//if(shit == shot && (duh - deh) < 400 && ix >= 1) {
+					if(0 == 0) {
 						////////////////////////
 						// FOODLIST DOUBLETAP //
 						////////////////////////
 						//insert frame
-						$("body").prepend('<div id="modalOverlay"></div>');
-						$("#entryListFix").prepend('<div id="modalWindow"></div>');
+						$("body").append('<div id="modalOverlay"></div>');
+						$("body").append('<div id="modalWindow"></div>');
 						//add content
 						$("#modalWindow").html("<div id='modalContent'>" + $("#activeOverflow").html() + "&nbsp; <span>&nbsp;" + LANG('PRE_FILL') + "</span></div>");
 						$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG('ADD') + "</span><span id='modalCancel'>" + LANG('CANCEL') + "</span></div>");
@@ -1022,28 +1042,37 @@ $(document).on("pageReload", function(evt) {
 							evt.stopPropagation();
 							clearRepeaterModal();
 							if(mc == 0) {
-							mc++;
-								$("#entryBody").val($("#activeOverflow").html());
-								//CSS FADE OUT
-								$('#modalWindow').removeClass('show');
-								$('#modalOverlay').removeClass('show');
-								//SELF-REMOVE
-								$('#modalWindow').on('webkitTransitionEnd',function(e) { 
-									$("#modalWindow").remove();
-									$("#modalOverlay").remove();
-								});
-								//$("#modalOverlay").trigger(trim(tap));
-								$("#appHeader").trigger(trim(tap));
-								$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
+								mc++;
+								///////////////
+								// DIARY TAB //
+								///////////////
+								var preFillTimer = 0;
+								if(window.localStorage.getItem("app_last_tab") != "tab2") {
+									var preFillTimer = 150;				
+									openDiary();
+								}
+								setTimeout(function(evt) {
+									$("#entryBody").val($("#activeOverflow").html());
+									//CSS FADE OUT
+									$('#modalWindow').removeClass('show');
+									$('#modalOverlay').removeClass('show');
+									//SELF-REMOVE
+									$('#modalWindow').on('webkitTransitionEnd',function(e) { 
+										$("#modalWindow").remove();
+										$("#modalOverlay").remove();
+									});
+									$("#appHeader").trigger(trim(touchstart));
+									$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
+								},preFillTimer);
 							}
 						});
 						/////////////////////////////////////
 						// END TAP FOOD-ENTRY EDIT (MODAL) //
 						/////////////////////////////////////
-						var mi = "2";
-						ix     = -1;
-						meh    = "";
-					}
+						//var mi = "2";
+						//ix     = -1;
+						//meh    = "";
+				//	}
 					deh = duh;
 				}
 			});

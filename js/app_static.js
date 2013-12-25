@@ -128,13 +128,15 @@ $(window).on("resize", function(evt) {
 //#########################//
 //##    START WORKING    ##//
 //#########################//
-afterShow(250);
+afterShow(200);
 //updateTimer();
 //updateEntries();
 //updateEntriesTime();
 (function startTimer() {
-	updateTimer();
-	setTimeout(startTimer,99);
+	if(typeof updateTimer == 'function') {
+		updateTimer();
+		setTimeout(startTimer,99);
+	}
 })();
 ///////////////
 // ANALYTICS //
@@ -216,6 +218,29 @@ $('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
 				$('#pageSlideFood').remove(); 
 			});
 		}
+	});
+	///////////////////////////
+	// blur edit / entrybody //
+	/////////////////////////// BETA ~ ~ ~
+	$('#appHeader,#appContent').on(touchstart, function(evt) {
+		//evt.preventDefault();
+		//evt.stopPropagation();
+		$("#editable").blur();
+		$("#entryTime").blur();
+		$("#entryBody").blur();
+	});
+	$('#appHeader,#appContent,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
+		evt.preventDefault();
+		//evt.stopPropagation();
+			if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
+				$("#entryTime").focus();
+			} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
+				$("#entryBody").focus();
+			} else if(evt.target.id != "entryTime" && evt.target.id != "entryBody") {
+				$("#editable").blur();
+				$("#entryTime").blur();
+				$("#entryBody").blur();
+			}
 	});
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //
