@@ -23,18 +23,19 @@ function openStatus(string) {
 	<a name="top"></a>\
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"></div>\
-		<div id="appStatusWeight"></div>\
+		<div id="appStatusWeight"><div><p>0.0000000kg</p><span>weight loss</span></div></div>\
 		<div id="appStatusBalance"></div>\
 		<div id="appStatusIntake"></div>\
-		<div id="appStatusAddLeft"></div>\
-		<div id="appStatusAddRight"></div>\
+		<div id="appStatusAddLeft"><div>+ food</div></div>\
+		<div id="appStatusAddRight"><div>+ exercise</div></div>\
 		<div id="appStatusFix">\
+			<div id="startDateBar"><span id="startDateSpan"><input id="startDate" tabindex="-1" readonly /></span></div>\
+			<div id="appStatusToggle"></div>\
 			<div id="appStatus">\
 				<div id="appStatusTitle"></div>\
 				<div id="appStatusReload"></div>\
-				<div id="appStatusToggle"><div id="appStatusArrow"></div></div>\
+				<div id="appStatusArrow"></div>\
 			</div>\
-			<div id="appStatusDate"></div>\
 		</div>\
 	</div>';
 	//#////////#//
@@ -89,16 +90,112 @@ function openStatus(string) {
 	//#/////////////////////#//
 	//# APP STATUS/DATE BAR #//
 	//#/////////////////////#//	
+	////////////////
+	// DATEPICKER //
+	////////////////
+	$('#startDate').mobiscroll().datetime({
+		preset: 'datetime',
+		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //ONE YEAR BACK
+		maxDate: new Date(),
+		theme: 'android-ics light',
+		lang: LANG("LANGUAGE_FULL"),
+		display: 'modal',
+		stepMinute: 1,
+		animate: 'none',
+		mode: 'scroller'
+    });
+
+
+	/////////////////
 	// RELOAD ICON //
 	/////////////////
 	$("#appStatusReload").on(tap,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if(!$('#startDate').is(':visible')) {
+//		if(!$('#startDate').is(':visible')) {
 			afterHide();
 			return false;
+//		}
+	});
+
+	$("#appStatusToggle").on(tap,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+
+		if($('#appStatusFix').hasClass("open")) {
+			$('#startDate').blur();
+			$('#appStatusFix').removeClass("open");
+		} else {
+			$("#appStatusFix").addClass("open");
+		}
+
+//fillDate((window.localStorage.getItem("config_start_time")),'startDate');
+//$('#startDate').scroller('setDate',new Date($("#startDate").val()), true);
+$('#startDate').scroller('setDate',new Date(Number(window.localStorage.getItem("config_start_time"))), true);
+//$('#startDate').show();
+return false;
+//#appStatus
+//#appStatusToggle		{ opacity: .075; display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #000; line-height: 49px; background-color: transparent; }
+//$('#startDate').mobiscroll('show'); 
+});
+
+
+
+	// ON BLUR //
+	var onChange = 0;
+	$("#startDate").change(function(){
+		onChange++;
+	});
+	$("#startDate").blur(function(){
+		//write if changed
+		if(onChange > 0) {
+			//if not future
+			if(Number(Date.parse($("#startDate").val())) < Number((new Date().getTime())) ) {
+				//write input date as time
+				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val())));
+				//window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date()).getTimezoneOffset()) * 60 * 1000))) );
+			} else {
+				//REVERT TO STORED
+				//fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
+				//$('#startDate').scroller('setDate',new Date(Number(window.localStorage.getItem("config_start_time"))), true);
+//fillDate((window.localStorage.getItem("config_start_time")),'startDate');
+//$('#startDate').scroller('setDate',new Date($("#startDate").val()), true);
+			}
+		onChange = 0;
+		updateTimer();
+		updateEntries();
+		//updateEntriesTime();
 		}
 	});
+
+	// AUTOCLOSE n' hide //
+	$("#appHeader,#appContent").on(touchstart, function(evt) {
+		//GLOBAL CLOSER
+		if(evt.target.id == "startDate" || evt.target.id == "startDateBar" || evt.target.id == "appStatusToggle") {
+			return; 
+		}
+		//TRIGGER BLUR (SAVE) & CLOSE
+		if($('#appStatusFix').hasClass("open")) {
+			$('#startDate').blur();
+			$('#appStatusFix').removeClass("open");
+		}
+	});
+	// AUTOCLOSE WRAPPER //
+	/*
+	$("#entryListWrapper").on(tap, function(evt) {
+		if(evt.target.id == "entryListWrapper") {
+			//save on close click
+			if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
+				$('#startDate').blur();
+			}
+			if(!$('#configNow').is(':animated')) {
+				if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
+					$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
+				}
+			}
+		}
+	});
+*/
 
 /*
 	//#//////////////////#//
@@ -119,7 +216,7 @@ function openStatus(string) {
 		}
 	});
 	//TAP
-	$("#configNow").on("singleTap", function(evt) {
+	$("#configNow").on(singletap, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		//CONFIRMATION DIALOG
@@ -190,7 +287,7 @@ function openStatus(string) {
 	
 	
 	
-		/////////////////
+	/////////////////
 	// RELOAD ICON //
 	/////////////////
 	$("#iconRepeatToggle").on(tap, function(evt) {
@@ -234,56 +331,7 @@ function openStatus(string) {
 			}}
 		}}}
 	});
-	// ON BLUR //
-	var onChange = 0;
-	$("#startDate").change(function(){
-		onChange++;
-	});
-	$("#startDate").blur(function(){
-		//write if changed
-		if(onChange > 0) {
-			//if not future
-			if(Number(Date.parse($("#startDate").val()) + ((((new Date($("#startDate").val())).getTimezoneOffset()) * 60 * 1000))) < Number((new Date().getTime())) ) {
-				//write input date as time
-				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date($("#startDate").val())).getTimezoneOffset()) * 60 * 1000))) );
-				//window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date()).getTimezoneOffset()) * 60 * 1000))) );
-			} else {
-				//REVERT TO STORED
-				fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
-			}
-		onChange = 0;
-		updateTimer();
-		updateEntries();
-		//updateEntriesTime();
-		}
-	});
-	// AUTOCLOSE n' hide //
-	$("#appHeader,#editableDiv,#entryList,#go,#entryListForm").on(tap + "swipeLeft swipeRight", function(evt) {
-		evt.preventDefault();
-		//save on close click
-		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-			$('#startDate').blur();
-		}
-		if(!$('#configNow').is(':animated')) {
-			if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-			}
-		}
-	});
-	// AUTOCLOSE WRAPPER //
-	$("#entryListWrapper").on(tap, function(evt) {
-		if(evt.target.id == "entryListWrapper") {
-			//save on close click
-			if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#startDate').blur();
-			}
-			if(!$('#configNow').is(':animated')) {
-				if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-					$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-				}
-			}
-		}
-	});
+
 */	
 	
 	
@@ -688,7 +736,7 @@ $(document).trigger("sliderInit");
 		}
 	});
 	//TAP
-	$("#configNow").on("singleTap", function(evt) {
+	$("#configNow").on(singletap, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		//CONFIRMATION DIALOG
@@ -809,53 +857,7 @@ $(document).trigger("sliderInit");
 	$("#iconInfo").on("touchmove", function(evt) {
 		evt.preventDefault();
 	});
-
-
-    $('#startDate').mobiscroll().datetime({
-		preset: 'datetime',
-       // minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-		minDate: new Date(2012, 3, 10, 9, 22),
-        maxDate: new Date(2014, 7, 30, 15, 44),
-        theme: 'android-ics light',
-		//lang: 'pt-BR',
-        display: 'modal',
-		stepMinute: 1,
-        animate: 'fade',
-        mode: 'scroller'
-    });    
-
-
 	$("#iconInfo").on(tap, function(evt) {
-$('#startDate').mobiscroll('show'); 
-
-
-
-/*
-
-
-$(function(){
-var curr = new Date().getFullYear();
-$('#date').scroller({
-    preset: 'date',
-    height: 30,
-    width: 20,
-    theme: 'default',
-    display: 'inline',
-    mode: 'scroller',
-    dateOrder: 'MD ddyy',
-    startYear: curr,
-    endYear: curr + 3,
-    minDate: new Date(),
-    showLabel: false,
-    onChange:function(){ upDATE(); }
-});    
-$('#date').scroller('setValue', [11,9,'2012']);
-
-*/
-   
-		
-		
-		/*
 	//NATIVE USERVOICE
 	if(isMobile.iOS()) {
 		if(!$('.active').hasClass('open')) {
@@ -884,14 +886,7 @@ $('#date').scroller('setValue', [11,9,'2012']);
 		window.location='http://cancian.uservoice.com';
 	}
 		return false;
-		
-		*/
 	});
-	
-	
-	
-	
-	
 	/////////////////
 	// RELOAD ICON //
 	/////////////////

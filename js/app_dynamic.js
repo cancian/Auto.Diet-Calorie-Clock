@@ -449,7 +449,7 @@ $(document).on("pageReload", function(evt) {
 		evt.preventDefault();
 		//evt.stopPropagation();
 		//not while editing ~
-		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#startDate').is(':visible')) {
+		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#appStatusFix').hasClass('open')) {
 		//NO SWIPE OVERLAP
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
@@ -621,8 +621,8 @@ $(document).on("pageReload", function(evt) {
 			});
 			// PRE-FILL RECENT //
 			var mr = 0;
-			$(".recentItem").off("singleTap");
-			$(".recentItem").on("singleTap",function(evt) {
+			$(".recentItem").off(singletap);
+			$(".recentItem").on(singletap,function(evt) {
 				evt.preventDefault();
 				evt.stopPropagation();
 				if(mr == 0) {
@@ -632,7 +632,10 @@ $(document).on("pageReload", function(evt) {
 					///////////////
 					var preFillTimer = 0;
 					if(window.localStorage.getItem("app_last_tab") != "tab2") {
-						var preFillTimer = 150;				
+						var preFillTimer = 150;
+						$("ul#appFooter li").removeClass("selected");
+						window.localStorage.setItem("app_last_tab","tab2");
+						$("#tab2").addClass("selected");
 						openDiary();
 					}
 					setTimeout(function(evt) {
@@ -787,7 +790,7 @@ $(document).on("pageReload", function(evt) {
 			//var meh = 0;
 			var duh;
 			// TOUCHSWIPE //
-			$("#foodList div.searcheable").on("singleTap",function(event) {
+			$("#foodList div.searcheable").on(singletap,function(event) {
 			//$("#foodList div.searcheable").swipe({
 			//	tap:function(event) {
 					event.preventDefault();
@@ -1049,6 +1052,9 @@ $(document).on("pageReload", function(evt) {
 								var preFillTimer = 0;
 								if(window.localStorage.getItem("app_last_tab") != "tab2") {
 									var preFillTimer = 150;				
+									$("ul#appFooter li").removeClass("selected");
+									window.localStorage.setItem("app_last_tab","tab2");
+									$("#tab2").addClass("selected");
 									openDiary();
 								}
 								setTimeout(function(evt) {

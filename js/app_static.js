@@ -21,6 +21,7 @@ function startApp() {
 //# INDEX.HTML #//
 //#////////////#//
 $("body").html('\
+<div id="appHeader"></div>\
 <div id="appContent"></div>\
 <ul id="appFooter">\
 	<li id="tab1"></li>\
@@ -28,7 +29,6 @@ $("body").html('\
 	<li id="tab3"></li>\
 	<li id="tab4"></li>\
 </ul>\
-<div id="appHeader"></div>\
 ');
 //#////////////#//
 //# APP FOOTER #//
@@ -181,7 +181,7 @@ if(isMobile.Android()) {
 /////////////
 $("#appHeader").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
 $("#editableDiv").css("height",$("#appHeader").height());
-$('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
+//$('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
 
 //////////////////
 // INTRO NOTICE //

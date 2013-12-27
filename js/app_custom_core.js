@@ -30,15 +30,19 @@ function appTimer(id,content) {
 	var status;
 	var cssClass;
 	var statusStop;
-         if(kcalsInput >  9999) { status = LANG('SURPLUS');  statusStop = " " + LANG('ERROR'); cssClass = "surplus"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
-	else if(kcalsInput < -9999) { status = LANG('DEFICIT');  statusStop = " " + LANG('ERROR'); cssClass = "deficit"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
-	else if(kcalsInput >  600)  { status = LANG('SURPLUS');  statusStop = " " + LANG('STOP');  cssClass = "surplus";  }
-	else if(kcalsInput < -600)  { status = LANG('DEFICIT');  statusStop = " " + LANG('STOP');  cssClass = "deficit";  }
-	else if(kcalsInput >  300)  { status = LANG('SURPLUS');  statusStop = " ";                 cssClass = "surplus";  }
-	else if(kcalsInput < -300)  { status = LANG('DEFICIT');  statusStop = " ";                 cssClass = "deficit";  }
-	else                        { status = LANG('BALANCED'); statusStop = " ";                 cssClass = "balanced"; }
+	var lDeficit  = LANG('DEFICIT');
+	var lSurplus  = LANG('SURPLUS');
+	var lBalanced = LANG('BALANCED');
+	//STATUSES
+         if(kcalsInput >  9999) { status = lDeficit;  cssClass = "deficit"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
+	else if(kcalsInput < -9999) { status = lSurplus;  cssClass = "surplus"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
+	else if(kcalsInput >  600)  { status = lDeficit;  cssClass = "deficit";  }
+	else if(kcalsInput < -600)  { status = lSurplus;  cssClass = "surplus";  }
+	else if(kcalsInput >  300)  { status = lDeficit;  cssClass = "deficit";  }
+	else if(kcalsInput < -300)  { status = lSurplus;  cssClass = "surplus";  } 
+	else                        { status = lBalanced; cssClass = "balanced"; }
 	//EQ TIME
-/*
+	/*
 	var eqTime;
 	var eqStart  = Number(window.localStorage.getItem("config_start_time"));
 	var eqCals   = kcalsInput;
@@ -46,11 +50,10 @@ function appTimer(id,content) {
 	var eqRatio  = (60*60*24 / eqPerDay);
 	var eqDiff   = eqDate - Math.floor(Math.abs(kcalsInput*eqRatio));
 	var eqTime   = dateDiff(eqDiff*1000,eqDate*1000).replace(" " + LANG("AGO"),"");
-*/
+	*/
 	/////////////////
 	// WEIGHT LOSS //
 	/////////////////
-
 	var startLoss    = Number(window.localStorage.getItem("config_start_time"));
 	var numberLoss   = Number(window.localStorage.getItem("calcForm#pA6G"));
 	var unitLoss     = Number(window.localStorage.getItem("calcForm#select"));
@@ -64,16 +67,13 @@ function appTimer(id,content) {
 	// weeks elapsed
 	var elapsedRatio = elapsedLoss / week;
 	var weightLoss   = ((numberLoss * elapsedRatio) / 1000).toFixed(7);
-	//$("#statusBlock1").html(kcalsAll);
-
 	////////////
 	// OUTPUT //
 	////////////
 	var kcalsHtmlOutput = "";
 	kcalsHtmlOutput    += "<div id='timerBlocks'>";
-	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>calories avaliable</span></div>";
-	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>daily calories</span></div>";
-	//kcalsHtmlOutput    += "<div id='timerElapsed'>" + timeElapsed() + "<span>time elapsed</span></div>";
+	kcalsHtmlOutput    += "<div id='timerKcals'>" + kcalsInput + "<span>calories avaliable</span></div>";
+	kcalsHtmlOutput    += "<div id='timerDaily'>" + eqPerDay   + "<span>daily calories</span></div>";
 	kcalsHtmlOutput    += "</div>";
 	//plus~minus de-bump
 	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
@@ -91,15 +91,14 @@ function appTimer(id,content) {
 	///////////////////////
 	// UPDATE APP STATUS //
 	///////////////////////
-	$("#appStatusElapsed").html("<div>" + timeElapsed() + "<span>time elapsed</span></div");
-	$("#appStatusWeight").html("<div>" + weightLoss + " kg<span>weight loss</span></div");
-	$("#appStatusBalance").html("<div>" + status + "<span>caloric status</span></div");
-	$("#appStatusIntake").html("<div>+ 500  - 918<span>food exercise</span></div");
-	$("#appStatusAddLeft").html("<div>+ food</div");	
-	$("#appStatusAddRight").html("<div>+ exercise</div");
-//	$("#appStatus5").html("<div>+ food</div");	
-//	$("#appStatus6").html("<div>+ exercise</div");
+	$("#appStatusElapsed").html("<div>" + timeElapsed() + "<span>time elapsed</span></div>");
+	$("#appStatusWeight div p").html(weightLoss + "kg");
+	$("#appStatusBalance").html("<div>" + status + "<span>caloric status</span></div>");
+	$("#appStatusIntake").html("\
+	<div id='entry_f-sum'>" + Number(window.localStorage.getItem("config_entry_f-sum")) + "<span>food</span></div>\
+	<div id='entry_e-sum'>" + Number(window.localStorage.getItem("config_entry_e-sum")) + "<span>exercise</span></div>");
 }
+
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//
 //#////////////////////////#//
@@ -262,19 +261,32 @@ function updateTimer() {
 		if(window.localStorage.getItem("appStatus") != "running") {
 			window.localStorage.setItem("config_start_time",new Date().getTime());
 			window.localStorage.removeItem("config_entry_sum");
+			window.localStorage.removeItem("config_entry_f-sum");
+			window.localStorage.removeItem("config_entry_e-sum");			
 		} else {
 			//update every ~
 			if(new Date().getSeconds() == 30) { updateEntriesTime(); }
 			//console.log('updating entrylist sum');
 			var ts = 0;
+			var tf = 0;
+			var te = 0;
 			for(var i=0, len=data.length; i<len; i++) {
 				// EXPIRED
 				if(window.localStorage.getItem("config_start_time") < Number(data[i].published)) {
 					ts = Number(data[i].title) + ts;
+					//total food/exercise
+					if(Number(data[i].title) > 0) {
+						tf = tf + Number(data[i].title);
+					} else {
+						te = te + Number(data[i].title);
+					}
 				}
+
 			}
 			//console.log('refreshing timer');
 			window.localStorage.setItem("config_entry_sum",ts*-1);
+			window.localStorage.setItem("config_entry_f-sum",tf);
+			window.localStorage.setItem("config_entry_e-sum",te);
 			var day1 = window.localStorage.getItem("config_kcals_day_1");
 			var day2 = window.localStorage.getItem("config_kcals_day_2");
 		}

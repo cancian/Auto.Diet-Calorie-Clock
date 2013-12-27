@@ -1,6 +1,19 @@
 
 
+ document.getElementById('deviceProperties');
 
+        element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
+                            'Device Cordova: '  + device.cordova  + '<br />' + 
+                            'Device Platform: ' + device.platform + '<br />' + 
+                            'Device UUID: '     + device.uuid     + '<br />' + 
+                            'Device Version: '  + device.version  + '<br />
+
+- no-resize status (min-height ~? measure ~ 600~700 px)
+							
+- calories > 600, warning ~yellow block
+
+- reset food/exercise block on reset timer
+						
 - terminar a reset bar
 - menu settigs ~ unidades e about
 - bloquear inicio do timer sem reset
@@ -14,23 +27,26 @@
 - usar outro marcador para debug
 - alihar bolinhas do slider
 - fazer o pt-br completo
-- plugin de data no android ~ now
+
 - tap to alternatve view nos quadrados
-- 
-- 
+- redimensionar altura de foolist on rototate
+- save date without starting
+- empty pre-fill (title) bug
 - notpad no settings
 
-- start stop reset bar
-- position from bottom timer
 - update +food - exer on #go
 - lost weight / burned calories
 - 
-- 
+- footer diary menu on pre-fill
 - 
 - timer crappy repeat on early android
-- o delete entyr no android puxa a nicescrollbar erroneamente, colocar if.not.ios
+>>- o delete entyr no android puxa a nicescrollbar erroneamente, colocar if.not.ios ? ~ ver se é o erro ao apagar com scrollto incorrer (VER A # CORRETA do scroll TO ~ deve ser isso)
 
-
+##DONE
+# clicar no startdatetoggle salva a data também
+# plugin de data no android ~ now
+# start stop reset bar
+# position from bottom timer
 
 
 

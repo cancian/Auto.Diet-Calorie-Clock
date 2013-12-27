@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="10141" 
-        version   = "1.0.4.1">
+        versionCode="11000" 
+        version   = "1.1.0">
 		
     <name>MyLiveDiet</name>
 
@@ -67,7 +67,6 @@
 	<feature name="GAPlugin">
 		<param name="ios-package" value="GAPlugin" />
 	</feature>
-
 	
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
@@ -78,14 +77,7 @@
 	<feature name="GAPlugin">
 		<param name="android-package" value="com.adobe.plugins.GAPlugin" />
 	</feature>
-
-	<feature name="DatePickerPlugin">
-		<param name="android-package" value="com.bikasv.plugins.datepicker.DatePickerPlugin" />
-	</feature>
-	<feature name="Share">
-		<param name="android-package" value="com.bikasv.plugins.share.Share" />
-	</feature>
-
+	
     <!-- ICON: ANDROIOD -->
     <icon src="res/icon/android/drawable/icon.png" />
 	<icon src="res/icon/android/drawable-ldpi/icon.png"   gap:platform="android"    gap:density="ldpi" />

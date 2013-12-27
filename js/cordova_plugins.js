@@ -27,20 +27,6 @@ module.exports = [
         "clobbers": [
             "GAPlugin"
         ]
-    },
-    {
-        "file": "plugins/com.bikasv.plugins.datepicker/scripts/datePickerPlugin.js",
-        "id": "com.bikasv.plugins.datepicker.datePicker",
-        "clobbers": [
-            "datePicker"
-        ]
-    },
-    {
-        "file": "plugins/com.bikasv.plugins.datepicker/scripts/share.js",
-        "id": "com.bikasv.plugins.datepicker.share",
-        "clobbers": [
-            "share"
-        ]
     }
 ]
 });

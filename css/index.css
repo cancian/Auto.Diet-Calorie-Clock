@@ -6,7 +6,7 @@ body					{ position: relative; display: block; width: 100%; height: 100%; overfl
 @font-face				{ -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
 *,h2,
 input[readonly]			{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
-input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: "Helvetica Neue", Helvetica, Arial; }
+input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial;  }
 p						{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*## HW ##
 div,
@@ -58,9 +58,9 @@ div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 4
 //# GLOBAL HEADER #//
 //#///////////////#*/
 #appHeader						{ position: absolute; height: 62px; top: 0; left: 0; right: 0; color: #fff; }
-#appHeader.deficit				{ background-color: #C85834;  }
+#appHeader.deficit				{ background-color: #309030; }
 #appHeader.balanced				{ background-color: #316ADC; }
-#appHeader.surplus				{ background-color: #309030; }
+#appHeader.surplus				{ background-color: #C85834; }
 /*SUB-BLOCKS*/
 #timerBlocks					{ position: absolute; height: 62px; bottom: 0; left: 0; right: 0; }
 /*calories remaining*/
@@ -87,73 +87,87 @@ opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; 
 /*#####################
 ## BUILD: APP STATUS ##
 #####################*/
-#statusWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 12px; background-color: #fff;; }
-#appStatus				{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; }
-#appStatus.start		{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background-color: #008800; text-align: center; line-height: 44px; font-weight: bold; color: #fff; }
-#appStatus.reset		{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background-color: #cccccc; text-align: center; line-height: 44px; font-weight: bold; color: #999; }
-#appStatus.start:active	{ background-color: #007700; }
-#appStatus.reset:active	{ background-color: #c1c1c1; }
+#statusWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 12px; background-color: #fff; }
 /**/
-#appStatusFix			{   }
-#appStatusTitle			{   }
-#appStatusReload		{ display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; font-weight: bold; text-indent: 7px; background-color: transparent; -webkit-backface-visibility: hidden;   }
-#appStatusReload:before	{ content: "\f01e"; font-family: FontAwesome; display: inline-block; font-weight: normal; opacity: .075; }
-#appStatusToggle		{ display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #fff; line-height: 49px; background-color: transparent; }
-#appStatusArrow			{ position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; opacity: .075; }
+#appStatusElapsed				{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
+#appStatusElapsed div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
+#appStatusElapsed span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatusWeight				{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; }
+#appStatusWeight div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
+#appStatusWeight span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
+#appStatusBalance div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
+#appStatusBalance span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+/**/
+#appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; white-space: nowrap; }
+#appStatusIntake div			{ padding-top: 19px; display: block; font-size: 14px; position: relative;  background-color: #; }
+#appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; opacity: .9; color: #000; border: 0px solid #000; }
+
+#appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; padding-right: ; position: absolute; top: 0; left: 21%; } 
+#appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; padding-right: ; position: absolute; top: 0; right: 23%; }
 
 
+/*
+p#entry_f-sum					{ width: 50%; float: let; position: reative;  display: blok; background-color: #fff; padding: 0 !important; line-height: normal; }
+p#entry_e-sum					{ width: 50%; float: riht; position: relatve; display: blok; background-color: #ccc; padding: 0; line-height: normal; }
+p
+p#entry_e-sum:before			{ font-family: 'FontAwesome'; content: "\f0d7"; font-size: 32px; color: #cc3300; display: inline-block; line-height: normal; }
 
-/*#SUB ELEMENTS#*/
-#configNow				{ -webkit-backface-visibility: hidden; margin: 0; text-align: center; background-color: #fff; position: absolute; left: 0; bottom: 0px; overflow: hidden; color: #333; display: block; font-weight: bold; width: 100%; border: 0; border-top: 0px solid rgba(137,3,6,.15); min-height: 40px; max-height: 44px; height: 44px; overflow: hidden; line-height: 44px; padding: 0; font-size: 18px; }
-#configNow:active 		{ color: #cc3300; }
-#configNow :link		{ color: #fff !important; text-decoration: none; }
-/*##################
-## START DATE BAR ##
-##################*/
-#startDateBar			{ -webkit-backface-visibility: hidden; width: 100%; height: 44px; background-color: #fff; position: absolute; left: 0; bottom: 0; text-align: center; }
-#startDate 				{ -webkit-backface-visibility: hidden; display: none; color: #000; margin: 14px 0 0 0; width: ;  background-color: #fff; border: 0; font-size: 13pt; color: #555; -webkit-appearance: none; }
-#startDate:before		{ position: absolute; top: 5px; padding-left: 0px; font-weight: bold; text-align: center; font-size: 11px; color: #aaa; text-transform: uppercase; }
-/*TOGGLES*/
-#startDateBarToggle		{ -webkit-backface-visibility: hidden; position: absolute; bottom: 0; right: 0; width: 65px; height: 45px; background-color: transparent; z-index: 1; }
-.arrow-down				{ -webkit-backface-visibility: hidden; height: 0px; width: 0px; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; position: absolute; top: 14px; right: 13px; opacity: .12; }
-#iconRepeatToggle  		{ -webkit-backface-visibility: hidden; position: absolute; bottom: 0; left: 0; width: 65px; height: 45px; background-color: transparent; z-index: 1; }
-.icon-repeat:before		{ content: "\f01e"; font-family: FontAwesome; display: inline-block; }
-.icon-repeat			{ vertical-align: baseline; font-family: FontAwesome; display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; font-weight: bold; text-indent: 7px; opacity: .12; background-color: transparent; -webkit-backface-visibility: hidden; }
-/*ICON*/
-#iconInfo				{ position: absolute; color: #ddd; top: 0px; right: 0px; padding: 8px 16px 8px 16px; font-size: 15pt; text-shadow: rgba(255,255,255,.2) 0 1px 0; }
-#iconInfo				{ display:  }
-.icon-info-sign			{ font-family: FontAwesome; vertical-align: baseline; line-height: normal; font-weight: normal; }
-.icon-info-sign:before	{ content: "\f05a"; font-family: FontAwesome; display: inline-block; }
-#iconInfo:active		{ text-shadow: rgba(0,0,0,0) 0 0px 16px; vertical-align: baseline; line-height: normal; font-weight: normal; color: #aaa; }
+#entry_f-sum span				{ line-height: normal; padding: 0;}
+#entry_e-sum span				{ line-height: normal; padding: 0; }
+*/
 
+/*
+iv id=''>" + Number(window.localStorage.getItem("config_entry_f-sum")) + "<span>food</span></div>\
+	<div id='entry_e-sum'>" + Math.abs(Number(window.localStorage.getItem("config_entry_e-sum"))) 
+f0d8 
+f0d7
+*/
 
 
 /**/
-#appStatusElapsed		{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
-#appStatusElapsed div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
-#appStatusElapsed span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+#appStatusAddLeft				{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
+#appStatusAddLeft div			{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
+#appStatusAddLeft span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 /**/
-#appStatusWeight		{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; }
-#appStatusWeight div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
-#appStatusWeight span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
-/**/
-#appStatusBalance		{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
-#appStatusBalance div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
-#appStatusBalance span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
-/**/
-#appStatusIntake		{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; }
-#appStatusIntake div	{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
-#appStatusIntake span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
-/**/
-#appStatusAddLeft		{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
-#appStatusAddLeft div	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
-#appStatusAddLeft span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
-/**/
-#appStatusAddRight		{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
-#appStatusAddRight div	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
-#appStatusAddRight span	{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+#appStatusAddRight				{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
+#appStatusAddRight div			{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
+#appStatusAddRight span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 #appStatusAddRight div:active,
 #appStatusAddLeft div:active	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
+/*///////////////////
+// bottom date bar //
+///////////////////*/
+#appStatusFix					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; overflow: hidden; text-align: center;  background-color: #fff; }
+#appStatus						{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .165s; }
+/*animate*/
+#appStatusFix.open #appStatus	{ -webkit-transform: translate3d(0, 100%, 0); }
+#appStatusFix.open #startDate	{ display: inline-block; }
+/*start-reset color*/
+.start #appStatusTitle			{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background-color: #008800; text-align: center; line-height: 44px; font-weight: bold; color: #fff; }
+.reset #appStatusTitle			{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; background-color: #cccccc; text-align: center; line-height: 44px; font-weight: bold; color: #999; }
+.start #appStatusTitle:active 	{ background-color: #007700; }
+.reset #appStatusTitle:active	{ background-color: #c1c1c1; }
+/*startdate input*/
+#startDateBar					{ width: 100%; position: relative; display: block; height: 44px; overflow: hidden; }
+span#startDateSpan				{ position: relative; height: 44px; }
+span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weight: bold; font-size: 11px; color: #aaa; text-transform: uppercase; display: block; white-space: nowrap; }
+#startDate 						{ /*display: none;*/ height: 44px; line-height: 61px; background-color: transparent; border: 0; padding: 0; text-indent: 0; margin: 0; font-size: 13pt; color: #555; -webkit-appearance: none; }
+/*reload icon*/
+#appStatusReload				{ opacity: .075; display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; text-indent: 7px; background-color: transparent; -webkit-backface-visibility: hidden; }
+#appStatusReload:before			{ content: "\f01e"; font-family: FontAwesome; display: inline-block; font-weight: bold; }
+/*toggle icon*/
+#appStatusToggle				{ display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #000; line-height: 49px; z-index: 10; }
+#appStatusArrow					{ webkit-transition-timing-function: linear; -webkit-transition-duration: .565s; opacity: .075; position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; }
+#appStatusFix.open #appStatusArrow { top: -23px;-webkit-transform: rotate(-60deg); }
+/*#ICON#*/
+#iconInfo						{ position: absolute; color: #ddd; top: 0px; right: 0px; padding: 8px 16px 8px 16px; font-size: 15pt; text-shadow: rgba(255,255,255,.2) 0 1px 0; }
+#iconInfo						{ display: inline-block; }
+.icon-info-sign					{ font-family: FontAwesome; vertical-align: baseline; line-height: normal; font-weight: normal; }
+.icon-info-sign:before			{ content: "\f05a"; font-family: FontAwesome; display: inline-block; }
+#iconInfo:active				{ text-shadow: rgba(0,0,0,0) 0 0px 16px; vertical-align: baseline; line-height: normal; font-weight: normal; color: #aaa; }
 /*######################
 ## BUILD: APP PROFILE ##
 ######################*/
@@ -204,8 +218,6 @@ opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; 
 #calcForm input:active,
 #calcForm select:focus,
 #calcForm select:active				{ color: #000; }
-
-
 /*####################
 ## BUILD: APP DIARY ##
 ####################*/
@@ -214,12 +226,12 @@ opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; 
 // FORM-ENTRYLIST //
 //////////////////*/
 div#sliderNum			{ text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
-div#sliderPos			{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #7E78E2; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
-div#sliderNeg			{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #C85136; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
-div#sliderNeg span		{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #C85136 transparent transparent; position: absolute; top: 7px; left: 3px; }
-div#sliderPos span		{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #7E78E2; position: absolute; top: 7px; right: 3px; }
-div#sliderNeg:active	{ /*color: #B93820;*/ }
-div#sliderPos:active	{ /*color: #645EDA;*/ }
+div#sliderNeg			{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
+div#sliderPos			{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
+div#sliderNeg span		{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #D55621 transparent transparent; position: absolute; top: 7px; left: 3px; }
+div#sliderPos span		{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #316ADC; position: absolute; top: 7px; right: 3px; }
+div#sliderNeg:active	{ color: #CB5220; }
+div#sliderPos:active	{ color: #2052CB; }
 /*entryList in-line adjust*/
 #kcalsAdjust			{ color: rgba(0,0,0,.1); }
 #adjustPos:before		{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 42px; margin-left: -10px; }
@@ -238,12 +250,11 @@ div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; 
 #entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
 div#entryBodySearch:active	{ opacity: 1; }
 select#entryTime		{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
-#entrySubmit			{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #bababa; border-radius: 28px; opacity: .7; padding: 6px 28px 6px 28px; font-weight: bold; color: #777; }
-div.submitActive		{ color: #000 !important; border-color: #aaa !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; }
+#entrySubmit			{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 0px solid #bababa; border-radius: 0px; opacity: 1; padding: 6px 28px 6px 28px; font-weight: bold; background-color: #eee; color: #999; }
+div.submitActive		{ color: #fff !important; border-color: #aaa !important; background-color: #0072BC !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
 .android .submitActive	{ -webkit-box-shadow: none !important; }  
 .android #entrySubmit	{ text-shadow: none !important; }
 #sliderBlock			{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
-
 /*////////////////
 // CARPE SLIDER //
 ////////////////*/

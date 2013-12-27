@@ -25,6 +25,10 @@ var LANGUAGE = {
 	en: "en",
 	pt: "pt"
 };
+var LANGUAGE_FULL = {
+	en: "en-US",
+	pt: "pt-BR"
+};
 ////////////////////
 var NO_ENTRIES = {
 	en: "no entries",

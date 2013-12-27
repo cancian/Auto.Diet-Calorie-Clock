@@ -1,4 +1,4 @@
-var appVersion = "1.1.0 alpha";
+var appVersion = "1.1.0";
 /////////////////
 // GLOBAL VARS //
 /////////////////
@@ -533,6 +533,7 @@ var touchmove  = hasTouch() ? ' touchmove '  : ' mousemove ';
 var tap        = hasTouch() ? ' tap '        : ' click ';
 var longtap    = hasTouch() ? ' taphold '    : ' taphold ' ;
 var taphold    = hasTouch() ? ' taphold '    : ' taphold ' ;
+var singletap  = hasTouch() ? ' singleTap '  : ' click ';
 var doubletap  = hasTouch() ? ' doubleTap '  : ' dblclick ';
 /////////////////////////////
 // UPDATE ENTRYLIST *TIME* //
