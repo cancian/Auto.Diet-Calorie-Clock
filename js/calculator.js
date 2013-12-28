@@ -17,6 +17,19 @@ function recalc_onclick(ctl) {
         co.pA6H = document.formc.pA6H[document.formc.pA6H.selectedIndex].value;
         co.pA6M = eeparseFloat(document.formc.pA6M.value);
         co.pA6N = document.formc.pA6N[document.formc.pA6N.selectedIndex].value;
+/*
+       co.pA1B = window.localStorage.getItem("calcForm#pA1B"); //document.formc.pA1B[document.formc.pA1B.selectedIndex].value;
+       co.pA2B = window.localStorage.getItem("calcForm#pA2B"); //eeparseFloat(document.formc.pA2B.value);
+       co.pA2C = window.localStorage.getItem("calcForm#pA2C"); //document.formc.pA2C[document.formc.pA2C.selectedIndex].value;
+       co.pA3B = window.localStorage.getItem("calcForm#pA3B"); //eeparseFloat(document.formc.pA3B.value);
+       co.pA3C = window.localStorage.getItem("calcForm#pA3C"); //document.formc.pA3C[document.formc.pA3C.selectedIndex].value;
+       co.pA4B = window.localStorage.getItem("calcForm#pA4B"); //eeparseFloatV(document.formc.pA4B[document.formc.pA4B.selectedIndex].value);
+       co.pA5B = window.localStorage.getItem("calcForm#pA5B"); //document.formc.pA5B[document.formc.pA5B.selectedIndex].value;
+       co.pA6G = window.localStorage.getItem("calcForm#pA6G"); //eeparseFloat(document.formc.pA6G.value);
+       co.pA6H = window.localStorage.getItem("calcForm#pA6H"); //document.formc.pA6H[document.formc.pA6H.selectedIndex].value;
+       co.pA6M = window.localStorage.getItem("calcForm#pA6M"); //eeparseFloat(document.formc.pA6M.value);
+       co.pA6N = window.localStorage.getItem("calcForm#pA6N"); //document.formc.pA6N[document.formc.pA6N.selectedIndex].value;
+*/
         calc(co);
         document.formc.pA2D.value = eedisplayFloat(co.pA2D);
         document.formc.pA3D.value = eedisplayFloat(co.pA3D);

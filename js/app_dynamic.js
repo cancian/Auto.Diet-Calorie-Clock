@@ -621,10 +621,16 @@ $(document).on("pageReload", function(evt) {
 			});
 			// PRE-FILL RECENT //
 			var mr = 0;
+			//entrylist form propagation fix
+			$(".recentItem").on(touchend,function(evt) {
+				evt.preventDefault();				
+			});
 			$(".recentItem").off(singletap);
 			$(".recentItem").on(singletap,function(evt) {
 				evt.preventDefault();
 				evt.stopPropagation();
+				//not if empty
+				if(!$("#activeOverflow").html()) { return; }
 				if(mr == 0) {
 					mr++;
 					///////////////
@@ -639,7 +645,7 @@ $(document).on("pageReload", function(evt) {
 						openDiary();
 					}
 					setTimeout(function(evt) {
-						$("#entryBody").val($("#activeOverflow").html());
+						$("#entryBody").val($("#activeOverflow").text());
 						//CSS FADE OUT
 						$('#modalWindow').removeClass('show');
 						$('#modalOverlay').removeClass('show');
@@ -1020,6 +1026,11 @@ $(document).on("pageReload", function(evt) {
 						///////////////////
 						// OVERLAY CLOSE //
 						///////////////////
+						//fix foodlist scrolling
+						$("#modalWindow").on("touchmove",function(evt) {
+							evt.preventDefault();
+							evt.stopPropagation();
+						});
 						$("#modalOverlay, #modalCancel").on(touchstart,function(evt) {
 							evt.preventDefault();
 							evt.stopPropagation();

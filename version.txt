@@ -1,52 +1,61 @@
 
 
- document.getElementById('deviceProperties');
+- 
+- 
+- clock na pinta da quick add
+- 
+f017 - clock
+f0d8  - up
+f0d7 - down
 
-        element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
-                            'Device Cordova: '  + device.cordova  + '<br />' + 
-                            'Device Platform: ' + device.platform + '<br />' + 
-                            'Device UUID: '     + device.uuid     + '<br />' + 
-                            'Device Version: '  + device.version  + '<br />
 
-- no-resize status (min-height ~? measure ~ 600~700 px)
-							
-- calories > 600, warning ~yellow block
+ 7700 calories , because one pound is 3500 
 
-- reset food/exercise block on reset timer
-						
-- terminar a reset bar
-- menu settigs ~ unidades e about
+
+
+############################
+- presetar os quadados status
+- bloquear caracteres no input do calc
+- apagar footer do diary
+- alihar bolinhas do slider
+
+- notepad no settings
+- ver a causa de aparecer a lupa do android na pagina de status
+- tap squares for more info
+- time elapse - x until tje tomers hits zero
+- loss - goal: x units per week
+- you are +calories above your goal
+- tap to alternatve view nos quadrados
 - bloquear inicio do timer sem reset
 - ver pq o android nao aceita zoom no diary
 - refinar o recent list
 - fazer o weight loss
-- presetar os quadados status
-- bloquear caracteres no input do calc
-- colocar as setas de icone colorido no food/exercise
-- apagar footer do diary
-- usar outro marcador para debug
-- alihar bolinhas do slider
-- fazer o pt-br completo
-
-- tap to alternatve view nos quadrados
-- redimensionar altura de foolist on rototate
+- refazer o pt-br completo
 - save date without starting
-- empty pre-fill (title) bug
-- notpad no settings
-
-- update +food - exer on #go
 - lost weight / burned calories
-- 
-- footer diary menu on pre-fill
-- 
 - timer crappy repeat on early android
->>- o delete entyr no android puxa a nicescrollbar erroneamente, colocar if.not.ios ? ~ ver se é o erro ao apagar com scrollto incorrer (VER A # CORRETA do scroll TO ~ deve ser isso)
+>- o delete entyr no android puxa a nicescrollbar erroneamente, colocar if.not.ios ? ~ ver se é o erro ao apagar com scrollto incorrer (VER A # CORRETA do scroll TO ~ deve ser isso)
 
 ##DONE
 # clicar no startdatetoggle salva a data também
 # plugin de data no android ~ now
 # start stop reset bar
 # position from bottom timer
+# hovers do add food + exercise
+# colocar dropdown na reset bar
+# novo marcador de debug
+# autoclose on pre-fill
+# calories > 600, warning ~yellow block
+# aumentar altura dos forms calc
+# colocar as setas de icone colorido no food/exercise
+# footer diary menu on pre-fill
+# efeito no tap do calc	
+# reset food/exercise block on reset timer
+# menu settigs
+# usar outro marcador para debug
+# redimensionar altura de foodlist on resize
+# empty pre-fill (title) bug
+# more than 50% of your daily intake 
 
 
 

@@ -29,17 +29,18 @@ function appTimer(id,content) {
 	//STATUS BAR COLOR
 	var status;
 	var cssClass;
+	var cssOver = "";
 	var statusStop;
 	var lDeficit  = LANG('DEFICIT');
 	var lSurplus  = LANG('SURPLUS');
 	var lBalanced = LANG('BALANCED');
-	//STATUSES
-         if(kcalsInput >  9999) { status = lDeficit;  cssClass = "deficit"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
-	else if(kcalsInput < -9999) { status = lSurplus;  cssClass = "surplus"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
-	else if(kcalsInput >  600)  { status = lDeficit;  cssClass = "deficit";  }
-	else if(kcalsInput < -600)  { status = lSurplus;  cssClass = "surplus";  }
-	else if(kcalsInput >  300)  { status = lDeficit;  cssClass = "deficit";  }
-	else if(kcalsInput < -300)  { status = lSurplus;  cssClass = "surplus";  } 
+	//STATUSES (RELATIVE)
+         if(kcalsInput >  9999) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
+	else if(kcalsInput < -9999) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
+	else if(kcalsInput > eqPerDay * .50) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
+	else if(kcalsInput < eqPerDay *-.50) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
+	else if(kcalsInput > eqPerDay * .25) { status = lDeficit;  cssClass = "deficit";  }
+	else if(kcalsInput < eqPerDay *-.25) { status = lSurplus;  cssClass = "surplus";  } 
 	else                        { status = lBalanced; cssClass = "balanced"; }
 	//EQ TIME
 	/*
@@ -79,10 +80,26 @@ function appTimer(id,content) {
 	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
 	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
 	//STATUS
-	$("#appHeader").removeClass("deficit");
-	$("#appHeader").removeClass("balanced");
-	$("#appHeader").removeClass("surplus");
-	$("#appHeader").addClass(cssClass);
+	if(!$("#appHeader").hasClass(cssClass) || !$("#appStatusBalance").hasClass(cssClass)) {
+		$("#appHeader,#appStatusBalance").addClass(cssClass);
+		if(cssClass != "balanced") { 
+			$("#appHeader,#appStatusBalance").removeClass("balanced");
+		}
+		if(cssClass != "deficit") { 
+			$("#appHeader,#appStatusBalance").removeClass("deficit");
+		}
+		if(cssClass != "surplus") { 
+			$("#appHeader,#appStatusBalance").removeClass("surplus");
+		}
+		if(cssOver != "over") { 
+			$("#appHeader,#appStatusBalance").removeClass("over");
+		}
+	}
+	if(cssOver == "over") {
+		if(!$("#appHeader").hasClass("over") || !$("#appStatusBalance").hasClass("over")) {
+			$("#appHeader,#appStatusBalance").addClass("over");
+		}
+	}
 	//////////////////
 	// UPDATE TIMER //
 	//////////////////
@@ -98,7 +115,6 @@ function appTimer(id,content) {
 	<div id='entry_f-sum'>" + Number(window.localStorage.getItem("config_entry_f-sum")) + "<span>food</span></div>\
 	<div id='entry_e-sum'>" + Number(window.localStorage.getItem("config_entry_e-sum")) + "<span>exercise</span></div>");
 }
-
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//
 //#////////////////////////#//

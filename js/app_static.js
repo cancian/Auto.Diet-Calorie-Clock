@@ -93,6 +93,7 @@ function appResizer(time) {
 		}
 		$('#entryListWrapper').css("height","auto");
 		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
+		$('#pageslideFood').height(window.innerHeight - $('#appHeader').height());
 		if(!isMobile.iOS()) { $("#appContent").getNiceScroll().onResize(); }
 	 },time);
 }
@@ -125,6 +126,14 @@ $(window).on("resize", function(evt) {
 		appResizer(0);
 	}
 });
+/////////////////////
+// DEBUG INDICATOR //
+/////////////////////
+//ICONINFO GREEN
+if(window.localStorage.getItem("config_debug") == "active") {
+	//$("#iconInfo").css("color","#00cc00");
+	$("#appFooter").addClass("appDebug");
+}
 //#########################//
 //##    START WORKING    ##//
 //#########################//

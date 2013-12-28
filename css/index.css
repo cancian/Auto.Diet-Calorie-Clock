@@ -7,6 +7,7 @@ body					{ position: relative; display: block; width: 100%; height: 100%; overfl
 *,h2,
 input[readonly]			{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
 input,select			{ -webkit-user-select: auto; -webkit-appearance: auto; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial;  }
+ul						{ padding: 0; margin: 0; text-indent: 0; }
 p						{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*## HW ##
 div,
@@ -32,12 +33,13 @@ div#noEntries			{ border-left: 5px solid transparent; }
 /*#///////////////#//
 //# GLOBAL FOOTER #//
 //#///////////////#*/
-ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); }
-ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; }
-ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); }
+ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); -webkit-backface-visibility: hidden; }
+ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999;  -webkit-backface-visibility: hidden; }
+ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before	{ color: #cbcbcb; }
-ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; }
-ul#appFooter li:after 			{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold; }
+ul#appFooter.appDebug li.selected:before	{ color: #00ee00; }
+ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; }
+ul#appFooter li:after 			{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
 ul#appFooter li#tab1			{  }
 ul#appFooter li#tab2			{  }
 ul#appFooter li#tab3			{  }
@@ -81,9 +83,52 @@ opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; 
 /*#######################
 ## BUILD: APP SETTINGS ##
 #######################*/
+#settingsWrapper				{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #EFEFF4; color: #999; font-size: 13px; }
+/*list*/
+ul#settingsList					{ display: block; background-color: #fff; border-bottom: 1px solid #E6E6E9; }
+ul#settingsList li				{ display: block; height: 46px; line-height: 46px; color: #777; }
+ul#settingsList li div			{ margin-left: 20px; }
+ul#settingsList li+li div		{ border-top: 1px solid #ddd; }
+
+ul#settingsList li.activeRow	{ background-color: #ddd; color: #555; }
+
+
+ul#settingsList li.nextChild div { border-top: 1px solid #ddd; }
+ul#settingsList li.nextChild div { margin-left: 0; padding-left: 20px; }
+
+
 /*
 
+
+
+
+
+ul#settingsList li+li:active div	{ border-top: 1px solid #eee; }
+ul#settingsList li+li:active div	{ border-bottom: 1px solid #eee; }
+
+ul#settingsList li:active		{ background-color: #000; }
+
+
+
+ul#settingsList li:active div	{ margin-left: 20px; border-top: 0px solid #000;  height: 44px; }
+ul#settingsList li+li:active div	{ margin-left: 20px; border-top: 0px solid #eee;  height: 44px;}
+
 */
+/*
+ul#settingsList li:active div	{ margin-left: 0; padding-left: 20px; border-bottom: 0px solid #eee; border-top: 1px solid #eee; }
+
+ul#settingsList li+li:active div { border-bottom: 3px solid #fff;}
+*/
+
+
+
+ul#settingsList li#option1		{  }
+ul#settingsList li#option2		{  }
+ul#settingsList li#option3		{  }
+ul#settingsList li#option4		{  }
+ul#settingsList li#option5		{  }
+ul#settingsList li#option6		{  }
+ul#settingsList li#option7		{  }
 /*#####################
 ## BUILD: APP STATUS ##
 #####################*/
@@ -100,6 +145,8 @@ opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; 
 #appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
 #appStatusBalance div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
 #appStatusBalance span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
+#appStatusBalance.over			{ background-color: #fffcaa; }
+/*#appStatusBalance.over:before	{ content: "\f071"; font-family: FontAwesome; display: inline-block; position: absolute; top: 6px; right: 5px; color: #FFF342; font-size: 20px; }*/
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; white-space: nowrap; }
 #appStatusIntake div			{ padding-top: 19px; display: block; font-size: 14px; position: relative;  background-color: #; }
@@ -128,11 +175,11 @@ f0d7
 
 
 /**/
-#appStatusAddLeft				{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
+#appStatusAddLeft				{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #4285F4; color: #fff; font-weight: ; }
 #appStatusAddLeft div			{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
 #appStatusAddLeft span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 /**/
-#appStatusAddRight				{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #41A9DE; color: #fff; font-weight: ; }
+#appStatusAddRight				{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #4285F4; color: #fff; font-weight: ; }
 #appStatusAddRight div			{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
 #appStatusAddRight span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 #appStatusAddRight div:active,
@@ -160,7 +207,7 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #appStatusReload:before			{ content: "\f01e"; font-family: FontAwesome; display: inline-block; font-weight: bold; }
 /*toggle icon*/
 #appStatusToggle				{ display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #000; line-height: 49px; z-index: 10; }
-#appStatusArrow					{ webkit-transition-timing-function: linear; -webkit-transition-duration: .565s; opacity: .075; position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; }
+#appStatusArrow					{ webkit-transition-timing-function: linear; -webkit-transition-duration: .4s; opacity: .075; position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; }
 #appStatusFix.open #appStatusArrow { top: -23px;-webkit-transform: rotate(-60deg); }
 /*#ICON#*/
 #iconInfo						{ position: absolute; color: #ddd; top: 0px; right: 0px; padding: 8px 16px 8px 16px; font-size: 15pt; text-shadow: rgba(255,255,255,.2) 0 1px 0; }
@@ -249,9 +296,9 @@ div#entryBodySearch		{ position: absolute; top: 67px; right: 15px; width: 30px; 
 #entryBodySearch div	{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
 #entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
 div#entryBodySearch:active	{ opacity: 1; }
-select#entryTime		{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+select#entryTime		{ position: absolute; right: 17px; top: 108px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 5px 4px 5px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 #entrySubmit			{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 0px solid #bababa; border-radius: 0px; opacity: 1; padding: 6px 28px 6px 28px; font-weight: bold; background-color: #eee; color: #999; }
-div.submitActive		{ color: #fff !important; border-color: #aaa !important; background-color: #0072BC !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
+div.submitActive		{ color: #fff !important; border-color: #aaa !important; background-color: #2C61D2 !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
 .android .submitActive	{ -webkit-box-shadow: none !important; }  
 .android #entrySubmit	{ text-shadow: none !important; }
 #sliderBlock			{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }

@@ -6,13 +6,39 @@ function openSettings(string) {
 	var settingsHtml = '\
 	<a name="top"></a>\
 	<div id="settingsWrapper">\
-	mimmi settings\
+	<ul id="settingsList">\
+		<li id="option1"><div>Measurement System</div></li>\
+		<li id="option2"><div>Cyclic System</div></li>\
+		<li id="option3"><div>Time indicator</div></li>\
+		<li id="option4"><div>Feedback</div></li>\
+		<li id="option5"><div>Contact Us</div></li>\
+		<li id="option6"><div>About</div></li>\
+	</ul>\
 	</div>';
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
+
 	//HTML
 	$("#appContent").html(settingsHtml);
+
+////////////////////
+// MENU ROW FOCUS //
+////////////////////
+//FOCUS~CHILD
+$("ul#settingsList li").on(touchstart,function(evt) {
+	$(this).addClass("activeRow");
+	$(this).next().addClass("nextChild");
+});
+//BLUR
+$("ul#settingsList li").on(touchend + " mouseout",function(evt) {
+	$("li.activeRow").removeClass("activeRow");
+	$("li.nextChild").removeClass("nextChild");
+});
+//MENU ACTIONS
+$("li#option5").on(touchend,function(evt) {
+	window.location='mailto:support@mylivediet.com?Subject=MyLiveDiet%20-%20Support';	
+});
 }
 /*#############################
 ## HTML BUILDS ~ OPEN STATUS ##
@@ -801,10 +827,6 @@ $(document).trigger("sliderInit");
 	//////////////////
 	// DEV KEYCODES //
 	//////////////////
-	//ICONINFO GREEN
-	if(window.localStorage.getItem("config_debug") == "active") {
-		$("#iconInfo").css("color","#00cc00");
-	}
 	///////////
 	// CODES //
 	///////////
@@ -1265,7 +1287,7 @@ var profileHtml = '\
 		<option value="5">5</option>\
 	</select></span>\
 	<input class="ee101" id="pA6J2" type="hidden" readonly size="2" value="0" name="pA6J" />\
-	<span class="selectArrow"><select id="select" tabindex="9" onchange="recalc_onclick(&#39;pA6H&#39;)" size="1" name="pA6H">\
+	<span class="selectArrow"><select id="pA6H" tabindex="9" onchange="recalc_onclick(&#39;pA6H&#39;)" size="1" name="pA6H">\
 		<option value="kilograms">kilograms</option>\
 		<option value="pounds" selected="selected">pounds</option>\
 	</select></span>\
@@ -1278,7 +1300,7 @@ var profileHtml = '\
 \
 <h2><span>C.</span> To gain weight by:</h2>\
 <div class="calcResult">\
-    <span class="selectArrow"><select class="ee101" id="pA6M2" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
+    <span class="selectArrow"><select class="ee101" id="pA6M" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
 		<option value="0.25">0.25</option>\
 		<option value="0.5">0.5</option>\
 		<option value="0.75">0.75</option>\
@@ -1301,7 +1323,7 @@ var profileHtml = '\
 		<option value="5">5</option>\
 	</select></span>\
 	<input class="ee101" id="pA6O2" type="hidden" readonly size="2" value="0" name="pA6O" />\
-	<span class="selectArrow"><select id="select2" tabindex="11" onchange="recalc_onclick(&#39;pA6N&#39;)" size="1" name="pA6N">\
+	<span class="selectArrow"><select id="pA6N" tabindex="11" onchange="recalc_onclick(&#39;pA6N&#39;)" size="1" name="pA6N">\
 		<option value="kilograms">kilograms</option>\
 		<option value="pounds" selected="selected">pounds</option>\
 	</select></span>\
@@ -1382,7 +1404,7 @@ $("#calcForm").on(touchend, function(evt) {
 	//evt.stopPropagation();
 	if(evt.target.id == "") {
 
-//		$("#pA1B,#pA2B,#pA2C,#pA3B,#pA3C,#pA4B,#pA5B,#pA6G,#select,#pA6M2,#select2,#feet,#inches").blur();
+//		$("#pA1B,#pA2B,#pA2C,#pA3B,#pA3C,#pA4B,#pA5B,#pA6G,#pA6H,#pA6M,#pA6N,#feet,#inches").blur();
 		writeCalcValues();
 		$("#formc input").blur();
 		$("#formc select").blur();
@@ -1399,7 +1421,7 @@ $("#calcForm").on(touchend, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 	//}
-//		$("#pA1B,#pA2B,#pA2C,#pA3B,#pA3C,#pA4B,#pA5B,#pA6G,#select,#pA6M2,#select2,#feet,#inches").blur();
+//		$("#pA1B,#pA2B,#pA2C,#pA3B,#pA3C,#pA4B,#pA5B,#pA6G,#select,#pA6M2,#pA6N,#feet,#inches").blur();
 
 		writeCalcValues();
 		$("#calcForm input").blur();
@@ -1441,11 +1463,11 @@ function writeCalcValues() {
 	//weight
 	window.localStorage.setItem(preffix + "#pA6G",$("#pA6G").val());
 	//measure
-	window.localStorage.setItem(preffix + "#select",$("#select").val());
+	window.localStorage.setItem(preffix + "#pA6H",$("#pA6H").val());
 	//gain weight
-	window.localStorage.setItem(preffix + "#pA6M2",$("#pA6M2").val());
+	window.localStorage.setItem(preffix + "#pA6M",$("#pA6M").val());
 	//measure
-	window.localStorage.setItem(preffix + "#select2",$("#select2").val());
+	window.localStorage.setItem(preffix + "#pA6N",$("#pA6N").val());
 	//measure
 	window.localStorage.setItem(preffix + "#feet",$("#feet").val());
 	window.localStorage.setItem(preffix + "#inches",$("#inches").val());	
@@ -1474,11 +1496,11 @@ function loadCalcValues() {
 		//weight
 		$("#pA6G").val(window.localStorage.getItem(preffix + "#pA6G"));
 		//measure
-		$("#select").val(window.localStorage.getItem(preffix + "#select"));
+		$("#pA6H").val(window.localStorage.getItem(preffix + "#pA6H"));
 		//gain weight
-		$("#pA6M2").val(window.localStorage.getItem(preffix + "#pA6M2"));
+		$("#pA6M").val(window.localStorage.getItem(preffix + "#pA6M"));
 		//measure
-		$("#select2").val(window.localStorage.getItem(preffix + "#select2"));
+		$("#pA6N").val(window.localStorage.getItem(preffix + "#pA6N"));
 		//measure
 		$("#feet").val(window.localStorage.getItem(preffix + "#feet"));
 		$("#inches").val(window.localStorage.getItem(preffix + "#inches"));	
