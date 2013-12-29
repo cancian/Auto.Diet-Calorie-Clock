@@ -289,69 +289,6 @@ $("#tab-settings ul").on(touchstart, function(evt) {
 		$("#CyclicInput2").blur();
 	}
 });
-//#///////////////#//
-//# TOGGLE BUTTON #//
-//#///////////////#//
-setTimeout(function() {
-	//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-	$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-},400);
-if(window.localStorage.getItem("config_measurement") == "metric") {
-	$("#rightOption").addClass("toggle");
-	window.localStorage.setItem("config_measurement","metric");	
-} else {
-//METRIC AS DEFAULT FOR PORTUGUESE
-if(LANG("LANGUAGE") == "pt") {
-	$("#rightOption").addClass("toggle");
-	window.localStorage.setItem("config_measurement","metric");	
-} else {
-	$("#leftOption").addClass("toggle");
-	window.localStorage.setItem("config_measurement","imperial");
-}
-}
-// TOGGLE ACTIVE //
-$("#leftOption").on(touchstart,function(evt){
-	evt.preventDefault();
-	evt.stopPropagation();
-	$("#leftOption").addClass("toggle");
-	$("#rightOption").removeClass("toggle");
-	window.localStorage.setItem("config_measurement","imperial");	
-	loadCalcValues();
-	//reload calc.html
-	setTimeout(function() {
-		//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-		$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-		feetInchesToMetric();
-		$('#do_recalc').trigger('click');
-		writeCalcValues();
-		window.localStorage.setItem("config_measurement","imperial");
-		window.localStorage.setItem("calcForm#pA2C","inches");
-		window.localStorage.setItem("calcForm#pA3C","pounds");
-		window.localStorage.setItem("calcForm#select","pounds");
-		window.localStorage.setItem("calcForm#select2","pounds");
-	},200);
-});
-$("#rightOption").on(touchstart,function(evt){
-	evt.preventDefault();
-	evt.stopPropagation();
-	$("#rightOption").addClass("toggle");
-	$("#leftOption").removeClass("toggle");
-	window.localStorage.setItem("config_measurement","metric");
-	loadCalcValues();
-	//reload calc.html	
-	setTimeout(function() {
-		//$.get("calc_" + LANG("LANGUAGE") + ".html?"+new Date().getTime(), function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-		$.get("calc_" + LANG("LANGUAGE") + ".html", function(data) { $("#pageSlideCalc").html("<div id='sideMenuCalc'>" + data + "</div>"); });
-		feetInchesToMetric();
-		$('#do_recalc').trigger('click');
-		writeCalcValues();
-		window.localStorage.setItem("config_measurement","metric");
-		window.localStorage.setItem("calcForm#pA2C","centimetres");
-		window.localStorage.setItem("calcForm#pA3C","kilograms");
-		window.localStorage.setItem("calcForm#select","kilograms");
-		window.localStorage.setItem("calcForm#select2","kilograms");
-	},200);
-});
 }();
 </script>
 

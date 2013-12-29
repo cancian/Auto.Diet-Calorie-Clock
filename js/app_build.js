@@ -1,48 +1,119 @@
-/*###############################
-## HTML BUILDS ~ OPEN SETTINGS ##
-###############################*/
+/*########################################
+####    HTML BUILDS ~ OPEN SETTINGS   ####
+##########################################*/
 function openSettings(string) {
 	//RAW HTML
 	var settingsHtml = '\
 	<a name="top"></a>\
 	<div id="settingsWrapper">\
-	<ul id="settingsList">\
-		<li id="option1"><div>Measurement System</div></li>\
-		<li id="option2"><div>Cyclic System</div></li>\
-		<li id="option3"><div>Time indicator</div></li>\
-		<li id="option4"><div>Feedback</div></li>\
-		<li id="option5"><div>Contact Us</div></li>\
-		<li id="option6"><div>About</div></li>\
-	</ul>\
+		<ul id="settingsList">\
+			<li id="optionMeasure">\
+				<div class="contentToggleTitle">\
+					<p class="contentTitle" id="contentToggleTitle">System of measurement<span>(height, weight etc.)</span></p>\
+					<div id="tapSwitch">\
+						<div id="leftOption"><span>imperial</span></div>\
+						<div id="rightOption"><span>metric</span></div>\
+					</div>\
+				</div>\
+			</li>\
+			<li id="optionContact"><div>Contact Us</div></li>\
+			<li id="optionAbout"><div>About</div></li>\
+		</ul>\
+		<div id="optionReset">Reset settings</div>\
 	</div>';
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
-
-	//HTML
 	$("#appContent").html(settingsHtml);
-
-////////////////////
-// MENU ROW FOCUS //
-////////////////////
-//FOCUS~CHILD
-$("ul#settingsList li").on(touchstart,function(evt) {
-	$(this).addClass("activeRow");
-	$(this).next().addClass("nextChild");
-});
-//BLUR
-$("ul#settingsList li").on(touchend + " mouseout",function(evt) {
-	$("li.activeRow").removeClass("activeRow");
-	$("li.nextChild").removeClass("nextChild");
-});
-//MENU ACTIONS
-$("li#option5").on(touchend,function(evt) {
-	window.location='mailto:support@mylivediet.com?Subject=MyLiveDiet%20-%20Support';	
-});
+	////////////////
+	// ACTIVE ROW //
+	////////////////
+	$("ul#settingsList li").on(touchstart,function(evt) {
+		$(this).addClass("activeRow");
+		$(this).next().addClass("nextChild");
+	});
+	$("ul#settingsList li").on(touchend + " mouseout",function(evt) {
+		$("li.activeRow").removeClass("activeRow");
+		$("li.nextChild").removeClass("nextChild");
+	});
+	///////////////////////
+	// SETTINGS: CONTACT //
+	///////////////////////
+	$("li#optionContact").on(touchend,function(evt) {
+		window.location='mailto:support@mylivediet.com?Subject=MyLiveDiet%20-%20Support';	
+	});
+	/////////////////////
+	// SETTINGS: ABOUT //
+	/////////////////////
+	$("#optionAbout").on(touchend, function(evt) {
+		if(hasTouch()) {
+			alert.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
+		} else {
+			if(alert(LANG("WIPE_DIALOG"))) { onConfirmWipe(1); } else { return false; }
+		}
+	});
+	/////////////////////
+	// SETTINGS: RESET //
+	/////////////////////
+	function onConfirmWipe(button) {
+		if(button == 1) {
+			diary.deSetup();
+			updateTimer();
+		}
+	}
+	// WIPE DIALOG
+	$("#optionReset").on(touchend, function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		if(hasTouch()) {
+			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
+		} else {
+			if(confirm(LANG("WIPE_DIALOG"))) { onConfirmWipe(1); } else { return false; }
+		}
+	});
+	///////////////////////////
+	// SETTINGS: UNIT TOGGLE //
+	///////////////////////////
+	if(window.localStorage.getItem("config_measurement") == "metric") {
+		$("#rightOption").addClass("toggle");
+		window.localStorage.setItem("config_measurement","metric");	
+	} else {
+		//METRIC AS DEFAULT FOR PORTUGUESE
+		if(LANG("LANGUAGE") == "pt") {
+			$("#rightOption").addClass("toggle");
+			window.localStorage.setItem("config_measurement","metric");	
+		} else {
+			$("#leftOption").addClass("toggle");
+			window.localStorage.setItem("config_measurement","imperial");
+		}
+	}
+	// TOGGLE ACTIVE //
+	$("#leftOption").on(touchstart,function(evt){
+		evt.preventDefault();
+		evt.stopPropagation();
+		$("#leftOption").addClass("toggle");
+		$("#rightOption").removeClass("toggle");
+		window.localStorage.setItem("config_measurement","imperial");	
+		window.localStorage.setItem("calcForm#pA2C","inches");
+		window.localStorage.setItem("calcForm#pA3C","pounds");
+		window.localStorage.setItem("calcForm#pA6H","pounds");
+		window.localStorage.setItem("calcForm#pA6N","pounds");
+	});
+	$("#rightOption").on(touchstart,function(evt){
+		evt.preventDefault();
+		evt.stopPropagation();
+		$("#rightOption").addClass("toggle");
+		$("#leftOption").removeClass("toggle");
+		window.localStorage.setItem("config_measurement","metric");
+		window.localStorage.setItem("calcForm#pA2C","centimetres");
+		window.localStorage.setItem("calcForm#pA3C","kilograms");
+		window.localStorage.setItem("calcForm#pA6H","kilograms");
+		window.localStorage.setItem("calcForm#pA6N","kilograms");
+	});
 }
-/*#############################
-## HTML BUILDS ~ OPEN STATUS ##
-#############################*/
+/*#######################################
+####    HTML BUILDS ~ OPEN STATUS    ####
+########################################*/
 function openStatus(string) {
 	//RAW HTML
 	var statusHtml = '\
@@ -111,8 +182,6 @@ function openStatus(string) {
 		window.localStorage.setItem("searchType","exercise");
 		$(document).trigger("pageReload");
 	});
-	
-	
 	//#/////////////////////#//
 	//# APP STATUS/DATE BAR #//
 	//#/////////////////////#//	
@@ -130,20 +199,18 @@ function openStatus(string) {
 		animate: 'none',
 		mode: 'scroller'
     });
-
-
 	/////////////////
 	// RELOAD ICON //
 	/////////////////
 	$("#appStatusReload").on(tap,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-//		if(!$('#startDate').is(':visible')) {
+		$('#startDateBar').hide();
 			afterHide();
-			return false;
-//		}
 	});
-
+	////////////////////
+	// SHOW STARTDATE //
+	////////////////////
 	$("#appStatusToggle").on(tap,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
@@ -224,75 +291,6 @@ return false;
 */
 
 /*
-	//#//////////////////#//
-	//# BOTTOM RESET BAR #//
-	//#//////////////////#//
-	//LONG TAP
-	$("#configNow").on("hold", function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//console.log('wipe all data');
-		//CONFIRMATION DIALOG
-		//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-		if(hasTouch()) {
-			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
-		} else {
-			//if(confirm('Wipe all data?')) { onConfirmWipe(1); } else {  }
-			onConfirmWipe(1);
-		}
-	});
-	//TAP
-	$("#configNow").on(singletap, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//CONFIRMATION DIALOG
-		//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-		if(hasTouch()) {
-			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmReset, LANG("RESET_DIALOG") , [LANG("OK"),LANG("CANCEL")]);
-		} else {
-			//if(confirm('Reset counter? (set to now)')) { onConfirmReset(1); } else {  }
-			onConfirmReset(1);
-		}
-	});
-	////////////////////
-	// RESET FUNCTION //
-	////////////////////
-	function onConfirmReset(button) {
-		if(button == 1) {
-			//set to now
-			window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
-			fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
-			//reset form
-			document.getElementById('slider').slider.resetValue();
-			document.getElementById('entryBody').value = "";
-			document.getElementById('entryTime').value = 0;
-			//refresh timer
-			updateTimer();
-			updateEntries();
-			updateEntriesTime();
-		}
-	}
-	///////////////////
-	// WIPE FUNCTION //
-	///////////////////
-	function onConfirmWipe(button) {
-		if(button == 1) {
-			//drop
-			diary.deSetup();
-			//update entrylist
-			document.getElementById("entryList").style.display = 'none';
-			$("#entryList").html("<div id='noEntries'><span>" + LANG('NO_ENTRIES') + "</span></div>");
-			document.getElementById("entryList").style.display = 'block';
-			//refresh timer
-			updateTimer();
-			updateEntriesTime();
-			//reset form
-			document.getElementById('slider').slider.resetValue();
-			document.getElementById('entryBody').value = "";
-			document.getElementById('entryTime').value = 0;
-			window.location='#top';
-		}
-	}
 	//////////////////
 	// small tweaks //
 	//////////////////
@@ -434,7 +432,6 @@ diaryHtml += '\
 			</div>\
 <div id="entryListWrapper">\
 <div class="heading" id="go">' + LANG('ACTIVITY_LOG') + '\
-<div id="iconInfo" class="icon-info-sign"></div>\
             </div>\
 				<div id="entryList">';
 		///////////////////////
@@ -502,17 +499,8 @@ diaryHtml += '\
 		}
 ///////////////////
 diaryHtml += '</div>\
-				<div id="startDateBar"><input type="datetime-local" id="startDate" /></div>\
-				<div id="iconRepeatToggle"></div>\
-				<div id="startDateBarToggle"></div>\
-				<div id="configNow">\
-					<div class="icon-repeat"></div>\
-					<div class="arrow-down"></div>\
-					' + LANG('RESET_COUNTER') + '\
-				</div>\
-					</div>\
-			</div>\
 		</div>\
+	</div>\
 ';
 //#////////#//
 //# OUTPUT #//
@@ -744,92 +732,9 @@ $(document).trigger("sliderInit");
 		var sliderNum = document.getElementById('slider').slider.resetValue();
 		return false;
 	});
-	//#//////////////////#//
-	//# BOTTOM RESET BAR #//
-	//#//////////////////#//
-	//LONG TAP
-	$("#configNow").on("hold", function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//console.log('wipe all data');
-		//CONFIRMATION DIALOG
-		//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-		if(hasTouch()) {
-			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
-		} else {
-			//if(confirm('Wipe all data?')) { onConfirmWipe(1); } else {  }
-			onConfirmWipe(1);
-		}
-	});
-	//TAP
-	$("#configNow").on(singletap, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//CONFIRMATION DIALOG
-		//if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-		if(hasTouch()) {
-			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmReset, LANG("RESET_DIALOG") , [LANG("OK"),LANG("CANCEL")]);
-		} else {
-			//if(confirm('Reset counter? (set to now)')) { onConfirmReset(1); } else {  }
-			onConfirmReset(1);
-		}
-	});
-	////////////////////
-	// RESET FUNCTION //
-	////////////////////
-	function onConfirmReset(button) {
-		if(button == 1) {
-			//set to now
-			window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
-			fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
-			//reset form
-			document.getElementById('slider').slider.resetValue();
-			document.getElementById('entryBody').value = "";
-			document.getElementById('entryTime').value = 0;
-			//refresh timer
-			updateTimer();
-			updateEntries();
-			updateEntriesTime();
-		}
-	}
-	///////////////////
-	// WIPE FUNCTION //
-	///////////////////
-	function onConfirmWipe(button) {
-		if(button == 1) {
-			//drop
-			diary.deSetup();
-			//update entrylist
-			document.getElementById("entryList").style.display = 'none';
-			$("#entryList").html("<div id='noEntries'><span>" + LANG('NO_ENTRIES') + "</span></div>");
-			document.getElementById("entryList").style.display = 'block';
-			//refresh timer
-			updateTimer();
-			updateEntriesTime();
-			//reset form
-			document.getElementById('slider').slider.resetValue();
-			document.getElementById('entryBody').value = "";
-			document.getElementById('entryTime').value = 0;
-			window.location='#top';
-		}
-	}
-	//////////////////
-	// small tweaks //
-	//////////////////
-	//fixed bottom bar
-	$("#configNow, #startDateBarToggle, #iconRepeatToggle").on("touchmove", function(evt) {
-		evt.preventDefault();
-	});
-	//date fastfocus
-	$('#startDate').on(tap,function(evt) {
-		$('#startDate').focus();
-	});
 	//////////////////
 	// DEV KEYCODES //
 	//////////////////
-	///////////
-	// CODES //
-	///////////
 	$("#entryBody").keyup(function(evt) {
 		//DEV DEBUG
 		if($("#entryBody").val().toLowerCase() == "devdebug") {
@@ -876,151 +781,18 @@ $(document).trigger("sliderInit");
 			$("#entryBody").blur();
 		}
 	});
-	$("#iconInfo").on("touchmove", function(evt) {
-		evt.preventDefault();
-	});
-	$("#iconInfo").on(tap, function(evt) {
-	//NATIVE USERVOICE
-	if(isMobile.iOS()) {
-		if(!$('.active').hasClass('open')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
-			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-				evt.preventDefault();
-				evt.stopPropagation();
-				var cfg = {
-					task:'launchFeedback',//[launchFeedback|contactUs|viewForum|postIdea]
-					site:'cancian.uservoice.com',
-					key:'62oo7AhcRoQuvozU6ya6A',
-					secret:'g911MyHj3qs92pDDa6f1XOgT9fHSi7pNBZoXO4E',
-					topicId:0,//[0|453|333 (any valid topicId as interger)]
-					showContactUs:1,//[0|1], Show/hide Contact us button
-					showForum:1,//[0|1] Show/hide Forum button
-					showPostIdea:1,//[0|1] Show/hide Post an idea button
-					showKnowledgeBase:1//[0|1] Show/hide Search
-				};
-				showUserVoice(cfg);
-			}}
-	//WEB URL
-	} else {
-		window.location='http://cancian.uservoice.com';
-	}
-		return false;
-	});
-	/////////////////
-	// RELOAD ICON //
-	/////////////////
-	$("#iconRepeatToggle").on(tap, function(evt) {
-		evt.preventDefault();
-		//prevent click
-		if(!$('#startDate').is(':visible')) {
-			afterHide();
-			return false;
-		}
-	});
-	////////////////////
-	// START DATE BAR //
-	////////////////////
-	$("#startDateBarToggle").on(tap, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//save on close click
-		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-			$('#startDate').blur();
-		}
-		//not while editing
-		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
-		//not with delete button
-		if(!$('.active').hasClass('open')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
-			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-			//edit...
-		//PRE-FILL WITH STORED DATE
-		fillDate((window.localStorage.getItem("config_start_time")),'startDate');
-		//ANIMATE
-		if(!$('#configNow').is(':animated')) {
-			if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-			} else {
-				//open and show
-				$('#startDate').show();
-				$('#configNow').animate({"bottom": '-48px'});
-			}}
-		}}}
-	});
-	// ON BLUR //
-	var onChange = 0;
-	$("#startDate").change(function(){
-		onChange++;
-	});
-	$("#startDate").blur(function(){
-		//write if changed
-		if(onChange > 0) {
-			//if not future
-			if(Number(Date.parse($("#startDate").val()) + ((((new Date($("#startDate").val())).getTimezoneOffset()) * 60 * 1000))) < Number((new Date().getTime())) ) {
-				//write input date as time
-				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date($("#startDate").val())).getTimezoneOffset()) * 60 * 1000))) );
-				//window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date()).getTimezoneOffset()) * 60 * 1000))) );
-			} else {
-				//REVERT TO STORED
-				fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
-			}
-		onChange = 0;
-		updateTimer();
-		updateEntries();
-		//updateEntriesTime();
-		}
-	});
-	// AUTOCLOSE n' hide //
-	$("#appHeader,#editableDiv,#entryList,#go,#entryListForm").on(tap + "swipeLeft swipeRight", function(evt) {
-		evt.preventDefault();
-		//save on close click
-		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-			$('#startDate').blur();
-		}
-		if(!$('#configNow').is(':animated')) {
-			if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-			}
-		}
-	});
-	// AUTOCLOSE WRAPPER //
-	$("#entryListWrapper").on(tap, function(evt) {
-		if(evt.target.id == "entryListWrapper") {
-			//save on close click
-			if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#startDate').blur();
-			}
-			if(!$('#configNow').is(':animated')) {
-				if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-					$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-				}
-			}
-		}
-	});
-	
-	
-	
-	
-	
-	
-	//##//////////////////////##//
-	//## MISC. GESTURE EVENTS ##//
-	//##//////////////////////##//
-	$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').on("touchmove",function(evt) {
-		//evt.preventDefault();
-		evt.stopPropagation();		
-	});
 	//#//////////////////#//
 	//# FOOD SEARCH ICON #//
 	//#//////////////////#//
 	$("#entryBodySearch").on(touchstart,function(evt) {
+		if($("#entryBody").is(":focus") || evt.target.id == "entryTime") {
+			return;
+		}
 		evt.preventDefault();
+		evt.stopPropagation();
+		$("#editable").blur();
+		$("#entryTime").blur();
+		$("#entryBody").blur();		
 		$(document).trigger("pageReload");
 	});
 	///////////////////////////
@@ -1343,6 +1115,15 @@ $("#appContent").html(profileHtml);
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//
+//input validate
+$("#feet,#inches,#pA3B").on("keypress", function(evt) {
+	//max
+	if(parseInt($(this).val()) > 9000) {
+		return false;
+	}
+	//num only
+	return isNumberKey(evt);
+});
 ///////////////
 // TAP VALUE //
 ///////////////
@@ -1453,7 +1234,7 @@ function writeCalcValues() {
 	//cm/in
 	window.localStorage.setItem(preffix + "#pA2C",$("#pA2C").val());
 	//weight
-	window.localStorage.setItem(preffix + "#pA3B",$("#pA3B").val());
+	window.localStorage.setItem(preffix + "#pA3B",parseInt($("#pA3B").val()));
 	//kg/lb
 	window.localStorage.setItem(preffix + "#pA3C",$("#pA3C").val());
 	//age
@@ -1469,8 +1250,8 @@ function writeCalcValues() {
 	//measure
 	window.localStorage.setItem(preffix + "#pA6N",$("#pA6N").val());
 	//measure
-	window.localStorage.setItem(preffix + "#feet",$("#feet").val());
-	window.localStorage.setItem(preffix + "#inches",$("#inches").val());	
+	window.localStorage.setItem(preffix + "#feet",parseInt($("#feet").val()));
+	window.localStorage.setItem(preffix + "#inches",parseInt($("#inches").val()));	
 }
 /////////////////
 // LOAD VALUES //

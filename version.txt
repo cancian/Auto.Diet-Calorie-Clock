@@ -1,5 +1,44 @@
 
 
+
+
+
+// var width  = screen.width;
+// var height = screen.height;
+
+
+
+		//METRIC AS DEFAULT FOR PORTUGUESE
+		if(LANG("LANGUAGE") == "pt") {
+			$("#rightOption").addClass("toggle");
+			window.localStorage.setItem("config_measurement","metric");	
+		} else {
+			$("#leftOption").addClass("toggle");
+			window.localStorage.setItem("config_measurement","imperial");
+		}
+
+$("#myForm *[name]").each(function(){
+    orderedArrayName.push(this.name);
+})
+
+
+//var orderedArrayId = [];
+$("input").each(function(){
+$("#" + this.id).val(window.localStorage.getItem(preffix + "#" + this.id));	
+})
+$("select").each(function(){
+$("#" + this.id).val(window.localStorage.getItem(preffix + "#" + this.id));	
+
+})
+
+
+feet
+inches
+pA3B
+
+
+
+
 - 
 - 
 - clock na pinta da quick add
@@ -13,11 +52,15 @@ f0d7 - down
 
 
 
-############################
+ ############################
+- backface vis nos arrow down do profile calcform
+- reset all data settings button
+- system of measurement settings
 - presetar os quadados status
-- bloquear caracteres no input do calc
 - apagar footer do diary
-- alihar bolinhas do slider
+- alihar cursor carpe slider
+- procurar # enchors e ver scroll issues
+
 
 - notepad no settings
 - ver a causa de aparecer a lupa do android na pagina de status
@@ -56,8 +99,8 @@ f0d7 - down
 # redimensionar altura de foodlist on resize
 # empty pre-fill (title) bug
 # more than 50% of your daily intake 
-
-
+# revalidar os inputs do profile... alfapnum .text no input, > 9000...
+# bloquear caracteres no input do calc
 
 ################# 41A9DE
 ## VERSION LOG ##

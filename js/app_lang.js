@@ -141,8 +141,8 @@ var ARE_YOU_SURE = {
 };
 
 var WIPE_DIALOG = {
-	en: "wipe all data",
-	pt: "apagar todos os dados"
+	en: "all data will be erased",
+	pt: "todos os dados serão apagados"
 };
 var OK = {
 	en: "ok",

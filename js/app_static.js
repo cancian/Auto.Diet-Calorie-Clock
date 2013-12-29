@@ -1,21 +1,14 @@
-////////////////////////
-// DEVICE READY EVENT //
-////////////////////////
-if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-	document.addEventListener("deviceready", init, false);
-	navigator.splashscreen.hide();
-} else {
-	init();
-}
-//$(document).ready(function() { init(); });
-function init() {
-	$("body").css("opacity","0");
+// DEVICE READY //
+$(document).ready(function() { 
+	if(hasTouch()) { 
+		$("body").css("opacity","0");
+	}
 	diary = new Diary();
 	diary.setup(startApp);
-}
-//#///////////#//
-//# START APP #//
-//#///////////#//
+});
+//##///////////##//
+//## START APP ##//
+//##///////////##//
 function startApp() {
 //#////////////#//
 //# INDEX.HTML #//
@@ -37,21 +30,6 @@ function appFooter(id) {
 	$("ul#appFooter li").removeClass("selected");
 	window.localStorage.setItem("app_last_tab",id);
 	$("#" + id).addClass("selected");
-	//RELOAD CONTAINER
-	//$("#appContent").remove();
-	//$("body").append("<div id='appContent'></div>");
-	
-	//DELAY CONTENT
-	//$("#appContent").hide();
-	//$('#appContent').css("-webkit-transition-timing-function","ease");
-	//$('#appContent').css("-webkit-transition-duration",".09s");
-	//$("#appContent").css("opacity","0");
-	//setTimeout(function() {
-	//$("#appContent").show();
-	//},50);
-	//setTimeout(function() {
-	//	$("#appContent").css("opacity","1");
-	//},0);
 	//SCROLLBAR
 	if(!isMobile.iOS()) {
 		//$("#appContent").css("overflow","hidden");
@@ -65,7 +43,7 @@ function appFooter(id) {
 	if(id == "tab3") { openProfile();  }
 	if(id == "tab4") { openSettings(); }
 	//NO 50ms FLICKER
-	appResizer(200);
+	//appResizer(200);
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -87,7 +65,9 @@ function appResizer(time) {
 	setTimeout(function() {
 		$('body').height(window.innerHeight);
 		//NO < 0
-		var wrapperMinH = (window.innerHeight) - (234 + $('#appHeader').height() + $('#appFooter').height());
+		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
+		//force scrolling ios
+		if(isMobile.iOS()) { wrapperMinH = wrapperMinH + 1; }
 		if(wrapperMinH < 0) {
 			wrapperMinH = 0;
 		}
@@ -97,10 +77,6 @@ function appResizer(time) {
 		if(!isMobile.iOS()) { $("#appContent").getNiceScroll().onResize(); }
 	 },time);
 }
-////////////
-// ONLOAD //
-////////////
-appResizer(0);
 /////////////////
 // ORIENTATION //
 /////////////////
@@ -126,39 +102,16 @@ $(window).on("resize", function(evt) {
 		appResizer(0);
 	}
 });
+//##////////////##//
+//##//  ONLOAD  ##//
+//##////////////##//
+appResizer(0);
 /////////////////////
 // DEBUG INDICATOR //
 /////////////////////
-//ICONINFO GREEN
 if(window.localStorage.getItem("config_debug") == "active") {
-	//$("#iconInfo").css("color","#00cc00");
 	$("#appFooter").addClass("appDebug");
 }
-//#########################//
-//##    START WORKING    ##//
-//#########################//
-afterShow(200);
-//updateTimer();
-//updateEntries();
-//updateEntriesTime();
-(function startTimer() {
-	if(typeof updateTimer == 'function') {
-		updateTimer();
-		setTimeout(startTimer,99);
-	}
-})();
-///////////////
-// ANALYTICS //
-///////////////
-/*
-if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
-	var gaPlugin;
-	gaPlugin = window.plugins.gaPlugin;
-	gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
-	function successHandler(result) {}
-	function errorHandler(error)	{}
-}
-*/
 /////////////////////
 // ADJUST ELEMENTS //
 /////////////////////
@@ -174,7 +127,8 @@ if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 }
 */
-
+$("#appHeader").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
+$("#editableDiv").css("height",$("#appHeader").height());
 ///////////
 // IOS 7 //
 ///////////
@@ -187,29 +141,19 @@ if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent)) {
 if(isMobile.Android()) {
 	$("body").addClass("android");
 }
-/////////////
-$("#appHeader").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
-$("#editableDiv").css("height",$("#appHeader").height());
-//$('#startDateBar').prepend("<div id='appVersion'>" + appVersion + "</div>");
-
-//////////////////
-// INTRO NOTICE //
-//////////////////
-	//$("#mailTo").on(touchstart,function(evt) {
-	//	evt.preventDefault();
-	//	evt.stopPropagation();
-	//	window.location='mailto:support@mylivediet.com?Subject=MyLiveDiet%20-%20Support';
-	//});
-	//APP STORE ICONS ON DESKTOP
-	//$('#entryListWrapper').append("<div id='appStore'><span class='ios'><img src='http://mylivediet.com/img/appstore_ios.png' /></span><span class='android'><img src='http://mylivediet.com/img/appstore_android.png' /></span></div");	
-	//$(".ios img").on(touchstart,function(evt) {
-	//	window.location='https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8';
-	//});
-	//$(".android img").on(touchstart,function(evt) {
-	//	window.location='https://play.google.com/store/apps/details?id=com.cancian.mylivediet';
-	//});
-	
-	
+//############################//
+//####    START WORKING   ####//
+//############################//
+afterShow(200);
+//updateTimer();
+//updateEntries();
+//updateEntriesTime();
+(function startTimer() {
+	if(typeof updateTimer == 'function') {
+		updateTimer();
+		setTimeout(startTimer,99);
+	}
+})();
 	//////////////////////
 	// PAGESLIDE CLOSER //
 	//////////////////////
@@ -220,7 +164,6 @@ $("#editableDiv").css("height",$("#appHeader").height());
 			$("#foodSearch").blur();
 			$('#pageSlideFood').addClass('busy');
 			$('#pageSlideFood').removeClass("open");
-			$('#entryListScroller').removeClass("food");
 			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
 				$('#pageSlideFood').removeClass('busy'); 
 				//WIPE ON CLOSE

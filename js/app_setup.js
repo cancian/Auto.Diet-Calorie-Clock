@@ -535,19 +535,6 @@ var longtap    = hasTouch() ? ' taphold '    : ' taphold ' ;
 var taphold    = hasTouch() ? ' taphold '    : ' taphold ' ;
 var singletap  = hasTouch() ? ' singleTap '  : ' click ';
 var doubletap  = hasTouch() ? ' doubleTap '  : ' dblclick ';
-/////////////////////////////
-// UPDATE ENTRYLIST *TIME* //
-/////////////////////////////
-function updateEntriesTime() {
-	diary.getEntries(function(data) {
-		for(var i=0, len=data.length; i<len; i++) {
-			var dataPublished = Number(data[i].published);
-			$("#" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
-		}
-	});
-	//been dieting for
-	$("#underscroll").html(LANG("BEEN_DIETING") + " " + dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),""));
-}
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//
@@ -568,4 +555,18 @@ var isMobile = {
 		return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
 	}
 };
+/////////////////////////////
+// UPDATE ENTRYLIST *TIME* //
+/////////////////////////////
+function updateEntriesTime() {
+	diary.getEntries(function(data) {
+		for(var i=0, len=data.length; i<len; i++) {
+			var dataPublished = Number(data[i].published);
+			$("#" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
+		}
+	});
+	//been dieting for
+	$("#underscroll").html(LANG("BEEN_DIETING") + " " + dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),""));
+}
+
 

@@ -16,9 +16,9 @@ $(document).on("pageload", function(evt) {
 	//var meh = 0;
 	var duh;
 	// TOUCHSWIPE //
-	//$("#entryList div" + tgt).on(tap, function(event) {
-	$("#entryList div" + tgt).swipe({tap:function(event) {
-		event.preventDefault();
+	$("#entryList div" + tgt).on(tap, function(event) {
+	//$("#entryList div" + tgt).swipe({tap:function(event) {
+	//	event.preventDefault();
 		//////////////
 		// TAP DATE //
 		//////////////
@@ -319,13 +319,15 @@ $(document).on("pageload", function(evt) {
 					//////////////////////
 					// END ENTRY UPDATE //
 					//////////////////////
-				}
+		}
+	});
 	//#///////////////#//
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
-	},
-	//$("#entryList div").on("swipeLeft swipeRight",function(evt) {
-		swipe:function(evt,direction) {
+	//},
+	$("#entryList div" + tgt).swipe({//tap:function(event) {
+	//$("#entryList div").on("swipeLeft swipeRight",function(event) {
+		swipe:function(event,direction) {
 		//console.log("row " + $(this).parent('div').data("id") + " swipe");
 		if(direction == 'left' || direction == 'right') {
 		//HIDE ACTIVE
@@ -400,7 +402,7 @@ $(document).on("pageload", function(evt) {
 	//////////////
 	$('div span.delete', this).on(tap, function(evt) {
 		//evt.preventDefault();
-		//console.log("entry " + $(this).parent('div').data("id") + " deleted");
+		$(this).hide();
 		//UPDATE DB
 		diary.deleteEntry($(this).parent('div').data("id"), function(evt) {
 			evt.preventDefault();
@@ -424,20 +426,13 @@ $(document).on("pageload", function(evt) {
 				},200);
 			}
 			//force error
-			window.onscroll(scroll($('#entryListScroller')[0].scrollTop,0));
-			//window.scroll($('#entryListScroller')[0].scrollTop,0);
+			window.onscroll(scroll($('#appContent')[0].scrollTop,0));
 		}
 		//return false;
 	});
 //////#//
 }); //#//
 //////#//
-
-
-
-
-
-
 
 
 
