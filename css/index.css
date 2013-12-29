@@ -44,16 +44,12 @@ ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; 
 ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before	{ color: #cbcbcb; }
 ul#appFooter.appDebug li.selected:before	{ color: #00ee00; }
-ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; }
-ul#appFooter li:after 			{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
+ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
+ul#appFooter li					{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
 ul#appFooter li#tab1:before		{ content: "\f080"; }
 ul#appFooter li#tab2:before		{ content: "\f0f5"; }
 ul#appFooter li#tab3:before		{ content: "\f007"; }
 ul#appFooter li#tab4:before		{ content: "\f013"; }
-ul#appFooter li#tab1:after		{ content: "status";  }
-ul#appFooter li#tab2:after		{ content: "diary";   }
-ul#appFooter li#tab3:after		{ content: "profile"; }
-ul#appFooter li#tab4:after		{ content: "settings";}
 /*#################################
 ####    BUILD: APP SETTINGS    ####
 #################################*/
@@ -80,9 +76,9 @@ li#optionMeasure.activeRow		{ position: relative; background-color: #fff !import
 .contentTitle span				{ display: block; font-weight: normal; opacity: .5; color: #555; line-height: normal; font-size: 10px; }
 #tapSwitch						{ width: 137px; position: absolute; right: 15px; top: 0px; display: block; height: 29px; text-align: center; font-size: 12px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; }
 #tapSwitch #leftOption,
-#tapSwitch #rightOption			{ height: 29px; line-height: 29px; color: #aaa; background-color: #eee; border-radius: 4px 0 0 4px; border: 0; text-shadow: 0 1px 0 rgba(255,255,255,.2); display: inline-block; float: left; width: 48%; }
-#tapSwitch #leftOption			{ position: absolute; top: 9px; right: 65px; }
-#tapSwitch #rightOption			{ position: absolute; top: 9px; right: 0; }
+#tapSwitch #rightOption			{ height: 29px; line-height: 29px; color: #aaa; background-color: #eee; border: 0; text-shadow: 0 1px 0 rgba(255,255,255,.2); display: inline-block; float: left; width: 48%; }
+#tapSwitch #leftOption			{ position: absolute; top: 9px; right: 65px; border-radius: 4px 0 0 4px; }
+#tapSwitch #rightOption			{ position: absolute; top: 9px; right: 0;    border-radius: 0 4px 4px 0; }
 #tapSwitch #leftOption.toggle	{ color: #fff; background-color: #5ED872; }
 #tapSwitch #rightOption.toggle	{ color: #fff; background-color: #5ED872; }
 /*###############################
@@ -154,8 +150,8 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
 #calcForm input,
 #calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
-#calcForm input						{ text-indent: 2px; height: 44px; vertical-align: bottom;  -webkit-backface-visibility: hidden; }
-#calcForm select					{ text-indent: 3px; height: 44px;  -webkit-backface-visibility: hidden; }
+#calcForm input						{ text-indent: 2px; height: 44px; vertical-align: bottom; }
+#calcForm select					{ text-indent: 3px; height: 44px; }
 #calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
 /*feet-inches*/
 #calcForm #feet						{ margin-right: 4px; }
@@ -164,8 +160,8 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #calcForm #inches.metric			{ width: 80px !important; }
 #calcForm #feet.metric				{ display: none !important; }
 /*select arrow*/
-#calcForm .selectArrow				{ position: relative; }
-#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; vertical-align: middle; }
+#calcForm .selectArrow				{ position: relative; -webkit-backface-visibility: hidden; }
+#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; vertical-align: middle;  -webkit-backface-visibility: hidden; }
 /*activity select*/
 #calcForm #yourActivity				{ padding-top: 12px !important; }
 #calcForm select#pA5B				{ min-width: 280px; max-width: 318px !important; width: 90%; margin-top: 3px; text-indent: 0; }
@@ -187,7 +183,7 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #calcForm select#pA4B				{ min-width: 66px; width: 66px; }
 /*gender/age width*/
 #calcForm #pA6G,
-#calcForm #pA6M2					{ min-width: 56px; width: 56px; }
+#calcForm #pA6M						{ min-width: 56px; width: 56px; }
 /*focus*/
 #calcForm input:focus,
 #calcForm input:active,

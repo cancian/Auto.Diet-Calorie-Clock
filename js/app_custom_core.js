@@ -69,13 +69,10 @@ function appTimer(id,content) {
 	var elapsedRatio = elapsedLoss / week;
 	var weightLoss   = ((numberLoss * elapsedRatio) / 1000).toFixed(7);
 	////////////
-	// OUTPUT //
+	// UPDATE HEADER //
 	////////////
-	var kcalsHtmlOutput = "";
-	kcalsHtmlOutput    += "<div id='timerBlocks'>";
-	kcalsHtmlOutput    += "<div id='timerKcals'>" + kcalsInput + "<span>calories avaliable</span></div>";
-	kcalsHtmlOutput    += "<div id='timerDaily'>" + eqPerDay   + "<span>daily calories</span></div>";
-	kcalsHtmlOutput    += "</div>";
+	$("#timerKcals p").html(kcalsInput);
+	$("#timerDaily p").html(eqPerDay);
 	//plus~minus de-bump
 	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
 	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
@@ -100,20 +97,16 @@ function appTimer(id,content) {
 			$("#appHeader,#appStatusBalance").addClass("over");
 		}
 	}
-	//////////////////
-	// UPDATE TIMER //
-	//////////////////
-	$("#appHeader").html('');
-	$("#appHeader").html(kcalsHtmlOutput);
 	///////////////////////
 	// UPDATE APP STATUS //
 	///////////////////////
-	$("#appStatusElapsed").html("<div>" + timeElapsed() + "<span>time elapsed</span></div>");
+	window.localStorage.setItem("appBalance",status);
+	window.localStorage.setItem("cssOver",cssOver);
+	$("#appStatusElapsed div p").html(timeElapsed());
 	$("#appStatusWeight div p").html(weightLoss + "kg");
-	$("#appStatusBalance").html("<div>" + status + "<span>caloric status</span></div>");
-	$("#appStatusIntake").html("\
-	<div id='entry_f-sum'>" + Number(window.localStorage.getItem("config_entry_f-sum")) + "<span>food</span></div>\
-	<div id='entry_e-sum'>" + Number(window.localStorage.getItem("config_entry_e-sum")) + "<span>exercise</span></div>");
+	$("#appStatusBalance div p").html(window.localStorage.getItem("appBalance"));
+	$("#entry_f-sum p").html(Number(window.localStorage.getItem("config_entry_f-sum")));
+	$("#entry_e-sum p").html(Number(window.localStorage.getItem("config_entry_e-sum")));
 }
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//

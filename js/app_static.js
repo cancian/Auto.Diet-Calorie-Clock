@@ -14,15 +14,24 @@ function startApp() {
 //# INDEX.HTML #//
 //#////////////#//
 $("body").html('\
-<div id="appHeader"></div>\
+<div id="appHeader">\
+	<div id="timerBlocks">\
+		<div id="timerKcals"><p></p><span>' + LANG("CALORIES_AVALIABLE") + '</span></div>\
+		<div id="timerDaily"><p></p><span>' + LANG("DAILY_CALORIES")     + '</span></div>\
+	</div>\
+</div>\
 <div id="appContent"></div>\
 <ul id="appFooter">\
-	<li id="tab1"></li>\
-	<li id="tab2"></li>\
-	<li id="tab3"></li>\
-	<li id="tab4"></li>\
+	<li id="tab1">' + LANG("STATUS")   + '</li>\
+	<li id="tab2">' + LANG("DIARY")    + '</li>\
+	<li id="tab3">' + LANG("PROFILE")  + '</li>\
+	<li id="tab4">' + LANG("SETTINGS") + '</li>\
 </ul>\
 ');
+
+
+
+
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -42,8 +51,8 @@ function appFooter(id) {
 	if(id == "tab2") { openDiary();    }
 	if(id == "tab3") { openProfile();  }
 	if(id == "tab4") { openSettings(); }
-	//NO 50ms FLICKER
-	//appResizer(200);
+	//NO 50ms FLICKER (android profile)
+	appResizer(200);
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -140,6 +149,34 @@ if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent)) {
 /////////////
 if(isMobile.Android()) {
 	$("body").addClass("android");
+}
+////////////////////
+// PRESET PROFILE //
+////////////////////
+if(!window.localStorage.getItem("#pA1B")) {
+	//male/female
+	window.localStorage.setItem("calcForm#pA1B","Male");
+	window.localStorage.setItem("calcForm#pA2B","70");
+	window.localStorage.setItem("calcForm#pA2C","inches");
+	window.localStorage.setItem("calcForm#pA3B","160");
+	window.localStorage.setItem("calcForm#pA3C","pounds");
+	window.localStorage.setItem("calcForm#pA4B","20");
+	window.localStorage.setItem("calcForm#pA5B","Sedentary (little or no exercise, desk job)");
+	window.localStorage.setItem("calcForm#pA6G","1");
+	window.localStorage.setItem("calcForm#pA6H","pounds");
+	window.localStorage.setItem("calcForm#pA6M","1");
+	window.localStorage.setItem("calcForm#pA6N","pounds");
+	window.localStorage.setItem("calcForm#feet","5");
+	window.localStorage.setItem("calcForm#inches","10");	
+	//LOCALE
+	window.localStorage.setItem("config_measurement","imperial");
+	if(LANG("LANGUAGE") == "pt") {
+		window.localStorage.setItem("config_measurement","metric");
+		window.localStorage.setItem("calcForm#pA2C","centimetres");
+		window.localStorage.setItem("calcForm#pA3C","kilograms");
+		window.localStorage.setItem("calcForm#pA6H","kilograms");
+		window.localStorage.setItem("calcForm#pA6N","kilograms");
+	}
 }
 //############################//
 //####    START WORKING   ####//

@@ -1,3 +1,4 @@
+var appVersion = "1.1.0";
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -18,6 +19,10 @@ else if(configLang == "portugues")  { configLang = "pt"; }
 else if(configLang == "portuguese") { configLang = "pt"; }
 else if(configLang == "null")       { configLang = "en"; }
 else                                { configLang = "en"; }
+//dev lang set
+if(window.localStorage.getItem("devSetLang") == "pt") {
+	configLang = "pt";
+}
 //#//////////////#//
 //# STRING ARRAY #//
 //#//////////////#//
@@ -52,7 +57,7 @@ var DESCRIPTION = {
 	pt: "Descrição..."
 };
 var ADD_ENTRY = {
-	en: "add entry",
+	en: "quick add",
 	pt: "adicionar"
 };
 var QUICK_ADD = {
@@ -232,6 +237,168 @@ var START_DATE = {
 	en: "start date",
 	pt: "data inicial"
 };
+var STATUS = {
+	en: "status",
+	pt: "status"
+};
+var DIARY = {
+	en: "diary",
+	pt: "diário"
+};
+var PROFILE = {
+	en: "profile",
+	pt: "perfil"
+};
+var SETTINGS = {
+	en: "settings",
+	pt: "configurar"
+};
+var MEASURE_SYSTEM = {
+	en: "System of measurement",
+	pt: "Sistema de medição"
+};
+var MEASURE_SYSTEM_INFO = {
+	en: "(height, weight etc.)",
+	pt: "(peso, altura, etc.)"
+};
+var IMPERIAL = {
+	en: "imperial",
+	pt: "imperial"
+};
+var METRIC = {
+	en: "metric",
+	pt: "métrico"
+};
+var SETTINGS_CONTACT = {
+	en: "Contact us",
+	pt: "Contato"
+};
+var SETTINGS_ABOUT = {
+	en: "About",
+	pt: "Sobre"
+};
+var SETTINGS_RESET = {
+	en: "Reset settings",
+	pt: "Apagar configurações"
+};
+var ABOUT_TITLE = {
+	en: "MyLiveDiet v" + appVersion,
+	pt: "MyLiveDiet v" + appVersion
+};
+var ABOUT_DIALOG = {
+	en: "by André Cancian",
+	pt: "por André Cancian"
+};
+var WEIGHT_LOSS = {
+	en: "weight loss",
+	pt: "perda de peso"
+};
+var TIME_ELAPSED = {
+	en: "time elapsed",
+	pt: "tempo total"
+};
+var CALORIC_BALANCE = {
+	en: "caloric balance",
+	pt: "balanço calórico"
+};
+var RESET = {
+	en: "reset",
+	pt: "resetar"
+};
+var START = {
+	en: "start",
+	pt: "iniciar"
+};
+var MALE = {
+	en: "male",
+	pt: "masculino"
+};
+var FEMALE = {
+	en: "female",
+	pt: "feminino"
+};
+var YOUR_GENDER = {
+	en: "Your gender",
+	pt: "Gênero"
+};
+var YOUR_HEIGHT = {
+	en: "Your height",
+	pt: "Altura"
+};
+var YOUR_WEIGHT = {
+	en: "Your weight",
+	pt: "Peso"
+};
+var YOUR_AGE = {
+	en: "Your age",
+	pt: "Idade"
+};
+var YOUR_ACTIVITY = {
+	en: "Your Activity",
+	pt: "Nível de atividade"
+};
+var YOUR_ACTIVITY_OPTION1 = {
+	en: "Sedentary: Mostly sitting down (desk job, designer)",
+	pt: "Sedentário: Quase sempre sentado (designer, escritor)"
+};
+var YOUR_ACTIVITY_OPTION2 = {
+	en: "Lightly Active: Occasionally sitting (teacher, salesman)",
+	pt: "Pouco Ativo: Ocasionalmente sentado (professor, vendedor)"
+};
+var YOUR_ACTIVITY_OPTION3 = {
+	en: "Active: Walking most of the time (waitress, mailman)",
+	pt: "Ativo: Caminhando quase sempre (carteiro, garçonete)"
+};
+var YOUR_ACTIVITY_OPTION4 = {
+	en: "Very Active: Physically hard work (construction worker)",
+	pt: "Muito Ativo: Trabalho fisicamente extenuante (pedreiro, carregador)"
+};
+var FEET_INCHES = {
+	en: "feet/inches",
+	pt: "pés/polegadas"
+};
+var CENTIMETERS = {
+	en: "centimeters",
+	pt: "centímetros"
+};
+var POUNDS = {
+	en: "pounds",
+	pt: "libras"
+};
+var KILOGRAMS = {
+	en: "kilograms",
+	pt: "kilogramas"
+};
+var KEEP_WEIGHT = {
+	en: "Keep current weight:",
+	pt: "Manter peso atual:"
+};
+var LOSE_WEIGHT = {
+	en: "Lose weight by:",
+	pt: "Perder peso:"
+};
+var GAIN_WEIGHT = {
+	en: "Gain weight by:",
+	pt: "Ganhar peso:"
+};
+var PER_WEEK = {
+	en: "per week",
+	pt: "por semana"
+};
+var CALORIES_AVALIABLE = {
+	en: "calories avaliable",
+	pt: "calorias disponíveis"
+};
+var DAILY_CALORIES = {
+	en: "daily calories",
+	pt: "calorias por dia"
+};
+
+var XXX = {
+	en: "XXX",
+	pt: "XXX"
+};
+
 ////////////
 // OUTPUT //
 ////////////

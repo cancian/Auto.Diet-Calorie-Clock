@@ -9,17 +9,17 @@ function openSettings(string) {
 		<ul id="settingsList">\
 			<li id="optionMeasure">\
 				<div class="contentToggleTitle">\
-					<p class="contentTitle" id="contentToggleTitle">System of measurement<span>(height, weight etc.)</span></p>\
+					<p class="contentTitle" id="contentToggleTitle">' + LANG("MEASURE_SYSTEM") + '<span>' + LANG("MEASURE_SYSTEM_INFO") + '</span></p>\
 					<div id="tapSwitch">\
-						<div id="leftOption"><span>imperial</span></div>\
-						<div id="rightOption"><span>metric</span></div>\
+						<div id="leftOption"><span>'  + LANG("IMPERIAL") + ' </span></div>\
+						<div id="rightOption"><span>' + LANG("METRIC")   + ' </span></div>\
 					</div>\
 				</div>\
 			</li>\
-			<li id="optionContact"><div>Contact Us</div></li>\
-			<li id="optionAbout"><div>About</div></li>\
+			<li id="optionContact"><div>' + LANG("SETTINGS_CONTACT") + '</div></li>\
+			<li id="optionAbout"><div>'   + LANG("SETTINGS_ABOUT")   + '</div></li>\
 		</ul>\
-		<div id="optionReset">Reset settings</div>\
+		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>';
 	//#////////#//
 	//# OUTPUT #//
@@ -47,9 +47,9 @@ function openSettings(string) {
 	/////////////////////
 	$("#optionAbout").on(touchend, function(evt) {
 		if(hasTouch()) {
-			alert.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
+			navigator.notification.alert(LANG("ABOUT_DIALOG"), voidThis,LANG("ABOUT_TITLE"),LANG("OK"));
 		} else {
-			if(alert(LANG("WIPE_DIALOG"))) { onConfirmWipe(1); } else { return false; }
+			alert(LANG("ABOUT_TITLE") + " \n" + LANG("ABOUT_DIALOG"));
 		}
 	});
 	/////////////////////
@@ -58,7 +58,7 @@ function openSettings(string) {
 	function onConfirmWipe(button) {
 		if(button == 1) {
 			diary.deSetup();
-			updateTimer();
+			afterHide();
 		}
 	}
 	// WIPE DIALOG
@@ -74,26 +74,12 @@ function openSettings(string) {
 	///////////////////////////
 	// SETTINGS: UNIT TOGGLE //
 	///////////////////////////
-	if(window.localStorage.getItem("config_measurement") == "metric") {
-		$("#rightOption").addClass("toggle");
-		window.localStorage.setItem("config_measurement","metric");	
-	} else {
-		//METRIC AS DEFAULT FOR PORTUGUESE
-		if(LANG("LANGUAGE") == "pt") {
-			$("#rightOption").addClass("toggle");
-			window.localStorage.setItem("config_measurement","metric");	
-		} else {
-			$("#leftOption").addClass("toggle");
-			window.localStorage.setItem("config_measurement","imperial");
-		}
-	}
-	// TOGGLE ACTIVE //
 	$("#leftOption").on(touchstart,function(evt){
 		evt.preventDefault();
 		evt.stopPropagation();
 		$("#leftOption").addClass("toggle");
 		$("#rightOption").removeClass("toggle");
-		window.localStorage.setItem("config_measurement","imperial");	
+		window.localStorage.setItem("config_measurement","imperial");
 		window.localStorage.setItem("calcForm#pA2C","inches");
 		window.localStorage.setItem("calcForm#pA3C","pounds");
 		window.localStorage.setItem("calcForm#pA6H","pounds");
@@ -110,6 +96,12 @@ function openSettings(string) {
 		window.localStorage.setItem("calcForm#pA6H","kilograms");
 		window.localStorage.setItem("calcForm#pA6N","kilograms");
 	});
+	//read stored
+	if(window.localStorage.getItem("config_measurement") == "metric") {
+		$("#rightOption").addClass("toggle");
+	} else {
+		$("#leftOption").addClass("toggle");
+	}
 }
 /*#######################################
 ####    HTML BUILDS ~ OPEN STATUS    ####
@@ -119,12 +111,15 @@ function openStatus(string) {
 	var statusHtml = '\
 	<a name="top"></a>\
 	<div id="statusWrapper">\
-		<div id="appStatusElapsed"></div>\
-		<div id="appStatusWeight"><div><p>0.0000000kg</p><span>weight loss</span></div></div>\
-		<div id="appStatusBalance"></div>\
-		<div id="appStatusIntake"></div>\
-		<div id="appStatusAddLeft"><div>+ food</div></div>\
-		<div id="appStatusAddRight"><div>+ exercise</div></div>\
+		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG("TIME_ELAPSED") + '</span></div></div>\
+		<div id="appStatusWeight"><div><p>0.0000000kg</p><span>' + LANG("WEIGHT_LOSS") + '</span></div></div>\
+		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG("CALORIC_BALANCE") + '</span></div></div>\
+		<div id="appStatusIntake">\
+	<div id="entry_f-sum"><p>' + Number(window.localStorage.getItem("config_entry_f-sum")) + '</p><span>' + LANG("FOOD")     + '</span></div>\
+	<div id="entry_e-sum"><p>' + Number(window.localStorage.getItem("config_entry_e-sum")) + '</p><span>' + LANG("EXERCISE") + '</span></div>\
+		</div>\
+		<div id="appStatusAddLeft"><div>+ '  + LANG("FOOD")     + '</div></div>\
+		<div id="appStatusAddRight"><div>+ ' + LANG("EXERCISE") + '</div></div>\
 		<div id="appStatusFix">\
 			<div id="startDateBar"><span id="startDateSpan"><input id="startDate" tabindex="-1" readonly /></span></div>\
 			<div id="appStatusToggle"></div>\
@@ -150,8 +145,9 @@ function openStatus(string) {
 				if(button == 1) {
 					$("#appStatus").removeClass("reset");
 					$("#appStatus").addClass("start");
-					$("#appStatusTitle").html("start");
+					$("#appStatusTitle").html(LANG("START"));
 					window.localStorage.removeItem("appStatus");
+					window.localStorage.setItem("config_start_time",new Date().getTime());
 				}
 				return false;
 			}
@@ -165,7 +161,7 @@ function openStatus(string) {
 		} else {
 			$("#appStatus").removeClass("start");
 			$("#appStatus").addClass("reset");
-			$("#appStatusTitle").html("reset");
+			$("#appStatusTitle").html(LANG("RESET"));
 			window.localStorage.setItem("appStatus","running");
 		}
 	});
@@ -194,6 +190,7 @@ function openStatus(string) {
 		maxDate: new Date(),
 		theme: 'android-ics light',
 		lang: LANG("LANGUAGE_FULL"),
+		dateFormat:'yyyy/mm/dd',
 		display: 'modal',
 		stepMinute: 1,
 		animate: 'none',
@@ -214,26 +211,15 @@ function openStatus(string) {
 	$("#appStatusToggle").on(tap,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-
 		if($('#appStatusFix').hasClass("open")) {
 			$('#startDate').blur();
 			$('#appStatusFix').removeClass("open");
 		} else {
 			$("#appStatusFix").addClass("open");
 		}
-
-//fillDate((window.localStorage.getItem("config_start_time")),'startDate');
-//$('#startDate').scroller('setDate',new Date($("#startDate").val()), true);
-$('#startDate').scroller('setDate',new Date(Number(window.localStorage.getItem("config_start_time"))), true);
-//$('#startDate').show();
-return false;
-//#appStatus
-//#appStatusToggle		{ opacity: .075; display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #000; line-height: 49px; background-color: transparent; }
-//$('#startDate').mobiscroll('show'); 
-});
-
-
-
+		$('#startDate').scroller('setDate',new Date(Number(window.localStorage.getItem("config_start_time"))), true);
+		return false;
+	});
 	// ON BLUR //
 	var onChange = 0;
 	$("#startDate").change(function(){
@@ -246,21 +232,12 @@ return false;
 			if(Number(Date.parse($("#startDate").val())) < Number((new Date().getTime())) ) {
 				//write input date as time
 				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val())));
-				//window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val()) + ((((new Date()).getTimezoneOffset()) * 60 * 1000))) );
-			} else {
-				//REVERT TO STORED
-				//fillDate(Number(window.localStorage.getItem("config_start_time")),'startDate');
-				//$('#startDate').scroller('setDate',new Date(Number(window.localStorage.getItem("config_start_time"))), true);
-//fillDate((window.localStorage.getItem("config_start_time")),'startDate');
-//$('#startDate').scroller('setDate',new Date($("#startDate").val()), true);
 			}
 		onChange = 0;
 		updateTimer();
 		updateEntries();
-		//updateEntriesTime();
 		}
 	});
-
 	// AUTOCLOSE n' hide //
 	$("#appHeader,#appContent").on(touchstart, function(evt) {
 		//GLOBAL CLOSER
@@ -273,112 +250,17 @@ return false;
 			$('#appStatusFix').removeClass("open");
 		}
 	});
-	// AUTOCLOSE WRAPPER //
-	/*
-	$("#entryListWrapper").on(tap, function(evt) {
-		if(evt.target.id == "entryListWrapper") {
-			//save on close click
-			if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#startDate').blur();
-			}
-			if(!$('#configNow').is(':animated')) {
-				if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-					$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-				}
-			}
-		}
-	});
-*/
-
-/*
-	//////////////////
-	// small tweaks //
-	//////////////////
-	//fixed bottom bar
-	$("#configNow, #startDateBarToggle, #iconRepeatToggle").on("touchmove", function(evt) {
-		evt.preventDefault();
-	});
-	//date fastfocus
-	$('#startDate').on(tap,function(evt) {
-		$('#startDate').focus();
-	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/////////////////
-	// RELOAD ICON //
-	/////////////////
-	$("#iconRepeatToggle").on(tap, function(evt) {
-		evt.preventDefault();
-		//prevent click
-		if(!$('#startDate').is(':visible')) {
-			afterHide();
-			return false;
-		}
-	});
-	////////////////////
-	// START DATE BAR //
-	////////////////////
-	$("#startDateBarToggle").on(tap, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		//save on close click
-		if($('#startDate').is(':visible') && Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-			$('#startDate').blur();
-		}
-		//not while editing
-		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
-		//not with delete button
-		if(!$('.active').hasClass('open')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
-			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-			//edit...
-		//PRE-FILL WITH STORED DATE
-		fillDate((window.localStorage.getItem("config_start_time")),'startDate');
-		//ANIMATE
-		if(!$('#configNow').is(':animated')) {
-			if(Math.round($("#configNow").css("bottom").replace("px","")) != "0") {
-				$('#configNow').animate({"bottom": '0px'},function() { $('#startDate').hide(); });
-			} else {
-				//open and show
-				$('#startDate').show();
-				$('#configNow').animate({"bottom": '-48px'});
-			}}
-		}}}
-	});
-
-*/	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	///////////////
-	// PAGE LOAD //
-	///////////////
+	/////////////////////////////
+	// PRE-SET START/RESET BAR //
+	/////////////////////////////
 	if(window.localStorage.getItem("appStatus") == "running") {
 		$("#appStatus").removeClass("start");
 		$("#appStatus").addClass("reset");
-		$("#appStatusTitle").html("reset");
+		$("#appStatusTitle").html(LANG("RESET"));
 	} else {
 		$("#appStatus").removeClass("reset");
 		$("#appStatus").addClass("start");
-		$("#appStatusTitle").html("start");
+		$("#appStatusTitle").html(LANG("START"));
 	}
 }
 /*############################
@@ -388,52 +270,50 @@ function openDiary(string) {
 diary.getEntries(function(data) {
 //RAW HTML
 var diaryHtml = ""
-
+var lHoursAgo = LANG('HOURS_AGO');
 diaryHtml += '\
 <a name="top"></a>	\
 <div id="entryListForm">\
-<div id="sliderWrapper">\
-<input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
-<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcals</div>\
-<div id="sliderNeg"><span></span>' + LANG('EXERCISE') + '</div>\
-<div id="sliderPos">' + LANG('FOOD') + '<span></span></div>\
-<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />\
-<div id="entryBodySearch"><div></div></div>\
-<select id="entryTime" name="entryTime" tabindex="-1">\
-					<option value="0">' + LANG('NOW') + '</option>\
-					<option value="1">1 ' + LANG('HOUR_AGO') + '</option>\
-					<option value="2">2 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="3">3 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="4">4 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="5">5 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="6">6 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="7">7 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="8">8 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="9">9 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="10">10 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="11">11 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="12">12 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="13">13 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="14">14 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="15">15 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="16">16 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="17">17 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="18">18 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="19">19 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="20">20 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="21">21 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="22">22 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="23">23 ' + LANG('HOURS_AGO') + '</option>\
-					<option value="24">1 ' + LANG('DAY_AGO') + '</option>\
-					<option value="48">2 ' + LANG('DAYS_AGO') + '</option>\
-					<option value="72">3 ' + LANG('DAYS_AGO') + '</option>\
-				</select>\
-<div id="entrySubmit">' + LANG('ADD_ENTRY') + '</div>\
-			</div>\
+	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
+	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcals</div>\
+	<div id="sliderNeg"><span></span>' + LANG('EXERCISE') + '</div>\
+	<div id="sliderPos">' + LANG('FOOD') + '<span></span></div>\
+	<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />\
+	<div id="entryBodySearch"><div></div></div>\
+	<select id="entryTime" name="entryTime" tabindex="-1">\
+		<option value="0">' + LANG('NOW') + '</option>\
+		<option value="1">1 ' + LANG('HOUR_AGO') + '</option>\
+		<option value="2">2 ' + lHoursAgo + '</option>\
+		<option value="3">3 ' + lHoursAgo + '</option>\
+		<option value="4">4 ' + lHoursAgo + '</option>\
+		<option value="5">5 ' + lHoursAgo + '</option>\
+		<option value="6">6 ' + lHoursAgo + '</option>\
+		<option value="7">7 ' + lHoursAgo + '</option>\
+		<option value="8">8 ' + lHoursAgo + '</option>\
+		<option value="9">9 ' + lHoursAgo + '</option>\
+		<option value="10">10 ' + lHoursAgo + '</option>\
+		<option value="11">11 ' + lHoursAgo + '</option>\
+		<option value="12">12 ' + lHoursAgo + '</option>\
+		<option value="13">13 ' + lHoursAgo + '</option>\
+		<option value="14">14 ' + lHoursAgo + '</option>\
+		<option value="15">15 ' + lHoursAgo + '</option>\
+		<option value="16">16 ' + lHoursAgo + '</option>\
+		<option value="17">17 ' + lHoursAgo + '</option>\
+		<option value="18">18 ' + lHoursAgo + '</option>\
+		<option value="19">19 ' + lHoursAgo + '</option>\
+		<option value="20">20 ' + lHoursAgo + '</option>\
+		<option value="21">21 ' + lHoursAgo + '</option>\
+		<option value="22">22 ' + lHoursAgo + '</option>\
+		<option value="23">23 ' + lHoursAgo + '</option>\
+		<option value="24">1 ' + LANG('DAY_AGO') + '</option>\
+		<option value="48">2 ' + LANG('DAYS_AGO') + '</option>\
+		<option value="72">3 ' + LANG('DAYS_AGO') + '</option>\
+	</select>\
+	<div id="entrySubmit">' + LANG('ADD_ENTRY') + '</div>\
+</div>\
 <div id="entryListWrapper">\
-<div class="heading" id="go">' + LANG('ACTIVITY_LOG') + '\
-            </div>\
-				<div id="entryList">';
+	<div class="heading" id="go">' + LANG('ACTIVITY_LOG') + '</div>\
+	<div id="entryList">';
 		///////////////////////
 		// updateEntries SQL //
 		///////////////////////
@@ -508,30 +388,9 @@ diaryHtml += '</div>\
 //HTML
 pageLoad("#appContent",diaryHtml);
 $(document).trigger("sliderInit");
-//$(window).trigger("resize");
-//$("#appContent").html('');
-//$("#appContent").html();
-//alert(diaryHtml);
-///////////////////
-// RESIZE HEIGHT //
-///////////////////
-//SLIDER
-//$(window).trigger("orientationchange");
-
-//ENTRYLIST
-//alert(updateEntries('l'));
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//
-	//HIDE TOOLTIP //
-	$("#entryListForm").on(touchstart, function(evt) {
-		if($("#entryListForm").hasClass("toolTip")) {
-			evt.preventDefault();
-			evt.stopPropagation();
-			$("#entryListForm").removeClass("toolTip");
-			window.localStorage.setItem("config_swipe_tooltip","seen");
-		}
-	});
 	///////////////////
 	// ARROW BUTTONS //
 	///////////////////
@@ -598,18 +457,6 @@ $(document).trigger("sliderInit");
 				},200);
 			}
 		}
-	});
-	//#//////////////#//
-	//# FORCE RELOAD #//
-	//#//////////////#//
-	$("#go").on("hold", function(evt) {
-		evt.preventDefault();
-		//evt.stopPropagation();
-		//REFRESH DATA
-		updateTimer();
-		updateEntries();
-		updateEntriesTime();
-		//return false;
 	});
 	//////////////////
 	// SLIDER ROUND //
@@ -736,6 +583,20 @@ $(document).trigger("sliderInit");
 	// DEV KEYCODES //
 	//////////////////
 	$("#entryBody").keyup(function(evt) {
+		//DEV SET LANG
+		if($("#entryBody").val().toLowerCase() == "devsetlang") {
+			if(window.localStorage.getItem("devSetLang") == "pt") {
+				window.localStorage.removeItem("devSetLang");
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+			} else {
+				window.localStorage.setItem("devSetLang","pt");
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+			}
+		}
 		//DEV DEBUG
 		if($("#entryBody").val().toLowerCase() == "devdebug") {
 			if(window.localStorage.getItem("config_debug") == "active") {
@@ -889,39 +750,39 @@ var profileHtml = '\
 	<form id="formc" name="formc" action="" method="post">\
 		<!--<h2>Calories Per Day Calculator</h2>-->\
 		<div class="calcRow">\
-			<label>Your gender</label>\
+			<label>' + LANG("YOUR_GENDER") + '</label>\
     		<span class="selectArrow">\
 				<select id="pA1B" tabindex="1" onchange="recalc_onclick(&#39;pA1B&#39;)" size="1" name="pA1B">\
-					<option value="Male" selected="selected">Male</option>\
-					<option value="Female">Female</option>\
+					<option value="Male" selected="selected">' + LANG("MALE") + '</option>\
+					<option value="Female">' + LANG("FEMALE") + '</option>\
 				</select>\
 			</span>\
 		</div>\
 		<div class="calcRow">\
-			<label>Your height</label>\
+			<label>' + LANG("YOUR_HEIGHT") + '</label>\
 			<input type="hidden" class="ee101" id="pA2B" onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA2B&#39;)" tabindex="2" size="8" value="70" name="pA2B" />\
 			<input type="number" tabindex="2" id="feet" name="feet" value="5" onchange="document.getElementById(&#39;pA2B&#39;).value = (Number(document.getElementById(&#39;feet&#39;).value) * 12) + (Number(document.getElementById(&#39;inches&#39;).value));"><input tabindex="2" type="number" id="inches" name="inches" value="10" size="2" onchange="document.getElementById(&#39;pA2B&#39;).value = (Number(document.getElementById(&#39;feet&#39;).value) * 12) + (Number(document.getElementById(&#39;inches&#39;).value));">\
 		    <span class="selectArrow">\
 				<select id="pA2C" tabindex="3" onchange="recalc_onclick(&#39;pA2C&#39;)" name="pA2C">\
-					<option value="centimetres">centimeters</option>\
-					<option value="inches" selected="selected">feet/inches</option>\
+					<option value="centimetres">' + LANG("CENTIMETERS") + '</option>\
+					<option value="inches" selected="selected">' + LANG("FEET_INCHES") + '</option>\
 				</select>\
 			</span>\
 			<input class="ee101" id="pA2D" type="hidden" readonly name="pA2D" />\
 		</div>\
 		<div class="calcRow">\
-			<label>Your weight</label>\
+			<label>' + LANG("YOUR_WEIGHT") + '</label>\
 			<input type="number" id="pA3B" onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA3B&#39;)" tabindex="4" size="8" value="160" name="pA3B" />\
 		    <span class="selectArrow">\
 				<select id="pA3C" tabindex="5" onchange="recalc_onclick(&#39;pA3C&#39;)" size="1" name="pA3C">\
-					<option value="kilograms">kilograms</option>\
-					<option value="pounds" selected="selected">pounds</option>\
+					<option value="kilograms">' + LANG("KILOGRAMS") + '</option>\
+					<option value="pounds" selected="selected">' + LANG("POUNDS") + '</option>\
 				</select>\
 			</span>\
 		    <input class="ee101" id="pA3D" type="hidden" readonly size="4" value="0" name="pA3D" />\
 		</div>\
 		<div class="calcRow">\
-			<label>Your age</label>\
+			<label>' + LANG("YOUR_AGE") + '</label>\
 	<span class="selectArrow"><select class="ee100" id="pA4B" tabindex="6" onchange="recalc_onclick(&#39;pA4B&#39;)" size="1" name="pA4B">\
 		<option value="10">10</option>\
 		<option value="11">11</option>\
@@ -1017,24 +878,26 @@ var profileHtml = '\
 	</select></span>\
 </div>\
 <div class="calcRow" id="yourActivity">\
-	<label >Your activity</label><span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
-		<option selected="selected" value="Sedentary (little or no exercise, desk job)">Sedentary: Mostly sitting down (desk job, designer)</option>\
-		<option value="Lightly active (light exercise/sports 1-3 days/wk)">Lightly Active: Occasionally sitting (teacher, salesman)</option>\
-		<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">Active: Walking most of the time (waitress, mailman)</option>\
-		<option value="Very active (hard exercise/sports 6-7 days/wk)">Very Active: Physically hard work (construction worker)</option></select></span>\
+		<label>' + LANG("YOUR_ACTIVITY") + '</label>\
+		<span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
+			<option selected="selected" value="Sedentary (little or no exercise, desk job)">' + LANG("YOUR_ACTIVITY_OPTION1") + '</option>\
+			<option value="Lightly active (light exercise/sports 1-3 days/wk)">'              + LANG("YOUR_ACTIVITY_OPTION2") + '</option>\
+			<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">'        + LANG("YOUR_ACTIVITY_OPTION3") + '</option>\
+			<option value="Very active (hard exercise/sports 6-7 days/wk)">'                  + LANG("YOUR_ACTIVITY_OPTION4") + '</option>\
+		</select></span>\
 </div>\
 <div class="invisible"><input type="checkbox" checked="checked" value="ON" name="automatic_recalc" /><label>Automatic recalculation</label></div>\
 <div class="invisible"><input onclick="recalc_onclick(&#39;&#39;)" type="button" value="Recalculate" name="do_recalc" id="do_recalc" /></div>\
 <div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
-<h2 id="mantain"><span>A.</span> To maintain current weight:</h2>\
-<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcals / day</span></div>\
+<h2 id="mantain"><span>A.</span> ' + LANG("KEEP_WEIGHT") + '</h2>\
+<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcals / ' + LANG("DAY") + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
 \
-<h2><span>B.</span> To lose weight by:</h2>\
+<h2><span>B.</span> ' + LANG("LOSE_WEIGHT") + '</h2>\
 <div class="calcResult">\
    <span class="selectArrow"> <select class="ee101" id="pA6G" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6G&#39;)" tabindex="8" size="1" value="1" name="pA6G">\
 		<option value="0.25">0.25</option>\
@@ -1060,17 +923,17 @@ var profileHtml = '\
 	</select></span>\
 	<input class="ee101" id="pA6J2" type="hidden" readonly size="2" value="0" name="pA6J" />\
 	<span class="selectArrow"><select id="pA6H" tabindex="9" onchange="recalc_onclick(&#39;pA6H&#39;)" size="1" name="pA6H">\
-		<option value="kilograms">kilograms</option>\
-		<option value="pounds" selected="selected">pounds</option>\
+		<option value="kilograms">' + LANG("KILOGRAMS") + '</option>\
+		<option value="pounds" selected="selected">' + LANG("POUNDS") + '</option>\
 	</select></span>\
-	<span>per week</span>\
+	<span>' + LANG("PER_WEEK") + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcals / day</span></div>\
-<div class="invisible">   Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
+<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcals / ' + LANG("DAY") + '</span></div>\
+<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
 \
-<h2><span>C.</span> To gain weight by:</h2>\
+<h2><span>C.</span> ' + LANG("GAIN_WEIGHT") + '</h2>\
 <div class="calcResult">\
     <span class="selectArrow"><select class="ee101" id="pA6M" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
 		<option value="0.25">0.25</option>\
@@ -1096,12 +959,12 @@ var profileHtml = '\
 	</select></span>\
 	<input class="ee101" id="pA6O2" type="hidden" readonly size="2" value="0" name="pA6O" />\
 	<span class="selectArrow"><select id="pA6N" tabindex="11" onchange="recalc_onclick(&#39;pA6N&#39;)" size="1" name="pA6N">\
-		<option value="kilograms">kilograms</option>\
-		<option value="pounds" selected="selected">pounds</option>\
+		<option value="kilograms">' + LANG("KILOGRAMS") + '</option>\
+		<option value="pounds" selected="selected">' + LANG("POUNDS") + '</option>\
 	</select></span>\
-	<span>per week</span>\
+	<span>' + LANG("PER_WEEK") + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcals / day</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcals / ' + LANG("DAY") + '</span></div>\
 \
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\
@@ -1118,7 +981,7 @@ $("#appContent").html(profileHtml);
 //input validate
 $("#feet,#inches,#pA3B").on("keypress", function(evt) {
 	//max
-	if(parseInt($(this).val()) > 9000) {
+	if(parseInt($(this).val()) >= 999) {
 		return false;
 	}
 	//num only
@@ -1127,7 +990,7 @@ $("#feet,#inches,#pA3B").on("keypress", function(evt) {
 ///////////////
 // TAP VALUE //
 ///////////////
-$("#pA7B,#pA7F,#pA7L").on(touchend, function(evt) {
+$("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	//RELOAD INFO HTML
 	var calcResult = Math.round($(this).val());
 	//check n'updt
@@ -1159,69 +1022,52 @@ $("#pA7B,#pA7F,#pA7L").on(touchend, function(evt) {
 		$(this).stop().parent("div").effect("shake",{times:3,direction:'left',distance:6},300);
 	}
 });
-
 $("#formc input,#formc select").on(tap, function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
 //	$("#" + evt.target.id).focus();
 });
-
+//////////////////////////////
+// BLUR ON NULL ID TOUCHEND //
+//////////////////////////////
 $("#calcForm").on(touchend, function(evt) {
-/*
 	if(evt.target.id == "") {
-		writeCalcValues();
-		$("#formc input").blur();
-		$("#formc select").blur();
-		return;
-	} else if(navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		$("#" + evt.target.id).focus();
-	}
-*/
-
-	/*
-	evt.preventDefault();
-	//evt.stopPropagation();
-	if(evt.target.id == "") {
-
-//		$("#pA1B,#pA2B,#pA2C,#pA3B,#pA3C,#pA4B,#pA5B,#pA6G,#pA6H,#pA6M,#pA6N,#feet,#inches").blur();
-		writeCalcValues();
-		$("#formc input").blur();
-		$("#formc select").blur();
-//		$("input,select").blur();
-
-	} else {
-		$("#" + evt.target.id).focus();
-	}	
-*/
-
-
-	if(evt.target.id == "") {
-	//if(navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-		evt.preventDefault();
-		evt.stopPropagation();
-	//}
-//		$("#pA1B,#pA2B,#pA2C,#pA3B,#pA3C,#pA4B,#pA5B,#pA6G,#select,#pA6M2,#pA6N,#feet,#inches").blur();
-
-		writeCalcValues();
-		$("#calcForm input").blur();
-		$("#calcForm select").blur();
-//		$("input,select").blur();
-
-	} else {
+		//PROTECT FROM CALCULATOR BLUR SLOWDOWN
+		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
+			$("#calcForm input").each(function(evt) {
+				if($(this).is(":focus")) {
+					$(this).blur();
+				}
+			});
+			$("#calcForm select").each(function(evt) {
+				if($(this).is(":focus")) {
+					$(this).blur();
+				}
+			});
+		}
 	}
 });
 //////////////////////
 // ONCHANGE TRIGGER //
 //////////////////////
-$("#formc").change(function() {
+$("#formc input").on("change",function() {
+	$('#do_recalc').trigger('click');	
 	writeCalcValues();
 });
-$("#formc").blur(function() {
+$("#formc select").on("change",function() {
+	$('#do_recalc').trigger('click');
 	writeCalcValues();
 });
-
+$("#formc input").on("blur",function() {
+	$('#do_recalc').trigger('click');
+	writeCalcValues();
+});
+$("#formc select").on("blur",function() {
+	$('#do_recalc').trigger('click');
+	writeCalcValues();
+});
 ///////////////////
 // WRITE CHANGES //
 ///////////////////
@@ -1292,9 +1138,9 @@ function loadCalcValues() {
 //go
 loadCalcValues();
 
-////////////////////
-// SWAP FEET/INCH //
-////////////////////
+//////////////////////
+// SWAP FEET/INCHES //
+//////////////////////
 function feetInchesToMetric() {
 	if(document.getElementById("pA2C").value == "centimetres") {
 		$("#feet").val(0);
@@ -1312,7 +1158,6 @@ function feetInchesToMetric() {
 $("#pA2C").on("change",function(evt) {
 	feetInchesToMetric();
 });
-
 if(document.getElementById("pA2C").value == "centimetres") {
 	$("#feet").val(0);
 	$("#feet").removeClass("imperial");

@@ -3,6 +3,11 @@
 
 
 
+- ajuda
+- cyclic
+- altura do foodsearch input desalinhado
+- 
+
 // var width  = screen.width;
 // var height = screen.height;
 
@@ -116,7 +121,7 @@ f0d7 - down
 • fixed calorie calculator minor bugs
 • fixed slider reset issue on keyboard focus
 • fixed blur issue while editing entry description
-• 
+• fixed settings save issue for non-english users
 • 
 • 
 • 

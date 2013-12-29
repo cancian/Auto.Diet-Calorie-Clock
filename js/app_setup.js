@@ -1,7 +1,7 @@
-var appVersion = "1.1.0";
 /////////////////
 // GLOBAL VARS //
 /////////////////
+function voidThis() { }
 var diary;
 function Diary() {
 	that = this;
