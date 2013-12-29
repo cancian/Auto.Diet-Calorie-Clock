@@ -277,6 +277,14 @@ var SETTINGS_ABOUT = {
 	en: "About",
 	pt: "Sobre"
 };
+var SETTINGS_FEEDBACK = {
+	en: "Feedback & support",
+	pt: "Feedback e suporte"
+};
+var SETTINGS_REVIEW = {
+	en: "Review this app",
+	pt: "Avalie este app"
+};
 var SETTINGS_RESET = {
 	en: "Reset settings",
 	pt: "Apagar configurações"

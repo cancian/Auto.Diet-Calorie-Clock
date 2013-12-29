@@ -67,6 +67,9 @@
 	<feature name="GAPlugin">
 		<param name="ios-package" value="GAPlugin" />
 	</feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
 	
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
@@ -77,8 +80,11 @@
 	<feature name="GAPlugin">
 		<param name="android-package" value="com.adobe.plugins.GAPlugin" />
 	</feature>
-	
-    <!-- ICON: ANDROIOD -->
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+
+	<!-- ICON: ANDROID -->
     <icon src="res/icon/android/drawable/icon.png" />
 	<icon src="res/icon/android/drawable-ldpi/icon.png"   gap:platform="android"    gap:density="ldpi" />
     <icon src="res/icon/android/drawable-mdpi/icon.png"   gap:platform="android"    gap:density="mdpi" />

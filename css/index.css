@@ -62,11 +62,16 @@ ul#settingsList li+li div		{ border-top: 1px solid #eee; }
 ul#settingsList li.activeRow	{ background-color: #eee; color: #555; }
 ul#settingsList li.nextChild div{ border-top: 1px solid #eee; }
 ul#settingsList li.nextChild div{ margin-left: 0; padding-left: 20px; }
+/*/////////////////////
+// SETTINGS: WEBSITE //
+/////////////////////*/
+div#optionWebsite			{ position: absolute; bottom: 60px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; display: block; text-transform: uppercase }
+div#optionWebsite:active	{ color: #888; }
 /*///////////////////
 // SETTINGS: RESET //
 ///////////////////*/
 div#optionReset 				{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 49px; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; padding-left: 20px;}
-div#optionReset:active			{ background-color: #0377EE; background-color: #E86401; color: #fff; }
+div#optionReset:active			{ background-color: #E86401; color: #fff; }
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
 /////////////////////////*/
@@ -103,8 +108,8 @@ li#optionMeasure.activeRow		{ position: relative; background-color: #fff !import
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; white-space: nowrap; }
 #appStatusIntake div			{ padding-top: 19px; display: block; font-size: 14px; position: relative;  background-color: #; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; opacity: .9; color: #000; border: 0px solid #000; }
-#appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; padding-right: ; position: absolute; top: 0; left: 21%; } 
-#appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; padding-right: ; position: absolute; top: 0; right: 23%; }
+#appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; padding-right: ; position: absolute; top: 0; left: 15%; } 
+#appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; padding-right: ; position: absolute; top: 0; right: 24%; }
 /**/
 #appStatusAddLeft				{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #4285F4; color: #fff; font-weight: ; }
 #appStatusAddLeft div			{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }

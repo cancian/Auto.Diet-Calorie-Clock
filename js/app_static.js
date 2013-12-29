@@ -13,13 +13,16 @@ function startApp() {
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
-$("body").html('\
+/*
 <div id="appHeader">\
 	<div id="timerBlocks">\
 		<div id="timerKcals"><p></p><span>' + LANG("CALORIES_AVALIABLE") + '</span></div>\
 		<div id="timerDaily"><p></p><span>' + LANG("DAILY_CALORIES")     + '</span></div>\
 	</div>\
 </div>\
+*/
+$("body").html('\
+<div id="appHeader"></div>\
 <div id="appContent"></div>\
 <ul id="appFooter">\
 	<li id="tab1">' + LANG("STATUS")   + '</li>\
@@ -28,10 +31,6 @@ $("body").html('\
 	<li id="tab4">' + LANG("SETTINGS") + '</li>\
 </ul>\
 ');
-
-
-
-
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -62,8 +61,6 @@ if(!window.localStorage.getItem("app_last_tab")) {
 appFooter(window.localStorage.getItem("app_last_tab"));
 //LISTEN FOR CLICKS
 $("ul#appFooter li").on(touchstart, function(e) {
-	e.preventDefault();
-	e.stopPropagation();
 	window.location='#top';
 	appFooter($(this).attr("id"));
 });
@@ -106,8 +103,8 @@ $(window).on("resize", function(evt) {
 		$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);
 		appResizer(0);
 	}
-	//ALWAYS RESIZE DESKTOP
-	if(!hasTouch()) {
+	//ALWAYS RESIZE NON-MOBILE BROWSER
+	if(!hasTouch() && !isMobile.Android() && !isMobile.iOS()) {
 		appResizer(0);
 	}
 });

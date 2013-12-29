@@ -16,8 +16,13 @@ function openSettings(string) {
 					</div>\
 				</div>\
 			</li>\
+			<li id="optionFeedback"><div>' + LANG("SETTINGS_FEEDBACK") + '</div></li>\
+			<li id="optionReview"><div>' + LANG("SETTINGS_REVIEW") + '</div></li>\
 			<li id="optionContact"><div>' + LANG("SETTINGS_CONTACT") + '</div></li>\
 			<li id="optionAbout"><div>'   + LANG("SETTINGS_ABOUT")   + '</div></li>\
+		</ul>\
+		<div id="optionWebsite">mylivediet.com</div>\
+		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>';
 	//#////////#//
 	//# OUTPUT #//
@@ -33,6 +38,50 @@ function openSettings(string) {
 	$("ul#settingsList li").on(touchend + " mouseout",function(evt) {
 		$("li.activeRow").removeClass("activeRow");
 		$("li.nextChild").removeClass("nextChild");
+	});
+	////////////////////////
+	// SETTINGS: FEEDBACK //
+	////////////////////////
+	$("#optionReview").on(touchend,function(evt) {
+		if(isMobile.iOS()) {
+			window.open('https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802', '_system', 'location=yes');
+		} else if(isMobile.Android()) {
+			window.open('http://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');
+		}
+	});
+	//HIDE UNUSED//
+	$("#optionFeedback").hide();
+	if(!hasTouch()) {
+		$("#optionReview").hide();
+	}
+	////////////////////////
+	// SETTINGS: FEEDBACK //
+	////////////////////////
+	$("#optionFeedback").on(touchend,function(evt) {
+		if(isMobile.iOS()) {
+				evt.preventDefault();
+				evt.stopPropagation();
+				var cfg = {
+					task:'launchFeedback',//[launchFeedback|contactUs|viewForum|postIdea]
+					site:'cancian.uservoice.com',
+					key:'62oo7AhcRoQuvozU6ya6A',
+					secret:'g911MyHj3qs92pDDa6f1XOgT9fHSi7pNBZoXO4E',
+					topicId:0,//[0|453|333 (any valid topicId as interger)]
+					showContactUs:1,//[0|1], Show/hide Contact us button
+					showForum:1,//[0|1] Show/hide Forum button
+					showPostIdea:1,//[0|1] Show/hide Post an idea button
+					showKnowledgeBase:1//[0|1] Show/hide Search
+				};
+				showUserVoice(cfg);	
+		} else {
+			window.open('http://cancian.uservoice.com', '_system', 'location=yes');
+		}
+	});	
+	///////////////////////
+	// SETTINGS: WEBSITE //
+	///////////////////////
+	$("#optionWebsite").on(touchend,function(evt) {
+		window.open('http://mylivediet.com', '_system', 'location=yes');
 	});
 	///////////////////////
 	// SETTINGS: CONTACT //
