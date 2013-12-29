@@ -18,8 +18,6 @@ function openSettings(string) {
 			</li>\
 			<li id="optionContact"><div>' + LANG("SETTINGS_CONTACT") + '</div></li>\
 			<li id="optionAbout"><div>'   + LANG("SETTINGS_ABOUT")   + '</div></li>\
-		</ul>\
-		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>';
 	//#////////#//
 	//# OUTPUT #//
@@ -105,14 +103,25 @@ function openSettings(string) {
 }
 /*#######################################
 ####    HTML BUILDS ~ OPEN STATUS    ####
-########################################*/
+#######################################*/
 function openStatus(string) {
+	//calculate pre-fillings
+	if(window.localStorage.getItem("appStatus") == "running") {
+		var weightLoss   = ((((Number(window.localStorage.getItem("calcForm#pA6G"))) * ((Number(new Date().getTime()) - (Number(window.localStorage.getItem("config_start_time")))) / (60*60*24*7))) / 1000)).toFixed(7);
+	} else {
+		var weightLoss   = "0.0000000";		
+	}
+	if(window.localStorage.getItem("calcForm#pA6H") == "kilograms") {
+		var weightLossUnit = "kg";
+	} else {
+		var weightLossUnit = "lb"; 
+	}
 	//RAW HTML
 	var statusHtml = '\
 	<a name="top"></a>\
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG("TIME_ELAPSED") + '</span></div></div>\
-		<div id="appStatusWeight"><div><p>0.0000000kg</p><span>' + LANG("WEIGHT_LOSS") + '</span></div></div>\
+		<div id="appStatusWeight"><div><p><strong>' + weightLoss + '</strong>' + weightLossUnit + '</p><span>' + LANG("WEIGHT_LOSS") + '</span></div></div>\
 		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG("CALORIC_BALANCE") + '</span></div></div>\
 		<div id="appStatusIntake">\
 	<div id="entry_f-sum"><p>' + Number(window.localStorage.getItem("config_entry_f-sum")) + '</p><span>' + LANG("FOOD")     + '</span></div>\
@@ -275,7 +284,7 @@ diaryHtml += '\
 <a name="top"></a>	\
 <div id="entryListForm">\
 	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
-	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcals</div>\
+	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcal</div>\
 	<div id="sliderNeg"><span></span>' + LANG('EXERCISE') + '</div>\
 	<div id="sliderPos">' + LANG('FOOD') + '<span></span></div>\
 	<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />\
@@ -356,7 +365,7 @@ diaryHtml += '\
 			var dataHandler = "\
 			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='" + rowClass + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
-				<p class='entriesKcals'>kcals</p>\
+				<p class='entriesKcals'>kcal</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
 				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
@@ -892,7 +901,7 @@ var profileHtml = '\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
 <h2 id="mantain"><span>A.</span> ' + LANG("KEEP_WEIGHT") + '</h2>\
-<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcals / ' + LANG("DAY") + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
@@ -928,7 +937,7 @@ var profileHtml = '\
 	</select></span>\
 	<span>' + LANG("PER_WEEK") + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcals / ' + LANG("DAY") + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
@@ -964,7 +973,7 @@ var profileHtml = '\
 	</select></span>\
 	<span>' + LANG("PER_WEEK") + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcals / ' + LANG("DAY") + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
 \
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\

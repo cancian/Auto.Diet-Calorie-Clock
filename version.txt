@@ -1,31 +1,16 @@
 
 
 
-
-
-- ajuda
+- focus loss on tap reset enntry android
+- help navigation
+- change start date before starting counter
 - cyclic
-- altura do foodsearch input desalinhado
-- 
+- altura do foodsearch input desalinhado...
+
+ 
 
 // var width  = screen.width;
 // var height = screen.height;
-
-
-
-		//METRIC AS DEFAULT FOR PORTUGUESE
-		if(LANG("LANGUAGE") == "pt") {
-			$("#rightOption").addClass("toggle");
-			window.localStorage.setItem("config_measurement","metric");	
-		} else {
-			$("#leftOption").addClass("toggle");
-			window.localStorage.setItem("config_measurement","imperial");
-		}
-
-$("#myForm *[name]").each(function(){
-    orderedArrayName.push(this.name);
-})
-
 
 //var orderedArrayId = [];
 $("input").each(function(){
@@ -36,49 +21,18 @@ $("#" + this.id).val(window.localStorage.getItem(preffix + "#" + this.id));
 
 })
 
-
-feet
-inches
-pA3B
-
-
-
-
-- 
-- 
-- clock na pinta da quick add
-- 
-f017 - clock
-f0d8  - up
-f0d7 - down
-
-
- 7700 calories , because one pound is 3500 
-
-
+on tap add class of self referent mimimi before:
 
  ############################
-- backface vis nos arrow down do profile calcform
-- reset all data settings button
-- system of measurement settings
-- presetar os quadados status
-- apagar footer do diary
-- alihar cursor carpe slider
-- procurar # enchors e ver scroll issues
-
-
-- notepad no settings
+- procurar #anchors e ver scroll issues
 - ver a causa de aparecer a lupa do android na pagina de status
 - tap squares for more info
 - time elapse - x until tje tomers hits zero
-- loss - goal: x units per week
 - you are +calories above your goal
 - tap to alternatve view nos quadrados
 - bloquear inicio do timer sem reset
-- ver pq o android nao aceita zoom no diary
 - refinar o recent list
 - fazer o weight loss
-- refazer o pt-br completo
 - save date without starting
 - lost weight / burned calories
 - timer crappy repeat on early android
@@ -106,6 +60,20 @@ f0d7 - down
 # more than 50% of your daily intake 
 # revalidar os inputs do profile... alfapnum .text no input, > 9000...
 # bloquear caracteres no input do calc
+# backface vis nos arrow down do profile calcform
+# reset all data settings button
+# system of measurement settings
+# presetar os quadados status
+# apagar footer do diary
+# alihar cursor carpe slider
+# loss - goal: x units per week
+# refazer o pt-br completo
+
+
+
+
+
+
 
 ################# 41A9DE
 ## VERSION LOG ##

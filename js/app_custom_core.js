@@ -103,7 +103,7 @@ function appTimer(id,content) {
 	window.localStorage.setItem("appBalance",status);
 	window.localStorage.setItem("cssOver",cssOver);
 	$("#appStatusElapsed div p").html(timeElapsed());
-	$("#appStatusWeight div p").html(weightLoss + "kg");
+	$("#appStatusWeight div p strong").html(weightLoss);
 	$("#appStatusBalance div p").html(window.localStorage.getItem("appBalance"));
 	$("#entry_f-sum p").html(Number(window.localStorage.getItem("config_entry_f-sum")));
 	$("#entry_e-sum p").html(Number(window.localStorage.getItem("config_entry_e-sum")));
