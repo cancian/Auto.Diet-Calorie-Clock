@@ -1,11 +1,30 @@
+//////////////////
 // DEVICE READY //
-$(document).ready(function() { 
-	if(hasTouch()) { 
-		$("body").css("opacity","0");
+//////////////////
+//ONREADY
+isDeviceReady("init");
+//READY TRIGGER
+if(hasTouch()) {
+	document.addEventListener("deviceready", onDeviceReady, false);
+} else {
+	$(document).ready(function() {  onDeviceReady(); });
+}
+function onDeviceReady() {
+	window.deviceReady = true;
+}
+function isDeviceReady(action) {
+	if(window.deviceReady == true) {
+		if(action=="init") {
+			if(hasTouch()) { $("body").css("opacity","0"); }
+			diary = new Diary();
+			diary.setup(startApp);
+		} else if(action=="youraction2") {
+		// do stuff
+		}
+	} else {
+		window.setTimeout("isDeviceReady(\"" + action + "\");",100);
 	}
-	diary = new Diary();
-	diary.setup(startApp);
-});
+}
 //##///////////##//
 //## START APP ##//
 //##///////////##//
@@ -168,6 +187,9 @@ if(!window.localStorage.getItem("#pA1B")) {
 	//LOCALE
 	window.localStorage.setItem("config_measurement","imperial");
 	if(LANG("LANGUAGE") == "pt") {
+		window.localStorage.setItem("calcForm#feet","0");
+		window.localStorage.setItem("calcForm#inches","170");
+		window.localStorage.setItem("calcForm#pA3B","70");	
 		window.localStorage.setItem("config_measurement","metric");
 		window.localStorage.setItem("calcForm#pA2C","centimetres");
 		window.localStorage.setItem("calcForm#pA3C","kilograms");

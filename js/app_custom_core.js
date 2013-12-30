@@ -71,16 +71,15 @@ function appTimer(id,content) {
 	////////////
 	// UPDATE HEADER //
 	////////////
-//	$("#timerKcals p").html(kcalsInput);
-//	$("#timerDaily p").html(eqPerDay);
-var kcalsHtmlOutput = "";	
-kcalsHtmlOutput    += "<div id='timerBlocks'>";
-kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>calories avaliable</span></div>";
-kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>daily calories</span></div>";
-kcalsHtmlOutput    += "</div>";
-$("#appHeader").html('');
-$("#appHeader").html(kcalsHtmlOutput);
-
+	//$("#timerKcals p").html(kcalsInput);
+	//$("#timerDaily p").html(eqPerDay);
+	var kcalsHtmlOutput = "";
+	kcalsHtmlOutput    += "<div id='timerBlocks'>";
+	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG('CALORIES_AVALIABLE') + "</span></div>";
+	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG('DAILY_CALORIES') + "</span></div>";
+	kcalsHtmlOutput    += "</div>";
+	$("#appHeader").html('');
+	$("#appHeader").html(kcalsHtmlOutput);
 	//plus~minus de-bump
 	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
 	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }

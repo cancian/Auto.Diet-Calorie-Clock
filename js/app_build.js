@@ -80,7 +80,7 @@ function openSettings(string) {
 	///////////////////////
 	// SETTINGS: WEBSITE //
 	///////////////////////
-	$("#optionWebsite").on(touchend,function(evt) {
+	$("#optionWebsite").on(tap,function(evt) {
 		window.open('http://mylivediet.com', '_system', 'location=yes');
 	});
 	///////////////////////
@@ -1195,11 +1195,13 @@ function loadCalcValues() {
 }
 //go
 loadCalcValues();
-
+writeCalcValues();
 //////////////////////
 // SWAP FEET/INCHES //
 //////////////////////
 function feetInchesToMetric() {
+	$("#feet").trigger("change");
+	$("#inches").trigger("change");
 	if(document.getElementById("pA2C").value == "centimetres") {
 		$("#feet").val(0);
 		$("#feet").removeClass("imperial");
@@ -1212,6 +1214,7 @@ function feetInchesToMetric() {
 		$("#feet").addClass("imperial");
 		$("#inches").addClass("imperial");		
 	}
+
 }
 $("#pA2C").on("change",function(evt) {
 	feetInchesToMetric();
@@ -1228,5 +1231,24 @@ if(document.getElementById("pA2C").value == "centimetres") {
 	$("#feet").addClass("imperial");
 	$("#inches").addClass("imperial");		
 }
+
+$("#feet").trigger("change");
+$("#inches").trigger("change");
+writeCalcValues();
+loadCalcValues();
+
+
+$("#formc input").on("keypress",function() {
+	feetInchesToMetric();
+	$('#do_recalc').trigger('click');
+	writeCalcValues();
+});
+$("#formc select").on("keypress",function() {
+	feetInchesToMetric();
+	$('#do_recalc').trigger('click');
+	writeCalcValues();
+});
+
+
 }
 

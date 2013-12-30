@@ -7,10 +7,6 @@
 - cyclic
 - altura do foodsearch input desalinhado...
 
- 
-
-// var width  = screen.width;
-// var height = screen.height;
 
 //var orderedArrayId = [];
 $("input").each(function(){
@@ -73,30 +69,6 @@ on tap add class of self referent mimimi before:
 
 
 
-
-
-################# 41A9DE
-## VERSION LOG ##
-#################
-
-- melhorado foco do profile
-- efeito de clique
-- startup function check existence
-- 
-
-# 1.1.0 [25/12/2013]
-• improved user interface
-• fixed calorie calculator minor bugs
-• fixed slider reset issue on keyboard focus
-• fixed blur issue while editing entry description
-• fixed settings save issue for non-english users
-• 
-• 
-• 
-• 
-• 
-
-
 - larger top
 - android side-slide
 - results list slowness
@@ -116,17 +88,23 @@ D6D6D6
 - 
 
 
+
+#################
+## VERSION LOG ##
+#################
+# 1.1.0 [25/12/2013]
+• improved user interface
+• fixed calorie calculator minor bugs
+• fixed slider reset issue on keyboard focus
+• fixed blur issue while editing entry description
+• fixed settings save issue for non-english users
+• performance and stability improvements
+
 # 1.0.5 [10/12/2013]
 • faster search
 • fixed database import issue
-• 
-• 
-•  
 • performance and stability improvement
-•
 
-
-• 
 # 1.0.4 [10/12/2013]
 • cleaner interface
 • more detailed numeric display

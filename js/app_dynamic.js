@@ -39,7 +39,6 @@ $(document).on("pageload", function(evt) {
 			if($('.delete').hasClass('busy'))  { return; }
 			if($('#kcalsDiv').is(':visible'))  { return; }
 			if($('#entryList div').is(':animated') || $('.editableInput').is(':visible')) { return; }
-			
 					////////////////////////
 					// START ENTRY UPDATE //
 					////////////////////////
@@ -134,7 +133,7 @@ $(document).on("pageload", function(evt) {
 									return false;
 								}
 								//SHOW DIALOG
-								if(hasTouch()) {
+								if(hasTouch() && !isMobile.Android()) {
 									navigator.notification.confirm(LANG("ARE_YOU_SURE"), intoTheVoid, LANG("RESET_ENTRY_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
 									return false;
 								} else {
