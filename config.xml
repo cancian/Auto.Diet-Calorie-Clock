@@ -70,7 +70,10 @@
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
-	
+    <feature name="Globalization">
+        <param name="ios-package" value="CDVGlobalization" />
+    </feature>
+		
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
@@ -83,7 +86,10 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
-
+    <feature name="Globalization">
+        <param name="android-package" value="org.apache.cordova.globalization.Globalization" />
+    </feature>
+	
 	<!-- ICON: ANDROID -->
     <icon src="res/icon/android/drawable/icon.png" />
 	<icon src="res/icon/android/drawable-ldpi/icon.png"   gap:platform="android"    gap:density="ldpi" />

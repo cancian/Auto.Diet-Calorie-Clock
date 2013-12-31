@@ -28,6 +28,9 @@
 		if(window.localStorage.getItem("config_debug") == "active") {
 			var hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
 			var newDate   = new Date().getTime();
+		} else if (window.localStorage.getItem("config_debug") == "edge") {
+			var hostLocal = "http://mylivediet.com/";
+			var newDate   = new Date().getTime();
 		}
 	</script>
 	<script type="text/javascript">

@@ -5,7 +5,7 @@
 var n = 0;
 var co = new Object;
 function recalc_onclick(ctl) {
-    if (document.formc.automatic_recalc.checked || ctl == '') {
+//    if (document.formc.automatic_recalc.checked || ctl == '') {
         co.pA1B = document.formc.pA1B[document.formc.pA1B.selectedIndex].value;
         co.pA2B = eeparseFloat(document.formc.pA2B.value);
         co.pA2C = document.formc.pA2C[document.formc.pA2C.selectedIndex].value;
@@ -57,7 +57,7 @@ function recalc_onclick(ctl) {
         document.formc.pA10H.value = eedisplayFloatND(co.pA10H, 2);
         document.formc.pA10L.value = eedisplayFloatND(co.pA10L, 2);
         document.formc.pA10N.value = eedisplayFloatND(co.pA10N, 2);
-    };
+ //   };
 };
 var eeisus   = 1;
 var eetrue   = "TRUE";

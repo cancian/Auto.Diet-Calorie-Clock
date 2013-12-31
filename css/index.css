@@ -1,9 +1,9 @@
 html,
-body							{ position: relative; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; font-family: "Helvetica Neue", Helvetica, Arial; }
+body							{ position: relative; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, Arial; }
 @font-face						{ -webkit-backface-visibility: hidden; -webkit-font-smoothing: antialiased; font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
 body > *,h2,
 input[readonly]					{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; }
-input,select					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial; horder: 0; border-radius: 0; }
+input,select					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial, Helvetica; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 ul								{ padding: 0; margin: 0; text-indent: 0; }
 p								{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*GENERIC*/
@@ -16,7 +16,8 @@ p								{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after
 /*#////////////////#//
 //# GLOBAL CONTENT #//
 //#////////////////#*/
-div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; overflow: auto; -webkit-overflow-scrolling: touch; }
+div#appWrapper					{ position: absolute; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; background-color: #fff; z-index: 0; color: #000; border: 0; padding: 0; margin: 0; opacity: 1;  }
+div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; display: block; background-color: #fff; overflow: auto; -webkit-overflow-scrolling: touch;  -webkit-transform: translate3d(0, 0, 0); }
 /*#///////////////#//
 //# GLOBAL HEADER #//
 //#///////////////#*/
@@ -33,7 +34,7 @@ div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 4
 #timerDaily						{ position: absolute; bottom: 5px; top: 5px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: bold; background-color: rgba(255,255,255,.3); }
 #timerDaily span				{ position: absolute; bottom: 7px; left: 0px; font-size: 8px; line-height: normal; font-weight: normal; text-transform: uppercase;  }
 /*INLINE*/
-#editableDiv					{ color: transparent; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; overflow: hidden; }
+#editableDiv					{ color: transparent; height: 62px; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; overflow: hidden; }
 input#editable					{ color: #000; position: absolute; top: 10px; right: 9px; display: block !important; width: 75px !important; height: 32px; font-size: 24px !important; line-height: 28px; border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold; overflow: hidden; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
 /*#///////////////#//
@@ -44,6 +45,7 @@ ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; 
 ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before	{ color: #cbcbcb; }
 ul#appFooter.appDebug li.selected:before	{ color: #00ee00; }
+ul#appFooter.appEdge li.selected:before		{ color: #cc3300; }
 ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
 ul#appFooter li					{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
 ul#appFooter li#tab1:before		{ content: "\f080"; }
@@ -65,7 +67,7 @@ ul#settingsList li.nextChild div{ margin-left: 0; padding-left: 20px; }
 /*/////////////////////
 // SETTINGS: WEBSITE //
 /////////////////////*/
-div#optionWebsite			{ position: absolute; bottom: 60px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; display: block; text-transform: uppercase }
+div#optionWebsite			{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; display: block; text-transform: uppercase }
 div#optionWebsite:active	{ color: #888; }
 /*///////////////////
 // SETTINGS: RESET //
@@ -89,7 +91,7 @@ li#optionMeasure.activeRow		{ position: relative; background-color: #fff !import
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
-#statusWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 12px; background-color: #fff; }
+#statusWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; margin: 12px; background-color: #fff; }
 /**/
 #appStatusElapsed				{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #eee; }
 #appStatusElapsed div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
@@ -124,7 +126,7 @@ li#optionMeasure.activeRow		{ position: relative; background-color: #fff !import
 // START DATE BAR //
 //////////////////*/
 #appStatusFix					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; overflow: hidden; text-align: center;  background-color: #fff; }
-#appStatus						{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; overflow: hidden; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .165s; }
+#appStatus						{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; /*overflow: hidden;*/ -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .165s; }
 /*animate*/
 #appStatusFix.open #appStatus	{ -webkit-transform: translate3d(0, 100%, 0); }
 #appStatusFix.open #startDate	{ display: inline-block; }
@@ -143,8 +145,8 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #appStatusReload:before			{ content: "\f01e"; font-family: FontAwesome; display: inline-block; font-weight: bold; }
 /*toggle icon*/
 #appStatusToggle				{ display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #000; line-height: 49px; z-index: 10; }
-#appStatusArrow					{ webkit-transition-timing-function: linear; -webkit-transition-duration: .4s; opacity: .075; position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; }
-#appStatusFix.open #appStatusArrow { top: -23px;-webkit-transform: rotate(-60deg); }
+#appStatusArrow					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .4s; opacity: .075; position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; -webkit-backface-visibility: hidden; }
+#appStatusFix.open #appStatusArrow { top: -23px; -webkit-transform: rotate(-60deg); }
 /*################################
 ####    BUILD: APP PROFILE    ####
 ################################*/
@@ -166,8 +168,8 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #calcForm #inches.metric			{ width: 80px !important; }
 #calcForm #feet.metric				{ display: none !important; }
 /*select arrow*/
-#calcForm .selectArrow				{ position: relative; -webkit-backface-visibility: hidden; }
-#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; vertical-align: middle;  -webkit-backface-visibility: hidden; }
+#calcForm .selectArrow				{ position: relative; }
+#calcForm .selectArrow:after		{ content: "\f078"; font-family: 'FontAwesome'; position: absolute; top: 2px; right: -10px; color: #666; vertical-align: middle; -webkit-backface-visibility: hidden; }
 /*activity select*/
 #calcForm #yourActivity				{ padding-top: 12px !important; }
 #calcForm select#pA5B				{ min-width: 280px; max-width: 318px !important; width: 90%; margin-top: 3px; text-indent: 0; }
@@ -202,11 +204,10 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 // ENTRYLIST FORM //
 //////////////////*/
 #entryListForm				{ width: 100%; height: 154px; position: relative; overflow: hidden; z-index: 1; }
-#entryListForm > *			{ -webkit-backface-visibility: hidden; }
 /*ARROW BUTTONS*/
 div#sliderNum				{ text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
-div#sliderNeg				{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
-div#sliderPos				{ -webkit-backface-visibility: hidden; text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
+div#sliderNeg				{ text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
+div#sliderPos				{ text-shadow: rgba(0,0,0,.05) 0 1px 0; position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 18pt; height: 30px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
 div#sliderNeg span			{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #D55621 transparent transparent; position: absolute; top: 7px; left: 3px; }
 div#sliderPos span			{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #316ADC; position: absolute; top: 7px; right: 3px; }
 div#sliderNeg:active		{ color: #CB5220; }
@@ -220,7 +221,7 @@ div#entryBodySearch			{ position: absolute; top: 67px; right: 15px; width: 30px;
 #entryBodySearch div		{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
 #entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
 div#entryBodySearch:active	{ opacity: 1; }
-select#entryTime			{ position: absolute; right: 17px; top: 109px; width: 100px; color: #777; font-size: 10.5pt; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+select#entryTime			{ position: absolute; right: 17px; top: 109px; width: 100px; color: #777; font-size: 12px; line-height: 16px;; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 #entrySubmit				{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 0px solid #bababa; border-radius: 0px; opacity: 1; padding: 6px 28px 6px 28px; font-weight: bold; background-color: #eee; color: #999; }
 div.submitActive			{ color: #fff !important; border-color: #aaa !important; background-color: #2C61D2 !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
 .android .submitActive		{ -webkit-box-shadow: none !important; }  
@@ -229,12 +230,11 @@ div.submitActive			{ color: #fff !important; border-color: #aaa !important; back
 /*//////////////
 // ENTRY LIST //
 //////////////*/
-#entryList > * 				{ -webkit-backface-visibility: hidden; }
-#entryList					{ width: 100%; font-size: 13px; -webkit-backface-visibility: hidden; }
-#entryList div				{ width: auto; padding: 12px 0 0 0; margin: 0; position: relative; border-bottom: 1px solid #eee; height: 27px; border-top: 1px solid #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
-#entryList					{ width: 100%; min-height: 38px; -webkit-backface-visibility: hidden; }
+#entryList					{ width: 100%; font-size: 13px; -webkit-transform: translate3d(0, 0, 0); }
+#entryList div				{ width: auto; padding: 12px 0 0 0; margin: 0; position: relative; border-bottom: 1px solid #eee; height: 27px; border-top: 1px solid #fff; overflow: hidden; }
+#entryList					{ width: 100%; min-height: 38px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; }
-#editableInput				{ -webkit-user-select: auto; -webkit-backface-visibility: hidden; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; font-size: 13px;  font-family: "Helvetica Neue", Helvetica, Arial; }
+#editableInput				{ -webkit-user-select: auto; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; font-size: 13px;  font-family: "Helvetica Neue", Helvetica, Arial; }
 /*SWIPE DELETE*/
 span.delete					{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 3px 6px 0 0; padding: 7px 14px 7px 14px; border: 1px solid #953403; border-radius: 5px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 -1px 1px #953403; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ec4a0b),color-stop(1, #ad390c)); }
 span.delete:active			{ background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E0380A),color-stop(1, #9C2A09)); }
@@ -243,7 +243,7 @@ span.delete.open			{ /*visibility: visible;*/ display: inline-block; -webkit-tra
 /*ROW STYLE*/
 .entriesTitle				{ display: inline; float: left; width: 40px;  text-align: right; font-weight: bold; }
 .entriesKcals				{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
-.entriesBody				{ text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; -webkit-backface-visibility: hidden; padding-left: 2px; margin-right: 9px; height: 16px; font-family: "Helvetica Neue", Helvetica, Arial; }
+.entriesBody				{ text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; font-family: "Helvetica Neue", Helvetica, Arial; }
 .entriesBody input			{ display: block; }
 .entriesPublished			{ padding-top: 28px; -webkit-backface-visibility: hidden; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; text-shadow: none !important; }
 .editing .entriesPublished	{ opacity: 0; }
@@ -293,6 +293,8 @@ div#noEntries				{ border-left: 5px solid #ccc; }
 #adjustNeg:before 			{ content: "\f04b"; font-family: FontAwesome; font-size: 18pt; line-height: 42px; margin-left: -10px; -webkit-transform: scaleX(-1); }
 #adjustNegBlock:active,
 #adjustPosBlock:active		{ color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
+body.android #adjustNegBlock:active,
+body.android #adjustPosBlock:active	{ color: rgba(0,0,0,.1); background-color: transparent; border-radius: none; }
 #adjustPosBlock				{ position: absolute; right:  2px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999;  }
 #adjustNegBlock				{ position: absolute; right: 60px; top: 0; width: 60px; height: 38px; line-height: 40px; text-align: center; z-index: 999; -webkit-transform: scaleX(-1); }
 /*////////////////
@@ -319,9 +321,9 @@ div#pageSlideFood.open	{ -webkit-transition-timing-function: ease; -webkit-trans
 div#pageSlideFood		{ -webkit-backface-visibility: hidden; }
 /*food search*/
 input#foodSearch		{ position: absolute; left: 0px; right: 0; top: 0; font-size: 18px; border: 0px !important; display: block; color: #fff; padding: 22px 26px 16px 30px; background-color: #151515; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; font-family: Arial, Helvetica, sans-serif; }
-#foodList				{ margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; }
+#foodList				{ margin: 0; z-index: 3; white-space: nowrap; padding: 0; /*overflow: auto;*/ -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); }
 #foodListWrapper		{ display: block; width: 100%; overflow: hidden; z-index: 2; position: relative; position: absolute; background-color: #000; }
-#foodList .searcheable	{ position: relative; margin: 0; padding: 0; display: block; height: 60px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: hidden; }
+#foodList .searcheable	{ position: relative; margin: 0; padding: 0; display: block; height: 60px; margin-bottom: 0px; overflow: hidden; }
 /*food sub itens*/
 span#noMatches			{ color: #fff; position: absolute; top: 75px; left: 33px; overflow: hidden; display: block; opacity: 1; }
 span#iconClear			{ padding: 22px 18px 9px 18px; font-size: 28px; line-height: 22px; font-weight: bold; position: absolute; top: -1px; right:18px; display:none; color:#fff; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .99; font-family: Arial, Helvetica, sans-serif; }
@@ -488,6 +490,7 @@ input#CyclicInput2				{ width: 80px; font-size: 14px; margin-right: 3px; padding
 /*#///////////#//
 //#// IOS 7 //#//
 //#///////////#*/
+body.ios7 #editableDiv,
 body.ios7 #appHeader				{ height: 77px; }
 body.ios7 #appContent				{ top: 77px; }
 body.ios7 span#subKcalsDay			{ top: 21px; }

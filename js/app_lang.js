@@ -2,27 +2,14 @@ var appVersion = "1.1.0";
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
+var appLang = (window.navigator.language.slice(0,2).toLowerCase() == "pt") ? 'pt' : 'en';
+if(window.localStorage.getItem("devSetLang") == "pt") {
+	appLang = "pt";
+}
 function LANG(string) {
 ////////////////////////
 // GET PREF. LANGUAGE //
 ////////////////////////
-var prefLanguage = window.navigator.userLanguage || window.navigator.language;
-var configLang   = prefLanguage.slice(0,2);
-var configLang   = configLang.toLowerCase();
-     //FORMAT
-     if(configLang == "en")         { configLang = "en"; }
-else if(configLang == "po")         { configLang = "pt"; }
-else if(configLang == "pt")         { configLang = "pt"; }
-else if(configLang == "english")    { configLang = "en"; }
-else if(configLang == "português")  { configLang = "pt"; }
-else if(configLang == "portugues")  { configLang = "pt"; }
-else if(configLang == "portuguese") { configLang = "pt"; }
-else if(configLang == "null")       { configLang = "en"; }
-else                                { configLang = "en"; }
-//dev lang set
-if(window.localStorage.getItem("devSetLang") == "pt") {
-	configLang = "pt";
-}
 //#//////////////#//
 //# STRING ARRAY #//
 //#//////////////#//
@@ -289,6 +276,12 @@ var SETTINGS_RESET = {
 	en: "Reset settings",
 	pt: "Apagar configurações"
 };
+var SETTINGS_SYNC = {
+	en: "Sync with mylivediet.com",
+	pt: "Sincronizar com mylivediet.com"
+};
+
+
 var ABOUT_TITLE = {
 	en: "MyLiveDiet v" + appVersion,
 	pt: "MyLiveDiet v" + appVersion
@@ -410,6 +403,6 @@ var XXX = {
 ////////////
 // OUTPUT //
 ////////////
-return eval(string)[configLang];
+return eval(string)[appLang];
 }
 

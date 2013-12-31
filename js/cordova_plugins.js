@@ -34,6 +34,20 @@ module.exports = [
         "clobbers": [
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.globalization/www/GlobalizationError.js",
+        "id": "org.apache.cordova.globalization.GlobalizationError",
+        "clobbers": [
+            "window.GlobalizationError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.globalization/www/globalization.js",
+        "id": "org.apache.cordova.globalization.globalization",
+        "clobbers": [
+            "navigator.globalization"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -42,7 +56,8 @@ module.exports.metadata =
     "org.apache.cordova.dialogs": "0.2.4",
     "org.apache.cordova.splashscreen": "0.2.5",
     "com.adobe.plugins.GAPlugin": "2.3.1",
-    "org.apache.cordova.inappbrowser": "0.2.5"
+    "org.apache.cordova.inappbrowser": "0.2.5",
+    "org.apache.cordova.globalization": "0.2.4"
 }
 // BOTTOM OF METADATA
 });

@@ -70,13 +70,6 @@ Diary.prototype.dropDB = function(t) {
 	//GET CURRENTS
 	document.getElementById('editableDiv').innerHTML = window.localStorage.getItem("config_kcals_day_0");
 	updateEntriesTime();
-	//SCROLLBAR UPDATE			
-	if(!isMobile.iOS()) {
-		$("#appContent").css("overflow","hidden");
-		setTimeout(function(){
-			$("#appContent").getNiceScroll().onResize();
-		},200);
-	}
 };
 /////////////////
 // GET ENTRIES //
@@ -284,6 +277,10 @@ function afterLoad() {
 	//window.localStorage.setItem("absWindowHeight",window.innerHeight);
 	//window.localStorage.setItem("absWindowWidth",window.innerWidth);
 	//window.localStorage.setItem("absOrientation",getOrientation());
+	window.localStorage.setItem("absWindowHeight",window.innerHeight);
+	window.localStorage.setItem("absWindowWidth",window.innerWidth);
+	window.localStorage.setItem("absOrientation",Number(window.orientation));
+	
 }
 function afterShow(t) {
     afterTimer = setTimeout(afterLoad,t);
@@ -570,5 +567,15 @@ function updateEntriesTime() {
 	//been dieting for
 	$("#underscroll").html(LANG("BEEN_DIETING") + " " + dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),""));
 }
-
+//////////////////
+// NICE RESIZER //
+//////////////////
+var niceTimer;
+function niceResizer() { 
+	if(!isMobile.iOS()) { 
+		$("#appContent").getNiceScroll().resize();
+		$("#foodList").getNiceScroll().resize();
+		//console.log('resizing....');
+	}
+}
 

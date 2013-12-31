@@ -1,30 +1,16 @@
 //////////////////
 // DEVICE READY //
 //////////////////
-//ONREADY
-isDeviceReady("init");
-//READY TRIGGER
-if(hasTouch()) {
-	document.addEventListener("deviceready", onDeviceReady, false);
-} else {
-	$(document).ready(function() {  onDeviceReady(); });
-}
-function onDeviceReady() {
-	window.deviceReady = true;
-}
-function isDeviceReady(action) {
-	if(window.deviceReady == true) {
-		if(action=="init") {
-			if(hasTouch()) { $("body").css("opacity","0"); }
-			diary = new Diary();
-			diary.setup(startApp);
-		} else if(action=="youraction2") {
-		// do stuff
-		}
-	} else {
-		window.setTimeout("isDeviceReady(\"" + action + "\");",100);
+$(document).ready(function() {  
+	if(hasTouch()) { 
+		$("body").css("opacity","0");
+		setTimeout(function(evt) {
+			$("body").css("opacity","1");
+		},2000);
 	}
-}
+	diary = new Diary();
+	diary.setup(startApp);
+});
 //##///////////##//
 //## START APP ##//
 //##///////////##//
@@ -32,23 +18,17 @@ function startApp() {
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
-/*
-<div id="appHeader">\
-	<div id="timerBlocks">\
-		<div id="timerKcals"><p></p><span>' + LANG("CALORIES_AVALIABLE") + '</span></div>\
-		<div id="timerDaily"><p></p><span>' + LANG("DAILY_CALORIES")     + '</span></div>\
-	</div>\
-</div>\
-*/
 $("body").html('\
-<div id="appHeader"></div>\
-<div id="appContent"></div>\
-<ul id="appFooter">\
-	<li id="tab1">' + LANG("STATUS")   + '</li>\
-	<li id="tab2">' + LANG("DIARY")    + '</li>\
-	<li id="tab3">' + LANG("PROFILE")  + '</li>\
-	<li id="tab4">' + LANG("SETTINGS") + '</li>\
-</ul>\
+<div id="appWrapper"></div>\
+	<div id="appHeader"></div>\
+	<div id="appContent"></div>\
+	<ul id="appFooter">\
+		<li id="tab1">' + LANG("STATUS")   + '</li>\
+		<li id="tab2">' + LANG("DIARY")    + '</li>\
+		<li id="tab3">' + LANG("PROFILE")  + '</li>\
+		<li id="tab4">' + LANG("SETTINGS") + '</li>\
+	</ul>\
+	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 ');
 //#////////////#//
 //# APP FOOTER #//
@@ -99,7 +79,9 @@ function appResizer(time) {
 		$('#entryListWrapper').css("height","auto");
 		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
 		$('#pageslideFood').height(window.innerHeight - $('#appHeader').height());
-		if(!isMobile.iOS()) { $("#appContent").getNiceScroll().onResize(); }
+		//SCROLLBAR UPDATE	
+		clearTimeout(niceTimer);
+		niceTimer = setTimeout(niceResizer,20);
 	 },time);
 }
 /////////////////
@@ -137,11 +119,14 @@ appResizer(0);
 if(window.localStorage.getItem("config_debug") == "active") {
 	$("#appFooter").addClass("appDebug");
 }
+if(window.localStorage.getItem("config_debug") == "edge") {
+	$("#appFooter").addClass("appEdge");
+}
 /////////////////////
 // ADJUST ELEMENTS //
 /////////////////////
-var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 /*
+var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 	if(window.localStorage.getItem("config_kcals_day") == "d") {
 		var getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
@@ -152,8 +137,6 @@ if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 }
 */
-$("#appHeader").after('<div class="editable" id="editableDiv">' + getKcalsItem + '</div>');
-$("#editableDiv").css("height",$("#appHeader").height());
 ///////////
 // IOS 7 //
 ///////////
@@ -169,7 +152,7 @@ if(isMobile.Android()) {
 ////////////////////
 // PRESET PROFILE //
 ////////////////////
-if(!window.localStorage.getItem("#pA1B")) {
+if(!window.localStorage.getItem("calcForm#pA1B")) {
 	//male/female
 	window.localStorage.setItem("calcForm#pA1B","Male");
 	window.localStorage.setItem("calcForm#pA2B","70");
@@ -214,7 +197,7 @@ afterShow(200);
 	// PAGESLIDE CLOSER //
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
-		evt.preventDefault();
+		//evt.preventDefault();//android kitkat focus
 		//hide food
 		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
 			$("#foodSearch").blur();
@@ -256,7 +239,7 @@ afterShow(200);
 	$('div.editable').on(tap, function(evt) {
 		evt.preventDefault();
 		//not with sidemenu
-		if(!$('#pageSlideInfo').hasClass('busy') && !$('#pageSlideCalc').hasClass('busy') && !$('#pageSlideFood').hasClass('busy')) {
+		if(!$('#pageSlideFood').hasClass('busy')) {
 		//not while editing
 		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') ) {
 		//not with delete button

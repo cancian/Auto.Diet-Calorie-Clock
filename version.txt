@@ -1,97 +1,15 @@
-
-
-
-- focus loss on tap reset enntry android
-- help navigation
-- change start date before starting counter
-- cyclic
-- altura do foodsearch input desalinhado...
-
-
-//var orderedArrayId = [];
-$("input").each(function(){
-$("#" + this.id).val(window.localStorage.getItem(preffix + "#" + this.id));	
-})
-$("select").each(function(){
-$("#" + this.id).val(window.localStorage.getItem(preffix + "#" + this.id));	
-
-})
-
-on tap add class of self referent mimimi before:
-
- ############################
-- procurar #anchors e ver scroll issues
-- ver a causa de aparecer a lupa do android na pagina de status
-- tap squares for more info
-- time elapse - x until tje tomers hits zero
-- you are +calories above your goal
-- tap to alternatve view nos quadrados
-- bloquear inicio do timer sem reset
-- refinar o recent list
-- fazer o weight loss
-- save date without starting
-- lost weight / burned calories
-- timer crappy repeat on early android
->- o delete entyr no android puxa a nicescrollbar erroneamente, colocar if.not.ios ? ~ ver se é o erro ao apagar com scrollto incorrer (VER A # CORRETA do scroll TO ~ deve ser isso)
-
-##DONE
-# clicar no startdatetoggle salva a data também
-# plugin de data no android ~ now
-# start stop reset bar
-# position from bottom timer
-# hovers do add food + exercise
-# colocar dropdown na reset bar
-# novo marcador de debug
-# autoclose on pre-fill
-# calories > 600, warning ~yellow block
-# aumentar altura dos forms calc
-# colocar as setas de icone colorido no food/exercise
-# footer diary menu on pre-fill
-# efeito no tap do calc	
-# reset food/exercise block on reset timer
-# menu settigs
-# usar outro marcador para debug
-# redimensionar altura de foodlist on resize
-# empty pre-fill (title) bug
-# more than 50% of your daily intake 
-# revalidar os inputs do profile... alfapnum .text no input, > 9000...
-# bloquear caracteres no input do calc
-# backface vis nos arrow down do profile calcform
-# reset all data settings button
-# system of measurement settings
-# presetar os quadados status
-# apagar footer do diary
-# alihar cursor carpe slider
-# loss - goal: x units per week
-# refazer o pt-br completo
-
-
-
-
-
-- larger top
-- android side-slide
-- results list slowness
-- indent ios7 - non-absolute divs
-- gap branco no cantinho do menu info
-- 
-D6D6D6
-
-
-- min-height do appContent para evitar bug do teclado diminuindo a tela
-- add total cals +food + exercise on #go
-- start / reset timer
-- quick add/ double buttons switch ^ office
-- 
-- 
-- 
-- 
-
-
-
 #################
 ## VERSION LOG ##
 #################
+# 1.1.1 [03/01/2014]
+• fixed calorie calculator recalc issues
+• fixed diary focus issues
+• fixed form style issues
+• option to auto-update up with current version
+• improved scrolling
+• 
+
+
 # 1.1.0 [25/12/2013]
 • improved user interface
 • fixed calorie calculator minor bugs

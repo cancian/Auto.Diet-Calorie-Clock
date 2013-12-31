@@ -418,12 +418,8 @@ $(document).on("pageload", function(evt) {
 			updateTimer();
 			updateEntriesTime();
 			//SCROLLBAR UPDATE			
-			if(!isMobile.iOS()) {
-				$("#appContent").css("overflow","hidden");
-				setTimeout(function(){
-					$("#appContent").getNiceScroll().onResize();
-				},200);
-			}
+			clearTimeout(niceTimer);
+			niceTimer = setTimeout(niceResizer, 200);
 			//force error
 			window.onscroll(scroll($('#appContent')[0].scrollTop,0));
 		}
@@ -531,9 +527,11 @@ $(document).on("pageReload", function(evt) {
 			$("#foodList").css("overflow","hidden");
 			setTimeout(function(){
 				$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#fff",cursorborder:"1px solid #000",cursoropacitymax:0.1,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
-				$("#foodList").getNiceScroll().onResize();
 				$("body").trigger("resize");
 			},300);
+			//SCROLLBAR UPDATE	
+			clearTimeout(niceTimer);
+			niceTimer = setTimeout(niceResizer, 200);
 		}
 		//$('#foodList').css("height",window.localStorage.getItem("absWindowHeight") - ( ($('#appHeader').height() + 60) ) + "px");
 		//#/////////////////#//
@@ -790,6 +788,14 @@ $(document).on("pageReload", function(evt) {
 			//var meh = 0;
 			var duh;
 			// TOUCHSWIPE //
+
+$("#foodList div.searcheable").on(touchstart,function(event) {
+if($("#foodSearch").is(":focus")) { 
+$("#foodSearch").blur();
+return false; 
+}
+});
+
 			$("#foodList div.searcheable").on(singletap,function(event) {
 			//$("#foodList div.searcheable").swipe({
 			//	tap:function(event) {
@@ -978,7 +984,7 @@ $(document).on("pageReload", function(evt) {
 							}
 							//grab values
 							var title     = ((document.getElementById('modalTotal').innerHTML) * (valueType));
-							var body      = $("#activeOverflow").html() + shortDesc;
+							var body      = $("#activeOverflow").text() + shortDesc;
 							var published = new Date().getTime();
 							//hours ago
 							if(Number($("#entryTime").val()) >= 1) {
@@ -1063,7 +1069,7 @@ $(document).on("pageReload", function(evt) {
 									openDiary();
 								}
 								setTimeout(function(evt) {
-									$("#entryBody").val($("#activeOverflow").html());
+									$("#entryBody").val($("#activeOverflow").text());
 									//CSS FADE OUT
 									$('#modalWindow').removeClass('show');
 									$('#modalOverlay').removeClass('show');

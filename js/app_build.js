@@ -19,6 +19,7 @@ function openSettings(string) {
 			<li id="optionFeedback"><div>' + LANG("SETTINGS_FEEDBACK") + '</div></li>\
 			<li id="optionReview"><div>' + LANG("SETTINGS_REVIEW") + '</div></li>\
 			<li id="optionContact"><div>' + LANG("SETTINGS_CONTACT") + '</div></li>\
+			<li id="optionEdge"><div>'   + LANG("SETTINGS_SYNC")   + '</div></li>\
 			<li id="optionAbout"><div>'   + LANG("SETTINGS_ABOUT")   + '</div></li>\
 		</ul>\
 		<div id="optionWebsite">mylivediet.com</div>\
@@ -99,6 +100,26 @@ function openSettings(string) {
 			alert(LANG("ABOUT_TITLE") + " \n" + LANG("ABOUT_DIALOG"));
 		}
 	});
+	///////////////////
+	// SETTINGS: EDG //
+	///////////////////	
+	$("#optionEdge").on(touchend, function(evt) {
+		if(window.localStorage.getItem("config_debug") == "edge") {
+			window.localStorage.setItem("config_debug","inactive");
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+			afterHide();
+		} else {
+			window.localStorage.setItem("config_debug","edge");
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+			afterHide();
+		}
+	});
+	//style
+	if(window.localStorage.getItem("config_debug") == "edge") {
+		$("#optionEdge").addClass("appEdge");			
+	}
 	/////////////////////
 	// SETTINGS: RESET //
 	/////////////////////
@@ -110,8 +131,6 @@ function openSettings(string) {
 	}
 	// WIPE DIALOG
 	$("#optionReset").on(touchend, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
 		if(hasTouch()) {
 			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
 		} else {
@@ -183,15 +202,14 @@ function openStatus(string) {
 			<div id="appStatusToggle"></div>\
 			<div id="appStatus">\
 				<div id="appStatusTitle"></div>\
-				<div id="appStatusReload"></div>\
 				<div id="appStatusArrow"></div>\
+				<div id="appStatusReload"></div>\
 			</div>\
 		</div>\
 	</div>';
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
-	//HTML
 	$("#appContent").html(statusHtml);
 	//////////////
 	// HANDLERS //
@@ -508,12 +526,9 @@ $(document).trigger("sliderInit");
 			updateTimer();
 			updateEntriesTime();
 			//SCROLLBAR UPDATE			
-			if(!isMobile.iOS()) {
-				$("#appContent").css("overflow","hidden");
-				setTimeout(function(){
-					$("#appContent").getNiceScroll().onResize();
-				},200);
-			}
+			//SCROLLBAR UPDATE	
+			clearTimeout(niceTimer);
+			niceTimer = setTimeout(niceResizer, 200);
 		}
 	});
 	//////////////////
@@ -655,6 +670,20 @@ $(document).trigger("sliderInit");
 				afterHide();
 			}
 		}
+		//DEV EDGE
+		if($("#entryBody").val().toLowerCase() == "devedge") {
+			if(window.localStorage.getItem("config_debug") == "edge") {
+				window.localStorage.setItem("config_debug","inactive");
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+			} else {
+				window.localStorage.setItem("config_debug","edge");
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+			}
+		}
 		//DEV DEBUG
 		if($("#entryBody").val().toLowerCase() == "devdebug") {
 			if(window.localStorage.getItem("config_debug") == "active") {
@@ -746,13 +775,13 @@ $(document).trigger("sliderInit");
 		//android keyboard focus
 		//$("#entryBody").focus();		
 		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
-			evt.preventDefault();
+			//evt.preventDefault(); //kitkat focus
 			$("#entryBody").focus();
 		}
 	});
 	$('#entryTime').on(touchstart, function(evt) {
 		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
-			evt.preventDefault();
+			//evt.preventDefault();
 			$("#entryTime").focus();
 		}
 	});
@@ -765,7 +794,6 @@ $(document).trigger("sliderInit");
 		$('#entryBody').focus(function(evt) {
 			//evt.preventDefault();
 			//evt.stopPropagation();
-			//evt.stopImmediatePropagation();
 			$('#entryBody').removeClass("focusMe");
 			$('#entryBody').addClass("focusMy");
 		});	
@@ -818,8 +846,8 @@ var profileHtml = '\
 		</div>\
 		<div class="calcRow">\
 			<label>' + LANG("YOUR_HEIGHT") + '</label>\
-			<input type="hidden" class="ee101" id="pA2B" onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA2B&#39;)" tabindex="2" size="8" value="70" name="pA2B" />\
-			<input type="number" tabindex="2" id="feet" name="feet" value="5" onchange="document.getElementById(&#39;pA2B&#39;).value = (Number(document.getElementById(&#39;feet&#39;).value) * 12) + (Number(document.getElementById(&#39;inches&#39;).value));"><input tabindex="2" type="number" id="inches" name="inches" value="10" size="2" onchange="document.getElementById(&#39;pA2B&#39;).value = (Number(document.getElementById(&#39;feet&#39;).value) * 12) + (Number(document.getElementById(&#39;inches&#39;).value));">\
+			<input type="hidden" class="ee101" id="pA2B" tabindex="2" size="8" value="70" name="pA2B" />\
+			<input type="number" tabindex="2" id="feet" name="feet" value="5"><input tabindex="2" type="number" id="inches" name="inches" value="10" size="2">\
 		    <span class="selectArrow">\
 				<select id="pA2C" tabindex="3" onchange="recalc_onclick(&#39;pA2C&#39;)" name="pA2C">\
 					<option value="centimetres">' + LANG("CENTIMETERS") + '</option>\
@@ -1036,6 +1064,26 @@ $("#appContent").html(profileHtml);
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//
+
+//enforce onchange
+$("#pA2B").on("blur",function(evt) {
+	$("#pA2B").val( eedisplayFloat(eeparseFloat( $(this).val() )) );
+	recalc_onclick("pA2B");
+	writeCalcValues();
+});
+$("#pA2B").on("change keypress",function(evt) {
+	$("#pA2B").val(  (Number($("#feet").val())*12)  +  Number($("#inches").val()) );
+writeCalcValues();
+});
+$("#inches").on("change keypress",function(evt) {
+	$("#pA2B").val(  Number(($("#feet").val()*12))  +  Number($("#inches").val())  );
+writeCalcValues();
+});
+$("#feet").on("change keypress",function(evt) {
+	$("#pA2B").val(  Number(($("#feet").val()*12))  +  Number($("#inches").val())  );
+writeCalcValues();
+});
+
 //input validate
 $("#feet,#inches,#pA3B").on("keypress", function(evt) {
 	//max
@@ -1195,13 +1243,11 @@ function loadCalcValues() {
 }
 //go
 loadCalcValues();
-writeCalcValues();
+
 //////////////////////
 // SWAP FEET/INCHES //
 //////////////////////
 function feetInchesToMetric() {
-	$("#feet").trigger("change");
-	$("#inches").trigger("change");
 	if(document.getElementById("pA2C").value == "centimetres") {
 		$("#feet").val(0);
 		$("#feet").removeClass("imperial");
@@ -1214,13 +1260,22 @@ function feetInchesToMetric() {
 		$("#feet").addClass("imperial");
 		$("#inches").addClass("imperial");		
 	}
-
+	loadCalcValues();
 }
 $("#pA2C").on("change",function(evt) {
 	feetInchesToMetric();
-});
-if(document.getElementById("pA2C").value == "centimetres") {
+	//STARTUP FIX
 	$("#feet").val(0);
+	$("#pA2B").val(  Number($("#inches").val())  );
+	$("#pA2B").change();
+	writeCalcValues();
+});
+
+if(document.getElementById("pA2C").value == "centimetres") {
+	//FIX
+	$("#feet").val(0);
+	$("#pA2B").val(  Number($("#inches").val())  );
+	//
 	$("#feet").removeClass("imperial");
 	$("#inches").removeClass("imperial");
 	$("#feet").addClass("metric");
@@ -1232,23 +1287,11 @@ if(document.getElementById("pA2C").value == "centimetres") {
 	$("#inches").addClass("imperial");		
 }
 
-$("#feet").trigger("change");
-$("#inches").trigger("change");
+/////////////
+// ON LOAD //
+/////////////
+$("#pA2B").change();
 writeCalcValues();
-loadCalcValues();
-
-
-$("#formc input").on("keypress",function() {
-	feetInchesToMetric();
-	$('#do_recalc').trigger('click');
-	writeCalcValues();
-});
-$("#formc select").on("keypress",function() {
-	feetInchesToMetric();
-	$('#do_recalc').trigger('click');
-	writeCalcValues();
-});
-
 
 }
 
