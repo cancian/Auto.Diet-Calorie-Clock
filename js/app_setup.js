@@ -25,14 +25,15 @@ Diary.prototype.dbErrorHandler = function(evt) {
 // INIT DB //
 /////////////
 Diary.prototype.initDB = function(t) {
-	//t.executeSql('drop table diary_entry');
-	//t.executeSql('create table if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, body TEXT, published DATE)');
 	t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, body TEXT, published DATE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT)');
-	//INSERT INTO "diary_food" VALUES(2,'food','01002','Butter, whipped, with salt','butterwhippedwithsalt','717','0.85','0.06','81.11','0.00');
-	//DROP TABLE IF EXISTS "diary_food";
-	//t.executeSql('create table if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, body TEXT, published DATE)');
-	//t.executeSql('create table if not exists diary_config(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, body TEXT, published DATE)');
-	//t.executeSql('INSERT INTO diary_config (body,title) SELECT "2000","' + (new Date()).getTime() + '" WHERE NOT EXISTS (SELECT body FROM diary_config)');
+	///////////////
+	// SQL RESET //
+	///////////////
+	if(window.localStorage.getItem("appReset") == "wipe") {
+		window.localStorage.removeItem("appReset");
+		t.executeSql('DELETE FROM "diary_entry"');
+	}
+	//config
 	if(!window.localStorage.getItem("config_start_time")) {
 		window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
 	}
@@ -45,31 +46,6 @@ Diary.prototype.initDB = function(t) {
 	if(!window.localStorage.getItem("config_kcals_day_2")) {
 		window.localStorage.setItem("config_kcals_day_2",2000);
 	}
-};
-///////////////////
-// DROP ENTRY DB //
-///////////////////
-Diary.prototype.deSetup = function(callback) {
-	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(this.dropDB, this.dbErrorHandler, callback);
-};
-//flush rows
-Diary.prototype.dropDB = function(t) {
-	// REVERT TO DEFAULT
-	t.executeSql('DELETE FROM diary_entry');
-	window.localStorage.clear();
-	window.localStorage.setItem("absWindowHeight",window.innerHeight);
-	window.localStorage.setItem("absWindowWidth",window.innerWidth);
-	window.localStorage.setItem("absOrientation",Number(window.orientation));
-	window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
-	window.localStorage.setItem("config_kcals_day_0",2000);	
-	window.localStorage.setItem("config_kcals_day_1",1600);
-	window.localStorage.setItem("config_kcals_day_2",2000);
-	window.localStorage.setItem("foodDbLoaded","empty");
-	$('#entryListForm').addClass("toolTip");
-	//GET CURRENTS
-	document.getElementById('editableDiv').innerHTML = window.localStorage.getItem("config_kcals_day_0");
-	updateEntriesTime();
 };
 /////////////////
 // GET ENTRIES //

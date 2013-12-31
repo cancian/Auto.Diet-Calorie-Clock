@@ -777,6 +777,10 @@ $(document).on("pageReload", function(evt) {
 			// OVERFLOW ON-DEMAND //
 			////////////////////////
 			$(".searcheable").on(tap + touchstart, function(evt) {
+				if($("#foodSearch").is(":focus")) { 
+					$("#foodSearch").blur();
+					return false;
+				}
 				$("#activeOverflow").removeAttr("id");
 				$(".foodName",this).attr("id","activeOverflow");
 				$(".foodName").css("overflow","auto");
@@ -787,15 +791,6 @@ $(document).on("pageReload", function(evt) {
 			//var ix  = 0;
 			//var meh = 0;
 			var duh;
-			// TOUCHSWIPE //
-
-$("#foodList div.searcheable").on(touchstart,function(event) {
-if($("#foodSearch").is(":focus")) { 
-$("#foodSearch").blur();
-return false; 
-}
-});
-
 			$("#foodList div.searcheable").on(singletap,function(event) {
 			//$("#foodList div.searcheable").swipe({
 			//	tap:function(event) {

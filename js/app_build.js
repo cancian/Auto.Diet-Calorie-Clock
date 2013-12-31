@@ -16,15 +16,16 @@ function openSettings(string) {
 					</div>\
 				</div>\
 			</li>\
+			<li id="optionEdge"><div>'   + LANG("SETTINGS_SYNC")   + '</div></li>\
 			<li id="optionFeedback"><div>' + LANG("SETTINGS_FEEDBACK") + '</div></li>\
 			<li id="optionReview"><div>' + LANG("SETTINGS_REVIEW") + '</div></li>\
 			<li id="optionContact"><div>' + LANG("SETTINGS_CONTACT") + '</div></li>\
-			<li id="optionEdge"><div>'   + LANG("SETTINGS_SYNC")   + '</div></li>\
 			<li id="optionAbout"><div>'   + LANG("SETTINGS_ABOUT")   + '</div></li>\
 		</ul>\
 		<div id="optionWebsite">mylivediet.com</div>\
 		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>';
+
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -100,9 +101,23 @@ function openSettings(string) {
 			alert(LANG("ABOUT_TITLE") + " \n" + LANG("ABOUT_DIALOG"));
 		}
 	});
-	///////////////////
-	// SETTINGS: EDG //
-	///////////////////	
+	////////////////////
+	// SETTINGS: EDGE //
+	////////////////////	
+	$("#optionEdge").on("hold", function(evt) {
+		if(window.localStorage.getItem("config_debug") == "active") {
+			window.localStorage.setItem("config_debug","inactive");
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+			afterHide();
+		} else {
+			window.localStorage.setItem("config_debug","active");
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+			afterHide();
+		}
+		window.localStorage.setItem("app_last_tab","tab1");
+	});
 	$("#optionEdge").on(touchend, function(evt) {
 		if(window.localStorage.getItem("config_debug") == "edge") {
 			window.localStorage.setItem("config_debug","inactive");
@@ -115,24 +130,28 @@ function openSettings(string) {
 			$("#entryBody").blur();
 			afterHide();
 		}
+		window.localStorage.setItem("app_last_tab","tab1");
 	});
 	//style
 	if(window.localStorage.getItem("config_debug") == "edge") {
-		$("#optionEdge").addClass("appEdge");			
+		$("#optionEdge").addClass("appEdge");
 	}
 	/////////////////////
 	// SETTINGS: RESET //
 	/////////////////////
-	function onConfirmWipe(button) {
-		if(button == 1) {
-			diary.deSetup();
-			afterHide();
-		}
-	}
 	// WIPE DIALOG
 	$("#optionReset").on(touchend, function(evt) {
+		function onConfirmWipe(button) {
+			if(button == 1) {
+				window.localStorage.clear();
+				window.localStorage.setItem("appReset","wipe");
+				afterHide();
+			}
+		}
+		//SHOW DIALOG
 		if(hasTouch()) {
 			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmWipe, LANG("WIPE_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
+			return false;
 		} else {
 			if(confirm(LANG("WIPE_DIALOG"))) { onConfirmWipe(1); } else { return false; }
 		}
@@ -710,15 +729,10 @@ $(document).trigger("sliderInit");
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}
-		//wipe data
-		if($("#entryBody").val().toLowerCase() == "devwipe") {
-			onConfirmWipe(1);
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
 		//rewipe
 		if($("#entryBody").val().toLowerCase() == "devrewipe") {
-			onConfirmWipe(1);
+			window.localStorage.clear();
+			window.localStorage.setItem("appReset","wipe");
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 			afterHide();
@@ -775,13 +789,19 @@ $(document).trigger("sliderInit");
 		//android keyboard focus
 		//$("#entryBody").focus();		
 		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
-			//evt.preventDefault(); //kitkat focus
+			//ios, switch blur entrytime > entrybody || kitkat non-selectable focus
+			if(isMobile.iOS) {
+				evt.preventDefault(); 
+			}
 			$("#entryBody").focus();
 		}
 	});
 	$('#entryTime').on(touchstart, function(evt) {
-		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
 			//evt.preventDefault();
+			evt.stopPropagation();	
+		
+		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
+			evt.preventDefault();
 			$("#entryTime").focus();
 		}
 	});

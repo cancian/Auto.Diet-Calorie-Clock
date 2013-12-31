@@ -299,8 +299,8 @@ var TIME_ELAPSED = {
 	pt: "tempo total"
 };
 var CALORIC_BALANCE = {
-	en: "caloric balance",
-	pt: "balanço calórico"
+	en: "caloric status",
+	pt: "status calórico"
 };
 var RESET = {
 	en: "reset",

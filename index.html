@@ -7,54 +7,22 @@
 	<meta name="format-detection" content="telephone=no" />   
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-	<script type="text/javascript" src="js/cordova.js"></script>
-	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.10.3.min.js"></script>
-	<script type="text/javascript" src="js/mobiscroll.2.9.0.js"></script>
-   	<script type="text/javascript" src="js/jquery.nicescroll.js"></script>
-	<script type="text/javascript" src="js/jquery.color-2.1.0.min.js"></script>
-	<script type="text/javascript" src="js/jquery.mobileCheckbox.js"></script>    
-	<script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
-	<script type="text/javascript" src="js/quo.js"></script>
-	<script type="text/javascript" src="js/html5sql.js"></script>
-	<script type="text/javascript" src="js/UserVoice.js"></script>
-	<script type="text/javascript" src="js/calculator.js"></script>
 	<script type="text/javascript">
-		///////////////
-		// DEV DEBUG //
-		///////////////
-		var hostLocal = "";
-		var newDate   = "";
-		if(window.localStorage.getItem("config_debug") == "active") {
-			var hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
-			var newDate   = new Date().getTime();
-		} else if (window.localStorage.getItem("config_debug") == "edge") {
-			var hostLocal = "http://mylivediet.com/";
-			var newDate   = new Date().getTime();
-		}
-	</script>
-	<script type="text/javascript">
-		document.write("<script src='" + hostLocal + "js/carpe_slider.js?"+newDate+"'><\/script>");
-		document.write("<script src='" + hostLocal + "js/app_lang.js?"+newDate+"'><\/script>");
-		document.write("<script src='" + hostLocal + "js/app_setup.js?"+newDate+"'><\/script>");
-		document.write("<script src='" + hostLocal + "js/app_build.js?"+newDate+"'><\/script>");
-		document.write("<script src='" + hostLocal + "js/app_static.js?"+newDate+"'><\/script>");
-		document.write("<script src='" + hostLocal + "js/app_dynamic.js?"+newDate+"'><\/script>");
-		document.write("<script src='" + hostLocal + "js/app_custom_core.js?"+newDate+"'><\/script>");
-	</script>
-	<script type="text/javascript">
-		// TOOLTIP //
-		document.write("\
-		<style type='text/css'>\
-			#startDateSpan:before { content: '" + LANG('START_DATE')    + "'; -webkit-backface-visibility: hidden; }\
-		<\/style>");
-	</script>
-		<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />
-	<script type="text/javascript">
-		document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/index.css?"+newDate+"' />");
+	///////////////
+	// BOOTSTRAP //
+	///////////////
+	var hostLocal = "";
+	var newDate   = "";
+	if(window.localStorage.getItem("config_debug") == "active") {
+		var hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
+		var newDate   = new Date().getTime();
+	} else if (window.localStorage.getItem("config_debug") == "edge") {
+		var hostLocal = "http://mylivediet.com/";
+		var newDate   = new Date().getTime();
+	}
+	document.write("<script src='" + hostLocal + "js/app_init.js?"+newDate+"'><\/script>");
 	</script>
 </head>
 <body>
 </body>
 </html>
-

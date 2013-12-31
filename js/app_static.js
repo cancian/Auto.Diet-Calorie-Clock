@@ -15,12 +15,16 @@ $(document).ready(function() {
 //## START APP ##//
 //##///////////##//
 function startApp() {
+////////////////
+// PARSED CSS //
+////////////////
+$("head").append("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } <\/style>");
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
 $("body").html('\
-<div id="appWrapper"></div>\
 	<div id="appHeader"></div>\
+	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 	<div id="appContent"></div>\
 	<ul id="appFooter">\
 		<li id="tab1">' + LANG("STATUS")   + '</li>\
@@ -28,7 +32,6 @@ $("body").html('\
 		<li id="tab3">' + LANG("PROFILE")  + '</li>\
 		<li id="tab4">' + LANG("SETTINGS") + '</li>\
 	</ul>\
-	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 ');
 //#////////////#//
 //# APP FOOTER #//
@@ -41,7 +44,7 @@ function appFooter(id) {
 	if(!isMobile.iOS()) {
 		//$("#appContent").css("overflow","hidden");
 		setTimeout(function(){
-			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.4,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 		},0);
 	}
 	//ACTION

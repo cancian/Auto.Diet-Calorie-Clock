@@ -692,9 +692,10 @@
     z-index: 9998;
 }
 .dwo {
-    background: #000;
-    background: rgba(0,0,0,.7);
+    background-color: #000;
+    background-color: rgba(0,0,0,.7);
     filter: Alpha(Opacity=70);
+	background-image: -webkit-linear-gradient(rgba(0,0,0,.7),rgba(1,1,1,.7));
 }
 .dw-inline .dw-persp {
     position: static;
@@ -1219,7 +1220,8 @@
 }
 /* Light version */
 .android-ics.light .dwwr {
-    background: #f5f5f5;
+    background-color: #f5f5f5;
+	background-image: -webkit-linear-gradient(#f5f5f5,#f4f4f4);
 }
 .android-ics.light .dww .dw-li {
     color: #000;
