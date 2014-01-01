@@ -48,6 +48,13 @@ module.exports = [
         "clobbers": [
             "navigator.globalization"
         ]
+    },
+    {
+        "file": "plugins/uk.co.whiteoctober.cordova.AppVersion/www/AppVersionPlugin.js",
+        "id": "uk.co.whiteoctober.cordova.AppVersion.AppVersionPlugin",
+        "clobbers": [
+            "cordova.getAppVersion"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -57,7 +64,8 @@ module.exports.metadata =
     "org.apache.cordova.splashscreen": "0.2.5",
     "com.adobe.plugins.GAPlugin": "2.3.1",
     "org.apache.cordova.inappbrowser": "0.2.5",
-    "org.apache.cordova.globalization": "0.2.4"
+    "org.apache.cordova.globalization": "0.2.4",
+    "uk.co.whiteoctober.cordova.AppVersion": "0.0.1"
 }
 // BOTTOM OF METADATA
 });

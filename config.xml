@@ -74,6 +74,9 @@
     <feature name="Globalization">
         <param name="ios-package" value="CDVGlobalization" />
     </feature>
+	<feature name="AppVersion">
+		<param name="ios-package" value="AppVersion" />
+	</feature>
 		
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
@@ -90,12 +93,19 @@
     <feature name="Globalization">
         <param name="android-package" value="org.apache.cordova.globalization.Globalization" />
     </feature>
+    <feature name="AppVersion">
+        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
+    </feature>
+
+    <plugins>
+        <plugin name="AppVersion" value="uk.co.whiteoctober.cordova.AppVersion" />
+    </plugins>
 	
 	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.splashscreen" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
 	<gap:plugin name="org.apache.cordova.globalization" />
-    <gap:plugin name="uk.co.whiteoctober.cordova.appversion" />
+    <!--<gap:plugin name="uk.co.whiteoctober.cordova.appversion" />-->
 
 
 
