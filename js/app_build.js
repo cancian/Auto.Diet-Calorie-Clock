@@ -16,11 +16,11 @@ function openSettings(string) {
 					</div>\
 				</div>\
 			</li>\
-			<li id="optionEdge"><div>'   + LANG("SETTINGS_SYNC")   + '</div></li>\
+			<li id="optionEdge"><div>'     + LANG("SETTINGS_SYNC")     + '</div></li>\
 			<li id="optionFeedback"><div>' + LANG("SETTINGS_FEEDBACK") + '</div></li>\
-			<li id="optionReview"><div>' + LANG("SETTINGS_REVIEW") + '</div></li>\
-			<li id="optionContact"><div>' + LANG("SETTINGS_CONTACT") + '</div></li>\
-			<li id="optionAbout"><div>'   + LANG("SETTINGS_ABOUT")   + '</div></li>\
+			<li id="optionReview"><div>'   + LANG("SETTINGS_REVIEW")   + '</div></li>\
+			<li id="optionContact"><div>'  + LANG("SETTINGS_CONTACT")  + '</div></li>\
+			<li id="optionAbout"><div>'    + LANG("SETTINGS_ABOUT")    + '</div></li>\
 		</ul>\
 		<div id="optionWebsite">mylivediet.com</div>\
 		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
@@ -1084,7 +1084,6 @@ $("#appContent").html(profileHtml);
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//
-
 //enforce onchange
 $("#pA2B").on("blur",function(evt) {
 	$("#pA2B").val( eedisplayFloat(eeparseFloat( $(this).val() )) );
@@ -1093,7 +1092,7 @@ $("#pA2B").on("blur",function(evt) {
 });
 $("#pA2B").on("change keypress",function(evt) {
 	$("#pA2B").val(  (Number($("#feet").val())*12)  +  Number($("#inches").val()) );
-writeCalcValues();
+	writeCalcValues();
 });
 $("#inches").on("change keypress",function(evt) {
 	$("#pA2B").val(  Number(($("#feet").val()*12))  +  Number($("#inches").val())  );
@@ -1103,7 +1102,6 @@ $("#feet").on("change keypress",function(evt) {
 	$("#pA2B").val(  Number(($("#feet").val()*12))  +  Number($("#inches").val())  );
 writeCalcValues();
 });
-
 //input validate
 $("#feet,#inches,#pA3B").on("keypress", function(evt) {
 	//max
@@ -1263,7 +1261,6 @@ function loadCalcValues() {
 }
 //go
 loadCalcValues();
-
 //////////////////////
 // SWAP FEET/INCHES //
 //////////////////////
@@ -1290,7 +1287,6 @@ $("#pA2C").on("change",function(evt) {
 	$("#pA2B").change();
 	writeCalcValues();
 });
-
 if(document.getElementById("pA2C").value == "centimetres") {
 	//FIX
 	$("#feet").val(0);
@@ -1306,12 +1302,10 @@ if(document.getElementById("pA2C").value == "centimetres") {
 	$("#feet").addClass("imperial");
 	$("#inches").addClass("imperial");		
 }
-
 /////////////
 // ON LOAD //
 /////////////
 $("#pA2B").change();
-writeCalcValues();
-
+	writeCalcValues();
 }
 
