@@ -1,10 +1,4 @@
-var appVersion = "1.1.0";
-
-    cordova.getAppVersion(function (version) {
-        alert(version);
-		appVersion = version;
-    });
-
+var appVersion = "1.1.0 (11005)";
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//

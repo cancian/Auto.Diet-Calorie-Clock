@@ -109,14 +109,14 @@ li#optionMeasure.activeRow		{ position: relative; background-color: #fff !import
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #eee; white-space: nowrap; }
 #appStatusIntake div			{ padding-top: 19px; display: block; font-size: 14px; position: relative;  background-color: #; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; opacity: .9; color: #000; border: 0px solid #000; }
-#appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; padding-right: ; position: absolute; top: 0; left: 15%; } 
-#appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; padding-right: ; position: absolute; top: 0; right: 24%; }
+#appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
+#appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; position: absolute; top: 0; right: 24%; }
 /**/
-#appStatusAddLeft				{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #4285F4; color: #fff; font-weight: ; }
+#appStatusAddLeft				{ position: absolute; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #4285F4; color: #fff; }
 #appStatusAddLeft div			{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
 #appStatusAddLeft span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 /**/
-#appStatusAddRight				{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #4285F4; color: #fff; font-weight: ; }
+#appStatusAddRight				{ position: absolute; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #4285F4; color: #fff; }
 #appStatusAddRight div			{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
 #appStatusAddRight span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 #appStatusAddRight div:active,
@@ -220,7 +220,7 @@ div#entryBodySearch			{ position: absolute; top: 67px; right: 15px; width: 30px;
 #entryBodySearch div		{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #D7D7D7; position: relative; border-radius: 0.35em; }
 #entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #D7D7D7; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
 div#entryBodySearch:active	{ opacity: 1; }
-select#entryTime			{ position: absolute; right: 17px; top: 109px; width: 100px; color: #777; font-size: 12px; line-height: 16px;; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+select#entryTime			{ position: absolute; right: 17px; top: 109px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 #entrySubmit				{ text-shadow: rgba(0,0,0,.06) 0 1px 0; position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 0px solid #bababa; border-radius: 0px; opacity: 1; padding: 6px 28px 6px 28px; font-weight: bold; background-color: #eee; color: #999; }
 div.submitActive			{ color: #fff !important; border-color: #aaa !important; background-color: #2C61D2 !important; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
 .android .submitActive		{ -webkit-box-shadow: none !important; }  

@@ -65,49 +65,23 @@
 	<feature name="UserVoiceCommand">
 		<param name="ios-package" value="UserVoiceCommand" />
 	</feature>
-	<feature name="GAPlugin">
-		<param name="ios-package" value="GAPlugin" />
-	</feature>
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
-    <feature name="Globalization">
-        <param name="ios-package" value="CDVGlobalization" />
-    </feature>
-	<feature name="AppVersion">
-		<param name="ios-package" value="AppVersion" />
-	</feature>
-		
+
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
 	<feature name="Notification">
 		<param name="android-package" value="org.apache.cordova.dialogs.Notification" />
 	</feature>
-	<feature name="GAPlugin">
-		<param name="android-package" value="com.adobe.plugins.GAPlugin" />
-	</feature>
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
-    <feature name="Globalization">
-        <param name="android-package" value="org.apache.cordova.globalization.Globalization" />
-    </feature>
-    <feature name="AppVersion">
-        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
-    </feature>
 
-    <plugins>
-        <plugin name="AppVersion" value="uk.co.whiteoctober.cordova.AppVersion" />
-    </plugins>
-	
 	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.splashscreen" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
-	<gap:plugin name="org.apache.cordova.globalization" />
-    <!--<gap:plugin name="uk.co.whiteoctober.cordova.appversion" />-->
-
-
 
 	<!-- ICON: ANDROID -->
     <icon src="res/icon/android/drawable/icon.png" />

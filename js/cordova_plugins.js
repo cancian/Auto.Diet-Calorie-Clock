@@ -22,50 +22,11 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js",
-        "id": "com.adobe.plugins.GAPlugin.GAPlugin",
-        "clobbers": [
-            "GAPlugin"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js",
         "id": "org.apache.cordova.inappbrowser.InAppBrowser",
         "clobbers": [
             "window.open"
         ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.globalization/www/GlobalizationError.js",
-        "id": "org.apache.cordova.globalization.GlobalizationError",
-        "clobbers": [
-            "window.GlobalizationError"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.globalization/www/globalization.js",
-        "id": "org.apache.cordova.globalization.globalization",
-        "clobbers": [
-            "navigator.globalization"
-        ]
-    },
-    {
-        "file": "plugins/uk.co.whiteoctober.cordova.AppVersion/www/AppVersionPlugin.js",
-        "id": "uk.co.whiteoctober.cordova.AppVersion.AppVersionPlugin",
-        "clobbers": [
-            "cordova.getAppVersion"
-        ]
     }
-];
-module.exports.metadata = 
-// TOP OF METADATA
-{
-    "org.apache.cordova.dialogs": "0.2.4",
-    "org.apache.cordova.splashscreen": "0.2.5",
-    "com.adobe.plugins.GAPlugin": "2.3.1",
-    "org.apache.cordova.inappbrowser": "0.2.5",
-    "org.apache.cordova.globalization": "0.2.4",
-    "uk.co.whiteoctober.cordova.AppVersion": "0.0.1"
-}
-// BOTTOM OF METADATA
+]
 });
