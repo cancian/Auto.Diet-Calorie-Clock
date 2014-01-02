@@ -449,11 +449,12 @@ $(document).on("pageReload", function(evt) {
 			if(!$('.delete').hasClass('busy')) {
 			//hide
 			if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
-				$('#pageSlideFood').addClass('busy');
-				$('#pageSlideFood').removeClass("open");
+				$('#pageSlideFood').addClass('busy');				
+				//$('#pageSlideFood').removeClass("open");
+				//$('#appHeader').removeClass("open");
 				$('#pageSlideFood').on('webkitTransitionEnd',function(e) { $('#pageSlideFood').removeClass('busy'); /*$('#pageSlideFood').css("opacity","0");*/ $("#foodSearch").blur(); });
 			} else {
-				if(!$('#pageSlideCalc').hasClass('busy') && !$('#pageSlideInfo').hasClass('busy') && !$('#pageSlideFood').hasClass('busy')) {
+				if(!$('#pageSlideFood').hasClass('busy')) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PAGESLIDEFOOD DIV //
@@ -1180,7 +1181,10 @@ $(document).on("pageReload", function(evt) {
 					//$('#pageSlideFood').css("opacity",".925");
 					$('#pageSlideFood').addClass('busy');
 					$('#pageSlideFood').addClass("open");
-					$('#pageSlideFood').on('webkitTransitionEnd',function(e) { $('#pageSlideFood').removeClass('busy'); });
+					$('#appHeader').addClass("open");
+					$('#pageSlideFood').on('webkitTransitionEnd',function(e) { 
+					$('#pageSlideFood').removeClass('busy');
+					 });
 				}}
 			}}
 		}

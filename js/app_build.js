@@ -25,7 +25,6 @@ function openSettings(string) {
 		<div id="optionWebsite">mylivediet.com</div>\
 		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>';
-
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -143,9 +142,10 @@ function openSettings(string) {
 	$("#optionReset").on(touchend, function(evt) {
 		function onConfirmWipe(button) {
 			if(button == 1) {
-				window.localStorage.clear();
-				window.localStorage.setItem("appReset","wipe");
-				afterHide();
+				//window.localStorage.clear();
+				//window.localStorage.setItem("appReset","wipe");
+				diary.deSetup();
+				return false;
 			}
 		}
 		//SHOW DIALOG
@@ -731,11 +731,13 @@ $(document).trigger("sliderInit");
 		}
 		//rewipe
 		if($("#entryBody").val().toLowerCase() == "devrewipe") {
-			window.localStorage.clear();
-			window.localStorage.setItem("appReset","wipe");
+			//window.localStorage.clear();
+			//window.localStorage.setItem("appReset","wipe");
+			diary.deSetup();
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 			afterHide();
+			return false;
 		}
 		if($("#entryBody").val().toLowerCase() == "devstress") {
 			stressTest.bookmarklet();

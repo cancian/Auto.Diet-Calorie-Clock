@@ -205,9 +205,10 @@ afterShow(200);
 		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
 			$("#foodSearch").blur();
 			$('#pageSlideFood').addClass('busy');
+			$('#appHeader').removeClass("open");
 			$('#pageSlideFood').removeClass("open");
 			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
-				$('#pageSlideFood').removeClass('busy'); 
+				$('#pageSlideFood').removeClass('busy');
 				//WIPE ON CLOSE
 				$('#pageSlideFood').remove(); 
 			});

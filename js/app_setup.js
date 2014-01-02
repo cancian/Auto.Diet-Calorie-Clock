@@ -29,10 +29,12 @@ Diary.prototype.initDB = function(t) {
 	///////////////
 	// SQL RESET //
 	///////////////
+	/*
 	if(window.localStorage.getItem("appReset") == "wipe") {
 		window.localStorage.removeItem("appReset");
 		t.executeSql('DELETE FROM "diary_entry"');
 	}
+	*/
 	//config
 	if(!window.localStorage.getItem("config_start_time")) {
 		window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
@@ -46,6 +48,13 @@ Diary.prototype.initDB = function(t) {
 	if(!window.localStorage.getItem("config_kcals_day_2")) {
 		window.localStorage.setItem("config_kcals_day_2",2000);
 	}
+};
+////////////////////
+// RESET DATA+SQL //
+////////////////////
+Diary.prototype.deSetup = function(callback) {
+	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
+	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); window.localStorage.clear(); return false; }, this.dbErrorHandler, function() { afterHide(); return false; });
 };
 /////////////////
 // GET ENTRIES //
@@ -266,6 +275,8 @@ function afterShow(t) {
 ///////////////
 function afterHide() {
 	setTimeout(function() { window.location=''; },500);
+	//DISABLE HANDLERS
+	$("*").off().on(touchstart,function(evt) { return false; });
 	//SET CSS TRANSITION
 	$('body').css("-webkit-transition-timing-function","ease");
 	$('body').css("-webkit-transition-duration",".25s");
