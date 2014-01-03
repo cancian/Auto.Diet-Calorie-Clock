@@ -1,4 +1,4 @@
-var appVersion = "1.1.0 (11005)";
+var appVersion = "1.1.0 (11006)";
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -116,8 +116,8 @@ var PREPARING_DB = {
 	pt: "inicializando"
 };
 var BEEN_DIETING = {
-	en: "been dieting for",
-	pt: "iniciado há"
+	en: "Been dieting for",
+	pt: "Iniciado há"
 };
 var DELETE = {
 	en: "Delete",
@@ -269,7 +269,7 @@ var SETTINGS_FEEDBACK = {
 	pt: "Feedback e suporte"
 };
 var SETTINGS_REVIEW = {
-	en: "Review this app",
+	en: "Rate this app",
 	pt: "Avalie este app"
 };
 var SETTINGS_RESET = {
@@ -393,6 +393,72 @@ var CALORIES_AVALIABLE = {
 var DAILY_CALORIES = {
 	en: "daily calories",
 	pt: "calorias por dia"
+};
+
+var STATUS_EQ_TIME_1 = {
+	en: "Wait at least ",
+	pt: "Aguarde pelo menos "
+};
+
+var STATUS_EQ_TIME_2 = {
+	en: " before your next meal. \n\n(",
+	pt: " antes de sua próxima refeição. \n\n("
+};
+
+var STATUS_EQ_TIME_3 = {
+	en: " calories above your ",
+	pt: " calorias acima de sua meta de "
+};
+
+var STATUS_EQ_TIME_4 = {
+	en: " kcal/day target)",
+	pt: " kcal/dia)"
+};
+
+var STATUS_EQ_TIME_5 = {
+	en: "Your next meal should have around ",
+	pt: "Sua próxima refeição deve possuir aprox. "
+};
+
+var STATUS_EQ_TIME_6 = {
+	en: " calories. \n\n(equivalent to ",
+	pt: " calorias. \n\n(equivalente a "
+};
+
+var STATUS_EQ_TIME_7 = {
+	en: " on a ",
+	pt: " em uma meta de "
+};
+
+var STATUS_EQ_TIME_8 = {
+	en: " kcal/day schedule)",
+	pt: " kcal diárias)"
+};
+
+var XXX = {
+	en: "XXX",
+	pt: "XXX"
+};
+var STATUS_LOSS_1 = {
+	en: "You have lost a total of ",
+	pt: "Você perdeu um total de "
+};
+var STATUS_LOSS_2 = {
+	en: "(based on a caloric restriction of ",
+	pt: "(baseado em uma restrição calórica de "
+};
+var CALORIC_INTAKE = {
+	en: "CALORIC INTAKE",
+	pt: "INGESTÃO CALÓRICA"
+};
+
+var STATUS_INTAKE_1 = {
+	en: "Your daily caloric intake should be equal to (",
+	pt: "Sua ingestão calórica deve ser igual a ("
+};
+var STATUS_INTAKE_2 = {
+	en: ") + (calories burned from exercise) \n\nThe more you exercise, the more you can eat!",
+	pt: ") + (calorias queimadas em exercício) \n\nQuanto mais você se exercitar, mais poderá comer!"
 };
 
 var XXX = {

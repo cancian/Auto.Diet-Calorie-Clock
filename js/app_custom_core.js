@@ -42,16 +42,6 @@ function appTimer(id,content) {
 	else if(kcalsInput > eqPerDay * .25) { status = lDeficit;  cssClass = "deficit";  }
 	else if(kcalsInput < eqPerDay *-.25) { status = lSurplus;  cssClass = "surplus";  } 
 	else                        { status = lBalanced; cssClass = "balanced"; }
-	//EQ TIME
-	/*
-	var eqTime;
-	var eqStart  = Number(window.localStorage.getItem("config_start_time"));
-	var eqCals   = kcalsInput;
-	var eqDate   = Number((new Date()).getTime());
-	var eqRatio  = (60*60*24 / eqPerDay);
-	var eqDiff   = eqDate - Math.floor(Math.abs(kcalsInput*eqRatio));
-	var eqTime   = dateDiff(eqDiff*1000,eqDate*1000).replace(" " + LANG("AGO"),"");
-	*/
 	/////////////////
 	// WEIGHT LOSS //
 	/////////////////

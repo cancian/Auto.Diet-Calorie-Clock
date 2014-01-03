@@ -208,7 +208,7 @@ function openStatus(string) {
 	<a name="top"></a>\
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG("TIME_ELAPSED") + '</span></div></div>\
-		<div id="appStatusWeight"><div><p><strong>' + weightLoss + '</strong>' + weightLossUnit + '</p><span>' + LANG("WEIGHT_LOSS") + '</span></div></div>\
+		<div id="appStatusWeight"><div><p><strong>' + weightLoss + '</strong>&nbsp;' + weightLossUnit + '</p><span>' + LANG("WEIGHT_LOSS") + '</span></div></div>\
 		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG("CALORIC_BALANCE") + '</span></div></div>\
 		<div id="appStatusIntake">\
 	<div id="entry_f-sum"><p>' + Number(window.localStorage.getItem("config_entry_f-sum")) + '</p><span>' + LANG("FOOD")     + '</span></div>\
@@ -272,6 +272,74 @@ function openStatus(string) {
 		evt.preventDefault();
 		window.localStorage.setItem("searchType","exercise");
 		$(document).trigger("pageReload");
+	});
+	//#/////////////////#//
+	//# TAP STATUS TEXT #//
+	//#/////////////////#//
+	//////////////////
+	// TIME ELAPSED //
+	//////////////////
+	$("#appStatusElapsed").on(touchend,function(evt) {
+		var ELAPSED_DIALOG = LANG("BEEN_DIETING") + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),"")) + ".";
+		//DIALOG
+		if(hasTouch()) {
+			navigator.notification.alert(ELAPSED_DIALOG, voidThis,LANG("TIME_ELAPSED").toUpperCase(),LANG("OK"));
+		} else {
+			alert(LANG("TIME_ELAPSED").toUpperCase() + ": \n" + ELAPSED_DIALOG);
+		}
+	});
+	/////////////////
+	// LOST WEIGHT //
+	/////////////////
+	$("#appStatusWeight").on(touchend,function(evt) {
+		if(weightLossUnit == "kg") { 
+			var resValue = Math.round(((Number(window.localStorage.getItem('calcForm#pA6G'))*7700)/7));
+		} else { 
+			var resValue = Math.round(((Number(window.localStorage.getItem('calcForm#pA6G'))*3500)/7));
+		}
+		var LOSS_DIALOG = LANG("STATUS_LOSS_1") + $("#appStatusWeight p").text() + "\n\n" + LANG("STATUS_LOSS_2") + resValue + " kcal/" + LANG("DAY") + ")";
+		//[" + window.localStorage.getItem('calcForm#pA6G') + weightLossUnit + "/week])";
+		//DIALOG
+		if(hasTouch()) {
+			navigator.notification.alert(LOSS_DIALOG, voidThis,LANG("WEIGHT_LOSS").toUpperCase(),LANG("OK"));
+		} else {
+			alert(LANG("WEIGHT_LOSS").toUpperCase() + ": \n" + LOSS_DIALOG);
+		}
+	});
+	//////////////////////////////
+	// CALORIC STATUS (EQ TIME) //
+	//////////////////////////////
+	$("#appStatusBalance").on(touchend,function(evt) {
+		var eqStart 	= Number(window.localStorage.getItem("config_start_time"));
+		var kcalsInput = parseInt($("#timerKcals").text());
+		var eqPerDay   = Number($("#editableDiv").text());
+		var eqDate  	 = Number((new Date()).getTime());
+		var eqRatio 	= (60*60*24 / eqPerDay);
+		var eqDiff  	 = eqDate - Math.floor(Math.abs(kcalsInput*eqRatio));
+		var eqTime  	 = trim(dateDiff(eqDiff*1000,eqDate*1000).replace(" " + LANG("AGO"),""));
+		if(parseInt($("#timerKcals").text()) < 0) {
+			var EQ_DIALOG = LANG("STATUS_EQ_TIME_1") + eqTime + LANG("STATUS_EQ_TIME_2") + Math.abs(parseInt($("#timerKcals").text())) + LANG("STATUS_EQ_TIME_3") + eqPerDay + LANG("STATUS_EQ_TIME_4");
+		} else {
+			var EQ_DIALOG = LANG("STATUS_EQ_TIME_5") + parseInt($("#timerKcals").text()) + LANG("STATUS_EQ_TIME_6") + eqTime + LANG("STATUS_EQ_TIME_7") + eqPerDay + LANG("STATUS_EQ_TIME_8");
+		}
+		//DIALOG
+		if(hasTouch()) {
+			navigator.notification.alert(EQ_DIALOG, voidThis,LANG("CALORIC_BALANCE").toUpperCase(),LANG("OK"));
+		} else {
+			alert(LANG("CALORIC_BALANCE").toUpperCase() + ": \n" + EQ_DIALOG);
+		}
+	});
+	///////////////////
+	// INTAKE STATUS //
+	///////////////////
+	$("#appStatusIntake").on(touchend,function(evt) {
+		var INTAKE_DIALOG = LANG("STATUS_INTAKE_1") + Number($("#editableDiv").text()) + LANG("STATUS_INTAKE_2");
+		//DIALOG
+		if(hasTouch()) {
+			navigator.notification.alert(INTAKE_DIALOG, voidThis,LANG("CALORIC_INTAKE").toUpperCase(),LANG("OK"));
+		} else {
+			alert(LANG("CALORIC_INTAKE").toUpperCase() + ": \n" + INTAKE_DIALOG);
+		}
 	});
 	//#/////////////////////#//
 	//# APP STATUS/DATE BAR #//
@@ -449,7 +517,7 @@ diaryHtml += '\
 			// CORE OUTPUT
 			//<p class='entriesId'>#" + Number(i+1) + "</p>
 			var dataHandler = "\
-			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='" + rowClass + "' name='" + dataPublished + "'>\
+			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
 				<p class='entriesKcals'>kcal</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
@@ -674,7 +742,7 @@ $(document).trigger("sliderInit");
 	//////////////////
 	// DEV KEYCODES //
 	//////////////////
-	$("#entryBody").keyup(function(evt) {
+	$("#entryBody").on("keypress keyup keydown change blur focus",function(evt) {
 		//DEV SET LANG
 		if($("#entryBody").val().toLowerCase() == "devsetlang") {
 			if(window.localStorage.getItem("devSetLang") == "pt") {

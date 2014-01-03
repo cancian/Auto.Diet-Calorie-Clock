@@ -276,7 +276,7 @@ afterShow(200);
 			//edit...
 			if(!$(this).has('input').length) {
 				var timedBlur = new Date().getTime();
-				var value = $(this).html();
+				var value = $(this).text();
 				var input = $('<input/>', {
 					'type':'number',
 					'id':'editable',

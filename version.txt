@@ -2,15 +2,13 @@
 ## VERSION LOG ##
 #################
 # 1.1.1 [03/01/2014]
+• tapping status boxes now displays additional information
 • improved scrolling
 • improved language detection
-• option to auto-update up with current version
 • fixed calorie calculator recalc issues
 • fixed diary focus issues
 • fixed form style issues
-• 
-• 
-• 
+• improved text handling
 
 # 1.1.0 [25/12/2013]
 • improved user interface

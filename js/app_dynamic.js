@@ -44,7 +44,7 @@ $(document).on("pageload", function(evt) {
 					////////////////////////
 					if(!$('.editableInput').is(':visible')) {
 						if(!$(this).has('input').length) {
-							var value = $('.entriesBody',this).html();
+							var value = $('.entriesBody',this).text();
 							var kcals = $('.entriesTitle',this).html();
 							var timedBlur = new Date().getTime();
 							$('.entriesTitle',this).attr('id', 'kcalsDiv');
@@ -403,31 +403,25 @@ $(document).on("pageload", function(evt) {
 		//evt.preventDefault();
 		$(this).hide();
 		//UPDATE DB
-		diary.deleteEntry($(this).parent('div').data("id"), function(evt) {
-			evt.preventDefault();
-			//return false;
-		});
-		//IF LAST ROW
-		if(document.getElementById('entryList').innerHTML.match(/data/g).length == 1) {
+		diary.deleteEntry($(this).parent('div').data("id"));
+		//REMOVE CLICKED
+		$(this).parent('div').remove();
+		updateTimer();
+		updateEntriesTime();
+		//SCROLLBAR UPDATE
+		clearTimeout(niceTimer);
+		niceTimer = setTimeout(niceResizer, 200);
+		//IF LAST ROW 
+		if($('#entryList .entryListRow').length == 0) {
 			$('#entryList').html('<div id="noEntries"><span>' + LANG("NO_ENTRIES") + '</span></div>');
 			updateTimer();
-			updateEntriesTime();
-		} else {
-			//REMOVE CLICKED
-			$(this).parent('div').remove();
-			updateTimer();
-			updateEntriesTime();
-			//SCROLLBAR UPDATE			
-			clearTimeout(niceTimer);
-			niceTimer = setTimeout(niceResizer, 200);
-			//force error
-			window.onscroll(scroll($('#appContent')[0].scrollTop,0));
+			return false;
 		}
-		//return false;
 	});
 //////#//
 }); //#//
 //////#//
+
 
 
 
@@ -1007,9 +1001,11 @@ $(document).on("pageReload", function(evt) {
 								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
 									$("#modalOverlay,#modalWindow").remove();
 								});
-								var resetSlider = document.getElementById('slider').slider.resetValue();
-								document.getElementById('entryBody').value = "";
-								document.getElementById('entryTime').value = 0;
+								if(document.getElementById('slider') && document.getElementById('entryBody')) {
+									var resetSlider = document.getElementById('slider').slider.resetValue();
+									document.getElementById('entryBody').value = "";
+									document.getElementById('entryTime').value = 0;
+								}
 								//REFRESH DATA
 								updateTimer();
 								clearRepeaterModal();

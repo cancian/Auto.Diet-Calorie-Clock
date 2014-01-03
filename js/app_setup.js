@@ -219,7 +219,6 @@ if (ss < 10) { ss = "0" + ss; }
 if(dd > 0) { dd = dd + "d "; } else { dd = ""; }
 return dd+hh+":"+mm+":"+ss;
 }
-
 //////////
 // TRIM //
 //////////
@@ -392,11 +391,12 @@ function pageLoad(target,content,published) {
 		var page = $('#entryList');
 	}
 	// RELOAD HANDLERS //
-	var evt = document.createEvent('CustomEvent');
-	evt.initCustomEvent("pageload",true,true,content);
+	//var evt = document.createEvent('CustomEvent');
+	//evt.initCustomEvent("pageload",true,true,content);
 	//var page = $('#entryList div');
 	if(page[0]) {
-		page[0].dispatchEvent(evt);
+		$(page).trigger("pageload");
+	//	page[0].dispatchEvent(evt);
 	}
 	return;
 }
@@ -461,7 +461,7 @@ function updateEntries(partial) {
 			// CORE OUTPUT
 			//<p class='entriesId'>#" + Number(i+1) + "</p>
 			var dataHandler = "\
-			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='" + rowClass + "' name='" + dataPublished + "'>\
+			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
 				<p class='entriesKcals'>kcal</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
@@ -551,8 +551,6 @@ function updateEntriesTime() {
 			$("#" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
 		}
 	});
-	//been dieting for
-	$("#underscroll").html(LANG("BEEN_DIETING") + " " + dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),""));
 }
 //////////////////
 // NICE RESIZER //
