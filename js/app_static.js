@@ -54,6 +54,7 @@ function appFooter(id) {
 	if(id == "tab4") { openSettings(); }
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
+	updateTimer();
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -187,7 +188,7 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //####    START WORKING   ####//
 //############################//
 afterShow(200);
-//updateTimer();
+updateTimer();
 //updateEntries();
 //updateEntriesTime();
 (function startTimer() {

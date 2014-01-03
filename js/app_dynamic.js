@@ -511,7 +511,7 @@ $(document).on("pageReload", function(evt) {
 		//remember search type
 		if(window.localStorage.getItem("searchType") == "exercise") {
 			$("#foodSearch").attr('placeholder',LANG("EXERCISE_SEARCH"));
-			$("#foodSearch").addClass("exerciseType");
+			$("#foodSearch,#pageSlideFood").addClass("exerciseType");
 		}
 		////////////////////
 		// RESULTS HEIGHT //
@@ -1133,6 +1133,7 @@ $(document).on("pageReload", function(evt) {
 		//toggle -if not animated
 		if(!$("#foodSearch").hasClass('busy')) {
 			$("#foodSearch").toggleClass("exerciseType");
+			$("#pageSlideFood").toggleClass("exerciseType");
 			//update placeholder n' animate
 			if($("#foodSearch").hasClass("exerciseType")) {
 				window.localStorage.setItem("searchType","exercise");

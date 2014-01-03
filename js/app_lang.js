@@ -26,11 +26,6 @@ var NO_ENTRIES = {
 	en: "no entries",
 	pt: "nenhum registro"
 };
-/*
-var OVERSCROLL = {
-	en: "swipe right for instructions ►<br />◄ swipe left for calorie calculator",
-	pt: "deslize à direita para instruções ►<br />◄ à esquerda para calculadora de calorias"
-};*/
 var EXERCISE = {
 	en: "exercise",
 	pt: "exercício"
@@ -280,8 +275,6 @@ var SETTINGS_SYNC = {
 	en: "Sync with mylivediet.com",
 	pt: "Sincronizar com mylivediet.com"
 };
-
-
 var ABOUT_TITLE = {
 	en: "MyLiveDiet v" + appVersion,
 	pt: "MyLiveDiet v" + appVersion
@@ -394,50 +387,37 @@ var DAILY_CALORIES = {
 	en: "daily calories",
 	pt: "calorias por dia"
 };
-
 var STATUS_EQ_TIME_1 = {
 	en: "Wait at least ",
 	pt: "Aguarde pelo menos "
 };
-
 var STATUS_EQ_TIME_2 = {
 	en: " before your next meal. \n\n(",
 	pt: " antes de sua próxima refeição. \n\n("
 };
-
 var STATUS_EQ_TIME_3 = {
 	en: " calories above your ",
 	pt: " calorias acima de sua meta de "
 };
-
 var STATUS_EQ_TIME_4 = {
 	en: " kcal/day target)",
 	pt: " kcal/dia)"
 };
-
 var STATUS_EQ_TIME_5 = {
 	en: "Your next meal should have around ",
 	pt: "Sua próxima refeição deve possuir aprox. "
 };
-
 var STATUS_EQ_TIME_6 = {
 	en: " calories. \n\n(equivalent to ",
 	pt: " calorias. \n\n(equivalente a "
 };
-
 var STATUS_EQ_TIME_7 = {
 	en: " on a ",
 	pt: " em uma meta de "
 };
-
 var STATUS_EQ_TIME_8 = {
 	en: " kcal/day schedule)",
 	pt: " kcal diárias)"
-};
-
-var XXX = {
-	en: "XXX",
-	pt: "XXX"
 };
 var STATUS_LOSS_1 = {
 	en: "You have lost a total of ",
@@ -451,7 +431,6 @@ var CALORIC_INTAKE = {
 	en: "CALORIC INTAKE",
 	pt: "INGESTÃO CALÓRICA"
 };
-
 var STATUS_INTAKE_1 = {
 	en: "Your daily caloric intake should be equal to (",
 	pt: "Sua ingestão calórica deve ser igual a ("

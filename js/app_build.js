@@ -279,7 +279,7 @@ function openStatus(string) {
 	//////////////////
 	// TIME ELAPSED //
 	//////////////////
-	$("#appStatusElapsed").on(touchend,function(evt) {
+	$("#appStatusElapsed").on(touchstart,function(evt) {
 		var ELAPSED_DIALOG = LANG("BEEN_DIETING") + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),"")) + ".";
 		//DIALOG
 		if(hasTouch()) {
@@ -291,7 +291,7 @@ function openStatus(string) {
 	/////////////////
 	// LOST WEIGHT //
 	/////////////////
-	$("#appStatusWeight").on(touchend,function(evt) {
+	$("#appStatusWeight").on(touchstart,function(evt) {
 		if(weightLossUnit == "kg") { 
 			var resValue = Math.round(((Number(window.localStorage.getItem('calcForm#pA6G'))*7700)/7));
 		} else { 
@@ -309,7 +309,7 @@ function openStatus(string) {
 	//////////////////////////////
 	// CALORIC STATUS (EQ TIME) //
 	//////////////////////////////
-	$("#appStatusBalance").on(touchend,function(evt) {
+	$("#appStatusBalance").on(touchstart,function(evt) {
 		var eqStart 	= Number(window.localStorage.getItem("config_start_time"));
 		var kcalsInput = parseInt($("#timerKcals").text());
 		var eqPerDay   = Number($("#editableDiv").text());
@@ -332,7 +332,7 @@ function openStatus(string) {
 	///////////////////
 	// INTAKE STATUS //
 	///////////////////
-	$("#appStatusIntake").on(touchend,function(evt) {
+	$("#appStatusIntake").on(touchstart,function(evt) {
 		var INTAKE_DIALOG = LANG("STATUS_INTAKE_1") + Number($("#editableDiv").text()) + LANG("STATUS_INTAKE_2");
 		//DIALOG
 		if(hasTouch()) {
@@ -475,7 +475,7 @@ diaryHtml += '\
 	<div id="entrySubmit">' + LANG('ADD_ENTRY') + '</div>\
 </div>\
 <div id="entryListWrapper">\
-	<div class="heading" id="go">' + LANG('ACTIVITY_LOG') + '</div>\
+	<div class="heading" id="go">' + LANG('ACTIVITY_LOG') + '<div id="diaryNotes"></div></div>\
 	<div id="entryList">';
 		///////////////////////
 		// updateEntries SQL //
@@ -913,6 +913,19 @@ $(document).trigger("sliderInit");
 			}
 		}
 	});
+	//#/////////////#//
+	//# DIARY NOTES #//
+	//#/////////////#//
+	/*
+		$('#diaryNotesWrapper,#diaryNotesInput').on(touchstart, function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+	});
+	$('#diaryNotes').on(tap, function(evt) {
+		$('#diaryNotesWrapper').remove();
+		$('#appContent').before("<div id='diaryNotesWrapper'><textarea id='diaryNotesInput'></textarea><div id='diaryNotesButton'></div></div>");
+	});
+	*/
 });
 }
 /*##############################

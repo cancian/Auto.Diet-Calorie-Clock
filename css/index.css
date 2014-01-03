@@ -3,7 +3,7 @@ body							{ position: relative; width: 100%; height: 100%; display: block; over
 @font-face						{ font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
 body > *,h2,
 input[readonly]					{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-user-select: none; }
-input,select					{ -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial, Helvetica; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; }
+input,select					{ -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial, Helvetica; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; -webkit-user-modify: read-write-plaintext-only; }
 ul								{ padding: 0; margin: 0; text-indent: 0; }
 p								{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*GENERIC*/
@@ -20,7 +20,7 @@ div#appContent					{ position: absolute; top: 62px; left: 0; right: 0; bottom: 4
 /*#///////////////#//
 //# GLOBAL HEADER #//
 //#///////////////#*/
-#appHeader						{ position: fixed; height: 62px; top: 0; left: 0; right: 0; color: #fff; z-index: 99; }
+#appHeader						{ position: fixed; height: 62px; top: 0; left: 0; right: 0; color: #fff; z-index: 50; }
 #appHeader.deficit				{ background-color: #309030; }
 #appHeader.balanced				{ background-color: #316ADC; }
 #appHeader.surplus				{ background-color: #C85834; }
@@ -144,8 +144,6 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #appStatusReload:before			{ content: "\f01e"; font-family: FontAwesome; display: inline-block; font-weight: bold; }
 /*toggle icon*/
 #appStatusToggle				{ display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #000; line-height: 49px; z-index: 10; }
-
-
 #appStatusFix #appStatusArrow	{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .4s; opacity: .075; position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; -webkit-backface-visibility: hidden; }
 #appStatusFix.open #appStatusArrow { top: -23px; -webkit-transform: rotate(-60deg); }
 /*
@@ -155,7 +153,6 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 	border-right: 12px solid transparent;
 	border-top: 20px solid #000;
 	border-bottom: 0px solid transparent;
-
 	width: 0; 
 	height: 0; 
 	border-left: 12px solid transparent;
@@ -269,6 +266,13 @@ body.android .entriesBody input { text-indent: -1px; }
 div#noEntries				{ border-left: 5px solid transparent; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
 .heading					{ -webkit-user-select: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #eee; text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 10pt; color: #444; text-indent: 6px; padding: 10px 0 8px 9px; background-color: #f5f5f5; font-weight: bold; margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: left; text-transform: uppercase; letter-spacing: 3px; }
+/*
+#diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center;  line-height: 38px; display: inline-block; float: right; font-size: 22px; background-color: ; color: #ddd; }
+#diaryNotes:before			{ content: "\f02d"; font-family: FontAwesome; display: inline-block; font-weight: normal; }
+#diaryNotesWrapper			{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; margin: 0;  z-index: 1; background-color: rgba(0,0,0,.2); }
+#diaryNotesInput 			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 12px; background-color: #fff; border: 0; padding: 9px; outline: 0;  }
+#diaryNotesButton			{  }
+*/
 /*EXPIRED*/
 div.expired p				{ opacity: .3; }
 div.editing p				{ opacity: 1; }
@@ -336,14 +340,14 @@ body.android #adjustPosBlock:active	{ color: rgba(0,0,0,.1); background-color: t
 div#pageSlideFood		{ position: absolute; padding-top: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #fff; overflow: hidden; background-color: #000; z-index: 2; background-image: -webkit-linear-gradient(#000,#000); }
 div#pageSlideFood		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .25s; }
 div#pageSlideFood.open	{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .25s; }
-div#pageSlideFood		{ /*-webkit-backface-visibility: hidden;*/ }
+div#pageSlideFood		{ -webkit-backface-visibility: hidden; }
 /*close arrow*/
 #appHeader:before			{ top: 4px; opacity: 0; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; content: "\f107"; font-family: FontAwesome; text-align: center; display: block; width: 100%; position: absolute; left: 0; font-size: 56px; margin-left: 0px; z-index: 1; font-weight: bold; }
 body.ios7 #appHeader:before { top: 18px; }
 #appHeader.open:before		{ opacity: .1; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*food search*/
 input#foodSearch		{ position: absolute; left: 0px; right: 0; top: 0; font-size: 18px; border: 0 !important; display: block; color: #fff; padding: 22px 26px 16px 30px; background-color: #151515; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; font-family: Arial, Helvetica, sans-serif; }
-#foodList				{ margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); }
+#foodList				{ width: 100%; display: block; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); }
 #foodListWrapper		{ width: 100%; overflow: hidden; z-index: 2; position: relative; position: absolute; background-color: #000; }
 #foodList .searcheable	{ position: relative; margin: 0; padding: 0; display: block; height: 60px; margin-bottom: 0px; overflow: hidden; }
 /*food sub itens*/
@@ -351,7 +355,7 @@ span#noMatches			{ color: #fff; position: absolute; top: 75px; left: 33px; overf
 span#iconClear			{ padding: 22px 18px 9px 18px; font-size: 28px; line-height: 22px; font-weight: bold; position: absolute; top: -1px; right:18px; display:none; color:#fff; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .99; font-family: Arial, Helvetica, sans-serif; }
 span#iconRefresh:before { content: "\f021"; color: #666; font-family: FontAwesome; font-weight: normal; font-family: FontAwesome; display: inline-block; }
 span#iconRefresh		{ font-weight: normal; font-family: FontAwesome; display: inline-block; padding: 21px 18px 9px 18px; font-size: 28px; line-height: 21px; position: absolute; top: 0px; right: 15px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .99; }
-div.foodName			{ color: #ffcc33; position: absolute; top: 12px; left: 23px; right: 8px; overflow: hidden; display:block; font-weight: bold; height: 44px; padding-right: 1px; z-index: 9999; }
+div.foodName			{ color: #ffcc33; position: absolute; top: 12px; left: 23px; right: 8px; overflow: hidden; display:block; font-weight: bold; height: 44px; padding-right: 1px; z-index: 9999; -webkit-backface-visibility: visible; }
 div#activeOverflow		{ color: #fff; overflow: auto; padding-right: 0px; border-right: 0px solid transparent; -webkit-backface-visibility: visible; display: block; float: none; text-align: left; text-indent: 0px; }
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 1s; }
 .yellow					{ background-color: rgba(255,200,0,.88); }
@@ -362,6 +366,14 @@ span.foodPro			{ float: left; width: 65px; padding-top: 31px; font-size: 12px; c
 span.foodFat			{ float: left; width: 65px; padding-top: 31px; font-size: 12px; color: #fff; font-weight: bold; }
 span.foodCar			{ float: left; width: 65px; padding-top: 31px; font-size: 12px; color: #fff; font-weight: bold; }
 span.preSpan			{ padding-right: 5px; color: #ffcc33; /*opacity: 1;*/ }
+/*
+#pageSlideFood.exerciseType div.foodName 			{  color: #fff; }
+#pageSlideFood.exerciseType span.foodKcal,
+#pageSlideFood.exerciseType span.foodPro,
+#pageSlideFood.exerciseType span.foodFat,
+#pageSlideFood.exerciseType span.foodCar			{ color: #F92E21; }
+#pageSlideFood.exerciseType  div#activeOverflow		{ color: #fff; }
+*/
 /*/////////////
 // MODAL BOX //
 /////////////*/

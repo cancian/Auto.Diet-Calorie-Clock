@@ -35,8 +35,8 @@ function appTimer(id,content) {
 	var lSurplus  = LANG('SURPLUS');
 	var lBalanced = LANG('BALANCED');
 	//STATUSES (RELATIVE)
-         if(kcalsInput >  9999) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
-	else if(kcalsInput < -9999) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
+         if(kcalsInput >  9999999 )      { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999999.99; }}
+	else if(kcalsInput < -9999999 )      { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999999.99; }}
 	else if(kcalsInput > eqPerDay * .50) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
 	else if(kcalsInput < eqPerDay *-.50) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
 	else if(kcalsInput > eqPerDay * .25) { status = lDeficit;  cssClass = "deficit";  }

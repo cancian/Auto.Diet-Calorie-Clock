@@ -8,6 +8,7 @@ document.write("<script src='" + hostLocal + "js/mobiscroll.2.9.0.js?"+newDate+"
 document.write("<script src='" + hostLocal + "js/jquery.nicescroll.js?"+newDate+"'><\/script>");
 document.write("<script src='" + hostLocal + "js/jquery.color-2.1.0.min.js?"+newDate+"'><\/script>");
 document.write("<script src='" + hostLocal + "js/jquery.mobileCheckbox.js?"+newDate+"'><\/script>");
+//document.write("<script src='" + hostLocal + "js/jquery.mobile-events.js?"+newDate+"'><\/script>");
 document.write("<script src='" + hostLocal + "js/jquery.touchSwipe.js?"+newDate+"'><\/script>");
 document.write("<script src='" + hostLocal + "js/quo.js?"+newDate+"'><\/script>");
 document.write("<script src='" + hostLocal + "js/html5sql.js?"+newDate+"'><\/script>");
