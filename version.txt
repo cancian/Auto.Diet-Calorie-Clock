@@ -3,6 +3,7 @@
 #################
 # 1.1.1 [03/01/2014]
 • tapping status boxes now displays additional information
+• faster search system
 • improved scrolling
 • improved language detection
 • fixed calorie calculator recalc issues

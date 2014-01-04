@@ -603,9 +603,6 @@ $(document).on("pageReload", function(evt) {
 				for(q = 0; q < sortedList.length; q++) {
 					//not null
 					if(sortedList[q] != "" && q < 8) {
-						
-						//alert(sortedList[q].match( '###' ));
-						//	userAgent.match(/Android [\d+\.]{3,5}/)[0].replace(
 						var itemType = "food";
 					if(sortedList[q].match( '##e##' )) {
 						var itemType = "exercise";
