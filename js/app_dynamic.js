@@ -44,7 +44,7 @@ $(document).on("pageload", function(evt) {
 					////////////////////////
 					if(!$('.editableInput').is(':visible')) {
 						if(!$(this).has('input').length) {
-							var value = $('.entriesBody',this).text();
+							var value = trim($('.entriesBody',this).text());
 							var kcals = $('.entriesTitle',this).html();
 							var timedBlur = new Date().getTime();
 							$('.entriesTitle',this).attr('id', 'kcalsDiv');
@@ -518,10 +518,10 @@ $(document).on("pageReload", function(evt) {
 		////////////////////
 		$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
 		$('#foodList').css("top",($('#appHeader').height()) + "px");
-		if(!isMobile.iOS()) {
+		if(!isMobile.iOS() && androidVersion() < 4.4) {
 			$("#foodList").css("overflow","hidden");
 			setTimeout(function(){
-				$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#fff",cursorborder:"1px solid #000",cursoropacitymax:0.1,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
+				$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid #fff",cursoropacitymax:0.2,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
 				$("body").trigger("resize");
 			},300);
 			//SCROLLBAR UPDATE	
@@ -564,7 +564,14 @@ $(document).on("pageReload", function(evt) {
 				var searchHistory = [];
 				for(var i=0, len=data.length; i<len; i++) {
 					if(data[i].body != "") {
-						searchHistory.push(data[i].body);
+						//set type
+							var titleType = "";
+						if(data[i].title < 0) {
+							var titleType = "##e##";
+						}
+						//remove parenthesis
+						//searchHistory.push(data[i].body.replace(/\[.*?\]/g, '') + titleType);
+						searchHistory.push(data[i].body + titleType);
 					}
 				}
 				searchHistory = searchHistory.reverse();
@@ -596,13 +603,22 @@ $(document).on("pageReload", function(evt) {
 				for(q = 0; q < sortedList.length; q++) {
 					//not null
 					if(sortedList[q] != "" && q < 8) {
-						recentHtml += '<div class="searcheable recentItem"><div class="foodName">' + sortedList[q] + '</div></div>';
+						
+						//alert(sortedList[q].match( '###' ));
+						//	userAgent.match(/Android [\d+\.]{3,5}/)[0].replace(
+						var itemType = "food";
+					if(sortedList[q].match( '##e##' )) {
+						var itemType = "exercise";
+						sortedList[q] = sortedList[q].replace("##e##","");
+					}
+						recentHtml += '<div class="searcheable recentItem ' + itemType + '"><div class="foodName ' + itemType + '">' + sortedList[q] + '</div></div>';
 					}
 				}
-				$("#foodList").html("<div id='recentBlock'><h3 class='recentItem'>" + LANG('ENTRY_HISTORY') + "</h3>" + recentHtml + "</div>");
+				$("#foodList").html("<div id='recentBlock'><h3 class='recentItem'>" + LANG('ENTRY_HISTORY') + "<span>(" + LANG('PRE_FILL') + ")</span></h3>" + recentHtml + "</div>");
 				$(".searcheable").off(tap + touchstart);
 				$(".searcheable").on(tap + touchstart, function(evt) {
 				$("#activeOverflow").removeAttr("id");
+				$(this).addClass("activeOverflow");
 				$(".foodName",this).attr("id","activeOverflow");
 				$(".foodName").css("overflow","auto");
 			});
@@ -632,7 +648,7 @@ $(document).on("pageReload", function(evt) {
 						openDiary();
 					}
 					setTimeout(function(evt) {
-						$("#entryBody").val($("#activeOverflow").text());
+						$("#entryBody").val( trim($("#activeOverflow").text()) );
 						//CSS FADE OUT
 						$('#modalWindow').removeClass('show');
 						$('#modalOverlay').removeClass('show');
@@ -777,6 +793,8 @@ $(document).on("pageReload", function(evt) {
 					return false;
 				}
 				$("#activeOverflow").removeAttr("id");
+				$(".activeOverflow").removeClass("activeOverflow");
+				$(this).addClass("activeOverflow");
 				$(".foodName",this).attr("id","activeOverflow");
 				$(".foodName").css("overflow","auto");
 			});
@@ -967,10 +985,10 @@ $(document).on("pageReload", function(evt) {
 							//ADJUST TYPE
 							if(searchType == "food") { 
 								var valueType = 1;
-								var shortDesc = " (" + document.getElementById('modalAmmount').innerHTML + "g)";
+								var shortDesc = ""; //" [" + document.getElementById('modalAmmount').innerHTML + "g]";
 							} else {
 								var valueType = -1;
-								var shortDesc = " (" + document.getElementById('modalAmmount').innerHTML + " min)";
+								var shortDesc = ""; //" [" + document.getElementById('modalAmmount').innerHTML + " min]";
 							}
 							//grab values
 							var title     = ((document.getElementById('modalTotal').innerHTML) * (valueType));
@@ -990,6 +1008,7 @@ $(document).on("pageReload", function(evt) {
 								$('#modalOverlay').removeClass('show');
 								$(".searcheable").removeClass('fade');
 								//CSS HIGHLIGHT
+								$(".activeOverflow").removeClass("activeOverflow");
 								$(".searcheable").removeClass('yellow');
 								$(".searcheable").removeClass('trans');
 								$("#activeOverflow").parent("div").addClass('yellow');
@@ -1139,7 +1158,7 @@ $(document).on("pageReload", function(evt) {
 				window.localStorage.setItem("searchType","exercise");
 				$("#foodSearch").attr('placeholder',LANG('EXERCISE_SEARCH'));
 				$("#foodSearch").addClass('busy');
-				$("#foodSearch").animate({ backgroundColor: "#555" }, 1).animate({ backgroundColor: "#151515" },600,function() { 
+				$("#foodSearch").animate({ backgroundColor: "#FECEC6" }, 1).animate({ backgroundColor: "#fff" },600,function() { 
 						$("#foodSearch").removeClass('busy');
 					}
 				);
@@ -1147,19 +1166,27 @@ $(document).on("pageReload", function(evt) {
 				window.localStorage.removeItem("searchType");
 				$("#foodSearch").attr('placeholder',LANG('FOOD_SEARCH'));
 				$("#foodSearch").addClass('busy');
-				$("#foodSearch").animate({ backgroundColor: "#555" }, 1).animate({ backgroundColor: "#151515" },600,function() { 
+				$("#foodSearch").animate({ backgroundColor: "#BBE4FF" }, 1).animate({ backgroundColor: "#fff" },600,function() { 
 						$("#foodSearch").removeClass('busy');
 					}
 				);
 			}
 		}
 	});
+	
+	//#D90015  #0B7FFAapp blue > 0033CC & app red  > CC3300
+/*
+ios blue > 007EE5
+add blue > 4B95DE
+ios red  > F92E21 & ios blue > 0A60FF
+*/
 	/////////////////////////////////////////
 	// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 	/////////////////////////////////////////
 	$("#foodSearch").on(touchstart, function(evt) {
 		$(".foodName").css("overflow","hidden");
 		$("#activeOverflow").removeAttr("id");
+		$(".activeOverflow").removeClass("activeOverflow");
 	});
 
 

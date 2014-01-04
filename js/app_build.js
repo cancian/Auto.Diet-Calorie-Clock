@@ -233,46 +233,6 @@ function openStatus(string) {
 	//////////////
 	// HANDLERS //
 	//////////////
-	$("#appStatusTitle").on(touchend,function(evt) {
-		if(window.localStorage.getItem("appStatus") == "running") {
-			function appReset(button) {
-				//ON CONFIRM
-				if(button == 1) {
-					$("#appStatus").removeClass("reset");
-					$("#appStatus").addClass("start");
-					$("#appStatusTitle").html(LANG("START"));
-					window.localStorage.removeItem("appStatus");
-					window.localStorage.setItem("config_start_time",new Date().getTime());
-				}
-				return false;
-			}
-			//SHOW DIALOG
-			if(hasTouch()) {
-				navigator.notification.confirm(LANG("ARE_YOU_SURE"), appReset, LANG("RESET_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
-				return false;
-			} else {
-				if(confirm(LANG("RESET_DIALOG"))) { appReset(1); } else { return false; }
-			}
-		} else {
-			$("#appStatus").removeClass("start");
-			$("#appStatus").addClass("reset");
-			$("#appStatusTitle").html(LANG("RESET"));
-			window.localStorage.setItem("appStatus","running");
-		}
-	});
-	//#/////////////#//
-	//# ADD BUTTONS #//
-	//#/////////////#//
-	$("#appStatusAddLeft").on(touchstart,function(evt) {
-		evt.preventDefault();
-		window.localStorage.setItem("searchType","food");		
-		$(document).trigger("pageReload");
-	});
-	$("#appStatusAddRight").on(touchstart,function(evt) {
-		evt.preventDefault();
-		window.localStorage.setItem("searchType","exercise");
-		$(document).trigger("pageReload");
-	});
 	//#/////////////////#//
 	//# TAP STATUS TEXT #//
 	//#/////////////////#//
@@ -340,6 +300,49 @@ function openStatus(string) {
 		} else {
 			alert(LANG("CALORIC_INTAKE").toUpperCase() + ": \n" + INTAKE_DIALOG);
 		}
+	});
+	//#///////////#//
+	//# START BAR #//
+	//#///////////#//
+	$("#appStatusTitle").on(touchend,function(evt) {
+		if(window.localStorage.getItem("appStatus") == "running") {
+			function appReset(button) {
+				//ON CONFIRM
+				if(button == 1) {
+					$("#appStatus").removeClass("reset");
+					$("#appStatus").addClass("start");
+					$("#appStatusTitle").html(LANG("START"));
+					window.localStorage.removeItem("appStatus");
+					window.localStorage.setItem("config_start_time",new Date().getTime());
+				}
+				return false;
+			}
+			//SHOW DIALOG
+			if(hasTouch()) {
+				navigator.notification.confirm(LANG("ARE_YOU_SURE"), appReset, LANG("RESET_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
+				return false;
+			} else {
+				if(confirm(LANG("RESET_DIALOG"))) { appReset(1); } else { return false; }
+			}
+		} else {
+			$("#appStatus").removeClass("start");
+			$("#appStatus").addClass("reset");
+			$("#appStatusTitle").html(LANG("RESET"));
+			window.localStorage.setItem("appStatus","running");
+		}
+	});
+	//#/////////////#//
+	//# ADD BUTTONS #//
+	//#/////////////#//
+	$("#appStatusAddLeft").on(touchstart,function(evt) {
+		evt.preventDefault();
+		window.localStorage.setItem("searchType","food");		
+		$(document).trigger("pageReload");
+	});
+	$("#appStatusAddRight").on(touchstart,function(evt) {
+		evt.preventDefault();
+		window.localStorage.setItem("searchType","exercise");
+		$(document).trigger("pageReload");
 	});
 	//#/////////////////////#//
 	//# APP STATUS/DATE BAR #//

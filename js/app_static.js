@@ -41,7 +41,7 @@ function appFooter(id) {
 	window.localStorage.setItem("app_last_tab",id);
 	$("#" + id).addClass("selected");
 	//SCROLLBAR
-	if(!isMobile.iOS()) {
+	if(!isMobile.iOS() && androidVersion() < 4.4) {
 		//$("#appContent").css("overflow","hidden");
 		setTimeout(function(){
 			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});

@@ -509,6 +509,13 @@ function isNumberKey(evt){
 ///////////////////
 // TOUCH ? CLICK //
 ///////////////////
+function androidVersion() {
+	if(navigator.userAgent.match(/Android/i) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
+		return parseFloat(navigator.userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
+	} else {
+		return -1;
+	}
+}
 function hasTouch() {
 	//return ('ontouchstart' in document);
 	return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
