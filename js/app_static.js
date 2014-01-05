@@ -147,6 +147,9 @@ var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent)) {
 	$("body").addClass("ios7");
 }
+if(isMobile.iOS()) {
+	$("body").addClass("ios");
+}
 /////////////
 // ANDROID //
 /////////////

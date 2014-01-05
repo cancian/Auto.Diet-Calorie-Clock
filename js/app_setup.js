@@ -329,6 +329,8 @@ function spinner(size) {
 		$("#spinnerWrapper").css("left",xcenter + "px");
 		$("#spinnerWrapper").css("top",ycenter  + "px");
 	}
+	//spin.js plugin
+	$("#spinner").spin({ lines: 12, length: 9, width: 4, radius: 10,color: "#000" });
 	/////////////////
 	// SELF ADJUST //
 	/////////////////

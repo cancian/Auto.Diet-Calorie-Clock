@@ -251,6 +251,9 @@ div.submitActive			{ color: #fff !important; border-color: #aaa !important; back
 #entryList					{ width: 100%; min-height: 38px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; }
 #editableInput				{ -webkit-user-select: auto; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; /*font-size: 13px; */ font-family: "Helvetica Neue", Helvetica, Arial; }
+body.ios #editableInput,
+body.android #editableInput {  margin-left : -1px; }
+body.ios7 #editableInput 	{  margin-left : 0; }
 /*SWIPE DELETE*/
 span.delete					{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 3px 6px 0 0; padding: 7px 14px 7px 14px; border: 1px solid #953403; border-radius: 5px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 -1px 1px #953403; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ec4a0b),color-stop(1, #ad390c)); }
 span.delete:active			{ background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E0380A),color-stop(1, #9C2A09)); }
@@ -444,6 +447,7 @@ span#fibLabel			{ top: 30px; text-align: right; right: 47px; }
 div#spinnerWrapper		{ display: none; position: absolute; display: block; height: 100px; width: 100px; z-index: 9999; }
 span#spinnerMsg			{ display: none; color: #000; text-align: center; width: 100%; display: block; position: absolute; bottom: 25%; left: 0; font-size: 11pt; z-index: 999; }
 div#spinner				{ position: relative; width: 45px; height: 45px; display: inline-block; }
+/*
 div#spinner div			{ width: 9%; height: 28%; background: #000; position: absolute; left: 44.5%; top: 37%; opacity: 0; -webkit-animation: fade 1s linear infinite; -webkit-border-radius: 12px; }
 div#spinner div.bar1	{ -webkit-transform:rotate(0deg)   translate(0, -142%); -webkit-animation-delay: -0;        }
 div#spinner div.bar2	{ -webkit-transform:rotate(30deg)  translate(0, -142%); -webkit-animation-delay: -0.9167s;  }
@@ -457,7 +461,7 @@ div#spinner div.bar9	{ -webkit-transform:rotate(240deg) translate(0, -142%); -we
 div#spinner div.bar10	{ -webkit-transform:rotate(270deg) translate(0, -142%); -webkit-animation-delay: -0.25s;    }
 div#spinner div.bar11	{ -webkit-transform:rotate(300deg) translate(0, -142%); -webkit-animation-delay: -0.1667s;  }
 div#spinner div.bar12	{ -webkit-transform:rotate(330deg) translate(0, -142%); -webkit-animation-delay: -0.0833s;  }
-@-webkit-keyframes fade	{ from { opacity: 1; } to { opacity: 0; } }
+@-webkit-keyframes fade	{ from { opacity: 1; } to { opacity: 0; } }*/
 /*#//////////////#//
 //# MENU TOP BAR #//
 //#//////////////#*/
@@ -530,6 +534,8 @@ input#CyclicInput2				{ width: 80px; font-size: 14px; margin-right: 3px; padding
 /*#///////////#//
 //#// IOS 7 //#//
 //#///////////#*/
+/*ios6 calc form resize bug*/
+body.ios #appHeader					{ position: absolute; }
 body.ios7 #editableDiv,
 body.ios7 #appHeader				{ height: 77px; }
 body.ios7 #appContent				{ top: 77px; }

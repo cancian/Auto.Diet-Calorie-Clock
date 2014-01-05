@@ -437,16 +437,8 @@ diary.getEntries(function(data) {
 //RAW HTML
 var diaryHtml = ""
 var lHoursAgo = LANG('HOURS_AGO');
-diaryHtml += '\
-<a name="top"></a>	\
-<div id="entryListForm">\
-	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
-	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcal</div>\
-	<div id="sliderNeg"><span></span>' + LANG('EXERCISE') + '</div>\
-	<div id="sliderPos">' + LANG('FOOD') + '<span></span></div>\
-	<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />\
-	<div id="entryBodySearch"><div></div></div>\
-	<select id="entryTime" name="entryTime" tabindex="-1">\
+//android 2.x select fix
+var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
 		<option value="0">' + LANG('NOW') + '</option>\
 		<option value="1">1 ' + LANG('HOUR_AGO') + '</option>\
 		<option value="2">2 ' + lHoursAgo + '</option>\
@@ -474,7 +466,25 @@ diaryHtml += '\
 		<option value="24">1 ' + LANG('DAY_AGO') + '</option>\
 		<option value="48">2 ' + LANG('DAYS_AGO') + '</option>\
 		<option value="72">3 ' + LANG('DAYS_AGO') + '</option>\
-	</select>\
+	</select>';
+	if(Math.floor(androidVersion()) == 2) {  
+		var outerSelect = formSelect;
+		var innerSelect = '';
+	} else {
+		var innerSelect = formSelect;
+		var outerSelect = '';
+	}
+diaryHtml += '\
+<a name="top"></a>	\
+' + outerSelect + '\
+<div id="entryListForm">\
+	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
+	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcal</div>\
+	<div id="sliderNeg"><span></span>' + LANG('EXERCISE') + '</div>\
+	<div id="sliderPos">' + LANG('FOOD') + '<span></span></div>\
+	<input type="text" id="entryBody" placeholder="' + LANG('DESCRIPTION') + '" tabindex="-1" />\
+	<div id="entryBodySearch"><div></div></div>\
+	' + innerSelect + '\
 	<div id="entrySubmit">' + LANG('ADD_ENTRY') + '</div>\
 </div>\
 <div id="entryListWrapper">\

@@ -401,7 +401,7 @@ $(document).on("pageload", function(evt) {
 	//////////////
 	$('div span.delete', this).on(tap, function(evt) {
 		//evt.preventDefault();
-		$(this).hide();
+		$(this).parent('div').hide();
 		//UPDATE DB
 		diary.deleteEntry($(this).parent('div').data("id"));
 		//REMOVE CLICKED
@@ -417,6 +417,8 @@ $(document).on("pageload", function(evt) {
 			updateTimer();
 			return false;
 		}
+		//force error
+		window.onscroll(scroll($('#appContent')[0].scrollTop,0));
 	});
 //////#//
 }); //#//
@@ -621,9 +623,9 @@ $(document).on("pageReload", function(evt) {
 			});
 			// PRE-FILL RECENT //
 			var mr = 0;
-			//entrylist form propagation fix
-			$(".recentItem").on(touchend,function(evt) {
-				evt.preventDefault();				
+			//entrylist form propagation fix (touchend > touchstart [android 2.x])
+			$(".recentItem").on(touchstart,function(evt) {
+				evt.preventDefault();
 			});
 			$(".recentItem").off(singletap);
 			$(".recentItem").on(singletap,function(evt) {
