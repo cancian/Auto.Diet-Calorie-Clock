@@ -73,6 +73,11 @@ $("ul#appFooter li").on(touchstart, function(e) {
 function appResizer(time) {
 	setTimeout(function() {
 		$('body').height(window.innerHeight);
+		$('body').trigger("touchmove");
+//		$('body').css("min-height",$('body').height() + "px");
+		//$('body').css("max-height",$('body').height() + "px");
+		
+				
 		//NO < 0
 		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
 		//force scrolling ios
@@ -82,6 +87,7 @@ function appResizer(time) {
 		}
 		$('#entryListWrapper').css("height","auto");
 		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
+		$('#foosList').height(window.innerHeight - $('#appHeader').height());
 		$('#pageslideFood').height(window.innerHeight - $('#appHeader').height());
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
@@ -95,13 +101,14 @@ $(window).on("orientationchange", function(evt) {
 	appResizer(0);
 	appResizer(100);
 	appResizer(300);
-	appResizer(600);
+	appResizer(600); 
 });
 ////////////
 // RESIZE //
 ////////////
 $(window).on("resize", function(evt) {
 	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
+	$('body').trigger("touchmove");
 	if(window.innerHeight > $('body').height()) {
 		//IOS re-scrolling bug
 		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
@@ -204,6 +211,7 @@ updateTimer();
 	// PAGESLIDE CLOSER //
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
+		
 		//evt.preventDefault();//android kitkat focus
 		//hide food
 		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
@@ -249,7 +257,7 @@ updateTimer();
 		//not with sidemenu
 		if(!$('#pageSlideFood').hasClass('busy')) {
 		//not while editing
-		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') ) {
+		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#modalOverlay').is(':visible') ) {
 		//not with delete button
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
@@ -331,7 +339,7 @@ updateTimer();
 						$("#editable").blur();
 					},
 					keypress: function(evt) {
-					return isNumberKey(evt);
+						return isNumberKey(evt);
 					}
 				});
 				$(this).empty();
@@ -348,6 +356,55 @@ updateTimer();
 			}}}}
 		}
 	});
+
+/////////////////
+// GET ENTRIES //
+/////////////////
+Diary.prototype.setFood = function(id,callback) {
+	//console.log('Running getEntries');
+	if(arguments.length == 1) { callback = arguments[0]; }
+	this.db.transaction(
+		function(t) {
+			t.executeSql('insert into diary_food',
+			function(t,results) {
+				callback(that.fixResults(results));
+			},this.dbErrorHandler);
+	}, this.dbErrorHandler);
+};
+
+
+
+
+Diary.prototype.getFood = function(id,callback) {
+	//console.log('Running getEntries');
+	if(arguments.length == 1) { callback = arguments[0]; }
+	this.db.transaction(
+		function(t) {
+			t.executeSql('select * from diary_food where id=?',[id],
+			function(t,results) {
+				callback(that.fixResults(results));
+			},this.dbErrorHandler);
+	}, this.dbErrorHandler);
+};
+
+/*
+this searcheable id...
+diary.getFood(1,function(data) {
+
+var ID   = data[0].name;
+var TYPE = data[0].type;
+var CODE = data[0].code;
+var TERM = data[0].term;
+var KCAL = data[0].kcal;
+var PRO  = data[0].pro;
+var CAR  = data[0].car;
+var FAT  = data[0].fat;
+var FIB  = data[0].fib;
+//fib = "custom"
+});
+*/
+
+
 ////#//
 } //#//
 ////#//

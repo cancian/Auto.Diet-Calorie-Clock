@@ -1,6 +1,14 @@
 #################
 ## VERSION LOG ##
 #################
+# 1.1.1 [08/01/2014]
+• custom food/exercises
+• fixed issue with pre-fill not triggering autoclose
+• 
+• 
+• 
+• 
+
 # 1.1.1 [03/01/2014]
 • tapping status boxes now displays additional information
 • faster search system

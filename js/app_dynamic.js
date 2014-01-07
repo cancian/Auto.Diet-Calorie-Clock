@@ -97,7 +97,7 @@ $(document).on("pageload", function(evt) {
 									});
 									//set blur
 									if(!$("#entryList div").is(':animated')) {
-										//$("#editableInput").blur();
+										$("#editableInput").blur();
 									}
 								}
 							});
@@ -505,7 +505,7 @@ $(document).on("pageReload", function(evt) {
 		///////////////
 		// FOOD HTML //
 		///////////////
-		$("#pageSlideFood").html('<div id="sideMenuFood"><input type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
+		$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
 		//PRE-ADJUST RESULTS HEIGHT
 		getRecentList();
 		//$('#pageSlideFood').css("height",($('#entryListScroller').height() - (61)) + "px");
@@ -557,112 +557,33 @@ $(document).on("pageReload", function(evt) {
 				},this.dbErrorHandler);
 			}, this.dbErrorHandler); 
 		};
-		//#///////////////////#//
-		//# BUILD RECENT LIST #//
-		//#///////////////////#//
-		function getRecentList() {
-			diary.getEntries(function(data) {
-				//console.log('updating entrylist sum');
-				var searchHistory = [];
-				for(var i=0, len=data.length; i<len; i++) {
-					if(data[i].body != "") {
-						//set type
-							var titleType = "";
-						if(data[i].title < 0) {
-							var titleType = "##e##";
-						}
-						//remove parenthesis
-						//searchHistory.push(data[i].body.replace(/\[.*?\]/g, '') + titleType);
-						searchHistory.push(data[i].body + titleType);
-					}
-				}
-				searchHistory = searchHistory.reverse();
-				function sortByFrequencyAndFilter(myArray){
-					var newArray = [];
-					var freq = {};
-					//count frequency of occurances
-					var i=myArray.length-1;
-					for (var i;i>-1;i--) {
-						var value = myArray[i];
-						freq[value]==null?freq[value]=1:freq[value]++;
-					}
-					//create array of filtered values
-					for (var value in freq) {
-						if(trim(value) != "") {
-							newArray.push(value);
-						}
-					}
-					//define sort function and return sorted results
-					function compareFreq(a,b) {
-						return freq[b]-freq[a];
-					}
-					return newArray.sort(compareFreq);
-				}
-				var sortedList = sortByFrequencyAndFilter(searchHistory);
-				var recentHtml = "";
-				if(sortedList == "") { recentHtml += '<div class="searcheable"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>'; }
+		
+		
+		
 
-				for(q = 0; q < sortedList.length; q++) {
-					//not null
-					if(sortedList[q] != "" && q < 8) {
-						var itemType = "food";
-					if(sortedList[q].match( '##e##' )) {
-						var itemType = "exercise";
-						sortedList[q] = sortedList[q].replace("##e##","");
-					}
-						recentHtml += '<div class="searcheable recentItem ' + itemType + '"><div class="foodName ' + itemType + '">' + sortedList[q] + '</div></div>';
-					}
-				}
-				$("#foodList").html("<div id='recentBlock'><h3 class='recentItem'>" + LANG('ENTRY_HISTORY') + "<span>(" + LANG('PRE_FILL') + ")</span></h3>" + recentHtml + "</div>");
-				$(".searcheable").off(tap + touchstart);
-				$(".searcheable").on(tap + touchstart, function(evt) {
-				$("#activeOverflow").removeAttr("id");
-				$(this).addClass("activeOverflow");
-				$(".foodName",this).attr("id","activeOverflow");
-				$(".foodName").css("overflow","auto");
-			});
-			// PRE-FILL RECENT //
-			var mr = 0;
-			//entrylist form propagation fix (touchend > touchstart [android 2.x])
-			$(".recentItem").on(touchstart,function(evt) {
-				evt.preventDefault();
-			});
-			$(".recentItem").off(singletap);
-			$(".recentItem").on(singletap,function(evt) {
-				evt.preventDefault();
-				evt.stopPropagation();
-				//not if empty
-				if(!$("#activeOverflow").html()) { return; }
-				if(mr == 0) {
-					mr++;
-					///////////////
-					// DIARY TAB //
-					///////////////
-					var preFillTimer = 0;
-					if(window.localStorage.getItem("app_last_tab") != "tab2") {
-						var preFillTimer = 150;
-						$("ul#appFooter li").removeClass("selected");
-						window.localStorage.setItem("app_last_tab","tab2");
-						$("#tab2").addClass("selected");
-						openDiary();
-					}
-					setTimeout(function(evt) {
-						$("#entryBody").val( trim($("#activeOverflow").text()) );
-						//CSS FADE OUT
-						$('#modalWindow').removeClass('show');
-						$('#modalOverlay').removeClass('show');
-						//SELF-REMOVE
-						$('#modalWindow').on('webkitTransitionEnd',function(e) { 
-							$("#modalWindow").remove();
-							$("#modalOverlay").remove();
-						});
-						$("#appHeader").trigger(trim(touchstart));
-						$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
-					},preFillTimer);
-				}
-			});
-			});
-		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		//#//////////////////////#//
 		//# SEARCH CORE FUNCTION #//
 		//#//////////////////////#//
@@ -1215,3 +1136,373 @@ ios red  > F92E21 & ios blue > 0A60FF
 }); //#//
 //////#//
 
+
+
+
+		
+		//#///////////////////#//
+		//# BUILD RECENT LIST #//
+		//#///////////////////#//
+		function getRecentList() {
+			diary.getEntries(function(data) {
+				//console.log('updating entrylist sum');
+				var searchHistory = [];
+				for(var i=0, len=data.length; i<len; i++) {
+					if(data[i].body != "") {
+						//set type
+							var titleType = "";
+						if(data[i].title < 0) {
+							var titleType = "##e##";
+						}
+						//remove parenthesis
+						//searchHistory.push(data[i].body.replace(/\[.*?\]/g, '') + titleType);
+						searchHistory.push(data[i].body + titleType);
+					}
+				}
+				searchHistory = searchHistory.reverse();
+				function sortByFrequencyAndFilter(myArray){
+					var newArray = [];
+					var freq = {};
+					//count frequency of occurances
+					var i=myArray.length-1;
+					for (var i;i>-1;i--) {
+						var value = myArray[i];
+						freq[value]==null?freq[value]=1:freq[value]++;
+					}
+					//create array of filtered values
+					for (var value in freq) {
+						if(trim(value) != "") {
+							newArray.push(value);
+						}
+					}
+					//define sort function and return sorted results
+					function compareFreq(a,b) {
+						return freq[b]-freq[a];
+					}
+					return newArray.sort(compareFreq);
+				}
+				var sortedList = sortByFrequencyAndFilter(searchHistory);
+				var recentHtml = "";
+				if(sortedList == "") { recentHtml += '<div class="searcheable"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>'; }
+
+				for(q = 0; q < sortedList.length; q++) {
+					//not null
+					if(sortedList[q] != "" && q < 8) {
+						var itemType = "food";
+					if(sortedList[q].match( '##e##' )) {
+						var itemType = "exercise";
+						sortedList[q] = sortedList[q].replace("##e##","");
+					}
+						recentHtml += '<div class="searcheable recentItem ' + itemType + '"><div class="foodName ' + itemType + '">' + sortedList[q] + '</div></div>';
+					}
+				}
+
+
+
+
+
+
+var recentBlock = '\
+<div id="infoContents" class="infoContents">\
+<!--## TAB OVERVIEW ##-->\
+	<div id="tabRecent"><div id="recentBlock">' + recentHtml + '</div></div>\
+<!--## TAB OVERVIEW ##-->\
+<!--## TAB GESTURES ##-->\
+	<div id="tabMyFoods">\
+		<ul>\
+			<li><h3>header</h3></li>\
+			<li><p>calorie calculator <span>swipe left</span></p></li>\
+		</ul>\
+<div id="addNewFood">add new food</div>\
+	</div>\
+<!--## TAB GESTURES ##-->\
+<!--## TAB SETTINGS ##-->\
+	<div id="tabMyExercises">\
+		<ul>\
+			<li><h3>header</h3></li>\
+			<li><p>calorie calculator <span>swipe left</span></p></li>\
+		</ul>\
+<div id="addNewExercise">add new exercise</div>\
+	</div>\
+<!--## TAB SETTINGS ##-->\
+</div>';
+
+
+////////////
+//TOP MENU//
+////////////
+$("#foodList").html("<div id='menuTopBar'><h3 id='topBarItem-1'><span>recent</span></h3><h3 id='topBarItem-2'><span>my foods</span></h3><h3 id='topBarItem-3'><span>my exercises</span></h3></div>\
+" + recentBlock);
+
+
+
+
+
+//
+///$("#tabRecent").html("<div id='recentBlock'><h3 class='recentItem'>" + LANG('ENTRY_HISTORY') + "<span>(" + LANG('PRE_FILL') + ")</span></h3>" + recentHtml + "</div>");
+
+
+
+
+
+// CYCLIC INPUTS
+//$("#contentCyclicTitle").after("<div id='settingsCyclicWrapper'><div id='settingsCyclicDiv1'><span><input min='500' max='9999' type='number' name='CyclicInput1' id='CyclicInput1' />days a, b, c <span>(diet)</span></span></div><div id='settingsCyclicDiv2'><span><input min='500' max='9999' type='number' name='CyclicInput2' id='CyclicInput2' />day d <span>(rest)</span></span></div></div>");
+
+/////////////////////
+// FIRST LOAD TABS //
+/////////////////////
+if(!window.localStorage.getItem("lastInfoTab")) {
+	window.localStorage.setItem("lastInfoTab","topBarItem-1");
+	$("#topBarItem-1").addClass("onFocus");
+	$("#tabRecent").addClass("onFocus");
+}
+////////////
+// TAB #1 //
+////////////
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
+	$("#topBarItem-1").addClass("onFocus");
+	$("#tabRecent").addClass("onFocus");
+}
+////////////
+// TAB #2 //
+////////////
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
+	$("#topBarItem-2").addClass("onFocus");
+	$("#tabMyFoods").addClass("onFocus");
+}
+////////////
+// TAB #3 //
+////////////
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
+	$("#topBarItem-3").addClass("onFocus");
+	$("#tabMyExercises").addClass("onFocus");
+	//LOAD CHECKBOX
+	$("input[type=checkbox]").mobileCheckbox();
+}
+////////////////////////
+// SWITCH VISIBLE TAB //
+////////////////////////
+$("#menuTopBar h3").on(touchstart,function(evt) {
+	evt.preventDefault();
+	
+	$(".onFocus").removeClass("onFocus");
+	
+	////////////
+	// TAB #1 //
+	////////////
+	if($(this).attr("id") == "topBarItem-1") {
+		$("#topBarItem-1").addClass("onFocus");
+		$("#tabRecent").addClass("onFocus");
+		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));
+	}
+	////////////
+	// TAB #2 //
+	////////////
+	if($(this).attr("id") == "topBarItem-2") {
+		$("#topBarItem-1,#topBarItem-3").removeClass("onFocus");
+		$("#topBarItem-2").addClass("onFocus");
+
+		$("#tabRecent,#tabMyExercises").removeClass("onFocus");
+		$("#tabMyFoods").addClass("onFocus");
+		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));
+	}
+	////////////
+	// TAB #3 //
+	////////////
+	if($(this).attr("id") == "topBarItem-3") {
+		$("#topBarItem-1,#topBarItem-2").removeClass("onFocus");
+		$("#topBarItem-3").addClass("onFocus");
+		
+		$("#tabRecent,#tabMyFoods").removeClass("onFocus");
+		$("#tabMyExercises").addClass("onFocus");
+		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));		
+		//LOAD CHECKBOX		
+		$("input[type=checkbox]").mobileCheckbox();
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////
+// ACTIONS //
+/////////////
+//$(".searcheable").off(tap + touchstart);
+$("#addNewFood").on(touchstart, function(evt) {
+	
+	if(!$("#tempHolder").html()) { 
+		$("body").append('\
+		<div id="tempHolder">\
+			<div id="modalOverlay"></div>\
+			<div id="addNewWrapper">\
+				<ul id="addNewList">\
+					<li id="addNewName">   <label>Name</label>   <input tabindex="3" type="text" id="InputNewName"      placeholder="description" /></li>\
+					<li id="addNewAmmount"><label>Ammount</label><input tabindex="3" type="number" id="InputNewAmmount" placeholder="100g" />       </li>\
+					<li id="addNewKcal">   <label>kcal</label>   <input tabindex="3" type="number" id="InputNewKcal"    placeholder="0" />          </li>\
+					<li id="addNewPro">    <label>pro</label>    <input tabindex="3" type="number" id="InputNewPro"     placeholder="0.00" />       </li>\
+					<li id="addNewCar">    <label>car</label>    <input tabindex="3" type="number" id="InputNewCar"     placeholder="0.00" />       </li>\
+					<li id="addNewFat">    <label>fat</label>    <input tabindex="3" type="number" id="InputNewFat"     placeholder="0.00" />       </li>\
+				</ul>\
+				<div id="addNewCancel">cancel</div>\
+				<div id="addNewConfirm">confirm</div>\
+			</div>\
+		</div>\
+		');
+	}
+	
+	//$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");
+	//$('#addNewList li input').placeholder({force:true});
+		//prevent tapping
+//		$("#modalOverlay").css("z-index",9999999);
+		$("#modalOverlay,#addNewWrapper").hide();
+		$("#addNewWrapper").fadeIn(200);
+		$("#modalOverlay").fadeIn(0);
+		$('#modalOverlay,#addNewWrapper').addClass('show');
+
+		//$("#modalOverlay").css("-webkit-transition-timing-function","linear");
+				//	setTimeout(function(evt) {
+				///	/	$("#entryBody").val( trim($("#activeOverflow").text()) );
+						//CSS FADE OUT
+						//$('#modalWindow').removeClass('show');
+//						$('#modalOverlay').addClass('show');
+//							$("#modalOverlay").css("-webkit-transition-duration",".25s");
+
+		//$("#modalOverlay").css("background-image","-webkit-linear-gradient(#fff,#fefefe)");		
+		//$("#modalOverlay,#spinner,#tempHolder").on(touchstart, function(evt) {
+	
+//	$(this).addClass("activeOverflow");
+//	$(".foodName",this).attr("id","activeOverflow");
+//	$(".foodName").css("overflow","auto");
+
+///////////////////////////////////////////
+// android input blur blank viewport bug //
+///////////////////////////////////////////
+if(isMobile.Android()) {
+//preset wrapper min-height
+$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");
+//trigger on touchmove if not focused (closing-touch white gap)
+$("#addNewWrapper").on("touchmove",function(evt) {
+	if(!$("#addNewWrapper input").is(":focus")) { 
+		$(window).trigger("orientationchange");
+	}
+});
+//trigger if not focused to another input
+var newBlurGap;
+$("#addNewWrapper input").on("blur",function(evt) {
+	newBlurGap = setTimeout(function() {
+		$(window).trigger("orientationchange");
+	},100);
+});
+$("#addNewWrapper input").on("focus",function(evt) {
+	clearTimeout(newBlurGap);
+});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+$("#addNewWrapper").on("touchstart",function(evt) {
+//	$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");	
+//	$(window).trigger("orientationchange");
+});
+
+$("#addNewConfirm").on(touchstart, function(evt) {
+//...
+});
+
+
+//timed cancel (animation) ~ plus foodsearch propagation fix
+setTimeout(function() {
+	$("#addNewCancel").on(touchstart, function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		if(isMobile.Android()) {
+			$(window).trigger("orientationchange");
+		}
+		if($("#tempHolder").html()) { 
+			$("#tempHolder").fadeOut(200,function() {
+				$("#tempHolder").remove();
+			});
+		}
+	});
+},200);
+
+
+
+});//end touchstart (black button)
+
+
+
+			/////////////
+			// ACTIONS //
+			/////////////
+//
+			$(".searcheable").off(tap);
+			$(".searcheable").on(tap + touchstart, function(evt) {
+				$("#activeOverflow").removeAttr("id");
+				$(this).addClass("activeOverflow");
+				$(".foodName",this).attr("id","activeOverflow");
+				$(".foodName").css("overflow","auto");
+			});
+				
+			// PRE-FILL RECENT //
+			var mr = 0;
+			//entrylist form propagation fix (touchend > touchstart [android 2.x])
+			$(".recentItem").on(touchstart,function(evt) {
+				evt.preventDefault();
+			});
+			$(".recentItem").off(singletap);
+			$(".recentItem").on(singletap,function(evt) {
+				evt.preventDefault();
+				evt.stopPropagation();
+				//not if empty
+				if(!$("#activeOverflow").html()) { return; }
+				if(mr == 0) {
+					mr++;
+					///////////////
+					// DIARY TAB //
+					///////////////
+					var preFillTimer = 0;
+					if(window.localStorage.getItem("app_last_tab") != "tab2") {
+						var preFillTimer = 150;
+						$("ul#appFooter li").removeClass("selected");
+						window.localStorage.setItem("app_last_tab","tab2");
+						$("#tab2").addClass("selected");
+						openDiary();
+					}
+					setTimeout(function(evt) {
+						$("#entryBody").val( trim($("#activeOverflow").text()) );
+						//CSS FADE OUT
+						$('#modalWindow').removeClass('show');
+						$('#modalOverlay').removeClass('show');
+						//SELF-REMOVE
+						$('#modalWindow').on('webkitTransitionEnd',function(e) { 
+							$("#modalWindow").remove();
+							$("#modalOverlay").remove();
+						});
+						$("#appHeader").trigger(trim(touchstart));
+						$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
+					},preFillTimer);
+				}
+			});
+			});
+		}

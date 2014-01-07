@@ -1,8 +1,8 @@
 html,
 body							{ position: relative; width: 100%; height: 100%; display: block; overflow: hidden; margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, Arial; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); }
+body.android 					{ -webkit-perspective: 1000; }
 @font-face						{ font-family: 'FontAwesome'; src: url('font/fontawesome-webfont.eot?v=4.0.3'); src: url('font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; }
-body > *,h2,
-input[readonly]					{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-user-select: none; }
+body > *,h2,input[readonly]		{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-user-select: none; }
 input,select					{ -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial, Helvetica; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; -webkit-user-modify: read-write-plaintext-only; }
 ul								{ padding: 0; margin: 0; text-indent: 0; }
 p								{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
@@ -22,7 +22,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 /*#///////////////#//
 //# GLOBAL HEADER #//
 //#///////////////#*/
-#appHeader						{ position: fixed; height: 62px; top: 0; left: 0; right: 0; color: #fff; z-index: 50; }
+#appHeader						{ position: absolute; height: 62px; top: 0; left: 0; right: 0; color: #fff; z-index: 0; }
 #appHeader.deficit				{ background-color: #309030; }
 #appHeader.balanced				{ background-color: #316ADC; }
 #appHeader.surplus				{ background-color: #C85834; }
@@ -35,7 +35,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 #timerDaily						{ position: absolute; bottom: 5px; top: 5px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: bold; background-color: rgba(255,255,255,.3); }
 #timerDaily span				{ position: absolute; bottom: 7px; left: 0px; font-size: 8px; line-height: normal; font-weight: normal; text-transform: uppercase;  }
 /*INLINE*/
-#editableDiv					{ color: transparent; height: 62px; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 999; overflow: hidden; }
+#editableDiv					{ color: transparent; height: 62px; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
 input#editable					{ color: #000; position: absolute; top: 10px; right: 9px; display: block !important; width: 75px !important; height: 32px; font-size: 24px !important; line-height: 28px; border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold; overflow: hidden; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
 /*#///////////////#//
@@ -168,11 +168,11 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 /*/////////////
 // CALC FORM //
 /////////////*/
-#calcForm							{ display: block; font-size: 12px; padding-top: 3px; color: #505050; overflow: hidden; }
+#calcForm							{ display: block; font-size: 12px; padding-top: 3px; color: #555; overflow: hidden; }
 #calcForm div.calcRow				{ margin-left: 22px; padding: 0; display: block; min-width: 300px; }
 #calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
 #calcForm input,
-#calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #777; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
+#calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #666; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
 #calcForm input						{ text-indent: 2px; height: 44px; vertical-align: bottom; }
 #calcForm select					{ text-indent: 3px; height: 44px; }
 #calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
@@ -211,7 +211,7 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #calcForm input:focus,
 #calcForm input:active,
 #calcForm select:focus,
-#calcForm select:active				{ color: #000; }
+#calcForm select:active				{ color: #0072BC; }
 /*##############################
 ####    BUILD: APP DIARY    ####
 ##############################*/
@@ -342,13 +342,13 @@ body.android #adjustPosBlock:active	{ color: rgba(0,0,0,.1); background-color: t
 /*#############################
 ####    PAGE SLIDE FOOD    ####
 #############################*/
-div#pageSlideFood		{ position: absolute; padding-top: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff; }
-div#pageSlideFood		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .25s; }
-div#pageSlideFood.open	{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .25s; }
+div#pageSlideFood		{ position: absolute; padding-top: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff;  background-image: -webkit-linear-gradient(#fff,#fefefe); }
+div#pageSlideFood		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .3s; }
+div#pageSlideFood.open	{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .3s; }
 /*food search*/
 input#foodSearch		{ position: absolute; left: 0px; right: 0; top: 0; font-size: 18px; border: 0; border-bottom: 1px solid #e5e5e5; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; font-family: Arial, Helvetica, sans-serif; background-color: #fff; }
 input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); }
-#foodList				{ width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0);  background-color: #fff; }
+#foodList				{ width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff;   background-image: -webkit-linear-gradient(#fff,#fefefe); }
 #foodListWrapper		{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
 #foodList .searcheable	{ position: relative; margin: 0; padding: 12px 8px 5px 23px; height: 42px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: visible; }
 #foodList .searcheable.activeOverflow		{ background-color: #e2e2e2; }
@@ -385,7 +385,7 @@ body.ios7 #appHeader:before 	{ top: 18px; }
 #recentBlock h3					{ color: #000; text-transform: uppercase; font-size: 12px; padding-top: 24px; padding-bottom: 12px; }
 #recentBlock h3	span			{ color: #ccc; font-weight: normal; text-transform: none; padding-left: 6px; }
 #recentBlock div				{ text-indent: 0px; margin-left: 10px; }
-#recentBlock em					{ opacity: .5; font-weight: normal; }
+#recentBlock em					{ opacity: .5; font-weight: normal; margin-left: -10px; }
 #recentBlock .searcheable,
 #recentBlock .foodName			{ height: 40px !important; margin-bottom: 0; padding-top: 1px; padding-bottom: 0; background-color: transparent !important; }
 #recentBlock .foodName.food		{ color: #0033cc !important; }
@@ -394,7 +394,7 @@ body.ios7 #appHeader:before 	{ top: 18px; }
 /*/////////////
 // MODAL BOX //
 /////////////*/
-#modalOverlay			{ opacity: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 98; background-color: #000; background-image: -webkit-linear-gradient(#000,#111); }
+#modalOverlay			{ opacity: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; z-index: 98; background-color: #000; background-image: -webkit-linear-gradient(#000,#111); }
 #modalWindow			{ opacity: 0; position: absolute; top: 74px; left: 0; right: 0; height: 200px; background-color: #ffffff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 99; }
 body.ios7 #modalWindow	{ top: 94px; }
 #modalOverlay,
@@ -465,57 +465,147 @@ div#spinner div.bar12	{ -webkit-transform:rotate(330deg) translate(0, -142%); -w
 /*#//////////////#//
 //# MENU TOP BAR #//
 //#//////////////#*/
-/*
-#sideMenuInfo				{ -webkit-font-smoothing: antialiased; }
-#sideMenuTopBar				{ position: absolute; top: 18px; left: 13px; right: 13px; height: 34px; display: block; white-space: nowrap; z-index: 999; -webkit-backface-visibility: hidden; }
+#infoContents				{ background-color: #fff; display: block; -webkit-font-smoothing: antialiased;
+/*position: absolute; top: 60px; left: 0; right: 0; bottom: 0;*/
+margin-top: 60px;
+}
+
+#menuTopBar				{ position: absolute; top: 18px; left: 0; right: 0px; height: 34px; display: block; white-space: nowrap; z-index: 999; -webkit-backface-visibility: hidden; }
 #topBarItem-1,
 #topBarItem-2,
-#topBarItem-3				{ margin: 0;  color: #fff; display: inline-block; height: 36px; line-height: 36px; font-size: 14px; text-align: center; width: 32%; -webkit-backface-visibility: hidden; -webkit-font-smoothing: subpixel-antialiased; margin: 0; text-shadow: rgba(255,255,255,.3) 0 1px 0; }
-#topBarItem-1				{ border: 2px solid rgba(255,255,255,.66); border-width: 2px 2px 2px 2px; border-radius: 9px 0px 0px 9px; padding: 0;}
-#topBarItem-2				{ border: 2px solid rgba(255,255,255,.66); border-width: 2px 0px 2px 0px; border-radius: 0px 0px 0px 0px; padding: 0 1px 0 1px; }
-#topBarItem-3				{ border: 2px solid rgba(255,255,255,.66); border-width: 2px 2px 2px 2px; border-radius: 0px 9px 9px 0px; padding: 0;}
-#sideMenuTopBar h3			{ display: inline-block; }
-#sideMenuTopBar h3 span		{ margin-right: 5px; display: inline-block; font-size: 16px; font-weight: normal; vertical-align: text-top; } 
-#sideMenuTopBar h3.onFocus	{ background-color: rgba(255,255,255,.66) !important; color: rgba(0,0,0,1); border-color: transparent; -webkit-backface-visibility: hidden; }
-#tab-overview,
-#tab-gestures,
-#tab-settings				{ display: none; }
-#tab-overview.onFocus,
-#tab-gestures.onFocus,
-#tab-settings.onFocus		{ display: inline; }
-#sideMenuTopBar .icon-bookmark,
-#sideMenuTopBar .icon-hand-up,
-#sideMenuTopBar .icon-gear				{ vertical-align: baseline; line-height: normal; font-weight: normal !important; -webkit-font-smoothing: antialiased; }
-#sideMenuTopBar .icon-bookmark:before	{ font-family: 'FontAwesome'; content: "\f02e"; }
-#sideMenuTopBar .icon-hand-up:before	{ font-family: 'FontAwesome'; content: "\f0a6"; }
-#sideMenuTopBar .icon-gear:before		{ font-family: 'FontAwesome'; content: "\f013"; }
-#tab-gestures ul				{ margin: 0; padding: 0; display: block; text-indent: 0; list-style: none; border: 0px solid #999; background-color: transparent; -webkit-backface-visibility: hidden; }
-#tab-gestures li				{ margin: 0; border-bottom: 1px solid transparent; padding: 0 0 0 12px; line-height: 20px; display: block; background-color: transparent; -webkit-backface-visibility: hidden; }
-#tab-gestures h3				{ margin: 0 0 0 0; padding: 22px 0 3px 0; font-size: 18px; display: block; text-transform: capitalize; color: #fff; border-bottom: 1px solid #fff; font-weight: bold; -webkit-backface-visibility: hidden; }
-#sideMenuInfo #tab-gestures p	{ margin: 0; padding: 8px 0 0px 0; font-weight: bold; color: #fff; text-indent: 3px; font-size: 14px; }
-#tab-gestures p span			{ font-weight: normal; opacity: .85; padding-right: 15px; color: #ffcc33; float: right; font-size: 14px; line-height: 16px; display: inline-block; vertical-align: middle; }
-#tab-gestures p:before			{ font-family: 'FontAwesome'; content: "\f054"; padding-right: 9px; padding-left: 8px; font-weight: bold; color: #fff; }
-#tab-settings ul				{ margin: 0; padding: 0; display: block; text-indent: 0; list-style: none; border: 0px solid #999; background-color: transparent; -webkit-backface-visibility: hidden; }
-#tab-settings li				{ border-bottom: 1px solid transparent; padding: 8px 12px 12px 12px; margin: 0; font-size: 14px; display: block; background-color: transparent; background-clip: padding-box; position: relative; min-height: 60px; -webkit-backface-visibility: hidden; }
-#tab-settings li+li				{ border-top: 1px solid #777; -webkit-backface-visibility: hidden; }
-div.descriptionContent			{ display: block; font-size: 12px; color: #fff; position: relative; font-family: Arial, Helvetica, sans-serif; -webkit-backface-visibility: hidden; }
-span.readMoreToggle				{ display: block; position: absolute; right: 4px; bottom: -13px; width: 60px; background-color: #fff; text-align: center; border-radius: 1px; height: 15px; font-size: 10px; color: #4C97E0; z-index: 999; -webkit-backface-visibility: hidden; }
-.readMoreContent				{ display: none; font-size: 12px; color: #fff; font-family: Arial, Helvetica, sans-serif; -webkit-backface-visibility: hidden; }
-.readMoreContent.showAll		{ display: block; }
-.ios7style						{ position: absolute; top: 22px; right: 2px; float: right; width: 100px; font-family: Arial, Helvetica, sans-serif; }
-#settingsCyclicWrapper			{ display: none; width: 100%; }
-#settingsCyclicDiv1,
-#settingsCyclicDiv2				{ padding: 0; display: block; width: 100%; background-color: transparent; }
-#settingsCyclicDiv1 span,
-#settingsCyclicDiv2 span		{ border: 0; width: 200px; white-space: nowrap; font-variant: small-caps; color: rgba(255,204,0,1); font-weight: bold; position: relative; font-size: 13px; }
-#settingsCyclicDiv1 span span,
-#settingsCyclicDiv2 span span	{ font-weight: normal; opacity: .6; font-variant: normal; }
-input#CyclicInput1,
-input#CyclicInput2				{ width: 80px; font-size: 14px; margin-right: 3px; padding: 4px; border: 1px solid #ccc; color: rgba(0,0,0,.9); border-radius: 2px; background-color: rgba(255,255,255,.9); -webkit-user-select: auto; -webkit-appearance: none; z-index: 999; }
+#topBarItem-3			{ margin: 0; color: #000; background-color: #fff; display: inline-block; height: 36px; line-height: 36px; font-size: 12px; text-align: center; 
+
+ -webkit-backface-visibility: hidden; -webkit-font-smoothing: subpixel-antialiased; margin: 0; text-shadow: rgba(255,255,255,.3) 0 1px 0; 
+
+
+}
+
+#topBarItem-1				{ 
+width: 33.2%; /*
+border: 0px solid rgba(0,0,0,.66); border-width: 2px 2px 2px 2px; border-radius: 9px 0px 0px 9px; padding: 0;*/ }
+#topBarItem-2				{ 
+width: 33.2%;
+/*
+border: 0px solid rgba(0,0,0,.66);  border-width: 2px 0px 2px 0px; border-radius: 0px 0px 0px 0px; padding: 0 1px 0 1px;*/ }
+#topBarItem-3				{ 
+width: 33.6%;/*
+border: 0px solid rgba(0,0,0,.66); border-width: 2px 2px 2px 2px; border-radius: 0px 9px 9px 0px; padding: 0; */ }
+
+
+
+#menuTopBar h3.onFocus	{ background-color:#eee; /*color: rgba(255,255,255,1);*/ border-color: transparent; -webkit-backface-visibility: hidden; }
+#tabRecent,
+#tabMyFoods,
+#tabMyExercises				{ display: none; }
+#tabRecent.onFocus,
+#tabMyFoods.onFocus,
+#tabMyExercises.onFocus		{ display: inline; }
+
+
+#topBarItem-1 span,
+#topBarItem-2 span,
+#topBarItem-3 span			{ position: relative; font-weight: bold; display: inline-block; font-size: 12px; padding-left: 15px; }
+
+#topBarItem-1 span:before,
+#topBarItem-2 span:before,
+#topBarItem-3 span:before	{ position: absolute; top: 10px; left: -4px; margin-right:; display: inline-block; font-size: 15px; line-height: normal; font-weight: normal !important; -webkit-font-smoothing: antialiased; }
+
+#topBarItem-1 span:before	{ font-family: 'FontAwesome'; content: "\f0ca"; }
+#topBarItem-2 span:before	{ font-family: 'FontAwesome'; content: "\f000"; }
+#topBarItem-3 span:before	{ font-family: 'FontAwesome'; content: "\f17d"; }
+
+
+#tabMyFoods ul				{ margin: 0; padding: 0; display: block; text-indent: 0; list-style: none; border: 0px solid #999; background-color: transparent; -webkit-backface-visibility: hidden; }
+#tabMyFoods li				{ margin: 0; border-bottom: 1px solid transparent; padding: 0 0 0 12px; line-height: 20px; display: block; background-color: transparent; -webkit-backface-visibility: hidden; }
+#tabMyFoods h3				{ margin: 0 0 0 0; padding: 22px 0 3px 0; font-size: 18px; display: block; text-transform: capitalize; color: #fff; border-bottom: 1px solid #fff; font-weight: bold; -webkit-backface-visibility: hidden; }
+#sideMenuInfo #tabMyFoods p	{ margin: 0; padding: 8px 0 0px 0; font-weight: bold; color: #fff; text-indent: 3px; font-size: 14px; }
+#tabMyFoods p span			{ font-weight: normal; opacity: .85; padding-right: 15px; color: #ffcc33; float: right; font-size: 14px; line-height: 16px; display: inline-block; vertical-align: middle; }
+#tabMyFoods p:before		{ font-family: 'FontAwesome'; content: "\f054"; padding-right: 9px; padding-left: 8px; font-weight: bold; color: #fff; }
+#tabMyExercises ul			{ margin: 0; padding: 0; display: block; text-indent: 0; list-style: none; border: 0px solid #999; background-color: transparent; -webkit-backface-visibility: hidden; }
+#tabMyExercises li			{ border-bottom: 1px solid transparent; padding: 8px 12px 12px 12px; margin: 0; font-size: 14px; display: block; background-color: transparent; background-clip: padding-box; position: relative; min-height: 60px; -webkit-backface-visibility: hidden; }
+#tabMyExercises li+li		{ border-top: 1px solid #777; -webkit-backface-visibility: hidden; }
+
+
+
+/*////////////////
+// ADD NEW FOOD //
+////////////////*/
+#addNewFood,
+#addNewExercise				{ position: absolute; bottom: 12px; left: 12px; right: 12px; background-color: #000; height: 44px; line-height: 44px; color: #fff; 
+display: block; text-align: center; font-weight: bold; font-size: 14px; 
+opacity: .5;
+
+}
+
+#addNewWrapper				{ position: absolute; top: 75px; bottom: 66px; left: 12px; right: 12px; background-color: #fff; display: block; z-index: 99; overflow: hidden;
+
+display: block; -webkit-transform: translate3d(0, 0, 0); background-image: -webkit-linear-gradient(#fff,#fefefe);
+
+
+}
+body.ios7 #addNewWrapper	{ top: 91px; }
+
+#addNewConfirm				{ position: absolute; bottom: 0px; left: 0;  width: 50%; background-color: #4D9AE5; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: bold; }
+#addNewCancel				{ position: absolute; bottom: 0px; right: 0; width: 50%; background-color: #eeeeee; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: bold; }
+
+
+
+ul#addNewList		{ padding: 9px 22px 22px 22px; }
+
+ul#addNewList li	{ display: block; height: 44px; line-height: 44px; position: relative; }
+ul#addNewList li+li	{ border-top: 1px solid #eee; }
+ul#addNewList label	{ color: #333; display: inline-block; float: left;  text-align: left; }
+
+
+ul#addNewList input{ position: absolute; top: 16px; right: 0px; left: 120px; 
+	background-color: #eee;
+
+	text-align: right;
+}
+
+ul#addNewList input::-webkit-input-placeholder {
+   color: #999;
+   text-align: right;
+ 
+}
+ul#addNewList .placeholder{  }
+	
+	
+li#addNewName		{  }
+li#addNewAmmount	{  }
+li#addNewKcal		{  }
+li#addNewPro		{  }
+li#addNewCar		{  }
+li#addNewFat		{  }
+
+/*
+"><label>Name</label><input type="text" id="InputNewName" /></li>\
+
+
+
+"><label>Ammount</label><input type="text" id="InputNewAmmount" /></li>\
+				><label>kcal</label<input type="text" id="InputNewKcal" />></li>\
+					><label>pro</label><input type="text" id="InputNewPro" /></li>\
+					<label>car</label><input type="text" id="InputNewCar" /></li>\
+					<label>fat</label><input type="text" id="InputNewFat" /></li>\
+				</ul>\
 */
+
+
+
+
+
+
+
+
+
+
+
+
 /*#////////////////////#//
 //# IOS STYLE CHECKBOX #//
 //#////////////////////#*/
+/*
 .MobileCheckboxContainer								{ position: relative; overflow: hidden; background: #fff; border-width: 1px; border-style: solid; border-color: #666 #666 #999 #333; -webkit-user-select: none; -webkit-background-clip: padding-box; -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); } 
 .MobileCheckboxContainer + .MobileCheckboxContainer		{ margin-top: 5px; }
 .MobileCheckboxContainer.disabled						{ opacity: 0.5; }
@@ -531,6 +621,7 @@ input#CyclicInput2				{ width: 80px; font-size: 14px; margin-right: 3px; padding
 .ios7style .MobileCheckboxContainer .CheckboxHandle		{ background: #fff; background: rgba(255,255,255,1); -webkit-box-shadow: none; }
 .ios7style .ios7:checked								{ display: block !important; }
 .ios7style .ios7:checked ~ .CheckboxHandle				{ border: 2px solid #53D769; }
+*/
 /*#///////////#//
 //#// IOS 7 //#//
 //#///////////#*/

@@ -312,7 +312,9 @@ function spinner(size) {
 		$("#tempHolder").html('<div id="modalOverlay"></div><span id="spinnerMsg">' + LANG("PREPARING_DB") + '</span><div id="spinnerWrapper"><div id="spinner"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div><div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div><div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div></div></div>');
 		$("#modalOverlay").css("opacity",.5);
 		//prevent tapping
-		$("#modalOverlay").css("z-index",999999);
+		$("#modalOverlay").css("z-index",99999);
+		$("#modalOverlay").css("background-color","#fff");
+		$("#modalOverlay").css("background-image","-webkit-linear-gradient(#fff,#fefefe)");		
 		$("#modalOverlay,#spinner,#tempHolder").on(touchstart, function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
@@ -536,12 +538,14 @@ var doubletap  = hasTouch() ? ' doubleTap '  : ' dblclick ';
 var isMobile = {
 	Android: function() {
 		return navigator.userAgent.match(/Android/i) ? true : false;
+		//return (navigator.userAgent.match(/Android/i) && document.URL.indexOf( 'http://' ) === -1 &&document.URL.indexOf( 'https://' ) === -1) ? true : false;
 	},
 	BlackBerry: function() {
 		return navigator.userAgent.match(/BlackBerry/i) ? true : false;
 	},
 	iOS: function() {
 		return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+		//return (navigator.userAgent.match(/iPhone|iPad|iPod/i) && document.URL.indexOf( 'http://' ) === -1 &&document.URL.indexOf( 'https://' ) === -1) ? true : false;
 	},
 	Windows: function() {
 		return navigator.userAgent.match(/IEMobile/i) ? true : false;
@@ -566,7 +570,7 @@ function updateEntriesTime() {
 //////////////////
 var niceTimer;
 function niceResizer() { 
-	if(!isMobile.iOS()) { 
+	if(!isMobile.iOS() && androidVersion() < 4.4) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
 		//console.log('resizing....');
