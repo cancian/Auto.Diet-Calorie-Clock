@@ -680,7 +680,7 @@ $(document).on("pageReload", function(evt) {
 								kcalBase = kcal;
 							}
 							//html
-							var foodLine = "<div class='searcheable' id='" + type + code + "' title='" + kcalBase + "'><div class='foodName'>" + name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + kcal + "</span><span class='foodPro " + typeClass + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + pro + "</span><span class='foodCar " + typeClass + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + car  + "</span><span class='foodFat " + typeClass + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + fat  + "</span></div>";
+							var foodLine = "<div class='searcheable' id='" + code + "' title='" + kcalBase + "'><div class='foodName'>" + name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + kcal + "</span><span class='foodPro " + typeClass + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + pro + "</span><span class='foodCar " + typeClass + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + car  + "</span><span class='foodFat " + typeClass + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + fat  + "</span></div>";
 							//result list
 							foodList += foodLine;
 						//}
@@ -721,308 +721,11 @@ $(document).on("pageReload", function(evt) {
 			/////////////////////////////////
 			// TAP FOOD-ENTRY EDIT (MODAL) //
 			/////////////////////////////////
-			//var ix  = 0;
-			//var meh = 0;
-			var duh;
 			$("#foodList div.searcheable").on(singletap,function(event) {
 			//$("#foodList div.searcheable").swipe({
 			//	tap:function(event) {
-					event.preventDefault();
-					//counting
-					//ix++;
-					//var shit = meh;
-					//var shot = $("#activeOverflow").html(); //this.id;
-					//meh      = $("#activeOverflow").html(); //this.id;
-					duh      = new Date().getTime();
-					//filter
-					//if(shit == shot && (duh - deh) < 400 && ix >= 1) {
-					if(0 == 0) {
-						////////////////////////
-						// FOODLIST DOUBLETAP //
-						////////////////////////
-						//insert frame
-						$("body").append('<div id="modalOverlay"></div>');
-						$("body").append('<div id="modalWindow"></div>');
-						//add content
-						$("#modalWindow").html("<div id='modalContent'>" + $("#activeOverflow").html() + "&nbsp; <span>&nbsp;" + LANG('PRE_FILL') + "</span></div>");
-						$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG('ADD') + "</span><span id='modalCancel'>" + LANG('CANCEL') + "</span></div>");
-						$("#modalWindow").append('<div id="modalAdjust"><span id="modalNegBlock"><span id="modalNeg" class="icon-chevron-sign-left"></span></span><span id="modalPosBlock"><span id="modalPos" class="icon-chevron-sign-right"></span></span><span id="modalAmmountBlock"><span id="modalAmmount">0</span><span id="modalAmmountType">' + LANG("GRAMS") + '</span></span><span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">kcal</span></span></div>');
-						//set shortcuts
-						var kcalsBase = Number($("#activeOverflow").parent("div").attr("title"));
-						//var kcalsList = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodKcal").text().split("kcals").join(""));
-						//CONTENT TYPE ADJUST
-						if(searchType == "food") { 
-							$("#modalAmmountType").html(LANG('GRAMS'));
-							$("#modalTotalType").after("<span id='proData'>0.0<span>g</span></span><span id='carData'>0.0<span>g</span></span><span id='fatData'>0.0<span>g</span></span><span id='proLabel'>" + LANG('PRO') + "</span><span id='carLabel'>" + LANG('CAR') + "</span><span id='fatLabel'>" + LANG('FAT') + "</span>");
-						} else {
-							$("#modalAmmountType").html(LANG('MINUTES'));
-						}
-						//SHOW MODAL
-						$("#modalWindow,#modalOverlay").fadeIn(200);
-						$('#modalWindow,#modalOverlay').addClass('show');
-						//#/////////////////////////////////#//
-						//# MODAL ADD/REMOVE CORE FUNCTIONS #//
-						//#/////////////////////////////////#//
-						///////////////////
-						// NUTRIENT DATA //
-						///////////////////
-						function getNutriData() {
-							if(searchType == "food") {
-								var kcalsPro = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodPro").text().split(LANG("PRO")).join(""));
-								var kcalsCar = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodCar").text().split(LANG("CAR")).join(""));
-								var kcalsFat = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodFat").text().split(LANG("FAT")).join(""));
-								//var kcalsFib = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodFib").text().split("fib").join(""));
-								var kcalsTotalPro = (Math.round((((Number(kcalsPro))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
-								var kcalsTotalCar = (Math.round((((Number(kcalsCar))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
-								var kcalsTotalFat = (Math.round((((Number(kcalsFat))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
-								//var kcalsTotalFib = (Math.round((((Number(kcalsFib))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
-								var proData = "" + kcalsTotalPro.toFixed(1) + "<span>g</span>";
-								var carData = "" + kcalsTotalCar.toFixed(1) + "<span>g</span>";
-								var fatData = "" + kcalsTotalFat.toFixed(1) + "<span>g</span>";
-								//var fibData = "" + kcalsTotalFib.toFixed(1) + "<span>g</span>";
-								$("#proData").html(proData);
-								$("#carData").html(carData);
-								$("#fatData").html(fatData);
-								//$("#fibData").html(fibData);
-							}
-						}
-						/////////
-						// ADD //
-						/////////
-						function modalAdd() {
-							//FOOD
-							if(searchType == "food") {
-								if($("#modalAmmount").html() < 750 && Math.round(((kcalsBase)/100) * (Number(document.getElementById('modalAmmount').innerHTML) + 25)) <= 9999) {
-									$("#modalAmmount").html(Number($("#modalAmmount").html()) + (25));
-									$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmmount').innerHTML)));
-									getNutriData();
-								}
-							} else {
-							//EXERCISE
-								if($("#modalAmmount").html() < 360 && Math.round(((kcalsBase * totalWeight)/60) * (Number(document.getElementById('modalAmmount').innerHTML) + 5)) <= 9999) {
-									$("#modalAmmount").html( Number($("#modalAmmount").html()) + (5));
-									$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmmount').innerHTML)));
-								}
-							}
-						}
-						/////////
-						// REM //
-						/////////
-						function modalRem() {
-							//FOOD	
-							if(searchType == "food") {
-								if($("#modalAmmount").html() > 0) {
-									$("#modalAmmount").html( Number($("#modalAmmount").html()) - (25));
-									$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmmount').innerHTML)));
-									getNutriData();
-								}
-							} else {
-							//EXERCISE
-								if($("#modalAmmount").html() > 0) {
-									$("#modalAmmount").html( Number($("#modalAmmount").html()) - (5));
-									$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmmount').innerHTML)));
-								}
-							}
-						}
-						/////////////////////
-						// POSITIVE ADJUST //
-						/////////////////////
-						$("#modalPosBlock").on(touchstart, function(evt) {
-							evt.preventDefault();
-							modalAdd();
-							return false;
-						});
-						/////////////////////
-						// NEGATIVE ADJUST //
-						/////////////////////
-						$("#modalNegBlock").on(touchstart, function(evt) {
-							evt.preventDefault();
-							modalRem();
-							return false;
-						});
-						///////////////////////
-						// POSITIVE REPEATER //
-						///////////////////////
-						function clearRepeaterModal() {
-							clearTimeout(pressTimerModalNeg);
-							clearTimeout(pressTimerModalPos);
-							clearInterval(pressRepeatModalNeg);
-							clearInterval(pressRepeatModalPos);
-						}
-						///////////////
-						// AUTOCLEAR //
-						///////////////
-						$("#modalPosBlock,#modalNegBlock").on(touchend + " mouseout", function(evt) {
-							evt.preventDefault();
-							clearRepeaterModal();
-						});
-						//
-						var pressTimerModalPos;
-						var pressRepeatModalPos;
-						$("#adjustPosBlock").on(touchend, function(evt) {
-							evt.preventDefault();
-							clearRepeaterModal();
-						});
-						$("#modalPosBlock").on(touchstart, function(evt) {
-							evt.preventDefault();
-							clearRepeaterModal();
-							pressTimerModalPos  = window.setTimeout(function()  {
-							pressRepeatModalPos = window.setInterval(function() {
-							modalAdd();
-							return false;
-							},275);
-							},275);
-						});
-						///////////////////////
-						// NEGATIVE REPEATER //
-						///////////////////////
-						var pressTimerModalNeg;
-						var pressRepeatModalNeg;
-						$("#modalNegBlock").on(touchend, function(evt) {
-							evt.preventDefault();
-							clearRepeaterModal();
-						});
-						$("#modalNegBlock").on(touchstart, function(evt) {
-							evt.preventDefault();
-							clearRepeaterModal();
-							pressTimerModalNeg  = window.setTimeout(function()  {
-							pressRepeatModalNeg = window.setInterval(function() {
-							modalRem();
-							return false;
-							},275);
-							},275);
-						});
-						//#/////////////////////////#//
-						//# SMALLER MODAL FUNCTIONS #//
-						//#/////////////////////////#//
-						////////////////////////////
-						// MODAL QUICK ADD (SAVE) //
-						////////////////////////////
-						var im = 0;
-						$("#modalOk").on(touchstart,function(evt) {
-							evt.preventDefault();
-							clearRepeaterModal();
-							//ADJUST TYPE
-							if(searchType == "food") { 
-								var valueType = 1;
-								var shortDesc = ""; //" [" + document.getElementById('modalAmmount').innerHTML + "g]";
-							} else {
-								var valueType = -1;
-								var shortDesc = ""; //" [" + document.getElementById('modalAmmount').innerHTML + " min]";
-							}
-							//grab values
-							var title     = ((document.getElementById('modalTotal').innerHTML) * (valueType));
-							var body      = $("#activeOverflow").text() + shortDesc;
-							var published = new Date().getTime();
-							//hours ago
-							if(Number($("#entryTime").val()) >= 1) {
-								published = published - (Number($("#entryTime").val()) * (60 * 60 * 1000) );
-							}
-							//SAVE (NOT NULL)
-							if(title != 0 && im == 0) {
-							im++;
-								//console.log("new entry added (modal)");
-								diary.saveEntry({title:title,body:body,published:published});
-								//CSS FADE OUT
-								$('#modalWindow').removeClass('show');
-								$('#modalOverlay').removeClass('show');
-								$(".searcheable").removeClass('fade');
-								//CSS HIGHLIGHT
-								$(".activeOverflow").removeClass("activeOverflow");
-								$(".searcheable").removeClass('yellow');
-								$(".searcheable").removeClass('trans');
-								$("#activeOverflow").parent("div").addClass('yellow');
-								var yellowFade = setTimeout(function() {
-									$("#activeOverflow").parent("div").addClass('fade');
-									$("#activeOverflow").parent("div").addClass('trans');
-								},0);
-								//SELF-REMOVE
-								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
-									$("#modalOverlay,#modalWindow").remove();
-								});
-								if(document.getElementById('slider') && document.getElementById('entryBody')) {
-									var resetSlider = document.getElementById('slider').slider.resetValue();
-									document.getElementById('entryBody').value = "";
-									document.getElementById('entryTime').value = 0;
-								}
-								//REFRESH DATA
-								updateTimer();
-								clearRepeaterModal();
-								$("#activeOverflow").parent("div").on('webkitTransitionEnd',function(e) { 
-									updateEntries(published);
-									updateEntriesTime();
-								});
-							}
-						});
-						///////////////////
-						// OVERLAY CLOSE //
-						///////////////////
-						//fix foodlist scrolling
-						$("#modalWindow").on("touchmove",function(evt) {
-							evt.preventDefault();
-							evt.stopPropagation();
-						});
-						$("#modalOverlay, #modalCancel").on(touchstart,function(evt) {
-							evt.preventDefault();
-							evt.stopPropagation();
-							//fade (time protected)
-							var deFade = new Date().getTime();
-							if((deFade - duh > 350)) {
-								//CSS FADE OUT
-								$('#modalWindow').removeClass('show');
-								$('#modalOverlay').removeClass('show');
-								clearRepeaterModal();
-								//SELF-REMOVE
-								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
-									$("#modalOverlay,#modalWindow").remove();
-								});
-							}
-						});
-						///////////////////
-						// PRE-FILL ONLY //
-						///////////////////
-						var mc = 0;
-						$("#modalContent").on(touchstart,function(evt) {
-							evt.preventDefault();
-							evt.stopPropagation();
-							clearRepeaterModal();
-							if(mc == 0) {
-								mc++;
-								///////////////
-								// DIARY TAB //
-								///////////////
-								var preFillTimer = 0;
-								if(window.localStorage.getItem("app_last_tab") != "tab2") {
-									var preFillTimer = 150;				
-									$("ul#appFooter li").removeClass("selected");
-									window.localStorage.setItem("app_last_tab","tab2");
-									$("#tab2").addClass("selected");
-									openDiary();
-								}
-								setTimeout(function(evt) {
-									$("#entryBody").val($("#activeOverflow").text());
-									//CSS FADE OUT
-									$('#modalWindow').removeClass('show');
-									$('#modalOverlay').removeClass('show');
-									//SELF-REMOVE
-									$('#modalWindow').on('webkitTransitionEnd',function(e) { 
-										$("#modalWindow").remove();
-										$("#modalOverlay").remove();
-									});
-									$("#appHeader").trigger(trim(touchstart));
-									$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
-								},preFillTimer);
-							}
-						});
-						/////////////////////////////////////
-						// END TAP FOOD-ENTRY EDIT (MODAL) //
-						/////////////////////////////////////
-						//var mi = "2";
-						//ix     = -1;
-						//meh    = "";
-				//	}
-					deh = duh;
-				}
+				event.preventDefault();
+				getModalWindow($(this).attr("id"));
 			});
 		}); // END QUERY CONTEXT
 	}}
@@ -1202,18 +905,18 @@ ios red  > F92E21 & ios blue > 0A60FF
 
 
 
+
+
+
+
 var recentBlock = '\
 <div id="infoContents" class="infoContents">\
 <!--## TAB OVERVIEW ##-->\
 	<div id="tabRecent"><div id="recentBlock">' + recentHtml + '</div></div>\
 <!--## TAB OVERVIEW ##-->\
 <!--## TAB GESTURES ##-->\
-	<div id="tabMyFoods">\
-		<ul>\
-			<li><h3>header</h3></li>\
-			<li><p>calorie calculator <span>swipe left</span></p></li>\
-		</ul>\
-<div id="addNewFood">add new food</div>\
+	<div id="tabMyFoods"><div id="tabMyFoodsBlock"></div>\
+	<div id="addNewFood">add new food</div>\
 	</div>\
 <!--## TAB GESTURES ##-->\
 <!--## TAB SETTINGS ##-->\
@@ -1233,6 +936,76 @@ var recentBlock = '\
 ////////////
 $("#foodList").html("<div id='menuTopBar'><h3 id='topBarItem-1'><span>recent</span></h3><h3 id='topBarItem-2'><span>my foods</span></h3><h3 id='topBarItem-3'><span>my exercises</span></h3></div>\
 " + recentBlock);
+
+
+/////////////////////
+// CUSTOM FOOD SQL //
+/////////////////////
+diary.getCustom("food",function(data) {
+// LOOP RESULTS //
+var customFoodList = "";
+for(var c=0, len=data.length; c<len; c++) {
+var foodLine = "<div class='searcheable' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + data[c].kcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + data[c].fat  + "</span></div>";
+
+if(foodLine != "") {
+customFoodList += foodLine;
+}
+
+}
+
+
+$("#tabMyFoodsBlock").html(customFoodList);
+
+
+
+$("#tabMyFoodsBlock div.searcheable").on(singletap,function(evt) {
+	//$("#foodList div.searcheable").swipe({
+	//	tap:function(event) {
+	evt.preventDefault();
+	getModalWindow($(this).attr("id"));
+});
+
+
+
+
+
+
+			$("#tabMyFoodsBlock div.searcheable").on(tap + touchstart, function(evt) {
+				if($("#foodSearch").is(":focus")) { 
+					$("#foodSearch").blur();
+					return false;
+				}
+				$("#activeOverflow").removeAttr("id");
+				$(".activeOverflow").removeClass("activeOverflow");
+				$(this).addClass("activeOverflow");
+				$(".foodName",this).attr("id","activeOverflow");
+				$(".foodName").css("overflow","auto");
+			});
+
+	/////////////////////////////////////////
+	// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
+	/////////////////////////////////////////
+	$("#foodSearch").on(touchstart, function(evt) {
+		$(".foodName").css("overflow","hidden");
+		$("#activeOverflow").removeAttr("id");
+		$(".activeOverflow").removeClass("activeOverflow");
+	});
+
+
+
+
+//$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><
+//span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
+/*
+if($("#foodSearch").val() != "") {
+	$("#foodList").html('<span id="noMatches"> ' + LANG("NO_MATCHES") +' </span>');
+		} else {
+							getRecentList();
+						}
+*/
+
+});
+
 
 
 
@@ -1328,31 +1101,113 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 
 
 
-
-
-
-
-
-
-
 /////////////
 // ACTIONS //
 /////////////
 //$(".searcheable").off(tap + touchstart);
 $("#addNewFood").on(touchstart, function(evt) {
-	
+addNewItem();
+});
+//$(".searcheable").off(tap + touchstart);
+$("#addNewExercise").on(touchstart, function(evt) {
+addNewItem();
+
+});
+
+//end touchstart (black button)
+
+
+
+			/////////////
+			// ACTIONS //
+			/////////////
+//
+			$(".searcheable").off(tap);
+			$(".searcheable").on(tap + touchstart, function(evt) {
+				$("#activeOverflow").removeAttr("id");
+				$(this).addClass("activeOverflow");
+				$(".foodName",this).attr("id","activeOverflow");
+				$(".foodName").css("overflow","auto");
+			});
+				
+			// PRE-FILL RECENT //
+			var mr = 0;
+			//entrylist form propagation fix (touchend > touchstart [android 2.x])
+			$(".recentItem").on(touchstart,function(evt) {
+				evt.preventDefault();
+			});
+			$(".recentItem").off(singletap);
+			$(".recentItem").on(singletap,function(evt) {
+				evt.preventDefault();
+				evt.stopPropagation();
+				//not if empty
+				if(!$("#activeOverflow").html()) { return; }
+				if(mr == 0) {
+					mr++;
+					///////////////
+					// DIARY TAB //
+					///////////////
+					var preFillTimer = 0;
+					if(window.localStorage.getItem("app_last_tab") != "tab2") {
+						var preFillTimer = 150;
+						$("ul#appFooter li").removeClass("selected");
+						window.localStorage.setItem("app_last_tab","tab2");
+						$("#tab2").addClass("selected");
+						openDiary();
+					}
+					setTimeout(function(evt) {
+						$("#entryBody").val( trim($("#activeOverflow").text()) );
+						//CSS FADE OUT
+						$('#modalWindow').removeClass('show');
+						$('#modalOverlay').removeClass('show');
+						//SELF-REMOVE
+						$('#modalWindow').on('webkitTransitionEnd',function(e) { 
+							$("#modalWindow").remove();
+							$("#modalOverlay").remove();
+						});
+						$("#appHeader").trigger(trim(touchstart));
+						$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
+					},preFillTimer);
+				}
+			});
+			});
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function addNewItem() {
+
 	if(!$("#tempHolder").html()) { 
 		$("body").append('\
 		<div id="tempHolder">\
 			<div id="modalOverlay"></div>\
 			<div id="addNewWrapper">\
 				<ul id="addNewList">\
-					<li id="addNewName">   <label>Name</label>   <input tabindex="3" type="text" id="InputNewName"      placeholder="description" /></li>\
-					<li id="addNewAmmount"><label>Ammount</label><input tabindex="3" type="number" id="InputNewAmmount" placeholder="100g" />       </li>\
-					<li id="addNewKcal">   <label>kcal</label>   <input tabindex="3" type="number" id="InputNewKcal"    placeholder="0" />          </li>\
-					<li id="addNewPro">    <label>pro</label>    <input tabindex="3" type="number" id="InputNewPro"     placeholder="0.00" />       </li>\
-					<li id="addNewCar">    <label>car</label>    <input tabindex="3" type="number" id="InputNewCar"     placeholder="0.00" />       </li>\
-					<li id="addNewFat">    <label>fat</label>    <input tabindex="3" type="number" id="InputNewFat"     placeholder="0.00" />       </li>\
+					<li id="addNewName">   <label>Name</label>   <input tabindex="3" type="text" id="inputNewName"      placeholder="description" /></li>\
+					<li id="addNewAmmount"><label>Ammount</label><input tabindex="3" type="number" id="inputNewAmmount" placeholder="100g" />       </li>\
+					<li id="addNewKcal">   <label>kcal</label>   <input tabindex="3" type="number" id="inputNewKcal"    placeholder="0" />          </li>\
+					<li id="addNewPro">    <label>pro</label>    <input tabindex="3" type="number" id="inputNewPro"     placeholder="0.00" />       </li>\
+					<li id="addNewCar">    <label>car</label>    <input tabindex="3" type="number" id="inputNewCar"     placeholder="0.00" />       </li>\
+					<li id="addNewFat">    <label>fat</label>    <input tabindex="3" type="number" id="inputNewFat"     placeholder="0.00" />       </li>\
 				</ul>\
 				<div id="addNewCancel">cancel</div>\
 				<div id="addNewConfirm">confirm</div>\
@@ -1419,26 +1274,71 @@ $("#addNewWrapper input").on("focus",function(evt) {
 
 
 
-
+//autohide keyboard
 $("#addNewWrapper").on("touchstart",function(evt) {
-//	$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");	
-//	$(window).trigger("orientationchange");
+	if(evt.target.id == "addNewWrapper" || evt.target.id == "") {
+		evt.preventDefault();
+		evt.stopPropagation();		
+		$("#addNewWrapper input").trigger("blur");
+	}
 });
 
+/////////////
+// CONFIRM //
+/////////////
 $("#addNewConfirm").on(touchstart, function(evt) {
 //...
+/*
+$("#addNewName").val();
+$("#addNewAmmount").val();
+$("#addNewKcal").val();
+$("#addNewPro").val();
+$("#addNewCar").val();
+$("#addNewFat").val();*/
+
+var vType = "food";
+var vCode = "c" + (new Date()).getTime();
+var vName = $("#inputNewName").val();
+var vTerm = sanitize($("#inputNewName").val());
+var vKcal = $("#inputNewKcal").val();
+var vPro  = $("#inputNewPro").val();
+var vCar  = $("#inputNewCar").val();
+var vFat  = $("#inputNewFat").val();
+var vFib  = "custom";
+
+diary.setFood( {
+	type:vType,
+	code:vCode,
+	name:vName,
+	term:vTerm,
+	kcal:vKcal,
+	pro:vPro,
+	car:vCar,
+	fat:vFat,
+	fib:vFib								
+	}, function() { });
+	getRecentList();
+		
 });
 
 
+////////////
+// CANCEL //
+////////////
 //timed cancel (animation) ~ plus foodsearch propagation fix
 setTimeout(function() {
-	$("#addNewCancel").on(touchstart, function(evt) {
+	$("#addNewCancel,#modalOverlay").on(touchstart, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
+		//first tap blur, if focused
+		if(evt.target.id == "modalOverlay" && $("#addNewWrapper input").is(":focus")) {
+			$("#addNewWrapper input").trigger("blur");
+			return false;
+		}
 		if(isMobile.Android()) {
 			$(window).trigger("orientationchange");
 		}
-		if($("#tempHolder").html()) { 
+		if($("#tempHolder").html()) {
 			$("#tempHolder").fadeOut(200,function() {
 				$("#tempHolder").remove();
 			});
@@ -1447,62 +1347,399 @@ setTimeout(function() {
 },200);
 
 
-
-});//end touchstart (black button)
-
+}
 
 
-			/////////////
-			// ACTIONS //
-			/////////////
-//
-			$(".searcheable").off(tap);
-			$(".searcheable").on(tap + touchstart, function(evt) {
-				$("#activeOverflow").removeAttr("id");
-				$(this).addClass("activeOverflow");
-				$(".foodName",this).attr("id","activeOverflow");
-				$(".foodName").css("overflow","auto");
-			});
-				
-			// PRE-FILL RECENT //
-			var mr = 0;
-			//entrylist form propagation fix (touchend > touchstart [android 2.x])
-			$(".recentItem").on(touchstart,function(evt) {
-				evt.preventDefault();
-			});
-			$(".recentItem").off(singletap);
-			$(".recentItem").on(singletap,function(evt) {
-				evt.preventDefault();
-				evt.stopPropagation();
-				//not if empty
-				if(!$("#activeOverflow").html()) { return; }
-				if(mr == 0) {
-					mr++;
-					///////////////
-					// DIARY TAB //
-					///////////////
-					var preFillTimer = 0;
-					if(window.localStorage.getItem("app_last_tab") != "tab2") {
-						var preFillTimer = 150;
-						$("ul#appFooter li").removeClass("selected");
-						window.localStorage.setItem("app_last_tab","tab2");
-						$("#tab2").addClass("selected");
-						openDiary();
-					}
-					setTimeout(function(evt) {
-						$("#entryBody").val( trim($("#activeOverflow").text()) );
-						//CSS FADE OUT
-						$('#modalWindow').removeClass('show');
-						$('#modalOverlay').removeClass('show');
-						//SELF-REMOVE
-						$('#modalWindow').on('webkitTransitionEnd',function(e) { 
-							$("#modalWindow").remove();
-							$("#modalOverlay").remove();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//##////////////////////##//
+//##    MODAL WINDOW    ##//
+//##////////////////////##//
+function getModalWindow(itemId) {
+	diary.getFood(itemId,function(data) {
+		var mName = data[0].name;
+		var mType = data[0].type;
+		var mCode = data[0].code;
+		var mTerm = data[0].term;
+		var mKcal = data[0].kcal;
+		var mPro  = data[0].pro;
+		var mCar  = data[0].car;
+		var mFat  = data[0].fat;
+		var mFib  = data[0].fib;
+///////////////////
+// DEFINE WEIGHT //
+///////////////////
+if(mType == "exercise") {
+	//get current weight
+	if(!window.localStorage.getItem("calcForm#pA3B")) {
+		var totalWeight = 80;
+	} else {
+		var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
+	}
+	//convert to kg
+	if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
+		var totalWeight = Math.round( (totalWeight) / (2.2) );
+	}
+/////////////////
+// DEFINE TYPE //
+/////////////////
+	var searchType = 'exercise';
+} else {
+	var searchType = 'food';
+}
+
+
+					//counting
+					//ix++;
+					//var shit = meh;
+					//var shot = $("#activeOverflow").html(); //this.id;
+					//meh      = $("#activeOverflow").html(); //this.id;
+					duh      = new Date().getTime();
+					//filter
+					//if(shit == shot && (duh - deh) < 400 && ix >= 1) {
+					if(0 == 0) {
+						////////////////////////
+						// FOODLIST DOUBLETAP //
+						////////////////////////
+						//insert frame
+						$("body").append('<div id="modalOverlay"></div>');
+						$("body").append('<div id="modalWindow"></div>');
+						//add content
+						$("#modalWindow").html("<div id='modalContent'>" + mName + "&nbsp; <span>&nbsp;" + LANG('PRE_FILL') + "</span></div>");
+						$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG('ADD') + "</span><span id='modalCancel'>" + LANG('CANCEL') + "</span></div>");
+						$("#modalWindow").append('<div id="modalAdjust"><span id="modalNegBlock"><span id="modalNeg" class="icon-chevron-sign-left"></span></span><span id="modalPosBlock"><span id="modalPos" class="icon-chevron-sign-right"></span></span><span id="modalAmmountBlock"><span id="modalAmmount">0</span><span id="modalAmmountType">' + LANG("GRAMS") + '</span></span><span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">kcal</span></span></div>');
+						//set shortcuts
+						var kcalsBase = mKcal;
+						//var kcalsList = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodKcal").text().split("kcals").join(""));
+
+						if(searchType == "food") { 
+							$("#modalAmmountType").html(LANG('GRAMS'));
+							$("#modalTotalType").after("<span id='proData'>0.0<span>g</span></span><span id='carData'>0.0<span>g</span></span><span id='fatData'>0.0<span>g</span></span><span id='proLabel'>" + LANG('PRO') + "</span><span id='carLabel'>" + LANG('CAR') + "</span><span id='fatLabel'>" + LANG('FAT') + "</span>");
+						} else {
+							$("#modalAmmountType").html(LANG('MINUTES'));
+						}
+						//SHOW MODAL
+						$("#modalWindow,#modalOverlay").fadeIn(200);
+						$('#modalWindow,#modalOverlay').addClass('show');
+						//#/////////////////////////////////#//
+						//# MODAL ADD/REMOVE CORE FUNCTIONS #//
+						//#/////////////////////////////////#//
+						///////////////////
+						// NUTRIENT DATA //
+						///////////////////
+						function getNutriData() {
+							if(searchType == "food") {
+								var kcalsPro = mPro;
+								var kcalsCar = mCar;
+								var kcalsFat = mFat;
+								//var kcalsFib = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodFib").text().split("fib").join(""));
+								var kcalsTotalPro = (Math.round((((Number(kcalsPro))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
+								var kcalsTotalCar = (Math.round((((Number(kcalsCar))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
+								var kcalsTotalFat = (Math.round((((Number(kcalsFat))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
+								//var kcalsTotalFib = (Math.round((((Number(kcalsFib))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
+								var proData = "" + kcalsTotalPro.toFixed(1) + "<span>g</span>";
+								var carData = "" + kcalsTotalCar.toFixed(1) + "<span>g</span>";
+								var fatData = "" + kcalsTotalFat.toFixed(1) + "<span>g</span>";
+								//var fibData = "" + kcalsTotalFib.toFixed(1) + "<span>g</span>";
+								$("#proData").html(proData);
+								$("#carData").html(carData);
+								$("#fatData").html(fatData);
+								//$("#fibData").html(fibData);
+							}
+						}
+						/////////
+						// ADD //
+						/////////
+						function modalAdd() {
+							//FOOD
+							if(searchType == "food") {
+								if($("#modalAmmount").html() < 750 && Math.round(((kcalsBase)/100) * (Number(document.getElementById('modalAmmount').innerHTML) + 25)) <= 9999) {
+									$("#modalAmmount").html(Number($("#modalAmmount").html()) + (25));
+									$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmmount').innerHTML)));
+									getNutriData();
+								}
+							} else {
+							//EXERCISE
+								if($("#modalAmmount").html() < 360 && Math.round(((kcalsBase * totalWeight)/60) * (Number(document.getElementById('modalAmmount').innerHTML) + 5)) <= 9999) {
+									$("#modalAmmount").html( Number($("#modalAmmount").html()) + (5));
+									$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmmount').innerHTML)));
+								}
+							}
+						}
+						/////////
+						// REM //
+						/////////
+						function modalRem() {
+							//FOOD	
+							if(searchType == "food") {
+								if($("#modalAmmount").html() > 0) {
+									$("#modalAmmount").html( Number($("#modalAmmount").html()) - (25));
+									$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmmount').innerHTML)));
+									getNutriData();
+								}
+							} else {
+							//EXERCISE
+								if($("#modalAmmount").html() > 0) {
+									$("#modalAmmount").html( Number($("#modalAmmount").html()) - (5));
+									$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmmount').innerHTML)));
+								}
+							}
+						}
+						/////////////////////
+						// POSITIVE ADJUST //
+						/////////////////////
+						$("#modalPosBlock").on(touchstart, function(evt) {
+							evt.preventDefault();
+							modalAdd();
+							return false;
 						});
-						$("#appHeader").trigger(trim(touchstart));
-						$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
-					},preFillTimer);
+						/////////////////////
+						// NEGATIVE ADJUST //
+						/////////////////////
+						$("#modalNegBlock").on(touchstart, function(evt) {
+							evt.preventDefault();
+							modalRem();
+							return false;
+						});
+						///////////////////////
+						// POSITIVE REPEATER //
+						///////////////////////
+						function clearRepeaterModal() {
+							clearTimeout(pressTimerModalNeg);
+							clearTimeout(pressTimerModalPos);
+							clearInterval(pressRepeatModalNeg);
+							clearInterval(pressRepeatModalPos);
+						}
+						///////////////
+						// AUTOCLEAR //
+						///////////////
+						$("#modalPosBlock,#modalNegBlock").on(touchend + " mouseout", function(evt) {
+							evt.preventDefault();
+							clearRepeaterModal();
+						});
+						//
+						var pressTimerModalPos;
+						var pressRepeatModalPos;
+						$("#adjustPosBlock").on(touchend, function(evt) {
+							evt.preventDefault();
+							clearRepeaterModal();
+						});
+						$("#modalPosBlock").on(touchstart, function(evt) {
+							evt.preventDefault();
+							clearRepeaterModal();
+							pressTimerModalPos  = window.setTimeout(function()  {
+							pressRepeatModalPos = window.setInterval(function() {
+							modalAdd();
+							return false;
+							},275);
+							},275);
+						});
+						///////////////////////
+						// NEGATIVE REPEATER //
+						///////////////////////
+						var pressTimerModalNeg;
+						var pressRepeatModalNeg;
+						$("#modalNegBlock").on(touchend, function(evt) {
+							evt.preventDefault();
+							clearRepeaterModal();
+						});
+						$("#modalNegBlock").on(touchstart, function(evt) {
+							evt.preventDefault();
+							clearRepeaterModal();
+							pressTimerModalNeg  = window.setTimeout(function()  {
+							pressRepeatModalNeg = window.setInterval(function() {
+							modalRem();
+							return false;
+							},275);
+							},275);
+						});
+						//#/////////////////////////#//
+						//# SMALLER MODAL FUNCTIONS #//
+						//#/////////////////////////#//
+						////////////////////////////
+						// MODAL QUICK ADD (SAVE) //
+						////////////////////////////
+						var im = 0;
+						$("#modalOk").on(touchstart,function(evt) {
+							evt.preventDefault();
+							clearRepeaterModal();
+							//ADJUST TYPE
+							if(searchType == "food") { 
+								var valueType = 1;
+								var shortDesc = ""; //" [" + document.getElementById('modalAmmount').innerHTML + "g]";
+							} else {
+								var valueType = -1;
+								var shortDesc = ""; //" [" + document.getElementById('modalAmmount').innerHTML + " min]";
+							}
+							//grab values
+							var title     = ((document.getElementById('modalTotal').innerHTML) * (valueType));
+							var body      = mName + shortDesc;
+							var published = new Date().getTime();
+							//hours ago
+							if(Number($("#entryTime").val()) >= 1) {
+								published = published - (Number($("#entryTime").val()) * (60 * 60 * 1000) );
+							}
+							//SAVE (NOT NULL)
+							if(title != 0 && im == 0) {
+							im++;
+								//console.log("new entry added (modal)");
+								diary.saveEntry({title:title,body:body,published:published});
+								//CSS FADE OUT
+								$('#modalWindow').removeClass('show');
+								$('#modalOverlay').removeClass('show');
+								$(".searcheable").removeClass('fade');
+								//CSS HIGHLIGHT
+								$(".activeOverflow").removeClass("activeOverflow");
+								$(".searcheable").removeClass('yellow');
+								$(".searcheable").removeClass('trans');
+								$("#" + mCode).addClass('yellow');
+								var yellowFade = setTimeout(function() {
+									$("#" + mCode).addClass('fade');
+									$("#" + mCode).addClass('trans');
+								},0);
+								//SELF-REMOVE
+								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
+									$("#modalOverlay,#modalWindow").remove();
+								});
+								if(document.getElementById('slider') && document.getElementById('entryBody')) {
+									var resetSlider = document.getElementById('slider').slider.resetValue();
+									document.getElementById('entryBody').value = "";
+									document.getElementById('entryTime').value = 0;
+								}
+								//REFRESH DATA
+								updateTimer();
+								clearRepeaterModal();
+								$("#" + mCode).on('webkitTransitionEnd',function(e) { 
+									updateEntries(published);
+									updateEntriesTime();
+								});
+							}
+						});
+						///////////////////
+						// OVERLAY CLOSE //
+						///////////////////
+						//fix foodlist scrolling
+						$("#modalWindow").on("touchmove",function(evt) {
+							evt.preventDefault();
+							evt.stopPropagation();
+						});
+						$("#modalOverlay, #modalCancel").on(touchstart,function(evt) {
+							evt.preventDefault();
+							evt.stopPropagation();
+							//fade (time protected)
+							var deFade = new Date().getTime();
+							if((deFade - duh > 350)) {
+								//CSS FADE OUT
+								$('#modalWindow').removeClass('show');
+								$('#modalOverlay').removeClass('show');
+								clearRepeaterModal();
+								//SELF-REMOVE
+								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
+									$("#modalOverlay,#modalWindow").remove();
+								});
+							}
+						});
+						///////////////////
+						// PRE-FILL ONLY //
+						///////////////////
+						var mc = 0;
+						$("#modalContent").on(touchstart,function(evt) {
+							evt.preventDefault();
+							evt.stopPropagation();
+							clearRepeaterModal();
+							if(mc == 0) {
+								mc++;
+								///////////////
+								// DIARY TAB //
+								///////////////
+								var preFillTimer = 0;
+								if(window.localStorage.getItem("app_last_tab") != "tab2") {
+									var preFillTimer = 150;				
+									$("ul#appFooter li").removeClass("selected");
+									window.localStorage.setItem("app_last_tab","tab2");
+									$("#tab2").addClass("selected");
+									openDiary();
+								}
+								setTimeout(function(evt) {
+									$("#entryBody").val(mName);
+									//CSS FADE OUT
+									$('#modalWindow').removeClass('show');
+									$('#modalOverlay').removeClass('show');
+									//SELF-REMOVE
+									$('#modalWindow').on('webkitTransitionEnd',function(e) { 
+										$("#modalWindow").remove();
+										$("#modalOverlay").remove();
+									});
+									$("#appHeader").trigger(trim(touchstart));
+									$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
+								},preFillTimer);
+							}
+						});
+						/////////////////////////////////////
+						// END TAP FOOD-ENTRY EDIT (MODAL) //
+						/////////////////////////////////////
+						//var mi = "2";
+						//ix     = -1;
+						//meh    = "";
+				//	}
+					deh = duh;
+					
+					
+					
 				}
-			});
-			});
-		}
+				
+	});
+}

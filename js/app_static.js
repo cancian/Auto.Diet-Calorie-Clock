@@ -73,11 +73,8 @@ $("ul#appFooter li").on(touchstart, function(e) {
 function appResizer(time) {
 	setTimeout(function() {
 		$('body').height(window.innerHeight);
+		//unlock top white gap
 		$('body').trigger("touchmove");
-//		$('body').css("min-height",$('body').height() + "px");
-		//$('body').css("max-height",$('body').height() + "px");
-		
-				
 		//NO < 0
 		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
 		//force scrolling ios
@@ -87,7 +84,7 @@ function appResizer(time) {
 		}
 		$('#entryListWrapper').css("height","auto");
 		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
-		$('#foosList').height(window.innerHeight - $('#appHeader').height());
+		$('#foodList').css("min-height",$('#foodList').height() + "px");
 		$('#pageslideFood').height(window.innerHeight - $('#appHeader').height());
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
@@ -107,8 +104,9 @@ $(window).on("orientationchange", function(evt) {
 // RESIZE //
 ////////////
 $(window).on("resize", function(evt) {
-	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
+	//unlock top white gap
 	$('body').trigger("touchmove");
+	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
 	if(window.innerHeight > $('body').height()) {
 		//IOS re-scrolling bug
 		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
@@ -162,6 +160,15 @@ if(isMobile.iOS()) {
 /////////////
 if(isMobile.Android()) {
 	$("body").addClass("android");
+}
+if(isMobile.Android() && androidVersion() < 4) {
+	$("body").addClass("android2");	
+}
+if(isMobile.Android() && androidVersion() >= 4 && androidVersion() < 4.4) {
+	$("body").addClass("android4");	
+}
+if(isMobile.Android() && androidVersion() >= 4.4) {
+	$("body").addClass("android44");	
 }
 ////////////////////
 // PRESET PROFILE //
@@ -357,6 +364,7 @@ updateTimer();
 		}
 	});
 
+
 /////////////////
 // GET ENTRIES //
 /////////////////
@@ -372,6 +380,27 @@ Diary.prototype.setFood = function(id,callback) {
 	}, this.dbErrorHandler);
 };
 
+/////////////////
+// WRITE ENTRY //
+/////////////////
+Diary.prototype.setFood = function(data, callback) {
+	this.db.transaction(
+		function(t) {
+			//update body
+//			if(data.id && !data.title) {
+//				t.executeSql('update diary_entry set body=? where id=' + data.id, [data.body]);
+//			//update title
+//			} else if(data.id && data.title) {
+//				t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
+			//insert new
+//			} else {
+alert(data.type + data.code+data.name+data.term+data.kcal+data.pro+data.car+data.fat+data.fib);
+	
+				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,data.term,data.kcal,data.pro,data.car,data.fat,data.fib]);
+//			} 
+		}
+	);
+};
 
 
 
@@ -380,14 +409,29 @@ Diary.prototype.getFood = function(id,callback) {
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
 		function(t) {
-			t.executeSql('select * from diary_food where id=?',[id],
+			t.executeSql('select * from diary_food where CODE=?',[id],
 			function(t,results) {
 				callback(that.fixResults(results));
 			},this.dbErrorHandler);
 	}, this.dbErrorHandler);
 };
 
+
+Diary.prototype.getCustom = function(type,callback) {
+	//console.log('Running getEntries');
+	if(arguments.length == 1) { callback = arguments[0]; }
+	this.db.transaction(
+		function(t) {
+			t.executeSql('select * from diary_food where FIB="custom" AND TYPE=?',[type],
+			function(t,results) {
+				callback(that.fixResults(results));
+			},this.dbErrorHandler);
+	}, this.dbErrorHandler);
+};
+
+
 /*
+
 this searcheable id...
 diary.getFood(1,function(data) {
 
@@ -403,8 +447,6 @@ var FIB  = data[0].fib;
 //fib = "custom"
 });
 */
-
-
 ////#//
 } //#//
 ////#//

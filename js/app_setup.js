@@ -576,4 +576,13 @@ function niceResizer() {
 		//console.log('resizing....');
 	}
 }
+function sanitize(str) {
+//	var result = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
+//	var searchQuery = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
+if(str != "") {
+	var result = str.split(" ").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
+	return result
+}
+}
+
 

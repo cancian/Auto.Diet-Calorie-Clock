@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="11008" 
-        version   = "1.1.1">
+        versionCode="11200" 
+        version   = "1.1.2">
 		
     <name>MyLiveDiet</name>
 
@@ -68,6 +68,12 @@
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
+    <feature name="NetworkStatus">
+        <param name="ios-package" value="CDVConnection" />
+    </feature>
+	<feature name="GAPlugin">
+		<param name="ios-package" value="GAPlugin"/>
+	</feature>
 
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
@@ -78,6 +84,12 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+	<feature name="GAPlugin" >
+		<param name="android-package" value="com.adobe.plugins.GAPlugin"/>
+	</feature>
 
 	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.splashscreen" />

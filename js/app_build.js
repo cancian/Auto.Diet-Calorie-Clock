@@ -32,13 +32,13 @@ function openSettings(string) {
 	////////////////
 	// ACTIVE ROW //
 	////////////////
-	$("ul#settingsList li").on(touchstart,function(evt) {
+	$("#settingsList li").on(touchstart,function(evt) {
 		$(this).addClass("activeRow");
 		$(this).next().addClass("nextChild");
 	});
-	$("ul#settingsList li").on(touchend + " mouseout",function(evt) {
-		$("li.activeRow").removeClass("activeRow");
-		$("li.nextChild").removeClass("nextChild");
+	$("#settingsList").on(touchend + " mouseout",function(evt) {
+		$(".activeRow").removeClass("activeRow");
+		$(".nextChild").removeClass("nextChild");
 	});
 	////////////////////////
 	// SETTINGS: FEEDBACK //
@@ -155,6 +155,12 @@ function openSettings(string) {
 		} else {
 			if(confirm(LANG("WIPE_DIALOG"))) { onConfirmWipe(1); } else { return false; }
 		}
+	});
+	$("#optionReset").on(touchstart,function(evt) {
+		$("#optionReset").addClass("activeRow");
+	});
+	$("#optionReset").on(touchend + " mouseout",function(evt) {
+		$("#optionReset").removeClass("activeRow");
 	});
 	///////////////////////////
 	// SETTINGS: UNIT TOGGLE //
