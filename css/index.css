@@ -317,9 +317,9 @@ body.android44 #adjustPosBlock:active	{ color: rgba(0,0,0,.1); background-color:
 /*////////////////
 // CARPE SLIDER //
 ////////////////*/
-#slider						{ position: absolute; left: 14px; right: 30px; }
-#sliderWrapper				{ -webkit-backface-visibility: hidden; }
-.carpe-slider-box 			{ position: absolute; top: 14px; left: 14px; right: 30px; height: 60px; }
+#slider						{ width: 100%; display: block; }
+#sliderWrapper				{ display: block; position: relative; padding-right: 30px; padding-left: 14px; }
+.carpe-slider-box 			{ position: relative; top: 14px; left: 0px; right: 00px; height: 60px; }
 .carpe-slider-box,
 .carpe-slider-box *			{ position: relative; display: block; }
 .carpe-slider-panel			{ top: -30px; height: 60px; }
@@ -328,7 +328,9 @@ body.android44 #adjustPosBlock:active	{ color: rgba(0,0,0,.1); background-color:
 /*track*/
 .carpe-slider-track			{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #444; opacity: .5; }
 .carpe-slider-knob			{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 12px; background: #fff; margin-left: 0px; }
-.carpe-slider-knob:hover	{ border: 1px solid #009900; }
+.carpe-slider-knob:hover,
+.carpe-slider-knob:focus,
+.carpe-slider-knob:active	{ border: 1px solid #009900; }
 /*#############################
 ####    PAGE SLIDE FOOD    ####
 #############################*/

@@ -107,7 +107,7 @@ function openSettings(string) {
 	// SETTINGS: EDGE //
 	////////////////////	
 	$("#optionEdge").on("hold", function(evt) {
-		evt.preventDefault();
+		evt.preventDefault();		
 		if(window.localStorage.getItem("app_last_tab") == "tab1") { return; }
 		if(window.localStorage.getItem("config_debug") == "active") {
 			window.localStorage.removeItem("config_debug");
@@ -118,6 +118,7 @@ function openSettings(string) {
 			window.localStorage.setItem("app_last_tab","tab1");
 			afterHide();
 		}
+		$("#optionEdge").off();
 	});
 	$("#optionEdge").on(touchend, function(evt) {
 		evt.preventDefault();
@@ -131,6 +132,7 @@ function openSettings(string) {
 			window.localStorage.setItem("app_last_tab","tab1");
 			afterHide();
 		}
+		$("#optionEdge").off();
 	});
 	//style
 	if(window.localStorage.getItem("config_debug") == "edge") {

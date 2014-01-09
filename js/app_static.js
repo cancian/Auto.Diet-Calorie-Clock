@@ -87,7 +87,9 @@ if(!window.localStorage.getItem("app_last_tab")) {
 //READ STORED
 appFooter(window.localStorage.getItem("app_last_tab"));
 //LISTEN FOR CLICKS
-$("ul#appFooter li").on(touchstart, function(e) {
+$("ul#appFooter li").on(touchstart, function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();
 	window.location='#top';
 	appFooter($(this).attr("id"));
 });
