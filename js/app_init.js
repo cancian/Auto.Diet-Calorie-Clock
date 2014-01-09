@@ -1,6 +1,6 @@
 //JS
 if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-	document.write("<script src='js/cordova.js?"+newDate+"'><\/script>");
+	document.write("<script src='js/cordova.js'><\/script>");
 }
 document.write("<script src='js/jquery-2.0.3.min.js?"+newDate+"'><\/script>");
 document.write("<script src='js/jquery-ui-1.10.3.min.js?"+newDate+"'><\/script>");
@@ -23,6 +23,7 @@ document.write("<script src='" + hostLocal + "js/app_static.js?"+newDate+"'><\/s
 document.write("<script src='" + hostLocal + "js/app_dynamic.js?"+newDate+"'><\/script>");
 document.write("<script src='" + hostLocal + "js/app_custom_core.js?"+newDate+"'><\/script>");
 //CSS
+document.write("<style type'text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot?v=4.0.3'); src: url('css/font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('css/font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('css/font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal;  font-style: normal; } </style>");
 document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css?"+newDate+"' />");
 document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/index.css?"+newDate+"' />");
 

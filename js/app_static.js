@@ -15,6 +15,30 @@ $(document).ready(function() {
 //## START APP ##//
 //##///////////##//
 function startApp() {
+///////////////
+// ANALYTICS //
+///////////////
+if(hasTouch()) {
+setTimeout(function() {	
+	var gaPlugin;
+	gaPlugin = window.plugins.gaPlugin;
+	gaPlugin.init(nativePluginResultHandler, nativePluginErrorHandler, "UA-46450510-1", 50);
+	function nativePluginResultHandler(result) {
+		//alert('nativePluginResultHandler - '+result);
+		//console.log('nativePluginResultHandler: '+result);
+	}
+	function nativePluginErrorHandler(error) {
+		//alert('nativePluginErrorHandler - '+error);
+		//console.log('nativePluginErrorHandler: '+error);
+	}
+	if(isMobile.Android())  { var appOS = "android"; }
+	else if(isMobile.iOS()) { var appOS = "ios";     }
+	else					{ var appOS = "www";     }
+},5000);
+setTimeout(function() {	
+	gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler,appOS + ".mylivediet.com/#" + "startApp");
+},9999);
+}
 ////////////////
 // PARSED CSS //
 ////////////////

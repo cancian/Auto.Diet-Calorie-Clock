@@ -33,12 +33,14 @@ function openSettings(string) {
 	// ACTIVE ROW //
 	////////////////
 	$("#settingsList li").on(touchstart,function(evt) {
+		evt.preventDefault();
 		$(this).addClass("activeRow");
 		$(this).next().addClass("nextChild");
 	});
 	$("#settingsList").on(touchend + " mouseout",function(evt) {
 		$(".activeRow").removeClass("activeRow");
 		$(".nextChild").removeClass("nextChild");
+		evt.preventDefault();
 	});
 	////////////////////////
 	// SETTINGS: FEEDBACK //
@@ -94,6 +96,7 @@ function openSettings(string) {
 	// SETTINGS: ABOUT //
 	/////////////////////
 	$("#optionAbout").on(touchend, function(evt) {
+		evt.preventDefault();
 		if(hasTouch()) {
 			navigator.notification.alert(LANG("ABOUT_DIALOG"), voidThis,LANG("ABOUT_TITLE"),LANG("OK"));
 		} else {
@@ -104,32 +107,30 @@ function openSettings(string) {
 	// SETTINGS: EDGE //
 	////////////////////	
 	$("#optionEdge").on("hold", function(evt) {
+		evt.preventDefault();
+		if(window.localStorage.getItem("app_last_tab") == "tab1") { return; }
 		if(window.localStorage.getItem("config_debug") == "active") {
-			window.localStorage.setItem("config_debug","inactive");
-			$("#entryBody").val('');
-			$("#entryBody").blur();
+			window.localStorage.removeItem("config_debug");
+			window.localStorage.setItem("app_last_tab","tab1");
 			afterHide();
 		} else {
 			window.localStorage.setItem("config_debug","active");
-			$("#entryBody").val('');
-			$("#entryBody").blur();
+			window.localStorage.setItem("app_last_tab","tab1");
 			afterHide();
 		}
-		window.localStorage.setItem("app_last_tab","tab1");
 	});
 	$("#optionEdge").on(touchend, function(evt) {
+		evt.preventDefault();
+		if(window.localStorage.getItem("app_last_tab") == "tab1") { return; }
 		if(window.localStorage.getItem("config_debug") == "edge") {
-			window.localStorage.setItem("config_debug","inactive");
-			$("#entryBody").val('');
-			$("#entryBody").blur();
+			window.localStorage.removeItem("config_debug");
+			window.localStorage.setItem("app_last_tab","tab1");
 			afterHide();
 		} else {
 			window.localStorage.setItem("config_debug","edge");
-			$("#entryBody").val('');
-			$("#entryBody").blur();
+			window.localStorage.setItem("app_last_tab","tab1");
 			afterHide();
 		}
-		window.localStorage.setItem("app_last_tab","tab1");
 	});
 	//style
 	if(window.localStorage.getItem("config_debug") == "edge") {
@@ -155,8 +156,10 @@ function openSettings(string) {
 		} else {
 			if(confirm(LANG("WIPE_DIALOG"))) { onConfirmWipe(1); } else { return false; }
 		}
+		evt.preventDefault();
 	});
 	$("#optionReset").on(touchstart,function(evt) {
+		evt.preventDefault();
 		$("#optionReset").addClass("activeRow");
 	});
 	$("#optionReset").on(touchend + " mouseout",function(evt) {
@@ -253,6 +256,7 @@ function openStatus(string) {
 		} else {
 			alert(LANG("TIME_ELAPSED").toUpperCase() + ": \n" + ELAPSED_DIALOG);
 		}
+		evt.preventDefault();
 	});
 	/////////////////
 	// LOST WEIGHT //
@@ -271,6 +275,7 @@ function openStatus(string) {
 		} else {
 			alert(LANG("WEIGHT_LOSS").toUpperCase() + ": \n" + LOSS_DIALOG);
 		}
+		evt.preventDefault();
 	});
 	//////////////////////////////
 	// CALORIC STATUS (EQ TIME) //
@@ -294,6 +299,7 @@ function openStatus(string) {
 		} else {
 			alert(LANG("CALORIC_BALANCE").toUpperCase() + ": \n" + EQ_DIALOG);
 		}
+		evt.preventDefault();
 	});
 	///////////////////
 	// INTAKE STATUS //
@@ -306,6 +312,7 @@ function openStatus(string) {
 		} else {
 			alert(LANG("CALORIC_INTAKE").toUpperCase() + ": \n" + INTAKE_DIALOG);
 		}
+		evt.preventDefault();
 	});
 	//#///////////#//
 	//# START BAR #//
@@ -336,6 +343,7 @@ function openStatus(string) {
 			$("#appStatusTitle").html(LANG("RESET"));
 			window.localStorage.setItem("appStatus","running");
 		}
+		evt.preventDefault();
 	});
 	//#/////////////#//
 	//# ADD BUTTONS #//
@@ -705,7 +713,7 @@ $(document).trigger("sliderInit");
 	///////////////
 	// autoclear //
 	///////////////
-	$("#sliderPos,#sliderNeg,#sliderNum").on(touchend + "mouseout", function(evt) {
+	$("#sliderPos,#sliderNeg,#sliderNum").on(touchend + " mouseout", function(evt) {
 		evt.preventDefault();
 		clearRepeater();
 	});

@@ -1,9 +1,11 @@
 #################
 ## VERSION LOG ##
 #################
-# 1.1.1 [08/01/2014]
+# 1.1.2 [08/01/2014]
 • custom food/exercises
-• fixed issue with pre-fill not triggering autoclose
+• fixed issue with pre-fill not triggering menu autoclose
+• enhanced stability
+• improved interface responsiveness
 • 
 • 
 • 

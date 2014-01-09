@@ -21,7 +21,8 @@ body.android ::-webkit-scrollbar{ display: none; }
 /*#///////////////#//
 //# GLOBAL HEADER #//
 //#///////////////#*/
-#appHeader						{ position: absolute; height: 62px; top: 0; left: 0; right: 0; color: #fff; z-index: 0; }
+#appHeader						{ position: absolute; height: 62px; top: 0; left: 0; right: 0; color: #fff; z-index: 1; }
+body.android2 #appHeader		{ z-index: 1; }
 #appHeader.deficit				{ background-color: #309030; }
 #appHeader.balanced				{ background-color: #316ADC; }
 #appHeader.surplus				{ background-color: #C85834; }
@@ -40,8 +41,8 @@ input#editable					{ color: #000; position: absolute; top: 10px; right: 9px; dis
 /*#///////////////#//
 //# GLOBAL FOOTER #//
 //#///////////////#*/
-ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); -webkit-backface-visibility: hidden; }
-ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; -webkit-backface-visibility: hidden; }
+ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; }
+ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before	{ color: #cbcbcb; }
 ul#appFooter.appDebug li.selected:before	{ color: #00ee00; }
@@ -144,23 +145,11 @@ span#startDateSpan:before		{ position: absolute; top: -12px; left: 0; font-weigh
 #appStatusReload				{ opacity: .075; display: inline-block; position: absolute; bottom: 0; left: 0; width: 48px; height: 45px; display: inline-block; color: #000; font-size: 21pt; line-height: 49px; text-indent: 7px; background-color: transparent; -webkit-backface-visibility: hidden; }
 #appStatusReload:before			{ content: "\f01e"; font-family: FontAwesome; display: inline-block; font-weight: bold; }
 /*toggle icon*/
-#appStatusToggle				{ display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #000; line-height: 49px; z-index: 10; }
-#appStatusFix #appStatusArrow	{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .4s; opacity: .075; position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; -webkit-backface-visibility: hidden; }
-#appStatusFix.open #appStatusArrow { top: -23px; -webkit-transform: rotate(-60deg); }
-/*
-	width: 0; 
-	height: 0; 
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-	border-top: 20px solid #000;
-	border-bottom: 0px solid transparent;
-	width: 0; 
-	height: 0; 
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-	border-bottom: 20px solid #000;
-	border-top: 0px solid transparent;
-*/
+#appStatusToggle								{ display: inline-block; position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; color: #000; line-height: 49px; z-index: 10; }
+#appStatusFix #appStatusArrow					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .4s; opacity: .075; position: absolute; top: 14px; right: 14px; height: 0; width: 0; border-top: 100px dashed transparent; border-right: 100px solid #955; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; -webkit-backface-visibility: hidden; }
+#appStatusFix.open #appStatusArrow				{ top: -23px; -webkit-transform: rotate(-60deg); }
+body.android2 #appStatusFix #appStatusArrow		{ width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; border-bottom: 0px solid transparent; }
+body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 20px solid #000; border-top: 0px solid transparent; }
 /*################################
 ####    BUILD: APP PROFILE    ####
 ################################*/
@@ -317,12 +306,14 @@ div#noEntries				{ border-left: 5px solid #ccc; }
 #kcalsAdjust				{ color: rgba(0,0,0,.1); }
 #adjustPos:before			{ content: "\f054"; font-family: FontAwesome; font-size: 18pt; line-height: 44px; margin-left: -10px; }
 #adjustNeg:before 			{ content: "\f053"; font-family: FontAwesome; font-size: 18pt; line-height: 44px; margin-right: -10px; }
-#adjustNegBlock:active,
-#adjustPosBlock:active		{ color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
-body.android #adjustNegBlock:active,
-body.android #adjustPosBlock:active	{ color: rgba(0,0,0,.1); background-color: transparent; border-radius: none; }
 #adjustPosBlock				{ position: absolute; right:  2px; top: 1px; width: 60px; height: 38px; line-height: 44px; text-align: center; z-index: 9999; display: block; }
 #adjustNegBlock				{ position: absolute; right: 60px; top: 1px; width: 60px; height: 38px; line-height: 44px; text-align: center; z-index: 9999; display: block; }
+#adjustNegBlock.activeBlock,
+#adjustPosBlock.activeBlock { color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
+
+/*
+body.android44 #adjustNegBlock:active,
+body.android44 #adjustPosBlock:active	{ color: rgba(0,0,0,.1); background-color: transparent; border-radius: none; }*/
 /*////////////////
 // CARPE SLIDER //
 ////////////////*/
@@ -356,7 +347,7 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); }
 span#noMatches			{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
 span#iconClear			{ padding: 22px 18px 9px 18px; font-size: 28px; line-height: 22px; font-weight: bold; position: absolute; top: -1px; right:18px; display:none; color:#000; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .99; font-family: Arial, Helvetica, sans-serif; }
 span#iconRefresh:before { content: "\f021"; color: rgba(0,0,0,.2); font-family: FontAwesome; font-weight: normal; font-family: FontAwesome; display: inline-block; }
-span#iconRefresh		{ font-weight: normal; font-family: FontAwesome; display: inline-block; padding: 21px 18px 9px 18px; font-size: 28px; line-height: 21px; position: absolute; top: 0px; right: 15px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; opacity: .99; }
+span#iconRefresh		{ font-weight: normal; font-family: FontAwesome; display: inline-block; padding: 21px 18px 9px 18px; font-size: 28px; line-height: 21px; position: absolute; top: 0px; right: 15px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; }
 div.foodName			{ color: #0033cc; /*position: absolute; top: 12px; left: 23px; right: 8px;  padding-right: 1px; */ overflow: hidden; font-weight: bold; z-index: 999; -webkit-transform: translate3d(0, 0, 0);}
 div#activeOverflow		{ /*color: #fff;*/ overflow: auto; padding-right: 0px; border-right: 0px solid transparent; -webkit-backface-visibility: visible; display: block; float: none; text-align: left; text-indent: 0px; }
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 1s; }

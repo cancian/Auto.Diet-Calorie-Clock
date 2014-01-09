@@ -83,11 +83,22 @@ $(document).on("pageload", function(evt) {
 									$('#kcalsAdjust').remove();
 									$('#kcalsDiv').parent("div").removeClass("editing");
 									$('#kcalsDiv').parent("div").animate({"backgroundColor": "#fff"},500,function() {
-										eP = 0; 
+										eP = 0;
 									});
 									$('#kcalsDiv').removeAttr('id');
 									$("#sliderBlock").fadeOut(500);
 									clearRepeaterBlock();
+									evt.preventDefault();
+									evt.stopPropagation();
+									//whitegap fix
+									if(isMobile.Android()) {
+										$(window).trigger("resize");
+										clearRepeaterBlock();
+										setTimeout(function() {
+											$(window).trigger("resize");
+											clearRepeaterBlock();
+										},300);
+									}
 								},
 								change: function() {
 									//save changes
@@ -146,6 +157,7 @@ $(document).on("pageload", function(evt) {
 							/////////////////////
 							$("#adjustPosBlock").on(touchstart, function(evt) {
 								evt.preventDefault();
+								$(this).addClass("activeBlock");
 								if(Number(document.getElementById('kcalsDiv').innerHTML) <= 9999) {
 									//console.log("increase entry value");
 									//first click 9999
@@ -174,6 +186,7 @@ $(document).on("pageload", function(evt) {
 							/////////////////////
 							$("#adjustNegBlock").on(touchstart, function(evt) {
 								evt.preventDefault();
+								$(this).addClass("activeBlock");
 								if(Number(document.getElementById('kcalsDiv').innerHTML) >= -9999) {
 									//console.log("decrease entry value");
 									//first click 9999
@@ -209,8 +222,9 @@ $(document).on("pageload", function(evt) {
 							///////////////
 							// AUTOCLEAR //
 							///////////////
-							$("#adjustPosBlock,#adjustNegBlock").on(touchend + "mouseout", function(evt) {
+							$("#adjustPosBlock,#adjustNegBlock").on(touchend + "mouseout mouseup mouseleave", function(evt) {
 								evt.preventDefault();
+								$(".activeBlock").removeClass("activeBlock");
 								clearRepeaterBlock();
 							});
 							//
