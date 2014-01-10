@@ -52,10 +52,12 @@ function openSettings(string) {
 			window.open('http://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');
 		}
 	});
-	//HIDE UNUSED//
-	$("#optionFeedback").hide();
+	////////////
+	// UNUSED //
+	////////////
+	$("#optionFeedback").remove();
 	if(!hasTouch()) {
-		$("#optionReview").hide();
+		$("#optionReview").remove();
 	}
 	////////////////////////
 	// SETTINGS: FEEDBACK //
@@ -107,7 +109,7 @@ function openSettings(string) {
 	// SETTINGS: EDGE //
 	////////////////////	
 	$("#optionEdge").on("hold", function(evt) {
-		evt.preventDefault();		
+		//evt.preventDefault();		
 		if(window.localStorage.getItem("app_last_tab") == "tab1") { return; }
 		if(window.localStorage.getItem("config_debug") == "active") {
 			window.localStorage.removeItem("config_debug");
@@ -121,7 +123,7 @@ function openSettings(string) {
 		$("#optionEdge").off();
 	});
 	$("#optionEdge").on(touchend, function(evt) {
-		evt.preventDefault();
+		//evt.preventDefault();
 		if(window.localStorage.getItem("app_last_tab") == "tab1") { return; }
 		if(window.localStorage.getItem("config_debug") == "edge") {
 			window.localStorage.removeItem("config_debug");
@@ -143,6 +145,7 @@ function openSettings(string) {
 	/////////////////////
 	// WIPE DIALOG
 	$("#optionReset").on(touchend, function(evt) {
+		evt.preventDefault();
 		function onConfirmWipe(button) {
 			if(button == 1) {
 				//window.localStorage.clear();
@@ -158,7 +161,7 @@ function openSettings(string) {
 		} else {
 			if(confirm(LANG("WIPE_DIALOG"))) { onConfirmWipe(1); } else { return false; }
 		}
-		evt.preventDefault();
+		$("#optionReset").off();
 	});
 	$("#optionReset").on(touchstart,function(evt) {
 		evt.preventDefault();
@@ -170,6 +173,10 @@ function openSettings(string) {
 	///////////////////////////
 	// SETTINGS: UNIT TOGGLE //
 	///////////////////////////
+	$("#optionMeasure").on(touchstart,function(evt) {
+		evt.preventDefault();
+		$(".nextChild").removeClass("nextChild");
+	});	
 	$("#leftOption").on(touchstart,function(evt){
 		evt.preventDefault();
 		evt.stopPropagation();
@@ -258,7 +265,7 @@ function openStatus(string) {
 		} else {
 			alert(LANG("TIME_ELAPSED").toUpperCase() + ": \n" + ELAPSED_DIALOG);
 		}
-		evt.preventDefault();
+		return false;
 	});
 	/////////////////
 	// LOST WEIGHT //
@@ -277,7 +284,7 @@ function openStatus(string) {
 		} else {
 			alert(LANG("WEIGHT_LOSS").toUpperCase() + ": \n" + LOSS_DIALOG);
 		}
-		evt.preventDefault();
+		return false;
 	});
 	//////////////////////////////
 	// CALORIC STATUS (EQ TIME) //
@@ -301,7 +308,7 @@ function openStatus(string) {
 		} else {
 			alert(LANG("CALORIC_BALANCE").toUpperCase() + ": \n" + EQ_DIALOG);
 		}
-		evt.preventDefault();
+		return false;
 	});
 	///////////////////
 	// INTAKE STATUS //
@@ -314,7 +321,7 @@ function openStatus(string) {
 		} else {
 			alert(LANG("CALORIC_INTAKE").toUpperCase() + ": \n" + INTAKE_DIALOG);
 		}
-		evt.preventDefault();
+		return false;
 	});
 	//#///////////#//
 	//# START BAR #//
@@ -385,7 +392,8 @@ function openStatus(string) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		$('#startDateBar').hide();
-			afterHide();
+		$("#appStatusReload").off();
+		afterHide();
 	});
 	////////////////////
 	// SHOW STARTDATE //
@@ -622,6 +630,10 @@ $(document).trigger("sliderInit");
 		//hours ago
 		if(Number($("#entryTime").val()) >= 1) {
 			published = published - (Number($("#entryTime").val()) * (60 * 60 * 1000) );
+		}
+		//null default values
+		if(body == LANG("FOOD") || body == LANG("EXERCISE")) {
+			body = "";
 		}
 		//SAVE (NOT NULL)
 		if(title != 0) {

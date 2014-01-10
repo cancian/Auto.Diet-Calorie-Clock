@@ -461,7 +461,7 @@ function updateEntries(partial) {
 
 			if(dataTitle < 0)	{ rowClass = "e-" + rowClass; }
 			// EXPIRED
-			if(window.localStorage.getItem("config_start_time") > dataPublished) { rowClass = rowClass + " expired"; }
+			if(window.localStorage.getItem("config_start_time") > dataPublished || window.localStorage.getItem("appStatus") != "running") { rowClass = rowClass + " expired"; }
 			// CORE OUTPUT
 			//<p class='entriesId'>#" + Number(i+1) + "</p>
 			var dataHandler = "\

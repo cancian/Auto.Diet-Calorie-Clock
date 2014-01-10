@@ -6,7 +6,7 @@
 • fixed issue with pre-fill not triggering menu autoclose
 • enhanced stability
 • improved interface responsiveness
-• 
+• hold existing entry to pre-fill item description
 • 
 • 
 • 
