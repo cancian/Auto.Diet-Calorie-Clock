@@ -443,7 +443,21 @@ Diary.prototype.getFood = function(id,callback) {
 	}, this.dbErrorHandler);
 };
 
-
+/////////////////
+// DELETE FOOD //
+/////////////////
+Diary.prototype.delFood = function(code, callback) {
+	this.db.transaction(
+		function(t) {
+			t.executeSql('delete from diary_food where CODE = ?', [code],
+				function(t, results) {
+					//callback(that.fixResult(results));
+			}, this.dbErrorHandler);
+		}, this.dbErrorHandler);
+};
+/////////////////////
+// GET CUSTOM LIST //
+/////////////////////
 Diary.prototype.getCustom = function(type,callback) {
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
@@ -455,6 +469,7 @@ Diary.prototype.getCustom = function(type,callback) {
 			},this.dbErrorHandler);
 	}, this.dbErrorHandler);
 };
+
 
 
 /*

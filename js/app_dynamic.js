@@ -1138,11 +1138,11 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 /////////////
 //$(".searcheable").off(tap + touchstart);
 $("#addNewFood").on(touchstart, function(evt) {
-addNewItem();
+addNewItem({type:"food",act:"insert"});
 });
 //$(".searcheable").off(tap + touchstart);
 $("#addNewExercise").on(touchstart, function(evt) {
-addNewItem();
+addNewItem({type:"exercise",act:"insert"});
 
 });
 
@@ -1223,15 +1223,26 @@ addNewItem();
 
 
 
-
-
-
-function addNewItem() {
+//##////////////////////##//
+//##    ADD NEW ITEM    ##//
+//##////////////////////##//
+function addNewItem(opt) {
+	///////////////
+	// HTML FORM //
+	///////////////
+	$("#modalWindow").remove();
+	
+	if(!$("#modalOverlay").html()) { 
+		var modalOverlay = '<div id="modalOverlay"></div>';
+	} else {
+		$("#modalOverlay").off();
+		var modalOverlay = '';
+	}
 
 	if(!$("#tempHolder").html()) { 
 		$("body").append('\
 		<div id="tempHolder">\
-			<div id="modalOverlay"></div>\
+			' + modalOverlay + '\
 			<div id="addNewWrapper">\
 				<ul id="addNewList">\
 					<li id="addNewName">   <label>Name</label>   <input tabindex="3" type="text" id="inputNewName"      placeholder="description" /></li>\
@@ -1247,6 +1258,73 @@ function addNewItem() {
 		</div>\
 		');
 	}
+////////////////
+// IF EDITING //
+////////////////
+if(opt) {
+	if(opt.act == "insert") {
+		var vAct = "insert";
+		var vType = opt.type;
+	} else {
+		var vAct = "update";
+		var vType = opt.type;
+	}
+}
+/////////////////////////////////////
+// PRE-FILL IF EDITING (UPDATE DB) //
+/////////////////////////////////////
+if(vAct == "update") {
+	$("#inputNewName").val(opt.name);
+	$("#inputNewKcal").val(opt.kcal)
+	$("#inputNewPro").val(opt.pro);
+	$("#inputNewCar").val(opt.car);
+	$("#inputNewFat").val(opt.fat);
+}
+/*
+diary.setFood( {
+	type:vType,
+	code:vCode,
+	name:vName,
+	term:vTerm,
+	kcal:vKcal,
+	pro:vPro,
+	car:vCar,
+	fat:vFat,
+	fib:vFib								
+	}, function() { });
+	getRecentList();
+		
+});
+alert(opt.code);
+//alert(opt[code]);
+if(opt.act) {
+	var vAct = "update";
+} else {
+	var vAct  = "insert";
+}
+*/
+
+
+/*
+var vType = "food";
+var vCode = "c" + (new Date()).getTime();
+var vName = $("#inputNewName").val();
+var vTerm = sanitize($("#inputNewName").val());
+var vKcal = $("#inputNewKcal").val();
+var vPro  = $("#inputNewPro").val();
+var vCar  = $("#inputNewCar").val();
+var vFat  = $("#inputNewFat").val();
+var vFib  = "custom";
+*/
+
+
+
+
+//"tiny": { lines: 8, length: 2, width: 2, radius: 3 },
+
+
+
+
 	
 	//$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");
 	//$('#addNewList li input').placeholder({force:true});
@@ -1328,8 +1406,17 @@ $("#addNewPro").val();
 $("#addNewCar").val();
 $("#addNewFat").val();*/
 
-var vType = "food";
-var vCode = "c" + (new Date()).getTime();
+//if edit
+if(vAct == "insert") {
+	var vType = opt.type;
+	var vCode = "c" + (new Date()).getTime();
+	//var vAct  = "insert";
+} else {
+	var vType = opt.type;
+	var vCode = opt.code;
+	//var vAct = "update";
+}
+
 var vName = $("#inputNewName").val();
 var vTerm = sanitize($("#inputNewName").val());
 var vKcal = $("#inputNewKcal").val();
@@ -1337,6 +1424,22 @@ var vPro  = $("#inputNewPro").val();
 var vCar  = $("#inputNewCar").val();
 var vFat  = $("#inputNewFat").val();
 var vFib  = "custom";
+
+
+alert(vType + ' - ' +
+vCode+ ' - ' +
+vName+ ' - ' +
+vTerm+ ' - ' +
+vKcal+ ' - ' +
+vPro+ ' - ' +
+vCar+ ' - ' +
+vFat+ ' - ' +
+vFib+ ' - ' +
+vAct);
+	
+	
+return;
+
 
 diary.setFood( {
 	type:vType,
@@ -1347,7 +1450,8 @@ diary.setFood( {
 	pro:vPro,
 	car:vCar,
 	fat:vFat,
-	fib:vFib								
+	fib:vFib,
+	act:vAct								
 	}, function() { });
 	getRecentList();
 		
@@ -1371,6 +1475,7 @@ setTimeout(function() {
 			$(window).trigger("orientationchange");
 		}
 		if($("#tempHolder").html()) {
+			$("#modalOverlay").remove();
 			$("#tempHolder").fadeOut(200,function() {
 				$("#tempHolder").remove();
 			});
@@ -1490,13 +1595,12 @@ if(mType == "exercise") {
 						$("body").append('<div id="modalOverlay"></div>');
 						$("body").append('<div id="modalWindow"></div>');
 						//add content
-						$("#modalWindow").html("<div id='modalContent'>" + mName + "&nbsp; <span>&nbsp;" + LANG('PRE_FILL') + "</span></div>");
+						$("#modalWindow").html("<div id='modalDelete'></div><div id='modalEdit'></div><div id='modalFav'></div><div id='modalContent'>" + mName + "&nbsp; <span>&nbsp;" + LANG('PRE_FILL') + "</span></div>");
 						$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG('ADD') + "</span><span id='modalCancel'>" + LANG('CANCEL') + "</span></div>");
 						$("#modalWindow").append('<div id="modalAdjust"><span id="modalNegBlock"><span id="modalNeg" class="icon-chevron-sign-left"></span></span><span id="modalPosBlock"><span id="modalPos" class="icon-chevron-sign-right"></span></span><span id="modalAmmountBlock"><span id="modalAmmount">0</span><span id="modalAmmountType">' + LANG("GRAMS") + '</span></span><span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">kcal</span></span></div>');
 						//set shortcuts
 						var kcalsBase = mKcal;
 						//var kcalsList = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodKcal").text().split("kcals").join(""));
-
 						if(searchType == "food") { 
 							$("#modalAmmountType").html(LANG('GRAMS'));
 							$("#modalTotalType").after("<span id='proData'>0.0<span>g</span></span><span id='carData'>0.0<span>g</span></span><span id='fatData'>0.0<span>g</span></span><span id='proLabel'>" + LANG('PRO') + "</span><span id='carLabel'>" + LANG('CAR') + "</span><span id='fatLabel'>" + LANG('FAT') + "</span>");
@@ -1759,6 +1863,45 @@ if(mType == "exercise") {
 									$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
 								},preFillTimer);
 							}
+						});
+						///////////////////
+						// DELETE BUTTON //
+						///////////////////						
+						$("#modalDelete").on(tap, function(evt) {
+							evt.stopPropagation();
+							function removeItem(button) {
+								if(button == 1) {			
+									diary.delFood(itemId);
+									$("#" + itemId).remove();
+									$("#modalCancel").trigger(trim(touchstart));
+									return false;
+								}
+							}
+							//SHOW DIALOG
+							if(hasTouch()) {
+								navigator.notification.confirm(LANG("ARE_YOU_SURE"), removeItem, LANG("DELETE_ITEM"), [LANG("OK"),LANG("CANCEL")]);
+								return false;
+							} else {
+								if(confirm(LANG("DELETE_ITEM"))) { removeItem(1); } else { return false; }
+							}
+						});
+						///////////////////
+						// DELETE BUTTON //
+						///////////////////
+						$("#modalEdit").on(tap, function(evt) {
+							evt.stopPropagation();
+							var modalOpt = {
+								name:mName,
+								type:mType,
+								code:mCode,	
+								kcal:mKcal,
+								pro:mPro,
+								car:mCar,
+								fat:mFat,	
+								fib:mFib			
+							};
+							addNewItem(modalOpt);
+							return false;
 						});
 						/////////////////////////////////////
 						// END TAP FOOD-ENTRY EDIT (MODAL) //

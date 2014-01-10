@@ -44,8 +44,8 @@ input#editable					{ color: #000; position: absolute; top: 10px; right: 9px; dis
 ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; margin: 0; padding: 0; list-style: none; text-align: center; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); }
 ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); -webkit-backface-visibility: hidden; }
-ul#appFooter li.selected:before	{ color: #cbcbcb; color: #00ee00; }
-ul#appFooter.appDebug li.selected		{ color: #008800; }
+ul#appFooter li.selected:before	{ color: #cbcbcb; /*color: #00ee00;*/ }
+ul#appFooter.appDebug li.selected		{ /*color: #008800;*/ }
 ul#appFooter.appDebug li.selected:before{ color: #00ee00; }
 ul#appFooter.appEdge li.selected:before	{ color: #FF3B30; color: #F22323; color: #E04343; }
 ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
@@ -434,6 +434,15 @@ span#proLabel			{ top: -3px; text-align: right; right: 47px; /*right: 247px;*/ }
 span#carLabel			{ top:  8px; text-align: right; right: 47px; }
 span#fatLabel			{ top: 19px; text-align: right; right: 47px; }
 span#fibLabel			{ top: 30px; text-align: right; right: 47px; }
+/*modal delete*/
+#modalDelete:before			{ content: "\f014"; font-family: 'FontAwesome'; font-size: 30px; position: absolute; top: -62px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
+#modalDelete:active:before	{ color: #333 !important; }
+/*modal edit*/
+#modalEdit:before			{ content: "\f040"; font-family: 'FontAwesome'; font-size: 30px; position: absolute; top: -62px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
+#modalEdit:active:before	{ color: #333 !important; }
+/*modal edit*/
+#modalFav:before			{ content: "\f005"; content: "\f006"; font-family: 'FontAwesome'; font-size: 30px; position: absolute; top: -62px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
+#modalFav:active:before		{ color: #333 !important; }
 /*///////////
 // SPINNER //
 ///////////*/
@@ -590,9 +599,9 @@ li#addNewFat		{  }
 
 
 
-
+/*
 #menuTopBar { display: none; }
-
+*/
 
 
 /*#////////////////////#//

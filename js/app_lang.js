@@ -126,7 +126,6 @@ var ARE_YOU_SURE = {
 	en: "are you sure?",
 	pt: "confirmar?"
 };
-
 var WIPE_DIALOG = {
 	en: "all data will be erased",
 	pt: "todos os dados serão apagados"
@@ -438,6 +437,10 @@ var STATUS_INTAKE_1 = {
 var STATUS_INTAKE_2 = {
 	en: ") + (calories burned from exercise) \n\nThe more you exercise, the more you can eat!",
 	pt: ") + (calorias queimadas em exercício) \n\nQuanto mais você se exercitar, mais poderá comer!"
+};
+var DELETE_ITEM = {
+	en: "Delete item",
+	pt: "Excluir item"
 };
 
 var XXX = {
