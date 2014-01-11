@@ -102,14 +102,20 @@ $(document).on("pageload", function(evt) {
 									$(this).replaceWith(new_value);
 									$('#kcalsAdjust').remove();
 									$('#kcalsDiv').parent("div").removeClass("editing");
-									$('#kcalsDiv').parent("div").animate({"backgroundColor": "#fff"},500,function() {
+									$('#kcalsDiv').parent("div").animate({"backgroundColor": "#fff"},500,function(evt) {
 										eP = 0;
+										return false;
+										//$("#entryListWrapper").off(touchmove);
 									});
 									$('#kcalsDiv').removeAttr('id');
 									$("#sliderBlock").fadeOut(500);
 									clearRepeaterBlock();
-									evt.preventDefault();
-									evt.stopPropagation();
+									//whitegap fix
+									//$("#entryListWrapper").off(touchmove);
+									//$("#entryListWrapper").on(touchmove, function(evt) {
+										window.scroll($('#appContent')[0].scrollTop,0,0);
+										return false;
+									//});
 								},
 								change: function() {
 									//save changes
@@ -395,7 +401,7 @@ $(document).on("pageload", function(evt) {
 		}
 	});
 	//wrapper click
-	$("#entryListWrapper").on(touchend, function(evt) {
+	$("#entryListWrapper").on(touchstart, function(evt) {
 		if($('.editableInput').is(':visible')) {
 			//ALLOW ENTRY INPUT RETINA FOCUS
 			//evt.preventDefault();
@@ -405,6 +411,10 @@ $(document).on("pageload", function(evt) {
 			if(!$("#entryList div").is(':animated')) {
 				$("#editableInput").blur();
 				//evt.stopImmediatePropagation();
+				//whitegap mitigation
+				if(isMobile.Android()) {
+					return false;
+				}
 				//evt.preventDefault();
 			} 
 		}
@@ -443,7 +453,8 @@ $(document).on("pageload", function(evt) {
 			return false;
 		}
 		//force error
-		window.onscroll(scroll($('#appContent')[0].scrollTop,0));
+		window.scroll($('#appContent')[0].scrollTop,0,0);
+		//window.onscroll(scroll($('#appContent')[0].scrollTop,0));
 	});
 //////#//
 }); //#//

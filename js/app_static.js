@@ -66,6 +66,12 @@ appFooter(window.localStorage.getItem("app_last_tab"));
 $("ul#appFooter li").on(touchstart, function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
+	//not while editing
+	if($("#editableInput").is(":visible")) {
+		$("#editableInput").blur();
+		window.scroll($('#appContent')[0].scrollTop,0,0);
+		return false;
+	}
 	window.location='#top';
 	appFooter($(this).attr("id"));
 });
