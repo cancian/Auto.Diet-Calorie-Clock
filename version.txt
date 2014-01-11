@@ -7,7 +7,7 @@
 • enhanced stability
 • improved interface responsiveness
 • hold existing entry to pre-fill item description
-• 
+• input focus stability improvements
 • 
 • 
 

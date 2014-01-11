@@ -15,28 +15,6 @@ $(document).ready(function() {
 //## START APP ##//
 //##///////////##//
 function startApp() {
-///////////////
-// ANALYTICS //
-///////////////
-if(hasTouch()) {
-	setTimeout(function() {	
-		var gaPlugin;
-		gaPlugin = window.plugins.gaPlugin;
-		gaPlugin.init(nativePluginResultHandler, nativePluginErrorHandler, "UA-46450510-1", 10);
-		function nativePluginResultHandler(result) {
-			//alert('nativePluginResultHandler - '+result);
-			//console.log('nativePluginResultHandler: '+result);
-		}
-		function nativePluginErrorHandler(error) {
-			//alert('nativePluginErrorHandler - '+error);
-			//console.log('nativePluginErrorHandler: '+error);
-		}
-		if(isMobile.Android())  { var appOS = "android"; }
-		else if(isMobile.iOS()) { var appOS = "ios";     }
-		else					{ var appOS = "www";     }
-		gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler,appOS + ".mylivediet.com/#" + "startApp");
-	},9999);
-}
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -118,6 +96,20 @@ function appResizer(time) {
 		niceTimer = setTimeout(niceResizer,20);
 	 },time);
 }
+/////////////////////
+// KEYBOARD EVENTS //
+/////////////////////
+//$(document).on("showkeyboard",function(){  });
+//$(document).on("hidekeyboard",function(){ $(window).trigger("orientationchange"); });\
+/*
+$(document).on("hidekeyboard",function(){
+	if(isMobile.Android()) {
+		setTimeout(function() {
+			$(window).trigger("orientationchange");
+			clearRepeaterBlock();
+		},50);
+	}
+ });*/
 /////////////////
 // ORIENTATION //
 /////////////////
@@ -406,31 +398,34 @@ Diary.prototype.setFood = function(id,callback) {
 			},this.dbErrorHandler);
 	}, this.dbErrorHandler);
 };
-
 /////////////////
 // WRITE ENTRY //
 /////////////////
 Diary.prototype.setFood = function(data, callback) {
 	this.db.transaction(
 		function(t) {
-			//update body
-//			if(data.id && !data.title) {
-//				t.executeSql('update diary_entry set body=? where id=' + data.id, [data.body]);
-//			//update title
-//			} else if(data.id && data.title) {
-//				t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
-			//insert new
-//			} else {
-alert(data.type + data.code+data.name+data.term+data.kcal+data.pro+data.car+data.fat+data.fib);
-	
+			if(data.act == "update") {
+				t.executeSql('delete from diary_food where CODE = ?', [data.code]);
 				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,data.term,data.kcal,data.pro,data.car,data.fat,data.fib]);
-//			} 
+			} else {
+				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,data.term,data.kcal,data.pro,data.car,data.fat,data.fib]);
+			} 
 		}
 	);
 };
-
-
-
+/////////////
+// SET FAV //
+/////////////
+Diary.prototype.setFav = function(data, callback) {
+	this.db.transaction(
+		function(t) {
+			t.executeSql('update diary_food set fib=? where CODE=' + data.code, [data.fib]);
+		}
+	);
+};
+/////////////
+// SET FAV //
+/////////////
 Diary.prototype.getFood = function(id,callback) {
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
@@ -458,12 +453,12 @@ Diary.prototype.delFood = function(code, callback) {
 /////////////////////
 // GET CUSTOM LIST //
 /////////////////////
-Diary.prototype.getCustom = function(type,callback) {
+Diary.prototype.getCustomList = function(type,callback) {
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
 		function(t) {
-			t.executeSql('select * from diary_food where FIB="custom" AND TYPE=?',[type],
+			t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=?',[type],
 			function(t,results) {
 				callback(that.fixResults(results));
 			},this.dbErrorHandler);

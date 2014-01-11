@@ -584,5 +584,21 @@ if(str != "") {
 	return result
 }
 }
-
+///////////////
+// ANALYTICS //
+///////////////
+document.addEventListener("deviceready", onDeviceReady, false);
+var gaPlugin;
+function onDeviceReady() {
+	gaPlugin = window.plugins.gaPlugin;
+	gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
+	if(isMobile.Android())  { var appOS = "android"; }
+	else if(isMobile.iOS()) { var appOS = "ios";     }
+	else					{ var appOS = "www";     }
+	gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, appOS + ".mylivediet.com/#" + "startApp()");
+	function successHandler()			{}
+	function errorHandler()			  {} 
+	function nativePluginResultHandler() {}
+	function nativePluginErrorHandler()  {}
+}
 

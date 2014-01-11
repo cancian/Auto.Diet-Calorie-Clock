@@ -12,22 +12,24 @@ $(document).on("pageload", function(evt) {
 	///////////////////
 	// HOLD PRE-FILL //
 	///////////////////
+	/*
 	var holdPreFill; 
 	$("#entryList div" + tgt).on(touchstart,function(evt) {
 		if($('#entryList .entryListRow').length > 0 && !$("#kcalsDiv").is(":visible")) {
 			var holdPreText = $('.entriesBody',this).text();
+			clearTimeout(holdPreFill);
 			holdPreFill = setTimeout(function(evt) {
-				clearTimeout(holdPreFill);
+
 				$("#entryBody").val(holdPreText);
 				$("#entryBody").stop().animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
 			},800);
 		}
 	});
-	$("#entryList div").on(touchend + " mouseout",function(evt) {
+	$("#entryList div" + tgt).on(touchend + " mouseout",function(evt) {
 		evt.preventDefault();
 		//evt.stopPropagation();
 		clearTimeout(holdPreFill);
-	});
+	});*/
 	//var ix  = 0;
 	//var meh = 0;
 	var duh;
@@ -108,15 +110,6 @@ $(document).on("pageload", function(evt) {
 									clearRepeaterBlock();
 									evt.preventDefault();
 									evt.stopPropagation();
-									//whitegap fix
-									if(isMobile.Android()) {
-										$(window).trigger("resize");
-										clearRepeaterBlock();
-										setTimeout(function() {
-											$(window).trigger("resize");
-											clearRepeaterBlock();
-										},300);
-									}
 								},
 								change: function() {
 									//save changes
@@ -952,12 +945,9 @@ var recentBlock = '\
 	</div>\
 <!--## TAB GESTURES ##-->\
 <!--## TAB SETTINGS ##-->\
-	<div id="tabMyExercises">\
-		<ul>\
-			<li><h3>header</h3></li>\
-			<li><p>calorie calculator <span>swipe left</span></p></li>\
-		</ul>\
-<div id="addNewExercise">add new exercise</div>\
+	<div id="tabMyExercises"><div id="tabMyExercisesBlock"></div>\
+	<div id="addNewExercise">add new exercise</div>\
+	</div>\
 	</div>\
 <!--## TAB SETTINGS ##-->\
 </div>';
@@ -973,70 +963,97 @@ $("#foodList").html("<div id='menuTopBar'><h3 id='topBarItem-1'><span>recent</sp
 /////////////////////
 // CUSTOM FOOD SQL //
 /////////////////////
-diary.getCustom("food",function(data) {
-// LOOP RESULTS //
-var customFoodList = "";
-for(var c=0, len=data.length; c<len; c++) {
-var foodLine = "<div class='searcheable' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + data[c].kcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + data[c].fat  + "</span></div>";
-
-if(foodLine != "") {
-customFoodList += foodLine;
-}
-
-}
-
-
-$("#tabMyFoodsBlock").html(customFoodList);
-
-
-
-$("#tabMyFoodsBlock div.searcheable").on(singletap,function(evt) {
-	//$("#foodList div.searcheable").swipe({
-	//	tap:function(event) {
-	evt.preventDefault();
-	getModalWindow($(this).attr("id"));
-});
-
-
-
-
-
-
-			$("#tabMyFoodsBlock div.searcheable").on(tap + touchstart, function(evt) {
-				if($("#foodSearch").is(":focus")) { 
-					$("#foodSearch").blur();
-					return false;
-				}
-				$("#activeOverflow").removeAttr("id");
-				$(".activeOverflow").removeClass("activeOverflow");
-				$(this).addClass("activeOverflow");
-				$(".foodName",this).attr("id","activeOverflow");
-				$(".foodName").css("overflow","auto");
-			});
-
+diary.getCustomList("food",function(data) {
+	// LOOP RESULTS //
+	var customFoodList = "";
+	for(var c=0, len=data.length; c<len; c++) {
+		var foodLine = "<div class='searcheable' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + data[c].kcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + data[c].fat  + "</span></div>";
+		if(foodLine != "") {
+			customFoodList += foodLine;
+		}
+	}
+	//////////
+	// HTML //
+	//////////
+	$("#tabMyFoodsBlock").html(customFoodList);
+	//////////////
+	// HANDLERS //
+	//////////////
+	$("#tabMyFoodsBlock div.searcheable").on(singletap,function(evt) {
+		//$("#foodList div.searcheable").swipe({
+		//	tap:function(event) {
+		evt.preventDefault();
+		getModalWindow($(this).attr("id"));
+	});
+	$("#tabMyFoodsBlock div.searcheable").on(tap + touchstart, function(evt) {
+		if($("#foodSearch").is(":focus")) { 
+			$("#foodSearch").blur();
+			return false;
+		}
+		$("#activeOverflow").removeAttr("id");
+		$(".activeOverflow").removeClass("activeOverflow");
+		$(this).addClass("activeOverflow");
+		$(".foodName",this).attr("id","activeOverflow");
+		$(".foodName").css("overflow","auto");
+	});
 	/////////////////////////////////////////
 	// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 	/////////////////////////////////////////
-	$("#foodSearch").on(touchstart, function(evt) {
+	$("#tabMyFoodsBlock #foodSearch").on(touchstart, function(evt) {
 		$(".foodName").css("overflow","hidden");
 		$("#activeOverflow").removeAttr("id");
 		$(".activeOverflow").removeClass("activeOverflow");
 	});
-
-
-
-
-//$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><
-//span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
-/*
-if($("#foodSearch").val() != "") {
-	$("#foodList").html('<span id="noMatches"> ' + LANG("NO_MATCHES") +' </span>');
-		} else {
-							getRecentList();
-						}
-*/
-
 });
+
+
+
+/////////////////////////
+// CUSTOM EXERCISE SQL //
+/////////////////////////
+diary.getCustomList("exercise",function(data) {
+	// LOOP RESULTS //
+	var customExerciseList = "";
+	for(var c=0, len=data.length; c<len; c++) {
+		var excerciseLine = "<div class='searcheable' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + data[c].kcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + data[c].fat  + "</span></div>";
+		if(excerciseLine != "") {
+			customExerciseList += excerciseLine;
+		}
+	}
+	//////////
+	// HTML //
+	//////////
+	$("#tabMyExercisesBlock").html(customExerciseList);
+	//////////////
+	// HANDLERS //
+	//////////////
+	$("#tabMyExercisesBlock div.searcheable").on(singletap,function(evt) {
+		//$("#foodList div.searcheable").swipe({
+		//	tap:function(event) {
+		evt.preventDefault();
+		getModalWindow($(this).attr("id"));
+	});
+	$("#tabMyExercisesBlock div.searcheable").on(tap + touchstart, function(evt) {
+		if($("#foodSearch").is(":focus")) { 
+			$("#foodSearch").blur();
+			return false;
+		}
+		$("#activeOverflow").removeAttr("id");
+		$(".activeOverflow").removeClass("activeOverflow");
+		$(this).addClass("activeOverflow");
+		$(".foodName",this).attr("id","activeOverflow");
+		$(".foodName").css("overflow","auto");
+	});
+	/////////////////////////////////////////
+	// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
+	/////////////////////////////////////////
+	$("#tabMyExercisesBlock #foodSearch").on(touchstart, function(evt) {
+		$(".foodName").css("overflow","hidden");
+		$("#activeOverflow").removeAttr("id");
+		$(".activeOverflow").removeClass("activeOverflow");
+	});
+});
+
 
 
 
@@ -1425,7 +1442,7 @@ var vCar  = $("#inputNewCar").val();
 var vFat  = $("#inputNewFat").val();
 var vFib  = "custom";
 
-
+/*
 alert(vType + ' - ' +
 vCode+ ' - ' +
 vName+ ' - ' +
@@ -1438,7 +1455,8 @@ vFib+ ' - ' +
 vAct);
 	
 	
-return;
+return;*/
+
 
 
 diary.setFood( {
