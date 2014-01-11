@@ -746,6 +746,7 @@ $(document).on("pageReload", function(evt) {
 			$(".searcheable").on(tap + touchstart, function(evt) {
 				if($("#foodSearch").is(":focus")) { 
 					$("#foodSearch").blur();
+					window.scroll($('#appContent')[0].scrollTop,0,0);
 					return false;
 				}
 				$("#activeOverflow").removeAttr("id");
@@ -803,6 +804,7 @@ $(document).on("pageReload", function(evt) {
 		evt.preventDefault();
 		$("#entryBody").blur();
 		$("#foodSearch").blur();
+		window.scroll($('#appContent')[0].scrollTop,0,0);
 	});
 	//////////////////////
 	// SEARCH TYPE ICON //
@@ -999,6 +1001,7 @@ diary.getCustomList("food",function(data) {
 	$("#tabMyFoodsBlock div.searcheable").on(tap + touchstart, function(evt) {
 		if($("#foodSearch").is(":focus")) { 
 			$("#foodSearch").blur();
+			window.scroll($('#appContent')[0].scrollTop,0,0);
 			return false;
 		}
 		$("#activeOverflow").removeAttr("id");
@@ -1482,8 +1485,57 @@ diary.setFood( {
 	fib:vFib,
 	act:vAct								
 	}, function() { });
+// UPDATE EXISTING LIST //
+if(vAct == "update") {
+	$("#" + vCode + " .foodName").html(vName);
+	$("#" + vCode + " .foodKcal").html('<span class="preSpan">kcal</span>' + vKcal + '</span>');
+	$("#" + vCode + " .foodPro").html('<span class="preSpan">pro</span>' + vPro + '</span>');
+	$("#" + vCode + " .foodCar").html('<span class="preSpan">car</span>' + vCar + '</span>');
+	$("#" + vCode + " .foodFat").html('<span class="preSpan">' + LANG("FAT") + '</span>' + vFat + '</span>');
+	//highligh update
+	//CSS FADE OUT
+	//$('#addNewWrapper').removeClass('show');
+	//$('#modalOverlay').removeClass('show');
+	$(".searcheable").removeClass('fade');
+	//CSS HIGHLIGHT
+	$(".activeOverflow").removeClass("activeOverflow");
+	$(".searcheable").removeClass('yellow');
+	$(".searcheable").removeClass('trans');
+	$("#" + vCode).addClass('yellow');
+	var yellowFade = setTimeout(function() {
+		$("#" + vCode).addClass('fade');
+		$("#" + vCode).addClass('trans');
+	},0);
+	//SELF-REMOVE
+	//$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
+	$("#addNewCancel").trigger(trim(touchstart));
+	//});
+	//$("#" + vCode).animate({"backgroundColor": "#ffffcc"},600);
+	return false;
+} else {
+// INSERT NEW ITEM //
 	getRecentList();
-		
+	//highight new item
+	var yellowFade = setTimeout(function() {
+		//CSS FADE OUT
+		//$('#addNewWrapper').removeClass('show');
+		//$('#modalOverlay').removeClass('show');
+		$(".searcheable").removeClass('fade');
+		//CSS HIGHLIGHT
+		$(".activeOverflow").removeClass("activeOverflow");
+		$(".searcheable").removeClass('yellow');
+		$(".searcheable").removeClass('trans');
+		$("#" + vCode).addClass('yellow');
+		var yellowFade = setTimeout(function() {
+			$("#" + vCode).addClass('fade');
+			$("#" + vCode).addClass('trans');
+		},0);
+		//SELF-REMOVE
+		//$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
+		$("#addNewCancel").trigger(trim(touchstart));
+		//});
+	},200);
+}
 });
 
 
