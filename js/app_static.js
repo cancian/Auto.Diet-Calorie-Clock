@@ -92,11 +92,14 @@ function appResizer(time) {
 		}
 		$('#entryListWrapper').css("height","auto");
 		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
-		$('#foodList').css("min-height",$('#foodList').height() + "px");
-		$('#pageslideFood').height(window.innerHeight - $('#appHeader').height());
-		//chrome input width
+		//$('#foodList').css("min-height",$('#foodList').height() + "px");
+		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");		
+		$('#foodList,#pageSlideFood,#pageSlideFood.open').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");		
+		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+		
+		//chrome 32 input width
 		$('#entryBody').width(window.innerWidth -58);
-		$('#foodSearch').width(window.innerWidth -55);		
+		$('#foodSearch').width(window.innerWidth -55);	
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);
@@ -105,17 +108,10 @@ function appResizer(time) {
 /////////////////////
 // KEYBOARD EVENTS //
 /////////////////////
-//$(document).on("showkeyboard",function(){  });
-//$(document).on("hidekeyboard",function(){ $(window).trigger("orientationchange"); });\
 /*
-$(document).on("hidekeyboard",function(){
-	if(isMobile.Android()) {
-		setTimeout(function() {
-			$(window).trigger("orientationchange");
-			clearRepeaterBlock();
-		},50);
-	}
- });*/
+$(document).on("showkeyboard",function(){ });
+$(document).on("hidekeyboard",function(){ });
+*/
 /////////////////
 // ORIENTATION //
 /////////////////
@@ -391,23 +387,10 @@ updateTimer();
 
 
 /////////////////
-// GET ENTRIES //
-/////////////////
-Diary.prototype.setFood = function(id,callback) {
-	//console.log('Running getEntries');
-	if(arguments.length == 1) { callback = arguments[0]; }
-	this.db.transaction(
-		function(t) {
-			t.executeSql('insert into diary_food',
-			function(t,results) {
-				callback(that.fixResults(results));
-			},this.dbErrorHandler);
-	}, this.dbErrorHandler);
-};
-/////////////////
 // WRITE ENTRY //
 /////////////////
 Diary.prototype.setFood = function(data, callback) {
+	console.log('setFood(' + data.act + ' ' + data.code + ")");
 	this.db.transaction(
 		function(t) {
 			if(data.act == "update") {
@@ -419,20 +402,11 @@ Diary.prototype.setFood = function(data, callback) {
 		}
 	);
 };
-/////////////
-// SET FAV //
-/////////////
-Diary.prototype.setFav = function(data, callback) {
-	this.db.transaction(
-		function(t) {
-			t.executeSql('update diary_food set fib=? where CODE=' + data.code, [data.fib]);
-		}
-	);
-};
-/////////////
-// SET FAV //
-/////////////
+//////////////
+// GET FOOD //
+//////////////
 Diary.prototype.getFood = function(id,callback) {
+	console.log('getFood(' + id + ")");
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
@@ -448,6 +422,7 @@ Diary.prototype.getFood = function(id,callback) {
 // DELETE FOOD //
 /////////////////
 Diary.prototype.delFood = function(code, callback) {
+	console.log('delFood(' + code + ")");
 	this.db.transaction(
 		function(t) {
 			t.executeSql('delete from diary_food where CODE = ?', [code],
@@ -460,18 +435,38 @@ Diary.prototype.delFood = function(code, callback) {
 // GET CUSTOM LIST //
 /////////////////////
 Diary.prototype.getCustomList = function(type,callback) {
-	//console.log('Running getEntries');
+	console.log('getCustomList(' + type + ")");
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
 		function(t) {
-			t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=?',[type],
-			function(t,results) {
-				callback(that.fixResults(results));
-			},this.dbErrorHandler);
+			// FAV LIST //
+			if(type == "fav") {
+				//t.executeSql('select * from diary_food where FIB="fav"',
+				t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[type],
+				function(t,results) {
+					callback(that.fixResults(results));
+				},this.dbErrorHandler);
+			// FOOD/EXERCISE LIST //
+			} else {
+				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by NAME COLLATE NOCASE ASC',[type],
+				function(t,results) {
+					callback(that.fixResults(results));
+				},this.dbErrorHandler);
+			}
 	}, this.dbErrorHandler);
 };
-
-
+/////////////
+// SET FAV //
+/////////////
+Diary.prototype.setFav = function(data, callback) {
+	console.log('setFav(' + data.fib + ")");
+	this.db.transaction(
+		function(t) {
+				t.executeSql('delete from diary_food where CODE = ?', [data.code]);
+				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,data.term,data.kcal,data.pro,data.car,data.fat,data.fib]);
+		}
+	);
+};
 
 /*
 

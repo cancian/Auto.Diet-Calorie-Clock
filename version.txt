@@ -2,14 +2,18 @@
 ## VERSION LOG ##
 #################
 # 1.1.2 [08/01/2014]
+• tap and hold existing entry to pre-fill description
 • custom food/exercises
 • fixed issue with pre-fill not triggering menu autoclose
 • enhanced stability
 • improved interface responsiveness
-• hold existing entry to pre-fill item description
+
 • input focus stability improvements
+• resizing enforcements
 • 
 • 
+• 
+
 
 # 1.1.1 [03/01/2014]
 • tapping status boxes now displays additional information

@@ -442,6 +442,18 @@ var DELETE_ITEM = {
 	en: "Delete item",
 	pt: "Excluir item"
 };
+var MY_FAVOURITES = {
+	en: "favourites",
+	pt: "favoritos"
+};
+var MY_FOODS = {
+	en: "my foods",
+	pt: "alimentos"
+};
+var MY_EXERCISES = {
+	en: "my exercises",
+	pt: "exercícios"
+};
 
 var XXX = {
 	en: "XXX",

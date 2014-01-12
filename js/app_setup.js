@@ -1,10 +1,16 @@
 /////////////////
 // GLOBAL VARS //
 /////////////////
-function voidThis() { }
 var diary;
-function Diary() {
-	that = this;
+function Diary()	{ that = this; }
+function voidThis() {}
+///////////////////
+// DEBUG CONSOLE //
+///////////////////
+function CONSOLE(data) {
+	if(window.localStorage.getItem("config_debug") == "active") {
+		console.log(data);
+	}
 }
 //////////////
 // SETUP DB //
@@ -18,13 +24,14 @@ Diary.prototype.setup = function(callback) {
 // ERROR HANDLER //
 ///////////////////
 Diary.prototype.dbErrorHandler = function(evt) {
-	//console.log('DB Error');
-	//console.log(evt);
+	CONSOLE('DB Error');
+	CONSOLE(evt);
 };
 /////////////
 // INIT DB //
 /////////////
 Diary.prototype.initDB = function(t) {
+	CONSOLE('Diary.prototype.initDB');
 	t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, body TEXT, published DATE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT)');
 	///////////////
 	// SQL RESET //
@@ -53,6 +60,7 @@ Diary.prototype.initDB = function(t) {
 // RESET DATA+SQL //
 ////////////////////
 Diary.prototype.deSetup = function(callback) {
+	CONSOLE('Diary.prototype.deSetup');
 	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
 	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); window.localStorage.clear(); return false; }, this.dbErrorHandler, function() { afterHide(); return false; });
 };
@@ -60,7 +68,7 @@ Diary.prototype.deSetup = function(callback) {
 // GET ENTRIES //
 /////////////////
 Diary.prototype.getEntries = function(start,callback) {
-	//console.log('Running getEntries');
+	//CONSOLE('Diary.prototype.getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
 		function(t) {
@@ -74,7 +82,7 @@ Diary.prototype.getEntries = function(start,callback) {
 // GET FOODS //
 ///////////////
 Diary.prototype.getFoods = function(start,callback) {
-	//console.log('Running getEntries');
+	CONSOLE('Diary.prototype.getFoods');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
 		function(t) {
@@ -88,6 +96,7 @@ Diary.prototype.getFoods = function(start,callback) {
 // DELETE ENTRY //
 //////////////////
 Diary.prototype.deleteEntry = function(id, callback) {
+	CONSOLE('Diary.prototype.deleteEntry(' + id + ')');
 	this.db.transaction(
 		function(t) {
 			t.executeSql('delete from diary_entry where id = ?', [id],
@@ -100,6 +109,7 @@ Diary.prototype.deleteEntry = function(id, callback) {
 // WRITE ENTRY //
 /////////////////
 Diary.prototype.saveEntry = function(data, callback) {
+	CONSOLE('Diary.prototype.saveEntry(' + data.id + ')');
 	this.db.transaction(
 		function(t) {
 			//update body
@@ -115,27 +125,11 @@ Diary.prototype.saveEntry = function(data, callback) {
 		}
 	);
 };
-///////////////
-// IMPORT DB //
-///////////////
-var iCount = 1;
-Diary.prototype.importDb = function(data,callback) {
-	this.db.transaction(
-		function(t) {
-				t.executeSql('insert into diary_food(title,body,published) values(?,?,?)',[data.title,data.body,new Date().getTime()],
-				function() {
-					//feedback
-					iCount++;
-					getPercent(iCount,data.total,'#iCounter');
-					return false;
-					//callback();
-				}, this.dbErrorHandler);
-		}, this.dbErrorHandler);
-};
 /////////////////
 // FIX RESULTS //
 /////////////////
 Diary.prototype.fixResults = function(res) {
+	//CONSOLE('Diary.prototype.fixResults');
 	var result = [];
 	for (var i=0; i<res.rows.length; i++) { 
 		result.push(res.rows.item(i));
@@ -248,6 +242,7 @@ function getOrientation() {
 ///////////////
 var afterTimer;
 function afterLoad() {
+	CONSOLE('afterLoad()');
 	//$('body').css("-webkit-transition-timing-function","linear");
 	//$('body').css("-webkit-transition-duration",".1s");
 	//UNHIDE
@@ -273,9 +268,10 @@ function afterShow(t) {
 // AFTERHIDE //
 ///////////////
 function afterHide() {
+	CONSOLE('afterHide()');
 	setTimeout(function() { window.location=''; },500);
 	//DISABLE HANDLERS
-	$("*").off().on(touchstart,function(evt) { return false; });
+	$("*").on(touchstart,function(evt) { return false; });
 	//SET CSS TRANSITION
 	$('body').css("-webkit-transition-timing-function","ease");
 	$('body').css("-webkit-transition-duration",".25s");
@@ -286,6 +282,7 @@ function afterHide() {
 // SPINNER //
 /////////////
 function spinner(size) {
+	CONSOLE('spinner()');
 	//////////
 	// STOP //
 	//////////
@@ -350,6 +347,7 @@ function spinner(size) {
 // PAGE LOAD MOD //
 ///////////////////
 function pageLoad(target,content,published) {
+	CONSOLE('pageLoad(' + target + ')');	
 	//if partial
 	if(published) {
 		//set row time array
@@ -426,8 +424,8 @@ function fillDate(timestamp,element) {
 //////////////////////
 var partial = "";
 function updateEntries(partial) {
+	CONSOLE('pageLoad(' + partial + ')');	
 	diary.getEntries(function(data) {
-		//console.log('updateEntries()');
 		var s = "";
 		var p = "";
 		var rowClass;
@@ -527,10 +525,10 @@ function hasTouch() {
 var touchstart = hasTouch() ? ' touchstart ' : ' mousedown ';
 var touchend   = hasTouch() ? ' touchend '   : ' mouseup ';
 var touchmove  = hasTouch() ? ' touchmove '  : ' mousemove ';
-var tap        = hasTouch() ? ' tap '        : ' click ';
+var tap        = hasTouch() ? ' tap '        : ' click '; //("ontouchstart" in document)  ? ' tap ' : ' click ';
 var longtap    = hasTouch() ? ' taphold '    : ' taphold ' ;
 var taphold    = hasTouch() ? ' taphold '    : ' taphold ' ;
-var singletap  = hasTouch() ? ' singleTap '  : ' click ';
+var singletap  = hasTouch() ? ' singleTap '  : ' click '; //("ontouchstart" in document)  ? ' tap ' : ' click ';
 var doubletap  = hasTouch() ? ' doubleTap '  : ' dblclick ';
 //#///////////#//
 //# MOBILE OS #//
@@ -558,6 +556,7 @@ var isMobile = {
 // UPDATE ENTRYLIST *TIME* //
 /////////////////////////////
 function updateEntriesTime() {
+	CONSOLE('updateEntriesTime()');	
 	diary.getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			var dataPublished = Number(data[i].published);
@@ -569,7 +568,8 @@ function updateEntriesTime() {
 // NICE RESIZER //
 //////////////////
 var niceTimer;
-function niceResizer() { 
+function niceResizer() {
+	CONSOLE('niceResizer()');
 	if(!isMobile.iOS() && androidVersion() < 4.4) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
@@ -587,18 +587,21 @@ if(str != "") {
 ///////////////
 // ANALYTICS //
 ///////////////
-document.addEventListener("deviceready", onDeviceReady, false);
-var gaPlugin;
-function onDeviceReady() {
-	gaPlugin = window.plugins.gaPlugin;
-	gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
-	if(isMobile.Android())  { var appOS = "android"; }
-	else if(isMobile.iOS()) { var appOS = "ios";     }
-	else					{ var appOS = "www";     }
-	gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, appOS + ".mylivediet.com/#" + "startApp()");
-	function successHandler()			{}
-	function errorHandler()			  {} 
-	function nativePluginResultHandler() {}
-	function nativePluginErrorHandler()  {}
+if(window.localStorage.getItem("config_debug") != "active") {
+	document.addEventListener("deviceready", onDeviceReady, false);
+	var gaPlugin;
+	function onDeviceReady() {
+		CONSOLE('gaPlugin.init(UA-46450510-1)');
+		gaPlugin = window.plugins.gaPlugin;
+		gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
+		if(isMobile.Android())  { var appOS = "android"; }
+		else if(isMobile.iOS()) { var appOS = "ios";     }
+		else					{ var appOS = "www";     }
+		gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, appOS + ".mylivediet.com/#" + "startApp()");
+		function successHandler()			{}
+		function errorHandler()			  {} 
+		function nativePluginResultHandler() {}
+		function nativePluginErrorHandler()  {}
+	}
 }
 

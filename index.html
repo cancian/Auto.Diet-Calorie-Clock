@@ -25,7 +25,7 @@
 	// DETECT OFFLINE //
 	////////////////////
 	setTimeout(function(){
-		if(typeof updateTimer != 'function') {
+		if(typeof updateTimer != 'function' && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
 			window.localStorage.removeItem("config_debug");
 			window.location=''; 
 		}
