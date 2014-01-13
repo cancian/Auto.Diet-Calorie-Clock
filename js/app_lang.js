@@ -1,4 +1,4 @@
-var appVersion = "1.1.2 (11203)";
+var appVersion = "1.1.2 (11204)";
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -454,6 +454,33 @@ var MY_EXERCISES = {
 	en: "my exercises",
 	pt: "exercícios"
 };
+var ADD_NEW_FOOD = {
+	en: "add new food",
+	pt: "adicionar novo alimento"
+};
+var ADD_NEW_EXERCISE = {
+	en: "add new exercise",
+	pt: "adicionar novo exercício"
+};
+var ADD_NEW = {
+	en: "save",
+	pt: "gravar"
+};
+var ADD_NAME = {
+	en: "Name",
+	pt: "Nome"
+};
+var ADD_AMMOUNT = {
+	en: "Ammount",
+	pt: "Quantidade"
+};
+var ADD_DURATION = {
+	en: "Duration",
+	pt: "Duração"
+};
+
+
+
 
 var XXX = {
 	en: "XXX",

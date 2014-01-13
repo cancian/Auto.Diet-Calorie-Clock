@@ -307,10 +307,7 @@ function updateTimer() {
 	});
 }
 
-
-
 /*
-
 <?php
 ///////////////////////
 // BUILD NUTRI INDEX //

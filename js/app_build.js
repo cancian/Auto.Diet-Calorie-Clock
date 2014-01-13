@@ -880,7 +880,7 @@ $(document).trigger("sliderInit");
 	});
 	$('#appHeader,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
 		evt.preventDefault();
-		//evt.stopPropagation();
+		evt.stopPropagation();
 			if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
 				$("#entryTime").focus();
 			} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
@@ -898,7 +898,9 @@ $(document).trigger("sliderInit");
 		//evt.preventDefault();
 		evt.stopPropagation();
 		//android keyboard focus
-		//$("#entryBody").focus();		
+		if(isMobile.Android) {
+			$("#entryBody").focus();
+		}
 		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
 			//ios, switch blur entrytime > entrybody || kitkat non-selectable focus
 			if(isMobile.iOS) {

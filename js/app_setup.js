@@ -105,9 +105,9 @@ Diary.prototype.deleteEntry = function(id, callback) {
 			}, this.dbErrorHandler);
 		}, this.dbErrorHandler);
 };
-/////////////////
-// WRITE ENTRY //
-/////////////////
+////////////////
+// SAVE ENTRY //
+////////////////
 Diary.prototype.saveEntry = function(data, callback) {
 	CONSOLE('Diary.prototype.saveEntry(' + data.id + ')');
 	this.db.transaction(
@@ -122,6 +122,91 @@ Diary.prototype.saveEntry = function(data, callback) {
 			} else {
 				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,data.published]); 
 			} 
+		}
+	);
+};
+//////////////
+// SET FOOD //
+//////////////
+Diary.prototype.setFood = function(data, callback) {
+	console.log('setFood(' + data.act + ' ' + data.code + ")");
+	this.db.transaction(
+		function(t) {
+			if(data.act == "update") {
+				t.executeSql('delete from diary_food where CODE = ?', [data.code]);
+				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,data.term,data.kcal,data.pro,data.car,data.fat,data.fib]);
+			} else {
+				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,data.term,data.kcal,data.pro,data.car,data.fat,data.fib]);
+			} 
+		}
+	);
+};
+//////////////
+// GET FOOD //
+//////////////
+Diary.prototype.getFood = function(id,callback) {
+	console.log('getFood(' + id + ")");
+	//console.log('Running getEntries');
+	if(arguments.length == 1) { callback = arguments[0]; }
+	this.db.transaction(
+		function(t) {
+			t.executeSql('select * from diary_food where CODE=?',[id],
+			function(t,results) {
+				callback(that.fixResults(results));
+			},this.dbErrorHandler);
+	}, this.dbErrorHandler);
+};
+/////////////////
+// DELETE FOOD //
+/////////////////
+Diary.prototype.delFood = function(code, callback) {
+	console.log('delFood(' + code + ")");
+	this.db.transaction(
+		function(t) {
+			t.executeSql('delete from diary_food where CODE = ?', [code],
+				function(t, results) {
+					//callback(that.fixResult(results));
+			}, this.dbErrorHandler);
+		}, this.dbErrorHandler);
+};
+/////////////////////
+// GET CUSTOM LIST //
+/////////////////////
+Diary.prototype.getCustomList = function(type,callback) {
+	console.log('getCustomList(' + type + ")");
+	if(arguments.length == 1) { callback = arguments[0]; }
+	this.db.transaction(
+		function(t) {
+			// FAV LIST //
+			if(type == "fav") {
+				t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[type],
+				function(t,results) {
+					callback(that.fixResults(results));
+					if(window.localStorage.getItem("foodDbLoaded") == "done" && !$('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
+						$('#pageSlideFood').addClass("open");
+					}
+				},this.dbErrorHandler);
+			// FOOD/EXERCISE LIST //
+			} else {
+				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by NAME COLLATE NOCASE ASC',[type],
+				function(t,results) {
+					callback(that.fixResults(results));
+					if(window.localStorage.getItem("foodDbLoaded") == "done" && !$('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
+						$('#pageSlideFood').addClass("open");
+					}
+				},this.dbErrorHandler);
+			}
+	}, this.dbErrorHandler);
+};
+/////////////
+// SET FAV //
+/////////////
+Diary.prototype.setFav = function(data, callback) {
+	console.log('setFav(' + data.fib + ")");
+	this.db.transaction(
+		function(t) {
+			t.executeSql('delete from diary_food where CODE = ?', [data.code]);
+			t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,data.term,data.kcal,data.pro,data.car,data.fat,data.fib]);
 		}
 	);
 };
@@ -503,10 +588,16 @@ function updateEntries(partial) {
 /////////////////
 function isNumberKey(evt){
 	var charCode = (evt.which) ? evt.which : event.keyCode;
-	if(charCode > 31 && (charCode < 48 || charCode > 57)) {
+	if(charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
 		return false;
 	}
 	return true;
+/*
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	if(charCode > 31 && (charCode < 48 || charCode > 57)) {
+		return false;
+	}
+	return true;*/
 }
 ///////////////////
 // TOUCH ? CLICK //
@@ -576,6 +667,9 @@ function niceResizer() {
 		//console.log('resizing....');
 	}
 }
+//////////////
+// SANITIZE //
+//////////////
 function sanitize(str) {
 //	var result = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
 //	var searchQuery = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
