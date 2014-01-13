@@ -234,7 +234,7 @@ $(document).on("pageload", function(evt) {
 							///////////////
 							// AUTOCLEAR //
 							///////////////
-							$("#adjustPosBlock,#adjustNegBlock").on(touchend + "mouseout mouseup mouseleave", function(evt) {
+							$("#adjustPosBlock,#adjustNegBlock").on(touchend + " mouseout mouseup mouseleave", function(evt) {
 								evt.preventDefault();
 								$(".activeBlock").removeClass("activeBlock");
 								clearRepeaterBlock();
@@ -542,10 +542,8 @@ $(document).on("pageReload", function(evt) {
 		$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
 		//PRE-ADJUST RESULTS HEIGHT
 		$('#foodSearch').width(window.innerWidth -55);	
+
 		buildFoodMenu();
-		
-		//$('#pageSlideFood').css("height",($('#entryListScroller').height() - (61)) + "px");
-		//$('#foodList').css("height",($('#entryListScroller').height() - (61)) + "px");
 		
 		//remember search type
 		if(window.localStorage.getItem("searchType") == "exercise") {
@@ -567,7 +565,6 @@ $(document).on("pageReload", function(evt) {
 			clearTimeout(niceTimer);
 			niceTimer = setTimeout(niceResizer, 200);
 		}
-		//$('#foodList').css("height",window.localStorage.getItem("absWindowHeight") - ( ($('#appHeader').height() + 60) ) + "px");
 
 	//#/////////////////////////////////////#//
 	//# KEYUP LISTENER SEARCH TIMER-LIMITER #//
@@ -595,7 +592,7 @@ $(document).on("pageReload", function(evt) {
 		});
 		//SET TIMER
 		clearTimeout(timer);
-		var ms  = 175; //275;
+		var ms  = 200; //275;
 		var val = this.value;
 		//DO SEARCH
 		timer = setTimeout(function() {
@@ -884,29 +881,26 @@ function updateFavList() {
 		// LOOP RESULTS //
 		var customFavList = "";
 		for(var c=0, len=data.length; c<len; c++) {
-
-
-//get current weight//
-if(!window.localStorage.getItem("calcForm#pA3B")) {
-	var totalWeight = 80;
-} else {
-	var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
-}
-//convert to kg
-if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
-	var totalWeight = Math.round( (totalWeight) / (2.2) );
-}
-		//ADJUST TO EXERCISE
+			//get current weight//
+			if(!window.localStorage.getItem("calcForm#pA3B")) {
+				var totalWeight = 80;
+			} else {
+				var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
+			}
+			//convert to kg
+			if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
+				var totalWeight = Math.round( (totalWeight) / (2.2) );
+			}
+			//ADJUST TO EXERCISE
 			if(data[c].type == "exercise") {
 				var cKcal = Math.round(((data[c].kcal * totalWeight) /60) * 30);
 			} else {
 				var cKcal = Math.round(data[c].kcal * 100) / 100;
 			}
-			
-//cKcal = Math.round(data[c].kcal * 100) / 100;
-cPro = Math.round(data[c].pro * 100) / 100;
-cCar = Math.round(data[c].car * 100) / 100;
-cFat = Math.round(data[c].fat * 100) / 100;
+			//cKcal = Math.round(data[c].kcal * 100) / 100;
+			cPro = Math.round(data[c].pro * 100) / 100;
+			cCar = Math.round(data[c].car * 100) / 100;
+			cFat = Math.round(data[c].fat * 100) / 100;
 
 			var favLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + cFat  + "</span></div>";
 			if(favLine != "") {
@@ -922,8 +916,6 @@ cFat = Math.round(data[c].fat * 100) / 100;
 		// HANDLERS //
 		//////////////
 		$("#tabMyFavsBlock div.searcheable").on(singletap,function(evt) {
-			//$("#foodList div.searcheable").swipe({
-			//	tap:function(event) {
 			evt.preventDefault();
 			getModalWindow($(this).attr("id"));
 		});
@@ -958,11 +950,10 @@ function updateFoodList() {
 		var customFoodList = "";
 		for(var c=0, len=data.length; c<len; c++) {
 			
-cKcal = Math.round(data[c].kcal * 100) / 100;
-cPro = Math.round(data[c].pro * 100) / 100;
-cCar = Math.round(data[c].car * 100) / 100;
-cFat = Math.round(data[c].fat * 100) / 100;
-
+			cKcal = Math.round(data[c].kcal * 100) / 100;
+			cPro = Math.round(data[c].pro * 100) / 100;
+			cCar = Math.round(data[c].car * 100) / 100;
+			cFat = Math.round(data[c].fat * 100) / 100;
 
 			var foodLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + cFat  + "</span></div>";
 			if(foodLine != "") {
@@ -975,25 +966,15 @@ cFat = Math.round(data[c].fat * 100) / 100;
 		//////////
 		$("#addNewFood").remove();
 		$("#tabMyFoodsBlock").html(customFoodList + '<div id="addNewFood">' + LANG("ADD_NEW_FOOD") +'</div>');
-		//////////////
-		// HANDLERS //
-		//////////////
-
-
-$('#tabMyFoodsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
-
-
-/////////////
-// ACTIONS //
-/////////////
-//$(".searcheable").off(tap + touchstart);
-$("#addNewFood").on(touchstart, function(evt) {
-addNewItem({type:"food",act:"insert"});
-});
+		$('#tabMyFoodsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+		/////////////
+		// ACTIONS //
+		/////////////
+		$("#addNewFood").on(touchstart, function(evt) {
+			addNewItem({type:"food",act:"insert"});
+		});
 		
 		$("#tabMyFoodsBlock div.searcheable").on(singletap,function(evt) {
-			//$("#foodList div.searcheable").swipe({
-			//	tap:function(event) {
 			evt.preventDefault();
 			getModalWindow($(this).attr("id"));
 		});
@@ -1028,17 +1009,16 @@ diary.getCustomList("exercise",function(data) {
 	var customExerciseList = "";
 	for(var c=0, len=data.length; c<len; c++) {
 
-//get current weight//
-if(!window.localStorage.getItem("calcForm#pA3B")) {
-	var totalWeight = 80;
-} else {
-	var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
-}
-//convert to kg
-if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
-	var totalWeight = Math.round( (totalWeight) / (2.2) );
-}
-
+		//get current weight//
+		if(!window.localStorage.getItem("calcForm#pA3B")) {
+			var totalWeight = 80;
+		} else {
+			var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
+		}
+		//convert to kg
+		if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
+			var totalWeight = Math.round( (totalWeight) / (2.2) );
+		}
 		var excerciseKcal = Math.round(((data[c].kcal * totalWeight) / 60) * 30);
 		var excerciseLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + excerciseKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + data[c].fat  + "</span></div>";
 		if(excerciseLine != "") {
@@ -1051,20 +1031,14 @@ if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
 	//////////
 	$("#addNewExercise").remove();
 	$("#tabMyExercisesBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG("ADD_NEW_EXERCISE") +'</div>');
-	
 	$('#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
-	//////////////
-	// HANDLERS //
-	//////////////
-//$(".searcheable").off(tap + touchstart);
-$("#addNewExercise").on(touchstart, function(evt) {
-addNewItem({type:"exercise",act:"insert"});
-});
-
-	
+	/////////////
+	// ACTIONS //
+	/////////////
+	$("#addNewExercise").on(touchstart, function(evt) {
+		addNewItem({type:"exercise",act:"insert"});
+	});
 	$("#tabMyExercisesBlock div.searcheable").on(singletap,function(evt) {
-		//$("#foodList div.searcheable").swipe({
-		//	tap:function(event) {
 		evt.preventDefault();
 		getModalWindow($(this).attr("id"));
 	});
@@ -1169,99 +1143,59 @@ var recentBlock = '\
 <div id="searchContents"></div>\
 ';
 
-
-////////////
-//TOP MENU//
-////////////
+//////////////
+// TOP MENU //
+//////////////
 $("#foodList").html("<div id='menuTopBar'><h3 id='topBarItem-1'><span>" + LANG('MY_FAVOURITES') + "</span></h3><h3 id='topBarItem-2'><span>" + LANG('MY_FOODS') + "</span></h3><h3 id='topBarItem-3'><span>" + LANG('MY_EXERCISES') + "</span></h3></div>\
 " + recentBlock);
-
-
+//first load db spinner
 if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	//reset blocks
 	$("#tabMyFavsBlock,#tabMyFoodsBlock,#tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>');
-	
 
-$("#addNewFood").remove();
-$("#tabMyFoodsBlock").after('<div id="addNewFood">' + LANG("ADD_NEW_FOOD") +'</div>');
-$('#tabMyFoodsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+	$("#addNewFood").remove();
+	$("#tabMyFoodsBlock").after('<div id="addNewFood">' + LANG("ADD_NEW_FOOD") +'</div>');
+	$('#tabMyFoodsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 
-
-/////////////
-// ACTIONS //
-/////////////
-//$(".searcheable").off(tap + touchstart);
-$("#addNewFood").on(touchstart, function(evt) {
-addNewItem({type:"food",act:"insert"});
-});	
-	//////////
-	// HTML //
-	//////////
 	$("#addNewExercise").remove();
 	$("#tabMyExercisesBlock").after('<div id="addNewExercise">' + LANG("ADD_NEW_EXERCISE") +'</div>');
 	$('#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 	//////////////
 	// HANDLERS //
 	//////////////
-//$(".searcheable").off(tap + touchstart);
-$("#addNewExercise").on(touchstart, function(evt) {
-addNewItem({type:"exercise",act:"insert"});
-});
+	$("#addNewFood").on(touchstart, function(evt) {
+		addNewItem({type:"food",act:"insert"});
+	});	
+	$("#addNewExercise").on(touchstart, function(evt) {
+		addNewItem({type:"exercise",act:"insert"});
+	});
 
-	
 } else {
 ////////////////////
 // CUSTOM FAV SQL //
 ////////////////////
-
 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
-
-updateFavList();
-
-setTimeout(function() {
-updateFoodList();
-updateExerciseList();
-	
-},300);
+	updateFavList();
+	setTimeout(function() {
+		updateFoodList();
+		updateExerciseList();
+	},300);
 }
-
 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
-updateFoodList();
-
-setTimeout(function() {
-updateFavList();
-updateExerciseList();
-	
-},300);
+	updateFoodList();
+	setTimeout(function() {
+		updateFavList();
+		updateExerciseList();
+	},300);
 }
-
 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
-updateExerciseList();
-
-setTimeout(function() {
-updateFavList();
-updateFoodList();
-
-},300);
-	
+	updateExerciseList();
+	setTimeout(function() {
+		updateFavList();
+		updateFoodList();
+	},300);
 }
-
 }
-
-
-
-
-
-
-//
-///$("#tabMyFavs").html("<div id='recentBlock'><h3 class='recentItem'>" + LANG('ENTRY_HISTORY') + "<span>(" + LANG('PRE_FILL') + ")</span></h3>" + recentHtml + "</div>");
-
-
-
-
-
-// CYCLIC INPUTS
-//$("#contentCyclicTitle").after("<div id='settingsCyclicWrapper'><div id='settingsCyclicDiv1'><span><input min='500' max='9999' type='number' name='CyclicInput1' id='CyclicInput1' />days a, b, c <span>(diet)</span></span></div><div id='settingsCyclicDiv2'><span><input min='500' max='9999' type='number' name='CyclicInput2' id='CyclicInput2' />day d <span>(rest)</span></span></div></div>");
 
 /////////////////////
 // FIRST LOAD TABS //
@@ -1327,16 +1261,7 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 
 
 
-
-
-
-
-
-
-
 //end touchstart (black button)
-
-
 
 			/////////////
 			// ACTIONS //
@@ -1351,6 +1276,7 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 			});
 				
 			// PRE-FILL RECENT //
+/*
 			var mr = 0;
 			//entrylist form propagation fix (touchend > touchstart [android 2.x])
 			$(".recentItem").on(touchstart,function(evt) {
@@ -1391,7 +1317,7 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 					},preFillTimer);
 				}
 			});
-
+*/
 
 
 }
@@ -1419,7 +1345,7 @@ function addNewItem(opt) {
 	// HTML FORM //
 	///////////////
 	$("#modalWindow").remove();
-	
+
 	if(!$("#modalOverlay").html()) { 
 		var modalOverlay = '<div id="modalOverlay"></div>';
 	} else {
@@ -1433,12 +1359,12 @@ function addNewItem(opt) {
 			' + modalOverlay + '\
 			<div id="addNewWrapper">\
 				<ul id="addNewList">\
-					<li id="addNewName">   <label>' + LANG("ADD_NAME") + ' </label>       <input tabindex="3" type="text"   id="inputNewName"     />            </li>\
-					<li id="addNewAmmount"><label>' + LANG("ADD_AMMOUNT") + ' (g)</label><input tabindex="3" type="number" id="inputNewAmmount" value="100" /> </li>\
-					<li id="addNewKcal">   <label>kcal</label>       <input tabindex="3" type="number" id="inputNewKcal"    value="0" />   </li>\
-					<li id="addNewPro">    <label>pro</label>        <input tabindex="3" type="number" id="inputNewPro"     value="0"  />  </li>\
-					<li id="addNewCar">    <label>car</label>        <input tabindex="3" type="number" id="inputNewCar"     value="0"  />  </li>\
-					<li id="addNewFat">    <label>' + LANG("FAT") + ' </label>        <input tabindex="3" type="number" id="inputNewFat"     value="0"  />  </li>\
+					<li id="addNewName">   <label>' + LANG("ADD_NAME") + ' </label>       <input tabindex="3" type="text"   id="inputNewName"                /> </li>\
+					<li id="addNewAmmount"><label>' + LANG("ADD_AMMOUNT") + ' (g)</label> <input tabindex="3" type="number" id="inputNewAmmount" value="100" /> </li>\
+					<li id="addNewKcal">   <label>kcal</label>                            <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /> </li>\
+					<li id="addNewPro">    <label>pro</label>                             <input tabindex="3" type="number" id="inputNewPro"     value="0"   /> </li>\
+					<li id="addNewCar">    <label>car</label>                             <input tabindex="3" type="number" id="inputNewCar"     value="0"   /> </li>\
+					<li id="addNewFat">    <label>' + LANG("FAT") + ' </label>            <input tabindex="3" type="number" id="inputNewFat"     value="0"   /> </li>\
 				</ul>\
 				<div id="addNewCancel">' + LANG("CANCEL") + '</div>\
 				<div id="addNewConfirm">' + LANG("ADD_NEW") + '</div>\
@@ -1463,7 +1389,7 @@ if(opt) {
 /////////////////////////////////////
 if(vAct == "update") {
 	$("#inputNewName").val(opt.name);
-	$("#inputNewKcal").val( Math.round(opt.kcal))
+	$("#inputNewKcal").val(Math.round(opt.kcal))
 	$("#inputNewPro").val(opt.pro);
 	$("#inputNewCar").val(opt.car);
 	$("#inputNewFat").val(opt.fat);
@@ -1482,127 +1408,66 @@ if(opt.type == "exercise") {
 	if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
 		var totalWeight = Math.round( (totalWeight) / (2.2) );
 	}
-
 	$("#addNewAmmount label").html(LANG("ADD_DURATION") + ' (min)');
 	$("#inputNewAmmount").val(30);
 	$("#addNewPro").hide();
 	$("#addNewCar").hide();
 	$("#addNewFat").hide();
 
-if(vAct == "update") {
-
-$("#inputNewKcal").val(Math.round(((opt.kcal * totalWeight)/60) * $("#inputNewAmmount").val()));
-
+	if(vAct == "update") {
+		$("#inputNewKcal").val(Math.round(((opt.kcal * totalWeight)/60) * $("#inputNewAmmount").val()));
+	}
 }
 
-	
-}
-
-/*
-diary.setFood( {
-	type:vType,
-	code:vCode,
-	name:vName,
-	term:vTerm,
-	kcal:vKcal,
-	pro:vPro,
-	car:vCar,
-	fat:vFat,
-	fib:vFib								
-	}, function() { });
-	buildFoodMenu();
-		
-});
-alert(opt.code);
-//alert(opt[code]);
-if(opt.act) {
-	var vAct = "update";
-} else {
-	var vAct  = "insert";
-}
-*/
-
-
-/*
-var vType = "food";
-var vCode = "c" + (new Date()).getTime();
-var vName = $("#inputNewName").val();
-var vTerm = sanitize($("#inputNewName").val());
-var vKcal = $("#inputNewKcal").val();
-var vPro  = $("#inputNewPro").val();
-var vCar  = $("#inputNewCar").val();
-var vFat  = $("#inputNewFat").val();
-var vFib  = "custom";
-*/
-
-
-
-
-//"tiny": { lines: 8, length: 2, width: 2, radius: 3 },
-
-
-
-
-	
 	//$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");
 	//$('#addNewList li input').placeholder({force:true});
-		//prevent tapping
-//		$("#modalOverlay").css("z-index",9999999);
-		$("#modalOverlay,#addNewWrapper").hide();
-		$("#addNewWrapper").fadeIn(200);
-		$("#modalOverlay").fadeIn(0);
-		$('#modalOverlay,#addNewWrapper').addClass('show');
+	//prevent tapping
+	//$("#modalOverlay").css("z-index",9999999);
+	$("#modalOverlay,#addNewWrapper").hide();
+	$("#addNewWrapper").fadeIn(200);
+	$("#modalOverlay").fadeIn(0);
+	$('#modalOverlay,#addNewWrapper').addClass('show');
 
-		//$("#modalOverlay").css("-webkit-transition-timing-function","linear");
-				//	setTimeout(function(evt) {
-				///	/	$("#entryBody").val( trim($("#activeOverflow").text()) );
-						//CSS FADE OUT
-						//$('#modalWindow').removeClass('show');
-//						$('#modalOverlay').addClass('show');
-//							$("#modalOverlay").css("-webkit-transition-duration",".25s");
+	//$("#modalOverlay").css("-webkit-transition-timing-function","linear");
+	//setTimeout(function(evt) {
+	//$("#entryBody").val( trim($("#activeOverflow").text()) );
+	//CSS FADE OUT
+	//$('#modalWindow').removeClass('show');
+	//$('#modalOverlay').addClass('show');
+	//$("#modalOverlay").css("-webkit-transition-duration",".25s");
+	//$("#modalOverlay").css("background-image","-webkit-linear-gradient(#fff,#fefefe)");		
+	//$("#modalOverlay,#spinner,#tempHolder").on(touchstart, function(evt) {
 
-		//$("#modalOverlay").css("background-image","-webkit-linear-gradient(#fff,#fefefe)");		
-		//$("#modalOverlay,#spinner,#tempHolder").on(touchstart, function(evt) {
-	
-//	$(this).addClass("activeOverflow");
-//	$(".foodName",this).attr("id","activeOverflow");
-//	$(".foodName").css("overflow","auto");
+	//$(this).addClass("activeOverflow");
+	//$(".foodName",this).attr("id","activeOverflow");
+	//$(".foodName").css("overflow","auto");
 
 ///////////////////////////////////////////
 // android input blur blank viewport bug //
 ///////////////////////////////////////////
 if(isMobile.Android()) {
-//preset wrapper min-height
-$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");
-//trigger on touchmove if not focused (closing-touch white gap)
-$("#addNewWrapper").on("touchmove",function(evt) {
-	if(!$("#addNewWrapper input").is(":focus")) { 
-		$(window).trigger("orientationchange");
-	}
-});
-//trigger if not focused to another input
-var newBlurGap;
-$("#addNewWrapper input").on("blur",function(evt) {
-	newBlurGap = setTimeout(function() {
-		$(window).trigger("orientationchange");
-	},100);
-});
-$("#addNewWrapper input").on("focus",function(evt) {
-	clearTimeout(newBlurGap);
-});
+	//preset wrapper min-height
+	$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");
+	//trigger on touchmove if not focused (closing-touch white gap)
+	$("#addNewWrapper").on("touchmove",function(evt) {
+		if(!$("#addNewWrapper input").is(":focus")) { 
+			$(window).trigger("orientationchange");
+		}
+	});
+	//trigger if not focused to another input
+	var newBlurGap;
+	$("#addNewWrapper input").on("blur",function(evt) {
+		newBlurGap = setTimeout(function() {
+			$(window).trigger("orientationchange");
+		},100);
+	});
+	$("#addNewWrapper input").on("focus",function(evt) {
+		clearTimeout(newBlurGap);
+	});
 }
-
-
-
-
-
-
-
-
-
-
-
-//autohide keyboard
+///////////////////////////
+// autohide keyboard tap //
+///////////////////////////
 $("#addNewWrapper").on("touchstart",function(evt) {
 	if(evt.target.id == "addNewWrapper" || evt.target.id == "") {
 		evt.preventDefault();
@@ -1634,8 +1499,6 @@ $('#addNewWrapper input[type="number"]').on("keypress", function(evt) {
 	//num only
 	return isNumberKey(evt);
 });
-
-
 //#/////////////#//
 //# CONFIRM ADD #//
 //#/////////////#//
@@ -1685,7 +1548,6 @@ if(parseFloat($("#inputNewPro").val()) + parseFloat($("#inputNewCar").val()) + p
 // RETURN ON ERROR //
 /////////////////////
 if(doReturn == 1) { lockAdd = 0; return false; }
-
 
 // IF NULL/EMPTY, JUST REVERT TO 0
 if(vPro == "" || isNaN(vPro))	{ vPro = 0; }
@@ -1838,56 +1700,7 @@ setTimeout(function() {
 	});
 },200);
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1912,9 +1725,6 @@ if(!itemId) { return; }
 		var mCar  = Math.round(data[0].car * 100) / 100;
 		var mFat  = Math.round(data[0].fat * 100) / 100;
 		var mFib  = data[0].fib;
-		
-		
-	//alert( mName + mType + mCode + mTerm + mKcal + mPro + mCar + mFat + mFib);	
 ///////////////////
 // DEFINE WEIGHT //
 ///////////////////
@@ -1936,17 +1746,7 @@ if(mType == "exercise") {
 } else {
 	var searchType = 'food';
 }
-
-
-					//counting
-					//ix++;
-					//var shit = meh;
-					//var shot = $("#activeOverflow").html(); //this.id;
-					//meh      = $("#activeOverflow").html(); //this.id;
-					var duh      = new Date().getTime();
-					//filter
-					//if(shit == shot && (duh - deh) < 400 && ix >= 1) {
-					if(0 == 0) {
+						var duh      = new Date().getTime();
 						////////////////////////
 						// FOODLIST DOUBLETAP //
 						////////////////////////
@@ -2280,22 +2080,14 @@ if(mType == "exercise") {
 							addNewItem(modalOpt);
 							return false;
 						});
-						/////////////////
-						// EDIT BUTTON //
-						/////////////////
+						////////////////
+						// FAV BUTTON //
+						////////////////
 						if(mFib == "fav") { $("#modalFav").addClass("favourite"); }
-//						mFib
+						//mFib
 						$("#modalFav").on(tap, function(evt) {
-
-						$("#modalFav").toggleClass("favourite");
-
-
-//													mFib
-
-						
-						if(mFib == "fav") { mFib = "nonFav"; } else {  mFib = "fav"; }
-					//	alert(mFib + "oho");
-
+							$("#modalFav").toggleClass("favourite");
+							if(mFib == "fav") { mFib = "nonFav"; } else {  mFib = "fav"; }
 							evt.stopPropagation();
 							var modalOpt = {
 								name:mName,
@@ -2307,26 +2099,11 @@ if(mType == "exercise") {
 								fat:mFat,	
 								fib:mFib			
 							};
-
-
 							diary.setFav(modalOpt);
 							updateFavList();
-						
-							//$("#" + itemId).remove();
-							//$("#modalCancel").trigger(trim(touchstart));
 						});
 						/////////////////////////////////////
 						// END TAP FOOD-ENTRY EDIT (MODAL) //
 						/////////////////////////////////////
-						//var mi = "2";
-						//ix     = -1;
-						//meh    = "";
-				//	}
-					//deh = duh;
-					
-					
-					
-				}
-				
 	});
 }
