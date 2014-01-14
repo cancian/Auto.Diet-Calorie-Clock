@@ -1,20 +1,17 @@
 #################
 ## VERSION LOG ##
 #################
-# 1.1.2 [08/01/2014]
-• tap and hold existing entry to pre-fill description
-• custom food/exercises
+# 1.1.2 [14/01/2014]
+• support for custom foods and exercises
+• all itens are now fully editable (both custom and default)
+• added support for "favourite" itens
+• tap and hold existing diary entry to re-use description
+• slider knob now changes color when active
 • fixed issue with pre-fill not triggering menu autoclose
-• enhanced stability
-• improved interface responsiveness
-
-• input focus stability improvements
-• resizing enforcements
+• improved interface overal responsiveness
 • 
 • 
 • 
-
-
 # 1.1.1 [03/01/2014]
 • tapping status boxes now displays additional information
 • faster search system

@@ -4,9 +4,9 @@
 $(document).ready(function() {  
 	if(hasTouch()) { 
 		$("body").css("opacity","0");
-		setTimeout(function(evt) {
-			$("body").css("opacity","1");
-		},2000);
+		//setTimeout(function(evt) {
+		//	$("body").css("opacity","1");
+		//},2000);
 	}
 	diary = new Diary();
 	diary.setup(startApp);
@@ -226,7 +226,7 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //############################//
 //####    START WORKING   ####//
 //############################//
-afterShow(200);
+afterShow(250);
 updateTimer();
 //updateEntries();
 //updateEntriesTime();

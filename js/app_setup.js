@@ -344,7 +344,7 @@ function afterLoad() {
 	window.localStorage.setItem("absWindowHeight",window.innerHeight);
 	window.localStorage.setItem("absWindowWidth",window.innerWidth);
 	window.localStorage.setItem("absOrientation",Number(window.orientation));
-	
+	afterHidden = 0;
 }
 function afterShow(t) {
     afterTimer = setTimeout(afterLoad,t);
@@ -352,17 +352,21 @@ function afterShow(t) {
 ///////////////
 // AFTERHIDE //
 ///////////////
+var afterHidden;
 function afterHide() {
 	CONSOLE('afterHide()');
-	setTimeout(function() { window.location=''; },500);
-	//DISABLE HANDLERS
-	$("*").on(touchstart,function(evt) { return false; });
-	//SET CSS TRANSITION
-	$('body').css("-webkit-transition-timing-function","ease");
-	$('body').css("-webkit-transition-duration",".25s");
-	$("body").css("opacity","0");
+	clearTimeout(afterHidden);
+	afterHidden = setTimeout(function() {
+		$("#appStatusReload").off();
+		//SET CSS TRANSITION
+		$('body').css("-webkit-transition-timing-function","ease");
+		$('body').css("-webkit-transition-duration",".25s");
+		$("body").css("opacity","0");
+		$('body').on('webkitTransitionEnd',function(e) { 
+			window.location='';
+		});
+	},250);
 }
-//afterShow(875);
 /////////////
 // SPINNER //
 /////////////
@@ -613,14 +617,17 @@ function hasTouch() {
 	//return ('ontouchstart' in document);
 	return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
 }
-var touchstart = hasTouch() ? ' touchstart ' : ' mousedown ';
-var touchend   = hasTouch() ? ' touchend '   : ' mouseup ';
-var touchmove  = hasTouch() ? ' touchmove '  : ' mousemove ';
-var tap        = hasTouch() ? ' tap '        : ' click '; //("ontouchstart" in document)  ? ' tap ' : ' click ';
-var longtap    = hasTouch() ? ' taphold '    : ' taphold ' ;
-var taphold    = hasTouch() ? ' taphold '    : ' taphold ' ;
-var singletap  = hasTouch() ? ' singleTap '  : ' click '; //("ontouchstart" in document)  ? ' tap ' : ' click ';
-var doubletap  = hasTouch() ? ' doubleTap '  : ' dblclick ';
+function hasTap() {
+	return 'ontouchstart' in document;
+}
+var touchstart = hasTap() ? 'touchstart' : 'mousedown';
+var touchend   = hasTap() ? 'touchend'   : 'mouseup';
+var touchmove  = hasTap() ? 'touchmove'  : 'mousemove';
+var tap        = hasTap() ? 'tap'        : 'click';
+var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
+var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
+var singletap  = hasTap() ? 'singleTap'  : 'click';
+var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//

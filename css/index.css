@@ -1,9 +1,10 @@
 html,
-body							{ position: relative; width: 100%; height: 100%; display: block; overflow: hidden; margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, Arial; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); }
+body							{ position: absolute; width: 100%; height: 100%; display: block; overflow: hidden; margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, Arial; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); }
 body.android 					{ -webkit-perspective: 1000; }
-body > *,h2,input[readonly]		{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-user-select: none; }
-input,select					{ -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial, Helvetica; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; }
-input[type='text']				{ -webkit-user-modify: read-write-plaintext-only; }
+body > *,h2,input[readonly]		{ -webkit-user-select: none; -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
+input,select					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial, Helvetica; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; }
+input[type='text']				{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; outline: 0; }
+*								{ -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; outline: none !important; }
 ul								{ padding: 0; margin: 0; text-indent: 0; }
 p								{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*GENERIC*/
@@ -328,9 +329,7 @@ div#noEntries				{ border-left: 5px solid #ccc; }
 /*track*/
 .carpe-slider-track			{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #444; opacity: .5; }
 .carpe-slider-knob			{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ccc; border-radius: 12px; background: #fff; margin-left: 0px; }
-.carpe-slider-knob:hover,
-.carpe-slider-knob:focus,
-.carpe-slider-knob:active	{ border: 1px solid #009900; }
+.carpe-slider-knob.active	{ border: 1px solid #009900; }
 /*#############################
 ####    PAGE SLIDE FOOD    ####
 #############################*/
@@ -421,8 +420,8 @@ body.ios7 #modalWindow	{ top: 94px; }
 #modalOk				{ position: absolute; bottom: 0; left: 0; right: 50%; height: 44px; background-color: #4D9AE5; color: #fff; font-weight: bold; text-shadow: rgba(0,0,0,.24) 0 1px 0; background-image: -webkit-linear-gradient(#4D9AE5,#4A93DA); }
 #modalCancel			{ position: absolute; bottom: 0; left: 50%; right: 0; height: 44px; background-color: #f5f5f5; text-shadow: rgba(0,0,0,.04) 0 1px 0; background-image: -webkit-linear-gradient(#f9f9f9,#f1f1f1); }
 #modalAdjust			{ position: absolute; top: 65px; left: 0; background-color: #fff; width: 100%; height: 92px; z-index: 99999; }
-#modalPosBlock			{ position: absolute; top: 5px; right: 9px; display: block; width: 25%; height: 40px; background-color: #F9F9F9; background-image: -webkit-linear-gradient(#F9F9F9,#F1F1F1); border-radius: 0px 6px 6px 0; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
-#modalNegBlock			{ position: absolute; top: 5px; left:  9px;  display: block; width: 25%; height: 40px; background-color: #F9F9F9; background-image: -webkit-linear-gradient(#F9F9F9,#F1F1F1); border-radius: 6px 0 0 6px; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
+#modalPosBlock			{ position: absolute; top: 5px; right: 9px; display: block; width: 25%; height: 40px; background-color: #eee; background-image: -webkit-linear-gradient(#f8f8f8,#f5f5f5); border-radius: 0px 6px 6px 0; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
+#modalNegBlock			{ position: absolute; top: 5px; left:  9px;  display: block; width: 25%; height: 40px; background-color: #eee; background-image: -webkit-linear-gradient(#f8f8f8,#f5f5f5); border-radius: 6px 0 0 6px; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
 #modalNeg				{ font-size: 24px; display: block; position: absolute; top: 8px; right: 37%; }
 #modalPos				{ font-size: 24px; display: block; position: absolute; top: 8px; left: 37%; }
 #modalNeg.icon-chevron-sign-left,
@@ -447,14 +446,14 @@ span#proData span,
 span#carData span,
 span#fatData span,
 span#fibData span		{ font-weight: normal; color: #222; }
-span#proData			{ top: -3px; font-variant: normal; }
-span#carData			{ top:  8px; font-variant: normal; }
-span#fatData			{ top: 19px; font-variant: normal; }
-span#fibData			{ top: 30px; font-variant: normal; }
-span#proLabel			{ top: -3px; text-align: right; right: 47px; /*right: 247px;*/ }
-span#carLabel			{ top:  8px; text-align: right; right: 47px; }
-span#fatLabel			{ top: 19px; text-align: right; right: 47px; }
-span#fibLabel			{ top: 30px; text-align: right; right: 47px; }
+span#proData			{ top:  1px; font-variant: normal; }
+span#carData			{ top: 13px; font-variant: normal; }
+span#fatData			{ top: 25px; font-variant: normal; }
+span#fibData			{ top: 36px; font-variant: normal; }
+span#proLabel			{ top:  1px; text-align: right; right: 47px; /*right: 247px;*/ }
+span#carLabel			{ top: 13px; text-align: right; right: 47px; }
+span#fatLabel			{ top: 25px; text-align: right; right: 47px; }
+span#fibLabel			{ top: 36px; text-align: right; right: 47px; }
 /*modal delete*/
 #modalDelete:before			{ content: "\f014"; font-family: 'FontAwesome'; font-size: 30px; position: absolute; top: -62px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
 #modalDelete:active:before	{ color: #333; }
@@ -514,12 +513,14 @@ body.ios7 #addNewWrapper	{ top: 91px; }
 #addNewWrapper.show			{ opacity: 1; }
 #addNewConfirm				{ position: absolute; bottom: 0px; left: 0;  width: 50%; background-color: #4D9AE5; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: bold; }
 #addNewCancel				{ position: absolute; bottom: 0px; right: 0; width: 50%; background-color: #eeeeee; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: bold; }
-ul#addNewList				{ padding: 9px 22px 22px 22px; }
+ul#addNewList				{ padding: 9px 0 22px 22px; }
 ul#addNewList li			{ display: block; height: 44px; line-height: 44px; position: relative; }
 ul#addNewList li+li			{ border-top: 1px solid #eee; }
 ul#addNewList label			{ color: #333; display: inline-block; float: left;  text-align: left; }
 ul#addNewList label.error	{ color: #cc3300; }
-ul#addNewList input			{ position: absolute; top: 16px; right: 0px; left: 120px; text-align: right; color: #888; }
+ul#addNewList input			{ position: absolute; top: 0px; right: 0px; left: 100px; text-align: right; color: #888; background-color: transparent; -webkit-backface-visibility: hidden; font-size: 15px; height: 44px; padding-right: 44px; }
+ul#addNewList input:focus,
+ul#addNewList input:active	{ color: #0072BC; }
 /*#///////////#//
 //#// IOS 7 //#//
 //#///////////#*/

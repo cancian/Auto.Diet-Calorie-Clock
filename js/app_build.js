@@ -29,6 +29,13 @@ function openSettings(string) {
 	//# OUTPUT #//
 	//#////////#//
 	$("#appContent").html(settingsHtml);
+	////////////
+	// UNUSED //
+	////////////
+	$("#optionFeedback").remove();
+	if(!hasTouch()) {
+		$("#optionReview").remove();
+	}
 	////////////////
 	// ACTIVE ROW //
 	////////////////
@@ -37,7 +44,7 @@ function openSettings(string) {
 		$(this).addClass("activeRow");
 		$(this).next().addClass("nextChild");
 	});
-	$("#settingsList").on(touchend + " mouseout",function(evt) {
+	$("#settingsList,#settingsList li").on(touchend + " mouseout",function(evt) {
 		$(".activeRow").removeClass("activeRow");
 		$(".nextChild").removeClass("nextChild");
 		evt.preventDefault();
@@ -52,13 +59,6 @@ function openSettings(string) {
 			window.open('http://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');
 		}
 	});
-	////////////
-	// UNUSED //
-	////////////
-	$("#optionFeedback").remove();
-	if(!hasTouch()) {
-		$("#optionReview").remove();
-	}
 	////////////////////////
 	// SETTINGS: FEEDBACK //
 	////////////////////////
@@ -103,6 +103,10 @@ function openSettings(string) {
 			navigator.notification.alert(LANG("ABOUT_DIALOG"), voidThis,LANG("ABOUT_TITLE"),LANG("OK"));
 		} else {
 			alert(LANG("ABOUT_TITLE") + " \n" + LANG("ABOUT_DIALOG"));
+			setTimeout(function() {
+				$(".nextChild").removeClass("nextChild");
+				$(".activeRow").removeClass("activeRow");
+			},0);
 		}
 	});
 	////////////////////
@@ -148,8 +152,7 @@ function openSettings(string) {
 		evt.preventDefault();
 		function onConfirmWipe(button) {
 			if(button == 1) {
-				//window.localStorage.clear();
-				//window.localStorage.setItem("appReset","wipe");
+				$("#optionReset").off();
 				diary.deSetup();
 				return false;
 			}
@@ -161,7 +164,6 @@ function openSettings(string) {
 		} else {
 			if(confirm(LANG("WIPE_DIALOG"))) { onConfirmWipe(1); } else { return false; }
 		}
-		$("#optionReset").off();
 	});
 	$("#optionReset").on(touchstart,function(evt) {
 		evt.preventDefault();
@@ -774,7 +776,7 @@ $(document).trigger("sliderInit");
 	/////////////////////
 	// NUM DE-REPEATER //
 	/////////////////////
-	$("#sliderNum").on(touchstart + "touchmove", function(evt) {
+	$("#sliderNum").on(touchstart + " touchmove", function(evt) {
 		evt.preventDefault();
 		clearRepeater();
 		var sliderNum = document.getElementById('slider').slider.resetValue();
