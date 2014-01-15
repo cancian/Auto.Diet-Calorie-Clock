@@ -424,7 +424,7 @@ $(document).on("pageload", function(evt) {
 	/////////////////
 	// GLOBAL HIDE //
 	/////////////////
-	$("#appHeader,#entryListForm,#go,#sliderBlock,#entryListWrapper").on(tap + " swipeLeft swipeRight", function(evt) {
+	$("#appHeader,#entryListForm,#go,#sliderBlock,#editablediv,#entryListWrapper").on(touchend + " swipeLeft swipeRight", function(evt) {
 		evt.preventDefault();
 		if(!$('.active').hasClass('busy')) {
 			$('.active').addClass('busy');
@@ -1782,6 +1782,10 @@ if(mType == "exercise") {
 						//#/////////////////////////////////#//
 						//# MODAL ADD/REMOVE CORE FUNCTIONS #//
 						//#/////////////////////////////////#//
+						var pressTimerModalNeg;
+						var pressTimerModalPos;
+						var pressRepeatModalNeg;
+						var pressRepeatModalPos;
 						///////////////////
 						// NUTRIENT DATA //
 						///////////////////

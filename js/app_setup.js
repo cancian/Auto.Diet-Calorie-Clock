@@ -62,7 +62,7 @@ Diary.prototype.initDB = function(t) {
 Diary.prototype.deSetup = function(callback) {
 	CONSOLE('Diary.prototype.deSetup');
 	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); window.localStorage.clear(); return false; }, this.dbErrorHandler, function() { afterHide(); return false; });
+	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { afterHide("clear"); return false; });
 };
 /////////////////
 // GET ENTRIES //
@@ -353,7 +353,7 @@ function afterShow(t) {
 // AFTERHIDE //
 ///////////////
 var afterHidden;
-function afterHide() {
+function afterHide(cmd) {
 	CONSOLE('afterHide()');
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
@@ -363,7 +363,10 @@ function afterHide() {
 		$('body').css("-webkit-transition-duration",".25s");
 		$("body").css("opacity","0");
 		$('body').on('webkitTransitionEnd',function(e) { 
-			window.location='';
+			if(cmd == "clear") { window.localStorage.clear(); }
+			setTimeout(function() {
+				window.location='';
+			},250);
 		});
 	},250);
 }
