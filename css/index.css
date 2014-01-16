@@ -30,6 +30,9 @@ body.android.tab2 #appHeader	{ z-index: 0; }
 #appHeader.deficit				{ background-color: #309030; }
 #appHeader.balanced				{ background-color: #316ADC; }
 #appHeader.surplus				{ background-color: #C85834; }
+body.pinked #appHeader.deficit	{ background-color: #FF00FF; }
+body.pinked #appHeader.balanced	{ background-color: #EE82EE; }
+body.pinked #appHeader.surplus	{ background-color: #C71585; }
 /*status blocks*/
 #timerBlocks					{ position: absolute; height: 62px; bottom: 0; left: 0; right: 0; }
 /*calories remaining*/
@@ -52,6 +55,7 @@ ul#appFooter li.selected:before	{ color: #cbcbcb; /*color: #00ee00;*/ }
 ul#appFooter.appDebug li.selected		{ /*color: #008800;*/ }
 ul#appFooter.appDebug li.selected:before{ color: #00ee00; }
 ul#appFooter.appEdge li.selected:before	{ color: #FF3B30; color: #F22323; color: #E04343; }
+body.pinked ul#appFooter.appEdge li.selected:before	{ color: #EE82EE !important; } 
 ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
 ul#appFooter li					{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
 ul#appFooter li#tab1:before		{ content: "\f080"; }
@@ -128,6 +132,32 @@ li#optionMeasure.activeRow		{ position: relative; background-color: #fff !import
 #appStatusAddRight span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; opacity: .9; }
 #appStatusAddRight div:active,
 #appStatusAddLeft div:active	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
+/*nutrition bars*/
+#appStatusBars					{ position: absolute; top: 150px; left: 0; right: 0; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: #eee; white-space: nowrap; }
+#appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 0; height:  12px; margin: 0 9px; background-color: #fff;  display: block; }
+#appStatusBarsCar				{ position: absolute; top: 30px; left: 0; right: 0; height: 12px; margin: 0 9px; background-color: #fff; display: block;   }
+#appStatusBarsFat				{ position: absolute; top: 50px; left: 0; right: 0; height: 12px; margin: 0 9px; background-color: #fff;  display: block;  }
+#appStatusBarsPro p,
+#appStatusBarsCar p,
+#appStatusBarsFat p				{ position: absolute; top: 0px; left: 0; height: 12px; margin: 0; background-color: #00ff00; text-indent: 3px; color: rgba(0,0,0,.4); line-height: 13px; font-size: 8px; text-transform: uppercase; background: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
+#appStatusBarsPro span,
+#appStatusBarsCar span,
+#appStatusBarsFat span			{ position: absolute; top: 0px; right: 50%; margin-right: -5px; text-align: right; color: rgba(0,0,0,.3); line-height: 13px; font-size: 10px; font-weight: bold; }
+#appStatusBarsPro p,
+#appStatusBarsCar p,
+#appStatusBarsFat p				{ width: 0%; }
+#appStatusBarsPro p.normal,
+#appStatusBarsCar p.normal,
+#appStatusBarsFat p.normal		{ background-color: #00ff00; background-image: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
+#appStatusBarsPro p.over,
+#appStatusBarsCar p.over,
+#appStatusBarsFat p.over		{ background-color: #00cc00; background-image: -webkit-linear-gradient(left,#00cc00 0%,#009900 100%); }
+#appStatusBarsPro p.warn,
+#appStatusBarsCar p.warn,
+#appStatusBarsFat p.warn		{ background-color: #FFE900; background-image: -webkit-linear-gradient(left,#FFE900 0%,#FFCF00 100%); }
+#appStatusBarsPro p.danger,
+#appStatusBarsCar p.danger,
+#appStatusBarsFat p.danger		{ background-color: #F67B3B; background-image: -webkit-linear-gradient(left,#F67B3B 0%,#CE6431 100%); }
 /*//////////////////
 // START DATE BAR //
 //////////////////*/

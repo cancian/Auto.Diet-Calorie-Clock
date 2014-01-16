@@ -1945,7 +1945,15 @@ if(mType == "exercise") {
 							if(title != 0 && im == 0) {
 							im++;
 								//console.log("new entry added (modal)");
-								diary.saveEntry({title:title,body:body,published:published});
+								diary.saveEntry({
+									title:title,
+									body:body,
+									published:published,
+									type:mType,									
+									pro:parseFloat($("#proData").text()),
+									car:parseFloat($("#carData").text()),
+									fat:parseFloat($("#fatData").text())
+								});
 								//CSS FADE OUT
 								$('#modalWindow').removeClass('show');
 								$('#modalOverlay').removeClass('show');

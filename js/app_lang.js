@@ -478,9 +478,22 @@ var ADD_DURATION = {
 	en: "Duration",
 	pt: "Duração"
 };
-
-
-
+var PROTEINS = {
+	en: "Proteins",
+	pt: "Proteínas"
+};
+var CARBS = {
+	en: "Carbs",
+	pt: "Carboidratos"
+};
+var FATS = {
+	en: "Fats",
+	pt: "Gorduras"
+};
+var STATUS_BARS = {
+	en: "Nutrients",
+	pt: "Nutrição"
+};
 
 var XXX = {
 	en: "XXX",

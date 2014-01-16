@@ -72,7 +72,7 @@ Diary.prototype.getEntries = function(start,callback) {
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
 		function(t) {
-			t.executeSql('select id, title, body, published from diary_entry order by published desc',[],
+			t.executeSql('select id, title, body, published, pro, car, fat from diary_entry order by published desc',[],
 			function(t,results) {
 				callback(that.fixResults(results));
 			},this.dbErrorHandler);
@@ -118,7 +118,10 @@ Diary.prototype.saveEntry = function(data, callback) {
 			//update title
 			} else if(data.id && data.title) {
 				t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
-			//insert new
+			//insert full
+			} else if(data.pro || data.car || data.fat) {
+				t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,data.published,data.pro,data.car,data.fat]); 
+			//insert quick
 			} else {
 				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,data.published]); 
 			} 

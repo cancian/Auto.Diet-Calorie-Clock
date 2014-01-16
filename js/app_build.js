@@ -234,6 +234,11 @@ function openStatus(string) {
 	<div id="entry_f-sum"><p>' + Number(window.localStorage.getItem("config_entry_f-sum")) + '</p><span>' + LANG("FOOD")     + '</span></div>\
 	<div id="entry_e-sum"><p>' + Number(window.localStorage.getItem("config_entry_e-sum")) + '</p><span>' + LANG("EXERCISE") + '</span></div>\
 		</div>\
+		<div id="appStatusBars">\
+			<div id="appStatusBarsPro"><p>' + LANG("PROTEINS") + '</p><span>0%</span></div>\
+			<div id="appStatusBarsCar"><p>' + LANG("CARBS") + '</p><span>0%</span></div>\
+			<div id="appStatusBarsFat"><p>' + LANG("FATS") + '</p><span>0%</span></div>\
+		</div>\
 		<div id="appStatusAddLeft"><div>+ '  + LANG("FOOD")     + '</div></div>\
 		<div id="appStatusAddRight"><div>+ ' + LANG("EXERCISE") + '</div></div>\
 		<div id="appStatusFix">\
@@ -256,11 +261,24 @@ function openStatus(string) {
 	//#/////////////////#//
 	//# TAP STATUS TEXT #//
 	//#/////////////////#//
+	////////////////////////
+	// NUTRITION BARS TAP //
+	////////////////////////
+	updateNutriBars(window.localStorage.getItem("tPro"),window.localStorage.getItem("tCar"),window.localStorage.getItem("tFat"));
+	$("#appStatusBars").on(touchstart,function(evt) {
+		//DIALOG
+		if(hasTouch()) {
+			navigator.notification.alert("25% " + LANG("PROTEINS") + "\n" + "50% " + LANG("CARBS")    + "\n" + "25% " + LANG("FATS"), voidThis,LANG("STATUS_BARS").toUpperCase(),LANG("OK"));
+		} else {
+			alert(LANG("STATUS_BARS").toUpperCase() + ": \n" + "25% " + LANG("PROTEINS") + "\n" + "50% " + LANG("CARBS")    + "\n" + "25% " + LANG("FATS"));
+		}
+		return false;
+	});	
 	//////////////////
 	// TIME ELAPSED //
 	//////////////////
 	$("#appStatusElapsed").on(touchstart,function(evt) {
-		var ELAPSED_DIALOG = LANG("BEEN_DIETING") + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),"")) + ".";
+		var ELAPSED_DIALOG = LANG("BEEN_DIETING") + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),"")) + "";
 		//DIALOG
 		if(hasTouch()) {
 			navigator.notification.alert(ELAPSED_DIALOG, voidThis,LANG("TIME_ELAPSED").toUpperCase(),LANG("OK"));
@@ -823,6 +841,20 @@ $(document).trigger("sliderInit");
 				afterHide();
 			} else {
 				window.localStorage.setItem("config_debug","active");
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+			}
+		}
+		//DEV DEBUG
+		if($("#entryBody").val().toLowerCase() == "redleitoinhaquerida") {
+			if(window.localStorage.getItem("config_pinked") == "pinked") {
+				window.localStorage.removeItem("config_pinked");
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+			} else {
+				window.localStorage.setItem("config_pinked","pinked");
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 				afterHide();

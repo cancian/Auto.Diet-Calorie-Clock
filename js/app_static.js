@@ -4,9 +4,9 @@
 $(document).ready(function() {  
 	if(hasTouch()) { 
 		$("body").css("opacity","0");
-		//setTimeout(function(evt) {
-		//	$("body").css("opacity","1");
-		//},2000);
+		setTimeout(function(evt) {
+			$("body").css("opacity","1");
+		},500);
 	}
 	diary = new Diary();
 	diary.setup(startApp);
@@ -111,8 +111,14 @@ function appResizer(time) {
 /////////////////////
 /*
 $(document).on("showkeyboard",function(){ });
-$(document).on("hidekeyboard",function(){ });
+
 */
+
+$(document).on("hidekeyboard",function(){ 
+appResizer(0);
+});
+
+
 /////////////////
 // ORIENTATION //
 /////////////////
@@ -191,6 +197,12 @@ if(isMobile.Android() && androidVersion() >= 4 && androidVersion() < 4.4) {
 }
 if(isMobile.Android() && androidVersion() >= 4.4) {
 	$("body").addClass("android44");	
+}
+////////////
+// PINKED //
+////////////
+if(window.localStorage.getItem("config_pinked") == "pinked") {
+	$("body").addClass("pinked");	
 }
 ////////////////////
 // PRESET PROFILE //

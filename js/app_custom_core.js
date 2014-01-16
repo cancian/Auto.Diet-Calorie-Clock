@@ -255,6 +255,91 @@ function cyclicTimeToKcals(startTime) {
 		content.push(currentDay);
 	return content; //((allKcalsSinceStart/31) + (kcalsEntrySum)).toFixed(2);
 }
+//#///////////////////#//
+//# UPDATE NUTRI BARS #//
+//#///////////////////#//
+function updateNutriBars(tPro,tCar,tFat) {
+	//total calories
+	var nTotal  = (tPro*4) + (tCar*4) + (tFat*9);
+	//return null
+	if(window.localStorage.getItem("appStatus") != "running" || nTotal == 0) {
+		$("#appStatusBars p").css("width",0);
+		$("#appStatusBars span").html("0%");
+		return false;
+	}
+	//ratios
+	var proRatio = 25;
+	var carRatio = 50;
+	var fatRatio = 25;
+	//relative total
+	var nPerPro = ( (tPro*4) / nTotal ) * 100;
+	var nPerCar = ( (tCar*4) / nTotal ) * 100;
+	var nPerFat = ( (tFat*9) / nTotal ) * 100;
+	//ratio-relative percent
+	var nProPerRatio = Math.round( (nPerPro / proRatio) * 100 * 100) / 100;
+	var nCarPerRatio = Math.round( (nPerCar / carRatio) * 100 * 100) / 100;
+	var nFatPerRatio = Math.round( (nPerFat / fatRatio) * 100 * 100) / 100;
+	//pro bar css
+	if(nProPerRatio > 200) {
+		nProPerWidth = 100;
+		nProPerClass = "danger";
+	} else if(nProPerRatio > 150) {
+		nProPerWidth = 100;
+		nProPerClass = "warn";
+	} else if(nProPerRatio > 100) {
+		nProPerWidth = 100;
+		nProPerClass = "over";
+	} else {
+		nProPerWidth = nProPerRatio;
+		nProPerClass = "normal";
+	}
+	$("#appStatusBarsPro p").removeClass("danger warn over normal");
+	$("#appStatusBarsPro p").addClass(nProPerClass);
+	$("#appStatusBarsPro p").css("width",Math.round(nProPerWidth) + "%");
+	//car bar css
+	if(nCarPerRatio > 200) {
+		nCarPerWidth = 100;
+		nCarPerClass = "danger";
+	} else if(nCarPerRatio > 150) {
+		nCarPerWidth = 100;
+		nCarPerClass = "warn";
+	} else if(nCarPerRatio > 100) {
+		nCarPerWidth = 100;
+		nCarPerClass = "over";
+	} else {
+		nCarPerWidth = nCarPerRatio;
+		nCarPerClass = "normal";
+	}
+	$("#appStatusBarsCar p").removeClass("danger warn over normal");
+	$("#appStatusBarsCar p").addClass(nCarPerClass);
+	$("#appStatusBarsCar p").css("width",Math.round(nCarPerWidth) + "%");
+	//fat bar css
+	if(nFatPerRatio > 200) {
+		nFatPerWidth = 100;
+		nFatPerClass = "danger";
+	} else if(nFatPerRatio > 150) {
+		nFatPerWidth = 100;
+		nFatPerClass = "warn";
+	} else if(nFatPerRatio > 100) {
+		nFatPerWidth = 100;
+		nFatPerClass = "over";
+	} else {
+		nFatPerWidth = nFatPerRatio;
+		nFatPerClass = "normal";
+	}
+	$("#appStatusBarsFat p").removeClass("danger warn over normal");
+	$("#appStatusBarsFat p").addClass(nFatPerClass);
+	$("#appStatusBarsFat p").css("width",Math.round(nFatPerWidth) + "%");
+	//relative percentage
+	//$("#appStatusBarsPro span").html(Math.round(nPerPro*10)/10 + " % (" + Math.round(tPro) + "g)");
+	//$("#appStatusBarsCar span").html(Math.round(nPerCar*10)/10 + " % (" + Math.round(tCar) + "g)");
+	//$("#appStatusBarsFat span").html(Math.round(nPerFat*10)/10 + " % (" + Math.round(tFat) + "g)");
+	$("#appStatusBarsPro span").html(Math.round(nPerPro*1)/1 + "%");
+	$("#appStatusBarsCar span").html(Math.round(nPerCar*1)/1 + "%");
+	//$("#appStatusBarsFat span").html(Math.round(nPerFat*1)/1 + "%");
+	//by exclusion
+	$("#appStatusBarsFat span").html( (100 - parseFloat($("#appStatusBarsPro span").html()) - parseFloat($("#appStatusBarsCar span").html())) + "%");
+}
 //##################//
 //## CORE UPDATER ##//
 //##################//
@@ -268,7 +353,9 @@ function updateTimer() {
 			window.localStorage.setItem("config_start_time",new Date().getTime());
 			window.localStorage.removeItem("config_entry_sum");
 			window.localStorage.removeItem("config_entry_f-sum");
-			window.localStorage.removeItem("config_entry_e-sum");			
+			window.localStorage.removeItem("config_entry_e-sum");	
+			$("#appStatusBars p").css("width",0);
+			$("#appStatusBars span").html("0%");
 		} else {
 			//update every ~
 			if(new Date().getSeconds() == 30) { updateEntriesTime(); }
@@ -276,19 +363,35 @@ function updateTimer() {
 			var ts = 0;
 			var tf = 0;
 			var te = 0;
+			var tPro = 0;
+			var tCar = 0;
+			var tFat = 0; 
 			for(var i=0, len=data.length; i<len; i++) {
 				// EXPIRED
 				if(window.localStorage.getItem("config_start_time") < Number(data[i].published)) {
 					ts = Number(data[i].title) + ts;
-					//total food/exercise
+					//total food/exercise										
 					if(Number(data[i].title) > 0) {
 						tf = tf + Number(data[i].title);
 					} else {
 						te = te + Number(data[i].title);
 					}
+					//total pro/car/fat
+					if(Number(data[i].pro) > 0) {
+						tPro = tPro + parseFloat(data[i].pro);
+					}
+					if(Number(data[i].car) > 0) {
+						tCar = tCar + parseFloat(data[i].car);
+					}
+					if(Number(data[i].fat) > 0) {
+						tFat = tFat + parseFloat(data[i].fat);
+					}					
 				}
-
 			}
+			updateNutriBars(tPro,tCar,tFat);
+			window.localStorage.setItem("tPro",tPro);
+			window.localStorage.setItem("tCar",tCar);
+			window.localStorage.setItem("tFat",tFat);	
 			//console.log('refreshing timer');
 			window.localStorage.setItem("config_entry_sum",ts*-1);
 			window.localStorage.setItem("config_entry_f-sum",tf);
@@ -306,6 +409,7 @@ function updateTimer() {
 		}
 	});
 }
+
 
 /*
 <?php
