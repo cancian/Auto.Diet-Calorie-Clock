@@ -1031,11 +1031,27 @@ $(document).trigger("sliderInit");
 		//android 4.4 scrolling bug
 		if(isMobile.Android()) {
 			$('#diaryNotesInput').on(tap , function(evt) {
-				$('#diaryNotesInput').trigger(touchend);
-				$('#diaryNotesInput').focus();
-				window.scroll($('#diaryNotesInput').scrollTop,0,0);
-				$("#diaryNotesInput").height(window.innerHeight - 36);
-				$("#diaryNotesInput").getNiceScroll().resize();	
+
+	var meh = $('#diaryNotesInput').scrollTop();
+	$('#diaryNotesInput').trigger(touchmove);
+	$('#diaryNotesInput').trigger(touchend);
+	$('#diaryNotesInput').scrollTop(meh);
+
+
+	$('#diaryNotesInput').blur();
+	$('#diaryNotesInput').focus();
+	window.scroll($('#diaryNotesInput').scrollTop,0,0);
+			$("#diaryNotesInput").height(window.innerHeight - 36);
+			$("#diaryNotesInput").getNiceScroll().resize();	
+	$('#diaryNotesInput').scrollTop(meh);
+	setTimeout(function() {
+			window.scroll($('#diaryNotesInput').scrollTop,0,0);
+			$("#diaryNotesInput").height(window.innerHeight - 36);
+			$("#diaryNotesInput").getNiceScroll().resize();	
+
+
+},300);
+	
 			});
 		}
 		//mostly ios focus re-scrolling fix
