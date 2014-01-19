@@ -110,6 +110,20 @@ function appResizer(time) {
 /////////////////////
 // KEYBOARD EVENTS //
 /////////////////////
+$(document).on("backbutton", function(evt) {
+	$('#diaryNotesButton').trigger(touchstart);
+	$("#addNewCancel").trigger(touchstart);
+	$("#modalCancel").trigger(touchstart);
+	$('#appHeader').trigger(touchstart);
+	$("#startDate").mobiscroll('cancel');
+	$('input,select,textarea').trigger('blur');
+	$('#go').trigger(touchend);
+	$('#sliderNum').trigger(touchstart);
+	//$('#entryBody').val('');
+	//$('#entryTime').val(0);
+	//document.getElementById('entryBody').value = "";
+	//document.getElementById('entryTime').value = 0;
+});
 $(document).on("click", function(evt) {
 		$('#diaryNotesInput').focus();
 });
@@ -155,12 +169,14 @@ $(window).on("resize", function(evt) {
 	if(!hasTouch() && !isMobile.Android() && !isMobile.iOS()) {
 		appResizer(0);
 	}
-	//notepad
-	window.scroll($('#diaryNotesInput').scrollTop,0,0);
-	$("#diaryNotesInput").height(window.innerHeight - 36);
-	$('#diaryNotesInput').width(window.innerWidth - 24);
-	$("#diaryNotesInput").getNiceScroll().resize();	
-	$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
+	//notepad (ios6 fix)(window.innerHeight)
+	if($('#diaryNotesInput').is(":visible")) {
+		window.scroll($('#diaryNotesInput').scrollTop,0,0);
+		$("#diaryNotesInput").height(window.innerHeight - 36);
+		$('#diaryNotesInput').width(window.innerWidth - 24);
+		$("#diaryNotesInput").getNiceScroll().resize();	
+		$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
+	}
 });
 //##////////////##//
 //##//  ONLOAD  ##//

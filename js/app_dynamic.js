@@ -423,7 +423,9 @@ $(document).on("pageload", function(evt) {
 	// GLOBAL HIDE //
 	/////////////////
 	$("#appHeader,#entryListForm,#go,#sliderBlock,#editablediv,#entryListWrapper").on(touchend + " swipeLeft swipeRight", function(evt) {
-		evt.preventDefault();
+		if(!isMobile.Android()) {
+			evt.preventDefault();
+		}
 		if(!$('.active').hasClass('busy')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
@@ -1316,7 +1318,7 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 							$("#modalWindow").remove();
 							$("#modalOverlay").remove();
 						});
-						$("#appHeader").trigger(trim(touchstart));
+						$("#appHeader").trigger(touchstart);
 						$('#entryBody').width(window.innerWidth -58);
 						$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
 					},preFillTimer);
@@ -1627,7 +1629,7 @@ vFat = Math.round(vFat * 100) / 100;
 			},0);
 			//SELF-REMOVE
 			//$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
-				$("#addNewCancel").trigger(trim(touchstart));
+				$("#addNewCancel").trigger(touchstart);
 			//});
 			//$("#" + vCode).animate({"backgroundColor": "#ffffcc"},600);
 			return false;
@@ -1670,7 +1672,7 @@ vFat = Math.round(vFat * 100) / 100;
 				},0);
 			//SELF-REMOVE
 			//$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
-				$("#addNewCancel").trigger(trim(touchstart));
+				$("#addNewCancel").trigger(touchstart);
 			//});
 			},600);
 		}
@@ -2045,7 +2047,7 @@ if(mType == "exercise") {
 										$("#modalWindow").remove();
 										$("#modalOverlay").remove();
 									});
-									$("#appHeader").trigger(trim(touchstart));
+									$("#appHeader").trigger(touchstart);
 									$('#entryBody').width(window.innerWidth -58);
 									$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
 								},preFillTimer);
@@ -2070,7 +2072,7 @@ if(mType == "exercise") {
 									}
 									$("#" + itemId).remove();
 									//close
-									$("#modalCancel").trigger(trim(touchstart));
+									$("#modalCancel").trigger(touchstart);
 									return false;
 								}
 							}

@@ -15,7 +15,6 @@
 • slider knob now changes color when active
 • fixed issue with pre-fill not triggering menu autoclose
 • improved interface overall responsiveness
-
 # 1.1.1 [03/01/2014]
 • tapping status boxes now displays additional information
 • faster search system
