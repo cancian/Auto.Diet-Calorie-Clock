@@ -1017,41 +1017,22 @@ $(document).trigger("sliderInit");
 			$('#diaryNotesInput').height(window.innerHeight - 36);
 			$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid #fff",cursoropacitymax:0.2,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
 		},200);
-
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {
 			if($('.nicescroll-rails').is(":visible")) { 
-				//
+			//
 			} else {
-				
 				evt.preventDefault();
 				evt.stopPropagation();
 			}
 		});
-		//android 4.4 scrolling bug
+		//fix android 4.4 scrolling bug
 		if(isMobile.Android()) {
-			$('#diaryNotesInput').on(tap , function(evt) {
-
-	var meh = $('#diaryNotesInput').scrollTop();
-	$('#diaryNotesInput').trigger(touchmove);
-	$('#diaryNotesInput').trigger(touchend);
-	$('#diaryNotesInput').scrollTop(meh);
-
-
-	$('#diaryNotesInput').blur();
-	$('#diaryNotesInput').focus();
-	window.scroll($('#diaryNotesInput').scrollTop,0,0);
-			$("#diaryNotesInput").height(window.innerHeight - 36);
-			$("#diaryNotesInput").getNiceScroll().resize();	
-	$('#diaryNotesInput').scrollTop(meh);
-	setTimeout(function() {
-			window.scroll($('#diaryNotesInput').scrollTop,0,0);
-			$("#diaryNotesInput").height(window.innerHeight - 36);
-			$("#diaryNotesInput").getNiceScroll().resize();	
-
-
-},300);
-	
+			$('#diaryNotesInput').on(tap, function(evt) {
+				var notesScroll = $('#diaryNotesInput').scrollTop();
+				$('#diaryNotesInput').blur();
+				$('#diaryNotesInput').focus();
+				$('#diaryNotesInput').scrollTop(notesScroll);
 			});
 		}
 		//mostly ios focus re-scrolling fix

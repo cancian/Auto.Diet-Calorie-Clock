@@ -114,17 +114,16 @@ $(document).on("click", function(evt) {
 		$('#diaryNotesInput').focus();
 });
 $(document).on("showkeyboard", function(evt) {
-	setTimeout(function() {
 		$('#diaryNotesInput').focus();
-		window.scroll($('#diaryNotesInput').scrollTop,0,0);
+		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 		$("#diaryNotesInput").height(window.innerHeight - 36);
 		$("#diaryNotesInput").getNiceScroll().resize();
-	},0);
 	setTimeout(function() {
+		$('#diaryNotesInput').blur();
 		$('#diaryNotesInput').focus();
+		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 		$("#diaryNotesInput").height(window.innerHeight - 36);
 		$("#diaryNotesInput").getNiceScroll().resize();
-		window.scroll($('#diaryNotesInput').scrollTop,0,0);
 	},300);
 });
 $(document).on("hidekeyboard",function() {
