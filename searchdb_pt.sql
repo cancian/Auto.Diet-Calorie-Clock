@@ -1451,7 +1451,7 @@ INSERT INTO "diary_food" VALUES(1447,'food','790290299','Queijo cremoso','queijo
 INSERT INTO "diary_food" VALUES(1448,'food','790300199','Queijo não especificado','queijonaoespecificado','375','22.15','1.60','31.25','0.00');
 INSERT INTO "diary_food" VALUES(1449,'food','790310199','Leite com sabor','leitecomsabor','83','3.18','10.38','3.40','0.80');
 INSERT INTO "diary_food" VALUES(1450,'food','790310299','Leite achocolatado','leiteachocolatado','83','3.18','10.38','3.40','0.80');
-INSERT INTO "diary_food" VALUES(1451,'food','790310999','Leite aRomãtizado','leitearomatizado','83','3.18','10.38','3.40','0.80');
+INSERT INTO "diary_food" VALUES(1451,'food','790310999','Leite aromatizado','leitearomatizado','83','3.18','10.38','3.40','0.80');
 INSERT INTO "diary_food" VALUES(1452,'food','790311099','Bebida achocolatada','bebidaachocolatada','83','3.18','10.38','3.40','0.80');
 INSERT INTO "diary_food" VALUES(1453,'food','790320199','Nata','nata','195','2.70','3.66','19.31','0.00');
 INSERT INTO "diary_food" VALUES(1454,'food','790330199','Queijo gorgonzola','queijogorgonzola','353','21.40','2.34','28.74','0.00');

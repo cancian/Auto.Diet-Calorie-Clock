@@ -34,7 +34,7 @@ $(document).on("pageload", function(evt) {
 	});
 	$("#entryList div" + tgt).on(tap, function(event) {
 	//$("#entryList div" + tgt).swipe({tap:function(event) {
-	//event.preventDefault();
+	event.preventDefault();
 		//////////////
 		// TAP DATE //
 		//////////////
@@ -353,10 +353,8 @@ $(document).on("pageload", function(evt) {
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
 	//block hold prefill
-	$("#entryList").swipe({
-		swipe:function(event,direction) {
-			deKeyboard = 1;
-		}
+	$("#entryList").on("swipe",function(evt) {
+		deKeyboard = 1;
 	});
 	$("#entryList div" + tgt).swipe({
 		swipe:function(event,direction) {
@@ -797,7 +795,7 @@ function doSearch(rawInput) {
 				var pro  = Math.round(data[s].pro * 100) / 100;
 				var car  = Math.round(data[s].car * 100) / 100;
 				var fat  = Math.round(data[s].fat * 100) / 100;
-				var fib  = data[s].fib;
+				var fib  = 0;
 				// SEARCH TYPE //
 				var typeClass;
 				if(searchType == "exercise") {
@@ -1429,7 +1427,8 @@ if(opt.type == "exercise") {
 	//$("#addNewWrapper").css("min-height",$("#addNewWrapper").height() + "px");
 	//$('#addNewList li input').placeholder({force:true});
 	//prevent tapping
-	//$("#modalOverlay").css("z-index",9999999);
+	//$("#modalOverlay").css("z-index",9999999);]
+	$("ul#addNewList input").width(window.innerWidth - 180);
 	$("#modalOverlay,#addNewWrapper").hide();
 	$("#addNewWrapper").fadeIn(200);
 	$("#modalOverlay").fadeIn(0);
@@ -2091,7 +2090,8 @@ if(mType == "exercise") {
 							var modalOpt = {
 								name:mName,
 								type:mType,
-								code:mCode,	
+								code:mCode,
+								term:mTerm,
 								kcal:mKcal,
 								pro:mPro,
 								car:mCar,
@@ -2114,6 +2114,7 @@ if(mType == "exercise") {
 								name:mName,
 								type:mType,
 								code:mCode,	
+								term:mTerm,
 								kcal:mKcal,
 								pro:mPro,
 								car:mCar,

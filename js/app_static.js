@@ -6,7 +6,7 @@ $(document).ready(function() {
 		$("body").css("opacity","0");
 		setTimeout(function(evt) {
 			$("body").css("opacity","1");
-		},500);
+		},5000);
 	}
 	diary = new Diary();
 	diary.setup(startApp);
@@ -100,7 +100,8 @@ function appResizer(time) {
 		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 		//chrome 32 input width
 		$('#entryBody').width(window.innerWidth -58);
-		$('#foodSearch').width(window.innerWidth -55);	
+		$('#foodSearch').width(window.innerWidth -55);
+		$("ul#addNewList input").width(window.innerWidth - 180);
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);
@@ -109,16 +110,26 @@ function appResizer(time) {
 /////////////////////
 // KEYBOARD EVENTS //
 /////////////////////
-/*
-$(document).on("showkeyboard",function(){ });
-
-*/
-
-$(document).on("hidekeyboard",function(){ 
-appResizer(0);
+$(document).on("click", function(evt) {
+		$('#diaryNotesInput').focus();
 });
-
-
+$(document).on("showkeyboard", function(evt) {
+	setTimeout(function() {
+		$('#diaryNotesInput').focus();
+		window.scroll($('#diaryNotesInput').scrollTop,0,0);
+		$("#diaryNotesInput").height(window.innerHeight - 36);
+		$("#diaryNotesInput").getNiceScroll().resize();
+	},0);
+	setTimeout(function() {
+		$('#diaryNotesInput').focus();
+		$("#diaryNotesInput").height(window.innerHeight - 36);
+		$("#diaryNotesInput").getNiceScroll().resize();
+		window.scroll($('#diaryNotesInput').scrollTop,0,0);
+	},300);
+});
+$(document).on("hidekeyboard",function() {
+	appResizer(100);
+});
 /////////////////
 // ORIENTATION //
 /////////////////
@@ -145,6 +156,12 @@ $(window).on("resize", function(evt) {
 	if(!hasTouch() && !isMobile.Android() && !isMobile.iOS()) {
 		appResizer(0);
 	}
+	//notepad
+	window.scroll($('#diaryNotesInput').scrollTop,0,0);
+	$("#diaryNotesInput").height(window.innerHeight - 36);
+	$('#diaryNotesInput').width(window.innerWidth - 24);
+	$("#diaryNotesInput").getNiceScroll().resize();	
+	$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
 });
 //##////////////##//
 //##//  ONLOAD  ##//
@@ -351,8 +368,8 @@ updateTimer();
 						}
 						var new_value = Math.ceil($(this).val());
 						//NULL-MIN-MAX
-						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)    { this.value = resetValue; $("#editableDiv").html(resetValue); }
-						if(this.value < 100 && !isNaN(this.value) && this.value > 1)             { this.value = 100;  $("#editableDiv").html(100);  }
+						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)   { this.value = resetValue; $("#editableDiv").html(resetValue); }
+						if(this.value < 100 && !isNaN(this.value) && this.value > 1)            { this.value = 100;  $("#editableDiv").html(100);  }
 						if(this.value > 9999)													{ this.value = 9999; $("#editableDiv").html(9999); }
 						//filter zeros
 						this.value = Math.round(Number(this.value));
@@ -397,6 +414,7 @@ updateTimer();
 		}
 	});
 ////#//
+
 } //#//
 ////#//
 

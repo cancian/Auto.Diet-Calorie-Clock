@@ -1,4 +1,4 @@
-var appVersion = "1.1.2 (11205)";
+var appVersion = "1.1.2 (11208)"; 
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -279,8 +279,8 @@ var ABOUT_TITLE = {
 	pt: "MyLiveDiet v" + appVersion
 };
 var ABOUT_DIALOG = {
-	en: "by André Cancian",
-	pt: "por André Cancian"
+	en: "",
+	pt: ""
 };
 var WEIGHT_LOSS = {
 	en: "weight loss",
@@ -494,6 +494,11 @@ var STATUS_BARS = {
 	en: "Nutrients",
 	pt: "Nutrição"
 };
+var NOTEPAD_DONE = {
+	en: "done",
+	pt: "ok"
+};
+
 
 var XXX = {
 	en: "XXX",
@@ -506,3 +511,21 @@ var XXX = {
 return eval(string)[appLang];
 }
 
+
+//#////////////////////#//
+//# GET VERSION NUMBER #//
+//#////////////////////#//
+/*
+if(window.cordova) {
+	var wizUtils = {
+		getBundleVersion: function(s) { return cordova.exec(s, null, "WizUtils", "getBundleVersion", []); },
+		getBundleDisplayName: function(s) { return cordova.exec(s, null, "WizUtils", "getBundleDisplayName", []); }
+	};
+}
+if(!window.wizUtils) {
+	window.localStorage.setItem("appVersion",appVersion);
+	window.localStorage.setItem("appBuild",appBuild);
+} else {
+	window.wizUtils.getBundleDisplayName(function(version) { window.localStorage.setItem("appVersion",version); });
+	window.wizUtils.getBundleVersion(function(build)	   { window.localStorage.setItem("appBuild",build);     });
+}*/

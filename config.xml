@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-    <widget xmlns = "http://www.w3.org/ns/widgets"
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
         versionCode="11203" 
@@ -71,7 +71,12 @@
 	<feature name="GAPlugin">
 		<param name="ios-package" value="GAPlugin"/>
 	</feature>
-
+	
+	<feature name="WizUtils">
+		<param name="ios-package" value="WizUtils"/>
+	</feature>
+	
+	
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
@@ -81,10 +86,14 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
-	<feature name="GAPlugin" >
+	<feature name="GAPlugin">
 		<param name="android-package" value="com.adobe.plugins.GAPlugin"/>
 	</feature>
-
+	
+	<feature name="WizUtils">
+		<param name="android-package" value="jp.wizcorp.phonegap.plugin.WizUtils.WizUtils" />
+	</feature>
+	
 	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.splashscreen" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" />

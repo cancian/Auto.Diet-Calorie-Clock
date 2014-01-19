@@ -266,6 +266,7 @@ function openStatus(string) {
 	////////////////////////
 	updateNutriBars(window.localStorage.getItem("tPro"),window.localStorage.getItem("tCar"),window.localStorage.getItem("tFat"));
 	$("#appStatusBars").on(touchstart,function(evt) {
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		//DIALOG
 		if(hasTouch()) {
 			navigator.notification.alert("25% " + LANG("PROTEINS") + "\n" + "50% " + LANG("CARBS")    + "\n" + "25% " + LANG("FATS"), voidThis,LANG("STATUS_BARS").toUpperCase(),LANG("OK"));
@@ -278,6 +279,7 @@ function openStatus(string) {
 	// TIME ELAPSED //
 	//////////////////
 	$("#appStatusElapsed").on(touchstart,function(evt) {
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		var ELAPSED_DIALOG = LANG("BEEN_DIETING") + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG('AGO'),"")) + "";
 		//DIALOG
 		if(hasTouch()) {
@@ -291,6 +293,7 @@ function openStatus(string) {
 	// LOST WEIGHT //
 	/////////////////
 	$("#appStatusWeight").on(touchstart,function(evt) {
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		if(weightLossUnit == "kg") { 
 			var resValue = Math.round(((Number(window.localStorage.getItem('calcForm#pA6G'))*7700)/7));
 		} else { 
@@ -310,6 +313,7 @@ function openStatus(string) {
 	// CALORIC STATUS (EQ TIME) //
 	//////////////////////////////
 	$("#appStatusBalance").on(touchstart,function(evt) {
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		var eqStart 	= Number(window.localStorage.getItem("config_start_time"));
 		var kcalsInput = parseInt($("#timerKcals").text());
 		var eqPerDay   = Number($("#editableDiv").text());
@@ -334,6 +338,7 @@ function openStatus(string) {
 	// INTAKE STATUS //
 	///////////////////
 	$("#appStatusIntake").on(touchstart,function(evt) {
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		var INTAKE_DIALOG = LANG("STATUS_INTAKE_1") + Number($("#editableDiv").text()) + LANG("STATUS_INTAKE_2");
 		//DIALOG
 		if(hasTouch()) {
@@ -378,11 +383,13 @@ function openStatus(string) {
 	//# ADD BUTTONS #//
 	//#/////////////#//
 	$("#appStatusAddLeft").on(touchstart,function(evt) {
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		evt.preventDefault();
 		window.localStorage.setItem("searchType","food");		
 		$(document).trigger("pageReload");
 	});
 	$("#appStatusAddRight").on(touchstart,function(evt) {
+		if($('#editable').is(':visible')) { return false; }
 		evt.preventDefault();
 		window.localStorage.setItem("searchType","exercise");
 		$(document).trigger("pageReload");
@@ -993,16 +1000,71 @@ $(document).trigger("sliderInit");
 	//#/////////////#//
 	//# DIARY NOTES #//
 	//#/////////////#//
-	/*
-		$('#diaryNotesWrapper,#diaryNotesInput').on(touchstart, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-	});
-	$('#diaryNotes').on(tap, function(evt) {
+	$('#diaryNotes').on(touchstart, function(evt) {
 		$('#diaryNotesWrapper').remove();
-		$('#appContent').before("<div id='diaryNotesWrapper'><textarea id='diaryNotesInput'></textarea><div id='diaryNotesButton'></div></div>");
+		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'><span>" + LANG("NOTEPAD_DONE") +  "</span></div><textarea id='diaryNotesInput'></textarea></div>");
+		//load content
+		if(window.localStorage.getItem("appNotes") != "") {
+			$('#diaryNotesInput').val(window.localStorage.getItem("appNotes"));
+		}
+		//focus
+		$('#diaryNotesInput').focus();
+		$('#diaryNotesInput').height(window.innerHeight - 36);
+		$('#diaryNotesInput').width(window.innerWidth - 24);
+		$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
+		//load scroller & set window < height
+		setTimeout(function() {
+			$('#diaryNotesInput').height(window.innerHeight - 36);
+			$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid #fff",cursoropacitymax:0.2,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
+		},200);
+
+		//cancel drag for non-overflow
+		$('#diaryNotesInput').on(touchmove, function(evt) {
+			if($('.nicescroll-rails').is(":visible")) { 
+				//
+			} else {
+				
+				evt.preventDefault();
+				evt.stopPropagation();
+			}
+		});
+		//android 4.4 scrolling bug
+		if(isMobile.Android()) {
+			$('#diaryNotesInput').on(tap , function(evt) {
+				$('#diaryNotesInput').trigger(touchend);
+				$('#diaryNotesInput').focus();
+				window.scroll($('#diaryNotesInput').scrollTop,0,0);
+				$("#diaryNotesInput").height(window.innerHeight - 36);
+				$("#diaryNotesInput").getNiceScroll().resize();	
+			});
+		}
+		//mostly ios focus re-scrolling fix
+		$('#diaryNotesInput').on('focus', function(evt) {
+			window.scroll($('#diaryNotesInput').scrollTop,0,0);
+			$("#diaryNotesInput").height(window.innerHeight - 36);
+			$("#diaryNotesInput").getNiceScroll().resize();	
+			setTimeout(function() {
+				window.scroll($('#diaryNotesInput').scrollTop,0,0);
+				$("#diaryNotesInput").height(window.innerHeight - 36);
+				$("#diaryNotesInput").getNiceScroll().resize();	
+			},100);
+		});
+		//keypress save
+		$('#diaryNotesInput').on("keypress", function(evt) {
+			window.localStorage.setItem("appNotes",$('#diaryNotesInput').val());
+			$('#diaryNotesInput').height(window.innerHeight - 36);
+			$("#diaryNotesInput").getNiceScroll().resize();
+		});
+		//closer
+		$('#diaryNotesButton').on(touchstart,function(evt) {
+			evt.preventDefault();
+			evt.stopPropagation();
+			window.localStorage.setItem("appNotes",$('#diaryNotesInput').val());
+			$('#diaryNotesWrapper').remove();
+			$("#entryListForm").prepend("<div id='sliderBlock'></div>");
+			$("#sliderBlock").fadeOut(500,function() { $("#sliderBlock").remove(); });
+		});
 	});
-	*/
 });
 }
 /*##############################
