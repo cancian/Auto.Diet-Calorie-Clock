@@ -2,11 +2,11 @@
 // DEVICE READY //
 //////////////////
 $(document).ready(function() {  
-	if(hasTouch()) { 
+	if(hasTouch() && hasTap()) { 
 		$("body").css("opacity","0");
 		setTimeout(function(evt) {
 			$("body").css("opacity","1");
-		},5000);
+		},6000);
 	}
 	diary = new Diary();
 	diary.setup(startApp);
@@ -110,47 +110,54 @@ function appResizer(time) {
 /////////////////////
 // KEYBOARD EVENTS //
 /////////////////////
+//BACK BUTTON
 $(document).on("backbutton", function(evt) {
-	//back to status, then reload
-	if(!$('#diaryNotesButton').length && !$('#addNewCancel').length && !$('#modalCancel').length && !$('#pageSlideFood').length && !$('#appStatusFix').hasClass("open") && !$('*').is(":focus")) {
-		if(window.localStorage.getItem("app_last_tab") == "tab1") {
-			afterHide();
-		} else {
-			appFooter("tab1");
+	if($("#addNewCancel").length || $("#modalCancel").length) {
+		$("#addNewCancel").trigger(touchstart);
+		$("#modalCancel").trigger(touchstart);
+	} else if($('#iconClear').is(":visible")) {
+		$('#iconClear').trigger(touchstart);
+	} else if($('#pageSlideFood').length) {
+		if(window.localStorage.getItem("foodDbLoaded") == "done") {
+			$('#appHeader').trigger(touchstart);
 		}
-	}
-	//general reset
-	$('#diaryNotesButton').trigger(touchstart);
-	$("#addNewCancel").trigger(touchstart);
-	$("#modalCancel").trigger(touchstart);
-	$("#startDate").mobiscroll('cancel');
-	$('input,select,textarea').trigger('blur');
-	$('#go').trigger(touchend);
-	$('#sliderNum').trigger(touchstart);
-	//not while loading db
-	if(window.localStorage.getItem("foodDbLoaded") == "done") {
-		$('#appHeader').trigger(touchstart);
-	}
+	} else if($('#diaryNotesButton').length) {
+		$('#diaryNotesButton').trigger(touchstart);
+	} else if($('#appStatusFix').hasClass("open")) {
+		$('#appStatusFix').removeClass("open");
+		$("#startDate").mobiscroll('cancel');
+	} else if($(".delete").hasClass("active")) {
+		$('#go').trigger(touchend);
+	} else if($('input,select').is(":focus")) {
+		$('input,select,textarea').trigger('blur');
+	} else if(window.localStorage.getItem("app_last_tab") != "tab1") {
+		appFooter("tab1");
+	} else {
+		afterHide();
+	}	
 });
+//FORCE SHOW KEYBOARD
 $(document).on("click", function(evt) {
+	if(isMobile.Android()) {
 		$('#diaryNotesInput').focus();
+	}
 });
+//ON SHOW KEYBOARD
 $(document).on("showkeyboard", function(evt) {
+	setTimeout(function() {
 		$('#diaryNotesInput').focus();
 		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 		$("#diaryNotesInput").height(window.innerHeight - 32);
 		$("#diaryNotesInput").getNiceScroll().resize();
+	},0);
 	setTimeout(function() {
-		$('#diaryNotesInput').blur();
 		$('#diaryNotesInput').focus();
 		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 		$("#diaryNotesInput").height(window.innerHeight - 32);
 		$("#diaryNotesInput").getNiceScroll().resize();
 	},300);
 });
-$(document).on("showkeyboard", function(evt) {
-	//window.scroll($('#appContent')[0].scrollTop,0,0);	
-});
+//ON HIDE KEYBOARD
 $(document).on("hidekeyboard",function() {
 	window.scroll($('#appContent')[0].scrollTop,0,0);
 	appResizer(100);
@@ -183,7 +190,7 @@ $(window).on("resize", function(evt) {
 	}
 	//notepad (ios6 fix)(window.innerHeight)
 	if($('#diaryNotesInput').is(":visible")) {
-		window.scroll($('#diaryNotesInput').scrollTop,0,0);
+		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 		$("#diaryNotesInput").height(window.innerHeight - 32);
 		$('#diaryNotesInput').width(window.innerWidth - 24);
 		$("#diaryNotesInput").getNiceScroll().resize();	
@@ -279,17 +286,17 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 		window.localStorage.setItem("calcForm#pA6N","kilograms");
 	}
 }
-//############################//
-//####    START WORKING   ####//
-//############################//
-afterShow(250);
+//###########################//
+//####   START WORKING   ####//
+//###########################//
+afterShow(200);
 updateTimer();
 //updateEntries();
 //updateEntriesTime();
 (function startTimer() {
 	if(typeof updateTimer == 'function') {
 		updateTimer();
-		setTimeout(startTimer,99);
+		setTimeout(startTimer,100);
 	}
 })();
 	//////////////////////
@@ -441,7 +448,6 @@ updateTimer();
 		}
 	});
 ////#//
-
 } //#//
 ////#//
 

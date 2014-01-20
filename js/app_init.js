@@ -5,7 +5,7 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 document.write("<script type='text/javascript' src='js/jquery-2.0.3.min.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js?"+newDate+"'><\/script>");
-document.write("<script type='text/javascript' src='js/jquery.nicescroll.js?"+newDate+"'><\/script>");
+document.write("<script type='text/javascript' src='js/jquery.nicescroll.min.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.color-2.1.0.min.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.mobileCheckbox.js?"+newDate+"'><\/script>");
 //document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.mobile-events.js?"+newDate+"'><\/script>");
