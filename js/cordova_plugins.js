@@ -42,8 +42,7 @@ module.exports.metadata =
     "com.adobe.plugins.GAPlugin": "2.3.1",
     "org.apache.cordova.dialogs": "0.2.5",
     "org.apache.cordova.splashscreen": "0.2.6",
-    "org.apache.cordova.inappbrowser": "0.3.0",
-    "com.phonegap.plugins.facebookconnect": "0.4.0"
+    "org.apache.cordova.inappbrowser": "0.3.0"
 }
 // BOTTOM OF METADATA
 });

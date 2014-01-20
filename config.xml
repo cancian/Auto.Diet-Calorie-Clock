@@ -83,7 +83,7 @@
 		<param name="APP_NAME" value="MyLiveDiet" />
 		<param name="APP_ID" value="577673025616946" />
 	</feature>
-
+	
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
