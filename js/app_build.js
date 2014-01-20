@@ -1000,7 +1000,13 @@ $(document).trigger("sliderInit");
 	//#/////////////#//
 	//# DIARY NOTES #//
 	//#/////////////#//
-	$('#diaryNotes').on(touchstart, function(evt) {
+	$('#diaryNotes').on(touchend, function(evt) {
+		//no overlap
+		if($('#pageSlideFood').length || $('input,select').is(":focus") || $(".delete").hasClass("active")) {
+			$('#go').trigger(touchend);
+			return;
+		}
+		//show
 		$('#diaryNotesWrapper').remove();
 		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'><span>" + LANG("NOTEPAD_DONE") +  "</span></div><textarea id='diaryNotesInput'></textarea></div>");
 		//load content
@@ -1009,12 +1015,12 @@ $(document).trigger("sliderInit");
 		}
 		//focus
 		$('#diaryNotesInput').focus();
-		$('#diaryNotesInput').height(window.innerHeight - 36);
+		$('#diaryNotesInput').height(window.innerHeight - 32);
 		$('#diaryNotesInput').width(window.innerWidth - 24);
 		$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
 		//load scroller & set window < height
 		setTimeout(function() {
-			$('#diaryNotesInput').height(window.innerHeight - 36);
+			$('#diaryNotesInput').height(window.innerHeight - 32);
 			$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid #fff",cursoropacitymax:0.2,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
 		},200);
 		//cancel drag for non-overflow
@@ -1038,18 +1044,18 @@ $(document).trigger("sliderInit");
 		//mostly ios focus re-scrolling fix
 		$('#diaryNotesInput').on('focus', function(evt) {
 			window.scroll($('#diaryNotesInput').scrollTop,0,0);
-			$("#diaryNotesInput").height(window.innerHeight - 36);
+			$("#diaryNotesInput").height(window.innerHeight - 32);
 			$("#diaryNotesInput").getNiceScroll().resize();	
 			setTimeout(function() {
 				window.scroll($('#diaryNotesInput').scrollTop,0,0);
-				$("#diaryNotesInput").height(window.innerHeight - 36);
+				$("#diaryNotesInput").height(window.innerHeight - 32);
 				$("#diaryNotesInput").getNiceScroll().resize();	
 			},100);
 		});
 		//keypress save
 		$('#diaryNotesInput').on("keypress", function(evt) {
 			window.localStorage.setItem("appNotes",$('#diaryNotesInput').val());
-			$('#diaryNotesInput').height(window.innerHeight - 36);
+			$('#diaryNotesInput').height(window.innerHeight - 32);
 			$("#diaryNotesInput").getNiceScroll().resize();
 		});
 		//closer
@@ -1057,7 +1063,7 @@ $(document).trigger("sliderInit");
 			evt.preventDefault();
 			evt.stopPropagation();
 			window.localStorage.setItem("appNotes",$('#diaryNotesInput').val());
-			$('#diaryNotesWrapper').remove();
+			$("#diaryNotesWrapper").fadeOut(200,function() {$('#diaryNotesWrapper').remove(); });
 			$("#entryListForm").prepend("<div id='sliderBlock'></div>");
 			$("#sliderBlock").fadeOut(500,function() { $("#sliderBlock").remove(); });
 		});

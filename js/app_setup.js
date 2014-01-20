@@ -2,6 +2,7 @@
 // GLOBAL VARS //
 /////////////////
 var diary;
+var AND = " ";
 function Diary()	{ that = this; }
 function voidThis() {}
 ///////////////////

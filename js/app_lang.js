@@ -1,4 +1,4 @@
-var appVersion = "1.1.3 (11301)"; 
+var appVersion = "1.1.3 (11302)"; 
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -510,8 +510,23 @@ var XXX = {
 ////////////
 return eval(string)[appLang];
 }
-
-
+/*
+//detect offline
+	setTimeout(function(){
+		if(typeof updateTimer != 'function' && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
+			var appTitle  = (window.navigator.language.slice(0,2).toLowerCase() == "pt") ? 'SEM CONEXAO COM A INTERNET' : 'NO INTERNET CONNECTION';
+			var appDialog = (window.navigator.language.slice(0,2).toLowerCase() == "pt") ? 'Continuando em modo offline' : 'Reverting to offline mode';
+			window.localStorage.removeItem("config_debug");
+			if(window.cordova) {
+				navigator.notification.alert(appDialog,window.location='',appTitle,"ok");
+			} else {
+				alert(appTitle + " \n" + appDialog);
+				window.location='';
+			}
+			return false;
+		}
+	},5000);
+*/
 //#////////////////////#//
 //# GET VERSION NUMBER #//
 //#////////////////////#//
@@ -529,3 +544,4 @@ if(!window.wizUtils) {
 	window.wizUtils.getBundleDisplayName(function(version) { window.localStorage.setItem("appVersion",version); });
 	window.wizUtils.getBundleVersion(function(build)	   { window.localStorage.setItem("appBuild",build);     });
 }*/
+

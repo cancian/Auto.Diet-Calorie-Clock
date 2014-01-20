@@ -111,18 +111,26 @@ function appResizer(time) {
 // KEYBOARD EVENTS //
 /////////////////////
 $(document).on("backbutton", function(evt) {
+	//back to status, then reload
+	if(!$('#diaryNotesButton').length && !$('#addNewCancel').length && !$('#modalCancel').length && !$('#pageSlideFood').length && !$('#appStatusFix').hasClass("open") && !$('*').is(":focus")) {
+		if(window.localStorage.getItem("app_last_tab") == "tab1") {
+			afterHide();
+		} else {
+			appFooter("tab1");
+		}
+	}
+	//general reset
 	$('#diaryNotesButton').trigger(touchstart);
 	$("#addNewCancel").trigger(touchstart);
 	$("#modalCancel").trigger(touchstart);
-	$('#appHeader').trigger(touchstart);
 	$("#startDate").mobiscroll('cancel');
 	$('input,select,textarea').trigger('blur');
 	$('#go').trigger(touchend);
 	$('#sliderNum').trigger(touchstart);
-	//$('#entryBody').val('');
-	//$('#entryTime').val(0);
-	//document.getElementById('entryBody').value = "";
-	//document.getElementById('entryTime').value = 0;
+	//not while loading db
+	if(window.localStorage.getItem("foodDbLoaded") == "done") {
+		$('#appHeader').trigger(touchstart);
+	}
 });
 $(document).on("click", function(evt) {
 		$('#diaryNotesInput').focus();
@@ -130,17 +138,21 @@ $(document).on("click", function(evt) {
 $(document).on("showkeyboard", function(evt) {
 		$('#diaryNotesInput').focus();
 		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-		$("#diaryNotesInput").height(window.innerHeight - 36);
+		$("#diaryNotesInput").height(window.innerHeight - 32);
 		$("#diaryNotesInput").getNiceScroll().resize();
 	setTimeout(function() {
 		$('#diaryNotesInput').blur();
 		$('#diaryNotesInput').focus();
 		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-		$("#diaryNotesInput").height(window.innerHeight - 36);
+		$("#diaryNotesInput").height(window.innerHeight - 32);
 		$("#diaryNotesInput").getNiceScroll().resize();
 	},300);
 });
+$(document).on("showkeyboard", function(evt) {
+	//window.scroll($('#appContent')[0].scrollTop,0,0);	
+});
 $(document).on("hidekeyboard",function() {
+	window.scroll($('#appContent')[0].scrollTop,0,0);
 	appResizer(100);
 });
 /////////////////
@@ -172,7 +184,7 @@ $(window).on("resize", function(evt) {
 	//notepad (ios6 fix)(window.innerHeight)
 	if($('#diaryNotesInput').is(":visible")) {
 		window.scroll($('#diaryNotesInput').scrollTop,0,0);
-		$("#diaryNotesInput").height(window.innerHeight - 36);
+		$("#diaryNotesInput").height(window.innerHeight - 32);
 		$('#diaryNotesInput').width(window.innerWidth - 24);
 		$("#diaryNotesInput").getNiceScroll().resize();	
 		$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
