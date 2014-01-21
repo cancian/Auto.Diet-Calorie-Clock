@@ -78,11 +78,6 @@
 	<feature name="UserVoiceCommand">
 		<param name="ios-package" value="UserVoiceCommand" />
 	</feature>
-	<feature name="org.apache.cordova.facebook.Connect">
-		<param name="ios-package" value="FacebookConnectPlugin" />
-		<param name="APP_NAME" value="MyLiveDiet" />
-		<param name="APP_ID" value="577673025616946" />
-	</feature>
 	
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
@@ -99,11 +94,7 @@
     <feature name="SplashScreen">
 		<param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
 	</feature>	
-	<feature name="org.apache.cordova.facebook.Connect">
-		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
-		<param name="APP_NAME" value="MyLiveDiet" />
-		<param name="APP_ID" value="577673025616946" />
-	</feature>
+
 
 	<!-- ICON: ANDROID -->
     <icon src="res/icon/android/drawable/icon.png" />
@@ -130,13 +121,6 @@
     <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
-
-    <access origin="http://127.0.0.1*" />
-    <access origin="https://m.facebook.com" />
-    <access origin="https://graph.facebook.com" />
-    <access origin="https://api.facebook.com" />
-    <access origin="https://*.fbcdn.net" />
-    <access origin="https://*.akamaihd.net" />
 
     <access origin="*" />
 	<content src="index.html" />

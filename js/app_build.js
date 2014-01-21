@@ -1000,9 +1000,9 @@ $(document).trigger("sliderInit");
 	//#/////////////#//
 	//# DIARY NOTES #//
 	//#/////////////#//
-	$('#diaryNotes').on(touchend, function(evt) {
+	$('#diaryNotes').on(touchstart, function(evt) {
 		//no overlap
-		if($('#pageSlideFood').length || $('input,select').is(":focus") || $(".delete").hasClass("active")) {
+		if($('#pageSlideFood').length || $('input,select').is(":focus") || $(".delete").hasClass("active") || $('#entryList div').is(":animated")) {
 			$('#go').trigger(touchend);
 			return;
 		}
