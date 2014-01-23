@@ -63,6 +63,7 @@ function openSettings(string) {
 	// SETTINGS: FEEDBACK //
 	////////////////////////
 	$("#optionFeedback").on(touchend,function(evt) {
+		/*
 		if(isMobile.iOS()) {
 				evt.preventDefault();
 				evt.stopPropagation();
@@ -80,7 +81,7 @@ function openSettings(string) {
 				showUserVoice(cfg);	
 		} else {
 			window.open('http://cancian.uservoice.com', '_system', 'location=yes');
-		}
+		}*/
 	});	
 	///////////////////////
 	// SETTINGS: WEBSITE //

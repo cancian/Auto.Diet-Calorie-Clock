@@ -1,6 +1,8 @@
 //JS
 if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
 	document.write("<script type='text/javascript' src='js/cordova.js'><\/script>");
+	//document.write("<script type='text/javascript' src='js/cdv-plugin-fb-connect.js?"+newDate+"'><\/script>");
+	//document.write("<script type='text/javascript' src='js/facebook-js-sdk.js?"+newDate+"'><\/script>");
 }
 document.write("<script type='text/javascript' src='js/jquery-2.0.3.min.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js?"+newDate+"'><\/script>");
@@ -12,7 +14,7 @@ document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js?"+ne
 document.write("<script type='text/javascript' src='js/spin.min.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/quo.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/html5sql.js?"+newDate+"'><\/script>");
-document.write("<script type='text/javascript' src='js/UserVoice.js?"+newDate+"'><\/script>");
+//document.write("<script type='text/javascript' src='js/UserVoice.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/calculator.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/carpe_slider.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js?"+newDate+"'><\/script>");
