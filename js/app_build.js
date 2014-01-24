@@ -32,7 +32,8 @@ function openSettings(string) {
 	////////////
 	// UNUSED //
 	////////////
-	$("#optionFeedback").remove();
+	$("#optionContact").remove();
+	//$("#optionFeedback").remove();
 	if(!hasTouch()) {
 		$("#optionReview").remove();
 	}
@@ -63,25 +64,27 @@ function openSettings(string) {
 	// SETTINGS: FEEDBACK //
 	////////////////////////
 	$("#optionFeedback").on(touchend,function(evt) {
-		/*
 		if(isMobile.iOS()) {
-				evt.preventDefault();
-				evt.stopPropagation();
-				var cfg = {
-					task:'launchFeedback',//[launchFeedback|contactUs|viewForum|postIdea]
-					site:'cancian.uservoice.com',
-					key:'62oo7AhcRoQuvozU6ya6A',
-					secret:'g911MyHj3qs92pDDa6f1XOgT9fHSi7pNBZoXO4E',
-					topicId:0,//[0|453|333 (any valid topicId as interger)]
-					showContactUs:1,//[0|1], Show/hide Contact us button
-					showForum:1,//[0|1] Show/hide Forum button
-					showPostIdea:1,//[0|1] Show/hide Post an idea button
-					showKnowledgeBase:1//[0|1] Show/hide Search
-				};
-				showUserVoice(cfg);	
+			var cfg = {
+				task:'launchFeedback',//[launchFeedback|contactUs|viewForum|postIdea]
+				site:'cancian.uservoice.com',
+				key:'62oo7AhcRoQuvozU6ya6A',
+				secret:'g911MyHj3qs92pDDa6f1XOgT9fHSi7pNBZoXO4E',
+				topicId:0,//[0|453|333 (any valid topicId as interger)]
+				showContactUs:1,//[0|1], Show/hide Contact us button
+				showForum:1,//[0|1] Show/hide Forum button
+				showPostIdea:1,//[0|1] Show/hide Post an idea button
+				showKnowledgeBase:1//[0|1] Show/hide Search
+			};
+			showUserVoice(cfg);
+			return false;
+		} else if(isMobile.Android()) {
+			window.MyCls.changeActivity();
+			return false;
 		} else {
 			window.open('http://cancian.uservoice.com', '_system', 'location=yes');
-		}*/
+			return false;
+		}
 	});	
 	///////////////////////
 	// SETTINGS: WEBSITE //
@@ -1223,35 +1226,56 @@ var profileHtml = '\
 <div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
-<h2 id="mantain"><span>A.</span> ' + LANG("KEEP_WEIGHT") + '</h2>\
-<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
+<h2 id="mantain" class="invisible hidden"><span>A.</span> ' + LANG("KEEP_WEIGHT") + '</h2>\
+<div class="tapSelect invisible hidden"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
 \
-<h2><span>B.</span> ' + LANG("LOSE_WEIGHT") + '</h2>\
-<div class="calcResult">\
+<h2 class="invisible hidden"><span>B.</span> ' + LANG("LOSE_WEIGHT") + '</h2>\
+<div class="calcResult invisible hidden">\
    <span class="selectArrow"> <select class="ee101" id="pA6G" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6G&#39;)" tabindex="8" size="1" value="1" name="pA6G">\
-		<option value="0.25">0.25</option>\
-		<option value="0.5">0.5</option>\
-		<option value="0.75">0.75</option>\
-		<option value="1" selected="selected">1</option>\
-		<option value="1.25">1.25</option>\
-		<option value="1.5">1.5</option>\
-		<option value="1.75">1.75</option>\
-		<option value="2">2</option>\
-		<option value="2.25">2.25</option>\
-		<option value="2.5">2.5</option>\
-		<option value="2.75">2.75</option>\
-		<option value="3">3</option>\
-		<option value="3.25">3.25</option>\
-		<option value="3.5">3.5</option>\
-		<option value="3.75">3.75</option>\
-		<option value="4">4</option>\
-		<option value="4.25">4.25</option>\
-		<option value="4.5">4.5</option>\
-		<option value="4.75">4.75</option>\
-		<option value="5">5</option>\
+		<option value="-5">-5</option>\
+		<option value="-4.75">-4.75</option>\
+		<option value="-4.5">-4.5</option>\
+		<option value="-4.25">-4.25</option>\
+		<option value="-4">-4</option>\
+		<option value="-3.75">-3.75</option>\
+		<option value="-3.5">-3.5</option>\
+		<option value="-3.25">-3.25</option>\
+		<option value="-3">-3</option>\
+		<option value="-2.75">-2.75</option>\
+		<option value="-2.5">-2.5</option>\
+		<option value="-2.25">-2.25</option>\
+		<option value="-2">-2</option>\
+		<option value="-1.75">-1.75</option>\
+		<option value="-1.5">-1.5</option>\
+		<option value="-1.25">-1.25</option>\
+		<option value="-1">-1</option>\
+		<option value="-0.75">-0.75</option>\
+		<option value="-0.5">-0.5</option>\
+		<option value="-0.25">-0.25</option>\
+		<option value="0" selected="selected">0</option>\
+		<option value="0.25">+0.25</option>\
+		<option value="0.5">+0.5</option>\
+		<option value="0.75">+0.75</option>\
+		<option value="1">+1</option>\
+		<option value="1.25">+1.25</option>\
+		<option value="1.5">+1.5</option>\
+		<option value="1.75">+1.75</option>\
+		<option value="2">+2</option>\
+		<option value="2.25">+2.25</option>\
+		<option value="2.5">+2.5</option>\
+		<option value="2.75">+2.75</option>\
+		<option value="3">+3</option>\
+		<option value="3.25">+3.25</option>\
+		<option value="3.5">+3.5</option>\
+		<option value="3.75">+3.75</option>\
+		<option value="4">+4</option>\
+		<option value="4.25">+4.25</option>\
+		<option value="4.5">+4.5</option>\
+		<option value="4.75">+4.75</option>\
+		<option value="5">+5</option>\
 	</select></span>\
 	<input class="ee101" id="pA6J2" type="hidden" readonly size="2" value="0" name="pA6J" />\
 	<span class="selectArrow"><select id="pA6H" tabindex="9" onchange="recalc_onclick(&#39;pA6H&#39;)" size="1" name="pA6H">\
@@ -1260,7 +1284,7 @@ var profileHtml = '\
 	</select></span>\
 	<span>' + LANG("PER_WEEK") + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
+<div class="tapSelect invisible hidden"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
@@ -1268,26 +1292,47 @@ var profileHtml = '\
 <h2><span>C.</span> ' + LANG("GAIN_WEIGHT") + '</h2>\
 <div class="calcResult">\
     <span class="selectArrow"><select class="ee101" id="pA6M" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
-		<option value="0.25">0.25</option>\
-		<option value="0.5">0.5</option>\
-		<option value="0.75">0.75</option>\
-		<option value="1" selected="selected">1</option>\
-		<option value="1.25">1.25</option>\
-		<option value="1.5">1.5</option>\
-		<option value="1.75">1.75</option>\
-		<option value="2">2</option>\
-		<option value="2.25">2.25</option>\
-		<option value="2.5">2.5</option>\
-		<option value="2.75">2.75</option>\
-		<option value="3">3</option>\
-		<option value="3.25">3.25</option>\
-		<option value="3.5">3.5</option>\
-		<option value="3.75">3.75</option>\
-		<option value="4">4</option>\
-		<option value="4.25">4.25</option>\
-		<option value="4.5">4.5</option>\
-		<option value="4.75">4.75</option>\
-		<option value="5">5</option>\
+		<option value="-5">-5</option>\
+		<option value="-4.75">-4.75</option>\
+		<option value="-4.5">-4.5</option>\
+		<option value="-4.25">-4.25</option>\
+		<option value="-4">-4</option>\
+		<option value="-3.75">-3.75</option>\
+		<option value="-3.5">-3.5</option>\
+		<option value="-3.25">-3.25</option>\
+		<option value="-3">-3</option>\
+		<option value="-2.75">-2.75</option>\
+		<option value="-2.5">-2.5</option>\
+		<option value="-2.25">-2.25</option>\
+		<option value="-2">-2</option>\
+		<option value="-1.75">-1.75</option>\
+		<option value="-1.5">-1.5</option>\
+		<option value="-1.25">-1.25</option>\
+		<option value="-1">-1</option>\
+		<option value="-0.75">-0.75</option>\
+		<option value="-0.5">-0.5</option>\
+		<option value="-0.25">-0.25</option>\
+		<option value="0" selected="selected">0</option>\
+		<option value="0.25">+0.25</option>\
+		<option value="0.5">+0.5</option>\
+		<option value="0.75">+0.75</option>\
+		<option value="1">+1</option>\
+		<option value="1.25">+1.25</option>\
+		<option value="1.5">+1.5</option>\
+		<option value="1.75">+1.75</option>\
+		<option value="2">+2</option>\
+		<option value="2.25">+2.25</option>\
+		<option value="2.5">+2.5</option>\
+		<option value="2.75">+2.75</option>\
+		<option value="3">+3</option>\
+		<option value="3.25">+3.25</option>\
+		<option value="3.5">+3.5</option>\
+		<option value="3.75">+3.75</option>\
+		<option value="4">+4</option>\
+		<option value="4.25">+4.25</option>\
+		<option value="4.5">+4.5</option>\
+		<option value="4.75">+4.75</option>\
+		<option value="5">+5</option>\
 	</select></span>\
 	<input class="ee101" id="pA6O2" type="hidden" readonly size="2" value="0" name="pA6O" />\
 	<span class="selectArrow"><select id="pA6N" tabindex="11" onchange="recalc_onclick(&#39;pA6N&#39;)" size="1" name="pA6N">\
@@ -1303,6 +1348,8 @@ var profileHtml = '\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10L" readonly size="7" value="0" name="pA10L" />cal =<input class="ee101" id="pA10N2" readonly size="7" value="0" name="pA10N" />gm</div>\
 </form>\
 </div>';
+
+
 //#////////#//
 //# OUTPUT #//
 //#////////#//

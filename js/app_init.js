@@ -14,7 +14,7 @@ document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js?"+ne
 document.write("<script type='text/javascript' src='js/spin.min.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/quo.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/html5sql.js?"+newDate+"'><\/script>");
-//document.write("<script type='text/javascript' src='js/UserVoice.js?"+newDate+"'><\/script>");
+document.write("<script type='text/javascript' src='js/UserVoice.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/calculator.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='js/carpe_slider.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js?"+newDate+"'><\/script>");

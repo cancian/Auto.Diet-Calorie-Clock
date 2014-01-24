@@ -154,7 +154,7 @@ li#optionMeasure.activeRow		{ position: relative; background-color: #fff !import
 #appStatusBarsFat p.over		{ background-color: #00cc00; background-image: -webkit-linear-gradient(left,#00cc00 0%,#009900 100%); }
 #appStatusBarsPro p.warn,
 #appStatusBarsCar p.warn,
-#appStatusBarsFat p.warn		{ background-color: #FFE900; background-image: -webkit-linear-gradient(left,#FFE900 0%,#FFCF00 100%); }
+#appStatusBarsFat p.warn		{ background-color: #FFE900; background-image: -webkit-linear-gradient(left,#FFE900 0%,#FFCF00 100%); /*#FFE605 #FFB802*/ }
 #appStatusBarsPro p.danger,
 #appStatusBarsCar p.danger,
 #appStatusBarsFat p.danger		{ background-color: #F67B3B; background-image: -webkit-linear-gradient(left,#F67B3B 0%,#CE6431 100%); }
@@ -544,7 +544,9 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #addNewExercise				{ position: absolute; bottom: 12px; left: 12px; right: 12px; background-color: #000; height: 44px; line-height: 44px; color: #fff; display: block; text-align: center; font-weight: bold; font-size: 14px; opacity: .5; }
 #addNewWrapper				{ opacity: 0; position: absolute; top: 75px; bottom: 66px; left: 12px; right: 12px; background-color: #fff; display: block; z-index: 99; overflow: hidden; display: block; -webkit-transform: translate3d(0, 0, 0); background-image: -webkit-linear-gradient(#fff,#fefefe); -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); }
 body.ios7 #addNewWrapper	{ top: 91px; }
-#addNewWrapper				{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .25s; }
+body.ios7 #addNewWrapper	{ top: 91px; }
+#tempHolder #modalOverlay	{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .175s; -webkit-transform: translate3d(0, 0, 0);  }
+#tempHolder #addNewWrapper	{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 0; -webkit-transform: translate3d(0, 0, 0);  }
 #addNewWrapper.show			{ opacity: 1; }
 #addNewConfirm				{ position: absolute; bottom: 0px; left: 0;  width: 50%; background-color: #4D9AE5; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: bold; }
 #addNewCancel				{ position: absolute; bottom: 0px; right: 0; width: 50%; background-color: #eeeeee; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: bold; }

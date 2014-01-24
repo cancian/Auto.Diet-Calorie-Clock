@@ -110,6 +110,13 @@ function appResizer(time) {
 /////////////////////
 // KEYBOARD EVENTS //
 /////////////////////
+//MENU BUTTON
+$(document).on("menubutton", function(evt) {
+	window.MyCls.changeActivity();
+	evt.preventDefault();
+	evt.stopPropagation();
+	return false();
+});
 //BACK BUTTON
 $(document).on("backbutton", function(evt) {
 	if($("#addNewCancel").length || $("#modalCancel").length) {

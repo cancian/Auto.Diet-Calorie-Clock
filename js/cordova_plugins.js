@@ -1,13 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js",
-        "id": "com.adobe.plugins.GAPlugin.GAPlugin",
-        "clobbers": [
-            "GAPlugin"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
         "id": "org.apache.cordova.dialogs.notification",
         "merges": [
@@ -34,15 +27,22 @@ module.exports = [
         "clobbers": [
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js",
+        "id": "com.adobe.plugins.GAPlugin.GAPlugin",
+        "clobbers": [
+            "GAPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.adobe.plugins.GAPlugin": "2.3.1",
     "org.apache.cordova.dialogs": "0.2.5",
     "org.apache.cordova.splashscreen": "0.2.6",
-    "org.apache.cordova.inappbrowser": "0.3.0"
+    "org.apache.cordova.inappbrowser": "0.3.0",
+    "com.adobe.plugins.GAPlugin": "2.3.1"
 }
 // BOTTOM OF METADATA
 });
