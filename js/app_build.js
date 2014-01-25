@@ -78,6 +78,7 @@ function openSettings(string) {
 			};
 			showUserVoice(cfg);
 			return false;
+		//} else if(isMobile.Android() && androidVersion() >= 3) {
 		} else if(isMobile.Android()) {
 			window.MyCls.changeActivity();
 			return false;
@@ -1226,6 +1227,104 @@ var profileHtml = '\
 <div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
+<h2 id="mantain"><span>A.</span> ' + LANG("KEEP_WEIGHT") + '</h2>\
+<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
+<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
+<div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
+<div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
+\
+<h2><span>B.</span> ' + LANG("LOSE_WEIGHT") + '</h2>\
+<div class="calcResult">\
+   <span class="selectArrow"> <select class="ee101" id="pA6G" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6G&#39;)" tabindex="8" size="1" value="1" name="pA6G">\
+		<option value="0.25">0.25</option>\
+		<option value="0.5">0.5</option>\
+		<option value="0.75">0.75</option>\
+		<option value="1" selected="selected">1</option>\
+		<option value="1.25">1.25</option>\
+		<option value="1.5">1.5</option>\
+		<option value="1.75">1.75</option>\
+		<option value="2">2</option>\
+		<option value="2.25">2.25</option>\
+		<option value="2.5">2.5</option>\
+		<option value="2.75">2.75</option>\
+		<option value="3">3</option>\
+		<option value="3.25">3.25</option>\
+		<option value="3.5">3.5</option>\
+		<option value="3.75">3.75</option>\
+		<option value="4">4</option>\
+		<option value="4.25">4.25</option>\
+		<option value="4.5">4.5</option>\
+		<option value="4.75">4.75</option>\
+		<option value="5">5</option>\
+	</select></span>\
+	<input class="ee101" id="pA6J2" type="hidden" readonly size="2" value="0" name="pA6J" />\
+	<span class="selectArrow"><select id="pA6H" tabindex="9" onchange="recalc_onclick(&#39;pA6H&#39;)" size="1" name="pA6H">\
+		<option value="kilograms">' + LANG("KILOGRAMS") + '</option>\
+		<option value="pounds" selected="selected">' + LANG("POUNDS") + '</option>\
+	</select></span>\
+	<span>' + LANG("PER_WEEK") + '</span>\
+</div>\
+<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
+<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
+<div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
+<div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
+\
+<h2><span>C.</span> ' + LANG("GAIN_WEIGHT") + '</h2>\
+<div class="calcResult">\
+    <span class="selectArrow"><select class="ee101" id="pA6M" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
+		<option value="0.25">0.25</option>\
+		<option value="0.5">0.5</option>\
+		<option value="0.75">0.75</option>\
+		<option value="1" selected="selected">1</option>\
+		<option value="1.25">1.25</option>\
+		<option value="1.5">1.5</option>\
+		<option value="1.75">1.75</option>\
+		<option value="2">2</option>\
+		<option value="2.25">2.25</option>\
+		<option value="2.5">2.5</option>\
+		<option value="2.75">2.75</option>\
+		<option value="3">3</option>\
+		<option value="3.25">3.25</option>\
+		<option value="3.5">3.5</option>\
+		<option value="3.75">3.75</option>\
+		<option value="4">4</option>\
+		<option value="4.25">4.25</option>\
+		<option value="4.5">4.5</option>\
+		<option value="4.75">4.75</option>\
+		<option value="5">5</option>\
+	</select></span>\
+	<input class="ee101" id="pA6O2" type="hidden" readonly size="2" value="0" name="pA6O" />\
+	<span class="selectArrow"><select id="pA6N" tabindex="11" onchange="recalc_onclick(&#39;pA6N&#39;)" size="1" name="pA6N">\
+		<option value="kilograms">' + LANG("KILOGRAMS") + '</option>\
+		<option value="pounds" selected="selected">' + LANG("POUNDS") + '</option>\
+	</select></span>\
+	<span>' + LANG("PER_WEEK") + '</span>\
+</div>\
+<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
+\
+<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
+<div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\
+<div class="invisible">Fats (30%)<input class="ee101" id="pA10L" readonly size="7" value="0" name="pA10L" />cal =<input class="ee101" id="pA10N2" readonly size="7" value="0" name="pA10N" />gm</div>\
+</form>\
+</div>';
+/*
+		<option value="100">100</option>\
+	</select></span>\
+</div>\
+<div class="calcRow" id="yourActivity">\
+		<label>' + LANG("YOUR_ACTIVITY") + '</label>\
+		<span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
+			<option selected="selected" value="Sedentary (little or no exercise, desk job)">' + LANG("YOUR_ACTIVITY_OPTION1") + '</option>\
+			<option value="Lightly active (light exercise/sports 1-3 days/wk)">'              + LANG("YOUR_ACTIVITY_OPTION2") + '</option>\
+			<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">'        + LANG("YOUR_ACTIVITY_OPTION3") + '</option>\
+			<option value="Very active (hard exercise/sports 6-7 days/wk)">'                  + LANG("YOUR_ACTIVITY_OPTION4") + '</option>\
+		</select></span>\
+</div>\
+<div class="invisible"><input type="checkbox" checked="checked" value="ON" name="automatic_recalc" /><label>Automatic recalculation</label></div>\
+<div class="invisible"><input onclick="recalc_onclick(&#39;&#39;)" type="button" value="Recalculate" name="do_recalc" id="do_recalc" /></div>\
+<div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
+<div class="invisible"><h2>Nutrition requirements</h2></div>\
+\
 <h2 id="mantain" class="invisible hidden"><span>A.</span> ' + LANG("KEEP_WEIGHT") + '</h2>\
 <div class="tapSelect invisible hidden"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG("DAY") + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
@@ -1348,8 +1447,7 @@ var profileHtml = '\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10L" readonly size="7" value="0" name="pA10L" />cal =<input class="ee101" id="pA10N2" readonly size="7" value="0" name="pA10N" />gm</div>\
 </form>\
 </div>';
-
-
+*/
 //#////////#//
 //# OUTPUT #//
 //#////////#//

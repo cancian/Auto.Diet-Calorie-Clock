@@ -112,10 +112,14 @@ function appResizer(time) {
 /////////////////////
 //MENU BUTTON
 $(document).on("menubutton", function(evt) {
-	window.MyCls.changeActivity();
 	evt.preventDefault();
-	evt.stopPropagation();
-	return false();
+//	if(androidVersion() >= 3) {
+		window.MyCls.changeActivity();
+//		return false;
+//	} else {
+//		window.open('http://cancian.uservoice.com', '_system', 'location=yes');
+//		return false;
+//	}
 });
 //BACK BUTTON
 $(document).on("backbutton", function(evt) {

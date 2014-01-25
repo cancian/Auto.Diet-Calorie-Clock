@@ -1,4 +1,4 @@
-var appVersion = "1.1.3 (11304)"; 
+var appVersion = "1.1.4 (11400)"; 
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -279,8 +279,8 @@ var ABOUT_TITLE = {
 	pt: "MyLiveDiet v" + appVersion
 };
 var ABOUT_DIALOG = {
-	en: "",
-	pt: ""
+	en: "Developed by André Cancian",
+	pt: "Desenvolvido por André Cancian"
 };
 var WEIGHT_LOSS = {
 	en: "weight loss",
