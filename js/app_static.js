@@ -307,7 +307,7 @@ updateTimer();
 (function startTimer() {
 	if(typeof updateTimer == 'function') {
 		updateTimer();
-		setTimeout(startTimer,100);
+		setTimeout(startTimer,200);
 	}
 })();
 	//////////////////////

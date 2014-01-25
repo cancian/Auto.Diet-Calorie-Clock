@@ -1,12 +1,19 @@
 #################
 ## VERSION LOG ##
 #################
+# 1.1.4 [25/01/2014]
+• fixed keyboard dismiss issue
+
+# 1.1.4 [25/01/2014]
+• added UserVoice for user feedback
+
 # 1.1.3 [19/01/2014]
 • quick nutrition info on status screen
 • simple notepad added to diary
 • fixed issue where favourite entries would not be searchable
 • tap diary entries time to view full date
 • several stability improvements
+
 # 1.1.2 [14/01/2014]
 • support for custom foods and exercises
 • all itens are now fully editable (both custom and default)
@@ -15,6 +22,7 @@
 • slider knob now changes color when active
 • fixed issue with pre-fill not triggering menu autoclose
 • improved interface overall responsiveness
+
 # 1.1.1 [03/01/2014]
 • tapping status boxes now displays additional information
 • faster search system

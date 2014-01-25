@@ -410,19 +410,27 @@ $(document).on("pageload", function(evt) {
 		if(evt.target.id == "entryListWrapper") {
 			if(!$("#entryList div").is(':animated')) {
 				$("#editableInput").blur();
-				//evt.stopImmediatePropagation();
+				//rekeyboarding on entrywrapper tap dismiss
+				if(isMobile.iOS()) {
+					evt.preventDefault();
+					evt.stopPropagation();
+					$("#entryListForm").prepend("<div id='sliderBlock'></div>");
+					$("#sliderBlock").fadeOut(700,function(evt) {
+						$("#sliderBlock").remove();
+					});
+				}
 				//whitegap mitigation
 				if(isMobile.Android()) {
 					return false;
 				}
 				//evt.preventDefault();
-			} 
+			}
 		}
 	});
 	/////////////////
 	// GLOBAL HIDE //
 	/////////////////
-	$("#appHeader,#entryListForm,#go,#sliderBlock,#editablediv,#entryListWrapper").on(touchend + " swipeLeft swipeRight", function(evt) {
+	$("#appHeader,#entryListForm,#go,#sliderBlock,#editablediv,#entryListWrapper").on(tap + " swipeLeft swipeRight", function(evt) {
 		if(!isMobile.Android()) {
 			evt.preventDefault();
 		}

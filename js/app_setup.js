@@ -12,6 +12,7 @@ function CONSOLE(data) {
 	if(window.localStorage.getItem("config_debug") == "active") {
 		console.log(data);
 	}
+	return false;
 }
 //////////////
 // SETUP DB //
@@ -133,7 +134,7 @@ Diary.prototype.saveEntry = function(data, callback) {
 // SET FOOD //
 //////////////
 Diary.prototype.setFood = function(data, callback) {
-	console.log('setFood(' + data.act + ' ' + data.code + ")");
+	CONSOLE('setFood(' + data.act + ' ' + data.code + ")");
 	this.db.transaction(
 		function(t) {
 			if(data.act == "update") {
@@ -149,7 +150,7 @@ Diary.prototype.setFood = function(data, callback) {
 // GET FOOD //
 //////////////
 Diary.prototype.getFood = function(id,callback) {
-	console.log('getFood(' + id + ")");
+	CONSOLE('getFood(' + id + ")");
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
@@ -164,7 +165,7 @@ Diary.prototype.getFood = function(id,callback) {
 // DELETE FOOD //
 /////////////////
 Diary.prototype.delFood = function(code, callback) {
-	console.log('delFood(' + code + ")");
+	CONSOLE('delFood(' + code + ")");
 	this.db.transaction(
 		function(t) {
 			t.executeSql('delete from diary_food where CODE = ?', [code],
@@ -177,7 +178,7 @@ Diary.prototype.delFood = function(code, callback) {
 // GET CUSTOM LIST //
 /////////////////////
 Diary.prototype.getCustomList = function(type,callback) {
-	console.log('getCustomList(' + type + ")");
+	CONSOLE('getCustomList(' + type + ")");
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
 		function(t) {
@@ -206,7 +207,7 @@ Diary.prototype.getCustomList = function(type,callback) {
 // SET FAV //
 /////////////
 Diary.prototype.setFav = function(data, callback) {
-	console.log('setFav(' + data.fib + ")");
+	CONSOLE('setFav(' + data.fib + ")");
 	this.db.transaction(
 		function(t) {
 			t.executeSql('delete from diary_food where CODE = ?', [data.code]);
