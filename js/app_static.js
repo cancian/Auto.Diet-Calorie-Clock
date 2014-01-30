@@ -2,14 +2,14 @@
 // DEVICE READY //
 //////////////////
 $(document).ready(function() {  
+	diary = new Diary();
+	diary.setup(startApp);
 	if(hasTouch() && hasTap()) { 
 		$("body").css("opacity","0");
 		setTimeout(function(evt) {
 			$("body").css("opacity","1");
 		},6000);
 	}
-	diary = new Diary();
-	diary.setup(startApp);
 });
 //##///////////##//
 //## START APP ##//
@@ -22,7 +22,7 @@ $("head").append("<style type='text/css'> #startDateSpan:before { content: '" + 
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
-$("body").html('\
+$("body").append('\
 	<div id="appHeader"></div>\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 	<div id="appContent"></div>\
@@ -86,7 +86,7 @@ function appResizer(time) {
 		//unlock top white gap
 		$('body').trigger("touchmove");
 		//NO < 0
-		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
+		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height());
 		//force scrolling ios
 		if(isMobile.iOS()) { wrapperMinH = wrapperMinH + 1; }
 		if(wrapperMinH < 0) {
@@ -102,6 +102,7 @@ function appResizer(time) {
 		$('#entryBody').width(window.innerWidth -58);
 		$('#foodSearch').width(window.innerWidth -55);
 		$("ul#addNewList input").width(window.innerWidth - 180);
+		$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);
@@ -138,7 +139,7 @@ $(document).on("backbutton", function(evt) {
 		$('#appStatusFix').removeClass("open");
 		$("#startDate").mobiscroll('cancel');
 	} else if($(".delete").hasClass("active")) {
-		$('#go').trigger(touchend);
+		$('#go').trigger(tap);
 	} else if($('input,select').is(":focus")) {
 		$('input,select,textarea').trigger('blur');
 	} else if(window.localStorage.getItem("app_last_tab") != "tab1") {
@@ -171,6 +172,8 @@ $(document).on("showkeyboard", function(evt) {
 //ON HIDE KEYBOARD
 $(document).on("hidekeyboard",function() {
 	window.scroll($('#appContent')[0].scrollTop,0,0);
+	$('#appContent').scrollTop($('#appContent').scrollTop());
+	$('#editableInput').blur();
 	appResizer(100);
 });
 /////////////////
@@ -300,15 +303,24 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //###########################//
 //####   START WORKING   ####//
 //###########################//
-afterShow(200);
-updateTimer();
+afterShow(250);
 //updateEntries();
 //updateEntriesTime();
+setTimeout(function() {
+	if(typeof updateTimer == 'function') {
+		updateTimer();		
+	}
+},0);
 (function startTimer() {
 	if(typeof updateTimer == 'function') {
 		updateTimer();
-		setTimeout(startTimer,200);
+		setTimeout(startTimer,150);
 	}
+})();
+//refresh entrylist time
+(function entryRetimer() {
+	updateEntriesTime();
+	setTimeout(entryRetimer,60*1000);
 })();
 	//////////////////////
 	// PAGESLIDE CLOSER //

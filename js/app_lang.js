@@ -266,6 +266,10 @@ var SETTINGS_REVIEW = {
 	en: "Rate this app",
 	pt: "Avalie este app"
 };
+var SETTINGS_FACEBOOK = {
+	en: "Sign in with Facebook",
+	pt: "Conectar com Facebook"
+};
 var SETTINGS_RESET = {
 	en: "Reset settings",
 	pt: "Apagar configurações"
@@ -498,7 +502,30 @@ var NOTEPAD_DONE = {
 	en: "done",
 	pt: "ok"
 };
-
+var NOT_RUNNING_TITLE = {
+	en: "The counter is currently stopped",
+	pt: "O contador não está ativado"
+};
+var NOT_RUNNING_DIALOG = {
+	en: "Would you like to start it now?",
+	pt: "Gostaria de iniciá-lo agora?"
+};
+var CLEAR_ALL = {
+	en: "clear all",
+	pt: "limpar tudo"
+};
+var CLEAR_ALL_TITLE = {
+	en: "clear all entries",
+	pt: "limpar todos itens"
+};
+var CLEAR_ALL_TITLE = {
+	en: "clear all entries",
+	pt: "limpar todos itens"
+};
+var LOGOUT_TITLE = {
+	en: "Logout from Facebook",
+	pt: "Desconectar do Facebook"
+};
 
 var XXX = {
 	en: "XXX",

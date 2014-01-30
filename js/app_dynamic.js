@@ -1,7 +1,6 @@
 //#//////////////////#//
 //# DYNAMIC HANDLERS #//
 //#//////////////////#//
-//var eP = 0;
 $(document).on("pageload", function(evt) {
 	// PREVENT++ //
 	if((evt.target.id) > 0) {
@@ -407,13 +406,14 @@ $(document).on("pageload", function(evt) {
 			//evt.preventDefault();
 			//evt.stopPropagation();
 		}
+		
 		if(evt.target.id == "entryListWrapper") {
 			if(!$("#entryList div").is(':animated')) {
 				$("#editableInput").blur();
 				//rekeyboarding on entrywrapper tap dismiss
 				if(isMobile.iOS()) {
-					evt.preventDefault();
-					evt.stopPropagation();
+					//evt.preventDefault();
+					//evt.stopPropagation();
 					$("#entryListForm").prepend("<div id='sliderBlock'></div>");
 					$("#sliderBlock").fadeOut(700,function(evt) {
 						$("#sliderBlock").remove();
@@ -1963,6 +1963,22 @@ if(mType == "exercise") {
 									car:parseFloat($("#carData").text()),
 									fat:parseFloat($("#fatData").text())
 								});
+								//auto start
+								function onConfirmStart(button) {
+									if(button == 1) {
+										window.localStorage.setItem("config_start_time",published);
+										window.localStorage.setItem("appStatus","running");
+										updateEntries();
+									}
+								}
+								//SHOW START DIALOG
+								if(window.localStorage.getItem("appStatus") != "running") {
+									if(hasTouch()) {
+										navigator.notification.confirm(LANG("NOT_RUNNING_DIALOG"), onConfirmStart, LANG("NOT_RUNNING_TITLE"), [LANG("OK"),LANG("CANCEL")]);
+									} else {
+										if(confirm(LANG("NOT_RUNNING_TITLE") + "\n" + LANG("NOT_RUNNING_DIALOG"))) { onConfirmStart(1); } else { }
+									}
+								}
 								//CSS FADE OUT
 								$('#modalWindow').removeClass('show');
 								$('#modalOverlay').removeClass('show');

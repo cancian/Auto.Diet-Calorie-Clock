@@ -23,8 +23,10 @@ function openSettings(string) {
 			<li id="optionAbout"><div>'    + LANG("SETTINGS_ABOUT")    + '</div></li>\
 		</ul>\
 		<div id="optionWebsite">mylivediet.com</div>\
+		<div id="optionFacebook">' + LANG("SETTINGS_FACEBOOK") + '</div>\
 		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
-	</div>';
+	</div>\
+	';
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -32,11 +34,80 @@ function openSettings(string) {
 	////////////
 	// UNUSED //
 	////////////
+	$("#optionWebsite").remove();
 	$("#optionContact").remove();
 	//$("#optionFeedback").remove();
 	if(!hasTouch()) {
 		$("#optionReview").remove();
 	}
+	////////////////////////
+	// SETTINGS: FACEBOOK //
+	////////////////////////
+	$("#optionFacebook").on(touchend, function(evt) {
+		evt.preventDefault();
+		if(window.localStorage.getItem("facebook_logged")) {
+			///////////////
+			// LOGGED IN //
+			///////////////
+			// ON CONFIRM
+			function onConfirmLogout(button) {
+				if(button == 1) {
+					//alert('logged, logging out...');
+					FB.logout(function(response) {
+						if(response.status != "connected") {
+							//alert('done (logout)!');
+							window.localStorage.removeItem("facebook_logged");
+							$("#optionFacebook").html(LANG("SETTINGS_FACEBOOK"));
+							$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");
+						}
+					});
+				}
+			}
+			//CONFIRM DIALOG
+			if(hasTouch()) {
+				navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmLogout, LANG("LOGOUT_TITLE"), [LANG("OK"),LANG("CANCEL")]);
+			} else {
+				if(confirm(LANG("LOGOUT_TITLE") + "\n" + LANG("ARE_YOU_SURE"))) { onConfirmLogout(1); } else { }
+			}
+		} else {
+			////////////////
+			// LOGGED OUT //
+			////////////////
+			//alert('not logged, logging in...');
+			FB.login(function(response) {
+				if(response.status == "connected") {
+					//alert(JSON.stringify(response));
+					//alert('done (login)!');
+					window.localStorage.setItem("facebook_logged",true);
+					FB.api('/me', function(me) {
+						if(me.id && me.name) {
+							var facebook_userid   = me.id;
+							var facebook_username = me.name;
+							//alert(facebook_userid);
+							//alert(facebook_username);
+							window.localStorage.setItem("facebook_userid",facebook_userid);
+							window.localStorage.setItem("facebook_username",facebook_username);	
+							$("#optionFacebook").html("logged in as " + window.localStorage.getItem("facebook_username"));
+							$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");				
+						}
+					});
+				}
+			},{ scope: "email" });
+		}
+	});
+	//TOGGLE ACTIVE
+	$("#optionFacebook").on(touchstart,function(evt) {
+		evt.preventDefault();
+		$("#optionFacebook").addClass("activeRow");
+	});
+	$("#optionFacebook").on(touchend + " mouseout",function(evt) {
+		$("#optionFacebook").removeClass("activeRow");
+	});
+	//READ NAME (IF LOGGED)
+	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
+		$("#optionFacebook").html("logged in as " + window.localStorage.getItem("facebook_username"));
+	}
+	$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");
 	////////////////
 	// ACTIVE ROW //
 	////////////////
@@ -611,6 +682,7 @@ diaryHtml += '\
 		}
 ///////////////////
 diaryHtml += '</div>\
+		<div id="enryListBottomBar">' + LANG("CLEAR_ALL") + '</div>\
 		</div>\
 	</div>\
 ';
@@ -620,6 +692,11 @@ diaryHtml += '</div>\
 //HTML
 pageLoad("#appContent",diaryHtml);
 $(document).trigger("sliderInit");
+///////////////////////////////////////////
+// ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
+///////////////////////////////////////////
+var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height());
+$("#entryListWrapper").css("min-height",wrapperMinH + "px");
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//
@@ -681,14 +758,30 @@ $(document).trigger("sliderInit");
 			$('#entryTime').blur();
 			$('#entryBody').blur();
 			$('#editable').blur();
+			//auto start
+			function onConfirmStart(button) {
+				if(button == 1) {
+					window.localStorage.setItem("config_start_time",published);
+					window.localStorage.setItem("appStatus","running");
+					updateEntries();
+				}
+			}
+			//SHOW START DIALOG
+			if(window.localStorage.getItem("appStatus") != "running") {
+				if(hasTouch()) {
+					navigator.notification.confirm(LANG("NOT_RUNNING_DIALOG"), onConfirmStart, LANG("NOT_RUNNING_TITLE"), [LANG("OK"),LANG("CANCEL")]);
+				} else {
+					if(confirm(LANG("NOT_RUNNING_TITLE") + "\n" + LANG("NOT_RUNNING_DIALOG"))) { onConfirmStart(1); } else { }
+				}
+			}
 			//REFRESH DATA
 			updateEntries(published);
 			updateTimer();
 			updateEntriesTime();
 			//SCROLLBAR UPDATE			
-			//SCROLLBAR UPDATE	
 			clearTimeout(niceTimer);
 			niceTimer = setTimeout(niceResizer, 200);
+			//dumpEntries();
 		}
 	});
 	//////////////////
@@ -900,6 +993,36 @@ $(document).trigger("sliderInit");
 			$("#entryBody").blur();
 		}
 	});
+	//#///////////////#//
+	//# CLEAR ALL BAR #//
+	//#///////////////#//
+	$("#enryListBottomBar").on(touchend, function(evt) {
+		evt.preventDefault();
+		//CLEAR DIALOG
+		function onConfirmClear(button) {
+			if(button == 1) {
+				diary.clearEntries();
+				updateEntries();
+				$(window).trigger("orientationchange");
+				return false;
+			}
+		}
+		//SHOW DIALOG
+		if(hasTouch()) {
+			navigator.notification.confirm(LANG("ARE_YOU_SURE"), onConfirmClear, LANG("CLEAR_ALL_TITLE"), [LANG("OK"),LANG("CANCEL")]);
+			return false;
+		} else {
+			if(confirm(LANG("CLEAR_ALL_TITLE") + '\n' + LANG("ARE_YOU_SURE"))) { onConfirmClear(1); } else { return false; }
+		}
+	});
+	//style
+	$("#enryListBottomBar").on(touchstart,function(evt) {
+		evt.preventDefault();
+		$("#enryListBottomBar").addClass("activeRow");
+	});
+	$("#enryListBottomBar").on(touchend + " mouseout",function(evt) {
+		$("#enryListBottomBar").removeClass("activeRow");
+	});
 	//#//////////////////#//
 	//# FOOD SEARCH ICON #//
 	//#//////////////////#//
@@ -941,7 +1064,11 @@ $(document).trigger("sliderInit");
 	// QUICK FOCUS INPUTS //
 	////////////////////////
 	$('#entryBody').on(touchstart, function(evt) {
-		//evt.preventDefault();
+		//critical re-keyboarding entrybody/entrytime
+		if(isMobile.iOS) {
+			evt.preventDefault();
+		}
+		evt.preventDefault();
 		evt.stopPropagation();
 		//android keyboard focus
 		if(isMobile.Android) {

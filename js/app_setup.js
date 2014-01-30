@@ -14,6 +14,31 @@ function CONSOLE(data) {
 	}
 	return false;
 }
+//////////////////////
+// AJAX ERROR CODES //
+//////////////////////
+$(function() {
+    $.ajaxSetup({
+        error: function(jqXHR, exception) {
+			spinner();
+            if (jqXHR.status === 0) {
+                alert('Not connect.\n Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } else if (jqXHR.status == 500) {
+                alert('Internal Server Error [500].');
+            } else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (exception === 'timeout') {
+                alert('Time out error.');
+            } else if (exception === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error.\n' + jqXHR.responseText);
+            }
+        }
+    });
+});
 //////////////
 // SETUP DB //
 //////////////
@@ -64,8 +89,162 @@ Diary.prototype.initDB = function(t) {
 Diary.prototype.deSetup = function(callback) {
 	CONSOLE('Diary.prototype.deSetup');
 	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { afterHide("clear"); return false; });
+	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { pushEntries(userId); afterHide("clear"); return false; });
 };
+///////////////////
+// CLEAR ENTRIES //
+///////////////////
+Diary.prototype.clearEntries = function(callback) {
+	CONSOLE('Diary.prototype.clearEntries');
+	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
+	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { pushEntries(userId); return false; });
+};
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+/////////////////
+// GET ENTRIES //
+/////////////////
+Diary.prototype.fetchEntries = function(start,callback) {
+	//CONSOLE('Diary.prototype.getEntries');
+	if(arguments.length == 1) { callback = arguments[0]; }
+	this.db.transaction(
+		function(t) {
+			t.executeSql('select * from diary_entry order by published desc',[],
+			function(t,results) {
+				callback(that.fixResults(results));
+			},this.dbErrorHandler);
+	}, this.dbErrorHandler);
+};
+
+
+function pushEntries(userId) {
+	diary.fetchEntries(function(data) {
+		var fetchEntries = "";
+		for(var i=0, len=data.length; i<len; i++) {
+			var id        = data[i].id;
+			var title     = data[i].title;
+			var body      = data[i].body;
+			var published = data[i].published;
+			var info      = data[i].info;
+			var kcal      = data[i].kcal;
+			var pro       = data[i].pro;
+			var car       = data[i].car;
+			var fat       = data[i].fat;
+			var fib       = data[i].fib;
+
+			if(!kcal) { kcal = ''; }
+			if(!info) { info = ''; }
+			if(!kcal) { kcal = ''; }
+			if(!pro)  { pro  = ''; }
+			if(!car)  { car  = ''; }
+			if(!fat)  { fat  = ''; }
+			if(!fib)  { fib  = ''; }
+
+			if(data[i].id) {
+				fetchEntries = fetchEntries + "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
+			}
+		}
+		/////////////////
+		// POST RESULT //
+		/////////////////
+		if(fetchEntries == " " || !fetchEntries) { fetchEntries = " "; }
+		if(fetchEntries) {
+			$.post("http://mylivediet.com/write.php", { "sql":fetchEntries,"uid":userId }, function(data) {
+				//callback
+			}, "text");
+		}
+	});
+}
+
+
+
+function syncEntries(userId) {
+	if(isNaN(userId)) { return; }
+	var demoRunning = false;
+	var dbName = "mylivediet.app";
+	if(!demoRunning) {
+		//start
+		spinner(45);
+		demoRunning = true;
+		try {
+			html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
+			//import sql
+			$.get("http://mylivediet.com/" + userId + "_diary_entry.sql",function(sql) {
+				var startTime = new Date();
+				if(sql) {
+//				html5sql.process("DELETE FROM diary_entry;" + sql,
+				html5sql.process(sql,
+					function() {
+						//success
+						demoRunning = false;
+						/////////////
+						pushEntries(userId);
+						spinner();
+						/////////////
+					},
+					function(error, failingQuery) {
+						//failure
+						demoRunning = false;
+						spinner();
+					}
+				);
+				}
+			});
+		//try fail
+		} catch(error) {
+			demoRunning = false;
+			spinner();
+		}
+	}
+}
+
+
+
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////
 // GET ENTRIES //
 /////////////////
@@ -103,6 +282,7 @@ Diary.prototype.deleteEntry = function(id, callback) {
 		function(t) {
 			t.executeSql('delete from diary_entry where id = ?', [id],
 				function(t, results) {
+					pushEntries(userId);
 					//callback(that.fixResult(results));
 			}, this.dbErrorHandler);
 		}, this.dbErrorHandler);
@@ -117,15 +297,19 @@ Diary.prototype.saveEntry = function(data, callback) {
 			//update body
 			if(data.id && !data.title) {
 				t.executeSql('update diary_entry set body=? where id=' + data.id, [data.body]);
+				pushEntries(userId);
 			//update title
 			} else if(data.id && data.title) {
 				t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
+				pushEntries(userId);
 			//insert full
 			} else if(data.pro || data.car || data.fat) {
 				t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,data.published,data.pro,data.car,data.fat]); 
+				pushEntries(userId);
 			//insert quick
 			} else {
 				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,data.published]); 
+				pushEntries(userId);
 			} 
 		}
 	);
@@ -720,5 +904,48 @@ if(window.localStorage.getItem("config_debug") != "active") {
 		});
 	}
 	*/
+}
+//////////////////////////
+// REFRESH LOGIN STATUS //
+//////////////////////////
+function updateLoginStatus() {
+	FB.getLoginStatus(function(response) {
+		if(response.status == 'connected') {
+			window.localStorage.setItem("facebook_logged",true);
+			//window.localStorage.setItem("facebook_userid",response.authResponse.userId);
+			//alert(response.authResponse.userId);
+			//alert(JSON.stringify(response));
+			//alert('logged in');
+			FB.api('/me', function(me) {
+				if(me.id && me.name) {
+					var facebook_userid   = me.id;
+					var facebook_username = me.name;
+					//alert(facebook_userid);
+					//alert(facebook_username);
+					window.localStorage.setItem("facebook_userid",facebook_userid);
+					window.localStorage.setItem("facebook_username",facebook_username);					
+				}
+			});
+		} else {
+			//alert('not logged in');
+			window.localStorage.removeItem("facebook_logged");
+			window.localStorage.removeItem("facebook_userid");
+			window.localStorage.removeItem("facebook_username");
+		}
+	});
+}
+/////////////
+// ON INIT //
+/////////////
+function afterInit()  {
+	updateLoginStatus();
+}
+//#/////////#//
+//# FB INIT #//
+//#/////////#//
+if(hasTouch()) {
+	document.addEventListener("deviceready",function() { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }); afterInit(); }, false);
+} else {
+	$(document).ready(function() { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); afterInit(); });
 }
 

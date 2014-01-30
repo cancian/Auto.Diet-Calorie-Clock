@@ -343,6 +343,7 @@ function updateNutriBars(tPro,tCar,tFat) {
 //##################//
 //## CORE UPDATER ##//
 //##################//
+var timeLock = 0;
 function updateTimer() {
 	//MAKE SUM
 	diary.getEntries(function(data) {
@@ -357,8 +358,6 @@ function updateTimer() {
 			$("#appStatusBars p").css("width",0);
 			$("#appStatusBars span").html("0%");
 		} else {
-			//update every ~
-			if(new Date().getSeconds() == 30) { updateEntriesTime(); }
 			//console.log('updating entrylist sum');
 			var ts = 0;
 			var tf = 0;
@@ -368,7 +367,7 @@ function updateTimer() {
 			var tFat = 0; 
 			for(var i=0, len=data.length; i<len; i++) {
 				// EXPIRED
-				if(window.localStorage.getItem("config_start_time") < Number(data[i].published)) {
+				if(window.localStorage.getItem("config_start_time") <= Number(data[i].published)) {
 					ts = Number(data[i].title) + ts;
 					//total food/exercise										
 					if(Number(data[i].title) > 0) {
