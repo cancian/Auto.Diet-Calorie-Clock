@@ -45,6 +45,11 @@ body.pinked #appHeader.surplus	{ background-color: #C71585; }
 #editableDiv					{ color: transparent; height: 62px; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
 input#editable					{ color: #000; position: absolute; top: 10px; right: 9px; display: block !important; width: 75px !important; height: 32px; font-size: 24px !important; line-height: 28px; border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold; overflow: hidden; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
+/*updating*/
+#loadingDiv.updating			{ display: none; }
+#loadingDiv.updating:before		{ font-family: 'FontAwesome'; content: "\f021"; }
+#loadingDiv.updating			{ position: absolute; top: 16px; right: 122px; font-size: 28px; color: #fff; opacity: .5; display: inline-block; z-index: 55; -webkit-animation: spin 2s infinite linear; }
+@-webkit-keyframes spin			{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(359deg); } }
 /*#///////////////#//
 //# GLOBAL FOOTER #//
 //#///////////////#*/
@@ -52,9 +57,11 @@ ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 44p
 ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #999; background-color: #000; background-image: -webkit-linear-gradient(#363636,#000); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradient(#050505,#151515); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before	{ color: #cbcbcb; /*color: #00ee00;*/ }
-ul#appFooter.appDebug li.selected		{ /*color: #008800;*/ }
-ul#appFooter.appDebug li.selected:before{ color: #008000; color: #00ee00; /*-webkit-text-fill-color: rgba(0,0,0,.84);*/ }
-ul#appFooter.appEdge li.selected:before	{ color: #FF3B30; color: #F22323; color: #E04343; }
+/*footer colors*/
+ul#appFooter.appDebug li.selected					{ /*color: #008800;*/ }
+ul#appFooter.appDebug li.selected:before			{ color: #008000; color: #00ee00; /*-webkit-text-fill-color: rgba(0,0,0,.84);*/ }
+ul#appFooter.appEdge li.selected:before				{ color: #FF3B30; color: #F22323; color: #E04343; }
+ul#appFooter.appFacebook li.selected:before			{ color: #6D8CD2; }
 body.pinked ul#appFooter.appEdge li.selected:before	{ color: #EE82EE !important; } 
 ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
 ul#appFooter li					{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
@@ -287,8 +294,8 @@ body.android #editableInput {  margin-left : -1px; }
 body.android44 #editableInput,
 body.ios7 #editableInput 	{  margin-left : 0; }
 /*BOTTOM BAR*/
-#enryListBottomBar			{ position: absolute; left: 0; bottom: 0; height: 44px; line-height: 46px; text-align: center; font-weight: bold; background-color: #f5f5f5; color: #999; width: 100%; border-top: 1px solid #eee; }
-#enryListBottomBar.activeRow{ color: #333; background-color: #e7e7e7; }
+#enryListBottomBar			{ position: absolute; left: 0; bottom: 0; height: 44px; line-height: 46px; text-align: center; font-weight: bold; background-color: #fff; color: #bbb; width: 100%; border-top: 1px solid #eee; }
+#enryListBottomBar.activeRow{ color: #666; background-color: #f5f5f5; }
 /*SWIPE DELETE*/
 span.delete					{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 3px 6px 0 0; padding: 7px 14px 7px 14px; border: 1px solid #953403; border-radius: 5px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 -1px 1px #953403; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ec4a0b),color-stop(1, #ad390c)); }
 span.delete:active			{ background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E0380A),color-stop(1, #9C2A09)); }
@@ -581,6 +588,10 @@ body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
+
+
+
+
 
 
 

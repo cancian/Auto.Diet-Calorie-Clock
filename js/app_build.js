@@ -59,6 +59,7 @@ function openSettings(string) {
 							window.localStorage.removeItem("facebook_logged");
 							$("#optionFacebook").html(LANG("SETTINGS_FACEBOOK"));
 							$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");
+							$("#appFooter").removeClass("appFacebook");
 						}
 					});
 				}
@@ -88,7 +89,9 @@ function openSettings(string) {
 							window.localStorage.setItem("facebook_userid",facebook_userid);
 							window.localStorage.setItem("facebook_username",facebook_username);	
 							$("#optionFacebook").html("logged in as " + window.localStorage.getItem("facebook_username"));
-							$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");				
+							$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");	
+							syncEntries(window.localStorage.getItem("facebook_userid")); 			
+							$("#appFooter").addClass("appFacebook");
 						}
 					});
 				}

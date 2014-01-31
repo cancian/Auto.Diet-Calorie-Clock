@@ -1,5 +1,5 @@
 ﻿DROP TABLE IF EXISTS 'diary_food';
-CREATE TABLE 'diary_food'(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code TEXT,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);
+CREATE TABLE 'diary_food'(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);
 INSERT INTO "diary_food" VALUES(0,'food','630010199','Arroz (polido, parboilizado, agulha, agulhinha, etc.)','arrozpolidoparboilizadoagulhaagulhinhaetc','136','2.50','27.78','1.20','1.55');
 INSERT INTO "diary_food" VALUES(1,'food','630020199','Arroz integral','arrozintegral','131','2.56','25.56','1.97','2.72');
 INSERT INTO "diary_food" VALUES(2,'food','63007011','Milho (em grão), cru(a)','milhoemgraocrua','160','3.32','25.11','7.18','4.25');

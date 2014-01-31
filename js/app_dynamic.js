@@ -533,9 +533,9 @@ $(document).on("pageReload", function(evt) {
 								function(){
 									//success
 									window.localStorage.setItem("foodDbLoaded",'done');
+									syncEntries(window.localStorage.getItem("facebook_userid"));
 									demoRunning = false;
 									spinner();
-
 								},
 								function(error, failingQuery) {
 									//failure
@@ -895,6 +895,7 @@ function updateFavList() {
 	diary.getCustomList("fav",function(data) {
 		// LOOP RESULTS //
 		var customFavList = "";
+		var customFavSql  = "";
 		for(var c=0, len=data.length; c<len; c++) {
 			//get current weight//
 			if(!window.localStorage.getItem("calcForm#pA3B")) {
@@ -916,13 +917,39 @@ function updateFavList() {
 			cPro = Math.round(data[c].pro * 100) / 100;
 			cCar = Math.round(data[c].car * 100) / 100;
 			cFat = Math.round(data[c].fat * 100) / 100;
+			//////////
+			// SYNC //
+			//////////
+			var id        = data[c].id;
+			var type      = data[c].type;
+			var code      = data[c].code;
+			var name      = sanitizeSql(data[c].name);
+			var term      = data[c].term;
+			var kcal      = data[c].kcal;
+			var pro       = data[c].pro;
+			var car       = data[c].car;
+			var fat       = data[c].fat;
+			var fib       = data[c].fib;
+			if(!name) { name = '0.00'; }
+			if(!kcal) { kcal = '0.00'; }
+			if(!pro)  { pro  = '0.00'; }
+			if(!car)  { car  = '0.00'; }
+			if(!fat)  { fat  = '0.00'; }
+			if(!fib)  { fib  = '0.00'; }
+			
+			if(data[c].id) { var favSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
 
 			var favLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + cFat  + "</span></div>";
 			if(favLine != "") {
 				customFavList += favLine;
 			}
+
+			if(favSql != "") {
+				customFavSql += favSql;
+			}			
 		}
 		if(customFavList == "") { customFavList += '<div class="searcheable noContent"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>'; }
+		if(customFavSql  != "") { window.localStorage.setItem("customFavSql",customFavSql); } else { window.localStorage.setItem("customFavSql"," "); }
 		//////////
 		// HTML //
 		//////////
@@ -963,19 +990,43 @@ function updateFoodList() {
 	diary.getCustomList("food",function(data) {
 		// LOOP RESULTS //
 		var customFoodList = "";
+		var customFoodSql  = "";		
 		for(var c=0, len=data.length; c<len; c++) {
 			
 			cKcal = Math.round(data[c].kcal * 100) / 100;
 			cPro = Math.round(data[c].pro * 100) / 100;
 			cCar = Math.round(data[c].car * 100) / 100;
 			cFat = Math.round(data[c].fat * 100) / 100;
-
+			///////////////////////
+			//////////
+			// SYNC //
+			//////////
+			var id   = data[c].id;
+			var type = data[c].type;
+			var code = data[c].code;
+			var name = sanitizeSql(data[c].name);
+			var term = data[c].term;
+			var kcal = data[c].kcal;
+			var pro  = data[c].pro;
+			var car  = data[c].car;
+			var fat  = data[c].fat;
+			var fib  = data[c].fib;
+			if(!name) { name = '0.00'; }
+			if(!kcal) { kcal = '0.00'; }
+			if(!pro)  { pro  = '0.00'; }
+			if(!car)  { car  = '0.00'; }
+			if(!fat)  { fat  = '0.00'; }
+			if(!fib)  { fib  = '0.00'; }
+			if(data[c].id)			{ var foodSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
+			if(foodSql != "")		{ customFoodSql += foodSql; }
+			/////////////////////		
 			var foodLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG('PRO') + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG('CAR') + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG('FAT') + "</span>"  + cFat  + "</span></div>";
 			if(foodLine != "") {
 				customFoodList += foodLine;
 			}
 		}
 		if(customFoodList == "") { customFoodList += '<div class="searcheable noContent"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>'; }
+		if(customFoodSql  != "") { window.localStorage.setItem("customFoodSql",customFoodSql); } else { window.localStorage.setItem("customFoodSql"," "); }
 		//////////
 		// HTML //
 		//////////
@@ -1022,6 +1073,7 @@ function updateExerciseList() {
 diary.getCustomList("exercise",function(data) {
 	// LOOP RESULTS //
 	var customExerciseList = "";
+	var customExerciseSql  = "";
 	for(var c=0, len=data.length; c<len; c++) {
 
 		//get current weight//
@@ -1039,8 +1091,32 @@ diary.getCustomList("exercise",function(data) {
 		if(excerciseLine != "") {
 			customExerciseList += excerciseLine;
 		}
+		///////////////////////
+		//////////
+		// SYNC //
+		//////////
+		var id   = data[c].id;
+		var type = data[c].type;
+		var code = data[c].code;
+		var name = sanitizeSql(data[c].name);
+		var term = data[c].term;
+		var kcal = data[c].kcal;
+		var pro  = data[c].pro;
+		var car  = data[c].car;
+		var fat  = data[c].fat;
+		var fib  = data[c].fib;
+		if(!name) { name = '0.00'; }
+		if(!kcal) { kcal = '0.00'; }
+		if(!pro)  { pro  = '0.00'; }
+		if(!car)  { car  = '0.00'; }
+		if(!fat)  { fat  = '0.00'; }
+		if(!fib)  { fib  = '0.00'; }
+		if(data[c].id)			{ var exerciseSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
+		if(exerciseSql != "")	{ customExerciseSql += exerciseSql; }		
+		/////////////////////		
 	}
 	if(customExerciseList == "") {customExerciseList += '<div class="searcheable noContent"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>'; }
+	if(customExerciseSql  != "") { window.localStorage.setItem("customExerciseSql",customExerciseSql); } else { window.localStorage.setItem("customExerciseSql"," "); }
 	//////////
 	// HTML //
 	//////////

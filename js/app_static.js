@@ -24,6 +24,7 @@ $("head").append("<style type='text/css'> #startDateSpan:before { content: '" + 
 //#////////////#//
 $("body").append('\
 	<div id="appHeader"></div>\
+	<div id="loadingDiv"></div>\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 	<div id="appContent"></div>\
 	<ul id="appFooter">\
@@ -224,6 +225,9 @@ if(window.localStorage.getItem("config_debug") == "active") {
 if(window.localStorage.getItem("config_debug") == "edge") {
 	$("#appFooter").addClass("appEdge");
 }
+if(window.localStorage.getItem("facebook_logged")) {
+	$("#appFooter").addClass("appFacebook");
+}
 /////////////////////
 // ADJUST ELEMENTS //
 /////////////////////
@@ -321,6 +325,16 @@ setTimeout(function() {
 (function entryRetimer() {
 	updateEntriesTime();
 	setTimeout(entryRetimer,60*1000);
+})();
+//check last push
+(function lastEntryPush() {
+	var now = new Date().getTime();
+	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("lastEntryPush")) {
+		if(now - window.localStorage.getItem("lastEntryPush") > 1000) {
+			pushEntries(window.localStorage.getItem("facebook_userid"));
+		}
+	}
+	setTimeout(lastEntryPush,500);
 })();
 	//////////////////////
 	// PAGESLIDE CLOSER //

@@ -20,7 +20,8 @@ function CONSOLE(data) {
 $(function() {
     $.ajaxSetup({
         error: function(jqXHR, exception) {
-			spinner();
+			//spinner();
+			$("#loadingDiv").removeClass("updating");
             if (jqXHR.status === 0) {
                 alert('Not connect.\n Verify Network.');
             } else if (jqXHR.status == 404) {
@@ -59,7 +60,7 @@ Diary.prototype.dbErrorHandler = function(evt) {
 /////////////
 Diary.prototype.initDB = function(t) {
 	CONSOLE('Diary.prototype.initDB');
-	t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, body TEXT, published DATE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT)');
+	t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT)');
 	///////////////
 	// SQL RESET //
 	///////////////
@@ -89,7 +90,7 @@ Diary.prototype.initDB = function(t) {
 Diary.prototype.deSetup = function(callback) {
 	CONSOLE('Diary.prototype.deSetup');
 	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { pushEntries(userId); afterHide("clear"); return false; });
+	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { pushEntries(window.localStorage.getItem("facebook_userid")); afterHide("clear"); return false; });
 };
 ///////////////////
 // CLEAR ENTRIES //
@@ -97,7 +98,7 @@ Diary.prototype.deSetup = function(callback) {
 Diary.prototype.clearEntries = function(callback) {
 	CONSOLE('Diary.prototype.clearEntries');
 	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { pushEntries(userId); return false; });
+	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { window.localStorage.setItem("lastEntryPush",new Date().getTime()); return false; });
 };
 
 
@@ -141,12 +142,13 @@ Diary.prototype.fetchEntries = function(start,callback) {
 
 
 function pushEntries(userId) {
+	if(isNaN(userId)) { return; }
 	diary.fetchEntries(function(data) {
 		var fetchEntries = "";
 		for(var i=0, len=data.length; i<len; i++) {
 			var id        = data[i].id;
 			var title     = data[i].title;
-			var body      = data[i].body;
+			var body      = sanitizeSql(data[i].body);
 			var published = data[i].published;
 			var info      = data[i].info;
 			var kcal      = data[i].kcal;
@@ -154,7 +156,8 @@ function pushEntries(userId) {
 			var car       = data[i].car;
 			var fat       = data[i].fat;
 			var fib       = data[i].fib;
-
+			
+			if(!body) { body = ''; }
 			if(!kcal) { kcal = ''; }
 			if(!info) { info = ''; }
 			if(!kcal) { kcal = ''; }
@@ -167,13 +170,24 @@ function pushEntries(userId) {
 				fetchEntries = fetchEntries + "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
 			}
 		}
+		//insert custom diary_food
+		if(window.localStorage.getItem("customFoodSql")) {
+			fetchEntries = fetchEntries + window.localStorage.getItem("customFoodSql");
+		}
+		if(window.localStorage.getItem("customExerciseSql")) {
+			fetchEntries = fetchEntries + window.localStorage.getItem("customExerciseSql");
+		}
+		if(window.localStorage.getItem("customFavSql")) {
+			fetchEntries = fetchEntries + window.localStorage.getItem("customFavSql");
+		}
 		/////////////////
 		// POST RESULT //
 		/////////////////
 		if(fetchEntries == " " || !fetchEntries) { fetchEntries = " "; }
 		if(fetchEntries) {
 			$.post("http://mylivediet.com/write.php", { "sql":fetchEntries,"uid":userId }, function(data) {
-				//callback
+				//clear marker
+				window.localStorage.removeItem("lastEntryPush");
 			}, "text");
 		}
 	});
@@ -183,40 +197,58 @@ function pushEntries(userId) {
 
 function syncEntries(userId) {
 	if(isNaN(userId)) { return; }
+	if(!window.localStorage.getItem("facebook_logged")) { return; }
+	if(!window.localStorage.getItem("facebook_userid")) { return; }
 	var demoRunning = false;
 	var dbName = "mylivediet.app";
 	if(!demoRunning) {
 		//start
-		spinner(45);
+		//spinner(45);
+		$("#loadingDiv").addClass("updating");
 		demoRunning = true;
 		try {
 			html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
 			//import sql
-			$.get("http://mylivediet.com/" + userId + "_diary_entry.sql",function(sql) {
+			$.get("http://mylivediet.com/userdata/" + userId + "_diary_entry.sql",function(sql) {
 				var startTime = new Date();
-				if(sql) {
+//				if(sql) {
 //				html5sql.process("DELETE FROM diary_entry;" + sql,
 				html5sql.process(sql,
 					function() {
 						//success
 						demoRunning = false;
 						/////////////
-						pushEntries(userId);
-						spinner();
+						window.localStorage.setItem("lastEntryPush",new Date().getTime());
+						//spinner();
+						$("#loadingDiv").removeClass("updating");
+						//if diary tab, auto refresh
+						if(window.localStorage.getItem("app_last_tab") == "tab2") {
+							updateEntries();
+						}
+						if(typeof updateFavList == 'function') {
+							updateFavList();	
+							updateFoodList();	
+							updateExerciseList();
+						}
 						/////////////
 					},
 					function(error, failingQuery) {
 						//failure
 						demoRunning = false;
-						spinner();
+						$("#loadingDiv").removeClass("updating");
+						//spinner();
+						if(window.localStorage.getItem("app_last_tab") == "tab2") {
+							updateEntries();
+						}
 					}
 				);
-				}
+//				}
 			});
 		//try fail
 		} catch(error) {
 			demoRunning = false;
-			spinner();
+			$("#loadingDiv").removeClass("updating");
+			//spinner();
 		}
 	}
 }
@@ -280,12 +312,10 @@ Diary.prototype.deleteEntry = function(id, callback) {
 	CONSOLE('Diary.prototype.deleteEntry(' + id + ')');
 	this.db.transaction(
 		function(t) {
-			t.executeSql('delete from diary_entry where id = ?', [id],
-				function(t, results) {
-					pushEntries(userId);
-					//callback(that.fixResult(results));
-			}, this.dbErrorHandler);
-		}, this.dbErrorHandler);
+			t.executeSql('delete from diary_entry where id = ?', [id]);
+			window.localStorage.setItem("lastEntryPush",new Date().getTime());
+		}
+	);
 };
 ////////////////
 // SAVE ENTRY //
@@ -297,19 +327,19 @@ Diary.prototype.saveEntry = function(data, callback) {
 			//update body
 			if(data.id && !data.title) {
 				t.executeSql('update diary_entry set body=? where id=' + data.id, [data.body]);
-				pushEntries(userId);
+				window.localStorage.setItem("lastEntryPush",new Date().getTime());
 			//update title
 			} else if(data.id && data.title) {
 				t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
-				pushEntries(userId);
+				window.localStorage.setItem("lastEntryPush",new Date().getTime());
 			//insert full
 			} else if(data.pro || data.car || data.fat) {
 				t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,data.published,data.pro,data.car,data.fat]); 
-				pushEntries(userId);
+				window.localStorage.setItem("lastEntryPush",new Date().getTime());
 			//insert quick
 			} else {
 				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,data.published]); 
-				pushEntries(userId);
+				window.localStorage.setItem("lastEntryPush",new Date().getTime());
 			} 
 		}
 	);
@@ -530,9 +560,9 @@ function afterLoad() {
 	//window.localStorage.setItem("absWindowHeight",window.innerHeight);
 	//window.localStorage.setItem("absWindowWidth",window.innerWidth);
 	//window.localStorage.setItem("absOrientation",getOrientation());
-	window.localStorage.setItem("absWindowHeight",window.innerHeight);
-	window.localStorage.setItem("absWindowWidth",window.innerWidth);
-	window.localStorage.setItem("absOrientation",Number(window.orientation));
+	//window.localStorage.setItem("absWindowHeight",window.innerHeight);
+	//window.localStorage.setItem("absWindowWidth",window.innerWidth);
+	//window.localStorage.setItem("absOrientation",Number(window.orientation));
 	afterHidden = 0;
 }
 function afterShow(t) {
@@ -552,10 +582,18 @@ function afterHide(cmd) {
 		$('body').css("-webkit-transition-duration",".25s");
 		$("body").css("opacity","0");
 		$('body').on('webkitTransitionEnd',function(e) { 
+			//if logged, reload via callback
+			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("lastEntryPush")) {
+				window.localStorage.removeItem("customFavSql");
+				window.localStorage.removeItem("customFoodSql");
+				window.localStorage.removeItem("customExerciseSql");
+				$.post("http://mylivediet.com/write.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
+					if(cmd == "clear") { window.localStorage.clear(); }
+				}, "text");
+			} else {
+				setTimeout(function() { window.location=''; },250);
+			}
 			if(cmd == "clear") { window.localStorage.clear(); }
-			setTimeout(function() {
-				window.location='';
-			},250);
 		});
 	},250);
 }
@@ -870,7 +908,16 @@ function niceResizer() {
 function sanitize(str) {
 	if(str != "") {
 		var result = str.split(" ").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
-		return result
+		return result;
+	}
+}
+//////////////////
+// SANITIZE SQL //
+//////////////////
+function sanitizeSql(str) {
+	if(str != "") {
+		var result = str.split("'").join(" ").split('"').join(" ").split(";").join(" ").split("&").join(" ").split("\\").join(" ").split("/").join(" ").split("  ").join(" ").split("  ").join(" ");
+		return result;
 	}
 }
 ///////////////
@@ -908,10 +955,11 @@ if(window.localStorage.getItem("config_debug") != "active") {
 //////////////////////////
 // REFRESH LOGIN STATUS //
 //////////////////////////
-function updateLoginStatus() {
+function updateLoginStatus(sync) {
 	FB.getLoginStatus(function(response) {
 		if(response.status == 'connected') {
 			window.localStorage.setItem("facebook_logged",true);
+			$("#appFooter").addClass("appFacebook");
 			//window.localStorage.setItem("facebook_userid",response.authResponse.userId);
 			//alert(response.authResponse.userId);
 			//alert(JSON.stringify(response));
@@ -923,7 +971,8 @@ function updateLoginStatus() {
 					//alert(facebook_userid);
 					//alert(facebook_username);
 					window.localStorage.setItem("facebook_userid",facebook_userid);
-					window.localStorage.setItem("facebook_username",facebook_username);					
+					window.localStorage.setItem("facebook_username",facebook_username);
+					if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
 				}
 			});
 		} else {
@@ -931,6 +980,7 @@ function updateLoginStatus() {
 			window.localStorage.removeItem("facebook_logged");
 			window.localStorage.removeItem("facebook_userid");
 			window.localStorage.removeItem("facebook_username");
+			$("#appFooter").removeClass("appFacebook");
 		}
 	});
 }
@@ -938,7 +988,7 @@ function updateLoginStatus() {
 // ON INIT //
 /////////////
 function afterInit()  {
-	updateLoginStatus();
+	updateLoginStatus(1);
 }
 //#/////////#//
 //# FB INIT #//

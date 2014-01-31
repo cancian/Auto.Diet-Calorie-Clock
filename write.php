@@ -16,7 +16,7 @@ fclose($fp);
 
 $json_string = utf8_decode(stripslashes($_POST['sql']));
 $userid      = $_POST['uid'];
-$file_handle = fopen($userid.'_diary_entry.sql', 'w');
+$file_handle = fopen('userdata/'.$userid.'_diary_entry.sql', 'w');
 fwrite($file_handle, $json_string);
 fclose($file_handle);
 ?>
