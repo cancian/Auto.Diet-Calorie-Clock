@@ -103,7 +103,6 @@ function appResizer(time) {
 		$('#entryBody').width(window.innerWidth -58);
 		$('#foodSearch').width(window.innerWidth -55);
 		$("ul#addNewList input").width(window.innerWidth - 180);
-		$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);
@@ -329,14 +328,14 @@ setTimeout(function() {
 //check last push
 (function lastEntryPush() {
 	var now = new Date().getTime();
-	
+	//sync lock
 	if(window.localStorage.getItem("pendingSync") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_logged")) {
 		if(now - window.localStorage.getItem("pendingSync") > 30000) {
 			syncEntries(window.localStorage.getItem("facebook_userid"));
 			window.localStorage.setItem("pendingSync",Number(window.localStorage.getItem("pendingSync")) + 30000);
 		}
 	}
-	
+	//push lock
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("lastEntryPush")) {
 		if(now - window.localStorage.getItem("lastEntryPush") > 500 && window.localStorage.getItem("foodDbLoaded") == "done") {
 			pushEntries(window.localStorage.getItem("facebook_userid"));

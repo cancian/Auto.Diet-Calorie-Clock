@@ -271,12 +271,18 @@ function syncEntries(userId) {
 			//import sql
 			$.get("http://mylivediet.com/sync.php?uid=" + userId,function(sql) {
 				var startTime = new Date();
-				
+				//local storage slice
 				if(sql.match('#@@@#')) {
 					rebuildLocalStorage(sql.split("\n").pop());
 					sql = sql.replace(/\r?\n?[^\r\n]*$/, "");
 				}
-//				html5sql.process("DELETE FROM diary_entry;" + sql,
+				//empty valid result ~ trigger success
+				if(trim(sql) == "") {
+					window.localStorage.removeItem("pendingSync");
+					setPush();
+					$("#loadingDiv").removeClass("updating");	
+				}
+				//html5sql.process("DELETE FROM diary_entry;" + sql,
 				html5sql.process(sql,
 					function() {
 						//success
@@ -932,7 +938,6 @@ var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
 var isMobile = {
 	Cordova: function() {
 		return (typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
-		//return (navigator.userAgent.match(/Android/i) && document.URL.indexOf( 'http://' ) === -1 &&document.URL.indexOf( 'https://' ) === -1) ? true : false;
 	},
 	Android: function() {
 		return navigator.userAgent.match(/Android/i) ? true : false;

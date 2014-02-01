@@ -608,6 +608,8 @@ $(document).on("pageReload", function(evt) {
 		//SET TIMER
 		clearTimeout(timer);
 		var ms  = 200; //275;
+		//faster desktop
+		if(!isCordova) { var ms  = 50; }
 		var val = this.value;
 		//DO SEARCH
 		timer = setTimeout(function() {

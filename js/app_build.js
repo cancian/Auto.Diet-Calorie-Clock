@@ -23,7 +23,7 @@ function openSettings(string) {
 			<li id="optionAbout"><div>'    + LANG("SETTINGS_ABOUT")    + '</div></li>\
 		</ul>\
 		<div id="optionWebsite">mylivediet.com</div>\
-		<div id="optionFacebook">' + LANG("SETTINGS_FACEBOOK") + '</div>\
+		<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG("SETTINGS_FACEBOOK") + '</span><p>last sync<span id="FBsync"></span><span id="FBtime">11/02/2013 11:22</span></p></div></div>\
 		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>\
 	';
@@ -57,8 +57,7 @@ function openSettings(string) {
 						if(response.status != "connected") {
 							//alert('done (logout)!');
 							window.localStorage.removeItem("facebook_logged");
-							$("#optionFacebook").html(LANG("SETTINGS_FACEBOOK"));
-							$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");
+							$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK"));
 							$("#appFooter").removeClass("appFacebook");
 						}
 					});
@@ -88,8 +87,7 @@ function openSettings(string) {
 							//alert(facebook_username);
 							window.localStorage.setItem("facebook_userid",facebook_userid);
 							window.localStorage.setItem("facebook_username",facebook_username);	
-							$("#optionFacebook").html("logged in as " + window.localStorage.getItem("facebook_username"));
-							$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");	
+							$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
 							syncEntries(window.localStorage.getItem("facebook_userid")); 			
 							$("#appFooter").addClass("appFacebook");
 						}
@@ -99,18 +97,17 @@ function openSettings(string) {
 		}
 	});
 	//TOGGLE ACTIVE
-	$("#optionFacebook").on(touchstart,function(evt) {
+	$("#optionFacebook span").on(touchstart,function(evt) {
 		evt.preventDefault();
 		$("#optionFacebook").addClass("activeRow");
 	});
 	$("#optionFacebook").on(touchend + " mouseout",function(evt) {
 		$("#optionFacebook").removeClass("activeRow");
 	});
-	//READ NAME (IF LOGGED)
+	//SET USERNAME (IF LOGGED)
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
 		$("#optionFacebook").html("logged in as " + window.localStorage.getItem("facebook_username"));
 	}
-	$("#optionFacebook").css("left",((window.innerWidth - parseInt($("#optionFacebook").css("width")))/2)+5 + "px");
 	////////////////
 	// ACTIVE ROW //
 	////////////////

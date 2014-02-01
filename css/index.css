@@ -94,9 +94,68 @@ div#optionReset.activeRow		{ background-color: #E86401; color: #fff; }
 /*//////////////////////
 // SETTINGS: FACEBOOK //
 //////////////////////*/
-#optionFacebook					{ position: absolute; bottom: 68px; left: 0; display: inline-block; height: 32px; line-height: 31px; padding: 0 12px 0 38px; color: #fff; overflow: hidden; background-color: #3b5998; border: 1px solid rgba(0,0,0,.2); box-sizing: border-box; border-radius: 0; }
+#optionFacebookWrapper			{ position: absolute; bottom: 68px; left: 0; display: block; height: 32px; line-height: 31px; width: 100%; text-align: center; background-color: transparent; }
+#optionFacebook					{ position: relative; padding: 0 12px 0 38px; color: #fff; display: inline-block; height: 32px; line-height: 31px; background-color: #3b5998; border: 1px solid rgba(0,0,0,.2); border-radius: 0; }
 #optionFacebook:before			{ box-sizing: border-box; position: absolute; top: 0; left: 0; padding: 0; font-size: 20px; line-height: 32px; height: 32px; width: 29px; text-align: center; border-right: 1px solid rgba(0,0,0,.2); color:#fff; content: "\f09a"; font-family: 'FontAwesome'; font-weight: normal; }
 #optionFacebook.activeRow		{ background-color:#30487B; }
+
+
+#optionFacebook p {
+position: absolute;
+top: -1px;
+right: -100px;
+width: 100px;
+text-indent: 0px;
+color:#000;
+height: 34px; 
+line-height: 34px;
+display: block;
+background-color: #;
+
+
+display: none;
+
+}
+
+#optionFacebook p span#FBtime {
+
+	
+position: absolute; 
+top: 20px;
+left: 0;
+text-indent: 0;
+color: #999;
+white-space: nowrap;
+font-size: 8px;
+
+background-color: #; text-indent: 0px; }
+/*
+#optionFacebook p span#FBsync:before { 
+
+box-sizing: border-box; position: absolute; top: 0; left: 0; padding: 0; font-size: 20px; line-height: 32px; height: 32px; width: 29px; text-align: center; border-right: 1px solid rgba(0,0,0,.2); color:#000; 
+
+content: "\f09a"; font-family: 'FontAwesome'; font-weight: normal; 
+
+}*/
+
+
+
+#optionFacebook p span#FBsync			{ 
+position: absolute; top: 3px; left: 0; 
+
+padding: 0; margin: 0; border: 0; text-indent: 0;
+
+position: absolute;  top: 0;  font-size: 16px; color: #000; opacity: .90; display: block; z-index: 55; -webkit-animation: spin 2s infinite linear; 
+
+width: 32px; height: 32px; line-height: 32px; text-align: center;
+
+
+}
+#optionFacebook p span#FBsync:before	{ font-family: 'FontAwesome'; content: "\f021"; }
+
+
+@-webkit-keyframes spin			{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(359deg); } }
+
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
 /////////////////////////*/

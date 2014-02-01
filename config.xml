@@ -3,7 +3,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
         versionCode="11400" 
-        version   = "1.1.4">
+        version   = "1.1.5">
     <name>MyLiveDiet</name>
 
     <description>
