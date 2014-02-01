@@ -1,81 +1,81 @@
-#################
+ï»¿#################
 ## VERSION LOG ##
 #################
 # 1.1.5 [31/01/2014]
-• added "clear all" option to diary
-• counter now prompts for auto start when adding new entries
-• 
-• 
-• 
-• 
+â€¢ added "clear all" option to diary
+â€¢ counter now prompts for auto start when adding new entries
+â€¢ 
+â€¢ 
+â€¢ 
+â€¢ 
 
 # 1.1.4 [25/01/2014]
-• added UserVoice for user feedback
+â€¢ added UserVoice for user feedback
 
 # 1.1.3 [19/01/2014]
-• quick nutrition info on status screen
-• simple notepad added to diary
-• fixed issue where favourite entries would not be searchable
-• tap diary entries time to view full date
-• several stability improvements
+â€¢ quick nutrition info on status screen
+â€¢ simple notepad added to diary
+â€¢ fixed issue where favourite entries would not be searchable
+â€¢ tap diary entries time to view full date
+â€¢ several stability improvements
 
 # 1.1.2 [14/01/2014]
-• support for custom foods and exercises
-• all itens are now fully editable (both custom and default)
-• added support for "favourite" itens
-• tap and hold existing diary entry to re-use description
-• slider knob now changes color when active
-• fixed issue with pre-fill not triggering menu autoclose
-• improved interface overall responsiveness
+â€¢ support for custom foods and exercises
+â€¢ all itens are now fully editable (both custom and default)
+â€¢ added support for "favourite" itens
+â€¢ tap and hold existing diary entry to re-use description
+â€¢ slider knob now changes color when active
+â€¢ fixed issue with pre-fill not triggering menu autoclose
+â€¢ improved interface overall responsiveness
 
 # 1.1.1 [03/01/2014]
-• tapping status boxes now displays additional information
-• faster search system
-• improved scrolling
-• improved language detection
-• fixed calorie calculator recalc issues
-• fixed diary focus issues
-• fixed form style issues
-• improved text handling
+â€¢ tapping status boxes now displays additional information
+â€¢ faster search system
+â€¢ improved scrolling
+â€¢ improved language detection
+â€¢ fixed calorie calculator recalc issues
+â€¢ fixed diary focus issues
+â€¢ fixed form style issues
+â€¢ improved text handling
 
 # 1.1.0 [25/12/2013]
-• improved user interface
-• fixed calorie calculator minor bugs
-• fixed slider reset issue on keyboard focus
-• fixed blur issue while editing entry description
-• fixed settings save issue for non-english users
-• performance and stability improvements
+â€¢ improved user interface
+â€¢ fixed calorie calculator minor bugs
+â€¢ fixed slider reset issue on keyboard focus
+â€¢ fixed blur issue while editing entry description
+â€¢ fixed settings save issue for non-english users
+â€¢ performance and stability improvements
 
 # 1.0.5 [10/12/2013]
-• faster search
-• fixed database import issue
-• performance and stability improvement
+â€¢ faster search
+â€¢ fixed database import issue
+â€¢ performance and stability improvement
 
 # 1.0.4 [10/12/2013]
-• cleaner interface
-• more detailed numeric display
-• improved input handling
-• menu height fix
-• start date overlap fix
+â€¢ cleaner interface
+â€¢ more detailed numeric display
+â€¢ improved input handling
+â€¢ menu height fix
+â€¢ start date overlap fix
 
 # 1.0.3 [04/12/2013]
-• Fixed input focus issue
-• Improved start-up stability
-• Performance and stability improvements
+â€¢ Fixed input focus issue
+â€¢ Improved start-up stability
+â€¢ Performance and stability improvements
 
 # 1.0.2 [03/12/2013]
-• Added Brazilian Portuguese support
-• Fixed start date toggle issue
-• Fixed slider font issue
-• Improved reponsiveness
-• Performance and stability improvements
+â€¢ Added Brazilian Portuguese support
+â€¢ Fixed start date toggle issue
+â€¢ Fixed slider font issue
+â€¢ Improved reponsiveness
+â€¢ Performance and stability improvements
 
 # 1.0.1 [01/12/2013]
-• Expired entries now appear faded
-• Fixed cyclic input focus
-• Prevent empty rows in entry history
-• Maximum "time ago" reduced to 3 days
-• Performance and stability improvements
+â€¢ Expired entries now appear faded
+â€¢ Fixed cyclic input focus
+â€¢ Prevent empty rows in entry history
+â€¢ Maximum "time ago" reduced to 3 days
+â€¢ Performance and stability improvements
 
 # 1.0 [01/11/2013]
-• Public release
+â€¢ Public release

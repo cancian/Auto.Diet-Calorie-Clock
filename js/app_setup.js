@@ -21,22 +21,24 @@ $(function() {
     $.ajaxSetup({
         error: function(jqXHR, exception) {
 			//spinner();
-			$("#loadingDiv").removeClass("updating");
             if (jqXHR.status === 0) {
-                alert('Not connect.\n Verify Network.');
+                //alert('Not connect.\n Verify Network.');
             } else if (jqXHR.status == 404) {
-                alert('Requested page not found. [404]');
+                //alert('Requested page not found. [404]');
             } else if (jqXHR.status == 500) {
-                alert('Internal Server Error [500].');
+                //alert('Internal Server Error [500].');
             } else if (exception === 'parsererror') {
-                alert('Requested JSON parse failed.');
+                //alert('Requested JSON parse failed.');
             } else if (exception === 'timeout') {
-                alert('Time out error.');
+                //alert('Time out error.');
             } else if (exception === 'abort') {
-                alert('Ajax request aborted.');
+                //alert('Ajax request aborted.');
             } else {
-                alert('Uncaught Error.\n' + jqXHR.responseText);
+                //alert('Uncaught Error.\n' + jqXHR.responseText);
             }
+			//close progress/create file
+			$("#loadingDiv").removeClass("updating");
+			setPush();
         }
     });
 });
@@ -98,7 +100,7 @@ Diary.prototype.deSetup = function(callback) {
 Diary.prototype.clearEntries = function(callback) {
 	CONSOLE('Diary.prototype.clearEntries');
 	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { window.localStorage.setItem("lastEntryPush",new Date().getTime()); return false; });
+	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { setPush(); return false; });
 };
 
 
@@ -121,10 +123,61 @@ Diary.prototype.clearEntries = function(callback) {
 
 
 
-
-
-
-
+//////////////////////////////
+// ENCODE LOCAL STORAGE SQL //
+//////////////////////////////
+function localStorageSql() {
+	var keyList = "";
+	/*start*/
+	if(window.localStorage.getItem("config_start_time") && window.localStorage.getItem("appStatus") == "running")  {
+		keyList = keyList + "#@@@#" + "config_start_time" + "#@@#" + window.localStorage.getItem("config_start_time");
+		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + window.localStorage.getItem("appStatus");
+	}
+	/*daily*/
+	if(window.localStorage.getItem("config_kcals_day_0")) { keyList = keyList + "#@@@#" + "config_kcals_day_0" + "#@@#" + window.localStorage.getItem("config_kcals_day_0"); }
+	if(window.localStorage.getItem("config_kcals_day_1")) { keyList = keyList + "#@@@#" + "config_kcals_day_1" + "#@@#" + window.localStorage.getItem("config_kcals_day_1"); }
+	if(window.localStorage.getItem("config_kcals_day_2")) { keyList = keyList + "#@@@#" + "config_kcals_day_2" + "#@@#" + window.localStorage.getItem("config_kcals_day_2"); }
+	if(window.localStorage.getItem("config_measurement")) { keyList = keyList + "#@@@#" + "config_measurement" + "#@@#" + window.localStorage.getItem("config_measurement"); }
+	/*notes*/
+	if(window.localStorage.getItem("appNotes"))			{ keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + window.localStorage.getItem("appNotes").replace(/(\n|\r\n)/g, "#@#").split("/*").join("/ *"); }
+	/*form*/
+	if(window.localStorage.getItem("calcForm#feet"))	{ keyList = keyList + "#@@@#" + "calcForm#feet" + "#@@#" + window.localStorage.getItem("calcForm#feet"); }
+	if(window.localStorage.getItem("calcForm#inches"))	{ keyList = keyList + "#@@@#" + "calcForm#inches" + "#@@#" + window.localStorage.getItem("calcForm#inches"); }
+	if(window.localStorage.getItem("calcForm#pA1B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA1B" + "#@@#" + window.localStorage.getItem("calcForm#pA1B"); }
+	if(window.localStorage.getItem("calcForm#pA2B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA2B" + "#@@#" + window.localStorage.getItem("calcForm#pA2B"); }
+	if(window.localStorage.getItem("calcForm#pA2C"))	{ keyList = keyList + "#@@@#" + "calcForm#pA2C" + "#@@#" + window.localStorage.getItem("calcForm#pA2C"); }
+	if(window.localStorage.getItem("calcForm#pA3B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA3B" + "#@@#" + window.localStorage.getItem("calcForm#pA3B"); }
+	if(window.localStorage.getItem("calcForm#pA3C"))	{ keyList = keyList + "#@@@#" + "calcForm#pA3C" + "#@@#" + window.localStorage.getItem("calcForm#pA3C"); }
+	if(window.localStorage.getItem("calcForm#pA4B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA4B" + "#@@#" + window.localStorage.getItem("calcForm#pA4B"); }
+	if(window.localStorage.getItem("calcForm#pA5B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA5B" + "#@@#" + window.localStorage.getItem("calcForm#pA5B"); }
+	if(window.localStorage.getItem("calcForm#pA6G"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6G" + "#@@#" + window.localStorage.getItem("calcForm#pA6G"); }
+	if(window.localStorage.getItem("calcForm#pA6H"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6H" + "#@@#" + window.localStorage.getItem("calcForm#pA6H"); }
+	if(window.localStorage.getItem("calcForm#pA6M"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6M" + "#@@#" + window.localStorage.getItem("calcForm#pA6M"); }
+	if(window.localStorage.getItem("calcForm#pA6N"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6N" + "#@@#" + window.localStorage.getItem("calcForm#pA6N"); }
+	//return
+	if(keyList != "") { keyList = "/*" + keyList + "*/"; }
+	return keyList;
+}
+//////////////////////////////
+// DECODE LOCAL STORAGE SQL //
+//////////////////////////////
+function rebuildLocalStorage(lsp) {
+	if(!lsp.match("#@@@#")) { return; }
+	//comments
+	lsp = lsp.split("/*").join("").split("*/").join("");
+	lsp = lsp.split("#@@@#");
+	var lsPart;
+	for(i = 0; i < lsp.length; i++) {
+		lsPart = lsp[i].split("#@@#");
+		if(lsPart[0]) {
+			if(lsPart[0] == "appNotes") {
+				window.localStorage.setItem(lsPart[0],lsPart[1].split("#@#").join("\n"));
+			} else { 
+				window.localStorage.setItem(lsPart[0],lsPart[1]);
+			}
+		}
+	}
+}
 /////////////////
 // GET ENTRIES //
 /////////////////
@@ -143,6 +196,7 @@ Diary.prototype.fetchEntries = function(start,callback) {
 
 function pushEntries(userId) {
 	if(isNaN(userId)) { return; }
+	if(window.localStorage.getItem("pendingSync")) { return; }
 	diary.fetchEntries(function(data) {
 		var fetchEntries = "";
 		for(var i=0, len=data.length; i<len; i++) {
@@ -172,30 +226,36 @@ function pushEntries(userId) {
 		}
 		//insert custom diary_food
 		if(window.localStorage.getItem("customFoodSql")) {
-			fetchEntries = fetchEntries + window.localStorage.getItem("customFoodSql");
+			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFoodSql"));
 		}
 		if(window.localStorage.getItem("customExerciseSql")) {
-			fetchEntries = fetchEntries + window.localStorage.getItem("customExerciseSql");
+			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customExerciseSql"));
 		}
 		if(window.localStorage.getItem("customFavSql")) {
-			fetchEntries = fetchEntries + window.localStorage.getItem("customFavSql");
+			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFavSql"));
 		}
+		if(localStorageSql()) {
+			fetchEntries = fetchEntries + "\n" + trim(localStorageSql());
+		}		
 		/////////////////
 		// POST RESULT //
 		/////////////////
 		if(fetchEntries == " " || !fetchEntries) { fetchEntries = " "; }
 		if(fetchEntries) {
-			$.post("http://mylivediet.com/write.php", { "sql":fetchEntries,"uid":userId }, function(data) {
+			$.post("http://mylivediet.com/sync.php", { "sql":fetchEntries,"uid":userId }, function(data) {
 				//clear marker
 				window.localStorage.removeItem("lastEntryPush");
 			}, "text");
 		}
 	});
 }
-
+function setPush() {
+	window.localStorage.setItem("lastEntryPush",new Date().getTime());
+}
 
 
 function syncEntries(userId) {
+	window.localStorage.setItem("pendingSync",new Date().getTime());
 	if(isNaN(userId)) { return; }
 	if(!window.localStorage.getItem("facebook_logged")) { return; }
 	if(!window.localStorage.getItem("facebook_userid")) { return; }
@@ -209,17 +269,22 @@ function syncEntries(userId) {
 		try {
 			html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
 			//import sql
-			$.get("http://mylivediet.com/userdata/" + userId + "_diary_entry.sql",function(sql) {
+			$.get("http://mylivediet.com/sync.php?uid=" + userId,function(sql) {
 				var startTime = new Date();
-//				if(sql) {
+				
+				if(sql.match('#@@@#')) {
+					rebuildLocalStorage(sql.split("\n").pop());
+					sql = sql.replace(/\r?\n?[^\r\n]*$/, "");
+				}
 //				html5sql.process("DELETE FROM diary_entry;" + sql,
 				html5sql.process(sql,
 					function() {
 						//success
 						demoRunning = false;
-						/////////////
-						window.localStorage.setItem("lastEntryPush",new Date().getTime());
-						//spinner();
+						//clear lock
+						window.localStorage.removeItem("pendingSync");
+						//push local
+						setPush();
 						$("#loadingDiv").removeClass("updating");
 						//if diary tab, auto refresh
 						if(window.localStorage.getItem("app_last_tab") == "tab2") {
@@ -313,7 +378,7 @@ Diary.prototype.deleteEntry = function(id, callback) {
 	this.db.transaction(
 		function(t) {
 			t.executeSql('delete from diary_entry where id = ?', [id]);
-			window.localStorage.setItem("lastEntryPush",new Date().getTime());
+			setPush();
 		}
 	);
 };
@@ -327,19 +392,19 @@ Diary.prototype.saveEntry = function(data, callback) {
 			//update body
 			if(data.id && !data.title) {
 				t.executeSql('update diary_entry set body=? where id=' + data.id, [data.body]);
-				window.localStorage.setItem("lastEntryPush",new Date().getTime());
+				setPush();
 			//update title
 			} else if(data.id && data.title) {
 				t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
-				window.localStorage.setItem("lastEntryPush",new Date().getTime());
+				setPush();
 			//insert full
 			} else if(data.pro || data.car || data.fat) {
 				t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,data.published,data.pro,data.car,data.fat]); 
-				window.localStorage.setItem("lastEntryPush",new Date().getTime());
+				setPush();
 			//insert quick
 			} else {
 				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,data.published]); 
-				window.localStorage.setItem("lastEntryPush",new Date().getTime());
+				setPush();
 			} 
 		}
 	);
@@ -583,17 +648,18 @@ function afterHide(cmd) {
 		$("body").css("opacity","0");
 		$('body').on('webkitTransitionEnd',function(e) { 
 			//if logged, reload via callback
-			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("lastEntryPush")) {
-				window.localStorage.removeItem("customFavSql");
-				window.localStorage.removeItem("customFoodSql");
-				window.localStorage.removeItem("customExerciseSql");
-				$.post("http://mylivediet.com/write.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
+			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
+				//window.localStorage.removeItem("customFavSql");
+				//window.localStorage.removeItem("customFoodSql");
+				//window.localStorage.removeItem("customExerciseSql");
+				$.post("http://mylivediet.com/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
 					if(cmd == "clear") { window.localStorage.clear(); }
+					setTimeout(function() { window.location=''; },250);
 				}, "text");
 			} else {
 				setTimeout(function() { window.location=''; },250);
+				if(cmd == "clear") { window.localStorage.clear(); }
 			}
-			if(cmd == "clear") { window.localStorage.clear(); }
 		});
 	},250);
 }
@@ -836,6 +902,9 @@ function isNumberKey(evt){
 ///////////////////
 // TOUCH ? CLICK //
 ///////////////////
+function isCordova() {
+	return (typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
+}
 function androidVersion() {
 	if(navigator.userAgent.match(/Android/i) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
 		return parseFloat(navigator.userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
@@ -861,6 +930,10 @@ var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
 //# MOBILE OS #//
 //#///////////#//
 var isMobile = {
+	Cordova: function() {
+		return (typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
+		//return (navigator.userAgent.match(/Android/i) && document.URL.indexOf( 'http://' ) === -1 &&document.URL.indexOf( 'https://' ) === -1) ? true : false;
+	},
 	Android: function() {
 		return navigator.userAgent.match(/Android/i) ? true : false;
 		//return (navigator.userAgent.match(/Android/i) && document.URL.indexOf( 'http://' ) === -1 &&document.URL.indexOf( 'https://' ) === -1) ? true : false;

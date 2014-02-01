@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "diary_food";
+﻿DROP TABLE IF EXISTS "diary_food";
 CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);
 INSERT INTO "diary_food" VALUES(1,'food','01001','Butter, salted','buttersalted','717','0.85','0.06','81.11','0.00');
 INSERT INTO "diary_food" VALUES(2,'food','01002','Butter, whipped, with salt','butterwhippedwithsalt','717','0.85','0.06','81.11','0.00');

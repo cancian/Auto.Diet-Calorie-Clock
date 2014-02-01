@@ -781,6 +781,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			updateEntries(published);
 			updateTimer();
 			updateEntriesTime();
+			setPush();
 			//SCROLLBAR UPDATE			
 			clearTimeout(niceTimer);
 			niceTimer = setTimeout(niceResizer, 200);
@@ -1201,6 +1202,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			$("#diaryNotesWrapper").fadeOut(200,function() {$('#diaryNotesWrapper').remove(); });
 			$("#entryListForm").prepend("<div id='sliderBlock'></div>");
 			$("#sliderBlock").fadeOut(500,function() { $("#sliderBlock").remove(); });
+			setPush();
 		});
 	});
 });

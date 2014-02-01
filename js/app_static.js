@@ -99,7 +99,7 @@ function appResizer(time) {
 		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");		
 		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");		
 		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
-		//chrome 32 input width
+		//chrome v32 input width
 		$('#entryBody').width(window.innerWidth -58);
 		$('#foodSearch').width(window.innerWidth -55);
 		$("ul#addNewList input").width(window.innerWidth - 180);
@@ -329,9 +329,18 @@ setTimeout(function() {
 //check last push
 (function lastEntryPush() {
 	var now = new Date().getTime();
+	
+	if(window.localStorage.getItem("pendingSync") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_logged")) {
+		if(now - window.localStorage.getItem("pendingSync") > 30000) {
+			syncEntries(window.localStorage.getItem("facebook_userid"));
+			window.localStorage.setItem("pendingSync",Number(window.localStorage.getItem("pendingSync")) + 30000);
+		}
+	}
+	
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("lastEntryPush")) {
-		if(now - window.localStorage.getItem("lastEntryPush") > 1000) {
+		if(now - window.localStorage.getItem("lastEntryPush") > 500 && window.localStorage.getItem("foodDbLoaded") == "done") {
 			pushEntries(window.localStorage.getItem("facebook_userid"));
+			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
 		}
 	}
 	setTimeout(lastEntryPush,500);
@@ -351,6 +360,7 @@ setTimeout(function() {
 				$('#pageSlideFood').removeClass('busy');
 				//WIPE ON CLOSE
 				$('#pageSlideFood').remove(); 
+				setPush();
 			});
 		}
 	});

@@ -1,11 +1,7 @@
 //CSS
-//document.write("<style type'text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot?v=4.0.3'); src: url('css/font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('css/font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('css/font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal;  font-style: normal; } </style>");
-document.write("<style type'text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'); font-weight: normal; font-style: normal; -webkit-font-smoothing: antialiased; } </style>");
-//document.write("<style type'text/css'>@font-face { font-family: 'Helvetica Neue'; src: url('css/font/HelveticaNeue.ttf') format('truetype'); font-weight: normal; font-style: normal; -webkit-font-smoothing: antialiased; } </style>");
-//document.write("<style type'text/css'>@font-face { font-family: 'Helvetica Neue Bold'; src: url('css/font/HelveticaNeue-Bold.ttf') format('truetype'); font-weight: normal; font-style: normal; -webkit-font-smoothing: antialiased;} </style>");
-//document.write("<style type'text/css'>@font-face { font-family: 'Helvetica Neue Light'; src: url('css/font/HelveticaNeue-Light.ttf') format('truetype'); font-weight: normal; font-style: normal; -webkit-font-smoothing: antialiased;} </style>");
-document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
+document.write("<style type'text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'); font-weight: normal; font-style: normal; } </style>");
 document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/index.css?"+newDate+"' />");
+document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
 //CORDOVA
 if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
 	document.write("<script type='text/javascript' src='js/cordova.js'><\/script>");
@@ -16,8 +12,8 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	document.write("<script type='text/javascript' src='js/facebook-js-sdk.min.js'><\/script>");
 }
 //JS
-//document.write("<script type='text/javascript' src='js/jquery-2.1.0.min.js'><\/script>");
-document.write("<script type='text/javascript' src='js/jquery-2.0.3.min.js'><\/script>");
+document.write("<script type='text/javascript' src='js/jquery-2.1.0.min.js'><\/script>");
+//document.write("<script type='text/javascript' src='js/jquery-2.0.3.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.min.js'><\/script>");
