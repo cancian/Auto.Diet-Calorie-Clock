@@ -1,8 +1,8 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="11400" 
+        versionCode="11500" 
         version   = "1.1.5">
     <name>MyLiveDiet</name>
 
@@ -102,6 +102,15 @@
 		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
 	</feature>
 	
+	<gap:plugin name="com.phonegap.plugins.facebookconnect">
+		<param name="APP_ID" value="577673025616946" />
+		<param name="APP_NAME" value="MyLiveDiet" />
+	</gap:plugin>
+	<gap:plugin name="com.adobe.plugins.gaplugin" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
+	<gap:plugin name="org.apache.cordova.dialogs" />
+	<gap:plugin name="org.apache.cordova.splashscreen" />
+
 	<!-- ICON: ANDROID -->
     <icon src="res/icon/android/drawable/icon.png" />
 	<icon src="res/icon/android/drawable-ldpi/icon.png"   gap:platform="android"    gap:density="ldpi" />

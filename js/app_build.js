@@ -43,8 +43,9 @@ function openSettings(string) {
 	////////////////////////
 	// SETTINGS: FACEBOOK //
 	////////////////////////
+	//SET USERNAME (IF LOGGED)
 	$("#optionFacebook").on(touchend, function(evt) {
-		evt.preventDefault();
+		//evt.preventDefault();
 		if(window.localStorage.getItem("facebook_logged")) {
 			///////////////
 			// LOGGED IN //
@@ -55,9 +56,10 @@ function openSettings(string) {
 					//alert('logged, logging out...');
 					FB.logout(function(response) {
 						if(response.status != "connected") {
-							//alert('done (logout)!');
-							window.localStorage.removeItem("facebook_logged");
 							$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK"));
+							window.localStorage.removeItem("facebook_logged");
+							window.localStorage.removeItem("facebook_userid");
+							window.localStorage.removeItem("facebook_username");	
 							$("#appFooter").removeClass("appFacebook");
 						}
 					});
@@ -78,18 +80,16 @@ function openSettings(string) {
 				if(response.status == "connected") {
 					//alert(JSON.stringify(response));
 					//alert('done (login)!');
-					window.localStorage.setItem("facebook_logged",true);
 					FB.api('/me', function(me) {
 						if(me.id && me.name) {
 							var facebook_userid   = me.id;
 							var facebook_username = me.name;
-							//alert(facebook_userid);
-							//alert(facebook_username);
+							window.localStorage.setItem("facebook_logged",true);
 							window.localStorage.setItem("facebook_userid",facebook_userid);
 							window.localStorage.setItem("facebook_username",facebook_username);	
-							$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
-							syncEntries(window.localStorage.getItem("facebook_userid")); 			
 							$("#appFooter").addClass("appFacebook");
+							$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
+							syncEntries(window.localStorage.getItem("facebook_userid"));
 						}
 					});
 				}
@@ -104,9 +104,8 @@ function openSettings(string) {
 	$("#optionFacebook").on(touchend + " mouseout",function(evt) {
 		$("#optionFacebook").removeClass("activeRow");
 	});
-	//SET USERNAME (IF LOGGED)
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
-		$("#optionFacebook").html("logged in as " + window.localStorage.getItem("facebook_username"));
+		$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
 	}
 	////////////////
 	// ACTIVE ROW //
@@ -695,7 +694,7 @@ $(document).trigger("sliderInit");
 ///////////////////////////////////////////
 // ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
 ///////////////////////////////////////////
-var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height());
+var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height()-1);
 $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 //#//////////#//
 //# HANDLERS #//

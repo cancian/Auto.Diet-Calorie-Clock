@@ -1036,8 +1036,8 @@ if(window.localStorage.getItem("config_debug") != "active") {
 function updateLoginStatus(sync) {
 	FB.getLoginStatus(function(response) {
 		if(response.status == 'connected') {
-			window.localStorage.setItem("facebook_logged",true);
-			$("#appFooter").addClass("appFacebook");
+			//window.localStorage.setItem("facebook_logged",true);
+			//$("#appFooter").addClass("appFacebook");
 			//window.localStorage.setItem("facebook_userid",response.authResponse.userId);
 			//alert(response.authResponse.userId);
 			//alert(JSON.stringify(response));
@@ -1046,18 +1046,20 @@ function updateLoginStatus(sync) {
 				if(me.id && me.name) {
 					var facebook_userid   = me.id;
 					var facebook_username = me.name;
-					//alert(facebook_userid);
-					//alert(facebook_username);
+					window.localStorage.setItem("facebook_logged",true);
 					window.localStorage.setItem("facebook_userid",facebook_userid);
-					window.localStorage.setItem("facebook_username",facebook_username);
+					window.localStorage.setItem("facebook_username",facebook_username);	
+					$("#appFooter").addClass("appFacebook");
+					$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
 					if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
 				}
 			});
 		} else {
 			//alert('not logged in');
+			$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK"));
 			window.localStorage.removeItem("facebook_logged");
 			window.localStorage.removeItem("facebook_userid");
-			window.localStorage.removeItem("facebook_username");
+			window.localStorage.removeItem("facebook_username");	
 			$("#appFooter").removeClass("appFacebook");
 		}
 	});
