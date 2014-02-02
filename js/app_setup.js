@@ -132,6 +132,8 @@ function localStorageSql() {
 	if(window.localStorage.getItem("config_start_time") && window.localStorage.getItem("appStatus") == "running")  {
 		keyList = keyList + "#@@@#" + "config_start_time" + "#@@#" + window.localStorage.getItem("config_start_time");
 		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + window.localStorage.getItem("appStatus");
+	} else {
+		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + "stopped";
 	}
 	/*daily*/
 	if(window.localStorage.getItem("config_kcals_day_0")) { keyList = keyList + "#@@@#" + "config_kcals_day_0" + "#@@#" + window.localStorage.getItem("config_kcals_day_0"); }
@@ -139,7 +141,11 @@ function localStorageSql() {
 	if(window.localStorage.getItem("config_kcals_day_2")) { keyList = keyList + "#@@@#" + "config_kcals_day_2" + "#@@#" + window.localStorage.getItem("config_kcals_day_2"); }
 	if(window.localStorage.getItem("config_measurement")) { keyList = keyList + "#@@@#" + "config_measurement" + "#@@#" + window.localStorage.getItem("config_measurement"); }
 	/*notes*/
-	if(window.localStorage.getItem("appNotes"))			{ keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + window.localStorage.getItem("appNotes").replace(/(\n|\r\n)/g, "#@#").split("/*").join("/ *"); }
+	if(window.localStorage.getItem("appNotes")) { 
+		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + window.localStorage.getItem("appNotes").replace(/(\n|\r\n)/g, "#@#").split("/*").join("/ *");
+	} else {
+		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + "";
+	}
 	/*form*/
 	if(window.localStorage.getItem("calcForm#feet"))	{ keyList = keyList + "#@@@#" + "calcForm#feet" + "#@@#" + window.localStorage.getItem("calcForm#feet"); }
 	if(window.localStorage.getItem("calcForm#inches"))	{ keyList = keyList + "#@@@#" + "calcForm#inches" + "#@@#" + window.localStorage.getItem("calcForm#inches"); }
@@ -172,8 +178,12 @@ function rebuildLocalStorage(lsp) {
 		if(lsPart[0]) {
 			if(lsPart[0] == "appNotes") {
 				window.localStorage.setItem(lsPart[0],lsPart[1].split("#@#").join("\n"));
-			} else { 
+			} else {
 				window.localStorage.setItem(lsPart[0],lsPart[1]);
+			}
+			//update underlying value
+			if(lsPart[0] == "config_kcals_day_0") {
+				$("#editableDiv").html(lsPart[1]);
 			}
 		}
 	}
@@ -282,8 +292,8 @@ function syncEntries(userId) {
 					setPush();
 					$("#loadingDiv").removeClass("updating");	
 				}
-				//html5sql.process("DELETE FROM diary_entry;" + sql,
-				html5sql.process(sql,
+				html5sql.process("DELETE FROM diary_entry;" + sql,
+				//html5sql.process(sql,
 					function() {
 						//success
 						demoRunning = false;
@@ -654,10 +664,7 @@ function afterHide(cmd) {
 		$("body").css("opacity","0");
 		$('body').on('webkitTransitionEnd',function(e) { 
 			//if logged, reload via callback
-			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
-				//window.localStorage.removeItem("customFavSql");
-				//window.localStorage.removeItem("customFoodSql");
-				//window.localStorage.removeItem("customExerciseSql");
+			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && cmd == "clear") {
 				$.post("http://mylivediet.com/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
 					if(cmd == "clear") { window.localStorage.clear(); }
 					setTimeout(function() { window.location=''; },250);
@@ -713,7 +720,7 @@ function spinner(size) {
 		/////////////////
 		$("#spinner").width(size);
 		$("#spinner").height(size);
-		var xcenter = ((window.innerWidth)  / 2) - ($("#spinner").width()  / 2);
+		var xcenter = ((window.innerWidth) / 2) - ($("#spinner").width() / 2);
 		var ycenter = Math.round(((window.innerHeight) / 1.75));
 		/* - ($("#spinner").height() / 2);*/
 		$("#spinnerWrapper").css("left",xcenter + "px");
@@ -724,15 +731,59 @@ function spinner(size) {
 	/////////////////
 	// SELF ADJUST //
 	/////////////////
-	/*
-	if(active == 1) {
+	if($("#tempHolder").html() != "") { 
 		$(window).on("resize", function(evt) {
-			var xcenter = ($("#afterLoad").width()  / 2) - ( $("#spinnerWrapper").width()  / 2);
-			var ycenter = ($("#afterLoad").height() / 2) - ( $("#spinnerWrapper").height() / 2);
+			var xcenter = ((window.innerWidth) / 2) - ($("#spinner").width() / 2);
+			var ycenter = Math.round(((window.innerHeight) / 1.75));
 			$("#spinnerWrapper").css("left",xcenter + "px");
-			$("#spinnerWrapper").css("top",ycenter + "px");
+			$("#spinnerWrapper").css("top",ycenter  + "px");
 		});
-	}*/
+	}
+}
+////////////////////
+// FOOD DB IMPORT //
+////////////////////
+function updateFoodDb() {
+	if(window.localStorage.getItem("foodDbLoaded") != "done" && !window.localStorage.getItem("startLock")) {
+		//reset blocks
+		$("#tabMyFavsBlock,#tabMyFoodsBlock,tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>');
+		var demoRunning = false;
+		var dbName = "mylivediet.app";
+		if(!demoRunning) {
+			//start
+			spinner(45);
+			window.localStorage.setItem("startLock",true);
+			demoRunning = true;
+			try {
+				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
+				//import sql
+				$.get("searchdb_" + LANG("LANGUAGE") + ".sql",function(sql) {
+					var startTime = new Date();
+					setTimeout(function() {
+					html5sql.process(
+						sql,
+						function(){
+							//success
+							window.localStorage.setItem("foodDbLoaded",'done');
+							window.localStorage.removeItem("startLock");
+							syncEntries(window.localStorage.getItem("facebook_userid"));
+							demoRunning = false;
+							spinner();
+						},
+						function(error, failingQuery) {
+							//failure
+							demoRunning = false;
+							window.localStorage.removeItem("startLock");
+						});
+					},200);
+				});
+			//try fail
+			} catch(error) {
+				demoRunning = false;
+				window.localStorage.removeItem("startLock");
+			}
+		}
+	}
 }
 ///////////////////
 // PAGE LOAD MOD //

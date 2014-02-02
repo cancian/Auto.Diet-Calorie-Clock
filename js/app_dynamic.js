@@ -499,6 +499,7 @@ $(document).on("pageReload", function(evt) {
 				if(!$('#pageSlideFood').hasClass('busy')) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// PAGESLIDEFOOD DIV //
 	///////////////////////
 	$('#pageSlideFood').remove();
@@ -508,79 +509,36 @@ $(document).on("pageReload", function(evt) {
 	///////////////
 	// CREATE DB //
 	///////////////
-	var pSql = 0;
 	$('#pageSlideFood').on('webkitTransitionEnd',function(evt) {
-		// IMPORT //
-		if(pSql == 0) {
-			if(window.localStorage.getItem("foodDbLoaded") != "done") {
-				//reset blocks
-				$("#tabMyFavsBlock,#tabMyFoodsBlock,tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>');
-				pSql++;
-				var demoRunning = false;
-				var dbName = "mylivediet.app";
-				if(!demoRunning) {
-					//start
-					spinner(45);
-					demoRunning = true;
-					try {
-						html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
-						//import sql
-						$.get("searchdb_" + LANG("LANGUAGE") + ".sql",function(sql) {
-							var startTime = new Date();
-							setTimeout(function() {
-							html5sql.process(
-								sql,
-								function(){
-									//success
-									window.localStorage.setItem("foodDbLoaded",'done');
-									syncEntries(window.localStorage.getItem("facebook_userid"));
-									demoRunning = false;
-									spinner();
-								},
-								function(error, failingQuery) {
-									//failure
-									//window.localStorage.setItem("foodDbLoaded","empty");
-									demoRunning = false;
-								});
-							},200);
-						});
-					//try fail
-					} catch(error) {
-						demoRunning = false;
-					}}
-				}
-			}
-		});
-		///////////////
-		// FOOD HTML //
-		///////////////
-		$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
-		//PRE-ADJUST RESULTS HEIGHT
-		$('#foodSearch').width(window.innerWidth -55);	
-
-		buildFoodMenu();
-		
-		//remember search type
-		if(window.localStorage.getItem("searchType") == "exercise") {
-			$("#foodSearch").attr('placeholder',LANG("EXERCISE_SEARCH"));
-			$("#foodSearch,#pageSlideFood").addClass("exerciseType");
-		}
-		////////////////////
-		// RESULTS HEIGHT //
-		////////////////////
-		$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
-		$('#foodList').css("top",($('#appHeader').height()) + "px");
-		if(!isMobile.iOS() && androidVersion() < 4.4) {
-			$("#foodList").css("overflow","hidden");
-			setTimeout(function(){
-				$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid #fff",cursoropacitymax:0.2,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
-				$("body").trigger("resize");
-			},300);
-			//SCROLLBAR UPDATE	
-			clearTimeout(niceTimer);
-			niceTimer = setTimeout(niceResizer, 200);
-		}
-
+		updateFoodDb(); 
+	});
+	///////////////
+	// FOOD HTML //
+	///////////////
+	$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
+	//PRE-ADJUST RESULTS HEIGHT
+	$('#foodSearch').width(window.innerWidth -55);
+	buildFoodMenu();
+	//remember search type
+	if(window.localStorage.getItem("searchType") == "exercise") {
+		$("#foodSearch").attr('placeholder',LANG("EXERCISE_SEARCH"));
+		$("#foodSearch,#pageSlideFood").addClass("exerciseType");
+	}
+	////////////////////
+	// RESULTS HEIGHT //
+	////////////////////
+	$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+	$('#foodList').css("top",($('#appHeader').height()) + "px");
+	if(!isMobile.iOS() && androidVersion() < 4.4) {
+		$("#foodList").css("overflow","hidden");
+		setTimeout(function(){
+			$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid #fff",cursoropacitymax:0.2,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
+			$("body").trigger("resize");
+		},300);
+		//SCROLLBAR UPDATE	
+		clearTimeout(niceTimer);
+		niceTimer = setTimeout(niceResizer, 200);
+	}
 	//#/////////////////////////////////////#//
 	//# KEYUP LISTENER SEARCH TIMER-LIMITER #//
 	//#/////////////////////////////////////#//
@@ -661,15 +619,7 @@ $(document).on("pageReload", function(evt) {
 		$("#activeOverflow").removeAttr("id");
 		$(".activeOverflow").removeClass("activeOverflow");
 	});
-
-
-		
-		
-		
-		
-		
-		
-		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					//show

@@ -431,6 +431,7 @@ function openStatus(string) {
 			function appReset(button) {
 				//ON CONFIRM
 				if(button == 1) {
+					setPush();
 					$("#appStatus").removeClass("reset");
 					$("#appStatus").addClass("start");
 					$("#appStatusTitle").html(LANG("START"));
@@ -447,6 +448,7 @@ function openStatus(string) {
 				if(confirm(LANG("RESET_DIALOG"))) { appReset(1); } else { return false; }
 			}
 		} else {
+			setPush();
 			$("#appStatus").removeClass("start");
 			$("#appStatus").addClass("reset");
 			$("#appStatusTitle").html(LANG("RESET"));
@@ -525,6 +527,7 @@ function openStatus(string) {
 				//write input date as time
 				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val())));
 			}
+		setPush();
 		onChange = 0;
 		updateTimer();
 		updateEntries();
@@ -694,7 +697,11 @@ $(document).trigger("sliderInit");
 ///////////////////////////////////////////
 // ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
 ///////////////////////////////////////////
-var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height()-1);
+if(isMobile.iOS()) {
+	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height()-1);
+} else {
+	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height());
+}
 $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 //#//////////#//
 //# HANDLERS #//
@@ -1678,18 +1685,22 @@ $("#calcForm").on(touchend, function(evt) {
 $("#formc input").on("change",function() {
 	$('#do_recalc').trigger('click');	
 	writeCalcValues();
+	setPush();
 });
 $("#formc select").on("change",function() {
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
+	setPush();
 });
 $("#formc input").on("blur",function() {
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
+	setPush();
 });
 $("#formc select").on("blur",function() {
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
+	setPush();
 });
 ///////////////////
 // WRITE CHANGES //

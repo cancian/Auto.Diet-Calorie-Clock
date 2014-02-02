@@ -309,15 +309,10 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 afterShow(250);
 //updateEntries();
 //updateEntriesTime();
-setTimeout(function() {
-	if(typeof updateTimer == 'function') {
-		updateTimer();		
-	}
-},0);
 (function startTimer() {
 	if(typeof updateTimer == 'function') {
 		updateTimer();
-		setTimeout(startTimer,150);
+		setTimeout(startTimer,100);
 	}
 })();
 //refresh entrylist time
@@ -341,6 +336,8 @@ setTimeout(function() {
 			pushEntries(window.localStorage.getItem("facebook_userid"));
 			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
 		}
+		//force food db
+		updateFoodDb();
 	}
 	setTimeout(lastEntryPush,500);
 })();
@@ -468,6 +465,7 @@ setTimeout(function() {
 						//WRITE TO DB
 						window.localStorage.setItem(getKcalsKey,$(this).val());
 						updateTimer();
+						setPush();
 						//updateEntriesTime();
 						$("#editableBlock").remove();
 
