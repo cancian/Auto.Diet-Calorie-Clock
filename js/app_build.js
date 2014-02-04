@@ -23,7 +23,8 @@ function openSettings(string) {
 			<li id="optionAbout"><div>'    + LANG("SETTINGS_ABOUT")    + '</div></li>\
 		</ul>\
 		<div id="optionWebsite">mylivediet.com</div>\
-		<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG("SETTINGS_FACEBOOK") + '</span><p>last sync<span id="FBsync"></span><span id="FBtime">11/02/2013 11:22</span></p></div></div>\
+		<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG("SETTINGS_FACEBOOK") + '</span></div></div>\
+		<div id="optionLastSync">last sync<span>--</span></div>\
 		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>\
 	';
@@ -31,6 +32,8 @@ function openSettings(string) {
 	//# OUTPUT #//
 	//#////////#//
 	$("#appContent").html(settingsHtml);
+	//update last sync
+	if(window.localStorage.getItem("lastSync") != "never") { $("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); }
 	////////////
 	// UNUSED //
 	////////////
@@ -43,24 +46,38 @@ function openSettings(string) {
 	////////////////////////
 	// SETTINGS: FACEBOOK //
 	////////////////////////
-	//SET USERNAME (IF LOGGED)
 	$("#optionFacebook").on(touchend, function(evt) {
-		//evt.preventDefault();
+		evt.preventDefault();
+		evt.stopPropagation();
 		if(window.localStorage.getItem("facebook_logged")) {
 			///////////////
 			// LOGGED IN //
 			///////////////
 			// ON CONFIRM
 			function onConfirmLogout(button) {
+				function didUnlog() {
+					NProgress.done();
+					$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK"));
+					window.localStorage.removeItem("facebook_logged");
+					window.localStorage.removeItem("facebook_userid");
+					window.localStorage.removeItem("facebook_username");	
+					$("#appFooter").removeClass("appFacebook");
+				}
 				if(button == 1) {
+					NProgress.start();
 					//alert('logged, logging out...');
 					FB.logout(function(response) {
 						if(response.status != "connected") {
-							$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK"));
-							window.localStorage.removeItem("facebook_logged");
-							window.localStorage.removeItem("facebook_userid");
-							window.localStorage.removeItem("facebook_username");	
-							$("#appFooter").removeClass("appFacebook");
+							didUnlog();
+						} else {
+							FB.logout(function(response) {
+								if(response.status != "connected") {
+									didUnlog();
+								} else {
+									//agressively log out
+									onConfirmLogout(1);
+								}
+							});
 						}
 					});
 				}
@@ -97,13 +114,14 @@ function openSettings(string) {
 		}
 	});
 	//TOGGLE ACTIVE
-	$("#optionFacebook span").on(touchstart,function(evt) {
+	$("#optionFacebook").on(touchstart,function(evt) {
 		evt.preventDefault();
 		$("#optionFacebook").addClass("activeRow");
 	});
 	$("#optionFacebook").on(touchend + " mouseout",function(evt) {
 		$("#optionFacebook").removeClass("activeRow");
 	});
+	//SET USERNAME (IF LOGGED)
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
 		$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
 	}
@@ -127,9 +145,41 @@ function openSettings(string) {
 		if(isMobile.iOS()) {
 			window.open('https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802', '_system', 'location=yes');
 		} else if(isMobile.Android()) {
-			window.open('http://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');
+			window.open('https://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');
 		}
 	});
+	/////////////////////
+	// SETTINGS: SHARE //
+	/////////////////////
+	/*
+	//android exeption 18 bug (sql db init)
+	$("#optionShare").on(touchstart + AND + touchend,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+	});
+	$("#optionShare").on(touchend,function(evt) {
+		if(isMobile.iOS()) {
+			var shareLink = 'https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802';
+			var shareOS   = 'iOS';
+		} else if(isMobile.Android()) {
+			var shareLink = 'https://market.android.com/details?id=com.cancian.mylivediet';
+			var shareOS   = 'Android';
+		} else {
+			var shareLink = 'http://mylivediet.com/';
+			var shareOS   = 'Web';
+		}
+		var params = {
+			method: 'feed',
+			name: 'MyLiveDiet ' + LANG("FOR") + ' ' + shareOS,
+			link: shareLink,
+			picture: 'http://mylivediet.com/icon.png',
+			caption: LANG("CALORIE_COUNTER"),
+			description: LANG("SHARE_MESSAGE")
+		};
+		FB.ui(params, function(obj) { CONSOLE(obj); });
+		//FB.ui(params);
+	});
+	*/
 	////////////////////////
 	// SETTINGS: FEEDBACK //
 	////////////////////////
@@ -148,8 +198,8 @@ function openSettings(string) {
 			};
 			showUserVoice(cfg);
 			return false;
-		//} else if(isMobile.Android() && androidVersion() >= 3) {
-		} else if(isMobile.Android()) {
+		} else if(isMobile.Android() && androidVersion() >= 3) {
+		//} else if(isMobile.Android()) {
 			window.MyCls.changeActivity();
 			return false;
 		} else {
@@ -173,7 +223,6 @@ function openSettings(string) {
 	// SETTINGS: ABOUT //
 	/////////////////////
 	$("#optionAbout").on(touchend, function(evt) {
-		evt.preventDefault();
 		if(hasTouch()) {
 			navigator.notification.alert(LANG("ABOUT_DIALOG"), voidThis,LANG("ABOUT_TITLE"),LANG("OK"));
 		} else {
@@ -264,6 +313,7 @@ function openSettings(string) {
 		window.localStorage.setItem("calcForm#pA3C","pounds");
 		window.localStorage.setItem("calcForm#pA6H","pounds");
 		window.localStorage.setItem("calcForm#pA6N","pounds");
+		setPush();
 	});
 	$("#rightOption").on(touchstart,function(evt){
 		evt.preventDefault();
@@ -275,6 +325,7 @@ function openSettings(string) {
 		window.localStorage.setItem("calcForm#pA3C","kilograms");
 		window.localStorage.setItem("calcForm#pA6H","kilograms");
 		window.localStorage.setItem("calcForm#pA6N","kilograms");
+		setPush();
 	});
 	//read stored
 	if(window.localStorage.getItem("config_measurement") == "metric") {
@@ -684,7 +735,7 @@ diaryHtml += '\
 		}
 ///////////////////
 diaryHtml += '</div>\
-		<div id="enryListBottomBar">' + LANG("CLEAR_ALL") + '</div>\
+		<div id="entryListBottomBar">' + LANG("CLEAR_ALL") + '</div>\
 		</div>\
 	</div>\
 ';
@@ -698,9 +749,9 @@ $(document).trigger("sliderInit");
 // ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
 ///////////////////////////////////////////
 if(isMobile.iOS()) {
-	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height()-1);
+	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height()-1);
 } else {
-	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height());
+	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
 }
 $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 //#//////////#//
@@ -1003,7 +1054,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	//#///////////////#//
 	//# CLEAR ALL BAR #//
 	//#///////////////#//
-	$("#enryListBottomBar").on(touchend, function(evt) {
+	$("#entryListBottomBar").on(touchend, function(evt) {
 		evt.preventDefault();
 		//CLEAR DIALOG
 		function onConfirmClear(button) {
@@ -1023,12 +1074,12 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 	});
 	//style
-	$("#enryListBottomBar").on(touchstart,function(evt) {
+	$("#entryListBottomBar").on(touchstart,function(evt) {
 		evt.preventDefault();
-		$("#enryListBottomBar").addClass("activeRow");
+		$("#entryListBottomBar").addClass("activeRow");
 	});
-	$("#enryListBottomBar").on(touchend + " mouseout",function(evt) {
-		$("#enryListBottomBar").removeClass("activeRow");
+	$("#entryListBottomBar").on(touchend + " mouseout",function(evt) {
+		$("#entryListBottomBar").removeClass("activeRow");
 	});
 	//#//////////////////#//
 	//# FOOD SEARCH ICON #//
@@ -1041,7 +1092,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		evt.stopPropagation();
 		$("#editable").blur();
 		$("#entryTime").blur();
-		$("#entryBody").blur();		
+		$("#entryBody").blur();
 		$(document).trigger("pageReload");
 	});
 	///////////////////////////
@@ -1147,7 +1198,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//show
 		$('#diaryNotesWrapper').remove();
-		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'><span>" + LANG("NOTEPAD_DONE") +  "</span></div><textarea id='diaryNotesInput'></textarea></div>");
+		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'><span>" + LANG("NOTEPAD_DONE") + "</span></div><textarea id='diaryNotesInput'></textarea></div>");
 		//load content
 		if(window.localStorage.getItem("appNotes") != "") {
 			$('#diaryNotesInput').val(window.localStorage.getItem("appNotes"));
@@ -1602,11 +1653,11 @@ $("#pA2B").on("change keypress",function(evt) {
 });
 $("#inches").on("change keypress",function(evt) {
 	$("#pA2B").val(  Number(($("#feet").val()*12))  +  Number($("#inches").val())  );
-writeCalcValues();
+	writeCalcValues();
 });
 $("#feet").on("change keypress",function(evt) {
 	$("#pA2B").val(  Number(($("#feet").val()*12))  +  Number($("#inches").val())  );
-writeCalcValues();
+	writeCalcValues();
 });
 //input validate
 $("#feet,#inches,#pA3B").on("keypress", function(evt) {

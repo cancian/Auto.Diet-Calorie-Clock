@@ -51,6 +51,14 @@ input#editable					{ color: #000; position: absolute; top: 10px; right: 9px; dis
 #loadingDiv.updating			{ position: absolute; top: 16px; right: 122px; font-size: 28px; color: #fff; opacity: .5; display: inline-block; z-index: 55; -webkit-animation: spin 2s infinite linear; }
 body.ios7 #loadingDiv.updating	{ top: 32px; }
 @-webkit-keyframes spin			{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(359deg); } }
+/*nprogress replacement*/
+#nprogress						{ pointer-events: none; }
+#nprogress .bar					{ background: rgba(255,255,255,.75); position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 2px; }
+/*
+#nprogress .spinner				{ display: block; position: fixed; z-index: 100; top: 15px; right: 15px; }
+#nprogress .spinner-icon		{ width: 18px; height: 18px; box-sizing: border-box; border: solid 2px transparent; border-top-color: #29d; border-left-color: #29d; border-radius: 50%; -webkit-animation: nspinner 400ms linear infinite; animation: nspinner 400ms linear infinite; }
+@-webkit-keyframes nspinner		{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); } }
+*/
 /*#///////////////#//
 //# GLOBAL FOOTER #//
 //#///////////////#*/
@@ -99,64 +107,8 @@ div#optionReset.activeRow		{ background-color: #E86401; color: #fff; }
 #optionFacebook					{ position: relative; padding: 0 12px 0 38px; color: #fff; display: inline-block; height: 32px; line-height: 31px; background-color: #3b5998; border: 1px solid rgba(0,0,0,.2); border-radius: 0; }
 #optionFacebook:before			{ box-sizing: border-box; position: absolute; top: 0; left: 0; padding: 0; font-size: 20px; line-height: 32px; height: 32px; width: 29px; text-align: center; border-right: 1px solid rgba(0,0,0,.2); color:#fff; content: "\f09a"; font-family: 'FontAwesome'; font-weight: normal; }
 #optionFacebook.activeRow		{ background-color:#30487B; }
-
-
-#optionFacebook p {
-position: absolute;
-top: -1px;
-right: -100px;
-width: 100px;
-text-indent: 0px;
-color:#000;
-height: 34px; 
-line-height: 34px;
-display: block;
-background-color: #;
-
-
-display: none;
-
-}
-
-#optionFacebook p span#FBtime {
-
-	
-position: absolute; 
-top: 20px;
-left: 0;
-text-indent: 0;
-color: #999;
-white-space: nowrap;
-font-size: 8px;
-
-background-color: #; text-indent: 0px; }
-/*
-#optionFacebook p span#FBsync:before { 
-
-box-sizing: border-box; position: absolute; top: 0; left: 0; padding: 0; font-size: 20px; line-height: 32px; height: 32px; width: 29px; text-align: center; border-right: 1px solid rgba(0,0,0,.2); color:#000; 
-
-content: "\f09a"; font-family: 'FontAwesome'; font-weight: normal; 
-
-}*/
-
-
-
-#optionFacebook p span#FBsync			{ 
-position: absolute; top: 3px; left: 0; 
-
-padding: 0; margin: 0; border: 0; text-indent: 0;
-
-position: absolute;  top: 0;  font-size: 16px; color: #000; opacity: .90; display: block; z-index: 55; -webkit-animation: spin 2s infinite linear; 
-
-width: 32px; height: 32px; line-height: 32px; text-align: center;
-
-
-}
-#optionFacebook p span#FBsync:before	{ font-family: 'FontAwesome'; content: "\f021"; }
-
-
-@-webkit-keyframes spin			{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(359deg); } }
-
+#optionLastSync					{ position: absolute; bottom: 46px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; }
+#optionLastSync span			{ color: #bbb; padding-left: 4px; }
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
 /////////////////////////*/
@@ -354,8 +306,8 @@ body.android #editableInput {  margin-left : -1px; }
 body.android44 #editableInput,
 body.ios7 #editableInput 	{  margin-left : 0; }
 /*BOTTOM BAR*/
-#enryListBottomBar			{ position: absolute; left: 0; bottom: 0; height: 44px; line-height: 46px; text-align: center; font-weight: bold; background-color: #fff; color: #bbb; width: 100%; border-top: 1px solid #eee; }
-#enryListBottomBar.activeRow{ color: #666; background-color: #f5f5f5; }
+#entryListBottomBar			{ position: absolute; left: 0; bottom: 0; height: 44px; line-height: 46px; text-align: center; font-weight: bold; background-color: #fff; color: #bbb; width: 100%; border-top: 1px solid #eee; }
+#entryListBottomBar.activeRow{ color: #666; background-color: #f5f5f5; }
 /*SWIPE DELETE*/
 span.delete					{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 3px 6px 0 0; padding: 7px 14px 7px 14px; border: 1px solid #953403; border-radius: 5px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 -1px 1px #953403; background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ec4a0b),color-stop(1, #ad390c)); }
 span.delete:active			{ background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #E0380A),color-stop(1, #9C2A09)); }
@@ -648,12 +600,4 @@ body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
-
-
-
-
-
-
-
-
 

@@ -409,3 +409,67 @@ function updateTimer() {
 	});
 }
 
+
+/*
+function updateTimer() {
+	////////////////
+	// TIMER LOCK //
+	////////////////
+	if(window.localStorage.getItem("appStatus") != "running") {
+		window.localStorage.setItem("config_start_time",new Date().getTime());
+		window.localStorage.removeItem("config_entry_sum");
+		window.localStorage.removeItem("config_entry_f-sum");
+		window.localStorage.removeItem("config_entry_e-sum");	
+		$("#appStatusBars p").css("width",0);
+		$("#appStatusBars span").html("0%");
+	} else {
+		//console.log('updating entrylist sum');
+		var ts = 0;
+		var tf = 0;
+		var te = 0;
+		var tPro = 0;
+		var tCar = 0;
+		var tFat = 0; 
+
+		html5sql.process(["select * from diary_entry order by published desc;"],
+			function(transaction, results, data){
+				for(var i = 0; i < data.length; i++){
+					// EXPIRED
+					if(window.localStorage.getItem("config_start_time") <= Number(data[i].published)) {
+						ts = Number(data[i].title) + ts;
+						//total food/exercise										
+						if(Number(data[i].title) > 0) {
+							tf = tf + Number(data[i].title);
+						} else {
+							te = te + Number(data[i].title);
+						}
+					//total pro/car/fat
+						if(Number(data[i].pro) > 0) {
+							tPro = tPro + parseFloat(data[i].pro);
+						}
+						if(Number(data[i].car) > 0) {
+							tCar = tCar + parseFloat(data[i].car);
+						}
+						if(Number(data[i].fat) > 0) {
+							tFat = tFat + parseFloat(data[i].fat);
+						}					
+					}
+				updateNutriBars(tPro,tCar,tFat);
+				window.localStorage.setItem("tPro",tPro);
+				window.localStorage.setItem("tCar",tCar);
+				window.localStorage.setItem("tFat",tFat);	
+				//console.log('refreshing timer');
+				window.localStorage.setItem("config_entry_sum",ts*-1);
+				window.localStorage.setItem("config_entry_f-sum",tf);
+				window.localStorage.setItem("config_entry_e-sum",te);
+				var day1 = window.localStorage.getItem("config_kcals_day_1");
+				var day2 = window.localStorage.getItem("config_kcals_day_2");
+			}
+		},
+		function(error, statement){
+			//hande error here           
+		});	
+	}
+}
+*/
+

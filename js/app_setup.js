@@ -37,8 +37,9 @@ $(function() {
                 //alert('Uncaught Error.\n' + jqXHR.responseText);
             }
 			//close progress/create file
-			$("#loadingDiv").removeClass("updating");
-			setPush();
+			//$("#loadingDiv").removeClass("updating");
+			setTimeout(function() { NProgress.done(); },6000);
+			//setPush();
         }
     });
 });
@@ -62,16 +63,8 @@ Diary.prototype.dbErrorHandler = function(evt) {
 /////////////
 Diary.prototype.initDB = function(t) {
 	CONSOLE('Diary.prototype.initDB');
-	t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT)');
-	///////////////
-	// SQL RESET //
-	///////////////
-	/*
-	if(window.localStorage.getItem("appReset") == "wipe") {
-		window.localStorage.removeItem("appReset");
-		t.executeSql('DELETE FROM "diary_entry"');
-	}
-	*/
+	t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+	t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 	//config
 	if(!window.localStorage.getItem("config_start_time")) {
 		window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
@@ -85,6 +78,9 @@ Diary.prototype.initDB = function(t) {
 	if(!window.localStorage.getItem("config_kcals_day_2")) {
 		window.localStorage.setItem("config_kcals_day_2",2000);
 	}
+	if(!window.localStorage.getItem("lastSync")) {
+		window.localStorage.setItem("lastSync","never");
+	}
 };
 ////////////////////
 // RESET DATA+SQL //
@@ -92,7 +88,7 @@ Diary.prototype.initDB = function(t) {
 Diary.prototype.deSetup = function(callback) {
 	CONSOLE('Diary.prototype.deSetup');
 	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { pushEntries(window.localStorage.getItem("facebook_userid")); afterHide("clear"); return false; });
+	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { afterHide("clear"); return false; });
 };
 ///////////////////
 // CLEAR ENTRIES //
@@ -102,29 +98,8 @@ Diary.prototype.clearEntries = function(callback) {
 	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
 	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { setPush(); return false; });
 };
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-
-
-
-
-
-
 //////////////////////////////
-// ENCODE LOCAL STORAGE SQL //
+// SQL-ENCODE LOCAL STORAGE //
 //////////////////////////////
 function localStorageSql() {
 	var keyList = "";
@@ -164,9 +139,9 @@ function localStorageSql() {
 	if(keyList != "") { keyList = "/*" + keyList + "*/"; }
 	return keyList;
 }
-//////////////////////////////
-// DECODE LOCAL STORAGE SQL //
-//////////////////////////////
+///////////////////////////
+// REBUILD LOCAL STORAGE //
+///////////////////////////
 function rebuildLocalStorage(lsp) {
 	if(!lsp.match("#@@@#")) { return; }
 	//comments
@@ -188,9 +163,9 @@ function rebuildLocalStorage(lsp) {
 		}
 	}
 }
-/////////////////
-// GET ENTRIES //
-/////////////////
+///////////////////
+// FETCH ENTRIES //
+///////////////////
 Diary.prototype.fetchEntries = function(start,callback) {
 	//CONSOLE('Diary.prototype.getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
@@ -202,12 +177,14 @@ Diary.prototype.fetchEntries = function(start,callback) {
 			},this.dbErrorHandler);
 	}, this.dbErrorHandler);
 };
-
-
+//#//////////////////////#//
+//# ONLINE: PUSH ENTRIES #//
+//#//////////////////////#//
 function pushEntries(userId) {
 	if(isNaN(userId)) { return; }
 	if(window.localStorage.getItem("pendingSync")) { return; }
 	diary.fetchEntries(function(data) {
+		//NProgress.start();
 		var fetchEntries = "";
 		for(var i=0, len=data.length; i<len; i++) {
 			var id        = data[i].id;
@@ -252,9 +229,11 @@ function pushEntries(userId) {
 		/////////////////
 		if(fetchEntries == " " || !fetchEntries) { fetchEntries = " "; }
 		if(fetchEntries) {
+			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
 			$.post("http://mylivediet.com/sync.php", { "sql":fetchEntries,"uid":userId }, function(data) {
 				//clear marker
 				window.localStorage.removeItem("lastEntryPush");
+				//NProgress.done();
 			}, "text");
 		}
 	});
@@ -262,8 +241,9 @@ function pushEntries(userId) {
 function setPush() {
 	window.localStorage.setItem("lastEntryPush",new Date().getTime());
 }
-
-
+//#//////////////////////#//
+//# ONLINE: SYNC ENTRIES #//
+//#//////////////////////#//
 function syncEntries(userId) {
 	window.localStorage.setItem("pendingSync",new Date().getTime());
 	if(isNaN(userId)) { return; }
@@ -273,8 +253,11 @@ function syncEntries(userId) {
 	var dbName = "mylivediet.app";
 	if(!demoRunning) {
 		//start
+		//force food db
+		//updateFoodDb();
 		//spinner(45);
-		$("#loadingDiv").addClass("updating");
+		//$("#loadingDiv").addClass("updating");
+		NProgress.start();
 		demoRunning = true;
 		try {
 			html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
@@ -290,7 +273,8 @@ function syncEntries(userId) {
 				if(trim(sql) == "") {
 					window.localStorage.removeItem("pendingSync");
 					setPush();
-					$("#loadingDiv").removeClass("updating");	
+					//$("#loadingDiv").removeClass("updating");	
+					NProgress.done();
 				}
 				html5sql.process("DELETE FROM diary_entry;" + sql,
 				//html5sql.process(sql,
@@ -299,14 +283,30 @@ function syncEntries(userId) {
 						demoRunning = false;
 						//clear lock
 						window.localStorage.removeItem("pendingSync");
-						//push local
-						setPush();
-						$("#loadingDiv").removeClass("updating");
+						NProgress.done();
+						if(window.localStorage.getItem("foodDbLoaded") != "done") {
+							//force food db
+							updateFoodDb();
+						} else {
+							//push local
+							pushEntries(window.localStorage.getItem("facebook_userid"));
+						}
+						window.localStorage.setItem("lastSync",Number((new Date()).getTime()));
+						if(window.localStorage.getItem("lastSync") != "never") { $("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); }
+						//setPush();
+						//$("#loadingDiv").removeClass("updating");
+						//NProgress.inc();
 						//if diary tab, auto refresh
 						if(window.localStorage.getItem("app_last_tab") == "tab2") {
 							updateEntries();
 						}
-						if(typeof updateFavList == 'function') {
+						if(window.localStorage.getItem("app_last_tab") == "tab1") {
+							$("#tab1").trigger(touchstart);
+						}
+						if(window.localStorage.getItem("app_last_tab") == "tab3") {
+							$("#tab3").trigger(touchstart);
+						}
+						if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
 							updateFavList();	
 							updateFoodList();	
 							updateExerciseList();
@@ -316,10 +316,22 @@ function syncEntries(userId) {
 					function(error, failingQuery) {
 						//failure
 						demoRunning = false;
-						$("#loadingDiv").removeClass("updating");
+						//$("#loadingDiv").removeClass("updating");
+						NProgress.done();
 						//spinner();
 						if(window.localStorage.getItem("app_last_tab") == "tab2") {
 							updateEntries();
+						}
+						if(window.localStorage.getItem("app_last_tab") == "tab1") {
+							$("#tab1").trigger(touchstart);
+						}
+						if(window.localStorage.getItem("app_last_tab") == "tab3") {
+							$("#tab3").trigger(touchstart);
+						}
+						if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
+							updateFavList();	
+							updateFoodList();	
+							updateExerciseList();
 						}
 					}
 				);
@@ -328,36 +340,12 @@ function syncEntries(userId) {
 		//try fail
 		} catch(error) {
 			demoRunning = false;
-			$("#loadingDiv").removeClass("updating");
+			//$("#loadingDiv").removeClass("updating");
+			NProgress.done();
 			//spinner();
 		}
 	}
 }
-
-
-
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
 /////////////////
 // GET ENTRIES //
 /////////////////
@@ -626,6 +614,7 @@ function getOrientation() {
 // AFTERLOAD //
 ///////////////
 var afterTimer;
+var afterHidden;
 function afterLoad() {
 	CONSOLE('afterLoad()');
 	//$('body').css("-webkit-transition-timing-function","linear");
@@ -652,7 +641,6 @@ function afterShow(t) {
 ///////////////
 // AFTERHIDE //
 ///////////////
-var afterHidden;
 function afterHide(cmd) {
 	CONSOLE('afterHide()');
 	clearTimeout(afterHidden);
@@ -1124,7 +1112,7 @@ function afterInit()  {
 //#/////////#//
 //# FB INIT #//
 //#/////////#//
-if(hasTouch()) {
+if(isCordova()) {
 	document.addEventListener("deviceready",function() { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }); afterInit(); }, false);
 } else {
 	$(document).ready(function() { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); afterInit(); });

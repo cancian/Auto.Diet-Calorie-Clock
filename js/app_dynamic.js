@@ -627,7 +627,7 @@ $(document).on("pageReload", function(evt) {
 					$("#entryTime").blur();
 					//$('#pageSlideFood').css("opacity",".925");
 					$('#pageSlideFood').addClass('busy');
-					
+					//open directly on first load
 					if(window.localStorage.getItem("foodDbLoaded") != "done") {
 						$('#pageSlideFood').addClass("open");
 					}

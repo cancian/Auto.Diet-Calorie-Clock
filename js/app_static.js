@@ -4,11 +4,11 @@
 $(document).ready(function() {  
 	diary = new Diary();
 	diary.setup(startApp);
-	if(hasTouch() && hasTap()) { 
+	if(isCordova()) {
 		$("body").css("opacity","0");
 		setTimeout(function(evt) {
 			$("body").css("opacity","1");
-		},6000);
+		},8000);
 	}
 });
 //##///////////##//
@@ -87,7 +87,7 @@ function appResizer(time) {
 		//unlock top white gap
 		$('body').trigger("touchmove");
 		//NO < 0
-		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#enryListBottomBar').height());
+		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
 		//force scrolling ios
 		if(isMobile.iOS()) { wrapperMinH = wrapperMinH + 1; }
 		if(wrapperMinH < 0) {
@@ -96,8 +96,8 @@ function appResizer(time) {
 		$('#entryListWrapper').css("height","auto");
 		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
 		//$('#foodList').css("min-height",$('#foodList').height() + "px");
-		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");		
-		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");		
+		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
 		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 		//chrome v32 input width
 		$('#entryBody').width(window.innerWidth -58);
@@ -114,13 +114,13 @@ function appResizer(time) {
 //MENU BUTTON
 $(document).on("menubutton", function(evt) {
 	evt.preventDefault();
-//	if(androidVersion() >= 3) {
+	if(androidVersion() >= 3) {
 		window.MyCls.changeActivity();
-//		return false;
-//	} else {
-//		window.open('http://cancian.uservoice.com', '_system', 'location=yes');
-//		return false;
-//	}
+		return false;
+	} else {
+		window.open('http://cancian.uservoice.com', '_system', 'location=yes');
+		return false;
+	}
 });
 //BACK BUTTON
 $(document).on("backbutton", function(evt) {
@@ -146,7 +146,7 @@ $(document).on("backbutton", function(evt) {
 		appFooter("tab1");
 	} else {
 		afterHide();
-	}	
+	}
 });
 //FORCE SHOW KEYBOARD
 $(document).on("click", function(evt) {
@@ -258,13 +258,13 @@ if(isMobile.Android()) {
 	$("body").addClass("android");
 }
 if(isMobile.Android() && androidVersion() < 4) {
-	$("body").addClass("android2");	
+	$("body").addClass("android2");
 }
 if(isMobile.Android() && androidVersion() >= 4 && androidVersion() < 4.4) {
-	$("body").addClass("android4");	
+	$("body").addClass("android4");
 }
 if(isMobile.Android() && androidVersion() >= 4.4) {
-	$("body").addClass("android44");	
+	$("body").addClass("android44");
 }
 ////////////
 // PINKED //
@@ -289,7 +289,7 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 	window.localStorage.setItem("calcForm#pA6M","1");
 	window.localStorage.setItem("calcForm#pA6N","pounds");
 	window.localStorage.setItem("calcForm#feet","5");
-	window.localStorage.setItem("calcForm#inches","10");	
+	window.localStorage.setItem("calcForm#inches","10");
 	//LOCALE
 	window.localStorage.setItem("config_measurement","imperial");
 	if(LANG("LANGUAGE") == "pt") {
@@ -306,7 +306,7 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //###########################//
 //####   START WORKING   ####//
 //###########################//
-afterShow(250);
+afterShow(300);
 //updateEntries();
 //updateEntriesTime();
 (function startTimer() {
@@ -336,10 +336,8 @@ afterShow(250);
 			pushEntries(window.localStorage.getItem("facebook_userid"));
 			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
 		}
-		//force food db
-		updateFoodDb();
 	}
-	setTimeout(lastEntryPush,500);
+	setTimeout(lastEntryPush,750);
 })();
 	//////////////////////
 	// PAGESLIDE CLOSER //
@@ -460,15 +458,14 @@ afterShow(250);
 						}
 						$(this).replaceWith(new_value);
 						//update info inputs
-						$("#CyclicInput1").val(window.localStorage.getItem("config_kcals_day_1"));
-						$("#CyclicInput2").val(window.localStorage.getItem("config_kcals_day_2"));
+						//$("#CyclicInput1").val(window.localStorage.getItem("config_kcals_day_1"));
+						//$("#CyclicInput2").val(window.localStorage.getItem("config_kcals_day_2"));
 						//WRITE TO DB
 						window.localStorage.setItem(getKcalsKey,$(this).val());
 						updateTimer();
 						setPush();
 						//updateEntriesTime();
 						$("#editableBlock").remove();
-
 					},
 					change: function() {
 						$("#editable").blur();

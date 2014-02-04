@@ -4,8 +4,8 @@
 # 1.1.5 [31/01/2014]
 • added "clear all" option to diary
 • counter now prompts for auto start when adding new entries
-• 
-• 
+• facebook integration / data sync
+• all entries, custom itens, and personal settings can now be automatically backed up and synced across multiple devices (via facebook account)
 • 
 • 
 

@@ -526,6 +526,18 @@ var LOGOUT_TITLE = {
 	en: "Logout from Facebook",
 	pt: "Desconectar do Facebook"
 };
+var FOR = {
+	en: "for",
+	pt: "para"
+};
+var CALORIE_COUNTER = {
+	en: "Calorie Counter",
+	pt: "Contador de Calorias"
+};
+var SHARE_MESSAGE = {
+	en: "I'm using MyLiveDiet to track calories in real-time! Check it out!",
+	pt: "Estou usando MyLiveDiet - contador de calorias em tempo real! Confira!"
+};
 
 var XXX = {
 	en: "XXX",

@@ -25,6 +25,11 @@ document.write("<script type='text/javascript' src='js/jquery.nicescroll.min.js'
 document.write("<script type='text/javascript' src='js/jquery.color-2.1.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.mobileCheckbox.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js'><\/script>");
+//nprogress
+document.write("<script type='text/javascript' src='js/nprogress.js'><\/script>");
+if(typeof NProgress == 'undefined') {
+	document.write("<script type='text/javascript' src='http://mylivediet.com/js/nprogress.js'><\/script>");
+}
 document.write("<script type='text/javascript' src='js/spin.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/quo.js'><\/script>");
 document.write("<script type='text/javascript' src='js/html5sql.js'><\/script>");

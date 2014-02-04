@@ -35,14 +35,5 @@ module.exports = [
             "GAPlugin"
         ]
     }
-];
-module.exports.metadata = 
-// TOP OF METADATA
-{
-    "org.apache.cordova.dialogs": "0.2.5",
-    "org.apache.cordova.splashscreen": "0.2.6",
-    "org.apache.cordova.inappbrowser": "0.3.0",
-    "com.adobe.plugins.GAPlugin": "2.3.1"
-}
-// BOTTOM OF METADATA
+]
 });
