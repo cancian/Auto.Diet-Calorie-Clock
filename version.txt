@@ -2,12 +2,9 @@
 ## VERSION LOG ##
 #################
 # 1.1.5 [31/01/2014]
-• added "clear all" option to diary
+• entries, custom itens, and personal settings can now be backed up online and synced across multiple devices (via facebook account)
 • counter now prompts for auto start when adding new entries
-• facebook integration / data sync
-• all entries, custom itens, and personal settings can now be automatically backed up and synced across multiple devices (via facebook account)
-• 
-• 
+• added "clear all" option to diary
 
 # 1.1.4 [25/01/2014]
 • added UserVoice for user feedback

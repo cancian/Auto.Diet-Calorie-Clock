@@ -81,6 +81,12 @@ Diary.prototype.initDB = function(t) {
 	if(!window.localStorage.getItem("lastSync")) {
 		window.localStorage.setItem("lastSync","never");
 	}
+	if(!window.localStorage.getItem("searchType")) {
+		window.localStorage.setItem("searchType","food");
+	}
+	if(!window.localStorage.getItem("lastInfoTab")) {
+		window.localStorage.setItem("lastInfoTab","topBarItem-1");
+	}
 };
 ////////////////////
 // RESET DATA+SQL //

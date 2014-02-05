@@ -71,6 +71,8 @@ ul#appFooter.appDebug li.selected					{ /*color: #008800;*/ }
 ul#appFooter.appDebug li.selected:before			{ color: #008000; color: #00ee00; /*-webkit-text-fill-color: rgba(0,0,0,.84);*/ }
 ul#appFooter.appEdge li.selected:before				{ color: #FF3B30; color: #F22323; color: #E04343; }
 ul#appFooter.appFacebook li.selected:before			{ color: #6D8CD2; }
+ul#appFooter.appDebug.appFacebook li.selected:before{ color: #A26ABA; }
+ul#appFooter.appEdge.appFacebook li.selected:before	{ color: #B669CC; }
 body.pinked ul#appFooter.appEdge li.selected:before	{ color: #EE82EE !important; } 
 ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
 ul#appFooter li					{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
