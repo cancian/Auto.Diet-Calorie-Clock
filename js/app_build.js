@@ -32,7 +32,14 @@ function openSettings(string) {
 	//# OUTPUT #//
 	//#////////#//
 	$("#appContent").html(settingsHtml);
-	//update last sync
+	///////////////
+	// last sync //
+	///////////////
+	$("#optionLastSync").on(touchend,function(evt) {
+		evt.preventDefault();
+		syncEntries(window.localStorage.getItem("facebook_userid"));
+		return false;
+	});	
 	if(window.localStorage.getItem("lastSync") != "never") { $("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); }
 	////////////
 	// UNUSED //
@@ -517,7 +524,7 @@ function openStatus(string) {
 		$(document).trigger("pageReload");
 	});
 	$("#appStatusAddRight").on(touchstart,function(evt) {
-		if($('#editable').is(':visible')) { return false; }
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		evt.preventDefault();
 		window.localStorage.setItem("searchType","exercise");
 		$(document).trigger("pageReload");
@@ -1045,8 +1052,35 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			afterHide();
 			return false;
 		}
-		if($("#entryBody").val().toLowerCase() == "devstress") {
-			stressTest.bookmarklet();
+		if($("#entryBody").val().toLowerCase() == "devshare") {
+			if(isMobile.iOS()) {
+				var shareLink = 'https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802';
+				var shareOS   = 'iOS';
+			} else if(isMobile.Android()) {
+				var shareLink = 'https://market.android.com/details?id=com.cancian.mylivediet';
+				var shareOS   = 'Android';
+			} else {
+				var shareLink = 'http://mylivediet.com/';
+				var shareOS   = 'Web';
+			}
+			/*
+			var params = {
+				method: 'feed',
+				name: 'MyLiveDiet ' + LANG("FOR") + ' ' + shareOS,
+				link: shareLink,
+				picture: 'http://mylivediet.com/icon.png',
+				caption: LANG("CALORIE_COUNTER"),
+				description: LANG("SHARE_MESSAGE")
+			};*/
+			//FB.ui(params, function(obj) { CONSOLE(obj); });
+			FB.ui({
+				method: 'feed',
+				name: 'MyLiveDiet ' + LANG("FOR") + ' ' + shareOS,
+				link: shareLink,
+				picture: 'http://mylivediet.com/icon.png',
+				caption: LANG("CALORIE_COUNTER"),
+				description: LANG("SHARE_MESSAGE")
+			});
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}

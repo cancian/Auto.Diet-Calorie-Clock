@@ -118,8 +118,11 @@ $(document).on("menubutton", function(evt) {
 		window.MyCls.changeActivity();
 		return false;
 	} else {
-		window.open('http://cancian.uservoice.com', '_system', 'location=yes');
+		if($('#pageSlideFood').length) {
+		$(document).trigger("pageReload");
+		//window.open('http://cancian.uservoice.com', '_system', 'location=yes');
 		return false;
+		}
 	}
 });
 //BACK BUTTON
@@ -337,7 +340,7 @@ afterShow(300);
 			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,750);
+	setTimeout(lastEntryPush,1000);
 })();
 	//////////////////////
 	// PAGESLIDE CLOSER //
@@ -354,7 +357,13 @@ afterShow(300);
 				$('#pageSlideFood').removeClass('busy');
 				//WIPE ON CLOSE
 				$('#pageSlideFood').remove(); 
-				setPush();
+				//force custom dump/save
+				if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
+					updateFavList();	
+					updateFoodList();	
+					updateExerciseList();
+					setTimeout(function() { setPush() },1000);
+				}
 			});
 		}
 	});

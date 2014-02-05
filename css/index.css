@@ -68,10 +68,10 @@ ul#appFooter li.selected		{ color: #fff; background-image: -webkit-linear-gradie
 ul#appFooter li.selected:before	{ color: #cbcbcb; /*color: #00ee00;*/ }
 /*footer colors*/
 ul#appFooter.appDebug li.selected					{ /*color: #008800;*/ }
-ul#appFooter.appDebug li.selected:before			{ color: #008000; color: #00ee00; /*-webkit-text-fill-color: rgba(0,0,0,.84);*/ }
+ul#appFooter.appDebug li.selected:before			{ color: #51AC55; color: #00ee00; /*-webkit-text-fill-color: rgba(0,0,0,.84);*/ }
 ul#appFooter.appEdge li.selected:before				{ color: #FF3B30; color: #F22323; color: #E04343; }
 ul#appFooter.appFacebook li.selected:before			{ color: #6D8CD2; }
-ul#appFooter.appDebug.appFacebook li.selected:before{ color: #A26ABA; }
+ul#appFooter.appDebug.appFacebook li.selected:before{ color: #48A899; }
 ul#appFooter.appEdge.appFacebook li.selected:before	{ color: #B669CC; }
 body.pinked ul#appFooter.appEdge li.selected:before	{ color: #EE82EE !important; } 
 ul#appFooter li:before			{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
@@ -106,10 +106,10 @@ div#optionReset.activeRow		{ background-color: #E86401; color: #fff; }
 // SETTINGS: FACEBOOK //
 //////////////////////*/
 #optionFacebookWrapper			{ position: absolute; bottom: 68px; left: 0; display: block; height: 32px; line-height: 31px; width: 100%; text-align: center; background-color: transparent; }
-#optionFacebook					{ position: relative; padding: 0 12px 0 38px; color: #fff; display: inline-block; height: 32px; line-height: 31px; background-color: #3b5998; border: 1px solid rgba(0,0,0,.2); border-radius: 0; }
-#optionFacebook:before			{ box-sizing: border-box; position: absolute; top: 0; left: 0; padding: 0; font-size: 20px; line-height: 32px; height: 32px; width: 29px; text-align: center; border-right: 1px solid rgba(0,0,0,.2); color:#fff; content: "\f09a"; font-family: 'FontAwesome'; font-weight: normal; }
+#optionFacebook					{ position: relative; padding: 0 12px 0 38px; color: #fff; display: inline-block; height: 32px; line-height: 31px; background-color: #3b5998; border: 1px solid rgba(0,0,0,.2); border-radius: 0; z-index:2; }
+#optionFacebook:before			{ box-sizing: border-box; position: absolute; top: 0; left: 0; padding: 0; font-size: 20px; line-height: 32px; height: 32px; width: 29px; text-align: center; border-right: 1px solid rgba(0,0,0,.2); color: #fff; content: "\f09a"; font-family: 'FontAwesome'; font-weight: normal; }
 #optionFacebook.activeRow		{ background-color:#30487B; }
-#optionLastSync					{ position: absolute; bottom: 46px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; }
+#optionLastSync					{ position: absolute; bottom: 46px; padding-top: 40px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; z-index: 1; }
 #optionLastSync span			{ color: #bbb; padding-left: 4px; }
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //

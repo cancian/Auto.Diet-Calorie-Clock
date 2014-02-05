@@ -661,10 +661,22 @@ function afterHide(cmd) {
 			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && cmd == "clear") {
 				$.post("http://mylivediet.com/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
 					if(cmd == "clear") { window.localStorage.clear(); }
-					setTimeout(function() { window.location=''; },250);
+					setTimeout(function() { 
+						if(androidVersion() >= 4) { 
+							window.MyReload.reloadActivity();
+						} else {
+							document.location='';
+						}
+					},250);
 				}, "text");
 			} else {
-				setTimeout(function() { window.location=''; },250);
+					setTimeout(function() { 
+						if(androidVersion() >= 4) { 
+							window.MyReload.reloadActivity();
+						} else {
+							document.location='';
+						}
+					},250);
 				if(cmd == "clear") { window.localStorage.clear(); }
 			}
 		});
