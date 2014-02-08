@@ -111,6 +111,21 @@ div#optionReset.activeRow		{ background-color: #E86401; color: #fff; }
 #optionFacebook.activeRow		{ background-color:#30487B; }
 #optionLastSync					{ position: absolute; bottom: 46px; padding-top: 40px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; z-index: 1; }
 #optionLastSync span			{ color: #bbb; padding-left: 4px; }
+/*///////////////////
+// SETTINGS: SHARE //
+///////////////////*/
+#optionReview					{ position: relative; }
+#optionShare 					{ position: absolute; top: 0; right: 0; display: block; width: 60px; height: 46px; line-height: 52px; font-size: 22px; text-align: center; background-color: transparent; color: #bbb; }
+#optionShare:before				{ content: "\f045"; font-family: 'FontAwesome'; }
+/*
+#optionShare					{ position: absolute; bottom: 68px; left: 0; display: block; height: 32px; line-height: 31px; width: 100%; text-align: center; background-color: transparent; }
+#optionShare					{ position: relative; padding: 0 12px 0 38px; color: #fff; display: inline-block; height: 32px; line-height: 31px; background-color: #3b5998; border: 1px solid rgba(0,0,0,.2); border-radius: 0; z-index:2; }
+#optionShare:before				{ box-sizing: border-box; position: absolute; top: 0; left: 0; padding: 0; font-size: 20px; line-height: 32px; height: 32px; width: 29px; text-align: center; border-right: 1px solid rgba(0,0,0,.2); color: #fff; 
+content: "\f09a"; font-family: 'FontAwesome';
+font-weight: normal; }
+#optionShare.activeRow		{ background-color:#30487B; }
+#optionShare					{ position: absolute; bottom: 46px; padding-top: 40px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; z-index: 1; }
+#optionShare span			{ color: #bbb; padding-left: 4px; }*/
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
 /////////////////////////*/
@@ -389,12 +404,12 @@ div#noEntries				{ border-left: 5px solid #ccc; }
 /*/////////
 // NOTES //
 /////////*/
-#diaryNotes						{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 22px; color: #ddd; }
-#diaryNotes:before				{ content: "\f02d"; font-family: FontAwesome; display: inline-block; font-weight: normal; }
-#diaryNotesWrapper				{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; }
-#diaryNotesInput 				{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: transparent; z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; font-family: Helvetica, Arial, sans-serif; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
-#diaryNotesButton				{ position: absolute; top: 0; height: 100%; right: 0; width: 66px; background-color: rgba(0,0,0,.2); opacity: 1; z-index: 999; display: block; -webkit-backface-visibility: hidden; -webkit-user-select: none; }
-#diaryNotesButton span			{ position: absolute; top: 100px; height: 100%; width: 100%; text-align: center; color: #fff; opacity: .72; /*color: rgba(255,255,255,.72);*/ font-size: 18px; font-weight: bold; -webkit-backface-visibility: hidden; -webkit-user-select: none; }
+#diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 22px; color: #ddd; }
+#diaryNotes:before			{ content: "\f02d"; font-family: FontAwesome; display: inline-block; font-weight: normal; }
+#diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; }
+#diaryNotesInput 			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: transparent; z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; font-family: Helvetica, Arial, sans-serif; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
+#diaryNotesButton			{ position: absolute; top: 0; height: 100%; right: 0; width: 66px; background-color: rgba(0,0,0,.2); opacity: 1; z-index: 999; display: block; -webkit-backface-visibility: hidden; -webkit-user-select: none; }
+#diaryNotesButton span		{ position: absolute; top: 100px; height: 100%; width: 100%; text-align: center; color: #fff; opacity: .72; /*color: rgba(255,255,255,.72);*/ font-size: 18px; font-weight: bold; -webkit-backface-visibility: hidden; -webkit-user-select: none; }
 /*#############################
 ####    PAGE SLIDE FOOD    ####
 #############################*/

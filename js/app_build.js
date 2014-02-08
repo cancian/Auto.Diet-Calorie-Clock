@@ -48,7 +48,7 @@ function openSettings(string) {
 	$("#optionContact").remove();
 	//$("#optionFeedback").remove();
 	if(!hasTouch()) {
-		$("#optionReview").remove();
+		//$("#optionReview").remove();
 	}
 	////////////////////////
 	// SETTINGS: FACEBOOK //
@@ -158,7 +158,7 @@ function openSettings(string) {
 	/////////////////////
 	// SETTINGS: SHARE //
 	/////////////////////
-	/*
+	$("li#optionReview").append('<span id="optionShare"></span>');
 	//android exeption 18 bug (sql db init)
 	$("#optionShare").on(touchstart + AND + touchend,function(evt) {
 		evt.preventDefault();
@@ -186,7 +186,6 @@ function openSettings(string) {
 		FB.ui(params, function(obj) { CONSOLE(obj); });
 		//FB.ui(params);
 	});
-	*/
 	////////////////////////
 	// SETTINGS: FEEDBACK //
 	////////////////////////
@@ -520,13 +519,21 @@ function openStatus(string) {
 	$("#appStatusAddLeft").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		evt.preventDefault();
-		window.localStorage.setItem("searchType","food");		
+		if(!$("#pageSlideFood").hasClass("busy")) {
+			window.localStorage.setItem("searchType","food");
+		} else {
+			//return false;
+		}
 		$(document).trigger("pageReload");
 	});
 	$("#appStatusAddRight").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		evt.preventDefault();
-		window.localStorage.setItem("searchType","exercise");
+		if(!$("#pageSlideFood").hasClass("busy")) {
+			window.localStorage.setItem("searchType","exercise");
+		} else {
+			//return false;
+		}
 		$(document).trigger("pageReload");
 	});
 	//#/////////////////////#//
@@ -772,22 +779,30 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		$("#entryTime").blur();
 		$("#entryBody").blur();
 		//console.log("reset slider value");
-		var sliderNum = document.getElementById('slider').slider.resetValue();
+		var sliderNum = document.getElementById('slider').slider.setValue(0);
+		//document.getElementById('slider').slider.setValue(0);
+		$("#entryTitle").val(0);
 		makeRound();
-				return false;
+		return false;
 	});
 	$("#sliderPos").off().on(touchstart, function(evt) {
 		evt.preventDefault();
 		//console.log("increase slider value");
+		var posVal = Number($('#entryTitle').val());
 		var sliderPos = document.getElementById('slider').slider.increment(1);
-		makeRound();
+		//document.getElementById('slider').slider.setValue( parseInt($('#entryTitle').val()) + 1);
+		$('#entryTitle').val( posVal+1 );
+		//var sliderPos = document.getElementById('slider').slider.setValue(  Number($('#entryTitle').val()) );
+		//makeRound();
 		return false;
 	});
 	$("#sliderNeg").off().on(touchstart, function(evt) {
 		evt.preventDefault();
 		//console.log("decrease slider value");
 		var sliderNeg = document.getElementById('slider').slider.increment(-1);
-		makeRound();
+		//$('#entryTitle').val( Number($('#entryTitle').val())  );
+		//var sliderPos = document.getElementById('slider').slider.setValue(  Number($('#entryTitle').val()) );		
+		//makeRound();
 		return false;
 	});
 	////////////////////////////////
@@ -815,7 +830,9 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		//}
 		//RELOAD IF-KCALS
 		//if(title != 0) {
-			var resetSlider = document.getElementById('slider').slider.resetValue();
+			//var resetSlider = document.getElementById('slider').slider.resetValue();
+			var resetSlider = document.getElementById('slider').slider.setValue(0);
+			$("#entryTitle").val(0);
 			document.getElementById('entryBody').value = "";
 			document.getElementById('entryTime').value = 0;
 			//DISMISS KEYBOARD
@@ -856,13 +873,13 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		n = document.getElementById('entryTitle').value / 25;
 		n = Math.round(n) * 25;
 		if($("#entryTitle").val() != n) {
-			$("#entryTitle").val(n);
+			//$("#entryTitle").val(n);
 		}
 	}
 	//#//////////////////////#//
 	//# SLIDER VALUE CHANGES #//
 	//#//////////////////////#//
-	!function() {
+	!function() { 
 		if(!document.getElementById('entryTitle')) { return; }
 		document.getElementById('entryTitle').update = function() {
 			//UPDATE INPUT
@@ -902,6 +919,8 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 				}
 			}
 			checkSubmit();
+			
+			document.getElementById('entryTitle').value = Math.round(document.getElementById('entryTitle').value);
 		return;
 		};
 	}();
@@ -967,7 +986,9 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	$("#sliderNum").on(touchstart + " touchmove", function(evt) {
 		evt.preventDefault();
 		clearRepeater();
-		var sliderNum = document.getElementById('slider').slider.resetValue();
+		//var sliderNum = document.getElementById('slider').slider.resetValue();
+		var sliderNum = document.getElementById('slider').slider.setValue(0);
+		$("#entryTitle").val(0);
 		return false;
 	});
 	//////////////////

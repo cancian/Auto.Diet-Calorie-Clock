@@ -1217,29 +1217,27 @@ if(window.localStorage.getItem("foodDbLoaded") != "done") {
 ////////////////////
 // CUSTOM FAV SQL //
 ////////////////////
-if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
-	updateFavList();
-	setTimeout(function() {
-		updateFoodList();
-		updateExerciseList();
-	},300);
-}
-if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
-	updateFoodList();
-	setTimeout(function() {
-		updateFavList();
-		updateExerciseList();
-	},300);
-}
 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
 	updateExerciseList();
 	setTimeout(function() {
 		updateFavList();
 		updateFoodList();
 	},300);
+} else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
+	updateFoodList();
+	setTimeout(function() {
+		updateFavList();
+		updateExerciseList();
+	},300);
+} else {
+//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
+	updateFavList();
+	setTimeout(function() {
+		updateFoodList();
+		updateExerciseList();
+	},300);
 }
 }
-
 /////////////////////
 // FIRST LOAD TABS //
 /////////////////////
@@ -1790,7 +1788,7 @@ if(mType == "exercise") {
 } else {
 	var searchType = 'food';
 }
-						var duh      = new Date().getTime();
+						var duh = new Date().getTime();
 						////////////////////////
 						// FOODLIST DOUBLETAP //
 						////////////////////////

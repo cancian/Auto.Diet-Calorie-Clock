@@ -4,11 +4,11 @@
 $(document).ready(function() {  
 	diary = new Diary();
 	diary.setup(startApp);
-	if(isCordova()) {
+	if(hasTap() && hasTouch()) {
 		$("body").css("opacity","0");
 		setTimeout(function(evt) {
 			$("body").css("opacity","1");
-		},8000);
+		},5000);
 	}
 });
 //##///////////##//
@@ -55,6 +55,13 @@ function appFooter(id) {
 	if(id == "tab4") { openSettings(); }
 	$("body").removeClass("tab1 tab2 tab3 tab4");
 	$("body").addClass(id);
+	//clear pageslidefood
+	if(!$("#pageSlideFood").is(":animated")) {
+		$("#pageSlideFood").remove();
+		$("#appHeader").removeClass("open");
+	} else {
+		$('#appHeader').trigger(touchstart);
+	}
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
 	updateTimer();

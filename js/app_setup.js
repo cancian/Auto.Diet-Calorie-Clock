@@ -306,10 +306,11 @@ function syncEntries(userId) {
 						if(window.localStorage.getItem("app_last_tab") == "tab2") {
 							updateEntries();
 						}
-						if(window.localStorage.getItem("app_last_tab") == "tab1") {
+
+						if(window.localStorage.getItem("app_last_tab") == "tab1" && !$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
 							$("#tab1").trigger(touchstart);
 						}
-						if(window.localStorage.getItem("app_last_tab") == "tab3") {
+						if(window.localStorage.getItem("app_last_tab") == "tab3" && !$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
 							$("#tab3").trigger(touchstart);
 						}
 						if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
@@ -328,10 +329,10 @@ function syncEntries(userId) {
 						if(window.localStorage.getItem("app_last_tab") == "tab2") {
 							updateEntries();
 						}
-						if(window.localStorage.getItem("app_last_tab") == "tab1") {
+						if(window.localStorage.getItem("app_last_tab") == "tab1" && !$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
 							$("#tab1").trigger(touchstart);
 						}
-						if(window.localStorage.getItem("app_last_tab") == "tab3") {
+						if(window.localStorage.getItem("app_last_tab") == "tab3" && !$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
 							$("#tab3").trigger(touchstart);
 						}
 						if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
@@ -662,7 +663,7 @@ function afterHide(cmd) {
 				$.post("http://mylivediet.com/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
 					if(cmd == "clear") { window.localStorage.clear(); }
 					setTimeout(function() { 
-						if(androidVersion() >= 4) { 
+						if(androidVersion() >= 4 && window.MyReload) { 
 							window.MyReload.reloadActivity();
 						} else {
 							document.location='';
@@ -671,7 +672,7 @@ function afterHide(cmd) {
 				}, "text");
 			} else {
 					setTimeout(function() { 
-						if(androidVersion() >= 4) { 
+						if(androidVersion() >= 4 && window.MyReload) { 
 							window.MyReload.reloadActivity();
 						} else {
 							document.location='';
