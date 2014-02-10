@@ -3,14 +3,24 @@
 /////////////////
 var diary;
 var AND = " ";
+var initialScreenSize = window.innerHeight;
+var lastScreenSize    = window.innerHeight;
+var lastScreenResize  = window.innerHeight;
+var opaLock           = 0;
+var timerPerf         = (new Date().getTime());
+var timerDiff         = 100;
+var timerWait         = 100;
 function Diary()	{ that = this; }
 function voidThis() {}
 ///////////////////
 // DEBUG CONSOLE //
 ///////////////////
-function CONSOLE(data) {
+function CONSOLE(data,input) {
 	if(window.localStorage.getItem("config_debug") == "active") {
 		console.log(data);
+		if(input) {
+			$("#entryBody").val(data);
+		}
 	}
 	return false;
 }
@@ -468,6 +478,12 @@ Diary.prototype.delFood = function(code, callback) {
 // GET CUSTOM LIST //
 /////////////////////
 Diary.prototype.getCustomList = function(type,callback) {
+	
+function callbackOpen() {
+	$('#pageSlideFood').addClass("open");
+	CONSOLE('getCustomList(error open)');
+}
+	
 	CONSOLE('getCustomList(' + type + ")");
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
@@ -477,21 +493,21 @@ Diary.prototype.getCustomList = function(type,callback) {
 				t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[type],
 				function(t,results) {
 					callback(that.fixResults(results));
-					if(window.localStorage.getItem("foodDbLoaded") == "done" && !$('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
+					//if(window.localStorage.getItem("foodDbLoaded") == "done" && !$('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').is("animated")) {
 						$('#pageSlideFood').addClass("open");
-					}
-				},this.dbErrorHandler);
+					//}
+				},callbackOpen);
 			// FOOD/EXERCISE LIST //
 			} else {
 				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by NAME COLLATE NOCASE ASC',[type],
 				function(t,results) {
 					callback(that.fixResults(results));
-					if(window.localStorage.getItem("foodDbLoaded") == "done" && !$('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
+					//if(window.localStorage.getItem("foodDbLoaded") == "done" && !$('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').is("animated")) {
 						$('#pageSlideFood').addClass("open");
-					}
-				},this.dbErrorHandler);
+					//}
+				},callbackOpen);
 			}
-	}, this.dbErrorHandler);
+	}, callbackOpen);
 };
 /////////////
 // SET FAV //
@@ -650,6 +666,7 @@ function afterShow(t) {
 ///////////////
 function afterHide(cmd) {
 	CONSOLE('afterHide()');
+	opaLock = 1;
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
 		$("#appStatusReload").off();
@@ -1108,7 +1125,7 @@ function updateLoginStatus(sync) {
 					window.localStorage.setItem("facebook_userid",facebook_userid);
 					window.localStorage.setItem("facebook_username",facebook_username);	
 					$("#appFooter").addClass("appFacebook");
-					$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
+					$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK_LOGGED") + window.localStorage.getItem("facebook_username"));
 					if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
 				}
 			});
@@ -1133,6 +1150,7 @@ function afterInit()  {
 //#/////////#//
 if(isCordova()) {
 	document.addEventListener("deviceready",function() { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }); afterInit(); }, false);
+	document.addEventListener("resume",function()      { afterInit(); }, false);
 } else {
 	$(document).ready(function() { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); afterInit(); });
 }

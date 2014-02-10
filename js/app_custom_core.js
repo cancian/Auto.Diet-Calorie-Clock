@@ -104,6 +104,17 @@ function appTimer(id,content) {
 	$("#appStatusBalance div p").html(window.localStorage.getItem("appBalance"));
 	$("#entry_f-sum p").html(Number(window.localStorage.getItem("config_entry_f-sum")));
 	$("#entry_e-sum p").html(Number(window.localStorage.getItem("config_entry_e-sum")));
+	//self adjust refresh rate based on perfomance
+	var timeWait = timerDiff;
+	timerDiff = (((new Date().getTime()) - timerPerf) * 2);
+	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
+	if(timerDiff > 500) { timerDiff = 500; }
+	if(timerDiff < 100) { timerDiff = 100; }
+	//pre-show reward
+	if(opaLock == 0 && $("body").css("opacity") == 0) {
+		$("body").css("opacity","1");
+		opaLock == 1;
+	}	
 }
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//

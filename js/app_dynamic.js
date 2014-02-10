@@ -178,7 +178,7 @@ $(document).on("pageload", function(evt) {
 									if(Number(document.getElementById('kcalsDiv').innerHTML) == -9999) {
 										document.getElementById('kcalsDiv').innerHTML = -9975;
 									} else {
-										document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) + (25);
+										document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) + (1);
 									}
 									//limit 9999
 									if(Number(document.getElementById('kcalsDiv').innerHTML) >= 9999) {
@@ -207,7 +207,7 @@ $(document).on("pageload", function(evt) {
 									if(Number(document.getElementById('kcalsDiv').innerHTML) == 9999) {
 										document.getElementById('kcalsDiv').innerHTML = 9975;
 									} else {
-										document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) - (25);
+										document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) - (1);
 									}
 									//limit 9999
 									if(Number(document.getElementById('kcalsDiv').innerHTML) < -9999) {
@@ -260,7 +260,7 @@ $(document).on("pageload", function(evt) {
 									if(Number(document.getElementById('kcalsDiv').innerHTML) == -9999) {
 										document.getElementById('kcalsDiv').innerHTML = -9975;
 									} else {
-										document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) + (25);
+										document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) + (1);
 									}
 									//limit 9999
 									if(Number(document.getElementById('kcalsDiv').innerHTML) >= 9999) {
@@ -276,8 +276,8 @@ $(document).on("pageload", function(evt) {
 								updateTimer();
 								}
 								return false;
-								},275);
-								},275);
+								},25);
+								},400);
 							});
 							///////////////////////
 							// NEGATIVE REPEATER //
@@ -300,7 +300,7 @@ $(document).on("pageload", function(evt) {
 									if(Number(document.getElementById('kcalsDiv').innerHTML) == 9999) {
 										document.getElementById('kcalsDiv').innerHTML = 9975;
 									} else {
-										document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) - (25);
+										document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) - (1);
 									}
 									//limit 9999
 									if(Number(document.getElementById('kcalsDiv').innerHTML) < -9999) {
@@ -316,8 +316,8 @@ $(document).on("pageload", function(evt) {
 								updateTimer();
 								}
 								return false;
-								},275);
-								},275);
+								},25);
+								},400);
 							});
 							//prevent empty list highlight
 							if(!isNaN($(this).closest("div").attr("id"))) {
@@ -1850,15 +1850,15 @@ if(mType == "exercise") {
 						function modalAdd() {
 							//FOOD
 							if(searchType == "food") {
-								if($("#modalAmmount").html() < 750 && Math.round(((kcalsBase)/100) * (Number(document.getElementById('modalAmmount').innerHTML) + 25)) <= 9999) {
-									$("#modalAmmount").html(Number($("#modalAmmount").html()) + (25));
+								if($("#modalAmmount").html() < 750 && Math.round(((kcalsBase)/100) * (Number(document.getElementById('modalAmmount').innerHTML) + 1)) <= 9999) {
+									$("#modalAmmount").html(Number($("#modalAmmount").html()) + (1));
 									$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmmount').innerHTML)));
 									getNutriData();
 								}
 							} else {
 							//EXERCISE
-								if($("#modalAmmount").html() < 360 && Math.round(((kcalsBase * totalWeight)/60) * (Number(document.getElementById('modalAmmount').innerHTML) + 5)) <= 9999) {
-									$("#modalAmmount").html( Number($("#modalAmmount").html()) + (5));
+								if($("#modalAmmount").html() < 360 && Math.round(((kcalsBase * totalWeight)/60) * (Number(document.getElementById('modalAmmount').innerHTML) + 1)) <= 9999) {
+									$("#modalAmmount").html( Number($("#modalAmmount").html()) + (1));
 									$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmmount').innerHTML)));
 								}
 							}
@@ -1870,14 +1870,14 @@ if(mType == "exercise") {
 							//FOOD	
 							if(searchType == "food") {
 								if($("#modalAmmount").html() > 0) {
-									$("#modalAmmount").html( Number($("#modalAmmount").html()) - (25));
+									$("#modalAmmount").html( Number($("#modalAmmount").html()) - (1));
 									$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmmount').innerHTML)));
 									getNutriData();
 								}
 							} else {
 							//EXERCISE
 								if($("#modalAmmount").html() > 0) {
-									$("#modalAmmount").html( Number($("#modalAmmount").html()) - (5));
+									$("#modalAmmount").html( Number($("#modalAmmount").html()) - (1));
 									$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmmount').innerHTML)));
 								}
 							}
@@ -1928,8 +1928,8 @@ if(mType == "exercise") {
 							pressRepeatModalPos = window.setInterval(function() {
 							modalAdd();
 							return false;
-							},275);
-							},275);
+							},25);
+							},400);
 						});
 						///////////////////////
 						// NEGATIVE REPEATER //
@@ -1947,8 +1947,8 @@ if(mType == "exercise") {
 							pressRepeatModalNeg = window.setInterval(function() {
 							modalRem();
 							return false;
-							},275);
-							},275);
+							},25);
+							},400);
 						});
 						//#/////////////////////////#//
 						//# SMALLER MODAL FUNCTIONS #//

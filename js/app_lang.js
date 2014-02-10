@@ -1,4 +1,4 @@
-var appVersion = "1.1.5 (11503)"; 
+var appVersion = "1.1.5 (11505)"; 
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -270,6 +270,10 @@ var SETTINGS_FACEBOOK = {
 	en: "Sign in with Facebook",
 	pt: "Conectar com Facebook"
 };
+var SETTINGS_FACEBOOK_LOGGED = {
+	en: "Logged in as ",
+	pt: "Conectado como "
+};
 var SETTINGS_RESET = {
 	en: "Reset settings",
 	pt: "Apagar configurações"
@@ -277,6 +281,10 @@ var SETTINGS_RESET = {
 var SETTINGS_SYNC = {
 	en: "Sync with mylivediet.com",
 	pt: "Sincronizar com mylivediet.com"
+};
+var LAST_SYNC = {
+	en: "last sync",
+	pt: "última sincronização"
 };
 var ABOUT_TITLE = {
 	en: "MyLiveDiet v" + appVersion,

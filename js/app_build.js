@@ -24,7 +24,7 @@ function openSettings(string) {
 		</ul>\
 		<div id="optionWebsite">mylivediet.com</div>\
 		<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG("SETTINGS_FACEBOOK") + '</span></div></div>\
-		<div id="optionLastSync">last sync<span>--</span></div>\
+		<div id="optionLastSync">' + LANG("LAST_SYNC") + '<span>--</span></div>\
 		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>\
 	';
@@ -72,19 +72,14 @@ function openSettings(string) {
 				}
 				if(button == 1) {
 					NProgress.start();
+					FB.logout();
 					//alert('logged, logging out...');
 					FB.logout(function(response) {
 						if(response.status != "connected") {
 							didUnlog();
 						} else {
-							FB.logout(function(response) {
-								if(response.status != "connected") {
-									didUnlog();
-								} else {
-									//agressively log out
-									onConfirmLogout(1);
-								}
-							});
+							//agressively log out
+							setTimeout(function() { onConfirmLogout(1); },500);
 						}
 					});
 				}
@@ -101,6 +96,7 @@ function openSettings(string) {
 			////////////////
 			//alert('not logged, logging in...');
 			FB.login(function(response) {
+				NProgress.start();
 				if(response.status == "connected") {
 					//alert(JSON.stringify(response));
 					//alert('done (login)!');
@@ -112,10 +108,12 @@ function openSettings(string) {
 							window.localStorage.setItem("facebook_userid",facebook_userid);
 							window.localStorage.setItem("facebook_username",facebook_username);	
 							$("#appFooter").addClass("appFacebook");
-							$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
+							$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK_LOGGED") + window.localStorage.getItem("facebook_username"));
 							syncEntries(window.localStorage.getItem("facebook_userid"));
 						}
 					});
+				} else {
+					NProgress.done();
 				}
 			},{ scope: "email" });
 		}
@@ -130,7 +128,7 @@ function openSettings(string) {
 	});
 	//SET USERNAME (IF LOGGED)
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
-		$("#optionFacebook span").html("logged in as " + window.localStorage.getItem("facebook_username"));
+		$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK_LOGGED") + window.localStorage.getItem("facebook_username"));
 	}
 	////////////////
 	// ACTIVE ROW //
@@ -957,8 +955,8 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			//ACTION
 			var repeatPos = document.getElementById('slider').slider.increment(1);
 			makeRound();
-		},275);
-		},275);
+		},25);
+		},400);
 	});
 	///////////////////////
 	// NEGATIVE REPEATER //
@@ -977,8 +975,8 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			//ACTION
 			var repeatNeg = document.getElementById('slider').slider.increment(-1);
 			makeRound();
-		},275);
-		},275);
+		},25);
+		},400);
 	});
 	/////////////////////
 	// NUM DE-REPEATER //
@@ -1281,7 +1279,10 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		if(isMobile.Android()) {
 			$('#diaryNotesInput').on(tap, function(evt) {
 				var notesScroll = $('#diaryNotesInput').scrollTop();
-				$('#diaryNotesInput').blur();
+				//allow toolbar select
+				if(Math.abs(lastScreenResize - lastScreenSize) > 48) {
+					$('#diaryNotesInput').blur();
+				}
 				$('#diaryNotesInput').focus();
 				$('#diaryNotesInput').scrollTop(notesScroll);
 			});

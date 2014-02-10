@@ -7,7 +7,7 @@ $(document).ready(function() {
 	if(hasTap() && hasTouch()) {
 		$("body").css("opacity","0");
 		setTimeout(function(evt) {
-			$("body").css("opacity","1");
+			//$("body").css("opacity","1");
 		},5000);
 	}
 });
@@ -18,11 +18,11 @@ function startApp() {
 ////////////////
 // PARSED CSS //
 ////////////////
-$("head").append("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } <\/style>");
+$("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } <\/style>");
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
-$("body").append('\
+$("body").prepend('\
 	<div id="appHeader"></div>\
 	<div id="loadingDiv"></div>\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
@@ -120,20 +120,29 @@ function appResizer(time) {
 /////////////////////
 //MENU BUTTON
 $(document).on("menubutton", function(evt) {
+	//alert(JSON.stringify($('body')));
 	evt.preventDefault();
-	if(androidVersion() >= 3) {
+	if($("#tempHolder").html()) { return false; }
+	if(androidVersion() >= 3 && window.MyCls) {
 		window.MyCls.changeActivity();
 		return false;
 	} else {
-		if($('#pageSlideFood').length) {
-		$(document).trigger("pageReload");
-		//window.open('http://cancian.uservoice.com', '_system', 'location=yes');
-		return false;
+		if($('#pageSlideFood').hasClass("open")) {
+			if(window.localStorage.getItem("foodDbLoaded") == "done") {
+				$('#appHeader').trigger(touchstart);
+				return false;
+			}		
+		} else {
+			//window.open('http://cancian.uservoice.com', '_system', 'location=yes');
+			$(document).trigger("pageReload");
+			return false;
 		}
 	}
 });
 //BACK BUTTON
 $(document).on("backbutton", function(evt) {
+	if($("#tempHolder").html() && $("#spinner").html()) { return false; }
+	//
 	if($("#addNewCancel").length || $("#modalCancel").length) {
 		$("#addNewCancel").trigger(touchstart);
 		$("#modalCancel").trigger(touchstart);
@@ -199,10 +208,13 @@ $(window).on("orientationchange", function(evt) {
 // RESIZE //
 ////////////
 $(window).on("resize", function(evt) {
+	lastScreenResize = lastScreenSize;
+	lastScreenSize = window.innerHeight;
 	//unlock top white gap
 	$('body').trigger("touchmove");
 	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
-	if(window.innerHeight > $('body').height()) {
+	//if(window.innerHeight > $('body').height()) {
+	if(initialScreenSize > $('body').height()) {
 		//IOS re-scrolling bug
 		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
 		$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);
@@ -313,16 +325,20 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 		window.localStorage.setItem("calcForm#pA6N","kilograms");
 	}
 }
+
+
 //###########################//
 //####   START WORKING   ####//
 //###########################//
-afterShow(300);
+afterShow(999);
 //updateEntries();
 //updateEntriesTime();
 (function startTimer() {
 	if(typeof updateTimer == 'function') {
+		timerPerf = (new Date().getTime());
+		//CONSOLE(timerDiff,1);
 		updateTimer();
-		setTimeout(startTimer,100);
+		setTimeout(startTimer,timerDiff);
 	}
 })();
 //refresh entrylist time
@@ -365,11 +381,11 @@ afterShow(300);
 				//WIPE ON CLOSE
 				$('#pageSlideFood').remove(); 
 				//force custom dump/save
-				if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
+				if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done" && window.localStorage.getItem("facebook_logged")) {
 					updateFavList();	
 					updateFoodList();	
 					updateExerciseList();
-					setTimeout(function() { setPush() },1000);
+					setTimeout(function() { setPush(); },1000);
 				}
 			});
 		}
