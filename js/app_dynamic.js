@@ -420,7 +420,7 @@ $(document).on("pageload", function(evt) {
 					});
 				}
 				//whitegap mitigation
-				if(isMobile.Android()) {
+				if(isMobile.Android() && !$('.active').hasClass('open')) {
 					return false;
 				}
 				//evt.preventDefault();

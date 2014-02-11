@@ -122,8 +122,6 @@ function appTimer(id,content) {
 			if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
 				navigator.splashscreen.hide();
 			}
-		//} else {
-			//opaLock++;
 		}
 	}
 }

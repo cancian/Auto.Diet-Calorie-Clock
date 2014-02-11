@@ -39,3 +39,4 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_buil
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js?"+newDate+"'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js?"+newDate+"'><\/script>");
+
