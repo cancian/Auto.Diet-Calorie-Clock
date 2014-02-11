@@ -5,7 +5,7 @@ $(document).ready(function() {
 	diary = new Diary();
 	diary.setup(startApp);
 	if(hasTap() && hasTouch()) {
-		//$("body").css("opacity","0");
+		$("body").css("opacity","0");
 	}
 });
 //##///////////##//
