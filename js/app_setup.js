@@ -478,12 +478,11 @@ Diary.prototype.delFood = function(code, callback) {
 // GET CUSTOM LIST //
 /////////////////////
 Diary.prototype.getCustomList = function(type,callback) {
-	
-function callbackOpen() {
-	$('#pageSlideFood').addClass("open");
-	CONSOLE('getCustomList(error open)');
-}
-	
+	//	
+	function callbackOpen() {
+		$('#pageSlideFood').addClass("open");
+		CONSOLE('getCustomList(error open)');
+	}
 	CONSOLE('getCustomList(' + type + ")");
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
@@ -634,42 +633,15 @@ function getOrientation() {
 	}
 }
 ///////////////
-// AFTERLOAD //
-///////////////
-var afterTimer;
-var afterHidden;
-function afterLoad() {
-	CONSOLE('afterLoad()');
-	//$('body').css("-webkit-transition-timing-function","linear");
-	//$('body').css("-webkit-transition-duration",".1s");
-	//UNHIDE
-	$('body').css("opacity","1");
-	//setTimeout(function() { $('body').css("-webkit-transition-duration","0s"); },250);
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').show();
-	//$('#pageSlideInfo,#pageSlideCalc,#pageSlideFood').css("display","block");
-	//document.getElementById('afterLoad').style.display = 'none';
-	clearTimeout(afterTimer);
-	//loaded();
-	//window.localStorage.setItem("absWindowHeight",window.innerHeight);
-	//window.localStorage.setItem("absWindowWidth",window.innerWidth);
-	//window.localStorage.setItem("absOrientation",getOrientation());
-	//window.localStorage.setItem("absWindowHeight",window.innerHeight);
-	//window.localStorage.setItem("absWindowWidth",window.innerWidth);
-	//window.localStorage.setItem("absOrientation",Number(window.orientation));
-	afterHidden = 0;
-}
-function afterShow(t) {
-    afterTimer = setTimeout(afterLoad,t);
-}
-///////////////
 // AFTERHIDE //
 ///////////////
+var afterHidden;
 function afterHide(cmd) {
 	CONSOLE('afterHide()');
-	opaLock = 1;
+	opaLock = 2;
+	$("#appStatusReload").off();
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
-		$("#appStatusReload").off();
 		//SET CSS TRANSITION
 		$('body').css("-webkit-transition-timing-function","ease");
 		$('body').css("-webkit-transition-duration",".25s");

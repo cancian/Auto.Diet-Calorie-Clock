@@ -63,17 +63,25 @@ function openSettings(string) {
 			// ON CONFIRM
 			function onConfirmLogout(button) {
 				function didUnlog() {
-					NProgress.done();
-					$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK"));
-					window.localStorage.removeItem("facebook_logged");
-					window.localStorage.removeItem("facebook_userid");
-					window.localStorage.removeItem("facebook_username");	
-					$("#appFooter").removeClass("appFacebook");
+					setTimeout(function() { 
+						NProgress.done();
+						$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK"));
+						window.localStorage.removeItem("facebook_logged");
+						window.localStorage.removeItem("facebook_userid");
+						window.localStorage.removeItem("facebook_username");	
+						$("#appFooter").removeClass("appFacebook");
+					},250);
 				}
 				if(button == 1) {
 					NProgress.start();
-					FB.logout();
-					//alert('logged, logging out...');
+					FB.logout(function(response) {
+						if(response.status != "connected") {
+							didUnlog();
+						} else {
+							//agressively log out
+							setTimeout(function() { onConfirmLogout(1); },500);
+						}
+					});
 					FB.logout(function(response) {
 						if(response.status != "connected") {
 							didUnlog();
@@ -94,28 +102,33 @@ function openSettings(string) {
 			////////////////
 			// LOGGED OUT //
 			////////////////
-			//alert('not logged, logging in...');
-			FB.login(function(response) {
-				NProgress.start();
-				if(response.status == "connected") {
-					//alert(JSON.stringify(response));
-					//alert('done (login)!');
-					FB.api('/me', function(me) {
-						if(me.id && me.name) {
-							var facebook_userid   = me.id;
-							var facebook_username = me.name;
-							window.localStorage.setItem("facebook_logged",true);
-							window.localStorage.setItem("facebook_userid",facebook_userid);
-							window.localStorage.setItem("facebook_username",facebook_username);	
-							$("#appFooter").addClass("appFacebook");
-							$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK_LOGGED") + window.localStorage.getItem("facebook_username"));
-							syncEntries(window.localStorage.getItem("facebook_userid"));
-						}
-					});
-				} else {
-					NProgress.done();
-				}
-			},{ scope: "email" });
+			if(!$("#nprogress").html()) {
+				FB.login(function(response) {
+					NProgress.start();
+					//timeout
+					setTimeout(function() { NProgress.done(); },9999);
+					if(response.status == "connected") {
+						//alert(JSON.stringify(response));
+						//alert('done (login)!');
+						FB.api('/me', function(me) {
+							if(me.id && me.name) {
+								var facebook_userid   = me.id;
+								var facebook_username = me.name;
+								window.localStorage.setItem("facebook_logged",true);
+								window.localStorage.setItem("facebook_userid",facebook_userid);
+								window.localStorage.setItem("facebook_username",facebook_username);	
+								$("#appFooter").addClass("appFacebook");
+								$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK_LOGGED") + window.localStorage.getItem("facebook_username"));
+								syncEntries(window.localStorage.getItem("facebook_userid"));
+							} else {
+								NProgress.done();
+							}
+						});
+					} else {
+						NProgress.done();
+					}
+				},{ scope: "email" });
+			}
 		}
 	});
 	//TOGGLE ACTIVE
@@ -1175,12 +1188,14 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	// QUICK FOCUS INPUTS //
 	////////////////////////
 	$('#entryBody').on(touchstart, function(evt) {
-		//critical re-keyboarding entrybody/entrytime
-		if(isMobile.iOS) {
+		//allow text select
+		if(isMobile.iOS && $("#entryBody").is(":focus")) {
+			//evt.preventDefault();
+		} else {
+			//critical re-keyboarding entrybody/entrytime
 			evt.preventDefault();
+			evt.stopPropagation();
 		}
-		evt.preventDefault();
-		evt.stopPropagation();
 		//android keyboard focus
 		if(isMobile.Android) {
 			$("#entryBody").focus();

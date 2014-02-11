@@ -1,15 +1,16 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.1.5.4 [05/02/2014]
-• improved loading time
-• facebook sharing - android share fix
-• db first load while logged pageslidefood
-• mixed footers colors
-• autosave custom itens on menu close
-• fixed logout issue not trigering on first page load
-• 
-localization for facebook dialogs buttons
+# 1.1.6 [11/02/2014]
+• faster start-up and overall responsiveness
+• slider is now more precise
+• Facebook sharing added to settings
+• improved auto-save function (data sync)
+• fixed diary input not allowing text selection
+• fixed an issue where logging to Facebook before loading food db would cause partial data loss
+• automatic data re-sync when resuming app
+• ability to sync manually by tapping last sync date on settings menu
+• fixed log-out not being triggered under certain circumstances
 
 # 1.1.5 [04/02/2014]
 • entries, custom itens, and personal settings can now be backed up online and synced across multiple devices (via facebook account)

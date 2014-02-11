@@ -34,5 +34,49 @@
 	</script>
 </head>
 <body>
+
+<style type'text/css'>
+@font-face			{ font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot?v=4.0.3'); src: url('css/font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('css/font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('css/font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; -webkit-backface-visibility: hidden; }
+#noScript			{ display: block; }
+#noScript a			{ display: block; padding: 24px; }
+#appIcons			{ font-size: 18px; line-height: 32px; font-family: "Helvetica Neue", Helvetica, Arial; }
+#appIcons a			{ background-color: #1480FF; line-height: 34px; color: #fff; position: relative; width: 320px; margin: 18px auto; text-decoration: none !important; color: #fff !important; }
+#appleApp a:before,
+#androidApp a:before,
+#windowsApp a:before,
+#webApp a:before	{ font-family: 'FontAwesome'; display:inline-block; font-size: 32px; vertical-align: top; line-height: 32px; padding-right: 12px; color: #fff !important; }
+#appleApp			{ display: block; }
+#appleApp a:before	{ font-family: 'FontAwesome'; content: "\f179"; }
+#androidApp			{ display: block; }
+#androidApp a:before{ font-family: 'FontAwesome'; content: "\f17b"; }
+#windowsApp			{ display: none; }
+#windowsApp a:before{ font-family: 'FontAwesome'; content: "\f17a"; }
+#webApp				{ display: none; }
+#webApp a:before	{ font-family: 'FontAwesome'; content: "\f108"; }
+#appLogo			{ font-family: "Helvetica Neue", Helvetica, Arial; background-color: #; color: #000; position: relative; width: 360px; margin: 24px auto 0 auto; padding: 24px 0 12px 0; background-image:url(icon.png); background-position: top right; background-repeat: no-repeat; }
+#appLogo h1			{ margin-top: 12px; margin-bottom: 0;  }
+#appLogo h2			{ margin-top: 0; font-size: 18px; }
+#appLogo p			{ line-height: 175%; }
+</style>
+
+<div id="noScript">
+	<div id="appLogo">
+		<h1>MyLiveDiet</h1>
+		<h2>Real-Time Calorie Counter</h2>
+		<p>MyLiveDiet displays your calories in real-time, as you go through the day, keeping you constantly updated about your current caloric balance.</p>
+	</div>
+	<div id="appIcons">
+		<div id="appleApp"><a href="https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802">Install for iOS</a></div>
+		<div id="androidApp"><a href="https://market.android.com/details?id=com.cancian.mylivediet">Install for Android</a></div>
+		<div id="windowsApp"><a href="">Install for Windows Mobile</a></div>
+		<div id="webApp"><a href="#app">Use Desktop version</a></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.body.innerHTML = ""; 
+	document.body.style.opacity = 0; 
+</script>
+
 </body>
 </html>

@@ -6,9 +6,6 @@ $(document).ready(function() {
 	diary.setup(startApp);
 	if(hasTap() && hasTouch()) {
 		$("body").css("opacity","0");
-		setTimeout(function(evt) {
-			//$("body").css("opacity","1");
-		},5000);
 	}
 });
 //##///////////##//
@@ -330,7 +327,14 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //###########################//
 //####   START WORKING   ####//
 //###########################//
-afterShow(999);
+setTimeout(function() {
+	if(opaLock < 2 && $("body").css("opacity") == 0) {
+		$("body").css("opacity","1");
+	}
+	if(isMobile.iOS && hasTouch() && navigator.splashscreen.hide) {
+		navigator.splashscreen.hide();
+	}
+},999);
 //updateEntries();
 //updateEntriesTime();
 (function startTimer() {
@@ -398,7 +402,9 @@ afterShow(999);
 		//evt.stopPropagation();
 		$("#editable").blur();
 		$("#entryTime").blur();
+		if(!$("#entryBody").is(":focus")) {
 		$("#entryBody").blur();
+		}
 	});
 	$('#appHeader,#appContent,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
 		evt.preventDefault();
