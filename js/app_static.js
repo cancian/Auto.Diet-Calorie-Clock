@@ -15,11 +15,11 @@ function startApp() {
 ////////////////
 // PARSED CSS //
 ////////////////
-$("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } <\/style>");
+$("head").append("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } <\/style>");
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
-$("body").prepend('\
+$("body").append('\
 	<div id="appHeader"></div>\
 	<div id="loadingDiv"></div>\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
@@ -372,10 +372,10 @@ setTimeout(function() {
 	//////////////////////
 	// PAGESLIDE CLOSER //
 	//////////////////////
-	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
+	$("#appHeader,#editableDiv").on(touchend, function(evt) {
 		//evt.preventDefault();//android kitkat focus
 		//hide food
-		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
+		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy") && !$('#pageSlideFood').is(":animated")) {
 			$("#foodSearch").blur();
 			$('#pageSlideFood').addClass('busy');
 			$('#appHeader').removeClass("open");
@@ -389,7 +389,7 @@ setTimeout(function() {
 					updateFavList();	
 					updateFoodList();	
 					updateExerciseList();
-					setTimeout(function() { setPush(); },1000);
+					setTimeout(function() { setPush(); }, 1000);
 				}
 			});
 		}

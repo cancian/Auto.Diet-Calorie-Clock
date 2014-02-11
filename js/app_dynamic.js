@@ -2174,11 +2174,14 @@ if(mType == "exercise") {
 								fib:mFib			
 							};
 							diary.setFav(modalOpt);
+							///////////////////////////////////
+							// PREVENT IOS SCROLLING FLICKER //
+							///////////////////////////////////
 							updateFavList();
-						});
 						/////////////////////////////////////
 						// END TAP FOOD-ENTRY EDIT (MODAL) //
 						/////////////////////////////////////
+		});
 	});
 }
 
