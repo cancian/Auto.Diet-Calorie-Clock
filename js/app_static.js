@@ -15,11 +15,11 @@ function startApp() {
 ////////////////
 // PARSED CSS //
 ////////////////
-$("head").append("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } <\/style>");
+$("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } <\/style>");
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
-$("body").append('\
+$("body").prepend('\
 	<div id="appHeader"></div>\
 	<div id="loadingDiv"></div>\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
@@ -372,16 +372,21 @@ setTimeout(function() {
 	//////////////////////
 	// PAGESLIDE CLOSER //
 	//////////////////////
-	$("#appHeader,#editableDiv").on(touchend, function(evt) {
+	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
+		
+		if(!$("#appHeader").hasClass("closer")) { return; }
+		//if(!$('#pageSlideFood').hasClass("open") && $('#pageSlideFood').is(":animated")) { alert("got ya"); return; }
 		//evt.preventDefault();//android kitkat focus
 		//hide food
 		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy") && !$('#pageSlideFood').is(":animated")) {
 			$("#foodSearch").blur();
 			$('#pageSlideFood').addClass('busy');
 			$('#appHeader').removeClass("open");
+			$('#appHeader').removeClass("closer");
 			$('#pageSlideFood').removeClass("open");
 			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
 				$('#pageSlideFood').removeClass('busy');
+				$('#appHeader').removeClass("closer");
 				//WIPE ON CLOSE
 				$('#pageSlideFood').remove(); 
 				//force custom dump/save

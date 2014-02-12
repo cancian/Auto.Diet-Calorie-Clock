@@ -510,7 +510,8 @@ $(document).on("pageReload", function(evt) {
 	// CREATE DB //
 	///////////////
 	$('#pageSlideFood').on('webkitTransitionEnd',function(evt) {
-		updateFoodDb(); 
+		updateFoodDb();
+		$("#appHeader").addClass("closer");
 	});
 	///////////////
 	// FOOD HTML //
@@ -1395,6 +1396,7 @@ function addNewItem(opt) {
 	}
 
 	if(!$("#tempHolder").html()) { 
+		$("body").addClass("overlay");
 		$("body").append('\
 		<div id="tempHolder">\
 			' + modalOverlay + '\
@@ -1467,6 +1469,7 @@ if(opt.type == "exercise") {
 	$("ul#addNewList input").width(window.innerWidth - 180);
 	$("#modalOverlay,#addNewWrapper").hide();
 	$("#addNewWrapper").fadeIn(200);
+	$("body").addClass("overlay");
 	$("#modalOverlay").fadeIn(0);
 	$('#modalOverlay,#addNewWrapper').addClass('show');
 
@@ -1737,6 +1740,7 @@ setTimeout(function() {
 			$('#modalOverlay').on('webkitTransitionEnd',function() { 
 				$("#tempHolder").remove();
 				$("#modalOverlay,#addNewWrapper").remove();
+				$("body").removeClass("overlay");
 			});
 		}
 	});
@@ -1794,10 +1798,11 @@ if(mType == "exercise") {
 						////////////////////////
 						//prevent flood
 						$("#modalOverlay").remove();
-						$("#modalWindow").remove();	
+						$("#modalWindow").remove();
 						//insert frame
 						$("body").append('<div id="modalOverlay"></div>');
 						$("body").append('<div id="modalWindow"></div>');
+						$("body").addClass("overlay");
 						//add content
 						$("#modalWindow").html("<div id='modalDelete'></div><div id='modalEdit'></div><div id='modalFav'></div><div id='modalContent'>" + mName + "&nbsp; <span>&nbsp;" + LANG('PRE_FILL') + "</span></div>");
 						$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG('ADD') + "</span><span id='modalCancel'>" + LANG('CANCEL') + "</span></div>");
@@ -2025,6 +2030,7 @@ if(mType == "exercise") {
 								//SELF-REMOVE
 								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
 									$("#modalOverlay,#modalWindow").remove();
+									$("body").removeClass("overlay");
 								});
 								if(document.getElementById('slider') && document.getElementById('entryBody')) {
 									var resetSlider = document.getElementById('slider').slider.resetValue();
@@ -2063,6 +2069,7 @@ if(mType == "exercise") {
 								//SELF-REMOVE
 								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
 									$("#modalOverlay,#modalWindow").remove();
+									$("body").removeClass("overlay");
 								});
 							}
 						});
@@ -2096,6 +2103,7 @@ if(mType == "exercise") {
 									$('#modalWindow').on('webkitTransitionEnd',function(e) { 
 										$("#modalWindow").remove();
 										$("#modalOverlay").remove();
+										$("body").removeClass("overlay");
 									});
 									$("#appHeader").trigger(touchstart);
 									$('#entryBody').width(window.innerWidth -58);
@@ -2174,10 +2182,29 @@ if(mType == "exercise") {
 								fib:mFib			
 							};
 							diary.setFav(modalOpt);
-							///////////////////////////////////
-							// PREVENT IOS SCROLLING FLICKER //
-							///////////////////////////////////
-							updateFavList();
+							//////////////////////////
+							// IOS OVERFLOW FLICKER //
+							//////////////////////////
+							if(mFib == "nonFav") {
+								$("#tabMyFavs #" + mCode).css("opacity","0");
+								$("#tabMyFavs #" + mCode).remove();
+								window.scroll($('#foodList')[0].scrollTop,0,0);
+								return false;
+							} else {
+								if(isMobile.iOS()) {
+									setTimeout(function() {
+										updateFavList();
+										window.scroll($('#foodList')[0].scrollTop,0,0);
+									},50);
+									window.scroll($('#foodList')[0].scrollTop,0,0);
+									$("#tabMyFavs .foodName").css("opacity","0");
+									$("#tabMyFavs .foodName").css("overflow","hidden");
+									$("#tabMyFavs .foodName").css("opacity","1");
+									window.scroll($('#foodList')[0].scrollTop,0,0);
+								} else {
+									updateFavList();
+								}
+							}
 						/////////////////////////////////////
 						// END TAP FOOD-ENTRY EDIT (MODAL) //
 						/////////////////////////////////////

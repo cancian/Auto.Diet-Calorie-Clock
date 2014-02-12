@@ -478,33 +478,35 @@ Diary.prototype.delFood = function(code, callback) {
 // GET CUSTOM LIST //
 /////////////////////
 Diary.prototype.getCustomList = function(type,callback) {
+	CONSOLE('getCustomList(' + type + ")");
 	//	
 	function callbackOpen() {
-		$('#pageSlideFood').addClass("open");
-		CONSOLE('getCustomList(error open)');
+		if(!$('#pageSlideFood').is(":animated")) { 
+			$('#pageSlideFood').addClass("open"); 
+			if(!$('#appHeader').hasClass("open")) {
+				$('#appHeader').removeClass("closer");
+			}
+		}
+		//CONSOLE('getCustomList(error open)');
 	}
-	CONSOLE('getCustomList(' + type + ")");
 	if(arguments.length == 1) { callback = arguments[0]; }
 	this.db.transaction(
 		function(t) {
-			// FAV LIST //
+			// FAV LIST
 			if(type == "fav") {
 				t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[type],
 				function(t,results) {
 					callback(that.fixResults(results));
-					//if(window.localStorage.getItem("foodDbLoaded") == "done" && !$('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').is("animated")) {
-						$('#pageSlideFood').addClass("open");
-					//}
+					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
 				},callbackOpen);
-			// FOOD/EXERCISE LIST //
+			// FOOD/EXERCISE LIST
 			} else {
 				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by NAME COLLATE NOCASE ASC',[type],
 				function(t,results) {
 					callback(that.fixResults(results));
-					//if(window.localStorage.getItem("foodDbLoaded") == "done" && !$('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').is("animated")) {
-						$('#pageSlideFood').addClass("open");
-					//}
-				},callbackOpen);
+					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && type == "food")		{ callbackOpen(); }
+					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && type == "exercise")	{ callbackOpen(); }
+				});
 			}
 	}, callbackOpen);
 };
