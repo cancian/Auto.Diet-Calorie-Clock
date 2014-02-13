@@ -1,5 +1,3 @@
-document.write('<script type = "text/javascript" src = "http://axemclion.github.com/IndexedDBShim/dist/IndexedDBShim.min.js"><\/script>');
-
 //CSS
 document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/index.css?"+newDate+"' />");
 document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css?"+newDate+"' />");
@@ -20,11 +18,6 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 }
 //JS
 document.write("<script type='text/javascript' src='js/jquery-2.0.3.min.js'><\/script>");
-
-
-document.write("<script type='text/javascript' src='js/jquery.indexeddb.js'><\/script>");
-
-
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.min.js'><\/script>");
@@ -38,8 +31,6 @@ document.write("<script type='text/javascript' src='js/quo.js'><\/script>");
 document.write("<script type='text/javascript' src='js/html5sql.js'><\/script>");
 document.write("<script type='text/javascript' src='js/UserVoice.js'><\/script>");
 document.write("<script type='text/javascript' src='js/calculator.js'><\/script>");
-
-
 document.write("<script type='text/javascript' src='" + hostLocal + "js/carpe_slider.js?"+newDate+"'><\/script>");
 //APP
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js?"+newDate+"'><\/script>");
