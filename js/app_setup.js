@@ -1051,7 +1051,6 @@ function sanitizeSql(str) {
 // ANALYTICS //
 ///////////////
 if(window.localStorage.getItem("config_debug") != "active") {
-	document.addEventListener("deviceready", onDeviceReady, false);
 	var gaPlugin;
 	function onDeviceReady() {
 		CONSOLE('gaPlugin.init(UA-46450510-1)');
@@ -1066,18 +1065,7 @@ if(window.localStorage.getItem("config_debug") != "active") {
 		function nativePluginResultHandler() {}
 		function nativePluginErrorHandler()  {}
 	}
-	//www
-	/*
-	if(gaPlugin != "") {
-		$(document).ready(function() {
-			$("body").append("<script type='text/javascript' src='js/GALocalStorage.js'></script>");
-			setTimeout(function(evt) {
-				ga_storage._setAccount('UA-46450510-2');
-				ga_storage._trackPageview('www.mylivediet.com/#startApp(' + appVersion.slice(7,-1) + ')');
-			},9999);
-		});
-	}
-	*/
+	document.addEventListener("deviceready", onDeviceReady, false);
 }
 //////////////////////////
 // REFRESH LOGIN STATUS //
