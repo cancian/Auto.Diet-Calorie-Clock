@@ -14,17 +14,17 @@
 	var hostLocal = "";
 	var newDate   = new Date().getTime();
 	if(window.localStorage.getItem("config_debug") == "active") {
-		var hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
-		var newDate   = new Date().getTime();
+		hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
+		newDate   = new Date().getTime();
 	} else if (window.localStorage.getItem("config_debug") == "edge") {
-		var hostLocal = "http://mylivediet.com/";
-		var newDate   = new Date().getTime();
+		hostLocal = "http://mylivediet.com/";
+		newDate   = new Date().getTime();
 	}
 	////////////////////
 	// DETECT OFFLINE //
 	////////////////////
 	setTimeout(function(){
-		if(typeof updateTimer != 'function' && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
+		if(typeof updateTimer != 'function' && document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) {
 			window.localStorage.removeItem("config_debug");
 			window.location=''; 
 		}
@@ -35,6 +35,7 @@
 </head>
 <body>
 <style type="text/css">
+/*non-js version for web crawlers*/
 @font-face			{ font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot?v=4.0.3'); src: url('css/font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('css/font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('css/font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; -webkit-backface-visibility: hidden; }
 #noScript			{ display: block; }
 #noScript a			{ display: block; padding: 24px; }
