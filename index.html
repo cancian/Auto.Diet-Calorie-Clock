@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <head>
-    <title>MyLiveDiet - RealTime Calorie Counter for iOS &amp; Android</title>
+    <title>MyLiveDiet</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="msapplication-tap-highlight" content="no" />
 	<meta name="format-detection" content="telephone=no" />   
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
@@ -11,14 +12,16 @@
 	///////////////
 	// BOOTSTRAP //
 	///////////////
-	var hostLocal = "";
-	var newDate   = new Date().getTime();
+	var hostLocal = '';
+	var newDate   = '?' + new Date().getTime();
 	if(window.localStorage.getItem("config_debug") == "active") {
 		hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
-		newDate   = new Date().getTime();
 	} else if (window.localStorage.getItem("config_debug") == "edge") {
 		hostLocal = "http://mylivediet.com/";
-		newDate   = new Date().getTime();
+	}
+	if(navigator.userAgent.match(/IEMobile/i)) {
+		window.external.Notify("noScroll");
+		var newDate = '';
 	}
 	////////////////////
 	// DETECT OFFLINE //
@@ -26,11 +29,11 @@
 	setTimeout(function(){
 		if(typeof updateTimer != 'function' && document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) {
 			window.localStorage.removeItem("config_debug");
-			window.location=''; 
+			window.location.reload();
 		}
 	},7500);
 	//INIT
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js?"+newDate+"'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");
 	</script>
 </head>
 <body>

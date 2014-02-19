@@ -2,7 +2,10 @@ var appVersion = "1.1.6 (11601)";
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
-var appLang = (window.navigator.language.slice(0,2).toLowerCase() == "pt") ? 'pt' : 'en';
+var appLang = "en";
+if(window.navigator.language) {
+	appLang = (window.navigator.language.slice(0,2).toLowerCase() == "pt") ? 'pt' : 'en';
+}
 if(window.localStorage.getItem("devSetLang") == "pt") {
 	appLang = "pt";
 }
@@ -546,6 +549,11 @@ var SHARE_MESSAGE = {
 	en: "I'm using MyLiveDiet to track calories in real-time! Check it out!",
 	pt: "Estou usando MyLiveDiet - contador de calorias em tempo real! Confira!"
 };
+var SETTINGS_HELP = {
+	en: "Help",
+	pt: "Ajuda"
+};
+
 
 var XXX = {
 	en: "XXX",
@@ -592,3 +600,205 @@ if(!window.wizUtils) {
 	window.wizUtils.getBundleVersion(function(build)	   { window.localStorage.setItem("appBuild",build);     });
 }*/
 
+
+
+function buildHelpMenu() {
+	//insert menu
+	$("#appContent").append("<div id='appHelper'></div>");
+
+	$("#appHelper").html('\
+	<h2><span id="backButton"></span><div id="helpTitle">Help</div></h2>\
+	<ul>\
+		<li>question 1</li>\
+		<li>question 2</li>\
+		<li>question 3</li>\
+		<li>question 4</li>\
+	</ul>');
+
+
+	$("#appHelper").hide().fadeIn(300);
+
+if(isMobile.Android()) {
+	$("#appHelper").css("top",$("#appHeader").height()* + "px");
+}
+
+	//self-removal handler
+	$("#appHelper ul li").on(touchend,function() {
+		
+		
+		$("#appContent").append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">How can I?</div></h2>\
+		<div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div>\
+		</div>');
+		
+		
+		$('#appSubHelper').on('transitionend',function(e) { 
+
+
+if(!$('#appSubHelper').hasClass("open")) {
+$('#appSubHelper').remove();
+}
+	
+		});
+	
+		
+	$("#subBackButton").on(touchend,function() {
+		//remove
+		$("#appSubHelper").removeClass("open");
+		$("#appHelper").removeClass("out");
+	});		
+		
+		//$('#appSubHelper').css("-webkit-transition-timing-function","ease");
+		//$('#appSubHelper').css("-webkit-transition-duration",".25s");
+		
+		setTimeout(function(){
+		$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+	if(!isMobile.iOS() && androidVersion() < 4.4) {
+		//$("#appContent").css("overflow","hidden");
+		setTimeout(function(){
+			$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		},0);
+	}
+		$("#appSubHelper").addClass("open");
+		$("#appHelper").addClass("out");
+		},0);
+		$("#appContent").getNiceScroll().remove();
+
+
+		//remove
+		//$("#appHelper").fadeOut(200,function() {
+		//	$("#appHelper").remove();
+		//});
+	});
+
+
+	//self-removal handler
+	$("#backButton").on(touchend,function() {
+		//remove
+		$("#appHelper").fadeOut(200,function() {
+			$("#appHelper").remove();
+		});
+	});
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+var lib = new localStorageDB("library", localStorage);
+
+
+// Check if the database was just created. Useful for initial database setup
+if( lib.isNew() ) {
+
+    // create the "books" table
+    lib.createTable("books", ["code", "title", "author", "year", "copies"]);
+
+    // insert some data
+    lib.insert("books", {code: "B001", title: "Phantoms in the brain", author: "Ramachandran", year: 1999, copies: 10});
+    lib.insert("books", {code: "B002", title: "The tell-tale brain", author: "Ramachandran", year: 2011, copies: 10});
+    lib.insert("books", {code: "B003", title: "Freakonomics", author: "Levitt and Dubner", year: 2005, copies: 10});
+    lib.insert("books", {code: "B004", title: "Predictably irrational", author: "Ariely", year: 2008, copies: 10});
+    lib.insert("books", {code: "B005", title: "Tesla: Man out of time", author: "Cheney", year: 2001, copies: 10});
+    lib.insert("books", {code: "B006", title: "Salmon fishing in the Yemen", author: "Torday", year: 2007, copies: 10});
+    lib.insert("books", {code: "B007", title: "The user illusion", author: "Norretranders", year: 1999, copies: 10});
+    lib.insert("books", {code: "B008", title: "Hubble: Window of the universe", author: "Sparrow", year: 2010, copies: 10});
+
+    // commit the database to localStorage
+    // all create/drop/insert/update/delete operations should be committed
+    lib.commit();
+
+}
+*/
+
+/*
+// simple select queries
+lib.query("books", {year: 2011});
+lib.query("books", {year: 1999, author: "Norretranders"});
+
+// select all books
+lib.query("books");
+
+// select all books published after 2003
+lib.query("books", function(row) {  // the callback function is applied to every row in the table
+    if(row.year > 2003) {       // if it returns true, the row is selected
+        return true;
+    } else {
+        return false;
+    }
+});
+
+// select all books by Torday and Sparrow
+lib.query("books", function(row) {
+    if(row.author == "Torday" || row.author == "Sparrow") {
+        return true;
+    } else {
+        return false;
+    }
+});
+
+
+
+
+
+
+
+// change the title of books published in 1999 to "Unknown"
+lib.update("books", {year: 1999}, function(row) {
+    row.title = "Unknown";
+
+    // the update callback function returns to the modified record
+    return row;
+});
+
+// add +5 copies to all books published after 2003
+lib.update("books",
+    function(row) { // select condition callback
+        if(row.year > 2003) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    function(row) { // update function
+        row.year+=5;
+        return row;
+    }
+);
+
+
+// if there's a book with code B003, update it, or insert it as a new row
+lib.insertOrUpdate("books", {code: 'B003'}, {
+						code: "B003",
+                        title: "Freakonomics",
+                        author: "Levitt and Dubner",
+                        year: 2005,
+                        copies: 15
+});
+
+
+*/

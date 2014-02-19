@@ -33,7 +33,7 @@
 	<preference name="BackgroundColor"            value="0xffffffff" />
 	<preference name="webviewbounce"              value="false" />
     <preference name="stay-in-webview"            value="false" />
-    <preference name="show-splash-screen-spinner" value="false" />
+    <preference name="show-splash-screen-spinner" value="true" />
 	<preference name="splash-screen-duration"     value="0" />
 	
     <!-- Preferences for iOS -->
@@ -52,12 +52,12 @@
     <preference name="SuppressesIncrementalRendering" value="false" />
     <preference name="TopActivityIndicator" value="gray" />
 	<preference name="SplashScreenDelay" value="0" />
-<!--
+
     <preference name="GapBetweenPages" value="0" />
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
--->
+
 	<feature name="LocalStorage">
 		<param name="ios-package" value="CDVLocalStorage" />
 	</feature>
@@ -93,50 +93,23 @@
 	<feature name="InAppBrowser">
 		<param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
 	</feature>
-	<!--
     <feature name="SplashScreen">
 		<param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
 	</feature>	
-	-->
 	<feature name="org.apache.cordova.facebook.Connect">
 		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
 	</feature>
+
+	<feature name="Notification">
+		<param name="wp-package" value="Notification" />
+	</feature>
+	<feature name="InAppBrowser">
+		<param name="wp-package" value="InAppBrowser" />
+	</feature>
+	<feature name="SplashScreen">
+		<param name="wp-package" value="SplashScreen" />
+	</feature>
 	
-	<gap:plugin name="com.phonegap.plugins.facebookconnect">
-		<param name="APP_ID" value="577673025616946" />
-		<param name="APP_NAME" value="MyLiveDiet" />
-	</gap:plugin>
-	<gap:plugin name="com.adobe.plugins.gaplugin" />
-	<gap:plugin name="org.apache.cordova.inappbrowser" />
-	<gap:plugin name="org.apache.cordova.dialogs" />
-	<gap:plugin name="org.apache.cordova.splashscreen" />
-
-	<!-- ICON: ANDROID -->
-    <icon src="res/icon/android/drawable/icon.png" />
-	<icon src="res/icon/android/drawable-ldpi/icon.png"   gap:platform="android"    gap:density="ldpi" />
-    <icon src="res/icon/android/drawable-mdpi/icon.png"   gap:platform="android"    gap:density="mdpi" />
-    <icon src="res/icon/android/drawable-hdpi/icon.png"   gap:platform="android"    gap:density="hdpi" />
-    <icon src="res/icon/android/drawable-xhdpi/icon.png"  gap:platform="android"    gap:density="xhdpi" />
-
-	<!-- ICON: IOS -->
-    <icon src="res/icon/ios/icon.png"            gap:platform="ios"        width="57" height="57" />
-    <icon src="res/icon/ios/icon-72.png"         gap:platform="ios"        width="72" height="72" />
-    <icon src="res/icon/ios/icon@2x.png"         gap:platform="ios"        width="114" height="114" />
-    <icon src="res/icon/ios/icon-72@2x.png"      gap:platform="ios"        width="144" height="144" />
-
-	<!-- SPLASHSCREEN: ANDROIOD
-    <gap:splash src="res/screen/android/screen-ldpi-portrait.png"  gap:platform="android" gap:density="ldpi" />
-    <gap:splash src="res/screen/android/screen-mdpi-portrait.png"  gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="res/screen/android/screen-hdpi-portrait.png"  gap:platform="android" gap:density="hdpi" />
-    <gap:splash src="res/screen/android/screen-xhdpi-portrait.png" gap:platform="android" gap:density="xhdpi" />
-	-->
-
-	<!-- SPLASHSCREEN: IOS -->
-	<gap:splash src="res/screen/ios/screen-iphone-portrait.png"    gap:platform="ios"     width="320" height="480" />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
-    <gap:splash src="res/screen/ios/screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
-    <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
-
     <access origin="*" />
 	<content src="index.html" />
 	

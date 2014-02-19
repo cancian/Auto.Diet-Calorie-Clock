@@ -4,9 +4,6 @@
 $(document).ready(function() {  
 	diary = new Diary();
 	diary.setup(startApp);
-	if(hasTap() && hasTouch()) {
-		$("body").css("opacity","0");
-	}
 });
 //##///////////##//
 //## START APP ##//
@@ -15,7 +12,7 @@ function startApp() {
 ////////////////
 // PARSED CSS //
 ////////////////
-$("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } <\/style>");
+$("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } </style>");
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
@@ -79,7 +76,8 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 		window.scroll($('#appContent')[0].scrollTop,0,0);
 		return false;
 	}
-	window.location='#top';
+	//window.location='#top';
+	$('#appContent').scrollTop(0);
 	appFooter($(this).attr("id"));
 });
 //#////////////////////#//
@@ -111,6 +109,17 @@ function appResizer(time) {
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);
 	 },time);
+}
+////////////////////////
+// WINDOWS OVERSCROLL //
+////////////////////////
+if(isMobile.Windows()) {
+	$("input").on("focus", function(evt) {
+		$("html,body").css("position","fixed");
+	});
+	$("input").on("blur", function(evt) {
+		$("html,body").css("position","absolute");
+	});
 }
 /////////////////////
 // KEYBOARD EVENTS //
@@ -218,7 +227,7 @@ $(window).on("resize", function(evt) {
 		appResizer(0);
 	}
 	//ALWAYS RESIZE NON-MOBILE BROWSER
-	if(!hasTouch() && !isMobile.Android() && !isMobile.iOS()) {
+	if(!hasTouch() && !isMobile.Android() && !isMobile.iOS() && !isMobile.Windows()) {
 		appResizer(0);
 	}
 	//notepad (ios6 fix)(window.innerHeight)
@@ -284,6 +293,12 @@ if(isMobile.Android() && androidVersion() >= 4 && androidVersion() < 4.4) {
 }
 if(isMobile.Android() && androidVersion() >= 4.4) {
 	$("body").addClass("android44");
+}
+/////////////
+// WINDOWS //
+/////////////
+if(isMobile.Windows()) {
+	$("body").addClass("windows");
 }
 ////////////
 // PINKED //
@@ -373,7 +388,6 @@ setTimeout(function() {
 	// PAGESLIDE CLOSER //
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
-		
 		if(!$("#appHeader").hasClass("closer")) { return; }
 		//if(!$('#pageSlideFood').hasClass("open") && $('#pageSlideFood').is(":animated")) { alert("got ya"); return; }
 		//evt.preventDefault();//android kitkat focus
@@ -384,7 +398,7 @@ setTimeout(function() {
 			$('#appHeader').removeClass("open");
 			$('#appHeader').removeClass("closer");
 			$('#pageSlideFood').removeClass("open");
-			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
+			$('#pageSlideFood').on('transitionend',function(e) {
 				$('#pageSlideFood').removeClass('busy');
 				$('#appHeader').removeClass("closer");
 				//WIPE ON CLOSE
@@ -437,7 +451,7 @@ setTimeout(function() {
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
+			$('.active').on('transitionend',function(e) { $('.active').removeClass('busy'); });
 			$('.active').removeClass('active');
 			if(!$('.delete').hasClass('busy')) {
 			////////////////////////
