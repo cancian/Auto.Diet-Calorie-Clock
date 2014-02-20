@@ -2033,9 +2033,10 @@ if(mType == "exercise") {
 									$("body").removeClass("overlay");
 								});
 								if(document.getElementById('slider') && document.getElementById('entryBody')) {
-									var resetSlider = document.getElementById('slider').slider.resetValue();
-									document.getElementById('entryBody').value = "";
-									document.getElementById('entryTime').value = 0;
+									document.getElementById('slider').slider.setValue(0);
+									$("#entryTitle").val(0);
+									$("#entryTitle").trigger("update");
+ 									document.getElementById('entryBody').value = "";
 								}
 								//REFRESH DATA
 								updateTimer();

@@ -657,7 +657,7 @@ function afterHide(cmd) {
 						if(androidVersion() >= 4 && window.MyReload) { 
 							window.MyReload.reloadActivity();
 						} else {
-							document.location='';
+							window.location.reload();
 						}
 					},250);
 				}, "text");
@@ -666,7 +666,7 @@ function afterHide(cmd) {
 						if(androidVersion() >= 4 && window.MyReload) { 
 							window.MyReload.reloadActivity();
 						} else {
-							document.location='';
+							window.location.reload();
 						}
 					},250);
 				if(cmd == "clear") { window.localStorage.clear(); }
@@ -968,7 +968,8 @@ function androidVersion() {
 	}
 }
 function hasTouch() {
-	return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
+	//return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
+	return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/);	
 }
 function hasTap() {
 	return ("ontouchstart" in document.documentElement) || ("ontouchstart" in window);
@@ -1110,10 +1111,12 @@ function afterInit()  {
 //#/////////#//
 //# FB INIT #//
 //#/////////#//
-if(isCordova()) {
-	document.addEventListener("deviceready",function() { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }); afterInit(); }, false);
-	document.addEventListener("resume",function()      { afterInit(); }, false);
-} else {
-	$(document).ready(function() { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); afterInit(); });
+if(FB) {
+	if(isCordova()) {
+		document.addEventListener("deviceready",function() { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }); afterInit(); }, false);
+		document.addEventListener("resume",function()      { afterInit(); }, false);
+	} else {
+		$(document).ready(function() { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); afterInit(); });
+	}
 }
 

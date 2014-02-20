@@ -37,15 +37,23 @@ function sanitize(str) {
 }
 
 
+/////////////
+$.get("searchdb_pt.sql", function(data) {
+/////////////
 
 
-$.get("tab01.txt", function(data) {
+
+data = data.split('INSERT INTO "diary_food" VALUES(').join("").split(",'exercise").join("','exercise").split(",'food").join("','food").split("');").join("");
+
+
 	var foodDatabase = data.split("\n");
 	var foodListArray = [];
 	for(i = 0; i < foodDatabase.length; i++) {
-		foodListArray.push(foodDatabase[i].split("^"));
+		foodListArray.push(foodDatabase[i].split("','"));
 
 	}
+	
+	
 
 
 
@@ -53,26 +61,52 @@ $.get("tab01.txt", function(data) {
 	var searchString  = "";
 	var mix           = "";
 	var tpl           = "";
+
+
 	for(f = 0; f < foodListArray.length; f++) {
 
-
+/*
 if(foodListArray[f][3].match("Não se aplica")) {
 	var preparo = "";
 	
 	} else {
 	var preparo = ", " + trim(foodListArray[f][3]).toLowerCase();
 	}
+*/
+		var ID   = "";
+		var TYPE = "";
+		var CODE = "";
+		var NAME = "";
+		var TERM = "";		
+		var KCAL = ""; 
+		var PRO  = "";
+		var CAR  = "";
+		var FAT  = "";
+		var FIB  = "";
+		
+		
+		ID   = foodListArray[f][0];
+		TYPE = foodListArray[f][1];
+		CODE = foodListArray[f][2];
+		NAME = foodListArray[f][3];
+		TERM = foodListArray[f][4];		
+		KCAL = foodListArray[f][5]; 
+		PRO  = foodListArray[f][6];
+		CAR  = foodListArray[f][7];
+		FAT  = foodListArray[f][8];
+		FIB  = foodListArray[f][9];
+
+//ESCAPE
+if(NAME) { 
+NAME = NAME.split('""').join('"'); 
+NAME = NAME.split('"').join('\\"'); 
 
 
-		var ID   = '';
-		var CODE = '';
-		var NAME = '';
-		var KCAL = ''; 
-		var PRO  = '';
-		var CAR  = ''
-		var FAT  = ''
-		var FIB  = ''
-
+}
+//EOL
+if(FIB)	 { FIB = trim(FIB); }	
+	
+/*
 		var ID   = f;//foodListArray[f][0];
 		var CODE = trim(foodListArray[f][0] + foodListArray[f][2]);
 		var NAME = trim(foodListArray[f][1]).split("'").join("''") + preparo;
@@ -81,12 +115,11 @@ if(foodListArray[f][3].match("Não se aplica")) {
 		var CAR  = trim(foodListArray[f][7]).split("-").join("0.00");
 		var FAT  = trim(foodListArray[f][6]).split("-").join("0.00");
 		var FIB  = trim(foodListArray[f][8]).split("-").join("0.00");
-
-
-		
+*/
+	
 		//6300706^Canjiquinha de milho em grão^14^Mingau^62.95^1.24^0.31^13.50^0.67
 		
-		var SEARCH = sanitize(NAME);
+		//var SEARCH = sanitize(NAME);
 
 		
 //		CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code TEXT,name TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);
@@ -97,9 +130,11 @@ if(foodListArray[f][3].match("Não se aplica")) {
 
 //DESC = DESC.substring(1);
 //DESC = DESC.substring(0,DESC.length-1);
-		tpl = "<div>INSERT INTO \"diary_food\" VALUES(" + ID + ",'food','" + CODE + "','" + NAME + "','" + SEARCH + "','" + Math.round(KCAL) + "','" + PRO + "','" + CAR + "','" + FAT + "','" + FIB + "');</div>";
+//		tpl = "<div>INSERT INTO \"diary_food\" VALUES(" + ID + ",'" + TYPE + "','" + CODE + "','" + NAME + "','" + TERM + "','" + KCAL + "','" + PRO + "','" + CAR + "','" + FAT + "','" + FIB + "');</div>";
+		tpl = '<div>lib.insert("diary_food", {"type":"' + TYPE + '","code":"' + CODE + '","name":"' + NAME + '","term":"' + TERM + '","kcal":"' + KCAL + '","pro":"' + PRO + '","car":"' + CAR + '","fat":"' + FAT + '","fib":"' + FIB + '"});</div>';
 
 		mix += tpl;
+
 
 
 	}

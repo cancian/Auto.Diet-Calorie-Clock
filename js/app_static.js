@@ -346,7 +346,7 @@ setTimeout(function() {
 	if(opaLock < 2 && $("body").css("opacity") == 0) {
 		$("body").css("opacity","1");
 	}
-	if(isMobile.iOS && hasTouch() && navigator.splashscreen.hide) {
+	if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
 		navigator.splashscreen.hide();
 	}
 },999);
@@ -426,7 +426,9 @@ setTimeout(function() {
 		}
 	});
 	$('#appHeader,#appContent,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
-		evt.preventDefault();
+		if(window.localStorage.getItem("app_last_tab") != "tab4") {
+			evt.preventDefault();
+		}
 		//evt.stopPropagation();
 			if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
 				$("#entryTime").focus();

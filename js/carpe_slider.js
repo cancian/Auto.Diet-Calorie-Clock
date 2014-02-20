@@ -458,20 +458,16 @@
             step = (this.lastStep && ((this.size - pos) < this.lastStep)) ?
                     this.lastStep : this.pxStep;
         pos = (step !== 0) ? parseFloat(Math.round(pos / step) * step, 10) : pos;
-		//NEAREST
-		this.setPosition(pos);
+		//
+		//NEAREST 
+		//
+		this.setPosition(Math.round(pos));
 		document.getElementById('entryTitle').value = Math.round(document.getElementById('entryTitle').value);
-		if(document.getElementById('entryTitle')) {
-			n = document.getElementById('entryTitle').value / 25;
-			n = Math.round(n) * 25;
-			if($("#entryTitle").val() != n) {
-				//$("#entryTitle").val(n);
-			}
-		}
-
-		//if(document.getElementById('entryTitle').value != n) {
-		//	document.getElementById('entryTitle').value = n;
-		//}
+		//
+		//
+		//
+		//
+		//
 		return;
     };
     Slider.prototype.setValue = function (val) {
@@ -588,6 +584,12 @@ function reSlider() {
 		var sliderMemory = $("#entryTitle").val();
 		$("#sliderWrapper").html('<input id="slider" type="range" min="-750" max="750" step="1" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="8" />');
 		CARPE.sliders.init();
+		//desktop odd resize -1 bug
+		if(Math.round(window.innerWidth % 2)) {
+			$("#sliderWrapper").width(window.innerWidth-49);
+		} else {
+			$("#sliderWrapper").width(window.innerWidth-48);
+		}
 		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (23)) + "px");
 		document.getElementById('slider').slider.setValue(sliderMemory);
 		$("#entryTitle").val(sliderMemory);
