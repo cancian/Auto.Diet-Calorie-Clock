@@ -7,7 +7,6 @@
 	<meta name="msapplication-tap-highlight" content="no" />
 	<meta name="format-detection" content="telephone=no" />   
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 	<script type="text/javascript">
 	////////////////////
 	// DETECT OFFLINE //
@@ -35,11 +34,14 @@
 	//INIT
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");
 	</script>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
 <style type="text/css">
 /*non-js version for web crawlers*/
+/*
 @font-face			{ font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot?v=4.0.3'); src: url('css/font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('css/font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('css/font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; -webkit-backface-visibility: hidden; }
+*/
 #noScript			{ display: block; }
 #noScript a			{ display: block; padding: 24px; }
 #appIcons			{ font-size: 18px; line-height: 32px; font-family: "Helvetica Neue", Helvetica, Arial; }
@@ -56,7 +58,7 @@
 #windowsApp a:before{ font-family: 'FontAwesome'; content: "\f17a"; }
 #webApp				{ display: none; }
 #webApp a:before	{ font-family: 'FontAwesome'; content: "\f108"; }
-#appLogo			{ font-family: "Helvetica Neue", Helvetica, Arial; background-color: #; color: #000; position: relative; width: 360px; margin: 24px auto 0 auto; padding: 24px 0 12px 0; background-image:url(icon.png); background-position: top right; background-repeat: no-repeat; }
+#appLogo			{ font-family: "Helvetica Neue", Helvetica, Arial; color: #000; position: relative; width: 360px; margin: 24px auto 0 auto; padding: 24px 0 12px 0; background-image:url(icon.png); background-position: top right; background-repeat: no-repeat; }
 #appLogo h1			{ margin-top: 12px; margin-bottom: 0;  }
 #appLogo h2			{ margin-top: 0; font-size: 18px; }
 #appLogo p			{ line-height: 175%; }

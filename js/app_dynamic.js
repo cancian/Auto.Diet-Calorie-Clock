@@ -1275,6 +1275,8 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 	evt.preventDefault();
 	$(".onFocus").removeClass("onFocus");
 	$(".activeOverflow").removeClass("activeOverflow");	
+	setTimeout(niceResizer, 20)
+	setTimeout(niceResizer, 200);
 	////////////
 	// TAB #1 //
 	////////////

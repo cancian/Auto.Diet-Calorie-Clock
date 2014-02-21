@@ -44,5 +44,6 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_stat
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js" + newDate + "'><\/script>");
 //FONT
-document.write("<style type='text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot'); src: url('css/font/fontawesome-webfont.eot') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff') format('woff'), url('css/font/fontawesome-webfont.ttf') format('truetype'), url('css/font/fontawesome-webfont.svg') format('svg'); font-weight: normal; font-style: normal; } </style>");
+//document.write("<style type='text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot'); src: url('css/font/fontawesome-webfont.eot') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff') format('woff'), url('css/font/fontawesome-webfont.ttf') format('truetype'), url('css/font/fontawesome-webfont.svg') format('svg'); font-weight: normal; font-style: normal; } </style>");
+document.write("<style type='text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.ttf') format('truetype'); font-weight: normal; font-style: normal; -webkit-backface-visibility: hidden; } </style>");
 
