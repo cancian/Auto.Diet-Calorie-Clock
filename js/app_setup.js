@@ -481,7 +481,7 @@ Diary.prototype.getCustomList = function(type,callback) {
 	CONSOLE('getCustomList(' + type + ")");
 	//	
 	function callbackOpen() {
-		if(!$('#pageSlideFood').is(":animated")) { 
+		if(!$('#pageSlideFood').is(":animated")) {
 			$('#pageSlideFood').addClass("open"); 
 			if(!$('#appHeader').hasClass("open")) {
 				$('#appHeader').removeClass("closer");
@@ -968,8 +968,8 @@ function androidVersion() {
 	}
 }
 function hasTouch() {
-	//return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
-	return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/);	
+	return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);	
+	//return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/);	
 }
 function hasTap() {
 	return ("ontouchstart" in document.documentElement) || ("ontouchstart" in window);

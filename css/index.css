@@ -1,8 +1,9 @@
 html,
-body							{ position: absolute; width: 100%; height: 100%; display: block; overflow: hidden; margin: 0; padding: 0; font-family: "Helvetica Neue Light", "Helvetica Neue", "Open Sans", Helvetica, Tahoma, Arial, "Lucida Grande", sans-serif; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); }
+body							{ position: absolute; width: 100%; height: 100%; display: block; overflow: hidden; margin: 0; padding: 0; font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, "Open Sans", Arial, Tahoma, sans-serif; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); }
 body.android 					{ -webkit-perspective: 1000; }
 body > *,h2,input[readonly]		{ -webkit-user-select: none; -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
 input,select,textarea			{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: Arial, Helvetica; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; }
+textarea						{ -webkit-user-modify: read-write-plaintext-only; }
 input[type='text']				{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; outline: 0; }
 *								{ -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; outline: none !important; }
 input:focus,select:focus,:focus { outline: none; }
@@ -41,7 +42,7 @@ body.pinked #appHeader.surplus	{ background-color: #C71585; }
 #timerKcals						{ position: absolute; bottom: 17px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; }
 #timerKcals span				{ position: absolute; bottom: -9px; left:  0px; font-size: 9px;  line-height: normal; text-transform: uppercase; }
 /*daily calories*/
-#timerDaily						{ position: absolute; bottom: 5px; top: 5px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: bold; background-color: rgba(255,255,255,.3); }
+#timerDaily						{ position: absolute; bottom: 5px; top: 5px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: bold; background-image: -webkit-linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3)); background-color: transparent; }
 #timerDaily span				{ position: absolute; bottom: 7px; left: 0px; font-size: 8px; line-height: normal; font-weight: normal; text-transform: uppercase;  }
 /*INLINE*/
 #editableDiv					{ color: transparent; height: 62px; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
@@ -92,7 +93,7 @@ ul#settingsList li				{ position: relative; display: block; height: 46px; line-h
 ul#settingsList li div			{ margin-left: 20px; -webkit-backface-visibility: hidden; }
 ul#settingsList li+li div		{ border-top: 1px solid #eee; }
 ul#settingsList li.activeRow	{ background-color: #eee; color: #555; }
-ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: " ";  z-index: 1; }
+ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: " ";  z-index: 99; }
 /*
 ul#settingsList li.nextChild div{ border-top: 1px solid #eee; }
 ul#settingsList li.nextChild div{ margin-left: 0; padding-left: 20px; }
@@ -178,10 +179,10 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 #appStatusBarsFat				{ position: absolute; top: 50px; left: 0; right: 0; height: 12px; margin: 0 9px; background-color: #fff; display: block; }
 #appStatusBarsPro p,
 #appStatusBarsCar p,
-#appStatusBarsFat p				{ position: absolute; top: 0px; left: 0; height: 12px; margin: 0; background-color: #00ff00; text-indent: 3px; color: rgba(0,0,0,.4); line-height: 13px; font-size: 8px; text-transform: uppercase; background: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
+#appStatusBarsFat p				{ position: absolute; top: 0px; left: 0; height: 12px; margin: 0; background-color: #00ff00; text-indent: 3px; opacity: .4; color: #000; line-height: 13px; font-size: 8px; text-transform: uppercase; background: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
 #appStatusBarsPro span,
 #appStatusBarsCar span,
-#appStatusBarsFat span			{ position: absolute; top: 0px; right: 50%; margin-right: -5px; text-align: right; color: rgba(0,0,0,.3); line-height: 13px; font-size: 10px; font-weight: bold; }
+#appStatusBarsFat span			{ position: absolute; top: 0px; right: 50%; margin-right: -5px; text-align: right; opacity: .3; color: #000; line-height: 13px; font-size: 10px; font-weight: bold; }
 #appStatusBarsPro p,
 #appStatusBarsCar p,
 #appStatusBarsFat p				{ width: 0%; }
@@ -404,9 +405,9 @@ div#noEntries				{ border-left: 5px solid #ccc; }
 /////////*/
 #diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 22px; color: #ddd; }
 #diaryNotes:before			{ content: "\f02d"; font-family: FontAwesome; display: inline-block; font-weight: normal; }
-#diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; }
+#diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
 #diaryNotesInput 			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: transparent; z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; font-family: Helvetica, Arial, sans-serif; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
-#diaryNotesButton			{ position: absolute; top: 0; height: 100%; right: 0; width: 66px; background-color: rgba(0,0,0,.2); opacity: 1; z-index: 999; display: block; -webkit-backface-visibility: hidden; -webkit-user-select: none; }
+#diaryNotesButton			{ position: absolute; top: 0; height: 100%; right: 0; width: 66px; background-color: transparent; background-image: -webkit-linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)); opacity: 1; z-index: 999; display: block; -webkit-backface-visibility: hidden; -webkit-user-select: none;  }
 #diaryNotesButton span		{ position: absolute; top: 100px; height: 100%; width: 100%; text-align: center; color: #fff; opacity: .72; /*color: rgba(255,255,255,.72);*/ font-size: 18px; font-weight: bold; -webkit-backface-visibility: hidden; -webkit-user-select: none; }
 /*#############################
 ####    PAGE SLIDE FOOD    ####
@@ -448,7 +449,9 @@ span.preSpan			{ padding-right: 5px; color: #0033cc; }
 #pageSlideFood.exerciseType span.foodFat,
 #pageSlideFood.exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
-#appHeader:before				{ top: 4px; opacity: 0; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; content: "\f0a8"; font-family: FontAwesome; text-align: center; text-align: right; display: block; width: 100%; position: absolute; left: 0; font-size: 56px; margin-left: -110px; padding-right: 20px; z-index: 1; font-weight: bold; }
+#appHeader:before				{ top: 4px; opacity: 0; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; content: "\f0a8"; font-family: FontAwesome; text-align: center; text-align: right; display: block; width: 100%; position: absolute; left: 0;  font-size: 56px; margin-left: -110px; padding-right: 20px; z-index: 1; font-weight: bold; }
+body.android #appHeader:before 	{ top: 1px; }
+body.android44 #appHeader:before{ top: 4px; }
 body.ios7 #appHeader:before 	{ top: 18px; }
 #appHeader.open:before			{ opacity: .25; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*RECENT LIST*/

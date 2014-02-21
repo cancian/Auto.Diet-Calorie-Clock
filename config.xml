@@ -2,7 +2,7 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="11601" 
+        versionCode="11602" 
         version   = "1.1.6">
     <name>MyLiveDiet</name>
 
@@ -99,7 +99,7 @@
 	<feature name="org.apache.cordova.facebook.Connect">
 		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
 	</feature>
-
+<!--
 	<feature name="Notification">
 		<param name="wp-package" value="Notification" />
 	</feature>
@@ -109,7 +109,7 @@
 	<feature name="SplashScreen">
 		<param name="wp-package" value="SplashScreen" />
 	</feature>
-	
+-->
     <access origin="*" />
 	<content src="index.html" />
 	

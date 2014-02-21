@@ -9,6 +9,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 	<script type="text/javascript">
+	////////////////////
+	// DETECT OFFLINE //
+	////////////////////
+	setTimeout(function(){
+		if(typeof updateTimer != 'function' && document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) {
+			window.localStorage.removeItem("config_debug");
+			window.location.reload();
+		}
+	},7500);
 	///////////////
 	// BOOTSTRAP //
 	///////////////
@@ -23,15 +32,6 @@
 		window.external.Notify("noScroll");
 		var newDate = '';
 	}
-	////////////////////
-	// DETECT OFFLINE //
-	////////////////////
-	setTimeout(function(){
-		if(typeof updateTimer != 'function' && document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) {
-			window.localStorage.removeItem("config_debug");
-			window.location.reload();
-		}
-	},7500);
 	//INIT
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");
 	</script>

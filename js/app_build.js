@@ -1184,7 +1184,9 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			//evt.preventDefault();
 		} else {
 			//critical re-keyboarding entrybody/entrytime
-			evt.preventDefault();
+			if(!isMobile.Android()) {
+				evt.preventDefault();
+			}
 			evt.stopPropagation();
 		}
 		//android keyboard focus
@@ -1204,7 +1206,9 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			evt.stopPropagation();	
 		
 		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
-			evt.preventDefault();
+			if(!isMobile.Android()) {
+				evt.preventDefault();
+			}
 			$("#entryTime").focus();
 		}
 	});

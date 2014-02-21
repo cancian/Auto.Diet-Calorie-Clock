@@ -154,7 +154,7 @@ $(document).on("backbutton", function(evt) {
 		$("#modalCancel").trigger(touchstart);
 	} else if($('#iconClear').is(":visible")) {
 		$('#iconClear').trigger(touchstart);
-	} else if($('#pageSlideFood').length) {
+	} else if($('#pageSlideFood').hasClass("open")) {
 		if(window.localStorage.getItem("foodDbLoaded") == "done") {
 			$('#appHeader').trigger(touchstart);
 		}
@@ -398,11 +398,12 @@ setTimeout(function() {
 			$('#appHeader').removeClass("open");
 			$('#appHeader').removeClass("closer");
 			$('#pageSlideFood').removeClass("open");
-			$('#pageSlideFood').on('transitionend',function(e) {
+			$('#pageSlideFood').css('opacity',0);
+			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
 				$('#pageSlideFood').removeClass('busy');
 				$('#appHeader').removeClass("closer");
 				//WIPE ON CLOSE
-				$('#pageSlideFood').remove(); 
+				$('#pageSlideFood').remove();
 				//force custom dump/save
 				if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done" && window.localStorage.getItem("facebook_logged")) {
 					updateFavList();	
@@ -446,14 +447,14 @@ setTimeout(function() {
 	$('div.editable').on(tap, function(evt) {
 		evt.preventDefault();
 		//not with sidemenu
-		if(!$('#pageSlideFood').hasClass('busy')) {
+		if(!$('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open') && !$('#pageSlideFood').is(":animated")) {
 		//not while editing
 		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#modalOverlay').is(':visible') ) {
 		//not with delete button
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on('transitionend',function(e) { $('.active').removeClass('busy'); });
+			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
 			$('.active').removeClass('active');
 			if(!$('.delete').hasClass('busy')) {
 			////////////////////////

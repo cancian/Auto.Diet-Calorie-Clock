@@ -1592,8 +1592,16 @@ if(parseFloat($("#inputNewPro").val()) + parseFloat($("#inputNewCar").val()) + p
 /////////////////////
 // RETURN ON ERROR //
 /////////////////////
-if(doReturn == 1) { lockAdd = 0; return false; }
-
+if(doReturn == 1) {
+	lockAdd = 0; 
+	//info dialog
+	if(hasTouch()) {
+		navigator.notification.alert(LANG("BLANK_FIELD_DIALOG"), voidThis,LANG("BLANK_FIELD_TITLE"),LANG("OK"));
+	} else {
+		if(alert(LANG("BLANK_FIELD_TITLE") + "\n" + LANG("BLANK_FIELD_DIALOG")));
+	}
+	return false;
+}
 // IF NULL/EMPTY, JUST REVERT TO 0
 if(vPro == "" || isNaN(vPro))	{ vPro = 0; }
 if(vCar == "" || isNaN(vCar))	{ vCar = 0; }
@@ -2034,6 +2042,7 @@ if(mType == "exercise") {
 								});
 								if(document.getElementById('slider') && document.getElementById('entryBody')) {
 									document.getElementById('slider').slider.setValue(0);
+									//$("#entryTime").val('0');
 									$("#entryTitle").val(0);
 									$("#entryTitle").trigger("update");
  									document.getElementById('entryBody').value = "";

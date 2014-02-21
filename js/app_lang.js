@@ -553,7 +553,14 @@ var SETTINGS_HELP = {
 	en: "Help",
 	pt: "Ajuda"
 };
-
+var BLANK_FIELD_TITLE = {
+	en: "Required fields have been left blank",
+	pt: "Campos obrigatórios foram deixados em branco"
+};
+var BLANK_FIELD_DIALOG = {
+	en: "The missing information is highlighted in red",
+	pt: "A informação em falta está destacada em vermelho"
+};
 
 var XXX = {
 	en: "XXX",
@@ -631,7 +638,7 @@ if(isMobile.Android()) {
 		</div>');
 		
 		
-		$('#appSubHelper').on('transitionend',function(e) { 
+		$('#appSubHelper').on('webkitTransitionEnd',function(e) { 
 
 
 if(!$('#appSubHelper').hasClass("open")) {
