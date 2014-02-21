@@ -835,8 +835,10 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		//}
 		//RELOAD IF-KCALS
  			document.getElementById('slider').slider.setValue(0);
- 			$("#entryTitle").val(0);
-			$("#entryTitle").trigger("update")
+			//$("#entryTime").val('0');
+			$("#entryTitle").val(0);
+			$("#entryTitle").trigger("update");
+			$("#entryBody").val('');
 			//DISMISS KEYBOARD
 			$('#entryTime').blur();
 			$('#entryBody').blur();

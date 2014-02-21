@@ -2045,7 +2045,7 @@ if(mType == "exercise") {
 									//$("#entryTime").val('0');
 									$("#entryTitle").val(0);
 									$("#entryTitle").trigger("update");
- 									document.getElementById('entryBody').value = "";
+ 									//$("#entryBody").val('');
 								}
 								//REFRESH DATA
 								updateTimer();

@@ -44,6 +44,7 @@ body.pinked #appHeader.surplus	{ background-color: #C71585; }
 /*daily calories*/
 #timerDaily						{ position: absolute; bottom: 5px; top: 5px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: bold; background-image: -webkit-linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,.3)); background-color: transparent; }
 #timerDaily span				{ position: absolute; bottom: 7px; left: 0px; font-size: 8px; line-height: normal; font-weight: normal; text-transform: uppercase;  }
+body.android2 #timerDaily		{ background-color: rgba(255,255,255,.3); }
 /*INLINE*/
 #editableDiv					{ color: transparent; height: 62px; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
 input#editable					{ color: #000; position: absolute; top: 10px; right: 9px; display: block !important; width: 75px !important; height: 32px; font-size: 24px !important; line-height: 28px; border: 0; padding: 0 0px 0 10px; margin: 0; opacity: .9; text-align: left; z-index: 999 !important; font-family: Helvetica; -webkit-user-select: auto; border-radius: 0px; font-weight: bold; overflow: hidden; }
@@ -451,7 +452,8 @@ span.preSpan			{ padding-right: 5px; color: #0033cc; }
 /*header close arrow*/
 #appHeader:before				{ top: 4px; opacity: 0; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; content: "\f0a8"; font-family: FontAwesome; text-align: center; text-align: right; display: block; width: 100%; position: absolute; left: 0;  font-size: 56px; margin-left: -110px; padding-right: 20px; z-index: 1; font-weight: bold; }
 body.android #appHeader:before 	{ top: 1px; }
-body.android44 #appHeader:before{ top: 4px; }
+body.android2 #appHeader:before	{ top: 4px; }
+body.android44 #appHeader:before{ top: 5px; }
 body.ios7 #appHeader:before 	{ top: 18px; }
 #appHeader.open:before			{ opacity: .25; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*RECENT LIST*/
