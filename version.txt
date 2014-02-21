@@ -3,7 +3,7 @@
 #################
 # 1.1.7 [27/02/2014]
 • fixed flicker when adding/removing fav itens
-• 
+• fixed height adjust on tab switch
 
 
 # 1.1.6 [11/02/2014]
