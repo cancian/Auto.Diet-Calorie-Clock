@@ -16,18 +16,18 @@ function openSettings(string) {
 					</div>\
 				</div>\
 			</li>\
-			<li id="optionEdge"><div>'     + LANG("SETTINGS_SYNC")     + '</div></li>\
-			<li id="optionFeedback"><div>' + LANG("SETTINGS_FEEDBACK") + '</div></li>\
-			<li id="optionReview"><div>'   + LANG("SETTINGS_REVIEW")   + '</div></li>\
-			<li id="optionContact"><div>'  + LANG("SETTINGS_CONTACT")  + '</div></li>\
-			<li id="optionAbout"><div>'    + LANG("SETTINGS_ABOUT")    + '</div></li>\
+			<li id="optionFacebook"><div><p class="contentTitle">' + LANG("SETTINGS_SYNC")   + '<span>' + LANG("SETTINGS_SYNC_INFO")   + '</span></p></div></li>\
+			<li id="optionReview"><div><p class="contentTitle">'   + LANG("SETTINGS_REVIEW") + '<span>' + LANG("SETTINGS_REVIEW_INFO") + '</span></p></div></li>\
+			<li id="optionHelp"><div><p class="contentTitle">'     + LANG("SETTINGS_HELP")   + '<span>' + LANG("SETTINGS_HELP_INFO")   + '</span></p></div></li>\
 		</ul>\
-		<div id="optionWebsite">mylivediet.com</div>\
-		<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG("SETTINGS_FACEBOOK") + '</span></div></div>\
+		<div id="optionWebsite">' + LANG("ABOUT_TITLE") + '</div>\
 		<div id="optionLastSync">' + LANG("LAST_SYNC") + '<span>--</span></div>\
 		<div id="optionReset">' + LANG("SETTINGS_RESET") + '</div>\
 	</div>\
 	';
+	//<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG("SETTINGS_FACEBOOK") + '</span></div></div>\
+	//<li id="optionAbout"><div>'    + LANG("SETTINGS_ABOUT")    + '</div></li>\
+	//<li id="optionFeedback"><div>' + LANG("SETTINGS_FEEDBACK") + '</div></li>\
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -44,12 +44,21 @@ function openSettings(string) {
 	////////////
 	// UNUSED //
 	////////////
-	$("#optionWebsite").remove();
+	//$("#optionWebsite").remove();
 	$("#optionContact").remove();
-	//$("#optionFeedback").remove();
+	$("#optionFeedback").remove();
 	if(!hasTouch()) {
-		//$("#optionReview").remove();
+		$("#optionReview").remove();
 	}
+	////////////////
+	// ACTIVE ROW //
+	////////////////
+	$("#optionHelp").on(touchend,function(evt) {
+		evt.preventDefault();
+		buildHelpMenu();
+		//$(this).addClass("activeRow");
+		//$(this).next().addClass("nextChild");
+	});	
 	////////////////////////
 	// SETTINGS: FACEBOOK //
 	////////////////////////
@@ -70,6 +79,7 @@ function openSettings(string) {
 						window.localStorage.removeItem("facebook_userid");
 						window.localStorage.removeItem("facebook_username");	
 						$("#appFooter").removeClass("appFacebook");
+						$("body").removeClass("appFacebook");
 					},250);
 				}
 				if(button == 1) {
@@ -118,6 +128,7 @@ function openSettings(string) {
 								window.localStorage.setItem("facebook_userid",facebook_userid);
 								window.localStorage.setItem("facebook_username",facebook_username);	
 								$("#appFooter").addClass("appFacebook");
+								$("body").addClass("appFacebook");
 								$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK_LOGGED") + window.localStorage.getItem("facebook_username"));
 								syncEntries(window.localStorage.getItem("facebook_userid"));
 							} else {
@@ -253,6 +264,7 @@ function openSettings(string) {
 	////////////////////
 	// SETTINGS: EDGE //
 	////////////////////	
+	/*
 	$("#optionEdge").on("hold", function(evt) {
 		//evt.preventDefault();		
 		if(window.localStorage.getItem("app_last_tab") == "tab1") { return; }
@@ -285,6 +297,7 @@ function openSettings(string) {
 	if(window.localStorage.getItem("config_debug") == "edge") {
 		$("#optionEdge").addClass("appEdge");
 	}
+	*/
 	/////////////////////
 	// SETTINGS: RESET //
 	/////////////////////
@@ -565,6 +578,20 @@ function openStatus(string) {
 		animate: 'none',
 		mode: 'scroller'
     });
+	//////////////////
+	// ENABLE DEBUG //
+	//////////////////	
+	$("#appStatusReload").on("hold", function(evt) {
+		evt.preventDefault();		
+		if(window.localStorage.getItem("config_debug") == "active") {
+			window.localStorage.removeItem("config_debug");
+			afterHide();
+		} else {
+			window.localStorage.setItem("config_debug","active");
+			afterHide();
+		}
+		$("#appStatusReload").off();
+	});
 	/////////////////
 	// RELOAD ICON //
 	/////////////////
@@ -866,8 +893,16 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			setPush();
 			//SCROLLBAR UPDATE			
 			clearTimeout(niceTimer);
-			niceTimer = setTimeout(niceResizer, 200);
+			niceTimer = setTimeout(function() {
+				niceResizer();
+				return false;
+			}, 100);
+			return false;
 			//dumpEntries();
+			//window.scroll($('#appContent')[0].scrollTop,0,0);
+			//window.onscroll(scroll($('body')[0].scrollTop,0));
+			//$("#appContent").trigger("resize");
+			//niceResizer();
 		}
 	});
 	//////////////////
@@ -1779,10 +1814,13 @@ $("#formc input,#formc select").on(tap, function(evt) {
 //////////////////////////////
 // BLUR ON NULL ID TOUCHEND //
 //////////////////////////////
+
 $("#calcForm").on(touchend, function(evt) {
 	if(evt.target.id == "") {
 		evt.preventDefault();
-		evt.stopPropagation();
+		if(isMobile.iOS()) {
+			evt.stopPropagation();
+		}
 		//PROTECT FROM CALCULATOR BLUR SLOWDOWN
 		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
 			$("#calcForm input").each(function(evt) {

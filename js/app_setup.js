@@ -58,8 +58,18 @@ $(function() {
 //////////////
 var dbName = "mylivediet.app";
 Diary.prototype.setup = function(callback) {
-	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(this.initDB, this.dbErrorHandler, callback);
+	try {
+		this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
+		this.db.transaction(this.initDB, this.dbErrorHandler, callback);
+	} catch(error) { 
+		setTimeout(function() {
+			if(window.MyReload) { 
+				window.MyReload.reloadActivity();
+			} else {
+				window.location.reload();
+			}
+		},1000);
+	}	
 };
 ///////////////////
 // ERROR HANDLER //
@@ -1028,6 +1038,8 @@ function niceResizer() {
 	if(!isMobile.iOS() && androidVersion() < 4.4) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
+		$("#appHelper").getNiceScroll().resize();
+		$("#appSubHelper").getNiceScroll().resize();
 	}
 }
 //////////////
@@ -1088,6 +1100,7 @@ function updateLoginStatus(sync) {
 					window.localStorage.setItem("facebook_userid",facebook_userid);
 					window.localStorage.setItem("facebook_username",facebook_username);	
 					$("#appFooter").addClass("appFacebook");
+					$("body").addClass("appFacebook");
 					$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK_LOGGED") + window.localStorage.getItem("facebook_username"));
 					if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
 				}
@@ -1099,6 +1112,7 @@ function updateLoginStatus(sync) {
 			window.localStorage.removeItem("facebook_userid");
 			window.localStorage.removeItem("facebook_username");	
 			$("#appFooter").removeClass("appFacebook");
+			$("body").removeClass("appFacebook");
 		}
 	});
 }

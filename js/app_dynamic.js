@@ -454,8 +454,8 @@ $(document).on("pageload", function(evt) {
 		updateTimer();
 		updateEntriesTime();
 		//SCROLLBAR UPDATE
-		clearTimeout(niceTimer);
-		niceTimer = setTimeout(niceResizer, 200);
+		//clearTimeout(niceTimer);
+		//niceTimer = setTimeout(niceResizer, 200);
 		//IF LAST ROW 
 		if($('#entryList .entryListRow').length == 0) {
 			$('#entryList').html('<div id="noEntries"><span>' + LANG("NO_ENTRIES") + '</span></div>');
@@ -464,7 +464,13 @@ $(document).on("pageload", function(evt) {
 		}
 		//force error
 		window.scroll($('#appContent')[0].scrollTop,0,0);
-		//window.onscroll(scroll($('#appContent')[0].scrollTop,0));
+		//window.onscroll(scroll($('body')[0].scrollTop,0));
+		clearTimeout(niceTimer);
+		niceTimer = setTimeout(function() {
+			niceResizer();
+			return false;
+		}, 100);
+		return false;
 	});
 //////#//
 }); //#//
@@ -533,7 +539,7 @@ $(document).on("pageReload", function(evt) {
 	if(!isMobile.iOS() && androidVersion() < 4.4) {
 		$("#foodList").css("overflow","hidden");
 		setTimeout(function(){
-			$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid #fff",cursoropacitymax:0.2,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
+			$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 			$("body").trigger("resize");
 		},300);
 		//SCROLLBAR UPDATE	
@@ -1275,8 +1281,6 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 	evt.preventDefault();
 	$(".onFocus").removeClass("onFocus");
 	$(".activeOverflow").removeClass("activeOverflow");	
-	setTimeout(niceResizer, 20)
-	setTimeout(niceResizer, 200);
 	////////////
 	// TAB #1 //
 	////////////
@@ -1301,6 +1305,12 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 		$("#topBarItem-3,#tabMyExercises").addClass("onFocus");
 		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));		
 	}
+	clearTimeout(niceTimer);
+	niceTimer = setTimeout(function() {
+		niceResizer();
+		return false;
+	}, 0);
+	return false;
 });
 
 

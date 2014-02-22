@@ -170,7 +170,8 @@ $(document).on("backbutton", function(evt) {
 	} else if(window.localStorage.getItem("app_last_tab") != "tab1") {
 		appFooter("tab1");
 	} else {
-		afterHide();
+		//afterHide();
+		navigator.app.exitApp();
 	}
 });
 //FORCE SHOW KEYBOARD
@@ -248,12 +249,15 @@ appResizer(0);
 /////////////////////
 if(window.localStorage.getItem("config_debug") == "active") {
 	$("#appFooter").addClass("appDebug");
+	$("body").addClass("appDebug");
 }
 if(window.localStorage.getItem("config_debug") == "edge") {
 	$("#appFooter").addClass("appEdge");
+	$("body").addClass("appEdge");
 }
 if(window.localStorage.getItem("facebook_logged")) {
 	$("#appFooter").addClass("appFacebook");
+	$("body").addClass("appFacebook");
 }
 /////////////////////
 // ADJUST ELEMENTS //

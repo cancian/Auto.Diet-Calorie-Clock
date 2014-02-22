@@ -68,11 +68,17 @@ function appTimer(id,content) {
 	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG('CALORIES_AVALIABLE') + "</span></div>";
 	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG('DAILY_CALORIES') + "</span></div>";
 	kcalsHtmlOutput    += "</div>";
-	//ios flicker, who knows why
-	setTimeout(function() {
+	//REPLACE
+	function updateHeader() {
 		$("#appHeader").html("");
 		$("#appHeader").html(kcalsHtmlOutput);
-	},0);
+	}
+	//ios flicker, who knows why
+	if(isMobile.iOS()) {
+		setTimeout(updateHeader,0);
+	} else {
+		updateHeader();
+	}
 	//plus~minus de-bump
 	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
 	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
@@ -102,14 +108,19 @@ function appTimer(id,content) {
 	///////////////////////
 	window.localStorage.setItem("appBalance",status);
 	window.localStorage.setItem("cssOver",cssOver);
-	//ios flicker, who knows why
-	setTimeout(function() {
+	function updateStatus() {
 		$("#appStatusElapsed div p").html(timeElapsed());
 		$("#appStatusWeight div p strong").html(weightLoss);
 		$("#appStatusBalance div p").html(window.localStorage.getItem("appBalance"));
 		$("#entry_f-sum p").html(Number(window.localStorage.getItem("config_entry_f-sum")));
 		$("#entry_e-sum p").html(Number(window.localStorage.getItem("config_entry_e-sum")));
-	},0);
+	}
+	//ios flicker, who knows why
+	if(isMobile.iOS()) {
+		setTimeout(updateStatus,0);
+	} else {
+		updateStatus();
+	}
 	//////////////////////////////////////////////////
 	// self adjust refresh rate based on perfomance //
 	//////////////////////////////////////////////////

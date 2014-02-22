@@ -1,4 +1,4 @@
-var appVersion = "1.1.6.2 (11603)"; 
+var appVersion = "1.1.6 (11604)"; 
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -262,29 +262,51 @@ var SETTINGS_ABOUT = {
 	pt: "Sobre"
 };
 var SETTINGS_FEEDBACK = {
-	en: "Feedback & support",
-	pt: "Feedback e suporte"
+	en: "Support Forum",
+	pt: "Fórum de Suporte"
 };
 var SETTINGS_REVIEW = {
-	en: "Rate this app",
-	pt: "Avalie este app"
+	en: "Rate this App",
+	pt: "Avalie este App"
 };
+var SETTINGS_REVIEW_INFO = {
+	en: "Your opinion is important to us",
+	pt: "Sua opinião é importante para nós"
+};
+/*
 var SETTINGS_FACEBOOK = {
 	en: "Sign in with Facebook",
 	pt: "Conectar com Facebook"
+};*/
+var SETTINGS_FACEBOOK = {
+	en: "Keep your data safe and synced across multiple devices",
+	pt: "Mantenha seus dados seguros e sincronizados"
 };
 var SETTINGS_FACEBOOK_LOGGED = {
 	en: "Logged in as ",
 	pt: "Conectado como "
+};
+var SETTINGS_HELP = {
+	en: "Help",
+	pt: "Ajuda"
+};
+var SETTINGS_HELP_INFO = {
+	en: "Topics to help you get started",
+	pt: "Respostas para as dúvidas frequentes"
 };
 var SETTINGS_RESET = {
 	en: "Reset settings",
 	pt: "Apagar configurações"
 };
 var SETTINGS_SYNC = {
-	en: "Sync with mylivediet.com",
-	pt: "Sincronizar com mylivediet.com"
+	en: "Automatic Backup",
+	pt: "Backup Automático"
 };
+var SETTINGS_SYNC_INFO = {
+	en: "Keep your data safe and synced across multiple devices",
+	pt: "Mantenha seus dados seguros e sincronizados"
+};
+
 var LAST_SYNC = {
 	en: "last sync",
 	pt: "última sincronização"
@@ -534,8 +556,8 @@ var CLEAR_ALL_TITLE = {
 	pt: "limpar todos itens"
 };
 var LOGOUT_TITLE = {
-	en: "Logout from Facebook",
-	pt: "Desconectar do Facebook"
+	en: "Turn off automatic backup",
+	pt: "Desativar backup automático"
 };
 var FOR = {
 	en: "for",
@@ -560,6 +582,28 @@ var BLANK_FIELD_TITLE = {
 var BLANK_FIELD_DIALOG = {
 	en: "The missing information is highlighted in red",
 	pt: "A informação em falta está destacada em vermelho"
+};
+
+var HELP_TOPICS_ARRAY = {
+	en: {
+			"Title1":"Content1",
+			"Title2":"<p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>mi <br />the end</p>",
+			"Title3":"Content3",
+			"Title4":"Content4",
+			"Title5":"Content5",		
+			"Title6":"Content6",
+			"Title7":"Content7",
+			"Title8":"Content8",
+			"Title9":"Content9",
+			"Title10":"Content10",
+			"Title11":"Content11",
+			"Title12":"<p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>mi <br />the end</p>"
+		},
+	pt: {
+			"Titulo1":"Content1",
+			"Title2":"Content2",
+			"Title3":"Content3"
+		}
 };
 
 var XXX = {
@@ -609,42 +653,121 @@ if(!window.wizUtils) {
 
 
 
+
+
+
+
+
+
 function buildHelpMenu() {
 	//insert menu
 	$("#appContent").append("<div id='appHelper'></div>");
+var startLock = 1;
+var helpTopics = LANG("HELP_TOPICS_ARRAY");
+
+/*
+for (var key in helpTopics) {
+  if (helpTopics.hasOwnProperty(key))
+
+    alert(helpTopics[key]);
+
+}*/
+
+var helpHtml = "";
+var topicId  = 0;
+$.each(helpTopics, function(key, value) {
+if(key && value) {
+	topicId++;
+	helpHtml = helpHtml + "<li id='topic" + topicId + "'>" + key + "<div class='topicTitle'>" + key + "</div><div class='topicContent'>" + value + "</div></li>";
+}
+});
+
+
+
+
+
+
 
 	$("#appHelper").html('\
 	<h2><span id="backButton"></span><div id="helpTitle">Help</div></h2>\
-	<ul>\
-		<li>question 1</li>\
-		<li>question 2</li>\
-		<li>question 3</li>\
-		<li>question 4</li>\
-	</ul>');
+	<ul>' + helpHtml + '</ul>');
+		
+	//$("#appHelper").hide();
+	//$("#appHelper").css("opacity","0");
+	//$('#appHelper').css("-webkit-transition-timing-function","ease");
+	//$('#appHelper').css("-webkit-transition-duration",".25s");
+
+//	$("#appHelper").show();
+	//$("#appHelper").css("opacity",".7");	
+	
+	setTimeout(function() {
+		$("#appHelper").css("opacity","1");
+	},0);
 
 
-	$("#appHelper").hide().fadeIn(300);
 
+	$//("#appHelper").css("opacity",1);
+
+
+		setTimeout(function(){
+				$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+				setTimeout(function() {
+				startLock = 0;
+				},300);
+		},300);
+		
 if(isMobile.Android()) {
-	$("#appHelper").css("top",$("#appHeader").height()* + "px");
+	//$("#appHelper").css("top",$("#appHeader").height()* + "px");
 }
 
 	//self-removal handler
-	$("#appHelper ul li").on(touchend,function() {
+	$("#appHelper ul li").on(tap,function(evt) {
+		if(startLock != 0) { return; }
+				
+		//$("#appHelper").getNiceScroll().remove();
 		
+		var subTitle   = $("#" + $(this).attr("id") + " .topicTitle").html();
+		var subContent = $("#" + $(this).attr("id") + " .topicContent").html();
+
+
+//alert($(this).attr("id"));
+//alert(evt.target.id);
 		
-		$("#appContent").append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">How can I?</div></h2>\
-		<div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div><div>blah mih puh</div>\
-		</div>');
-		
+		$("#appContent").append('<div id="appSubHelper">\
+									<h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2>\
+									<div id="subHelpContent">' + subContent + '</div>\
+								</div>');
+		//setTimeout(function(){
+		//	$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		//},600);
 		
 		$('#appSubHelper').on('webkitTransitionEnd',function(e) { 
 
-
+niceResizer();
 if(!$('#appSubHelper').hasClass("open")) {
-$('#appSubHelper').remove();
+	$('#appSubHelper').remove();
+
+	setTimeout(function() {
+		$('#appHelper').css("width","100%");
+		//niceResizer();
+	},100);
+	
+	
+	
+} else {
+
+	setTimeout(function() {
+		$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+	},100);
 }
 	
+
+	setTimeout(function() {
+		$('#appSubHelper').css("width","100%");
+		//niceResizer();
+	},100);
+
+
 		});
 	
 		
@@ -681,8 +804,9 @@ $('#appSubHelper').remove();
 	//self-removal handler
 	$("#backButton").on(touchend,function() {
 		//remove
-		$("#appHelper").fadeOut(200,function() {
-			$("#appHelper").remove();
+		$("#appHelper").css("opacity","0");
+		$('#appHelper').on('webkitTransitionEnd',function(e) { 
+			$('#appHelper').remove();
 		});
 	});
 	
