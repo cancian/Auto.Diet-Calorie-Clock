@@ -279,7 +279,7 @@ var SETTINGS_FACEBOOK = {
 	pt: "Conectar com Facebook"
 };*/
 var SETTINGS_FACEBOOK = {
-	en: "Keep your data safe and synced across multiple devices",
+	en: "Keep your data safe and synced",
 	pt: "Mantenha seus dados seguros e sincronizados"
 };
 var SETTINGS_FACEBOOK_LOGGED = {
@@ -303,7 +303,7 @@ var SETTINGS_SYNC = {
 	pt: "Backup Automático"
 };
 var SETTINGS_SYNC_INFO = {
-	en: "Keep your data safe and synced across multiple devices",
+	en: "Keep your data safe and synced",
 	pt: "Mantenha seus dados seguros e sincronizados"
 };
 
@@ -583,6 +583,30 @@ var BLANK_FIELD_DIALOG = {
 	en: "The missing information is highlighted in red",
 	pt: "A informação em falta está destacada em vermelho"
 };
+var START_APP = {
+	en: "MyLiveDiet is designed to help you lose weight as easily as possibile.",
+	pt: "MyLiveDiet foi desenvolvido para ajudá-lo a perder peso da forma mais fácil possível."
+};
+var STEP_1 = {
+	en: "Fill your Profile data",
+	pt: "Preencha o Perfil"
+};
+var STEP_2 = {
+	en: "Hit start",
+	pt: "Aperte iniciar"
+};
+var STEP_3 = {
+	en: "There is no third step!",
+	pt: "Não há terceiro passo!"
+};
+var CLOSE_INTRO = {
+	en: "ok, let's get started",
+	pt: "ok, vamos começar"
+};
+
+
+
+
 
 var HELP_TOPICS_ARRAY = {
 	en: {

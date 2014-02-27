@@ -1,6 +1,7 @@
 if(!navigator.userAgent.match(/IEMobile/i)) { newDate = '?' + new Date().getTime(); }
 //CSS
 document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/index.css" + newDate + "' />");
+document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/fonts.css" + newDate + "' />");
 document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
 //RE-CHECK
 setTimeout(function(){
@@ -19,7 +20,7 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	//document.write("<script type='text/javascript' src='//connect.facebook.net/en_US/all.js'><\/script>");
 }
 //JS
-document.write("<script type='text/javascript' src='js/jquery-2.0.3.min.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-2.1.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.js'><\/script>");
@@ -38,13 +39,11 @@ document.write("<script type='text/javascript' src='js/calculator.js'><\/script>
 //APP
 document.write("<script type='text/javascript' src='" + hostLocal + "js/localstoragedb.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/carpe_slider.js" + newDate + "'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_build.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js" + newDate + "'><\/script>");
-//FONT
-//document.write("<style type='text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot'); src: url('css/font/fontawesome-webfont.eot') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff') format('woff'), url('css/font/fontawesome-webfont.ttf') format('truetype'), url('css/font/fontawesome-webfont.svg') format('svg'); font-weight: normal; font-style: normal; } </style>");
-//document.write("<style type='text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.ttf') format('truetype'); font-weight: normal; font-style: normal; -webkit-backface-visibility: hidden; } </style>");
 

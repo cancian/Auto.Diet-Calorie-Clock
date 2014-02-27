@@ -18,6 +18,7 @@ function openSettings(string) {
 			</li>\
 			<li id="optionFacebook"><div><p class="contentTitle">' + LANG("SETTINGS_SYNC")   + '<span>' + LANG("SETTINGS_SYNC_INFO")   + '</span></p></div></li>\
 			<li id="optionReview"><div><p class="contentTitle">'   + LANG("SETTINGS_REVIEW") + '<span>' + LANG("SETTINGS_REVIEW_INFO") + '</span></p></div></li>\
+			<li id="optionFeedback"><div>' + LANG("SETTINGS_FEEDBACK") + '</div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG("SETTINGS_HELP")   + '<span>' + LANG("SETTINGS_HELP_INFO")   + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite">' + LANG("ABOUT_TITLE") + '</div>\
@@ -46,7 +47,7 @@ function openSettings(string) {
 	////////////
 	//$("#optionWebsite").remove();
 	$("#optionContact").remove();
-	$("#optionFeedback").remove();
+	//$("#optionFeedback").remove();
 	if(!hasTouch()) {
 		$("#optionReview").remove();
 	}
@@ -379,6 +380,16 @@ function openStatus(string) {
 	} else {
 		var weightLossUnit = "lb"; 
 	}
+	/////////////////////////////
+	// PRE-SET START/RESET BAR //
+	/////////////////////////////
+	if(window.localStorage.getItem("appStatus") == "running") {
+		var appStatusClass = "reset"; 
+		var appStatusTitle = LANG("RESET");
+	} else {
+		var appStatusClass = "start";
+		var appStatusTitle = LANG("START");
+	}
 	//RAW HTML
 	var statusHtml = '\
 	<a name="top"></a>\
@@ -395,13 +406,13 @@ function openStatus(string) {
 			<div id="appStatusBarsCar"><p>' + LANG("CARBS") + '</p><span>0%</span></div>\
 			<div id="appStatusBarsFat"><p>' + LANG("FATS") + '</p><span>0%</span></div>\
 		</div>\
-		<div id="appStatusAddLeft"><div>+ '  + LANG("FOOD")     + '</div></div>\
-		<div id="appStatusAddRight"><div>+ ' + LANG("EXERCISE") + '</div></div>\
+		<div id="appStatusAddLeft"><div>'  + LANG("FOOD")     + '</div></div>\
+		<div id="appStatusAddRight"><div>' + LANG("EXERCISE") + '</div></div>\
 		<div id="appStatusFix">\
 			<div id="startDateBar"><span id="startDateSpan"><input id="startDate" tabindex="-1" readonly /></span></div>\
 			<div id="appStatusToggle"></div>\
-			<div id="appStatus">\
-				<div id="appStatusTitle"></div>\
+			<div id="appStatus" class="' + appStatusClass + '">\
+				<div id="appStatusTitle">' + appStatusTitle + '</div>\
 				<div id="appStatusArrow"></div>\
 				<div id="appStatusReload"></div>\
 			</div>\
@@ -648,18 +659,6 @@ function openStatus(string) {
 			$('#appStatusFix').removeClass("open");
 		}
 	});
-	/////////////////////////////
-	// PRE-SET START/RESET BAR //
-	/////////////////////////////
-	if(window.localStorage.getItem("appStatus") == "running") {
-		$("#appStatus").removeClass("start");
-		$("#appStatus").addClass("reset");
-		$("#appStatusTitle").html(LANG("RESET"));
-	} else {
-		$("#appStatus").removeClass("reset");
-		$("#appStatus").addClass("start");
-		$("#appStatusTitle").html(LANG("START"));
-	}
 }
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##

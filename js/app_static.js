@@ -507,28 +507,24 @@ setTimeout(function() {
 						}
 						var new_value = Math.ceil($(this).val());
 						//NULL-MIN-MAX
-						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)   { this.value = resetValue; $("#editableDiv").html(resetValue); }
-						if(this.value < 100 && !isNaN(this.value) && this.value > 1)            { this.value = 100;  $("#editableDiv").html(100);  }
-						if(this.value > 9999)													{ this.value = 9999; $("#editableDiv").html(9999); }
+						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)   { this.value = resetValue; }
+						if(this.value < 100 && !isNaN(this.value) && this.value > 1)            { this.value = 100;  }
+						if(this.value > 9999)													{ this.value = 9999; }
 						//filter zeros
-						this.value = Math.round(Number(this.value));
-						$("#editableDiv").html($(this).val());
-						//IF ENTERED VALUE WAS OK, PASS IT
-						window.localStorage.setItem(getKcalsKey,$(this).val());
-						//IF MAIN VALUE IS SOMESHOW STILL BOGUS, RESET BOTH TO 2000
-						if(isNaN(window.localStorage.getItem(getKcalsKey)) || window.localStorage.getItem(getKcalsKey) == 0 || window.localStorage.getItem(getKcalsKey) < 1) {
-							window.localStorage.setItem(getKcalsKey,resetValue);
-							$("#editableDiv").html(window.localStorage.getItem(getKcalsKey));
-						}
-						$(this).replaceWith(new_value);
-						//update info inputs
-						//$("#CyclicInput1").val(window.localStorage.getItem("config_kcals_day_1"));
-						//$("#CyclicInput2").val(window.localStorage.getItem("config_kcals_day_2"));
-						//WRITE TO DB
-						window.localStorage.setItem(getKcalsKey,$(this).val());
-						updateTimer();
-						setPush();
-						//updateEntriesTime();
+						var permValue = Math.round(Number(this.value));
+						window.localStorage.setItem(getKcalsKey,permValue);
+						//SET CSS TRANSITION
+						$('#editable').css("-webkit-transition-timing-function","ease");
+						$('#editable').css("-webkit-transition-duration",".25s");
+						setTimeout(function() {
+							$("#editable").css("opacity","0");
+							$('#editable').on('webkitTransitionEnd',function(e) { 
+								$("#editable").remove();
+								$("#editableDiv").html(window.localStorage.getItem(getKcalsKey));
+								updateTimer();
+								setPush();
+							});
+						},300);
 						$("#editableBlock").remove();
 					},
 					change: function() {

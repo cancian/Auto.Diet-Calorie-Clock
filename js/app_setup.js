@@ -11,7 +11,7 @@ var timerPerf         = (new Date().getTime());
 var timerDiff         = 100;
 var timerWait         = 100;
 function Diary()	{ that = this; }
-function voidThis() {}
+function voidThis() { }
 ///////////////////
 // DEBUG CONSOLE //
 ///////////////////
@@ -85,6 +85,30 @@ Diary.prototype.initDB = function(t) {
 	CONSOLE('Diary.prototype.initDB');
 	t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 	t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+////////////////
+// CONVERT DB //
+////////////////
+if(window.openDatabase) {
+	//read all data and save as ls
+}
+////////////////////////////
+// GETTING STARTED DIALOG //
+////////////////////////////
+if(!window.localStorage.getItem("config_kcals_day_0")) {
+	$("body").append("<div id='gettingStarted'>\
+		<div id='appInfo'>" + LANG("START_APP") + "</div>\
+		<div id='step1'><span>1</span>" + LANG("STEP_1") + "</div>\
+		<div id='step2'><span>2</span>" + LANG("STEP_2") + "</div>\
+		<div id='step3'><span>3</span>" + LANG("STEP_3") + "</div>\
+		<div id='closeDiv'>" + LANG("CLOSE_INTRO") + "</div>\
+	</div>");
+	$("#closeDiv").on(touchend,function(evt) {
+		$("#gettingStarted").fadeOut(200,function() {
+			$("#gettingStarted").remove();
+		});
+	});
+}
+
 	//config
 	if(!window.localStorage.getItem("config_start_time")) {
 		window.localStorage.setItem("config_start_time",Number(new Date().getTime()));

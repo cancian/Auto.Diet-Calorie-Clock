@@ -1,3 +1,8 @@
 AddDefaultCharset UTF-8
 Header set Access-Control-Allow-Origin: *
+AddType application/vnd.ms-fontobject .eot
+AddType font/ttf .ttf
+AddType font/otf .otf
+AddType application/font-woff .woff  
+ 
  

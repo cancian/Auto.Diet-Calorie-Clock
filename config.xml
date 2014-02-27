@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="11603" 
-        version   = "1.1.6">
+        versionCode="11700" 
+        version   = "1.1.7">
     <name>MyLiveDiet</name>
 
     <description>
