@@ -51,7 +51,7 @@ $(document).on("pageload", function(evt) {
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
+			$('.active').on(transitionend,function(e) { $('.active').removeClass('busy'); });
 			$('.active').removeClass('active');
 			if($('.delete').hasClass('busy'))  { return; }
 			if($('#kcalsDiv').is(':visible'))  { return; }
@@ -117,7 +117,7 @@ $(document).on("pageload", function(evt) {
 								change: function() {
 									//save changes
 									var editableValue = $("#editableInput").val().split("  ").join(" ").split("  ").join(" ").split("  ").join(" ");
-									diary.saveEntry({body:editableValue,id:$(this).closest('div').data("id")}, function() {
+									saveEntry({body:editableValue,id:$(this).closest('div').data("id")}, function() {
 										//return false;
 									});
 									//set blur
@@ -149,10 +149,10 @@ $(document).on("pageload", function(evt) {
 								function intoTheVoid(button) {
 									//ON CONFIRM
 									if(button == 1) {
-										document.getElementById('kcalsDiv').innerHTML = 0;
-										document.getElementById('kcalsDiv').style.color = '#333';
+										$("#" + thisRowId + " " + ".entriesTitle").html("0");
+										$("#" + thisRowId + " " + ".entriesTitle").css("color","#333");
 										//save
-										diary.saveEntry({title:'0',id:thisRowId});
+										saveEntry({title:'0',id:thisRowId});
 										updateTimer();
 									}
 									return false;
@@ -188,7 +188,7 @@ $(document).on("pageload", function(evt) {
 										document.getElementById('kcalsDiv').style.color = '#333';
 									}
 									//save value
-									diary.saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$(this).closest('div').data("id")}, function() {
+									saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$(this).closest('div').data("id")}, function() {
 										return false;
 									});
 									updateTimer();
@@ -217,7 +217,7 @@ $(document).on("pageload", function(evt) {
 										document.getElementById('kcalsDiv').style.color = '#C00';
 									}
 									//save value
-									diary.saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
+									saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
 										return false;
 									});
 									updateTimer();
@@ -270,7 +270,7 @@ $(document).on("pageload", function(evt) {
 										document.getElementById('kcalsDiv').style.color = '#333';
 									}
 									//save value
-									diary.saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
+									saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
 										return false;
 									});
 								updateTimer();
@@ -310,7 +310,7 @@ $(document).on("pageload", function(evt) {
 										document.getElementById('kcalsDiv').style.color = '#C00';
 									}
 									//save value
-									diary.saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
+									saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
 										return false;
 									});
 								updateTimer();
@@ -363,7 +363,7 @@ $(document).on("pageload", function(evt) {
 				if(!$('.delete').hasClass('busy')) {
 					$('.active').addClass('busy');
 					$('.active').removeClass('open');
-					$('.active').on('webkitTransitionEnd',function(evt) { $('.active').removeClass('busy'); });
+					$('.active').on(transitionend,function(evt) { $('.active').removeClass('busy'); });
 					$('.active').removeClass('active');
 				}
 				//SHOW
@@ -371,7 +371,7 @@ $(document).on("pageload", function(evt) {
 					$('.delete',this).addClass('active');
 					$('.delete',this).addClass('busy');
 					$('.delete',this).addClass('open');
-					$('.delete',this).on('webkitTransitionEnd',function(evt) { $('.delete').removeClass('busy'); }); 
+					$('.delete',this).on(transitionend,function(evt) { $('.delete').removeClass('busy'); }); 
 				}
 			}
 		}
@@ -437,7 +437,7 @@ $(document).on("pageload", function(evt) {
 		if(!$('.active').hasClass('busy')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
+			$('.active').on(transitionend,function(e) { $('.active').removeClass('busy'); });
 			$('.active').removeClass('active');
 		}
 	});
@@ -448,7 +448,7 @@ $(document).on("pageload", function(evt) {
 		//evt.preventDefault();
 		$(this).parent('div').hide();
 		//UPDATE DB
-		diary.deleteEntry($(this).parent('div').data("id"));
+		deleteEntry($(this).parent('div').data("id"));
 		//REMOVE CLICKED
 		$(this).parent('div').remove();
 		updateTimer();
@@ -492,7 +492,7 @@ $(document).on("pageReload", function(evt) {
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
+			$('.active').on(transitionend,function(e) { $('.active').removeClass('busy'); });
 			$('.active').removeClass('active');
 			if(!$('.delete').hasClass('busy')) {
 			//hide
@@ -500,7 +500,7 @@ $(document).on("pageReload", function(evt) {
 				$('#pageSlideFood').addClass('busy');				
 				//$('#pageSlideFood').removeClass("open");
 				//$('#appHeader').removeClass("open");
-				$('#pageSlideFood').on('webkitTransitionEnd',function(e) { $('#pageSlideFood').removeClass('busy'); /*$('#pageSlideFood').css("opacity","0");*/ $("#foodSearch").blur(); });
+				$('#pageSlideFood').on(transitionend,function(e) { $('#pageSlideFood').removeClass('busy'); /*$('#pageSlideFood').css("opacity","0");*/ $("#foodSearch").blur(); });
 			} else {
 				if(!$('#pageSlideFood').hasClass('busy')) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -515,7 +515,7 @@ $(document).on("pageReload", function(evt) {
 	///////////////
 	// CREATE DB //
 	///////////////
-	$('#pageSlideFood').on('webkitTransitionEnd',function(evt) {
+	$('#pageSlideFood').on(transitionend,function(evt) {
 		updateFoodDb();
 		$("#appHeader").addClass("closer");
 	});
@@ -640,7 +640,7 @@ $(document).on("pageReload", function(evt) {
 					}
 					
 					$('#appHeader').addClass("open");
-					$('#pageSlideFood').on('webkitTransitionEnd',function(e) { 
+					$('#pageSlideFood').on(transitionend,function(e) { 
 					$('#pageSlideFood').removeClass('busy');
 					});
 				}}
@@ -656,7 +656,7 @@ $(document).on("pageReload", function(evt) {
 //#/////////////////#//
 //# CORE SQL SEARCH #//
 //#/////////////////#//
-Diary.prototype.searchFood = function(searchSQL,callback) {
+function searchFood(searchSQL,callback) {
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	//food-exercise
@@ -671,13 +671,13 @@ Diary.prototype.searchFood = function(searchSQL,callback) {
 	var caseContains = "'%" + firstTerm + "%'";
 	var caseEnds     = "'%" + firstTerm +  "'";
 	//query
-	this.db.transaction(
+	db.transaction(
 		function(t) {
 			t.executeSql("SELECT * FROM diary_food WHERE type == '" + typeTerm + "' AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 50",[],
 			function(t,results) {
-				callback(that.fixResults(results));
-		},this.dbErrorHandler);
-	}, this.dbErrorHandler); 
+				callback(fixResults(results));
+		},dbErrorHandler);
+	}, dbErrorHandler); 
 };
 //#////////////////////////#//
 //# SUB FUNCION: DO SEARCH #//
@@ -747,7 +747,7 @@ function doSearch(rawInput) {
 		///////////////////
 		// EXECUTE QUERY //
 		///////////////////
-		diary.searchFood(searchSQL,function(data) {
+		searchFood(searchSQL,function(data) {
 			// LOOP RESULTS //
 			for(var s=0, len=data.length; s<len; s++) {
 				//total results
@@ -851,7 +851,7 @@ function doSearch(rawInput) {
 //# SUB FUNCTION: UPDATE FAV LIST #//
 //#///////////////////////////////#//
 function updateFavList() {
-	diary.getCustomList("fav",function(data) {
+	getCustomList("fav",function(data) {
 		// LOOP RESULTS //
 		var customFavList = "";
 		var customFavSql  = "";
@@ -946,7 +946,7 @@ function updateFavList() {
 //# SUB FUNCTION: UPDATE FOOD LIST #//
 //#////////////////////////////////#//
 function updateFoodList() {
-	diary.getCustomList("food",function(data) {
+	getCustomList("food",function(data) {
 		// LOOP RESULTS //
 		var customFoodList = "";
 		var customFoodSql  = "";		
@@ -1029,7 +1029,7 @@ function updateFoodList() {
 //# SUB FUNCTION: UPDATE EXERCISE LIST #//
 //#////////////////////////////////////#//
 function updateExerciseList() {
-diary.getCustomList("exercise",function(data) {
+getCustomList("exercise",function(data) {
 	// LOOP RESULTS //
 	var customExerciseList = "";
 	var customExerciseSql  = "";
@@ -1118,7 +1118,7 @@ diary.getCustomList("exercise",function(data) {
 //#//////////////////////////////////#//
 /*
 function updateRecentList() {
-	diary.getEntries(function(data) {
+	getEntries(function(data) {
 		//console.log('updating entrylist sum');
 		var searchHistory = [];
 		for(var i=0, len=data.length; i<len; i++) {
@@ -1361,7 +1361,7 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 						$('#modalWindow').removeClass('show');
 						$('#modalOverlay').removeClass('show');
 						//SELF-REMOVE
-						$('#modalWindow').on('webkitTransitionEnd',function(e) { 
+						$('#modalWindow').on(transitionend,function(e) { 
 							$("#modalWindow").remove();
 							$("#modalOverlay").remove();
 						});
@@ -1636,7 +1636,7 @@ vFat = Math.round(vFat * 100) / 100;
 		/////////////////
 		// WRITE QUERY //
 		/////////////////
-		diary.setFood({
+		setFood({
 			type:vType,
 			code:vCode,
 			name:vName,
@@ -1685,7 +1685,7 @@ vFat = Math.round(vFat * 100) / 100;
 				$("#activeOverflow").parent('div').addClass('trans');
 			},0);
 			//SELF-REMOVE
-			//$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
+			//$('#modalOverlay').on(transitionend,function(e) { 
 				$("#addNewCancel").trigger(touchstart);
 			//});
 			//$("#" + vCode).animate({"backgroundColor": "#ffffcc"},600);
@@ -1728,7 +1728,7 @@ vFat = Math.round(vFat * 100) / 100;
 					}
 				},0);
 			//SELF-REMOVE
-			//$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
+			//$('#modalOverlay').on(transitionend,function(e) { 
 				$("#addNewCancel").trigger(touchstart);
 			//});
 			},600);
@@ -1757,7 +1757,7 @@ setTimeout(function() {
 		if($("#tempHolder").html()) {
 			$('#addNewWrapper').removeClass('show');
 			$('#modalOverlay').removeClass('show');
-			$('#modalOverlay').on('webkitTransitionEnd',function() { 
+			$('#modalOverlay').on(transitionend,function() { 
 				$("#tempHolder").remove();
 				$("#modalOverlay,#addNewWrapper").remove();
 				$("body").removeClass("overlay");
@@ -1781,7 +1781,7 @@ setTimeout(function() {
 //##////////////////////##//
 function getModalWindow(itemId) {
 if(!itemId) { return; }	
-	diary.getFood(itemId,function(data) {
+	getFood(itemId,function(data) {
 		var mName = data[0].name;
 		var mType = data[0].type;
 		var mCode = data[0].code;
@@ -2005,7 +2005,7 @@ if(mType == "exercise") {
 							if(title != 0 && im == 0) {
 							im++;
 								//console.log("new entry added (modal)");
-								diary.saveEntry({
+								saveEntry({
 									title:title,
 									body:body,
 									published:published,
@@ -2048,7 +2048,7 @@ if(mType == "exercise") {
 								},0);
 								$(".activeOverflow").removeClass("activeOverflow");
 								//SELF-REMOVE
-								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
+								$('#modalOverlay').on(transitionend,function(e) { 
 									$("#modalOverlay,#modalWindow").remove();
 									$("body").removeClass("overlay");
 								});
@@ -2062,7 +2062,7 @@ if(mType == "exercise") {
 								//REFRESH DATA
 								updateTimer();
 								clearRepeaterModal();
-								//$("#" + mCode).parent('div').on('webkitTransitionEnd',function(e) { 
+								//$("#" + mCode).parent('div').on(transitionend,function(e) { 
 								setTimeout(function(evt) {
 									updateEntries(published);
 									updateEntriesTime();
@@ -2089,7 +2089,7 @@ if(mType == "exercise") {
 								$('#modalOverlay').removeClass('show');
 								clearRepeaterModal();
 								//SELF-REMOVE
-								$('#modalOverlay').on('webkitTransitionEnd',function(e) { 
+								$('#modalOverlay').on(transitionend,function(e) { 
 									$("#modalOverlay,#modalWindow").remove();
 									$("body").removeClass("overlay");
 								});
@@ -2122,7 +2122,7 @@ if(mType == "exercise") {
 									$('#modalWindow').removeClass('show');
 									$('#modalOverlay').removeClass('show');
 									//SELF-REMOVE
-									$('#modalWindow').on('webkitTransitionEnd',function(e) { 
+									$('#modalWindow').on(transitionend,function(e) { 
 										$("#modalWindow").remove();
 										$("#modalOverlay").remove();
 										$("body").removeClass("overlay");
@@ -2139,8 +2139,8 @@ if(mType == "exercise") {
 						$("#modalDelete").on(tap, function(evt) {
 							evt.stopPropagation();
 							function removeItem(button) {
-								if(button == 1) {			
-									diary.delFood(itemId);
+								if(button == 1) {
+									delFood(itemId);
 									//if last row
 									if($('#' + $("#activeOverflow").parent('div').parent('div').attr("id") + " .searcheable").length == 1) {
 										$("#activeOverflow").parent('div').parent('div').append('<div class="searcheable noContent"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>');
@@ -2203,7 +2203,7 @@ if(mType == "exercise") {
 								fat:mFat,	
 								fib:mFib			
 							};
-							diary.setFav(modalOpt);
+							setFav(modalOpt);
 							//////////////////////////
 							// IOS OVERFLOW FLICKER //
 							//////////////////////////

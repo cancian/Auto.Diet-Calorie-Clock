@@ -2,9 +2,13 @@
 //## APP LIBRARY ##//
 //##/////////////##//
 var prefix = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
-!/webkit/.test(navigator.userAgent.toLowerCase())) ? '-moz-'    :
+!/webkit/.test(navigator.userAgent.toLowerCase())) ? ''    :
 (/webkit/.test(navigator.userAgent.toLowerCase())) ? '-webkit-' :
-(/msie/.test(navigator.userAgent.toLowerCase()))   ? '-ms-'     :
-(/opera/.test(navigator.userAgent.toLowerCase()))  ? '-o-'      : '';
+(/msie/.test(navigator.userAgent.toLowerCase()))   ? ''     :
+(/opera/.test(navigator.userAgent.toLowerCase()))  ? ''      : '';
 
-console.log(prefix);
+var transitionend = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
+!/webkit/.test(navigator.userAgent.toLowerCase())) ? 'transitionend' :
+(/webkit/.test(navigator.userAgent.toLowerCase())) ? 'webkitTransitionEnd' :
+(/msie/.test(navigator.userAgent.toLowerCase()))   ? 'transitionend' :
+(/opera/.test(navigator.userAgent.toLowerCase()))  ? 'transitionend' : '';

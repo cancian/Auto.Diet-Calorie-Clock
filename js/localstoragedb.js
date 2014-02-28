@@ -118,16 +118,16 @@ function localStorageDB(db_name, engine) {
 		if(typeof default_values != "undefined")
 		{
 			// loop through all the records in the table
-			for(var ID in db.data[table_name]) {
-				if( !db.data[table_name].hasOwnProperty(ID) ) {
+			for(var id in db.data[table_name]) {
+				if( !db.data[table_name].hasOwnProperty(id) ) {
 					continue;
 				}
 				for(var field in new_fields)
 				{
 					if(typeof default_values == "object")
-						db.data[table_name][ID][new_fields[field]] = default_values[new_fields[field]];
+						db.data[table_name][id][new_fields[field]] = default_values[new_fields[field]];
 					else
-						db.data[table_name][ID][new_fields[field]] = default_values;
+						db.data[table_name][id][new_fields[field]] = default_values;
 				}
 			}
 		}	
@@ -136,8 +136,8 @@ function localStorageDB(db_name, engine) {
 	// number of rows in a table
 	function rowCount(table_name) {
 		var count = 0;
-		for(var ID in db.data[table_name]) {
-			if( db.data[table_name].hasOwnProperty(ID) ) {
+		for(var id in db.data[table_name]) {
+			if( db.data[table_name].hasOwnProperty(id) ) {
 				count++;
 			}
 		}
@@ -146,18 +146,18 @@ function localStorageDB(db_name, engine) {
 	
 	// insert a new row
 	function insert(table_name, data) {
-		data.ID = db.tables[table_name].auto_increment;
+		data.id = db.tables[table_name].auto_increment;
 		db.data[table_name][ db.tables[table_name].auto_increment ] = data;
 		db.tables[table_name].auto_increment++;
-		return data.ID;
+		return data.id;
 	}
 	
 	// select rows, given a list of IDs of rows in a table
 	function select(table_name, ids) {
-		var ID = null, results = [], row = null;
+		var id = null, results = [], row = null;
 		for(var i=0; i<ids.length; i++) {
-			ID = ids[i];
-			row = db.data[table_name][ID];
+			id = ids[i];
+			row = db.data[table_name][id];
 			results.push( clone(row) );
 		}
 		return results;
@@ -171,12 +171,12 @@ function localStorageDB(db_name, engine) {
 			start_n = 0;
 
 		// loop through all the records in the table, looking for matches
-		for(var ID in db.data[table_name]) {
-			if( !db.data[table_name].hasOwnProperty(ID) ) {
+		for(var id in db.data[table_name]) {
+			if( !db.data[table_name].hasOwnProperty(id) ) {
 				continue;
 			}
 
-			row = db.data[table_name][ID];
+			row = db.data[table_name][id];
 			exists = true;
 
 			for(var field in data) {
@@ -201,7 +201,7 @@ function localStorageDB(db_name, engine) {
 					start_n++;
 					continue;
 				}
-				result_ids.push(ID);
+				result_ids.push(id);
 			}
 			if(result_ids.length == limit) {
 				break;
@@ -218,19 +218,19 @@ function localStorageDB(db_name, engine) {
 			start_n = 0;
 
 		// loop through all the records in the table, looking for matches
-		for(var ID in db.data[table_name]) {
-			if( !db.data[table_name].hasOwnProperty(ID) ) {
+		for(var id in db.data[table_name]) {
+			if( !db.data[table_name].hasOwnProperty(id) ) {
 				continue;
 			}
 
-			row = db.data[table_name][ID];
+			row = db.data[table_name][id];
 
 			if( query_function( clone(row) ) == true ) {	// it's a match if the supplied conditional function is satisfied
 				if(typeof start === 'number' && start_n < start) {
 					start_n++;
 					continue;
 				}
-				result_ids.push(ID);
+				result_ids.push(id);
 			}
 			if(result_ids.length == limit) {
 				break;
@@ -244,14 +244,14 @@ function localStorageDB(db_name, engine) {
 		var result_ids = [],
 			start_n = 0;
 
-		for(var ID in db.data[table_name]) {
-			if( db.data[table_name].hasOwnProperty(ID) ) {
+		for(var id in db.data[table_name]) {
+			if( db.data[table_name].hasOwnProperty(id) ) {
 				if(typeof start === 'number' && start_n < start) {
 					start_n++;
 					continue;
 				}
 
-				result_ids.push(ID);
+				result_ids.push(id);
 
 				if(result_ids.length == limit) {
 					break;
@@ -273,17 +273,17 @@ function localStorageDB(db_name, engine) {
 	
 	// update rows
 	function update(table_name, ids, update_function) {
-		var ID = '', num = 0;
+		var id = '', num = 0;
 
 		for(var i=0; i<ids.length; i++) {
-			ID = ids[i];
+			id = ids[i];
 
-			var updated_data = update_function( clone(db.data[table_name][ID]) );
+			var updated_data = update_function( clone(db.data[table_name][id]) );
 
 			if(updated_data) {
-				delete updated_data['ID']; // no updates possible to ID
+				delete updated_data['id']; // no updates possible to ID
 
-				var new_data = db.data[table_name][ID];				
+				var new_data = db.data[table_name][id];				
 				// merge updated data with existing data
 				for(var field in updated_data) {
 					if( updated_data.hasOwnProperty(field) ) {
@@ -291,7 +291,7 @@ function localStorageDB(db_name, engine) {
 					}
 				}
 
-				db.data[table_name][ID] = validFields(table_name, new_data);
+				db.data[table_name][id] = validFields(table_name, new_data);
 				num++;
 			}
 		}
@@ -428,9 +428,9 @@ function localStorageDB(db_name, engine) {
 					for(var i=0; i<fields.length; i++) {
 						fields_literal[ fields[i] ] = true;
 					}
-					delete fields_literal['ID']; // ID is a reserved field name
+					delete fields_literal['id']; // ID is a reserved field name
 
-					fields = ['ID'];
+					fields = ['id'];
 					for(var field in fields_literal) {
 						if( fields_literal.hasOwnProperty(field) ) {
 							fields.push(field);
@@ -508,7 +508,7 @@ function localStorageDB(db_name, engine) {
 						for(var i=0; i<new_fields.length; i++) {
 							fields_literal[ new_fields[i] ] = true;
 						}
-						delete fields_literal['ID']; // ID is a reserved field name
+						delete fields_literal['id']; // ID is a reserved field name
 	
 						new_fields = [];
 						for(var field in fields_literal) {
@@ -572,7 +572,7 @@ function localStorageDB(db_name, engine) {
 				var ids = [];
 				for(var n=0; n<result_ids.length; n++) {
 					update(table_name, result_ids, function(o) {
-						ids.push(o.ID);
+						ids.push(o.id);
 						return data;
 					});
 				}

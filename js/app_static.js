@@ -2,13 +2,30 @@
 // DEVICE READY //
 //////////////////
 $(document).ready(function() {  
-	diary = new Diary();
-	diary.setup(startApp);
+	try {
+		if(hasSql) {
+			db = window.openDatabase(dbName, 1, dbName + "DB", -1);
+			db.transaction(initDB, dbErrorHandler, startApp);
+		} else {
+			initDB();
+			startApp();
+		}
+	} catch(error) {
+		setTimeout(function() {
+			if(window.MyReload) {
+				window.MyReload.reloadActivity();
+			} else {
+				window.location.reload();
+			}
+			console.log(error);
+		},1000);
+	}
 });
 //##///////////##//
 //## START APP ##//
 //##///////////##//
 function startApp() {
+try{
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -28,6 +45,36 @@ $("body").prepend('\
 		<li id="tab4">' + LANG("SETTINGS") + '</li>\
 	</ul>\
 ');
+//#////////////////////#//
+//# RESIZE/ORIENTATION #//
+//#////////////////////#//
+function appResizer(time) {
+	setTimeout(function() {
+		$('body').height(window.innerHeight);
+		//unlock top white gap
+		$('body').trigger("touchmove");
+		//NO < 0
+		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
+		//force scrolling ios
+		if(isMobile.iOS()) { wrapperMinH = wrapperMinH + 1; }
+		if(wrapperMinH < 0) {
+			wrapperMinH = 0;
+		}
+		$('#entryListWrapper').css("height","auto");
+		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
+		//$('#foodList').css("min-height",$('#foodList').height() + "px");
+		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+		//chrome v32 input width
+		$('#entryBody').width(window.innerWidth -58);
+		$('#foodSearch').width(window.innerWidth -55);
+		$("ul#addNewList input").width(window.innerWidth - 180);
+		//SCROLLBAR UPDATE	
+		clearTimeout(niceTimer);
+		niceTimer = setTimeout(niceResizer,20);
+	 },time);
+}
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -80,36 +127,6 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 	$('#appContent').scrollTop(0);
 	appFooter($(this).attr("id"));
 });
-//#////////////////////#//
-//# RESIZE/ORIENTATION #//
-//#////////////////////#//
-function appResizer(time) {
-	setTimeout(function() {
-		$('body').height(window.innerHeight);
-		//unlock top white gap
-		$('body').trigger("touchmove");
-		//NO < 0
-		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
-		//force scrolling ios
-		if(isMobile.iOS()) { wrapperMinH = wrapperMinH + 1; }
-		if(wrapperMinH < 0) {
-			wrapperMinH = 0;
-		}
-		$('#entryListWrapper').css("height","auto");
-		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
-		//$('#foodList').css("min-height",$('#foodList').height() + "px");
-		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
-		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
-		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
-		//chrome v32 input width
-		$('#entryBody').width(window.innerWidth -58);
-		$('#foodSearch').width(window.innerWidth -55);
-		$("ul#addNewList input").width(window.innerWidth - 180);
-		//SCROLLBAR UPDATE	
-		clearTimeout(niceTimer);
-		niceTimer = setTimeout(niceResizer,20);
-	 },time);
-}
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////
@@ -403,7 +420,7 @@ setTimeout(function() {
 			$('#appHeader').removeClass("closer");
 			$('#pageSlideFood').removeClass("open");
 			$('#pageSlideFood').css('opacity',0);
-			$('#pageSlideFood').on('webkitTransitionEnd',function(e) {
+			$('#pageSlideFood').on(transitionend,function(e) {
 				$('#pageSlideFood').removeClass('busy');
 				$('#appHeader').removeClass("closer");
 				//WIPE ON CLOSE
@@ -458,7 +475,7 @@ setTimeout(function() {
 		if(!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on('webkitTransitionEnd',function(e) { $('.active').removeClass('busy'); });
+			$('.active').on(transitionend,function(e) { $('.active').removeClass('busy'); });
 			$('.active').removeClass('active');
 			if(!$('.delete').hasClass('busy')) {
 			////////////////////////
@@ -518,7 +535,7 @@ setTimeout(function() {
 						$('#editable').css("-webkit-transition-duration",".25s");
 						setTimeout(function() {
 							$("#editable").css("opacity","0");
-							$('#editable').on('webkitTransitionEnd',function(e) { 
+							$('#editable').on(transitionend,function(e) { 
 								$("#editable").remove();
 								$("#editableDiv").html(window.localStorage.getItem(getKcalsKey));
 								updateTimer();
@@ -528,7 +545,9 @@ setTimeout(function() {
 						$("#editableBlock").remove();
 					},
 					change: function() {
-						$("#editable").blur();
+						if(hasTap()) {
+							$("#editable").blur();
+						}
 					},
 					keypress: function(evt) {
 						return isNumberKey(evt);
@@ -548,6 +567,11 @@ setTimeout(function() {
 			}}}}
 		}
 	});
+
+} catch(e) {
+	console.log(e);
+	return false;
+}
 ////#//
 } //#//
 ////#//

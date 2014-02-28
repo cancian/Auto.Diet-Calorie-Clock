@@ -1,8 +1,11 @@
 /////////////////
 // GLOBAL VARS //
 /////////////////
-var diary;
-var AND = " ";
+var db;
+var dbName            = "mylivediet.app";
+var lib               = new localStorageDB("mylivediet", localStorage);
+var hasSql			  = (window.openDatabase) ? true : false;
+var AND               = " ";
 var initialScreenSize = window.innerHeight;
 var lastScreenSize    = window.innerHeight;
 var lastScreenResize  = window.innerHeight;
@@ -10,18 +13,17 @@ var opaLock           = 0;
 var timerPerf         = (new Date().getTime());
 var timerDiff         = 100;
 var timerWait         = 100;
-function Diary()	{ that = this; }
 function voidThis() { }
 ///////////////////
 // DEBUG CONSOLE //
 ///////////////////
 function CONSOLE(data,input) {
-	if(window.localStorage.getItem("config_debug") == "active") {
+	//if(window.localStorage.getItem("config_debug") == "active") {
 		console.log(data);
 		if(input) {
 			$("#entryBody").val(data);
 		}
-	}
+	//}
 	return false;
 }
 //////////////////////
@@ -53,62 +55,44 @@ $(function() {
         }
     });
 });
-//////////////
-// SETUP DB //
-//////////////
-var dbName = "mylivediet.app";
-Diary.prototype.setup = function(callback) {
-	try {
-		this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-		this.db.transaction(this.initDB, this.dbErrorHandler, callback);
-	} catch(error) { 
-		setTimeout(function() {
-			if(window.MyReload) { 
-				window.MyReload.reloadActivity();
-			} else {
-				window.location.reload();
-			}
-		},1000);
-	}	
-};
 ///////////////////
 // ERROR HANDLER //
 ///////////////////
-Diary.prototype.dbErrorHandler = function(evt) {
-	CONSOLE('DB Error');
-	CONSOLE(evt);
-};
+function dbErrorHandler(evt) {
+	CONSOLE('DB Error: ' + evt);
+}
 /////////////
 // INIT DB //
 /////////////
-Diary.prototype.initDB = function(t) {
-	CONSOLE('Diary.prototype.initDB');
-	t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
-	t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
-////////////////
-// CONVERT DB //
-////////////////
-if(window.openDatabase) {
-	//read all data and save as ls
-}
-////////////////////////////
-// GETTING STARTED DIALOG //
-////////////////////////////
-if(!window.localStorage.getItem("config_kcals_day_0")) {
-	$("body").append("<div id='gettingStarted'>\
-		<div id='appInfo'>" + LANG("START_APP") + "</div>\
-		<div id='step1'><span>1</span>" + LANG("STEP_1") + "</div>\
-		<div id='step2'><span>2</span>" + LANG("STEP_2") + "</div>\
-		<div id='step3'><span>3</span>" + LANG("STEP_3") + "</div>\
-		<div id='closeDiv'>" + LANG("CLOSE_INTRO") + "</div>\
-	</div>");
-	$("#closeDiv").on(touchend,function(evt) {
-		$("#gettingStarted").fadeOut(200,function() {
-			$("#gettingStarted").remove();
+function initDB(t) {
+	CONSOLE('initDB');
+	if(hasSql) {
+		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+		t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+	} else {
+		if(lib.isNew()) {
+			lib.createTable("diary_entry", ["title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
+			lib.createTable("diary_food",  ["type",  "code", "name",      "term", "kcal", "pro", "car", "fat", "fib"]);
+			lib.commit();
+		}
+	}
+	////////////////////////////
+	// GETTING STARTED DIALOG //
+	////////////////////////////
+	if(!window.localStorage.getItem("config_kcals_day_0")) {
+		$("body").append("<div id='gettingStarted'>\
+			<div id='appInfo'>" + LANG("START_APP") + "</div>\
+			<div id='step1'><span>1</span>" + LANG("STEP_1") + "</div>\
+			<div id='step2'><span>2</span>" + LANG("STEP_2") + "</div>\
+			<div id='step3'><span>3</span>" + LANG("STEP_3") + "</div>\
+			<div id='closeDiv'>" + LANG("CLOSE_INTRO") + "</div>\
+		</div>");
+		$("#closeDiv").on(touchend,function(evt) {
+			$("#gettingStarted").fadeOut(200,function() {
+				$("#gettingStarted").remove();
+			});
 		});
-	});
-}
-
+	}
 	//config
 	if(!window.localStorage.getItem("config_start_time")) {
 		window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
@@ -132,21 +116,33 @@ if(!window.localStorage.getItem("config_kcals_day_0")) {
 		window.localStorage.setItem("lastInfoTab","topBarItem-1");
 	}
 };
+/////////////////
+// FIX RESULTS //
+/////////////////
+function fixResults(res) {
+	//CONSOLE('fixResults');
+	var result = [];
+	for (var i=0; i<res.rows.length; i++) { 
+		result.push(res.rows.item(i));
+	}
+	return result;
+};
 ////////////////////
 // RESET DATA+SQL //
 ////////////////////
-Diary.prototype.deSetup = function(callback) {
-	CONSOLE('Diary.prototype.deSetup');
-	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { afterHide("clear"); return false; });
+function deSetup(callback) {
+	CONSOLE('deSetup');
+	//db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
+	db.transaction(function(t) { /*t.executeSql('DELETE FROM diary_entry');*/ t.executeSql('DROP TABLE IF EXISTS diary_entry');
+	return false; }, dbErrorHandler, function() { afterHide("clear"); return false; });
 };
 ///////////////////
 // CLEAR ENTRIES //
 ///////////////////
-Diary.prototype.clearEntries = function(callback) {
-	CONSOLE('Diary.prototype.clearEntries');
-	this.db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	this.db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, this.dbErrorHandler, function() { setPush(); return false; });
+function clearEntries(callback) {
+	CONSOLE('clearEntries');
+	//db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
+	db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, dbErrorHandler, function() { setPush(); return false; });
 };
 //////////////////////////////
 // SQL-ENCODE LOCAL STORAGE //
@@ -216,16 +212,16 @@ function rebuildLocalStorage(lsp) {
 ///////////////////
 // FETCH ENTRIES //
 ///////////////////
-Diary.prototype.fetchEntries = function(start,callback) {
-	//CONSOLE('Diary.prototype.getEntries');
+function fetchEntries(start,callback) {
+	//CONSOLE('getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
-	this.db.transaction(
+	db.transaction(
 		function(t) {
 			t.executeSql('select * from diary_entry order by published desc',[],
 			function(t,results) {
-				callback(that.fixResults(results));
-			},this.dbErrorHandler);
-	}, this.dbErrorHandler);
+				callback(fixResults(results));
+			},dbErrorHandler);
+	}, dbErrorHandler);
 };
 //#//////////////////////#//
 //# ONLINE: PUSH ENTRIES #//
@@ -233,7 +229,7 @@ Diary.prototype.fetchEntries = function(start,callback) {
 function pushEntries(userId) {
 	if(isNaN(userId)) { return; }
 	if(window.localStorage.getItem("pendingSync")) { return; }
-	diary.fetchEntries(function(data) {
+	fetchEntries(function(data) {
 		//NProgress.start();
 		var fetchEntries = "";
 		for(var i=0, len=data.length; i<len; i++) {
@@ -400,76 +396,122 @@ function syncEntries(userId) {
 /////////////////
 // GET ENTRIES //
 /////////////////
-Diary.prototype.getEntries = function(start,callback) {
-	//CONSOLE('Diary.prototype.getEntries');
+function getEntries(start,callback) {
+	//CONSOLE('getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
-	this.db.transaction(
-		function(t) {
-			t.executeSql('select id, title, body, published, pro, car, fat from diary_entry order by published desc',[],
-			function(t,results) {
-				callback(that.fixResults(results));
-			},this.dbErrorHandler);
-	}, this.dbErrorHandler);
+	if(hasSql) {
+		db.transaction(
+			function(t) {
+				t.executeSql('select id, title, body, published, pro, car, fat from diary_entry order by published desc',[],
+				function(t,results) {
+					callback(fixResults(results));
+				},dbErrorHandler);
+		}, dbErrorHandler);
+	} else {
+		callback(lib.query("diary_entry"));
+	}
 };
 ///////////////
 // GET FOODS //
 ///////////////
-Diary.prototype.getFoods = function(start,callback) {
-	CONSOLE('Diary.prototype.getFoods');
+function getFoods(start,callback) {
+	CONSOLE('getFoods');
 	if(arguments.length == 1) { callback = arguments[0]; }
-	this.db.transaction(
+	db.transaction(
 		function(t) {
 			t.executeSql('select body from diary_food',[],
 			function(t,results) {
-				callback(that.fixResults(results));
-			},this.dbErrorHandler);
-	}, this.dbErrorHandler);
+				callback(fixResults(results));
+			},dbErrorHandler);
+	}, dbErrorHandler);
 };
 //////////////////
 // DELETE ENTRY //
 //////////////////
-Diary.prototype.deleteEntry = function(id, callback) {
-	CONSOLE('Diary.prototype.deleteEntry(' + id + ')');
-	this.db.transaction(
-		function(t) {
-			t.executeSql('delete from diary_entry where id = ?', [id]);
-			setPush();
-		}
-	);
+function deleteEntry(rid, callback) {
+	CONSOLE('deleteEntry(' + rid + ')');
+	if(hasSql) {
+		db.transaction(
+			function(t) {
+				t.executeSql('delete from diary_entry where id = ?', [rid]);
+				setPush();
+			}
+		);
+	} else {
+		lib.deleteRows("diary_entry", function(row) {
+			if(row.id == rid) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+		lib.commit();
+		setPush();
+	}
 };
 ////////////////
 // SAVE ENTRY //
 ////////////////
-Diary.prototype.saveEntry = function(data, callback) {
-	CONSOLE('Diary.prototype.saveEntry(' + data.id + ')');
-	this.db.transaction(
-		function(t) {
-			//update body
-			if(data.id && !data.title) {
-				t.executeSql('update diary_entry set body=? where id=' + data.id, [data.body]);
-				setPush();
-			//update title
-			} else if(data.id && data.title) {
-				t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
-				setPush();
-			//insert full
-			} else if(data.pro || data.car || data.fat) {
-				t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,data.published,data.pro,data.car,data.fat]); 
-				setPush();
-			//insert quick
-			} else {
-				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,data.published]); 
-				setPush();
-			} 
+function saveEntry(data) {
+	CONSOLE('saveEntry(' + data.published + ')');
+	if(hasSql) {
+		db.transaction(
+			function(t) {
+				//update body
+				if(data.id && !data.title) {
+					t.executeSql('update diary_entry set body=? where id=' + data.id, [data.body]);
+					setPush();
+				//update title
+				} else if(data.id && data.title) {
+					t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
+					setPush();
+				//insert full
+				} else if(data.pro || data.car || data.fat) {
+					t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,data.published,data.pro,data.car,data.fat]); 
+					setPush();
+				//insert quick
+				} else {
+					t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,data.published]); 
+					setPush();
+				} 
+			}
+		);
+	} else {
+		//update body
+		if(data.id && !data.title) {
+			lib.update("diary_entry", {id: data.id}, function(row) {
+				row.body = data.body;
+				return row;
+			});
+			lib.commit();
+			setPush();
+		//update title
+		} else if(data.id && data.title) {
+			lib.update("diary_entry", {id: data.id}, function(row) {
+				row.title = data.title;
+				return row;
+			});
+			lib.commit();
+			setPush();
+		//insert full
+		} else if(data.pro || data.car || data.fat) {
+			lib.insert("diary_entry", {title: data.title, body: data.body, published: data.published, pro:data.pro, car:data.car, fat:data.fat});
+			lib.commit();
+			setPush();
+		//insert quick
+		} else {
+			lib.insert("diary_entry", {title: data.title, body: data.body, published: data.published});
+			lib.commit();
+			setPush();
 		}
-	);
+	}
 };
 //////////////
 // SET FOOD //
 //////////////
-Diary.prototype.setFood = function(data, callback) {
+function setFood(data, callback) {
 	CONSOLE('setFood(' + data.act + ' ' + data.code + ")");
-	this.db.transaction(
+	db.transaction(
 		function(t) {
 			if(data.act == "update") {
 				t.executeSql('delete from diary_food where CODE = ?', [data.code]);
@@ -483,35 +525,35 @@ Diary.prototype.setFood = function(data, callback) {
 //////////////
 // GET FOOD //
 //////////////
-Diary.prototype.getFood = function(id,callback) {
+function getFood(id,callback) {
 	CONSOLE('getFood(' + id + ")");
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
-	this.db.transaction(
+	db.transaction(
 		function(t) {
 			t.executeSql('select * from diary_food where CODE=?',[id],
 			function(t,results) {
-				callback(that.fixResults(results));
-			},this.dbErrorHandler);
-	}, this.dbErrorHandler);
+				callback(fixResults(results));
+			},dbErrorHandler);
+	}, dbErrorHandler);
 };
 /////////////////
 // DELETE FOOD //
 /////////////////
-Diary.prototype.delFood = function(code, callback) {
+function delFood(code, callback) {
 	CONSOLE('delFood(' + code + ")");
-	this.db.transaction(
+	db.transaction(
 		function(t) {
 			t.executeSql('delete from diary_food where CODE = ?', [code],
 				function(t, results) {
-					//callback(that.fixResult(results));
-			}, this.dbErrorHandler);
-		}, this.dbErrorHandler);
+					//callback(fixResult(results));
+			}, dbErrorHandler);
+		}, dbErrorHandler);
 };
 /////////////////////
 // GET CUSTOM LIST //
 /////////////////////
-Diary.prototype.getCustomList = function(type,callback) {
+function getCustomList(type,callback) {
 	CONSOLE('getCustomList(' + type + ")");
 	//	
 	function callbackOpen() {
@@ -524,20 +566,20 @@ Diary.prototype.getCustomList = function(type,callback) {
 		//CONSOLE('getCustomList(error open)');
 	}
 	if(arguments.length == 1) { callback = arguments[0]; }
-	this.db.transaction(
+	db.transaction(
 		function(t) {
 			// FAV LIST
 			if(type == "fav") {
 				t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[type],
 				function(t,results) {
-					callback(that.fixResults(results));
+					callback(fixResults(results));
 					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
 				},callbackOpen);
 			// FOOD/EXERCISE LIST
 			} else {
 				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by NAME COLLATE NOCASE ASC',[type],
 				function(t,results) {
-					callback(that.fixResults(results));
+					callback(fixResults(results));
 					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && type == "food")		{ callbackOpen(); }
 					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && type == "exercise")	{ callbackOpen(); }
 				});
@@ -547,25 +589,14 @@ Diary.prototype.getCustomList = function(type,callback) {
 /////////////
 // SET FAV //
 /////////////
-Diary.prototype.setFav = function(data, callback) {
+function setFav(data, callback) {
 	CONSOLE('setFav(' + data.fib + ")");
-	this.db.transaction(
+	db.transaction(
 		function(t) {
 			t.executeSql('delete from diary_food where CODE = ?', [data.code]);
 			t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib]);
 		}
 	);
-};
-/////////////////
-// FIX RESULTS //
-/////////////////
-Diary.prototype.fixResults = function(res) {
-	//CONSOLE('Diary.prototype.fixResults');
-	var result = [];
-	for (var i=0; i<res.rows.length; i++) { 
-		result.push(res.rows.item(i));
-	}
-	return result;
 };
 /////////////////
 // DATE FORMAT //
@@ -679,10 +710,10 @@ function afterHide(cmd) {
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
 		//SET CSS TRANSITION
-		$('body').css("-webkit-transition-timing-function","ease");
-		$('body').css("-webkit-transition-duration",".25s");
+		$('body').css(prefix + "transition-timing-function","ease");
+		$('body').css(prefix + "transition-duration",".25s");
 		$("body").css("opacity","0");
-		$('body').on('webkitTransitionEnd',function(e) { 
+		$('body').on(transitionend,function(e) { 
 			//if logged, reload via callback
 			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && cmd == "clear") {
 				$.post("http://mylivediet.com/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
@@ -899,12 +930,13 @@ function fillDate(timestamp,element) {
 var partial = "";
 function updateEntries(partial) {
 	CONSOLE('pageLoad(' + partial + ')');	
-	diary.getEntries(function(data) {
+	getEntries(function(data) {
 		var s = "";
 		var p = "";
 		var rowClass;
 		var lastRow = "";
 		var lastId  = "";
+		var lastPub = 0;
 		var langFood = LANG("FOOD");
 		var langExer = LANG("EXERCISE");
 		var langDel = LANG("DELETE");
@@ -944,8 +976,13 @@ function updateEntries(partial) {
 				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
-			// ROW++
-			s += dataHandler;
+			// ROW++ (sqlish sort)
+			if(lastPub > Number(data[i].published)) {
+				s = s + dataHandler;
+			} else {
+				s = dataHandler + s;
+			}
+			lastPub = Number(data[i].published);
 			//partial == last row time
 			if(partial == Number(data[i].published)) {
 				lastRow = dataHandler;
@@ -1046,7 +1083,7 @@ var isMobile = {
 /////////////////////////////
 function updateEntriesTime() {
 	CONSOLE('updateEntriesTime()');	
-	diary.getEntries(function(data) {
+	getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			var dataPublished = Number(data[i].published);
 			$("#" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));

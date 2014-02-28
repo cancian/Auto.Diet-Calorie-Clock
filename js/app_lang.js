@@ -1,4 +1,4 @@
-var appVersion = "1.1.6 (11604)"; 
+var appVersion = "1.1.7 (11700)"; 
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -765,7 +765,7 @@ if(isMobile.Android()) {
 		//	$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 		//},600);
 		
-		$('#appSubHelper').on('webkitTransitionEnd',function(e) { 
+		$('#appSubHelper').on(transitionend,function(e) { 
 
 niceResizer();
 if(!$('#appSubHelper').hasClass("open")) {
@@ -829,7 +829,7 @@ if(!$('#appSubHelper').hasClass("open")) {
 	$("#backButton").on(touchend,function() {
 		//remove
 		$("#appHelper").css("opacity","0");
-		$('#appHelper').on('webkitTransitionEnd',function(e) { 
+		$('#appHelper').on(transitionend,function(e) { 
 			$('#appHelper').remove();
 		});
 	});

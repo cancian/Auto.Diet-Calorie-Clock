@@ -383,7 +383,7 @@ function updateNutriBars(tPro,tCar,tFat) {
 var timeLock = 0;
 function updateTimer() {
 	//MAKE SUM
-	diary.getEntries(function(data) {
+	getEntries(function(data) {
 		////////////////
 		// TIMER LOCK //
 		////////////////

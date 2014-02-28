@@ -24,13 +24,20 @@ p								{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after
 /*#////////////////#//
 //# GLOBAL CONTENT #//
 //#////////////////#*/
-#appContent						{ position: absolute; top: 62px; left: 0; right: 0; bottom: 44px; display: block; background-color: #fff; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-image: -webkit-linear-gradient(#fff,#fefefe); }
+#appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-image: -webkit-linear-gradient(#fff,#fefefe); -webkit-backface-visibility: hidden; }
 /*kitkat scrollbar*/
 body.android ::-webkit-scrollbar{ display: none; }
 /*#///////////////#//
 //# GLOBAL HEADER #//
 //#///////////////#*/
-#appHeader						{ position: absolute; font-weight: 300; height: 62px; width: 100%; display: block; top: 0; left: 0; right: 0; border-bottom: 1px solid #eee; box-sizing: border-box; color: #fff; z-index: 50; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); }
+#appHeader						{ position: absolute; font-weight: 300; height: 62px; width: 100%; display: block; top: 0; left: 0; right: 0; border-bottom: 1px solid #dfdfdf; box-sizing: border-box; color: #fff; z-index: 50; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); 
+
+background: radial-gradient(at right center,#f1f1f1,#f5f5f5); 
+background: radial-gradient(at 100% 50%,#f1f1f1,#f5f5f5); 
+background: radial-gradient(at 100%,#f1f1f1,#f5f5f5); 
+background: radial-gradient(at 100px,#f1f1f1,#f5f5f5); 
+
+}
 body.android #appHeader			{ z-index: 50 !important; }
 body.android.tab1 #appHeader,	
 body.android.tab2 #appHeader	{ z-index: 0; }
@@ -83,13 +90,19 @@ border-top: 1px solid #dfdfdf;
 box-sizing: border-box;
 background-color: #f5f5f5;
 -webkit-backface-visibility: hidden;
+
+background: radial-gradient(at right center,#f5f5f5,#eee); 
+background: radial-gradient(at 100% 50%,#f5f5f5,#eee); 
+background: radial-gradient(at 100%,#f5f5f5,#eee); 
+background: radial-gradient(at 100px,#f5f5f5,#eee); 
+
 }
 
 
 ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #888; 
-background-color: #f5f5f5;
+/*
 background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5);
-background-color: #f5f5f5;
+background-color: #f5f5f5;*/
 -webkit-backface-visibility: hidden;
 
 }
@@ -195,12 +208,10 @@ div#optionReset.activeRow		{ background-color: #E86401; color: #fff; }
 /*//////////////////////
 // SUB SETTINGS: HELP //
 //////////////////////*/
-
+/*
 body.tab1 #appContent { overflow: hidden; max-width: 100%; }
 body.tab4 #appContent { overflow: hidden; max-width: 100%; }
-
-
-
+*/
 /*//////////////////
 // SETTINGS: HELP //
 //////////////////*/
@@ -571,6 +582,14 @@ span.delete					{ font-family: "Helvetica Neue", Helvetica, Arial; display: inli
 span.delete:active			{ background: #E0380A; }
 span.delete					{ -webkit-transition-timing-function: linear; -webkit-transform: translate3d(90px, 0, 0); -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
 span.delete.open			{ display: inline-block; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .150s; -webkit-backface-visibility: hidden; }
+
+span.delete					{ -moz-backface-visibility: hidden; }
+span.delete					{ -moz-transition-timing-function: linear; -moz-transform: translate3d(90px, 0, 0); -moz-transition-duration: .115s; -moz-backface-visibility: hidden; }
+span.delete.open			{ -moz-transition-timing-function: linear; -moz-transform: translate3d(0, 0, 0); -moz-transition-duration: .150s; -moz-backface-visibility: hidden; }
+
+
+
+
 /*ROW STYLE*/
 .entriesTitle				{ display: inline; float: left; width: 40px;  text-align: right; font-weight: bold; }
 .entriesKcals				{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
@@ -871,4 +890,20 @@ body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
+
+
+/*
+#infoContents,
+#foodListWrapper,
+#pageSlideFood,#foodList		{
+-webkit-backface-visibility: hidden; 
+
+background: radial-gradient(at right center,#eee,#f5f5f5); 
+background: radial-gradient(at 100% 50%,#eee,#f5f5f5); 
+background: radial-gradient(at 100%,#eee,#f5f5f5); 
+background: radial-gradient(at 100px,#eee,#f5f5f5); 
+
+
+}*/
+
 

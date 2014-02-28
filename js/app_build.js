@@ -308,7 +308,7 @@ function openSettings(string) {
 		function onConfirmWipe(button) {
 			if(button == 1) {
 				$("#optionReset").off();
-				diary.deSetup();
+				deSetup();
 				return false;
 			}
 		}
@@ -664,7 +664,7 @@ function openStatus(string) {
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
 function openDiary(string) {
-diary.getEntries(function(data) {
+getEntries(function(data) {
 //RAW HTML
 var diaryHtml = ""
 var lHoursAgo = LANG('HOURS_AGO');
@@ -729,6 +729,7 @@ diaryHtml += '\
 		var rowClass;
 		var lastRow = "";
 		var lastId  = "";
+		var lastPub = 0;
 		var langFood = LANG("FOOD");
 		var langExer = LANG("EXERCISE");
 		var langDel = LANG("DELETE");
@@ -768,8 +769,13 @@ diaryHtml += '\
 				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
-			// ROW++
-			s += dataHandler;
+			// ROW++ (sqlish sort)
+			if(lastPub > Number(data[i].published)) {
+				s = s + dataHandler;
+			} else {
+				s = dataHandler + s;
+			}
+			lastPub = Number(data[i].published);
 			//partial == last row time
 			if(partial == Number(data[i].published)) {
 				lastRow = dataHandler;
@@ -857,7 +863,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		//SAVE (NOT NULL)
 		if(title != 0) {
 			//console.log("new entry added");
-			diary.saveEntry({title:title,body:body,published:published});
+			saveEntry({title:title,body:body,published:published});
 		//}
 		//RELOAD IF-KCALS
  			document.getElementById('slider').slider.setValue(0);
@@ -1105,7 +1111,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		if($("#entryBody").val().toLowerCase() == "devrewipe") {
 			//window.localStorage.clear();
 			//window.localStorage.setItem("appReset","wipe");
-			diary.deSetup();
+			deSetup();
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 			afterHide();
@@ -1152,7 +1158,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		//CLEAR DIALOG
 		function onConfirmClear(button) {
 			if(button == 1) {
-				diary.clearEntries();
+				clearEntries();
 				updateEntries();
 				$(window).trigger("orientationchange");
 				return false;
