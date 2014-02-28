@@ -4,7 +4,7 @@
 var db;
 var dbName            = "mylivediet.app";
 var lib               = new localStorageDB("mylivediet", localStorage);
-var hasSql			  = (window.openDatabase) ? true : false;
+var hasSql			  = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
 var AND               = " ";
 var initialScreenSize = window.innerHeight;
 var lastScreenSize    = window.innerHeight;
@@ -59,22 +59,37 @@ $(function() {
 // ERROR HANDLER //
 ///////////////////
 function dbErrorHandler(evt) {
-	CONSOLE('DB Error: ' + evt);
+	CONSOLE('DB Error: ' + JSON.stringify(evt));
 }
 /////////////
 // INIT DB //
 /////////////
 function initDB(t) {
 	CONSOLE('initDB');
+	//iv not sql already, dont use sql
+	//TABLE EXISTS
+	t.executeSql('select * from diary_entry order by published desc',[],
+	function(t,results) {
+		alert((fixResults(results)).length);
+	},function(t) { alert('no nada'); });
+//false hassql if empty
+
+
+
+
 	if(hasSql) {
 		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 		t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 	} else {
-		if(lib.isNew()) {
+		if(!lib.tableExists("diary_entry")) {
 			lib.createTable("diary_entry", ["title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
+			lib.commit();
+		}
+		if(!lib.tableExists("diary_food")) {
 			lib.createTable("diary_food",  ["type",  "code", "name",      "term", "kcal", "pro", "car", "fat", "fib"]);
 			lib.commit();
 		}
+		startApp();
 	}
 	////////////////////////////
 	// GETTING STARTED DIALOG //

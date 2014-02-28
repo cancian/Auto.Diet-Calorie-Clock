@@ -1081,15 +1081,15 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 				afterHide();
 			}
 		}
-		//DEV DEBUG
-		if($("#entryBody").val().toLowerCase() == "redleitoinhaquerida") {
-			if(window.localStorage.getItem("config_pinked") == "pinked") {
-				window.localStorage.removeItem("config_pinked");
+		//DEV DB
+		if($("#entryBody").val().toLowerCase() == "devdb") {
+			if(window.localStorage.getItem("config_nodb") == "active") {
+				window.localStorage.setItem("config_nodb","inactive");
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 				afterHide();
 			} else {
-				window.localStorage.setItem("config_pinked","pinked");
+				window.localStorage.setItem("config_nodb","active");
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 				afterHide();

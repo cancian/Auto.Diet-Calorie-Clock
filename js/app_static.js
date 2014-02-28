@@ -4,11 +4,10 @@
 $(document).ready(function() {  
 	try {
 		if(hasSql) {
-			db = window.openDatabase(dbName, 1, dbName + "DB", 99999);
+			db = window.openDatabase(dbName, 1, dbName + "DB", -1);
 			db.transaction(initDB, dbErrorHandler, startApp);
 		} else {
 			initDB();
-			startApp();
 		}
 	} catch(error) {
 		setTimeout(function() {

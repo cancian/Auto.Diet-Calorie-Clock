@@ -2,7 +2,7 @@
 //# DYNAMIC HANDLERS #//
 //#//////////////////#//
 if(!hasSql) {
-	var datz = lib.query("diary_food");
+	//var datz = lib.query("diary_food");
 }
 
 $(document).on("pageload", function(evt) {
@@ -709,7 +709,7 @@ function searchFood(searchSQL,callback) {
 		
 		
 		//	
-		//var datz = lib.query("diary_food");	
+		var datz = lib.query("diary_food");	
 		var dato = datz;
 		var keyJunk = 0;
 		var keyScore = 0;
