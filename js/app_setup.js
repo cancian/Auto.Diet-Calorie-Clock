@@ -122,8 +122,10 @@ function initDB(t) {
 function fixResults(res) {
 	//CONSOLE('fixResults');
 	var result = [];
-	for (var i=0; i<res.rows.length; i++) { 
-		result.push(res.rows.item(i));
+	if(res.rows) {
+		for (var i=0; i<res.rows.length; i++) { 
+			result.push(res.rows.item(i));
+		}
 	}
 	return result;
 };
@@ -132,9 +134,11 @@ function fixResults(res) {
 ////////////////////
 function deSetup(callback) {
 	CONSOLE('deSetup');
-	//db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	db.transaction(function(t) { /*t.executeSql('DELETE FROM diary_entry');*/ t.executeSql('DROP TABLE IF EXISTS diary_entry');
-	return false; }, dbErrorHandler, function() { afterHide("clear"); return false; });
+	if(hasSql) {
+		db.transaction(function(t) { t.executeSql('DROP TABLE IF EXISTS diary_entry'); return false; }, dbErrorHandler, function() { afterHide("clear"); return false; });
+	} else {
+		afterHide("clear");
+	}
 };
 ///////////////////
 // CLEAR ENTRIES //
@@ -142,7 +146,13 @@ function deSetup(callback) {
 function clearEntries(callback) {
 	CONSOLE('clearEntries');
 	//db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, dbErrorHandler, function() { setPush(); return false; });
+	if(hasSql) {
+		db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, dbErrorHandler, function() { setPush(); return false; });
+	} else {
+		lib.deleteRows("diary_entry");
+		lib.commit();
+		setPush();
+	}
 };
 //////////////////////////////
 // SQL-ENCODE LOCAL STORAGE //
@@ -417,6 +427,7 @@ function getEntries(start,callback) {
 function getFoods(start,callback) {
 	CONSOLE('getFoods');
 	if(arguments.length == 1) { callback = arguments[0]; }
+	if(hasSql) {
 	db.transaction(
 		function(t) {
 			t.executeSql('select body from diary_food',[],
@@ -424,6 +435,9 @@ function getFoods(start,callback) {
 				callback(fixResults(results));
 			},dbErrorHandler);
 	}, dbErrorHandler);
+	} else {
+		//	
+	}
 };
 //////////////////
 // DELETE ENTRY //
@@ -525,17 +539,26 @@ function setFood(data, callback) {
 //////////////
 // GET FOOD //
 //////////////
-function getFood(id,callback) {
-	CONSOLE('getFood(' + id + ")");
+function getFood(fid,callback) {
+	CONSOLE('getFood(' + fid + ")");
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
+	if(hasSql) {
 	db.transaction(
 		function(t) {
-			t.executeSql('select * from diary_food where CODE=?',[id],
+			t.executeSql('select * from diary_food where CODE=?',[fid],
 			function(t,results) {
 				callback(fixResults(results));
 			},dbErrorHandler);
 	}, dbErrorHandler);
+	} else {
+		//	
+		var callFood = lib.query("diary_food",function(row) {
+				if(row.code == fid) { return true; } else { return false; }
+			});	
+		callback(callFood);
+			
+	}
 };
 /////////////////
 // DELETE FOOD //
@@ -553,8 +576,8 @@ function delFood(code, callback) {
 /////////////////////
 // GET CUSTOM LIST //
 /////////////////////
-function getCustomList(type,callback) {
-	CONSOLE('getCustomList(' + type + ")");
+function getCustomList(rType,callback) {
+	CONSOLE('getCustomList(' + rType + ")");
 	//	
 	function callbackOpen() {
 		if(!$('#pageSlideFood').is(":animated")) {
@@ -566,25 +589,47 @@ function getCustomList(type,callback) {
 		//CONSOLE('getCustomList(error open)');
 	}
 	if(arguments.length == 1) { callback = arguments[0]; }
-	db.transaction(
-		function(t) {
-			// FAV LIST
-			if(type == "fav") {
-				t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[type],
-				function(t,results) {
+	if(hasSql) {
+		db.transaction(
+			function(t) {
+				// FAV LIST
+				if(rType == "fav") {
+					t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[rType],
+					function(t,results) {
 					callback(fixResults(results));
-					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
-				},callbackOpen);
-			// FOOD/EXERCISE LIST
-			} else {
-				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by NAME COLLATE NOCASE ASC',[type],
-				function(t,results) {
-					callback(fixResults(results));
-					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && type == "food")		{ callbackOpen(); }
-					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && type == "exercise")	{ callbackOpen(); }
-				});
-			}
-	}, callbackOpen);
+						if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
+					},callbackOpen);
+				// FOOD/EXERCISE LIST
+				} else {
+					t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by NAME COLLATE NOCASE ASC',[rType],
+					function(t,results) {
+						callback(fixResults(results));
+						if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
+						if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
+					});
+				}
+		}, callbackOpen);
+	} else {
+		// FAV LIST
+		if(rType == "fav") {
+			//t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[rType],
+			var resLs = lib.query("diary_food",function(row) {
+				if(row.fib == "fav") { return true; } else { return false; }
+			});	
+			console.log(JSON.stringify(resLs));
+			callback(fixResults(resLs));
+			if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
+		// FOOD/EXERCISE LIST
+		} else {
+			var resLs = lib.query("diary_food",function(row) {
+				if(row.code.length == 14 && row.type == rType) { return true; } else { return false; }
+			});
+			console.log(JSON.stringify(resLs));
+			callback(fixResults(resLs));
+			if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
+			if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
+		}
+	}
 };
 /////////////
 // SET FAV //
@@ -772,7 +817,7 @@ function spinner(size) {
 		//prevent tapping
 		$("#modalOverlay").css("z-index",99999);
 		$("#modalOverlay").css("background-color","#fff");
-		$("#modalOverlay").css("background-image","-webkit-linear-gradient(#fff,#fefefe)");		
+		$("#modalOverlay").css("background-image",prefix + "linear-gradient(#fff,#fefefe)");	
 		$("#modalOverlay,#spinner,#tempHolder").on(touchstart, function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
@@ -818,30 +863,44 @@ function updateFoodDb() {
 			window.localStorage.setItem("startLock",true);
 			demoRunning = true;
 			try {
-				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
-				//import sql
-				$.get("searchdb_" + LANG("LANGUAGE") + ".sql",function(sql) {
-					var startTime = new Date();
-					setTimeout(function() {
-					html5sql.process(
-						sql,
-						function(){
-							//success
-							window.localStorage.setItem("foodDbLoaded",'done');
-							window.localStorage.removeItem("startLock");
-							syncEntries(window.localStorage.getItem("facebook_userid"));
-							demoRunning = false;
-							spinner();
-						},
-						function(error, failingQuery) {
-							//failure
-							demoRunning = false;
-							window.localStorage.removeItem("startLock");
-						});
-					},200);
-				});
+				if(hasSql) {
+					html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
+					//import sql
+					$.get("searchdb_" + LANG("LANGUAGE") + ".sql",function(sql) {
+						var startTime = new Date();
+						setTimeout(function() {
+						html5sql.process(
+							sql,
+							function(){
+								//success
+								window.localStorage.setItem("foodDbLoaded",'done');
+								window.localStorage.removeItem("startLock");
+								syncEntries(window.localStorage.getItem("facebook_userid"));
+								demoRunning = false;
+								spinner();
+							},
+							function(error, failingQuery) {
+								//failure
+								demoRunning = false;
+								window.localStorage.removeItem("startLock");
+							});
+						},200);
+					});
+				} else {
+					$.get("searchdb_" + LANG("LANGUAGE") + ".ls",function(ls) {
+						eval(ls);
+						lib.commit();
+						//success
+						window.localStorage.setItem("foodDbLoaded",'done');
+						window.localStorage.removeItem("startLock");
+						syncEntries(window.localStorage.getItem("facebook_userid"));
+						demoRunning = false;
+						spinner();
+					});			
+				}
 			//try fail
 			} catch(error) {
+				spinner();
 				demoRunning = false;
 				window.localStorage.removeItem("startLock");
 			}

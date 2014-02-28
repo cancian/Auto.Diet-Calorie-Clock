@@ -1,6 +1,10 @@
 //#//////////////////#//
 //# DYNAMIC HANDLERS #//
 //#//////////////////#//
+if(!hasSql) {
+	var datz = lib.query("diary_food");
+}
+
 $(document).on("pageload", function(evt) {
 	// PREVENT++ //
 	if((evt.target.id) > 0) {
@@ -653,6 +657,11 @@ $(document).on("pageReload", function(evt) {
 
 
 
+
+
+
+
+
 //#/////////////////#//
 //# CORE SQL SEARCH #//
 //#/////////////////#//
@@ -671,6 +680,7 @@ function searchFood(searchSQL,callback) {
 	var caseContains = "'%" + firstTerm + "%'";
 	var caseEnds     = "'%" + firstTerm +  "'";
 	//query
+	if(hasSql) {
 	db.transaction(
 		function(t) {
 			t.executeSql("SELECT * FROM diary_food WHERE type == '" + typeTerm + "' AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 50",[],
@@ -678,6 +688,105 @@ function searchFood(searchSQL,callback) {
 				callback(fixResults(results));
 		},dbErrorHandler);
 	}, dbErrorHandler); 
+	} else {
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//	
+		//var datz = lib.query("diary_food");	
+		var dato = datz;
+		var keyJunk = 0;
+		var keyScore = 0;
+		var mi = [];
+		var limited = 0;
+		/////////////////
+		// GET FULL DB //
+		/////////////////
+		//lib.query("diary_food",function(data) {
+		//var searchTerm = "";
+		
+	
+	//console.log(searchSQL);	
+
+		var results = 0;
+		for(var z=0, len=dato.length; z<len; z++) {
+
+//if(results < 30) {
+
+			keyScore = 0;
+			keyJunk  = 0;
+
+	if(dato[z].type == typeTerm) {
+
+			for(var k=0, lenn=searchSQL.length; k<lenn; k++) {
+				if(dato[z].term.indexOf(searchSQL[k]) != -1 && keyJunk == 0) {
+					keyScore = keyScore + Math.abs(dato[z].term.match(searchSQL[k]).index);
+				} else {
+					keyJunk = 1;
+				}
+			}
+		if(keyJunk == 0) {
+			mi.push({id:keyScore,value:dato[z]});
+			//results++;
+		}
+	}
+		}
+		var prop = 'id';
+    mi = mi.sort(function(a, b) {
+       // if (asc)
+		return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+       // else 
+	   //return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+    });
+		
+		var mou = [];
+		//for(var u=0, lenu=mi.length; u<lenu; u++) {
+		for(var u=0, lenu=mi.length; u<30; u++) {
+			if(mi[u]) {
+		mou.push(mi[u].value);
+		}
+		}
+		
+		
+		callback(mou);
+		//console.log(JSON.stringify(mou));
+	//	}		
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		///var datz = lib.query("diary_food");	
+	}
+	
 };
 //#////////////////////////#//
 //# SUB FUNCION: DO SEARCH #//
@@ -690,7 +799,9 @@ function doSearch(rawInput) {
 	//this.value = sval;
 	/////////////////
 	// FETCH INPUT //
-	/////////////////	
+	/////////////////
+	if(hasSql) {
+		
 	var timerStart = new Date().getTime();
 	var lastSearch = window.localStorage.getItem("lastSearchTerm");
 	//sanitize user input
@@ -718,6 +829,78 @@ function doSearch(rawInput) {
 		//single term array
 		keywordArray.push(searchQuery);
 	}
+	
+	} else {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		
+		var timerStart = new Date().getTime();
+	var lastSearch = window.localStorage.getItem("lastSearchTerm");
+	//sanitize user input
+	var searchQuery = trim(rawInput.split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
+	//partial sql syntax
+	var searchSQL   = searchQuery.split(" ");
+	//prevent multiple identical searches
+	window.localStorage.setItem("lastSearchTerm",searchQuery);
+	//#/////////////////////#//
+	//# BUILD KEYWORD ARRAY #//
+	//#/////////////////////#//
+	var keywordArray = [];
+	searchArray = searchQuery;
+	//check for multiple keywords
+	if(searchQuery.search(' ') > -1) {
+		searchQuery = searchQuery.split(" ");
+		//loop each key into array
+		for(i = 0; i < searchQuery.length; i++) {
+			//not null
+			if(searchQuery[i] != "") {
+				//filter duplicates			
+				//if($.inArray(trim(searchQuery[i]), keywordArray )) { 
+				if(keywordArray.indexOf(  trim(searchQuery[i])  )) {
+					keywordArray.push(trim(searchQuery[i]));
+				}
+			}
+		}
+	} else {
+		//single term array
+		keywordArray.push(searchQuery);
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+	
+	
 	///////////////////////////////////////////////////////////
 	// PREVENT EMPTY STRING ON MULTIPLE KEYWORD SEARCH ARRAY //
 	///////////////////////////////////////////////////////////

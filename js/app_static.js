@@ -4,7 +4,7 @@
 $(document).ready(function() {  
 	try {
 		if(hasSql) {
-			db = window.openDatabase(dbName, 1, dbName + "DB", -1);
+			db = window.openDatabase(dbName, 1, dbName + "DB", 99999);
 			db.transaction(initDB, dbErrorHandler, startApp);
 		} else {
 			initDB();
@@ -531,8 +531,8 @@ setTimeout(function() {
 						var permValue = Math.round(Number(this.value));
 						window.localStorage.setItem(getKcalsKey,permValue);
 						//SET CSS TRANSITION
-						$('#editable').css("-webkit-transition-timing-function","ease");
-						$('#editable').css("-webkit-transition-duration",".25s");
+						$('#editable').css(prefix + "transition-timing-function","ease");
+						$('#editable').css(prefix + "transition-duration",".25s");
 						setTimeout(function() {
 							$("#editable").css("opacity","0");
 							$('#editable').on(transitionend,function(e) { 

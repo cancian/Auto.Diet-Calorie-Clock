@@ -334,7 +334,9 @@
             o.box.className += ' ' + elmnt.className;
             o.panel.href = '';
             o.panel.tabIndex = tabIndexTemp;
-            elmnt.parentNode.replaceChild(o.box, elmnt);
+			if(elmnt.parentNode) {
+	            elmnt.parentNode.replaceChild(o.box, elmnt);
+			}
             o.box.appendChild(o.knob);
             o.knob.borderSize = edgeSize(o.knob);
             o.knob.title = o.knobTitle;
