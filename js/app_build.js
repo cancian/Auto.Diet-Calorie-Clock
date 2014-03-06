@@ -923,11 +923,22 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	//#//////////////////////#//
 	//# SLIDER VALUE CHANGES #//
 	//#//////////////////////#//
+	clearTimeout(loadingDivTimer);
+	$("#loadingDiv").html("<input id='lid' value='0' type='text' />");
 	!function() { 
 		if(!document.getElementById('entryTitle')) { return; }
 		document.getElementById('entryTitle').update = function() {
 			//UPDATE INPUT
 			document.getElementById('entryTitle').value = document.getElementById('slider').value;
+
+			clearTimeout(loadingDivTimer);
+			loadingDivTimer = setTimeout(function() {
+				$("#loadingDiv").stop().fadeOut(200);
+			},500);
+			if($("#loadingDiv").val() != Math.round(document.getElementById('entryTitle').value)) {
+				$("#loadingDiv").css("display","block");
+				document.getElementById('lid').value = Math.round(document.getElementById('entryTitle').value);
+			}	
 			//force reset < 25
 			if(document.getElementById('entryTitle').value == -0) {
 				document.getElementById('entryTitle').value = 0;
@@ -1030,6 +1041,15 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	$("#sliderNum").on(touchstart + " touchmove", function(evt) {
 		evt.preventDefault();
 		clearRepeater();
+		//show zero-ing
+		if($("#lid").val() != 0) {
+			clearTimeout(loadingDivTimer);
+			loadingDivTimer = setTimeout(function() {
+				$("#loadingDiv").stop().fadeOut(200);
+			},500);
+			$("#loadingDiv").css("display","block");
+			$("#lid").val(0);
+		}
  		document.getElementById('slider').slider.setValue(0);
  		$("#entryTitle").val(0);
 		$("#entryTitle").trigger("update");
@@ -1083,6 +1103,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//DEV DB
 		if($("#entryBody").val().toLowerCase() == "devdb") {
+			window.localStorage.removeItem("foodDbLoaded");
 			if(window.localStorage.getItem("config_nodb") == "active") {
 				window.localStorage.setItem("config_nodb","inactive");
 				$("#entryBody").val('');
@@ -1799,7 +1820,7 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 		document.getElementById('editableDiv').innerHTML = window.localStorage.getItem(getKcalsKey);
 		//HIGHLIGHT
 		$(this).addClass("tapActive");
-		$(this).stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(100,100,100,0.1)" },450);
+		$(this).stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" },450);
 		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); } ,200);
 		//document.getElementById('editableDiv').innerHTML = calcResult;
 		//window.localStorage.setItem("config_kcals_type","simple");

@@ -144,6 +144,7 @@ $(document).on("pageload", function(evt) {
 							$("#kcalsDiv").off(touchstart);
 							$("#kcalsDiv").on(touchstart, function(evt) {
 								evt.preventDefault();
+								timedBlur = new Date().getTime() - 6*1000;
 								//no reset block
 								if(!$(this).parent('div').hasClass("editing")) {
 									return;
@@ -152,6 +153,7 @@ $(document).on("pageload", function(evt) {
 								//INTOTHEVOID//
 								function intoTheVoid(button) {
 									//ON CONFIRM
+									timedBlur = new Date().getTime();
 									if(button == 1) {
 										$("#" + thisRowId + " " + ".entriesTitle").html("0");
 										$("#" + thisRowId + " " + ".entriesTitle").css("color","#333");
@@ -164,9 +166,8 @@ $(document).on("pageload", function(evt) {
 								//SHOW DIALOG
 								if(hasTouch() && (!isMobile.Android() || androidVersion() >= 4.4)) {
 									navigator.notification.confirm(LANG("ARE_YOU_SURE"), intoTheVoid, LANG("RESET_ENTRY_DIALOG"), [LANG("OK"),LANG("CANCEL")]);
-									return false;
 								} else {
-									if(confirm(LANG("RESET_ENTRY_DIALOG"))) { intoTheVoid(1); } else { return false; }
+									if(confirm(LANG("RESET_ENTRY_DIALOG"))) { intoTheVoid(1); } else { intoTheVoid(0); }
 								}
 								return false;
 							});
@@ -175,6 +176,8 @@ $(document).on("pageload", function(evt) {
 							/////////////////////
 							$("#adjustPosBlock").on(touchstart, function(evt) {
 								evt.preventDefault();
+								//prevent android click-blur
+								timedBlur = new Date().getTime();
 								$(this).addClass("activeBlock");
 								if(Number(document.getElementById('kcalsDiv').innerHTML) <= 9999) {
 									//console.log("increase entry value");
@@ -204,6 +207,8 @@ $(document).on("pageload", function(evt) {
 							/////////////////////
 							$("#adjustNegBlock").on(touchstart, function(evt) {
 								evt.preventDefault();
+								//prevent android click-blur
+								timedBlur = new Date().getTime();
 								$(this).addClass("activeBlock");
 								if(Number(document.getElementById('kcalsDiv').innerHTML) >= -9999) {
 									//console.log("decrease entry value");
@@ -526,7 +531,7 @@ $(document).on("pageReload", function(evt) {
 	///////////////
 	// FOOD HTML //
 	///////////////
-	$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><span id="iconClear">×</span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
+	$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG("FOOD_SEARCH") + '" /><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG("NO_MATCHES") + '</span></div></div></div>');
 	//PRE-ADJUST RESULTS HEIGHT
 	$('#foodSearch').width(window.innerWidth -55);
 	buildFoodMenu();
@@ -576,7 +581,7 @@ $(document).on("pageReload", function(evt) {
 		});
 		//SET TIMER
 		clearTimeout(timer);
-		var ms  = 200; //275;
+		var ms = 200; //275;
 		//faster desktop
 		if(!isCordova) { var ms  = 50; }
 		var val = this.value;
@@ -1404,29 +1409,15 @@ if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	});
 
 } else {
-////////////////////
-// CUSTOM FAV SQL //
-////////////////////
-if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
-	updateExerciseList();
-	setTimeout(function() {
-		updateFavList();
-		updateFoodList();
-	},300);
-} else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
-	updateFoodList();
-	setTimeout(function() {
-		updateFavList();
-		updateExerciseList();
-	},300);
-} else {
-//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
-	updateFavList();
-	setTimeout(function() {
-		updateFoodList();
-		updateExerciseList();
-	},300);
-}
+	////////////////////
+	// CUSTOM FAV SQL //
+	////////////////////
+	var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 0:300;
+	var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 0:300;
+	var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 0:300;
+	setTimeout(function() { updateFavList();      },tabTimer1);
+	setTimeout(function() { updateFoodList();     },tabTimer2);
+	setTimeout(function() { updateExerciseList(); },tabTimer3);
 }
 /////////////////////
 // FIRST LOAD TABS //

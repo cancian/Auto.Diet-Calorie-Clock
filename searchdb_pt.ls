@@ -163,7 +163,7 @@ lib.insert("diary_food", {"type":"food","code":"650130399","name":"Fibra de trig
 lib.insert("diary_food", {"type":"food","code":"650130499","name":"Fibra de cereal trigo","term":"fibradecerealtrigo","kcal":"216","pro":"15.55","car":"64.51","fat":"4.25","fib":"42.80"});
 lib.insert("diary_food", {"type":"food","code":"650140199","name":"Farinha de mandioca","term":"farinhademandioca","kcal":"361","pro":"1.60","car":"87.90","fat":"0.30","fib":"6.40"});
 lib.insert("diary_food", {"type":"food","code":"650141099","name":"Farinha de copioba","term":"farinhadecopioba","kcal":"361","pro":"1.60","car":"87.90","fat":"0.30","fib":"6.40"});
-lib.insert("diary_food", {"type":"food","code":"650141599","name":"Farinha d''água","term":"farinhadagua","kcal":"361","pro":"1.60","car":"87.90","fat":"0.30","fib":"6.40"});
+lib.insert("diary_food", {"type":"food","code":"650141599","name":"Farinha d'água","term":"farinhadagua","kcal":"361","pro":"1.60","car":"87.90","fat":"0.30","fib":"6.40"});
 lib.insert("diary_food", {"type":"food","code":"650141699","name":"Cruera","term":"cruera","kcal":"361","pro":"1.60","car":"87.90","fat":"0.30","fib":"6.40"});
 lib.insert("diary_food", {"type":"food","code":"650150299","name":"Goma de mandioca","term":"gomademandioca","kcal":"336","pro":"2.00","car":"82.00","fat":"0.00","fib":"0.00"});
 lib.insert("diary_food", {"type":"food","code":"650150599","name":"Sagu de mandioca","term":"sagudemandioca","kcal":"117","pro":"4.33","car":"15.51","fat":"4.10","fib":"0.03"});
@@ -1384,8 +1384,8 @@ lib.insert("diary_food", {"type":"food","code":"78035012","name":"Ovo de codorna
 lib.insert("diary_food", {"type":"food","code":"78035015","name":"Ovo de codorna, frito(a)","term":"ovodecodornafritoa","kcal":"223","pro":"13.67","car":"1.22","fat":"17.65","fib":"0.00"});
 lib.insert("diary_food", {"type":"food","code":"780350112","name":"Ovo de codorna, ao vinagrete","term":"ovodecodornaaovinagrete","kcal":"155","pro":"12.58","car":"1.12","fat":"10.61","fib":"0.00"});
 lib.insert("diary_food", {"type":"food","code":"780350199","name":"Ovo de codorna","term":"ovodecodorna","kcal":"155","pro":"12.58","car":"1.12","fat":"10.61","fib":"0.00"});
-lib.insert("diary_food", {"type":"food","code":"78037022","name":"Galinha-d''angola abatida, congelada ou viva, cozido(a)","term":"galinhadangolaabatidacongeladaouvivacozidoa","kcal":"247","pro":"32.40","car":"0.00","fat":"12.10","fib":"0.00"});
-lib.insert("diary_food", {"type":"food","code":"78037024","name":"Galinha-d''angola abatida, congelada ou viva, assado(a)","term":"galinhadangolaabatidacongeladaouvivaassadoa","kcal":"247","pro":"32.40","car":"0.00","fat":"12.10","fib":"0.00"});
+lib.insert("diary_food", {"type":"food","code":"78037022","name":"Galinha-d'angola abatida, congelada ou viva, cozido(a)","term":"galinhadangolaabatidacongeladaouvivacozidoa","kcal":"247","pro":"32.40","car":"0.00","fat":"12.10","fib":"0.00"});
+lib.insert("diary_food", {"type":"food","code":"78037024","name":"Galinha-d'angola abatida, congelada ou viva, assado(a)","term":"galinhadangolaabatidacongeladaouvivaassadoa","kcal":"247","pro":"32.40","car":"0.00","fat":"12.10","fib":"0.00"});
 lib.insert("diary_food", {"type":"food","code":"78037032","name":"Capote, cozido(a)","term":"capotecozidoa","kcal":"247","pro":"32.40","car":"0.00","fat":"12.10","fib":"0.00"});
 lib.insert("diary_food", {"type":"food","code":"78037034","name":"Capote, assado(a)","term":"capoteassadoa","kcal":"247","pro":"32.40","car":"0.00","fat":"12.10","fib":"0.00"});
 lib.insert("diary_food", {"type":"food","code":"78037035","name":"Capote, frito(a)","term":"capotefritoa","kcal":"270","pro":"32.40","car":"0.00","fat":"14.66","fib":"0.00"});

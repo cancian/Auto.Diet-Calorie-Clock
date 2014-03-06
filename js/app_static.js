@@ -7,6 +7,7 @@ $(document).ready(function() {
 			db = window.openDatabase(dbName, 1, dbName + "DB", -1);
 			db.transaction(initDB, dbErrorHandler, startApp);
 		} else {
+			lib = new localStorageDB("mylivediet", localStorage);
 			initDB();
 		}
 	} catch(error) {
@@ -16,8 +17,8 @@ $(document).ready(function() {
 			} else {
 				window.location.reload();
 			}
-			console.log(error);
 		},1000);
+		alert(error);
 	}
 });
 //##///////////##//
@@ -321,11 +322,9 @@ if(isMobile.Windows()) {
 	$("body").addClass("windows");
 }
 ////////////
-// PINKED //
+// VENDOR //
 ////////////
-if(window.localStorage.getItem("config_pinked") == "pinked") {
-	$("body").addClass("pinked");	
-}
+$("body").addClass(vendorClass);
 ////////////////////
 // PRESET PROFILE //
 ////////////////////
@@ -533,14 +532,21 @@ setTimeout(function() {
 						$('#editable').css(prefix + "transition-timing-function","ease");
 						$('#editable').css(prefix + "transition-duration",".25s");
 						setTimeout(function() {
-							$("#editable").css("opacity","0");
-							$('#editable').on(transitionend,function(e) { 
+							$("#editable").css("opacity",0);
+							if(!isMobile.Android()) {
+								$('#editable').on(transitionend,function(e) {
+									$("#editable").remove();
+									$("#editableDiv").html(window.localStorage.getItem(getKcalsKey));
+									updateTimer();
+									setPush();
+								});
+							} else {
 								$("#editable").remove();
 								$("#editableDiv").html(window.localStorage.getItem(getKcalsKey));
 								updateTimer();
 								setPush();
-							});
-						},300);
+							}
+						},600);
 						$("#editableBlock").remove();
 					},
 					change: function() {

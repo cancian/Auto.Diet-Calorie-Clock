@@ -576,16 +576,16 @@ var SETTINGS_HELP = {
 	pt: "Ajuda"
 };
 var BLANK_FIELD_TITLE = {
-	en: "Required fields have been left blank",
-	pt: "Campos obrigatórios foram deixados em branco"
+	en: "Required fields have been left blank.",
+	pt: "Campos obrigatórios foram deixados em branco."
 };
 var BLANK_FIELD_DIALOG = {
-	en: "The missing information is highlighted in red",
-	pt: "A informação em falta está destacada em vermelho"
+	en: "The missing information is highlighted in red.",
+	pt: "A informação em falta está destacada em vermelho."
 };
 var START_APP = {
 	en: "MyLiveDiet is designed to help you lose weight as easily as possibile.",
-	pt: "MyLiveDiet foi desenvolvido para ajudá-lo a perder peso da forma mais fácil possível."
+	pt: "MyLiveDiet foi desenvolvido para ajudá-lo a perder peso de maneira fácil e intuitiva."
 };
 var STEP_1 = {
 	en: "Fill your Profile data",
@@ -603,32 +603,98 @@ var CLOSE_INTRO = {
 	en: "ok, let's get started",
 	pt: "ok, vamos começar"
 };
-
-
-
-
-
 var HELP_TOPICS_ARRAY = {
-	en: {
-			"Title1":"Content1",
-			"Title2":"<p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>mi <br />the end</p>",
-			"Title3":"Content3",
-			"Title4":"Content4",
-			"Title5":"Content5",		
-			"Title6":"Content6",
-			"Title7":"Content7",
-			"Title8":"Content8",
-			"Title9":"Content9",
-			"Title10":"Content10",
-			"Title11":"Content11",
-			"Title12":"<p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>Content2</p><p>mi <br />the end</p>"
-		},
-	pt: {
-			"Titulo1":"Content1",
-			"Title2":"Content2",
-			"Title3":"Content3"
-		}
+////////////
+	en: { //
+////////////
+"Getting started":"\
+	<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? MyLiveDiet simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
+	<p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
+	<p>Then you should define a weight loss rate, given in lb/kg per week.</p>\
+	<p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p>\
+	<p>Now hit start, and the app will show how many calories you have burned over time, so that you'll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p>\
+	<p>For instance:</p>\
+	<p>2400 per day / 24 hours = 100 calories per hour</p>\
+	<p>So, after 30 minutes, the counter will indicate you have “50 calories available”. Its that simple!</p>\
+	<p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>\
+",
+////////////
+"The Main Counter":"\
+	<p>The main counter has 3 states: balanced (between -300 and 300, shown in blue), surplus (-300 and below, shown in red), and deficit (300 and up, shown in green).</p>\
+	<p>When the counter hits +/-600, the “caloric status” block on the status screen will turn yellow to indicate you are getting too distant from the balanced state. The value 600 was chosen because it is usually the highest amount of calories recommend per meal.</p>\
+	<p>Note that the counter units are given in “calories available” for the sake of simplicity, so as to quickly indicate whether you ate too much (negative values) or too little (positive values), as if you were “gaining points” over time. The actual caloric (energetic) balance of your body would be the opposite (negative for eating too little, positive for eating too much), but since this seems to reward over-eating by giving it a positive value, the “calories available” approach seemed generally preferable.</p>\
+",
+////////////
+"Changing the Start Date":"\
+	<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>\
+",
+////////////
+"Calculating Calories":"\
+	<p>The weight loss rate (kg/lb per week) is calculated using a simple formula based on the number of calories in a pound (3500) or kilogram (7700) of fat. </p>\
+	<p>Let us say you need 2000 daily calories in order to keep your current weight, and you want to lose 0.5 kg per week.</p>\
+	<p>Divide 7700 by 2 to get the total calories in 0.5 kg of fat:</p>\
+	<p>7700 / 2 = 3850</p>\
+	<p>Then divide that value by 7 to get how many daily calories you need to cut back:</p>\
+	<p>3850 / 7 = 550</p>\
+	<p>Now subtract that value from your daily intake:</p>\
+	<p>2000 – 550 = 1450</p>\
+	<p>That’s how many you have to consume daily in order to lose 0.5 kg a week.</p>\
+"
+	},
+////////////
+	pt: { //
+//////////// 
+"Como começar?":"\
+	<p>Seu corpo não esquece as calorias a cada 24 horas, então por que seu contador de calorias deveria? MyLiveDiet simula a maneira como seu corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.</p>\
+	<p>Primeiro, preencha seu perfil. Com base nessa informação, o aplicativo calculará quantas calorias você precisa para manter seu peso atual.</p>\
+	<p>Depois você deve definir a perda de peso (em kg por semana).</p>\
+	<p>O valor resultante incluirá a restrição calórica necessária para que você atinja esse objetivo.</p>\
+	<p>Agora pressione Iniciar, e o aplicativo passará a mostrar quantas calorias você queimou ao longo do tempo, e assim você saberá sempre quantas calorias deve consumir - já estando incluso nesse valor o cálculo da restrição calórica.</p>\
+	<p>Por exemplo:</p>\
+	<p>2400 calorias por dia / 24 horas = 100 calorias por hora</p>\
+	<p>Então, após 30 minutos, o contador indicará que você possui “50 calorias disponíveis”. É simples assim!</p>\
+	<p>Você só precisa manter o contador em torno de zero, e estará automaticamente caminhando em direção ao seu objetivo!</p>\
+",
+////////////
+"O Contador Principal":"\
+	<p>O contador principal possui 3 estados: balanceado (entre -300 e 300, mostrado em azul), excesso (-300 e abaixo, mostrado em vermelho), e deficit (300 e acima, mostrado em verde). </p>\
+	<p>Quando o contador chega em +/-600, o bloco “status calórico” na tela de status fica amarelo para indicar que você está distanciando-se demais do balanço calórico ideal (zero). O valor 600 foi escolhido porque esse é geralmente o número máximo de calorias recomendado por refeição.</p>\
+	<p>Note que o contador utiliza “calorias disponíveis” como medida por questão de praticidade, para indicar rapidamente se você comeu demais (valores negativos) ou de menos (valores positivos), como se estivesse “ganhando pontos” com o passar do tempo. O balanço calórico (energético) real de seu corpo seria o oposto (negativo para comer pouco, positivo para comer demais), mas isso parece recompensar o consumo excessivo de calorias, de modo que o esquema de “calorias disponíveis” pareceu preferível.</p>\
+",
+////////////
+"Mudar Data Inicial":"\
+	<p>O comportamento padrão do aplicativo é começar a contagem a partir do momento em que o botão Iniciar é pressionado. Porém, se por algum motivo você precisar ajustar esse valor (e.g. você começou a dieta esta manhã, mas só teve tempo de configurar o aplicativo à tarde), basta pressionar a seta para baixo (no botão Iniciar) para revelar o seletor de data.</p>\
+",
+////////////
+"Calculando Calorias":"\
+	<p>A perda de peso (em kg por semana) é calculada utilizando-se uma fórmula simples, baseada no número de calorias em um quilograma de gordura (7700).</p>\
+	<p>Suponhamos que você precise de 2000 calorias por dia para manter seu peso atual, e deseja perder 0.5 kg por semana.</p>\
+	<p>Divida 7700 por 2 para encontrar o total de calorias em 0.5 kg de gordura:</p>\
+	<p>7700 / 2 = 3850</p>\
+	<p>Depois divida esse valor por 7 para saber quantas calorias diárias você precisa reduzir:</p>\
+	<p>3850 / 7 = 550</p>\
+	<p>Agora subtraia esse valor de sua ingestão diária:</p>\
+	<p>2000 – 550 = 1450</p>\
+	<p>Esse é o número de calorias que você deve consumir diariamente para perder 0.5 kg por semana.</p>\
+"
+	}
 };
+
+
+
+
+
+
+
+
+
+/* ////////////////////
+"TITLE":"\
+	<p></p>\
+	<p></p>\
+",
+/////////////////////*/
+
 
 var XXX = {
 	en: "XXX",

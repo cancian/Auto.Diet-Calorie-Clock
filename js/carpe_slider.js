@@ -595,6 +595,7 @@ function reSlider() {
 		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (23)) + "px");
 		document.getElementById('slider').slider.setValue(sliderMemory);
 		$("#entryTitle").val(sliderMemory);
+		$("#loadingDiv").hide();
 	}
 }
 
