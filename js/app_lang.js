@@ -385,7 +385,7 @@ var YOUR_ACTIVITY_OPTION4 = {
 };
 var FEET_INCHES = {
 	en: "feet/inches",
-	pt: "pés/polegadas"
+	pt: "pés/pol."
 };
 var CENTIMETERS = {
 	en: "centimeters",
@@ -602,6 +602,10 @@ var STEP_3 = {
 var CLOSE_INTRO = {
 	en: "ok, let's get started",
 	pt: "ok, vamos começar"
+};
+var TODAY = {
+	en: "today",
+	pt: "hoje"
 };
 var HELP_TOPICS_ARRAY = {
 ////////////

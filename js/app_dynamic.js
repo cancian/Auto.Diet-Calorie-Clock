@@ -114,6 +114,7 @@ $(document).on("pageload", function(evt) {
 									//whitegap fix
 									//$("#entryListWrapper").off(touchmove);
 									//$("#entryListWrapper").on(touchmove, function(evt) {
+										updateEntriesSum();
 										window.scroll($('#appContent')[0].scrollTop,0,0);
 										return false;
 									//});
@@ -462,6 +463,7 @@ $(document).on("pageload", function(evt) {
 		$(this).parent('div').remove();
 		updateTimer();
 		updateEntriesTime();
+		updateEntriesSum();
 		//SCROLLBAR UPDATE
 		//clearTimeout(niceTimer);
 		//niceTimer = setTimeout(niceResizer, 200);
@@ -872,7 +874,7 @@ function doSearch(rawInput) {
 			if(searchQuery[i] != "") {
 				//filter duplicates			
 				//if($.inArray(trim(searchQuery[i]), keywordArray )) { 
-				if(keywordArray.indexOf(  trim(searchQuery[i])  )) {
+				if(keywordArray.indexOf(  trim(searchQuery[i])  ) == -1) {
 					keywordArray.push(trim(searchQuery[i]));
 				}
 			}
@@ -2240,6 +2242,7 @@ if(mType == "exercise") {
 								setTimeout(function(evt) {
 									updateEntries(published);
 									updateEntriesTime();
+									updateEntriesSum();
 								},1000);
 								//});
 							}

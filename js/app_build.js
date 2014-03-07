@@ -665,6 +665,7 @@ function openStatus(string) {
 ############################*/
 function openDiary(string) {
 getEntries(function(data) {
+updateEntriesSum();
 //RAW HTML
 var diaryHtml = ""
 var lHoursAgo = LANG('HOURS_AGO');
@@ -729,6 +730,9 @@ diaryHtml += '\
 		var rowClass;
 		var lastRow = "";
 		var lastId  = "";
+		//var pushTitle = [];
+		var lastDay = '-';
+		var entriesDay = '';
 		var lastPub = 0;
 		var langFood = LANG("FOOD");
 		var langExer = LANG("EXERCISE");
@@ -761,14 +765,35 @@ diaryHtml += '\
 			if(window.localStorage.getItem("config_start_time") > dataPublished) { rowClass = rowClass + " expired"; }
 			// CORE OUTPUT
 			//<p class='entriesId'>#" + Number(i+1) + "</p>
+			
+			//if(lastDay == '-' || lastDay != parseInt(dayFormat(dataPublished).split("/").join(""))) {
+//dayFormat(dataPublished).split("/").join("");
+
+//.date:firstchild:before
+				//entriesDay = "<p class='entriesDay' id='day" + parseInt(dayFormat(dataPublished).split("/").join("")) + "'>" + dayFormat(dataPublished) + "</p>";
+			//} else {
+			//	entriesDay = '';		
+			//}
+			//lastDay = parseInt(dayFormat(dataPublished).split("/").join(""));
+			
+			//parseInt(dayFormat(dataPublished).split("/").join(""))
+			
+			
+			
 			var dataHandler = "\
-			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + "' name='" + dataPublished + "'>\
+			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + " day" + dayFormat(dataPublished).split("/").join("x") + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
 				<p class='entriesKcals'>kcal</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
 				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
+			
+			//pushTitle.push({ date: dayFormat(dataPublished).split("/").join("x"),val: dataTitle});
+			
+				
+
+			
 			// ROW++ (sqlish sort)
 			if(lastPub > Number(data[i].published)) {
 				s = s + dataHandler;
@@ -796,6 +821,31 @@ diaryHtml += '</div>\
 		</div>\
 	</div>\
 ';
+
+
+
+
+/*
+if(pday == '-') { pday = pushTitle[p].date; }
+
+
+if(pday != pushTitle[p].date) {
+
+
+//console.log('new day');	
+	
+}
+
+//pushTitle[p].val;
+
+*/
+//console.log(eachDay);
+
+//pday = pushTitle[p].date;
+//}
+
+
+
 //#////////#//
 //# OUTPUT #//
 //#////////#//
@@ -864,6 +914,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		if(title != 0) {
 			//console.log("new entry added");
 			saveEntry({title:title,body:body,published:published});
+			updateEntriesSum();
 		//}
 		//RELOAD IF-KCALS
  			document.getElementById('slider').slider.setValue(0);

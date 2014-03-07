@@ -934,7 +934,7 @@ function updateEntries(partial) {
 			// CORE OUTPUT
 			//<p class='entriesId'>#" + Number(i+1) + "</p>
 			var dataHandler = "\
-			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + "' name='" + dataPublished + "'>\
+			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + " day" + dayFormat(dataPublished).split("/").join("x") + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
 				<p class='entriesKcals'>kcal</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
@@ -984,6 +984,64 @@ function updateEntriesTime() {
 			var dataPublished = Number(data[i].published);
 			$("#" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
 		}
+	});
+}
+
+/////////////////////////////
+// UPDATE ENTRYLIST *TIME* //
+/////////////////////////////
+function updateEntriesSum() {
+	//CONSOLE('updateEntriesSum()');
+	var pushTitle = [];
+	var lToday = LANG("TODAY");
+	var lFood  = LANG("FOOD");
+	var lExe   = LANG("EXERCISE");
+	getEntries(function(data) {
+		for(var m=0, men=data.length; m<men; m++) {
+			pushTitle.push({ date: dayFormat(parseInt(data[m].published)).split("/").join("x"),val: data[m].title});
+		}
+
+		var eachDay  = [];
+		for(var p=0, pen=pushTitle.length; p<pen; p++) {
+			if(eachDay.indexOf(pushTitle[p].date) == -1) {
+				eachDay.push(pushTitle[p].date);
+			}
+		}
+
+		var totalDayF;
+		var totalDayE;
+		var reStyle = '';
+		var thisDay;
+
+		for(var d=0, den=eachDay.length; d<den; d++) {
+			totalDayF = 0;
+			totalDayE = 0;
+			for(var x=0, xen=pushTitle.length; x<xen; x++) {
+				if(eachDay[d] == pushTitle[x].date) {
+					if(pushTitle[x].val > 0)  {
+						totalDayF = totalDayF + parseInt(pushTitle[x].val);
+					} else {
+						totalDayE = totalDayE + parseInt(pushTitle[x].val);	
+					}
+				}
+			}
+			if(eachDay[d] == dayFormat(new Date().getTime()).split("/").join("x")) {
+				thisDay = lToday;
+			} else {
+				thisDay = eachDay[d];
+			}
+
+			reStyle = reStyle + '\
+			#entryList div.day' + eachDay[d] + ' { border-top: 21px solid #eee; }\
+			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ' { margin-top: 0px; border-top: 0px solid #eee; }\
+			#entryList div.day' + eachDay[d] + ':before { content: "' + lFood + ': ' + totalDayF + '  /  ' + lExe + ': ' + totalDayE + '"; color: #bbb; position: absolute; top: -18px; right: 9px; font-size: 12px; line-height: 16px; }\
+			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':before { content: "";  }\
+			#entryList div.day' + eachDay[d] + ':after { content: "' + thisDay.split("x").join("/") +'"; color: #999; position: absolute; top: -18px; left: 15px; font-size: 12px; line-height: 16px; }\
+			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':after { content: "";  }\
+			'; 
+		}
+		//OUTPUT
+		$("#daySum").html(reStyle);
 	});
 }
 //////////////////

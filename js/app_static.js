@@ -30,6 +30,8 @@ try{
 // PARSED CSS //
 ////////////////
 $("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG('START_DATE') + "'; } </style>");
+$("head").prepend("<style type='text/css' id='daySum'></style>");
+updateEntriesSum();
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//

@@ -99,6 +99,19 @@ function isNumberKey(evt){
 	}
 	return true;
 }
+//////////
+// TRIM //
+//////////
+function trim(str) {
+    str = str.replace(/^\s+/, '');
+    for (var i = str.length - 1; i >= 0; i--) {
+        if (/\S/.test(str.charAt(i))) {
+            str = str.substring(0, i + 1);
+            break;
+        }
+    }
+    return str;
+}
 /////////////////
 // DATE FORMAT //
 /////////////////
@@ -116,6 +129,25 @@ function dtFormat(input) {
     var minute = input.getMinutes(); //+1;
     if(minute < 10) minute = "0" + minute;
     res += hour + ":" + minute + " " + ampm;
+    return res;
+}
+
+/////////////////
+// DATE FORMAT //
+/////////////////
+function dayFormat(input) {
+    if(!input) return "";
+	input = new Date(input);
+	var gotMonth = input.getMonth()+1;
+	var gotDate = input.getDate();
+	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
+	if(gotDate < 10) { gotDate = "0" + gotDate; }
+
+	if(LANG("LANGUAGE") == "pt") { 
+	    var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
+	} else {
+	    var res = gotMonth + "/" + gotDate + "/" + input.getFullYear();
+	}
     return res;
 }
 //////////////
@@ -176,19 +208,6 @@ if (ss < 10) { ss = "0" + ss; }
 if(dd > 0) { dd = dd + "d "; } else { dd = ""; }
 return dd+hh+":"+mm+":"+ss;
 }
-//////////
-// TRIM //
-//////////
-function trim(str) {
-    str = str.replace(/^\s+/, '');
-    for (var i = str.length - 1; i >= 0; i--) {
-        if (/\S/.test(str.charAt(i))) {
-            str = str.substring(0, i + 1);
-            break;
-        }
-    }
-    return str;
-}
 ////////////////////////////
 // GET WINDOW ORIENTATION //
 ////////////////////////////
@@ -200,18 +219,5 @@ function getOrientation() {
 		return "portrait";
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
