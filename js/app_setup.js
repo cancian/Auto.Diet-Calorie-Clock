@@ -904,7 +904,7 @@ function updateEntries(partial) {
 		var lastPub = 0;
 		var langFood = LANG("FOOD");
 		var langExer = LANG("EXERCISE");
-		var langDel = LANG("DELETE");
+		var langDel  = LANG("DELETE");
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = Number(data[i].title);

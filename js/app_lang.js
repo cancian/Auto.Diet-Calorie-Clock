@@ -265,6 +265,12 @@ var SETTINGS_FEEDBACK = {
 	en: "Support Forum",
 	pt: "Fórum de Suporte"
 };
+var SETTINGS_FEEDBACK_INFO = {
+	en: "Post ideas and get support",
+	pt: "Poste ideias e tire dúvidas"
+};
+
+
 var SETTINGS_REVIEW = {
 	en: "Rate this App",
 	pt: "Avalie este App"
@@ -584,7 +590,7 @@ var BLANK_FIELD_DIALOG = {
 	pt: "A informação em falta está destacada em vermelho."
 };
 var START_APP = {
-	en: "MyLiveDiet is designed to help you lose weight as easily as possibile.",
+	en: "MyLiveDiet was designed to help you lose weight as easily as possibile.",
 	pt: "MyLiveDiet foi desenvolvido para ajudá-lo a perder peso de maneira fácil e intuitiva."
 };
 var STEP_1 = {
@@ -616,7 +622,7 @@ var HELP_TOPICS_ARRAY = {
 	<p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
 	<p>Then you should define a weight loss rate, given in lb/kg per week.</p>\
 	<p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p>\
-	<p>Now hit start, and the app will show how many calories you have burned over time, so that you'll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p>\
+	<p>Now hit start, and the app will show how many calories you have burned over time, so you'll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p>\
 	<p>For instance:</p>\
 	<p>2400 per day / 24 hours = 100 calories per hour</p>\
 	<p>So, after 30 minutes, the counter will indicate you have “50 calories available”. Its that simple!</p>\
@@ -755,6 +761,7 @@ if(!window.wizUtils) {
 
 function buildHelpMenu() {
 	//insert menu
+	$("#optionHelp").addClass("activeRow");
 	$("#appContent").append("<div id='appHelper'></div>");
 var startLock = 1;
 var helpTopics = LANG("HELP_TOPICS_ARRAY");
@@ -783,7 +790,7 @@ if(key && value) {
 
 
 	$("#appHelper").html('\
-	<h2><span id="backButton"></span><div id="helpTitle">Help</div></h2>\
+	<h2><span id="backButton"></span><div id="helpTitle">' + LANG("SETTINGS_HELP") + '</div></h2>\
 	<ul>' + helpHtml + '</ul>');
 		
 	//$("#appHelper").hide();
@@ -814,10 +821,19 @@ if(isMobile.Android()) {
 	//$("#appHelper").css("top",$("#appHeader").height()* + "px");
 }
 
+	$("#appHelper li").on(touchstart,function(evt) {
+		evt.preventDefault();
+		$(this).addClass("activeRow");
+	});
+	$("#appHelper,#appHelper li").on(touchend + " mouseout",function(evt) {
+		$(".activeRow").removeClass("activeRow");
+		evt.preventDefault();
+	});
 	//self-removal handler
 	$("#appHelper ul li").on(tap,function(evt) {
 		if(startLock != 0) { return; }
-				
+		//reapply
+		$(this).addClass("activeRow");
 		//$("#appHelper").getNiceScroll().remove();
 		
 		var subTitle   = $("#" + $(this).attr("id") + " .topicTitle").html();
@@ -836,7 +852,6 @@ if(isMobile.Android()) {
 		//},600);
 		
 		$('#appSubHelper').on(transitionend,function(e) { 
-
 niceResizer();
 if(!$('#appSubHelper').hasClass("open")) {
 	$('#appSubHelper').remove();
@@ -849,7 +864,7 @@ if(!$('#appSubHelper').hasClass("open")) {
 	
 	
 } else {
-
+	$(".activeRow").removeClass("activeRow");
 	setTimeout(function() {
 		$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 	},100);

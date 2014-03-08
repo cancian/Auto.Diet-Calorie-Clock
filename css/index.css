@@ -58,13 +58,14 @@ body.android.tab2 #appHeader	{ z-index: 0; }
 #appHeader.over.deficit			{ color: #1DD21D; }
 #appHeader.over.surplus			{ color: #FF651B; }
 */
-
-
 /*
 #appHeader.over.deficit	 span		{ color: #309030; }
 #appHeader.over.balanced span		{ color: #316ADC; }
 #appHeader.over.surplus	 span		{ color: #C85834; }
+#appHeader.over #timerKcals:before { content: "!"; position: absolute; top: -12px; left: -15px; z-index: 999; font-size: 57px; color: #666; }
 */
+
+
 /*status blocks*/
 #timerBlocks					{ position: absolute; height: 62px; bottom: 0; left: 0; right: 0; }
 /*calories remaining*/
@@ -83,9 +84,10 @@ border: 0px solid #316ADC;  }
 
 /*INLINE*/
 #editableDiv					{ color: transparent; height: 62px; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
-input#editable					{ color: #000; background-color: #f5f5f5; position: absolute; font-weight: 300; top: 12px; right: 9px; display: block !important; width: 75px !important; height: 30px; font-size: 24px !important; line-height: 26px; border: 0; padding: 0 0px 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; border-radius: 0px; overflow: hidden; }
-.android input#editable			{ right: 10px; }
-
+input#editable					{ color: #000; background-color: #f5f5f5; position: absolute; font-weight: 300; top: 12px; right: 9px; display: block !important; width: 75px !important; height: 29px; font-size: 24px !important; line-height: 26px; border: 0; padding: 0 0px 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; border-radius: 0px; overflow: hidden; }
+.android2 input#editable,
+.android4 input#editable		{ right: 10px; }
+.android4 input#editable		{  top: 13px; }
 
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
 
@@ -98,8 +100,8 @@ input#editable					{ color: #000; background-color: #f5f5f5; position: absolute;
 body.ios7 #loadingDiv.updating	{ top: 32px; }
 @-webkit-keyframes spin			{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(359deg); } }
 /*nprogress replacement*/
-#nprogress						{ pointer-events: none; }
-#nprogress .bar					{ background: rgba(255,255,255,.75); position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 2px; }
+#nprogress						{ position: fixed; z-index: 100; }
+#nprogress .bar					{ background: rgba(66, 133, 244, .99); opacity: .99; position: fixed; top: 0; left: 0; width: 100%; height: 2px; }
 /*
 #nprogress .spinner				{ display: block; position: fixed; z-index: 100; top: 15px; right: 15px; }
 #nprogress .spinner-icon		{ width: 18px; height: 18px; box-sizing: border-box; border: solid 2px transparent; border-top-color: #29d; border-left-color: #29d; border-radius: 50%; -webkit-animation: nspinner 400ms linear infinite; animation: nspinner 400ms linear infinite; }
@@ -263,6 +265,9 @@ body.tab4 #appContent { overflow: hidden; max-width: 100%; }
 #appHelper ul li:after			{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; }
 
 
+#appHelper ul li.activeRow		{ background-color: #f5f5f5; } 
+
+
 
 /* //////////   &   //////////////*/
 #helperWrapper { position: absolute;
@@ -291,6 +296,9 @@ opacity: 0;
 #appHelper h2 #backButton	{ -webkit-backface-visibility: hidden;  position: absolute; top: 0; left: 0; width: 76px; 
 padding-top: 3px;
 height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal;
+
+text-indent: -10px;
+
 }
 
 
@@ -301,7 +309,7 @@ height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: bl
 
 
 
-#appHelper h2 #helpTitle	{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #666; text-align: center; font-weight: bold; }
+#appHelper h2 #helpTitle	{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
 
 #appHelper ul				{ padding: 0; margin: 0; text-indent: 0; }
 #appHelper ul li			{ padding: 0 22px; border-bottom: 1px solid #eee; height: 44px; line-height: 45px; overflow: hidden; }
@@ -318,13 +326,15 @@ padding-top: 3px;
 font-size: 40px; font-weight: normal; 
 
 
+text-indent: -10px;
+
 
 }
 #appSubHelper h2 #subBackButton:active { color: #C6DEF9; }
 #appSubHelper h2 #subBackButton:before { font-family: "FontAwesome"; content: "\f104";
  }
 
-#appSubHelper h2 #subHelpTitle	{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #666; text-align: center; font-weight: bold; background-color: #fff; }
+#appSubHelper h2 #subHelpTitle	{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
 
 
 
@@ -444,7 +454,7 @@ ul#settingsList li.nextChild div{ margin-left: 0; padding-left: 20px; }
 #appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
 #appStatusBalance div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
 #appStatusBalance span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
-#appStatusBalance.over			{ background-color: #fffcaa; background-color: #FFF299; border-color: #ffcc33; }
+#appStatusBalance.over			{ background-color: #fffcaa; background-color: #FDFDB9; border-color: #FFF299; }
 
 
 #appStatusBalance:after { 
@@ -516,6 +526,8 @@ padding-top: 14px;
 #appStatusBarsPro p,
 #appStatusBarsCar p,
 #appStatusBarsFat p				{ width: 0%; }
+
+/*
 #appStatusBarsPro p.normal,
 #appStatusBarsCar p.normal,
 #appStatusBarsFat p.normal		{ background-color: #00ff00; background-image: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
@@ -524,10 +536,23 @@ padding-top: 14px;
 #appStatusBarsFat p.over		{ background-color: #00cc00; background-image: -webkit-linear-gradient(left,#00cc00 0%,#009900 100%); }
 #appStatusBarsPro p.warn,
 #appStatusBarsCar p.warn,
-#appStatusBarsFat p.warn		{ background-color: #FFE900; background-image: -webkit-linear-gradient(left,#FFE900 0%,#FFCF00 100%); /*#FFE605 #FFB802*/ }
+#appStatusBarsFat p.warn		{ background-color: #FFE900; background-image: -webkit-linear-gradient(left,#FFE900 0%,#FFCF00 100%); }
 #appStatusBarsPro p.danger,
 #appStatusBarsCar p.danger,
 #appStatusBarsFat p.danger		{ background-color: #F67B3B; background-image: -webkit-linear-gradient(left,#F67B3B 0%,#CE6431 100%); }
+*/
+#appStatusBarsPro p.normal,
+#appStatusBarsCar p.normal,
+#appStatusBarsFat p.normal		{ background-color: rgba(0, 255, 0, .32); background-image: -webkit-linear-gradient(left,rgba(0, 255, 0, .32) 0%,rgba(0, 204, 0, .32) 100%); }
+#appStatusBarsPro p.over,
+#appStatusBarsCar p.over,
+#appStatusBarsFat p.over		{ background-color: rgba(0, 204, 0, .32); background-image: -webkit-linear-gradient(left,rgba(0, 204, 0, .32) 0%,rgba(0, 153, 0, .32) 100%); }
+#appStatusBarsPro p.warn,
+#appStatusBarsCar p.warn,
+#appStatusBarsFat p.warn		{ background-color: rgba(255, 233, 0, .32); background-image: -webkit-linear-gradient(left,rgba(255, 233, 0, .32) 0%,rgba(255, 207, 0, .32) 100%); }
+#appStatusBarsPro p.danger,
+#appStatusBarsCar p.danger,
+#appStatusBarsFat p.danger		{ background-color: rgba(246, 123, 59, .32); background-image: -webkit-linear-gradient(left,rgba(246, 123, 59, .32) 0%,rgba(206, 100, 49, .32) 100%); }
 #appStatusBars p,
 #appStatusBars span				{ -webkit-backface-visibility: hidden; }
 /*#////////////////#//
@@ -563,11 +588,10 @@ span#startDateSpan					{ position: relative; height: 44px; }
 span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weight: bold; font-size: 11px; text-transform: uppercase; display: block; white-space: nowrap; }
 #startDate 							{ height: 44px; line-height: 61px; background-color: transparent; border: 0; padding: 0; text-indent: 0; margin: 0; font-size: 13pt; color: #555; -webkit-appearance: none; }
 /*status reload*/
-#appStatusReload					{ position: absolute; bottom: 0px; left: 0; width: 48px; height: 35px; display: inline-block; font-size: 28px; line-height: 28px; text-indent: 7px; 
+#appStatusReload					{ position: absolute; bottom: 0px; left: 0; width: 48px; height: 35px; display: inline-block; font-size: 28px; line-height: 28px; text-indent: 7px; }
+.android44 #appStatusReload			{ bottom: -1px; }
 
 
-
-}
 #appStatusReload:before				{ content: "\f01e"; font-family: "FontAwesome"; display: inline-block; }
 /*status arrow*/
 #appStatusToggle					{ position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; line-height: 49px; z-index: 10; }
@@ -580,10 +604,14 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 content: "\f107"; font-family: "FontAwesome"; position: absolute; top: 5px; right: 12px; height: 0; width: 0; display: inline-block; 
 
 }
+.android44 #appStatusFix #appStatusArrow:before { top: 6px; }
+
 #appStatusFix.open #appStatusArrow	{ -webkit-transform: scaleY(-1); }
 /*F106 up*/
 body.android2 #appStatusFix			{ height: 46px; }
 body.android2 #appStatusFix.open #appStatusTitle { border: 1px solid transparent; }
+
+
 /*
 body.android2 #appStatusFix #appStatusArrow		{ width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; border-bottom: 0px solid transparent; }
 body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 20px solid #000; border-top: 0px solid transparent; }
@@ -667,11 +695,34 @@ color: #000; border-bottom: 0px solid #ccc; display: block; text-align: left; wh
 /*ARROW BUTTONS*/
 div#sliderNum				{ text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
 div#sliderNeg				{ /*text-shadow: rgba(0,0,0,.05) 0 1px 0;*/ position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 18pt; height: 36px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; }
+
 div#sliderPos				{ /*text-shadow: rgba(0,0,0,.05) 0 1px 0;*/ position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 18pt; height: 36px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; }
-div#sliderNeg span			{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #D55621 transparent transparent; position: absolute; top: 7px; left: 3px; }
-div#sliderPos span			{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #316ADC; position: absolute; top: 7px; right: 3px; }
-div#sliderNeg:active		{ color: #CB5220; }
-div#sliderPos:active		{ color: #2052CB; }
+
+div#sliderNeg:before,
+div#sliderPos:before 	{ font-family: "FontAwesome";
+position: absolute; top: 5px; display: block; width: 80px; 
+font-size: 18px;
+line-height: 18px;
+
+ 
+ }
+ 
+ 
+div#sliderNeg:before 	{ left: 0; content: "<"; }	
+div#sliderPos:before 	{ right: 0; content: ">"; }
+ 
+ 
+
+
+
+div#sliderNeg span			{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #D55621 transparent transparent; position: absolute; top: 7px; left: 3px; display: none; }
+div#sliderPos span			{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #316ADC; position: absolute; top: 7px; right: 3px; display: none; }
+
+div#sliderNeg.activeArrow:before		{ color: #CB5220; font-family: fontawesome; content: "("; }
+div#sliderPos.activeArrow:before		{ color: #2052CB; font-family: fontawesome; content: ")"; }
+
+
+
 /*MAIN FORM*/
 input#entryTitle			{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 47px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 2px 1px 0 2px; border-radius: 0; text-indent: 0; margin: 0; border: none; }
 input#entryBody				{ position: absolute; margin-top: 6px; left: 16px; right: 16px; background-color: transparent; color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
@@ -685,17 +736,17 @@ div#entryBodySearch			{ position: absolute; top: 67px; right: 15px; width: 30px;
 -webkit-transform: rotate(-45deg); 
 -moz-transform: rotate(-45deg); 
 -ms-transform: rotate(-45deg); 
-
 }
 div#entryBodySearch:active	{ opacity: 1; }
+select#entryTime			{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; box-sizing: border-box; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+.ios select#entryTime		{ padding: 6px 4px 5px 7px; }
 
 
-select#entryTime			{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 6px 4px 6px 4px; text-indent: 3px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
-#entrySubmit				{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; }
+#entrySubmit				{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; }
 
 div.submitActive			{ color: #316ADC !important; border-color: #bababa !important; background-color: #fff !important; border: 1px solid #316ADC !important; box-sizing: border-box; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
 #loadingDiv					{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; }
-.ios7 #loadingDiv			{ top: 31px;  }
+.ios7 #loadingDiv			{ top: 31px; }
 #lid						{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #bbb; text-shadow: 0 1px 0 rgba(255,255,255,.75); }
 .android .submitActive		{ -webkit-box-shadow: none !important; }  
 .android #entrySubmit		{ text-shadow: none !important; }
@@ -767,7 +818,7 @@ text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 16px; color: #555; text-indent: 7
 background-color: #fff; font-weight: normal; margin: 0; 
 text-align: left; 
 text-transform: uppercase; letter-spacing: 3px; 
-
+line-height: 1;
 
 }
 /*EXPIRED*/
@@ -855,12 +906,31 @@ div#pageSlideFood.open		{ -ms-transition-timing-function: ease; -ms-transform: t
 
 
 /*food search*/
-input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; border: 0; border-bottom: 1px solid #e5e5e5; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; font-family: Arial, Helvetica, sans-serif; background-color: #fff; }
+
+input#foodSearch			{
+	box-sizing: border-box;
+	-webkit-backface-visibility: hidden;  
+
+position: relative; left: 0; right: 0; top: 0; 
+
+font-size: 18px; border: 0; border-bottom: 1px solid #e5e5e5; 
+line-height: 18px;
+
+display: block; padding: 22px 26px 16px 30px; z-index: 999; 
+-webkit-user-select: auto; margin: 0; overflow: hidden; 
+font-family: Arial, Helvetica, sans-serif; 
+
+background-color: #fff; 
+}
+
+/*
 .android input#foodSearch	{ padding: 32px 26px 10px 30px; }
-input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); }
+*/
+
+
+input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-height: 21px; }
 #foodList					{ position: absolute; width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff; background-image: -webkit-linear-gradient(#fff,#fefefe); }
 .ios #foodList				{ position: inherit; }
-
 
 #foodListWrapper			{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
 #foodList .searcheable		{ position: relative; margin: 0; padding: 12px 8px 5px 23px; height: 42px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: visible; }
@@ -869,12 +939,14 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); }
 #foodList .searcheable.noContent				{ color: #999; }
 #foodList .searcheable.activeOverflow.noContent	{ background-color: transparent !important; }
 /*food sub itens*/
+
 span#noMatches			{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
 span#iconRefresh,
-span#iconClear			{ padding: 23px 9px 16px 18px; font-size: 28px; line-height: 21px; position: absolute; top: 0px; right: 15px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; }
+span#iconClear			{ padding: 19px 9px 16px 18px; font-size: 28px; line-height: 28px; position: absolute; top: 0px; right: 15px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; }
+/*
 .android span#iconRefresh,
 .android span#iconClear	{ padding-top: 21px; }
-
+*/
 span#iconClear			{ display: none; }
 span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
@@ -903,12 +975,39 @@ span.preSpan			{ padding-right: 5px; color: #0033cc; }
 #pageSlideFood.exerciseType span.foodFat,
 #pageSlideFood.exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
-#appHeader:before				{ top: 1px; opacity: 0; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; content: "\f0a8"; font-family: "FontAwesome"; text-align: center; text-align: right; display: block; width: 100%; position: absolute; left: 0;  font-size: 56px; margin-left: -110px; padding-right: 20px; z-index: 1; font-weight: bold; }
+#appHeader:before				{
+font-family: "FontAwesome";
+content: "\f0a8";
+
+position: absolute; 
+top: 0;
+bottom: 0;
+right: 100px;
+width: 60px;
+
+display: block;
+text-align: right; 
+font-size: 46px;
+line-height: 46px;
+
+padding-top: 9px;
+opacity: 0;
+
+-webkit-transition-timing-function: linear;
+-webkit-transition-duration: .2s;
+color: #777;
+box-sizing: border-box;
+}
+
+body.ios7 #appHeader:before 	{ padding-top: 24px; }
+body.android44 #appHeader:before{ padding-top: 11px; }
+/*
 body.android #appHeader:before 	{ top: 2px; }
 body.android2 #appHeader:before	{ top: 4px; }
-body.android44 #appHeader:before{ top: 5px; }
-body.ios7 #appHeader:before 	{ top: 18px; }
-#appHeader.open:before			{ opacity: .25; color: #fff; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
+
+*/
+
+#appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*RECENT LIST*/
 #recentBlock					{ display: block; padding-left: 30px; -webkit-transform: translate3d(0, 0, 0); }
 #recentBlock h3					{ color: #000; text-transform: uppercase; font-size: 12px; padding-top: 24px; padding-bottom: 12px; }

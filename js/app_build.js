@@ -18,7 +18,7 @@ function openSettings(string) {
 			</li>\
 			<li id="optionFacebook"><div><p class="contentTitle">' + LANG("SETTINGS_SYNC")   + '<span>' + LANG("SETTINGS_SYNC_INFO")   + '</span></p></div></li>\
 			<li id="optionReview"><div><p class="contentTitle">'   + LANG("SETTINGS_REVIEW") + '<span>' + LANG("SETTINGS_REVIEW_INFO") + '</span></p></div></li>\
-			<li id="optionFeedback"><div>' + LANG("SETTINGS_FEEDBACK") + '</div></li>\
+			<li id="optionFeedback"><div><p class="contentTitle">' + LANG("SETTINGS_FEEDBACK") + '<span>' + LANG("SETTINGS_FEEDBACK_INFO") + '</span></p></div>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG("SETTINGS_HELP")   + '<span>' + LANG("SETTINGS_HELP_INFO")   + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite">' + LANG("ABOUT_TITLE") + '</div>\
@@ -55,10 +55,10 @@ function openSettings(string) {
 	// ACTIVE ROW //
 	////////////////
 	$("#optionHelp").on(touchend,function(evt) {
+		$(this).addClass("activeRow");
 		evt.preventDefault();
 		buildHelpMenu();
-		//$(this).addClass("activeRow");
-		//$(this).next().addClass("nextChild");
+		return false;
 	});	
 	////////////////////////
 	// SETTINGS: FACEBOOK //
@@ -730,9 +730,6 @@ diaryHtml += '\
 		var rowClass;
 		var lastRow = "";
 		var lastId  = "";
-		//var pushTitle = [];
-		var lastDay = '-';
-		var entriesDay = '';
 		var lastPub = 0;
 		var langFood = LANG("FOOD");
 		var langExer = LANG("EXERCISE");
@@ -765,21 +762,6 @@ diaryHtml += '\
 			if(window.localStorage.getItem("config_start_time") > dataPublished) { rowClass = rowClass + " expired"; }
 			// CORE OUTPUT
 			//<p class='entriesId'>#" + Number(i+1) + "</p>
-			
-			//if(lastDay == '-' || lastDay != parseInt(dayFormat(dataPublished).split("/").join(""))) {
-//dayFormat(dataPublished).split("/").join("");
-
-//.date:firstchild:before
-				//entriesDay = "<p class='entriesDay' id='day" + parseInt(dayFormat(dataPublished).split("/").join("")) + "'>" + dayFormat(dataPublished) + "</p>";
-			//} else {
-			//	entriesDay = '';		
-			//}
-			//lastDay = parseInt(dayFormat(dataPublished).split("/").join(""));
-			
-			//parseInt(dayFormat(dataPublished).split("/").join(""))
-			
-			
-			
 			var dataHandler = "\
 			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + " day" + dayFormat(dataPublished).split("/").join("x") + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
@@ -788,12 +770,6 @@ diaryHtml += '\
 				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
-			
-			//pushTitle.push({ date: dayFormat(dataPublished).split("/").join("x"),val: dataTitle});
-			
-				
-
-			
 			// ROW++ (sqlish sort)
 			if(lastPub > Number(data[i].published)) {
 				s = s + dataHandler;
@@ -821,31 +797,6 @@ diaryHtml += '</div>\
 		</div>\
 	</div>\
 ';
-
-
-
-
-/*
-if(pday == '-') { pday = pushTitle[p].date; }
-
-
-if(pday != pushTitle[p].date) {
-
-
-//console.log('new day');	
-	
-}
-
-//pushTitle[p].val;
-
-*/
-//console.log(eachDay);
-
-//pday = pushTitle[p].date;
-//}
-
-
-
 //#////////#//
 //# OUTPUT #//
 //#////////#//
@@ -883,6 +834,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		var posVal = Number($('#entryTitle').val());
 		document.getElementById('slider').slider.increment(1);
 		$('#entryTitle').val(posVal+1);
+		$("#sliderPos").addClass("activeArrow");
 		return false;
 	});
 	$("#sliderNeg").off().on(touchstart, function(evt) {
@@ -891,6 +843,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		var negVal = Number($('#entryTitle').val());
  		document.getElementById('slider').slider.increment(-1);
 		$('#entryTitle').val(negVal-1);
+		$("#sliderNeg").addClass("activeArrow");
 		return false;
 	});
 	////////////////////////////////
@@ -985,7 +938,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			clearTimeout(loadingDivTimer);
 			loadingDivTimer = setTimeout(function() {
 				$("#loadingDiv").stop().fadeOut(200);
-			},500);
+			},600);
 			if($("#loadingDiv").val() != Math.round(document.getElementById('entryTitle').value)) {
 				$("#loadingDiv").css("display","block");
 				document.getElementById('lid').value = Math.round(document.getElementById('entryTitle').value);
@@ -1045,6 +998,8 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	$("#sliderPos,#sliderNeg,#sliderNum").on(touchend + " mouseout", function(evt) {
 		evt.preventDefault();
 		clearRepeater();
+		$("#sliderPos").removeClass("activeArrow");
+		$("#sliderNeg").removeClass("activeArrow");
 	});
 	///////////////////////
 	// POSITIVE REPEATER //
@@ -1097,7 +1052,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			clearTimeout(loadingDivTimer);
 			loadingDivTimer = setTimeout(function() {
 				$("#loadingDiv").stop().fadeOut(200);
-			},500);
+			},600);
 			$("#loadingDiv").css("display","block");
 			$("#lid").val(0);
 		}

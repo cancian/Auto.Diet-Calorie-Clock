@@ -148,10 +148,10 @@ $(document).on("menubutton", function(evt) {
 	//alert(JSON.stringify($('body')));
 	evt.preventDefault();
 	if($("#tempHolder").html()) { return false; }
-	if(androidVersion() >= 3 && window.MyCls) {
-		window.MyCls.changeActivity();
-		return false;
-	} else {
+	//if(androidVersion() >= 3 && window.MyCls) {
+	//	window.MyCls.changeActivity();
+	//	return false;
+	//} else {
 		if($('#pageSlideFood').hasClass("open")) {
 			if(window.localStorage.getItem("foodDbLoaded") == "done") {
 				$('#appHeader').trigger(touchstart);
@@ -162,13 +162,17 @@ $(document).on("menubutton", function(evt) {
 			$(document).trigger("pageReload");
 			return false;
 		}
-	}
+	//}
 });
 //BACK BUTTON
 $(document).on("backbutton", function(evt) {
 	if($("#tempHolder").html() && $("#spinner").html()) { return false; }
 	//
-	if($("#addNewCancel").length || $("#modalCancel").length) {
+	if($("#subBackButton").length) {
+		$("#subBackButton").trigger(touchend);
+	} else if($("#backButton").length) {
+		$("#backButton").trigger(touchend);
+	} else if($("#addNewCancel").length || $("#modalCancel").length) {
 		$("#addNewCancel").trigger(touchstart);
 		$("#modalCancel").trigger(touchstart);
 	} else if($('#iconClear').is(":visible")) {

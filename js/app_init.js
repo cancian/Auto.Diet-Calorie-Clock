@@ -46,4 +46,6 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_buil
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js" + newDate + "'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js" + newDate + "'><\/script>");
+//FONT
+//document.write("<style type='text/css'>@font-face { font-family: 'FontAwesome'; src: url('css/font/fontawesome.eot?v=4.0.3'); src: url('css/font/fontawesome.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('css/font/fontawesome.woff?v=4.0.3') format('woff'), url('css/font/fontawesome.ttf?v=4.0.3') format('truetype'), url('css/fonts/fontawesome.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal;  font-style: normal; } </style>");
 
