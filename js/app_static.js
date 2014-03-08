@@ -4,7 +4,7 @@
 $(document).ready(function() {  
 	try {
 		if(hasSql) {
-			db = window.openDatabase(dbName, 1, dbName + "DB", -1);
+			db = window.openDatabase(dbName, 1, dbName + "DB", 5*1024*1024);
 			db.transaction(initDB, dbErrorHandler, startApp);
 		} else {
 			lib = new localStorageDB("mylivediet", localStorage);
@@ -18,7 +18,7 @@ $(document).ready(function() {
 				window.location.reload();
 			}
 		},1000);
-		alert(error);
+		console.log(error);
 	}
 });
 //##///////////##//

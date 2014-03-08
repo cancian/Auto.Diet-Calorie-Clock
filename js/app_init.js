@@ -1,6 +1,6 @@
 if(!navigator.userAgent.match(/IEMobile/i)) { newDate = '?' + new Date().getTime(); }
 //CSS
-document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/index.css" + newDate + "' />");
+document.write("<link rel='stylesheet' type='text/css' id='coreCss' href='" + hostLocal + "css/index.css" + newDate + "' />");
 document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/fonts.css" + newDate + "' />");
 document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
 //RE-CHECK

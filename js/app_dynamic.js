@@ -2216,7 +2216,7 @@ if(mType == "exercise") {
 								$(".searcheable").removeClass('trans');
 								//$("#" + mCode).addClass('yellow');
 								$("#activeOverflow").parent('div').addClass('yellow');
-								var yellowFade = setTimeout(function() {
+								setTimeout(function() {
 									//$("#" + mCode).addClass('fade');
 									//$("#" + mCode).addClass('trans');
 									$("#activeOverflow").parent('div').addClass('fade');

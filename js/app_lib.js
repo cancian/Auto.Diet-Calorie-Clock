@@ -22,23 +22,38 @@ function voidThis() { }
 //            //
 ////////////////
 var prefix = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
-!/webkit/.test(navigator.userAgent.toLowerCase())) ? ''    :
+!/msie/.test(navigator.userAgent.toLowerCase()) &&
+!/webkit/.test(navigator.userAgent.toLowerCase())) ? '-moz-'    :
 (/webkit/.test(navigator.userAgent.toLowerCase())) ? '-webkit-' :
-(/msie/.test(navigator.userAgent.toLowerCase()))   ? ''     :
+(/msie/.test(navigator.userAgent.toLowerCase()))   ? '-ms-'     :
 (/opera/.test(navigator.userAgent.toLowerCase()))  ? ''      : '';
 
 var transitionend = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
+!/msie/.test(navigator.userAgent.toLowerCase()) &&
 !/webkit/.test(navigator.userAgent.toLowerCase())) ? 'transitionend' :
 (/webkit/.test(navigator.userAgent.toLowerCase())) ? 'webkitTransitionEnd' :
 (/msie/.test(navigator.userAgent.toLowerCase()))   ? 'transitionend' :
 (/opera/.test(navigator.userAgent.toLowerCase()))  ? 'transitionend' : '';
 
 var vendorClass = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
+!/msie/.test(navigator.userAgent.toLowerCase()) &&
 !/webkit/.test(navigator.userAgent.toLowerCase())) ? 'moz' :
 (/webkit/.test(navigator.userAgent.toLowerCase())) ? 'webkit' :
 (/msie/.test(navigator.userAgent.toLowerCase()))   ? 'msie' :
 (/opera/.test(navigator.userAgent.toLowerCase()))  ? 'opera' : '';
-
+////////////////////////
+// CONVERT VENDOR CSS //
+////////////////////////
+if(vendorClass == "moz" || vendorClass == "msie") {
+	$("#coreCss").remove();
+	$("head").append("<style type='text/css' id='coreCss'></style>");
+	$.get(hostLocal + "css/index.css",function(rawCss) {
+		if(vendorClass == "moz") {
+			rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
+		}
+		$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
+	});
+}
 ///////////////////
 // TOUCH ? CLICK //
 ///////////////////
