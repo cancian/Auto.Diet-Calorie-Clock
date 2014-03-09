@@ -590,7 +590,7 @@ function reSlider() {
 		if(Math.round(window.innerWidth % 2)) {
 			$("#sliderWrapper").width(window.innerWidth-49);
 		} else {
-			$("#sliderWrapper").width(window.innerWidth-48);
+			//$("#sliderWrapper").width(window.innerWidth-48);
 		}
 		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (23)) + "px");
 		document.getElementById('slider').slider.setValue(sliderMemory);

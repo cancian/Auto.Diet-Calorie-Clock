@@ -15,6 +15,7 @@ textarea						{ -webkit-user-modify: read-write-plaintext-only; }
 input[type='text']				{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; outline: 0; }
 *								{ -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; outline: none !important; }
 input:focus,select:focus,:focus { outline: none; }
+.android40 input[type='number'] { text-indent: 0 !important; }
 ul								{ padding: 0; margin: 0; text-indent: 0; }
 p								{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*GENERIC*/
@@ -444,34 +445,34 @@ ul#settingsList li.nextChild div{ margin-left: 0; padding-left: 20px; }
 */
 /**/
 #appStatusElapsed				{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
-#appStatusElapsed div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px;  }
+#appStatusElapsed div			{ padding-top: 18px; text-align: center; display: block; font-size: 14px;  }
 #appStatusElapsed span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 /**/
 #appStatusWeight				{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
-#appStatusWeight div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
+#appStatusWeight div			{ padding-top: 18px; text-align: center; display: block; font-size: 14px; }
 #appStatusWeight span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 #appStatusWeight strong			{ font-weight: normal; }
 /**/
 #appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
-#appStatusBalance div			{ padding-top: 19px; text-align: center; display: block; font-size: 14px; }
+#appStatusBalance div			{ padding-top: 16px; text-align: center; display: block; font-size: 14px; }
 #appStatusBalance span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 #appStatusBalance.over			{ background-color: #fffcaa; background-color: #FDFDB9; border-color: #FFF299; }
-
-/*
-#appStatusBalance:after { 
-
-position: absolute; top: 0; height: 3000px; left: 0; right: 0; width: 100%; display: block; z-index: 9;
-border: 30px solid #000;
-background-color: #EF7539;
-}
-*/
+/*/////////////////////
+// color balance bar //
+/////////////////////*/
+#balanceBar						{ position: absolute; bottom: 0px; left: -2px; right:  11px; height: 3px; padding: 0; }
+#balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#58B558), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#E3825F)); background: -webkit-linear-gradient(left, #58B558 25.5%,#548CDB 25.5%,  #207cca 73.9%,#E3825F 73.9%); content: " "; }
+#balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: "FontAwesome"; content: "\f175"; font-size: 12px; line-height: 12px; padding: 0; color: #555; }
+.over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
 
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
-#appStatusIntake div			{ padding-top: 19px; display: block; font-size: 14px; position: relative; }
+#appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0px solid #000; }
 #appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; position: absolute; top: 0; right: 24%; }
+
+
 
 
 /**/
@@ -716,6 +717,8 @@ div#sliderPos.activeArrow:before		{ color: #2052CB; font-family: fontawesome; co
 
 /*MAIN FORM*/
 input#entryTitle			{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 47px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 2px 1px 0 2px; border-radius: 0; text-indent: 0; margin: 0; border: none; }
+.moz input#entryTitle,
+.android4lt input#entryTitle{ padding-left: 3px; }
 input#entryBody				{ position: absolute; margin-top: 6px; left: 16px; right: 16px; background-color: transparent; color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
 input#entryBody.focusMe		{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
 input#entryBody.focusMy		{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
@@ -1162,20 +1165,4 @@ body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
-
-
-/*
-#infoContents,
-#foodListWrapper,
-#pageSlideFood,#foodList		{
--webkit-backface-visibility: hidden; 
-
-background: radial-gradient(at right center,#eee,#f5f5f5); 
-background: radial-gradient(at 100% 50%,#eee,#f5f5f5); 
-background: radial-gradient(at 100%,#eee,#f5f5f5); 
-background: radial-gradient(at 100px,#eee,#f5f5f5); 
-
-
-}*/
-
 

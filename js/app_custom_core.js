@@ -118,6 +118,7 @@ function appTimer(id,content) {
 		$("#appStatusBalance div p").html(window.localStorage.getItem("appBalance"));
 		$("#entry_f-sum p").html(Number(window.localStorage.getItem("config_entry_f-sum")));
 		$("#entry_e-sum p").html(Number(window.localStorage.getItem("config_entry_e-sum")));
+		balanceMeter(kcalsInput);
 	}
 	//ios flicker, who knows why
 	if(isMobile.iOS()) {

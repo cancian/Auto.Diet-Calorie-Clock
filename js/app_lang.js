@@ -1,4 +1,4 @@
-var appVersion = "1.1.7 (11700)"; 
+var appVersion = "1.1.7 (11701)"; 
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
@@ -334,8 +334,8 @@ var TIME_ELAPSED = {
 	pt: "tempo total"
 };
 var CALORIC_BALANCE = {
-	en: "caloric status",
-	pt: "status calórico"
+	en: "caloric balance",
+	pt: "balanço calórico"
 };
 var RESET = {
 	en: "reset",

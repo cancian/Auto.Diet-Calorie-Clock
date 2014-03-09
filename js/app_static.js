@@ -262,6 +262,8 @@ $(window).on("resize", function(evt) {
 		$("#diaryNotesInput").getNiceScroll().resize();	
 		$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
 	}
+	//recalc balance
+	balanceMeter(parseFloat($("#timerKcals").text()));
 });
 //##////////////##//
 //##//  ONLOAD  ##//
@@ -320,6 +322,21 @@ if(isMobile.Android() && androidVersion() >= 4 && androidVersion() < 4.4) {
 }
 if(isMobile.Android() && androidVersion() >= 4.4) {
 	$("body").addClass("android44");
+}
+if(isMobile.Android() && androidVersion() < 4.4) {
+	$("body").addClass("android4lt");
+}
+if(isMobile.Android() && androidVersion() == 4) {
+	$("body").addClass("android40");
+}
+if(isMobile.Android() && androidVersion() == 4.1) {
+	$("body").addClass("android41");
+}
+if(isMobile.Android() && androidVersion() == 4.2) {
+	$("body").addClass("android42");
+}
+if(isMobile.Android() && androidVersion() == 4.3) {
+	$("body").addClass("android43");
 }
 /////////////
 // WINDOWS //

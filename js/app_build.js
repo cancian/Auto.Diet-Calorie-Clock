@@ -396,7 +396,7 @@ function openStatus(string) {
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG("TIME_ELAPSED") + '</span></div></div>\
 		<div id="appStatusWeight"><div><p><strong>' + weightLoss + '</strong>&nbsp;' + weightLossUnit + '</p><span>' + LANG("WEIGHT_LOSS") + '</span></div></div>\
-		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG("CALORIC_BALANCE") + '</span></div></div>\
+		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG("CALORIC_BALANCE") + '</span><div id="balanceBar"></div></div></div>\
 		<div id="appStatusIntake">\
 	<div id="entry_f-sum"><p>' + Number(window.localStorage.getItem("config_entry_f-sum")) + '</p><span>' + LANG("FOOD")     + '</span></div>\
 	<div id="entry_e-sum"><p>' + Number(window.localStorage.getItem("config_entry_e-sum")) + '</p><span>' + LANG("EXERCISE") + '</span></div>\
@@ -422,6 +422,7 @@ function openStatus(string) {
 	//# OUTPUT #//
 	//#////////#//
 	$("#appContent").html(statusHtml);
+	balanceMeter(parseFloat($("#timerKcals").text()));
 	//////////////
 	// HANDLERS //
 	//////////////
@@ -802,6 +803,10 @@ diaryHtml += '</div>\
 //#////////#//
 //HTML
 pageLoad("#appContent",diaryHtml);
+//desktop odd resize -1 bug
+if(Math.round(window.innerWidth % 2)) {
+	$("#sliderWrapper").width(window.innerWidth-49);
+}
 $(document).trigger("sliderInit");
 ///////////////////////////////////////////
 // ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //

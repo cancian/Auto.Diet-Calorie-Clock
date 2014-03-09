@@ -987,7 +987,6 @@ function updateEntriesTime() {
 		}
 	});
 }
-
 /////////////////////////////
 // UPDATE ENTRYLIST *TIME* //
 /////////////////////////////
@@ -1044,6 +1043,22 @@ function updateEntriesSum() {
 		//OUTPUT
 		$("#daySum").html(reStyle);
 	});
+}
+///////////////////
+// BALANCE METER //
+///////////////////
+function balanceMeter(kcalsInput) {
+	var balancePos = 0;
+	if(kcalsInput == 0) {
+		balancePos = '50%';
+	} else if(kcalsInput > 600) {
+		balancePos = '0';
+	} else if(kcalsInput < -600) {
+		balancePos = '100%';
+	} else {
+		balancePos = 100 - (((parseFloat(kcalsInput)+600)/12) ) + "%";
+	}
+	$("#balanceBar").css("text-indent",balancePos);
 }
 //////////////////
 // NICE RESIZER //
