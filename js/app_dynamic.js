@@ -545,9 +545,9 @@ $(document).on("pageReload", function(evt) {
 	////////////////////
 	// RESULTS HEIGHT //
 	////////////////////
-	$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+	$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 61)) + "px");
 	$('#foodList').css("top",($('#appHeader').height()) + "px");
-	if(!isMobile.iOS() && androidVersion() < 4.4) {
+	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
 		$("#foodList").css("overflow","hidden");
 		setTimeout(function(){
 			$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});

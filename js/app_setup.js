@@ -90,9 +90,14 @@ function initDB(t) {
 			<div id='closeDiv'>" + LANG("CLOSE_INTRO") + "</div>\
 		</div>");
 		$("#closeDiv").on(touchend,function(evt) {
+			evt.preventDefault();
+			evt.stopPropagation();
 			$("#gettingStarted").fadeOut(200,function() {
 				$("#gettingStarted").remove();
 			});
+		});
+		$("#gettingStarted").on(touchstart,function(evt) {
+			evt.stopPropagation();
 		});
 	}
 	//config
@@ -1060,13 +1065,126 @@ function balanceMeter(kcalsInput) {
 	}
 	$("#balanceBar").css("text-indent",balancePos);
 }
+/////////////////////
+// BUILD HELP MENU //
+/////////////////////
+function buildHelpMenu() {
+	//insert menu
+	$("#optionHelp").addClass("activeRow");
+	$("#appContent").append("<div id='appHelper'></div>");
+	//STARTLOCK
+	var startLock = 1;
+	//BUILD CONTENT ARRAY
+	var helpTopics = LANG("HELP_TOPICS_ARRAY");
+	var helpHtml   = "";
+	var topicId    = 0;
+	$.each(helpTopics, function(key, value) {
+		if(key && value) {
+			topicId++;
+			helpHtml = helpHtml + "<li id='topic" + topicId + "'>" + key + "<div class='topicTitle'>" + key + "</div><div class='topicContent'>" + value + "</div></li>";
+		}
+	});
+	//INSERT TOPIC LIST
+	$("#appHelper").html('<h2><span id="backButton"></span><div id="helpTitle">' + LANG("SETTINGS_HELP") + '</div></h2><ul>' + helpHtml + '</ul>');
+	//FADE IN
+	setTimeout(function() {
+		$("#appHelper").css("opacity","1");
+	},0);
+	//SCROLLER
+	setTimeout(function() {
+		if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
+			$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		}
+		//UNLOCK TAP
+		setTimeout(function() {
+			startLock = 0;
+		},50);
+	},250);
+	//LIST CLOSER HANDLER
+	$("#backButton").on(touchend,function() {
+		$("#appHelper").css("opacity",0);
+		$('#appHelper').on(transitionend,function() {
+			$('#appHelper').remove();
+		});
+	});
+	//TOPIC HANDLERS
+	$("#appHelper li").on(touchstart,function(evt) {
+		evt.preventDefault();
+		$(this).addClass("activeRow");
+	});
+	$("#appHelper,#appHelper li").on(touchend + " mouseout",function(evt) {
+		$(".activeRow").removeClass("activeRow");
+		evt.preventDefault();
+	});
+	//////////////////////////////////
+	// content-builder self-handler //
+	//////////////////////////////////
+	$("#appHelper ul li").on(tap,function(evt) {
+		if(startLock != 0) { return; }
+		//reapply style
+		$(this).addClass("activeRow");
+		//PASS CONTENT
+		var subTitle   = $("#" + $(this).attr("id") + " .topicTitle").html();
+		var subContent = $("#" + $(this).attr("id") + " .topicContent").html();
+		//BUILD SUB-CONTENT
+		$("#appContent").append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
+		///////////////////////////////
+		// SUB-CONTENT ANIMATION END //
+		///////////////////////////////
+		$('#appSubHelper').on(transitionend,function(e) { 
+			niceResizer();
+			//IF CLOSED
+			if(!$('#appSubHelper').hasClass("open")) {
+				$('#appSubHelper').remove();
+				setTimeout(function() {
+					$('#appHelper').css("width","100%");
+					//restore visibility
+					$(".nicescroll-rails").css("display","block");
+				},100);
+			//IF OPENED
+			} else {
+				$(".activeRow").removeClass("activeRow");
+				//SCROLLER
+				if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
+					setTimeout(function() {
+						$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+					},100);
+				} else {
+					//wp8 transision
+					$("#appSubHelper").css("overflow","auto");
+				}
+			}
+			setTimeout(function() {
+				$('#appSubHelper').css("width","100%");
+			},100);
+		});
+		//SUB-CONTENT HANDLERS
+		$("#subBackButton").on(touchend,function() {
+			//remove
+			$("#appSubHelper").removeClass("open");
+			$("#appHelper").removeClass("out");
+			//hide on transision
+			$(".nicescroll-rails").css("display","none");
+		});
+		//////////////////////
+		// OPEN SUB-CONTENT //
+		//////////////////////
+		setTimeout(function() {
+			//smooth transition (wp8)
+			$("#appSubHelper").css("overflow","hidden");
+			$("#appSubHelper").addClass("open");
+			$("#appHelper").addClass("out");
+			//$("#appContent").getNiceScroll().remove();
+		},50);
+	});
+}
 //////////////////
 // NICE RESIZER //
 //////////////////
 var niceTimer;
 function niceResizer() {
 	//CONSOLE('niceResizer()');
-	if(!isMobile.iOS() && androidVersion() < 4.4) {
+	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
 		$("#appHelper").getNiceScroll().resize();

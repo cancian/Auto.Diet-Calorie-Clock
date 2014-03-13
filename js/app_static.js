@@ -85,10 +85,10 @@ function appFooter(id) {
 	window.localStorage.setItem("app_last_tab",id);
 	$("#" + id).addClass("selected");
 	//SCROLLBAR
-	if(!isMobile.iOS() && androidVersion() < 4.4) {
-		//$("#appContent").css("overflow","hidden");
+	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
+		$("#appContent").css("overflow","hidden");
 		setTimeout(function(){
-			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 		},0);
 	}
 	//ACTION
@@ -132,6 +132,17 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////
+//ICON PREALOAD
+if(isMobile.Windows()) {
+	$("body").prepend("\
+	<div id='preloadBlock'>\
+		<span id='preload1'></span><span id='preload2'></span><span id='preload3'></span><span id='preload4'></span><span id='preload5'></span><span id='preload6'></span><span id='preload7'></span><span id='preload8'></span><span id='preload9'></span><span id='preload10'></span>\
+		<span id='preload11'></span><span id='preload12'></span><span id='preload13'></span><span id='preload14'></span><span id='preload15'></span><span id='preload16'></span><span id='preload17'></span><span id='preload18'></span><span id='preload19'></span><span id='preload20'></span>\
+		<span id='preload21'></span><span id='preload22'></span><span id='preload23'></span><span id='preload24'></span><span id='preload25'></span><span id='preload26'></span><span id='preload27'></span><span id='preload28'></span><span id='preload29'></span><span id='preload30'></span>\
+		<span id='preload31'></span><span id='preload32'></span><span id='preload33'></span><span id='preload34'></span><span id='preload35'></span><span id='preload36'></span><span id='preload37'></span><span id='preload38'></span><span id='preload39'></span><span id='preload40'></span>\
+		<span id='preload41'></span><span id='preload42'></span><span id='preload43'></span><span id='preload44'></span><span id='preload45'></span><span id='preload46'></span><span id='preload47'></span><span id='preload48'></span><span id='preload49'></span><span id='preload50'></span>\
+	</div>");
+}
 if(isMobile.Windows()) {
 	$("input").on("focus", function(evt) {
 		$("html,body").css("position","fixed");
@@ -193,8 +204,11 @@ $(document).on("backbutton", function(evt) {
 	} else if(window.localStorage.getItem("app_last_tab") != "tab1") {
 		appFooter("tab1");
 	} else {
-		//afterHide();
-		navigator.app.exitApp();
+		if(window.localStorage.getItem("config_debug") == "active") {
+			afterHide();
+		} else {
+			navigator.app.exitApp();
+		}
 	}
 });
 //FORCE SHOW KEYBOARD
@@ -343,6 +357,17 @@ if(isMobile.Android() && androidVersion() == 4.3) {
 /////////////
 if(isMobile.Windows()) {
 	$("body").addClass("windows");
+}
+////////////////////
+// WP8 @FONT-FACE //
+////////////////////
+if(isMobile.Windows()) {
+	$('body').append("<span id='fontCheck' style='font-family: FontAwesome, Arial;'>+</span>");
+	//COMPARE WIDTH
+	if($("#fontCheck").width() != "16") {
+		$('body').addClass("msie-png");		
+	}
+	$("#fontCheck").remove();
 }
 ////////////
 // VENDOR //

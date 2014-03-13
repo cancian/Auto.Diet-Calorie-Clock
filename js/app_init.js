@@ -1,7 +1,7 @@
 if(!navigator.userAgent.match(/IEMobile/i)) { newDate = '?' + new Date().getTime(); }
 //CSS
 document.write("<link rel='stylesheet' type='text/css' id='coreCss' href='" + hostLocal + "css/index.css" + newDate + "' />");
-document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/fonts.css" + newDate + "' />");
+//document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/fonts.css" + newDate + "' />");
 document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
 //RE-CHECK
 setTimeout(function(){
@@ -10,8 +10,11 @@ setTimeout(function(){
 		window.location.reload();
 	}
 },7500);
+if(navigator.userAgent.match(/IEMobile/i) && window.location.hash != "#wp") {
+	//window.location='http://mylivediet.com/#wp';
+}
 //CDV
-if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|IEMobile)/)) {
 	document.write("<script type='text/javascript' src='js/cordova.js'><\/script>");
 	document.write("<script type='text/javascript' src='js/cdv-plugin-fb-connect.js'><\/script>");
 	document.write("<script type='text/javascript' src='js/facebook-js-sdk.js'><\/script>");
@@ -26,7 +29,7 @@ document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/s
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.color-2.1.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.mobileCheckbox.js'><\/script>");
-document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.touchSwipe.js'><\/script>");
 //nprogress
 document.write("<script type='text/javascript' src='js/nprogress.js'><\/script>");
 document.write("<script type='text/javascript' src='js/spin.min.js'><\/script>");

@@ -1,33 +1,36 @@
-@charset "UTF-8";
-html,
-body							{ position: absolute; width: 100%; height: 100%; display: block; overflow: hidden; margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, "Open Sans", Arial, Tahoma, sans-serif; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
-body							{ opacity: 0; }
-body.android 					{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
+html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; /*background-image: -webkit-linear-gradient(#ffffff,#fefefe);*/ -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
+html,body,input,select,textarea			{ font-family: "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
+div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
+body									{ opacity: 1; }
+body.msie								{ letter-spacing: 0.02em; } 
+body.android 							{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
 body.android #appContent,
-body.android #foodList			{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
-body > *,h2,input[readonly]		{ -webkit-user-select: none; -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
-input,select,textarea			{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; font-family: "Helvetica Neue", Helvetica, "Open Sans", Arial, Tahoma, sans-serif; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; }
-select							{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
-select::-ms-expand				{ display: none !important; }
+body.android #foodList					{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
+body > *,h2,input[readonly]				{ -webkit-user-select: none; -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
+input,select,textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; }
+select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
+select::-ms-expand						{ display: none !important; }
 ::-moz-selection,
-::-ms-selection					{ background: transparent; }
-textarea						{ -webkit-user-modify: read-write-plaintext-only; }
-input[type='text']				{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; outline: 0; }
-*								{ -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; outline: none !important; }
-input:focus,select:focus,:focus { outline: none; }
-.android40 input[type='number'] { text-indent: 0 !important; }
-ul								{ padding: 0; margin: 0; text-indent: 0; }
-p								{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
+::-ms-selection							{ background: transparent; }
+textarea								{ -webkit-user-modify: read-write-plaintext-only; }
+input[type='text']						{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; outline: 0; }
+*										{ -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; outline: none !important; }
+input:focus,select:focus,:focus			{ outline: none; }
+.android40 input[type='number']			{ text-indent: 0 !important; }
+ul										{ padding: 0; margin: 0; text-indent: 0; }
+p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*GENERIC*/
-.bold							{ font-weight: bold;  }
-.italic							{ font-style: italic; }
-.hidden							{ display: none !important; }
-.show							{ display: inline; }
-.blur							{ -webkit-filter: blur(9px); }
-.white							{ color: #fff !important; }
-.invisible						{ visibility: hidden; position: absolute; left: 0; top: 0; }
-.noOverflow						{ overflow: hidden !important; }
-#fb-root 						{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
+.bold									{ font-weight: bold;  }
+.italic									{ font-style: italic; }
+.hidden									{ display: none !important; }
+.show									{ display: inline; }
+.blur									{ -webkit-filter: blur(9px); }
+.white									{ color: #fff !important; }
+.invisible								{ visibility: hidden; position: absolute; left: 0; top: 0; }
+.noOverflow								{ overflow: hidden !important; }
+#fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
+@media all and (orientation:portrait)	{ @-ms-viewport { /*width:320px;*/ user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+@media all and (orientation:landscape)	{ @-ms-viewport { /*width:480px;*/ user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 /*#////////////////#//
 //# GLOBAL CONTENT #//
 //#////////////////#*/
@@ -37,20 +40,9 @@ body.android ::-webkit-scrollbar{ display: none; }
 /*#///////////////#//
 //# GLOBAL HEADER #//
 //#///////////////#*/
-#appHeader						{ position: absolute; font-weight: 300; height: 62px; width: 100%; display: block; top: 0; left: 0; right: 0; border-bottom: 1px solid #dfdfdf; box-sizing: border-box; color: #fff; z-index: 50; -webkit-backface-visibility: hidden; 
-
-background-color: #f5f5f5; 
-background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); 
-
-/*
-background: radial-gradient(at right center,#f1f1f1,#f5f5f5); 
-background: radial-gradient(at 100% 50%,#f1f1f1,#f5f5f5); 
-background: radial-gradient(at 100%,#f1f1f1,#f5f5f5); 
-background: radial-gradient(at 100px,#f1f1f1,#f5f5f5); 
-*/
-}
+#appHeader						{ position: absolute; font-weight: 300; height: 62px; width: 100%; display: block; top: 0; left: 0; right: 0; border-bottom: 1px solid #dfdfdf; box-sizing: border-box; color: #fff; z-index: 50; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f5f5f4,#f5f5f5); }
 body.android #appHeader			{ z-index: 50 !important; }
-body.android.tab1 #appHeader,	
+body.android.tab1 #appHeader,
 body.android.tab2 #appHeader	{ z-index: 0; }
 #appHeader.deficit				{ color: #309030; }
 #appHeader.balanced				{ color: #316ADC; }
@@ -58,121 +50,60 @@ body.android.tab2 #appHeader	{ z-index: 0; }
 /*
 #appHeader.over.deficit			{ color: #1DD21D; }
 #appHeader.over.surplus			{ color: #FF651B; }
+#appHeader.over.deficit	 span	{ color: #309030; }
+#appHeader.over.balanced span	{ color: #316ADC; }
+#appHeader.over.surplus	 span	{ color: #C85834; }
 */
-/*
-#appHeader.over.deficit	 span		{ color: #309030; }
-#appHeader.over.balanced span		{ color: #316ADC; }
-#appHeader.over.surplus	 span		{ color: #C85834; }
-#appHeader.over #timerKcals:before { content: "!"; position: absolute; top: -12px; left: -15px; z-index: 999; font-size: 57px; color: #666; }
-*/
-
-
 /*status blocks*/
 #timerBlocks					{ position: absolute; height: 62px; bottom: 0; left: 0; right: 0; }
 /*calories remaining*/
 #timerKcals						{ position: absolute; bottom: 16px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; }
 #timerKcals span				{ position: absolute; bottom: -9px; left:  0px; font-size: 9px;  line-height: normal; text-transform: uppercase; color: #828282; }
 /*daily calories*/
-#timerDaily						{ position: absolute; font-weight: 300; bottom: 6px; top: 7px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; color: #aaa; 
-
-background-color: #f5f5f5; 
-background-image: -webkit-linear-gradient(#f5f5f5,#f5f5f5); 
-
-border: 0px solid #316ADC;  }
-
+#timerDaily						{ position: absolute; font-weight: 300; bottom: 6px; top: 7px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; color: #aaa; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f5f5f5,#f5f5f5); border: 0px solid #316ADC; }
 #timerDaily span				{ position: absolute; bottom: 5px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; color: #999; }
-
-
 /*INLINE*/
-#editableDiv					{ color: transparent; height: 62px; background-color: transparent !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
+#editableDiv					{ color: transparent; height: 62px; background-color: rgba(0,0,0,0) !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
 input#editable					{ color: #000; background-color: #f5f5f5; position: absolute; font-weight: 300; top: 12px; right: 9px; display: block !important; width: 75px !important; height: 29px; font-size: 24px !important; line-height: 26px; border: 0; padding: 0 0px 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; border-radius: 0px; overflow: hidden; }
 .moz input#editable,
 .android2 input#editable,
 .android4 input#editable		{ right: 10px; }
-.android4 input#editable		{  top: 13px; }
-.android2 input#editable		{  top: 14px; }
+.android4 input#editable		{ top: 13px; }
+.android2 input#editable		{ top: 14px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
-
-
-
-/*updating*/
-#loadingDiv.updating			{ display: none; }
-#loadingDiv.updating:before		{ font-family: "FontAwesome"; content: "\f021"; }
-#loadingDiv.updating			{ position: absolute; top: 16px; right: 122px; font-size: 28px; color: #fff; opacity: .5; display: inline-block; z-index: 55; -webkit-animation: spin 2s infinite linear; }
-body.ios7 #loadingDiv.updating	{ top: 32px; }
-@-webkit-keyframes spin			{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(359deg); } }
-/*nprogress replacement*/
+/*nprogress*/
 #nprogress						{ position: fixed; z-index: 100; }
-#nprogress .bar					{ background: rgba(66, 133, 244, .99); opacity: .99; position: fixed; top: 0; left: 0; width: 100%; height: 2px; }
-/*
-#nprogress .spinner				{ display: block; position: fixed; z-index: 100; top: 15px; right: 15px; }
-#nprogress .spinner-icon		{ width: 18px; height: 18px; box-sizing: border-box; border: solid 2px transparent; border-top-color: #29d; border-left-color: #29d; border-radius: 50%; -webkit-animation: nspinner 400ms linear infinite; animation: nspinner 400ms linear infinite; }
-@-webkit-keyframes nspinner		{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); } }
-*/
+#nprogress .bar					{ background: rgba(66, 133, 244, .99); opacity: .99; position: fixed; top: 0; left: 0; width: 100%; height: 3px; }
 /*#///////////////#//
 //# GLOBAL FOOTER #//
 //#///////////////#*/
-ul#appFooter					{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; 
-
-background-color: #f5f5f5;
-background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5);
-border-top: 1px solid #dfdfdf;
-box-sizing: border-box;
-background-color: #f5f5f5;
--webkit-backface-visibility: hidden;
-
-background: radial-gradient(at right center,#f5f5f5,#eee); 
-background: radial-gradient(at 100% 50%,#f5f5f5,#eee); 
-background: radial-gradient(at 100%,#f5f5f5,#eee); 
-background: radial-gradient(at 100px,#f5f5f5,#eee); 
-
-}
-
-
-ul#appFooter li					{ float: left; width: 25%; height: 44px; line-height: 18px; color: #888; 
-/*
-background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5);
-background-color: #f5f5f5;*/
--webkit-backface-visibility: hidden;
-
-}
-ul#appFooter li.selected		{ 
-
- color: #007AFF;
-/*background-image: -webkit-linear-gradient(#050505,#151515);*/
-
-
--webkit-backface-visibility: hidden; }
-ul#appFooter li.selected:before	{ color: #cbcbcb; color: #007AFF; /*color: #00ee00;*/ }
-
-
+ul#appFooter										{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); }
+ul#appFooter li										{ float: left; width: 25%; height: 44px; line-height: 18px; color: #888; -webkit-backface-visibility: hidden; }
+ul#appFooter li.selected							{ color: #007AFF; -webkit-backface-visibility: hidden; }
+ul#appFooter li.selected:before						{ color: #007AFF; }
 /*footer colors*/
 ul#appFooter.appDebug li.selected,
 ul#appFooter.appDebug li.selected:before			{ color: #309030; }
-
 ul#appFooter.appEdge li.selected,
 ul#appFooter.appEdge li.selected:before				{ color: #cc3300; }
-
 ul#appFooter.appDebug.appFacebook li.selected,
 ul#appFooter.appDebug.appFacebook li.selected:before{ color: #48A899; }
-
 ul#appFooter.appEdge.appFacebook li.selected,
 ul#appFooter.appEdge.appFacebook li.selected:before	{ color: #B669CC; }
-
 ul#appFooter.appFacebook li.selected,
 ul#appFooter.appFacebook li.selected:before			{ color: #6D8CD2; }
-
-ul#appFooter li:before			{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
-ul#appFooter li					{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
-ul#appFooter li#tab1:before		{ content: "\f080"; }
-ul#appFooter li#tab2:before		{ content: "\f0f5"; }
-ul#appFooter li#tab3:before		{ content: "\f007"; }
-ul#appFooter li#tab4:before		{ content: "\f013"; }
+/*footer icons*/
+ul#appFooter li:before								{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
+ul#appFooter li										{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
+ul#appFooter li#tab1:before							{ content: "\f080"; }
+ul#appFooter li#tab2:before							{ content: "\f0f5"; }
+ul#appFooter li#tab3:before							{ content: "\f007"; }
+ul#appFooter li#tab4:before							{ content: "\f013"; }
 /*
-ul#appFooter li.selected#tab1:before		{ content: "\e080"; }
-ul#appFooter li.selected#tab2:before		{ content: "\e0f5"; }
-ul#appFooter li.selected#tab3:before		{ content: "\e007"; }
-ul#appFooter li.selected#tab4:before		{ content: "\e013"; }
+ul#appFooter li.selected#tab1:before				{ content: "\e080"; }
+ul#appFooter li.selected#tab2:before				{ content: "\e0f5"; }
+ul#appFooter li.selected#tab3:before				{ content: "\e007"; }
+ul#appFooter li.selected#tab4:before				{ content: "\e013"; }
 */
 /*///////////////////
 // GETTING STARTED //
@@ -187,75 +118,64 @@ ul#appFooter li.selected#tab4:before		{ content: "\e013"; }
 #step3			{ line-height: 34px; color: #555; }
 #step1 span,
 #step2 span,
-#step3 span		{ border-radius: 90px; width: 33px; height: 33px; display: inline-block; background-color: #2672ec; line-height: 34px; text-indent: 12px; color: #fff; font-weight: bold; margin-right: 12px; }
+#step3 span		{ border-radius: 60px; width: 33px; height: 33px; display: inline-block; background-color: #2672ec; line-height: 34px; text-indent: 12px; color: #fff; font-weight: bold; margin-right: 12px; }
 #closeDiv		{ position: absolute; top: 350px; left: 0px; display: block; width: 100%; text-align: center; margin: 0 auto; background-color: #fff; color: #2672ec; padding: 12px 0; font-size: 24px; }
 /*#################################
 ####    BUILD: APP SETTINGS    ####
 #################################*/
-#settingsWrapper				{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; background-image: -webkit-linear-gradient(#f2f5f6,#f2f4f6); font-size: 13px; -webkit-backface-visibility: hidden; }
+#settingsWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; background-image: -webkit-linear-gradient(#f2f5f6,#f2f4f6); font-size: 13px; -webkit-backface-visibility: hidden; }
 /*list*/
-ul#settingsList					{ display: block; background-color: #fff; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; }
-ul#settingsList li				{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden;  }
-ul#settingsList li div			{ margin-left: 20px; -webkit-backface-visibility: hidden; }
-ul#settingsList li+li div		{ border-top: 1px solid #eee; }
-ul#settingsList li.activeRow	{ background-color: #eee; color: #555; }
+ul#settingsList						{ display: block; background-color: #fff; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; }
+ul#settingsList li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden;  }
+ul#settingsList li div				{ margin-left: 20px; -webkit-backface-visibility: hidden; }
+ul#settingsList li+li div			{ border-top: 1px solid #eee; }
+ul#settingsList li.activeRow		{ background-color: #eee; color: #555; }
 ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: " ";  z-index: 99; }
-/*
-ul#settingsList li.nextChild div{ border-top: 1px solid #eee; }
-ul#settingsList li.nextChild div{ margin-left: 0; padding-left: 20px; }
-*/
 /*////////////////////////
 // titles and subtitles //
 ////////////////////////*/
-.contentTitle					{ display: block; font-weight: normal; color: #555; line-height: normal; padding-top: 10px; padding-bottom: 2px; }
-.contentTitle span				{ display: block; font-weight: normal; opacity: 1; color: #aaa; line-height: normal; font-size: 10px; }
+.contentTitle						{ display: block; font-weight: normal; color: #555; line-height: normal; padding-top: 10px; padding-bottom: 2px; }
+.contentTitle span					{ display: block; font-weight: normal; opacity: 1; color: #aaa; line-height: normal; font-size: 10px; }
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
 /////////////////////////*/
-li#optionMeasure				{ position: relative; background-color: #fff !important; }
-li#optionMeasure.activeRow		{ position: relative; background-color: #fff !important; }
+li#optionMeasure					{ position: relative; background-color: #fff !important; }
+li#optionMeasure.activeRow			{ position: relative; background-color: #fff !important; }
 ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
-#tapSwitch						{ width: 137px; position: absolute; right: 15px; top: 0px; display: block; height: 29px; text-align: center; font-size: 12px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; }
+#tapSwitch							{ width: 137px; position: absolute; right: 15px; top: 0px; display: block; height: 29px; text-align: center; font-size: 12px; font-weight: bold; }
 #tapSwitch #leftOption,
-#tapSwitch #rightOption			{ height: 29px; line-height: 29px; color: #aaa; background-color: #eee; border: 0; text-shadow: 0 1px 0 rgba(255,255,255,.2); display: inline-block; float: left; width: 48%; }
-#tapSwitch #leftOption			{ position: absolute; top: 9px; right: 65px; border-radius: 4px 0 0 4px; }
-#tapSwitch #rightOption			{ position: absolute; top: 9px; right: 0;    border-radius: 0 4px 4px 0; }
-#tapSwitch #leftOption.toggle	{ color: #fff; background-color: #5ED872; }
-#tapSwitch #rightOption.toggle	{ color: #fff; background-color: #5ED872; }
+#tapSwitch #rightOption				{ height: 29px; line-height: 29px; color: #aaa; background-color: #eee; border: 0; text-shadow: 0 1px 0 rgba(255,255,255,.2); display: inline-block; float: left; width: 48%; }
+#tapSwitch #leftOption				{ position: absolute; top: 9px; right: 65px; border-radius: 4px 0 0 4px; }
+#tapSwitch #rightOption				{ position: absolute; top: 9px; right: 0;    border-radius: 0 4px 4px 0; }
+#tapSwitch #leftOption.toggle		{ color: #fff; background-color: #5ED872; }
+#tapSwitch #rightOption.toggle		{ color: #fff; background-color: #5ED872; }
 /*//////////////////////
 // SETTINGS: FACEBOOK //
 //////////////////////*/
-#optionFacebook:after			{ font-family: "FontAwesome"; content: "\f082"; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
+#optionFacebook:after				{ font-family: "FontAwesome"; content: "\f082"; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
 body.appFacebook #optionFacebook:after { color: #4862A3; }
-#optionLastSync					{ position: absolute; bottom: 46px; padding-top: 40px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; z-index: auto; }
-#optionLastSync span			{ color: #bbb; padding-left: 4px; }
-#optionLastSync 				{ display: none; }
-body.appFacebook #optionLastSync{ display: block; }
+#optionLastSync						{ position: absolute; bottom: 46px; padding-top: 40px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; z-index: auto; }
+#optionLastSync span				{ color: #bbb; padding-left: 4px; }
+#optionLastSync 					{ display: none; }
+body.appFacebook #optionLastSync	{ display: block; }
 /*/////////////////////
 // SETTINGS: WEBSITE //
 /////////////////////*/
-div#optionWebsite				{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-transform: uppercase; }
-div#optionWebsite:active		{ color: #888; }
-div#optionWebsite 				{ display: none; }
-body.appDebug #optionWebsite	{ display: block; }
+div#optionWebsite					{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-transform: uppercase; }
+div#optionWebsite:active			{ color: #888; }
+div#optionWebsite 					{ display: none; }
+body.appDebug #optionWebsite		{ display: block; }
 /*///////////////////
 // SETTINGS: SHARE //
 ///////////////////*/
-#optionReview					{ position: relative; }
-#optionShare 					{ position: absolute; top: 0; right: 0; display: block; width: 60px; height: 46px; line-height: 52px; font-size: 22px; text-align: center; background-color: transparent; color: #bbb; display: none; }
-#optionShare:after				{ content: "\f045"; font-family: "FontAwesome"; }
+#optionReview						{ position: relative; }
+#optionShare 						{ position: absolute; top: 0; right: 0; display: block; width: 60px; height: 46px; line-height: 52px; font-size: 22px; text-align: center; background-color: transparent; color: #bbb; display: none; }
+#optionShare:after					{ content: "\f045"; font-family: "FontAwesome"; }
 /*///////////////////
 // SETTINGS: RESET //
 ///////////////////*/
-div#optionReset 				{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 50px; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; padding-left: 20px;}
-div#optionReset.activeRow		{ background-color: #E86401; color: #fff; }
-/*//////////////////////
-// SUB SETTINGS: HELP //
-//////////////////////*/
-/*
-body.tab1 #appContent { overflow: hidden; max-width: 100%; }
-body.tab4 #appContent { overflow: hidden; max-width: 100%; }
-*/
+div#optionReset 					{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 48px; overflow: hidden; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; padding-left: 20px; }
+div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 /*//////////////////
 // SETTINGS: HELP //
 //////////////////*/
@@ -266,10 +186,7 @@ body.tab4 #appContent { overflow: hidden; max-width: 100%; }
 #appHelper ul li:after 			{ position: absolute; top: 2px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
 #appHelper ul li:after			{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; }
 
-
 #appHelper ul li.activeRow		{ background-color: #f5f5f5; } 
-
-
 
 /* //////////   &   //////////////*/
 #helperWrapper { position: absolute;
@@ -298,9 +215,7 @@ opacity: 0;
 #appHelper h2 #backButton	{ -webkit-backface-visibility: hidden;  position: absolute; top: 0; left: 0; width: 76px; 
 padding-top: 3px;
 height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal;
-
 text-indent: -10px;
-
 }
 
 
@@ -341,52 +256,18 @@ text-indent: -10px;
 
 
 
-#appSubHelper #subHelpContent		{ padding: 32px 23px 26px 23px; font-size: 16px; line-height: 22px; }
+#appSubHelper #subHelpContent		{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
 #appSubHelper #subHelpContent p		{ display: block; }
 #appSubHelper #subHelpContent p + p	{ margin-top: 18px; }
 
-#appHelper,
-#subHelpContent,
-#appSubHelper { -webkit-perspective: 1000; }
-
-
-
-
-
-
-
-
-
-/*
-#appSubHelper {
-position: absolute;
-
-top: 0;
-left: 0;
-width: 100%; 
-height: 100%;
-background-color: #fff;
-opacity: .99;
-display: block;
-z-index: 49;
--webkit-overflow-scrolling: touch;
--webkit-transition-timing-function: ease;
--webkit-transition-duration: 0.2s;
--webkit-transform: translate3d(0, 0, 0);
-}
-
-*/
-
+/**/
+.android #appHelper,
+.android #appSubHelper	{ -webkit-perspective: 1000; }
+/*hidden content holder*/
 .topicTitle,
-.topicContent { display: none; }
+.topicContent			{ display: none; }
 
 #appSubHelper {
-
-/*
-position: absolute;
-top: 0;
-left: 0;*/
-
 width: 100%; 
 height: 100%;
 max-width: 100%;
@@ -413,36 +294,10 @@ max-width: 100%;
 
 
 
-/*
-#settingsWrapper				{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F7F7F9; background-image: -webkit-linear-gradient(#F7F7F8,#F7F7F9); color: #999; font-size: 13px; }
-ul#settingsList					{ display: block; background-color: #fff; border-bottom: 1px solid #eee; }
-ul#settingsList li				{ display: block; height: 46px; line-height: 49px; color: #777; }
-ul#settingsList li div			{ margin-left: 20px; }
-ul#settingsList li+li div		{ border-top: 1px solid #eee; }
-ul#settingsList li.activeRow	{ background-color: #eee; color: #555; }
-ul#settingsList li.nextChild div{ border-top: 1px solid #eee; }
-ul#settingsList li.nextChild div{ margin-left: 0; padding-left: 20px; }
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
 #statusWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; margin: 12px; /*background-color: #fff;*/ }
-/*
-.open #statusWrapper { -webkit-filter: blur(2px); }
-*/
 /**/
 #appStatusElapsed				{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
 #appStatusElapsed div			{ padding-top: 18px; text-align: center; display: block; font-size: 14px;  }
@@ -464,55 +319,25 @@ ul#settingsList li.nextChild div{ margin-left: 0; padding-left: 20px; }
 #balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#58B558), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#E3825F)); background: -webkit-linear-gradient(left, #58B558 25.5%,#548CDB 25.5%,  #207cca 73.9%,#E3825F 73.9%); content: " "; }
 #balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: "FontAwesome"; content: "\f175"; font-size: 12px; line-height: 12px; padding: 0; color: #555; }
 .over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
-
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
 #appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0px solid #000; }
 #appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; position: absolute; top: 0; right: 24%; }
-
-
-
-
 /**/
-#appStatusAddLeft				{ position: absolute; text-align: center; bottom: 55px; left: 0; right: 50%; height: 44px; margin-right: 6px; background-color: #fff; color: #4285F4; border: 1px solid #4285F4; box-sizing: border-box; }
-
-
-/**/
-#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; height: 44px; margin-left: 6px; background-color: #fff; color: #4285F4; border: 1px solid #4285F4; box-sizing: border-box; }
-
+#appStatusAddLeft,
+#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #fff; font-size: 18px; line-height: 18px; color: #4285F4; border: 1px solid #4285F4; box-sizing: border-box; display: inline-block; }
+#appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
+#appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
+#appStatusAddLeft div:before,
+#appStatusAddRight div:before	{ content: "+"; font-family: "FontAwesome"; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; }
+.android2 #appStatusAddLeft,
+.android2 #appStatusAddRight	{ padding-top: 4px; }
 #appStatusAddLeft span,
 #appStatusAddRight span			{ display: inline-block; background-color: #cc3300; text-align: center; font-size: 10px; text-transform: uppercase; }
-
-
 #appStatusAddLeft div,
-#appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; background-color: #fff; margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; 
-
-padding-top: 11px;
-}
-
-#appStatusAddLeft,
-#appStatusAddRight { font-size: 18px; line-height: 18px; display: inline-block; box-sizing: border-box; }
-
-#appStatusAddLeft { padding-right: 5px; }
-#appStatusAddRight { padding-right: 5px; }
-
-#appStatusAddLeft div:before,
-#appStatusAddRight div:before { 
-content: "+"; font-family: "FontAwesome"; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0px; left: 0px; 
-
-width: 45px; height: 42px;
-text-align: left; 
-padding-top: 14px;
-}
-
-.android2 #appStatusAddLeft,
-.android2 #appStatusAddRight { padding-top: 4px; }
-/*
-#appStatusAddRight div:active,
-#appStatusAddLeft div:active	{ padding-top: 11px; text-align: center; display: block; font-size: 18px; }
-*/
+#appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; background-color: #fff; margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; }
 /*nutrition bars*/
 #appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: #fff; white-space: nowrap; }
 #appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 0; height:  14px; margin: 0 0px; background-color: #fff; display: block; background-color: #fff; color: #999; border: 1px solid #eee; }
@@ -527,33 +352,18 @@ padding-top: 14px;
 #appStatusBarsPro p,
 #appStatusBarsCar p,
 #appStatusBarsFat p				{ width: 0%; }
-
-/*
 #appStatusBarsPro p.normal,
 #appStatusBarsCar p.normal,
-#appStatusBarsFat p.normal		{ background-color: #00ff00; background-image: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
+#appStatusBarsFat p.normal		{ background-color: rgba(0,255,0,.32); background-image: -webkit-linear-gradient(left,rgba(0,255,0,.32) 0%,rgba(0,204,0,.32) 100%); }
 #appStatusBarsPro p.over,
 #appStatusBarsCar p.over,
-#appStatusBarsFat p.over		{ background-color: #00cc00; background-image: -webkit-linear-gradient(left,#00cc00 0%,#009900 100%); }
+#appStatusBarsFat p.over		{ background-color: rgba(0,204,0,.32); background-image: -webkit-linear-gradient(left,rgba(0,204,0,.32) 0%,rgba(0,153,0,.32) 100%); }
 #appStatusBarsPro p.warn,
 #appStatusBarsCar p.warn,
-#appStatusBarsFat p.warn		{ background-color: #FFE900; background-image: -webkit-linear-gradient(left,#FFE900 0%,#FFCF00 100%); }
+#appStatusBarsFat p.warn		{ background-color: rgba(255,233,0,.32); background-image: -webkit-linear-gradient(left,rgba(255,233,0,.32) 0%,rgba(255,207,0,.32) 100%); }
 #appStatusBarsPro p.danger,
 #appStatusBarsCar p.danger,
-#appStatusBarsFat p.danger		{ background-color: #F67B3B; background-image: -webkit-linear-gradient(left,#F67B3B 0%,#CE6431 100%); }
-*/
-#appStatusBarsPro p.normal,
-#appStatusBarsCar p.normal,
-#appStatusBarsFat p.normal		{ background-color: rgba(0, 255, 0, .32); background-image: -webkit-linear-gradient(left,rgba(0, 255, 0, .32) 0%,rgba(0, 204, 0, .32) 100%); }
-#appStatusBarsPro p.over,
-#appStatusBarsCar p.over,
-#appStatusBarsFat p.over		{ background-color: rgba(0, 204, 0, .32); background-image: -webkit-linear-gradient(left,rgba(0, 204, 0, .32) 0%,rgba(0, 153, 0, .32) 100%); }
-#appStatusBarsPro p.warn,
-#appStatusBarsCar p.warn,
-#appStatusBarsFat p.warn		{ background-color: rgba(255, 233, 0, .32); background-image: -webkit-linear-gradient(left,rgba(255, 233, 0, .32) 0%,rgba(255, 207, 0, .32) 100%); }
-#appStatusBarsPro p.danger,
-#appStatusBarsCar p.danger,
-#appStatusBarsFat p.danger		{ background-color: rgba(246, 123, 59, .32); background-image: -webkit-linear-gradient(left,rgba(246, 123, 59, .32) 0%,rgba(206, 100, 49, .32) 100%); }
+#appStatusBarsFat p.danger		{ background-color: rgba(246,123,59,.32); background-image: -webkit-linear-gradient(left,rgba(246,123,59,.32) 0%,rgba(206,100,49,.32) 100%); }
 #appStatusBars p,
 #appStatusBars span				{ -webkit-backface-visibility: hidden; }
 /*#////////////////#//
@@ -565,11 +375,7 @@ padding-top: 14px;
 #appStatusFix.open #appStatus		{ -webkit-transform: translate3d(0, 100%, 0); }
 #appStatusFix.open #startDate		{ display: inline-block; }
 /*// app status title //*/
-#appStatus #appStatusTitle			{ position: absolute; bottom: 0; left: 0; right: 0; background-color: #fff; text-align: center; 
-padding-top: 13px;
-line-height: 16px; font-size: 16px; height: 42px; display: block; overflow: hidden; box-sizing: border-box; }
-
-
+#appStatus #appStatusTitle			{ position: absolute; bottom: 0; left: 0; right: 0; background-color: #fff; text-align: center; padding-top: 13px; line-height: 16px; font-size: 16px; height: 42px; display: block; overflow: hidden; box-sizing: border-box; }
 /*border-color*/
 #appStatus.start #appStatusTitle	{ border: 1px solid #008800; color: #008800; }
 #appStatus.reset #appStatusTitle	{ border: 1px solid #ddd; color: #999; }
@@ -589,27 +395,17 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 /*status reload*/
 #appStatusReload					{ position: absolute; bottom: 0px; left: 0; width: 48px; height: 35px; display: inline-block; font-size: 28px; line-height: 28px; text-indent: 7px; }
 .android44 #appStatusReload			{ bottom: -1px; }
-
-
 #appStatusReload:before				{ content: "\f01e"; font-family: "FontAwesome"; display: inline-block; }
 /*status arrow*/
 #appStatusToggle					{ position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; line-height: 49px; z-index: 10; background-color: rgba(255,255,255,0); }
-#appStatusFix #appStatusArrow		{ line-height: 30px; position: absolute; top: 3px; right: 32px; height: 0; width: 0; font-size: 30px; -webkit-backface-visibility: hidden; 
-
-
-}
-#appStatusFix #appStatusArrow:before{ 
-content: "\f107"; font-family: "FontAwesome"; position: absolute; top: 5px; right: 12px; height: 0; width: 0; display: inline-block; 
-
-}
-
+#appStatusFix #appStatusArrow		{ line-height: 30px; position: absolute; top: 3px; right: 32px; height: 0; width: 0; font-size: 30px; -webkit-backface-visibility: hidden; }
+#appStatusFix #appStatusArrow:before{ content: "\f107"; font-family: "FontAwesome"; position: absolute; top: 5px; right: 12px; height: 0; width: 0; display: inline-block; }
 .android44 #appStatusFix #appStatusArrow:before { top: 6px; }
 #appStatusFix.open #appStatusArrow	{ -webkit-transform: scaleY(-1); }
 /*F106 up*/
-.android2 #appStatusFix			{ height: 48px;  #appStatus #appStatusTitle}
-.android2 #appStatusFix.open #appStatusTitle { border: 1px solid transparent; }
-.android2 #appStatus #appStatusTitle { padding-top: 0; line-height: 44px; } 
-
+.android2 #appStatusFix							{ height: 48px; }
+.android2 #appStatusFix.open #appStatusTitle	{ border: 1px solid transparent; }
+.android2 #appStatus #appStatusTitle			{ padding-top: 0; line-height: 44px; } 
 /*
 body.android2 #appStatusFix #appStatusArrow		{ width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #000; border-bottom: 0px solid transparent; }
 body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 20px solid #000; border-top: 0px solid transparent; }
@@ -622,7 +418,6 @@ body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 
 /////////////*/
 .android #calcForm,
 .android #calcForm div				{ -webkit-perspective: 1000; }
-
 #calcForm							{ display: block; font-size: 12px; padding-top: 5px; padding-bottom: 7px; color: #555; overflow: hidden; }
 #calcForm div.calcRow				{ margin-left: 22px; padding: 0; display: block; min-width: 300px; }
 #calcForm div.calcRow + div.calcRow	{ border-top: 1px solid #eee; }
@@ -630,7 +425,6 @@ body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 
 #calcForm select 					{ width: 80px; min-width: 80px; font-size: 12px; line-height: 18px; color: #666; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; }
 #calcForm input						{ text-indent: 2px; height: 44px; vertical-align: bottom; }
 #calcForm select					{ text-indent: 3px; height: 44px; }
-
 #calcForm input						{ text-indent: 3px; height: 44px; vertical-align: bottom; }
 #calcForm select					{ text-indent: .01px !important; height: 44px; }
 .android #calcForm input			{ text-indent: 1px; }
@@ -638,28 +432,20 @@ body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 
 .ios #calcForm input				{ text-indent: 0px; }
 .ios #calcForm select				{ text-indent: 1px; }
 #calcForm label						{ width: 113px; display: inline-block; font-weight: bold; padding: 0; margin: 0; }
-
 /*feet-inches*/
 #calcForm #feet						{ margin-right: 4px; }
 #calcForm #feet,
 #calcForm #inches					{ width: 38px !important; min-width: 38px; }
 #calcForm #inches.metric			{ width: 80px !important; }
 #calcForm #feet.metric				{ display: none !important; }
-
 /*select arrow*/
 #calcForm .selectArrow				{ position: relative; }
 #calcForm .selectArrow:after		{ content: "\f078"; font-family: "FontAwesome"; position: absolute; top: 3px; right: -10px; color: #666; font-size: 10px; line-height: 10px; }
 /*activity select*/
 #calcForm #yourActivity				{ padding-top: 12px !important; margin-bottom: 14px; }
-
 #calcForm select#pA5B				{ min-width: 280px; max-width: 318px !important; width: 90%; margin-top: 3px; text-indent: 0; }
 /*h2 a.b.c.*/
-#calcForm h2						{ padding: 0; margin: 0px 0 9px 0; font-size: 22px; line-height: 32px; margin-left: 0px; background-color: #fff;
-
-padding-top: 16px;
-padding-left: 12px;
-font-weight: normal;
-color: #000; border-bottom: 0px solid #ccc; display: block; text-align: left; white-space: nowrap;  border-top: 38px solid #f2f4f6; }
+#calcForm h2						{ padding: 0; margin: 0px 0 9px 0; font-size: 22px; line-height: 32px; margin-left: 0px; background-color: #fff; padding-top: 16px; padding-left: 12px; font-weight: normal; color: #000; border-bottom: 0px solid #ccc; display: block; text-align: left; white-space: nowrap; border-top: 38px solid #f2f4f6; }
 #calcForm h2 span					{ color: #bbb; padding-right: 1px; text-align: left; }
 /*by/unit*/
 #calcForm .calcResult				{ font-size: 13px; display: block; margin: 12px 12px 12px 18px; white-space: nowrap; }
@@ -669,8 +455,7 @@ color: #000; border-bottom: 0px solid #ccc; display: block; text-align: left; wh
 /*tap select*/
 #calcForm .tapSelect  				{ display: block; position: relative; margin: 0px 12px 12px 12px; overflow: hidden; height: 54px; }
 #calcForm .tapSelect span			{ display: block; position: absolute; top: 20px; left: 128px; color: #aaa; white-space: nowrap; }
-#calcForm .tapSelect input			{ position: absolute; top: -9px; left: 0; display: block; width: 100%; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: normal; color: #000 !important; background-color: rgba(100,100,100,.0); text-align: left; z-index: 100; 
-}
+#calcForm .tapSelect input			{ position: absolute; top: -9px; left: 0; display: block; width: 100%; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: normal; color: #000 !important; background-color: rgba(100,100,100,.0); text-align: left; z-index: 100; }
 #calcForm .tapSelect input.tapActive{ color: #cc0000 !important; }
 /*by/unit width*/
 #calcForm select#pA1B,
@@ -689,104 +474,70 @@ color: #000; border-bottom: 0px solid #ccc; display: block; text-align: left; wh
 /*//////////////////
 // ENTRYLIST FORM //
 //////////////////*/
-#entryListForm				{ display: block; width: 100%; height: 154px; position: relative; overflow: hidden; z-index: 1; }
+#entryListForm					{ display: block; width: 100%; height: 154px; position: relative; overflow: hidden; z-index: 1; }
 /*ARROW BUTTONS*/
-div#sliderNum				{ text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
-div#sliderNeg				{ position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 14pt; height: 36px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-left: 26px; padding-top: 3px; }
-div#sliderPos				{ position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 14pt; height: 36px; font-family: Futura, "Helvetica Neue", Helvetica, Arial; padding-right: 26px; padding-top: 3px; }
+div#sliderNum					{ text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
+div#sliderNeg					{ position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 14pt; height: 36px; padding-left: 26px; padding-top: 3px; }
+div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 14pt; height: 36px; padding-right: 26px; padding-top: 3px; }
 div#sliderNeg:before,
-div#sliderPos:before 	{ font-family: "FontAwesome"; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
-div#sliderNeg:before 	{ left: 0; content: "\F010"; }	
-div#sliderPos:before 	{ right: 0; content: "\F020"; }
- 
+div#sliderPos:before			{ font-family: "FontAwesome"; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
+div#sliderNeg:before			{ left: 0; content: "\F010"; }	
+div#sliderPos:before			{ right: 0; content: "\F020"; }
 .android div#sliderPos:before,
-.android div#sliderNeg:before 	{ top: 3px; }	
+.android div#sliderNeg:before	{ top: 3px; }
 .android44 div#sliderPos:before,
-.android44 div#sliderNeg:before { top: 5px; }	
- 
-
-
-
-div#sliderNeg span			{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #D55621 transparent transparent; position: absolute; top: 7px; left: 3px; display: none; }
-div#sliderPos span			{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #316ADC; position: absolute; top: 7px; right: 3px; display: none; }
-
-div#sliderNeg.activeArrow:before		{ color: #CB5220; font-family: fontawesome; content: "\F001"; }
-div#sliderPos.activeArrow:before		{ color: #2052CB; font-family: fontawesome; content: "\F002"; }
-
-
-
+.android44 div#sliderNeg:before	{ top: 5px; }
+div#sliderNeg span				{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #D55621 transparent transparent; position: absolute; top: 7px; left: 3px; display: none; }
+div#sliderPos span				{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #316ADC; position: absolute; top: 7px; right: 3px; display: none; }
+div#sliderNeg.activeArrow:before{ color: #CB5220; font-family: "FontAwesome"; content: "\F001"; }
+div#sliderPos.activeArrow:before{ color: #2052CB; font-family: "FontAwesome"; content: "\F002"; }
 /*MAIN FORM*/
-input#entryTitle			{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 47px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 2px 1px 0 2px; border-radius: 0; text-indent: 0; margin: 0; border: none; }
+input#entryTitle				{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 47px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 2px 1px 0 2px; border-radius: 0; text-indent: 0; margin: 0; border: none; }
 .moz input#entryTitle,
-.android4lt input#entryTitle{ padding-left: 3px; }
-input#entryBody				{ position: absolute; margin-top: 6px; left: 16px; right: 16px; background-color: transparent; color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
-input#entryBody.focusMe		{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
-input#entryBody.focusMy		{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
-div#entryBodySearch			{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: transparent; opacity: .5; z-index: 999; }
-
-#entryBodySearch div		{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #bbb; position: relative; border-radius: 0.35em; }
-#entryBodySearch div:before	{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #bbb; width: 0.35em; height: 0.11em; 
-
--webkit-transform: rotate(-45deg); 
-
-}
-div#entryBodySearch:active	{ opacity: 1; }
-select#entryTime			{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; box-sizing: border-box; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
-.ios select#entryTime		{ padding: 6px 4px 5px 7px; }
-
-
-#entrySubmit				{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; }
-
-div.submitActive			{ color: #316ADC !important; border-color: #bababa !important; background-color: #fff !important; border: 1px solid #316ADC !important; box-sizing: border-box; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
-#loadingDiv					{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; }
-.ios7 #loadingDiv			{ top: 31px; }
-#lid						{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #bbb; text-shadow: 0 1px 0 rgba(255,255,255,.75); }
-.android .submitActive		{ -webkit-box-shadow: none !important; }  
-.android #entrySubmit		{ text-shadow: none !important; }
-#sliderBlock				{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
+.android4lt input#entryTitle	{ padding-left: 3px; }
+input#entryBody					{ position: absolute; margin-top: 6px; left: 16px; right: 16px; background-color: rgba(0,0,0,0); color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
+input#entryBody.focusMe			{ top: -5px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
+input#entryBody.focusMy			{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
+div#entryBodySearch				{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: rgba(0,0,0,0); opacity: .5; z-index: 999; }
+#entryBodySearch div			{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #bbb; position: relative; border-radius: 0.35em; }
+#entryBodySearch div:before		{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #bbb; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
+div#entryBodySearch:active		{ opacity: 1; }
+select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; box-sizing: border-box; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+.ios select#entryTime			{ padding: 6px 4px 5px 7px; }
+#entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; }
+div.submitActive				{ color: #316ADC !important; border-color: #bababa !important; background-color: #fff !important; border: 1px solid #316ADC !important; box-sizing: border-box; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
+#loadingDiv						{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; }
+.ios7 #loadingDiv				{ top: 31px; }
+#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #bbb; text-shadow: 0 1px 0 rgba(255,255,255,.75); }
+.android .submitActive			{ -webkit-box-shadow: none !important; }  
+.android #entrySubmit			{ text-shadow: none !important; }
+#sliderBlock					{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
 /*//////////////
 // ENTRY LIST //
 //////////////*/
-/*#entryList > *				{ -webkit-transform: translate3d(0, 0, 0); }*/
 #entryList					{ width: 100%; font-size: 13px; /*-webkit-transform: translate3d(0, 0, 0);*/ }
 #entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; height: 28px; border-top: 0px solid #fff; /*overflow: hidden;*/ }
 body.ios #entryList div		{ padding: 15px 0 1px 0; }
 #entryList					{ width: 100%; min-height: 44px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
-#editableInput				{ -webkit-user-select: auto; background-color: transparent !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; /*font-size: 13px; */ font-family: "Helvetica Neue", Helvetica, Arial; }
+#editableInput				{ -webkit-user-select: auto; background-color: rgba(0,0,0,0) !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; /*font-size: 13px; */ }
 .moz #editableInput,
 .ios #editableInput,
-.android #editableInput {  margin-left : -1px; }
+.android #editableInput		{  margin-left : -1px; }
 .android44 #editableInput,
-.ios7 #editableInput 	{  margin-left : 0; }
-/*
-p.entryCss  { display: none; }
-
-#entryList div.entryCss p.entryCss  { display: block; float: left; margin-top: -40px; width: 100%; height: 20px; border-bottom: 1px solid #eee; background-color: #f5f5f5;
-font-size: 16px; line-height: 20px;
-color: #aaa;
-text-indent: 9px;
-
-
- }
-#entryList div.entryCss  { margin-top: 20px; }
-*/
-
+.ios7 #editableInput 		{  margin-left : 0; }
 /*BOTTOM BAR*/
 #entryListBottomBar			{ position: absolute; left: 0; bottom: 0; height: 45px; line-height: 47px; text-align: center; font-weight: normal; color: #555; background-color: #fff; color: #bbb; width: 100%; border-top: 1px solid #eee; }
 #entryListBottomBar.activeRow{ color: #777; background-color: #f5f5f5; }
 /*SWIPE DELETE*/
-span.delete					{ font-family: "Helvetica Neue", Helvetica, Arial; display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 0; padding: 15px 20px 13px 20px; /*border: 1px solid #953403; border-radius: 5px;*/ font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 1px 0 rgba(0,0,0,.05); border-bottom: 1px solid #eee; }
+span.delete					{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 0; padding: 15px 20px 13px 20px; /*border: 1px solid #953403; border-radius: 5px;*/ font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 1px 0 rgba(0,0,0,.05); border-bottom: 1px solid #eee; }
 span.delete:active			{ background: #E0380A; }
 span.delete					{ -webkit-transition-timing-function: linear; -webkit-transform: translate3d(90px, 0, 0); -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
 span.delete.open			{ display: inline-block; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .150s; -webkit-backface-visibility: hidden; }
-
-
-
 /*ROW STYLE*/
 .entriesTitle				{ display: inline; float: left; width: 40px;  text-align: right; font-weight: bold; }
 .entriesKcals				{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
-.entriesBody				{ display: block; text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; font-family: "Helvetica Neue", Helvetica, Arial; }
+.entriesBody				{ display: block; text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; }
 .entriesBody input			{ display: block; font-size: 10pt; }
 /*body.android .entriesBody input { text-indent: -1px; }*/
 .entriesPublished			{ padding-top: 28px; -webkit-backface-visibility: hidden; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; text-shadow: none !important; }
@@ -794,16 +545,7 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 /*GENERIC*/
 div#noEntries				{ border-left: 5px solid transparent; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
-.heading					{ -webkit-user-select: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; 
-
-border-top: 1px solid #fff; 
-text-shadow: rgba(0,0,0,0) 0 1px 0; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; 
-background-color: #fff; font-weight: normal; margin: 0; 
-text-align: left; 
-text-transform: uppercase; letter-spacing: 3px; 
-line-height: 1;
-
-}
+.heading					{ -webkit-user-select: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #fff; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; background-color: #fff; font-weight: normal; margin: 0; text-align: left; text-transform: uppercase; letter-spacing: 3px; line-height: 1; box-sizing: border-box; }
 /*EXPIRED*/
 div.expired p				{ opacity: .3; }
 div.editing p				{ opacity: 1; }
@@ -869,7 +611,7 @@ div#noEntries				{ border-left: 3px solid #ccc; }
 #diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 22px; color: #ddd; }
 #diaryNotes:before			{ content: "\f02d"; font-family: "FontAwesome"; display: inline-block; font-weight: normal; }
 #diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
-#diaryNotesInput 			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: transparent; z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; font-family: Helvetica, Arial, sans-serif; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
+#diaryNotesInput 			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: transparent; z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
 #diaryNotesButton			{ position: absolute; top: 0; height: 100%; right: 0; width: 66px; background-color: transparent; background-image: -webkit-linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)); opacity: 1; z-index: 999; display: block; -webkit-backface-visibility: hidden; -webkit-user-select: none;  }
 #diaryNotesButton span		{ position: absolute; top: 100px; height: 100%; width: 100%; text-align: center; color: #fff; opacity: .72; /*color: rgba(255,255,255,.72);*/ font-size: 18px; font-weight: bold; -webkit-backface-visibility: hidden; -webkit-user-select: none; }
 /*#############################
@@ -877,38 +619,13 @@ div#noEntries				{ border-left: 3px solid #ccc; }
 #############################*/
 div#pageSlideFood			{ opacity: .92; position: absolute; padding-bottom: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff;  background-image: -webkit-linear-gradient(#fff,#fefefe); }
 body.android #pageSlideFood	{ opacity: 1; }
-
 div#pageSlideFood			{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .3s; }
 div#pageSlideFood.open		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .3s; }
-
-
 /*food search*/
-
-input#foodSearch			{
-	box-sizing: border-box;
-	-webkit-backface-visibility: hidden;  
-
-position: relative; left: 0; right: 0; top: 0; 
-
-font-size: 18px; border: 0; border-bottom: 1px solid #e5e5e5; 
-line-height: 18px;
-
-display: block; padding: 22px 26px 16px 30px; z-index: 999; 
--webkit-user-select: auto; margin: 0; overflow: hidden; 
-font-family: Arial, Helvetica, sans-serif; 
-
-background-color: #fff; 
-}
-
-/*
-.android input#foodSearch	{ padding: 32px 26px 10px 30px; }
-*/
-
-
+input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #e5e5e5; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; background-color: #fff; box-sizing: border-box; }
 input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-height: 21px; }
 #foodList					{ position: absolute; width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff; background-image: -webkit-linear-gradient(#fff,#fefefe); }
 .ios #foodList				{ position: inherit; }
-
 #foodListWrapper			{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
 #foodList .searcheable		{ position: relative; margin: 0; padding: 12px 8px 5px 23px; height: 42px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: visible; }
 #foodList .searcheable.activeOverflow			{ background-color: #e2e2e2; }
@@ -916,23 +633,14 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 #foodList .searcheable.noContent				{ color: #999; }
 #foodList .searcheable.activeOverflow.noContent	{ background-color: transparent !important; }
 /*food sub itens*/
-
 span#noMatches			{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
 span#iconRefresh,
 span#iconClear			{ padding: 19px 9px 16px 18px; font-size: 28px; line-height: 28px; position: absolute; top: 0px; right: 15px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; }
-/*
-.android span#iconRefresh,
-.android span#iconClear	{ padding-top: 21px; }
-*/
 span#iconClear			{ display: none; }
 span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
 span#iconRefresh:before { content: "\f021"; }
 span#iconClear:before	{ content: "\F00D"; }
-
-
-
-
 div.foodName			{ color: #0033cc; /*position: absolute; top: 12px; left: 23px; right: 8px;  padding-right: 1px; */ overflow: hidden; font-weight: bold; z-index: 999; -webkit-transform: translate3d(0, 0, 0); }
 div#activeOverflow		{ /*color: #fff;*/ overflow: auto; padding-right: 0px; border-right: 0px solid transparent; -webkit-backface-visibility: visible; display: block; float: none; text-align: left; text-indent: 0px; }
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 1s; }
@@ -952,55 +660,13 @@ span.preSpan			{ padding-right: 5px; color: #0033cc; }
 #pageSlideFood.exerciseType span.foodFat,
 #pageSlideFood.exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
-#appHeader:before				{
-font-family: "FontAwesome";
-content: "\f0a8";
-
-position: absolute; 
-top: 0;
-bottom: 0;
-right: 100px;
-width: 60px;
-
-display: block;
-text-align: right; 
-font-size: 46px;
-line-height: 46px;
-
-padding-top: 9px;
-opacity: 0;
-
--webkit-transition-timing-function: linear;
--webkit-transition-duration: .2s;
-color: #777;
-box-sizing: border-box;
-}
-
+#appHeader:before				{ font-family: "FontAwesome"; content: "\f0a8"; position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; color: #777; box-sizing: border-box; }
 body.ios7 #appHeader:before 	{ padding-top: 24px; }
 body.android44 #appHeader:before{ padding-top: 11px; }
-/*
-body.android #appHeader:before 	{ top: 2px; }
-body.android2 #appHeader:before	{ top: 4px; }
-
-*/
-
 #appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
-/*RECENT LIST*/
-#recentBlock					{ display: block; padding-left: 30px; -webkit-transform: translate3d(0, 0, 0); }
-#recentBlock h3					{ color: #000; text-transform: uppercase; font-size: 12px; padding-top: 24px; padding-bottom: 12px; }
-#recentBlock h3	span			{ color: #ccc; font-weight: normal; text-transform: none; padding-left: 6px; }
-#recentBlock div				{ text-indent: 0px; margin-left: 10px; }
-#recentBlock em					{ opacity: .5; font-weight: normal; margin-left: -10px; }
-#recentBlock .searcheable,
-#recentBlock .foodName			{ height: 40px !important; margin-bottom: 0; padding-top: 1px; padding-bottom: 0; background-color: transparent !important; }
-.foodName.food					{ color: #0033cc !important; }
-.foodName.exercise				{ color: #cc3300 !important; }
-/*
-.searcheable.food span.foodKcal,
-.searcheable.food span.foodPro,
-.searcheable.food span.foodCar,
-.searcheable.food span.foodFat	{ color: #0033cc !important; }
-*/
+/*search nutri colors*/
+.foodName.food										{ color: #0033cc !important; }
+.foodName.exercise									{ color: #cc3300 !important; }
 #pageSlideFood .searcheable.food span.preSpan		{ color: #0033cc; }
 #pageSlideFood .searcheable.food div.foodName		{ color: #0033cc; }
 #pageSlideFood .searcheable.food span.foodKcal,
@@ -1023,9 +689,7 @@ body.android2 #appHeader:before	{ top: 4px; }
 #modalWindow			{ opacity: 0; position: absolute; top: 74px; left: 0; right: 0; height: 200px; background-color: #ffffff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 99; }
 body.ios7 #modalWindow	{ top: 94px; }
 #modalOverlay,
-#modalWindow			{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; 
-
-}
+#modalWindow			{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 #modalOverlay.show		{ opacity: .5; }
 #modalWindow.show		{ opacity: 1; }
 #modalContent			{ padding: 12px; font-size: 13px; font-weight: bold; max-height: 38px; overflow: hidden; color: #777; }
@@ -1036,16 +700,12 @@ body.ios7 #modalWindow	{ top: 94px; }
 #modalAdjust			{ position: absolute; top: 65px; left: 0; background-color: #fff; width: 100%; height: 92px; z-index: 99999; }
 #modalPosBlock			{ position: absolute; top: 5px; right: 9px; display: block; width: 25%; height: 40px; background-color: #eee; background-image: -webkit-linear-gradient(#f8f8f8,#f5f5f5); border-radius: 0px 6px 6px 0; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
 #modalNegBlock			{ position: absolute; top: 5px; left:  9px;  display: block; width: 25%; height: 40px; background-color: #eee; background-image: -webkit-linear-gradient(#f8f8f8,#f5f5f5); border-radius: 6px 0 0 6px; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
-
 #modalNeg				{ font-size: 24px; display: block; position: absolute; top: 8px; right: 27%; }
 #modalPos				{ font-size: 24px; display: block; position: absolute; top: 8px; left: 27%; }
-
 #modalNeg.icon-chevron-sign-left,
 #modalPos.icon-chevron-sign-right			{ font-family: "FontAwesome"; line-height: 39px; font-size: 39px; font-weight: normal; color: #007AFF; margin-top: -8px; display:block; }
-
 #modalNeg.icon-chevron-sign-left:before		{ content: "\f104"; font-family: "FontAwesome"; }
 #modalPos.icon-chevron-sign-right:before	{ content: "\f105"; font-family: "FontAwesome"; }
-
 #modalAmmountBlock		{ position: absolute; top: 5px; left: 25%; display: block; width: 50%; height: 40px; border: 1px solid #eee; border-width: 1px 0 1px 0; }
 #modalAmmount			{ display: block; width: 100%; text-align: center; font-size: 12pt; line-height: 10pt; font-weight: bold; padding-top: 7px; }
 #modalAmmountType		{ display: block; width: 100%; text-align: center; font-size: 10pt; font-variant: small-caps; }
@@ -1081,12 +741,6 @@ span#fibLabel			{ top: 38px; text-align: left; left: 67px; color: #666; }
 /*modal fav*/
 #modalFav:before			{ content: "\f006"; font-family: "FontAwesome"; font-size: 32px; position: absolute; top: -62px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalFav.favourite:before	{ content: "\f005"; font-family: "FontAwesome"; }
-/*
-.android #modalFav:before,
-.android #modalFav.favourite:before	{ font-family: 'fontawesomesvg'; }
-#modalFav.favourite:active:before { color: #333; }
-#modalFav:active:before		{ color: #333; }
-*/
 /*///////////
 // SPINNER //
 ///////////*/
@@ -1100,7 +754,7 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #menuTopBar					{ position: absolute; top: 18px; left: 0; right: 0px; height: 34px; display: block; white-space: nowrap; z-index: 999; }
 #topBarItem-1,
 #topBarItem-2,
-#topBarItem-3				{ margin: 0; color: #000; background-color: #fff; display: inline-block; height: 36px; line-height: 36px; font-size: 12px; text-align: center; -webkit-font-smoothing: subpixel-antialiased; margin: 0; text-shadow: rgba(255,255,255,.3) 0 1px 0; }
+#topBarItem-3				{ margin: 0; color: #000; background-color: #fff; display: inline-block; height: 36px; line-height: 36px; font-size: 12px; text-align: center; -webkit-font-smoothing: antialiased; margin: 0; text-shadow: rgba(255,255,255,.3) 0 1px 0; }
 #topBarItem-1				{ width: 33.2%; }
 #topBarItem-2				{ width: 33.2%; }
 #topBarItem-3				{ width: 33.6%; }
@@ -1126,21 +780,12 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #tabMyFoodsBlock,
 #tabMyExercisesBlock		{ position: relative;  padding-bottom: 68px;}
 #addNewFood,
-#addNewExercise				{ position: absolute; bottom: 12px; left: 12px; right: 12px;
-
-background-color: #fff; height: 44px; line-height: 44px; color: #3169DE; display: block; text-align: center; font-weight: bold; font-size: 14px; opacity: 1; 
-border: 1px solid #3169DE; box-sizing: border-box;
-}
+#addNewExercise				{ position: absolute; bottom: 12px; left: 12px; right: 12px; background-color: #fff; height: 44px; line-height: 44px; color: #3169DE; display: block; text-align: center; font-weight: bold; font-size: 14px; opacity: 1; border: 1px solid #3169DE; box-sizing: border-box; }
 #addNewWrapper				{ opacity: 0; position: absolute; top: 75px; bottom: 66px; left: 12px; right: 12px; background-color: #fff; display: block; z-index: 99; overflow: hidden; display: block; -webkit-transform: translate3d(0, 0, 0); background-image: -webkit-linear-gradient(#fff,#fefefe); -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); }
 body.ios7 #addNewWrapper	{ top: 91px; }
-body.ios7 #addNewWrapper	{ top: 91px; }
-/*
-#tempHolder #modalOverlay	{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .175s; -webkit-transform: translate3d(0, 0, 0); }
-#tempHolder #addNewWrapper	{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 0; -webkit-transform: translate3d(0, 0, 0); }
-*/
 #addNewWrapper.show			{ opacity: 1; }
-#addNewConfirm				{ position: absolute; bottom: 0px; left: 0;  width: 50%; background-color: #4D9AE5; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: bold; }
-#addNewCancel				{ position: absolute; bottom: 0px; right: 0; width: 50%; background-color: #eeeeee; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: bold; }
+#addNewConfirm				{ position: absolute; bottom: 0; left:  0; width: 50%; background-color: #4D9AE5; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: bold; }
+#addNewCancel				{ position: absolute; bottom: 0; right: 0; width: 50%; background-color: #eeeeee; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: bold; }
 ul#addNewList				{ padding: 9px 0 22px 22px; }
 ul#addNewList li			{ display: block; height: 44px; line-height: 44px; position: relative; }
 ul#addNewList li+li			{ border-top: 1px solid #eee; }
@@ -1165,4 +810,6 @@ body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
+
+
 

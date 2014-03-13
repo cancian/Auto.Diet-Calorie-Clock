@@ -2,12 +2,12 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="11701" 
+        versionCode="11702" 
         version   = "1.1.7">
     <name>MyLiveDiet</name>
 
     <description>
-        MyLiveDiet displays your calories burned in real-time, as you go through the day, keeping you constantly updated about your current caloric balance.
+        MyLiveDiet displays your calorie usage in real-time, as you go through the day, keeping you constantly updated about your current caloric balance.
     </description>
 
     <author email="support@mylivediet.com" href="http://mylivediet.com">
