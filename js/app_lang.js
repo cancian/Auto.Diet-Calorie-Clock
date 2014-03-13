@@ -1,10 +1,13 @@
-var appVersion = "1.1.7 (11701)"; 
+var appVersion = "1.1.7 (11702)"; 
 //#///////////////////////#//
 //# CORE LANGUAGE MANAGER #//
 //#///////////////////////#//
 var appLang = "en";
 if(window.navigator.language) {
 	appLang = (window.navigator.language.slice(0,2).toLowerCase() == "pt") ? 'pt' : 'en';
+} else if(navigator.userLanguage) {
+	//wp8
+	appLang = (navigator.userLanguage.slice(0,2).toLowerCase() == "pt") ? 'pt' : 'en';
 }
 if(window.localStorage.getItem("devSetLang") == "pt") {
 	appLang = "pt";
@@ -750,191 +753,6 @@ if(!window.wizUtils) {
 	window.wizUtils.getBundleDisplayName(function(version) { window.localStorage.setItem("appVersion",version); });
 	window.wizUtils.getBundleVersion(function(build)	   { window.localStorage.setItem("appBuild",build);     });
 }*/
-
-
-
-
-
-
-
-
-
-function buildHelpMenu() {
-	//insert menu
-	$("#optionHelp").addClass("activeRow");
-	$("#appContent").append("<div id='appHelper'></div>");
-var startLock = 1;
-var helpTopics = LANG("HELP_TOPICS_ARRAY");
-
-/*
-for (var key in helpTopics) {
-  if (helpTopics.hasOwnProperty(key))
-
-    alert(helpTopics[key]);
-
-}*/
-
-var helpHtml = "";
-var topicId  = 0;
-$.each(helpTopics, function(key, value) {
-if(key && value) {
-	topicId++;
-	helpHtml = helpHtml + "<li id='topic" + topicId + "'>" + key + "<div class='topicTitle'>" + key + "</div><div class='topicContent'>" + value + "</div></li>";
-}
-});
-
-
-
-
-
-
-
-	$("#appHelper").html('\
-	<h2><span id="backButton"></span><div id="helpTitle">' + LANG("SETTINGS_HELP") + '</div></h2>\
-	<ul>' + helpHtml + '</ul>');
-		
-	//$("#appHelper").hide();
-	//$("#appHelper").css("opacity","0");
-	//$('#appHelper').css("-webkit-transition-timing-function","ease");
-	//$('#appHelper').css("-webkit-transition-duration",".25s");
-
-//	$("#appHelper").show();
-	//$("#appHelper").css("opacity",".7");	
-	
-	setTimeout(function() {
-		$("#appHelper").css("opacity","1");
-	},0);
-
-
-
-	$//("#appHelper").css("opacity",1);
-
-
-		setTimeout(function(){
-				$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-				setTimeout(function() {
-				startLock = 0;
-				},300);
-		},300);
-		
-if(isMobile.Android()) {
-	//$("#appHelper").css("top",$("#appHeader").height()* + "px");
-}
-
-	$("#appHelper li").on(touchstart,function(evt) {
-		evt.preventDefault();
-		$(this).addClass("activeRow");
-	});
-	$("#appHelper,#appHelper li").on(touchend + " mouseout",function(evt) {
-		$(".activeRow").removeClass("activeRow");
-		evt.preventDefault();
-	});
-	//self-removal handler
-	$("#appHelper ul li").on(tap,function(evt) {
-		if(startLock != 0) { return; }
-		//reapply
-		$(this).addClass("activeRow");
-		//$("#appHelper").getNiceScroll().remove();
-		
-		var subTitle   = $("#" + $(this).attr("id") + " .topicTitle").html();
-		var subContent = $("#" + $(this).attr("id") + " .topicContent").html();
-
-
-//alert($(this).attr("id"));
-//alert(evt.target.id);
-		
-		$("#appContent").append('<div id="appSubHelper">\
-									<h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2>\
-									<div id="subHelpContent">' + subContent + '</div>\
-								</div>');
-		//setTimeout(function(){
-		//	$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-		//},600);
-		
-		$('#appSubHelper').on(transitionend,function(e) { 
-niceResizer();
-if(!$('#appSubHelper').hasClass("open")) {
-	$('#appSubHelper').remove();
-
-	setTimeout(function() {
-		$('#appHelper').css("width","100%");
-		//niceResizer();
-	},100);
-	
-	
-	
-} else {
-	$(".activeRow").removeClass("activeRow");
-	setTimeout(function() {
-		$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-	},100);
-}
-	
-
-	setTimeout(function() {
-		$('#appSubHelper').css("width","100%");
-		//niceResizer();
-	},100);
-
-
-		});
-	
-		
-	$("#subBackButton").on(touchend,function() {
-		//remove
-		$("#appSubHelper").removeClass("open");
-		$("#appHelper").removeClass("out");
-	});		
-		
-		//$('#appSubHelper').css("-webkit-transition-timing-function","ease");
-		//$('#appSubHelper').css("-webkit-transition-duration",".25s");
-		
-		setTimeout(function(){
-		$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-	if(!isMobile.iOS() && androidVersion() < 4.4) {
-		//$("#appContent").css("overflow","hidden");
-		setTimeout(function(){
-			$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.5,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-		},0);
-	}
-		$("#appSubHelper").addClass("open");
-		$("#appHelper").addClass("out");
-		},0);
-		$("#appContent").getNiceScroll().remove();
-
-
-		//remove
-		//$("#appHelper").fadeOut(200,function() {
-		//	$("#appHelper").remove();
-		//});
-	});
-
-
-	//self-removal handler
-	$("#backButton").on(touchend,function() {
-		//remove
-		$("#appHelper").css("opacity","0");
-		$('#appHelper').on(transitionend,function(e) { 
-			$('#appHelper').remove();
-		});
-	});
-	
-	
-	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

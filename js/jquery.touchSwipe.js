@@ -2017,7 +2017,7 @@
 
 	function hasTouch() {
 		//return ('ontouchstart' in document);
-		return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
+		return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
 	}
 
     var TOUCHSTART = hasTouch() ? 'touchstart' : 'mousedown';

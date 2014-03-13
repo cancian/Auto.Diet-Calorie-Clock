@@ -1,6 +1,6 @@
 /*########################################
 ####    HTML BUILDS ~ OPEN SETTINGS   ####
-##########################################*/
+########################################*/
 function openSettings(string) {
 	//RAW HTML
 	var settingsHtml = '\
@@ -593,7 +593,7 @@ function openStatus(string) {
 	//////////////////
 	// ENABLE DEBUG //
 	//////////////////	
-	$("#appStatusReload").on("hold", function(evt) {
+	$("#appStatusReload").on("longhold", function(evt) {
 		evt.preventDefault();		
 		if(window.localStorage.getItem("config_debug") == "active") {
 			window.localStorage.removeItem("config_debug");
@@ -1851,7 +1851,11 @@ $("#formc input,#formc select").on(tap, function(evt) {
 //////////////////////////////
 // BLUR ON NULL ID TOUCHEND //
 //////////////////////////////
-
+//wp8 pan
+$("#calcForm input, #calcForm select").on("blur",function(evt) {
+	window.scroll($('#appContent')[0].scrollTop,0,0);
+	return false;
+});
 $("#calcForm").on(touchend, function(evt) {
 	if(evt.target.id == "") {
 		evt.preventDefault();

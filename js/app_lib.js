@@ -18,6 +18,29 @@ var timerPerf         = (new Date().getTime());
 var timerDiff         = 100;
 var timerWait         = 100;
 function voidThis() { }
+//#///////////#//
+//# MOBILE OS #//
+//#///////////#//
+var isMobile = {
+	Cordova: function() {
+		return (typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
+	},
+	Android: function() {
+		return navigator.userAgent.match(/Android/i) ? true : false;
+	},
+	BlackBerry: function() {
+		return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+	},
+	iOS: function() {
+		return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+	},
+	Windows: function() {
+		return navigator.userAgent.match(/IEMobile/i) ? true : false;
+	},
+	any: function() {
+		return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+	}
+};
 ////////////////
 //            //
 ////////////////
@@ -26,7 +49,7 @@ var prefix = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
 !/webkit/.test(navigator.userAgent.toLowerCase())) ? '-moz-'    :
 (/webkit/.test(navigator.userAgent.toLowerCase())) ? '-webkit-' :
 (/msie/.test(navigator.userAgent.toLowerCase()))   ? '-ms-'     :
-(/opera/.test(navigator.userAgent.toLowerCase()))  ? ''      : '';
+(/opera/.test(navigator.userAgent.toLowerCase()))  ? ''         : '';
 
 var transitionend = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
 !/msie/.test(navigator.userAgent.toLowerCase()) &&
@@ -54,6 +77,13 @@ if(vendorClass == "moz" || vendorClass == "msie") {
 		$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
 	});
 }
+//////////////////
+// INJECT FONTS //
+//////////////////
+$("head").append("<style type='text/css' id='coreFonts'></style>");
+	$.get(hostLocal + "css/fonts.css",function(raw) {
+		$("#coreFonts").html(raw);
+});
 ///////////////////
 // TOUCH ? CLICK //
 ///////////////////
@@ -81,29 +111,6 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
-//#///////////#//
-//# MOBILE OS #//
-//#///////////#//
-var isMobile = {
-	Cordova: function() {
-		return (typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
-	},
-	Android: function() {
-		return navigator.userAgent.match(/Android/i) ? true : false;
-	},
-	BlackBerry: function() {
-		return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-	},
-	iOS: function() {
-		return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-	},
-	Windows: function() {
-		return navigator.userAgent.match(/IEMobile/i) ? true : false;
-	},
-	any: function() {
-		return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
-	}
-};
 /////////////////
 // NUMBER ONLY //
 /////////////////

@@ -81,7 +81,7 @@
       enablemouselockapi:true,
 //      cursormaxheight:false,
       cursorfixedheight:false,      
-      directionlockdeadzone:6,
+      directionlockdeadzone:32,
       hidecursordelay:400,
       nativeparentscrolling:true,
       enablescrollonselection:true,
