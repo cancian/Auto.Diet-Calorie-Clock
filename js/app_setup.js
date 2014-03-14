@@ -83,11 +83,11 @@ function initDB(t) {
 	////////////////////////////
 	if(!window.localStorage.getItem("config_kcals_day_0")) {
 		$("body").append("<div id='gettingStarted'>\
-			<div id='appInfo'>" + LANG("START_APP") + "</div>\
-			<div id='step1'><span>1</span>" + LANG("STEP_1") + "</div>\
-			<div id='step2'><span>2</span>" + LANG("STEP_2") + "</div>\
-			<div id='step3'><span>3</span>" + LANG("STEP_3") + "</div>\
-			<div id='closeDiv'>" + LANG("CLOSE_INTRO") + "</div>\
+			<div id='appInfo'>" + LANG(START_APP) + "</div>\
+			<div id='step1'><span>1</span>" + LANG(STEP_1) + "</div>\
+			<div id='step2'><span>2</span>" + LANG(STEP_2) + "</div>\
+			<div id='step3'><span>3</span>" + LANG(STEP_3) + "</div>\
+			<div id='closeDiv'>" + LANG(CLOSE_INTRO) + "</div>\
 		</div>");
 		$("#closeDiv").on(touchend,function(evt) {
 			evt.preventDefault();
@@ -723,7 +723,7 @@ function spinner(size) {
 	//////////
 	if(!$("#tempHolder").html()) { 
 		$("body").prepend('<div id="tempHolder"></div');
-		$("#tempHolder").html('<div id="modalOverlay"></div><span id="spinnerMsg">' + LANG("PREPARING_DB") + '</span><div id="spinnerWrapper"><div id="spinner"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div><div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div><div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div></div></div>');
+		$("#tempHolder").html('<div id="modalOverlay"></div><span id="spinnerMsg">' + LANG(PREPARING_DB) + '</span><div id="spinnerWrapper"><div id="spinner"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div><div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div><div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div></div></div>');
 		$("#modalOverlay").css("opacity",.5);
 		//prevent tapping
 		$("#modalOverlay").css("z-index",99999);
@@ -765,7 +765,7 @@ function spinner(size) {
 function updateFoodDb() {
 	if(window.localStorage.getItem("foodDbLoaded") != "done" && !window.localStorage.getItem("startLock")) {
 		//reset blocks
-		$("#tabMyFavsBlock,#tabMyFoodsBlock,tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG("NO_ENTRIES") + '</em></div></div>');
+		$("#tabMyFavsBlock,#tabMyFoodsBlock,tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG(NO_ENTRIES) + '</em></div></div>');
 		var demoRunning = false;
 		var dbName = "mylivediet.app";
 		if(!demoRunning) {
@@ -777,7 +777,7 @@ function updateFoodDb() {
 				if(hasSql) {
 					html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
 					//import sql
-					$.get("searchdb_" + LANG("LANGUAGE") + ".sql",function(sql) {
+					$.get("searchdb_" + LANG(LANGUAGE) + ".sql",function(sql) {
 						var startTime = new Date();
 						setTimeout(function() {
 						html5sql.process(
@@ -799,7 +799,7 @@ function updateFoodDb() {
 						},200);
 					});
 				} else {
-					$.get("searchdb_" + LANG("LANGUAGE") + ".ls",function(ls) {
+					$.get("searchdb_" + LANG(LANGUAGE) + ".ls",function(ls) {
 						eval(ls);
 						lib.commit();
 						//success
@@ -908,9 +908,9 @@ function updateEntries(partial) {
 		var lastRow = "";
 		var lastId  = "";
 		var lastPub = 0;
-		var langFood = LANG("FOOD");
-		var langExer = LANG("EXERCISE");
-		var langDel  = LANG("DELETE");
+		var langFood = LANG(FOOD);
+		var langExer = LANG(EXERCISE);
+		var langDel  = LANG(DELETE);
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = Number(data[i].title);
@@ -976,7 +976,7 @@ function updateEntries(partial) {
 		} else {
 			//PRE-FILL
 			//pageLoad('#entryList','<div id="noEntries"><span>no entries</span></div>');
-			$('#entryList').html('<div id="noEntries"><span>' + LANG("NO_ENTRIES") + '</span></div>');
+			$('#entryList').html('<div id="noEntries"><span>' + LANG(NO_ENTRIES) + '</span></div>');
 		}
 	});
 }
@@ -998,9 +998,9 @@ function updateEntriesTime() {
 function updateEntriesSum() {
 	//CONSOLE('updateEntriesSum()');
 	var pushTitle = [];
-	var lToday = LANG("TODAY");
-	var lFood  = LANG("FOOD");
-	var lExe   = LANG("EXERCISE");
+	var lToday = LANG(TODAY);
+	var lFood  = LANG(FOOD);
+	var lExe   = LANG(EXERCISE);
 	getEntries(function(data) {
 		for(var m=0, men=data.length; m<men; m++) {
 			pushTitle.push({ date: dayFormat(parseInt(data[m].published)).split("/").join("x"),val: data[m].title});
@@ -1075,7 +1075,7 @@ function buildHelpMenu() {
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
-	var helpTopics = LANG("HELP_TOPICS_ARRAY");
+	var helpTopics = LANG(HELP_TOPICS_ARRAY);
 	var helpHtml   = "";
 	var topicId    = 0;
 	$.each(helpTopics, function(key, value) {
@@ -1085,7 +1085,7 @@ function buildHelpMenu() {
 		}
 	});
 	//INSERT TOPIC LIST
-	$("#appHelper").html('<h2><span id="backButton"></span><div id="helpTitle">' + LANG("SETTINGS_HELP") + '</div></h2><ul>' + helpHtml + '</ul>');
+	$("#appHelper").html('<h2><span id="backButton"></span><div id="helpTitle">' + LANG(SETTINGS_HELP) + '</div></h2><ul>' + helpHtml + '</ul>');
 	//FADE IN
 	setTimeout(function() {
 		$("#appHelper").css("opacity","1");
@@ -1250,13 +1250,13 @@ function updateLoginStatus(sync) {
 					window.localStorage.setItem("facebook_username",facebook_username);	
 					$("#appFooter").addClass("appFacebook");
 					$("body").addClass("appFacebook");
-					$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK_LOGGED") + window.localStorage.getItem("facebook_username"));
+					$("#optionFacebook span").html(LANG(SETTINGS_FACEBOOK_LOGGED) + window.localStorage.getItem("facebook_username"));
 					if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
 				}
 			});
 		} else {
 			//alert('not logged in');
-			$("#optionFacebook span").html(LANG("SETTINGS_FACEBOOK"));
+			$("#optionFacebook span").html(LANG(SETTINGS_FACEBOOK));
 			window.localStorage.removeItem("facebook_logged");
 			window.localStorage.removeItem("facebook_userid");
 			window.localStorage.removeItem("facebook_username");	

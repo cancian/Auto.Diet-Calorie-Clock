@@ -31,9 +31,9 @@ function appTimer(id,content) {
 	var cssClass;
 	var cssOver = "";
 	var statusStop;
-	var lDeficit  = LANG('DEFICIT');
-	var lSurplus  = LANG('SURPLUS');
-	var lBalanced = LANG('BALANCED');
+	var lDeficit  = LANG(DEFICIT);
+	var lSurplus  = LANG(SURPLUS);
+	var lBalanced = LANG(BALANCED);
 	//STATUSES (RELATIVE)
          if(kcalsInput >  9999 )      { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
 	else if(kcalsInput < -9999 )      { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
@@ -69,8 +69,8 @@ function appTimer(id,content) {
 	//$("#timerDaily p").html(eqPerDay);
 	var kcalsHtmlOutput = "";
 	kcalsHtmlOutput    += "<div id='timerBlocks'>";
-	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG('CALORIES_AVALIABLE') + "</span></div>";
-	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG('DAILY_CALORIES') + "</span></div>";
+	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG(CALORIES_AVALIABLE) + "</span></div>";
+	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG(DAILY_CALORIES) + "</span></div>";
 	kcalsHtmlOutput    += "</div>";
 	//REPLACE
 	function updateHeader() {

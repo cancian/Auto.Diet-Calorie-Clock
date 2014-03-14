@@ -158,7 +158,7 @@ function dayFormat(input) {
 	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
 	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
 
-	if(LANG("LANGUAGE") == "pt") { 
+	if(LANG(LANGUAGE) == "pt") { 
 	    var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
 	} else {
 	    var res = gotMonth + "/" + gotDate + "/" + input.getFullYear();
@@ -185,25 +185,25 @@ function dateDiff(date1,date2) {
 	var hours     = Math.floor(difference_ms % 24);
 	var days      = Math.floor(difference_ms/24);
 
-	var lMinutes = " " + LANG('MINUTES') + " ";
-	var lHours   = " " + LANG('HOURS') + " ";
-	var lDays    = " " + LANG('DAYS') + " ";
+	var lMinutes = " " + LANG(MINUTES) + " ";
+	var lHours   = " " + LANG(HOURS) + " ";
+	var lDays    = " " + LANG(DAYS) + " ";
 
 	if(minutes == 0) { var lMinutes = ""; minutes = ""; }
 	if(hours   == 0) { var lHours   = ""; hours   = ""; }
 	if(days    == 0) { var lDays    = ""; days    = ""; }
 
-	if(minutes == 1) { var lMinutes = " " + LANG('MINUTE') + " "; }
-	if(hours   == 1) { var lHours   = " " + LANG('HOUR') + " ";   }
-	if(days    == 1) { var lDays    = " " + LANG('DAY') + " ";    }
+	if(minutes == 1) { var lMinutes = " " + LANG(MINUTE) + " "; }
+	if(hours   == 1) { var lHours   = " " + LANG(HOUR) + " ";   }
+	if(days    == 1) { var lDays    = " " + LANG(DAY) + " ";    }
 
 	if(days    > 3)                             { var lHours   = ""; hours   = ""; }
 	if(days    > 0)                             { var lMinutes = ""; minutes = ""; }
-	if(days    > 0 && hours   > 0)              { var lDays    = lDays  + LANG('AND') + " "; }
-	if(hours   > 0 && minutes > 0)              { var lHours   = lHours + LANG('AND') + " "; }
-	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; var lMinutes = " " + LANG('MINUTES') + " "; }
+	if(days    > 0 && hours   > 0)              { var lDays    = lDays  + LANG(AND) + " "; }
+	if(hours   > 0 && minutes > 0)              { var lHours   = lHours + LANG(AND) + " "; }
+	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; var lMinutes = " " + LANG(MINUTES) + " "; }
 
-	return days + lDays + hours + lHours + minutes + lMinutes + " " + LANG('AGO') + " ";
+	return days + lDays + hours + lHours + minutes + lMinutes + " " + LANG(AGO) + " ";
 }
 //////////////////
 // TIME ELAPSED //

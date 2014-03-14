@@ -12,7 +12,6 @@ if(window.navigator.language) {
 if(window.localStorage.getItem("devSetLang") == "pt") {
 	appLang = "pt";
 }
-function LANG(string) {
 ////////////////////////
 // GET PREF. LANGUAGE //
 ////////////////////////
@@ -695,15 +694,14 @@ var HELP_TOPICS_ARRAY = {
 	<p></p>\
 ",
 /////////////////////*/
-
 var XXX = {
 	en: "XXX",
 	pt: "XXX"
 };
-
 ////////////
 // OUTPUT //
 ////////////
-return eval(string)[appLang];
+function LANG(string) {
+	return string[appLang];
 }
 
