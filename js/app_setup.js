@@ -50,7 +50,7 @@ function dbErrorHandler(evt) {
 /////////////
 function initDB(t) {
 	CONSOLE('initDB');
-	//iv not sql already, dont use sql
+	//if not sql already, dont use sql
 	//TABLE EXISTS
 	if(hasSql) {
 		t.executeSql('select * from diary_entry order by published desc',[],

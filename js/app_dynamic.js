@@ -416,7 +416,7 @@ $(document).on("pageload", function(evt) {
 			//evt.preventDefault();
 			//evt.stopPropagation();
 		}
-		
+
 		if(evt.target.id == "entryListWrapper") {
 			if(!$("#entryList div").is(':animated')) {
 				$("#editableInput").blur();

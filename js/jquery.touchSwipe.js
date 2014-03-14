@@ -207,15 +207,13 @@
 		click:null, //Deprecated since 1.6.2
 		tap:null,
 		doubleTap:null,
-		longTap:null, 		
-		triggerOnTouchEnd: true, 
-		triggerOnTouchLeave:false, 
-		allowPageScroll: "auto", 
-		fallbackToMouseEvents: true,	
+		longTap:null,
+		triggerOnTouchEnd: true,
+		triggerOnTouchLeave:true,
+		allowPageScroll: "auto",
+		fallbackToMouseEvents: true,
 		excludedElements:"label, button, input, select, textarea, a, .noSwipe"
 	};
-
-
 
 	/**
 	* Applies TouchSwipe behaviour to one or more jQuery objects.

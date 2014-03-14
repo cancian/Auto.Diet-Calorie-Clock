@@ -35,6 +35,8 @@ document.write("<script type='text/javascript' src='js/nprogress.js'><\/script>"
 document.write("<script type='text/javascript' src='js/spin.min.js'><\/script>");
 if(!navigator.userAgent.match(/(MSIE)/)) {
 	document.write("<script type='text/javascript' src='js/quo.js'><\/script>");
+} else {
+	//document.write("<script type='text/javascript' src='js/jquery.mobile-events.js'><\/script>");
 }
 document.write("<script type='text/javascript' src='js/html5sql.js'><\/script>");
 document.write("<script type='text/javascript' src='js/UserVoice.js'><\/script>");

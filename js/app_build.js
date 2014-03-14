@@ -1348,7 +1348,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		//load scroller & set window < height
 		setTimeout(function() {
 			$('#diaryNotesInput').height(window.innerHeight - 32);
-			$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid #fff",cursoropacitymax:0.2,cursorwidth:4,horizrailenabled:false,hwacceleration:true});
+			$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:false});
 		},200);
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {
@@ -1851,7 +1851,7 @@ $("#formc input,#formc select").on(tap, function(evt) {
 //////////////////////////////
 // BLUR ON NULL ID TOUCHEND //
 //////////////////////////////
-//wp8 pan
+//wp8 pan (quick drop)
 $("#calcForm input, #calcForm select").on("blur",function(evt) {
 	window.scroll($('#appContent')[0].scrollTop,0,0);
 	return false;

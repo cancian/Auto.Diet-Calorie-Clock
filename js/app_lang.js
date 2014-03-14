@@ -272,8 +272,6 @@ var SETTINGS_FEEDBACK_INFO = {
 	en: "Post ideas and get support",
 	pt: "Poste ideias e tire dúvidas"
 };
-
-
 var SETTINGS_REVIEW = {
 	en: "Rate this App",
 	pt: "Avalie este App"
@@ -315,7 +313,6 @@ var SETTINGS_SYNC_INFO = {
 	en: "Keep your data safe and synced",
 	pt: "Mantenha seus dados seguros e sincronizados"
 };
-
 var LAST_SYNC = {
 	en: "last sync",
 	pt: "última sincronização"
@@ -692,22 +689,12 @@ var HELP_TOPICS_ARRAY = {
 "
 	}
 };
-
-
-
-
-
-
-
-
-
 /* ////////////////////
 "TITLE":"\
 	<p></p>\
 	<p></p>\
 ",
 /////////////////////*/
-
 
 var XXX = {
 	en: "XXX",
@@ -719,144 +706,4 @@ var XXX = {
 ////////////
 return eval(string)[appLang];
 }
-/*
-//detect offline
-	setTimeout(function(){
-		if(typeof updateTimer != 'function' && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
-			var appTitle  = (window.navigator.language.slice(0,2).toLowerCase() == "pt") ? 'SEM CONEXAO COM A INTERNET' : 'NO INTERNET CONNECTION';
-			var appDialog = (window.navigator.language.slice(0,2).toLowerCase() == "pt") ? 'Continuando em modo offline' : 'Reverting to offline mode';
-			window.localStorage.removeItem("config_debug");
-			if(window.cordova) {
-				navigator.notification.alert(appDialog,window.location='',appTitle,"ok");
-			} else {
-				alert(appTitle + " \n" + appDialog);
-				window.location='';
-			}
-			return false;
-		}
-	},5000);
-*/
-//#////////////////////#//
-//# GET VERSION NUMBER #//
-//#////////////////////#//
-/*
-if(window.cordova) {
-	var wizUtils = {
-		getBundleVersion: function(s) { return cordova.exec(s, null, "WizUtils", "getBundleVersion", []); },
-		getBundleDisplayName: function(s) { return cordova.exec(s, null, "WizUtils", "getBundleDisplayName", []); }
-	};
-}
-if(!window.wizUtils) {
-	window.localStorage.setItem("appVersion",appVersion);
-	window.localStorage.setItem("appBuild",appBuild);
-} else {
-	window.wizUtils.getBundleDisplayName(function(version) { window.localStorage.setItem("appVersion",version); });
-	window.wizUtils.getBundleVersion(function(build)	   { window.localStorage.setItem("appBuild",build);     });
-}*/
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-var lib = new localStorageDB("library", localStorage);
-
-
-// Check if the database was just created. Useful for initial database setup
-if( lib.isNew() ) {
-
-    // create the "books" table
-    lib.createTable("books", ["code", "title", "author", "year", "copies"]);
-
-    // insert some data
-    lib.insert("books", {code: "B001", title: "Phantoms in the brain", author: "Ramachandran", year: 1999, copies: 10});
-    lib.insert("books", {code: "B002", title: "The tell-tale brain", author: "Ramachandran", year: 2011, copies: 10});
-    lib.insert("books", {code: "B003", title: "Freakonomics", author: "Levitt and Dubner", year: 2005, copies: 10});
-    lib.insert("books", {code: "B004", title: "Predictably irrational", author: "Ariely", year: 2008, copies: 10});
-    lib.insert("books", {code: "B005", title: "Tesla: Man out of time", author: "Cheney", year: 2001, copies: 10});
-    lib.insert("books", {code: "B006", title: "Salmon fishing in the Yemen", author: "Torday", year: 2007, copies: 10});
-    lib.insert("books", {code: "B007", title: "The user illusion", author: "Norretranders", year: 1999, copies: 10});
-    lib.insert("books", {code: "B008", title: "Hubble: Window of the universe", author: "Sparrow", year: 2010, copies: 10});
-
-    // commit the database to localStorage
-    // all create/drop/insert/update/delete operations should be committed
-    lib.commit();
-
-}
-*/
-
-/*
-// simple select queries
-lib.query("books", {year: 2011});
-lib.query("books", {year: 1999, author: "Norretranders"});
-
-// select all books
-lib.query("books");
-
-// select all books published after 2003
-lib.query("books", function(row) {  // the callback function is applied to every row in the table
-    if(row.year > 2003) {       // if it returns true, the row is selected
-        return true;
-    } else {
-        return false;
-    }
-});
-
-// select all books by Torday and Sparrow
-lib.query("books", function(row) {
-    if(row.author == "Torday" || row.author == "Sparrow") {
-        return true;
-    } else {
-        return false;
-    }
-});
-
-
-
-
-
-
-
-// change the title of books published in 1999 to "Unknown"
-lib.update("books", {year: 1999}, function(row) {
-    row.title = "Unknown";
-
-    // the update callback function returns to the modified record
-    return row;
-});
-
-// add +5 copies to all books published after 2003
-lib.update("books",
-    function(row) { // select condition callback
-        if(row.year > 2003) {
-            return true;
-        } else {
-            return false;
-        }
-    },
-    function(row) { // update function
-        row.year+=5;
-        return row;
-    }
-);
-
-
-// if there's a book with code B003, update it, or insert it as a new row
-lib.insertOrUpdate("books", {code: 'B003'}, {
-						code: "B003",
-                        title: "Freakonomics",
-                        author: "Levitt and Dubner",
-                        year: 2005,
-                        copies: 15
-});
-
-
-*/

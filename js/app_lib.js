@@ -28,21 +28,15 @@ var isMobile = {
 	Android: function() {
 		return navigator.userAgent.match(/Android/i) ? true : false;
 	},
-	BlackBerry: function() {
-		return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-	},
 	iOS: function() {
 		return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 	},
 	Windows: function() {
 		return navigator.userAgent.match(/IEMobile/i) ? true : false;
-	},
-	any: function() {
-		return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
 	}
 };
 ////////////////
-//            //
+// GET VENDOR //
 ////////////////
 var prefix = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
 !/msie/.test(navigator.userAgent.toLowerCase()) &&
@@ -53,17 +47,17 @@ var prefix = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
 
 var transitionend = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
 !/msie/.test(navigator.userAgent.toLowerCase()) &&
-!/webkit/.test(navigator.userAgent.toLowerCase())) ? 'transitionend' :
+!/webkit/.test(navigator.userAgent.toLowerCase())) ? 'transitionend'       :
 (/webkit/.test(navigator.userAgent.toLowerCase())) ? 'webkitTransitionEnd' :
-(/msie/.test(navigator.userAgent.toLowerCase()))   ? 'transitionend' :
-(/opera/.test(navigator.userAgent.toLowerCase()))  ? 'transitionend' : '';
+(/msie/.test(navigator.userAgent.toLowerCase()))   ? 'transitionend'       :
+(/opera/.test(navigator.userAgent.toLowerCase()))  ? 'transitionend'       : '';
 
 var vendorClass = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
 !/msie/.test(navigator.userAgent.toLowerCase()) &&
-!/webkit/.test(navigator.userAgent.toLowerCase())) ? 'moz' :
+!/webkit/.test(navigator.userAgent.toLowerCase())) ? 'moz'    :
 (/webkit/.test(navigator.userAgent.toLowerCase())) ? 'webkit' :
-(/msie/.test(navigator.userAgent.toLowerCase()))   ? 'msie' :
-(/opera/.test(navigator.userAgent.toLowerCase()))  ? 'opera' : '';
+(/msie/.test(navigator.userAgent.toLowerCase()))   ? 'msie'   :
+(/opera/.test(navigator.userAgent.toLowerCase()))  ? 'opera'  : '';
 ////////////////////////
 // CONVERT VENDOR CSS //
 ////////////////////////
@@ -81,8 +75,8 @@ if(vendorClass == "moz" || vendorClass == "msie") {
 // INJECT FONTS //
 //////////////////
 $("head").append("<style type='text/css' id='coreFonts'></style>");
-	$.get(hostLocal + "css/fonts.css",function(raw) {
-		$("#coreFonts").html(raw);
+$.get(hostLocal + "css/fonts.css",function(raw) {
+	$("#coreFonts").html(raw);
 });
 ///////////////////
 // TOUCH ? CLICK //
@@ -125,26 +119,26 @@ function isNumberKey(evt){
 // TRIM //
 //////////
 function trim(str) {
-    str = str.replace(/^\s+/, '');
-    for (var i = str.length - 1; i >= 0; i--) {
-        if (/\S/.test(str.charAt(i))) {
-            str = str.substring(0, i + 1);
-            break;
-        }
-    }
-    return str;
+	str = str.replace(/^\s+/, '');
+	for(var i = str.length - 1; i >= 0; i--) {
+		if(/\S/.test(str.charAt(i))) {
+			str = str.substring(0, i + 1);
+			break;
+		}
+	}
+	return str;
 }
 /////////////////
 // DATE FORMAT //
 /////////////////
 function dtFormat(input) {
     if(!input) return "";
-	input = new Date(input);
-    var res = (input.getMonth()+1) + "/" + input.getDate() + "/" + input.getFullYear() + " ";
+	input    = new Date(input);
+    var res  = (input.getMonth()+1) + "/" + input.getDate() + "/" + input.getFullYear() + " ";
     var hour = input.getHours(); //+1;
     var ampm = "AM";
 	if(hour === 12) ampm = "PM";
-    if(hour > 12){
+    if(hour > 12) {
         hour-=12;
         ampm = "PM";
     }
@@ -153,7 +147,6 @@ function dtFormat(input) {
     res += hour + ":" + minute + " " + ampm;
     return res;
 }
-
 /////////////////
 // DATE FORMAT //
 /////////////////
@@ -161,9 +154,9 @@ function dayFormat(input) {
     if(!input) return "";
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
-	var gotDate = input.getDate();
+	var gotDate  = input.getDate();
 	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
-	if(gotDate < 10) { gotDate = "0" + gotDate; }
+	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
 
 	if(LANG("LANGUAGE") == "pt") { 
 	    var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
@@ -217,18 +210,18 @@ function dateDiff(date1,date2) {
 //////////////////
 function timeElapsed() {
 	var seconds = (new Date().getTime() - window.localStorage.getItem("config_start_time")) / 1000;
-var date = new Date(seconds * 1000);
-var dd   = Math.floor(seconds/86400);
-var hh   = date.getUTCHours();
-var mm   = date.getUTCMinutes();
-var ss   = date.getSeconds();
-//if (hh > 12) {hh = hh - 12;}
-if (hh < 10) { hh = "0" + hh; }
-if (mm < 10) { mm = "0" + mm; }
-if (ss < 10) { ss = "0" + ss; }
-// This formats your string to HH:MM:SS
-if(dd > 0) { dd = dd + "d "; } else { dd = ""; }
-return dd+hh+":"+mm+":"+ss;
+	var date = new Date(seconds * 1000);
+	var dd   = Math.floor(seconds/86400);
+	var hh   = date.getUTCHours();
+	var mm   = date.getUTCMinutes();
+	var ss   = date.getSeconds();
+	//if (hh > 12) {hh = hh - 12;}
+	if (hh < 10) { hh = "0" + hh; }
+	if (mm < 10) { mm = "0" + mm; }
+	if (ss < 10) { ss = "0" + ss; }
+	// This formats your string to HH:MM:SS
+	if(dd > 0) { dd = dd + "d "; } else { dd = ""; }
+	return dd+hh+":"+mm+":"+ss;
 }
 ////////////////////////////
 // GET WINDOW ORIENTATION //
