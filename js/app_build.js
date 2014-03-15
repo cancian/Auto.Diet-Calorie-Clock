@@ -9,26 +9,26 @@ function openSettings(string) {
 		<ul id="settingsList">\
 			<li id="optionMeasure">\
 				<div class="contentToggleTitle">\
-					<p class="contentTitle" id="contentToggleTitle">' + LANG(MEASURE_SYSTEM) + '<span>' + LANG(MEASURE_SYSTEM_INFO) + '</span></p>\
+					<p class="contentTitle" id="contentToggleTitle">' + LANG.MEASURE_SYSTEM[lang] + '<span>' + LANG.MEASURE_SYSTEM_INFO[lang] + '</span></p>\
 					<div id="tapSwitch">\
-						<div id="leftOption"><span>'  + LANG(IMPERIAL) + ' </span></div>\
-						<div id="rightOption"><span>' + LANG(METRIC)   + ' </span></div>\
+						<div id="leftOption"><span>'  + LANG.IMPERIAL[lang] + ' </span></div>\
+						<div id="rightOption"><span>' + LANG.METRIC[lang]   + ' </span></div>\
 					</div>\
 				</div>\
 			</li>\
-			<li id="optionFacebook"><div><p class="contentTitle">' + LANG(SETTINGS_SYNC)   + '<span>' + LANG(SETTINGS_SYNC_INFO)   + '</span></p></div></li>\
-			<li id="optionReview"><div><p class="contentTitle">'   + LANG(SETTINGS_REVIEW) + '<span>' + LANG(SETTINGS_REVIEW_INFO) + '</span></p></div></li>\
-			<li id="optionFeedback"><div><p class="contentTitle">' + LANG(SETTINGS_FEEDBACK) + '<span>' + LANG(SETTINGS_FEEDBACK_INFO) + '</span></p></div>\
-			<li id="optionHelp"><div><p class="contentTitle">'     + LANG(SETTINGS_HELP)   + '<span>' + LANG(SETTINGS_HELP_INFO)   + '</span></p></div></li>\
+			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_SYNC[lang]   + '<span>' + LANG.SETTINGS_SYNC_INFO[lang]   + '</span></p></div></li>\
+			<li id="optionReview"><div><p class="contentTitle">'   + LANG.SETTINGS_REVIEW[lang] + '<span>' + LANG.SETTINGS_REVIEW_INFO[lang] + '</span></p></div></li>\
+			<li id="optionFeedback"><div><p class="contentTitle">' + LANG.SETTINGS_FEEDBACK[lang] + '<span>' + LANG.SETTINGS_FEEDBACK_INFO[lang] + '</span></p></div>\
+			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]   + '<span>' + LANG.SETTINGS_HELP_INFO[lang]   + '</span></p></div></li>\
 		</ul>\
-		<div id="optionWebsite">' + LANG(ABOUT_TITLE) + '</div>\
-		<div id="optionLastSync">' + LANG(LAST_SYNC) + '<span>--</span></div>\
-		<div id="optionReset">' + LANG(SETTINGS_RESET) + '</div>\
+		<div id="optionWebsite">' + LANG.ABOUT_TITLE[lang] + '</div>\
+		<div id="optionLastSync">' + LANG.LAST_SYNC[lang] + '<span>--</span></div>\
+		<div id="optionReset">' + LANG.SETTINGS_RESET[lang] + '</div>\
 	</div>\
 	';
-	//<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG(SETTINGS_FACEBOOK) + '</span></div></div>\
-	//<li id="optionAbout"><div>'    + LANG(SETTINGS_ABOUT)    + '</div></li>\
-	//<li id="optionFeedback"><div>' + LANG(SETTINGS_FEEDBACK) + '</div></li>\
+	//<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG.SETTINGS_FACEBOOK[lang] + '</span></div></div>\
+	//<li id="optionAbout"><div>'    + LANG.SETTINGS_ABOUT[lang]    + '</div></li>\
+	//<li id="optionFeedback"><div>' + LANG.SETTINGS_FEEDBACK[lang] + '</div></li>\
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -75,7 +75,7 @@ function openSettings(string) {
 				function didUnlog() {
 					setTimeout(function() { 
 						NProgress.done();
-						$("#optionFacebook span").html(LANG(SETTINGS_FACEBOOK));
+						$("#optionFacebook span").html(LANG.SETTINGS_FACEBOOK[lang]);
 						window.localStorage.removeItem("facebook_logged");
 						window.localStorage.removeItem("facebook_userid");
 						window.localStorage.removeItem("facebook_username");	
@@ -105,9 +105,9 @@ function openSettings(string) {
 			}
 			//CONFIRM DIALOG
 			if(hasTouch()) {
-				navigator.notification.confirm(LANG(ARE_YOU_SURE), onConfirmLogout, LANG(LOGOUT_TITLE), [LANG(OK),LANG(CANCEL)]);
+				navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmLogout, LANG.LOGOUT_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 			} else {
-				if(confirm(LANG(LOGOUT_TITLE) + "\n" + LANG(ARE_YOU_SURE))) { onConfirmLogout(1); } else { }
+				if(confirm(LANG.LOGOUT_TITLE[lang] + "\n" + LANG.ARE_YOU_SURE[lang])) { onConfirmLogout(1); } else { }
 			}
 		} else {
 			////////////////
@@ -130,7 +130,7 @@ function openSettings(string) {
 								window.localStorage.setItem("facebook_username",facebook_username);	
 								$("#appFooter").addClass("appFacebook");
 								$("body").addClass("appFacebook");
-								$("#optionFacebook span").html(LANG(SETTINGS_FACEBOOK_LOGGED) + window.localStorage.getItem("facebook_username"));
+								$("#optionFacebook span").html(LANG.SETTINGS_FACEBOOK_LOGGED[lang] + window.localStorage.getItem("facebook_username"));
 								syncEntries(window.localStorage.getItem("facebook_userid"));
 							} else {
 								NProgress.done();
@@ -153,7 +153,7 @@ function openSettings(string) {
 	});
 	//SET USERNAME (IF LOGGED)
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
-		$("#optionFacebook span").html(LANG(SETTINGS_FACEBOOK_LOGGED) + window.localStorage.getItem("facebook_username"));
+		$("#optionFacebook span").html(LANG.SETTINGS_FACEBOOK_LOGGED[lang] + window.localStorage.getItem("facebook_username"));
 	}
 	////////////////
 	// ACTIVE ROW //
@@ -200,11 +200,11 @@ function openSettings(string) {
 		}
 		var params = {
 			method: 'feed',
-			name: 'MyLiveDiet ' + LANG(FOR) + ' ' + shareOS,
+			name: 'MyLiveDiet ' + LANG.FOR[lang] + ' ' + shareOS,
 			link: shareLink,
 			picture: 'http://mylivediet.com/icon.png',
-			caption: LANG(CALORIE_COUNTER),
-			description: LANG(SHARE_MESSAGE)
+			caption: LANG.CALORIE_COUNTER[lang],
+			description: LANG.SHARE_MESSAGE[lang]
 		};
 		FB.ui(params, function(obj) { CONSOLE(obj); });
 		//FB.ui(params);
@@ -253,9 +253,9 @@ function openSettings(string) {
 	/////////////////////
 	$("#optionAbout").on(touchend, function(evt) {
 		if(hasTouch()) {
-			navigator.notification.alert(LANG(ABOUT_DIALOG), voidThis,LANG(ABOUT_TITLE),LANG(OK));
+			navigator.notification.alert(LANG.ABOUT_DIALOG[lang], voidThis,LANG.ABOUT_TITLE[lang],LANG.OK[lang]);
 		} else {
-			alert(LANG(ABOUT_TITLE) + " \n" + LANG(ABOUT_DIALOG));
+			alert(LANG.ABOUT_TITLE[lang] + " \n" + LANG.ABOUT_DIALOG[lang]);
 			setTimeout(function() {
 				//$(".nextChild").removeClass("nextChild");
 				$(".activeRow").removeClass("activeRow");
@@ -314,10 +314,10 @@ function openSettings(string) {
 		}
 		//SHOW DIALOG
 		if(hasTouch()) {
-			navigator.notification.confirm(LANG(ARE_YOU_SURE), onConfirmWipe, LANG(WIPE_DIALOG), [LANG(OK),LANG(CANCEL)]);
+			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmWipe, LANG.WIPE_DIALOG[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 			return false;
 		} else {
-			if(confirm(LANG(WIPE_DIALOG))) { onConfirmWipe(1); } else { return false; }
+			if(confirm(LANG.WIPE_DIALOG[lang])) { onConfirmWipe(1); } else { return false; }
 		}
 	});
 	$("#optionReset").on(touchstart,function(evt) {
@@ -385,29 +385,29 @@ function openStatus(string) {
 	/////////////////////////////
 	if(window.localStorage.getItem("appStatus") == "running") {
 		var appStatusClass = "reset"; 
-		var appStatusTitle = LANG(RESET);
+		var appStatusTitle = LANG.RESET[lang];
 	} else {
 		var appStatusClass = "start";
-		var appStatusTitle = LANG(START);
+		var appStatusTitle = LANG.START[lang];
 	}
 	//RAW HTML
 	var statusHtml = '\
 	<a name="top"></a>\
 	<div id="statusWrapper">\
-		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG(TIME_ELAPSED) + '</span></div></div>\
-		<div id="appStatusWeight"><div><p><strong>' + weightLoss + '</strong>&nbsp;' + weightLossUnit + '</p><span>' + LANG(WEIGHT_LOSS) + '</span></div></div>\
-		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG(CALORIC_BALANCE) + '</span><div id="balanceBar"></div></div></div>\
+		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG.TIME_ELAPSED[lang] + '</span></div></div>\
+		<div id="appStatusWeight"><div><p><strong>' + weightLoss + '</strong>&nbsp;' + weightLossUnit + '</p><span>' + LANG.WEIGHT_LOSS[lang] + '</span></div></div>\
+		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG.CALORIC_BALANCE[lang] + '</span><div id="balanceBar"></div></div></div>\
 		<div id="appStatusIntake">\
-	<div id="entry_f-sum"><p>' + Number(window.localStorage.getItem("config_entry_f-sum")) + '</p><span>' + LANG(FOOD)     + '</span></div>\
-	<div id="entry_e-sum"><p>' + Number(window.localStorage.getItem("config_entry_e-sum")) + '</p><span>' + LANG(EXERCISE) + '</span></div>\
+	<div id="entry_f-sum"><p>' + Number(window.localStorage.getItem("config_entry_f-sum")) + '</p><span>' + LANG.FOOD[lang]     + '</span></div>\
+	<div id="entry_e-sum"><p>' + Number(window.localStorage.getItem("config_entry_e-sum")) + '</p><span>' + LANG.EXERCISE[lang] + '</span></div>\
 		</div>\
 		<div id="appStatusBars">\
-			<div id="appStatusBarsPro"><p>' + LANG(PROTEINS) + '</p><span>0%</span></div>\
-			<div id="appStatusBarsCar"><p>' + LANG(CARBS) + '</p><span>0%</span></div>\
-			<div id="appStatusBarsFat"><p>' + LANG(FATS) + '</p><span>0%</span></div>\
+			<div id="appStatusBarsPro"><p>' + LANG.PROTEINS[lang] + '</p><span>0%</span></div>\
+			<div id="appStatusBarsCar"><p>' + LANG.CARBS[lang] + '</p><span>0%</span></div>\
+			<div id="appStatusBarsFat"><p>' + LANG.FATS[lang] + '</p><span>0%</span></div>\
 		</div>\
-		<div id="appStatusAddLeft"><div>'  + LANG(FOOD)     + '</div></div>\
-		<div id="appStatusAddRight"><div>' + LANG(EXERCISE) + '</div></div>\
+		<div id="appStatusAddLeft"><div>'  + LANG.FOOD[lang]     + '</div></div>\
+		<div id="appStatusAddRight"><div>' + LANG.EXERCISE[lang] + '</div></div>\
 		<div id="appStatusFix">\
 			<div id="startDateBar"><span id="startDateSpan"><input id="startDate" tabindex="-1" readonly /></span></div>\
 			<div id="appStatusToggle"></div>\
@@ -437,9 +437,9 @@ function openStatus(string) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		//DIALOG
 		if(hasTouch()) {
-			navigator.notification.alert("25% " + LANG(PROTEINS) + "\n" + "50% " + LANG(CARBS)    + "\n" + "25% " + LANG(FATS), voidThis,LANG(STATUS_BARS).toUpperCase(),LANG(OK));
+			navigator.notification.alert("25% " + LANG.PROTEINS[lang] + "\n" + "50% " + LANG.CARBS[lang]    + "\n" + "25% " + LANG.FATS[lang], voidThis,LANG.STATUS_BARS[lang].toUpperCase(),LANG.OK[lang]);
 		} else {
-			alert(LANG(STATUS_BARS).toUpperCase() + ": \n" + "25% " + LANG(PROTEINS) + "\n" + "50% " + LANG(CARBS)    + "\n" + "25% " + LANG(FATS));
+			alert(LANG.STATUS_BARS[lang].toUpperCase() + ": \n" + "25% " + LANG.PROTEINS[lang] + "\n" + "50% " + LANG.CARBS[lang]    + "\n" + "25% " + LANG.FATS[lang]);
 		}
 		return false;
 	});	
@@ -448,12 +448,12 @@ function openStatus(string) {
 	//////////////////
 	$("#appStatusElapsed").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		var ELAPSED_DIALOG = LANG(BEEN_DIETING) + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG(AGO),"")) + "";
+		var ELAPSED_DIALOG = LANG.BEEN_DIETING[lang] + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG.AGO[lang],"")) + "";
 		//DIALOG
 		if(hasTouch()) {
-			navigator.notification.alert(ELAPSED_DIALOG, voidThis,LANG(TIME_ELAPSED).toUpperCase(),LANG(OK));
+			navigator.notification.alert(ELAPSED_DIALOG, voidThis,LANG.TIME_ELAPSED[lang].toUpperCase(),LANG.OK[lang]);
 		} else {
-			alert(LANG(TIME_ELAPSED).toUpperCase() + ": \n" + ELAPSED_DIALOG);
+			alert(LANG.TIME_ELAPSED[lang].toUpperCase() + ": \n" + ELAPSED_DIALOG);
 		}
 		return false;
 	});
@@ -467,13 +467,13 @@ function openStatus(string) {
 		} else { 
 			var resValue = Math.round(((Number(window.localStorage.getItem('calcForm#pA6G'))*3500)/7));
 		}
-		var LOSS_DIALOG = LANG(STATUS_LOSS_1) + $("#appStatusWeight p").text() + "\n\n" + LANG(STATUS_LOSS_2) + resValue + " kcal/" + LANG(DAY) + ")";
+		var LOSS_DIALOG = LANG.STATUS_LOSS_1[lang] + $("#appStatusWeight p").text() + "\n\n" + LANG.STATUS_LOSS_2[lang] + resValue + " kcal/" + LANG.DAY[lang] + ")";
 		//[" + window.localStorage.getItem('calcForm#pA6G') + weightLossUnit + "/week])";
 		//DIALOG
 		if(hasTouch()) {
-			navigator.notification.alert(LOSS_DIALOG, voidThis,LANG(WEIGHT_LOSS).toUpperCase(),LANG(OK));
+			navigator.notification.alert(LOSS_DIALOG, voidThis,LANG.WEIGHT_LOSS[lang].toUpperCase(),LANG.OK[lang]);
 		} else {
-			alert(LANG(WEIGHT_LOSS).toUpperCase() + ": \n" + LOSS_DIALOG);
+			alert(LANG.WEIGHT_LOSS[lang].toUpperCase() + ": \n" + LOSS_DIALOG);
 		}
 		return false;
 	});
@@ -488,17 +488,17 @@ function openStatus(string) {
 		var eqDate  	 = Number((new Date()).getTime());
 		var eqRatio 	= (60*60*24 / eqPerDay);
 		var eqDiff  	 = eqDate - Math.floor(Math.abs(kcalsInput*eqRatio));
-		var eqTime  	 = trim(dateDiff(eqDiff*1000,eqDate*1000).replace(" " + LANG(AGO),""));
+		var eqTime  	 = trim(dateDiff(eqDiff*1000,eqDate*1000).replace(" " + LANG.AGO[lang],""));
 		if(parseInt($("#timerKcals").text()) < 0) {
-			var EQ_DIALOG = LANG(STATUS_EQ_TIME_1) + eqTime + LANG(STATUS_EQ_TIME_2) + Math.abs(parseInt($("#timerKcals").text())) + LANG(STATUS_EQ_TIME_3) + eqPerDay + LANG(STATUS_EQ_TIME_4);
+			var EQ_DIALOG = LANG.STATUS_EQ_TIME_1[lang] + eqTime + LANG.STATUS_EQ_TIME_2[lang] + Math.abs(parseInt($("#timerKcals").text())) + LANG.STATUS_EQ_TIME_3[lang] + eqPerDay + LANG.STATUS_EQ_TIME_4[lang];
 		} else {
-			var EQ_DIALOG = LANG(STATUS_EQ_TIME_5) + parseInt($("#timerKcals").text()) + LANG(STATUS_EQ_TIME_6) + eqTime + LANG(STATUS_EQ_TIME_7) + eqPerDay + LANG(STATUS_EQ_TIME_8);
+			var EQ_DIALOG = LANG.STATUS_EQ_TIME_5[lang] + parseInt($("#timerKcals").text()) + LANG.STATUS_EQ_TIME_6[lang] + eqTime + LANG.STATUS_EQ_TIME_7[lang] + eqPerDay + LANG.STATUS_EQ_TIME_8[lang];
 		}
 		//DIALOG
 		if(hasTouch()) {
-			navigator.notification.alert(EQ_DIALOG, voidThis,LANG(CALORIC_BALANCE).toUpperCase(),LANG(OK));
+			navigator.notification.alert(EQ_DIALOG, voidThis,LANG.CALORIC_BALANCE[lang].toUpperCase(),LANG.OK[lang]);
 		} else {
-			alert(LANG(CALORIC_BALANCE).toUpperCase() + ": \n" + EQ_DIALOG);
+			alert(LANG.CALORIC_BALANCE[lang].toUpperCase() + ": \n" + EQ_DIALOG);
 		}
 		return false;
 	});
@@ -507,12 +507,12 @@ function openStatus(string) {
 	///////////////////
 	$("#appStatusIntake").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		var INTAKE_DIALOG = LANG(STATUS_INTAKE_1) + Number($("#editableDiv").text()) + LANG(STATUS_INTAKE_2);
+		var INTAKE_DIALOG = LANG.STATUS_INTAKE_1[lang] + Number($("#editableDiv").text()) + LANG.STATUS_INTAKE_2[lang];
 		//DIALOG
 		if(hasTouch()) {
-			navigator.notification.alert(INTAKE_DIALOG, voidThis,LANG(CALORIC_INTAKE).toUpperCase(),LANG(OK));
+			navigator.notification.alert(INTAKE_DIALOG, voidThis,LANG.CALORIC_INTAKE[lang].toUpperCase(),LANG.OK[lang]);
 		} else {
-			alert(LANG(CALORIC_INTAKE).toUpperCase() + ": \n" + INTAKE_DIALOG);
+			alert(LANG.CALORIC_INTAKE[lang].toUpperCase() + ": \n" + INTAKE_DIALOG);
 		}
 		return false;
 	});
@@ -527,7 +527,7 @@ function openStatus(string) {
 					setPush();
 					$("#appStatus").removeClass("reset");
 					$("#appStatus").addClass("start");
-					$("#appStatusTitle").html(LANG(START));
+					$("#appStatusTitle").html(LANG.START[lang]);
 					window.localStorage.removeItem("appStatus");
 					window.localStorage.setItem("config_start_time",new Date().getTime());
 				}
@@ -535,16 +535,16 @@ function openStatus(string) {
 			}
 			//SHOW DIALOG
 			if(hasTouch()) {
-				navigator.notification.confirm(LANG(ARE_YOU_SURE), appReset, LANG(RESET_DIALOG), [LANG(OK),LANG(CANCEL)]);
+				navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], appReset, LANG.RESET_DIALOG[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 				return false;
 			} else {
-				if(confirm(LANG(RESET_DIALOG))) { appReset(1); } else { return false; }
+				if(confirm(LANG.RESET_DIALOG[lang])) { appReset(1); } else { return false; }
 			}
 		} else {
 			setPush();
 			$("#appStatus").removeClass("start");
 			$("#appStatus").addClass("reset");
-			$("#appStatusTitle").html(LANG(RESET));
+			$("#appStatusTitle").html(LANG.RESET[lang]);
 			window.localStorage.setItem("appStatus","running");
 		}
 		evt.preventDefault();
@@ -583,7 +583,7 @@ function openStatus(string) {
 		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //ONE YEAR BACK
 		maxDate: new Date(),
 		theme: 'android-ics light',
-		lang: LANG(LANGUAGE_FULL),
+		lang: LANG.LANGUAGE_FULL[lang],
 		dateFormat:'yyyy/mm/dd',
 		display: 'modal',
 		stepMinute: 1,
@@ -669,11 +669,11 @@ getEntries(function(data) {
 updateEntriesSum();
 //RAW HTML
 var diaryHtml = ""
-var lHoursAgo = LANG(HOURS_AGO);
+var lHoursAgo = LANG.HOURS_AGO[lang];
 //android 2.x select fix
 var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
-		<option value="0">' + LANG(NOW) + '</option>\
-		<option value="1">1 ' + LANG(HOUR_AGO) + '</option>\
+		<option value="0">' + LANG.NOW[lang] + '</option>\
+		<option value="1">1 ' + LANG.HOUR_AGO[lang] + '</option>\
 		<option value="2">2 ' + lHoursAgo + '</option>\
 		<option value="3">3 ' + lHoursAgo + '</option>\
 		<option value="4">4 ' + lHoursAgo + '</option>\
@@ -696,9 +696,9 @@ var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
 		<option value="21">21 ' + lHoursAgo + '</option>\
 		<option value="22">22 ' + lHoursAgo + '</option>\
 		<option value="23">23 ' + lHoursAgo + '</option>\
-		<option value="24">1 ' + LANG(DAY_AGO) + '</option>\
-		<option value="48">2 ' + LANG(DAYS_AGO) + '</option>\
-		<option value="72">3 ' + LANG(DAYS_AGO) + '</option>\
+		<option value="24">1 ' + LANG.DAY_AGO[lang] + '</option>\
+		<option value="48">2 ' + LANG.DAYS_AGO[lang] + '</option>\
+		<option value="72">3 ' + LANG.DAYS_AGO[lang] + '</option>\
 	</select>';
 	if(Math.floor(androidVersion()) == 2) {  
 		var outerSelect = formSelect;
@@ -713,15 +713,15 @@ diaryHtml += '\
 <div id="entryListForm">\
 	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
 	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcal</div>\
-	<div id="sliderNeg"><span></span>' + LANG(EXERCISE) + '</div>\
-	<div id="sliderPos">' + LANG(FOOD) + '<span></span></div>\
-	<input type="text" id="entryBody" placeholder="' + LANG(DESCRIPTION) + '" tabindex="-1" />\
+	<div id="sliderNeg"><span></span>' + LANG.EXERCISE[lang] + '</div>\
+	<div id="sliderPos">' + LANG.FOOD[lang] + '<span></span></div>\
+	<input type="text" id="entryBody" placeholder="' + LANG.DESCRIPTION[lang] + '" tabindex="-1" />\
 	<div id="entryBodySearch"><div></div></div>\
 	' + innerSelect + '\
-	<div id="entrySubmit">' + LANG(ADD_ENTRY) + '</div>\
+	<div id="entrySubmit">' + LANG.ADD_ENTRY[lang] + '</div>\
 </div>\
 <div id="entryListWrapper">\
-	<div class="heading" id="go">' + LANG(ACTIVITY_LOG) + '<div id="diaryNotes"></div></div>\
+	<div class="heading" id="go">' + LANG.ACTIVITY_LOG[lang] + '<div id="diaryNotes"></div></div>\
 	<div id="entryList">';
 		///////////////////////
 		// updateEntries SQL //
@@ -732,9 +732,9 @@ diaryHtml += '\
 		var lastRow = "";
 		var lastId  = "";
 		var lastPub = 0;
-		var langFood = LANG(FOOD);
-		var langExer = LANG(EXERCISE);
-		var langDel = LANG(DELETE);
+		var langFood = LANG.FOOD[lang];
+		var langExer = LANG.EXERCISE[lang];
+		var langDel = LANG.DELETE[lang];
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = Number(data[i].title);
@@ -788,13 +788,13 @@ diaryHtml += '\
 	// UPDATE DIV //
 	////////////////
 		if(s == "") {
-			diaryHtml += '<div id="noEntries"><span>' + LANG(NO_ENTRIES) + '</span></div>';
+			diaryHtml += '<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>';
 		} else {
 			diaryHtml += s;
 		}
 ///////////////////
 diaryHtml += '</div>\
-		<div id="entryListBottomBar">' + LANG(CLEAR_ALL) + '</div>\
+		<div id="entryListBottomBar">' + LANG.CLEAR_ALL[lang] + '</div>\
 		</div>\
 	</div>\
 ';
@@ -865,7 +865,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			published = published - (Number($("#entryTime").val()) * (60 * 60 * 1000) );
 		}
 		//null default values
-		if(body == LANG(FOOD) || body == LANG(EXERCISE)) {
+		if(body == LANG.FOOD[lang] || body == LANG.EXERCISE[lang]) {
 			body = "";
 		}
 		//SAVE (NOT NULL)
@@ -895,9 +895,9 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			//SHOW START DIALOG
 			if(window.localStorage.getItem("appStatus") != "running") {
 				if(hasTouch()) {
-					navigator.notification.confirm(LANG(NOT_RUNNING_DIALOG), onConfirmStart, LANG(NOT_RUNNING_TITLE), [LANG(OK),LANG(CANCEL)]);
+					navigator.notification.confirm(LANG.NOT_RUNNING_DIALOG[lang], onConfirmStart, LANG.NOT_RUNNING_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 				} else {
-					if(confirm(LANG(NOT_RUNNING_TITLE) + "\n" + LANG(NOT_RUNNING_DIALOG))) { onConfirmStart(1); } else { }
+					if(confirm(LANG.NOT_RUNNING_TITLE[lang] + "\n" + LANG.NOT_RUNNING_DIALOG[lang])) { onConfirmStart(1); } else { }
 				}
 			}
 			//REFRESH DATA
@@ -1163,20 +1163,20 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			/*
 			var params = {
 				method: 'feed',
-				name: 'MyLiveDiet ' + LANG(FOR) + ' ' + shareOS,
+				name: 'MyLiveDiet ' + LANG.FOR[lang] + ' ' + shareOS,
 				link: shareLink,
 				picture: 'http://mylivediet.com/icon.png',
-				caption: LANG(CALORIE_COUNTER),
-				description: LANG(SHARE_MESSAGE)
+				caption: LANG.CALORIE_COUNTER[lang],
+				description: LANG.SHARE_MESSAGE[lang]
 			};*/
 			//FB.ui(params, function(obj) { CONSOLE(obj); });
 			FB.ui({
 				method: 'feed',
-				name: 'MyLiveDiet ' + LANG(FOR) + ' ' + shareOS,
+				name: 'MyLiveDiet ' + LANG.FOR[lang] + ' ' + shareOS,
 				link: shareLink,
 				picture: 'http://mylivediet.com/icon.png',
-				caption: LANG(CALORIE_COUNTER),
-				description: LANG(SHARE_MESSAGE)
+				caption: LANG.CALORIE_COUNTER[lang],
+				description: LANG.SHARE_MESSAGE[lang]
 			});
 			$("#entryBody").val('');
 			$("#entryBody").blur();
@@ -1198,10 +1198,10 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//SHOW DIALOG
 		if(hasTouch()) {
-			navigator.notification.confirm(LANG(ARE_YOU_SURE), onConfirmClear, LANG(CLEAR_ALL_TITLE), [LANG(OK),LANG(CANCEL)]);
+			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmClear, LANG.CLEAR_ALL_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 			return false;
 		} else {
-			if(confirm(LANG(CLEAR_ALL_TITLE) + '\n' + LANG(ARE_YOU_SURE))) { onConfirmClear(1); } else { return false; }
+			if(confirm(LANG.CLEAR_ALL_TITLE[lang] + '\n' + LANG.ARE_YOU_SURE[lang])) { onConfirmClear(1); } else { return false; }
 		}
 	});
 	//style
@@ -1335,7 +1335,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//show
 		$('#diaryNotesWrapper').remove();
-		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'><span>" + LANG(NOTEPAD_DONE) + "</span></div><textarea id='diaryNotesInput'></textarea></div>");
+		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'><span>" + LANG.NOTEPAD_DONE[lang] + "</span></div><textarea id='diaryNotesInput'></textarea></div>");
 		//load content
 		if(window.localStorage.getItem("appNotes") != "") {
 			$('#diaryNotesInput').val(window.localStorage.getItem("appNotes"));
@@ -1412,39 +1412,39 @@ var profileHtml = '\
 	<form id="formc" name="formc" action="" method="post">\
 		<!--<h2>Calories Per Day Calculator</h2>-->\
 		<div class="calcRow">\
-			<label>' + LANG(YOUR_GENDER) + '</label>\
+			<label>' + LANG.YOUR_GENDER[lang] + '</label>\
     		<span class="selectArrow">\
 				<select id="pA1B" tabindex="1" onchange="recalc_onclick(&#39;pA1B&#39;)" size="1" name="pA1B">\
-					<option value="Male" selected="selected">' + LANG(MALE) + '</option>\
-					<option value="Female">' + LANG(FEMALE) + '</option>\
+					<option value="Male" selected="selected">' + LANG.MALE[lang] + '</option>\
+					<option value="Female">' + LANG.FEMALE[lang] + '</option>\
 				</select>\
 			</span>\
 		</div>\
 		<div class="calcRow">\
-			<label>' + LANG(YOUR_HEIGHT) + '</label>\
+			<label>' + LANG.YOUR_HEIGHT[lang] + '</label>\
 			<input type="hidden" class="ee101" id="pA2B" tabindex="2" size="8" value="70" name="pA2B" />\
 			<input type="number" tabindex="2" id="feet" name="feet" value="5"><input tabindex="2" type="number" id="inches" name="inches" value="10" size="2">\
 		    <span class="selectArrow">\
 				<select id="pA2C" tabindex="3" onchange="recalc_onclick(&#39;pA2C&#39;)" name="pA2C">\
-					<option value="centimetres">' + LANG(CENTIMETERS) + '</option>\
-					<option value="inches" selected="selected">' + LANG(FEET_INCHES) + '</option>\
+					<option value="centimetres">' + LANG.CENTIMETERS[lang] + '</option>\
+					<option value="inches" selected="selected">' + LANG.FEET_INCHES[lang] + '</option>\
 				</select>\
 			</span>\
 			<input class="ee101" id="pA2D" type="hidden" readonly name="pA2D" />\
 		</div>\
 		<div class="calcRow">\
-			<label>' + LANG(YOUR_WEIGHT) + '</label>\
+			<label>' + LANG.YOUR_WEIGHT[lang] + '</label>\
 			<input type="number" id="pA3B" onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA3B&#39;)" tabindex="4" size="8" value="160" name="pA3B" />\
 		    <span class="selectArrow">\
 				<select id="pA3C" tabindex="5" onchange="recalc_onclick(&#39;pA3C&#39;)" size="1" name="pA3C">\
-					<option value="kilograms">' + LANG(KILOGRAMS) + '</option>\
-					<option value="pounds" selected="selected">' + LANG(POUNDS) + '</option>\
+					<option value="kilograms">' + LANG.KILOGRAMS[lang] + '</option>\
+					<option value="pounds" selected="selected">' + LANG.POUNDS[lang] + '</option>\
 				</select>\
 			</span>\
 		    <input class="ee101" id="pA3D" type="hidden" readonly size="4" value="0" name="pA3D" />\
 		</div>\
 		<div class="calcRow">\
-			<label>' + LANG(YOUR_AGE) + '</label>\
+			<label>' + LANG.YOUR_AGE[lang] + '</label>\
 	<span class="selectArrow"><select class="ee100" id="pA4B" tabindex="6" onchange="recalc_onclick(&#39;pA4B&#39;)" size="1" name="pA4B">\
 		<option value="10">10</option>\
 		<option value="11">11</option>\
@@ -1540,12 +1540,12 @@ var profileHtml = '\
 	</select></span>\
 </div>\
 <div class="calcRow" id="yourActivity">\
-		<label>' + LANG(YOUR_ACTIVITY) + '</label>\
+		<label>' + LANG.YOUR_ACTIVITY[lang] + '</label>\
 		<span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
-			<option selected="selected" value="Sedentary (little or no exercise, desk job)">' + LANG(YOUR_ACTIVITY_OPTION1) + '</option>\
-			<option value="Lightly active (light exercise/sports 1-3 days/wk)">'              + LANG(YOUR_ACTIVITY_OPTION2) + '</option>\
-			<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">'        + LANG(YOUR_ACTIVITY_OPTION3) + '</option>\
-			<option value="Very active (hard exercise/sports 6-7 days/wk)">'                  + LANG(YOUR_ACTIVITY_OPTION4) + '</option>\
+			<option selected="selected" value="Sedentary (little or no exercise, desk job)">' + LANG.YOUR_ACTIVITY_OPTION1[lang] + '</option>\
+			<option value="Lightly active (light exercise/sports 1-3 days/wk)">'              + LANG.YOUR_ACTIVITY_OPTION2[lang] + '</option>\
+			<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">'        + LANG.YOUR_ACTIVITY_OPTION3[lang] + '</option>\
+			<option value="Very active (hard exercise/sports 6-7 days/wk)">'                  + LANG.YOUR_ACTIVITY_OPTION4[lang] + '</option>\
 		</select></span>\
 </div>\
 <div class="invisible"><input type="checkbox" checked="checked" value="ON" name="automatic_recalc" /><label>Automatic recalculation</label></div>\
@@ -1553,13 +1553,13 @@ var profileHtml = '\
 <div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
-<h2 id="mantain"><span>A.</span> ' + LANG(KEEP_WEIGHT) + '</h2>\
-<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG(DAY) + '</span></div>\
+<h2 id="mantain"><span>A.</span> ' + LANG.KEEP_WEIGHT[lang] + '</h2>\
+<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
 \
-<h2><span>B.</span> ' + LANG(LOSE_WEIGHT) + '</h2>\
+<h2><span>B.</span> ' + LANG.LOSE_WEIGHT[lang] + '</h2>\
 <div class="calcResult">\
    <span class="selectArrow"> <select class="ee101" id="pA6G" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6G&#39;)" tabindex="8" size="1" value="1" name="pA6G">\
 		<option value="0.25">0.25</option>\
@@ -1585,17 +1585,17 @@ var profileHtml = '\
 	</select></span>\
 	<input class="ee101" id="pA6J2" type="hidden" readonly size="2" value="0" name="pA6J" />\
 	<span class="selectArrow"><select id="pA6H" tabindex="9" onchange="recalc_onclick(&#39;pA6H&#39;)" size="1" name="pA6H">\
-		<option value="kilograms">' + LANG(KILOGRAMS) + '</option>\
-		<option value="pounds" selected="selected">' + LANG(POUNDS) + '</option>\
+		<option value="kilograms">' + LANG.KILOGRAMS[lang] + '</option>\
+		<option value="pounds" selected="selected">' + LANG.POUNDS[lang] + '</option>\
 	</select></span>\
-	<span>' + LANG(PER_WEEK) + '</span>\
+	<span>' + LANG.PER_WEEK[lang] + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG(DAY) + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
 \
-<h2><span>C.</span> ' + LANG(GAIN_WEIGHT) + '</h2>\
+<h2><span>C.</span> ' + LANG.GAIN_WEIGHT[lang] + '</h2>\
 <div class="calcResult">\
     <span class="selectArrow"><select class="ee101" id="pA6M" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
 		<option value="0.25">0.25</option>\
@@ -1621,12 +1621,12 @@ var profileHtml = '\
 	</select></span>\
 	<input class="ee101" id="pA6O2" type="hidden" readonly size="2" value="0" name="pA6O" />\
 	<span class="selectArrow"><select id="pA6N" tabindex="11" onchange="recalc_onclick(&#39;pA6N&#39;)" size="1" name="pA6N">\
-		<option value="kilograms">' + LANG(KILOGRAMS) + '</option>\
-		<option value="pounds" selected="selected">' + LANG(POUNDS) + '</option>\
+		<option value="kilograms">' + LANG.KILOGRAMS[lang] + '</option>\
+		<option value="pounds" selected="selected">' + LANG.POUNDS[lang] + '</option>\
 	</select></span>\
-	<span>' + LANG(PER_WEEK) + '</span>\
+	<span>' + LANG.PER_WEEK[lang] + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcal / ' + LANG(DAY) + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
 \
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\
@@ -1638,12 +1638,12 @@ var profileHtml = '\
 	</select></span>\
 </div>\
 <div class="calcRow" id="yourActivity">\
-		<label>' + LANG(YOUR_ACTIVITY) + '</label>\
+		<label>' + LANG.YOUR_ACTIVITY[lang] + '</label>\
 		<span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
-			<option selected="selected" value="Sedentary (little or no exercise, desk job)">' + LANG(YOUR_ACTIVITY_OPTION1) + '</option>\
-			<option value="Lightly active (light exercise/sports 1-3 days/wk)">'              + LANG(YOUR_ACTIVITY_OPTION2) + '</option>\
-			<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">'        + LANG(YOUR_ACTIVITY_OPTION3) + '</option>\
-			<option value="Very active (hard exercise/sports 6-7 days/wk)">'                  + LANG(YOUR_ACTIVITY_OPTION4) + '</option>\
+			<option selected="selected" value="Sedentary (little or no exercise, desk job)">' + LANG.YOUR_ACTIVITY_OPTION1[lang] + '</option>\
+			<option value="Lightly active (light exercise/sports 1-3 days/wk)">'              + LANG.YOUR_ACTIVITY_OPTION2[lang] + '</option>\
+			<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">'        + LANG.YOUR_ACTIVITY_OPTION3[lang] + '</option>\
+			<option value="Very active (hard exercise/sports 6-7 days/wk)">'                  + LANG.YOUR_ACTIVITY_OPTION4[lang] + '</option>\
 		</select></span>\
 </div>\
 <div class="invisible"><input type="checkbox" checked="checked" value="ON" name="automatic_recalc" /><label>Automatic recalculation</label></div>\
@@ -1651,13 +1651,13 @@ var profileHtml = '\
 <div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
-<h2 id="mantain" class="invisible hidden"><span>A.</span> ' + LANG(KEEP_WEIGHT) + '</h2>\
-<div class="tapSelect invisible hidden"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG(DAY) + '</span></div>\
+<h2 id="mantain" class="invisible hidden"><span>A.</span> ' + LANG.KEEP_WEIGHT[lang] + '</h2>\
+<div class="tapSelect invisible hidden"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
 \
-<h2 class="invisible hidden"><span>B.</span> ' + LANG(LOSE_WEIGHT) + '</h2>\
+<h2 class="invisible hidden"><span>B.</span> ' + LANG.LOSE_WEIGHT[lang] + '</h2>\
 <div class="calcResult invisible hidden">\
    <span class="selectArrow"> <select class="ee101" id="pA6G" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6G&#39;)" tabindex="8" size="1" value="1" name="pA6G">\
 		<option value="-5">-5</option>\
@@ -1704,17 +1704,17 @@ var profileHtml = '\
 	</select></span>\
 	<input class="ee101" id="pA6J2" type="hidden" readonly size="2" value="0" name="pA6J" />\
 	<span class="selectArrow"><select id="pA6H" tabindex="9" onchange="recalc_onclick(&#39;pA6H&#39;)" size="1" name="pA6H">\
-		<option value="kilograms">' + LANG(KILOGRAMS) + '</option>\
-		<option value="pounds" selected="selected">' + LANG(POUNDS) + '</option>\
+		<option value="kilograms">' + LANG.KILOGRAMS[lang] + '</option>\
+		<option value="pounds" selected="selected">' + LANG.POUNDS[lang] + '</option>\
 	</select></span>\
-	<span>' + LANG(PER_WEEK) + '</span>\
+	<span>' + LANG.PER_WEEK[lang] + '</span>\
 </div>\
-<div class="tapSelect invisible hidden"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG(DAY) + '</span></div>\
+<div class="tapSelect invisible hidden"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
 \
-<h2><span>C.</span> ' + LANG(GAIN_WEIGHT) + '</h2>\
+<h2><span>C.</span> ' + LANG.GAIN_WEIGHT[lang] + '</h2>\
 <div class="calcResult">\
     <span class="selectArrow"><select class="ee101" id="pA6M" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
 		<option value="-5">-5</option>\
@@ -1761,12 +1761,12 @@ var profileHtml = '\
 	</select></span>\
 	<input class="ee101" id="pA6O2" type="hidden" readonly size="2" value="0" name="pA6O" />\
 	<span class="selectArrow"><select id="pA6N" tabindex="11" onchange="recalc_onclick(&#39;pA6N&#39;)" size="1" name="pA6N">\
-		<option value="kilograms">' + LANG(KILOGRAMS) + '</option>\
-		<option value="pounds" selected="selected">' + LANG(POUNDS) + '</option>\
+		<option value="kilograms">' + LANG.KILOGRAMS[lang] + '</option>\
+		<option value="pounds" selected="selected">' + LANG.POUNDS[lang] + '</option>\
 	</select></span>\
-	<span>' + LANG(PER_WEEK) + '</span>\
+	<span>' + LANG.PER_WEEK[lang] + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcal / ' + LANG(DAY) + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
 \
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\

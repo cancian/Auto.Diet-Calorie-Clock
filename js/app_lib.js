@@ -1,9 +1,6 @@
-//##/////////////##//
-//## APP LIBRARY ##//
-//##/////////////##//
-/////////////////
-// GLOBAL VARS //
-/////////////////
+//#/////////////#//
+//# GLOBAL VARS #//
+//#/////////////#//
 var db;
 var dbName            = "mylivediet.app";
 var lib;
@@ -35,9 +32,9 @@ var isMobile = {
 		return navigator.userAgent.match(/IEMobile/i) ? true : false;
 	}
 };
-////////////////
-// GET VENDOR //
-////////////////
+//#////////#//
+//# VENDOR #//
+//#////////#//
 var prefix = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
 !/msie/.test(navigator.userAgent.toLowerCase()) &&
 !/webkit/.test(navigator.userAgent.toLowerCase())) ? '-moz-'    :
@@ -78,9 +75,9 @@ $("head").append("<style type='text/css' id='coreFonts'></style>");
 $.get(hostLocal + "css/fonts.css",function(raw) {
 	$("#coreFonts").html(raw);
 });
-///////////////////
-// TOUCH ? CLICK //
-///////////////////
+//#///////////////#//
+//# TOUCH ? CLICK #//
+//#///////////////#//
 function isCordova() {
 	return (typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
 }
@@ -147,9 +144,9 @@ function dtFormat(input) {
     res += hour + ":" + minute + " " + ampm;
     return res;
 }
-/////////////////
-// DATE FORMAT //
-/////////////////
+////////////////
+// DAY FORMAT //
+////////////////
 function dayFormat(input) {
     if(!input) return "";
 	input = new Date(input);
@@ -158,7 +155,7 @@ function dayFormat(input) {
 	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
 	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
 
-	if(LANG(LANGUAGE) == "pt") { 
+	if(LANG.LANGUAGE[lang] == "pt") { 
 	    var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
 	} else {
 	    var res = gotMonth + "/" + gotDate + "/" + input.getFullYear();
@@ -185,25 +182,25 @@ function dateDiff(date1,date2) {
 	var hours     = Math.floor(difference_ms % 24);
 	var days      = Math.floor(difference_ms/24);
 
-	var lMinutes = " " + LANG(MINUTES) + " ";
-	var lHours   = " " + LANG(HOURS) + " ";
-	var lDays    = " " + LANG(DAYS) + " ";
+	var lMinutes = " " + LANG.MINUTES[lang] + " ";
+	var lHours   = " " + LANG.HOURS[lang] + " ";
+	var lDays    = " " + LANG.DAYS[lang] + " ";
 
 	if(minutes == 0) { var lMinutes = ""; minutes = ""; }
 	if(hours   == 0) { var lHours   = ""; hours   = ""; }
 	if(days    == 0) { var lDays    = ""; days    = ""; }
 
-	if(minutes == 1) { var lMinutes = " " + LANG(MINUTE) + " "; }
-	if(hours   == 1) { var lHours   = " " + LANG(HOUR) + " ";   }
-	if(days    == 1) { var lDays    = " " + LANG(DAY) + " ";    }
+	if(minutes == 1) { var lMinutes = " " + LANG.MINUTE[lang] + " "; }
+	if(hours   == 1) { var lHours   = " " + LANG.HOUR[lang] + " ";   }
+	if(days    == 1) { var lDays    = " " + LANG.DAY[lang] + " ";    }
 
 	if(days    > 3)                             { var lHours   = ""; hours   = ""; }
 	if(days    > 0)                             { var lMinutes = ""; minutes = ""; }
-	if(days    > 0 && hours   > 0)              { var lDays    = lDays  + LANG(AND) + " "; }
-	if(hours   > 0 && minutes > 0)              { var lHours   = lHours + LANG(AND) + " "; }
-	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; var lMinutes = " " + LANG(MINUTES) + " "; }
+	if(days    > 0 && hours   > 0)              { var lDays    = lDays  + LANG.AND[lang] + " "; }
+	if(hours   > 0 && minutes > 0)              { var lHours   = lHours + LANG.AND[lang] + " "; }
+	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; var lMinutes = " " + LANG.MINUTES[lang] + " "; }
 
-	return days + lDays + hours + lHours + minutes + lMinutes + " " + LANG(AGO) + " ";
+	return days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
 }
 //////////////////
 // TIME ELAPSED //
@@ -223,9 +220,9 @@ function timeElapsed() {
 	if(dd > 0) { dd = dd + "d "; } else { dd = ""; }
 	return dd+hh+":"+mm+":"+ss;
 }
-////////////////////////////
-// GET WINDOW ORIENTATION //
-////////////////////////////
+////////////////////////
+// WINDOW ORIENTATION //
+////////////////////////
 function getOrientation() {
 	if(window.orientation == 90 || window.orientation == -90) {
 		return "landscape";

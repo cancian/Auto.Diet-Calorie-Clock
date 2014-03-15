@@ -1,14 +1,10 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.1.7 [08/03/2014]
-• diary list now displays date and daily sum for food/exercise
-• cleaner interface
-• added help section on Settings tab
-• improved slider visual feedback
-• improved input handling
-• fixed flicker when adding/removing fav itens
-• fixed height adjust on tab switch
+# 1.1.7.2 [14/03/2014]
+• faster database
+• improved performance
+• 
 • 
 • 
 • 
@@ -17,6 +13,15 @@
 • 
 • 
 
+# 1.1.7 [08/03/2014]
+• diary list now displays date and daily sum for food/exercise
+• cleaner interface
+• added help section on Settings tab
+• improved slider visual feedback
+• improved input handling
+• fixed flicker when adding/removing fav itens
+• fixed height adjust on tab switch
+• caloric balance indicator on status screen
 
 # 1.1.6 [11/02/2014]
 • faster start-up and overall responsiveness

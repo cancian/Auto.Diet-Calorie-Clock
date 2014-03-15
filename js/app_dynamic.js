@@ -93,9 +93,9 @@ $(document).on("pageload", function(evt) {
 									//VALIDATE
 									if(this.value == "") {
                                                if(Number(document.getElementById('kcalsDiv').innerHTML) > 0) {
-											new_value = LANG(FOOD);
+											new_value = LANG.FOOD[lang];
 										} else if(Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
-											new_value = LANG(EXERCISE);
+											new_value = LANG.EXERCISE[lang];
 										} else {
 											new_value = "";
 										}
@@ -166,9 +166,9 @@ $(document).on("pageload", function(evt) {
 								}
 								//SHOW DIALOG
 								if(hasTouch() && (!isMobile.Android() || androidVersion() >= 4.4)) {
-									navigator.notification.confirm(LANG(ARE_YOU_SURE), intoTheVoid, LANG(RESET_ENTRY_DIALOG), [LANG(OK),LANG(CANCEL)]);
+									navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], intoTheVoid, LANG.RESET_ENTRY_DIALOG[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 								} else {
-									if(confirm(LANG(RESET_ENTRY_DIALOG))) { intoTheVoid(1); } else { intoTheVoid(0); }
+									if(confirm(LANG.RESET_ENTRY_DIALOG[lang])) { intoTheVoid(1); } else { intoTheVoid(0); }
 								}
 								return false;
 							});
@@ -332,7 +332,7 @@ $(document).on("pageload", function(evt) {
 							//prevent empty list highlight
 							if(!isNaN($(this).closest("div").attr("id"))) {
 								var editableValue = $("#editableInput").val();
-								if(editableValue == LANG(FOOD) || editableValue == LANG(EXERCISE)) { $("#editableInput").val(''); }
+								if(editableValue == LANG.FOOD[lang] || editableValue == LANG.EXERCISE[lang]) { $("#editableInput").val(''); }
 								//remove double spaces
 								$("#editableInput").val($("#editableInput").val().split("  ").join(" ").split("  ").join(" ").split("  ").join(" "));
 								// FOCUS, THEN SET VALUE
@@ -469,7 +469,7 @@ $(document).on("pageload", function(evt) {
 		//niceTimer = setTimeout(niceResizer, 200);
 		//IF LAST ROW 
 		if($('#entryList .entryListRow').length == 0) {
-			$('#entryList').html('<div id="noEntries"><span>' + LANG(NO_ENTRIES) + '</span></div>');
+			$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 			updateTimer();
 			return false;
 		}
@@ -533,13 +533,13 @@ $(document).on("pageReload", function(evt) {
 	///////////////
 	// FOOD HTML //
 	///////////////
-	$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG(FOOD_SEARCH) + '" /><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG(NO_MATCHES) + '</span></div></div></div>');
+	$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG.FOOD_SEARCH[lang] + '" /><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG.NO_MATCHES[lang] + '</span></div></div></div>');
 	//PRE-ADJUST RESULTS HEIGHT
 	$('#foodSearch').width(window.innerWidth -55);
 	buildFoodMenu();
 	//remember search type
 	if(window.localStorage.getItem("searchType") == "exercise") {
-		$("#foodSearch").attr('placeholder',LANG(EXERCISE_SEARCH));
+		$("#foodSearch").attr('placeholder',LANG.EXERCISE_SEARCH[lang]);
 		$("#foodSearch,#pageSlideFood").addClass("exerciseType");
 	}
 	////////////////////
@@ -612,7 +612,7 @@ $(document).on("pageReload", function(evt) {
 			//update placeholder n' animate
 			if($("#foodSearch").hasClass("exerciseType")) {
 				window.localStorage.setItem("searchType","exercise");
-				$("#foodSearch").attr('placeholder',LANG(EXERCISE_SEARCH));
+				$("#foodSearch").attr('placeholder',LANG.EXERCISE_SEARCH[lang]);
 				$("#foodSearch").addClass('busy');
 				$("#foodSearch").animate({ backgroundColor: "#FECEC6" }, 1).animate({ backgroundColor: "#fff" },600,function() { 
 						$("#foodSearch").removeClass('busy');
@@ -620,7 +620,7 @@ $(document).on("pageReload", function(evt) {
 				);
 			} else {
 				window.localStorage.removeItem("searchType");
-				$("#foodSearch").attr('placeholder',LANG(FOOD_SEARCH));
+				$("#foodSearch").attr('placeholder',LANG.FOOD_SEARCH[lang]);
 				$("#foodSearch").addClass('busy');
 				$("#foodSearch").animate({ backgroundColor: "#BBE4FF" }, 1).animate({ backgroundColor: "#fff" },600,function() { 
 						$("#foodSearch").removeClass('busy');
@@ -967,7 +967,7 @@ function doSearch(rawInput) {
 					kcalBase = kcal;
 				}
 				//html
-				var foodLine = "<div class='searcheable' id='" + code + "' title='" + kcalBase + "'><div class='foodName'>" + name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + kcal + "</span><span class='foodPro " + typeClass + "'><span class='preSpan'>" + LANG(PRO) + "</span>" + pro + "</span><span class='foodCar " + typeClass + "'><span class='preSpan'>" + LANG(CAR) + "</span>"  + car  + "</span><span class='foodFat " + typeClass + "'><span class='preSpan'>" + LANG(FAT) + "</span>"  + fat  + "</span></div>";
+				var foodLine = "<div class='searcheable' id='" + code + "' title='" + kcalBase + "'><div class='foodName'>" + name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + kcal + "</span><span class='foodPro " + typeClass + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + pro + "</span><span class='foodCar " + typeClass + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + car  + "</span><span class='foodFat " + typeClass + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + fat  + "</span></div>";
 				//result list
 				foodList += foodLine;
 			//}
@@ -985,7 +985,7 @@ function doSearch(rawInput) {
 			//if empty
 			if(foodList == "") {
 				if($("#foodSearch").val() != "") {
-					$("#searchContents").html('<span id="noMatches"> ' + LANG(NO_MATCHES) +' </span>');
+					$("#searchContents").html('<span id="noMatches"> ' + LANG.NO_MATCHES[lang] +' </span>');
 				} else {
 					//buildFoodMenu();
 					$('#searchContents').hide();
@@ -1088,7 +1088,7 @@ function updateFavList() {
 			
 			if(data[c].id) { var favSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
 
-			var favLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG(PRO) + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG(CAR) + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG(FAT) + "</span>"  + cFat  + "</span></div>";
+			var favLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
 			if(favLine != "") {
 				customFavList += favLine;
 			}
@@ -1097,7 +1097,7 @@ function updateFavList() {
 				customFavSql += favSql;
 			}			
 		}
-		if(customFavList == "") { customFavList += '<div class="searcheable noContent"><div><em>' + LANG(NO_ENTRIES) + '</em></div></div>'; }
+		if(customFavList == "") { customFavList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 		if(customFavSql  != "") { window.localStorage.setItem("customFavSql",customFavSql); } else { window.localStorage.setItem("customFavSql"," "); }
 		//////////
 		// HTML //
@@ -1169,18 +1169,18 @@ function updateFoodList() {
 			if(data[c].id)			{ var foodSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
 			if(foodSql != "")		{ customFoodSql += foodSql; }
 			/////////////////////		
-			var foodLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG(PRO) + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG(CAR) + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG(FAT) + "</span>"  + cFat  + "</span></div>";
+			var foodLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
 			if(foodLine != "") {
 				customFoodList += foodLine;
 			}
 		}
-		if(customFoodList == "") { customFoodList += '<div class="searcheable noContent"><div><em>' + LANG(NO_ENTRIES) + '</em></div></div>'; }
+		if(customFoodList == "") { customFoodList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 		if(customFoodSql  != "") { window.localStorage.setItem("customFoodSql",customFoodSql); } else { window.localStorage.setItem("customFoodSql"," "); }
 		//////////
 		// HTML //
 		//////////
 		$("#addNewFood").remove();
-		$("#tabMyFoodsBlock").html(customFoodList + '<div id="addNewFood">' + LANG(ADD_NEW_FOOD) +'</div>');
+		$("#tabMyFoodsBlock").html(customFoodList + '<div id="addNewFood">' + LANG.ADD_NEW_FOOD[lang] +'</div>');
 		$('#tabMyFoodsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 		/////////////
 		// ACTIONS //
@@ -1236,7 +1236,7 @@ getCustomList("exercise",function(data) {
 			var totalWeight = Math.round( (totalWeight) / (2.2) );
 		}
 		var excerciseKcal = Math.round(((data[c].kcal * totalWeight) / 60) * 30);
-		var excerciseLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + excerciseKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG(PRO) + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG(CAR) + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG(FAT) + "</span>"  + data[c].fat  + "</span></div>";
+		var excerciseLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>kcal</span>" + excerciseKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + data[c].fat  + "</span></div>";
 		if(excerciseLine != "") {
 			customExerciseList += excerciseLine;
 		}
@@ -1264,13 +1264,13 @@ getCustomList("exercise",function(data) {
 		if(exerciseSql != "")	{ customExerciseSql += exerciseSql; }		
 		/////////////////////		
 	}
-	if(customExerciseList == "") {customExerciseList += '<div class="searcheable noContent"><div><em>' + LANG(NO_ENTRIES) + '</em></div></div>'; }
+	if(customExerciseList == "") {customExerciseList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 	if(customExerciseSql  != "") { window.localStorage.setItem("customExerciseSql",customExerciseSql); } else { window.localStorage.setItem("customExerciseSql"," "); }
 	//////////
 	// HTML //
 	//////////
 	$("#addNewExercise").remove();
-	$("#tabMyExercisesBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG(ADD_NEW_EXERCISE) +'</div>');
+	$("#tabMyExercisesBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
 	$('#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 	/////////////
 	// ACTIONS //
@@ -1349,7 +1349,7 @@ function updateRecentList() {
 		// html //
 		var sortedList = sortByFrequencyAndFilter(searchHistory);
 		var recentHtml = "";
-		if(sortedList == "") { recentHtml += '<div class="searcheable"><div><em>' + LANG(NO_ENTRIES) + '</em></div></div>'; }
+		if(sortedList == "") { recentHtml += '<div class="searcheable"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 		for(q = 0; q < sortedList.length; q++) {
 			//not null
 			if(sortedList[q] != "" && q < 8) {
@@ -1386,19 +1386,19 @@ var recentBlock = '\
 //////////////
 // TOP MENU //
 //////////////
-$("#foodList").html("<div id='menuTopBar'><h3 id='topBarItem-1'><span>" + LANG(MY_FAVOURITES) + "</span></h3><h3 id='topBarItem-2'><span>" + LANG(MY_FOODS) + "</span></h3><h3 id='topBarItem-3'><span>" + LANG(MY_EXERCISES) + "</span></h3></div>\
+$("#foodList").html("<div id='menuTopBar'><h3 id='topBarItem-1'><span>" + LANG.MY_FAVOURITES[lang] + "</span></h3><h3 id='topBarItem-2'><span>" + LANG.MY_FOODS[lang] + "</span></h3><h3 id='topBarItem-3'><span>" + LANG.MY_EXERCISES[lang] + "</span></h3></div>\
 " + recentBlock);
 //first load db spinner
 if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	//reset blocks
-	$("#tabMyFavsBlock,#tabMyFoodsBlock,#tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG(NO_ENTRIES) + '</em></div></div>');
+	$("#tabMyFavsBlock,#tabMyFoodsBlock,#tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 
 	$("#addNewFood").remove();
-	$("#tabMyFoodsBlock").after('<div id="addNewFood">' + LANG(ADD_NEW_FOOD) +'</div>');
+	$("#tabMyFoodsBlock").after('<div id="addNewFood">' + LANG.ADD_NEW_FOOD[lang] +'</div>');
 	$('#tabMyFoodsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 
 	$("#addNewExercise").remove();
-	$("#tabMyExercisesBlock").after('<div id="addNewExercise">' + LANG(ADD_NEW_EXERCISE) +'</div>');
+	$("#tabMyExercisesBlock").after('<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
 	$('#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 	//////////////
 	// HANDLERS //
@@ -1590,15 +1590,15 @@ function addNewItem(opt) {
 			' + modalOverlay + '\
 			<div id="addNewWrapper">\
 				<ul id="addNewList">\
-					<li id="addNewName">   <label>' + LANG(ADD_NAME) + ' </label>       <input tabindex="3" type="text"   id="inputNewName"                /> </li>\
-					<li id="addNewAmmount"><label>' + LANG(ADD_AMMOUNT) + ' (g)</label> <input tabindex="3" type="number" id="inputNewAmmount" value="100" /> </li>\
-					<li id="addNewKcal">   <label>kcal</label>                          <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /> </li>\
-					<li id="addNewPro">    <label>pro</label>                           <input tabindex="3" type="number" id="inputNewPro"     value="0"   /> </li>\
-					<li id="addNewCar">    <label>car</label>                           <input tabindex="3" type="number" id="inputNewCar"     value="0"   /> </li>\
-					<li id="addNewFat">    <label>' + LANG(FAT) + ' </label>            <input tabindex="3" type="number" id="inputNewFat"     value="0"   /> </li>\
+					<li id="addNewName">   <label>' + LANG.ADD_NAME[lang] + ' </label>       <input tabindex="3" type="text"   id="inputNewName"                /> </li>\
+					<li id="addNewAmmount"><label>' + LANG.ADD_AMMOUNT[lang] + ' (g)</label> <input tabindex="3" type="number" id="inputNewAmmount" value="100" /> </li>\
+					<li id="addNewKcal">   <label>kcal</label>                               <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /> </li>\
+					<li id="addNewPro">    <label>pro</label>                                <input tabindex="3" type="number" id="inputNewPro"     value="0"   /> </li>\
+					<li id="addNewCar">    <label>car</label>                                <input tabindex="3" type="number" id="inputNewCar"     value="0"   /> </li>\
+					<li id="addNewFat">    <label>' + LANG.FAT[lang] + ' </label>            <input tabindex="3" type="number" id="inputNewFat"     value="0"   /> </li>\
 				</ul>\
-				<div id="addNewCancel">' + LANG(CANCEL) + '</div>\
-				<div id="addNewConfirm">' + LANG(ADD_NEW) + '</div>\
+				<div id="addNewCancel">' + LANG.CANCEL[lang] + '</div>\
+				<div id="addNewConfirm">' + LANG.ADD_NEW[lang] + '</div>\
 			</div>\
 		</div>\
 		');
@@ -1639,7 +1639,7 @@ if(opt.type == "exercise") {
 	if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
 		var totalWeight = Math.round( (totalWeight) / (2.2) );
 	}
-	$("#addNewAmmount label").html(LANG(ADD_DURATION) + ' (min)');
+	$("#addNewAmmount label").html(LANG.ADD_DURATION[lang] + ' (min)');
 	$("#inputNewAmmount").val(30);
 	$("#addNewPro").hide();
 	$("#addNewCar").hide();
@@ -1784,9 +1784,9 @@ if(doReturn == 1) {
 	lockAdd = 0; 
 	//info dialog
 	if(hasTouch()) {
-		navigator.notification.alert(LANG(BLANK_FIELD_DIALOG), voidThis,LANG(BLANK_FIELD_TITLE),LANG(OK));
+		navigator.notification.alert(LANG.BLANK_FIELD_DIALOG[lang], voidThis,LANG.BLANK_FIELD_TITLE[lang],LANG.OK[lang]);
 	} else {
-		if(alert(LANG(BLANK_FIELD_TITLE) + "\n" + LANG(BLANK_FIELD_DIALOG)));
+		if(alert(LANG.BLANK_FIELD_TITLE[lang] + "\n" + LANG.BLANK_FIELD_DIALOG[lang]));
 	}
 	return false;
 }
@@ -1836,13 +1836,13 @@ vFat = Math.round(vFat * 100) / 100;
 			$(".activeOverflow .foodKcal").html('<span class="preSpan">kcal</span>' + vKcal + '</span>');
 			$(".activeOverflow .foodPro").html('<span class="preSpan">pro</span>' + vPro + '</span>');
 			$(".activeOverflow .foodCar").html('<span class="preSpan">car</span>' + vCar + '</span>');
-			$(".activeOverflow .foodFat").html('<span class="preSpan">' + LANG(FAT) + '</span>' + vFat + '</span>');
+			$(".activeOverflow .foodFat").html('<span class="preSpan">' + LANG.FAT[lang] + '</span>' + vFat + '</span>');
 			//id update
 			$("#" + vCode + " .foodName").html(vName);
 			$("#" + vCode + " .foodKcal").html('<span class="preSpan">kcal</span>' + vKcal + '</span>');
 			$("#" + vCode + " .foodPro").html('<span class="preSpan">pro</span>' + vPro + '</span>');
 			$("#" + vCode + " .foodCar").html('<span class="preSpan">car</span>' + vCar + '</span>');
-			$("#" + vCode + " .foodFat").html('<span class="preSpan">' + LANG(FAT) + '</span>' + vFat + '</span>');
+			$("#" + vCode + " .foodFat").html('<span class="preSpan">' + LANG.FAT[lang] + '</span>' + vFat + '</span>');
 			//highligh update
 			//CSS FADE OUT
 			//$('#addNewWrapper').removeClass('show');
@@ -2000,17 +2000,17 @@ if(mType == "exercise") {
 						$("body").append('<div id="modalWindow"></div>');
 						$("body").addClass("overlay");
 						//add content
-						$("#modalWindow").html("<div id='modalDelete'></div><div id='modalEdit'></div><div id='modalFav'></div><div id='modalContent'>" + mName + "&nbsp; <span>&nbsp;" + LANG(PRE_FILL) + "</span></div>");
-						$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG(ADD) + "</span><span id='modalCancel'>" + LANG(CANCEL) + "</span></div>");
-						$("#modalWindow").append('<div id="modalAdjust"><span id="modalNegBlock"><span id="modalNeg" class="icon-chevron-sign-left"></span></span><span id="modalPosBlock"><span id="modalPos" class="icon-chevron-sign-right"></span></span><span id="modalAmmountBlock"><span id="modalAmmount">0</span><span id="modalAmmountType">' + LANG(GRAMS) + '</span></span><span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">kcal</span></span></div>');
+						$("#modalWindow").html("<div id='modalDelete'></div><div id='modalEdit'></div><div id='modalFav'></div><div id='modalContent'>" + mName + "&nbsp; <span>&nbsp;" + LANG.PRE_FILL[lang] + "</span></div>");
+						$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG.ADD[lang] + "</span><span id='modalCancel'>" + LANG.CANCEL[lang] + "</span></div>");
+						$("#modalWindow").append('<div id="modalAdjust"><span id="modalNegBlock"><span id="modalNeg" class="icon-chevron-sign-left"></span></span><span id="modalPosBlock"><span id="modalPos" class="icon-chevron-sign-right"></span></span><span id="modalAmmountBlock"><span id="modalAmmount">0</span><span id="modalAmmountType">' + LANG.GRAMS[lang] + '</span></span><span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">kcal</span></span></div>');
 						//set shortcuts
 						var kcalsBase = mKcal;
 						//var kcalsList = Number($("#" + $("#activeOverflow").parent("div").attr("id") + " .foodKcal").text().split("kcals").join(""));
 						if(searchType == "food") { 
-							$("#modalAmmountType").html(LANG(GRAMS));
-							$("#modalTotalType").after("<span id='proData'>0.0<span>g</span></span><span id='carData'>0.0<span>g</span></span><span id='fatData'>0.0<span>g</span></span><span id='proLabel'>" + LANG(PRO) + "</span><span id='carLabel'>" + LANG(CAR) + "</span><span id='fatLabel'>" + LANG(FAT) + "</span>");
+							$("#modalAmmountType").html(LANG.GRAMS[lang]);
+							$("#modalTotalType").after("<span id='proData'>0.0<span>g</span></span><span id='carData'>0.0<span>g</span></span><span id='fatData'>0.0<span>g</span></span><span id='proLabel'>" + LANG.PRO[lang] + "</span><span id='carLabel'>" + LANG.CAR[lang] + "</span><span id='fatLabel'>" + LANG.FAT[lang] + "</span>");
 						} else {
-							$("#modalAmmountType").html(LANG(MINUTES));
+							$("#modalAmmountType").html(LANG.MINUTES[lang]);
 						}
 						//SHOW MODAL
 						$("#modalWindow,#modalOverlay").fadeIn(200);
@@ -2201,9 +2201,9 @@ if(mType == "exercise") {
 								//SHOW START DIALOG
 								if(window.localStorage.getItem("appStatus") != "running") {
 									if(hasTouch()) {
-										navigator.notification.confirm(LANG(NOT_RUNNING_DIALOG), onConfirmStart, LANG(NOT_RUNNING_TITLE), [LANG(OK),LANG(CANCEL)]);
+										navigator.notification.confirm(LANG.NOT_RUNNING_DIALOG[lang], onConfirmStart, LANG.NOT_RUNNING_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 									} else {
-										if(confirm(LANG(NOT_RUNNING_TITLE) + "\n" + LANG(NOT_RUNNING_DIALOG))) { onConfirmStart(1); } else { }
+										if(confirm(LANG.NOT_RUNNING_TITLE[lang] + "\n" + LANG.NOT_RUNNING_DIALOG[lang])) { onConfirmStart(1); } else { }
 									}
 								}
 								//CSS FADE OUT
@@ -2320,12 +2320,12 @@ if(mType == "exercise") {
 									delFood(itemId);
 									//if last row
 									if($('#' + $("#activeOverflow").parent('div').parent('div').attr("id") + " .searcheable").length == 1) {
-										$("#activeOverflow").parent('div').parent('div').append('<div class="searcheable noContent"><div><em>' + LANG(NO_ENTRIES) + '</em></div></div>');
+										$("#activeOverflow").parent('div').parent('div').append('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 									}
 									$("#activeOverflow").parent('div').remove();
 									//if last row (cross-check)
 									if($('#' + $("#" + itemId).parent('div').attr("id") + " .searcheable").length == 1) {
-										$("#" + itemId).parent('div').append('<div class="searcheable noContent"><div><em>' + LANG(NO_ENTRIES) + '</em></div></div>');
+										$("#" + itemId).parent('div').append('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 									}
 									$("#" + itemId).remove();
 									//close
@@ -2335,10 +2335,10 @@ if(mType == "exercise") {
 							}
 							//SHOW DIALOG
 							if(hasTouch()) {
-								navigator.notification.confirm(LANG(ARE_YOU_SURE), removeItem, LANG(DELETE_ITEM), [LANG(OK),LANG(CANCEL)]);
+								navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], removeItem, LANG.DELETE_ITEM[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 								return false;
 							} else {
-								if(confirm(LANG(DELETE_ITEM))) { removeItem(1); } else { return false; }
+								if(confirm(LANG.DELETE_ITEM[lang])) { removeItem(1); } else { return false; }
 							}
 						});
 						/////////////////

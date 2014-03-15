@@ -29,7 +29,7 @@ try{
 ////////////////
 // PARSED CSS //
 ////////////////
-$("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG(START_DATE) + "'; } </style>");
+$("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 $("head").prepend("<style type='text/css' id='daySum'></style>");
 updateEntriesSum();
 //#////////////#//
@@ -41,10 +41,10 @@ $("body").prepend('\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 	<div id="appContent"></div>\
 	<ul id="appFooter">\
-		<li id="tab1">' + LANG(STATUS)   + '</li>\
-		<li id="tab2">' + LANG(DIARY)    + '</li>\
-		<li id="tab3">' + LANG(PROFILE)  + '</li>\
-		<li id="tab4">' + LANG(SETTINGS) + '</li>\
+		<li id="tab1">' + LANG.STATUS[lang]   + '</li>\
+		<li id="tab2">' + LANG.DIARY[lang]    + '</li>\
+		<li id="tab3">' + LANG.PROFILE[lang]  + '</li>\
+		<li id="tab4">' + LANG.SETTINGS[lang] + '</li>\
 	</ul>\
 ');
 //#////////////////////#//
@@ -393,7 +393,7 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 	window.localStorage.setItem("calcForm#inches","10");
 	//LOCALE
 	window.localStorage.setItem("config_measurement","imperial");
-	if(LANG(LANGUAGE) == "pt") {
+	if(LANG.LANGUAGE[lang] == "pt") {
 		window.localStorage.setItem("calcForm#feet","0");
 		window.localStorage.setItem("calcForm#inches","170");
 		window.localStorage.setItem("calcForm#pA3B","70");	
