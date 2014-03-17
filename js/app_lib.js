@@ -4,6 +4,7 @@
 var db;
 var dbName            = "mylivediet.app";
 var lib;
+var lib2;
 var hasSql			  = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
 var AND               = " ";
 var initialScreenSize = window.innerHeight;
@@ -62,8 +63,13 @@ if(vendorClass == "moz" || vendorClass == "msie") {
 	$("#coreCss").remove();
 	$("head").append("<style type='text/css' id='coreCss'></style>");
 	$.get(hostLocal + "css/index.css",function(rawCss) {
+		//moz syntax
 		if(vendorClass == "moz") {
 			rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
+		}
+		//msie backface slowdown
+		if(vendorClass == "msie") {
+			rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
 		}
 		$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
 	});

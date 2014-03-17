@@ -7,7 +7,8 @@ $(document).ready(function() {
 			db = window.openDatabase(dbName, 1, dbName + "DB", 5*1024*1024);
 			db.transaction(initDB, dbErrorHandler, startApp);
 		} else {
-			lib = new localStorageDB("mylivediet", localStorage);
+			lib  = new localStorageDB("mylivediet",  localStorage);
+			lib2 = new localStorageDB("mylivediet2", localStorage);
 			initDB();
 		}
 	} catch(error) {
@@ -373,6 +374,7 @@ if(isMobile.Windows()) {
 // VENDOR //
 ////////////
 $("body").addClass(vendorClass);
+$("body").addClass("appLang-" + lang);
 ////////////////////
 // PRESET PROFILE //
 ////////////////////
@@ -393,7 +395,7 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 	window.localStorage.setItem("calcForm#inches","10");
 	//LOCALE
 	window.localStorage.setItem("config_measurement","imperial");
-	if(LANG.LANGUAGE[lang] == "pt") {
+	if(LANG.LANGUAGE[lang] != "en") {
 		window.localStorage.setItem("calcForm#feet","0");
 		window.localStorage.setItem("calcForm#inches","170");
 		window.localStorage.setItem("calcForm#pA3B","70");	
@@ -404,8 +406,6 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 		window.localStorage.setItem("calcForm#pA6N","kilograms");
 	}
 }
-
-
 //###########################//
 //####   START WORKING   ####//
 //###########################//
@@ -578,7 +578,7 @@ setTimeout(function() {
 						window.localStorage.setItem(getKcalsKey,permValue);
 						//SET CSS TRANSITION
 						$('#editable').css(prefix + "transition-timing-function","ease");
-						$('#editable').css(prefix + "transition-duration",".25s");
+						$('#editable').css(prefix + "transition-duration",".175s");
 						setTimeout(function() {
 							$("#editable").css("opacity",0);
 							if(!isMobile.Android()) {

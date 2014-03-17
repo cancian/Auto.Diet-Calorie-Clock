@@ -2,7 +2,7 @@
 //# DYNAMIC HANDLERS #//
 //#//////////////////#//
 if(!hasSql) {
-	//var datz = lib.query("diary_food");
+	//var datz = lib2.query("diary_food");
 }
 
 $(document).on("pageload", function(evt) {
@@ -391,7 +391,7 @@ $(document).on("pageload", function(evt) {
 	/////////////////////
 	// STOP ENTRY EDIT //
 	/////////////////////
-	$("#appHeader,#entryListForm,#go,#sliderBlock,#entryList div").on(touchstart, function(evt) {
+	$("#appHeader,#entryListForm,#go,#sliderBlock,#entryList div,#entryListBottomBar").on(touchstart, function(evt) {
 		if(!$('.editableInput').is(':visible')) { return; }
 		if($('.editableInput').is(':visible') && $("#editableInput").is(":focus")) {
 		//dismiss protection
@@ -716,7 +716,7 @@ function searchFood(searchSQL,callback) {
 		
 		
 		//	
-		var datz = lib.query("diary_food");	
+		var datz = lib2.query("diary_food");	
 		var dato = datz;
 		var keyJunk = 0;
 		var keyScore = 0;
@@ -725,7 +725,7 @@ function searchFood(searchSQL,callback) {
 		/////////////////
 		// GET FULL DB //
 		/////////////////
-		//lib.query("diary_food",function(data) {
+		//lib2.query("diary_food",function(data) {
 		//var searchTerm = "";
 		
 	
@@ -791,7 +791,7 @@ function searchFood(searchSQL,callback) {
 		
 		
 		
-		///var datz = lib.query("diary_food");	
+		///var datz = lib2.query("diary_food");	
 	}
 	
 };
@@ -1000,11 +1000,15 @@ function doSearch(rawInput) {
 			// OVERFLOW ON-DEMAND //
 			////////////////////////
 			$(".searcheable").on(tap + ' ' + touchstart, function(evt) {
-				if($("#foodSearch").is(":focus")) { 
-					$("#foodSearch").blur();
-					window.scroll($('#appContent')[0].scrollTop,0,0);
-					return false;
-				}
+
+
+				//if($("#foodSearch").is(":focus")) { 
+
+					//$("#foodSearch").blur();
+					//window.scroll($('#appContent')[0].scrollTop,0,0);
+					//return;
+
+				//}
 				$("#activeOverflow").removeAttr("id");
 				$(".activeOverflow").removeClass("activeOverflow");
 				$(this).addClass("activeOverflow");

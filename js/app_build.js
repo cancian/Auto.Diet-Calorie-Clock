@@ -1187,6 +1187,8 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	//#///////////////#//
 	$("#entryListBottomBar").on(touchend, function(evt) {
 		evt.preventDefault();
+		//not while editing		
+		if($('#entryList div').is(':animated') || $('.editableInput').is(':visible')) { return; }	
 		//CLEAR DIALOG
 		function onConfirmClear(button) {
 			if(button == 1) {

@@ -8,7 +8,7 @@ body.android 							{ -webkit-perspective: 1000; -webkit-transform: translate3d(
 body.android #appContent,
 body.android #foodList					{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
 body > *,h2,input[readonly]				{ -webkit-user-select: none; -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
-input,select,textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; }
+input,select,textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
 select::-ms-expand						{ display: none !important; }
 ::-moz-selection,
@@ -62,19 +62,22 @@ body.android.tab2 #appHeader	{ z-index: 0; }
 #timerKcals span				{ position: absolute; bottom: -9px; left:  0px; font-size: 9px;  line-height: normal; text-transform: uppercase; color: #828282; }
 /*daily calories*/
 #timerDaily						{ position: absolute; font-weight: 300; bottom: 6px; top: 7px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; color: #aaa; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f5f5f5,#f5f5f5); border: 0px solid #316ADC; }
-#timerDaily span				{ position: absolute; bottom: 5px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; color: #999; }
+#timerDaily span				{ position: absolute; bottom: 5px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: #999; }
 /*INLINE*/
 #editableDiv					{ color: transparent; height: 62px; background-color: rgba(0,0,0,0) !important; text-indent: 150px; position: absolute; top: 0px; right: 0px; display: block; width: 150px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
 input#editable					{ color: #000; background-color: #f5f5f5; position: absolute; font-weight: 300; top: 12px; right: 9px; display: block !important; width: 75px !important; height: 29px; font-size: 24px !important; line-height: 26px; border: 0; padding: 0 0px 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; border-radius: 0px; overflow: hidden; }
 .moz input#editable,
+.ios input#editable,
 .android2 input#editable,
 .android4 input#editable		{ right: 10px; }
 .android4 input#editable		{ top: 13px; }
 .android2 input#editable		{ top: 14px; }
+.ios7 input#editable			{ right: 9px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999;  }
 /*nprogress*/
 #nprogress						{ position: fixed; z-index: 100; }
 #nprogress .bar					{ background: rgba(66, 133, 244, .99); opacity: .99; position: fixed; top: 0; left: 0; width: 100%; height: 2px; }
+#nprogress .push				{ background: rgba(0, 0, 0, .15) !important; }
 /*#///////////////#//
 //# GLOBAL FOOTER #//
 //#///////////////#*/
@@ -450,11 +453,13 @@ body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 
 /*//////////////////
 // ENTRYLIST FORM //
 //////////////////*/
-#entryListForm					{ display: block; width: 100%; height: 154px; position: relative; overflow: hidden; z-index: 1; }
+#entryListForm					{ display: block; width: 100%; height: 154px; position: relative; overflow: hidden; z-index: 1; -ms-touch-action: none; }
 /*ARROW BUTTONS*/
 div#sliderNum					{ text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
 div#sliderNeg					{ position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 14pt; height: 36px; padding-left: 26px; padding-top: 3px; }
 div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 14pt; height: 36px; padding-right: 26px; padding-top: 3px; }
+.appLang-ru div#sliderPos,
+.appLang-ru div#sliderNeg { font-size: 10.5pt; line-height: 16pt; }
 div#sliderNeg:before,
 div#sliderPos:before			{ font-family: "FontAwesome"; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
 div#sliderNeg:before			{ left: 0; content: "\F010"; }	
@@ -484,7 +489,7 @@ select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px;
 div.submitActive				{ color: #316ADC !important; border-color: #bababa !important; background-color: #fff !important; border: 1px solid #316ADC !important; box-sizing: border-box; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
 #loadingDiv						{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; }
 .ios7 #loadingDiv				{ top: 31px; }
-#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #bbb; text-shadow: 0 1px 0 rgba(255,255,255,.75); }
+#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #bbb; text-shadow: 0 1px 0 rgba(255,255,255,.75); -webkit-user-select: none; pointer-events: none; }
 .android .submitActive			{ -webkit-box-shadow: none !important; }  
 .android #entrySubmit			{ text-shadow: none !important; }
 #sliderBlock					{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
@@ -508,7 +513,7 @@ body.ios #entryList div		{ padding: 15px 0 1px 0; }
 /*SWIPE DELETE*/
 span.delete					{ display: inline; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 0; padding: 15px 20px 13px 20px; /*border: 1px solid #953403; border-radius: 5px;*/ font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 1px 0 rgba(0,0,0,.05); border-bottom: 1px solid #eee; }
 span.delete:active			{ background: #E0380A; }
-span.delete					{ -webkit-transition-timing-function: linear; -webkit-transform: translate3d(90px, 0, 0); -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
+span.delete					{ -webkit-transition-timing-function: linear; -webkit-transform: translate3d(100%, 0, 0); -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
 span.delete.open			{ display: inline-block; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .150s; -webkit-backface-visibility: hidden; }
 /*ROW STYLE*/
 .entriesTitle				{ display: inline; float: left; width: 40px;  text-align: right; font-weight: bold; }
@@ -521,7 +526,7 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 /*GENERIC*/
 div#noEntries				{ border-left: 5px solid transparent; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
-.heading					{ -webkit-user-select: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #fff; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; background-color: #fff; font-weight: normal; margin: 0; text-align: left; text-transform: uppercase; letter-spacing: 3px; line-height: 1; box-sizing: border-box; }
+.heading					{ -webkit-user-select: none; -ms-touch-action: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #fff; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; background-color: #fff; font-weight: normal; margin: 0; text-align: left; text-transform: uppercase; letter-spacing: 3px; line-height: 1; box-sizing: border-box; }
 /*EXPIRED*/
 div.expired p				{ opacity: .3; }
 div.editing p				{ opacity: 1; }

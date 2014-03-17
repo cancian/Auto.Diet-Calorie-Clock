@@ -72,9 +72,9 @@ function initDB(t) {
 			lib.createTable("diary_entry", ["title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
 			lib.commit();
 		}
-		if(!lib.tableExists("diary_food")) {
-			lib.createTable("diary_food",  ["type",  "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
-			lib.commit();
+		if(!lib2.tableExists("diary_food")) {
+			lib2.createTable("diary_food",  ["type",  "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
+			lib2.commit();
 		}
 		startApp();
 	}
@@ -232,18 +232,17 @@ function rebuildLocalStorage(lsp) {
 function fetchEntries(start,callback) {
 	//CONSOLE('getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
-	db.transaction(
-		function(t) {
+	if(hasSql) {
+		db.transaction(function(t) {
 			t.executeSql('select * from diary_entry order by published desc',[],
 			function(t,results) {
 				callback(fixResults(results));
 			},dbErrorHandler);
-	}, dbErrorHandler);
-	
-	
-	
-	
-};
+		});
+	} else {
+		callback(lib.query("diary_entry"));
+	}
+}
 //#//////////////////////#//
 //# ONLINE: PUSH ENTRIES #//
 //#//////////////////////#//
@@ -251,7 +250,9 @@ function pushEntries(userId) {
 	if(isNaN(userId)) { return; }
 	if(window.localStorage.getItem("pendingSync")) { return; }
 	fetchEntries(function(data) {
-		//NProgress.start();
+		//NProgress.done();
+		NProgress.start();
+		$("#nprogress .bar").css("background-color","rgba(0, 0, 0, .15)");
 		var fetchEntries = "";
 		for(var i=0, len=data.length; i<len; i++) {
 			var id        = data[i].id;
@@ -300,7 +301,7 @@ function pushEntries(userId) {
 			$.post("http://mylivediet.com/sync.php", { "sql":fetchEntries,"uid":userId }, function(data) {
 				//clear marker
 				window.localStorage.removeItem("lastEntryPush");
-				//NProgress.done();
+				NProgress.done();
 			}, "text");
 		}
 	});
@@ -312,6 +313,33 @@ function setPush() {
 //#//////////////////////#//
 //# ONLINE: SYNC ENTRIES #//
 //#//////////////////////#//
+function setComplete() {
+	//nprogress
+	NProgress.done();
+	//set complete
+	window.localStorage.removeItem("pendingSync");
+	if(window.localStorage.getItem("foodDbLoaded") != "done") {
+		updateFoodDb();
+	} else {
+		setPush();
+	}
+	//refresh tabs
+	if(!$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
+		if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
+		if(window.localStorage.getItem("app_last_tab") == "tab2") { updateEntries();                }
+		if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }	
+		if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
+	}
+	//dump diary_food data
+	if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
+		updateFavList();
+		updateFoodList();
+		updateExerciseList();
+	}
+	//update last sync date
+	window.localStorage.setItem("lastSync",Number((new Date()).getTime()));
+	$("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); 
+}
 function syncEntries(userId) {
 	if(window.localStorage.getItem("facebook_logged")) { updateFoodDb(); }
 	window.localStorage.setItem("pendingSync",new Date().getTime());
@@ -319,101 +347,57 @@ function syncEntries(userId) {
 	if(!window.localStorage.getItem("facebook_logged")) { return; }
 	if(!window.localStorage.getItem("facebook_userid")) { return; }
 	var demoRunning = false;
-	var dbName = "mylivediet.app";
 	if(!demoRunning) {
-		//start
-		//force food db
-		//updateFoodDb();
-		//spinner(45);
-		//$("#loadingDiv").addClass("updating");
-		NProgress.start();
 		demoRunning = true;
-		try {
-			html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
-			//import sql
-			$.get("http://mylivediet.com/sync.php?uid=" + userId,function(sql) {
-				var startTime = new Date();
-				//local storage slice
-				if(sql.match('#@@@#')) {
-					rebuildLocalStorage(sql.split("\n").pop());
-					sql = sql.replace(/\r?\n?[^\r\n]*$/, "");
+		NProgress.start();
+		//get remote sql
+		$.get("http://mylivediet.com/sync.php?uid=" + userId,function(sql) {
+			//local storage slice
+			if(sql.match('#@@@#')) {
+				rebuildLocalStorage(sql.split("\n").pop());
+				sql = sql.replace(/\r?\n?[^\r\n]*$/, "");
+			}
+			//empty but valid result ~ trigger success
+			if(trim(sql) == "") {
+				window.localStorage.removeItem("pendingSync");
+				demoRunning = false;
+				NProgress.done();
+				setPush();
+			} else if(hasSql) {
+				//SQL
+				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
+				html5sql.process("DELETE FROM diary_entry;" + sql,function() {
+					//success
+					demoRunning = false;
+					setComplete();
+				});
+			} else {
+				//LOCALSTORAGE 
+				lib.deleteRows("diary_entry");
+				lib.commit();
+				//sqlToJson
+				lsql  = sql.split('\n');
+				lasql = [];
+				for(var s=0, sen=lsql.length; s<sen; s++) {
+					lasql.push(lsql[s].replace(",'","','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','"));
 				}
-				//empty valid result ~ trigger success
-				if(trim(sql) == "") {
-					window.localStorage.removeItem("pendingSync");
-					setPush();
-					//$("#loadingDiv").removeClass("updating");	
-					NProgress.done();
-				}
-				html5sql.process("DELETE FROM diary_entry;" + sql,
-				//html5sql.process(sql,
-					function() {
-						//success
-						demoRunning = false;
-						//clear lock
-						window.localStorage.removeItem("pendingSync");
-						NProgress.done();
-						if(window.localStorage.getItem("foodDbLoaded") != "done") {
-							//force food db
-							updateFoodDb();
-						} else {
-							//push local
-							pushEntries(window.localStorage.getItem("facebook_userid"));
-						}
-						window.localStorage.setItem("lastSync",Number((new Date()).getTime()));
-						if(window.localStorage.getItem("lastSync") != "never") { $("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); }
-						//setPush();
-						//$("#loadingDiv").removeClass("updating");
-						//NProgress.inc();
-						//if diary tab, auto refresh
-						if(window.localStorage.getItem("app_last_tab") == "tab2") {
-							updateEntries();
-						}
-
-						if(window.localStorage.getItem("app_last_tab") == "tab1" && !$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
-							$("#tab1").trigger(touchstart);
-						}
-						if(window.localStorage.getItem("app_last_tab") == "tab3" && !$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
-							$("#tab3").trigger(touchstart);
-						}
-						if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
-							updateFavList();	
-							updateFoodList();	
-							updateExerciseList();
-						}
-						/////////////
-					},
-					function(error, failingQuery) {
-						//failure
-						demoRunning = false;
-						//$("#loadingDiv").removeClass("updating");
-						NProgress.done();
-						//spinner();
-						if(window.localStorage.getItem("app_last_tab") == "tab2") {
-							updateEntries();
-						}
-						if(window.localStorage.getItem("app_last_tab") == "tab1" && !$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
-							$("#tab1").trigger(touchstart);
-						}
-						if(window.localStorage.getItem("app_last_tab") == "tab3" && !$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
-							$("#tab3").trigger(touchstart);
-						}
-						if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
-							updateFavList();	
-							updateFoodList();	
-							updateExerciseList();
-						}
+				for(var a=0, aen=lasql.length; a<aen; a++) {
+					var keyName = lasql[a].split("','");
+					//WRITE
+					if(keyName[0] == "diary_entry") {
+						lib.insertOrUpdate("diary_entry", {published: keyName[4]},{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						lib.commit();
 					}
-				);
-//				}
-			});
-		//try fail
-		} catch(error) {
-			demoRunning = false;
-			//$("#loadingDiv").removeClass("updating");
-			NProgress.done();
-			//spinner();
-		}
+					if(keyName[0] == "diary_food") {
+						lib2.insertOrUpdate("diary_food", {code: keyName[3]},{"id":keyName[1],"type":keyName[2],"code":keyName[3],"name":keyName[4],"term":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						lib2.commit();
+					}
+				}
+				//success
+				demoRunning = false;
+				setComplete();
+			}
+		});
 	}
 }
 /////////////////
@@ -433,25 +417,7 @@ function getEntries(start,callback) {
 	} else {
 		callback(lib.query("diary_entry"));
 	}
-};
-///////////////
-// GET FOODS //
-///////////////
-function getFoods(start,callback) {
-	CONSOLE('getFoods');
-	if(arguments.length == 1) { callback = arguments[0]; }
-	if(hasSql) {
-	db.transaction(
-		function(t) {
-			t.executeSql('select body from diary_food',[],
-			function(t,results) {
-				callback(fixResults(results));
-			},dbErrorHandler);
-	}, dbErrorHandler);
-	} else {
-		//	
-	}
-};
+}
 //////////////////
 // DELETE ENTRY //
 //////////////////
@@ -472,8 +438,8 @@ function deleteEntry(rid, callback) {
 // SAVE ENTRY //
 ////////////////
 function saveEntry(data) {
-	if(!data.published) { data.published = 'quicksave'; }
-	CONSOLE('saveEntry(' + data.published + ')');
+	//if(!data.published) { data.published = 'quicksave'; }
+	//CONSOLE('saveEntry(' + data.published + ')');
 	if(hasSql) {
 		db.transaction(function(t) {
 			//UPDATE BODY
@@ -540,13 +506,13 @@ function setFood(data, callback) {
 		});
 	} else {
 		if(data.act == "update") {
-			lib.update("diary_food",{code: data.code}, function(row) {
+			lib2.update("diary_food",{code: data.code}, function(row) {
 				return {"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib};
 			});
-			lib.commit();
+			lib2.commit();
 		} else {
-			lib.insert("diary_food", {"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib});
-			lib.commit();
+			lib2.insert("diary_food", {"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib});
+			lib2.commit();
 		}
 	}
 }
@@ -562,7 +528,7 @@ function getFood(fCode,callback) {
 			t.executeSql('select * from diary_food where CODE=?', [fCode], function(t,results) { callback(fixResults(results)); });
 		});
 	} else {
-		callback(lib.query("diary_food", {code: fCode}));
+		callback(lib2.query("diary_food", {code: fCode}));
 	}
 };
 /////////////////
@@ -575,8 +541,8 @@ function delFood(fCode, callback) {
 			t.executeSql('delete from diary_food where CODE = ?', [fCode]); 
 		});
 	} else {
-		lib.deleteRows("diary_food",{code: fCode});
-		lib.commit();
+		lib2.deleteRows("diary_food",{code: fCode});
+		lib2.commit();
 	}
 };
 /////////////////////
@@ -615,10 +581,10 @@ function getCustomList(rType,callback) {
 	} else {
 		//FAV LIST
 		if(rType == "fav") {
-			callback(lib.query("diary_food",{fib: "fav"}));
+			callback(lib2.query("diary_food",{fib: "fav"}));
 		//FOOD/EXERCISE LIST
 		} else {
-			var customItems = lib.query("diary_food", function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }});
+			var customItems = lib2.query("diary_food", function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }});
 			callback(customItems);
 		}
 			 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
@@ -637,11 +603,11 @@ function setFav(data, callback) {
 			t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib]);
 		});
 	} else {
-		lib.update("diary_food", {code: data.code}, function(row) {
+		lib2.update("diary_food", {code: data.code}, function(row) {
 			row.fib = data.fib;
 			return row;
 		});
-		lib.commit();
+		lib2.commit();
 	}
 }
 ///////////////
@@ -781,7 +747,8 @@ function updateFoodDb() {
 			if(hasSql) {
 				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
 				//import sql
-				$.get("searchdb_" + LANG.LANGUAGE[lang] + ".sql",function(sql) {
+				var dbLang = (LANG.LANGUAGE[lang] == "pt") ? "pt" : "en";
+				$.get("searchdb_" + dbLang + ".sql",function(sql) {
 					html5sql.process(sql,function() {
 						//success
 						demoRunning = false;
@@ -802,9 +769,10 @@ function updateFoodDb() {
 				});
 			//LOCALSTORAGE
 			} else {
-				$.get("searchdb_" + LANG.LANGUAGE[lang] + ".ls",function(ls) {
+				var dbLang = (LANG.LANGUAGE[lang] == "pt") ? "pt" : "en";
+				$.get("searchdb_" + dbLang + ".ls",function(ls) {
 					eval(ls);
-					lib.commit();
+					lib2.commit();
 					//success
 					demoRunning = false;
 					window.localStorage.setItem("foodDbLoaded","done");
