@@ -206,7 +206,7 @@ function dateDiff(date1,date2) {
 	if(hours   > 0 && minutes > 0)              { var lHours   = lHours + LANG.AND[lang] + " "; }
 	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; var lMinutes = " " + LANG.MINUTES[lang] + " "; }
 
-	return days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
+	return LANG.PREAGO[lang] + " " + days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
 }
 //////////////////
 // TIME ELAPSED //

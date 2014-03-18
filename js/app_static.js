@@ -69,13 +69,13 @@ function appResizer(time) {
 		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
 		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
 		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+		//SCROLLBAR UPDATE	
+		clearTimeout(niceTimer);
+		niceTimer = setTimeout(niceResizer,20);
 		//chrome v32 input width
 		$('#entryBody').width(window.innerWidth -58);
 		$('#foodSearch').width(window.innerWidth -55);
 		$("ul#addNewList input").width(window.innerWidth - 180);
-		//SCROLLBAR UPDATE	
-		clearTimeout(niceTimer);
-		niceTimer = setTimeout(niceResizer,20);
 	 },time);
 }
 //#////////////#//
@@ -176,7 +176,9 @@ $(document).on("menubutton", function(evt) {
 		}
 	//}
 });
-//BACK BUTTON
+////////////////////////
+// BACK BUTTON (+ESC) //
+////////////////////////
 $(document).on("backbutton", function(evt) {
 	if($("#tempHolder").html() && $("#spinner").html()) { return false; }
 	//
@@ -205,12 +207,32 @@ $(document).on("backbutton", function(evt) {
 	} else if(window.localStorage.getItem("app_last_tab") != "tab1") {
 		appFooter("tab1");
 	} else {
-		if(window.localStorage.getItem("config_debug") == "active") {
-			afterHide();
-		} else {
+		if(window.localStorage.getItem("config_debug") != "active" && navigator.app) {
 			navigator.app.exitApp();
+		} else {
+			afterHide();			
 		}
 	}
+});
+/////////////////
+// PRESS ENTER //
+/////////////////
+$(document).on("pressenter", function(evt) {
+	$("#addNewConfirm").trigger(touchstart);
+	$("#modalOk").trigger(touchstart);
+	$("#entrySubmit").trigger(touchstart);
+});
+//////////////////////
+// KEYCODE LISTENER //
+//////////////////////
+$(document).keyup(function(e) {
+	if(e.keyCode == 13) { $(document).trigger("pressenter"); }
+	if(e.keyCode == 27) { $(document).trigger("backbutton"); }
+	CONSOLE(e.keyCode);
+	//38 up
+	//40 down
+	//37 left
+	//39 right
 });
 //FORCE SHOW KEYBOARD
 $(document).on("click", function(evt) {
@@ -622,8 +644,16 @@ setTimeout(function() {
 	});
 
 } catch(e) {
-	console.log(e);
-	return false;
+	//console.log(e);
+	//return false;
+		setTimeout(function() {
+			if(window.MyReload) {
+				window.MyReload.reloadActivity();
+			} else {
+				window.location.reload();
+			}
+		},1000);
+		console.log(error);
 }
 ////#//
 } //#//

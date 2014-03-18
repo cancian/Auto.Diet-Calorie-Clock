@@ -552,7 +552,6 @@ function getCustomList(rType,callback) {
 	function callbackOpen() {
 		if(!$('#pageSlideFood').is(":animated")) {
 			$('#pageSlideFood').addClass("open"); 
-			$("#loadingDiv").hide();
 			if(!$('#appHeader').hasClass("open")) {
 				$('#appHeader').removeClass("closer");
 			}
@@ -877,6 +876,7 @@ function updateEntries(partial) {
 		var langFood = LANG.FOOD[lang];
 		var langExer = LANG.EXERCISE[lang];
 		var langDel  = LANG.DELETE[lang];
+		var langKcal = LANG.KCAL[lang];
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = Number(data[i].title);
@@ -908,7 +908,7 @@ function updateEntries(partial) {
 			var dataHandler = "\
 			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + " day" + dayFormat(dataPublished).split("/").join("x") + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
-				<p class='entriesKcals'>kcal</p>\
+				<p class='entriesKcals'>" + langKcal + "</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
 				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\

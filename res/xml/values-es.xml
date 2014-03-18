@@ -33,7 +33,7 @@
     <string name="CANCEL">cancelar</string>
     <string name="RESET_DIALOG">restablecer contador</string>
     <string name="RESET_ENTRY_DIALOG">Restablecer valor introducido</string>
-    <string name="FOOD_SEARCH">Busqueda de alimentos ... (100 g)</string>
+    <string name="FOOD_SEARCH">Búsqueda de alimentos ... (100 g)</string>
     <string name="NO_MATCHES">Sin coincidencias</string>
     <string name="EXERCISE_SEARCH">Búsqueda de ejercicio ... (30 min)</string>
     <string name="ENTRY_HISTORY">Actividades recientes</string>
@@ -65,7 +65,7 @@
     <string name="SETTINGS_FEEDBACK_INFO">Publique su opinión y obtenga respuesta</string>
     <string name="SETTINGS_REVIEW">Valore esta Aplicación</string>
     <string name="SETTINGS_REVIEW_INFO">Su opinión es importante para nosotros</string>
-	<string name="SETTINGS_FACEBOOK">Mantenga sus datos seguros sincronizados</string>
+	<string name="SETTINGS_FACEBOOK">Mantenga sus datos seguros y sincronizados</string>
     <string name="SETTINGS_FACEBOOK_LOGGED">Conectado como</string>
     <string name="SETTINGS_HELP">Ayuda</string>
     <string name="SETTINGS_HELP_INFO">Temas que le ayudarán a empezar</string>
@@ -88,7 +88,7 @@
     <string name="YOUR_AGE">Su edad</string>
     <string name="YOUR_ACTIVITY">Su Actividad</string>
     <string name="YOUR_ACTIVITY_OPTION1">Sedentario: principalmente sentado (trabajo de oficina, diseñador)</string>
-    <string name="YOUR_ACTIVITY_OPTION2">Ligeramente activo: se sienta de ven en cuando (profesor, vendedor)</string>
+    <string name="YOUR_ACTIVITY_OPTION2">Ligeramente activo: se sienta de vez en cuando (profesor, vendedor)</string>
     <string name="YOUR_ACTIVITY_OPTION3">Activo: camina la mayor parte del tiempo (camarera, cartero)</string>
     <string name="YOUR_ACTIVITY_OPTION4">Muy activo: trabajo físico duro (trabajador de la construcción)</string>
     <string name="FEET_INCHES">pies / pulgadas</string>
@@ -138,7 +138,7 @@
     <string name="SHARE_MESSAGE">¡Estoy usando MyLiveDiet para realizar un seguimiento de calorías en tiempo real! ¡Échale un vistazo!</string>
     <string name="BLANK_FIELD_TITLE">Los campos obligatorios están en blanco.</string>
     <string name="BLANK_FIELD_DIALOG">La información que falta se resalta en rojo.</string>
-    <string name="START_APP">MyLiveDiet fue diseñada para ayudarle a perder peso lo más fácilmente posible.</string>
+    <string name="START_APP">MyLiveDiet ha sido diseñada para ayudarle a perder peso lo más fácilmente posible.</string>
     <string name="STEP_1">Rellene los datos de perfil</string>
     <string name="STEP_2">Presione iniciar</string>
     <string name="STEP_3">¡No hay tercer paso!</string>

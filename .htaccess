@@ -1,8 +1,20 @@
 AddDefaultCharset UTF-8
-Header set Access-Control-Allow-Origin: *
 AddType application/vnd.ms-fontobject .eot
+AddType application/font-woff .woff
 AddType font/ttf .ttf
 AddType font/otf .otf
-AddType application/font-woff .woff  
- 
- 
+
+<filesMatch ".(html|htm|js|css|png)$">
+	FileETag None
+	<ifModule mod_headers.c>
+		Header unset ETag
+		Header set Cache-Control "max-age=0, no-cache, must-revalidate"
+		Header set Pragma "no-cache"
+		Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+	</ifModule>
+</filesMatch>
+
+<ifModule mod_headers.c>
+	Header set Access-Control-Allow-Origin: *
+</ifModule>
+

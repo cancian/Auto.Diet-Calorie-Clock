@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="LANGUAGE">英語</string>
-    <string name="LANGUAGE_FULL">アメリカ英語</string>
+    <string name="LANGUAGE">en</string>
+    <string name="LANGUAGE_FULL">en-US</string>
     <string name="NO_ENTRIES">エントリーなし</string>
     <string name="EXERCISE">エクササイズ</string>
     <string name="FOOD">食べ物</string>
     <string name="DESCRIPTION">説明...</string>
     <string name="ADD_ENTRY">クイック追加</string>
     <string name="QUICK_ADD">クイック追加</string>
-    <string name="ACTIVITY_LOG">アクティビティ記録</string>
+    <string name="ACTIVITY_LOG">アクティビティログ</string>
     <string name="NOW">今</string>
     <string name="HOUR_AGO">時間前</string>
     <string name="HOURS_AGO">時間前</string>
@@ -37,12 +37,10 @@
     <string name="NO_MATCHES">該当なし</string>
     <string name="EXERCISE_SEARCH">エクササイズ検索...（30分）</string>
     <string name="ENTRY_HISTORY">最近のアクティビティ</string>
-	
     <string name="PRO">たんぱく質</string>
-    <string name="CAR">炭水化物</string>
+    <string name="CAR">車</string>
     <string name="FAT">脂肪</string>
-	
-    <string name="PRE_FILL">プレフィル</string>
+    <string name="PRE_FILL">自動入力</string>
     <string name="ADD">追加</string>
     <string name="GRAMS">グラム</string>
     <string name="SURPLUS">余剰</string>
@@ -50,7 +48,7 @@
     <string name="BALANCED">バランスの取れた</string>
     <string name="ERROR">エラー！</string>
     <string name="STOP">ストップ！</string>
-    <string name="EQ_TIME">同等の長さの時間</string>
+    <string name="EQ_TIME">等価時間</string>
     <string name="RANGE">範囲</string>
     <string name="START_DATE">開始日</string>
     <string name="STATUS">ステータス</string>
@@ -89,17 +87,17 @@
     <string name="YOUR_WEIGHT">体重</string>
     <string name="YOUR_AGE">年齢</string>
     <string name="YOUR_ACTIVITY">アクティビティ</string>
-    <string name="YOUR_ACTIVITY_OPTION1">あまり体を動かさない（事務職、デザイナー）</string>
+    <string name="YOUR_ACTIVITY_OPTION1">あまり体を動かさない:大抵座っている（事務職、デザイナー）</string>
     <string name="YOUR_ACTIVITY_OPTION2">少し活動的：時々座る（教師、セールスマン）</string>
-    <string name="YOUR_ACTIVITY_OPTION3">活動的：ほとんど立っている（ウエイトレス、郵便配達人）</string>
+    <string name="YOUR_ACTIVITY_OPTION3">活動的：大抵歩いている（ウエイトレス、郵便配達人）</string>
     <string name="YOUR_ACTIVITY_OPTION4">非常に活動的：重労働（建設作業員）</string>
     <string name="FEET_INCHES">フィート/インチ</string>
     <string name="CENTIMETERS">センチ</string>
     <string name="POUNDS">ポンド</string>
     <string name="KILOGRAMS">キロ</string>
-    <string name="KEEP_WEIGHT">現在の体重を保存する：</string>
-    <string name="LOSE_WEIGHT">体重を落とす：</string>
-    <string name="GAIN_WEIGHT">体重を増やす：</string>
+    <string name="KEEP_WEIGHT">現在の体重を維持する：</string>
+    <string name="LOSE_WEIGHT">キロ体重を落とす：</string>
+    <string name="GAIN_WEIGHT">キロ体重を増やす：</string>
     <string name="PER_WEEK">1週間に</string>
     <string name="CALORIES_AVALIABLE">利用可能なカロリー</string>
     <string name="DAILY_CALORIES">毎日のカロリー</string>
@@ -107,10 +105,10 @@
     <string name="STATUS_EQ_TIME_2">次の食事の前に\n\n（</string>
     <string name="STATUS_EQ_TIME_3">越えるカロリー</string>
     <string name="STATUS_EQ_TIME_4"> キロカロリー/日の目標）</string>
-    <string name="STATUS_EQ_TIME_5">あたりが次の食事では必要です</string>
+    <string name="STATUS_EQ_TIME_5">次の食事で必要なのは</string>
     <string name="STATUS_EQ_TIME_6"> カロリー。\n\n（に相当</string>
     <string name="STATUS_EQ_TIME_7">上</string>
-    <string name="STATUS_LOSS_1">が合計で落ちました</string>
+    <string name="STATUS_LOSS_1">が合計で減量されました</string>
     <string name="STATUS_LOSS_2">（カロリー制限に基づいて</string>
     <string name="CALORIC_INTAKE">カロリー摂取量</string>
     <string name="STATUS_INTAKE_1">適切な毎日のカロリー摂取量は（</string>
@@ -125,21 +123,19 @@
     <string name="ADD_NAME">名前</string>
     <string name="ADD_AMMOUNT">総量</string>
     <string name="ADD_DURATION">期間</string>
-
-    <string name="PROTEINS">たんぱく質</string>
+    <string name="PROTEINS">タンパク質</string>
     <string name="CARBS">炭水化物</string>
     <string name="FATS">脂肪</string>
     <string name="STATUS_BARS">栄養素</string>
-
     <string name="NOTEPAD_DONE">完了</string>
-    <string name="NOT_RUNNING_TITLE">現在、カウンターの停止中</string>
+    <string name="NOT_RUNNING_TITLE">現在、カウンターは停止中</string>
     <string name="NOT_RUNNING_DIALOG">今すぐ始めますか？</string>
     <string name="CLEAR_ALL">すべてクリア</string>
     <string name="CLEAR_ALL_TITLE">すべてのエントリーをクリア</string>
     <string name="LOGOUT_TITLE">自動バックアップをオフにする</string>
     <string name="FOR">のために</string>
     <string name="CALORIE_COUNTER">カロリー・カウンター</string>
-    <string name="SHARE_MESSAGE">リアルタイムでのカロリーを監視にMyLiveDietを利用しています。すごいですよ！</string>
+    <string name="SHARE_MESSAGE">リアルタイムでのカロリーの監視にMyLiveDietを利用しています。すごいですよ！</string>
     <string name="BLANK_FIELD_TITLE">必須項目が入力されていません。</string>
     <string name="BLANK_FIELD_DIALOG">赤字で強調した部分が必要事項です。</string>
     <string name="START_APP">MyLiveDietが可能な限り体重を減らすお手伝いをします。</string>

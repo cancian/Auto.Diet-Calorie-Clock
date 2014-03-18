@@ -70,7 +70,7 @@ function appTimer(id,content) {
 	var kcalsHtmlOutput = "";
 	kcalsHtmlOutput    += "<div id='timerBlocks'>";
 	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG.CALORIES_AVALIABLE[lang] + "</span></div>";
-	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG.DAILY_CALORIES[lang] + "</span></div>";
+	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG.DAILY_CALORIES[lang] + "</span></div>"; //" + LANG.KCAL[lang] + " / " + LANG.DAY[lang] + "
 	kcalsHtmlOutput    += "</div>";
 	//REPLACE
 	function updateHeader() {

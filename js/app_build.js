@@ -376,9 +376,9 @@ function openStatus(string) {
 		var weightLoss   = "0.0000000";		
 	}
 	if(window.localStorage.getItem("calcForm#pA6H") == "kilograms") {
-		var weightLossUnit = "kg";
+		var weightLossUnit = LANG.KG[lang];
 	} else {
-		var weightLossUnit = "lb"; 
+		var weightLossUnit = LANG.LB[lang]; 
 	}
 	/////////////////////////////
 	// PRE-SET START/RESET BAR //
@@ -467,7 +467,7 @@ function openStatus(string) {
 		} else { 
 			var resValue = Math.round(((Number(window.localStorage.getItem('calcForm#pA6G'))*3500)/7));
 		}
-		var LOSS_DIALOG = LANG.STATUS_LOSS_1[lang] + $("#appStatusWeight p").text() + "\n\n" + LANG.STATUS_LOSS_2[lang] + resValue + " kcal/" + LANG.DAY[lang] + ")";
+		var LOSS_DIALOG = LANG.STATUS_LOSS_1[lang] + $("#appStatusWeight p").text() + "\n\n" + LANG.STATUS_LOSS_2[lang] + resValue + " " + LANG.KCAL[lang] + "/" + LANG.DAY[lang] + ")";
 		//[" + window.localStorage.getItem('calcForm#pA6G') + weightLossUnit + "/week])";
 		//DIALOG
 		if(hasTouch()) {
@@ -669,36 +669,41 @@ getEntries(function(data) {
 updateEntriesSum();
 //RAW HTML
 var diaryHtml = ""
-var lHoursAgo = LANG.HOURS_AGO[lang];
+var lHour   = LANG.HOUR[lang];
+var lHours  = LANG.HOURS[lang];
+var lDay    = LANG.DAY[lang];
+var lDays   = LANG.DAYS[lang];
+var lAgo    = " " + LANG.AGO[lang];
+var lPreAgo = LANG.PREAGO[lang] + " ";
 //android 2.x select fix
 var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
-		<option value="0">' + LANG.NOW[lang] + '</option>\
-		<option value="1">1 ' + LANG.HOUR_AGO[lang] + '</option>\
-		<option value="2">2 ' + lHoursAgo + '</option>\
-		<option value="3">3 ' + lHoursAgo + '</option>\
-		<option value="4">4 ' + lHoursAgo + '</option>\
-		<option value="5">5 ' + lHoursAgo + '</option>\
-		<option value="6">6 ' + lHoursAgo + '</option>\
-		<option value="7">7 ' + lHoursAgo + '</option>\
-		<option value="8">8 ' + lHoursAgo + '</option>\
-		<option value="9">9 ' + lHoursAgo + '</option>\
-		<option value="10">10 ' + lHoursAgo + '</option>\
-		<option value="11">11 ' + lHoursAgo + '</option>\
-		<option value="12">12 ' + lHoursAgo + '</option>\
-		<option value="13">13 ' + lHoursAgo + '</option>\
-		<option value="14">14 ' + lHoursAgo + '</option>\
-		<option value="15">15 ' + lHoursAgo + '</option>\
-		<option value="16">16 ' + lHoursAgo + '</option>\
-		<option value="17">17 ' + lHoursAgo + '</option>\
-		<option value="18">18 ' + lHoursAgo + '</option>\
-		<option value="19">19 ' + lHoursAgo + '</option>\
-		<option value="20">20 ' + lHoursAgo + '</option>\
-		<option value="21">21 ' + lHoursAgo + '</option>\
-		<option value="22">22 ' + lHoursAgo + '</option>\
-		<option value="23">23 ' + lHoursAgo + '</option>\
-		<option value="24">1 ' + LANG.DAY_AGO[lang] + '</option>\
-		<option value="48">2 ' + LANG.DAYS_AGO[lang] + '</option>\
-		<option value="72">3 ' + LANG.DAYS_AGO[lang] + '</option>\
+		<option value="0">'  + LANG.NOW[lang]  +                 '</option>\
+		<option value="1">'  + lPreAgo + '1 '  + lHour  + lAgo + '</option>\
+		<option value="2">'  + lPreAgo + '2 '  + lHours + lAgo + '</option>\
+		<option value="3">'  + lPreAgo + '3 '  + lHours + lAgo + '</option>\
+		<option value="4">'  + lPreAgo + '4 '  + lHours + lAgo + '</option>\
+		<option value="5">'  + lPreAgo + '5 '  + lHours + lAgo + '</option>\
+		<option value="6">'  + lPreAgo + '6 '  + lHours + lAgo + '</option>\
+		<option value="7">'  + lPreAgo + '7 '  + lHours + lAgo + '</option>\
+		<option value="8">'  + lPreAgo + '8 '  + lHours + lAgo + '</option>\
+		<option value="9">'  + lPreAgo + '9 '  + lHours + lAgo + '</option>\
+		<option value="10">' + lPreAgo + '10 ' + lHours + lAgo + '</option>\
+		<option value="11">' + lPreAgo + '11 ' + lHours + lAgo + '</option>\
+		<option value="12">' + lPreAgo + '12 ' + lHours + lAgo + '</option>\
+		<option value="13">' + lPreAgo + '13 ' + lHours + lAgo + '</option>\
+		<option value="14">' + lPreAgo + '14 ' + lHours + lAgo + '</option>\
+		<option value="15">' + lPreAgo + '15 ' + lHours + lAgo + '</option>\
+		<option value="16">' + lPreAgo + '16 ' + lHours + lAgo + '</option>\
+		<option value="17">' + lPreAgo + '17 ' + lHours + lAgo + '</option>\
+		<option value="18">' + lPreAgo + '18 ' + lHours + lAgo + '</option>\
+		<option value="19">' + lPreAgo + '19 ' + lHours + lAgo + '</option>\
+		<option value="20">' + lPreAgo + '20 ' + lHours + lAgo + '</option>\
+		<option value="21">' + lPreAgo + '21 ' + lHours + lAgo + '</option>\
+		<option value="22">' + lPreAgo + '22 ' + lHours + lAgo + '</option>\
+		<option value="23">' + lPreAgo + '23 ' + lHours + lAgo + '</option>\
+		<option value="24">' + lPreAgo + '1 '  + lDay   + lAgo + '</option>\
+		<option value="48">' + lPreAgo + '2 '  + lDays  + lAgo + '</option>\
+		<option value="72">' + lPreAgo + '3 '  + lDays  + lAgo + '</option>\
 	</select>';
 	if(Math.floor(androidVersion()) == 2) {  
 		var outerSelect = formSelect;
@@ -712,7 +717,7 @@ diaryHtml += '\
 ' + outerSelect + '\
 <div id="entryListForm">\
 	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
-	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />kcal</div>\
+	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />' + LANG.KCAL[lang] + '</div>\
 	<div id="sliderNeg"><span></span>' + LANG.EXERCISE[lang] + '</div>\
 	<div id="sliderPos">' + LANG.FOOD[lang] + '<span></span></div>\
 	<input type="text" id="entryBody" placeholder="' + LANG.DESCRIPTION[lang] + '" tabindex="-1" />\
@@ -766,7 +771,7 @@ diaryHtml += '\
 			var dataHandler = "\
 			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + " day" + dayFormat(dataPublished).split("/").join("x") + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
-				<p class='entriesKcals'>kcal</p>\
+				<p class='entriesKcals'>" + LANG.KCAL[lang] + "</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
 				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
@@ -1071,14 +1076,14 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	//////////////////
 	$("#entryBody").on("keypress keyup keydown change blur focus",function(evt) {
 		//DEV SET LANG
-		if($("#entryBody").val().toLowerCase() == "devsetlang") {
-			if(window.localStorage.getItem("devSetLang") == "pt") {
+		if((/devsetlang/).test($("#entryBody").val().toLowerCase()) && $("#entryBody").val().toLowerCase().length == 12) {
+			if(!(langArray).test($("#entryBody").val().toLowerCase().split("devsetlang").join(''))) {
 				window.localStorage.removeItem("devSetLang");
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 				afterHide();
 			} else {
-				window.localStorage.setItem("devSetLang","pt");
+				window.localStorage.setItem("devSetLang",$("#entryBody").val().toLowerCase().split("devsetlang").join(''));
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 				afterHide();
@@ -1556,7 +1561,7 @@ var profileHtml = '\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
 <h2 id="mantain"><span>A.</span> ' + LANG.KEEP_WEIGHT[lang] + '</h2>\
-<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
@@ -1592,7 +1597,7 @@ var profileHtml = '\
 	</select></span>\
 	<span>' + LANG.PER_WEEK[lang] + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
@@ -1628,7 +1633,7 @@ var profileHtml = '\
 	</select></span>\
 	<span>' + LANG.PER_WEEK[lang] + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
 \
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\
@@ -1654,7 +1659,7 @@ var profileHtml = '\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
 <h2 id="mantain" class="invisible hidden"><span>A.</span> ' + LANG.KEEP_WEIGHT[lang] + '</h2>\
-<div class="tapSelect invisible hidden"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
+<div class="tapSelect invisible hidden"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
@@ -1711,7 +1716,7 @@ var profileHtml = '\
 	</select></span>\
 	<span>' + LANG.PER_WEEK[lang] + '</span>\
 </div>\
-<div class="tapSelect invisible hidden"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
+<div class="tapSelect invisible hidden"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
@@ -1768,7 +1773,7 @@ var profileHtml = '\
 	</select></span>\
 	<span>' + LANG.PER_WEEK[lang] + '</span>\
 </div>\
-<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">kcal / ' + LANG.DAY[lang] + '</span></div>\
+<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
 \
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\
