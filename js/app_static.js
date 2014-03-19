@@ -228,11 +228,7 @@ $(document).on("pressenter", function(evt) {
 $(document).keyup(function(e) {
 	if(e.keyCode == 13) { $(document).trigger("pressenter"); }
 	if(e.keyCode == 27) { $(document).trigger("backbutton"); }
-	CONSOLE(e.keyCode);
-	//38 up
-	//40 down
-	//37 left
-	//39 right
+	//CONSOLE(e.keyCode);
 });
 //FORCE SHOW KEYBOARD
 $(document).on("click", function(evt) {
