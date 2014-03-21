@@ -1119,14 +1119,15 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//DEV DB
 		if($("#entryBody").val().toLowerCase() == "devdb") {
-			window.localStorage.removeItem("foodDbLoaded");
 			if(window.localStorage.getItem("config_nodb") == "active") {
 				window.localStorage.setItem("config_nodb","inactive");
+				window.localStorage.removeItem("foodDbLoaded");
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 				afterHide();
 			} else {
 				window.localStorage.setItem("config_nodb","active");
+				window.localStorage.removeItem("foodDbLoaded");
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 				afterHide();
@@ -1807,7 +1808,7 @@ $("#feet").on("change keypress",function(evt) {
 	writeCalcValues();
 });
 //input validate
-$("#feet,#inches,#pA3B").on("keypress", function(evt) {
+$("#feet,#inches,#pA3B").on("keydown", function(evt) {
 	//max
 	if(parseInt($(this).val()) >= 999) {
 		return false;
@@ -1872,12 +1873,12 @@ $("#calcForm").on(touchend, function(evt) {
 		//PROTECT FROM CALCULATOR BLUR SLOWDOWN
 		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
 			$("#calcForm input").each(function(evt) {
-				if($(this).is(":focus")) {
+				if($(this).is(":focus") && vendorClass != "moz") {
 					$(this).blur();
 				}
 			});
 			$("#calcForm select").each(function(evt) {
-				if($(this).is(":focus")) {
+				if($(this).is(":focus") && vendorClass != "moz") {
 					$(this).blur();
 				}
 			});

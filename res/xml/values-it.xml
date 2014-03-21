@@ -37,9 +37,9 @@
     <string name="NO_MATCHES">nessun incontro</string>
     <string name="EXERCISE_SEARCH">Ricerca Esercizio ... (30 min)</string>
     <string name="ENTRY_HISTORY">Attività recenti</string>
-    <string name="PRO">professionista</string>
-    <string name="CAR">auto</string>
-    <string name="FAT">Gra</string>
+	<string name="PRO">Proteine</string>
+    <string name="CAR">Carboidrati</string>
+    <string name="FAT">Grassi</string>
     <string name="PRE_FILL">pre-fill</string>
     <string name="ADD">aggiungere</string>
     <string name="GRAMS">grammi</string>

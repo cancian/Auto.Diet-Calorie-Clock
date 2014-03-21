@@ -4,6 +4,10 @@
         id        = "com.cancian.mylivediet"
         versionCode="11703" 
         version   = "1.1.7">
+
+	<content src="index.html" />
+	<access origin="*" />
+
     <name>MyLiveDiet</name>
 
     <description>
@@ -15,6 +19,7 @@
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
+
 
     <!-- Customize your app and platform with the preference element. -->
     <preference name="permissions"                value="none"/>
@@ -99,6 +104,11 @@
 	<feature name="org.apache.cordova.facebook.Connect">
 		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
 	</feature>
+
+
+	<feature name="org.apache.cordova.facebook.Connect">
+		<param name="wp-package" value="FacebookConnectPlugin" />
+	</feature>
 <!--
 	<feature name="Notification">
 		<param name="wp-package" value="Notification" />
@@ -110,7 +120,5 @@
 		<param name="wp-package" value="SplashScreen" />
 	</feature>
 -->
-    <access origin="*" />
-	<content src="index.html" />
 	
 </widget>

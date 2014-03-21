@@ -374,7 +374,7 @@ function syncEntries(userId) {
 			} else {
 				//LOCALSTORAGE 
 				lib.deleteRows("diary_entry");
-				lib.commit();
+				//lib.commit();
 				//sqlToJson
 				lsql  = sql.split('\n');
 				lasql = [];
@@ -385,15 +385,16 @@ function syncEntries(userId) {
 					var keyName = lasql[a].split("','");
 					//WRITE
 					if(keyName[0] == "diary_entry") {
-						lib.insertOrUpdate("diary_entry", {published: keyName[4]},{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
-						lib.commit();
+						//lib.insertOrUpdate("diary_entry", {published: keyName[4]},{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						lib.insert("diary_entry",{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 					}
 					if(keyName[0] == "diary_food") {
 						lib2.insertOrUpdate("diary_food", {code: keyName[3]},{"id":keyName[1],"type":keyName[2],"code":keyName[3],"name":keyName[4],"term":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
-						lib2.commit();
 					}
 				}
 				//success
+				lib.commit();
+				lib2.commit();
 				demoRunning = false;
 				setComplete();
 			}

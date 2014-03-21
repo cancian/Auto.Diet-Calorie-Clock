@@ -1,9 +1,9 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.1.7.2 [14/03/2014]
+# 1.1.8 [14/03/2014]
 • default to metric system for non-english users
-• 
+• added localization for the following languages: mimimi
 • 
 • 
 • 
