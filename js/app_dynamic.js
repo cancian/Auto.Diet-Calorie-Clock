@@ -1,10 +1,6 @@
 //#//////////////////#//
 //# DYNAMIC HANDLERS #//
 //#//////////////////#//
-if(!hasSql) {
-	//var datz = lib2.query("diary_food");
-}
-
 $(document).on("pageload", function(evt) {
 	// PREVENT++ //
 	if((evt.target.id) > 0) {

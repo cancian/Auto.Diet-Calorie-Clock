@@ -77,10 +77,11 @@ if(vendorClass == "moz" || vendorClass == "msie") {
 //////////////////
 // INJECT FONTS //
 //////////////////
+/*
 $("head").append("<style type='text/css' id='coreFonts'></style>");
 $.get(hostLocal + "css/fonts.css",function(raw) {
 	$("#coreFonts").html(raw);
-});
+});*/
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//

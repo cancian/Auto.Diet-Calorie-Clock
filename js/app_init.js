@@ -1,15 +1,24 @@
-if(!navigator.userAgent.match(/IEMobile/i)) { newDate = '?' + new Date().getTime(); }
-//CSS
-document.write("<link rel='stylesheet' type='text/css' id='coreCss' href='" + hostLocal + "css/index.css" + newDate + "' />");
-//document.write("<link rel='stylesheet' type='text/css' href='" + hostLocal + "css/fonts.css" + newDate + "' />");
-document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
 //RE-CHECK
 setTimeout(function(){
 	if(typeof updateTimer != 'function' && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
 		window.localStorage.removeItem("config_debug");
 		window.location.reload();
 	}
-},7500);
+},9999);
+//WP8
+if(!navigator.userAgent.match(/IEMobile/i)) { newDate = '?' + new Date().getTime(); }
+
+//VIEWPORT
+if(window.innerHeight < 450) {
+	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=180" />');
+} else {
+	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />');	
+}
+//CSS
+document.write("<link rel='stylesheet' type='text/css' id='coreCss' href='" + hostLocal + "css/index.css' />");
+document.write("<link rel='stylesheet' type='text/css' href='css/fonts.css" + newDate + "' />");
+document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
+
 if(navigator.userAgent.match(/IEMobile/i) && window.location.hash != "#wp") {
 	//window.location='http://mylivediet.com/#wp';
 }
@@ -23,14 +32,14 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	//document.write("<script type='text/javascript' src='//connect.facebook.net/en_US/all.js'><\/script>");
 }
 //JS
-document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-1.11.0.min.js'><\/script>");
-//document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-2.1.0.min.js'><\/script>");
+//document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-1.11.0.min.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-2.1.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.color-2.1.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.mobileCheckbox.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.touchSwipe.js'><\/script>");
+document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js'><\/script>");
 //nprogress
 document.write("<script type='text/javascript' src='js/nprogress.js'><\/script>");
 document.write("<script type='text/javascript' src='js/spin.min.js'><\/script>");

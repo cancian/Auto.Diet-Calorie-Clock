@@ -38,8 +38,26 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 .invisible								{ visibility: hidden; position: absolute; left: 0; top: 0; }
 .noOverflow								{ overflow: hidden !important; }
 #fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
-@media all and (orientation:portrait)	{ @-ms-viewport { /*width:320px;*/ user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
-@media all and (orientation:landscape)	{ @-ms-viewport { /*width:480px;*/ user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+@media all and (orientation:portrait)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+@media all and (orientation:landscape)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+/*
+@media (max-width: 699px) and (min-width: 520px) {
+	@media all and (orientation:portrait) {
+  @-viewport {
+    width: 640px;
+  }
+}
+
+
+
+@viewport {
+    width: 80px;
+	height: 100px;
+    min-zoom: 1.25;
+    max-zoom: 5;
+    orientation: portrait;
+}
+*/
 /*#////////////////#//
 //# GLOBAL CONTENT #//
 //#////////////////#*/

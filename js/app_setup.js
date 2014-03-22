@@ -128,6 +128,7 @@ function initDB(t) {
 /////////////////
 function fixResults(res) {
 	//CONSOLE('fixResults');
+	if(!res) { return; }
 	var result = [];
 	if(res.rows) {
 		for (var i=0; i<res.rows.length; i++) { 
@@ -671,20 +672,6 @@ function spinner(size) {
 			setTimeout(function() { $("#spinner").remove(); },250);
 			setTimeout(function() { $("#spinner").remove(); },500);
 		});
-		//enforce remove
-		setTimeout(function() {
-			$("#tempHolder").remove();
-			setTimeout(function() { $("#tempHolder").remove(); },150);
-			setTimeout(function() { $("#tempHolder").remove(); },250);
-			setTimeout(function() { $("#tempHolder").remove(); },500);
-			setTimeout(function() { $("#modalOverlay").remove(); },150);
-			setTimeout(function() { $("#modalOverlay").remove(); },250);
-			setTimeout(function() { $("#modalOverlay").remove(); },500);
-			setTimeout(function() { $("#spinner").remove(); },150);
-			setTimeout(function() { $("#spinner").remove(); },250);
-			setTimeout(function() { $("#spinner").remove(); },500);
-		},999);
-		//stop
 		return;
 	}
 	//////////
@@ -731,7 +718,11 @@ function spinner(size) {
 ////////////////////
 // FOOD DB IMPORT //
 ////////////////////
+
+ 
+
 function updateFoodDb() {
+
 	if(window.localStorage.getItem("foodDbLoaded") == "done") { return; }
 	if(window.localStorage.getItem("foodDbLoaded") != "done" && window.localStorage.getItem("startLock") != "running") {
 		//reset blocks
