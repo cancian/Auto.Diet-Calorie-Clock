@@ -752,9 +752,9 @@ body.ios7 #modalWindow	{ top: 94px; }
 #modalPos.icon-chevron-sign-right			{ font-family: "FontAwesome"; line-height: 39px; font-size: 39px; font-weight: normal; color: #007AFF; margin-top: -8px; display:block; }
 #modalNeg.icon-chevron-sign-left:before		{ content: "\f104"; font-family: "FontAwesome"; }
 #modalPos.icon-chevron-sign-right:before	{ content: "\f105"; font-family: "FontAwesome"; }
-#modalAmmountBlock		{ position: absolute; top: 5px; left: 25%; display: block; width: 50%; height: 40px; border: 1px solid #eee; border-width: 1px 0 1px 0; }
-#modalAmmount			{ display: block; width: 100%; text-align: center; font-size: 12pt; line-height: 10pt; font-weight: bold; padding-top: 7px; }
-#modalAmmountType		{ display: block; width: 100%; text-align: center; font-size: 10pt; font-variant: small-caps; }
+#modalAmountBlock		{ position: absolute; top: 5px; left: 25%; display: block; width: 50%; height: 40px; border: 1px solid #eee; border-width: 1px 0 1px 0; }
+#modalAmount			{ display: block; width: 100%; text-align: center; font-size: 12pt; line-height: 10pt; font-weight: bold; padding-top: 7px; }
+#modalAmountType		{ display: block; width: 100%; text-align: center; font-size: 10pt; font-variant: small-caps; }
 #modalTotalBlock		{ position: absolute; top: 48px; left: 0; display: block; width: 100%; text-align: center; font-variant: small-caps; height: 36px; padding-top: 8px; font-size: 16pt; background-color: #fff; }
 #modalTotal				{ float: left; width: 50%; display: block; text-align: right; background-color: #fff; }
 #modalTotalType			{ text-align: left; float: right; text-indent: 1px; font-size: 16pt; width: 50%; display: block; }

@@ -162,9 +162,9 @@ $(document).on("pageload", function(evt) {
 								}
 								//SHOW DIALOG
 								if(hasTouch() && (!isMobile.Android() || androidVersion() >= 4.4)) {
-									navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], intoTheVoid, LANG.RESET_ENTRY_DIALOG[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
+									navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], intoTheVoid, LANG.RESET_ENTRY_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 								} else {
-									if(confirm(LANG.RESET_ENTRY_DIALOG[lang])) { intoTheVoid(1); } else { intoTheVoid(0); }
+									if(confirm(LANG.RESET_ENTRY_TITLE[lang])) { intoTheVoid(1); } else { intoTheVoid(0); }
 								}
 								return false;
 							});
@@ -1601,14 +1601,14 @@ function addNewItem(opt) {
 			<div id="addNewWrapper">\
 				<ul id="addNewList">\
 					<li id="addNewName">   <label>' + LANG.ADD_NAME[lang] + '</label>                           <input tabindex="3" type="text"   id="inputNewName"                /></li>\
-					<li id="addNewAmmount"><label>' + LANG.ADD_AMMOUNT[lang] + ' (' + LANG.G[lang] + ')</label> <input tabindex="3" type="number" id="inputNewAmmount" value="100" /></li>\
+					<li id="addNewAmount"><label>' + LANG.ADD_AMOUNT[lang] + ' (' + LANG.G[lang] + ')</label> <input tabindex="3" type="number" id="inputNewAmount" value="100" /></li>\
 					<li id="addNewKcal">   <label>' + LANG.KCAL[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
 					<li id="addNewPro">    <label>' + LANG.PRO[lang]  + '</label>                               <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
 					<li id="addNewCar">    <label>' + LANG.CAR[lang]  + '</label>                               <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
 					<li id="addNewFat">    <label>' + LANG.FAT[lang]  + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
 				</ul>\
 				<div id="addNewCancel">'  + LANG.CANCEL[lang] + '</div>\
-				<div id="addNewConfirm">' + LANG.ADD_NEW[lang] + '</div>\
+				<div id="addNewConfirm">' + LANG.SAVE[lang] + '</div>\
 			</div>\
 		</div>\
 		');
@@ -1649,14 +1649,14 @@ if(opt.type == "exercise") {
 	if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
 		var totalWeight = Math.round( (totalWeight) / (2.2) );
 	}
-	$("#addNewAmmount label").html(LANG.ADD_DURATION[lang] + ' (' + LANG.MIN[lang] + ')');
-	$("#inputNewAmmount").val(30);
+	$("#addNewAmount label").html(LANG.ADD_DURATION[lang] + ' (' + LANG.MIN[lang] + ')');
+	$("#inputNewAmount").val(30);
 	$("#addNewPro").hide();
 	$("#addNewCar").hide();
 	$("#addNewFat").hide();
 
 	if(vAct == "update") {
-		$("#inputNewKcal").val(Math.round(((opt.kcal * totalWeight)/60) * $("#inputNewAmmount").val()));
+		$("#inputNewKcal").val(Math.round(((opt.kcal * totalWeight)/60) * $("#inputNewAmount").val()));
 	}
 }
 
@@ -1768,7 +1768,7 @@ $("#addNewConfirm").on(touchstart, function(evt) {
 		var vFat  = $("#inputNewFat").val();
 		//revert input to formula
 		if(vType == "exercise") {
-			var vKcal = Math.round(((($("#inputNewKcal").val() / totalWeight ) / $("#inputNewAmmount").val() )*60) * 100) / 100;
+			var vKcal = Math.round(((($("#inputNewKcal").val() / totalWeight ) / $("#inputNewAmount").val() )*60) * 100) / 100;
 		}
 ///////////////////////
 // VALIDATE ADD FORM //
@@ -1778,10 +1778,10 @@ $("label").removeClass("error");
 var doReturn = 0;
 if(vName == "" || vName == 0)					{ $("#addNewName label").addClass("error"); doReturn = 1; }
 if(vKcal == "" || vKcal == 0 || isNaN(vKcal))	{ $("#addNewKcal label").addClass("error"); doReturn = 1; }
-if($("#inputNewAmmount").val() == "" || $("#inputNewAmmount").val() == 0 || isNaN($("#inputNewAmmount").val())) { $("#addNewAmmount label").addClass("error"); doReturn = 1; }
+if($("#inputNewAmount").val() == "" || $("#inputNewAmount").val() == 0 || isNaN($("#inputNewAmount").val())) { $("#addNewAmount label").addClass("error"); doReturn = 1; }
 //parts > sum
-if(parseFloat($("#inputNewPro").val()) + parseFloat($("#inputNewCar").val()) + parseFloat($("#inputNewFat").val()) > parseFloat($("#inputNewAmmount").val())) {
-	$("#addNewAmmount label").addClass("error");
+if(parseFloat($("#inputNewPro").val()) + parseFloat($("#inputNewCar").val()) + parseFloat($("#inputNewFat").val()) > parseFloat($("#inputNewAmount").val())) {
+	$("#addNewAmount label").addClass("error");
 	$("#addNewPro label").addClass("error");
 	$("#addNewCar label").addClass("error");
 	$("#addNewFat label").addClass("error");
@@ -1806,10 +1806,10 @@ if(vCar == "" || isNaN(vCar))	{ vCar = 0; }
 if(vFat == "" || isNaN(vFat))	{ vFat = 0; }
 //revert to 100g
 if(vType == "food") {
-vKcal = Math.round((vKcal / $("#inputNewAmmount").val()) *100 * 100) / 100;
-vPro  = Math.round((vPro / $("#inputNewAmmount").val()) *100 * 100) / 100;
-vCar  = Math.round((vCar / $("#inputNewAmmount").val()) *100 * 100) / 100;
-vFat  = Math.round((vFat / $("#inputNewAmmount").val()) *100 * 100) / 100;
+vKcal = Math.round((vKcal / $("#inputNewAmount").val()) *100 * 100) / 100;
+vPro  = Math.round((vPro / $("#inputNewAmount").val()) *100 * 100) / 100;
+vCar  = Math.round((vCar / $("#inputNewAmount").val()) *100 * 100) / 100;
+vFat  = Math.round((vFat / $("#inputNewAmount").val()) *100 * 100) / 100;
 vKcal = Math.round(vKcal);
 } else {
 vKcal = Math.round(vKcal * 100) / 100;
@@ -2000,15 +2000,15 @@ function getModalWindow(itemId) {
 		//add content
 		$("#modalWindow").html("<div id='modalDelete'></div><div id='modalEdit'></div><div id='modalFav'></div><div id='modalContent'>" + mName + "&nbsp; <span>&nbsp;" + LANG.PRE_FILL[lang] + "</span></div>");
 		$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG.ADD[lang] + "</span><span id='modalCancel'>" + LANG.CANCEL[lang] + "</span></div>");
-		$("#modalWindow").append('<div id="modalAdjust"><span id="modalNegBlock"><span id="modalNeg" class="icon-chevron-sign-left"></span></span><span id="modalPosBlock"><span id="modalPos" class="icon-chevron-sign-right"></span></span><span id="modalAmmountBlock"><span id="modalAmmount">0</span><span id="modalAmmountType">' + LANG.GRAMS[lang] + '</span></span><span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">' + LANG.KCAL[lang] + '</span></span></div>');
+		$("#modalWindow").append('<div id="modalAdjust"><span id="modalNegBlock"><span id="modalNeg" class="icon-chevron-sign-left"></span></span><span id="modalPosBlock"><span id="modalPos" class="icon-chevron-sign-right"></span></span><span id="modalAmountBlock"><span id="modalAmount">0</span><span id="modalAmountType">' + LANG.GRAMS[lang] + '</span></span><span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">' + LANG.KCAL[lang] + '</span></span></div>');
 		//set shortcuts
 		var kcalsBase = mKcal;
 		//modal mode min or g
 		if(searchType == "food") { 
-			$("#modalAmmountType").html(LANG.GRAMS[lang]);
+			$("#modalAmountType").html(LANG.GRAMS[lang]);
 			$("#modalTotalType").after("<span id='proData'>0.0<span>" + LANG.G[lang] + "</span></span><span id='carData'>0.0<span>" + LANG.G[lang] + "</span></span><span id='fatData'>0.0<span>" + LANG.G[lang] + "</span></span><span id='proLabel'>" + LANG.PRO[lang] + "</span><span id='carLabel'>" + LANG.CAR[lang] + "</span><span id='fatLabel'>" + LANG.FAT[lang] + "</span>");
 		} else {
-			$("#modalAmmountType").html(LANG.MINUTES[lang]);
+			$("#modalAmountType").html(LANG.MINUTES[lang]);
 		}
 		//#////////////#//
 		//# SHOW MODAL #//
@@ -2030,9 +2030,9 @@ function getModalWindow(itemId) {
 				var kcalsPro      = mPro;
 				var kcalsCar      = mCar;
 				var kcalsFat      = mFat;
-				var kcalsTotalPro = (Math.round((((Number(kcalsPro))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
-				var kcalsTotalCar = (Math.round((((Number(kcalsCar))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
-				var kcalsTotalFat = (Math.round((((Number(kcalsFat))/100) * Number(document.getElementById('modalAmmount').innerHTML)*100))/(100));
+				var kcalsTotalPro = (Math.round((((Number(kcalsPro))/100) * Number(document.getElementById('modalAmount').innerHTML)*100))/(100));
+				var kcalsTotalCar = (Math.round((((Number(kcalsCar))/100) * Number(document.getElementById('modalAmount').innerHTML)*100))/(100));
+				var kcalsTotalFat = (Math.round((((Number(kcalsFat))/100) * Number(document.getElementById('modalAmount').innerHTML)*100))/(100));
 				var proData       = kcalsTotalPro.toFixed(1) + "<span>" + LANG.G[lang] + "</span>";
 				var carData       = kcalsTotalCar.toFixed(1) + "<span>" + LANG.G[lang] + "</span>";
 				var fatData       = kcalsTotalFat.toFixed(1) + "<span>" + LANG.G[lang] + "</span>";
@@ -2047,16 +2047,16 @@ function getModalWindow(itemId) {
 		function modalAdd() {
 			//FOOD
 			if(searchType == "food") {
-				if($("#modalAmmount").html() < 750 && Math.round(((kcalsBase)/100) * (Number(document.getElementById('modalAmmount').innerHTML) + 1)) <= 9999) {
-					$("#modalAmmount").html(Number($("#modalAmmount").html()) + (1));
-					$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmmount').innerHTML)));
+				if($("#modalAmount").html() < 750 && Math.round(((kcalsBase)/100) * (Number(document.getElementById('modalAmount').innerHTML) + 1)) <= 9999) {
+					$("#modalAmount").html(Number($("#modalAmount").html()) + (1));
+					$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmount').innerHTML)));
 					getNutriData();
 				}
 			} else {
 			//EXERCISE
-				if($("#modalAmmount").html() < 360 && Math.round(((kcalsBase * totalWeight)/60) * (Number(document.getElementById('modalAmmount').innerHTML) + 1)) <= 9999) {
-					$("#modalAmmount").html( Number($("#modalAmmount").html()) + (1));
-					$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmmount').innerHTML)));
+				if($("#modalAmount").html() < 360 && Math.round(((kcalsBase * totalWeight)/60) * (Number(document.getElementById('modalAmount').innerHTML) + 1)) <= 9999) {
+					$("#modalAmount").html( Number($("#modalAmount").html()) + (1));
+					$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmount').innerHTML)));
 				}
 			}
 		}
@@ -2066,16 +2066,16 @@ function getModalWindow(itemId) {
 		function modalRem() {
 			//FOOD	
 			if(searchType == "food") {
-				if($("#modalAmmount").html() > 0) {
-					$("#modalAmmount").html( Number($("#modalAmmount").html()) - (1));
-					$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmmount').innerHTML)));
+				if($("#modalAmount").html() > 0) {
+					$("#modalAmount").html( Number($("#modalAmount").html()) - (1));
+					$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmount').innerHTML)));
 					getNutriData();
 				}
 			} else {
 			//EXERCISE
-				if($("#modalAmmount").html() > 0) {
-					$("#modalAmmount").html( Number($("#modalAmmount").html()) - (1));
-					$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmmount').innerHTML)));
+				if($("#modalAmount").html() > 0) {
+					$("#modalAmount").html( Number($("#modalAmount").html()) - (1));
+					$("#modalTotal").html(Math.round(((kcalsBase * totalWeight)/60) * Number(document.getElementById('modalAmount').innerHTML)));
 				}
 			}
 		}
@@ -2147,10 +2147,10 @@ function getModalWindow(itemId) {
 							//ADJUST TYPE
 							if(searchType == "food") { 
 								var valueType = 1;
-								var shortDesc = " (" + document.getElementById('modalAmmount').innerHTML + LANG.G[lang] + ")";
+								var shortDesc = " (" + document.getElementById('modalAmount').innerHTML + LANG.G[lang] + ")";
 							} else {
 								var valueType = -1;
-								var shortDesc = " (" + document.getElementById('modalAmmount').innerHTML + " " + LANG.MIN[lang] + ")";
+								var shortDesc = " (" + document.getElementById('modalAmount').innerHTML + " " + LANG.MIN[lang] + ")";
 							}
 							//grab values
 							var title     = ((document.getElementById('modalTotal').innerHTML) * (valueType));

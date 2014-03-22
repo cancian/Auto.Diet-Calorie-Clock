@@ -83,7 +83,7 @@ function initDB(t) {
 	////////////////////////////
 	if(!window.localStorage.getItem("config_kcals_day_0")) {
 		$("body").append("<div id='gettingStarted'>\
-			<div id='appInfo'>" + LANG.START_APP[lang] + "</div>\
+			<div id='appInfo'>" + LANG.APP_INTRO[lang] + "</div>\
 			<div id='step1'><span>1</span>" + LANG.STEP_1[lang] + "</div>\
 			<div id='step2'><span>2</span>" + LANG.STEP_2[lang] + "</div>\
 			<div id='step3'><span>3</span>" + LANG.STEP_3[lang] + "</div>\
@@ -1208,13 +1208,13 @@ function updateLoginStatus(sync) {
 					window.localStorage.setItem("facebook_username",facebook_username);	
 					$("#appFooter").addClass("appFacebook");
 					$("body").addClass("appFacebook");
-					$("#optionFacebook span").html(LANG.SETTINGS_FACEBOOK_LOGGED[lang] + window.localStorage.getItem("facebook_username"));
+					$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
 					if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
 				}
 			});
 		} else {
 			//alert('not logged in');
-			$("#optionFacebook span").html(LANG.SETTINGS_FACEBOOK[lang]);
+			$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang]);
 			window.localStorage.removeItem("facebook_logged");
 			window.localStorage.removeItem("facebook_userid");
 			window.localStorage.removeItem("facebook_username");	

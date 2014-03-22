@@ -42,10 +42,10 @@ $("body").prepend('\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 	<div id="appContent"></div>\
 	<ul id="appFooter">\
-		<li id="tab1">' + LANG.STATUS[lang]   + '</li>\
-		<li id="tab2">' + LANG.DIARY[lang]    + '</li>\
-		<li id="tab3">' + LANG.PROFILE[lang]  + '</li>\
-		<li id="tab4">' + LANG.SETTINGS[lang] + '</li>\
+		<li id="tab1">' + LANG.MENU_STATUS[lang]   + '</li>\
+		<li id="tab2">' + LANG.MENU_DIARY[lang]    + '</li>\
+		<li id="tab3">' + LANG.MENU_PROFILE[lang]  + '</li>\
+		<li id="tab4">' + LANG.MENU_SETTINGS[lang] + '</li>\
 	</ul>\
 ');
 //#////////////////////#//

@@ -16,14 +16,14 @@ function openSettings(string) {
 					</div>\
 				</div>\
 			</li>\
-			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_SYNC[lang]   + '<span>' + LANG.SETTINGS_SYNC_INFO[lang]   + '</span></p></div></li>\
+			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_BACKUP[lang]   + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
 			<li id="optionReview"><div><p class="contentTitle">'   + LANG.SETTINGS_REVIEW[lang] + '<span>' + LANG.SETTINGS_REVIEW_INFO[lang] + '</span></p></div></li>\
 			<li id="optionFeedback"><div><p class="contentTitle">' + LANG.SETTINGS_FEEDBACK[lang] + '<span>' + LANG.SETTINGS_FEEDBACK_INFO[lang] + '</span></p></div>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]   + '<span>' + LANG.SETTINGS_HELP_INFO[lang]   + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite">' + LANG.ABOUT_TITLE[lang] + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang] + '<span>--</span></div>\
-		<div id="optionReset">' + LANG.SETTINGS_RESET[lang] + '</div>\
+		<div id="optionReset">' + LANG.SETTINGS_WIPE_TITLE[lang] + '</div>\
 	</div>\
 	';
 	//<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG.SETTINGS_FACEBOOK[lang] + '</span></div></div>\
@@ -130,7 +130,7 @@ function openSettings(string) {
 								window.localStorage.setItem("facebook_username",facebook_username);	
 								$("#appFooter").addClass("appFacebook");
 								$("body").addClass("appFacebook");
-								$("#optionFacebook span").html(LANG.SETTINGS_FACEBOOK_LOGGED[lang] + window.localStorage.getItem("facebook_username"));
+								$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
 								syncEntries(window.localStorage.getItem("facebook_userid"));
 							} else {
 								NProgress.done();
@@ -153,7 +153,7 @@ function openSettings(string) {
 	});
 	//SET USERNAME (IF LOGGED)
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
-		$("#optionFacebook span").html(LANG.SETTINGS_FACEBOOK_LOGGED[lang] + window.localStorage.getItem("facebook_username"));
+		$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
 	}
 	////////////////
 	// ACTIVE ROW //
@@ -314,10 +314,10 @@ function openSettings(string) {
 		}
 		//SHOW DIALOG
 		if(hasTouch()) {
-			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmWipe, LANG.WIPE_DIALOG[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
+			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmWipe, LANG.SETTINGS_WIPE_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 			return false;
 		} else {
-			if(confirm(LANG.WIPE_DIALOG[lang])) { onConfirmWipe(1); } else { return false; }
+			if(confirm(LANG.SETTINGS_WIPE_TITLE[lang])) { onConfirmWipe(1); } else { return false; }
 		}
 	});
 	$("#optionReset").on(touchstart,function(evt) {
@@ -535,10 +535,10 @@ function openStatus(string) {
 			}
 			//SHOW DIALOG
 			if(hasTouch()) {
-				navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], appReset, LANG.RESET_DIALOG[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
+				navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], appReset, LANG.RESET_COUNTER_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 				return false;
 			} else {
-				if(confirm(LANG.RESET_DIALOG[lang])) { appReset(1); } else { return false; }
+				if(confirm(LANG.RESET_COUNTER_TITLE[lang])) { appReset(1); } else { return false; }
 			}
 		} else {
 			setPush();
@@ -1343,7 +1343,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//show
 		$('#diaryNotesWrapper').remove();
-		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'><span>" + LANG.NOTEPAD_DONE[lang] + "</span></div><textarea id='diaryNotesInput'></textarea></div>");
+		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'><span>" + LANG.OK[lang] + "</span></div><textarea id='diaryNotesInput'></textarea></div>");
 		//load content
 		if(window.localStorage.getItem("appNotes") != "") {
 			$('#diaryNotesInput').val(window.localStorage.getItem("appNotes"));

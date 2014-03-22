@@ -1,0 +1,133 @@
+<? Versiune xml = "1.0" encoding = "UTF-8"?> 
+<resources> 
+<string name="language"> en </ string> 
+<string name="language_full"> en-ne </ string> 
+<string name="calorie_counter"> contor de calorii </ string> 
+<string name="start"> începe </ string> 
+<string name="reset"> reset </ string> 
+<string name="start_date"> începe data </ ​​string> 
+<string name="app_intro"> mylivediet a fost conceput pentru a vă ajuta să piardă în greutate la fel de ușor ca possibile. </ string> 
+<string name="step_1"> completati datele dvs. de profil </ string> 
+<string name="step_2"> lovit începe </ string> 
+<string name="step_3"> nu există nici un al treilea pas </ string>! 
+<string name="close_intro"> ok, hai să începem </ string> 
+<string exercițiu name="exercise"> </ string> 
+<string name="food"> alimente </ string> 
+<string Descrierea name="description"> ... </ string> 
+<string name="pre_fill"> pre-fill </ string> 
+<string name="add_entry"> adăuga intrare </ string> 
+<string name="delete"> șterge </ string> 
+<string name="clear_all"> șterge toate </ string> 
+<string name="activity_log"> jurnalul de activitate </ string> 
+<string name="food_search"> căutare de alimente ... (100g) </ string> 
+<string name="exercise_search"> căutare exercițiu ... (30 min) </ string> 
+<string name="no_entries"> exista intrari </ string> 
+<string name="no_matches"> meciuri </ string> 
+<string name="preparing_db"> baza de date pregătește </ string> 
+<string favorite name="my_favourites"> </ string> 
+<string name="my_foods"> alimentele mele </ string> 
+<string name="my_exercises"> exercițiile mele </ string> 
+<string name="add_new_food"> adăuga noi alimente </ string> 
+<string name="add_new_exercise"> adăuga noi exercițiu </ string> 
+<string name="add"> adăuga </ string> 
+<string name="save"> salva </ string> 
+<string nume name="add_name"> </ string> 
+<string name="add_amount"> cantitate </ string> 
+<string durata name="add_duration"> </ string> 
+<string name="delete_item"> șterge element </ string> 
+<string calorii name="calories_avaliable"> cu marfa </ string> 
+<string name="daily_calories"> calorii pe zi, </ string> 
+<string name="caloric_intake"> aportul caloric </ string> 
+<string stare name="menu_status"> </ string> 
+<string jurnal name="menu_diary"> </ string> 
+<string profilul name="menu_profile"> </ string> 
+<string name="menu_settings"> setările </ string> 
+<string name="now"> acum </ string> 
+<string name="today"> azi </ string> 
+<string name="minute"> minut </ string> 
+<string minute name="minutes"> </ string> 
+<string name="min"> min </ string> 
+<string oră name="hour"> </ string> 
+<string ore name="hours"> </ string> 
+<string name="day"> zi </ string> 
+<string zile name="days"> </ string> 
+<string name="and"> și </ string> 
+<string name="ago"> în urmă </ string> 
+<string name="preago"> </ string> 
+<string name="calorie"> calorii </ string> 
+<string calorii name="calories"> </ string> 
+<string name="kcal"> kcal </ string> 
+<string centimetri name="centimeters"> </ string> 
+picioare <string name="feet_inches"> / cm </ string> 
+<string name="grams"> grame </ string> 
+<string name="g"> g </ sring> 
+<string kilograme name="kilograms"> </ string> 
+<string name="kg"> kg </ string> 
+<string de lire sterline name="pounds"> </ string> 
+<string name="lb"> lb </ string> 
+<string proteine ​​name="proteins"> </ string> 
+<string carbohidrati name="carbs"> </ string> 
+<string name="fats"> grăsimi </ string> 
+<string name="pro"> pro </ string> 
+<string name="car"> masina </ string> 
+<string grăsime name="fat"> </ string> 
+<string name="are_you_sure"> ești sigur? </ string> 
+<string name="ok"> OK </ string> 
+<string name="cancel"> anula </ string> 
+<string name="settings_reset"> reseta setările </ string> 
+<string name="settings_reset_title"> toate datele vor fi șterse </ string> 
+<string name="not_running_title"> contorul este în prezent oprită </ string> 
+<string name="not_running_dialog"> doriți să-l înceapă acum? </ string> 
+<string name="about_dialog"> elaborat de André Cancian </ string> 
+<string name="reset_counter_title"> reseta counter </ string> 
+<string name="reset_entry_title"> reseta valoarea de intrare </ string> 
+câmpurile <string name="blank_field_title"> necesare au fost lăsate goale. </ string> 
+<string name="blank_field_dialog"> informațiile lipsă este evidențiată în roșu. </ string> 
+<string name="clear_all_title"> șterge toate intrările </ string> 
+<string name="reset_counter"> reseta counter </ string> 
+<string sistem name="measure_system"> de măsurare </ string> 
+name="measure_system_info"> <string (înălțime, greutate etc) </ string> 
+<string name="imperial"> imperial </ string> 
+<string name="metric"> metric </ string> 
+<string forum suport name="settings_feedback"> </ string> 
+<string name="settings_feedback_info"> posta idei și de a obține sprijin </ string> 
+<string name="settings_review"> evalua acest app </ string> 
+<string name="settings_review_info"> opinia dumneavoastră este importantă pentru noi "</ string> 
+<string name="settings_backup"> backup automat </ string> 
+<string name="settings_backup_info"> menține datele în siguranță și sincronizate </ string> 
+<string name="settings_backup_info_logged_as"> logat ca </ string> 
+<string name="logout_title"> opri backup automat </ string> 
+<string name="last_sync"> ultima sincronizare </ string> 
+<string name="settings_help"> ajuta </ ​​string> 
+<string subiecte name="settings_help_info"> pentru a vă ajuta să începeți </ string> 
+<string name="settings_contact"> contactați-ne </ string> 
+<string name="settings_about"> despre </ string> 
+<string name="male"> masculin </ string> 
+<string feminin name="female"> </ string> 
+<string name="your_gender"> gen dvs. </ string> 
+<string name="your_height"> înălțimea </ string> 
+<string name="your_weight"> greutatea </ string> 
+<string name="your_age"> vârsta ta </ ​​string> 
+<string name="your_activity"> activitatea </ string> 
+<string name="your_activity_option1"> sedentar: cea mai mare parte a sta jos (de locuri de muncă de birou, proiectant) </ string> 
+<string name="your_activity_option2"> ușor activ: ocazional de zi (profesor, vânzător) </ string> 
+<string name="your_activity_option3"> activ: mersul pe jos cele mai multe ori (chelneriță, poștaș) </ string> 
+<string name="your_activity_option4"> foarte activ: muncesc din greu fizic (muncitor în construcții) </ string> 
+<string name="keep_weight"> păstra greutatea curent: </ string> 
+<string name="lose_weight"> pierde in greutate de: </ string> 
+<string name="gain_weight"> câștiga în greutate de: </ string> 
+<string name="per_week"> pe săptămână "</ string> 
+</ Resurse>
+
+
+
+
+
+
+
+
+
+
+
+
+

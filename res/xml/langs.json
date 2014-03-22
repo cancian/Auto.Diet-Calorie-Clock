@@ -1,22 +1,4 @@
-var appVersion = "1.1.8 (11800)";
-var langArray  = /(en|pt|de|es|fr|it|ja|ko|ro|ru|zh)/;
-var lang       = "en";
-/////////////////////
-// DETECT LANGUAGE //
-/////////////////////
-if(window.navigator.language || navigator.userLanguage) {
-	lang = (window.navigator.language || navigator.userLanguage).slice(0, 2).toLowerCase();
-}
-//MANUAL SET (DEV)
-if((langArray).test(window.localStorage.getItem("devSetLang"))) { 
-	lang = window.localStorage.getItem("devSetLang"); 
-}
-//SAFETY
-if(!lang.match(langArray)) { lang = "en"; }
-//#////////////#//
-//# LANG ARRAY #//
-//#////////////#//
-var LANG = {
+﻿{
 	LANGUAGE : {
 		en : "en",
 		pt : "pt",
@@ -26,9 +8,8 @@ var LANG = {
 		it : 'it',
 		ja : 'ja',
 		ko : 'ko',
-		ro : 'ro',
 		ru : 'ru',
-		zh : 'zh'	
+		zh : 'zh'
 	},
 	LANGUAGE_FULL : {
 		en : "en-US",
@@ -39,9 +20,8 @@ var LANG = {
 		it : 'en-US',
 		ja : 'en-US',
 		ko : 'en-US',
-		ro : 'en-US',
 		ru : 'en-US',
-		zh : 'en-US'	
+		zh : 'en-US'
 	},
 	CALORIE_COUNTER : {
 		en : "Calorie Counter",
@@ -52,7 +32,6 @@ var LANG = {
 		it : 'Calorie Counter',
 		ja : 'カロリー・カウンター',
 		ko : '칼로리 카운터',
-		ro : 'Contor de calorii',
 		ru : 'Счётчик калорий',
 		zh : '卡路里计数器'
 	},
@@ -65,7 +44,6 @@ var LANG = {
 		it : 'inizio',
 		ja : 'スタート',
 		ko : '시작',
-		ro : 'începe',
 		ru : 'начать',
 		zh : '开始'
 	},
@@ -78,7 +56,6 @@ var LANG = {
 		it : 'reset',
 		ja : 'リセット',
 		ko : '리셋',
-		ro : 'Resetare',
 		ru : 'перезагрузка',
 		zh : '重置'
 	},
@@ -91,7 +68,6 @@ var LANG = {
 		it : 'data di inizio',
 		ja : '開始日',
 		ko : '시작일',
-		ro : 'începe data ',
 		ru : 'Дата начала',
 		zh : '开始日期'
 	},
@@ -104,7 +80,6 @@ var LANG = {
 		it : 'MyLiveDiet è stato progettato per aiutare a perdere peso facilmente come Possibile.',
 		ja : 'MyLiveDietが可能な限り体重を減らすお手伝いをします。',
 		ko : 'MyLiveDiet는 가능한 한 쉬운 체중 감량에 도움을 주도록 만들어졌습니다.',
-		ro : 'MyLiveDiet a fost conceput pentru a vă ajuta să piardă în greutate la fel de ușor ca possibile.',
 		ru : 'Приложение MyLiveDiet разработано, чтобы вы могли сбрасывать вес как можно легче.',
 		zh : 'MyLiveDiet被设计为帮助你以最轻松的方法减肥。'
 	},
@@ -117,7 +92,6 @@ var LANG = {
 		it : 'Riempi il tuo Profilo',
 		ja : 'プロフィールを入力する',
 		ko : '프로필 정보를 쓰고',
-		ro : 'completati datele dvs. de profil',
 		ru : 'Заполните свой профиль',
 		zh : '请填写您的个​​人资料'
 	},
@@ -130,7 +104,6 @@ var LANG = {
 		it : 'Hit inizio',
 		ja : 'スタートボタンを押す',
 		ko : '시작합니다.',
-		ro : 'lovit începe',
 		ru : 'Щёлкните, чтобы начать',
 		zh : '点击开始'
 	},
@@ -143,7 +116,6 @@ var LANG = {
 		it : 'Non esiste un terzo passo!',
 		ja : '3番目のステップはありません！',
 		ko : '3단계는 없음!',
-		ro : 'Nu există nici un al treilea pas!',
 		ru : 'Нет третьей ступени!',
 		zh : '没有第三步！'
 	},
@@ -156,7 +128,6 @@ var LANG = {
 		it : 'ok, cominciamo',
 		ja : 'では、始めましょう！',
 		ko : '좋아요. 시작합시다.',
-		ro : 'ok, hai să începem ',
 		ru : 'ok, давайте начнём!',
 		zh : '好，让我们开始吧'
 	},
@@ -169,7 +140,6 @@ var LANG = {
 		it : 'esercizio',
 		ja : 'エクササイズ',
 		ko : '운동',
-		ro : 'exercițiu',
 		ru : 'Упражнение',
 		zh : '运动'
 	},
@@ -182,7 +152,6 @@ var LANG = {
 		it : 'cibo',
 		ja : '食べ物',
 		ko : '음식',
-		ro : 'alimente',
 		ru : 'Продукт',
 		zh : '食物'
 	},
@@ -195,7 +164,6 @@ var LANG = {
 		it : 'Descrizione...',
 		ja : '説明...',
 		ko : '설명...',
-		ro : 'Descriere...',
 		ru : 'Описание...',
 		zh : '描述...'
 	},
@@ -208,7 +176,6 @@ var LANG = {
 		it : 'pre-fill',
 		ja : '自動入力',
 		ko : '자동 채우기',
-		ro : 'pre-umplere',
 		ru : 'предварительное заполнение',
 		zh : '预充'
 	},
@@ -221,7 +188,6 @@ var LANG = {
 		it : 'aggiungere',
 		ja : 'クイック追加',
 		ko : '간단 추가',
-		ro : 'adăuga intrare',
 		ru : 'добавить',
 		zh : '快速添加'
 	},
@@ -234,7 +200,6 @@ var LANG = {
 		it : 'Elimina',
 		ja : '削除',
 		ko : '삭제',
-		ro : 'șterge',
 		ru : 'Удалить',
 		zh : '删除'
 	},
@@ -247,7 +212,6 @@ var LANG = {
 		it : 'cancellare tutte le',
 		ja : 'すべてクリア',
 		ko : '모두 지우기',
-		ro : 'șterge toate',
 		ru : 'очистить всё',
 		zh : '清除全部'
 	},
@@ -260,7 +224,6 @@ var LANG = {
 		it : 'registro delle attività',
 		ja : 'アクティビティログ',
 		ko : '활동 기록',
-		ro : 'jurnalul de activitate',
 		ru : 'Журнал действий',
 		zh : '活动日志'
 	},
@@ -273,8 +236,7 @@ var LANG = {
 		it : 'Ricerca di cibo ... (100g)',
 		ja : '食べ物検索... (100g)', //（100グラム）',
 		ko : '음식 찾기... (100g)',
-		ro : 'Căutare de alimente... (100g)',
-		ru : 'поиск продуктов (100 г)', 
+		ru : 'поиск продуктов (100 г)',
 		zh : '食物搜索... （100克）'
 	},
 	EXERCISE_SEARCH : {
@@ -286,7 +248,6 @@ var LANG = {
 		it : 'Ricerca Esercizio ... (30 min)',
 		ja : 'エクササイズ検索... （30分）',
 		ko : '운동 찾기 (30분)',
-		ro : 'Căutare exercițiu... (30 min)',
 		ru : 'Поиск упражнений (30 мин.)',
 		zh : '运动搜索... （30分钟）'
 	},
@@ -299,7 +260,6 @@ var LANG = {
 		it : 'nessuna voce',
 		ja : 'エントリーなし',
 		ko : '입력 없음',
-		ro : 'nu există intrări',
 		ru : 'Нет записей',
 		zh : '无项目'
 	},
@@ -312,7 +272,6 @@ var LANG = {
 		it : 'nessun incontro',
 		ja : '該当なし',
 		ko : '일치 정보 없음',
-		ro : 'nu există nici un meci',
 		ru : 'Соответствий не найдено',
 		zh : '无匹配'
 	},
@@ -325,7 +284,6 @@ var LANG = {
 		it : 'preparazione del database',
 		ja : 'データベースの準備中',
 		ko : '데이터베이스 준비',
-		ro : 'baza de date pregătește',
 		ru : 'создание базы данных',
 		zh : '准备数据库'
 	},
@@ -338,7 +296,6 @@ var LANG = {
 		it : 'preferiti',
 		ja : 'お気に入り',
 		ko : '즐겨찾기',
-		ro : 'favorite',
 		ru : 'избранное',
 		zh : '我的最爱'
 	},
@@ -351,7 +308,6 @@ var LANG = {
 		it : 'i miei cibi',
 		ja : '食べ物',
 		ko : '음식',
-		ro : 'alimentele',
 		ru : 'продукты',
 		zh : '我的食物'
 	},
@@ -364,7 +320,6 @@ var LANG = {
 		it : 'i miei esercizi',
 		ja : 'エクササイズ',
 		ko : '운동',
-		ro : 'exercițiile',
 		ru : 'упражнения',
 		zh : '我的运动'
 	},
@@ -377,7 +332,6 @@ var LANG = {
 		it : 'aggiungere nuovi alimenti',
 		ja : '新しい食べ物を追加',
 		ko : '음식 새로 추가',
-		ro : 'adăuga noi alimente',
 		ru : 'Добавить новый продукт',
 		zh : '添加新的食物'
 	},
@@ -390,7 +344,6 @@ var LANG = {
 		it : 'aggiungere nuovo esercizio',
 		ja : '新しいエクササイズを追加',
 		ko : '운동 새로 추가',
-		ro : 'adăuga noi exercițiu',
 		ru : 'Добавить новое упражнение',
 		zh : '添加新的运动'
 	},
@@ -403,7 +356,6 @@ var LANG = {
 		it : 'aggiungere',
 		ja : '追加',
 		ko : '추가',
-		ro : 'adăuga',
 		ru : 'добавить',
 		zh : '添加'
 	},
@@ -416,7 +368,6 @@ var LANG = {
 		it : 'salva',
 		ja : '保存',
 		ko : '저장',
-		ro : 'salva',
 		ru : 'сохранить',
 		zh : '保存'
 	},
@@ -429,7 +380,6 @@ var LANG = {
 		it : 'Nome',
 		ja : '名前',
 		ko : '이름',
-		ro : 'Nume',
 		ru : 'Название',
 		zh : '名称'
 	},
@@ -442,7 +392,6 @@ var LANG = {
 		it : 'Ammount', /////////////
 		ja : '総量',
 		ko : '양',
-		ro : 'Cantitate',
 		ru : 'Количество',
 		zh : '数量'
 	},
@@ -455,7 +404,6 @@ var LANG = {
 		it : 'Durata',
 		ja : '期間',
 		ko : '기간',
-		ro : 'Durată',
 		ru : 'Продолжительность',
 		zh : '持续时间'
 	},
@@ -468,7 +416,6 @@ var LANG = {
 		it : 'Elimina voce',
 		ja : 'アイテムを削除',
 		ko : '아이템 삭제',
-		ro : 'Ștergeți elementul',
 		ru : 'Удалить элемент',
 		zh : '删除项目'
 	},
@@ -481,20 +428,18 @@ var LANG = {
 		it : 'calorie disponibile',
 		ja : '利用可能なカロリー',
 		ko : '가능 칼로리',
-		ro : 'calorii disponibile',
 		ru : 'калорий доступно',
 		zh : '包含的卡路里'
 	},
 	DAILY_CALORIES : {
 		en : "daily calories",
 		pt : "calorias por dia",
-		de : 'Tägliche Kalorien',//Kalorien pro Tag
+		de : 'Tägliche Kalorien', //Kalorien pro Tag
 		es : 'calorías diarias',
 		fr : 'kcal / jour', //'calories quotidiennes',
 		it : 'calorie al giorno',
 		ja : '毎日のカロリー',
 		ko : '하루 칼로리',
-		ro : 'calorii pe zi',
 		ru : 'калорий в день',
 		zh : '每日的卡路里'
 	},
@@ -507,7 +452,6 @@ var LANG = {
 		it : 'apporto calorico',
 		ja : 'カロリー摂取量',
 		ko : '칼로리 섭취',
-		ro : 'aportul caloric',
 		ru : 'потребление калорий',
 		zh : '摄入卡路里'
 	},
@@ -520,7 +464,6 @@ var LANG = {
 		it : 'stato',
 		ja : 'ステータス',
 		ko : '상태',
-		ro : 'status',
 		ru : 'Состояние',
 		zh : '状态'
 	},
@@ -533,7 +476,6 @@ var LANG = {
 		it : 'diario',
 		ja : '日記',
 		ko : '일기',
-		ro : 'jurnal',
 		ru : 'Дневник',
 		zh : '日志'
 	},
@@ -546,7 +488,6 @@ var LANG = {
 		it : 'profilo',
 		ja : 'プロフィール',
 		ko : '프로필',
-		ro : 'profil',
 		ru : 'профиль',
 		zh : '资料'
 	},
@@ -559,7 +500,6 @@ var LANG = {
 		it : 'Impostazioni',
 		ja : '設定',
 		ko : '설정',
-		ro : 'Setările',
 		ru : 'настройки',
 		zh : '设置'
 	},
@@ -572,7 +512,6 @@ var LANG = {
 		it : 'ora',
 		ja : '今',
 		ko : '현재',
-		ro : 'acum',
 		ru : 'Сейчас',
 		zh : '现在'
 	},
@@ -585,7 +524,6 @@ var LANG = {
 		it : 'oggi',
 		ja : '今日',
 		ko : '오늘',
-		ro : 'azi',
 		ru : 'сегодня',
 		zh : '今天'
 	},
@@ -598,7 +536,6 @@ var LANG = {
 		it : 'minuto',
 		ja : '分',
 		ko : '분',
-		ro : 'minut',
 		ru : 'минуту',
 		zh : '分钟'
 	},
@@ -611,7 +548,6 @@ var LANG = {
 		it : 'minuti',
 		ja : '分',
 		ko : '분',
-		ro : 'minute',
 		ru : 'минут',
 		zh : '分钟'
 	},
@@ -624,7 +560,6 @@ var LANG = {
 		it : 'min',
 		ja : '分',
 		ko : '분',
-		ro : 'min',
 		ru : 'мин.',
 		zh : '分钟'
 	},
@@ -637,7 +572,6 @@ var LANG = {
 		it : 'ora',
 		ja : '時間',
 		ko : '시간',
-		ro : 'oră',
 		ru : 'час',
 		zh : '小时'
 	},
@@ -650,7 +584,6 @@ var LANG = {
 		it : 'ore',
 		ja : '時間',
 		ko : '시간',
-		ro : 'ore',
 		ru : 'часов',
 		zh : '小时'
 	},
@@ -663,7 +596,6 @@ var LANG = {
 		it : 'giorno',
 		ja : '日',
 		ko : '일',
-		ro : 'zi',
 		ru : 'день',
 		zh : '天'
 	},
@@ -676,7 +608,6 @@ var LANG = {
 		it : 'giorni',
 		ja : '日',
 		ko : '일',
-		ro : 'zile',
 		ru : 'дней',
 		zh : '天'
 	},
@@ -689,7 +620,6 @@ var LANG = {
 		it : 'e',
 		ja : 'と',
 		ko : '및',
-		ro : 'și',
 		ru : 'и',
 		zh : '和'
 	},
@@ -702,7 +632,6 @@ var LANG = {
 		it : 'fa',
 		ja : '前',
 		ko : '전',
-		ro : 'în urma',
 		ru : 'назад',
 		zh : '前'
 	},
@@ -715,10 +644,9 @@ var LANG = {
 		it : '',
 		ja : '',
 		ko : '',
-		ro : '',
 		ru : '',
 		zh : ''
-	},	
+	},
 	CALORIE : {
 		en : "calorie",
 		pt : "caloria",
@@ -728,7 +656,6 @@ var LANG = {
 		it : 'caloria',
 		ja : 'カロリー',
 		ko : '칼로리',
-		ro : 'calorie',
 		ru : 'калория',
 		zh : '卡路里'
 	},
@@ -741,10 +668,9 @@ var LANG = {
 		it : 'calorie',
 		ja : 'カロリー',
 		ko : '칼로리',
-		ro : 'calorii',
 		ru : 'калорий.',
 		zh : '卡路里'
-	},	
+	},
 	KCAL : {
 		en : "kcal",
 		pt : "kcal",
@@ -753,11 +679,10 @@ var LANG = {
 		fr : 'kcal',
 		it : 'kcal',
 		ja : 'カロリー', //キロカロリー
-		ko : '칼로리',  //킬로칼로리
-		ro : 'kcal',
+		ko : '칼로리', //킬로칼로리
 		ru : 'ккал',
-		zh : '千卡'   //千卡
-	},	
+		zh : '千卡' //千卡
+	},
 	CENTIMETERS : {
 		en : "centimeters",
 		pt : "centímetros",
@@ -767,7 +692,6 @@ var LANG = {
 		it : 'centimetri',
 		ja : 'センチ',
 		ko : '센티미터',
-		ro : 'centimetri',
 		ru : 'сантиметров',
 		zh : '厘米'
 	},
@@ -780,7 +704,6 @@ var LANG = {
 		it : 'piedi/pollici',
 		ja : 'フィート/インチ',
 		ko : '피트/인치',
-		ro : 'picioare / inch',
 		ru : 'Футов/дюймов',
 		zh : '英尺/英寸'
 	},
@@ -793,7 +716,6 @@ var LANG = {
 		it : 'grammi',
 		ja : 'グラム',
 		ko : '그램',
-		ro : 'grame',
 		ru : 'граммов',
 		zh : '克'
 	},
@@ -806,10 +728,9 @@ var LANG = {
 		it : 'g',
 		ja : 'g', //'グラム',
 		ko : 'g', //'그램',
-		ro : 'g',
-		ru : 'г', 
+		ru : 'г',
 		zh : '克'
-	},	
+	},
 	KILOGRAMS : {
 		en : "kilograms",
 		pt : "kilogramas",
@@ -819,7 +740,6 @@ var LANG = {
 		it : 'chilogrammi',
 		ja : 'キロ',
 		ko : '킬로그램',
-		ro : 'kilograme',
 		ru : 'килограммов',
 		zh : '公斤'
 	},
@@ -832,8 +752,7 @@ var LANG = {
 		it : 'kg',
 		ja : 'キロ.',
 		ko : '킬로그램',
-		ro : 'kg',
-		ru : 'кг', 
+		ru : 'кг',
 		zh : '公斤'
 	},
 	POUNDS : {
@@ -845,7 +764,6 @@ var LANG = {
 		it : 'sterline',
 		ja : 'ポンド',
 		ko : '파운드',
-		ro : 'livre',
 		ru : 'фунтов',
 		zh : '磅'
 	},
@@ -858,8 +776,7 @@ var LANG = {
 		it : 'lb',
 		ja : 'ポンド',
 		ko : '파운드',
-		ro : 'lb',
-		ru : 'фунтов', 
+		ru : 'фунтов',
 		zh : '磅'
 	},
 	PROTEINS : {
@@ -871,12 +788,11 @@ var LANG = {
 		it : 'Proteine',
 		ja : 'タンパク質',
 		ko : '단백질',
-		ro : 'proteine',
 		ru : 'белки',
 		zh : '蛋白质'
 	},
 	CARBS : {
-		en : "carbohydrates",
+		en : "Carbs",
 		pt : "Carboidratos",
 		de : 'Kohlenhydrate',
 		es : 'Carbohidratos',
@@ -884,7 +800,6 @@ var LANG = {
 		it : 'Carboidrati',
 		ja : '炭水化物',
 		ko : '탄수화물',
-		ro : 'Carbohidratii',
 		ru : 'Углеводы',
 		zh : '碳水化合物'
 	},
@@ -897,7 +812,6 @@ var LANG = {
 		it : 'Grassi',
 		ja : '脂肪',
 		ko : '지방',
-		ro : 'grăsimi',
 		ru : 'Жиры',
 		zh : '脂肪'
 	},
@@ -910,7 +824,6 @@ var LANG = {
 		it : 'pro',
 		ja : 'タンパク',
 		ko : '단백질',
-		ro : 'pro',
 		ru : 'белок',
 		zh : '蛋白质'
 	},
@@ -923,7 +836,6 @@ var LANG = {
 		it : 'car',
 		ja : '炭水化物',
 		ko : '탄수화물',
-		ro : 'car',
 		ru : 'углевод',
 		zh : '糖类'
 	},
@@ -936,7 +848,6 @@ var LANG = {
 		it : 'gra',
 		ja : '脂肪',
 		ko : '지방',
-		ro : 'gră',
 		ru : 'жир',
 		zh : '脂肪'
 	},
@@ -949,7 +860,6 @@ var LANG = {
 		it : 'sei sicuro?',
 		ja : 'よろしいですか？',
 		ko : '정말입니까?',
-		ro : 'ești sigur?',
 		ru : 'Вы уверены?',
 		zh : '你确定吗？'
 	},
@@ -962,7 +872,6 @@ var LANG = {
 		it : 'ok',
 		ja : 'ok',
 		ko : '확인',
-		ro : 'ok',
 		ru : 'ok',
 		zh : '好'
 	},
@@ -975,11 +884,10 @@ var LANG = {
 		it : 'annulla',
 		ja : 'キャンセル',
 		ko : '취소',
-		ro : 'anula',
 		ru : 'отмена',
 		zh : '取消'
 	},
-	SETTINGS_WIPE : {
+	SETTINGS_RESET : {
 		en : "Reset settings",
 		pt : "Apagar configurações",
 		de : 'Einstellungen zurücksetzen',
@@ -988,11 +896,10 @@ var LANG = {
 		it : 'Ripristinare le impostazioni',
 		ja : '設定のリセット',
 		ko : '설정 리셋',
-		ro : 'Reseta setările',
 		ru : 'Сбросить настройки',
 		zh : '重新设置'
 	},
-	SETTINGS_WIPE_TITLE : {
+	SETTINGS_RESET_TITLE : {
 		en : "all data will be erased",
 		pt : "todos os dados serão apagados",
 		de : 'Alle Daten werden gelöscht',
@@ -1001,7 +908,6 @@ var LANG = {
 		it : 'tutti i dati saranno cancellati',
 		ja : 'すべてのデータが消去されます',
 		ko : '모든 데이터가 삭제됩니다.',
-		ro : 'toate datele vor fi șterse',
 		ru : 'Все данные будут удалены',
 		zh : '所有数据都将被删除'
 	},
@@ -1014,7 +920,6 @@ var LANG = {
 		it : 'Il contatore è attualmente interrotto',
 		ja : '現在、カウンターは停止中',
 		ko : '현재 카운터가 멈췄습니다.',
-		ro : 'Contorul este oprit',
 		ru : 'В данный момент счётчик не работает.',
 		zh : '计数器现已停止'
 	},
@@ -1027,7 +932,6 @@ var LANG = {
 		it : 'Vuoi iniziare ora?',
 		ja : '今すぐ始めますか？',
 		ko : '지금 시작하겠습니까?',
-		ro : 'Doriți să-l înceapă acum?',
 		ru : 'Хотите запустить его сейчас?',
 		zh : '你想现在开始?'
 	},
@@ -1040,7 +944,6 @@ var LANG = {
 		it : "MyLiveDiet v" + appVersion,
 		ja : "MyLiveDiet v" + appVersion,
 		ko : "MyLiveDiet v" + appVersion,
-		ro : "MyLiveDiet v" + appVersion,
 		ru : "MyLiveDiet v" + appVersion,
 		zh : "MyLiveDiet v" + appVersion
 	},
@@ -1053,20 +956,18 @@ var LANG = {
 		it : 'Sviluppato da André Cancian',
 		ja : 'André Cancian開発',
 		ko : '개발자: André Cancian',
-		ro : 'Dezvoltat de André Cancian',
 		ru : 'РРазработано Андре Канчиан',
 		zh : '由AndréCancian开发'
 	},
 	RESET_COUNTER_TITLE : {
 		en : "reset counter",
-		pt : "reiniciar contador",
+		pt : "resetar contador",
 		de : 'Zähler zurücksetzen',
 		es : 'reiniciar contador',
 		fr : 'réinitialiser le compteur',
 		it : 'azzerare il contatore',
 		ja : 'カウンターのリセット',
 		ko : '카운터 리셋',
-		ro : 'reseta counter',
 		ru : 'Перезагрузить счётчик',
 		zh : '重置计数器'
 	},
@@ -1079,7 +980,6 @@ var LANG = {
 		it : 'Ripristina valore di iscrizione',
 		ja : 'エントリ値のリセット',
 		ko : '입력값 리셋',
-		ro : 'Reset valoare de intrare',
 		ru : 'Сброс значения записи',
 		zh : '重置输入的值'
 	},
@@ -1092,7 +992,6 @@ var LANG = {
 		it : 'I campi obbligatori sono state lasciate in bianco.',
 		ja : '必須項目が入力されていません。',
 		ko : '필수 입력칸이 비었습니다.',
-		ro : 'Câmpurile necesare au fost lăsate goale.',
 		ru : 'Поля, необходимые для заполнения, оставлены пустыми.',
 		zh : '必填栏位已被留空。'
 	},
@@ -1105,7 +1004,6 @@ var LANG = {
 		it : 'Le informazioni mancanti è evidenziata in rosso.',
 		ja : '赤字で強調した部分が必要事項です。',
 		ko : '빈 입력칸은 붉게 표시되어 있습니다.',
-		ro : 'Informațiile lipsă este evidențiată în roșu.',
 		ru : 'Отсутствующая информация отмечена красным.',
 		zh : '缺少的信息以红色高亮显示。'
 	},
@@ -1118,9 +1016,20 @@ var LANG = {
 		it : 'deselezionare tutte le voci',
 		ja : 'すべてのエントリーをクリア',
 		ko : '모든 입력값 지우기',
-		ro : 'șterge toate intrările',
 		ru : 'очистить все записи',
 		zh : '清除所有条目'
+	},
+	RESET_COUNTER : {
+		en : "reset counter",
+		pt : "resetar contador",
+		de : 'Zähler zurücksetzen',
+		es : 'reiniciar contador',
+		fr : 'réinitialiser le compteur',
+		it : 'azzerare il contatore',
+		ja : 'カウンターのリセット',
+		ko : '카운터 리셋',
+		ru : 'Перезагрузить счётчик',
+		zh : '重置计数器'
 	},
 	MEASURE_SYSTEM : {
 		en : "System of measurement",
@@ -1131,7 +1040,6 @@ var LANG = {
 		it : 'Sistema di misurazione',
 		ja : '測定方式',
 		ko : '정방법',
-		ro : 'Sistem de măsurare',
 		ru : 'Система измерения',
 		zh : '测量系统'
 	},
@@ -1144,7 +1052,6 @@ var LANG = {
 		it : '(Altezza, peso, ecc)',
 		ja : '（身長、体重など）',
 		ko : '(키, 무게 등)',
-		ro : '(înălțime, greutate etc)',
 		ru : '(рост, вес и т.д.)',
 		zh : '（身高，体重等）'
 	},
@@ -1157,7 +1064,6 @@ var LANG = {
 		it : 'imperiale',
 		ja : '英国法定標準',
 		ko : '파운드법',
-		ro : 'imperial',
 		ru : 'стандарт',
 		zh : '纸张尺寸'
 	},
@@ -1170,7 +1076,6 @@ var LANG = {
 		it : 'metrico',
 		ja : 'メートル法',
 		ko : '미터법',
-		ro : 'metric',
 		ru : 'метрика',
 		zh : '公制'
 	},
@@ -1183,7 +1088,6 @@ var LANG = {
 		it : 'Forum di Supporto',
 		ja : 'サポート掲示板',
 		ko : '지원 포럼',
-		ro : 'Suport Forum',
 		ru : 'Форум поддержки',
 		zh : '支持论坛'
 	},
@@ -1196,7 +1100,6 @@ var LANG = {
 		it : 'Posta idee e ottenere sostegno',
 		ja : '意見を投稿して、サポートしてもらいましょう',
 		ko : '아이디어 제공 및 지원받기',
-		ro : 'Posta idei și obține sprijin',
 		ru : 'Поделитесь своими идеями и получите помощь',
 		zh : '发表观点，并获得支持'
 	},
@@ -1209,7 +1112,6 @@ var LANG = {
 		it : 'Vota questa applicazione',
 		ja : 'このアプリを評価する',
 		ko : '앱 평가하기',
-		ro : 'Evaluați acest App',
 		ru : 'Оцените данное приложение',
 		zh : '为该应用程序评分'
 	},
@@ -1222,10 +1124,9 @@ var LANG = {
 		it : 'La tua opinione è importante per noi',
 		ja : '貴重なご意見として承ります',
 		ko : '여러분의 의견은 소중합니다.',
-		ro : 'Opinia dumneavoastră este importantă pentru noi',
 		ru : 'Ваше мнение важно для нас.',
 		zh : '你的意见对我们很重要'
-	},	
+	},
 	SETTINGS_BACKUP : {
 		en : "Automatic Backup",
 		pt : "Backup Automático",
@@ -1235,7 +1136,6 @@ var LANG = {
 		it : 'Backup automatico',
 		ja : '自動バックアップ',
 		ko : '자동 백업',
-		ro : 'Backup Automat',
 		ru : 'Автоматическое резервное копирование',
 		zh : '自动备份'
 	},
@@ -1248,7 +1148,6 @@ var LANG = {
 		it : 'Mantenere i vostri dati al sicuro e sincronizzati',
 		ja : 'データを安全に保存して同期してください',
 		ko : '데이터를 안전하게 동기화하세요.',
-		ro : 'Menține datele în siguranță și sincronizate',
 		ru : 'Храните ваши данные в безопасности и синхронизируйте их',
 		zh : '保持你的数据安全并同步'
 	},
@@ -1261,7 +1160,6 @@ var LANG = {
 		it : 'Collegato come ',
 		ja : 'としてログイン中 ',
 		ko : '로그인 ',
-		ro : 'conectat ca ',
 		ru : 'Зашли как ',
 		zh : '登入身份为 '
 	},
@@ -1274,10 +1172,9 @@ var LANG = {
 		it : 'Disattivare il backup automatico',
 		ja : '自動バックアップをオフにする',
 		ko : '자동 백업 끄기',
-		ro : 'Dezactivați backup automat',
 		ru : 'отключить автоматическое резервное копирование',
 		zh : '关闭自动备份'
-	},	
+	},
 	LAST_SYNC : {
 		en : "last sync",
 		pt : "última sincronização",
@@ -1287,7 +1184,6 @@ var LANG = {
 		it : 'ultima sincronizzazione',
 		ja : '前回の同期',
 		ko : '마지막 동기화',
-		ro : 'ultima sincronizare',
 		ru : 'Последняя синхронизация',
 		zh : '上次同步'
 	},
@@ -1300,7 +1196,6 @@ var LANG = {
 		it : 'Aiuto',
 		ja : 'ヘルプ',
 		ko : '도움말',
-		ro : 'Ajuta',
 		ru : 'Помощь',
 		zh : '帮助'
 	},
@@ -1313,7 +1208,6 @@ var LANG = {
 		it : 'Argomenti per aiutarti a iniziare',
 		ja : '開始に役立つトピックス',
 		ko : '시작 도움말',
-		ro : 'Răspunsuri la întrebări frecvente',
 		ru : 'Инструкции для начала работы',
 		zh : '帮助你开始的话题'
 	},
@@ -1326,7 +1220,6 @@ var LANG = {
 		it : 'Contattaci',
 		ja : 'お問い合わせ',
 		ko : '개발자',
-		ro : 'Contactaţi-ne',
 		ru : 'Связаться с нами',
 		zh : '联系我们'
 	},
@@ -1339,7 +1232,6 @@ var LANG = {
 		it : 'Circa',
 		ja : '約',
 		ko : '소개',
-		ro : 'Despre',
 		ru : 'О нас',
 		zh : '关于'
 	},
@@ -1352,7 +1244,6 @@ var LANG = {
 		it : 'maschio',
 		ja : '男性',
 		ko : '남성',
-		ro : 'masculin',
 		ru : 'мужской',
 		zh : '男'
 	},
@@ -1365,7 +1256,6 @@ var LANG = {
 		it : 'femmina',
 		ja : '女性',
 		ko : '여성',
-		ro : 'femeie',
 		ru : 'женский',
 		zh : '女'
 	},
@@ -1378,7 +1268,6 @@ var LANG = {
 		it : 'Il tuo sesso',
 		ja : '性別',
 		ko : '성별',
-		ro : 'Sexul dvs.',
 		ru : 'Ваш пол',
 		zh : '你的性别'
 	},
@@ -1391,7 +1280,6 @@ var LANG = {
 		it : 'La sua altezza',
 		ja : '身長',
 		ko : '키',
-		ro : 'Înălţimea Dvs.',
 		ru : 'Ваш рост',
 		zh : '你的身高'
 	},
@@ -1404,7 +1292,6 @@ var LANG = {
 		it : 'Il tuo peso',
 		ja : '体重',
 		ko : '몸무게',
-		ro : 'Greutatea dvs.',
 		ru : 'Ваш вес',
 		zh : '你的体重'
 	},
@@ -1417,7 +1304,6 @@ var LANG = {
 		it : 'La tua età',
 		ja : '年齢',
 		ko : '나이',
-		ro : 'Varsta ta',
 		ru : 'Ваш возраст',
 		zh : '你的年龄'
 	},
@@ -1430,7 +1316,6 @@ var LANG = {
 		it : 'La tua attività',
 		ja : 'アクティビティ',
 		ko : '활동',
-		ro : 'Activitatea dumneavoastră',
 		ru : 'Ваша деятельность',
 		zh : '你的活动状态'
 	},
@@ -1443,7 +1328,6 @@ var LANG = {
 		it : 'Sedentario: Principalmente seduto (lavoro d\'ufficio, designer)',
 		ja : 'あまり体を動かさない:大抵座っている（事務職、デザイナー）',
 		ko : '정적: 거의 앉아 있음 (사무직, 디자이너)',
-		ro : 'Sedentar: Aproape sta jos (de locuri de muncă de birou, proiectant)',
 		ru : 'Сидячий образ жизни : в основном в положении сидя (работа за компьютером, дизайнер)',
 		zh : '固定不动：大部分是坐着（办公室工作，设计师）'
 	},
@@ -1456,7 +1340,6 @@ var LANG = {
 		it : 'Leggermente attivo: Di tanto in tanto si siede (insegnante, venditore)',
 		ja : '少し活動的：時々座る（教師、セールスマン）',
 		ko : '약간 활동적: 가끔 앉음 (선생님, 세일즈맨)',
-		ro : 'Ușor Activ: Ocazional ședinței (profesor, vânzător)',
 		ru : 'Небольшая активность: иногда сидячая (преподаватель, продавец)',
 		zh : '稍微活动：偶尔坐着（教师，销售人员）'
 	},
@@ -1469,7 +1352,6 @@ var LANG = {
 		it : 'Attivo: Camminando la maggior parte del tempo (cameriera, postino)',
 		ja : '活動的：大抵歩いている（ウエイトレス、郵便配達人）',
 		ko : '활동적: 거의 걸어다님 (승무원, 집배원)',
-		ro : 'Activ: Plimbare cele mai multe ori (chelneriță, poștaș)',
 		ru : 'Активная: большая часть времени в движении (официант, почтальон)',
 		zh : '活跃的：大部分时间都在走动（服务员，邮差）'
 	},
@@ -1482,7 +1364,6 @@ var LANG = {
 		it : 'Molto attivo: Fisicamente duro lavoro (operaio edile)',
 		ja : '非常に活動的：重労働（建設作業員）',
 		ko : '아주 활동적: 육체노동 (건설노동자)',
-		ro : 'Foarte activă: lucru fizic greu (muncitor în construcții)',
 		ru : 'Очень активная: тяжёлый физический труд (строитель)',
 		zh : '非常活跃：繁重的体力劳动者（建筑工人）'
 	},
@@ -1495,7 +1376,6 @@ var LANG = {
 		it : 'Mantenere il peso attuale:',
 		ja : '現在の体重を維持する：',
 		ko : '현재 몸무게 유지:',
-		ro : '',
 		ru : 'Держите текущий вес:',
 		zh : '保持当前体重：'
 	},
@@ -1508,7 +1388,6 @@ var LANG = {
 		it : 'Perdere peso:',
 		ja : 'キロ体重を落とす：',
 		ko : '감량:',
-		ro : 'Pierde in greutate:',
 		ru : 'сбросить вес с помощью:',
 		zh : '用什么样的方式来减肥：'
 	},
@@ -1521,7 +1400,6 @@ var LANG = {
 		it : 'Aumento di peso:',
 		ja : 'キロ体重を増やす：',
 		ko : '증가:',
-		ro : 'Creștere în greutate',
 		ru : 'набрать вес с помощью:',
 		zh : '用什么样的方式来增胖：'
 	},
@@ -1534,93 +1412,7 @@ var LANG = {
 		it : 'a settimana',
 		ja : '1週間に',
 		ko : '주당',
-		ro : 'pe săptămână',
 		ru : 'в неделю',
 		zh : '每周'
-	},
-	HELP_TOPICS_ARRAY : {
-		////////////
-		en : { //
-			////////////
-			"Getting started" : "\
-				<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? MyLiveDiet simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
-				<p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
-				<p>Then you should define a weight loss rate, given in lb/kg per week.</p>\
-				<p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p>\
-				<p>Now hit start, and the app will show how many calories you have burned over time, so you'll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p>\
-				<p>For instance:</p>\
-				<p>2400 per day / 24 hours = 100 calories per hour</p>\
-				<p>So, after 30 minutes, the counter will indicate you have “50 calories available”. Its that simple!</p>\
-				<p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>\
-			",
-			////////////
-			"The Main Counter" : "\
-				<p>The main counter has 3 states: balanced (between -300 and 300, shown in blue), surplus (-300 and below, shown in red), and deficit (300 and up, shown in green).</p>\
-				<p>When the counter hits +/-600, the “caloric status” block on the status screen will turn yellow to indicate you are getting too distant from the balanced state. The value 600 was chosen because it is usually the highest amount of calories recommend per meal.</p>\
-				<p>Note that the counter units are given in “calories available” for the sake of simplicity, so as to quickly indicate whether you ate too much (negative values) or too little (positive values), as if you were “gaining points” over time. The actual caloric (energetic) balance of your body would be the opposite (negative for eating too little, positive for eating too much), but since this seems to reward over-eating by giving it a positive value, the “calories available” approach seemed generally preferable.</p>\
-			",
-			////////////
-			"Changing the Start Date" : "\
-				<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>\
-			",
-			////////////
-			"Calculating Calories" : "\
-				<p>The weight loss rate (kg/lb per week) is calculated using a simple formula based on the number of calories in a pound (3500) or kilogram (7700) of fat. </p>\
-				<p>Let us say you need 2000 daily calories in order to keep your current weight, and you want to lose 0.5 kg per week.</p>\
-				<p>Divide 7700 by 2 to get the total calories in 0.5 kg of fat:</p>\
-				<p>7700 / 2 = 3850</p>\
-				<p>Then divide that value by 7 to get how many daily calories you need to cut back:</p>\
-				<p>3850 / 7 = 550</p>\
-				<p>Now subtract that value from your daily intake:</p>\
-				<p>2000 – 550 = 1450</p>\
-				<p>That’s how many you have to consume daily in order to lose 0.5 kg a week.</p>\
-			"
-			////////////
-		},
-		////////////
-		pt : { //
-			////////////
-			"Como começar?" : "\
-				<p>Seu corpo não esquece as calorias a cada 24 horas, então por que seu contador de calorias deveria? MyLiveDiet simula a maneira como seu corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.</p>\
-				<p>Primeiro, preencha seu perfil. Com base nessa informação, o aplicativo calculará quantas calorias você precisa para manter seu peso atual.</p>\
-				<p>Depois você deve definir a perda de peso (em kg por semana).</p>\
-				<p>O valor resultante incluirá a restrição calórica necessária para que você atinja esse objetivo.</p>\
-				<p>Agora pressione Iniciar, e o aplicativo passará a mostrar quantas calorias você queimou ao longo do tempo, e assim você saberá sempre quantas calorias deve consumir - já estando incluso nesse valor o cálculo da restrição calórica.</p>\
-				<p>Por exemplo:</p>\
-				<p>2400 calorias por dia / 24 horas = 100 calorias por hora</p>\
-				<p>Então, após 30 minutos, o contador indicará que você possui “50 calorias disponíveis”. É simples assim!</p>\
-				<p>Você só precisa manter o contador em torno de zero, e estará automaticamente caminhando em direção ao seu objetivo!</p>\
-			",
-			////////////
-			"O Contador Principal" : "\
-				<p>O contador principal possui 3 estados: balanceado (entre -300 e 300, mostrado em azul), excesso (-300 e abaixo, mostrado em vermelho), e deficit (300 e acima, mostrado em verde). </p>\
-				<p>Quando o contador chega em +/-600, o bloco “status calórico” na tela de status fica amarelo para indicar que você está distanciando-se demais do balanço calórico ideal (zero). O valor 600 foi escolhido porque esse é geralmente o número máximo de calorias recomendado por refeição.</p>\
-				<p>Note que o contador utiliza “calorias disponíveis” como medida por questão de praticidade, para indicar rapidamente se você comeu demais (valores negativos) ou de menos (valores positivos), como se estivesse “ganhando pontos” com o passar do tempo. O balanço calórico (energético) real de seu corpo seria o oposto (negativo para comer pouco, positivo para comer demais), mas isso parece recompensar o consumo excessivo de calorias, de modo que o esquema de “calorias disponíveis” pareceu preferível.</p>\
-			",
-			////////////
-			"Mudar Data Inicial" : "\
-				<p>O comportamento padrão do aplicativo é começar a contagem a partir do momento em que o botão Iniciar é pressionado. Porém, se por algum motivo você precisar ajustar esse valor (e.g. você começou a dieta esta manhã, mas só teve tempo de configurar o aplicativo à tarde), basta pressionar a seta para baixo (no botão Iniciar) para revelar o seletor de data.</p>\
-			",
-			////////////
-			"Calculando Calorias" : "\
-				<p>A perda de peso (em kg por semana) é calculada utilizando-se uma fórmula simples, baseada no número de calorias em um quilograma de gordura (7700).</p>\
-				<p>Suponhamos que você precise de 2000 calorias por dia para manter seu peso atual, e deseja perder 0.5 kg por semana.</p>\
-				<p>Divida 7700 por 2 para encontrar o total de calorias em 0.5 kg de gordura:</p>\
-				<p>7700 / 2 = 3850</p>\
-				<p>Depois divida esse valor por 7 para saber quantas calorias diárias você precisa reduzir:</p>\
-				<p>3850 / 7 = 550</p>\
-				<p>Agora subtraia esse valor de sua ingestão diária:</p>\
-				<p>2000 – 550 = 1450</p>\
-				<p>Esse é o número de calorias que você deve consumir diariamente para perder 0.5 kg por semana.</p>\
-			"
-			////////////
-		}
 	}
-};
-/////////////////////////
-// fallback to english //
-/////////////////////////
-if(lang != "en" && lang != "pt") { 
-	LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
 }
-
