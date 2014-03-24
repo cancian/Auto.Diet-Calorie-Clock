@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="LANGUAGE">en</string>
-    <string name="LANGUAGE_FULL">en-US</string>
+    <string name="LANGUAGE">Inglés</string>
+    <string name="LANGUAGE_FULL">Inglés-Estados Unidos</string>
     <string name="NO_ENTRIES">no hay entradas</string>
     <string name="EXERCISE">ejercicio</string>
     <string name="FOOD">comida</string>
@@ -132,7 +132,7 @@
     <string name="NOT_RUNNING_DIALOG">¿Le gustaría empezar ahora?</string>
     <string name="CLEAR_ALL">borrar todos</string>
     <string name="CLEAR_ALL_TITLE">borrar todas las entradas</string>
-    <string name="LOGOUT_TITLE">Apagar copia de seguridad automática</string>
+    <string name="LOGOUT_TITLE">Desactivar copia de seguridad automática</string>
     <string name="FOR">para</string>
     <string name="CALORIE_COUNTER">Contador de calorías</string>
     <string name="SHARE_MESSAGE">¡Estoy usando MyLiveDiet para realizar un seguimiento de calorías en tiempo real! ¡Échale un vistazo!</string>

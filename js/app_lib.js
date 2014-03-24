@@ -33,31 +33,18 @@ var isMobile = {
 		return navigator.userAgent.match(/IEMobile/i) ? true : false;
 	}
 };
-//#////////#//
-//# VENDOR #//
-//#////////#//
-var prefix = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
-!/msie/.test(navigator.userAgent.toLowerCase()) &&
-!/webkit/.test(navigator.userAgent.toLowerCase())) ? '-moz-'    :
-(/webkit/.test(navigator.userAgent.toLowerCase())) ? '-webkit-' :
-(/msie/.test(navigator.userAgent.toLowerCase()))   ? '-ms-'     :
-(/opera/.test(navigator.userAgent.toLowerCase()))  ? ''         : '';
-
-var transitionend = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
-!/msie/.test(navigator.userAgent.toLowerCase()) &&
-!/webkit/.test(navigator.userAgent.toLowerCase())) ? 'transitionend'       :
-(/webkit/.test(navigator.userAgent.toLowerCase())) ? 'webkitTransitionEnd' :
-(/msie/.test(navigator.userAgent.toLowerCase()))   ? 'transitionend'       :
-(/opera/.test(navigator.userAgent.toLowerCase()))  ? 'transitionend'       : '';
-
-var vendorClass = (/mozilla/.test(navigator.userAgent.toLowerCase()) &&
-!/msie/.test(navigator.userAgent.toLowerCase()) &&
-!/webkit/.test(navigator.userAgent.toLowerCase())) ? 'moz'    :
-(/webkit/.test(navigator.userAgent.toLowerCase())) ? 'webkit' :
-(/msie/.test(navigator.userAgent.toLowerCase()))   ? 'msie'   :
-(/opera/.test(navigator.userAgent.toLowerCase()))  ? 'opera'  : '';
+//#///////////////#//
+//# GET USERAGENT #//
+//#///////////////#//
+var prefix;
+var vendorClass; 
+var transitionend;
+     if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase()))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
+else if((/firefox/).test(navigator.userAgent.toLowerCase())) 			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
+else 																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
+console.log(vendorClass + ' | ' + transitionend + ' | ' + prefix);
 ////////////////////////
-// CONVERT VENDOR CSS //
+// CONVERT CSS PREFIX //
 ////////////////////////
 if(vendorClass == "moz" || vendorClass == "msie") {
 	$("#coreCss").remove();
@@ -77,11 +64,10 @@ if(vendorClass == "moz" || vendorClass == "msie") {
 //////////////////
 // INJECT FONTS //
 //////////////////
-/*
 $("head").append("<style type='text/css' id='coreFonts'></style>");
 $.get(hostLocal + "css/fonts.css",function(raw) {
 	$("#coreFonts").html(raw);
-});*/
+});
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
@@ -242,5 +228,4 @@ function getOrientation() {
 		return "portrait";
 	}
 }
-
 

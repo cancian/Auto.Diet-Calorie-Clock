@@ -27,7 +27,7 @@
 	} else if (window.localStorage.getItem("config_debug") == "edge") {
 		hostLocal = "http://mylivediet.com/";
 	}
-	if(navigator.userAgent.match(/IEMobile/i)) {
+	if(navigator.userAgent.match(/IEMobile/i) && window.external.Notify) {
 		window.external.Notify("noScroll");
 		newDate = '';
 	}

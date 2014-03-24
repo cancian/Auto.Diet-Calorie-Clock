@@ -139,7 +139,7 @@
     <string name="BLANK_FIELD_TITLE">必填栏位已被留空。</string>
     <string name="BLANK_FIELD_DIALOG">缺少的信息以红色高亮显示。</string>
     <string name="START_APP">MyLiveDiet被设计为帮助你以最轻松的方法减肥。</string>
-    <string name="STEP_1">请填写您的个​​人资料</string>
+    <string name="STEP_1">请填写你的个​​人资料</string>
     <string name="STEP_2">点击开始</string>
     <string name="STEP_3">没有第三步！</string>
     <string name="CLOSE_INTRO">好，让我们开始吧</string>

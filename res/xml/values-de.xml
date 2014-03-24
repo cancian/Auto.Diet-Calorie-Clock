@@ -37,11 +37,9 @@
     <string name="NO_MATCHES">Keine Treffer</string>
     <string name="EXERCISE_SEARCH">Übungssuche... (30 Min.)</string>
     <string name="ENTRY_HISTORY">Neueste Aktivitäten</string>
-	
-    <string name="PRO">Proteine</string>
-    <string name="CAR">Kohlenhydrate</string>
-    <string name="FAT">Fette</string>
-
+    <string name="PRO">pro</string>
+    <string name="CAR">Wagen</string>
+    <string name="FAT">Fett</string>
     <string name="PRE_FILL">Vorfüllen</string>
     <string name="ADD">Hinzufügen:</string>
     <string name="GRAMS">Gramm</string>
@@ -111,10 +109,10 @@
     <string name="STATUS_EQ_TIME_6">Kalorien.\n\n(entspricht</string>
     <string name="STATUS_EQ_TIME_7">in einem</string>
     <string name="STATUS_LOSS_1">Sie haben insgesamt abgenommen</string>
-    <string name="STATUS_LOSS_2">(basierend auf einer Kaloriebeschränkung von</string>
+    <string name="STATUS_LOSS_2">(basierend auf einer Kalorienbeschränkung von</string>
     <string name="CALORIC_INTAKE">KALORIENAUFNAHME</string>
     <string name="STATUS_INTAKE_1">Ihre tägliche Kalorienzufuhr sollte entsprechen (</string>
-    <string name="STATUS_INTAKE_2">) + (bei Training verbrannte Kalorien)\n\nJe mehr Sie trainieren, desto mehr können Sie essen!</string>
+    <string name="STATUS_INTAKE_2">) + (beim Training verbrannte Kalorien)\n\nJe mehr Sie trainieren, desto mehr können Sie essen!</string>
     <string name="DELETE_ITEM">Artikel löschen</string>
     <string name="MY_FAVOURITES">Favoriten</string>
     <string name="MY_FOODS">Meine Lebensmittel</string>
