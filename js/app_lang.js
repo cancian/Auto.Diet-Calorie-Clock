@@ -511,6 +511,78 @@ var LANG = {
 		ru : 'потребление калорий',
 		zh : '摄入卡路里'
 	},
+	WEIGHT_LOSS : {
+		en : "weight loss",
+		pt : "perda de peso",
+		de : 'Gewichtsverlust',
+		es : 'pérdida de peso',
+		fr : 'perte de poids',
+		it : 'perdita di peso',
+		ja : '減量',
+		ko : '체중 감량',
+		ru : 'потеря веса',
+		zh : '体重减少'
+	},
+	TIME_ELAPSED : {
+		en : "elapsed time",
+		pt : "tempo total",
+		de : 'Verstrichene Zeit',
+		es : 'tiempo transcurrido',
+		fr : 'temps écoulé',
+		it : 'tempo trascorso',
+		ja : '経過時間',
+		ko : '시간 경과',
+		ru : 'Прошло времени',
+		zh : '经过的时间'
+	},
+	CALORIC_BALANCE : {
+		en : "caloric balance",
+		pt : "balanço calórico",
+		de : 'Kalorienbilanz',
+		es : 'equilibrio calórico',
+		fr : 'équilibre calorique',
+		it : 'bilancio calorico',
+		ja : 'カロリー収支',
+		ko : '칼로리 밸런스',
+		ru : 'баланс калорий',
+		zh : '热量平衡'
+	},
+	SURPLUS : {
+		en : "surplus",
+		pt : "excesso",
+		de : 'Überschuss',
+		es : 'exceso',
+		fr : 'excédent',
+		it : 'eccesso',
+		ja : '余剰',
+		ko : '너무 많음',
+		ru : 'излишек',
+		zh : '盈余'
+	},
+	DEFICIT : {
+		en : "deficit",
+		pt : "déficit",
+		de : 'Defizit',
+		es : 'déficit',
+		fr : 'déficit',
+		it : 'deficit',
+		ja : '不足',
+		ko : '부족',
+		ru : 'недостаток',
+		zh : '赤字'
+	},
+	BALANCED : {
+		en : "balanced",
+		pt : "balanceado",
+		de : 'Ausgeglichen',
+		es : 'equilibrado',
+		fr : 'équilibré',
+		it : 'bilanciato',
+		ja : 'バランスの取れた',
+		ko : '균형',
+		ru : 'сбалансированная',
+		zh : '均衡'
+	},
 	MENU_STATUS : {
 		en : "status",
 		pt : "status",

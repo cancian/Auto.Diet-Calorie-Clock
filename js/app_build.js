@@ -23,7 +23,7 @@ function openSettings(string) {
 		</ul>\
 		<div id="optionWebsite">' + LANG.ABOUT_TITLE[lang] + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang] + '<span>--</span></div>\
-		<div id="optionReset">' + LANG.SETTINGS_WIPE_TITLE[lang] + '</div>\
+		<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
 	</div>\
 	';
 	//<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG.SETTINGS_FACEBOOK[lang] + '</span></div></div>\
