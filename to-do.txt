@@ -1,0 +1,248 @@
+
+
+
+<string name="RESET_COUNTER">återställ räknaren</string>
+
+
+LiveDiet
+
+
+
+Calorie Control
+
+
+
+restarless
+
+/- configuracoes avancadas 
+/- cabecalho fixo no scrolling do help
+- 
+/-- configs avancadas
+/- contagem direta/inversa
+/- modo live
+- imc no profile
+- 
+- 
+- 
+- unified profile form
+- fix imperial/metric switch 
+- more settings (side-color, repet time, nutrient ratio etc)
+- help menu
+- cross deletable customs
+- allow txr select on controls <>
+- 
+- 
+- scrolling update on search tabs switch
+
+- ignore sql-list base on localstorage
+
+- help contents
+- secondary content to blocks
+- peso perdido - ou calorias evitadas
+- 
+- 
+- 
+
+
+
+
+
+
+- sync customizations
+- sync relevant settings (start/profile/daily/ ~ notes
+- auto sync option
+- border-left option
+- refresh interval options
+- manual sync
+- 
+- 
+
+
+- apagar os vazios dos quadsrados alert info meh meh meh...
+calorie control
+usar in-app puircharge, android30 dias or so
+//bold from delete
+//nowrap daily calories
+keep the counter close to zero using what you eat.
+- firefox input is read only
+- localstorage is too slow to sync fooddb insertoruptade
+- 
+- swipe entry while editing = wipe
+- improve tab-switching glitches on topmenubar and between tab3-4 3-2 (scroll jump)
+- cordova 64 bits ios build fix
+- wp8 performance on modal repeater
+- tirar os repeater dos window. 
+- grey bar def.
+- 
+- 
+- 
+## planned settings
+- range slider option 400/500/600/800
+header
+
+calorie calculator swipe left
+
+set kcals/day tap
+
+entry list
+
+edit entry double tap
+
+delete entry swipe
+
+footer
+
+reset timer tap
+
+wipe all data hold
+
+System of measurement(height, weight etc.)
+
+
+This status bar displays your actual calorie balance as well as your target. Your calorie balance is the difference between the calories you burn and the calories you consume. Calorie balance has three states–deficit, surplus, and maintenance.
+A calorie deficit means that you have burned more calories than you have consumed. It is displayed in your status bar as a black bar extending from the center of the bar to the left. This is the desired state if you are trying to lose weight.
+A calorie surplus means that you have consumed more calories than you have burned. It is displayed in your status bar as a brown bar extending from the center of the bar to the right. This is the desired state if you are trying to gain weight.
+A calorie balance means that you have burned the same or nearly equal amount of calories as you have consumed. No bar is displayed within the status bar. This is the desired state if you are trying to maintain your current weight.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This status bar displays your actual calorie balance as well as your target. Your calorie balance is the difference between the calories you burn and the calories you consume. Calorie balance has three states–deficit, surplus, and maintenance.
+A calorie deficit means that you have burned more calories than you have consumed. It is displayed in your status bar as a black bar extending from the center of the bar to the left. This is the desired state if you are trying to lose weight.
+A calorie surplus means that you have consumed more calories than you have burned. It is displayed in your status bar as a brown bar extending from the center of the bar to the right. This is the desired state if you are trying to gain weight.
+A calorie balance means that you have burned the same or nearly equal amount of calories as you have consumed. No bar is displayed within the status bar. This is the desired state if you are trying to maintain your current weight.
+
+It works pretty much like a clock, Its ticking represents your metabolic rate while it burns calories along the day. So, for instance, when you add calories, or exercises to the mix, you can instantly see its impact on your metabolism, giving you an exact idea of what is going on.
+Since the system is designed to work as a realtime counter, hence the concept of “live”, it does not rely on the concept of “calories per day”. It works fluidly. over any period of time, from hours to months, without artificial categorizations that can quite easily become unpractical and confusing.
+
+how much did you eat/burn? any calories did you food/activity data (shortcuts on the right)
+para todos os efeitos, o numero de gramas só tem importancia para ajudar no calculos das calorias, que são o que determinará o resultado
+a quantidade de nutrientes não é utilizada para calcular as calorias, mas apenas a proporção.
+even tjought the primatyu porpose of this ssystem of to help losing whjey, it can algo be adjusted weight gain, or simply for maintenance. All you have to do is use the calories intake calculator to figure out the values, and then input it in the system. It will then be regulated to that specific goal, given your specific personal caracteristics. With a little imagination, you can see how versatile this system can be. Even tought it is simple, it does not restric your possibilities.
+Having a little background on fitness is advisable, but it is not imprescindible. Its ok to learn as you go. 
+So lets get thought the basics, and then you can get started.
+If you havent signed up, please do, o you can check the interface as you read. 
+then use the calculator to figure oute our target number, and then just inpuyt that in the system, and thats it. Now you just have to type what you eat (i.e. how many calories) and how many you burned, and the system sync that data with the counter to give you a visual inficatiopn of your status, if you should eat more, less, or if you're just doing fine. once you get used to that, you pretty much know how manuy calories most foods contain, an educated guest, but hey.
+Negative values on the calories fields are interpreted as burned calories (exercise). The "grams" can sound confusing when it comes to exercises, "100" grams of running, but keep in mind that the grams field ins't really relevant, it's just there for quick calculations - 24 grams of whey have 294, calories, if you ate 74 grams. Well, thats the idea. Its pretty self explanatory.
+The buttons on the bottom of the page are to reset the counter, in case you want to start over for some reason. 
+So the whole things is pretty much trying to keep the clock close to zero by means whatever means you happen to like. Eat little, eat fine, then exercise. Combinations are personal tasates, as longo as you manage to keep the clock balanced, that's pretty much it.
+since the system is web based, it can be accessed by any web-capable device, such was destkops, laptops, cellphones, tablets and so on. Just remeber you have to login to accsess your private counter.
+the system is stil under developement, so expect further development of the system. 
+What the point, there is no point, its just a counter. i built it for myself while i was dieting, and since it was only for myself, i simply built it using things i really care about. No puffy bloated inferfaces full of crappy stuff. No ten-thoundand-items-lists of who cares about. Google is right there. If you eat it often, you memorize it it anyway.
+the interface is very straightforward
+the counter should be around zero
+values of +600 to -600 are accetable, but it is a good rule of thumb to avoid huge meals (eg. 1200 cals=). But then again, you can make whatever combination of sparse large meals, or frequente smaller ones, or a combination of both, as long as you keep within the -600 +600, you should be good to go.
+to use just sign up and login, se you can acceess your personal counter.
+
+how does it work?
+MyLiveDiet is a weight management system that helps regulating your caloric intake. Its is guided towards ease of use and flexibility, and it will keep you constantly updated about your current energetic needs.
+It works by keeping track of your meals and exercices, and using that data to calculate when you should have your next meal in order to keep in pace with your current dieting plans.
+It may sound simple, and it is. It will give you all the information you need at a glance, so you can quickly decide your next move.
+
+
+
+
+
+- wp8 facebook
+- wp8 appstore
+- firefoxos
+- defrag menuhelp css
+- check openfooddb ios
+- advanced menu
+- firefoxos store
+- 
+- 
+- 
+- 
+- undefined 're-style', check///
+- 
+- 
+- 
+- 
+- slider not resizing on window resize
+
+
+750+ block slider
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+15-20% below maintenance calories = conservative deficit 
+20-25% below maintenance calories = moderate deficit 
+25-30% below maintenance calories = aggressive deficit 
+31-40% below maintenance calories = very aggressive deficit (risky) 
+50%+ below maintenance calories = semi starvation/starvation (potentially dangerous and unhealthy) 
+
+Your dietary needs will change as you lose weight. As you get lighter, your daily caloric need will diminish as will your body's ability to tolerate a too low calorie intake (consequence? you'll begin to lose more lean and hang onto the fat, thereby getting lighter but "fatter"). 
+
+
+
+Your body does not restart its calories every 24 hours, so why should your calorie counter? MyLiveDiet works by simulating the way the body actually uses energy, giving you a more realistic, real-time feedback.
+
+• Weight loss is calculated in real-time!
+• Extensive food/exercise database (fully offline - no internet connection required). 
+• As-You-Type instant search results.
+• Add your own foods and exercises (and fully customize the existing!)
+• Quickly bookmark your favorite items
+• Instant nutritional feedback on main screen
+And much more!
+
+
+Seu corpo não esquece as calorias a cada 24 horas, então por que seu contador de calorias deveria? MyLiveDiet funciona simulando a maneira como o corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.
+• Perda de peso calculada em tempo real!
+• Banco de dados com milhares de alimentos/exercícios
+• Busca instantânea, é só digitar
+• Adicione alimentos e exercícios personalizados (e personalize os existentes!)
+• Lista de favoritos para adicionar rapidamente
+• Informação nutricional instantânea
+E muito mais!
+
+1 kcal = 1 Calorie = 1000 calories
+
+
+Your body does not restart its calories every 24 hours, so why should your calorie counter? MyLiveDiet works by simulating the way the body actually uses energy, giving you a more realistic, real-time feedback.
+First, fill your profile data. Based on this information, the app will calculate how many calories you need to keep your current weight.
+Then you should define a weight loss ratio, given in lb/kg per week.
+The resulting value will include the necessary caloric restriction for you to reach your desired goal.
+Now hit start, and the app will show how many calories you have spent over time. 
+For instance:
+2400 per day / 24 hours = 100 calories per hour
+So, after 30 minutes, the counter will indicate you have “50 calories available”. Its that simple!
+All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!
+
+Seu corpo não reinicia as calorias a cada 24 horas, então por que seu contador de calorias deveria? MyLiveDiet funciona simulando a maneira como o corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.
+Primeiro, preencha seu perfil. Com base nessa informação, o aplicativo calculará quantas calorias você precisa para manter seu peso atual.
+Depois você deve definir a perda de peso, dada em kg por semana.
+O valor resultante incluirá a restrição calórica necessária para que você atinja seu objetivo.
+Pressione Iniciar, e o aplicativo passará a mostrar quantas calorias você consumiu ao longo do tempo.
+Por exemplo:
+2400 calorias por dia / 24 horas = 100 calorias por hora
+Então, após 30 minutos, o contador indicará que você possui “50 calorias disponíveis”. É simples assim!
+Você só precisa manter o contador em torno de zero, e estará automaticamente caminhando em direção ao seu objetivo!
+
+
+How does it work?
+The reason our system is so easy to use is because it learns from you! All of us tend to eat the same foods over time. MyFitnessPal.com remembers what you've eaten and done most often in the past, and makes it easy for you to add those foods again to your log. 
+So the more you track your meals, the easier it becomes!
+
+
+
+

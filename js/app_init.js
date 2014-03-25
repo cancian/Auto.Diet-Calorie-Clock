@@ -47,7 +47,7 @@ document.write("<script type='text/javascript' src='js/calculator.js'><\/script>
 /////////
 // APP //
 /////////
-document.write("<script type='text/javascript' src='localstoragedb.js'><\/script>");
+document.write("<script type='text/javascript' src='js/localstoragedb.js'><\/script>");
 document.write("<script type='text/javascript' src='js/carpe_slider.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
