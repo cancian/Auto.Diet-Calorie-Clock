@@ -1,16 +1,11 @@
 
 
 
+
 <string name="RESET_COUNTER">återställ räknaren</string>
 
-
 LiveDiet
-
-
-
 Calorie Control
-
-
 
 restarless
 
@@ -43,11 +38,6 @@ restarless
 - 
 - 
 
-
-
-
-
-
 - sync customizations
 - sync relevant settings (start/profile/daily/ ~ notes
 - auto sync option
@@ -75,6 +65,103 @@ keep the counter close to zero using what you eat.
 - grey bar def.
 - 
 - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+you can eat whateer you want? yes, 
+as long as you burn the exceed
+
+
+
+##############
+## KEYWORDS ##
+##############
+KCALS
+
+
+kcals
+Calorie Clock
+caloric clock
+
+
+CALORIE
+COUNTER
+CALCULATOR
+DIET
+BURNED
+TRACKER
+DIARY
+WEIGHT LOSS
+LOSE
+INTAKE
+CHART
+
+calculadora
+contadora
+calorias
+dieta
+gordura
+queimar
+peso
+perder
+dieta
+
+LIVE DIET
+CALORIE CONTROL
+CALORIE BALANCE
+DIET BALANCE
+BALANCE DIET
+EQUILIBRIUM
+TRACK BURN
+BURN DIARY
+DIARY BURN
+DIET DIARY
+DIET BURN
+BURN DIET
+CALORIE BURN
+TRACK BURN
+BURN TRACK
+BURN TRACKER
+TRACKER BURN
+CALORIE DIARY
+BURN DIARY
+BURNING CALCULATOR
+
+
+
+
+
+
+
+
+
+
 - 
 ## planned settings
 - range slider option 400/500/600/800
