@@ -87,24 +87,24 @@ function appTimer(id,content) {
 	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
 	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
 	//STATUS
-	if(!$("#appHeader").hasClass(cssClass) || !$("#appStatusBalance").hasClass(cssClass)) {
-		$("#appHeader,#appStatusBalance").addClass(cssClass);
+	if(!$("body").hasClass(cssClass) || !$("#appHeader").hasClass(cssClass) || !$("#appStatusBalance").hasClass(cssClass)) {
+		$("body,#appHeader,#appStatusBalance").addClass(cssClass);
 		if(cssClass != "balanced") { 
-			$("#appHeader,#appStatusBalance").removeClass("balanced");
+			$("body,#appHeader,#appStatusBalance").removeClass("balanced");
 		}
 		if(cssClass != "deficit") { 
-			$("#appHeader,#appStatusBalance").removeClass("deficit");
+			$("body,#appHeader,#appStatusBalance").removeClass("deficit");
 		}
 		if(cssClass != "surplus") { 
-			$("#appHeader,#appStatusBalance").removeClass("surplus");
+			$("body,#appHeader,#appStatusBalance").removeClass("surplus");
 		}
 		if(cssOver != "over") { 
-			$("#appHeader,#appStatusBalance").removeClass("over");
+			$("body,#appHeader,#appStatusBalance").removeClass("over");
 		}
 	}
 	if(cssOver == "over") {
-		if(!$("#appHeader").hasClass("over") || !$("#appStatusBalance").hasClass("over")) {
-			$("#appHeader,#appStatusBalance").addClass("over");
+		if(!$("body").hasClass("over") || !$("#appHeader").hasClass("over") || !$("#appStatusBalance").hasClass("over")) {
+			$("body,#appHeader,#appStatusBalance").addClass("over");
 		}
 	}
 	///////////////////////

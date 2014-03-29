@@ -1,5 +1,39 @@
+f
 
 
+192.168.1.5 homework.ateus.net
+192.168.1.5 home.mylivediet.com
+192.168.1.5 home.kcals.net
+192.168.1.5 home.calorieclock.net
+
+blue border
+5890FF\
+
+################
+## MYLIVEDIET ##
+################
+<VirtualHost home.mylivediet.com>
+ServerName 	home.mylivediet.com
+DocumentRoot	"D:/HOME/ateus/public_html/live"
+RewriteEngine on
+AccessFileName .htaccess
+</VirtualHost>
+
+
+<VirtualHost home.kcals.net>
+ServerName 	home.kcals.net
+DocumentRoot	"D:/HOME/ateus/public_html/kcals"
+RewriteEngine on
+AccessFileName .htaccess
+</VirtualHost>
+
+
+<VirtualHost home.calorieclock.net>
+ServerName 	home.calorieclock.net
+DocumentRoot	"D:/home/_DROPBOX/[app]/CalorieClock"
+RewriteEngine on
+AccessFileName .htaccess
+</VirtualHost>
 
 
 <string name="RESET_COUNTER">återställ räknaren</string>
@@ -67,7 +101,7 @@ keep the counter close to zero using what you eat.
 - 
 
 
-
+http://indiegamr.com/ios6-html-hardware-acceleration-changes-and-how-to-fix-them/
 
 
 
