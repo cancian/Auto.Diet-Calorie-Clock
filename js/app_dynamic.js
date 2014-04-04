@@ -14,7 +14,7 @@ $(document).on("pageload", function(evt) {
 	var deKeyboard = 0;
 	$("#entryList div" + tgt).on("longhold",function(evt) {
 		if($('#entryList .entryListRow').length > 0 && !$("#kcalsDiv").is(":visible") && !$('.delete').hasClass('open') && deKeyboard == 0) {
-			var holdPreText = $('.entriesBody',this).text();
+			var holdPreText = trim($('.entriesBody',this).text());
 			$("#entryBody").stop().animate({ backgroundColor: "#ffff88" }, 1,function() { $("#entryBody").val(holdPreText); $("#entryBody").trigger("change"); }).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
 			$('.entriesBody',this).stop().animate({ color: "#ffcc33" }, 1).animate({ color: "#666"},900,function() { updateEntries(); } );
 		}

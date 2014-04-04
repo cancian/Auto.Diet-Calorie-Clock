@@ -1808,7 +1808,7 @@ $("#feet").on("change keypress",function(evt) {
 	writeCalcValues();
 });
 //input validate
-$("#feet,#inches,#pA3B").on("keydown", function(evt) {
+$("#feet,#inches,#pA3B").on("keypress", function(evt) {
 	//max
 	if(parseInt($(this).val()) >= 999) {
 		return false;

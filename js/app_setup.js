@@ -252,8 +252,8 @@ function pushEntries(userId) {
 	if(window.localStorage.getItem("pendingSync")) { return; }
 	fetchEntries(function(data) {
 		//NProgress.done();
-		NProgress.start();
-		$("#nprogress .bar").css("background-color","rgba(0, 0, 0, .15)");
+		//NProgress.start();
+		//$("#nprogress .bar").css("background-color","rgba(0, 0, 0, .15)");
 		var fetchEntries = "";
 		for(var i=0, len=data.length; i<len; i++) {
 			var id        = data[i].id;
