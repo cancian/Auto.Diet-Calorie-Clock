@@ -7,7 +7,7 @@
 <string name="RESET">reset</string>
 <string name="START_DATE">data rozpoczęcia</string>
 <string name="APP_INTRO">Aplikacja MyLiveDiet ma na celu pomóc Ci jak najłatwiej zrzucić zbędne kilogramy.</string>
-<string name="STEP_1">Wprowadź swoje dane do profilu</string>
+<string name="STEP_1">Wprowadź swoje dane do Profilu</string>
 <string name="STEP_2">Wciśnij „start”</string>
 <string name="STEP_3">Nie ma punktu trzeciego!</string>
 <string name="CLOSE_INTRO">Dobrze, to zaczynajmy</string>
@@ -31,11 +31,11 @@
 <string name="ADD_NEW_EXERCISE">dodaj nowe ćwiczenia</string>
 <string name="ADD">dodaj</string>
 <string name="SAVE">zapisz</string>
-<string name="ADD_NAME">Imię</string>
+<string name="ADD_NAME">Nazwa</string>
 <string name="ADD_AMOUNT">Ilość</string>
-<string name="ADD_DURATION">Długość trwania</string>
+<string name="ADD_DURATION">Czas trwania</string>
 <string name="DELETE_ITEM">Usuń element</string>
-<string name="CALORIES_AVALIABLE">dostępnych kalorii</string>
+<string name="CALORIES_AVALIABLE">dostępne kalorie</string>
 <string name="DAILY_CALORIES">dziennie kalorii</string>
 <string name="CALORIC_INTAKE">spożycie kalorii</string>
 <string name="MENU_STATUS">stan</string>
@@ -57,7 +57,7 @@
 <string name="CALORIE">kaloria</string>
 <string name="CALORIES">kalorie</string>
 <string name="KCAL">kcal</string>
-<string name="CENTIMETERS">centymentry</string>
+<string name="CENTIMETERS">centymetry</string>
 <string name="FEET_INCHES">stopy / cale</string>
 <string name="GRAMS">gramy</string>
 <string name="G">g</string>	
@@ -86,11 +86,11 @@
 <string name="CLEAR_ALL_TITLE">wyczyść wszystkie wpisy</string>
 <string name="RESET_COUNTER">resetuj kalkulator</string>
 <string name="MEASURE_SYSTEM">System miar</string>
-<string name="MEASURE_SYSTEM_INFO">(wzrost, waga, itd.)</string>
+<string name="MEASURE_SYSTEM_INFO">(wzrost, waga itd.)</string>
 <string name="IMPERIAL">anglosaski</string>
 <string name="METRIC">metryczny</string>
 <string name="SETTINGS_FEEDBACK">Forum pomocy</string>
-<string name="SETTINGS_FEEDBACK_INFO">Dziel się pomysłami i proś o pomoc</string>
+<string name="SETTINGS_FEEDBACK_INFO">Dziel się pomysłami i otrzymaj pomoc</string>
 <string name="SETTINGS_REVIEW">Oceń tę aplikację</string>
 <string name="SETTINGS_REVIEW_INFO">Twoja opinia jest dla nas ważna</string>
 <string name="SETTINGS_BACKUP">Automatyczna kopia zapasowa</string>

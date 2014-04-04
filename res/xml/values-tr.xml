@@ -6,27 +6,27 @@
 <string name="START">başla</string>
 <string name="RESET">sıfırla</string>
 <string name="START_DATE">başlangıç tarihi</string>
-<string name="APP_INTRO">MyLiveDiet mümkün olan en kolay şekilde zayıflamanıza yardımcı olmak için tasarlanmıştır.</string>
-<string name="STEP_1">Profil verilerinizi doldurun</string>
+<string name="APP_INTRO">MyLiveDiet mümkün olduğunca kolay bir şekilde kilo vermeniz için tasarlandı.</string>
+<string name="STEP_1">Profil bilgilerinizi doldurun.</string>
 <string name="STEP_2">Başla\'ya basın</string>
 <string name="STEP_3">Üçüncü bir adım yok!</string>
 <string name="CLOSE_INTRO">Tamam, haydi başlayalım</string>
 <string name="EXERCISE">egzersiz</string>
 <string name="FOOD">yiyecek</string>
 <string name="DESCRIPTION">Açıklama...</string>
-<string name="PRE_FILL">önceden doldurma</string>
+<string name="PRE_FILL">ön-doldurma</string>
 <string name="ADD_ENTRY">girdi ekleyin</string>
 <string name="DELETE">Sil</string>
 <string name="CLEAR_ALL">tümünü temizle</string>
 <string name="ACTIVITY_LOG">etkinlik günlüğü</string>
 <string name="FOOD_SEARCH">Yiyecek arama... (100g)</string>
 <string name="EXERCISE_SEARCH">Egzersiz arama... (30 dk)</string>
-<string name="NO_ENTRIES">girdi bulunmuyor</string>
+<string name="NO_ENTRIES">girdi bulunamadı</string>
 <string name="NO_MATCHES">eşleşme bulunamadı</string>
 <string name="PREPARING_DB">veritabanı hazırlanıyor</string>
 <string name="MY_FAVOURITES">favoriler</string>
-<string name="MY_FOODS">benim yiyeceklerim</string>
-<string name="MY_EXERCISES">benim egzersizlerim</string>
+<string name="MY_FOODS">yiyeceklerim</string>
+<string name="MY_EXERCISES">egzersizlerim</string>
 <string name="ADD_NEW_FOOD">yeni yiyecek ekle</string>
 <string name="ADD_NEW_EXERCISE">yeni egzersiz ekle</string>
 <string name="ADD">ekle</string>
@@ -91,7 +91,7 @@
 <string name="METRIC">metrik</string>
 <string name="SETTINGS_FEEDBACK">Destek Forumu</string>
 <string name="SETTINGS_FEEDBACK_INFO">Fikirlerinizi gönderebilir ve destek alabilirsiniz</string>
-<string name="SETTINGS_REVIEW">Bu uygulamaya puan verin</string>
+<string name="SETTINGS_REVIEW">Bu uygulamayı değerlendirin</string>
 <string name="SETTINGS_REVIEW_INFO">Fikirleriniz bizim için önemlidir</string>
 <string name="SETTINGS_BACKUP">Otomatik Yedekleme</string>
 <string name="SETTINGS_BACKUP_INFO">Verilerinizi güvenli ve senkronize tutun</string>
@@ -118,3 +118,4 @@
 <string name="GAIN_WEIGHT">Alınacak kilo:</string>
 <string name="PER_WEEK">haftada</string>
 </resources>
+

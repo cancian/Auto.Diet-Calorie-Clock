@@ -3,7 +3,7 @@
 <string name="LANGUAGE">en</string>
 <string name="LANGUAGE_FULL">en-US</string>
 <string name="CALORIE_COUNTER">Penghitung Kalori</string>
-<string name="START">Mulai</string>
+<string name="START">mulai</string>
 <string name="RESET">reset</string>
 <string name="START_DATE">tanggal mulai</string>
 <string name="APP_INTRO">MyLiveDiet dirancang untuk membantu Anda menurunkan berat badan semudah mungkin.</string>
@@ -34,7 +34,7 @@
 <string name="ADD_NAME">Nama</string>
 <string name="ADD_AMOUNT">Jumlah</string>
 <string name="ADD_DURATION">Durasi</string>
-<string name="DELETE_ITEM">Hapus</string>
+<string name="DELETE_ITEM">Hapus item</string>
 <string name="CALORIES_AVALIABLE">kalori yang tersedia</string>
 <string name="DAILY_CALORIES">kalori harian</string>
 <string name="CALORIC_INTAKE">masukan kalori</string>
@@ -74,7 +74,7 @@
 <string name="ARE_YOU_SURE">Anda yakin?</string>
 <string name="OK">oke</string>
 <string name="CANCEL">batalkan</string>
-<string name="SETTINGS_RESET">Pengaturan reset</string>
+<string name="SETTINGS_RESET">Reset pengaturan</string>
 <string name="SETTINGS_RESET_TITLE">semua data akan dihapus</string>
 <string name="NOT_RUNNING_TITLE">Penghitung saat ini dihentikan</string>
 <string name="NOT_RUNNING_DIALOG">Anda ingin memulainya sekarang?</string>
@@ -96,7 +96,7 @@
 <string name="SETTINGS_BACKUP">Rekam Cadang Otomatis</string>
 <string name="SETTINGS_BACKUP_INFO">Amankan data Anda dan sinkronisasikan</string>
 <string name="SETTINGS_BACKUP_INFO_LOGGED_AS">Masuk sebagai</string>
-<string name="LOGOUT_TITLE">Nonaktifkan pencadangan otomatis</string>
+<string name="LOGOUT_TITLE">Nonaktifkan rekam cadang otomatis</string>
 <string name="LAST_SYNC">sinkronisasi terakhir</string>
 <string name="SETTINGS_HELP">Bantuan</string>
 <string name="SETTINGS_HELP_INFO">Topik untuk membantu Anda memulai</string>
@@ -114,7 +114,7 @@
 <string name="YOUR_ACTIVITY_OPTION3">Aktif: Selalu berjalan (pelayan, tukang surat)</string>
 <string name="YOUR_ACTIVITY_OPTION4">Sangat Aktif: Kerja keras secara fisik (pekerja konstruksi)</string>
 <string name="KEEP_WEIGHT">Pertahankan berat badan saat ini:</string>
-<string name="LOSE_WEIGHT">Turun berat badan pada:</string>
-<string name="GAIN_WEIGHT">Tambah berat badan pada:</string>
+<string name="LOSE_WEIGHT">Turunkan berat badan sampai:</string>
+<string name="GAIN_WEIGHT">Tambahkan berat badan sampai:</string>
 <string name="PER_WEEK">per minggu</string>
 </resources>
