@@ -1861,8 +1861,10 @@ $("#formc input,#formc select").on(tap, function(evt) {
 //////////////////////////////
 //wp8 pan (quick drop)
 $("#calcForm input, #calcForm select").on("blur",function(evt) {
-	window.scroll($('#appContent')[0].scrollTop,0,0);
-	return false;
+	if(isMobile.Windows()) {
+		window.scroll($('#appContent')[0].scrollTop,0,0);
+		return false;
+	}
 });
 $("#calcForm").on(touchend, function(evt) {
 	if(evt.target.id == "") {
