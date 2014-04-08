@@ -4,7 +4,6 @@ input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helveti
 div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
 body									{ opacity: 1; }
 body.msie.thin							{ letter-spacing: 0.02em; }
-
 body.windows,
 body.android 							{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
 
@@ -93,6 +92,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 .appLang-hy #timerDaily span	{ font-size: 6px; }
 .appLang-el #timerDaily span	{ font-size: 7px; }
 .appLang-hi #timerDaily span	{ bottom: 2px; }
+.android2 #timerDaily span		{ bottom: 4px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999; }
 /*//////////////////////////////
 // DAILY CALORIES INPUT ALIGN //
@@ -103,7 +103,8 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 /*pixel adjusts*/
 .moz input#editable				{ text-indent: -1px; }
 .ios7 input#editable			{ margin-top: 1px; }
-
+.android input#editable			{ margin-top: 1px; padding-right: 1px; }
+.android44 input#editable		{ margin-top: 0px; padding-right: 0px; }
 
 /*
 .ios input#editable,
@@ -113,10 +114,6 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 .android2 input#editable		{ top: 14px; }
 .ios7 input#editable			{ right: 9px; }
 */
-
-
-
-
 /*nprogress*/
 #nprogress						{ position: fixed; z-index: 100; }
 #nprogress .bar					{ background: rgba(255, 255, 255, 1); position: fixed; top: 0; left: 0; width: 100%; height: 2px; }
@@ -129,12 +126,10 @@ ul#appFooter li										{ float: left; width: 25%; height: 44px; line-height: 1
 ul#appFooter li.selected							{ color: #007AFF; -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before						{ color: #007AFF; }
 /*footer colors*/
-/*
 ul#appFooter.appDebug li.selected,
 ul#appFooter.appDebug li.selected:before			{ color: #309030; }
 ul#appFooter.appEdge li.selected,
 ul#appFooter.appEdge li.selected:before				{ color: #cc3300; }
-*/
 ul#appFooter.appDebug.appFacebook li.selected,
 ul#appFooter.appDebug.appFacebook li.selected:before{ color: #48A899; }
 ul#appFooter.appEdge.appFacebook li.selected,
@@ -594,11 +589,11 @@ div#entryBodySearch:active		{ opacity: 1; }
 select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; box-sizing: border-box; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 .ios select#entryTime			{ padding: 6px 4px 5px 7px; }
 #entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; }
-div.submitActive				{ color: #316ADC !important; border-color: #bababa !important; background-color: #fff !important; border: 1px solid #316ADC !important; box-sizing: border-box; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important; opacity: 1; }
-#loadingDiv						{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; }
+div.submitActive				{ color: #316ADC !important; border-color: #bababa !important; background-color: #fff !important; border: 1px solid #316ADC !important; box-sizing: border-box; /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important;*/ opacity: 1; }
+#loadingDiv						{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; opacity: .666; }
 #appHeader.open + #loadingDiv	{ display: none !important; } 
 .ios7 #loadingDiv				{ top: 31px; }
-#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: rgba(255,255,255,.666); -webkit-user-select: none; pointer-events: none; }
+#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #fff; -webkit-user-select: none; pointer-events: none; -webkit-backface-visibility: hidden; }
 .android .submitActive			{ -webkit-box-shadow: none !important; }  
 .android #entrySubmit			{ text-shadow: none !important; }
 #sliderBlock					{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
@@ -717,7 +712,7 @@ div#noEntries				{ border-left: 3px solid #ccc; }
 ####    PAGE SLIDE FOOD    ####
 #############################*/
 div#pageSlideFood			{ opacity: .92; position: absolute; padding-bottom: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff;  background-image: -webkit-linear-gradient(#fff,#fefefe); }
-body.android #pageSlideFood	{ opacity: 1; }
+.android #pageSlideFood	{ opacity: 1; }
 div#pageSlideFood			{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .3s; }
 div#pageSlideFood.open		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .3s; }
 /*food search*/
@@ -751,6 +746,11 @@ div#activeOverflow		{ /*color: #fff;*/ overflow: auto; padding-right: 0px; borde
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 1s; }
 .yellow					{ background-color: rgba(255,200,0,.88); }
 .trans					{ background-color: rgba(255,255,255,0); }
+/*align fix*/
+.android4lt #foodSearch,
+.android4lt #foodSearch		{ padding: 25px 26px 14px 30px; }
+.android4lt span#iconRefresh,
+.android4lt span#iconClear	{ top: -3px; }
 /**/
 span.foodKcal			{ float: left; min-width: 54px; padding-top: 0px; padding-right: 4px; font-size: 12px; color: #000; font-weight: bold; padding-left: 3px; }
 span.foodPro			{ float: left; min-width: 60px; padding-top: 0px; padding-right: 4px; font-size: 12px; color: #000; font-weight: bold; }
@@ -923,6 +923,4 @@ body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
-
-
 

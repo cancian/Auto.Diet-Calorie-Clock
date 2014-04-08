@@ -16,7 +16,7 @@ if(!lang.match(langArray)) { lang = "en"; }
 
 
 //VIEWPORT RESIZE
-if(lang == "hy") {
+if(lang == "hy" || window.innerHeight < 450) {
 	$("#viewPort").remove();
 	$("head").prepend('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=.75, maximum-scale=.75, minimum-scale=.75, width=device-width" />');
 }
@@ -654,7 +654,7 @@ var LANG = {
 	FOOD_SEARCH : {
 		en : "Food search... (100g)",
 		pt : "Buscar alimento... (100g)",
-		ar : 'بحث عن الطعام... (100جم)',
+		ar : 'بحث عن الطعام... - 100جم',
 		bg : 'Търсене на храните (100 гр)',		
 		cz : 'Hledání potravin... (100 g)',
 		da : 'Fødevarer søgning... (100 g)',
@@ -687,7 +687,7 @@ var LANG = {
 	EXERCISE_SEARCH : {
 		en : "Exercise search... (30 min)",
 		pt : "Buscar exercício... (30 min)",
-		ar : 'بحث عن التمرينات... (30 دقيقة)',
+		ar : ' بحث عن التمرينات... - 30 دقيقة',
 		bg : 'Търсене Упражнение (30 мин.)',		
 		cz : 'Hledat cvičení... (30 min)',
 		da : 'Øvelse søgning... (30 min)',

@@ -631,8 +631,8 @@ setTimeout(function() {
 				//slider temp blocker
 				$("body").append("<div id='editableBlock'></div>");
 				$("#editableBlock").css("top",$("#appHeader").height() + "px");
-				//$("#editableBlock").show();
-				$("#editable").focus();
+				//android focus-blink fix
+				//$("#editable").focus();
 				$(this).val(editableValue);
 				//$("#editable").select();
 			}}}}
