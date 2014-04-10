@@ -6,15 +6,12 @@ body									{ opacity: 1; }
 body.msie.thin							{ letter-spacing: 0.02em; }
 body.windows,
 body.android 							{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
-
 body.windows #appContent,
 body.windows #foodList,
 body.android #appContent,
 body.android #foodList					{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
-
 body > *,h2,input[readonly]				{ -webkit-user-select: none; -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
 *										{ -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; outline: none !important; /*line-height: 1;*/ }
-
 input,select,textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
 select::-ms-expand						{ display: none !important; }
@@ -69,7 +66,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 .surplus #editable,
 .surplus #appHeader			{ color: #fff !important; background-color: #C85834 !important; font-weight: 300; }
 .balanced #editable,
-.balanced #appHeader		{ color: #fff !important; background-color: #457BEE !important; font-weight: 300; }
+.balanced #appHeader		{ color: #fff !important; background-color: #4496F1 !important; font-weight: 300; }
 .deficit #editable,
 .deficit #appHeader			{ color: #fff !important; background-color: #309030 !important; font-weight: 300; }
 /*android hacks*/
@@ -101,11 +98,11 @@ body.android ::-webkit-scrollbar{ display: none; }
 /*onfocus*/
 input#editable					{ position: absolute; top: 13px; right: 9px; display: block !important; width: 75px !important; height: 29px; font-size: 24px !important; line-height: 24px; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; }
 /*pixel adjusts*/
+.ios input#editable,
 .moz input#editable				{ text-indent: -1px; }
-.ios7 input#editable			{ margin-top: 1px; }
+.ios7 input#editable			{ margin-top: 1px; text-indent: 0; }
 .android input#editable			{ margin-top: 1px; padding-right: 1px; }
 .android44 input#editable		{ margin-top: 0px; padding-right: 0px; }
-
 /*
 .ios input#editable,
 .android2 input#editable,
@@ -346,9 +343,7 @@ max-width: 100%;
 .over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
-#appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; 
-}
-
+#appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0px solid #000; }
 #appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; position: absolute; top: 0; right: 24%; }
@@ -462,9 +457,6 @@ body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 
 #calcForm								{ display: block; font-size: 12px; padding-top: 5px; padding-bottom: 7px; color: #555; overflow: hidden; }
 #calcForm div.calcRow					{ margin-left: 22px; padding: 0; display: block; min-width: 300px; }
 #calcForm div.calcRow + div.calcRow		{ border-top: 1px solid #eee; }
-
-
-
 #calcForm input,
 #calcForm select 						{ 
 width: 80px; 
@@ -510,7 +502,6 @@ padding: 0; margin: 0; display: inline-block;
 #calcForm #yourActivity .selectArrow:after{ right: 0px; top: 21px; }
 #calcForm select#pA5B					{ min-width: 280px; max-width: 318px !important; width: 90%; margin-top: 3px; text-indent: 0; }
 #calcForm select#pA5B					{ min-width: 280px; max-width: 290px !important; width: 90%; margin-top: 3px; text-indent: 0; }
-
 /*h2 a.b.c.*/
 #calcForm h2							{ padding: 0; margin: 0px 0 9px 0; font-size: 22px; line-height: 32px; margin-left: 0px; background-color: #fff; padding-top: 16px; padding-left: 12px; font-weight: normal; color: #000; border-bottom: 0px solid #ccc; display: block; text-align: left; white-space: nowrap; border-top: 38px solid #f2f4f6; }
 #calcForm h2 span						{ color: #bbb; padding-right: 1px; text-align: left; }
@@ -562,7 +553,6 @@ div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; 
 .appLang-nl div#sliderNeg		{ font-size: 13pt; line-height: 16pt; }
 .appLang-th div#sliderPos		{ font-size: 10.5pt; line-height: 16pt; padding-right: 21px; }
 .appLang-th div#sliderNeg 		{ font-size: 10.5pt; line-height: 16pt; padding-left:  21px; }
-
 div#sliderNeg:before,
 div#sliderPos:before			{ font-family: "FontAwesome"; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
 div#sliderNeg:before			{ left: 0; content: "\F010"; }	
@@ -593,7 +583,7 @@ div.submitActive				{ color: #316ADC !important; border-color: #bababa !importan
 #loadingDiv						{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; opacity: .666; }
 #appHeader.open + #loadingDiv	{ display: none !important; } 
 .ios7 #loadingDiv				{ top: 31px; }
-#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #fff; -webkit-user-select: none; pointer-events: none; -webkit-backface-visibility: hidden; }
+#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #fff; -webkit-user-select: none; pointer-events: none; }
 .android .submitActive			{ -webkit-box-shadow: none !important; }  
 .android #entrySubmit			{ text-shadow: none !important; }
 #sliderBlock					{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }

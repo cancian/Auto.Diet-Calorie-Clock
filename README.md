@@ -9,7 +9,7 @@ The coding ins't really polished, but hey.
 
 ---
 
-MyLiveDiet is a weight loss app based on JS/HTML/CSS, ported to iOS/Android using Cordova, but works fine on webkit browsers.
+MyLiveDiet is a weight loss app based on JS/HTML/CSS, ported to iOS/Android/WP/FirefoxOS using Cordova.
 
-Web version avaliable on http://mylivediet.com
+Web version on http://mylivediet.com
 

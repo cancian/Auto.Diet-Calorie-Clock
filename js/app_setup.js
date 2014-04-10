@@ -81,7 +81,7 @@ function initDB(t) {
 	////////////////////////////
 	// GETTING STARTED DIALOG //
 	////////////////////////////
-	if(!window.localStorage.getItem("config_kcals_day_0")) {
+	if(!window.localStorage.getItem("config_kcals_day_0") || window.localStorage.getItem("config_debug") == "active") {
 		$("body").append("<div id='gettingStarted'>\
 			<div id='appInfo'>" + LANG.APP_INTRO[lang] + "</div>\
 			<div id='step1'><span>1</span>" + LANG.STEP_1[lang] + "</div>\

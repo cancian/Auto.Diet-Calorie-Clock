@@ -1,10 +1,9 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.2 [8/04/2014]
+# 1.2 [9/04/2014]
 • use metric system as default for non-English users
 • translation for the following languages: Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish, Estonian, finish, French, Irish, Hindi, Croatian, Hungarian, Armenian, Italian, Indonesian, Japanese, Korean, Dutch, Norwegian, polish, Romanian, Russian, Swedish, Thai, Turkish, Ukrainian, Chinese.
-
 
 # 1.1.7 [08/03/2014]
 • diary list now displays date and daily sum for food/exercise

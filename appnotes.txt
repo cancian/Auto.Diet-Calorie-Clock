@@ -1,10 +1,30 @@
 
+Estabeleça uma meta 
+e 
+Mantenha-se "equilibrado" dentro desse objetivo.
+
+and 
+Keep yourself "balanced" within that goal.
+Set your goal (i.e. caloric intake)
+
+Keep the Counter close to zero using what you eat.
+
+The idea is simple. Set a goal, and then follow that goal by keeping your intake balanced.
 
 
-- revisar traducoes
-- trocar icone
+Keep the Counter close to zero using what you eat.
+keep the counter close to zero using what you eat.
+
+If you keep balanced on a daily intake that includes a caloric restriction, you'll be automaticaly losing weight.
+
+Set a goal, and then follow that goal by keeping your intake balanced.
+
+The ideia is simple. Set a goal, and then follow that goal by keeping your intake balanced.
 
 
+
+you can eat whateer you want? yes, 
+as long as you burn the exceed
 
 
 192.168.1.5 homework.ateus.net
@@ -14,6 +34,7 @@
 
 blue border
 5890FF
+
 
 
 ################
@@ -43,15 +64,9 @@ AccessFileName .htaccess
 </VirtualHost>
 
 
-<string name="RESET_COUNTER">återställ räknaren</string>
-
-
-Calorie Control
-
 
 
 restarless
-
 
 /- configuracoes avancadas 
 /- cabecalho fixo no scrolling do help
@@ -71,19 +86,8 @@ restarless
 - allow txr select on controls <>
 - 
 - 
-- scrolling update on search tabs switch
-
 - ignore sql-list base on localstorage
 
-- help contents
-- secondary content to blocks
-- peso perdido - ou calorias evitadas
-- 
-- 
-- 
-
-- sync customizations
-- sync relevant settings (start/profile/daily/ ~ notes
 - auto sync option
 - border-left option
 - refresh interval options
@@ -91,13 +95,10 @@ restarless
 - 
 - 
 
+- swipe while editing to erase
 
-- apagar os vazios dos quadsrados alert info meh meh meh...
-calorie control
-usar in-app puircharge, android30 dias or so
-//bold from delete
-//nowrap daily calories
-keep the counter close to zero using what you eat.
+
+
 - firefox input is read only
 - localstorage is too slow to sync fooddb insertoruptade
 - 
@@ -138,8 +139,7 @@ http://indiegamr.com/ios6-html-hardware-acceleration-changes-and-how-to-fix-them
 
 
 
-you can eat whateer you want? yes, 
-as long as you burn the exceed
+
 
 
 
@@ -607,3 +607,215 @@ ukdevsetlang
 zhdevsetlang
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* global alert, console */
+"use strict";
+// Install app
+if (navigator.mozApps) {
+    var checkIfInstalled = navigator.mozApps.getSelf();
+    checkIfInstalled.onsuccess = function () {
+        if (checkIfInstalled.result) {
+            // Already installed
+            var installationInstructions = document.querySelector("#installation-instructions");
+            if (installationInstructions) {
+                installationInstructions.style.display = "none";
+            }
+        }
+        else {
+            var install = document.querySelector("#install"),
+                manifestURL = location.href.substring(0, location.href.lastIndexOf("/")) + "/manifest.webapp";
+            install.className = "show-install";
+            install.onclick = function () {
+                var installApp = navigator.mozApps.install(manifestURL);
+                installApp.onsuccess = function() {
+                    install.style.display = "none";
+                };
+                installApp.onerror = function() {
+                    alert("Install failed\n\n:" + installApp.error.name);
+                };
+            };
+        }
+    };
+}
+else {
+    console.log("Open Web Apps not supported");
+}
+
+// Reload content
+var reload = document.querySelector("#reload");
+if (reload) {
+    reload.onclick = function () {
+        location.reload(true);
+    };
+}
+
+
+
+
+
+
+
+////////////////
+
+
+<html manifest="manifest.appcache">
+manifest-hosted.webapp
+
+
+/////////
+
+
+
+
+
+
+
+
+
+
+
+{
+  "version": "1",
+  "name": "Firefox OS Boilerplate App",
+  "launch_path": "/Firefox-OS-Boilerplate-App/index.html",
+  "description": "Boilerplate Firefox OS app with example use cases to get started",
+  "icons": {
+    "16": "/Firefox-OS-Boilerplate-App/images/logo16.png",
+    "32": "/Firefox-OS-Boilerplate-App/images/logo32.png",
+    "48": "/Firefox-OS-Boilerplate-App/images/logo48.png",
+    "60": "/Firefox-OS-Boilerplate-App/images/logo60.png",
+    "64": "/Firefox-OS-Boilerplate-App/images/logo64.png",
+    "90": "/Firefox-OS-Boilerplate-App/images/logo90.png",
+    "120": "/Firefox-OS-Boilerplate-App/images/logo120.png",
+    "128": "/Firefox-OS-Boilerplate-App/images/logo128.png"
+  },
+  "developer": {
+    "name": "Robert Nyman",
+    "url": "http://robertnyman.com"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+    "desktop-notification": {
+      "description": "To show notifications"
+    },
+    "geolocation": {
+      "description": "Marking out user location"
+    }
+  },
+  "locales": {
+    "ar": {
+      "name": "??????? ??????? ???? ??????? ??Firefox OS",
+      "description": "????? ??????? ??? ??? ??????? ????? Firefox ????? ?????? ?? ????? ?????????"
+    },
+    "bn-IN": {
+      "name": "?????????? ??? ???????????? ?????",
+      "description": "???? ???? ???? ????????? ?????? ?? ?????????? ??? ???????????? ?????"
+    },
+    "cs": {
+      "name": "Aplikace Firefox OS Boilerplate",
+      "description": "Aplikace Boilerplate Firefox OS s ukázkovými príklady použití, které vám umožní zacít"
+    },
+    "de": {
+      "name": "Firefox OS Boilerplate App",
+      "description": "Boilerplate Firefox OS App mit Beispiel Anwendungsfälle, um loszulegen"
+    },
+    "el": {
+      "name": "Firefox OS Boilerplate ?fa?µ???",
+      "description": "Boilerplate Firefox OS efa?µ??? µe pa?ade??µata ???s?? ??a ?a ?e????sete"
+    },
+   "en": {
+      "name": "Firefox OS Boilerplate App",
+      "description": "Boilerplate Firefox OS app with example use cases to get started"
+    },
+    "en-US": {
+      "name": "Firefox OS Boilerplate App",
+      "description": "Boilerplate Firefox OS app with example use cases to get started"
+    },
+    "es": {
+      "name": "App base para Firefox OS",
+      "description": "App base para Firefox OS con ejemplos de usos para empezar"
+    },
+    "fa": {
+      "name": "?????? ??? ??????? ????? ???? ????????",
+      "description": "?????? ??? ??????? ????? ???? ???????? ?? ???? ??????? ???? ???? ?? ???"
+    },
+    "fr": {
+      "name": "Modèle d’application pour Firefox OS",
+      "description": "Modèle d’application pour Firefox OS avec des exemples de cas d’utilisation pour bien commencer"
+    },
+    "he": {
+      "name": "????????? Firefox OS Boilerplate",
+      "description": "????????? Firefox OS Boilerplate ?? ??????? ????? ??????"
+    },
+    "hi": {
+      "name": "???? ????? OS BoilerPlate App"
+    },
+    "hu": {
+      "name": "Firefox OS Boilerplate App",
+      "description": "Boilerplate Firefox OS app használati mintaesetekkel a kezdés megkönnyítéséért"
+    },
+    "id": {
+      "name": "Firefox OS Boilerplate Aplikasi",
+      "description": "Aplikasi boilerplate Firefox OS dengan contoh kasus penggunaan untuk memulai"
+    },
+    "it-IT": {
+      "name": "Firefox OS Boilerplate App",
+      "description": "Boilerplate per FirefoxOS con esempi e casi d'uso per iniziare lo sviluppo"
+    },
+    "ja": {
+      "name": "Firefox OS??????????",
+      "description": "????????????Firefox OS??????????"
+    },
+    "nl": {
+      "name": "Firefox OS Boilerplate App",
+      "description": "Boilerplate Firefox OS app met voorbeeld use cases om te beginnen"
+    },
+    "pt_BR": {
+      "name": "Firefox OS Boilerplate App",
+      "description": "Boilerplate Firefox OS app com exemplos de uso para começar"
+    },
+    "ro": {
+      "name": "Firefox OS Boilerplate App",
+      "description": "Boilerplate Firefox OS app cu exemple de utilizare pentru început"
+    },
+    "sk-SK": {
+      "name": "Firefox OS Boilerplate Aplikácia",
+      "description": "Boilerplate Firefox OS aplikácia s príkladmi použitia pre zaciatok"
+    },
+    "sv": {
+      "name": "Firefox OS Boilerplate-appen",
+      "description": "Boilerplate Firefox OS-appen med exempel använder cases för att startas"
+    },
+    "ta": {
+      "name": "??????????? ?.??? ?????????????  ???",
+      "description": "????????????? ??????????? ?.??? ??? ???? ???????????? ??????????????? ??????? ??????"
+    },
+    "tl": {
+      "name": "App ng  Firefox OS Boilerplate",
+      "description": "Boilerplate Firefox OS app na may halimbawa ay gumagamit ng mga kaso upang makapagsimula"
+    },
+    "tr": {
+      "name": "Firefox OS Boilerplate Uygulamasi",
+      "description": "Baslamak için örnek kullanim durumlari ile Boilerplate Firefox OS uygulamasi"
+    },
+    "zh": {
+      "name": "Firefox OS ????",
+      "description": "?Firefox OS?????????????"
+    }
+  }
+}

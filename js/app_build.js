@@ -1390,6 +1390,13 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 				$("#diaryNotesInput").getNiceScroll().resize();	
 			},100);
 		});
+		//trigger resize (ios 7.1)
+		$('#diaryNotesInput').on("blur",function(){
+			$(window).trigger("resize");
+		});
+		$('#diaryNotesInput').on("focus",function(){
+			$(window).trigger("resize");
+		});		
 		//keypress save
 		$('#diaryNotesInput').on("keypress", function(evt) {
 			window.localStorage.setItem("appNotes",$('#diaryNotesInput').val());

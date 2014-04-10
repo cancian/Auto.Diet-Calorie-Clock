@@ -31,8 +31,11 @@ var isMobile = {
 	},
 	Windows: function() {
 		return navigator.userAgent.match(/IEMobile/i) ? true : false;
+	},
+	FirefoxOS: function() {
+		return ((/firefox/).test(navigator.userAgent.toLowerCase()) && (/mobile/).test(navigator.userAgent.toLowerCase()) && (/gecko/).test(navigator.userAgent.toLowerCase())) ? true : false;
 	}
-};
+}
 //#///////////////#//
 //# GET USERAGENT #//
 //#///////////////#//

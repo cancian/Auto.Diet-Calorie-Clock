@@ -1,14 +1,54 @@
 CACHE MANIFEST
-# Version 0.6799999
+# Version 1.1.8
 
 index.html
-css/base.css
-js/base.js
-js/webapp.js
-js/offline.js
+searchdb_en.ls
+searchdb_pt.ls
+favicon.ico
+icon.png
+css/fonts.css
+css/index.css
+css/mobiscroll.2.9.0.css
+js/app_build.js
+js/app_custom_core.js
+js/app_dynamic.js
+js/app_init.js
+js/app_lang.js
+js/app_lib.js
+js/app_setup.js
+js/app_static.js
+js/calculator.js
+js/carpe_slider.js
+js/cdv-plugin-fb-connect.js
+js/cordova.ff.js
+js/cordova.js
+js/cordova_plugins.js
+js/facebook-js-sdk.js
+js/facebook-js-sdk.min.js
+js/html5sql.js
+js/jquery.color-2.1.0.min.js
+js/jquery.mobileCheckbox.js
+js/jquery.mobile-events.js
+js/jquery.nicescroll.js
+js/jquery.touchSwipe.js
+js/jquery-2.1.0.min.js
+js/jquery-2.1.0.min.map
+js/jquery-ui-1.10.3.js
+js/jquery-ui-1.10.3.min.js
+js/localstoragedb.js
+js/mobiscroll.2.9.0.js
+js/nprogress.js
+js/quo.js
+js/spin.min.js
+js/UserVoice.js
+js/plugins/org.apache.cordova.splashscreen/www/splashscreen.js
+js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
+js/plugins/org.apache.cordova.dialogs/www/notification.js
+js/plugins/org.apache.cordova.dialogs/www/android/notification.js
+js/plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js
 
 NETWORK:
 *
 
 FALLBACK:
-/ fallback.html
+/index.html
