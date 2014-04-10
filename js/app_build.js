@@ -1160,7 +1160,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 				var shareLink = 'https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802';
 				var shareOS   = 'iOS';
 			} else if(isMobile.Android()) {
-				var shareLink = 'https://market.android.com/details?id=com.cancian.mylivediet';
+				var shareLink = 'https://market.android.com/details?id=com.cancian.mylivedietpro';
 				var shareOS   = 'Android';
 			} else {
 				var shareLink = 'http://mylivediet.com/';
@@ -1577,6 +1577,7 @@ var profileHtml = '\
 <h2><span>B.</span> ' + LANG.LOSE_WEIGHT[lang] + '</h2>\
 <div class="calcResult">\
    <span class="selectArrow"> <select class="ee101" id="pA6G" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6G&#39;)" tabindex="8" size="1" value="1" name="pA6G">\
+		<option value="0">0</option>\
 		<option value="0.25">0.25</option>\
 		<option value="0.5">0.5</option>\
 		<option value="0.75">0.75</option>\
@@ -1613,6 +1614,7 @@ var profileHtml = '\
 <h2><span>C.</span> ' + LANG.GAIN_WEIGHT[lang] + '</h2>\
 <div class="calcResult">\
     <span class="selectArrow"><select class="ee101" id="pA6M" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
+		<option value="0">0</option>\
 		<option value="0.25">0.25</option>\
 		<option value="0.5">0.5</option>\
 		<option value="0.75">0.75</option>\

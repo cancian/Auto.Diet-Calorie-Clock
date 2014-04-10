@@ -2,7 +2,7 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="12000" 
+        versionCode="12001" 
         version   = "1.2">
 
 	<content src="index.html" />
@@ -19,7 +19,6 @@
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
-
 
     <!-- Customize your app and platform with the preference element. -->
     <preference name="permissions"                value="none"/>
@@ -105,11 +104,10 @@
 		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
 	</feature>
 
-
+<!--
 	<feature name="org.apache.cordova.facebook.Connect">
 		<param name="wp-package" value="FacebookConnectPlugin" />
 	</feature>
-<!--
 	<feature name="Notification">
 		<param name="wp-package" value="Notification" />
 	</feature>

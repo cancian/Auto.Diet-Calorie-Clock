@@ -758,7 +758,7 @@ span.preSpan			{ font-size: 11px; padding-right: 4px; color: #0033cc; }
 #pageSlideFood.exerciseType span.foodFat,
 #pageSlideFood.exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
-#appHeader:before				{ font-family: "FontAwesome"; content: "\f0a8"; color: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; box-sizing: border-box; }
+#appHeader:before				{ font-family: "FontAwesome"; content: "\f0a8"; color: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; box-sizing: border-box; -webkit-backface-visibility:hidden; }
 body.ios7 #appHeader:before 	{ padding-top: 24px; }
 body.android44 #appHeader:before{ padding-top: 11px; }
 #appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
