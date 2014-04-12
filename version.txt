@@ -1,6 +1,11 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.2.1 [9/04/2014]
+• "daily average" chart in status screen
+• app status colors are now red for caloric defict and blue for caloric surplus 
+• 
+
 # 1.2 [9/04/2014]
 • use metric system as default for non-English users
 • translation for the following languages: Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish, Estonian, finish, French, Irish, Hindi, Croatian, Hungarian, Armenian, Italian, Indonesian, Japanese, Korean, Dutch, Norwegian, polish, Romanian, Russian, Swedish, Thai, Turkish, Ukrainian, Chinese.

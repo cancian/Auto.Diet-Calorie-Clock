@@ -342,11 +342,13 @@ max-width: 100%;
 #balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: "FontAwesome"; content: "\f175"; font-size: 12px; line-height: 12px; padding: 0; color: #555; }
 .over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
 /**/
-#appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
+#appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; overflow: hidden; }
+/*
 #appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0px solid #000; }
 #appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; position: absolute; top: 0; right: 24%; }
+*/
 /**/
 #appStatusAddLeft,
 #appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; 
