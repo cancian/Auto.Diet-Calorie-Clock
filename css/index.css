@@ -1,3 +1,4 @@
+@charset "iso-8859-1";
 html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
 html,body,input,select,textarea,
 input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; line-height: normal; }
@@ -100,6 +101,7 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 /*pixel adjusts*/
 .ios input#editable,
 .moz input#editable				{ text-indent: -1px; }
+.msie input#editable,
 .ios7 input#editable			{ margin-top: 1px; text-indent: 0; }
 .android input#editable			{ margin-top: 1px; padding-right: 1px; }
 .android44 input#editable		{ margin-top: 0px; padding-right: 0px; }
@@ -343,12 +345,10 @@ max-width: 100%;
 .over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; overflow: hidden; }
-/*
 #appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0px solid #000; }
 #appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; position: absolute; top: 0; right: 24%; }
-*/
 /**/
 #appStatusAddLeft,
 #appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; 
@@ -377,7 +377,7 @@ margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; paddin
 
 
 /*nutrition bars*/
-#appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: #fff; white-space: nowrap; }
+#appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: rgba(0,0,0,0); white-space: nowrap; }
 #appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 0; height:  14px; margin: 0 0px; background-color: #fff; display: block; background-color: #fff; color: #999; border: 1px solid #eee; }
 #appStatusBarsCar				{ position: absolute; top: 31px; left: 0; right: 0; height: 14px; margin: 0 0px; background-color: #fff; display: block; background-color: #fff; color: #999; border: 1px solid #eee; }
 #appStatusBarsFat				{ position: absolute; top: 52px; left: 0; right: 0; height: 14px; margin: 0 0px; background-color: #fff; display: block; background-color: #fff; color: #999; border: 1px solid #eee; }

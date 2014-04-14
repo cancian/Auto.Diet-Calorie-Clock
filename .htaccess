@@ -3,6 +3,8 @@ AddType application/vnd.ms-fontobject .eot
 AddType application/font-woff .woff
 AddType font/ttf .ttf
 AddType font/otf .otf
+AddType application/x-web-app-manifest+json .webapp
+AddType text/cache-manifest .appcache
 
 <filesMatch ".(html|htm|js|css|png)$">
 	FileETag None
@@ -18,3 +20,10 @@ AddType font/otf .otf
 	Header set Access-Control-Allow-Origin: *
 </ifModule>
 
+# Cache settings for the manifest file
+<IfModule mod_expires.c>
+	Header set cache-control: public
+	ExpiresActive on
+	# Prevent receiving a cached manifest
+	ExpiresByType text/cache-manifest "access plus 0 seconds"
+</IfModule>

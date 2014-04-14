@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<html manifest="mylivediet.appcache">
 <head>
     <title>MyLiveDiet</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<meta name="msapplication-tap-highlight" content="no" />
 	<meta name="format-detection" content="telephone=no" />   
@@ -22,6 +23,7 @@
 	///////////////
 	var hostLocal = '';
 	var newDate   = '?' + new Date().getTime();
+	newDate       = '';
 	if(window.localStorage.getItem("config_debug") == "active") {
 		hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
 	} else if (window.localStorage.getItem("config_debug") == "edge") {
@@ -35,7 +37,7 @@
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");
 	</script>
 </head>
-<body>
+<body style="opacity: 0;">
 <style type="text/css">
 /*non-js version for web crawlers*/
 /*

@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Version 1.1.8
+# Version 1.2.1
 
 index.html
 searchdb_en.ls
@@ -25,6 +25,7 @@ js/cordova.js
 js/cordova_plugins.js
 js/facebook-js-sdk.js
 js/facebook-js-sdk.min.js
+js/highcharts.js
 js/html5sql.js
 js/jquery.color-2.1.0.min.js
 js/jquery.mobileCheckbox.js

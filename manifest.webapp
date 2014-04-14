@@ -1,11 +1,12 @@
 {
   "launch_path": "/index.html",
   "icons": {
-    "36": "/res/icon/android/drawable-ldpi/icon.png",
-    "48": "/res/icon/android/drawable-mdpi/icon.png",
-    "72": "/res/icon/android/drawable-hdpi/icon.png",
-    "96": "/res/icon/android/drawable-xhdpi/icon.png",
-    "128": "/icon.png"
+    "32": "/res/icon/ffos/32.png",
+    "60": "/res/icon/ffos/60.png",
+    "90": "/res/icon/ffos/90.png",
+    "120": "/res/icon/ffos/120.png",
+    "128": "/res/icon/ffos/128.png",
+    "256": "/res/icon/ffos/256.png"
   },
   "developer": {
     "name": "André Cancian",
@@ -14,8 +15,18 @@
   "installs_allowed_from": [
     "*"
   ],
-  "pkgName": "com.cancian.mylivediet",
-  "version": "1.1.8",
+  "version": "1.2.1",
+  "default_locale": "en",
   "name": "MyLiveDiet",
-  "description": "MyLiveDiet displays your calorie usage in real-time, as you go through the day, keeping you constantly updated about your current caloric balance."
+  "description": "MyLiveDiet shows how fast you burn calories.",
+  "locales": {
+    "en": {
+      "name": "MyLiveDiet",
+      "description": "MyLiveDiet shows how fast you burn calories."
+    },
+    "pt_BR": {
+      "name": "MyLiveDiet",
+      "description": "MyLiveDiet mostra o quão rápido você queima calorias."
+    }
+  }
 }

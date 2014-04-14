@@ -446,6 +446,7 @@ function openStatus(string) {
 	//////////////////
 	// TIME ELAPSED //
 	//////////////////
+/*
 	$("#appStatusElapsed").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		var ELAPSED_DIALOG = LANG.BEEN_DIETING[lang] + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG.AGO[lang],"")) + "";
@@ -457,9 +458,11 @@ function openStatus(string) {
 		}
 		return false;
 	});
+*/
 	/////////////////
 	// LOST WEIGHT //
 	/////////////////
+/*
 	$("#appStatusWeight").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		if(weightLossUnit == "kg") { 
@@ -477,9 +480,11 @@ function openStatus(string) {
 		}
 		return false;
 	});
+*/
 	//////////////////////////////
 	// CALORIC STATUS (EQ TIME) //
 	//////////////////////////////
+/*
 	$("#appStatusBalance").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		var eqStart 	= Number(window.localStorage.getItem("config_start_time"));
@@ -502,9 +507,11 @@ function openStatus(string) {
 		}
 		return false;
 	});
+*/
 	///////////////////
 	// INTAKE STATUS //
 	///////////////////
+/*
 	$("#appStatusIntake").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		var INTAKE_DIALOG = LANG.STATUS_INTAKE_1[lang] + Number($("#editableDiv").text()) + LANG.STATUS_INTAKE_2[lang];
@@ -516,6 +523,7 @@ function openStatus(string) {
 		}
 		return false;
 	});
+*/
 	//#///////////#//
 	//# START BAR #//
 	//#///////////#//
@@ -667,9 +675,8 @@ function openStatus(string) {
 
 
 
-
-
-
+		$('#appStatusIntake').html();
+		$('#appStatusIntake div').css("padding-top","0px");
         $('#appStatusIntake').highcharts({
             chart: {
 			   spacingLeft:   -31,
@@ -798,7 +805,8 @@ function openStatus(string) {
 
 
 
-
+		$('#appStatusIntake').html();
+		$('#appStatusIntake div').css("padding-top","0px");
 
 
 

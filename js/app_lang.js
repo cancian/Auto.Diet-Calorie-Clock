@@ -1,4 +1,4 @@
-var appVersion = "1.2 (12000)";
+var appVersion = "1.2.1 (12010)";
 var langArray  = /(en|pt|ar|bg|cz|da|de|el|es|et|fi|fr|ga|hi|hr|hu|hy|it|id|ja|ko|nl|no|pl|ro|ru|sv|th|tr|uk|zh)/;
 var lang       = "en";
 ///////////////////// 
