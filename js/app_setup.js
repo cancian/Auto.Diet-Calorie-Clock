@@ -718,11 +718,7 @@ function spinner(size) {
 ////////////////////
 // FOOD DB IMPORT //
 ////////////////////
-
- 
-
 function updateFoodDb() {
-
 	if(window.localStorage.getItem("foodDbLoaded") == "done") { return; }
 	if(window.localStorage.getItem("foodDbLoaded") != "done" && window.localStorage.getItem("startLock") != "running") {
 		//reset blocks
@@ -950,9 +946,9 @@ function updateEntriesTime() {
 		}
 	});
 }
-/////////////////////////////
-// UPDATE ENTRYLIST *TIME* //
-/////////////////////////////
+//////////////////////////////
+// UPDATE CSS HEADING *SUM* //
+//////////////////////////////
 function updateEntriesSum() {
 	//CONSOLE('updateEntriesSum()');
 	var pushTitle = [];
@@ -1135,6 +1131,242 @@ function buildHelpMenu() {
 			//$("#appContent").getNiceScroll().remove();
 		},50);
 	});
+}
+////////////////////
+// INTAKE HISTORY //
+////////////////////
+function intakeHistory() {
+	var lastTick = window.localStorage.getItem("config_kcals_day_0") * 1.5;
+
+	var day = 60 * 60 * 24 * 1000;
+	var now = new Date().getTime();
+
+	var past0days = dayFormat(now);
+	var past1days = dayFormat(now - (day*1));
+	var past2days = dayFormat(now - (day*2));
+	var past3days = dayFormat(now - (day*3));
+	var past4days = dayFormat(now - (day*4));
+	var past5days = dayFormat(now - (day*5));
+	var past6days = dayFormat(now - (day*6));
+	var past7days = dayFormat(now - (day*7));
+
+
+
+	console.log(past0days);
+	console.log(past1days);
+	console.log(past2days);
+	console.log(past3days);
+	console.log(past4days);
+	console.log(past5days);
+	console.log(past6days);
+	console.log(past7days);	
+	/*
+	
+	
+	
+	}
+//////////////////////////////
+// UPDATE CSS HEADING *SUM* //
+//////////////////////////////
+function updateEntriesSum() {
+	//CONSOLE('updateEntriesSum()');
+	var pushTitle = [];
+	var lToday = LANG.TODAY[lang];
+	var lFood  = LANG.FOOD[lang];
+	var lExe   = LANG.EXERCISE[lang];
+	getEntries(function(data) {
+		for(var m=0, men=data.length; m<men; m++) {
+			pushTitle.push({ date: dayFormat(parseInt(data[m].published)).split("/").join("x"),val: data[m].title});
+		}
+
+		var eachDay  = [];
+		for(var p=0, pen=pushTitle.length; p<pen; p++) {
+			if(eachDay.indexOf(pushTitle[p].date) == -1) {
+				eachDay.push(pushTitle[p].date);
+			}
+		}
+
+		var totalDayF;
+		var totalDayE;
+		var reStyle = '';
+		var thisDay;
+
+		for(var d=0, den=eachDay.length; d<den; d++) {
+			totalDayF = 0;
+			totalDayE = 0;
+			for(var x=0, xen=pushTitle.length; x<xen; x++) {
+				if(eachDay[d] == pushTitle[x].date) {
+					if(pushTitle[x].val > 0)  {
+						totalDayF = totalDayF + parseInt(pushTitle[x].val);
+					} else {
+						totalDayE = totalDayE + parseInt(pushTitle[x].val);	
+					}
+				}
+			}
+			if(eachDay[d] == dayFormat(new Date().getTime()).split("/").join("x")) {
+				thisDay = lToday;
+			} else {
+				thisDay = eachDay[d];
+			}
+
+			reStyle = reStyle + '\
+			#entryList div.day' + eachDay[d] + ' { border-top: 21px solid #eee; }\
+			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ' { margin-top: 0px; border-top: 0px solid #eee; }\
+			#entryList div.day' + eachDay[d] + ':before { content: "' + lFood + ': ' + totalDayF + '  /  ' + lExe + ': ' + totalDayE + '"; color: #bbb; position: absolute; top: -18px; right: 9px; font-size: 12px; line-height: 16px; }\
+			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':before { content: "";  }\
+			#entryList div.day' + eachDay[d] + ':after { content: "' + thisDay.split("x").join("/") +'"; color: #999; position: absolute; top: -18px; left: 15px; font-size: 12px; line-height: 16px; }\
+			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':after { content: "";  }\
+			'; 
+		}
+		//OUTPUT
+		$("#daySum").html(reStyle);
+	});
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	*/
+	
+	
+	$('#appStatusIntake').html();
+	$('#appStatusIntake div').css("padding-top","0px");
+	$('#appStatusIntake').highcharts({
+		chart: {
+			spacingLeft:   $("#appStatusIntake").width() / -6,
+			spacingRight:  $("#appStatusIntake").width() / -6.6,
+			spacingTop:    -1,
+			spacingBottom: -12,
+			height:        hasTap() ? 64 : 66,
+			width:         $("#appStatusIntake").width(),
+		},
+		credits: {
+			enabled: false
+		},
+		legend: {
+			enabled: false
+		},
+		title: {
+			text: ''
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			//
+			categories: ['', 'tue', 'wed', 'thu', 'fri', ''],
+			//
+			labels: {
+				//enabled: false,
+				style: {
+					color: "rgba(47, 126, 216, .45)",
+					fontSize: 9,
+				},
+				y: -1,
+				x: 0,
+			}
+		},
+		yAxis: {
+			title: {
+				text: ''
+			},
+			tickPositions: [0,window.localStorage.getItem("config_kcals_day_0"),lastTick],
+				gridLineColor: 'rgba(0,0,0,.16)',
+				gridLineDashStyle: 'longdash',
+
+                labels: {
+					enabled: false,
+                    align: 'left',
+                    x: 31,
+                    y: -1,
+					textSize: '8px',
+                },
+				showFirstLabel: false,
+				showLastLabel: false,
+            },
+            tooltip: {
+                enabled: false,
+                formatter: function() {
+                    return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y +'°C';
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            textShadow: '0 0 3px white',
+							fontSize: '8px',
+                        }
+                    },
+                    enableMouseTracking: false
+                }
+            },
+			
+            series: [{
+				animation: false,
+                type: 'area',
+                name: 'Jane',
+                 data: [900, 1500, 2000, 500, 1000, 1200],
+				lineWidth: 1,
+              	lineColor: "rgba(47, 126, 216, .5)", //'rgba(0,0,0,.2)',
+				fillColor: "rgba(47, 126, 216, .1)", //'rgba(0,0,0,.05)',	
+			         marker: {
+					enabled: false,
+                	lineWidth: 0,
+                	lineColor: Highcharts.getOptions().colors[3],
+                	//fillColor: 'white'
+                },
+            },
+			
+			 {
+				animation: false,
+                type: 'line',
+                name: 'Average',
+                        data: [
+            { y: 900, dataLabels: { x: 0, color: 'rgba(0,0,0,0)'  } }, 
+            { y: 1500, dataLabels: { x: 0,  } }, 
+            { y: 2000, dataLabels: { x: 0, } }, 
+            { y: 500, dataLabels: { x: 0,  } }, 			
+            { y: 1000, dataLabels: { x: 0,  } }, 
+            { y: 1200, dataLabels: { x: 0, color: 'rgba(0,0,0,0)' } }, 
+        ],
+				lineWidth: 0,
+              	lineColor: 'rgba(0,0,0,.2)',
+				fillColor: 'rgba(0,0,0,.05)',
+                marker: {
+					enabled: false,
+                	lineWidth: 0,
+                	lineColor: Highcharts.getOptions().colors[3],
+                	//fillColor: 'white'
+                },
+                line: {
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            textShadow: '0 0 3px white',
+							fontSize: '8px',
+						
+                        }
+                    },
+            },
+            }
+			]
+	});
+	$('#appStatusIntake').html();
+	$('#appStatusIntake div').css("padding-top","0px");
 }
 //////////////////
 // NICE RESIZER //

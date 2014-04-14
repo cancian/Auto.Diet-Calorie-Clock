@@ -28,7 +28,7 @@ document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/s
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.color-2.1.0.min.js'><\/script>");
 //charts
-document.write("<script type='text/javascript' src='js/highcharts.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/highcharts.js'><\/script>");
 //document.write("<script type='text/javascript' src='js/jquery.mobileCheckbox.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js'><\/script>");
 //nprogress

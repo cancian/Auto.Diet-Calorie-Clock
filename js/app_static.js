@@ -297,6 +297,8 @@ $(window).on("resize", function(evt) {
 	}
 	//recalc balance
 	balanceMeter(parseFloat($("#timerKcals").text()));
+	//recalc intake history
+	intakeHistory();
 });
 //##////////////##//
 //##//  ONLOAD  ##//
@@ -614,6 +616,7 @@ setTimeout(function() {
 							}
 						},600);
 						$("#editableBlock").remove();
+						intakeHistory();
 					},
 					change: function() {
 						if(hasTap()) {
