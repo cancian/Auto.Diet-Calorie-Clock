@@ -6,24 +6,14 @@ AddType font/otf .otf
 AddType application/x-web-app-manifest+json .webapp
 AddType text/cache-manifest .appcache
 
-<filesMatch ".(html|htm|js|css|png)$">
-	FileETag None
-	<ifModule mod_headers.c>
-		Header unset ETag
-		Header set Cache-Control "max-age=0, no-cache, must-revalidate"
-		Header set Pragma "no-cache"
-		Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
-	</ifModule>
-</filesMatch>
-
 <ifModule mod_headers.c>
 	Header set Access-Control-Allow-Origin: *
 </ifModule>
 
-# Cache settings for the manifest file
 <IfModule mod_expires.c>
 	Header set cache-control: public
 	ExpiresActive on
 	# Prevent receiving a cached manifest
 	ExpiresByType text/cache-manifest "access plus 0 seconds"
 </IfModule>
+

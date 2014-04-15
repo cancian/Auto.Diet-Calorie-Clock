@@ -2221,6 +2221,8 @@ function getModalWindow(itemId) {
 								//REFRESH DATA
 								updateTimer();
 								clearRepeaterModal();
+								//update intake graph
+								intakeHistory();
 								//$("#" + mCode).parent('div').on(transitionend,function(e) { 
 								setTimeout(function(evt) {
 									updateEntries(published);

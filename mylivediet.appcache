@@ -4,6 +4,8 @@ CACHE MANIFEST
 index.html
 searchdb_en.ls
 searchdb_pt.ls
+searchdb_en.sql
+searchdb_pt.sql
 favicon.ico
 icon.png
 css/fonts.css

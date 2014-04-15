@@ -49,35 +49,6 @@ function dbErrorHandler(evt) {
 // INIT DB //
 /////////////
 function initDB(t) {
-	CONSOLE('initDB');
-	//if not sql already, dont use sql
-	//TABLE EXISTS
-	if(hasSql) {
-		t.executeSql('select * from diary_entry order by published desc',[],
-	function(t,results) {
-		//alert((fixResults(results)).length);
-	},function(t) { 
-	//alert('no nada');
-	 });
-//false hassql if empty
-}
-
-
-
-	if(hasSql) {
-		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
-		//t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
-	} else {
-		if(!lib.tableExists("diary_entry")) {
-			lib.createTable("diary_entry", ["title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
-			lib.commit();
-		}
-		if(!lib2.tableExists("diary_food")) {
-			lib2.createTable("diary_food",  ["type",  "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
-			lib2.commit();
-		}
-		startApp();
-	}
 	////////////////////////////
 	// GETTING STARTED DIALOG //
 	////////////////////////////
@@ -121,6 +92,37 @@ function initDB(t) {
 	}
 	if(!window.localStorage.getItem("lastInfoTab")) {
 		window.localStorage.setItem("lastInfoTab","topBarItem-1");
+	}
+	//CONSOLE('initDB');
+/////////////////////////////////////////
+//	//if not sql already, dont use sql //
+/////////////////////////////////////////
+	//TABLE EXISTS
+	if(hasSql) {
+		t.executeSql('select * from diary_entry order by published desc',[],
+	function(t,results) {
+		//alert((fixResults(results)).length);
+	},function(t) { 
+	//alert('no nada');
+	 });
+//false hassql if empty
+}
+	///////////////////
+	// CREATE TABLES //
+	///////////////////
+	if(hasSql) {
+		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+		//t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+	} else {
+		if(!lib.tableExists("diary_entry")) {
+			lib.createTable("diary_entry", ["title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
+			lib.commit();
+		}
+		if(!lib2.tableExists("diary_food")) {
+			lib2.createTable("diary_food",  ["type",  "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
+			lib2.commit();
+		}
+		startApp();
 	}
 };
 /////////////////
@@ -1136,237 +1138,269 @@ function buildHelpMenu() {
 // INTAKE HISTORY //
 ////////////////////
 function intakeHistory() {
-	var lastTick = window.localStorage.getItem("config_kcals_day_0") * 1.5;
-
+	var firstTick = 0;
+	var lastTick  = window.localStorage.getItem("config_kcals_day_0") * 1.5;
+	///////////////////////////////////////
+	// localized short weekday countback //
+	///////////////////////////////////////
 	var day = 60 * 60 * 24 * 1000;
 	var now = new Date().getTime();
-
-	var past0days = dayFormat(now);
-	var past1days = dayFormat(now - (day*1));
-	var past2days = dayFormat(now - (day*2));
-	var past3days = dayFormat(now - (day*3));
-	var past4days = dayFormat(now - (day*4));
-	var past5days = dayFormat(now - (day*5));
-	var past6days = dayFormat(now - (day*6));
-	var past7days = dayFormat(now - (day*7));
-
-
-
-	console.log(past0days);
-	console.log(past1days);
-	console.log(past2days);
-	console.log(past3days);
-	console.log(past4days);
-	console.log(past5days);
-	console.log(past6days);
-	console.log(past7days);	
-	/*
-	
-	
-	
-	}
-//////////////////////////////
-// UPDATE CSS HEADING *SUM* //
-//////////////////////////////
-function updateEntriesSum() {
-	//CONSOLE('updateEntriesSum()');
-	var pushTitle = [];
-	var lToday = LANG.TODAY[lang];
-	var lFood  = LANG.FOOD[lang];
-	var lExe   = LANG.EXERCISE[lang];
+	//count back 7 days
+	var past0days = DayUtcFormat(now);
+	var past1days = DayUtcFormat(now - (day*1));
+	var past2days = DayUtcFormat(now - (day*2));
+	var past3days = DayUtcFormat(now - (day*3));
+	var past4days = DayUtcFormat(now - (day*4));
+	var past5days = DayUtcFormat(now - (day*5));
+	var past6days = DayUtcFormat(now - (day*6));
+	var past7days = DayUtcFormat(now - (day*7));
+	//weekday lang array
+	var weekdaysArray = LANG.WEEKDAY_SHORT[lang].split(", ");
+	//parse date as time
+	var past0daysTime = Date.parse(DayUtcFormat(past0days));
+	var past1daysTime = Date.parse(DayUtcFormat(past1days));
+	var past2daysTime = Date.parse(DayUtcFormat(past2days));
+	var past3daysTime = Date.parse(DayUtcFormat(past3days));
+	var past4daysTime = Date.parse(DayUtcFormat(past4days));
+	var past5daysTime = Date.parse(DayUtcFormat(past5days));
+	var past6daysTime = Date.parse(DayUtcFormat(past6days));
+	var past7daysTime = Date.parse(DayUtcFormat(past7days));
+	//get weekday n. from time
+	var past0daysNumber = (new Date(past0daysTime)).getDay();
+	var past1daysNumber = (new Date(past1daysTime)).getDay();
+	var past2daysNumber = (new Date(past2daysTime)).getDay();
+	var past3daysNumber = (new Date(past3daysTime)).getDay();
+	var past4daysNumber = (new Date(past4daysTime)).getDay();
+	var past5daysNumber = (new Date(past5daysTime)).getDay();
+	var past6daysNumber = (new Date(past6daysTime)).getDay();
+	var past7daysNumber = (new Date(past7daysTime)).getDay();
+	///////////////////////////
+	// usable weekday labels //
+	///////////////////////////
+	var past0daysLabel = weekdaysArray[past0daysNumber];
+	var past1daysLabel = weekdaysArray[past1daysNumber];
+	var past2daysLabel = weekdaysArray[past2daysNumber];
+	var past3daysLabel = weekdaysArray[past3daysNumber];
+	var past4daysLabel = weekdaysArray[past4daysNumber];
+	var past5daysLabel = weekdaysArray[past5daysNumber];
+	var past6daysLabel = weekdaysArray[past6daysNumber];
+	var past7daysLabel = weekdaysArray[past7daysNumber];
+	//////////////////////
+	// WEEKDAY SUM LOOP //
+	//////////////////////
+	//sum vars
+	var past0daysSum = 0;
+	var past1daysSum = 0;
+	var past2daysSum = 0;
+	var past3daysSum = 0;
+	var past4daysSum = 0;
+	var past5daysSum = 0;
+	var past6daysSum = 0;
+	var past7daysSum = 0;
+	//LOOP
 	getEntries(function(data) {
-		for(var m=0, men=data.length; m<men; m++) {
-			pushTitle.push({ date: dayFormat(parseInt(data[m].published)).split("/").join("x"),val: data[m].title});
+		var dataPublished;
+		var dataTitle;
+		for(var i=0, len=data.length; i<len; i++) {
+			dataPublished = DayUtcFormat(parseInt(data[i].published));
+			dataTitle     = parseInt(data[i].title);
+			if(dataPublished == past0days) { past0daysSum = past0daysSum + dataTitle; }
+			if(dataPublished == past1days) { past1daysSum = past1daysSum + dataTitle; }
+			if(dataPublished == past2days) { past2daysSum = past2daysSum + dataTitle; }
+			if(dataPublished == past3days) { past3daysSum = past3daysSum + dataTitle; }
+			if(dataPublished == past4days) { past4daysSum = past4daysSum + dataTitle; }
+			if(dataPublished == past5days) { past5daysSum = past5daysSum + dataTitle; }
+			if(dataPublished == past6days) { past6daysSum = past6daysSum + dataTitle; }
+			if(dataPublished == past7days) { past7daysSum = past7daysSum + dataTitle; }
+			//reset
+			dataPublished = 0;
+			dataTitle     = 0;
 		}
-
-		var eachDay  = [];
-		for(var p=0, pen=pushTitle.length; p<pen; p++) {
-			if(eachDay.indexOf(pushTitle[p].date) == -1) {
-				eachDay.push(pushTitle[p].date);
-			}
-		}
-
-		var totalDayF;
-		var totalDayE;
-		var reStyle = '';
-		var thisDay;
-
-		for(var d=0, den=eachDay.length; d<den; d++) {
-			totalDayF = 0;
-			totalDayE = 0;
-			for(var x=0, xen=pushTitle.length; x<xen; x++) {
-				if(eachDay[d] == pushTitle[x].date) {
-					if(pushTitle[x].val > 0)  {
-						totalDayF = totalDayF + parseInt(pushTitle[x].val);
-					} else {
-						totalDayE = totalDayE + parseInt(pushTitle[x].val);	
-					}
-				}
-			}
-			if(eachDay[d] == dayFormat(new Date().getTime()).split("/").join("x")) {
-				thisDay = lToday;
-			} else {
-				thisDay = eachDay[d];
-			}
-
-			reStyle = reStyle + '\
-			#entryList div.day' + eachDay[d] + ' { border-top: 21px solid #eee; }\
-			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ' { margin-top: 0px; border-top: 0px solid #eee; }\
-			#entryList div.day' + eachDay[d] + ':before { content: "' + lFood + ': ' + totalDayF + '  /  ' + lExe + ': ' + totalDayE + '"; color: #bbb; position: absolute; top: -18px; right: 9px; font-size: 12px; line-height: 16px; }\
-			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':before { content: "";  }\
-			#entryList div.day' + eachDay[d] + ':after { content: "' + thisDay.split("x").join("/") +'"; color: #999; position: absolute; top: -18px; left: 15px; font-size: 12px; line-height: 16px; }\
-			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':after { content: "";  }\
-			'; 
-		}
-		//OUTPUT
-		$("#daySum").html(reStyle);
-	});
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	*/
-	
-	
-	$('#appStatusIntake').html();
-	$('#appStatusIntake div').css("padding-top","0px");
-	$('#appStatusIntake').highcharts({
-		chart: {
-			spacingLeft:   $("#appStatusIntake").width() / -6,
-			spacingRight:  $("#appStatusIntake").width() / -6.6,
-			spacingTop:    -1,
-			spacingBottom: -12,
-			height:        hasTap() ? 64 : 66,
-			width:         $("#appStatusIntake").width(),
-		},
-		credits: {
-			enabled: false
-		},
-		legend: {
-			enabled: false
-		},
-		title: {
-			text: ''
-		},
-		subtitle: {
-			text: ''
-		},
-		xAxis: {
-			//
-			categories: ['', 'tue', 'wed', 'thu', 'fri', ''],
-			//
-			labels: {
-				//enabled: false,
-				style: {
-					color: "rgba(47, 126, 216, .45)",
-					fontSize: 9,
-				},
-				y: -1,
-				x: 0,
-			}
-		},
-		yAxis: {
-			title: {
-				text: ''
+		//null for zero
+		//if(past0daysSum == 0) { past0daysSum = null; }
+		//if(past1daysSum == 0) { past1daysSum = null; }
+		//if(past2daysSum == 0) { past2daysSum = null; }
+		//if(past3daysSum == 0) { past3daysSum = null; }
+		//if(past4daysSum == 0) { past4daysSum = null; }
+		//if(past5daysSum == 0) { past5daysSum = null; }
+		//if(past6daysSum == 0) { past6daysSum = null; }
+		//if(past7daysSum == 0) { past7daysSum = null; }
+		//lastTick 500kcal buffer
+		if(past0daysSum > lastTick-500)									{ lastTick = past0daysSum*1.5; }
+		if(past1daysSum > lastTick-500 && past1daysSum > past0daysSum)	{ lastTick = past1daysSum*1.5; }
+		if(past2daysSum > lastTick-500 && past2daysSum > past1daysSum)	{ lastTick = past2daysSum*1.5; }
+		if(past3daysSum > lastTick-500 && past3daysSum > past2daysSum)	{ lastTick = past3daysSum*1.5; }
+		if(past4daysSum > lastTick-500 && past4daysSum > past3daysSum)	{ lastTick = past4daysSum*1.5; }
+		if(past5daysSum > lastTick-500 && past5daysSum > past4daysSum)	{ lastTick = past5daysSum*1.5; }
+		if(past6daysSum > lastTick-500 && past6daysSum > past5daysSum)	{ lastTick = past6daysSum*1.5; }
+		if(past7daysSum > lastTick-500 && past7daysSum > past6daysSum)	{ lastTick = past7daysSum*1.5; }
+		//min lastTick val
+		if(lastTick < 1000) { lastTick = 1000; }
+		//firstTick -500kcal buffer
+		if(past0daysSum < 0)								{ firstTick = past0daysSum*2; }
+		if(past1daysSum < 0 && past1daysSum < past0daysSum)	{ firstTick = past1daysSum*2; }
+		if(past2daysSum < 0 && past2daysSum < past1daysSum)	{ firstTick = past2daysSum*2; }
+		if(past3daysSum < 0 && past3daysSum < past2daysSum)	{ firstTick = past3daysSum*2; }
+		if(past4daysSum < 0 && past4daysSum < past3daysSum)	{ firstTick = past4daysSum*2; }
+		if(past5daysSum < 0 && past5daysSum < past4daysSum)	{ firstTick = past5daysSum*2; }
+		if(past6daysSum < 0 && past6daysSum < past5daysSum)	{ firstTick = past6daysSum*2; }
+		if(past7daysSum < 0 && past7daysSum < past6daysSum)	{ firstTick = past7daysSum*2; }
+		//min neg pad start at -500
+		if(firstTick < 0 && firstTick > -500) { firstTick = -500; }
+		//no null yesterday label
+		var past1daysColor = 'rgba(0,0,0,1)';
+		var past2daysColor = 'rgba(0,0,0,1)';
+		var past3daysColor = 'rgba(0,0,0,1)';
+		var past4daysColor = 'rgba(0,0,0,1)';
+		//
+		if(past1daysSum == 0) { past1daysColor = 'rgba(0,0,0,0)'; }
+		if(past2daysSum == 0) { past2daysColor = 'rgba(0,0,0,0)'; }
+		if(past3daysSum == 0) { past3daysColor = 'rgba(0,0,0,0)'; }
+		if(past4daysSum == 0) { past4daysColor = 'rgba(0,0,0,0)'; }
+		////////////////////
+		// GENERATE CHART //
+		////////////////////
+		$('#appStatusIntake div').css("padding-top", "0px");
+		var checkHeight = hasTap() ? 64 : 66;
+		if(vendorClass == "moz") { checkHeight = 72; }
+		
+		
+		$('#appStatusIntake').highcharts({
+			chart : {
+				spacingLeft   : $("#appStatusIntake").width() / -6,
+				spacingRight  : $("#appStatusIntake").width() / -9.2,
+				spacingTop    : -1,
+				spacingBottom : -12,
+				height : checkHeight,
+				width : $("#appStatusIntake").width(),
 			},
-			tickPositions: [0,window.localStorage.getItem("config_kcals_day_0"),lastTick],
-				gridLineColor: 'rgba(0,0,0,.16)',
-				gridLineDashStyle: 'longdash',
-
-                labels: {
-					enabled: false,
-                    align: 'left',
-                    x: 31,
-                    y: -1,
-					textSize: '8px',
-                },
-				showFirstLabel: false,
-				showLastLabel: false,
-            },
-            tooltip: {
-                enabled: false,
-                formatter: function() {
-                    return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y +'°C';
-                }
-            },
-            plotOptions: {
-                line: {
-                    dataLabels: {
-                        enabled: true,
-                        style: {
-                            textShadow: '0 0 3px white',
-							fontSize: '8px',
-                        }
+			credits : {
+				enabled : false
+			},
+			legend : {
+				enabled : false
+			},
+			title : {
+				text : ''
+			},
+			subtitle : {
+				text : ''
+			},
+			xAxis : {
+				categories : ['', past4daysLabel, past3daysLabel, past2daysLabel, past1daysLabel, ''],
+				labels : {
+					style : {
+						color : "rgba(47, 126, 216, .45)",
+						fontSize : 9,
+					},
+					y : -1,
+					x : 0,
+				}
+			},
+			yAxis : {
+				title : {
+					text : ''
+				},
+				tickPositions : [firstTick, parseInt(window.localStorage.getItem("config_kcals_day_0")), lastTick],
+				gridLineColor : 'rgba(0,0,0,.16)',
+				gridLineDashStyle : 'longdash',
+				labels : {
+					enabled : false,
+					align : 'left',
+					x : 31,
+					y : -1,
+					textSize : '8px',
+				},
+				showFirstLabel : false,
+				showLastLabel : false,
+			},
+			tooltip : {
+				enabled : false,
+				formatter : function () {
+					return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y + '°C';
+				}
+			},
+			plotOptions : {
+            series: {
+				allowPointSelect: false,
+                states: {
+                    hover: {
+                        lineWidth: 1
                     },
-                    enableMouseTracking: false
-                }
-            },
-			
-            series: [{
-				animation: false,
-                type: 'area',
-                name: 'Jane',
-                 data: [900, 1500, 2000, 500, 1000, 1200],
-				lineWidth: 1,
-              	lineColor: "rgba(47, 126, 216, .5)", //'rgba(0,0,0,.2)',
-				fillColor: "rgba(47, 126, 216, .1)", //'rgba(0,0,0,.05)',	
-			         marker: {
-					enabled: false,
-                	lineWidth: 0,
-                	lineColor: Highcharts.getOptions().colors[3],
-                	//fillColor: 'white'
                 },
             },
-			
-			 {
-				animation: false,
-                type: 'line',
-                name: 'Average',
-                        data: [
-            { y: 900, dataLabels: { x: 0, color: 'rgba(0,0,0,0)'  } }, 
-            { y: 1500, dataLabels: { x: 0,  } }, 
-            { y: 2000, dataLabels: { x: 0, } }, 
-            { y: 500, dataLabels: { x: 0,  } }, 			
-            { y: 1000, dataLabels: { x: 0,  } }, 
-            { y: 1200, dataLabels: { x: 0, color: 'rgba(0,0,0,0)' } }, 
-        ],
-				lineWidth: 0,
-              	lineColor: 'rgba(0,0,0,.2)',
-				fillColor: 'rgba(0,0,0,.05)',
-                marker: {
-					enabled: false,
-                	lineWidth: 0,
-                	lineColor: Highcharts.getOptions().colors[3],
-                	//fillColor: 'white'
-                },
-                line: {
-                    dataLabels: {
-                        enabled: true,
-                        style: {
-                            textShadow: '0 0 3px white',
-							fontSize: '8px',
-						
-                        }
-                    },
-            },
-            }
+				line : {
+					dataLabels : {
+						enabled : true,
+						style : {
+							textShadow : '0 0 3px white',
+							fontSize : '8px',
+						},
+					},
+					enableMouseTracking : false
+				}
+			},
+			series : [{
+					type : 'area',
+					name : 'solid filler',
+					animation : false,
+					data : [
+						past5daysSum,
+						past4daysSum,
+						past3daysSum,
+						past2daysSum,
+						past1daysSum,
+						past0daysSum
+					],
+					lineWidth : 1,
+					lineColor : "rgba(47, 126, 216, .5)",
+					fillColor : "rgba(47, 126, 216, .1)",
+					marker : {
+						enabled : false,
+						lineWidth : 0,
+						lineColor : "rgba(47, 126, 216, .5)",
+						fillColor : 'white',
+						states: {
+							hover: {
+								lineWidth : 1,
+							},
+						},
+					},
+				},
+				{
+					type : 'line',
+					name : 'line with labels',
+					animation : false,
+					data : [
+						{ y : past5daysSum, dataLabels : { x : 0, color : 'rgba(0,0,0,0)' } },
+						{ y : past4daysSum, dataLabels : { x : 0, color : past4daysColor  } },
+						{ y : past3daysSum, dataLabels : { x : 0, color : past3daysColor  } },
+						{ y : past2daysSum, dataLabels : { x : 0, color : past2daysColor  } },
+						{ y : past1daysSum, dataLabels : { x : 0, color : past1daysColor  } },
+						{ y : past0daysSum, dataLabels : { x : 0, color : 'rgba(0,0,0,0)' } },
+					],
+					lineWidth : 0,
+					lineColor : 'rgba(0,0,0,.2)',
+					fillColor : 'rgba(0,0,0,.05)',
+					marker : {
+						enabled : false,
+					},
+					line : {
+						dataLabels : {
+							enabled : true,
+							style : {
+								textShadow : '0 0 3px white',
+								fontSize : '8px',
+							},
+						},
+					},
+				}
 			]
+		});
+		//write cache
+		window.localStorage.setItem("appStatusIntake",$('#appStatusIntake').html());
+		$('#appStatusIntake div').css("padding-top", "0px");
 	});
-	$('#appStatusIntake').html();
-	$('#appStatusIntake div').css("padding-top","0px");
 }
 //////////////////
 // NICE RESIZER //

@@ -380,6 +380,10 @@ function openStatus(string) {
 	} else {
 		var weightLossUnit = LANG.LB[lang]; 
 	}
+	//create empty intake html cache
+	if(!window.localStorage.getItem("appStatusIntake")) {
+		window.localStorage.setItem("appStatusIntake"," ");
+	}
 	/////////////////////////////
 	// PRE-SET START/RESET BAR //
 	/////////////////////////////
@@ -397,10 +401,7 @@ function openStatus(string) {
 		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG.TIME_ELAPSED[lang] + '</span></div></div>\
 		<div id="appStatusWeight"><div><p><strong>' + weightLoss + '</strong>&nbsp;' + weightLossUnit + '</p><span>' + LANG.WEIGHT_LOSS[lang] + '</span></div></div>\
 		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG.CALORIC_BALANCE[lang] + '</span><div id="balanceBar"></div></div></div>\
-		<div id="appStatusIntake">\
-	<div id="entry_f-sum"><p>' + Number(window.localStorage.getItem("config_entry_f-sum")) + '</p><span>' + LANG.FOOD[lang]     + '</span></div>\
-	<div id="entry_e-sum"><p>' + Number(window.localStorage.getItem("config_entry_e-sum")) + '</p><span>' + LANG.EXERCISE[lang] + '</span></div>\
-		</div>\
+		<div id="appStatusIntake">' + window.localStorage.getItem("appStatusIntake") + '</div>\
 		<div id="appStatusBars">\
 			<div id="appStatusBarsPro"><p>' + LANG.PROTEINS[lang] + '</p><span>0%</span></div>\
 			<div id="appStatusBarsCar"><p>' + LANG.CARBS[lang] + '</p><span>0%</span></div>\
@@ -422,6 +423,14 @@ function openStatus(string) {
 	//# OUTPUT #//
 	//#////////#//
 	$("#appContent").html(statusHtml);
+	//////////////////////////
+	// INTAKE HISTORY GRAPH //
+	//////////////////////////
+	$('#appStatusIntake div').css("padding-top", "0px");
+	intakeHistory();
+	///////////////////
+	// balance Meter //
+	///////////////////	
 	balanceMeter(parseFloat($("#timerKcals").text()));
 	//////////////
 	// HANDLERS //
@@ -668,10 +677,6 @@ function openStatus(string) {
 			$('#appStatusFix').removeClass("open");
 		}
 	});
-	//////////////////////////
-	// INTAKE HISTORY GRAPH //
-	//////////////////////////
-	intakeHistory();
 }
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##
@@ -689,33 +694,35 @@ var lAgo    = " " + LANG.AGO[lang];
 var lPreAgo = LANG.PREAGO[lang] + " ";
 //android 2.x select fix
 var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
-		<option value="0">'  + LANG.NOW[lang]  +                 '</option>\
-		<option value="1">'  + lPreAgo + '1 '  + lHour  + lAgo + '</option>\
-		<option value="2">'  + lPreAgo + '2 '  + lHours + lAgo + '</option>\
-		<option value="3">'  + lPreAgo + '3 '  + lHours + lAgo + '</option>\
-		<option value="4">'  + lPreAgo + '4 '  + lHours + lAgo + '</option>\
-		<option value="5">'  + lPreAgo + '5 '  + lHours + lAgo + '</option>\
-		<option value="6">'  + lPreAgo + '6 '  + lHours + lAgo + '</option>\
-		<option value="7">'  + lPreAgo + '7 '  + lHours + lAgo + '</option>\
-		<option value="8">'  + lPreAgo + '8 '  + lHours + lAgo + '</option>\
-		<option value="9">'  + lPreAgo + '9 '  + lHours + lAgo + '</option>\
-		<option value="10">' + lPreAgo + '10 ' + lHours + lAgo + '</option>\
-		<option value="11">' + lPreAgo + '11 ' + lHours + lAgo + '</option>\
-		<option value="12">' + lPreAgo + '12 ' + lHours + lAgo + '</option>\
-		<option value="13">' + lPreAgo + '13 ' + lHours + lAgo + '</option>\
-		<option value="14">' + lPreAgo + '14 ' + lHours + lAgo + '</option>\
-		<option value="15">' + lPreAgo + '15 ' + lHours + lAgo + '</option>\
-		<option value="16">' + lPreAgo + '16 ' + lHours + lAgo + '</option>\
-		<option value="17">' + lPreAgo + '17 ' + lHours + lAgo + '</option>\
-		<option value="18">' + lPreAgo + '18 ' + lHours + lAgo + '</option>\
-		<option value="19">' + lPreAgo + '19 ' + lHours + lAgo + '</option>\
-		<option value="20">' + lPreAgo + '20 ' + lHours + lAgo + '</option>\
-		<option value="21">' + lPreAgo + '21 ' + lHours + lAgo + '</option>\
-		<option value="22">' + lPreAgo + '22 ' + lHours + lAgo + '</option>\
-		<option value="23">' + lPreAgo + '23 ' + lHours + lAgo + '</option>\
-		<option value="24">' + lPreAgo + '1 '  + lDay   + lAgo + '</option>\
-		<option value="48">' + lPreAgo + '2 '  + lDays  + lAgo + '</option>\
-		<option value="72">' + lPreAgo + '3 '  + lDays  + lAgo + '</option>\
+		<option value="0">'   + LANG.NOW[lang]  +                 '</option>\
+		<option value="1">'   + lPreAgo + '1 '  + lHour  + lAgo + '</option>\
+		<option value="2">'   + lPreAgo + '2 '  + lHours + lAgo + '</option>\
+		<option value="3">'   + lPreAgo + '3 '  + lHours + lAgo + '</option>\
+		<option value="4">'   + lPreAgo + '4 '  + lHours + lAgo + '</option>\
+		<option value="5">'   + lPreAgo + '5 '  + lHours + lAgo + '</option>\
+		<option value="6">'   + lPreAgo + '6 '  + lHours + lAgo + '</option>\
+		<option value="7">'   + lPreAgo + '7 '  + lHours + lAgo + '</option>\
+		<option value="8">'   + lPreAgo + '8 '  + lHours + lAgo + '</option>\
+		<option value="9">'   + lPreAgo + '9 '  + lHours + lAgo + '</option>\
+		<option value="10">'  + lPreAgo + '10 ' + lHours + lAgo + '</option>\
+		<option value="11">'  + lPreAgo + '11 ' + lHours + lAgo + '</option>\
+		<option value="12">'  + lPreAgo + '12 ' + lHours + lAgo + '</option>\
+		<option value="13">'  + lPreAgo + '13 ' + lHours + lAgo + '</option>\
+		<option value="14">'  + lPreAgo + '14 ' + lHours + lAgo + '</option>\
+		<option value="15">'  + lPreAgo + '15 ' + lHours + lAgo + '</option>\
+		<option value="16">'  + lPreAgo + '16 ' + lHours + lAgo + '</option>\
+		<option value="17">'  + lPreAgo + '17 ' + lHours + lAgo + '</option>\
+		<option value="18">'  + lPreAgo + '18 ' + lHours + lAgo + '</option>\
+		<option value="19">'  + lPreAgo + '19 ' + lHours + lAgo + '</option>\
+		<option value="20">'  + lPreAgo + '20 ' + lHours + lAgo + '</option>\
+		<option value="21">'  + lPreAgo + '21 ' + lHours + lAgo + '</option>\
+		<option value="22">'  + lPreAgo + '22 ' + lHours + lAgo + '</option>\
+		<option value="23">'  + lPreAgo + '23 ' + lHours + lAgo + '</option>\
+		<option value="24">'  + lPreAgo + '1 '  + lDay   + lAgo + '</option>\
+		<option value="48">'  + lPreAgo + '2 '  + lDays  + lAgo + '</option>\
+		<option value="72">'  + lPreAgo + '3 '  + lDays  + lAgo + '</option>\
+		<option value="96">'  + lPreAgo + '4 '  + lDays  + lAgo + '</option>\
+		<option value="120">' + lPreAgo + '5 '  + lDays  + lAgo + '</option>\
 	</select>';
 	if(Math.floor(androidVersion()) == 2) {  
 		var outerSelect = formSelect;

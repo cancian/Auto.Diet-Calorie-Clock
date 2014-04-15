@@ -218,9 +218,18 @@ $(document).on("backbutton", function(evt) {
 // PRESS ENTER //
 /////////////////
 $(document).on("pressenter", function(evt) {
-	$("#addNewConfirm").trigger(touchstart);
-	$("#modalOk").trigger(touchstart);
+	$("#editable").trigger("blur");
+	$("#editableDiv").trigger("blur");
 	$("#entrySubmit").trigger(touchstart);
+	$("#modalOk").trigger(touchstart);
+	$("#addNewConfirm").trigger(touchstart);
+	if($('#appStatusFix').hasClass("open")) {
+		$("#startDate").mobiscroll('set');
+		$('#appStatusFix').removeClass("open");
+	}
+	if($(".delete").hasClass("active")) {
+		$(".delete.active").trigger(tap)
+	}
 });
 //////////////////////
 // KEYCODE LISTENER //

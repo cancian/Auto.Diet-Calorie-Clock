@@ -45,7 +45,7 @@ var transitionend;
      if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase()))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
 else if((/firefox/).test(navigator.userAgent.toLowerCase())) 			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
 else 																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
-console.log(vendorClass + ' | ' + transitionend + ' | ' + prefix);
+//console.log(vendorClass + ' | ' + transitionend + ' | ' + prefix);
 ////////////////////////
 // CONVERT CSS PREFIX //
 ////////////////////////
@@ -144,6 +144,19 @@ function dtFormat(input) {
     res += hour + ":" + minute + " " + ampm;
     return res;
 }
+////////////////////
+// DAY UTC FORMAT //
+////////////////////
+function DayUtcFormat(input) {
+    if(!input) return "";
+	input = new Date(input);
+	var gotMonth = input.getMonth()+1;
+	var gotDate  = input.getDate();
+	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
+	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
+	var res = input.getFullYear() + "/" + gotMonth + "/" + gotDate;
+    return res;
+}
 ////////////////
 // DAY FORMAT //
 ////////////////
@@ -154,11 +167,12 @@ function dayFormat(input) {
 	var gotDate  = input.getDate();
 	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
 	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
-
 	if(LANG.LANGUAGE[lang] == "pt") { 
-	    var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
+		var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
 	} else {
-	    var res = gotMonth + "/" + gotDate + "/" + input.getFullYear();
+	//    var res = gotMonth + "/" + gotDate + "/" + input.getFullYear();
+	//}
+		var res = input.getFullYear() + "/" + gotMonth + "/" + gotDate;
 	}
     return res;
 }
