@@ -19,6 +19,7 @@ function openSettings(string) {
 			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_BACKUP[lang]   + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
 			<li id="optionReview"><div><p class="contentTitle">'   + LANG.SETTINGS_REVIEW[lang] + '<span>' + LANG.SETTINGS_REVIEW_INFO[lang] + '</span></p></div></li>\
 			<li id="optionFeedback"><div><p class="contentTitle">' + LANG.SETTINGS_FEEDBACK[lang] + '<span>' + LANG.SETTINGS_FEEDBACK_INFO[lang] + '</span></p></div>\
+			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang]   + '<span>' + LANG.LANGUAGE_NAME[lang]   + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]   + '<span>' + LANG.SETTINGS_HELP_INFO[lang]   + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite">' + LANG.ABOUT_TITLE[lang] + '</div>\
@@ -47,10 +48,10 @@ function openSettings(string) {
 	////////////
 	//$("#optionWebsite").remove();
 	$("#optionContact").remove();
-	//$("#optionFeedback").remove();
-	if(!hasTouch()) {
+	$("#optionFeedback").remove();
+	//if(!hasTouch()) {
 		$("#optionReview").remove();
-	}
+	//}
 	////////////////
 	// ACTIVE ROW //
 	////////////////
@@ -208,6 +209,11 @@ function openSettings(string) {
 		};
 		FB.ui(params, function(obj) { CONSOLE(obj); });
 		//FB.ui(params);
+	});
+
+
+	$("#optionLang").on(touchend,function(evt) {
+buildLangMenu();
 	});
 	////////////////////////
 	// SETTINGS: FEEDBACK //

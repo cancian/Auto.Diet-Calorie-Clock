@@ -3,10 +3,12 @@
 #################
 # 1.2.1 [9/04/2014]
 • "daily average" chart on status screen
-• app colors are now: red for caloric defict / blue for caloric surplus 
+• option to set app language manualy
+• improved acessibility
 • translation for the following languages: Malay, Slovak, Slovenian, Vietnamese.
-• 
-• 
+• fixed an isse where app would start before setting initial values
+• (diary) changed maximum days before to 5.
+• app colors are now: red for caloric defict / blue for caloric surplus 
 • 
 • 
 • 

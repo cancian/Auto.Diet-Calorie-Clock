@@ -48,28 +48,36 @@ function dbErrorHandler(evt) {
 /////////////
 // INIT DB //
 /////////////
+function showIntro() {
+	$("#gettingStarted").remove();
+	$("body").append("<div id='gettingStarted'>\
+		<div id='appInfo'>" + LANG.APP_INTRO[lang] + "</div>\
+		<div id='step1'><span>1</span>" + LANG.STEP_1[lang] + "</div>\
+		<div id='step2'><span>2</span>" + LANG.STEP_2[lang] + "</div>\
+		<div id='step3'><span>3</span>" + LANG.STEP_3[lang] + "</div>\
+		<div id='closeDiv'>" + LANG.CLOSE_INTRO[lang] + "</div>\
+		<div id='appLang'>" + LANG.LANGUAGE_NAME[lang] + "</div>\
+	</div>");
+	$("#closeDiv").on(touchend,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		$("#gettingStarted").fadeOut(200,function() {
+			$("#gettingStarted").remove();
+		});
+	});
+	$("#gettingStarted").on(touchstart,function(evt) {
+		evt.stopPropagation();
+	});
+	$("#appLang").on(touchstart,function(evt) {
+		buildLangMenu('intro');
+	});
+}
 function initDB(t) {
 	////////////////////////////
 	// GETTING STARTED DIALOG //
 	////////////////////////////
 	if(!window.localStorage.getItem("config_kcals_day_0") || window.localStorage.getItem("config_debug") == "active") {
-		$("body").append("<div id='gettingStarted'>\
-			<div id='appInfo'>" + LANG.APP_INTRO[lang] + "</div>\
-			<div id='step1'><span>1</span>" + LANG.STEP_1[lang] + "</div>\
-			<div id='step2'><span>2</span>" + LANG.STEP_2[lang] + "</div>\
-			<div id='step3'><span>3</span>" + LANG.STEP_3[lang] + "</div>\
-			<div id='closeDiv'>" + LANG.CLOSE_INTRO[lang] + "</div>\
-		</div>");
-		$("#closeDiv").on(touchend,function(evt) {
-			evt.preventDefault();
-			evt.stopPropagation();
-			$("#gettingStarted").fadeOut(200,function() {
-				$("#gettingStarted").remove();
-			});
-		});
-		$("#gettingStarted").on(touchstart,function(evt) {
-			evt.stopPropagation();
-		});
+		showIntro();
 	}
 	//config
 	if(!window.localStorage.getItem("config_start_time")) {
@@ -1134,6 +1142,109 @@ function buildHelpMenu() {
 		},50);
 	});
 }
+/////////////////////
+// BUILD LANG MENU //
+/////////////////////
+function buildLangMenu(opt) {
+	$("#langSelect").remove();
+	//intro
+	if(opt == "intro") {
+		$("body").append("<div id='langSelect'></div>");
+	} else {
+		$("#appContent").append("<div id='langSelect'></div>");
+	}
+	$("#langSelect").html("<ul id='langSelectList'>\
+		<li id='setid'>Bahasa Indonesia</li>\
+		<li id='setms'>Bahasa Melayu</li>\
+		<li id='setcs'>Čeština</li>\
+		<li id='setda'>Dansk</li>\
+		<li id='setde'>Deutsch</li>\
+		<li id='setet'>Eesti</li>\
+		<li id='seten'>English</li>\
+		<li id='setes'>Español</li>\
+		<li id='setfr'>Français</li>\
+		<li id='setga'>Gaeilge</li>\
+		<li id='sethr'>Hrvatski</li>\
+		<li id='setit'>Italiano</li>\
+		<li id='sethu'>Magyar</li>\
+		<li id='setnl'>Nederlands</li>\
+		<li id='setno'>Norsk</li>\
+		<li id='setpl'>Polski</li>\
+		<li id='setpt'>Português</li>\
+		<li id='setro'>Română</li>\
+		<li id='setsk'>Slovenčina</li>\
+		<li id='setsl'>Slovenščina</li>\
+		<li id='setfi'>Suomi</li>\
+		<li id='setsv'>Svenska</li>\
+		<li id='setvi'>Tiếng Việt</li>\
+		<li id='settr'>Türkçe</li>\
+		<li id='setel'>Ελληνικά</li>\
+		<li id='setbg'>Български</li>\
+		<li id='setru'>Русский</li>\
+		<li id='setuk'>Українська</li>\
+		<li id='setar'>العربية</li>\
+		<li id='sethi'>हिन्दी</li>\
+		<li id='sethy'>հայերեն</li>\
+		<li id='setth'>ไทย</li>\
+		<li id='setko'>한국어</li>\
+		<li id='setzh'>中文（简体中文）</li>\
+		<li id='setja'>日本語</li>\
+	</ul>");
+	//intro
+	if(opt == "intro") { 
+	$("#langSelect").css("z-index",100);
+		//pad
+		if($("body").hasClass("ios7")) {
+			$("#langSelect").css("padding-top","20px");
+		}
+	}
+	//mark current
+	$("#set" + window.localStorage.getItem("devSetLang")).addClass("set");
+	//show content
+	$("#langSelect").hide();
+	$("#langSelect").fadeIn(200,function() {
+		//scroller
+		if(!isMobile.iOS() || opt == "intro") {
+			$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		}
+	});
+	/////////////
+	// handler //
+	/////////////
+	$("#langSelect li").on(tap,function(evt) {
+		window.localStorage.setItem("devSetLang",$(this).attr("id").replace("set",""));
+		//remark
+		$(".set").removeClass("set");
+		$(this).addClass("set");
+		//////////////
+		// fade out //
+		//////////////
+		$("#langSelect").fadeOut(250,function() {
+			$("body").removeClass("appLang-" + lang);
+			lang = window.localStorage.getItem("devSetLang");
+			$("body").addClass("appLang-" + lang);
+			if(lang != "en" && lang != "pt") { 
+				LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
+			}
+			$("#tab1").html(LANG.MENU_STATUS[lang]);
+			$("#tab2").html(LANG.MENU_DIARY[lang]);
+			$("#tab3").html(LANG.MENU_PROFILE[lang]);
+			$("#tab4").html(LANG.MENU_SETTINGS[lang]);
+			if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
+			//remove
+			$("#langSelect").remove();
+			//refresh intro
+			if(opt == "intro") { 
+				showIntro();
+			}
+		});
+		//enforce
+		setTimeout(function() { $("#langSelect").remove(); },300);
+	});
+}
 ////////////////////
 // INTAKE HISTORY //
 ////////////////////
@@ -1235,7 +1346,7 @@ function intakeHistory() {
 		if(past6daysSum > lastTick-500 && past6daysSum > past5daysSum)	{ lastTick = past6daysSum*1.5; }
 		if(past7daysSum > lastTick-500 && past7daysSum > past6daysSum)	{ lastTick = past7daysSum*1.5; }
 		//min lastTick val
-		if(lastTick < 1000) { lastTick = 1000; }
+		if(lastTick < 300) { lastTick = 300; }
 		//firstTick -500kcal buffer
 		if(past0daysSum < 0)								{ firstTick = past0daysSum*2; }
 		if(past1daysSum < 0 && past1daysSum < past0daysSum)	{ firstTick = past1daysSum*2; }
@@ -1262,9 +1373,6 @@ function intakeHistory() {
 		////////////////////
 		$('#appStatusIntake div').css("padding-top", "0px");
 		var checkHeight = hasTap() ? 64 : 66;
-		if(vendorClass == "moz") { checkHeight = 72; }
-		
-		
 		$('#appStatusIntake').highcharts({
 			chart : {
 				spacingLeft   : $("#appStatusIntake").width() / -6,
@@ -1291,9 +1399,9 @@ function intakeHistory() {
 				labels : {
 					style : {
 						color : "rgba(47, 126, 216, .45)",
-						fontSize : 9,
+						fontSize : "9px",
 					},
-					y : -1,
+					y : -2,
 					x : 0,
 				}
 			},
