@@ -18,6 +18,7 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	document.write("<script type='text/javascript' src='js/facebook-js-sdk.min.js'><\/script>");
 	//document.write("<script type='text/javascript' src='//connect.facebook.net/en_US/all.js'><\/script>");
 }
+
 ////////
 // JS //
 ////////
@@ -54,4 +55,9 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_buil
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
-
+//
+if(!navigator.userAgent.match(/(MSIE)/)) {
+	if(window.external.Notify) { 
+		window.external.Notify("noScroll");
+	}
+}

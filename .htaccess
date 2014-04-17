@@ -9,11 +9,3 @@ AddType text/cache-manifest .appcache
 <ifModule mod_headers.c>
 	Header set Access-Control-Allow-Origin: *
 </ifModule>
-
-<IfModule mod_expires.c>
-	Header set cache-control: public
-	ExpiresActive on
-	# Prevent receiving a cached manifest
-	ExpiresByType text/cache-manifest "access plus 0 seconds"
-</IfModule>
-
