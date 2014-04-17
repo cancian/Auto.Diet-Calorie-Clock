@@ -15,9 +15,11 @@ if((langArray).test(window.localStorage.getItem("devSetLang"))) {
 if(!lang.match(langArray)) { lang = "en"; }
 //VIEWPORT RESIZE
 if(lang == "hy" || window.outerHeight < 362) {
+	/*
 	$("#viewPort").remove();
 	$("body").html('');
 	$("head").prepend('<meta name="viewport" id="viewPort" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width,target-densitydpi=180" />');
+	*/
 }
 //#////////////#//
 //# LANG ARRAY #//
