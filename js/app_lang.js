@@ -13,13 +13,11 @@ if((langArray).test(window.localStorage.getItem("devSetLang"))) {
 }
 //SAFETY
 if(!lang.match(langArray)) { lang = "en"; }
-
-
 //VIEWPORT RESIZE
-if(lang == "hy" || window.innerHeight < 450) {
+if(lang == "hy" || window.outerHeight < 362) {
 	$("#viewPort").remove();
-	$("head").prepend('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=.75, maximum-scale=.75, minimum-scale=.75, width=device-width" />');
-	$("body").trigger("resize");
+	$("body").html('');
+	$("head").prepend('<meta name="viewport" id="viewPort" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width,target-densitydpi=180" />');
 }
 //#////////////#//
 //# LANG ARRAY #//
@@ -170,7 +168,7 @@ var LANG = {
 		th : 'อา., จ., อ., พ., พฤ., ศ., ส.',
 		tr : 'Paz, Pzt, Sal, Çar, Per, Cum, Cmt',
 		uk : 'нд, пн, вт, ср, чт, пт, сб',
-		vi : 'CN, Th 2, Th 3, Th 4, Th 5, Th 6, Th 7',
+		vi : 'CN, Th2, Th3, Th4, Th5, Th6, Th7',
 		zh : '星期日, 星期一, 星期二, 星期三, 星期四, 星期五, 星期六'
 	},
 	CALORIE_COUNTER : {

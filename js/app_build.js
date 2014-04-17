@@ -1944,6 +1944,26 @@ $("#formc select").on("blur",function() {
 	writeCalcValues();
 	setPush();
 });
+$(document).on("hidekeyboard",function() {
+
+		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
+			$("#calcForm input").each(function(evt) {
+				if($(this).is(":focus") && vendorClass != "moz") {
+					$(this).blur();
+				}
+			});
+			$("#calcForm select").each(function(evt) {
+				if($(this).is(":focus") && vendorClass != "moz") {
+					$(this).blur();
+				}
+			});
+		}
+
+	//alert();
+});
+$("#formc input").on("keyup",function() {
+	writeCalcValues();
+});
 ///////////////////
 // WRITE CHANGES //
 ///////////////////
@@ -1952,11 +1972,15 @@ function writeCalcValues() {
 	//male/female
 	window.localStorage.setItem(preffix + "#pA1B",$("#pA1B").val());
 	//height
-	window.localStorage.setItem(preffix + "#pA2B",$("#pA2B").val());
+	if(!isNaN(parseInt($("#pA2B").val()))) {
+		window.localStorage.setItem(preffix + "#pA2B",$("#pA2B").val());
+	}
 	//cm/in
 	window.localStorage.setItem(preffix + "#pA2C",$("#pA2C").val());
 	//weight
-	window.localStorage.setItem(preffix + "#pA3B",parseInt($("#pA3B").val()));
+	if(!isNaN(parseInt($("#pA3B").val()))) {
+		window.localStorage.setItem(preffix + "#pA3B",parseInt($("#pA3B").val()));
+	}
 	//kg/lb
 	window.localStorage.setItem(preffix + "#pA3C",$("#pA3C").val());
 	//age
@@ -1972,8 +1996,12 @@ function writeCalcValues() {
 	//measure
 	window.localStorage.setItem(preffix + "#pA6N",$("#pA6N").val());
 	//measure
-	window.localStorage.setItem(preffix + "#feet",parseInt($("#feet").val()));
-	window.localStorage.setItem(preffix + "#inches",parseInt($("#inches").val()));	
+	if(!isNaN(parseInt($("#feet").val()))) {
+		window.localStorage.setItem(preffix + "#feet",parseInt($("#feet").val()));
+	}
+	if(!isNaN(parseInt($("#inches").val()))) {	
+		window.localStorage.setItem(preffix + "#inches",parseInt($("#inches").val()));	
+	}
 }
 /////////////////
 // LOAD VALUES //

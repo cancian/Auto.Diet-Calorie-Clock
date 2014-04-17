@@ -182,7 +182,11 @@ $(document).on("menubutton", function(evt) {
 $(document).on("backbutton", function(evt) {
 	if($("#tempHolder").html() && $("#spinner").html()) { return false; }
 	//
-	if($("#subBackButton").length) {
+	if($("#langSelect").length) {
+		$("#set" + lang).trigger(tap);
+	} else if($("#closeDiv").length) {
+		$("#closeDiv").trigger(touchend);
+	} else if($("#subBackButton").length) {
 		$("#subBackButton").trigger(touchend);
 	} else if($("#backButton").length) {
 		$("#backButton").trigger(touchend);
@@ -223,6 +227,7 @@ $(document).on("pressenter", function(evt) {
 	$("#entrySubmit").trigger(touchstart);
 	$("#modalOk").trigger(touchstart);
 	$("#addNewConfirm").trigger(touchstart);
+	$("#closeDiv").trigger(touchend);
 	if($('#appStatusFix').hasClass("open")) {
 		$("#startDate").mobiscroll('set');
 		$('#appStatusFix').removeClass("open");
@@ -265,6 +270,12 @@ $(document).on("hidekeyboard",function() {
 	window.scroll($('#appContent')[0].scrollTop,0,0);
 	$('#appContent').scrollTop($('#appContent').scrollTop());
 	$('#editableInput').blur();
+	//blur daily
+	if($("#editable").length) {
+		setTimeout(function() {
+			$('#appHeader').trigger(touchstart);
+		},0);
+	}
 	appResizer(100);
 });
 /////////////////
@@ -308,6 +319,10 @@ $(window).on("resize", function(evt) {
 	balanceMeter(parseFloat($("#timerKcals").text()));
 	//recalc intake history
 	intakeHistory();
+	//always resize intro
+	if($("#closeDiv").html()) {
+		appResizer(0);
+	}
 });
 //##////////////##//
 //##//  ONLOAD  ##//

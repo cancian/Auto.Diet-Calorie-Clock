@@ -228,9 +228,9 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
-#langSelect							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; display: block; background-color: #fff; background-image: -webkit-linear-gradient(#fff,#fefefe); }
-ul#langSelectList					{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; }
-ul#langSelectList li				{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; -webkit-backface-visibility: hidden; }
+#langSelect							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0px; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; }
+ul#langSelectList					{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
+ul#langSelectList li				{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; }
 ul#langSelectList li+li				{ border-top: 1px solid #eee; }
 ul#langSelectList li.set			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }

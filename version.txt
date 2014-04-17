@@ -9,7 +9,7 @@
 • fixed an isse where app would start before setting initial values
 • (diary) changed maximum days before to 5.
 • app colors are now: red for caloric defict / blue for caloric surplus 
-• 
+• improved profile validation
 • 
 • 
 

@@ -1219,7 +1219,8 @@ function buildLangMenu(opt) {
 		//////////////
 		// fade out //
 		//////////////
-		$("#langSelect").fadeOut(250,function() {
+		$("#langSelect").fadeOut(200,function() {
+			setTimeout(function() {
 			$("body").removeClass("appLang-" + lang);
 			lang = window.localStorage.getItem("devSetLang");
 			$("body").addClass("appLang-" + lang);
@@ -1240,9 +1241,10 @@ function buildLangMenu(opt) {
 			if(opt == "intro") { 
 				showIntro();
 			}
+			},80);
 		});
 		//enforce
-		setTimeout(function() { $("#langSelect").remove(); },300);
+		setTimeout(function() { $("#langSelect").remove(); },600);
 	});
 }
 ////////////////////
