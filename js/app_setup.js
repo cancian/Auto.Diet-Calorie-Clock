@@ -1205,7 +1205,11 @@ function buildLangMenu(opt) {
 	$("#langSelect").fadeIn(200,function() {
 		//scroller
 		if(!isMobile.iOS() || opt == "intro") {
-			$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			if(androidVersion() < 4.4 && !isMobile.Windows()) {
+				$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			} else {
+				$("#langSelect").css("overflow","auto");	
+			}
 		}
 	});
 	/////////////

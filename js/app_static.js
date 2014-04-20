@@ -419,6 +419,20 @@ if(isMobile.Windows()) {
 ////////////
 $("body").addClass(vendorClass);
 $("body").addClass("appLang-" + lang);
+/////////
+// OSX //
+/////////
+if(isMobile.OSX()) {
+	$("body").addClass("osx");
+}
+/////////////
+// DESKTOP //
+/////////////
+if(isDesktop()) {
+	$("body").addClass("desktop");
+} else {
+	$("body").addClass("mobile");	
+}
 ////////////////////
 // PRESET PROFILE //
 ////////////////////

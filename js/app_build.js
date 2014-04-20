@@ -16,15 +16,15 @@ function openSettings(string) {
 					</div>\
 				</div>\
 			</li>\
-			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_BACKUP[lang]   + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
-			<li id="optionReview"><div><p class="contentTitle">'   + LANG.SETTINGS_REVIEW[lang] + '<span>' + LANG.SETTINGS_REVIEW_INFO[lang] + '</span></p></div></li>\
-			<li id="optionFeedback"><div><p class="contentTitle">' + LANG.SETTINGS_FEEDBACK[lang] + '<span>' + LANG.SETTINGS_FEEDBACK_INFO[lang] + '</span></p></div>\
-			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang]   + '<span>' + LANG.LANGUAGE_NAME[lang]   + '</span></p></div></li>\
-			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]   + '<span>' + LANG.SETTINGS_HELP_INFO[lang]   + '</span></p></div></li>\
+			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_BACKUP[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
+			<li id="optionReview"><div><p class="contentTitle">'   + LANG.SETTINGS_REVIEW[lang]      + '<span>' + LANG.SETTINGS_REVIEW_INFO[lang]   + '</span></p></div></li>\
+			<li id="optionFeedback"><div><p class="contentTitle">' + LANG.SETTINGS_FEEDBACK[lang]    + '<span>' + LANG.SETTINGS_FEEDBACK_INFO[lang] + '</span></p></div>\
+			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
+			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite">' + LANG.ABOUT_TITLE[lang] + '</div>\
-		<div id="optionLastSync">' + LANG.LAST_SYNC[lang] + '<span>--</span></div>\
-		<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
+		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
+		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 	</div>\
 	';
 	//<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG.SETTINGS_FACEBOOK[lang] + '</span></div></div>\
@@ -332,6 +332,214 @@ buildLangMenu();
 	});
 	$("#optionReset").on(touchend + " mouseout",function(evt) {
 		$("#optionReset").removeClass("activeRow");
+	});
+	////////////////////////
+	// SETTINGS: ADVANCED //
+	////////////////////////
+	// WIPE DIALOG
+	$("#optionAdvanced").on(touchend, function(evt) {
+	//evt.preventDefault();
+	$("#advancedMenuWrapper").remove();
+	$("#appContent").append("\
+	<div id='advancedMenuWrapper'>\
+		<div id='advancedMenuHeader'>\
+			<div id='backButton'></div>\
+			<div id='advancedMenuTitle'>" + LANG.SETTINGS_ADVANCED[lang] + "</div>\
+			</div>\
+		<div id='advancedMenu'></div>\
+	</div>");
+	
+//
+	$("#advancedMenu").html("<ul id='advancedMenuList'>\
+		<li id='setid'>Bahasa Indonesia</li>\
+		<li id='setms'>Bahasa Melayu</li>\
+		<li id='setcs'>Čeština</li>\
+		<li id='setda'>Dansk</li>\
+		<li id='setde'>Deutsch</li>\
+		<li id='setet'>Eesti</li>\
+		<li id='seten'>English</li>\
+		<li id='setes'>Español</li>\
+		<li id='setfr'>Français</li>\
+		<li id='setga'>Gaeilge</li>\
+		<li id='sethr'>Hrvatski</li>\
+		<li id='setit'>Italiano</li>\
+		<li id='sethu'>Magyar</li>\
+		<li id='setnl'>Nederlands</li>\
+		<li id='setno'>Norsk</li>\
+		<li id='setpl'>Polski</li>\
+		<li id='setpt'>Português</li>\
+		<li id='setro'>Română</li>\
+		<li id='setsk'>Slovenčina</li>\
+		<li id='setsl'>Slovenščina</li>\
+		<li id='setfi'>Suomi</li>\
+		<li id='setsv'>Svenska</li>\
+		<li id='setvi'>Tiếng Việt</li>\
+		<li id='settr'>Türkçe</li>\
+		<li id='setel'>Ελληνικά</li>\
+		<li id='setbg'>Български</li>\
+		<li id='setru'>Русский</li>\
+		<li id='setuk'>Українська</li>\
+		<li id='setar'>العربية</li>\
+		<li id='sethi'>हिन्दी</li>\
+		<li id='sethy'>հայերեն</li>\
+		<li id='setth'>ไทย</li>\
+		<li id='setko'>한국어</li>\
+		<li id='setzh'>中文（简体中文）</li>\
+		<li id='setja'>日本語</li>\
+	</ul>");
+
+
+
+	//flipswitch testing
+	$("#setid").append('<input type="checkbox" checked />');
+
+
+
+	//set css
+	$("#advancedMenu").css("top",$("#advancedMenuHeader").height() + "px");	
+	//show content
+	$("#advancedMenuWrapper").hide();
+	$("#advancedMenuWrapper").fadeIn(200,function() {
+		//scroller
+		if(!isMobile.iOS() || opt == "intro") {
+			if(androidVersion() < 4.4 && !isMobile.Windows()) {
+				$("#advancedMenu").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			} else {
+				$("#advancedMenu").css("overflow","auto");
+			}
+		}
+	});
+	/////////////
+	// handler //
+	/////////////
+	//LIST CLOSER HANDLER
+	$("#backButton").on(touchend,function() {
+		$("#advancedMenuWrapper").fadeOut(200,function() {
+			$('#advancedMenuWrapper').remove();
+		});
+	});
+	/*
+	//TOPIC HANDLERS
+	$("#advancedMenu li").on(touchstart,function(evt) {
+		evt.preventDefault();
+		$(this).addClass("activeRow");
+	});
+	$("#advancedMenu,#advancedMenu li").on(touchend + " mouseout",function(evt) {
+		$(".activeRow").removeClass("activeRow");
+		evt.preventDefault();
+	});*/
+
+/*
+	$("#langSelect").remove();
+	//intro
+	if(opt == "intro") {
+		$("body").append("<div id='langSelect'></div>");
+	} else {
+		$("#appContent").append("<div id='langSelect'></div>");
+	}
+	$("#langSelect").html("<ul id='langSelectList'>\
+		<li id='setid'>Bahasa Indonesia</li>\
+		<li id='setms'>Bahasa Melayu</li>\
+		<li id='setcs'>Čeština</li>\
+		<li id='setda'>Dansk</li>\
+		<li id='setde'>Deutsch</li>\
+		<li id='setet'>Eesti</li>\
+		<li id='seten'>English</li>\
+		<li id='setes'>Español</li>\
+		<li id='setfr'>Français</li>\
+		<li id='setga'>Gaeilge</li>\
+		<li id='sethr'>Hrvatski</li>\
+		<li id='setit'>Italiano</li>\
+		<li id='sethu'>Magyar</li>\
+		<li id='setnl'>Nederlands</li>\
+		<li id='setno'>Norsk</li>\
+		<li id='setpl'>Polski</li>\
+		<li id='setpt'>Português</li>\
+		<li id='setro'>Română</li>\
+		<li id='setsk'>Slovenčina</li>\
+		<li id='setsl'>Slovenščina</li>\
+		<li id='setfi'>Suomi</li>\
+		<li id='setsv'>Svenska</li>\
+		<li id='setvi'>Tiếng Việt</li>\
+		<li id='settr'>Türkçe</li>\
+		<li id='setel'>Ελληνικά</li>\
+		<li id='setbg'>Български</li>\
+		<li id='setru'>Русский</li>\
+		<li id='setuk'>Українська</li>\
+		<li id='setar'>العربية</li>\
+		<li id='sethi'>हिन्दी</li>\
+		<li id='sethy'>հայերեն</li>\
+		<li id='setth'>ไทย</li>\
+		<li id='setko'>한국어</li>\
+		<li id='setzh'>中文（简体中文）</li>\
+		<li id='setja'>日本語</li>\
+	</ul>");
+	//intro
+	if(opt == "intro") { 
+	$("#langSelect").css("z-index",100);
+		//pad
+		if($("body").hasClass("ios7")) {
+			$("#langSelect").css("padding-top","20px");
+		}
+	}
+	//mark current
+	$("#set" + window.localStorage.getItem("devSetLang")).addClass("set");
+	//show content
+	$("#langSelect").hide();
+	$("#langSelect").fadeIn(200,function() {
+		//scroller
+		if(!isMobile.iOS() || opt == "intro") {
+			if(androidVersion() < 4.4 && !isMobile.Windows()) {
+				$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			}
+		}
+	});
+	/////////////
+	// handler //
+	/////////////
+	$("#langSelect li").on(tap,function(evt) {
+		window.localStorage.setItem("devSetLang",$(this).attr("id").replace("set",""));
+		//remark
+		$(".set").removeClass("set");
+		$(this).addClass("set");
+		//////////////
+		// fade out //
+		//////////////
+		$("#langSelect").fadeOut(200,function() {
+			setTimeout(function() {
+			$("body").removeClass("appLang-" + lang);
+			lang = window.localStorage.getItem("devSetLang");
+			$("body").addClass("appLang-" + lang);
+			if(lang != "en" && lang != "pt") { 
+				LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
+			}
+			$("#tab1").html(LANG.MENU_STATUS[lang]);
+			$("#tab2").html(LANG.MENU_DIARY[lang]);
+			$("#tab3").html(LANG.MENU_PROFILE[lang]);
+			$("#tab4").html(LANG.MENU_SETTINGS[lang]);
+			if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
+			//remove
+			$("#langSelect").remove();
+			//refresh intro
+			if(opt == "intro") { 
+				showIntro();
+			}
+			},80);
+		});
+		//enforce
+		setTimeout(function() { $("#langSelect").remove(); },600);
+	});
+	*/
+	});
+	$("#optionAdvanced").on(touchstart,function(evt) {
+		evt.preventDefault();
+		$("#optionAdvanced").addClass("activeRow");
+	});
+	$("#optionAdvanced").on(touchend + " mouseout",function(evt) {
+		$("#optionAdvanced").removeClass("activeRow");
 	});
 	///////////////////////////
 	// SETTINGS: UNIT TOGGLE //

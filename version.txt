@@ -1,17 +1,12 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.2.1 [9/04/2014]
-• "daily average" chart on status screen
-• option to set app language manualy
-• improved acessibility
-• translation for the following languages: Malay, Slovak, Slovenian, Vietnamese.
-• fixed an isse where app would start before setting initial values
-• (diary) changed maximum days before to 5.
-• app colors are now: red for caloric defict / blue for caloric surplus 
+# 1.2.1 [18/04/2014]
+• status now displays statistics
+• users can define display language manually
+• translated into: Malay, Slovak, Slovenian, Vietnamese.
+• fixed an issue where app would start before setting initial values
 • improved profile validation
-• 
-• 
 
 # 1.2 [9/04/2014]
 • use metric system as default for non-English users

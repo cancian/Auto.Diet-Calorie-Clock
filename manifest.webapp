@@ -2,12 +2,17 @@
   "launch_path": "/index.html",
   "icons": {
     "32": "/res/icon/ffos/32.png",
+    "36": "/res/icon/ffos/36.png",
+	"48": "/res/icon/ffos/48.png",
     "60": "/res/icon/ffos/60.png",
+	"72": "/res/icon/ffos/72.png",
     "90": "/res/icon/ffos/90.png",
+	"96": "/res/icon/ffos/96.png",
     "120": "/res/icon/ffos/120.png",
     "128": "/res/icon/ffos/128.png",
     "256": "/res/icon/ffos/256.png"
-  },
+	"512": "/res/icon/ffos/512.png"
+	},
   "developer": {
     "name": "André Cancian",
     "url": "http://mylivediet.com"
