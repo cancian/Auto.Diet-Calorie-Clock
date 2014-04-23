@@ -36,21 +36,6 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 #fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
 @media all and (orientation:portrait)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 @media all and (orientation:landscape)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
-/*
-@media (max-width: 699px) and (min-width: 520px) {
-	@media all and (orientation:portrait) {
-  @-viewport {
-    width: 640px;
-  }
-}
-@viewport {
-    width: 80px;
-	height: 100px;
-    min-zoom: 1.25;
-    max-zoom: 5;
-    orientation: portrait;
-}
-*/
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
@@ -64,11 +49,11 @@ body.android ::-webkit-scrollbar{ display: none; }
 #timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; }
 /*status colors 316ADC 5890FF           457CEE 457BEE 5B89F0 */
 .surplus #editable,
-.surplus #appHeader			{ color: #fff !important; background-color: #C85834 !important; font-weight: 300; }
+.surplus #appHeader		{ color: #fff !important; background-color: #309030 !important; font-weight: 300; }
 .balanced #editable,
-.balanced #appHeader		{ color: #fff !important; background-color: #4496F1 !important; font-weight: 300; }
+.balanced #appHeader	{ color: #fff !important; background-color: #4496F1 !important; font-weight: 300; }
 .deficit #editable,
-.deficit #appHeader			{ color: #fff !important; background-color: #309030 !important; font-weight: 300; }
+.deficit #appHeader		{ color: #fff !important; background-color: #C85834 !important; font-weight: 300; }
 /*android hacks*/
 .android #appHeader			{ z-index: 50 !important; }
 .android.tab1 #appHeader,
@@ -128,12 +113,14 @@ ul#appFooter.appDebug li.selected,
 ul#appFooter.appDebug li.selected:before			{ color: #309030; }
 ul#appFooter.appEdge li.selected,
 ul#appFooter.appEdge li.selected:before				{ color: #cc3300; }
+/*
 ul#appFooter.appDebug.appFacebook li.selected,
 ul#appFooter.appDebug.appFacebook li.selected:before{ color: #48A899; }
 ul#appFooter.appEdge.appFacebook li.selected,
 ul#appFooter.appEdge.appFacebook li.selected:before	{ color: #B669CC; }
 ul#appFooter.appFacebook li.selected,
 ul#appFooter.appFacebook li.selected:before			{ color: #6D8CD2; }
+*/
 /*footer icons*/
 ul#appFooter li:before								{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
 ul#appFooter li										{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
@@ -211,7 +198,9 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 // SETTINGS: WEBSITE //
 /////////////////////*/
 div#optionWebsite					{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-transform: uppercase; }
+/*
 div#optionWebsite:active			{ color: #888; }
+*/
 div#optionWebsite 					{ display: block; }
 body.appDebug #optionWebsite		{ display: block; color: #008800; }
 /*///////////////////
@@ -225,6 +214,8 @@ body.appDebug #optionWebsite		{ display: block; color: #008800; }
 ///////////////////*/
 div#optionReset 					{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 48px; overflow: hidden; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; padding-left: 20px; }
 div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
+
+
 /*//////////////////////
 // SETTINGS: ADVANCED //
 //////////////////////*/
@@ -234,13 +225,27 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #optionAdvanced:after					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; }
 /*// ADVANCED MENU //*/
 #advancedMenuWrapper					{ position: absolute; top: 0; bottom: 0; left: 0; right: 0px; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; }
-#advancedMenu							{ position: absolute; top: 0px; bottom: 0; left: 0; right: 0px; background-color: #ccc; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; }
+#advancedMenu							{ position: absolute; top: 0px; bottom: 0; left: 0; right: 0px; background-color: #F2F5F6; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; 
+
+overflow: auto !important;
+}
+
+#advancedMenuList							{
+	
+	/*overflow: auto;*/
+}
+
+
+
 #advancedMenu ul						{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 #advancedMenu ul li						{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; }
 #advancedMenu ul li+li					{ border-top: 1px solid #eee; }
 #advancedMenu ul li.activeRow			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 #advancedMenu ul li.activeRow:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }
-#advancedMenu ul+ul						{ margin-top: 20px; }
+
+#advancedMenu ul+ul						{ margin-top: 28px; border-top: 1px solid #eee; }
+#advancedMenu #listReset				{ margin-bottom: 28px; color: #cc3300; }
+
 #advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee;  }
 #advancedMenuHeader #backButton			{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #advancedMenuHeader #backButton:active	{ color: #C6DEF9; }
@@ -255,14 +260,8 @@ input[type=checkbox]:after,
 input[type=radio]:after				{ content: ''; position: absolute; width: 29px; height: 29px; border-radius: 15px; box-shadow: 0px 2px 2px 1px rgba(0,0,0,.2); cursor: pointer; background-color: #fff; -webkit-transition: all 0.1s ease .1s; }
 input[type="checkbox"]:checked:after,
 input[type="radio"]:checked:after	{ left: 22px; }
-
-
-
-
-
-
-
-
+#advancedMenu input[type=checkbox] { position: absolute; right: 18px; top: 7px; }
+#advancedMenu input[type=checkbox] { pointer-events: none; }
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
@@ -386,14 +385,21 @@ max-width: 100%;
 #appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
 #appStatusBalance div			{ padding-top: 16px; text-align: center; display: block; font-size: 14px; }
 #appStatusBalance span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
-#appStatusBalance.over			{ background-color: #fff; border-color: #FFF299; background-image: -webkit-linear-gradient(#FEFED9,#FEFED9); }
+.deficit #appStatusBalance.over	{ background-color: #fff; border-color: #E3825F; }
+.surplus #appStatusBalance.over { background-color: #fff; border-color: #58B558; }
+/*#appStatusBalance.over			{ background-color: #fff; border-color: #FFF299; background-image: -webkit-linear-gradient(#FEFED9,#FEFED9); }*/
 /*/////////////////////
 // color balance bar //
 /////////////////////*/
 #balanceBar						{ position: absolute; bottom: 0px; left: -2px; right:  11px; height: 3px; padding: 0; }
-#balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#58B558), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#E3825F)); background: -webkit-linear-gradient(left, #58B558 25.5%,#548CDB 25.5%,  #207cca 73.9%,#E3825F 73.9%); content: " "; }
+#balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; 
+	background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#E3825F), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#58B558)); 
+	background: -webkit-linear-gradient(left,                                  #E3825F 25.5%,             #207cca 25.5%,             #207cca 73.9%,             #58B558 73.9%); content: " ";
+}
 #balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: "FontAwesome"; content: "\f175"; font-size: 12px; line-height: 12px; padding: 0; color: #555; }
 .over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
+
+
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; overflow: hidden; }
 #appStatusIntake canvas { -webkit-backface-visibility: hidden; }

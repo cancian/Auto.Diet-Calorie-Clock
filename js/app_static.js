@@ -86,7 +86,7 @@ function appFooter(id) {
 	window.localStorage.setItem("app_last_tab",id);
 	$("#" + id).addClass("selected");
 	//SCROLLBAR
-	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
+	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#appContent").css("overflow","hidden");
 		setTimeout(function(){
 			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
@@ -432,6 +432,25 @@ if(isDesktop()) {
 	$("body").addClass("desktop");
 } else {
 	$("body").addClass("mobile");	
+}
+/////////////
+// OPTIONS //
+/////////////
+//set default
+if(!window.localStorage.getItem("appMode")) {
+	window.localStorage.setItem("appMode","direct");
+}
+//read stored
+if(window.localStorage.getItem("appMode") == "inverted") {
+	appMode = "inverted";
+} else {
+	appMode = "direct";
+}
+
+if(appMode == "direct") {
+	$("body").addClass("direct");
+} else {
+	$("body").addClass("inverted");	
 }
 ////////////////////
 // PRESET PROFILE //

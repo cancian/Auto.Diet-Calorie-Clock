@@ -1,6 +1,6 @@
-<?php ######################
-## MYLIVEDIET PHP BACKEND ##
-############################
+<?php #################
+## KCALS PHP BACKEND ##
+#######################
 if($_GET && $_POST)   { die(); }
 if(!$_GET && !$_POST) { die(); }
 

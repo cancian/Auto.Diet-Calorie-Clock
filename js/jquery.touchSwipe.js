@@ -137,7 +137,7 @@
 
 		ALL_FINGERS = "all",
 		
-		DOUBLE_TAP_THRESHOLD = 10,
+		DOUBLE_TAP_THRESHOLD = 300,
 
 		PHASE_START = "start",
 		PHASE_MOVE = "move",
@@ -2013,9 +2013,11 @@
     var TAP_AND_HOLD_TRIGGER_TIMER = 1000;
     var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 40;
 
+	var isFirefoxOS = ((/firefox/).test(navigator.userAgent.toLowerCase()) && (/mobile/).test(navigator.userAgent.toLowerCase()) && (/gecko/).test(navigator.userAgent.toLowerCase())) ? true : false;
+
 	function hasTouch() {
 		//return ('ontouchstart' in document);
-		return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
+		return (document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/) || isFirefoxOS);
 	}
 
     var TOUCHSTART = hasTouch() ? 'touchstart' : 'mousedown';

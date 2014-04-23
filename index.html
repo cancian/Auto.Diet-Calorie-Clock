@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html manifest="mylivediet.appcache">
+<html manifest="kcals.appcache">
 <head>
-    <title>MyLiveDiet</title>
+    <title>Kcals calorie counter</title>
 	<meta charset="utf-8" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<meta name="msapplication-tap-highlight" content="no" />
@@ -27,7 +27,7 @@
 	if(window.localStorage.getItem("config_debug") == "active") {
 		hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
 	} else if (window.localStorage.getItem("config_debug") == "edge") {
-		hostLocal = "http://mylivediet.com/";
+		hostLocal = "http://kcals.net/";
 	}
 	//INIT
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");
@@ -63,9 +63,9 @@
 
 <div id="noScript">
 	<div id="appLogo">
-		<h1>MyLiveDiet</h1>
+		<h1>Kcals</h1>
 		<h2>Real-Time Calorie Counter</h2>
-		<p>MyLiveDiet displays your calories in real-time, as you go through the day, keeping you constantly updated about your current caloric balance.</p>
+		<p>Kcals displays your calories in real-time, as you go through the day, keeping you constantly updated about your current caloric balance.</p>
 	</div>
 	<div id="appIcons">
 		<div id="appleApp"><a href="https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802">Install for iOS</a></div>

@@ -24,12 +24,14 @@ function openSettings(string) {
 		</ul>\
 		<div id="optionWebsite">' + LANG.ABOUT_TITLE[lang] + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
-		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
+		<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
 	</div>\
 	';
 	//<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG.SETTINGS_FACEBOOK[lang] + '</span></div></div>\
 	//<li id="optionAbout"><div>'    + LANG.SETTINGS_ABOUT[lang]    + '</div></li>\
 	//<li id="optionFeedback"><div>' + LANG.SETTINGS_FEEDBACK[lang] + '</div></li>\
+	//<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
+
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -76,7 +78,7 @@ function openSettings(string) {
 				function didUnlog() {
 					setTimeout(function() { 
 						NProgress.done();
-						$("#optionFacebook span").html(LANG.SETTINGS_FACEBOOK[lang]);
+						$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO[lang]);
 						window.localStorage.removeItem("facebook_logged");
 						window.localStorage.removeItem("facebook_userid");
 						window.localStorage.removeItem("facebook_username");	
@@ -89,19 +91,13 @@ function openSettings(string) {
 					FB.logout(function(response) {
 						if(response.status != "connected") {
 							didUnlog();
-						} else {
-							//agressively log out
-							setTimeout(function() { onConfirmLogout(1); },500);
+							updateLoginStatus(1);
+							NProgress.done();
 						}
 					});
-					FB.logout(function(response) {
-						if(response.status != "connected") {
-							didUnlog();
-						} else {
-							//agressively log out
-							setTimeout(function() { onConfirmLogout(1); },500);
-						}
-					});
+					//enforce logout
+					setTimeout(function() { FB.logout();          }, 2000);
+					setTimeout(function() { updateLoginStatus(1); NProgress.done(); }, 3000);
 				}
 			}
 			//CONFIRM DIALOG
@@ -133,6 +129,7 @@ function openSettings(string) {
 								$("body").addClass("appFacebook");
 								$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
 								syncEntries(window.localStorage.getItem("facebook_userid"));
+								NProgress.done();
 							} else {
 								NProgress.done();
 							}
@@ -141,6 +138,7 @@ function openSettings(string) {
 						NProgress.done();
 					}
 				},{ scope: "email" });
+				setTimeout(function() { updateLoginStatus(1); NProgress.done(); }, 5000);
 			}
 		}
 	});
@@ -196,14 +194,14 @@ function openSettings(string) {
 			var shareLink = 'https://market.android.com/details?id=com.cancian.mylivediet';
 			var shareOS   = 'Android';
 		} else {
-			var shareLink = 'http://mylivediet.com/';
+			var shareLink = 'http://kcals.net/';
 			var shareOS   = 'Web';
 		}
 		var params = {
 			method: 'feed',
-			name: 'MyLiveDiet ' + LANG.FOR[lang] + ' ' + shareOS,
+			name: 'Kcals ' + LANG.FOR[lang] + ' ' + shareOS,
 			link: shareLink,
-			picture: 'http://mylivediet.com/icon.png',
+			picture: 'http://kcals.net/icon.png',
 			caption: LANG.CALORIE_COUNTER[lang],
 			description: LANG.SHARE_MESSAGE[lang]
 		};
@@ -211,9 +209,8 @@ function openSettings(string) {
 		//FB.ui(params);
 	});
 
-
 	$("#optionLang").on(touchend,function(evt) {
-buildLangMenu();
+		buildLangMenu();
 	});
 	////////////////////////
 	// SETTINGS: FEEDBACK //
@@ -246,13 +243,13 @@ buildLangMenu();
 	// SETTINGS: WEBSITE //
 	///////////////////////
 	$("#optionWebsite").on(tap,function(evt) {
-		window.open('http://mylivediet.com', '_system', 'location=yes');
+		//window.open('http://kcals.net', '_system', 'location=yes');
 	});
 	///////////////////////
 	// SETTINGS: CONTACT //
 	///////////////////////
 	$("li#optionContact").on(touchend,function(evt) {
-		window.location='mailto:support@mylivediet.com?Subject=MyLiveDiet%20-%20Support';	
+		window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support';	
 	});
 	/////////////////////
 	// SETTINGS: ABOUT //
@@ -336,203 +333,8 @@ buildLangMenu();
 	////////////////////////
 	// SETTINGS: ADVANCED //
 	////////////////////////
-	// WIPE DIALOG
 	$("#optionAdvanced").on(touchend, function(evt) {
-	//evt.preventDefault();
-	$("#advancedMenuWrapper").remove();
-	$("#appContent").append("\
-	<div id='advancedMenuWrapper'>\
-		<div id='advancedMenuHeader'>\
-			<div id='backButton'></div>\
-			<div id='advancedMenuTitle'>" + LANG.SETTINGS_ADVANCED[lang] + "</div>\
-			</div>\
-		<div id='advancedMenu'></div>\
-	</div>");
-	
-//
-	$("#advancedMenu").html("<ul id='advancedMenuList'>\
-		<li id='setid'>Bahasa Indonesia</li>\
-		<li id='setms'>Bahasa Melayu</li>\
-		<li id='setcs'>Čeština</li>\
-		<li id='setda'>Dansk</li>\
-		<li id='setde'>Deutsch</li>\
-		<li id='setet'>Eesti</li>\
-		<li id='seten'>English</li>\
-		<li id='setes'>Español</li>\
-		<li id='setfr'>Français</li>\
-		<li id='setga'>Gaeilge</li>\
-		<li id='sethr'>Hrvatski</li>\
-		<li id='setit'>Italiano</li>\
-		<li id='sethu'>Magyar</li>\
-		<li id='setnl'>Nederlands</li>\
-		<li id='setno'>Norsk</li>\
-		<li id='setpl'>Polski</li>\
-		<li id='setpt'>Português</li>\
-		<li id='setro'>Română</li>\
-		<li id='setsk'>Slovenčina</li>\
-		<li id='setsl'>Slovenščina</li>\
-		<li id='setfi'>Suomi</li>\
-		<li id='setsv'>Svenska</li>\
-		<li id='setvi'>Tiếng Việt</li>\
-		<li id='settr'>Türkçe</li>\
-		<li id='setel'>Ελληνικά</li>\
-		<li id='setbg'>Български</li>\
-		<li id='setru'>Русский</li>\
-		<li id='setuk'>Українська</li>\
-		<li id='setar'>العربية</li>\
-		<li id='sethi'>हिन्दी</li>\
-		<li id='sethy'>հայերեն</li>\
-		<li id='setth'>ไทย</li>\
-		<li id='setko'>한국어</li>\
-		<li id='setzh'>中文（简体中文）</li>\
-		<li id='setja'>日本語</li>\
-	</ul>");
-
-
-
-	//flipswitch testing
-	$("#setid").append('<input type="checkbox" checked />');
-
-
-
-	//set css
-	$("#advancedMenu").css("top",$("#advancedMenuHeader").height() + "px");	
-	//show content
-	$("#advancedMenuWrapper").hide();
-	$("#advancedMenuWrapper").fadeIn(200,function() {
-		//scroller
-		if(!isMobile.iOS() || opt == "intro") {
-			if(androidVersion() < 4.4 && !isMobile.Windows()) {
-				$("#advancedMenu").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-			} else {
-				$("#advancedMenu").css("overflow","auto");
-			}
-		}
-	});
-	/////////////
-	// handler //
-	/////////////
-	//LIST CLOSER HANDLER
-	$("#backButton").on(touchend,function() {
-		$("#advancedMenuWrapper").fadeOut(200,function() {
-			$('#advancedMenuWrapper').remove();
-		});
-	});
-	/*
-	//TOPIC HANDLERS
-	$("#advancedMenu li").on(touchstart,function(evt) {
-		evt.preventDefault();
-		$(this).addClass("activeRow");
-	});
-	$("#advancedMenu,#advancedMenu li").on(touchend + " mouseout",function(evt) {
-		$(".activeRow").removeClass("activeRow");
-		evt.preventDefault();
-	});*/
-
-/*
-	$("#langSelect").remove();
-	//intro
-	if(opt == "intro") {
-		$("body").append("<div id='langSelect'></div>");
-	} else {
-		$("#appContent").append("<div id='langSelect'></div>");
-	}
-	$("#langSelect").html("<ul id='langSelectList'>\
-		<li id='setid'>Bahasa Indonesia</li>\
-		<li id='setms'>Bahasa Melayu</li>\
-		<li id='setcs'>Čeština</li>\
-		<li id='setda'>Dansk</li>\
-		<li id='setde'>Deutsch</li>\
-		<li id='setet'>Eesti</li>\
-		<li id='seten'>English</li>\
-		<li id='setes'>Español</li>\
-		<li id='setfr'>Français</li>\
-		<li id='setga'>Gaeilge</li>\
-		<li id='sethr'>Hrvatski</li>\
-		<li id='setit'>Italiano</li>\
-		<li id='sethu'>Magyar</li>\
-		<li id='setnl'>Nederlands</li>\
-		<li id='setno'>Norsk</li>\
-		<li id='setpl'>Polski</li>\
-		<li id='setpt'>Português</li>\
-		<li id='setro'>Română</li>\
-		<li id='setsk'>Slovenčina</li>\
-		<li id='setsl'>Slovenščina</li>\
-		<li id='setfi'>Suomi</li>\
-		<li id='setsv'>Svenska</li>\
-		<li id='setvi'>Tiếng Việt</li>\
-		<li id='settr'>Türkçe</li>\
-		<li id='setel'>Ελληνικά</li>\
-		<li id='setbg'>Български</li>\
-		<li id='setru'>Русский</li>\
-		<li id='setuk'>Українська</li>\
-		<li id='setar'>العربية</li>\
-		<li id='sethi'>हिन्दी</li>\
-		<li id='sethy'>հայերեն</li>\
-		<li id='setth'>ไทย</li>\
-		<li id='setko'>한국어</li>\
-		<li id='setzh'>中文（简体中文）</li>\
-		<li id='setja'>日本語</li>\
-	</ul>");
-	//intro
-	if(opt == "intro") { 
-	$("#langSelect").css("z-index",100);
-		//pad
-		if($("body").hasClass("ios7")) {
-			$("#langSelect").css("padding-top","20px");
-		}
-	}
-	//mark current
-	$("#set" + window.localStorage.getItem("devSetLang")).addClass("set");
-	//show content
-	$("#langSelect").hide();
-	$("#langSelect").fadeIn(200,function() {
-		//scroller
-		if(!isMobile.iOS() || opt == "intro") {
-			if(androidVersion() < 4.4 && !isMobile.Windows()) {
-				$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-			}
-		}
-	});
-	/////////////
-	// handler //
-	/////////////
-	$("#langSelect li").on(tap,function(evt) {
-		window.localStorage.setItem("devSetLang",$(this).attr("id").replace("set",""));
-		//remark
-		$(".set").removeClass("set");
-		$(this).addClass("set");
-		//////////////
-		// fade out //
-		//////////////
-		$("#langSelect").fadeOut(200,function() {
-			setTimeout(function() {
-			$("body").removeClass("appLang-" + lang);
-			lang = window.localStorage.getItem("devSetLang");
-			$("body").addClass("appLang-" + lang);
-			if(lang != "en" && lang != "pt") { 
-				LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
-			}
-			$("#tab1").html(LANG.MENU_STATUS[lang]);
-			$("#tab2").html(LANG.MENU_DIARY[lang]);
-			$("#tab3").html(LANG.MENU_PROFILE[lang]);
-			$("#tab4").html(LANG.MENU_SETTINGS[lang]);
-			if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
-			//remove
-			$("#langSelect").remove();
-			//refresh intro
-			if(opt == "intro") { 
-				showIntro();
-			}
-			},80);
-		});
-		//enforce
-		setTimeout(function() { $("#langSelect").remove(); },600);
-	});
-	*/
+		buildAdvancedMenu();
 	});
 	$("#optionAdvanced").on(touchstart,function(evt) {
 		evt.preventDefault();
@@ -1393,27 +1195,27 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 				var shareLink = 'https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802';
 				var shareOS   = 'iOS';
 			} else if(isMobile.Android()) {
-				var shareLink = 'https://market.android.com/details?id=com.cancian.mylivedietpro';
+				var shareLink = 'https://market.android.com/details?id=com.cancian.mylivediet';
 				var shareOS   = 'Android';
 			} else {
-				var shareLink = 'http://mylivediet.com/';
+				var shareLink = 'http://kcals.net/';
 				var shareOS   = 'Web';
 			}
 			/*
 			var params = {
 				method: 'feed',
-				name: 'MyLiveDiet ' + LANG.FOR[lang] + ' ' + shareOS,
+				name: 'Kcals ' + LANG.FOR[lang] + ' ' + shareOS,
 				link: shareLink,
-				picture: 'http://mylivediet.com/icon.png',
+				picture: 'http://kcals.net/icon.png',
 				caption: LANG.CALORIE_COUNTER[lang],
 				description: LANG.SHARE_MESSAGE[lang]
 			};*/
 			//FB.ui(params, function(obj) { CONSOLE(obj); });
 			FB.ui({
 				method: 'feed',
-				name: 'MyLiveDiet ' + LANG.FOR[lang] + ' ' + shareOS,
+				name: 'Kcals ' + LANG.FOR[lang] + ' ' + shareOS,
 				link: shareLink,
-				picture: 'http://mylivediet.com/icon.png',
+				picture: 'http://kcals.net/icon.png',
 				caption: LANG.CALORIE_COUNTER[lang],
 				description: LANG.SHARE_MESSAGE[lang]
 			});
@@ -2143,6 +1945,7 @@ $("#formc select").on("change",function() {
 	setPush();
 });
 $("#formc input").on("blur",function() {
+	
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
 	setPush();
@@ -2166,8 +1969,6 @@ $(document).on("hidekeyboard",function() {
 				}
 			});
 		}
-
-	//alert();
 });
 $("#formc input").on("keyup",function() {
 	writeCalcValues();
@@ -2179,14 +1980,17 @@ function writeCalcValues() {
 	var preffix = "calcForm";
 	//male/female
 	window.localStorage.setItem(preffix + "#pA1B",$("#pA1B").val());
-	//height
+	//height (hidden)
 	if(!isNaN(parseInt($("#pA2B").val()))) {
-		window.localStorage.setItem(preffix + "#pA2B",$("#pA2B").val());
+		$("#pA2B").val( Math.abs(parseInt($("#pA2B").val())) );
+		window.localStorage.setItem(preffix + "#pA2B",parseInt($("#pA2B").val()));
 	}
 	//cm/in
 	window.localStorage.setItem(preffix + "#pA2C",$("#pA2C").val());
 	//weight
 	if(!isNaN(parseInt($("#pA3B").val()))) {
+		//$("#pA3B").val( parseInt($("#pA3B").val()) );
+		$("#pA3B").val( Math.abs(parseInt($("#pA3B").val())) );
 		window.localStorage.setItem(preffix + "#pA3B",parseInt($("#pA3B").val()));
 	}
 	//kg/lb
@@ -2205,9 +2009,11 @@ function writeCalcValues() {
 	window.localStorage.setItem(preffix + "#pA6N",$("#pA6N").val());
 	//measure
 	if(!isNaN(parseInt($("#feet").val()))) {
+		$("#feet").val( Math.abs(parseInt($("#feet").val())) );
 		window.localStorage.setItem(preffix + "#feet",parseInt($("#feet").val()));
 	}
-	if(!isNaN(parseInt($("#inches").val()))) {	
+	if(!isNaN(parseInt($("#inches").val()))) {
+		$("#inches").val( Math.abs(parseInt($("#inches").val())) );
 		window.localStorage.setItem(preffix + "#inches",parseInt($("#inches").val()));	
 	}
 }

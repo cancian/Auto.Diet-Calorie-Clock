@@ -18,18 +18,17 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	document.write("<script type='text/javascript' src='js/facebook-js-sdk.min.js'><\/script>");
 	//document.write("<script type='text/javascript' src='//connect.facebook.net/en_US/all.js'><\/script>");
 }
-
 ////////
 // JS //
 ////////
 //document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-1.11.0.min.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-2.1.0.min.js'><\/script>");
+document.write("<script type='text/javascript' src='js/jquery-2.1.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.color-2.1.0.min.js'><\/script>");
 //charts
-document.write("<script type='text/javascript' src='" + hostLocal + "js/highcharts.js'><\/script>");
+document.write("<script type='text/javascript' src='js/highcharts.js'><\/script>");
 //document.write("<script type='text/javascript' src='js/jquery.mobileCheckbox.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js'><\/script>");
 //nprogress
@@ -55,7 +54,7 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_buil
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
-//
+//WP8
 if(!navigator.userAgent.match(/(MSIE)/)) {
 	if(window.external.Notify) { 
 		window.external.Notify("noScroll");

@@ -35,16 +35,16 @@ function appTimer(id,content) {
 	var lSurplus  = LANG.SURPLUS[lang];
 	var lBalanced = LANG.BALANCED[lang];
 	//STATUSES (RELATIVE)
-         if(kcalsInput >  9999 )      { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
-	else if(kcalsInput < -9999 )      { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
+         if(kcalsInput >  9999 )      { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
+	else if(kcalsInput < -9999 )      { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
 //	else if(kcalsInput > eqPerDay * .50) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
 //	else if(kcalsInput < eqPerDay *-.50) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
 //	else if(kcalsInput > eqPerDay * .25) { status = lDeficit;  cssClass = "deficit";  }
 //	else if(kcalsInput < eqPerDay *-.25) { status = lSurplus;  cssClass = "surplus";  } 
-	else if(kcalsInput >  600) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
-	else if(kcalsInput < -600) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
-	else if(kcalsInput >  300) { status = lDeficit;  cssClass = "deficit";  }
-	else if(kcalsInput < -300) { status = lSurplus;  cssClass = "surplus";  } 
+	else if(kcalsInput >  600) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
+	else if(kcalsInput < -600) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
+	else if(kcalsInput >  300) { status = lSurplus;  cssClass = "surplus";  }
+	else if(kcalsInput < -300) { status = lDeficit;  cssClass = "deficit";  }
 	else                       { status = lBalanced; cssClass = "balanced"; }
 	/////////////////
 	// WEIGHT LOSS //
@@ -62,14 +62,14 @@ function appTimer(id,content) {
 	// weeks elapsed
 	var elapsedRatio = elapsedLoss / week;
 	var weightLoss   = ((numberLoss * elapsedRatio) / 1000).toFixed(7);
-	////////////
+	///////////////////
 	// UPDATE HEADER //
-	////////////
+	///////////////////
 	//$("#timerKcals p").html(kcalsInput);
 	//$("#timerDaily p").html(eqPerDay);
 	var kcalsHtmlOutput = "";
 	kcalsHtmlOutput    += "<div id='timerBlocks'>";
-	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG.CALORIES_AVALIABLE[lang] + "</span></div>";
+	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG.CALORIC_BALANCE[lang] + "</span></div>";
 	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG.DAILY_CALORIES[lang] + "</span></div>"; //" + LANG.KCAL[lang] + " / " + LANG.DAY[lang] + "
 	kcalsHtmlOutput    += "</div>";
 	//REPLACE
@@ -87,6 +87,8 @@ function appTimer(id,content) {
 	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
 	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
 	//STATUS
+
+	
 	if(!$("body").hasClass(cssClass) || !$("#appHeader").hasClass(cssClass) || !$("#appStatusBalance").hasClass(cssClass)) {
 		$("body,#appHeader,#appStatusBalance").addClass(cssClass);
 		if(cssClass != "balanced") { 
@@ -156,7 +158,12 @@ function timeToKcals(start) {
 	var kcalsPerDay     = window.localStorage.getItem("config_kcals_day_0");
 	var KcalsTimeRatio  = 60*60*24 / kcalsPerDay;
 	//var kcalsSinceStart = Math.floor((timeSinceStart / KcalsTimeRatio)*31)*(-1);
-	var kcalsSinceStart = ((timeSinceStart / KcalsTimeRatio)*1);
+	//var kcalsSinceStart = ((timeSinceStart / KcalsTimeRatio)*-1);	
+	var kcalsSinceStart = ((timeSinceStart / KcalsTimeRatio)*-1);
+	if(window.localStorage.getItem("appStatus") != "running") {
+		kcalsSinceStart = 0;
+	}
+	
 	var kcalsEntrySum   = Number(window.localStorage.getItem("config_entry_sum"));
 
 	var content = [];
@@ -434,7 +441,7 @@ function updateTimer() {
 			window.localStorage.setItem("tCar",tCar);
 			window.localStorage.setItem("tFat",tFat);	
 			//console.log('refreshing timer');
-			window.localStorage.setItem("config_entry_sum",ts*-1);
+			window.localStorage.setItem("config_entry_sum",ts);
 			window.localStorage.setItem("config_entry_f-sum",tf);
 			window.localStorage.setItem("config_entry_e-sum",te);
 			var day1 = window.localStorage.getItem("config_kcals_day_1");

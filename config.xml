@@ -8,13 +8,13 @@
 	<content src="index.html" />
 	<access origin="*" />
 
-    <name>MyLiveDiet</name>
+    <name>Kcals</name>
 
     <description>
-        MyLiveDiet displays your calorie usage in real-time, as you go through the day, keeping you constantly updated about your current caloric balance.
+        Kcals displays your calorie usage in real-time.
     </description>
 
-    <author email="support@mylivediet.com" href="http://mylivediet.com">
+    <author email="support@kcals.net" href="http://kcals.net">
         André Cancian
     </author>
 

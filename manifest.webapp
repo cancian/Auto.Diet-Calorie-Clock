@@ -10,28 +10,28 @@
 	"96": "/res/icon/ffos/96.png",
     "120": "/res/icon/ffos/120.png",
     "128": "/res/icon/ffos/128.png",
-    "256": "/res/icon/ffos/256.png"
+    "256": "/res/icon/ffos/256.png",
 	"512": "/res/icon/ffos/512.png"
 	},
   "developer": {
     "name": "André Cancian",
-    "url": "http://mylivediet.com"
+    "url": "http://kcals.net"
   },
   "installs_allowed_from": [
     "*"
   ],
   "version": "1.2.1",
   "default_locale": "en",
-  "name": "MyLiveDiet",
-  "description": "MyLiveDiet shows how fast you burn calories.",
+  "name": "Kcals",
+  "description": "Kcals shows how fast you burn calories.",
   "locales": {
     "en": {
-      "name": "MyLiveDiet",
-      "description": "MyLiveDiet shows how fast you burn calories."
+      "name": "Kcals",
+      "description": "Kcals shows how fast you burn calories."
     },
-    "pt_BR": {
-      "name": "MyLiveDiet",
-      "description": "MyLiveDiet mostra o quão rápido você queima calorias."
+    "pt-BR": {
+      "name": "Kcals",
+      "description": "Kcals mostra o quão rápido você queima calorias."
     }
   }
 }

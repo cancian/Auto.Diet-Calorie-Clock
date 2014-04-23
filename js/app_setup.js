@@ -309,7 +309,7 @@ function pushEntries(userId) {
 		if(fetchEntries == " " || !fetchEntries) { fetchEntries = " "; }
 		if(fetchEntries) {
 			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
-			$.post("http://mylivediet.com/sync.php", { "sql":fetchEntries,"uid":userId }, function(data) {
+			$.post("http://kcals.net/sync.php", { "sql":fetchEntries,"uid":userId }, function(data) {
 				//clear marker
 				window.localStorage.removeItem("lastEntryPush");
 				NProgress.done();
@@ -362,7 +362,7 @@ function syncEntries(userId) {
 		demoRunning = true;
 		NProgress.start();
 		//get remote sql
-		$.get("http://mylivediet.com/sync.php?uid=" + userId,function(sql) {
+		$.get("http://kcals.net/sync.php?uid=" + userId,function(sql) {
 			//local storage slice
 			if(sql.match('#@@@#')) {
 				rebuildLocalStorage(sql.split("\n").pop());
@@ -638,7 +638,7 @@ function afterHide(cmd) {
 		$('body').on(transitionend,function(e) { 
 			//if logged, reload via callback
 			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && cmd == "clear") {
-				$.post("http://mylivediet.com/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
+				$.post("http://kcals.net/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
 					if(cmd == "clear") { window.localStorage.clear(); }
 					setTimeout(function() { 
 						if(androidVersion() >= 4 && window.MyReload) { 
@@ -786,7 +786,7 @@ function updateFoodDb() {
 // PAGE LOAD MOD //
 ///////////////////
 function pageLoad(target,content,published) {
-	CONSOLE('pageLoad(' + target + ')');	
+	//CONSOLE('pageLoad(' + target + ')');	
 	//if partial
 	if(published) {
 		//set row time array
@@ -1017,6 +1017,7 @@ function updateEntriesSum() {
 // BALANCE METER //
 ///////////////////
 function balanceMeter(kcalsInput) {
+	kcalsInput = kcalsInput*-1;
 	var balancePos = 0;
 	if(kcalsInput == 0) {
 		balancePos = '50%';
@@ -1056,7 +1057,7 @@ function buildHelpMenu() {
 	},0);
 	//SCROLLER
 	setTimeout(function() {
-		if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
+		if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 			$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 		}
 		//UNLOCK TAP
@@ -1109,7 +1110,7 @@ function buildHelpMenu() {
 			} else {
 				$(".activeRow").removeClass("activeRow");
 				//SCROLLER
-				if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
+				if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 					setTimeout(function() {
 						$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 					},100);
@@ -1142,10 +1143,152 @@ function buildHelpMenu() {
 		},50);
 	});
 }
-/////////////////////
-// BUILD LANG MENU //
-/////////////////////
-function buildLangMenu(opt) {
+
+
+
+/////////////////////////
+// BUILD ADVANCED MENU //
+/////////////////////////
+function buildAdvancedMenu() {
+	//evt.preventDefault();
+	$("#advancedMenuWrapper").remove();
+	$("#appContent").append("\
+	<div id='advancedMenuWrapper'>\
+		<div id='advancedMenuHeader'>\
+			<div id='backButton'></div>\
+			<div id='advancedMenuTitle'>" + LANG.SETTINGS_ADVANCED[lang] + "</div>\
+			</div>\
+		<div id='advancedMenu'></div>\
+	</div>");
+	
+//
+	$("#advancedMenu").html("<ul id='advancedMenuList'>\
+		<li id='appMode'><input id='appModeToggle' type='checkbox' /></li>\
+		<li id='setms'>Bahasa Melayu</li>\
+		<li id='setcs'>Čeština</li>\
+		<li id='setda'>Dansk</li>\
+		<li id='setde'>Deutsch</li>\
+		<li id='setet'>Eesti</li>\
+		<li id='seten'>English</li>\
+		<li id='setes'>Español</li>\
+		<li id='setfr'>Français</li>\
+		<li id='setga'>Gaeilge</li>\
+		<li id='sethr'>Hrvatski</li>\
+		<li id='setit'>Italiano</li>\
+		<li id='sethu'>Magyar</li>\
+		<li id='setnl'>Nederlands</li>\
+		<li id='setno'>Norsk</li>\
+		<li id='setpl'>Polski</li>\
+		<li id='setpt'>Português</li>\
+		<li id='setro'>Română</li>\
+	</ul>\
+	<ul>\
+		<li id='setid'>Contat</li>\
+		<li id='setid'>About</li>\
+	</ul>\
+	<ul>\
+		<li id='listReset'>Reset settings</li>\
+	</ul>\
+	");
+
+
+	//set default
+	if(!window.localStorage.getItem("appMode")) {
+		window.localStorage.setItem("appMode","direct");
+	}
+		
+
+	//read stored
+	if(window.localStorage.getItem("appMode") == "inverted") {
+		$("#appModeToggle").prop('checked',true);
+	}
+
+	//read changes
+	$('#appModeToggle').on("change",function(obj) {
+		if($('#appModeToggle').prop('checked')) {
+			appMode = "inverted";
+			window.localStorage.setItem("appMode","inverted");
+			$("body").removeClass("direct");
+			$("body").addClass("inverted");
+		} else {
+			appMode = "direct";
+			window.localStorage.setItem("appMode","direct");
+			$("body").removeClass("inverted");
+			$("body").addClass("direct");
+		}
+	});
+
+
+
+
+//	$('input[type=checkbox]').on("change",function(obj) {
+//		alert( $(this).prop('checked') );
+//		$(this).prop('checked')
+		//alert( $(obj).parent('div').attr('id') );
+//	});
+
+	
+
+	//set css
+	$("#advancedMenu").css("top",$("#advancedMenuHeader").height() + "px");	
+	//show content
+	$("#advancedMenuWrapper").hide();
+	$("#advancedMenuWrapper").fadeIn(200,function() {
+		//scroller
+		if(!isMobile.iOS() || opt == "intro") {
+			if(androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.FirefoxOS()) {
+				$("#advancedMenu").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			} else {
+				$("#advancedMenu").css("overflow","auto");
+			}
+		}
+	});
+	/////////////
+	// handler //
+	/////////////
+	//LIST CLOSER HANDLER
+	$("#backButton").on(touchend,function() {
+		$("#advancedMenuWrapper").fadeOut(200,function() {
+			$('#advancedMenuWrapper').remove();
+		});
+	});
+
+
+	//checkbox toggle handler
+	$("#advancedMenu li").on(tap,function(evt) {
+		if(!isMobile.iOS()) {
+		//	evt.preventDefault();
+		}
+		//toggle class if !checkbox
+		if((/checkbox/).test($(this).html())) {
+			$('input[type=checkbox]', this).trigger('click');
+			//evt.preventDefault();
+		//	evt.stopPropagation();
+		}
+	});
+	//TOPIC HANDLERS	
+	$("#advancedMenu li").on(touchstart,function(evt) {
+		if(!isMobile.iOS()) {
+			//evt.preventDefault();
+		}
+		//toggle class if !checkbox
+		if(!(/checkbox/).test($(this).html())) {
+			$(this).addClass("activeRow");
+		}
+	});
+	$("#advancedMenu,#advancedMenu li").on(touchend + " " + touchmove + "mouseout scroll",function(evt) {
+		$(".activeRow").removeClass("activeRow");
+		//evt.preventDefault();
+		//evt.stopPropagation();
+	});
+
+	$("#advancedMenu").on("scroll",function(evt) {
+//		$(".activeRow").removeClass("activeRow");
+		//evt.preventDefault();
+		//evt.stopPropagation();
+	});
+
+/*
 	$("#langSelect").remove();
 	//intro
 	if(opt == "intro") {
@@ -1207,8 +1350,6 @@ function buildLangMenu(opt) {
 		if(!isMobile.iOS() || opt == "intro") {
 			if(androidVersion() < 4.4 && !isMobile.Windows()) {
 				$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-			} else {
-				$("#langSelect").css("overflow","auto");	
 			}
 		}
 	});
@@ -1243,6 +1384,129 @@ function buildLangMenu(opt) {
 			$("#langSelect").remove();
 			//refresh intro
 			if(opt == "intro") { 
+				showIntro();
+			}
+			},80);
+		});
+		//enforce
+		setTimeout(function() { $("#langSelect").remove(); },600);
+	});
+	*/
+//	});
+}
+
+
+
+/////////////////////
+// BUILD LANG MENU //
+/////////////////////
+function buildLangMenu(opt) {
+	$("#langSelect").remove();
+	//intro
+	if(opt == "intro") {
+		$("body").append("<div id='langSelect'></div>");
+	} else {
+		$("#appContent").append("<div id='langSelect'></div>");
+	}
+	$("#langSelect").html("<ul id='langSelectList'>\
+		<li id='setid'>Bahasa Indonesia</li>\
+		<li id='setms'>Bahasa Melayu</li>\
+		<li id='setcs'>Čeština</li>\
+		<li id='setda'>Dansk</li>\
+		<li id='setde'>Deutsch</li>\
+		<li id='setet'>Eesti</li>\
+		<li id='seten'>English</li>\
+		<li id='setes'>Español</li>\
+		<li id='setfr'>Français</li>\
+		<li id='setga'>Gaeilge</li>\
+		<li id='sethr'>Hrvatski</li>\
+		<li id='setit'>Italiano</li>\
+		<li id='sethu'>Magyar</li>\
+		<li id='setnl'>Nederlands</li>\
+		<li id='setno'>Norsk</li>\
+		<li id='setpl'>Polski</li>\
+		<li id='setpt'>Português</li>\
+		<li id='setro'>Română</li>\
+		<li id='setsk'>Slovenčina</li>\
+		<li id='setsl'>Slovenščina</li>\
+		<li id='setfi'>Suomi</li>\
+		<li id='setsv'>Svenska</li>\
+		<li id='setvi'>Tiếng Việt</li>\
+		<li id='settr'>Türkçe</li>\
+		<li id='setel'>Ελληνικά</li>\
+		<li id='setbg'>Български</li>\
+		<li id='setru'>Русский</li>\
+		<li id='setuk'>Українська</li>\
+		<li id='setar'>العربية</li>\
+		<li id='sethi'>हिन्दी</li>\
+		<li id='sethy'>հայերեն</li>\
+		<li id='setth'>ไทย</li>\
+		<li id='setko'>한국어</li>\
+		<li id='setzh'>中文（简体中文）</li>\
+		<li id='setja'>日本語</li>\
+	</ul>");
+	//intro
+	if(opt == "intro") { 
+	$("#langSelect").css("z-index",100);
+		//pad
+		if($("body").hasClass("ios7")) {
+			$("#langSelect").css("padding-top","20px");
+		}
+	}
+	//mark current
+	window.localStorage.setItem("devSetLang",lang);
+	$("#set" + window.localStorage.getItem("devSetLang")).addClass("set");
+	//show content
+	$("#langSelect").hide();
+	$("#langSelect").fadeIn(200,function() {
+		//scroller
+		if(!isMobile.iOS() || opt == "intro") {
+			if(androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.FirefoxOS()) {
+				$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			} else {
+				$("#langSelect").css("overflow","auto");	
+			}
+		}
+	});
+	/////////////
+	// handler //
+	/////////////
+	var blockTap = false;
+	var blockTimer;
+	$("#langSelect").scroll(function() {
+		blockTap = true;
+		clearTimeout(blockTimer);
+		blockTimer = setTimeout(function() { blockTap = false; },150);
+	});
+	$("#langSelect li").on(tap,function(evt) {
+		if(blockTap == true) { return; }
+		window.localStorage.setItem("devSetLang",$(this).attr("id").replace("set",""));
+		//remark
+		$(".set").removeClass("set");
+		$(this).addClass("set");
+		//////////////
+		// fade out //
+		//////////////
+		$("#langSelect").fadeOut(200,function() {
+			setTimeout(function() {
+			$("body").removeClass("appLang-" + lang);
+			lang = window.localStorage.getItem("devSetLang");
+			$("body").addClass("appLang-" + lang);
+			if(lang != "en" && lang != "pt") { 
+				LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
+			}
+			$("#tab1").html(LANG.MENU_STATUS[lang]);
+			$("#tab2").html(LANG.MENU_DIARY[lang]);
+			$("#tab3").html(LANG.MENU_PROFILE[lang]);
+			$("#tab4").html(LANG.MENU_SETTINGS[lang]);
+			if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
+			//remove
+			$("#langSelect").remove();
+			//refresh intro
+			if(opt == "intro") {
 				showIntro();
 			}
 			},80);
@@ -1522,7 +1786,7 @@ function intakeHistory() {
 var niceTimer;
 function niceResizer() {
 	//CONSOLE('niceResizer()');
-	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
+	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
 		$("#appHelper").getNiceScroll().resize();
@@ -1559,7 +1823,7 @@ if(window.localStorage.getItem("config_debug") != "active") {
 		if(isMobile.Android())  { var appOS = "android"; }
 		else if(isMobile.iOS()) { var appOS = "ios";     }
 		else					{ var appOS = "www";     }
-		gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, appOS + ".mylivediet.com/#" + "startApp(" + appVersion.slice(7,-1) + ")");
+		gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, appOS + ".kcals.net/#" + "startApp(" + appVersion.slice(7,-1) + ")");
 		function successHandler()			{}
 		function errorHandler()			  {} 
 		function nativePluginResultHandler() {}
@@ -1594,10 +1858,10 @@ function updateLoginStatus(sync) {
 			});
 		} else {
 			//alert('not logged in');
-			$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang]);
+			$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO[lang]);
 			window.localStorage.removeItem("facebook_logged");
 			window.localStorage.removeItem("facebook_userid");
-			window.localStorage.removeItem("facebook_username");	
+			window.localStorage.removeItem("facebook_username");
 			$("#appFooter").removeClass("appFacebook");
 			$("body").removeClass("appFacebook");
 		}

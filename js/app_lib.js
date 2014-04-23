@@ -15,7 +15,11 @@ var loadingDivTimer;
 var timerPerf         = (new Date().getTime());
 var timerDiff         = 100;
 var timerWait         = 100;
-function voidThis() { }
+function voidThis()   { }
+/////////////
+// OPTIONS //
+/////////////
+var appMode = "direct";
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//
@@ -105,7 +109,7 @@ function hasTouch() {
 	return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);	
 }
 function hasTap() {
-	return ("ontouchstart" in document.documentElement) || ("ontouchstart" in window);
+	return (("ontouchstart" in document.documentElement) || ("ontouchstart" in window)) && !isMobile.FirefoxOS();
 }
 var touchstart = hasTap() ? 'touchstart' : 'mousedown';
 var touchend   = hasTap() ? 'touchend'   : 'mouseup';

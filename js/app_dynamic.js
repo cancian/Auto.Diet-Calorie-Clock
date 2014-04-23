@@ -76,14 +76,16 @@ $(document).on("pageload", function(evt) {
 									// TIMED BLUR //
 									////////////////
 									var nowBlur = new Date().getTime();
-									if(nowBlur - timedBlur < 600) {
-										var blurVal = $("#editableInput").val();
-										$("#editableInput").focus();
-										$("#editableInput").val('');
-										setTimeout( function() {
-											$("#editableInput").val(blurVal);
-										},0);
+									if(isMobile.Android()) {
+										if(nowBlur - timedBlur < 600) {
+											var blurVal = $("#editableInput").val();
+											$("#editableInput").focus();
+											//$("#editableInput").val('');
+											setTimeout( function() {
+												//$("#editableInput").val(blurVal);
+											},0);
 										return;
+										}
 									}
 									var new_value = $(this).val();
 									//VALIDATE
@@ -171,6 +173,7 @@ $(document).on("pageload", function(evt) {
 							/////////////////////
 							// POSITIVE ADJUST //
 							/////////////////////
+							var adjustPosBlockSave;
 							$("#adjustPosBlock").on(touchstart, function(evt) {
 								evt.preventDefault();
 								//prevent android click-blur
@@ -192,16 +195,21 @@ $(document).on("pageload", function(evt) {
 										document.getElementById('kcalsDiv').style.color = '#333';
 									}
 									//save value
-									saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$(this).closest('div').data("id")}, function() {
-										return false;
-									});
-									updateTimer();
+									var idVal    = $('#kcalsDiv').parent('div').data("id");
+									var titleVal = document.getElementById('kcalsDiv').innerHTML;
+									var bodyVal = document.getElementById('editableInput').value;
+									clearTimeout(adjustPosBlockSave);
+									adjustPosBlockSave = setTimeout(function() {
+										saveEntry({title:titleVal,body:bodyVal,id:idVal});
+										updateTimer();
+									},450);
 								}
 								return false;
 							});
 							/////////////////////
 							// NEGATIVE ADJUST //
 							/////////////////////
+							var adjustNegBlockSave;
 							$("#adjustNegBlock").on(touchstart, function(evt) {
 								evt.preventDefault();
 								//prevent android click-blur
@@ -223,10 +231,14 @@ $(document).on("pageload", function(evt) {
 										document.getElementById('kcalsDiv').style.color = '#C00';
 									}
 									//save value
-									saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
-										return false;
-									});
-									updateTimer();
+									var idVal    = $('#kcalsDiv').parent('div').data("id");
+									var titleVal = document.getElementById('kcalsDiv').innerHTML;
+									var bodyVal = document.getElementById('editableInput').value;
+									clearTimeout(adjustNegBlockSave);
+									adjustNegBlockSave = setTimeout(function() {
+										saveEntry({title:titleVal,body:bodyVal,id:idVal});
+										updateTimer();
+									},450);
 								}
 								return false;
 							});
@@ -276,10 +288,14 @@ $(document).on("pageload", function(evt) {
 										document.getElementById('kcalsDiv').style.color = '#333';
 									}
 									//save value
-									saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
-										return false;
-									});
-								updateTimer();
+									var idVal    = $('#kcalsDiv').parent('div').data("id");
+									var titleVal = document.getElementById('kcalsDiv').innerHTML;
+									var bodyVal  = document.getElementById('editableInput').value;
+									clearTimeout(adjustPosBlockSave);
+									adjustPosBlockSave = setTimeout(function() {
+										saveEntry({title:titleVal,body:bodyVal,id:idVal});
+										updateTimer();
+									},450);
 								}
 								return false;
 								},25);
@@ -316,10 +332,14 @@ $(document).on("pageload", function(evt) {
 										document.getElementById('kcalsDiv').style.color = '#C00';
 									}
 									//save value
-									saveEntry({title:document.getElementById('kcalsDiv').innerHTML,id:$('#kcalsDiv').parent('div').data("id")}, function() {
-										return false;
-									});
-								updateTimer();
+									var idVal    = $('#kcalsDiv').parent('div').data("id");
+									var titleVal = document.getElementById('kcalsDiv').innerHTML;
+									var bodyVal = document.getElementById('editableInput').value;
+									clearTimeout(adjustNegBlockSave);
+									adjustNegBlockSave = setTimeout(function() {
+										saveEntry({title:titleVal,body:bodyVal,id:idVal});
+										updateTimer();
+									},450);
 								}
 								return false;
 								},25);
@@ -543,7 +563,7 @@ $(document).on("pageReload", function(evt) {
 	////////////////////
 	$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 61)) + "px");
 	$('#foodList').css("top",($('#appHeader').height()) + "px");
-	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4) {
+	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#foodList").css("overflow","hidden");
 		setTimeout(function(){
 			$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});

@@ -1,4 +1,5 @@
-var appVersion = "1.2.1 (12011)";
+var appName    = "Kcals";
+var appVersion = "1.2.1 (12012)";
 var langArray  = /(en|pt|ar|bg|cs|da|de|el|es|et|fi|fr|ga|hi|hr|hu|hy|it|id|ja|ko|ms|nl|no|pl|ro|ru|sk|sl|sv|th|tr|uk|vi|zh)/;
 var lang       = "en";
 ///////////////////// 
@@ -211,41 +212,41 @@ var LANG = {
 		zh : '卡路里计数器'
 	},
 	CALORIE_COUNTER_STORE_TITLE : {
-		en : "MyLiveDiet calorie counter",
-		pt : "MyLiveDiet contador de calorias",
-		ar : 'MyLiveDiet عداد السعرات الحرارية',
-		bg : 'MyLiveDiet калория тезгях',
-		cs : 'MyLiveDiet počítadlo kalorií',
-		da : 'MyLiveDiet kalorietæller',
-		de : 'MyLiveDiet Kalorienzähler',
-		el : 'MyLiveDiet μετρητής θερμίδων',
-		es : 'MyLiveDiet contador de calorías',
-		et : 'MyLiveDiet kalorikulu',
-		fi : 'MyLiveDiet kalorilaskuri',
-		fr : 'MyLiveDiet compteur de calories',
-		ga : 'MyLiveDiet gcuntar calorie',
-		hi : 'MyLiveDiet कैलोरी काउंटर',
-		hr : 'MyLiveDiet Brojač kalorija',
-		hu : 'MyLiveDiet kalóriaszámláló',
-		hy : 'MyLiveDiet ջերմություն Ժամացույց',
-		it : 'MyLiveDiet contacalorie',
-		id : 'MyLiveDiet penghitung kalori',
-		ja : 'MyLiveDiet カロリーカウンター',
-		ko : 'MyLiveDiet 칼로리 어플 추천',
-		ms : 'MyLiveDiet kaunter kalori',
-		nl : 'MyLiveDiet calorieënteller',
-		no : 'MyLiveDiet Kaloriteller',
-		pl : 'MyLiveDiet licznik kalorii',
-		ro : 'MyLiveDiet contor de calorii',
-		ru : 'MyLiveDiet счетчик калорий',
-		sk : 'MyLiveDiet počítadlo kalórií',
-		sl : 'MyLiveDiet števec kalorij',
-		sv : 'MyLiveDiet Kaloriräknare',
-		th : 'MyLiveDiet แคลอรี่ เคาน์เตอร์',
-		tr : 'MyLiveDiet kalori sayar',
-		uk : 'MyLiveDiet Лічильник калорій',
-		vi : 'MyLiveDiet truy cập calo',
-		zh : 'MyLiveDiet 卡路里计数器'
+		en : "Kcals calorie counter",
+		pt : "Kcals contador de calorias",
+		ar : 'Kcals عداد السعرات الحرارية',
+		bg : 'Kcals калория тезгях',
+		cs : 'Kcals počítadlo kalorií',
+		da : 'Kcals kalorietæller',
+		de : 'Kcals Kalorienzähler',
+		el : 'Kcals μετρητής θερμίδων',
+		es : 'Kcals contador de calorías',
+		et : 'Kcals kalorikulu',
+		fi : 'Kcals kalorilaskuri',
+		fr : 'Kcals compteur de calories',
+		ga : 'Kcals gcuntar calorie',
+		hi : 'Kcals कैलोरी काउंटर',
+		hr : 'Kcals Brojač kalorija',
+		hu : 'Kcals kalóriaszámláló',
+		hy : 'Kcals ջերմություն Ժամացույց',
+		it : 'Kcals contacalorie',
+		id : 'Kcals penghitung kalori',
+		ja : 'Kcals カロリーカウンター',
+		ko : 'Kcals 칼로리 어플 추천',
+		ms : 'Kcals kaunter kalori',
+		nl : 'Kcals calorieënteller',
+		no : 'Kcals Kaloriteller',
+		pl : 'Kcals licznik kalorii',
+		ro : 'Kcals contor de calorii',
+		ru : 'Kcals счетчик калорий',
+		sk : 'Kcals počítadlo kalórií',
+		sl : 'Kcals števec kalorij',
+		sv : 'Kcals Kaloriräknare',
+		th : 'Kcals แคลอรี่ เคาน์เตอร์',
+		tr : 'Kcals kalori sayar',
+		uk : 'Kcals Лічильник калорій',
+		vi : 'Kcals truy cập calo',
+		zh : 'Kcals 卡路里计数器'
 	},
 	START : {
 		en : "start",
@@ -359,41 +360,41 @@ var LANG = {
 		zh : '开始日期'
 	},
 	APP_INTRO : {
-		en : "MyLiveDiet was designed to help you lose weight as easily as possible.",
-		pt : "MyLiveDiet foi desenvolvido para ajudá-lo a perder peso de maneira fácil e intuitiva.",
-		ar : 'تم تصميم تطبيق MyLiveDiet لمساعدتك في خفض الوزن بأكبر قدر ممكن.',
-		bg : 'MyLiveDiet е проектирана да ви помогне да отслабнете толкова лесно, колкото е възможно.',
-		cs : 'MyLiveDiet byl navržen tak, aby vám pomohou zhubnout tak snadno, jak je to možné.',
-		da : 'MyLiveDiet var designet til at hjælpe dig med at tabe så let som muligt.',
-		de : 'MyLiveDiet wurde entwickelt, um Ihnen dabei zu helfen, so einfach wie möglich abzunehmen.',
-		el : 'MyLiveDiet σχεδιάστηκε για να σας βοηθήσει να χάσετε βάρος, όσο το δυνατόν ευκολότερα.',
-		es : 'MyLiveDiet ha sido diseñada para ayudarle a perder peso lo más fácilmente posible.',
-		et : 'MyLiveDiet oli mõeldud, et aidata teil kaotada kaalu nii lihtsalt kui võimalik.',
-		fi : 'MyLiveDiet on suunniteltu auttamaan sinua laihtua mahdollisimman helposti.',
-		fr : 'MyLiveDiet a été conçu pour vous aider à perdre du poids le plus facilement possible.',
-		ga : 'Bhí MyLiveDiet deartha chun cabhrú leat meáchan a chailleadh chomh héasca agus is féidir.',
-		hi : 'MyLiveDiet आपको यथासंभव आसानी सेे अपना वजन कम करने में मदद करने के लिए डिजाइन किया गया है।',
-		hr : 'MyLiveDiet je osmišljen kako bi vam pomoći da izgubite težinu što lakše.',
-		hu : 'MyLiveDiet úgy tervezték, hogy segít a fogyásban a lehető legkönnyebben.',
-		hy : 'MyLiveDiet մշակվել է օգնել ձեզ ճիշտ նիհարել ինչպես հեշտությամբ, ինչպես հնարավոր է.',
-		it : 'MyLiveDiet è stato progettato per aiutare a perdere peso più facilmente possibile.',
-		id : 'MyLiveDiet dirancang untuk membantu Anda menurunkan berat badan semudah mungkin.',
-		ja : 'MyLiveDietが可能な限り体重を減らすお手伝いをします。',
-		ko : 'MyLiveDiet를 사용하면 체중 감량이 한층 더 쉬워집니다.',
-		ms : 'MyLiveDiet telah direka untuk membantu anda mengurangkan berat badan dengan mudah yang mungkin.',
-		nl : 'MyLiveDiet is ontworpen om u te helpen zo makkelijk mogelijk af te vallen.',
-		no : 'MyLiveDiet er utviklet for å hjelpe deg til å gå ned i vekt så enkelt som mulig.',
-		pl : 'Aplikacja MyLiveDiet ma na celu pomóc Ci jak najłatwiej zrzucić zbędne kilogramy.',
-		ro : 'MyLiveDiet a fost conceput pentru a vă ajuta să piardă în greutate la fel de ușor ca possibile.',
-		ru : 'Приложение MyLiveDiet разработано, чтобы вы могли сбрасывать вес как можно легче.',
-		sk : 'MyLiveDiet bol navrhnutý tak, aby vám pomôžu schudnúť tak ľahko, ako je to možné."',
-		sl : 'MyLiveDiet je bil zasnovan tako, da vam pomaga izgubiti težo, kolikor je mogoče enostavno.',
-		sv : 'MyLiveDiet är utvecklad för att hjälpa dig gå ner i vikt så enkelt som möjligt.',
-		th : 'MyLiveDiet ถูกออกแบบมาเพื่อช่วยให้คุณลดน้ำหนักได้อย่างง่ายดาย',
-		tr : 'MyLiveDiet mümkün olduğunca kolay bir şekilde kilo vermeniz için tasarlandı.',
-		uk : 'MyLiveDiet був розроблений, щоб допомогти вам втратити вагу як можна легше.',
-		vi : 'MyLiveDiet được thiết kế để giúp bạn giảm cân một cách dễ dàng nhất có thể.',
-		zh : 'MyLiveDiet被设计为帮助你以最轻松的方法减肥。'
+		en : appName+" was designed to help you lose weight as easily as possible.",
+		pt : appName+" foi desenvolvido para ajudá-lo a perder peso de maneira fácil e intuitiva.",
+		ar : 'تم تصميم تطبيق '+appName+' لمساعدتك في خفض الوزن بأكبر قدر ممكن.',
+		bg : appName+' е проектирана да ви помогне да отслабнете толкова лесно, колкото е възможно.',
+		cs : appName+' byl navržen tak, aby vám pomohou zhubnout tak snadno, jak je to možné.',
+		da : appName+' var designet til at hjælpe dig med at tabe så let som muligt.',
+		de : appName+' wurde entwickelt, um Ihnen dabei zu helfen, so einfach wie möglich abzunehmen.',
+		el : appName+' σχεδιάστηκε για να σας βοηθήσει να χάσετε βάρος, όσο το δυνατόν ευκολότερα.',
+		es : appName+' ha sido diseñada para ayudarle a perder peso lo más fácilmente posible.',
+		et : appName+' oli mõeldud, et aidata teil kaotada kaalu nii lihtsalt kui võimalik.',
+		fi : appName+' on suunniteltu auttamaan sinua laihtua mahdollisimman helposti.',
+		fr : appName+' a été conçu pour vous aider à perdre du poids le plus facilement possible.',
+		ga : 'Bhí '+appName+' deartha chun cabhrú leat meáchan a chailleadh chomh héasca agus is féidir.',
+		hi : appName+' आपको यथासंभव आसानी सेे अपना वजन कम करने में मदद करने के लिए डिजाइन किया गया है।',
+		hr : appName+' je osmišljen kako bi vam pomoći da izgubite težinu što lakše.',
+		hu : appName+' úgy tervezték, hogy segít a fogyásban a lehető legkönnyebben.',
+		hy : appName+' մշակվել է օգնել ձեզ ճիշտ նիհարել ինչպես հեշտությամբ, ինչպես հնարավոր է.',
+		it : appName+' è stato progettato per aiutare a perdere peso più facilmente possibile.',
+		id : appName+' dirancang untuk membantu Anda menurunkan berat badan semudah mungkin.',
+		ja : appName+' が可能な限り体重を減らすお手伝いをします。',
+		ko : appName+' 를 사용하면 체중 감량이 한층 더 쉬워집니다.',
+		ms : appName+' telah direka untuk membantu anda mengurangkan berat badan dengan mudah yang mungkin.',
+		nl : appName+' is ontworpen om u te helpen zo makkelijk mogelijk af te vallen.',
+		no : appName+' er utviklet for å hjelpe deg til å gå ned i vekt så enkelt som mulig.',
+		pl : 'Aplikacja '+appName+' ma na celu pomóc Ci jak najłatwiej zrzucić zbędne kilogramy.',
+		ro : appName+' a fost conceput pentru a vă ajuta să piardă în greutate la fel de ușor ca possibile.',
+		ru : 'Приложение '+appName+' разработано, чтобы вы могли сбрасывать вес как можно легче.',
+		sk : appName+' bol navrhnutý tak, aby vám pomôžu schudnúť tak ľahko, ako je to možné."',
+		sl : appName+' je bil zasnovan tako, da vam pomaga izgubiti težo, kolikor je mogoče enostavno.',
+		sv : appName+' är utvecklad för att hjälpa dig gå ner i vikt så enkelt som möjligt.',
+		th : appName+' ถูกออกแบบมาเพื่อช่วยให้คุณลดน้ำหนักได้อย่างง่ายดาย',
+		tr : appName+' mümkün olduğunca kolay bir şekilde kilo vermeniz için tasarlandı.',
+		uk : appName+' був розроблений, щоб допомогти вам втратити вагу як можна легше.',
+		vi : appName+' được thiết kế để giúp bạn giảm cân một cách dễ dàng nhất có thể.',
+		zh : appName+' 被设计为帮助你以最轻松的方法减肥。'
 	},
 	STEP_1 : {
 		en : "Fill your Profile data",
@@ -3248,41 +3249,41 @@ var LANG = {
 		zh : '你想现在开始?'
 	},
 	ABOUT_TITLE : {
-		en : "MyLiveDiet v" + appVersion,
-		pt : "MyLiveDiet v" + appVersion,
-		ar : "MyLiveDiet v" + appVersion,
-		bg : "MyLiveDiet v" + appVersion,
-		cs : "MyLiveDiet v" + appVersion,
-		da : "MyLiveDiet v" + appVersion,
-		de : "MyLiveDiet v" + appVersion,
-		el : "MyLiveDiet v" + appVersion,
-		es : "MyLiveDiet v" + appVersion,
-		et : "MyLiveDiet v" + appVersion,
-		fi : "MyLiveDiet v" + appVersion,
-		fr : "MyLiveDiet v" + appVersion,
-		ga : "MyLiveDiet v" + appVersion,
-		hi : "MyLiveDiet v" + appVersion,
-		hr : "MyLiveDiet v" + appVersion,
-		hu : "MyLiveDiet v" + appVersion,
-		hy : "MyLiveDiet v" + appVersion,
-		it : "MyLiveDiet v" + appVersion,
-		id : "MyLiveDiet v" + appVersion,
-		ja : "MyLiveDiet v" + appVersion,
-		ko : "MyLiveDiet v" + appVersion,
-		ms : "MyLiveDiet v" + appVersion,
-		nl : "MyLiveDiet v" + appVersion,
-		no : "MyLiveDiet v" + appVersion,
-		pl : "MyLiveDiet v" + appVersion,
-		ro : "MyLiveDiet v" + appVersion,
-		ru : "MyLiveDiet v" + appVersion,
-		sk : "MyLiveDiet v" + appVersion,
-		sl : "MyLiveDiet v" + appVersion,
-		sv : "MyLiveDiet v" + appVersion,
-		th : "MyLiveDiet v" + appVersion,
-		tr : "MyLiveDiet v" + appVersion,
-		uk : "MyLiveDiet v" + appVersion,
-		vi : "MyLiveDiet v" + appVersion,
-		zh : "MyLiveDiet v" + appVersion
+		en : appName + " v" + appVersion,
+		pt : appName + " v" + appVersion,
+		ar : appName + " v" + appVersion,
+		bg : appName + " v" + appVersion,
+		cs : appName + " v" + appVersion,
+		da : appName + " v" + appVersion,
+		de : appName + " v" + appVersion,
+		el : appName + " v" + appVersion,
+		es : appName + " v" + appVersion,
+		et : appName + " v" + appVersion,
+		fi : appName + " v" + appVersion,
+		fr : appName + " v" + appVersion,
+		ga : appName + " v" + appVersion,
+		hi : appName + " v" + appVersion,
+		hr : appName + " v" + appVersion,
+		hu : appName + " v" + appVersion,
+		hy : appName + " v" + appVersion,
+		it : appName + " v" + appVersion,
+		id : appName + " v" + appVersion,
+		ja : appName + " v" + appVersion,
+		ko : appName + " v" + appVersion,
+		ms : appName + " v" + appVersion,
+		nl : appName + " v" + appVersion,
+		no : appName + " v" + appVersion,
+		pl : appName + " v" + appVersion,
+		ro : appName + " v" + appVersion,
+		ru : appName + " v" + appVersion,
+		sk : appName + " v" + appVersion,
+		sl : appName + " v" + appVersion,
+		sv : appName + " v" + appVersion,
+		th : appName + " v" + appVersion,
+		tr : appName + " v" + appVersion,
+		uk : appName + " v" + appVersion,
+		vi : appName + " v" + appVersion,
+		zh : appName + " v" + appVersion
 	},
 	ABOUT_DIALOG : {
 		en : "Developed by André Cancian",
@@ -4804,7 +4805,7 @@ var LANG = {
 	HELP_TOPICS_ARRAY : {
 		en : {
 			"Getting started" : "\
-			    <p>Your body does not restart its calories every 24 hours, so why should your calorie counter? MyLiveDiet simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
+			    <p>Your body does not restart its calories every 24 hours, so why should your calorie counter? Kcals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
 			    <p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
 			    <p>Then you should define a weight loss rate, given in lb/kg per week.</p>\
 			    <p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p>\
@@ -4815,9 +4816,8 @@ var LANG = {
 			    <p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>\
 			   ",
 			"The Main Counter" : "\
-			    <p>The main counter has 3 states: balanced (between -300 and 300, shown in blue), surplus (-300 and below, shown in red), and deficit (300 and up, shown in green).</p>\
-			    <p>When the counter hits +/-600, the “caloric status” block on the status screen will turn yellow to indicate you are getting too distant from the balanced state. The value 600 was chosen because it is usually the highest amount of calories recommend per meal.</p>\
-			    <p>Note that the counter units are given in “calories available” for the sake of simplicity, so as to quickly indicate whether you ate too much (negative values) or too little (positive values), as if you were “gaining points” over time. The actual caloric (energetic) balance of your body would be the opposite (negative for eating too little, positive for eating too much), but since this seems to reward over-eating by giving it a positive value, the “calories available” approach seemed generally preferable.</p>\
+			    <p>The main counter has 3 states: balanced (between -300 and 300, shown in blue), surplus (-300 and below, shown in green), and deficit (300 and up, shown in red).</p>\
+			    <p>When the counter hits +/-600, the “caloric balance” block will be highlighted to indicate you are getting too distant from the balanced state. The value 600 was chosen because it is usually the highest amount of calories recommend per meal.</p>\
 			   ",
 			"Changing the Start Date" : "\
 			    <p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>\
@@ -4836,7 +4836,7 @@ var LANG = {
 		},
 		pt : {
 			"Como começar?" : "\
-			    <p>Seu corpo não esquece as calorias a cada 24 horas, então por que seu contador de calorias deveria? MyLiveDiet simula a maneira como seu corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.</p>\
+			    <p>Seu corpo não esquece as calorias a cada 24 horas, então por que seu contador de calorias deveria? Kcals simula a maneira como seu corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.</p>\
 			    <p>Primeiro, preencha seu perfil. Com base nessa informação, o aplicativo calculará quantas calorias você precisa para manter seu peso atual.</p>\
 			    <p>Depois você deve definir a perda de peso (em kg por semana).</p>\
 			    <p>O valor resultante incluirá a restrição calórica necessária para que você atinja esse objetivo.</p>\
@@ -4847,9 +4847,8 @@ var LANG = {
 			    <p>Você só precisa manter o contador em torno de zero, e estará automaticamente caminhando em direção ao seu objetivo!</p>\
 			   ",
 			"O Contador Principal" : "\
-			    <p>O contador principal possui 3 estados: balanceado (entre -300 e 300, mostrado em azul), excesso (-300 e abaixo, mostrado em vermelho), e deficit (300 e acima, mostrado em verde). </p>\
-			    <p>Quando o contador chega em +/-600, o bloco “status calórico” na tela de status fica amarelo para indicar que você está distanciando-se demais do balanço calórico ideal (zero). O valor 600 foi escolhido porque esse é geralmente o número máximo de calorias recomendado por refeição.</p>\
-			    <p>Note que o contador utiliza “calorias disponíveis” como medida por questão de praticidade, para indicar rapidamente se você comeu demais (valores negativos) ou de menos (valores positivos), como se estivesse “ganhando pontos” com o passar do tempo. O balanço calórico (energético) real de seu corpo seria o oposto (negativo para comer pouco, positivo para comer demais), mas isso parece recompensar o consumo excessivo de calorias, de modo que o esquema de “calorias disponíveis” pareceu preferível.</p>\
+			    <p>O contador principal possui 3 estados: balanceado (entre -300 e 300, mostrado em azul), excesso (-300 e abaixo, mostrado em verde), e deficit (300 e acima, mostrado em vermelho). </p>\
+			    <p>Quando o contador chega em +/-600, o bloco de “balanço calórico” é destacado para indicar que você está distanciando-se demais do balanço calórico ideal (zero). O valor 600 foi escolhido porque esse é geralmente o número máximo de calorias recomendado por refeição.</p>\
 			   ",
 			"Mudar Data Inicial" : "\
 			    <p>O comportamento padrão do aplicativo é começar a contagem a partir do momento em que o botão Iniciar é pressionado. Porém, se por algum motivo você precisar ajustar esse valor (e.g. você começou a dieta esta manhã, mas só teve tempo de configurar o aplicativo à tarde), basta pressionar a seta para baixo (no botão Iniciar) para revelar o seletor de data.</p>\
