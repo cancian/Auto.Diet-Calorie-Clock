@@ -15,9 +15,15 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	document.write("<script type='text/javascript' src='js/cdv-plugin-fb-connect.js'><\/script>");
 	document.write("<script type='text/javascript' src='js/facebook-js-sdk.js'><\/script>");
 } else {
+	//if((/firefox/).test(navigator.userAgent.toLowerCase()) && (/mobile/).test(navigator.userAgent.toLowerCase()) && (/gecko/).test(navigator.userAgent.toLowerCase())) {
+	//	document.write("<script type='text/javascript' src='js/cordova.js'><\/script>");	
+	//}
 	document.write("<script type='text/javascript' src='js/facebook-js-sdk.min.js'><\/script>");
 	//document.write("<script type='text/javascript' src='//connect.facebook.net/en_US/all.js'><\/script>");
 }
+
+
+
 ////////
 // JS //
 ////////

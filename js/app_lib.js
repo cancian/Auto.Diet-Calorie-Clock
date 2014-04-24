@@ -109,7 +109,7 @@ function hasTouch() {
 	return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);	
 }
 function hasTap() {
-	return (("ontouchstart" in document.documentElement) || ("ontouchstart" in window)) && !isMobile.FirefoxOS();
+	return (("ontouchstart" in document.documentElement) || ("ontouchstart" in window));
 }
 var touchstart = hasTap() ? 'touchstart' : 'mousedown';
 var touchend   = hasTap() ? 'touchend'   : 'mouseup';
@@ -251,9 +251,11 @@ function timeElapsed() {
 	if (hh < 10) { hh = "0" + hh; }
 	if (mm < 10) { mm = "0" + mm; }
 	if (ss < 10) { ss = "0" + ss; }
+	//hide secs > 1d
+	var secs = ":"+ss;
 	// This formats your string to HH:MM:SS
 	if(dd > 0) { dd = dd + "d "; } else { dd = ""; }
-	return dd+hh+":"+mm+":"+ss;
+	return dd+hh+":"+mm+secs;
 }
 ////////////////////////
 // WINDOW ORIENTATION //

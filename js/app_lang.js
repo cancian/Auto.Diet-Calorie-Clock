@@ -1,5 +1,5 @@
 var appName    = "Kcals";
-var appVersion = "1.2.1 (12012)";
+var appVersion = "1.2.1 (12014)";
 var langArray  = /(en|pt|ar|bg|cs|da|de|el|es|et|fi|fr|ga|hi|hr|hu|hy|it|id|ja|ko|ms|nl|no|pl|ro|ru|sk|sl|sv|th|tr|uk|vi|zh)/;
 var lang       = "en";
 ///////////////////// 

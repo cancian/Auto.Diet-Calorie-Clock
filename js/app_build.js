@@ -693,6 +693,10 @@ function openStatus(string) {
 			$('#appStatusFix').removeClass("open");
 		}
 	});
+	//prevent keyboard
+	$("#startDate").on("focus", function(evt) {
+		$("#startDate").blur();
+	});
 }
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##
@@ -890,6 +894,10 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		$('#entryTitle').val(negVal-1);
 		$("#sliderNeg").addClass("activeArrow");
 		return false;
+	});
+	//
+	$("#entryTitle").on("focus", function(evt) {
+		$("#entryTitle").blur();
 	});
 	////////////////////////////////
 	// SAVE ENTRY (SUBMIT BUTTON) //
@@ -1391,7 +1399,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		//load scroller & set window < height
 		setTimeout(function() {
 			$('#diaryNotesInput').height(window.innerHeight - 32);
-			$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:false});
+			$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 		},200);
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {
@@ -1852,17 +1860,29 @@ $("#feet").on("change keypress",function(evt) {
 	writeCalcValues();
 });
 //input validate
-$("#feet,#inches,#pA3B").on("keypress", function(evt) {
+var defaultInput = "keypress";
+if(androidVersion() == 4.1) { defaultInput = "keydown"; }
+$("#pA3B,#feet,#inches").on(defaultInput, function(evt) {
 	//max
-	if(parseInt($(this).val()) >= 999) {
-		return false;
+	if(parseInt($(this).val()) > 999 || $(this).val().length > 2) {
+		$(this).val( parseInt($(this).val()) );
+		$(this).val( $(this).val().slice(0,-1) );
 	}
 	//num only
 	return isNumberKey(evt);
 });
+//place zero if empty
+$("#pA3B,#feet,#inches").on("blur", function(evt) {
+	if($(this).val().length == 0) {
+		$(this).val('0');
+	}
+});
 ///////////////
 // TAP VALUE //
 ///////////////
+$("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
+	$("#pA7B,#pA7F,#pA7L").blur();
+});
 $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	//RELOAD INFO HTML
 	var calcResult = Math.round($(this).val());
@@ -1945,7 +1965,6 @@ $("#formc select").on("change",function() {
 	setPush();
 });
 $("#formc input").on("blur",function() {
-	
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
 	setPush();
@@ -1956,7 +1975,6 @@ $("#formc select").on("blur",function() {
 	setPush();
 });
 $(document).on("hidekeyboard",function() {
-
 		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
 			$("#calcForm input").each(function(evt) {
 				if($(this).is(":focus") && vendorClass != "moz") {

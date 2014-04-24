@@ -119,7 +119,7 @@ appFooter(window.localStorage.getItem("app_last_tab"));
 //LISTEN FOR CLICKS
 $("ul#appFooter li").on(touchstart, function(evt) {
 	evt.preventDefault();
-	evt.stopPropagation();
+	//evt.stopPropagation();
 	//not while editing
 	if($("#editableInput").is(":visible")) {
 		$("#editableInput").blur();
@@ -218,6 +218,25 @@ $(document).on("backbutton", function(evt) {
 		}
 	}
 });
+//////////////////
+// SWIPE HEADER //
+//////////////////
+/*
+$("#appHeader").swipe({
+	swipe:function(event,direction) {
+		if(direction == 'left' || direction == 'right') {
+			$(document).trigger("backbutton");
+		}
+	}
+});*/
+if(isMobile.FirefoxOS()) {
+	$("#appHeader").on(touchstart,function() {
+		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+		$('#dummyInput').focus();
+		$('#dummyInput').blur();
+		$('#dummyInput').remove();
+	});
+}
 /////////////////
 // PRESS ENTER //
 /////////////////
@@ -246,7 +265,7 @@ $(document).keyup(function(e) {
 });
 //FORCE SHOW KEYBOARD
 $(document).on("click", function(evt) {
-	if(isMobile.Android()) {
+	if(isMobile.Android() || isMobile.FirefoxOS()) {
 		$('#diaryNotesInput').focus();
 	}
 });
@@ -304,7 +323,8 @@ $(window).on("resize", function(evt) {
 		appResizer(0);
 	}
 	//ALWAYS RESIZE NON-MOBILE BROWSER
-	if(!hasTouch() && !isMobile.Android() && !isMobile.iOS() && !isMobile.Windows()) {
+	//if(!hasTouch() && !isMobile.Android() && !isMobile.iOS() && !isMobile.Windows() && !isMobile.FirefoxOS()) {
+	if(isDesktop()) {
 		appResizer(0);
 	}
 	//notepad (ios6 fix)(window.innerHeight)
@@ -413,6 +433,12 @@ if(isMobile.Windows()) {
 		$('body').addClass("msie-png");		
 	}
 	$("#fontCheck").remove();
+}
+////////////////////////////
+// FF OS ORIENTATION LOCK //
+////////////////////////////
+if(isMobile.FirefoxOS()) {
+	screen.mozLockOrientation("portrait-primary");
 }
 ////////////
 // VENDOR //
@@ -679,9 +705,6 @@ setTimeout(function() {
 						if(hasTap()) {
 							$("#editable").blur();
 						}
-					},
-					keypress: function(evt) {
-						return isNumberKey(evt);
 					}
 				});
 				$(this).empty();
@@ -695,6 +718,21 @@ setTimeout(function() {
 				//$("#editable").focus();
 				$(this).val(editableValue);
 				//$("#editable").select();
+				/////////////////////////
+				// backport validation //
+				/////////////////////////
+				var defaultInputHeader = "keypress";
+				if(androidVersion() == 4.1) { defaultInputHeader = "keydown"; }
+				$("#editable").on(defaultInputHeader, function(evt) {
+					//max
+					if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
+						$(this).val( parseInt($(this).val()) );
+						$(this).val( $(this).val().slice(0,-1) );
+					}
+					//num only
+					return isNumberKey(evt);
+				});
+				//
 			}}}}
 		}
 	});

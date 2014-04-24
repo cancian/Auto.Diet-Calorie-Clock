@@ -76,12 +76,13 @@ $(document).on("pageload", function(evt) {
 									// TIMED BLUR //
 									////////////////
 									var nowBlur = new Date().getTime();
-									if(isMobile.Android()) {
+									if(isMobile.Android() || isMobile.FirefoxOS()) {
 										if(nowBlur - timedBlur < 600) {
 											var blurVal = $("#editableInput").val();
 											$("#editableInput").focus();
 											//$("#editableInput").val('');
 											setTimeout( function() {
+												$("#editableInput").focus();
 												//$("#editableInput").val(blurVal);
 											},0);
 										return;
@@ -1026,15 +1027,10 @@ function doSearch(rawInput) {
 			// OVERFLOW ON-DEMAND //
 			////////////////////////
 			$(".searcheable").on(tap + ' ' + touchstart, function(evt) {
-
-
-				//if($("#foodSearch").is(":focus")) { 
-
-					//$("#foodSearch").blur();
-					//window.scroll($('#appContent')[0].scrollTop,0,0);
+				if($("#foodSearch").is(":focus") && !isDesktop()) { 
+					//evt.preventDefault();
 					//return;
-
-				//}
+				}
 				$("#activeOverflow").removeAttr("id");
 				$(".activeOverflow").removeClass("activeOverflow");
 				$(this).addClass("activeOverflow");
@@ -1045,10 +1041,10 @@ function doSearch(rawInput) {
 			// TAP FOOD-ENTRY EDIT (MODAL) //
 			/////////////////////////////////
 			$("#searchContents div.searcheable").on(singletap,function(event) {
-			//$("#foodList div.searcheable").swipe({
-			//	tap:function(event) {
 				event.preventDefault();
-				getModalWindow($(this).attr("id"));
+				//if($(this).hasClass("activeOverflow")) {
+					getModalWindow($(this).attr("id"));
+				//}
 			});
 		}); // END QUERY CONTEXT
 	}
@@ -1142,9 +1138,9 @@ function updateFavList() {
 		});
 		$("#tabMyFavsBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
 			if($("#foodSearch").is(":focus")) { 
-				$("#foodSearch").blur();
-				window.scroll($('#appContent')[0].scrollTop,0,0);
-				return false;
+				//$("#foodSearch").blur();
+				//window.scroll($('#appContent')[0].scrollTop,0,0);
+				//return false;
 			}
 			$("#activeOverflow").removeAttr("id");
 			$(".activeOverflow").removeClass("activeOverflow");
@@ -1225,9 +1221,9 @@ function updateFoodList() {
 		});
 		$("#tabMyFoodsBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
 			if($("#foodSearch").is(":focus")) { 
-				$("#foodSearch").blur();
-				window.scroll($('#appContent')[0].scrollTop,0,0);
-				return false;
+				//$("#foodSearch").blur();
+				//window.scroll($('#appContent')[0].scrollTop,0,0);
+				//return false;
 			}
 			$("#activeOverflow").removeAttr("id");
 			$(".activeOverflow").removeClass("activeOverflow");
@@ -1314,8 +1310,8 @@ getCustomList("exercise",function(data) {
 	});
 	$("#tabMyExercisesBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
 		if($("#foodSearch").is(":focus")) { 
-			$("#foodSearch").blur();
-			return false;
+			//$("#foodSearch").blur();
+			//return false;
 		}
 		$("#activeOverflow").removeAttr("id");
 		$(".activeOverflow").removeClass("activeOverflow");
