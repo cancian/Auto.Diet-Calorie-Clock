@@ -1800,8 +1800,8 @@ if(window.localStorage.getItem("config_debug") != "active") {
 		else if(isMobile.iOS()) { var appOS = "ios";     }
 		else					{ var appOS = "www";     }
 		gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, appOS + ".kcals.net/#" + "startApp(" + appVersion.slice(7,-1) + ")");
-		function successHandler()			{}
-		function errorHandler()			  {} 
+		function successHandler()			 {}
+		function errorHandler()			     {} 
 		function nativePluginResultHandler() {}
 		function nativePluginErrorHandler()  {}
 	}
@@ -1811,6 +1811,7 @@ if(window.localStorage.getItem("config_debug") != "active") {
 // REFRESH LOGIN STATUS //
 //////////////////////////
 function updateLoginStatus(sync) {
+	if(typeof FB !== 'undefined') {
 	FB.getLoginStatus(function(response) {
 		if(response.status == 'connected') {
 			//window.localStorage.setItem("facebook_logged",true);
@@ -1842,22 +1843,48 @@ function updateLoginStatus(sync) {
 			$("body").removeClass("appFacebook");
 		}
 	});
+	}
 }
 /////////////
 // ON INIT //
 /////////////
 function afterInit()  {
 	updateLoginStatus(1);
+	///////////////////////
+	// regular analytics //
+	///////////////////////
+	if(window.localStorage.getItem("config_debug") != "active") {
+		setTimeout(function() {
+			var deviceType = isDesktop() ? 'desktop' : 'mobile' ;
+			var Cordoving  = isMobile.Cordova() ? 'app' : 'web' ;
+			if(isMobile.iOS())		{ webOS = "ios";       }
+			var webOS      = vendorClass;
+			if(isMobile.iOS())		{ webOS = "ios";       }
+			if(isMobile.Android())	{ webOS = "android";   }
+			if(isMobile.Windows())	{ webOS = "windows";   }
+			if(isMobile.FirefoxOS()){ webOS = "firefoxos"; }
+			if(isMobile.OSX())		{ webOS = "osx";       }
+			//track
+			if(ga_storage) {
+				ga_storage._setAccount('UA-46450510-2');
+				ga_storage._trackPageview(webOS + "." + deviceType + "." + Cordoving + "(" + appVersion.slice(7,-1) + ")");
+			}
+		},10*1000);
+	}
 }
 //#/////////#//
 //# FB INIT #//
 //#/////////#//
-if(FB) {
-	if(isCordova()) {
-		document.addEventListener("deviceready",function() { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }); afterInit(); }, false);
-		document.addEventListener("resume",function()      { afterInit(); }, false);
-	} else {
-		$(document).ready(function() { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); afterInit(); });
-	}
+if(isCordova()) {
+	document.addEventListener("resume",function()      { afterInit(); }, false);
+	document.addEventListener("deviceready",function() { 
+		if(typeof FB !== 'undefined') { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }) };
+		afterInit(); 
+	}, false);
+} else {
+	$(document).ready(function() {
+		 if(typeof FB !== 'undefined') { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); }
+		 afterInit(); 
+	 });
 }
 

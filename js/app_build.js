@@ -54,6 +54,9 @@ function openSettings(string) {
 	//if(!hasTouch()) {
 		$("#optionReview").remove();
 	//}
+	if(isMobile.Windows()) {
+		$("#optionFacebook").remove();
+	}
 	////////////////
 	// ACTIVE ROW //
 	////////////////
@@ -69,6 +72,7 @@ function openSettings(string) {
 	$("#optionFacebook").on(touchend, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
+		if(typeof FB !== 'undefined') {
 		if(window.localStorage.getItem("facebook_logged")) {
 			///////////////
 			// LOGGED IN //
@@ -140,6 +144,7 @@ function openSettings(string) {
 				},{ scope: "email" });
 				setTimeout(function() { updateLoginStatus(1); NProgress.done(); }, 5000);
 			}
+		}
 		}
 	});
 	//TOGGLE ACTIVE
@@ -1066,8 +1071,8 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	$("#sliderPos").on(touchstart, function(evt) {
 		evt.preventDefault();
 		clearRepeater();
-		pressTimerPos  = window.setTimeout(function()  {
-		pressRepeatPos = window.setInterval(function() {
+		pressTimerPos  = setTimeout(function()  {
+		pressRepeatPos = setInterval(function() {
 			//ACTION
 			var repeatPos = document.getElementById('slider').slider.increment(1);
 			//makeRound();
@@ -1086,8 +1091,8 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	$("#sliderNeg").on(touchstart, function(evt) {
 		evt.preventDefault();
 		clearRepeater();
-		pressTimerNeg  = window.setTimeout(function()  {
-		pressRepeatNeg = window.setInterval(function() {
+		pressTimerNeg  = setTimeout(function()  {
+		pressRepeatNeg = setInterval(function() {
 			//ACTION
 			var repeatNeg = document.getElementById('slider').slider.increment(-1);
 			//makeRound();

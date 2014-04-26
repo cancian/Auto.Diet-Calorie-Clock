@@ -1,5 +1,5 @@
 var appName    = "Kcals";
-var appVersion = "1.2.1 (12014)";
+var appVersion = "1.2.1 (12015)";
 var langArray  = /(en|pt|ar|bg|cs|da|de|el|es|et|fi|fr|ga|hi|hr|hu|hy|it|id|in|ja|ko|ms|nl|no|nb|pl|ro|ru|sk|sl|sv|th|tr|uk|vi|zh)/;
 var lang       = "en";
 ///////////////////// http://www.lingoes.net/en/translator/langcode.htm

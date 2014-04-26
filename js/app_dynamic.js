@@ -270,8 +270,8 @@ $(document).on("pageload", function(evt) {
 							$("#adjustPosBlock").on(touchstart, function(evt) {
 								evt.preventDefault();
 								clearRepeaterBlock();
-								pressTimerPos  = window.setTimeout(function()  {
-								pressRepeatPos = window.setInterval(function() {
+								pressTimerPos  = setTimeout(function()  {
+								pressRepeatPos = setInterval(function() {
 								//ACTION
 								if(Number(document.getElementById('kcalsDiv').innerHTML) <= 9999) {
 									//console.log("decrease entry value");
@@ -314,8 +314,8 @@ $(document).on("pageload", function(evt) {
 							$("#adjustNegBlock").on(touchstart, function(evt) {
 								evt.preventDefault();
 								clearRepeaterBlock();
-								pressTimerNeg  = window.setTimeout(function()  {
-								pressRepeatNeg = window.setInterval(function() {
+								pressTimerNeg  = setTimeout(function()  {
+								pressRepeatNeg = setInterval(function() {
 								//ACTION
 								if(Number(document.getElementById('kcalsDiv').innerHTML) >= -9999) {
 									//console.log("decrease entry value");

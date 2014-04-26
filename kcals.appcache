@@ -2,12 +2,6 @@ CACHE MANIFEST
 # Version 1.2.1.5
 
 index.html
-searchdb_en.ls
-searchdb_pt.ls
-searchdb_en.sql
-searchdb_pt.sql
-favicon.ico
-icon.png
 css/fonts.css
 css/index.css
 css/mobiscroll.2.9.0.css
@@ -27,6 +21,7 @@ js/cordova.js
 js/cordova_plugins.js
 js/facebook-js-sdk.js
 js/facebook-js-sdk.min.js
+js/GALocalStorage.js
 js/highcharts.js
 js/html5sql.js
 js/jquery.color-2.1.0.min.js
@@ -49,6 +44,12 @@ js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
 js/plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js
+searchdb_en.ls
+searchdb_pt.ls
+searchdb_en.sql
+searchdb_pt.sql
+favicon.ico
+icon.png
 
 NETWORK:
 *

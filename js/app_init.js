@@ -25,6 +25,7 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 ////////
 // JS //
 ////////
+document.write("<script type='text/javascript' src='" + hostLocal + "js/GALocalStorage.js'><\/script>");
 //document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-1.11.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-2.1.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js'><\/script>");
