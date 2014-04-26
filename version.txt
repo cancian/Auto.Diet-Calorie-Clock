@@ -1,6 +1,10 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+improved stability
+more detailed nutritional data
+
+
 # 1.2.1 [18/04/2014]
 • status now displays statistics
 • users can define display language manually

@@ -256,6 +256,23 @@ $(document).keyup(function(e) {
 	if(e.keyCode == 13) { $(document).trigger("pressenter"); }
 	if(e.keyCode == 27) { $(document).trigger("backbutton"); }
 	//CONSOLE(e.keyCode);
+	//////////////
+	// side nav //
+	//////////////
+	if(!$("input, textarea, select").is(":focus")) {
+		if(e.keyCode == 37) {  
+		         if(window.localStorage.getItem("app_last_tab") == "tab4") { appFooter("tab3"); }
+			else if(window.localStorage.getItem("app_last_tab") == "tab3") { appFooter("tab2"); }
+			else if(window.localStorage.getItem("app_last_tab") == "tab2") { appFooter("tab1"); }
+			else if(window.localStorage.getItem("app_last_tab") == "tab1") { appFooter("tab4"); }
+		}
+		if(e.keyCode == 39) { 
+		         if(window.localStorage.getItem("app_last_tab") == "tab4") { appFooter("tab1"); }
+			else if(window.localStorage.getItem("app_last_tab") == "tab3") { appFooter("tab4"); }
+			else if(window.localStorage.getItem("app_last_tab") == "tab2") { appFooter("tab3"); }
+			else if(window.localStorage.getItem("app_last_tab") == "tab1") { appFooter("tab2"); }	
+		}
+	}
 });
 //FORCE SHOW KEYBOARD
 $(document).on("click", function(evt) {

@@ -1395,11 +1395,20 @@ function buildAdvancedMenu() {
 //	});
 }
 
-
-
 /////////////////////
 // BUILD LANG MENU //
 /////////////////////
+//pre-process
+var langListArray = [];
+$.each(LANG.LANGUAGE, function(i, langCode) {
+	langListArray.push("<li id='set" + langCode + "'>"+ LANG.LANGUAGE_NAME[langCode] +"</li>");
+});
+//BUILD ORDERED HTML
+langListArray.sort();
+var langListCore  = '';
+$.each(langListArray, function(l, Langline) {
+	langListCore = langListCore + Langline;
+});
 function buildLangMenu(opt) {
 	$("#langSelect").remove();
 	//intro
@@ -1408,22 +1417,10 @@ function buildLangMenu(opt) {
 	} else {
 		$("#appContent").append("<div id='langSelect'></div>");
 	}
-	//PARSE LANG LIST
-	var langListArray = [];
-	$.each(LANG.LANGUAGE, function(i, langCode) {
-		langListArray.push("<li id='set" + langCode + "'>"+ LANG.LANGUAGE_NAME[langCode] +"</li>");
-	});
-	//BUILD ORDERED HTML
-	langListArray.sort();
-	var langListCore  = '';
-	$.each(langListArray, function(l, Langline) {
-		langListCore = langListCore + Langline;
-	});
-	//HTML BLOCK	
 	$("#langSelect").html("<ul id='langSelectList'>" + langListCore + "</ul>");
 	//intro
 	if(opt == "intro") { 
-	$("#langSelect").css("z-index",100);
+		$("#langSelect").css("z-index",100);
 		//pad
 		if($("body").hasClass("ios7")) {
 			$("#langSelect").css("padding-top","20px");
@@ -1495,6 +1492,10 @@ function buildLangMenu(opt) {
 // INTAKE HISTORY //
 ////////////////////
 function intakeHistory() {
+	//check exists
+	if(window.localStorage.getItem("app_last_tab") != "tab1") { return; }
+	//if($('#appStatusIntake div').length === 0) { return; }
+	//go
 	var firstTick = 0;
 	var lastTick  = window.localStorage.getItem("config_kcals_day_0") * 1.5;
 	///////////////////////////////////////

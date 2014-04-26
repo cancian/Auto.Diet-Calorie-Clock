@@ -580,7 +580,8 @@ $(document).on("pageReload", function(evt) {
 	var timer;
 	//$("#foodSearch").on("propertychange keyup input paste",function() {
 	//$("#foodSearch").keyup(function() {
-	document.getElementById('foodSearch').addEventListener('input', function() {
+	var inputEvent = isMobile.Windows() ? 'keyup' : 'input' ;
+	document.getElementById('foodSearch').addEventListener(inputEvent, function() {
 		//CLEAR ICON
 		if(this.value.length == 0) {
 			$('#iconClear').hide();
@@ -697,6 +698,9 @@ $(document).on("pageReload", function(evt) {
 //# CORE SQL SEARCH #//
 //#/////////////////#//
 function searchFood(searchSQL,callback) {
+	if(!hasSql) {
+		var datz = lib2.query("diary_food");
+	}
 	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	//food-exercise
@@ -740,7 +744,7 @@ function searchFood(searchSQL,callback) {
 		
 		
 		//	
-		var datz = lib2.query("diary_food");	
+		//var datz = lib2.query("diary_food");	
 		var dato = datz;
 		var keyJunk = 0;
 		var keyScore = 0;
