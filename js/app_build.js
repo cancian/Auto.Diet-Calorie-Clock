@@ -419,9 +419,9 @@ function openStatus(string) {
 		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG.CALORIC_BALANCE[lang] + '</span><div id="balanceBar"></div></div></div>\
 		<div id="appStatusIntake">' + window.localStorage.getItem("appStatusIntake") + '</div>\
 		<div id="appStatusBars">\
-			<div id="appStatusBarsPro"><p>' + LANG.PROTEINS[lang] + '</p><span>0%</span></div>\
-			<div id="appStatusBarsCar"><p>' + LANG.CARBS[lang] + '</p><span>0%</span></div>\
-			<div id="appStatusBarsFat"><p>' + LANG.FATS[lang] + '</p><span>0%</span></div>\
+			<div id="appStatusBarsPro"><p>' + LANG.PROTEINS[lang].toUpperCase() + '</p><span>0%</span></div>\
+			<div id="appStatusBarsCar"><p>' + LANG.CARBS[lang].toUpperCase() + '</p><span>0%</span></div>\
+			<div id="appStatusBarsFat"><p>' + LANG.FATS[lang].toUpperCase() + '</p><span>0%</span></div>\
 		</div>\
 		<div id="appStatusAddLeft"><div>'  + LANG.FOOD[lang]     + '</div></div>\
 		<div id="appStatusAddRight"><div>' + LANG.EXERCISE[lang] + '</div></div>\
@@ -1336,6 +1336,15 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			}
 			$("#entryTime").focus();
 		}
+		//force hide keyboard
+		if(isMobile.FirefoxOS()) {
+			$("#entryTime").on(touchstart,function() {
+				$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+				$('#dummyInput').focus();
+				$('#dummyInput').blur();
+				$('#dummyInput').remove();
+			});
+		}
 	});
 	//SUPERBORDER FOCUS (IOS)
 	if(isMobile.iOS()) {
@@ -1861,8 +1870,10 @@ $("#feet").on("change keypress",function(evt) {
 });
 //input validate
 var defaultInput = "keypress";
-if(androidVersion() == 4.1) { defaultInput = "keydown"; }
+if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInput = "keydown"; }
 $("#pA3B,#feet,#inches").on(defaultInput, function(evt) {
+	//no dots
+	if(evt.keyCode == 46) { return false; }
 	//max
 	if(parseInt($(this).val()) > 999 || $(this).val().length > 2) {
 		$(this).val( parseInt($(this).val()) );
@@ -1974,6 +1985,15 @@ $("#formc select").on("blur",function() {
 	writeCalcValues();
 	setPush();
 });
+//force hide keyboard
+if(isMobile.FirefoxOS()) {
+	$("#formc select").on(touchstart,function() {
+		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+		$('#dummyInput').focus();
+		$('#dummyInput').blur();
+		$('#dummyInput').remove();
+	});
+}
 $(document).on("hidekeyboard",function() {
 		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
 			$("#calcForm input").each(function(evt) {

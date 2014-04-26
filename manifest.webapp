@@ -1,37 +1,71 @@
 ﻿{
-  "launch_path": "/index.html",
-  "icons": {
-    "32": "/res/icon/ffos/32.png",
-    "36": "/res/icon/ffos/36.png",
-	"48": "/res/icon/ffos/48.png",
-    "60": "/res/icon/ffos/60.png",
-	"72": "/res/icon/ffos/72.png",
-    "90": "/res/icon/ffos/90.png",
-	"96": "/res/icon/ffos/96.png",
-    "120": "/res/icon/ffos/120.png",
-    "128": "/res/icon/ffos/128.png",
-    "256": "/res/icon/ffos/256.png",
-	"512": "/res/icon/ffos/512.png"
+	"launch_path" : "/index.html",
+	"icons" :
+	{
+		"32" : "/res/icon/ffos/32.png",
+		"36" : "/res/icon/ffos/32.png",
+		"48" : "/res/icon/ffos/48.png",
+		"60" : "/res/icon/ffos/60.png",
+		"72" : "/res/icon/ffos/72.png",
+		"90" : "/res/icon/ffos/90.png",
+		"96" : "/res/icon/ffos/96.png",
+		"120" : "/res/icon/ffos/120.png",
+		"128" : "/res/icon/ffos/128.png",
+		"256" : "/res/icon/ffos/256.png"
 	},
-  "developer": {
-    "name": "André Cancian",
-    "url": "http://kcals.net"
-  },
-  "installs_allowed_from": [
-    "*"
-  ],
-  "version": "1.2.1",
-  "default_locale": "en",
-  "name": "Kcals",
-  "description": "Kcals shows how fast you burn calories.",
-  "locales": {
-    "en": {
-      "name": "Kcals",
-      "description": "Kcals shows how fast you burn calories."
-    },
-    "pt-BR": {
-      "name": "Kcals",
-      "description": "Kcals mostra o quão rápido você queima calorias."
-    }
-  }
+	"developer" :
+	{
+		"name" : "André Cancian",
+		"url" : "http://kcals.net"
+	},
+	"installs_allowed_from" : [
+		"*"
+	],
+	"version" : "1.2.1",
+	"default_locale" : "en",
+	"name" : "Kcals",
+	"size": 8626727,
+	"description" : "Kcals shows how fast you burn calories.",
+	"locales" :
+	{
+		"en" : { "name": "Kcals" },
+		"pt" : { "name": "Kcals" },
+		"pt-br" : { "name": "Kcals" },
+		"ar" : { "name": "Kcals" },
+		"bg" : { "name": "Kcals" },
+		"cs" : { "name": "Kcals" },
+		"da" : { "name": "Kcals" },
+		"de" : { "name": "Kcals" },
+		"el" : { "name": "Kcals" },
+		"es" : { "name": "Kcals" },
+		"et" : { "name": "Kcals" },
+		"fi" : { "name": "Kcals" },
+		"fr" : { "name": "Kcals" },
+		"ga" : { "name": "Kcals" },
+		"hi" : { "name": "Kcals" },
+		"hr" : { "name": "Kcals" },
+		"hu" : { "name": "Kcals" },
+		"hy" : { "name": "Kcals" },
+		"it" : { "name": "Kcals" },
+		"id" : { "name": "Kcals" },
+		"ja" : { "name": "Kcals" },
+		"ko" : { "name": "Kcals" },
+		"ms" : { "name": "Kcals" },
+		"nl" : { "name": "Kcals" },
+		"nb" : { "name": "Kcals" },
+		"nb-no" : { "name": "Kcals" },
+		"pl" : { "name": "Kcals" },
+		"ro" : { "name": "Kcals" },
+		"ru" : { "name": "Kcals" },
+		"sk" : { "name": "Kcals" },
+		"sl" : { "name": "Kcals" },
+		"sv" : { "name": "Kcals" },
+		"th" : { "name": "Kcals" },
+		"tr" : { "name": "Kcals" },
+		"uk" : { "name": "Kcals" },
+		"vi" : { "name": "Kcals" },
+		"zh" : { "name": "Kcals" },
+		"zh-cn" : { "name": "Kcals" },		
+		"zh-tw" : { "name": "Kcals" }
+	}
 }

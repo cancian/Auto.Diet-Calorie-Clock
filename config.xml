@@ -104,6 +104,21 @@
 		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
 	</feature>
 
+
+    <feature name="Notification">
+        <param name="wp-package" value="Notification" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="wp-package" value="InAppBrowser" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="wp-package" value="SplashScreen" />
+    </feature>
+	<feature name="GAPlugin">
+		<param name="wp-package" value="GAPlugin" />
+	</feature>
+
+
 <!--
 	<feature name="org.apache.cordova.facebook.Connect">
 		<param name="wp-package" value="FacebookConnectPlugin" />

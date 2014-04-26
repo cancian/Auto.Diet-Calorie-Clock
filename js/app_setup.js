@@ -1177,7 +1177,7 @@ function buildAdvancedMenu() {
 		<li id='setit'>Italiano</li>\
 		<li id='sethu'>Magyar</li>\
 		<li id='setnl'>Nederlands</li>\
-		<li id='setno'>Norsk</li>\
+		<li id='setnb'>Norsk</li>\
 		<li id='setpl'>Polski</li>\
 		<li id='setpt'>Português</li>\
 		<li id='setro'>Română</li>\
@@ -1311,7 +1311,7 @@ function buildAdvancedMenu() {
 		<li id='setit'>Italiano</li>\
 		<li id='sethu'>Magyar</li>\
 		<li id='setnl'>Nederlands</li>\
-		<li id='setno'>Norsk</li>\
+		<li id='setnb'>Norsk</li>\
 		<li id='setpl'>Polski</li>\
 		<li id='setpt'>Português</li>\
 		<li id='setro'>Română</li>\
@@ -1408,43 +1408,19 @@ function buildLangMenu(opt) {
 	} else {
 		$("#appContent").append("<div id='langSelect'></div>");
 	}
-	$("#langSelect").html("<ul id='langSelectList'>\
-		<li id='setid'>Bahasa Indonesia</li>\
-		<li id='setms'>Bahasa Melayu</li>\
-		<li id='setcs'>Čeština</li>\
-		<li id='setda'>Dansk</li>\
-		<li id='setde'>Deutsch</li>\
-		<li id='setet'>Eesti</li>\
-		<li id='seten'>English</li>\
-		<li id='setes'>Español</li>\
-		<li id='setfr'>Français</li>\
-		<li id='setga'>Gaeilge</li>\
-		<li id='sethr'>Hrvatski</li>\
-		<li id='setit'>Italiano</li>\
-		<li id='sethu'>Magyar</li>\
-		<li id='setnl'>Nederlands</li>\
-		<li id='setno'>Norsk</li>\
-		<li id='setpl'>Polski</li>\
-		<li id='setpt'>Português</li>\
-		<li id='setro'>Română</li>\
-		<li id='setsk'>Slovenčina</li>\
-		<li id='setsl'>Slovenščina</li>\
-		<li id='setfi'>Suomi</li>\
-		<li id='setsv'>Svenska</li>\
-		<li id='setvi'>Tiếng Việt</li>\
-		<li id='settr'>Türkçe</li>\
-		<li id='setel'>Ελληνικά</li>\
-		<li id='setbg'>Български</li>\
-		<li id='setru'>Русский</li>\
-		<li id='setuk'>Українська</li>\
-		<li id='setar'>العربية</li>\
-		<li id='sethi'>हिन्दी</li>\
-		<li id='sethy'>հայերեն</li>\
-		<li id='setth'>ไทย</li>\
-		<li id='setko'>한국어</li>\
-		<li id='setzh'>中文（简体中文）</li>\
-		<li id='setja'>日本語</li>\
-	</ul>");
+	//PARSE LANG LIST
+	var langListArray = [];
+	$.each(LANG.LANGUAGE, function(i, langCode) {
+		langListArray.push("<li id='set" + langCode + "'>"+ LANG.LANGUAGE_NAME[langCode] +"</li>");
+	});
+	//BUILD ORDERED HTML
+	langListArray.sort();
+	var langListCore  = '';
+	$.each(langListArray, function(l, Langline) {
+		langListCore = langListCore + Langline;
+	});
+	//HTML BLOCK	
+	$("#langSelect").html("<ul id='langSelectList'>" + langListCore + "</ul>");
 	//intro
 	if(opt == "intro") { 
 	$("#langSelect").css("z-index",100);

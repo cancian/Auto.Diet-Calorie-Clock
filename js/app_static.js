@@ -1,7 +1,7 @@
 //////////////////
 // DEVICE READY //
 //////////////////
-$(document).ready(function() {  
+$(document).ready(function() { 
 	try {
 		if(hasSql) {
 			db = window.openDatabase(dbName, 1, dbName + "DB", 5*1024*1024);
@@ -199,6 +199,8 @@ $(document).on("backbutton", function(evt) {
 		if(window.localStorage.getItem("foodDbLoaded") == "done") {
 			$('#appHeader').trigger(touchstart);
 		}
+	} else if($('#editable').val()) {
+		$('#appHeader').trigger(touchstart);
 	} else if($('#diaryNotesButton').length) {
 		$('#diaryNotesButton').trigger(touchstart);
 	} else if($('#appStatusFix').hasClass("open")) {
@@ -218,17 +220,9 @@ $(document).on("backbutton", function(evt) {
 		}
 	}
 });
-//////////////////
-// SWIPE HEADER //
-//////////////////
-/*
-$("#appHeader").swipe({
-	swipe:function(event,direction) {
-		if(direction == 'left' || direction == 'right') {
-			$(document).trigger("backbutton");
-		}
-	}
-});*/
+////////////////
+// dummyInput //
+////////////////
 if(isMobile.FirefoxOS()) {
 	$("#appHeader").on(touchstart,function() {
 		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
@@ -267,6 +261,11 @@ $(document).keyup(function(e) {
 $(document).on("click", function(evt) {
 	if(isMobile.Android() || isMobile.FirefoxOS()) {
 		$('#diaryNotesInput').focus();
+	}
+	if(isMobile.Windows()) {
+		if(evt.target.id == "editableDiv") {
+			$('#editable').focus();
+		}
 	}
 });
 //ON SHOW KEYBOARD
@@ -722,8 +721,10 @@ setTimeout(function() {
 				// backport validation //
 				/////////////////////////
 				var defaultInputHeader = "keypress";
-				if(androidVersion() == 4.1) { defaultInputHeader = "keydown"; }
+				if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputHeader = "keydown"; }
 				$("#editable").on(defaultInputHeader, function(evt) {
+					//no dots
+					if(evt.keyCode == 46) { return false; }
 					//max
 					if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
 						$(this).val( parseInt($(this).val()) );

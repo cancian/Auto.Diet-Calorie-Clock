@@ -66,6 +66,20 @@ body.android ::-webkit-scrollbar{ display: none; }
 .balanced #appHeader	{ color: #fff !important; background-color: #4496F1 !important; font-weight: 300; }
 .deficit #editable,
 .deficit #appHeader		{ color: #fff !important; background-color: #C85834 !important; font-weight: 300; }
+
+.over.surplus #editable,
+.over.surplus #appHeader{ background-color: #309030 !important; }
+
+.over.deficit #editable,
+.over.deficit #appHeader{ background-color: #C85834 !important;  }
+
+.error.surplus #editable,
+.error.surplus #appHeader{ background-color: #000 !important; }
+
+.error.deficit #editable,
+.error.deficit #appHeader{ background-color: #000 !important;  }
+
+
 /*android hacks*/
 .android #appHeader			{ z-index: 50 !important; }
 .android.tab1 #appHeader,
@@ -386,7 +400,7 @@ max-width: 100%;
 #statusWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; margin: 12px;overflow: hidden; /*background-color: #fff;*/ }
 /**/
 #appStatusElapsed				{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
-#appStatusElapsed div			{ padding-top: 18px; text-align: center; display: block; font-size: 14px;  }
+#appStatusElapsed div			{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
 #appStatusElapsed span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 /**/
 #appStatusWeight				{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
@@ -412,7 +426,6 @@ max-width: 100%;
 .over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; overflow: hidden; }
-#appStatusIntake canvas { -webkit-backface-visibility: hidden; }
 #appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0px solid #000; }
 #appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
@@ -440,7 +453,6 @@ font-size: 18px; line-height: 18px;  box-sizing: border-box; display: inline-blo
 #appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; 
 
 margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; 
-
 }
 
 
@@ -451,10 +463,16 @@ margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; paddin
 #appStatusBarsFat				{ position: absolute; top: 52px; left: 0; right: 0; height: 14px; margin: 0 0px; background-color: #fff; display: block; background-color: #fff; color: #999; border: 1px solid #eee; }
 #appStatusBarsPro p,
 #appStatusBarsCar p,
-#appStatusBarsFat p				{ position: absolute; top: 0px; left: 0; height: 14px; margin: 0; background-color: #00ff00; text-indent: 4px; opacity: 1; color: rgba(0,0,0,.75); line-height: 15px; font-size: 8px; text-transform: uppercase; background: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
+#appStatusBarsFat p				{ position: absolute; top: 0px; left: 0; height: 14px; margin: 0; background-color: #00ff00; text-indent: 4px; opacity: 1; color: rgba(0,0,0,.75); line-height: 15px; font-size: 8px; /*text-transform: uppercase;*/ background: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
 #appStatusBarsPro span,
 #appStatusBarsCar span,
-#appStatusBarsFat span			{ position: absolute; top: 0px; right: 50%; margin-right: -5px; text-align: right; opacity: .42; color: #000; line-height: 14px; font-size: 10.5px;  }
+#appStatusBarsFat span			{ position: absolute; top: 0px; right: 50%; margin-right: -42px; text-align: right; opacity: .42; color: #000; line-height: 14px; font-size: 10.5px;  }
+.msie.mobile #appStatusBarsPro span,
+.msie.mobile #appStatusBarsCar span,
+.msie.mobile #appStatusBarsFat span	{ margin-right: -38px; }
+#appStatusBarsPro span:after	{ content: " (25%)"; opacity: .6; }
+#appStatusBarsCar span:after	{ content: " (50%)"; opacity: .6; }
+#appStatusBarsFat span:after	{ content: " (25%)"; opacity: .6; }
 #appStatusBarsPro p,
 #appStatusBarsCar p,
 #appStatusBarsFat p				{ width: 0%; }

@@ -6,6 +6,7 @@ document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, i
 // CSS //
 /////////
 document.write("<link rel='stylesheet' type='text/css' id='coreCss' href='" + hostLocal + "css/index.css' />");
+//document.write("<link rel='stylesheet' type='text/css' id='coreFonts' href='" + hostLocal + "css/fonts.css' />");
 document.write("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
 /////////////////////
 // CORDOVA/DESKTOP //
@@ -21,9 +22,6 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	document.write("<script type='text/javascript' src='js/facebook-js-sdk.min.js'><\/script>");
 	//document.write("<script type='text/javascript' src='//connect.facebook.net/en_US/all.js'><\/script>");
 }
-
-
-
 ////////
 // JS //
 ////////
@@ -34,7 +32,7 @@ document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/s
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.color-2.1.0.min.js'><\/script>");
 //charts
-document.write("<script type='text/javascript' src='js/highcharts.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/highcharts.js'><\/script>");
 //document.write("<script type='text/javascript' src='js/jquery.mobileCheckbox.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js'><\/script>");
 //nprogress

@@ -87,8 +87,6 @@ function appTimer(id,content) {
 	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
 	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
 	//STATUS
-
-	
 	if(!$("body").hasClass(cssClass) || !$("#appHeader").hasClass(cssClass) || !$("#appStatusBalance").hasClass(cssClass)) {
 		$("body,#appHeader,#appStatusBalance").addClass(cssClass);
 		if(cssClass != "balanced") { 
@@ -107,6 +105,16 @@ function appTimer(id,content) {
 	if(cssOver == "over") {
 		if(!$("body").hasClass("over") || !$("#appHeader").hasClass("over") || !$("#appStatusBalance").hasClass("over")) {
 			$("body,#appHeader,#appStatusBalance").addClass("over");
+		}
+	}
+	//ERROR CSS
+	if(Math.abs(kcalsInput) >= 9999) {
+		if(!$("body").hasClass("error")) {
+		$("body").addClass("error");
+		}
+	} else {
+		if($("body").hasClass("error")) {
+			$("body").removeClass("error");	
 		}
 	}
 	///////////////////////
@@ -325,9 +333,9 @@ function updateNutriBars(tPro,tCar,tFat) {
 	var nPerCar = ( (tCar*4) / nTotal ) * 100;
 	var nPerFat = ( (tFat*9) / nTotal ) * 100;
 	//ratio-relative percent
-	var nProPerRatio = Math.round( (nPerPro / proRatio) * 100 * 100) / 100;
-	var nCarPerRatio = Math.round( (nPerCar / carRatio) * 100 * 100) / 100;
-	var nFatPerRatio = Math.round( (nPerFat / fatRatio) * 100 * 100) / 100;
+	var nProPerRatio = Math.round( (nPerPro / proRatio) * 100); // * 100) / 100;
+	var nCarPerRatio = Math.round( (nPerCar / carRatio) * 100); // * 100) / 100;
+	var nFatPerRatio = Math.round( (nPerFat / fatRatio) * 100); // * 100) / 100;
 	//pro bar css
 	if(nProPerRatio > 200) {
 		nProPerWidth = 100;
@@ -380,9 +388,11 @@ function updateNutriBars(tPro,tCar,tFat) {
 	$("#appStatusBarsFat p").addClass(nFatPerClass);
 	$("#appStatusBarsFat p").css("width",Math.round(nFatPerWidth) + "%");
 	//relative percentage
-	//$("#appStatusBarsPro span").html(Math.round(nPerPro*10)/10 + " % (" + Math.round(tPro) + "g)");
-	//$("#appStatusBarsCar span").html(Math.round(nPerCar*10)/10 + " % (" + Math.round(tCar) + "g)");
-	//$("#appStatusBarsFat span").html(Math.round(nPerFat*10)/10 + " % (" + Math.round(tFat) + "g)");
+	
+	$("#appStatusBarsPro p").html(LANG.PROTEINS[lang].toUpperCase() + " (" + Math.round(tPro) + LANG.G[lang] + ")");
+	$("#appStatusBarsCar p").html(LANG.CARBS[lang].toUpperCase()    + " (" + Math.round(tCar) + LANG.G[lang] + ")");
+	$("#appStatusBarsFat p").html(LANG.FATS[lang].toUpperCase()     + " (" + Math.round(tFat) + LANG.G[lang] + ")");
+	
 	$("#appStatusBarsPro span").html(Math.round(nPerPro*1)/1 + "%");
 	$("#appStatusBarsCar span").html(Math.round(nPerCar*1)/1 + "%");
 	//$("#appStatusBarsFat span").html(Math.round(nPerFat*1)/1 + "%");
