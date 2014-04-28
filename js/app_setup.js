@@ -566,6 +566,7 @@ function getCustomList(rType,callback) {
 			$('#pageSlideFood').addClass("open"); 
 			if(!$('#appHeader').hasClass("open")) {
 				$('#appHeader').removeClass("closer");
+				$('body').removeClass("closer");
 			}
 		}
 	}
@@ -1398,6 +1399,14 @@ function buildAdvancedMenu() {
 /////////////////////
 // BUILD LANG MENU //
 /////////////////////
+//dump lang
+/*
+var langListString = [];
+$.each(LANG, function(i, langCode) {
+	langListString.push(langCode[lang]);
+});
+window.localStorage.setItem("langDump",JSON.stringify(langListString));
+*/
 //pre-process
 var langListArray = [];
 $.each(LANG.LANGUAGE, function(i, langCode) {
@@ -1476,6 +1485,10 @@ function buildLangMenu(opt) {
 			if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
 			if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
 			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
+			//start date
+			$("#cssStartDate").html("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
+			//heading sum
+			updateEntriesSum();
 			//remove
 			$("#langSelect").remove();
 			//refresh intro

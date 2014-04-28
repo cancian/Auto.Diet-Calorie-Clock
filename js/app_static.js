@@ -30,7 +30,7 @@ try{
 ////////////////
 // PARSED CSS //
 ////////////////
-$("head").prepend("<style type='text/css'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
+$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 $("head").prepend("<style type='text/css' id='daySum'></style>");
 updateEntriesSum();
 //#////////////#//
@@ -583,11 +583,13 @@ setTimeout(function() {
 			$('#pageSlideFood').addClass('busy');
 			$('#appHeader').removeClass("open");
 			$('#appHeader').removeClass("closer");
+			$('body').removeClass("closer");
 			$('#pageSlideFood').removeClass("open");
 			$('#pageSlideFood').css('opacity',0);
 			$('#pageSlideFood').on(transitionend,function(e) {
 				$('#pageSlideFood').removeClass('busy');
 				$('#appHeader').removeClass("closer");
+				$('body').removeClass("closer");
 				//WIPE ON CLOSE
 				$('#pageSlideFood').remove();
 				//force custom dump/save

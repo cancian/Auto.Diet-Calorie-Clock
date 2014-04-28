@@ -47,6 +47,7 @@ document.write("<script type='text/javascript' src='js/quo.js'><\/script>");
 document.write("<script type='text/javascript' src='js/html5sql.js'><\/script>");
 document.write("<script type='text/javascript' src='js/UserVoice.js'><\/script>");
 document.write("<script type='text/javascript' src='js/calculator.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/iscroll.js'><\/script>");
 /////////
 // APP //
 /////////

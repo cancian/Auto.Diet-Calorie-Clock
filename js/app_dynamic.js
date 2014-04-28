@@ -546,6 +546,7 @@ $(document).on("pageReload", function(evt) {
 	$('#pageSlideFood').on(transitionend,function(evt) {
 		updateFoodDb();
 		$("#appHeader").addClass("closer");
+		$("body").addClass("closer");
 	});
 	///////////////
 	// FOOD HTML //

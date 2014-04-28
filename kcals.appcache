@@ -24,6 +24,7 @@ js/facebook-js-sdk.min.js
 js/GALocalStorage.js
 js/highcharts.js
 js/html5sql.js
+js/iscroll.js
 js/jquery.color-2.1.0.min.js
 js/jquery.mobileCheckbox.js
 js/jquery.mobile-events.js

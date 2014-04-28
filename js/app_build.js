@@ -1852,6 +1852,15 @@ var profileHtml = '\
 //# OUTPUT #//
 //#////////#//
 $("#appContent").html(profileHtml);
+//////////////////////////
+// FIX ANDROID 2 SELECT //
+//////////////////////////
+if($("body").hasClass("android2")) {
+	$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+	$('#dummyInput').focus();
+	$('#dummyInput').blur();
+	$('#dummyInput').remove();
+}
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//

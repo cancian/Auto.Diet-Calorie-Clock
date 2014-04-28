@@ -179,6 +179,9 @@ ul#appFooter li.selected#tab4:before				{ content: "\e013"; }
 #step1 span,
 #step2 span,
 #step3 span				{ border-radius: 60px; width: 33px; height: 33px; display: inline-block; background-color: #2672ec; line-height: 34px; text-indent: 12px; color: #fff; font-weight: bold; margin-right: 12px; }
+.android2 #step1 span,
+.android2 #step2 span,
+.android2 #step3 span	{ border: 1px solid #eee; }
 #closeDiv				{ position: absolute; top: 350px; left: 0px; display: block; width: 100%; text-align: center; margin: 0 auto; background-color: #fff; color: #2672ec; padding: 12px 0; font-size: 24px; }
 #appLang				{ position: absolute; bottom: 12px; left: 0px; display: block; width: 100%; text-align: center; background-color: #fff; color: #aaa; padding: 12px 0; font-size: 16px; }
 .appLang-uk #closeDiv	{ font-size: 21px; }
@@ -434,9 +437,10 @@ max-width: 100%;
 #appStatusAddLeft,
 #appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; 
 
-background-color: #fff;
-border: 1px solid #4285F4;
-color: #4285F4;
+background-color: #4285F4;
+border: 2px solid #4285F4;
+border-bottom: 1px solid #4285F4;
+color: #fff;
 
 font-size: 18px; line-height: 18px;  box-sizing: border-box; display: inline-block; 
 
@@ -540,8 +544,8 @@ body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 
 /*/////////////
 // CALC FORM //
 /////////////*/
-.android #calcForm,
-.android #calcForm div					{ -webkit-perspective: 1000; }
+.android4 #calcForm,
+.android4 #calcForm div					{ -webkit-perspective: 1000; }
 #calcForm								{ display: block; font-size: 12px; padding-top: 5px; padding-bottom: 7px; color: #555; overflow: hidden; }
 #calcForm div.calcRow					{ margin-left: 22px; padding: 0; display: block; min-width: 300px; }
 #calcForm div.calcRow + div.calcRow		{ border-top: 1px solid #eee; }
@@ -672,7 +676,12 @@ div#entryBodySearch:active		{ opacity: 1; }
 select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; box-sizing: border-box; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 .ios select#entryTime			{ padding: 6px 4px 5px 7px; }
 #entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; }
-div.submitActive				{ color: #316ADC !important; border-color: #bababa !important; background-color: #fff !important; border: 1px solid #316ADC !important; box-sizing: border-box; /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important;*/ opacity: 1; }
+
+div.submitActive				{ color: #fff !important; background-color: #316ADC;
+
+border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; box-sizing: border-box; /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important;*/ opacity: 1; }
+
+
 #loadingDiv						{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; opacity: .666; }
 #appHeader.open + #loadingDiv	{ display: none !important; } 
 .ios7 #loadingDiv				{ top: 31px; }
@@ -694,6 +703,8 @@ body.ios #entryList div		{ padding: 15px 0 1px 0; }
 .android #editableInput		{  margin-left : -1px; }
 .android44 #editableInput,
 .ios7 #editableInput 		{  margin-left : 0; }
+/*retract on edit*/
+.mobile #editableInput		{ width: 90%; }
 /*BOTTOM BAR*/
 #entryListBottomBar			{ position: absolute; left: 0; bottom: 0; height: 45px; line-height: 47px; text-align: center; font-weight: normal; color: #555; background-color: #fff; color: #bbb; width: 100%; border-top: 1px solid #eee; }
 #entryListBottomBar.activeRow{ color: #777; background-color: #f5f5f5; }
@@ -714,7 +725,7 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 .appLang-hy .entriesKcals	{ margin-right: 16px; }
 /*body.android .entriesBody input { text-indent: -1px; }*/
 .entriesPublished			{ padding-top: 28px; -webkit-backface-visibility: hidden; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; text-shadow: none !important; }
-.editing .entriesPublished	{ opacity: 0; }
+.editing .entriesPublished	{ opacity: 0; display: none; }
 /*GENERIC*/
 div#noEntries				{ border-left: 5px solid transparent; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
@@ -760,13 +771,22 @@ div#noEntries				{ border-left: 3px solid #ccc; }
 /*////////////////
 // IN-LINE EDIT //
 ////////////////*/
-#kcalsAdjust				{ color: rgba(0,0,0,.1); }
-#adjustPos:before			{ content: "\f054"; font-family: "FontAwesome"; font-size: 20pt; line-height: 47px; margin-left: -10px; }
-#adjustNeg:before 			{ content: "\f053"; font-family: "FontAwesome"; font-size: 20pt; line-height: 47px; margin-right: -10px; }
-#adjustPosBlock				{ position: absolute; right:  2px; top: 1px; width: 60px; height: 42px; line-height: 47px; text-align: center; z-index: 9999; display: block; }
-#adjustNegBlock				{ position: absolute; right: 60px; top: 1px; width: 60px; height: 42px; line-height: 47px; text-align: center; z-index: 9999; display: block; }
+#kcalsAdjust							{ color: rgba(0,0,0,.1); }
+#adjustPos:before						{ content: "\f054"; font-family: "FontAwesome"; font-size: 20pt; line-height: 47px; margin-left: -10px; }
+#adjustNeg:before	 					{ content: "\f053"; font-family: "FontAwesome"; font-size: 20pt; line-height: 47px; margin-right: -10px; }
+#adjustNegBlock,
+#adjustPosBlock							{ color: #007AFF; background-color: rgba(0,0,0,.1); }
 #adjustNegBlock.activeBlock,
-#adjustPosBlock.activeBlock { color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
+#adjustPosBlock.activeBlock 			{ /*color: #C6DEF9;*/ background-color: rgba(0,0,0,.2); }
+#adjustPosBlock							{ position: absolute; right:  2px; top: -43px; width: 60px; height: 42px; border-radius: 0 2px 2px 0;  line-height: 47px; text-align: center; z-index: 9999; display: block; }
+#adjustNegBlock							{ position: absolute; right: 62px; top: -43px; width: 60px; height: 42px; border-radius: 2px 0 0 2px; line-height: 47px; text-align: center; z-index: 9999; display: block; }
+.desktop #kcalsAdjust					{ color: rgba(0,0,0,.1); }
+.desktop #adjustPos:before				{ content: "\f054"; font-family: "FontAwesome"; font-size: 20pt; line-height: 47px; margin-left: -10px; }
+.desktop #adjustNeg:before 				{ content: "\f053"; font-family: "FontAwesome"; font-size: 20pt; line-height: 47px; margin-right: -10px; }
+.desktop #adjustPosBlock				{ position: absolute; right:  2px; top: 1px; width: 60px; height: 42px; line-height: 47px; text-align: center; z-index: 9999; display: block; }
+.desktop #adjustNegBlock				{ position: absolute; right: 60px; top: 1px; width: 60px; height: 42px; line-height: 47px; text-align: center; z-index: 9999; display: block; }
+.desktop #adjustNegBlock.activeBlock,
+.desktop #adjustPosBlock.activeBlock	{ color: rgba(0,0,0,.2); background-color: rgba(0,0,0,.1); border-radius: 2px; }
 /*////////////////
 // CARPE SLIDER //
 ////////////////*/
@@ -1008,3 +1028,122 @@ body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
 
+
+
+
+/*
+
+
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	-ms-touch-action: none;
+}
+
+body, ul, li {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+body {
+	font-size: 12px;
+	font-family: ubuntu, helvetica, arial;
+	overflow: hidden; 
+}
+
+#viewport {
+	position: relative;
+	width: 320px;
+	height: 240px;
+	margin: 0 auto;
+	background: #444;
+	overflow: hidden;
+}
+
+#wrapper {
+	width: 200px;
+	height: 240px;
+	margin: 0 auto;
+}
+
+#scroller {
+	position: absolute;
+	z-index: 1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width: 800px;
+	height: 240px;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+	background-color: #444;
+}
+
+.slide {
+	width: 200px;
+	height: 240px;
+	float: left;
+}
+
+.painting {
+	width: 140px;
+	height: 200px;
+	border-radius: 10px;
+	margin: 20px auto;
+	border: 1px solid #000;
+	box-shadow:
+		inset 2px 2px 6px rgba(255,255,255,0.6),
+		inset -2px -2px 6px rgba(0,0,0,0.6),
+		0 1px 8px rgba(0,0,0,0.8);
+}
+
+.giotto {
+	background: url(giotto.jpg);
+}
+
+.leonardo {
+	background: url(leonardo.jpg);
+}
+
+.gaugin {
+	background: url(gaugin.jpg);
+}
+
+.warhol {
+	background: url(warhol.jpg);
+}
+
+#indicator {
+	position: relative;
+	width: 110px;
+	height: 20px;
+	margin: 10px auto;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUGCDYztyDUJgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAGFBMVEUAAADNzc3Nzc3Nzc3Nzc3Nzc3Nzc3///8aWwwLAAAABnRSTlMAX5Ks3/nRD0HIAAAAAWJLR0QHFmGI6wAAAFtJREFUGFdjYGBgEHYNMWRAAJE0IHCEc5nSwEABxleD8JOgXMY0KBCA8FlgfAcIXwzGT4TwzWD8ZAjfDcZPgfDDYPxU7Hx09ejmoduH7h5096L7B8O/6OGBGl4APYg8TQ0XAScAAAAASUVORK5CYII=);
+}
+
+#dotty {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background: #777;
+}
+
+*/
