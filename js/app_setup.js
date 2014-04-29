@@ -1635,6 +1635,7 @@ function intakeHistory() {
 		var checkHeight = hasTap() ? 64 : 66;
 		$('#appStatusIntake').highcharts({
 			chart : {
+				reflow: false,
 				spacingLeft   : $("#appStatusIntake").width() / -6,
 				spacingRight  : $("#appStatusIntake").width() / -9.2,
 				spacingTop    : -1,
@@ -1892,7 +1893,7 @@ function afterInit()  {
 if(isCordova()) {
 	document.addEventListener("resume",function()      { afterInit(); }, false);
 	document.addEventListener("deviceready",function() { 
-		if(typeof FB !== 'undefined') { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }) };
+		if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }) };
 		afterInit(); 
 	}, false);
 } else {

@@ -61,7 +61,7 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_stat
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
 //WP8
-if(!navigator.userAgent.match(/(MSIE)/)) {
+if(navigator.userAgent.match(/(MSIE)/)) {
 	if(window.external.Notify) { 
 		window.external.Notify("noScroll");
 	}

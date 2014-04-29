@@ -1887,7 +1887,9 @@ var defaultInput = "keypress";
 if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInput = "keydown"; }
 $("#pA3B,#feet,#inches").on(defaultInput, function(evt) {
 	//no dots
-	if(evt.keyCode == 46) { return false; }
+	var keyCode = (evt.which) ? evt.which : evt.keyCode;
+	if(keyCode == 46) { return false; }
+	if(keyCode == 8)  { return true; }
 	//max
 	if(parseInt($(this).val()) > 999 || $(this).val().length > 2) {
 		$(this).val( parseInt($(this).val()) );

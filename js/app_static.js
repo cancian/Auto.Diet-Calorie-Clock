@@ -743,7 +743,9 @@ setTimeout(function() {
 				if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputHeader = "keydown"; }
 				$("#editable").on(defaultInputHeader, function(evt) {
 					//no dots
-					if(evt.keyCode == 46) { return false; }
+					//var keyCode = (evt.which) ? evt.which : evt.keyCode;
+					if((evt.which || evt.keyCode) == 46) { return false; }
+					if((evt.which || evt.keyCode) == 8)  { return true; }
 					//max
 					if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
 						$(this).val( parseInt($(this).val()) );

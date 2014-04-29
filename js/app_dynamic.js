@@ -1755,10 +1755,14 @@ $('#addNewWrapper input[type="number"]').on("blur",function(evt) {
 ////////////////
 // VALIDATION //
 ////////////////
-$('#addNewWrapper input[type="number"]').on("keypress", function(evt) {
+$('#addNewWrapper input[type="number"]').attr("maxlength","8");
+var defaultInputAddNew = "keypress";
+if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputAddNew = "keydown"; }
+$('#addNewWrapper input[type="number"]').on(defaultInputAddNew, function(evt) {
+	if((evt.which || evt.keyCode) == 8)  { return true; }
 	//max
-	if($(this).val().length > 7 || parseInt($(this).val()) >= 999) {
-		return false;
+	if($(this).val().length > 7 || $(this).val() > 9999) {
+		$(this).val( $(this).val().slice(0,-1) );
 	}
 	//num only
 	return isNumberKey(evt);
