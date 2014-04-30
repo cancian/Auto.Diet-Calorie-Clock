@@ -63,6 +63,7 @@ function showIntro() {
 		evt.stopPropagation();
 		$("#gettingStarted").fadeOut(200,function() {
 			$("#gettingStarted").remove();
+			getAnalytics('newInstall');
 		});
 	});
 	$("#gettingStarted").on(touchstart,function(evt) {
@@ -450,6 +451,7 @@ function deleteEntry(rid, callback) {
 // SAVE ENTRY //
 ////////////////
 function saveEntry(data) {
+	getRateDialog();
 	//if(!data.published) { data.published = 'quicksave'; }
 	//CONSOLE('saveEntry(' + data.published + ')');
 	if(hasSql) {
@@ -645,7 +647,7 @@ function afterHide(cmd) {
 						if(androidVersion() >= 4 && window.MyReload) { 
 							window.MyReload.reloadActivity();
 						} else {
-							window.location.reload();
+							window.location.reload(true);
 						}
 					},250);
 				}, "text");
@@ -654,7 +656,7 @@ function afterHide(cmd) {
 						if(androidVersion() >= 4 && window.MyReload) { 
 							window.MyReload.reloadActivity();
 						} else {
-							window.location.reload();
+							window.location.reload(true);
 						}
 					},250);
 				if(cmd == "clear") { window.localStorage.clear(); }
@@ -1144,9 +1146,6 @@ function buildHelpMenu() {
 		},50);
 	});
 }
-
-
-
 /////////////////////////
 // BUILD ADVANCED MENU //
 /////////////////////////
@@ -1487,6 +1486,8 @@ function buildLangMenu(opt) {
 			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
 			//start date
 			$("#cssStartDate").html("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
+			//page title
+			$("title").html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 			//heading sum
 			updateEntriesSum();
 			//remove
@@ -1802,25 +1803,98 @@ function sanitizeSql(str) {
 		return result;
 	}
 }
+/////////////////////
+// GET RATE DIALOG //
+/////////////////////
+// store url //
 ///////////////
-// ANALYTICS //
-///////////////
-if(window.localStorage.getItem("config_debug") != "active") {
-	var gaPlugin;
-	function onDeviceReady() {
-		CONSOLE('gaPlugin.init(UA-46450510-1)');
-		gaPlugin = window.plugins.gaPlugin;
-		gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
-		if(isMobile.Android())  { var appOS = "android"; }
-		else if(isMobile.iOS()) { var appOS = "ios";     }
-		else					{ var appOS = "www";     }
-		gaPlugin.trackPage( nativePluginResultHandler, nativePluginErrorHandler, appOS + ".kcals.net/#" + "startApp(" + appVersion.slice(7,-1) + ")");
-		function successHandler()			 {}
-		function errorHandler()			     {} 
-		function nativePluginResultHandler() {}
-		function nativePluginErrorHandler()  {}
+function getStoreUrl(button) {
+	getAnalytics("rate");
+	getAnalytics("rate" + button);
+	window.localStorage.setItem("getRate","locked");
+	if(button == 1) {
+             if(isMobile.iOS())       { window.open('https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8', '_system', 'location=yes'); }
+		else if(isMobile.Android())   { window.open('https://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');                 }
+		else if(isMobile.Windows())   { window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_system', 'location=yes');     }
+		else if(isMobile.FirefoxOS()) { window.open('https://marketplace.firefox.com/app/mylivediet', '_system', 'location=yes');                               }
 	}
-	document.addEventListener("deviceready", onDeviceReady, false);
+}
+function getRateDialog() {
+	//first use
+	if(!window.localStorage.getItem("getRate")) {
+		window.localStorage.setItem("getRate", new Date().getTime());
+	}
+	//return
+	if(window.localStorage.getItem("getRate") == 'locked' || isDesktop()) { return; }
+	///////////////
+	// IF 1 WEEK //
+	///////////////
+	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (60 * 60 * 24 * 7 * 1000)) {
+		setTimeout(function() {
+			if(isMobile.Cordova()) {
+				navigator.notification.confirm(LANG.RATE_MSG[lang], getStoreUrl, LANG.RATE_TITLE[lang], [LANG.RATE_IT[lang],LANG.NO_THANKS[lang]]);
+			} else {
+				if(confirm(LANG.RATE_MSG[lang])) { getStoreUrl(1); } else { getStoreUrl(0); }
+			}
+		},3000);
+	}
+}
+///////////////////
+// GET ANALYTICS //
+///////////////////
+var trackString;
+var gaPlugin;
+function getAnalytics(target) {
+	//not dev
+	if(window.localStorage.getItem("config_debug")    == "active")		{ return; }
+	if(window.localStorage.getItem("facebook_userid") == 1051211303)	{ return; }
+	if((/192.168.1.5/).test(document.URL))								{ return; }
+	if((/home/).test(document.URL))										{ return; }
+	if((/www.cancian/).test(document.URL))								{ return; }
+	if(isMobile.OSX() && !isDesktop()) 									{ return; }
+	//////////
+	// INIT //
+	//////////
+	function successHandler() {}
+	function errorHandler()   {}
+	if(target == "init") {
+		//ga plugin
+		gaPlugin = window.plugins.gaPlugin;
+		if(gaPlugin) {
+			gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
+		}
+		//ga web
+		if(ga_storage) {
+			ga_storage._setAccount('UA-46450510-2');
+		}
+	} else {
+		////////////////
+		// TRACK VARS //
+		////////////////
+		var deviceType = isDesktop()        ? 'desktop' : 'mobile' ;
+		var Cordoving  = isMobile.Cordova() ? 'cordova' : 'webapp' ;
+		var appOS      = vendorClass;
+		if(isMobile.iOS())		{ appOS = "ios";       }
+		if(isMobile.Android())	{ appOS = "android";   }
+		if(isMobile.Windows())	{ appOS = "windows";   }
+		if(isMobile.FirefoxOS()){ appOS = "firefoxos"; }
+		if(isMobile.OSX())		{ appOS = "osx";       }
+		//track string
+		trackString = appOS + "." + deviceType + "." + Cordoving + "." + appName.toLowerCase() + "/#" + target + "(" + appBuild + ")" + "(" + lang + ")";
+		///////////////
+		// TRACK EVT //
+		///////////////
+		//ga plugin
+		if(gaPlugin) {
+			gaPlugin.trackPage(successHandler, errorHandler, trackString);
+			//alert("gaplugin: " + trackString);
+		}
+		//ga storage
+		if(ga_storage) {
+			ga_storage._trackPageview(trackString);
+			//alert("ga_storage: " + trackString);
+		}
+	}
 }
 //////////////////////////
 // REFRESH LOGIN STATUS //
@@ -1865,41 +1939,22 @@ function updateLoginStatus(sync) {
 /////////////
 function afterInit()  {
 	updateLoginStatus(1);
-	///////////////////////
-	// regular analytics //
-	///////////////////////
-	if(window.localStorage.getItem("config_debug") != "active") {
-		setTimeout(function() {
-			var deviceType = isDesktop() ? 'desktop' : 'mobile' ;
-			var Cordoving  = isMobile.Cordova() ? 'app' : 'web' ;
-			if(isMobile.iOS())		{ webOS = "ios";       }
-			var webOS      = vendorClass;
-			if(isMobile.iOS())		{ webOS = "ios";       }
-			if(isMobile.Android())	{ webOS = "android";   }
-			if(isMobile.Windows())	{ webOS = "windows";   }
-			if(isMobile.FirefoxOS()){ webOS = "firefoxos"; }
-			if(isMobile.OSX())		{ webOS = "osx";       }
-			//track
-			if(ga_storage) {
-				ga_storage._setAccount('UA-46450510-2');
-				ga_storage._trackPageview(webOS + "." + deviceType + "." + Cordoving + "(" + appVersion.slice(7,-1) + ")");
-			}
-		},10*1000);
-	}
 }
 //#/////////#//
 //# FB INIT #//
 //#/////////#//
 if(isCordova()) {
-	document.addEventListener("resume",function()      { afterInit(); }, false);
+	document.addEventListener("resume",function()      { afterInit(); getAnalytics('resume'); }, false);
 	document.addEventListener("deviceready",function() { 
 		if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }) };
-		afterInit(); 
+		afterInit();
+		getAnalytics('init');
 	}, false);
 } else {
 	$(document).ready(function() {
-		 if(typeof FB !== 'undefined') { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); }
-		 afterInit(); 
+		if(typeof FB !== 'undefined') { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); }
+		afterInit(); 
+		getAnalytics('init');
 	 });
 }
 

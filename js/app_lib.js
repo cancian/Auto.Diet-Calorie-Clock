@@ -15,6 +15,7 @@ var loadingDivTimer;
 var timerPerf         = (new Date().getTime());
 var timerDiff         = 100;
 var timerWait         = 100;
+jQuery.support.cors   = true
 function voidThis()   { }
 /////////////
 // OPTIONS //
@@ -76,7 +77,7 @@ if(vendorClass == "moz" || vendorClass == "msie") {
 		//moz syntax
 		if(vendorClass == "moz") {
 			rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
-			rawCss = rawCss.split('-webkit-linear-gradient').join('linear-gradient');
+			//rawCss = rawCss.split('-webkit-linear-gradient').join('linear-gradient');
 		}
 		//msie backface slowdown
 		if(vendorClass == "msie") {

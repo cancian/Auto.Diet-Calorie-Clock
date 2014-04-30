@@ -1,3 +1,13 @@
+/////////////////
+// DEV DEBUGER //
+/////////////////
+window.onerror = function(e, url, line) {
+	if(window.localStorage.getItem("config_debug") == "active") {
+		alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+		console.error('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+	}
+	return true; 
+}
 //////////////
 // VIEWPORT //
 //////////////

@@ -1189,7 +1189,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//refresh
 		if($("#entryBody").val().toLowerCase() == "devreload") {
-			window.location='';
+			window.location.reload(true);
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}
@@ -1344,10 +1344,8 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		//force hide keyboard
 		if(isMobile.FirefoxOS()) {
 			$("#entryTime").on(touchstart,function() {
-				$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
-				$('#dummyInput').focus();
-				$('#dummyInput').blur();
-				$('#dummyInput').remove();
+				$(this).focus();
+				$(this).blur();
 			});
 		}
 	});
@@ -2004,10 +2002,8 @@ $("#formc select").on("blur",function() {
 //force hide keyboard
 if(isMobile.FirefoxOS()) {
 	$("#formc select").on(touchstart,function() {
-		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
-		$('#dummyInput').focus();
-		$('#dummyInput').blur();
-		$('#dummyInput').remove();
+		$(this).focus();
+		$(this).blur();
 	});
 }
 $(document).on("hidekeyboard",function() {

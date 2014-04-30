@@ -15,7 +15,7 @@
 	setTimeout(function(){
 		if(typeof updateTimer != 'function' && document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) {
 			window.localStorage.removeItem("config_debug");
-			window.location.reload();
+			window.location.reload(true);
 		}
 	},9999);
 	///////////////

@@ -16,7 +16,7 @@ $(document).ready(function() {
 			if(window.MyReload) {
 				window.MyReload.reloadActivity();
 			} else {
-				window.location.reload();
+				window.location.reload(true);
 			}
 		},1000);
 		console.log(error);
@@ -33,6 +33,10 @@ try{
 $("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 $("head").prepend("<style type='text/css' id='daySum'></style>");
 updateEntriesSum();
+///////////////
+// SET TITLE //
+///////////////
+$("title").html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
@@ -108,7 +112,7 @@ function appFooter(id) {
 	}
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
-	updateTimer();
+	//updateTimer();
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -129,6 +133,7 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 	//window.location='#top';
 	$('#appContent').scrollTop(0);
 	appFooter($(this).attr("id"));
+	getAnalytics($(this).attr("id"));
 });
 ////////////////////////
 // WINDOWS OVERSCROLL //
@@ -759,17 +764,17 @@ setTimeout(function() {
 		}
 	});
 
-} catch(e) {
+} catch(error) {
 	//console.log(e);
 	//return false;
-		setTimeout(function() {
-			if(window.MyReload) {
-				window.MyReload.reloadActivity();
-			} else {
-				window.location.reload();
-			}
-		},1000);
-		console.log(error);
+	setTimeout(function() {
+		if(window.MyReload) {
+			window.MyReload.reloadActivity();
+		} else {
+			window.location.reload(true);
+		}
+	},1000);
+	console.log(error);
 }
 ////#//
 } //#//
