@@ -1,9 +1,15 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-improved stability
-more detailed nutritional data
-
+• improved language detection
+• more detailed nutritional data
+• translated into: Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian.
+• revised login/logout system
+• performance improvements 
+• bug fixes
+• 
+• 
+• 
 
 # 1.2.1 [18/04/2014]
 • status now displays statistics

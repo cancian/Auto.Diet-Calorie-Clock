@@ -6,7 +6,7 @@ window.onerror = function(e, url, line) {
 		alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 		console.error('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
-	return true; 
+	//return true; 
 }
 //////////////
 // VIEWPORT //

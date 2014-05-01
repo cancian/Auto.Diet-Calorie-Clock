@@ -70,6 +70,8 @@ function showIntro() {
 		evt.stopPropagation();
 	});
 	$("#appLang").on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
 		buildLangMenu('intro');
 	});
 }
@@ -1156,7 +1158,7 @@ function buildAdvancedMenu() {
 	<div id='advancedMenuWrapper'>\
 		<div id='advancedMenuHeader'>\
 			<div id='backButton'></div>\
-			<div id='advancedMenuTitle'>" + LANG.SETTINGS_ADVANCED[lang] + "</div>\
+			<div id='advancedMenuTitle'>" + LANG.SETTINGS_ADDITIONAL[lang] + "</div>\
 			</div>\
 		<div id='advancedMenu'></div>\
 	</div>");
@@ -1417,6 +1419,7 @@ var langListCore  = '';
 $.each(langListArray, function(l, Langline) {
 	langListCore = langListCore + Langline;
 });
+var langSelectTap;
 function buildLangMenu(opt) {
 	$("#langSelect").remove();
 	//intro
@@ -1425,21 +1428,27 @@ function buildLangMenu(opt) {
 	} else {
 		$("#appContent").append("<div id='langSelect'></div>");
 	}
-	$("#langSelect").html("<ul id='langSelectList'>" + langListCore + "</ul>");
+	//add auto detect
+	langListAutoCore = "<li id='setAuto'>" + LANG.AUTO_DETECT[lang] + " (" + LANG.LANGUAGE_NAME[defaultLang] + ")</li>" + langListCore;
+	$("#langSelect").html("<ul id='langSelectList'>" + langListAutoCore + "</ul>");
 	//intro
 	if(opt == "intro") { 
 		$("#langSelect").css("z-index",100);
 		//pad
 		if($("body").hasClass("ios7")) {
-			$("#langSelect").css("padding-top","20px");
+			$("#langSelect").css("padding-top","24px");
 		}
 	}
 	//mark current
-	window.localStorage.setItem("devSetLang",lang);
-	$("#set" + window.localStorage.getItem("devSetLang")).addClass("set");
+	//window.localStorage.setItem("devSetLang",lang);
+	if(window.localStorage.getItem("devSetLang")) {
+		$("#set" + lang).addClass("set");
+	} else {
+		$("#setAuto").addClass("set");
+	}
 	//show content
 	$("#langSelect").hide();
-	$("#langSelect").fadeIn(200,function() {
+	$("#langSelect").stop().fadeIn(200,function() {
 		//scroller
 		if(!isMobile.iOS() || opt == "intro") {
 			if(androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.FirefoxOS()) {
@@ -1459,48 +1468,60 @@ function buildLangMenu(opt) {
 		clearTimeout(blockTimer);
 		blockTimer = setTimeout(function() { blockTap = false; },150);
 	});
-	$("#langSelect li").on(tap,function(evt) {
-		if(blockTap == true) { return; }
-		window.localStorage.setItem("devSetLang",$(this).attr("id").replace("set",""));
-		//remark
-		$(".set").removeClass("set");
-		$(this).addClass("set");
-		//////////////
-		// fade out //
-		//////////////
-		$("#langSelect").fadeOut(200,function() {
-			setTimeout(function() {
-			$("body").removeClass("appLang-" + lang);
-			lang = window.localStorage.getItem("devSetLang");
-			$("body").addClass("appLang-" + lang);
-			if(lang != "en" && lang != "pt") { 
-				LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
+	//FLOOD PROTECTION
+	clearTimeout(langSelectTap);	
+	langSelectTap = setTimeout(function() {
+		$("#langSelect li").on(tap,function(evt) {
+			if(blockTap == true) { return; }
+			if($(this).attr("id") == "setAuto") {
+				window.localStorage.removeItem("devSetLang");
+			} else {
+				window.localStorage.setItem("devSetLang",$(this).attr("id").replace("set",""));
 			}
-			$("#tab1").html(LANG.MENU_STATUS[lang]);
-			$("#tab2").html(LANG.MENU_DIARY[lang]);
-			$("#tab3").html(LANG.MENU_PROFILE[lang]);
-			$("#tab4").html(LANG.MENU_SETTINGS[lang]);
-			if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
-			//start date
-			$("#cssStartDate").html("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
-			//page title
-			$("title").html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
-			//heading sum
-			updateEntriesSum();
-			//remove
-			$("#langSelect").remove();
-			//refresh intro
-			if(opt == "intro") {
-				showIntro();
-			}
-			},80);
+			//remark
+			$(".set").removeClass("set");
+			$(this).addClass("set");
+			//////////////
+			// fade out //
+			//////////////
+			$("#langSelect").stop().fadeOut(200,function() {
+				setTimeout(function() {
+				$("body").removeClass("appLang-" + lang);
+				if(window.localStorage.getItem("devSetLang")) {
+					lang = window.localStorage.getItem("devSetLang");
+				} else {
+					lang = defaultLang;	
+				}
+				$("body").addClass("appLang-" + lang);
+				if(lang != "en" && lang != "pt") { 
+					LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
+				}
+				$("#tab1").html(LANG.MENU_STATUS[lang]);
+				$("#tab2").html(LANG.MENU_DIARY[lang]);
+				$("#tab3").html(LANG.MENU_PROFILE[lang]);
+				$("#tab4").html(LANG.MENU_SETTINGS[lang]);
+				if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
+				if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
+				if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
+				if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
+				//start date
+				$("#cssStartDate").html("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
+				//page title
+				$("title").html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
+				//heading sum
+				updateEntriesSum();
+				//remove
+				//$("#langSelect").remove();
+				//refresh intro
+				if(opt == "intro") {
+					showIntro();
+				}
+				},80);
+			});
+			//enforce
+			setTimeout(function() { $("#langSelect").remove(); },600);
 		});
-		//enforce
-		setTimeout(function() { $("#langSelect").remove(); },600);
-	});
+	},450);
 }
 ////////////////////
 // INTAKE HISTORY //

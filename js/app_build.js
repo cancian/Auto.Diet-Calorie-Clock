@@ -1341,13 +1341,16 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			}
 			$("#entryTime").focus();
 		}
+		
 		//force hide keyboard
 		if(isMobile.FirefoxOS()) {
 			$("#entryTime").on(touchstart,function() {
-				$(this).focus();
-				$(this).blur();
+				evt.preventDefault();
+				$("#entryBody").blur();
 			});
 		}
+		
+		
 	});
 	//SUPERBORDER FOCUS (IOS)
 	if(isMobile.iOS()) {

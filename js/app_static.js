@@ -133,7 +133,7 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 	//window.location='#top';
 	$('#appContent').scrollTop(0);
 	appFooter($(this).attr("id"));
-	getAnalytics($(this).attr("id"));
+	//getAnalytics($(this).attr("id"));
 });
 ////////////////////////
 // WINDOWS OVERSCROLL //
