@@ -877,3 +877,221 @@ trdevsetlang
 ukdevsetlang
 videvsetlang
 zhdevsetlang
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////
+// BOOTSTRAP //
+///////////////
+jQuery.support.cors = true;
+function InitializeLocalSuperBlock(opt) {
+	if(opt == "cached") { alert("cached"); return; }
+	//cors issue
+	$("head").append("<link rel='stylesheet' type='text/css' id='coreCss' href='" + hostLocal + "css/index.css' />");
+	$("head").append("<link rel='stylesheet' type='text/css' id='coreFonts' href='" + hostLocal + "css/fonts.css' />");
+	$("head").append("<link rel='stylesheet' type='text/css' href='css/mobiscroll.2.9.0.css' />");
+	$("head").append("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
+	$("head").append("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
+	$("head").append("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");
+	$("head").append("<script type='text/javascript' src='" + hostLocal + "js/app_build.js'><\/script>");
+	$("head").append("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
+	$("head").append("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
+	$("head").append("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
+	/*
+	var dataJS  = '';
+	var dataCSS = '';
+	$.get("js/app_lib.js",function(raw) {
+		dataJS = dataJS + raw;
+		$.get("js/app_lang.js",function(raw) {
+			dataJS = dataJS + raw;
+			$.get("js/app_setup.js",function(raw) {
+				dataJS = dataJS + raw;
+				$.get("js/app_build.js",function(raw) {
+					dataJS = dataJS + raw;
+					$.get("js/app_static.js",function(raw) {
+						dataJS = dataJS + raw;
+						$.get("js/app_dynamic.js",function(raw) {
+							dataJS = dataJS + raw;
+							$.get("js/app_custom_core.js",function(raw) {
+								dataJS = dataJS + raw;
+								$.get("css/index.css",function(raw) {
+									dataCSS = dataCSS + raw;
+									$.get("css/fonts.css",function(raw) {
+										dataCSS = dataCSS + raw;
+										//
+										$("head").append("<script id='superBlockJS'>" + dataJS + "</script>");
+										$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+										//window.localStorage.setItem("LocalSuperBlockJS",dataJS);
+										//window.localStorage.setItem("LocalSuperBlockCSS",dataCSS);
+										//
+									},"text");
+								},"text");
+							},"text");
+						},"text");
+					},"text");
+				},"text");
+			},"text");
+		},"text");
+	},"text");
+	*/
+}
+///////////////////////
+// REMOTE SUPERBLOCK //
+///////////////////////
+function buildRemoteSuperBlock(opt) {
+	var dataJS  = '';
+	var dataCSS = '';
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_lib.js",         error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_lang.js",        error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_setup.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_build.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_static.js",      error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_dynamic.js",     error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_custom_core.js", error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "css/index.css",         error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "css/fonts.css",         error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	//
+	if(opt == "load") {
+		$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
+		$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+	}
+	if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
+		window.localStorage.setItem("remoteSuperBlockJS",dataJS);
+	}
+	if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
+		window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
+	}
+	//
+	}});}});}});
+	}});}});}});
+	}});}});
+	}});
+}
+/*
+	$.get("","text").error(function(e) { alert('error1'); InitializeLocalSuperBlock() }).success(function(raw) { 
+		dataJS = dataJS + raw;
+		$.get("","text").error(function(e) { alert('error2'); InitializeLocalSuperBlock() }).success(function(raw) { 
+			dataJS = dataJS + raw;
+			$.get("","text").error(function(e) { alert('error3'); InitializeLocalSuperBlock() }).success(function(raw) { 
+				dataJS = dataJS + raw;
+				$.get("","text").error(function(e) { alert('error4'); InitializeLocalSuperBlock() }).success(function(raw) { 
+					dataJS = dataJS + raw;
+					$.get("","text").error(function(e) { alert('error5'); InitializeLocalSuperBlock() }).success(function(raw) { 
+						dataJS = dataJS + raw;
+						$.get("","text").error(function(e) { alert('error6');InitializeLocalSuperBlock()  }).success(function(raw) { 
+							dataJS = dataJS + raw;
+							$.get("","text").error(function(e) { alert('error7'); InitializeLocalSuperBlock() }).success(function(raw) { 
+								dataJS = dataJS + raw;
+								$.get("http://kcals.net/css/index.css","text").error(function(e) { alert('error8'); InitializeLocalSuperBlock() }).success(function(raw) { 
+									dataCSS = dataCSS + raw;
+									$.get("http://kcals.net/css/fonts.css","text").error(function(e) { alert('error9'); InitializeLocalSuperBlock() }).success(function(raw) { 
+										dataCSS = dataCSS + raw;
+										
+										//
+										if(opt == "load") {
+											$("head").append("<script id='superBlockJS'>" + dataJS + "</script>");
+											$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+										}
+										
+										if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
+											window.localStorage.setItem("remoteSuperBlockJS",dataJS);
+											alert("updating JS cache");
+										} else {
+											alert("no changes in JS cache");
+										}
+
+
+										if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
+											window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
+											alert("updating CSS cache");
+										} else {
+											alert("no changes in CSS cache");
+										}
+										
+										
+										//					
+										
+									});
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+*/
+	//	dataJS = dataJS + raw;
+
+/*
+		$.get("http://kcals.net/js/app_lang.js",function(raw) {
+			dataJS = dataJS + raw;
+			$.get("http://kcals.net/js/app_setup.js",function(raw) {
+				dataJS = dataJS + raw;
+				$.get("http://kcals.net/js/app_build.js",function(raw) {
+					dataJS = dataJS + raw;
+					$.get("http://kcals.net/js/app_static.js",function(raw) {
+						dataJS = dataJS + raw;
+						$.get("http://kcals.net/js/app_dynamic.js",function(raw) {
+							dataJS = dataJS + raw;
+							$.get("http://kcals.net/js/app_custom_core.js",function(raw) {
+								dataJS = dataJS + raw;
+								$.get("http://kcals.net/css/index.css",function(raw) {
+									dataCSS = dataCSS + raw;
+									$.get("http://kcals.net/css/fonts.css",function(raw) {
+										dataCSS = dataCSS + raw;
+										//
+										if(opt == "load") {
+											$("head").append("<script id='superBlockJS'>" + dataJS + "</script>");
+											$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+										}
+										
+										if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
+											window.localStorage.setItem("remoteSuperBlockJS",dataJS);
+											alert("updating JS cache");
+										} else {
+											alert("no changes in JS cache");
+										}
+
+
+										if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
+											window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
+											alert("updating CSS cache");
+										} else {
+											alert("no changes in CSS cache");
+										}
+										
+										
+										//
+									});
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+*/
+
+
+if(!window.localStorage.getItem("remoteSuperBlockJS") || !window.localStorage.getItem("remoteSuperBlockCSS")) {
+	alert("initializing local super block online");
+	buildRemoteSuperBlock("load");
+} else {
+	$("head").append("<script id='superBlockJS'>" + window.localStorage.getItem("remoteSuperBlockJS") + "</script>");
+	$("head").append("<style id='superBlockCSS'>" + window.localStorage.getItem("remoteSuperBlockCSS") + "</style>");
+	buildRemoteSuperBlock('cached');
+}

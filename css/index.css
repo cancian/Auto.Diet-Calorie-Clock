@@ -130,15 +130,17 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 /*#////////////#//
 //# APP FOOTER #//
 //#////////////#*/
-ul#appFooter										{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); }
-ul#appFooter li										{ float: left; width: 25%; height: 44px; line-height: 18px; color: #888; -webkit-backface-visibility: hidden; }
-ul#appFooter li.selected							{ color: #007AFF; -webkit-backface-visibility: hidden; }
-ul#appFooter li.selected:before						{ color: #007AFF; }
+ul#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); }
+ul#appFooter li								{ float: left; width: 25%; height: 44px; line-height: 18px; color: #888; -webkit-backface-visibility: hidden; }
+ul#appFooter li.selected					{ color: #007AFF; -webkit-backface-visibility: hidden; }
+ul#appFooter li.selected:before				{ color: #007AFF; }
 /*footer colors*/
-ul#appFooter.appDebug li.selected,
-ul#appFooter.appDebug li.selected:before			{ color: #309030; }
-ul#appFooter.appEdge li.selected,
-ul#appFooter.appEdge li.selected:before				{ color: #cc3300; }
+.deficit ul#appFooter li.selected,
+.deficit ul#appFooter li.selected:before	{ color: #cc3300; }
+.surplus ul#appFooter li.selected,
+.surplus ul#appFooter li.selected:before	{ color: #309030; }
+.appDebug #appHeader:after					{ content: ""; position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #0F6; border: 1px solid #0C0; z-index: 9999; display: block; }
+
 /*
 ul#appFooter.appDebug.appFacebook li.selected,
 ul#appFooter.appDebug.appFacebook li.selected:before{ color: #48A899; }

@@ -12,8 +12,10 @@
 	////////////////////
 	// DETECT OFFLINE //
 	////////////////////
-	setTimeout(function(){
-		if(typeof updateTimer != 'function' && document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) {
+	setTimeout(function() {
+		if((typeof updateTimer != 'function') && ((document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) || (window.localStorage.getItem("remoteSuperBlockJS") || window.localStorage.getItem("remoteSuperBlockCSS")))) {
+			window.localStorage.removeItem("remoteSuperBlockJS");
+			window.localStorage.removeItem("remoteSuperBlockCSS");
 			window.localStorage.removeItem("config_debug");
 			window.location.reload(true);
 		}

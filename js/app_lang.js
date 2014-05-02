@@ -1,5 +1,5 @@
 var appName     = "Kcals";
-var appVersion  = "1.2.1 (12016)";
+var appVersion  = "1.2.1 (12017)";
 var appBuild    = appVersion.slice(7,-1);
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|ga|hi|hr|hu|hy|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
 var lang        = "en";
@@ -4588,13 +4588,13 @@ var LANG = {
 		bg : 'Автоматично архивиране',
 		ca : 'Còpia de seguretat automàtica',
 		cs : 'Automatické zálohování',
-		da : 'automatisk Backup',
+		da : 'Automatisk Backup',
 		de : 'Automatische Sicherung',
-		el : 'αυτόματη δημιουργία αντιγράφων ασφαλείας',
+		el : 'Αυτόματη δημιουργία αντιγράφων ασφαλείας',
 		es : 'Copia de seguridad automática',
 		et : 'Automaatne varundamine',
 		fa : 'پشتیبان گیری خودکار',
-		fi : 'automaattinen varmuuskopiointi',
+		fi : 'Automaattinen varmuuskopiointi',
 		fr : 'Sauvegarde automatique',
 		ga : 'Cúltaca Uathoibríoch',
 		hi : 'स्वचालित बैकअप',

@@ -1,18 +1,17 @@
 CACHE MANIFEST
 # Version 1.2.1.7
-
 index.html
-css/fonts.css
-css/index.css
-css/mobiscroll.2.9.0.css
-js/app_build.js
-js/app_custom_core.js
-js/app_dynamic.js
 js/app_init.js
-js/app_lang.js
+js/app_bootstrap.js
 js/app_lib.js
+js/app_lang.js
 js/app_setup.js
+js/app_build.js
 js/app_static.js
+js/app_dynamic.js
+js/app_custom_core.js
+css/index.css
+css/fonts.css
 js/calculator.js
 js/carpe_slider.js
 js/cdv-plugin-fb-connect.js
@@ -44,16 +43,17 @@ js/plugins/org.apache.cordova.splashscreen/www/splashscreen.js
 js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
-js/plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js
-searchdb_en.ls
-searchdb_pt.ls
-searchdb_en.sql
-searchdb_pt.sql
-favicon.ico
-icon.png
+js/plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js 
+searchdb_en.sql 
+searchdb_pt.sql 
+searchdb_en.ls 
+searchdb_pt.ls 
+
 
 NETWORK:
 *
 
+
 FALLBACK:
 /index.html
+

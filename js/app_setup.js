@@ -632,6 +632,7 @@ function setFav(data, callback) {
 var afterHidden;
 function afterHide(cmd) {
 	CONSOLE('afterHide()');
+	noTimer = 'active';
 	opaLock = 2;
 	$("#appStatusReload").off();
 	clearTimeout(afterHidden);
@@ -642,9 +643,8 @@ function afterHide(cmd) {
 		$("body").css("opacity","0");
 		$('body').on(transitionend,function(e) { 
 			//if logged, reload via callback
-			if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && cmd == "clear") {
+			if(window.localStorage.getItem("facebook_logged") && cmd == "clear") {
 				$.post("http://kcals.net/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
-					if(cmd == "clear") { window.localStorage.clear(); }
 					setTimeout(function() { 
 						if(androidVersion() >= 4 && window.MyReload) { 
 							window.MyReload.reloadActivity();
@@ -652,6 +652,7 @@ function afterHide(cmd) {
 							window.location.reload(true);
 						}
 					},250);
+					if(cmd == "clear") { window.localStorage.clear(); }
 				}, "text");
 			} else {
 					setTimeout(function() { 

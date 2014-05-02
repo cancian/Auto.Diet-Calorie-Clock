@@ -1,6 +1,7 @@
 //#/////////////#//
 //# GLOBAL VARS #//
 //#/////////////#//
+var storage           = window.localStorage;
 var db;
 var dbName            = "mylivediet.app";
 var lib;
@@ -15,6 +16,7 @@ var loadingDivTimer;
 var timerPerf         = (new Date().getTime());
 var timerDiff         = 100;
 var timerWait         = 100;
+var noTimer;
 jQuery.support.cors   = true
 function voidThis()   { }
 /////////////
@@ -71,6 +73,7 @@ else 																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEn
 ////////////////////////
 // CONVERT CSS PREFIX //
 ////////////////////////
+/*
 $.support.cors = true;
 if(vendorClass == "moz" || vendorClass == "msie") {
 	$.get(hostLocal + "css/index.css",function(rawCss) {
@@ -96,6 +99,7 @@ $("head").append("<style type='text/css' id='coreFonts'></style>");
 $.get(hostLocal + "css/fonts.css",function(raw) {
 	$("#coreFonts").html(raw);
 });
+*/
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//

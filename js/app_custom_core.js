@@ -404,6 +404,7 @@ function updateNutriBars(tPro,tCar,tFat) {
 //##################//
 var timeLock = 0;
 function updateTimer() {
+	if(noTimer == "active") { return; }
 	//MAKE SUM
 	getEntries(function(data) {
 		////////////////
