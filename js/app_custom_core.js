@@ -120,12 +120,18 @@ function appTimer(id,content) {
 	///////////////////////
 	// UPDATE APP STATUS //
 	///////////////////////
-	window.localStorage.setItem("appBalance",status);
-	window.localStorage.setItem("cssOver",cssOver);
+	if(appBalance != status) {
+		appBalance = status;
+		window.localStorage.setItem("appBalance",status);
+	}
+	if(appBalanceOver != cssOver) {		
+		appBalanceOver = cssOver;
+		window.localStorage.setItem("cssOver",cssOver);
+	}
 	function updateStatus() {
 		$("#appStatusElapsed div p").html(timeElapsed());
 		$("#appStatusWeight div p strong").html(weightLoss);
-		$("#appStatusBalance div p").html(window.localStorage.getItem("appBalance"));
+		$("#appStatusBalance div p").html(appBalance);
 //		$("#entry_f-sum p").html(Number(window.localStorage.getItem("config_entry_f-sum")));
 //		$("#entry_e-sum p").html(Number(window.localStorage.getItem("config_entry_e-sum")));
 		balanceMeter(kcalsInput);
@@ -448,15 +454,15 @@ function updateTimer() {
 				}
 			}
 			updateNutriBars(tPro,tCar,tFat);
-			window.localStorage.setItem("tPro",tPro);
-			window.localStorage.setItem("tCar",tCar);
-			window.localStorage.setItem("tFat",tFat);	
+			if(tPro != window.localStorage.getItem("tPro")) { window.localStorage.setItem("tPro",tPro); }
+			if(tCar != window.localStorage.getItem("tCar")) { window.localStorage.setItem("tCar",tCar); }
+			if(tFat != window.localStorage.getItem("tFat")) { window.localStorage.setItem("tFat",tFat); }
 			//console.log('refreshing timer');
-			window.localStorage.setItem("config_entry_sum",ts);
-			window.localStorage.setItem("config_entry_f-sum",tf);
-			window.localStorage.setItem("config_entry_e-sum",te);
-			var day1 = window.localStorage.getItem("config_kcals_day_1");
-			var day2 = window.localStorage.getItem("config_kcals_day_2");
+			if(ts != window.localStorage.getItem("config_entry_sum"))	{ window.localStorage.setItem("config_entry_sum",ts); }
+			if(tf != window.localStorage.getItem("config_entry_f"))		{ window.localStorage.setItem("config_entry_f",tf); }
+			if(te != window.localStorage.getItem("config_entry_e"))		{ window.localStorage.setItem("config_entry_e",te); }
+			//var day1 = window.localStorage.getItem("config_kcals_day_1");
+			//var day2 = window.localStorage.getItem("config_kcals_day_2");
 		}
 		///////////////////
 		// READ SETTINGS //

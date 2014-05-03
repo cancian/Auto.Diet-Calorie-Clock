@@ -1,9 +1,10 @@
 /////////////////
 // DEV DEBUGER //
 /////////////////
+var blockAlerts = 0;
 window.onerror = function(e, url, line) {
-	if(window.localStorage.getItem("config_debug") == "active") {
-		alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
+		if(confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) { blockAlerts = 0; } else { blockAlerts = 1; }
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
 	//return true; 
@@ -15,8 +16,8 @@ document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, i
 /////////
 // CSS //
 /////////
-//document.write("<link rel='stylesheet' type='text/css' id='coreCss' href='" + hostLocal + "css/index.css' />");
-//document.write("<link rel='stylesheet' type='text/css' id='coreFonts' href='" + hostLocal + "css/fonts.css' />");
+document.write("<link rel='stylesheet' type='text/css' id='coreCss' href='" + hostLocal + "css/index.css' />");
+document.write("<link rel='stylesheet' type='text/css' id='coreFonts' href='" + hostLocal + "css/fonts.css' />");
 /////////////////////
 // CORDOVA/DESKTOP //
 /////////////////////
@@ -48,12 +49,13 @@ document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js'><\/
 //nprogress
 document.write("<script type='text/javascript' src='js/nprogress.js'><\/script>");
 document.write("<script type='text/javascript' src='js/spin.min.js'><\/script>");
-//if(!navigator.userAgent.match(/(MSIE)/)) {
-document.write("<script type='text/javascript' src='js/quo.js'><\/script>");
-//} else {
+if(!navigator.userAgent.match(/(MSIE)/)) {
+	document.write("<script type='text/javascript' src='js/quo.js'><\/script>");
+}
+// else {
 	//document.write("<script type='text/javascript' src='js/jquery.mobile-events.js'><\/script>");
 //}
-document.write("<script type='text/javascript' src='js/iscroll.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/iscroll.js'><\/script>");
 document.write("<script type='text/javascript' src='js/html5sql.js'><\/script>");
 document.write("<script type='text/javascript' src='js/UserVoice.js'><\/script>");
 document.write("<script type='text/javascript' src='js/calculator.js'><\/script>");
@@ -62,8 +64,7 @@ document.write("<script type='text/javascript' src='js/carpe_slider.js'><\/scrip
 /////////
 // APP //
 /////////
-document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
-/*
+//document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");
@@ -71,10 +72,9 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_buil
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
-*/
 //WP8
 if(navigator.userAgent.match(/(MSIE)/)) {
-	if(window.external.Notify) { 
+	if(window.external) { 
 		window.external.Notify("noScroll");
 	}
 }

@@ -133,7 +133,7 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 	//window.location='#top';
 	$('#appContent').scrollTop(0);
 	appFooter($(this).attr("id"));
-	//getAnalytics($(this).attr("id"));
+	getAnalytics("tab");
 });
 ////////////////////////
 // WINDOWS OVERSCROLL //
@@ -240,6 +240,7 @@ if(isMobile.FirefoxOS()) {
 // PRESS ENTER //
 /////////////////
 $(document).on("pressenter", function(evt) {
+	$("#set" + lang).trigger(tap);
 	$("#editable").trigger("blur");
 	$("#editableDiv").trigger("blur");
 	$("#entrySubmit").trigger(touchstart);
@@ -349,7 +350,7 @@ $(window).on("resize", function(evt) {
 		appResizer(0);
 	}
 	//notepad (ios6 fix)(window.innerHeight)
-	if($('#diaryNotesInput').is(":visible")) {
+	if($('#diaryNotesInput').is(":visible") && !isMobile.Windows()) {
 		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 		$("#diaryNotesInput").height(window.innerHeight - 32);
 		$('#diaryNotesInput').width(window.innerWidth - 24);

@@ -463,6 +463,7 @@ function openStatus(string) {
 	// NUTRITION BARS TAP //
 	////////////////////////
 	updateNutriBars(window.localStorage.getItem("tPro"),window.localStorage.getItem("tCar"),window.localStorage.getItem("tFat"));
+	/*
 	$("#appStatusBars").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		//DIALOG
@@ -472,7 +473,8 @@ function openStatus(string) {
 			alert(LANG.STATUS_BARS[lang].toUpperCase() + ": \n" + "25% " + LANG.PROTEINS[lang] + "\n" + "50% " + LANG.CARBS[lang]    + "\n" + "25% " + LANG.FATS[lang]);
 		}
 		return false;
-	});	
+	});
+	*/
 	//////////////////
 	// TIME ELAPSED //
 	//////////////////
@@ -1414,7 +1416,11 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		//load scroller & set window < height
 		setTimeout(function() {
 			$('#diaryNotesInput').height(window.innerHeight - 32);
-			$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			if(!isMobile.Windows()) {
+				$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			} else {
+				$('#diaryNotesInput').css("overflow","auto");
+			}
 		},200);
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {

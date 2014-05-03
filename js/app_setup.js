@@ -48,6 +48,24 @@ function dbErrorHandler(evt) {
 /////////////
 // INIT DB //
 /////////////
+
+function loaded () {
+	myScroll = new IScroll('#wrapper', {
+		scrollX: true,
+		scrollY: false,
+		momentum: false,
+		snap: true,
+		snapSpeed: 600,
+		snapThreshold:.2,
+		keyBindings: true,
+		//bindToWrapper: true,
+		indicators: {
+			el: document.getElementById('indicator'),
+			resize: false
+		}
+	});
+}	
+
 function showIntro() {
 	$("#gettingStarted").remove();
 	$("body").append("<div id='gettingStarted'>\
@@ -74,7 +92,68 @@ function showIntro() {
 		evt.stopPropagation();
 		buildLangMenu('intro');
 	});
+
+$("#appInfo").remove();
+$("#step1").remove();
+$("#step2").remove();
+$("#step3").remove();
+//$("#closeDiv").remove();
+
+$("#gettingStarted").prepend('\
+<div id="viewport">\
+	<div id="wrapper">\
+		<div id="scroller">\
+			<div class="slide" id="slide1">\
+				<div class="painting giotto"></div>\
+			</div>\
+			<div class="slide" id="slide2">\
+				<div class="painting leonardo"></div>\
+			</div>\
+			<div class="slide" id="slide3">\
+				<div class="painting gaugin"></div>\
+			</div>\
+			<div class="slide" id="slide4">\
+				<div class="painting warhol"></div>\
+			</div>\
+		</div>\
+	</div>\
+</div>\
+<div id="indicator">\
+	<div id="dotty"></div>\
+</div>')
+
+$("#slide1").html(LANG.STEP_1[lang]);
+$("#slide2").html(LANG.STEP_2[lang]);
+$("#slide3").html(LANG.STEP_3[lang]);
+$("#slide4").html(LANG.CLOSE_INTRO[lang]);
+
+	$("#slide4").on(touchstart + " click",function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+			$("#gettingStarted").fadeOut(200,function() {
+			$("#gettingStarted").remove();
+			getAnalytics('newInstall');
+		});
+		return false;
+	});
+
+
+	$(window).on("resize",function() {
+		$("#indicator").css("left",( ($("body").width() - $("#indicator").width()) / 2) + 'px');
+	});
+	$(window).trigger("resize");
+
+
+setTimeout(function() {	
+loaded();
+},100);
+
+
 }
+
+
+
+
 function initDB(t) {
 	////////////////////////////
 	// GETTING STARTED DIALOG //
@@ -1656,6 +1735,8 @@ function intakeHistory() {
 		////////////////////
 		$('#appStatusIntake div').css("padding-top", "0px");
 		var checkHeight = hasTap() ? 64 : 66;
+		var catFontSize = "9px";
+		if(lang == "fa") { catFontSize = "8px"; }
 		$('#appStatusIntake').highcharts({
 			chart : {
 				reflow: false,
@@ -1683,7 +1764,7 @@ function intakeHistory() {
 				labels : {
 					style : {
 						color : "rgba(47, 126, 216, .45)",
-						fontSize : "9px",
+						fontSize : catFontSize,
 					},
 					y : -2,
 					x : 0,
@@ -1832,7 +1913,6 @@ function sanitizeSql(str) {
 ///////////////
 function getStoreUrl(button) {
 	getAnalytics("rate");
-	getAnalytics("rate" + button);
 	window.localStorage.setItem("getRate","locked");
 	if(button == 1) {
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8', '_system', 'location=yes'); }
@@ -1894,27 +1974,27 @@ function getAnalytics(target) {
 		// TRACK VARS //
 		////////////////
 		var deviceType = isDesktop()        ? 'desktop' : 'mobile' ;
-		var Cordoving  = isMobile.Cordova() ? 'cordova' : 'webapp' ;
+		var Cordoving  = isMobile.Cordova() ? 'app' : 'web' ;
 		var appOS      = vendorClass;
 		if(isMobile.iOS())		{ appOS = "ios";       }
 		if(isMobile.Android())	{ appOS = "android";   }
 		if(isMobile.Windows())	{ appOS = "windows";   }
 		if(isMobile.FirefoxOS()){ appOS = "firefoxos"; }
 		if(isMobile.OSX())		{ appOS = "osx";       }
-		//track string
-		trackString = appOS + "." + deviceType + "." + Cordoving + "." + appName.toLowerCase() + "/#" + target + "(" + appBuild + ")" + "(" + lang + ")";
+		//track domain/string
+		trackString = appOS + "." + deviceType + "." + Cordoving + "/#" + target + "(" + appBuild + ")" + "(" + lang + ")";
 		///////////////
 		// TRACK EVT //
 		///////////////
 		//ga plugin
 		if(gaPlugin) {
 			gaPlugin.trackPage(successHandler, errorHandler, trackString);
-			//alert("gaplugin: " + trackString);
+			gaPlugin.trackEvent(successHandler, errorHandler, appOS, target, lang, appBuild);
 		}
 		//ga storage
 		if(ga_storage) {
 			ga_storage._trackPageview(trackString);
-			//alert("ga_storage: " + trackString);
+			ga_storage._trackEvent(appOS, target, lang, appBuild);
 		}
 	}
 }

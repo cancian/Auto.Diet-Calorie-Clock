@@ -1,4 +1,6 @@
 html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
+html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
+body									{ -ms-touch-action: pan-y; touch-action: pan-y; -ms-content-zooming: none; }
 html,body,input,select,textarea,
 input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; line-height: normal; -webkit-font-smoothing: antialiased; }
 div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
@@ -110,7 +112,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 input#editable					{ position: absolute; top: 13px; right: 9px; display: block !important; width: 75px !important; height: 29px; font-size: 24px !important; line-height: 24px; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; }
 /*pixel adjusts*/
 .ios input#editable,
-.moz input#editable				{ text-indent: -1px; }
+.moz.mobile input#editable		{ text-indent: -1px; }
 .msie input#editable,
 .ios7 input#editable			{ margin-top: 1px; text-indent: 0; }
 .android input#editable			{ margin-top: 1px; padding-right: 1px; }
@@ -135,11 +137,16 @@ ul#appFooter li								{ float: left; width: 25%; height: 44px; line-height: 18p
 ul#appFooter li.selected					{ color: #007AFF; -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before				{ color: #007AFF; }
 /*footer colors*/
+/*
 .deficit ul#appFooter li.selected,
 .deficit ul#appFooter li.selected:before	{ color: #cc3300; }
 .surplus ul#appFooter li.selected,
 .surplus ul#appFooter li.selected:before	{ color: #309030; }
 .appDebug #appHeader:after					{ content: ""; position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #0F6; border: 1px solid #0C0; z-index: 9999; display: block; }
+*/
+.appDebug ul#appFooter li.selected,
+.appDebug ul#appFooter li.selected:before	{ color: #309030; }
+
 
 /*
 ul#appFooter.appDebug.appFacebook li.selected,
@@ -176,6 +183,7 @@ ul#appFooter li.selected#tab4:before				{ content: "\e013"; }
 #step3					{ line-height: 34px; color: #555; white-space: nowrap; }
 .appLang-el #step1,
 .appLang-bg #step1		{ font-size: 12px; }
+.appLang-lt #step1,
 .appLang-pl #step1,
 .appLang-fr #step1		{ font-size: 14px; }
 #step1 span,
@@ -185,7 +193,7 @@ ul#appFooter li.selected#tab4:before				{ content: "\e013"; }
 .android2 #step2 span,
 .android2 #step3 span	{ border: 1px solid #eee; }
 #closeDiv				{ position: absolute; top: 350px; left: 0px; display: block; width: 100%; text-align: center; margin: 0 auto; background-color: #fff; color: #2672ec; padding: 12px 0; font-size: 24px; }
-#appLang				{ position: absolute; bottom: 12px; left: 0px; display: block; width: 100%; text-align: center; background-color: #fff; color: #aaa; padding: 12px 0; font-size: 16px; }
+#appLang				{ position: absolute; bottom: 12px; left: 0px; display: block; width: 100%; text-align: center; background-color: #fff; color: #aaa; padding: 12px 0; font-size: 16px; text-indent: 0; }
 .appLang-uk #closeDiv	{ font-size: 21px; }
 /*#################################
 ####    BUILD: APP SETTINGS    ####
@@ -201,8 +209,8 @@ ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0
 /*////////////////////////
 // titles and subtitles //
 ////////////////////////*/
-.contentTitle						{ display: block; font-weight: normal; color: #555; line-height: normal; padding-top: 10px; padding-bottom: 2px; }
-.contentTitle span					{ display: block; font-weight: normal; opacity: 1; color: #aaa; line-height: normal; font-size: 10px; white-space: nowrap; }
+.contentTitle						{ display: block; font-weight: normal; color: #555; line-height: normal; padding-top: 10px; padding-bottom: 2px; line-height: 16px;}
+.contentTitle span					{ display: block; font-weight: normal; opacity: 1; color: #aaa; line-height: normal; font-size: 10px; white-space: nowrap; line-height: 13px;}
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
 /////////////////////////*/
@@ -450,7 +458,11 @@ font-size: 18px; line-height: 18px;  box-sizing: border-box; display: inline-blo
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
 #appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
 #appStatusAddLeft div:before,
-#appStatusAddRight div:before	{ content: "+"; font-family: "FontAwesome"; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; }
+#appStatusAddRight div:before	{ 
+content: "+"; font-family: "FontAwesome"; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; 
+background-color: rgba(0,0,0,0);
+color: #fff;
+}
 .android2 #appStatusAddLeft,
 .android2 #appStatusAddRight	{ padding-top: 4px; }
 #appStatusAddLeft span,
@@ -523,9 +535,9 @@ span#startDateSpan					{ position: relative; height: 44px; }
 span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weight: bold; font-size: 11px; text-transform: uppercase; display: block; white-space: nowrap; }
 #startDate 							{ height: 44px; line-height: 61px; background-color: transparent; border: 0; padding: 0; text-indent: 0; margin: 0; font-size: 13pt; color: #555; -webkit-appearance: none; }
 /*status reload*/
-#appStatusReload					{ position: absolute; bottom: 0px; left: 0; width: 48px; height: 35px; display: inline-block; font-size: 28px; line-height: 28px; text-indent: 7px; }
+#appStatusReload					{ position: absolute; bottom: 0px; left: 0; width: 48px; height: 45px; display: inline-block; font-size: 28px; line-height: 28px; text-indent: 7px; padding-right: 11px; }
 .android44 #appStatusReload			{ bottom: -1px; }
-#appStatusReload:before				{ content: "\f01e"; font-family: "FontAwesome"; display: inline-block; }
+#appStatusReload:before				{ content: "\f01e"; font-family: "FontAwesome"; display: inline-block; padding-top: 10px; }
 /*status arrow*/
 #appStatusToggle					{ position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; line-height: 49px; z-index: 10; background-color: rgba(255,255,255,0); }
 #appStatusFix #appStatusArrow		{ line-height: 30px; position: absolute; top: 3px; right: 32px; height: 0; width: 0; font-size: 30px; -webkit-backface-visibility: hidden; }
@@ -634,6 +646,8 @@ height: 44px;
 div#sliderNum					{ text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 118px; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 0px 3px 6px 3px;  font-size: 9pt; }
 div#sliderNeg					{ position: absolute; left:  14px; top: 27px; display: block; width: 90px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 14pt; height: 36px; padding-left: 26px; padding-top: 3px; }
 div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; width: 80px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 14pt; height: 36px; padding-right: 26px; padding-top: 3px; }
+.appLang-lv div#sliderPos,
+.appLang-lv div#sliderNeg,
 .appLang-vi div#sliderPos,
 .appLang-vi div#sliderNeg,
 .appLang-hy div#sliderPos,
@@ -699,12 +713,12 @@ border-color: #4285F4 !important; background-color: #4285F4 !important; border: 
 body.ios #entryList div		{ padding: 15px 0 1px 0; }
 #entryList					{ width: 100%; min-height: 44px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
-#editableInput				{ -webkit-user-select: auto; background-color: rgba(0,0,0,0) !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; /*font-size: 13px; */ }
-.moz #editableInput,
+#editableInput				{ -webkit-user-select: auto; background-color: rgba(0,0,0,0) !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; }
+.moz.mobile #editableInput,
 .ios #editableInput,
-.android #editableInput		{  margin-left : -1px; }
+.android #editableInput		{ margin-left : -1px; }
 .android44 #editableInput,
-.ios7 #editableInput 		{  margin-left : 0; }
+.ios7 #editableInput 		{ margin-left : 0; }
 /*retract on edit*/
 .mobile #editableInput		{ width: 90%; }
 /*BOTTOM BAR*/
@@ -718,12 +732,15 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 /*ROW STYLE*/
 .entriesTitle				{ display: inline; float: left; width: 40px;  text-align: right; font-weight: bold; }
 .entriesKcals				{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
-.entriesBody				{ display: block; text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; }
-.entriesBody input			{ display: block; font-size: 10pt; }
+.entriesBody				{ display: block; text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; line-height: 16px; }
+.entriesBody input			{ display: block; font-size: 10pt; height: 16px; }
+.appLang-fa .entriesKcals,
 .appLang-ar .entriesKcals	{ width: 70px; font-size: 10px; color: #999; padding-top: 0px; float: left; position: absolute; bottom: 0px; left: 13px; }
+.appLang-fa .entriesTitle,
 .appLang-ar .entriesTitle	{ margin-right: 16px; }
 .appLang-ja .entriesKcals	{ width: 51px; font-size: 11px; color: #999; padding-top: 1px;  }
 .appLang-ko .entriesKcals	{ width: 48px; font-size: 10pt; color: #aaa; padding-top: 1px;  }
+.appLang-iw .entriesKcals,
 .appLang-hy .entriesKcals	{ margin-right: 16px; }
 /*body.android .entriesBody input { text-indent: -1px; }*/
 .entriesPublished			{ padding-top: 28px; -webkit-backface-visibility: hidden; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; text-shadow: none !important; }
@@ -824,6 +841,9 @@ div#pageSlideFood.open		{ -webkit-transition-timing-function: ease; -webkit-tran
 /*food search*/
 input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #e5e5e5; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; background-color: #fff; box-sizing: border-box; }
 input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-height: 21px; }
+.appLang-lv input#foodSearch,
+.appLang-fa input#foodSearch,
+.appLang-vi input#foodSearch,
 .appLang-pl input#foodSearch,
 .appLang-id input#foodSearch,
 .appLang-ga input#foodSearch,
@@ -847,8 +867,8 @@ span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
 span#iconRefresh:before { content: "\f021"; }
 span#iconClear:before	{ content: "\F00D"; }
-.foodName			{ color: #0033cc; /*position: absolute; top: 12px; left: 23px; right: 8px;  padding-right: 1px; */ overflow: hidden; font-weight: bold; z-index: 999; -webkit-transform: translate3d(0, 0, 0); }
-.foodName			{ overflow-x: hidden !important ;}
+.foodName				{ color: #0033cc; /*position: absolute; top: 12px; left: 23px; right: 8px;  padding-right: 1px; */ overflow: hidden; -webkit-overflow-scrolling: touch; font-weight: bold; z-index: 999; -webkit-transform: translate3d(0, 0, 0); }
+.moz .foodName			{ overflow-x: hidden !important; }
 div#activeOverflow		{ /*color: #fff;*/ overflow: auto; padding-right: 0px; border-right: 0px solid transparent; -webkit-backface-visibility: visible; display: block; float: none; text-align: left; text-indent: 0px; }
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 1s; }
 .yellow					{ background-color: rgba(255,200,0,.88); }
@@ -865,6 +885,7 @@ span.foodFat			{ float: left; min-width: 60px; padding-top: 0px; padding-right: 
 span.foodCar			{ float: left; min-width: 60px; padding-top: 0px; padding-right: 4px; font-size: 12px; color: #000; font-weight: bold; }
 /*pro|car|fat*/
 span.preSpan			{ font-size: 11px; padding-right: 4px; color: #0033cc; }
+.appLang-fa .preSpan,
 .appLang-ar .preSpan,
 .appLang-ja .preSpan	{ font-size: 9px; padding-right: 2px; }
 /**/
@@ -1034,10 +1055,8 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 
 
 
+
 /*
-
-
-
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -1058,29 +1077,49 @@ body {
 	font-size: 12px;
 	font-family: ubuntu, helvetica, arial;
 	overflow: hidden; 
-}
+}*/
 
 #viewport {
-	position: relative;
-	width: 320px;
-	height: 240px;
-	margin: 0 auto;
-	background: #444;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 100px;
+	background: #eee;
 	overflow: hidden;
 }
 
+/*snapper*/
 #wrapper {
-	width: 200px;
-	height: 240px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	margin: 0 auto;
+	background-color: #fff;
+	
+	-webkit-transform: translate3d(0, 0, 0);
+	-webkit-perspective: 1000;
 }
 
+/*total width*/
 #scroller {
 	position: absolute;
 	z-index: 1;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	width: 800px;
-	height: 240px;
+	width: 400%;
+	top: 28%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	-webkit-transform: translate3d(0, 0, 0);
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+
+
 	-webkit-transform: translateZ(0);
 	-moz-transform: translateZ(0);
 	-ms-transform: translateZ(0);
@@ -1096,27 +1135,34 @@ body {
 	-ms-text-size-adjust: none;
 	-o-text-size-adjust: none;
 	text-size-adjust: none;
-	background-color: #444;
+	background-color: #fff;
+	/*white-space:nowrap;*/
 }
 
+/*width relative to total over-width*/
 .slide {
-	width: 200px;
-	height: 240px;
+	position: relative;
+	width: 25%;
+	height: 100%;
 	float: left;
+	display: block;	
+	box-sizing: border-box;
+
 }
 
 .painting {
-	width: 140px;
-	height: 200px;
-	border-radius: 10px;
-	margin: 20px auto;
-	border: 1px solid #000;
+	width: 100%;
+	height: 100%;
+	border-radius: 0;
+	/*margin: 20px auto;*/
+	background-color: #fff;
+	border: 0px solid #666;/*
 	box-shadow:
 		inset 2px 2px 6px rgba(255,255,255,0.6),
 		inset -2px -2px 6px rgba(0,0,0,0.6),
-		0 1px 8px rgba(0,0,0,0.8);
+		0 1px 8px rgba(0,0,0,0.8);*/
 }
-
+/*
 .giotto {
 	background: url(giotto.jpg);
 }
@@ -1131,22 +1177,58 @@ body {
 
 .warhol {
 	background: url(warhol.jpg);
+}*/
+#slide1,
+#slide2,
+#slide3,
+#slide4	{
+background-color: #fff;
+box-shadow: border-box;
+font-size: 27px;
+text-align: center;
+padding-top: 143px;
+padding-left: 12px;
+padding-right: 12px;
+
+
 }
 
-#indicator {
-	position: relative;
-	width: 110px;
-	height: 20px;
-	margin: 10px auto;
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUGCDYztyDUJgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAGFBMVEUAAADNzc3Nzc3Nzc3Nzc3Nzc3Nzc3///8aWwwLAAAABnRSTlMAX5Ks3/nRD0HIAAAAAWJLR0QHFmGI6wAAAFtJREFUGFdjYGBgEHYNMWRAAJE0IHCEc5nSwEABxleD8JOgXMY0KBCA8FlgfAcIXwzGT4TwzWD8ZAjfDcZPgfDDYPxU7Hx09ejmoduH7h5096L7B8O/6OGBGl4APYg8TQ0XAScAAAAASUVORK5CYII=);
-}
+#slide1:before { content: "\f007"; font-family: "FontAwesome"; font-size: 88px; color: #09F; position: absolute; top: 0; left: 0; right: 0; height: 100px; text-align: center; }
+#slide2:before { content: "\f0f5"; font-family: "FontAwesome"; font-size: 88px; color: #09F; position: absolute; top: 0; left: 0; right: 0; height: 100px; text-align: center; }
+#slide3:before { content: "\f080"; font-family: "FontAwesome"; font-size: 88px; color: #09F; position: absolute; top: 0; left: 0; right: 0; height: 100px; text-align: center; }
+#slide4:before { content: "\f013"; font-family: "FontAwesome"; font-size: 88px; color: #09F; position: absolute; top: 0; left: 0; right: 0; height: 100px; text-align: center; }
 
-#dotty {
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	border-radius: 10px;
-	background: #777;
-}
 
+
+
+#indicator	{ position: absolute; width: 110px; height: 20px; margin: 0; bottom: 74px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUGCDYztyDUJgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAGFBMVEUAAADNzc3Nzc3Nzc3Nzc3Nzc3Nzc3///8aWwwLAAAABnRSTlMAX5Ks3/nRD0HIAAAAAWJLR0QHFmGI6wAAAFtJREFUGFdjYGBgEHYNMWRAAJE0IHCEc5nSwEABxleD8JOgXMY0KBCA8FlgfAcIXwzGT4TwzWD8ZAjfDcZPgfDDYPxU7Hx09ejmoduH7h5096L7B8O/6OGBGl4APYg8TQ0XAScAAAAASUVORK5CYII=); }
+#dotty		{ position: absolute; width: 20px; height: 20px; border-radius: 10px; background: #777; }
+
+
+/*
+$("#gettingStarted").html('\
+<div id="viewport">\
+	<div id="wrapper">\
+		<div id="scroller">\
+			<div class="slide">\
+				<div class="painting giotto"></div>\
+			</div>\
+			<div class="slide">\
+				<div class="painting leonardo"></div>\
+			</div>\
+			<div class="slide">\
+				<div class="painting gaugin"></div>\
+			</div>\
+			<div class="slide">\
+				<div class="painting warhol"></div>\
+			</div>\
+		</div>\
+	</div>\
+</div>\
+<div id="indicator">\
+	<div id="dotty"></div>\
+</div>')
 */
+
+
+

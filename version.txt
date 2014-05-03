@@ -1,12 +1,12 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-• improved language detection
-• more detailed nutritional data
-• translated into: Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian.
-• revised login/logout system
-• performance improvements 
-• bug fixes
+• more detailed nutritional data;
+• login system is now more reliable;
+• refined language detection;
+• translated into: Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian;
+• improved performance (smaller cpu usage);
+• minor bug fixes;
 • 
 • 
 • 
