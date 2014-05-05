@@ -584,7 +584,7 @@ $(document).on("pageReload", function(evt) {
 	var inputEvent = isMobile.Windows() ? 'keyup' : 'input' ;
 	document.getElementById('foodSearch').addEventListener(inputEvent, function() {
 		//CLEAR ICON
-		if(this.value.length == 0) {
+		if($("#foodSearch").val().length == 0) {
 			$('#iconClear').hide();
 			$('#iconRefresh').show();
 		} else {
@@ -602,6 +602,7 @@ $(document).on("pageReload", function(evt) {
 			$('#searchContents').hide();
 			$('#infoContents').show();			
 			$('#menuTopBar').show();
+			return false;
 		});
 		//SET TIMER
 		clearTimeout(timer);
@@ -612,6 +613,14 @@ $(document).on("pageReload", function(evt) {
 		//DO SEARCH
 		timer = setTimeout(function() {
 			doSearch($("#foodSearch").val());
+		//CLEAR ICON
+		if($("#foodSearch").val().length == 0) {
+			$('#iconClear').hide();
+			$('#iconRefresh').show();
+		} else {
+			$('#iconRefresh').hide();
+			$('#iconClear').show(); 
+		}
 		}, ms);
 	});
 	///////////////////
@@ -654,6 +663,7 @@ $(document).on("pageReload", function(evt) {
 				);
 			}
 		}
+		return false;
 	});
 	/////////////////////////////////////////
 	// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //

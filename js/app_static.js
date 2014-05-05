@@ -133,7 +133,9 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 	//window.location='#top';
 	$('#appContent').scrollTop(0);
 	appFooter($(this).attr("id"));
-	getAnalytics("tab");
+	setTimeout(function() {
+		getAnalytics("tab");
+	},600);
 });
 ////////////////////////
 // WINDOWS OVERSCROLL //
@@ -265,7 +267,7 @@ $(document).keyup(function(e) {
 	//////////////
 	// side nav //
 	//////////////
-	if(!$("input, textarea, select").is(":focus")) {
+	if(!$("input, textarea, select").is(":focus") && !$("#gettingStarted").html()) {
 		if(e.keyCode == 37) {  
 		         if(window.localStorage.getItem("app_last_tab") == "tab4") { appFooter("tab3"); }
 			else if(window.localStorage.getItem("app_last_tab") == "tab3") { appFooter("tab2"); }

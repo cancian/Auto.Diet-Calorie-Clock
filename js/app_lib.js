@@ -5,7 +5,7 @@ var storage           = window.localStorage;
 var appBalance;
 var appBalanceOver;
 var appStatus;
-var myScroll;
+var appHeader;
 var db;
 var dbName            = "mylivediet.app";
 var lib;
@@ -129,6 +129,11 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
+if(window.navigator.msPointerEnabled) {
+	touchstart = "MSPointerDown";
+	touchend   = "MSPointerUp";
+	touchmove  = "MSPointerMove";
+}
 /////////////////
 // NUMBER ONLY //
 /////////////////

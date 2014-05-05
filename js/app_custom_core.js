@@ -35,8 +35,8 @@ function appTimer(id,content) {
 	var lSurplus  = LANG.SURPLUS[lang];
 	var lBalanced = LANG.BALANCED[lang];
 	//STATUSES (RELATIVE)
-         if(kcalsInput >  9999 )      { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput =  9999.99; }}
-	else if(kcalsInput < -9999 )      { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; if($("#entryBody").val() != "devilim") { kcalsInput = -9999.99; }}
+         if(kcalsInput >  9999 )      { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; kcalsInput =  9999.99; }
+	else if(kcalsInput < -9999 )      { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; kcalsInput = -9999.99; }
 //	else if(kcalsInput > eqPerDay * .50) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
 //	else if(kcalsInput < eqPerDay *-.50) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
 //	else if(kcalsInput > eqPerDay * .25) { status = lDeficit;  cssClass = "deficit";  }
@@ -74,8 +74,10 @@ function appTimer(id,content) {
 	kcalsHtmlOutput    += "</div>";
 	//REPLACE
 	function updateHeader() {
+		if(appHeader == kcalsHtmlOutput) { return; }
 		$("#appHeader").html("");
 		$("#appHeader").html(kcalsHtmlOutput);
+		appHeader = kcalsHtmlOutput;
 	}
 	//ios flicker, who knows why
 	if(isMobile.iOS()) {
@@ -148,6 +150,9 @@ function appTimer(id,content) {
 	var timeWait = timerDiff;
 	timerDiff = (((new Date().getTime()) - timerPerf) * 2);
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
+	if(isMobile.Windows()) {
+		timerDiff = timerDiff*5;
+	}
 	if(timerDiff > 500) { timerDiff = 500; }
 	if(timerDiff < 100) { timerDiff = 100; }
 	/////////////////////

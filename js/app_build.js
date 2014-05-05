@@ -56,6 +56,8 @@ function openSettings(string) {
 	//}
 	if(isMobile.Windows()) {
 		$("#optionFacebook").remove();
+		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=msft-9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e://authorize';
+
 	}
 	////////////////
 	// ACTIVE ROW //
@@ -1138,6 +1140,10 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 				$("#entryBody").blur();
 				afterHide();
 			}
+		}
+		//DEV SET LANG
+		if((/devgoto/).test($("#entryBody").val().toLowerCase())) {
+			window.location.href = 'http://' + $("#entryBody").val().toLowerCase().split("devgoto").join('');
 		}
 		//DEV EDGE
 		if($("#entryBody").val().toLowerCase() == "devedge") {

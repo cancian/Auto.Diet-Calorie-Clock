@@ -45,27 +45,10 @@ $(function() {
 function dbErrorHandler(evt) {
 	CONSOLE('DB Error: ' + JSON.stringify(evt));
 }
-/////////////
-// INIT DB //
-/////////////
-
-function loaded () {
-	myScroll = new IScroll('#wrapper', {
-		scrollX: true,
-		scrollY: false,
-		momentum: false,
-		snap: true,
-		snapSpeed: 600,
-		snapThreshold:.2,
-		keyBindings: true,
-		//bindToWrapper: true,
-		indicators: {
-			el: document.getElementById('indicator'),
-			resize: false
-		}
-	});
-}	
-
+////////////////
+// SHOW INTRO //
+////////////////
+var myScroll;
 function showIntro() {
 	$("#gettingStarted").remove();
 	$("body").append("<div id='gettingStarted'>\
@@ -115,25 +98,32 @@ $("#gettingStarted").prepend('\
 			<div class="slide" id="slide4">\
 				<div class="painting warhol"></div>\
 			</div>\
+			<div class="slide" id="slide5">\
+				<div class="painting warhol"></div>\
+			</div>\
 		</div>\
 	</div>\
 </div>\
 <div id="indicator">\
 	<div id="dotty"></div>\
-</div>')
+</div>');
 
 $("#slide1").html(LANG.STEP_1[lang]);
 $("#slide2").html(LANG.STEP_2[lang]);
 $("#slide3").html(LANG.STEP_3[lang]);
-$("#slide4").html(LANG.CLOSE_INTRO[lang]);
+$("#slide4").html(LANG.STEP_2[lang]);
+$("#slide5").html(LANG.CLOSE_INTRO[lang]);
 
-	$("#slide4").on(touchstart + " click",function(evt) {
+	$("#slide5").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 			$("#gettingStarted").fadeOut(200,function() {
 			$("#gettingStarted").remove();
-			getAnalytics('newInstall');
+			setTimeout(function(){
+				getAnalytics('newInstall');
+			},600);
 		});
+		//myScroll.destroy();
 		return false;
 	});
 
@@ -142,22 +132,33 @@ $("#slide4").html(LANG.CLOSE_INTRO[lang]);
 		$("#indicator").css("left",( ($("body").width() - $("#indicator").width()) / 2) + 'px');
 	});
 	$(window).trigger("resize");
-
-
-setTimeout(function() {	
-loaded();
-},100);
-
-
+	//////////////////
+	// LOAD ISCROLL //
+	//////////////////
+	setTimeout(function() {	
+		new IScroll('#wrapper', {
+			scrollX: true,
+			scrollY: false,
+			momentum: false,
+			snap: true,
+			snapSpeed: 500,
+			snapThreshold: .2,
+			keyBindings: true,
+			//bindToWrapper: true,
+			indicators: {
+				el: document.getElementById('indicator'),
+				resize: false
+			}
+		});
+	},500);
 }
-
-
-
-
+/////////////
+// INIT DB //
+/////////////
 function initDB(t) {
-	////////////////////////////
-	// GETTING STARTED DIALOG //
-	////////////////////////////
+	////////////////////
+	// IF NEW INSTALL //
+	////////////////////
 	if(!window.localStorage.getItem("config_kcals_day_0") || window.localStorage.getItem("config_debug") == "active") {
 		showIntro();
 	}
@@ -188,7 +189,7 @@ function initDB(t) {
 //	//if not sql already, dont use sql //
 /////////////////////////////////////////
 	//TABLE EXISTS
-	if(hasSql) {
+/*	if(hasSql) {
 		t.executeSql('select * from diary_entry order by published desc',[],
 	function(t,results) {
 		//alert((fixResults(results)).length);
@@ -196,7 +197,7 @@ function initDB(t) {
 	//alert('no nada');
 	 });
 //false hassql if empty
-}
+}*/
 	///////////////////
 	// CREATE TABLES //
 	///////////////////
@@ -1737,6 +1738,8 @@ function intakeHistory() {
 		var checkHeight = hasTap() ? 64 : 66;
 		var catFontSize = "9px";
 		if(lang == "fa") { catFontSize = "8px"; }
+		//check exists
+		if(window.localStorage.getItem("app_last_tab") != "tab1") { return; }
 		$('#appStatusIntake').highcharts({
 			chart : {
 				reflow: false,
@@ -1873,6 +1876,10 @@ function intakeHistory() {
 		//write cache
 		window.localStorage.setItem("appStatusIntake",$('#appStatusIntake').html());
 		$('#appStatusIntake div').css("padding-top", "0px");
+	});
+	//wp8 nonstandand
+	$('#appStatusIntake').on(touchend,function(){
+		return false;
 	});
 }
 //////////////////

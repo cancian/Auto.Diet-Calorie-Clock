@@ -3,10 +3,11 @@
 /////////////////
 var blockAlerts = 0;
 window.onerror = function(e, url, line) {
-	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
+	//if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
 		if(confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) { blockAlerts = 0; } else { blockAlerts = 1; }
+		//if(window.external) { window.external.Notify('onerror: ' + e + ' URL:' + url + ' Line:' + line); } 
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
-	}
+	//}
 	//return true; 
 }
 //////////////
@@ -35,7 +36,7 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 ////////
 // JS //
 ////////
-document.write("<script type='text/javascript' src='" + hostLocal + "js/GALocalStorage.js'><\/script>");
+document.write("<script type='text/javascript' src='js/iscroll.js'><\/script>");
 //document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery-1.11.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-2.1.0.min.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery-ui-1.10.3.min.js'><\/script>");
@@ -43,6 +44,7 @@ document.write("<script type='text/javascript' src='js/mobiscroll.2.9.0.js'><\/s
 document.write("<script type='text/javascript' src='js/jquery.nicescroll.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.color-2.1.0.min.js'><\/script>");
 //charts
+document.write("<script type='text/javascript' src='" + hostLocal + "js/GALocalStorage.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/highcharts.js'><\/script>");
 //document.write("<script type='text/javascript' src='js/jquery.mobileCheckbox.js'><\/script>");
 document.write("<script type='text/javascript' src='js/jquery.touchSwipe.js'><\/script>");
@@ -55,7 +57,6 @@ if(!navigator.userAgent.match(/(MSIE)/)) {
 // else {
 	//document.write("<script type='text/javascript' src='js/jquery.mobile-events.js'><\/script>");
 //}
-document.write("<script type='text/javascript' src='" + hostLocal + "js/iscroll.js'><\/script>");
 document.write("<script type='text/javascript' src='js/html5sql.js'><\/script>");
 document.write("<script type='text/javascript' src='js/UserVoice.js'><\/script>");
 document.write("<script type='text/javascript' src='js/calculator.js'><\/script>");
@@ -73,8 +74,9 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_stat
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
 //WP8
+/*
 if(navigator.userAgent.match(/(MSIE)/)) {
 	if(window.external) { 
 		window.external.Notify("noScroll");
 	}
-}
+}*/
