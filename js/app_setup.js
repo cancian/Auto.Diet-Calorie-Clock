@@ -853,7 +853,7 @@ function updateFoodDb() {
 			//LOCALSTORAGE
 			} else {
 				var dbLang = (LANG.LANGUAGE[lang] == "pt") ? "pt" : "en";
-				$.get("searchdb_" + dbLang + ".ls",function(ls) {
+				$.get("searchdb_" + dbLang + ".js",function(ls) {
 					eval(ls);
 					lib2.commit();
 					//success

@@ -23,6 +23,29 @@ var timerWait         = 100;
 var noTimer;
 jQuery.support.cors   = true
 function voidThis()   { }
+
+
+var console = {};
+console.log = function(e) {
+	if(!$("#appDebug").html()) {
+		$("body").prepend("<div id='appDebug'></div>");
+		$("#appDebug").css("overflow","auto");
+		$("#appDebug").css("position","absolute");
+		$("#appDebug").css("top","0");
+		$("#appDebug").css("left","100px");
+		$("#appDebug").css("right","100px");
+		$("#appDebug").css("height",$("#appHeader").height() + "px");
+		$("#appDebug").css("box-sizing","border-box");
+		$("#appDebug").css("padding","6px");
+		$("#appDebug").css("z-index","99");
+		$("#appDebug").css("display","block");
+		$("#appDebug").css("background-color","rgba(0,0,0,.1)");
+		$("#appDebug").css("color","rgba(255,255,255,.8)");
+		$("#appDebug").css("opacity","1");
+	}
+	$("#appDebug").prepend(e+"<br>");
+}
+
 /////////////
 // OPTIONS //
 /////////////
@@ -119,7 +142,7 @@ function hasTouch() {
 	return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);	
 }
 function hasTap() {
-	return (("ontouchstart" in document.documentElement) || ("ontouchstart" in window));
+	return ( ("ontouchstart" in document) || ("ontouchstart" in window));//|| navigator.msPointerEnabled);
 }
 var touchstart = hasTap() ? 'touchstart' : 'mousedown';
 var touchend   = hasTap() ? 'touchend'   : 'mouseup';

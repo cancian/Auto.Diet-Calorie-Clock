@@ -1,5 +1,6 @@
 CACHE MANIFEST
-# Version 1.2.1.7.1
+# Version 1.2.1.7.3
+# APP
 index.html
 js/app_init.js
 js/app_bootstrap.js
@@ -12,47 +13,46 @@ js/app_dynamic.js
 js/app_custom_core.js
 css/index.css
 css/fonts.css
-js/calculator.js
-js/carpe_slider.js
-js/cdv-plugin-fb-connect.js
-js/cordova.ff.js
+# CORDOVA
 js/cordova.js
 js/cordova_plugins.js
-js/facebook-js-sdk.js
-js/facebook-js-sdk.min.js
-js/GALocalStorage.js
-js/highcharts.js
-js/html5sql.js
-js/iscroll.js
-js/jquery.color-2.1.0.min.js
-js/jquery.mobileCheckbox.js
-js/jquery.mobile-events.js
-js/jquery.nicescroll.js
-js/jquery.touchSwipe.js
-js/jquery-2.1.0.min.js
-js/jquery-2.1.0.min.map
-js/jquery-ui-1.10.3.js
-js/jquery-ui-1.10.3.min.js
-js/localstoragedb.js
-js/mobiscroll.2.9.0.js
-js/nprogress.js
-js/quo.js
-js/spin.min.js
-js/UserVoice.js
+# CDV PLUGINS
 js/plugins/org.apache.cordova.splashscreen/www/splashscreen.js
 js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
 js/plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js 
+# FACEBOOK
+js/facebook-js-sdk.js
+js/facebook-js-sdk.min.js
+js/facebook-connect.js
+# JQUERY
+js/iscroll.js
+js/jquery.js
+js/jquery.ui.js
+js/jquery.color.js
+js/jquery.nicescroll.js
+js/jquery.touchswipe.js
+js/jquery.spin.js
+js/jquery.nprogress.js
+# DB
+js/html5sql.js
+js/localstoragedb.js
+# UTILS
+js/carpe_slider.js
+js/calculator.js
+js/highcharts.js
+js/mobiscroll.js
+js/galocalstorage.js
+js/quo.js
+# SQL
 searchdb_en.sql 
 searchdb_pt.sql 
-searchdb_en.ls 
-searchdb_pt.ls 
-
+searchdb_en.js
+searchdb_pt.js
 
 NETWORK:
 *
-
 
 FALLBACK:
 /index.html
