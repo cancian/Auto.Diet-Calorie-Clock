@@ -191,8 +191,8 @@ $(document).on("backbutton", function(evt) {
 	//
 	if($("#langSelect").length) {
 		$("#set" + lang).trigger(tap);
-	} else if($("#closeDiv").length) {
-		$("#closeDiv").trigger(touchend);
+	} else if($("#skipIntro").length) {
+		$("#skipIntro").trigger(touchstart);
 	} else if($("#subBackButton").length) {
 		$("#subBackButton").trigger(touchend);
 	} else if($("#backButton").length) {
@@ -248,7 +248,7 @@ $(document).on("pressenter", function(evt) {
 	$("#entrySubmit").trigger(touchstart);
 	$("#modalOk").trigger(touchstart);
 	$("#addNewConfirm").trigger(touchstart);
-	$("#closeDiv").trigger(touchend);
+	$("#skipIntro").trigger(touchstart);
 	if($('#appStatusFix').hasClass("open")) {
 		$("#startDate").mobiscroll('set');
 		$('#appStatusFix').removeClass("open");

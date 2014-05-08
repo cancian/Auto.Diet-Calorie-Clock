@@ -3,17 +3,17 @@
 /////////////////
 var blockAlerts = 0;
 window.onerror = function(e, url, line) {
-	//if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
+	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
 		if(confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) { blockAlerts = 0; } else { blockAlerts = 1; }
 		//if(window.external) { window.external.Notify('onerror: ' + e + ' URL:' + url + ' Line:' + line); } 
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
-	//}
+	}
 	//return true; 
 }
 //////////////
 // VIEWPORT //
 //////////////
-document.write('<meta name="viewport" id="viewPort" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');	
+document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');	
 /////////
 // CSS //
 /////////
@@ -41,18 +41,18 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.n
 document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.touchswipe.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.spin.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.nprogress.js'><\/script>");
+if(!navigator.userAgent.match(/(MSIE)/)) {
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/quo.js'><\/script>");
+}
 //DB
 document.write("<script type='text/javascript' src='" + hostLocal + "js/html5sql.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/localstoragedb.js'><\/script>");
 //UTILS
-document.write("<script type='text/javascript' src='" + hostLocal + "js/carpe_slider.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/calculator.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/highcharts.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/mobiscroll.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/calculator.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/carpe_slider.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/galocalstorage.js'><\/script>");
-if(!navigator.userAgent.match(/(MSIE)/)) {
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/quo.js'><\/script>");
-}
 /////////
 // APP //
 /////////

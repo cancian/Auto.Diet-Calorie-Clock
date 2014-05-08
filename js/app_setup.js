@@ -51,73 +51,30 @@ function dbErrorHandler(evt) {
 var myScroll;
 function showIntro() {
 	$("#gettingStarted").remove();
-	$("body").append("<div id='gettingStarted'>\
-		<div id='appInfo'>" + LANG.APP_INTRO[lang] + "</div>\
-		<div id='step1'><span>1</span>" + LANG.STEP_1[lang] + "</div>\
-		<div id='step2'><span>2</span>" + LANG.STEP_2[lang] + "</div>\
-		<div id='step3'><span>3</span>" + LANG.STEP_3[lang] + "</div>\
-		<div id='appLang'>" + LANG.LANGUAGE_NAME[lang] + "</div>\
-	</div>");
-	$("#closeDiv").on(touchend,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		$("#gettingStarted").fadeOut(200,function() {
-			$("#gettingStarted").remove();
-			getAnalytics('newInstall');
-		});
-	});
-	$("#gettingStarted").on(touchstart,function(evt) {
-		evt.stopPropagation();
-	});
-	$("#appLang").on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		buildLangMenu('intro');
-	});
-
-$("#appInfo").remove();
-$("#step1").remove();
-$("#step2").remove();
-$("#step3").remove();
-//$("#closeDiv").remove();
-
-$("#gettingStarted").prepend('\
-<div id="viewport">\
-	<div id="wrapper">\
-		<div id="scroller">\
-			<div class="slide" id="slide1">\
-				<div class="painting giotto"></div>\
-			</div>\
-			<div class="slide" id="slide2">\
-				<div class="painting leonardo"></div>\
-			</div>\
-			<div class="slide" id="slide3">\
-				<div class="painting gaugin"></div>\
-			</div>\
-			<div class="slide" id="slide4">\
-				<div class="painting warhol"></div>\
-			</div>\
-			<div class="slide" id="slide5">\
-				<div class="painting warhol"></div>\
-			</div>\
-			<div class="slide finalSlide" id="slide6">\
-				<div class="painting warhol"></div>\
+	$("body").append('\
+	<div id="gettingStarted">\
+		<div id="viewport">\
+			<div id="wrapper">\
+				<div id="scroller">\
+					<div class="slide" id="slide1"><p>' + LANG.INTRO_SLIDE_1[lang].split(".").join(". ") + '</p></div>\
+					<div class="slide" id="slide2"><p>' + LANG.INTRO_SLIDE_2[lang].split(".").join(". ") + '</p></div>\
+					<div class="slide" id="slide3"><p>' + LANG.INTRO_SLIDE_3[lang].split(".").join(". ") + '</p></div>\
+					<div class="slide" id="slide4"><p>' + LANG.INTRO_SLIDE_4[lang].split(".").join(". ") + '</p></div>\
+					<div class="slide" id="slide5"><p>' + LANG.INTRO_SLIDE_5[lang].split(".").join(". ") + '</p></div>\
+					<div class="slide" id="slide6"><p>' + LANG.INTRO_SLIDE_6[lang].split(".").join(". ") + '</p><div id="closeDiv">' + LANG.CLOSE_INTRO[lang] + '</div></div>\
+				</div>\
 			</div>\
 		</div>\
-	</div>\
-</div>\
-<div id="indicator">\
-	<div id="dotty"></div>\
-</div>');
-
-$("#slide1").html("<p>" + LANG.INTRO_SLIDE_1[lang].split(".").join(". ") + "</p>");
-$("#slide2").html("<p>" + LANG.INTRO_SLIDE_2[lang].split(".").join(". ") + "</p>");
-$("#slide3").html("<p>" + LANG.INTRO_SLIDE_3[lang].split(".").join(". ") + "</p>");
-$("#slide4").html("<p>" + LANG.INTRO_SLIDE_4[lang].split(".").join(". ") + "</p>");
-$("#slide5").html("<p>" + LANG.INTRO_SLIDE_5[lang].split(".").join(". ") + "</p>");
-$("#slide6").html("<p>" + LANG.INTRO_SLIDE_6[lang].split(".").join(". ") + "</p>");
-
-	$(".finalSlide").on(touchstart,function(evt) {
+		<div id="indicator">\
+			<div id="dotty"></div>\
+		</div>\
+		<div id="appLang">'   + LANG.LANGUAGE_NAME[lang] + '</div>\
+		<div id="skipIntro">' + LANG.SKIP[lang]          + '</div>\
+	</div>');
+	//////////////
+	// HANDLERS //
+	//////////////
+	$("#skipIntro, #closeDiv").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 			$("#gettingStarted").fadeOut(200,function() {
@@ -126,8 +83,18 @@ $("#slide6").html("<p>" + LANG.INTRO_SLIDE_6[lang].split(".").join(". ") + "</p>
 				getAnalytics('newInstall');
 			},600);
 		});
-		myScroll.destroy();
-		return false;
+		if(myScroll) {
+			myScroll.destroy();
+		}
+		//return false;
+	});
+	$("#gettingStarted").on(touchstart,function(evt) {
+		evt.stopPropagation();
+	});
+	$("#appLang").on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		buildLangMenu('intro');
 	});
 	///////////////
 	// INDICATOR //
@@ -155,6 +122,16 @@ $("#slide6").html("<p>" + LANG.INTRO_SLIDE_6[lang].split(".").join(". ") + "</p>
 			}
 		});
 	},500);
+	/*
+	$("#slide1").html("\
+	<p>" + LANG.INTRO_SLIDE_1[lang].split(".").join(". ") + "</p>\
+	<p>" + LANG.INTRO_SLIDE_2[lang].split(".").join(". ") + "</p>\
+	<p>" + LANG.INTRO_SLIDE_3[lang].split(".").join(". ") + "</p>\
+	<p>" + LANG.INTRO_SLIDE_4[lang].split(".").join(". ") + "</p>\
+	<p>" + LANG.INTRO_SLIDE_5[lang].split(".").join(". ") + "</p>\
+	<p>" + LANG.INTRO_SLIDE_6[lang].split(".").join(". ") + "</p>\
+	");
+	*/
 }
 /////////////
 // INIT DB //
@@ -726,6 +703,9 @@ function afterHide(cmd) {
 		$('body').css(prefix + "transition-duration",".25s");
 		$("body").css("opacity","0");
 		$('body').on(transitionend,function(e) { 
+			if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
+				navigator.splashscreen.show();
+			}		
 			//if logged, reload via callback
 			if(window.localStorage.getItem("facebook_logged") && cmd == "clear") {
 				$.post("http://kcals.net/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {

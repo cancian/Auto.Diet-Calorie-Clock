@@ -21,7 +21,7 @@
 	"installs_allowed_from" : [
 		"*"
 	],
-	"version" : "1.2.1",
+	"version" : "1.2.2",
 	"default_locale" : "en",
 	"name" : "Kcals",
 	"size": 3612346,

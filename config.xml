@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="12017" 
-        version   = "1.2.1">
+        versionCode="12200" 
+        version   = "1.2.2">
 
 	<content src="index.html" />
 	<access origin="*" />
@@ -96,6 +96,7 @@
 	</feature>
     <feature name="SplashScreen">
 		<param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
 	</feature>	
 	<feature name="GAPlugin">
 		<param name="android-package" value="com.adobe.plugins.GAPlugin" />
@@ -103,14 +104,14 @@
 	<feature name="org.apache.cordova.facebook.Connect">
 		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
 	</feature>
-
+	<!--
     <feature name="Notification">
         <param name="wp-package" value="Notification" />
     </feature>
     <feature name="InAppBrowser">
         <param name="wp-package" value="InAppBrowser" />
     </feature>
-	<!--
+
     <feature name="SplashScreen">
         <param name="wp-package" value="SplashScreen" />
     </feature>
