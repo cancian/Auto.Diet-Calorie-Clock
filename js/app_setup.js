@@ -56,7 +56,6 @@ function showIntro() {
 		<div id='step1'><span>1</span>" + LANG.STEP_1[lang] + "</div>\
 		<div id='step2'><span>2</span>" + LANG.STEP_2[lang] + "</div>\
 		<div id='step3'><span>3</span>" + LANG.STEP_3[lang] + "</div>\
-		<div id='closeDiv'>" + LANG.CLOSE_INTRO[lang] + "</div>\
 		<div id='appLang'>" + LANG.LANGUAGE_NAME[lang] + "</div>\
 	</div>");
 	$("#closeDiv").on(touchend,function(evt) {
@@ -101,6 +100,9 @@ $("#gettingStarted").prepend('\
 			<div class="slide" id="slide5">\
 				<div class="painting warhol"></div>\
 			</div>\
+			<div class="slide finalSlide" id="slide6">\
+				<div class="painting warhol"></div>\
+			</div>\
 		</div>\
 	</div>\
 </div>\
@@ -108,13 +110,14 @@ $("#gettingStarted").prepend('\
 	<div id="dotty"></div>\
 </div>');
 
-$("#slide1").html(LANG.STEP_1[lang]);
-$("#slide2").html(LANG.STEP_2[lang]);
-$("#slide3").html(LANG.STEP_3[lang]);
-$("#slide4").html(LANG.STEP_2[lang]);
-$("#slide5").html(LANG.CLOSE_INTRO[lang]);
+$("#slide1").html("<p>" + LANG.INTRO_SLIDE_1[lang].split(".").join(". ") + "</p>");
+$("#slide2").html("<p>" + LANG.INTRO_SLIDE_2[lang].split(".").join(". ") + "</p>");
+$("#slide3").html("<p>" + LANG.INTRO_SLIDE_3[lang].split(".").join(". ") + "</p>");
+$("#slide4").html("<p>" + LANG.INTRO_SLIDE_4[lang].split(".").join(". ") + "</p>");
+$("#slide5").html("<p>" + LANG.INTRO_SLIDE_5[lang].split(".").join(". ") + "</p>");
+$("#slide6").html("<p>" + LANG.INTRO_SLIDE_6[lang].split(".").join(". ") + "</p>");
 
-	$("#slide5").on(touchstart,function(evt) {
+	$(".finalSlide").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 			$("#gettingStarted").fadeOut(200,function() {
@@ -123,20 +126,21 @@ $("#slide5").html(LANG.CLOSE_INTRO[lang]);
 				getAnalytics('newInstall');
 			},600);
 		});
-		//myScroll.destroy();
+		myScroll.destroy();
 		return false;
 	});
-
-
+	///////////////
+	// INDICATOR //
+	///////////////
 	$(window).on("resize",function() {
 		$("#indicator").css("left",( ($("body").width() - $("#indicator").width()) / 2) + 'px');
 	});
 	$(window).trigger("resize");
-	//////////////////
-	// LOAD ISCROLL //
-	//////////////////
+	/////////////
+	// ISCROLL //
+	/////////////
 	setTimeout(function() {	
-		new IScroll('#wrapper', {
+		myScroll = new IScroll('#wrapper', {
 			scrollX: true,
 			scrollY: false,
 			momentum: false,

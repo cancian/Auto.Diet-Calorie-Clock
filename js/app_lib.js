@@ -23,8 +23,7 @@ var timerWait         = 100;
 var noTimer;
 jQuery.support.cors   = true
 function voidThis()   { }
-
-
+/*
 var console = {};
 console.log = function(e) {
 	if(!$("#appDebug").html()) {
@@ -45,7 +44,7 @@ console.log = function(e) {
 	}
 	$("#appDebug").prepend(e+"<br>");
 }
-
+*/
 /////////////
 // OPTIONS //
 /////////////
