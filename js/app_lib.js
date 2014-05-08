@@ -151,7 +151,7 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
-if(window.navigator.msPointerEnabled) {
+if(window.navigator.msPointerEnabled && !isDesktop()) {
 	touchstart = "MSPointerDown";
 	touchend   = "MSPointerUp";
 	touchmove  = "MSPointerMove";

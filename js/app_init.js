@@ -8,7 +8,7 @@ window.onerror = function(e, url, line) {
 		//if(window.external) { window.external.Notify('onerror: ' + e + ' URL:' + url + ' Line:' + line); } 
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
-	//return true; 
+	return true; 
 }
 //////////////
 // VIEWPORT //

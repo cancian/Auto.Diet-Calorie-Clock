@@ -1952,9 +1952,11 @@ function getAnalytics(target) {
 	function errorHandler()   {}
 	if(target == "init") {
 		//ga plugin
-		gaPlugin = window.plugins.gaPlugin;
-		if(gaPlugin) {
-			gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
+		if(window.plugins) {
+			if(gaPlugin = window.plugins.gaPlugin) {	
+				gaPlugin = window.plugins.gaPlugin;
+				gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
+			}
 		}
 		//ga web
 		if(ga_storage) {
@@ -1978,9 +1980,11 @@ function getAnalytics(target) {
 		// TRACK EVT //
 		///////////////
 		//ga plugin
-		if(gaPlugin) {
-			gaPlugin.trackPage(successHandler, errorHandler, trackString);
-			gaPlugin.trackEvent(successHandler, errorHandler, appOS, target, lang, appBuild);
+		if(window.plugins) {
+			if(gaPlugin = window.plugins.gaPlugin) {	
+				gaPlugin.trackPage(successHandler, errorHandler, trackString);
+				gaPlugin.trackEvent(successHandler, errorHandler, appOS, target, lang, appBuild);
+			}
 		}
 		//ga storage
 		if(ga_storage) {
