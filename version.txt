@@ -1,6 +1,10 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.2.2 [08/05/2014]
+
+• entries older than a week are now hidden by default, with option to load all at the bottom.
+• fixed an issue where spinner would not fade away after task ended
 • more detailed nutritional data;
 • login system is now more reliable;
 • refined language detection;

@@ -825,10 +825,12 @@ diaryHtml += '\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
 			// ROW++ (sqlish sort)
-			if(lastPub > Number(data[i].published)) {
-				s = s + dataHandler;
-			} else {
-				s = dataHandler + s;
+			if(((new Date().getTime()) - dataPublished) < 60*60*24*7*1000) {
+				if(lastPub > Number(data[i].published)) {
+					s = s + dataHandler;
+				} else {
+					s = dataHandler + s;
+				}
 			}
 			lastPub = Number(data[i].published);
 			//partial == last row time
@@ -1195,6 +1197,12 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}
+		//drop food db
+		if($("#entryBody").val().toLowerCase() == "devhassql") {
+			if(hasSql == true) { alert('sql'); } else { alert('localstorage'); }
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+		}		
 		//refresh
 		if($("#entryBody").val().toLowerCase() == "devreload") {
 			window.location.reload(true);
@@ -1248,6 +1256,9 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	//# CLEAR ALL BAR #//
 	//#///////////////#//
 	$("#entryListBottomBar").on(touchend, function(evt) {
+		
+		updateEntries({range: 'full'});
+		return;
 		evt.preventDefault();
 		//not while editing		
 		if($('#entryList div').is(':animated') || $('.editableInput').is(':visible')) { return; }	

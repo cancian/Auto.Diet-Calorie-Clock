@@ -1,7 +1,7 @@
 /*
 	Kailash Nadh (http://nadh.in)
 
-	localStorageDB
+	localStorageDB v 2.3.1
 	September 2011
 	A simple database layer for localStorage
 
@@ -153,8 +153,9 @@
 		}
 
 		// select rows, given a list of ids of rows in a table
-		function select(table_name, ids, sort) {
+		function select(table_name, ids, start, limit, sort) {
 			var id = null, results = [], row = null;
+
 			for(var i=0; i<ids.length; i++) {
 				id = ids[i];
 				row = db.data[table_name][id];
@@ -166,6 +167,18 @@
 				for(var i=0; i<sort.length; i++) {
 					results.sort(sort_results(sort[i][0], sort[i].length > 1 ? sort[i][1] : null));
 				}
+			}
+
+			// limit and offset
+			start = start && typeof start === "number" ? start : null;
+			limit = limit && typeof limit === "number" ? limit : null;
+
+			if(start && limit) {
+				results = results.slice(start, start+limit);
+			} else if(start) {
+				results = results.slice(start);
+			} else if(limit) {
+				results = results.slice(start, limit);
 			}
 
 			return results;
@@ -183,11 +196,10 @@
 		}
 
 		// select rows in a table by field-value pairs, returns the ids of matches
-		function queryByValues(table_name, data, limit, start) {
+		function queryByValues(table_name, data) {
 			var result_ids = [],
 				exists = false,
 				row = null;
-				start_n = 0;
 
 			// loop through all the records in the table, looking for matches
 			for(var id in db.data[table_name]) {
@@ -216,25 +228,18 @@
 					}
 				}
 				if(exists) {
-					if(typeof start === 'number' && start_n < start) {
-						start_n++;
-						continue;
-					}
 					result_ids.push(id);
 				}
-				if(result_ids.length == limit) {
-					break;
-				}
 			}
+
 			return result_ids;
 		}
 
 		// select rows in a table by a function, returns the ids of matches
-		function queryByFunction(table_name, query_function, limit, start) {
+		function queryByFunction(table_name, query_function) {
 			var result_ids = [],
 				exists = false,
-				row = null,
-				start_n = 0;
+				row = null;
 
 			// loop through all the records in the table, looking for matches
 			for(var id in db.data[table_name]) {
@@ -245,36 +250,20 @@
 				row = db.data[table_name][id];
 
 				if( query_function( clone(row) ) == true ) {	// it's a match if the supplied conditional function is satisfied
-					if(typeof start === 'number' && start_n < start) {
-						start_n++;
-						continue;
-					}
 					result_ids.push(id);
 				}
-				if(result_ids.length == limit) {
-					break;
-				}
 			}
+
 			return result_ids;
 		}
 
 		// return all the ids in a table
-		function getids(table_name, limit, start) {
-			var result_ids = [],
-				start_n = 0;
+		function getids(table_name) {
+			var result_ids = [];
 
 			for(var id in db.data[table_name]) {
 				if( db.data[table_name].hasOwnProperty(id) ) {
-					if(typeof start === 'number' && start_n < start) {
-						start_n++;
-						continue;
-					}
-
 					result_ids.push(id);
-
-					if(result_ids.length == limit) {
-						break;
-					}
 				}
 			}
 			return result_ids;
@@ -317,12 +306,10 @@
 			return num;
 		}
 
-
-
 		// commit the database to localStorage
 		function commit() {
 			try {
-				storage[db_id] = JSON.stringify(db);
+				storage.setItem(db_id, JSON.stringify(db));
 				return true;
 			} catch(e) {
 				return false;
@@ -620,7 +607,7 @@
 					result_ids = queryByFunction(table_name, query, limit, start);
 				}
 
-				return select(table_name, result_ids, sort);
+				return select(table_name, result_ids, start, limit, sort);
 			},
 
 			// alias for query() that takes a dict of params instead of positional arrguments

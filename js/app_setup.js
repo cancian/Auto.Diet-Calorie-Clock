@@ -106,22 +106,24 @@ function showIntro() {
 	/////////////
 	// ISCROLL //
 	/////////////
-	setTimeout(function() {	
-		myScroll = new IScroll('#wrapper', {
-			scrollX: true,
-			scrollY: false,
-			momentum: false,
-			snap: true,
-			snapSpeed: 500,
-			snapThreshold: .2,
-			keyBindings: true,
-			//bindToWrapper: true,
-			indicators: {
-				el: document.getElementById('indicator'),
-				resize: false
-			}
-		});
-	},500);
+	if($("#gettingStarted").html()) {
+		setTimeout(function() {	
+			myScroll = new IScroll('#wrapper', {
+				scrollX: true,
+				scrollY: false,
+				momentum: false,
+				snap: true,
+				snapSpeed: 500,
+				snapThreshold: .2,
+				keyBindings: true,
+				//bindToWrapper: true,
+				indicators: {
+					el: document.getElementById('indicator'),
+					resize: false
+				}
+			});
+		},500);
+	}
 	/*
 	$("#slide1").html("\
 	<p>" + LANG.INTRO_SLIDE_1[lang].split(".").join(". ") + "</p>\
@@ -166,19 +168,19 @@ function initDB(t) {
 		window.localStorage.setItem("lastInfoTab","topBarItem-1");
 	}
 	//CONSOLE('initDB');
-/////////////////////////////////////////
-//	//if not sql already, dont use sql //
-/////////////////////////////////////////
+	//////////////////////////////////////////
+	// if not sql already, use localstorage //
+	//////////////////////////////////////////
+	/*
 	//TABLE EXISTS
-/*	if(hasSql) {
+	if(hasSql) {
 		t.executeSql('select * from diary_entry order by published desc',[],
-	function(t,results) {
-		//alert((fixResults(results)).length);
-	},function(t) { 
-	//alert('no nada');
-	 });
-//false hassql if empty
-}*/
+			function(t,results) {
+				if(fixResults(results).length == 0) { hasSql = false; }
+				alert(fixResults(results).length);
+		},function(t) {});
+	}
+	*/
 	///////////////////
 	// CREATE TABLES //
 	///////////////////
@@ -740,18 +742,10 @@ function spinner(size) {
 	// STOP //
 	//////////
 	if(size == 'stop') {
-		$("#tempHolder").fadeOut(125,function() {
-			$("#tempHolder").remove();
-			setTimeout(function() { $("#tempHolder").remove(); },150);
-			setTimeout(function() { $("#tempHolder").remove(); },250);
-			setTimeout(function() { $("#tempHolder").remove(); },500);
-			setTimeout(function() { $("#modalOverlay").remove(); },150);
-			setTimeout(function() { $("#modalOverlay").remove(); },250);
-			setTimeout(function() { $("#modalOverlay").remove(); },500);
-			setTimeout(function() { $("#spinner").remove(); },150);
-			setTimeout(function() { $("#spinner").remove(); },250);
-			setTimeout(function() { $("#spinner").remove(); },500);
-		});
+		$("#tempHolder, #modalOverlay, #spinner").remove();
+		setTimeout(function() { $("#tempHolder, #modalOverlay, #spinner").remove(); },150);
+		setTimeout(function() { $("#tempHolder, #modalOverlay, #spinner").remove(); },250);
+		setTimeout(function() { $("#tempHolder, #modalOverlay, #spinner").remove(); },500);
 		return;
 	}
 	//////////
@@ -815,7 +809,7 @@ function updateFoodDb() {
 				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
 				//import sql
 				var dbLang = (LANG.LANGUAGE[lang] == "pt") ? "pt" : "en";
-				$.get("searchdb_" + dbLang + ".sql",function(sql) {
+				$.get(hostLocal + "searchdb_" + dbLang + ".sql",function(sql) {
 					html5sql.process(sql,function() {
 						//success
 						demoRunning = false;
@@ -837,7 +831,7 @@ function updateFoodDb() {
 			//LOCALSTORAGE
 			} else {
 				var dbLang = (LANG.LANGUAGE[lang] == "pt") ? "pt" : "en";
-				$.get("searchdb_" + dbLang + ".js",function(ls) {
+				$.get(hostLocal + "searchdb_" + dbLang + ".js",function(ls) {
 					eval(ls);
 					lib2.commit();
 					//success
@@ -909,6 +903,7 @@ function pageLoad(target,content,published) {
 		$(page).trigger("pageload");
 	//	page[0].dispatchEvent(evt);
 	}
+	//$('#entryList div:gt(50)').hide();
 	return;
 }
 ///////////////
@@ -932,7 +927,10 @@ function fillDate(timestamp,element) {
 // UPDATE ENTRYLIST //
 //////////////////////
 var partial = "";
-function updateEntries(partial) {
+function updateEntries(partial,range) {
+	
+	alert(partial);
+	alert(range);
 	CONSOLE('pageLoad(' + partial + ')');	
 	getEntries(function(data) {
 		var s = "";
@@ -982,10 +980,13 @@ function updateEntries(partial) {
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
 			// ROW++ (sqlish sort)
+			if(((new Date().getTime()) - dataPublished) < 60*60*24*7*1000 || range == "full") {
+
 			if(lastPub > Number(data[i].published)) {
 				s = s + dataHandler;
 			} else {
 				s = dataHandler + s;
+			}
 			}
 			lastPub = Number(data[i].published);
 			//partial == last row time
@@ -1013,6 +1014,7 @@ function updateEntries(partial) {
 			$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 		}
 	});
+	
 }
 /////////////////////////////
 // UPDATE ENTRYLIST *TIME* //
@@ -1909,7 +1911,7 @@ function getStoreUrl(button) {
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8', '_system', 'location=yes'); }
 		else if(isMobile.Android())   { window.open('https://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');                 }
 		else if(isMobile.Windows())   { window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_system', 'location=yes');     }
-		else if(isMobile.FirefoxOS()) { window.open('https://marketplace.firefox.com/app/mylivediet', '_system', 'location=yes');                               }
+		else if(isMobile.FirefoxOS()) { window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');                               }
 	}
 }
 function getRateDialog() {
@@ -1939,12 +1941,12 @@ var trackString;
 var gaPlugin;
 function getAnalytics(target) {
 	//not dev
-	if(window.localStorage.getItem("config_debug")    == "active")		{ return; }
-	if(window.localStorage.getItem("facebook_userid") == 1051211303)	{ return; }
-	if((/192.168.1.5/).test(document.URL))								{ return; }
-	if((/home/).test(document.URL))										{ return; }
-	if((/www.cancian/).test(document.URL))								{ return; }
-	if(isMobile.OSX() && !isDesktop()) 									{ return; }
+	//if(window.localStorage.getItem("config_debug")    == "active")		{ return; }
+	//if(window.localStorage.getItem("facebook_userid") == 1051211303)	{ return; }
+	//if((/192.168.1.5/).test(document.URL))								{ return; }
+	//if((/home/).test(document.URL))										{ return; }
+	//if((/www.cancian/).test(document.URL))								{ return; }
+	//if(isMobile.OSX() && !isDesktop()) 									{ return; }
 	//////////
 	// INIT //
 	//////////
@@ -1953,7 +1955,7 @@ function getAnalytics(target) {
 	if(target == "init") {
 		//ga plugin
 		if(window.plugins) {
-			if(gaPlugin = window.plugins.gaPlugin) {	
+			if(window.plugins.gaPlugin) {	
 				gaPlugin = window.plugins.gaPlugin;
 				gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
 			}
@@ -1981,7 +1983,7 @@ function getAnalytics(target) {
 		///////////////
 		//ga plugin
 		if(window.plugins) {
-			if(gaPlugin = window.plugins.gaPlugin) {	
+			if(window.plugins.gaPlugin) {	
 				gaPlugin.trackPage(successHandler, errorHandler, trackString);
 				gaPlugin.trackEvent(successHandler, errorHandler, appOS, target, lang, appBuild);
 			}
