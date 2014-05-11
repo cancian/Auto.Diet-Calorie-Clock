@@ -12,6 +12,7 @@ $(document).on("pageload", function(evt) {
 	// HOLD PRE-FILL //
 	///////////////////
 	var deKeyboard = 0;
+	/*
 	$("#entryList div" + tgt).on("longhold",function(evt) {
 		if($('#entryList .entryListRow').length > 0 && !$("#kcalsDiv").is(":visible") && !$('.delete').hasClass('open') && deKeyboard == 0) {
 			var holdPreText = trim($('.entriesBody',this).text());
@@ -22,6 +23,7 @@ $(document).on("pageload", function(evt) {
 	$("#appContent").scroll(function() {
 		deKeyboard = 1;
 	});
+	*/
 	//////////////////
 	// FORCE RETURN //
 	//////////////////
@@ -379,11 +381,13 @@ $(document).on("pageload", function(evt) {
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
 	//block hold prefill
-	$("#entryList").on("swipe",function(evt) {
-		deKeyboard = 1;
-	});
+	//$("#entryList").on("swipe",function(evt) {
+	//	deKeyboard = 1;
+	//});
+	var swippen;
 	$("#entryList div" + tgt).swipe({
 		swipe:function(event,direction) {
+			swippen = this;
 			//console.log("row " + $(this).parent('div').data("id") + " swipe");
 			if(direction == 'left' || direction == 'right') {
 				//HIDE ACTIVE
@@ -395,10 +399,12 @@ $(document).on("pageload", function(evt) {
 				}
 				//SHOW
 				if(!$('#entryList div:animated').length > 0 && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('.editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
-					$('.delete',this).addClass('active');
-					$('.delete',this).addClass('busy');
-					$('.delete',this).addClass('open');
-					$('.delete',this).on(transitionend,function(evt) { $('.delete').removeClass('busy'); }); 
+					$('.delete',swippen).addClass('busy');
+					setTimeout(function() {					
+						$('.delete',swippen).addClass('active');
+						$('.delete',swippen).addClass('open');
+						$('.delete',swippen).on(transitionend,function(evt) { $('.delete').removeClass('busy'); }); 
+					},0);
 				}
 			}
 		}

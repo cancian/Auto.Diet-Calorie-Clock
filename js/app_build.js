@@ -712,15 +712,16 @@ function openStatus(string) {
 ############################*/
 function openDiary(string) {
 getEntries(function(data) {
+//
 updateEntriesSum();
 //RAW HTML
-var diaryHtml = ""
-var lHour   = LANG.HOUR[lang];
-var lHours  = LANG.HOURS[lang];
-var lDay    = LANG.DAY[lang];
-var lDays   = LANG.DAYS[lang];
-var lAgo    = " " + LANG.AGO[lang];
-var lPreAgo = LANG.PREAGO[lang] + " ";
+var diaryHtml    = "";
+var lHour        = LANG.HOUR[lang];
+var lHours       = LANG.HOURS[lang];
+var lDay         = LANG.DAY[lang];
+var lDays        = LANG.DAYS[lang];
+var lAgo         = " " + LANG.AGO[lang];
+var lPreAgo      = LANG.PREAGO[lang] + " ";
 //android 2.x select fix
 var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
 		<option value="0">'   + LANG.NOW[lang]  +                 '</option>\
@@ -782,12 +783,16 @@ diaryHtml += '\
 		var s = "";
 		var p = "";
 		var rowClass;
-		var lastRow = "";
-		var lastId  = "";
-		var lastPub = 0;
-		var langFood = LANG.FOOD[lang];
-		var langExer = LANG.EXERCISE[lang];
-		var langDel = LANG.DELETE[lang];
+		var lastRow      = "";
+		var lastId       = "";
+		var lastPub      = 0;
+		var langFood     = LANG.FOOD[lang];
+		var langExer     = LANG.EXERCISE[lang];
+		var langDel      = LANG.DELETE[lang];
+		var totalEntries       = 0;
+		var totalRecentEntries = 0;
+		var totalEntried       = Number(window.localStorage.getItem('totalEntries'));
+		var totalRecentEntried = Number(window.localStorage.getItem('totalRecentEntries'));
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = Number(data[i].title);
@@ -825,7 +830,12 @@ diaryHtml += '\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
 			// ROW++ (sqlish sort)
-			if(((new Date().getTime()) - dataPublished) < 60*60*24*7*1000) {
+			totalEntries++;
+			if((new Date().getTime() - dataPublished) < 60*60*24*5*1000) {
+				totalRecentEntries++;
+			}
+
+			if(((new Date().getTime() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20) {
 				if(lastPub > Number(data[i].published)) {
 					s = s + dataHandler;
 				} else {
@@ -839,6 +849,9 @@ diaryHtml += '\
 				lastId  = data[i].id;
 			}
 		}
+		//N# OF ENTRIES
+		window.localStorage.setItem('totalEntries',totalEntries);
+		window.localStorage.setItem('totalRecentEntries',totalRecentEntries);
 	////////////////
 	// UPDATE DIV //
 	////////////////
@@ -1256,9 +1269,6 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	//# CLEAR ALL BAR #//
 	//#///////////////#//
 	$("#entryListBottomBar").on(touchend, function(evt) {
-		
-		updateEntries({range: 'full'});
-		return;
 		evt.preventDefault();
 		//not while editing		
 		if($('#entryList div').is(':animated') || $('.editableInput').is(':visible')) { return; }	
@@ -1496,6 +1506,25 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		});
 	});
 });
+//////////////////////
+// ENDSCROLL LOADER //
+//////////////////////
+var topLock = 0;
+var topTimer;
+$('#appContent').scroll(function() {
+	clearTimeout(topTimer);
+	topTimer = setTimeout(function() {
+		var entryListHeight = $('#entryList').height() * .9;
+		if(topLock != 0)                  { return; }
+		if($('#go').hasClass("scrolled")) { return; }
+		console.log("scrolled: " + $('#appContent').scrollTop() + " total: " + entryListHeight);
+		if($('#appContent').scrollTop()+500 > entryListHeight) {
+			topLock = 1;
+			$('#go').addClass("scrolled");
+			updateEntries('','full');
+		}
+	},100);
+	});
 }
 /*##############################
 ## HTML BUILDS ~ OPEN PROFILE ##

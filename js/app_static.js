@@ -537,7 +537,7 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //####   START WORKING   ####//
 //###########################//
 setTimeout(function() {
-	updateEntries();
+	//updateEntries();
 	if(opaLock < 2 && $("body").css("opacity") == 0) {
 		$("body").css("opacity","1");
 	}

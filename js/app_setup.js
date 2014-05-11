@@ -114,7 +114,7 @@ function showIntro() {
 				momentum: false,
 				snap: true,
 				snapSpeed: 500,
-				snapThreshold: .2,
+				snapThreshold: .225,
 				keyBindings: true,
 				//bindToWrapper: true,
 				indicators: {
@@ -166,6 +166,12 @@ function initDB(t) {
 	}
 	if(!window.localStorage.getItem("lastInfoTab")) {
 		window.localStorage.setItem("lastInfoTab","topBarItem-1");
+	}
+	if(!window.localStorage.getItem("totalEntries")) {
+		window.localStorage.setItem("totalEntries",0);
+	}	
+	if(!window.localStorage.getItem("totalRecentEntries")) {
+		window.localStorage.setItem("totalRecentEntries",0);
 	}
 	//CONSOLE('initDB');
 	//////////////////////////////////////////
@@ -928,10 +934,12 @@ function fillDate(timestamp,element) {
 //////////////////////
 var partial = "";
 function updateEntries(partial,range) {
-	
-	alert(partial);
-	alert(range);
-	CONSOLE('pageLoad(' + partial + ')');	
+	//CONSOLE('pageLoad(' + partial + ')');	
+	var totalEntryS       = Number(window.localStorage.getItem('totalEntries'));
+	var totalRecentEntryS = Number(window.localStorage.getItem('totalRecentEntries'));
+	//////////////
+	// GET LOOP //
+	//////////////
 	getEntries(function(data) {
 		var s = "";
 		var p = "";
@@ -943,6 +951,10 @@ function updateEntries(partial,range) {
 		var langExer = LANG.EXERCISE[lang];
 		var langDel  = LANG.DELETE[lang];
 		var langKcal = LANG.KCAL[lang];
+		var totalEntries       = 0;
+		var totalRecentEntries = 0;
+		var totalEntried       = Number(window.localStorage.getItem('totalEntries'));
+		var totalRecentEntried = Number(window.localStorage.getItem('totalRecentEntries'));
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = Number(data[i].title);
@@ -980,13 +992,17 @@ function updateEntries(partial,range) {
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
 			// ROW++ (sqlish sort)
-			if(((new Date().getTime()) - dataPublished) < 60*60*24*7*1000 || range == "full") {
-
-			if(lastPub > Number(data[i].published)) {
-				s = s + dataHandler;
-			} else {
-				s = dataHandler + s;
+			// ROW++ (sqlish sort)
+			totalEntries++;
+			if((new Date().getTime() - dataPublished) < 60*60*24*5*1000) {
+				totalRecentEntries++;
 			}
+			if(((new Date().getTime() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20 || range == "full") {
+				if(lastPub > Number(data[i].published)) {
+					s = s + dataHandler;
+				} else {
+					s = dataHandler + s;
+				}
 			}
 			lastPub = Number(data[i].published);
 			//partial == last row time
@@ -1006,6 +1022,7 @@ function updateEntries(partial,range) {
 			} else {
 				//FULL
 				pageLoad("#entryList",s);
+				if(range == "full") { niceResizer(200); }
 			}
 		//EMPTY
 		} else {
@@ -1013,8 +1030,10 @@ function updateEntries(partial,range) {
 			//pageLoad('#entryList','<div id="noEntries"><span>no entries</span></div>');
 			$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 		}
+		//N# OF ENTRIES
+		window.localStorage.setItem('totalEntries',totalEntries);
+		window.localStorage.setItem('totalRecentEntries',totalRecentEntries);
 	});
-	
 }
 /////////////////////////////
 // UPDATE ENTRYLIST *TIME* //
@@ -1941,12 +1960,11 @@ var trackString;
 var gaPlugin;
 function getAnalytics(target) {
 	//not dev
-	//if(window.localStorage.getItem("config_debug")    == "active")		{ return; }
-	//if(window.localStorage.getItem("facebook_userid") == 1051211303)	{ return; }
-	//if((/192.168.1.5/).test(document.URL))								{ return; }
-	//if((/home/).test(document.URL))										{ return; }
-	//if((/www.cancian/).test(document.URL))								{ return; }
-	//if(isMobile.OSX() && !isDesktop()) 									{ return; }
+	if(window.localStorage.getItem("config_debug")    == "active")		{ return; }
+	if(window.localStorage.getItem("facebook_userid") == 1051211303)	{ return; }
+	if((/192.168.1.5/).test(document.URL))								{ return; }
+	if((/home/).test(document.URL))										{ return; }
+	if((/www.cancian/).test(document.URL))								{ return; }
 	//////////
 	// INIT //
 	//////////

@@ -2,18 +2,12 @@
 ## VERSION LOG ##
 #################
 # 1.2.2 [08/05/2014]
-
-• entries older than a week are now hidden by default, with option to load all at the bottom.
-• fixed an issue where spinner would not fade away after task ended
-• more detailed nutritional data;
-• login system is now more reliable;
-• refined language detection;
-• translated into: Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian;
-• improved performance (smaller cpu usage);
-• minor bug fixes;
-• 
-• 
-• 
+• more detailed nutritional data; 
+• improved overall performance; 
+• smarter management for long lists; 
+• fixed an issue where Spinner does not disappear after the end of the task; 
+• translated into Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian; 
+• minor bug fixes.
 
 # 1.2.1 [18/04/2014]
 • status now displays statistics

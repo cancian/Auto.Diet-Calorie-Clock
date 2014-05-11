@@ -1,6 +1,7 @@
 var appName     = "Kcals";
 var appVersion  = "1.2.2 (12201)";
-var appBuild    = appVersion.slice(7,-1);
+var appBuild    = appVersion.split(" ")[1].replace("(","").replace(")",""); //appVersion.slice(7,-1);
+var appRelease  = appVersion.split(" ")[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|ga|hi|hr|hu|hy|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
 var lang        = "en";
 var defaultLang = "en";
@@ -48,6 +49,14 @@ if((lang == "hy" || window.outerHeight < 362) && $("#viewPort").attr('initial-sc
 	$("head").prepend('<meta name="viewport" id="viewPort" content="user-scalable=yes, initial-scale=.9, maximum-scale=.9, minimum-scale=.9, width=device-width, minimal-ui" />');
 }
 */
+////////////////
+// WRITE DOWN //
+////////////////
+//window.localStorage.setItem("appName",appName);
+//window.localStorage.setItem("appVersion",appVersion);
+//window.localStorage.setItem("appBuild",appBuild);
+//window.localStorage.setItem("appRelease",appRelease);
+//window.localStorage.setItem("appLang",lang);
 //#////////////#//
 //# LANG ARRAY #//
 //#////////////#//
@@ -237,7 +246,7 @@ var LANG = {
 		cs : 'Počítadlo kalorií',
 		da : 'Kalorietæller',
 		de : 'Kalorienzähler',
-		el : 'μετρητής θερμίδων',
+		el : 'θερμιδομετρητής',
 		es : 'Contador de calorías',
 		et : 'kalorikulu',
 		fa : 'کالری مبارزه با',
@@ -247,8 +256,8 @@ var LANG = {
 		hi : "कैलोरी काउंटर",
 		hr : 'brojač kalorija',
 		hu : 'kalóriaszámláló',
-		hy : 'ջերմություն Ժամացույց',
-		it : 'Contatore calorie',
+		hy : 'Կալորիականությամբ հաշվիչ',
+		it : 'contacalorie',
 		id : 'penghitung kalori',
 		iw : 'קלוריה מונה',
 		ja : 'カロリーカウンター',
@@ -265,8 +274,8 @@ var LANG = {
 		sl : 'števec kalorij',
 		sr : 'Бројач калорија',
 		sv : 'Kaloriräknare',
-		th : 'แคลอรี่ เคาน์เตอร์',
-		tr : 'Kalori Sayacı',
+		th : 'แคลอรี่เคาน์เตอร์',
+		tr : 'kalori sayacı',
 		uk : 'Лічильник калорій',
 		vi : 'truy cập calo',
 		zh : '卡路里计数器',
@@ -281,7 +290,7 @@ var LANG = {
 		cs : appName + ' počítadlo kalorií',
 		da : appName + ' kalorietæller',
 		de : appName + ' Kalorienzähler',
-		el : appName + ' μετρητής θερμίδων',
+		el : appName + ' θερμιδομετρητής',
 		es : appName + ' comptador de calories',
 		et : appName + ' kalorikulu',
 		fa : appName + ' کالری مبارزه با',
@@ -291,7 +300,7 @@ var LANG = {
 		hi : appName + ' कैलोरी काउंटर',
 		hr : appName + ' Brojač kalorija',
 		hu : appName + ' kalóriaszámláló',
-		hy : appName + ' ջերմություն Ժամացույց',
+		hy : appName + ' Կալորիականությամբ հաշվիչ',
 		it : appName + ' contacalorie',
 		id : appName + ' penghitung kalori',
 		iw : appName + ' קלוריה מונה',
@@ -309,12 +318,56 @@ var LANG = {
 		sl : appName + ' števec kalorij',
 		sr : appName + ' калорија бројач',
 		sv : appName + ' Kaloriräknare',
-		th : appName + ' แคลอรี่ เคาน์เตอร์',
-		tr : appName + ' kalori sayar',
+		th : appName + ' แคลอรี่เคาน์เตอร์',
+		tr : appName + ' kalori sayacı',
 		uk : appName + ' Лічильник калорій',
 		vi : appName + ' truy cập calo',
 		zh : appName + ' 卡路里计数器',
 		zt : appName + ' 卡路里計數器',
+	},
+	APPSTORE_KEYWORDS : {
+		en : '',
+		pt : '',
+		ar : '',
+		bg : '',
+		ca : '',
+		cs : '',
+		da : '',
+		de : '',
+		el : '',
+		es : '',
+		et : '',
+		fa : '',
+		fi : '',
+		fr : '',
+		ga : '',
+		hi : '',
+		hr : '',
+		hu : '',
+		hy : '',
+		it : '',
+		id : '',
+		iw : '',
+		ja : '',
+		ko : '',
+		lt : '',
+		lv : '',
+		ms : '',
+		nl : '',
+		nb : '',
+		pl : '',
+		ro : '',
+		ru : '',
+		sk : '',
+		sl : '',
+		sr : '',
+		sv : '',
+		th : '',
+		tr : '',
+		uk : '',
+		vi : '',
+		zh : '',
+		zt : '',
 	},
 	AUTO_DETECT : {
 		en : 'Auto Detect',

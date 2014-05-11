@@ -91,7 +91,7 @@ var isMobile = {
 		return ((/firefox/).test(navigator.userAgent.toLowerCase()) && (/mobile/).test(navigator.userAgent.toLowerCase()) && (/gecko/).test(navigator.userAgent.toLowerCase())) ? true : false;
 	},
 	OSX: function() {
-		return (/Macintosh|Mac OS X/i.test(navigator.userAgent)) ? true : false;
+		return ((/Macintosh|Mac OS X/i.test(navigator.userAgent)) && !navigator.userAgent.match(/iPhone|iPad|iPod/i)) ? true : false;
 	}
 }
 //#///////////#//
