@@ -73,9 +73,7 @@ table {
 */
 html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-/*
-body									{ -ms-touch-action: pan-y; touch-action: pan-y; -ms-content-zooming: none; }
-*/
+#appContent,#pageSlideFood				{ -ms-touch-action: pan-y; touch-action: pan-y; }
 html,body,input,select,textarea,
 input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; line-height: normal; -webkit-font-smoothing: antialiased; }
 div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
@@ -526,9 +524,7 @@ max-width: 100%;
 
 background-color: #4285F4;
 border: 1px solid #4285F4;
-border-left: 1px solid #4285F4;
-border-right: 1px solid #4285F4;
-border-bottom: 2px solid #4285F4;
+border-width: 2px 1px;
 color: #fff;
 font-size: 18px; line-height: 18px;  box-sizing: border-box; display: inline-block; 
 }
@@ -789,6 +785,8 @@ border-color: #4285F4 !important; background-color: #4285F4 !important; border: 
 //////////////*/
 #entryList					{ width: 100%; font-size: 13px; /*-webkit-transform: translate3d(0, 0, 0);*/ }
 #entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; height: 28px; border-top: 0px solid #fff; /*overflow: hidden;*/ }
+.msie #entryList div		{ padding: 15px 0 1px 0; height: 29px; }
+
 body.ios #entryList div		{ padding: 15px 0 1px 0; }
 #entryList					{ width: 100%; min-height: 44px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
@@ -820,6 +818,11 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 .entriesKcals				{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
 .entriesBody				{ display: block; text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; line-height: 16px; }
 .entriesBody input			{ display: block; font-size: 10pt; height: 16px; }
+
+.entriesBody{ font-size: 10pt; height: 18px; line-height: 16px;  }
+.entriesBody input,
+#editableInput		{ font-size: 10pt; height: 18px; line-height: 18px; margin-top: -1px; }
+
 .appLang-fa .entriesKcals,
 .appLang-ar .entriesKcals	{ width: 70px; font-size: 10px; color: #999; padding-top: 0px; float: left; position: absolute; bottom: 0px; left: 13px; }
 .appLang-fa .entriesTitle,
