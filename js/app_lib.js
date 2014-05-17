@@ -1,4 +1,4 @@
-//#/////////////#//
+﻿//#/////////////#//
 //# GLOBAL VARS #//
 //#/////////////#//
 var storage           = window.localStorage;
@@ -85,8 +85,14 @@ var isMobile = {
 		return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 	},
 	Windows: function() {
-		return navigator.userAgent.match(/IEMobile/i) ? true : false;
+		return (navigator.userAgent.match(/IEMobile/i)) ? true : false;
 	},
+	//Windows: function() {
+	//	return navigator.userAgent.match(/Windows/i) ? true : false;
+	//},
+	MSApp: function() {
+		return navigator.userAgent.match(/MSApp/i) ? true : false;
+	},	
 	FirefoxOS: function() {
 		return ((/firefox/).test(navigator.userAgent.toLowerCase()) && (/mobile/).test(navigator.userAgent.toLowerCase()) && (/gecko/).test(navigator.userAgent.toLowerCase())) ? true : false;
 	},
@@ -342,5 +348,37 @@ function getOrientation() {
 	else if (window.orientation == 0 || window.orientation == 180) {
 		return "portrait";
 	}
+}
+/////////////////
+// ALERT METRO //
+/////////////////
+if(navigator.userAgent.match(/MSApp/i)) {
+	(function() {
+		var alertsToShow = [];
+		var dialogVisible = false;
+		function showPendingAlerts()
+		{
+			if (dialogVisible || !alertsToShow.length)
+			{
+				return;
+			}
+			dialogVisible = true;
+			(new Windows.UI.Popups.MessageDialog(alertsToShow.shift())).showAsync().done(function ()
+			{
+				dialogVisible = false;
+				showPendingAlerts();
+			}
+			)
+		}
+		window.alert = function (message)
+		{
+			if (window.console && window.console.log)
+			{
+				window.console.log(message);
+			}
+			alertsToShow.push(message);
+			showPendingAlerts();
+		}
+	})();
 }
 

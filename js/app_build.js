@@ -1,4 +1,4 @@
-/*########################################
+﻿/*########################################
 ####    HTML BUILDS ~ OPEN SETTINGS   ####
 ########################################*/
 function openSettings(string) {
@@ -54,7 +54,7 @@ function openSettings(string) {
 	//if(!hasTouch()) {
 		$("#optionReview").remove();
 	//}
-	if(isMobile.Windows()) {
+	if(isMobile.Windows() || isMobile.MSApp()) {
 		$("#optionFacebook").remove();
 		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=msft-9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e://authorize';
 
@@ -107,7 +107,12 @@ function openSettings(string) {
 				}
 			}
 			//CONFIRM DIALOG
-			if(hasTouch()) {
+		if(isMobile.MSApp()) {
+			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.LOGOUT_TITLE[lang]);
+			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { onConfirmLogout(1); } });
+		} else if(hasTouch()) {
 				navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmLogout, LANG.LOGOUT_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 			} else {
 				if(confirm(LANG.LOGOUT_TITLE[lang] + "\n" + LANG.ARE_YOU_SURE[lang])) { onConfirmLogout(1); } else { }
@@ -323,7 +328,12 @@ function openSettings(string) {
 			}
 		}
 		//SHOW DIALOG
-		if(hasTouch()) {
+		if(isMobile.MSApp()) {
+			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.SETTINGS_WIPE_TITLE[lang]);
+			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) {onConfirmWipe(1); } });
+		} else if(hasTouch()) {
 			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmWipe, LANG.SETTINGS_WIPE_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 			return false;
 		} else {
@@ -576,7 +586,12 @@ function openStatus(string) {
 				return false;
 			}
 			//SHOW DIALOG
-			if(hasTouch()) {
+		if(isMobile.MSApp()) {
+			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.RESET_COUNTER_TITLE[lang]);
+			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { appReset(1); } });
+		} else if(hasTouch()) {
 				navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], appReset, LANG.RESET_COUNTER_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 				return false;
 			} else {
@@ -966,7 +981,12 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			}
 			//SHOW START DIALOG
 			if(window.localStorage.getItem("appStatus") != "running") {
-				if(hasTouch()) {
+				if(isMobile.MSApp()) {
+					var md = new Windows.UI.Popups.MessageDialog(LANG.NOT_RUNNING_DIALOG[lang], LANG.NOT_RUNNING_TITLE[lang]);
+					md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+					md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+					md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { onConfirmStart(1); } });
+				} else if(hasTouch()) {
 					navigator.notification.confirm(LANG.NOT_RUNNING_DIALOG[lang], onConfirmStart, LANG.NOT_RUNNING_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 				} else {
 					if(confirm(LANG.NOT_RUNNING_TITLE[lang] + "\n" + LANG.NOT_RUNNING_DIALOG[lang])) { onConfirmStart(1); } else { }
@@ -1206,7 +1226,9 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//drop food db
 		if($("#entryBody").val().toLowerCase() == "devfood") {
-			window.localStorage.setItem("foodDbLoaded","empty");
+			//window.localStorage.setItem("foodDbLoaded","empty");
+			window.localStorage.removeItem("foodDbLoaded");
+			window.localStorage.removeItem("startLock");
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}
@@ -1282,7 +1304,12 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			}
 		}
 		//SHOW DIALOG
-		if(hasTouch()) {
+		if(isMobile.MSApp()) {
+			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.CLEAR_ALL_TITLE[lang]);
+			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { onConfirmClear(1); } });
+		} else if(hasTouch()) {
 			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmClear, LANG.CLEAR_ALL_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 			return false;
 		} else {
@@ -1472,11 +1499,13 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		//mostly ios focus re-scrolling fix
 		$('#diaryNotesInput').on('focus', function(evt) {
-			window.scroll($('#diaryNotesInput').scrollTop,0,0);
+			//window.scroll($('#diaryNotesInput').scrollTop,0,0);
+			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 			$("#diaryNotesInput").height(window.innerHeight - 32);
 			$("#diaryNotesInput").getNiceScroll().resize();	
 			setTimeout(function() {
 				window.scroll($('#diaryNotesInput').scrollTop,0,0);
+				//$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 				$("#diaryNotesInput").height(window.innerHeight - 32);
 				$("#diaryNotesInput").getNiceScroll().resize();	
 			},100);
@@ -1517,7 +1546,7 @@ $('#appContent').scroll(function() {
 		var entryListHeight = $('#entryList').height() * .9;
 		if(topLock != 0)                  { return; }
 		if($('#go').hasClass("scrolled")) { return; }
-		console.log("scrolled: " + $('#appContent').scrollTop() + " total: " + entryListHeight);
+		//console.log("scrolled: " + $('#appContent').scrollTop() + " total: " + entryListHeight);
 		if($('#appContent').scrollTop()+500 > entryListHeight) {
 			topLock = 1;
 			$('#go').addClass("scrolled");
@@ -2007,6 +2036,7 @@ $("#formc input,#formc select").on(tap, function(evt) {
 $("#calcForm input, #calcForm select").on("blur",function(evt) {
 	if(isMobile.Windows()) {
 		window.scroll($('#appContent')[0].scrollTop,0,0);
+		//$('#appContent').scrollTop($('#appContent').scrollTop());
 		return false;
 	}
 });

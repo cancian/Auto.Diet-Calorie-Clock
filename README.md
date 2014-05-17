@@ -1,4 +1,4 @@
-com.cancian.mylivediet
+﻿com.cancian.mylivediet
 ======================
 
 This is the www/ folder of my phonegap app "Kcals".

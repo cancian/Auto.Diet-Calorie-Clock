@@ -1,4 +1,4 @@
-//var agt = navigator.userAgent.toLowerCase();
+﻿//var agt = navigator.userAgent.toLowerCase();
 //var NS4 = (document.layers);
 //var IE4 = (document.all);
 //var win = window;

@@ -1,4 +1,4 @@
-/*  CARPE Slider 3.0c1, By Tom Hermansson Snickars, January 21, 2013.
+﻿/*  CARPE Slider 3.0c1, By Tom Hermansson Snickars, January 21, 2013.
     Copyright CARPE Design, http://carpe.ambiprospect.com/
     carpe@ambiprospect.com, tom@ambiprospect.com
 */

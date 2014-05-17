@@ -1,4 +1,4 @@
-/* ***** html5sql.js ******
+﻿/* ***** html5sql.js ******
  *
  * Description: A helper javascript module for creating and working with
  *     HTML5 Web Databases.

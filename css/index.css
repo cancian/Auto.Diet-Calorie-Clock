@@ -1,4 +1,4 @@
-/*
+﻿/*
 order=right: 
 @-webkit-viewport { width: device-width; zoom: 1.0; }
    @-moz-viewport { width: device-width; zoom: 1.0; }
@@ -813,15 +813,18 @@ span.delete.busy,
 span.delete.active			{ display: inline-block; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 0; padding: 15px 20px 13px 20px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 1px 0 rgba(0,0,0,.05); border-bottom: 1px solid #eee; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(100px, 0, 0); -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
 span.delete:active			{ background: #E0380A; }
 span.delete.open			{ display: inline-block; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .150s; -webkit-backface-visibility: hidden; }
+
+.msie.desktop span.delete,
+.msapp span.delete			{ padding: 16px 20px 14px 20px !important; }
 /*ROW STYLE*/
 .entriesTitle				{ display: inline; float: left; width: 40px;  text-align: right; font-weight: bold; }
 .entriesKcals				{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
 .entriesBody				{ display: block; text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; line-height: 16px; }
 .entriesBody input			{ display: block; font-size: 10pt; height: 16px; }
 
-.entriesBody{ font-size: 10pt; height: 18px; line-height: 16px;  }
+.entriesBody				{ font-size: 10pt; height: 18px; line-height: 16px;  }
 .entriesBody input,
-#editableInput		{ font-size: 10pt; height: 18px; line-height: 18px; margin-top: -1px; }
+#editableInput				{ font-size: 10pt; height: 18px; line-height: 18px; margin-top: -1px; }
 
 .appLang-fa .entriesKcals,
 .appLang-ar .entriesKcals	{ width: 70px; font-size: 10px; color: #999; padding-top: 0px; float: left; position: absolute; bottom: 0px; left: 13px; }
@@ -932,7 +935,7 @@ div#pageSlideFood			{ opacity: .92; position: absolute; padding-bottom: 60px; to
 div#pageSlideFood			{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .3s; }
 div#pageSlideFood.open		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .3s; }
 /*food search*/
-input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #e5e5e5; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; background-color: #fff; box-sizing: border-box; }
+input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; background-color: #fff; box-sizing: border-box; }
 input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-height: 21px; }
 .appLang-lv input#foodSearch,
 .appLang-fa input#foodSearch,
@@ -1214,7 +1217,7 @@ body {
 	-webkit-backface-visibility: hidden;
 	-webkit-perspective: 1000;
 
-
+/*
 	-webkit-transform: translateZ(0);
 	-moz-transform: translateZ(0);
 	-ms-transform: translateZ(0);
@@ -1230,6 +1233,9 @@ body {
 	-ms-text-size-adjust: none;
 	-o-text-size-adjust: none;
 	text-size-adjust: none;
+*/
+
+	
 	background-color: #fff;
 	/*white-space:nowrap;*/
 }

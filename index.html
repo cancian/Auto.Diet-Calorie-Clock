@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html manifest="kcals.appcache">
 <head>
     <title>Kcals calorie counter</title>
@@ -33,7 +33,13 @@
 		hostLocal = "http://kcals.net/";
 	}
 	//INIT
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");
+	if(navigator.userAgent.match(/MSApp/i)) {
+		MSApp.execUnsafeLocalFunction(function() {
+			document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");	
+		});
+	} else {
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");
+	}
 	</script>
 </head>
 <body>

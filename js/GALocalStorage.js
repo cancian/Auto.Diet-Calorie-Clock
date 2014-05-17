@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Google Analytics for Pokki
  * For all details and documentation:
  * https://github.com/blakemachado/Pokki

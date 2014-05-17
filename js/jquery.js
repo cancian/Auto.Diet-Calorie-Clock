@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * jQuery JavaScript Library v2.1.1
  * http://jquery.com/
  *
@@ -1214,8 +1214,10 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Opera 10-11 does not throw on post-comma invalid pseudos
-			div.querySelectorAll("*,:x");
-			rbuggyQSA.push(",.*:");
+			if(!navigator.userAgent.match(/MSApp/i)) {
+				div.querySelectorAll("*,:x");
+				rbuggyQSA.push(",.*:");
+			}
 		});
 	}
 
@@ -1232,8 +1234,10 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// This should fail with an exception
 			// Gecko does not error, returns false instead
-			matches.call( div, "[s!='']:x" );
-			rbuggyMatches.push( "!=", pseudos );
+			if(!navigator.userAgent.match(/MSApp/i)) {
+				matches.call( div, "[s!='']:x" );
+				rbuggyMatches.push( "!=", pseudos );
+			}
 		});
 	}
 
@@ -1388,6 +1392,7 @@ Sizzle.matchesSelector = function( elem, expr ) {
 		( !rbuggyMatches || !rbuggyMatches.test( expr ) ) &&
 		( !rbuggyQSA     || !rbuggyQSA.test( expr ) ) ) {
 
+if(!navigator.userAgent.match(/MSApp/i)) {
 		try {
 			var ret = matches.call( elem, expr );
 
@@ -1399,6 +1404,7 @@ Sizzle.matchesSelector = function( elem, expr ) {
 				return ret;
 			}
 		} catch(e) {}
+}
 	}
 
 	return Sizzle( expr, document, null, [ elem ] ).length > 0;
@@ -5194,7 +5200,18 @@ jQuery.fn.extend({
 		return this.domManip( arguments, function( elem ) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
 				var target = manipulationTarget( this, elem );
-				target.appendChild( elem );
+
+
+if(navigator.userAgent.match(/MSApp/i)) {
+	MSApp.execUnsafeLocalFunction(function() {
+		target.appendChild( elem );
+	});
+} else {
+	target.appendChild( elem );
+}
+
+
+
 			}
 		});
 	},
@@ -5203,7 +5220,18 @@ jQuery.fn.extend({
 		return this.domManip( arguments, function( elem ) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
 				var target = manipulationTarget( this, elem );
+
+
+if(navigator.userAgent.match(/MSApp/i)) {
+	MSApp.execUnsafeLocalFunction(function() {
 				target.insertBefore( elem, target.firstChild );
+	});
+} else {
+				target.insertBefore( elem, target.firstChild );
+}
+
+
+
 			}
 		});
 	},
@@ -5211,7 +5239,14 @@ jQuery.fn.extend({
 	before: function() {
 		return this.domManip( arguments, function( elem ) {
 			if ( this.parentNode ) {
-				this.parentNode.insertBefore( elem, this );
+				var pNode = this;
+				if(navigator.userAgent.match(/MSApp/i)) {
+					MSApp.execUnsafeLocalFunction(function() {
+						pNode.parentNode.insertBefore( elem, pNode );
+					});
+				} else {
+					this.parentNode.insertBefore( elem, this );
+				}
 			}
 		});
 	},
@@ -5220,10 +5255,17 @@ jQuery.fn.extend({
 		return this.domManip( arguments, function( elem ) {
 			if ( this.parentNode ) {
 				this.parentNode.insertBefore( elem, this.nextSibling );
+				var pNodeb = this;
+				if(navigator.userAgent.match(/MSApp/i)) {
+					MSApp.execUnsafeLocalFunction(function() {
+						pNodeb.parentNode.insertBefore( elem, pNodeb.nextSibling );
+					});
+				} else {
+					this.parentNode.insertBefore( elem, this.nextSibling );
+				}
 			}
 		});
 	},
-
 	remove: function( selector, keepData /* Internal Use Only */ ) {
 		var elem,
 			elems = selector ? jQuery.filter( selector, this ) : this,
@@ -5295,7 +5337,19 @@ jQuery.fn.extend({
 						// Remove element nodes and prevent memory leaks
 						if ( elem.nodeType === 1 ) {
 							jQuery.cleanData( getAll( elem, false ) );
-							elem.innerHTML = value;
+							//elem.innerHTML = value;
+
+
+if(navigator.userAgent.match(/MSApp/i)) {
+	MSApp.execUnsafeLocalFunction(function() {
+		elem.innerHTML = value;
+	});
+} else {
+	elem.innerHTML = value;
+}
+
+
+
 						}
 					}
 
@@ -7288,6 +7342,7 @@ jQuery.fn.extend({
 
 
 
+
 var rreturn = /\r/g;
 
 jQuery.fn.extend({
@@ -9096,6 +9151,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 					// As of 5/8/2012 this will yield incorrect results for Mobile Safari, but there
 					// isn't a whole lot we can do. See pull request at this URL for discussion:
 					// https://github.com/jquery/jquery/pull/764
+
 					return elem.document.documentElement[ "client" + name ];
 				}
 

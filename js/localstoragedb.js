@@ -1,4 +1,4 @@
-/*
+﻿/*
 	Kailash Nadh (http://nadh.in)
 
 	localStorageDB v 2.3.1

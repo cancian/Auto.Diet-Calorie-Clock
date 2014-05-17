@@ -1,4 +1,4 @@
-/************ ../dummy2/lib/plugins/UserVoice.js ********************/
+﻿/************ ../dummy2/lib/plugins/UserVoice.js ********************/
 /* MIT licensed */
 // (c) 2013 Surinder Singh, DeveloperExtensions.com
 

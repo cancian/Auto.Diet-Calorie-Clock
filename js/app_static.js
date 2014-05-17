@@ -1,4 +1,4 @@
-//////////////////
+﻿//////////////////
 // DEVICE READY //
 //////////////////
 $(document).ready(function() { 
@@ -128,6 +128,7 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 	if($("#editableInput").is(":visible")) {
 		$("#editableInput").blur();
 		window.scroll($('#appContent')[0].scrollTop,0,0);
+		//$('#appContent').scrollTop($('#appContent').scrollTop());
 		return false;
 	}
 	//window.location='#top';
@@ -191,8 +192,14 @@ $(document).on("backbutton", function(evt) {
 	//
 	if($("#langSelect").length) {
 		$("#set" + lang).trigger(tap);
-	} else if($("#skipIntro").length) {
-		$("#skipIntro").trigger(touchstart);
+	} else if($("#skipIntro").length && myScroll.x) {
+		//if(myScroll.x == 0) {
+		//	$("#skipIntro").trigger(touchstart);
+		//} else {
+		if(myScroll) {
+			myScroll.prev();
+		}
+		//}
 	} else if($("#subBackButton").length) {
 		$("#subBackButton").trigger(touchend);
 	} else if($("#backButton").length) {
@@ -311,7 +318,7 @@ $(document).on("showkeyboard", function(evt) {
 //ON HIDE KEYBOARD
 $(document).on("hidekeyboard",function() {
 	window.scroll($('#appContent')[0].scrollTop,0,0);
-	$('#appContent').scrollTop($('#appContent').scrollTop());
+	//$('#appContent').scrollTop($('#appContent').scrollTop());
 	$('#editableInput').blur();
 	//blur daily
 	if($("#editable").length) {
@@ -447,10 +454,13 @@ if(isMobile.Android() && androidVersion() == 4.3) {
 if(isMobile.Windows()) {
 	$("body").addClass("windows");
 }
+if(isMobile.MSApp()) {
+	$("body").addClass("msapp");
+}
 ////////////////////
 // WP8 @FONT-FACE //
 ////////////////////
-if(isMobile.Windows()) {
+if(isMobile.Windows() || isMobile.MSApp()) {
 	$('body').append("<span id='fontCheck' style='font-family: FontAwesome, Arial;'>+</span>");
 	//COMPARE WIDTH
 	if($("#fontCheck").width() != "16") {

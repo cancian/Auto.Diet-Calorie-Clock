@@ -1,4 +1,4 @@
-/////////////////
+﻿/////////////////
 // DEV DEBUGER //
 /////////////////
 var blockAlerts = 0;
@@ -8,14 +8,20 @@ window.onerror = function(e, url, line) {
 		//if(window.external) { window.external.Notify('onerror: ' + e + ' URL:' + url + ' Line:' + line); } 
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
-	if(typeof spinner == 'function') {
-		spinner('stop');
-	}
-	return false;
+	//if(typeof spinner == 'function') {
+	//	spinner('stop');
+	//}
+	//setTimeout(function() {
+	//	if(typeof getAnalytics == 'function') {
+			//getAnalytics('error: ' + e + ' URL:' + url + ' Line:' + line);
+	//	}
+	//},600);
+	//return false;
 }
 //////////////
 // VIEWPORT //
 //////////////
+function initJS() {
 document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');	
 /////////
 // CSS //
@@ -67,4 +73,13 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/app_buil
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
 document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
+}
+
+if(navigator.userAgent.match(/MSApp/i)) {
+	MSApp.execUnsafeLocalFunction(function() {
+		initJS();
+	});
+} else {
+	initJS();
+}
 

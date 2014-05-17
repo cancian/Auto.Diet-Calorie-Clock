@@ -1,5 +1,5 @@
-var appName     = "Kcals";
-var appVersion  = "1.2.2 (12204)";
+﻿var appName     = "Kcals";
+var appVersion  = "1.2.2 (12205)";
 var appBuild    = appVersion.split(" ")[1].replace("(","").replace(")",""); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(" ")[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|ga|hi|hr|hu|hy|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
@@ -368,6 +368,50 @@ var LANG = {
 		vi : '',
 		zh : '',
 		zt : '',
+	},
+	INTRO : {
+		en : 'Introduction',
+		pt : 'Introdução ',
+		ar : 'مقدمة',
+		bg : 'въведение',
+		ca : 'Introducció',
+		cs : 'Úvod',
+		da : 'Indledning',
+		de : 'Einführung',
+		el : 'Εισαγωγή',
+		es : 'Introducción',
+		et : 'Sissejuhatus',
+		fa : 'معرفی',
+		fi : 'Käyttöönotto',
+		fr : 'Introduction',
+		ga : 'Réamhrá',
+		hi : 'परिचय',
+		hr : 'Uvod',
+		hu : 'Bevezetés',
+		hy : 'ներածություն',
+		it : 'Introduzione',
+		id : 'pengantar',
+		iw : 'מבוא',
+		ja : 'はじめに',
+		ko : '소개',
+		lt : 'Įvadas',
+		lv : 'Ievads',
+		ms : 'Pengenalan',
+		nl : 'Introductie',
+		nb : 'Introduksjon',
+		pl : 'Wprowadzenie',
+		ro : 'Introducere',
+		ru : 'Введение',
+		sk : 'Úvod',
+		sl : 'Predstavitev',
+		sr : 'Увод',
+		sv : 'Introduktion',
+		th : 'การแนะนำ',
+		tr : 'Giriş',
+		uk : 'Введення',
+		vi : 'Giới thiệu',
+		zh : '介绍',
+		zt : '介紹',
 	},
 	AUTO_DETECT : {
 		en : 'Auto Detect',
@@ -769,93 +813,93 @@ Kcals 旨在幫助您控制您的卡路里攝入量。 \
 
 	INTRO_SLIDE_2 : {
 		en : '\
-The idea is simple. Define a goal ("daily calories") and keep yourself "balanced" in the context of this goal. \
-The app will indicate when you’ve eaten too much ("excess"), or too little ("deficit"). \
+The idea is simple. Define a goal (daily calories) and keep yourself "balanced" in the context of this goal. \
+The app will indicate when you’ve eaten too much (excess), or too little (deficit). \
 ',
 		pt : '\
-A ideia é simples. Defina uma meta ("calorias por dia") e permaneça "balanceado" dentro dessa meta. \
-O aplicativo indicará quando você come demais ("excesso") ou muito pouco ("déficit"). \
+A ideia é simples. Defina uma meta (calorias por dia) e permaneça "balanceado" dentro dessa meta. \
+O aplicativo indicará quando você come demais (excesso) ou muito pouco (déficit). \
 ',
 		ar : '\
-الفكرة بسيطة. تحديد هدف ("السعرات الحرارية اليومية") والحفاظ على نفسك "متوازن" في سياق هذا الهدف. \
-سيشير التطبيق عندما كنت قد أكلت أكثر من اللازم ("فائض")، أو القليل جدا ("العجز"). \
+الفكرة بسيطة. تحديد هدف (السعرات الحرارية اليومية) والحفاظ على نفسك "متوازن" في سياق هذا الهدف. \
+سيشير التطبيق عندما كنت قد أكلت أكثر من اللازم (فائض)، أو القليل جدا (العجز). \
 ',
 //The idea is simple. Define a goal (daily calories) and maintain yourself balanced within this purpose.
 		bg : '\
-Идеята е проста. Определете един гол ("дневни калории") и да поддържа себе си "уравновесен" в рамките на тази цел. \
-Броячът на калории ще покаже, когато сте яли прекалено много ("излишък"), или твърде малко ("дефицит"). \
+Идеята е проста. Определете един гол (дневни калории) и да поддържа себе си "уравновесен" в рамките на тази цел. \
+Броячът на калории ще покаже, когато сте яли прекалено много (излишък), или твърде малко (дефицит). \
 ',
 		ca : '\
-La idea és simple. Fixar un objectiu ("calories diàries") i quedar-se "equilibrat" dins d’aquest objectiu. \
-El comptador de calories indicarà quan vostè menjar massa ("excés") o molt poc ("dèficit"). \
+La idea és simple. Fixar un objectiu (calories diàries) i quedar-se "equilibrat" dins d’aquest objectiu. \
+El comptador de calories indicarà quan vostè menjar massa (excés) o molt poc (dèficit). \
 ',
 		cs : '\
-Myšlenka je jednoduchá. Nastavte cíl ("denních kalorií") a zůstaň "vyvážený" v kontextu tohoto cíle. \
-Aplikace bude ukazovat, když jste jedli příliš mnoho ("přebytek"), nebo příliš málo ("deficit"). \
+Myšlenka je jednoduchá. Nastavte cíl (denních kalorií) a zůstaň "vyvážený" v kontextu tohoto cíle. \
+Aplikace bude ukazovat, když jste jedli příliš mnoho (přebytek), nebo příliš málo (deficit). \
 ',
 		da : '\
-Ideen er simpel. Definer et mål ("daglige kalorier") og opretholde dig "afbalanceret" indenfor dette formål. \
-Kalorietælleren angiver, når du har spist for meget ("overskydende") eller for lidt ("underskud"). \
+Ideen er simpel. Definer et mål (daglige kalorier) og opretholde dig "afbalanceret" indenfor dette formål. \
+Kalorietælleren angiver når du har spist for meget (overskydende) eller for lidt (underskud). \
 ',
 		de : '\
-Die Idee ist einfach. Definieren Sie ein Ziel ("Tägliche Kalorien") und halten Sie sich "Ausgeglichen" innerhalb diesen Zweck. \
-Der Kalorienzähler zeigt an, wenn Sie zu viel gegessen haben ("Überschuss") oder zu wenig ("Defizit"). \
+Die Idee ist einfach. Definieren Sie ein Ziel (Tägliche Kalorien) und halten Sie sich "Ausgeglichen" innerhalb diesen Zweck. \
+Der Kalorienzähler zeigt an wenn Sie zu viel gegessen haben (Überschuss) oder zu wenig (Defizit). \
 ',
 		el : '\
-Η ιδέα είναι απλή. Θέστε ένα στόχο («ημερήσιων θερμίδων») και να παραμείνει «ισορροπημένη» σε αυτό το θέμα. \
-Ο θερμιδομετρητής δείχνει πότε έχετε φάει πάρα πολύ («περίσσεια ») ή πολύ λίγο («έλλειμμα»). \
+Η ιδέα είναι απλή. Θέστε ένα στόχο (ημερήσιων θερμίδων) και να παραμείνει «ισορροπημένη» σε αυτό το θέμα. \
+Ο θερμιδομετρητής δείχνει πότε έχετε φάει πάρα πολύ (περίσσεια) ή πολύ λίγο (έλλειμμα). \
 ',
 		es : '\
-La idea es simple. Establezca una meta ("calorías diarias") y seguir siendo "equilibrado" dentro de ese objetivo. \
-La aplicación le indicará cuando usted come demasiado ("exceso") o muy poco ("déficit"). \
+La idea es simple. Establezca una meta (calorías diarias) y seguir siendo "equilibrado" dentro de ese objetivo. \
+La aplicación le indicará cuando usted come demasiado (exceso) o muy poco (déficit). \
 ',
 		et : '\
-Idee on lihtne. Määratle eesmärk ("kaloritest") ja hoida ennast "tasakaalustatud" raames selle eesmärgi. \
-App näitab, millal olete söönud liiga palju ("liigne"), või liiga vähe ("puudujääk"). \
+Idee on lihtne. Määratle eesmärk (kaloritest) ja hoida ennast "tasakaalustatud" raames selle eesmärgi. \
+App näitab, millal olete söönud liiga palju (liigne), või liiga vähe (puudujääk). \
 ',
 		fa : '\
-ایده ساده است. تنظیم یک هدف ("کالری روزانه")، و اقامت "متعادل" در این هدف. \
-کالری مبارزه نشان می دهد زمانی که شما بیش از حد مصرف کرده اید ("مازاد") و یا بیش از حد کم ("کمبود"). \
+ایده ساده است. تنظیم یک هدف (کالری روزانه)، و اقامت "متعادل" در این هدف. \
+کالری مبارزه نشان می دهد زمانی که شما بیش از حد مصرف کرده اید (مازاد) و یا بیش از حد کم (کمبود). \
 ',
 		fi : '\
-Idea on yksinkertainen. Määrittele tavoite ("kaloria päivässä") ja pitää itse "tasapainoinen" sisällä tähän tavoite. \
-Sovellus ilmoittaa, kun olet syönyt liikaa ("ylimäärä"), tai liian vähän ("alijäämä"). \
+Idea on yksinkertainen. Määrittele tavoite (kaloria päivässä) ja pitää itse "tasapainoinen" sisällä tähän tavoite. \
+Sovellus ilmoittaa, kun olet syönyt liikaa (ylimäärä), tai liian vähän (alijäämä). \
 ',
 		fr : '\
-L’idée est simple. Définir un objectif («kcal/jour»), et tenez-vous «équilibrée» dans le cadre de cet objectif. \
-L’application vous indiquera quand vous avez mangé trop («excès»), ou trop peu («déficit»). \
+L’idée est simple. Définir un objectif (kcal/jour), et tenez-vous «équilibrée» dans le cadre de cet objectif. \
+L’application vous indiquera quand vous avez mangé trop (excès), ou trop peu (déficit). \
 ',
 		ga : '\
-Is é an smaoineamh simplí. Socraigh an sprioc ("calories laethúil") agus tú féin a choinneáil "cothrom" laistigh sprioc seo. \
-Beidh an t-iarratas a thaispeáint nuair a ith tú i bhfad ró ("bhreis") nó ró-beag ("easnamh"). \
+Is é an smaoineamh simplí. Socraigh an sprioc (calories laethúil) agus tú féin a choinneáil "cothrom" laistigh sprioc seo. \
+Beidh an t-iarratas a thaispeáint nuair a ith tú i bhfad ró (bhreis) nó ró-beag (easnamh). \
 ',
 		hi : '\
-सेट एक लक्ष्य ("दैदैनिक कैलोरी") और इस लक्ष्य के भीतर संतुलित रखें अपने. \
-कैलोरी काउंटर इंगित करता है जब आप बहुत ज्यादा खा लिया है ("अतिरेक") या बहुत कम ("घाटा"). \
+सेट एक लक्ष्य (दैदैनिक कैलोरी) और इस लक्ष्य के भीतर संतुलित रखें अपने. \
+कैलोरी काउंटर इंगित करता है जब आप बहुत ज्यादा खा लिया है (अतिरेक) या बहुत कम (घाटा). \
 ',
 		hr : '\
-Ideja je jednostavna. Postavite cilj ("dnevnih kalorija") i ostanite "uravnotežen" unutar tog cilja. \
-Aplikacija će signalizirati kada ste pojeli previše ("višak"), ili premalo ("deficit"). \
+Ideja je jednostavna. Postavite cilj (dnevnih kalorija) i ostanite "uravnotežen" unutar tog cilja. \
+Aplikacija će signalizirati kada ste pojeli previše (višak), ili premalo (deficit). \
 ',
 		hu : '\
-Az ötlet egyszerű. Állítsa be a cél ("napi kalória"), és stay "kiegyensúlyozott" belül ezt a célt. \
-A kalória számláló jelzi, ha már evett túl sokat ("felesleges"), vagy túl kevés ("deficit"). \
+Az ötlet egyszerű. Állítsa be a cél (napi kalória), és stay "kiegyensúlyozott" belül ezt a célt. \
+A kalória számláló jelzi, ha már evett túl sokat (felesleges), vagy túl kevés (deficit). \
 ',
 		hy : '\
-Գաղափարը շատ պարզ է. Նպատակադրվել («ամենօրյա կալորիա»), եւ պահպանել է «հավասարակշռված» կարգավիճակ այս նպատակի համար. \
-Դիմումը ցույց է տալիս, երբ դուք ուտում շատ («ավելցուկ») կամ շատ քիչ է («դեֆիցիտ»). \
+Գաղափարը շատ պարզ է. Նպատակադրվել (ամենօրյա կալորիա), եւ պահպանել է «հավասարակշռված» կարգավիճակ այս նպատակի համար. \
+Դիմումը ցույց է տալիս, երբ դուք ուտում շատ (ավելցուկ) կամ շատ քիչ է (դեֆիցիտ). \
 ',
 		it : '\
-L’idea è semplice. Impostare un obiettivo ("calorie al giorno") e rimanere "bilanciato" all’interno di tale obiettivo. \
-L’applicazione vi dirà quando si mangia troppo ("eccesso"),o troppo poco ("deficit") \
+L’idea è semplice. Impostare un obiettivo (calorie al giorno) e rimanere "bilanciato" all’interno di tale obiettivo. \
+L’applicazione vi dirà quando si mangia troppo (eccesso),o troppo poco (deficit) \
 ',
 		id : '\
-Idenya sederhana. Tentukan target ("kalori harian") dan tinggal "seimbang" dalam tujuan ini. \
-Aplikasi ini akan menunjukkan bila Anda sudah makan terlalu banyak ("kelebihan"), atau terlalu sedikit ("defisit"). \
+Idenya sederhana. Tentukan target (kalori harian) dan tinggal "seimbang" dalam tujuan ini. \
+Aplikasi ini akan menunjukkan bila Anda sudah makan terlalu banyak (kelebihan), atau terlalu sedikit (defisit). \
 ',
 		iw : '\
-הרעיון הוא פשוט. הגדרת מטרה ("הצריכה יומית") ולשמור על עצמך "מאוזן" בהקשר של מטרה זו. \
-היישום יציג כאשר אתה אוכל יותר מדי ("עודף") או מעט מדי ("גרעון"). \
+הרעיון הוא פשוט. הגדרת מטרה (הצריכה יומית) ולשמור על עצמך "מאוזן" בהקשר של מטרה זו. \
+היישום יציג כאשר אתה אוכל יותר מדי (עודף) או מעט מדי (גרעון). \
 ',
 //Set a goal (daily calories).
 //And preserve "Balance" in the context of this goal.
@@ -869,72 +913,72 @@ Aplikasi ini akan menunjukkan bila Anda sudah makan terlalu banyak ("kelebihan")
 //In the context of this objective.
 		ko : '\
 아이디어는 간단하다. \
-합니다를 설정목표 ("하루 칼로리"), 그리고 당신은해야 유지"균형" 이 목적의 문맥에서. \
+합니다를 설정목표 (하루 칼로리), 그리고 당신은해야 유지"균형" 이 목적의 문맥에서. \
 ',
 		lt : '\
-Idėja paprasta. Nustatyti tikslą ("dienos kalorijų"), ir likti "subalansuotas" ir šio tikslo atžvilgiu. \
-Programa parodys, kai jūs valgyti per daug ("perteklius"), ar per mažai ("deficitas"). \
+Idėja paprasta. Nustatyti tikslą (dienos kalorijų), ir likti "subalansuotas" ir šio tikslo atžvilgiu. \
+Programa parodys, kai jūs valgyti per daug (perteklius), ar per mažai (deficitas). \
 ',
 		lv : '\
-Ideja ir vienkārša. Noteikts mērķis ("ikdienas kalorijas"), un palikt "līdzsvarotu" saistībā ar šo mērķi. \
-App stāsta jums, kad esat ēst pārāk daudz ("pārpalikums"), vai par mazu ("deficīts"). \
+Ideja ir vienkārša. Noteikts mērķis (ikdienas kalorijas), un palikt "līdzsvarotu" saistībā ar šo mērķi. \
+App stāsta jums, kad esat ēst pārāk daudz (pārpalikums), vai par mazu (deficīts). \
 ',
 		ms : '\
-Ideanya adalah mudah. Tentukan target ("kalori harian") dan tinggal "seimbang" dalam tujuan ini. \
-Aplikasi ini akan menunjukkan bila anda sudah makan terlalu banyak ("berlebihan"), atau terlalu sedikit ("defisit"). \
+Ideanya adalah mudah. Tentukan target (kalori harian) dan tinggal "seimbang" dalam tujuan ini. \
+Aplikasi ini akan menunjukkan bila anda sudah makan terlalu banyak (berlebihan), atau terlalu sedikit (defisit). \
 ',
 		nl : '\
-Het idee is simpel. Definieer een doel ("calorieën per dag") en houd jezelf "evenwichtige" in het kader van deze doelstelling. \
-De app geeft aan wanneer u te veel ("overmaat") hebt gegeten, of te weinig ("tekort"). \
+Het idee is simpel. Definieer een doel (calorieën per dag) en houd jezelf "evenwichtige" in het kader van deze doelstelling. \
+De app geeft aan wanneer u te veel (overmaat) hebt gegeten, of te weinig (tekort). \
 ',
 		nb : '\
-Ideen er enkel. Definer et mål ("daglige kalorier") og holde deg "balansert" i sammenheng med dette målet. \
-Programmet vil vise når du har spist for mye ("overflødig"), eller for lite ("underskudd"). \
+Ideen er enkel. Definer et mål (daglige kalorier) og holde deg "balansert" i sammenheng med dette målet. \
+Programmet vil vise når du har spist for mye (overflødig), eller for lite (underskudd). \
 ',
 		pl : '\
-Pomysl jest prosty. Zdefiniowac cel ("dziennie kalorii") i trzymac sie "zrównoważony", w kontekscie tego celu. \
-Aplikacja pokaze kiedy jesc zbyt duzo ("nadmiar"), lub zbyt malo ("deficyt"). \
+Pomysl jest prosty. Zdefiniowac cel (dziennie kalorii) i trzymac sie "zrównoważony", w kontekscie tego celu. \
+Aplikacja pokaze kiedy jesc zbyt duzo (nadmiar), lub zbyt malo (deficyt). \
 ',
 		ro : '\
-Ideea este simpla. Defini un scop ("calorii pe zi") și menține-te "echilibrat" în contextul acestui obiectiv. \
-Aplicatia va indica, atunci când v-ați mâncat prea mult ("exces"), sau prea puțin ("deficit"). \
+Ideea este simpla. Defini un scop (calorii pe zi) și menține-te "echilibrat" în contextul acestui obiectiv. \
+Aplicatia va indica, atunci când v-ați mâncat prea mult (exces), sau prea puțin (deficit). \
 ',
 		ru : '\
-Идея проста. Поставьте себе цель ("ежедневно калорий") и остаться "сбалансированная" в контексте этой цели. \
-Приложение будет указано, когда вы съели слишком много ("избыток") или слишком мало ("дефицит"). \
+Идея проста. Поставьте себе цель (ежедневно калорий) и остаться "сбалансированная" в контексте этой цели. \
+Приложение будет указано, когда вы съели слишком много (избыток) или слишком мало (дефицит). \
 ',
 		sk : '\
-Myšlienka je jednoduchá. Nastavte cieľ ("denných kalórií") a zostaň "vyvážený" v kontexte tohto cieľa. \
-Aplikácie bude ukazovať, keď ste jedli príliš veľa ("prebytok"), alebo príliš málo ("deficit"). \
+Myšlienka je jednoduchá. Nastavte cieľ (denných kalórií) a zostaň "vyvážený" v kontexte tohto cieľa. \
+Aplikácie bude ukazovať, keď ste jedli príliš veľa (prebytok), alebo príliš málo (deficit). \
 ',
 		sl : '\
-Ideja je preprosta. Nastavite cilj ("dnevnih kalorij") in ostani "uravnotežen" v okviru tega cilja. \
-Prijave bo pokazal, če si pojedel preveč ("presežek") ali premalo ("primanjkljaj"). \
+Ideja je preprosta. Nastavite cilj (dnevnih kalorij) in ostani "uravnotežen" v okviru tega cilja. \
+Prijave bo pokazal, če si pojedel preveč (presežek) ali premalo (primanjkljaj). \
 ',
 		sr : '\
-Идеја је једноставна. Поставите циљ ("дневних калорија") и ремаин "уравнотежен" у контексту овог циља. \
-Апликација ће указати када сте појели превише ("вишак"), или премало ("дефицит"). \
+Идеја је једноставна. Поставите циљ (дневних калорија) и ремаин "уравнотежен" у контексту овог циља. \
+Апликација ће указати када сте појели превише (вишак), или премало (дефицит). \
 ',
 		sv : '\
-Idén är enkel. Definiera ett mål ("dagliga kalorier") och hålla dig "balanserad" inom ramen för detta mål. \
-App kommer att ange när du har ätit för mycket ("överskott"), eller för lite ("underskott"). \
+Idén är enkel. Definiera ett mål (dagliga kalorier) och hålla dig "balanserad" inom ramen för detta mål. \
+App kommer att ange när du har ätit för mycket (överskott), eller för lite (underskott). \
 ',
 		th : '\
 ความคิดที่เป็นเรื่องง่าย \
-คุณตั้งค่าเป้าหมายของคุณ ("แคลอรี่ประจำวัน") และรักษา "สมดุลย์" ในบริบทของเป้าหมายนี้. \
-โปรแกรมจะแสดงเมื่อคุณได้กินมากเกินไป ("ส่วนเกิน") หรือน้อยเกินไป ("การขาดดุล"). \
+คุณตั้งค่าเป้าหมายของคุณ (แคลอรี่ประจำวัน) และรักษา "สมดุลย์" ในบริบทของเป้าหมายนี้. \
+โปรแกรมจะแสดงเมื่อคุณได้กินมากเกินไป (ส่วนเกิน) หรือน้อยเกินไป (การขาดดุล). \
 ',
 		tr : '\
-Fikir basittir. Bir hedef belirleyin ("günlük kalori") ve kendinizi bu amaç bağlamında "dengeli" tutmak. \
-Uygulama gösterecektir ne zaman yediğiniz çok fazla ("fazla") veya çok az ("açık"). \
+Fikir basittir. Bir hedef belirleyin (günlük kalori) ve kendinizi bu amaç bağlamında "dengeli" tutmak. \
+Uygulama gösterecektir ne zaman yediğiniz çok fazla (fazla) veya çok az (açık). \
 ',
 		uk : '\
-Ідея проста. Поставили перед собою мету ("щоденно калорій") і залишитися "збалансований" в контексті цієї мети. \
-Додаток покаже вам, коли ви з’їли надто багато ("надлишок"), або занадто мало ("дефіцит"). \
+Ідея проста. Поставили перед собою мету (щоденно калорій) і залишитися "збалансований" в контексті цієї мети. \
+Додаток покаже вам, коли ви з’їли надто багато (надлишок), або занадто мало (дефіцит). \
 ',
 		vi : '\
-Mục đích là đơn giản. Đặt ra mục tiêu ("calo hàng ngày") và duy trì "cân bằng" trong bối cảnh của mục tiêu này. \
-Các ứng dụng sẽ cho biết khi bạn đã ăn quá nhiều ("dư thừa"), hoặc quá ít ("thâm hụt"). \
+Mục đích là đơn giản. Đặt ra mục tiêu (calo hàng ngày) và duy trì "cân bằng" trong bối cảnh của mục tiêu này. \
+Các ứng dụng sẽ cho biết khi bạn đã ăn quá nhiều (dư thừa), hoặc quá ít (thâm hụt). \
 ',
 		zh : '\
 这个想法很简单。设定一个目标（每日的卡路里）并保持“均衡”的这一目标。 \

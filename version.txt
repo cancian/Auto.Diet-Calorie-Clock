@@ -1,6 +1,15 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.2.2.1 [15/05/2014]
+• 
+• 
+• 
+• 
+• 
+• fixed an issue with favorite items being duplicated;
+• minor bug fixes.
+
 # 1.2.2 [08/05/2014]
 • more detailed nutritional data; 
 • improved overall performance; 

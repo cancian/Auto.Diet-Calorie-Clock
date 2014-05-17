@@ -1,4 +1,4 @@
-cordova.define("com.adobe.plugins.GAPlugin.GAPlugin", function(require, exports, module) {(function(){
+﻿cordova.define("com.adobe.plugins.GAPlugin.GAPlugin", function(require, exports, module) {(function(){
     var cordovaRef = window.PhoneGap || window.cordova || window.Cordova;
 
     function GAPlugin() { }

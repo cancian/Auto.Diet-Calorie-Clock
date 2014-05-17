@@ -1,5 +1,5 @@
-CACHE MANIFEST
-# Version 1.2.2.1
+﻿CACHE MANIFEST
+# Version 1.2.2.2
 # APP
 index.html
 js/app_init.js
@@ -13,6 +13,7 @@ js/app_dynamic.js
 js/app_custom_core.js
 css/index.css
 css/fonts.css
+css/openhand.cur
 # CORDOVA
 js/cordova.js
 js/cordova_plugins.js

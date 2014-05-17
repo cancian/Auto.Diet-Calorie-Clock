@@ -1,4 +1,4 @@
-//#//////////////////#//
+﻿//#//////////////////#//
 //# DYNAMIC HANDLERS #//
 //#//////////////////#//
 $(document).on("pageload", function(evt) {
@@ -117,6 +117,7 @@ $(document).on("pageload", function(evt) {
 									//$("#entryListWrapper").on(touchmove, function(evt) {
 										updateEntriesSum();
 										window.scroll($('#appContent')[0].scrollTop,0,0);
+										//$('#appContent').scrollTop($('#appContent').scrollTop());
 										return false;
 									//});
 								},
@@ -166,7 +167,12 @@ $(document).on("pageload", function(evt) {
 									return false;
 								}
 								//SHOW DIALOG
-								if(hasTouch() && (!isMobile.Android() || androidVersion() >= 4.4)) {
+								if(isMobile.MSApp()) {
+									var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.RESET_ENTRY_TITLE[lang]);
+									md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+									md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+									md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { intoTheVoid(1); } });
+								} else if(hasTouch() && (!isMobile.Android() || androidVersion() >= 4.4)) {
 									navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], intoTheVoid, LANG.RESET_ENTRY_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 								} else {
 									if(confirm(LANG.RESET_ENTRY_TITLE[lang])) { intoTheVoid(1); } else { intoTheVoid(0); }
@@ -498,6 +504,7 @@ $(document).on("pageload", function(evt) {
 		}
 		//force error
 		window.scroll($('#appContent')[0].scrollTop,0,0);
+		//$('#appContent').scrollTop($('#appContent').scrollTop());
 		//window.onscroll(scroll($('body')[0].scrollTop,0));
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(function() {
@@ -636,7 +643,8 @@ $(document).on("pageReload", function(evt) {
 		evt.preventDefault();
 		$("#entryBody").blur();
 		$("#foodSearch").blur();
-		window.scroll($('#appContent')[0].scrollTop,0,0);
+		//window.scroll($('#appContent')[0].scrollTop,0,0);
+		//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 	});
 	//////////////////////
 	// SEARCH TYPE ICON //
@@ -1980,6 +1988,7 @@ setTimeout(function() {
 		if(isMobile.Android()) {
 			//$(window).trigger("orientationchange");
 			window.scroll($('#appContent')[0].scrollTop,0,0);
+			//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 		}
 		if($("#tempHolder").html()) {
 			$('#addNewWrapper').removeClass('show');
@@ -2224,7 +2233,12 @@ function getModalWindow(itemId) {
 								}
 								//SHOW START DIALOG
 								if(window.localStorage.getItem("appStatus") != "running") {
-									if(hasTouch()) {
+									if(isMobile.MSApp()) {
+										var md = new Windows.UI.Popups.MessageDialog(LANG.NOT_RUNNING_DIALOG[lang], LANG.NOT_RUNNING_TITLE[lang]);
+										md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+										md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+										md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { onConfirmStart(1); } });
+									} else if(hasTouch()) {
 										navigator.notification.confirm(LANG.NOT_RUNNING_DIALOG[lang], onConfirmStart, LANG.NOT_RUNNING_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 									} else {
 										if(confirm(LANG.NOT_RUNNING_TITLE[lang] + "\n" + LANG.NOT_RUNNING_DIALOG[lang])) { onConfirmStart(1); } else { }
@@ -2360,7 +2374,12 @@ function getModalWindow(itemId) {
 								}
 							}
 							//SHOW DIALOG
-							if(hasTouch()) {
+							if(isMobile.MSApp()) {
+								var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.DELETE_ITEM[lang]);
+								md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+								md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+								md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { removeItem(1); } });
+							} else if(hasTouch()) {
 								navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], removeItem, LANG.DELETE_ITEM[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 								return false;
 							} else {
@@ -2414,18 +2433,22 @@ function getModalWindow(itemId) {
 								$("#tabMyFavs #" + mCode).css("opacity",0);
 								$("#tabMyFavs #" + mCode).remove();
 								window.scroll($('#foodList')[0].scrollTop,0,0);
+								//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 								return false;
 							} else {
 								if(isMobile.iOS()) {
 									setTimeout(function() {
 										updateFavList();
 										window.scroll($('#foodList')[0].scrollTop,0,0);
+										//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 									},50);
 									window.scroll($('#foodList')[0].scrollTop,0,0);
+									//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 									$("#tabMyFavs .foodName").css("opacity",0);
 									$("#tabMyFavs .foodName").css("overflow","hidden");
 									$("#tabMyFavs .foodName").css("opacity",1);
 									window.scroll($('#foodList')[0].scrollTop,0,0);
+									//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 								} else {
 									updateFavList();
 								}
