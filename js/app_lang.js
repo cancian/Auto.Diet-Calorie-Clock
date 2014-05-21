@@ -1,5 +1,5 @@
 ﻿var appName     = "Kcals";
-var appVersion  = "1.2.2 (12205)";
+var appVersion  = "1.2.3 (12300)";
 var appBuild    = appVersion.split(" ")[1].replace("(","").replace(")",""); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(" ")[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|ga|hi|hr|hu|hy|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
@@ -3763,7 +3763,7 @@ Kiểm tra hồ sơ của bạn. \
 		ar : 'منذ',
 		bg : 'преди',
 		ca : '',
-		cs : 'před',
+		cs : '',
 		da : 'siden',
 		de : '',
 		el : 'πριν',
@@ -3807,7 +3807,7 @@ Kiểm tra hồ sơ của bạn. \
 		ar : '',
 		bg : '',
 		ca : 'fa',
-		cs : '',
+		cs : 'před',
 		da : '',
 		de : 'vor',
 		el : '',

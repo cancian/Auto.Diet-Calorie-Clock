@@ -54,9 +54,9 @@ function openSettings(string) {
 	//if(!hasTouch()) {
 		$("#optionReview").remove();
 	//}
-	if(isMobile.Windows() || isMobile.MSApp()) {
+	if((isMobile.Windows() || isMobile.MSApp()) && window.localStorage.getItem("appDebug") != "active") {
 		$("#optionFacebook").remove();
-		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=msft-9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e://authorize';
+		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=msft-9cfeccf8a0dd43cab10434aed9ae0d3e://authorize';
 
 	}
 	////////////////
@@ -1161,7 +1161,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	//////////////////
 	// DEV KEYCODES //
 	//////////////////
-	$("#entryBody").on("keypress keyup keydown change blur focus",function(evt) {
+	$("#entryBody").on("keyup",function(evt) {
 		//DEV SET LANG
 		if((/devsetlang/).test($("#entryBody").val().toLowerCase()) && $("#entryBody").val().toLowerCase().length == 12) {
 			if(!(langArray).test($("#entryBody").val().toLowerCase().split("devsetlang").join(''))) {

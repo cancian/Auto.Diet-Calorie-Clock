@@ -487,7 +487,7 @@ $(document).on("pageload", function(evt) {
 		//evt.preventDefault();
 		$(this).parent('div').hide();
 		//UPDATE DB
-		deleteEntry($(this).parent('div').data("id"));
+		deleteEntry({id: $(this).parent('div').data("id"),published: $(this).parent('div').attr("name")});
 		//REMOVE CLICKED
 		$(this).parent('div').remove();
 		updateTimer();
@@ -503,8 +503,8 @@ $(document).on("pageload", function(evt) {
 			return false;
 		}
 		//force error
-		window.scroll($('#appContent')[0].scrollTop,0,0);
-		//$('#appContent').scrollTop($('#appContent').scrollTop());
+		//window.scroll($('#appContent')[0].scrollTop,0,0);
+		$('#appContent').scrollTop($('#appContent').scrollTop());
 		//window.onscroll(scroll($('body')[0].scrollTop,0));
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(function() {
@@ -1056,6 +1056,7 @@ function doSearch(rawInput) {
 			// OVERFLOW ON-DEMAND //
 			////////////////////////
 			$(".searcheable").on(tap + ' ' + touchstart, function(evt) {
+				if($("#addNewWrapper").html()) { return; }
 				if($("#foodSearch").is(":focus") && !isDesktop()) { 
 					//evt.preventDefault();
 					//return;
@@ -1221,6 +1222,7 @@ function updateFoodList() {
 			if(!car)  { car  = '0.00'; }
 			if(!fat)  { fat  = '0.00'; }
 			if(!fib)  { fib  = '0.00'; }
+
 			if(data[c].id)			{ var foodSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
 			if(foodSql != "")		{ customFoodSql += foodSql; }
 			/////////////////////		
@@ -1231,6 +1233,10 @@ function updateFoodList() {
 		}
 		if(customFoodList == "") { customFoodList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 		if(customFoodSql  != "") { window.localStorage.setItem("customFoodSql",customFoodSql); } else { window.localStorage.setItem("customFoodSql"," "); }
+
+
+
+
 		//////////
 		// HTML //
 		//////////
@@ -1756,7 +1762,7 @@ if(isMobile.Android()) {
 ///////////////////////////
 // autohide keyboard tap //
 ///////////////////////////
-$("#addNewWrapper").on("touchstart",function(evt) {
+$("#addNewWrapper").on(touchstart,function(evt) {
 	if(evt.target.id == "addNewWrapper" || evt.target.id == "") {
 		evt.preventDefault();
 		evt.stopPropagation();		
@@ -2017,6 +2023,8 @@ setTimeout(function() {
 //##////////////////////##//
 function getModalWindow(itemId) {
 	if(!itemId) { return; }	
+	if($("#addNewWrapper").html()) { return; }
+	
 	getFood(itemId,function(data) {
 		var mName = data[0].name;
 		var mType = data[0].type;
@@ -2291,8 +2299,11 @@ function getModalWindow(itemId) {
 						// OVERLAY CLOSE //
 						///////////////////
 						//fix foodlist scrolling
-						$("#modalWindow").on("touchmove",function(evt) {
+						$("#modalWindow").on(touchmove,function(evt) {
 							evt.preventDefault();
+							evt.stopPropagation();
+						});
+						$("#modalWindow").on(touchstart,function(evt) {
 							evt.stopPropagation();
 						});
 						$("#modalOverlay, #modalCancel").on(touchstart,function(evt) {

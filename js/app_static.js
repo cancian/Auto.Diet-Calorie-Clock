@@ -30,8 +30,15 @@ try{
 ////////////////
 // PARSED CSS //
 ////////////////
-$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
-$("head").prepend("<style type='text/css' id='daySum'></style>");
+if(navigator.userAgent.match(/MSApp/i)) {
+	MSApp.execUnsafeLocalFunction(function() {
+		$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
+		$("head").prepend("<style type='text/css' id='daySum'></style>");
+	});
+} else {
+	$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
+	$("head").prepend("<style type='text/css' id='daySum'></style>");
+}
 updateEntriesSum();
 ///////////////
 // SET TITLE //
@@ -594,6 +601,7 @@ setTimeout(function() {
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
 		if(!$("#appHeader").hasClass("closer")) { return; }
+		if($("#addNewWrapper").html())			{ return; }
 		//if(!$('#pageSlideFood').hasClass("open") && $('#pageSlideFood').is(":animated")) { alert("got ya"); return; }
 		//evt.preventDefault();//android kitkat focus
 		//hide food
@@ -765,6 +773,7 @@ setTimeout(function() {
 					//var keyCode = (evt.which) ? evt.which : evt.keyCode;
 					if((evt.which || evt.keyCode) == 46) { return false; }
 					if((evt.which || evt.keyCode) == 8)  { return true; }
+					if((evt.which || evt.keyCode) == 13) { return true; }
 					//max
 					if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
 						$(this).val( parseInt($(this).val()) );

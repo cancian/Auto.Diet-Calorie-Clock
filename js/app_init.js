@@ -28,6 +28,14 @@ document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, i
 /////////
 document.write("<link rel='stylesheet' type='text/css' id='coreCss'   href='" + hostLocal + "css/index.css' />");
 document.write("<link rel='stylesheet' type='text/css' id='coreFonts' href='" + hostLocal + "css/fonts.css' />");
+///////////
+// WINJS //
+///////////
+if(navigator.userAgent.match(/MSApp/i)) {
+	//document.write('<link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />');
+	document.write('<script src="//Microsoft.WinJS.1.0/js/base.js"><\/script>');
+	//document.write('<script src="//Microsoft.WinJS.1.0/js/ui.js"><\/script>');
+}
 /////////////////////
 // CORDOVA/DESKTOP //
 /////////////////////

@@ -23,6 +23,7 @@ var timerWait         = 100;
 var noTimer;
 jQuery.support.cors   = true
 function voidThis()   { }
+function voidMe()     { }
 /*
 var GlobalDebug = (function () {
     var savedConsole = console;
@@ -137,20 +138,35 @@ if(vendorClass == "moz" || vendorClass == "msie") {
 		}
 		//msie backface slowdown
 		if(vendorClass == "msie") {
-			rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
+			//rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
 		}
-		$("#coreCss").remove();
-		$("head").append("<style type='text/css' id='coreCss'></style>");
-		$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
+		if(navigator.userAgent.match(/MSApp/i)) {
+			MSApp.execUnsafeLocalFunction(function() {
+				$("#coreCss").remove();
+				$("head").append("<style type='text/css' id='coreCss'></style>");
+				$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
+			});
+		} else {
+			$("#coreCss").remove();
+			$("head").append("<style type='text/css' id='coreCss'></style>");
+			$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
+		}
 	});
 }
 //////////////////
 // INJECT FONTS //
 //////////////////
 $("#coreFonts").remove();
-$("head").append("<style type='text/css' id='coreFonts'></style>");
-$.get(hostLocal + "css/fonts.css",function(raw) {
-	$("#coreFonts").html(raw);
+$.get(hostLocal + "css/fonts.css",function(raw) {	
+	if(navigator.userAgent.match(/MSApp/i)) {
+		MSApp.execUnsafeLocalFunction(function() {
+			$("head").append("<style type='text/css' id='coreFonts'></style>");
+			$("#coreFonts").html(raw);
+		});
+	} else {
+		$("head").append("<style type='text/css' id='coreFonts'></style>");
+		$("#coreFonts").html(raw);
+	}
 });
 //#///////////////#//
 //# TOUCH ? CLICK #//
@@ -179,11 +195,13 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
+/*
 if(window.navigator.msPointerEnabled && !isDesktop()) {
 	touchstart = "MSPointerDown";
 	touchend   = "MSPointerUp";
 	touchmove  = "MSPointerMove";
 }
+*/
 /////////////////
 // NUMBER ONLY //
 /////////////////
@@ -350,35 +368,53 @@ function getOrientation() {
 	}
 }
 /////////////////
-// ALERT METRO //
+// MSAPP METRO //
 /////////////////
-if(navigator.userAgent.match(/MSApp/i)) {
+if (navigator.userAgent.match(/MSApp/i)) {
+	/////////////////
+	// METRO ALERT //
+	/////////////////
 	(function() {
 		var alertsToShow = [];
 		var dialogVisible = false;
-		function showPendingAlerts()
-		{
-			if (dialogVisible || !alertsToShow.length)
-			{
+		function showPendingAlerts() {
+			if (dialogVisible || !alertsToShow.length) {
 				return;
 			}
 			dialogVisible = true;
-			(new Windows.UI.Popups.MessageDialog(alertsToShow.shift())).showAsync().done(function ()
-			{
+			(new Windows.UI.Popups.MessageDialog(alertsToShow.shift())).showAsync().done(function () {
 				dialogVisible = false;
 				showPendingAlerts();
-			}
-			)
+			})
 		}
-		window.alert = function (message)
-		{
-			if (window.console && window.console.log)
-			{
+		window.alert = function (message) {
+			if (window.console && window.console.log) {
 				window.console.log(message);
 			}
 			alertsToShow.push(message);
 			showPendingAlerts();
 		}
+	})();
+	///////////////////
+	// PRIVACY CHARM // For an introduction to the Blank template, see the following documentation:
+	/////////////////// http://go.microsoft.com/fwlink/?LinkId=232509
+	(function() {
+		"use strict";
+		WinJS.Binding.optimizeBindingReferences = true;
+		var app = WinJS.Application;
+		var activation = Windows.ApplicationModel.Activation;
+		app.onactivated = function (args) {
+			if(args.detail.kind === activation.ActivationKind.launch) {
+				args.setPromise(WinJS.UI.processAll());
+			}
+		};
+		app.oncheckpoint = function (args) { };
+		WinJS.Application.onsettings = function (e) {
+			e.detail.e.request.applicationCommands.append(new Windows.UI.ApplicationSettings.SettingsCommand('Privacy policy', 'Privacy policy', function () {
+				Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('http://kcals.net/privacy.html'));
+			}));
+		};
+		app.start();
 	})();
 }
 

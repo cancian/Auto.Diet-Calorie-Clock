@@ -185,7 +185,7 @@ function initDB(t) {
 	// CREATE TABLES //
 	///////////////////
 	if(hasSql) {
-		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published INTEGER UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 		t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 	} else {
 		if(!lib.tableExists("diary_entry")) {
@@ -231,7 +231,7 @@ function clearEntries(callback) {
 	CONSOLE('clearEntries');
 	//db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
 	if(hasSql) {
-		db.transaction(function(t) { t.executeSql('DELETE FROM diary_entry'); return false; }, dbErrorHandler, function() { setPush(); return false; });
+		db.transaction(function(t) { t.executeSql('update "diary_entry" set info="deleted";'); return false; }, dbErrorHandler, function() { setPush(); return false; });
 	} else {
 		lib.deleteRows("diary_entry");
 		lib.commit();
@@ -311,13 +311,15 @@ function fetchEntries(start,callback) {
 	if(arguments.length == 1) { callback = arguments[0]; }
 	if(hasSql) {
 		db.transaction(function(t) {
-			t.executeSql('select * from diary_entry order by published desc',[],
+			t.executeSql('SELECT * FROM diary_entry ORDER BY published DESC',[],
 			function(t,results) {
 				callback(fixResults(results));
 			},dbErrorHandler);
 		});
 	} else {
-		callback(lib.query("diary_entry"));
+		//callback(lib.query("diary_entry"));
+		callback(lib.queryAll("diary_entry", { sort: [["published", "DESC"]]}));
+		
 	}
 }
 //#//////////////////////#//
@@ -335,7 +337,7 @@ function pushEntries(userId) {
 			var id        = data[i].id;
 			var title     = data[i].title;
 			var body      = sanitizeSql(data[i].body);
-			var published = data[i].published;
+			var published = parseInt(data[i].published);
 			var info      = data[i].info;
 			var kcal      = data[i].kcal;
 			var pro       = data[i].pro;
@@ -400,6 +402,8 @@ function setComplete() {
 	} else {
 		setPush();
 	}
+	//update entrylist sum
+	updateEntriesSum();
 	//refresh tabs
 	if(!$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
 		if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
@@ -443,14 +447,15 @@ function syncEntries(userId) {
 			} else if(hasSql) {
 				//SQL
 				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
-				html5sql.process("DELETE FROM diary_entry;" + sql,function() {
+				//html5sql.process("DELETE FROM diary_entry;" + sql,function() {
+				html5sql.process(sql,function() {
 					//success
 					demoRunning = false;
 					setComplete();
 				});
 			} else {
 				//LOCALSTORAGE 
-				lib.deleteRows("diary_entry");
+				//lib.deleteRows("diary_entry");
 				//lib.commit();
 				//sqlToJson
 				lsql  = sql.split('\n');
@@ -462,11 +467,11 @@ function syncEntries(userId) {
 					var keyName = lasql[a].split("','");
 					//WRITE
 					if(keyName[0] == "diary_entry") {
-						//lib.insertOrUpdate("diary_entry", {published: keyName[4]},{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
-						lib.insert("diary_entry",{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						lib.insertOrUpdate("diary_entry", {published: parseInt(keyName[4])},{"title":keyName[2],"body":keyName[3],"published":parseInt(keyName[4]),"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						//lib.insert("diary_entry",{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 					}
 					if(keyName[0] == "diary_food") {
-						lib2.insertOrUpdate("diary_food", {code: keyName[3]},{"id":keyName[1],"type":keyName[2],"code":keyName[3],"name":keyName[4],"term":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						lib2.insertOrUpdate("diary_food", {code: keyName[3]},{"type":keyName[2],"code":keyName[3],"name":keyName[4],"term":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 					}
 				}
 				//success
@@ -487,13 +492,16 @@ function getEntries(start,callback) {
 	if(hasSql) {
 		db.transaction(
 			function(t) {
-				t.executeSql('select id, title, body, published, pro, car, fat from diary_entry order by published desc',[],
+				t.executeSql('SELECT id, title, body, published, pro, car, fat FROM "diary_entry" WHERE info IS NOT "deleted" ORDER BY published desc',[],
 				function(t,results) {
 					callback(fixResults(results));
 				},dbErrorHandler);
 		}, dbErrorHandler);
 	} else {
-		callback(lib.query("diary_entry"));
+		//callback(lib.query("diary_entry"));
+		//callback(lib.queryAll("diary_entry", { sort: [["published", "DESC"]]}));
+		//callback(lib.query("diary_entry"));
+		callback(lib.query("diary_entry", function(data){ if(data.info != "deleted") { return true; }},{ sort: [["published", "DESC"]]}));
 	}
 }
 //////////////////
@@ -503,11 +511,15 @@ function deleteEntry(rid, callback) {
 	//CONSOLE('deleteEntry(' + rid + ')');
 	if(hasSql) {
 		db.transaction(function(t) {
-			t.executeSql('delete from diary_entry where id = ?', [rid]);
+			t.executeSql('update "diary_entry" set info="deleted" where id = ?', [rid.id]);
 			setPush();
 		});
 	} else {
-		lib.deleteRows("diary_entry",{id: rid});
+		//lib.deleteRows("diary_entry",{id: rid.id});
+		lib.update("diary_entry", {"id": rid.id}, function(row) {
+			row.info = 'deleted';
+			return row;
+		});
 		lib.commit();
 		setPush();
 	}
@@ -531,11 +543,11 @@ function saveEntry(data) {
 				setPush();
 			//INSERT FULL
 			} else if(data.pro || data.car || data.fat) {
-				t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,data.published,data.pro,data.car,data.fat]); 
+				t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,parseInt(data.published) + '',data.pro,data.car,data.fat]); 
 				setPush();
 			//INSERT QUICK
 			} else {
-				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,data.published]); 
+				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,parseInt(data.published) + '']); 
 				setPush();
 			} 
 		});
@@ -558,12 +570,12 @@ function saveEntry(data) {
 			setPush();
 		//INSERT FULL
 		} else if(data.pro || data.car || data.fat) {
-			lib.insert("diary_entry", {"title": data.title, "body": data.body, "published": data.published, "pro":data.pro, "car":data.car, "fat":data.fat});
+			lib.insert("diary_entry", {"title": data.title, "body": data.body, "published": parseInt(data.published), "pro":data.pro, "car":data.car, "fat":data.fat});
 			lib.commit();
 			setPush();
 		//INSERT QUICK
 		} else {
-			lib.insert("diary_entry", {"title": data.title, "body": data.body, "published": data.published});
+			lib.insert("diary_entry", {"title": data.title, "body": data.body, "published": parseInt(data.published)});
 			lib.commit();
 			setPush();
 		}
@@ -660,11 +672,11 @@ function getCustomList(rType,callback) {
 	} else {
 		//FAV LIST
 		if(rType == "fav") {
-			callback(lib2.query("diary_food",{fib: "fav"}));
+		//	callback(lib2.query("diary_food",{fib: "fav", sort: [["name", "ASC"]]}));
+		callback(lib2.queryAll("diary_food", { query: {"fib": "fav"},sort: [["name", "ASC"]]}));
 		//FOOD/EXERCISE LIST
 		} else {
-			var customItems = lib2.query("diary_food", function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }});
-			callback(customItems);
+			callback(lib2.queryAll("diary_food", { query: function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }},sort: [["name", "ASC"]]}));
 		}
 			 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
 		else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
@@ -943,13 +955,13 @@ function updateEntries(partial,range) {
 		var langKcal = LANG.KCAL[lang];
 		var totalEntries       = 0;
 		var totalRecentEntries = 0;
-		var totalEntried       = Number(window.localStorage.getItem('totalEntries'));
-		var totalRecentEntried = Number(window.localStorage.getItem('totalRecentEntries'));
+		var totalEntried       = parseInt(window.localStorage.getItem('totalEntries'));
+		var totalRecentEntried = parseInt(window.localStorage.getItem('totalRecentEntries'));
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
-			var dataTitle     = Number(data[i].title);
+			var dataTitle     = parseInt(data[i].title);
 			var dataBody      = data[i].body;
-			var dataPublished = Number(data[i].published);
+			var dataPublished = parseInt(data[i].published);
 			// 0 : 1
 			if(data[i].body == "") {
                        if(dataTitle > 0) {
@@ -988,15 +1000,15 @@ function updateEntries(partial,range) {
 				totalRecentEntries++;
 			}
 			if(((new Date().getTime() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20 || range == "full") {
-				if(lastPub > Number(data[i].published)) {
+				if(lastPub > parseInt(data[i].published)) {
 					s = s + dataHandler;
 				} else {
 					s = dataHandler + s;
 				}
 			}
-			lastPub = Number(data[i].published);
+			lastPub = parseInt(data[i].published);
 			//partial == last row time
-			if(partial == Number(data[i].published)) {
+			if(partial == parseInt(data[i].published)) {
 				lastRow = dataHandler;
 				lastId  = data[i].id;
 			}
@@ -1032,7 +1044,7 @@ function updateEntriesTime() {
 	//CONSOLE('updateEntriesTime()');	
 	getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
-			var dataPublished = Number(data[i].published);
+			var dataPublished = parseInt(data[i].published);
 			$("#" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
 		}
 	});
@@ -1091,7 +1103,13 @@ function updateEntriesSum() {
 			'; 
 		}
 		//OUTPUT
-		$("#daySum").html(reStyle);
+		if(navigator.userAgent.match(/MSApp/i)) {
+			MSApp.execUnsafeLocalFunction(function() {
+				$("#daySum").html(reStyle);
+			});
+		} else {
+			$("#daySum").html(reStyle);
+		}
 	});
 }
 ///////////////////
@@ -1151,9 +1169,7 @@ function buildHelpMenu() {
 	//SCROLLER
 	setTimeout(function() {
 		if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
-			try {
-				$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-			} catch(e) { console.log('niceScroll error'); }			
+			$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 		}
 		//UNLOCK TAP
 		setTimeout(function() {
@@ -1207,9 +1223,7 @@ function buildHelpMenu() {
 				//SCROLLER
 				if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 					setTimeout(function() {
-						try {
 						$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-						} catch(e) { console.log('niceScroll error'); }
 					},100);
 				} else {
 					//wp8 transision
@@ -1935,8 +1949,10 @@ function getStoreUrl(button) {
 	if(button == 1) {
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8', '_system', 'location=yes'); }
 		else if(isMobile.Android())   { window.open('https://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');                 }
+		//else if(isMobile.Android()) { window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');                                   }
 		else if(isMobile.Windows())   { window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_system', 'location=yes');     }
-		else if(isMobile.FirefoxOS()) { window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');                               }
+		//else if(isMobile.MSApp())     { window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_system', 'location=yes');     }
+		else if(isMobile.FirefoxOS()) { window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');                                    }
 	}
 }
 function getRateDialog() {
@@ -1951,7 +1967,13 @@ function getRateDialog() {
 	///////////////
 	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (60 * 60 * 24 * 7 * 1000)) {
 		setTimeout(function() {
-			if(isMobile.Cordova()) {
+			//SHOW DIALOG
+			if(isMobile.MSApp()) {
+				var md = new Windows.UI.Popups.MessageDialog(LANG.RATE_MSG[lang], LANG.RATE_TITLE[lang]);
+				md.commands.append(new Windows.UI.Popups.UICommand(LANG.RATE_IT[lang]));
+				md.commands.append(new Windows.UI.Popups.UICommand(LANG.NO_THANKS[lang]));
+				md.showAsync().then(function (command) { if(command.label == LANG.RATE_IT[lang]) { getStoreUrl(1); } });
+			} else if(isMobile.Cordova()) {
 				navigator.notification.confirm(LANG.RATE_MSG[lang], getStoreUrl, LANG.RATE_TITLE[lang], [LANG.RATE_IT[lang],LANG.NO_THANKS[lang]]);
 			} else {
 				if(confirm(LANG.RATE_MSG[lang])) { getStoreUrl(1); } else { getStoreUrl(0); }
@@ -1995,11 +2017,12 @@ function getAnalytics(target) {
 		var deviceType = isDesktop()        ? 'desktop' : 'mobile' ;
 		var Cordoving  = isMobile.Cordova() ? 'app' : 'web' ;
 		var appOS      = vendorClass;
-		if(isMobile.iOS())		{ appOS = "ios";       }
-		if(isMobile.Android())	{ appOS = "android";   }
-		if(isMobile.Windows())	{ appOS = "windows";   }
-		if(isMobile.FirefoxOS()){ appOS = "firefoxos"; }
-		if(isMobile.OSX())		{ appOS = "osx";       }
+		if(isMobile.iOS())		{ appOS = "ios";       deviceType = 'mobile'; }
+		if(isMobile.Android())	{ appOS = "android";   deviceType = 'mobile'; }
+		if(isMobile.Windows())	{ appOS = "windows";   deviceType = 'mobile'; }
+		if(isMobile.MSApp())	{ appOS = "msapp";     deviceType = 'mobile'; }
+		if(isMobile.FirefoxOS()){ appOS = "firefoxos"; deviceType = 'mobile'; }
+		//if(isMobile.OSX())	{ appOS = "osx";       deviceType = 'mobile';  }
 		//track domain/string
 		trackString = appOS + "." + deviceType + "." + Cordoving + "/#" + target + "(" + appBuild + ")" + "(" + lang + ")";
 		///////////////

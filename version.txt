@@ -1,14 +1,16 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.2.2.1 [15/05/2014]
-• 
-• 
+# 1.2.3 [15/05/2014]
+• entries sync triggers update
+• improved data synchronization
 • 
 • 
 • 
 • fixed an issue with favorite items being duplicated;
 • minor bug fixes.
+
+
 
 # 1.2.2 [08/05/2014]
 • more detailed nutritional data; 
