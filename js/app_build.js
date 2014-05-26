@@ -54,10 +54,10 @@ function openSettings(string) {
 	//if(!hasTouch()) {
 		$("#optionReview").remove();
 	//}
-	if((isMobile.Windows() || isMobile.MSApp()) && window.localStorage.getItem("appDebug") != "active") {
-		$("#optionFacebook").remove();
-		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=msft-9cfeccf8a0dd43cab10434aed9ae0d3e://authorize';
-
+	if(isMobile.Windows() || isMobile.MSApp()) {
+		//$("#optionFacebook").remove();
+		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=msft-9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e://authorize';
+		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=ms-app://s-1-15-2-407192353-4205229332-1619956504-1283844354-3578079867-2186646312-3710459015';
 	}
 	////////////////
 	// ACTIVE ROW //
@@ -74,84 +74,23 @@ function openSettings(string) {
 	$("#optionFacebook").on(touchend, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if(typeof FB !== 'undefined') {
-		if(window.localStorage.getItem("facebook_logged")) {
-			///////////////
-			// LOGGED IN //
-			///////////////
-			// ON CONFIRM
-			function onConfirmLogout(button) {
-				function didUnlog() {
-					setTimeout(function() { 
-						NProgress.done();
-						$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO[lang]);
-						window.localStorage.removeItem("facebook_logged");
-						window.localStorage.removeItem("facebook_userid");
-						window.localStorage.removeItem("facebook_username");	
-						$("#appFooter").removeClass("appFacebook");
-						$("body").removeClass("appFacebook");
-					},250);
+		if(!$("#nprogress").html()) {
+			NProgress.start();
+			if(window.localStorage.getItem("facebook_logged")) {
+				//CONFIRM DIALOG
+				if(isMobile.MSApp()) {
+					var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.LOGOUT_TITLE[lang]);
+					md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+					md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
+					md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { getLogoutFB(1); } if(command.label == LANG.CANCEL[lang]) { getLogoutFB(0); } });
+				} else if(hasTouch()) {
+						navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], getLogoutFB, LANG.LOGOUT_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
+				} else {
+					if(confirm(LANG.LOGOUT_TITLE[lang] + "\n" + LANG.ARE_YOU_SURE[lang])) { getLogoutFB(1); } else { getLogoutFB(0); } 
 				}
-				if(button == 1) {
-					NProgress.start();
-					FB.logout(function(response) {
-						if(response.status != "connected") {
-							didUnlog();
-							updateLoginStatus(1);
-							NProgress.done();
-						}
-					});
-					//enforce logout
-					setTimeout(function() { FB.logout();          }, 2000);
-					setTimeout(function() { updateLoginStatus(1); NProgress.done(); }, 3000);
-				}
-			}
-			//CONFIRM DIALOG
-		if(isMobile.MSApp()) {
-			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.LOGOUT_TITLE[lang]);
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
-			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { onConfirmLogout(1); } });
-		} else if(hasTouch()) {
-				navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmLogout, LANG.LOGOUT_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
 			} else {
-				if(confirm(LANG.LOGOUT_TITLE[lang] + "\n" + LANG.ARE_YOU_SURE[lang])) { onConfirmLogout(1); } else { }
+				getLoginFB();
 			}
-		} else {
-			////////////////
-			// LOGGED OUT //
-			////////////////
-			if(!$("#nprogress").html()) {
-				FB.login(function(response) {
-					NProgress.start();
-					//timeout
-					setTimeout(function() { NProgress.done(); },9999);
-					if(response.status == "connected") {
-						//alert(JSON.stringify(response));
-						//alert('done (login)!');
-						FB.api('/me', function(me) {
-							if(me.id && me.name) {
-								var facebook_userid   = me.id;
-								var facebook_username = me.name;
-								window.localStorage.setItem("facebook_logged",true);
-								window.localStorage.setItem("facebook_userid",facebook_userid);
-								window.localStorage.setItem("facebook_username",facebook_username);	
-								$("#appFooter").addClass("appFacebook");
-								$("body").addClass("appFacebook");
-								$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
-								syncEntries(window.localStorage.getItem("facebook_userid"));
-								NProgress.done();
-							} else {
-								NProgress.done();
-							}
-						});
-					} else {
-						NProgress.done();
-					}
-				},{ scope: "email" });
-				setTimeout(function() { updateLoginStatus(1); NProgress.done(); }, 5000);
-			}
-		}
 		}
 	});
 	//TOGGLE ACTIVE
@@ -217,7 +156,7 @@ function openSettings(string) {
 			caption: LANG.CALORIE_COUNTER[lang],
 			description: LANG.SHARE_MESSAGE[lang]
 		};
-		FB.ui(params, function(obj) { CONSOLE(obj); });
+		//FB.ui(params, function(obj) { console.log(obj); });
 		//FB.ui(params);
 	});
 
@@ -725,9 +664,9 @@ function openStatus(string) {
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
-function openDiary(string) {
-getEntries(function(data) {
-//
+function openDiary(entryListHtml) {
+	if(!entryListHtml) { return; }
+
 updateEntriesSum();
 //RAW HTML
 var diaryHtml    = "";
@@ -792,89 +731,10 @@ diaryHtml += '\
 <div id="entryListWrapper">\
 	<div class="heading" id="go">' + LANG.ACTIVITY_LOG[lang] + '<div id="diaryNotes"></div></div>\
 	<div id="entryList">';
-		///////////////////////
-		// updateEntries SQL //
-		///////////////////////
-		var s = "";
-		var p = "";
-		var rowClass;
-		var lastRow      = "";
-		var lastId       = "";
-		var lastPub      = 0;
-		var langFood     = LANG.FOOD[lang];
-		var langExer     = LANG.EXERCISE[lang];
-		var langDel      = LANG.DELETE[lang];
-		var totalEntries       = 0;
-		var totalRecentEntries = 0;
-		var totalEntried       = Number(window.localStorage.getItem('totalEntries'));
-		var totalRecentEntried = Number(window.localStorage.getItem('totalRecentEntries'));
-		for(var i=0, len=data.length; i<len; i++) {
-			// description autofill
-			var dataTitle     = Number(data[i].title);
-			var dataBody      = data[i].body;
-			var dataPublished = Number(data[i].published);
-			// 0 : 1
-			if(data[i].body == "") {
-                       if(dataTitle > 0) {
-					dataBody = langFood;
-				} else if(dataTitle < 0) {
-					dataBody = langExer;
-				} else {
-					dataBody = "";
-				}
-			}
-			// row colors
-			var rowDate = new Date(dataPublished);
-			var rowHour = rowDate.getHours();
-                 if(rowHour <  6) { rowClass = "rowAfterhours"; }
-			else if(rowHour < 12) { rowClass = "rowMorning";    }
-			else if(rowHour < 18) { rowClass = "rowAfternoon";  }
-			else if(rowHour < 24) { rowClass = "rowNight";      }
-
-			if(dataTitle < 0)	{ rowClass = "e-" + rowClass; }
-			// EXPIRED
-			if(window.localStorage.getItem("config_start_time") > dataPublished) { rowClass = rowClass + " expired"; }
-			// CORE OUTPUT
-			//<p class='entriesId'>#" + Number(i+1) + "</p>
-			var dataHandler = "\
-			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + " day" + dayFormat(dataPublished).split("/").join("x") + "' name='" + dataPublished + "'>\
-				<p class='entriesTitle'>" + dataTitle + "</p>\
-				<p class='entriesKcals'>" + LANG.KCAL[lang] + "</p>\
-				<p class='entriesBody'>" + dataBody + "</p>\
-				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
-				<span class='delete'>" + langDel + "</span>\
-			</div>";
-			// ROW++ (sqlish sort)
-			totalEntries++;
-			if((new Date().getTime() - dataPublished) < 60*60*24*5*1000) {
-				totalRecentEntries++;
-			}
-
-			if(((new Date().getTime() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20) {
-				if(lastPub > Number(data[i].published)) {
-					s = s + dataHandler;
-				} else {
-					s = dataHandler + s;
-				}
-			}
-			lastPub = Number(data[i].published);
-			//partial == last row time
-			if(partial == Number(data[i].published)) {
-				lastRow = dataHandler;
-				lastId  = data[i].id;
-			}
-		}
-		//N# OF ENTRIES
-		window.localStorage.setItem('totalEntries',totalEntries);
-		window.localStorage.setItem('totalRecentEntries',totalRecentEntries);
-	////////////////
-	// UPDATE DIV //
-	////////////////
-		if(s == "") {
-			diaryHtml += '<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>';
-		} else {
-			diaryHtml += s;
-		}
+//////////////////////
+// CALLBACK CONTENT //
+//////////////////////
+diaryHtml += entryListHtml;
 ///////////////////
 diaryHtml += '</div>\
 		<div id="entryListBottomBar">' + LANG.CLEAR_ALL[lang] + '</div>\
@@ -1113,7 +973,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		pressTimerPos  = setTimeout(function()  {
 		pressRepeatPos = setInterval(function() {
 			//ACTION
-			var repeatPos = document.getElementById('slider').slider.increment(1);
+			document.getElementById('slider').slider.increment(1);
 			//makeRound();
 		},25);
 		},400);
@@ -1133,7 +993,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		pressTimerNeg  = setTimeout(function()  {
 		pressRepeatNeg = setInterval(function() {
 			//ACTION
-			var repeatNeg = document.getElementById('slider').slider.increment(-1);
+			document.getElementById('slider').slider.increment(-1);
 			//makeRound();
 		},25);
 		},400);
@@ -1274,7 +1134,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 				caption: LANG.CALORIE_COUNTER[lang],
 				description: LANG.SHARE_MESSAGE[lang]
 			};*/
-			//FB.ui(params, function(obj) { CONSOLE(obj); });
+			//FB.ui(params, function(obj) { console.log(obj); });
 			FB.ui({
 				method: 'feed',
 				name: 'Kcals ' + LANG.FOR[lang] + ' ' + shareOS,
@@ -1534,7 +1394,6 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			setPush();
 		});
 	});
-});
 //////////////////////
 // ENDSCROLL LOADER //
 //////////////////////
@@ -1543,7 +1402,7 @@ var topTimer;
 $('#appContent').scroll(function() {
 	clearTimeout(topTimer);
 	topTimer = setTimeout(function() {
-		var entryListHeight = $('#entryList').height() * .9;
+		var entryListHeight = $('#entryList').height() * .5;
 		if(topLock != 0)                  { return; }
 		if($('#go').hasClass("scrolled")) { return; }
 		//console.log("scrolled: " + $('#appContent').scrollTop() + " total: " + entryListHeight);

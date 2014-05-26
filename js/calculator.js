@@ -2,7 +2,7 @@
 //var NS4 = (document.layers);
 //var IE4 = (document.all);
 //var win = window;
-var n = 0;
+//var n = 0;
 var co = new Object;
 function recalc_onclick(ctl) {
 //    if (document.formc.automatic_recalc.checked || ctl == '') {

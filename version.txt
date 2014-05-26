@@ -2,12 +2,9 @@
 ## VERSION LOG ##
 #################
 # 1.2.3 [15/05/2014]
-• entries sync triggers update
 • improved data synchronization
-• 
-• 
-• 
-• fixed an issue with favorite items being duplicated;
+• fixed an issue with favorites being duplicated;
+• improved performance
 • minor bug fixes.
 
 

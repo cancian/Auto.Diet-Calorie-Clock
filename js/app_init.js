@@ -5,17 +5,8 @@ var blockAlerts = 0;
 window.onerror = function(e, url, line) {
 	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
 		if(confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) { blockAlerts = 0; } else { blockAlerts = 1; }
-		//if(window.external) { window.external.Notify('onerror: ' + e + ' URL:' + url + ' Line:' + line); } 
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
-	//if(typeof spinner == 'function') {
-	//	spinner('stop');
-	//}
-	//setTimeout(function() {
-	//	if(typeof getAnalytics == 'function') {
-			//getAnalytics('error: ' + e + ' URL:' + url + ' Line:' + line);
-	//	}
-	//},600);
 	//return false;
 }
 //////////////
@@ -28,21 +19,20 @@ document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, i
 /////////
 document.write("<link rel='stylesheet' type='text/css' id='coreCss'   href='" + hostLocal + "css/index.css' />");
 document.write("<link rel='stylesheet' type='text/css' id='coreFonts' href='" + hostLocal + "css/fonts.css' />");
-///////////
-// WINJS //
-///////////
-if(navigator.userAgent.match(/MSApp/i)) {
-	//document.write('<link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />');
-	document.write('<script src="//Microsoft.WinJS.1.0/js/base.js"><\/script>');
-	//document.write('<script src="//Microsoft.WinJS.1.0/js/ui.js"><\/script>');
-}
 /////////////////////
 // CORDOVA/DESKTOP //
 /////////////////////
-if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android|IEMobile)/)) {
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-connect.js'><\/script>");
+document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
+////////
+// FB //
+////////
+if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/)) {
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-js-sdk.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-connect.js'><\/script>");
+} else if(navigator.userAgent.match(/IEMobile/i)) {
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/openfb.js'><\/script>");
+} else if(navigator.userAgent.match(/MSApp/i)) {
+	//document.write('<script src="//Microsoft.WinJS.1.0/js/base.js"><\/script>');
 } else {
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-js-sdk.min.js'><\/script>");
 }

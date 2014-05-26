@@ -1,50 +1,21 @@
-﻿///////////////////
-// DEBUG CONSOLE //
-///////////////////
-function CONSOLE(data,input) {
-	//if(window.localStorage.getItem("config_debug") == "active") {
-		console.log(data);
-		//if(input) {
-		//	$("#entryBody").val(data);
-		//}
-	//}
-	//return false;
-}
-//////////////////////
+﻿//////////////////////
 // AJAX ERROR CODES //
 //////////////////////
-$(function() {
-    $.ajaxSetup({
-        error: function(jqXHR, exception) {
-			//spinner();
-            if (jqXHR.status === 0) {
-                //alert('Not connect.\n Verify Network.');
-            } else if (jqXHR.status == 404) {
-                //alert('Requested page not found. [404]');
-            } else if (jqXHR.status == 500) {
-                //alert('Internal Server Error [500].');
-            } else if (exception === 'parsererror') {
-                //alert('Requested JSON parse failed.');
-            } else if (exception === 'timeout') {
-                //alert('Time out error.');
-            } else if (exception === 'abort') {
-                //alert('Ajax request aborted.');
-            } else {
-                //alert('Uncaught Error.\n' + jqXHR.responseText);
-            }
-			//close progress/create file
-			//$("#loadingDiv").removeClass("updating");
-			setTimeout(function() { NProgress.done(); spinner('stop'); },6000);
-			//setPush();
-        }
-    });
-});
-///////////////////
-// ERROR HANDLER //
-///////////////////
-function dbErrorHandler(evt) {
-	CONSOLE('DB Error: ' + JSON.stringify(evt));
-}
+$.support.cors = true;
+
+$.ajaxSetup({cache: false, error: function(jqXHR, exception) {
+		 if(jqXHR.status === 0)           { errorHandler('Not connect.\n Verify Network.');         } 
+	else if (jqXHR.status == 404)         { errorHandler('Requested page not found. [404]');        }  
+	else if (jqXHR.status == 500)         { errorHandler('Internal Server Error [500].');           } 
+	else if (exception === 'parsererror') { errorHandler('Requested JSON parse failed.');           } 
+	else if (exception === 'timeout')     { errorHandler('Time out error.');                        } 
+	else if (exception === 'abort')       { errorHandler('Ajax request aborted.');                  } 
+	else                                  { errorHandler('Uncaught Error.\n' + jqXHR.responseText); }
+	setTimeout(function() { 
+		NProgress.done();
+		spinner('stop'); 
+	},6000);
+	}});
 ////////////////
 // SHOW INTRO //
 ////////////////
@@ -167,7 +138,6 @@ function initDB(t) {
 	if(!window.localStorage.getItem("totalRecentEntries")) {
 		window.localStorage.setItem("totalRecentEntries",0);
 	}
-	//CONSOLE('initDB');
 	//////////////////////////////////////////
 	// if not sql already, use localstorage //
 	//////////////////////////////////////////
@@ -185,7 +155,7 @@ function initDB(t) {
 	// CREATE TABLES //
 	///////////////////
 	if(hasSql) {
-		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published INTEGER UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 		t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 	} else {
 		if(!lib.tableExists("diary_entry")) {
@@ -203,7 +173,6 @@ function initDB(t) {
 // FIX RESULTS //
 /////////////////
 function fixResults(res) {
-	//CONSOLE('fixResults');
 	if(!res) { return; }
 	var result = [];
 	if(res.rows) {
@@ -217,9 +186,8 @@ function fixResults(res) {
 // RESET DATA+SQL //
 ////////////////////
 function deSetup(callback) {
-	CONSOLE('deSetup');
 	if(hasSql) {
-		db.transaction(function(t) { t.executeSql('DROP TABLE IF EXISTS "diary_entry";'); }, dbErrorHandler, function() { afterHide("clear"); });
+		db.transaction(function(t) { t.executeSql('DROP TABLE IF EXISTS "diary_entry";'); }, errorHandler, function() { afterHide("clear"); });
 	} else {
 		afterHide("clear");
 	}
@@ -228,10 +196,9 @@ function deSetup(callback) {
 // CLEAR ENTRIES //
 ///////////////////
 function clearEntries(callback) {
-	CONSOLE('clearEntries');
 	//db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
 	if(hasSql) {
-		db.transaction(function(t) { t.executeSql('update "diary_entry" set info="deleted";'); return false; }, dbErrorHandler, function() { setPush(); return false; });
+		db.transaction(function(t) { t.executeSql('update "diary_entry" set info="deleted";'); return false; }, errorHandler, function() { setPush(); return false; });
 	} else {
 		lib.deleteRows("diary_entry");
 		lib.commit();
@@ -307,18 +274,17 @@ function rebuildLocalStorage(lsp) {
 // FETCH ENTRIES //
 ///////////////////
 function fetchEntries(start,callback) {
-	//CONSOLE('getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	if(hasSql) {
 		db.transaction(function(t) {
 			t.executeSql('SELECT * FROM diary_entry ORDER BY published DESC',[],
 			function(t,results) {
 				callback(fixResults(results));
-			},dbErrorHandler);
+			},errorHandler);
 		});
 	} else {
 		//callback(lib.query("diary_entry"));
-		callback(lib.queryAll("diary_entry", { sort: [["published", "DESC"]]}));
+		callback(lib.queryAll("diary_entry", { sort: [["name", "DESC"]]}));
 		
 	}
 }
@@ -370,7 +336,8 @@ function pushEntries(userId) {
 		}
 		if(localStorageSql()) {
 			fetchEntries = fetchEntries + "\n" + trim(localStorageSql());
-		}		
+		}	
+		fetchEntries = fetchEntries.split("undefined").join("");
 		/////////////////
 		// POST RESULT //
 		/////////////////
@@ -433,6 +400,7 @@ function syncEntries(userId) {
 		NProgress.start();
 		//get remote sql
 		$.get("http://kcals.net/sync.php?uid=" + userId,function(sql) {
+			sql = sql.split("undefined").join("");
 			//local storage slice
 			if(sql.match('#@@@#')) {
 				rebuildLocalStorage(sql.split("\n").pop());
@@ -467,7 +435,7 @@ function syncEntries(userId) {
 					var keyName = lasql[a].split("','");
 					//WRITE
 					if(keyName[0] == "diary_entry") {
-						lib.insertOrUpdate("diary_entry", {published: parseInt(keyName[4])},{"title":keyName[2],"body":keyName[3],"published":parseInt(keyName[4]),"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						lib.insertOrUpdate("diary_entry", {published: parseInt(keyName[4])},{"title":keyName[2],"body":keyName[3],"published": parseInt(keyName[4]),"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 						//lib.insert("diary_entry",{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 					}
 					if(keyName[0] == "diary_food") {
@@ -487,7 +455,6 @@ function syncEntries(userId) {
 // GET ENTRIES //
 /////////////////
 function getEntries(start,callback) {
-	//CONSOLE('getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	if(hasSql) {
 		db.transaction(
@@ -495,20 +462,20 @@ function getEntries(start,callback) {
 				t.executeSql('SELECT id, title, body, published, pro, car, fat FROM "diary_entry" WHERE info IS NOT "deleted" ORDER BY published desc',[],
 				function(t,results) {
 					callback(fixResults(results));
-				},dbErrorHandler);
-		}, dbErrorHandler);
+				},errorHandler);
+		}, errorHandler);
 	} else {
 		//callback(lib.query("diary_entry"));
 		//callback(lib.queryAll("diary_entry", { sort: [["published", "DESC"]]}));
 		//callback(lib.query("diary_entry"));
-		callback(lib.query("diary_entry", function(data){ if(data.info != "deleted") { return true; }},{ sort: [["published", "DESC"]]}));
+		//callback(lib.queryAll("diary_entry", function(data){ if(data.info != "deleted") { return true; }},{ sort: [["published", "DESC"]]}));
+		callback(lib.query("diary_entry", function(data){ if(data.info != "deleted") { return true; } else { return false; }}));
 	}
 }
 //////////////////
 // DELETE ENTRY //
 //////////////////
 function deleteEntry(rid, callback) {
-	//CONSOLE('deleteEntry(' + rid + ')');
 	if(hasSql) {
 		db.transaction(function(t) {
 			t.executeSql('update "diary_entry" set info="deleted" where id = ?', [rid.id]);
@@ -530,7 +497,6 @@ function deleteEntry(rid, callback) {
 function saveEntry(data) {
 	getRateDialog();
 	//if(!data.published) { data.published = 'quicksave'; }
-	//CONSOLE('saveEntry(' + data.published + ')');
 	if(hasSql) {
 		db.transaction(function(t) {
 			//UPDATE BODY
@@ -585,7 +551,6 @@ function saveEntry(data) {
 // SET FOOD //
 //////////////
 function setFood(data, callback) {
-	//CONSOLE('setFood(' + data.act + ' ' + data.code + ")");
 	if(hasSql) {
 		db.transaction(function(t) {
 			if(data.act == "update") {
@@ -611,8 +576,6 @@ function setFood(data, callback) {
 // GET FOOD //
 //////////////
 function getFood(fCode,callback) {
-	//CONSOLE('getFood(' + fCode + ")");
-	//console.log('Running getEntries');
 	if(arguments.length == 1) { callback = arguments[0]; }
 	if(hasSql) {
 		db.transaction(function(t) {
@@ -626,7 +589,6 @@ function getFood(fCode,callback) {
 // DELETE FOOD //
 /////////////////
 function delFood(fCode, callback) {
-	//CONSOLE('delFood(' + fCode + ")");
 	if(hasSql) {
 		db.transaction(function(t) {
 			t.executeSql('delete from diary_food where CODE = ?', [fCode]); 
@@ -687,7 +649,6 @@ function getCustomList(rType,callback) {
 // SET FAV //
 /////////////
 function setFav(data, callback) {
-	//CONSOLE('setFav(' + data.fib + ")");
 	if(hasSql) {
 		db.transaction(function(t) {
 			t.executeSql('delete from diary_food where CODE = ?', [data.code]);
@@ -704,7 +665,6 @@ function setFav(data, callback) {
 ///////////////
 var afterHidden;
 function afterHide(cmd) {
-	//CONSOLE('afterHide()');
 	noTimer = 'active';
 	opaLock = 2;
 	$("#appStatusReload").off();
@@ -747,7 +707,6 @@ function afterHide(cmd) {
 // SPINNER //
 /////////////
 function spinner(size) {
-	//CONSOLE('spinner()');
 	//////////
 	// STOP //
 	//////////
@@ -857,7 +816,6 @@ function updateFoodDb() {
 // PAGE LOAD MOD //
 ///////////////////
 function pageLoad(target,content,published) {
-	//CONSOLE('pageLoad(' + target + ')');	
 	//if partial
 	if(published) {
 		//set row time array
@@ -935,10 +893,9 @@ function fillDate(timestamp,element) {
 // UPDATE ENTRYLIST //
 //////////////////////
 var partial = "";
-function updateEntries(partial,range) {
-	//CONSOLE('pageLoad(' + partial + ')');	
-	var totalEntryS       = Number(window.localStorage.getItem('totalEntries'));
-	var totalRecentEntryS = Number(window.localStorage.getItem('totalRecentEntries'));
+function updateEntries(partial,range,callback) {
+	var totalEntryS       = parseInt(window.localStorage.getItem('totalEntries'));
+	var totalRecentEntryS = parseInt(window.localStorage.getItem('totalRecentEntries'));
 	//////////////
 	// GET LOOP //
 	//////////////
@@ -949,6 +906,7 @@ function updateEntries(partial,range) {
 		var lastRow = "";
 		var lastId  = "";
 		var lastPub = 0;
+		var totalArray = [];
 		var langFood = LANG.FOOD[lang];
 		var langExer = LANG.EXERCISE[lang];
 		var langDel  = LANG.DELETE[lang];
@@ -1000,11 +958,12 @@ function updateEntries(partial,range) {
 				totalRecentEntries++;
 			}
 			if(((new Date().getTime() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20 || range == "full") {
-				if(lastPub > parseInt(data[i].published)) {
-					s = s + dataHandler;
-				} else {
-					s = dataHandler + s;
-				}
+				//if(lastPub > parseInt(data[i].published)) {
+				//	s = s + dataHandler;
+				//} else {
+			//s += dataHandler;
+			totalArray.push({dati:dataPublished , dato: dataHandler});
+				//}
 			}
 			lastPub = parseInt(data[i].published);
 			//partial == last row time
@@ -1013,8 +972,32 @@ function updateEntries(partial,range) {
 				lastId  = data[i].id;
 			}
 		}
-		// UPDATE DIV //
-		//!EMPTY
+		///////////////////
+		// ORDER BY DATE //
+		///////////////////
+		var prop = 'dati';
+		totalArray = totalArray.sort(function(a, b) {
+			//if(asc)
+			//return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+			// else 
+			return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+	    });
+		$.each(totalArray,function(k,v) {
+			s += v.dato;
+		});
+		//////////////
+		// CALLBACK //
+		//////////////
+		if(callback) { 
+			if(s != "") {
+				openDiary(s);
+			} else {
+				openDiary('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+			}
+		} else {
+		////////////////////
+		// RETURN CONTENT //
+		////////////////////
 		if(s != "") {
 			if(partial) {
 				//IF PARTIAL + nonRepeat
@@ -1026,12 +1009,14 @@ function updateEntries(partial,range) {
 				pageLoad("#entryList",s);
 				if(range == "full") { niceResizer(200); }
 			}
-		//EMPTY
+		///////////
+		// EMPTY //
+		///////////
 		} else {
 			//PRE-FILL
 			//pageLoad('#entryList','<div id="noEntries"><span>no entries</span></div>');
 			$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
-		}
+		}}
 		//N# OF ENTRIES
 		window.localStorage.setItem('totalEntries',totalEntries);
 		window.localStorage.setItem('totalRecentEntries',totalRecentEntries);
@@ -1041,7 +1026,6 @@ function updateEntries(partial,range) {
 // UPDATE ENTRYLIST *TIME* //
 /////////////////////////////
 function updateEntriesTime() {
-	//CONSOLE('updateEntriesTime()');	
 	getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			var dataPublished = parseInt(data[i].published);
@@ -1053,7 +1037,6 @@ function updateEntriesTime() {
 // UPDATE CSS HEADING *SUM* //
 //////////////////////////////
 function updateEntriesSum() {
-	//CONSOLE('updateEntriesSum()');
 	var pushTitle = [];
 	var lToday = LANG.TODAY[lang];
 	var lFood  = LANG.FOOD[lang];
@@ -1912,7 +1895,6 @@ function intakeHistory() {
 //////////////////
 var niceTimer;
 function niceResizer() {
-	//CONSOLE('niceResizer()');
 	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
@@ -1985,8 +1967,8 @@ function getRateDialog() {
 // GET ANALYTICS //
 ///////////////////
 var trackString;
-var gaPlugin;
 function getAnalytics(target) {
+	if(!ga_storage)														{ return; }
 	//not dev
 	if(window.localStorage.getItem("config_debug")    == "active")		{ return; }
 	if(window.localStorage.getItem("facebook_userid") == 1051211303)	{ return; }
@@ -1996,20 +1978,8 @@ function getAnalytics(target) {
 	//////////
 	// INIT //
 	//////////
-	function successHandler() {}
-	function errorHandler()   {}
 	if(target == "init") {
-		//ga plugin
-		if(window.plugins) {
-			if(window.plugins.gaPlugin) {	
-				gaPlugin = window.plugins.gaPlugin;
-				gaPlugin.init(successHandler, errorHandler, "UA-46450510-1", 10);
-			}
-		}
-		//ga web
-		if(ga_storage) {
-			ga_storage._setAccount('UA-46450510-2');
-		}
+		ga_storage._setAccount('UA-46450510-2');
 	} else {
 		////////////////
 		// TRACK VARS //
@@ -2022,91 +1992,147 @@ function getAnalytics(target) {
 		if(isMobile.Windows())	{ appOS = "windows";   deviceType = 'mobile'; }
 		if(isMobile.MSApp())	{ appOS = "msapp";     deviceType = 'mobile'; }
 		if(isMobile.FirefoxOS()){ appOS = "firefoxos"; deviceType = 'mobile'; }
-		//if(isMobile.OSX())	{ appOS = "osx";       deviceType = 'mobile';  }
-		//track domain/string
+		//string
 		trackString = appOS + "." + deviceType + "." + Cordoving + "/#" + target + "(" + appBuild + ")" + "(" + lang + ")";
-		///////////////
-		// TRACK EVT //
-		///////////////
-		//ga plugin
-		if(window.plugins) {
-			if(window.plugins.gaPlugin) {	
-				gaPlugin.trackPage(successHandler, errorHandler, trackString, appOS + " (" + lang + ")");
-				gaPlugin.trackEvent(successHandler, errorHandler, appOS, target, lang, appBuild);
+		//track page/event
+		ga_storage._trackPageview(trackString,appOS + " (" + lang + ")");
+		ga_storage._trackEvent(appOS, target, lang, appBuild);
+	}
+}
+//#//////////////////////#//
+//# FACEBOOK INTEGRATION #//
+//#//////////////////////#//
+///////////////////
+// GET LOGOUT FB //
+///////////////////
+function getLogoutFB(button) {
+	NProgress.done();
+	if(button == 1) {
+		window.localStorage.removeItem("facebook_logged");
+		window.localStorage.removeItem("facebook_userid");
+		window.localStorage.removeItem("facebook_username");	
+		$("body").removeClass("appFacebook");
+		$("#appFooter").removeClass("appFacebook");
+		$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO[lang]);
+	}
+}
+/////////////////////////
+// UPDATE LOGIN STATUS //
+/////////////////////////
+function updateLoginStatus(sync) {
+	if(window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_username")) {
+		$("body").addClass("appFacebook");
+		$("#appFooter").addClass("appFacebook");
+		$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
+		if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
+	} else {
+		getLogoutFB(1);
+	}
+}
+//////////////////
+// GET TOKEN FB //
+//////////////////
+function getTokenFB(result) {
+	try {
+		var access_token;
+		var expires_in;
+		//msapp
+		if(result.responseData) {
+			var fullUrl      = (result.responseData).split('#');
+			var responseData = fullUrl[1];
+			var keyValPairs  = responseData.split("&");
+			for(var i = 0; i < keyValPairs.length; i++) {
+				var splits = keyValPairs[i].split("=");
+				switch (splits[0]) {
+					case "access_token":
+						access_token = splits[1];
+						break;
+					case "expires_in":
+						expires_in = splits[1];
+						break;
+				}
+			}
+		} else {
+			access_token = result;
+		}
+		///////////////////
+		// GET USER INFO //
+		///////////////////
+		$.get("https://graph.facebook.com/me?access_token=" + access_token,function(me) {
+			if(me.id && me.name) {
+				window.localStorage.setItem("facebook_logged",true);
+				window.localStorage.setItem("facebook_userid",me.id);
+				window.localStorage.setItem("facebook_username",me.name);
+				updateLoginStatus(1);
+			}
+		});
+	///////////
+	// CATCH //
+	///////////
+	} catch (err) {
+		errorHandler(err);
+	}
+}
+//////////////////
+// GET LOGIN FB //
+//////////////////
+function getLoginFB() {
+	try {
+		/////////////////
+		// IOS/ANDROID //
+		/////////////////
+		if(document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/)) {
+			if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') {
+				FB.init({ appId : '577673025616946', nativeInterface : CDV.FB, useCachedDialogs : false });
+				FB.login(function (response) {
+					if(response.authResponse) {
+						getTokenFB(response.authResponse.accessToken);
+					}
+				}, { scope : "email" });
+			}
+		/////////
+		// WP8 //
+		/////////
+		} else if (navigator.userAgent.match(/IEMobile/i)) {
+			if(typeof openFB !== 'undefined') {
+				openFB.init('577673025616946');
+				openFB.login('email',
+					function() {
+						getTokenFB(window.sessionStorage['fbtoken']);
+					},
+					function (error) {
+						errorHandler(error);
+				});
+			}
+		///////////
+		// MSAPP //
+		///////////
+		} else if(navigator.userAgent.match(/MSApp/i)) {
+			if(Windows.Foundation) {
+				var callbackURL = "https://www.facebook.com/connect/login_success.html";
+				var facebookURL = "https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=" + encodeURIComponent(callbackURL);
+				var startURI    = new Windows.Foundation.Uri(facebookURL);
+				var endURI      = new Windows.Foundation.Uri(callbackURL);
+				Windows.Security.Authentication.Web.WebAuthenticationBroker.authenticateAsync('', startURI, endURI).then(getTokenFB, errorHandler);
+			}
+		////////////
+		// JS SDK //
+		////////////
+		} else {
+			if(typeof FB !== 'undefined') {
+				FB.init({ appId : '577673025616946', status : true, cookie : true, xfbml : true });
+				FB.login(function (response) {
+					if(response.authResponse) {
+						getTokenFB(response.authResponse.accessToken);
+					}
+				}, { scope : "email" });
 			}
 		}
-		//ga storage
-		if(ga_storage) {
-			ga_storage._trackPageview(trackString,appOS + " (" + lang + ")");
-			ga_storage._trackEvent(appOS, target, lang, appBuild);
-		}
+	///////////
+	// CATCH //
+	///////////
+	} catch (err) {
+		errorHandler(err);
 	}
-}
-//////////////////////////
-// REFRESH LOGIN STATUS //
-//////////////////////////
-function updateLoginStatus(sync) {
-	if(typeof FB !== 'undefined') {
-	FB.getLoginStatus(function(response) {
-		if(response.status == 'connected') {
-			//window.localStorage.setItem("facebook_logged",true);
-			//$("#appFooter").addClass("appFacebook");
-			//window.localStorage.setItem("facebook_userid",response.authResponse.userId);
-			//alert(response.authResponse.userId);
-			//alert(JSON.stringify(response));
-			//alert('logged in');
-			FB.api('/me', function(me) {
-				if(me.id && me.name) {
-					var facebook_userid   = me.id;
-					var facebook_username = me.name;
-					window.localStorage.setItem("facebook_logged",true);
-					window.localStorage.setItem("facebook_userid",facebook_userid);
-					window.localStorage.setItem("facebook_username",facebook_username);	
-					$("#appFooter").addClass("appFacebook");
-					$("body").addClass("appFacebook");
-					$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
-					if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
-				}
-			});
-		} else {
-			//alert('not logged in');
-			$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO[lang]);
-			window.localStorage.removeItem("facebook_logged");
-			window.localStorage.removeItem("facebook_userid");
-			window.localStorage.removeItem("facebook_username");
-			$("#appFooter").removeClass("appFacebook");
-			$("body").removeClass("appFacebook");
-		}
-	});
-	}
-}
-/////////////
-// ON INIT //
-/////////////
-function afterInit()  {
-	updateLoginStatus(1);
-}
-//#/////////#//
-//# FB INIT #//
-//#/////////#//
-if(isCordova()) {
-	document.addEventListener("resume",function()      { afterInit(); getAnalytics('resume'); }, false);
-	document.addEventListener("deviceready",function() { 
-		if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') { FB.init({appId: '577673025616946', nativeInterface: CDV.FB, useCachedDialogs: false }) };
-		afterInit();
-		getAnalytics('init');
-		setTimeout(function() {
-			getAnalytics('startApp');
-		},2000);
-	}, false);
-} else {
-	$(document).ready(function() {
-		if(typeof FB !== 'undefined') { FB.init({appId: '577673025616946', status: true, cookie: true, xfbml: true}); }
-		afterInit(); 
-		getAnalytics('init');
-		setTimeout(function() {
-			getAnalytics('startApp');
-		},2000);
-	 });
 }
 

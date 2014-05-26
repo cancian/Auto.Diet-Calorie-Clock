@@ -9,9 +9,9 @@ CDV.FB = {
       document.body.appendChild(elem);
     }
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onload=function(){console.log("Endpoint saved "+ this.responseText);}
-    xmlhttp.open("POST", "https://www.facebook.com/impression.php", true);
-    xmlhttp.send('plugin=featured_resources&payload={"resource": "adobe_phonegap", "appid": "'+apiKey+'", "version": "3.0.0" }');
+    //xmlhttp.onload=function(){console.log("Endpoint saved "+ this.responseText);}
+    //xmlhttp.open("POST", "https://www.facebook.com/impression.php", true);
+    //xmlhttp.send('plugin=featured_resources&payload={"resource": "adobe_phonegap", "appid": "'+apiKey+'", "version": "3.0.0" }');
     
     cordova.exec(function() {
     var authResponse = JSON.parse(localStorage.getItem('cdv_fb_session') || '{"expiresIn":0}');

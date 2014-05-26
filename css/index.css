@@ -959,8 +959,9 @@ span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
 span#iconRefresh:before { content: "\f021"; }
 span#iconClear:before	{ content: "\F00D"; }
-.foodName				{ color: #0033cc; /*position: absolute; top: 12px; left: 23px; right: 8px;  padding-right: 1px; */ overflow: hidden; -webkit-overflow-scrolling: touch; font-weight: bold; z-index: 999; -webkit-transform: translate3d(0, 0, 0); }
+.foodName				{ color: #0033cc; /*position: absolute; top: 12px; left: 23px; right: 8px;  padding-right: 1px; */ font-weight: bold; -webkit-backface-visibility: hidden; }
 .moz .foodName			{ overflow-x: hidden !important; }
+.foodName				{ overflow: hidden !important;   }
 div#activeOverflow		{ /*color: #fff;*/ overflow: auto; padding-right: 0px; border-right: 0px solid transparent; -webkit-backface-visibility: visible; display: block; float: none; text-align: left; text-indent: 0px; }
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: 1s; }
 .yellow					{ background-color: rgba(255,200,0,.88); }
@@ -1122,7 +1123,7 @@ ul#addNewList li			{ display: block; height: 44px; line-height: 44px; position: 
 ul#addNewList li+li			{ border-top: 1px solid #eee; }
 ul#addNewList label			{ color: #333; display: inline-block; float: left;  text-align: left; }
 ul#addNewList label.error	{ color: #cc3300; }
-ul#addNewList input			{ position: absolute; top: 0px; right: 0px; text-align: right; color: #888; background-color: transparent; display: block; -webkit-backface-visibility: hidden; font-size: 15px; height: 44px; padding-right: 44px; }
+ul#addNewList input			{ position: absolute; top: 0px; right: 0px; text-align: right; color: #888; background-color: transparent; display: inline-block; font-size: 15px; height: 44px; border-left: 38px solid rgba(0,0,0,0); border-right: 38px solid rgba(0,0,0,0); }
 ul#addNewList input:focus,
 ul#addNewList input:active	{ color: #0072BC; /*background-color: #FFFBCC;*/ }
 /*#///////////#//

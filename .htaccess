@@ -9,3 +9,18 @@ AddType text/cache-manifest .appcache
 <ifModule mod_headers.c>
 	Header set Access-Control-Allow-Origin: *
 </ifModule>
+
+#############
+## HEADERS ##
+#############
+<IfModule mod_headers.c>
+Header set Cache-Control "max-age=0, no-store, no-cache, private, must-revalidate, post-check=0, pre-check=0"
+</IfModule>
+
+#############
+## EXPIRES ##
+#############
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault now
+</IfModule>

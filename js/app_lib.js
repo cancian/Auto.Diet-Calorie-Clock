@@ -24,6 +24,17 @@ var noTimer;
 jQuery.support.cors   = true
 function voidThis()   { }
 function voidMe()     { }
+///////////////////
+// ERROR HANDLER //
+///////////////////
+function errorHandler(error) {
+	//console.log(JSON.stringify(error));
+	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
+		if(confirm(JSON.stringify(error))) { blockAlerts = 0; } else { blockAlerts = 1; }
+		//if(window.external) { window.external.Notify('onerror: ' + e + ' URL:' + url + ' Line:' + line); } 
+		console.log(JSON.stringify(error));
+	}
+}
 /*
 var GlobalDebug = (function () {
     var savedConsole = console;
@@ -284,6 +295,9 @@ function dayFormat(input) {
 // DATEDIFF //
 //////////////
 function dateDiff(date1,date2) {
+	//no future dates
+	if(date1 > date2) { date1 = new Date().getTime() }
+
 	//Get 1 day in milliseconds
 	var one_day  = 1000*60*60*24;
 	// Convert both dates to milliseconds
@@ -398,6 +412,7 @@ if (navigator.userAgent.match(/MSApp/i)) {
 	///////////////////
 	// PRIVACY CHARM // For an introduction to the Blank template, see the following documentation:
 	/////////////////// http://go.microsoft.com/fwlink/?LinkId=232509
+	/*
 	(function() {
 		"use strict";
 		WinJS.Binding.optimizeBindingReferences = true;
@@ -416,5 +431,6 @@ if (navigator.userAgent.match(/MSApp/i)) {
 		};
 		app.start();
 	})();
+	*/
 }
 

@@ -743,11 +743,11 @@ function searchFood(searchSQL,callback) {
 	if(hasSql) {
 	db.transaction(
 		function(t) {
-			t.executeSql("SELECT * FROM diary_food WHERE type == '" + typeTerm + "' AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 50",[],
+			t.executeSql("SELECT * FROM diary_food WHERE type == '" + typeTerm + "' AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 60",[],
 			function(t,results) {
 				callback(fixResults(results));
-		},dbErrorHandler);
-	}, dbErrorHandler); 
+		},errorHandler);
+	}, errorHandler); 
 	} else {
 		
 		
@@ -817,7 +817,7 @@ function searchFood(searchSQL,callback) {
 		
 		var mou = [];
 		//for(var u=0, lenu=mi.length; u<lenu; u++) {
-		for(var u=0, lenu=mi.length; u<30; u++) {
+		for(var u=0, lenu=mi.length; u<50; u++) {
 			if(mi[u]) {
 		mou.push(mi[u].value);
 		}
@@ -1134,7 +1134,7 @@ function updateFavList() {
 			var pro       = data[c].pro;
 			var car       = data[c].car;
 			var fat       = data[c].fat;
-			var fib       = data[c].fib;
+			var fib       = data[c].fib.split("diary_food").join("");
 			if(!name) { name = '0.00'; }
 			if(!kcal) { kcal = '0.00'; }
 			if(!pro)  { pro  = '0.00'; }
@@ -1215,7 +1215,7 @@ function updateFoodList() {
 			var pro  = data[c].pro;
 			var car  = data[c].car;
 			var fat  = data[c].fat;
-			var fib  = data[c].fib;
+			var fib  = data[c].fib.split("diary_food").join("");
 			if(!name) { name = '0.00'; }
 			if(!kcal) { kcal = '0.00'; }
 			if(!pro)  { pro  = '0.00'; }
@@ -1314,7 +1314,7 @@ getCustomList("exercise",function(data) {
 		var pro  = data[c].pro;
 		var car  = data[c].car;
 		var fat  = data[c].fat;
-		var fib  = data[c].fib;
+		var fib  = data[c].fib.split("diary_food").join("");
 		if(!name) { name = '0.00'; }
 		if(!kcal) { kcal = '0.00'; }
 		if(!pro)  { pro  = '0.00'; }
@@ -1516,38 +1516,36 @@ if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
 ////////////////////////
 $("#menuTopBar h3").on(touchstart,function(evt) {
 	evt.preventDefault();
-	$(".onFocus").removeClass("onFocus");
-	$(".activeOverflow").removeClass("activeOverflow");	
+	window.localStorage.setItem("lastInfoTab",$(this).attr("id"));
+	//$(".onFocus").removeClass("onFocus");
+	$("#activeOverflow").removeAttr("id");
+	$(".activeOverflow").removeClass("activeOverflow");
+	$("#foodList .foodName").css("overflow","hidden");
 	////////////
 	// TAB #1 //
 	////////////
-	if($(this).attr("id") == "topBarItem-1") {
-		$("#topBarItem-2,#topBarItem-3").removeClass("onFocus");
+	if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
+		$("#topBarItem-2,#topBarItem-3,#tabMyFoods,#tabMyExercises").removeClass("onFocus");
 		$("#topBarItem-1,#tabMyFavs").addClass("onFocus");
-		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));
 	}
 	////////////
 	// TAB #2 //
 	////////////
-	if($(this).attr("id") == "topBarItem-2") {
-		$("#topBarItem-1,#topBarItem-3").removeClass("onFocus");
+	else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
+		$("#topBarItem-1,#topBarItem-3,#tabMyFavs,#tabMyExercises").removeClass("onFocus");
 		$("#topBarItem-2,#tabMyFoods").addClass("onFocus");
-		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));
 	}
 	////////////
 	// TAB #3 //
 	////////////
-	if($(this).attr("id") == "topBarItem-3") {
-		$("#topBarItem-1,#topBarItem-2").removeClass("onFocus");
+	else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
+		$("#topBarItem-1,#topBarItem-2,#tabMyFavs,#tabMyFoods").removeClass("onFocus");
 		$("#topBarItem-3,#tabMyExercises").addClass("onFocus");
-		window.localStorage.setItem("lastInfoTab",$(this).attr("id"));		
 	}
 	clearTimeout(niceTimer);
 	niceTimer = setTimeout(function() {
 		niceResizer();
-		return false;
 	}, 0);
-	return false;
 });
 
 
@@ -2105,8 +2103,8 @@ function getModalWindow(itemId) {
 		function modalAdd() {
 			//FOOD
 			if(searchType == "food") {
-				if($("#modalAmount").html() < 750 && Math.round(((kcalsBase)/100) * (Number(document.getElementById('modalAmount').innerHTML) + 1)) <= 9999) {
-					$("#modalAmount").html(Number($("#modalAmount").html()) + (1));
+				if($("#modalAmount").html() < 750 && Math.round(((kcalsBase)/100) * (Number(document.getElementById('modalAmount').innerHTML) + 5)) <= 9999) {
+					$("#modalAmount").html(Number($("#modalAmount").html()) + (5));
 					$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmount').innerHTML)));
 					getNutriData();
 				}
@@ -2125,7 +2123,7 @@ function getModalWindow(itemId) {
 			//FOOD	
 			if(searchType == "food") {
 				if($("#modalAmount").html() > 0) {
-					$("#modalAmount").html( Number($("#modalAmount").html()) - (1));
+					$("#modalAmount").html( Number($("#modalAmount").html()) - (5));
 					$("#modalTotal").html(Math.round(((kcalsBase)/100) * Number(document.getElementById('modalAmount').innerHTML)));
 					getNutriData();
 				}
@@ -2175,7 +2173,7 @@ function getModalWindow(itemId) {
 			evt.preventDefault();
 			clearRepeaterModal();
 			pressTimerModalPos = setTimeout(function() {
-				pressRepeatModalPos = setInterval(function() { modalAdd(); },20);
+				pressRepeatModalPos = setInterval(function() { modalAdd(); },50);
 			},400);
 		});
 		///////////////////////
@@ -2189,7 +2187,7 @@ function getModalWindow(itemId) {
 			evt.preventDefault();
 			clearRepeaterModal();
 			pressTimerModalNeg = setTimeout(function() {
-				pressRepeatModalNeg = setInterval(function() { modalRem(); },20);
+				pressRepeatModalNeg = setInterval(function() { modalRem(); },50);
 			},400);
 		});
 		//#/////////////////////////#//
@@ -2304,7 +2302,9 @@ function getModalWindow(itemId) {
 							evt.stopPropagation();
 						});
 						$("#modalWindow").on(touchstart,function(evt) {
-							evt.stopPropagation();
+							if(isMobile.Windows()) {
+								evt.stopPropagation();
+							}
 						});
 						$("#modalOverlay, #modalCancel").on(touchstart,function(evt) {
 							evt.preventDefault();

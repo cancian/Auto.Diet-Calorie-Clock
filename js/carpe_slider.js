@@ -597,9 +597,11 @@ function reSlider() {
 
 $(window).on("resize",function(evt) {
 	Math.round(window.innerWidth % 2) ? $("#sliderWrapper").width( $("#appContent").width()-49) : $("#sliderWrapper").width($("#appContent").width()-48);
+if(!navigator.userAgent.match(/IEMobile/i)) {
 	reSlider();
 	setTimeout(function(evt) { reSlider(); }, 0);
 	setTimeout(function(evt) { reSlider(); }, 100);
+}
 });
 
 $(document).on('sliderInit',function(evt) {

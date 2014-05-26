@@ -27,6 +27,7 @@ js/plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js
 js/facebook-js-sdk.js
 js/facebook-js-sdk.min.js
 js/facebook-connect.js
+js/openfb.js
 # JQUERY
 js/iscroll.js
 js/jquery.js
