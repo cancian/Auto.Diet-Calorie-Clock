@@ -75,7 +75,6 @@ function openSettings(string) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		if(!$("#nprogress").html()) {
-			NProgress.start();
 			if(window.localStorage.getItem("facebook_logged")) {
 				//CONFIRM DIALOG
 				if(isMobile.MSApp()) {

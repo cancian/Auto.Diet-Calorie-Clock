@@ -7,6 +7,9 @@ window.onerror = function(e, url, line) {
 		if(confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) { blockAlerts = 0; } else { blockAlerts = 1; }
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
+	if($("#tempHolder").html()) {
+		spinner('stop');
+	}
 	//return false;
 }
 //////////////

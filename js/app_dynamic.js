@@ -39,10 +39,10 @@ $(document).on("pageload", function(evt) {
 		//////////////
 		// TAP DATE //
 		//////////////
-		if(event.target.id.length == 13 && !$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
-			$( "#" + event.target.id).html(dtFormat(Number(event.target.id)));
+		if(event.target.id.length == 14 && !$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
+			$( "#" + event.target.id).html(dtFormat(Number(event.target.id.replace("t",""))));
 			setTimeout(function() {
-				$("#" + event.target.id).html(dateDiff(event.target.id,(new Date()).getTime()));
+				$("#" + event.target.id).html(dateDiff(event.target.id.replace("t",""),(new Date()).getTime()));
 			},2000);
 			 entryReturn = true;
 		}

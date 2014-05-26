@@ -27,13 +27,6 @@ module.exports = [
         "clobbers": [
             "window.open"
         ]
-    },
-    {
-        "file": "plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js",
-        "id": "com.adobe.plugins.GAPlugin.GAPlugin",
-        "clobbers": [
-            "GAPlugin"
-        ]
     }
 ]
 });

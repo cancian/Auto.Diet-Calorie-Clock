@@ -766,13 +766,8 @@ div#entryBodySearch				{ position: absolute; top: 67px; right: 15px; width: 30px
 div#entryBodySearch:active		{ opacity: 1; }
 select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; box-sizing: border-box; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 .ios select#entryTime			{ padding: 6px 4px 5px 7px; }
-#entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; }
-
-div.submitActive				{ color: #fff !important; background-color: #316ADC;
-
-border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; box-sizing: border-box; /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important;*/ opacity: 1; }
-
-
+#entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; white-space: nowrap; }
+div.submitActive				{ color: #fff !important; background-color: #316ADC; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; box-sizing: border-box; /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important;*/ opacity: 1; }
 #loadingDiv						{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; opacity: .666; }
 #appHeader.open + #loadingDiv	{ display: none !important; } 
 .ios7 #loadingDiv				{ top: 31px; }
@@ -1123,7 +1118,7 @@ ul#addNewList li			{ display: block; height: 44px; line-height: 44px; position: 
 ul#addNewList li+li			{ border-top: 1px solid #eee; }
 ul#addNewList label			{ color: #333; display: inline-block; float: left;  text-align: left; }
 ul#addNewList label.error	{ color: #cc3300; }
-ul#addNewList input			{ position: absolute; top: 0px; right: 0px; text-align: right; color: #888; background-color: transparent; display: inline-block; font-size: 15px; height: 44px; border-left: 38px solid rgba(0,0,0,0); border-right: 38px solid rgba(0,0,0,0); }
+ul#addNewList input			{ position: absolute; top: 0px; right: 0px; text-align: right; color: #888; background-color: transparent; display: inline-block; font-size: 15px; height: 44px; border-left: 38px solid rgba(0,0,0,0); border-right: 44px solid rgba(0,0,0,0); box-sizing: border-box; }
 ul#addNewList input:focus,
 ul#addNewList input:active	{ color: #0072BC; /*background-color: #FFFBCC;*/ }
 /*#///////////#//

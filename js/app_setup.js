@@ -326,10 +326,10 @@ function pushEntries(userId) {
 		}
 		//insert custom diary_food
 		if(window.localStorage.getItem("customFoodSql")) {
-			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFoodSql"));
+			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFoodSql")) + "\n";
 		}
 		if(window.localStorage.getItem("customExerciseSql")) {
-			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customExerciseSql"));
+			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customExerciseSql")) + "\n";
 		}
 		if(window.localStorage.getItem("customFavSql")) {
 			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFavSql"));
@@ -509,11 +509,11 @@ function saveEntry(data) {
 				setPush();
 			//INSERT FULL
 			} else if(data.pro || data.car || data.fat) {
-				t.executeSql('insert into diary_entry(title,body,published,pro,car,fat) values(?,?,?,?,?,?)', [data.title,data.body,parseInt(data.published) + '',data.pro,data.car,data.fat]); 
+				t.executeSql('insert into diary_entry(id,title,body,published,pro,car,fat) values(?,?,?,?,?,?,?)', [parseInt(data.published),data.title,data.body,parseInt(data.published) + '',data.pro,data.car,data.fat]); 
 				setPush();
 			//INSERT QUICK
 			} else {
-				t.executeSql('insert into diary_entry(title,body,published) values(?,?,?)', [data.title,data.body,parseInt(data.published) + '']); 
+				t.executeSql('insert into diary_entry(id,title,body,published) values(?,?,?,?)', [parseInt(data.published),data.title,data.body,parseInt(data.published) + '']); 
 				setPush();
 			} 
 		});
@@ -557,7 +557,7 @@ function setFood(data, callback) {
 				t.executeSql('delete from diary_food where CODE = ?', [data.code]);
 				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib]);
 			} else {
-				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib]);
+				t.executeSql('insert into diary_food(id,type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?,?)', [new Date().getTime(),data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib]);
 			}
 		});
 	} else {
@@ -712,9 +712,12 @@ function spinner(size) {
 	//////////
 	if(size == 'stop') {
 		$("#tempHolder").remove();
+		$(window).trigger("resize");
 		setTimeout(function() { $("#tempHolder").remove(); },150);
 		setTimeout(function() { $("#tempHolder").remove(); },250);
 		setTimeout(function() { $("#tempHolder").remove(); },500);
+		setTimeout(function() { $("#tempHolder").remove(); },1000);
+		setTimeout(function() { $("#tempHolder").remove(); },2000);
 		return;
 	}
 	//////////
@@ -849,7 +852,7 @@ function pageLoad(target,content,published) {
 			$("#entryList").append($(content).animate({ backgroundColor: "#ffffcc" }, 1).animate({ backgroundColor: "#fff" },1000));
 		}
 		//target [div#partial] ~time's parent div id as target
-		var page = $('#entryList div' + '#' + $("#" + published).parent('div').attr('id'));
+		var page = $('#entryList div' + '#' + $("#t" + published).parent('div').attr('id'));
 	// FULL DIV REPLACE //
 	} else {
 		//check existence
@@ -948,7 +951,7 @@ function updateEntries(partial,range,callback) {
 				<p class='entriesTitle'>" + dataTitle + "</p>\
 				<p class='entriesKcals'>" + langKcal + "</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
-				<p id='" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
+				<p id='t" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
 			// ROW++ (sqlish sort)
@@ -1029,7 +1032,7 @@ function updateEntriesTime() {
 	getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			var dataPublished = parseInt(data[i].published);
-			$("#" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
+			$("#t" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
 		}
 	});
 }
