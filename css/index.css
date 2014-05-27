@@ -948,7 +948,7 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 /*food sub itens*/
 span#noMatches			{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
 span#iconRefresh,
-span#iconClear			{ padding: 19px 24px 16px 18px; font-size: 28px; line-height: 28px; position: absolute; top: 0px; right: -1px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; }
+span#iconClear			{ padding: 19px 25px 16px 22px; font-size: 28px; line-height: 28px; position: absolute; top: 0px; right: -2px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; display: block; background-color: rgba(0,0,0,0); }
 span#iconClear			{ display: none; }
 span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }

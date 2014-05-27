@@ -1260,7 +1260,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			}
 			$("#entryTime").focus();
 		}
-		
+		//msapp
 		//force hide keyboard
 		if(isMobile.FirefoxOS()) {
 			$("#entryTime").on(touchstart,function() {

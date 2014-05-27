@@ -422,7 +422,7 @@ $(document).on("pageload", function(evt) {
 	/////////////////////
 	$("#appHeader,#entryListForm,#go,#sliderBlock,#entryList div,#entryListBottomBar").on(touchstart, function(evt) {
 		if(!$('.editableInput').is(':visible')) { return; }
-		if($('.editableInput').is(':visible') && $("#editableInput").is(":focus")) {
+		if($('.editableInput').is(':visible') && ($("#editableInput").is(":focus") || isMobile.Windows())) {
 		//dismiss protection
 		//if($("#entryList div" + tgt).is(':animated')) { return; }
 			//ALLOW ENTRY INPUT RETINA FOCUS
@@ -1570,7 +1570,10 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 	clearTimeout(niceTimer);
 	niceTimer = setTimeout(function() {
 		niceResizer();
+		return false;
 	}, 0);
+	$('#foodList').scrollTop(0);
+	return false;
 });
 
 
