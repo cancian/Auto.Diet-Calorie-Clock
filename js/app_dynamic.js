@@ -1134,18 +1134,26 @@ function updateFavList() {
 			var pro       = data[c].pro;
 			var car       = data[c].car;
 			var fat       = data[c].fat;
-			var fib       = data[c].fib.split("diary_food").join("");
+			var fib       = data[c].fib;
+			
 			if(!name) { name = '0.00'; }
 			if(!kcal) { kcal = '0.00'; }
 			if(!pro)  { pro  = '0.00'; }
 			if(!car)  { car  = '0.00'; }
 			if(!fat)  { fat  = '0.00'; }
 			if(!fib)  { fib  = '0.00'; }
-			
-			if(data[c].id) { var favSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
 
-			var favLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
-			if(favLine != "") {
+			fib = fib.split("diary_food").join("");
+
+			if(!hasSql && !id) {
+				id = data[c].ID;
+				if(!data[c].ID) { id = 'null'; }
+			}
+
+			if(id) { var favSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
+
+			var favLine = "<div class='searcheable " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
+			if(favLine != "" && id) {
 				customFavList += favLine;
 			}
 
@@ -1153,6 +1161,7 @@ function updateFavList() {
 				customFavSql += favSql;
 			}			
 		}
+		
 		if(customFavList == "") { customFavList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 		if(customFavSql  != "") { window.localStorage.setItem("customFavSql",customFavSql); } else { window.localStorage.setItem("customFavSql"," "); }
 		//////////
@@ -1215,7 +1224,7 @@ function updateFoodList() {
 			var pro  = data[c].pro;
 			var car  = data[c].car;
 			var fat  = data[c].fat;
-			var fib  = data[c].fib.split("diary_food").join("");
+			var fib  = data[c].fib;
 			if(!name) { name = '0.00'; }
 			if(!kcal) { kcal = '0.00'; }
 			if(!pro)  { pro  = '0.00'; }
@@ -1223,10 +1232,17 @@ function updateFoodList() {
 			if(!fat)  { fat  = '0.00'; }
 			if(!fib)  { fib  = '0.00'; }
 
-			if(data[c].id)			{ var foodSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
-			if(foodSql != "")		{ customFoodSql += foodSql; }
+			fib = fib.split("diary_food").join("");
+	
+			if(!hasSql && !id) {
+				id = data[c].ID;
+				if(!data[c].ID) { id = 'null'; }
+			}
+
+			if(id)						{ var foodSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
+			if(foodSql != "" && id)		{ customFoodSql += foodSql; }
 			/////////////////////		
-			var foodLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
+			var foodLine = "<div class='searcheable " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
 			if(foodLine != "") {
 				customFoodList += foodLine;
 			}
@@ -1314,15 +1330,24 @@ getCustomList("exercise",function(data) {
 		var pro  = data[c].pro;
 		var car  = data[c].car;
 		var fat  = data[c].fat;
-		var fib  = data[c].fib.split("diary_food").join("");
+		var fib  = data[c].fib;
 		if(!name) { name = '0.00'; }
 		if(!kcal) { kcal = '0.00'; }
 		if(!pro)  { pro  = '0.00'; }
 		if(!car)  { car  = '0.00'; }
 		if(!fat)  { fat  = '0.00'; }
 		if(!fib)  { fib  = '0.00'; }
-		if(data[c].id)			{ var exerciseSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
-		if(exerciseSql != "")	{ customExerciseSql += exerciseSql; }		
+		
+		fib = fib.split("diary_food").join("");
+
+		if(!hasSql && !id) {
+			id = data[c].ID;
+			if(!data[c].ID) { id = 'null'; }
+		}
+		
+		if(id)			        	{ var exerciseSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
+		
+		if(exerciseSql != "" && id)	{ customExerciseSql += exerciseSql; }		
 		/////////////////////		
 	}
 	if(customExerciseList == "") {customExerciseList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }

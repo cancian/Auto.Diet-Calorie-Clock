@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# Version 1.2.3
+# Version 1.2.4
 # APP
 index.html
 js/app_init.js
@@ -22,7 +22,6 @@ js/plugins/org.apache.cordova.splashscreen/www/splashscreen.js
 js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
-js/plugins/com.adobe.plugins.GAPlugin/www/GAPlugin.js 
 # FACEBOOK
 js/facebook-js-sdk.js
 js/facebook-js-sdk.min.js

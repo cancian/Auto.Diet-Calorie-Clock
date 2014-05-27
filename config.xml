@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="12302" 
-        version   = "1.2.3">
+        versionCode="12400" 
+        version   = "1.2.4">
 
 	<content src="index.html" />
 	<access origin="*" />
@@ -65,29 +65,33 @@
 	<feature name="LocalStorage">
 		<param name="ios-package" value="CDVLocalStorage" />
 	</feature>
-	<feature name="Notification">
-		<param name="ios-package" value="CDVNotification" />
-		<param name="android-package" value="org.apache.cordova.dialogs.Notification" />
-		<param name="wp-package" value="Notification" />
-	</feature>
-	<feature name="InAppBrowser">
-		<param name="ios-package" value="CDVInAppBrowser" />
-		<param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
-		<param name="wp-package" value="InAppBrowser" />
-	</feature>
-    <feature name="SplashScreen">
-        <param name="ios-package" value="CDVSplashScreen" />
-		<param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
-        <param name="onload" value="true" />
-    </feature>
-
-	<feature name="org.apache.cordova.facebook.Connect">
-		<param name="ios-package" value="FacebookConnectPlugin" />
-		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
-	</feature>	
-
+	
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
+
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+        <param name="wp-package" value="Notification" />
+    </feature>
+	
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+        <param name="wp-package" value="InAppBrowser" />
+    </feature>
+	
+    <feature name="SplashScreen">
+        <param name="wp-package" value="SplashScreen" />
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+	
+    <feature name="org.apache.cordova.facebook.Connect">
+        <param name="ios-package" value="FacebookConnectPlugin" />
+        <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
+    </feature>
 
 </widget>

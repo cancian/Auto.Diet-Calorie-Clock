@@ -1,4 +1,4 @@
-﻿<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+﻿<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
 
 function trim(str) {
@@ -131,7 +131,7 @@ if(FIB)	 { FIB = trim(FIB); }
 //DESC = DESC.substring(1);
 //DESC = DESC.substring(0,DESC.length-1);
 //		tpl = "<div>INSERT INTO \"diary_food\" VALUES(" + ID + ",'" + TYPE + "','" + CODE + "','" + NAME + "','" + TERM + "','" + KCAL + "','" + PRO + "','" + CAR + "','" + FAT + "','" + FIB + "');</div>";
-		tpl = '<div>lib.insert("diary_food", {"type":"' + TYPE + '","code":"' + CODE + '","name":"' + NAME + '","term":"' + TERM + '","kcal":"' + KCAL + '","pro":"' + PRO + '","car":"' + CAR + '","fat":"' + FAT + '","fib":"' + FIB + '"});</div>';
+		tpl = '<div>lib2.insert("diary_food", {"id":"' + ID + '", "type":"' + TYPE + '","code":"' + CODE + '","name":"' + NAME + '","term":"' + TERM + '","kcal":"' + KCAL + '","pro":"' + PRO + '","car":"' + CAR + '","fat":"' + FAT + '","fib":"' + FIB + '"});</div>';
 
 		mix += tpl;
 

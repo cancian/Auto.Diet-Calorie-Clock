@@ -1603,13 +1603,13 @@ FB.provide('', {
    * Get the **f8 Page Object**:
    *
    *     FB.api('/f8', function(response) {
-   *       alert(response.company_overview);
+   *       console.log(response.company_overview);
    *     });
    *
    * If you have an [authenticated user](FB.login), get their **User Object**:
    *
    *     FB.api('/me', function(response) {
-   *       alert(response.name);
+   *       console.log(response.name);
    *     });
    *
    * Get the 3 most recent **Post Objects** *Connected* to (in other words,
@@ -1619,9 +1619,9 @@ FB.provide('', {
    *       for (var i=0, l=response.length; i<l; i++) {
    *         var post = response[i];
    *         if (post.message) {
-   *           alert('Message: ' + post.message);
+   *           console.log('Message: ' + post.message);
    *         } else if (post.attachment && post.attachment.name) {
-   *           alert('Attachment: ' + post.attachment.name);
+   *           console.log('Attachment: ' + post.attachment.name);
    *         }
    *       }
    *     });
@@ -1633,9 +1633,9 @@ FB.provide('', {
    *     var body = 'Reading Connect JS documentation';
    *     FB.api('/me/feed', 'post', { body: body }, function(response) {
    *       if (!response || response.error) {
-   *         alert('Error occurred');
+   *         console.log('Error occurred');
    *       } else {
-   *         alert('Post ID: ' + response);
+   *         console.log('Post ID: ' + response);
    *       }
    *     });
    *
@@ -1644,9 +1644,9 @@ FB.provide('', {
    *     var postId = '1234567890';
    *     FB.api(postId, 'delete', function(response) {
    *       if (!response || response.error) {
-   *         alert('Error occurred');
+   *         console.log('Error occurred');
    *       } else {
-   *         alert('Post was deleted');
+   *         console.log('Post was deleted');
    *       }
    *     });
    *
@@ -1667,7 +1667,7 @@ FB.provide('', {
    *         urls: 'facebook.com,developers.facebook.com'
    *       },
    *       function(response) {
-   *         alert(
+   *         console.log(
    *           'Total: ' + (response[0].total_count + response[1].total_count));
    *       }
    *     );
@@ -4368,7 +4368,7 @@ FB.Class('Obj', null,
  *   var dialog = FB.ui(...);
  * To subscribe to an event, do
  *   FB.dialog.subscribe(
- *     '<event name>', function() { alert("<event name> happened"); });
+ *     '<event name>', function() { console.log("<event name> happened"); });
  * This dialog may fire the following events
  * 'iframe_hide'  This event is fired if an iframe dialog is hidden but not
  *    closed.  Note that the dialog may subsequently reopen, for example if
@@ -5066,9 +5066,9 @@ FB.provide('', {
    *        },
    *        function(response) {
    *          if (response && response.post_id) {
-   *            alert('Post was published.');
+   *            console.log('Post was published.');
    *          } else {
-   *            alert('Post was not published.');
+   *            console.log('Post was not published.');
    *          }
    *        }
    *      );
@@ -7687,13 +7687,13 @@ FB.provide('', {
    *       post,
    *       function(published_post) {
    *         if (published_post) {
-   *           alert(
+   *           console.log(
    *             'The post was successfully published. ' +
    *             'Post ID: ' + published_post.post_id +
    *             '. Message: ' + published_post.message
    *           );
    *         } else {
-   *           alert('The post was not published.');
+   *           console.log('The post was not published.');
    *         }
    *       }
    *     );

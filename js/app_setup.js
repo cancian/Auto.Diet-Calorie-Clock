@@ -159,11 +159,20 @@ function initDB(t) {
 		t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 	} else {
 		if(!lib.tableExists("diary_entry")) {
-			lib.createTable("diary_entry", ["title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
+			lib.createTable("diary_entry", ["id","title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
 			lib.commit();
 		}
 		if(!lib2.tableExists("diary_food")) {
-			lib2.createTable("diary_food",  ["type",  "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
+			lib2.createTable("diary_food",  ["id","type",  "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
+			lib2.commit();
+		}
+		//add id column
+		if(!lib.columnExists("diary_entry", "id")) {
+			lib.alterTable("diary_entry","id");
+			lib.commit();
+		}
+		if(!lib2.columnExists("diary_food", "id")) {
+			lib2.alterTable("diary_food","id");
 			lib2.commit();
 		}
 		startApp();
@@ -298,7 +307,9 @@ function pushEntries(userId) {
 		//NProgress.done();
 		//NProgress.start();
 		//$("#nprogress .bar").css("background-color","rgba(0, 0, 0, .15)");
-		var fetchEntries = "";
+		var fetchEntries = '';
+		var newLineFetch = '';
+		var fetchLastId  = '';
 		for(var i=0, len=data.length; i<len; i++) {
 			var id        = data[i].id;
 			var title     = data[i].title;
@@ -319,9 +330,12 @@ function pushEntries(userId) {
 			if(!car)  { car  = ''; }
 			if(!fat)  { fat  = ''; }
 			if(!fib)  { fib  = ''; }
-
-			if(data[i].id) {
-				fetchEntries = fetchEntries + "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
+			
+			if(id && fetchLastId != id) { 
+				newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
+				fetchEntries = fetchEntries + newLineFetch; 
+				newLineFetch = '';
+				fetchLastId = id;
 			}
 		}
 		//insert custom diary_food
@@ -338,6 +352,7 @@ function pushEntries(userId) {
 			fetchEntries = fetchEntries + "\n" + trim(localStorageSql());
 		}	
 		fetchEntries = fetchEntries.split("undefined").join("");
+		fetchEntries = fetchEntries.split("NaN").join("");
 		/////////////////
 		// POST RESULT //
 		/////////////////
@@ -435,11 +450,11 @@ function syncEntries(userId) {
 					var keyName = lasql[a].split("','");
 					//WRITE
 					if(keyName[0] == "diary_entry") {
-						lib.insertOrUpdate("diary_entry", {published: parseInt(keyName[4])},{"title":keyName[2],"body":keyName[3],"published": parseInt(keyName[4]),"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						lib.insertOrUpdate("diary_entry", {published: parseInt(keyName[4])},{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published": parseInt(keyName[4]),"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 						//lib.insert("diary_entry",{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 					}
 					if(keyName[0] == "diary_food") {
-						lib2.insertOrUpdate("diary_food", {code: keyName[3]},{"type":keyName[2],"code":keyName[3],"name":keyName[4],"term":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
+						lib2.insertOrUpdate("diary_food", {code: keyName[3]},{"id":keyName[1],"type":keyName[2],"code":keyName[3],"name":keyName[4],"term":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 					}
 				}
 				//success
@@ -536,12 +551,12 @@ function saveEntry(data) {
 			setPush();
 		//INSERT FULL
 		} else if(data.pro || data.car || data.fat) {
-			lib.insert("diary_entry", {"title": data.title, "body": data.body, "published": parseInt(data.published), "pro":data.pro, "car":data.car, "fat":data.fat});
+			lib.insert("diary_entry", {"id": parseInt(data.published), "title": data.title, "body": data.body, "published": parseInt(data.published), "pro":data.pro, "car":data.car, "fat":data.fat});
 			lib.commit();
 			setPush();
 		//INSERT QUICK
 		} else {
-			lib.insert("diary_entry", {"title": data.title, "body": data.body, "published": parseInt(data.published)});
+			lib.insert("diary_entry", {"id": parseInt(data.published),"title": data.title, "body": data.body, "published": parseInt(data.published)});
 			lib.commit();
 			setPush();
 		}
@@ -563,11 +578,11 @@ function setFood(data, callback) {
 	} else {
 		if(data.act == "update") {
 			lib2.update("diary_food",{code: data.code}, function(row) {
-				return {"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib};
+				return {"id":data.id,"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib};
 			});
 			lib2.commit();
 		} else {
-			lib2.insert("diary_food", {"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib});
+			lib2.insert("diary_food", {"id": new Date().getTime(),"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib});
 			lib2.commit();
 		}
 	}
@@ -598,6 +613,23 @@ function delFood(fCode, callback) {
 		lib2.commit();
 	}
 };
+/*
+function delFood(fCode, callback) {
+	if(hasSql) {
+		db.transaction(function(t) {
+			//t.executeSql('delete from diary_food where CODE = ?', [fCode]);
+			t.executeSql('update "diary_food" set fib="deleted" where CODE = ?', [fCode]);
+		});
+	} else {
+		//lib2.deleteRows("diary_food",{code: fCode});
+		lib2.update("diary_food", {"code": fCode}, function(row) {
+			row.fib = 'deleted';
+			return row;
+		});
+		lib2.commit();
+	}
+};
+*/
 /////////////////////
 // GET CUSTOM LIST //
 /////////////////////
@@ -616,14 +648,14 @@ function getCustomList(rType,callback) {
 		db.transaction(function(t) {
 			//FAV LIST
 			if(rType == "fav") {
-				t.executeSql('select * from diary_food where FIB=? order by NAME COLLATE NOCASE ASC',[rType],
+				t.executeSql('select * from diary_food where FIB=? order by TERM COLLATE NOCASE ASC',[rType],
 				function(t,results) {
 					callback(fixResults(results));
 					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
 				});
 			//FOOD/EXERCISE LIST
 			} else {
-				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by NAME COLLATE NOCASE ASC',[rType],
+				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by TERM COLLATE NOCASE ASC',[rType],
 				function(t,results) {
 					callback(fixResults(results));
 					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
@@ -634,11 +666,34 @@ function getCustomList(rType,callback) {
 	} else {
 		//FAV LIST
 		if(rType == "fav") {
-		//	callback(lib2.query("diary_food",{fib: "fav", sort: [["name", "ASC"]]}));
-		callback(lib2.queryAll("diary_food", { query: {"fib": "fav"},sort: [["name", "ASC"]]}));
+			//callback(lib2.queryAll("diary_food", { query: {"fib": "fav"},sort: [["name", "ASC"]]}));
+			var favArray = lib2.query("diary_food",{fib: "fav"});
+			favArray = favArray.sort(function(a, b) {
+				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
+	   		 });
+			callback(favArray);
+		
+		//$.each(totalArray,function(k,v) {
+		//	s += v.dato;
+		//});
+
+	
 		//FOOD/EXERCISE LIST
 		} else {
-			callback(lib2.queryAll("diary_food", { query: function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }},sort: [["name", "ASC"]]}));
+			//callback(lib2.queryAll("diary_food", { query: function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }},sort: [["name", "ASC"]]}));
+			//var CustomsArray = lib2.queryAll("diary_food", function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }});
+			
+			var CustomsArray = lib2.query("diary_food",function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }});
+			
+			CustomsArray = CustomsArray.sort(function(a, b) {
+				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
+	   		 });
+			 
+			 
+			 
+			callback(CustomsArray);			
+			
+			
 		}
 			 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
 		else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
@@ -843,6 +898,7 @@ function pageLoad(target,content,published) {
 		// INSERT PARTIAL //
 		//overwrite 'no entries'
 		if(i == 1) {
+
 			$("#entryList").html($(content).animate({ backgroundColor: "#ffffcc" }, 1).animate({ backgroundColor: "#fff" },1000));
 		//match div before
 		} else if($("#entryList>div:eq(" + entryPos + ")").html()) {

@@ -74,6 +74,10 @@ function openSettings(string) {
 	$("#optionFacebook").on(touchend, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
+		//fix exception 18
+		if(isMobile.Android()) {
+			updateFoodDb();
+		}
 		if(!$("#nprogress").html()) {
 			if(window.localStorage.getItem("facebook_logged")) {
 				//CONFIRM DIALOG
