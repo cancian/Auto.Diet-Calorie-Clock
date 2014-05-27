@@ -1255,7 +1255,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			evt.stopPropagation();	
 		
 		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
-			if(!isMobile.Android()) {
+			if(!isMobile.Android() && !isMobile.MSApp()) {
 				evt.preventDefault();
 			}
 			$("#entryTime").focus();
