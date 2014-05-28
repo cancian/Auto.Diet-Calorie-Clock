@@ -409,7 +409,9 @@ $(document).on("pageload", function(evt) {
 					setTimeout(function() {					
 						$('.delete',swippen).addClass('active');
 						$('.delete',swippen).addClass('open');
-						$('.delete',swippen).on(transitionend,function(evt) { $('.delete').removeClass('busy'); }); 
+						$('.delete',swippen).on(transitionend,function(evt) { $('.delete').removeClass('busy'); });
+						//ffos
+						setTimeout(function() { $('.delete').removeClass('busy'); },200);
 					},0);
 				}
 			}
@@ -2370,7 +2372,7 @@ function getModalWindow(itemId) {
 									$("ul#appFooter li").removeClass("selected");
 									window.localStorage.setItem("app_last_tab","tab2");
 									$("#tab2").addClass("selected");
-									openDiary();
+									updateEntries('','','callback');
 								}
 								setTimeout(function(evt) {
 									$("#entryBody").val(mName);

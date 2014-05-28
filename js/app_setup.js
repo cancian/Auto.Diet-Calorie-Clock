@@ -309,18 +309,28 @@ function pushEntries(userId) {
 		//$("#nprogress .bar").css("background-color","rgba(0, 0, 0, .15)");
 		var fetchEntries = '';
 		var newLineFetch = '';
-		var fetchLastId  = '';
+		var allFetchIds  = [];
+		var id;
+		var title;
+		var body;
+		var published;
+		var info;
+		var kcal;
+		var pro;
+		var car;
+		var fat;
+		var fib;
 		for(var i=0, len=data.length; i<len; i++) {
-			var id        = data[i].id;
-			var title     = data[i].title;
-			var body      = sanitizeSql(data[i].body);
-			var published = parseInt(data[i].published);
-			var info      = data[i].info;
-			var kcal      = data[i].kcal;
-			var pro       = data[i].pro;
-			var car       = data[i].car;
-			var fat       = data[i].fat;
-			var fib       = data[i].fib;
+			id        = data[i].id;
+			title     = data[i].title;
+			body      = sanitizeSql(data[i].body);
+			published = parseInt(data[i].published);
+			info      = data[i].info;
+			kcal      = data[i].kcal;
+			pro       = data[i].pro;
+			car       = data[i].car;
+			fat       = data[i].fat;
+			fib       = data[i].fib;
 			
 			if(!body) { body = ''; }
 			if(!kcal) { kcal = ''; }
@@ -330,12 +340,23 @@ function pushEntries(userId) {
 			if(!car)  { car  = ''; }
 			if(!fat)  { fat  = ''; }
 			if(!fib)  { fib  = ''; }
-			
-			if(id && fetchLastId != id) { 
+
+			if(id && published != '' && allFetchIds.indexOf('#' + id + '#') === -1) { 
 				newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
-				fetchEntries = fetchEntries + newLineFetch; 
+				fetchEntries += newLineFetch; 
 				newLineFetch = '';
-				fetchLastId = id;
+				allFetchIds.push('#' + id + '#');
+				//empty loop
+				id        = '';
+				title     = '';
+				body      = '';
+				published = '';
+				info      = '';
+				kcal      = '';
+				pro       = '';
+				car       = '';
+				fat       = '';
+				fib       = '';
 			}
 		}
 		//insert custom diary_food
@@ -409,6 +430,7 @@ function syncEntries(userId) {
 	if(isNaN(userId)) { return; }
 	if(!window.localStorage.getItem("facebook_logged")) { return; }
 	if(!window.localStorage.getItem("facebook_userid")) { return; }
+	if($("#nprogress").html()) 							{ return; }
 	var demoRunning = false;
 	if(!demoRunning) {
 		demoRunning = true;
@@ -449,11 +471,11 @@ function syncEntries(userId) {
 				for(var a=0, aen=lasql.length; a<aen; a++) {
 					var keyName = lasql[a].split("','");
 					//WRITE
-					if(keyName[0] == "diary_entry") {
+					if(keyName[0] == "diary_entry" && parseInt(keyName[4]) != '') {
 						lib.insertOrUpdate("diary_entry", {published: parseInt(keyName[4])},{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published": parseInt(keyName[4]),"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 						//lib.insert("diary_entry",{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 					}
-					if(keyName[0] == "diary_food") {
+					if(keyName[0] == "diary_food" && parseInt(keyName[3]) != '') {
 						lib2.insertOrUpdate("diary_food", {code: keyName[3]},{"id":keyName[1],"type":keyName[2],"code":keyName[3],"name":keyName[4],"term":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
 					}
 				}
@@ -510,7 +532,6 @@ function deleteEntry(rid, callback) {
 // SAVE ENTRY //
 ////////////////
 function saveEntry(data) {
-	getRateDialog();
 	//if(!data.published) { data.published = 'quicksave'; }
 	if(hasSql) {
 		db.transaction(function(t) {
@@ -524,10 +545,12 @@ function saveEntry(data) {
 				setPush();
 			//INSERT FULL
 			} else if(data.pro || data.car || data.fat) {
+				getRateDialog();
 				t.executeSql('insert into diary_entry(id,title,body,published,pro,car,fat) values(?,?,?,?,?,?,?)', [parseInt(data.published),data.title,data.body,parseInt(data.published) + '',data.pro,data.car,data.fat]); 
 				setPush();
 			//INSERT QUICK
 			} else {
+				getRateDialog();
 				t.executeSql('insert into diary_entry(id,title,body,published) values(?,?,?,?)', [parseInt(data.published),data.title,data.body,parseInt(data.published) + '']); 
 				setPush();
 			} 
@@ -551,11 +574,13 @@ function saveEntry(data) {
 			setPush();
 		//INSERT FULL
 		} else if(data.pro || data.car || data.fat) {
+			getRateDialog();
 			lib.insert("diary_entry", {"id": parseInt(data.published), "title": data.title, "body": data.body, "published": parseInt(data.published), "pro":data.pro, "car":data.car, "fat":data.fat});
 			lib.commit();
 			setPush();
 		//INSERT QUICK
 		} else {
+			getRateDialog();
 			lib.insert("diary_entry", {"id": parseInt(data.published),"title": data.title, "body": data.body, "published": parseInt(data.published)});
 			lib.commit();
 			setPush();
@@ -1986,7 +2011,6 @@ function sanitizeSql(str) {
 ///////////////
 function getStoreUrl(button) {
 	getAnalytics("rate");
-	window.localStorage.setItem("getRate","locked");
 	if(button == 1) {
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8', '_system', 'location=yes'); }
 		else if(isMobile.Android())   { window.open('https://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');                 }
@@ -1996,6 +2020,7 @@ function getStoreUrl(button) {
 		else if(isMobile.FirefoxOS()) { window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');                                    }
 	}
 }
+var rateTimer;
 function getRateDialog() {
 	//first use
 	if(!window.localStorage.getItem("getRate")) {
@@ -2007,7 +2032,9 @@ function getRateDialog() {
 	// IF 1 WEEK //
 	///////////////
 	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (60 * 60 * 24 * 7 * 1000)) {
-		setTimeout(function() {
+		clearTimeout(rateTimer);
+		rateTimer = setTimeout(function() {
+			if(window.localStorage.getItem("getRate") == 'locked' || isDesktop()) { return; }
 			//SHOW DIALOG
 			if(isMobile.MSApp()) {
 				var md = new Windows.UI.Popups.MessageDialog(LANG.RATE_MSG[lang], LANG.RATE_TITLE[lang]);
@@ -2019,6 +2046,7 @@ function getRateDialog() {
 			} else {
 				if(confirm(LANG.RATE_MSG[lang])) { getStoreUrl(1); } else { getStoreUrl(0); }
 			}
+			window.localStorage.setItem("getRate","locked");
 		},3000);
 	}
 }

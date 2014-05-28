@@ -34,9 +34,11 @@ try{
 ///////////////
 // KICKSTART //
 ///////////////
-updateLoginStatus(1);
-setTimeout(function() { getAnalytics('init');     },0);
-setTimeout(function() { getAnalytics('startApp'); },2000);
+setTimeout(function() { getAnalytics('init'); },0);
+setTimeout(function() { 
+	updateLoginStatus(1);
+	getAnalytics('startApp'); 
+},2000);
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -330,18 +332,20 @@ $(document).on("click", function(evt) {
 });
 //ON SHOW KEYBOARD
 $(document).on("showkeyboard", function(evt) {
-	setTimeout(function() {
-		$('#diaryNotesInput').focus();
-		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-		$("#diaryNotesInput").height(window.innerHeight - 32);
-		$("#diaryNotesInput").getNiceScroll().resize();
-	},0);
-	setTimeout(function() {
-		$('#diaryNotesInput').focus();
-		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-		$("#diaryNotesInput").height(window.innerHeight - 32);
-		$("#diaryNotesInput").getNiceScroll().resize();
-	},300);
+	if($('#diaryNotesInput').is(":visible")) {
+		setTimeout(function() {
+			$('#diaryNotesInput').focus();
+			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
+			$("#diaryNotesInput").height(window.innerHeight - 32);
+			$("#diaryNotesInput").getNiceScroll().resize();
+		},0);
+		setTimeout(function() {
+			$('#diaryNotesInput').focus();
+			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
+			$("#diaryNotesInput").height(window.innerHeight - 32);
+			$("#diaryNotesInput").getNiceScroll().resize();
+		},300);
+	}
 });
 //ON HIDE KEYBOARD
 $(document).on("hidekeyboard",function() {

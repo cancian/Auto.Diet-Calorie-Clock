@@ -41,7 +41,9 @@ function openSettings(string) {
 	///////////////
 	$("#optionLastSync").on(touchend,function(evt) {
 		evt.preventDefault();
-		syncEntries(window.localStorage.getItem("facebook_userid"));
+		if(!$("#nprogress").html()) {
+			syncEntries(window.localStorage.getItem("facebook_userid"));
+		}
 		return false;
 	});	
 	if(window.localStorage.getItem("lastSync") != "never") { $("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); }
