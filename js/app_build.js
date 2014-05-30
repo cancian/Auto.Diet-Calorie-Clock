@@ -94,7 +94,9 @@ function openSettings(string) {
 					if(confirm(LANG.LOGOUT_TITLE[lang] + "\n" + LANG.ARE_YOU_SURE[lang])) { getLogoutFB(1); } else { getLogoutFB(0); } 
 				}
 			} else {
-				getLoginFB();
+				setTimeout(function() {
+					getLoginFB();
+				},100);
 			}
 		}
 	});
@@ -1891,6 +1893,7 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); },400);
 		$(this).stop().parent("div").effect("shake",{times:3,direction:'left',distance:6},300);
 	}
+	return false;
 });
 $("#formc input,#formc select").on(tap, function(evt) {
 	evt.preventDefault();

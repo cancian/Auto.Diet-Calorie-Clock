@@ -995,8 +995,8 @@ body.ios7 #appHeader:before 	{ padding-top: 24px; }
 body.android44 #appHeader:before{ padding-top: 11px; }
 #appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*android scroll blur fix*/
-.android.closer #appContent			{ overflow: hidden; }
-.android.closer select#entryTime	{ pointer-events: none; display: none; }
+.android2.closer #appContent			{ overflow: hidden; }
+.android2.closer select#entryTime	{ pointer-events: none; display: none; }
 /*search nutri colors*/
 .foodName.food										{ color: #0033cc !important; }
 .foodName.exercise									{ color: #cc3300 !important; }
