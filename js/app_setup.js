@@ -2,7 +2,6 @@
 // AJAX ERROR CODES //
 //////////////////////
 $.support.cors = true;
-
 $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
 		 if(jqXHR.status === 0)           { errorHandler('Not connect.\n Verify Network.');         } 
 	else if (jqXHR.status == 404)         { errorHandler('Requested page not found. [404]');        }  
@@ -47,7 +46,7 @@ function showIntro() {
 	//////////////
 	$("#skipIntro, #closeDiv").on(touchstart + ' click',function(evt) {
 		//evt.preventDefault();
-		//evt.stopPropagation();
+		evt.stopPropagation();
 			$("#gettingStarted").fadeOut(200,function() {
 			$("#gettingStarted").remove();
 			setTimeout(function(){
@@ -845,6 +844,7 @@ function spinner(size) {
 // FOOD DB IMPORT //
 ////////////////////
 var demoRunning = false;
+var foodDbTimer;
 function updateFoodDb() {
 	if(window.localStorage.getItem("foodDbLoaded") == "done") { return; }
 	if(window.localStorage.getItem("foodDbLoaded") != "done" && window.localStorage.getItem("startLock") != "running") {
@@ -855,6 +855,8 @@ function updateFoodDb() {
 			//start
 			demoRunning = true;
 			window.localStorage.setItem("startLock","running");
+			clearTimeout(foodDbTimer);
+			foodDbTimer = setTimeout(function() {
 			spinner(45);
 			//WEBSQL
 			if(hasSql) {
@@ -892,6 +894,7 @@ function updateFoodDb() {
 					syncEntries(window.localStorage.getItem("facebook_userid"));
 				});			
 			}
+		},50);
 		}
 	}
 }

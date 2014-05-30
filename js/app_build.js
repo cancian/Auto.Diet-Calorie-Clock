@@ -1416,8 +1416,12 @@ $('#appContent').scroll(function() {
 			$('#go').addClass("scrolled");
 			updateEntries('','full');
 		}
+		// FIX ANDROID 2 SELECT
+		android2Select();
 	},100);
 	});
+	// FIX ANDROID 2 SELECT
+	android2Select();
 }
 /*##############################
 ## HTML BUILDS ~ OPEN PROFILE ##
@@ -1801,12 +1805,15 @@ $("#appContent").html(profileHtml);
 //////////////////////////
 // FIX ANDROID 2 SELECT //
 //////////////////////////
-if($("body").hasClass("android2")) {
-	$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
-	$('#dummyInput').focus();
-	$('#dummyInput').blur();
-	$('#dummyInput').remove();
-}
+android2Select();
+var topLocko = 0;
+var topTimero;
+$('#appContent').scroll(function() {
+	clearTimeout(topTimero);
+	topTimero = setTimeout(function() {
+		android2Select();
+	},100);
+});
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//

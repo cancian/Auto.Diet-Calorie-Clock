@@ -141,44 +141,54 @@ else 																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEn
 ////////////////////////
 $.support.cors = true;
 if(vendorClass == "moz" || vendorClass == "msie") {
-	$.get(hostLocal + "css/index.css",function(rawCss) {
-		//moz syntax
-		if(vendorClass == "moz") {
-			rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
-			//rawCss = rawCss.split('-webkit-linear-gradient').join('linear-gradient');
-		}
-		//msie backface slowdown
-		if(vendorClass == "msie") {
-			//rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
-		}
-		if(navigator.userAgent.match(/MSApp/i)) {
-			MSApp.execUnsafeLocalFunction(function() {
+	$.ajax({
+	    url: hostLocal + "css/index.css",
+    	dataType: "text",
+	    success: function(rawCss) {
+			//moz syntax
+			if(vendorClass == "moz") {
+				rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
+				//rawCss = rawCss.split('-webkit-linear-gradient').join('linear-gradient');
+			}
+			//msie backface slowdown
+			if(vendorClass == "msie") {
+				//rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
+			}
+			if(navigator.userAgent.match(/MSApp/i)) {
+				MSApp.execUnsafeLocalFunction(function() {
+					$("#coreCss").remove();
+					$("#coreFonts").prepend("<style type='text/css' id='coreCss'></style>");
+					$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
+				});
+			} else {
 				$("#coreCss").remove();
-				$("head").append("<style type='text/css' id='coreCss'></style>");
+				$("#coreFonts").prepend("<style type='text/css' id='coreCss'></style>");
 				$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
-			});
-		} else {
-			$("#coreCss").remove();
-			$("head").append("<style type='text/css' id='coreCss'></style>");
-			$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
+			}
 		}
 	});
 }
 //////////////////
 // INJECT FONTS //
 //////////////////
+/*
 $("#coreFonts").remove();
-$.get(hostLocal + "css/fonts.css",function(raw) {	
+$.ajax({
+    url: hostLocal + "css/fonts.css",
+    dataType: "text",
+    success: function(rawCss) {
+
 	if(navigator.userAgent.match(/MSApp/i)) {
 		MSApp.execUnsafeLocalFunction(function() {
 			$("head").append("<style type='text/css' id='coreFonts'></style>");
-			$("#coreFonts").html(raw);
+			$("#coreFonts").html(rawCss);
 		});
 	} else {
 		$("head").append("<style type='text/css' id='coreFonts'></style>");
-		$("#coreFonts").html(raw);
+		$("#coreFonts").html(rawCss);
 	}
-});
+}});
+*/
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
@@ -379,6 +389,17 @@ function getOrientation() {
 	}
 	else if (window.orientation == 0 || window.orientation == 180) {
 		return "portrait";
+	}
+}
+//////////////////////
+// ANDROID 2 SELECT //
+//////////////////////
+function android2Select() {
+	if(isMobile.Android() && androidVersion() < 4) {
+		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+		$('#dummyInput').focus();
+		$('#dummyInput').blur();
+		$('#dummyInput').remove();
 	}
 }
 /////////////////

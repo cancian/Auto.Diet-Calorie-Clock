@@ -23,8 +23,10 @@ $(document).ready(function() {
 	}
 });
 $(document).on("resume",function() { 
+setTimeout(function() { 
 	updateLoginStatus(1);
 	getAnalytics('resume');
+},2000);
 });
 //##///////////##//
 //## START APP ##//
