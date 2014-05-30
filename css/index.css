@@ -126,7 +126,10 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-image: -webkit-linear-gradient(#fff,#fefefe); }
+#appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); }
+.android #appContent			{ background-image: -webkit-linear-gradient(#fff,#fefefe); }
+.android2.tab2  #appContent,
+.android2.tab3  #appContent		{ top: 0; border-top: 62px solid rgba(0,0,0,0); }
 /*kitkat scrollbar*/
 body.android ::-webkit-scrollbar{ display: none; }
 /*#////////////#//
@@ -951,7 +954,7 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 /*food sub itens*/
 span#noMatches			{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
 span#iconRefresh,
-span#iconClear			{ padding: 19px 25px 16px 22px; font-size: 28px; line-height: 28px; position: absolute; top: 0px; right: -2px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 99999; display: block; background-color: rgba(0,0,0,0); }
+span#iconClear			{ padding: 19px 25px 16px 22px; font-size: 28px; line-height: 28px; position: absolute; top: 0px; right: -2px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 9999; display: block; background-color: rgba(0,0,0,0); }
 span#iconClear			{ display: none; }
 span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
@@ -992,8 +995,8 @@ body.ios7 #appHeader:before 	{ padding-top: 24px; }
 body.android44 #appHeader:before{ padding-top: 11px; }
 #appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*android scroll blur fix*/
-body.closer #appContent			{ overflow: hidden !important; }
-body.closer select#entryTime	{ pointer-events: none !important; display: none !important; }
+.android.closer #appContent			{ overflow: hidden; }
+.android.closer select#entryTime	{ pointer-events: none; display: none; }
 /*search nutri colors*/
 .foodName.food										{ color: #0033cc !important; }
 .foodName.exercise									{ color: #cc3300 !important; }

@@ -1052,8 +1052,13 @@ function doSearch(rawInput) {
 			}
 			$("#searchContents").show();
 			//enforce clearIcon display
-			$('#iconRefresh').hide();
-			$('#iconClear').show(); 
+			if($("#foodSearch").val().length != 0) {
+				$('#iconRefresh').hide();
+				$('#iconClear').show(); 
+			} else {
+				$('#iconRefresh').show();
+				$('#iconClear').hide(); 				
+			}
 			////////////////////////
 			// OVERFLOW ON-DEMAND //
 			////////////////////////

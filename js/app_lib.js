@@ -394,6 +394,12 @@ function getOrientation() {
 //////////////////////
 // ANDROID 2 SELECT //
 //////////////////////
+function killFocus() {
+	//$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+	$('#dummyInput').focus();
+	$('#dummyInput').blur();
+	//$('#dummyInput').remove();
+}
 function android2Select() {
 	if(isMobile.Android() && androidVersion() < 4) {
 		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');

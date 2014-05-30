@@ -671,8 +671,9 @@ function openStatus(string) {
 ############################*/
 function openDiary(entryListHtml) {
 	if(!entryListHtml) { return; }
-
-updateEntriesSum();
+	setTimeout(function() {
+		updateEntriesSum();
+	}, 0);
 //RAW HTML
 var diaryHtml    = "";
 var lHour        = LANG.HOUR[lang];
@@ -713,16 +714,9 @@ var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
 		<option value="96">'  + lPreAgo + '4 '  + lDays  + lAgo + '</option>\
 		<option value="120">' + lPreAgo + '5 '  + lDays  + lAgo + '</option>\
 	</select>';
-	if(Math.floor(androidVersion()) == 2) {  
-		var outerSelect = formSelect;
-		var innerSelect = '';
-	} else {
-		var innerSelect = formSelect;
-		var outerSelect = '';
-	}
+
 diaryHtml += '\
 <a name="top"></a>	\
-' + outerSelect + '\
 <div id="entryListForm">\
 	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
 	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />' + LANG.KCAL[lang] + '</div>\
@@ -730,7 +724,7 @@ diaryHtml += '\
 	<div id="sliderPos">' + LANG.FOOD[lang] + '<span></span></div>\
 	<input type="text" id="entryBody" placeholder="' + LANG.DESCRIPTION[lang] + '" tabindex="-1" />\
 	<div id="entryBodySearch"><div></div></div>\
-	' + innerSelect + '\
+	' + formSelect + '\
 	<div id="entrySubmit">' + LANG.ADD_ENTRY[lang] + '</div>\
 </div>\
 <div id="entryListWrapper">\
@@ -1246,12 +1240,13 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 		}
 		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
 			//ios, switch blur entrytime > entrybody || kitkat non-selectable focus
-			if(isMobile.iOS) {
+			if(isMobile.iOS()) {
 				evt.preventDefault(); 
 			}
 			$("#entryBody").focus();
 		}
 	});
+	
 	$('#entryTime').on(touchstart, function(evt) {
 			//evt.preventDefault();
 			evt.stopPropagation();	
@@ -1860,8 +1855,10 @@ $("#pA3B,#feet,#inches").on("blur", function(evt) {
 ///////////////
 // TAP VALUE //
 ///////////////
+
 $("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
-	$("#pA7B,#pA7F,#pA7L").blur();
+	//$("#pA7B,#pA7F,#pA7L").blur();
+	killFocus();
 });
 $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	//RELOAD INFO HTML
@@ -1900,6 +1897,17 @@ $("#formc input,#formc select").on(tap, function(evt) {
 	evt.stopPropagation();
 //	$("#" + evt.target.id).focus();
 });
+/*
+if(isMobile.iOS()) {
+	$("#formc input,#formc select").on(touchstart, function(evt) {
+		if(!(evt.target.id).match(/pA7B|pA7F|pA7L/)) {
+			evt.preventDefault();
+			evt.stopPropagation();
+			$(this).focus();
+		}
+	});
+}
+*/
 //////////////////////////////
 // BLUR ON NULL ID TOUCHEND //
 //////////////////////////////

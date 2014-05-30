@@ -126,15 +126,16 @@ function appFooter(id) {
 	if(id == "tab4") { openSettings(); }
 	$("body").removeClass("tab1 tab2 tab3 tab4");
 	$("body").addClass(id);
-	window.location='#top';
 	//clear pageslidefood
-	if(!$("#pageSlideFood").is(":animated")) {
-		$("#pageSlideFood").remove();
-		$("#appHeader").removeClass("open");
-	} else {
-		$('#appHeader').trigger(touchstart);
+	if($("#pageSlideFood").html()) {
+		if(!$("#pageSlideFood").is(":animated")) {
+			$("#pageSlideFood").remove();
+			$("#appHeader").removeClass("open");
+		} else {
+			$('#appHeader').trigger(touchstart);
+		}
 	}
-	//window.location='#top';
+	window.location='#top';
 	//$('#appContent').scrollTop(0);
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
