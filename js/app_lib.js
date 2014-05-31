@@ -21,6 +21,9 @@ var timerPerf         = (new Date().getTime());
 var timerDiff         = 100;
 var timerWait         = 100;
 var noTimer;
+var ref;
+var blockModal = false;
+var modalTimer;
 jQuery.support.cors   = true
 function voidThis()   { }
 function voidMe()     { }
@@ -217,7 +220,7 @@ var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
 /*
-if(window.navigator.msPointerEnabled && !isDesktop()) {
+if(window.navigator.msPointerEnabled) {
 	touchstart = "MSPointerDown";
 	touchend   = "MSPointerUp";
 	touchmove  = "MSPointerMove";
@@ -394,14 +397,6 @@ function getOrientation() {
 //////////////////////
 // ANDROID 2 SELECT //
 //////////////////////
-function killFocus() {
-	if(isMobile.FirefoxOS() || (isMobile.Android() && androidVersion() < 4)) {
-		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
-	}
-	$('#dummyInput').focus();
-	$('#dummyInput').blur();
-	$('#dummyInput').remove();
-}
 function android2Select() {
 	if(isMobile.Android() && androidVersion() < 4) {
 		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');

@@ -57,7 +57,7 @@ $(document).on("pageload", function(evt) {
 			$('.active').removeClass('active');
 			if($('.delete').hasClass('busy'))  { return; }
 			if($('#kcalsDiv').is(':visible'))  { return; }
-			if($('#entryList div').is(':animated') || $('.editableInput').is(':visible') || $('#entryBody').is(':animated') || entryReturn == true || deKeyboard != 0) { entryReturn = false; return; }
+			if($('#entryList div').is(':animated') || $('.editableInput').is(':visible') || $('#entryBody').is(':animated') || entryReturn == true || deKeyboard != 0 || blockModal == true) { entryReturn = false; return; }
 					////////////////////////
 					// START ENTRY UPDATE //
 					////////////////////////
@@ -580,7 +580,7 @@ $(document).on("pageReload", function(evt) {
 	////////////////////
 	$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 61)) + "px");
 	$('#foodList').css("top",($('#appHeader').height()) + "px");
-	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+	if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#foodList").css("overflow","hidden");
 		setTimeout(function(){
 			$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
@@ -590,6 +590,14 @@ $(document).on("pageReload", function(evt) {
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer, 200);
 	}
+	/////////////
+	// handler //
+	/////////////
+	$("#foodList").scroll(function() {
+		blockModal = true;
+		clearTimeout(modalTimer);
+		modalTimer = setTimeout(function() { blockModal = false; },300);
+	});
 	//#/////////////////////////////////////#//
 	//# KEYUP LISTENER SEARCH TIMER-LIMITER #//
 	//#/////////////////////////////////////#//
@@ -1051,6 +1059,7 @@ function doSearch(rawInput) {
 				$("#searchContents").html(foodList);
 			}
 			$("#searchContents").show();
+			setTimeout(niceResizer, 200);
 			//enforce clearIcon display
 			if($("#foodSearch").val().length != 0) {
 				$('#iconRefresh').hide();
@@ -1063,6 +1072,7 @@ function doSearch(rawInput) {
 			// OVERFLOW ON-DEMAND //
 			////////////////////////
 			$(".searcheable").on(tap + ' ' + touchstart, function(evt) {
+				if(blockModal == true) { return; }
 				if($("#addNewWrapper").html()) { return; }
 				if($("#foodSearch").is(":focus") && !isDesktop()) { 
 					//evt.preventDefault();
@@ -1079,6 +1089,7 @@ function doSearch(rawInput) {
 			/////////////////////////////////
 			$("#searchContents div.searcheable").on(singletap,function(event) {
 				event.preventDefault();
+				if(blockModal == true) { return; }
 				//if($(this).hasClass("activeOverflow")) {
 					getModalWindow($(this).attr("id"));
 				//}
@@ -1108,6 +1119,9 @@ function updateFavList() {
 		// LOOP RESULTS //
 		var customFavList = "";
 		var customFavSql  = "";
+		var favSql;
+		var favLine;
+		var favLastId = '';
 		for(var c=0, len=data.length; c<len; c++) {
 			//get current weight//
 			if(!window.localStorage.getItem("calcForm#pA3B")) {
@@ -1156,19 +1170,17 @@ function updateFavList() {
 				id = data[c].ID;
 				if(!data[c].ID) { id = 'null'; }
 			}
-
-			if(id) { var favSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
-
-			var favLine = "<div class='searcheable " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
-			if(favLine != "" && id) {
-				customFavList += favLine;
-			}
-
-			if(favSql != "") {
+			///////////////////////////
+			if(id && favLastId != id) { 
+				favSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; 
 				customFavSql += favSql;
-			}			
+				favSql = '';
+				favLine = "<div class='searcheable " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
+				customFavList += favLine;
+				favLine = ''
+				favLastId = id;
+			}
 		}
-		
 		if(customFavList == "") { customFavList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 		if(customFavSql  != "") { window.localStorage.setItem("customFavSql",customFavSql); } else { window.localStorage.setItem("customFavSql"," "); }
 		//////////
@@ -1180,6 +1192,7 @@ function updateFavList() {
 		//////////////
 		$("#tabMyFavsBlock div.searcheable").on(singletap,function(evt) {
 			evt.preventDefault();
+			if(blockModal == true) { return; }
 			getModalWindow($(this).attr("id"));
 		});
 		$("#tabMyFavsBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
@@ -1198,6 +1211,7 @@ function updateFavList() {
 		// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 		/////////////////////////////////////////
 		$("#tabMyFavsBlock #foodSearch").on(touchstart, function(evt) {
+			if(blockModal == true) { return; }
 			$(".foodName").css("overflow","hidden");
 			$("#activeOverflow").removeAttr("id");
 			$(".activeOverflow").removeClass("activeOverflow");
@@ -1211,7 +1225,10 @@ function updateFoodList() {
 	getCustomList("food",function(data) {
 		// LOOP RESULTS //
 		var customFoodList = "";
-		var customFoodSql  = "";		
+		var customFoodSql  = "";
+		var foodSql;
+		var foodLine;
+		var foodLastId = "";
 		for(var c=0, len=data.length; c<len; c++) {
 			
 			cKcal = Math.round(data[c].kcal * 100) / 100;
@@ -1246,20 +1263,21 @@ function updateFoodList() {
 				if(!data[c].ID) { id = 'null'; }
 			}
 
-			if(id)						{ var foodSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
+			if(id)						{  }
 			if(foodSql != "" && id)		{ customFoodSql += foodSql; }
 			/////////////////////		
-			var foodLine = "<div class='searcheable " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
-			if(foodLine != "") {
+			if(id && foodLastId != id) {
+				foodSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
+				customFoodSql += foodSql;
+				foodSql = '';
+				foodLine = "<div class='searcheable " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
 				customFoodList += foodLine;
+				foodLine = '';
+				foodLastId = id;
 			}
 		}
 		if(customFoodList == "") { customFoodList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 		if(customFoodSql  != "") { window.localStorage.setItem("customFoodSql",customFoodSql); } else { window.localStorage.setItem("customFoodSql"," "); }
-
-
-
-
 		//////////
 		// HTML //
 		//////////
@@ -1275,6 +1293,7 @@ function updateFoodList() {
 		
 		$("#tabMyFoodsBlock div.searcheable").on(singletap,function(evt) {
 			evt.preventDefault();
+			if(blockModal == true) { return; }
 			getModalWindow($(this).attr("id"));
 		});
 		$("#tabMyFoodsBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
@@ -1293,6 +1312,7 @@ function updateFoodList() {
 		// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 		/////////////////////////////////////////
 		$("#tabMyFoodsBlock #foodSearch").on(touchstart, function(evt) {
+			if(blockModal == true) { return; }
 			$(".foodName").css("overflow","hidden");
 			$("#activeOverflow").removeAttr("id");
 			$(".activeOverflow").removeClass("activeOverflow");
@@ -1307,6 +1327,9 @@ getCustomList("exercise",function(data) {
 	// LOOP RESULTS //
 	var customExerciseList = "";
 	var customExerciseSql  = "";
+	var exerciseSql;
+	var exerciseLine;
+	var exerciseLastId = "";	
 	for(var c=0, len=data.length; c<len; c++) {
 
 		//get current weight//
@@ -1320,10 +1343,6 @@ getCustomList("exercise",function(data) {
 			var totalWeight = Math.round( (totalWeight) / (2.2) );
 		}
 		var excerciseKcal = Math.round(((data[c].kcal * totalWeight) / 60) * 30);
-		var excerciseLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + excerciseKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + data[c].fat  + "</span></div>";
-		if(excerciseLine != "") {
-			customExerciseList += excerciseLine;
-		}
 		///////////////////////
 		//////////
 		// SYNC //
@@ -1351,11 +1370,16 @@ getCustomList("exercise",function(data) {
 			id = data[c].ID;
 			if(!data[c].ID) { id = 'null'; }
 		}
-		
-		if(id)			        	{ var exerciseSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; }
-		
-		if(exerciseSql != "" && id)	{ customExerciseSql += exerciseSql; }		
-		/////////////////////		
+
+		if(id && exerciseLastId != id) {
+			exerciseSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
+			customExerciseSql += exerciseSql;
+			exerciseSql = '';
+			excerciseLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + excerciseKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + data[c].fat  + "</span></div>";
+			customExerciseList += excerciseLine;
+			exerciseLine = '';
+			exerciseLastId = id;
+		}
 	}
 	if(customExerciseList == "") {customExerciseList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
 	if(customExerciseSql  != "") { window.localStorage.setItem("customExerciseSql",customExerciseSql); } else { window.localStorage.setItem("customExerciseSql"," "); }
@@ -1373,6 +1397,7 @@ getCustomList("exercise",function(data) {
 	});
 	$("#tabMyExercisesBlock div.searcheable").on(singletap,function(evt) {
 		evt.preventDefault();
+		if(blockModal == true) { return; }
 		getModalWindow($(this).attr("id"));
 	});
 	$("#tabMyExercisesBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
@@ -1390,6 +1415,7 @@ getCustomList("exercise",function(data) {
 	// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 	/////////////////////////////////////////
 	$("#tabMyExercisesBlock #foodSearch").on(touchstart, function(evt) {
+		if(blockModal == true) { return; }
 		$(".foodName").css("overflow","hidden");
 		$("#activeOverflow").removeAttr("id");
 		$(".activeOverflow").removeClass("activeOverflow");
@@ -2270,6 +2296,10 @@ function getModalWindow(itemId) {
 										window.localStorage.setItem("config_start_time",published);
 										window.localStorage.setItem("appStatus","running");
 										updateEntries();
+										setPush();
+										$("#appStatus").removeClass("start");
+										$("#appStatus").addClass("reset");
+										$("#appStatusTitle").html(LANG.RESET[lang]);
 									}
 								}
 								//SHOW START DIALOG

@@ -838,6 +838,10 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 					window.localStorage.setItem("config_start_time",published);
 					window.localStorage.setItem("appStatus","running");
 					updateEntries();
+					setPush();
+					$("#appStatus").removeClass("start");
+					$("#appStatus").addClass("reset");
+					$("#appStatusTitle").html(LANG.RESET[lang]);
 				}
 			}
 			//SHOW START DIALOG
@@ -1403,7 +1407,10 @@ var topLock = 0;
 var topTimer;
 $('#appContent').scroll(function() {
 	clearTimeout(topTimer);
+	blockModal = true;
 	topTimer = setTimeout(function() {
+		blockModal = false;
+		//
 		var entryListHeight = $('#entryList').height() * .5;
 		if(topLock != 0)                  { return; }
 		if($('#go').hasClass("scrolled")) { return; }
@@ -1415,7 +1422,7 @@ $('#appContent').scroll(function() {
 		}
 		// FIX ANDROID 2 SELECT
 		android2Select();
-	},100);
+	},300);
 	});
 	// FIX ANDROID 2 SELECT
 	android2Select();
@@ -1857,10 +1864,17 @@ $("#pA3B,#feet,#inches").on("blur", function(evt) {
 ///////////////
 // TAP VALUE //
 ///////////////
-
+var tapVar;
 $("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
-	//$("#pA7B,#pA7F,#pA7L").blur();
-	killFocus();
+	tapVar = this;
+	setTimeout(function(){ tapVar.blur(); },1);
+
+	if(isMobile.FirefoxOS() || isMobile.MSApp() || (isMobile.Android() && androidVersion() < 4)) {
+		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+		$('#dummyInput').focus();
+		$('#dummyInput').blur();
+		$('#dummyInput').remove();
+	}
 });
 $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	//RELOAD INFO HTML
@@ -1895,22 +1909,23 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	}
 	return false;
 });
+/*
 $("#formc input,#formc select").on(tap, function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
 //	$("#" + evt.target.id).focus();
 });
-/*
-if(isMobile.iOS()) {
+*/
+if(isMobile.MSApp()) {
 	$("#formc input,#formc select").on(touchstart, function(evt) {
 		if(!(evt.target.id).match(/pA7B|pA7F|pA7L/)) {
-			evt.preventDefault();
-			evt.stopPropagation();
+			//evt.preventDefault();
+			//evt.stopPropagation();
 			$(this).focus();
 		}
 	});
 }
-*/
+
 //////////////////////////////
 // BLUR ON NULL ID TOUCHEND //
 //////////////////////////////

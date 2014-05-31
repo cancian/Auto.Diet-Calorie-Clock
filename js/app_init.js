@@ -4,7 +4,11 @@
 var blockAlerts = 0;
 window.onerror = function(e, url, line) {
 	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
-		if(confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) { blockAlerts = 0; } else { blockAlerts = 1; }
+		if(navigator.userAgent.match(/MSApp/i)) {
+			alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+		} else {
+			if(confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) { blockAlerts = 0; } else { blockAlerts = 1; }
+		}
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
 	if($("#tempHolder").html()) {
@@ -15,6 +19,8 @@ window.onerror = function(e, url, line) {
 //////////////
 // VIEWPORT //
 //////////////
+if(navigator.userAgent.match(/MSApp/i)) { hostLocal = ''; }
+
 function initJS() {
 if(navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
 	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');
@@ -70,14 +76,56 @@ document.write("<script type='text/javascript' src='" + hostLocal + "js/galocals
 /////////
 // APP //
 /////////
-//document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/app_build.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
-document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
+if(navigator.userAgent.match(/MSApp/i) && window.localStorage.getItem("config_debug") == "active") {
+	//document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
+
+document.addEventListener( "DOMContentLoaded", function() {
+	hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/";
+	var dataJS  = '';
+	var dataCSS = '';
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_lib.js",         success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_lang.js",        success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_setup.js",       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_build.js",       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_static.js",      success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_dynamic.js",     success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_custom_core.js", success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "css/index.css",         success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "css/fonts.css",         success: function(raw) { dataCSS = dataCSS + raw;
+	//MOZIE CSS
+	if((/firefox/).test(navigator.userAgent.toLowerCase())) {
+		dataCSS = dataCSS.split('box-sizing').join('-moz-box-sizing').split('-webkit-').join('-moz-');
+	}
+	if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase())) {
+		dataCSS = dataCSS.split('-webkit-backface-visibility: hidden;').join('').split('-webkit-').join('-ms-');
+	}
+	//APPEND
+	/////////
+	$("#coreCss,#coreFonts").remove();
+	
+	$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
+	$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+	//
+	}});}});}});
+	}});}});}});
+	}});}});
+	}});
+}, false);
+
+
+
+} else {
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_build.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
+}
+
+
+
 }
 
 if(navigator.userAgent.match(/MSApp/i)) {

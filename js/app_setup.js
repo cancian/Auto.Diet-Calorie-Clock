@@ -1238,7 +1238,7 @@ function buildHelpMenu() {
 	},0);
 	//SCROLLER
 	setTimeout(function() {
-		if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+		if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 			$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 		}
 		//UNLOCK TAP
@@ -1291,7 +1291,7 @@ function buildHelpMenu() {
 			} else {
 				$(".activeRow").removeClass("activeRow");
 				//SCROLLER
-				if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+				if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 					setTimeout(function() {
 						$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 					},100);
@@ -1414,7 +1414,7 @@ function buildAdvancedMenu() {
 	$("#advancedMenuWrapper").fadeIn(200,function() {
 		//scroller
 		if(!isMobile.iOS() || opt == "intro") {
-			if(androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.FirefoxOS()) {
+			if(androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
 				$("#advancedMenu").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 			} else {
 				$("#advancedMenu").css("overflow","auto");
@@ -1982,7 +1982,7 @@ function intakeHistory() {
 //////////////////
 var niceTimer;
 function niceResizer() {
-	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+	if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
 		$("#appHelper").getNiceScroll().resize();
@@ -2016,34 +2016,36 @@ function getStoreUrl(button) {
 	getAnalytics("rate");
 	if(button == 1) {
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8', '_system', 'location=yes'); }
-		else if(isMobile.Android())   { window.open('https://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');                 }
-		//else if(isMobile.Android()) { window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');                                   }
-		else if(isMobile.Windows())   { window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_system', 'location=yes');     }
-		//else if(isMobile.MSApp())     { window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_system', 'location=yes');     }
-		else if(isMobile.FirefoxOS()) { window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');                                    }
+		else if(isMobile.Android())   { ref = window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');                                   }
+		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');     }
+		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e')); }
+		else if(isMobile.FirefoxOS()) { ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');                                    }
 	}
 }
 var rateTimer;
 function getRateDialog() {
+	//appstore enabled
+	if(!isMobile.iOS() && !isMobile.Android() && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) { return; }
 	//first use
 	if(!window.localStorage.getItem("getRate")) {
 		window.localStorage.setItem("getRate", new Date().getTime());
 	}
 	//return
-	if(window.localStorage.getItem("getRate") == 'locked' || isDesktop()) { return; }
+	if(window.localStorage.getItem("getRate") == 'locked') { return; }
 	///////////////
 	// IF 1 WEEK //
 	///////////////
-	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (60 * 60 * 24 * 7 * 1000)) {
+	var timeRate = 2 * 24 * 60 * 60 * 1000;
+	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
-			if(window.localStorage.getItem("getRate") == 'locked' || isDesktop()) { return; }
+			if(window.localStorage.getItem("getRate") == 'locked') { return; }
 			//SHOW DIALOG
 			if(isMobile.MSApp()) {
 				var md = new Windows.UI.Popups.MessageDialog(LANG.RATE_MSG[lang], LANG.RATE_TITLE[lang]);
 				md.commands.append(new Windows.UI.Popups.UICommand(LANG.RATE_IT[lang]));
 				md.commands.append(new Windows.UI.Popups.UICommand(LANG.NO_THANKS[lang]));
-				md.showAsync().then(function (command) { if(command.label == LANG.RATE_IT[lang]) { getStoreUrl(1); } });
+				md.showAsync().then(function (command) { if(command.label == LANG.RATE_IT[lang]) { getStoreUrl(1); } if(command.label == LANG.NO_THANKS[lang]) { getStoreUrl(0); } });	
 			} else if(isMobile.Cordova()) {
 				navigator.notification.confirm(LANG.RATE_MSG[lang], getStoreUrl, LANG.RATE_TITLE[lang], [LANG.RATE_IT[lang],LANG.NO_THANKS[lang]]);
 			} else {

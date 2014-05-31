@@ -71,7 +71,7 @@ table {
 	border-spacing: 0;
 }
 */
-html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
+html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden !important; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 #appContent,#pageSlideFood				{ -ms-touch-action: pan-y; touch-action: pan-y; }
 html,body,input,select,textarea,
@@ -703,7 +703,7 @@ background-color: rgba(0,0,0,0);
 /*tap select*/
 #calcForm .tapSelect  					{ display: block; position: relative; margin: 0px 12px 12px 12px; overflow: hidden; height: 54px; }
 #calcForm .tapSelect span				{ display: block; position: absolute; top: 20px; left: 128px; color: #aaa; white-space: nowrap; }
-#calcForm .tapSelect input				{ position: absolute; top: -9px; left: 0; display: block; width: 100%; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: normal; color: #000 !important; background-color: rgba(100,100,100,.0); text-align: left; z-index: 100; }
+#calcForm .tapSelect input				{ position: absolute; top: -9px; left: 0; display: block; width: 100%; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: normal; color: #000 !important; background-color: rgba(100,100,100,.0); text-align: left; z-index: 100; -ms-user-select: none; -moz-user-select: none; }
 #calcForm .tapSelect input.tapActive	{ color: #cc0000 !important; }
 /*by/unit width*/
 #calcForm select#pA1B,
@@ -833,6 +833,8 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 .appLang-ar .entriesTitle	{ margin-right: 16px; }
 .appLang-ja .entriesKcals	{ width: 51px; font-size: 11px; color: #999; padding-top: 1px;  }
 .appLang-ko .entriesKcals	{ width: 48px; font-size: 10pt; color: #aaa; padding-top: 1px;  }
+
+.appLang-hi .entriesKcals,
 .appLang-iw .entriesKcals,
 .appLang-hy .entriesKcals	{ margin-right: 16px; }
 /*body.android .entriesBody input { text-indent: -1px; }*/

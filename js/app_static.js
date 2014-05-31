@@ -98,7 +98,7 @@ function appResizer(time) {
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);
 		//chrome v32 input width
-		if(isDesktop() && vendorClass == "webkit") {
+		if(isDesktop() || isMobile.MSApp()) {
 			$('#entryBody').width(window.innerWidth -58);
 			$('#foodSearch').width(window.innerWidth -55);
 			$("ul#addNewList input").width(window.innerWidth - 180);
@@ -113,7 +113,7 @@ function appFooter(id) {
 	window.localStorage.setItem("app_last_tab",id);
 	$("#" + id).addClass("selected");
 	//SCROLLBAR
-	if(!isMobile.iOS() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+	if(!isMobile.iOS() && !isMobile.MSApp() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#appContent").css("overflow","hidden");
 		setTimeout(function(){
 			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
@@ -135,7 +135,11 @@ function appFooter(id) {
 			$('#appHeader').trigger(touchstart);
 		}
 	}
-	window.location='#top';
+	if(isMobile.MSApp()) {
+		$('#appContent').scrollTop(0);
+	} else {
+		window.location='#top';
+	}
 	//$('#appContent').scrollTop(0);
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
@@ -230,6 +234,9 @@ $(document).on("backbutton", function(evt) {
 			myScroll.prev();
 		}
 		//}
+	} else if(ref) {
+		ref.close();
+		ref = '';
 	} else if($("#subBackButton").length) {
 		$("#subBackButton").trigger(touchend);
 	} else if($("#backButton").length) {
@@ -390,7 +397,11 @@ $(window).on("resize", function(evt) {
 	}
 	//ALWAYS RESIZE NON-MOBILE BROWSER
 	//if(!hasTouch() && !isMobile.Android() && !isMobile.iOS() && !isMobile.Windows() && !isMobile.FirefoxOS()) {
-	if(isDesktop()) {
+	if(isMobile.MSApp()) {
+		if(!$("input").has(":focus")) {
+			appResizer(0);
+		}
+	} else if(isDesktop()) {
 		appResizer(0);
 	}
 	//notepad (ios6 fix)(window.innerHeight)

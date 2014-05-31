@@ -35,6 +35,7 @@
 	//INIT
 	if(navigator.userAgent.match(/MSApp/i)) {
 		MSApp.execUnsafeLocalFunction(function() {
+			hostLocal = '';
 			document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js" + newDate + "'><\/script>");	
 		});
 	} else {
