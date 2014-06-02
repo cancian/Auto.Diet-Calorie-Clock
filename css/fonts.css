@@ -11,6 +11,13 @@
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
+
+@font-face {
+	font-family: "FontAwesome";
+	src: url("fontawesome.ttf") format('truetype');
+}
+  
+
 /*
 @import url("https://fontastic.s3.amazonaws.com/LqqnHDhipLSmTLPYyJdRiJ/icons.css");
 */

@@ -14,6 +14,7 @@ js/app_custom_core.js
 css/index.css
 css/fonts.css
 css/openhand.cur
+css/fontawesome.ttf
 # CORDOVA
 js/cordova.js
 js/cordova_plugins.js

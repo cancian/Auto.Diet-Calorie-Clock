@@ -101,10 +101,19 @@ document.addEventListener( "DOMContentLoaded", function() {
 	}
 	//APPEND
 	/////////
+if(navigator.userAgent.match(/MSApp/i)) {
+	MSApp.execUnsafeLocalFunction(function() {
+		$("#coreCss,#coreFonts").remove();
+		$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+		$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
+
+	});
+} else {
 	$("#coreCss,#coreFonts").remove();
-	
-	$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
 	$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+	$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
+}
+
 	//
 	}});}});}});
 	}});}});}});

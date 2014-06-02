@@ -108,10 +108,14 @@ function appResizer(time) {
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
+var releaseFooter;
 function appFooter(id) {
+var tabId = id;
+	clearTimeout(releaseFooter);
+	releaseFooter = setTimeout(function() { 
 	$("ul#appFooter li").removeClass("selected");
-	window.localStorage.setItem("app_last_tab",id);
-	$("#" + id).addClass("selected");
+	window.localStorage.setItem("app_last_tab",tabId);
+	$("#" + tabId).addClass("selected");
 	//SCROLLBAR
 	if(!isMobile.iOS() && !isMobile.MSApp() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#appContent").css("overflow","hidden");
@@ -120,12 +124,12 @@ function appFooter(id) {
 		},0);
 	}
 	//ACTION
-	if(id == "tab1") { openStatus();   }
-	if(id == "tab2") { updateEntries('','','callback'); }
-	if(id == "tab3") { openProfile();  }
-	if(id == "tab4") { openSettings(); }
+	if(tabId == "tab1") { openStatus();   }
+	if(tabId == "tab2") { updateEntries('','','callback'); }
+	if(tabId == "tab3") { openProfile();  }
+	if(tabId == "tab4") { openSettings(); }
 	$("body").removeClass("tab1 tab2 tab3 tab4");
-	$("body").addClass(id);
+	$("body").addClass(tabId);
 	//clear pageslidefood
 	if($("#pageSlideFood").html()) {
 		if(!$("#pageSlideFood").is(":animated")) {
@@ -144,6 +148,7 @@ function appFooter(id) {
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
 	//updateTimer();
+	},50);
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -154,7 +159,7 @@ appFooter(window.localStorage.getItem("app_last_tab"));
 //LISTEN FOR CLICKS
 $("ul#appFooter li").on(touchstart, function(evt) {
 	evt.preventDefault();
-	//evt.stopPropagation();
+	evt.stopPropagation();
 	//not while editing
 	if($("#editableInput").is(":visible")) {
 		$("#editableInput").blur();
@@ -389,15 +394,24 @@ $(window).on("resize", function(evt) {
 	$('body').trigger("touchmove");
 	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
 	//if(window.innerHeight > $('body').height()) {
-	if(initialScreenSize > $('body').height()) {
+	if(initialScreenSize > $('body').height() && !isMobile.MSApp()) {
 		//IOS re-scrolling bug
 		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
 		$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);
 		appResizer(0);
 	}
 	//ALWAYS RESIZE NON-MOBILE BROWSER
-	//if(!hasTouch() && !isMobile.Android() && !isMobile.iOS() && !isMobile.Windows() && !isMobile.FirefoxOS()) {
 	if(isMobile.MSApp()) {
+		//resize triggers blur on orientation change
+		if(window.innerWidth == initialScreenHeight && orientationSwitched == 0) {
+			appResizer(0);
+			appResizer(300);
+			orientationSwitched = 1;
+		} else if(window.innerWidth == initialScreenWidth && orientationSwitched == 1) {
+			appResizer(0);
+			appResizer(300);
+			orientationSwitched = 0;
+		}
 		if(!$("input").has(":focus")) {
 			appResizer(0);
 		}
@@ -405,7 +419,7 @@ $(window).on("resize", function(evt) {
 		appResizer(0);
 	}
 	//notepad (ios6 fix)(window.innerHeight)
-	if($('#diaryNotesInput').is(":visible") && !isMobile.Windows()) {
+	if($('#diaryNotesInput').is(":visible") && !isMobile.Windows() && !isMobile.MSApp()) {
 		$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 		$("#diaryNotesInput").height(window.innerHeight - 32);
 		$('#diaryNotesInput').width(window.innerWidth - 24);

@@ -1,4 +1,5 @@
-﻿/**
+﻿if(navigator.userAgent.match(/IEMobile/i)) {
+/**
  * OpenFB is a micro-library that lets you integrate your JavaScript application with Facebook.
  * OpenFB works for both BROWSER-BASED apps and CORDOVA/PHONEGAP apps.
  * This library has no dependency: You don't need (and shouldn't use) the Facebook SDK with this library. Whe running in
@@ -236,3 +237,5 @@ var openFB = (function () {
     }
 
 }());
+
+}

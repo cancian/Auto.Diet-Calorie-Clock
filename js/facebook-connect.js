@@ -1,4 +1,6 @@
-﻿CDV = ( typeof CDV == 'undefined' ? {} : CDV );
+﻿if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/)) {
+
+CDV = ( typeof CDV == 'undefined' ? {} : CDV );
 var cordova = window.cordova || window.Cordova;
 CDV.FB = {
   init: function(apiKey, fail) {
@@ -61,3 +63,5 @@ CDV.FB = {
                   }, (fail?fail:null), 'org.apache.cordova.facebook.Connect', 'showDialog', [params] );
   }
 };
+
+}

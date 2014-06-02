@@ -1,77 +1,5 @@
-﻿/*
-order=right: 
-@-webkit-viewport { width: device-width; zoom: 1.0; }
-   @-moz-viewport { width: device-width; zoom: 1.0; }
-    @-ms-viewport { width: device-width; zoom: 1.0; }
-     @-o-viewport { width: device-width; zoom: 1.0; }
-        @viewport { width: device-width; zoom: 1.0; }
-html, body, div, span, applet, object, iframe, 
-h1, h2, h3, h4, h5, h6, p, blockquote, pre, 
-a, abbr, acronym, address, big, cite, code, 
-del, dfn, em, img, ins, kbd, q, s, samp, 
-small, strike, strong, sub, sup, tt, var, 
-b, u, i, center, 
-dl, dt, dd, ol, ul, li, 
-button, fieldset, form, label, legend, 
-table, caption, tbody, tfoot, thead, tr, th, td, 
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary, 
-time, mark, audio, video { 
-    margin: 0; 
-    padding: 0; 
-    border: 0; 
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    font-size: 100%; 
-    font: inherit; 
-    vertical-align: baseline; 
-}
-
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-*/
-html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden !important; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
+﻿html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
+body.msapp 								{ overflow: hidden !important; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 #appContent,#pageSlideFood				{ -ms-touch-action: pan-y; touch-action: pan-y; }
 html,body,input,select,textarea,
@@ -93,6 +21,7 @@ body > *,h2,input[readonly]				{ -webkit-touch-callout: none; -webkit-text-size-
 input,select,textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
 select::-ms-expand						{ display: none; }
+input::-ms-clear						{ display: none; width : 0; height: 0; }
 ::selection								{ background: rgba(0,0,0,0);  color: inherit; }
 ::-ms-selection							{ background: rgba(0,0,0,0);  color: inherit; }
 ::-moz-selection						{ background: rgba(0,0,0,0);  color: inherit; }
@@ -192,6 +121,7 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 .msie input#editable,
 .ios7 input#editable			{ margin-top: 1px; text-indent: 0; }
 .android input#editable			{ margin-top: 1px; padding-right: 1px; }
+.msapp input#editable,
 .android44 input#editable		{ margin-top: 0px; padding-right: 0px; }
 /*
 .ios input#editable,
@@ -814,7 +744,9 @@ span.delete.busy,
 span.delete.active			{ display: inline-block; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 0; padding: 15px 20px 13px 20px; font-weight: bold; color: #fff; background: #ec4a0b; text-shadow: 0 1px 0 rgba(0,0,0,.05); border-bottom: 1px solid #eee; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(100px, 0, 0); -webkit-transition-duration: .115s; -webkit-backface-visibility: hidden; }
 span.delete:active			{ background: #E0380A; }
 span.delete.open			{ display: inline-block; -webkit-transition-timing-function: linear; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .150s; -webkit-backface-visibility: hidden; }
-
+.msapp span.delete.busy,
+.msapp span.delete.active	{ -webkit-transform: translate3d(0, 0, 0); right: -100px; }
+.msapp span.delete.open		{ -webkit-transform: translate3d(0, 0, 0); right: 0; }
 .msie.desktop span.delete,
 .msapp span.delete			{ padding: 16px 20px 14px 20px !important; }
 /*ROW STYLE*/
@@ -997,7 +929,7 @@ body.ios7 #appHeader:before 	{ padding-top: 24px; }
 body.android44 #appHeader:before{ padding-top: 11px; }
 #appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*android scroll blur fix*/
-.android2.closer #appContent			{ overflow: hidden; }
+.android.closer #appContent			{ overflow: hidden; }
 .android2.closer select#entryTime	{ pointer-events: none; display: none; }
 /*search nutri colors*/
 .foodName.food										{ color: #0033cc !important; }

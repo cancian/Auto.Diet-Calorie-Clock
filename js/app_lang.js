@@ -1,10 +1,16 @@
 ﻿var appName     = "Kcals";
-var appVersion  = "1.2.4.1 (12412)";
+var appVersion  = "1.2.4.2 (12420)";
 var appBuild    = appVersion.split(" ")[1].replace("(","").replace(")",""); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(" ")[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|ga|hi|hr|hu|hy|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
 var lang        = "en";
 var defaultLang = "en";
+var userLang    = window.navigator.userLanguage || window.navigator.language;
+if(userLang) {
+	userLang = userLang.toLowerCase();
+} else {
+	userLang = "en";
+}
 ///////////////////// http://www.lingoes.net/en/translator/langcode.htm
 // DETECT LANGUAGE // http://www.localeplanet.com/icu/
 ///////////////////// http://www.w3schools.com/tags/ref_language_codes.asp
@@ -19,7 +25,7 @@ function filterLocale(locale) {
 	if(locale == "he") { locale = "iw"; }
 	//chinese
 	if(locale == "zh") {
-		if((/(tw|hk|mo|hant)/).test(window.navigator.language.toLowerCase() || navigator.userLanguage.toLowerCase())) {
+		if((/(tw|hk|mo|hant)/).test(userLang)) {
 			locale = "zt";
 		}
 	}
@@ -29,8 +35,8 @@ function filterLocale(locale) {
 ////////////
 // DEFINE //
 ////////////
-if(window.navigator.language || navigator.userLanguage) {
-	lang        = filterLocale((window.navigator.language || navigator.userLanguage).slice(0, 2).toLowerCase());
+if(userLang) {
+	lang        = filterLocale(userLang.slice(0, 2));
 	defaultLang = lang;
 }
 /////////////////////

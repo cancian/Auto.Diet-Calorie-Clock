@@ -85,7 +85,7 @@ function showIntro() {
 					momentum : false,
 					snap : 'div',
 					snapSpeed : 600,
-					snapThreshold : .2,
+					snapThreshold : 1 / ($("body").width() * 0.01),
 					keyBindings : true,
 					//bindToWrapper: true,
 					indicators : {

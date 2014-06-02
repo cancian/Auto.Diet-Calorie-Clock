@@ -1,30 +1,33 @@
 ﻿//#/////////////#//
 //# GLOBAL VARS #//
 //#/////////////#//
-var storage           = window.localStorage;
+var storage             = window.localStorage;
 var appBalance;
 var appBalanceOver;
 var appStatus;
 var appHeader;
 var db;
-var dbName            = "mylivediet.app";
+var dbName              = "mylivediet.app";
 var lib;
 var lib2;
-var hasSql			  = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
-var AND               = " ";
-var initialScreenSize = window.innerHeight;
-var lastScreenSize    = window.innerHeight;
-var lastScreenResize  = window.innerHeight;
-var opaLock           = 0;
+var hasSql			    = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
+var AND                 = " ";
+var initialScreenWidth  = window.innerWidth;
+var initialScreenHeight = window.innerHeight;
+var orientationSwitched = 0;
+var initialScreenSize   = window.innerHeight;
+var lastScreenSize      = window.innerHeight;
+var lastScreenResize    = window.innerHeight;
+var opaLock             = 0;
 var loadingDivTimer;
-var timerPerf         = (new Date().getTime());
-var timerDiff         = 100;
-var timerWait         = 100;
-var noTimer;
+var timerPerf           = (new Date().getTime());
+var timerDiff           = 100;
+var timerWait           = 100;
+var noTimer;  
 var ref;
 var blockModal = false;
 var modalTimer;
-jQuery.support.cors   = true
+jQuery.support.cors     = true
 function voidThis()   { }
 function voidMe()     { }
 ///////////////////
@@ -33,7 +36,11 @@ function voidMe()     { }
 function errorHandler(error) {
 	//console.log(JSON.stringify(error));
 	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
-		if(confirm(JSON.stringify(error))) { blockAlerts = 0; } else { blockAlerts = 1; }
+		if(navigator.userAgent.match(/MSApp/i)) {
+			alert(JSON.stringify(error));
+		} else {
+			if(confirm(JSON.stringify(error))) { blockAlerts = 0; } else { blockAlerts = 1; }
+		}
 		//if(window.external) { window.external.Notify('onerror: ' + e + ' URL:' + url + ' Line:' + line); } 
 		console.log(JSON.stringify(error));
 	}

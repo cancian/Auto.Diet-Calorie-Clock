@@ -39,6 +39,7 @@
     <preference name="stay-in-webview"            value="false" />
     <preference name="show-splash-screen-spinner" value="true" />
 	<preference name="splash-screen-duration"     value="0" />
+	<!--<preference name="LoadingDialog"              value=""/>-->
 	
     <!-- Preferences for iOS -->
     <preference name="AllowInlineMediaPlayback" value="false" />
