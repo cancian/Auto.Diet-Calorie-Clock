@@ -73,38 +73,6 @@ $("body").prepend('\
 		<li id="tab4">' + LANG.MENU_SETTINGS[lang] + '</li>\
 	</ul>\
 ');
-//#////////////////////#//
-//# RESIZE/ORIENTATION #//
-//#////////////////////#//
-function appResizer(time) {
-	setTimeout(function() {
-		$('body').height(window.innerHeight);
-		//unlock top white gap
-		$('body').trigger("touchmove");
-		//NO < 0
-		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
-		//force scrolling ios
-		if(isMobile.iOS()) { wrapperMinH = wrapperMinH + 1; }
-		if(wrapperMinH < 0) {
-			wrapperMinH = 0;
-		}
-		$('#entryListWrapper').css("height","auto");
-		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
-		//$('#foodList').css("min-height",$('#foodList').height() + "px");
-		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
-		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
-		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
-		//SCROLLBAR UPDATE	
-		clearTimeout(niceTimer);
-		niceTimer = setTimeout(niceResizer,20);
-		//chrome v32 input width
-		if(isDesktop() || isMobile.MSApp()) {
-			$('#entryBody').width(window.innerWidth -58);
-			$('#foodSearch').width(window.innerWidth -55);
-			$("ul#addNewList input").width(window.innerWidth - 180);
-		}
-	 },time);
-}
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -364,16 +332,20 @@ $(document).on("showkeyboard", function(evt) {
 });
 //ON HIDE KEYBOARD
 $(document).on("hidekeyboard",function() {
-	window.scroll($('#appContent')[0].scrollTop,0,0);
-	//$('#appContent').scrollTop($('#appContent').scrollTop());
-	$('#editableInput').blur();
-	//blur daily
-	if($("#editable").length) {
-		setTimeout(function() {
-			$('#appHeader').trigger(touchstart);
-		},0);
-	}
 	appResizer(100);
+	if($('#editable').val()) {
+		$('#appHeader').trigger(touchstart);
+	}
+	if($("#editableInput").is(":visible")) {
+		$("#editableInput").trigger('focus');
+		$("#editableInput").trigger('blur');
+	}
+	
+	if(!$('body').hasClass('android2')) {
+		window.scroll($('#appContent')[0].scrollTop,0,0);
+	}
+	//$('#appContent').scrollTop($('#appContent').scrollTop());
+	return false;
 });
 /////////////////
 // ORIENTATION //

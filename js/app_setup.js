@@ -1989,6 +1989,39 @@ function niceResizer() {
 		$("#appSubHelper").getNiceScroll().resize();
 	}
 }
+//#/////////////#//
+//# APP RESIZER #//
+//#/////////////#//
+function appResizer(time) {
+	setTimeout(function() {
+		$('body').height(window.innerHeight);
+		//unlock top white gap
+		$('body').trigger("touchmove");
+		//NO < 0
+		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
+		//force scrolling ios
+		if(isMobile.iOS()) { wrapperMinH = wrapperMinH + 1; }
+		if(wrapperMinH < 0) {
+			wrapperMinH = 0;
+		}
+		$('#entryListWrapper').css("height","auto");
+		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
+		//$('#foodList').css("min-height",$('#foodList').height() + "px");
+		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+		//SCROLLBAR UPDATE	
+		clearTimeout(niceTimer);
+		niceTimer = setTimeout(niceResizer,20);
+		//chrome v32 input width
+		if(isDesktop() || isMobile.MSApp()) {
+			$('#entryBody').width(window.innerWidth -58);
+			$('#foodSearch').width(window.innerWidth -55);
+			$("ul#addNewList input").width(window.innerWidth - 180);
+		}
+	 },time);
+}
+
 //////////////
 // SANITIZE //
 //////////////
@@ -2016,7 +2049,7 @@ function getStoreUrl(button) {
 	getAnalytics("rate");
 	if(button == 1) {
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8', '_system', 'location=yes'); }
-		else if(isMobile.Android())   { ref = window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');                                   }
+		else if(isMobile.Android())   { window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');                                   }
 		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');     }
 		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e')); }
 		else if(isMobile.FirefoxOS()) { ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');                                    }

@@ -115,9 +115,14 @@ $(document).on("pageload", function(evt) {
 									//whitegap fix
 									//$("#entryListWrapper").off(touchmove);
 									//$("#entryListWrapper").on(touchmove, function(evt) {
-										updateEntriesSum();
-										window.scroll($('#appContent')[0].scrollTop,0,0);
-										//$('#appContent').scrollTop($('#appContent').scrollTop());
+										setTimeout(function() {
+											updateEntriesSum();
+										},0);
+										if(!$('body').hasClass('android2')) {
+											window.scroll($('#appContent')[0].scrollTop,0,0);
+										} else {
+											$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
+										}
 										return false;
 									//});
 								},

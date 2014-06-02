@@ -1,4 +1,5 @@
-﻿/////////
+﻿if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' )) {
+/////////
 // IOS //
 /////////
 if(navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
@@ -6337,4 +6338,5 @@ window.cordova = require('cordova');
 require('cordova/init');
 
 })();
+}
 }
