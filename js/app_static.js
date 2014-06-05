@@ -53,6 +53,7 @@ if(navigator.userAgent.match(/MSApp/i)) {
 	$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 	$("head").prepend("<style type='text/css' id='daySum'></style>");
 }
+updateNutriRatio();
 updateEntriesSum();
 ///////////////
 // SET TITLE //
@@ -80,7 +81,7 @@ var releaseFooter;
 function appFooter(id) {
 var tabId = id;
 	clearTimeout(releaseFooter);
-	releaseFooter = setTimeout(function() { 
+	//releaseFooter = setTimeout(function() { 
 	$("ul#appFooter li").removeClass("selected");
 	window.localStorage.setItem("app_last_tab",tabId);
 	$("#" + tabId).addClass("selected");
@@ -107,6 +108,7 @@ var tabId = id;
 			$('#appHeader').trigger(touchstart);
 		}
 	}
+	//TOP
 	if(isMobile.MSApp()) {
 		$('#appContent').scrollTop(0);
 	} else {
@@ -116,7 +118,7 @@ var tabId = id;
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
 	//updateTimer();
-	},50);
+	//},0);
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -264,6 +266,7 @@ if(isMobile.FirefoxOS()) {
 $(document).on("pressenter", function(evt) {
 	$("#set" + lang).trigger(tap);
 	$("#editable").trigger("blur");
+	$("#saveButton").trigger(touchend);
 	$("#editableDiv").trigger("blur");
 	$("#entrySubmit").trigger(touchstart);
 	$("#modalOk").trigger(touchstart);

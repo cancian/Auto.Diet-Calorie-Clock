@@ -1,6 +1,14 @@
 ﻿/////////////////
 // DEV DEBUGER //
 /////////////////
+/*
+navigator.__defineGetter__('userAgent', function(){
+    return 'iPhone' // customized user agent
+});
+navigator.__defineGetter__('language', function(){
+    return 'en' // customized user agent
+});
+*/
 var blockAlerts = 0;
 window.onerror = function(e, url, line) {
 	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
@@ -15,7 +23,7 @@ window.onerror = function(e, url, line) {
 		spinner('stop');
 	}
 	//return false;
-}
+};
 //////////////
 // VIEWPORT //
 //////////////

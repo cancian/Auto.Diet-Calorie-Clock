@@ -14,7 +14,7 @@ $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
 		NProgress.done();
 		spinner('stop'); 
 	},6000);
-	}});
+}});
 ////////////////
 // SHOW INTRO //
 ////////////////
@@ -137,6 +137,9 @@ function initDB(t) {
 	if(!window.localStorage.getItem("totalRecentEntries")) {
 		window.localStorage.setItem("totalRecentEntries",0);
 	}
+	if(!window.localStorage.getItem("appNutrients")) {
+		window.localStorage.setItem("appNutrients",'25|50|25');
+	}
 	//////////////////////////////////////////
 	// if not sql already, use localstorage //
 	//////////////////////////////////////////
@@ -158,11 +161,11 @@ function initDB(t) {
 		t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
 	} else {
 		if(!lib.tableExists("diary_entry")) {
-			lib.createTable("diary_entry", ["id","title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
+			lib.createTable("diary_entry", ["id", "title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
 			lib.commit();
 		}
 		if(!lib2.tableExists("diary_food")) {
-			lib2.createTable("diary_food",  ["id","type",  "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
+			lib2.createTable("diary_food",  ["id", "type", "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
 			lib2.commit();
 		}
 		//add id column
@@ -230,6 +233,8 @@ function localStorageSql() {
 	if(window.localStorage.getItem("config_kcals_day_1")) { keyList = keyList + "#@@@#" + "config_kcals_day_1" + "#@@#" + window.localStorage.getItem("config_kcals_day_1"); }
 	if(window.localStorage.getItem("config_kcals_day_2")) { keyList = keyList + "#@@@#" + "config_kcals_day_2" + "#@@#" + window.localStorage.getItem("config_kcals_day_2"); }
 	if(window.localStorage.getItem("config_measurement")) { keyList = keyList + "#@@@#" + "config_measurement" + "#@@#" + window.localStorage.getItem("config_measurement"); }
+	/*nutrients*/
+	if(window.localStorage.getItem("appNutrients"))		{ keyList = keyList + "#@@@#" + "appNutrients" + "#@@#" + window.localStorage.getItem("appNutrients"); }
 	/*notes*/
 	if(window.localStorage.getItem("appNotes")) { 
 		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + window.localStorage.getItem("appNotes").replace(/(\n|\r\n)/g, "#@#").split("/*").join("/ *");
@@ -1199,6 +1204,39 @@ function balanceMeter(kcalsInput) {
 	}
 	$("#balanceBar").css("text-indent",balancePos);
 }
+///////////////////
+// BALANCE METER //
+///////////////////
+function updateNutriRatio() {
+	var appNutrients = window.localStorage.getItem('appNutrients').split('|');
+	var proRatio = parseInt(appNutrients[0]);
+	var carRatio = parseInt(appNutrients[1]);
+	var fatRatio = parseInt(appNutrients[2]);
+
+	var nutrientsStyle = "\
+		#appStatusBarsPro span:after	{ content: ' (" + proRatio + "%)' !important; }\
+		#appStatusBarsCar span:after	{ content: ' (" + carRatio + "%)' !important; }\
+		#appStatusBarsFat span:after	{ content: ' (" + fatRatio + "%)' !important; }\
+	";
+	
+	if(navigator.userAgent.match(/MSApp/i)) {
+		MSApp.execUnsafeLocalFunction(function() {
+			if(!$("#appNutrients").html()) {
+				$("head").append("<style type='text/css' id='appNutrients'></style>");
+			}
+			if($("#appNutrients").html() != nutrientsStyle) {
+				$("#appNutrients").html(nutrientsStyle);
+			}
+		});
+	} else {
+		if(!$("#appNutrients").html()) {
+			$("head").append("<style type='text/css' id='appNutrients'></style>");
+		}
+		if($("#appNutrients").html() != nutrientsStyle) {
+			$("#appNutrients").html(nutrientsStyle);
+		}
+	}
+}
 /////////////////////
 // BUILD HELP MENU //
 /////////////////////
@@ -1572,10 +1610,201 @@ function buildAdvancedMenu() {
 	*/
 //	});
 }
-
-/////////////////////
-// BUILD LANG MENU //
-/////////////////////
+//##//////////////##//
+//## GETNEWwINDOW ##//
+//##//////////////##//
+function getNewWindow(title,content,handlers,save) {
+	//FLOOD
+	if($("#newWindowWrapper").html()) { return; }
+	//////////
+	// HTML //
+	//////////
+	$("#newWindowWrapper").remove();
+	$("#appContent").append("\
+	<div id='newWindowWrapper'>\
+		<div id='newWindowHeader'>\
+			<div id='backButton'></div>\
+			<div id='saveButton'>" + LANG.OK[lang] + "</div>\
+			<div id='newWindowTitle'>" + title + "</div>\
+			</div>\
+		<div id='newWindow'>" + content + "</div>\
+	</div>");
+	//configure ui
+	if(!save) { $("#saveButton").remove(); }
+	$("#appContent").getNiceScroll().remove();
+	$("#newWindow").css("top",($("#newWindowHeader").height()+1) + "px");
+	$("#newWindowWrapper").addClass('open');
+	///////////////////
+	// EXEC HANDLERS //
+	///////////////////
+	if(handlers) {
+		handlers();
+	}
+	////////////////////
+	// TRANSISION END //
+	////////////////////
+	$("#newWindowWrapper").on(transitionend,function() {
+		//scroller
+		setTimeout(function() {
+		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
+			$("#newWindow").css("overflow","hidden");
+			$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		} else {
+			$("#newWindow").css("overflow","auto");
+		}
+		},250);
+		///////////////////////////////////
+		// TRANSITION-PROTECTED HANDLERS //
+		///////////////////////////////////
+		// SAVE HANDLER //
+		//////////////////
+		$("#saveButton").on(touchend,function() {
+			if(save() == true) {
+				$("#newWindowWrapper").off();
+				$("#newWindow").getNiceScroll().remove();
+				$("#newWindowWrapper").removeClass('open');
+				$("#newWindowWrapper").on(transitionend,function() {
+					$('#newWindowWrapper').remove();
+					setPush();
+				});
+			}
+		});
+		////////////////////
+		// CLOSER HANDLER //
+		////////////////////
+		$("#backButton").on(touchend,function() {
+			$("#newWindowWrapper").off();
+			$("#newWindow").getNiceScroll().remove();
+			$("#newWindowWrapper").removeClass('open');
+			$("#newWindowWrapper").on(transitionend,function() {
+				$('#newWindowWrapper').remove();
+			});
+		});
+	});
+}
+//##///////////////////////////////##//
+//## GET NUTRI SLIDERS (NEWWINDOW) ##//
+//##///////////////////////////////##//
+function getNutriSliders() {
+	///////////////////
+	// AUTOFIX RATIO //
+	///////////////////
+	if(isNaN(parseInt(window.localStorage.getItem('appNutrients').split('|')[0])) || isNaN(parseInt(window.localStorage.getItem('appNutrients').split('|')[1])) || isNaN(parseInt(window.localStorage.getItem('appNutrients').split('|')[2]))  ) {
+		window.localStorage.setItem("appNutrients",'25|50|25');
+	}
+	///////////////////
+	// SAVE CALLBACK //
+	///////////////////
+	var save = function() {
+		if(parseInt(document.getElementById('sliderProInput').value) + parseInt(document.getElementById('sliderCarInput').value) + parseInt(document.getElementById('sliderFatInput').value) == 100) {
+			window.localStorage.setItem('appNutrients',parseInt(document.getElementById('sliderProInput').value) + '|' + parseInt(document.getElementById('sliderCarInput').value) + '|' + parseInt(document.getElementById('sliderFatInput').value));
+			updateNutriRatio();
+			return true;
+		} else {
+			if(hasTouch()) {
+				navigator.notification.alert(LANG.PLEASE_REVIEW[lang], voidThis,LANG.TOTAL_ERROR[lang],LANG.OK[lang]);
+			} else {
+				if(alert(LANG.TOTAL_ERROR[lang] + "\n" + LANG.PLEASE_REVIEW[lang]));
+			}
+			return false;
+		}
+	}
+	///////////////////////
+	// HANDLERS CALLBACK //
+	///////////////////////
+	var handlers = function() {
+		///////////
+		// CARPE //
+		///////////
+		if(document.getElementById('sliderProRange')) {
+			$(document).trigger('carpeSlider');
+			document.getElementById('sliderProRange').slider.setValue(0);
+			document.getElementById('sliderCarRange').slider.setValue(0);
+			document.getElementById('sliderFatRange').slider.setValue(0);
+			document.getElementById('sliderProRange').slider.setValue(parseInt(window.localStorage.getItem('appNutrients').split('|')[0]));
+			document.getElementById('sliderCarRange').slider.setValue(parseInt(window.localStorage.getItem('appNutrients').split('|')[1]));
+			document.getElementById('sliderFatRange').slider.setValue(parseInt(window.localStorage.getItem('appNutrients').split('|')[2]));
+		}
+		////////////////
+		// PRO.UPDATE //
+		////////////////
+		document.getElementById('sliderProInput').update = function() {
+			if(document.getElementById('sliderProInput')) {
+				document.getElementById('sliderProInput').value = parseInt(document.getElementById('sliderProRange').value)+ '%';
+				if(parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value) + parseInt(document.getElementById('sliderFatRange').value) > 100) { 
+					document.getElementById('sliderProInput').value = (100 - (parseInt(document.getElementById('sliderCarRange').value)) - (parseInt(document.getElementById('sliderFatRange').value))) + '%'; 
+					document.getElementById('sliderProRange').slider.setValue(100 - (parseInt(document.getElementById('sliderCarRange').value)) - parseInt((document.getElementById('sliderFatRange').value)));
+				}
+				//update total
+				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
+			}
+		}
+		////////////////
+		// CAR.UPDATE //
+		////////////////
+		document.getElementById('sliderCarInput').update = function() {
+			if(document.getElementById('sliderCarInput')) {
+				document.getElementById('sliderCarInput').value = parseInt(document.getElementById('sliderCarRange').value)+ '%';
+				if(parseInt(document.getElementById('sliderCarRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderFatRange').value) > 100) { 
+					document.getElementById('sliderCarInput').value = (100 - (parseInt(document.getElementById('sliderProRange').value)) - (parseInt(document.getElementById('sliderFatRange').value))) + '%'; 
+					document.getElementById('sliderCarRange').slider.setValue(100 - (parseInt(document.getElementById('sliderProRange').value)) - parseInt((document.getElementById('sliderFatRange').value)));
+				}
+				//update total	
+				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
+			}
+		}
+		////////////////
+		// FAT.UPDATE //
+		////////////////
+		document.getElementById('sliderFatInput').update = function() {
+			if(document.getElementById('sliderFatInput')) {
+				document.getElementById('sliderFatInput').value = parseInt(document.getElementById('sliderFatRange').value) + '%';
+				if(parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value) > 100) { 
+					document.getElementById('sliderFatInput').value = (100 - (parseInt(document.getElementById('sliderProRange').value)) - (parseInt(document.getElementById('sliderCarRange').value))) + '%'; 
+					document.getElementById('sliderFatRange').slider.setValue(100 - (parseInt(document.getElementById('sliderProRange').value)) - parseInt((document.getElementById('sliderCarRange').value)));
+				}
+				//update total	
+				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
+			}
+		}
+		/////////////////
+		// INIT VALUES //
+		/////////////////
+		if(document.getElementById('sliderProRange')) {
+			$("#sliderProInput").trigger('update');
+			$("#sliderCarInput").trigger('update');
+			$("#sliderFatInput").trigger('update');
+		}
+	}
+	////////////////
+	// HTML BLOCK //
+	////////////////
+	var htmlContent = '\
+		<input type="text" id="sliderTotalInput" />\
+		<div id="sliderPro">\
+			<input type="text" id="sliderProInput" />\
+			<div id="sliderProLabel">' + LANG.PROTEINS[lang] + '</div>\
+			<div id="sliderProWrapper"><input id="sliderProRange" type="range" min="0" max="100" step="1" value="0" data-carpe-targets="sliderProInput" data-carpe-decimals="0" /></div>\
+		</div>\
+		<div id="sliderCar">\
+			<input type="text" id="sliderCarInput" />\
+			<div id="sliderCarLabel">' + LANG.CARBS[lang] + '</div>\
+			<div id="sliderCarWrapper"><input id="sliderCarRange" type="range" min="0" max="100" step="1" value="0" data-carpe-targets="sliderCarInput" data-carpe-decimals="0" /></div>\
+		</div>\
+		<div id="sliderFat">\
+			<input type="text" id="sliderFatInput" />\
+			<div id="sliderFatLabel">' + LANG.FATS[lang] + '</div>\
+			<div id="sliderFatWrapper"><input id="sliderFatRange" type="range" min="0" max="100" step="1" value="0" data-carpe-targets="sliderFatInput" data-carpe-decimals="0" /></div>\
+		</div>\
+	';
+	/////////////////////
+	// CALL NEW WINDOW //
+	/////////////////////
+	getNewWindow(LANG.MACRONUTRIENTS[lang],htmlContent,handlers,save);
+}
+//##/////////////////##//
+//## BUILD LANG MENU ##//
+//##/////////////////##//
 //dump lang
 /*
 var langListString = [];
@@ -2021,7 +2250,6 @@ function appResizer(time) {
 		}
 	 },time);
 }
-
 //////////////
 // SANITIZE //
 //////////////
@@ -2068,7 +2296,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	///////////////
-	var timeRate = 2 * 24 * 60 * 60 * 1000;
+	var timeRate = 3 * 24 * 60 * 60 * 1000;
 	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {

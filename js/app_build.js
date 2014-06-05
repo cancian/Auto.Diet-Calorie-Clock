@@ -421,18 +421,10 @@ function openStatus(string) {
 	// NUTRITION BARS TAP //
 	////////////////////////
 	updateNutriBars(window.localStorage.getItem("tPro"),window.localStorage.getItem("tCar"),window.localStorage.getItem("tFat"));
-	/*
 	$("#appStatusBars").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		//DIALOG
-		if(hasTouch()) {
-			navigator.notification.alert("25% " + LANG.PROTEINS[lang] + "\n" + "50% " + LANG.CARBS[lang]    + "\n" + "25% " + LANG.FATS[lang], voidThis,LANG.STATUS_BARS[lang].toUpperCase(),LANG.OK[lang]);
-		} else {
-			alert(LANG.STATUS_BARS[lang].toUpperCase() + ": \n" + "25% " + LANG.PROTEINS[lang] + "\n" + "50% " + LANG.CARBS[lang]    + "\n" + "25% " + LANG.FATS[lang]);
-		}
-		return false;
+		getNutriSliders();
 	});
-	*/
 	//////////////////
 	// TIME ELAPSED //
 	//////////////////
@@ -673,9 +665,7 @@ function openStatus(string) {
 ############################*/
 function openDiary(entryListHtml) {
 	if(!entryListHtml) { return; }
-	setTimeout(function() {
-		updateEntriesSum();
-	}, 0);
+	updateEntriesSum();
 //RAW HTML
 var diaryHtml    = "";
 var lHour        = LANG.HOUR[lang];
@@ -715,8 +705,9 @@ var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
 		<option value="72">'  + lPreAgo + '3 '  + lDays  + lAgo + '</option>\
 		<option value="96">'  + lPreAgo + '4 '  + lDays  + lAgo + '</option>\
 		<option value="120">' + lPreAgo + '5 '  + lDays  + lAgo + '</option>\
+		<option value="144">' + lPreAgo + '6 '  + lDays  + lAgo + '</option>\
+		<option value="168">' + lPreAgo + '7 '  + lDays  + lAgo + '</option>\
 	</select>';
-
 diaryHtml += '\
 <a name="top"></a>	\
 <div id="entryListForm">\

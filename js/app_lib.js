@@ -385,7 +385,10 @@ function timeElapsed() {
 		if(timeEl.length > 20 && window.innerWidth <= 360) {	
 		timeEl = timeEl.replace(LANG.MINUTES[lang],LANG.MIN[lang]);
 		timeEl = timeEl.replace(LANG.MINUTE[lang],LANG.MIN[lang]);
-		timeEl = trim(timeEl.replace('.','')) + '.';
+		timeEl = trim(timeEl.replace('.',''));
+		if(timeEl.match('min')) {
+			timeEl = timeEl + '.';	
+		}
 	}
 }
 	return timeEl;

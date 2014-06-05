@@ -336,9 +336,12 @@ function updateNutriBars(tPro,tCar,tFat) {
 		return false;
 	}
 	//ratios
-	var proRatio = 25;
-	var carRatio = 50;
-	var fatRatio = 25;
+	var appNutrients = window.localStorage.getItem('appNutrients').split('|');
+	var proRatio = parseInt(appNutrients[0]);
+	var carRatio = parseInt(appNutrients[1]);
+	var fatRatio = parseInt(appNutrients[2]);
+	//css pseudos
+	updateNutriRatio();
 	//relative total
 	var nPerPro = ( (tPro*4) / nTotal ) * 100;
 	var nPerCar = ( (tCar*4) / nTotal ) * 100;
