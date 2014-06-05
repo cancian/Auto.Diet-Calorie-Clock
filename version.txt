@@ -1,7 +1,15 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.2.3 [15/05/2014]
+# 1.2.5 [10/06/2014]
+• tab not switching on pre-fill
+• added option to customize macronutrient ratio
+• 
+• 
+• 
+• 
+
+# 1.2.3/4 [15/05/2014]
 • improved data synchronization
 • fixed an issue with favorites being duplicated;
 • improved performance

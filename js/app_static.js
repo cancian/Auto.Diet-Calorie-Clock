@@ -772,7 +772,7 @@ setTimeout(function() {
 								updateTimer();
 								setPush();
 							}
-						},600);
+						},900);
 						$("#editableBlock").remove();
 						intakeHistory();
 					},

@@ -422,6 +422,8 @@ function openStatus(string) {
 	////////////////////////
 	updateNutriBars(window.localStorage.getItem("tPro"),window.localStorage.getItem("tCar"),window.localStorage.getItem("tFat"));
 	$("#appStatusBars").on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		getNutriSliders();
 	});

@@ -1687,7 +1687,7 @@ Kiểm tra hồ sơ của bạn. \
 		sk : 'preskočiť',
 		sl : 'preskoči',
 		sr : 'прескочи',
-		sv : 'Hoppa över',
+		sv : 'hoppa över',
 		th : 'ข้าม',
 		tr : 'atla',
 		uk : 'пропустити',

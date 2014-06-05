@@ -411,6 +411,8 @@ function setComplete() {
 	}
 	//update entrylist sum
 	updateEntriesSum();
+	//update nutri pseudos
+	updateNutriRatio();
 	//refresh tabs
 	if(!$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
 		if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
@@ -1643,7 +1645,7 @@ function getNewWindow(title,content,handlers,save) {
 	////////////////////
 	// TRANSISION END //
 	////////////////////
-	$("#newWindowWrapper").on(transitionend,function() {
+	$("#newWindowWrapper").off().on(transitionend,function() {
 		//scroller
 		setTimeout(function() {
 		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
@@ -1663,6 +1665,7 @@ function getNewWindow(title,content,handlers,save) {
 				$("#newWindowWrapper").off();
 				$("#newWindow").getNiceScroll().remove();
 				$("#newWindowWrapper").removeClass('open');
+				$("#newWindowWrapper").css('opacity',0);
 				$("#newWindowWrapper").on(transitionend,function() {
 					$('#newWindowWrapper').remove();
 					setPush();
@@ -1676,6 +1679,7 @@ function getNewWindow(title,content,handlers,save) {
 			$("#newWindowWrapper").off();
 			$("#newWindow").getNiceScroll().remove();
 			$("#newWindowWrapper").removeClass('open');
+			$("#newWindowWrapper").css('opacity',0);
 			$("#newWindowWrapper").on(transitionend,function() {
 				$('#newWindowWrapper').remove();
 			});
