@@ -5,7 +5,7 @@ var appRelease  = appVersion.split(" ")[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|ga|hi|hr|hu|hy|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
 var lang        = "en";
 var defaultLang = "en";
-var userLang    = window.navigator.userLanguage || window.navigator.language;
+var userLang    = window.navigator.language || window.navigator.browserLanguage;
 if(userLang) {
 	userLang = userLang.toLowerCase();
 } else {
