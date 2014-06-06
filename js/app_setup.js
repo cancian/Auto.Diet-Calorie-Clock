@@ -664,16 +664,17 @@ function delFood(fCode, callback) {
 /////////////////////
 // GET CUSTOM LIST //
 /////////////////////
-function getCustomList(rType,callback) {
-	function callbackOpen() {
-		if(!$('#pageSlideFood').is(":animated")) {
-			$('#pageSlideFood').addClass("open"); 
-			if(!$('#appHeader').hasClass("open")) {
-				$('#appHeader').removeClass("closer");
-				$('body').removeClass("closer");
-			}
+function callbackOpen() {
+	if(!$('#pageSlideFood').is(":animated")) {
+		$('#pageSlideFood').addClass("open"); 
+		if(!$('#appHeader').hasClass("open")) {
+			$('#appHeader').removeClass("closer");
+			$('body').removeClass("closer");
 		}
 	}
+}
+function getCustomList(rType,callback) {
+
 	if(arguments.length == 1) { callback = arguments[0]; }
 	if(hasSql) {
 		db.transaction(function(t) {
@@ -682,15 +683,15 @@ function getCustomList(rType,callback) {
 				t.executeSql('select * from diary_food where FIB=? order by TERM COLLATE NOCASE ASC',[rType],
 				function(t,results) {
 					callback(fixResults(results));
-					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
+					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
 				});
 			//FOOD/EXERCISE LIST
 			} else {
 				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by TERM COLLATE NOCASE ASC',[rType],
 				function(t,results) {
 					callback(fixResults(results));
-					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
-					if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
+					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
+					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
 				});
 			}
 		});
@@ -726,9 +727,9 @@ function getCustomList(rType,callback) {
 			
 			
 		}
-			 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
-		else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
-		else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
+		//	 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
+		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
+		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
 	}
 }
 /////////////
@@ -1275,7 +1276,7 @@ function buildHelpMenu() {
 	//FADE IN
 	setTimeout(function() {
 		$("#appHelper").css("opacity","1");
-		$("#appHelper").height($("#appContent").height());
+		//$("#appHelper").height($("#appContent").height());
 	},0);
 	//SCROLLER
 	setTimeout(function() {
@@ -1656,6 +1657,7 @@ function getNewWindow(title,content,handlers,save) {
 	if(!save) { $("#saveButton").remove(); }
 	$("#appContent").getNiceScroll().remove();
 	$("#newWindow").css("top",($("#newWindowHeader").height()+1) + "px");
+	$('body').addClass('newwindow');
 	$("#newWindowWrapper").addClass('open');
 	///////////////////
 	// EXEC HANDLERS //
@@ -1688,6 +1690,7 @@ function getNewWindow(title,content,handlers,save) {
 				$("#newWindowWrapper").removeClass('open');
 				$("#newWindowWrapper").css('opacity',0);
 				$("#newWindowWrapper").on(transitionend,function() {
+					$('body').removeClass('newwindow');
 					$('#newWindowWrapper').remove();
 					setPush();
 				});
@@ -1702,6 +1705,7 @@ function getNewWindow(title,content,handlers,save) {
 			$("#newWindowWrapper").removeClass('open');
 			$("#newWindowWrapper").css('opacity',0);
 			$("#newWindowWrapper").on(transitionend,function() {
+				$('body').removeClass('newwindow');
 				$('#newWindowWrapper').remove();
 			});
 		});
@@ -1759,6 +1763,7 @@ function getNutriSliders() {
 		////////////////
 		// PRO.UPDATE //
 		////////////////
+		if(document.getElementById('sliderProInput')) {
 		document.getElementById('sliderProInput').update = function() {
 			if(document.getElementById('sliderProInput')) {
 				document.getElementById('sliderProInput').value = parseInt(document.getElementById('sliderProRange').value)+ '%';
@@ -1769,10 +1774,11 @@ function getNutriSliders() {
 				//update total
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
 			}
-		}
+		}}
 		////////////////
 		// CAR.UPDATE //
 		////////////////
+		if(document.getElementById('sliderCarInput')) {
 		document.getElementById('sliderCarInput').update = function() {
 			if(document.getElementById('sliderCarInput')) {
 				document.getElementById('sliderCarInput').value = parseInt(document.getElementById('sliderCarRange').value)+ '%';
@@ -1783,10 +1789,11 @@ function getNutriSliders() {
 				//update total	
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
 			}
-		}
+		}}
 		////////////////
 		// FAT.UPDATE //
 		////////////////
+		if(document.getElementById('sliderFatInput')) {
 		document.getElementById('sliderFatInput').update = function() {
 			if(document.getElementById('sliderFatInput')) {
 				document.getElementById('sliderFatInput').value = parseInt(document.getElementById('sliderFatRange').value) + '%';
@@ -1797,7 +1804,7 @@ function getNutriSliders() {
 				//update total	
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
 			}
-		}
+		}}	
 		/////////////////
 		// INIT VALUES //
 		/////////////////

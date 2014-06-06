@@ -56,6 +56,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 //# APP CONTENT #//
 //#/////////////#*/
 #appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); }
+.msie.newwindow #appContent		{ overflow: hidden; }
 .android #appContent			{ background-image: -webkit-linear-gradient(#fff,#fefefe); }
 .android2.tab2  #appContent,
 .android2.tab3  #appContent		{ top: 0; border-top: 62px solid rgba(0,0,0,0); }
@@ -314,8 +315,6 @@ input[type="radio"]:checked:after	{ left: 22px; }
 //##///////////##*/
 #newWindowWrapper					{ display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
-.msapp #newWindowWrapper			{ -webkit-transform: translate3d(0, 0, 0); top: 100%; }
-.msapp #newWindowWrapper.open		{ -webkit-transform: translate3d(0, 0, 0); top: 0; }
 #newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
@@ -831,12 +830,14 @@ div#noEntries				{ border-left: 3px solid #ccc; }
 /*#############################
 ####    PAGE SLIDE FOOD    ####
 #############################*/
-div#pageSlideFood			{ opacity: .92; position: absolute; padding-bottom: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff; }
+#pageSlideFood				{ opacity: .92; position: absolute; padding-bottom: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff; }
 .moz #pageSlideFood,
 .msie #pageSlideFood,
 .android #pageSlideFood		{ opacity: 1; background-image: -webkit-linear-gradient(#fff,#fefefe); }
-div#pageSlideFood			{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .3s; }
-div#pageSlideFood.open		{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .3s; }
+#pageSlideFood				{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-duration: .3s; }
+#pageSlideFood.open			{ -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0,    0, 0); -webkit-transition-duration: .3s; }
+/*msie blink*/
+.msie #pageSlideFood.busy #foodList { overflow: hidden !important; -webkit-backface-visibility: hidden; }
 /*food search*/
 input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; background-color: #fff; box-sizing: border-box; }
 input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-height: 21px; }
@@ -849,7 +850,7 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .appLang-el input#foodSearch,
 .appLang-bg input#foodSearch,
 .appLang-fr input#foodSearch{ font-size: 16px; }
-#foodList					{ position: absolute; width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff; background-image: -webkit-linear-gradient(#fff,#fefefe); }
+#foodList					{ position: absolute; width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff;  }
 .ios #foodList				{ position: inherit; }
 #foodListWrapper			{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
 #foodList .searcheable		{ position: relative; margin: 0; padding: 12px 8px 5px 23px; height: 42px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: visible; }
@@ -901,6 +902,7 @@ body.ios7 #appHeader:before 	{ padding-top: 24px; }
 body.android44 #appHeader:before{ padding-top: 11px; }
 #appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*android scroll blur fix*/
+.msie.closer #appContent,
 .android.closer #appContent			{ overflow: hidden; }
 .android2.closer select#entryTime	{ pointer-events: none; display: none; }
 /*search nutri colors*/

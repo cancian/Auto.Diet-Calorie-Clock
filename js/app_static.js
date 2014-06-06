@@ -97,7 +97,7 @@ var tabId = id;
 	if(tabId == "tab2") { updateEntries('','','callback'); }
 	if(tabId == "tab3") { openProfile();  }
 	if(tabId == "tab4") { openSettings(); }
-	$("body").removeClass("tab1 tab2 tab3 tab4");
+	$("body").removeClass("tab1 tab2 tab3 tab4 newwindow");
 	$("body").addClass(tabId);
 	//clear pageslidefood
 	if($("#pageSlideFood").html()) {

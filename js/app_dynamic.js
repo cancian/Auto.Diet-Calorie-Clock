@@ -1119,7 +1119,7 @@ function doSearch(rawInput) {
 //#///////////////////////////////#//
 //# SUB FUNCTION: UPDATE FAV LIST #//
 //#///////////////////////////////#//
-function updateFavList() {
+function updateFavList(callback) {
 	getCustomList("fav",function(data) {
 		// LOOP RESULTS //
 		var customFavList = "";
@@ -1192,6 +1192,7 @@ function updateFavList() {
 		// HTML //
 		//////////
 		$("#tabMyFavsBlock").html(customFavList);
+		$('#tabMyFavsBlock').css("min-height", ($('#foodList').height()) + "px");
 		//////////////
 		// HANDLERS //
 		//////////////
@@ -1221,12 +1222,18 @@ function updateFavList() {
 			$("#activeOverflow").removeAttr("id");
 			$(".activeOverflow").removeClass("activeOverflow");
 		});
+		///////////////////
+		// CALLBACK OPEN //
+		///////////////////
+		if(callback == "open") {
+			callbackOpen();
+		}
 	});
 }
 //#////////////////////////////////#//
 //# SUB FUNCTION: UPDATE FOOD LIST #//
 //#////////////////////////////////#//
-function updateFoodList() {
+function updateFoodList(callback) {
 	getCustomList("food",function(data) {
 		// LOOP RESULTS //
 		var customFoodList = "";
@@ -1322,12 +1329,18 @@ function updateFoodList() {
 			$("#activeOverflow").removeAttr("id");
 			$(".activeOverflow").removeClass("activeOverflow");
 		});
+		///////////////////
+		// CALLBACK OPEN //
+		///////////////////
+		if(callback == "open") {
+			callbackOpen();
+		}
 	});
 }
 //#////////////////////////////////////#//
 //# SUB FUNCTION: UPDATE EXERCISE LIST #//
 //#////////////////////////////////////#//
-function updateExerciseList() {
+function updateExerciseList(callback) {
 getCustomList("exercise",function(data) {
 	// LOOP RESULTS //
 	var customExerciseList = "";
@@ -1425,7 +1438,13 @@ getCustomList("exercise",function(data) {
 		$("#activeOverflow").removeAttr("id");
 		$(".activeOverflow").removeClass("activeOverflow");
 	});
-});
+		///////////////////
+		// CALLBACK OPEN //
+		///////////////////
+		if(callback == "open") {
+			callbackOpen();
+		}
+	});
 }
 //#//////////////////////////////////#//
 //# SUB FUNCTION: UPDATE RFCENT LIST #//
@@ -1538,12 +1557,12 @@ if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	////////////////////
 	// CUSTOM FAV SQL //
 	////////////////////
-	var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 0:300;
-	var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 0:300;
-	var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 0:300;
-	setTimeout(function() { updateFavList();      },tabTimer1);
-	setTimeout(function() { updateFoodList();     },tabTimer2);
-	setTimeout(function() { updateExerciseList(); },tabTimer3);
+	var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 0:100;
+	var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 0:100;
+	var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 0:100;
+	setTimeout(function() { updateFavList('open');      },tabTimer1);
+	setTimeout(function() { updateFoodList('open');     },tabTimer2);
+	setTimeout(function() { updateExerciseList('open'); },tabTimer3);
 }
 /////////////////////
 // FIRST LOAD TABS //
@@ -1556,21 +1575,21 @@ if(!window.localStorage.getItem("lastInfoTab")) {
 ////////////
 // TAB #1 //
 ////////////
-if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
+else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
 	$("#topBarItem-1").addClass("onFocus");
 	$("#tabMyFavs").addClass("onFocus");
 }
 ////////////
 // TAB #2 //
 ////////////
-if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
+else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
 	$("#topBarItem-2").addClass("onFocus");
 	$("#tabMyFoods").addClass("onFocus");
 }
 ////////////
 // TAB #3 //
 ////////////
-if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
+else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
 	$("#topBarItem-3").addClass("onFocus");
 	$("#tabMyExercises").addClass("onFocus");
 }
