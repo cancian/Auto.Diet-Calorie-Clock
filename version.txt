@@ -2,12 +2,10 @@
 ## VERSION LOG ##
 #################
 # 1.2.5 [10/06/2014]
-• tab not switching on pre-fill
-• added option to customize macronutrient ratio
-• 
-• 
-• 
-• 
+• Nutrient ratio is now customizeable
+• Updated help contents
+• Bug fixes
+
 
 # 1.2.3/4 [15/05/2014]
 • improved data synchronization

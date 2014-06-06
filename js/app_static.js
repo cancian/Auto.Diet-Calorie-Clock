@@ -310,7 +310,7 @@ $(document).on("click", function(evt) {
 	if(isMobile.Android() || isMobile.FirefoxOS()) {
 		$('#diaryNotesInput').focus();
 	}
-	if(isMobile.Windows()) {
+	if(isMobile.Windows() || isMobile.MSApp()) {
 		if(evt.target.id == "editableDiv") {
 			$('#editable').focus();
 		}
@@ -689,6 +689,7 @@ setTimeout(function() {
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //
 	//////////////////////////
+	var editableTimeout;
 	$('div.editable').on(tap, function(evt) {
 		evt.preventDefault();
 		//not with sidemenu
@@ -757,7 +758,8 @@ setTimeout(function() {
 						//SET CSS TRANSITION
 						$('#editable').css(prefix + "transition-timing-function","ease");
 						$('#editable').css(prefix + "transition-duration",".175s");
-						setTimeout(function() {
+						clearTimeout(editableTimeout);
+						editableTimeout = setTimeout(function() {
 							$("#editable").css("opacity",0);
 							if(!isMobile.Android()) {
 								$('#editable').on(transitionend,function(e) {

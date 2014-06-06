@@ -495,8 +495,8 @@ function openStatus(string) {
 	///////////////////
 	// INTAKE STATUS //
 	///////////////////
-/*
 	$("#appStatusIntake").on(touchstart,function(evt) {
+		/*
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		var INTAKE_DIALOG = LANG.STATUS_INTAKE_1[lang] + Number($("#editableDiv").text()) + LANG.STATUS_INTAKE_2[lang];
 		//DIALOG
@@ -505,9 +505,9 @@ function openStatus(string) {
 		} else {
 			alert(LANG.CALORIC_INTAKE[lang].toUpperCase() + ": \n" + INTAKE_DIALOG);
 		}
+		*/
 		return false;
 	});
-*/
 	//#///////////#//
 	//# START BAR #//
 	//#///////////#//

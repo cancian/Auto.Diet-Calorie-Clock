@@ -314,6 +314,8 @@ input[type="radio"]:checked:after	{ left: 22px; }
 //##///////////##*/
 #newWindowWrapper					{ display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
+.msapp #newWindowWrapper			{ -webkit-transform: translate3d(0, 0, 0); top: 100%; }
+.msapp #newWindowWrapper.open		{ -webkit-transform: translate3d(0, 0, 0); top: 0; }
 #newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
@@ -352,8 +354,8 @@ ul#langSelectList li+li				{ border-top: 1px solid #eee; }
 ul#langSelectList li.set			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }
 /*
-#optionLang:after 				{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
-#optionLang:after				{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; }
+#optionLang:after 					{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
+#optionLang:after					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; }
 */
 /*//////////////////
 // SETTINGS: HELP //
@@ -363,91 +365,34 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 /*///////////////////////
 // SETTINGS: HELP MENU //
 ///////////////////////*/
-/*topic list*/
-#appHelper ul					{ padding: 0; margin: 0; text-indent: 0; }
-#appHelper ul li				{ position: relative; padding: 0 22px; border-bottom: 1px solid #eee; height: 44px; line-height: 45px; overflow: hidden; }
-#appHelper ul li:after 			{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; position: absolute; top: 2px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
-#appHelper ul li.activeRow		{ background-color: #f5f5f5; } 
+#appHelper ul							{ padding: 0; margin: 0; text-indent: 0; }
+#appHelper ul li						{ position: relative; padding: 0 22px; border-bottom: 1px solid #eee; height: 44px; line-height: 45px; overflow: hidden; }
+#appHelper ul li:after 					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; position: absolute; top: 2px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
+#appHelper ul li.activeRow				{ background-color: #f5f5f5; } 
 #helperWrapper,
-#appHelper						{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; display: block; }
-#appHelper						{ -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; opacity: 0; }
-
-
-#appHelper h2					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee;  }
-#appHelper h2 #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; 
-padding-top: 3px;
-height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal;
-text-indent: -10px;
-}
-
-
-#appHelper h2 #backButton:active	{ color: #C6DEF9; }
-#appHelper h2 #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
-#appHelper h2 #helpTitle			{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
-
-
-#appSubHelper h2				{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 0px solid #eee;  }
-#appSubHelper h2 #subBackButton	{ position: absolute; top: 0; left: 0; width: 76px; height: 44px;
-
-padding-top: 3px;
-
- line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; 
-
-
-font-size: 40px; font-weight: normal; 
-
-
-text-indent: -10px;
-
-
-}
-#appSubHelper h2 #subBackButton:active { color: #C6DEF9; }
-#appSubHelper h2 #subBackButton:before { font-family: "FontAwesome"; content: "\f104";
- }
-
-#appSubHelper h2 #subHelpTitle	{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
-
-
-
-
-#appSubHelper #subHelpContent		{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
-#appSubHelper #subHelpContent p		{ display: block; }
-#appSubHelper #subHelpContent p + p	{ margin-top: 18px; }
-
-/**/
+#appHelper								{ position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 100%; background-color: #fff; display: block; }
+#appHelper								{ -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; opacity: 0; }
+#appHelper h2							{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee;  }
+#appHelper h2 #backButton				{ position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
+#appHelper h2 #backButton:active		{ color: #C6DEF9; }
+#appHelper h2 #backButton:before		{ font-family: "FontAwesome"; content: "\f104"; -webkit-backface-visibility: hidden; }
+#appHelper h2 #helpTitle				{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
+#appSubHelper h2						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 0px solid #eee;  }
+#appSubHelper h2 #subBackButton			{ position: absolute; top: 0; left: 0; width: 76px; height: 44px; padding-top: 3px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
+#appSubHelper h2 #subBackButton:active	{ color: #C6DEF9; }
+#appSubHelper h2 #subBackButton:before	{ font-family: "FontAwesome"; content: "\f104"; -webkit-backface-visibility: hidden; }
+#appSubHelper h2 #subHelpTitle			{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
+#appSubHelper #subHelpContent			{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
+#appSubHelper #subHelpContent p			{ display: block; }
+#appSubHelper #subHelpContent p + p		{ margin-top: 18px; }
 .android #appHelper,
-.android #appSubHelper	{ -webkit-perspective: 1000; }
-/*hidden content holder*/
+.android #appSubHelper					{ -webkit-perspective: 1000; }
+#appSubHelper							{ width: 100%; height: 100%; max-width: 100%; background-color: #fff; display: block; -webkit-transform: translate3d(100%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; -webkit-overflow-scrolling: touch; }
+#appSubHelper.open						{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+#appHelper.out							{ -webkit-transform: translate3d(-50%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+.android #appHelper.out					{ overflow: hidden; -webkit-perspective: 1000; }
 .topicTitle,
-.topicContent			{ display: none; }
-
-#appSubHelper {
-width: 100%; 
-height: 100%;
-max-width: 100%;
-background-color: #fff;
-display: block;
--webkit-overflow-scrolling: touch;
--webkit-transition-timing-function: ease;
--webkit-transition-duration: .2s;
--webkit-transform: translate3d(100%, 0, 0);
-}
-
-#appSubHelper.open {
-width: 100%; 
-height: 100%;
-max-width: 100%;
--webkit-transform: translate3d(0, 0, 0);
-}
-
-#appHelper.out {
--webkit-transition-timing-function: ease;
--webkit-transition-duration: .2s;
--webkit-transform: translate3d(-50%, 0, 0); 
-}
-
-
-
+.topicContent							{ display: none; }
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
@@ -609,7 +554,7 @@ body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 
 width: 80px; 
 min-width: 80px; 
 font-size: 12px; 
-line-height: 12px; 
+line-height: 16px; 
 color: #666; 
 -webkit-appearance: none; 
 border: none; 

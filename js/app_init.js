@@ -107,8 +107,9 @@ document.addEventListener( "DOMContentLoaded", function() {
 	if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase())) {
 		dataCSS = dataCSS.split('-webkit-backface-visibility: hidden;').join('').split('-webkit-').join('-ms-');
 	}
-	//APPEND
-	/////////
+	///////////
+	//APPEND //
+	///////////
 if(navigator.userAgent.match(/MSApp/i)) {
 	MSApp.execUnsafeLocalFunction(function() {
 		$("#coreCss,#coreFonts").remove();
