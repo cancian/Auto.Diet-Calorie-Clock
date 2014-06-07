@@ -119,6 +119,7 @@ var tabId = id;
 	appResizer(200);
 	//updateTimer();
 	//},0);
+
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {

@@ -1658,6 +1658,7 @@ function getNewWindow(title,content,handlers,save) {
 	if(!save) { $("#saveButton").remove(); }
 	//$("#appContent").getNiceScroll().remove();
 	$("#newWindowWrapper").css("top",($("#appHeader").height()) + "px");
+	$("#newWindowWrapper").css("bottom",($("#appFooter").height()) + "px");
 	$("#newWindow").css("top",($("#newWindowHeader").height()+1) + "px");
 
 	$('body').addClass('newwindow');
@@ -1671,41 +1672,23 @@ function getNewWindow(title,content,handlers,save) {
 	////////////////////
 	// TRANSISION END //
 	////////////////////
-	var uniqueEnd;
 	$("#newWindowWrapper").off().on(transitionend,function() {
-		clearTimeout(uniqueEnd);
-		uniqueEnd = setTimeout(function() {
-			//scroller
-			setTimeout(function() {
-			if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
-				$("#newWindow").css("overflow","hidden");
-				$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-			} else {
-				$("#newWindow").css("overflow","auto");
-			}
-			},250);
-			///////////////////////////////////
-			// TRANSITION-PROTECTED HANDLERS //
-			///////////////////////////////////
-			// SAVE HANDLER //
-			//////////////////
-			$("#saveButton").on(touchend,function() {
-				if(save() == true) {
-					$("#newWindowWrapper").off();
-					$("#newWindow").getNiceScroll().remove();
-					$("#newWindowWrapper").removeClass('open');
-					$("#newWindowWrapper").css('opacity',0);
-					$("#newWindowWrapper").on(transitionend,function() {
-						$('body').removeClass('newwindow');
-						$('#newWindowWrapper').remove();
-						setPush();
-					});
-				}
-			});
-			////////////////////
-			// CLOSER HANDLER //
-			////////////////////
-			$("#backButton").on(touchend,function() {
+		//scroller
+		setTimeout(function() {
+		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
+			$("#newWindow").css("overflow","hidden");
+			$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		} else {
+			$("#newWindow").css("overflow","auto");
+		}
+		},250);
+		///////////////////////////////////
+		// TRANSITION-PROTECTED HANDLERS //
+		///////////////////////////////////
+		// SAVE HANDLER //
+		//////////////////
+		$("#saveButton").off().on(touchend,function() {
+			if(save() == true) {
 				$("#newWindowWrapper").off();
 				$("#newWindow").getNiceScroll().remove();
 				$("#newWindowWrapper").removeClass('open');
@@ -1713,9 +1696,23 @@ function getNewWindow(title,content,handlers,save) {
 				$("#newWindowWrapper").on(transitionend,function() {
 					$('body').removeClass('newwindow');
 					$('#newWindowWrapper').remove();
+					setPush();
 				});
+			}
+		});
+		////////////////////
+		// CLOSER HANDLER //
+		////////////////////
+		$("#backButton").off().on(touchend,function() {
+			$("#newWindowWrapper").off();
+			$("#newWindow").getNiceScroll().remove();
+			$("#newWindowWrapper").removeClass('open');
+			$("#newWindowWrapper").css('opacity',0);
+			$("#newWindowWrapper").on(transitionend,function() {
+				$('body').removeClass('newwindow');
+				$('#newWindowWrapper').remove();
 			});
-		},1);
+		});
 	});
 }
 //##///////////////////////////////##//

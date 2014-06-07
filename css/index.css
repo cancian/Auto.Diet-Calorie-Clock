@@ -313,9 +313,9 @@ input[type="radio"]:checked:after	{ left: 22px; }
 /*##///////////##//
 //## newWindow ##//
 //##///////////##*/
-#newWindowWrapper					{ display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; z-index: 51; }
+#newWindowWrapper					{ display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
-#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; }
+#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }

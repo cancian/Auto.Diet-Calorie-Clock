@@ -36,6 +36,7 @@ function openSettings(string) {
 	//# OUTPUT #//
 	//#////////#//
 	$("#appContent").html(settingsHtml);
+	$("#newWindowWrapper").remove();
 	///////////////
 	// last sync //
 	///////////////
@@ -402,6 +403,7 @@ function openStatus(string) {
 	//# OUTPUT #//
 	//#////////#//
 	$("#appContent").html(statusHtml);
+	$("#newWindowWrapper").remove();
 	//////////////////////////
 	// INTAKE HISTORY GRAPH //
 	//////////////////////////
@@ -740,6 +742,7 @@ diaryHtml += '</div>\
 //#////////#//
 //HTML
 pageLoad("#appContent",diaryHtml);
+$("#newWindowWrapper").remove();
 //desktop odd resize -1 bug
 if(Math.round(window.innerWidth % 2)) {
 	$("#sliderWrapper").width(window.innerWidth-49);
@@ -1799,6 +1802,7 @@ var profileHtml = '\
 //# OUTPUT #//
 //#////////#//
 $("#appContent").html(profileHtml);
+$("#newWindowWrapper").remove();
 //////////////////////////
 // FIX ANDROID 2 SELECT //
 //////////////////////////
