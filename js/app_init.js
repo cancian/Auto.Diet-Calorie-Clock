@@ -12,14 +12,14 @@ navigator.__defineGetter__('language', function(){
 var blockAlerts = 0;
 window.onerror = function(e, url, line) {
 	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
-		if(navigator.userAgent.match(/MSApp/i)) {
+		if(navigator.userAgent.match(/MSApp/i) && typeof alert !== 'undefined' ) {
 			alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 		} else {
 			if(confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) { blockAlerts = 0; } else { blockAlerts = 1; }
 		}
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
-	if($("#tempHolder").html()) {
+	if($("#tempHolder").html() && typeof spinner !== 'undefined') {
 		spinner('stop');
 	}
 	//return false;

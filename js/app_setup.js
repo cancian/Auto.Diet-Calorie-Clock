@@ -1337,7 +1337,8 @@ function buildHelpMenu() {
 		// SUB-CONTENT ANIMATION END //
 		///////////////////////////////
 		setTimeout(function() {
-			$("#appSubHelper").height($("#appContent").height());
+			//ios horiz-scrolling crazy bug
+			//$("#appSubHelper").height($("#appContent").height());
 		},0);
 		$('#appSubHelper').on(transitionend,function(e) { 
 			niceResizer();
@@ -1644,7 +1645,7 @@ function getNewWindow(title,content,handlers,save) {
 	// HTML //
 	//////////
 	$("#newWindowWrapper").remove();
-	$("#appContent").append("\
+	$("#appContent").after("\
 	<div id='newWindowWrapper'>\
 		<div id='newWindowHeader'>\
 			<div id='backButton'></div>\
@@ -1655,8 +1656,10 @@ function getNewWindow(title,content,handlers,save) {
 	</div>");
 	//configure ui
 	if(!save) { $("#saveButton").remove(); }
-	$("#appContent").getNiceScroll().remove();
+	//$("#appContent").getNiceScroll().remove();
+	$("#newWindowWrapper").css("top",($("#appHeader").height()) + "px");
 	$("#newWindow").css("top",($("#newWindowHeader").height()+1) + "px");
+
 	$('body').addClass('newwindow');
 	$("#newWindowWrapper").addClass('open');
 	///////////////////
@@ -1668,23 +1671,41 @@ function getNewWindow(title,content,handlers,save) {
 	////////////////////
 	// TRANSISION END //
 	////////////////////
+	var uniqueEnd;
 	$("#newWindowWrapper").off().on(transitionend,function() {
-		//scroller
-		setTimeout(function() {
-		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
-			$("#newWindow").css("overflow","hidden");
-			$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-		} else {
-			$("#newWindow").css("overflow","auto");
-		}
-		},250);
-		///////////////////////////////////
-		// TRANSITION-PROTECTED HANDLERS //
-		///////////////////////////////////
-		// SAVE HANDLER //
-		//////////////////
-		$("#saveButton").on(touchend,function() {
-			if(save() == true) {
+		clearTimeout(uniqueEnd);
+		uniqueEnd = setTimeout(function() {
+			//scroller
+			setTimeout(function() {
+			if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
+				$("#newWindow").css("overflow","hidden");
+				$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			} else {
+				$("#newWindow").css("overflow","auto");
+			}
+			},250);
+			///////////////////////////////////
+			// TRANSITION-PROTECTED HANDLERS //
+			///////////////////////////////////
+			// SAVE HANDLER //
+			//////////////////
+			$("#saveButton").on(touchend,function() {
+				if(save() == true) {
+					$("#newWindowWrapper").off();
+					$("#newWindow").getNiceScroll().remove();
+					$("#newWindowWrapper").removeClass('open');
+					$("#newWindowWrapper").css('opacity',0);
+					$("#newWindowWrapper").on(transitionend,function() {
+						$('body').removeClass('newwindow');
+						$('#newWindowWrapper').remove();
+						setPush();
+					});
+				}
+			});
+			////////////////////
+			// CLOSER HANDLER //
+			////////////////////
+			$("#backButton").on(touchend,function() {
 				$("#newWindowWrapper").off();
 				$("#newWindow").getNiceScroll().remove();
 				$("#newWindowWrapper").removeClass('open');
@@ -1692,23 +1713,9 @@ function getNewWindow(title,content,handlers,save) {
 				$("#newWindowWrapper").on(transitionend,function() {
 					$('body').removeClass('newwindow');
 					$('#newWindowWrapper').remove();
-					setPush();
 				});
-			}
-		});
-		////////////////////
-		// CLOSER HANDLER //
-		////////////////////
-		$("#backButton").on(touchend,function() {
-			$("#newWindowWrapper").off();
-			$("#newWindow").getNiceScroll().remove();
-			$("#newWindowWrapper").removeClass('open');
-			$("#newWindowWrapper").css('opacity',0);
-			$("#newWindowWrapper").on(transitionend,function() {
-				$('body').removeClass('newwindow');
-				$('#newWindowWrapper').remove();
 			});
-		});
+		},1);
 	});
 }
 //##///////////////////////////////##//
@@ -2102,6 +2109,7 @@ function intakeHistory() {
 		if(lang == "fa") { catFontSize = "8px"; }
 		//check exists
 		if(window.localStorage.getItem("app_last_tab") != "tab1") { return; }
+		if(!$('#appStatusIntake').html())						  { return; } 
 		$('#appStatusIntake').highcharts({
 			chart : {
 				reflow: false,

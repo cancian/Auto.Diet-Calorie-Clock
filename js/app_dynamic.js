@@ -1192,7 +1192,7 @@ function updateFavList(callback) {
 		// HTML //
 		//////////
 		$("#tabMyFavsBlock").html(customFavList);
-		$('#tabMyFavsBlock').css("min-height", ($('#foodList').height()) + "px");
+		//$('#tabMyFavsBlock').css("min-height", ($('#foodList').height()) + "px");
 		//////////////
 		// HANDLERS //
 		//////////////

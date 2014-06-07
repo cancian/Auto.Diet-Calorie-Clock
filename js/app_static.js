@@ -200,7 +200,7 @@ $(document).on("backbutton", function(evt) {
 	if($("#tempHolder").html() && $("#spinner").html()) { return false; }
 	//
 	if($("#langSelect").length) {
-		$("#set" + lang).trigger(tap);
+		$(".set").trigger(tap);
 	} else if($("#skipIntro").length && myScroll.x) {
 		//if(myScroll.x == 0) {
 		//	$("#skipIntro").trigger(touchstart);
@@ -264,14 +264,17 @@ if(isMobile.FirefoxOS()) {
 // PRESS ENTER //
 /////////////////
 $(document).on("pressenter", function(evt) {
-	$("#set" + lang).trigger(tap);
 	$("#editable").trigger("blur");
 	$("#saveButton").trigger(touchend);
 	$("#editableDiv").trigger("blur");
 	$("#entrySubmit").trigger(touchstart);
 	$("#modalOk").trigger(touchstart);
 	$("#addNewConfirm").trigger(touchstart);
-	$("#skipIntro").trigger(touchstart);
+	if($(".set").html()) {
+		$(".set").trigger(tap);
+	} else {
+		$("#skipIntro").trigger(touchstart);
+	}
 	if($('#appStatusFix').hasClass("open")) {
 		$("#startDate").mobiscroll('set');
 		$('#appStatusFix').removeClass("open");
@@ -449,7 +452,7 @@ var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 ///////////
 // IOS 7 //
 ///////////
-if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent)) {
+if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent) && isMobile.Cordova()) {
 	$("body").addClass("ios7");
 }
 if(isMobile.iOS()) {

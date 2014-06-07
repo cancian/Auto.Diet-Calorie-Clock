@@ -313,7 +313,7 @@ input[type="radio"]:checked:after	{ left: 22px; }
 /*##///////////##//
 //## newWindow ##//
 //##///////////##*/
-#newWindowWrapper					{ display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; }
+#newWindowWrapper					{ display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; z-index: 51; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
 #newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
@@ -850,7 +850,8 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .appLang-el input#foodSearch,
 .appLang-bg input#foodSearch,
 .appLang-fr input#foodSearch{ font-size: 16px; }
-#foodList					{ position: absolute; width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff;  }
+#foodList					{ position: absolute; width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff; }
+.android #foodList			{ background-image: -webkit-linear-gradient(#fff,#fefefe); }
 .ios #foodList				{ position: inherit; }
 #foodListWrapper			{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
 #foodList .searcheable		{ position: relative; margin: 0; padding: 12px 8px 5px 23px; height: 42px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: visible; }
