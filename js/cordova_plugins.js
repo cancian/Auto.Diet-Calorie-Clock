@@ -27,6 +27,13 @@ module.exports = [
         "clobbers": [
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/com.leonid.smartmobilesoftware.inappbilling/www/inappbilling.js",
+        "id": "com.leonid.smartmobilesoftware.inappbilling.InAppBillingPlugin",
+        "clobbers": [
+            "inappbilling"
+        ]
     }
-]
+];
 });

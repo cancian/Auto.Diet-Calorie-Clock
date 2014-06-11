@@ -299,7 +299,19 @@ overflow: auto !important;
 #advancedMenuHeader #backButton:active	{ color: #C6DEF9; }
 #advancedMenuHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
 #advancedMenuTitle						{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
-
+/*#///////////////#//
+//# TOGGLE SWITCH #// http://callmenick.com/tutorial-demos/css-toggle-switch/
+//#///////////////#*/
+input.toggle		 				{ opacity: 0; }
+input.toggle + label				{ padding: 2px; width: 54px; height: 26px; background-color: #dddddd; border-radius: 60px; -webkit-transition:  all 0.1s ease .1s; }
+input.toggle + label:before,
+input.toggle + label:after			{ display: block; position: absolute; content: ""; }
+input.toggle + label:before			{ top: 2px; left: 2px; bottom: 2px; right: 2px; background-color: #fff; border-radius: 60px; -webkit-transition:  all 0.1s ease .1s; } 
+input.toggle + label:after			{ top: 4px; left: 4px; bottom: 4px; width: 22px; background-color: #dddddd; border-radius: 52px; -webkit-transition:  all 0.1s ease .1s; }
+input.toggle:checked + label		{ background-color: #8ce196; }
+input.toggle:checked + label:after	{ margin-left: 28px; background-color: #8ce196; }
+/*
+input.toggle + label 				{ display: none; }
 input[type=checkbox],
 input[type=radio]					{ -webkit-appearance: none; box-shadow: inset 0px 0px 0px 1px #e6e6e6; border-radius: 15px; background-color: #fff; padding: 1px; display: inline-block; width: 52px; height: 31px; position: relative; cursor: pointer; -webkit-transition: all .3s ease; margin: 0px; -webkit-transform: scale(1); }
 input[type=checkbox]:checked,
@@ -310,12 +322,15 @@ input[type="checkbox"]:checked:after,
 input[type="radio"]:checked:after	{ left: 22px; }
 #advancedMenu input[type=checkbox] { position: absolute; right: 18px; top: 7px; }
 #advancedMenu input[type=checkbox] { pointer-events: none; }
+*/
 /*##///////////##//
 //## newWindow ##//
 //##///////////##*/
-#newWindowWrapper					{ display: block; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; }
+#newWindowWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; }
+#newWindowWrapper.busy				{ pointer-events: none; }
+.ios7 #newWindowWrapper				{ top: 77px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
-#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
+#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
@@ -343,6 +358,30 @@ input[type="radio"]:checked:after	{ left: 22px; }
 #sliderProLabel,
 #sliderCarLabel,
 #sliderFatLabel						{ font-size: 13px; color: #309030; text-transform: uppercase; padding-left: 18px; padding-top: 4px;  position: absolute; top: 24px; left: 0; }
+/*//////////////
+// APP CYCLIC //
+//////////////*/
+#appMode							{ position: relative; }
+#appModeToggle						{ position: absolute; top: 10px; right: 0px; display:block; width: 100px; height: 60px; background-color: rgba(0,0,0,0); } 
+#appModeToggle + label				{ position: absolute; top: 28px; right: 18px; }
+#appModeEnable						{ position: absolute; top: 0px; left: 0px; right: 0; }
+#appCyclic1							{ position: absolute; top: 24px; left: 32px; width: 65px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
+#appCyclic2							{ position: absolute; top: 64px; left: 32px; width: 65px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
+#appCyclic1Title					{ position: absolute; top: 31px; left: 114px; width: 100px; font-size: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
+#appCyclic2Title					{ position: absolute; top: 71px; left: 114px; width: 100px; font-size: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
+#appModeEnableInfo					{ position: absolute; top: 120px; left: 24px; right: 24px; padding-bottom: 15px; font-size: 14px; }
+#appModeEnableInfo p + p			{ margin-top: 18px; }
+/*/////////////
+// APP LIMIT //
+/////////////*/
+#appLimit							{ position: relative; }
+#appLimitEnable						{ position: absolute; top: 0px; left: 0px; right: 0; }
+#appLimit1 							{ position: absolute; top: 24px; left: 32px; width: 65px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
+#appLimit2 							{ position: absolute; top: 64px; left: 32px; width: 65px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
+#appLimit1Title 					{ position: absolute; top: 31px; left: 114px; width: 100px; font-size: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
+#appLimit2Title 					{ position: absolute; top: 71px; left: 114px; width: 100px; font-size: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
+#appLimitInfo 						{ position: absolute; top: 120px; left: 24px; right: 24px; padding-bottom: 15px; font-size: 14px; }
+#appLimitInfo p + p	 				{ margin-top: 18px; }
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
@@ -395,23 +434,45 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
-#statusWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; margin: 12px;overflow: hidden; /*background-color: #fff;*/ }
+#statusWrapper						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; margin: 12px; overflow: hidden; line-height: 16px; /*background-color: #fff;*/ }
 /**/
-#appStatusElapsed				{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
-#appStatusElapsed div			{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
-#appStatusElapsed span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
+#appStatusElapsed					{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
+#appStatusElapsed div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
+#appStatusElapsed span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 /**/
-#appStatusWeight				{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
-#appStatusWeight div			{ padding-top: 18px; text-align: center; display: block; font-size: 14px; }
-#appStatusWeight span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
-#appStatusWeight strong			{ font-weight: normal; }
+#appStatusWeight					{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
+#appStatusWeight div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
+#appStatusWeight span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
+#appStatusWeight strong				{ font-weight: normal; opacity: .55; }
+#appStatusWeight span:after			{ position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background-color: #eee; content: ''; }
+#appStatusWeight em					{ position: absolute; bottom: 0; left: 0; width: 0px; height: 6px;  background-color: #39F; }
+#appStatusWeight em.exceed			{ position: absolute; bottom: 0; left: 0; weight: 6px; background-color: #E3825F; }
+
+#appStatusWeight #appDays 			{ position: absolute; top: 0; left: 0; width: 100%; padding-top: 0; height: 10px; text-align: center; text-transform: uppercase; background-color: #f5f5f5; }
+#appStatusWeight #appDayA			{ left: 0;   }
+#appStatusWeight #appDayB			{ left: 25%; }
+#appStatusWeight #appDayC			{ left: 50%; }
+#appStatusWeight #appDayD			{ left: 75%; }
+#appStatusWeight #appDayA,
+#appStatusWeight #appDayB,
+#appStatusWeight #appDayC,
+#appStatusWeight #appDayD			{ position: absolute; top: 0; padding-top: 0; width: 25%; text-align: center; font-size: 8px; line-height: 10px; height: 10px; color: rgba(0,0,0,.4); }
+#appStatusWeight #appDays .current	{ font-weight: bold; color: #39F; }
+.simple #appStatusWeight #appDays	{ display: none; }
+.cyclic #appStatusWeight #appDays	{ display: block; }
+.appLang-fi #appStatusWeight #appDays div,
+.appLang-lt #appStatusWeight #appDays div, 
+.appLang-lv #appStatusWeight #appDays div,
+.appLang-pl #appStatusWeight #appDays div,
+.appLang-el #appStatusWeight #appDays div,
+.appLang-it #appStatusWeight #appDays div	{ text-transform: none; }
 /**/
 #appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
 #appStatusBalance div			{ padding-top: 16px; text-align: center; display: block; font-size: 14px; }
 #appStatusBalance span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 .deficit #appStatusBalance.over	{ background-color: #fff; border-color: #E3825F; border-color: rgba(227,130,95,.5); }
 .surplus #appStatusBalance.over { background-color: #fff; border-color: #58B558; border-color: rgba(88,181,88,.5); }
-/*#appStatusBalance.over			{ background-color: #fff; border-color: #FFF299; background-image: -webkit-linear-gradient(#FEFED9,#FEFED9); }*/
+/*#appStatusBalance.over		{ background-color: #fff; border-color: #FFF299; background-image: -webkit-linear-gradient(#FEFED9,#FEFED9); }*/
 /*/////////////////////
 // color balance bar //
 /////////////////////*/

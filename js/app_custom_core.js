@@ -34,6 +34,8 @@ function appTimer(id,content) {
 	var lDeficit  = LANG.DEFICIT[lang];
 	var lSurplus  = LANG.SURPLUS[lang];
 	var lBalanced = LANG.BALANCED[lang];
+	var limit1    = parseInt(window.localStorage.getItem("config_limit_1"));
+	var limit2    = parseInt(window.localStorage.getItem("config_limit_2"));
 	//STATUSES (RELATIVE)
          if(kcalsInput >  9999 )      { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; kcalsInput =  9999.99; }
 	else if(kcalsInput < -9999 )      { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; kcalsInput = -9999.99; }
@@ -41,11 +43,11 @@ function appTimer(id,content) {
 //	else if(kcalsInput < eqPerDay *-.50) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
 //	else if(kcalsInput > eqPerDay * .25) { status = lDeficit;  cssClass = "deficit";  }
 //	else if(kcalsInput < eqPerDay *-.25) { status = lSurplus;  cssClass = "surplus";  } 
-	else if(kcalsInput >  600) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
-	else if(kcalsInput < -600) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
-	else if(kcalsInput >  300) { status = lSurplus;  cssClass = "surplus";  }
-	else if(kcalsInput < -300) { status = lDeficit;  cssClass = "deficit";  }
-	else                       { status = lBalanced; cssClass = "balanced"; }
+	else if(kcalsInput > limit2)   { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
+	else if(kcalsInput < limit1)   { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
+	else if(kcalsInput > limit2/2) { status = lSurplus;  cssClass = "surplus";  }
+	else if(kcalsInput < limit1/2) { status = lDeficit;  cssClass = "deficit";  }
+	else                           { status = lBalanced; cssClass = "balanced"; }
 	/////////////////
 	// WEIGHT LOSS //
 	/////////////////
@@ -57,11 +59,11 @@ function appTimer(id,content) {
 	// calorias por dia 
 	// total de calorias necessarias - total de calorias usadas 
 	// resto / 7700 = kg lost
-	var week         = 60*60*24*7;
-	var elapsedLoss  = Number(new Date().getTime()) - startLoss;
+	//var week         = 60*60*24*7;
+	//var elapsedLoss  = Number(new Date().getTime()) - startLoss;
 	// weeks elapsed
-	var elapsedRatio = elapsedLoss / week;
-	var weightLoss   = ((numberLoss * elapsedRatio) / 1000).toFixed(7);
+	//var elapsedRatio = elapsedLoss / week;
+	//var weightLoss   = ((numberLoss * elapsedRatio) / 1000).toFixed(7);
 	///////////////////
 	// UPDATE HEADER //
 	///////////////////
@@ -132,7 +134,7 @@ function appTimer(id,content) {
 	}
 	function updateStatus() {
 		$("#appStatusElapsed div p").html(timeElapsed());
-		$("#appStatusWeight div p strong").html(weightLoss);
+		//$("#appStatusWeight div p strong").html(weightLoss);
 		$("#appStatusBalance div p").html(appBalance);
 //		$("#entry_f-sum p").html(Number(window.localStorage.getItem("config_entry_f-sum")));
 //		$("#entry_e-sum p").html(Number(window.localStorage.getItem("config_entry_e-sum")));
@@ -143,6 +145,24 @@ function appTimer(id,content) {
 		setTimeout(updateStatus,0);
 	} else {
 		updateStatus();
+	}
+	/////////////////////////////////////
+	// CHECK DAY CHANGE, ADJUST INTAKE //
+	/////////////////////////////////////
+	if(!window.localStorage.getItem("lastToday")) {
+		window.localStorage.setItem("lastToday",DayUtcFormat(new Date().getTime()));
+	}
+	if(window.localStorage.getItem("lastToday") != DayUtcFormat(new Date().getTime())) {
+		if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
+			if(window.localStorage.getItem("config_kcals_day") == "d") {
+				$("#editableDiv").html(window.localStorage.getItem("config_kcals_day_2"));
+			} else {
+				$("#editableDiv").html(window.localStorage.getItem("config_kcals_day_1"));
+			}
+		}
+		window.localStorage.setItem("lastToday",DayUtcFormat(new Date().getTime()));
+		updateTodayOverview();
+		intakeHistory();
 	}
 	//////////////////////////////////////////////////
 	// self adjust refresh rate based on perfomance //
@@ -315,7 +335,10 @@ function cyclicTimeToKcals(startTime) {
 	/////////////////
 	window.localStorage.setItem("config_kcals_day",currentDay);
 	//var kcalsOutput = ((allKcalsSinceStart/31) + (kcalsEntrySum)).toFixed(2);
-	var kcalsOutput = ((allKcalsSinceStart) + (kcalsEntrySum)).toFixed(2);
+	var kcalsOutput = (allKcalsSinceStart) + (kcalsEntrySum);
+	
+	kcalsOutput = (Math.round(kcalsOutput * 100) / 100).toFixed(2);
+	
 	var content = [];
 		content.push("cyclic");
 		content.push(kcalsOutput);
@@ -420,6 +443,7 @@ var timeLock = 0;
 function updateTimer() {
 	if(noTimer == "active") { return; }
 	//MAKE SUM
+	today = dayFormat(new Date().getTime());
 	getEntries(function(data) {
 		////////////////
 		// TIMER LOCK //
@@ -436,10 +460,20 @@ function updateTimer() {
 			var ts = 0;
 			var tf = 0;
 			var te = 0;
+			var ttf = 0;
+			var tte = 0;
 			var tPro = 0;
 			var tCar = 0;
 			var tFat = 0; 
 			for(var i=0, len=data.length; i<len; i++) {
+				//todays totals
+				if(dayFormat(parseInt(data[i].published)) == today) {
+					if(Number(data[i].title) > 0) {
+						ttf += parseInt(data[i].title);
+					} else {
+						tte += parseInt(data[i].title);
+					}
+				}
 				// EXPIRED
 				if(window.localStorage.getItem("config_start_time") <= Number(data[i].published)) {
 					ts = Number(data[i].title) + ts;
@@ -462,13 +496,15 @@ function updateTimer() {
 				}
 			}
 			updateNutriBars(tPro,tCar,tFat);
-			if(tPro != window.localStorage.getItem("tPro")) { window.localStorage.setItem("tPro",tPro); }
-			if(tCar != window.localStorage.getItem("tCar")) { window.localStorage.setItem("tCar",tCar); }
-			if(tFat != window.localStorage.getItem("tFat")) { window.localStorage.setItem("tFat",tFat); }
+			if(tPro != window.localStorage.getItem("tPro"))				{ window.localStorage.setItem("tPro",tPro); }
+			if(tCar != window.localStorage.getItem("tCar"))				{ window.localStorage.setItem("tCar",tCar); }
+			if(tFat != window.localStorage.getItem("tFat"))				{ window.localStorage.setItem("tFat",tFat); }
 			//console.log('refreshing timer');
 			if(ts != window.localStorage.getItem("config_entry_sum"))	{ window.localStorage.setItem("config_entry_sum",ts); }
 			if(tf != window.localStorage.getItem("config_entry_f"))		{ window.localStorage.setItem("config_entry_f",tf); }
 			if(te != window.localStorage.getItem("config_entry_e"))		{ window.localStorage.setItem("config_entry_e",te); }
+			if(ttf != window.localStorage.getItem("config_ttf"))		{ window.localStorage.setItem("config_ttf",ttf); updateTodayOverview(); }
+			if(tte != window.localStorage.getItem("config_tte"))		{ window.localStorage.setItem("config_tte",tte); updateTodayOverview(); }
 			//var day1 = window.localStorage.getItem("config_kcals_day_1");
 			//var day2 = window.localStorage.getItem("config_kcals_day_2");
 		}

@@ -4775,6 +4775,480 @@ Kiểm tra hồ sơ của bạn. \
 		zh : '请检查信息并重试。',
 		zt : '請檢查信息並重試。',
 	},
+	CYCLIC_TITLE : {
+		en : 'Cyclical Mode',
+		pt : 'Modo Cíclico',
+		ar : 'نظام الدورية',
+		bg : 'Цикличен Режим',
+		ca : 'Sistema Cíclic',
+		cs : 'Cyklický Režim',
+		da : 'Cyklisk Tilstand',
+		de : 'Zyklische-Modus',
+		el : 'Κυκλικό Σύστημα',
+		es : 'Modo Cíclico',
+		et : 'Tsükliline Režiim ',
+		fa : 'سیستم ادواری',
+		fi : 'Suhdanne-tilassa',
+		fr : 'Mode Cyclique',
+		ga : 'Mód Timthriallach',
+		hi : 'चक्रीय मोड',
+		hr : 'Ciklički Sustav',
+		hu : 'Ciklikus Üzemmód',
+		hy : 'ցիկլային ռեժիմ',
+		it : 'Sistema Ciclico',
+		id : 'Modus Siklus',
+		iw : 'מצב מחזורי',
+		ja : 'サイクリックモード',
+		ko : '순환 모드',
+		lt : 'Ciklinis Režimas',
+		lv : 'Cikliskā Režīmā',
+		ms : 'Mod Kitaran',
+		nl : 'Cyclische Modus',
+		nb : 'Syklisk Modus',
+		pl : 'Tryb Cykliczny',
+		ro : 'Modul Ciclic',
+		ru : 'Циклический Режим',
+		sk : 'Cyklický Režim',
+		sl : 'Ciklični Sistem',
+		sr : 'Циклично Режим',
+		sv : 'Cyklisk Läge',
+		th : 'ระบบวงจร',
+		tr : 'Döngüsel Modu',
+		uk : 'Циклічна Режим',
+		vi : 'Chế độ theo chu kỳ',
+		zh : '循环模式',
+		zt : '循環模式',
+	},
+	CYCLIC_INFO : {
+		en : '\
+This option allows you to alternate between two different caloric values along a period of four days. Days A, B and C will use the first value, while day D will use the second.\
+This configuration is typically used to accommodate a "rest day" (maintenance level) in a dieting plan.\
+The reason for this is mostly the psychological comfort of having some kind of "reward" to look forward to, making it easier to endure the dieting days.\
+A second reason is that the change in calories (theoretically) keeps your body guessing, and make it harder for your body to adjust its metabolism.\
+',
+		pt : '\
+Esta opção permitirá que você alterne entre dois valores calóricos distintos, em ciclos de 4 dias. Os dias (a,b,c) usarão o primeiro valor, enquanto o dia (d) usará o segundo.\
+Esta configuração é tipicamente utilizada para acomodar um dia de "descanso" (manutenção) dentro de um plano de dieta.\
+A razão para isso é principalmente o conforto psicológico de saber que haverá uma "recompensa" pelo seu esforço, tornando mais fácil suportar os dias de restrição calórica.\
+Um segundo motivo é que, teoricamente, os ciclos de calorias "confundem" o organismo, tornando mais difícil que ele diminua sua taxa metabólica para ajustar-se à quantidade reduzida de calorias.\
+',
+		ar : '\
+وهذا الخيار يسمح لك بالتناوب بين قيمتين السعرات الحرارية مختلفة على طول فترة 4 أيام. سوف يوما A، B و C استخدام القيمة الأولى، بينما اليوم D سوف تستخدم الثانية.\
+عادة يتم استخدام هذا التكوين لاستيعاب "يوم راحة" (مستوى الصيانة) في خطة لاتباع نظام غذائي.\
+السبب في ذلك هو معظمها الراحة النفسية لوجود بعض النوع "مكافأة" لنتطلع إليه، مما يجعل من الأسهل لتحمل الأيام اتباع نظام غذائي.\
+وسبب ثاني أن ركوب الدراجات من السعرات الحرارية (نظرياً) تحافظ على التخمين الجسم الخاص بك، مما يجعل من الصعب على معدل الأيض الخاصة بك ضبط نفسها.\
+		',
+		bg : '\
+Тази опция ще ви позволи да се редува между две различни калорични стойности по период от четири дни. Дни А, В и С ще използва първата стойност и ден D ще използва втория.\
+Тази конфигурация обикновено се използва, за да се настанят "почивен ден" (ниво на поддръжка) в план за диета.\
+Причината за това е най-вече психологически комфорт като някакъв вид "награда", за да очакваме с нетърпение, което го прави по-лесно да издържат на диета ден.\
+Втората причина е, че цикличността на калории (теоретично), поддържа тялото ви познае, което го прави по-трудно за метаболизма си, за да се адаптира.\
+		',
+		ca : '\
+Aquesta opció li permetrà alternar entre dos valors calòrics diferents al llarg d’un període de quatre dies. Dies A, B i C s’utilitzarà el primer valor, i el dia D utilitzaran la segona.\
+Aquesta configuració s’utilitza normalment per donar cabuda a un "dia de descans" (nivell de manteniment) en un pla de dieta.\
+La raó d’això és sobre tot el confort psicològic tenir algun tipus de "recompensa" d’esperar, pel que és més fàcil suportar els dies de dieta.\
+Una segona raó és que el ciclisme de calories (en teoria) manté el seu cos el conjecturar, pel que és difícil que la seva taxa metabòlica per ajustar en si.\
+',
+		cs : '\
+Tato volba vám umožní přepínat mezi dvěma různými hodnotami kalorických po dobu čtyř dnů. Dny A, B a C bude používat první hodnotu, a den D se bude používat druhý.\
+Tato konfigurace se obvykle používá k ubytovat "den odpočinku" (úroveň údržby) ve diety plánu.\
+Důvodem je především psychologický komfort s nějakým druhem je "odměnu" na co se těšit, takže je snazší snášet diety dny.\
+Druhým důvodem je, že cyklistika kalorií (teoreticky) udržuje vaše tělo hádat, dělat to těžší pro vaše rychlost metabolismu upravit sám.\
+',
+		da : '\
+Denne mulighed vil give dig mulighed for at skifte mellem to forskellige brændværdi langs en periode på fire dage. Days A, B og C vil bruge den første værdi, og dag D vil bruge den anden.\
+Denne konfiguration bruges typisk til at rumme en "hviledag" (vedligeholdelse niveau) i en diæt plan.\
+Grunden til dette er for det meste den psykologiske komfort for at have en slags en ​​"belønning" for at se frem til, gør det nemmere at udholde slankekure dage.\
+En anden grund er, at cykling af kalorier (teoretisk) holder din krop gætte, hvilket gør det sværere for dit stofskifte til at justere sig selv.\
+',
+		de : '\
+Diese Option erlaubt Ihnen zu wechseln zwischen zwei unterschiedliche kalorischen Werte über einen Zeitraum von vier Tagen. Tage A, B und C wird den ersten Wert verwenden, und Tag D die zweite.\
+Diese Konfiguration wird in der Regel verwendet, um Platz für ein "Ruhetag" (Wartungsstufe) in einem Diät Plan.\
+Der Grund dafür ist vor allem der psychologische Komfort mit eine Art "Belohnung" zu freuen, macht es einfacher, die Diät-Tag durchzuhalten.\
+Ein zweiter Grund ist, dass das Radfahren an Kalorien (theoretisch) hält Ihren Körper zu raten, so dass es schwieriger für den Stoffwechsel, um sich anzupassen.\
+',
+		el : '\
+Η επιλογή αυτή θα σας επιτρέψει να εναλλάσσονται μεταξύ δύο διαφορετικών τιμών θερμιδική μαζί μια περίοδο τεσσάρων ημερών. Ημέρες Α, Β και C θα χρησιμοποιήσει την πρώτη τιμή και την ημέρα D θα χρησιμοποιήσει τη δεύτερη.\
+Αυτή η ρύθμιση είναι συνήθως χρησιμοποιείται για να φιλοξενήσει ένα "ημέρα ανάπαυσης" (το επίπεδο συντήρησης) σε ένα πρόγραμμα δίαιτας.\
+Ο λόγος για αυτό είναι κυρίως η ψυχολογική άνεση να έχουν κάποιου είδους «ανταμοιβή» για να προσβλέπουμε σε, πράγμα που καθιστά ευκολότερο να αντέξει τις ημέρες να κάνει δίαιτα.\
+Ένας δεύτερος λόγος είναι ότι ο κύκλος των θερμίδων (θεωρητικά) κρατά το σώμα σας μαντέψουν, καθιστώντας δυσκολότερο για το μεταβολικό ρυθμό σας να προσαρμοστεί.\
+',
+		es : '\
+Esta opción le permitirá alternar entre dos valores calóricos diferentes a lo largo de un período de cuatro días. Días A, B y C se utilizará el primer valor, y el día D se utilizará lo segundo.\
+Esta configuración se utiliza normalmente para dar cabida a un "día de descanso" (nivel de mantenimiento) en un plan de dieta.\
+La razón de esto es sobre todo el confort psicológico de tener algún tipo de "recompensa" que esperar, por lo que es más fácil soportar los días de dieta.\
+Una segunda razón es que el ciclismo de calorías (en teoría) mantiene su cuerpo el conjeturar, por lo que es difícil que su tasa metabólica para ajustar en sí.\
+',
+		et : '\
+See valik võimaldab teil vaheldumisi kahte erinevat kalorite väärtused piki neljaks päevaks. Päeva A, B ja C kasutada esimese väärtuse ja päeva D kasutab teist väärtust.\
+See konfiguratsioon on tavaliselt kasutatakse, et mahutada "puhkepäev" (hooldus) ette dieediga kava.\
+Selle põhjuseks on enamasti psühholoogilist mugavust, millel on mingisugune "palk", et ootan, mistõttu on lihtsam taluda dieediga päeva.\
+Teine põhjus on see, et rattasõit kaloreid (teoreetiliselt) hoiab keha aim, raskendades oma ainevahetuse kiirust reguleerida ise.\
+',
+		fa : '\
+این گزینه به شما اجازه می دهد به طور متناوب بین دو مقدار کالری های مختلف در طول یک دوره از چهار روز. روز A، B و C ارزش برای اولین بار استفاده، و روز D ارزش دوم استفاده کنید.\
+این تنظیمات به طور معمول به جای "روز استراحت" (سطح نگهداری) در یک برنامه رژیم غذایی استفاده می شود.\
+دلیل این امر عمدتا آسایش روانی داشتن نوعی از "پاداش" را به نگاه به جلو به، ساخت آن را راحت تر تحمل روز رژیم غذایی است.\
+دلیل دوم آن است که تغییر کالری (تئوری) را نگه می دارد بدن خود را به حدس زدن، و آن را سخت تر برای متابولیسم بدن شما را به خود تنظیم کنید.\
+',
+		fi : '\
+Tämän vaihtoehdon avulla voit vaihdella kahden eri kalorien arvoja neljän päivän ajan. Päivää A, B ja C käyttää ensimmäisen arvon, ja päivä D käyttää toisen arvon.\
+Tämä kokoonpano käytetään tyypillisesti majoittaa "lepopäivä" (huolto kokoontunut)  in ruokavalioon suunnitelma.\
+Syynä tähän on lähinnä psykologinen mukavuutta ottaa jonkinlaista "palkita" odotan, jolloin se on helpompi kestää ruokavalioon päivää.\
+Toinen syy on, että muutos kaloreita (teoreettinen) pitää kehon arvailemaan, ja vaikeuttaa kehosi sopeutua sen aineenvaihduntaa.\
+',
+		fr : '\
+Cette option vous permettra d’alterner entre deux valeurs caloriques différents dans une période de quatre jours. Jours A, B et C vont utiliser la première valeur, et le jour D utiliseront la seconde valeur.\
+Cette configuration est généralement utilisée pour accueillir une "jour de repos" (niveau de maintenance) dans un plan de régime.\
+La raison en est principalement le confort psychologique d’avoir une sorte de «récompense» à la hâte, ce qui rend plus facile à supporter les jours de régime.\
+Une deuxième raison est que le changement de calories (théorique) maintient votre corps deviner, et rendre plus difficile pour votre corps d’ajuster son métabolisme.\
+',
+		ga : '\
+Beidh an rogha seo deis a thabhairt duit a malartach idir dhá luachanna caloric éagsúla i dtréimhse ceithre lá. Beidh Laethanta A, B agus C a bhaint as an gcéad luach, agus beidh lá D a bhaint as an dara luach.\
+Is é seo an chumraíocht a úsáidtear de ghnáth chun freastal ar "lá eile" (leibhéal cothabhála) i bplean aiste.\
+Is é an chúis atá leis seo den chuid is mó ar an compord síceolaíoch a bheith de shaghas éigin "luach saothair" a táim ag tnúth le, é a dhéanamh níos éasca go mairfidh an lá aiste.\
+Tá an dara chúis go gcoinníonn an t-athrú i calories (teoiriciúil) do chorp guessing, agus é a dhéanamh níos deacra do do chomhlacht a choigeartú a meitibileacht.\
+',
+		hi : '\
+यह विकल्प आपको चार दिन की अवधि में दो अलग कैलोरी मूल्यों के बीच वैकल्पिक करने की अनुमति देगा. दिन ए, बी और सी के पहले मूल्य का उपयोग करेगा और दिन d सेकेंड प्रयोग किया जाता है.\
+यह विन्यास आम तौर पर प्रयोग किया जाता है एक "बाकी के दिन" फिट करने के लिए एक भोजन योजना में.\
+करने के लिए तत्पर हैं करने के लिए एक "इनाम" होने के मनोवैज्ञानिक आराम, यह आसान परहेज़ दिनों सहना पड़ता है.\
+एक दूसरा कारण कैलोरी में परिवर्तन (सैद्धांतिक) अनुमान लगा आपके शरीर रहता है, और यह कठिन अपने शरीर अपने चयापचय को समायोजित करने के लिए बनाते हैं.\
+',
+		hr : '\
+Ova opcija će vam omogućiti da se izmjenjivati ​​između dva različita kalorijskih vrijednosti u razdoblju od četiri dana. Dani A, B i C će iskoristiti prvu vrijednost, i dan D će koristiti drugu vrijednost.\
+Ova konfiguracija obično se koristi za smještaj "ostatak dana" (održavanje razine) u dijeta plana.\
+Razlog za to je uglavnom psihološke udobnosti imaju nekakvu "nagradu" za gledati prema naprijed, što je lakše izdržati dijeta dana.\
+Drugi razlog je da su promjene u kalorija (teoretski) čuva svoje tijelo nagađanje, a čine ga teže za vaše tijelo prilagoditi svoj ​​metabolizam.\
+		',
+		hu : '\
+Ez az opció lehetővé teszi, hogy felváltva két különböző kalória értékeket négy napig. Napok az A, B és C fogja használni az első érték és a nap a D fogja használni a második érték.\
+Ez a konfiguráció tipikusan elhelyezésére a "pihenőnap" (karbantartás szint) a diéta tervet.\
+Ennek oka elsősorban a lelki kényelem, amelyek valamiféle "jutalom", hogy várom, így könnyebb elviselni a fogyókúra napok.\
+A másik ok az, hogy a változás a kalória (elméleti) tartja a testet találgatás, és megnehezíthetik a test, hogy beállítsa a anyagcserét.\
+',
+		hy : '\
+Այս տարբերակը թույլ է տալիս Ձեզ փոխարինողը միջեւ երկու տարբեր ջերմություն արժեքների ժամկետով չորս օր. Այդ օրերը A, B եւ C կօգտագործի առաջին արժեք է, եւ օրը D կօգտագործի երկրորդ արժեքը.\
+Այս կոնֆիգուրացիա սովորաբար օգտագործվում է տեղավորել "հանգստյան օրը» (սպասարկում Level) այն դիետա պլանի.\
+Պատճառն այն է, հիմնականում հոգեբանական հարմարավետության ունենալու որոշակի է «պարգեւատրման» է ակնկալում, դարձնելով այն ավելի հեշտ է դիմանալ դիետայի օր.\
+Երկրորդ պատճառն այն է, որ փոփոխությունը կալորիա (տեսական) շարունակում է ձեր մարմինը գուշակությամբ, եւ դարձնել այն դժվար է ձեր մարմինը հարմարեցնել իր նյութափոխանակության.\
+',
+		it : '\
+Questa opzione vi permetterà di alternare due differenti valori calorici lungo un periodo di 4 giorni. Giorni a, b e c verrà utilizzato il primo valore, mentre giorno d sarà utilizzare il secondo.\
+Questa configurazione è in genere utilizzata per ospitare un giorno di"riposo" (livello di manutenzione) in un piano di dieta.\
+La ragione di questo è principalmente il conforto psicologico di avere una sorta di "ricompensa" per guardare al futuro, rendendo più facile sopportare i giorni di dieta.\
+Un secondo motivo è che il ciclismo di calorie (teoricamente) mantiene il vostro corpo cercando di indovinare, rendendo più difficile per il vostro tasso metabolico per adattarsi.\
+',
+		id : '\
+Pilihan ini akan memungkinkan Anda untuk bergantian antara dua nilai kalori yang berbeda dalam kurun waktu empat hari. Hari-hari A, B dan C akan menggunakan nilai pertama, dan hari D akan menggunakan nilai kedua.\
+Konfigurasi ini biasanya digunakan untuk mengakomodasi "hari istirahat" (tingkat pemeliharaan) dalam rencana diet.\
+Alasan untuk ini adalah sebagian besar kenyamanan psikologis memiliki semacam "hadiah" untuk melihat ke depan, sehingga lebih mudah untuk bertahan hari-hari diet.\
+Alasan kedua adalah bahwa perubahan dalam kalori (teoritis) membuat tubuh Anda menebak, dan membuat lebih sulit bagi tubuh Anda untuk menyesuaikan metabolismenya.\
+',
+		iw : '\
+אפשרות זו תאפשר לכם למעבר בין שני ערכים הקלוריות שונים בתקופה של ארבעה ימים. הימים A, B ו- C ישתמש הערך הראשון ולאחר יום D ישתמש בערך שנייה.\
+תצורה זו משמשת בדרך כלל כדי להכיל את "יום המנוחה" (רמת תחזוקה) בתוכנית דיאטה.\
+הסיבה לכך היא בעיקר נוחות פסיכולוגית של שיש איזו "גמול" להסתכל קדימה, עושה את זה קל יותר לשאת את הימים לדיאטה.\
+סיבה שנייה היא שהשינוי בקלוריות (באופן תיאורטי) שומר על הגוף שלך מנחש, ולעשות את זה קשה יותר עבור הגוף שלך כדי להתאים את חילוף החומרים שלה.\
+',
+		ja : '\
+このオプションでは、4日の期間、2つの異なるカロリー値を交互にすることができます。最近では、A、B、Cは最初の値を使用し、一日「D」は第二の値を使用します.\
+この構成は、通常、ダイエットプランに「休息日」（保守レベル）を収容するために使用されます.\
+これの理由は何らかの「報酬」を楽しみに、持っていることの主心理的な快適ダイエット日を耐えることが容易です.\
+第二の理由は、カロリーの変化（理論的には）推測あなたの体を保持していることであり、それは難しいあなたの体はその代謝を調節するために作る.\
+',
+		ko : '\
+이 옵션을 사용하면 네 개의 일의 기간에 두 개의 서로 다른 열량 값 사이를 전환 할 수 있습니다. 일 A, B 및 C는 첫 번째 값을 사용하고 것 일 D는 두 번째 값을 사용합니다.\
+식이 요법을하면서이 구성은 일반적으로 "나머지 일"로서 사용된다.\
+이 구성은 전형적으로 다이어트 계획에서 "휴일​​"(관리 레벨)을 수용하기 위해 사용된다.\
+두 번째 이유는 열 량의 변화 (이론적으로) 몸을 추측을 유지 및 그것의 물질 대사를 조정 하 여 신체에 대 한 더 힘들어 합니다.\
+',
+		lt : '\
+Ši galimybė leis jums kaitalioti dvi skirtingas kalorijų reikšmių keturių dienų. Dienų A, B ir C bus naudojamas pirmoji reikšmė, o dieną D bus antroji reikšmė.\
+Ši konfigūracija yra paprastai naudojamas, kad tilptų "poilsio diena" (priežiūros lygį) į dietos planą.\
+Dėl šios priežasties dažniausiai psichologinis komfortas turėti tam tikrą "atlygį" natūra laukia, kad būtų lengviau ištverti dietos dienas.\
+Antroji priežastis yra ta, kad kalorijų pokytis (teoriškai) saugo jūsų kūno spėlioti, ir padaryti jį sunkiau jūsų organizmui reguliuoti savo medžiagų apykaitą.\
+',
+		lv : '\
+Šī opcija ļaus jums pārslēgties starp diviem dažādiem kaloriju vērtības pa Četras dienas. Days A, B un C izmanto pirmo vērtību, un diena D, izmanto otro vērtību.\
+Šī konfigurācija parasti izmanto, lai pielāgotu "atpūtas diena" (uzturēšanas līmenis) ar diētas plānu.\
+Iemesls tam ir galvenokārt psiholoģisko komfortu, kam sava veida "atlīdzību", lai ceram, padarot to vieglāk paciest diētas dienas.\
+Otrs iemesls ir tas, ka izmaiņas kaloriju (teorētiski) saglabā savu ķermeni guessing, un apgrūtināt jūsu ķermeņa, lai pielāgotu savu metabolismu.\
+',
+		ms : '\
+Pilihan ini akan membolehkan anda untuk bergantian antara dua nilai kalori yang berbeza dalam kurun waktu empat hari. Hari-hari A, B dan C akan menggunakan nilai pertama, dan hari D akan menggunakan nilai kedua.\
+Konfigurasi ini biasanya digunakan untuk menampung "hari rehat" (tahap penyelenggaraan) dalam pelan diet.\
+Alasan untuk ini adalah sebahagian besar keselesaan psikologi mempunyai semacam "hadiah" untuk melihat ke depan, sehingga lebih mudah untuk bertahan hari-hari diet.\
+Alasan kedua adalah bahawa perubahan dalam kalori (teori) membuat tubuh anda meneka, dan membuat lebih sukar bagi tubuh anda untuk menyesuaikan metabolismenya.\
+',
+		nl : '\
+Met deze optie kunt u wisselen tussen twee verschillende calorische waarden langs een periode van vier dagen. Dagen A, B en C wordt de eerste waarde te gebruiken, en dag D zal de tweede waarde te gebruiken.\
+Deze configuratie wordt doorgaans gebruikt om een ​​"rustdag" (onderhoudsniveau) huisvesten in een dieet plan.\
+De reden hiervoor is meestal het psychologisch comfort van het hebben van een soort van "beloning" om naar uit te kijken, waardoor het makkelijker om de dieet dagen verduren.\
+Een tweede reden is dat de verandering in calorieën (theoretisch) houdt je lichaam gissen, en maken het moeilijker voor je lichaam om de stofwisseling aan te passen.\
+',
+		nb : '\
+Dette alternativet vil tillate deg å veksle mellom to forskjellige caloric verdier langs en periode på fire dager. Dager A, B og C vil anvende den første verdien, og dag D vil benytte den andre verdi.\
+Denne konfigurasjonen er vanligvis brukt til å huse en "hviledag" (vedlikeholdsnivå) i en slanking plan.\
+Grunnen til dette er for det meste den psykologiske komforten av å ha en slags "belønning" for å se frem til, noe som gjør det lettere å tåle slanking dager.\
+En annen grunn er at endringen i kalorier (teoretisk) holder kroppen din gjette, og gjøre det vanskeligere for kroppen å justere sin metabolisme.\
+',
+		pl : '\
+Ta opcja pozwoli na przemian dwóch różnych wartości kalorycznych wzdłuż ciągu czterech dni. Dni A, B i C będą korzystać z pierwszej wartości, a dzień D będzie wykorzystywać drugą wartość.\
+Ta konfiguracja jest zwykle używany, aby pomieścić "dzień odpoczynku" (utrzymanie poziomu) w planie diety.\
+Powodem tego jest przede wszystkim komfort psychiczny posiadania pewnego rodzaju "nagrodą" oczekujemy, dzięki czemu łatwiej znosić dni diety.\
+Drugim powodem jest to, że zmiana kalorii (teoretycznie) utrzymuje swoje ciało zgadywania i utrudnić swoje ciało, aby dostosować jego metabolizm.\
+',
+		ro : '\
+Această opțiune vă va permite să alterneze între două valori calorice diferite de-a lungul unei perioade de patru zile. Zilele A, B și C se vor folosi prima valoare, și ziua D va folosi doua valoare.\
+Această configurație este de obicei folosit pentru a găzdui o "zi de odihnă" (nivel de întreținere), într-un plan de dieta.\
+Motivul pentru aceasta este cea mai mare parte de confortul psihologic de a avea un fel de "recompensă" pentru a Aștept cu nerăbdare să, ceea ce face mai ușor pentru a indura zile de dieta.\
+Un al doilea motiv este că schimbarea în calorii (teoretic) menține corpul ghicitul, și să-l mai greu pentru corpul tau pentru a regla metabolismul.\
+',
+		ru : '\
+Эта опция позволит вам переключаться между двумя различными теплотворной в течение четырех дней. Дни, A, В и С будет использовать первое значение и день D используется второе.\
+Эта настройка обычно используется для размещения «день отдыха» (уровень поддержки) в план диеты.\
+Причина этого заключается главным образом психологического комфорта, иметь какой-то «вознаграждение», с нетерпением ожидаем, что делает его легче переносить диеты дней.\
+Вторая причина заключается в том, что изменение калорий (теоретически) держит ваше тело гадать и сделать это тяжелее для вашего тела, чтобы корректировать его метаболизма.\
+',
+		sk : '\
+Táto voľba vám umožní prepínať medzi dvoma rôznymi hodnotami kalorických po dobu štyroch dní. Dni A, B a C sa používať prvú hodnotu, a deň D sa bude používať na druhú hodnotu.\
+Táto konfigurácia sa zvyčajne používa na ubytovať "deň odpočinku" (úroveň údržby) vo diéty plánu.\
+Dôvodom je predovšetkým psychologický komfort s nejakým druhom je "odmenu" na čo sa tešiť, takže je ľahšie znášať diéty dni.\
+Druhým dôvodom je to, že zmena kalórií (teoreticky) udržuje vaše telo hádať, a robiť to ťažšie pre vaše telo prispôsobiť svoj ​​metabolizmus.\
+',
+		sl : '\
+Ta možnost omogoča preklop med dvema različnima vrednostma kaloričnih štiri dni. Dnevi A, B in C bo uporabil prvo vrednost, in D dan se bo uporabljal naslednji.\
+Ta konfiguracija se običajno uporablja za nastanitev "dan počitka" (raven vzdrževanja) v načrt prehrane.\
+Razlog za to je predvsem psihološko udobje, ki imajo neke vrste "nagrada", da se veselim, zaradi česar je lažje prenašati hujšanje dni.\
+Drugi razlog je, da je sprememba kalorij (teoretično) ohranja svoje telo ugibati, in da bo težje za vaše telo, da prilagodi svojo presnovo.\
+',
+		sr : '\
+Ова опција ће вам омогућити да мењате између две различите вредности калоријских дуж период од четири дана. Дани A, B и C ће користити прву вредност, а дан D ће користити другу вредност.\
+Ова конфигурација се обично користи за додавање "дан одмора" (ниво одржавања) у плану дијета.\
+Разлог за ово је углавном психолошки удобности има неку врсту "награду" да се радујем, што олакшава да издржи дијета дана.\
+Други разлог је да промена у калоријама (теоретски) одржава своје тело нагађања, а чине га теже за ваше тело да се прилагоди свој метаболизам.\
+',
+		sv : '\
+Detta alternativ gör att du kan växla mellan två olika kalori värden längs en period på fyra dagar. Dagar A, B och C kommer att använda det första värdet, och dagen D kommer att använda det andra värdet.\
+Denna konfiguration är vanligtvis används för att rymma en "vilodag" (underhåll nivå) i en diet plan.\
+Anledningen till detta är främst psykologiska bekvämligheten av att ha någon form av "belöning" för att se fram emot, vilket gör det lättare att uthärda de bantning dagarna.\
+Ett andra skäl är att förändringen i kalorier (teoretiskt) håller din kroppen gissa, och göra det svårare för kroppen att justera dess metabolism.\
+',
+		th : '\
+ตัวเลือกนี้จะช่วยให้คุณสามารถสลับระหว่างสองค่าแคลอริกแตกต่างกันตามรอบระยะเวลาสี่วัน. วัน A, B และ C จะใช้ค่าแรก และ D วันจะใช้ค่าสอง.\
+การกำหนดค่านี้โดยปกติจะใช้เพื่อรองรับการเป็น "วันหยุด" (ระดับการบำรุงรักษา) ในการวางแผนการอดอาหาร.\
+เหตุผลนี้ส่วนใหญ่จะเป็นความสะดวกสบายทางด้านจิตใจของการมีชนิดของ "รางวัล" บางอย่างเพื่อหวังว่าจะทำให้มันง่ายขึ้นที่จะอดทนวันที่อดอาหาร.\
+เหตุผลที่สองคือการเปลี่ยนแปลงในแคลอรี่ (ทฤษฎี) ช่วยให้ร่างกายของคุณคาดเดาและทำให้มันยากขึ้นสำหรับร่างกายของคุณเพื่อปรับการเผาผลาญอาหารของ.\
+',
+		tr : '\
+Bu seçenek, dört günlük bir süre ile iki farklı kalori değerleri arasında geçiş sağlayacak. Gün A, B ve C ilk değerini kullanacak ve gününde D ikinci kullanacak.\
+Bu yapılandırma, tipik bir eklemek için kullanılır "dinlenme günü" (bakım seviyesi) bir diyet planı için.\
+Bunun nedeni, daha kolay diyet gün tahammül kılan, ileriye bakmak için "ödül" bir tür olması için esas olarak psikolojik rahatlık.\
+İkinci sebep kalori değişim (teorik) vücudunuzun tahmin tutmasıdır, ve zor vücudunuzun metabolizmasını ayarlamak için yapmak.\
+',
+		uk : '\
+Ця опція дозволить вам перемикатися між двома різними значеннями калорійності вздовж протягом чотирьох днів. Дні A, В і С буде використовувати перше значення, і день D використовуватимуть друге значення.\
+Ця конфігурація зазвичай використовується для розміщення "день відпочинку" (рівень обслуговування) в плані дієти.\
+Причина цього в основному психологічний комфорт того, свого роду "нагородою" щоб з нетерпінням чекати, що робить його легше переносити дієти днів.\
+Друга причина полягає в тому, що зміна в калоріях (теоретично) тримає ваше тіло гадати, і зробити його важким для вашого тіла, щоб регулювати його метаболізм.\
+',
+		vi : '\
+Tùy chọn này sẽ cho phép bạn thay đổi giữa hai giá trị calo khác nhau cùng một khoảng thời gian bốn ngày. Ngày A, B và C sẽ sử dụng các giá trị đầu tiên, và ngày "D" sẽ sử dụng giá trị thứ hai.\
+Cấu hình này thường được sử dụng để chứa một "ngày nghỉ" (cấp độ bảo trì) trong một kế hoạch ăn kiêng.\
+Lý do chủ yếu là sự thoải mái về tâm lý của việc có một số loại "phần thưởng" để mong được, làm cho nó dễ dàng hơn để chịu đựng những ngày ăn kiêng.\
+Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ cơ thể của bạn đoán, và làm cho nó khó khăn hơn cho cơ thể của bạn để điều chỉnh sự trao đổi chất của nó.\
+',
+		zh : '\
+此选项将允许您沿着为期四天两种不同的热值之间交替。天A，B和C将使用第一个值，而一天的D将使用第二个值.\
+这种配置通常用于容纳一个“休息日”（维护级）在节食计划.\
+这样做的原因主要是有某种“奖励”以期待的， 使其更容易忍受节食的日子.\
+第二个原因是，在热量的变化使其更难对你的身体调整其代谢.\
+',
+		zt : '\
+此選項將允許您沿著為期四天兩種不同的熱值之間交替。天A，B和C將使用第一個值，而一天的D將使用第二個值.\
+這種配置通常用於容納一個“休息日”（維護級）在節食計劃.\
+這樣做的原因主要是有某種“獎勵”以期待的， 使其更容易忍受節食的日子.\
+第二個原因是，在熱量的變化使其更難對你的身體調整其代謝.\
+		',
+	},	
+	CALORIC_THRESHOLD : {
+		en : 'Caloric Threshold',
+		pt : 'Limiar Calórico',
+		ar : 'عتبة السعرات الحرارية',
+		bg : 'Калорична Праг',
+		ca : 'Llindar Calòrica',
+		cs : 'Kalorický Práh',
+		da : 'Kaloriefattige Tærskel ',
+		de : 'Kalorien-Schwelle',
+		el : 'θερμιδική Όριο',
+		es : 'Umbral Calórico',
+		et : 'Kalorite Künnis ',
+		fa : 'آستانه کالری',
+		fi : 'Kalorien Kynnys ',
+		fr : 'Seuil Calorique ',
+		ga : 'Tairseach Caloric',
+		hi : 'गरमी थ्रेसहोल्ड',
+		hr : 'Kalorijska Prag',
+		hu : 'Kalória Küszöböt',
+		hy : 'Կալորիականության շեմը',
+		it : 'Soglia Calorica',
+		id : 'Ambang Kalori',
+		iw : 'סף הקלורי',
+		ja : 'カロリーしきい値',
+		ko : '칼로리 임계 값',
+		lt : 'Kalorijų Ribą',
+		lv : 'Kaloriju Slieksni',
+		ms : 'Ambang Kalori',
+		nl : 'Calorie-Drempel',
+		nb : 'Kalori Terskel',
+		pl : 'Kaloryczny Próg',
+		ro : 'Pragul Caloric',
+		ru : 'Калорийность Порог',
+		sk : 'Kalorický Prah',
+		sl : 'Kalorij Prag',
+		sr : 'Калоријска Праг',
+		sv : 'Kalori Tröskel',
+		th : 'ขีดจำกัดแคลอริก',
+		tr : 'Kalori Eşik',
+		uk : 'Калорійність Поріг',
+		vi : 'Ngưỡng Calo',
+		zh : '热量门槛',
+		zt : '熱量門檻',
+	},
+	LIMIT_INFO : {
+		en : 'The status will change when you reach 50% of the defined value.',
+		pt : 'O status mudará quando você chegar a 50% do valor definido.',
+		ar : 'فإن الحالة تتغير عند الوصول إلى 50٪ من القيمة المحددة.',
+		bg : 'На екрана ще се промени, когато достигне 50% от зададената стойност.',
+		ca : 'L’Estat canviarà quan arribi al 50% del valor establert.',
+		cs : 'Stav se změní po dosažení 50% nastavené hodnoty.',
+		da : 'Status vil ændre sig, når du når 50% af den indstillede værdi.',
+		de : 'Der Status wird geändert wenn Sie 50% des Sollwert zu erreichen.',
+		el : 'Η κατάσταση θα αλλάξει όταν θα φθάσει το 50% του συνόλου αξίας.',
+		es : 'El estado cambiará al llegar a 50% del valor establecido.',
+		et : 'Olek muutub kui jõuad 50% määratletud väärtus.',
+		fa : 'وضعیت تغییر خواهد کرد زمانی که شما در رسیدن به 50٪ از ارزش مجموعه.',
+		fi : 'Tila muuttuu kun olet saavuttanut 50% määritettyä arvoa.',
+		fr : 'L’état change lorsque vous atteignez 50% de la valeur définie.',
+		ga : 'Athraíonn an stádas seo nuair a shroicheann tú 50% den luach a shainmhínítear.',
+		hi : 'स्थिति जब सेट के मूल्य का 50% तक पहुँचने बदल जाएगा।',
+		hr : 'Status mijenja kada dođete do 50% definiranoj vrijednosti.',
+		hu : 'Az állapot megváltozik ha eléri a 50%-a beállított értéket.',
+		hy : 'Կարգավիճակը կփոխվի այն ժամանակ, երբ դուք հասնում է 50% - ի սահմանված արժեքի.',
+		it : 'Lo stato cambia quando si raggiunge il 50% del valore definito.',
+		id : 'Status akan berubah ketika Anda mencapai 50% dari nilai yang ditetapkan.',
+		iw : 'המצב משתנה כאשר אתה מגיע 50% מהערך המוגדר.',
+		ja : 'あなたが定義された値の50％に達したときにステータスが変更されます。',
+		ko : '상태가 변경 됩니다정의 된 값의 50% 도달 하면.',
+		lt : 'Statusas pasikeis kai jūs pasieksite 50% nustatytą vertę.',
+		lv : 'Statuss mainīsies kad jūs sasniedzat 50% no iestatītās vērtības.',
+		ms : 'Status akan berubah apabila anda mencapai 50% daripada nilai yang ditetapkan.',
+		nl : 'De Status zal veranderen wanneer u 50% van de gedefinieerde waarde bereikt.',
+		nb : 'Status vil forandre seg når du når 50% av den definerte verdien.',
+		pl : 'Status zmienia się po osiągnięciu 50% określonej wartości.',
+		ro : 'Statutul se modifică atunci când ajunge la 50% din valoarea definită.',
+		ru : 'Статус меняется, когда вы достигнете 50% от определенного значения.',
+		sk : 'Stav sa zmení po dosiahnutí 50% nastavenej hodnoty.',
+		sl : 'Stanje se spremeni ko ste dosegli 50% definirane vrednosti.',
+		sr : 'Статус ће се променити када достиже 50% од задате вредности.',
+		sv : 'Statusen ändras när du når 50% av det definierade värdet.',
+		th : 'สถานะจะเปลี่ยนไปเมื่อคุณมาถึง 50% ของมูลค่าที่กำหนดไว้.',
+		tr : 'Durum değişiklikleri eğer tanımlanan değerin 50% ulaştığında.',
+		uk : 'Статус змінюється коли ви досягнете 50% від певного значення.',
+		vi : 'Tình trạng sẽ thay đổi khi bạn đạt đến 50% giá trị xác định.',
+		zh : '该状态将改变当你达到设定值的50％。',
+		zt : '該狀態將改變當你達到設定值的50％。',
+	},
+	LIMIT_LOWER : {
+		en : 'Lower limit',
+		pt : 'Limite inferior',
+		ar : 'الحد الأدنى',
+		bg : 'Долна граница',
+		ca : 'Límit inferior ',
+		cs : 'Dolní mez',
+		da : 'Nedre grænse',
+		de : 'Untergrenze',
+		el : 'Κατώτερο όριο',
+		es : 'Límite inferior',
+		et : 'Alumine piir ',
+		fa : 'حد پایینی',
+		fi : 'Alaraja',
+		fr : 'Limite inférieure',
+		ga : 'Teorainn íochtarach',
+		hi : 'निचली सीमा',
+		hr : 'Donja granica',
+		hu : 'Alsó határ',
+		hy : 'ստորին սահմանը',
+		it : 'Limite inferiore',
+		id : 'Batas bawah',
+		iw : 'גבול תחתון',
+		ja : '下限',
+		ko : '하한값',
+		lt : 'Apatinė riba',
+		lv : 'Apakšējā robeža',
+		ms : 'Had bawah',
+		nl : 'Ondergrens',
+		nb : 'Nedre grense',
+		pl : 'Dolna granica',
+		ro : 'Limita inferioară',
+		ru : 'нижний предел',
+		sk : 'Dolná hranica',
+		sl : 'Spodnja meja',
+		sr : 'Доња граница',
+		sv : 'Nedre gräns',
+		th : 'วงเงินที่ต่ำกว่า',
+		tr : 'Alt sınır ',
+		uk : 'Нижня межа',
+		vi : 'Giới hạn dưới ',
+		zh : '下限',
+		zt : '下限',
+	},
+	LIMIT_UPPER : {
+		en : 'Upper limit',
+		pt : 'Limite superior',
+		ar : 'الحد الأعلى',
+		bg : 'Горна граница',
+		ca : 'Límit superior',
+		cs : 'Horní mez',
+		da : 'Øvre grænse',
+		de : 'Höchstgrenze',
+		el : 'Ανώτατο όριο',
+		es : 'Límite superior ',
+		et : 'Ülempiir',
+		fa : 'حد بالایی',
+		fi : 'Yläraja',
+		fr : 'Limite supérieure',
+		ga : 'Teorainn uachtarach ',
+		hi : 'ऊपरी सीमा',
+		hr : 'Gornja granica',
+		hu : 'Felső határ',
+		hy : 'վերին սահմանը',
+		it : 'Limite superiore',
+		id : 'Batas atas ',
+		iw : 'גבול עליון',
+		ja : '上限',
+		ko : '상한',
+		lt : 'Viršutinė riba',
+		lv : 'Augšējā robeža',
+		ms : 'Had atas',
+		nl : 'Bovengrens',
+		nb : 'Øvre grense',
+		pl : 'Górna granica',
+		ro : 'Limita superioară',
+		ru : 'верхний предел',
+		sk : 'Horná hranica',
+		sl : 'Zgornja meja',
+		sr : 'Горња граница',
+		sv : 'Övre gräns',
+		th : 'ขีด จำกัด บน',
+		tr : 'Üst sınır',
+		uk : 'Верхня межа',
+		vi : 'Giới hạn trên ',
+		zh : '上限',
+		zt : '上限',
+	},
 	ARE_YOU_SURE : {
 		en : "are you sure?",
 		pt : "confirmar?",
@@ -7020,52 +7494,52 @@ Kiểm tra hồ sơ của bạn. \
 		zt : '評分 ' + appName,
 	},
 	RATE_MSG : {
-		en : 'If you enjoy using ' + appName + ', would you mind taking a moment to rate it? It won’t take more than a minute. Thanks for your support!',
-		pt : 'Se você gosta de usar o ' + appName + ', que tal avaliá-lo? Não levará mais de um minuto. Agradecemos o seu apoio!',
-		ar : 'إذا كنت تتمتع باستخدام ' + appName + '، هل تمانع أخذ الوقت لتقييم ذلك؟ شكرا لدعمكم!',
-		bg : 'Ако вие се наслаждавате на използването ' + appName + ', имаш ли нещо против да вземе време, за да го оцените? Благодаря за вашата подкрепа!',
-		ca : 'Si li agrada utilitzar ' + appName + ', li importaria prendre’s un moment per a valorar-lo? No trigarà més d’un minut. Gràcies por la seva col·laboració!',
-		cs : 'Pokud se Vám aplikace ' + appName + ' líbí, mohli byste ji prosím ohodnotit? Zabere to jen chvilku. Díky za Vaši podporu!',
-		da : 'Hvis du synes om at bruge ' + appName + ', vil du have noget imod at bruge et kort øjeblik på at bedømme det? Det tager kun et minut. Tak for din støtte!',
-		de : 'Wenn dir ' + appName + 'gefällt, würdest Du es bitte bewerten? Dies wird nicht länger als eine Minute dauern. Danke für die Unterstützung!',
-		el : 'Αν σου αρέσει το ' + appName + ', θα μπορούσες να αφιερώσεις μια στιγμή για να το βαθμολογήσεις; Η διαδικασία είναι πολύ σύντομη. Ευχαριστούμε για τη στήριξη!',
-		es : 'Si le gusta utilizar ' + appName + ', ¿le importaría valorarlo? No le llevará más de un minuto. ¡Gracias por su colaboración!',
-		et : 'Kui sulle meeldib, kasutades ' + appName + ', oleks te võtate hetkel hinnata seda? See ei võta rohkem kui minuti. Täname toetuse eest!',
-		fa : 'اگر شما با استفاده از ' + appName + ' لذت بردن از، اشکالی ندارد یک لحظه به امتیاز دهی هستند؟ آن را نمی خواهد بیشتر از یک دقیقه طول بکشد. با تشکر از حمایت شما!',
-		fi : 'Jos käytät mielelläsi ' + appName + ', voisitko käyttää hetken ja arvostella sen? Se ei kestä minuuttia kauempaa. Kiitos tuestasi!',
-		fr : 'Si vous aimez ' + appName + ', voulez-vous prendre un moment pour l’évaluer? Cela ne vous prendra pas plus d’une minute. Merci de votre soutien!',
-		ga : 'Má tá tú taitneamh ag baint úsáide ' + appName + ', ba mhaith leat a aigne ag cur nóiméad a ráta sé? Go raibh maith agat as do chuid tacaíochta!',
-		hi : 'आप ' + appName + ' उपयोग का आनंद ले, तो आप यह दर क्षण ले मन होगा? यह एक मिनट से अधिक नहीं ले जाएगा. आपके समर्थन के लिए धन्यवाद!',
-		hr : 'Ako uživate u korištenju ' + appName + ', možete li uzimanje trenutak da ga ocijenili? Hvala na podršci!', //
-		hu : 'Ha tetszik a ' + appName + ', ne felejtsd el értékelni! Ez nem több, mint egy perc alatt. Köszönet a támogatásért!', //
-		hy : 'Եթե Դուք հաճույքով եք օգտագործում ' + appName + '-ը, դեմ չե՞ք լինի տրամադրել մեկ րոպե այն գնահատելու համար: Այն չի պահանջի ձեզանից ավելի քան մեկ րոպե: Շնորհակալություն աջակցության համար:',
-		it : 'Se vi piace utilizzando appName, ti dispiacerebbe prendere un momento di votarla? Questo non sarà più di un minuto prendere. Grazie per il supporto!',
-		id : 'Jika Anda menyukai ' + appName + ', maukah Anda memberikan rating ke aplikasi ini? Hanya membutuhkan waktu satu menit. Terimakasih untuk dukungan Anda!',
-		iw : 'אם אתה נהנה להשתמש ב- ' + appName + ', אתה מוכן לקחת רגע כדי לדרג את את התוכנה? זה לא ייקח יותר מדקה. תודה על התמיכה!',
-		ja : appName + 'を使用して楽しむ場合は、それを評価するための時間を割いていただけますか？あなたのサポートに感謝します！',
-		ko : '당신 ' + appName + ' 사용하여 즐길 수 있다면, 당신은 그것을 평가하는 순간을 복용 될까요? 그것은 분 이상 걸릴하지 않습니다. 귀하의 지원을 주셔서 감사합니다!',
-		lt : 'Jei jums patinka naudojant ' + appName + ', Ar galėtumėte imtis šiek tiek laiko normą, kurią ji? Ji nebus daugiau nei minutę. Ačiū už Jūsų paramą!',
-		lv : 'Ja jūs baudīt izmantojot ' + appName + ', jūs prātā, ņemot laiku, lai vērtētu to? Tas neaizņems vairāk par minūti. Paldies par jūsu atbalstu!',
-		ms : 'Jika anda menyukai '+ appName +', mahukah anda memberikan rating ke aplikasi ini? Hanya memerlukan masa satu minit. Terimakasih untuk sokongan anda!',
-		nl : 'Als u genieten van het gebruik ' + appName + ', zou je het erg nemen van een moment om het te beoordelen? Bedankt voor uw steun!',
-		nb : 'Hvis du liker å bruke ' + appName + ', kan du ta deg et øyeblikk for å vurdere den? Det vil ikke ta mer enn ett minutt. Takk for din støtte!',
-		pl : 'Jeżeli podoba Ci się korzystanie z ' + appName + ', może zechciałbyś poświęcić chwilę czasu, aby ocenić aplikację? Nie zajmie Ci to więcej niż minutę. Dziękujemy za pomoc!',
-		ro : 'Dacă vă place ' + appName + ' aplicare, ar putea, te rog, il votezi? Este nevoie de doar un minut. Vă mulțumim pentru sprijinul acordat!',
-		ru : 'Если Вам понравится ' + appName + ', пожалуйста поставьте свою оценку. Это займет у Вас не более одной минуты. Спасибо за поддержку!',
-		sk : 'Ak sa Vám aplikácia ' + appName + ' páči, mohli by ste ju prosím ohodnotiť? Zaberie to len chvíľku. Vďaka za Vašu podporu!',
-		sl : 'Če ste uživali ob uporabi ' + appName + ', bi vas motilo, pri čemer trenutek, da jo ocenite? Hvala za vašo podporo!',
-		sr : 'Ако уживате користећи ' + appName + ', да ли би сметало узимање тренутак да га оцене? Хвала на подршци!',
-		sv : 'Om du tycker att ' + appName + ' är ett praktiskt verktyg, kan du tänka dig att betygsätta det åt oss? Det tar bara en minut. Tack för hjälpen!',
-		th : 'ถ้าคุณกำลังใช้ ' + appName + ' โปรดสละเวลาสักครู่ในการให้อันดับแก่เรา คุณจะเสียเวลาไม่เกินหนึ่งนาที ขอบคุณสำหรับการสนับสนุน!',
-		tr : 'Eğer ' + appName + ' uygulamasını beğendiyseniz, oy verip bize destek olmak ister misiniz? Desteğiniz için teşekkürler!',
-		uk : 'Якщо вам сподобається працювати з ' + appName + ', не могли б ви знайшли час, щоб оцінити його? Дякуємо за вашу підтримку!',
-		vi : 'Nếu bạn thích sử dụng ' + appName + ', bạn sẽ nhớ lấy một chút thời gian để đánh giá nó? Nhờ hỗ trợ của bạn!',
-		zh : '如果您喜欢用' + appName + '，是否愿意花一些时间打个分数？其过程将不超过一分钟。谢谢您的支持！',
-		zt : '如果您喜歡用' + appName + '，是否願意花一些時間打個分數？其過程將不超過一分鐘。謝謝您的支持！',
+		en : 'If you like using Kcals, support us with a positive review!',
+		pt : 'Se você gosta de usar o Kcals, suporte-nos com uma avaliação positiva!',
+		ar : 'إذا كنت تحب ككالز، تقديم الدعم لنا باستعراض إيجابي!',
+		bg : 'Ако ви харесва, използвайки Kcals, подкрепете ни с положителен рейтинг!',
+		ca : 'Si t’agrada utilitzar Kcals, recolzar amb una qualificació positiva!',
+		cs : 'Pokud máte rádi používáte Kcals, podpořte nás s pozitivním hodnocení!',
+		da : 'Hvis du kan lide at bruge Kcals, støtte os med en positiv anmeldelse!',
+		de : 'Wenn Sie Kcals mag, unterstützen Sie uns mit einer positiven Bewertung!',
+		el : 'Αν σας αρέσει να χρησιμοποιείτε Kcals, μας στηρίζουν με θετική κριτική!',
+		es : 'Si te gusta usar Kcals, apoyarnos con una calificación positiva!',
+		et : 'Kui sulle meeldib kasutades Kcals, toetada meile positiivne arvamus!',
+		fa : 'If you like using Kcals, support us with a positive review!',
+		fi : 'Jos pidät Kcals, tukea meille myönteisen arvostelun!',
+		fr : 'Si vous aimez l’aide Kcals, nous soutenir avec une note positive!',
+		ga : 'Má tá tú taitneamh ag baint úsáide Kcals, tacaíocht a thabhairt dúinn le athbhreithniú dearfach! ',
+		hi : 'यदि आप Kcals का उपयोग करने का आनंद लें, हमें एक सकारात्मक समीक्षा के साथ समर्थन!',
+		hr : 'Ako vam se sviđa koristeći Kcals, podržite nas s pozitivnim pregled!',
+		hu : 'Ha szívesen használja Kcals, támogassanak bennünket pozitív véleményét!',
+		hy : 'Եթե ​​Դուք օգտվում օգտագործելով Kcals, աջակցեք մեզ, գրում է դրական վերանայման.',
+		it : 'Se ti piace usare Kcals, sostienici con una valutazione positiva!',
+		id : 'Jika Anda menikmati menggunakan Kcals, mendukung kami dengan nilai positif!',
+		iw : 'אם אתה אוהב להשתמש Kcals, לתמוך בנו עם ביקורת חיובית!',
+		ja : 'あなたがKcalsが好きなら、肯定的なレビューで私たちをサポート！',
+		ko : '당신이 Kcals을 즐길 경우, 긍정적 인 검토와 함께 우리를 지원!',
+		lt : 'Jei jums patinka naudoti Kcals, paremti mus raštu teigiamą atsiliepimą!',
+		lv : 'Ja jūs, piemēram, izmantojot Kcals, atbalstīt mūs ar pozitīvu pārskatīšanu!',
+		ms : 'Jika anda suka Kcals, menyokong kami dengan penarafan yang positif!',
+		nl : 'Als je van het gebruik van Kcals, steun ons met een positieve recensie!',
+		nb : 'Hvis du liker Kcals, støtte oss med en positiv vurdering!',
+		pl : 'Jeśli lubisz Kcals, wspierają nas z pozytywnym rankingu!',
+		ro : 'Dacă vă place Kcals, susține ne cu un rating pozitiv!',
+		ru : 'Если вам нравится Kcals, поддержать нас с положительным рейтингом!',
+		sk : 'Ak máte radi Kcals, podporte nás s pozitívnym hodnotenie!',
+		sl : 'Če vam je všeč Kcals, nas podpirajo s pozitivno oceno!',
+		sr : 'Ако вам се свиђа КЦАЛЗЗ, подржите нас са позитивним рејтинга!',
+		sv : 'Om du gillar Kcals, stödja oss med ett positivt betyg!',
+		th : 'ถ้าคุณชอบ Kcals, สนับสนุนเราด้วยคะแนนบวก!',
+		tr : 'Eğer Kcals kullanmaktan zevk varsa, olumlu bir değerlendirme ile bize destek!',
+		uk : 'Якщо вам подобається Kcals, підтримати нас з позитивним рейтингом!',
+		vi : 'Nếu bạn thích Kcals, ủng hộ chúng tôi với một đánh giá tích cực!',
+		zh : '如果你喜欢Kcals，支持我们以积极的评价！',
+		zt : '如果你喜歡Kcals，支持我們以積極的評價！',
 	},
 	RATE_IT : {
 		en : 'Rate ' + appName,
-		pt : 'Avaliar o ' + appName,
+		pt : 'Avaliar ' + appName,
 		ar : 'قيِّم ' + appName,
 		bg : 'Оцени сега',
 		ca : 'Valorar ' + appName,
@@ -7219,7 +7693,7 @@ Kiểm tra hồ sơ của bạn. \
 				<p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>\
 			   ",
 			"The main counter" : "\
-				<p>The main counter has 3 states: balanced (between -300 and 300, shown in blue), defict (-300 and below, shown in red), and excess (300 and up, shown in green).</p>\
+				<p>The main counter has 3 states: balanced (between -300 and 300, shown in blue), deficit (-300 and below, shown in red), and excess (300 and up, shown in green).</p>\
 				<p>When the counter hits +/-600, the “caloric balance” block will be highlighted to indicate you are getting too distant from the balanced state. The value 600 was chosen because it is usually the highest amount of calories recommend per meal.</p>\
 			   ",
 			"Changing the start date" : "\

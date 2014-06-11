@@ -25,6 +25,8 @@ var timerDiff           = 100;
 var timerWait           = 100;
 var noTimer;  
 var ref;
+var preTab;
+var afterTab;
 var blockModal = false;
 var modalTimer;
 jQuery.support.cors     = true

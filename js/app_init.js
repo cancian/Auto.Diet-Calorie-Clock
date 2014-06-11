@@ -94,6 +94,7 @@ document.addEventListener( "DOMContentLoaded", function() {
 	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_lib.js",         success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_lang.js",        success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_setup.js",       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_macro.js",       success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_build.js",       success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_static.js",      success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal + "js/app_dynamic.js",     success: function(raw) { dataJS  = dataJS  + raw;
@@ -124,7 +125,7 @@ if(navigator.userAgent.match(/MSApp/i)) {
 }
 
 	//
-	}});}});}});
+	}});}});}});}});
 	}});}});}});
 	}});}});
 	}});
@@ -136,6 +137,7 @@ if(navigator.userAgent.match(/MSApp/i)) {
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_macro.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_build.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");

@@ -7,6 +7,7 @@ js/app_bootstrap.js
 js/app_lib.js
 js/app_lang.js
 js/app_setup.js
+js/app_macro.js
 js/app_build.js
 js/app_static.js
 js/app_dynamic.js
@@ -23,6 +24,7 @@ js/plugins/org.apache.cordova.splashscreen/www/splashscreen.js
 js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
+js/plugins/com.leonid.smartmobilesoftware.inappbilling/www/inappbilling.js
 # FACEBOOK
 js/facebook-js-sdk.js
 js/facebook-js-sdk.min.js

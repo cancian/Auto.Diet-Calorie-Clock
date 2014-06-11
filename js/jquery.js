@@ -5254,7 +5254,7 @@ if(navigator.userAgent.match(/MSApp/i)) {
 	after: function() {
 		return this.domManip( arguments, function( elem ) {
 			if ( this.parentNode ) {
-				this.parentNode.insertBefore( elem, this.nextSibling );
+				//this.parentNode.insertBefore( elem, this.nextSibling );
 				var pNodeb = this;
 				if(navigator.userAgent.match(/MSApp/i)) {
 					MSApp.execUnsafeLocalFunction(function() {

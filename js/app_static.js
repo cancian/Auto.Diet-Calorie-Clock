@@ -26,7 +26,7 @@ $(document).on("resume",function() {
 setTimeout(function() { 
 	updateLoginStatus(1);
 	getAnalytics('resume');
-},2000);
+},6000);
 });
 //##///////////##//
 //## START APP ##//
@@ -40,7 +40,7 @@ setTimeout(function() { getAnalytics('init'); },0);
 setTimeout(function() { 
 	updateLoginStatus(1);
 	getAnalytics('startApp'); 
-},2000);
+},6000);
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -78,10 +78,34 @@ $("body").prepend('\
 //# APP FOOTER #//
 //#////////////#//
 var releaseFooter;
+var lastTab = 0;
+preTab = function() {
+	if(isMobile.MSApp()) {
+		$('#appContent').scrollTop(0);
+	} else {
+		//$('#appContent').css('opacity',0);
+		window.location='#top';
+		//$('#appContent').css('opacity',1);
+	}
+}
+afterTab = function() {
+	$("#newWindowWrapper").remove();
+	//clear pageslidefood
+	if($("#pageSlideFood").html()) {
+		if(!$("#pageSlideFood").is(":animated")) {
+			$("#pageSlideFood").remove();
+			$("#appHeader").removeClass("open");
+		} else {
+			$('#appHeader').trigger(touchstart);
+		}
+	}
+	//NO 50ms FLICKER (android profile)
+	appResizer(200);
+}
 function appFooter(id) {
-var tabId = id;
-	clearTimeout(releaseFooter);
-	//releaseFooter = setTimeout(function() { 
+	if(new Date().getTime() - lastTab < 200) { lastTab = new Date().getTime(); return; }
+	lastTab = new Date().getTime();
+	var tabId = id;
 	$("ul#appFooter li").removeClass("selected");
 	window.localStorage.setItem("app_last_tab",tabId);
 	$("#" + tabId).addClass("selected");
@@ -99,27 +123,6 @@ var tabId = id;
 	if(tabId == "tab4") { openSettings(); }
 	$("body").removeClass("tab1 tab2 tab3 tab4 newwindow");
 	$("body").addClass(tabId);
-	//clear pageslidefood
-	if($("#pageSlideFood").html()) {
-		if(!$("#pageSlideFood").is(":animated")) {
-			$("#pageSlideFood").remove();
-			$("#appHeader").removeClass("open");
-		} else {
-			$('#appHeader').trigger(touchstart);
-		}
-	}
-	//TOP
-	if(isMobile.MSApp()) {
-		$('#appContent').scrollTop(0);
-	} else {
-		window.location='#top';
-	}
-	//$('#appContent').scrollTop(0);
-	//NO 50ms FLICKER (android profile)
-	appResizer(200);
-	//updateTimer();
-	//},0);
-
 }
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -438,18 +441,27 @@ if(window.localStorage.getItem("facebook_logged")) {
 /////////////////////
 // ADJUST ELEMENTS //
 /////////////////////
-/*
 var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
 	if(window.localStorage.getItem("config_kcals_day") == "d") {
-		var getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
+		getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
 	} else {
-		var getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
+		getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
 	}
-} else {
-var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
 }
-*/
+$("#editableDiv").html(getKcalsItem);
+/////////////
+// OPTIONS //
+/////////////
+//set default
+if(!window.localStorage.getItem("config_kcals_type")) {
+	window.localStorage.setItem("config_kcals_type","simple");
+}
+if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
+	$("body").addClass("cyclic");
+} else {
+	$("body").addClass("simple");	
+}
 ///////////
 // IOS 7 //
 ///////////
@@ -533,25 +545,6 @@ if(isDesktop()) {
 	$("body").addClass("desktop");
 } else {
 	$("body").addClass("mobile");	
-}
-/////////////
-// OPTIONS //
-/////////////
-//set default
-if(!window.localStorage.getItem("appMode")) {
-	window.localStorage.setItem("appMode","direct");
-}
-//read stored
-if(window.localStorage.getItem("appMode") == "inverted") {
-	appMode = "inverted";
-} else {
-	appMode = "direct";
-}
-
-if(appMode == "direct") {
-	$("body").addClass("direct");
-} else {
-	$("body").addClass("inverted");	
 }
 ////////////////////
 // PRESET PROFILE //
@@ -764,6 +757,15 @@ setTimeout(function() {
 						$('#editable').css(prefix + "transition-duration",".175s");
 						clearTimeout(editableTimeout);
 						editableTimeout = setTimeout(function() {
+							// BACKUPDATE
+							if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
+								if(window.localStorage.getItem("config_kcals_day") == "d") {
+									$("#appCyclic2").val(window.localStorage.getItem("config_kcals_day_2"));
+								} else {
+									$("#appCyclic2").val(window.localStorage.getItem("config_kcals_day_1"));	
+								}
+							}
+							//
 							$("#editable").css("opacity",0);
 							if(!isMobile.Android()) {
 								$('#editable').on(transitionend,function(e) {
@@ -778,8 +780,9 @@ setTimeout(function() {
 								updateTimer();
 								setPush();
 							}
-						},900);
+						},600);
 						$("#editableBlock").remove();
+						updateTodayOverview();
 						intakeHistory();
 					},
 					change: function() {

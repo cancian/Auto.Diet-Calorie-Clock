@@ -35,8 +35,9 @@ function openSettings(string) {
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
+	preTab();
 	$("#appContent").html(settingsHtml);
-	$("#newWindowWrapper").remove();
+	afterTab();
 	///////////////
 	// last sync //
 	///////////////
@@ -349,17 +350,12 @@ function openSettings(string) {
 ####    HTML BUILDS ~ OPEN STATUS    ####
 #######################################*/
 function openStatus(string) {
-	//calculate pre-fillings
-	if(window.localStorage.getItem("appStatus") == "running") {
-		var weightLoss   = ((((Number(window.localStorage.getItem("calcForm#pA6G"))) * ((Number(new Date().getTime()) - (Number(window.localStorage.getItem("config_start_time")))) / (60*60*24*7))) / 1000)).toFixed(7);
-	} else {
-		var weightLoss   = "0.0000000";		
-	}
-	if(window.localStorage.getItem("calcForm#pA6H") == "kilograms") {
-		var weightLossUnit = LANG.KG[lang];
-	} else {
-		var weightLossUnit = LANG.LB[lang]; 
-	}
+	////////////////////
+	// TODAY OVERVIEW //
+	////////////////////
+	var totalConsumed = parseInt(window.localStorage.getItem("config_ttf"));
+	var totalIntake   = parseInt(window.localStorage.getItem("config_kcals_day_0")) + (parseInt(window.localStorage.getItem("config_tte"))*-1);
+	var totalPercent  = totalConsumed / (totalIntake / 100);
 	//create empty intake html cache
 	if(!window.localStorage.getItem("appStatusIntake")) {
 		window.localStorage.setItem("appStatusIntake"," ");
@@ -379,7 +375,13 @@ function openStatus(string) {
 	<a name="top"></a>\
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG.TIME_ELAPSED[lang] + '</span></div></div>\
-		<div id="appStatusWeight"><div><p><strong>' + weightLoss + '</strong>&nbsp;' + weightLossUnit + '</p><span>' + LANG.WEIGHT_LOSS[lang] + '</span></div></div>\
+		<div id="appStatusWeight"><div><p>' + totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong></p><span>' + LANG.TODAY[lang] + '</span><em></em>\
+		<div id="appDays">\
+			<div id="appDayA">' + LANG.DAY[lang] + ' A</div>\
+			<div id="appDayB">' + LANG.DAY[lang] + ' B</div>\
+			<div id="appDayC">' + LANG.DAY[lang] + ' C</div>\
+			<div id="appDayD">' + LANG.DAY[lang] + ' D</div>\
+		</div></div></div>\
 		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG.CALORIC_BALANCE[lang] + '</span><div id="balanceBar"></div></div></div>\
 		<div id="appStatusIntake">' + window.localStorage.getItem("appStatusIntake") + '</div>\
 		<div id="appStatusBars">\
@@ -402,8 +404,14 @@ function openStatus(string) {
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
+	preTab();
 	$("#appContent").html(statusHtml);
-	$("#newWindowWrapper").remove();
+	afterTab();
+	////////////////////
+	// TODAY OVERVIEW //
+	////////////////////	
+	$('#appStatusWeight em').css('width',totalPercent + "%");
+	updateTodayOverview();
 	//////////////////////////
 	// INTAKE HISTORY GRAPH //
 	//////////////////////////
@@ -416,12 +424,9 @@ function openStatus(string) {
 	//////////////
 	// HANDLERS //
 	//////////////
-	//#/////////////////#//
-	//# TAP STATUS TEXT #//
-	//#/////////////////#//
-	////////////////////////
-	// NUTRITION BARS TAP //
-	////////////////////////
+	////////////////////
+	// NUTRI BARS TAP //
+	////////////////////
 	updateNutriBars(window.localStorage.getItem("tPro"),window.localStorage.getItem("tCar"),window.localStorage.getItem("tFat"));
 	$("#appStatusBars").on(touchstart,function(evt) {
 		evt.preventDefault();
@@ -448,30 +453,21 @@ function openStatus(string) {
 	/////////////////
 	// LOST WEIGHT //
 	/////////////////
-/*
 	$("#appStatusWeight").on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		if(weightLossUnit == "kg") { 
-			var resValue = Math.round(((Number(window.localStorage.getItem('calcForm#pA6G'))*7700)/7));
-		} else { 
-			var resValue = Math.round(((Number(window.localStorage.getItem('calcForm#pA6G'))*3500)/7));
-		}
-		var LOSS_DIALOG = LANG.STATUS_LOSS_1[lang] + $("#appStatusWeight p").text() + "\n\n" + LANG.STATUS_LOSS_2[lang] + resValue + " " + LANG.KCAL[lang] + "/" + LANG.DAY[lang] + ")";
-		//[" + window.localStorage.getItem('calcForm#pA6G') + weightLossUnit + "/week])";
-		//DIALOG
-		if(hasTouch()) {
-			navigator.notification.alert(LOSS_DIALOG, voidThis,LANG.WEIGHT_LOSS[lang].toUpperCase(),LANG.OK[lang]);
-		} else {
-			alert(LANG.WEIGHT_LOSS[lang].toUpperCase() + ": \n" + LOSS_DIALOG);
-		}
-		return false;
+		getCyclicMenu();
 	});
-*/
 	//////////////////////////////
 	// CALORIC STATUS (EQ TIME) //
 	//////////////////////////////
-/*
 	$("#appStatusBalance").on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }		
+		getLimitMenu();
+		/*
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		var eqStart 	= Number(window.localStorage.getItem("config_start_time"));
 		var kcalsInput = parseInt($("#timerKcals").text());
@@ -492,22 +488,15 @@ function openStatus(string) {
 			alert(LANG.CALORIC_BALANCE[lang].toUpperCase() + ": \n" + EQ_DIALOG);
 		}
 		return false;
-	});
-*/
-	///////////////////
-	// INTAKE STATUS //
-	///////////////////
-	$("#appStatusIntake").on(touchstart,function(evt) {
-		/*
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		var INTAKE_DIALOG = LANG.STATUS_INTAKE_1[lang] + Number($("#editableDiv").text()) + LANG.STATUS_INTAKE_2[lang];
-		//DIALOG
-		if(hasTouch()) {
-			navigator.notification.alert(INTAKE_DIALOG, voidThis,LANG.CALORIC_INTAKE[lang].toUpperCase(),LANG.OK[lang]);
-		} else {
-			alert(LANG.CALORIC_INTAKE[lang].toUpperCase() + ": \n" + INTAKE_DIALOG);
-		}
 		*/
+	});
+	////////////////
+	// INTAKE TAP //
+	////////////////
+	$("#appStatusIntake").on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		return false;
 	});
 	//#///////////#//
@@ -741,8 +730,9 @@ diaryHtml += '</div>\
 //# OUTPUT #//
 //#////////#//
 //HTML
+preTab();
 pageLoad("#appContent",diaryHtml);
-$("#newWindowWrapper").remove();
+afterTab();
 //desktop odd resize -1 bug
 if(Math.round(window.innerWidth % 2)) {
 	$("#sliderWrapper").width(window.innerWidth-49);
@@ -1801,8 +1791,9 @@ var profileHtml = '\
 //#////////#//
 //# OUTPUT #//
 //#////////#//
+preTab();
 $("#appContent").html(profileHtml);
-$("#newWindowWrapper").remove();
+afterTab();
 //////////////////////////
 // FIX ANDROID 2 SELECT //
 //////////////////////////
