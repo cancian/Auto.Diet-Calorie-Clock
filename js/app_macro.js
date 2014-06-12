@@ -1,15 +1,258 @@
-﻿//##////////////////##//
+﻿//##/////////////////##//
+//## GET FULLHISTORY ##//
+//##/////////////////##//
+function getFullHistory() {
+	var fullArray   = [];
+	var oldestEntry = new Date().getTime();
+	var now         = new Date().getTime();
+	var day         = 60*60*24*1000;
+	var week        = day*7;
+	var month       = day*30;
+	var months      = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+	var monthName   = months[new Date().getMonth()];
+	var todaysTime  = Date.parse(new Date(monthName + " " +  new Date().getDate() + ", " + new Date().getFullYear()));
+	/////////////////
+	// GET ENTRIES //
+	/////////////////
+	getEntries(function(data) {
+		for(var g=0, len=data.length; g<len; g++) {
+			fullArray.push({ date: DayUtcFormat(parseInt(data[g].published)),val: data[g].title});
+			//GET OLDEST
+			if(oldestEntry > parseInt(data[g].published)) {
+				oldestEntry = parseInt(data[g].published);
+			}
+		}
+		//SORT
+		fullArray = fullArray.sort(function(a, b) {
+			return (a["date"] > b["date"]) ? 1 : ((a["date"] < b["date"]) ? -1 : 0);
+		});
+		// at least a week
+		if(now - oldestEntry < week) {
+			 oldestEntry = now - week;
+		}
+		//at most a month
+		if(now - oldestEntry > month) {
+			//oldestEntry = now - month;
+		}
+		//MORE THAN A DAY
+		//if(DayUtcFormat(now) != DayUtcFormat(oldestEntry)) {
+		var countBack = todaysTime;
+		var dayArray  = [];
+		/////////////////////
+		// DAY INJECT LOOP //
+		/////////////////////
+		while(oldestEntry-(day*1) < countBack) {
+			var daySum = 0;
+			//dump all day data in date array
+			for(var h=0, hen=fullArray.length; h<hen; h++) {
+				if(fullArray[h]['date'] == DayUtcFormat(countBack)) {
+					daySum = daySum + parseInt(fullArray[h]['val']);
+				}
+			}
+			//insert
+			dayArray.push([countBack,daySum]);
+			//while
+			countBack = countBack - day;
+		}
+		/////////////////
+		// MANUAL TICK //
+		/////////////////
+		/*
+		var upperTick = 0;
+		var lowerTick = 0;
+		//HIGHEST/LOWEST
+		for(var i=0, ien=dayArray.length; i<ien; i++) {
+			if(dayArray[i][1] > upperTick) {
+				upperTick = dayArray[i][1]
+			}
+			if(dayArray[i][1] < lowerTick) {
+				lowerTick = dayArray[i][1]
+			}
+		}
+		lowerTick = lowerTick*1.5;
+		upperTick = upperTick*1.5;
+		// MID TICK
+		midTick = parseInt(window.localStorage.getItem("config_kcals_day_0"));
+		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
+			if(window.localStorage.getItem("config_kcals_day") == "d") {
+				midTick = parseInt(window.localStorage.getItem("config_kcals_day_2"));
+			} else {
+				midTick = parseInt(window.localStorage.getItem("config_kcals_day_1"));
+			}
+		}
+		// CHECK
+		if(upperTick < 600) {
+			upperTick = midTick+600;
+		}
+		if(midTick >= upperTick) {
+			upperTick = midTick*1.5;
+		}
+		*/
+		//////////////
+		// HANDLERS //
+		//////////////
+		var appHistoryHandlers = function () {
+			//#/////////////////////////#//
+			//# REBUILD HISTORY SNIPPET #//
+			//#/////////////////////////#//
+			rebuildHistory = function () {
+				////////////////
+				// LOCAL DATE //
+				////////////////
+				Highcharts.setOptions({
+					lang : {
+						shortMonths : LANG.MONTH_SHORT[lang].split(', '),
+						weekdays : LANG.WEEKDAY_SHORT[lang].split(', '),
+					}
+				});
+				///////////////
+				// MIN WIDTH //
+				///////////////
+				var minWidth = $("#appContent").width() / dayArray.length;
+				if (minWidth < 20) {
+					minWidth = 20;
+				}
+				if (minWidth > 100) {
+					minWidth = 100;
+				}
+				minWidth = dayArray.length * minWidth;
+				if (minWidth < $("#appContent").width()) {
+					minWidth = $("#appContent").width();
+				}
+				////////////////
+				// STATISTICS //
+				////////////////
+				$('#appHistory').highcharts({
+					chart : {
+						reflow : false,
+						spacingLeft : 0,
+						spacingRight : 0,
+						spacingTop : 0,
+						spacingBottom : 9,
+						height : $("#newWindow").height() - 9,
+						width : minWidth,
+					},
+					credits : {
+						enabled : false
+					},
+					legend : {
+						enabled : false
+					},
+					title : {
+						text : ''
+					},
+					tooltip : {
+						enabled : true,
+					},
+					subtitle : {
+						text : ''
+					},
+					yAxis : {
+						title : {
+							text : ''
+						},
+						//tickPositions : [lowerTick, midTick, upperTick],
+						gridLineColor : 'rgba(0,0,0,.12)',
+						//gridLineDashStyle : 'longdash',
+						labels : {
+							enabled : true,
+							align : 'left',
+							x : 2, //31,
+							y : -1,
+							textSize : '9px',
+						},
+						showFirstLabel : false,
+						showLastLabel : false,
+					},
+					xAxis : {
+						type : 'datetime',
+					},
+					plotOptions : {
+						series : {
+							marker : {
+								enabled : true,
+								lineWidth : 2,
+								lineColor : '#2F7ED8',
+								fillColor : 'white',
+								states : {
+									hover : {
+										lineWidth : 2,
+									},
+								},
+							},
+							allowPointSelect : false,
+							lineWidth : 2,
+							states : {
+								hover : {
+									lineWidth : 2
+								},
+							},
+						},
+						line : {
+							dataLabels : {
+								enabled : false,
+								style : {
+									textShadow : '0 0 3px white',
+									fontSize : '12px',
+								},
+								y : -9,
+							},
+							enableMouseTracking : true,
+						}
+					},
+					series : [{
+							type : 'line',
+							name : LANG.KCAL[lang],
+							animation : false,
+							data : dayArray.sort()
+						}
+					]
+				});
+			}
+			/////////////
+			// EXECUTE //
+			/////////////
+			rebuildHistory();
+		}
+		//////////
+		// HTML //
+		//////////
+		var appHistoryHtml = "<div id='appHistory'></div>";
+		/////////////
+		// CONFIRM //
+		/////////////
+		var appHistoryConfirm = function() {
+			return true;
+		}
+		/////////////////
+		// CALL WINDOW //
+		/////////////////
+		getNewWindow(LANG.STATISTICS[lang],appHistoryHtml,appHistoryHandlers,appHistoryConfirm);
+	});
+}
+//##////////////////##//
 //## INTAKE HISTORY ##//
 //##////////////////##//
 function intakeHistory() {
 	//check exists
 	if(window.localStorage.getItem("app_last_tab") != "tab1") { return; }
+	if(!$('#appStatusIntake').html())						  { return; } 
 	//if($('#appStatusIntake div').length === 0) { return; }
 	//go
 	var firstTick = 0;
-	var lastTick  = window.localStorage.getItem("config_kcals_day_0") * 1.5;
+	var lastTick  = parseInt(window.localStorage.getItem("config_kcals_day_0")) * 1.5;
+	var origTick  = parseInt(window.localStorage.getItem("config_kcals_day_0"));
+	/////////////////
+	// CYCLIC CASE //
+	/////////////////
 	if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-		lastTick  = window.localStorage.getItem("config_kcals_day_1") * 1.5;
+		if(window.localStorage.getItem("config_kcals_day") == "d") {
+			lastTick = parseInt(window.localStorage.getItem("config_kcals_day_2")) * 1.5;
+			origTick = parseInt(window.localStorage.getItem("config_kcals_day_2"));
+		} else {
+			lastTick = parseInt(window.localStorage.getItem("config_kcals_day_1")) * 1.5;
+			origTick = parseInt(window.localStorage.getItem("config_kcals_day_1"));
+		}
 	}
 	///////////////////////////////////////
 	// localized short weekday countback //
@@ -106,7 +349,8 @@ function intakeHistory() {
 		if(past6daysSum > lastTick-500 && past6daysSum > past5daysSum)	{ lastTick = past6daysSum*1.5; }
 		if(past7daysSum > lastTick-500 && past7daysSum > past6daysSum)	{ lastTick = past7daysSum*1.5; }
 		//min lastTick val
-		if(lastTick < 300) { lastTick = 300; }
+		//if(lastTick < 300) { lastTick = 300; }
+		if(lastTick < 600) { lastTick = lastTick+600; }
 		//firstTick -500kcal buffer
 		if(past0daysSum < 0)								{ firstTick = past0daysSum*2; }
 		if(past1daysSum < 0 && past1daysSum < past0daysSum)	{ firstTick = past1daysSum*2; }
@@ -175,7 +419,7 @@ function intakeHistory() {
 				title : {
 					text : ''
 				},
-				tickPositions : [firstTick, parseInt(window.localStorage.getItem("config_kcals_day_0")), lastTick],
+				tickPositions : [firstTick, origTick, lastTick],
 				gridLineColor : 'rgba(0,0,0,.16)',
 				gridLineDashStyle : 'longdash',
 				labels : {
@@ -232,8 +476,8 @@ function intakeHistory() {
 					marker : {
 						enabled : false,
 						lineWidth : 0,
-						lineColor : "rgba(47, 126, 216, .5)",
-						fillColor : 'white',
+						lineColor : "rgba(0, 0, 0, 0)",
+						fillColor : "rgba(0, 0, 0, 0)",
 						states: {
 							hover: {
 								lineWidth : 1,
@@ -435,6 +679,12 @@ function updateTodayOverview() {
 	} else {
 		$("#appStatusWeight div p").html(totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong>');
 	}
+	///////////////////////
+	// INDICATE ADDITION //
+	///////////////////////
+	if(Math.abs(parseInt(window.localStorage.getItem("config_tte")) != 0)) {
+		$("#appStatusWeight span").html(LANG.TODAY[lang] + ' (+' + Math.abs(parseInt(window.localStorage.getItem("config_tte"))) + ')');
+	}
 	/////////////////
 	// PERCENT BAR //
 	/////////////////
@@ -475,7 +725,7 @@ function getCyclicMenu() {
 	//////////////
 	// HANDLERS //
 	//////////////
-	appModeHandlers = function() {	
+	var appModeHandlers = function() {	
 		/////////////////////////
 		// backport validation //
 		/////////////////////////
@@ -526,7 +776,9 @@ function getCyclicMenu() {
 		//////////////
 		$('#appMode').on(touchend,function(evt) {
 			if($("#appCyclic1").is(':focus') || $("#appCyclic2").is(':focus')) {
-				evt.preventDefault();
+				if(evt.target.id != "appCyclic1" && evt.target.id != "appCyclic2") {
+					evt.preventDefault();
+				}
 			}
 			if(evt.target.id != "appCyclic1" && evt.target.id != "appCyclic2") {
 				$("#appCyclic1").blur();
@@ -575,8 +827,11 @@ function getCyclicMenu() {
 	/////////////
 	// CONFIRM //
 	/////////////
-	appModeConfirm = function() {
+	var appModeConfirm = function() {
+		$("#appCyclic1").blur();
+		$("#appCyclic2").blur();		
 		updateTodayOverview();
+		intakeHistory();
 		return true;
 	}
 	/////////////////
@@ -587,9 +842,9 @@ function getCyclicMenu() {
 //##///////////////##//
 //## BALANCE METER ##//
 //##///////////////##//
-function balanceMeter(kcalsInput) {
+function balanceMeter(kcalsInput,update) {
 	if(window.localStorage.getItem("app_last_tab") != "tab1") { return false; }
-	if(isNaN(kcalsInput)) 									  { return false; }
+	if(isNaN(parseInt(kcalsInput)))							  { return false; }
 	if(!kcalsInput)											  { return false; }
 	kcalsInput = kcalsInput*-1;
 	var balancePos = 0;
@@ -627,7 +882,7 @@ function balanceMeter(kcalsInput) {
 	//////////////////////
 	var roundedBar = (Math.round(parseFloat($("#balanceBar").css("text-indent")) * 100) / 100);
 	var roundedNum = (Math.round(parseFloat(balancePos) * 100) / 100);
-	if(roundedBar != roundedNum) {
+	if(roundedBar != roundedNum || update == 'now') {
 		$("#balanceBar").css("text-indent",roundedNum + '%');
 	}
 }
@@ -642,16 +897,16 @@ function getLimitMenu() {
 	<div id='appLimit'>\
 		<div id='appLimitEnable'>\
 			<input id='appLimit1' type='number' value='" + Math.abs(window.localStorage.getItem("config_limit_1")) + "' />\
-			<div id='appLimit1Title'>" + LANG.LIMIT_LOWER[lang] + "</div>\
+			<div id='appLimit1Title'>" + LANG.LIMIT_LOWER[lang] + " <span>(" + LANG.DEFICIT[lang] + ")</span></div>\
 			<input id='appLimit2' type='number' value='" + window.localStorage.getItem("config_limit_2") + "' />\
-			<div id='appLimit2Title'>" + LANG.LIMIT_UPPER[lang] + "</div>\
+			<div id='appLimit2Title'>" + LANG.LIMIT_UPPER[lang] + " <span>(" + LANG.SURPLUS[lang] + ")</span></div>\
 			<div id='appLimitInfo'><p>" + LANG.LIMIT_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + "</p></div>\
 		</div>\
 	</div>";
 	//////////////
 	// HANDLERS //
 	//////////////
-	appLimitHandlers = function() {	
+	var appLimitHandlers = function() {	
 		/////////////////////////
 		// backport validation //
 		/////////////////////////
@@ -694,53 +949,20 @@ function getLimitMenu() {
 		//////////////
 		$('#appLimit').on(touchend,function(evt) {
 			if($("#appLimit1").is(':focus') || $("#appLimit2").is(':focus')) {
-				evt.preventDefault();
+				if(evt.target.id != "appLimit1" && evt.target.id != "appLimit2") {
+					evt.preventDefault();
+				}
 			}
 			if(evt.target.id != "appLimit1" && evt.target.id != "appLimit2") {
 				$("#appLimit1").blur();
 				$("#appLimit2").blur();
 			}
 		});
-		/////////////////////
-		// SWITCH LISTENER //
-		/////////////////////
-		//read stored
-		/*
-		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-			$("#appModeToggle").prop('checked',true);
-		}
-		$('#appModeToggle + label').on(touchstart,function(obj) {
-			$('#appModeToggle').trigger("change");
-		});
-		//read changes
-		$('#appModeToggle').on("change",function(obj) {
-			if($('#appModeToggle').prop('checked')) {
-				appMode = "cyclic";
-				window.localStorage.setItem("config_kcals_type","cyclic");
-				$("body").removeClass("simple");
-				$("body").addClass("cyclic");
-			} else {
-				appMode = "simple";
-				window.localStorage.setItem("config_kcals_type","simple");
-				$("body").removeClass("cyclic");
-				$("body").addClass("simple");
-			}
-			//update underlying
-			if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-				if(window.localStorage.getItem("config_kcals_day") == "d") {
-					$("#editableDiv").html(parseInt(window.localStorage.getItem("config_kcals_day_2")));
-				} else {
-					$("#editableDiv").html(parseInt(window.localStorage.getItem("config_kcals_day_1")));
-				}
-			} else {
-				$("#editableDiv").html(parseInt(window.localStorage.getItem("config_kcals_day_0")));
-			}
-		});*/
 	}
 	/////////////
 	// CONFIRM //
 	/////////////
-	appLimitConfirm = function() {
+	var appLimitConfirm = function() {
 		$("#appLimit1").blur();
 		$("#appLimit2").blur();
 		return true;
@@ -750,11 +972,99 @@ function getLimitMenu() {
 	/////////////////
 	getNewWindow(LANG.CALORIC_THRESHOLD[lang],appLimitHtml,appLimitHandlers,appLimitConfirm);
 }
+//##/////////////##//
+//## GET ELAPSED ##//
+//##/////////////##//
+function getElapsed(swap) {
+	if(window.localStorage.getItem("app_last_tab") != "tab1") { return false; }
+	////////////////
+	// FIRST LOAD //
+	////////////////
+	if(!window.localStorage.getItem("config_swap")) {
+		window.localStorage.setItem("config_swap",1);
+	}
+	//////////////
+	// HOT SWAP //
+	//////////////
+	if(swap == "next") {
+		     if(window.localStorage.getItem("config_swap") == 1) { window.localStorage.setItem("config_swap",2); swap = 2; }
+		else if(window.localStorage.getItem("config_swap") == 2) { window.localStorage.setItem("config_swap",3); swap = 3; }
+		else if(window.localStorage.getItem("config_swap") == 3) { window.localStorage.setItem("config_swap",1); swap = 1; }
+	}
+	//////////
+	// VARS //
+	//////////
+	swap = window.localStorage.getItem("config_swap");
+	var swapData;
+	var swapSub;
+	//////////////////
+	// ELAPSED TIME //
+	//////////////////
+	if(swap == 1) {
+		//DATA
+		swapData = dateDiff(window.localStorage.getItem("config_start_time"),new Date().getTime());
+		swapSub  = LANG.ELAPSED_TIME[lang];
+	///////////////////
+	// RELATIVE TIME //
+	///////////////////
+	} else if(swap == 2) {
+		//PER DAY
+		eqPerDay = parseInt(window.localStorage.getItem("config_kcals_day_0"));
+		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
+			if(window.localStorage.getItem("config_kcals_day") == "d") {
+				eqPerDay = parseInt(window.localStorage.getItem("config_kcals_day_2"));
+			} else {
+				eqPerDay = parseInt(window.localStorage.getItem("config_kcals_day_1"));
+			}
+		}
+		var nowDate = new Date().getTime();
+		var eqRatio = (60*60*24*1000) / eqPerDay;
+		var eqDiff  = nowDate - Math.floor(Math.abs(timerKcals*eqRatio));
+		//DATA
+		swapData = dateDiff(eqDiff,nowDate);
+		swapSub  = LANG.RELATIVE_TIME[lang];
+	/////////////////
+	// WEIGHT LOSS //
+	/////////////////
+	} else if(swap == 3) {
+		var weightLoss;
+		var weightLossUnit = (window.localStorage.getItem("calcForm#pA6H") == "kilograms") ? LANG.KG[lang] : LANG.LB[lang];
+		if(window.localStorage.getItem("appStatus") == "running") {
+			weightLoss = ((((Number(window.localStorage.getItem("calcForm#pA6G"))) * ((Number(new Date().getTime()) - (Number(window.localStorage.getItem("config_start_time")))) / (60*60*24*7))) / 1000)).toFixed(7);
+		} else {
+			weightLoss = "0.0000000";
+		}
+		//DATA
+		swapData = weightLoss + ' ' + weightLossUnit;
+		swapSub  = LANG.WEIGHT_LOSS[lang];
+	}
+	////////////////////
+	// SHRINK ELIPSIS //
+	////////////////////
+	if(swap == 1 || swap == 2) {
+		//selective shrink
+		if(swapData) {
+			swapData = swapData.split(LANG.AGO[lang]).join('').split(LANG.PREAGO[lang]).join('');
+			if(swapData.length > 20 && window.innerWidth <= 360) {
+				swapData = swapData.replace(LANG.MINUTES[lang],LANG.MIN[lang]);
+				swapData = swapData.replace(LANG.MINUTE[lang],LANG.MIN[lang]);
+				swapData = trim(swapData.replace('.',''));
+				if(swapData.match('min')) {
+					swapData = swapData + '.';	
+				}
+			}
+		}
+	}
+	/////////////////////
+ 	// UPDATE CONTENTS //
+	/////////////////////
+	if($("#appStatusElapsed div p").html() != swapData) {
+		$("#appStatusElapsed div p").html(swapData);
+	}
+	if($("#appStatusElapsed div p").html() != swapSub) {
+		$("#appStatusElapsed div span").html(swapSub);
+		$('#elapsedIndicators div').removeClass('activeSwap');
+		$('#ind' + swap).addClass('activeSwap');
+	}
+}
 
-//inappbilling.getPurchases(function(e) { alert(JSON.stringify('list: ' + e)); }, function(e) { alert(JSON.stringify('error: ' + e)); });
-//inappbilling.init(function(e) { 
-//alert(JSON.stringify('success: ' + e)); 
-//inappbilling.getPurchases(function(e) { alert(JSON.stringify('list: ' + e)); }, function(e) { alert(JSON.stringify('error: ' + e)); });
-//inappbilling.buy(function(e) { alert(JSON.stringify('list: ' + e)); }, function(e) { alert(JSON.stringify('list: ' + e)); }, 'com.cancian.syncservice');
-//android.test.purchased
-//}, function(e) { alert(JSON.stringify('error: ' + e)); }, true);

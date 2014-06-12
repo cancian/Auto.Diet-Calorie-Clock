@@ -1295,19 +1295,20 @@ IScroll.prototype = {
 
 	goToPage: function (x, y, time, easing) {
 		easing = easing || this.options.bounceEasing;
-
-		if ( x >= this.pages.length ) {
-			x = this.pages.length - 1;
-		} else if ( x < 0 ) {
-			x = 0;
+		if (this.pages) {
+			if ( x >= this.pages.length ) {
+				x = this.pages.length - 1;
+			} else if ( x < 0 ) {
+				x = 0;
+			}
 		}
-
-		if ( y >= this.pages[x].length ) {
-			y = this.pages[x].length - 1;
-		} else if ( y < 0 ) {
-			y = 0;
+		if (this.pages[x]) {
+			if ( y >= this.pages[x].length ) {
+				y = this.pages[x].length - 1;
+			} else if ( y < 0 ) {
+				y = 0;
+			}
 		}
-
 		var posX = this.pages[x][y].x,
 			posY = this.pages[x][y].y;
 

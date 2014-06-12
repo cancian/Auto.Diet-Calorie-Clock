@@ -27,6 +27,8 @@ var noTimer;
 var ref;
 var preTab;
 var afterTab;
+var timerKcals;
+var rebuildHistory;
 var blockModal = false;
 var modalTimer;
 jQuery.support.cors     = true
@@ -353,45 +355,6 @@ function dateDiff(date1,date2) {
 	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; var lMinutes = " " + LANG.MINUTES[lang] + " "; }
 
 	return LANG.PREAGO[lang] + " " + days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
-}
-//////////////////
-// TIME ELAPSED //
-//////////////////
-function timeElapsed() {
-/*
-	var seconds = (new Date().getTime() - window.localStorage.getItem("config_start_time")) / 1000;
-	var date = new Date(seconds * 1000);
-	var dd   = Math.floor(seconds/86400);
-	var hh   = date.getUTCHours();
-	var mm   = date.getUTCMinutes();
-	var ss   = date.getSeconds();
-	//if (hh > 12) {hh = hh - 12;}
-	//if (hh < 10) { hh = "0" + hh; }
-	if (mm < 10) { mm = "0" + mm; }
-	if (ss < 10) { ss = "0" + ss; }
-	//hide secs > 1d
-	var secs  = ":"+ss;
-	var hours = hh+":";
-	var dayName = LANG.DAY[lang];
-	if(dd > 1)  { dayName = LANG.DAYS[lang]  }
-	// This formats your string to HH:MM:SS
-	if(hh == 0) { hours = ""; }
-	if(dd > 0)  { dd = dd + dayName + ' '; secs = ''; } else { dd = ""; }
-	//return dd+hours+mm+secs;
-*/	
-	var timeEl = (dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime())).split(LANG.AGO[lang]).join('').split(LANG.PREAGO[lang]).join('');
-	//selective shrink
-	if(timeEl) {
-		if(timeEl.length > 20 && window.innerWidth <= 360) {	
-		timeEl = timeEl.replace(LANG.MINUTES[lang],LANG.MIN[lang]);
-		timeEl = timeEl.replace(LANG.MINUTE[lang],LANG.MIN[lang]);
-		timeEl = trim(timeEl.replace('.',''));
-		if(timeEl.match('min')) {
-			timeEl = timeEl + '.';	
-		}
-	}
-}
-	return timeEl;
 }
 ////////////////////////
 // WINDOW ORIENTATION //

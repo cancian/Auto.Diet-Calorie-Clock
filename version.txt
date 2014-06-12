@@ -1,19 +1,24 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.2.5 [10/06/2014]
-• Nutrient ratio is now customizeable
+# 1.2.6 [12/06/2014]
+• New feature: Cyclical Mode
+• Added full Statistics
+• Added "Relative Time" option
+• Added "Daily Overview"
+• Calorie Threshold is now customizable
+• Improved responsiveness
+
+# 1.2.5 [8/06/2014]
+• Nutrient ratio is now customizable
 • Updated help contents
 • Bug fixes
-
 
 # 1.2.3/4 [15/05/2014]
 • improved data synchronization
 • fixed an issue with favorites being duplicated;
 • improved performance
-• minor bug fixes.
-
-
+• minor bug fixes
 
 # 1.2.2 [08/05/2014]
 • more detailed nutritional data; 

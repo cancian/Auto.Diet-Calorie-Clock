@@ -17,8 +17,6 @@ function openSettings(string) {
 				</div>\
 			</li>\
 			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_BACKUP[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
-			<li id="optionReview"><div><p class="contentTitle">'   + LANG.SETTINGS_REVIEW[lang]      + '<span>' + LANG.SETTINGS_REVIEW_INFO[lang]   + '</span></p></div></li>\
-			<li id="optionFeedback"><div><p class="contentTitle">' + LANG.SETTINGS_FEEDBACK[lang]    + '<span>' + LANG.SETTINGS_FEEDBACK_INFO[lang] + '</span></p></div>\
 			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
 		</ul>\
@@ -27,20 +25,16 @@ function openSettings(string) {
 		<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
 	</div>\
 	';
-	//<div id="optionFacebookWrapper"><div id="optionFacebook"><span>' + LANG.SETTINGS_FACEBOOK[lang] + '</span></div></div>\
-	//<li id="optionAbout"><div>'    + LANG.SETTINGS_ABOUT[lang]    + '</div></li>\
-	//<li id="optionFeedback"><div>' + LANG.SETTINGS_FEEDBACK[lang] + '</div></li>\
-	//<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
-
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
 	preTab();
 	$("#appContent").html(settingsHtml);
 	afterTab();
-	///////////////
-	// last sync //
-	///////////////
+	///////////////////
+	// last sync tap //
+	///////////////////
+	if(window.localStorage.getItem("lastSync") != "never") { $("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); }
 	$("#optionLastSync").on(touchend,function(evt) {
 		evt.preventDefault();
 		if(!$("#nprogress").html()) {
@@ -48,30 +42,21 @@ function openSettings(string) {
 		}
 		return false;
 	});	
-	if(window.localStorage.getItem("lastSync") != "never") { $("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); }
-	////////////
-	// UNUSED //
-	////////////
-	//$("#optionWebsite").remove();
-	$("#optionContact").remove();
-	$("#optionFeedback").remove();
-	//if(!hasTouch()) {
-		$("#optionReview").remove();
-	//}
-	if(isMobile.Windows() || isMobile.MSApp()) {
-		//$("#optionFacebook").remove();
-		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=msft-9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e://authorize';
-		//window.location.href = 'fbconnect://authorize?client_id=577673025616946&scope=email&redirect_uri=ms-app://s-1-15-2-407192353-4205229332-1619956504-1283844354-3578079867-2186646312-3710459015';
-	}
-	////////////////
-	// ACTIVE ROW //
-	////////////////
+	//////////////
+	// HELP TAP //
+	//////////////
 	$("#optionHelp").on(touchend,function(evt) {
 		$(this).addClass("activeRow");
 		evt.preventDefault();
 		buildHelpMenu();
 		return false;
 	});	
+	//////////////
+	// LANG TAP //
+	//////////////
+	$("#optionLang").on(touchend,function(evt) {
+		buildLangMenu();
+	});
 	////////////////////////
 	// SETTINGS: FACEBOOK //
 	////////////////////////
@@ -120,148 +105,11 @@ function openSettings(string) {
 	$("#settingsList li").on(touchstart,function(evt) {
 		evt.preventDefault();
 		$(this).addClass("activeRow");
-		//$(this).next().addClass("nextChild");
 	});
 	$("#settingsList,#settingsList li").on(touchend + " mouseout",function(evt) {
 		$(".activeRow").removeClass("activeRow");
-		//$(".nextChild").removeClass("nextChild");
 		evt.preventDefault();
 	});
-	////////////////////////
-	// SETTINGS: FEEDBACK //
-	////////////////////////
-	$("#optionReview").on(touchend,function(evt) {
-		if(isMobile.iOS()) {
-			window.open('https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802', '_system', 'location=yes');
-		} else if(isMobile.Android()) {
-			window.open('https://market.android.com/details?id=com.cancian.mylivediet', '_system', 'location=yes');
-		}
-	});
-	/////////////////////
-	// SETTINGS: SHARE //
-	/////////////////////
-	$("li#optionReview").append('<span id="optionShare"></span>');
-	//android exeption 18 bug (sql db init)
-	$("#optionShare").on(touchstart + AND + touchend,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-	});
-	$("#optionShare").on(touchend,function(evt) {
-		if(isMobile.iOS()) {
-			var shareLink = 'https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802';
-			var shareOS   = 'iOS';
-		} else if(isMobile.Android()) {
-			var shareLink = 'https://market.android.com/details?id=com.cancian.mylivediet';
-			var shareOS   = 'Android';
-		} else {
-			var shareLink = 'http://kcals.net/';
-			var shareOS   = 'Web';
-		}
-		var params = {
-			method: 'feed',
-			name: 'Kcals ' + LANG.FOR[lang] + ' ' + shareOS,
-			link: shareLink,
-			picture: 'http://kcals.net/icon.png',
-			caption: LANG.CALORIE_COUNTER[lang],
-			description: LANG.SHARE_MESSAGE[lang]
-		};
-		//FB.ui(params, function(obj) { console.log(obj); });
-		//FB.ui(params);
-	});
-
-	$("#optionLang").on(touchend,function(evt) {
-		buildLangMenu();
-	});
-	////////////////////////
-	// SETTINGS: FEEDBACK //
-	////////////////////////
-	$("#optionFeedback").on(touchend,function(evt) {
-		if(isMobile.iOS()) {
-			var cfg = {
-				task:'launchFeedback',//[launchFeedback|contactUs|viewForum|postIdea]
-				site:'cancian.uservoice.com',
-				key:'62oo7AhcRoQuvozU6ya6A',
-				secret:'g911MyHj3qs92pDDa6f1XOgT9fHSi7pNBZoXO4E',
-				topicId:0,//[0|453|333 (any valid topicId as interger)]
-				showContactUs:1,//[0|1], Show/hide Contact us button
-				showForum:1,//[0|1] Show/hide Forum button
-				showPostIdea:1,//[0|1] Show/hide Post an idea button
-				showKnowledgeBase:1//[0|1] Show/hide Search
-			};
-			showUserVoice(cfg);
-			return false;
-		} else if(isMobile.Android() && androidVersion() >= 3) {
-		//} else if(isMobile.Android()) {
-			window.MyCls.changeActivity();
-			return false;
-		} else {
-			window.open('http://cancian.uservoice.com', '_system', 'location=yes');
-			return false;
-		}
-	});	
-	///////////////////////
-	// SETTINGS: WEBSITE //
-	///////////////////////
-	$("#optionWebsite").on(tap,function(evt) {
-		//window.open('http://kcals.net', '_system', 'location=yes');
-	});
-	///////////////////////
-	// SETTINGS: CONTACT //
-	///////////////////////
-	$("li#optionContact").on(touchend,function(evt) {
-		window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support';	
-	});
-	/////////////////////
-	// SETTINGS: ABOUT //
-	/////////////////////
-	$("#optionAbout").on(touchend, function(evt) {
-		if(hasTouch()) {
-			navigator.notification.alert(LANG.ABOUT_DIALOG[lang], voidThis,LANG.ABOUT_TITLE[lang],LANG.OK[lang]);
-		} else {
-			alert(LANG.ABOUT_TITLE[lang] + " \n" + LANG.ABOUT_DIALOG[lang]);
-			setTimeout(function() {
-				//$(".nextChild").removeClass("nextChild");
-				$(".activeRow").removeClass("activeRow");
-			},0);
-		}
-	});
-	////////////////////
-	// SETTINGS: EDGE //
-	////////////////////	
-	/*
-	$("#optionEdge").on("hold", function(evt) {
-		//evt.preventDefault();		
-		if(window.localStorage.getItem("app_last_tab") == "tab1") { return; }
-		if(window.localStorage.getItem("config_debug") == "active") {
-			window.localStorage.removeItem("config_debug");
-			window.localStorage.setItem("app_last_tab","tab1");
-			afterHide();
-		} else {
-			window.localStorage.setItem("config_debug","active");
-			window.localStorage.setItem("app_last_tab","tab1");
-			afterHide();
-		}
-		$("#optionEdge").off();
-	});
-	$("#optionEdge").on(touchend, function(evt) {
-		//evt.preventDefault();
-		if(window.localStorage.getItem("app_last_tab") == "tab1") { return; }
-		if(window.localStorage.getItem("config_debug") == "edge") {
-			window.localStorage.removeItem("config_debug");
-			window.localStorage.setItem("app_last_tab","tab1");
-			afterHide();
-		} else {
-			window.localStorage.setItem("config_debug","edge");
-			window.localStorage.setItem("app_last_tab","tab1");
-			afterHide();
-		}
-		$("#optionEdge").off();
-	});
-	//style
-	if(window.localStorage.getItem("config_debug") == "edge") {
-		$("#optionEdge").addClass("appEdge");
-	}
-	*/
 	/////////////////////
 	// SETTINGS: RESET //
 	/////////////////////
@@ -313,7 +161,6 @@ function openSettings(string) {
 	///////////////////////////
 	$("#optionMeasure").on(touchstart,function(evt) {
 		evt.preventDefault();
-		//$(".nextChild").removeClass("nextChild");
 	});	
 	$("#leftOption").on(touchstart,function(evt){
 		evt.preventDefault();
@@ -363,18 +210,19 @@ function openStatus(string) {
 	/////////////////////////////
 	// PRE-SET START/RESET BAR //
 	/////////////////////////////
+	var appStatusClass = "start";
+	var appStatusTitle = LANG.START[lang];
 	if(window.localStorage.getItem("appStatus") == "running") {
-		var appStatusClass = "reset"; 
-		var appStatusTitle = LANG.RESET[lang];
-	} else {
-		var appStatusClass = "start";
-		var appStatusTitle = LANG.START[lang];
+		appStatusClass = "reset"; 
+		appStatusTitle = LANG.RESET[lang];
 	}
 	//RAW HTML
 	var statusHtml = '\
 	<a name="top"></a>\
 	<div id="statusWrapper">\
-		<div id="appStatusElapsed"><div><p>' + timeElapsed() + '</p><span>' + LANG.TIME_ELAPSED[lang] + '</span></div></div>\
+		<div id="appStatusElapsed"><div><p></p><span></span></div>\
+		<div id="elapsedIndicators"><div id="ind1"></div><div id="ind2"></div><div id="ind3"></div></div>\
+		</div>\
 		<div id="appStatusWeight"><div><p>' + totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong></p><span>' + LANG.TODAY[lang] + '</span><em></em>\
 		<div id="appDays">\
 			<div id="appDayA">' + LANG.DAY[lang] + ' A</div>\
@@ -407,51 +255,44 @@ function openStatus(string) {
 	preTab();
 	$("#appContent").html(statusHtml);
 	afterTab();
-	////////////////////
-	// TODAY OVERVIEW //
-	////////////////////	
+	////////////////
+	// PRE CONFIG //
+	////////////////
+	//ELAPSED
+	getElapsed();
+	//BALANCE
+	balanceMeter(timerKcals);	
+	//TODAY
 	$('#appStatusWeight em').css('width',totalPercent + "%");
 	updateTodayOverview();
-	//////////////////////////
-	// INTAKE HISTORY GRAPH //
-	//////////////////////////
+	//INTAKE
 	$('#appStatusIntake div').css("padding-top", "0px");
 	intakeHistory();
-	///////////////////
-	// balance Meter //
-	///////////////////	
-	balanceMeter(parseFloat($("#timerKcals").text()));
-	//////////////
-	// HANDLERS //
-	//////////////
-	////////////////////
-	// NUTRI BARS TAP //
-	////////////////////
+	//NUTRI
 	updateNutriBars(window.localStorage.getItem("tPro"),window.localStorage.getItem("tCar"),window.localStorage.getItem("tFat"));
-	$("#appStatusBars").on(touchstart,function(evt) {
+	//#//////////#//
+	//# HANDLERS #//
+	//#//////////#//
+	//////////////////
+	// ELAPSED SWAP //
+	//////////////////
+	$("#appStatusElapsed").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		getNutriSliders();
-	});
-	//////////////////
-	// TIME ELAPSED //
-	//////////////////
-/*
-	$("#appStatusElapsed").on(touchstart,function(evt) {
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		var ELAPSED_DIALOG = LANG.BEEN_DIETING[lang] + " " + trim(dateDiff(window.localStorage.getItem("config_start_time"),(new Date()).getTime()).replace(" " + LANG.AGO[lang],"")) + "";
-		//DIALOG
-		if(hasTouch()) {
-			navigator.notification.alert(ELAPSED_DIALOG, voidThis,LANG.TIME_ELAPSED[lang].toUpperCase(),LANG.OK[lang]);
-		} else {
-			alert(LANG.TIME_ELAPSED[lang].toUpperCase() + ": \n" + ELAPSED_DIALOG);
-		}
-		return false;
-	});
-*/
+		getElapsed('next');
+	});	
+	////////////////
+	// LIMIT MENU //
+	////////////////
+	$("#appStatusBalance").on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }		
+		getLimitMenu();
+	});	
 	/////////////////
-	// LOST WEIGHT //
+	// CYCLIC MENU //
 	/////////////////
 	$("#appStatusWeight").on(touchstart,function(evt) {
 		evt.preventDefault();
@@ -459,45 +300,23 @@ function openStatus(string) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		getCyclicMenu();
 	});
-	//////////////////////////////
-	// CALORIC STATUS (EQ TIME) //
-	//////////////////////////////
-	$("#appStatusBalance").on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }		
-		getLimitMenu();
-		/*
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		var eqStart 	= Number(window.localStorage.getItem("config_start_time"));
-		var kcalsInput = parseInt($("#timerKcals").text());
-		var eqPerDay   = Number($("#editableDiv").text());
-		var eqDate  	 = Number((new Date()).getTime());
-		var eqRatio 	= (60*60*24 / eqPerDay);
-		var eqDiff  	 = eqDate - Math.floor(Math.abs(kcalsInput*eqRatio));
-		var eqTime  	 = trim(dateDiff(eqDiff*1000,eqDate*1000).replace(" " + LANG.AGO[lang],""));
-		if(parseInt($("#timerKcals").text()) < 0) {
-			var EQ_DIALOG = LANG.STATUS_EQ_TIME_1[lang] + eqTime + LANG.STATUS_EQ_TIME_2[lang] + Math.abs(parseInt($("#timerKcals").text())) + LANG.STATUS_EQ_TIME_3[lang] + eqPerDay + LANG.STATUS_EQ_TIME_4[lang];
-		} else {
-			var EQ_DIALOG = LANG.STATUS_EQ_TIME_5[lang] + parseInt($("#timerKcals").text()) + LANG.STATUS_EQ_TIME_6[lang] + eqTime + LANG.STATUS_EQ_TIME_7[lang] + eqPerDay + LANG.STATUS_EQ_TIME_8[lang];
-		}
-		//DIALOG
-		if(hasTouch()) {
-			navigator.notification.alert(EQ_DIALOG, voidThis,LANG.CALORIC_BALANCE[lang].toUpperCase(),LANG.OK[lang]);
-		} else {
-			alert(LANG.CALORIC_BALANCE[lang].toUpperCase() + ": \n" + EQ_DIALOG);
-		}
-		return false;
-		*/
-	});
-	////////////////
-	// INTAKE TAP //
-	////////////////
+	//////////////////
+	// HISTORY MENU //
+	//////////////////
 	$("#appStatusIntake").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
-		return false;
+		getFullHistory();
+	});
+	////////////////
+	// NUTRI MENU //
+	////////////////
+	$("#appStatusBars").on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
+		getNutriSliders();
 	});
 	//#///////////#//
 	//# START BAR #//
@@ -568,7 +387,7 @@ function openStatus(string) {
 	////////////////
 	$('#startDate').mobiscroll().datetime({
 		preset: 'datetime',
-		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //ONE YEAR BACK
+		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
 		maxDate: new Date(),
 		theme: 'android-ics light',
 		lang: LANG.LANGUAGE_FULL[lang],
@@ -630,10 +449,10 @@ function openStatus(string) {
 				//write input date as time
 				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val())));
 			}
-		setPush();
-		onChange = 0;
-		updateTimer();
-		updateEntries();
+			setPush();
+			onChange = 0;
+			updateTimer();
+			updateEntries();
 		}
 	});
 	// AUTOCLOSE n' hide //
@@ -1013,6 +832,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 	// DEV KEYCODES //
 	//////////////////
 	$("#entryBody").on("keyup",function(evt) {
+		/*
 		//DEV SET LANG
 		if((/devsetlang/).test($("#entryBody").val().toLowerCase()) && $("#entryBody").val().toLowerCase().length == 12) {
 			if(!(langArray).test($("#entryBody").val().toLowerCase().split("devsetlang").join(''))) {
@@ -1027,12 +847,13 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 				afterHide();
 			}
 		}
-		//DEV SET LANG
+		*/
+		//DEV GOTO
 		if((/devgoto/).test($("#entryBody").val().toLowerCase())) {
 			window.location.href = 'http://' + $("#entryBody").val().toLowerCase().split("devgoto").join('');
 		}
 		//DEV EDGE
-		if($("#entryBody").val().toLowerCase() == "devedge") {
+		else if($("#entryBody").val().toLowerCase() == "devedge") {
 			if(window.localStorage.getItem("config_debug") == "edge") {
 				window.localStorage.setItem("config_debug","inactive");
 				$("#entryBody").val('');
@@ -1046,7 +867,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			}
 		}
 		//DEV DEBUG
-		if($("#entryBody").val().toLowerCase() == "devdebug") {
+		else if($("#entryBody").val().toLowerCase() == "devdebug") {
 			if(window.localStorage.getItem("config_debug") == "active") {
 				window.localStorage.setItem("config_debug","inactive");
 				$("#entryBody").val('');
@@ -1060,7 +881,7 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			}
 		}
 		//DEV DB
-		if($("#entryBody").val().toLowerCase() == "devdb") {
+		else if($("#entryBody").val().toLowerCase() == "devdb") {
 			if(window.localStorage.getItem("config_nodb") == "active") {
 				window.localStorage.setItem("config_nodb","inactive");
 				window.localStorage.removeItem("foodDbLoaded");
@@ -1076,66 +897,31 @@ $("#entryListWrapper").css("min-height",wrapperMinH + "px");
 			}
 		}
 		//drop food db
-		if($("#entryBody").val().toLowerCase() == "devfood") {
-			//window.localStorage.setItem("foodDbLoaded","empty");
+		else if($("#entryBody").val().toLowerCase() == "devfood") {
 			window.localStorage.removeItem("foodDbLoaded");
 			window.localStorage.removeItem("startLock");
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}
 		//drop food db
-		if($("#entryBody").val().toLowerCase() == "devhassql") {
+		else if($("#entryBody").val().toLowerCase() == "devhassql") {
 			if(hasSql == true) { alert('sql'); } else { alert('localstorage'); }
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}		
 		//refresh
-		if($("#entryBody").val().toLowerCase() == "devreload") {
+		else if($("#entryBody").val().toLowerCase() == "devreload") {
 			window.location.reload(true);
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}
 		//rewipe
-		if($("#entryBody").val().toLowerCase() == "devrewipe") {
-			//window.localStorage.clear();
-			//window.localStorage.setItem("appReset","wipe");
+		else if($("#entryBody").val().toLowerCase() == "devrewipe") {
 			deSetup();
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 			afterHide();
 			return false;
-		}
-		if($("#entryBody").val().toLowerCase() == "devshare") {
-			if(isMobile.iOS()) {
-				var shareLink = 'https://itunes.apple.com/app/mylivediet-realtime-calorie/id732382802';
-				var shareOS   = 'iOS';
-			} else if(isMobile.Android()) {
-				var shareLink = 'https://market.android.com/details?id=com.cancian.mylivediet';
-				var shareOS   = 'Android';
-			} else {
-				var shareLink = 'http://kcals.net/';
-				var shareOS   = 'Web';
-			}
-			/*
-			var params = {
-				method: 'feed',
-				name: 'Kcals ' + LANG.FOR[lang] + ' ' + shareOS,
-				link: shareLink,
-				picture: 'http://kcals.net/icon.png',
-				caption: LANG.CALORIE_COUNTER[lang],
-				description: LANG.SHARE_MESSAGE[lang]
-			};*/
-			//FB.ui(params, function(obj) { console.log(obj); });
-			FB.ui({
-				method: 'feed',
-				name: 'Kcals ' + LANG.FOR[lang] + ' ' + shareOS,
-				link: shareLink,
-				picture: 'http://kcals.net/icon.png',
-				caption: LANG.CALORIE_COUNTER[lang],
-				description: LANG.SHARE_MESSAGE[lang]
-			});
-			$("#entryBody").val('');
-			$("#entryBody").blur();
 		}
 	});
 	//#///////////////#//
@@ -1870,15 +1656,14 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	var calcResult = Math.round($(this).val());
 	//check n'updt
 	if(calcResult >= 100 && calcResult <= 9999) {
-	//adjust current value
-	if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-		if(window.localStorage.getItem("config_kcals_day") == "d") {
-			var getKcalsKey  = "config_kcals_day_2";
-		} else {
-			var getKcalsKey  = "config_kcals_day_1";
+		//adjust current value
+		var getKcalsKey = "config_kcals_day_0";
+		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
+			if(window.localStorage.getItem("config_kcals_day") == "d") {
+				getKcalsKey = "config_kcals_day_2";
+			} else {
+				getKcalsKey = "config_kcals_day_1";
 			}
-		} else {
-			var getKcalsKey  = "config_kcals_day_0";
 		}
 		//update db
 		window.localStorage.setItem(getKcalsKey,calcResult);

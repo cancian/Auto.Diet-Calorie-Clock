@@ -48,25 +48,11 @@ function appTimer(id,content) {
 	else if(kcalsInput > limit2/2) { status = lSurplus;  cssClass = "surplus";  }
 	else if(kcalsInput < limit1/2) { status = lDeficit;  cssClass = "deficit";  }
 	else                           { status = lBalanced; cssClass = "balanced"; }
-	/////////////////
-	// WEIGHT LOSS //
-	/////////////////
-	var startLoss    = Number(window.localStorage.getItem("config_start_time"));
-	var numberLoss   = Number(window.localStorage.getItem("calcForm#pA6G"));
-	var unitLoss     = Number(window.localStorage.getItem("calcForm#select"));
-	var currentDaily = Number(window.localStorage.getItem("config_kcals_day_1"));
-	// tempo passado
-	// calorias por dia 
-	// total de calorias necessarias - total de calorias usadas 
-	// resto / 7700 = kg lost
-	//var week         = 60*60*24*7;
-	//var elapsedLoss  = Number(new Date().getTime()) - startLoss;
-	// weeks elapsed
-	//var elapsedRatio = elapsedLoss / week;
-	//var weightLoss   = ((numberLoss * elapsedRatio) / 1000).toFixed(7);
 	///////////////////
 	// UPDATE HEADER //
 	///////////////////
+	//global
+	timerKcals = kcalsInput;
 	//$("#timerKcals p").html(kcalsInput);
 	//$("#timerDaily p").html(eqPerDay);
 	var kcalsHtmlOutput = "";
@@ -124,7 +110,7 @@ function appTimer(id,content) {
 	///////////////////////
 	// UPDATE APP STATUS //
 	///////////////////////
-	if(appBalance != status) {
+	if(window.localStorage.getItem("appBalance") != status) {
 		appBalance = status;
 		window.localStorage.setItem("appBalance",status);
 	}
@@ -133,12 +119,11 @@ function appTimer(id,content) {
 		window.localStorage.setItem("cssOver",cssOver);
 	}
 	function updateStatus() {
-		$("#appStatusElapsed div p").html(timeElapsed());
-		//$("#appStatusWeight div p strong").html(weightLoss);
-		$("#appStatusBalance div p").html(appBalance);
-//		$("#entry_f-sum p").html(Number(window.localStorage.getItem("config_entry_f-sum")));
-//		$("#entry_e-sum p").html(Number(window.localStorage.getItem("config_entry_e-sum")));
+		if($("#appStatusBalance div p").html() != window.localStorage.getItem("appBalance")) {
+			$("#appStatusBalance div p").html(window.localStorage.getItem("appBalance"));
+		}
 		balanceMeter(kcalsInput);
+		getElapsed();
 	}
 	//ios flicker, who knows why
 	if(isMobile.iOS()) {
@@ -275,7 +260,7 @@ function cyclicTimeToKcals(startTime) {
 	var countCycleDaysB = 0;
 	var countCycleDaysC = 0;
 	var countCycleDaysD = 0;
-	// ONLY CYCLE *IF* WE HAVE BEEN DIETING FOR MORE THAN A DAY
+	// CYCLE *IF* WE HAVE BEEN DIETING FOR MORE THAN A DAY
 	if(timeSinceStarted > timeElapsedFirstDay) {
 		for(var countBack = 0; countBack < (wholeDaysSinceStarted); countBack++) {
 				 if(currentCountDay == "a") { countCycleDaysD = countCycleDaysD+1; /*PUSH TO NEXT*/ currentCountDay = "d"; /*(LAST DAY OVERCOUNT)*/ firstCycleDay = "d"; }
@@ -350,6 +335,8 @@ function cyclicTimeToKcals(startTime) {
 //# UPDATE NUTRI BARS #//
 //#///////////////////#//
 function updateNutriBars(tPro,tCar,tFat) {
+	if(window.localStorage.getItem("app_last_tab") != "tab1") { return; }
+	if(!$('#appStatusBars').html())						      { return; } 	
 	//total calories
 	var nTotal  = (tPro*4) + (tCar*4) + (tFat*9);
 	//return null
@@ -437,7 +424,7 @@ function updateNutriBars(tPro,tCar,tFat) {
 	$("#appStatusBarsFat span").html( (100 - parseFloat($("#appStatusBarsPro span").html()) - parseFloat($("#appStatusBarsCar span").html())) + "%");
 }
 //##################//
-//## CORE UPDATER ##//
+//## UPDATE TIMER ##//
 //##################//
 var timeLock = 0;
 function updateTimer() {
@@ -457,11 +444,11 @@ function updateTimer() {
 			$("#appStatusBars span").html("0%");
 		} else {
 			//console.log('updating entrylist sum');
-			var ts = 0;
-			var tf = 0;
-			var te = 0;
-			var ttf = 0;
-			var tte = 0;
+			var ts   = 0;
+			var tf   = 0;
+			var te   = 0;
+			var ttf  = 0;
+			var tte  = 0;
 			var tPro = 0;
 			var tCar = 0;
 			var tFat = 0; 
@@ -505,8 +492,6 @@ function updateTimer() {
 			if(te != window.localStorage.getItem("config_entry_e"))		{ window.localStorage.setItem("config_entry_e",te); }
 			if(ttf != window.localStorage.getItem("config_ttf"))		{ window.localStorage.setItem("config_ttf",ttf); updateTodayOverview(); }
 			if(tte != window.localStorage.getItem("config_tte"))		{ window.localStorage.setItem("config_tte",tte); updateTodayOverview(); }
-			//var day1 = window.localStorage.getItem("config_kcals_day_1");
-			//var day2 = window.localStorage.getItem("config_kcals_day_2");
 		}
 		///////////////////
 		// READ SETTINGS //
@@ -518,68 +503,4 @@ function updateTimer() {
 		}
 	});
 }
-
-
-/*
-function updateTimer() {
-	////////////////
-	// TIMER LOCK //
-	////////////////
-	if(window.localStorage.getItem("appStatus") != "running") {
-		window.localStorage.setItem("config_start_time",new Date().getTime());
-		window.localStorage.removeItem("config_entry_sum");
-		window.localStorage.removeItem("config_entry_f-sum");
-		window.localStorage.removeItem("config_entry_e-sum");	
-		$("#appStatusBars p").css("width",0);
-		$("#appStatusBars span").html("0%");
-	} else {
-		//console.log('updating entrylist sum');
-		var ts = 0;
-		var tf = 0;
-		var te = 0;
-		var tPro = 0;
-		var tCar = 0;
-		var tFat = 0; 
-
-		html5sql.process(["select * from diary_entry order by published desc;"],
-			function(transaction, results, data){
-				for(var i = 0; i < data.length; i++){
-					// EXPIRED
-					if(window.localStorage.getItem("config_start_time") <= Number(data[i].published)) {
-						ts = Number(data[i].title) + ts;
-						//total food/exercise										
-						if(Number(data[i].title) > 0) {
-							tf = tf + Number(data[i].title);
-						} else {
-							te = te + Number(data[i].title);
-						}
-					//total pro/car/fat
-						if(Number(data[i].pro) > 0) {
-							tPro = tPro + parseFloat(data[i].pro);
-						}
-						if(Number(data[i].car) > 0) {
-							tCar = tCar + parseFloat(data[i].car);
-						}
-						if(Number(data[i].fat) > 0) {
-							tFat = tFat + parseFloat(data[i].fat);
-						}					
-					}
-				updateNutriBars(tPro,tCar,tFat);
-				window.localStorage.setItem("tPro",tPro);
-				window.localStorage.setItem("tCar",tCar);
-				window.localStorage.setItem("tFat",tFat);	
-				//console.log('refreshing timer');
-				window.localStorage.setItem("config_entry_sum",ts*-1);
-				window.localStorage.setItem("config_entry_f-sum",tf);
-				window.localStorage.setItem("config_entry_e-sum",te);
-				var day1 = window.localStorage.getItem("config_kcals_day_1");
-				var day2 = window.localStorage.getItem("config_kcals_day_2");
-			}
-		},
-		function(error, statement){
-			//hande error here           
-		});	
-	}
-}
-*/
 

@@ -409,15 +409,21 @@ $(window).on("resize", function(evt) {
 		$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
 	}
 	if(window.localStorage.getItem("app_last_tab") == "tab1") {
-		//recalc balance
-		balanceMeter(parseFloat($("#timerKcals").text()));
-		//recalc intake history
+		//balance
+		balanceMeter(timerKcals,'now');
+		setTimeout(function() { balanceMeter(timerKcals,'now');	},0);
+		setTimeout(function() { balanceMeter(timerKcals,'now');	},600);
+		//intake history
 		intakeHistory();
 	}
 	//always resize intro
 	if($("#closeDiv").html()) {
 		appResizer(0);
 	}
+	//resize statistics
+	if($("#appHistory").html() && typeof rebuildHistory == 'function') {
+		rebuildHistory();
+	}	
 });
 //##////////////##//
 //##//  ONLOAD  ##//

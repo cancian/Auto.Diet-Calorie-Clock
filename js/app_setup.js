@@ -410,7 +410,6 @@ function setPush() {
 	if(window.localStorage.getItem("facebook_logged")) { updateFoodDb(); }
 	window.localStorage.setItem("lastEntryPush",new Date().getTime());
 }
-
 //#///////////////////#//
 //# AUX: SYNC ENTRIES #//
 //#///////////////////#//
@@ -816,7 +815,7 @@ function spinner(size) {
 		setTimeout(function() { $("#tempHolder").remove(); },250);
 		setTimeout(function() { $("#tempHolder").remove(); },500);
 		setTimeout(function() { $("#tempHolder").remove(); },1000);
-		setTimeout(function() { $("#tempHolder").remove(); },2000);
+		//setTimeout(function() { $("#tempHolder").remove(); },2000);
 		return;
 	}
 	//////////
@@ -1671,9 +1670,11 @@ function getNewWindow(title,content,handlers,save) {
 	$("#newWindowWrapper").off().on(transitionend,function() {
 		//scroller
 		setTimeout(function() {
-			if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
+			if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
 				$("#newWindow").css("overflow","hidden");
-				$("#newWindow").niceScroll({touchbehavior:false,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+				var horizScroll = $('#appHistory').html() ? true : false;
+				var touchScroll = isMobile.Windows() ? false : true;
+				$("#newWindow").niceScroll({touchbehavior:touchScroll,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
 			} else {
 				$("#newWindow").css("overflow","auto");
 			}
@@ -1709,6 +1710,7 @@ function getNewWindow(title,content,handlers,save) {
 			$("#newWindowWrapper").on(transitionend,function() {
 				$('body').removeClass('newwindow');
 				$('#newWindowWrapper').remove();
+				setPush();
 			});
 		});
 	});
