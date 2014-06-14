@@ -219,7 +219,11 @@ $(document).on("backbutton", function(evt) {
 	} else if($("#subBackButton").length) {
 		$("#subBackButton").trigger(touchend);
 	} else if($("#backButton").length) {
-		$("#backButton").trigger(touchend);
+		if($('.dwo').length) {
+			$("#getEntryDate").mobiscroll('cancel');
+		} else {
+			$("#backButton").trigger(touchend);
+		}
 	} else if($("#addNewCancel").length || $("#modalCancel").length) {
 		$("#addNewCancel").trigger(touchstart);
 		$("#modalCancel").trigger(touchstart);
@@ -421,9 +425,11 @@ $(window).on("resize", function(evt) {
 		appResizer(0);
 	}
 	//resize statistics
-	if($("#appHistory").html() && typeof rebuildHistory == 'function') {
-		rebuildHistory();
-	}	
+	setTimeout(function() {
+		if($("#appHistory").html() && typeof rebuildHistory == 'function') {
+			rebuildHistory();
+		}
+	},0);
 });
 //##////////////##//
 //##//  ONLOAD  ##//

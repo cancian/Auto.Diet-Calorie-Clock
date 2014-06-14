@@ -1,6 +1,6 @@
-﻿//#//////////////////#//
-//# DYNAMIC HANDLERS #//
-//#//////////////////#//
+﻿//##//////////////////##//
+//## DYNAMIC HANDLERS ##//
+//##//////////////////##//
 $(document).on("pageload", function(evt) {
 	// PREVENT++ //
 	if((evt.target.id) > 0) {
@@ -8,30 +8,38 @@ $(document).on("pageload", function(evt) {
 	} else {
 		var tgt = "";
 	}
-	///////////////////
-	// HOLD PRE-FILL //
-	///////////////////
-	var deKeyboard = 0;
-	/*
+	var entryReturn = false;
+	//#///////////#//
+	//# HOLD EDIT #//
+	//#///////////#//
+	var deMove = 0;
+	var cancelEdit = 0;
 	$("#entryList div" + tgt).on("longhold",function(evt) {
-		if($('#entryList .entryListRow').length > 0 && !$("#kcalsDiv").is(":visible") && !$('.delete').hasClass('open') && deKeyboard == 0) {
-			var holdPreText = trim($('.entriesBody',this).text());
-			$("#entryBody").stop().animate({ backgroundColor: "#ffff88" }, 1,function() { $("#entryBody").val(holdPreText); $("#entryBody").trigger("change"); }).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
-			$('.entriesBody',this).stop().animate({ color: "#ffcc33" }, 1).animate({ color: "#666"},900,function() { updateEntries(); } );
+		entryReturn = true;
+		deKeyboard = 1;
+		if(cancelEdit == 0) {
+			getEntryEdit($(this).attr('id'));
+		}
+	});
+	$("#entryList div, #appContent").on(touchmove + ' mouseleave mouseout mouseup mousemove ' + touchend,function(evt) {
+		deMove++;
+		if(deMove > 5) {
+			cancelEdit = 1;
 		}
 	});
 	$("#appContent").scroll(function() {
 		deKeyboard = 1;
+		cancelEdit = 1;
 	});
-	*/
 	//////////////////
 	// FORCE RETURN //
 	//////////////////
-	var entryReturn = false;
 	$("#entryList div" + tgt).on(touchstart, function(evt) {
 		if($('#entryTime').is(':focus')) { entryReturn = true; }
 		if($('#entryBody').is(':focus')) { entryReturn = true; }
 		deKeyboard = 0;
+		deMove = 0;
+		cancelEdit = 0;
 	});
 	$("#entryList div" + tgt).on(tap, function(event) {
 	//$("#entryList div" + tgt).swipe({tap:function(event) {

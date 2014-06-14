@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * SwipeView v1.0 ~ Copyright (c) 2012 Matteo Spinelli, http://cubiq.org
  * Released under MIT license, http://cubiq.org/license
  */

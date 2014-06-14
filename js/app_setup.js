@@ -531,9 +531,48 @@ function getEntries(start,callback) {
 		callback(lib.query("diary_entry", function(data){ if(data.info != "deleted") { return true; } else { return false; }}));
 	}
 }
-//////////////////
-// DELETE ENTRY //
-//////////////////
+///////////////
+// GET ENTRY //
+///////////////
+function getEntry(eid,callback) {
+	if(arguments.length == 1) { callback = arguments[0]; }
+	if(hasSql) {
+		db.transaction(function(t) {
+			t.executeSql('select * from diary_entry where ID=?', [eid], function(t,results) { callback(fixResults(results)); });
+		});
+	} else {
+		callback(lib.query("diary_entry", {id: eid}));
+	}
+};
+//#//////////////////#//
+//# DB: UPDATE ENTRY #//
+//#//////////////////#//
+function updateEntry(data) {
+	if(hasSql) {
+		db.transaction(function(t) {
+			t.executeSql('insert or replace into diary_entry(id,title,body,published,pro,car,fat) values(?,?,?,?,?,?,?)', [data.id,parseInt(data.title) + '',data.body,parseInt(data.published) + '',data.pro,data.car,data.fat]);
+			setPush();
+		});
+	} else {
+		lib.insertOrUpdate("diary_entry", { id: parseInt(data.id) }, {
+			"id":data.id,
+			"title":parseInt(data.title),
+			"body":data.body,
+			"published": parseInt(data.published),
+			"info":'',
+			"kcal":'',
+			"pro":data.pro,
+			"car":data.car,
+			"fat":data.fat,
+			"fib":''
+		});
+		lib.commit();
+		setPush();
+	}
+}
+//#//////////////////#//
+//# DB: DELETE ENTRY #//
+//#//////////////////#//
 function deleteEntry(rid, callback) {
 	if(hasSql) {
 		db.transaction(function(t) {
@@ -1107,6 +1146,9 @@ function updateEntries(partial,range,callback) {
 		if(s != "") {
 			if(partial) {
 				//IF PARTIAL + nonRepeat
+				if($("#" + lastId).html()) {
+					$("#" + lastId).remove();
+				}
 				if(!$("#" + lastId).html()) {
 					pageLoad("#entryList",lastRow,partial);
 				} else { return false; }
@@ -1670,11 +1712,15 @@ function getNewWindow(title,content,handlers,save) {
 	$("#newWindowWrapper").off().on(transitionend,function() {
 		//scroller
 		setTimeout(function() {
-			if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
-				$("#newWindow").css("overflow","hidden");
+			if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
 				var horizScroll = $('#appHistory').html() ? true : false;
-				var touchScroll = isMobile.Windows() ? false : true;
-				$("#newWindow").niceScroll({touchbehavior:touchScroll,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
+				var touchBeh = true;
+				if(isMobile.Android()) { touchBeh = false; }
+				$("#newWindow").css("overflow","hidden");
+				$("#newWindow").niceScroll({touchbehavior:touchBeh,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
+			} else if(isMobile.Windows() && $('#appHistory').html()) {
+				$("#newWindow").css("overflow","hidden");
+				$("#newWindow").niceScroll({touchbehavior:false,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:true,hwacceleration:true});
 			} else {
 				$("#newWindow").css("overflow","auto");
 			}
@@ -1686,7 +1732,9 @@ function getNewWindow(title,content,handlers,save) {
 		///////////////////////////////////
 		// SAVE HANDLER //
 		//////////////////
-		$("#saveButton").off().on(touchend,function() {
+		$("#saveButton").off().on(touchend,function(evt) {
+			evt.preventDefault();
+			evt.stopPropagation();
 			if(save() == true) {
 				$("#newWindowWrapper").off();
 				$("#newWindow").getNiceScroll().remove();
@@ -1697,12 +1745,20 @@ function getNewWindow(title,content,handlers,save) {
 					$('#newWindowWrapper').remove();
 					setPush();
 				});
+				setTimeout(function() {
+					$('body').removeClass('newwindow');
+					$('#newWindowWrapper').remove();
+					setPush();				
+				},300);
+				kickDown();
 			}
 		});
 		////////////////////
 		// CLOSER HANDLER //
 		////////////////////
-		$("#backButton").off().on(touchend,function() {
+		$("#backButton").off().on(touchend,function(evt) {
+			evt.preventDefault();
+			evt.stopPropagation();
 			$("#newWindowWrapper").off();
 			$("#newWindow").getNiceScroll().remove();
 			$("#newWindowWrapper").removeClass('open');
@@ -1712,6 +1768,12 @@ function getNewWindow(title,content,handlers,save) {
 				$('#newWindowWrapper').remove();
 				setPush();
 			});
+			setTimeout(function() {
+				$('body').removeClass('newwindow');
+				$('#newWindowWrapper').remove();
+				setPush();				
+			},300);
+			kickDown();
 		});
 	});
 }
@@ -1768,12 +1830,10 @@ function buildLangMenu(opt) {
 	$("#langSelect").hide();
 	$("#langSelect").stop().fadeIn(200,function() {
 		//scroller
-		if(!isMobile.iOS() || opt == "intro") {
-			if(androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.FirefoxOS()) {
-				$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-			} else {
-				$("#langSelect").css("overflow","auto");	
-			}
+		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.MSApp() && !isMobile.Windows() && !isMobile.FirefoxOS()) {
+			$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		} else {
+			$("#langSelect").css("overflow","auto");	
 		}
 	});
 	/////////////
@@ -1832,7 +1892,16 @@ function buildLangMenu(opt) {
 				//$("#langSelect").remove();
 				//refresh intro
 				if(opt == "intro") {
-					showIntro();
+					$("#slide1 p").html(LANG.INTRO_SLIDE_1[lang].split(".").join(". "));
+					$("#slide2 p").html(LANG.INTRO_SLIDE_2[lang].split(".").join(". "));
+					$("#slide3 p").html(LANG.INTRO_SLIDE_3[lang].split(".").join(". "));
+					$("#slide4 p").html(LANG.INTRO_SLIDE_4[lang].split(".").join(". "));
+					$("#slide5 p").html(LANG.INTRO_SLIDE_5[lang].split(".").join(". "));
+					$("#slide6 p").html(LANG.INTRO_SLIDE_6[lang].split(".").join(". "));
+					$("#closeDiv").html(LANG.CLOSE_INTRO[lang]);
+					$("#appLang").html(LANG.LANGUAGE_NAME[lang]);
+					$("#skipIntro").html(LANG.SKIP[lang]);
+					//showIntro();
 				}
 				},80);
 			});

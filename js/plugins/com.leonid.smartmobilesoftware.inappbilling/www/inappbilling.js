@@ -1,4 +1,4 @@
-cordova.define("com.leonid.smartmobilesoftware.inappbilling.InAppBillingPlugin", function(require, exports, module) { /*
+﻿cordova.define("com.leonid.smartmobilesoftware.inappbilling.InAppBillingPlugin", function(require, exports, module) { /*
  * Copyright (C) 2012-2013 by Guillaume Charhon
  * Modifications 10/16/2013 by Brian Thurlow
  */

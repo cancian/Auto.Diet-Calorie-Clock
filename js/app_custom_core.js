@@ -178,7 +178,7 @@ function appTimer(id,content) {
 //#////////////////////////#//
 function timeToKcals(start) {
 	var now             = (new Date()).getTime();
-	var timeSinceStart  = (now - start) / 1000;
+	var timeSinceStart  = (now - window.localStorage.getItem("config_start_time")) / 1000;
 	var kcalsPerDay     = window.localStorage.getItem("config_kcals_day_0");
 	var KcalsTimeRatio  = 60*60*24 / kcalsPerDay;
 	//var kcalsSinceStart = Math.floor((timeSinceStart / KcalsTimeRatio)*31)*(-1);
@@ -231,7 +231,7 @@ function cyclicTimeToKcals(startTime) {
 	//var intakeC    = 1440;
 	//var intakeD    = 1440*2; //2880;
 	// DIET START DATE
-	var dietStartTime         = startTime; //Date.parse("August 13, 2013") - (0*3600*1000) + (0*60*1000) - (((new Date().getTimezoneOffset()) * 60 * 1000));
+	var dietStartTime         = window.localStorage.getItem("config_start_time"); //startTime; //Date.parse("August 13, 2013") - (0*3600*1000) + (0*60*1000) - (((new Date().getTimezoneOffset()) * 60 * 1000));
 	// CYCLE VARS
 	var timeSinceStarted      = now - dietStartTime;
 	var daysSinceStarted      = timeSinceStarted / day;
@@ -241,10 +241,10 @@ function cyclicTimeToKcals(startTime) {
 	var timeElapsedFirstDay   = (timeSinceStarted) - (wholeDaysSinceStarted * day) - (timeElapsedToday);
 	var timeElapsedWholeDays  = (wholeDaysSinceStarted * day);
 	////////////////////////////////
-	// ABSOLUTE CURRENT CYCLE DAY //
+	// ABSOLUTE CURRENT CYCLE DAY // ~ absolute 0 messes offset, use equivalent date parse
 	//////////////////////////////// //DEFINE DAYS SINCE absolute 0, LOOPING ABCD (15930~ days)
 	var cycleDay = "a";
-	for(var dietDay = 0; dietDay < now; dietDay = dietDay + day) {
+	for(var dietDay = Date.parse("January 01, 2012"); dietDay < now; dietDay = dietDay + day) {
 			 if(cycleDay == "a") { currentDay = "a"; /*PUSH TO NEXT*/ cycleDay = "b"; }
 		else if(cycleDay == "b") { currentDay = "b"; /*PUSH TO NEXT*/ cycleDay = "c"; }
 		else if(cycleDay == "c") { currentDay = "c"; /*PUSH TO NEXT*/ cycleDay = "d"; }

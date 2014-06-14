@@ -266,6 +266,7 @@ function trim(str) {
 // DATE FORMAT //
 /////////////////
 function dtFormat(input) {
+	/*
     if(!input) return "";
 	input    = new Date(input);
     var res  = (input.getMonth()+1) + "/" + input.getDate() + "/" + input.getFullYear() + " ";
@@ -280,6 +281,18 @@ function dtFormat(input) {
     if(minute < 10) minute = "0" + minute;
     res += hour + ":" + minute + " " + ampm;
     return res;
+	*/
+    if(!input) { return ""; }
+	input        = new Date(input);
+	var gotMonth = input.getMonth()+1;
+	var gotDate  = input.getDate();
+	var hour     = input.getHours();
+    var minute   = input.getMinutes(); //+1;
+    if(minute < 10)   { minute = "0" + minute; }
+	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
+	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
+	//
+	return input.getFullYear() + "/" + gotMonth + "/" + gotDate + ' - ' + hour + ":" + minute;
 }
 ////////////////////
 // DAY UTC FORMAT //
@@ -304,14 +317,13 @@ function dayFormat(input) {
 	var gotDate  = input.getDate();
 	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
 	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
-	if(LANG.LANGUAGE[lang] == "pt") { 
-		var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
-	} else {
-	//    var res = gotMonth + "/" + gotDate + "/" + input.getFullYear();
+	//if(LANG.LANGUAGE[lang] == "pt") { 
+	//	var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
+	//} else {
+	//  var res = gotMonth + "/" + gotDate + "/" + input.getFullYear();
 	//}
-		var res = input.getFullYear() + "/" + gotMonth + "/" + gotDate;
-	}
-    return res;
+	return res = input.getFullYear() + "/" + gotMonth + "/" + gotDate;
+	//}
 }
 //////////////
 // DATEDIFF //
@@ -376,6 +388,18 @@ function android2Select() {
 		$('#dummyInput').focus();
 		$('#dummyInput').blur();
 		$('#dummyInput').remove();
+	}
+}
+//////////////
+// KICKDOWN //
+//////////////
+function kickDown() {
+	if(!$('body').hasClass('android2')) {
+		if(!isDesktop() || isMobile.MSApp()) {
+			window.scroll($('#appContent')[0].scrollTop,0,0);
+		}
+	} else {
+		$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 	}
 }
 /////////////////

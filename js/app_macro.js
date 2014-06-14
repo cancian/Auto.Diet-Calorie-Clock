@@ -775,6 +775,7 @@ function getCyclicMenu() {
 		// TAP BLUR //
 		//////////////
 		$('#appMode').on(touchend,function(evt) {
+			evt.stopPropagation();
 			if($("#appCyclic1").is(':focus') || $("#appCyclic2").is(':focus')) {
 				if(evt.target.id != "appCyclic1" && evt.target.id != "appCyclic2") {
 					evt.preventDefault();
@@ -948,6 +949,7 @@ function getLimitMenu() {
 		// TAP BLUR //
 		//////////////
 		$('#appLimit').on(touchend,function(evt) {
+			evt.stopPropagation();
 			if($("#appLimit1").is(':focus') || $("#appLimit2").is(':focus')) {
 				if(evt.target.id != "appLimit1" && evt.target.id != "appLimit2") {
 					evt.preventDefault();
@@ -1067,4 +1069,146 @@ function getElapsed(swap) {
 		$('#ind' + swap).addClass('activeSwap');
 	}
 }
+//##////////////////##//
+//## GET ENTRY EDIT ##//
+//##////////////////##//
+function getEntryEdit(eid) {
+	getEntry(eid,function(data) {
+		//////////////
+		// HANDLERS //
+		//////////////
+		var getEntryHandler = function() {
+			//MOBISCROLL
+			$('#getEntryDate').mobiscroll().datetime({
+				preset: 'datetime',
+				minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0),
+				maxDate: new Date(),
+				theme: 'android-ics light',
+				lang: 'en',
+		       	dateFormat: 'yyyy/mm/dd',
+        		dateOrder:  'dd MM yy',
+		        timeWheels: 'HH:ii',
+		        timeFormat: 'HH:ii',
+				setText: LANG.OK[lang],
+				closeText: LANG.CANCEL[lang],
+				cancelText: LANG.CANCEL[lang],
+				display: 'modal',
+				stepMinute: 1,
+				animate: 'none',
+				monthNames: LANG.MONTH_SHORT[lang].split(', '),
+				monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
+				mode: 'scroller'
+			});
+			//SET
+			$('#getEntryDate').scroller('setDate',new Date(parseInt($('#getEntryDate').val())), true);
+			//SAVE IF CHANGED
+			$('#getEntryDate').on('change',function() {
+				$('#getEntryDateHidden').val(Date.parse($(this).val()));
+			});
+			$('#getEntryDate').on(touchstart,function(evt) {
+				evt.preventDefault();
+				evt.stopPropagation();
+				kickDown();
+				setTimeout(function() {
+					$("#getEntryWrapper input").blur();
+					$('#getEntryDate').click();
+				},100);
+			});
+			$('#getEntryDate').on('focus',function() {
+				$('#getEntryDate').blur();
+			});
+			/////////////////////////
+			// backport validation //
+			/////////////////////////
+			var defaultInputHeaderi = "keypress";
+			if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputHeaderi = "keydown"; }
+			$("#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat").on(defaultInputHeaderi, function(evt) {
+				//no dots
+				if((evt.which || evt.keyCode) == 46) { return false; }
+				if((evt.which || evt.keyCode) == 8)  { return true; }
+				if((evt.which || evt.keyCode) == 13) { return true; }
+				//max
+				if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
+					$(this).val( parseInt($(this).val()) );
+					$(this).val( $(this).val().slice(0,-1) );
+				}
+				//num only
+				return isNumberKey(evt);
+			});
+			//////////////////////
+			// BASIC VALIDATION //
+			//////////////////////
+			$("#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat").blur(defaultInputHeaderi, function(evt) {
+				if($(this).val() == "")   { $(this).val(0); }
+				if($(this).val() == 0)    { $(this).val(0); }
+				if(isNaN($(this).val()))  { $(this).val(0); }
+				if(evt.target.id != "getEntryTitle") {
+					if($(this).val() < 0) { $(this).val(0); }
+				}
+				if($(this).val() > 9999)  { $(this).val(9999); }
+			});
+			//////////////
+			// TAP BLUR //
+			//////////////
+			$('#newWindow').on(touchend,function(evt) {
+				evt.stopPropagation();
+				if($("#getEntryWrapper input").is(':focus')) {
+					if((evt.target.id).indexOf('getEntry') === -1) {
+						evt.preventDefault();
+					}
+				}
+				if((evt.target.id).indexOf('getEntry') === -1) {
+					kickDown();
+					$("#getEntryWrapper input").blur();
+				}
+			});
+		};
+		/////////////
+		// CONFIRM //
+		/////////////
+		var getEntrySave = function() {
+			//WRITE
+			updateEntry({
+				id:parseInt($('#getEntryId').val()),
+				title:$("#getEntryTitle").val() + '',
+				body:$("#getEntryBody").val() + '',
+				published:parseInt($('#getEntryDateHidden').val()) + '',
+				pro:parseFloat($("#getEntryPro").val()) + '',
+				car:parseFloat($("#getEntryCar").val()) + '',
+				fat:parseFloat($("#getEntryFat").val()) + ''
+			});
+			//REFRESH DATA
+			setTimeout(function() {
+				//$('#' + $('#getEntryId').val()).remove();
+				updateEntries(parseInt($('#getEntryDateHidden').val()));
+			}, 0);
+			return true;
+		};
+		//////////
+		// HTML //
+		//////////
+		var pro = data[0].pro;
+		var car = data[0].car;
+		var fat = data[0].fat;
+		if(!data[0].pro || isNaN(pro)) { pro = 0; }
+		if(!data[0].car || isNaN(car)) { car = 0; }
+		if(!data[0].fat || isNaN(fat)) { fat = 0; }
+		var getEntryHtml = "\
+			<div id='getEntryWrapper'>\
+				<div id='divEntryBody'><span>"  + LANG.ADD_NAME[lang] + "</span><input type='text' id='getEntryBody' value='"    + data[0].body      + "' /></div>\
+				<div id='divEntryTitle'><span>" + LANG.KCAL[lang]     + "</span><input type='number' id='getEntryTitle' value='" + data[0].title     + "' /></div>\
+				<div id='divEntryPro'><span>"   + LANG.PRO[lang]      + "</span><input type='number' id='getEntryPro' value='"   + pro               + "' /></div>\
+				<div id='divEntryCar'><span>"   + LANG.CAR[lang]      + "</span><input type='number' id='getEntryCar' value='"   + car               + "' /></div>\
+				<div id='divEntryFat'><span>"   + LANG.FAT[lang]      + "</span><input type='number' id='getEntryFat' value='"   + fat               + "' /></div>\
+				<div id='divEntryDate'><span>"  + LANG.DATE[lang]     + "</span><input type='text' id='getEntryDate' value='"    + data[0].published + "' /></div>\
+				<input type='hidden' id='getEntryId'         value='" + data[0].id        + "' />\
+				<input type='hidden' id='getEntryDateHidden' value='" + data[0].published + "' />\
+			</div>";
+		/////////////////
+		// CALL WINDOW //
+		/////////////////
+		getNewWindow(LANG.EDIT[lang],getEntryHtml,getEntryHandler,getEntrySave);
+	});
+}
+
 
