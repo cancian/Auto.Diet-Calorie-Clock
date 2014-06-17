@@ -286,7 +286,7 @@ $(document).on("pressenter", function(evt) {
 	if($(".set").html()) {
 		$(".set").trigger(tap);
 	} else {
-		$("#skipIntro").trigger(touchstart);
+		$("#skipIntro").trigger(touchend);
 	}
 	if($('#appStatusFix').hasClass("open")) {
 		$("#startDate").mobiscroll('set');

@@ -44,8 +44,7 @@ function showIntro() {
 	//////////////
 	// HANDLERS //
 	//////////////
-	$("#skipIntro, #closeDiv").on(touchstart + ' click',function(evt) {
-		//evt.preventDefault();
+	$("#skipIntro, #closeDiv").on(touchend,function(evt) {
 		evt.stopPropagation();
 			$("#gettingStarted").fadeOut(200,function() {
 			$("#gettingStarted").remove();
@@ -56,7 +55,7 @@ function showIntro() {
 		if(myScroll) {
 			myScroll.destroy();
 		}
-		return false;
+		evt.preventDefault();
 	});
 	$("#gettingStarted").on(touchstart,function(evt) {
 		evt.stopPropagation();

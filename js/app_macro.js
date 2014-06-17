@@ -1108,7 +1108,7 @@ function getEntryEdit(eid) {
 				monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
 				mode: 'scroller'
 			});
-			//HOLD POST FLICKER
+			//HOLD FLICKER
 			if(isMobile.Android()) {
 				$('#divEntryTitle').focus();
 				$('#divEntryTitle').blur();
