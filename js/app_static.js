@@ -22,11 +22,16 @@ $(document).ready(function() {
 		console.log(error);
 	}
 });
+////////////////
+// RESUME EVT //
+////////////////
+var resumeTimeout;
 $(document).on("resume",function() { 
-setTimeout(function() { 
-	updateLoginStatus(1);
-	getAnalytics('resume');
-},6000);
+	clearTimeout(resumeTimeout);
+	resumeTimeout = setTimeout(function() { 
+		updateLoginStatus(1);
+		getAnalytics('resume');
+	},6000);
 });
 //##///////////##//
 //## START APP ##//
@@ -446,7 +451,7 @@ if(window.localStorage.getItem("config_debug") == "edge") {
 	$("#appFooter").addClass("appEdge");
 	$("body").addClass("appEdge");
 }
-if(window.localStorage.getItem("facebook_logged")) {
+if(window.localStorage.getItem("facebook_logged") && isPaid()) {
 	$("#appFooter").addClass("appFacebook");
 	$("body").addClass("appFacebook");
 }
@@ -620,14 +625,14 @@ setTimeout(function() {
 (function lastEntryPush() {
 	var now = new Date().getTime();
 	//sync lock
-	if(window.localStorage.getItem("pendingSync") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_logged")) {
+	if(isPaid() && window.localStorage.getItem("pendingSync") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_logged")) {
 		if(now - window.localStorage.getItem("pendingSync") > 30000) {
 			syncEntries(window.localStorage.getItem("facebook_userid"));
 			window.localStorage.setItem("pendingSync",Number(window.localStorage.getItem("pendingSync")) + 30000);
 		}
 	}
 	//push lock
-	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("lastEntryPush")) {
+	if(isPaid() && window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("lastEntryPush")) {
 		if(now - window.localStorage.getItem("lastEntryPush") > 500 && window.localStorage.getItem("foodDbLoaded") == "done") {
 			pushEntries(window.localStorage.getItem("facebook_userid"));
 			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);

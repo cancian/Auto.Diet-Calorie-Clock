@@ -1073,17 +1073,26 @@ function getElapsed(swap) {
 //## GET ENTRY EDIT ##//
 //##////////////////##//
 function getEntryEdit(eid) {
+	//swap food/exercise button
 	getEntry(eid,function(data) {
 		//////////////
 		// HANDLERS //
 		//////////////
 		var getEntryHandler = function() {
+			//food/exercise
+			if($("#getEntryTitle").val() >= 0) { 
+				$("#divEntryTitle").addClass('food');
+			} else {
+				$("#getEntryTitle").val( Math.abs($("#getEntryTitle").val()) );
+				$("#divEntryTitle").addClass('exercise');
+			}
 			//MOBISCROLL
+			$('#getEntryDate').scroller('setDate',new Date(parseInt($('#getEntryDate').val())), true);
 			$('#getEntryDate').mobiscroll().datetime({
 				preset: 'datetime',
 				minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0),
 				maxDate: new Date(),
-				theme: 'android-ics light',
+				theme: 'ios7',
 				lang: 'en',
 		       	dateFormat: 'yyyy/mm/dd',
         		dateOrder:  'dd MM yy',
@@ -1099,6 +1108,11 @@ function getEntryEdit(eid) {
 				monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
 				mode: 'scroller'
 			});
+			//HOLD POST FLICKER
+			if(isMobile.Android()) {
+				$('#divEntryTitle').focus();
+				$('#divEntryTitle').blur();
+			}
 			//SET
 			$('#getEntryDate').scroller('setDate',new Date(parseInt($('#getEntryDate').val())), true);
 			//SAVE IF CHANGED
@@ -1108,11 +1122,18 @@ function getEntryEdit(eid) {
 			$('#getEntryDate').on(touchstart,function(evt) {
 				evt.preventDefault();
 				evt.stopPropagation();
-				kickDown();
-				setTimeout(function() {
+				// HARD PROPAGATION FIX
+				if($("#getEntryWrapper input").is(':focus')) {
+					kickDown();
 					$("#getEntryWrapper input").blur();
+					$("#getEntryWrapper input").css('pointer-events','none');
+					setTimeout(function() {
+						$('#getEntryDate').click();
+						$("#getEntryWrapper input").css('pointer-events','auto');
+					},900);
+				} else {
 					$('#getEntryDate').click();
-				},100);
+				}
 			});
 			$('#getEntryDate').on('focus',function() {
 				$('#getEntryDate').blur();
@@ -1139,6 +1160,11 @@ function getEntryEdit(eid) {
 			// BASIC VALIDATION //
 			//////////////////////
 			$("#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat").blur(defaultInputHeaderi, function(evt) {
+				if(evt.target.id != "getEntryTitle") {
+					$(this).val(parseInt($(this).val()));
+				} else {
+					$(this).val(parseFloat($(this).val()));					
+				}
 				if($(this).val() == "")   { $(this).val(0); }
 				if($(this).val() == 0)    { $(this).val(0); }
 				if(isNaN($(this).val()))  { $(this).val(0); }
@@ -1146,6 +1172,9 @@ function getEntryEdit(eid) {
 					if($(this).val() < 0) { $(this).val(0); }
 				}
 				if($(this).val() > 9999)  { $(this).val(9999); }
+			});
+			$("#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat").on('focus', function(evt) {
+				if($(this).val() == 0)    { $(this).val(''); }
 			});
 			//////////////
 			// TAP BLUR //
@@ -1159,7 +1188,12 @@ function getEntryEdit(eid) {
 				}
 				if((evt.target.id).indexOf('getEntry') === -1) {
 					kickDown();
+					//HARD PROPAGATION FIX
 					$("#getEntryWrapper input").blur();
+					$("#getEntryWrapper input").css('pointer-events','none');
+					setTimeout(function() {
+						$("#getEntryWrapper input").css('pointer-events','auto');
+					},300);
 				}
 			});
 		};
@@ -1167,20 +1201,22 @@ function getEntryEdit(eid) {
 		// CONFIRM //
 		/////////////
 		var getEntrySave = function() {
+			var FoE = $("#divEntryTitle").hasClass('exercise') ? -1 : 1; 
 			//WRITE
 			updateEntry({
 				id:parseInt($('#getEntryId').val()),
-				title:$("#getEntryTitle").val() + '',
-				body:$("#getEntryBody").val() + '',
+				title:($("#getEntryTitle").val() * FoE)            + '',
+				body:$("#getEntryBody").val()                      + '',
 				published:parseInt($('#getEntryDateHidden').val()) + '',
-				pro:parseFloat($("#getEntryPro").val()) + '',
-				car:parseFloat($("#getEntryCar").val()) + '',
-				fat:parseFloat($("#getEntryFat").val()) + ''
+				pro:parseFloat($("#getEntryPro").val())            + '',
+				car:parseFloat($("#getEntryCar").val())            + '',
+				fat:parseFloat($("#getEntryFat").val())            + '',
 			});
 			//REFRESH DATA
 			setTimeout(function() {
 				//$('#' + $('#getEntryId').val()).remove();
 				updateEntries(parseInt($('#getEntryDateHidden').val()));
+				updateEntriesSum();
 			}, 0);
 			return true;
 		};
@@ -1210,5 +1246,147 @@ function getEntryEdit(eid) {
 		getNewWindow(LANG.EDIT[lang],getEntryHtml,getEntryHandler,getEntrySave);
 	});
 }
-
+//##////////////////##//
+//## BILLING MODULE ##//
+//##////////////////##//
+function isPaid() {
+	var isPaid = false;
+	///////////////////
+	// ANDROID CHECK //
+	///////////////////
+	if(!window.localStorage.getItem("facebook_mode")) {
+		window.localStorage.setItem('facebook_mode','regular');
+	}
+	if(isMobile.Android()) {
+		if(window.localStorage.getItem("facebook_mode") == 'premium') {
+			isPaid = true;
+			$("body").removeClass("shareware");
+		} else {
+			isPaid = false;
+			$("body").addClass("shareware");
+		}
+	////////////////////////
+	// BILLING UNVAILABLE //
+	////////////////////////
+	} else {
+		isPaid = true;	
+		$("body").removeClass("shareware");
+	}
+	//return bool
+	return isPaid;
+}
+//#//////////////////#//
+//# AUTORIZE ROUTINE #//
+//#//////////////////#//
+var didUnlock = false;
+function billingAuthorize(auth,msg) {
+	if(auth == 1) { didUnlock = 1; } else { didUnlock = 0; }
+	////////////
+	// UNLOCK //
+	////////////
+	function doUnlock(auth) {
+		if(didUnlock != 1) { return; }
+		$("#backButton").trigger(touchend);
+		//auto login
+		setTimeout(function() {
+			window.localStorage.setItem('facebook_mode','premium');
+			if(!window.localStorage.getItem("facebook_logged") && !window.localStorage.getItem("facebook_username")) {
+				$("#optionFacebook").trigger(touchend);
+			} else {
+				updateLoginStatus(1);
+			}
+			getAnalytics('iap');
+		},500);
+	}
+	////////////////////
+	// CONFIRM/NOTIFY //
+	////////////////////
+	var msgTitle = (auth == 1) ? LANG.SUCCESS[lang] : LANG.ERROR[lang];
+	if(isMobile.MSApp()) {
+		var md = new Windows.UI.Popups.MessageDialog(msg, msgTitle);
+		md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
+		md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { doUnlock(); } });
+	} else if(hasTouch()) {
+		navigator.notification.confirm(msg, doUnlock, msgTitle, [LANG.OK[lang]]);
+	} else {
+		if(confirm(msgTitle + "\n" + msg)) { doUnlock(); }
+	}
+}
+//#/////#//
+//# BUY #//
+//#/////#//
+function billingBuy() {
+	/*///////////
+	// ANDROID //
+	///////////*/
+	if(isMobile.Android()) {
+		inappbilling.init(function(e) {
+			inappbilling.buy(function(e) {
+				billingAuthorize(1, LANG.TRANSACTION_SUCCESS[lang]);
+			}, function(e) {
+				if((JSON.stringify(e)).indexOf('Owned') !== -1) {
+					billingAuthorize(1, LANG.ALREADY_OWN[lang]);
+				} else {
+					billingAuthorize(0, LANG.TRANSACTION_UNSUCCESSFUL[lang]);
+				}
+			}, 'com.cancian.syncservice');
+		}, function(e) {
+			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
+		}, true);
+	}
+}
+//#/////////#//
+//# RESTORE #//
+//#/////////#//
+function billingRestore() {
+	/*///////////
+	// ANDROID //
+	///////////*/
+	if(isMobile.Android()) {
+		inappbilling.init(function(e) {
+			inappbilling.getPurchases(function(e) {
+				if((JSON.stringify(e)).indexOf('com.cancian.syncservice') !== -1) {
+					billingAuthorize(1, LANG.PURCHASE_RESTORED[lang]);
+				} else {
+					billingAuthorize(0, LANG.RESTORE_FAILED[lang]);
+				}
+			}, function(e) {
+				billingAuthorize(0, LANG.RESTORE_FAILED[lang]);
+			});
+			//android.test.purchased
+		}, function(e) {
+			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
+		}, true);
+	}
+}
+//#////////////////#//
+//# BILLING WINDOW #//
+//#////////////////#//
+function billingWindow() {
+	/////////////
+	// HANDLER //
+	/////////////
+	var getBillingHandler = function() {
+		$('#buyButton').on(touchend,function(evt) {
+			evt.stopPropagation();
+			billingBuy();
+		});
+		$('#restoreButton').on(touchend,function(evt) {
+			evt.stopPropagation();
+			billingRestore();
+		});
+	}
+	//////////
+	// HTML //
+	//////////
+	var getBillingHtml = "\
+		<div id='premiumInfo'>" + LANG.PREMIUM_FEATURE[lang] + "</div>\
+		<div id='buyButton'>" + LANG.BUY[lang] + "</div>\
+		<div id='restoreButton'>" + LANG.RESTORE_PURCHASES[lang] + "</div>\
+	";
+	/////////////////
+	// CALL WINDOW //
+	/////////////////
+	getNewWindow(LANG.SETTINGS_BACKUP[lang],getBillingHtml,getBillingHandler,'');	
+}
 

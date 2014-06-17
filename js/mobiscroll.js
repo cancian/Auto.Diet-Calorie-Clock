@@ -890,7 +890,7 @@
                 html += '<div class="dwbc">';
                 $.each(buttons, function (i, b) {
                     b = (typeof b === 'string') ? that.buttons[b] : b;
-                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
+                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '<\/a><\/span>';
                 });
                 html += '</div>';
             }
@@ -2174,23 +2174,10 @@
     };
 
 })(jQuery);
+
 (function ($) {
-
-    $.mobiscroll.themes.ios = {
-        dateOrder: 'MMdyy',
-        rows: 5,
-        height: 30,
-        minWidth: 55,
-        headerText: false,
-        showLabel: false,
-        btnWidth: false,
-        useShortLabels: true
-    };
-
-})(jQuery);
-(function ($) {
-
     $.mobiscroll.themes.ios7 = {
+        display: 'modal',
         dateOrder: 'MMdyy',
         rows: 5,
         height: 34,
@@ -2198,83 +2185,12 @@
         headerText: false,
         showLabel: false,
         btnWidth: false,
-        useShortLabels: true
+        selectedLineHeight: false,
+        selectedLineBorder: 0,
+        useShortLabels: true,
+        btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
+        btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5',
+        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down5',
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5'
     };
-
-})(jQuery);
-(function ($) {
-    var theme = {
-        dateOrder: 'Mddyy',
-        mode: 'mixed',
-        rows: 5,
-        minWidth: 70,
-        height: 36,
-        showLabel: false,
-        useShortLabels: true
-    };
-
-    $.mobiscroll.themes['android-ics'] = theme;
-    $.mobiscroll.themes['android-ics light'] = theme;
-
-})(jQuery);
-
-(function ($) {
-
-    $.mobiscroll.themes.android = {
-        dateOrder: 'Mddyy',
-        mode: 'clickpick',
-        height: 50,
-        showLabel: false
-    };
-
-})(jQuery);
-
-/*
- * Translation by: Ivan Gomes <contato@ivangomes.com.br>
- */
-(function ($) {
-    $.mobiscroll.i18n['pt-BR'] = $.extend($.mobiscroll.i18n['pt-BR'], {
-        // Core
-        setText: 'Selecionar',
-        cancelText: 'Cancelar',
-        clearText: 'Claro',
-        selectedText: 'Selecionado',
-        // Datetime component
-        dateFormat: 'dd/mm/yy',
-        dateOrder: 'ddMMyy',
-        dayNames: ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'],
-        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
-        dayText: 'Dia',
-        hourText: 'Hora',
-        minuteText: 'Minutos',
-        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-        monthText: 'Mês',
-        secText: 'Segundo',
-        timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
-        yearText: 'Ano',
-        nowText: 'Agora',
-        // Calendar component
-        dateText: 'Data',
-        timeText: 'Tempo',
-        calendarText: 'Calendário',
-        closeText: 'Fechar',
-        // Daterange component
-        fromText: 'In&iacute;cio',
-        toText: 'Fim',
-        // Measurement components
-        wholeText: 'Inteiro',
-        fractionText: 'Fração',
-        unitText: 'Unidade',
-        // Time / Timespan component
-        labels: ['Anos', 'Meses', 'Dias', 'Horas', 'Minutos', 'Segundos', ''],
-        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
-        // Timer component
-        startText: 'Começar',
-        stopText: 'Pare',
-        resetText: 'Reinicializar',
-        lapText: 'Lap',
-        hideText: 'Esconder'
-    });
 })(jQuery);

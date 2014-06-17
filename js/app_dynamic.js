@@ -15,6 +15,7 @@ $(document).on("pageload", function(evt) {
 	var deMove = 0;
 	var cancelEdit = 0;
 	$("#entryList div" + tgt).on("longhold",function(evt) {
+		if(!$("#entryList div" + tgt + " .entriesTitle").html()) { return; }
 		entryReturn = true;
 		deKeyboard = 1;
 		if(cancelEdit == 0) {
@@ -23,13 +24,14 @@ $(document).on("pageload", function(evt) {
 	});
 	$("#entryList div, #appContent").on(touchmove + ' mouseleave mouseout mouseup mousemove ' + touchend,function(evt) {
 		deMove++;
-		if(deMove > 5) {
+		if(deMove > 20) {
 			cancelEdit = 1;
 		}
 	});
 	$("#appContent").scroll(function() {
 		deKeyboard = 1;
-		cancelEdit = 1;
+		deMove++;
+		//cancelEdit = 1;
 	});
 	//////////////////
 	// FORCE RETURN //

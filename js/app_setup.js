@@ -233,14 +233,14 @@ function clearEntries(callback) {
 //////////////////////////////
 function localStorageSql() {
 	var keyList = "";
-	/*start*/
+	//start
 	if(window.localStorage.getItem("config_start_time") && window.localStorage.getItem("appStatus") == "running")  {
 		keyList = keyList + "#@@@#" + "config_start_time" + "#@@#" + window.localStorage.getItem("config_start_time");
 		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + window.localStorage.getItem("appStatus");
 	} else {
 		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + "stopped";
 	}
-	/*daily*/
+	//daily
 	if(window.localStorage.getItem("config_kcals_type"))  { keyList = keyList + "#@@@#" + "config_kcals_type"  + "#@@#" + window.localStorage.getItem("config_kcals_type");  }
 	if(window.localStorage.getItem("config_kcals_day_0")) { keyList = keyList + "#@@@#" + "config_kcals_day_0" + "#@@#" + window.localStorage.getItem("config_kcals_day_0"); }
 	if(window.localStorage.getItem("config_kcals_day_1")) { keyList = keyList + "#@@@#" + "config_kcals_day_1" + "#@@#" + window.localStorage.getItem("config_kcals_day_1"); }
@@ -248,15 +248,17 @@ function localStorageSql() {
 	if(window.localStorage.getItem("config_measurement")) { keyList = keyList + "#@@@#" + "config_measurement" + "#@@#" + window.localStorage.getItem("config_measurement"); }
 	if(window.localStorage.getItem("config_limit_1"))     { keyList = keyList + "#@@@#" + "config_limit_1"     + "#@@#" + window.localStorage.getItem("config_limit_1");     }
 	if(window.localStorage.getItem("config_limit_2"))     { keyList = keyList + "#@@@#" + "config_limit_2"     + "#@@#" + window.localStorage.getItem("config_limit_2");     }	
-	/*nutrients*/
-	if(window.localStorage.getItem("appNutrients"))		  { keyList = keyList + "#@@@#" + "appNutrients" + "#@@#" + window.localStorage.getItem("appNutrients"); }
-	/*notes*/
+	//nutrients
+	if(window.localStorage.getItem("appNutrients"))		  { keyList = keyList + "#@@@#" + "appNutrients"  + "#@@#" + window.localStorage.getItem("appNutrients"); }
+	//mode
+	if(window.localStorage.getItem("facebook_mode"))	  { keyList = keyList + "#@@@#" + "facebook_mode" + "#@@#" + window.localStorage.getItem("facebook_mode"); }
+	//notes
 	if(window.localStorage.getItem("appNotes")) { 
 		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + window.localStorage.getItem("appNotes").replace(/(\n|\r\n)/g, "#@#").split("/*").join("/ *");
 	} else {
 		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + "";
 	}
-	/*form*/
+	//form
 	if(window.localStorage.getItem("calcForm#feet"))	{ keyList = keyList + "#@@@#" + "calcForm#feet" + "#@@#" + window.localStorage.getItem("calcForm#feet"); }
 	if(window.localStorage.getItem("calcForm#inches"))	{ keyList = keyList + "#@@@#" + "calcForm#inches" + "#@@#" + window.localStorage.getItem("calcForm#inches"); }
 	if(window.localStorage.getItem("calcForm#pA1B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA1B" + "#@@#" + window.localStorage.getItem("calcForm#pA1B"); }
@@ -319,7 +321,8 @@ function fetchEntries(start,callback) {
 //# ONLINE: PUSH ENTRIES #//
 //#//////////////////////#//
 function pushEntries(userId) {
-	if(isNaN(userId)) { return; }
+	if(!isPaid())                                  { return; }
+	if(isNaN(userId))                              { return; }
 	if(window.localStorage.getItem("pendingSync")) { return; }
 	fetchEntries(function(data) {
 		//NProgress.done();
@@ -441,13 +444,14 @@ function setComplete() {
 		updateExerciseList();
 	}
 	//update last sync date
-	window.localStorage.setItem("lastSync",Number((new Date()).getTime()));
-	$("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); 
+	window.localStorage.setItem("lastSync",new Date().getTime());
+	$("#optionLastSync span").html(dateDiff(window.localStorage.getItem("lastSync"),(new Date().getTime())));
 }
 //##//////////////##//
 //## SYNC ENTRIES ##//
 //##//////////////##//
 function syncEntries(userId) {
+	if(isPaid() == false)                               { return; }
 	if(window.localStorage.getItem("facebook_logged")) { updateFoodDb(); }
 	window.localStorage.setItem("pendingSync",new Date().getTime());
 	if(isNaN(userId))                                   { return; }
@@ -466,12 +470,21 @@ function syncEntries(userId) {
 				rebuildLocalStorage(sql.split("\n").pop());
 				sql = sql.replace(/\r?\n?[^\r\n]*$/, "");
 			}
-			//empty but valid result ~ trigger success
+			///////////////////////
+			// FAKE VALID RESULT //
+			///////////////////////empty but valid result ~ trigger success
 			if(trim(sql) == "") {
+				demoRunning = false;
+				setComplete();
+				/*
 				window.localStorage.removeItem("pendingSync");
+				//update last sync date
+				window.localStorage.setItem("lastSync",parseInt(new Date().getTime()));
+				$("#optionLastSync span").html(dateDiff(parseInt(window.localStorage.getItem("lastSync")),(new Date().getTime()))); 
 				demoRunning = false;
 				NProgress.done();
 				setPush();
+				*/
 			} else if(hasSql) {
 				//SQL
 				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
@@ -816,6 +829,7 @@ function afterHide(cmd) {
 				navigator.splashscreen.show();
 			}		
 			//if logged, reload via callback
+			var restorePremium = false;			
 			if(window.localStorage.getItem("facebook_logged") && cmd == "clear") {
 				$.post("http://kcals.net/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
 					setTimeout(function() { 
@@ -825,7 +839,18 @@ function afterHide(cmd) {
 							window.location.reload(true);
 						}
 					},250);
-					if(cmd == "clear") { window.localStorage.clear(); }
+					///////////
+					// CLEAR //
+					///////////
+					if(cmd == "clear") { 
+						if(isPaid()) {
+							restorePremium = true;
+						}
+						window.localStorage.clear();
+						if(restorePremium) {
+							window.localStorage.setItem('facebook_mode','premium');
+						}
+					}
 				}, "text");
 			} else {
 					setTimeout(function() { 
@@ -835,7 +860,18 @@ function afterHide(cmd) {
 							window.location.reload(true);
 						}
 					},250);
-				if(cmd == "clear") { window.localStorage.clear(); }
+					///////////
+					// CLEAR //
+					///////////
+					if(cmd == "clear") { 
+						if(isPaid()) {
+							restorePremium = true;
+						}
+						window.localStorage.clear();
+						if(restorePremium) {
+							window.localStorage.setItem('facebook_mode','premium');
+						}
+					}
 			}
 		});
 	},250);
@@ -1735,21 +1771,24 @@ function getNewWindow(title,content,handlers,save) {
 		$("#saveButton").off().on(touchend,function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
+			$('#appContent').css('pointer-events','none');
 			if(save() == true) {
 				$("#newWindowWrapper").off();
 				$("#newWindow").getNiceScroll().remove();
 				$("#newWindowWrapper").removeClass('open');
 				$("#newWindowWrapper").css('opacity',0);
 				$("#newWindowWrapper").on(transitionend,function() {
-					$('body').removeClass('newwindow');
+					//$('#appContent').css('pointer-events','auto');
+					//$('body').removeClass('newwindow');
 					$('#newWindowWrapper').remove();
 					setPush();
 				});
 				setTimeout(function() {
+					$('#appContent').css('pointer-events','auto');
 					$('body').removeClass('newwindow');
 					$('#newWindowWrapper').remove();
 					setPush();				
-				},300);
+				},400);
 				kickDown();
 			}
 		});
@@ -1759,20 +1798,23 @@ function getNewWindow(title,content,handlers,save) {
 		$("#backButton").off().on(touchend,function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
+			$('#appContent').css('pointer-events','none');
 			$("#newWindowWrapper").off();
 			$("#newWindow").getNiceScroll().remove();
 			$("#newWindowWrapper").removeClass('open');
 			$("#newWindowWrapper").css('opacity',0);
 			$("#newWindowWrapper").on(transitionend,function() {
-				$('body').removeClass('newwindow');
+				//$('#appContent').css('pointer-events','auto');
+				//$('body').removeClass('newwindow');
 				$('#newWindowWrapper').remove();
 				setPush();
 			});
 			setTimeout(function() {
+				$('#appContent').css('pointer-events','auto');
 				$('body').removeClass('newwindow');
 				$('#newWindowWrapper').remove();
 				setPush();				
-			},300);
+			},400);
 			kickDown();
 		});
 	});
@@ -2079,7 +2121,7 @@ function getLogoutFB(button) {
 // UPDATE LOGIN STATUS //
 /////////////////////////
 function updateLoginStatus(sync) {
-	if(window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_username")) {
+	if(isPaid() && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_username")) {
 		$("body").addClass("appFacebook");
 		$("#appFooter").addClass("appFacebook");
 		$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));

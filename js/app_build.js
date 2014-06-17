@@ -34,7 +34,10 @@ function openSettings(string) {
 	///////////////////
 	// last sync tap //
 	///////////////////
-	if(window.localStorage.getItem("lastSync") != "never") { $("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); }
+	if(window.localStorage.getItem("lastSync") != "never" && isPaid()) {
+		$("#optionLastSync span").html(dateDiff(window.localStorage.getItem("lastSync"),(new Date().getTime())));
+		//$("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); 
+	}
 	$("#optionLastSync").on(touchend,function(evt) {
 		evt.preventDefault();
 		if(!$("#nprogress").html()) {
@@ -63,6 +66,9 @@ function openSettings(string) {
 	$("#optionFacebook").on(touchend, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
+		if(!isPaid()) {
+			billingWindow();
+		} else {
 		//fix exception 18
 		if(isMobile.Android()) {
 			updateFoodDb();
@@ -86,6 +92,7 @@ function openSettings(string) {
 				},100);
 			}
 		}
+	}
 	});
 	//TOGGLE ACTIVE
 	$("#optionFacebook").on(touchstart,function(evt) {
@@ -389,7 +396,7 @@ function openStatus(string) {
 		preset: 'datetime',
 		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
 		maxDate: new Date(),
-		theme: 'android-ics light',
+		theme: 'ios7',
 		lang: 'en',
 	    dateFormat: 'yyyy/mm/dd',
        	dateOrder:  'dd MM yy',
@@ -563,8 +570,11 @@ afterTab();
 //desktop odd resize -1 bug
 if(Math.round(window.innerWidth % 2)) {
 	$("#sliderWrapper").width(window.innerWidth-49);
+	$(document).trigger("sliderInit");
+} else {
+	$(document).trigger("sliderInit");
+	//$("#sliderWrapper").width(window.innerWidth-48);
 }
-$(document).trigger("sliderInit");
 ///////////////////////////////////////////
 // ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
 ///////////////////////////////////////////
