@@ -1,12 +1,14 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.2.6 [13/06/2014]
+# 1.2.7 [13/06/2014]
 • Full entry edit
 • Custom date
+• Dropped support for Amernian and Irish
+• Improved stability
+• Fixed issue with Daylight Savings while on Cyclic Mode
 • 
-• 
-• 
+
 
 # 1.2.6 [13/06/2014]
 • New feature: Cyclical Mode

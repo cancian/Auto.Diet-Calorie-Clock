@@ -22,7 +22,7 @@ $(document).on("pageload", function(evt) {
 			getEntryEdit($(this).attr('id'));
 		}
 	});
-	$("#entryList div, #appContent").on(touchmove + ' mouseleave mouseout mouseup mousemove ' + touchend,function(evt) {
+	$("#entryList div, #appContent").on(touchmove + ' mouseleave mouseout mouseup ' + touchend,function(evt) {
 		deMove++;
 		if(deMove > 20) {
 			cancelEdit = 1;
@@ -890,7 +890,7 @@ function doSearch(rawInput) {
 	var timerStart = new Date().getTime();
 	var lastSearch = window.localStorage.getItem("lastSearchTerm");
 	//sanitize user input
-	var searchQuery = trim(rawInput.split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
+	var searchQuery = trim(rawInput.split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
 	//partial sql syntax
 	var searchSQL   = "term LIKE '%" + searchQuery.split(" ").join("%' AND term LIKE '%") + "%'";
 	//prevent multiple identical searches
@@ -933,7 +933,7 @@ function doSearch(rawInput) {
 		var timerStart = new Date().getTime();
 	var lastSearch = window.localStorage.getItem("lastSearchTerm");
 	//sanitize user input
-	var searchQuery = trim(rawInput.split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
+	var searchQuery = trim(rawInput.split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
 	//partial sql syntax
 	var searchSQL   = searchQuery.split(" ");
 	//prevent multiple identical searches

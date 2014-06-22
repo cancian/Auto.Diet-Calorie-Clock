@@ -431,6 +431,20 @@ if (navigator.userAgent.match(/MSApp/i)) {
 			showPendingAlerts();
 		}
 	})();
+	/////////////
+	// LICENSE //
+	/////////////
+	function isInAppPurchaseValid(pName) {
+		//var currentApp = Windows.ApplicationModel.Store.CurrentAppSimulator;
+		var currentApp    = Windows.ApplicationModel.Store.CurrentApp;
+		var inAppLicenses = currentApp.licenseInformation.productLicenses;
+		if(inAppLicenses.hasKey(pName)) {
+			if(inAppLicenses.lookup(pName).isActive) { 
+				return true;
+			}
+		}
+		return false;
+	}
 	///////////////////
 	// PRIVACY CHARM // For an introduction to the Blank template, see the following documentation:
 	/////////////////// http://go.microsoft.com/fwlink/?LinkId=232509

@@ -56,7 +56,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 //# APP CONTENT #//
 //#/////////////#*/
 #appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); }
-.msie.newwindow #appContent		{ overflow: hidden; }
+/*.msie.newwindow #appContent	{ overflow: hidden; }*/
 .android #appContent			{ background-image: -webkit-linear-gradient(#fff,#fefefe); }
 .android2.tab2  #appContent,
 .android2.tab3  #appContent		{ top: 0; border-top: 62px solid rgba(0,0,0,0); }
@@ -74,20 +74,14 @@ body.android ::-webkit-scrollbar{ display: none; }
 .balanced #appHeader	{ color: #fff !important; background-color: #4496F1 !important; font-weight: 300; }
 .deficit #editable,
 .deficit #appHeader		{ color: #fff !important; background-color: #C85834 !important; font-weight: 300; }
-
 .over.surplus #editable,
 .over.surplus #appHeader{ background-color: #309030 !important; }
-
 .over.deficit #editable,
 .over.deficit #appHeader{ background-color: #C85834 !important;  }
-
 .error.surplus #editable,
 .error.surplus #appHeader{ background-color: #000 !important; }
-
 .error.deficit #editable,
 .error.deficit #appHeader{ background-color: #000 !important;  }
-
-
 /*android hacks*/
 .android #appHeader			{ z-index: 50 !important; }
 .android.tab1 #appHeader,
@@ -105,7 +99,6 @@ body.android ::-webkit-scrollbar{ display: none; }
 #timerDaily						{ opacity: .72; }
 #timerDaily span				{ opacity: .99; }
 #timerDaily span				{ position: absolute; bottom: 5px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: #fff; }
-.appLang-hy #timerDaily span	{ font-size: 6px; }
 .appLang-el #timerDaily span	{ font-size: 7px; }
 .appLang-hi #timerDaily span	{ bottom: 2px; }
 .android2 #timerDaily span		{ bottom: 4px; }
@@ -139,33 +132,36 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 /*#////////////#//
 //# APP FOOTER #//
 //#////////////#*/
-ul#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); overflow: hidden; }
+ul#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); box-sizing: border-box; }
 ul#appFooter li								{ float: left; width: 25%; height: 44px; line-height: 18px; color: #888; -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected					{ color: #007AFF; -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before				{ color: #007AFF; }
 /*footer colors*/
-/*
 .deficit ul#appFooter li.selected,
-.deficit ul#appFooter li.selected:before	{ color: #cc3300; }
+.deficit ul#appFooter li.selected:before	{ color: #C85834; }
 .surplus ul#appFooter li.selected,
 .surplus ul#appFooter li.selected:before	{ color: #309030; }
-.appDebug #appHeader:after					{ content: ""; position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #0F6; border: 1px solid #0C0; z-index: 9999; display: block; }
-*/
+ul#appFooter li.selected:after				{ display: block; content: ''; height: 2px; background-color: #007AFF; position: absolute; top: -1px; left: 0; right: 0; opacity: 1; }
+.surplus ul#appFooter li.selected:after		{ background-color: #309030; }
+.deficit ul#appFooter li.selected:after		{ background-color: #C85834; }
+/*
 .appDebug ul#appFooter li.selected,
 .appDebug ul#appFooter li.selected:before	{ color: #309030; }
+*/
+.appDebug #appHeader:after					{ content: ""; position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #0F6; border: 1px solid #0C0; z-index: 9999; display: block; }
+.ios7.appDebug #appHeader:after				{ top: 18px; }
 /*footer icons*/
-ul#appFooter li:before								{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 7px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
-ul#appFooter li										{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; }
-.appLang-hy ul#appFooter li							{ font-size: 9px; }
-ul#appFooter li#tab1:before							{ content: "\f080"; }
-ul#appFooter li#tab2:before							{ content: "\f0f5"; }
-ul#appFooter li#tab3:before							{ content: "\f007"; }
-ul#appFooter li#tab4:before							{ content: "\f013"; }
+ul#appFooter li:before						{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
+ul#appFooter li								{ display: block; text-transform: capitalize; font-size: 11px; font-weight: bold;  -webkit-backface-visibility: hidden; position: relative; }
+ul#appFooter li#tab1:before					{ content: "\f080"; }
+ul#appFooter li#tab2:before					{ content: "\f0f5"; }
+ul#appFooter li#tab3:before					{ content: "\f007"; }
+ul#appFooter li#tab4:before					{ content: "\f013"; }
 /*
-ul#appFooter li.selected#tab1:before				{ content: "\e080"; }
-ul#appFooter li.selected#tab2:before				{ content: "\e0f5"; }
-ul#appFooter li.selected#tab3:before				{ content: "\e007"; }
-ul#appFooter li.selected#tab4:before				{ content: "\e013"; }
+ul#appFooter li.selected#tab1:before		{ content: "\e080"; }
+ul#appFooter li.selected#tab2:before		{ content: "\e0f5"; }
+ul#appFooter li.selected#tab3:before		{ content: "\e007"; }
+ul#appFooter li.selected#tab4:before		{ content: "\e013"; }
 */
 /*///////////////////
 // GETTING STARTED //
@@ -201,7 +197,6 @@ ul#appFooter li.selected#tab4:before				{ content: "\e013"; }
 #slide5 p:before,
 #slide6 p:before		{ font-family: "FontAwesome"; line-height: 96px; /*text-shadow: 1px 1px 2px rgba(0,0,0,.14);*/ color: #09F; position: absolute; left: 0; right: 0; height: 100px; text-align: center; }
 .slide p				{ display: block; max-width: 520px; margin: 0 auto; background-color: #fff; padding: 0 14px; }
-.appLang-hy .slide p	{ font-size: 14px; }
 .appLang-el .slide p	{ font-size: 15px; }
 #indicator				{ position: absolute; width: 170px; height: 20px; margin: 0; bottom: 74px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUGCDYztyDUJgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAGFBMVEUAAADNzc3Nzc3Nzc3Nzc3Nzc3Nzc3///8aWwwLAAAABnRSTlMAX5Ks3/nRD0HIAAAAAWJLR0QHFmGI6wAAAFtJREFUGFdjYGBgEHYNMWRAAJE0IHCEc5nSwEABxleD8JOgXMY0KBCA8FlgfAcIXwzGT4TwzWD8ZAjfDcZPgfDDYPxU7Hx09ejmoduH7h5096L7B8O/6OGBGl4APYg8TQ0XAScAAAAASUVORK5CYII=); }
 #dotty					{ position: absolute; width: 20px; height: 20px; border-radius: 10px; background: #777; }
@@ -240,8 +235,6 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 //////////////////////*/
 #optionFacebook:after				{ font-family: "FontAwesome"; content: "\f082"; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
 .appFacebook #optionFacebook:after	{ color: #4862A3; }
-.shareware #settingsList:after		{ content: "PRO"; position: absolute; top: 48px; right: 74px; font-size: 24px; line-height: 44px; height: 44px; width: 36px; color: #0c0; color: #0c0; display: inline-block; }
-.appFacebook#settingsList:after		{ display: none; }
 #optionLastSync						{ position: absolute; bottom: 46px; padding-top: 40px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; z-index: auto; }
 #optionLastSync span				{ color: #bbb; padding-left: 4px; }
 #optionLastSync 					{ display: none; }
@@ -269,38 +262,27 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 /*//////////////////////
 // SETTINGS: ADVANCED //
 //////////////////////*/
+/*
 #optionAdvanced 						{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 48px; overflow: hidden; color: #555; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; padding-left: 20px; }
 #optionAdvanced.activeRow				{ background-color: #eee; }
 #optionAdvanced:after 					{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
 #optionAdvanced:after					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; }
-/*// ADVANCED MENU //*/
 #advancedMenuWrapper					{ position: absolute; top: 0; bottom: 0; left: 0; right: 0px; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; }
-#advancedMenu							{ position: absolute; top: 0px; bottom: 0; left: 0; right: 0px; background-color: #F2F5F6; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; 
-
-overflow: auto !important;
-}
-
-#advancedMenuList							{
-	
-	/*overflow: auto;*/
-}
-
-
-
+#advancedMenu							{ position: absolute; top: 0px; bottom: 0; left: 0; right: 0px; background-color: #F2F5F6; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; overflow: auto !important; }
+#advancedMenuList						{	}
 #advancedMenu ul						{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 #advancedMenu ul li						{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; }
 #advancedMenu ul li+li					{ border-top: 1px solid #eee; }
 #advancedMenu ul li.activeRow			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 #advancedMenu ul li.activeRow:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }
-
 #advancedMenu ul+ul						{ margin-top: 28px; border-top: 1px solid #eee; }
 #advancedMenu #listReset				{ margin-bottom: 28px; color: #cc3300; }
-
 #advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee;  }
 #advancedMenuHeader #backButton			{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #advancedMenuHeader #backButton:active	{ color: #C6DEF9; }
 #advancedMenuHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
 #advancedMenuTitle						{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
+*/
 /*#///////////////#// http://callmenick.com/tutorial-demos/css-toggle-switch/
 //# TOGGLE SWITCH #// 
 //#///////////////#*/
@@ -397,6 +379,7 @@ input[type="radio"]:checked:after	{ left: 22px; }
 #getEntryWrapper										{ font-size: 16px; position: relative; padding-top: 18px; }
 #getEntryWrapper div									{ position: relative; display: block; margin-left: 24px; display: block; height: 34px; margin-bottom: 12px; white-space: nowrap; border-bottom: 1px solid #eee; }
 #getEntryWrapper input									{ position: absolute; top: -16px; right: 0; width: 100%; box-sizing: border-box; border-left: 100px solid rgba(0,0,0,0); font-size: 18px; color: #999; background-color: #fff; border-top: 16px solid rgba(0,0,0,0); border-bottom: 16px solid rgba(0,0,0,0); border-right: 24px solid rgba(0,0,0,0); }
+.android2 #getEntryWrapper input						{ left: 0; }
 #getEntryWrapper span									{ position: absolute; top: -16px; left: 0; padding: 16px 0; text-transform: capitalize; width: 100px; font-size: 18px; font-weight: 400; float: left; z-index: 100; color: #333; background-color: #fff; }
 #getEntryWrapper input:focus							{ color: #0072BC; }
 #getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 2px;  font-family: "FontAwesome"; content: '\F000'; color: #00c; }
@@ -404,14 +387,14 @@ input[type="radio"]:checked:after	{ left: 22px; }
 /*#/////////////#//
 //# GET BILLING #//
 //#/////////////#*/
-#premiumInfo						{ margin: 25px; text-align: left; display: block; }
+#premiumInfo						{ margin: 25px; text-align: left; display: none; }
 #restoreButton,
 #buyButton							{ font-size: 18px; display: block; padding: 12px 0; margin: 24px; text-align: center; background-color: #eee }
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
 #langSelect							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; z-index: 99; -webkit-overflow-scrolling: touch; }
-#langSelect:before					{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; content: ''; }
+.msapp #langSelect:before			{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; content: ''; }
 ul#langSelectList					{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 ul#langSelectList li				{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; }
 ul#langSelectList li+li				{ border-top: 1px solid #eee; }
@@ -509,10 +492,7 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 // color balance bar //
 /////////////////////*/
 #balanceBar						{ position: absolute; bottom: 0px; left: -2px; right:  11px; height: 3px; padding: 0; }
-#balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; 
-	background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#E3825F), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#58B558)); 
-	background: -webkit-linear-gradient(left,                                  #E3825F 25.5%,             #207cca 25.5%,             #207cca 73.9%,             #58B558 73.9%); content: " ";
-}
+#balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#E3825F), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#58B558)); 	background: -webkit-linear-gradient(left,                                  #E3825F 25.5%,             #207cca 25.5%,             #207cca 73.9%,             #58B558 73.9%); content: " "; }
 #balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: "FontAwesome"; content: "\f175"; font-size: 12px; line-height: 12px; padding: 0; color: #555; }
 .over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
 /**/
@@ -523,35 +503,17 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; position: absolute; top: 0; right: 24%; }
 /**/
 #appStatusAddLeft,
-#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; 
-
-background-color: #4285F4;
-border: 1px solid #4285F4;
-border-width: 2px 1px;
-color: #fff;
-font-size: 18px; line-height: 18px;  box-sizing: border-box; display: inline-block; 
-}
-
+#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; border: 1px solid #4285F4; border-width: 2px 1px; color: #fff; font-size: 18px; line-height: 18px;  box-sizing: border-box; display: inline-block; }
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
 #appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
-
 #appStatusAddLeft div:before,
-#appStatusAddRight div:before	{ 
-content: "+"; font-family: "FontAwesome"; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; 
-background-color: rgba(0,0,0,0);
-color: #fff;
-}
+#appStatusAddRight div:before	{ content: "+"; font-family: "FontAwesome"; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
 .android2 #appStatusAddLeft,
 .android2 #appStatusAddRight	{ padding-top: 4px; }
 #appStatusAddLeft span,
 #appStatusAddRight span			{ display: inline-block; background-color: #cc3300; text-align: center; font-size: 10px; text-transform: uppercase; }
 #appStatusAddLeft div,
-#appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; 
-
-margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; 
-}
-
-
+#appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; }
 /*nutrition bars*/
 #appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: rgba(0,0,0,0); white-space: nowrap; }
 #appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 0; height:  14px; margin: 0 0px; background-color: #fff; display: block; background-color: #fff; color: #999; border: 1px solid #eee; }
@@ -642,30 +604,8 @@ body.android2 #appStatusFix.open #appStatusArrow{ top: -27px; width: 0; height: 
 #calcForm div.calcRow					{ margin-left: 22px; padding: 0; display: block; min-width: 300px; }
 #calcForm div.calcRow + div.calcRow		{ border-top: 1px solid #eee; }
 #calcForm input,
-#calcForm select 						{ 
-width: 80px; 
-min-width: 80px; 
-font-size: 12px; 
-line-height: 16px; 
-color: #666; 
--webkit-appearance: none; 
-border: none; 
-text-indent: 0; 
-padding: 0; margin: 0; display: inline-block; 
- height: 44px; 
- background-color: rgba(0,0,0,0);
- }
-#calcForm .selectArrow	{
-font-size: 12px; 
-line-height: 44px; 
-color: #666; 
-border: none; 
-text-indent: 0; 
-padding: 0; margin: 0;
-display: inline-block; 
-height: 44px;
-background-color: rgba(0,0,0,0); 
-}
+#calcForm select 						{ width: 80px; min-width: 80px; font-size: 12px; line-height: 16px; color: #666; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; height: 44px; background-color: rgba(0,0,0,0); }
+#calcForm .selectArrow					{ font-size: 12px; line-height: 44px; color: #666; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; height: 44px; background-color: rgba(0,0,0,0); }
 .moz #calcForm select 					{ height: 16px; line-height: 12px; }
 #calcForm input							{ text-indent: 2px; }
 #calcForm select						{ text-indent: 3px; }
@@ -731,8 +671,6 @@ div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; 
 .appLang-lv div#sliderNeg,
 .appLang-vi div#sliderPos,
 .appLang-vi div#sliderNeg,
-.appLang-hy div#sliderPos,
-.appLang-hy div#sliderNeg,
 .appLang-bg div#sliderPos,
 .appLang-bg div#sliderNeg,
 .appLang-de div#sliderPos,
@@ -787,7 +725,6 @@ div.submitActive				{ color: #fff !important; background-color: #316ADC; border-
 #entryList					{ width: 100%; font-size: 13px; /*-webkit-transform: translate3d(0, 0, 0);*/ }
 #entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; height: 28px; border-top: 0px solid #fff; /*overflow: hidden;*/ }
 .msie #entryList div		{ padding: 15px 0 1px 0; height: 29px; }
-
 body.ios #entryList div		{ padding: 15px 0 1px 0; }
 #entryList					{ width: 100%; min-height: 44px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
@@ -818,21 +755,17 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 .entriesKcals				{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
 .entriesBody				{ display: block; text-align: left; color: #666; font-size: 10pt; text-indent: 0px; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; line-height: 16px; }
 .entriesBody input			{ display: block; font-size: 10pt; height: 16px; }
-
 .entriesBody				{ font-size: 10pt; height: 18px; line-height: 16px;  }
 .entriesBody input,
 #editableInput				{ font-size: 10pt; height: 18px; line-height: 18px; margin-top: -1px; }
-
 .appLang-fa .entriesKcals,
 .appLang-ar .entriesKcals	{ width: 70px; font-size: 10px; color: #999; padding-top: 0px; float: left; position: absolute; bottom: 0px; left: 13px; }
 .appLang-fa .entriesTitle,
 .appLang-ar .entriesTitle	{ margin-right: 16px; }
 .appLang-ja .entriesKcals	{ width: 51px; font-size: 11px; color: #999; padding-top: 1px;  }
 .appLang-ko .entriesKcals	{ width: 48px; font-size: 10pt; color: #aaa; padding-top: 1px;  }
-
 .appLang-hi .entriesKcals,
-.appLang-iw .entriesKcals,
-.appLang-hy .entriesKcals	{ margin-right: 16px; }
+.appLang-iw .entriesKcals	{ margin-right: 16px; }
 /*body.android .entriesBody input { text-indent: -1px; }*/
 .entriesPublished			{ padding-top: 28px; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; white-space: nowrap; }
 .editing .entriesPublished	{ opacity: 0; display: none; }
@@ -840,7 +773,6 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 div#noEntries				{ border-left: 5px solid transparent; pointer-events: none; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
 .heading					{ -webkit-user-select: none; -ms-touch-action: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #fff; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; background-color: #fff; font-weight: normal; margin: 0; text-align: left; text-transform: uppercase; letter-spacing: 3px; line-height: 1; box-sizing: border-box; }
-.appLang-hy .heading,
 .appLang-el .heading		{ font-size: 14px; letter-spacing: 2px; }
 .appLang-it .heading,
 .appLang-es .heading		{ font-size: 16px; letter-spacing: 2px; }
@@ -939,7 +871,6 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .appLang-vi input#foodSearch,
 .appLang-pl input#foodSearch,
 .appLang-id input#foodSearch,
-.appLang-ga input#foodSearch,
 .appLang-el input#foodSearch,
 .appLang-bg input#foodSearch,
 .appLang-fr input#foodSearch{ font-size: 16px; }
@@ -1103,9 +1034,6 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #topBarItem-1 span,
 #topBarItem-2 span,
 #topBarItem-3 span			{ position: relative; font-weight: bold; display: inline-block; font-size: 12px; padding-left: 15px; }
-.appLang-hy #topBarItem-1 span,
-.appLang-hy #topBarItem-2 span,
-.appLang-hy #topBarItem-3 span			{ position: relative; font-weight: bold; display: inline-block; font-size: 10px; }
 #topBarItem-1 span:before,
 #topBarItem-2 span:before,
 #topBarItem-3 span:before	{ position: absolute; top: 10px; left: -4px; display: inline-block; font-size: 15px; line-height: 15px; font-weight: normal !important; }
@@ -1148,4 +1076,23 @@ body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
+/*#////////////#//
+//#//LICENSE //#//
+//#////////////#*/
+#timerTrial							{ position: absolute; bottom: 0; left: 0; text-indent: 0; right: 0; display: block; text-align: center; font-weight: bold; height: 10px; line-height: 9px; font-size: 9px; color: #fff; overflow: hidden; white-space: nowrap; }
+.full #timerTrial,
+.full #optionBuy 					{ display: none !important; }
+.expired #pageSlideFood,
+.expired.tab1 #newWindowWrapper,
+.expired.tab2 #newWindowWrapper,
+.expired.tab3 #newWindowWrapper		{ display: none !important; pointer-events: none !important; }
+.expired.tab1 #appContent,
+.expired.tab2 #appContent,
+.expired.tab3 #appContent			{ pointer-events: none !important; -ms-touch-action: none; }
+.expired.tab1 #appContent:before,
+.expired.tab2 #appContent:before,
+.expired.tab3 #appContent:before	{ pointer-events: none !important;  background-color: #fff; opacity: .5 !important; -ms-touch-action: none; z-index: 9999; content: ''; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+.expired #startDateSpan:before		{ display: none !important; opacity: 0 !important; }
+.expired #editableDiv 				{ pointer-events: none !important; z-index: 0; }
+.expired #appHeader 				{ pointer-events: none !important; background-color: #fc3 !important; }
 

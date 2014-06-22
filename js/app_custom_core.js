@@ -56,10 +56,18 @@ function appTimer(id,content) {
 	//$("#timerKcals p").html(kcalsInput);
 	//$("#timerDaily p").html(eqPerDay);
 	var kcalsHtmlOutput = "";
-	kcalsHtmlOutput    += "<div id='timerBlocks'>";
-	kcalsHtmlOutput    += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG.CALORIC_BALANCE[lang] + "</span></div>";
-	kcalsHtmlOutput    += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG.DAILY_CALORIES[lang] + "</span></div>"; //" + LANG.KCAL[lang] + " / " + LANG.DAY[lang] + "
-	kcalsHtmlOutput    += "</div>";
+	kcalsHtmlOutput     += "<div id='timerBlocks'>";
+	kcalsHtmlOutput     += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG.CALORIC_BALANCE[lang] + "</span></div>";
+	kcalsHtmlOutput     += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG.DAILY_CALORIES[lang] + "</span></div>"; //" + LANG.KCAL[lang] + " / " + LANG.DAY[lang] + "
+	//trial notice
+	if(!isPaid()) {
+		if(daysLeft == 0) { 
+			kcalsHtmlOutput += "<div id='timerTrial'>"   + LANG.EVALUATION_EXPIRED[lang] + "</div>";
+		} else {
+			kcalsHtmlOutput += "<div id='timerTrial'>"   + LANG.EVALUATION_VERSION[lang] + "</div>";
+		}
+	}
+	kcalsHtmlOutput     += "</div>";
 	//REPLACE
 	function updateHeader() {
 		if(appHeader == kcalsHtmlOutput) { return; }
@@ -208,7 +216,8 @@ function cyclicTimeToKcals(startTime) {
 	//DATE VARS
 	var months     = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
 	var monthName  = months[new Date().getMonth()];
-	var todaysTime = Date.parse(new Date(monthName + " " +  new Date().getDate() + ", " + new Date().getFullYear()));
+	//var todaysTime = Date.parse(DayUtcFormat(new Date())); //Date.parse(new Date(monthName + " " +  new Date().getDate() + ", " + new Date().getFullYear()));
+	var todaysTime = Date.UTC(new Date().getFullYear(),new Date().getMonth(),new Date().getDate());
 	//var todaysTime = Date.parse(moment().format("MMMM DD, YYYY"));
 	//var todaysTime = Date.parse(moment().format('LL'));
 	// IF (START DATE) < (TIME ELAPSED TODAY), DO NOT COUNT FROM TODAYS START TIME, BUT FROM DIET START TIME
@@ -244,7 +253,9 @@ function cyclicTimeToKcals(startTime) {
 	// ABSOLUTE CURRENT CYCLE DAY // ~ absolute 0 messes offset, use equivalent date parse
 	//////////////////////////////// //DEFINE DAYS SINCE absolute 0, LOOPING ABCD (15930~ days)
 	var cycleDay = "a";
-	for(var dietDay = Date.parse("January 01, 2012"); dietDay < now; dietDay = dietDay + day) {
+	//console.log(new Date(Date.UTC(2012,1,5)));
+	//console.log(new Date(Date.parse("January 05, 2012")));	
+	for(var dietDay = Date.UTC(2009,1,1) + ((((new Date).getTimezoneOffset()) * 60 * 1000)); dietDay < now; dietDay = dietDay + day) {
 			 if(cycleDay == "a") { currentDay = "a"; /*PUSH TO NEXT*/ cycleDay = "b"; }
 		else if(cycleDay == "b") { currentDay = "b"; /*PUSH TO NEXT*/ cycleDay = "c"; }
 		else if(cycleDay == "c") { currentDay = "c"; /*PUSH TO NEXT*/ cycleDay = "d"; }

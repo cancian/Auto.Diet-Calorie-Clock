@@ -22,6 +22,16 @@ window.onerror = function(e, url, line) {
 	if($("#tempHolder").html() && typeof spinner !== 'undefined') {
 		spinner('stop');
 	}
+	//auto restart
+	if(e.match(/Exception 18/i)) { 
+		setTimeout(function() {
+			if(window.MyReload) {
+				window.MyReload.reloadActivity();
+			} else {
+				window.location.reload(true);
+			}
+		},1000);
+	}
 	//return false;
 };
 //////////////
@@ -52,6 +62,7 @@ if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' 
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-connect.js'><\/script>");
 } else if(navigator.userAgent.match(/IEMobile/i)) {
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/openfb.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/plugins/InAppPurchaseManager.js'><\/script>");
 } else if(navigator.userAgent.match(/MSApp/i)) {
 	//document.write('<script src="//Microsoft.WinJS.1.0/js/base.js"><\/script>');
 } else {

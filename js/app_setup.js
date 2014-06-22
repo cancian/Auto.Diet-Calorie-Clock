@@ -19,7 +19,7 @@ $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
 // SHOW INTRO //
 ////////////////
 var myScroll;
-function showIntro() {
+function showIntro(isNew) {
 	$("#gettingStarted").remove();
 	$("body").append('\
 	<div id="gettingStarted">\
@@ -48,9 +48,9 @@ function showIntro() {
 		evt.stopPropagation();
 			$("#gettingStarted").fadeOut(200,function() {
 			$("#gettingStarted").remove();
-			setTimeout(function(){
+			if(isNew == true) {
 				getAnalytics('newInstall');
-			},600);
+			}
 		});
 		if(myScroll) {
 			myScroll.destroy();
@@ -106,7 +106,11 @@ function initDB(t) {
 	// IF NEW INSTALL //
 	////////////////////
 	if(!window.localStorage.getItem("config_kcals_day_0") || window.localStorage.getItem("config_debug") == "active") {
-		showIntro();
+		if(!window.localStorage.getItem("config_install_time")) {
+			showIntro(1);
+		} else {
+			showIntro(0);
+		}
 	}
 	//config
 	if(!window.localStorage.getItem("config_start_time")) {
@@ -150,7 +154,7 @@ function initDB(t) {
 	}	
 	if(!window.localStorage.getItem("config_limit_2")) {
 		window.localStorage.setItem("config_limit_2",600);
-	}	
+	}
 	//////////////////////////////////////////
 	// if not sql already, use localstorage //
 	//////////////////////////////////////////
@@ -248,9 +252,9 @@ function localStorageSql() {
 	if(window.localStorage.getItem("config_limit_1"))     { keyList = keyList + "#@@@#" + "config_limit_1"     + "#@@#" + window.localStorage.getItem("config_limit_1");     }
 	if(window.localStorage.getItem("config_limit_2"))     { keyList = keyList + "#@@@#" + "config_limit_2"     + "#@@#" + window.localStorage.getItem("config_limit_2");     }	
 	//nutrients
-	if(window.localStorage.getItem("appNutrients"))		  { keyList = keyList + "#@@@#" + "appNutrients"  + "#@@#" + window.localStorage.getItem("appNutrients"); }
+	if(window.localStorage.getItem("appNutrients"))		  { keyList = keyList + "#@@@#" + "appNutrients" + "#@@#" + window.localStorage.getItem("appNutrients"); }
 	//mode
-	if(window.localStorage.getItem("facebook_mode"))	  { keyList = keyList + "#@@@#" + "facebook_mode" + "#@@#" + window.localStorage.getItem("facebook_mode"); }
+	if(window.localStorage.getItem("config_mode"))	      { keyList = keyList + "#@@@#" + "config_mode"  + "#@@#" + window.localStorage.getItem("config_mode"); }
 	//notes
 	if(window.localStorage.getItem("appNotes")) { 
 		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + window.localStorage.getItem("appNotes").replace(/(\n|\r\n)/g, "#@#").split("/*").join("/ *");
@@ -289,6 +293,10 @@ function rebuildLocalStorage(lsp) {
 		if(lsPart[0]) {
 			if(lsPart[0] == "appNotes") {
 				window.localStorage.setItem(lsPart[0],lsPart[1].split("#@#").join("\n"));
+			} else if(lsPart[0] == "config_mode") {
+				if(window.localStorage.getItem("config_mode") != "full") {
+					window.localStorage.setItem(lsPart[0],lsPart[1]);
+				}
 			} else {
 				window.localStorage.setItem(lsPart[0],lsPart[1]);
 			}
@@ -320,7 +328,6 @@ function fetchEntries(start,callback) {
 //# ONLINE: PUSH ENTRIES #//
 //#//////////////////////#//
 function pushEntries(userId) {
-	if(!isPaid())                                  { return; }
 	if(isNaN(userId))                              { return; }
 	if(window.localStorage.getItem("pendingSync")) { return; }
 	fetchEntries(function(data) {
@@ -450,7 +457,6 @@ function setComplete() {
 //## SYNC ENTRIES ##//
 //##//////////////##//
 function syncEntries(userId) {
-	if(isPaid() == false)                               { return; }
 	if(window.localStorage.getItem("facebook_logged")) { updateFoodDb(); }
 	window.localStorage.setItem("pendingSync",new Date().getTime());
 	if(isNaN(userId))                                   { return; }
@@ -827,8 +833,14 @@ function afterHide(cmd) {
 			if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
 				navigator.splashscreen.show();
 			}		
-			//if logged, reload via callback
-			var restorePremium = false;			
+			//preserve data
+			if(window.localStorage.getItem("config_mode")) {
+				var configMode = window.localStorage.getItem("config_mode");
+			}
+			if(window.localStorage.getItem("config_install_time")) {
+				var installTime = window.localStorage.getItem("config_install_time");
+			}
+			//
 			if(window.localStorage.getItem("facebook_logged") && cmd == "clear") {
 				$.post("http://kcals.net/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
 					setTimeout(function() { 
@@ -841,13 +853,13 @@ function afterHide(cmd) {
 					///////////
 					// CLEAR //
 					///////////
-					if(cmd == "clear") { 
-						if(isPaid()) {
-							restorePremium = true;
-						}
+					if(cmd == "clear") {
 						window.localStorage.clear();
-						if(restorePremium) {
-							window.localStorage.setItem('facebook_mode','premium');
+						if(configMode) {
+							window.localStorage.setItem('config_mode',configMode);
+						}
+						if(installTime) {
+							window.localStorage.setItem('config_install_time',installTime);
 						}
 					}
 				}, "text");
@@ -863,12 +875,12 @@ function afterHide(cmd) {
 					// CLEAR //
 					///////////
 					if(cmd == "clear") { 
-						if(isPaid()) {
-							restorePremium = true;
-						}
 						window.localStorage.clear();
-						if(restorePremium) {
-							window.localStorage.setItem('facebook_mode','premium');
+						if(configMode) {
+							window.localStorage.setItem('config_mode',configMode);
+						}
+						if(installTime) {
+							window.localStorage.setItem('config_install_time',installTime);
 						}
 					}
 			}
@@ -888,8 +900,7 @@ function spinner(size) {
 		setTimeout(function() { $("#tempHolder").remove(); },150);
 		setTimeout(function() { $("#tempHolder").remove(); },250);
 		setTimeout(function() { $("#tempHolder").remove(); },500);
-		setTimeout(function() { $("#tempHolder").remove(); },1000);
-		//setTimeout(function() { $("#tempHolder").remove(); },2000);
+		setTimeout(function() { $("#tempHolder").remove(); },999);
 		return;
 	}
 	//////////
@@ -1709,7 +1720,7 @@ function buildAdvancedMenu() {
 //##//////////////##//
 //## GETNEWwINDOW ##//
 //##//////////////##//
-function getNewWindow(title,content,handlers,save) {
+function getNewWindow(title,content,handlers,save,closer) {
 	if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return; }
 	//FLOOD
 	if($("#newWindowWrapper").html()) { return; }
@@ -1753,9 +1764,9 @@ function getNewWindow(title,content,handlers,save) {
 				if(isMobile.Android()) { touchBeh = false; }
 				$("#newWindow").css("overflow","hidden");
 				$("#newWindow").niceScroll({touchbehavior:touchBeh,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
-			} else if(isMobile.Windows() && $('#appHistory').html()) {
+			} else if((isMobile.Windows() || isMobile.MSApp()) && $('#appHistory').html()) {
 				$("#newWindow").css("overflow","hidden");
-				$("#newWindow").niceScroll({touchbehavior:false,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:true,hwacceleration:true});
+				$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:true,hwacceleration:false});
 			} else {
 				$("#newWindow").css("overflow","auto");
 			}
@@ -1786,8 +1797,9 @@ function getNewWindow(title,content,handlers,save) {
 					$('#appContent').css('pointer-events','auto');
 					$('body').removeClass('newwindow');
 					$('#newWindowWrapper').remove();
-					setPush();				
+					setPush();
 				},400);
+				if(closer) { closer(); }
 				kickDown();
 			}
 		});
@@ -1814,6 +1826,7 @@ function getNewWindow(title,content,handlers,save) {
 				$('#newWindowWrapper').remove();
 				setPush();				
 			},400);
+			if(closer) { closer(); }
 			kickDown();
 		});
 	});
@@ -2002,7 +2015,7 @@ function appResizer(time) {
 //////////////
 function sanitize(str) {
 	if(str != "") {
-		var result = str.split(" ").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
+		var result = str.split(" ").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
 		return result;
 	}
 }
@@ -2120,7 +2133,7 @@ function getLogoutFB(button) {
 // UPDATE LOGIN STATUS //
 /////////////////////////
 function updateLoginStatus(sync) {
-	if(isPaid() && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_username")) {
+	if(window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_username")) {
 		$("body").addClass("appFacebook");
 		$("#appFooter").addClass("appFacebook");
 		$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));

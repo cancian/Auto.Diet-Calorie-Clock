@@ -122,6 +122,7 @@ function getFullHistory() {
 				////////////////
 				// STATISTICS //
 				////////////////
+				var heightAdjust = $('body').hasClass('android2') ? 19 : 9;
 				$('#appHistory').highcharts({
 					chart : {
 						reflow : false,
@@ -129,7 +130,7 @@ function getFullHistory() {
 						spacingRight : 0,
 						spacingTop : 0,
 						spacingBottom : 9,
-						height : $("#newWindow").height() - 9,
+						height : $("#newWindow").height() - heightAdjust,
 						width : minWidth,
 					},
 					credits : {
@@ -227,7 +228,7 @@ function getFullHistory() {
 		/////////////////
 		// CALL WINDOW //
 		/////////////////
-		getNewWindow(LANG.STATISTICS[lang],appHistoryHtml,appHistoryHandlers,appHistoryConfirm);
+		getNewWindow(LANG.STATISTICS[lang],appHistoryHtml,appHistoryHandlers);
 	});
 }
 //##////////////////##//
@@ -799,6 +800,7 @@ function getCyclicMenu() {
 		}
 		$('#appModeToggle + label').on(touchstart,function(obj) {
 			$('#appModeToggle').trigger("change");
+			updateTodayOverview();
 		});
 		//read changes
 		$('#appModeToggle').on("change",function(obj) {
@@ -838,7 +840,7 @@ function getCyclicMenu() {
 	/////////////////
 	// CALL WINDOW //
 	/////////////////
-	getNewWindow(LANG.CYCLIC_TITLE[lang],appModeHtml,appModeHandlers,appModeConfirm);
+	getNewWindow(LANG.CYCLIC_TITLE[lang],appModeHtml,appModeHandlers,'',appModeConfirm);
 }
 //##///////////////##//
 //## BALANCE METER ##//
@@ -972,7 +974,7 @@ function getLimitMenu() {
 	/////////////////
 	// CALL WINDOW //
 	/////////////////
-	getNewWindow(LANG.CALORIC_THRESHOLD[lang],appLimitHtml,appLimitHandlers,appLimitConfirm);
+	getNewWindow(LANG.CALORIC_THRESHOLD[lang],appLimitHtml,appLimitHandlers,'',appLimitConfirm);
 }
 //##/////////////##//
 //## GET ELAPSED ##//
@@ -992,6 +994,7 @@ function getElapsed(swap) {
 		     if(window.localStorage.getItem("config_swap") == 1) { window.localStorage.setItem("config_swap",2); swap = 2; }
 		else if(window.localStorage.getItem("config_swap") == 2) { window.localStorage.setItem("config_swap",3); swap = 3; }
 		else if(window.localStorage.getItem("config_swap") == 3) { window.localStorage.setItem("config_swap",1); swap = 1; }
+		$("#appStatusElapsed").stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" }, 450);
 	}
 	//////////
 	// VARS //
@@ -1087,7 +1090,6 @@ function getEntryEdit(eid) {
 				$("#divEntryTitle").addClass('exercise');
 			}
 			//MOBISCROLL
-			$('#getEntryDate').scroller('setDate',new Date(parseInt($('#getEntryDate').val())), true);
 			$('#getEntryDate').mobiscroll().datetime({
 				preset: 'datetime',
 				minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0),
@@ -1109,9 +1111,11 @@ function getEntryEdit(eid) {
 				mode: 'scroller'
 			});
 			//HOLD FLICKER
-			if(isMobile.Android()) {
-				$('#divEntryTitle').focus();
-				$('#divEntryTitle').blur();
+			if(isMobile.Android() ) {
+				$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+				$('#dummyInput').focus();
+				$('#dummyInput').blur();
+				$('#dummyInput').remove();
 			}
 			//SET
 			$('#getEntryDate').scroller('setDate',new Date(parseInt($('#getEntryDate').val())), true);
@@ -1206,7 +1210,7 @@ function getEntryEdit(eid) {
 			updateEntry({
 				id:parseInt($('#getEntryId').val()),
 				title:($("#getEntryTitle").val() * FoE)            + '',
-				body:$("#getEntryBody").val()                      + '',
+				body:$("#getEntryBody").val().split("  ").join(" ").split("  ").join(" ").split("  ").join(" ") + '',
 				published:parseInt($('#getEntryDateHidden').val()) + '',
 				pro:parseFloat($("#getEntryPro").val())            + '',
 				car:parseFloat($("#getEntryCar").val())            + '',
@@ -1249,31 +1253,112 @@ function getEntryEdit(eid) {
 //##////////////////##//
 //## BILLING MODULE ##//
 //##////////////////##//
+function expireNotice() {
+	////////////
+	// UNLOCK //
+	////////////
+	function doBuy(button) {
+		if(button != 1) { return; }
+		setTimeout(function() {
+			$("#tab4").trigger(touchstart);
+		},0);
+		setTimeout(function() {
+			$("#optionBuy").trigger(touchend);
+		},300);
+	}
+	////////////////////
+	// CONFIRM/NOTIFY //
+	////////////////////
+	if(isMobile.MSApp()) {
+		var md = new Windows.UI.Popups.MessageDialog(LANG.BUY_FULL_VERSION[lang] + '?', LANG.EVALUATION_EXPIRED[lang]);
+		md.commands.append(new Windows.UI.Popups.UICommand(LANG.BUY[lang]));
+		md.commands.append(new Windows.UI.Popups.UICommand(LANG.NO_THANKS[lang]));
+		md.showAsync().then(function (command) { if(command.label == LANG.BUY[lang]) { doBuy(1); } if(command.label == LANG.NO_THANKS[lang]) { doBuy(0); } });	
+	} else if(hasTouch()) {
+		navigator.notification.confirm(LANG.BUY_FULL_VERSION[lang] + '?', doBuy, LANG.EVALUATION_EXPIRED[lang], [LANG.BUY[lang],LANG.NO_THANKS[lang]]);
+	} else {
+		if(confirm(LANG.EVALUATION_EXPIRED[lang] + "\n" + LANG.BUY_FULL_VERSION[lang] + '?')) { doBuy(1); }
+	}
+}
+///////////////
+// DAYS LEFT //
+///////////////
+function daysLeft() {
+	var expired = 0;
+	var now  = new Date().getTime();
+	var day  = 1000 * 1 * 24 * 60 * 60;
+	var week = 1000 * 7 * 24 * 60 * 60;
+	var installTime = parseInt(window.localStorage.getItem('config_install_time'));
+	var expireTime  = installTime+week;
+	var daysLeft    = Math.ceil((expireTime-now) / day);
+	//check range
+	if(daysLeft < 0 || daysLeft > 7) { daysLeft = 0; }
+	//write expired if not paid
+	if(daysLeft == 0) {
+		if(window.localStorage.getItem("config_mode") != 'full') {
+			if(window.localStorage.getItem("config_mode") != 'expired') {
+				$("body").removeClass("full trial");
+				$("body").addClass("expired");
+				window.localStorage.setItem("config_mode","expired");
+				expireNotice();
+				getAnalytics('expired');
+			}
+		}
+	}
+	//update fix
+	if(isNaN(daysLeft))	{ daysLeft = 7; }
+	//return
+	return daysLeft;
+}
+/////////////
+// IS PAID //
+/////////////
 function isPaid() {
 	var isPaid = false;
 	///////////////////
 	// ANDROID CHECK //
 	///////////////////
-	if(!window.localStorage.getItem("facebook_mode")) {
-		window.localStorage.setItem('facebook_mode','regular');
-	}
-	if(isMobile.Android()) {
-		if(window.localStorage.getItem("facebook_mode") == 'premium') {
+	if(isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) {
+		//start trial
+		if(!window.localStorage.getItem("config_install_time")) {
+			window.localStorage.setItem("config_install_time",new Date().getTime());
+		}	
+		if(window.localStorage.getItem("config_mode") == 'full') {
 			isPaid = true;
-			$("body").removeClass("shareware");
 		} else {
-			isPaid = false;
-			$("body").addClass("shareware");
+			isPaid = false;	
 		}
 	////////////////////////
 	// BILLING UNVAILABLE //
 	////////////////////////
 	} else {
 		isPaid = true;	
-		$("body").removeClass("shareware");
 	}
 	//return bool
 	return isPaid;
+}
+///////////////////
+// CHECK LICENSE //
+///////////////////
+function checkLicense() {
+	if(isPaid()) {
+		//real paid
+		if(window.localStorage.getItem("config_mode") == 'full') {
+			$("body").removeClass("trial expired");
+			$("body").addClass("full");	
+		} else {
+		//non-paying
+		}
+	} else if(daysLeft() == 0) {
+		//paid expired
+		if(window.localStorage.getItem("config_mode") == 'expired') {
+			$("body").removeClass("full trial");
+			$("body").addClass("expired");
+		}
+	} else {
+		$("body").removeClass("full expired");
+		$("body").addClass("trial");
+	}
 }
 //#//////////////////#//
 //# AUTORIZE ROUTINE #//
@@ -1289,13 +1374,10 @@ function billingAuthorize(auth,msg) {
 		$("#backButton").trigger(touchend);
 		//auto login
 		setTimeout(function() {
-			window.localStorage.setItem('facebook_mode','premium');
-			if(!window.localStorage.getItem("facebook_logged") && !window.localStorage.getItem("facebook_username")) {
-				$("#optionFacebook").trigger(touchend);
-			} else {
-				updateLoginStatus(1);
-			}
-			getAnalytics('iap');
+			window.localStorage.setItem('config_mode','full');
+			isPaid();
+			checkLicense();
+			getAnalytics('fullVersion');
 		},500);
 	}
 	////////////////////
@@ -1329,11 +1411,113 @@ function billingBuy() {
 				} else {
 					billingAuthorize(0, LANG.TRANSACTION_UNSUCCESSFUL[lang]);
 				}
-			}, 'com.cancian.syncservice');
+			}, 'com.cancian.fullversion');
 		}, function(e) {
 			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
 		}, true);
 	}
+	/*///////
+	// WP8 //
+	///////*/
+	if(isMobile.Windows()) {
+		window.plugins.inAppPurchaseManager.requestProductData("com.cancian.fullversion", function (productId, title, description, price) {
+			//request success
+			window.plugins.inAppPurchaseManager.makePurchase(productId, 1,
+				//restore success
+				function() {
+				billingAuthorize(1, LANG.TRANSACTION_SUCCESS[lang]);
+				//restore fail
+			}, function() {
+				billingAuthorize(0, LANG.TRANSACTION_UNSUCCESSFUL[lang]);
+			});
+		},
+			//request fail
+			function (id) {
+			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
+		});
+	}
+	/*/////////
+	// MSAPP //
+	/////////*/
+	if(isMobile.MSApp()) {
+		try {
+			if(!isInAppPurchaseValid("com.cancian.fullversion")) {
+				 (Windows.ApplicationModel.Store.CurrentApp).requestProductPurchaseAsync("com.cancian.fullversion", false).then(function () {
+					if(isInAppPurchaseValid("com.cancian.fullversion")) {
+						billingAuthorize(1, LANG.TRANSACTION_SUCCESS[lang]);
+					} else {
+						billingAuthorize(0, LANG.TRANSACTION_UNSUCCESSFUL[lang]);
+					}
+				}, function () {
+					billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
+				});
+			} else {
+				billingAuthorize(1, LANG.ALREADY_OWN[lang]);
+			}
+		} catch (e) {
+			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
+		}
+	}
+	/*///////
+	// IOS //
+	///////*/
+	if(isMobile.iOS()) {
+		/*
+		try {
+			
+    window.storekit.init({
+
+        debug: true,
+
+        purchase: function (transactionId, productId) {
+            console.log('purchased: ' + productId);
+        },
+        restore: function (transactionId, productId) {
+            console.log('restored: ' + productId);
+        },
+        restoreCompleted: function () {
+           console.log('all restore complete');
+        },
+        restoreFailed: function (errCode) {
+            console.log('restore failed: ' + errCode);
+        },
+        error: function (errno, errtext) {
+            console.log('Failed: ' + errtext);
+        },
+        ready: function () {
+            var productIds = [
+                "com.example.app.inappid1", 
+                "com.example.app.inappid2"
+            ];
+            window.storekit.load(productIds, function(validProducts, invalidProductIds) {
+                $.each(validProducts, function (i, val) {
+                    console.log("id: " + val.id + " title: " + val.title + " val: " + val.description + " price: " + val.price);
+                });
+                if(invalidProductIds.length) {
+                    console.log("Invalid Product IDs: " + JSON.stringify(invalidProductIds));
+                }
+            });
+        }
+    });
+	//window.storekit.verifyReceipt(function(){ alert('s'); },function(){ alert('x'); });
+
+    window.storekit.loadReceipts(function (receipts) {
+		var appReceipt      = (Base64.decode(receipts.appStoreReceipt));
+		var originalDatePos = (Base64.decode(receipts.appStoreReceipt)).indexOf('com.cancian.mylivediet');
+		var originalDate    = appReceipt.slice((originalDatePos-32),(originalDatePos-13));
+		alert(appReceipt);
+       // receipts.forTransaction(transactionId); // null or base64 encoded receipt (iOS < 7)
+       // receipts.forProduct(productId); // null or base64 encoded receipt (iOS < 7)
+    });	
+	//
+	//2013-11-01 5:26
+				
+			
+		} catch (e) {
+alert(e);
+		}
+		*/
+	}	
 }
 //#/////////#//
 //# RESTORE #//
@@ -1345,7 +1529,7 @@ function billingRestore() {
 	if(isMobile.Android()) {
 		inappbilling.init(function(e) {
 			inappbilling.getPurchases(function(e) {
-				if((JSON.stringify(e)).indexOf('com.cancian.syncservice') !== -1) {
+				if((JSON.stringify(e)).indexOf('com.cancian.fullversion') !== -1) {
 					billingAuthorize(1, LANG.PURCHASE_RESTORED[lang]);
 				} else {
 					billingAuthorize(0, LANG.RESTORE_FAILED[lang]);
@@ -1357,6 +1541,40 @@ function billingRestore() {
 		}, function(e) {
 			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
 		}, true);
+	}
+	/*///////
+	// WP8 //
+	///////*/
+	if(isMobile.Windows()) {
+		window.plugins.inAppPurchaseManager.requestProductData("com.cancian.fullversion", function (productId, title, description, price) {
+			//request success
+			window.plugins.inAppPurchaseManager.restoreCompletedTransactions(
+				//restore success
+				function() {
+				billingAuthorize(1, LANG.PURCHASE_RESTORED[lang]);
+				//restore fail
+			}, function() {
+				billingAuthorize(0, LANG.RESTORE_FAILED[lang]);
+			});
+		},
+			//request fail
+			function (id) {
+			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
+		});
+	}
+	/*/////////
+	// MSAPP //
+	/////////*/
+	if(isMobile.MSApp()) {
+		try {
+			if(isInAppPurchaseValid("com.cancian.fullversion")) {
+				billingAuthorize(1, LANG.PURCHASE_RESTORED[lang]);
+			} else { 
+				billingAuthorize(0, LANG.RESTORE_FAILED[lang]);
+			}
+		} catch(e) {
+			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
+		}
 	}
 }
 //#////////////////#//
@@ -1380,13 +1598,13 @@ function billingWindow() {
 	// HTML //
 	//////////
 	var getBillingHtml = "\
-		<div id='premiumInfo'>" + LANG.PREMIUM_FEATURE[lang] + "</div>\
-		<div id='buyButton'>" + LANG.BUY[lang] + "</div>\
+		<div id='premiumInfo'>"   + LANG.DAYS_LEFT[lang]         + ': ' + daysLeft() + "</div>\
+		<div id='buyButton'>"     + LANG.BUY[lang]               + "</div>\
 		<div id='restoreButton'>" + LANG.RESTORE_PURCHASES[lang] + "</div>\
 	";
 	/////////////////
 	// CALL WINDOW //
 	/////////////////
-	getNewWindow(LANG.SETTINGS_BACKUP[lang],getBillingHtml,getBillingHandler,'');	
+	getNewWindow(LANG.FULL_VERSION[lang],getBillingHtml,getBillingHandler,'');	
 }
 

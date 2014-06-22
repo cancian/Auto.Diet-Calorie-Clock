@@ -1452,8 +1452,10 @@
 		 * @inner
 		*/
 		function startMultiFingerRelease() {
-			previousTouchEndTime = getTimeStamp();
-			previousTouchFingerCount = event.touches.length+1;
+			if(event) {
+				previousTouchEndTime = getTimeStamp();
+				previousTouchFingerCount = event.touches.length+1;
+			}
 		}
 		
 		/**

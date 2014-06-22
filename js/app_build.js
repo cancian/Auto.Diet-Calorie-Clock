@@ -19,8 +19,9 @@ function openSettings(string) {
 			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_BACKUP[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
 			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
+			<li id="optionBuy"><div><p class="contentTitle">'      + LANG.BUY_FULL_VERSION[lang]     + '<span>' + LANG.DAYS_LEFT[lang] + ': ' + daysLeft() + '</span></p></div></li>\
 		</ul>\
-		<div id="optionWebsite">' + LANG.ABOUT_TITLE[lang] + '</div>\
+		<div id="optionWebsite">' + appName + " v" + appVersion + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
 		<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
 	</div>\
@@ -34,7 +35,7 @@ function openSettings(string) {
 	///////////////////
 	// last sync tap //
 	///////////////////
-	if(window.localStorage.getItem("lastSync") != "never" && isPaid()) {
+	if(window.localStorage.getItem("lastSync") != "never") {
 		$("#optionLastSync span").html(dateDiff(window.localStorage.getItem("lastSync"),(new Date().getTime())));
 		//$("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); 
 	}
@@ -54,6 +55,19 @@ function openSettings(string) {
 		buildHelpMenu();
 		return false;
 	});	
+	/////////////
+	// BUY TAP //
+	/////////////
+	if(!isPaid()) {	
+	$("#optionBuy").on(touchend,function(evt) {
+		$(this).addClass("activeRow");
+		evt.preventDefault();
+		billingWindow();
+		return false;
+	});	
+	} else {
+		$("#optionBuy").remove();
+	}
 	//////////////
 	// LANG TAP //
 	//////////////
@@ -66,9 +80,6 @@ function openSettings(string) {
 	$("#optionFacebook").on(touchend, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if(!isPaid()) {
-			billingWindow();
-		} else {
 		//fix exception 18
 		if(isMobile.Android()) {
 			updateFoodDb();
@@ -92,7 +103,6 @@ function openSettings(string) {
 				},100);
 			}
 		}
-	}
 	});
 	//TOGGLE ACTIVE
 	$("#optionFacebook").on(touchstart,function(evt) {
@@ -944,6 +954,12 @@ function sliderNeg() {
 		//drop food db
 		else if($("#entryBody").val().toLowerCase() == "devhassql") {
 			if(hasSql == true) { alert('sql'); } else { alert('localstorage'); }
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+		}
+		//refresh
+		else if($("#entryBody").val().toLowerCase() == "devclear") {
+			window.localStorage.clear();
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}		

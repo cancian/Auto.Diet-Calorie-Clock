@@ -34,6 +34,13 @@ module.exports = [
         "clobbers": [
             "inappbilling"
         ]
+    },
+    {
+        "file": "plugins/cc.fovea.plugins.inapppurchase/InAppPurchase.js",
+        "id": "cc.fovea.plugins.inapppurchase.InAppPurchase",
+        "clobbers": [
+            "storekit"
+        ]
     }
 ];
 });
