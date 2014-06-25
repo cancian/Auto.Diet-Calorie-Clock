@@ -740,7 +740,9 @@ function getCyclicMenu() {
 			//max
 			if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
 				$(this).val( parseInt($(this).val()) );
-				$(this).val( $(this).val().slice(0,-1) );
+				if(isNumberKey(evt)) {	
+					$(this).val( $(this).val().slice(0,-1) );
+				}
 			}
 			//num only
 			return isNumberKey(evt);
@@ -923,7 +925,9 @@ function getLimitMenu() {
 			//max
 			if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
 				$(this).val( parseInt($(this).val()) );
-				$(this).val( $(this).val().slice(0,-1) );
+				if(isNumberKey(evt)) {	
+					$(this).val( $(this).val().slice(0,-1) );
+				}
 			}
 			//num only
 			return isNumberKey(evt);
@@ -994,7 +998,9 @@ function getElapsed(swap) {
 		     if(window.localStorage.getItem("config_swap") == 1) { window.localStorage.setItem("config_swap",2); swap = 2; }
 		else if(window.localStorage.getItem("config_swap") == 2) { window.localStorage.setItem("config_swap",3); swap = 3; }
 		else if(window.localStorage.getItem("config_swap") == 3) { window.localStorage.setItem("config_swap",1); swap = 1; }
-		$("#appStatusElapsed").stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" }, 450);
+		//$("#appStatusElapsed div span").stop().animate({ color: "#007aff" }, 1).animate({ color: "#aaa" }, 450);
+		//$("#appStatusElapsed").stop().animate({ borderColor: "rgba(0,117,255,0.7)" }, 1).animate({ borderColor: "#eee" }, 350);
+		//$("#appStatusElapsed").stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" }, 325);
 	}
 	//////////
 	// VARS //
@@ -1155,7 +1161,9 @@ function getEntryEdit(eid) {
 				//max
 				if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
 					$(this).val( parseInt($(this).val()) );
-					$(this).val( $(this).val().slice(0,-1) );
+					if(isNumberKey(evt)) {
+						$(this).val( $(this).val().slice(0,-1) );
+					}
 				}
 				//num only
 				return isNumberKey(evt);
@@ -1318,7 +1326,7 @@ function isPaid() {
 	///////////////////
 	// ANDROID CHECK //
 	///////////////////
-	if(isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) {
+	if(isMobile.iOS() || isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) {
 		//start trial
 		if(!window.localStorage.getItem("config_install_time")) {
 			window.localStorage.setItem("config_install_time",new Date().getTime());
@@ -1462,9 +1470,8 @@ function billingBuy() {
 	// IOS //
 	///////*/
 	if(isMobile.iOS()) {
-		/*
 		try {
-			
+	/*		
     window.storekit.init({
 
         debug: true,
@@ -1486,37 +1493,38 @@ function billingBuy() {
         },
         ready: function () {
             var productIds = [
-                "com.example.app.inappid1", 
-                "com.example.app.inappid2"
+                "com.cancian.mylivediet"
             ];
             window.storekit.load(productIds, function(validProducts, invalidProductIds) {
                 $.each(validProducts, function (i, val) {
-                    console.log("id: " + val.id + " title: " + val.title + " val: " + val.description + " price: " + val.price);
+                    alert.log("id: " + val.id + " title: " + val.title + " val: " + val.description + " price: " + val.price);
                 });
                 if(invalidProductIds.length) {
-                    console.log("Invalid Product IDs: " + JSON.stringify(invalidProductIds));
+                    alert.log("Invalid Product IDs: " + JSON.stringify(invalidProductIds));
                 }
             });
         }
     });
-	//window.storekit.verifyReceipt(function(){ alert('s'); },function(){ alert('x'); });
+	*/
+	///window.storekit.verifyReceipt(function(){ alert('s'); },function(){ alert('x'); });
+
+
 
     window.storekit.loadReceipts(function (receipts) {
-		var appReceipt      = (Base64.decode(receipts.appStoreReceipt));
+		var appReceipt      = Base64.decode(receipts.appStoreReceipt);
 		var originalDatePos = (Base64.decode(receipts.appStoreReceipt)).indexOf('com.cancian.mylivediet');
 		var originalDate    = appReceipt.slice((originalDatePos-32),(originalDatePos-13));
-		alert(appReceipt);
-       // receipts.forTransaction(transactionId); // null or base64 encoded receipt (iOS < 7)
-       // receipts.forProduct(productId); // null or base64 encoded receipt (iOS < 7)
+		if(Date.parse(originalDate) > Date.UTC(2014,6,22)) {
+			alert('free');
+		} else {
+			alert('paid');		
+		}
     });	
 	//
-	//2013-11-01 5:26
-				
-			
+
 		} catch (e) {
 alert(e);
 		}
-		*/
 	}	
 }
 //#/////////#//
@@ -1608,3 +1616,250 @@ function billingWindow() {
 	getNewWindow(LANG.FULL_VERSION[lang],getBillingHtml,getBillingHandler,'');	
 }
 
+/////////////////////////
+// BUILD ADVANCED MENU //
+/////////////////////////
+function buildAdvancedMenu() {
+	//evt.preventDefault();
+	$("#advancedMenuWrapper").remove();
+	$("#appContent").append("\
+	<div id='advancedMenuWrapper'>\
+		<div id='advancedMenuHeader'>\
+			<div id='backButton'></div>\
+			<div id='advancedMenuTitle'>" + LANG.SETTINGS_ADVANCED[lang] + "</div>\
+			</div>\
+		<div id='advancedMenu'></div>\
+	</div>");
+	
+//
+	$("#advancedMenu").html("<ul id='advancedMenuList'>\
+		<li id='appMode'><input id='appModeToggle' type='checkbox' /></li>\
+		<li id='setms'>Bahasa Melayu</li>\
+		<li id='setcs'>Čeština</li>\
+		<li id='setda'>Dansk</li>\
+		<li id='setde'>Deutsch</li>\
+		<li id='setet'>Eesti</li>\
+		<li id='seten'>English</li>\
+		<li id='setes'>Español</li>\
+		<li id='setfr'>Français</li>\
+		<li id='setga'>Gaeilge</li>\
+		<li id='sethr'>Hrvatski</li>\
+		<li id='setit'>Italiano</li>\
+		<li id='sethu'>Magyar</li>\
+		<li id='setnl'>Nederlands</li>\
+		<li id='setnb'>Norsk</li>\
+		<li id='setpl'>Polski</li>\
+		<li id='setpt'>Português</li>\
+		<li id='setro'>Română</li>\
+	</ul>\
+	<ul>\
+		<li id='setid'>Contat</li>\
+		<li id='setid'>About</li>\
+	</ul>\
+	<ul>\
+		<li id='listReset'>Reset settings</li>\
+	</ul>\
+	");
+
+
+	//set default
+	if(!window.localStorage.getItem("appMode")) {
+		window.localStorage.setItem("appMode","direct");
+	}
+		
+
+	//read stored
+	if(window.localStorage.getItem("appMode") == "inverted") {
+		$("#appModeToggle").prop('checked',true);
+	}
+
+	//read changes
+	$('#appModeToggle').on("change",function(obj) {
+		if($('#appModeToggle').prop('checked')) {
+			appMode = "inverted";
+			window.localStorage.setItem("appMode","inverted");
+			$("body").removeClass("direct");
+			$("body").addClass("inverted");
+		} else {
+			appMode = "direct";
+			window.localStorage.setItem("appMode","direct");
+			$("body").removeClass("inverted");
+			$("body").addClass("direct");
+		}
+	});
+
+
+
+
+//	$('input[type=checkbox]').on("change",function(obj) {
+//		alert( $(this).prop('checked') );
+//		$(this).prop('checked')
+		//alert( $(obj).parent('div').attr('id') );
+//	});
+
+	
+
+	//set css
+	$("#advancedMenu").css("top",$("#advancedMenuHeader").height() + "px");	
+	//show content
+	$("#advancedMenuWrapper").hide();
+	$("#advancedMenuWrapper").fadeIn(200,function() {
+		//scroller
+		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
+			$("#advancedMenu").css("overflow","hidden");
+			$("#advancedMenu").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		} else {
+			$("#advancedMenu").css("overflow","auto");
+		}
+	});
+	/////////////
+	// handler //
+	/////////////
+	//LIST CLOSER HANDLER
+	$("#backButton").on(touchend,function() {
+		$("#advancedMenuWrapper").fadeOut(200,function() {
+			$('#advancedMenuWrapper').remove();
+		});
+	});
+
+
+	//checkbox toggle handler
+	$("#advancedMenu li").on(tap,function(evt) {
+		if(!isMobile.iOS()) {
+		//	evt.preventDefault();
+		}
+		//toggle class if !checkbox
+		if((/checkbox/).test($(this).html())) {
+			$('input[type=checkbox]', this).trigger('click');
+			//evt.preventDefault();
+		//	evt.stopPropagation();
+		}
+	});
+	//TOPIC HANDLERS	
+	$("#advancedMenu li").on(touchstart,function(evt) {
+		if(!isMobile.iOS()) {
+			//evt.preventDefault();
+		}
+		//toggle class if !checkbox
+		if(!(/checkbox/).test($(this).html())) {
+			$(this).addClass("activeRow");
+		}
+	});
+	$("#advancedMenu,#advancedMenu li").on(touchend + " " + touchmove + " mouseout scroll",function(evt) {
+		$(".activeRow").removeClass("activeRow");
+		//evt.preventDefault();
+		//evt.stopPropagation();
+	});
+
+	$("#advancedMenu").on("scroll",function(evt) {
+//		$(".activeRow").removeClass("activeRow");
+		//evt.preventDefault();
+		//evt.stopPropagation();
+	});
+
+/*
+	$("#langSelect").remove();
+	//intro
+	if(opt == "intro") {
+		$("body").append("<div id='langSelect'></div>");
+	} else {
+		$("#appContent").append("<div id='langSelect'></div>");
+	}
+	$("#langSelect").html("<ul id='langSelectList'>\
+		<li id='setid'>Bahasa Indonesia</li>\
+		<li id='setms'>Bahasa Melayu</li>\
+		<li id='setcs'>Čeština</li>\
+		<li id='setda'>Dansk</li>\
+		<li id='setde'>Deutsch</li>\
+		<li id='setet'>Eesti</li>\
+		<li id='seten'>English</li>\
+		<li id='setes'>Español</li>\
+		<li id='setfr'>Français</li>\
+		<li id='setga'>Gaeilge</li>\
+		<li id='sethr'>Hrvatski</li>\
+		<li id='setit'>Italiano</li>\
+		<li id='sethu'>Magyar</li>\
+		<li id='setnl'>Nederlands</li>\
+		<li id='setnb'>Norsk</li>\
+		<li id='setpl'>Polski</li>\
+		<li id='setpt'>Português</li>\
+		<li id='setro'>Română</li>\
+		<li id='setsk'>Slovenčina</li>\
+		<li id='setsl'>Slovenščina</li>\
+		<li id='setfi'>Suomi</li>\
+		<li id='setsv'>Svenska</li>\
+		<li id='setvi'>Tiếng Việt</li>\
+		<li id='settr'>Türkçe</li>\
+		<li id='setel'>Ελληνικά</li>\
+		<li id='setbg'>Български</li>\
+		<li id='setru'>Русский</li>\
+		<li id='setuk'>Українська</li>\
+		<li id='setar'>العربية</li>\
+		<li id='sethi'>हिन्दी</li>\
+		<li id='sethy'>հայերեն</li>\
+		<li id='setth'>ไทย</li>\
+		<li id='setko'>한국어</li>\
+		<li id='setzh'>中文（简体中文）</li>\
+		<li id='setja'>日本語</li>\
+	</ul>");
+	//intro
+	if(opt == "intro") { 
+	$("#langSelect").css("z-index",100);
+		//pad
+		if($("body").hasClass("ios7")) {
+			$("#langSelect").css("padding-top","20px");
+		}
+	}
+	//mark current
+	$("#set" + window.localStorage.getItem("devSetLang")).addClass("set");
+	//show content
+	$("#langSelect").hide();
+	$("#langSelect").fadeIn(200,function() {
+		//scroller
+		if(!isMobile.iOS() || opt == "intro") {
+			if(androidVersion() < 4.4 && !isMobile.Windows()) {
+				$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			}
+		}
+	});
+	/////////////
+	// handler //
+	/////////////
+	$("#langSelect li").on(tap,function(evt) {
+		window.localStorage.setItem("devSetLang",$(this).attr("id").replace("set",""));
+		//remark
+		$(".set").removeClass("set");
+		$(this).addClass("set");
+		//////////////
+		// fade out //
+		//////////////
+		$("#langSelect").fadeOut(200,function() {
+			setTimeout(function() {
+			$("body").removeClass("appLang-" + lang);
+			lang = window.localStorage.getItem("devSetLang");
+			$("body").addClass("appLang-" + lang);
+			if(lang != "en" && lang != "pt") { 
+				LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
+			}
+			$("#tab1").html(LANG.MENU_STATUS[lang]);
+			$("#tab2").html(LANG.MENU_DIARY[lang]);
+			$("#tab3").html(LANG.MENU_PROFILE[lang]);
+			$("#tab4").html(LANG.MENU_SETTINGS[lang]);
+			if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
+			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
+			//remove
+			$("#langSelect").remove();
+			//refresh intro
+			if(opt == "intro") { 
+				showIntro();
+			}
+			},80);
+		});
+		//enforce
+		setTimeout(function() { $("#langSelect").remove(); },600);
+	});
+	*/
+//	});
+}

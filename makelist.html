@@ -30,18 +30,28 @@ str = str.substring(0,len-1);
   
 
 function sanitize(str) {
+
 //	var result = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
 //	var searchQuery = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
+if(str) {
 	var result = str.split(" ").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
 	return result
 }
+return '';
+}
 
+
+var dataLang;
+
+$.get("sql/list.ar.txt", function(data) {
+
+
+
+dataLang = data.split("\n");
 
 /////////////
 $.get("searchdb_en.sql", function(data) {
 /////////////
-
-
 
 data = data.split('INSERT INTO "diary_food" VALUES(').join("").split(",'exercise").join("','exercise").split(",'food").join("','food").split("');").join("");
 
@@ -83,13 +93,15 @@ if(foodListArray[f][3].match("Não se aplica")) {
 		var CAR  = "";
 		var FAT  = "";
 		var FIB  = "";
+
+
 		
 		
 		ID   = foodListArray[f][0];
 		TYPE = foodListArray[f][1];
 		CODE = foodListArray[f][2];
-		NAME = foodListArray[f][3];
-		TERM = foodListArray[f][4];		
+		NAME = trim(dataLang[f]);
+		TERM = trim(sanitize(dataLang[f]));	
 		KCAL = foodListArray[f][5]; 
 		PRO  = foodListArray[f][6];
 		CAR  = foodListArray[f][7];
@@ -130,11 +142,11 @@ if(FIB)	 { FIB = trim(FIB); }
 
 //DESC = DESC.substring(1);
 //DESC = DESC.substring(0,DESC.length-1);
-//		tpl = "<div>INSERT INTO \"diary_food\" VALUES(" + ID + ",'" + TYPE + "','" + CODE + "','" + NAME + "','" + TERM + "','" + KCAL + "','" + PRO + "','" + CAR + "','" + FAT + "','" + FIB + "');</div>";
+		//tpl = "<div>INSERT INTO \"diary_food\" VALUES(" + ID + ",'" + TYPE + "','" + CODE + "','" + NAME + "','" + TERM + "','" + KCAL + "','" + PRO + "','" + CAR + "','" + FAT + "','" + FIB + "');</div>";
 
-		tpl = "<div>" + NAME + "</div>";
-
-//		tpl = '<div>lib2.insert("diary_food", {"id":"' + ID + '", "type":"' + TYPE + '","code":"' + CODE + '","name":"' + NAME + '","term":"' + TERM + '","kcal":"' + KCAL + '","pro":"' + PRO + '","car":"' + CAR + '","fat":"' + FAT + '","fib":"' + FIB + '"});</div>';
+		//tpl = "<div>" + NAME + "</div>";
+		//tpl = '<div>INSERT INTO "diary_food" VALUES: + "' + ID + '","' + TYPE + '","' + CODE + '","' + NAME + '","' + TERM + '","' + KCAL + '","' + PRO + '","' + CAR + '","' + FAT + '","' + FIB + '":;</div>';
+		tpl = '<div>lib2.insert("diary_food", {"id":"' + ID + '", "type":"' + TYPE + '","code":"' + CODE + '","name":"' + NAME + '","term":"' + TERM + '","kcal":"' + KCAL + '","pro":"' + PRO + '","car":"' + CAR + '","fat":"' + FAT + '","fib":"' + FIB + '"});</div>';
 if(NAME) {
 		mix += tpl;
 }
@@ -149,11 +161,25 @@ if(NAME) {
 
 alert('mi');
 
+/*
+mix = mix.split('<div>lib2.insert("diary_food", {"id":"').join('<div>INSERT INTO \"diary_food\" VALUES("');
+mix = mix.split('"type":').join(' ');
+mix = mix.split('"code":').join(' ');
+mix = mix.split('"name":').join(' ');
+mix = mix.split('"term":').join(' ');
+//mix = mix.split('"kcal":').join(' ');
+//mix = mix.split('"pro":').join(' ');
+//mix = mix.split('"car":').join(' ');
+//mix = mix.split('"fat":').join(' ');
+//mix = mix.split('"fib":').join(' ');
+mix = mix.split('});').join(');');
+//INSERT INTO "diary_food" VALUES("268", "type":"food","code":"02044","name":"الريحان الطازجة","term":"الريحانالطازجة","kcal":"23","pro":"3.15","car":"2.65","fat":"0.64","fib":"1.60"});
+*/
 
 $('#list').html(mix);
 
 });
-
+});
 
 /*
 ## SR26 ##

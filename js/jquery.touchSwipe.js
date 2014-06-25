@@ -645,7 +645,7 @@
 			
 			
 			if ( (fingerCount === options.fingers || options.fingers === ALL_FINGERS) || !SUPPORTS_TOUCH || hasPinches() ) {
-				
+				if(currentFinger) {
 				direction = calculateDirection(currentFinger.start, currentFinger.end);
 				
 				//Check if we need to prevent default event (page scroll / pinch zoom) or not
@@ -657,7 +657,7 @@
 
                 //Cache the maximum distance we made in this direction
                 setMaxDistance(direction, distance);
-
+				}
 
 				if (options.swipeStatus || options.pinchStatus) {
 					ret = triggerHandler(event, phase);
@@ -668,13 +668,13 @@
 				if(!options.triggerOnTouchEnd || options.triggerOnTouchLeave) {
 					
 					var inBounds = true;
-					
+					if(currentFinger) {
 					//If checking if we leave the element, run the bounds check (we can use touchleave as its not supported on webkit)
 					if(options.triggerOnTouchLeave) {
 						var bounds = getbounds( this );
 						inBounds = isInBounds( currentFinger.end, bounds );
 					}
-					
+					}
 					//Trigger end handles as we swipe if thresholds met or if we have left the element if the user has asked to check these..
 					if(!options.triggerOnTouchEnd && inBounds) {
 						phase = getNextPhase( PHASE_MOVE );
@@ -1556,10 +1556,10 @@
 			
 			var id = evt.identifier!==undefined ? evt.identifier : 0; 
 			var f = getFingerData( id );
-			
-			f.end.x = evt.pageX||evt.clientX;
-			f.end.y = evt.pageY||evt.clientY;
-			
+			if(f) {
+				f.end.x = evt.pageX||evt.clientX;
+				f.end.y = evt.pageY||evt.clientY;
+			}
 			return f;
 		}
 		
@@ -2063,8 +2063,9 @@
         var y = (e.changedTouches) ? e.changedTouches[0].pageY: e.pageY;
         
         var tapAndHoldPoint = $(this).data("longhold.point");
-        var euclideanDistance = calculateEuclideanDistance(tapAndHoldPoint.x, tapAndHoldPoint.y, x, y);
-                
+		if(tapAndHoldPoint) {
+	        var euclideanDistance = calculateEuclideanDistance(tapAndHoldPoint.x, tapAndHoldPoint.y, x, y);
+		}
         if (euclideanDistance > MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT) {
             stopTapAndHoldDetector.call(this);
         }

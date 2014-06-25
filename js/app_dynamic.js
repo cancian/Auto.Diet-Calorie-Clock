@@ -24,7 +24,7 @@ $(document).on("pageload", function(evt) {
 	});
 	$("#entryList div, #appContent").on(touchmove + ' mouseleave mouseout mouseup ' + touchend,function(evt) {
 		deMove++;
-		if(deMove > 20) {
+		if(deMove > 20 || (isMobile.Android() && deMove > 1)) {
 			cancelEdit = 1;
 		}
 	});
@@ -1884,7 +1884,7 @@ if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputAddNew = "keydow
 $('#addNewWrapper input[type="number"]').on(defaultInputAddNew, function(evt) {
 	if((evt.which || evt.keyCode) == 8)  { return true; }
 	//max
-	if($(this).val().length > 7 || $(this).val() > 9999) {
+	if($(this).val().length > 7 || $(this).val() > 9999 && isNumberKey(evt)) {
 		$(this).val( $(this).val().slice(0,-1) );
 	}
 	//num only

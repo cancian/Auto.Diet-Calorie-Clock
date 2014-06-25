@@ -708,14 +708,39 @@ setInterval(function() {
 				$("#entryBody").blur();
 			}
 	});
+	//////////////////
+	// HEADER SWIPE //
+	//////////////////
+	var headerSwipe;
+	var headerSwipeBlock = 0;	
+	$("#appHeader").swipe({
+		swipe:function(event,direction) {
+			clearTimeout(headerSwipe);
+			if(!$('#editable').val()) {
+				if(direction == 'left') {
+				         if(window.localStorage.getItem("app_last_tab") == "tab4") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab3"); headerSwipeBlock = 0; }, 150); }
+					else if(window.localStorage.getItem("app_last_tab") == "tab3") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab2"); headerSwipeBlock = 0; }, 150); }
+					else if(window.localStorage.getItem("app_last_tab") == "tab2") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab1"); headerSwipeBlock = 0; }, 150); }
+					else if(window.localStorage.getItem("app_last_tab") == "tab1") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab4"); headerSwipeBlock = 0; }, 150); }
+				} else if(direction == 'right') {
+				         if(window.localStorage.getItem("app_last_tab") == "tab4") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab1"); headerSwipeBlock = 0; }, 150); }
+					else if(window.localStorage.getItem("app_last_tab") == "tab3") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab4"); headerSwipeBlock = 0; }, 150); }
+					else if(window.localStorage.getItem("app_last_tab") == "tab2") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab3"); headerSwipeBlock = 0; }, 150); }
+					else if(window.localStorage.getItem("app_last_tab") == "tab1") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab2"); headerSwipeBlock = 0; }, 150); }	
+				}
+			} 
+		}
+	});
+	$("#appHeader").swipe("option", "threshold", 32);
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //
 	//////////////////////////
 	var editableTimeout;
 	$('div.editable').on(tap, function(evt) {
-		evt.preventDefault();
+		//evt.preventDefault();
+		//if(window.innerWidth - evt.pageX > 150) { return; }
 		//not with sidemenu
-		if(!$('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open') && !$('#pageSlideFood').is(":animated")) {
+		if(!$('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open') && !$('#pageSlideFood').is(":animated") ) {
 		//not while editing
 		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#modalOverlay').is(':visible') ) {
 		//not with delete button
@@ -841,7 +866,9 @@ setInterval(function() {
 					//max
 					if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
 						$(this).val( parseInt($(this).val()) );
-						$(this).val( $(this).val().slice(0,-1) );
+						if(isNumberKey(evt)) {
+							$(this).val( $(this).val().slice(0,-1) );
+						}
 					}
 					//num only
 					return isNumberKey(evt);

@@ -23,9 +23,10 @@ function openSettings(string) {
 		</ul>\
 		<div id="optionWebsite">' + appName + " v" + appVersion + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
-		<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
+		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 	</div>\
 	';
+	//	<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -1679,7 +1680,9 @@ $("#pA3B,#feet,#inches").on(defaultInput, function(evt) {
 	//max
 	if(parseInt($(this).val()) > 999 || $(this).val().length > 2) {
 		$(this).val( parseInt($(this).val()) );
-		$(this).val( $(this).val().slice(0,-1) );
+		if(isNumberKey(evt)) {
+			$(this).val( $(this).val().slice(0,-1) );
+		}
 	}
 	//num only
 	return isNumberKey(evt);
