@@ -1615,7 +1615,6 @@ function billingWindow() {
 	/////////////////
 	getNewWindow(LANG.FULL_VERSION[lang],getBillingHtml,getBillingHandler,'');	
 }
-
 /////////////////////////
 // BUILD ADVANCED MENU //
 /////////////////////////

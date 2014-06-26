@@ -1197,7 +1197,7 @@ function updateFavList(callback) {
 			}
 		}
 		if(customFavList == "") { customFavList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
-		if(customFavSql  != "") { window.localStorage.setItem("customFavSql",customFavSql); } else { window.localStorage.setItem("customFavSql"," "); }
+		if(customFavSql  != "") { window.localStorage.setItem("customFavSql",customFavSql.split('undefined').join('')); } else { window.localStorage.setItem("customFavSql"," "); }
 		//////////
 		// HTML //
 		//////////
@@ -1299,7 +1299,7 @@ function updateFoodList(callback) {
 			}
 		}
 		if(customFoodList == "") { customFoodList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
-		if(customFoodSql  != "") { window.localStorage.setItem("customFoodSql",customFoodSql); } else { window.localStorage.setItem("customFoodSql"," "); }
+		if(customFoodSql  != "") { window.localStorage.setItem("customFoodSql",customFoodSql.split('undefined').join('')); } else { window.localStorage.setItem("customFoodSql"," "); }
 		//////////
 		// HTML //
 		//////////
@@ -1410,7 +1410,7 @@ getCustomList("exercise",function(data) {
 		}
 	}
 	if(customExerciseList == "") {customExerciseList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
-	if(customExerciseSql  != "") { window.localStorage.setItem("customExerciseSql",customExerciseSql); } else { window.localStorage.setItem("customExerciseSql"," "); }
+	if(customExerciseSql  != "") { window.localStorage.setItem("customExerciseSql",customExerciseSql.split('undefined').join('')); } else { window.localStorage.setItem("customExerciseSql"," "); }
 	//////////
 	// HTML //
 	//////////

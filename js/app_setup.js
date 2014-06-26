@@ -967,14 +967,29 @@ function updateFoodDb() {
 					html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
 					//import sql
 					//var dbLang = (LANG.LANGUAGE[lang] == "pt") ? "pt" : "en";
-					$.get(hostLocal + "sql/searchdb_" + lang + ".sql",function(sql) {
+					var langDB = (lang == "en" && window.localStorage.getItem("config_measurement") == "metric") ? 'em' : lang;
+					$.get(hostLocal + "sql/searchdb_" + langDB + ".sql",function(sql) {
+						//drop-recreate 
+						sql = 'DROP TABLE IF EXISTS "diary_food"; CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);' + sql;
+						//http://regex101.com
+						var postCustom = window.localStorage.getItem("customFoodSql") + window.localStorage.getItem("customExerciseSql") + window.localStorage.getItem("customFavSql");
+						sql = sql.replace(/lib2(.*)\{"id"\:"/g, 'INSERT OR REPLACE INTO "diary_food" VALUES(');
+						sql = sql.split('", "type":').join(',').split('"code":').join('').split('"name":').join('').split('"kcal":').join('').split('"term":').join('').split('"kcal":').join('').split('"pro":').join('').split('"car":').join('').split('"fat":').join('').split('"fib":').join('').split('});').join(');');
+						sql = sql + postCustom;
+						//
 						html5sql.process(sql,function() {
 							//success
 							demoRunning = false;
 							window.localStorage.setItem("foodDbLoaded","done");
 							window.localStorage.removeItem("startLock");
 							spinner('stop');
-							syncEntries(window.localStorage.getItem("facebook_userid"));
+							if(window.localStorage.getItem("facebook_userid")) {
+								syncEntries(window.localStorage.getItem("facebook_userid"));
+							} else {
+								updateFavList();
+								updateFoodList();
+								updateExerciseList();
+							}
 						},
 						function(error, failingQuery) {
 							//failure
@@ -986,8 +1001,18 @@ function updateFoodDb() {
 					});
 				//LOCALSTORAGE
 				} else {
-					//var dbLang = (LANG.LANGUAGE[lang] == "pt") ? "pt" : "en";
-					$.get(hostLocal + "sql/searchdb_" + lang + ".js",function(ls) {
+					var langDB = (lang == "en" && window.localStorage.getItem("config_measurement") == "metric") ? 'em' : lang;
+					$.get(hostLocal + "sql/searchdb_" + langDB + ".sql",function(ls) {
+						//delete non-fav/custom
+						lib2.deleteRows("diary_food", function(row) {
+							if(row.code.length < 10 && row.fib != "fav") {
+								return true;
+							} else {
+								return false;
+							}
+						});
+						lib2.commit();
+						//
 						eval(ls);
 						lib2.commit();
 						//success
@@ -995,7 +1020,13 @@ function updateFoodDb() {
 						window.localStorage.setItem("foodDbLoaded","done");
 						window.localStorage.removeItem("startLock");
 						spinner('stop');
-						syncEntries(window.localStorage.getItem("facebook_userid"));
+						if(window.localStorage.getItem("facebook_userid")) {
+							syncEntries(window.localStorage.getItem("facebook_userid"));
+						} else {
+							updateFavList();
+							updateFoodList();
+							updateExerciseList();
+						}
 					});			
 				}
 		},50);

@@ -6,7 +6,7 @@
  * Copyright (c) Jean-Christophe Hoelt 2013
  */
 
-var exec = function (methodName, options, success, error) {
+ var exec = function (methodName, options, success, error) {
     cordova.exec(success, error, "InAppPurchase", methodName, options);
 };
 
@@ -88,6 +88,7 @@ InAppPurchase.prototype.init = function (options) {
     exec('setup', [], setupOk, setupFailed);
 };
 
+
 /**
  * Makes an in-app purchase. 
  * 
@@ -98,7 +99,7 @@ InAppPurchase.prototype.purchase = function (productId, quantity) {
 	quantity = (quantity|0) || 1;
     var options = this.options;
 
-    // Many people forget to load information about their products from apple's servers before allowing
+	    // Many people forget to load information about their products from apple's servers before allowing
     // users to purchase them... leading them to spam us with useless issues and comments.
     // Let's chase them down!
     if ((!InAppPurchase._productIds) || (InAppPurchase._productIds.indexOf(productId) < 0)) {
