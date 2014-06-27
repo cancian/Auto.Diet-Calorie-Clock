@@ -1,6 +1,12 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.2.8 [27/06/2014]
+• Swipe header
+• Advanced settings
+• Improved ui
+• translated and expanded food databases
+
 # 1.2.7 [13/06/2014]
 • Full entry edit
 • Custom date

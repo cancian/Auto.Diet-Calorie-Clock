@@ -33,7 +33,7 @@ function sanitize(str) {
 //	var result = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
 //	var searchQuery = str.split("~").join("").split(" ").join(",").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split('_').join("").split('+').join("").split('$').join("").toLowerCase();
 if(str) {
-	var result = str.split(" ").join("").split(">").join("").split("<").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
+	var result = str.split(" ").join("").split("’").join("").split("”").join("").split(">").join("").split("<").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
 	return result
 }
 return '';
@@ -43,18 +43,21 @@ return '';
 ////////////////////////////
 ////////////////////////////
 var dataLang;
-$.get("sql/list-" + (window.location.hash).replace('#','') + ".txt", function(data) {
+$.get("sql/src/ibge-" + (window.location.hash).replace('#','') + ".txt", function(lata2) {
+$.get("sql/src/list-" + (window.location.hash).replace('#','') + ".txt", function(lata) {
+lata = lata + "\n" + lata2;	
 ////////////////////////////
 ////////////////////////////
 ////////////////////////////
 
 
-
-dataLang = data.split("\n");
+dataLang = lata.split("\n");
 
 /////////////
-$.get("sql/list_src.sql", function(data) {
+$.get("sql/src/ibge_src.sql", function(data2) {
+$.get("sql/src/list_src.sql", function(data) {
 /////////////
+data = data + "\n" + data2;
 
 data = data.split('INSERT INTO "diary_food" VALUES(').join("").split(",'exercise").join("','exercise").split(",'food").join("','food").split("');").join("");
 
@@ -98,8 +101,9 @@ if(foodListArray[f][3].match("Não se aplica")) {
 		var FIB  = "";
 		var cName = "";
 
-		
+if(dataLang[f])  {
 		cName = dataLang[f];
+
 /*
 		cName = cName.replace('15-lb','7kg');
 		cName = cName.replace('10-20 lb','5-10kg');
@@ -176,6 +180,9 @@ var it = '';
 
 //ESCAPE
 if(NAME) { 
+if(CODE) {
+CODE = CODE.replace('x','00000'); 
+}
 NAME = NAME.split(' / ').join(''); 
 NAME = NAME.split('\\').join(''); 
 NAME = NAME.split(' \\').join(''); 
@@ -219,13 +226,13 @@ if(FIB)	 { FIB = trim(FIB); }
 
 		//tpl = "<div>" + NAME + "</div>";
 		//tpl = '<div>INSERT INTO "diary_food" VALUES(' + ID + ',"' + TYPE + '","' + CODE + '","' + NAME + '","' + TERM + '","' + KCAL + '","' + PRO + '","' + CAR + '","' + FAT + '","' + FIB + '");</div>';
-		tpl = '<div>lib2.insert("diary_food", {"id":"' + ID + '", "type":"' + TYPE + '","code":"' + CODE + '","name":"' + NAME + '","term":"' + TERM + '","kcal":"' + KCAL + '","pro":"' + PRO + '","car":"' + CAR + '","fat":"' + FAT + '","fib":"' + FIB + '"});</div>';
+		tpl = '<div>lib2.insert("diary_food", {"id":"' + CODE + '", "type":"' + TYPE + '","code":"' + CODE + '","name":"' + NAME + '","term":"' + TERM + '","kcal":"' + KCAL + '","pro":"' + PRO + '","car":"' + CAR + '","fat":"' + FAT + '","fib":"' + FIB + '"});</div>';
 if(NAME) {
 		mix += tpl;
 }
 
 
-	}
+	}}
 
 //DROP TABLE IF EXISTS 'diary_food';
 //CREATE TABLE 'diary_food'(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code TEXT,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);
@@ -253,8 +260,8 @@ $('#list').html(mix);
 
 });
 });
-
-
+});
+});
 /*
 ## SR26 ##
 0 full description

@@ -1,0 +1,1971 @@
+﻿Rice (polished, parboiled needle Agulhinha, etc..)
+Brown Rice
+Corn (grain), raw (a)
+Corn (grain), cooked (a)
+Corn (grain), grilled (a) / ember / BBQ
+Corn (grain), roast (a)
+Corn (grain), steamed (a)
+Corn (grain), stew
+Corn (grain)
+Of corn grits, raw (a)
+Hominy corn grain, cooked (a)
+Hominy corn beans, stew
+Of corn grits, porridge
+Of corn hominy soup
+Hominy corn grain
+Corn starch maize
+Peanuts (shelled) in natura
+Pea beans
+Fava (grain)
+Mangalo bitter beans
+Bean-to-string
+Green beans
+Flaxseed
+Andu
+Chickpea
+Lentil
+Soybeans
+Beans (black, mulatto, purple, pinkish, etc..)
+Quirera unspecified
+Organic green beans
+Organic Bean
+Popcorn light
+Organic rice
+Organic brown rice
+Bean-to-organic soy
+Quinoa
+Potatoes, raw (a)
+Potatoes, baked (a)
+Potatoes, grilled (a) / ember / BBQ
+Potatoes, baked (a)
+Potatoes, fried (a)
+Potatoes, steamed (a)
+Potatoes, red sauce
+Potatoes, white sauce
+Potatoes, garlic and oil
+Potatoes with butter / oil
+Potatoes, stew
+Potatoes, soup
+Potatoes
+Peruvian salsa (baroa potatoes), baked (a)
+Peruvian salsa (baroa potatoes), steamed (a)
+Peruvian salsa (potato baroa), stew
+Peruvian salsa (potato baroa)
+Yellow Carrot (potato baroa)
+Sweet potato, raw (a)
+Sweet potato, baked (a)
+Sweet potato, baked (a)
+Sweet potato, fried (a)
+Sweet potato, steamed (a)
+Sweet potato stew
+Sweet Potato
+Yam, raw (a)
+Yam, cooked (a)
+Yams, roast (a)
+Yams, fried (a)
+Yams, steamed (a)
+Yam stew
+Yam soup
+Quicaré
+Cassava, raw (a)
+Cassava, boiled (a)
+Cassava, roasted (a)
+Cassava, fried (a)
+Cassava, steamed (a)
+Cassava, red sauce
+Cassava with butter / oil
+Cassava stew
+Cassava Soup
+Manioc
+Cassava, cooked (a)
+Wahoo, barbecue (a)
+Cassava, fried (a)
+Wahoo, breaded (a) / Breaded
+Cassava, steamed (a)
+Wahoo, red sauce
+Wahoo with butter / oil
+Wahoo, stew
+Wahoo soup
+Cassava
+Cassava, raw (a)
+Cassava, cooked (a)
+Cassava, roasted (a)
+Cassava, fried (a)
+Yams, cooked (a)
+Yams, fried (a)
+Yams, steamed (a)
+Yams, stewed
+Yam, porridge
+Yam soup
+Caraquento yams (yams), cooked (a)
+Potato (unspecified), raw (a)
+Potato (unspecified), baked (a)
+Potato (unspecified), grilled (a) / ember / BBQ
+Potato (unspecified), roast (a)
+Potato (unspecified), fried (a)
+Potato (unspecified), steamed (a)
+Potato (unspecified), red sauce
+Potato (unspecified), white sauce
+Potato (unspecified), vinaigrette
+Potato (unspecified), stew
+Potato (unspecified) soup
+Potatoes (not specified)
+Cassava, cooked (a)
+Cassava, fried (a)
+Cassava, steamed (a)
+Peruvian, stew
+Radish, raw (a)
+Radish, cooked (a)
+Radish vinaigrette
+Beets, raw (a)
+Beets, cooked (a)
+Beets, braising (a)
+Beet vinaigrette
+Beet Soup
+Beet
+Carrot, raw (a)
+Carrots, cooked (a)
+Carrot, fried (a)
+Carrot stew (a)
+Carrot, red sauce
+Carrot, garlic and oil
+Carrots with butter / oil
+Carrot vinaigrette
+Carrot Stew
+Carrot soup
+Carrots
+Turnip, cooked (a)
+Turnip stew (a)
+Turmeric, raw (a)
+Organic potatoes, fried (a)
+Cream rice
+Arrozina
+Mucilon
+Rice porridge
+Croquinhos rice
+Oatmeal
+Rolled oats
+Corn meal
+Cornmeal
+Corn manioc
+Puba cornmeal
+Ground, boiled corn (a)
+Maize porridge
+Corn starch
+Rice starch
+Cremogema
+Vitamilho
+Cream corn
+Cornflakes Corn
+Breakfast cereal corn flakes
+Wheat germ
+Wheat fiber
+Cereal wheat fiber
+Cassava flour
+Flour copioba
+Flour water
+Manioc residue
+Goma cassava
+Sagu cassava
+Tapioca flour
+Tapioca flour
+Sago, tapioca
+Tapioca starch
+Milky meal
+Neston
+Cereal flakes
+Vitaflocos
+Mini pizza semipronta, raw (a)
+Semipronta mini pizza, baked (a)
+Semipronta mini pizza, barbecue (a)
+Semipronta mini pizza, fried (a)
+Mini pizza semipronta
+Soy fiber
+Minipastel
+Noodles, raw (a)
+Noodles, cooked (a)
+Pasta, Grilled (a) / ember / BBQ
+Noodles, roast (a)
+Noodles, fried (a)
+Noodles, breaded (a) / Breaded
+Noodles, steamed (a)
+Pasta with red sauce
+Noodles, white sauce
+Pasta, garlic and oil
+Pasta with butter / oil
+Noodles, seared
+Noodles, soaked
+Noodle soup
+Macaroni
+Mashed potatoes
+Vegetable Steak
+Vegetable beef, fried (a)
+Soybean paste
+Soy meat
+Ground peanuts
+Granola
+Musli
+Cereal Mix
+Miojo
+Instant noodles
+Sustagem
+Soy Protein
+Vegetable protein
+Food supplement in any flavor
+Light corn cornflakes
+Mini pizza semipronta light roast (a)
+Light noodles soup
+Light noodles
+Organic soy protein
+Pasta with meat
+Pasta with fish
+Coco-the-Bay (dry or green)
+Chestnut
+Pinion
+Almond
+Hazelnut
+Chestnut-nut
+Cashew nut
+Butia
+Tucumã
+Coconut mucajá
+Nut (walnut)
+Acai berries
+Juçara
+Uaçaí
+Jussara
+Pupunha
+Bacaba
+Bacabuçu
+Horse-India
+Pistachio
+Buriti
+Coconut
+Patauá
+Lettuce
+Bertalha, braising (a)
+Chicory, raw (a)
+Chicory, baked (a)
+Chicory, steamed (a)
+Chicory, vinaigrette
+Escarole
+Cabbage, raw (a)
+Kale, cooked (a)
+Cabbage, fried (a)
+Kale, steamed (a)
+Cabbage, red sauce
+Cabbage, garlic and oil
+Cabbage with butter / oil
+Cabbage, vinaigrette
+Cabbage, stew
+Cabbage, porridge
+Cabbage
+Cauliflower, raw (a)
+Cauliflower, cooked (a)
+Cauliflower, fried (a)
+Cauliflower, breaded (a) / Breaded
+Cauliflower, steamed (a)
+Cauliflower, vinaigrette
+Cauliflower
+Spinach, raw (a)
+Spinach, cooked (a)
+Spinach, sautéed (a)
+Spinach, vinaigrette
+Spinach
+Mustard (vegetables), raw (a)
+Mustard (vegetables), baked (a)
+Mustard (vegetables), steamed (a)
+Mustard (vegetables)
+Cabbage, raw (a)
+Cabbage stew (a)
+Cabbage, fried (a)
+Cabbage stew (a)
+Cabbage, white sauce
+Cabbage, garlic and oil
+Cabbage, vinaigrette
+Cabbage stew
+Cabbage soup
+Cabbage
+Chive
+Watercress, raw (a)
+Cress, cooked (a)
+Watercress vinaigrette
+Watercress stew
+Watercress
+Taro, raw (a)
+Taro, baked (a)
+Taro, steamed (a)
+Chard, raw (a)
+Chard, cooked (a)
+Chard, braising (a)
+Chard
+White beet (chard), baked (a)
+Chicory, raw (a)
+Chicory, baked (a)
+Chicory, steamed (a)
+Endive, seared
+Radite, raw (a)
+Radite, braising (a)
+Radite, vinaigrette
+Broccoli, raw (a)
+Broccoli, cooked (a)
+Broccoli, breaded (a) / Breaded
+Broccoli, steamed (a)
+Broccoli, garlic and oil
+Broccoli, seared
+Broccoli
+Milkweed, raw (a)
+Milkweed, baked (a)
+Milkweed, braising (a)
+Pigweed, baked (a)
+Cuxá
+Vinagreira
+Cariru
+Arugula
+Jambu
+Cow tongue (vegetables), raw (a)
+Artichoke
+Bredo
+Celery (celery), steamed (a)
+Fennel
+Cassava leaf, raw (a)
+Cassava leaf, cooked (a)
+Bean sprouts, raw (a)
+Bean sprouts, cooked (a)
+Pumpkin, cooked (a)
+Squash, steamed (a)
+Squash, stew
+Pumpkin
+Zucchini, raw (a)
+Zucchini, cooked (a)
+Zucchini, grilled (a) / ember / BBQ
+Zucchini, roasted (a)
+Zucchini, fried (a)
+Zucchini, breaded (a) / Breaded
+Zucchini, steamed (a)
+Zucchini Stew
+Pumpkin, raw (a)
+Pumpkin, cooked (a)
+Pumpkin, raw (a)
+Pumpkin, cooked (a)
+Pumpkin, roast (a)
+Pumpkin, fried (a)
+Pumpkin, steamed (a)
+Pumpkin, red sauce
+Pumpkin Stew
+Pumpkin soup
+Pumpkin
+Cucumber
+Chuchu, raw (a)
+Chayote, boiled (a)
+Chayote, roasted (a)
+Chayote, steamed (a)
+Chayote, red sauce
+Chayote, garlic and oil
+Chayote vinaigrette
+Chayote stew
+Chayote Soup
+Jiló, raw (a)
+Jiló, baked (a)
+Jiló roast (a)
+Garden egg, fried (a)
+Jiló, braising (a)
+Jiló with butter / oil
+Jiló, stew
+Jiló
+Gherkin, raw (a)
+Gherkin, baked (a)
+Gherkin, braising (a)
+Gherkin, stew
+Pepininho (gherkin), baked (a)
+Pepininho (gherkin), vinaigrette
+Hearts of palm in natura, raw (a)
+Hearts of palm in natura, baked (a)
+Hearts of palm in natura, braising (a)
+Hearts of palm in natura, stew
+Guariroba (palm in natura), baked (a)
+Guariroba (palm in natura), steamed (a)
+Guariroba (palm in natura), red sauce
+Gueroba (palm in natura), baked (a)
+Gueroba (palm in natura), steamed (a)
+Pepper
+Okra, raw (a)
+Okra, cooked (a)
+Okra, fried (a)
+Okra, breaded (a) / Breaded
+Okra stew (a)
+Okra stew
+Okra
+Tomatoes
+Pod, raw (a)
+Beans, cooked (a)
+Pod, steamed (a)
+Pod, with butter / oil
+Beans, stew
+Pod
+Mushroom in nature
+Eggplant, raw (a)
+Eggplant, cooked (a)
+Eggplant, roasted (a)
+Eggplant, fried (a)
+Eggplant, breaded (a) / Breaded
+Eggplant, braised (a)
+Eggplant, seared
+Eggplant stew
+Eggplant
+Pea pods, cooked (a)
+Pea pods, steamed (a)
+Onion, raw (a)
+Onions, cooked (a)
+Onions, grilled (a) / ember / BBQ
+Onions, roasted (a)
+Onions, fried (a)
+Onion, sauté (a)
+Onion, red sauce
+Onion with butter / oil
+Onion vinaigrette
+Onions
+Catalonha, braising (a)
+Dungarees (select)
+Select (bib)
+Garlic
+Leeks
+Alfalfa sprouts
+Organic Lettuce
+Organic tomato
+Organic pepper
+Oregano
+Pacova
+Banana (gold, silver, water, earth, etc..), Raw (a)
+Banana (gold, silver, water, earth, etc..), Baked (a)
+Banana (gold, silver, water, earth, etc..), Barbecue (a)
+Banana (gold, silver, water, earth, etc..), Fried (a)
+Banana (gold, silver, water, earth, etc..), Fingers (a) / Breaded
+Banana (gold, silver, water, earth, etc..) With butter / oil
+Banana (gold, silver, water, earth, etc..), Stew
+Banana (gold, silver, water, earth, etc..), Porridge
+Banana (gold, silver, water, earth, etc.). Soup
+Banana (gold, silver, water, earth, etc.).
+Orange (pear, select, lime, earth, etc.).
+Lima
+Lemon (common, Galician, etc.).
+Tangerine
+Tangerine
+Bergamot
+Mimosa
+Tanja
+Maricota
+Japanese Laranjinha
+Sugarcane
+Pineapples
+Pineapple
+Avocados
+Persimmon
+Fig
+Apple
+Papaya
+Papaya
+Sleeve
+Cuff
+Passion fruit
+Watermelon
+Melon
+pear
+Peaches
+Fruit-of-earl
+Cone (fruit-of-earl)
+Record
+Grapes
+Raisin
+Jenipapo
+Jaca
+Guava
+Ara-açu (guava)
+Plums
+Cashews
+Cherry
+Caja-manga
+Cajarana
+Tapereba
+Acaja (taberebá)
+Carom
+Jabuticaba
+Graviola
+Strawberry
+Iamb
+Atemóia
+Mangaba
+Araçá
+Medlar
+Breadfruit
+Sapodilla
+Uxi
+Tamarind
+Cocoa
+Pitomba
+Bacuri
+Inga
+Pequi
+Cherry
+Red mombin fruit
+Murici
+Umbu
+Imbu
+Tootles
+Cupuacu
+Nectarines
+Mari
+Pomegranate
+Acerola
+Kiwi
+Abiu
+Jurubeba
+Fruit (not specified)
+Organic apple
+Organic Acerola
+Mulberry
+Jamelão (jamburão)
+Demerara
+Brown sugar
+Brown Sugar
+Alfenim cane
+Rap (brown sugar)
+Ice cream of any flavor industrialized
+Popsicle flavor of any industrialized
+Gum
+Bullet
+Caramel (bullet)
+Drops
+Tablet
+Lollipop
+Chewing gum
+Jujube
+Chocolate bar
+Chocolate bar
+Confetti
+Chocolate powder of any brand
+Ovaltine
+Chocolate powder
+Toddynho
+Candy of any brand
+Truffle
+Jelly fruit of any brand or flavor
+Mousse any flavor (Jelly)
+Jelly mocotó
+Sweet fruit flavor in any folder
+Peanut butter
+Pessegada
+Marmalade
+Figada
+Guava
+Cashew paste
+Scamp
+Sweet fruit in syrup any flavor
+Sweet candied fruit in any flavor
+Molasses
+Honey
+Gelatin any flavor
+Artificial Sweetener
+Meringue
+Schimier cane
+Dried fruit or dried
+Pass
+Any flavor pudding
+Danette pudding
+Custard
+Couscous
+Couscous tapioca
+Maria-mole
+Cocada
+Jigsaw chin
+Peanut candy
+Foot tomboy
+Paçoca
+Lump peanut
+Paçoquinha peanut
+Caramelized peanuts
+Peanut buttery
+Peanut chocolate
+Spicy peanut
+Boiled peanuts
+Brigadier
+Pump any
+Thousand Leaves
+Queijadinha
+Sweet of egg
+Italian Casserole
+Quindim
+Yarn eggs
+Sweet milk-based
+Pave of any flavor
+Ambrosia
+Gelled milk
+Chandele any flavor
+Mumu
+Stuffed straw
+Sarolho
+Beiju
+Schimier fruit (excluding sugarcane)
+Kiss the girl
+Bagged popsicle
+Geladinho
+Churro
+Fool
+Cotton candy
+Yo-Yo Cream (chocolate cream)
+Easter egg
+Kinder egg
+Torrone
+Rice pudding
+Coconut pulp
+Diet Shake
+Concentrated feed diet shake
+Sugar
+Light sugar
+Cereal bar
+Salt cereal bar
+Candy bar cereal
+Dessert of any kind (except for children)
+Gust
+Milk shake
+Jelly diet
+Sweet fruit diet
+Crayons santa clara
+Sigh
+Sweet candied fruit flavor of any diet
+Ice cream of any flavor light industrial
+Ice cream of any flavor industrialized diet
+Bala light
+Gum diet
+Bala diet
+Bar light chocolate
+Chocolate bar diet
+Chocolate milk powder in light
+Chocolate milk in powder diet
+Toddynho diet
+Confectionery any light marks
+Confectionery any diet brand
+Candy caramelized any diet brand
+Jelly fruit of any brand or light flavor
+Jelly light
+Light fruit jelly
+Sweet fruit on light bar or folder
+Sweet fruit on light folder
+Pudding any light flavor
+Pudding danette light
+Pudding any flavor diet
+Light sweet milk
+Sweet milk diet
+Diet cereal bar
+Candy bar cereal diet
+Milkshake Diet
+Cocada diet
+Sweet peanut diet
+Paçoca diet
+Peanut buttery diet
+Sweet milk-based diet
+Gelatin any light flavor
+Sweetener light
+Light sweetener in powder
+Liquid sweetener light
+Mustard Sauce
+Mint
+Pickled caper
+Coriander
+Soy sauce
+Shoyo
+Coconut milk
+Mayonnaise (sauce)
+Tomato paste
+Tomato sauce
+Ketchup
+Catchup
+Chili powder
+Tucupi broth without pepper
+Cream cheese
+Fish broth
+Tomato broth
+Sesame
+Dried tomatoes
+Mayonnaise (sauce) light
+Light soy sauce
+Light coconut milk
+Vinaigrette
+Filet mignon, baked (a)
+Filet mignon, grilled (a) / ember / BBQ
+Filet mignon, roast (a)
+Filet mignon, fried (a)
+Filet mignon, breaded (a) / Breaded
+Filet mignon, braised (a)
+Filet mignon with red sauce
+Filet mignon, white sauce
+Filet mignon with butter / oil
+Filet mignon
+Sirloin, cooked (a)
+Sirloin, grilled (a) / ember / BBQ
+Loin roast (a)
+Sirloin, fried (a)
+Sirloin, breaded (a) / Breaded
+Sirloin, braised (a)
+Sirloin, red sauce
+Beef steak, raw (a)
+Beef steak, baked (a)
+Beef steak, grilled (a) / ember / BBQ
+Beef steak, roast (a)
+Beef steak, fried (a)
+Beef steak, breaded (a) / Breaded
+Beef steak, steamed (a)
+Beef steak, red sauce
+Rump, raw (a)
+Rump, cooked (a)
+Rump, grilled (a) / ember / BBQ
+Rump roast (a)
+Rump, Fried (a)
+Rump, breaded (a) / Breaded
+Rump, braised (a)
+Rump, red sauce
+Rump, vinaigrette
+Rump, stewed
+Titty, grilled (a) / ember / BBQ
+Titty roast (a)
+Titty, fried (a)
+Titty red sauce
+Sirloin, cooked (a)
+Sirloin, grilled (a) / ember / BBQ
+Rump roast (a)
+Sirloin, fried (a)
+Sirloin, stew
+Duckling, baked (a)
+Duckling, grilled (a) / ember / BBQ
+Duckling, roast (a)
+Duckling, fried (a)
+Duckling, breaded (a) / Breaded
+Duckling, red sauce
+Duckling stew
+Head sirloin (beef), baked (a)
+Head sirloin (beef), grilled (a) / ember / BBQ
+Head rib (beef) roast (a)
+Head sirloin (beef), fried (a)
+Head sirloin (beef), fingers (a) / Breaded
+Head sirloin (beef), steamed (a)
+White Chop cooked (a)
+White Posta, fried (a)
+Posta white, red sauce
+Tatu (Round lizard), baked (a)
+Tatu (Round lizard), barbecue (a)
+Tatu (Round lizard), steamed (a)
+Tatu (Round Lizard)
+Paulista, baked (a)
+Paulista, barbecue (a)
+Loin Paulista (beef), baked (a)
+Loin Paulista (beef), baked (a)
+Loin Paulista (beef), fried (a)
+Loin Paulista (beef) stew
+Red Chop cooked (a)
+Chuck, cooked (a)
+Chuck roast (a)
+Chuck, fried (a)
+Chuck steak, breaded (a) / Breaded
+Chuck, braising (a)
+Chuck, stew
+Needle (chuck), baked (a)
+Needle (chuck) roast (a)
+Needle (chuck), fried (a)
+Palette, baked (a)
+Palette, fried (a)
+Palette, red sauce
+Palette, stew
+Shovel with bone, cooked (a)
+Shovel with bone, grilled (a) / ember / BBQ
+Shovel with bone roast (a)
+Bovine muscle, baked (a)
+Muscle beef roast (a)
+Bovine muscle, red sauce
+Muscle veal stew
+Muscle beef soup
+Chambaril, baked (a)
+Chambaril roast (a)
+Chambaril, braising (a)
+Marica beef, cooked (a)
+Marica beef, fried (a)
+Marica beef, braised (a)
+Empty (beef), baked (a)
+Empty (beef), grilled (a) / ember / BBQ
+Empty (beef), fried (a)
+Veal breast, baked (a)
+Veal breast, fried (a)
+Skirt steak (filet cover), baked (a)
+Skirt steak (filet cover), grilled (a) / ember / BBQ
+Skirt steak (filet cover), roast (a)
+Skirt steak (filet cover), fried (a)
+Flap steak, raw (a)
+Flap steak, grilled (a) / ember / BBQ
+Flap steak, fried (a)
+Beef rib stew (a)
+Beef rib roast (a)
+Beef rib stew (a)
+Beef rib stew
+Alligator (beef Monday w / bone), cooked (a)
+Alligator (beef Monday w / bone), barbecue (a)
+Alligator (beef Monday w / bone), fried (a)
+Second fillet, grilled (a) / ember / BBQ
+Second fillet, roast (a)
+Second fillet, fried (a)
+Second fillet, breaded (a) / Breaded
+Fillet Monday, garlic and oil
+Bovine viscera, baked (a)
+Bovine viscera, fried (a)
+Panelada (bovine offal unspecified), baked (a)
+Panelada (bovine offal unspecified), stew
+Veal, baked Heart (a)
+Veal, grilled heart (a) / ember / BBQ
+Veal roast Heart (a)
+Veal, fried Heart (a)
+Rim beef, cooked (a)
+Bofe beef roast (a)
+Bofe veal, fried (a)
+Bofe veal stew (a)
+Peeled ox stew (a)
+Beef tripe, cooked (a)
+Beef tripe, grilled (a) / ember / BBQ
+Beef tripe, roast (a)
+Beef tripe, fried (a)
+Fresh Tripe, boiled (a)
+Fresh tripe, roast (a)
+Fresh Tripe, red sauce
+Fresh, stewed tripe
+Fresh Tripe
+Veal, baked Suit (a)
+Veal, fried Suit (a)
+Fact goat, cooked (a)
+Beef liver, raw (a)
+Beef liver, cooked (a)
+Beef liver, grilled (a) / ember / BBQ
+Beef liver, roast (a)
+Beef liver, fried (a)
+Beef liver, breaded (a) / Breaded
+Beef liver, braised (a)
+Beef liver, red sauce
+Beef liver, garlic and oil
+Beef, stewed liver
+Termite, grilled (a) / ember / BBQ
+Termites, barbeque (a)
+Termite, fried (a)
+Beef tongue, cooked (a)
+Beef tongue, grilled (a) / ember / BBQ
+Beef tongue roast (a)
+Beef tongue, fried (a)
+Bovine red tongue, sauce
+Beef tongue stew
+Oxtail ox
+Mocotó veal, baked (a)
+Mocotó beef, stew
+Mocotó beef soup
+Veal Mocotó
+Veal, fried arm (a)
+Hand beef, baked (a)
+Carré, baked (a)
+Carré, blackened (a) / ember / BBQ
+Carré, barbecue (a)
+Carré, fried (a)
+Pork chop, baked (a)
+Pork chop, grilled (a) / ember / BBQ
+Pork chop, roast (a)
+Pork chop, fried (a)
+Pork chop, breaded (a) / Breaded
+Pork chop, braised (a)
+Pork chop
+Pork shank, cooked (a)
+Pork shank, roasted (a)
+Pork shank, fried (a)
+Pork shank, braised (a)
+Room pig, baked (a)
+Pork rib, raw (a)
+Pork ribs, baked (a)
+Pork ribs, grilled (a) / ember / BBQ
+Pork rib roast (a)
+Pork ribs, fried (a)
+Pork ribs, braised (a)
+Pork ribs, red sauce
+Pork ribs, stew
+Pork rib
+Pork loin, baked (a)
+Pork tenderloin, grilled (a) / ember / BBQ
+Pork loin roast (a)
+Pork loin, fried (a)
+Lard
+Small boy pig, baked (a)
+Drag pig
+Sarapatel fresh pig
+Pork, raw (a)
+Pork, baked (a)
+Pork, grilled (a) / ember / BBQ
+Pork roast (a)
+Pork, fried (a)
+Pork, breaded (a) / Breaded
+Pork, braised (a)
+Pork, red sauce
+Pork, garlic and oil
+Pork, stew
+Pork
+Ground beef, raw (a)
+Ground beef, cooked (a)
+Ground beef, roast (a)
+Ground beef, fried (a)
+Ground beef, breaded (a) / Breaded
+Ground beef, braised (a)
+Ground beef, red sauce
+Ground beef, white sauce
+Ground beef, garlic and oil
+Ground beef, stew
+Ground beef, soup
+Minced meat
+Stewed
+Pork tripe, grilled (a) / ember / BBQ
+Pork tripe, fried (a)
+Pig liver, cooked (a)
+Liver pig roast (a)
+Pig liver, fried (a)
+Language pork, baked (a)
+Language pork, grilled (a) / ember / BBQ
+Language pork roast (a)
+Language pork, fried (a)
+Language pork, braised (a)
+Ear swine fresh, cooked (a)
+Sarrabulho
+Mocotó pig, baked (a)
+Goat meat, cooked (a)
+Goat meat, grilled (a) / ember / BBQ
+Goat meat, roast (a)
+Goat meat, cooked (a)
+Goat meat, grilled (a) / ember / BBQ
+Goat meat, roast (a)
+Goat meat, fried (a)
+Goat meat, cooked (a)
+Goat meat, roast (a)
+Goat meat, fried (a)
+Goat meat stew
+Goat meat, raw (a)
+Goat meat, cooked (a)
+Goat meat, fried (a)
+Mutton, cooked (a)
+Mutton, grilled (a) / ember / BBQ
+Mutton Roast (a)
+Mutton, fried (a)
+Mutton, stewed
+Sheep meat, cooked (a)
+Sheep meat, grilled (a) / ember / BBQ
+Sheep meat, roast (a)
+Sheep meat, fried (a)
+Mocotó goat, cooked (a)
+Ham, baked (a)
+Ham, grilled (a) / ember / BBQ
+Ham, roast (a)
+Ham, fried (a)
+Lizard veal stew (a)
+Lizard beef roast (a)
+Lizard veal, fried (a)
+Lizard veal stew (a)
+Lizard beef, red sauce
+Pork loin, baked (a)
+Pork loin roast (a)
+Pork loin, fried (a)
+Brachola
+Raw steak roll
+Buchada goat
+Shuham pork, baked (a)
+Shuham pork, fried (a)
+Meat from other animals, raw (a)
+Meat from other animals, baked (a)
+Meat from other animals, grilled (a) / ember / BBQ
+Meat from other animals, barbecue (a)
+Meat from other animals, fried (a)
+Meat from other animals, braising (a)
+Meat from other animals, red sauce
+Meat from other animals, clam chowder
+Meat from other animals
+Beef paca, baked (a)
+Paca Beef Roast (a)
+Beef paca, fried (a)
+Alligator meat, cooked (a)
+Alligator meat, fried (a)
+Capybara meat, cooked (a)
+Capybara meat, roast (a)
+Capybara meat, fried (a)
+Agouti meat, cooked (a)
+Agouti meat, roast (a)
+Tortoise meat, cooked (a)
+Prime beef, cooked (a)
+Prime beef, grilled (a) / ember / BBQ
+Prime beef roast (a)
+Prime beef, fried (a)
+Prime beef, breaded (a) / Breaded
+Prime beef, braised (a)
+Prime beef, red sauce
+Prime beef, white sauce
+Prime beef with butter / oil
+Cutlet, baked (a)
+Cutlet, grilled (a) / ember / BBQ
+Cutlet, roasted (a)
+Cutlet, fried (a)
+Fillet unspecified, raw (a)
+Fillet unspecified, cooked (a)
+Fillet unspecified, grilled (a) / ember / BBQ
+Fillet unspecified roast (a)
+Fillet unspecified, fried (a)
+Fillet unspecified, breaded (a) / Breaded
+Fillet unspecified, braising (a)
+Fillet unspecified, red sauce
+Fillet unspecified, with butter / oil
+Fillet unspecified, stew
+Fillet unspecified
+Kid goat stew (a)
+Foot Fresh baked pig (a)
+Foot fresh pork, grilled (a) / ember / BBQ
+Foot Fresh fried pig (a)
+Beef, raw (a)
+Beef stew (a)
+Beef, grilled (a) / ember / BBQ
+Beef roast (a)
+Beef, fried (a)
+Beef, breaded (a) / Breaded
+Beef stew (a)
+Beef, red sauce
+Beef, white sauce
+Beef, garlic and oil
+Beef with butter / oil
+Beef, seared
+Beef stew
+Beef soup
+Beef
+Loin unspecified, raw (a)
+Loin unspecified, cooked (a)
+Loin unspecified roast (a)
+Loin unspecified, fried (a)
+Loin unspecified, white sauce
+Muscle unspecified, cooked (a)
+Muscle unspecified, stew
+Unspecified bones, cooked (a)
+Unspecified bones, braised (a)
+Framing unspecified soup
+Unspecified bones
+Meat second raw (a)
+Meat Monday, baked (a)
+Meat Monday, grilled (a) / ember / BBQ
+Meat Monday Roast (a)
+Meat Monday, fried (a)
+Beef and second fingers (a) / Breaded
+Meat Monday, braising (a)
+Meat Monday, red sauce
+Meat Monday, garlic and oil
+Meat Monday, stew
+Organic loin roast (a)
+Organic steak, roast (a)
+Organic pork chop, fried (a)
+Head sirloin (beef) organic, raw (a)
+Head sirloin (beef) organic roast (a)
+Head sirloin (beef) organic fried (a)
+Tatu (Round Lizard) organic roast (a)
+Sea fish (whole, in put in filet, etc..), Raw (a)
+Sea fish (whole, in put in filet, etc..), Baked (a)
+Sea fish (whole, in put in filet, etc..), Grilled (a) / ember / BBQ
+Sea fish (whole, in put in filet, etc..), Barbecue (a)
+Sea fish (whole, in put in filet, etc..), Fried (a)
+Sea fish (whole, in put in filet, etc..), Fingers (a) / Breaded
+Sea fish (whole, in put in filet, etc..), Red sauce
+Sea fish (whole, in put in filet, etc..), White sauce
+Sea fish (whole, in put in filet, etc..), Stew
+Salty sea fish (whole, in put in filet, etc..), Baked (a)
+Salty sea fish (whole, in put in filet, etc..), Grilled (a) / ember / BBQ
+Salty sea fish (whole, in put in filet, etc..), Barbecue (a)
+Salty sea fish (whole, in put in filet, etc..), Fried (a)
+Salty sea fish (whole, in put in filet, etc..), Fingers (a) / Breaded
+Salty sea fish (whole, in put in filet, etc..), White sauce
+Salty sea fish (whole, in put in filet, etc..), Stew
+Shrimp, raw (a)
+Shrimp, cooked (a)
+Shrimp, grilled (a) / ember / BBQ
+Shrimp, roast (a)
+Shrimp, fried (a)
+Shrimp, breaded (a) / Breaded
+Shrimp, steamed (a)
+Shrimp, red sauce
+Shrimp, white sauce
+Shrimp, garlic and oil
+Shrimp Stew
+Shrimp
+Siri, baked (a)
+Siri, breaded (a) / Breaded
+Siri, braising (a)
+Bau (siri), baked (a)
+Goia, raw (a)
+Crab, baked (a)
+Crab, baked (a)
+Crab, seared
+Guaiamu, baked (a)
+Seafood stew (a)
+Seafood, fried (a)
+Seafood, red sauce
+Shellfish
+Oyster stew (a)
+Calamari, breaded (a) / Breaded
+Mussels, baked (a)
+Mussels, clam chowder
+Cod, baked (a)
+Cod, baked (a)
+Cod, fried (a)
+Cod, breaded (a) / Breaded
+Cod, braised (a)
+Cod, red sauce
+Cod stew
+Cod
+Fish eggs (any kind), barbecue (a)
+Fish eggs (any kind), fried (a)
+Freshwater fish (whole, in put in filet, etc..), Raw (a)
+Freshwater fish (whole, in put in filet, etc..), Baked (a)
+Freshwater fish (whole, in put in filet, etc..), Grilled (a) / ember / BBQ
+Freshwater fish (whole, in put in filet, etc..), Barbecue (a)
+Freshwater fish (whole, in put in filet, etc..), Fried (a)
+Freshwater fish (whole, in put in filet, etc..), Fingers (a) / Breaded
+Freshwater fish (whole, in put in filet, etc..), Steamed (a)
+Freshwater fish (whole, in put in filet, etc..), Red sauce
+Freshwater fish (whole, in put in filet, etc..), White sauce
+Freshwater fish (whole, in put in filet, etc..), Stew
+Freshwater fish (whole, in put in filet, etc..)
+Freshwater fish salted (integer, put in, in filet, etc..), Baked (a)
+Freshwater fish salted (integer, put in, in filet, etc..), Grilled (a) / ember / BBQ
+Freshwater fish salted (integer, put in, in filet, etc..), Barbecue (a)
+Freshwater fish salted (integer, put in, in filet, etc..), Fried (a)
+Freshwater fish salted (integer, put in, in filet, etc..), Fingers (a) / Breaded
+Freshwater fish salted (integer, put in, in filet, etc..), Red sauce
+Freshwater fish salted (integer, put in, in filet, etc..), Stew
+Tracajá, baked (a)
+Unspecified fish (whole, in put in filet, etc..), Raw (a)
+Unspecified fish (whole, in put in filet, etc..), Baked (a)
+Fish not specified (integer, put in, in filet, etc..), Grilled (a) / ember / BBQ
+Unspecified fish (whole, in put in filet, etc..), Barbecue (a)
+Unspecified fish (whole, in put in filet, etc..), Fried (a)
+Fish not specified (integer, put in, in filet, etc..), Fingers (a) / Breaded
+Unspecified fish (whole, in put in filet, etc..), Steamed (a)
+Fish not specified (integer, put in, in filet, etc..), Red sauce
+Fish not specified (integer, put in, in filet, etc..), White sauce
+Fish not specified (integer, put in, in filet, etc..), Stew
+Unspecified salted fish (whole, in put in filet, etc..), Baked (a)
+Unspecified salted fish (whole, in put in filet, etc..), Grilled (a) / ember / BBQ
+Unspecified salted fish (whole, in put in filet, etc..), Barbecue (a)
+Unspecified salted fish (whole, in put in filet, etc..), Fried (a)
+Unspecified salted fish (whole, in put in filet, etc..), Fingers (a) / Breaded
+Olive
+Canned peas
+Petit-because
+Canned sweet corn
+Canned palm hearts
+Canned mushroom
+Canned Champignon
+Pickled Asparagus
+Pickled cabbage
+Sauerkraut
+Vegetable unspecified canned
+Cream of onion (dehydrated soup)
+Creamed vegetables (dehydrated soup)
+Yakisoba
+Corn with canned peas, raw (a)
+Corn with canned peas, cooked (a)
+Corn with canned peas, fried (a)
+Corn with canned peas
+Feijoada
+White beans with pickled tripe
+Cooked
+Folder corned beef
+Pasta Canned Ham
+Canned Chicken Pasta
+Pickled beef
+Hamburger
+Kitute veal
+Meatball sauce canned
+Kitute pig
+Hams
+Ham, raw (a)
+Ham, baked (a)
+Ham, roast (a)
+Ham, fried (a)
+Pickled Sausage
+Canned sardines
+Canned tuna
+Gherkin
+Paste pickled fish
+Pickles
+Pickled Turnip
+Beef stroganoff
+Canned salmon
+Cream of onion (dehydrated soup) light
+Creamed vegetables (dehydrated soup) light
+Yakisoba (dehydrated vegetable soup) light
+Canned light tuna
+Whole chicken, raw (a)
+Whole chicken, cooked (a)
+Whole grilled chicken (a) / ember / BBQ
+Whole chicken roast (a)
+Whole chicken, fried (a)
+Whole chicken fingers (a) / Breaded
+Whole chicken, steamed (a)
+Whole chicken, red sauce
+Whole chicken stew
+Piece of chicken or chicken unspecified, raw (a)
+Piece of chicken or chicken unspecified, cooked (a)
+Piece of chicken or chicken unspecified, grilled (a) / ember / BBQ
+Piece of chicken or chicken unspecified roast (a)
+Piece of chicken or chicken unspecified, fried (a)
+Piece of chicken or chicken unspecified fingers (a) / Breaded
+Piece of chicken or chicken unspecified, braising (a)
+Piece of chicken or chicken unspecified, red sauce
+Piece of chicken or chicken unspecified stew
+Piece of chicken or chicken unspecified
+Chicken pieces, raw (a)
+Chicken pieces, cooked (a)
+Chicken pieces, grilled (a) / ember / BBQ
+Chicken pieces, roasted (a)
+Chicken pieces, fried (a)
+Chicken pieces, breaded (a) / Breaded
+Chicken pieces, sauté (a)
+Chicken pieces, red sauce
+Chicken pieces, white sauce
+Chicken pieces, garlic and oil
+Chicken pieces with butter / oil
+Chicken pieces, soaked
+Chicken pieces, soup
+Chicken pieces
+Chicken pieces, cooked (a)
+Chicken pieces, grilled (a) / ember / BBQ
+Chicken pieces, roasted (a)
+Chicken pieces, fried (a)
+Chicken pieces, breaded (a) / Breaded
+Chicken pieces, sauté (a)
+Chicken pieces, red sauce
+Chicken pieces, white sauce
+Chicken pieces, stew
+Chicken meat, raw (a)
+Chicken meat, cooked (a)
+Beef and chicken, grilled (a) / ember / BBQ
+Chicken meat roast (a)
+Chicken meat, fried (a)
+Beef and chicken fingers (a) / Breaded
+Beef and chicken stew (a)
+Chicken meat, red sauce
+Chicken meat, white sauce
+Beef and chicken stew
+Beef and Chicken Soup
+Beef and Chicken
+Chicken breast or chicken, raw (a)
+Chicken breast or chicken, baked (a)
+Chicken breast or chicken, grilled (a) / ember / BBQ
+Chicken breast or chicken, roast (a)
+Chicken breast or chicken, fried (a)
+Chicken breast or chicken, breaded (a) / Breaded
+Chicken breast or chicken, steamed (a)
+Chicken breast or chicken, red sauce
+Chicken breast or chicken, white sauce
+Chicken breast or chicken stew
+Chicken breast or chicken soup
+Chicken breast or chicken
+Chicken fillet, raw (a)
+Chicken fillet, cooked (a)
+Chicken fillet, grilled (a) / ember / BBQ
+Chicken fillet, roast (a)
+Chicken fillet, fried (a)
+Chicken fillet, breaded (a) / Breaded
+Chicken fillet, braised (a)
+Chicken fillet, red sauce
+Chicken fillet, white sauce
+Chicken fillet, garlic and oil
+Chicken fillet, stewed
+Chicken fillet
+Chicken carcass or chicken, baked (a)
+Chicken carcass or chicken, roast (a)
+Chicken carcass or chicken, fried (a)
+Chicken carcass or chicken, steamed (a)
+Chicken carcass or chicken stew
+Chicken wing or chicken, raw (a)
+Chicken wing or chicken, baked (a)
+Chicken wing or chicken, grilled (a) / ember / BBQ
+Chicken wing or chicken, roast (a)
+Chicken wing or chicken, fried (a)
+Chicken wing or chicken, breaded (a) / Breaded
+Chicken wing or chicken, steamed (a)
+Chicken wing or chicken, red sauce
+Chicken wing or chicken stew
+Drumete chicken or chicken, baked (a)
+Drumete chicken or chicken, grilled (a) / ember / BBQ
+Drumete chicken or chicken, roast (a)
+Drumete chicken or chicken fried (a)
+Drumete chicken or chicken, steamed (a)
+Drumete chicken or chicken, red sauce
+Chicken neck or chicken, baked (a)
+Chicken neck or chicken, roast (a)
+Chicken neck or chicken, fried (a)
+Chicken neck or chicken, steamed (a)
+Chicken neck or chicken, white sauce
+Chicken leg or chicken, baked (a)
+Chicken leg or chicken, grilled (a) / ember / BBQ
+Chicken leg or chicken, roast (a)
+Chicken leg or chicken, fried (a)
+Chicken leg or chicken, steamed (a)
+Chicken leg or chicken, red sauce
+Chicken leg or chicken stew
+Kid chicken or chicken, baked (a)
+Kid chicken or chicken, roast (a)
+Kid chicken or chicken fried (a)
+Kid chicken or chicken, red sauce
+Kid chicken or chicken soup
+Chicken gizzards or chicken, baked (a)
+Chicken gizzards or chicken, grilled (a) / ember / BBQ
+Chicken gizzards or chicken, fried (a)
+Chicken gizzards or chicken, steamed (a)
+Chicken gizzards or chicken, red sauce
+Chicken gizzards or chicken, white sauce
+Chicken gizzards or chicken stew
+Chicken gizzards or chicken soup
+Heart of chicken, cooked (a)
+Heart of chicken, grilled (a) / ember / BBQ
+Heart of chicken, roast (a)
+Heart of chicken, fried (a)
+Heart of chicken stew
+Chicken liver or chicken, baked (a)
+Chicken liver or chicken, roast (a)
+Chicken liver or chicken, fried (a)
+Chicken soup
+Peru in unspecified piece, cooked (a)
+Peru in unspecified chunk roast (a)
+Peru in unspecified piece, fried (a)
+Peru in unspecified piece, soaked
+Turkey breast, raw (a)
+Turkey breast, baked (a)
+Turkey breast, grilled (a) / ember / BBQ
+Turkey breast, roast (a)
+Turkey breast, fried (a)
+Turkey breast, breaded (a) / Breaded
+Turkey breast
+Turkey wing, cooked (a)
+Asa turkey, roast (a)
+Chester, baked (a)
+Chester, barbecue (a)
+Chester
+Tender roast (a)
+Nambu, baked (a)
+Chicken Nuggets, Grilled (a) / ember / BBQ
+Chicken nuggets, baked (a)
+Chicken nuggets, fried (a)
+Chicken nuggets, breaded (a) / Breaded
+Chicken nuggets, steamed (a)
+Steak chicken, baked (a)
+Steak chicken, grilled (a) / ember / BBQ
+Steak chicken, roast (a)
+Steak chicken, fried (a)
+Steak, chicken fingers (a) / Breaded
+Steak chicken
+Quail, fried (a)
+Foot and chicken wing or chicken, baked (a)
+Foot and chicken wing or chicken, roast (a)
+Foot and chicken wing or chicken, fried (a)
+Chicken egg, raw (a)
+Chicken egg, baked (a)
+Chicken egg, roast (a)
+Chicken egg, fried (a)
+Chicken egg, steamed (a)
+Chicken egg, red sauce
+Chicken egg, garlic and oil
+Chicken egg with butter / oil
+Chicken egg, vinaigrette
+Egg Chicken Stew
+Chicken egg, porridge
+Chicken egg
+Quail egg, raw (a)
+Quail egg, cooked (a)
+Quail egg, fried (a)
+Quail egg, vinaigrette
+Quail eggs
+Guinea fowl slaughtered, frozen or live, cooked (a)
+Guinea fowl slaughtered, frozen or alive, roasted (a)
+Capote, baked (a)
+Capote, barbecue (a)
+Capote, fried (a)
+Mutum, baked (a)
+Duck into pieces, cooked (a)
+Duck into pieces, soaked
+Duck breast, fried (a)
+Duck meat, cooked (a)
+Duck meat, roast (a)
+Duck meat, fried (a)
+Light turkey breast, raw (a)
+Light turkey breast, baked (a)
+Light turkey breast
+Organic whole chicken, cooked (a)
+Organic whole chicken, roast (a)
+Fillet of organic, cooked chicken (a)
+Fillet of organic, grilled chicken (a) / ember / BBQ
+Fillet of organic, fried chicken (a)
+Fillet of organic, chicken fingers (a) / Breaded
+Whole cow's milk
+Fresh milk of cow
+Goat milk
+Whole milk powder
+Skimmed milk powder
+Milk powder
+Condensed milk
+Peck milk
+Cream
+Chantilly
+Yogurt any flavor
+Skimmed Yogurt 
+Natural yoghurt
+Yakult any flavor
+Kefir
+Fermented milk
+Curd
+Butter or unsalted
+Butter bottle
+Margarine without salt
+Cheese platter
+Colonial Cheese
+Cheese colony
+Mozzarella cheese
+Mozzarella
+Buffalo mozzarella
+Cheese from buffalo
+Cheese kingdom
+Cheese Mine
+Cheese Butter
+Quechimia
+Cheese curd
+Canasta cheese
+Ricotta cheese
+Soy milk flavored
+Original Ades
+Grated cheese
+Provolone cheese
+Polenguinho Cheese
+Cottage cheese
+Cream cheese
+Cheese unspecified
+Flavored milk
+Chocolate milk
+Flavored milk
+Chocolate beverage
+Cream
+Gorgonzola cheese
+Tofu
+Soy milk powder
+Bovine skimmed milk
+Semi-skimmed cow's milk
+Pasteurized milk unspecified
+Any light yogurt flavor
+Yogurt any flavor diet
+Light margarine
+Whole cow's milk organic
+Fresh organic cow milk
+Semi-skimmed organic milk cow
+Cream organic milk
+Any organic yogurt flavor
+Any organic nonfat yogurt flavor
+Any organic natural yogurt flavor
+Light mozzarella
+Light mozzarella cheese
+Soy milk with light flavor
+Ades light
+Light cream milk
+Cheese plate light
+Cheese light of mine
+Light cheese curd
+Light ricotta cheese
+Grated light cheese
+Polenguinho light cheese
+Curd light
+Cheese unspecified light
+Light chocolate milk
+Light chocolate beverage
+Milk diet flavor
+Chocolate milk diet
+Chocolate beverage diet
+Light soy milk powder
+Milk powder to taste
+Butter with or without light salt
+Cheese Organic frescal
+Cheese curds from fresh organic
+Hamburger bun
+Salt bread
+Bun
+Chineque
+Chineque with headlight
+Gingerbread
+Panettone
+Bisnaguinha
+Croissant
+Bread industrialized form of any brand
+Cheese bread
+Corn Bread
+Whole wheat bread
+Bread not specified
+Toast any bread
+Sweet Thread
+Sweet donut
+Salt Thread
+Salty donut
+Cracker
+Hamton Cookie
+Biscuit recipes
+Crackers
+Chips (crisps)
+Baconzitos
+Full cracker
+Sweet Cookie
+Chinese chip
+Sequilho
+Tareco
+Solder
+Brevity
+Butter Cookies
+Crazy Mary (sweet biscuits)
+Riot
+Roulade
+Cuca of any kind
+Corn Cake
+Amidomil (cookie)
+Corn Angusor
+Grustoli (sweet dumpling)
+Cassava cake
+Tapioca Cake
+Cassava Cake
+Cake gum
+Sweet potato cake
+Rice cake
+Yam cake
+Tarts in any flavor
+Pies of any flavor
+Dream
+Children (cookie flour and eggs)
+Chocolate Cake
+Brioche
+Orange cake
+Coconut Cake
+Carrot Cake
+Wheat cake
+Gem
+Oreo
+Wafer (cookie)
+Alfajores (biscuit)
+Stuffed Biscuit
+Stuff thread
+Filled donut any flavor
+Cookie unspecified
+Crepe
+Bread diet (of processed form)
+Light bread (industrialized form)
+Light cheese bread
+Whole wheat bread light
+Tarts any light flavor
+Tarts taste of any diet
+Children (cookie flour and eggs) light
+Children (cookie flour and eggs) diet
+Light chocolate cake
+Chocolate cake diet
+Light orange cake
+Coconut cake diet
+Diet carrot cake
+Oreo light
+Light biscuit waffer
+Wafer (cookie) light
+Alfajores (biscuit) light
+Cookie light stuff
+Oreo diet
+Doughnut filled with any flavor diet
+Cookie diet stuff
+Sweet bread diet
+Bread diet honey
+Panettone diet
+Cracker light
+Light crackers
+Chips (crisps) light
+Light sweet biscuit
+Sweet Biscuit light
+Sweet Cookie Diet
+Sweet Cookie Diet
+Banana cake
+Dried meat, cooked (a)
+Dried meat, grilled (a) / ember / BBQ
+Dried beef, roast (a)
+Dried meat, fried (a)
+Dried meat, braising (a)
+Dried meat, red sauce
+Dried meat, stew
+Beef jerky, raw (a)
+Beef jerky, baked (a)
+Beef jerky, grilled (a) / ember / BBQ
+Beef jerky, barbecue (a)
+Beef jerky, fried (a)
+Beef jerky, steamed (a)
+Beef jerky, red sauce
+Beef jerky, stew
+Payola, baked (a)
+Payola, fried (a)
+Payola, braising (a)
+Payola
+Corned beef, raw (a)
+Corned beef, baked (a)
+Corned beef, grilled (a) / ember / BBQ
+Corned beef, roast (a)
+Corned beef, fried (a)
+Corned beef, stew
+Meat the backcountry, baked (a)
+Meat backcountry roast (a)
+Meat the backcountry, fried (a)
+Burger beef, raw (a)
+Beef burger, baked (a)
+Beef burger, grilled (a) / ember / BBQ
+Burger beef roast (a)
+Beef burger, fried (a)
+Red beef burger sauce
+Beef burger
+Smoked pork Cup
+Bacon
+Chicken burger, baked (a)
+Chicken burger, grilled (a) / ember / BBQ
+Chicken burger, barbecue (a)
+Chicken burger, fried (a)
+Chicken burger, breaded (a) / Breaded
+Chicken burger
+Sausage retail, raw (a)
+Sausage retail, baked (a)
+Sausage retail, grilled (a) / ember / BBQ
+Sausage retail roast (a)
+Sausage retail, fried (a)
+Sausage retail, braising (a)
+Sausage retail, red sauce
+Sausage in retail, white sauce
+Sausage retail, garlic and oil
+Sausage in retail, with butter / oil
+Sausage retail, stew
+Sausage retail
+Sausage (pork, beef, mixed, etc..), Raw (a)
+Sausage (pork, beef, mixed, etc..), Baked (a)
+Sausage (pork, beef, mixed, etc..), Grilled (a) / ember / BBQ
+Sausage (pork, beef, mixed, etc..), Roast (a)
+Sausage (pork, beef, mixed, etc..), Fried (a)
+Sausage (pork, beef, mixed, etc..), Fingers (a) / Breaded
+Sausage (pork, beef, mixed, etc..), Steamed (a)
+Sausage (pork, beef, mixed, etc..), Red sauce
+Sausage (pork, beef, mixed, etc..) With butter / oil
+Sausage (pork, beef, mixed, etc.)., Stew
+Sausage (pork, beef, mixed, etc.).
+Chicken sausage, raw (a)
+Chicken sausage, cooked (a)
+Chicken sausage, grilled (a) / ember / BBQ
+Chicken sausage, roasted (a)
+Chicken sausage, fried (a)
+Pudding
+Black Pudding
+Morcilha, raw (a)
+Morcilha, baked (a)
+Sausage, cooked (a)
+Mortadella
+Salami
+Pepperoni
+Blanquet turkey
+Ham
+Turkey burger, baked (a)
+Turkey burger, baked (a)
+Turkey burger, breaded (a) / Breaded
+Unspecified burger, baked (a)
+Unspecified burger, grilled (a) / ember / BBQ
+Burger unspecified roast (a)
+Unspecified burger, fried (a)
+Burger unspecified
+Apresuntado
+Pururuca pork
+Pigskin prepared (pururuca)
+Pate (liver, pepperoni, chicken, ham, etc.).
+Beef and smoked poultry
+Unspecified salted, baked (a)
+Unspecified salted, grilled (a) / ember / BBQ
+Unspecified salted, roasted (a)
+Unspecified salted, fried (a)
+Unspecified salted, steamed (a)
+Salted unspecified, red sauce
+Salted unspecified
+Mini breaded chicken, baked (a)
+Mini chicken fingers, grilled (a) / ember / BBQ
+Mini chicken fingers, barbecue (a)
+Mini chicken fingers, fried (a)
+Mini fingers, breaded chicken (a) / Breaded
+Mortadella light
+Sausage in light retail, fried (a)
+Salami light
+Blanquet light turkey
+Burger unspecified light
+Coolant traditional glue
+Traditional Coca-Cola
+Traditional Fanta Orange
+Traditional Sukita
+Traditional guarana soda
+Traditional guarana
+Sprit traditional soda
+Fanta Grape traditional
+Soda Cola Light
+Coca-Cola light
+Soda diet cola
+Traditional minuano
+Traditional Mate
+Traditional Bidu
+Fanta orange light
+Coolant light guarana
+Guarana light
+Traditional Tubaina
+Tubaina light
+Sugarcane juice
+GARAPA
+Coconut water
+Q-juice
+Q-refresko
+Nescafe
+Mate
+Mate
+Tereré
+Brewer's yeast
+Coolant unspecified
+Barley Powder
+Chocomilk
+Traditional tonic water
+Diet tea (black, chamomile, lemon balm, lemon grass, etc..)
+Paraguayan traditional soda
+Gatorade
+Energy drink
+Tea (black, chamomile, lemon balm, lemon grass, etc..)
+Instant coffee capuccino
+Guarana diet soda
+Guarana diet
+Diet soda lime
+Fanta Grape light
+Matt light
+Tonic light
+Paraguay coolant light
+Q-juice light
+Light Q-refresko
+Q-juice diet
+Soluble coffee capuccino light
+Coffee cappuccino soluble diet
+Diet tonic water
+Soda Dietary quinine
+Organic mate tea
+Organic mate
+Juice of chlorophyll
+Coffee with flour
+Beer (with or without alcohol)
+Chopp
+Brandy
+Cachaça
+Beat any flavor
+Rum
+Vodka
+Whiskey
+Whisky
+Champagne
+Champagne Cider
+Martini
+Brandy
+Dreher Drink
+Liquor in any flavor
+Cajuína
+Wine
+Catuaba
+Fruit Cocktail
+Caipirinha
+Alcoholic beverage
+Organic Wine
+Beer (with or without alcohol) light
+Caxiri (distilled from cassava)
+Olive oil
+Soybean oil
+Lard
+Bovine lard
+Oil unspecified
+African Palm oil
+Salgadinho
+Pastel (cheese, meat, palm, etc.).
+Croquette
+Coxinha
+Patty (cheese, beef, shrimp, etc.).
+Rissole (cheese, beef, shrimp, etc.).
+Acarajé
+Crackling
+Kebab
+Abará (Bahia)
+Paçoca corned beef
+Fried polenta
+Homing
+Polenta
+Esfirra
+Esfirra meat
+Esfirra cheese
+Esfirra ricotta
+Esfirra chicken
+Corkscrew
+Cookie Wahoo
+Codfish balls
+Hot dog
+Burger (sandwich)
+Cheeseburger
+Eggsburger
+Bauru
+American
+Joint-hot or cold
+Sandwich plate
+Salami sandwich
+Ham Sandwich
+Sandwich with ham cheese platter
+Bologna sandwich
+Minas cheese sandwich
+Cheese egg
+Cheese all
+Natural Sandwich
+Juice
+Pineapple juice
+Acerola juice
+Beet juice
+Cupuaçu juice
+Guava juice
+Orange juice
+Orange juice with banana
+Orange juice and beetroot
+Orange juice and carrot
+Orange juice carrots and beets
+Papaya juice
+Mango juice
+Passion fruit juice
+Melon juice
+Strawberry juice
+Peach juice
+Peach juice in syrup
+Vitamin
+Banana smoothie
+Banana smoothie with oats
+Vitamin papaya
+Vitamin Avocado
+Vitamin Strawberry
+Vitamin mixed
+Vitamin apple
+Refreshment
+Cashew juice
+Blackcurrant Cordial
+Orange drink
+Passionfruit Cordial
+Lemon Cordial
+Salad or cooked vegetables, other fruit
+Mayonnaise salad
+Pizza
+Lasagna ready light
+Gnocchi
+Caneloni
+Capeleti
+Ravioli
+Calzone
+Pancake
+Pizza Calabreza
+Pizza mozzarella
+Pizza Ham
+Portuguese Pizza
+Pasta
+Cockerel
+Rib
+Sweet or salted popcorn
+Coffee
+Coffee with milk
+Espresso type
+Coffee cappuccino type
+Baked Corn
+Frites
+Straw potatoes
+Mungunzá
+Hominy
+Curau
+Farofa
+Gruel (cornmeal, oats, flour, etc.).
+Tacacá
+Coconut cookie
+Risotto
+Vatapd
+Farofa ready
+Broth
+Broth-of-beans
+Broth mocotó
+Baião two
+Barbecue
+Sushi
+Fruit salad
+Soup (vegetables, meat, etc.).
+Salpicão
+Cigar cabbage
+Greek rice
+Arrumadinho
+Shrimp bobo
+Pigweed (okra, peanuts, cashews, dried shrimp, etc..)
+Couscous São Paulo
+Pie (cheese, chicken, shrimp, hearts of palm, etc.).
+Banana farofa
+Bean-drover
+Chicken with Rice
+Galinhada
+Bahian fish stew
+Omelet
+Pirão
+Quibebe
+Quiche
+Souffle
+Tutu
+Moqueca
+Maniçoba
+Caldo verde
+Rice cuxá
+Angu the Bahian
+Chocolate
+Flip
+Acai with granola
+Organic juice
+Organic pineapple juice
+Organic acerola juice
+Organic guava juice
+Organic Orange Juice
+Orange juice organic carrots and beets
+Organic Mango Juice
+Organic passion fruit juice
+Organic strawberry juice
+Organic peach juice
+Peach juice in organic syrup
+Pizza ready light
+Lasagna ready light
+Macaroni ready light, baked (a)
+Light Portuguese Pizza
+Ready light headlight in package
+Mired cow
+Salad or raw vegetables, other fruit
+Other cooked vegetables
+Breakfast
+Brazilian food dish
+Food dish Northeast
+Food dish north
+Plate of food Southeast
+Plate of Southern food
+Plate of food from the Midwest
+Rice and beans
+Bread and butter
+Bread with margarine
+Bread with egg
+Meat with potato, yam, sweet potato or cassava baroa
+Meat with vegetables (except potatoes, yams and cassava)
+Chicken with potato, taro potato or manioc baroa
+Chicken with vegetables (except potatoes, yams and cassava)
+Pumpkin with okra
+Wagoner Rice
+Maria izabel
+Rice milk
+Rice and cassava
+Rice with Egg
+Palm
