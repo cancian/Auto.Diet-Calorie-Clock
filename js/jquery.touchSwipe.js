@@ -523,16 +523,17 @@
 			//As we use Jquery bind for events, we need to target the original event object
 			//If these events are being programmatically triggered, we don't have an original event object, so use the Jq one.
 			var event = jqEvent.originalEvent ? jqEvent.originalEvent : jqEvent;
-			
-			var ret,
-				evt = SUPPORTS_TOUCH ? event.touches[0] : event;
 
+			var ret,evt = ($('body').hasClass('mobile') && SUPPORTS_TOUCH) ? event.touches[0] : event;
 			phase = PHASE_START;
+
 
 			//If we support touches, get the finger count
 			if (SUPPORTS_TOUCH) {
 				// get the total number of fingers touching the screen
-				fingerCount = event.touches.length;
+				if(event.touches) {
+					fingerCount = event.touches.length;
+				}
 			}
 			//Else this is the desktop, so stop the browser from dragging the image
 			else {

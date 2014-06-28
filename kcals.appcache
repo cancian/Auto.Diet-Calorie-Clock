@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# Version 1.2.7
+# Version 1.2.8
 # APP
 index.html
 js/app_init.js
@@ -51,11 +51,6 @@ js/highcharts.js
 js/mobiscroll.js
 js/galocalstorage.js
 js/quo.js
-# SQL
-searchdb_en.sql 
-searchdb_pt.sql 
-searchdb_en.js
-searchdb_pt.js
 
 NETWORK:
 *

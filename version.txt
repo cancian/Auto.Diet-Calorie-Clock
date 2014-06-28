@@ -1,22 +1,19 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.2.8 [27/06/2014]
-• Swipe header
-• Advanced settings
-• Improved ui
-• translated and expanded food databases
+# 1.2.8 [2014/06/28]
+• Added: "Advanced settings" section
+• Header navigation (slide to switch tabs)
+• Optional colored border to indicate time (Diary)
+• Translated and expanded food database
 
-# 1.2.7 [13/06/2014]
-• Full entry edit
-• Custom date
-• Dropped support for Amernian and Irish
+# 1.2.7 [2014/06/20]
+• Full entry edit, including custom date (tap & hold entry to open editor)
+• Dropped support for Armenian and Irish
 • Improved stability
 • Fixed issue with Daylight Savings while on Cyclic Mode
-• 
 
-
-# 1.2.6 [13/06/2014]
+# 1.2.6 [2014/06/13]
 • New feature: Cyclical Mode
 • Added full Statistics
 • Added "Relative Time" option
@@ -24,129 +21,125 @@
 • Calorie Threshold is now customizable
 • Improved responsiveness
 
-# 1.2.5 [8/06/2014]
+# 1.2.5 [2014/06/08]
 • Nutrient ratio is now customizable
 • Updated help contents
 • Bug fixes
 
-# 1.2.3/4 [15/05/2014]
-• improved data synchronization
-• fixed an issue with favorites being duplicated;
-• improved performance
-• minor bug fixes
+# 1.2.3/4 [2014/05/15]
+• Improved data synchronization
+• Fixed an issue with favorites being duplicated;
+• Improved performance
+• Minor bug fixes
 
-# 1.2.2 [08/05/2014]
-• more detailed nutritional data; 
-• improved overall performance; 
-• smarter management for long lists; 
-• fixed an issue where Spinner does not disappear after the end of the task; 
-• translated into Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian; 
-• minor bug fixes.
+# 1.2.2 [2014/05/08]
+• More detailed nutritional data; 
+• Improved overall performance; 
+• Smarter management for long lists; 
+• Fixed an issue where Spinner does not disappear after the end of the task; 
+• Translated into Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian; 
+• Minor bug fixes.
 
-# 1.2.1 [18/04/2014]
-• status now displays statistics
-• users can define display language manually
-• translated into: Malay, Slovak, Slovenian, Vietnamese.
-• fixed an issue where app would start before setting initial values
-• improved profile validation
+# 1.2.1 [2014/04/18]
+• Status now displays statistics
+• Users can define display language manually
+• Translated into: Malay, Slovak, Slovenian, Vietnamese.
+• Fixed an issue where app would start before setting some initial values
+• Improved profile validation
 
-# 1.2 [9/04/2014]
-• use metric system as default for non-English users
-• translation for the following languages: Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish, Estonian, finish, French, Irish, Hindi, Croatian, Hungarian, Armenian, Italian, Indonesian, Japanese, Korean, Dutch, Norwegian, polish, Romanian, Russian, Swedish, Thai, Turkish, Ukrainian, Chinese.
+# 1.2 [2014/04/09]
+• Use metric system as default for non-English users
+• Translation for the following languages: Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish, Estonian, finish, French, Irish, Hindi, Croatian, Hungarian, Armenian, Italian, Indonesian, Japanese, Korean, Dutch, Norwegian, polish, Romanian, Russian, Swedish, Thai, Turkish, Ukrainian, Chinese.
 
-# 1.1.7 [08/03/2014]
-• diary list now displays date and daily sum for food/exercise
-• cleaner interface
-• added help section on Settings tab
-• improved slider visual feedback
-• improved input handling
-• fixed flicker when adding/removing fav itens
-• fixed height adjust on tab switch
-• caloric balance indicator on status screen
+# 1.1.7 [2014/03/08]
+• Diary list now displays date and daily sum for food/exercise
+• Cleaner interface
+• Added help section on Settings tab
+• Improved slider visual feedback
+• Improved input handling
+• Fixed flicker when adding/removing favorite items
+• Fixed height adjust on tab switch
+• Caloric balance indicator on status screen
 
-# 1.1.6 [11/02/2014]
-• faster start-up and overall responsiveness
-• slider is now more precise
-• Facebook sharing added to settings
-• improved auto-save function (data sync)
-• fixed diary input not allowing text selection
-• fixed an issue where logging to Facebook before loading food db would cause partial data loss
-• automatic data re-sync when resuming app
-• ability to sync manually by tapping last sync date on settings menu
-• fixed log-out not being triggered under certain circumstances
+# 1.1.6 [2014/02/11]
+• Faster start-up and overall responsiveness
+• Slider is now more precise
+• Improved auto-save function (data sync)
+• Fixed diary input not allowing text selection
+• Fixed an issue where logging to Facebook before loading food database would cause partial data loss
+• Automatic data re-sync when resuming app
+• Ability to sync manually by tapping last sync date on settings menu
+• Fixed log-out not being triggered under certain circumstances
 
-# 1.1.5 [04/02/2014]
-• entries, custom itens, and personal settings can now be backed up online and synced across multiple devices (via facebook account)
-• counter now prompts for auto start when adding new entries
-• added "clear all" option to diary
+# 1.1.5 [2014/02/04]
+• Entries, custom items, and personal settings can now be backed up online and synced across multiple devices (via Facebook account)
+• Counter now prompts for auto start when adding new entries
+• Added "clear all" option to diary
 
-# 1.1.4 [25/01/2014]
-• added UserVoice for user feedback
+# 1.1.4 [2014/01/25]
+• Bug fixes
 
-# 1.1.3 [19/01/2014]
-• quick nutrition info on status screen
-• simple notepad added to diary
-• fixed issue where favourite entries would not be searchable
-• tap diary entries time to view full date
-• several stability improvements
+# 1.1.3 [2014/01/19]
+• Quick nutrition info on status screen
+• Simple notepad added to diary
+• Fixed issue where favorite entries would not be searchable
+• Tap diary entries time to view full date
+• Several stability improvements
 
-# 1.1.2 [14/01/2014]
-• support for custom foods and exercises
-• all itens are now fully editable (both custom and default)
-• added support for "favourite" itens
-• tap and hold existing diary entry to re-use description
-• slider knob now changes color when active
-• fixed issue with pre-fill not triggering menu autoclose
-• improved interface overall responsiveness
+# 1.1.2 [2014/01/14]
+• Support for custom foods and exercises
+• All items are now fully editable (both custom and default)
+• Added support for "favorite" items
+• Slider knob now changes color when active
+• Fixed issue with pre-fill not triggering menu autoclose
+• Improved interface overall responsiveness
 
-# 1.1.1 [03/01/2014]
-• tapping status boxes now displays additional information
-• faster search system
-• improved scrolling
-• improved language detection
-• fixed calorie calculator recalc issues
-• fixed diary focus issues
-• fixed form style issues
-• improved text handling
+# 1.1.1 [2014/01/03]
+• Tapping status boxes now displays additional information
+• Faster search system
+• Improved scrolling
+• Improved language detection
+• Fixed calorie calculator recalculation issues
+• Fixed diary focus issues
+• Fixed form style issues
+• Improved text handling
 
-# 1.1.0 [25/12/2013]
-• improved user interface
-• fixed calorie calculator minor bugs
-• fixed slider reset issue on keyboard focus
-• fixed blur issue while editing entry description
-• fixed settings save issue for non-english users
-• performance and stability improvements
+# 1.1.0 [2013/12/25]
+• Improved user interface
+• Fixed calorie calculator minor bugs
+• Fixed slider reset issue on keyboard focus
+• Fixed blur issue while editing entry description
+• Fixed settings save issue for non-English users
+• Performance and stability improvements
 
-# 1.0.5 [10/12/2013]
-• faster search
-• fixed database import issue
-• performance and stability improvement
+# 1.0.5 [2013/12/12]
+• Faster search
+• Fixed database import issue
+• Performance and stability improvements
 
-# 1.0.4 [10/12/2013]
-• cleaner interface
-• more detailed numeric display
-• improved input handling
-• menu height fix
-• start date overlap fix
+# 1.0.4 [2013/12/10]
+• Cleaner interface
+• More detailed numeric display
+• Improved input handling
+• Menu height fix
+• Start date overlap fix
 
-# 1.0.3 [04/12/2013]
+# 1.0.3 [2013/12/05]
 • Fixed input focus issue
 • Improved start-up stability
 • Performance and stability improvements
 
-# 1.0.2 [03/12/2013]
+# 1.0.2 [2013/12/03]
 • Added Brazilian Portuguese support
 • Fixed start date toggle issue
 • Fixed slider font issue
-• Improved reponsiveness
+• Improved responsiveness
 • Performance and stability improvements
 
-# 1.0.1 [01/12/2013]
+# 1.0.1 [2013/12/01]
 • Expired entries now appear faded
-• Fixed cyclic input focus
 • Prevent empty rows in entry history
-• Maximum "time ago" reduced to 3 days
 • Performance and stability improvements
 
-# 1.0 [01/11/2013]
+# 1.0 [2013/11/01]
 • Public release

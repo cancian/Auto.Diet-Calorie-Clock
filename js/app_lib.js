@@ -253,6 +253,7 @@ function isNumberKey(evt){
 // TRIM //
 //////////
 function trim(str) {
+	if(!str) { return ''; }
 	str = str.replace(/^\s+/, '');
 	for(var i = str.length - 1; i >= 0; i--) {
 		if(/\S/.test(str.charAt(i))) {
@@ -397,7 +398,9 @@ function kickDown(el) {
 	if(!el) { el = '#appContent'; }
 	if(!$('body').hasClass('android2')) {
 		if(!isDesktop() || isMobile.MSApp()) {
-			window.scroll($(el)[0].scrollTop,0,0);
+			window.scrollTo(0, 0);
+			document.body.scrollTop = 0;
+			//window.scroll($(el)[0].scrollTop,0,0);
 		}
 	} else {
 		$(el).scrollTop($(el).scrollTop());

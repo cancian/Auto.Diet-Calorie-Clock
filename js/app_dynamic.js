@@ -16,6 +16,7 @@ $(document).on("pageload", function(evt) {
 	var cancelEdit = 0;
 	$("#entryList div" + tgt).on("longhold",function(evt) {
 		if(!$("#entryList div" + tgt + " .entriesTitle").html()) { return; }
+		if($("#editableInput").is(":visible"))                   { return; }		
 		entryReturn = true;
 		deKeyboard = 1;
 		if(cancelEdit == 0) {
@@ -128,11 +129,12 @@ $(document).on("pageload", function(evt) {
 										setTimeout(function() {
 											updateEntriesSum();
 										},0);
-										if(!$('body').hasClass('android2')) {
-											window.scroll($('#appContent')[0].scrollTop,0,0);
-										} else {
-											$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
-										}
+										kickDown();
+										//if(!$('body').hasClass('android2')) {
+										//	window.scroll($('#appContent')[0].scrollTop,0,0);
+										//} else {
+										//	$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
+										//}
 										return false;
 									//});
 								},
@@ -521,7 +523,7 @@ $(document).on("pageload", function(evt) {
 		}
 		//force error
 		//window.scroll($('#appContent')[0].scrollTop,0,0);
-		$('#appContent').scrollTop($('#appContent').scrollTop());
+		//$('#appContent').scrollTop($('#appContent').scrollTop());
 		//window.onscroll(scroll($('body')[0].scrollTop,0));
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(function() {
@@ -890,7 +892,7 @@ function doSearch(rawInput) {
 	var timerStart = new Date().getTime();
 	var lastSearch = window.localStorage.getItem("lastSearchTerm");
 	//sanitize user input
-	var searchQuery = trim(rawInput.split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
+	var searchQuery = trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
 	//partial sql syntax
 	var searchSQL   = "term LIKE '%" + searchQuery.split(" ").join("%' AND term LIKE '%") + "%'";
 	//prevent multiple identical searches
@@ -933,7 +935,7 @@ function doSearch(rawInput) {
 		var timerStart = new Date().getTime();
 	var lastSearch = window.localStorage.getItem("lastSearchTerm");
 	//sanitize user input
-	var searchQuery = trim(rawInput.split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
+	var searchQuery = trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
 	//partial sql syntax
 	var searchSQL   = searchQuery.split(" ");
 	//prevent multiple identical searches
@@ -2086,7 +2088,8 @@ setTimeout(function() {
 		}
 		if(isMobile.Android()) {
 			//$(window).trigger("orientationchange");
-			window.scroll($('#appContent')[0].scrollTop,0,0);
+			kickDown();
+			//window.scroll($('#appContent')[0].scrollTop,0,0);
 			//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 		}
 		if($("#tempHolder").html()) {
@@ -2542,22 +2545,26 @@ function getModalWindow(itemId) {
 							if(mFib == "nonFav") {
 								$("#tabMyFavs #" + mCode).css("opacity",0);
 								$("#tabMyFavs #" + mCode).remove();
-								window.scroll($('#foodList')[0].scrollTop,0,0);
+								kickDown();
+								//window.scroll($('#foodList')[0].scrollTop,0,0);
 								//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 								return false;
 							} else {
 								if(isMobile.iOS()) {
 									setTimeout(function() {
 										updateFavList();
-										window.scroll($('#foodList')[0].scrollTop,0,0);
+										kickDown();
+										//window.scroll($('#foodList')[0].scrollTop,0,0);
 										//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 									},50);
-									window.scroll($('#foodList')[0].scrollTop,0,0);
+									kickDown();
+									//window.scroll($('#foodList')[0].scrollTop,0,0);
 									//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 									$("#tabMyFavs .foodName").css("opacity",0);
 									$("#tabMyFavs .foodName").css("overflow","hidden");
 									$("#tabMyFavs .foodName").css("opacity",1);
-									window.scroll($('#foodList')[0].scrollTop,0,0);
+									kickDown();
+									//window.scroll($('#foodList')[0].scrollTop,0,0);
 									//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 								} else {
 									updateFavList();

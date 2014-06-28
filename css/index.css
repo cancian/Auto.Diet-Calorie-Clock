@@ -268,28 +268,45 @@ div#optionWebsite 					{ display: block; }
 div#optionReset 					{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 48px; overflow: hidden; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; padding-left: 20px; }
 div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 /*//////////////////////
-// SETTINGS: ADVANCED //E048
+// SETTINGS: ADVANCED //
 //////////////////////*/
 #optionAdvanced 						{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 48px; overflow: hidden; color: #555; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; text-indent: 48px; }
 #optionAdvanced.activeRow				{ background-color: #eee; }
 #optionAdvanced:after 					{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
 #optionAdvanced:after					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; text-indent: 0px; }
 #optionAdvanced:before					{ content: "\E070"; font-family: "FontAwesome"; font-weight: normal; position: absolute; top: 3px; left: -8px; display: block; width: 60px; height: 46px; line-height: 41px; font-size: 22px; text-align: left; background-color: transparent; color: #555; font-weight: normal; text-indent: 27px; }
-#advancedMenuWrapper					{ position: absolute; top: 0; bottom: 0; left: 0; right: 0px; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; }
-#advancedMenu							{ position: absolute; top: 0px; bottom: 0; left: 0; right: 0px; background-color: #F2F5F6; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; overflow: hidden; -webkit-overflow-scrolling: touch; }
+/**/
+#advancedMenuWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F2F5F6; -webkit-perspective: 1000; }
+#advancedMenu							{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F2F5F6; -webkit-overflow-scrolling: touch; }
 #advancedMenuList						{	}
 #advancedMenu ul						{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
-#advancedMenu ul li						{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; }
+#advancedMenu ul:before					{ position: absolute; bottom: 0; left: 0; width: 100%; height: 0px; background-color: #eee; display: block; content: ''; border-bottom: 1px solid #eee; z-index: 1; }
+#advancedMenu ul li						{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; white-space: nowrap; }
 #advancedMenu ul li+li					{ border-top: 1px solid #eee; }
 #advancedMenu ul li.activeRow			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 #advancedMenu ul li.activeRow:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }
 #advancedMenu ul+ul						{ margin-top: 28px; border-top: 1px solid #eee; }
-#advancedMenu #listReset				{ margin-bottom: 28px; color: #cc3300; }
-#advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee;  }
-#advancedMenuHeader #backButton			{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
-#advancedMenuHeader #backButton:active	{ color: #C6DEF9; }
-#advancedMenuHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
+#advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 45px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; box-sizing: border-box; }
+#advancedMenuHeader #advBackButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
+#advancedMenuHeader #advBackButton:active{ color: #C6DEF9; }
+#advancedMenuHeader #advBackButton:before{ font-family: "FontAwesome"; content: "\f104"; }
 #advancedMenuTitle						{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
+/*single options*/
+#advancedReload							{ margin-bottom: 28px; color: #007aff; }
+#advancedReload.activeRow				{ background-color: #007aff !important; color: #fff; }
+#advancedReset							{ margin-bottom: 28px; color: #F22323; }
+#advancedReset.activeRow				{ background-color: #E86401 !important; color: #fff; }
+/*#////////////#//
+//# CHANGE LOG #//
+//#////////////#*/
+#logContent							{ font-size: 13px; line-height: 20px; color: #333; padding: 0px 0 14px 18px; }
+#newWindowWrapper.open #logContent,
+#newWindowWrapper.busy #logContent	{ display: block; }
+#newWindowWrapper #logContent		{ display: none; }
+#logContent	p						{ position: relative; color: #000; display: block; text-align: left; font-size: 18px; font-weight: 400; margin-top: 9px; padding-top: 12px; padding-right: 12px; margin-bottom: 6px; }
+#logContent p	 					{ border-top: 1px solid #D6D6D6; }
+#logContent p:first-child			{ border-top: 0; }
+#logContent	p span					{ position: absolute; top: 14px; right: 16px; text-align: right; color: #888; font-size: 13px; font-weight: normal; }
 /*#///////////////#// http://callmenick.com/tutorial-demos/css-toggle-switch/
 //# TOGGLE SWITCH #// 
 //#///////////////#*/
@@ -396,7 +413,7 @@ input[type="radio"]:checked:after	{ left: 22px; }
 //#/////////////#*/
 #premiumInfo						{ margin: 25px; text-align: left; display: none; }
 #restoreButton,
-#buyButton							{ font-size: 18px; display: block; padding: 12px 0; margin: 24px; text-align: center; background-color: #eee }
+#buyButton							{ font-size: 18px; display: block; padding: 12px 0; margin: 24px; text-align: center; background-color: #eee; }
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
@@ -746,6 +763,14 @@ body.ios #entryList div		{ padding: 15px 0 1px 0; }
 /*BOTTOM BAR*/
 #entryListBottomBar			{ position: absolute; left: 0; bottom: 0; height: 45px; line-height: 47px; text-align: center; font-weight: normal; color: #555; background-color: #fff; color: #bbb; width: 100%; border-top: 1px solid #eee; }
 #entryListBottomBar.activeRow{ color: #777; background-color: #f5f5f5; }
+
+
+/*
+#entryListBottomBar:after			{ content: "\E024"; font-family: "FontAwesome"; display: inline-block; font-weight: normal;
+position: absolute; left: 9px; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 32px; color: #ccc; 
+}
+*/
+
 /*SWIPE DELETE*/
 span.delete					{ display: none; line-height: 16px; font-size: 13px; }
 span.delete.busy,
@@ -794,29 +819,42 @@ div.editing p				{ opacity: 1; }
 .rowNight,
 .e-rowNight,
 .rowAfterhours,
-.e-rowAfterhours			{ border-left: 2px solid transparent; }
-/*
-#entryList div				{ border-bottom: 0; border-top: 0; }
-#entryList					{ -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); }
-div#noEntries				{ border-left: 3px solid #ccc; }
-.rowMorning,
-.e-rowMorning				{ color: #000; border-left: 3px solid #FFEC3C; }
-.rowAfternoon,
-.e-rowAfternoon				{ color: #000; border-left: 3px solid #F29D50; }
-.rowNight,
-.e-rowNight					{ color: #000; border-left: 3px solid #4486E5; }
-.rowAfterhours,
-.e-rowAfterhours			{ color: #000; border-left: 3px solid #4141D1; }
-*/
+.e-rowAfterhours					{ border-left: 2px solid transparent; }
+.heading							{ padding-left: 22px; }
+#diarySidebar						{ color: #ccc; }
+.sidebar.morning #diarySidebar		{ color: #FFdd00; }
+.sidebar.afternoon #diarySidebar	{ color: #F29D50; }
+.sidebar.night #diarySidebar		{ color: #4486E5; }
+.sidebar.afterhours #diarySidebar	{ color: #4141D1; }
+#diarySidebar:before				{ font-family: "FontAwesome"; content: "\F025"; }
+#diarySidebar						{ font-size: 18px; line-height: 19px; position: absolute; top: 0; left: 0; width: 88px; height: 35px; background-color: rgba(0,0,0,0); padding-top: 10px; overflow: hidden; text-align: left; }
+.android #diarySidebar				{ padding-top: 11px; }
+.sidebar #entryList div				{ border-bottom-width: 0; padding-bottom: 1px; }
+
+.sidebar .entriesPublished			{ bottom: 0; }
+.sidebar.ios #entryList div			{ padding: 15px 0 2px 0; }
+
+.sidebar.msie #entryList div		{ padding: 15px 0 2px 0; }
+
+.sidebar #entryList					{ -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); }
+.sidebar div#noEntries				{ border-left: 3px solid #ccc; padding-left: 3px; }
+.sidebar .rowMorning,
+.sidebar .e-rowMorning				{ color: #000; border-left: 3px solid #FFEC3C; }
+.sidebar .rowAfternoon,
+.sidebar .e-rowAfternoon			{ color: #000; border-left: 3px solid #F29D50; }
+.sidebar .rowNight,
+.sidebar .e-rowNight				{ color: #000; border-left: 3px solid #4486E5; }
+.sidebar .rowAfterhours,
+.sidebar .e-rowAfterhours			{ color: #000; border-left: 3px solid #4141D1; }
 /*TITLE COLOR*/
 .rowAfterhours p.entriesTitle,
 .rowMorning p.entriesTitle,
 .rowAfternoon p.entriesTitle,
-.rowNight p.entriesTitle	{ color: #333; }
+.rowNight p.entriesTitle			{ color: #333; }
 .e-rowAfterhours p.entriesTitle,
 .e-rowMorning p.entriesTitle,
 .e-rowAfternoon p.entriesTitle,
-.e-rowNight p.entriesTitle	{ color: #C00; }
+.e-rowNight p.entriesTitle			{ color: #C00; }
 /*////////////////
 // IN-LINE EDIT //
 ////////////////*/
@@ -1087,6 +1125,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 //#//LICENSE //#//
 //#////////////#*/
 #timerTrial							{ position: absolute; bottom: 0; left: 0; text-indent: 0; right: 0; display: block; text-align: center; font-weight: bold; height: 10px; line-height: 9px; font-size: 9px; color: #fff; overflow: hidden; white-space: nowrap; }
+.hidenotice #timerTrial				{ display: none !important; }
 .full #timerTrial,
 .full #optionBuy 					{ display: none !important; }
 .expired #pageSlideFood,

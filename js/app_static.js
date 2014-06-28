@@ -28,9 +28,13 @@ $(document).ready(function() {
 var resumeTimeout;
 $(document).on("resume",function() { 
 	clearTimeout(resumeTimeout);
+	$('body').removeClass('hidenotice');
 	resumeTimeout = setTimeout(function() { 
 		updateLoginStatus(1);
 		getAnalytics('resume');
+		$('#timerTrial').fadeOut(100,function() {
+			$('body').addClass('hidenotice');
+		});
 	},6000);
 });
 //##///////////##//
@@ -45,6 +49,9 @@ setTimeout(function() { getAnalytics('init'); },0);
 setTimeout(function() { 
 	updateLoginStatus(1);
 	getAnalytics('startApp'); 
+	$('#timerTrial').fadeOut(100,function() {
+		$('body').addClass('hidenotice');
+	});
 },6000);
 ////////////////
 // PARSED CSS //
@@ -85,6 +92,7 @@ $("body").prepend('\
 var releaseFooter;
 var lastTab = 0;
 preTab = function() {
+	kickDown();
 	if(isMobile.MSApp()) {
 		$('#appContent').scrollTop(0);
 	} else {
@@ -94,7 +102,9 @@ preTab = function() {
 	}
 }
 afterTab = function() {
+	$("#langSelect").remove();
 	$("#newWindowWrapper").remove();
+	$("#advancedMenuWrapper").remove();
 	//clear pageslidefood
 	if($("#pageSlideFood").html()) {
 		if(!$("#pageSlideFood").is(":animated")) {
@@ -142,7 +152,8 @@ $("ul#appFooter li").on(touchstart, function(evt) {
 	//not while editing
 	if($("#editableInput").is(":visible")) {
 		$("#editableInput").blur();
-		window.scroll($('#appContent')[0].scrollTop,0,0);
+		kickDown();
+		//window.scroll($('#appContent')[0].scrollTop,0,0);
 		//$('#appContent').scrollTop($('#appContent').scrollTop());
 		return false;
 	}
@@ -229,6 +240,8 @@ $(document).on("backbutton", function(evt) {
 		} else {
 			$("#backButton").trigger(touchend);
 		}
+	} else if($("#advBackButton").length) {
+			$("#advBackButton").trigger(touchend);
 	} else if($("#addNewCancel").length || $("#modalCancel").length) {
 		$("#addNewCancel").trigger(touchstart);
 		$("#modalCancel").trigger(touchstart);
@@ -715,20 +728,24 @@ setInterval(function() {
 	var headerSwipeBlock = 0;	
 	$("#appHeader").swipe({
 		swipe:function(event,direction) {
-			clearTimeout(headerSwipe);
-			if(!$('#editable').val()) {
+			
+			//if(!$('#editable').val()) {
 				if(direction == 'left') {
+					clearTimeout(headerSwipe);
+					kickDown();
 				         if(window.localStorage.getItem("app_last_tab") == "tab4") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab3"); headerSwipeBlock = 0; }, 150); }
 					else if(window.localStorage.getItem("app_last_tab") == "tab3") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab2"); headerSwipeBlock = 0; }, 150); }
 					else if(window.localStorage.getItem("app_last_tab") == "tab2") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab1"); headerSwipeBlock = 0; }, 150); }
 					else if(window.localStorage.getItem("app_last_tab") == "tab1") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab4"); headerSwipeBlock = 0; }, 150); }
 				} else if(direction == 'right') {
+					clearTimeout(headerSwipe);
+					kickDown();
 				         if(window.localStorage.getItem("app_last_tab") == "tab4") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab1"); headerSwipeBlock = 0; }, 150); }
 					else if(window.localStorage.getItem("app_last_tab") == "tab3") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab4"); headerSwipeBlock = 0; }, 150); }
 					else if(window.localStorage.getItem("app_last_tab") == "tab2") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab3"); headerSwipeBlock = 0; }, 150); }
 					else if(window.localStorage.getItem("app_last_tab") == "tab1") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab2"); headerSwipeBlock = 0; }, 150); }	
 				}
-			} 
+			//} 
 		}
 	});
 	$("#appHeader").swipe("option", "threshold", 32);

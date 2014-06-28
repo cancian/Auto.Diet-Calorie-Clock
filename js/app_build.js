@@ -128,39 +128,6 @@ function openSettings(string) {
 		$(".activeRow").removeClass("activeRow");
 		evt.preventDefault();
 	});
-	/////////////////////
-	// SETTINGS: RESET //
-	/////////////////////
-	// WIPE DIALOG
-	$("#optionReset").on(touchend, function(evt) {
-		evt.preventDefault();
-		function onConfirmWipe(button) {
-			if(button == 1) {
-				$("#optionReset").off();
-				deSetup();
-				return false;
-			}
-		}
-		//SHOW DIALOG
-		if(isMobile.MSApp()) {
-			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.SETTINGS_WIPE_TITLE[lang]);
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
-			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) {onConfirmWipe(1); } });
-		} else if(hasTouch()) {
-			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmWipe, LANG.SETTINGS_WIPE_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
-			return false;
-		} else {
-			if(confirm(LANG.SETTINGS_WIPE_TITLE[lang])) { onConfirmWipe(1); } else { return false; }
-		}
-	});
-	$("#optionReset").on(touchstart,function(evt) {
-		evt.preventDefault();
-		$("#optionReset").addClass("activeRow");
-	});
-	$("#optionReset").on(touchend + " mouseout",function(evt) {
-		$("#optionReset").removeClass("activeRow");
-	});
 	////////////////////////
 	// SETTINGS: ADVANCED //
 	////////////////////////
@@ -559,7 +526,7 @@ diaryHtml += '\
 	<div id="entrySubmit">' + LANG.ADD_ENTRY[lang] + '</div>\
 </div>\
 <div id="entryListWrapper">\
-	<div class="heading" id="go">' + LANG.ACTIVITY_LOG[lang] + '<div id="diaryNotes"></div></div>\
+	<div class="heading" id="go">' + LANG.ACTIVITY_LOG[lang] + '<div id="diarySidebar"></div><div id="diaryNotes"></div></div>\
 	<div id="entryList">';
 //////////////////////
 // CALLBACK CONTENT //
@@ -595,6 +562,28 @@ if(isMobile.iOS()) {
 	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
 }
 $("#entryListWrapper").css("min-height",wrapperMinH + "px");
+/////////////
+// SIDEBAR //
+/////////////
+updateEntriesTime();
+if(!window.localStorage.getItem('config_sidebar')) {
+	window.localStorage.setItem('config_sidebar',1);
+}
+if(window.localStorage.getItem('config_sidebar') == 1) {
+	$('body').addClass('sidebar');
+} else {
+	$('body').removeClass('sidebar');
+}
+$("#diarySidebar").on(touchstart, function(evt) {
+	if(window.localStorage.getItem('config_sidebar') == 1) {
+		$('body').removeClass('sidebar');
+		window.localStorage.setItem('config_sidebar',0);
+	} else {
+		$('body').addClass('sidebar');
+		window.localStorage.setItem('config_sidebar',1);
+	}
+	return false;
+});
 //#//////////#//
 //# HANDLERS #//
 //#//////////#//
@@ -723,6 +712,7 @@ function sliderNeg() {
 				niceResizer();
 				return false;
 			}, 100);
+			kickDown();
 			return false;
 			//dumpEntries();
 			//window.scroll($('#appContent')[0].scrollTop,0,0);

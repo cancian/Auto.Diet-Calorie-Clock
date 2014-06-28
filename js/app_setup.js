@@ -972,7 +972,10 @@ function updateFoodDb() {
 						//drop-recreate 
 						sql = 'DROP TABLE IF EXISTS "diary_food"; CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);' + sql;
 						//http://regex101.com
-						var postCustom = window.localStorage.getItem("customFoodSql") + window.localStorage.getItem("customExerciseSql") + window.localStorage.getItem("customFavSql");
+						var postCustom = '';
+						if(trim(window.localStorage.getItem("customFoodSql"))     != '') { postCustom += trim(window.localStorage.getItem("customFoodSql"));     }
+						if(trim(window.localStorage.getItem("customExerciseSql")) != '') { postCustom += trim(window.localStorage.getItem("customExerciseSql")); }						
+						if(trim(window.localStorage.getItem("customFavSql"))      != '') { postCustom += trim(window.localStorage.getItem("customFavSql"));      }
 						sql = sql.replace(/lib2(.*)\{"id"\:"/g, 'INSERT OR REPLACE INTO "diary_food" VALUES(');
 						sql = sql.split('", "type":').join(',').split('"code":').join('').split('"name":').join('').split('"kcal":').join('').split('"term":').join('').split('"kcal":').join('').split('"pro":').join('').split('"car":').join('').split('"fat":').join('').split('"fib":').join('').split('});').join(');');
 						sql = sql + postCustom;
@@ -1005,7 +1008,7 @@ function updateFoodDb() {
 					$.get(hostLocal + "sql/searchdb_" + langDB + ".sql",function(ls) {
 						//delete non-fav/custom
 						lib2.deleteRows("diary_food", function(row) {
-							if(row.code.length < 10 && row.fib != "fav") {
+							if(row.code.length < 11 && row.fib != "fav") {
 								return true;
 							} else {
 								return false;
@@ -1257,6 +1260,14 @@ function updateEntriesTime() {
 			$("#t" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
 		}
 	});
+	//SIDEBAR TIME CLASS
+	var currentHour = new Date().getHours()
+         if(currentHour <  6) { rowClass = "afterhours"; }
+	else if(currentHour < 12) { rowClass = "morning";    }
+	else if(currentHour < 18) { rowClass = "afternoon";  }
+	else if(currentHour < 24) { rowClass = "night";      }	
+	$('body').removeClass(('morning afternoon night afterhours').replace(rowClass));
+	$('body').addClass(rowClass);
 }
 //////////////////////////////
 // UPDATE CSS HEADING *SUM* //
@@ -1302,10 +1313,10 @@ function updateEntriesSum() {
 			}
 
 			reStyle = reStyle + '\
-			#entryList div.day' + eachDay[d] + ' { border-top: 21px solid #eee; }\
+			#entryList div.day' + eachDay[d] + ' { border-top: 21px solid #eee;	}\
 			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ' { margin-top: 0px; border-top: 0px solid #eee; }\
-			#entryList div.day' + eachDay[d] + ':before { content: "' + lFood + ': ' + totalDayF + '  /  ' + lExe + ': ' + totalDayE + '"; color: #bbb; position: absolute; top: -18px; right: 9px; font-size: 12px; line-height: 16px; }\
-			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':before { content: "";  }\
+			#entryList div.day' + eachDay[d] + ':before { content: "' + lFood + ': ' + totalDayF + '  /  ' + lExe + ': ' + totalDayE + '"; color: #bbb; position: absolute; top: -22px; right: 0px; font-size: 12px; line-height: 16px; background-color: #eee; width: 100%; text-align: right; padding-top: 4px; padding-bottom: 2px; padding-right: 9px; }\
+			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':before { content: ""; padding-top: 0; padding-bottom: 0; }\
 			#entryList div.day' + eachDay[d] + ':after { content: "' + thisDay.split("x").join("/") +'"; color: #999; position: absolute; top: -18px; left: 15px; font-size: 12px; line-height: 16px; }\
 			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':after { content: "";  }\
 			'; 
@@ -1566,10 +1577,13 @@ function getNewWindow(title,content,handlers,save,closer) {
 			evt.stopPropagation();
 			$('#appContent').css('pointer-events','none');
 			if(save() == true) {
+				if(closer) { closer(); }
 				$("#newWindowWrapper").off();
 				$("#newWindow").getNiceScroll().remove();
-				$("#newWindowWrapper").removeClass('open');
-				$("#newWindowWrapper").css('opacity',0);
+				setTimeout(function() {
+					$("#newWindowWrapper").removeClass('open');
+					$("#newWindowWrapper").css('opacity',0);
+				},50);
 				$("#newWindowWrapper").on(transitionend,function() {
 					//$('#appContent').css('pointer-events','auto');
 					//$('body').removeClass('newwindow');
@@ -1582,7 +1596,6 @@ function getNewWindow(title,content,handlers,save,closer) {
 					$('#newWindowWrapper').remove();
 					setPush();
 				},400);
-				if(closer) { closer(); }
 				kickDown();
 			}
 		});
@@ -1592,24 +1605,27 @@ function getNewWindow(title,content,handlers,save,closer) {
 		$("#backButton").off().on(touchend,function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
+			if(closer) { closer(); }
 			$('#appContent').css('pointer-events','none');
 			$("#newWindowWrapper").off();
 			$("#newWindow").getNiceScroll().remove();
-			$("#newWindowWrapper").removeClass('open');
-			$("#newWindowWrapper").css('opacity',0);
+			setTimeout(function() {
+				$("#newWindowWrapper").removeClass('open');
+				$("#newWindowWrapper").css('opacity',0);
+			},50);
 			$("#newWindowWrapper").on(transitionend,function() {
 				//$('#appContent').css('pointer-events','auto');
 				//$('body').removeClass('newwindow');
 				$('#newWindowWrapper').remove();
 				setPush();
 			});
+			
 			setTimeout(function() {
 				$('#appContent').css('pointer-events','auto');
 				$('body').removeClass('newwindow');
 				$('#newWindowWrapper').remove();
 				setPush();				
 			},400);
-			if(closer) { closer(); }
 			kickDown();
 		});
 	});
@@ -1780,6 +1796,7 @@ function appResizer(time) {
 		$("#appSubHelper").height($("#appContent").height());
 		//$('#foodList').css("min-height",$('#foodList').height() + "px");
 		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
+		$('#advancedMenuWrapper').height($('#appContent').height());
 		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
 		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 		//SCROLLBAR UPDATE	
@@ -1798,7 +1815,7 @@ function appResizer(time) {
 //////////////
 function sanitize(str) {
 	if(str != "") {
-		var result = str.split(" ").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
+		var result = str.split(" ").join("").split("’").join("").split("”").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
 		return result;
 	}
 }

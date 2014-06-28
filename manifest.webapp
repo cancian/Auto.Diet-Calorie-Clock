@@ -21,7 +21,7 @@
 	"installs_allowed_from" : [
 		"*"
 	],
-	"version" : "1.2.7",
+	"version" : "1.2.8",
 	"default_locale" : "en-us",
 	"name" : "Calorie Counter",
 	"size": 3612346,
@@ -44,12 +44,9 @@
 		"fa" :    { "name": "کالری مبارزه با" },
 		"fi" :    { "name": "Kalorilaskuri" },
 		"fr" :    { "name": "Compteur de Calories" },
-		"ga" :    { "name": "Gcuntar Calorie" },
-		"ga-ie" : { "name": "Gcuntar Calorie" },
 		"hi" :    { "name": "कैलोरी काउंटर" },
 		"hr" :    { "name": "Brojač Kalorija" },
 		"hu" :    { "name": "Kalóriaszámláló" },
-		"hy" :    { "name": "Կալորիականությամբ հաշվիչ" },
 		"it" :    { "name": "Contacalorie" },
 		"id" :    { "name": "Penghitung Kalori" },
 		"iw" :    { "name": "קלוריה מונה" },		
