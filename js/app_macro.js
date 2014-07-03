@@ -1626,7 +1626,7 @@ function buildAdvancedMenu() {
 	
 	//evt.preventDefault();
 	$("#advancedMenuWrapper").remove();
-	$("#appContent").append("\
+	$("body").append("\
 	<div id='advancedMenuWrapper'>\
 		<div id='advancedMenuHeader'>\
 			<div id='advBackButton'></div>\
@@ -1634,7 +1634,13 @@ function buildAdvancedMenu() {
 			</div>\
 		<div id='advancedMenu'></div>\
 	</div>");
-	
+
+		//$("body").append("<div id='langSelect'></div>");
+		$("#advancedMenuWrapper").css("top",($("#appHeader").height()) + "px");
+		$("#advancedMenuWrapper").height($("#appContent").height());
+		$("#advancedMenuWrapper").css("bottom",($("#appFooter").height()) + "px");
+		
+
 //
 	$("#advancedMenu").html("\
 	<ul>\
@@ -1997,3 +2003,353 @@ function buildAdvancedMenu() {
 	/////////////
 }
 
+
+
+
+
+
+
+
+
+//##////////////////##//
+//## GET CATEGORIES ##//
+//##////////////////##//
+function getCategory(catId,callback) {
+	if(arguments.length == 1) { callback = arguments[0]; }
+	if(hasSql) {
+		db.transaction(function(t) {
+			//////////////
+			// FAV LIST //
+			//////////////
+			orType = '';
+			if(catId == "9999") {
+				orType = ', "food"';
+			}
+			if(catId == "0000") {
+				orType = ', "exercise"';
+			}
+//			if(rType == "fav") {type IN ('0000', 'exercise')"
+			t.executeSql('select * from diary_food where TYPE IN (?' + orType + ') order by TERM COLLATE NOCASE ASC',[catId],function(t,results) {
+				callback(fixResults(results));
+				
+				//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
+			});
+			});
+			////////////////////////
+			// FOOD~EXERCISE LIST //
+			////////////////////////
+	//		} else {
+//				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by TERM COLLATE NOCASE ASC',[rType],function(t,results) {
+		//			callback(fixResults(results));
+					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
+					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
+	//			});
+//			}
+//		});
+	} else {
+		/*
+		//////////////
+		// FAV LIST //
+		//////////////
+		if(rType == "fav") {
+			//////////
+			// SORT //
+			//////////
+			var favArray = lib2.query("diary_food",{fib: "fav"});
+			favArray = favArray.sort(function(a, b) {
+				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
+	   		 });
+			callback(favArray);
+		////////////////////////
+		// FOOD~EXERCISE LIST //
+		////////////////////////			
+		} else {
+			//////////
+			// SORT //
+			//////////
+			var CustomsArray = lib2.query("diary_food",function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }});
+			CustomsArray = CustomsArray.sort(function(a, b) {
+				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
+			});
+			callback(CustomsArray);			
+		}
+		//	 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
+		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
+		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }*/
+	}
+}
+
+
+function sortObject(obj) {
+    var arr = [];
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+            arr.push([
+               prop,
+               obj[prop]
+            ]);
+        }
+    }
+    arr.sort();
+    //arr.sort(function(a, b) { a.value.toLowerCase().localeCompare(b.value.toLowerCase()); }); //use this to sort as strings
+    return arr; // returns array
+}
+
+
+
+function getCatList() {
+	//STARTLOCK
+	var startLock = 1;
+	//BUILD CONTENT ARRAY
+	var helpTopics = LANG.FOOD_CATEGORIES[lang];
+	var helpHtml = "";
+	var topicId = 0;
+	//alert(sortObject(helpTopics));
+	//helpTopics.sort(function(a, b) {return a[1] - b[1]})
+	$.each(sortObject(helpTopics), function (key, value) {
+		//if(key && value) {
+		//topicId++;
+		helpHtml = helpHtml + "<li id='cat" + value[0] + "'>" + value[1] + "</li>";
+		//}
+	});
+	/////////////////////
+	// RE-INSERT INTRO //
+	/////////////////////
+	///////////////////////
+	// INSERT TOPIC LIST //
+	///////////////////////
+	$("#addNewExercise").remove();
+	$("#tabMyCatsBlock").html('<ul>' + helpHtml + '</ul>');
+	$('#tabMyCatsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+
+	//$("#tabMyExercisesBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
+	/*
+
+	//FADE IN
+	setTimeout(function() {
+	$("#appHelper").css("opacity","1");
+	//$("#appHelper").height($("#appContent").height());
+	},0);
+	//SCROLLER
+	setTimeout(function() {
+	if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+	$("#appHelper").css('overflow','hidden');
+	$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+	} else {
+	$("#appHelper").css('overflow','auto');
+	}
+	//UNLOCK TAP
+	setTimeout(function() {
+	startLock = 0;
+	},50);
+	},250);
+	//LIST CLOSER HANDLER
+	$("#backButton").on(touchend,function() {
+	$("#appHelper").css("opacity",0);
+	$('#appHelper').on(transitionend,function() {
+	$('#appHelper').remove();
+	});
+	});
+	var touchHelper = 0;
+	//TOPIC HANDLERS
+	$("#appHelper li").on(touchstart,function(evt) {
+	touchHelper = 0;
+	//evt.preventDefault();
+	$(this).addClass("activeRow");
+	});
+	$("#appHelper, #appHelper li").on("mouseout mouseleave",function(evt) {
+	$(".activeRow").removeClass("activeRow");
+	//evt.preventDefault();
+	});
+
+	$("#appHelper, #appHelper li").on("scroll " + touchmove,function(evt) {
+	touchHelper++;
+
+	if(touchHelper > 5 || (touchHelper > 1 && isMobile.Android())) {
+	$(".activeRow").removeClass("activeRow");
+	touchHelper = 0;
+	}
+	//evt.preventDefault();
+	//evt.stopPropagation();
+	});
+	*/
+	//////////////////////////////////
+	// content-builder self-handler //
+	//////////////////////////////////
+	$("#tabMyCatsBlock li").on(tap, function (evt) {
+		getCategory((evt.target.id).replace('cat', ''), function (data) {
+			//////////
+			// HTML //
+			//////////
+			var catList = '';
+			var catLine = '';
+			for(var c=0, len=data.length; c<len; c++) {
+			//$.each(list, function (c, data) {
+				//if(c && data) {
+					//
+					//get current weight//
+					if(!window.localStorage.getItem("calcForm#pA3B")) {
+						var totalWeight = 80;
+					} else {
+						var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
+					}
+					//convert to kg
+					if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
+						var totalWeight = Math.round( (totalWeight) / (2.2) );
+					}
+					//ADJUST TO EXERCISE
+					if(data[c].type == "0000" || data[c].type == "exercise") {
+						var cKcal = Math.round(((data[c].kcal * totalWeight) /60) * 30);
+					} else {
+						var cKcal = Math.round(data[c].kcal * 100) / 100;
+					}
+					
+					var favClass = (data[c].fib == "fav") ? 'favItem' : '';
+					var Ktype = (data[c].type == '0000' || data[c].type == 'exercise') ? 'exercise' : 'food';
+					catLine = "<div class='searcheable " + favClass + " " + Ktype + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + Ktype + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + Ktype + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + Ktype + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>" + data[c].car + "</span><span class='foodFat " + Ktype + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>" + data[c].fat + "</span></div>";
+					catList += catLine;
+				//}
+			}//);
+			/////////////
+			// HANDLER //
+			/////////////
+			var catListHandler = function () {
+				$("#tabMyCatsBlock").addClass('out');
+				setTimeout(function () {
+					$("#newWindowWrapper").on(transitionend, function () {
+						$("#pageSlideFood").hide();
+					});
+				}, 1);
+				//////////////////
+				// MODAL CALLER //
+				//////////////////
+				$("#newWindow div.searcheable").on(singletap, function (evt) {
+					evt.preventDefault();
+					if(blockModal == true) {
+						return;
+					}
+					getModalWindow($(this).attr("id"));
+				});
+				$("#newWindow div.searcheable").on(tap, function (evt) {
+					if ($("#foodSearch").is(":focus")) {
+						//$("#foodSearch").blur();
+						//return false;
+					}
+					$("#activeOverflow").removeAttr("id");
+					$(".activeOverflow").removeClass("activeOverflow");
+					$(this).addClass("activeOverflow");
+					$(".foodName", this).attr("id", "activeOverflow");
+					$(".foodName").css("overflow", "auto");
+				});
+			}
+			////////////
+			// CLOSER //
+			////////////
+			var catListCloser = function () {
+				$("#pageSlideFood").show();
+				setTimeout(function () {
+					$("#tabMyCatsBlock").removeClass('out');
+				}, 0);
+			}
+			/////////////////
+			// CALL WINDOW //
+			/////////////////
+			getNewWindow(LANG.FOOD_CATEGORIES[lang][(evt.target.id).replace('cat', '')], catList, catListHandler, '', catListCloser);
+		});
+		//$("#tabMyExercisesBlock2").html(catList);
+		//$("#tabMyExercisesBlock2").show();
+		//setTimeout(function() {
+		//	$("#tabMyExercisesBlock").addClass("out");
+		//	$("#tabMyExercisesBlock2").addClass("open");
+		//	niceResizer();
+		//},100);
+
+		//////////
+		// HTML //
+		//////////
+		/////////////
+		// ACTIONS //
+		/////////////
+
+
+		/////////////
+		// callback context
+		/////////////
+
+
+		//alert(catList);
+
+		/*
+		if(startLock != 0) { return; }
+		if(!$(this).hasClass("activeRow")) { return; }
+		//reapply style
+		$(this).addClass("activeRow");
+		//PASS CONTENT
+		var subTitle   = $("#" + $(this).attr("id") + " .topicTitle").html();
+		var subContent = $("#" + $(this).attr("id") + " .topicContent").html();
+		//BUILD SUB-CONTENT
+		$("body").append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
+		$("#appSubHelper").hide();
+		$("#appSubHelper").css("top",($("#appHeader").height()) + "px");
+		$("#appSubHelper").height($("#appContent").height());
+		$("#appSubHelper").css("bottom",($("#appFooter").height()) + "px");
+		$("#appSubHelper").show();
+
+		 */
+
+		///////////////////////////////
+		// SUB-CONTENT ANIMATION END //
+		///////////////////////////////
+		/*
+		setTimeout(function() {
+		//ios horiz-scrolling crazy bug
+		//$("#appSubHelper").height($("#appContent").height());
+		},0);
+		$('#appSubHelper').on(transitionend,function(e) {
+		niceResizer();
+		//IF CLOSED
+		if(!$('#appSubHelper').hasClass("open")) {
+		$('#appSubHelper').remove();
+		setTimeout(function() {
+		$('#appHelper').css("width","100%");
+		//restore visibility
+		$(".nicescroll-rails").css("display","block");
+		},100);
+		//IF OPENED
+		} else {
+		$(".activeRow").removeClass("activeRow");
+		//SCROLLER
+		if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+		setTimeout(function() {
+		$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		},100);
+		} else {
+		//wp8 transision
+		$("#appSubHelper").css("overflow","auto");
+		}
+		}
+		setTimeout(function() {
+		$('#appSubHelper').css("width","100%");
+		},100);
+		});
+		//SUB-CONTENT HANDLERS
+		$("#subBackButton").on(touchend,function() {
+		//remove
+		$("#appSubHelper").removeClass("open");
+		$("#appHelper").removeClass("out");
+		//hide on transision
+		$(".nicescroll-rails").css("display","none");
+		});
+		//////////////////////
+		// OPEN SUB-CONTENT //
+		//////////////////////
+		setTimeout(function() {
+		//smooth transition (wp8)
+		$("#appSubHelper").css("overflow","hidden");
+		$("#appSubHelper").addClass("open");
+		$("#appHelper").addClass("out");
+		//$("#appContent").getNiceScroll().remove();
+		},50);
+		 */
+	});
+}

@@ -768,9 +768,10 @@ function searchFood(searchSQL,callback) {
 	var caseEnds     = "'%" + firstTerm +  "'";
 	//query
 	if(hasSql) {
+		var doType = (typeTerm == 'exercise') ? doType = "type IN ('0000', 'exercise')" : "type != '0000' AND type != 'exercise'";
 	db.transaction(
 		function(t) {
-			t.executeSql("SELECT * FROM diary_food WHERE type == '" + typeTerm + "' AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 60",[],
+			t.executeSql("SELECT * FROM diary_food WHERE " + doType + " AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 60",[],
 			function(t,results) {
 				callback(fixResults(results));
 		},errorHandler);
@@ -818,8 +819,9 @@ function searchFood(searchSQL,callback) {
 
 			keyScore = 0;
 			keyJunk  = 0;
-
-	if(dato[z].type == typeTerm) {
+			
+	if(((dato[z].type == "0000" || dato[z].type == "exercise") && typeTerm == "exercise") || ((dato[z].type != "0000" && dato[z].type != "exercise") && typeTerm == "food")) {
+	//if(dato[z].type == typeTerm) {
 
 			for(var k=0, lenn=searchSQL.length; k<lenn; k++) {
 				if(dato[z].term.indexOf(searchSQL[k]) != -1 && keyJunk == 0) {
@@ -1037,6 +1039,7 @@ function doSearch(rawInput) {
 				var fib  = 0;
 				// SEARCH TYPE //
 				var typeClass;
+				var favClass = (data[s].fib == "fav") ? 'favItem' : '';
 				if(searchType == "exercise") {
 					typeClass = " hidden";
 					//calculate weight proportion
@@ -1047,7 +1050,7 @@ function doSearch(rawInput) {
 					kcalBase = kcal;
 				}
 				//html
-				var foodLine = "<div class='searcheable' id='" + code + "' title='" + kcalBase + "'><div class='foodName'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + kcal + "</span><span class='foodPro " + typeClass + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + pro + "</span><span class='foodCar " + typeClass + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + car  + "</span><span class='foodFat " + typeClass + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + fat  + "</span></div>";
+				var foodLine = "<div class='searcheable " + favClass + "' id='" + code + "' title='" + kcalBase + "'><div class='foodName'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + kcal + "</span><span class='foodPro " + typeClass + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + pro + "</span><span class='foodCar " + typeClass + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + car  + "</span><span class='foodFat " + typeClass + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + fat  + "</span></div>";
 				//result list
 				foodList += foodLine;
 			//}
@@ -1131,8 +1134,9 @@ function doSearch(rawInput) {
 //#///////////////////////////////#//
 //# SUB FUNCTION: UPDATE FAV LIST #//
 //#///////////////////////////////#//
-function updateFavList(callback) {
-	getCustomList("fav",function(data) {
+function updateCustomList(filter,callback) {
+	getCustomList(filter,function(data) {
+		//console.log(data);
 		// LOOP RESULTS //
 		var customFavList = "";
 		var customFavSql  = "";
@@ -1151,7 +1155,7 @@ function updateFavList(callback) {
 				var totalWeight = Math.round( (totalWeight) / (2.2) );
 			}
 			//ADJUST TO EXERCISE
-			if(data[c].type == "exercise") {
+			if(data[c].type == "0000" || data[c].type == "exercise") {
 				var cKcal = Math.round(((data[c].kcal * totalWeight) /60) * 30);
 			} else {
 				var cKcal = Math.round(data[c].kcal * 100) / 100;
@@ -1180,6 +1184,8 @@ function updateFavList(callback) {
 			if(!car)  { car  = '0.00'; }
 			if(!fat)  { fat  = '0.00'; }
 			if(!fib)  { fib  = '0.00'; }
+			type = (type == '0000' || type == 'exercise') ? 'exercise' : 'food';
+			var favClass = (data[c].fib == "fav") ? 'favItem' : '';
 
 			fib = fib.split("diary_food").join("");
 
@@ -1192,28 +1198,32 @@ function updateFavList(callback) {
 				favSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n"; 
 				customFavSql += favSql;
 				favSql = '';
-				favLine = "<div class='searcheable " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
+				favLine = "<div class='searcheable " + favClass + " " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
 				customFavList += favLine;
 				favLine = ''
 				favLastId = id;
 			}
 		}
+		var sqlKey = (filter == "fav") ? 'customFavSql' : 'customItemsSql';
 		if(customFavList == "") { customFavList += '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>'; }
-		if(customFavSql  != "") { window.localStorage.setItem("customFavSql",customFavSql.split('undefined').join('')); } else { window.localStorage.setItem("customFavSql"," "); }
+		if(customFavSql  != "") { window.localStorage.setItem(sqlKey,customFavSql.split('undefined').join('')); } else { window.localStorage.setItem(sqlKey," "); }
 		//////////
 		// HTML //
 		//////////
-		$("#tabMyFavsBlock").html(customFavList);
+		var menuBlock = (filter == "fav") ? '#tabMyFavsBlock' : '#tabMyItemsBlock';
+		
+		
+		$(menuBlock).html(customFavList);
 		//$('#tabMyFavsBlock').css("min-height", ($('#foodList').height()) + "px");
 		//////////////
 		// HANDLERS //
 		//////////////
-		$("#tabMyFavsBlock div.searcheable").on(singletap,function(evt) {
+		$(menuBlock + " div.searcheable").on(singletap,function(evt) {
 			evt.preventDefault();
 			if(blockModal == true) { return; }
 			getModalWindow($(this).attr("id"));
 		});
-		$("#tabMyFavsBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
+		$(menuBlock + " div.searcheable").on(tap, function(evt) {
 			if($("#foodSearch").is(":focus")) { 
 				//$("#foodSearch").blur();
 				//window.scroll($('#appContent')[0].scrollTop,0,0);
@@ -1228,7 +1238,7 @@ function updateFavList(callback) {
 		/////////////////////////////////////////
 		// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 		/////////////////////////////////////////
-		$("#tabMyFavsBlock #foodSearch").on(touchstart, function(evt) {
+		$(menuBlock + " #foodSearch").on(touchstart, function(evt) {
 			if(blockModal == true) { return; }
 			$(".foodName").css("overflow","hidden");
 			$("#activeOverflow").removeAttr("id");
@@ -1279,7 +1289,8 @@ function updateFoodList(callback) {
 			if(!car)  { car  = '0.00'; }
 			if(!fat)  { fat  = '0.00'; }
 			if(!fib)  { fib  = '0.00'; }
-
+			type = (type == '0000' || type == 'exercise') ? 'exercise' : 'food';
+			var favClass = (data[c].fib == "fav") ? 'favItem' : '';
 			fib = fib.split("diary_food").join("");
 	
 			if(!hasSql && !id) {
@@ -1294,7 +1305,7 @@ function updateFoodList(callback) {
 				foodSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
 				customFoodSql += foodSql;
 				foodSql = '';
-				foodLine = "<div class='searcheable " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
+				foodLine = "<div class='searcheable " + favClass + " " + type + "' id='" + code + "' title='" + cKcal + "'><div class='foodName " + type + "'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + cPro + "</span><span class='foodCar " + type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + cCar  + "</span><span class='foodFat " + type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + cFat  + "</span></div>";
 				customFoodList += foodLine;
 				foodLine = '';
 				foodLastId = id;
@@ -1306,8 +1317,8 @@ function updateFoodList(callback) {
 		// HTML //
 		//////////
 		$("#addNewFood").remove();
-		$("#tabMyFoodsBlock").html(customFoodList + '<div id="addNewFood">' + LANG.ADD_NEW_FOOD[lang] +'</div>');
-		$('#tabMyFoodsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+		$("#tabMyFavsBlock").html(customFoodList + '<div id="addNewFood">' + LANG.ADD_NEW_FOOD[lang] +'</div>');
+		$('#tabMyFavsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 		/////////////
 		// ACTIONS //
 		/////////////
@@ -1315,12 +1326,12 @@ function updateFoodList(callback) {
 			addNewItem({type:"food",act:"insert"});
 		});
 		
-		$("#tabMyFoodsBlock div.searcheable").on(singletap,function(evt) {
+		$("#tabMyFavsBlock div.searcheable").on(singletap,function(evt) {
 			evt.preventDefault();
 			if(blockModal == true) { return; }
 			getModalWindow($(this).attr("id"));
 		});
-		$("#tabMyFoodsBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
+		$("#tabMyFavsBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
 			if($("#foodSearch").is(":focus")) { 
 				//$("#foodSearch").blur();
 				//window.scroll($('#appContent')[0].scrollTop,0,0);
@@ -1335,7 +1346,7 @@ function updateFoodList(callback) {
 		/////////////////////////////////////////
 		// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 		/////////////////////////////////////////
-		$("#tabMyFoodsBlock #foodSearch").on(touchstart, function(evt) {
+		$("#tabMyFavsBlock #foodSearch").on(touchstart, function(evt) {
 			if(blockModal == true) { return; }
 			$(".foodName").css("overflow","hidden");
 			$("#activeOverflow").removeAttr("id");
@@ -1393,6 +1404,7 @@ getCustomList("exercise",function(data) {
 		if(!car)  { car  = '0.00'; }
 		if(!fat)  { fat  = '0.00'; }
 		if(!fib)  { fib  = '0.00'; }
+		type = (type == '0000' || type == 'exercise') ? 'exercise' : 'food';
 		
 		fib = fib.split("diary_food").join("");
 
@@ -1405,7 +1417,7 @@ getCustomList("exercise",function(data) {
 			exerciseSql = "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + id + ",'" + type + "','" + code + "','" + name + "','" + term + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
 			customExerciseSql += exerciseSql;
 			exerciseSql = '';
-			excerciseLine = "<div class='searcheable " + data[c].type + "' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName " + data[c].type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + excerciseKcal + "</span><span class='foodPro " + data[c].type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + data[c].type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + data[c].car  + "</span><span class='foodFat " + data[c].type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + data[c].fat  + "</span></div>";
+			excerciseLine = "<div class='searcheable " + type + "' id='" + data[c].code + "' title='" + data[c].kcal + "'><div class='foodName " + type + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + excerciseKcal + "</span><span class='foodPro " + type + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + type + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>"  + data[c].car  + "</span><span class='foodFat " + type + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>"  + data[c].fat  + "</span></div>";
 			customExerciseList += excerciseLine;
 			exerciseLine = '';
 			exerciseLastId = id;
@@ -1417,20 +1429,20 @@ getCustomList("exercise",function(data) {
 	// HTML //
 	//////////
 	$("#addNewExercise").remove();
-	$("#tabMyExercisesBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
-	$('#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+	$("#tabMyItemsBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
+	$('#tabMyItemsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 	/////////////
 	// ACTIONS //
 	/////////////
 	$("#addNewExercise").on(touchstart, function(evt) {
 		addNewItem({type:"exercise",act:"insert"});
 	});
-	$("#tabMyExercisesBlock div.searcheable").on(singletap,function(evt) {
+	$("#tabMyItemsBlock div.searcheable").on(singletap,function(evt) {
 		evt.preventDefault();
 		if(blockModal == true) { return; }
 		getModalWindow($(this).attr("id"));
 	});
-	$("#tabMyExercisesBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
+	$("#tabMyItemsBlock div.searcheable").on(tap + ' ' + touchstart, function(evt) {
 		if($("#foodSearch").is(":focus")) { 
 			//$("#foodSearch").blur();
 			//return false;
@@ -1444,7 +1456,7 @@ getCustomList("exercise",function(data) {
 	/////////////////////////////////////////
 	// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 	/////////////////////////////////////////
-	$("#tabMyExercisesBlock #foodSearch").on(touchstart, function(evt) {
+	$("#tabMyItemsBlock #foodSearch").on(touchstart, function(evt) {
 		if(blockModal == true) { return; }
 		$(".foodName").css("overflow","hidden");
 		$("#activeOverflow").removeAttr("id");
@@ -1525,14 +1537,14 @@ function updateRecentList() {
 function buildFoodMenu() {
 var recentBlock = '\
 <div id="infoContents" class="infoContents">\
+	<div id="tabMyCats">\
+		<div id="tabMyCatsBlock"></div>\
+	</div>\
 	<div id="tabMyFavs">\
 		<div id="tabMyFavsBlock"></div>\
 	</div>\
-	<div id="tabMyFoods">\
-		<div id="tabMyFoodsBlock"></div>\
-	</div>\
-	<div id="tabMyExercises">\
-		<div id="tabMyExercisesBlock"></div>\
+	<div id="tabMyItems">\
+		<div id="tabMyItemsBlock"></div>\
 	</div>\
 </div>\
 <div id="searchContents"></div>\
@@ -1541,20 +1553,24 @@ var recentBlock = '\
 //////////////
 // TOP MENU //
 //////////////
-$("#foodList").html("<div id='menuTopBar'><h3 id='topBarItem-1'><span>" + LANG.MY_FAVOURITES[lang] + "</span></h3><h3 id='topBarItem-2'><span>" + LANG.MY_FOODS[lang] + "</span></h3><h3 id='topBarItem-3'><span>" + LANG.MY_EXERCISES[lang] + "</span></h3></div>\
+$("#foodList").html("<div id='menuTopBar'>\
+<h3 id='topBarItem-1'><span>" + LANG.CATEGORIES[lang] + "</span></h3>\
+<h3 id='topBarItem-2'><span>" + LANG.FAVORITES[lang] + "</span></h3>\
+<h3 id='topBarItem-3'><span>" + LANG.MY_ITEMS[lang] + "</span></h3>\
+</div>\
 " + recentBlock);
 //first load db spinner
 if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	//reset blocks
-	$("#tabMyFavsBlock,#tabMyFoodsBlock,#tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+	$("#tabMyCatsBlock,#tabMyFavsBlock,#tabMyItemsBlock").html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 
 	$("#addNewFood").remove();
-	$("#tabMyFoodsBlock").after('<div id="addNewFood">' + LANG.ADD_NEW_FOOD[lang] +'</div>');
-	$('#tabMyFoodsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+	$("#tabMyFavsBlock").after('<div id="addNewFood">' + LANG.ADD_NEW_FOOD[lang] +'</div>');
+	$('#tabMyFavsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 
 	$("#addNewExercise").remove();
-	$("#tabMyExercisesBlock").after('<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
-	$('#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+	$("#tabMyItemsBlock").after('<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
+	$('#tabMyItemsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 	//////////////
 	// HANDLERS //
 	//////////////
@@ -1572,9 +1588,24 @@ if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 0:100;
 	var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 0:100;
 	var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 0:100;
-	setTimeout(function() { updateFavList('open');      },tabTimer1);
-	setTimeout(function() { updateFoodList('open');     },tabTimer2);
-	setTimeout(function() { updateExerciseList('open'); },tabTimer3);
+	setTimeout(function() {
+		getCatList(); 
+		
+	},tabTimer1);
+	setTimeout(function() { 
+	
+	 //updateFavList('open'); 
+	 updateCustomList('fav','open');
+	 
+	    },tabTimer2);
+	setTimeout(function() { 
+	
+	//updateFoodList('open'); 
+	updateCustomList('items','open'); 
+	//updateExerciseList('open'); 
+	
+	
+	},tabTimer3);
 }
 /////////////////////
 // FIRST LOAD TABS //
@@ -1582,28 +1613,28 @@ if(window.localStorage.getItem("foodDbLoaded") != "done") {
 if(!window.localStorage.getItem("lastInfoTab")) {
 	window.localStorage.setItem("lastInfoTab","topBarItem-1");
 	$("#topBarItem-1").addClass("onFocus");
-	$("#tabMyFavs").addClass("onFocus");
+	$("#tabMyCats").addClass("onFocus");
 }
 ////////////
 // TAB #1 //
 ////////////
 else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
 	$("#topBarItem-1").addClass("onFocus");
-	$("#tabMyFavs").addClass("onFocus");
+	$("#tabMyCats").addClass("onFocus");
 }
 ////////////
 // TAB #2 //
 ////////////
 else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
 	$("#topBarItem-2").addClass("onFocus");
-	$("#tabMyFoods").addClass("onFocus");
+	$("#tabMyFavs").addClass("onFocus");
 }
 ////////////
 // TAB #3 //
 ////////////
 else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
 	$("#topBarItem-3").addClass("onFocus");
-	$("#tabMyExercises").addClass("onFocus");
+	$("#tabMyItems").addClass("onFocus");
 }
 ////////////////////////
 // SWITCH VISIBLE TAB //
@@ -1619,22 +1650,22 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 	// TAB #1 //
 	////////////
 	if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
-		$("#topBarItem-2,#topBarItem-3,#tabMyFoods,#tabMyExercises").removeClass("onFocus");
-		$("#topBarItem-1,#tabMyFavs").addClass("onFocus");
+		$("#topBarItem-2,#topBarItem-3,#tabMyFavs,#tabMyItems").removeClass("onFocus");
+		$("#topBarItem-1,#tabMyCats").addClass("onFocus");
 	}
 	////////////
 	// TAB #2 //
 	////////////
 	else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
-		$("#topBarItem-1,#topBarItem-3,#tabMyFavs,#tabMyExercises").removeClass("onFocus");
-		$("#topBarItem-2,#tabMyFoods").addClass("onFocus");
+		$("#topBarItem-1,#topBarItem-3,#tabMyCats,#tabMyItems").removeClass("onFocus");
+		$("#topBarItem-2,#tabMyFavs").addClass("onFocus");
 	}
 	////////////
 	// TAB #3 //
 	////////////
 	else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
-		$("#topBarItem-1,#topBarItem-2,#tabMyFavs,#tabMyFoods").removeClass("onFocus");
-		$("#topBarItem-3,#tabMyExercises").addClass("onFocus");
+		$("#topBarItem-1,#topBarItem-2,#tabMyCats,#tabMyFavs").removeClass("onFocus");
+		$("#topBarItem-3,#tabMyItems").addClass("onFocus");
 	}
 	clearTimeout(niceTimer);
 	niceTimer = setTimeout(function() {
@@ -1784,7 +1815,7 @@ if(vAct == "update") {
 /////////////////////////////
 // ADJUST FORM TO EXERCISE //
 /////////////////////////////
-if(opt.type == "exercise") {
+if(opt.type == "0000" || opt.type == "exercise") {
 	//get current weight
 	if(!window.localStorage.getItem("calcForm#pA3B")) {
 		var totalWeight = 80;
@@ -2003,6 +2034,18 @@ vFat = Math.round(vFat * 100) / 100;
 			$("#" + vCode + " .foodPro").html('<span class="preSpan">'  + LANG.PRO[lang] + '</span>'  + vPro + '</span>');
 			$("#" + vCode + " .foodCar").html('<span class="preSpan">'  + LANG.CAR[lang] + '</span>'  + vCar + '</span>');
 			$("#" + vCode + " .foodFat").html('<span class="preSpan">'  + LANG.FAT[lang] + '</span>'  + vFat + '</span>');
+			//id update
+			$("#tabMyFavsBlock #" + vCode + " .foodName").html(vName);
+			$("#tabMyFavsBlock #" + vCode + " .foodKcal").html('<span class="preSpan">' + LANG.KCAL[lang] + '</span>' + vKcal + '</span>');
+			$("#tabMyFavsBlock #" + vCode + " .foodPro").html('<span class="preSpan">'  + LANG.PRO[lang] + '</span>'  + vPro + '</span>');
+			$("#tabMyFavsBlock #" + vCode + " .foodCar").html('<span class="preSpan">'  + LANG.CAR[lang] + '</span>'  + vCar + '</span>');
+			$("#tabMyFavsBlock #" + vCode + " .foodFat").html('<span class="preSpan">'  + LANG.FAT[lang] + '</span>'  + vFat + '</span>');
+			//id update
+			$("#tabMyItemsBlock #" + vCode + " .foodName").html(vName);
+			$("#tabMyItemsBlock #" + vCode + " .foodKcal").html('<span class="preSpan">' + LANG.KCAL[lang] + '</span>' + vKcal + '</span>');
+			$("#tabMyItemsBlock #" + vCode + " .foodPro").html('<span class="preSpan">'  + LANG.PRO[lang] + '</span>'  + vPro + '</span>');
+			$("#tabMyItemsBlock #" + vCode + " .foodCar").html('<span class="preSpan">'  + LANG.CAR[lang] + '</span>'  + vCar + '</span>');
+			$("#tabMyItemsBlock #" + vCode + " .foodFat").html('<span class="preSpan">'  + LANG.FAT[lang] + '</span>'  + vFat + '</span>');
 			//highligh update
 			//CSS FADE OUT
 			//$('#addNewWrapper').removeClass('show');
@@ -2030,13 +2073,10 @@ vFat = Math.round(vFat * 100) / 100;
 			/////////////////////
 			// INSERT NEW ITEM //
 			/////////////////////
-			if(opt.type == "food") {
-				updateFoodList();
-			} else {
-				updateExerciseList();
-			}
 			if(opt.fib == "fav") {
-				updateFavList();
+				updateCustomList('fav');
+			} else {
+				updateCustomList('items');
 			}
 			//highight new item
 			var yellowFade = setTimeout(function() {
@@ -2134,7 +2174,7 @@ function getModalWindow(itemId) {
 		////////////////////////
 		// DEFINE TYPE/WEIGHT //
 		////////////////////////
-		var searchType  = (mType == "food") ? 'food' : 'exercise';
+		var searchType  = (mType != "0000" && mType != "exercise") ? 'food' : 'exercise';
 		var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
 		//revert lb to kg
 		if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
@@ -2525,7 +2565,15 @@ function getModalWindow(itemId) {
 						//mFib
 						$("#modalFav").on(tap, function(evt) {
 							$("#modalFav").toggleClass("favourite");
-							if(mFib == "fav") { mFib = "nonFav"; } else {  mFib = "fav"; }
+							if(mFib == "fav") { 
+								mFib = "nonFav"; 
+								$(".activeOverflow").removeClass("favItem");
+								$("#tabMyItemsBlock #" + mCode).removeClass("favItem");
+							} else {
+								mFib = "fav";
+								$(".activeOverflow").addClass("favItem");
+								$("#tabMyItemsBlock #" + mCode).addClass("favItem");
+							}
 							evt.stopPropagation();
 							var modalOpt = {
 								name:mName,
@@ -2552,7 +2600,8 @@ function getModalWindow(itemId) {
 							} else {
 								if(isMobile.iOS()) {
 									setTimeout(function() {
-										updateFavList();
+										//updateFavList();
+										updateCustomList('fav');
 										kickDown();
 										//window.scroll($('#foodList')[0].scrollTop,0,0);
 										//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
@@ -2567,7 +2616,7 @@ function getModalWindow(itemId) {
 									//window.scroll($('#foodList')[0].scrollTop,0,0);
 									//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 								} else {
-									updateFavList();
+									updateCustomList('fav');
 								}
 							}
 						/////////////////////////////////////

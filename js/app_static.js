@@ -105,6 +105,8 @@ afterTab = function() {
 	$("#langSelect").remove();
 	$("#newWindowWrapper").remove();
 	$("#advancedMenuWrapper").remove();
+	$("#appHelper").remove();
+	$("#appSubHelper").remove();
 	//clear pageslidefood
 	if($("#pageSlideFood").html()) {
 		if(!$("#pageSlideFood").is(":animated")) {
@@ -232,9 +234,12 @@ $(document).on("backbutton", function(evt) {
 	} else if(ref) {
 		ref.close();
 		ref = '';
+	} else if($("#addNewCancel").length || $("#modalCancel").length) {
+		$("#addNewCancel").trigger(touchstart);
+		$("#modalCancel").trigger(touchstart);
 	} else if($("#subBackButton").length) {
 		$("#subBackButton").trigger(touchend);
-	} else if($("#backButton").length) {
+	} else if($("#backButton").length && $("#backButton").is(":visible")) {
 		if($('.dwo').length) {
 			$("#getEntryDate").mobiscroll('cancel');
 		} else {
@@ -242,9 +247,6 @@ $(document).on("backbutton", function(evt) {
 		}
 	} else if($("#advBackButton").length) {
 			$("#advBackButton").trigger(touchend);
-	} else if($("#addNewCancel").length || $("#modalCancel").length) {
-		$("#addNewCancel").trigger(touchstart);
-		$("#modalCancel").trigger(touchstart);
 	} else if($('#iconClear').is(":visible")) {
 		$('#iconClear').trigger(touchstart);
 	} else if($('#pageSlideFood').hasClass("open")) {
@@ -665,6 +667,7 @@ setInterval(function() {
 	// PAGESLIDE CLOSER //
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
+		if($("body").hasClass("newwindow"))     { return; }
 		if(!$("#appHeader").hasClass("closer")) { return; }
 		if($("#addNewWrapper").html())			{ return; }
 		//if(!$('#pageSlideFood').hasClass("open") && $('#pageSlideFood').is(":animated")) { alert("got ya"); return; }
@@ -685,10 +688,12 @@ setInterval(function() {
 				//WIPE ON CLOSE
 				$('#pageSlideFood').remove();
 				//force custom dump/save
-				if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done" && window.localStorage.getItem("facebook_logged")) {
-					updateFavList();	
-					updateFoodList();	
-					updateExerciseList();
+				if(typeof updateCustomList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done" && window.localStorage.getItem("facebook_logged")) {
+					updateCustomList('fav');
+					updateCustomList('items');
+					//updateFavList();	
+					//updateFoodList();	
+					//updateExerciseList();
 					setTimeout(function() { setPush(); }, 1000);
 				}
 			});

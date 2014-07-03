@@ -524,9 +524,15 @@
 			//If these events are being programmatically triggered, we don't have an original event object, so use the Jq one.
 			var event = jqEvent.originalEvent ? jqEvent.originalEvent : jqEvent;
 
-			var ret,evt = ($('body').hasClass('mobile') && SUPPORTS_TOUCH) ? event.touches[0] : event;
+			var event0;
+			event0 = event;
+			if(typeof event.touches !== 'undefined') {
+				if(typeof event.touches[0] !== 'undefined') {
+					event0 = event.touches[0];	
+				}
+			}
+			var ret,evt = ($('body').hasClass('mobile') && SUPPORTS_TOUCH) ? event0 : event;
 			phase = PHASE_START;
-
 
 			//If we support touches, get the finger count
 			if (SUPPORTS_TOUCH) {

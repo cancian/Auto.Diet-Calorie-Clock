@@ -387,12 +387,12 @@ function pushEntries(userId) {
 			}
 		}
 		//insert custom diary_food
-		if(window.localStorage.getItem("customFoodSql")) {
-			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFoodSql")) + "\n";
+		if(window.localStorage.getItem("customItemsSql")) {
+			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customItemsSql")) + "\n";
 		}
-		if(window.localStorage.getItem("customExerciseSql")) {
-			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customExerciseSql")) + "\n";
-		}
+		//if(window.localStorage.getItem("customExerciseSql")) {
+		//	fetchEntries = fetchEntries + trim(window.localStorage.getItem("customExerciseSql")) + "\n";
+		//}
 		if(window.localStorage.getItem("customFavSql")) {
 			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFavSql"));
 		}
@@ -444,10 +444,12 @@ function setComplete() {
 		if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
 	}
 	//dump diary_food data
-	if(typeof updateFavList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
-		updateFavList();
-		updateFoodList();
-		updateExerciseList();
+	if(typeof updateCustomList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
+		updateCustomList('fav');
+		updateCustomList('items');
+		//updateFavList();
+		//updateFoodList();
+		//updateExerciseList();
 	}
 	//update last sync date
 	window.localStorage.setItem("lastSync",new Date().getTime());
@@ -748,6 +750,7 @@ function callbackOpen() {
 }
 function getCustomList(rType,callback) {
 	if(arguments.length == 1) { callback = arguments[0]; }
+	
 	if(hasSql) {
 		db.transaction(function(t) {
 			//////////////
@@ -762,7 +765,7 @@ function getCustomList(rType,callback) {
 			// FOOD~EXERCISE LIST //
 			////////////////////////
 			} else {
-				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by TERM COLLATE NOCASE ASC',[rType],function(t,results) {
+				t.executeSql('select * from diary_food where length(CODE)=14 order by TERM COLLATE NOCASE ASC',[],function(t,results) {
 					callback(fixResults(results));
 					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
 					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
@@ -789,7 +792,7 @@ function getCustomList(rType,callback) {
 			//////////
 			// SORT //
 			//////////
-			var CustomsArray = lib2.query("diary_food",function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }});
+			var CustomsArray = lib2.query("diary_food",function(row) { if(row.code.slice(0, 1) == "c") { return true; }});
 			CustomsArray = CustomsArray.sort(function(a, b) {
 				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
 			});
@@ -953,7 +956,7 @@ function updateFoodDb() {
 	if(window.localStorage.getItem("foodDbLoaded") == "done") { return; }
 	if(window.localStorage.getItem("foodDbLoaded") != "done" && window.localStorage.getItem("startLock") != "running") {
 		//reset blocks
-		$("#tabMyFavsBlock,#tabMyFoodsBlock,#tabMyExercisesBlock").html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+		$("#tabMyCatsBlock,#tabMyFavsBlock,#tabMyItemsBlock").html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 		//var dbName = "mylivediet.app";
 		if(demoRunning == false) {
 			//start
@@ -973,8 +976,8 @@ function updateFoodDb() {
 						sql = 'DROP TABLE IF EXISTS "diary_food"; CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);' + sql;
 						//http://regex101.com
 						var postCustom = '';
-						if(trim(window.localStorage.getItem("customFoodSql"))     != '') { postCustom += trim(window.localStorage.getItem("customFoodSql"));     }
-						if(trim(window.localStorage.getItem("customExerciseSql")) != '') { postCustom += trim(window.localStorage.getItem("customExerciseSql")); }						
+						if(trim(window.localStorage.getItem("customItemsSql"))     != '') { postCustom += trim(window.localStorage.getItem("customItemsSql"));     }
+						//if(trim(window.localStorage.getItem("customExerciseSql")) != '') { postCustom += trim(window.localStorage.getItem("customExerciseSql")); }						
 						if(trim(window.localStorage.getItem("customFavSql"))      != '') { postCustom += trim(window.localStorage.getItem("customFavSql"));      }
 						sql = sql.replace(/lib2(.*)\{"id"\:"/g, 'INSERT OR REPLACE INTO "diary_food" VALUES(');
 						sql = sql.split('", "type":').join(',').split('"code":').join('').split('"name":').join('').split('"kcal":').join('').split('"term":').join('').split('"kcal":').join('').split('"pro":').join('').split('"car":').join('').split('"fat":').join('').split('"fib":').join('').split('});').join(');');
@@ -989,9 +992,11 @@ function updateFoodDb() {
 							if(window.localStorage.getItem("facebook_userid")) {
 								syncEntries(window.localStorage.getItem("facebook_userid"));
 							} else {
-								updateFavList();
-								updateFoodList();
-								updateExerciseList();
+								updateCustomList('fav');
+								updateCustomList('items');
+								//updateFavList();
+								//updateFoodList();
+								//updateExerciseList();
 							}
 						},
 						function(error, failingQuery) {
@@ -1026,9 +1031,11 @@ function updateFoodDb() {
 						if(window.localStorage.getItem("facebook_userid")) {
 							syncEntries(window.localStorage.getItem("facebook_userid"));
 						} else {
-							updateFavList();
-							updateFoodList();
-							updateExerciseList();
+							updateCustomList('fav');
+							updateCustomList('items');							
+							//updateFavList();
+							//updateFoodList();
+							//updateExerciseList();
 						}
 					});			
 				}
@@ -1370,7 +1377,14 @@ function updateNutriRatio() {
 function buildHelpMenu() {
 	//insert menu
 	$("#optionHelp").addClass("activeRow");
-	$("#appContent").append("<div id='appHelper'></div>");
+	$("body").append("<div id='appHelper'></div>");
+	
+	$("#appHelper").hide();
+	$("#appHelper").css("top",($("#appHeader").height()) + "px");
+	$("#appHelper").height($("#appContent").height());
+	$("#appHelper").css("bottom",($("#appFooter").height()) + "px");
+	$("#appHelper").show();
+	
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
@@ -1456,7 +1470,17 @@ function buildHelpMenu() {
 		var subTitle   = $("#" + $(this).attr("id") + " .topicTitle").html();
 		var subContent = $("#" + $(this).attr("id") + " .topicContent").html();
 		//BUILD SUB-CONTENT
-		$("#appContent").append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
+		$("body").append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
+		$("#appSubHelper").hide();
+		$("#appSubHelper").css("top",($("#appHeader").height()) + "px");
+		$("#appSubHelper").height($("#appContent").height());
+		$("#appSubHelper").css("bottom",($("#appFooter").height()) + "px");		
+		$("#appSubHelper").show();
+
+		
+		
+		
+		
 		///////////////////////////////
 		// SUB-CONTENT ANIMATION END //
 		///////////////////////////////
@@ -1659,7 +1683,11 @@ function buildLangMenu(opt) {
 	if(opt == "intro") {
 		$("body").append("<div id='langSelect'></div>");
 	} else {
-		$("#appContent").append("<div id='langSelect'></div>");
+		//$("#appContent").append("<div id='langSelect'></div>");
+		$("body").append("<div id='langSelect'></div>");
+		$("#langSelect").css("top",($("#appHeader").height()) + "px");
+		$("#langSelect").height($("#appContent").height());
+		$("#langSelect").css("bottom",($("#appFooter").height()) + "px");
 	}
 	//add auto detect
 	langListAutoCore = "<li id='setAuto'>" + LANG.AUTO_DETECT[lang] + " (" + LANG.LANGUAGE_NAME[defaultLang] + ")</li>" + langListCore;
@@ -1798,7 +1826,7 @@ function appResizer(time) {
 		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
 		$('#advancedMenuWrapper').height($('#appContent').height());
 		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
-		$('#tabMyFoodsBlock,#tabMyExercisesBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+		$('#tabMyItemsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);

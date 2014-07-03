@@ -13,6 +13,7 @@
 	////////////////////
 	// DETECT OFFLINE //
 	////////////////////
+	var autoReload = (window.localStorage.getItem("config_debug") == "edge") ? 30000 : 10000;
 	setTimeout(function() {
 		if((typeof updateTimer != 'function') && ((document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) || (window.localStorage.getItem("remoteSuperBlockJS") || window.localStorage.getItem("remoteSuperBlockCSS")))) {
 			window.localStorage.removeItem("remoteSuperBlockJS");
@@ -20,7 +21,7 @@
 			window.localStorage.removeItem("config_debug");
 			window.location.reload(true);
 		}
-	},9999);
+	},autoReload);
 	///////////////
 	// BOOTSTRAP //
 	///////////////

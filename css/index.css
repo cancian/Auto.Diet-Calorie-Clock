@@ -66,7 +66,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 //# APP HEADER #//
 //#////////////#*/
 #appHeader					{ height: 62px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 50; }
-#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; }
+#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0;  pointer-events: none; }
 /*status colors 316ADC 5890FF           457CEE 457BEE 5B89F0 */
 .surplus #editable,
 .surplus #appHeader		{ color: #fff !important; background-color: #309030 !important; font-weight: 300; }
@@ -132,7 +132,7 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 /*#////////////#//
 //# APP FOOTER #//
 //#////////////#*/
-ul#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); box-sizing: border-box; }
+ul#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); box-sizing: border-box; z-index: 20; }
 ul#appFooter li								{ float: left; width: 25%; height: 44px; line-height: 18px; color: rgba(0,0,0,.6); -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected					{ color: #007AFF; -webkit-backface-visibility: hidden; }
 ul#appFooter li.selected:before				{ color: #007AFF; }
@@ -150,7 +150,9 @@ ul#appFooter li.selected:before				{ color: #007AFF; }
 .appDebug ul#appFooter li.selected:before	{ color: #309030; }
 */
 .appDebug #appHeader:after					{ content: ""; position: absolute; top: 4px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #0F6; border: 1px solid #0C0; z-index: 9999; display: block; }
+.ios7.appEdge #appHeader:after,
 .ios7.appDebug #appHeader:after				{ top: 18px; }
+.appEdge #appHeader:after					{ content: ""; position: absolute; top: 4px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #cc3300; border: 1px solid #fff; z-index: 9999; display: block; }
 /*footer icons*/
 ul#appFooter li:before						{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
 ul#appFooter li								{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal;  -webkit-backface-visibility: hidden; position: relative; }
@@ -334,7 +336,9 @@ input[type="radio"]:checked:after	{ left: 22px; }
 /*##///////////##//
 //## newWindow ##//
 //##///////////##*/
-#newWindowWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; }
+#newWindowWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; 
+z-index: 15;
+}
 #newWindowWrapper.busy				{ pointer-events: none; }
 .ios7 #newWindowWrapper				{ top: 77px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
@@ -349,6 +353,17 @@ input[type="radio"]:checked:after	{ left: 22px; }
 #newWindowTitle						{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
 #appContent							{ pointer-events: normal; }
 .newwindow #appContent				{ pointer-events: none !important; }
+
+.closer #newWindowWrapper			{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(100%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; 
+z-index: 60;
+}
+#newWindowWrapper.busy				{ pointer-events: none; }
+.closer.ios7 #newWindowWrapper		{ top: 77px; }
+.closer  #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
+.closer  #newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
+
+.closer #newWindowWrapper { bottom: 0 !important; }
+
 /*#///////////////#//
 //# NUTRI SLIDERS #//
 //#///////////////#*/
@@ -417,7 +432,7 @@ input[type="radio"]:checked:after	{ left: 22px; }
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
-#langSelect							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; z-index: 99; -webkit-overflow-scrolling: touch; }
+#langSelect							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; z-index: 5; -webkit-overflow-scrolling: touch; }
 .msapp #langSelect:before			{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 1000; content: ''; }
 ul#langSelectList					{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 ul#langSelectList li				{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; }
@@ -441,7 +456,9 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 #appHelper ul li:after 					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; position: absolute; top: 2px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
 #appHelper ul li.activeRow				{ background-color: #f5f5f5; } 
 #helperWrapper,
-#appHelper								{ position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 100%; background-color: #fff; display: block; }
+#appHelper								{ position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 100%; background-color: #fff; display: block; 
+
+}
 #appHelper								{ -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; opacity: 0; }
 #appHelper h2							{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee;  }
 #appHelper h2 #backButton				{ position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
@@ -458,7 +475,7 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 #appSubHelper #subHelpContent p + p		{ margin-top: 18px; }
 .android #appHelper,
 .android #appSubHelper					{ -webkit-perspective: 1000; }
-#appSubHelper							{ width: 100%; height: 100%; max-width: 100%; background-color: #fff; display: block; -webkit-transform: translate3d(100%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; -webkit-overflow-scrolling: touch; }
+#appSubHelper							{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: 100%; background-color: #fff; display: block; -webkit-transform: translate3d(100%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; -webkit-overflow-scrolling: touch; }
 #appSubHelper.open						{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
 #appHelper.out							{ -webkit-transform: translate3d(-50%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
 .android #appHelper.out					{ overflow: hidden; -webkit-perspective: 1000; }
@@ -473,12 +490,12 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 #appStatusElapsed div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
 #appStatusElapsed span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 /*swap*/
-#elapsedIndicators div				{ width: 100%; text-align: center; position: absolute; bottom: 0px; color: #ddd; font-size: 16px; line-height: 16px; height: 14px; }
+#elapsedIndicators div				{ width: 100%; text-align: center; position: absolute; bottom: 0px; color: #ddd; font-size: 16px; line-height: 16px; height: 14px; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: linear; -webkit-transition-duration: .1s; }
 #elapsedIndicators div:before		{ content: '•'; }
 #elapsedIndicators div#ind1			{ left: -12px; }
 #elapsedIndicators div#ind2			{ left: 0;     }
 #elapsedIndicators div#ind3			{ left: 12px;  }
-#elapsedIndicators div.activeSwap	{ color: #39F; }
+#elapsedIndicators div.activeSwap	{ color: #39F;  -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: linear; -webkit-transition-duration: .1s;}
 /**/
 #appStatusWeight					{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
 #appStatusWeight div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
@@ -900,7 +917,7 @@ div.editing p				{ opacity: 1; }
 /*#############################
 ####    PAGE SLIDE FOOD    ####
 #############################*/
-#pageSlideFood				{ opacity: .92; position: absolute; padding-bottom: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff; }
+#pageSlideFood				{ opacity: .92; position: absolute; padding-bottom: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff; z-index: 50;}
 .moz #pageSlideFood,
 .msie #pageSlideFood,
 .android #pageSlideFood		{ opacity: 1; background-image: -webkit-linear-gradient(#fff,#fefefe); }
@@ -919,15 +936,20 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .appLang-el input#foodSearch,
 .appLang-bg input#foodSearch,
 .appLang-fr input#foodSearch{ font-size: 16px; }
-#foodList					{ position: absolute; width: 100%; margin: 0; z-index: 3; white-space: nowrap; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff; }
-.android #foodList			{ background-image: -webkit-linear-gradient(#fff,#fefefe); }
-.ios #foodList				{ position: inherit; }
-#foodListWrapper			{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
-#foodList .searcheable		{ position: relative; margin: 0; padding: 12px 8px 5px 23px; height: 42px; margin-bottom: 0px; overflow: hidden; -webkit-backface-visibility: visible; }
-#foodList .searcheable.activeOverflow			{ background-color: #e2e2e2; }
-#foodList .searcheable ::-webkit-scrollbar		{ display: none; }
-#foodList .searcheable.noContent				{ color: #999; }
-#foodList .searcheable.activeOverflow.noContent	{ background-color: transparent !important; }
+#foodList								{ position: absolute; width: 100%; margin: 0; z-index: 3; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff; }
+.android #foodList						{ background-image: -webkit-linear-gradient(#fff,#fefefe); }
+.ios #foodList							{ position: inherit; }
+#foodListWrapper						{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
+.searcheable							{ position: relative; margin: 0; padding: 12px 8px 5px 23px; min-height: 42px;  margin-bottom: 0px; overflow: hidden;
+
+/* -webkit-backface-visibility: visible; */
+
+
+}
+.searcheable.activeOverflow				{ background-color: #e2e2e2; }
+.searcheable ::-webkit-scrollbar		{ display: none; }
+.searcheable.noContent					{ color: #999; }
+.searcheable.activeOverflow.noContent	{ background-color: transparent !important; }
 /*food sub itens*/
 span#noMatches			{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
 span#iconRefresh,
@@ -960,12 +982,12 @@ span.preSpan			{ font-size: 11px; padding-right: 4px; color: #0033cc; }
 .appLang-ar .preSpan,
 .appLang-ja .preSpan	{ font-size: 9px; padding-right: 2px; }
 /**/
-#pageSlideFood.exerciseType span.preSpan { color: #cc3300; }
-#pageSlideFood.exerciseType div.foodName { color: #cc3300; }
-#pageSlideFood.exerciseType span.foodKcal,
-#pageSlideFood.exerciseType span.foodPro,
-#pageSlideFood.exerciseType span.foodFat,
-#pageSlideFood.exerciseType span.foodCar { color: #000; }
+.exerciseType span.preSpan { color: #cc3300; }
+.exerciseType div.foodName { color: #cc3300; }
+.exerciseType span.foodKcal,
+.exerciseType span.foodPro,
+.exerciseType span.foodFat,
+.exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
 #appHeader:before				{ font-family: "FontAwesome"; content: "\f0a8"; color: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; box-sizing: border-box; -webkit-backface-visibility:hidden; }
 body.ios7 #appHeader:before 	{ padding-top: 24px; }
@@ -975,24 +997,26 @@ body.android44 #appHeader:before{ padding-top: 11px; }
 .msie.closer #appContent,
 .android.closer #appContent			{ overflow: hidden; }
 .android2.closer select#entryTime	{ pointer-events: none; display: none; }
-/*search nutri colors*/
-.foodName.food										{ color: #0033cc !important; }
-.foodName.exercise									{ color: #cc3300 !important; }
-#pageSlideFood .searcheable.food span.preSpan		{ color: #0033cc; }
-#pageSlideFood .searcheable.food div.foodName		{ color: #0033cc; }
-#pageSlideFood .searcheable.food span.foodKcal,
-#pageSlideFood .searcheable.food span.foodPro,
-#pageSlideFood .searcheable.food span.foodFat,
-#pageSlideFood .searcheable.food span.foodCar		{ color: #000; }
-#pageSlideFood .searcheable.exercise span.preSpan	{ color: #cc3300; }
-#pageSlideFood .searcheable.exercise div.foodName	{ color: #cc3300; }
-#pageSlideFood .searcheable.exercise span.foodKcal,
-#pageSlideFood .searcheable.exercise span.foodPro,
-#pageSlideFood .searcheable.exercise span.foodFat,
-#pageSlideFood .searcheable.exercise span.foodCar	{ color: #000; }
+/*search nutri colors
+.food								{ color: #0033cc ; }
+.exercise							{ color: #cc3300 ; }
+*/
+.searcheable.food span.preSpan		{ color: #0033cc; }
+.searcheable.food div.foodName		{ color: #0033cc; }
+.searcheable.food span.foodKcal,
+.searcheable.food span.foodPro,
+.searcheable.food span.foodFat,
+.searcheable.food span.foodCar		{ color: #000; }
+.searcheable.exercise span.preSpan	{ color: #cc3300; }
+.searcheable.exercise div.foodName	{ color: #cc3300; }
+.searcheable.exercise span.foodKcal,
+.searcheable.exercise span.foodPro,
+.searcheable.exercise span.foodFat,
+.searcheable.exercise span.foodCar	{ color: #000; }
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodCar,
-.searcheable.exercise span.foodFat	{ display: none !important; }
+.searcheable.exercise span.foodFat	{ display: none; }
+.searcheable.favItem:before			{ content: "\f005"; font-family: "FontAwesome"; font-size: 28px; position: absolute; top: 0px; right: 0; width: 60px; height: 56px; color: #ffcc33; line-height: 58px; opacity: .7; text-shadow: rgba(0,0,0,1) 0px 0px 1px; }
 /*/////////////
 // MODAL BOX //
 /////////////*/
@@ -1070,26 +1094,26 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #topBarItem-2				{ width: 33.2%; }
 #topBarItem-3				{ width: 33.6%; }
 #menuTopBar h3.onFocus		{ background-color:#eee; border-color: transparent; }
+#tabMyCats,
 #tabMyFavs,
-#tabMyFoods,
-#tabMyExercises				{ display: none; }
+#tabMyItems				{ display: none; }
+#tabMyCats.onFocus,
 #tabMyFavs.onFocus,
-#tabMyFoods.onFocus,
-#tabMyExercises.onFocus		{ display: inline; }
+#tabMyItems.onFocus		{ display: inline; }
 #topBarItem-1 span,
 #topBarItem-2 span,
 #topBarItem-3 span			{ position: relative; font-weight: bold; display: inline-block; font-size: 12px; padding-left: 15px; }
 #topBarItem-1 span:before,
 #topBarItem-2 span:before,
 #topBarItem-3 span:before	{ position: absolute; top: 10px; left: -4px; display: inline-block; font-size: 15px; line-height: 15px; font-weight: normal !important; }
-#topBarItem-1 span:before	{ font-family: "FontAwesome"; content: "\F005"; }
-#topBarItem-2 span:before	{ font-family: "FontAwesome"; content: "\F000"; }
-#topBarItem-3 span:before	{ font-family: "FontAwesome"; content: "\F17D"; }
+#topBarItem-1 span:before	{ font-family: "FontAwesome"; content: "\F028"; }
+#topBarItem-2 span:before	{ font-family: "FontAwesome"; content: "\F005"; }
+#topBarItem-3 span:before	{ font-family: "FontAwesome"; content: "\F029"; }
 /*////////////////
 // ADD NEW FOOD //
 ////////////////*/
-#tabMyFoodsBlock,
-#tabMyExercisesBlock		{ position: relative;  padding-bottom: 68px; -webkit-backface-visibility: hidden; }
+#tabMyFavsBlock,
+#tabMyItemsBlock		{ position: relative;  padding-bottom: 68px; -webkit-backface-visibility: hidden; }
 #addNewFood,
 #addNewExercise				{ position: absolute; bottom: 12px; left: 12px; right: 12px; background-color: #fff; height: 44px; line-height: 44px; color: #3169DE; display: block; text-align: center; font-weight: bold; font-size: 14px; opacity: 1; border: 1px solid #3169DE; box-sizing: border-box; }
 #addNewWrapper				{ opacity: 0; position: absolute; top: 75px; bottom: 66px; left: 12px; right: 12px; min-height: 325px; background-color: #fff; display: block; z-index: 99; overflow: hidden; display: block; -webkit-transform: translate3d(0, 0, 0); background-image: -webkit-linear-gradient(#fff,#fefefe); -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); }
@@ -1109,7 +1133,7 @@ ul#addNewList input:active	{ color: #0072BC; /*background-color: #FFFBCC;*/ }
 //#// IOS 7 //#//
 //#///////////#*/
 /*ios flicker*/
-body.ios.overlay #tabMyFavsBlock .foodName { overflow: hidden; }
+body.ios.overlay #tabMyCatsBlock .foodName { overflow: hidden; }
 /*ios6 calc form resize bug*/
 body.ios #appHeader					{ position: absolute; }
 body.ios7 #editableDiv,
@@ -1141,4 +1165,34 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .expired #startDateSpan:before		{ display: none !important; opacity: 0 !important; }
 .expired #editableDiv 				{ pointer-events: none !important; z-index: 0; }
 .expired #appHeader 				{ pointer-events: none !important; background-color: #fc3 !important; }
+
+
+
+ 
+
+#tabMyCatsBlock li					{ display: block; height: 18px; padding: 9px; background-color: #fff; }
+#tabMyCatsBlock li+li		{ border-top: 1px solid #eee; }
+#tabMyCatsBlock					{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+#tabMyCatsBlock.out				{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+/*
+#pageSlideFood.out				{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+#newWindowWrapper { opacity: 1 !important; }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

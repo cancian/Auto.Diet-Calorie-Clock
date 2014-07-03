@@ -54,18 +54,36 @@ lata = lata + "\n" + lata2;
 dataLang = lata.split("\n");
 
 /////////////
-$.get("sql/src/ibge_src.sql", function(data2) {
-$.get("sql/src/list_src.sql", function(data) {
+$.get("sql/src/src_ibge.txt", function(data2) {
+$.get("sql/src/src_sr26.txt", function(data) {
 /////////////
 data = data + "\n" + data2;
 
-data = data.split('INSERT INTO "diary_food" VALUES(').join("").split(",'exercise").join("','exercise").split(",'food").join("','food").split("');").join("");
 
+data = data.split('INSERT INTO "diary_food" VALUES(').join("").split("','").join(",'").split("');").join("");
+
+console.log(data);
+
+
+/*
+INSERT INTO "diary_food" VALUES(20006,'2000','20006','Barley, pearled, cooked','barleypearledcooked','123','2.26','28.22','0.44','3.80');
+INSERT INTO "diary_food" VALUES(20008,'2000','20008','Buckwheat','buckwheat','343','13.25','71.50','3.40','10.00');
+INSERT INTO "diary_food" VALUES(20009,'2000','20009','Buckwheat groats, roasted, dry','buckwheatgroatsroasteddry','346','11.73','74.95','2.71','10.30');
+INSERT INTO "diary_food" VALUES(20010,'2000','20010','Buckwheat groats, roasted, cooked','buckwheatgroatsroastedcooked','92','3.38','19.94','0.62','2.70');
+INSERT INTO "diary_food" VALUES(20011,'2000','20011','Buckwheat flour, whole-groat','buckwheatflourwholegroat','335','12.62','70.59','3.10','10.00');
+INSERT INTO "diary_food" VALUES(20012,'2000','20012','Bulgur, dry','bulgurdry','342','12.29','75.87','1.33','18.30');
+INSERT INTO "diary_food" VALUES(20013,'2000','20013','Bulgur, cooked','bulgurcooked','83','3.08','18.58','0.24','4.50');
+INSERT INTO "diary_food" VALUES(20014,'2000','20014','Corn, yellow','cornyellow','365','9.42','74.26','4.74','7.30');
+INSERT INTO "diary_food" VALUES(20015,'2000','20015','Corn bran, crude','cornbrancrude','224','8.36','85.64','0.92','79.00');
+INSERT INTO "diary_food" VALUES(20016,'2000','20016','Corn flour, whole-grain, yellow','cornflourwholegrainyellow','361','6.93','76.85','3.86','7.30');
+INSERT INTO "diary_food" VALUES(20017,'2000','20017','Corn flour, masa, enriched, white','cornflourmasaenrichedwhite','365','9.28','76.29','3.86','6.40');
+INSERT INTO "diary_food" VALUES(20018,'2000','20018','Corn flour, degermed, unenriched, yellow','cornflourdegermedunenrichedyellow','375','5.59','82.75','1.39','1.9
+*/
 
 	var foodDatabase = data.split("\n");
 	var foodListArray = [];
 	for(i = 0; i < foodDatabase.length; i++) {
-		foodListArray.push(foodDatabase[i].split("','"));
+		foodListArray.push(foodDatabase[i].split(",'"));
 
 	}
 	
@@ -226,6 +244,7 @@ if(FIB)	 { FIB = trim(FIB); }
 
 		//tpl = "<div>" + NAME + "</div>";
 		//tpl = '<div>INSERT INTO "diary_food" VALUES(' + ID + ',"' + TYPE + '","' + CODE + '","' + NAME + '","' + TERM + '","' + KCAL + '","' + PRO + '","' + CAR + '","' + FAT + '","' + FIB + '");</div>';
+		//tpl = '<div>lib2.update("diary_food", {"code":"' + CODE + '"},function(row) { row.type = "' + TYPE + '"; return row; });</div>';
 		tpl = '<div>lib2.insert("diary_food", {"id":"' + CODE + '", "type":"' + TYPE + '","code":"' + CODE + '","name":"' + NAME + '","term":"' + TERM + '","kcal":"' + KCAL + '","pro":"' + PRO + '","car":"' + CAR + '","fat":"' + FAT + '","fib":"' + FIB + '"});</div>';
 if(NAME) {
 		mix += tpl;

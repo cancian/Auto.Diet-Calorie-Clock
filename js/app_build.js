@@ -1689,7 +1689,7 @@ $("#pA3B,#feet,#inches").on("blur", function(evt) {
 var tapVar;
 $("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
 	tapVar = this;
-	setTimeout(function(){ tapVar.blur(); },1);
+	setTimeout(function(){ if(tapVar) { tapVar.blur(); } },1);
 
 	if(isMobile.FirefoxOS() || isMobile.MSApp() || (isMobile.Android() && androidVersion() < 4)) {
 		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
