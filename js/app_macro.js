@@ -2092,9 +2092,9 @@ function getCatList(callback) {
 	// INSERT TOPIC LIST //
 	///////////////////////
 	$("#tabMyCatsBlock").html('<ul>' + helpHtml + '</ul>');
-	$('#tabMyCatsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
-
 	if(callback == 'open') { callbackOpen(); }
+	//$('#tabMyCatsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+
 
 	var catDeTap = 0;
 	//TOPIC HANDLERS	

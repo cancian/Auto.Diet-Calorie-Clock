@@ -8628,7 +8628,7 @@ lib2.insert("diary_food", {"id":"000001164", "type":"0000","code":"000001164","n
 lib2.insert("diary_food", {"id":"000001165", "type":"0000","code":"000001165","name":"Fútbol, ​​competitiva","term":"futbol​​competitiva","kcal":"10","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001166", "type":"0000","code":"000001166","name":"Softbol o béisbol, lanzamiento rápido o lento","term":"softbolobeisbollanzamientorapidoolento","kcal":"5","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001167", "type":"0000","code":"000001167","name":"Softbol, ​​oficiando","term":"softbol​​oficiando","kcal":"4","pro":"","car":"","fat":"","fib":""});
-lib2.insert("diary_food", {"id":"000001168", "type":"0000","code":"000001168","name":"Cucurbita (calabaza)","term":"cucurbitacalabaza","kcal":"12","pro":"","car":"","fat":"","fib":""});
+lib2.insert("diary_food", {"id":"000001168", "type":"0000","code":"000001168","name":"Squash","term":"squash","kcal":"12","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001169", "type":"0000","code":"000001169","name":"Ergómetro Stair-rueda de ardilla, en general","term":"ergometrostairruedadeardillaengeneral","kcal":"9","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001170", "type":"0000","code":"000001170","name":"El estiramiento, yoga hatha","term":"elestiramientoyogahatha","kcal":"2.5","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001171", "type":"0000","code":"000001171","name":"Surf, órgano o junta","term":"surforganoojunta","kcal":"3","pro":"","car":"","fat":"","fib":""});

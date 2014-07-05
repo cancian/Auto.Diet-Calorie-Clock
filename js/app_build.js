@@ -541,6 +541,7 @@ diaryHtml += '</div>\
 //#////////#//
 //# OUTPUT #//
 //#////////#//
+if(window.localStorage.getItem("app_last_tab") != "tab2") { return; }
 //HTML
 preTab();
 pageLoad("#appContent",diaryHtml);

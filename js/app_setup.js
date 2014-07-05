@@ -677,9 +677,14 @@ function setFood(data, callback) {
 		db.transaction(function(t) {
 			if(data.act == "update") {
 				t.executeSql('delete from diary_food where CODE = ?', [data.code]);
-				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib]);
+				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib],function() {
+				callback();	
+				});
 			} else {
-				t.executeSql('insert into diary_food(id,type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?,?)', [new Date().getTime(),data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib]);
+				t.executeSql('insert into diary_food(id,type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?,?)', [new Date().getTime(),data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib],
+				function() {
+					callback();
+				});
 			}
 		});
 	} else {
@@ -688,9 +693,11 @@ function setFood(data, callback) {
 				return {"id":data.id,"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib};
 			});
 			lib2.commit();
+			callback();
 		} else {
 			lib2.insert("diary_food", {"id": new Date().getTime(),"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib});
 			lib2.commit();
+			callback();
 		}
 	}
 }

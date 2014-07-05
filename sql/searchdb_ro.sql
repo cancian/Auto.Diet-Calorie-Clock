@@ -8628,7 +8628,7 @@ lib2.insert("diary_food", {"id":"000001164", "type":"0000","code":"000001164","n
 lib2.insert("diary_food", {"id":"000001165", "type":"0000","code":"000001165","name":"Fotbal, competitiv","term":"fotbalcompetitiv","kcal":"10","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001166", "type":"0000","code":"000001166","name":"Softball sau baseball, pas rapid sau lent","term":"softballsaubaseballpasrapidsaulent","kcal":"5","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001167", "type":"0000","code":"000001167","name":"Softball, oficiază","term":"softballoficiază","kcal":"4","pro":"","car":"","fat":"","fib":""});
-lib2.insert("diary_food", {"id":"000001168", "type":"0000","code":"000001168","name":"Suc de fructe","term":"sucdefructe","kcal":"12","pro":"","car":"","fat":"","fib":""});
+lib2.insert("diary_food", {"id":"000001168", "type":"0000","code":"000001168","name":"Squash","term":"squash","kcal":"12","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001169", "type":"0000","code":"000001169","name":"Scara-banda de alergat ergometru, generală","term":"scarabandadealergatergometrugenerală","kcal":"9","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001170", "type":"0000","code":"000001170","name":"Stretching, Hatha Yoga","term":"stretchinghathayoga","kcal":"2.5","pro":"","car":"","fat":"","fib":""});
 lib2.insert("diary_food", {"id":"000001171", "type":"0000","code":"000001171","name":"Surfing, organism sau bord","term":"surfingorganismsaubord","kcal":"3","pro":"","car":"","fat":"","fib":""});

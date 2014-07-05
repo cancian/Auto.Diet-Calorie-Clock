@@ -600,8 +600,13 @@ $(document).on("pageReload", function(evt) {
 	////////////////////
 	// RESULTS HEIGHT //
 	////////////////////
+	$('#menuTopBar').css("top","61px");
+	//$('#foodList').css("margin-top","61px");
+	$('#foodList').css("min-height",(window.innerHeight - ($('#appHeader').height() + 61)) + "px");
 	$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 61)) + "px");
-	$('#foodList').css("top",($('#appHeader').height()) + "px");
+	//$('#foodList').css("top","0px");
+
+	//$('#foodList').css("top",($('#appHeader').height()) + "px");
 	if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#foodList").css("overflow","hidden");
 		setTimeout(function(){
@@ -1225,14 +1230,9 @@ function updateCustomList(filter,callback) {
 		// HTML //
 		//////////
 		if(filter != "fav") {
-			customFavList += '\
-				<div id="addNewFood">' + LANG.NEW_FOOD[lang] +'</div>\
-				<div id="addNewExercise">' + LANG.NEW_EXERCISE[lang] +'</div>\
-			';
-			$(menuBlock).css("min-height", ($('#foodList').height() - 128) + "px");
-		} else {
-			$(menuBlock).css("min-height", ($('#foodList').height()) + "px");
+			customFavList += '<div id="addNewFood">' + LANG.NEW_FOOD[lang] +'</div><div id="addNewExercise">' + LANG.NEW_EXERCISE[lang] +'</div>';
 		}
+		$(menuBlock).css("min-height", ($('#foodList').height() - 128) + "px");
 		$(menuBlock).html(customFavList);
 
 
@@ -1593,12 +1593,13 @@ var recentBlock = '\
 //////////////
 // TOP MENU //
 //////////////
-$("#foodList").html("<div id='menuTopBar'>\
+$("#foodList").before("<div id='menuTopBar'>\
 <h3 id='topBarItem-1'><span>" + LANG.CATEGORIES[lang] + "</span></h3>\
 <h3 id='topBarItem-2'><span>" + LANG.FAVORITES[lang] + "</span></h3>\
 <h3 id='topBarItem-3'><span>" + LANG.MY_ITEMS[lang] + "</span></h3>\
 </div>\
-" + recentBlock);
+");
+$("#foodList").html(recentBlock);
 //first load db spinner
 if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	//reset blocks
@@ -1621,23 +1622,17 @@ if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	////////////////////
 	// CUSTOM FAV SQL //
 	////////////////////
-	var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 0:100;
-	var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 0:100;
-	var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 0:100;
+	var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 100:200;
+	var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 100:200;
+	var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 100:200;
 	setTimeout(function() {
-//		getCatList(); 
-		getCatList('open');
+		getCatList();
 	},tabTimer1);
 	setTimeout(function() { 
-	 //updateFavList('open'); 
 		updateCustomList('fav','open');
     },tabTimer2);
 	setTimeout(function() { 
-	//updateFoodList('open'); 
 		updateCustomList('items','open'); 
-	//updateExerciseList('open'); 
-	
-	
 	},tabTimer3);
 }
 /////////////////////
@@ -1645,35 +1640,31 @@ if(window.localStorage.getItem("foodDbLoaded") != "done") {
 /////////////////////
 if(!window.localStorage.getItem("lastInfoTab")) {
 	window.localStorage.setItem("lastInfoTab","topBarItem-1");
-	$("#topBarItem-1").addClass("onFocus");
-	$("#tabMyCats").addClass("onFocus");
 }
 ////////////
 // TAB #1 //
 ////////////
-else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
-	$("#topBarItem-1").addClass("onFocus");
-	$("#tabMyCats").addClass("onFocus");
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
+	$("#tabMyCats, #topBarItem-1").addClass("onFocus");
 }
 ////////////
 // TAB #2 //
 ////////////
-else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
-	$("#topBarItem-2").addClass("onFocus");
-	$("#tabMyFavs").addClass("onFocus");
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
+	$("#tabMyFavs, #topBarItem-2").addClass("onFocus");
 }
 ////////////
 // TAB #3 //
 ////////////
-else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
-	$("#topBarItem-3").addClass("onFocus");
-	$("#tabMyItems").addClass("onFocus");
+if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
+	$("#tabMyItems, #topBarItem-3").addClass("onFocus");
 }
 ////////////////////////
 // SWITCH VISIBLE TAB //
 ////////////////////////
 $("#menuTopBar h3").on(touchstart,function(evt) {
 	evt.preventDefault();
+	$('#foodList').scrollTop(0);
 	window.localStorage.setItem("lastInfoTab",$(this).attr("id"));
 	//$(".onFocus").removeClass("onFocus");
 	$("#activeOverflow").removeAttr("id");
@@ -1705,7 +1696,6 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 		niceResizer();
 		return false;
 	}, 0);
-	$('#foodList').scrollTop(0);
 	return false;
 });
 
@@ -1990,6 +1980,7 @@ $("#addNewConfirm").on(touchstart, function(evt) {
 //clear previous
 $("label").removeClass("error");
 var doReturn = 0;
+var setFoodtimer;
 if(vName == "" || vName == 0)					{ $("#addNewName label").addClass("error"); doReturn = 1; }
 if(vKcal == "" || vKcal == 0 || isNaN(vKcal))	{ $("#addNewKcal label").addClass("error"); doReturn = 1; }
 if($("#inputNewAmount").val() == "" || $("#inputNewAmount").val() == 0 || isNaN($("#inputNewAmount").val())) { $("#addNewAmount label").addClass("error"); doReturn = 1; }
@@ -2032,10 +2023,11 @@ vKcal = Math.round(vKcal * 100) / 100;
 vPro = Math.round(vPro * 100) / 100;
 vCar = Math.round(vCar * 100) / 100;
 vFat = Math.round(vFat * 100) / 100;
-
 		/////////////////
 		// WRITE QUERY //
 		/////////////////
+		clearTimeout(setFoodtimer);
+		setFoodtimer = setTimeout(function() {
 		setFood({
 			type:vType,
 			code:vCode,
@@ -2047,7 +2039,8 @@ vFat = Math.round(vFat * 100) / 100;
 			fat:vFat,
 			fib:vFib,
 			act:vAct
-		});
+		},function() {
+		clearTimeout(setFoodtimer);
 		/////////////////////////
 		// UPDATE HTML CONTENT //
 		/////////////////////////
@@ -2101,7 +2094,7 @@ vFat = Math.round(vFat * 100) / 100;
 				$("#addNewCancel").trigger(touchstart);
 			//});
 			//$("#" + vCode).animate({"backgroundColor": "#ffffcc"},600);
-			return false;
+			//return false;
 		} else {
 			/////////////////////
 			// INSERT NEW ITEM //
@@ -2142,6 +2135,8 @@ vFat = Math.round(vFat * 100) / 100;
 			//});
 			},600);
 		}
+	});
+	},300);
 	}
 });
 //#////////////#//
