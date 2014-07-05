@@ -447,6 +447,7 @@ function setComplete() {
 	if(typeof updateCustomList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
 		updateCustomList('fav');
 		updateCustomList('items');
+		getCatList();
 		//updateFavList();
 		//updateFoodList();
 		//updateExerciseList();
@@ -953,6 +954,7 @@ function spinner(size) {
 var demoRunning = false;
 var foodDbTimer;
 function updateFoodDb() {
+	if(window.localStorage.getItem("foodDbLoaded") == "done" && !window.localStorage.getItem("foodDbVersion")) { window.localStorage.removeItem("foodDbLoaded"); }
 	if(window.localStorage.getItem("foodDbLoaded") == "done") { return; }
 	if(window.localStorage.getItem("foodDbLoaded") != "done" && window.localStorage.getItem("startLock") != "running") {
 		//reset blocks
@@ -987,6 +989,7 @@ function updateFoodDb() {
 							//success
 							demoRunning = false;
 							window.localStorage.setItem("foodDbLoaded","done");
+							window.localStorage.setItem("foodDbVersion","2");
 							window.localStorage.removeItem("startLock");
 							spinner('stop');
 							if(window.localStorage.getItem("facebook_userid")) {
@@ -994,6 +997,7 @@ function updateFoodDb() {
 							} else {
 								updateCustomList('fav');
 								updateCustomList('items');
+								getCatList();
 								//updateFavList();
 								//updateFoodList();
 								//updateExerciseList();
@@ -1026,13 +1030,15 @@ function updateFoodDb() {
 						//success
 						demoRunning = false;
 						window.localStorage.setItem("foodDbLoaded","done");
+						window.localStorage.setItem("foodDbVersion","2");
 						window.localStorage.removeItem("startLock");
 						spinner('stop');
 						if(window.localStorage.getItem("facebook_userid")) {
 							syncEntries(window.localStorage.getItem("facebook_userid"));
 						} else {
 							updateCustomList('fav');
-							updateCustomList('items');							
+							updateCustomList('items');	
+							getCatList();					
 							//updateFavList();
 							//updateFoodList();
 							//updateExerciseList();
@@ -1538,7 +1544,7 @@ function buildHelpMenu() {
 //##//////////////##//
 //## GETNEWwINDOW ##//
 //##//////////////##//
-function getNewWindow(title,content,handlers,save,closer) {
+function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return; }
 	//FLOOD
 	if($("#newWindowWrapper").html()) { return; }
@@ -1555,11 +1561,27 @@ function getNewWindow(title,content,handlers,save,closer) {
 			</div>\
 		<div id='newWindow'>" + content + "</div>\
 	</div>");
+	$("#newWindowWrapper").hide();
 	//configure ui
+	if(direction == "sideload") {
+		$("#newWindowWrapper").addClass('sideload');
+	}
 	if(!save) { $("#saveButton").remove(); }
-	//$("#appContent").getNiceScroll().remove();
+
 	//$("#newWindowWrapper").css("top",($("#appHeader").height()) + "px");
 	//$("#newWindowWrapper").css("bottom",($("#appFooter").height()) + "px");
+	
+	$("#newWindowWrapper").css("top",($("#appHeader").height()) + "px");
+	if(bottom != 'flush') {
+		$("#newWindowWrapper").height($("#appContent").height());
+		$("#newWindowWrapper").css("bottom",($("#appFooter").height()) + "px");
+	} else {
+		$("#newWindowWrapper").height($("#appContent").height() + $("#appFooter").height());
+		$("#newWindowWrapper").css("bottom",'0px');		
+	}
+	
+	$("#newWindowWrapper").show();
+	//
 	$("#newWindow").css("top",($("#newWindowHeader").height()+1) + "px");
 	$('body').addClass('newwindow');
 	$("#newWindowWrapper").addClass('open');

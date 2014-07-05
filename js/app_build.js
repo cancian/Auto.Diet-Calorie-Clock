@@ -26,7 +26,7 @@ function openSettings(string) {
 		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 	</div>\
 	';
-	//	<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
+	//<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -934,6 +934,13 @@ function sliderNeg() {
 				$("#entryBody").blur();
 				afterHide();
 			}
+		}
+		//drop food db
+		else if($("#entryBody").val().toLowerCase() == "devsetexpire") {
+			window.localStorage.setItem("config_mode","expired");
+			window.localStorage.setItem("config_install_time",(new Date().getTime()) - (60*60*24*8*1000));
+			$("#entryBody").val('');
+			$("#entryBody").blur();
 		}
 		//drop food db
 		else if($("#entryBody").val().toLowerCase() == "devfood") {

@@ -30,12 +30,13 @@ $(document).on("resume",function() {
 	clearTimeout(resumeTimeout);
 	$('body').removeClass('hidenotice');
 	resumeTimeout = setTimeout(function() { 
+		if(window.localStorage.getItem("config_mode") == 'expired') { expireNotice(); }
 		updateLoginStatus(1);
 		getAnalytics('resume');
 		$('#timerTrial').fadeOut(100,function() {
 			$('body').addClass('hidenotice');
 		});
-	},6000);
+	},4500);
 });
 //##///////////##//
 //## START APP ##//
@@ -47,12 +48,13 @@ try {
 ///////////////
 setTimeout(function() { getAnalytics('init'); },0);
 setTimeout(function() { 
+	if(window.localStorage.getItem("config_mode") == 'expired') { expireNotice(); }
 	updateLoginStatus(1);
 	getAnalytics('startApp'); 
 	$('#timerTrial').fadeOut(100,function() {
 		$('body').addClass('hidenotice');
 	});
-},6000);
+},4500);
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -102,6 +104,10 @@ preTab = function() {
 	}
 }
 afterTab = function() {
+	$("#appContent").show();
+	$("#appContent").css('touch-events','auto');
+	$("body").removeClass("newwindow");
+	//
 	$("#langSelect").remove();
 	$("#newWindowWrapper").remove();
 	$("#advancedMenuWrapper").remove();
@@ -667,7 +673,13 @@ setInterval(function() {
 	// PAGESLIDE CLOSER //
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
-		if($("body").hasClass("newwindow"))     { return; }
+		//if($("body").hasClass("newwindow"))     { $("#backButton").trigger(touchend); }
+		if($("#subBackButton").length)			{ $("#subBackButton").trigger(touchend); }
+		else if($("#backButton").length)		{ $("#backButton").trigger(touchend); }
+		else if($("#advBackButton").length)		{ $("#advBackButton").trigger(touchend); }
+		else if($("#langSelect").length)		{ $(".set").trigger(tap); }
+		
+		if($("body").hasClass("newwindow") && !$('#modalWindow').html()) { return; }
 		if(!$("#appHeader").hasClass("closer")) { return; }
 		if($("#addNewWrapper").html())			{ return; }
 		//if(!$('#pageSlideFood').hasClass("open") && $('#pageSlideFood').is(":animated")) { alert("got ya"); return; }

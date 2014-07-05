@@ -8,11 +8,12 @@ div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvet
 body									{ opacity: 1; }
 body.msie.thin							{ letter-spacing: 0.02em; }
 body.msie,
-body.android 							{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
+body.android 							{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); -webkit-transform:translateZ(0,0,0); }
 body.msie #appContent,
 body.msie #foodList,
+body.android #newWindow,
 body.android #appContent,
-body.android #foodList					{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); }
+body.android #foodList					{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); -webkit-transform:translateZ(0,0,0); }
 body > *,h2,input[readonly]				{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
 /*ffos fix*/
 .ios,.android,.windows,
@@ -288,7 +289,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #advancedMenu ul li.activeRow			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 #advancedMenu ul li.activeRow:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }
 #advancedMenu ul+ul						{ margin-top: 28px; border-top: 1px solid #eee; }
-#advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 45px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; box-sizing: border-box; }
+#advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 45px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; box-sizing: border-box; z-index: 1; }
 #advancedMenuHeader #advBackButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #advancedMenuHeader #advBackButton:active{ color: #C6DEF9; }
 #advancedMenuHeader #advBackButton:before{ font-family: "FontAwesome"; content: "\f104"; }
@@ -339,18 +340,30 @@ input[type="radio"]:checked:after	{ left: 22px; }
 #newWindowWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; 
 z-index: 15;
 }
-#newWindowWrapper.busy				{ pointer-events: none; }
+#newWindowWrapper.busy				{ pointer-events: none; overflow: hidden; }
 .ios7 #newWindowWrapper				{ top: 77px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
-#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
-.android #newWindow					{ -webkit-backface-visibility: hidden; -webkit-perspective: 1000; }
+#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; 
+}
+
+.android #newWindow					{ /*-webkit-backface-visibility: hidden;*/ -webkit-perspective: 1000; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
 #newWindowHeader #saveButton		{ color: #C6DEF9; -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; height: 44px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
 #newWindowHeader #backButton:active,
 #newWindowHeader #saveButton:active	{ color: #C6DEF9; }
-#newWindowTitle						{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
+#newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 44px; color: #555; text-align: center; font-weight: bold; 
+
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  
+}
+
+/*
 #appContent							{ pointer-events: normal; }
 .newwindow #appContent				{ pointer-events: none !important; }
 
@@ -363,7 +376,19 @@ z-index: 60;
 .closer  #newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
 
 .closer #newWindowWrapper { bottom: 0 !important; }
+*/
 
+
+#appContent							{ pointer-events: normal; }
+.newwindow #appContent				{ pointer-events: none !important; }
+
+#newWindowWrapper.sideload			{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; }
+.ios7 #newWindowWrapper.sideload	{ top: 77px; }
+#newWindowWrapper.open.sideload		{ -webkit-transform: translate3d(0, 0, 0); }
+
+#newWindow.firstLoad div:nth-of-type(1n+250)			{ display: none; }
+.windows #newWindow.firstLoad div:nth-of-type(1n+50)	{ display: none; }
+.android4lt #newWindow div:nth-of-type(1n+750)			{ display: none; }
 /*#///////////////#//
 //# NUTRI SLIDERS #//
 //#///////////////#*/
@@ -917,7 +942,7 @@ div.editing p				{ opacity: 1; }
 /*#############################
 ####    PAGE SLIDE FOOD    ####
 #############################*/
-#pageSlideFood				{ opacity: .92; position: absolute; padding-bottom: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff; z-index: 50;}
+#pageSlideFood				{ opacity: 1; position: absolute; padding-bottom: 60px; top: 62px; left: 0; width: 100%; height: 100%; color: #000; overflow: hidden; z-index: 2; background-color: #fff; z-index: 50;}
 .moz #pageSlideFood,
 .msie #pageSlideFood,
 .android #pageSlideFood		{ opacity: 1; background-image: -webkit-linear-gradient(#fff,#fefefe); }
@@ -1016,7 +1041,7 @@ body.android44 #appHeader:before{ padding-top: 11px; }
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodCar,
 .searcheable.exercise span.foodFat	{ display: none; }
-.searcheable.favItem:before			{ content: "\f005"; font-family: "FontAwesome"; font-size: 28px; position: absolute; top: 0px; right: 0; width: 60px; height: 56px; color: #ffcc33; line-height: 58px; opacity: .7; text-shadow: rgba(0,0,0,1) 0px 0px 1px; }
+.searcheable.favItem:before			{ content: "\f005"; font-family: "FontAwesome"; font-size: 28px; position: absolute; top: 0px; right: 0; width: 44px; height: 56px; color: #ffcc33; line-height: 58px; opacity: .7; text-shadow: rgba(0,0,0,.5) 0px 0px 1px; }
 /*/////////////
 // MODAL BOX //
 /////////////*/
@@ -1114,8 +1139,13 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 ////////////////*/
 #tabMyFavsBlock,
 #tabMyItemsBlock		{ position: relative;  padding-bottom: 68px; -webkit-backface-visibility: hidden; }
+
+
 #addNewFood,
-#addNewExercise				{ position: absolute; bottom: 12px; left: 12px; right: 12px; background-color: #fff; height: 44px; line-height: 44px; color: #3169DE; display: block; text-align: center; font-weight: bold; font-size: 14px; opacity: 1; border: 1px solid #3169DE; box-sizing: border-box; }
+#addNewExercise				{ position: absolute; bottom: 12px; left: 12px; right: 12px; background-color: #fff; height: 44px; line-height: 44px; color: #3169DE; display: block; text-align: center; font-weight: bold; font-size: 14px; opacity: 1; border: 1px solid #3169DE; box-sizing: border-box; white-space: nowrap; }
+#addNewFood					{ right: 50%; margin-right: 5px; }
+#addNewExercise				{ left:  50%; margin-left: 5px; }
+
 #addNewWrapper				{ opacity: 0; position: absolute; top: 75px; bottom: 66px; left: 12px; right: 12px; min-height: 325px; background-color: #fff; display: block; z-index: 99; overflow: hidden; display: block; -webkit-transform: translate3d(0, 0, 0); background-image: -webkit-linear-gradient(#fff,#fefefe); -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); }
 body.ios7 #addNewWrapper	{ top: 91px; }
 #addNewWrapper.show			{ opacity: 1; }
@@ -1168,31 +1198,77 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 
 
 
- 
+ /*
 
 #tabMyCatsBlock li					{ display: block; height: 18px; padding: 9px; background-color: #fff; }
 #tabMyCatsBlock li+li		{ border-top: 1px solid #eee; }
-#tabMyCatsBlock					{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
-#tabMyCatsBlock.out				{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+*/
 /*
 #pageSlideFood.out				{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
 #newWindowWrapper { opacity: 1 !important; }
 */
 
+/*#////////////////#//
+//#// CATEGORIES //#//
+//#////////////////#*/
+#tabMyCatsBlock						{ display: block; background-color: #fff;
+
+-webkit-perspective: 1000;
+
+}
+#tabMyCatsBlock						{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+#tabMyCatsBlock.out					{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+#tabMyCatsBlock li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; }
+#tabMyCatsBlock li div				{ margin-left: 54px; display: block; margin-right: 0px;
+
+ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+ 
+ }
+ 
+ 
+#tabMyCatsBlock li+li div			{ border-top: 1px solid #eee; }
+#tabMyCatsBlock li.activeRow		{ background-color: #eee; color: #555; }
+#tabMyCatsBlock li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: " ";  z-index: 99; }
+#tabMyCatsBlock ul li:after			{ font-family: "FontAwesome"; content: "\f105"; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
+#tabMyCatsBlock ul li div {
+
+
+} 
 
 
 
+/*ICONS*/
+#tabMyCatsBlock div:before	{ font-family: "FontAwesome"; text-indent: 15px; font-size: 28px; width: 20px; text-align: left !important; color: #000; 
+position: absolute; top: 0; left: 0; 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+/*.closer #appContent { display: none; }*/
+#cat0300, #cat3500					{ display: none !important; }
+#cat0000 div:before 				{ content: "\F17D"; top: -2px !important; color: #D55621 !important; } /*0000: "Exercises"*/
+#cat0100 div:before 				{ content: "\C010"; } /*0100: "Dairy (Cheese, Milk, Eggs)"*/
+#cat0200 div:before 				{ content: "\C020"; } /*0200: "Spices and Herbs"*/
+#cat0300 div:before 				{ content: "\C030"; } /*0300: "Baby Foods"*/
+#cat0400 div:before 				{ content: "\C040"; } /*0400: "Fats and Oils"*/
+#cat0500 div:before 				{ content: "\C050"; } /*0500: "Chicken"*/
+#cat0600 div:before 				{ content: "\C060"; } /*0600: "Soups & Sauces"*/
+#cat0700 div:before 				{ content: "\C070"; } /*0700: "Sausages & Processed Meats"*/
+#cat0800 div:before 				{ content: "\C080"; } /*0800: "Breakfast Cereals"*/
+#cat0900 div:before 				{ content: "\C090"; } /*0900: "Fruits"*/
+#cat1000 div:before 				{ content: "\C100"; } /*1000: "Pork"*/
+#cat1100 div:before 				{ content: "\C110"; } /*1100: "Vegetables"*/
+#cat1200 div:before 				{ content: "\C120"; } /*1200: "Nuts and Seeds"*/
+#cat1300 div:before 				{ content: "\C130"; } /*1300: "Meat"*/
+#cat1400 div:before 				{ content: "\C140"; } /*1400: "Beverages"*/
+#cat1500 div:before 				{ content: "\C150"; } /*1500: "Fish and seafood"*/
+#cat1600 div:before 				{ content: "\C160"; } /*1600: "Legumes"*/
+#cat1700 div:before 				{ content: "\C170"; font-size: 42px !important; font-size: 42px !important; left: -8px !important; } /*1700: "Lamb, Veal & others"*/
+#cat1800 div:before 				{ content: "\C180"; } /*1800: "Breads & Baked Products"*/
+#cat1900 div:before 				{ content: "\C190"; } /*1900: "Sweets"*/
+#cat2000 div:before 				{ content: "\C200"; } /*2000: "Pasta, Rice (Cereal Grains)"*/
+#cat2100 div:before 				{ content: "\C210"; } /*2100: "Fast Foods"*/
+#cat2200 div:before 				{ content: "\C220"; top: -4px !important; } /*2200: "Meals"*/
+#cat2500 div:before 				{ content: "\C250"; } /*2500: "Snacks"*/
+#cat3500 div:before 				{ content: "\C350"; } /*3500: "Native Foods"*/
+#cat3600 div:before 				{ content: "\C360"; } /*3600: "Restaurant Foods"*/
+#cat9999 div:before 				{ content: "\C999"; } /*9999: "Miscenaleous"*/
 

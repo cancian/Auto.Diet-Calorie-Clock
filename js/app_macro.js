@@ -1308,6 +1308,7 @@ function daysLeft() {
 				$("body").removeClass("full trial");
 				$("body").addClass("expired");
 				window.localStorage.setItem("config_mode","expired");
+				window.localStorage.setItem("config_install_time",(new Date().getTime()) - (60*60*24*8*1000));
 				expireNotice();
 				getAnalytics('expired');
 			}
@@ -2021,61 +2022,33 @@ function getCategory(catId,callback) {
 			//////////////
 			// FAV LIST //
 			//////////////
-			orType = '';
+			var orType = '';
 			if(catId == "9999") {
 				orType = ', "food"';
 			}
 			if(catId == "0000") {
 				orType = ', "exercise"';
 			}
-//			if(rType == "fav") {type IN ('0000', 'exercise')"
 			t.executeSql('select * from diary_food where TYPE IN (?' + orType + ') order by TERM COLLATE NOCASE ASC',[catId],function(t,results) {
 				callback(fixResults(results));
-				
-				//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
 			});
 			});
-			////////////////////////
-			// FOOD~EXERCISE LIST //
-			////////////////////////
-	//		} else {
-//				t.executeSql('select * from diary_food where length(CODE)=14 AND TYPE=? order by TERM COLLATE NOCASE ASC',[rType],function(t,results) {
-		//			callback(fixResults(results));
-					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
-					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
-	//			});
-//			}
-//		});
 	} else {
-		/*
 		//////////////
 		// FAV LIST //
 		//////////////
-		if(rType == "fav") {
-			//////////
-			// SORT //
-			//////////
-			var favArray = lib2.query("diary_food",{fib: "fav"});
-			favArray = favArray.sort(function(a, b) {
-				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
-	   		 });
-			callback(favArray);
-		////////////////////////
-		// FOOD~EXERCISE LIST //
-		////////////////////////			
-		} else {
-			//////////
-			// SORT //
-			//////////
-			var CustomsArray = lib2.query("diary_food",function(row) { if(row.type == rType && row.code.slice(0, 1) == "c") { return true; }});
-			CustomsArray = CustomsArray.sort(function(a, b) {
-				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
-			});
-			callback(CustomsArray);			
-		}
-		//	 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
-		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
-		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }*/
+			var orType = '';
+			if(catId == "9999") {
+				orType = 'food';
+			}
+			if(catId == "0000") {
+				orType = 'exercise';
+			}
+			var favArray = lib2.query("diary_food",function(row) { if(row.type == catId || row.type == orType) { return true; }});
+				favArray = favArray.sort(function(a, b) {
+					return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
+	   			 });
+				callback(favArray);
 	}
 }
 
@@ -2097,7 +2070,7 @@ function sortObject(obj) {
 
 
 
-function getCatList() {
+function getCatList(callback) {
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
@@ -2109,7 +2082,7 @@ function getCatList() {
 	$.each(sortObject(helpTopics), function (key, value) {
 		//if(key && value) {
 		//topicId++;
-		helpHtml = helpHtml + "<li id='cat" + value[0] + "'>" + value[1] + "</li>";
+		helpHtml = helpHtml + "<li id='cat" + value[0] + "'><div>" + value[1] + "</div></li>";
 		//}
 	});
 	/////////////////////
@@ -2118,10 +2091,46 @@ function getCatList() {
 	///////////////////////
 	// INSERT TOPIC LIST //
 	///////////////////////
-	$("#addNewExercise").remove();
 	$("#tabMyCatsBlock").html('<ul>' + helpHtml + '</ul>');
 	$('#tabMyCatsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 
+	if(callback == 'open') { callbackOpen(); }
+
+	var catDeTap = 0;
+	//TOPIC HANDLERS	
+	$("#tabMyCatsBlock li").on(touchstart,function(evt) {
+		catDeTap = 0;
+		if(!isMobile.iOS()) {
+			//evt.preventDefault();
+		}
+			$(this).addClass("activeRow");
+	});
+	
+	var deCatRow;
+	
+
+
+	$("#tabMyCatsBlock,#tabMyCatsBlock li").on(touchend + " mouseout scroll",function(evt) {
+		clearTimeout(deCatRow);
+		deCatRow = setTimeout(function() {
+			$(".activeRow").removeClass("activeRow");
+		},25);
+		//evt.preventDefault();
+		//evt.stopPropagation();
+	});
+
+	$("#tabMyCatsBlock,#tabMyCatsBlock li").on(touchmove,function(evt) {
+		catDeTap++;
+		if(catDeTap > 6 || isMobile.Android()) {
+			//clearTimeout(deCatRow);
+			deCatRow = setTimeout(function() {
+				$(".activeRow").removeClass("activeRow");
+			},25);
+		}
+		//evt.preventDefault();
+		//evt.stopPropagation();
+	});
+	
 	//$("#tabMyExercisesBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
 	/*
 
@@ -2176,13 +2185,20 @@ function getCatList() {
 	//////////////////////////////////
 	// content-builder self-handler //
 	//////////////////////////////////
-	$("#tabMyCatsBlock li").on(tap, function (evt) {
-		getCategory((evt.target.id).replace('cat', ''), function (data) {
+	$("#tabMyCatsBlock div").on(tap, function (evt) {
+		if(!$(this).parent('li').hasClass('activeRow')) { 
+			return; 
+		} else {
+			clearTimeout(deCatRow);
+		}
+		var catCode = ($(this).parent('li').attr('id')).replace('cat', '');
+		
+		getCategory(catCode, function (data) {
 			//////////
 			// HTML //
 			//////////
-			var catList = '';
-			var catLine = '';
+			var catListHtml = '';
+			var catLine     = '';
 			for(var c=0, len=data.length; c<len; c++) {
 			//$.each(list, function (c, data) {
 				//if(c && data) {
@@ -2207,17 +2223,50 @@ function getCatList() {
 					var favClass = (data[c].fib == "fav") ? 'favItem' : '';
 					var Ktype = (data[c].type == '0000' || data[c].type == 'exercise') ? 'exercise' : 'food';
 					catLine = "<div class='searcheable " + favClass + " " + Ktype + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + Ktype + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + Ktype + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + Ktype + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>" + data[c].car + "</span><span class='foodFat " + Ktype + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>" + data[c].fat + "</span></div>";
-					catList += catLine;
+					catListHtml += catLine;
 				//}
 			}//);
+			//EMPTY
+			if(catListHtml == '') {
+				catListHtml = '<span id="noMatches"> ' + LANG.NO_ENTRIES[lang] +' </span>';
+			}
 			/////////////
 			// HANDLER //
 			/////////////
 			var catListHandler = function () {
+				$("#newWindow").addClass('firstLoad');
+				
+
+//////////////////////
+// ENDSCROLL LOADER //
+//////////////////////
+var catLock = 0;
+var catTimer;
+$('#newWindow').scroll(function() {
+	clearTimeout(catTimer);
+	blockModal = true;
+	catTimer = setTimeout(function() {
+		blockModal = false;
+		//
+		var catlistHeight = $('#newWindow').height() * .5;
+		if(catLock != 0)                  { return; }
+		if(!$('#newWindow').hasClass("firstLoad")) { return; }
+		//console.log("scrolled: " + $('#appContent').scrollTop() + " total: " + entryListHeight);
+		if($('#newWindow').scrollTop()+500 > catlistHeight) {
+			catLock = 1;
+			$("#newWindow").removeClass('firstLoad');
+			//updateEntries('','full');
+		}
+	},300);
+	});
+
+
+
 				$("#tabMyCatsBlock").addClass('out');
 				setTimeout(function () {
 					$("#newWindowWrapper").on(transitionend, function () {
 						$("#pageSlideFood").hide();
+						$(".activeRow").removeClass("activeRow");
 					});
 				}, 1);
 				//////////////////
@@ -2246,110 +2295,18 @@ function getCatList() {
 			// CLOSER //
 			////////////
 			var catListCloser = function () {
+				if(isMobile.Windows()) {
+					$("#tabMyCatsBlock").removeClass('out');
+				}
 				$("#pageSlideFood").show();
 				setTimeout(function () {
-					$("#tabMyCatsBlock").removeClass('out');
+					$("#tabMyCatsBlock").removeClass('out');	
 				}, 0);
 			}
 			/////////////////
 			// CALL WINDOW //
 			/////////////////
-			getNewWindow(LANG.FOOD_CATEGORIES[lang][(evt.target.id).replace('cat', '')], catList, catListHandler, '', catListCloser);
+			getNewWindow(LANG.FOOD_CATEGORIES[lang][catCode], catListHtml, catListHandler, '', catListCloser,'sideload','flush');
 		});
-		//$("#tabMyExercisesBlock2").html(catList);
-		//$("#tabMyExercisesBlock2").show();
-		//setTimeout(function() {
-		//	$("#tabMyExercisesBlock").addClass("out");
-		//	$("#tabMyExercisesBlock2").addClass("open");
-		//	niceResizer();
-		//},100);
-
-		//////////
-		// HTML //
-		//////////
-		/////////////
-		// ACTIONS //
-		/////////////
-
-
-		/////////////
-		// callback context
-		/////////////
-
-
-		//alert(catList);
-
-		/*
-		if(startLock != 0) { return; }
-		if(!$(this).hasClass("activeRow")) { return; }
-		//reapply style
-		$(this).addClass("activeRow");
-		//PASS CONTENT
-		var subTitle   = $("#" + $(this).attr("id") + " .topicTitle").html();
-		var subContent = $("#" + $(this).attr("id") + " .topicContent").html();
-		//BUILD SUB-CONTENT
-		$("body").append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
-		$("#appSubHelper").hide();
-		$("#appSubHelper").css("top",($("#appHeader").height()) + "px");
-		$("#appSubHelper").height($("#appContent").height());
-		$("#appSubHelper").css("bottom",($("#appFooter").height()) + "px");
-		$("#appSubHelper").show();
-
-		 */
-
-		///////////////////////////////
-		// SUB-CONTENT ANIMATION END //
-		///////////////////////////////
-		/*
-		setTimeout(function() {
-		//ios horiz-scrolling crazy bug
-		//$("#appSubHelper").height($("#appContent").height());
-		},0);
-		$('#appSubHelper').on(transitionend,function(e) {
-		niceResizer();
-		//IF CLOSED
-		if(!$('#appSubHelper').hasClass("open")) {
-		$('#appSubHelper').remove();
-		setTimeout(function() {
-		$('#appHelper').css("width","100%");
-		//restore visibility
-		$(".nicescroll-rails").css("display","block");
-		},100);
-		//IF OPENED
-		} else {
-		$(".activeRow").removeClass("activeRow");
-		//SCROLLER
-		if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
-		setTimeout(function() {
-		$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-		},100);
-		} else {
-		//wp8 transision
-		$("#appSubHelper").css("overflow","auto");
-		}
-		}
-		setTimeout(function() {
-		$('#appSubHelper').css("width","100%");
-		},100);
-		});
-		//SUB-CONTENT HANDLERS
-		$("#subBackButton").on(touchend,function() {
-		//remove
-		$("#appSubHelper").removeClass("open");
-		$("#appHelper").removeClass("out");
-		//hide on transision
-		$(".nicescroll-rails").css("display","none");
-		});
-		//////////////////////
-		// OPEN SUB-CONTENT //
-		//////////////////////
-		setTimeout(function() {
-		//smooth transition (wp8)
-		$("#appSubHelper").css("overflow","hidden");
-		$("#appSubHelper").addClass("open");
-		$("#appHelper").addClass("out");
-		//$("#appContent").getNiceScroll().remove();
-		},50);
-		 */
 	});
 }

@@ -575,11 +575,16 @@ $(document).on("pageReload", function(evt) {
 	///////////////
 	// CREATE DB //
 	///////////////
-	$('#pageSlideFood').on(transitionend,function(evt) {
-		updateFoodDb();
-		$("#appHeader").addClass("closer");
-		$("body").addClass("closer");
-	});
+	var pageSlideTimer;
+	pageSlideTimer = setTimeout(function() {
+		clearTimeout(pageSlideTimer);
+		$('#pageSlideFood').on(transitionend,function(evt) {
+			updateFoodDb();
+			$("#appHeader").addClass("closer");
+			$("body").addClass("closer");
+			$('#pageSlideFood').off(transitionend);
+		});
+	},50);
 	///////////////
 	// FOOD HTML //
 	///////////////
@@ -600,6 +605,7 @@ $(document).on("pageReload", function(evt) {
 	if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#foodList").css("overflow","hidden");
 		setTimeout(function(){
+			//$("body").addClass("closer");
 			$("#foodList").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder:"1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
 			$("body").trigger("resize");
 		},300);
@@ -611,6 +617,7 @@ $(document).on("pageReload", function(evt) {
 	// handler //
 	/////////////
 	$("#foodList").scroll(function() {
+		//$("body").addClass("closer");
 		blockModal = true;
 		clearTimeout(modalTimer);
 		modalTimer = setTimeout(function() { blockModal = false; },300);
@@ -1212,9 +1219,42 @@ function updateCustomList(filter,callback) {
 		//////////
 		var menuBlock = (filter == "fav") ? '#tabMyFavsBlock' : '#tabMyItemsBlock';
 		
-		
+
+
+		//////////
+		// HTML //
+		//////////
+		if(filter != "fav") {
+			customFavList += '\
+				<div id="addNewFood">' + LANG.NEW_FOOD[lang] +'</div>\
+				<div id="addNewExercise">' + LANG.NEW_EXERCISE[lang] +'</div>\
+			';
+			$(menuBlock).css("min-height", ($('#foodList').height() - 128) + "px");
+		} else {
+			$(menuBlock).css("min-height", ($('#foodList').height()) + "px");
+		}
 		$(menuBlock).html(customFavList);
-		//$('#tabMyFavsBlock').css("min-height", ($('#foodList').height()) + "px");
+
+
+
+
+	/////////////
+	// ACTIONS //
+	/////////////
+	$("#addNewFood").on(touchstart, function(evt) {
+		addNewItem({type:"food",act:"insert"});
+	});
+	$("#addNewExercise").on(touchstart, function(evt) {
+		addNewItem({type:"exercise",act:"insert"});
+	});
+	//////////
+	// HTML //
+	//////////
+	//$("#addNewExercise").remove();
+	//$("#tabMyItemsBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.NEW_EXERCISE[lang] +'</div>');
+	//$('#tabMyItemsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+
+
 		//////////////
 		// HANDLERS //
 		//////////////
@@ -1317,7 +1357,7 @@ function updateFoodList(callback) {
 		// HTML //
 		//////////
 		$("#addNewFood").remove();
-		$("#tabMyFavsBlock").html(customFoodList + '<div id="addNewFood">' + LANG.ADD_NEW_FOOD[lang] +'</div>');
+		$("#tabMyFavsBlock").html(customFoodList + '<div id="addNewFood">' + LANG.NEW_FOOD[lang] +'</div>');
 		$('#tabMyFavsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 		/////////////
 		// ACTIONS //
@@ -1428,9 +1468,9 @@ getCustomList("exercise",function(data) {
 	//////////
 	// HTML //
 	//////////
-	$("#addNewExercise").remove();
-	$("#tabMyItemsBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
-	$('#tabMyItemsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+	//$("#addNewExercise").remove();
+	//$("#tabMyItemsBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.NEW_EXERCISE[lang] +'</div>');
+	//$('#tabMyItemsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 	/////////////
 	// ACTIONS //
 	/////////////
@@ -1563,13 +1603,9 @@ $("#foodList").html("<div id='menuTopBar'>\
 if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	//reset blocks
 	$("#tabMyCatsBlock,#tabMyFavsBlock,#tabMyItemsBlock").html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
-
 	$("#addNewFood").remove();
-	$("#tabMyFavsBlock").after('<div id="addNewFood">' + LANG.ADD_NEW_FOOD[lang] +'</div>');
-	$('#tabMyFavsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
-
 	$("#addNewExercise").remove();
-	$("#tabMyItemsBlock").after('<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
+	$("#tabMyItemsBlock").after('<div id="addNewFood">' + LANG.NEW_FOOD[lang] +'</div><div id="addNewExercise">' + LANG.NEW_EXERCISE[lang] +'</div>');
 	$('#tabMyItemsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 	//////////////
 	// HANDLERS //
@@ -1589,19 +1625,16 @@ if(window.localStorage.getItem("foodDbLoaded") != "done") {
 	var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 0:100;
 	var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 0:100;
 	setTimeout(function() {
-		getCatList(); 
-		
+//		getCatList(); 
+		getCatList('open');
 	},tabTimer1);
 	setTimeout(function() { 
-	
 	 //updateFavList('open'); 
-	 updateCustomList('fav','open');
-	 
-	    },tabTimer2);
+		updateCustomList('fav','open');
+    },tabTimer2);
 	setTimeout(function() { 
-	
 	//updateFoodList('open'); 
-	updateCustomList('items','open'); 
+		updateCustomList('items','open'); 
 	//updateExerciseList('open'); 
 	
 	
@@ -2498,6 +2531,9 @@ function getModalWindow(itemId) {
 										$("body").removeClass("overlay");
 									});
 									$("#appHeader").trigger(touchstart);
+									setTimeout(function() {
+										$("#appHeader").trigger(touchstart);
+									},400)
 									$('#entryBody').width(window.innerWidth -58);
 									$("#entryBody").animate({ backgroundColor: "#ffff88" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.36)"},1500);
 								},preFillTimer);
