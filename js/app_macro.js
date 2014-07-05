@@ -2068,8 +2068,10 @@ function sortObject(obj) {
     return arr; // returns array
 }
 
-
-
+var catDeTap = 0;
+var deCatRow;
+var catBlock = 0;
+var catBlockTimer;
 function getCatList(callback) {
 	//STARTLOCK
 	var startLock = 1;
@@ -2096,36 +2098,46 @@ function getCatList(callback) {
 	//$('#tabMyCatsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 
 
-	var catDeTap = 0;
+
 	//TOPIC HANDLERS	
 	$("#tabMyCatsBlock li").on(touchstart,function(evt) {
 		catDeTap = 0;
 		if(!isMobile.iOS()) {
 			//evt.preventDefault();
 		}
+		clearTimeout(catBlockTimer);
+		if(catBlock == 0) {
 			$(this).addClass("activeRow");
+		}
+		catBlock = 0;
 	});
 	
-	var deCatRow;
-	
+	$("#foodList").on("scroll",function(evt) {
+		$("#appContent").hide();
+		catBlock = 1;
+		clearTimeout(catBlockTimer);
+		catBlockTimer = setTimeout(function() {
+			$("#appContent").show();
+			catBlock = 0;
+		},100);
+	});
 
-
-	$("#tabMyCatsBlock,#tabMyCatsBlock li").on(touchend + " mouseout scroll",function(evt) {
+	$("#tabMyCatsBlock,#tabMyCatsBlock li").on(touchend + " mouseout",function(evt) {
 		clearTimeout(deCatRow);
 		deCatRow = setTimeout(function() {
 			$(".activeRow").removeClass("activeRow");
-		},25);
+		},100);
 		//evt.preventDefault();
 		//evt.stopPropagation();
 	});
 
 	$("#tabMyCatsBlock,#tabMyCatsBlock li").on(touchmove,function(evt) {
 		catDeTap++;
-		if(catDeTap > 6 || isMobile.Android()) {
-			//clearTimeout(deCatRow);
+		clearTimeout(deCatRow);
+		if(catDeTap > 12 || isMobile.Android()) {
 			deCatRow = setTimeout(function() {
 				$(".activeRow").removeClass("activeRow");
-			},25);
+			},100);
 		}
 		//evt.preventDefault();
 		//evt.stopPropagation();
@@ -2188,12 +2200,13 @@ function getCatList(callback) {
 	$("#tabMyCatsBlock div").on(tap, function (evt) {
 		if(!$(this).parent('li').hasClass('activeRow')) { 
 			return; 
-		} else {
-			clearTimeout(deCatRow);
 		}
+		clearTimeout(deCatRow);
 		var catCode = ($(this).parent('li').attr('id')).replace('cat', '');
 		
+		$(this).parent('li').addClass('activeRow');
 		getCategory(catCode, function (data) {
+
 			//////////
 			// HTML //
 			//////////
@@ -2244,9 +2257,7 @@ var catLock = 0;
 var catTimer;
 $('#newWindow').scroll(function() {
 	clearTimeout(catTimer);
-	blockModal = true;
 	catTimer = setTimeout(function() {
-		blockModal = false;
 		//
 		var catlistHeight = $('#newWindow').height() * .5;
 		if(catLock != 0)                  { return; }
@@ -2255,7 +2266,10 @@ $('#newWindow').scroll(function() {
 		if($('#newWindow').scrollTop()+500 > catlistHeight) {
 			catLock = 1;
 			$("#newWindow").removeClass('firstLoad');
-			//updateEntries('','full');
+			setTimeout(function () {
+				//$("#newWindow").trigger('resize');
+				niceResizer();
+			}, 100);		
 		}
 	},300);
 	});
@@ -2266,9 +2280,8 @@ $('#newWindow').scroll(function() {
 				setTimeout(function () {
 					$("#newWindowWrapper").on(transitionend, function () {
 						$("#pageSlideFood").hide();
-						$(".activeRow").removeClass("activeRow");
 					});
-				}, 1);
+				}, 0);
 				//////////////////
 				// MODAL CALLER //
 				//////////////////
@@ -2295,18 +2308,20 @@ $('#newWindow').scroll(function() {
 			// CLOSER //
 			////////////
 			var catListCloser = function () {
+				$(".activeRow").removeClass("activeRow");
 				if(isMobile.Windows()) {
 					$("#tabMyCatsBlock").removeClass('out');
 				}
 				$("#pageSlideFood").show();
 				setTimeout(function () {
-					$("#tabMyCatsBlock").removeClass('out');	
+					$("#tabMyCatsBlock").removeClass('out');
+					niceResizer();
 				}, 0);
 			}
 			/////////////////
 			// CALL WINDOW //
 			/////////////////
-			getNewWindow(LANG.FOOD_CATEGORIES[lang][catCode], catListHtml, catListHandler, '', catListCloser,'sideload','flush');
+			getNewWindow(LANG.FOOD_CATEGORIES[lang][catCode], catListHtml, catListHandler, '', catListCloser, 'sideload', 'flush');
 		});
 	});
 }

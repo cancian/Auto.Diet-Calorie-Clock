@@ -1387,6 +1387,7 @@ function updateNutriRatio() {
 //##/////////////////##//
 //## BUILD HELP MENU ##//
 //##/////////////////##//
+var subHelperTimer;
 function buildHelpMenu() {
 	//insert menu
 	$("#optionHelp").addClass("activeRow");
@@ -1489,17 +1490,22 @@ function buildHelpMenu() {
 		$("#appSubHelper").height($("#appContent").height());
 		$("#appSubHelper").css("bottom",($("#appFooter").height()) + "px");		
 		$("#appSubHelper").show();
-
-		
-		
-		
-		
+		/////////////
+		// SUBHIDE //
+		/////////////
+		$("#appSubHelper").on("scroll",function(evt) {
+			$("#appContent").hide();
+			clearTimeout(subHelperTimer);
+			subHelperTimer = setTimeout(function() {
+				$("#appContent").show();
+			},100);
+		});
 		///////////////////////////////
 		// SUB-CONTENT ANIMATION END //
 		///////////////////////////////
 		setTimeout(function() {
 			//ios horiz-scrolling crazy bug
-			//$("#appSubHelper").height($("#appContent").height());
+			$("#appSubHelper").height($("#appContent").height());
 		},0);
 		$('#appSubHelper').on(transitionend,function(e) { 
 			niceResizer();
@@ -1669,17 +1675,17 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			$("#newWindowWrapper").on(transitionend,function() {
 				//$('#appContent').css('pointer-events','auto');
 				//$('body').removeClass('newwindow');
-				$('#newWindowWrapper').remove();
-				setPush();
-			});
-			
+				//$('#newWindowWrapper').remove();
+				//setPush();
+			});	
 			setTimeout(function() {
+				$('#newWindowWrapper').hide();
+				$('#newWindowWrapper').remove();
 				$('#appContent').css('pointer-events','auto');
 				$('body').removeClass('newwindow');
-				$('#newWindowWrapper').remove();
 				setPush();				
 			},400);
-			kickDown();
+			//kickDown();
 		});
 	});
 }
@@ -1830,6 +1836,7 @@ function niceResizer() {
 		$("#foodList").getNiceScroll().resize();
 		$("#appHelper").getNiceScroll().resize();
 		$("#appSubHelper").getNiceScroll().resize();
+		$("#newWindow").getNiceScroll().resize();
 	}
 }
 //#/////////////#//

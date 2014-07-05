@@ -66,8 +66,8 @@ body.android ::-webkit-scrollbar{ display: none; }
 /*#////////////#//
 //# APP HEADER #//
 //#////////////#*/
-#appHeader					{ height: 62px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 50; }
-#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0;  pointer-events: none; }
+#appHeader					{ height: 62px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; }
+#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; pointer-events: none; z-index: 70; -webkit-backface-visibility: hidden; }
 /*status colors 316ADC 5890FF           457CEE 457BEE 5B89F0 */
 .surplus #editable,
 .surplus #appHeader		{ color: #fff !important; background-color: #309030 !important; font-weight: 300; }
@@ -107,7 +107,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 /*//////////////////////////////
 // DAILY CALORIES INPUT ALIGN //
 //////////////////////////////*/
-#editableDiv					{ color: transparent; height: 62px; background-color: rgba(0,0,0,0) !important; text-indent: 150px; position: absolute; top: 0; right: 0; display: block; width: 100px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 51; overflow: hidden; }
+#editableDiv					{ color: transparent; height: 62px; background-color: rgba(0,0,0,0) !important; text-indent: 150px; position: absolute; top: 0; right: 0; display: block; width: 100px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 71; overflow: hidden; }
 /*onfocus*/
 input#editable					{ position: absolute; top: 13px; right: 9px; display: block !important; width: 75px !important; height: 29px; font-size: 24px !important; line-height: 24px; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; }
 /*pixel adjusts*/
@@ -377,7 +377,6 @@ z-index: 60;
 
 .closer #newWindowWrapper { bottom: 0 !important; }
 */
-
 
 #appContent							{ pointer-events: normal; }
 .newwindow #appContent				{ pointer-events: none !important; }
@@ -1213,17 +1212,15 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 //#// CATEGORIES //#//
 //#////////////////#*/
 #tabMyCatsBlock						{ display: block; background-color: #fff;
-
 -webkit-perspective: 1000;
-
 }
-#tabMyCatsBlock						{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+#tabMyCatsBlock						{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; -webkit-transform:translateZ(0,0,0); }
 #tabMyCatsBlock.out					{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
 #tabMyCatsBlock li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; }
 #tabMyCatsBlock li div				{ margin-left: 54px; display: block; margin-right: 0px;
 
- white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
- 
+white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+
  }
  
  

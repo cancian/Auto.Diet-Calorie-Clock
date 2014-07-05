@@ -71,7 +71,7 @@ function appTimer(id,content) {
 	//REPLACE
 	function updateHeader() {
 		if(appHeader == kcalsHtmlOutput) { return; }
-		$("#appHeader").html("");
+		//$("#appHeader").html("");
 		$("#appHeader").html(kcalsHtmlOutput);
 		appHeader = kcalsHtmlOutput;
 	}
