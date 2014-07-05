@@ -115,7 +115,7 @@ function openSettings(string) {
 	});
 	//SET USERNAME (IF LOGGED)
 	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
-		$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
+		$("#optionFacebook span").html(LANG.LOGGED_IN_AS[lang] + ' ' + window.localStorage.getItem("facebook_username"));
 	}
 	////////////////
 	// ACTIVE ROW //

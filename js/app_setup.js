@@ -1986,7 +1986,7 @@ function updateLoginStatus(sync) {
 	if(window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_username")) {
 		$("body").addClass("appFacebook");
 		$("#appFooter").addClass("appFacebook");
-		$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO_LOGGED_AS[lang] + window.localStorage.getItem("facebook_username"));
+		$("#optionFacebook span").html(LANG.LOGGED_IN_AS[lang] + ' ' + window.localStorage.getItem("facebook_username"));
 		if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
 	} else {
 		getLogoutFB(1);
