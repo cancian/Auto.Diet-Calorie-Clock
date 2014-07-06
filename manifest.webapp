@@ -21,10 +21,10 @@
 	"installs_allowed_from" : [
 		"*"
 	],
-	"version" : "1.2.8",
+	"version" : "1.2.9",
 	"default_locale" : "en-us",
 	"name" : "Calorie Counter",
-	"size": 3612346,
+	"size": 1612346,
 	"description" : "Kcals shows how fast you burn calories.",
 	"locales" :
 	{

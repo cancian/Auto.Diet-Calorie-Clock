@@ -2098,9 +2098,14 @@ function getCatList(callback) {
 	//$('#tabMyCatsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
 
 
-
 	//TOPIC HANDLERS	
 	$("#tabMyCatsBlock li").on(touchstart,function(evt) {
+		
+		if($("#foodSearch").is(":focus")) {
+			$("#foodSearch").trigger("blur");
+			return;
+		};
+		
 		catDeTap = 0;
 		if(!isMobile.iOS()) {
 			//evt.preventDefault();
@@ -2314,14 +2319,14 @@ $('#newWindow').scroll(function() {
 				}
 				$("#pageSlideFood").show();
 				setTimeout(function () {
-					$("#tabMyCatsBlock").removeClass('out');
+					$("#tabMyCatsBlock").removeClass('out');	
 					niceResizer();
 				}, 0);
 			}
 			/////////////////
 			// CALL WINDOW //
 			/////////////////
-			getNewWindow(LANG.FOOD_CATEGORIES[lang][catCode], catListHtml, catListHandler, '', catListCloser, 'sideload', 'flush');
+			getNewWindow(LANG.FOOD_CATEGORIES[lang][catCode], catListHtml, catListHandler, '', catListCloser,'sideload','flush');
 		});
 	});
 }

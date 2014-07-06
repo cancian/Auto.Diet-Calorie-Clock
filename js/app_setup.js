@@ -1666,6 +1666,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			evt.stopPropagation();
 			if(closer) { closer(); }
 			$('#appContent').css('pointer-events','none');
+			$('#foodSearch').css('pointer-events','none');
 			$("#newWindowWrapper").off();
 			$("#newWindow").getNiceScroll().remove();
 			setTimeout(function() {
@@ -1682,9 +1683,10 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 				$('#newWindowWrapper').hide();
 				$('#newWindowWrapper').remove();
 				$('#appContent').css('pointer-events','auto');
+				$('#foodSearch').css('pointer-events','auto');
 				$('body').removeClass('newwindow');
 				setPush();				
-			},400);
+			},500);
 			//kickDown();
 		});
 	});

@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="12800" 
-        version   = "1.2.8">
+        versionCode="12900" 
+        version   = "1.2.9">
 
 	<content src="index.html" />
 	<access origin="*" />
