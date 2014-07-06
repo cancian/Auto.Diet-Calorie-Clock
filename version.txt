@@ -2,11 +2,10 @@
 ## VERSION LOG ##
 #################
 # 1.2.9 [2014/07/05]
-• Added categories to food database
-• Custom foods/exercises now share the same tab
-• Favorite items are now highlighted on listings
+• The database now has food categories 
+• Personalized items share the same tab 
+• Favorite Items get highlighted in the listing 
 • Improved header navigation
-• 
 
 # 1.2.8 [2014/06/28]
 • Added: "Advanced settings" section

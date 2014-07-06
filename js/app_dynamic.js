@@ -783,7 +783,7 @@ function searchFood(searchSQL,callback) {
 		var doType = (typeTerm == 'exercise') ? doType = "type IN ('0000', 'exercise')" : "type != '0000' AND type != 'exercise'";
 	db.transaction(
 		function(t) {
-			t.executeSql("SELECT * FROM diary_food WHERE " + doType + " AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 60",[],
+			t.executeSql("SELECT * FROM diary_food WHERE " + doType + " AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 100",[],
 			function(t,results) {
 				callback(fixResults(results));
 		},errorHandler);
@@ -858,7 +858,7 @@ function searchFood(searchSQL,callback) {
 		
 		var mou = [];
 		//for(var u=0, lenu=mi.length; u<lenu; u++) {
-		for(var u=0, lenu=mi.length; u<50; u++) {
+		for(var u=0, lenu=mi.length; u<100; u++) {
 			if(mi[u]) {
 		mou.push(mi[u].value);
 		}
@@ -1950,7 +1950,7 @@ $('#addNewWrapper input[type="number"]').on(defaultInputAddNew, function(evt) {
 //# CONFIRM ADD #//
 //#/////////////#//
 var lockAdd = 0;
-$("#addNewConfirm").on(touchstart, function(evt) {
+$("#addNewConfirm").off().on(touchstart, function(evt) {
 	if(lockAdd == 0) {
 		lockAdd++;
 		// INSERT NEW ? UPDATE EXISTING 

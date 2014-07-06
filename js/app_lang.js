@@ -8402,7 +8402,7 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 		"1300": "Carne bovina",
 		"1400": "Bebidas",
 		"1500": "Peixes e frutos do mar",
-		"1600": "Legumes",
+		"1600": "Leguminosas",
 		"1700": "Cordeiro, vitela & outros",
 		"1800": "Pães e panificados",
 		"1900": "Doces",

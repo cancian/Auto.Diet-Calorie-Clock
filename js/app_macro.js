@@ -2271,10 +2271,13 @@ $('#newWindow').scroll(function() {
 		if($('#newWindow').scrollTop()+500 > catlistHeight) {
 			catLock = 1;
 			$("#newWindow").removeClass('firstLoad');
+			kickDown();
+			return false;
 			setTimeout(function () {
-				//$("#newWindow").trigger('resize');
 				niceResizer();
-			}, 100);		
+				kickDown();
+				return false;
+			}, 100);
 		}
 	},300);
 	});

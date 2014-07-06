@@ -1575,6 +1575,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		<div id='newWindow'>" + content + "</div>\
 	</div>");
 	$("#newWindowWrapper").hide();
+	$("#newWindow").hide();
 	//configure ui
 	if(direction == "sideload") {
 		$("#newWindowWrapper").addClass('sideload');
@@ -1594,6 +1595,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	}
 	
 	$("#newWindowWrapper").show();
+	$("#newWindow").show();
 	//
 	$("#newWindow").css("top",($("#newWindowHeader").height()+1) + "px");
 	$('body').addClass('newwindow');
