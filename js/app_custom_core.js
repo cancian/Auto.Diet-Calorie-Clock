@@ -493,6 +493,7 @@ function updateTimer() {
 					}					
 				}
 			}
+			//simultaneous windows flicker ~
 			updateNutriBars(tPro,tCar,tFat);
 			if(tPro != window.localStorage.getItem("tPro"))				{ window.localStorage.setItem("tPro",tPro); }
 			if(tCar != window.localStorage.getItem("tCar"))				{ window.localStorage.setItem("tCar",tCar); }

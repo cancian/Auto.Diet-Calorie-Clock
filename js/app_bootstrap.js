@@ -126,6 +126,7 @@ function InitializeLocalSuperBlock(opt) {
 	$.ajax({type: "GET", dataType: "text", url: "js/app_lib.js",         success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: "js/app_lang.js",        success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: "js/app_setup.js",       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: "js/app_macro.js",       success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: "js/app_build.js",       success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: "js/app_static.js",      success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: "js/app_dynamic.js",     success: function(raw) { dataJS  = dataJS  + raw;
@@ -143,7 +144,7 @@ function InitializeLocalSuperBlock(opt) {
 	$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
 	$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
 	//
-	}});}});}});
+	}});}});}});}});
 	}});}});}});
 	}});}});
 	}});
@@ -161,6 +162,7 @@ function buildRemoteSuperBlock(opt) {
 	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_lib.js",         error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_lang.js",        error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_setup.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_macro.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_build.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_static.js",      error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_dynamic.js",     error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
@@ -179,14 +181,20 @@ function buildRemoteSuperBlock(opt) {
 		$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
 		$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
 	}
+	var updatePending = 0;
+	
 	if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
 		window.localStorage.setItem("remoteSuperBlockJS",dataJS);
+		updatePending = 1;
 	}
 	if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
 		window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
+		updatePending = 1;		
 	}
+	
+	if(updatePending == 1) { alert('upp updated, would you like to restart?'); }
 	//
-	}});}});}});
+	}});}});}});}});
 	}});}});}});
 	}});}});
 	}});

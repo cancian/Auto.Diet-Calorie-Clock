@@ -141,18 +141,22 @@ if(navigator.userAgent.match(/MSApp/i)) {
 	}});}});
 	}});
 }, false);
-
-
-
+///////////////
+// BOOTSTRAP //
+///////////////
 } else {
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_macro.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_build.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
+	if(window.localStorage.getItem("config_autoupdate") == "o(-_-)n") {
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
+	} else {
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_macro.js'><\/script>");
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_build.js'><\/script>");
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_static.js'><\/script>");
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
+	}
 }
 
 

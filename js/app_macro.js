@@ -1635,16 +1635,15 @@ function buildAdvancedMenu() {
 			</div>\
 		<div id='advancedMenu'></div>\
 	</div>");
-
-		//$("body").append("<div id='langSelect'></div>");
-		$("#advancedMenuWrapper").css("top",($("#appHeader").height()) + "px");
-		$("#advancedMenuWrapper").height($("#appContent").height());
-		$("#advancedMenuWrapper").css("bottom",($("#appFooter").height()) + "px");
-		
+	//HEIGHT
+	$("#advancedMenuWrapper").css("top",($("#appHeader").height()) + "px");
+	$("#advancedMenuWrapper").height($("#appContent").height());
+	$("#advancedMenuWrapper").css("bottom",($("#appFooter").height()) + "px");
 
 //
 	$("#advancedMenu").html("\
 	<ul>\
+		<li id='advancedAutoUpdate'>" + LANG.CHANGELOG[lang] + "</li>\
 		<li id='advancedChangelog'>" + LANG.CHANGELOG[lang] + "</li>\
 		<li id='advancedReview'>" + LANG.REVIEW[lang] + "</li>\
 		<li id='advancedContact'>" + LANG.CONTACT[lang] + "</li>\
@@ -1658,27 +1657,36 @@ function buildAdvancedMenu() {
 	</ul>\
 	");
 
+$("#advancedAutoUpdate").remove();
+$("#advancedAutoUpdate").append("<div>\
+		<input id='appAutoUpdateToggle' class='toggle' type='checkbox' checked>\
+		<label for='appAutoUpdateToggle'></label>\
+</div>");
+		
+
 	//set default
-	if(!window.localStorage.getItem("appMode")) {
-		window.localStorage.setItem("appMode","direct");
+	if(!window.localStorage.getItem("config_autoupdate")) {
+		window.localStorage.setItem("config_autoupdate","off");
 	}
 		
 
 	//read stored
-	if(window.localStorage.getItem("appMode") == "inverted") {
-		$("#appModeToggle").prop('checked',true);
+	if(window.localStorage.getItem("config_autoupdate") == "on") {
+		$("#appAutoUpdateToggle").prop('checked',true);
 	}
 
 	//read changes
-	$('#appModeToggle').on("change",function(obj) {
+	$('#appAutoUpdateToggle').on("change",function(obj) {
 		if($('#appModeToggle').prop('checked')) {
-			appMode = "inverted";
-			window.localStorage.setItem("appMode","inverted");
+			//appMode = "inverted";
+			//window.localStorage.setItem("appMode","inverted");
+			window.localStorage.setItem("config_autoupdate","on");
 			$("body").removeClass("direct");
 			$("body").addClass("inverted");
 		} else {
-			appMode = "direct";
-			window.localStorage.setItem("appMode","direct");
+			window.localStorage.setItem("config_autoupdate","off");
+			//appMode = "direct";
+			//window.localStorage.setItem("appMode","direct");
 			$("body").removeClass("inverted");
 			$("body").addClass("direct");
 		}
@@ -2007,50 +2015,38 @@ function buildAdvancedMenu() {
 
 
 
-
-
-
-
-
-//##////////////////##//
-//## GET CATEGORIES ##//
-//##////////////////##//
-function getCategory(catId,callback) {
-	if(arguments.length == 1) { callback = arguments[0]; }
+//##//////////////////##//
+//## GET CATEGORY~IES ##//
+//##//////////////////##//
+function getCategory(catId, callback) {
+	if(arguments.length == 1) {
+		callback = arguments[0];
+	}
 	if(hasSql) {
-		db.transaction(function(t) {
-			//////////////
-			// FAV LIST //
-			//////////////
+		db.transaction(function (t) {
 			var orType = '';
-			if(catId == "9999") {
-				orType = ', "food"';
-			}
-			if(catId == "0000") {
-				orType = ', "exercise"';
-			}
-			t.executeSql('select * from diary_food where TYPE IN (?' + orType + ') order by TERM COLLATE NOCASE ASC',[catId],function(t,results) {
+			if (catId == "9999") { orType = ', "food"';     }
+			if (catId == "0000") { orType = ', "exercise"'; }
+			t.executeSql('select * from diary_food where TYPE IN (?' + orType + ') order by TERM COLLATE NOCASE ASC', [catId], function (t, results) {
 				callback(fixResults(results));
 			});
-			});
+		});
 	} else {
-		//////////////
-		// FAV LIST //
-		//////////////
-			var orType = '';
-			if(catId == "9999") {
-				orType = 'food';
-			}
-			if(catId == "0000") {
-				orType = 'exercise';
-			}
-			var favArray = lib2.query("diary_food",function(row) { if(row.type == catId || row.type == orType) { return true; }});
-				favArray = favArray.sort(function(a, b) {
-					return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
-	   			 });
-				callback(favArray);
+		var orType = '';
+		if(catId == "9999") { orType = 'food';     }
+		if(catId == "0000") { orType = 'exercise'; }
+		var favArray = lib2.query("diary_food", function (row) {
+				if(row.type == catId || row.type == orType) {
+					return true;
+				}
+			});
+		favArray = favArray.sort(function (a, b) {
+			return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
+		});
+		callback(favArray);
 	}
 }
+
 
 
 function sortObject(obj) {
@@ -2064,28 +2060,17 @@ function sortObject(obj) {
         }
     }
     arr.sort();
-    //arr.sort(function(a, b) { a.value.toLowerCase().localeCompare(b.value.toLowerCase()); }); //use this to sort as strings
-    return arr; // returns array
+    return arr;
 }
 
-var catDeTap = 0;
-var deCatRow;
-var catBlock = 0;
-var catBlockTimer;
 function getCatList(callback) {
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
 	var helpTopics = LANG.FOOD_CATEGORIES[lang];
 	var helpHtml = "";
-	var topicId = 0;
-	//alert(sortObject(helpTopics));
-	//helpTopics.sort(function(a, b) {return a[1] - b[1]})
 	$.each(sortObject(helpTopics), function (key, value) {
-		//if(key && value) {
-		//topicId++;
 		helpHtml = helpHtml + "<li id='cat" + value[0] + "'><div>" + value[1] + "</div></li>";
-		//}
 	});
 	/////////////////////
 	// RE-INSERT INTRO //
@@ -2095,155 +2080,63 @@ function getCatList(callback) {
 	///////////////////////
 	$("#tabMyCatsBlock").html('<ul>' + helpHtml + '</ul>');
 	if(callback == 'open') { callbackOpen(); }
-	//$('#tabMyCatsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
-
-
+	setTimeout(function() { niceResizer(); },300);
 	//TOPIC HANDLERS	
 	$("#tabMyCatsBlock li").on(touchstart,function(evt) {
-		
 		if($("#foodSearch").is(":focus")) {
 			$("#foodSearch").trigger("blur");
 			return;
 		};
-		
-		catDeTap = 0;
-		if(!isMobile.iOS()) {
-			//evt.preventDefault();
-		}
+	});
+	/////////////
+	// HANDLER //
+	/////////////
+	var catBlockTap = false;
+	var catBlockTimer;
+	$("#foodList").scroll(function() {
+		catBlockTap = true;
 		clearTimeout(catBlockTimer);
-		if(catBlock == 0) {
-			$(this).addClass("activeRow");
-		}
-		catBlock = 0;
+		catBlockTimer = setTimeout(function() { catBlockTap = false; },150);
 	});
-	
-	$("#foodList").on("scroll",function(evt) {
-		$("#appContent").hide();
-		catBlock = 1;
-		clearTimeout(catBlockTimer);
-		catBlockTimer = setTimeout(function() {
-			$("#appContent").show();
-			catBlock = 0;
-		},100);
-	});
-
-	$("#tabMyCatsBlock,#tabMyCatsBlock li").on(touchend + " mouseout",function(evt) {
-		clearTimeout(deCatRow);
-		deCatRow = setTimeout(function() {
-			$(".activeRow").removeClass("activeRow");
-		},100);
-		//evt.preventDefault();
-		//evt.stopPropagation();
-	});
-
-	$("#tabMyCatsBlock,#tabMyCatsBlock li").on(touchmove,function(evt) {
-		catDeTap++;
-		clearTimeout(deCatRow);
-		if(catDeTap > 12 || isMobile.Android()) {
-			deCatRow = setTimeout(function() {
-				$(".activeRow").removeClass("activeRow");
-			},100);
-		}
-		//evt.preventDefault();
-		//evt.stopPropagation();
-	});
-	
-	//$("#tabMyExercisesBlock").html(customExerciseList + '<div id="addNewExercise">' + LANG.ADD_NEW_EXERCISE[lang] +'</div>');
-	/*
-
-	//FADE IN
-	setTimeout(function() {
-	$("#appHelper").css("opacity","1");
-	//$("#appHelper").height($("#appContent").height());
-	},0);
-	//SCROLLER
-	setTimeout(function() {
-	if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
-	$("#appHelper").css('overflow','hidden');
-	$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-	} else {
-	$("#appHelper").css('overflow','auto');
-	}
-	//UNLOCK TAP
-	setTimeout(function() {
-	startLock = 0;
-	},50);
-	},250);
-	//LIST CLOSER HANDLER
-	$("#backButton").on(touchend,function() {
-	$("#appHelper").css("opacity",0);
-	$('#appHelper').on(transitionend,function() {
-	$('#appHelper').remove();
-	});
-	});
-	var touchHelper = 0;
-	//TOPIC HANDLERS
-	$("#appHelper li").on(touchstart,function(evt) {
-	touchHelper = 0;
-	//evt.preventDefault();
-	$(this).addClass("activeRow");
-	});
-	$("#appHelper, #appHelper li").on("mouseout mouseleave",function(evt) {
-	$(".activeRow").removeClass("activeRow");
-	//evt.preventDefault();
-	});
-
-	$("#appHelper, #appHelper li").on("scroll " + touchmove,function(evt) {
-	touchHelper++;
-
-	if(touchHelper > 5 || (touchHelper > 1 && isMobile.Android())) {
-	$(".activeRow").removeClass("activeRow");
-	touchHelper = 0;
-	}
-	//evt.preventDefault();
-	//evt.stopPropagation();
-	});
-	*/
-	//////////////////////////////////
-	// content-builder self-handler //
-	//////////////////////////////////
+	///////////////////////////////////
+	// INVOKE NEWWINDOW SELF-HANDLER //
+	///////////////////////////////////
 	$("#tabMyCatsBlock div").on(tap, function (evt) {
-		if(!$(this).parent('li').hasClass('activeRow')) { 
+		if(catBlockTap == true) { 
 			return; 
+		} else {
+			catBlockTap = true;
+			clearTimeout(catBlockTimer);
+			catBlockTimer = setTimeout(function() { catBlockTap = false; },300);
 		}
-		clearTimeout(deCatRow);
-		var catCode = ($(this).parent('li').attr('id')).replace('cat', '');
-		
+		//
+		$(".activeRow").removeClass("activeRow");
 		$(this).parent('li').addClass('activeRow');
-		getCategory(catCode, function (data) {
-
+		var catCode = ($(this).parent('li').attr('id')).replace('cat', '');
+		//SQL QUERY
+		getCategory(catCode, function(data) {
 			//////////
 			// HTML //
 			//////////
 			var catListHtml = '';
 			var catLine     = '';
 			for(var c=0, len=data.length; c<len; c++) {
-			//$.each(list, function (c, data) {
-				//if(c && data) {
-					//
-					//get current weight//
-					if(!window.localStorage.getItem("calcForm#pA3B")) {
-						var totalWeight = 80;
-					} else {
-						var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
-					}
-					//convert to kg
-					if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
-						var totalWeight = Math.round( (totalWeight) / (2.2) );
-					}
-					//ADJUST TO EXERCISE
-					if(data[c].type == "0000" || data[c].type == "exercise") {
-						var cKcal = Math.round(((data[c].kcal * totalWeight) /60) * 30);
-					} else {
-						var cKcal = Math.round(data[c].kcal * 100) / 100;
-					}
-					
-					var favClass = (data[c].fib == "fav") ? 'favItem' : '';
-					var Ktype = (data[c].type == '0000' || data[c].type == 'exercise') ? 'exercise' : 'food';
-					catLine = "<div class='searcheable " + favClass + " " + Ktype + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + Ktype + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + Ktype + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + Ktype + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>" + data[c].car + "</span><span class='foodFat " + Ktype + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>" + data[c].fat + "</span></div>";
-					catListHtml += catLine;
-				//}
-			}//);
+				//get current weight
+				var totalWeight = 80;
+				if(window.localStorage.getItem("calcForm#pA3B")) {
+					totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
+				}
+				//convert to kg
+				if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
+					totalWeight = Math.round( (totalWeight) / (2.2) );
+				}
+				//ADJUST TO EXERCISE
+				var cKcal    = (data[c].type == "0000" || data[c].type == "exercise") ? Math.round(((data[c].kcal * totalWeight) / 60) * 30) : Math.round(data[c].kcal * 100) / 100;
+				var Ktype    = (data[c].type == '0000' || data[c].type == 'exercise') ? "exercise" : "food";
+				var favClass = (data[c].fib == "fav") ? "favItem" : "";
+				catLine      = "<div class='searcheable " + favClass + " " + Ktype + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + Ktype + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + Ktype + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + Ktype + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>" + data[c].car + "</span><span class='foodFat " + Ktype + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>" + data[c].fat + "</span></div>";
+				catListHtml += catLine;
+			}
 			//EMPTY
 			if(catListHtml == '') {
 				catListHtml = '<span id="noMatches"> ' + LANG.NO_ENTRIES[lang] +' </span>';
@@ -2253,47 +2146,41 @@ function getCatList(callback) {
 			/////////////
 			var catListHandler = function () {
 				$("#newWindow").addClass('firstLoad');
-				
-
-//////////////////////
-// ENDSCROLL LOADER //
-//////////////////////
-var catLock = 0;
-var catTimer;
-$('#newWindow').scroll(function() {
-	clearTimeout(catTimer);
-	catTimer = setTimeout(function() {
-		//
-		var catlistHeight = $('#newWindow').height() * .5;
-		if(catLock != 0)                  { return; }
-		if(!$('#newWindow').hasClass("firstLoad")) { return; }
-		//console.log("scrolled: " + $('#appContent').scrollTop() + " total: " + entryListHeight);
-		if($('#newWindow').scrollTop()+500 > catlistHeight) {
-			catLock = 1;
-			$("#newWindow").removeClass('firstLoad');
-			kickDown();
-			return false;
-			setTimeout(function () {
-				niceResizer();
-				kickDown();
-				return false;
-			}, 100);
-		}
-	},300);
-	});
-
-
-
+				//////////////////////
+				// ENDSCROLL LOADER //
+				//////////////////////
+				var catLock = 0;
+				var catTimer;
+				$('#newWindow').scroll(function() {
+					clearTimeout(catTimer);
+					catTimer = setTimeout(function() {
+						//
+						var catlistHeight = $('#newWindow').height() * .5;
+						if(catLock != 0)                  { return; }
+						if(!$('#newWindow').hasClass("firstLoad")) { return; }
+						if($('#newWindow').scrollTop()+500 > catlistHeight) {
+							catLock = 1;
+							$("#newWindow").removeClass('firstLoad');
+							kickDown();
+							return false;
+							setTimeout(function () {
+								niceResizer();
+								kickDown();
+								return false;
+							}, 100);
+						}
+					},300);
+				});
 				$("#tabMyCatsBlock").addClass('out');
 				setTimeout(function () {
-					$("#newWindowWrapper").on(transitionend, function () {
+					$("#newWindowWrapper").on(transitionend, function() {
 						$("#pageSlideFood").hide();
 					});
 				}, 0);
 				//////////////////
 				// MODAL CALLER //
 				//////////////////
-				$("#newWindow div.searcheable").on(singletap, function (evt) {
+				$("#newWindow div.searcheable").on(singletap, function(evt) {
 					evt.preventDefault();
 					if(blockModal == true) {
 						return;
@@ -2301,10 +2188,6 @@ $('#newWindow').scroll(function() {
 					getModalWindow($(this).attr("id"));
 				});
 				$("#newWindow div.searcheable").on(tap, function (evt) {
-					if ($("#foodSearch").is(":focus")) {
-						//$("#foodSearch").blur();
-						//return false;
-					}
 					$("#activeOverflow").removeAttr("id");
 					$(".activeOverflow").removeClass("activeOverflow");
 					$(this).addClass("activeOverflow");

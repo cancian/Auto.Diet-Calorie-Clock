@@ -836,6 +836,7 @@ function afterHide(cmd) {
 	$("#appStatusReload").off();
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
+		blockAlerts = 1; 
 		//SET CSS TRANSITION
 		$('body').css(prefix + "transition-timing-function","ease");
 		$('body').css(prefix + "transition-duration",".25s");
@@ -998,6 +999,7 @@ function updateFoodDb() {
 							window.localStorage.setItem("foodDbLoaded","done");
 							window.localStorage.setItem("foodDbVersion","2");
 							window.localStorage.removeItem("startLock");
+							setTimeout(function() { niceResizer(); },300);
 							spinner('stop');
 							if(window.localStorage.getItem("facebook_userid")) {
 								syncEntries(window.localStorage.getItem("facebook_userid"));
@@ -1039,6 +1041,7 @@ function updateFoodDb() {
 						window.localStorage.setItem("foodDbLoaded","done");
 						window.localStorage.setItem("foodDbVersion","2");
 						window.localStorage.removeItem("startLock");
+						setTimeout(function() { niceResizer(); },300);
 						spinner('stop');
 						if(window.localStorage.getItem("facebook_userid")) {
 							syncEntries(window.localStorage.getItem("facebook_userid"));
@@ -1628,6 +1631,32 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			//busy
 			$("#newWindowWrapper").removeClass('busy');
 		},250);
+		///////////////////
+		// GLOBAL CLOSER //
+		///////////////////
+		var timerCloser;
+		function windowCloser() {
+			if(closer) { closer(); }
+			$('#appContent, #foodSearch, #newWindowWrapper').css('pointer-events','none');
+			$("#newWindow").getNiceScroll().remove();
+			setTimeout(function() {
+				$("#newWindowWrapper").removeClass('open');
+				$("#newWindowWrapper").css('opacity',0);
+			},50);
+			$("#newWindowWrapper").off().on(transitionend,function() {
+				$('#newWindowWrapper').remove();
+				$('#appContent, #foodSearch').css('pointer-events','auto');
+				$('body').removeClass('newwindow');
+				clearTimeout(timerCloser);
+				setPush();	
+			});	
+			timerCloser = setTimeout(function() {
+				$('#newWindowWrapper').remove();
+				$('#appContent, #foodSearch').css('pointer-events','auto');
+				$('body').removeClass('newwindow');
+				setPush();				
+			},500);
+		}
 		///////////////////////////////////
 		// TRANSITION-PROTECTED HANDLERS //
 		///////////////////////////////////
@@ -1636,28 +1665,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		$("#saveButton").off().on(touchend,function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
-			$('#appContent').css('pointer-events','none');
+			//VALIDATION
 			if(save() == true) {
-				if(closer) { closer(); }
-				$("#newWindowWrapper").off();
-				$("#newWindow").getNiceScroll().remove();
-				setTimeout(function() {
-					$("#newWindowWrapper").removeClass('open');
-					$("#newWindowWrapper").css('opacity',0);
-				},50);
-				$("#newWindowWrapper").on(transitionend,function() {
-					//$('#appContent').css('pointer-events','auto');
-					//$('body').removeClass('newwindow');
-					$('#newWindowWrapper').remove();
-					setPush();
-				});
-				setTimeout(function() {
-					$('#appContent').css('pointer-events','auto');
-					$('body').removeClass('newwindow');
-					$('#newWindowWrapper').remove();
-					setPush();
-				},400);
-				kickDown();
+				windowCloser();
 			}
 		});
 		////////////////////
@@ -1666,30 +1676,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		$("#backButton").off().on(touchend,function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
-			if(closer) { closer(); }
-			$('#appContent').css('pointer-events','none');
-			$('#foodSearch').css('pointer-events','none');
-			$("#newWindowWrapper").off();
-			$("#newWindow").getNiceScroll().remove();
-			setTimeout(function() {
-				$("#newWindowWrapper").removeClass('open');
-				$("#newWindowWrapper").css('opacity',0);
-			},50);
-			$("#newWindowWrapper").on(transitionend,function() {
-				//$('#appContent').css('pointer-events','auto');
-				//$('body').removeClass('newwindow');
-				//$('#newWindowWrapper').remove();
-				//setPush();
-			});	
-			setTimeout(function() {
-				$('#newWindowWrapper').hide();
-				$('#newWindowWrapper').remove();
-				$('#appContent').css('pointer-events','auto');
-				$('#foodSearch').css('pointer-events','auto');
-				$('body').removeClass('newwindow');
-				setPush();				
-			},500);
-			//kickDown();
+			windowCloser();
 		});
 	});
 }

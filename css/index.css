@@ -179,7 +179,9 @@ ul#appFooter li.selected#tab4:before		{ content: "\e013"; }
 .appLang-uk #closeDiv	{ font-size: 21px; }
 #viewport				{ position: absolute; top: 0; left: 0; right: 0; bottom: 100px; background: #fff; overflow: hidden; }
 /*snapper*/
-#wrapper				{ width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0 auto; background-color: #fff; -webkit-transform: translate3d(0, 0, 0); }
+#wrapper				{ width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0 auto; background-color: #fff; -webkit-transform: translate3d(0, 0, 0); 
+z-index: 999;
+}
 .android #wrapper,
 .msie #wrapper			{ -webkit-perspective: 1000; }
 /*total width*/
@@ -321,6 +323,9 @@ input.toggle + label:before			{ top: 2px; left: 2px; bottom: 2px; right: 2px; ba
 input.toggle + label:after			{ top: 4px; left: 4px; bottom: 4px; width: 22px; background-color: #dddddd; border-radius: 12px; -webkit-transition:  all 0.1s ease .1s; }
 input.toggle:checked + label		{ background-color: #8ce196; }
 input.toggle:checked + label:after	{ margin-left: 28px; background-color: #8ce196; }
+/**/
+input.toggle						{ position: absolute; top: 0; right: 0; width: 0; height: 0; background-color: rgba(0,0,0,0); } 
+input.toggle + label				{ position: absolute; top: 20%; right: 18px; pointer-events: none; }
 /*
 input.toggle + label 				{ display: none; }
 input[type=checkbox],
@@ -337,32 +342,20 @@ input[type="radio"]:checked:after	{ left: 22px; }
 /*##///////////##//
 //## newWindow ##//
 //##///////////##*/
-#newWindowWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; 
-z-index: 15;
-}
+#newWindowWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 1000; z-index: 15; }
 #newWindowWrapper.busy				{ pointer-events: none; overflow: hidden; }
 .ios7 #newWindowWrapper				{ top: 77px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
-#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; 
-}
-
+.msapp #newWindowWrapper			{ -webkit-backface-visibility: hidden; }
 .android #newWindow					{ /*-webkit-backface-visibility: hidden;*/ -webkit-perspective: 1000; }
+#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
 #newWindowHeader #saveButton		{ color: #C6DEF9; -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; height: 44px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
 #newWindowHeader #backButton:active,
 #newWindowHeader #saveButton:active	{ color: #C6DEF9; }
-#newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 44px; color: #555; text-align: center; font-weight: bold; 
-
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  
-  
-}
-
+#newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 44px; color: #555; text-align: center; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /*
 #appContent							{ pointer-events: normal; }
 .newwindow #appContent				{ pointer-events: none !important; }
@@ -377,14 +370,11 @@ z-index: 60;
 
 .closer #newWindowWrapper { bottom: 0 !important; }
 */
-
-#appContent							{ pointer-events: normal; }
-.newwindow #appContent				{ pointer-events: none !important; }
-
-#newWindowWrapper.sideload			{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; }
-.ios7 #newWindowWrapper.sideload	{ top: 77px; }
-#newWindowWrapper.open.sideload		{ -webkit-transform: translate3d(0, 0, 0); }
-
+#appContent												{ pointer-events: auto; }
+.newwindow #appContent									{ pointer-events: none !important; }
+#newWindowWrapper.sideload								{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; background-color: #fff; overflow: hidden; }
+.ios7 #newWindowWrapper.sideload						{ top: 77px; }
+#newWindowWrapper.open.sideload							{ -webkit-transform: translate3d(0, 0, 0); }
 #newWindow.firstLoad div:nth-of-type(1n+250)			{ display: none; }
 .windows #newWindow.firstLoad div:nth-of-type(1n+50)	{ display: none; }
 .android4lt #newWindow div:nth-of-type(1n+750)			{ display: none; }
@@ -957,18 +947,12 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .appLang-id input#foodSearch,
 .appLang-el input#foodSearch,
 .appLang-bg input#foodSearch,
-.appLang-fr input#foodSearch{ font-size: 16px; }
+.appLang-fr input#foodSearch			{ font-size: 16px; }
 #foodList								{ position: absolute; width: 100%; margin: 0; z-index: 3; padding: 0; overflow: auto; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); background-color: #fff; }
-
 .android #foodList						{ background-image: -webkit-linear-gradient(#fff,#fefefe); }
 .ios #foodList							{ position: inherit; }
 #foodListWrapper						{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
-.searcheable							{ position: relative; margin: 0; padding: 12px 8px 5px 23px; min-height: 42px;  margin-bottom: 0px; overflow: hidden;
-
-/* -webkit-backface-visibility: visible; */
-
-
-}
+.searcheable							{ position: relative; margin: 0; padding: 12px 8px 5px 23px; min-height: 42px;  margin-bottom: 0px; overflow: hidden; }
 .searcheable.activeOverflow				{ background-color: #e2e2e2; }
 .searcheable ::-webkit-scrollbar		{ display: none; }
 .searcheable.noContent					{ color: #999; }
@@ -1109,8 +1093,7 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 //# MENU TOP BAR #//
 //#//////////////#*/
 #infoContents				{ background-color: #fff; display: block; position: absolute; top: 60px; left: 0; right: 0; bottom: 0; margin-top: 0; }
-#menuTopBar					{ position: absolute; top: 0px; left: 0; right: 0px; height: 34px; display: block; white-space: nowrap; z-index: 99; border-top: 18px solid #fff; border-bottom: 0px solid #fff; top: 60px; -webkit-backface-visibility:hidden; 
-margin-top: 0px; }
+#menuTopBar					{ position: absolute; top: 0px; left: 0; right: 0px; height: 34px; display: block; white-space: nowrap; z-index: 99; border-top: 12px solid #fff; border-bottom: 0 solid #fff; top: 60px; -webkit-backface-visibility:hidden; margin-top: -2px; }
 .ios7 #foodList				{ margin-top: 0; }
 #topBarItem-1,
 #topBarItem-2,
@@ -1194,52 +1177,24 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .expired #startDateSpan:before		{ display: none !important; opacity: 0 !important; }
 .expired #editableDiv 				{ pointer-events: none !important; z-index: 0; }
 .expired #appHeader 				{ pointer-events: none !important; background-color: #fc3 !important; }
-
-
-
- /*
-
-#tabMyCatsBlock li					{ display: block; height: 18px; padding: 9px; background-color: #fff; }
-#tabMyCatsBlock li+li		{ border-top: 1px solid #eee; }
-*/
-/*
-#pageSlideFood.out				{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
-#newWindowWrapper { opacity: 1 !important; }
-*/
-
 /*#////////////////#//
 //#// CATEGORIES //#//
 //#////////////////#*/
-#tabMyCatsBlock						{ display: block; background-color: #fff;
--webkit-perspective: 1000;
-}
+#tabMyCatsBlock						{ display: block; background-color: #fff; }
+.android #tabMyCatsBlock			{ display: block; background-color: #fff; -webkit-perspective: 1000; }
 #tabMyCatsBlock						{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; -webkit-transform:translateZ(0,0,0); }
 #tabMyCatsBlock.out					{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
+.msapp #tabMyCatsBlock.out,
+.windows #tabMyCatsBlock.out		{ -webkit-transform: translate3d(0, 0, 0); margin-left: -25%; }
 #tabMyCatsBlock li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; }
-#tabMyCatsBlock li div				{ margin-left: 54px; display: block; margin-right: 0px;
-
-white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
-
- }
- 
- 
+#tabMyCatsBlock li div				{ margin-left: 54px; display: block; margin-right: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #tabMyCatsBlock li+li div			{ border-top: 1px solid #eee; }
 #tabMyCatsBlock li.activeRow		{ background-color: #eee; color: #555; }
 #tabMyCatsBlock li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: " ";  z-index: 99; }
 #tabMyCatsBlock ul li:after			{ font-family: "FontAwesome"; content: "\f105"; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
-#tabMyCatsBlock ul li div {
-
-
-} 
-
-
-
+#tabMyCatsBlock ul li div			{ } 
 /*ICONS*/
-#tabMyCatsBlock div:before	{ font-family: "FontAwesome"; text-indent: 15px; font-size: 28px; width: 20px; text-align: left !important; color: #000; 
-position: absolute; top: 0; left: 0; 
-}
-
-/*.closer #appContent { display: none; }*/
+#tabMyCatsBlock div:before	{ font-family: "FontAwesome"; text-indent: 15px; font-size: 28px; width: 20px; color: #000; position: absolute; top: 0; left: 0; }
 #cat0300, #cat3500					{ display: none !important; }
 #cat0000 div:before 				{ content: "\F17D"; top: -2px !important; color: #D55621 !important; } /*0000: "Exercises"*/
 #cat0100 div:before 				{ content: "\C010"; } /*0100: "Dairy (Cheese, Milk, Eggs)"*/
