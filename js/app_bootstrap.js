@@ -303,6 +303,7 @@ function buildRemoteSuperBlock(opt) {
 	////////////////////
 	if(updatePending == 1) {
 		getAnalytics('autoupdate');
+		window.localStorage.setItem("app_build",appBuild);
 		window.localStorage.setItem("app_restart_pending",true);
 		if(window.localStorage.getItem("app_notify_update")) {
 			setTimeout(function() {
