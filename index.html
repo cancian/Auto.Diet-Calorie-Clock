@@ -18,7 +18,7 @@
 		if((typeof updateTimer != 'function') && ((document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) || (window.localStorage.getItem("remoteSuperBlockJS") || window.localStorage.getItem("remoteSuperBlockCSS")))) {
 			window.localStorage.removeItem("remoteSuperBlockJS");
 			window.localStorage.removeItem("remoteSuperBlockCSS");
-			window.localStorage.removeItem("config_debug");
+			window.localStorage.removeItem("app_autoupdate_hash");
 			window.location.reload(true);
 		}
 	},autoReload);

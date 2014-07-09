@@ -22,21 +22,51 @@ $(document).ready(function() {
 		console.log(error);
 	}
 });
+////////////////////
+// UPDATE TRACKER //
+////////////////////
+setTimeout(function() { 
+	if(!window.localStorage.getItem("app_build")) {
+		window.localStorage.setItem("app_build",appBuild);
+	}
+	if(window.localStorage.getItem("app_build") != appBuild) {
+		window.localStorage.setItem("app_build",appBuild);
+		getAnalytics('update'); 
+	}
+},5000);
 ////////////////
 // RESUME EVT //
 ////////////////
 var resumeTimeout;
-$(document).on("resume",function() { 
+$(document).on('resume',function() {
+	//silent restart
+	if(window.localStorage.getItem("app_restart_pending")) {
+		window.localStorage.removeItem("app_restart_pending");
+		if(window.MyReload) {
+			window.MyReload.reloadActivity();
+		} else {
+			window.location.reload(true);
+		}
+	}
 	clearTimeout(resumeTimeout);
 	$('body').removeClass('hidenotice');
+	noteContent = '';
 	resumeTimeout = setTimeout(function() { 
 		if(window.localStorage.getItem("config_mode") == 'expired') { expireNotice(); }
 		updateLoginStatus(1);
 		getAnalytics('resume');
+		buildRemoteSuperBlock('cached');
+		//SHOWHIDE NOTICE
 		$('#timerTrial').fadeOut(100,function() {
-			$('body').addClass('hidenotice');
+			noteContent = LANG.DAYS_LEFT[lang] + ': ' + daysLeft();
+			$('#timerTrial').fadeIn(300);
+			setTimeout(function() { 
+				$('#timerTrial').fadeOut(100,function() {
+					$('body').addClass('hidenotice');
+				});
+			},5000);
 		});
-	},4500);
+	},5000);
 });
 //##///////////##//
 //## START APP ##//
@@ -46,15 +76,26 @@ try {
 ///////////////
 // KICKSTART //
 ///////////////
-setTimeout(function() { getAnalytics('init'); },0);
+setTimeout(function() {
+	window.localStorage.removeItem("app_restart_pending");
+	getAnalytics('init'); 
+	getAnalytics('update');
+},0);
 setTimeout(function() { 
 	if(window.localStorage.getItem("config_mode") == 'expired') { expireNotice(); }
 	updateLoginStatus(1);
-	getAnalytics('startApp'); 
+	getAnalytics('startApp');
+	//SHOWHIDE NOTICE
 	$('#timerTrial').fadeOut(100,function() {
-		$('body').addClass('hidenotice');
+		noteContent = LANG.DAYS_LEFT[lang] + ': ' + daysLeft();
+		$('#timerTrial').fadeIn(300);
+		setTimeout(function() { 
+			$('#timerTrial').fadeOut(100,function() {
+				$('body').addClass('hidenotice');
+			});
+		},5000);
 	});
-},4500);
+},5000);
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -715,6 +756,7 @@ setInterval(function() {
 	// blur edit / entrybody //
 	/////////////////////////// BETA ~ ~ ~
 	$('#appHeader,#appContent').on(touchstart, function(evt) {
+		$("#appContent").show();
 		//evt.preventDefault();
 		//evt.stopPropagation();
 		$("#editable").blur();
@@ -772,6 +814,10 @@ setInterval(function() {
 	var editableTimeout;
 	$('div.editable').on(tap, function(evt) {
 		//evt.preventDefault();
+		     if($("#subBackButton").length)		{ return; }
+		else if($("#advBackButton").length)		{ return; }
+		else if($("#backButton").length)		{ return; }
+		else if($("#langSelect").length)		{ return; }
 		//if(window.innerWidth - evt.pageX > 150) { return; }
 		//not with sidemenu
 		if(!$('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open') && !$('#pageSlideFood').is(":animated") ) {

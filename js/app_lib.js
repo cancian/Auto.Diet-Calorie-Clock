@@ -23,7 +23,7 @@ var loadingDivTimer;
 var timerPerf           = (new Date().getTime());
 var timerDiff           = 100;
 var timerWait           = 100;
-var noTimer;  
+var noTimer; 
 var ref;
 var preTab;
 var afterTab;
@@ -31,6 +31,7 @@ var timerKcals;
 var rebuildHistory;
 var blockModal = false;
 var modalTimer;
+var noteContent = '';
 jQuery.support.cors     = true
 function voidThis()   { }
 function voidMe()     { }
@@ -476,10 +477,8 @@ if (navigator.userAgent.match(/MSApp/i)) {
 //# Base64 encode / decode #// 
 //#////////////////////////#// http://www.webtoolkit.info
 var Base64 = {
-
 	// private property
 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-
 	// public method for encoding
 	encode : function (input) {
 		var output = "";
@@ -656,4 +655,36 @@ scriptLoader.load([
 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js',
 ]);
 */
- 
+//##//////////////////##//
+//## APP CONFIRM LAYER ##//
+//##///////////////////##//
+function appConfirm(title, msg, callback, ok, cancel) {
+	if (!ok) {
+		ok = LANG.OK[lang];
+	}
+	if (!cancel) {
+		cancel = LANG.CANCEL[lang];
+	}
+	if (isMobile.MSApp()) {
+		var md = new Windows.UI.Popups.MessageDialog(msg, title);
+		md.commands.append(new Windows.UI.Popups.UICommand(ok));
+		md.commands.append(new Windows.UI.Popups.UICommand(cancel));
+		md.showAsync().then(function (command) {
+			if (command.label == LANG.RATE_IT[lang]) {
+				callback(1);
+			}
+			if (command.label == cancel) {
+				callback(0);
+			}
+		});
+	} else if (isMobile.Cordova()) {
+		navigator.notification.confirm(msg, callback, title, [ok, cancel]);
+	} else {
+		if (confirm(title + "\n" + msg)) {
+			callback(1);
+		} else {
+			callback(0);
+		}
+	}
+}
+

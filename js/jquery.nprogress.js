@@ -249,7 +249,12 @@
 
   NProgress.getPositioningCSS = function() {
     // Sniff on document.body.style
-    var bodyStyle = document.body.style;
+	var bodyStyle = 'Perspective';
+	if(document.body) {
+		bodyStyle = document.body.style;
+	} else {
+		return 'translate3d';	
+	}
 
     // Sniff prefixes
     var vendorPrefix = ('WebkitTransform' in bodyStyle) ? 'Webkit' :

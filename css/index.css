@@ -1,5 +1,5 @@
 ﻿html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
-body.msapp 								{ overflow: hidden !important; }
+body.msapp 								{ overflow: hidden !important; } 
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 #appContent,#pageSlideFood				{ -ms-touch-action: pan-y; touch-action: pan-y; }
 html,body,input,select,textarea,
@@ -22,11 +22,11 @@ body > *,h2,input[readonly]				{ -webkit-touch-callout: none; -webkit-text-size-
 input,select,textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #ffffff; color: #000000; background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
 select::-ms-expand						{ display: none; }
-input::-ms-clear						{ display: none; width : 0; height: 0; }
-::selection								{ background: rgba(0,0,0,0);  color: inherit; }
-::-ms-selection							{ background: rgba(0,0,0,0);  color: inherit; }
-::-moz-selection						{ background: rgba(0,0,0,0);  color: inherit; }
-::-webkit-selection						{ background: rgba(0,0,0,0);  color: inherit; }
+input::-ms-clear						{ display: none; width: 0; height: 0; }
+::selection								{ background: rgba(0,0,0,0); color: inherit; }
+::-ms-selection							{ background: rgba(0,0,0,0); color: inherit; }
+::-moz-selection						{ background: rgba(0,0,0,0); color: inherit; }
+::-webkit-selection						{ background: rgba(0,0,0,0); color: inherit; }
 input::selection						{ background: rgba(0,0,0,.1); color: inherit; }
 input::-ms-selection					{ background: rgba(0,0,0,.1); color: inherit; }
 input::-moz-selection					{ background: rgba(0,0,0,.1); color: inherit; }
@@ -286,7 +286,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #advancedMenuList						{	}
 #advancedMenu ul						{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 #advancedMenu ul:before					{ position: absolute; bottom: 0; left: 0; width: 100%; height: 0px; background-color: #eee; display: block; content: ''; border-bottom: 1px solid #eee; z-index: 1; }
-#advancedMenu ul li						{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; white-space: nowrap; }
+#advancedMenu ul li						{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; white-space: nowrap; overflow: hidden; }
 #advancedMenu ul li+li					{ border-top: 1px solid #eee; }
 #advancedMenu ul li.activeRow			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 #advancedMenu ul li.activeRow:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }
@@ -1222,5 +1222,5 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #cat2500 div:before 				{ content: "\C250"; } /*2500: "Snacks"*/
 #cat3500 div:before 				{ content: "\C350"; } /*3500: "Native Foods"*/
 #cat3600 div:before 				{ content: "\C360"; } /*3600: "Restaurant Foods"*/
-#cat9999 div:before 				{ content: "\C999"; } /*9999: "Miscenaleous"*/
+#cat9999 div:before					{ content: "\C999"; } /*9999: "Miscenaleous"*/
 

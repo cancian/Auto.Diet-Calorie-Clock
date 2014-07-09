@@ -1,5 +1,5 @@
 ﻿var appName     = "Kcals";
-var appVersion  = "1.2.9 (12900)";
+var appVersion  = "1.2.9 (12905)";
 var appBuild    = appVersion.split(" ")[1].replace("(","").replace(")",""); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(" ")[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|hi|hr|hu|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
@@ -613,13 +613,11 @@ var LANG = {
 		zh : '好，让我们开始吧',
 		zt : '好，讓我們開始吧',
 	},
-//Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your caloric balance. \	a
 	INTRO_SLIDE_1 : {
 		en : '\
 Kcals is designed to help you control your calorie intake. \
 Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your calorie balance. \
 ',
-//Seja para manter, perder ou ganhar peso, este aplicativo vai ajudar você a manter o foco no que importa: seu balanço calórico. \
 		pt : '\
 Kcals é projetado para ajudá-lo a controlar sua ingestão de calorias. \
 Seja para manter, perder ou ganhar peso, este aplicativo vai ajudá-lo a focar no que importa: seu balanço calórico. \
@@ -777,12 +775,6 @@ Kcals 旨在幫助您控制您的卡路里攝入量。 \
 無論你是想保持，失去或體重增加，這個應用程序將幫助你專注於什麼是重要的：你的熱量平衡。 \
 ',
 	},
-//The idea is simple. Define a target (daily calories) and keep yourself "balanced" within this purpose. 
-//The app indicates when you have eaten too much (status: "excess") or too little (status: "deficit"). 
-//Calories from food will be added to the total. Calorie expenditure (including training) will be deducted from the total.
-
-//The idea is simple. Define a goal (daily calories), and keep yourself "balanced" in the context of this goal.
-
 	INTRO_SLIDE_2 : {
 		en : '\
 The idea is simple. Define a goal (daily calories) and keep yourself "balanced" in the context of this goal. \
@@ -865,16 +857,11 @@ Aplikasi ini akan menunjukkan bila Anda sudah makan terlalu banyak (kelebihan), 
 הרעיון הוא פשוט. הגדרת מטרה (הצריכה יומית) ולשמור על עצמך "מאוזן" בהקשר של מטרה זו. \
 היישום יציג כאשר אתה אוכל יותר מדי (עודף) או מעט מדי (גרעון). \
 ',
-//Set a goal (daily calories).
-//And preserve "Balance" in the context of this goal.
 		ja : '\
 考えは簡単である。 \
 目標は（毎日のカロリー）を設定します。 \
 そしてこの目標の文脈で「バランス」を保つ。 \
 ',
-//Set a goal (daily calories).
-//And you should stay "Balanced"
-//In the context of this objective.
 		ko : '\
 아이디어는 간단하다. \
 합니다를 설정목표 (하루 칼로리), 그리고 당신은해야 유지"균형" 이 목적의 문맥에서. \
@@ -1014,8 +1001,6 @@ Makanan kalori akan ditambahkan ke total. Kalori yang Anda bakar (termasuk olahr
 		iw : '\
 קלוריות ממזון תתווסף לסך הכל. קלוריות שנשרפו (כולל פעילות גופנית) יהיו מופחתים בסך הכל. \
 ',
-//Calories from food is added to the total. 
-//Calorie consumption will be deducted from the total. 
 		ja : '\
 食品からのカロリーは合計に追加されます。 \
 カロリー消費量は合計から差し引かれます。 \
@@ -1083,12 +1068,6 @@ Calo từ thức ăn sẽ được thêm vào tổng số. Calo bị đốt chá
 消耗的熱量（包括運動）會從總數中減去。 \
 ',
 	},
-//The elapsed time is converted into calories burned. 
-//Therefore, your caloric balance is reduced automatically throughout the day. 
-//Think of it in terms of fuel consumption.
-//Elapsed time is converted into calories burned. 
-//Therefore, your caloric balance will be reduced automatically throughout the day. \
-//Think of it in terms of fuel consumption. \
 	INTRO_SLIDE_4 : {
 		en : '\
 Elapsed time is converted into calories burned. \
@@ -7322,6 +7301,132 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 		vi : 'Khôi phục cơ sở dữ liệu thực phẩm',
 		zh : '重新导入数据库食物',
 		zt : '重新導入數據庫食物',
+	},
+	AUTO_UPDATE : {
+		en : 'Automatic Updates',
+		pt : 'Atualizações Automáticas',
+		ar : 'التحديثات التلقائية',
+		bg : 'Автоматични Актуализации',
+		ca : 'Actualitzacions Automàtiques',
+		cs : 'Automatické Aktualizace',
+		da : 'Automatiske Opdateringer',
+		de : 'Automatische Updates',
+		el : 'Αυτόματες Ενημερώσεις',
+		es : 'Actualizaciones Automáticas',
+		et : 'Automaatsed Uuendused',
+		fa : 'به روز رسانی خودکار',
+		fi : 'Automaattiset Päivitykset',
+		fr : 'Mises à jour automatiques',
+		hi : 'स्वचालित अपडेट',
+		hr : 'Automatska Ažuriranja',
+		hu : 'Automatikus Frissítések',
+		it : 'Aggiornamenti Automatici',
+		id : 'Pembaruan Otomatis',
+		iw : 'עדכונים אוטומטיים',
+		ja : '自動更新',
+		ko : '자동 업데이트',
+		lt : 'Automatiniai Atnaujinimai',
+		lv : 'Automātiskie Atjauninājumi',
+		ms : 'Kemas Kini Automatik',
+		nl : 'Automatische Updates',
+		nb : 'Automatiske Oppdateringer',
+		pl : 'Aktualizacje Automatyczne',
+		ro : 'Actualizări Automate',
+		ru : 'Автоматические Обновления',
+		sk : 'Automatické Aktualizácie',
+		sl : 'Samodejne Posodobitve',
+		sr : 'Аутоматско Ажурирање',
+		sv : 'Automatiska Uppdateringar',
+		th : 'การปรับปรุงอัตโนมัติ',
+		tr : 'Otomatik Güncelleştirmeler',
+		uk : 'Автоматичне Оновлення',
+		vi : 'Cập nhật tự động',
+		zh : '自动更新',
+		zt : '自動更新',
+	},
+	APP_UPDATED : {
+		en : 'The app has been updated.',
+		pt : 'O aplicativo foi atualizado.',
+		ar : 'تم تحديث التطبيق.',
+		bg : 'Молбата е била актуализирана.',
+		ca : '',
+		cs : '',
+		da : '',
+		de : '',
+		el : '',
+		es : '',
+		et : '',
+		fa : '',
+		fi : '',
+		fr : '',
+		hi : '',
+		hr : '',
+		hu : '',
+		it : '',
+		id : '',
+		iw : '',
+		ja : '',
+		ko : '',
+		lt : '',
+		lv : '',
+		ms : '',
+		nl : '',
+		nb : '',
+		pl : '',
+		ro : '',
+		ru : '',
+		sk : '',
+		sl : '',
+		sr : '',
+		sv : '',
+		th : '',
+		tr : '',
+		uk : '',
+		vi : '',
+		zh : '',
+		zt : '',
+	},
+	RESTART_NOW : {
+		en : 'Would you like to restart now?',
+		pt : 'Gostaria de reiniciar agora?',
+		ar : ' ',
+		bg : '',
+		ca : '',
+		cs : '',
+		da : '',
+		de : '',
+		el : '',
+		es : '',
+		et : '',
+		fa : '',
+		fi : '',
+		fr : '',
+		hi : '',
+		hr : '',
+		hu : '',
+		it : '',
+		id : '',
+		iw : '',
+		ja : '',
+		ko : '',
+		lt : '',
+		lv : '',
+		ms : '',
+		nl : '',
+		nb : '',
+		pl : '',
+		ro : '',
+		ru : '',
+		sk : '',
+		sl : '',
+		sr : '',
+		sv : '',
+		th : '',
+		tr : '',
+		uk : '',
+		vi : '',
+		zh : '',
+		zt : '',
 	},
 	SETTINGS_ADVANCED : {
 		en : "Advanced Settings",

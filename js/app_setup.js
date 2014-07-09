@@ -1,21 +1,4 @@
-﻿//////////////////////
-// AJAX ERROR CODES //
-//////////////////////
-$.support.cors = true;
-$.ajaxSetup({cache: false, error: function(jqXHR, exception) {
-		 if(jqXHR.status === 0)           { errorHandler('Not connect.\n Verify Network.');         } 
-	else if (jqXHR.status == 404)         { errorHandler('Requested page not found. [404]');        }  
-	else if (jqXHR.status == 500)         { errorHandler('Internal Server Error [500].');           } 
-	else if (exception === 'parsererror') { errorHandler('Requested JSON parse failed.');           } 
-	else if (exception === 'timeout')     { errorHandler('Time out error.');                        } 
-	else if (exception === 'abort')       { errorHandler('Ajax request aborted.');                  } 
-	else                                  { errorHandler('Uncaught Error.\n' + jqXHR.responseText); }
-	setTimeout(function() { 
-		NProgress.done();
-		spinner('stop'); 
-	},6000);
-}});
-////////////////
+﻿////////////////
 // SHOW INTRO //
 ////////////////
 var myScroll;
@@ -180,7 +163,7 @@ function initDB(t) {
 			lib.commit();
 		}
 		if(!lib2.tableExists("diary_food")) {
-			lib2.createTable("diary_food",  ["id", "type", "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
+			lib2.createTable("diary_food", ["id", "type", "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
 			lib2.commit();
 		}
 		//add id column
@@ -237,7 +220,7 @@ function clearEntries(callback) {
 function localStorageSql() {
 	var keyList = "";
 	//start
-	if(window.localStorage.getItem("config_start_time") && window.localStorage.getItem("appStatus") == "running")  {
+	if(window.localStorage.getItem("config_start_time") && window.localStorage.getItem("appStatus") == "running") {
 		keyList = keyList + "#@@@#" + "config_start_time" + "#@@#" + window.localStorage.getItem("config_start_time");
 		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + window.localStorage.getItem("appStatus");
 	} else {
@@ -1568,7 +1551,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	// HTML //
 	//////////
 	$("#newWindowWrapper").remove();
-	$("#appContent").after("\
+	var newContent = "\
 	<div id='newWindowWrapper'>\
 		<div id='newWindowHeader'>\
 			<div id='backButton'></div>\
@@ -1576,7 +1559,14 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			<div id='newWindowTitle'>" + title + "</div>\
 			</div>\
 		<div id='newWindow'>" + content + "</div>\
-	</div>");
+	</div>";
+	if(navigator.userAgent.match(/MSApp/i)) {
+		MSApp.execUnsafeLocalFunction(function() {
+			$("#appContent").after(newContent);
+		});
+	} else {
+		$("#appContent").after(newContent);
+	}
 	$("#newWindowWrapper").hide();
 	$("#newWindow").hide();
 	//configure ui
@@ -1608,7 +1598,13 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	// EXEC HANDLERS //
 	///////////////////
 	if(handlers) {
-		handlers();
+		if(navigator.userAgent.match(/MSApp/i)) {
+			MSApp.execUnsafeLocalFunction(function() {
+				handlers();
+			});
+		} else {
+			handlers();
+		}
 	}
 	////////////////////
 	// TRANSISION END //
@@ -1636,7 +1632,15 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		///////////////////
 		var timerCloser;
 		function windowCloser() {
-			if(closer) { closer(); }
+			if(closer) {
+				if(navigator.userAgent.match(/MSApp/i)) {
+					MSApp.execUnsafeLocalFunction(function() {
+						closer();
+					});
+				} else {
+					closer();
+				}		
+			}
 			$('#appContent, #foodSearch, #newWindowWrapper').css('pointer-events','none');
 			$("#newWindow").getNiceScroll().remove();
 			setTimeout(function() {

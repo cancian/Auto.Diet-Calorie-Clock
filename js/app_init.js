@@ -38,7 +38,9 @@ window.onerror = function(e, url, line) {
 // VIEWPORT //
 //////////////
 if(navigator.userAgent.match(/MSApp/i)) { hostLocal = ''; }
-
+//##/////////##//
+//## INIT JS ##//
+//##/////////##//
 function initJS() {
 if(navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
 	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');
@@ -145,9 +147,10 @@ if(navigator.userAgent.match(/MSApp/i)) {
 // BOOTSTRAP //
 ///////////////
 } else {
-	if(window.localStorage.getItem("config_autoupdate") == "o(-_-)n") {
+	if(window.localStorage.getItem("config_autoupdate") == "on") {
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
 	} else {
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js' id='plainLoad'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");

@@ -2,6 +2,8 @@
 ## KCALS PHP BACKEND ##
 #######################
 ##
+header("access-control-allow-origin: *");
+header("cache-control: no-cache");
 /*
 $userdata  = file_get_contents('js/cordova.js');
 $userdata .= file_get_contents('js/facebook-js-sdk.js');
@@ -25,6 +27,31 @@ $userdata .= file_get_contents('js/calculator.js');
 $userdata .= file_get_contents('js/carpe_slider.js');
 $userdata .= file_get_contents('js/galocalstorage.js');
 */
+
+//include localhost on check
+
+//try strlen instead of md5
+if($_GET['type'] == 'md5') {
+	$userdata = '';
+	header('content-type: text/plain; charset=utf-8');
+	$userdata .= file_get_contents('js/app_lib.js');
+	$userdata .= file_get_contents('js/app_lang.js');
+	$userdata .= file_get_contents('js/app_setup.js');
+	$userdata .= file_get_contents('js/app_macro.js');
+	$userdata .= file_get_contents('js/app_build.js');
+	$userdata .= file_get_contents('js/app_static.js');
+	$userdata .= file_get_contents('js/app_dynamic.js');
+	$userdata .= file_get_contents('js/app_custom_core.js');
+	$userdata .= file_get_contents('css/index.css');
+	$userdata .= file_get_contents('css/fonts.css');
+	$size = strlen(utf8_decode($userdata))-10;
+	$pos1 = strpos($userdata,'appVersion');
+	$line = substr($userdata,$pos1,40);
+	preg_match('#\((.*?)\)#', $line, $match);
+	print $match[1].','.$size;
+	die();
+}	
+
 if($_GET['type'] == 'js') {
 	header('content-type: text/javascript; charset=utf-8');
 	$userdata .= file_get_contents('js/app_lib.js');
@@ -39,17 +66,14 @@ if($_GET['type'] == 'js') {
 
 if($_GET['type'] == 'css') {
 	header('content-type: text/css; charset=utf-8');
-	$userdata .= file_get_contents('css/fonts.css');
 	$userdata .= file_get_contents('css/index.css');
+	$userdata .= file_get_contents('css/fonts.css');
 }
-//$userdata += file_get_contents('js/index.js');
-//$userdata += file_get_contents('js/fonts.js');
 
 if($_GET['type']) {
-	header("access-control-allow-origin: *");
-	header("cache-control: no-cache");
 	print $userdata;
 }
+
 
 /*if($_GET && $_POST)   { die(); }
 if(!$_GET && !$_POST) { die(); }

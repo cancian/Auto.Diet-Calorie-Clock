@@ -54,18 +54,23 @@ function appTimer(id,content) {
 	//global
 	timerKcals = kcalsInput;
 	//$("#timerKcals p").html(kcalsInput);
-	//$("#timerDaily p").html(eqPerDay);
+	//$("#timerDaily p").html(eqPerDay);  
 	var kcalsHtmlOutput = "";
 	kcalsHtmlOutput     += "<div id='timerBlocks'>";
 	kcalsHtmlOutput     += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG.CALORIC_BALANCE[lang] + "</span></div>";
 	kcalsHtmlOutput     += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG.DAILY_CALORIES[lang] + "</span></div>"; //" + LANG.KCAL[lang] + " / " + LANG.DAY[lang] + "
 	//trial notice
 	if(!isPaid()) {
-		if(daysLeft == 0) { 
-			kcalsHtmlOutput += "<div id='timerTrial'>"   + LANG.EVALUATION_EXPIRED[lang] + "</div>";
+		if(daysLeft == 0) {
+			if(noteContent == '') {
+				noteContent = LANG.EVALUATION_EXPIRED[lang];
+			}
 		} else {
-			kcalsHtmlOutput += "<div id='timerTrial'>"   + LANG.EVALUATION_VERSION[lang] + "</div>";
+			if(noteContent == '') {
+				noteContent = LANG.EVALUATION_VERSION[lang];
+			}
 		}
+		kcalsHtmlOutput += "<div id='timerTrial'>" + noteContent + "</div>";
 	}
 	kcalsHtmlOutput     += "</div>";
 	//REPLACE

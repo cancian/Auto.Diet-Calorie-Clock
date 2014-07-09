@@ -1328,7 +1328,7 @@ function isPaid() {
 	// ANDROID CHECK //
 	///////////////////
 	//isMobile.iOS() || 
-	if(isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) {
+	if((isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) && isCordova()) {
 		//start trial
 		if(!window.localStorage.getItem("config_install_time")) {
 			window.localStorage.setItem("config_install_time",new Date().getTime());
@@ -1621,29 +1621,25 @@ function billingWindow() {
 //## ADVANCED MENU ##//
 //##///////////////##//
 function buildAdvancedMenu() {
-	//contats
-	//reset food database
-	//reset settings
-	
-	//evt.preventDefault();
 	$("#advancedMenuWrapper").remove();
 	$("body").append("\
 	<div id='advancedMenuWrapper'>\
 		<div id='advancedMenuHeader'>\
 			<div id='advBackButton'></div>\
 			<div id='advancedMenuTitle'>" + LANG.SETTINGS_ADVANCED[lang] + "</div>\
-			</div>\
+		</div>\
 		<div id='advancedMenu'></div>\
 	</div>");
-	//HEIGHT
+	//WRAPPER HEIGHT
 	$("#advancedMenuWrapper").css("top",($("#appHeader").height()) + "px");
-	$("#advancedMenuWrapper").height($("#appContent").height());
 	$("#advancedMenuWrapper").css("bottom",($("#appFooter").height()) + "px");
-
-//
+	$("#advancedMenuWrapper").height($("#appContent").height());
+	///////////////
+	// CORE HTML //
+	///////////////
 	$("#advancedMenu").html("\
 	<ul>\
-		<li id='advancedAutoUpdate'>" + LANG.CHANGELOG[lang] + "</li>\
+		<li id='advancedAutoUpdate'>" + LANG.AUTO_UPDATE[lang] + "</li>\
 		<li id='advancedChangelog'>" + LANG.CHANGELOG[lang] + "</li>\
 		<li id='advancedReview'>" + LANG.REVIEW[lang] + "</li>\
 		<li id='advancedContact'>" + LANG.CONTACT[lang] + "</li>\
@@ -1656,69 +1652,13 @@ function buildAdvancedMenu() {
 		<li id='advancedReset'>" + LANG.SETTINGS_WIPE[lang] + "</li>\
 	</ul>\
 	");
-
-$("#advancedAutoUpdate").remove();
-$("#advancedAutoUpdate").append("<div>\
-		<input id='appAutoUpdateToggle' class='toggle' type='checkbox' checked>\
-		<label for='appAutoUpdateToggle'></label>\
-</div>");
-		
-
-	//set default
-	if(!window.localStorage.getItem("config_autoupdate")) {
-		window.localStorage.setItem("config_autoupdate","off");
-	}
-		
-
-	//read stored
-	if(window.localStorage.getItem("config_autoupdate") == "on") {
-		$("#appAutoUpdateToggle").prop('checked',true);
-	}
-
-	//read changes
-	$('#appAutoUpdateToggle').on("change",function(obj) {
-		if($('#appModeToggle').prop('checked')) {
-			//appMode = "inverted";
-			//window.localStorage.setItem("appMode","inverted");
-			window.localStorage.setItem("config_autoupdate","on");
-			$("body").removeClass("direct");
-			$("body").addClass("inverted");
-		} else {
-			window.localStorage.setItem("config_autoupdate","off");
-			//appMode = "direct";
-			//window.localStorage.setItem("appMode","direct");
-			$("body").removeClass("inverted");
-			$("body").addClass("direct");
-		}
-	});
-
-	
-	
-	/*
-	$("#menuReset").on(touchstart,function(evt) {
-		//evt.preventDefault();
-		$("#menuReset").addClass("activeRow");
-	});
-	$("#menuReset").on(touchend + " mouseout",function(evt) {
-		$("#menuReset").removeClass("activeRow");
-	});
-*/
-
-//	$('input[type=checkbox]').on("change",function(obj) {
-//		alert( $(this).prop('checked') );
-//		$(this).prop('checked')
-		//alert( $(obj).parent('div').attr('id') );
-//	});
-
-	
-
-	//set css
+	//CONTENT HEIGHT
 	$("#advancedMenu").css("top",($("#advancedMenuHeader").height()+1) + "px");	
 	$("#advancedMenuWrapper").height($("#appContent").height());	
-	//show content
+	//SHOW
 	$("#advancedMenuWrapper").hide();
 	$("#advancedMenuWrapper").fadeIn(200,function() {
-		//scroller
+		//SCROLLER
 		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
 			$("#advancedMenu").css("overflow","hidden");
 			$("#advancedMenu").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
@@ -1726,158 +1666,31 @@ $("#advancedAutoUpdate").append("<div>\
 			$("#advancedMenu").css("overflow","auto");
 		}
 	});
-	/////////////
-	// handler //
-	/////////////
+	//////////////////
+	// LIST HANDLER //
+	//////////////////
 	//LIST CLOSER HANDLER
 	$("#advBackButton").on(touchend,function() {
 		$("#advancedMenuWrapper").fadeOut(200,function() {
 			$('#advancedMenuWrapper').remove();
 		});
 	});
-
-
-	//checkbox toggle handler
+	//CHECKBOX BLOCK SWITCH
 	$("#advancedMenu li").on(tap,function(evt) {
-		if(!isMobile.iOS()) {
-		//	evt.preventDefault();
-		}
-		//toggle class if !checkbox
 		if((/checkbox/).test($(this).html())) {
 			$('input[type=checkbox]', this).trigger('click');
-			//evt.preventDefault();
-		//	evt.stopPropagation();
 		}
 	});
-	//TOPIC HANDLERS	
+	//ADD ACTIVE
 	$("#advancedMenu li").on(touchstart,function(evt) {
-		if(!isMobile.iOS()) {
-			//evt.preventDefault();
-		}
-		//toggle class if !checkbox
 		if(!(/checkbox/).test($(this).html())) {
 			$(this).addClass("activeRow");
 		}
 	});
-	$("#advancedMenu,#advancedMenu li").on(touchend + " " + touchmove + " mouseout scroll",function(evt) {
+	//REMOVE ACTIVE
+	$("#advancedMenu, #advancedMenu li").on(touchend + " " + touchmove + " mouseout scroll",function(evt) {
 		$(".activeRow").removeClass("activeRow");
-		//evt.preventDefault();
-		//evt.stopPropagation();
 	});
-
-	$("#advancedMenu").on("scroll",function(evt) {
-//		$(".activeRow").removeClass("activeRow");
-		//evt.preventDefault();
-		//evt.stopPropagation();
-	});
-
-/*
-	$("#langSelect").remove();
-	//intro
-	if(opt == "intro") {
-		$("body").append("<div id='langSelect'></div>");
-	} else {
-		$("#appContent").append("<div id='langSelect'></div>");
-	}
-	$("#langSelect").html("<ul id='langSelectList'>\
-		<li id='setid'>Bahasa Indonesia</li>\
-		<li id='setms'>Bahasa Melayu</li>\
-		<li id='setcs'>Čeština</li>\
-		<li id='setda'>Dansk</li>\
-		<li id='setde'>Deutsch</li>\
-		<li id='setet'>Eesti</li>\
-		<li id='seten'>English</li>\
-		<li id='setes'>Español</li>\
-		<li id='setfr'>Français</li>\
-		<li id='setga'>Gaeilge</li>\
-		<li id='sethr'>Hrvatski</li>\
-		<li id='setit'>Italiano</li>\
-		<li id='sethu'>Magyar</li>\
-		<li id='setnl'>Nederlands</li>\
-		<li id='setnb'>Norsk</li>\
-		<li id='setpl'>Polski</li>\
-		<li id='setpt'>Português</li>\
-		<li id='setro'>Română</li>\
-		<li id='setsk'>Slovenčina</li>\
-		<li id='setsl'>Slovenščina</li>\
-		<li id='setfi'>Suomi</li>\
-		<li id='setsv'>Svenska</li>\
-		<li id='setvi'>Tiếng Việt</li>\
-		<li id='settr'>Türkçe</li>\
-		<li id='setel'>Ελληνικά</li>\
-		<li id='setbg'>Български</li>\
-		<li id='setru'>Русский</li>\
-		<li id='setuk'>Українська</li>\
-		<li id='setar'>العربية</li>\
-		<li id='sethi'>हिन्दी</li>\
-		<li id='sethy'>հայերեն</li>\
-		<li id='setth'>ไทย</li>\
-		<li id='setko'>한국어</li>\
-		<li id='setzh'>中文（简体中文）</li>\
-		<li id='setja'>日本語</li>\
-	</ul>");
-	//intro
-	if(opt == "intro") { 
-	$("#langSelect").css("z-index",100);
-		//pad
-		if($("body").hasClass("ios7")) {
-			$("#langSelect").css("padding-top","20px");
-		}
-	}
-	//mark current
-	$("#set" + window.localStorage.getItem("devSetLang")).addClass("set");
-	//show content
-	$("#langSelect").hide();
-	$("#langSelect").fadeIn(200,function() {
-		//scroller
-		if(!isMobile.iOS() || opt == "intro") {
-			if(androidVersion() < 4.4 && !isMobile.Windows()) {
-				$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-			}
-		}
-	});
-	/////////////
-	// handler //
-	/////////////
-	$("#langSelect li").on(tap,function(evt) {
-		window.localStorage.setItem("devSetLang",$(this).attr("id").replace("set",""));
-		//remark
-		$(".set").removeClass("set");
-		$(this).addClass("set");
-		//////////////
-		// fade out //
-		//////////////
-		$("#langSelect").fadeOut(200,function() {
-			setTimeout(function() {
-			$("body").removeClass("appLang-" + lang);
-			lang = window.localStorage.getItem("devSetLang");
-			$("body").addClass("appLang-" + lang);
-			if(lang != "en" && lang != "pt") { 
-				LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
-			}
-			$("#tab1").html(LANG.MENU_STATUS[lang]);
-			$("#tab2").html(LANG.MENU_DIARY[lang]);
-			$("#tab3").html(LANG.MENU_PROFILE[lang]);
-			$("#tab4").html(LANG.MENU_SETTINGS[lang]);
-			if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
-			if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
-			//remove
-			$("#langSelect").remove();
-			//refresh intro
-			if(opt == "intro") { 
-				showIntro();
-			}
-			},80);
-		});
-		//enforce
-		setTimeout(function() { $("#langSelect").remove(); },600);
-	});
-	*/
-//	});
-
-
 	//#////////////#//
 	//# CHANGE LOG #//
 	//#////////////#//
@@ -2009,12 +1822,32 @@ $("#advancedAutoUpdate").append("<div>\
 			if(confirm(LANG.SETTINGS_WIPE_TITLE[lang])) { onConfirmWipe(1); } else { return false; }
 		}
 	});
-	/////////////
+	//#/////////////////////#//
+	//# TOGGLE: AUTO UPDATE #//
+	//#/////////////////////#//
+	//read stored
+	var isAUChecked = (window.localStorage.getItem("config_autoupdate") == "on") ? 'checked' : '';
+	//$("#advancedAutoUpdate").remove();
+	$("#advancedAutoUpdate").append("\
+	<div>\
+		<input id='appAutoUpdateToggle' class='toggle' type='checkbox' " + isAUChecked + ">\
+		<label for='appAutoUpdateToggle'></label>\
+	</div>\
+	");
+	//read changes
+	$('#appAutoUpdateToggle').on("change",function(obj) {
+		if($(this).prop('checked')) {
+			window.localStorage.setItem("config_autoupdate","on");
+			setTimeout(function() {
+				buildRemoteSuperBlock('cached');  
+			},3000);
+		} else {
+			window.localStorage.setItem("config_autoupdate","off");
+			//window.localStorage.removeItem("remoteSuperBlockJS");
+			//window.localStorage.removeItem("remoteSuperBlockCSS");
+		}
+	});
 }
-
-
-
-
 //##//////////////////##//
 //## GET CATEGORY~IES ##//
 //##//////////////////##//
@@ -2081,33 +1914,73 @@ function getCatList(callback) {
 	$("#tabMyCatsBlock").html('<ul>' + helpHtml + '</ul>');
 	if(callback == 'open') { callbackOpen(); }
 	setTimeout(function() { niceResizer(); },300);
+	/////////////
+	// HANDLER //
+	/////////////
+	var catBlockTap = false;
+	var catBlockTimer;
+	var catMoveCount = 0;
+	$("#foodList").scroll(function() {
+		//block tap
+		catBlockTap = true;
+		//hide under
+		if($('#pageSlideFood').hasClass("open")) {
+			$("#appContent").hide();
+		} else {
+			$("#appContent").show();
+		}
+		if(catMoveCount > 1) {
+			$(".activeRow").removeClass("activeRow");
+		}
+		clearTimeout(catBlockTimer);
+		catBlockTimer = setTimeout(function() { 
+			catBlockTap = false;
+			$("#appContent").show();
+		},300);
+	});
 	//TOPIC HANDLERS	
 	$("#tabMyCatsBlock li").on(touchstart,function(evt) {
 		if($("#foodSearch").is(":focus")) {
 			$("#foodSearch").trigger("blur");
 			return;
 		};
+		$(".activeRow").removeClass("activeRow");
+		if(catBlockTap == true) {
+			return;
+		} else {
+			if(catMoveCount >= 0) {
+				$(this).addClass('activeRow');
+			}
+		}
+		catMoveCount = 0;
 	});
-	/////////////
-	// HANDLER //
-	/////////////
-	var catBlockTap = false;
-	var catBlockTimer;
-	$("#foodList").scroll(function() {
-		catBlockTap = true;
-		clearTimeout(catBlockTimer);
-		catBlockTimer = setTimeout(function() { catBlockTap = false; },150);
+	$("#tabMyCatsBlock, #tabMyCatsBlock li").on(touchend + ' mouseleave mouseout',function() {
+		if(catMoveCount > 0) {
+			$(".activeRow").removeClass("activeRow");
+		}
 	});
+	$("#tabMyCatsBlock, #tabMyCatsBlock li").on(touchmove,function() {
+		catMoveCount++;
+		if(catMoveCount > 1) {
+			$(".activeRow").removeClass("activeRow");
+			catMoveCount = 0;
+		}
+	});	
 	///////////////////////////////////
 	// INVOKE NEWWINDOW SELF-HANDLER //
 	///////////////////////////////////
 	$("#tabMyCatsBlock div").on(tap, function (evt) {
 		if(catBlockTap == true) { 
-			return; 
+			$(".activeRow").removeClass("activeRow");
+			return;
 		} else {
+			catMoveCount = -100;
 			catBlockTap = true;
 			clearTimeout(catBlockTimer);
-			catBlockTimer = setTimeout(function() { catBlockTap = false; },300);
+			catBlockTimer = setTimeout(function() { 
+				catBlockTap = false;
+				$("#appContent").show();
+			},300);
 		}
 		//
 		$(".activeRow").removeClass("activeRow");

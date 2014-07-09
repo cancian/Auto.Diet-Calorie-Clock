@@ -46,7 +46,7 @@ function openSettings(string) {
 			syncEntries(window.localStorage.getItem("facebook_userid"));
 		}
 		return false;
-	});	
+	});
 	//////////////
 	// HELP TAP //
 	//////////////
@@ -376,9 +376,9 @@ function openStatus(string) {
 		maxDate: new Date(),
 		theme: 'ios7',
 		lang: 'en',
-	    dateFormat: 'yyyy/mm/dd',
-       	dateOrder:  'dd MM yy',
-	    timeWheels: 'HH:ii',
+		dateFormat: 'yyyy/mm/dd',
+		dateOrder:  'dd MM yy',
+		timeWheels: 'HH:ii',
 	    timeFormat: 'HH:ii',
 		setText: LANG.OK[lang],
 		closeText: LANG.CANCEL[lang],
@@ -452,7 +452,7 @@ function openStatus(string) {
 	$("#appHeader,#appContent").on(touchstart, function(evt) {
 		//GLOBAL CLOSER
 		if(evt.target.id == "startDate" || evt.target.id == "startDateBar" || evt.target.id == "appStatusToggle") {
-			return; 
+			return;
 		}
 		//TRIGGER BLUR (SAVE) & CLOSE
 		if($('#appStatusFix').hasClass("open")) {
@@ -936,10 +936,29 @@ function sliderNeg() {
 				afterHide();
 			}
 		}
-		//drop food db
+		//set expire
 		else if($("#entryBody").val().toLowerCase() == "devsetexpire") {
 			window.localStorage.setItem("config_mode","expired");
 			window.localStorage.setItem("config_install_time",(new Date().getTime()) - (60*60*24*8*1000));
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+		}
+		//clear cache
+		else if($("#entryBody").val().toLowerCase() == "devpurge") {
+			window.localStorage.removeItem("remoteSuperBlockJS");
+			window.localStorage.removeItem("remoteSuperBlockCSS");
+			window.localStorage.removeItem("app_autoupdate_hash");
+			//buildRemoteSuperBlock('cached');	
+			$("#entryBody").val('');
+			$("#entryBody").blur();
+		}
+		//notify update
+		else if($("#entryBody").val().toLowerCase() == "devnotify") {
+			if(window.localStorage.getItem("app_notify_update")) {
+				window.localStorage.removeItem("app_notify_update");
+			} else {
+				window.localStorage.setItem("app_notify_update",true);
+			}
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}
@@ -956,13 +975,13 @@ function sliderNeg() {
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}
-		//refresh
+		//clear
 		else if($("#entryBody").val().toLowerCase() == "devclear") {
 			window.localStorage.clear();
 			$("#entryBody").val('');
 			$("#entryBody").blur();
 		}		
-		//refresh
+		//reload
 		else if($("#entryBody").val().toLowerCase() == "devreload") {
 			window.location.reload(true);
 			$("#entryBody").val('');
@@ -1072,16 +1091,14 @@ function sliderNeg() {
 		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
 			//ios, switch blur entrytime > entrybody || kitkat non-selectable focus
 			if(isMobile.iOS()) {
-				evt.preventDefault(); 
+				evt.preventDefault();
 			}
 			$("#entryBody").focus();
 		}
 	});
-	
 	$('#entryTime').on(touchstart, function(evt) {
 			//evt.preventDefault();
 			evt.stopPropagation();	
-		
 		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
 			if(!isMobile.Android() && !isMobile.MSApp()) {
 				evt.preventDefault();
@@ -1096,8 +1113,6 @@ function sliderNeg() {
 				$("#entryBody").blur();
 			});
 		}
-		
-		
 	});
 	//SUPERBORDER FOCUS (IOS)
 	if(isMobile.iOS()) {
@@ -1655,15 +1670,15 @@ $("#pA2B").on("blur",function(evt) {
 	writeCalcValues();
 });
 $("#pA2B").on("change keypress",function(evt) {
-	$("#pA2B").val(  (Number($("#feet").val())*12)  +  Number($("#inches").val()) );
+	$("#pA2B").val( (Number($("#feet").val())*12)  +  Number($("#inches").val()) );
 	writeCalcValues();
 });
 $("#inches").on("change keypress",function(evt) {
-	$("#pA2B").val(  Number(($("#feet").val()*12))  +  Number($("#inches").val())  );
+	$("#pA2B").val( Number(($("#feet").val()*12))  +  Number($("#inches").val()) );
 	writeCalcValues();
 });
 $("#feet").on("change keypress",function(evt) {
-	$("#pA2B").val(  Number(($("#feet").val()*12))  +  Number($("#inches").val())  );
+	$("#pA2B").val( Number(($("#feet").val()*12))  +  Number($("#inches").val()) );
 	writeCalcValues();
 });
 //input validate
