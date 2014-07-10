@@ -1,7 +1,7 @@
 ﻿//////////////////
 // DEVICE READY //
 //////////////////
-$(document).ready(function() { 
+$(document).ready(function() {
 	try {
 		if(hasSql) {
 			db = window.openDatabase(dbName, 1, dbName + "DB", 5*1024*1024);
@@ -99,15 +99,10 @@ setTimeout(function() {
 ////////////////
 // PARSED CSS //
 ////////////////
-if(navigator.userAgent.match(/MSApp/i)) {
-	MSApp.execUnsafeLocalFunction(function() {
-		$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
-		$("head").prepend("<style type='text/css' id='daySum'></style>");
-	});
-} else {
+safeExec(function() {
 	$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 	$("head").prepend("<style type='text/css' id='daySum'></style>");
-}
+});
 updateNutriRatio();
 updateEntriesSum();
 ///////////////

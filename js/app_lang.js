@@ -1,5 +1,5 @@
-﻿var appName     = "Kcals";
-var appVersion  = "1.2.9 (12907)";
+﻿var appName     = "KCals";
+var appVersion  = "1.2.9 (12910)";
 var appBuild    = appVersion.split(" ")[1].replace("(","").replace(")",""); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(" ")[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|hi|hr|hu|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
@@ -320,46 +320,46 @@ var LANG = {
 		zt : '卡路里計數器',
 	},
 	CALORIE_COUNTER_FULL_TITLE : {
-		en : 'Kcals calorie counter',
-		pt : 'Kcals contador de calorias',
-		ar : 'Kcals عداد السعرات الحرارية',
-		bg : 'Kcals калория тезгях',
-		ca : 'Kcals počítadlo kalorií',
-		cs : 'Kcals počítadlo kalorií',
-		da : 'Kcals kalorietæller',
-		de : 'Kcals Kalorienzähler',
-		el : 'Kcals θερμιδομετρητής',
-		es : 'Kcals comptador de calories',
-		et : 'Kcals kalorikulu',
-		fa : 'Kcals کالری مبارزه با',
-		fi : 'Kcals kalorilaskuri',
-		fr : 'Kcals compteur de calories',
-		hi : 'Kcals कैलोरी काउंटर',
-		hr : 'Kcals Brojač kalorija',
-		hu : 'Kcals kalóriaszámláló',
-		it : 'Kcals contacalorie',
-		id : 'Kcals penghitung kalori',
-		iw : 'Kcals קלוריה מונה',
-		ja : 'Kcals カロリーカウンター',
-		ko : 'Kcals 칼로리 어플 추천',
-		lt : 'Kcals kalorijų skaitiklis',
-		lv : 'Kcals Kaloriju skaitītājs',
-		ms : 'Kcals kaunter kalori',
-		nl : 'Kcals calorieënteller',
-		nb : 'Kcals Kaloriteller',
-		pl : 'Kcals licznik kalorii',
-		ro : 'Kcals contor de calorii',
-		ru : 'Kcals счетчик калорий',
-		sk : 'Kcals počítadlo kalórií',
-		sl : 'Kcals števec kalorij',
-		sr : 'Kcals калорија бројач',
-		sv : 'Kcals Kaloriräknare',
-		th : 'Kcals แคลอรี่เคาน์เตอร์',
-		tr : 'Kcals kalori sayacı',
-		uk : 'Kcals Лічильник калорій',
-		vi : 'Kcals truy cập calo',
-		zh : 'Kcals 卡路里计数器',
-		zt : 'Kcals 卡路里計數器',
+		en : 'KCals Calorie Counter',
+		pt : 'KCals Contador de Calorias',
+		ar : 'KCals عداد السعرات الحرارية',
+		bg : 'KCals Калория Тезгях',
+		ca : 'KCals Comptador de Calories',
+		cs : 'KCals Počítadlo Kalorií',
+		da : 'KCals Kalorietæller',
+		de : 'KCals Kalorienzähler',
+		el : 'KCals Θερμιδομετρητής',
+		es : 'KCals Comptador de Calories',
+		et : 'KCals Kalorikulu',
+		fa : 'KCals کالری مبارزه با',
+		fi : 'KCals Kalorilaskuri',
+		fr : 'KCals Compteur de Calories',
+		hi : 'KCals कैलोरी काउंटर',
+		hr : 'KCals Brojač Kalorija',
+		hu : 'KCals Kalóriaszámláló',
+		it : 'KCals Contacalorie',
+		id : 'KCals Penghitung Kalori',
+		iw : 'KCals קלוריה מונה',
+		ja : 'KCals カロリーカウンター',
+		ko : 'KCals 칼로리 어플 추천',
+		lt : 'KCals Kalorijų Skaitiklis',
+		lv : 'KCals Kaloriju Skaitītājs',
+		ms : 'KCals Kaunter Kalori',
+		nl : 'KCals Calorieënteller',
+		nb : 'KCals Kaloriteller',
+		pl : 'KCals Licznik Kalorii',
+		ro : 'KCals Contor de Calorii',
+		ru : 'KCals Счетчик Калорий',
+		sk : 'KCals Počítadlo Kalórií',
+		sl : 'KCals Števec Kalorij',
+		sr : 'KCals Калорија Бројач',
+		sv : 'KCals Kaloriräknare',
+		th : 'KCals แคลอรี่เคาน์เตอร์',
+		tr : 'KCals Kalori Sayacı',
+		uk : 'KCals Лічильник Калорій',
+		vi : 'KCals Truy Cập Calo',
+		zh : 'KCals卡路里计数器',
+		zt : 'KCals卡路里計數器',
 	},
 	INTRO : {
 		en : 'Introduction',
@@ -615,163 +615,163 @@ var LANG = {
 	},
 	INTRO_SLIDE_1 : {
 		en : '\
-Kcals is designed to help you control your calorie intake. \
+KCals is designed to help you control your calorie intake. \
 Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your calorie balance. \
 ',
 		pt : '\
-Kcals é projetado para ajudá-lo a controlar sua ingestão de calorias. \
+KCals é projetado para ajudá-lo a controlar sua ingestão de calorias. \
 Seja para manter, perder ou ganhar peso, este aplicativo vai ajudá-lo a focar no que importa: seu balanço calórico. \
 ',
 		ar : '\
-Kcals صمم لمساعدتك على التحكم في السعرات الحرارية الخاصة بك. \
+KCals صمم لمساعدتك على التحكم في السعرات الحرارية الخاصة بك. \
 ما إذا كان الحفاظ على أو إنقاص أو زيادة الوزن، هذا البرنامج سوف تساعدك على التركيز على ما يهم: توازن السعرات الحرارية. \
 ',
 		bg : '\
-Kcals е предназначена да ви помогне да контролирате приема на калории. \
+KCals е предназначена да ви помогне да контролирате приема на калории. \
 Независимо дали искате да се поддържа, губят, или наддаване на тегло, това приложение ще ви помогне да се фокусирате върху това, което е важно: Вашия калориен баланс. \
 ',
 		ca : '\
-Kcals està dissenyat per ajudar a controlar la seva ingesta de calories. \
+KCals està dissenyat per ajudar a controlar la seva ingesta de calories. \
 Si vostè vol mantenir, perdre o guanyar pes, aquest app l’ajudarà a mantenir enfocat en el que és important: el seu balanç calòric. \
 ',
 		cs : '\
-Kcals je navržen tak, aby vám pomůže kontrolovat svůj příjem kalorií. \
+KCals je navržen tak, aby vám pomůže kontrolovat svůj příjem kalorií. \
 Ať už si chcete udržet, ztratit, nebo přibírání na váze, bude tato aplikace vám pomůže soustředit se na to, co je důležité: váš kalorický zůstatek. \
 ',
 		da : '\
-Kcals er designet til at hjælpe dig kontrollere dit kalorieindtag. \
+KCals er designet til at hjælpe dig kontrollere dit kalorieindtag. \
 Uanset om du ønsker at opretholde, taber eller tager på i vægt, vil dette program hjælpe dig med at fokusere på hvad der er vigtigt: Dit kalorie balance. \
 ',
 		de : '\
-Kcals wurde entwickelt um Ihnen zu helfen Ihre Kalorienzufuhr zu kontrollieren. \
+KCals wurde entwickelt um Ihnen zu helfen Ihre Kalorienzufuhr zu kontrollieren. \
 Ob zu pflegen, zu verlieren oder Gewichtszunahme, wird dieses Programm Ihnen helfen sich auf das Wesentliche konzentrieren können: Ihre Kalorienbilanz. \
 ',
 		el : '\
-Kcals έχει σχεδιαστεί για να σας βοηθήσει να ελέγξετε την πρόσληψη θερμίδων σας. \
+KCals έχει σχεδιαστεί για να σας βοηθήσει να ελέγξετε την πρόσληψη θερμίδων σας. \
 Είτε θέλετε να διατηρήσετε, να χάσει, ή αύξηση του σωματικού βάρους, η εφαρμογή αυτή θα σας βοηθήσει να επικεντρωθεί σε αυτό που είναι σημαντικό: θερμιδική ισορροπία σας. \
 ',
 		es : '\
-Kcals está diseñado para ayudarle a controlar su ingesta de calorías. \
+KCals está diseñado para ayudarle a controlar su ingesta de calorías. \
 Si usted quiere mantener, perder o ganar peso, esta aplicación le ayudará a centrarse en lo importante: Su balance calórico. \
 ',
 		et : '\
-Kcals eesmärk on aidata teil kontrollida oma kalorite tarbimist. \
+KCals eesmärk on aidata teil kontrollida oma kalorite tarbimist. \
 Kas soovite, et hoida, kaotada või kaalutõus, see app aitab teil püsida keskendunud mis loeb: kalorite bilanss. \
 ',
 		fa : '\
-Kcals طراحی شده است برای کمک به شما در کنترل کالری مصرفی خود را. \
+KCals طراحی شده است برای کمک به شما در کنترل کالری مصرفی خود را. \
 این که آیا برای حفظ، از دست دادن یا به دست آوردن وزن، این برنامه به شما کمک خواهد تا در آنچه اهمیت تمرکز: کالری موجودی. \
 ',
 		fi : '\
-Kcals on suunniteltu auttamaan sinua hallitsemaan kalorien saanti. \
+KCals on suunniteltu auttamaan sinua hallitsemaan kalorien saanti. \
 Olipa haluat säilyttää, menettää tai lihoa, tämä sovellus auttaa sinua keskittymään olennaiseen: kaloritasapaino. \
 ',
 		fr : '\
-Kcals est conçu pour vous aider à contrôler votre apport calorique. \
+KCals est conçu pour vous aider à contrôler votre apport calorique. \
 Si vous souhaitez conserver, perdre ou prendre du poids, cette application vous aidera à se concentrer sur ce qui est important : votre équilibre calorique. \
 ',
 		hi : '\
-Kcals डिज़ाइन किया गया है मदद से आप अपने गरमी सेवन को नियंत्रित करने के लिए। \
+KCals डिज़ाइन किया गया है मदद से आप अपने गरमी सेवन को नियंत्रित करने के लिए। \
 चाहे बनाए रखें, खोने या वजन लाभ के लिए, इस कार्यक्रम के अनिवार्य है पर ध्यान केंद्रित करने के लिए आप मदद करेगा: अपने कैलोरी बैलेंस। \
 ',
 		hr : '\
-Kcals je osmišljen kako bi vam pomoći kontrolirati unos kalorija. \
+KCals je osmišljen kako bi vam pomoći kontrolirati unos kalorija. \
 Bilo da želite zadržati, gube ili dobivaju na težini, ovaj program će vam pomoći da se usredotočite na ono što je važno: Svoju kalorijsku ravnotežu. \
 ',
 		hu : '\
-Kcals a célja, hogy segítsen irányítani a kalória bevitelt. \
+KCals a célja, hogy segítsen irányítani a kalória bevitelt. \
 Akár szeretnénk fenntartani, veszít, vagy hízik, ez az alkalmazás segít összpontosítani, ami fontos: a kalória-egyensúlyt. \
 ',
 		it : '\
-Kcals è progettato per aiutare a controllare l’apporto calorico. \
+KCals è progettato per aiutare a controllare l’apporto calorico. \
 Se si desidera mantenere, perdere o guadagnare peso, questa applicazione vi aiuterà a concentrarsi su ciò che è importante: il vostro equilibrio calorico. \
 ',
 		id : '\
-Kcals dirancang untuk membantu Anda mengontrol asupan kalori Anda. \
+KCals dirancang untuk membantu Anda mengontrol asupan kalori Anda. \
 Jika Anda ingin mempertahankan, kehilangan atau menambah berat badan, aplikasi ini akan membantu Anda berfokus pada apa yang penting: keseimbangan kalori Anda. \
 ',
 		iw : '\
-Kcals נועד לעזור לך לשלוט על צריכת הקלוריות שלך. \
+KCals נועד לעזור לך לשלוט על צריכת הקלוריות שלך. \
 אם ברצונך לשמור, לרדת, או לעלות במשקל, היישום הזה יעזור לך להתמקד במה שחשוב: מאזן הקלורי. \
 ',
 		ja : '\
-Kcalsは、カロリー摂取量を制御するのに役立つように設計されています。 \
+KCalsは、カロリー摂取量を制御するのに役立つように設計されています。 \
 かどうかを得るためにまたは重量を失うためには、このプログラムは焦点を当てて何が重要かを： あなたのカロリー収支。 \
 ',
 		ko : '\
-Kcals 할 수 있도록 설계되었습니다당신의 칼로리 섭취량을 제어. \
+KCals 할 수 있도록 설계되었습니다당신의 칼로리 섭취량을 제어. \
 것인지 유지 잃거나 체중이이 응용 프로그램을 도움이 될 것입니다 당신이 무엇에 초점 하는 것이 중요 합니다：칼로리 밸런스. \
 ',
 		lt : '\
-Kcals yra skirtas padėti jums kontroliuoti savo suvartojamų kalorijų kiekį. \
+KCals yra skirtas padėti jums kontroliuoti savo suvartojamų kalorijų kiekį. \
 Nesvarbu, ar norite išsaugoti, numesti ar priaugti svorio, ši programa padės jums sutelkti dėmesį į tai, kas svarbu: jūsų kalorijų balansas. \
 ',
 		lv : '\
-Kcals ir izstrādāta, lai palīdzētu jums kontrolēt savu kaloriju uzņemšanu. \
+KCals ir izstrādāta, lai palīdzētu jums kontrolēt savu kaloriju uzņemšanu. \
 Vai jūs vēlaties, lai saglabātu, zaudēt vai iegūt svaru, šis pieteikums palīdzēs jums koncentrēties uz to, kas ir svarīgi: jūsu kaloriju bilance. \
 ',
 		ms : '\
-Kcals dirancang untuk membantu anda mengontrol asupan kalori anda. \
+KCals dirancang untuk membantu anda mengontrol asupan kalori anda. \
 Jika Anda ingin mempertahankan, kehilangan atau menambah berat badan, aplikasi ini akan membantu anda berfokus pada apa yang penting: keseimbangan kalori anda. \
 ',
 		nl : '\
-Kcals is ontworpen om u te helpen de controle van uw calorie-inname. \
+KCals is ontworpen om u te helpen de controle van uw calorie-inname. \
 Of u nu wilt behouden, verliezen of winnen gewicht, zal deze applicatie kunt u zich richten op wat belangrijk is: uw calorie-balans. \
 ',
 		nb : '\
-Kcals er utviklet for å hjelpe deg med å kontrollere kaloriinntaket. \
+KCals er utviklet for å hjelpe deg med å kontrollere kaloriinntaket. \
 Enten du ønsker å opprettholde, tape, eller opp i vekt, vil dette programmet hjelpe deg å fokusere på det som er viktig: Ditt kaloribalanse. \
 ',
 		pl : '\
-Kcals jest zaprojektowany, aby pomóc Ci kontrolowac ilosc spozywanych kalorii. \
+KCals jest zaprojektowany, aby pomóc Ci kontrolowac ilosc spozywanych kalorii. \
 Czy chcesz zachowac, stracic lub przyrost masy ciala, ta aplikacja pomoze Ci skupic sie na tym co wazne: Twój bilans kaloryczny. \
 ',
 		ro : '\
-Kcals este conceput pentru a vă ajuta să controla aportul de calorii. \
+KCals este conceput pentru a vă ajuta să controla aportul de calorii. \
 Fie că doriți să mențină, pierde, sau creștere în greutate, această aplicație vă va ajuta să se concentreze pe ceea ce este important: echilibru caloric. \
 ',
 		ru : '\
-Kcals разработан, чтобы помочь вам контролировать потребление калорий. \
+KCals разработан, чтобы помочь вам контролировать потребление калорий. \
 Если вы хотите сохранить, потерять или набрать вес, это приложение поможет вам сосредоточиться на том, что важно: ваш баланс калорий. \
 ',
 		sk : '\
-Kcals je navrhnutý tak, aby vám pomôže kontrolovať svoj ​​príjem kalórií. \
+KCals je navrhnutý tak, aby vám pomôže kontrolovať svoj ​​príjem kalórií. \
 Či už si chcete udržať, stratiť, alebo priberanie na váhe, bude táto aplikácia vám pomôže sústrediť sa na to, čo je dôležité: váš kalorický zostatok. \
 ',
 		sl : '\
-Kcals je zasnovan tako, da vam pomaga nadzorovati vnos kalorij. \
+KCals je zasnovan tako, da vam pomaga nadzorovati vnos kalorij. \
 Ali želite, da se ohrani, izgubiti ali pridobiti težo, bo ta vloga vam pomaga osredotočiti na tisto, kar je pomembno: vaš kalorična bilanca. \
 ',
 		sr : '\
-Kcals је дизајниран да вам помогне да контролишете унос калорија. \
+KCals је дизајниран да вам помогне да контролишете унос калорија. \
 Било да желите да се одржи, изгубити, или добијају на тежини, ова апликација ће вам помоћи да се усредсредите на оно што је важно: ваше калорија биланс. \
 ',
 		sv : '\
-Kcals är avsedd att hjälpa dig att kontrollera ditt kaloriintag. \
+KCals är avsedd att hjälpa dig att kontrollera ditt kaloriintag. \
 Oavsett om du vill behålla, förlorar eller upp i vikt, kommer det här programmet hjälper dig att fokusera på det som är viktigt: din Kalori balans. \
 ',
 		th : '\
-Kcals ถูกออกแบบมาเพื่อช่วยให้คุณควบคุมการบริโภคแคลอรี่ของคุณ. \
+KCals ถูกออกแบบมาเพื่อช่วยให้คุณควบคุมการบริโภคแคลอรี่ของคุณ. \
 ไม่ว่าคุณต้องการที่จะรักษาความสูญเสียหรือได้รับน้ำหนักโปรแกรมนี้จะช่วยให้คุณมุ่งเน้นไปที่สิ่งที่สำคัญ: ความสมดุลของแคลอรี่ของคุณ. \
 ',
 		tr : '\
-Kcals Eğer kalori alımını kontrol yardımcı olmak için tasarlanmıştır. \
+KCals Eğer kalori alımını kontrol yardımcı olmak için tasarlanmıştır. \
 Korumak, kaybetmek veya kilo alımı için bu program hangi konular üzerinde odaklanmanıza yardımcı olacaktır: kalori dengesi. \
 ',
 		uk : '\
-Kcals розроблений, щоб допомогти вам контролювати споживання калорій. \
+KCals розроблений, щоб допомогти вам контролювати споживання калорій. \
 Якщо ви хочете зберегти, втратити або набрати вагу, це програма допоможе вам зосередитися на тому, що важливо: ваш калорійність баланс. \
 ',
 		vi : '\
-Kcals được thiết kế để giúp bạn kiểm soát lượng calo của bạn. \
+KCals được thiết kế để giúp bạn kiểm soát lượng calo của bạn. \
 Cho dù bạn muốn duy trì, giảm hoặc tăng cân, ứng dụng này sẽ giúp bạn tập trung vào những gì là quan trọng: số dư lượng calo của bạn. \
 ',
 		zh : '\
-Kcals 旨在帮助您控制您的卡路里摄入量。 \
+KCals 旨在帮助您控制您的卡路里摄入量。 \
 无论你是想保持，失去或体重增加，这个应用程序将帮助你专注于什么是重要的：你的热量平衡。 \
 ',
 		zt : '\
-Kcals 旨在幫助您控制您的卡路里攝入量。 \
+KCals 旨在幫助您控制您的卡路里攝入量。 \
 無論你是想保持，失去或體重增加，這個應用程序將幫助你專注於什麼是重要的：你的熱量平衡。 \
 ',
 	},
@@ -8143,128 +8143,128 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 		zt : '每週',
 	},
 	RATE_TITLE : {
-		en : 'Rate Kcals',
-		pt : 'Avaliar o Kcals',
-		ar : 'قيم Kcals',
-		bg : 'Оцените Kcals',
-		cs : 'Ohodnotit Kcals',
-		ca : 'Valorar Kcals',
-		da : 'Bedøm Kcals',
-		de : 'Bewerte Kcals',
-		el : 'Βαθμολόγηση του Kcals',
-		es : 'Valorar Kcals',
-		et : 'Hinda Kcals',
-		fa : 'نرخ Kcals',
-		fi : 'Arvioi Kcals',
-		fr : 'Évaluer Kcals',
-		hi : 'दर Kcals',
-		hr : 'Ocijenite Kcals',
-		hu : 'Kcals értékelése',
-		it : 'Valuta Kcals',
-		id : 'Beri Nilai Kcals',
-		iw : 'דרג את Kcals',
-		ja : 'Kcals の評価',
-		ko : 'Kcals 평가하기',
-		lt : 'Įvertinti Kcals',
-		lv : 'Likme Kcals',
-		ms : 'Beri Nilai Kcals',
-		nl : 'Kcals beoordelen',
-		nb : 'Vurder Kcals',
-		pl : 'Oceń Kcals',
-		ro : 'Acordă notă pentru Kcals',
-		ru : 'Оценить Kcals',
-		sk : 'Ohodnotiť Kcals',
-		sl : 'Oceni Kcals',
-		sr : 'Оцените Kcals',
-		sv : 'Betygsätt Kcals',
-		th : 'ให้อันดับ Kcals',
-		tr : 'Kcals Oylayın',
-		uk : 'Оцінити Kcals',
-		vi : 'Đánh giá Kcals',
-		zh : '評分 Kcals',
-		zt : '評分 Kcals',
+		en : 'Rate KCals',
+		pt : 'Avaliar o KCals',
+		ar : 'قيم KCals',
+		bg : 'Оцените KCals',
+		cs : 'Ohodnotit KCals',
+		ca : 'Valorar KCals',
+		da : 'Bedøm KCals',
+		de : 'Bewerte KCals',
+		el : 'Βαθμολόγηση του KCals',
+		es : 'Valorar KCals',
+		et : 'Hinda KCals',
+		fa : 'نرخ KCals',
+		fi : 'Arvioi KCals',
+		fr : 'Évaluer KCals',
+		hi : 'दर KCals',
+		hr : 'Ocijenite KCals',
+		hu : 'KCals értékelése',
+		it : 'Valuta KCals',
+		id : 'Beri Nilai KCals',
+		iw : 'דרג את KCals',
+		ja : 'KCals の評価',
+		ko : 'KCals 평가하기',
+		lt : 'Įvertinti KCals',
+		lv : 'Likme KCals',
+		ms : 'Beri Nilai KCals',
+		nl : 'KCals beoordelen',
+		nb : 'Vurder KCals',
+		pl : 'Oceń KCals',
+		ro : 'Acordă notă pentru KCals',
+		ru : 'Оценить KCals',
+		sk : 'Ohodnotiť KCals',
+		sl : 'Oceni KCals',
+		sr : 'Оцените KCals',
+		sv : 'Betygsätt KCals',
+		th : 'ให้อันดับ KCals',
+		tr : 'KCals Oylayın',
+		uk : 'Оцінити KCals',
+		vi : 'Đánh giá KCals',
+		zh : '評分 KCals',
+		zt : '評分 KCals',
 	},
 	RATE_MSG : {
-		en : 'If you like using Kcals, support us with a positive review!',
-		pt : 'Se você gosta de usar o Kcals, contribua com uma avaliação positiva!',
+		en : 'If you like using KCals, support us with a positive review!',
+		pt : 'Se você gosta de usar o KCals, contribua com uma avaliação positiva!',
 		ar : 'إذا كنت تحب ككالز، تقديم الدعم لنا باستعراض إيجابي!',
-		bg : 'Ако ви харесва, използвайки Kcals, подкрепете ни с положителен рейтинг!',
-		ca : 'Si t’agrada utilitzar Kcals, recolzar amb una qualificació positiva!',
-		cs : 'Pokud máte rádi používáte Kcals, podpořte nás s pozitivním hodnocení!',
-		da : 'Hvis du kan lide at bruge Kcals, støtte os med en positiv anmeldelse!',
-		de : 'Wenn Sie Kcals mag, unterstützen Sie uns mit einer positiven Bewertung!',
-		el : 'Αν σας αρέσει να χρησιμοποιείτε Kcals, μας στηρίζουν με θετική κριτική!',
-		es : 'Si te gusta usar Kcals, apoyarnos con una calificación positiva!',
-		et : 'Kui sulle meeldib kasutades Kcals, toetada meile positiivne arvamus!',
-		fa : 'If you like using Kcals, support us with a positive review!',
-		fi : 'Jos pidät Kcals, tukea meille myönteisen arvostelun!',
-		fr : 'Si vous aimez l’aide Kcals, nous soutenir avec une note positive!',
-		hi : 'यदि आप Kcals का उपयोग करने का आनंद लें, हमें एक सकारात्मक समीक्षा के साथ समर्थन!',
-		hr : 'Ako vam se sviđa koristeći Kcals, podržite nas s pozitivnim pregled!',
-		hu : 'Ha szívesen használja Kcals, támogassanak bennünket pozitív véleményét!',
-		it : 'Se ti piace usare Kcals, sostienici con una valutazione positiva!',
-		id : 'Jika Anda menikmati menggunakan Kcals, mendukung kami dengan nilai positif!',
-		iw : 'אם אתה אוהב להשתמש Kcals, לתמוך בנו עם ביקורת חיובית!',
-		ja : 'あなたがKcalsが好きなら、肯定的なレビューで私たちをサポート！',
-		ko : '당신이 Kcals을 즐길 경우, 긍정적 인 검토와 함께 우리를 지원!',
-		lt : 'Jei jums patinka naudoti Kcals, paremti mus raštu teigiamą atsiliepimą!',
-		lv : 'Ja jūs, piemēram, izmantojot Kcals, atbalstīt mūs ar pozitīvu pārskatīšanu!',
-		ms : 'Jika anda suka Kcals, menyokong kami dengan penarafan yang positif!',
-		nl : 'Als je van het gebruik van Kcals, steun ons met een positieve recensie!',
-		nb : 'Hvis du liker Kcals, støtte oss med en positiv vurdering!',
-		pl : 'Jeśli lubisz Kcals, wspierają nas z pozytywnym rankingu!',
-		ro : 'Dacă vă place Kcals, susține ne cu un rating pozitiv!',
-		ru : 'Если вам нравится Kcals, поддержать нас с положительным рейтингом!',
-		sk : 'Ak máte radi Kcals, podporte nás s pozitívnym hodnotenie!',
-		sl : 'Če vam je všeč Kcals, nas podpirajo s pozitivno oceno!',
+		bg : 'Ако ви харесва, използвайки KCals, подкрепете ни с положителен рейтинг!',
+		ca : 'Si t’agrada utilitzar KCals, recolzar amb una qualificació positiva!',
+		cs : 'Pokud máte rádi používáte KCals, podpořte nás s pozitivním hodnocení!',
+		da : 'Hvis du kan lide at bruge KCals, støtte os med en positiv anmeldelse!',
+		de : 'Wenn Sie KCals mag, unterstützen Sie uns mit einer positiven Bewertung!',
+		el : 'Αν σας αρέσει να χρησιμοποιείτε KCals, μας στηρίζουν με θετική κριτική!',
+		es : 'Si te gusta usar KCals, apoyarnos con una calificación positiva!',
+		et : 'Kui sulle meeldib kasutades KCals, toetada meile positiivne arvamus!',
+		fa : 'If you like using KCals, support us with a positive review!',
+		fi : 'Jos pidät KCals, tukea meille myönteisen arvostelun!',
+		fr : 'Si vous aimez l’aide KCals, nous soutenir avec une note positive!',
+		hi : 'यदि आप KCals का उपयोग करने का आनंद लें, हमें एक सकारात्मक समीक्षा के साथ समर्थन!',
+		hr : 'Ako vam se sviđa koristeći KCals, podržite nas s pozitivnim pregled!',
+		hu : 'Ha szívesen használja KCals, támogassanak bennünket pozitív véleményét!',
+		it : 'Se ti piace usare KCals, sostienici con una valutazione positiva!',
+		id : 'Jika Anda menikmati menggunakan KCals, mendukung kami dengan nilai positif!',
+		iw : 'אם אתה אוהב להשתמש KCals, לתמוך בנו עם ביקורת חיובית!',
+		ja : 'あなたがKCalsが好きなら、肯定的なレビューで私たちをサポート！',
+		ko : '당신이 KCals을 즐길 경우, 긍정적 인 검토와 함께 우리를 지원!',
+		lt : 'Jei jums patinka naudoti KCals, paremti mus raštu teigiamą atsiliepimą!',
+		lv : 'Ja jūs, piemēram, izmantojot KCals, atbalstīt mūs ar pozitīvu pārskatīšanu!',
+		ms : 'Jika anda suka KCals, menyokong kami dengan penarafan yang positif!',
+		nl : 'Als je van het gebruik van KCals, steun ons met een positieve recensie!',
+		nb : 'Hvis du liker KCals, støtte oss med en positiv vurdering!',
+		pl : 'Jeśli lubisz KCals, wspierają nas z pozytywnym rankingu!',
+		ro : 'Dacă vă place KCals, susține ne cu un rating pozitiv!',
+		ru : 'Если вам нравится KCals, поддержать нас с положительным рейтингом!',
+		sk : 'Ak máte radi KCals, podporte nás s pozitívnym hodnotenie!',
+		sl : 'Če vam je všeč KCals, nas podpirajo s pozitivno oceno!',
 		sr : 'Ако вам се свиђа КЦАЛЗЗ, подржите нас са позитивним рејтинга!',
-		sv : 'Om du gillar Kcals, stödja oss med ett positivt betyg!',
-		th : 'ถ้าคุณชอบ Kcals, สนับสนุนเราด้วยคะแนนบวก!',
-		tr : 'Eğer Kcals kullanmaktan zevk varsa, olumlu bir değerlendirme ile bize destek!',
-		uk : 'Якщо вам подобається Kcals, підтримати нас з позитивним рейтингом!',
-		vi : 'Nếu bạn thích Kcals, ủng hộ chúng tôi với một đánh giá tích cực!',
-		zh : '如果你喜欢Kcals，支持我们以积极的评价！',
-		zt : '如果你喜歡Kcals，支持我們以積極的評價！',
+		sv : 'Om du gillar KCals, stödja oss med ett positivt betyg!',
+		th : 'ถ้าคุณชอบ KCals, สนับสนุนเราด้วยคะแนนบวก!',
+		tr : 'Eğer KCals kullanmaktan zevk varsa, olumlu bir değerlendirme ile bize destek!',
+		uk : 'Якщо вам подобається KCals, підтримати нас з позитивним рейтингом!',
+		vi : 'Nếu bạn thích KCals, ủng hộ chúng tôi với một đánh giá tích cực!',
+		zh : '如果你喜欢KCals，支持我们以积极的评价！',
+		zt : '如果你喜歡KCals，支持我們以積極的評價！',
 	},
 	RATE_IT : {
-		en : 'Rate Kcals',
-		pt : 'Avaliar Kcals',
-		ar : 'قيِّم Kcals',
+		en : 'Rate KCals',
+		pt : 'Avaliar KCals',
+		ar : 'قيِّم KCals',
 		bg : 'Оцени сега',
-		ca : 'Valorar Kcals',
-		cs : 'Ohodnotit Kcals',
-		da : 'Bedøm Kcals',
-		de : 'Bewerte Kcals',
-		el : 'Αξιολόγησε Kcals',
-		es : 'Valorar Kcals',
-		et : 'Hinda Kcals',
+		ca : 'Valorar KCals',
+		cs : 'Ohodnotit KCals',
+		da : 'Bedøm KCals',
+		de : 'Bewerte KCals',
+		el : 'Αξιολόγησε KCals',
+		es : 'Valorar KCals',
+		et : 'Hinda KCals',
 		fa : 'آن را دوست ندارم حالا',
-		fi : 'Arvioi Kcals',
-		fr : 'Évaluer Kcals',
+		fi : 'Arvioi KCals',
+		fr : 'Évaluer KCals',
 		hi : 'अब यह दर',
-		hr : 'Ocijenite Kcals',
-		hu : 'Kcals értékelése',
-		it : 'Valuta Kcals',
+		hr : 'Ocijenite KCals',
+		hu : 'KCals értékelése',
+		it : 'Valuta KCals',
 		id : 'Berikan nilai sekarang!',
 		iw : 'דרג עכשיו',
-		ja : 'Kcals を評価する',
-		ko : 'Kcals 평가하기',
-		lt : 'Įvertinti Kcals',
-		lv : 'Likme Kcals',
+		ja : 'KCals を評価する',
+		ko : 'KCals 평가하기',
+		lt : 'Įvertinti KCals',
+		lv : 'Likme KCals',
 		ms : 'Berikan nilai sekarang!',
-		nl : 'Kcals beoordelen',
-		nb : 'Vurder Kcals',
-		pl : 'Oceń Kcals',
-		ro : 'Acordă notă pentru Kcals',
-		ru : 'Оценить Kcals',
-		sk : 'Ohodnotiť Kcals',
+		nl : 'KCals beoordelen',
+		nb : 'Vurder KCals',
+		pl : 'Oceń KCals',
+		ro : 'Acordă notă pentru KCals',
+		ru : 'Оценить KCals',
+		sk : 'Ohodnotiť KCals',
 		sl : 'Oceni zdaj',
-		sr : 'Оцените Kcals',
-		sv : 'Betygsätt Kcals',
-		th : 'ให้อันดับ Kcals',
-		tr : 'Evet Kcals oylamak istiyorum',
-		uk : 'Оцінити Kcals',
-		vi : 'Đánh giá Kcals',
+		sr : 'Оцените KCals',
+		sv : 'Betygsätt KCals',
+		th : 'ให้อันดับ KCals',
+		tr : 'Evet KCals oylamak istiyorum',
+		uk : 'Оцінити KCals',
+		vi : 'Đánh giá KCals',
 		zh : '現在評分',
 		zt : '現在評分',
 	},
@@ -8355,7 +8355,7 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 	HELP_TOPICS_ARRAY : {
 		en : {
 			"Supported platforms" : "\
-				<p>Kcals is currently available in the following platforms:</p>\
+				<p>KCals is currently available in the following platforms:</p>\
 				<p>• Android<br />\
 				• iOS<br />\
 				• Windows Phone<br />\
@@ -8365,7 +8365,7 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 				<p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Automatic Backup feature.</p>\
 			   ",
 			"Getting started" : "\
-				<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? Kcals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
+				<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? KCals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
 				<p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
 				<p>Then you should define a weight loss rate, given in lb/kg per week.</p>\
 				<p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p>\
@@ -8408,7 +8408,7 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 		},
 		pt : {
 			"Plataformas suportadas" : "\
-				<p>Kcals está disponível nas seguintes plataformas:</p>\
+				<p>KCals está disponível nas seguintes plataformas:</p>\
 				<p>• Android<br />\
 				• iOS<br />\
 				• Windows Phone<br />\
@@ -8418,7 +8418,7 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 				<p>Dica: Você pode sincronizar os dados entre vários dispositivos (mesmo em diferentes plataformas) ativando a função Backup Automático.</p>\
 			   ",
 			"Como começar?" : "\
-				<p>Seu corpo não esquece as calorias a cada 24 horas, então por que seu contador de calorias deveria? Kcals simula a maneira como seu corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.</p>\
+				<p>Seu corpo não esquece as calorias a cada 24 horas, então por que seu contador de calorias deveria? KCals simula a maneira como seu corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.</p>\
 				<p>Primeiro, preencha seu perfil. Com base nessa informação, o aplicativo calculará quantas calorias você precisa para manter seu peso atual.</p>\
 				<p>Depois você deve definir a perda de peso (em kg por semana).</p>\
 				<p>O valor resultante incluirá a restrição calórica necessária para que você atinja esse objetivo.</p>\

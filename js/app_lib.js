@@ -23,7 +23,8 @@ var loadingDivTimer;
 var timerPerf           = (new Date().getTime());
 var timerDiff           = 100;
 var timerWait           = 100;
-var noTimer; 
+var noteContent         = '';
+var noTimer;
 var ref;
 var preTab;
 var afterTab;
@@ -31,10 +32,22 @@ var timerKcals;
 var rebuildHistory;
 var blockModal = false;
 var modalTimer;
-var noteContent = '';
-jQuery.support.cors     = true
 function voidThis()   { }
 function voidMe()     { }
+///////////////
+// SAFE EXEC //
+///////////////
+if(typeof safeExec != 'function') {
+	function safeExec(callback) {
+		if (navigator.userAgent.match(/MSApp/i)) {
+			MSApp.execUnsafeLocalFunction(function () {
+				callback();
+			});
+		} else {
+			callback();
+		}
+	}
+}
 ///////////////////
 // ERROR HANDLER //
 ///////////////////
@@ -46,58 +59,9 @@ function errorHandler(error) {
 		} else {
 			if(confirm(JSON.stringify(error))) { blockAlerts = 0; } else { blockAlerts = 1; }
 		}
-		//if(window.external) { window.external.Notify('onerror: ' + e + ' URL:' + url + ' Line:' + line); } 
 		console.log(JSON.stringify(error));
 	}
 }
-/*
-var GlobalDebug = (function () {
-    var savedConsole = console;
-    return function(debugOn,suppressAll){
-        var suppress = suppressAll || false;
-        if(debugOn === false) {
-            console = {};
-            console.log = function () { };
-            if(suppress) {
-                console.info = function () { };
-                console.warn = function () { };
-                console.error = function () { };
-            } else {
-                console.info = savedConsole.info;
-                console.warn = savedConsole.warn;
-                console.error = savedConsole.error;              
-            }
-        } else {
-            console = savedConsole;
-        }
-    }
-})();
-
-var console = {};
-console.log = function(e) {
-	if(!$("#appDebug").html()) {
-		$("body").prepend("<div id='appDebug'></div>");
-		$("#appDebug").css("overflow","auto");
-		$("#appDebug").css("position","absolute");
-		$("#appDebug").css("top","0");
-		$("#appDebug").css("left","100px");
-		$("#appDebug").css("right","100px");
-		$("#appDebug").css("height",$("#appHeader").height() + "px");
-		$("#appDebug").css("box-sizing","border-box");
-		$("#appDebug").css("padding","6px");
-		$("#appDebug").css("z-index","99");
-		$("#appDebug").css("display","block");
-		$("#appDebug").css("background-color","rgba(0,0,0,.1)");
-		$("#appDebug").css("color","rgba(255,255,255,.8)");
-		$("#appDebug").css("opacity","1");
-	}
-	$("#appDebug").prepend(e+"<br>");
-}
-*/
-/////////////
-// OPTIONS //
-/////////////
-var appMode = "direct";
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//
@@ -127,6 +91,8 @@ var isMobile = {
 		return ((/Macintosh|Mac OS X/i.test(navigator.userAgent)) && !navigator.userAgent.match(/iPhone|iPad|iPod/i)) ? true : false;
 	}
 }
+//
+//if(isMobile.OSX()) { hasSql = false; }
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//
@@ -150,60 +116,33 @@ var transitionend;
      if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase()))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
 else if((/firefox/).test(navigator.userAgent.toLowerCase())) 			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
 else 																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
-//console.log(vendorClass + ' | ' + transitionend + ' | ' + prefix);
-////////////////////////
-// CONVERT CSS PREFIX //
-////////////////////////
-$.support.cors = true;
-if(vendorClass == "moz" || vendorClass == "msie") {
-	$.ajax({
-	    url: hostLocal + "css/index.css",
-    	dataType: "text",
-	    success: function(rawCss) {
-			//moz syntax
-			if(vendorClass == "moz") {
-				rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
-				//rawCss = rawCss.split('-webkit-linear-gradient').join('linear-gradient');
-			}
-			//msie backface slowdown
-			if(vendorClass == "msie") {
-				//rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
-			}
-			if(navigator.userAgent.match(/MSApp/i)) {
-				MSApp.execUnsafeLocalFunction(function() {
+///////////////////////////////////
+// STANDALONE CONVERT CSS PREFIX //
+///////////////////////////////////
+if(!$("#plainLoad").length) {
+	if(vendorClass == "moz" || vendorClass == "msie") {
+		$.support.cors = true;
+		$.ajax({
+		    url: hostLocal + "css/index.css",
+	    	dataType: "text",
+		    success: function(rawCss) {
+				//moz syntax
+				if(vendorClass == "moz") {
+					rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
+				}
+				//msie backface slowdown
+				if(vendorClass == "msie") {
+					//rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
+				}
+				safeExec(function() {
 					$("#coreCss").remove();
 					$("#coreFonts").prepend("<style type='text/css' id='coreCss'></style>");
 					$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
 				});
-			} else {
-				$("#coreCss").remove();
-				$("#coreFonts").prepend("<style type='text/css' id='coreCss'></style>");
-				$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
 			}
-		}
-	});
-}
-//////////////////
-// INJECT FONTS //
-//////////////////
-/*
-$("#coreFonts").remove();
-$.ajax({
-    url: hostLocal + "css/fonts.css",
-    dataType: "text",
-    success: function(rawCss) {
-
-	if(navigator.userAgent.match(/MSApp/i)) {
-		MSApp.execUnsafeLocalFunction(function() {
-			$("head").append("<style type='text/css' id='coreFonts'></style>");
-			$("#coreFonts").html(rawCss);
 		});
-	} else {
-		$("head").append("<style type='text/css' id='coreFonts'></style>");
-		$("#coreFonts").html(rawCss);
 	}
-}});
-*/
+}
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
@@ -268,22 +207,6 @@ function trim(str) {
 // DATE FORMAT //
 /////////////////
 function dtFormat(input) {
-	/*
-    if(!input) return "";
-	input    = new Date(input);
-    var res  = (input.getMonth()+1) + "/" + input.getDate() + "/" + input.getFullYear() + " ";
-    var hour = input.getHours(); //+1;
-    var ampm = "AM";
-	if(hour === 12) ampm = "PM";
-    if(hour > 12) {
-        hour-=12;
-        ampm = "PM";
-    }
-    var minute = input.getMinutes(); //+1;
-    if(minute < 10) minute = "0" + minute;
-    res += hour + ":" + minute + " " + ampm;
-    return res;
-	*/
     if(!input) { return ""; }
 	input        = new Date(input);
 	var gotMonth = input.getMonth()+1;
@@ -300,7 +223,7 @@ function dtFormat(input) {
 // DAY UTC FORMAT //
 ////////////////////
 function DayUtcFormat(input) {
-    if(!input) return "";
+    if(!input) { return ""; }
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
@@ -313,19 +236,13 @@ function DayUtcFormat(input) {
 // DAY FORMAT //
 ////////////////
 function dayFormat(input) {
-    if(!input) return "";
+    if(!input) { return ""; }
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
 	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
 	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
-	//if(LANG.LANGUAGE[lang] == "pt") { 
-	//	var res = gotDate + "/" + gotMonth + "/" + input.getFullYear();
-	//} else {
-	//  var res = gotMonth + "/" + gotDate + "/" + input.getFullYear();
-	//}
 	return res = input.getFullYear() + "/" + gotMonth + "/" + gotDate;
-	//}
 }
 //////////////
 // DATEDIFF //
@@ -449,29 +366,6 @@ if (navigator.userAgent.match(/MSApp/i)) {
 		}
 		return false;
 	}
-	///////////////////
-	// PRIVACY CHARM // For an introduction to the Blank template, see the following documentation:
-	/////////////////// http://go.microsoft.com/fwlink/?LinkId=232509
-	/*
-	(function() {
-		"use strict";
-		WinJS.Binding.optimizeBindingReferences = true;
-		var app = WinJS.Application;
-		var activation = Windows.ApplicationModel.Activation;
-		app.onactivated = function (args) {
-			if(args.detail.kind === activation.ActivationKind.launch) {
-				args.setPromise(WinJS.UI.processAll());
-			}
-		};
-		app.oncheckpoint = function (args) { };
-		WinJS.Application.onsettings = function (e) {
-			e.detail.e.request.applicationCommands.append(new Windows.UI.ApplicationSettings.SettingsCommand('Privacy policy', 'Privacy policy', function () {
-				Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('http://kcals.net/privacy.html'));
-			}));
-		};
-		app.start();
-	})();
-	*/
 }
 //#////////////////////////#//
 //# Base64 encode / decode #// 
@@ -613,49 +507,11 @@ var Base64 = {
 	}
 
 }
+//////////////////// getEntryHtml = Base64.encode(getEntryHtml);
+// BASE64 MATCHER // getEntryHtml = Base64.decode(getEntryHtml);
+//////////////////// if(base64Matcher.test(getEntryHtml)) {  }
 var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
-
-//getEntryHtml = Base64.encode(getEntryHtml);
-//getEntryHtml = Base64.decode(getEntryHtml);
-//if(base64Matcher.test(getEntryHtml)) {  }
-
-
-/*
-var scriptLoader = {
-    _loadScript: function (url, callback) {
-        var head = document.getElementsByTagName('head')[0];
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = url;
-        if (callback) {
-            script.onreadystatechange = function () {
-                if (this.readyState == 'loaded') callback();
-            }
-            script.onload = callback;
-        }
-        head.appendChild(script);
-    },
- 
-    load: function (items, iteration) {
-        if (!iteration) iteration = 0;
-        if (items[iteration]) {
-            scriptLoader._loadScript(
-                items[iteration],
-                function () {
-                    scriptLoader.load(items, iteration+1);
-                }
-            )
-        }
-    }
-}
-
-
-scriptLoader.load([
-'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js',
-'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js',
-]);
-*/
-//##//////////////////##//
+//##///////////////////##//
 //## APP CONFIRM LAYER ##//
 //##///////////////////##//
 function appConfirm(title, msg, callback, ok, cancel) {

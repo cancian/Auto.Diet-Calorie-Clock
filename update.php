@@ -34,6 +34,7 @@ $userdata .= file_get_contents('js/galocalstorage.js');
 if($_GET['type'] == 'md5') {
 	$userdata = '';
 	header('content-type: text/plain; charset=utf-8');
+	//$userdata .= file_get_contents('js/app_bootstrap.js');
 	$userdata .= file_get_contents('js/app_lib.js');
 	$userdata .= file_get_contents('js/app_lang.js');
 	$userdata .= file_get_contents('js/app_setup.js');

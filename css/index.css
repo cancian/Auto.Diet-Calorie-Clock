@@ -69,20 +69,22 @@ body.android ::-webkit-scrollbar{ display: none; }
 #appHeader					{ height: 62px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; }
 #timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; pointer-events: none; z-index: 70; -webkit-backface-visibility: hidden; }
 /*status colors 316ADC 5890FF           457CEE 457BEE 5B89F0 */
+#editable,
+#appHeader					{ background-color: #ffffff; color: #fff !important; font-weight: 300; -webkit-transition-timing-function: linear; -webkit-transition-duration: .25s; }
 .surplus #editable,
-.surplus #appHeader		{ color: #fff !important; background-color: #309030 !important; font-weight: 300; }
+.surplus #appHeader			{ background-color: #309030 !important; font-weight: 300; }
 .balanced #editable,
-.balanced #appHeader	{ color: #fff !important; background-color: #4496F1 !important; font-weight: 300; }
+.balanced #appHeader		{ background-color: #4496F1 !important; font-weight: 300; }
 .deficit #editable,
-.deficit #appHeader		{ color: #fff !important; background-color: #C85834 !important; font-weight: 300; }
+.deficit #appHeader			{ background-color: #C85834 !important; font-weight: 300; }
 .over.surplus #editable,
-.over.surplus #appHeader{ background-color: #309030 !important; }
+.over.surplus #appHeader	{ background-color: #309030 !important; }
 .over.deficit #editable,
-.over.deficit #appHeader{ background-color: #C85834 !important;  }
+.over.deficit #appHeader	{ background-color: #C85834 !important;  }
 .error.surplus #editable,
-.error.surplus #appHeader{ background-color: #000 !important; }
+.error.surplus #appHeader	{ background-color: #000 !important; }
 .error.deficit #editable,
-.error.deficit #appHeader{ background-color: #000 !important;  }
+.error.deficit #appHeader	{ background-color: #000 !important;  }
 /*android hacks*/
 .android #appHeader			{ z-index: 50 !important; }
 .android.tab1 #appHeader,

@@ -1942,7 +1942,7 @@ function getCatList(callback) {
 	$("#tabMyCatsBlock li").on(touchstart,function(evt) {
 		if($("#foodSearch").is(":focus")) {
 			$("#foodSearch").trigger("blur");
-			return;
+			return false;
 		};
 		$(".activeRow").removeClass("activeRow");
 		if(catBlockTap == true) {

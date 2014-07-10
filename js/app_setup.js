@@ -1328,13 +1328,9 @@ function updateEntriesSum() {
 			'; 
 		}
 		//OUTPUT
-		if(navigator.userAgent.match(/MSApp/i)) {
-			MSApp.execUnsafeLocalFunction(function() {
-				$("#daySum").html(reStyle);
-			});
-		} else {
+		safeExec(function() {
 			$("#daySum").html(reStyle);
-		}
+		});
 	});
 }
 //#////////////////////////////#//
@@ -1351,24 +1347,17 @@ function updateNutriRatio() {
 		#appStatusBarsCar span:after	{ content: ' (" + carRatio + "%)' !important; }\
 		#appStatusBarsFat span:after	{ content: ' (" + fatRatio + "%)' !important; }\
 	";
-	
-	if(navigator.userAgent.match(/MSApp/i)) {
-		MSApp.execUnsafeLocalFunction(function() {
-			if(!$("#appNutrients").html()) {
-				$("head").append("<style type='text/css' id='appNutrients'></style>");
-			}
-			if($("#appNutrients").html() != nutrientsStyle) {
-				$("#appNutrients").html(nutrientsStyle);
-			}
-		});
-	} else {
+	//////////
+	// EXEC //
+	//////////
+	safeExec(function() {
 		if(!$("#appNutrients").html()) {
 			$("head").append("<style type='text/css' id='appNutrients'></style>");
 		}
 		if($("#appNutrients").html() != nutrientsStyle) {
 			$("#appNutrients").html(nutrientsStyle);
 		}
-	}
+	});
 }
 //##/////////////////##//
 //## BUILD HELP MENU ##//
@@ -1560,13 +1549,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			</div>\
 		<div id='newWindow'>" + content + "</div>\
 	</div>";
-	if(navigator.userAgent.match(/MSApp/i)) {
-		MSApp.execUnsafeLocalFunction(function() {
-			$("#appContent").after(newContent);
-		});
-	} else {
+	safeExec(function() {
 		$("#appContent").after(newContent);
-	}
+	});
 	$("#newWindowWrapper").hide();
 	$("#newWindow").hide();
 	//configure ui
@@ -1598,13 +1583,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	// EXEC HANDLERS //
 	///////////////////
 	if(handlers) {
-		if(navigator.userAgent.match(/MSApp/i)) {
-			MSApp.execUnsafeLocalFunction(function() {
-				handlers();
-			});
-		} else {
+		safeExec(function() {
 			handlers();
-		}
+		});
 	}
 	////////////////////
 	// TRANSISION END //
@@ -1633,13 +1614,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		var timerCloser;
 		function windowCloser() {
 			if(closer) {
-				if(navigator.userAgent.match(/MSApp/i)) {
-					MSApp.execUnsafeLocalFunction(function() {
-						closer();
-					});
-				} else {
+				safeExec(function() {
 					closer();
-				}		
+				});
 			}
 			$('#appContent, #foodSearch, #newWindowWrapper').css('pointer-events','none');
 			$("#newWindow").getNiceScroll().remove();
