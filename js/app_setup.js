@@ -2073,6 +2073,7 @@ function getLoginFB() {
 						getTokenFB(response.authResponse.accessToken);
 					}
 				}, { scope : "email" });
+				//redirect_uri:'where_to_go_when_login_ends'}
 			}
 		}
 	///////////

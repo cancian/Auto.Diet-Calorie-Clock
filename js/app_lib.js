@@ -89,10 +89,17 @@ var isMobile = {
 	},
 	OSX: function() {
 		return ((/Macintosh|Mac OS X/i.test(navigator.userAgent)) && !navigator.userAgent.match(/iPhone|iPad|iPod/i)) ? true : false;
+	},
+	OSXApp: function() {
+		return (/Macintosh|Mac OS X/i.test(navigator.userAgent)) && !navigator.userAgent.match(/iPhone|iPad|iPod/i) && !(/Safafi/i).test(navigator.userAgent.toLowerCase()) ? true : false;
 	}
 };
-//
-//if(isMobile.OSX()) { hasSql = false; }
+/////////////
+// OSX APP //
+/////////////
+if(isMobile.OSXApp()) {
+	hasSql = false;
+}
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//
