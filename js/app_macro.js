@@ -1,4 +1,5 @@
-﻿//##/////////////////##//
+﻿/*jshint multistr: true */
+//##/////////////////##//
 //## GET FULLHISTORY ##//
 //##/////////////////##//
 function getFullHistory() {
@@ -24,11 +25,11 @@ function getFullHistory() {
 		}
 		//SORT
 		fullArray = fullArray.sort(function(a, b) {
-			return (a["date"] > b["date"]) ? 1 : ((a["date"] < b["date"]) ? -1 : 0);
+			return (a.date > b.date) ? 1 : ((a.date < b.date) ? -1 : 0);
 		});
 		// at least a week
 		if(now - oldestEntry < week) {
-			 oldestEntry = now - week;
+			oldestEntry = now - week;
 		}
 		//at most a month
 		if(now - oldestEntry > month) {
@@ -45,8 +46,8 @@ function getFullHistory() {
 			var daySum = 0;
 			//dump all day data in date array
 			for(var h=0, hen=fullArray.length; h<hen; h++) {
-				if(fullArray[h]['date'] == DayUtcFormat(countBack)) {
-					daySum = daySum + parseInt(fullArray[h]['val']);
+				if(fullArray[h].date == DayUtcFormat(countBack)) {
+					daySum = daySum + parseInt(fullArray[h].val);
 				}
 			}
 			//insert
@@ -102,7 +103,7 @@ function getFullHistory() {
 				Highcharts.setOptions({
 					lang : {
 						shortMonths : LANG.MONTH_SHORT[lang].split(', '),
-						weekdays : LANG.WEEKDAY_SHORT[lang].split(', '),
+						weekdays : LANG.WEEKDAY_SHORT[lang].split(', ')
 					}
 				});
 				///////////////
@@ -131,7 +132,7 @@ function getFullHistory() {
 						spacingTop : 0,
 						spacingBottom : 9,
 						height : $("#newWindow").height() - heightAdjust,
-						width : minWidth,
+						width : minWidth
 					},
 					credits : {
 						enabled : false
@@ -143,7 +144,7 @@ function getFullHistory() {
 						text : ''
 					},
 					tooltip : {
-						enabled : true,
+						enabled : true
 					},
 					subtitle : {
 						text : ''
@@ -160,13 +161,13 @@ function getFullHistory() {
 							align : 'left',
 							x : 2, //31,
 							y : -1,
-							textSize : '9px',
+							textSize : '9px'
 						},
 						showFirstLabel : false,
-						showLastLabel : false,
+						showLastLabel : false
 					},
 					xAxis : {
-						type : 'datetime',
+						type : 'datetime'
 					},
 					plotOptions : {
 						series : {
@@ -177,28 +178,28 @@ function getFullHistory() {
 								fillColor : 'white',
 								states : {
 									hover : {
-										lineWidth : 2,
-									},
-								},
+										lineWidth : 2
+									}
+								}
 							},
 							allowPointSelect : false,
 							lineWidth : 2,
 							states : {
 								hover : {
 									lineWidth : 2
-								},
-							},
+								}
+							}
 						},
 						line : {
 							dataLabels : {
 								enabled : false,
 								style : {
 									textShadow : '0 0 3px white',
-									fontSize : '12px',
+									fontSize : '12px'
 								},
-								y : -9,
+								y : -9
 							},
-							enableMouseTracking : true,
+							enableMouseTracking : true
 						}
 					},
 					series : [{
@@ -209,12 +210,12 @@ function getFullHistory() {
 						}
 					]
 				});
-			}
+			};
 			/////////////
 			// EXECUTE //
 			/////////////
 			rebuildHistory();
-		}
+		};
 		//////////
 		// HTML //
 		//////////
@@ -224,7 +225,7 @@ function getFullHistory() {
 		/////////////
 		var appHistoryConfirm = function() {
 			return true;
-		}
+		};
 		/////////////////
 		// CALL WINDOW //
 		/////////////////
@@ -236,8 +237,8 @@ function getFullHistory() {
 //##////////////////##//
 function intakeHistory() {
 	//check exists
-	if(window.localStorage.getItem("app_last_tab") != "tab1") { return; }
-	if(!$('#appStatusIntake').html())						  { return; } 
+	if(window.localStorage.getItem("app_last_tab") != "tab1")	{ return; }
+	if(!$('#appStatusIntake').html())							{ return; } 
 	//if($('#appStatusIntake div').length === 0) { return; }
 	//go
 	var firstTick = 0;
@@ -381,8 +382,8 @@ function intakeHistory() {
 		var catFontSize = "9px";
 		if(lang == "fa") { catFontSize = "8px"; }
 		//check exists
-		if(window.localStorage.getItem("app_last_tab") != "tab1") { return; }
-		if(!$('#appStatusIntake').html())						  { return; } 
+		if(window.localStorage.getItem("app_last_tab") != "tab1")	{ return; }
+		if(!$('#appStatusIntake').html())							{ return; } 
 		$('#appStatusIntake').highcharts({
 			chart : {
 				reflow: false,
@@ -391,7 +392,7 @@ function intakeHistory() {
 				spacingTop    : -1,
 				spacingBottom : -12,
 				height : checkHeight,
-				width : $("#appStatusIntake").width(),
+				width : $("#appStatusIntake").width()
 			},
 			credits : {
 				enabled : false
@@ -410,10 +411,10 @@ function intakeHistory() {
 				labels : {
 					style : {
 						color : "rgba(47, 126, 216, .45)",
-						fontSize : catFontSize,
+						fontSize : catFontSize
 					},
 					y : -2,
-					x : 0,
+					x : 0
 				}
 			},
 			yAxis : {
@@ -428,10 +429,10 @@ function intakeHistory() {
 					align : 'left',
 					x : 31,
 					y : -1,
-					textSize : '8px',
+					textSize : '8px'
 				},
 				showFirstLabel : false,
-				showLastLabel : false,
+				showLastLabel : false
 			},
 			tooltip : {
 				enabled : false,
@@ -445,16 +446,16 @@ function intakeHistory() {
                 states: {
                     hover: {
                         lineWidth: 1
-                    },
-                },
+                    }
+                }
             },
 				line : {
 					dataLabels : {
 						enabled : true,
 						style : {
 							textShadow : '0 0 3px white',
-							fontSize : '8px',
-						},
+							fontSize : '8px'
+						}
 					},
 					enableMouseTracking : false
 				}
@@ -481,10 +482,10 @@ function intakeHistory() {
 						fillColor : "rgba(0, 0, 0, 0)",
 						states: {
 							hover: {
-								lineWidth : 1,
-							},
-						},
-					},
+								lineWidth : 1
+							}
+						}
+					}
 				},
 				{
 					type : 'line',
@@ -496,23 +497,23 @@ function intakeHistory() {
 						{ y : past3daysSum, dataLabels : { x : 0, color : past3daysColor  } },
 						{ y : past2daysSum, dataLabels : { x : 0, color : past2daysColor  } },
 						{ y : past1daysSum, dataLabels : { x : 0, color : past1daysColor  } },
-						{ y : past0daysSum, dataLabels : { x : 0, color : 'rgba(0,0,0,0)' } },
+						{ y : past0daysSum, dataLabels : { x : 0, color : 'rgba(0,0,0,0)' } }
 					],
 					lineWidth : 0,
 					lineColor : 'rgba(0,0,0,.2)',
 					fillColor : 'rgba(0,0,0,.05)',
 					marker : {
-						enabled : false,
+						enabled : false
 					},
 					line : {
 						dataLabels : {
 							enabled : true,
 							style : {
 								textShadow : '0 0 3px white',
-								fontSize : '8px',
-							},
-						},
-					},
+								fontSize : '8px'
+							}
+						}
+					}
 				}
 			]
 		});
@@ -551,7 +552,7 @@ function getNutriSliders() {
 			}
 			return false;
 		}
-	}
+	};
 	///////////////////////
 	// HANDLERS CALLBACK //
 	///////////////////////
@@ -588,7 +589,8 @@ function getNutriSliders() {
 				//update total
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
 			}
-		}}
+		};
+		}
 		////////////////
 		// CAR.UPDATE //
 		////////////////

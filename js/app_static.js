@@ -1,4 +1,5 @@
-﻿//////////////////
+﻿/*jshint multistr: true */
+//////////////////
 // DEVICE READY //
 //////////////////
 $(document).ready(function() {
@@ -138,7 +139,7 @@ preTab = function() {
 		window.location='#top';
 		//$('#appContent').css('opacity',1);
 	}
-}
+};
 afterTab = function() {
 	$("#appContent").show();
 	$("#appContent").css('touch-events','auto');
@@ -160,7 +161,7 @@ afterTab = function() {
 	}
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
-}
+};
 function appFooter(id) {
 	if(new Date().getTime() - lastTab < 200) { lastTab = new Date().getTime(); return; }
 	lastTab = new Date().getTime();
@@ -350,7 +351,7 @@ $(document).on("pressenter", function(evt) {
 		$('#appStatusFix').removeClass("open");
 	}
 	if($(".delete").hasClass("active")) {
-		$(".delete.active").trigger(tap)
+		$(".delete.active").trigger(tap);
 	}
 });
 //////////////////////
@@ -828,22 +829,21 @@ setInterval(function() {
 			////////////////////////
 			// DEFINE KCALS VALUE //
 			////////////////////////
-			var resetValue = 2000;
+			var getKcalsKey  = "config_kcals_day_0";
+			var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
+			var eqPerDay     = window.localStorage.getItem("config_kcals_day_0");
+			var resetValue   = 2000;
 			if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
 				if(window.localStorage.getItem("config_kcals_day") == "d") {
-					var getKcalsKey  = "config_kcals_day_2";
-					var getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
-					var eqPerDay     = window.localStorage.getItem("config_kcals_day_2");
+					getKcalsKey  = "config_kcals_day_2";
+					getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
+					eqPerDay     = window.localStorage.getItem("config_kcals_day_2");
 				} else {
-					var getKcalsKey  = "config_kcals_day_1";
-					var getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
-					var eqPerDay     = window.localStorage.getItem("config_kcals_day_1");
-					var resetValue   = 1600;
+					getKcalsKey  = "config_kcals_day_1";
+					getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
+					eqPerDay     = window.localStorage.getItem("config_kcals_day_1");
+					resetValue   = 1600;
 				}
-			} else {
-				var getKcalsKey  = "config_kcals_day_0";
-				var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
-				var eqPerDay     = window.localStorage.getItem("config_kcals_day_0");
 			}	
 			//edit...
 			if(!$(this).has('input').length) {

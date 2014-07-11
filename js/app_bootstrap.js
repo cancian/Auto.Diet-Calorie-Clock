@@ -115,40 +115,7 @@ function buildRemoteSuperBlock(opt) {
 	/////////////////////
 	// INTEGRITY CHECK //
 	/////////////////////
-	var isValid = 1;
-	//APP_LIB
-	if(dataJS.indexOf('var isMobile')        === -1)			{ isValid = 0 }
-	if(dataJS.indexOf('function appConfirm') === -1)			{ isValid = 0 }
-	//APP_LANG
-	if(dataJS.indexOf('var appName')     === -1)				{ isValid = 0 }
-	if(dataJS.indexOf('FOOD_CATEGORIES') === -1)				{ isValid = 0 }
-	//APP_SETUP
-	if(dataJS.indexOf('function showIntro')  === -1)			{ isValid = 0 }
-	if(dataJS.indexOf('function getLoginFB') === -1)			{ isValid = 0 }
-	//APP_MACRO
-	if(dataJS.indexOf('function getFullHistory') === -1)		{ isValid = 0 }
-	if(dataJS.indexOf('function getCatList')     === -1)		{ isValid = 0 }
-	//APP_BUILD
-	if(dataJS.indexOf('function openSettings')       === -1)	{ isValid = 0 }
-	if(dataJS.indexOf('function feetInchesToMetric') === -1)	{ isValid = 0 }
-	//APP_STATIC
-	if(dataJS.indexOf('function startApp')   === -1)			{ isValid = 0 }
-	if(dataJS.indexOf('var editableTimeout') === -1)			{ isValid = 0 }
-	//APP_DYNAMIC
-	if(dataJS.indexOf('$(document).on("pageload"') === -1)		{ isValid = 0 }
-	if(dataJS.indexOf('function getModalWindow')   === -1)		{ isValid = 0 }
-	//APP_CUSTOM_CORE
-	if(dataJS.indexOf('function appTimer')    === -1)			{ isValid = 0 }
-	if(dataJS.indexOf('function updateTimer') === -1)			{ isValid = 0 }
-	//INDEX.CSS
-	if(dataCSS.indexOf('html,body') === -1)						{ isValid = 0 }
-	if(dataCSS.indexOf('#cat9999')  === -1)						{ isValid = 0 }
-	//FONTS.CSS
-	if(dataCSS.indexOf('@font-face') === -1)					{ isValid = 0 }
-	if(dataCSS.indexOf('.msie-png')  === -1)					{ isValid = 0 }
-	//ISVALID
-	//console.log(isValid);
-	if(isValid != 1) { return; }
+	if(!isCacheValid(dataJS + dataCSS)) { return; }
 	//store original hash
 	window.localStorage.setItem("app_autoupdate_hash",(dataJS + dataCSS).length);	
 	//MOZ~IE CSS
@@ -212,26 +179,15 @@ if(!window.localStorage.getItem("config_autoupdate")) {
 }
 if(window.localStorage.getItem("config_autoupdate") == "on") {
 	//IF SUPERBLOCK MISSING
-	if(!window.localStorage.getItem("remoteSuperBlockJS") || !window.localStorage.getItem("remoteSuperBlockCSS")) {
+	if(isCurrentCacheValid != 1) {
 		//BUILD LOCAL SUPERBLOCK
 		if(!$("#plainLoad").length) {
 			InitializeLocalSuperBlock();
 		}
-		//CHECK UPDATES
-		setTimeout(function() {
-			buildRemoteSuperBlock('cached');
-		},5000);
-	} else {
-		//APPEND SUPERBLOCK
-		safeExec(function() {
-			$("#coreCss,#coreFonts").remove();
-			$("head").append("<style id='superBlockCSS'>" + window.localStorage.getItem("remoteSuperBlockCSS") + "</style>");
-			$("head").append("<script id='superBlockJS'>" + window.localStorage.getItem("remoteSuperBlockJS")  + "</script>");
-		});
-		//CHECK UPDATES
-		setTimeout(function() {
-			buildRemoteSuperBlock('cached');
-		},5000);
 	}
+	//CHECK UPDATES
+	setTimeout(function() {
+		buildRemoteSuperBlock('cached');
+	},5000);
 }
 

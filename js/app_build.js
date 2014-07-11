@@ -1,4 +1,5 @@
-﻿/*########################################
+﻿/*jshint multistr: true */
+/*########################################
 ####    HTML BUILDS ~ OPEN SETTINGS   ####
 ########################################*/
 function openSettings(string) {
@@ -1251,7 +1252,7 @@ $('#appContent').scroll(function() {
 	topTimer = setTimeout(function() {
 		blockModal = false;
 		//
-		var entryListHeight = $('#entryList').height() * .5;
+		var entryListHeight = $('#entryList').height() * 0.5;
 		if(topLock != 0)                  { return; }
 		if($('#go').hasClass("scrolled")) { return; }
 		//console.log("scrolled: " + $('#appContent').scrollTop() + " total: " + entryListHeight);
@@ -1421,7 +1422,7 @@ var profileHtml = '\
 \
 <h2 id="mantain"><span>A.</span> ' + LANG.KEEP_WEIGHT[lang] + '</h2>\
 <div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
-<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
+<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
 \
@@ -1496,7 +1497,7 @@ var profileHtml = '\
 </div>\
 <div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
 \
-<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
+<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />gm</div>\
 <div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10L" readonly size="7" value="0" name="pA10L" />cal =<input class="ee101" id="pA10N2" readonly size="7" value="0" name="pA10N" />gm</div>\
 </form>\

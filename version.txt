@@ -1,6 +1,9 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.3.0 [2014/07/11]
+• Automatic Updates
+
 # 1.2.9 [2014/07/05]
 • The database now has food categories 
 • Personalized items share the same tab 

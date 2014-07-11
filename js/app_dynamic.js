@@ -660,7 +660,7 @@ $(document).on("pageReload", function(evt) {
 		clearTimeout(timer);
 		var ms = 200; //275;
 		//faster desktop
-		if(!isCordova) { var ms  = 50; }
+		if(!isCordova) { ms  = 50; }
 		var val = this.value;
 		//DO SEARCH
 		timer = setTimeout(function() {
@@ -888,7 +888,7 @@ function searchFood(searchSQL,callback) {
 		///var datz = lib2.query("diary_food");	
 	}
 	
-};
+}
 //#////////////////////////#//
 //# SUB FUNCION: DO SEARCH #//
 //#////////////////////////#//
@@ -946,7 +946,7 @@ function doSearch(rawInput) {
 		
 		
 		
-		var timerStart = new Date().getTime();
+	var timerStart = new Date().getTime();
 	var lastSearch = window.localStorage.getItem("lastSearchTerm");
 	//sanitize user input
 	var searchQuery = trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());

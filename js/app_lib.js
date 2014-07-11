@@ -10,7 +10,7 @@ var db;
 var dbName              = "mylivediet.app";
 var lib;
 var lib2;
-var hasSql			    = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
+var hasSql              = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
 var AND                 = " ";
 var initialScreenWidth  = window.innerWidth;
 var initialScreenHeight = window.innerHeight;
@@ -90,7 +90,7 @@ var isMobile = {
 	OSX: function() {
 		return ((/Macintosh|Mac OS X/i.test(navigator.userAgent)) && !navigator.userAgent.match(/iPhone|iPad|iPod/i)) ? true : false;
 	}
-}
+};
 //
 //if(isMobile.OSX()) { hasSql = false; }
 //#///////////#//
@@ -114,8 +114,8 @@ var prefix;
 var vendorClass; 
 var transitionend;
      if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase()))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
-else if((/firefox/).test(navigator.userAgent.toLowerCase())) 			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
-else 																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
+else if((/firefox/).test(navigator.userAgent.toLowerCase()))			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
+else																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
 ///////////////////////////////////
@@ -123,9 +123,9 @@ if(!$("#plainLoad").length) {
 	if(vendorClass == "moz" || vendorClass == "msie") {
 		$.support.cors = true;
 		$.ajax({
-		    url: hostLocal + "css/index.css",
-	    	dataType: "text",
-		    success: function(rawCss) {
+			url: hostLocal + "css/index.css",
+			dataType: "text",
+			success: function(rawCss) {
 				//moz syntax
 				if(vendorClass == "moz") {
 					rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
@@ -229,8 +229,7 @@ function DayUtcFormat(input) {
 	var gotDate  = input.getDate();
 	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
 	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
-	var res = input.getFullYear() + "/" + gotMonth + "/" + gotDate;
-    return res;
+	return input.getFullYear() + "/" + gotMonth + "/" + gotDate;
 }
 ////////////////
 // DAY FORMAT //
@@ -242,14 +241,14 @@ function dayFormat(input) {
 	var gotDate  = input.getDate();
 	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
 	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
-	return res = input.getFullYear() + "/" + gotMonth + "/" + gotDate;
+	return input.getFullYear() + "/" + gotMonth + "/" + gotDate;
 }
 //////////////
 // DATEDIFF //
 //////////////
 function dateDiff(date1,date2) {
 	//no future dates
-	if(date1 > date2) { date1 = new Date().getTime() }
+	if(date1 > date2) { date1 = new Date().getTime(); }
 
 	//Get 1 day in milliseconds
 	var one_day  = 1000*60*60*24;
@@ -271,19 +270,19 @@ function dateDiff(date1,date2) {
 	var lHours   = " " + LANG.HOURS[lang] + " ";
 	var lDays    = " " + LANG.DAYS[lang] + " ";
 
-	if(minutes == 0) { var lMinutes = ""; minutes = ""; }
-	if(hours   == 0) { var lHours   = ""; hours   = ""; }
-	if(days    == 0) { var lDays    = ""; days    = ""; }
+	if(minutes == 0) { lMinutes = ""; minutes = ""; }
+	if(hours   == 0) { lHours   = ""; hours   = ""; }
+	if(days    == 0) { lDays    = ""; days    = ""; }
 
-	if(minutes == 1) { var lMinutes = " " + LANG.MINUTE[lang] + " "; }
-	if(hours   == 1) { var lHours   = " " + LANG.HOUR[lang] + " ";   }
-	if(days    == 1) { var lDays    = " " + LANG.DAY[lang] + " ";    }
+	if(minutes == 1) { lMinutes = " " + LANG.MINUTE[lang] + " "; }
+	if(hours   == 1) { lHours   = " " + LANG.HOUR[lang] + " ";   }
+	if(days    == 1) { lDays    = " " + LANG.DAY[lang] + " ";    }
 
-	if(days    > 3)                             { var lHours   = ""; hours   = ""; }
-	if(days    > 0)                             { var lMinutes = ""; minutes = ""; }
-	if(days    > 0 && hours   > 0)              { var lDays    = lDays  + LANG.AND[lang] + " "; }
-	if(hours   > 0 && minutes > 0)              { var lHours   = lHours + LANG.AND[lang] + " "; }
-	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; var lMinutes = " " + LANG.MINUTES[lang] + " "; }
+	if(days    > 3)                             { lHours   = ""; hours   = ""; }
+	if(days    > 0)                             { lMinutes = ""; minutes = ""; }
+	if(days    > 0 && hours   > 0)              { lDays    = lDays  + LANG.AND[lang] + " "; }
+	if(hours   > 0 && minutes > 0)              { lHours   = lHours + LANG.AND[lang] + " "; }
+	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; lMinutes = " " + LANG.MINUTES[lang] + " "; }
 
 	return LANG.PREAGO[lang] + " " + days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
 }
@@ -342,7 +341,7 @@ if (navigator.userAgent.match(/MSApp/i)) {
 			(new Windows.UI.Popups.MessageDialog(alertsToShow.shift())).showAsync().done(function () {
 				dialogVisible = false;
 				showPendingAlerts();
-			})
+			});
 		}
 		window.alert = function (message) {
 			if (window.console && window.console.log) {
@@ -350,7 +349,7 @@ if (navigator.userAgent.match(/MSApp/i)) {
 			}
 			alertsToShow.push(message);
 			showPendingAlerts();
-		}
+		};
 	})();
 	/////////////
 	// LICENSE //
@@ -506,7 +505,7 @@ var Base64 = {
 		return string;
 	}
 
-}
+};
 //////////////////// getEntryHtml = Base64.encode(getEntryHtml);
 // BASE64 MATCHER // getEntryHtml = Base64.decode(getEntryHtml);
 //////////////////// if(base64Matcher.test(getEntryHtml)) {  }

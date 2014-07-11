@@ -5,26 +5,23 @@
 // APP TIMER REFRESH DATA //
 ////////////////////////////
 function appTimer(id,content) {
-		var kcalsType  = content[0];
-		var kcalsInput = content[1];
-		var kcalsAll   = content[2];
-		var currentDay = content[3];
+	var kcalsType  = content[0];
+	var kcalsInput = content[1];
+	var kcalsAll   = content[2];
+	var currentDay = content[3];
+	var getKcalsKey  = "config_kcals_day_0";	
+	var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
+	var eqPerDay     = window.localStorage.getItem("config_kcals_day_0");
 	if(kcalsType == "cyclic") {
 		if(currentDay == "d") {
-			var getKcalsKey  = "config_kcals_day_2";
-			var getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
-			var eqPerDay     = window.localStorage.getItem("config_kcals_day_2");
+			getKcalsKey  = "config_kcals_day_2";
+			getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
+			eqPerDay     = window.localStorage.getItem("config_kcals_day_2");
 		} else {
-			var getKcalsKey  = "config_kcals_day_1";		
-			var getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
-			var eqPerDay     = window.localStorage.getItem("config_kcals_day_1");
+			getKcalsKey  = "config_kcals_day_1";		
+			getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
+			eqPerDay     = window.localStorage.getItem("config_kcals_day_1");
 		}
-	} else {
-		var kcalsType    = content[0];		
-		var kcalsInput   = content[1];
-		var getKcalsKey  = "config_kcals_day_0";	
-		var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
-		var eqPerDay     = window.localStorage.getItem("config_kcals_day_0");
 	}
 	//STATUS BAR COLOR
 	var status;
@@ -227,7 +224,7 @@ function cyclicTimeToKcals(startTime) {
 	//var todaysTime = Date.parse(moment().format('LL'));
 	// IF (START DATE) < (TIME ELAPSED TODAY), DO NOT COUNT FROM TODAYS START TIME, BUT FROM DIET START TIME
 	if((now - startTime) > (todaysTime - startTime) && (now - startTime) < day ) {
-		var todaysTime = now;
+		todaysTime = now;
 	}
 	//DAY NAMES
 	var nameA      = "plateau in";
@@ -260,7 +257,7 @@ function cyclicTimeToKcals(startTime) {
 	var cycleDay = "a";
 	//console.log(new Date(Date.UTC(2012,1,5)));
 	//console.log(new Date(Date.parse("January 05, 2012")));	
-	for(var dietDay = Date.UTC(2009,1,1) + ((((new Date).getTimezoneOffset()) * 60 * 1000)); dietDay < now; dietDay = dietDay + day) {
+	for(var dietDay = Date.UTC(2009,1,1) + ((((new Date()).getTimezoneOffset()) * 60 * 1000)); dietDay < now; dietDay = dietDay + day) {
 			 if(cycleDay == "a") { currentDay = "a"; /*PUSH TO NEXT*/ cycleDay = "b"; }
 		else if(cycleDay == "b") { currentDay = "b"; /*PUSH TO NEXT*/ cycleDay = "c"; }
 		else if(cycleDay == "c") { currentDay = "c"; /*PUSH TO NEXT*/ cycleDay = "d"; }

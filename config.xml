@@ -8,10 +8,10 @@
 	<content src="index.html" />
 	<access origin="*" />
 
-    <name>Kcals</name>
+    <name>KCals</name>
 
     <description>
-        Kcals displays your calorie usage in real-time.
+        KCals displays your calorie usage in real-time.
     </description>
 
     <author email="support@kcals.net" href="http://kcals.net">

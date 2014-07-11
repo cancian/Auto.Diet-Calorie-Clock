@@ -3,7 +3,7 @@
 //var IE4 = (document.all);
 //var win = window;
 //var n = 0;
-var co = new Object;
+var co = [];
 function recalc_onclick(ctl) {
 //    if ($("#automatic_recalc.checked || ctl == '') {
         co.pA1B = $("#pA1B").val();
@@ -58,7 +58,7 @@ function recalc_onclick(ctl) {
         $("#pA10L").val(eedisplayFloatND(co.pA10L, 2));
         $("#pA10N").val(eedisplayFloatND(co.pA10N, 2));
  //   };
-};
+}
 var eeisus   = 1;
 var eetrue   = "TRUE";
 var eefalse  = "FALSE";
@@ -136,15 +136,15 @@ function calc(data) {
     data.pA10H = cA10H;
     data.pA10L = cA10L;
     data.pA10N = cA10N;
-};
+}
 
 function str_eq(x, y) {
-    return (x.toLowerCase() == y.toLowerCase())
-};
+    return (x.toLowerCase() == y.toLowerCase());
+}
 
 function myIsNaN(x) {
     return (isNaN(x) || (typeof x == 'number' && !isFinite(x)));
-};
+}
 
 function round(n, nd) {
     if (isFinite(n) && isFinite(nd)) {
@@ -155,7 +155,7 @@ function round(n, nd) {
     } else {
         return NaN;
     }
-};
+}
 
 function s2n(str) {
     str = String(str).replace(eedecreg, ".");
@@ -173,18 +173,18 @@ function v2n(v) {
     case "object":
         if (v.constructor == Number) {
             return v;
-        };
+        }
         if (v.constructor == String) {
             return s2n(v);
-        };
+        }
         if (v.constructor == Boolean) {
             return v ? 1 : 0;
-        };
+        }
         return Number.NaN;
     default:
         return Number.NaN;
     }
-};
+}
 
 function eeparseFloat(str) {
     str = String(str).replace(eedecreg, ".");
@@ -194,7 +194,7 @@ function eeparseFloat(str) {
     } else {
         return res;
     }
-};
+}
 
 function eedisplayFloat(x) {
     if (myIsNaN(x)) {
@@ -202,7 +202,7 @@ function eedisplayFloat(x) {
     } else {
         return String(x).replace(/\./g, eedec);
     }
-};
+}
 
 function eedisplayFloatND(x, nd) {
     if (myIsNaN(x)) {
@@ -225,7 +225,7 @@ function eedisplayFloatND(x, nd) {
             return res;
         }
     }
-};
+}
 var eeparseFloatVreg = new RegExp("^ *-?[0-9.]+ *$");
 
 function eeparseFloatV(str) {
@@ -233,11 +233,11 @@ function eeparseFloatV(str) {
     str = String(str).replace(eedecreg, ".");
     if (!eeparseFloatVreg.test(str)) {
         return str;
-    };
+    }
     var res = parseFloat(str);
     if (isNaN(res)) {
         return str;
     } else {
         return res;
     }
-};
+}

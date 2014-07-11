@@ -41,6 +41,46 @@ window.onerror = function (e, url, line) {
 		}, 1000);
 	}
 };
+//##//////////////##
+//## ISCACHEVALID ##
+//##//////////////##
+var isCurrentCacheValid = 0;
+function isCacheValid(input) {
+	var isValid = 1;
+	if(!input || input == '') { return false; }
+	//APP_LIB
+	if(input.indexOf('var isMobile')        === -1)			{ isValid = 0; }
+	if(input.indexOf('function appConfirm') === -1)			{ isValid = 0; }
+	//APP_LANG
+	if(input.indexOf('var appName')     === -1)				{ isValid = 0; }
+	if(input.indexOf('FOOD_CATEGORIES') === -1)				{ isValid = 0; }
+	//APP_SETUP
+	if(input.indexOf('function showIntro')  === -1)			{ isValid = 0; }
+	if(input.indexOf('function getLoginFB') === -1)			{ isValid = 0; }
+	//APP_MACRO
+	if(input.indexOf('function getFullHistory') === -1)		{ isValid = 0; }
+	if(input.indexOf('function getCatList')     === -1)		{ isValid = 0; }
+	//APP_BUILD
+	if(input.indexOf('function openSettings')       === -1)	{ isValid = 0; }
+	if(input.indexOf('function feetInchesToMetric') === -1)	{ isValid = 0; }
+	//APP_STATIC
+	if(input.indexOf('function startApp')   === -1)			{ isValid = 0; }
+	if(input.indexOf('var editableTimeout') === -1)			{ isValid = 0; }
+	//APP_DYNAMIC
+	if(input.indexOf('$(document).on("pageload"') === -1)	{ isValid = 0; }
+	if(input.indexOf('function getModalWindow')   === -1)	{ isValid = 0; }
+	//APP_CUSTOM_CORE
+	if(input.indexOf('function appTimer')    === -1)		{ isValid = 0; }
+	if(input.indexOf('function updateTimer') === -1)		{ isValid = 0; }
+	//INDEX.CSS
+	if(input.indexOf('html,body') === -1)					{ isValid = 0; }
+	if(input.indexOf('#cat9999')  === -1)					{ isValid = 0; }
+	//FONTS.CSS
+	if(input.indexOf('@font-face') === -1)					{ isValid = 0; }
+	if(input.indexOf('.msie-png')  === -1)					{ isValid = 0; }
+	//ISVALID
+	return isValid;
+}
 //##/////////##//
 //## INIT JS ##//
 //##/////////##//
@@ -55,11 +95,6 @@ function initJS() {
 	} else {
 		document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />');
 	}
-	/////////
-	// CSS //
-	/////////
-	document.write("<link rel='stylesheet' type='text/css' id='coreCss'   href='" + hostLocal + "css/index.css' />");
-	document.write("<link rel='stylesheet' type='text/css' id='coreFonts' href='" + hostLocal + "css/fonts.css' />");
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
@@ -106,8 +141,24 @@ function initJS() {
 	//# APP MODE LOADER #//
 	//#/////////////////#//
 	if (window.localStorage.getItem("config_autoupdate") == "on" || (navigator.userAgent.match(/MSApp/i) && window.localStorage.getItem("config_debug") == "active")) {
+		if(isCacheValid(window.localStorage.getItem("remoteSuperBlockJS") + window.localStorage.getItem("remoteSuperBlockCSS"))) {
+			isCurrentCacheValid = 1;
+		}
+		//DEFINE VALIDITY
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
+		if(isCurrentCacheValid == 1) {
+			document.write("<style id='superBlockCSS'>" + window.localStorage.getItem("remoteSuperBlockCSS") + "<\/style>");
+			document.write("<script id='superBlockJS'>" + window.localStorage.getItem("remoteSuperBlockJS")  + "<\/script>");
+		}
 	} else {
+		/////////
+		// CSS //
+		/////////
+		document.write("<link rel='stylesheet' type='text/css' id='coreCss'   href='" + hostLocal + "css/index.css' />");
+		document.write("<link rel='stylesheet' type='text/css' id='coreFonts' href='" + hostLocal + "css/fonts.css' />");
+		////////
+		// JS //
+		////////
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lib.js'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_lang.js'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_setup.js'><\/script>");
@@ -118,6 +169,7 @@ function initJS() {
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_dynamic.js'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_custom_core.js'><\/script>");
 	}
+	
 }
 //#//////////////#//
 //# JS KICKSTART #//

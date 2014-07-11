@@ -1,4 +1,5 @@
-﻿////////////////
+﻿/*jshint multistr: true */
+////////////////
 // SHOW INTRO //
 ////////////////
 var myScroll;
@@ -177,7 +178,7 @@ function initDB(t) {
 		}
 		startApp();
 	}
-};
+}
 /////////////////
 // FIX RESULTS //
 /////////////////
@@ -190,7 +191,7 @@ function fixResults(res) {
 		}
 	}
 	return result;
-};
+}
 ////////////////////
 // RESET DATA+SQL //
 ////////////////////
@@ -200,7 +201,7 @@ function deSetup(callback) {
 	} else {
 		afterHide("clear");
 	}
-};
+}
 ///////////////////
 // CLEAR ENTRIES //
 ///////////////////
@@ -213,7 +214,7 @@ function clearEntries(callback) {
 		lib.commit();
 		setPush();
 	}
-};
+}
 //////////////////////////////
 // SQL-ENCODE LOCAL STORAGE //
 //////////////////////////////
@@ -547,7 +548,7 @@ function getEntry(eid,callback) {
 	} else {
 		callback(lib.query("diary_entry", {id: eid}));
 	}
-};
+}
 //#//////////////////#//
 //# DB: UPDATE ENTRY #//
 //#//////////////////#//
@@ -696,7 +697,7 @@ function getFood(fCode,callback) {
 	} else {
 		callback(lib2.query("diary_food", {code: fCode}));
 	}
-};
+}
 /////////////////
 // DELETE FOOD //
 /////////////////
@@ -709,7 +710,7 @@ function delFood(fCode, callback) {
 		lib2.deleteRows("diary_food",{code: fCode});
 		lib2.commit();
 	}
-};
+}
 /*
 function delFood(fCode, callback) {
 	if(hasSql) {
@@ -773,8 +774,8 @@ function getCustomList(rType,callback) {
 			//////////
 			var favArray = lib2.query("diary_food",{fib: "fav"});
 			favArray = favArray.sort(function(a, b) {
-				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
-	   		 });
+				return (a.term > b.term) ? 1 : ((a.term < b.term) ? -1 : 0);
+			});
 			callback(favArray);
 		////////////////////////
 		// FOOD~EXERCISE LIST //
@@ -785,11 +786,11 @@ function getCustomList(rType,callback) {
 			//////////
 			var CustomsArray = lib2.query("diary_food",function(row) { if(row.code.slice(0, 1) == "c") { return true; }});
 			CustomsArray = CustomsArray.sort(function(a, b) {
-				return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
+				return (a.term > b.term) ? 1 : ((a.term < b.term) ? -1 : 0);
 			});
 			callback(CustomsArray);			
 		}
-		//	 if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
+		//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
 		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
 		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
 	}
@@ -820,6 +821,13 @@ function afterHide(cmd) {
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
 		blockAlerts = 1; 
+		//preserve data
+		if(window.localStorage.getItem("config_mode")) {
+			var configMode = window.localStorage.getItem("config_mode");
+		}
+		if(window.localStorage.getItem("config_install_time")) {
+			var installTime = window.localStorage.getItem("config_install_time");
+		}
 		//SET CSS TRANSITION
 		$('body').css(prefix + "transition-timing-function","ease");
 		$('body').css(prefix + "transition-duration",".25s");
@@ -828,13 +836,6 @@ function afterHide(cmd) {
 			if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
 				navigator.splashscreen.show();
 			}		
-			//preserve data
-			if(window.localStorage.getItem("config_mode")) {
-				var configMode = window.localStorage.getItem("config_mode");
-			}
-			if(window.localStorage.getItem("config_install_time")) {
-				var installTime = window.localStorage.getItem("config_install_time");
-			}
 			//
 			if(window.localStorage.getItem("facebook_logged") && cmd == "clear") {
 				$.post("http://kcals.net/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
@@ -904,7 +905,7 @@ function spinner(size) {
 	if(!$("#tempHolder").html()) { 
 		$("body").prepend('<div id="tempHolder"></div');
 		$("#tempHolder").html('<div id="modalOverlay"></div><span id="spinnerMsg">' + LANG.PREPARING_DB[lang] + '</span><div id="spinnerWrapper"><div id="spinner"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div><div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div><div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div></div></div>');
-		$("#modalOverlay").css("opacity",.5);
+		$("#modalOverlay").css("opacity",0.5);
 		//prevent tapping
 		$("#modalOverlay").css("z-index",99999);
 		$("#modalOverlay").css("background-color","#fff");
@@ -1051,6 +1052,7 @@ function pageLoad(target,content,published) {
 		//set row time array
 		//var arr = new Array;
 		var arr = [];		
+		var entryPos;
 		//push 'published' into array
 		arr.push(published);
 		//build array from time on 'name'
@@ -1064,7 +1066,7 @@ function pageLoad(target,content,published) {
 		//find new row position in current list
 		for(var i=0, len=entryArr.length; i<len; i++) {
 			if(entryArr[i] == published) {
-				var entryPos = i;
+				entryPos = i;
 			}
 		}
 		// INSERT PARTIAL //
@@ -1108,11 +1110,7 @@ function pageLoad(target,content,published) {
 ///////////////
 function fillDate(timestamp,element) {
 	//time [ datetime-local / 2013-01-01T00:00 ]
-	if(timestamp != "") {
-		var d = new Date(Number(timestamp));
-	} else {
-		var d = new Date();
-	}
+	var d = (timestamp != "") ? new Date(Number(timestamp)) : new Date();
 	//fill
 	if(element != "") {
 		//document.getElementById(element).value = d.toISOString();
@@ -1212,7 +1210,7 @@ function updateEntries(partial,range,callback) {
 			//return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
 			// else 
 			return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
-	    });
+		});
 		$.each(totalArray,function(k,v) {
 			s += v.dato;
 		});
@@ -1267,7 +1265,7 @@ function updateEntriesTime() {
 		}
 	});
 	//SIDEBAR TIME CLASS
-	var currentHour = new Date().getHours()
+	var currentHour = new Date().getHours();
          if(currentHour <  6) { rowClass = "afterhours"; }
 	else if(currentHour < 12) { rowClass = "morning";    }
 	else if(currentHour < 18) { rowClass = "afternoon";  }
