@@ -2063,6 +2063,22 @@ function getLoginFB() {
 				Windows.Security.Authentication.Web.WebAuthenticationBroker.authenticateAsync('', startURI, endURI).then(getTokenFB, errorHandler);
 			}
 		////////////
+		// OSXAPP //
+		////////////			
+		} else if(navigator.userAgent.match(/MacGap/i)) {
+			if(typeof FB !== 'undefined' && typeof macgap !== 'undefined') {
+				//callback listener
+				$(document).off('userDefaultsChanged').on('userDefaultsChanged', function () {
+					var macToken = macgap.userDefaults.getString('macgap_token');
+					if(macToken != '') {
+						getTokenFB(macToken);
+						$(document).off('userDefaultsChanged');
+					}
+				});
+				//window
+				macgap.window.open({url: "https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=http://kcals.net/redirect.php", width: 400, height: 300});
+			}
+		////////////
 		// JS SDK //
 		////////////
 		} else {

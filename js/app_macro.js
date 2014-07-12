@@ -1766,12 +1766,12 @@ function buildAdvancedMenu() {
 	//# CONTACT #//
 	//#/////////#//
 	$("#advancedContact").on(tap,function(evt) {
-             if(isMobile.iOS())       { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support', '_system', 'location=yes');                             }
-		else if(isMobile.Android())   { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support', '_system', 'location=yes');                             }
-		else if(isMobile.Windows())   { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support', '_blank', 'location=no');                         }
-		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('mailto:support@kcals.net?Subject=Kcals%20-%20Support')); }
-		else if(isMobile.FirefoxOS()) { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support', '_system', 'location=no');                        }
-		else                          { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support'; } 
+             if(isMobile.iOS())       { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(iOS)', '_system', 'location=yes');                               }
+		else if(isMobile.Android())   { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(Android)', '_system', 'location=yes');                           }
+		else if(isMobile.Windows())   { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(WP)', '_blank', 'location=no');                            }
+		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(MSApp)')); }
+		else if(isMobile.FirefoxOS()) { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(FirefoxOS)', '_system', 'location=no');                    }
+		else                          { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(other)';                                                     } 
 	});
 	//#////////////////#//
 	//# RELOAD FOOD DB #//

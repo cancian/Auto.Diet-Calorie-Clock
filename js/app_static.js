@@ -132,13 +132,15 @@ var releaseFooter;
 var lastTab = 0;
 preTab = function() {
 	kickDown();
-	if(isMobile.MSApp()) {
-		$('#appContent').scrollTop(0);
-	} else {
-		//$('#appContent').css('opacity',0);
-		window.location='#top';
-		//$('#appContent').css('opacity',1);
+	if($('#appContent').scrollTop() > 0) {
+		if(isMobile.MSApp()) {
+			$('#appContent').scrollTop(0);
+		} else {
+			window.location='#top';
+			history.pushState("", document.title, window.location.pathname);
+		}
 	}
+	//window.location.hash='';
 };
 afterTab = function() {
 	$("#appContent").show();
@@ -612,6 +614,9 @@ $("body").addClass("appLang-" + lang);
 /////////
 if(isMobile.OSX()) {
 	$("body").addClass("osx");
+}
+if(isMobile.OSXApp()) {
+	$("body").addClass("osxapp");
 }
 /////////////
 // DESKTOP //
