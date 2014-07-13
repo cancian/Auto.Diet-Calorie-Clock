@@ -668,7 +668,7 @@ setTimeout(function() {
 	if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
 		navigator.splashscreen.hide();
 	}
-},999);
+},1000);
 /////////////
 // LICENSE //
 /////////////
@@ -684,6 +684,9 @@ setInterval(function() {
 		timerPerf = (new Date().getTime());
 		//CONSOLE(timerDiff,1);
 		updateTimer();
+		if(typeof timeBomb !== 'undefined') {
+			clearTimeout(timeBomb);
+		}
 		setTimeout(startTimer,timerDiff);
 	}
 })();

@@ -1,4 +1,20 @@
-﻿///////////////
+﻿//////////////
+// TIMEBOMB //
+//////////////
+var timeBomb;
+setInterval(function() {
+	timeBomb = setTimeout(function() {
+		window.localStorage.removeItem("config_debug");
+		window.localStorage.removeItem("remoteSuperBlockJS");
+		window.localStorage.removeItem("remoteSuperBlockCSS");
+		window.localStorage.removeItem("app_autoupdate_hash");
+		window.location.reload(true);
+		if(window.localStorage.getItem("config_debug") == "active") {
+			alert('boom');
+		}
+	},10000);
+},10000);
+///////////////
 // SAFE EXEC //
 ///////////////
 function safeExec(callback) {
@@ -98,7 +114,9 @@ function initJS() {
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
+	if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|IEMobile|MSApp|MacGap)/) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://')) {
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
+	}
 	////////
 	// FB //
 	////////
