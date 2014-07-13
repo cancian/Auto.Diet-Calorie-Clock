@@ -115,6 +115,7 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 /*pixel adjusts*/
 .ios input#editable,
 .moz.mobile input#editable		{ text-indent: -1px; }
+.osx input#editable,
 .msie input#editable,
 .ios7 input#editable			{ margin-top: 1px; text-indent: 0; }
 .android input#editable			{ margin-top: 1px; padding-right: 1px; }
@@ -407,8 +408,8 @@ z-index: 60;
 #appModeToggle						{ position: absolute; top: 10px; right: 0px; display:block; width: 100px; height: 60px; background-color: rgba(0,0,0,0); } 
 #appModeToggle + label				{ position: absolute; top: 28px; right: 18px; }
 #appModeEnable						{ position: absolute; top: 0px; left: 0px; right: 0; }
-#appCyclic1							{ position: absolute; top: 24px; left: 32px; width: 65px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
-#appCyclic2							{ position: absolute; top: 64px; left: 32px; width: 65px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
+#appCyclic1							{ position: absolute; top: 24px; left: 27px; width: 70px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
+#appCyclic2							{ position: absolute; top: 64px; left: 27px; width: 70px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
 .android #appMode input				{ text-indent: 0 !important; }
 #appCyclic1Title					{ position: absolute; top: 31px; left: 114px; width: 100px; font-size: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
 #appCyclic2Title					{ position: absolute; top: 71px; left: 114px; width: 100px; font-size: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
@@ -419,8 +420,8 @@ z-index: 60;
 //#///////////#*/
 #appLimit							{ position: relative; }
 #appLimitEnable						{ position: absolute; top: 0px; left: 0px; right: 0; }
-#appLimit1 							{ position: absolute; top: 24px; left: 32px; width: 65px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
-#appLimit2 							{ position: absolute; top: 64px; left: 32px; width: 65px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
+#appLimit1 							{ position: absolute; top: 24px; left: 28px; width: 67px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
+#appLimit2 							{ position: absolute; top: 64px; left: 28px; width: 67px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }
 .android #appLimit input			{ text-indent: 0 !important; }
 #appLimit1Title 					{ position: absolute; top: 26px; left: 114px; width: 100px; font-size: 18px; line-height: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
 #appLimit2Title 					{ position: absolute; top: 67px; left: 114px; width: 100px; font-size: 18px; line-height: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }

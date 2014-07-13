@@ -99,7 +99,7 @@ var isMobile = {
 // OSX APP //
 /////////////
 if(isMobile.OSXApp()) {
-	hasSql = false;
+	//hasSql = false;
 }
 //#///////////#//
 //# MOBILE OS #//

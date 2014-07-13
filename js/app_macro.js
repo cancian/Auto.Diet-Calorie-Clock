@@ -378,7 +378,7 @@ function intakeHistory() {
 		// GENERATE CHART //
 		////////////////////
 		$('#appStatusIntake div').css("padding-top", "0px");
-		var checkHeight = hasTap() ? 64 : 66;
+		var checkHeight = (hasTap() || isMobile.OSX()) ? 64 : 66;
 		var catFontSize = "9px";
 		if(lang == "fa") { catFontSize = "8px"; }
 		//check exists
@@ -1761,6 +1761,25 @@ function buildAdvancedMenu() {
 			},0);
 		}
 	});
+	
+	
+	
+//Mac OS X on wake event.
+document.addEventListener('wake', function(){console.log('Wake!!')}, true);
+
+//Mac OS X on sleep event.
+document.addEventListener('sleep', function(){console.log('Sleep!!')}, true);	
+	macgap.notice.notify({
+  title: "Notify",
+  content: "New Message!"
+});
+macgap.app.open("http://google.com");
+
+
+
+
+
+
 	*/
 	//#/////////#//
 	//# CONTACT #//
