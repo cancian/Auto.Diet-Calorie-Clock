@@ -76,46 +76,51 @@ function buildRemoteSuperBlock(opt) {
 		hostLocal2 = "http://192.168.1.5/com.cancian.mylivediet/www/";
 	}
 	//retrieve ajax check
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "update.php?type=md5", error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(hash) {
+	$('body').removeClass('loading');
+	$('body').removeClass('uptodate');
+	$('body').removeClass('pending');
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "update.php?type=md5", error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
 		//null
-		if(hash == '') { return; }
+		if(hash == '') { $('body').removeClass('loading'); return; }
 		var hashObj = hash.split(',');
 		//length
 		if(parseInt(hashObj[1]) > 1000) {
 			//diff
 			if(parseInt(hashObj[0]) == window.localStorage.getItem("app_build") && window.localStorage.getItem("app_autoupdate_hash") == hashObj[1]) {
 				//console.log('up to date\n local: ' + appBuild + ',' + window.localStorage.getItem("app_autoupdate_hash") + '\n remote:' + hash);
+				$('body').addClass('uptodate');
 				return;
 			} else {
 				//console.log('starting update.\n local: ' + appBuild + ',' + window.localStorage.getItem("app_autoupdate_hash") + '\n remote:' + hash);			
 			}
 		}
+	$('body').addClass('loading');
 	//NProgress.start();
 	//$("#nprogress .bar").css("background-color","#fff");
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_lib.js",         error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_lib.js",         error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	//NProgress.set(0.1);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_lang.js",        error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_lang.js",        error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	//NProgress.set(0.2);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_setup.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_setup.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	//NProgress.set(0.3);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_macro.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_macro.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	//NProgress.set(0.4);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_build.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_build.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	//NProgress.set(0.5);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_static.js",      error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_static.js",      error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	//NProgress.set(0.6);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_dynamic.js",     error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_dynamic.js",     error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	//NProgress.set(0.7);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_custom_core.js", error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_custom_core.js", error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	//NProgress.set(0.8);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "css/index.css",         error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "css/index.css",         error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	//NProgress.set(0.9);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "css/fonts.css",         error: function(xhr, statusText) { console.log("Error: "+statusText); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "css/fonts.css",         error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	//NProgress.done();
 	/////////////////////
 	// INTEGRITY CHECK //
 	/////////////////////
-	if(!isCacheValid(dataJS + dataCSS)) { return; }
+	if(!isCacheValid(dataJS + dataCSS)) { $('body').removeClass('loading'); return; }
 	//store original hash
 	window.localStorage.setItem("app_autoupdate_hash",(dataJS + dataCSS).length);	
 	//MOZ~IE CSS
@@ -148,6 +153,8 @@ function buildRemoteSuperBlock(opt) {
 	////////////////////
 	if(updatePending == 1) {
 		getAnalytics('autoupdate');
+		$('body').removeClass('loading');
+		$('body').addClass('pending');
 		window.localStorage.setItem("app_build",appBuild);
 		window.localStorage.setItem("app_restart_pending",true);
 		if(window.localStorage.getItem("app_notify_update")) {

@@ -421,12 +421,7 @@ function setComplete() {
 	//update nutri pseudos
 	updateNutriRatio();
 	//refresh tabs
-	if(!$("#pageSlideFood").is(":animated") && !$("#pageSlideFood").hasClass("open")) {
-		if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
-		if(window.localStorage.getItem("app_last_tab") == "tab2") { updateEntries();                }
-		if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }	
-		if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
-	}
+	appFooter(window.localStorage.getItem("app_last_tab"),1);
 	//dump diary_food data
 	if(typeof updateCustomList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
 		updateCustomList('fav');
@@ -1764,10 +1759,7 @@ function buildLangMenu(opt) {
 				$("#tab2").html(LANG.MENU_DIARY[lang]);
 				$("#tab3").html(LANG.MENU_PROFILE[lang]);
 				$("#tab4").html(LANG.MENU_SETTINGS[lang]);
-				if(window.localStorage.getItem("app_last_tab") == "tab1") { $("#tab1").trigger(touchstart); }
-				if(window.localStorage.getItem("app_last_tab") == "tab2") { $("#tab2").trigger(touchstart); }
-				if(window.localStorage.getItem("app_last_tab") == "tab3") { $("#tab3").trigger(touchstart); }
-				if(window.localStorage.getItem("app_last_tab") == "tab4") { $("#tab4").trigger(touchstart); }
+				appFooter(window.localStorage.getItem("app_last_tab"),0);
 				//start date
 				$("#cssStartDate").html("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
 				//page title

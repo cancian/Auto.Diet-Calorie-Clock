@@ -130,7 +130,8 @@ $("body").prepend('\
 //#////////////#//
 var releaseFooter;
 var lastTab = 0;
-preTab = function() {
+preTab = function(keepOpen) {
+	if(keepOpen == 1) { return; }
 	kickDown();
 	if($('#appContent').scrollTop() > 0) {
 		if(isMobile.MSApp()) {
@@ -142,7 +143,8 @@ preTab = function() {
 	}
 	//window.location.hash='';
 };
-afterTab = function() {
+afterTab = function(keepOpen) {
+	if(keepOpen == 1) { return; }
 	$("#appContent").show();
 	$("#appContent").css('touch-events','auto');
 	$("body").removeClass("newwindow");
@@ -164,7 +166,7 @@ afterTab = function() {
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
 };
-function appFooter(id) {
+appFooter = function (id,keepOpen) {
 	if(new Date().getTime() - lastTab < 200) { lastTab = new Date().getTime(); return; }
 	lastTab = new Date().getTime();
 	var tabId = id;
@@ -179,13 +181,13 @@ function appFooter(id) {
 		},0);
 	}
 	//ACTION
-	if(tabId == "tab1") { openStatus();   }
-	if(tabId == "tab2") { updateEntries('','','callback'); }
-	if(tabId == "tab3") { openProfile();  }
-	if(tabId == "tab4") { openSettings(); }
+	if(tabId == "tab1") { openStatus(keepOpen);   }
+	if(tabId == "tab2") { updateEntries('','','callback',keepOpen); }
+	if(tabId == "tab3") { openProfile(keepOpen);  }
+	if(tabId == "tab4") { openSettings(keepOpen); }
 	$("body").removeClass("tab1 tab2 tab3 tab4 newwindow");
 	$("body").addClass(tabId);
-}
+};
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
 	window.localStorage.setItem("app_last_tab","tab1");

@@ -2,7 +2,7 @@
 /*########################################
 ####    HTML BUILDS ~ OPEN SETTINGS   ####
 ########################################*/
-function openSettings(string) {
+function openSettings(keepOpen) {
 	//RAW HTML
 	var settingsHtml = '\
 	<a name="top"></a>\
@@ -31,9 +31,9 @@ function openSettings(string) {
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
-	preTab();
+	preTab(keepOpen);
 	$("#appContent").html(settingsHtml);
-	afterTab();
+	afterTab(keepOpen);
 	///////////////////
 	// last sync tap //
 	///////////////////
@@ -182,7 +182,7 @@ function openSettings(string) {
 /*#######################################
 ####    HTML BUILDS ~ OPEN STATUS    ####
 #######################################*/
-function openStatus(string) {
+function openStatus(keepOpen) {
 	////////////////////
 	// TODAY OVERVIEW //
 	////////////////////
@@ -238,9 +238,9 @@ function openStatus(string) {
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
-	preTab();
+	preTab(keepOpen);
 	$("#appContent").html(statusHtml);
-	afterTab();
+	afterTab(keepOpen);
 	////////////////
 	// PRE CONFIG //
 	////////////////
@@ -469,7 +469,7 @@ function openStatus(string) {
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
-function openDiary(entryListHtml) {
+function openDiary(entryListHtml,keepOpen) {
 	if(!entryListHtml) { return; }
 	updateEntriesSum();
 //RAW HTML
@@ -544,9 +544,9 @@ diaryHtml += '</div>\
 //#////////#//
 if(window.localStorage.getItem("app_last_tab") != "tab2") { return; }
 //HTML
-preTab();
+preTab(keepOpen);
 pageLoad("#appContent",diaryHtml);
-afterTab();
+afterTab(keepOpen);
 //desktop odd resize -1 bug
 if(Math.round(window.innerWidth % 2)) {
 	$("#sliderWrapper").width(window.innerWidth-49);
@@ -1271,7 +1271,7 @@ $('#appContent').scroll(function() {
 /*##############################
 ## HTML BUILDS ~ OPEN PROFILE ##
 ##############################*/
-function openProfile(string) {
+function openProfile(keepOpen) {
 //RAW HTML
 var profileHtml = '\
 <a name="top"></a>\
@@ -1646,9 +1646,9 @@ var profileHtml = '\
 //#////////#//
 //# OUTPUT #//
 //#////////#//
-preTab();
+preTab(keepOpen);
 $("#appContent").html(profileHtml);
-afterTab();
+afterTab(keepOpen);
 //////////////////////////
 // FIX ANDROID 2 SELECT //
 //////////////////////////

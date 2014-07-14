@@ -315,6 +315,13 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #logContent p	 					{ border-top: 1px solid #D6D6D6; }
 #logContent p:first-child			{ border-top: 0; }
 #logContent	p span					{ position: absolute; top: 14px; right: 16px; text-align: right; color: #888; font-size: 13px; font-weight: normal; }
+/*#///////////////////#//
+//# AUTOMATIC UPDATES #//
+//#///////////////////#*/
+#advancedAutoUpdate:before			 { position: absolute; top: 29px; left: 0px; color: #aaa; line-height: normal; font-size: 10px; white-space: nowrap; line-height: 13px;  } 
+.loading #advancedAutoUpdate:before	 { content: 'Downloading'; }
+.pending #advancedAutoUpdate:before	 { content: 'Restart pending'; }
+.uptodate #advancedAutoUpdate:before { content: 'Up to date'; }
 /*#///////////////#// http://callmenick.com/tutorial-demos/css-toggle-switch/
 //# TOGGLE SWITCH #// 
 //#///////////////#*/

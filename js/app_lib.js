@@ -6,6 +6,7 @@ var appBalance;
 var appBalanceOver;
 var appStatus;
 var appHeader;
+var appFooter;
 var db;
 var dbName              = "mylivediet.app";
 var lib;
