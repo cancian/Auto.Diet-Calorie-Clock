@@ -23,18 +23,6 @@ $(document).ready(function() {
 		console.log(error);
 	}
 });
-////////////////////
-// UPDATE TRACKER //
-////////////////////
-setTimeout(function() { 
-	if(!window.localStorage.getItem("app_build")) {
-		window.localStorage.setItem("app_build",appBuild);
-	}
-	if(window.localStorage.getItem("app_build") != appBuild) {
-		window.localStorage.setItem("app_build",appBuild);
-		getAnalytics('update'); 
-	}
-},5000);
 ////////////////
 // RESUME EVT //
 ////////////////
@@ -69,6 +57,12 @@ $(document).on('resume',function() {
 		});
 	},5000);
 });
+//OSXAPP~RESUME
+$(window).on('focus',function(){
+	if(isMobile.OSXApp()) {
+		$(document).trigger('resume');
+	}
+});
 //##///////////##//
 //## START APP ##//
 //##///////////##//
@@ -77,10 +71,21 @@ try {
 ///////////////
 // KICKSTART //
 ///////////////
+////////////////////
+// UPDATE TRACKER //
+////////////////////
+setTimeout(function() { 
+	if(!window.localStorage.getItem("app_build")) {
+		window.localStorage.setItem("app_build",appBuild);
+	}
+	if(window.localStorage.getItem("app_build") != appBuild) {
+		window.localStorage.setItem("app_build",appBuild);
+		getAnalytics('update'); 
+	}
+},5000);
 setTimeout(function() {
 	window.localStorage.removeItem("app_restart_pending");
 	getAnalytics('init'); 
-	getAnalytics('update');
 },0);
 setTimeout(function() { 
 	if(window.localStorage.getItem("config_mode") == 'expired') { expireNotice(); }

@@ -812,9 +812,10 @@ var afterHidden;
 function afterHide(cmd) {
 	noTimer = 'active';
 	opaLock = 2;
-	$("#appStatusReload").off();
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
+		$("*").off();
+		$('*').css('pointer-events','none');
 		blockAlerts = 1; 
 		//preserve data
 		if(window.localStorage.getItem("config_mode")) {
@@ -1862,17 +1863,18 @@ function sanitizeSql(str) {
 function getStoreUrl(button) {
 	getAnalytics("rate");
 	if(button == 1) {
-             if(isMobile.iOS())       { window.open('https://itunes.apple.com/us/app/mylivediet-realtime-calorie/id732382802?mt=8', '_system', 'location=yes'); }
-		else if(isMobile.Android())   { window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');                                   }
-		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');     }
-		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e')); }
-		else if(isMobile.FirefoxOS()) { ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');                                    }
+             if(isMobile.iOS())       { window.open('https://itunes.apple.com/app/id732382802', '_system', 'location=yes');														}
+		else if(isMobile.Android())   { window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');													}
+		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
+		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e'));	}
+		else if(isMobile.FirefoxOS()) { ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');												}
+		else if(isMobile.OSXApp())    { macgap.app.open("itunes://itunes.apple.com/app/id898749118");																			}
 	}
 }
 var rateTimer;
 function getRateDialog() {
 	//appstore enabled
-	if(!isMobile.iOS() && !isMobile.Android() && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) { return; }
+	if(!isMobile.iOS() && !isMobile.Android() && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS() && !isMobile.OSXApp()) { return; }
 	//first use
 	if(!window.localStorage.getItem("getRate")) {
 		window.localStorage.setItem("getRate", new Date().getTime());
@@ -1923,16 +1925,16 @@ function getAnalytics(target) {
 		////////////////
 		// TRACK VARS //
 		////////////////
-		var deviceType = isDesktop()        ? 'desktop' : 'mobile' ;
-		var Cordoving  = isMobile.Cordova() ? 'app' : 'web' ;
+		var deviceType = isDesktop() ? 'desktop' : 'mobile';
 		var appOS      = vendorClass;
-		if(isMobile.iOS())		{ appOS = "ios";       deviceType = 'mobile'; }
-		if(isMobile.Android())	{ appOS = "android";   deviceType = 'mobile'; }
-		if(isMobile.Windows())	{ appOS = "windows";   deviceType = 'mobile'; }
-		if(isMobile.MSApp())	{ appOS = "msapp";     deviceType = 'mobile'; }
-		if(isMobile.FirefoxOS()){ appOS = "firefoxos"; deviceType = 'mobile'; }
+		if(isMobile.iOS())		{ appOS = "ios";       deviceType = 'mobile';  }
+		if(isMobile.Android())	{ appOS = "android";   deviceType = 'mobile';  }
+		if(isMobile.Windows())	{ appOS = "windows";   deviceType = 'mobile';  }
+		if(isMobile.MSApp())	{ appOS = "msapp";     deviceType = 'desktop'; }
+		if(isMobile.FirefoxOS()){ appOS = "firefoxos"; deviceType = 'mobile';  }
+		if(isMobile.OSXApp())   { appOS = "osxapp";    deviceType = 'desktop'; }
 		//string
-		trackString = appOS + "." + deviceType + "." + Cordoving + "/#" + target + "(" + appBuild + ")" + "(" + lang + ")";
+		trackString = appOS + "." + deviceType + "/#" + target + "(" + appBuild + ")" + "(" + lang + ")";
 		//track page/event
 		ga_storage._trackPageview(trackString,appOS + " (" + lang + ")");
 		ga_storage._trackEvent(appOS, target, lang, appBuild);

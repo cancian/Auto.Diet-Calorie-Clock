@@ -375,7 +375,7 @@ function openStatus(keepOpen) {
 		preset: 'datetime',
 		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
 		maxDate: new Date(),
-		theme: 'ios7',
+		theme: 'android-ics light',
 		lang: 'en',
 		dateFormat: 'yyyy/mm/dd',
 		dateOrder:  'dd MM yy',

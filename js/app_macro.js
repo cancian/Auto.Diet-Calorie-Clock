@@ -1102,7 +1102,7 @@ function getEntryEdit(eid) {
 				preset: 'datetime',
 				minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0),
 				maxDate: new Date(),
-				theme: 'ios7',
+				theme: 'android-ics light',
 				lang: 'en',
 		       	dateFormat: 'yyyy/mm/dd',
         		dateOrder:  'dd MM yy',
@@ -1738,7 +1738,7 @@ function buildAdvancedMenu() {
 	//#////////#//
 	//# REVIEW #//
 	//#////////#//
-	if(isMobile.iOS() || isMobile.Android() || isMobile.Windows() || isMobile.MSApp() || isMobile.FirefoxOS()) {
+	if(isMobile.iOS() || isMobile.Android() || isMobile.Windows() || isMobile.MSApp() || isMobile.FirefoxOS() || isMobile.OSXApp()) {
 		$("#advancedReview").on(tap,function(evt) {
 			getStoreUrl(1);
 		});	
@@ -1761,25 +1761,6 @@ function buildAdvancedMenu() {
 			},0);
 		}
 	});
-	
-	
-	
-//Mac OS X on wake event.
-document.addEventListener('wake', function(){console.log('Wake!!')}, true);
-
-//Mac OS X on sleep event.
-document.addEventListener('sleep', function(){console.log('Sleep!!')}, true);	
-	macgap.notice.notify({
-  title: "Notify",
-  content: "New Message!"
-});
-macgap.app.open("http://google.com");
-
-
-
-
-
-
 	*/
 	//#/////////#//
 	//# CONTACT #//
@@ -1790,7 +1771,8 @@ macgap.app.open("http://google.com");
 		else if(isMobile.Windows())   { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(WP)', '_blank', 'location=no');                            }
 		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(MSApp)')); }
 		else if(isMobile.FirefoxOS()) { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(FirefoxOS)', '_system', 'location=no');                    }
-		else                          { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(other)';                                                     } 
+		else if(isMobile.OSXApp())    { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(OSX)';                                                       }
+		else                          { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(other)';                                                     }
 	});
 	//#////////////////#//
 	//# RELOAD FOOD DB #//
