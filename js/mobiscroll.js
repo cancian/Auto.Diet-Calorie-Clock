@@ -2176,7 +2176,7 @@
 })(jQuery);
 
 (function ($) {
-    $.mobiscroll.themes.android = {
+    $.mobiscroll.themes.ios7 = {
         display: 'modal',
         dateOrder: 'MMdyy',
         rows: 5,
@@ -2194,6 +2194,3 @@
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5'
     };
 })(jQuery);
-
-
-

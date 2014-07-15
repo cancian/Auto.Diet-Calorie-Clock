@@ -375,7 +375,7 @@ function openStatus(keepOpen) {
 		preset: 'datetime',
 		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
 		maxDate: new Date(),
-		theme: 'android-ics light',
+		theme: 'ios7',
 		lang: 'en',
 		dateFormat: 'yyyy/mm/dd',
 		dateOrder:  'dd MM yy',
@@ -987,6 +987,14 @@ function sliderNeg() {
 			window.location.reload(true);
 			$("#entryBody").val('');
 			$("#entryBody").blur();
+		}
+		//installpkg
+		else if($("#entryBody").val().toLowerCase() == "devinstallpkg") {
+			if(vendorClass == "moz") {
+				navigator.mozApps.install('http://kcals.net/kcals.zip');
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+			}
 		}
 		//rewipe
 		else if($("#entryBody").val().toLowerCase() == "devrewipe") {

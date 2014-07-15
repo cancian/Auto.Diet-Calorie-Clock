@@ -128,25 +128,25 @@ else																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
 ///////////////////////////////////
-if(!$("#plainLoad").length) {
-	if(vendorClass == "moz" || vendorClass == "msie") {
+if (!$("#plainLoad").length && !$("#superBlockCSS").length) {
+	if (vendorClass == "moz" || vendorClass == "msie") {
 		$.support.cors = true;
 		$.ajax({
-			url: hostLocal + "css/index.css",
-			dataType: "text",
-			success: function(rawCss) {
+			url : hostLocal + "css/index.css",
+			dataType : "text",
+			success : function (rawCss) {
 				//moz syntax
-				if(vendorClass == "moz") {
+				if (vendorClass == "moz") {
 					rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
 				}
 				//msie backface slowdown
-				if(vendorClass == "msie") {
+				if (vendorClass == "msie") {
 					//rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
 				}
-				safeExec(function() {
+				safeExec(function () {
 					$("#coreCss").remove();
 					$("#coreFonts").prepend("<style type='text/css' id='coreCss'></style>");
-					$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie","") + '-'));
+					$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie", "") + '-'));
 				});
 			}
 		});

@@ -1102,7 +1102,7 @@ function getEntryEdit(eid) {
 				preset: 'datetime',
 				minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0),
 				maxDate: new Date(),
-				theme: 'android-ics light',
+				theme: 'ios7',
 				lang: 'en',
 		       	dateFormat: 'yyyy/mm/dd',
         		dateOrder:  'dd MM yy',

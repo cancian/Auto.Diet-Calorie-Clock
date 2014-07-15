@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# Version 1.3
+# version 13003
 # APP
 index.html
 js/app_init.js
@@ -54,7 +54,4 @@ js/quo.js
 
 NETWORK:
 *
-
-FALLBACK:
-/index.html
 

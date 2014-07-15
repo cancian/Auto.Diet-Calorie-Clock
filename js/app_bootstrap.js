@@ -5,16 +5,18 @@
 //////////////////////
 $.support.cors = true;
 $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
-		 if(jqXHR.status === 0)           { errorHandler('Not connect.\n Verify Network.');         }
-	else if (jqXHR.status == 404)         { errorHandler('Requested page not found. [404]');        }
-	else if (jqXHR.status == 500)         { errorHandler('Internal Server Error [500].');           }
-	else if (exception === 'parsererror') { errorHandler('Requested JSON parse failed.');           }
-	else if (exception === 'timeout')     { errorHandler('Time out error.');                        }
-	else if (exception === 'abort')       { errorHandler('Ajax request aborted.');                  }
-	else                                  { errorHandler('Uncaught Error.\n' + jqXHR.responseText); }
+		 if(jqXHR.status === 0)           { throw 'Not connect.\n Verify Network.';         }
+	else if (jqXHR.status == 404)         { throw 'Requested page not found. [404]';        }
+	else if (jqXHR.status == 500)         { throw 'Internal Server Error [500].';           }
+	else if (exception === 'parsererror') { throw 'Requested JSON parse failed.';           }
+	else if (exception === 'timeout')     { throw 'Time out error.';                        }
+	else if (exception === 'abort')       { throw 'Ajax request aborted.';                  }
+	else                                  { throw 'Uncaught Error.\n' + jqXHR.responseText; }
 	setTimeout(function() {
-		NProgress.done();
-		spinner('stop');
+		if(typeof spinner !== 'undefined') {
+			NProgress.done();
+			spinner('stop');
+		}
 	},6000);
 }});
 //#//////////////////#//
@@ -193,8 +195,10 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 		}
 	}
 	//CHECK UPDATES
-	setTimeout(function() {
-		buildRemoteSuperBlock('cached');
-	},5000);
+	$(document).ready(function() {
+		setTimeout(function() {
+			buildRemoteSuperBlock('cached');
+		},5000);
+	});
 }
 
