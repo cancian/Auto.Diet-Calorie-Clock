@@ -35,6 +35,12 @@ var blockModal = false;
 var modalTimer;
 function voidThis()   { }
 function voidMe()     { }
+///////////
+// LOADER //
+///////////
+document.addEventListener("DOMContentLoaded", function(event) {
+	$('body').addClass('domcontentloaded');
+});
 ///////////////
 // SAFE EXEC //
 ///////////////

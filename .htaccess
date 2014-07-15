@@ -11,8 +11,7 @@ AddType text/cache-manifest .appcache
 ## HEADERS ##
 #############
 Header set Access-Control-Allow-Origin: *
-#Header set Cache-Control "max-age=0, no-store, no-cache, private, must-revalidate, post-check=0, pre-check=0"
-#Header set Cache-Control "max-age=31536000"
+Header set Cache-Control "max-age=0"
 Header unset ETag
 FileETag None
 

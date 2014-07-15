@@ -3,6 +3,7 @@
 // DEVICE READY //
 //////////////////
 $(document).ready(function() {
+	$('body').addClass('ready');
 	try {
 		if(hasSql) {
 			db = window.openDatabase(dbName, 1, dbName + "DB", 5*1024*1024);
