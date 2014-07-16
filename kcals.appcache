@@ -1,7 +1,8 @@
 ﻿CACHE MANIFEST
-# v13003 2014-07-15
+# v13004 2014-07-16
 # APP
 index.html
+version.txt
 js/app_init.js
 js/app_bootstrap.js
 js/app_lib.js

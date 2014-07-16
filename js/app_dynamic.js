@@ -1736,7 +1736,7 @@ $("#menuTopBar h3").on(touchstart,function(evt) {
 					var preFillTimer = 0;
 					if(window.localStorage.getItem("app_last_tab") != "tab2") {
 						var preFillTimer = 150;
-						$("ul#appFooter li").removeClass("selected");
+						$("#appFooter li").removeClass("selected");
 						window.localStorage.setItem("app_last_tab","tab2");
 						$("#tab2").addClass("selected");
 						openDiary();
@@ -2509,7 +2509,7 @@ function getModalWindow(itemId) {
 								var preFillTimer = 0;
 								if(window.localStorage.getItem("app_last_tab") != "tab2") {
 									var preFillTimer = 150;				
-									$("ul#appFooter li").removeClass("selected");
+									$("#appFooter li").removeClass("selected");
 									window.localStorage.setItem("app_last_tab","tab2");
 									$("#tab2").addClass("selected");
 									updateEntries('','','callback');

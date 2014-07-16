@@ -136,39 +136,39 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 /*#////////////#//
 //# APP FOOTER #//
 //#////////////#*/
-ul#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); box-sizing: border-box; z-index: 20; }
-ul#appFooter li								{ float: left; width: 25%; height: 44px; line-height: 18px; color: rgba(0,0,0,.6); -webkit-backface-visibility: hidden; }
-ul#appFooter li.selected					{ color: #007AFF; -webkit-backface-visibility: hidden; }
-ul#appFooter li.selected:before				{ color: #007AFF; }
+#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; text-align: center; -webkit-backface-visibility: hidden; background-color: #f5f5f5; background-image: -webkit-linear-gradient(#f4f4f4,#f5f5f5); border-top: 1px solid #dfdfdf; box-sizing: border-box; background: radial-gradient(at right center,#f5f5f5,#eee); background: radial-gradient(at 100% 50%,#f5f5f5,#eee); background: radial-gradient(at 100%,#f5f5f5,#eee); background: radial-gradient(at 100px,#f5f5f5,#eee); box-sizing: border-box; z-index: 20; }
+#appFooter li							{ float: left; width: 25%; height: 44px; line-height: 18px; color: rgba(0,0,0,.6); -webkit-backface-visibility: hidden; }
+#appFooter li.selected					{ color: #007AFF; -webkit-backface-visibility: hidden; }
+#appFooter li.selected:before			{ color: #007AFF; }
 /*footer colors*/
-.deficit ul#appFooter li.selected,
-.deficit ul#appFooter li.selected:before	{ color: #C85834; }
-.surplus ul#appFooter li.selected,
-.surplus ul#appFooter li.selected:before	{ color: #309030; }
-/*ul#appFooter li.selected:after				{ display: block; content: ''; height: 2px; background-color: #007AFF; position: absolute; top: -1px; left: 0; right: 0; opacity: 1; }
-.surplus ul#appFooter li.selected:after		{ background-color: #309030; }
-.deficit ul#appFooter li.selected:after		{ background-color: #C85834; }
+.deficit #appFooter li.selected,
+.deficit #appFooter li.selected:before	{ color: #C85834; }
+.surplus #appFooter li.selected,
+.surplus #appFooter li.selected:before	{ color: #309030; }
+/*#appFooter li.selected:after				{ display: block; content: ''; height: 2px; background-color: #007AFF; position: absolute; top: -1px; left: 0; right: 0; opacity: 1; }
+.surplus #appFooter li.selected:after		{ background-color: #309030; }
+.deficit #appFooter li.selected:after		{ background-color: #C85834; }
 */
 /*
-.appDebug ul#appFooter li.selected,
-.appDebug ul#appFooter li.selected:before	{ color: #309030; }
+.appDebug #appFooter li.selected,
+.appDebug #appFooter li.selected:before	{ color: #309030; }
 */
 .appDebug #appHeader:after					{ content: ""; position: absolute; top: 4px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #0F6; border: 1px solid #0C0; z-index: 9999; display: block; }
 .ios7.appEdge #appHeader:after,
 .ios7.appDebug #appHeader:after				{ top: 18px; }
 .appEdge #appHeader:after					{ content: ""; position: absolute; top: 4px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #cc3300; border: 1px solid #fff; z-index: 9999; display: block; }
 /*footer icons*/
-ul#appFooter li:before						{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
-ul#appFooter li								{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal;  -webkit-backface-visibility: hidden; position: relative; }
-ul#appFooter li#tab1:before					{ content: "\f080"; }
-ul#appFooter li#tab2:before					{ content: "\f0f5"; }
-ul#appFooter li#tab3:before					{ content: "\f007"; }
-ul#appFooter li#tab4:before					{ content: "\f013"; }
+#appFooter li:before						{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
+#appFooter li								{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal;  -webkit-backface-visibility: hidden; position: relative; }
+#appFooter li#tab1:before					{ content: "\f080"; }
+#appFooter li#tab2:before					{ content: "\f0f5"; }
+#appFooter li#tab3:before					{ content: "\f007"; }
+#appFooter li#tab4:before					{ content: "\f013"; }
 /*
-ul#appFooter li.selected#tab1:before		{ content: "\e080"; }
-ul#appFooter li.selected#tab2:before		{ content: "\e0f5"; }
-ul#appFooter li.selected#tab3:before		{ content: "\e007"; }
-ul#appFooter li.selected#tab4:before		{ content: "\e013"; }
+#appFooter li.selected#tab1:before		{ content: "\e080"; }
+#appFooter li.selected#tab2:before		{ content: "\e0f5"; }
+#appFooter li.selected#tab3:before		{ content: "\e007"; }
+#appFooter li.selected#tab4:before		{ content: "\e013"; }
 */
 /*///////////////////
 // GETTING STARTED //

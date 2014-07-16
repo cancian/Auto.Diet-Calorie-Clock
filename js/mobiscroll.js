@@ -2179,11 +2179,11 @@
     $.mobiscroll.themes.ios7 = {
         display: 'modal',
         dateOrder: 'MMdyy',
-        rows: 5,
-        height: 34,
-        minWidth: 71,
-        headerText: false,
-        showLabel: false,
+		rows: 5,
+		width: 70,
+		height: 36,
+        headerText: true,
+        showLabel: true,
         btnWidth: false,
         selectedLineHeight: false,
         selectedLineBorder: 0,
@@ -2194,3 +2194,4 @@
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5'
     };
 })(jQuery);
+

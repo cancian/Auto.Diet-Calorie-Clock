@@ -58,11 +58,17 @@ $(document).on('resume',function() {
 		});
 	},5000);
 });
-//OSXAPP~RESUME
+//////////////
+// ON FOCUS //
+//////////////
 $(window).on('focus',function(){
 	if(isMobile.OSXApp()) {
 		$(document).trigger('resume');
 	}
+	if(isMobile.FirefoxOS()) {
+		screen.mozLockOrientation("portrait-primary");
+		$(document).trigger('resume');
+	}	
 });
 //##///////////##//
 //## START APP ##//
@@ -124,12 +130,14 @@ $("body").prepend('\
 	<div id="loadingDiv"></div>\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 	<div id="appContent"></div>\
-	<ul id="appFooter">\
-		<li id="tab1">' + LANG.MENU_STATUS[lang]   + '</li>\
-		<li id="tab2">' + LANG.MENU_DIARY[lang]    + '</li>\
-		<li id="tab3">' + LANG.MENU_PROFILE[lang]  + '</li>\
-		<li id="tab4">' + LANG.MENU_SETTINGS[lang] + '</li>\
-	</ul>\
+	<div id="appFooter">\
+		<ul>\
+			<li id="tab1">' + LANG.MENU_STATUS[lang]   + '</li>\
+			<li id="tab2">' + LANG.MENU_DIARY[lang]    + '</li>\
+			<li id="tab3">' + LANG.MENU_PROFILE[lang]  + '</li>\
+			<li id="tab4">' + LANG.MENU_SETTINGS[lang] + '</li>\
+		</ul>\
+	/div>\
 ');
 //#////////////#//
 //# APP FOOTER #//
@@ -176,7 +184,7 @@ appFooter = function (id,keepOpen) {
 	if(new Date().getTime() - lastTab < 200) { lastTab = new Date().getTime(); return; }
 	lastTab = new Date().getTime();
 	var tabId = id;
-	$("ul#appFooter li").removeClass("selected");
+	$("#appFooter li").removeClass("selected");
 	window.localStorage.setItem("app_last_tab",tabId);
 	$("#" + tabId).addClass("selected");
 	//SCROLLBAR
@@ -201,7 +209,7 @@ if(!window.localStorage.getItem("app_last_tab")) {
 //READ STORED
 appFooter(window.localStorage.getItem("app_last_tab"));
 //LISTEN FOR CLICKS
-$("ul#appFooter li").on(touchstart, function(evt) {
+$("#appFooter li").on(touchstart, function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
 	//not while editing
@@ -625,6 +633,12 @@ if(isMobile.OSX()) {
 }
 if(isMobile.OSXApp()) {
 	$("body").addClass("osxapp");
+}
+/////////////
+// CORDOVA //
+/////////////
+if(isMobile.Cordova()) {
+	$("body").addClass("cordova");
 }
 /////////////
 // DESKTOP //

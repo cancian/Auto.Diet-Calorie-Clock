@@ -381,9 +381,14 @@ function openStatus(keepOpen) {
 		dateOrder:  'dd MM yy',
 		timeWheels: 'HH:ii',
 	    timeFormat: 'HH:ii',
-		setText: LANG.OK[lang],
-		closeText: LANG.CANCEL[lang],
-		cancelText: LANG.CANCEL[lang],
+		setText: LANG.OK[lang].capitalize(),
+		closeText: LANG.CANCEL[lang].capitalize(),
+		cancelText: LANG.CANCEL[lang].capitalize(),
+		dayText: LANG.DAY[lang].capitalize(),
+		monthText: LANG.MONTH[lang].capitalize(),
+		yearText: LANG.YEAR[lang].capitalize(),
+		hourText: LANG.HOURS[lang].capitalize(),
+		minuteText: LANG.MINUTES[lang].capitalize(),
 		display: 'modal',
 		stepMinute: 1,
 		animate: 'none',
@@ -872,137 +877,143 @@ function sliderNeg() {
 	//////////////////
 	// DEV KEYCODES //
 	//////////////////
-	$("#entryBody").on("keyup",function(evt) {
-		/*
-		//DEV SET LANG
-		if((/devsetlang/).test($("#entryBody").val().toLowerCase()) && $("#entryBody").val().toLowerCase().length == 12) {
-			if(!(langArray).test($("#entryBody").val().toLowerCase().split("devsetlang").join(''))) {
-				window.localStorage.removeItem("devSetLang");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			} else {
-				window.localStorage.setItem("devSetLang",$("#entryBody").val().toLowerCase().split("devsetlang").join(''));
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			}
-		}
-		*/
-		//DEV GOTO
-		if((/devgoto/).test($("#entryBody").val().toLowerCase())) {
-			window.location.href = 'http://' + $("#entryBody").val().toLowerCase().split("devgoto").join('');
-		}
-		//DEV EDGE
-		else if($("#entryBody").val().toLowerCase() == "devedge") {
-			if(window.localStorage.getItem("config_debug") == "edge") {
-				window.localStorage.setItem("config_debug","inactive");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			} else {
-				window.localStorage.setItem("config_debug","edge");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			}
-		}
-		//DEV DEBUG
-		else if($("#entryBody").val().toLowerCase() == "devdebug") {
-			if(window.localStorage.getItem("config_debug") == "active") {
-				window.localStorage.setItem("config_debug","inactive");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			} else {
-				window.localStorage.setItem("config_debug","active");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			}
-		}
-		//DEV DB
-		else if($("#entryBody").val().toLowerCase() == "devdb") {
-			if(window.localStorage.getItem("config_nodb") == "active") {
-				window.localStorage.setItem("config_nodb","inactive");
-				window.localStorage.removeItem("foodDbLoaded");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			} else {
-				window.localStorage.setItem("config_nodb","active");
-				window.localStorage.removeItem("foodDbLoaded");
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-				afterHide();
-			}
-		}
-		//set expire
-		else if($("#entryBody").val().toLowerCase() == "devsetexpire") {
-			window.localStorage.setItem("config_mode","expired");
-			window.localStorage.setItem("config_install_time",(new Date().getTime()) - (60*60*24*8*1000));
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//clear cache
-		else if($("#entryBody").val().toLowerCase() == "devpurge") {
-			window.localStorage.removeItem("remoteSuperBlockJS");
-			window.localStorage.removeItem("remoteSuperBlockCSS");
-			window.localStorage.removeItem("app_autoupdate_hash");
-			//buildRemoteSuperBlock('cached');	
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//notify update
-		else if($("#entryBody").val().toLowerCase() == "devnotify") {
-			if(window.localStorage.getItem("app_notify_update")) {
-				window.localStorage.removeItem("app_notify_update");
-			} else {
-				window.localStorage.setItem("app_notify_update",true);
-			}
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//drop food db
-		else if($("#entryBody").val().toLowerCase() == "devfood") {
-			window.localStorage.removeItem("foodDbLoaded");
-			window.localStorage.removeItem("startLock");
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//drop food db
-		else if($("#entryBody").val().toLowerCase() == "devhassql") {
-			if(hasSql == true) { alert('sql'); } else { alert('localstorage'); }
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//clear
-		else if($("#entryBody").val().toLowerCase() == "devclear") {
-			window.localStorage.clear();
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}		
-		//reload
-		else if($("#entryBody").val().toLowerCase() == "devreload") {
-			window.location.reload(true);
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-		}
-		//installpkg
-		else if($("#entryBody").val().toLowerCase() == "devinstallpkg") {
-			if(vendorClass == "moz") {
-				navigator.mozApps.install('http://kcals.net/kcals.zip');
+	$("#entryBody").on("keyup", function(evt) {
+		if((/dev/).test($("#entryBody").val().toLowerCase())) {
+			//////////
+			// GOTO //
+			//////////
+			if ((/devgoto/).test($("#entryBody").val().toLowerCase())) {
+				window.location.href = 'http://' + $("#entryBody").val().toLowerCase().split("devgoto").join('');
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 			}
-		}
-		//rewipe
-		else if($("#entryBody").val().toLowerCase() == "devrewipe") {
-			deSetup();
-			$("#entryBody").val('');
-			$("#entryBody").blur();
-			afterHide();
-			return false;
+			///////////
+			// DEBUG //
+			///////////
+			if ($("#entryBody").val().toLowerCase() == "devdebug") {
+				if (window.localStorage.getItem("config_debug") == "active") {
+					window.localStorage.setItem("config_debug", "inactive");
+					$("#entryBody").val('');
+					$("#entryBody").blur();
+					afterHide();
+				} else {
+					window.localStorage.setItem("config_debug", "active");
+					$("#entryBody").val('');
+					$("#entryBody").blur();
+					afterHide();
+				}
+			}
+			////////
+			// DB //
+			////////
+			if ($("#entryBody").val().toLowerCase() == "devdb") {
+				if (window.localStorage.getItem("config_nodb") == "active") {
+					window.localStorage.setItem("config_nodb", "inactive");
+					window.localStorage.removeItem("foodDbLoaded");
+					$("#entryBody").val('');
+					$("#entryBody").blur();
+					afterHide();
+				} else {
+					window.localStorage.setItem("config_nodb", "active");
+					window.localStorage.removeItem("foodDbLoaded");
+					$("#entryBody").val('');
+					$("#entryBody").blur();
+					afterHide();
+				}
+			}
+			////////////////
+			// SET EXPIRE //
+			////////////////
+			if ($("#entryBody").val().toLowerCase() == "devsetexpire") {
+				window.localStorage.setItem("config_mode", "expired");
+				window.localStorage.setItem("config_install_time", (new Date().getTime()) - (60 * 60 * 24 * 8 * 1000));
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+			}
+			///////////
+			// PURGE //
+			///////////
+			if ($("#entryBody").val().toLowerCase() == "devpurge") {
+				window.localStorage.removeItem("remoteSuperBlockJS");
+				window.localStorage.removeItem("remoteSuperBlockCSS");
+				window.localStorage.removeItem("app_autoupdate_hash");
+				//buildRemoteSuperBlock('cached');
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+			}
+			////////////
+			// NOTIFY //
+			////////////
+			if ($("#entryBody").val().toLowerCase() == "devnotify") {
+				if (window.localStorage.getItem("app_notify_update")) {
+					window.localStorage.removeItem("app_notify_update");
+				} else {
+					window.localStorage.setItem("app_notify_update", true);
+				}
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+			}
+			////////////
+			// HASSQL //
+			////////////
+			if ($("#entryBody").val().toLowerCase() == "devhassql") {
+				if (hasSql == true) {
+					alert('sql');
+				} else {
+					alert('localstorage');
+				}
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+			}
+			///////////
+			// CLEAR //
+			///////////
+			if ($("#entryBody").val().toLowerCase() == "devclear") {
+				window.localStorage.clear();
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+			}
+			////////////
+			// RELOAD //
+			////////////
+			if ($("#entryBody").val().toLowerCase() == "devreload") {
+				window.location.reload(true);
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+			}
+			////////////////
+			// INSTALLPKG //
+			////////////////
+			if ($("#entryBody").val().toLowerCase() == "devinstallpkg") {
+				if (vendorClass == "moz") {
+					navigator.mozApps.install('http://kcals.net/manifest.webapp');
+					$("#entryBody").val('');
+					$("#entryBody").blur();
+				}
+			}
+			//////////
+			// EVAL //
+			//////////
+			if ((/deveval/).test($("#entryBody").val().toLowerCase())) {
+				if($("#entryBody").val().split("deveval").join('') != '') {
+					$("#entryBody").val( $("#entryBody").val().split("deveval").join('deveva') );
+					try {
+						eval( $("#entryBody").val().split("deveva").join(''));
+					} catch(e) {
+						throw e;
+					}
+				}
+			}
+			////////////
+			// REWIPE //
+			////////////
+			if ($("#entryBody").val().toLowerCase() == "devrewipe") {
+				deSetup();
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				afterHide();
+				return false;
+			}
 		}
 	});
 	//#///////////////#//
