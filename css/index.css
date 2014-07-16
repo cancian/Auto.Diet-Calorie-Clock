@@ -1,4 +1,5 @@
-﻿html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
+﻿/* http://www.codebeautifier.com/ */
+html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; background-color: #fff; background-image: -webkit-linear-gradient(#ffffff,#fefefe); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -ms-touch-action: none; user-zoom: fixed; }
 body.msapp 								{ overflow: hidden !important; } 
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 #appContent,#pageSlideFood				{ -ms-touch-action: pan-y; touch-action: pan-y; }

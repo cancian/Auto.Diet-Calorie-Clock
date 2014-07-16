@@ -394,7 +394,9 @@ function openStatus(keepOpen) {
 		animate: 'none',
 		monthNames: LANG.MONTH_SHORT[lang].split(', '),
 		monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
-		mode: 'scroller'
+		mode: 'scroller',
+		showLabel: true,
+		useShortLabels: true
     });
 	//////////////////
 	// ENABLE DEBUG //

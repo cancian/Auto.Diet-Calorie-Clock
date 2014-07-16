@@ -1121,7 +1121,9 @@ function getEntryEdit(eid) {
 				animate: 'none',
 				monthNames: LANG.MONTH_SHORT[lang].split(', '),
 				monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
-				mode: 'scroller'
+				mode: 'scroller',
+				showLabel: true,
+				useShortLabels: true,
 			});
 			//HOLD FLICKER
 			if(isMobile.Android() ) {
@@ -1685,7 +1687,12 @@ function buildAdvancedMenu() {
 	//CHECKBOX BLOCK SWITCH
 	$("#advancedMenu li").on(tap,function(evt) {
 		if((/checkbox/).test($(this).html())) {
-			$('input[type=checkbox]', this).trigger('click');
+			if($('input[type=checkbox]', this).prop('checked') == true) {
+				$('input[type=checkbox]', this).prop('checked',false);
+			} else {
+				$('input[type=checkbox]', this).prop('checked',true);
+			}
+			$('input[type=checkbox]', this).trigger('change');
 		}
 	});
 	//ADD ACTIVE
@@ -1844,11 +1851,11 @@ function buildAdvancedMenu() {
 	");
 	//read changes
 	$('#appAutoUpdateToggle').on("change",function(obj) {
-		if($(this).prop('checked')) {
+		if($(this).prop('checked') == true) {
 			window.localStorage.setItem("config_autoupdate","on");
 			setTimeout(function() {
 				buildRemoteSuperBlock('cached');  
-			},3000);
+			},2000);
 		} else {
 			window.localStorage.setItem("config_autoupdate","off");
 			//window.localStorage.removeItem("remoteSuperBlockJS");
@@ -2080,6 +2087,8 @@ function getCatList(callback) {
 			// CLOSER //
 			////////////
 			var catListCloser = function () {
+				catMoveCount = 0;
+				catBlockTap = false;
 				$(".activeRow").removeClass("activeRow");
 				if(isMobile.Windows()) {
 					$("#tabMyCatsBlock").removeClass('out');
