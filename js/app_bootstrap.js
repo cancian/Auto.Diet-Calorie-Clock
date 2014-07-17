@@ -89,11 +89,12 @@ function buildRemoteSuperBlock(opt) {
 		if(parseInt(hashObj[1]) > 1000) {
 			//diff
 			if(parseInt(hashObj[0]) == window.localStorage.getItem("app_build") && window.localStorage.getItem("app_autoupdate_hash") == hashObj[1]) {
-				//console.log('up to date\n local: ' + appBuild + ',' + window.localStorage.getItem("app_autoupdate_hash") + '\n remote:' + hash);
-				$('body').addClass('uptodate');
+				if(window.localStorage.getItem("app_restart_pending")) {
+					$('body').addClass('pending');
+				} else {
+					$('body').addClass('uptodate');					
+				}
 				return;
-			} else {
-				//console.log('starting update.\n local: ' + appBuild + ',' + window.localStorage.getItem("app_autoupdate_hash") + '\n remote:' + hash);			
 			}
 		}
 	$('body').addClass('loading');

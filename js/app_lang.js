@@ -1,5 +1,5 @@
 ﻿var appName     = "KCals";
-var appVersion  = "1.3 (13005)";
+var appVersion  = "1.3 (13006)";
 var appBuild    = appVersion.split(" ")[1].replace("(","").replace(")",""); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(" ")[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|hi|hr|hu|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
@@ -7388,7 +7388,7 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 	},
 	AUTO_UPDATE : {
 		en : 'Automatic Updates',
-		pt : 'Atualizações automáticas',
+		pt : 'Atualizações Automáticas',
 		ar : 'التحديثات التلقائية',
 		bg : 'Автоматични Актуализации',
 		ca : 'Actualitzacions Automàtiques',
@@ -7410,7 +7410,7 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 		ja : '自動更新',
 		ko : '자동 업데이트',
 		lt : 'Automatiniai Atnaujinimai',
-		lv : 'automātiskie Atjauninājumi',
+		lv : 'Automātiskie Atjauninājumi',
 		ms : 'Kemas Kini Automatik',
 		nl : 'Automatische Updates',
 		nb : 'Automatiske Oppdateringer',

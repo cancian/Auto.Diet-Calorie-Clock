@@ -1684,17 +1684,6 @@ function buildAdvancedMenu() {
 			$('#advancedMenuWrapper').remove();
 		});
 	});
-	//CHECKBOX BLOCK SWITCH
-	$("#advancedMenu li").on(tap,function(evt) {
-		if((/checkbox/).test($(this).html())) {
-			if($('input[type=checkbox]', this).prop('checked') == true) {
-				$('input[type=checkbox]', this).prop('checked',false);
-			} else {
-				$('input[type=checkbox]', this).prop('checked',true);
-			}
-			$('input[type=checkbox]', this).trigger('change');
-		}
-	});
 	//ADD ACTIVE
 	$("#advancedMenu li").on(touchstart,function(evt) {
 		if(!(/checkbox/).test($(this).html())) {
@@ -1837,29 +1826,60 @@ function buildAdvancedMenu() {
 			if(confirm(LANG.SETTINGS_WIPE_TITLE[lang])) { onConfirmWipe(1); } else { return false; }
 		}
 	});
+	//#//////////////////////////#//
+	//# GENERIC CHECKBOX HANDLER #//
+	//#//////////////////////////#//
+	$("#advancedMenu li").on(tap,function(evt) {
+		if((/checkbox/).test($(this).html())) {
+			if($('input[type=checkbox]', this).prop('checked') == true) {
+				$('input[type=checkbox]', this).prop('checked',false);
+			} else {
+				$('input[type=checkbox]', this).prop('checked',true);
+			}
+			$('input[type=checkbox]', this).trigger('change');
+		}
+	});	
 	//#/////////////////////#//
 	//# TOGGLE: AUTO UPDATE #//
 	//#/////////////////////#//
 	//read stored
 	var isAUChecked = (window.localStorage.getItem("config_autoupdate") == "on") ? 'checked' : '';
-	//$("#advancedAutoUpdate").remove();
-	$("#advancedAutoUpdate").append("\
-	<div>\
-		<input id='appAutoUpdateToggle' class='toggle' type='checkbox' " + isAUChecked + ">\
-		<label for='appAutoUpdateToggle'></label>\
-	</div>\
-	");
-	//read changes
-	$('#appAutoUpdateToggle').on("change",function(obj) {
+	//append
+	safeExec(function() {
+		$("#advancedAutoUpdate").append("\
+			<div>\
+				<span id='appAutoUpdateButton'></span>\
+				<input id='appAutoUpdateToggle' class='toggle' type='checkbox' " + isAUChecked + ">\
+				<label for='appAutoUpdateToggle'></label>\
+			</div>\
+		");
+	});
+	/////////////////////////////
+	// MANUAL RESTART SHORTCUT //
+	/////////////////////////////
+	$("#appAutoUpdateButton").on(tap,function(evt) {
+		evt.stopPropagation();
+		if(typeof appConfirm == "function") {
+			appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], function(ok) {
+				if(ok == 1) {
+					afterHide();
+				}
+			});
+		}
+	});
+	//////////////////
+	// read changes //
+	//////////////////
+	var buildRemoteTimer;
+	$('#appAutoUpdateToggle').on("change",function(evt) {
 		if($(this).prop('checked') == true) {
 			window.localStorage.setItem("config_autoupdate","on");
-			setTimeout(function() {
+			clearTimeout(buildRemoteTimer);
+			buildRemoteTimer = setTimeout(function() {
 				buildRemoteSuperBlock('cached');  
 			},2000);
 		} else {
 			window.localStorage.setItem("config_autoupdate","off");
-			//window.localStorage.removeItem("remoteSuperBlockJS");
-			//window.localStorage.removeItem("remoteSuperBlockCSS");
 		}
 	});
 }

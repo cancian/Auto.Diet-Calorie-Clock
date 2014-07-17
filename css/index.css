@@ -319,7 +319,12 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 /*#///////////////////#//
 //# AUTOMATIC UPDATES #//
 //#///////////////////#*/
-#advancedAutoUpdate:before			{ position: absolute; top: 29px; left: 0px; color: #aaa; line-height: normal; font-size: 10px; white-space: nowrap; line-height: 13px;  } 
+#advancedAutoUpdate:before			{ position: absolute; top: 29px; left: 0px; color: #aaa; line-height: normal; font-size: 10px; white-space: nowrap; line-height: 13px; }
+#advancedAutoUpdate,
+#advancedAutoUpdate input			{ -webkit-user-select: none; }
+#appAutoUpdateButton				{ position: absolute; top: 0px; right: 80px; color: #999; line-height: normal; font-size: 28px; white-space: nowrap; line-height: 27px; width: 60px; display: none; background-color: rgba(0,0,0,0); height: 60px; padding-top: 10px; text-align: center; }
+#appAutoUpdateButton:before			{ font-family: "FontAwesome"; content: "\f01e"; }
+.pending #appAutoUpdateButton		{ display: block; }
 /*#///////////////#// http://callmenick.com/tutorial-demos/css-toggle-switch/
 //# TOGGLE SWITCH #// 
 //#///////////////#*/
