@@ -1,9 +1,14 @@
-﻿/*jshint multistr: true */
-//////////////////
+﻿//////////////////
 // DEVICE READY //
 //////////////////
 $(document).ready(function() {
+	//MARK AS READY
 	$('body').addClass('ready');
+	//SWAP CACHE
+	window.applicationCache.addEventListener('updateready', function (event) {
+		window.applicationCache.swapCache(); 
+	}, false);
+	//SETUP DB
 	try {
 		if(hasSql) {
 			db = window.openDatabase(dbName, 1, dbName + "DB", 5*1024*1024);
@@ -115,6 +120,11 @@ setTimeout(function() {
 safeExec(function() {
 	$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 	$("head").prepend("<style type='text/css' id='daySum'></style>");
+	$("head").prepend("<style type='text/css' id='cssAutoUpdate'>\
+		.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang] + "'; }\
+		.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
+		.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang] + "'; }\
+	</style>");
 });
 updateNutriRatio();
 updateEntriesSum();

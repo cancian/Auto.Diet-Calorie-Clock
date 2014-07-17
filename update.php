@@ -2,7 +2,7 @@
 ## KCALS PHP BACKEND ##
 #######################
 ##
-header("access-control-allow-origin: *");
+//header("access-control-allow-origin: *");
 header("cache-control: no-cache");
 /*
 $userdata  = file_get_contents('js/cordova.js');

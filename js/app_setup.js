@@ -1767,6 +1767,12 @@ function buildLangMenu(opt) {
 				$("title").html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 				//heading sum
 				updateEntriesSum();
+				//AUTO UPDATE CSS TITLES
+				$("#cssAutoUpdate").html("\
+					.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang] + "'; }\
+					.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
+					.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang] + "'; }\
+				");
 				//remove
 				//$("#langSelect").remove();
 				//refresh intro
