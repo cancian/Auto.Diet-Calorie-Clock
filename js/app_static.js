@@ -137,7 +137,7 @@ $("body").prepend('\
 			<li id="tab3">' + LANG.MENU_PROFILE[lang]  + '</li>\
 			<li id="tab4">' + LANG.MENU_SETTINGS[lang] + '</li>\
 		</ul>\
-	/div>\
+	</div>\
 ');
 //#////////////#//
 //# APP FOOTER #//
@@ -558,7 +558,7 @@ if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
 ///////////
 // IOS 7 //
 ///////////
-if(/OS [7-9](.*) like Mac OS X/i.test(navigator.userAgent) && isMobile.Cordova()) {
+if(/OS [7-9](.*) like Mac OS X/i.test(userAgent) && isMobile.Cordova()) {
 	$("body").addClass("ios7");
 }
 if(isMobile.iOS()) {

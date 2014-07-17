@@ -1800,6 +1800,8 @@ function niceResizer() {
 		$("#appHelper").getNiceScroll().resize();
 		$("#appSubHelper").getNiceScroll().resize();
 		$("#newWindow").getNiceScroll().resize();
+		$("#langSelect").getNiceScroll().resize();
+		$("#advancedMenuWrapper").getNiceScroll().resize();
 	}
 }
 //#/////////////#//
@@ -1821,6 +1823,8 @@ function appResizer(time) {
 		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
 		$("#appHelper").height($("#appContent").height());
 		$("#appSubHelper").height($("#appContent").height());
+		$("#newWindowWrapper").height($("#appContent").height());
+		$("#langSelect").height($("#appContent").height());
 		//$('#foodList').css("min-height",$('#foodList').height() + "px");
 		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
 		$('#advancedMenuWrapper').height($('#appContent').height());
@@ -2022,7 +2026,7 @@ function getLoginFB() {
 		/////////////////
 		// IOS/ANDROID //
 		/////////////////
-		if(document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/)) {
+		if(document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && userAgent.match(/(iPhone|iPod|iPad|Android)/)) {
 			if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') {
 				FB.init({ appId : '577673025616946', nativeInterface : CDV.FB, useCachedDialogs : false });
 				FB.login(function (response) {
@@ -2034,7 +2038,7 @@ function getLoginFB() {
 		/////////
 		// WP8 //
 		/////////
-		} else if (navigator.userAgent.match(/IEMobile/i)) {
+		} else if (isMobile.Windows()) {
 			if(typeof openFB !== 'undefined') {
 				openFB.init('577673025616946');
 				openFB.login('email',
@@ -2048,7 +2052,7 @@ function getLoginFB() {
 		///////////
 		// MSAPP //
 		///////////
-		} else if(navigator.userAgent.match(/MSApp/i)) {
+		} else if(isMobile.MSApp()) {
 			if(Windows.Foundation) {
 				var callbackURL = "https://www.facebook.com/connect/login_success.html";
 				var facebookURL = "https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=" + encodeURIComponent(callbackURL);
@@ -2059,7 +2063,7 @@ function getLoginFB() {
 		////////////
 		// OSXAPP //
 		////////////			
-		} else if(navigator.userAgent.match(/MacGap/i)) {
+		} else if(isMobile.OSXApp()) {
 			if(typeof FB !== 'undefined' && typeof macgap !== 'undefined') {
 				var pops;
 				//callback listener
@@ -2073,7 +2077,7 @@ function getLoginFB() {
 					}
 				});
 				//window
-				pops=window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=http://kcals.net/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
+				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=http://kcals.net/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
 			}
 		////////////
 		// JS SDK //

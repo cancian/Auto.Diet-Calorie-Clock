@@ -4,14 +4,14 @@
 var timeBomb;
 setInterval(function() {
 	timeBomb = setTimeout(function() {
+		if(window.localStorage.getItem("config_debug") == "active") {
+			alert('boom');
+		}
 		window.localStorage.removeItem("config_debug");
 		window.localStorage.removeItem("remoteSuperBlockJS");
 		window.localStorage.removeItem("remoteSuperBlockCSS");
 		window.localStorage.removeItem("app_autoupdate_hash");
 		window.location.reload(true);
-		if(window.localStorage.getItem("config_debug") == "active") {
-			alert('boom');
-		}
 	},10000);
 },10000);
 ///////////////
