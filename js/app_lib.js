@@ -551,7 +551,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 		md.commands.append(new Windows.UI.Popups.UICommand(ok));
 		md.commands.append(new Windows.UI.Popups.UICommand(cancel));
 		md.showAsync().then(function (command) {
-			if (command.label == LANG.RATE_IT[lang]) {
+			if (command.label == ok) {
 				callback(1);
 			}
 			if (command.label == cancel) {
