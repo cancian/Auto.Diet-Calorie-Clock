@@ -71,7 +71,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 #timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; pointer-events: none; z-index: 70; -webkit-backface-visibility: hidden; }
 /*status colors 316ADC 5890FF           457CEE 457BEE 5B89F0 */
 #editable,
-#appHeader					{ background-color: #ffffff; color: #fff !important; font-weight: 300; -webkit-transition-timing-function: linear; -webkit-transition-duration: .25s; }
+#appHeader					{ background-color: #ffffff; color: #fff !important; font-weight: 300; /*-webkit-transition-timing-function: linear; -webkit-transition-duration: .25s;*/ }
 .surplus #editable,
 .surplus #appHeader			{ background-color: #309030 !important; font-weight: 300; }
 .balanced #editable,

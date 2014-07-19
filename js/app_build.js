@@ -993,6 +993,12 @@ function sliderNeg() {
 					$("#entryBody").blur();
 				}
 			}
+			/////////////////
+			// INSTALLTIME //
+			/////////////////
+			if ($("#entryBody").val().toLowerCase() == "devinstalltime") {
+				alert(dtFormat(parseInt(window.localStorage.getItem("config_install_time"))));
+			}
 			//////////
 			// EVAL //
 			//////////

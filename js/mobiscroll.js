@@ -2181,7 +2181,7 @@
         dateOrder: 'MMdyy',
 		rows: 5,
 		width: 70,
-		height: 36,
+		height: 30,
         headerText: true,
         showLabel: true,
         btnWidth: false,

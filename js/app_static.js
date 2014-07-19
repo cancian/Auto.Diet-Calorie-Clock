@@ -82,7 +82,6 @@ function startApp() {
 try {
 ///////////////
 // KICKSTART //
-///////////////
 ////////////////////
 // UPDATE TRACKER //
 ////////////////////
@@ -701,13 +700,32 @@ setTimeout(function() {
 		navigator.splashscreen.hide();
 	}
 },1000);
+///////////////////////////
+// ANDROID FIRST INSTALL //
+///////////////////////////
+setTimeout(function () {
+	try {
+		if (androidVersion() >= 3) {
+			if (window.MyReload) {
+				if (window.MyReload.getPackageInstallTime) {
+					var installTime = window.MyReload.getPackageInstallTime();
+					installTime = parseInt(installTime);
+					installTime = JSON.stringify(installTime);
+					if (installTime.length >= 13 && !isNaN(installTime)) {
+						window.localStorage.setItem("config_install_time", installTime);
+					}
+				}
+			}
+		}
+	} catch (e) {}
+}, 1000);
 /////////////
 // LICENSE //
 /////////////
 setInterval(function() {
 	isPaid();
 	checkLicense();
-},1000);
+},2000);
 ////////////////
 // MAIN TIMER //
 ////////////////
