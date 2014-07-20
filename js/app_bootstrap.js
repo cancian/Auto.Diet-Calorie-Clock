@@ -43,7 +43,7 @@ function InitializeLocalSuperBlock(opt) {
 		dataCSS = dataCSS.split('box-sizing').join('-moz-box-sizing').split('-webkit-').join('-moz-');
 	}
 	if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase())) {
-		dataCSS = dataCSS.split('-webkit-backface-visibility: hidden;').join('').split('-webkit-').join('-ms-');
+		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
 	//WRITE RESULTS
 	if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
@@ -55,7 +55,7 @@ function InitializeLocalSuperBlock(opt) {
 	/////////////////////////////////
 	// APPEND IF USING SUPERBLOCKS //
 	/////////////////////////////////
-	if(!$("#plainLoad").length) {
+	if(!$("#plainLoad").length && !$("#superBlockJS").length) {
 		safeExec(function() {		
 			$("#coreCss,#coreFonts").remove();
 			$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
@@ -131,7 +131,7 @@ function buildRemoteSuperBlock(opt) {
 		dataCSS = dataCSS.split('box-sizing').join('-moz-box-sizing').split('-webkit-').join('-moz-');
 	}
 	if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase()))	{ 
-		dataCSS = dataCSS.split('-webkit-backface-visibility: hidden;').join('').split('-webkit-').join('-ms-');
+		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
 	//APPEND
 	if(opt == "load") {
@@ -163,13 +163,14 @@ function buildRemoteSuperBlock(opt) {
 		if(window.localStorage.getItem("app_notify_update")) {
 			setTimeout(function() {
 				if(typeof appConfirm == "function") {
-					appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], function(ok) {
+					function quickReboot(ok) {
 						if(ok == 1) {
 							afterHide();
 						} else {
 							window.localStorage.setItem("app_restart_pending",true);
 						}
-					});
+					}
+					appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
 				}
 			},2000);
 		}
@@ -197,6 +198,12 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 	}
 	//CHECK UPDATES
 	$(document).ready(function() {
+		//SAVE REQUEST
+		if(!window.localStorage.getItem("remoteSuperBlockJS") || !window.localStorage.getItem("remoteSuperBlockCSS")) {
+			setTimeout(function() {
+				InitializeLocalSuperBlock();
+			},2000);
+		}
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
 		},5000);

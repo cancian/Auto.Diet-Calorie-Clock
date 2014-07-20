@@ -89,16 +89,7 @@ function openSettings(keepOpen) {
 		if(!$("#nprogress").html()) {
 			if(window.localStorage.getItem("facebook_logged")) {
 				//CONFIRM DIALOG
-				if(isMobile.MSApp()) {
-					var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.LOGOUT_TITLE[lang]);
-					md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-					md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
-					md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { getLogoutFB(1); } if(command.label == LANG.CANCEL[lang]) { getLogoutFB(0); } });
-				} else if(hasTouch()) {
-						navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], getLogoutFB, LANG.LOGOUT_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
-				} else {
-					if(confirm(LANG.LOGOUT_TITLE[lang] + "\n" + LANG.ARE_YOU_SURE[lang])) { getLogoutFB(1); } else { getLogoutFB(0); } 
-				}
+				appConfirm(LANG.LOGOUT_TITLE[lang], LANG.ARE_YOU_SURE[lang], getLogoutFB, LANG.OK[lang], LANG.CANCEL[lang]);
 			} else {
 				setTimeout(function() {
 					getLoginFB();
@@ -322,17 +313,7 @@ function openStatus(keepOpen) {
 				return false;
 			}
 			//SHOW DIALOG
-		if(isMobile.MSApp()) {
-			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.RESET_COUNTER_TITLE[lang]);
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
-			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { appReset(1); } });
-		} else if(hasTouch()) {
-				navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], appReset, LANG.RESET_COUNTER_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
-				return false;
-			} else {
-				if(confirm(LANG.RESET_COUNTER_TITLE[lang])) { appReset(1); } else { return false; }
-			}
+			appConfirm(LANG.RESET_COUNTER_TITLE[lang], LANG.ARE_YOU_SURE[lang], appReset, LANG.OK[lang], LANG.CANCEL[lang]);
 		} else {
 			setPush();
 			$("#appStatus").removeClass("start");
@@ -699,16 +680,7 @@ function sliderNeg() {
 			}
 			//SHOW START DIALOG
 			if(window.localStorage.getItem("appStatus") != "running") {
-				if(isMobile.MSApp()) {
-					var md = new Windows.UI.Popups.MessageDialog(LANG.NOT_RUNNING_DIALOG[lang], LANG.NOT_RUNNING_TITLE[lang]);
-					md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-					md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
-					md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { onConfirmStart(1); } });
-				} else if(hasTouch()) {
-					navigator.notification.confirm(LANG.NOT_RUNNING_DIALOG[lang], onConfirmStart, LANG.NOT_RUNNING_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
-				} else {
-					if(confirm(LANG.NOT_RUNNING_TITLE[lang] + "\n" + LANG.NOT_RUNNING_DIALOG[lang])) { onConfirmStart(1); } else { }
-				}
+				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], onConfirmStart, LANG.OK[lang], LANG.CANCEL[lang]);
 			}
 			//REFRESH DATA
 			updateEntries(published);
@@ -1041,17 +1013,7 @@ function sliderNeg() {
 			}
 		}
 		//SHOW DIALOG
-		if(isMobile.MSApp()) {
-			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.CLEAR_ALL_TITLE[lang]);
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
-			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { onConfirmClear(1); } });
-		} else if(hasTouch()) {
-			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmClear, LANG.CLEAR_ALL_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
-			return false;
-		} else {
-			if(confirm(LANG.CLEAR_ALL_TITLE[lang] + '\n' + LANG.ARE_YOU_SURE[lang])) { onConfirmClear(1); } else { return false; }
-		}
+		appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang], onConfirmClear, LANG.OK[lang], LANG.CANCEL[lang]);
 	});
 	//style
 	$("#entryListBottomBar").on(touchstart,function(evt) {

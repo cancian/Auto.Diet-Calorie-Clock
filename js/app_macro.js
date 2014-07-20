@@ -1271,31 +1271,26 @@ function getEntryEdit(eid) {
 //## BILLING MODULE ##//
 //##////////////////##//
 function expireNotice() {
-	////////////
-	// UNLOCK //
-	////////////
-	function doBuy(button) {
-		if(button != 1) { return; }
-		setTimeout(function() {
-			$("#tab4").trigger(touchstart);
-		},0);
-		setTimeout(function() {
-			$("#optionBuy").trigger(touchend);
-		},300);
-	}
-	////////////////////
-	// CONFIRM/NOTIFY //
-	////////////////////
-	if(isMobile.MSApp()) {
-		var md = new Windows.UI.Popups.MessageDialog(LANG.BUY_FULL_VERSION[lang] + '?', LANG.EVALUATION_EXPIRED[lang]);
-		md.commands.append(new Windows.UI.Popups.UICommand(LANG.BUY[lang]));
-		md.commands.append(new Windows.UI.Popups.UICommand(LANG.NO_THANKS[lang]));
-		md.showAsync().then(function (command) { if(command.label == LANG.BUY[lang]) { doBuy(1); } if(command.label == LANG.NO_THANKS[lang]) { doBuy(0); } });	
-	} else if(hasTouch()) {
-		navigator.notification.confirm(LANG.BUY_FULL_VERSION[lang] + '?', doBuy, LANG.EVALUATION_EXPIRED[lang], [LANG.BUY[lang],LANG.NO_THANKS[lang]]);
-	} else {
-		if(confirm(LANG.EVALUATION_EXPIRED[lang] + "\n" + LANG.BUY_FULL_VERSION[lang] + '?')) { doBuy(1); }
-	}
+	setTimeout(function() {
+		if(window.localStorage.getItem("config_mode") == 'expired' && !$("body").hasClass("full")) {
+			////////////
+			// UNLOCK //
+			////////////
+			function doBuy(button) {
+				if(button != 1) { return; }
+				setTimeout(function() {
+					$("#tab4").trigger(touchstart);
+				}, 0);
+				setTimeout(function() {
+					$("#optionBuy").trigger(touchend);
+				}, 300);
+			}
+			////////////////////
+			// CONFIRM/NOTIFY //
+			////////////////////
+			appConfirm(LANG.EVALUATION_EXPIRED[lang], LANG.BUY_FULL_VERSION[lang] + '?', doBuy, LANG.BUY[lang], LANG.NO_THANKS[lang]);
+		}
+	},2000);
 }
 ///////////////
 // DAYS LEFT //
@@ -1403,15 +1398,7 @@ function billingAuthorize(auth,msg) {
 	// CONFIRM/NOTIFY //
 	////////////////////
 	var msgTitle = (auth == 1) ? LANG.SUCCESS[lang] : LANG.ERROR[lang];
-	if(isMobile.MSApp()) {
-		var md = new Windows.UI.Popups.MessageDialog(msg, msgTitle);
-		md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-		md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) { doUnlock(); } });
-	} else if(hasTouch()) {
-		navigator.notification.confirm(msg, doUnlock, msgTitle, [LANG.OK[lang]]);
-	} else {
-		if(confirm(msgTitle + "\n" + msg)) { doUnlock(); }
-	}
+	appConfirm(msgTitle, msg, doUnlock, LANG.OK[lang], 'hide');
 }
 //#/////#//
 //# BUY #//
@@ -1780,7 +1767,7 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	$('#advancedReload').on(tap,function(evt) {
 		evt.preventDefault();
-		function onConfirmWipe(button) {
+		function onConfirmReloadDB(button) {
 			if(button == 1) {
 				window.localStorage.removeItem("foodDbLoaded");
 				window.localStorage.removeItem("startLock");
@@ -1789,17 +1776,7 @@ function buildAdvancedMenu() {
 			}
 		}
 		//SHOW DIALOG
-		if(isMobile.MSApp()) {
-			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.REBUILD_FOOD_DB[lang]);
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
-			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) {onConfirmWipe(1); } });
-		} else if(hasTouch()) {
-			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmWipe, LANG.REBUILD_FOOD_DB[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
-			return false;
-		} else {
-			if(confirm(LANG.REBUILD_FOOD_DB[lang])) { onConfirmWipe(1); } else { return false; }
-		}
+		appConfirm(LANG.REBUILD_FOOD_DB[lang], LANG.ARE_YOU_SURE[lang], onConfirmReloadDB, LANG.OK[lang], LANG.CANCEL[lang]);
 	});
 	//#////////////////#//
 	//# RESET SETTINGS #//
@@ -1814,17 +1791,7 @@ function buildAdvancedMenu() {
 			}
 		}
 		//SHOW DIALOG
-		if(isMobile.MSApp()) {
-			var md = new Windows.UI.Popups.MessageDialog(LANG.ARE_YOU_SURE[lang], LANG.SETTINGS_WIPE_TITLE[lang]);
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.OK[lang]));
-			md.commands.append(new Windows.UI.Popups.UICommand(LANG.CANCEL[lang]));
-			md.showAsync().then(function (command) { if(command.label == LANG.OK[lang]) {onConfirmWipe(1); } });
-		} else if(hasTouch()) {
-			navigator.notification.confirm(LANG.ARE_YOU_SURE[lang], onConfirmWipe, LANG.SETTINGS_WIPE_TITLE[lang], [LANG.OK[lang],LANG.CANCEL[lang]]);
-			return false;
-		} else {
-			if(confirm(LANG.SETTINGS_WIPE_TITLE[lang])) { onConfirmWipe(1); } else { return false; }
-		}
+		appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], onConfirmWipe, LANG.OK[lang], LANG.CANCEL[lang]);
 	});
 	//#//////////////////////////#//
 	//# GENERIC CHECKBOX HANDLER #//
@@ -1858,14 +1825,14 @@ function buildAdvancedMenu() {
 	// MANUAL RESTART SHORTCUT //
 	/////////////////////////////
 	$("#appAutoUpdateButton").on(tap,function(evt) {
-		evt.stopPropagation();
-		if(typeof appConfirm == "function") {
-			appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], function(ok) {
-				if(ok == 1) {
-					afterHide();
-				}
-			});
+		//evt.stopPropagation();
+		function quickReboot(ok) {
+			if(ok == 1) {
+				afterHide();
+			}
 		}
+		appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
+		return false;
 	});
 	//////////////////
 	// read changes //
@@ -1914,9 +1881,6 @@ function getCategory(catId, callback) {
 		callback(favArray);
 	}
 }
-
-
-
 function sortObject(obj) {
     var arr = [];
     for (var prop in obj) {
@@ -1930,7 +1894,6 @@ function sortObject(obj) {
     arr.sort();
     return arr;
 }
-
 function getCatList(callback) {
 	//STARTLOCK
 	var startLock = 1;

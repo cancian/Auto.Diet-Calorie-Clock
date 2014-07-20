@@ -1177,6 +1177,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .hidenotice #timerTrial				{ display: none !important; }
 .full #timerTrial,
 .full #optionBuy 					{ display: none !important; }
+/*
 .expired #pageSlideFood,
 .expired.tab1 #newWindowWrapper,
 .expired.tab2 #newWindowWrapper,
@@ -1189,7 +1190,8 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .expired.tab3 #appContent:before	{ pointer-events: none !important;  background-color: #fff; opacity: .5 !important; -ms-touch-action: none; z-index: 9999; content: ''; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
 .expired #startDateSpan:before		{ display: none !important; opacity: 0 !important; }
 .expired #editableDiv 				{ pointer-events: none !important; z-index: 0; }
-.expired #appHeader 				{ pointer-events: none !important; background-color: #fc3 !important; }
+*/
+.expired #appHeader 				{ background-color: #fc3 !important; }
 /*#////////////////#//
 //#// CATEGORIES //#//
 //#////////////////#*/

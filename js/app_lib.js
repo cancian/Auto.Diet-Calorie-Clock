@@ -162,7 +162,7 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
-if(window.navigator.msPointerEnabled && userAgent.match(/MSApp|IEMobile/i)) {
+if(window.navigator.msPointerEnabled && userAgent.match(/MSAppHost\/1.0|IEMobile/i)) {
 	//touchmove  = "MSPointerMove";
 	touchend   = "MSPointerUp";
 	//touchstart = "MSPointerDown";
@@ -538,28 +538,65 @@ var Base64 = {
 var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
 //##///////////////////##//
 //## APP CONFIRM LAYER ##//
-//##///////////////////##//
-function appConfirm(title, msg, callback, ok, cancel) {
-	if (!ok) {
-		ok = LANG.OK[lang];
-	}
-	if (!cancel) {
-		cancel = LANG.CANCEL[lang];
-	}
+//##///////////////////##// appConfirm(title, msg, callback, LANG.OK[lang], LANG.CANCEL[lang]);
+var MSDialog;
+var MSNext = [];
+function appConfirm(title, msg, callback, ok, cancel) { 
+	var okCancel = (cancel == 'hide') ? [ok] : [ok, cancel];
+	///////////
+	// MSAPP //
+	///////////
 	if (isMobile.MSApp()) {
-		var md = new Windows.UI.Popups.MessageDialog(msg, title);
-		md.commands.append(new Windows.UI.Popups.UICommand(ok));
-		md.commands.append(new Windows.UI.Popups.UICommand(cancel));
-		md.showAsync().then(function (command) {
-			if (command.label == ok) {
-				callback(1);
+		//STORE NEXT
+		if (MSDialog == true) {
+			var isRepeated = 0;
+			//NOREPEAT
+			$.each(MSNext, function (key, value) {
+				if (title == MSNext[key][0]) {
+					isRepeated = 1;
+				}
+			});
+			if (isRepeated == 0) {
+				MSNext.push([title, msg, callback, ok, cancel]);
 			}
-			if (command.label == cancel) {
-				callback(0);
+			return;
+		}
+		// SHOW
+		try {
+			MSDialog = true;
+			var md = new Windows.UI.Popups.MessageDialog(msg, title);
+			md.commands.append(new Windows.UI.Popups.UICommand(ok));
+			if (cancel != "hide") {
+				md.commands.append(new Windows.UI.Popups.UICommand(cancel));
 			}
-		});
-	} else if (isMobile.Cordova()) {
-		navigator.notification.confirm(msg, callback, title, [ok, cancel]);
+			md.showAsync()
+			.then(function (command) {
+				if (command.label == ok) {
+					callback(1);
+				}
+				if (command.label == cancel) {
+					callback(0);
+				}
+			})
+			.done(function () {
+				MSDialog = false;
+				if (MSNext.length) {
+					appConfirm(MSNext[0][0], MSNext[0][1], MSNext[0][2], MSNext[0][3], MSNext[0][4]);
+					MSNext.shift();
+				}
+			});
+		} catch (e) {
+			MSDialog = false;
+			errorHandler(e);
+		}
+	////////////////////
+	// CORDOVA PLUGIN //
+	////////////////////
+	} else if (typeof navigator.notification !== 'undefined') {
+		navigator.notification.confirm(msg, callback, title, okCancel);
+	//////////////
+	// FALLBACK //
+	//////////////
 	} else {
 		if (confirm(title + "\n" + msg)) {
 			callback(1);

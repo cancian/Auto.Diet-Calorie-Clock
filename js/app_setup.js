@@ -427,9 +427,6 @@ function setComplete() {
 		updateCustomList('fav');
 		updateCustomList('items');
 		getCatList();
-		//updateFavList();
-		//updateFoodList();
-		//updateExerciseList();
 	}
 	//update last sync date
 	window.localStorage.setItem("lastSync",new Date().getTime());
@@ -463,15 +460,6 @@ function syncEntries(userId) {
 			if(trim(sql) == "") {
 				demoRunning = false;
 				setComplete();
-				/*
-				window.localStorage.removeItem("pendingSync");
-				//update last sync date
-				window.localStorage.setItem("lastSync",parseInt(new Date().getTime()));
-				$("#optionLastSync span").html(dateDiff(parseInt(window.localStorage.getItem("lastSync")),(new Date().getTime()))); 
-				demoRunning = false;
-				NProgress.done();
-				setPush();
-				*/
 			} else if(hasSql) {
 				//SQL
 				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
@@ -525,9 +513,6 @@ function getEntries(start,callback) {
 				},errorHandler);
 		}, errorHandler);
 	} else {
-		//callback(lib.query("diary_entry"));
-		//callback(lib.queryAll("diary_entry", { sort: [["published", "DESC"]]}));
-		//callback(lib.queryAll("diary_entry", function(data){ if(data.info != "deleted") { return true; }},{ sort: [["published", "DESC"]]}));
 		callback(lib.query("diary_entry", function(data){ if(data.info != "deleted") { return true; } else { return false; }}));
 	}
 }
@@ -607,11 +592,13 @@ function saveEntry(data) {
 			//INSERT FULL
 			} else if(data.pro || data.car || data.fat) {
 				getRateDialog();
+				expireNotice();
 				t.executeSql('insert into diary_entry(id,title,body,published,pro,car,fat) values(?,?,?,?,?,?,?)', [parseInt(data.published),data.title,data.body,parseInt(data.published) + '',data.pro,data.car,data.fat]); 
 				setPush();
 			//INSERT QUICK
 			} else {
 				getRateDialog();
+				expireNotice();
 				t.executeSql('insert into diary_entry(id,title,body,published) values(?,?,?,?)', [parseInt(data.published),data.title,data.body,parseInt(data.published) + '']); 
 				setPush();
 			} 
@@ -636,12 +623,14 @@ function saveEntry(data) {
 		//INSERT FULL
 		} else if(data.pro || data.car || data.fat) {
 			getRateDialog();
+			expireNotice();
 			lib.insert("diary_entry", {"id": parseInt(data.published), "title": data.title, "body": data.body, "published": parseInt(data.published), "pro":data.pro, "car":data.car, "fat":data.fat});
 			lib.commit();
 			setPush();
 		//INSERT QUICK
 		} else {
 			getRateDialog();
+			expireNotice();
 			lib.insert("diary_entry", {"id": parseInt(data.published),"title": data.title, "body": data.body, "published": parseInt(data.published)});
 			lib.commit();
 			setPush();
@@ -947,21 +936,33 @@ function updateFoodDb() {
 	if(window.localStorage.getItem("foodDbLoaded") != "done" && window.localStorage.getItem("startLock") != "running") {
 		//reset blocks
 		$("#tabMyCatsBlock,#tabMyFavsBlock,#tabMyItemsBlock").html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
-		//var dbName = "mylivediet.app";
 		if(demoRunning == false) {
 			//start
 			demoRunning = true;
 			window.localStorage.setItem("startLock","running");
 			clearTimeout(foodDbTimer);
+			/////////////////////////
+			// PING DEFINE DB PATH //
+			/////////////////////////
+			var langDB = (lang == "en" && window.localStorage.getItem("config_measurement") == "metric") ? 'em' : lang;
+			var dbPath = hostLocal + "sql/searchdb_" + langDB + '.db';
+			try {
+				$.ajax({type: "GET", dataType: "text", url: url, 
+					success: function() {  },
+					error: function()   { dbPath = dbPath.replace('.db','.sql'); }
+				});
+			} catch(e) { }
+			////////////
+			// IMPORT //
+			////////////
 			foodDbTimer = setTimeout(function() {
 				spinner(45);
-				//WEBSQL
+				/////////
+				// SQL //
+				/////////
 				if(hasSql) {
 					html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
-					//import sql
-					//var dbLang = (LANG.LANGUAGE[lang] == "pt") ? "pt" : "en";
-					var langDB = (lang == "en" && window.localStorage.getItem("config_measurement") == "metric") ? 'em' : lang;
-					$.get(hostLocal + "sql/searchdb_" + langDB + ".sql",function(sql) {
+					$.ajax({type: "GET", dataType: "text", url: dbPath, success: function(sql) {
 						//drop-recreate 
 						sql = 'DROP TABLE IF EXISTS "diary_food"; CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);' + sql;
 						//http://regex101.com
@@ -987,9 +988,6 @@ function updateFoodDb() {
 								updateCustomList('fav');
 								updateCustomList('items');
 								getCatList();
-								//updateFavList();
-								//updateFoodList();
-								//updateExerciseList();
 							}
 						},
 						function(error, failingQuery) {
@@ -999,11 +997,12 @@ function updateFoodDb() {
 							window.localStorage.removeItem("startLock");
 							spinner('stop');
 						});
-					});
-				//LOCALSTORAGE
+					}});
+				//////////////////
+				// LOCALSTORAGE //
+				//////////////////
 				} else {
-					var langDB = (lang == "en" && window.localStorage.getItem("config_measurement") == "metric") ? 'em' : lang;
-					$.get(hostLocal + "sql/searchdb_" + langDB + ".sql",function(ls) {
+					$.ajax({type: "GET", dataType: "text", url: dbPath, success: function(ls) {
 						//delete non-fav/custom
 						lib2.deleteRows("diary_food", function(row) {
 							if(row.code.length < 11 && row.fib != "fav") {
@@ -1029,11 +1028,8 @@ function updateFoodDb() {
 							updateCustomList('fav');
 							updateCustomList('items');	
 							getCatList();					
-							//updateFavList();
-							//updateFoodList();
-							//updateExerciseList();
 						}
-					});			
+					}});			
 				}
 		},50);
 		}
@@ -1045,8 +1041,6 @@ function updateFoodDb() {
 function pageLoad(target,content,published) {
 	//if partial
 	if(published) {
-		//set row time array
-		//var arr = new Array;
 		var arr = [];		
 		var entryPos;
 		//push 'published' into array
@@ -1065,7 +1059,7 @@ function pageLoad(target,content,published) {
 				entryPos = i;
 			}
 		}
-		// INSERT PARTIAL //
+		// INSERT PARTIAL
 		//overwrite 'no entries'
 		if(i == 1) {
 
@@ -1084,21 +1078,13 @@ function pageLoad(target,content,published) {
 		//check existence
 		if($(target).html(content)) {
 			$(target).html(content);
-			//document.getElementById(target.replace("#","")).innerHTML = content;
 		}
-		//$(target).html(content);
-		//target [div#entrylist]
 		var page = $('#entryList');
 	}
 	// RELOAD HANDLERS //
-	//var evt = document.createEvent('CustomEvent');
-	//evt.initCustomEvent("pageload",true,true,content);
-	//var page = $('#entryList div');
 	if(page[0]) {
 		$(page).trigger("pageload");
-	//	page[0].dispatchEvent(evt);
 	}
-	//$('#entryList div:gt(50)').hide();
 	return;
 }
 ///////////////
@@ -1177,18 +1163,12 @@ function updateEntries(partial,range,callback) {
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
 			// ROW++ (sqlish sort)
-			// ROW++ (sqlish sort)
 			totalEntries++;
 			if((new Date().getTime() - dataPublished) < 60*60*24*5*1000) {
 				totalRecentEntries++;
 			}
 			if(((new Date().getTime() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20 || range == "full") {
-				//if(lastPub > parseInt(data[i].published)) {
-				//	s = s + dataHandler;
-				//} else {
-			//s += dataHandler;
-			totalArray.push({dati:dataPublished , dato: dataHandler});
-				//}
+				totalArray.push({dati:dataPublished , dato: dataHandler});
 			}
 			lastPub = parseInt(data[i].published);
 			//partial == last row time
@@ -1202,9 +1182,6 @@ function updateEntries(partial,range,callback) {
 		///////////////////
 		var prop = 'dati';
 		totalArray = totalArray.sort(function(a, b) {
-			//if(asc)
-			//return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
-			// else 
 			return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
 		});
 		$.each(totalArray,function(k,v) {
@@ -1242,7 +1219,6 @@ function updateEntries(partial,range,callback) {
 		///////////
 		} else {
 			//PRE-FILL
-			//pageLoad('#entryList','<div id="noEntries"><span>no entries</span></div>');
 			$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 		}}
 		//N# OF ENTRIES
@@ -1554,9 +1530,6 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	}
 	if(!save) { $("#saveButton").remove(); }
 
-	//$("#newWindowWrapper").css("top",($("#appHeader").height()) + "px");
-	//$("#newWindowWrapper").css("bottom",($("#appFooter").height()) + "px");
-	
 	$("#newWindowWrapper").css("top",($("#appHeader").height()) + "px");
 	if(bottom != 'flush') {
 		$("#newWindowWrapper").height($("#appContent").height());
@@ -1871,8 +1844,9 @@ function sanitizeSql(str) {
 // store url //
 ///////////////
 function getStoreUrl(button) {
-	getAnalytics("rate");
+		getAnalytics("rate");
 	if(button == 1) {
+		getAnalytics("vote");
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/app/id732382802', '_system', 'location=yes');														}
 		else if(isMobile.Android())   { window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');													}
 		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
@@ -1894,22 +1868,13 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	///////////////
-	var timeRate = 3 * 24 * 60 * 60 * 1000;
+	var timeRate = 4 * 24 * 60 * 60 * 1000;
 	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
 			if(window.localStorage.getItem("getRate") == 'locked') { return; }
 			//SHOW DIALOG
-			if(isMobile.MSApp()) {
-				var md = new Windows.UI.Popups.MessageDialog(LANG.RATE_MSG[lang], LANG.RATE_TITLE[lang]);
-				md.commands.append(new Windows.UI.Popups.UICommand(LANG.RATE_IT[lang]));
-				md.commands.append(new Windows.UI.Popups.UICommand(LANG.NO_THANKS[lang]));
-				md.showAsync().then(function (command) { if(command.label == LANG.RATE_IT[lang]) { getStoreUrl(1); } if(command.label == LANG.NO_THANKS[lang]) { getStoreUrl(0); } });	
-			} else if(isMobile.Cordova()) {
-				navigator.notification.confirm(LANG.RATE_MSG[lang], getStoreUrl, LANG.RATE_TITLE[lang], [LANG.RATE_IT[lang],LANG.NO_THANKS[lang]]);
-			} else {
-				if(confirm(LANG.RATE_MSG[lang])) { getStoreUrl(1); } else { getStoreUrl(0); }
-			}
+			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], getStoreUrl, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
 			window.localStorage.setItem("getRate","locked");
 		},3000);
 	}

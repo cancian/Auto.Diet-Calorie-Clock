@@ -2,7 +2,7 @@
 // IOS //
 /////////
 if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://')) {
-	if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) { ;
+	if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
 		(function () {
 			var CORDOVA_JS_BUILD_LABEL = '3.3.0';
 			var require,
@@ -1113,7 +1113,7 @@ if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://')) 
 /////////////
 // ANDROID //
 /////////////
-	if (navigator.userAgent.match(/Android/i)) { ;
+	if (navigator.userAgent.match(/Android/i)) {
 		(function () {
 			var CORDOVA_JS_BUILD_LABEL = '3.3.0';
 			var require,
@@ -2291,7 +2291,7 @@ if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://')) 
 ///////////
 // MSAPP //
 ///////////
-	if (navigator.userAgent.match(/MSApp/i)) { ;
+	if (navigator.userAgent.match(/MSApp/i)) {
 		(function () {
 			var CORDOVA_JS_BUILD_LABEL = '3.4.0';
 			var require,
@@ -3299,7 +3299,7 @@ if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://')) 
 ///////////////////
 // WINDOWS PHONE //
 ///////////////////
-	if (navigator.userAgent.match(/IEMobile/i)) { ;
+	if (navigator.userAgent.match(/IEMobile/i)) {
 		(function () {
 			var CORDOVA_JS_BUILD_LABEL = '3.5.0';
 			var require,
@@ -4350,7 +4350,7 @@ if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://')) 
 ///////////
 // OSXPP //
 ///////////
-	if (navigator.userAgent.match(/MacGap/i)) { ;
+	if (navigator.userAgent.match(/MacGap/i)) {
 		(function () {
 			var CORDOVA_JS_BUILD_LABEL = '2.9.0-0-g83dc4bd';
 			var require,

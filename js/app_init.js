@@ -12,8 +12,8 @@ setInterval(function() {
 		window.localStorage.removeItem("remoteSuperBlockCSS");
 		window.localStorage.removeItem("app_autoupdate_hash");
 		window.location.reload(true);
-	},10000);
-},10000);
+	},30000);
+},30000);
 ///////////////
 // SAFE EXEC //
 ///////////////
@@ -32,8 +32,10 @@ function safeExec(callback) {
 var blockAlerts = 0;
 window.onerror = function (e, url, line) {
 	if (window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
-		if (navigator.userAgent.match(/MSApp/i) && typeof alert !== 'undefined') {
-			alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+		if (navigator.userAgent.match(/MSApp/i)) {
+			if (typeof alert !== 'undefined') {
+				alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+			}
 		} else {
 			if (confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) {
 				blockAlerts = 0;
