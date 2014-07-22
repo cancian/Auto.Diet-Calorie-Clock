@@ -141,6 +141,8 @@ function isCordova() {
 }
 function androidVersion() {
 	if(userAgent.match(/Android/i) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
+		//android L
+		if(userAgent.match(/Build\/L/i)) { return 4.4; }
 		return parseFloat(userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
 	} else {
 		return -1;

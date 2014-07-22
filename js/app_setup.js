@@ -945,24 +945,20 @@ function updateFoodDb() {
 			// PING DEFINE DB PATH //
 			/////////////////////////
 			var langDB = (lang == "en" && window.localStorage.getItem("config_measurement") == "metric") ? 'em' : lang;
-			var dbPath = hostLocal + "sql/searchdb_" + langDB + '.db';
-			try {
-				$.ajax({type: "GET", dataType: "text", url: url, 
-					success: function() {  },
-					error: function()   { dbPath = dbPath.replace('.db','.sql'); }
-				});
-			} catch(e) { }
 			////////////
 			// IMPORT //
 			////////////
+			function doImport(dbExt) {
+		
 			foodDbTimer = setTimeout(function() {
 				spinner(45);
 				/////////
 				// SQL //
 				/////////
+
 				if(hasSql) {
 					html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
-					$.ajax({type: "GET", dataType: "text", url: dbPath, success: function(sql) {
+					$.ajax({type: "GET", dataType: "text", url: hostLocal + "sql/searchdb_" + langDB + dbExt, success: function(sql) {
 						//drop-recreate 
 						sql = 'DROP TABLE IF EXISTS "diary_food"; CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);' + sql;
 						//http://regex101.com
@@ -1002,7 +998,7 @@ function updateFoodDb() {
 				// LOCALSTORAGE //
 				//////////////////
 				} else {
-					$.ajax({type: "GET", dataType: "text", url: dbPath, success: function(ls) {
+					$.ajax({type: "GET", dataType: "text", url: hostLocal + "sql/searchdb_" + langDB + dbExt, success: function(ls) {
 						//delete non-fav/custom
 						lib2.deleteRows("diary_food", function(row) {
 							if(row.code.length < 11 && row.fib != "fav") {
@@ -1032,7 +1028,14 @@ function updateFoodDb() {
 					}});			
 				}
 		},50);
-		}
+		}}
+		//////////////////////
+		// CALLBACK TRIGGER //
+		//////////////////////
+		$.ajax({ url:hostLocal + "sql/searchdb_" + langDB + '.db', type:'HEAD',
+			success: function() { doImport('.db');  },
+			error: function()   { doImport('.sql'); }
+		});
 	}
 }
 ///////////////////
