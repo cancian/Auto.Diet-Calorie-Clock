@@ -665,11 +665,10 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //###########################//
 //####   START WORKING   ####//
 //###########################//
-$('body').addClass('started');
-
 setTimeout(function() {
 	//updateEntries();
-	if(opaLock < 2 && $("body").css("opacity") == 0) {
+	if(opaLock < 2 && $("#loadMask").length) {
+		$('body').addClass('started');
 		$("body").css("opacity","1");
 	}
 	if(isMobile.iOS && hasTouch() && navigator.splashscreen) {

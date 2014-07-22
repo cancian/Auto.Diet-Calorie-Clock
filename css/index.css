@@ -6,7 +6,6 @@ html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 html,body,input,select,textarea,
 input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; line-height: normal; -webkit-font-smoothing: antialiased; }
 div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
-body									{ opacity: 1; }
 body.msie.thin							{ letter-spacing: 0.02em; }
 body.msie,
 body.android 							{ -webkit-perspective: 1000; -webkit-transform: translate3d(0, 0, 0); -webkit-transform:translateZ(0,0,0); }

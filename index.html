@@ -57,10 +57,10 @@
   background: #29d;
 }
 
-.pace.pace-inactive {
-  display: none;
-}
-.started .pace { display: none !important; }
+#loadMask				{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; height: 100%; width: 100%; display: block; z-index: 1999; background-color: #fff; }
+body.started #loadMask,
+.pace.pace-inactive,
+.started .pace			{ display: none; }
 </style>
     <title>KCals Calorie Counter</title>
 	<meta charset="utf-8" />
@@ -74,6 +74,7 @@
 	<meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0"/>
 </head>
 <body>
+
 <div id='fb-root'></div> 
 
 	<script type="text/javascript">
@@ -113,9 +114,10 @@
 	}
 	//
 	</script>
-	<style type="text/css" id='bodySpinner'>
-		body { opacity: 0; }
+    <div id='loadMask'></div> 
+	<style type="text/css" id='bodySpinner'>	
 	/*
+	body { opacity: 0; }
 		body div			{ visibility: hidden; }
 		body.balanced div,
 		body.deficit div,
