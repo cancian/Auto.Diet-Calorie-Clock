@@ -872,57 +872,16 @@ function afterHide(cmd) {
 // SPINNER //
 /////////////
 function spinner(size) {
-	//////////
-	// STOP //
-	//////////
 	if(size == 'stop') {
-		$("#tempHolder").remove();
-		$(window).trigger("resize");
-		setTimeout(function() { $("#tempHolder").remove(); },150);
-		setTimeout(function() { $("#tempHolder").remove(); },250);
-		setTimeout(function() { $("#tempHolder").remove(); },500);
-		setTimeout(function() { $("#tempHolder").remove(); },999);
+		$('body').removeClass('spinnerMask');
+		$('body').addClass('started');
+		$('#loadMask').css('display','none');
 		return;
-	}
-	//////////
-	// HTML //
-	//////////
-	if(!$("#tempHolder").html()) { 
-		$("body").prepend('<div id="tempHolder"></div');
-		$("#tempHolder").html('<div id="modalOverlay"></div><span id="spinnerMsg">' + LANG.PREPARING_DB[lang] + '</span><div id="spinnerWrapper"><div id="spinner"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div><div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div><div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div></div></div>');
-		$("#modalOverlay").css("opacity",0.5);
-		//prevent tapping
-		$("#modalOverlay").css("z-index",99999);
-		$("#modalOverlay").css("background-color","#fff");
-		$("#modalOverlay").css("background-image",prefix + "linear-gradient(#fff,#fefefe)");	
-		$("#modalOverlay,#spinner,#tempHolder").on(touchstart, function(evt) {
-			evt.preventDefault();
-			evt.stopPropagation();
-			return false;
-		});
-		/////////////////
-		// FIND CENTER //
-		/////////////////
-		$("#spinner").width(size);
-		$("#spinner").height(size);
-		var xcenter = ((window.innerWidth) / 2) - ($("#spinner").width() / 2);
-		var ycenter = Math.round(((window.innerHeight) / 1.75));
-		/* - ($("#spinner").height() / 2);*/
-		$("#spinnerWrapper").css("left",xcenter + "px");
-		$("#spinnerWrapper").css("top",ycenter  + "px");
-	}
-	//spin.js plugin
-	$("#spinner").spin({ lines: 12, length: 9, width: 4, radius: 10,color: "#000" });
-	/////////////////
-	// SELF ADJUST //
-	/////////////////
-	if($("#tempHolder").html() != "") { 
-		$(window).on("resize", function(evt) {
-			var xcenter = ((window.innerWidth) / 2) - ($("#spinner").width() / 2);
-			var ycenter = Math.round(((window.innerHeight) / 1.75));
-			$("#spinnerWrapper").css("left",xcenter + "px");
-			$("#spinnerWrapper").css("top",ycenter  + "px");
-		});
+	} else {
+		$('#loadMask').css('background-color','rgba(255,255,255,.6');
+		$('body').addClass('spinnerMask');
+		$('body').removeClass('started');
+		$('#loadMask').css('display','block');
 	}
 }
 ////////////////////
@@ -955,7 +914,6 @@ function updateFoodDb() {
 				/////////
 				// SQL //
 				/////////
-
 				if(hasSql) {
 					html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
 					$.ajax({type: "GET", dataType: "text", url: hostLocal + "sql/searchdb_" + langDB + dbExt, success: function(sql) {
@@ -1027,15 +985,16 @@ function updateFoodDb() {
 						}
 					}});			
 				}
-		},50);
+		},100);
 		}}
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
-		$.ajax({ url:hostLocal + "sql/searchdb_" + langDB + '.db', type:'HEAD',
-			success: function() { doImport('.db');  },
-			error: function()   { doImport('.sql'); }
-		});
+		if(hasDbDb == true) {
+			doImport('.db'); 
+		} else {
+			doImport('.sql');
+		}
 	}
 }
 ///////////////////
@@ -1745,9 +1704,10 @@ function buildLangMenu(opt) {
 				updateEntriesSum();
 				//AUTO UPDATE CSS TITLES
 				$("#cssAutoUpdate").html("\
-					.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang] + "'; }\
+					.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + "'; }\
 					.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
-					.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang] + "'; }\
+					.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
+					.spinnerMask #loadMask:before		 { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
 				");
 				//remove
 				//$("#langSelect").remove();

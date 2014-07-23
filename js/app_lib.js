@@ -49,6 +49,7 @@ var isMobileCordova   = (typeof cordova != 'undefined' || typeof Cordova != 'und
 var isMobileAndroid   = userAgent.match(/Android/i) ? true : false;
 var isMobileiOS       = userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
 var isMobileWindows   = (userAgent.match(/IEMobile/i)) ? true : false;
+var isMobileWP81      = (userAgent.match(/Windows Phone 8.1/i)) ? true : false;
 var isMobileMSApp     = userAgent.match(/MSApp/i) ? true : false;
 var isMobileFirefoxOS = ((/firefox/).test(userAgent.toLowerCase()) && (/mobile/).test(userAgent.toLowerCase()) && (/gecko/).test(userAgent.toLowerCase())) ? true : false;
 var isMobileOSX       = ((/Macintosh|Mac OS X/i.test(userAgent)) && !userAgent.match(/iPhone|iPad|iPod/i)) ? true : false;
@@ -66,6 +67,9 @@ var isMobile = {
 	Windows: function() {
 		return isMobileWindows;
 	},
+	WP81: function() {
+		return isMobileWP81;
+	},	
 	MSApp: function() {
 		return isMobileMSApp;
 	},	
@@ -164,11 +168,21 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
-if(window.navigator.msPointerEnabled && userAgent.match(/MSAppHost\/1.0|IEMobile/i)) {
+if(userAgent.match(/MSAppHost\/1.0|IEMobile/i)) {
 	//touchmove  = "MSPointerMove";
-	touchend   = "MSPointerUp";
+	touchend   = "pointerup";
 	//touchstart = "MSPointerDown";
 }
+/*
+MSPointerDown			pointerdown
+MSPointerUp				pointerup
+MSPointerCancel			pointercancel
+MSPointerMove			pointermove 
+MSPointerOver			pointerover 
+MSPointerOut			pointerout 
+MSPointerEnter			pointerenter 
+MSPointerLeave			pointerleave 
+*/
 ///////////////
 // SAFE EXEC //
 ///////////////

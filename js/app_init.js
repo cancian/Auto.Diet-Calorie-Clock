@@ -1,6 +1,7 @@
 ﻿//////////////
 // TIMEBOMB //
 //////////////
+var hasDbDb = true;
 var timeBomb;
 setInterval(function() {
 	timeBomb = setTimeout(function() {

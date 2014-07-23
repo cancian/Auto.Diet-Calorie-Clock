@@ -120,9 +120,10 @@ safeExec(function() {
 	$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 	$("head").prepend("<style type='text/css' id='daySum'></style>");
 	$("head").prepend("<style type='text/css' id='cssAutoUpdate'>\
-		.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang] + "'; }\
+		.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + "'; }\
 		.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
-		.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang] + "'; }\
+		.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
+		.spinnerMask #loadMask:before		 { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
 	</style>");
 });
 updateNutriRatio();
@@ -667,9 +668,9 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //###########################//
 setTimeout(function() {
 	//updateEntries();
-	if(opaLock < 2 && $("#loadMask").length) {
+	if(opaLock < 2 && ($("#loadMask").length || $("body").css("opacity") == 0)) {		
 		$('body').addClass('started');
-		$("body").css("opacity","1");
+		$('body').css("opacity","1");
 	}
 	if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
 		navigator.splashscreen.hide();

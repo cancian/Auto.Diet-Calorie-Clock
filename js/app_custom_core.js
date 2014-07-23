@@ -173,13 +173,11 @@ function appTimer(id,content) {
 	/////////////////////
 	// pre-show reward //
 	/////////////////////
-	if(opaLock < 2 && $("#loadMask").length) {
+	if(opaLock < 2 && ($("#loadMask").length || $("body").css("opacity") == 0)) {
 		opaLock++;
 		if(opaLock == 2) {
 			$('body').addClass('started');
-			$("body").css("opacity","1");
-			//$("#loadMask").hide();
-			//$("#loadMask").remove();
+			$('body').css("opacity","1");
 			if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
 				navigator.splashscreen.hide();
 			}
