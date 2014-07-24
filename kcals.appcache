@@ -40,7 +40,6 @@ js/jquery.ui.js
 js/jquery.color.js
 js/jquery.nicescroll.js
 js/jquery.touchswipe.js
-js/jquery.spin.js
 js/jquery.nprogress.js
 # DB
 js/html5sql.js

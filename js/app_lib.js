@@ -170,7 +170,7 @@ var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
 if(userAgent.match(/MSAppHost\/1.0|IEMobile/i)) {
 	//touchmove  = "MSPointerMove";
-	touchend   = "pointerup";
+	touchend = "MSPointerUp";
 	//touchstart = "MSPointerDown";
 }
 /*

@@ -872,13 +872,14 @@ function afterHide(cmd) {
 // SPINNER //
 /////////////
 function spinner(size) {
+	if(!$("#loadMask").length) { $('body').prepend('<div id="loadMask"></div>'); }
 	if(size == 'stop') {
 		$('body').removeClass('spinnerMask');
 		$('body').addClass('started');
 		$('#loadMask').css('display','none');
 		return;
 	} else {
-		$('#loadMask').css('background-color','rgba(255,255,255,.6');
+		$('#loadMask').css('opacity',.8);
 		$('body').addClass('spinnerMask');
 		$('body').removeClass('started');
 		$('#loadMask').css('display','block');
@@ -990,11 +991,19 @@ function updateFoodDb() {
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
+		setTimeout(function() {
+			$.ajax({ url: hostLocal + "sql/searchdb_" + langDB + '.db', type:'HEAD',
+				success: function() { doImport('.db');  },
+				error: function()   { doImport('.sql'); }
+			});
+		},100);
+		/*
 		if(hasDbDb == true) {
 			doImport('.db'); 
 		} else {
 			doImport('.sql');
 		}
+		*/
 	}
 }
 ///////////////////

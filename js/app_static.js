@@ -617,6 +617,45 @@ if(isMobile.OSX()) {
 }
 if(isMobile.OSXApp()) {
 	$("body").addClass("osxapp");
+	//CLOSE ON MINIMIZE
+	$(document).on('visibilitychange', function () {
+		if (document.hidden == true || document.visibilityState == 'hidden') {
+			macgap.app.terminate();
+		}
+	});
+	/////////////////
+	// ENFORCE MIN //
+	/////////////////
+	/*
+    var config = { minWidth: 600, minHeight: 600 };
+	window.onresize = function () {
+		if (window.outerWidth < config.minWidth) {
+			macgap.window.resize({width: config.minWidth, height: window.outerHeight });
+		}
+		if (window.outerHeight < config.minHeight) {
+			macgap.window.resize({width: window.outerWidth, height: config.minHeight });
+		}
+	};
+
+var dragging = false;
+document.onmousemove = function() {
+  if (!dragging) return;
+  macgap.window.move({
+    x: macgap.window.getX() + event.clientX - xstart,
+    y: macgap.window.getY() +ystart - event.clientY,
+  });
+}
+
+document.onmousedown = function(){
+  dragging = true;
+  xstart = event.clientX;
+  ystart = event.clientY;
+}
+
+document.onmouseup = function(){
+  dragging = false;
+}
+*/
 }
 /////////////
 // CORDOVA //
