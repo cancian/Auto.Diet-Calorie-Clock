@@ -353,6 +353,21 @@ function android2Select() {
 		$('#dummyInput').remove();
 	}
 }
+////////////////////
+// CSS LOAD COUNT //
+////////////////////
+function cssLoadCount(num,total) {
+	var loadCounter = " (" + num + "/" + total + ")";
+	if(num == 0 && total == 0) { loadCounter = ''; }
+	safeExec(function() {
+		$("#cssAutoUpdate").html("\
+			.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + loadCounter + "'; }\
+			.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
+			.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
+			.spinnerMask #loadMask:before		 { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
+		");
+	});
+}
 //////////////
 // KICKDOWN //
 //////////////
