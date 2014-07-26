@@ -1815,6 +1815,7 @@ function buildAdvancedMenu() {
 			$('input[type=checkbox]', this).trigger('change');
 		}
 	});	
+	});
 	//#/////////////////////#//
 	//# TOGGLE: AUTO UPDATE #//
 	//#/////////////////////#//
@@ -1857,7 +1858,6 @@ function buildAdvancedMenu() {
 		} else {
 			window.localStorage.setItem("config_autoupdate","off");
 		}
-	});
 	});
 }
 //##//////////////////##//

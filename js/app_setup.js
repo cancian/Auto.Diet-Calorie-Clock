@@ -1853,7 +1853,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	///////////////
-	var timeRate = 4 * 24 * 60 * 60 * 1000;
+	var timeRate = 2.1 * 24 * 60 * 60 * 1000;
 	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {

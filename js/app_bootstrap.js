@@ -71,6 +71,8 @@ function InitializeLocalSuperBlock(opt) {
 //# REMOTE SUPERBLOCK #//
 //#///////////////////#//
 function buildRemoteSuperBlock(opt) {
+	if($('body').hasClass('loading')) { return; }
+	//
 	var dataJS  = '';
 	var dataCSS = '';
 	var hostLocal2 = "http://kcals.net/";

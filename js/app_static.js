@@ -266,7 +266,7 @@ if(isMobile.Windows()) {
 // BACK BUTTON (+ESC) //
 ////////////////////////
 $(document).on("backbutton", function(evt) {
-	if($("#tempHolder").html() && $("#spinner").html()) { return false; }
+	if($('body').hasClass('spinnerMask')) { return false; }
 	//
 	if($("#langSelect").length) {
 		$(".set").trigger(tap);
@@ -388,7 +388,9 @@ $(document).keyup(function(e) {
 //FORCE SHOW KEYBOARD
 $(document).on("click", function(evt) {
 	if(isMobile.Android() || isMobile.FirefoxOS()) {
-		$('#diaryNotesInput').focus();
+		if($('#diaryNotesInput').length) {
+			$('#diaryNotesInput').focus();
+		}
 	}
 	if(isMobile.Windows() || isMobile.MSApp()) {
 		if(evt.target.id == "editableDiv") {
@@ -511,10 +513,6 @@ if(window.localStorage.getItem("config_debug") == "active") {
 	$("#appFooter").addClass("appDebug");
 	$("body").addClass("appDebug");
 }
-if(window.localStorage.getItem("config_debug") == "edge") {
-	$("#appFooter").addClass("appEdge");
-	$("body").addClass("appEdge");
-}
 if(window.localStorage.getItem("facebook_logged")) {
 	$("#appFooter").addClass("appFacebook");
 	$("body").addClass("appFacebook");
@@ -627,39 +625,6 @@ if(isMobile.OSXApp()) {
 			macgap.app.terminate();
 		}
 	});
-	/////////////////
-	// ENFORCE MIN //
-	/////////////////
-	/*
-    var config = { minWidth: 600, minHeight: 600 };
-	window.onresize = function () {
-		if (window.outerWidth < config.minWidth) {
-			macgap.window.resize({width: config.minWidth, height: window.outerHeight });
-		}
-		if (window.outerHeight < config.minHeight) {
-			macgap.window.resize({width: window.outerWidth, height: config.minHeight });
-		}
-	};
-
-var dragging = false;
-document.onmousemove = function() {
-  if (!dragging) return;
-  macgap.window.move({
-    x: macgap.window.getX() + event.clientX - xstart,
-    y: macgap.window.getY() +ystart - event.clientY,
-  });
-}
-
-document.onmousedown = function(){
-  dragging = true;
-  xstart = event.clientX;
-  ystart = event.clientY;
-}
-
-document.onmouseup = function(){
-  dragging = false;
-}
-*/
 }
 /////////////
 // CORDOVA //

@@ -379,6 +379,12 @@ function openStatus(keepOpen) {
 		showLabel: true,
 		useShortLabels: true
     });
+	$('#startDate').on(touchstart,function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		$('#startDate').click();
+		return false;
+	});
 	//////////////////
 	// ENABLE DEBUG //
 	//////////////////	
@@ -1815,13 +1821,16 @@ $("#formc select").on("blur",function() {
 	writeCalcValues();
 	setPush();
 });
-//force hide keyboard
+//force hide keyboard 
+/*
 if(isMobile.FirefoxOS()) {
+	//causes ficker on device
 	$("#formc select").on(touchstart,function() {
 		$(this).focus();
 		$(this).blur();
 	});
 }
+*/
 $(document).on("hidekeyboard",function() {
 		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
 			$("#calcForm input").each(function(evt) {
