@@ -1,21 +1,4 @@
-﻿//////////////
-// TIMEBOMB //
-//////////////
-var hasDbDb = true;
-var timeBomb;
-setInterval(function() {
-	timeBomb = setTimeout(function() {
-		if(window.localStorage.getItem("config_debug") == "active") {
-			alert('boom');
-		}
-		window.localStorage.removeItem("config_debug");
-		window.localStorage.removeItem("remoteSuperBlockJS");
-		window.localStorage.removeItem("remoteSuperBlockCSS");
-		window.localStorage.removeItem("app_autoupdate_hash");
-		window.location.reload(true);
-	},30000);
-},30000);
-///////////////
+﻿///////////////
 // SAFE EXEC //
 ///////////////
 function safeExec(callback) {
@@ -144,11 +127,8 @@ function initJS() {
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.color.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.nicescroll.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.touchswipe.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.spin.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.nprogress.js'><\/script>");
-	if (!navigator.userAgent.match(/(MSIE)/)) {
-		document.write("<script type='text/javascript' src='" + hostLocal + "js/quo.js'><\/script>");
-	}
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/quo.js'><\/script>");
 	//DB
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/html5sql.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/localstoragedb.js'><\/script>");

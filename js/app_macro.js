@@ -753,6 +753,7 @@ function getCyclicMenu() {
 		// BASIC VALIDATION //
 		//////////////////////
 		$("#appCyclic1").blur(defaultInputHeaderi, function(evt) {
+			$(this).val( parseInt($(this).val()) );
 			if($(this).val() == "")  { $(this).val(1600); }
 			if($(this).val() == 0)   { $(this).val(1600); }
 			if(isNaN($(this).val())) { $(this).val(1600); }
@@ -765,6 +766,7 @@ function getCyclicMenu() {
 			updateTodayOverview();
 		});
 		$("#appCyclic2").blur(defaultInputHeaderi, function(evt) {
+			$(this).val( parseInt($(this).val()) );
 			if($(this).val() == "")  { $(this).val(2000); }
 			if($(this).val() == 0)   { $(this).val(2000); }
 			if(isNaN($(this).val())) { $(this).val(2000); }
@@ -802,11 +804,18 @@ function getCyclicMenu() {
 		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
 			$("#appModeToggle").prop('checked',true);
 		}
-		$('#appModeToggle + label').on(touchstart,function(obj) {
-			$('#appModeToggle').trigger("change");
-			updateTodayOverview();
-		});
-		//read changes
+		//TAP
+		$("#appMode label").on(tap,function(evt) {
+			if((/checkbox/).test($(this).html())) {
+				if($('input[type=checkbox]', this).prop('checked') == true) {
+					$('input[type=checkbox]', this).prop('checked',false);
+				} else {
+					$('input[type=checkbox]', this).prop('checked',true);
+				}
+				$('input[type=checkbox]', this).trigger('change');
+			}
+		});	
+		//ON CHANGE
 		$('#appModeToggle').on("change",function(obj) {
 			if($('#appModeToggle').prop('checked')) {
 				appMode = "cyclic";
@@ -1639,7 +1648,6 @@ function buildAdvancedMenu() {
 		<li id='advancedChangelog'>" + LANG.CHANGELOG[lang] + "</li>\
 		<li id='advancedReview'>" + LANG.REVIEW[lang] + "</li>\
 		<li id='advancedContact'>" + LANG.CONTACT[lang] + "</li>\
-		<li id='advancedAbout'>" + LANG.ABOUT[lang] + "</li>\
 	</ul>\
 	<ul>\
 		<li id='advancedReload'>" + LANG.REBUILD_FOOD_DB[lang] + "</li>\
@@ -1661,7 +1669,7 @@ function buildAdvancedMenu() {
 		} else {
 			$("#advancedMenu").css("overflow","auto");
 		}
-	});
+
 	//////////////////
 	// LIST HANDLER //
 	//////////////////
@@ -1736,8 +1744,9 @@ function buildAdvancedMenu() {
 	//#///////#//
 	//# ABOUT #//
 	//#///////#//
-	$("#advancedAbout").remove();
 	/*
+	$("#advancedAbout").remove();
+	//<li id='advancedAbout'>" + LANG.ABOUT[lang] + "</li>\
 	$("#advancedAbout").on(tap, function(evt) {
 		if(hasTouch()) {
 			navigator.notification.alert(LANG("ABOUT_DIALOG"), voidThis,LANG("ABOUT_TITLE"),LANG("OK"));
@@ -1848,6 +1857,7 @@ function buildAdvancedMenu() {
 		} else {
 			window.localStorage.setItem("config_autoupdate","off");
 		}
+	});
 	});
 }
 //##//////////////////##//

@@ -64,17 +64,19 @@ $(document).on('resume',function() {
 		});
 	},5000);
 });
-//////////////
-// ON FOCUS //
-//////////////
-$(window).on('focus',function(){
-	if(isMobile.OSXApp()) {
-		$(document).trigger('resume');
+///////////////////////
+// VISIBILITY CHANGE //
+///////////////////////
+$(document).on('visibilitychange', function () {
+	if (document.hidden == false || document.visibilityState == 'visible') {
+		if (isMobile.OSXApp()) {
+			$(document).trigger('resume');
+		}
+		if(isMobile.FirefoxOS()) {
+			screen.mozLockOrientation("portrait-primary");
+			$(document).trigger('resume');
+		}
 	}
-	if(isMobile.FirefoxOS()) {
-		screen.mozLockOrientation("portrait-primary");
-		$(document).trigger('resume');
-	}	
 });
 //##///////////##//
 //## START APP ##//
@@ -120,7 +122,7 @@ safeExec(function() {
 	$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 	$("head").prepend("<style type='text/css' id='daySum'></style>");
 	$("head").prepend("<style type='text/css' id='cssAutoUpdate'>\
-		.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + "'; }\
+		.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + "';/**/}\
 		.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
 		.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
 		.spinnerMask #loadMask:before		 { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
@@ -325,6 +327,7 @@ $(document).on("backbutton", function(evt) {
 ////////////////
 // dummyInput //
 ////////////////
+/*
 if(isMobile.FirefoxOS()) {
 	$("#appHeader").on(touchstart,function() {
 		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
@@ -333,6 +336,7 @@ if(isMobile.FirefoxOS()) {
 		$('#dummyInput').remove();
 	});
 }
+*/
 /////////////////
 // PRESS ENTER //
 /////////////////
@@ -916,6 +920,7 @@ setTimeout(function () {
 					'value': Number(value),
 					//ONCHANGE HANDLER
 					blur: function() {
+						$(this).val( parseInt($(this).val()) );
 						////////////////
 						// TIMED BLUR //
 						////////////////
@@ -935,7 +940,7 @@ setTimeout(function () {
 						if(this.value < 100 && !isNaN(this.value) && this.value > 1)            { this.value = 100;  }
 						if(this.value > 9999)													{ this.value = 9999; }
 						//filter zeros
-						var permValue = Math.round(Number(this.value));
+						var permValue = Math.round(parseInt(this.value));
 						window.localStorage.setItem(getKcalsKey,permValue);
 						//SET CSS TRANSITION
 						$('#editable').css(prefix + "transition-timing-function","ease");

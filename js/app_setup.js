@@ -912,6 +912,7 @@ function updateFoodDb() {
 		
 			foodDbTimer = setTimeout(function() {
 				spinner(45);
+				try{
 				/////////
 				// SQL //
 				/////////
@@ -959,6 +960,7 @@ function updateFoodDb() {
 				} else {
 					$.ajax({type: "GET", dataType: "text", url: hostLocal + "sql/searchdb_" + langDB + dbExt, success: function(ls) {
 						//delete non-fav/custom
+						
 						lib2.deleteRows("diary_food", function(row) {
 							if(row.code.length < 11 && row.fib != "fav") {
 								return true;
@@ -966,8 +968,7 @@ function updateFoodDb() {
 								return false;
 							}
 						});
-						lib2.commit();
-						//
+						//lib2.commit();
 						eval(ls);
 						lib2.commit();
 						//success
@@ -985,6 +986,14 @@ function updateFoodDb() {
 							getCatList();					
 						}
 					}});			
+				}
+				} catch(e) { 
+					//failure
+					demoRunning = false;
+					window.localStorage.removeItem("foodDbLoaded");
+					window.localStorage.removeItem("startLock");
+					spinner('stop');
+					errorHandler(e);
 				}
 		},100);
 		}}
@@ -1713,7 +1722,7 @@ function buildLangMenu(opt) {
 				updateEntriesSum();
 				//AUTO UPDATE CSS TITLES
 				$("#cssAutoUpdate").html("\
-					.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + "'; }\
+					.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + "';/**/}\
 					.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
 					.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
 					.spinnerMask #loadMask:before		 { content: '" + LANG.PREPARING_DB[lang]    + "'; }\

@@ -217,7 +217,7 @@ z-index: 999;
 /*list*/
 ul#settingsList						{ display: block; background-color: #fff; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; }
 ul#settingsList li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden;  }
-ul#settingsList li div				{ margin-left: 45px; -webkit-backface-visibility: hidden; }
+ul#settingsList li div				{ margin-left: 45px; /*-webkit-backface-visibility: hidden;*/ }
 ul#settingsList li+li div			{ border-top: 1px solid #eee; }
 ul#settingsList li.activeRow		{ background-color: #eee; color: #555; }
 ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: " ";  z-index: 99; }
@@ -337,7 +337,7 @@ input.toggle:checked + label		{ background-color: #8ce196; }
 input.toggle:checked + label:after	{ margin-left: 28px; background-color: #8ce196; }
 /**/
 input.toggle						{ position: absolute; top: 0; right: 0; width: 0; height: 0; background-color: rgba(0,0,0,0); } 
-input.toggle + label				{ position: absolute; top: 20%; right: 18px; pointer-events: none; }
+input.toggle + label				{ position: absolute; top: 20%; right: 18px; /*pointer-events: none;*/ }
 /*
 input.toggle + label 				{ display: none; }
 input[type=checkbox],
@@ -1176,7 +1176,6 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .hidenotice #timerTrial				{ display: none !important; }
 .full #timerTrial,
 .full #optionBuy 					{ display: none !important; }
-/*
 .expired #pageSlideFood,
 .expired.tab1 #newWindowWrapper,
 .expired.tab2 #newWindowWrapper,
@@ -1189,7 +1188,6 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .expired.tab3 #appContent:before	{ pointer-events: none !important;  background-color: #fff; opacity: .5 !important; -ms-touch-action: none; z-index: 9999; content: ''; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
 .expired #startDateSpan:before		{ display: none !important; opacity: 0 !important; }
 .expired #editableDiv 				{ pointer-events: none !important; z-index: 0; }
-*/
 .expired #appHeader 				{ background-color: #fc3 !important; }
 /*#////////////////#//
 //#// CATEGORIES //#//
