@@ -883,6 +883,10 @@ function spinner(size) {
 		$('body').addClass('spinnerMask');
 		$('body').removeClass('started');
 		$('#loadMask').css('display','block');
+		$('#loadMask').css('pointer-events','auto');
+		$("#loadMask").off().on(touchstart,function(evt) { 
+			return false;
+		});
 	}
 }
 ////////////////////
