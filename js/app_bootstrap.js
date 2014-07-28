@@ -16,6 +16,9 @@ $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
 		if(typeof spinner !== 'undefined') {
 			NProgress.done();
 			spinner('stop');
+			$('body').removeClass('loading');
+			$('body').removeClass('uptodate');
+			$('body').removeClass('pending');
 		}
 	},6000);
 }});

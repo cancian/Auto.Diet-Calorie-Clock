@@ -220,8 +220,10 @@ if(!window.localStorage.getItem("app_last_tab")) {
 }
 //READ STORED
 appFooter(window.localStorage.getItem("app_last_tab"));
-//LISTEN FOR CLICKS
-$("#appFooter li").on(touchstart, function(evt) {
+///////////////////////
+// LISTEN FOR CLICKS //
+///////////////////////
+$("#appFooter li").on(touchstart + " click", function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
 	//not while editing
@@ -230,9 +232,9 @@ $("#appFooter li").on(touchstart, function(evt) {
 		kickDown();
 		return false;
 	}
-
+	//
+	//
 	appFooter($(this).attr("id"));
-
 	if($('#editable').val()) {
 		$('#appHeader').trigger(touchstart);
 	}

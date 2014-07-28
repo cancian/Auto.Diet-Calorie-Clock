@@ -29,7 +29,7 @@ window.onerror = function (e, url, line) {
 		}
 		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
-	if ($('body').hasClass('spinnerMask') && typeof spinner !== 'undefined') {
+	if (typeof spinner !== 'undefined') {
 		spinner('stop');
 	}
 	//auto restart

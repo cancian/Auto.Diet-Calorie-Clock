@@ -1731,16 +1731,6 @@ function buildAdvancedMenu() {
 			getNewWindow(LANG.CHANGELOG[lang],logContent,logHandler,'',logCloser);
 		});
 	});
-	//#////////#//
-	//# REVIEW #//
-	//#////////#//
-	if(isMobile.iOS() || isMobile.Android() || isMobile.Windows() || isMobile.MSApp() || isMobile.FirefoxOS() || isMobile.OSXApp()) {
-		$("#advancedReview").on(tap,function(evt) {
-			getStoreUrl(1);
-		});	
-	} else {
-		$("#advancedReview").remove();
-	}
 	//#///////#//
 	//# ABOUT #//
 	//#///////#//
@@ -1816,6 +1806,16 @@ function buildAdvancedMenu() {
 		}
 	});	
 	});
+	//#////////#//
+	//# REVIEW #//
+	//#////////#//
+	if(isMobile.iOS() || isMobile.Android() || isMobile.Windows() || isMobile.MSApp() || isMobile.FirefoxOS() || isMobile.OSXApp()) {
+		$("#advancedReview").on(tap,function(evt) {
+			getStoreUrl(1);
+		});	
+	} else {
+		$("#advancedReview").remove();
+	}
 	//#/////////////////////#//
 	//# TOGGLE: AUTO UPDATE #//
 	//#/////////////////////#//

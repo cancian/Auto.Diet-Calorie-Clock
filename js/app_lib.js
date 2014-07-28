@@ -174,7 +174,8 @@ if (userAgent.match(/MSAppHost\/1.0|IEMobile/i)) {
 	//touchstart = "MSPointerDown";
 }
 if (isMobile.FirefoxOS()) {
-	tap = 'click';	
+	tap       = 'click';
+	singletap = 'click';
 }
 /*
 MSPointerDown			pointerdown

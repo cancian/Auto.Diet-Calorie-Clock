@@ -1,4 +1,4 @@
-﻿/*jshint multistr: true */
+﻿$.support.cors = true;
 ////////////////
 // SHOW INTRO //
 ////////////////
@@ -964,7 +964,6 @@ function updateFoodDb() {
 				} else {
 					$.ajax({type: "GET", dataType: "text", url: hostLocal + "sql/searchdb_" + langDB + dbExt, success: function(ls) {
 						//delete non-fav/custom
-						
 						lib2.deleteRows("diary_food", function(row) {
 							if(row.code.length < 11 && row.fib != "fav") {
 								return true;
@@ -972,7 +971,6 @@ function updateFoodDb() {
 								return false;
 							}
 						});
-						//lib2.commit();
 						eval(ls);
 						lib2.commit();
 						//success
@@ -1010,13 +1008,6 @@ function updateFoodDb() {
 				error: function()   { doImport('.sql'); }
 			});
 		},100);
-		/*
-		if(hasDbDb == true) {
-			doImport('.db'); 
-		} else {
-			doImport('.sql');
-		}
-		*/
 	}
 }
 ///////////////////
