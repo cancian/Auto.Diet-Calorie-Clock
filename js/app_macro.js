@@ -629,12 +629,34 @@ function getNutriSliders() {
 			$("#sliderCarInput").trigger('update');
 			$("#sliderFatInput").trigger('update');
 		}
+		///////////////////////
+		// TIME SPAN CONTROL //
+		///////////////////////
+		$("#sliderTimeSpan div").on(touchstart,function(evt) {
+			$('.activeOption').removeClass('activeOption');
+			$(this).addClass('activeOption');
+				 if($(this).attr('id') == 'divTimeSpan1') { window.localStorage.setItem("appNutrientTimeSpan",1);  }
+		    else if($(this).attr('id') == 'divTimeSpan2') { window.localStorage.setItem("appNutrientTimeSpan",7);  }
+			else if($(this).attr('id') == 'divTimeSpan3') { window.localStorage.setItem("appNutrientTimeSpan",30); }
+			else if($(this).attr('id') == 'divTimeSpan4') { window.localStorage.setItem("appNutrientTimeSpan",0);  }
+		});
+		//READ STORED
+		     if(window.localStorage.getItem("appNutrientTimeSpan") == 1)  { $('#divTimeSpan1').addClass('activeOption'); }
+		else if(window.localStorage.getItem("appNutrientTimeSpan") == 7)  { $('#divTimeSpan2').addClass('activeOption'); }	
+		else if(window.localStorage.getItem("appNutrientTimeSpan") == 30) { $('#divTimeSpan3').addClass('activeOption'); }
+		else if(window.localStorage.getItem("appNutrientTimeSpan") == 0)  { $('#divTimeSpan4').addClass('activeOption'); }
 	}
 	////////////////
 	// HTML BLOCK //
 	////////////////
 	var htmlContent = '\
 		<input type="text" id="sliderTotalInput" />\
+		<div id="sliderTimeSpan">\
+			<div id="divTimeSpan1">' + LANG.TODAY[lang]    + '</div>\
+			<div id="divTimeSpan2">' + LANG.LAST_7[lang]   + '</div>\
+			<div id="divTimeSpan3">' + LANG.LAST_30[lang]  + '</div>\
+			<div id="divTimeSpan4">' + LANG.ALL_DAYS[lang] + '</div>\
+		</div>\
 		<div id="sliderPro">\
 			<input type="text" id="sliderProInput" />\
 			<div id="sliderProLabel">' + LANG.PROTEINS[lang] + '</div>\
@@ -1280,6 +1302,10 @@ function getEntryEdit(eid) {
 //## BILLING MODULE ##//
 //##////////////////##//
 function expireNotice() {
+	if(window.localStorage.getItem("config_no_notice")) { 
+		window.localStorage.removeItem("config_no_notice");
+		return; 
+	}
 	setTimeout(function() {
 		if(window.localStorage.getItem("config_mode") == 'expired' && !$("body").hasClass("full")) {
 			////////////
@@ -1413,6 +1439,7 @@ function billingAuthorize(auth,msg) {
 //# BUY #//
 //#/////#//
 function billingBuy() {
+	window.localStorage.setItem("config_no_notice",true);
 	/*///////////
 	// ANDROID //
 	///////////*/
@@ -1538,6 +1565,7 @@ alert(e);
 //# RESTORE #//
 //#/////////#//
 function billingRestore() {
+	window.localStorage.setItem("config_no_notice",true);
 	/*///////////
 	// ANDROID //
 	///////////*/

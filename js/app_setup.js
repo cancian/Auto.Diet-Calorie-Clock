@@ -127,6 +127,9 @@ function initDB(t) {
 	if(!window.localStorage.getItem("appNutrients")) {
 		window.localStorage.setItem("appNutrients",'25|50|25');
 	}
+	if(!window.localStorage.getItem("appNutrientTimeSpan")) {
+		window.localStorage.setItem("appNutrientTimeSpan",7);
+	}
 	if(!window.localStorage.getItem("config_ttf")) {
 		window.localStorage.setItem("config_ttf",0);
 	}	
@@ -1304,6 +1307,52 @@ function updateNutriRatio() {
 		}
 	});
 }
+//#/////////////////#//
+//# NUTRI TIME SPAN #//
+//#/////////////////#//
+function getNutriTimeSpan(entryTime) {
+	var now        = (new Date()).getTime();
+	var day        = 60 * 60 * 24 * 1000;
+	var todaysTime = (new Date(dayFormat(now))).getTime();
+	var last7Time  = (new Date(dayFormat(todaysTime - (7*day)))).getTime();
+	var last30Time = (new Date(dayFormat(todaysTime - (30*day)))).getTime();
+	/////////
+	// ALL //
+	/////////
+	if(window.localStorage.getItem("appNutrientTimeSpan") == 0)  {
+		return true;
+	}
+	///////////
+	// TODAY //
+	///////////
+	else if(window.localStorage.getItem("appNutrientTimeSpan") == 1)  {
+		if(dayFormat(entryTime) == dayFormat(now)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	////////////
+	// LAST 7 //
+	////////////
+	else if(window.localStorage.getItem("appNutrientTimeSpan") == 7)  {
+		if(entryTime > last7Time) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	/////////////
+	// LAST 30 //
+	/////////////
+	else if(window.localStorage.getItem("appNutrientTimeSpan") == 30) { 
+		if(entryTime > last30Time) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
 //##/////////////////##//
 //## BUILD HELP MENU ##//
 //##/////////////////##//
@@ -1828,7 +1877,7 @@ function getStoreUrl(button) {
 		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
 		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e'));	}
 		else if(isMobile.FirefoxOS()) { ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');												}
-		else if(isMobile.OSXApp())    { macgap.app.open("itunes://itunes.apple.com/app/id898749118");																			}
+		else if(isMobile.OSXApp())    { macgap.app.open('https://itunes.apple.com/app/id898749118');																			}
 	}
 }
 var rateTimer;

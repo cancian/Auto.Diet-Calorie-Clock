@@ -355,6 +355,9 @@ function updateNutriBars(tPro,tCar,tFat) {
 	var nTotal  = (tPro*4) + (tCar*4) + (tFat*9);
 	//return null
 	if(window.localStorage.getItem("appStatus") != "running" || nTotal == 0) {
+		$("#appStatusBarsPro p").html(LANG.PROTEINS[lang].toUpperCase());
+		$("#appStatusBarsCar p").html(LANG.CARBS[lang].toUpperCase());
+		$("#appStatusBarsFat p").html(LANG.FATS[lang].toUpperCase());
 		$("#appStatusBars p").css("width",0);
 		$("#appStatusBars span").html("0%");
 		return false;
@@ -467,7 +470,7 @@ function updateTimer() {
 			var tCar = 0;
 			var tFat = 0; 
 			for(var i=0, len=data.length; i<len; i++) {
-				//todays totals
+				//today's totals
 				if(dayFormat(parseInt(data[i].published)) == today) {
 					if(Number(data[i].title) > 0) {
 						ttf += parseInt(data[i].title);
@@ -484,16 +487,18 @@ function updateTimer() {
 					} else {
 						te = te + Number(data[i].title);
 					}
-					//total pro/car/fat
-					if(Number(data[i].pro) > 0) {
-						tPro = tPro + parseFloat(data[i].pro);
+					if(getNutriTimeSpan(Number(data[i].published))) {
+						//total pro/car/fat
+						if(Number(data[i].pro) > 0) {
+							tPro = tPro + parseFloat(data[i].pro);
+						}
+						if(Number(data[i].car) > 0) {
+							tCar = tCar + parseFloat(data[i].car);
+						}
+						if(Number(data[i].fat) > 0) {
+							tFat = tFat + parseFloat(data[i].fat);
+						}
 					}
-					if(Number(data[i].car) > 0) {
-						tCar = tCar + parseFloat(data[i].car);
-					}
-					if(Number(data[i].fat) > 0) {
-						tFat = tFat + parseFloat(data[i].fat);
-					}					
 				}
 			}
 			//simultaneous windows flicker ~
