@@ -28,7 +28,8 @@ function showIntro(isNew) {
 	//////////////
 	// HANDLERS //
 	//////////////
-	$("#skipIntro, #closeDiv").on(touchend,function(evt) {
+	var skipAction = (isMobile.Android() && androidVersion() < 4.4) ? "click" : touchend;
+	$("#skipIntro, #closeDiv").on(skipAction,function(evt) {
 		evt.stopPropagation();
 			$("#gettingStarted").fadeOut(200,function() {
 			$("#gettingStarted").remove();
@@ -1005,8 +1006,9 @@ function updateFoodDb() {
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
+		var ajaxAction = (isMobile.MSApp()) ? "GET" : "HEAD";
 		setTimeout(function() {
-			$.ajax({ url: hostLocal + "sql/searchdb_" + langDB + '.db', type:'HEAD',
+			$.ajax({ url: hostLocal + "sql/searchdb_" + langDB + '.db', type: ajaxAction,
 				success: function() { doImport('.db');  },
 				error: function()   { doImport('.sql'); }
 			});

@@ -380,10 +380,14 @@ function openStatus(keepOpen) {
 		useShortLabels: true
     });
 	$('#startDate').on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-		$('#startDate').click();
-		return false;
+		if(androidVersion() >= 4 && androidVersion() < 4.4) {
+			//
+		} else {
+			evt.preventDefault();
+			evt.stopPropagation();			
+			$('#startDate').click();
+			return false;
+		}
 	});
 	//////////////////
 	// ENABLE DEBUG //
