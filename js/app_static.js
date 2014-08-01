@@ -343,23 +343,27 @@ if(isMobile.FirefoxOS()) {
 // PRESS ENTER //
 /////////////////
 $(document).on("pressenter", function(evt) {
-	$("#editable").trigger("blur");
-	$("#saveButton").trigger(touchend);
-	$("#editableDiv").trigger("blur");
-	$("#entrySubmit").trigger(touchstart);
-	$("#modalOk").trigger(touchstart);
-	$("#addNewConfirm").trigger(touchstart);
-	if($(".set").html()) {
-		$(".set").trigger(tap);
+	if($('#diaryNotesButton').length) {
+		return true;
 	} else {
-		$("#skipIntro").trigger(touchend);
-	}
-	if($('#appStatusFix').hasClass("open")) {
-		$("#startDate").mobiscroll('set');
-		$('#appStatusFix').removeClass("open");
-	}
-	if($(".delete").hasClass("active")) {
-		$(".delete.active").trigger(tap);
+		$("#editable").trigger("blur");
+		$("#saveButton").trigger(touchend);
+		$("#editableDiv").trigger("blur");
+		$("#entrySubmit").trigger(touchstart);
+		$("#modalOk").trigger(touchstart);
+		$("#addNewConfirm").trigger(touchstart);
+		if($(".set").html()) {
+			$(".set").trigger(tap);
+		} else {
+			$("#skipIntro").trigger(touchend);
+		}
+		if($('#appStatusFix').hasClass("open")) {
+			$("#startDate").mobiscroll('set');
+			$('#appStatusFix').removeClass("open");
+		}
+		if($(".delete").hasClass("active")) {
+			$(".delete.active").trigger(tap);
+		}
 	}
 });
 //////////////////////

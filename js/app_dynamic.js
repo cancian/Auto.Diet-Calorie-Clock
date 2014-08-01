@@ -1569,8 +1569,8 @@ function addNewItem(opt) {
 			var vCar = $("#inputNewCar").val();
 			var vFat = $("#inputNewFat").val();
 			//revert input to formula
-			if (vType == "exercise") {
-				var vKcal = Math.round(((($("#inputNewKcal").val() / totalWeight) / $("#inputNewAmount").val()) * 60) * 100) / 100;
+			if (vType == "exercise" || vType == "0000") {
+				vKcal = Math.round(((($("#inputNewKcal").val() / totalWeight) / $("#inputNewAmount").val()) * 60) * 100) / 100;
 			}
 			///////////////////////
 			// VALIDATE ADD FORM //
@@ -1653,13 +1653,13 @@ function addNewItem(opt) {
 						fib : vFib,
 						act : vAct
 					}, function () {
-						clearTimeout(setFoodtimer);
+						//clearTimeout(setFoodtimer);
 						/////////////////////////
 						// UPDATE HTML CONTENT //
 						/////////////////////////
 						if (vAct == "update") {
-							if (vType == "exercise") {
-								var vKcal = Math.round(((vKcal * totalWeight) / 60) * 30);
+							if (vType == "exercise" || vType == "0000") {
+								vKcal = Math.round(((vKcal * totalWeight) / 60) * 30);
 							}
 							//if also favourite, double check
 							$(".activeOverflow .foodName").html(vName);

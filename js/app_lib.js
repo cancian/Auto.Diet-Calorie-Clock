@@ -205,15 +205,21 @@ if(typeof safeExec != 'function') {
 // ERROR HANDLER //
 ///////////////////
 function errorHandler(error) {
-	//console.log(JSON.stringify(error));
-	if(window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
-		if(isMobile.MSApp()) {
-			alert(JSON.stringify(error));
+	if (window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
+		if (navigator.userAgent.match(/MSApp/i)) {
+			if (typeof alert !== 'undefined') {
+				alert(JSON.stringify(error));
+			}
 		} else {
-			if(confirm(JSON.stringify(error))) { blockAlerts = 0; } else { blockAlerts = 1; }
+			if (confirm(JSON.stringify(error))) {
+				blockAlerts = 0;
+			} else {
+				blockAlerts = 1;
+			}
 		}
-		console.log(JSON.stringify(error));
+		alert(JSON.stringify(error));
 	}
+	
 }
 /////////////////
 // NUMBER ONLY //

@@ -639,6 +639,7 @@ function getNutriSliders() {
 		    else if($(this).attr('id') == 'divTimeSpan2') { window.localStorage.setItem("appNutrientTimeSpan",7);  }
 			else if($(this).attr('id') == 'divTimeSpan3') { window.localStorage.setItem("appNutrientTimeSpan",30); }
 			else if($(this).attr('id') == 'divTimeSpan4') { window.localStorage.setItem("appNutrientTimeSpan",0);  }
+			return false;
 		});
 		//READ STORED
 		     if(window.localStorage.getItem("appNutrientTimeSpan") == 1)  { $('#divTimeSpan1').addClass('activeOption'); }
