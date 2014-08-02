@@ -83,6 +83,7 @@ function buildRemoteSuperBlock(opt) {
 		hostLocal2 = "http://192.168.1.5/com.cancian.mylivediet/www/";
 	}
 	//retrieve ajax check
+	if(typeof cssLoadCount === 'undefined') { return; }
 	cssLoadCount(0,0);
 	$('body').removeClass('loading');
 	$('body').removeClass('uptodate');

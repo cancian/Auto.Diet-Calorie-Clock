@@ -220,12 +220,6 @@ function getFullHistory() {
 		// HTML //
 		//////////
 		var appHistoryHtml = "<div id='appHistory'></div>";
-		/////////////
-		// CONFIRM //
-		/////////////
-		var appHistoryConfirm = function() {
-			return true;
-		};
 		/////////////////
 		// CALL WINDOW //
 		/////////////////
@@ -902,7 +896,7 @@ function balanceMeter(kcalsInput,update) {
 		////////////////////
 		//balancePos = 100 - (((parseFloat(kcalsInput)+600)/12) ) + "%";
 		if(parseInt(kcalsInput)*-1 > 0) {
-			//postive
+			//positive
 			balancePos = 100 - (((parseFloat(kcalsInput)+ulim)/pu) ) + "%";
 		} else {
 			//negative

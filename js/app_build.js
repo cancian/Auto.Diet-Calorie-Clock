@@ -380,7 +380,7 @@ function openStatus(keepOpen) {
 		useShortLabels: true
     });
 	$('#startDate').on(touchstart,function(evt) {
-		if(androidVersion() >= 4 && androidVersion() < 4.4) {
+		if(isMobile.Android() && androidVersion() < 4.4)  {
 			//
 		} else {
 			evt.preventDefault();
