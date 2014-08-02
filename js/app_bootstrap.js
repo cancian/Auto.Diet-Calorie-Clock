@@ -1,8 +1,8 @@
 ﻿//#///////////#//
 //# BOOTSTRAP #//
-//#///////////#///////
-// AJAX ERROR CODES //
-//////////////////////
+//#///////////#//
+// AJAX ERRORS //
+/////////////////
 $.support.cors = true;
 $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
 		 if(jqXHR.status === 0)           { console.log('Not connect.\n Verify Network.');         }
@@ -48,23 +48,27 @@ function InitializeLocalSuperBlock(opt) {
 	if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase())) {
 		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
-	//WRITE RESULTS
-	if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
-		window.localStorage.setItem("remoteSuperBlockJS",dataJS);
-	}
-	if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
-		window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
-	}
-	/////////////////////////////////
-	// APPEND IF USING SUPERBLOCKS //
-	/////////////////////////////////
-	if(!$("#plainLoad").length && !$("#superBlockJS").length) {
-		safeExec(function() {		
-			$("#coreCss,#coreFonts").remove();
-			$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
-			$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
-		});
-	}
+	//QUOTA
+	try {
+		//WRITE RESULTS
+		if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
+			window.localStorage.setItem("remoteSuperBlockJS",dataJS);
+		}
+		if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
+			window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
+		}
+		/////////////////////////////////
+		// APPEND IF USING SUPERBLOCKS //
+		/////////////////////////////////
+		if(!$("#plainLoad").length && !$("#superBlockJS").length) {
+			safeExec(function() {		
+				$("#coreCss,#coreFonts").remove();
+				$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+				$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
+			});
+		}
+	} catch(e) { }
+	//
 	}});}});}});}});
 	}});}});}});
 	}});}});
@@ -149,39 +153,41 @@ function buildRemoteSuperBlock(opt) {
 	// UPDATE PENDING //
 	////////////////////
 	var updatePending = 0;
-	//
-	if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
-		window.localStorage.setItem("remoteSuperBlockJS",dataJS);
-		updatePending = 1;
-	}
-	if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
-		window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
-		updatePending = 1;
-	}
-	////////////////////
-	// RESTART DIALOG //
-	////////////////////
-	if(updatePending == 1) {
-		getAnalytics('autoupdate');
-		$('body').removeClass('loading');
-		$('body').addClass('pending');
-		window.localStorage.setItem("app_build",appBuild);
-		window.localStorage.setItem("app_restart_pending",true);
-		if(window.localStorage.getItem("app_notify_update")) {
-			setTimeout(function() {
-				if(typeof appConfirm == "function") {
-					function quickReboot(ok) {
-						if(ok == 1) {
-							afterHide();
-						} else {
-							window.localStorage.setItem("app_restart_pending",true);
-						}
-					}
-					appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
-				}
-			},2000);
+	//QUOTA
+	try {
+		if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
+			window.localStorage.setItem("remoteSuperBlockJS",dataJS);
+			updatePending = 1;
 		}
-	}
+		if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
+			window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
+			updatePending = 1;
+		}
+		////////////////////
+		// RESTART DIALOG //
+		////////////////////
+		if(updatePending == 1) {
+			getAnalytics('autoupdate');
+			$('body').removeClass('loading');
+			$('body').addClass('pending');
+			window.localStorage.setItem("app_build",appBuild);
+			window.localStorage.setItem("app_restart_pending",true);
+			if(window.localStorage.getItem("app_notify_update")) {
+				setTimeout(function() {
+					if(typeof appConfirm == "function") {
+						function quickReboot(ok) {
+							if(ok == 1) {
+								afterHide();
+							} else {
+								window.localStorage.setItem("app_restart_pending",true);
+							}
+						}
+						appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
+					}
+				},2000);
+			}
+		}
+	} catch(e) { }
 	//
 	}});}});
 	}});}});}});

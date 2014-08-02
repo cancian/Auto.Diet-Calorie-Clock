@@ -1318,7 +1318,9 @@ function expireNotice() {
 			////////////////////
 			// CONFIRM/NOTIFY //
 			////////////////////
-			appConfirm(LANG.EVALUATION_EXPIRED[lang], LANG.BUY_FULL_VERSION[lang] + '?', doBuy, LANG.BUY[lang], LANG.NO_THANKS[lang]);
+			if(!$("#buyButton").length) {
+				appConfirm(LANG.EVALUATION_EXPIRED[lang], LANG.BUY_FULL_VERSION[lang] + '?', doBuy, LANG.BUY[lang], LANG.NO_THANKS[lang]);
+			}
 		}
 	},2000);
 }
@@ -1879,6 +1881,9 @@ function buildAdvancedMenu() {
 				buildRemoteSuperBlock('cached');  
 			},2000);
 		} else {
+			$('body').removeClass('loading');
+			$('body').removeClass('uptodate');
+			$('body').removeClass('pending');			
 			window.localStorage.setItem("config_autoupdate","off");
 		}
 	});
