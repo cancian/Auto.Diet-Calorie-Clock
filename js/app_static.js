@@ -274,7 +274,7 @@ $(document).on("backbutton", function(evt) {
 		$(".set").trigger(tap);
 	} else if($("#skipIntro").length && myScroll.x) {
 		//if(myScroll.x == 0) {
-		//	$("#skipIntro").trigger(touchstart);
+		//	$("#skipIntro").trigger(touchend);
 		//} else {
 		if(myScroll) {
 			myScroll.prev();

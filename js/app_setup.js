@@ -19,6 +19,8 @@ function showIntro(isNew) {
 				</div>\
 			</div>\
 		</div>\
+		<div id="nextDiv"></div>\
+		<div id="prevDiv"></div>\
 		<div id="indicator">\
 			<div id="dotty"></div>\
 		</div>\
@@ -49,6 +51,24 @@ function showIntro(isNew) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		buildLangMenu('intro');
+	});
+	///////////////
+	// NEXT/PREV //
+	///////////////	
+	$("#nextDiv").on(touchstart,function(evt) {
+		evt.stopPropagation();
+		if(myScroll) {
+			if(myScroll.currentPage.pageX == 5) {
+				$("#skipIntro").trigger(skipAction);	
+			}
+			myScroll.next();
+		}
+	});
+	$("#prevDiv").on(touchstart,function(evt) {
+		evt.stopPropagation();
+		if(myScroll) {
+			myScroll.prev();
+		}
 	});
 	///////////////
 	// INDICATOR //
@@ -1879,7 +1899,7 @@ function getStoreUrl(button) {
 		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
 		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e'));	}
 		else if(isMobile.FirefoxOS()) { ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');												}
-		else if(isMobile.OSXApp())    { macgap.app.open('https://itunes.apple.com/app/id898749118');																			}
+		else if(isMobile.OSXApp())    { macgap.app.open('macappstores://itunes.apple.com/app/id898749118');																		}
 	}
 }
 var rateTimer;
