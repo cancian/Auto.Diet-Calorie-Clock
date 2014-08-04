@@ -1481,7 +1481,7 @@ function billingBuy() {
 	if(isMobile.MSApp()) {
 		try {
 			if(!isInAppPurchaseValid("com.cancian.fullversion")) {
-				 (Windows.ApplicationModel.Store.CurrentApp).requestProductPurchaseAsync("com.cancian.fullversion", false).then(function () {
+				 (Windows.ApplicationModel.Store.CurrentApp).requestProductPurchaseAsync("com.cancian.fullversion").then(function () {
 					if(isInAppPurchaseValid("com.cancian.fullversion")) {
 						billingAuthorize(1, LANG.TRANSACTION_SUCCESS[lang]);
 					} else {

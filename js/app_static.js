@@ -223,6 +223,7 @@ appFooter(window.localStorage.getItem("app_last_tab"));
 ///////////////////////
 // LISTEN FOR CLICKS //
 ///////////////////////
+var touchFootTimer;
 $("#appFooter li").on(touchstart + " click", function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
@@ -238,7 +239,8 @@ $("#appFooter li").on(touchstart + " click", function(evt) {
 	if($('#editable').val()) {
 		$('#appHeader').trigger(touchstart);
 	}
-	setTimeout(function() {
+	clearTimeout(touchFootTimer);
+	touchFootTimer = setTimeout(function() {
 		getAnalytics("tab");
 	},600);
 });
