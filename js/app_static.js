@@ -376,7 +376,7 @@ $(document).keyup(function(e) {
 	//////////////
 	// side nav //
 	//////////////
-	if(!$("input, textarea, select").is(":focus") && !$("#gettingStarted").html()) {
+	if(!$("input, textarea, select").is(":focus") && !$("#gettingStarted").html() && !$('.dwo').length) {
 		if(e.keyCode == 37) {  
 		         if(window.localStorage.getItem("app_last_tab") == "tab4") { appFooter("tab3"); }
 			else if(window.localStorage.getItem("app_last_tab") == "tab3") { appFooter("tab2"); }
@@ -690,25 +690,40 @@ setTimeout(function() {
 		navigator.splashscreen.hide();
 	}
 },1000);
-///////////////////////////
-// ANDROID FIRST INSTALL //
-///////////////////////////
+////////////////////
+// CHECK PREVIOUS //
+////////////////////
 setTimeout(function () {
 	try {
-		if (androidVersion() >= 3) {
-			if (window.MyReload) {
-				if (window.MyReload.getPackageInstallTime) {
-					var installTime = window.MyReload.getPackageInstallTime();
-					installTime = parseInt(installTime);
-					installTime = JSON.stringify(installTime);
-					if (installTime.length >= 13 && !isNaN(installTime)) {
-						window.localStorage.setItem("config_install_time", installTime);
+		if ((isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) && isMobile.Cordova() && !isPaid()) {
+			if (window.device) {
+				if (window.device.uuid) {
+					if (window.device.uuid.length > 10) {
+						var getHost = (window.localStorage.getItem("config_debug") == "active") ? "http://192.168.1.5/com.cancian.mylivediet/www/" : "http://kcals.net/";
+						$.ajax({
+							type : "GET",
+							dataType : "text",
+							url : getHost + "uuid.php?uuid=" + window.device.uuid + "&time=" + window.localStorage.getItem("config_install_time"),
+							error : function (xhr, statusText) {
+								errorHandler(statusText);
+							},
+							success : function (returnTime) {
+								returnTime = trim(returnTime);
+								if (returnTime.length == 13) {
+									if (returnTime < parseInt(window.localStorage.getItem("config_install_time"))) {
+										window.localStorage.setItem("config_install_time", returnTime);
+									}
+								}
+							}
+						});
 					}
 				}
 			}
 		}
-	} catch (e) {}
-}, 1000);
+	} catch (e) {
+		errorHandler(e);
+	}
+}, 4000);
 /////////////
 // LICENSE //
 /////////////

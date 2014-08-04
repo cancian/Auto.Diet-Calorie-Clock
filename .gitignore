@@ -2,7 +2,9 @@
 ## PHONEGAP ##
 ##############
 _gsdata_/
+userdata/
 # ANDROID / ECLIPSE
+
 
 # built application files
 *.apk

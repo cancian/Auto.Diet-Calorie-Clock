@@ -541,11 +541,11 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 #appStatusElapsed span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 /*swap*/
 #elapsedIndicators div				{ width: 100%; text-align: center; position: absolute; bottom: 0px; color: #ddd; font-size: 16px; line-height: 16px; height: 14px; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: linear; -webkit-transition-duration: .1s; }
+#elapsedIndicators div.activeSwap	{ color: #39F; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: linear; -webkit-transition-duration: .1s;}
 #elapsedIndicators div:before		{ content: '•'; }
 #elapsedIndicators div#ind1			{ left: -12px; }
 #elapsedIndicators div#ind2			{ left: 0;     }
 #elapsedIndicators div#ind3			{ left: 12px;  }
-#elapsedIndicators div.activeSwap	{ color: #39F;  -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: linear; -webkit-transition-duration: .1s;}
 /**/
 #appStatusWeight					{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; }
 #appStatusWeight div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
