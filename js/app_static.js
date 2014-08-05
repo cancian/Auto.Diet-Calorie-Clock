@@ -95,7 +95,7 @@ setTimeout(function() {
 		window.localStorage.setItem("app_build",appBuild);
 		getAnalytics('update'); 
 	}
-},8000);
+},2000);
 setTimeout(function() {
 	window.localStorage.removeItem("app_restart_pending");
 	getAnalytics('init'); 

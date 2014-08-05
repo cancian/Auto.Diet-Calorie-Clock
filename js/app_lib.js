@@ -168,7 +168,7 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
-if (userAgent.match(/MSAppHost\/1.0|IEMobile/i)) {
+if (userAgent.match(/MSAppHost\/1.0|IEMobile/i) && window.navigator.msPointerEnabled) {
 	//touchmove  = "MSPointerMove";
 	touchend = "MSPointerUp";
 	//touchstart = "MSPointerDown";
