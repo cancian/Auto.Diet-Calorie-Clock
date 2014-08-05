@@ -871,6 +871,18 @@ function sliderNeg() {
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 			}
+			//////////
+			// UUID //
+			//////////
+			if ((/devuuid/).test($("#entryBody").val().toLowerCase())) {
+				$("#entryBody").val('');
+				$("#entryBody").blur();
+				if(window.device) {
+					if(window.device.uuid) {
+						alert(window.device.uuid);
+					}
+				}
+			}
 			///////////
 			// DEBUG //
 			///////////
