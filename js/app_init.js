@@ -89,14 +89,6 @@ function isCacheValid(input) {
 function initJS() {
 	// MSAPP //
 	if (navigator.userAgent.match(/MSApp/i)) { hostLocal = ''; }
-	//////////////
-	// VIEWPORT //
-	//////////////	
-	if (navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
-		document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');
-	} else {
-		document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />');
-	}
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
