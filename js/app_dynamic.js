@@ -538,7 +538,8 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	$('div span.delete', this).on(tap, function (evt) {
+	var delGesture = isMobile.FirefoxOS() ? touchend : tap;
+	$('div span.delete', this).on(delGesture, function (evt) {
 		//evt.preventDefault();
 		$(this).parent('div').hide();
 		//UPDATE DB
