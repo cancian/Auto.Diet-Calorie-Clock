@@ -1423,7 +1423,12 @@ function buildHelpMenu() {
 	},0);
 	//SCROLLER
 	setTimeout(function() {
-		getNiceScroll("#appHelper");
+		if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+			$("#appHelper").css('overflow','hidden');
+			$("#appHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		} else {
+			$("#appHelper").css('overflow','auto');
+		}
 		//UNLOCK TAP
 		setTimeout(function() {
 			startLock = 0;
@@ -1507,7 +1512,14 @@ function buildHelpMenu() {
 			} else {
 				$(".activeRow").removeClass("activeRow");
 				//SCROLLER
-				getNiceScroll("#appSubHelper");
+				if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+					setTimeout(function() {
+						$("#appSubHelper").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+					},100);
+				} else {
+					//wp8 transision
+					$("#appSubHelper").css("overflow","auto");
+				}
 			}
 			setTimeout(function() {
 				$('#appSubHelper').css("width","100%");
@@ -1597,10 +1609,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
 				var horizScroll = $('#appHistory').html() ? true : false;
 				var touchBeh = true;
-				getNiceScroll("#newWindow");
-				//if(isMobile.Android()) { touchBeh = false; }
-				//$("#newWindow").css("overflow","hidden");
-				//$("#newWindow").niceScroll({touchbehavior:touchBeh,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
+				if(isMobile.Android()) { touchBeh = false; }
+				$("#newWindow").css("overflow","hidden");
+				$("#newWindow").niceScroll({touchbehavior:touchBeh,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
 			} else if((isMobile.Windows() || isMobile.MSApp()) && $('#appHistory').html()) {
 				$("#newWindow").css("overflow","hidden");
 				$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:true,hwacceleration:false});
@@ -1719,7 +1730,12 @@ function buildLangMenu(opt) {
 	//show content
 	$("#langSelect").hide();
 	$("#langSelect").stop().fadeIn(200,function() {
-		getNiceScroll("#langSelect");
+		//scroller
+		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.MSApp() && !isMobile.Windows() && !isMobile.FirefoxOS()) {
+			$("#langSelect").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+		} else {
+			$("#langSelect").css("overflow","auto");	
+		}
 	});
 	/////////////
 	// handler //
@@ -1812,32 +1828,6 @@ function niceResizer() {
 		$("#newWindow").getNiceScroll().resize();
 		$("#langSelect").getNiceScroll().resize();
 		$("#advancedMenuWrapper").getNiceScroll().resize();
-	}
-}
-///////////////////
-// GETNICESCROLL //
-///////////////////
-function getNiceScroll(target) {
-	var NSettings = {touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid rgba(0,0,0,0)",cursoropacitymax:.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true};
-	//
-	if(isMobile.Android()) {
-		//NSettings.cursorborder = "1px solid rgba(0,0,0,0)";
-		//NSettings.cursorwidth  = 3;
-	}
-	//NOTES
-	if(target == "#diaryNotesInput") {			
-		if(!isMobile.Windows() && !isMobile.MSApp()) {
-			$("#diaryNotesInput").niceScroll(NSettings);
-		} else {
-			$('#diaryNotesInput').css("overflow","auto");
-		}
-	} else {
-		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
-			$(target).css("overflow","hidden");
-			$(target).niceScroll(NSettings);
-		} else {
-			$(target).css("overflow","auto");
-		}
 	}
 }
 //#/////////////#//

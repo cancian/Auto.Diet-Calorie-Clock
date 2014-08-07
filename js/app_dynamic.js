@@ -643,14 +643,28 @@ $(document).on("pageReload", function (evt) {
 						//$('#foodList').css("margin-top","61px");
 						$('#foodList').css("min-height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
 						$('#foodList').css("height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
+						//$('#foodList').css("top","0px");
+
 						//$('#foodList').css("top",($('#appHeader').height()) + "px");
-						setTimeout(function () {
-							getNiceScroll("#foodList");
-							$("body").trigger("resize");
-						}, 300);
-						//SCROLLBAR UPDATE
-						clearTimeout(niceTimer);
-						niceTimer = setTimeout(niceResizer, 200);
+						if (!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+							$("#foodList").css("overflow", "hidden");
+							setTimeout(function () {
+								//$("body").addClass("closer");
+								$("#foodList").niceScroll({
+									touchbehavior : true,
+									cursorcolor : "#000",
+									cursorborder : "1px solid transparent",
+									cursoropacitymax : 0.3,
+									cursorwidth : 3,
+									horizrailenabled : false,
+									hwacceleration : true
+								});
+								$("body").trigger("resize");
+							}, 300);
+							//SCROLLBAR UPDATE
+							clearTimeout(niceTimer);
+							niceTimer = setTimeout(niceResizer, 200);
+						}
 						/////////////
 						// handler //
 						/////////////

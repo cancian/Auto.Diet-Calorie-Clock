@@ -1188,7 +1188,11 @@ function sliderNeg() {
 		//load scroller & set window < height
 		setTimeout(function() {
 			$('#diaryNotesInput').height(window.innerHeight - 32);
-			getNiceScroll("#diaryNotesInput");
+			if(!isMobile.Windows() && !isMobile.MSApp()) {
+				$("#diaryNotesInput").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
+			} else {
+				$('#diaryNotesInput').css("overflow","auto");
+			}
 		},200);
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {

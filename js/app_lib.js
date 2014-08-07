@@ -217,8 +217,9 @@ function errorHandler(error) {
 				blockAlerts = 1;
 			}
 		}
-		console.log(JSON.stringify(error));
+		alert(JSON.stringify(error));
 	}
+	
 }
 /////////////////
 // NUMBER ONLY //
