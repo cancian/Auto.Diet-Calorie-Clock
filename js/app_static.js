@@ -172,7 +172,7 @@ preTab = function(keepOpen) {
 afterTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
 	$("#appContent").show();
-	$("#appContent").css('touch-events','auto');
+	$("#appContent").css('pointer-events','auto');
 	$("body").removeClass("newwindow");
 	//
 	$("#langSelect").remove();
@@ -180,6 +180,7 @@ afterTab = function(keepOpen) {
 	$("#advancedMenuWrapper").remove();
 	$("#appHelper").remove();
 	$("#appSubHelper").remove();
+	$('#diaryNotesWrapper').remove();
 	//clear pageslidefood
 	if($("#pageSlideFood").html()) {
 		if(!$("#pageSlideFood").is(":animated")) {
@@ -403,7 +404,7 @@ $(document).on("click", function(evt) {
 });
 //ON SHOW KEYBOARD
 $(document).on("showkeyboard", function(evt) {
-	if($('#diaryNotesInput').is(":visible")) {
+	if($('#diaryNotesInput').length) {
 		setTimeout(function() {
 			$('#diaryNotesInput').focus();
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
@@ -476,7 +477,7 @@ $(window).on("resize", function(evt) {
 	}
 	//notepad (ios6 fix)(window.innerHeight)
 	if($('#diaryNotesInput').length) {
-		if($('#diaryNotesInput').is(":visible") && !isMobile.Windows() && !isMobile.MSApp()) {
+		if($('#diaryNotesInput').length && !isMobile.Windows() && !isMobile.MSApp()) {
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 			$("#diaryNotesInput").height(window.innerHeight - 32);
 			$('#diaryNotesInput').width(window.innerWidth - 24);

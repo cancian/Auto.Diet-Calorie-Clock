@@ -109,7 +109,7 @@ var vendorClass;
 var transitionend;
      if((/trident|IEMobile/).test(userAgent.toLowerCase()))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
 else if((/firefox/).test(userAgent.toLowerCase()))			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
-else																	{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
+else														{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
 ///////////////////////////////////
@@ -219,6 +219,7 @@ function errorHandler(error) {
 		}
 		console.log(JSON.stringify(error));
 	}
+	
 }
 /////////////////
 // NUMBER ONLY //

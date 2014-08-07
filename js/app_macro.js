@@ -1,5 +1,4 @@
-﻿/*jshint multistr: true */
-//##/////////////////##//
+﻿//##/////////////////##//
 //## GET FULLHISTORY ##//
 //##/////////////////##//
 function getFullHistory() {

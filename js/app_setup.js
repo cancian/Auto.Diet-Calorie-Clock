@@ -1827,6 +1827,7 @@ function getNiceScroll(target) {
 	//NOTES
 	if(target == "#diaryNotesInput") {			
 		if(!isMobile.Windows() && !isMobile.MSApp()) {
+			$('#diaryNotesInput').css("overflow","hidden");
 			$("#diaryNotesInput").niceScroll(NSettings);
 		} else {
 			$('#diaryNotesInput').css("overflow","auto");

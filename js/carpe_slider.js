@@ -616,11 +616,13 @@ function reNutri() {
 ////////////
 // RESIZE //
 ////////////
+var UAGT = navigator.userAgent;
 $(window).on("resize",function(evt) {
+	if($('#diaryNotesWrapper').length) { return; }
 	if(document.getElementById('slider')) {
 		Math.round(window.innerWidth % 2) ? $("#sliderWrapper").width( $("#appContent").width()-49) : $("#sliderWrapper").width($("#appContent").width()-48);
 	}
-	if(!navigator.userAgent.match(/IEMobile/i)) {
+	if(!UAGT.match(/IEMobile/i)) {
 		reSlider();
 		reNutri();
 		setTimeout(function(evt) { reSlider(); reNutri(); }, 0);

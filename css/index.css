@@ -907,8 +907,8 @@ div.editing p				{ opacity: 1; }
 #diaryNotes:before			{ content: "\f02d"; font-family: "FontAwesome"; display: inline-block; font-weight: normal; }
 #diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
 #diaryNotesInput 			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: transparent; z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
-#diaryNotesButton			{ position: absolute; top: 0; height: 100%; right: 0; width: 66px; background-color: rgba(0,0,0,.2); /*background-image: -webkit-linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2));*/ opacity: 1; z-index: 999; display: block; -webkit-backface-visibility: hidden; -webkit-user-select: none;  }
-#diaryNotesButton span		{ position: absolute; top: 100px; height: 100%; width: 100%; text-align: center; color: #fff; opacity: .72; /*color: rgba(255,255,255,.72);*/ font-size: 18px; font-weight: bold; -webkit-backface-visibility: hidden; -webkit-user-select: none; }
+#diaryNotesButton			{ position: absolute; top: 0; right: 0; width: 124px; height: 62px; background-color: rgba(255,255,255,.7); display: block; z-index: 999; text-align: center; line-height: 64px; font-size: 18px; color: #007aff; font-weight: bold; -webkit-backface-visibility: hidden; }
+body.ios7 #diaryNotesButton	{ height: 77px; }
 /*#############################
 ####    PAGE SLIDE FOOD    ####
 #############################*/
