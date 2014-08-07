@@ -1687,23 +1687,16 @@ function buildAdvancedMenu() {
 	//SHOW
 	$("#advancedMenuWrapper").hide();
 	$("#advancedMenuWrapper").fadeIn(200,function() {
-		//SCROLLER
-		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
-			$("#advancedMenu").css("overflow","hidden");
-			$("#advancedMenu").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-		} else {
-			$("#advancedMenu").css("overflow","auto");
-		}
-
-	//////////////////
-	// LIST HANDLER //
-	//////////////////
-	//LIST CLOSER HANDLER
-	$("#advBackButton").on(touchend,function() {
-		$("#advancedMenuWrapper").fadeOut(200,function() {
-			$('#advancedMenuWrapper').remove();
+		getNiceScroll("#advancedMenu");
+		//////////////////
+		// LIST HANDLER //
+		//////////////////
+		//LIST CLOSER HANDLER
+		$("#advBackButton").on(touchend,function() {
+			$("#advancedMenuWrapper").fadeOut(200,function() {
+				$('#advancedMenuWrapper').remove();
+			});
 		});
-	});
 	//ADD ACTIVE
 	$("#advancedMenu li").on(touchstart,function(evt) {
 		if(!(/checkbox/).test($(this).html())) {

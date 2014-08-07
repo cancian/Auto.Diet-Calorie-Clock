@@ -200,12 +200,7 @@ appFooter = function (id,keepOpen) {
 	window.localStorage.setItem("app_last_tab",tabId);
 	$("#" + tabId).addClass("selected");
 	//SCROLLBAR
-	if(!isMobile.iOS() && !isMobile.MSApp() && !isMobile.Windows() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
-		$("#appContent").css("overflow","hidden");
-		setTimeout(function(){
-			$("#appContent").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true});
-		},0);
-	}
+	getNiceScroll("#appContent");
 	//ACTION
 	if(tabId == "tab1") { openStatus(keepOpen);   }
 	if(tabId == "tab2") { updateEntries('','','callback',keepOpen); }
