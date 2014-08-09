@@ -1214,7 +1214,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Opera 10-11 does not throw on post-comma invalid pseudos
-			if(!navigator.userAgent.match(/MSApp/i)) {
+			if(!IsMsApp) {
 				div.querySelectorAll("*,:x");
 				rbuggyQSA.push(",.*:");
 			}
@@ -1234,7 +1234,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// This should fail with an exception
 			// Gecko does not error, returns false instead
-			if(!navigator.userAgent.match(/MSApp/i)) {
+			if(!IsMsApp) {
 				matches.call( div, "[s!='']:x" );
 				rbuggyMatches.push( "!=", pseudos );
 			}
@@ -1392,7 +1392,7 @@ Sizzle.matchesSelector = function( elem, expr ) {
 		( !rbuggyMatches || !rbuggyMatches.test( expr ) ) &&
 		( !rbuggyQSA     || !rbuggyQSA.test( expr ) ) ) {
 
-if(!navigator.userAgent.match(/MSApp/i)) {
+if(!IsMsApp) {
 		try {
 			var ret = matches.call( elem, expr );
 
@@ -5201,16 +5201,9 @@ jQuery.fn.extend({
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
 				var target = manipulationTarget( this, elem );
 
-
-if(navigator.userAgent.match(/MSApp/i)) {
-	MSApp.execUnsafeLocalFunction(function() {
-		target.appendChild( elem );
-	});
-} else {
+safeExec(function() {
 	target.appendChild( elem );
-}
-
-
+});
 
 			}
 		});
@@ -5221,16 +5214,9 @@ if(navigator.userAgent.match(/MSApp/i)) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
 				var target = manipulationTarget( this, elem );
 
-
-if(navigator.userAgent.match(/MSApp/i)) {
-	MSApp.execUnsafeLocalFunction(function() {
-				target.insertBefore( elem, target.firstChild );
-	});
-} else {
-				target.insertBefore( elem, target.firstChild );
-}
-
-
+safeExec(function() {
+	target.insertBefore( elem, target.firstChild );
+});
 
 			}
 		});
@@ -5240,13 +5226,11 @@ if(navigator.userAgent.match(/MSApp/i)) {
 		return this.domManip( arguments, function( elem ) {
 			if ( this.parentNode ) {
 				var pNode = this;
-				if(navigator.userAgent.match(/MSApp/i)) {
-					MSApp.execUnsafeLocalFunction(function() {
-						pNode.parentNode.insertBefore( elem, pNode );
-					});
-				} else {
-					this.parentNode.insertBefore( elem, this );
-				}
+
+safeExec(function() {
+	pNode.parentNode.insertBefore( elem, pNode );
+});
+
 			}
 		});
 	},
@@ -5256,13 +5240,11 @@ if(navigator.userAgent.match(/MSApp/i)) {
 			if ( this.parentNode ) {
 				//this.parentNode.insertBefore( elem, this.nextSibling );
 				var pNodeb = this;
-				if(navigator.userAgent.match(/MSApp/i)) {
-					MSApp.execUnsafeLocalFunction(function() {
-						pNodeb.parentNode.insertBefore( elem, pNodeb.nextSibling );
-					});
-				} else {
-					this.parentNode.insertBefore( elem, this.nextSibling );
-				}
+				
+safeExec(function() {
+	pNodeb.parentNode.insertBefore( elem, pNodeb.nextSibling );
+});	
+
 			}
 		});
 	},
@@ -5339,16 +5321,9 @@ if(navigator.userAgent.match(/MSApp/i)) {
 							jQuery.cleanData( getAll( elem, false ) );
 							//elem.innerHTML = value;
 
-
-if(navigator.userAgent.match(/MSApp/i)) {
-	MSApp.execUnsafeLocalFunction(function() {
-		elem.innerHTML = value;
-	});
-} else {
+safeExec(function() {
 	elem.innerHTML = value;
-}
-
-
+});	
 
 						}
 					}

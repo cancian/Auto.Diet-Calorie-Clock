@@ -1,5 +1,4 @@
-﻿/*jshint multistr: true */
-/*########################################
+﻿/*########################################
 ####    HTML BUILDS ~ OPEN SETTINGS   ####
 ########################################*/
 function openSettings(keepOpen) {
@@ -430,8 +429,10 @@ function openStatus(keepOpen) {
 	});
 	// ON BLUR //
 	var onChange = 0;
-	$("#startDate").change(function(){
-		onChange++;
+	$("#startDate").change(function() {
+		if($('.dwo').length) {
+			onChange++;
+		}
 	});
 	$("#startDate").blur(function(){
 		//write if changed
@@ -1730,8 +1731,7 @@ var tapVar;
 $("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
 	tapVar = this;
 	setTimeout(function(){ if(tapVar) { tapVar.blur(); } },1);
-
-	if(isMobile.FirefoxOS() || isMobile.MSApp() || (isMobile.Android() && androidVersion() < 4)) {
+	if(isMobile.MSApp() || (isMobile.Android() && androidVersion() < 4)) {
 		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 		$('#dummyInput').focus();
 		$('#dummyInput').blur();
@@ -1770,23 +1770,6 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	}
 	return false;
 });
-/*
-$("#formc input,#formc select").on(tap, function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();
-//	$("#" + evt.target.id).focus();
-});
-
-if(isMobile.iOS()) {
-	$("#formc input,#formc select").on(touchstart, function(evt) {
-		if(!(evt.target.id).match(/pA7B|pA7F|pA7L/)) {
-			//evt.preventDefault();
-			//evt.stopPropagation();
-			$(this).focus();
-		}
-	});
-}
-*/
 //////////////////////////////
 // BLUR ON NULL ID TOUCHEND //
 //////////////////////////////

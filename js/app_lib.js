@@ -1,6 +1,8 @@
 ﻿//#/////////////#//
 //# GLOBAL VARS #//
 //#/////////////#//
+var kcals               = [];
+var app                 = [];
 var storage             = window.localStorage;
 var userAgent           = navigator.userAgent;
 var appBalance;
@@ -12,6 +14,8 @@ var db;
 var dbName              = "mylivediet.app";
 var lib;
 var lib2;
+var storeEntry;
+var storeFood;
 var hasSql              = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
 var AND                 = " ";
 var initialScreenWidth  = window.innerWidth;
@@ -46,14 +50,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 //# MOBILE OS #//
 //#///////////#//
 var isMobileCordova   = (typeof cordova != 'undefined' || typeof Cordova != 'undefined') ? true : false;
-var isMobileAndroid   = userAgent.match(/Android/i) ? true : false;
-var isMobileiOS       = userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-var isMobileWindows   = (userAgent.match(/IEMobile/i)) ? true : false;
-var isMobileWP81      = (userAgent.match(/Windows Phone 8.1/i)) ? true : false;
-var isMobileMSApp     = userAgent.match(/MSApp/i) ? true : false;
+var isMobileAndroid   = (/Android/i).test(userAgent) ? true : false;
+var isMobileiOS       = (/(iPhone|iPad|iPod)/i).test(userAgent) ? true : false;
+var isMobileWindows   = (/IEMobile/i).test(userAgent) ? true : false;
+var isMobileWP81      = (/Windows Phone 8.1/i).test(userAgent) ? true : false;
+var isMobileMSApp     = (/MSApp/i).test(userAgent) ? true : false;
 var isMobileFirefoxOS = ((/firefox/).test(userAgent.toLowerCase()) && (/mobile/).test(userAgent.toLowerCase()) && (/gecko/).test(userAgent.toLowerCase())) ? true : false;
-var isMobileOSX       = ((/Macintosh|Mac OS X/i.test(userAgent)) && !userAgent.match(/iPhone|iPad|iPod/i)) ? true : false;
-var isMobileOSXApp    = userAgent.match(/MacGap/i) ? true : false;
+var isMobileOSX       = ((/(Macintosh|Mac OS X)/i).test(userAgent) && !(/(iPhone|iPad|iPod)/i).test(userAgent)) ? true : false;
+var isMobileOSXApp    = (/MacGap/i).test(userAgent) ? true : false;
 var isMobile = {
 	Cordova: function() {
 		return isMobileCordova;
@@ -89,7 +93,7 @@ var isMobile = {
 function getIsDesktop() {
 	//first
 	var isDesktop = ('DeviceOrientationEvent' in window || 'orientation' in window);
-	if(/Windows NT|Macintosh|Mac OS X|Linux/i.test(userAgent)) isDesktop = true;
+	if(/(Windows NT|Macintosh|Mac OS X|Linux)/i.test(userAgent)) isDesktop = true;
 	if(/Mobile/i.test(userAgent)) isDesktop = false;
 	//second
 	var a = userAgent || navigator.vendor || window.opera;
@@ -107,9 +111,9 @@ function isDesktop() {
 var prefix;
 var vendorClass; 
 var transitionend;
-     if((/trident|IEMobile/).test(userAgent.toLowerCase()))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
-else if((/firefox/).test(userAgent.toLowerCase()))			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
-else														{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
+     if((/trident|IEMobile/i).test(userAgent))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
+else if((/firefox/i).test(userAgent))			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
+else											{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
 ///////////////////////////////////
@@ -144,15 +148,15 @@ function isCordova() {
 	return isMobileCordova; //(typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
 }
 function androidVersion() {
-	if(userAgent.match(/Android/i) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
+	if((/Android/i).test(userAgent) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
 		//android L
-		if(userAgent.match(/Build\/L/i)) { return 4.4; }
+		if((/Build\/L/i).test(userAgent)) { return 4.4; }
 		return parseFloat(userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
 	} else {
 		return -1;
 	}
 }
-var varHasTouch = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);	
+var varHasTouch = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && (/(iPhone|iPod|iPad|Android|BlackBerry)/).test(userAgent);
 function hasTouch() {
 	return varHasTouch;
 }
@@ -168,7 +172,7 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
-if (userAgent.match(/MSAppHost\/1.0|IEMobile/i) && window.navigator.msPointerEnabled) {
+if ((/MSAppHost\/1.0|IEMobile/i).test(userAgent) && window.navigator.msPointerEnabled) {
 	//touchmove  = "MSPointerMove";
 	touchend = "MSPointerUp";
 	//touchstart = "MSPointerDown";
@@ -206,7 +210,7 @@ if(typeof safeExec != 'function') {
 ///////////////////
 function errorHandler(error) {
 	if (window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
-		if (navigator.userAgent.match(/MSApp/i)) {
+		if (isMobile.MSApp()) {
 			if (typeof alert !== 'undefined') {
 				alert(JSON.stringify(error));
 			}

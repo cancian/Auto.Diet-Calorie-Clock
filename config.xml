@@ -39,12 +39,12 @@
     <preference name="stay-in-webview"            value="false" />
     <preference name="show-splash-screen-spinner" value="true" />
 	<preference name="splash-screen-duration"     value="0" />
-	<!--<preference name="LoadingDialog"              value=""/>-->
+	<!--<preference name="LoadingDialog"          value=""/>-->
 	
     <!-- Preferences for iOS -->
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="BackupWebStorage" value="cloud" />
+    <preference name="BackupWebStorage" value="local" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="EnableViewportScale" value="false" />
     <preference name="FadeSplashScreen" value="true" />
@@ -102,10 +102,6 @@
         <param name="wp-package" value="InAppPurchaseManager" />
     </feature>
 
-    <feature name="InAppPurchase">
-        <param name="ios-package" value="InAppPurchase" />
-    </feature>
-	
 	<feature name="Device">
 		<param name="android-package" value="org.apache.cordova.device.Device" />
 		<param name="wp-package" value="Device" />

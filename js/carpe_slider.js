@@ -3,7 +3,7 @@
     carpe@ambiprospect.com, tom@ambiprospect.com
 */
 (function () {
-    'use strict';
+   // 'use strict';
     var CARPE,
         Slider;
     CARPE = {
@@ -622,7 +622,7 @@ $(window).on("resize",function(evt) {
 	if(document.getElementById('slider')) {
 		Math.round(window.innerWidth % 2) ? $("#sliderWrapper").width( $("#appContent").width()-49) : $("#sliderWrapper").width($("#appContent").width()-48);
 	}
-	if(!UAGT.match(/IEMobile/i)) {
+	if(!(/IEMobile/i).test(UAGT)) {
 		reSlider();
 		reNutri();
 		setTimeout(function(evt) { reSlider(); reNutri(); }, 0);

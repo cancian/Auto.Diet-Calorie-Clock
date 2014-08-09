@@ -1,4 +1,4 @@
-﻿if(navigator.userAgent.match(/IEMobile/i)) {
+﻿if((/(IEMobile)/).test(navigator.userAgent)) {
 /**
  * OpenFB is a micro-library that lets you integrate your JavaScript application with Facebook.
  * OpenFB works for both BROWSER-BASED apps and CORDOVA/PHONEGAP apps.

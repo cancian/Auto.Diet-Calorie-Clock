@@ -1,0 +1,26 @@
+﻿{
+	"name" : "KCals",
+	"description" : "KCals shows how fast you burn calories.",
+	"version" : "1.3.3",
+	"manifest_version" : 2,
+	"icons" : {
+		"32" : "res/icon/ffos/32.png",
+		"36" : "res/icon/ffos/32.png",
+		"48" : "res/icon/ffos/48.png",
+		"60" : "res/icon/ffos/60.png",
+		"72" : "res/icon/ffos/72.png",
+		"90" : "res/icon/ffos/90.png",
+		"96" :  "res/icon/ffos/96.png",
+		"120" : "res/icon/ffos/120.png",
+		"128" : "res/icon/ffos/128.png",
+		"256" : "res/icon/ffos/256.png"
+	},
+	"app" : {
+		"urls" : [
+			"http://kcals.net/"
+		],
+		"launch" : {
+			"web_url" : "http://kcals.net/"
+		}
+	}
+}

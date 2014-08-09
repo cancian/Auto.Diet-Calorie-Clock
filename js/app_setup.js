@@ -101,7 +101,7 @@ function showIntro(isNew) {
 				console.log('iscroll error');
 			}
 		}
-	}, 300);
+	}, 600);
 }
 /////////////
 // INIT DB //
@@ -903,7 +903,6 @@ function spinner(size) {
 		$('#loadMask').css('display','none');
 		return;
 	} else {
-		$('#loadMask').css('opacity',.8);
 		$('body').addClass('spinnerMask');
 		$('body').removeClass('started');
 		$('#loadMask').css('display','block');
@@ -1026,13 +1025,17 @@ function updateFoodDb() {
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
-		var ajaxAction = (isMobile.MSApp()) ? "GET" : "HEAD";
-		setTimeout(function() {
-			$.ajax({ url: hostLocal + "sql/searchdb_" + langDB + '.db', type: ajaxAction,
-				success: function() { doImport('.db');  },
-				error: function()   { doImport('.sql'); }
-			});
-		},100);
+		if(isMobile.iOS()) {
+			doImport('.db');
+		} else {
+			var ajaxAction = (isMobile.MSApp()) ? "GET" : "HEAD";
+			setTimeout(function() {
+				$.ajax({ url: hostLocal + "sql/searchdb_" + langDB + '.db', type: ajaxAction,
+					success: function() { doImport('.db');  },
+					error: function()   { doImport('.sql'); }
+				});
+			},100);
+		}
 	}
 }
 ///////////////////
@@ -1062,14 +1065,19 @@ function pageLoad(target,content,published) {
 		// INSERT PARTIAL
 		//overwrite 'no entries'
 		if(i == 1) {
-
+			safeExec(function() {
 			$("#entryList").html($(content).animate({ backgroundColor: "#ffffcc" }, 1).animate({ backgroundColor: "#fff" },1000));
+			});
 		//match div before
 		} else if($("#entryList>div:eq(" + entryPos + ")").html()) {
-			$("#entryList>div:eq(" + entryPos + ")").before($(content).animate({ backgroundColor: "#ffffcc" }, 1 ).animate({ backgroundColor: "#fff" },1000));
+			safeExec(function() {
+				$("#entryList>div:eq(" + entryPos + ")").before($(content).animate({ backgroundColor: "#ffffcc" }, 1 ).animate({ backgroundColor: "#fff" },1000));
+			});
 		} else {
-		//append if none
-			$("#entryList").append($(content).animate({ backgroundColor: "#ffffcc" }, 1).animate({ backgroundColor: "#fff" },1000));
+			//append if none
+			safeExec(function() {
+				$("#entryList").append($(content).animate({ backgroundColor: "#ffffcc" }, 1).animate({ backgroundColor: "#fff" },1000));
+			});
 		}
 		//target [div#partial] ~time's parent div id as target
 		var page = $('#entryList div' + '#' + $("#t" + published).parent('div').attr('id'));
@@ -1077,7 +1085,9 @@ function pageLoad(target,content,published) {
 	} else {
 		//check existence
 		if($(target).html(content)) {
-			$(target).html(content);
+			safeExec(function() {
+				$(target).html(content);
+			});
 		}
 		var page = $('#entryList');
 	}
@@ -2055,7 +2065,7 @@ function getLoginFB() {
 		/////////////////
 		// IOS/ANDROID //
 		/////////////////
-		if(document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && userAgent.match(/(iPhone|iPod|iPad|Android)/)) {
+		if(document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && (/(iPhone|iPod|iPad|Android)/).test(userAgent)) {
 			if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') {
 				FB.init({ appId : '577673025616946', nativeInterface : CDV.FB, useCachedDialogs : false });
 				FB.login(function (response) {

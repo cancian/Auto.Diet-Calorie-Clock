@@ -1087,7 +1087,7 @@ function getElapsed(swap) {
 				swapData = swapData.replace(LANG.MINUTES[lang],LANG.MIN[lang]);
 				swapData = swapData.replace(LANG.MINUTE[lang],LANG.MIN[lang]);
 				swapData = trim(swapData.replace('.',''));
-				if(swapData.match('min')) {
+				if((/min/).test(swapData)) {
 					swapData = swapData + '.';	
 				}
 			}

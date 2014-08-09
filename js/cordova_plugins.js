@@ -36,13 +36,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cc.fovea.plugins.inapppurchase/InAppPurchase.js",
-        "id": "cc.fovea.plugins.inapppurchase.InAppPurchase",
-        "clobbers": [
-            "storekit"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.device/www/device.js",
         "id": "org.apache.cordova.device.device",
         "clobbers": [

@@ -11,6 +11,7 @@ if(userLang) {
 } else {
 	userLang = "en";
 }
+window.localStorage.setItem("app_build",appBuild);
 ///////////////////// http://www.lingoes.net/en/translator/langcode.htm
 // DETECT LANGUAGE // http://www.localeplanet.com/icu/ 
 ///////////////////// http://www.w3schools.com/tags/ref_language_codes.asp
@@ -18,7 +19,7 @@ if(userLang) {
 ///////////////////
 function filterLocale(locale) {
 	//SAFETY
-	if(!locale.match(langArray)) { locale = "en"; }
+	if(!(langArray).test(locale)) { locale = "en"; }
 	//multiple codes
 	if(locale == "in") { locale = "id"; }
 	if(locale == "no") { locale = "nb"; }

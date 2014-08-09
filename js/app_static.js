@@ -8,6 +8,7 @@ $(document).ready(function() {
 	window.applicationCache.addEventListener('updateready', function (event) {
 		window.applicationCache.swapCache(); 
 	}, false);
+	//lib  = new Lawnchair({table:'diary_food', name:'diary_entry', adapter:'dom'});	
 	//SETUP DB
 	try {
 		if(hasSql) {
@@ -35,7 +36,7 @@ $(document).ready(function() {
 var resumeTimeout;
 $(document).on('resume',function() {
 	//silent restart
-	if(window.localStorage.getItem("app_restart_pending")) {
+	if(window.localStorage.getItem("app_restart_pending") && !$("#buyButton").length) {
 		window.localStorage.removeItem("app_restart_pending");
 		if(window.MyReload) {
 			window.MyReload.reloadActivity();
@@ -82,20 +83,10 @@ $(document).on('visibilitychange', function () {
 //## START APP ##//
 //##///////////##//
 function startApp() {
+try {
 ///////////////
 // KICKSTART //
-////////////////////
-// UPDATE TRACKER //
-////////////////////
-setTimeout(function() { 
-	if(!window.localStorage.getItem("app_build")) {
-		window.localStorage.setItem("app_build",appBuild);
-	}
-	if(window.localStorage.getItem("app_build") != appBuild) {
-		window.localStorage.setItem("app_build",appBuild);
-		getAnalytics('update'); 
-	}
-},2000);
+///////////////
 setTimeout(function() {
 	window.localStorage.removeItem("app_restart_pending");
 	getAnalytics('init'); 
@@ -999,6 +990,16 @@ setTimeout(function () {
 			}}}}
 		}
 	});
+} catch(error) {
+	setTimeout(function() {
+		if(window.MyReload) {
+			window.MyReload.reloadActivity();
+		} else {
+			window.location.reload(true);
+		}
+	},1000);
+		console.log(error);
+	}
 ////#//
 } //#//
 ////#//

@@ -1,8 +1,10 @@
 ﻿///////////////
 // SAFE EXEC //
 ///////////////
+var UsrAgt  = navigator.userAgent;
+var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
 function safeExec(callback) {
-	if (navigator.userAgent.match(/MSApp/i)) {
+	if (IsMsApp) {
 		MSApp.execUnsafeLocalFunction(function () {
 			callback();
 		});
@@ -16,7 +18,7 @@ function safeExec(callback) {
 var blockAlerts = 0;
 window.onerror = function (e, url, line) {
 	if (window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
-		if (navigator.userAgent.match(/MSApp/i)) {
+		if (IsMsApp) {
 			if (typeof alert !== 'undefined') {
 				alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 			}
@@ -33,7 +35,7 @@ window.onerror = function (e, url, line) {
 		spinner('stop');
 	}
 	//auto restart
-	if (e.match(/Exception 18/i)) {
+	if ((/Exception 18/i).test(e)) {
 		setTimeout(function () {
 			if (window.MyReload) {
 				window.MyReload.reloadActivity();
@@ -88,23 +90,23 @@ function isCacheValid(input) {
 //##/////////##//
 function initJS() {
 	// MSAPP //
-	if (navigator.userAgent.match(/MSApp/i)) { hostLocal = ''; }
+	if (IsMsApp) { hostLocal = ''; }
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
-	if(navigator.userAgent.match(/(iPhone|iPod|iPad|Android|IEMobile|MSApp|MacGap)/) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://')) {
+	if((/(iPhone|iPod|iPad|Android|IEMobile|MSApp|MacGap)/).test(navigator.userAgent) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://')) {
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
 	}
 	////////
 	// FB //
 	////////
-	if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/)) {
+	if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-js-sdk.js'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-connect.js'><\/script>");
-	} else if (navigator.userAgent.match(/IEMobile/i)) {
+	} else if ((/IEMobile/i).test(navigator.userAgent)) {
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/openfb.js'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/plugins/InAppPurchaseManager.js'><\/script>");
-	} else if (navigator.userAgent.match(/MSApp/i)) {
+	} else if (IsMsApp) {
 		//document.write('<script src="//Microsoft.WinJS.1.0/js/base.js"><\/script>');
 	} else {
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-js-sdk.min.js'><\/script>");
@@ -115,33 +117,40 @@ function initJS() {
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/iscroll.js'><\/script>");
 	//JQUERY
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/quo.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.touchswipe.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.ui.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.color.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.nicescroll.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.touchswipe.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.nprogress.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/quo.js'><\/script>");
 	//DB
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/lawnchair.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/html5sql.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/localstoragedb.js'><\/script>");
 	//UTILS
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/carpe_slider.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/highcharts.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/mobiscroll.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/calculator.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/carpe_slider.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/galocalstorage.js'><\/script>");
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
-	if (window.localStorage.getItem("config_autoupdate") == "on" || (navigator.userAgent.match(/MSApp/i) && window.localStorage.getItem("config_debug") == "active")) {
+	if (window.localStorage.getItem("config_autoupdate") == "on" || (IsMsApp && window.localStorage.getItem("config_debug") == "active")) {
 		if(isCacheValid(window.localStorage.getItem("remoteSuperBlockJS") + window.localStorage.getItem("remoteSuperBlockCSS"))) {
 			isCurrentCacheValid = 1;
 		}
 		//DEFINE VALIDITY
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
 		if(isCurrentCacheValid == 1) {
-			document.write("<style id='superBlockCSS'>" + window.localStorage.getItem("remoteSuperBlockCSS") + "<\/style>");
-			document.write("<script id='superBlockJS'>" + window.localStorage.getItem("remoteSuperBlockJS")  + "<\/script>");
+			document.write("\
+				<style type='text/css' id='superBlockCSS'>\
+					" + window.localStorage.getItem("remoteSuperBlockCSS") + "\
+				<\/style>\
+				<script type='text/javascript' id='superBlockJS'>\
+					" + window.localStorage.getItem("remoteSuperBlockJS") + "\
+				<\/script>\
+			");
 		}
 	} else {
 		/////////

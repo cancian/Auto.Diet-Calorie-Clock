@@ -11,8 +11,7 @@
 /////////
 // WP8 //
 /////////
-if(navigator.userAgent.match(/IEMobile/i)) {
-
+if((/IEMobile/i).test(navigator.userAgent)) {
 var InAppPurchaseManager = function() { 
 	cordova.exec(null,null,'InAppPurchaseManager',"setup",[]);
 }

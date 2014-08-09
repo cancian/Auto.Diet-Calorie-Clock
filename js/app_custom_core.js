@@ -453,12 +453,14 @@ function updateTimer() {
 		// TIMER LOCK //
 		////////////////
 		if(window.localStorage.getItem("appStatus") != "running") {
+			/*
 			window.localStorage.setItem("config_start_time",new Date().getTime());
 			window.localStorage.removeItem("config_entry_sum");
 			window.localStorage.removeItem("config_entry_f-sum");
 			window.localStorage.removeItem("config_entry_e-sum");	
 			$("#appStatusBars p").css("width",0);
 			$("#appStatusBars span").html("0%");
+			*/
 		} else {
 			//console.log('updating entrylist sum');
 			var ts   = 0;
@@ -516,10 +518,11 @@ function updateTimer() {
 		///////////////////
 		// READ SETTINGS //
 		///////////////////
+		var appStartTime = (window.localStorage.getItem("appStatus") == "running") ?  window.localStorage.getItem("config_start_time") : new Date().getTime();
 		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-			appTimer("appHeader",cyclicTimeToKcals(window.localStorage.getItem("config_start_time")));
+			appTimer("appHeader",cyclicTimeToKcals(appStartTime));
 		} else {
-			appTimer("appHeader",timeToKcals(window.localStorage.getItem("config_start_time")));
+			appTimer("appHeader",timeToKcals(appStartTime));
 		}
 	});
 }
