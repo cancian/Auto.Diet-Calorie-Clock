@@ -1239,7 +1239,6 @@ function sliderNeg() {
 		$('#diaryNotesInput').focus();
 		$('#diaryNotesInput').height(window.innerHeight - 32);
 		$('#diaryNotesInput').width(window.innerWidth - 24);
-		$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
 		//load scroller & set window < height
 		setTimeout(function() {
 			$('#diaryNotesInput').height(window.innerHeight - 32);
@@ -1796,6 +1795,16 @@ $("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
 		$('#dummyInput').remove();
 	}
 });
+//KEYBOARD PREVENT
+if(isMobile.FirefoxOS()) {
+	$("#pA7B,#pA7F,#pA7L").on(touchstart, function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		$(this).trigger(tap);
+		return false;
+	});
+}
+//
 $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	//RELOAD INFO HTML
 	var calcResult = Math.round($(this).val());
