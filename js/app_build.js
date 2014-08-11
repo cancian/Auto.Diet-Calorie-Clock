@@ -513,11 +513,12 @@ var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
 		<option value="144">' + lPreAgo + '6 '  + lDays  + lAgo + '</option>\
 		<option value="168">' + lPreAgo + '7 '  + lDays  + lAgo + '</option>\
 	</select>';
+	var textOrNumber = isDesktop() ? 'text' : 'number';
 diaryHtml += '\
 <a name="top"></a>	\
 <div id="entryListForm">\
 	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
-	<div id="sliderNum"><input type="text" id="entryTitle" readonly value="0" />' + LANG.KCAL[lang] + '</div>\
+	<div id="sliderNum"><input type="' + textOrNumber + '" id="entryTitle" value="0" />' + LANG.KCAL[lang] + '</div>\
 	<div id="sliderNeg"><span></span>' + LANG.EXERCISE[lang] + '</div>\
 	<div id="sliderPos">' + LANG.FOOD[lang] + '<span></span></div>\
 	<input type="text" id="entryBody" placeholder="' + LANG.DESCRIPTION[lang] + '" tabindex="-1" />\
@@ -641,9 +642,9 @@ function sliderNeg() {
 		sliderNeg();
 	});
 	//
-	$("#entryTitle").on("focus", function(evt) {
-		$("#entryTitle").blur();
-	});
+	//$("#entryTitle").on("focus", function(evt) {
+	//	$("#entryTitle").blur();
+	//});
 	////////////////////////////////
 	// SAVE ENTRY (SUBMIT BUTTON) //
 	////////////////////////////////
@@ -852,7 +853,58 @@ function sliderNeg() {
  		document.getElementById('slider').slider.setValue(0);
  		$("#entryTitle").val(0);
 		$("#entryTitle").trigger("update");
-		return false;
+		//return false;
+	});
+	////////////////////////
+	// MANUAL HOLD SLIDER //
+	////////////////////////
+	$("#sliderNum").on("longhold", function(evt) {
+		$("#entryTitle").focus();
+	});
+	$("#entryTitle").on("blur", function(evt) {
+		if($("#entryTitle").val() == '') { 
+			$("#entryTitle").val(0);
+		}
+	});
+	// VALIDATION
+	var defaultInput = "keypress";
+	if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInput = "keydown"; }
+	$("#entryTitle").on(defaultInput, function(evt) {
+		if($("#entryTitle").val() == 0) {
+			$("#entryTitle").val('');
+			$('#entrySubmit').removeClass('submitActive');	
+		}
+		if($("#entryTitle").val() == '') {
+			$('#entrySubmit').removeClass('submitActive');	
+		}
+		//no dots
+		var keyCode = (evt.which) ? evt.which : evt.keyCode;
+		if(keyCode == 45) { $(this).val( $(this).val()*-1 ); return false; }
+		if(keyCode == 46) { $(this).val( $(this).val()*-1 ); return false; }
+		if(keyCode == 8)  { return true; }
+		if(keyCode == 13) { $(this).blur(); return true; }
+		//max
+		if(parseInt($(this).val()) > 999 || $(this).val().length > 2) {
+			$(this).val( parseInt($(this).val()) );
+			if(isNumberKey(evt)) {
+				$(this).val( $(this).val().slice(0,-1) );
+			}
+		}
+		//num only
+		return isNumberKey(evt);
+	});
+	// KEYUP INVERTER
+	$("#entryTitle").on('keyup change', function(evt) {
+		if(Math.abs($("#entryTitle").val()) > 0) {
+			$('#entrySubmit').addClass('submitActive');
+		} else {
+			$('#entrySubmit').removeClass('submitActive');				
+		}
+		var keyCode = (evt.which) ? evt.which : evt.keyCode;
+		if(keyCode == 0 || keyCode == 45) {
+			$("#entryTitle").val($("#entryTitle").val()*-1 );
+			return false;
+		}
 	});
 	//////////////////
 	// DEV KEYCODES //

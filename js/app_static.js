@@ -1,14 +1,20 @@
 ﻿//////////////////
 // DEVICE READY //
 //////////////////
-$(document).ready(function() {
+function kickStarter(initCmds) {
+	if(isMobile.Cordova()) {
+		document.addEventListener("deviceready", initCmds, false);
+	} else {
+		$(document).ready(function() { initCmds(); });
+	}
+}
+kickStarter(function() {
 	//MARK AS READY
 	$('body').addClass('ready');
 	//SWAP CACHE
 	window.applicationCache.addEventListener('updateready', function (event) {
 		window.applicationCache.swapCache(); 
 	}, false);
-	//lib  = new Lawnchair({table:'diary_food', name:'diary_entry', adapter:'dom'});	
 	//SETUP DB
 	try {
 		if(hasSql) {
@@ -671,11 +677,12 @@ if(!window.localStorage.getItem("calcForm#pA1B")) {
 //###########################//
 setTimeout(function() {
 	//updateEntries();
-	if(opaLock < 2 && ($("#loadMask").length || $("body").css("opacity") == 0)) {		
+	if(opaLock < 2) {		
 		$('body').addClass('started');
+		$('body').removeClass('unloaded');
 		$('body').css("opacity","1");
 	}
-	if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
+	if(isMobile.iOS() && typeof navigator.splashscreen !== 'undefined') {
 		navigator.splashscreen.hide();
 	}
 },1000);

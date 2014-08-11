@@ -124,7 +124,7 @@ function initJS() {
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.nicescroll.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.nprogress.js'><\/script>");
 	//DB
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/lawnchair.js'><\/script>");
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/localforage.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/html5sql.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/localstoragedb.js'><\/script>");
 	//UTILS

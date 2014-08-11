@@ -1,8 +1,11 @@
 ﻿//#/////////////#//
 //# GLOBAL VARS #//
 //#/////////////#//
-var kcals               = [];
-var app                 = [];
+var app  = {};
+app.vars = {
+	useragent: navigator.userAgent,
+};
+
 var storage             = window.localStorage;
 var userAgent           = navigator.userAgent;
 var appBalance;
@@ -38,6 +41,7 @@ var timerKcals;
 var rebuildHistory;
 var blockModal = false;
 var modalTimer;
+var wholeDb;
 function voidThis()   { }
 function voidMe()     { }
 ///////////
@@ -86,6 +90,23 @@ var isMobile = {
 	OSXApp: function() {
 		return isMobileOSXApp;
 	}
+};
+
+////////////
+// APP IS //
+////////////
+app.is = {
+	cordova:   (typeof cordova !== 'undefined' || typeof Cordova !== 'undefined') ? true : false,
+	android:   (/Android/i).test(app.vars.useragent) ? true : false,
+	ios:       (/iPhone|iPad|iPod/i).test(app.vars.useragent) ? true : false,
+	wp:        (/IEMobile/i).test(app.vars.useragent) ? true : false,
+	wp81:      (/Windows Phone 8.1/i).test(app.vars.useragent) ? true : false,
+	msapp:     (/MSApp/i).test(app.vars.useragent) ? true : false,
+	firefoxos: ((/firefox/i).test(app.vars.useragent) && (/mobile/i).test(app.vars.useragent) && (/gecko/i).test(app.vars.useragent)) ? true : false,
+	osx:       ((/Macintosh|Mac OS X/i).test(app.vars.useragent) && !(/iPhone|iPad|iPod/i).test(app.vars.useragent)) ? true : false,
+	osxapp:    (/MacGap/i).test(app.vars.useragent) ? true : false,
+	mobile:    ((/Mobile/i).test(app.vars.useragent) || ('DeviceOrientationEvent' in window || 'orientation' in window)) && !(/Windows NT|Macintosh|Mac OS X|Linux/i.test(app.vars.useragent))  ? true : false,
+	desktop:   ((/Mobile/i).test(app.vars.useragent) || ('DeviceOrientationEvent' in window || 'orientation' in window)) && !(/Windows NT|Macintosh|Mac OS X|Linux/i.test(app.vars.useragent))  ? false : true,
 };
 //#///////////#//
 //# MOBILE OS #//
@@ -259,6 +280,17 @@ function trim(str) {
 String.prototype.capitalize = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1);
 }
+////////////////
+// SORTBYATTR //
+////////////////
+Array.prototype.sortbyattr = function(attr) {
+	this.sort(function(a, b) {
+		return (a[attr] > b[attr]) ? 1 : ((a[attr] < b[attr]) ? -1 : 0);
+	});
+	return this;	
+}
+		
+
 /////////////////
 // DATE FORMAT //
 /////////////////
