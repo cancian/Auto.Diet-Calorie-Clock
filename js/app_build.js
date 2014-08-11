@@ -518,7 +518,7 @@ diaryHtml += '\
 <a name="top"></a>	\
 <div id="entryListForm">\
 	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
-	<div id="sliderNum"><input type="' + textOrNumber + '" id="entryTitle" value="0" />' + LANG.KCAL[lang] + '</div>\
+	<div id="sliderNum"><input type="' + textOrNumber + '" id="entryTitle" readonly value="0" />' + LANG.KCAL[lang] + '</div>\
 	<div id="sliderNeg"><span></span>' + LANG.EXERCISE[lang] + '</div>\
 	<div id="sliderPos">' + LANG.FOOD[lang] + '<span></span></div>\
 	<input type="text" id="entryBody" placeholder="' + LANG.DESCRIPTION[lang] + '" tabindex="-1" />\
@@ -859,9 +859,16 @@ function sliderNeg() {
 	// MANUAL HOLD SLIDER //
 	////////////////////////
 	$("#sliderNum").on("longhold", function(evt) {
+		$("#entryTitle").removeAttr('readonly');
 		$("#entryTitle").focus();
 	});
+	$("#entryTitle").on("focus", function(evt) {
+		if($(this).val() == 0) {
+			$(this).val('');
+		}	
+	});
 	$("#entryTitle").on("blur", function(evt) {
+		$("#entryTitle").attr('readonly','readonly');
 		if($("#entryTitle").val() == '') { 
 			$("#entryTitle").val(0);
 		}
@@ -870,11 +877,10 @@ function sliderNeg() {
 	var defaultInput = "keypress";
 	if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInput = "keydown"; }
 	$("#entryTitle").on(defaultInput, function(evt) {
-		if($("#entryTitle").val() == 0) {
-			$("#entryTitle").val('');
+		if($(this).val() == '0') {
+			$(this).val('');
 			$('#entrySubmit').removeClass('submitActive');	
-		}
-		if($("#entryTitle").val() == '') {
+		} else if($(this).val() === '') {
 			$('#entrySubmit').removeClass('submitActive');	
 		}
 		//no dots
@@ -901,7 +907,7 @@ function sliderNeg() {
 			$('#entrySubmit').removeClass('submitActive');				
 		}
 		var keyCode = (evt.which) ? evt.which : evt.keyCode;
-		if(keyCode == 0 || keyCode == 45) {
+		if(keyCode == 0 || keyCode == 45 || keyCode == 190) {
 			$("#entryTitle").val($("#entryTitle").val()*-1 );
 			return false;
 		}

@@ -220,6 +220,7 @@ function fixResults(res) {
 // RESET DATA+SQL //
 ////////////////////
 function deSetup(callback) {
+	blockAlerts = 1;
 	if(hasSql) {
 		db.transaction(function(t) { t.executeSql('DROP TABLE IF EXISTS "diary_entry";'); }, errorHandler, function() { afterHide("clear"); });
 	} else {

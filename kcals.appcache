@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# v13303 2014-08-08
+# v13303 2014-08-11
 # APP
 index.html
 version.txt
@@ -44,6 +44,7 @@ js/jquery.touchswipe.js
 js/jquery.nprogress.js
 # DB
 js/html5sql.js
+js/localforage.js
 js/localstoragedb.js
 # UTILS
 js/carpe_slider.js

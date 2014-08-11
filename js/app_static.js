@@ -620,6 +620,19 @@ if(isMobile.OSX()) {
 }
 if(isMobile.OSXApp()) {
 	$("body").addClass("osxapp");
+	//ADD MENU (RESET SETTINGS)
+	if(macgap.menu.getItem("KCals").submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
+		macgap.menu.getItem("KCals").submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
+	}
+	macgap.menu.getItem("KCals").submenu().addSeparator();
+	macgap.menu.getItem("KCals").submenu().addItem(LANG.SETTINGS_WIPE[lang], "cmd+opt+r", function() {
+		appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
+			if(button == 1) {
+				deSetup();
+				return false;
+			}
+		}, LANG.OK[lang], LANG.CANCEL[lang]);
+	});
 	//CLOSE ON MINIMIZE
 	$(document).on('visibilitychange', function () {
 		if (document.hidden == true || document.visibilityState == 'hidden') {

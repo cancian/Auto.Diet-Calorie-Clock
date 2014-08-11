@@ -1,4 +1,4 @@
-﻿if((/(IEMobile|MSApp|Android)/i).test(navigator.userAgent)) {
+﻿if((/IEMobile|MSApp|Android/i).test(navigator.userAgent)) {
 cordova.define("org.apache.cordova.device.DeviceProxy", function(require, exports, module) { /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one

@@ -19,11 +19,16 @@ var bodyTimer = setTimeout(function() {
 //////////////	
 if ((/iPhone|iPod|iPad/).test(navigator.userAgent)) {
 	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');
+} else if((/MSApp/).test(navigator.userAgent)) {
+	MSApp.execUnsafeLocalFunction(function() { document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />'); });
 } else {
 	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />');
 }
 </script>
 <style type="text/css">
+body.started #loadMask {
+	display: none;
+}
 body.unloaded #loadMask {
 	position: absolute;
 	top: 0;

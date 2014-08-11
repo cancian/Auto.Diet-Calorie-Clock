@@ -60,6 +60,9 @@
 /*////////////////
 // SPINNER MASK //
 ///////////////*/
+body.started #loadMask {
+	display: none;
+}
 body.spinnerMask #loadMask {
 	position: absolute;
 	top: 0;

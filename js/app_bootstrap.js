@@ -222,4 +222,11 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 		},5000);
 	});
 }
+// BACKWARDS COMP
+$(document).ready(function() {
+	setTimeout(function() {
+		$('body').addClass('started');
+		$('body').removeClass('unloaded');
+	},2000);
+});
 
