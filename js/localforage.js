@@ -1,4 +1,4 @@
-if(!lfloaded) {
+﻿if(!lfloaded) {
 var lfloaded = true;
 /*!
     localForage -- Offline Storage, Improved

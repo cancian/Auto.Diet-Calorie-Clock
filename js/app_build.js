@@ -1288,7 +1288,8 @@ function sliderNeg() {
 		////////////
 		// closer //
 		////////////
-		$('#diaryNotesButton').on(touchstart,function(evt) {
+		var closeAction = $('body').hasClass('android2') ? 'click' : touchstart;
+		$('#diaryNotesButton').on(closeAction,function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
 			$('#diaryNotesInput').off();

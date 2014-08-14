@@ -1581,6 +1581,15 @@ function billingWindow() {
 			billingRestore();
 			getAnalytics("billingRestore");
 		});
+		/////////////////////
+		// MANUAL AUTH DEV //
+		/////////////////////
+		$("#buyButton").on("longhold", function(evt) {
+			evt.preventDefault();
+			if(window.localStorage.getItem("config_debug") == "active") {
+				billingAuthorize(1, LANG.TRANSACTION_SUCCESS[lang]);
+			}
+		});
 	}
 	//////////
 	// HTML //
