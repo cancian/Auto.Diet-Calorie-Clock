@@ -496,7 +496,7 @@ function rowsLoop(sqlEntry, hive, callback) {
 	for (var i = 0, len = sqlEntry.length; i < len; i++) {
 		if (sqlEntry[i]) {
 			var allRows = JSON.stringify(rows);
-			var lookFor = sqlEntry[i][1];
+			var lookFor = (hive == 'diary_entry') ? sqlEntry[i][1] : sqlEntry[i][3];
 			var rowIndex = (allRows).indexOf(lookFor);
 			if (rowIndex !== -1) {
 				//////////////
@@ -504,7 +504,8 @@ function rowsLoop(sqlEntry, hive, callback) {
 				//////////////
 				for (var x = 0, xen = rows.length; x < xen; x++) {
 					if (rows[x]) {
-						if (rows[x].id == lookFor) {
+						var rowAttr = (hive == 'diary_entry') ? rows[x].id : rows[x].code;
+						if (rowAttr == lookFor) {
 							rows[x].id = sqlEntry[i][1];
 							if (hive == 'diary_entry') {
 								rows[x].title = sqlEntry[i][2];
@@ -560,15 +561,16 @@ function rowsLoop(sqlEntry, hive, callback) {
 			}
 		}
 	}
+	//UPDATE CACHE
+	if (hive == 'diary_entry') {
+		rowsEntry = rows;
+	} else {
+		rowsFood  = rows;		
+	}
 	////////////////////
 	// WRITE CALLBACK //
 	////////////////////
 	localforage.setItem(hive, rows, function (rows) {
-		if (hive == 'diary_entry') {
-			rowsEntry = rows;
-		} else {
-			rowsFood  = rows;		
-		}
 		callback();
 	});
 }
@@ -654,7 +656,7 @@ function getEntries(callback) {
 			rowsArray.push(rowsEntry[i]);
 		}
 	}
-	callback(rowsEntry);
+	callback(rowsArray);
 }
 ///////////////
 // GET ENTRY //
@@ -703,7 +705,7 @@ function deleteEntry(entry) {
 		}
 	}
 	localforage.setItem('diary_entry',rowsEntry,function(rows) {
-		rowsEntry = rows;
+		//rowsEntry = rows;
 		setPush();
 	});
 }

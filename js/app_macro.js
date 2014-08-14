@@ -1451,6 +1451,8 @@ function billingBuy() {
 			}, function(e) {
 				if((JSON.stringify(e)).indexOf('Owned') !== -1) {
 					billingAuthorize(1, LANG.ALREADY_OWN[lang]);
+				} else if(JSON.stringify(e).indexOf('-1005') !== -1 && window.localStorage.getItem("config_debug") == "active") {
+					billingAuthorize(1, LANG.TRANSACTION_SUCCESS[lang]);
 				} else {
 					billingAuthorize(0, LANG.TRANSACTION_UNSUCCESSFUL[lang]);
 				}
@@ -1740,6 +1742,20 @@ function buildAdvancedMenu() {
 		}
 		//SHOW DIALOG
 		appConfirm(LANG.REBUILD_FOOD_DB[lang], LANG.ARE_YOU_SURE[lang], onConfirmReloadDB, LANG.OK[lang], LANG.CANCEL[lang]);
+	});
+	///////////////////////////////
+	// ALTERNATIVE DEBUG ENABLER //
+	///////////////////////////////
+	$("#advancedReload").on("longhold", function(evt) {
+		evt.preventDefault();		
+		if(window.localStorage.getItem("config_debug") == "active") {
+			window.localStorage.removeItem("config_debug");
+			afterHide();
+		} else {
+			window.localStorage.setItem("config_debug","active");
+			afterHide();
+		}
+		$("#advancedReload").off();
 	});
 	//#////////////////#//
 	//# RESET SETTINGS #//

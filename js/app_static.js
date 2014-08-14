@@ -19,6 +19,10 @@ kickStarter(function() {
 		});
 	} catch(error) {
 		setTimeout(function() {
+			//FIX LOOPS
+			window.localStorage.removeItem("remoteSuperBlockJS");
+			window.localStorage.removeItem("remoteSuperBlockCSS");
+			window.localStorage.removeItem("app_autoupdate_hash");
 			if(window.MyReload) {
 				window.MyReload.reloadActivity();
 			} else {
@@ -972,6 +976,10 @@ setTimeout(function () {
 	});
 } catch(error) {
 	setTimeout(function() {
+		//FIX LOOPS
+		window.localStorage.removeItem("remoteSuperBlockJS");
+		window.localStorage.removeItem("remoteSuperBlockCSS");
+		window.localStorage.removeItem("app_autoupdate_hash");
 		if(window.MyReload) {
 			window.MyReload.reloadActivity();
 		} else {
