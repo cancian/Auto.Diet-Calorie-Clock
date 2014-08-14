@@ -182,7 +182,7 @@ $(document).on("pageload", function (evt) {
 							return;
 						}
 						var thisRowId = $(this).closest('div').data("id");
-						//INTOTHEVOID//
+						//INTOTHEVOID
 						function intoTheVoid(button) {
 							//ON CONFIRM
 							timedBlur = new Date().getTime();
@@ -212,7 +212,6 @@ $(document).on("pageload", function (evt) {
 						timedBlur = new Date().getTime();
 						$(this).addClass("activeBlock");
 						if (Number(document.getElementById('kcalsDiv').innerHTML) <= 9999) {
-							//console.log("increase entry value");
 							//first click 9999
 							if (Number(document.getElementById('kcalsDiv').innerHTML) == -9999) {
 								document.getElementById('kcalsDiv').innerHTML = -9975;
@@ -252,7 +251,6 @@ $(document).on("pageload", function (evt) {
 						timedBlur = new Date().getTime();
 						$(this).addClass("activeBlock");
 						if (Number(document.getElementById('kcalsDiv').innerHTML) >= -9999) {
-							//console.log("decrease entry value");
 							//first click 9999
 							if (Number(document.getElementById('kcalsDiv').innerHTML) == 9999) {
 								document.getElementById('kcalsDiv').innerHTML = 9975;
@@ -313,7 +311,6 @@ $(document).on("pageload", function (evt) {
 								pressRepeatPos = setInterval(function () {
 										//ACTION
 										if (Number(document.getElementById('kcalsDiv').innerHTML) <= 9999) {
-											//console.log("decrease entry value");
 											//first click 9999
 											if (Number(document.getElementById('kcalsDiv').innerHTML) == -9999) {
 												document.getElementById('kcalsDiv').innerHTML = -9975;
@@ -361,7 +358,6 @@ $(document).on("pageload", function (evt) {
 								pressRepeatNeg = setInterval(function () {
 										//ACTION
 										if (Number(document.getElementById('kcalsDiv').innerHTML) >= -9999) {
-											//console.log("decrease entry value");
 											//first click 9999
 											if (Number(document.getElementById('kcalsDiv').innerHTML) == 9999) {
 												document.getElementById('kcalsDiv').innerHTML = 9975;
@@ -429,15 +425,10 @@ $(document).on("pageload", function (evt) {
 	//#///////////////#//
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
-	//block hold prefill
-	//$("#entryList").on("swipe",function(evt) {
-	//deKeyboard = 1;
-	//});
 	var swippen;
 	$("#entryList div" + tgt).swipe({
 		swipe : function (event, direction) {
 			swippen = this;
-			//console.log("row " + $(this).parent('div').data("id") + " swipe");
 			if (direction == 'left' || direction == 'right') {
 				//HIDE ACTIVE
 				if (!$('.delete').hasClass('busy')) {
@@ -593,11 +584,8 @@ $(document).on("pageReload", function (evt) {
 				//hide
 				if ($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
 					$('#pageSlideFood').addClass('busy');
-					//$('#pageSlideFood').removeClass("open");
-					//$('#appHeader').removeClass("open");
 					$('#pageSlideFood').on(transitionend, function (e) {
 						$('#pageSlideFood').removeClass('busy');
-						/*$('#pageSlideFood').css("opacity","0");*/
 						$("#foodSearch").blur();
 					});
 				} else {
@@ -719,8 +707,6 @@ $(document).on("pageReload", function (evt) {
 							evt.preventDefault();
 							$("#entryBody").blur();
 							$("#foodSearch").blur();
-							//window.scroll($('#appContent')[0].scrollTop,0,0);
-							//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 						});
 						//////////////////////
 						// SEARCH TYPE ICON //
@@ -791,86 +777,54 @@ $(document).on("pageReload", function (evt) {
 			}
 		}
 	}
-	//////#//
+	//#//
 }); //#//
 //////#//
 //#/////////////////#//
 //# CORE SQL SEARCH #//
 //#/////////////////#//
 function searchFood(searchSQL, callback) {
-	if (!hasSql) {
-		var datz = lib2.query("diary_food");
-	}
-	//console.log('Running getEntries');
-	if (arguments.length == 1) {
-		callback = arguments[0];
-	}
-	//food-exercise
 	if (window.localStorage.getItem("searchType") == "exercise") {
 		var typeTerm = 'exercise';
 	} else {
 		var typeTerm = 'food';
 	}
-	//cases
-	var firstTerm = window.localStorage.getItem("lastSearchTerm").split(" ")[0];
-	var caseStarts = "'" + firstTerm + "%'";
-	var caseContains = "'%" + firstTerm + "%'";
-	var caseEnds = "'%" + firstTerm + "'";
-	//query
-	if (hasSql) {
-		var doType = (typeTerm == 'exercise') ? doType = "type IN ('0000', 'exercise')" : "type != '0000' AND type != 'exercise'";
-		db.transaction(
-			function (t) {
-			t.executeSql("SELECT * FROM diary_food WHERE " + doType + " AND " + searchSQL + " ORDER BY CASE when term LIKE " + caseStarts + " THEN 0 ELSE 1 END, UPPER(term) LIMIT 100", [],
-				function (t, results) {
-				callback(fixResults(results));
-			}, errorHandler);
-		}, errorHandler);
-	//////////////////
-	// LOCALSTORAGE //
-	//////////////////
-	} else {
-		var dato = datz;
-		var keyJunk = 0;
-		var keyScore = 0;
-		var mi = [];
-		var limited = 0;
-		/////////////////
-		// GET FULL DB //
-		/////////////////
-		var results = 0;
-		for (var z = 0, len = dato.length; z < len; z++) {
-			keyScore = 0;
-			keyJunk = 0;
-			if (((dato[z].type == "0000" || dato[z].type == "exercise") && typeTerm == "exercise") || ((dato[z].type != "0000" && dato[z].type != "exercise") && typeTerm == "food")) {
-				for (var k = 0, lenn = searchSQL.length; k < lenn; k++) {
-					if (dato[z].term.indexOf(searchSQL[k]) != -1 && keyJunk == 0) {
-						keyScore = keyScore + Math.abs(dato[z].term.match(searchSQL[k]).index);
-					} else {
-						keyJunk = 1;
-					}
-				}
-				if (keyJunk == 0) {
-					mi.push({
-						id : keyScore,
-						value : dato[z]
-					});
+	var dato = rowsFood;
+	var keyJunk = 0;
+	var keyScore = 0;
+	var mi = [];
+	var limited = 0;
+	
+	var results = 0;
+	for (var z = 0, len = dato.length; z < len; z++) {
+		keyScore = 0;
+		keyJunk = 0;
+		if (((dato[z].type == "0000" || dato[z].type == "exercise") && typeTerm == "exercise") || ((dato[z].type != "0000" && dato[z].type != "exercise") && typeTerm == "food")) {
+			for (var k = 0, lenn = searchSQL.length; k < lenn; k++) {
+				if (dato[z].term.indexOf(searchSQL[k]) != -1 && keyJunk == 0) {
+					keyScore = keyScore + Math.abs(dato[z].term.match(searchSQL[k]).index);
+				} else {
+					keyJunk = 1;
 				}
 			}
-		}
-		var prop = 'id';
-		mi = mi.sort(function (a, b) {
-			return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
-		});
-
-		var mou = [];
-		for (var u = 0, lenu = mi.length; u < 100; u++) {
-			if (mi[u]) {
-				mou.push(mi[u].value);
+			if (keyJunk == 0) {
+				mi.push({
+					id : keyScore,
+					value : dato[z]
+				});
 			}
 		}
-		callback(mou);
 	}
+	//SORT
+	mi = mi.sortbyattr('id');
+
+	var mou = [];
+	for (var u = 0, lenu = mi.length; u < 120; u++) {
+		if (mi[u]) {
+			mou.push(mi[u].value);
+		}
+	}
+	callback(mou);
 }
 //#////////////////////////#//
 //# SUB FUNCION: DO SEARCH #//
@@ -883,37 +837,8 @@ function doSearch(rawInput) {
 	/////////////////
 	// FETCH INPUT //
 	/////////////////
-	if (hasSql) {
-		var timerStart = new Date().getTime();
-		var lastSearch = window.localStorage.getItem("lastSearchTerm");
-		//sanitize user input
-		var searchQuery = trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
-		//partial sql syntax
-		var searchSQL = "term LIKE '%" + searchQuery.split(" ").join("%' AND term LIKE '%") + "%'";
-		//prevent multiple identical searches
-		window.localStorage.setItem("lastSearchTerm", searchQuery);
-		//#/////////////////////#//
-		//# BUILD KEYWORD ARRAY #//
-		//#/////////////////////#//
-		var keywordArray = [];
-		searchArray = searchQuery;
-		//check for multiple keywords
-		if (searchQuery.search(' ') > -1) {
-			searchQuery = searchQuery.split(" ");
-			//loop each key into array
-			for (i = 0; i < searchQuery.length; i++) {
-				//not null
-				if (searchQuery[i] != "") {
-					keywordArray.push(trim(searchQuery[i]));
-				}
-			}
-		} else {
-			//single term array
-			keywordArray.push(searchQuery);
-		}
-	} else {
-		var timerStart = new Date().getTime();
-		var lastSearch = window.localStorage.getItem("lastSearchTerm");
+	var timerStart = new Date().getTime();
+	var lastSearch = window.localStorage.getItem("lastSearchTerm");
 		//sanitize user input
 		var searchQuery = trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
 		//partial sql syntax
@@ -943,7 +868,6 @@ function doSearch(rawInput) {
 			//single term array
 			keywordArray.push(searchQuery);
 		}
-	}
 	///////////////////////////////////////////////////////////
 	// PREVENT EMPTY STRING ON MULTIPLE KEYWORD SEARCH ARRAY //
 	///////////////////////////////////////////////////////////
@@ -1231,8 +1155,10 @@ function updateCustomList(filter, callback) {
 		///////////////////
 		// CALLBACK OPEN //
 		///////////////////
-		if (callback == "open") {
-			callbackOpen();
+		if (callback == "open" && window.localStorage.getItem("lastInfoTab") !== "topBarItem-1") {
+			setTimeout(function() {
+				callbackOpen();
+			},0);
 		}
 	});
 }
@@ -1290,11 +1216,11 @@ function buildFoodMenu() {
 		////////////////////
 		// CUSTOM FAV SQL //
 		////////////////////
-		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 100 : 200;
-		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 100 : 200;
-		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 100 : 200;
+		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 2 : 200;
+		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 2 : 200;
+		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 2 : 200;
 		setTimeout(function () {
-			getCatList();
+			getCatList('open');
 		}, tabTimer1);
 		setTimeout(function () {
 			updateCustomList('fav', 'open');
@@ -1648,7 +1574,7 @@ function addNewItem(opt) {
 							if (vType == "exercise" || vType == "0000") {
 								vKcal = Math.round(((vKcal * totalWeight) / 60) * 30);
 							}
-							//if also favourite, double check
+							//if also favorite, double check
 							$(".activeOverflow .foodName").html(vName);
 							$(".activeOverflow .foodKcal").html('<span class="preSpan">' + LANG.KCAL[lang] + '</span>' + vKcal + '</span>');
 							$(".activeOverflow .foodPro").html('<span class="preSpan">' + LANG.PRO[lang] + '</span>' + vPro + '</span>');
@@ -1729,10 +1655,7 @@ function addNewItem(opt) {
 												$("#" + vCode).addClass('trans');
 											}
 										}, 0);
-									//SELF-REMOVE
-									//$('#modalOverlay').on(transitionend,function(e) {
 									$("#addNewCancel").trigger(touchstart);
-									//});
 								}, 600);
 						}
 					});
@@ -1755,10 +1678,7 @@ function addNewItem(opt) {
 				return false;
 			}
 			if (isMobile.Android()) {
-				//$(window).trigger("orientationchange");
 				kickDown();
-				//window.scroll($('#appContent')[0].scrollTop,0,0);
-				//$('#pageSlideFood').scrollTop($('#pageSlideFood').scrollTop());
 			}
 			if ($("#tempHolder").html()) {
 				$('#addNewWrapper').removeClass('show');
@@ -1786,15 +1706,15 @@ function getModalWindow(itemId) {
 	// QUERY //
 	///////////
 	getFood(itemId, function (data) {
-		var mName = data[0].name;
-		var mType = data[0].type;
-		var mCode = data[0].code;
-		var mTerm = data[0].term;
-		var mKcal = Math.round(data[0].kcal * 100) / 100;
-		var mPro = Math.round(data[0].pro * 100) / 100;
-		var mCar = Math.round(data[0].car * 100) / 100;
-		var mFat = Math.round(data[0].fat * 100) / 100;
-		var mFib = data[0].fib;
+		var mName = data.name;
+		var mType = data.type;
+		var mCode = data.code;
+		var mTerm = data.term;
+		var mKcal = Math.round(data.kcal * 100) / 100;
+		var mPro = Math.round(data.pro * 100) / 100;
+		var mCar = Math.round(data.car * 100) / 100;
+		var mFat = Math.round(data.fat * 100) / 100;
+		var mFib = data.fib;
 		////////////////////////
 		// DEFINE TYPE/WEIGHT //
 		////////////////////////
@@ -2134,24 +2054,26 @@ function getModalWindow(itemId) {
 			evt.stopPropagation();
 			function removeItem(button) {
 				if (button == 1) {
-					delFood(itemId);
-					//if last row
-					if ($('#' + $("#activeOverflow").parent('div').parent('div').attr("id") + " .searcheable").length == 1) {
-						$("#activeOverflow").parent('div').parent('div').append('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
-					}
-					$("#activeOverflow").parent('div').remove();
-					//if last row (cross-check)
-					if ($('#' + $("#" + itemId).parent('div').attr("id") + " .searcheable").length == 1) {
-						$("#" + itemId).parent('div').append('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
-					}
-					$("#" + itemId).remove();
-					//close
-					$("#modalCancel").trigger(touchstart);
+					delFood(itemId,function() {
+						//if last row
+						if ($('#' + $("#activeOverflow").parent('div').parent('div').attr("id") + " .searcheable").length == 1) {
+							$("#activeOverflow").parent('div').parent('div').append('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+						}
+						$("#activeOverflow").parent('div').remove();
+						//if last row (cross-check)
+						if ($('#' + $("#" + itemId).parent('div').attr("id") + " .searcheable").length == 1) {
+							$("#" + itemId).parent('div').append('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+						}
+						$("#" + itemId).remove();
+						//close
+						$("#modalCancel").trigger(touchstart);
+					});
 					return false;
 				}
 			}
 			//SHOW DIALOG
 			appConfirm(LANG.DELETE_ITEM[lang], LANG.ARE_YOU_SURE[lang], removeItem, LANG.OK[lang], LANG.CANCEL[lang]);
+			return false;
 		});
 		/////////////////
 		// EDIT BUTTON //
@@ -2176,11 +2098,11 @@ function getModalWindow(itemId) {
 		// FAV BUTTON //
 		////////////////
 		if (mFib == "fav") {
-			$("#modalFav").addClass("favourite");
+			$("#modalFav").addClass("favorite");
 		}
 		//mFib
 		$("#modalFav").on(tap, function (evt) {
-			$("#modalFav").toggleClass("favourite");
+			$("#modalFav").toggleClass("favorite");
 			if (mFib == "fav") {
 				mFib = "nonFav";
 				$(".activeOverflow").removeClass("favItem");
@@ -2202,30 +2124,31 @@ function getModalWindow(itemId) {
 				fat : mFat,
 				fib : mFib
 			};
-			setFav(modalOpt);
-			//////////////////////////
-			// IOS OVERFLOW FLICKER //
-			//////////////////////////
-			if (mFib == "nonFav") {
-				$("#tabMyFavs #" + mCode).css("opacity", 0);
-				$("#tabMyFavs #" + mCode).remove();
-				kickDown();
-				return false;
-			} else {
-				if (isMobile.iOS()) {
-					setTimeout(function () {
-						updateCustomList('fav');
-						kickDown();
-					}, 50);
+			setFav(modalOpt,function() {
+				//////////////////////////
+				// IOS OVERFLOW FLICKER //
+				//////////////////////////
+				if (mFib == "nonFav") {
+					$("#tabMyFavs #" + mCode).css("opacity", 0);
+					$("#tabMyFavs #" + mCode).remove();
 					kickDown();
-					$("#tabMyFavs .foodName").css("opacity", 0);
-					$("#tabMyFavs .foodName").css("overflow", "hidden");
-					$("#tabMyFavs .foodName").css("opacity", 1);
-					kickDown();
+					return false;
 				} else {
-					updateCustomList('fav');
+					if (isMobile.iOS()) {
+						setTimeout(function () {
+							updateCustomList('fav');
+							kickDown();
+						}, 50);
+						kickDown();
+						$("#tabMyFavs .foodName").css("opacity", 0);
+						$("#tabMyFavs .foodName").css("overflow", "hidden");
+						$("#tabMyFavs .foodName").css("opacity", 1);
+						kickDown();
+					} else {
+						updateCustomList('fav');
+					}
 				}
-			}//END MODAL EDIT CONTEXT
+			});
 		});
 	});
 }

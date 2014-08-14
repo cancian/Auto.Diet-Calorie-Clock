@@ -53,35 +53,35 @@ function isCacheValid(input) {
 	var isValid = 1;
 	if(!input || input == '') { return false; }
 	//APP_LIB
-	if(input.indexOf('var isMobile')        === -1)			{ isValid = 0; }
-	if(input.indexOf('function appConfirm') === -1)			{ isValid = 0; }
+	if(input.indexOf('var isMobile')        === -1)			{ return false; }
+	if(input.indexOf('function appConfirm') === -1)			{ return false; }
 	//APP_LANG
-	if(input.indexOf('var appName')     === -1)				{ isValid = 0; }
-	if(input.indexOf('FOOD_CATEGORIES') === -1)				{ isValid = 0; }
+	if(input.indexOf('var appName')     === -1)				{ return false; }
+	if(input.indexOf('FOOD_CATEGORIES') === -1)				{ return false; }
 	//APP_SETUP
-	if(input.indexOf('function showIntro')  === -1)			{ isValid = 0; }
-	if(input.indexOf('function getLoginFB') === -1)			{ isValid = 0; }
+	if(input.indexOf('function showIntro')  === -1)			{ return false; }
+	if(input.indexOf('function getLoginFB') === -1)			{ return false; }
 	//APP_MACRO
-	if(input.indexOf('function getFullHistory') === -1)		{ isValid = 0; }
-	if(input.indexOf('function getCatList')     === -1)		{ isValid = 0; }
+	if(input.indexOf('function getFullHistory') === -1)		{ return false; }
+	if(input.indexOf('function getCatList')     === -1)		{ return false; }
 	//APP_BUILD
-	if(input.indexOf('function openSettings')       === -1)	{ isValid = 0; }
-	if(input.indexOf('function feetInchesToMetric') === -1)	{ isValid = 0; }
+	if(input.indexOf('function openSettings')       === -1)	{ return false; }
+	if(input.indexOf('function feetInchesToMetric') === -1)	{ return false; }
 	//APP_STATIC
-	if(input.indexOf('function startApp')   === -1)			{ isValid = 0; }
-	if(input.indexOf('var editableTimeout') === -1)			{ isValid = 0; }
+	if(input.indexOf('function startApp')   === -1)			{ return false; }
+	if(input.indexOf('var editableTimeout') === -1)			{ return false; }
 	//APP_DYNAMIC
-	if(input.indexOf('$(document).on("pageload"') === -1)	{ isValid = 0; }
-	if(input.indexOf('function getModalWindow')   === -1)	{ isValid = 0; }
+	if(input.indexOf('$(document).on("pageload"') === -1)	{ return false; }
+	if(input.indexOf('function getModalWindow')   === -1)	{ return false; }
 	//APP_CUSTOM_CORE
-	if(input.indexOf('function appTimer')    === -1)		{ isValid = 0; }
-	if(input.indexOf('function updateTimer') === -1)		{ isValid = 0; }
+	if(input.indexOf('function appTimer')    === -1)		{ return false; }
+	if(input.indexOf('function updateTimer') === -1)		{ return false; }
 	//INDEX.CSS
-	if(input.indexOf('html,body') === -1)					{ isValid = 0; }
-	if(input.indexOf('#cat9999')  === -1)					{ isValid = 0; }
+	if(input.indexOf('html,body') === -1)					{ return false; }
+	if(input.indexOf('#cat9999')  === -1)					{ return false; }
 	//FONTS.CSS
-	if(input.indexOf('@font-face') === -1)					{ isValid = 0; }
-	if(input.indexOf('.msie-png')  === -1)					{ isValid = 0; }
+	if(input.indexOf('@font-face') === -1)					{ return false; }
+	if(input.indexOf('.msie-png')  === -1)					{ return false; }
 	//ISVALID
 	return isValid;
 }
@@ -94,7 +94,7 @@ function initJS() {
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
-	if((/(iPhone|iPod|iPad|Android|IEMobile|MSApp|MacGap)/).test(navigator.userAgent) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://')) {
+	if((/(iPhone|iPod|iPad|Android|IEMobile|MSApp)/).test(navigator.userAgent) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://')) {
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
 	}
 	////////
@@ -125,7 +125,7 @@ function initJS() {
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/jquery.nprogress.js'><\/script>");
 	//DB
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/localforage.js'><\/script>");
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/html5sql.js'><\/script>");
+-	document.write("<script type='text/javascript' src='" + hostLocal + "js/html5sql.js'><\/script>");
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/localstoragedb.js'><\/script>");
 	//UTILS
 	document.write("<script type='text/javascript' src='" + hostLocal + "js/carpe_slider.js'><\/script>");

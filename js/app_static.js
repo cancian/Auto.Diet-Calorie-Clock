@@ -11,20 +11,12 @@ function kickStarter(initCmds) {
 kickStarter(function() {
 	//MARK AS READY
 	$('body').addClass('ready');
-	//SWAP CACHE
-	window.applicationCache.addEventListener('updateready', function (event) {
-		window.applicationCache.swapCache(); 
-	}, false);
 	//SETUP DB
 	try {
-		if(hasSql) {
-			db = window.openDatabase(dbName, 1, dbName + "DB", 5*1024*1024);
-			db.transaction(initDB, errorHandler, startApp);
-		} else {
-			lib  = new localStorageDB("mylivediet",  localStorage);
-			lib2 = new localStorageDB("mylivediet2", localStorage);
+		localforage.config({storeName: 'KCals'});
+		localforage.setDriver(['webSQLStorage', 'asyncStorage', 'localStorageWrapper']).then(function() {
 			initDB();
-		}
+		});
 	} catch(error) {
 		setTimeout(function() {
 			if(window.MyReload) {
@@ -123,6 +115,7 @@ safeExec(function() {
 		.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
 		.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
 		.spinnerMask #loadMask:before		 { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
+		.spinnerMask.updtdb #loadMask:before { content: '" + LANG.UPDATING_DB[lang]     + "'; }\
 	</style>");
 });
 updateNutriRatio();
@@ -191,7 +184,7 @@ afterTab = function(keepOpen) {
 	appResizer(200);
 };
 appFooter = function (id,keepOpen) {
-	if(new Date().getTime() - lastTab < 200) { lastTab = new Date().getTime(); return; }
+	if(new Date().getTime() - lastTab < 250) { lastTab = new Date().getTime(); return; }
 	lastTab = new Date().getTime();
 	var tabId = id;
 	$("#appFooter li").removeClass("selected");
@@ -227,7 +220,6 @@ $("#appFooter li").on(touchstart + " click", function(evt) {
 		return false;
 	}
 	//
-	//
 	appFooter($(this).attr("id"));
 	if($('#editable').val()) {
 		$('#appHeader').trigger(touchstart);
@@ -240,17 +232,6 @@ $("#appFooter li").on(touchstart + " click", function(evt) {
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////
-//ICON PREALOAD
-if(isMobile.Windows()) {
-	$("body").prepend("\
-	<div id='preloadBlock'>\
-		<span id='preload1'></span><span id='preload2'></span><span id='preload3'></span><span id='preload4'></span><span id='preload5'></span><span id='preload6'></span><span id='preload7'></span><span id='preload8'></span><span id='preload9'></span><span id='preload10'></span>\
-		<span id='preload11'></span><span id='preload12'></span><span id='preload13'></span><span id='preload14'></span><span id='preload15'></span><span id='preload16'></span><span id='preload17'></span><span id='preload18'></span><span id='preload19'></span><span id='preload20'></span>\
-		<span id='preload21'></span><span id='preload22'></span><span id='preload23'></span><span id='preload24'></span><span id='preload25'></span><span id='preload26'></span><span id='preload27'></span><span id='preload28'></span><span id='preload29'></span><span id='preload30'></span>\
-		<span id='preload31'></span><span id='preload32'></span><span id='preload33'></span><span id='preload34'></span><span id='preload35'></span><span id='preload36'></span><span id='preload37'></span><span id='preload38'></span><span id='preload39'></span><span id='preload40'></span>\
-		<span id='preload41'></span><span id='preload42'></span><span id='preload43'></span><span id='preload44'></span><span id='preload45'></span><span id='preload46'></span><span id='preload47'></span><span id='preload48'></span><span id='preload49'></span><span id='preload50'></span>\
-	</div>");
-}
 if(isMobile.Windows()) {
 	$("input").on("focus", function(evt) {
 		$("html,body").css("position","fixed");
@@ -268,13 +249,9 @@ $(document).on("backbutton", function(evt) {
 	if($("#langSelect").length) {
 		$(".set").trigger(tap);
 	} else if($("#skipIntro").length && myScroll.x) {
-		//if(myScroll.x == 0) {
-		//	$("#skipIntro").trigger(touchend);
-		//} else {
 		if(myScroll) {
 			myScroll.prev();
 		}
-		//}
 	} else if(ref) {
 		ref.close();
 		ref = '';
@@ -321,19 +298,6 @@ $(document).on("backbutton", function(evt) {
 		}
 	}
 });
-////////////////
-// dummyInput //
-////////////////
-/*
-if(isMobile.FirefoxOS()) {
-	$("#appHeader").on(touchstart,function() {
-		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
-		$('#dummyInput').focus();
-		$('#dummyInput').blur();
-		$('#dummyInput').remove();
-	});
-}
-*/
 /////////////////
 // PRESS ENTER //
 /////////////////
@@ -406,13 +370,17 @@ $(document).on("showkeyboard", function(evt) {
 			$('#diaryNotesInput').focus();
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 			$("#diaryNotesInput").height(window.innerHeight - 32);
-			$("#diaryNotesInput").getNiceScroll().resize();
+			if($.nicescroll) {
+				$("#diaryNotesInput").getNiceScroll().resize();
+			}
 		},0);
 		setTimeout(function() {
 			$('#diaryNotesInput').focus();
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 			$("#diaryNotesInput").height(window.innerHeight - 32);
-			$("#diaryNotesInput").getNiceScroll().resize();
+			if($.nicescroll) {
+				$("#diaryNotesInput").getNiceScroll().resize();
+			}
 		},300);
 	}
 });
@@ -478,7 +446,9 @@ $(window).on("resize", function(evt) {
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 			$("#diaryNotesInput").height(window.innerHeight - 32);
 			$('#diaryNotesInput').width(window.innerWidth - 24);
-			$("#diaryNotesInput").getNiceScroll().resize();	
+			if($.nicescroll) {
+				$("#diaryNotesInput").getNiceScroll().resize();	
+			}
 			$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
 		}
 	}
@@ -499,13 +469,13 @@ $(window).on("resize", function(evt) {
 		if($("#appHistory").html() && typeof rebuildHistory == 'function') {
 			rebuildHistory();
 		}
-	},0);
+	},100);
 });
 //##////////////##//
 //##//  ONLOAD  ##//
 //##////////////##//
 setTimeout(function() {
-	appResizer(0);
+	appResizer(1);
 },1)
 /////////////////////
 // DEBUG INDICATOR //
@@ -589,17 +559,6 @@ if(isMobile.Windows()) {
 }
 if(isMobile.MSApp()) {
 	$("body").addClass("msapp");
-}
-////////////////////
-// WP8 @FONT-FACE //
-////////////////////
-if(isMobile.Windows() || isMobile.MSApp()) {
-	$('body').append("<span id='fontCheck' style='font-family: FontAwesome, Arial;'>+</span>");
-	//COMPARE WIDTH
-	if($("#fontCheck").width() != "16") {
-		$('body').addClass("msie-png");		
-	}
-	$("#fontCheck").remove();
 }
 ////////////////////////////
 // FF OS ORIENTATION LOCK //
@@ -703,8 +662,9 @@ setTimeout(function() {
 // CHECK PREVIOUS //
 ////////////////////
 setTimeout(function () {
+	if(window.localStorage.getItem("config_mode") == 'full') { return; }
 	try {
-		if ((isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) && isMobile.Cordova() && !isPaid()) {
+		if ((isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) && isMobile.Cordova() && !$('body').hasClass('full')) {
 			if (window.device) {
 				if (window.device.uuid) {
 					if (window.device.uuid.length > 10) {
@@ -732,14 +692,14 @@ setTimeout(function () {
 	} catch (e) {
 		errorHandler(e);
 	}
-}, 4000);
+}, 9000);
 /////////////
 // LICENSE //
 /////////////
 (function licenseTimer() {
 	isPaid();
 	checkLicense();
-	setTimeout(licenseTimer, 2000);
+	setTimeout(licenseTimer, 5000);
 })();
 ////////////////
 // MAIN TIMER //
@@ -777,7 +737,7 @@ setTimeout(function () {
 			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,1000);
+	setTimeout(lastEntryPush,2000);
 })();
 	//////////////////////
 	// PAGESLIDE CLOSER //

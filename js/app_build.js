@@ -26,7 +26,6 @@ function openSettings(keepOpen) {
 		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 	</div>\
 	';
-	//<div id="optionReset">' + LANG.SETTINGS_WIPE[lang] + '</div>\
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
@@ -38,7 +37,6 @@ function openSettings(keepOpen) {
 	///////////////////
 	if(window.localStorage.getItem("lastSync") != "never") {
 		$("#optionLastSync span").html(dateDiff(window.localStorage.getItem("lastSync"),(new Date().getTime())));
-		//$("#optionLastSync span").html(dtFormat(Number(window.localStorage.getItem("lastSync")))); 
 	}
 	$("#optionLastSync").on(touchend,function(evt) {
 		evt.preventDefault();
@@ -308,6 +306,12 @@ function openStatus(keepOpen) {
 					$("#appStatusTitle").html(LANG.START[lang]);
 					window.localStorage.removeItem("appStatus");
 					window.localStorage.setItem("config_start_time",new Date().getTime());
+					//RESET BACKPORT
+					window.localStorage.removeItem("config_entry_sum");
+					window.localStorage.removeItem("config_entry_f-sum");
+					window.localStorage.removeItem("config_entry_e-sum");	
+					$("#appStatusBars p").css("width",0);
+					$("#appStatusBars span").html("0%");
 				}
 				return false;
 			}
@@ -319,6 +323,7 @@ function openStatus(keepOpen) {
 			$("#appStatus").addClass("reset");
 			$("#appStatusTitle").html(LANG.RESET[lang]);
 			window.localStorage.setItem("appStatus","running");
+			window.localStorage.setItem("config_start_time",new Date().getTime());
 		}
 		evt.preventDefault();
 	});
@@ -351,6 +356,7 @@ function openStatus(keepOpen) {
 	////////////////
 	// DATEPICKER //
 	////////////////
+	if($.mobiscroll) {
 	$('#startDate').mobiscroll().datetime({
 		preset: 'datetime',
 		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
@@ -378,6 +384,7 @@ function openStatus(keepOpen) {
 		showLabel: true,
 		useShortLabels: true
     });
+	}
 	$('#startDate').on(touchstart,function(evt) {
 		if(isMobile.Android() && androidVersion() < 4.4)  {
 			//
@@ -642,9 +649,11 @@ function sliderNeg() {
 		sliderNeg();
 	});
 	//
-	//$("#entryTitle").on("focus", function(evt) {
-	//	$("#entryTitle").blur();
-	//});
+	$("#entryTitle").on("focus", function(evt) {
+		if($("#entryTitle").attr('readonly')) {
+			$("#entryTitle").blur();
+		}
+	});
 	////////////////////////////////
 	// SAVE ENTRY (SUBMIT BUTTON) //
 	////////////////////////////////
@@ -662,44 +671,42 @@ function sliderNeg() {
 		if(body == LANG.FOOD[lang] || body == LANG.EXERCISE[lang]) {
 			body = "";
 		}
-		//SAVE (NOT NULL)
-		if(title != 0) {
-			//console.log("new entry added");
-			saveEntry({title:title,body:body,published:published});
+		/////////////////////
+		// SAVE (NOT NULL) //
+		/////////////////////
+		if(title == 0) { return; }
+		saveEntry({title:title,body:body,published:published},function() {
 			updateEntriesSum();
-		//}
-		//RELOAD IF-KCALS
- 			document.getElementById('slider').slider.setValue(0);
+			//RESET FORM
+			document.getElementById('slider').slider.setValue(0);
 			//$("#entryTime").val('0');
 			$("#entryTitle").val(0);
 			$("#entryTitle").trigger("update");
 			$("#entryBody").val('');
 			//DISMISS KEYBOARD
+			$('#entryTitle').blur();
 			$('#entryTime').blur();
 			$('#entryBody').blur();
 			$('#editable').blur();
 			//auto start
-			function onConfirmStart(button) {
-				if(button == 1) {
-					window.localStorage.setItem("config_start_time",published);
-					window.localStorage.setItem("appStatus","running");
-					updateEntries();
-					setPush();
-					$("#appStatus").removeClass("start");
-					$("#appStatus").addClass("reset");
-					$("#appStatusTitle").html(LANG.RESET[lang]);
-				}
-			}
-			//SHOW START DIALOG
 			if(window.localStorage.getItem("appStatus") != "running") {
-				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], onConfirmStart, LANG.OK[lang], LANG.CANCEL[lang]);
+				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
+					if(button == 1) {
+						window.localStorage.setItem("config_start_time",published);
+						window.localStorage.setItem("appStatus","running");
+						updateEntries();
+						setPush();
+						$("#appStatus").removeClass("start");
+						$("#appStatus").addClass("reset");
+						$("#appStatusTitle").html(LANG.RESET[lang]);
+					}
+				}, LANG.OK[lang], LANG.CANCEL[lang]);
 			}
 			//REFRESH DATA
 			updateEntries(published);
 			updateTimer();
 			updateEntriesTime();
-			setPush();
-			//SCROLLBAR UPDATE			
+			//SCROLLBAR UPDATE
 			clearTimeout(niceTimer);
 			niceTimer = setTimeout(function() {
 				niceResizer();
@@ -707,18 +714,8 @@ function sliderNeg() {
 			}, 100);
 			kickDown();
 			return false;
-		}
+		});
 	});
-	//////////////////
-	// SLIDER ROUND //
-	//////////////////
-	function makeRound() {
-		n = document.getElementById('entryTitle').value / 25;
-		n = Math.round(n) * 25;
-		if($("#entryTitle").val() != n) {
-			//$("#entryTitle").val(n);
-		}
-	}
 	//#//////////////////////#//
 	//# SLIDER VALUE CHANGES #//
 	//#//////////////////////#//
@@ -727,6 +724,7 @@ function sliderNeg() {
 	(function() { 
 		if(!document.getElementById('entryTitle')) { return; }
 		document.getElementById('entryTitle').update = function() {
+			if(!$("#entryTitle").attr('readonly')) { return; }
 			//UPDATE INPUT
 			document.getElementById('entryTitle').value = document.getElementById('slider').value;
 
@@ -742,9 +740,6 @@ function sliderNeg() {
 			if(document.getElementById('entryTitle').value == -0) {
 				document.getElementById('entryTitle').value = 0;
 			}
-			//if(!(Math.abs(document.getElementById('entryTitle').value) >= 25)) {
-				//makeRound();
-			//}
 			////////////////////////
 			// CHANGE TRACK COLOR //
 			////////////////////////
@@ -809,8 +804,6 @@ function sliderNeg() {
 		pressRepeatPos = setInterval(function() {
 			//ACTION
 			sliderPos();
-			//ocument.getElementById('slider').slider.increment(1);
-			//makeRound();
 		},25);
 		},400);
 	});
@@ -830,8 +823,6 @@ function sliderNeg() {
 		pressRepeatNeg = setInterval(function() {
 			//ACTION
 			sliderNeg();
-			//document.getElementById('slider').slider.increment(-1);
-			//makeRound();
 		},25);
 		},400);
 	});
@@ -1004,13 +995,11 @@ function sliderNeg() {
 				$("#entryBody").blur();
 			}
 			////////////
-			// HASSQL //
+			// DRIVER //
 			////////////
-			if ($("#entryBody").val().toLowerCase() == "devhassql") {
-				if (hasSql == true) {
-					alert('sql');
-				} else {
-					alert('localstorage');
+			if ($("#entryBody").val().toLowerCase() == "devdriver") {
+				if (localforage) {
+					alert(localforage._driver);
 				}
 				$("#entryBody").val('');
 				$("#entryBody").blur();
@@ -1080,16 +1069,15 @@ function sliderNeg() {
 		//not while editing		
 		if($('#entryList div').is(':animated') || $('.editableInput').is(':visible')) { return; }	
 		//CLEAR DIALOG
-		function onConfirmClear(button) {
+		appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
 			if(button == 1) {
-				clearEntries();
-				updateEntries();
-				$(window).trigger("orientationchange");
-				return false;
+				clearEntries(function() {
+					updateEntries();
+					$(window).trigger("orientationchange");
+					return false;
+				});
 			}
-		}
-		//SHOW DIALOG
-		appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang], onConfirmClear, LANG.OK[lang], LANG.CANCEL[lang]);
+		}, LANG.OK[lang], LANG.CANCEL[lang]);
 	});
 	//style
 	$("#entryListBottomBar").on(touchstart,function(evt) {
@@ -1270,12 +1258,16 @@ function sliderNeg() {
 			//window.scroll($('#diaryNotesInput').scrollTop,0,0);
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 			$("#diaryNotesInput").height(window.innerHeight - 32);
-			$("#diaryNotesInput").getNiceScroll().resize();	
+			if($.nicescroll) {
+				$("#diaryNotesInput").getNiceScroll().resize();	
+			}
 			setTimeout(function() {
 				kickDown('#diaryNotesInput');
 				//$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 				$("#diaryNotesInput").height(window.innerHeight - 32);
-				$("#diaryNotesInput").getNiceScroll().resize();	
+				if($.nicescroll) {
+					$("#diaryNotesInput").getNiceScroll().resize();	
+				}
 			},100);
 		});
 		//trigger resize (ios 7.1)
@@ -1289,7 +1281,9 @@ function sliderNeg() {
 		$('#diaryNotesInput').on("keypress", function(evt) {
 			window.localStorage.setItem("appNotes",$('#diaryNotesInput').val());
 			$('#diaryNotesInput').height(window.innerHeight - 32);
-			$("#diaryNotesInput").getNiceScroll().resize();
+			if($.nicescroll) {
+				$("#diaryNotesInput").getNiceScroll().resize();
+			}
 		});
 		////////////
 		// closer //
@@ -1329,7 +1323,6 @@ $('#appContent').scroll(function() {
 		var entryListHeight = $('#entryList').height() * 0.5;
 		if(topLock != 0)                  { return; }
 		if($('#go').hasClass("scrolled")) { return; }
-		//console.log("scrolled: " + $('#appContent').scrollTop() + " total: " + entryListHeight);
 		if($('#appContent').scrollTop()+500 > entryListHeight) {
 			topLock = 1;
 			$('#go').addClass("scrolled");
@@ -1576,147 +1569,6 @@ var profileHtml = '\
 <div class="invisible">Fats (30%)<input class="ee101" id="pA10L" readonly size="7" value="0" name="pA10L" />cal =<input class="ee101" id="pA10N2" readonly size="7" value="0" name="pA10N" />gm</div>\
 </form>\
 </div>';
-/*
-		<option value="100">100</option>\
-	</select></span>\
-</div>\
-<div class="calcRow" id="yourActivity">\
-		<label>' + LANG.YOUR_ACTIVITY[lang] + '</label>\
-		<span class="selectArrow"><select id="pA5B" tabindex="7" onchange="recalc_onclick(&#39;pA5B&#39;)" size="1" name="pA5B">\
-			<option selected="selected" value="Sedentary (little or no exercise, desk job)">' + LANG.YOUR_ACTIVITY_OPTION1[lang] + '</option>\
-			<option value="Lightly active (light exercise/sports 1-3 days/wk)">'              + LANG.YOUR_ACTIVITY_OPTION2[lang] + '</option>\
-			<option value="Moderately active (moderate exercise/sports 3-5 days/wk)">'        + LANG.YOUR_ACTIVITY_OPTION3[lang] + '</option>\
-			<option value="Very active (hard exercise/sports 6-7 days/wk)">'                  + LANG.YOUR_ACTIVITY_OPTION4[lang] + '</option>\
-		</select></span>\
-</div>\
-<div class="invisible"><input type="checkbox" checked="checked" value="ON" name="automatic_recalc" /><label>Automatic recalculation</label></div>\
-<div class="invisible"><input onclick="recalc_onclick(&#39;&#39;)" type="button" value="Recalculate" name="do_recalc" id="do_recalc" /></div>\
-<div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
-<div class="invisible"><h2>Nutrition requirements</h2></div>\
-\
-<h2 id="mantain" class="invisible hidden"><span>A.</span> ' + LANG.KEEP_WEIGHT[lang] + '</h2>\
-<div class="tapSelect invisible hidden"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
-<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />\gm</div>\
-<div class="invisible">Proteins (15%)<input class="ee101" id="pA9B" readonly size="7" value="0" name="pA9B" />cal =<input id="pA9D2" readonly size="6" value="0" name="pA9D" />gm</div>\
-<div class="invisible">Fats (30%)<input class="ee101" id="pA10B" readonly size="7" value="0" name="pA10B" />cal =<input class="ee101" id="pA10D2" readonly size="6" value="0" name="pA10D" />gm</div>\
-\
-<h2 class="invisible hidden"><span>B.</span> ' + LANG.LOSE_WEIGHT[lang] + '</h2>\
-<div class="calcResult invisible hidden">\
-   <span class="selectArrow"> <select class="ee101" id="pA6G" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6G&#39;)" tabindex="8" size="1" value="1" name="pA6G">\
-		<option value="-5">-5</option>\
-		<option value="-4.75">-4.75</option>\
-		<option value="-4.5">-4.5</option>\
-		<option value="-4.25">-4.25</option>\
-		<option value="-4">-4</option>\
-		<option value="-3.75">-3.75</option>\
-		<option value="-3.5">-3.5</option>\
-		<option value="-3.25">-3.25</option>\
-		<option value="-3">-3</option>\
-		<option value="-2.75">-2.75</option>\
-		<option value="-2.5">-2.5</option>\
-		<option value="-2.25">-2.25</option>\
-		<option value="-2">-2</option>\
-		<option value="-1.75">-1.75</option>\
-		<option value="-1.5">-1.5</option>\
-		<option value="-1.25">-1.25</option>\
-		<option value="-1">-1</option>\
-		<option value="-0.75">-0.75</option>\
-		<option value="-0.5">-0.5</option>\
-		<option value="-0.25">-0.25</option>\
-		<option value="0" selected="selected">0</option>\
-		<option value="0.25">+0.25</option>\
-		<option value="0.5">+0.5</option>\
-		<option value="0.75">+0.75</option>\
-		<option value="1">+1</option>\
-		<option value="1.25">+1.25</option>\
-		<option value="1.5">+1.5</option>\
-		<option value="1.75">+1.75</option>\
-		<option value="2">+2</option>\
-		<option value="2.25">+2.25</option>\
-		<option value="2.5">+2.5</option>\
-		<option value="2.75">+2.75</option>\
-		<option value="3">+3</option>\
-		<option value="3.25">+3.25</option>\
-		<option value="3.5">+3.5</option>\
-		<option value="3.75">+3.75</option>\
-		<option value="4">+4</option>\
-		<option value="4.25">+4.25</option>\
-		<option value="4.5">+4.5</option>\
-		<option value="4.75">+4.75</option>\
-		<option value="5">+5</option>\
-	</select></span>\
-	<input class="ee101" id="pA6J2" type="hidden" readonly size="2" value="0" name="pA6J" />\
-	<span class="selectArrow"><select id="pA6H" tabindex="9" onchange="recalc_onclick(&#39;pA6H&#39;)" size="1" name="pA6H">\
-		<option value="kilograms">' + LANG.KILOGRAMS[lang] + '</option>\
-		<option value="pounds" selected="selected">' + LANG.POUNDS[lang] + '</option>\
-	</select></span>\
-	<span>' + LANG.PER_WEEK[lang] + '</span>\
-</div>\
-<div class="tapSelect invisible hidden"><input class="ee101" id="pA7F" readonly size="7" value="0" name="pA7F" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
-<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8F" readonly size="7" value="0" name="pA8F" />cal =<input class="ee101" id="pA8H2" readonly size="7" value="0" name="pA8H" />gm</div>\
-<div class="invisible">Proteins (15%)<input class="ee101" id="pA9F" readonly size="7" value="0" name="pA9F" />cal =<input class="ee101" id="pA9H2" readonly size="7" value="0" name="pA9H" />gm</div>\
-<div class="invisible">Fats (30%)<input class="ee101" id="pA10F" readonly size="7" value="0" name="pA10F" />cal =<input class="ee101" id="pA10H2" readonly size="7" value="0" name="pA10H" />gm</div>\
-\
-<h2><span>C.</span> ' + LANG.GAIN_WEIGHT[lang] + '</h2>\
-<div class="calcResult">\
-    <span class="selectArrow"><select class="ee101" id="pA6M" onchange="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick(&#39;pA6M&#39;)" tabindex="10" size="1" value="1" name="pA6M">\
-		<option value="-5">-5</option>\
-		<option value="-4.75">-4.75</option>\
-		<option value="-4.5">-4.5</option>\
-		<option value="-4.25">-4.25</option>\
-		<option value="-4">-4</option>\
-		<option value="-3.75">-3.75</option>\
-		<option value="-3.5">-3.5</option>\
-		<option value="-3.25">-3.25</option>\
-		<option value="-3">-3</option>\
-		<option value="-2.75">-2.75</option>\
-		<option value="-2.5">-2.5</option>\
-		<option value="-2.25">-2.25</option>\
-		<option value="-2">-2</option>\
-		<option value="-1.75">-1.75</option>\
-		<option value="-1.5">-1.5</option>\
-		<option value="-1.25">-1.25</option>\
-		<option value="-1">-1</option>\
-		<option value="-0.75">-0.75</option>\
-		<option value="-0.5">-0.5</option>\
-		<option value="-0.25">-0.25</option>\
-		<option value="0" selected="selected">0</option>\
-		<option value="0.25">+0.25</option>\
-		<option value="0.5">+0.5</option>\
-		<option value="0.75">+0.75</option>\
-		<option value="1">+1</option>\
-		<option value="1.25">+1.25</option>\
-		<option value="1.5">+1.5</option>\
-		<option value="1.75">+1.75</option>\
-		<option value="2">+2</option>\
-		<option value="2.25">+2.25</option>\
-		<option value="2.5">+2.5</option>\
-		<option value="2.75">+2.75</option>\
-		<option value="3">+3</option>\
-		<option value="3.25">+3.25</option>\
-		<option value="3.5">+3.5</option>\
-		<option value="3.75">+3.75</option>\
-		<option value="4">+4</option>\
-		<option value="4.25">+4.25</option>\
-		<option value="4.5">+4.5</option>\
-		<option value="4.75">+4.75</option>\
-		<option value="5">+5</option>\
-	</select></span>\
-	<input class="ee101" id="pA6O2" type="hidden" readonly size="2" value="0" name="pA6O" />\
-	<span class="selectArrow"><select id="pA6N" tabindex="11" onchange="recalc_onclick(&#39;pA6N&#39;)" size="1" name="pA6N">\
-		<option value="kilograms">' + LANG.KILOGRAMS[lang] + '</option>\
-		<option value="pounds" selected="selected">' + LANG.POUNDS[lang] + '</option>\
-	</select></span>\
-	<span>' + LANG.PER_WEEK[lang] + '</span>\
-</div>\
-<div class="tapSelect"><input class="ee101" id="pA7L" readonly size="7" value="0" name="pA7L" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
-\
-<div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8L" readonly size="7" value="0" name="pA8L" />cal =<input class="ee101" id="pA8N2" readonly size="7" value="0" name="pA8N" />\gm</div>\
-<div class="invisible">Proteins (15%)<input class="ee101" id="pA9L" readonly size="7" value="0" name="pA9L" />cal =<input class="ee101" id="pA9N2" readonly size="7" value="0" name="pA9N" />gm</div>\
-<div class="invisible">Fats (30%)<input class="ee101" id="pA10L" readonly size="7" value="0" name="pA10L" />cal =<input class="ee101" id="pA10N2" readonly size="7" value="0" name="pA10N" />gm</div>\
-</form>\
-</div>';
-*/
 //#////////#//
 //# OUTPUT #//
 //#////////#//
@@ -1826,8 +1678,6 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 		$(this).addClass("tapActive");
 		$(this).stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" }, 450);
 		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); }, 200);
-		//document.getElementById('editableDiv').innerHTML = calcResult;
-		//window.localStorage.setItem("config_kcals_type","simple");
 		updateTimer();
 	} else {
 		//shake error
@@ -1891,16 +1741,6 @@ $("#formc select").on("blur",function() {
 	writeCalcValues();
 	setPush();
 });
-//force hide keyboard 
-/*
-if(isMobile.FirefoxOS()) {
-	//causes ficker on device
-	$("#formc select").on(touchstart,function() {
-		$(this).focus();
-		$(this).blur();
-	});
-}
-*/
 $(document).on("hidekeyboard",function() {
 		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
 			$("#calcForm input").each(function(evt) {
@@ -1934,7 +1774,6 @@ function writeCalcValues() {
 	window.localStorage.setItem(preffix + "#pA2C",$("#pA2C").val());
 	//weight
 	if(!isNaN(parseInt($("#pA3B").val()))) {
-		//$("#pA3B").val( parseInt($("#pA3B").val()) );
 		$("#pA3B").val( Math.abs(parseInt($("#pA3B").val())) );
 		window.localStorage.setItem(preffix + "#pA3B",parseInt($("#pA3B").val()));
 	}

@@ -188,9 +188,9 @@ function appTimer(id,content) {
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//
 //#////////////////////////#//
-function timeToKcals(start) {
+function timeToKcals(startTime) {
 	var now             = (new Date()).getTime();
-	var timeSinceStart  = (now - window.localStorage.getItem("config_start_time")) / 1000;
+	var timeSinceStart  = (now - startTime) / 1000;
 	var kcalsPerDay     = window.localStorage.getItem("config_kcals_day_0");
 	var KcalsTimeRatio  = 60*60*24 / kcalsPerDay;
 	//var kcalsSinceStart = Math.floor((timeSinceStart / KcalsTimeRatio)*31)*(-1);
@@ -235,8 +235,8 @@ function cyclicTimeToKcals(startTime) {
 	var nameD      = "carb up";
 	//CALORIC INPUT
 	var intakeA    = window.localStorage.getItem("config_kcals_day_1");
-	var intakeB    = window.localStorage.getItem("config_kcals_day_1");
-	var intakeC    = window.localStorage.getItem("config_kcals_day_1");
+	var intakeB    = intakeA;
+	var intakeC    = intakeA;
 	var intakeD    = window.localStorage.getItem("config_kcals_day_2");
 	//CALORIC INPUT
 	//var intakeA    = 1440; 
@@ -244,7 +244,7 @@ function cyclicTimeToKcals(startTime) {
 	//var intakeC    = 1440;
 	//var intakeD    = 1440*2; //2880;
 	// DIET START DATE
-	var dietStartTime         = window.localStorage.getItem("config_start_time"); //startTime; //Date.parse("August 13, 2013") - (0*3600*1000) + (0*60*1000) - (((new Date().getTimezoneOffset()) * 60 * 1000));
+	var dietStartTime         = startTime; //window.localStorage.getItem("config_start_time"); //startTime; //Date.parse("August 13, 2013") - (0*3600*1000) + (0*60*1000) - (((new Date().getTimezoneOffset()) * 60 * 1000));
 	// CYCLE VARS
 	var timeSinceStarted      = now - dietStartTime;
 	var daysSinceStarted      = timeSinceStarted / day;

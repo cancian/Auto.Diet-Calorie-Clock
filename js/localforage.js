@@ -1,3 +1,5 @@
+if(!lfloaded) {
+var lfloaded = true;
 /*!
     localForage -- Offline Storage, Improved
     Version 0.9.2
@@ -2257,3 +2259,4 @@ requireModule('promise/polyfill').polyfill();
         this.localforage = localForage;
     }
 }).call(this);
+}

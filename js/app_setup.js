@@ -33,7 +33,7 @@ function showIntro(isNew) {
 	var skipAction = (isMobile.Android() && androidVersion() < 4.4) ? "click" : touchend;
 	$("#skipIntro, #closeDiv").on(skipAction,function(evt) {
 		evt.stopPropagation();
-			$("#gettingStarted").fadeOut(200,function() {
+		$("#gettingStarted").fadeOut(200,function() {
 			$("#gettingStarted").remove();
 			if(isNew == true) {
 				getAnalytics('newInstall');
@@ -101,7 +101,87 @@ function showIntro(isNew) {
 				console.log('iscroll error');
 			}
 		}
-	}, 600);
+	}, 500);
+}
+///////////////////
+// INITIAL CACHE //
+///////////////////
+function loadDatabase() {
+	localforage.getItem('diary_entry',function(rows) {
+		if(!rows) { rows = []; }
+		rowsEntry = rows;
+		localforage.getItem('diary_food',function(rows) {
+			if(!rows) { rows = []; }
+			rowsFood = rows;
+			setTimeout(function() {
+				//INIT
+				startApp();
+			},0);
+		});
+	});
+}
+////////////////////
+// IMPORT ENTRIES //
+////////////////////
+function importEntries(res) {
+	if(!res) { return []; }
+	var result = [];
+	//FIX SQL RESULTS
+	if(hasSql) {
+		if(res.rows) {
+			for (var i=0; i<res.rows.length; i++) { 
+				result.push(res.rows.item(i));
+			}
+		}
+	} else {
+		result = res;
+	}
+	var rowsArray = [];
+	for(var r=0, ren=result.length; r<ren; r++) {
+		rowsArray.push({
+			id:        result[r].id,
+			title:     result[r].title,
+			body:      result[r].body,
+			published: result[r].published,
+			info:      result[r].info,
+			kcal:      result[r].kcal,
+			pro:       result[r].pro,
+			car:       result[r].car,
+			fat:       result[r].fat,
+			fib:       result[r].fib,
+		});
+	}
+	localforage.setItem('diary_entry',rowsArray,function(rows) {
+		rowsEntry = rows;
+		window.localStorage.removeItem("foodDbLoaded");
+		window.localStorage.removeItem("startLock");
+		updateFoodDb();
+		setTimeout(function() {
+			//INIT
+			startApp();
+		},0);
+	});
+}
+///////////////////
+// UPDATE OLD DB //
+///////////////////
+function updateOldDatabase() {
+	$('body').addClass('updtdb');
+	try {
+		if(hasSql) {
+			db = window.openDatabase(dbName, 1, dbName + "DB", 5*1024*1024);
+			db.transaction(function(t) {
+				t.executeSql('SELECT id, title, body, published, pro, car, fat FROM "diary_entry" ORDER BY published desc',[],function(t,results) {
+					importEntries(results);
+				}, errorHandler);
+			});
+		} else {
+			lib = new localStorageDB('mylivediet', localStorage);
+			importEntries(lib.query('diary_entry'));
+		}
+	} catch(e) {
+		errorHandler(e);
+	}
 }
 /////////////
 // INIT DB //
@@ -163,82 +243,40 @@ function initDB(t) {
 	if(!window.localStorage.getItem("config_limit_2")) {
 		window.localStorage.setItem("config_limit_2",600);
 	}
-	//////////////////////////////////////////
-	// if not sql already, use localstorage //
-	//////////////////////////////////////////
-	/*
-	//TABLE EXISTS
-	if(hasSql) {
-		t.executeSql('select * from diary_entry order by published desc',[],
-			function(t,results) {
-				if(fixResults(results).length == 0) { hasSql = false; }
-				alert(fixResults(results).length);
-		},function(t) {});
-	}
-	*/
-	///////////////////
-	// CREATE TABLES //
-	///////////////////
-	if(hasSql) {
-		t.executeSql('CREATE TABLE if not exists diary_entry(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, title TEXT, body TEXT, published VARCHAR UNIQUE,info TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
-		t.executeSql('CREATE TABLE if not exists diary_food(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);');
+	if(!window.localStorage.getItem("foodDbVersion") && window.localStorage.getItem("foodDbLoaded") != "done") {
+		window.localStorage.setItem("foodDbVersion",3);
+	}	
+	//////////////////
+	// UPDATE CHECK //
+	//////////////////
+	//DETECT 2.0/1.0
+	if(window.localStorage.getItem("foodDbVersion") == 2 || (window.localStorage.getItem("foodDbLoaded") == "done" && !window.localStorage.getItem("foodDbVersion"))) {
+		updateOldDatabase();
 	} else {
-		if(!lib.tableExists("diary_entry")) {
-			lib.createTable("diary_entry", ["id", "title", "body", "published", "info", "kcal", "pro", "car", "fat", "fib"]);
-			lib.commit();
-		}
-		if(!lib2.tableExists("diary_food")) {
-			lib2.createTable("diary_food", ["id", "type", "code", "name", "term", "kcal", "pro", "car", "fat", "fib"]);
-			lib2.commit();
-		}
-		//add id column
-		if(!lib.columnExists("diary_entry", "id")) {
-			lib.alterTable("diary_entry","id");
-			lib.commit();
-		}
-		if(!lib2.columnExists("diary_food", "id")) {
-			lib2.alterTable("diary_food","id");
-			lib2.commit();
-		}
-		startApp();
+		loadDatabase();
 	}
-}
-/////////////////
-// FIX RESULTS //
-/////////////////
-function fixResults(res) {
-	if(!res) { return; }
-	var result = [];
-	if(res.rows) {
-		for (var i=0; i<res.rows.length; i++) { 
-			result.push(res.rows.item(i));
-		}
-	}
-	return result;
 }
 ////////////////////
 // RESET DATA+SQL //
 ////////////////////
 function deSetup(callback) {
 	blockAlerts = 1;
-	if(hasSql) {
-		db.transaction(function(t) { t.executeSql('DROP TABLE IF EXISTS "diary_entry";'); }, errorHandler, function() { afterHide("clear"); });
-	} else {
+	localforage.clear(function() {
 		afterHide("clear");
-	}
+	});
 }
 ///////////////////
 // CLEAR ENTRIES //
 ///////////////////
 function clearEntries(callback) {
-	//db = window.openDatabase(dbName, 1, dbName + "DB", 1000000);
-	if(hasSql) {
-		db.transaction(function(t) { t.executeSql('update "diary_entry" set info="deleted";'); return false; }, errorHandler, function() { setPush(); return false; });
-	} else {
-		lib.deleteRows("diary_entry");
-		lib.commit();
-		setPush();
+	for(var i=0, len=rowsEntry.length; i<len; i++) {
+		rowsEntry[i].info = 'deleted';
 	}
+	localforage.setItem('diary_entry',rowsEntry,function(rows) {
+		rowsEntry = rows;
+		setPush();
+		callback();
+	});
 }
 //////////////////////////////
 // SQL-ENCODE LOCAL STORAGE //
@@ -319,19 +357,8 @@ function rebuildLocalStorage(lsp) {
 ///////////////////
 // FETCH ENTRIES //
 ///////////////////
-function fetchEntries(start,callback) {
-	if(arguments.length == 1) { callback = arguments[0]; }
-	if(hasSql) {
-		db.transaction(function(t) {
-			t.executeSql('SELECT * FROM diary_entry ORDER BY published DESC',[],
-			function(t,results) {
-				callback(fixResults(results));
-			},errorHandler);
-		});
-	} else {
-		//callback(lib.query("diary_entry"));
-		callback(lib.queryAll("diary_entry", { sort: [["name", "DESC"]]}));
-	}
+function fetchEntries(callback) {
+	callback(rowsEntry.sortbyattr('published','desc'));
 }
 //#//////////////////////#//
 //# ONLINE: PUSH ENTRIES #//
@@ -340,9 +367,6 @@ function pushEntries(userId) {
 	if(isNaN(userId))                              { return; }
 	if(window.localStorage.getItem("pendingSync")) { return; }
 	fetchEntries(function(data) {
-		//NProgress.done();
-		//NProgress.start();
-		//$("#nprogress .bar").css("background-color","rgba(0, 0, 0, .15)");
 		var fetchEntries = '';
 		var newLineFetch = '';
 		var allFetchIds  = [];
@@ -356,6 +380,7 @@ function pushEntries(userId) {
 		var car;
 		var fat;
 		var fib;
+		if(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			id        = data[i].id;
 			title     = data[i].title;
@@ -395,13 +420,11 @@ function pushEntries(userId) {
 				fib       = '';
 			}
 		}
+		}
 		//insert custom diary_food
 		if(window.localStorage.getItem("customItemsSql")) {
-			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customItemsSql")) + "\n";
+			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customItemsSql"));
 		}
-		//if(window.localStorage.getItem("customExerciseSql")) {
-		//	fetchEntries = fetchEntries + trim(window.localStorage.getItem("customExerciseSql")) + "\n";
-		//}
 		if(window.localStorage.getItem("customFavSql")) {
 			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFavSql"));
 		}
@@ -457,6 +480,133 @@ function setComplete() {
 	window.localStorage.setItem("lastSync",new Date().getTime());
 	$("#optionLastSync span").html(dateDiff(window.localStorage.getItem("lastSync"),(new Date().getTime())));
 }
+///////////////
+// ROWS LOOP //
+///////////////
+function rowsLoop(sqlEntry, hive, callback) {
+	if (hive == 'diary_entry') {
+		rows = rowsEntry;
+	} else {
+		rows = rowsFood;
+		hive = 'diary_food';
+	}
+	//////////////////
+	// ENTRIES LOOP //
+	//////////////////
+	for (var i = 0, len = sqlEntry.length; i < len; i++) {
+		if (sqlEntry[i]) {
+			var allRows = JSON.stringify(rows);
+			var lookFor = sqlEntry[i][1];
+			var rowIndex = (allRows).indexOf(lookFor);
+			if (rowIndex !== -1) {
+				//////////////
+				// ON MATCH //
+				//////////////
+				for (var x = 0, xen = rows.length; x < xen; x++) {
+					if (rows[x]) {
+						if (rows[x].id == lookFor) {
+							rows[x].id = sqlEntry[i][1];
+							if (hive == 'diary_entry') {
+								rows[x].title = sqlEntry[i][2];
+								rows[x].body = sqlEntry[i][3];
+								rows[x].published = parseInt(sqlEntry[i][4]);
+								rows[x].info = sqlEntry[i][5];
+							} else {
+								rows[x].type = sqlEntry[i][2];
+								rows[x].code = sqlEntry[i][3];
+								rows[x].name = sqlEntry[i][4];
+								rows[x].term = sqlEntry[i][5];
+							}
+							rows[x].kcal = sqlEntry[i][6];
+							rows[x].pro = sqlEntry[i][7];
+							rows[x].car = sqlEntry[i][8];
+							rows[x].fat = sqlEntry[i][9];
+							rows[x].fib = sqlEntry[i][10];
+							break;
+						}
+					}
+				}
+			} else {
+				////////////////
+				// INSERT NEW //
+				////////////////
+				if (hive == 'diary_entry') {
+					rows.push({
+						id        : sqlEntry[i][1],
+						title     : sqlEntry[i][2],
+						body      : sqlEntry[i][3],
+						published : parseInt(sqlEntry[i][4]),
+						info      : sqlEntry[i][5],
+						kcal      : sqlEntry[i][6],
+						pro       : sqlEntry[i][7],
+						car       : sqlEntry[i][8],
+						fat       : sqlEntry[i][9],
+						fib       : sqlEntry[i][10]
+					});
+				} else {
+					rows.push({
+						id   : sqlEntry[i][1],
+						type : sqlEntry[i][2],
+						code : sqlEntry[i][3],
+						name : sqlEntry[i][4],
+						term : sqlEntry[i][5],
+						kcal : sqlEntry[i][6],
+						pro  : sqlEntry[i][7],
+						car  : sqlEntry[i][8],
+						fat  : sqlEntry[i][9],
+						fib  : sqlEntry[i][10]
+					});
+				}
+			}
+		}
+	}
+	////////////////////
+	// WRITE CALLBACK //
+	////////////////////
+	localforage.setItem(hive, rows, function (rows) {
+		if (hive == 'diary_entry') {
+			rowsEntry = rows;
+		} else {
+			rowsFood  = rows;		
+		}
+		callback();
+	});
+}
+//////////////////////
+// INSERT OR UPDATE //
+//////////////////////
+function insertOrUpdate(sql, callback) {
+	if (!sql || sql == '') {
+		callback();
+		return;
+	}
+	/////////////////////
+	// POPULATE ARRAYS //
+	/////////////////////
+	if (sql.match('\n')) {
+		sql = sql.split('\n');
+	} else {
+		var ctts = sql;
+		sql = [];
+		sql.push(ctts);
+	}
+	var sqlEntry = [];
+	var sqlFood  = [];
+	for (var s = 0, sen = sql.length; s < sen; s++) {
+		if ((/diary_entry|diary_food/).test(sql[s])) {
+			var addTo = (/diary_entry/).test(sql[s]) ? sqlEntry : sqlFood;
+			addTo.push(sql[s].replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','"));
+		}
+	}
+	//////////////////
+	// ENTRIES LOOP //
+	//////////////////
+	rowsLoop(sqlEntry, 'diary_entry', function () {
+		rowsLoop(sqlFood, 'diary_food', function () {
+			callback();
+		});
+	});
+}
 //##//////////////##//
 //## SYNC ENTRIES ##//
 //##//////////////##//
@@ -485,41 +635,11 @@ function syncEntries(userId) {
 			if(trim(sql) == "") {
 				demoRunning = false;
 				setComplete();
-			} else if(hasSql) {
-				//SQL
-				html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
-				//html5sql.process("DELETE FROM diary_entry;" + sql,function() {
-				html5sql.process(sql,function() {
-					//success
-					demoRunning = false;
-					setComplete();
-				});
 			} else {
-				//LOCALSTORAGE 
-				//lib.deleteRows("diary_entry");
-				//lib.commit();
-				//sqlToJson
-				lsql  = sql.split('\n');
-				lasql = [];
-				for(var s=0, sen=lsql.length; s<sen; s++) {
-					lasql.push(lsql[s].replace(",'","','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','"));
-				}
-				for(var a=0, aen=lasql.length; a<aen; a++) {
-					var keyName = lasql[a].split("','");
-					//WRITE
-					if(keyName[0] == "diary_entry" && parseInt(keyName[4]) != '') {
-						lib.insertOrUpdate("diary_entry", {published: parseInt(keyName[4])},{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published": parseInt(keyName[4]),"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
-						//lib.insert("diary_entry",{"id":keyName[1],"title":keyName[2],"body":keyName[3],"published":keyName[4],"info":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
-					}
-					if(keyName[0] == "diary_food" && parseInt(keyName[3]) != '') {
-						lib2.insertOrUpdate("diary_food", {code: keyName[3]},{"id":keyName[1],"type":keyName[2],"code":keyName[3],"name":keyName[4],"term":keyName[5],"kcal":keyName[6],"pro":keyName[7],"car":keyName[8],"fat":keyName[9],"fib":keyName[10]});
-					}
-				}
-				//success
-				lib.commit();
-				lib2.commit();
-				demoRunning = false;
-				setComplete();
+				insertOrUpdate(sql,function() {
+					demoRunning = false;
+					setComplete();					
+				});
 			}
 		});
 	}
@@ -527,216 +647,203 @@ function syncEntries(userId) {
 /////////////////
 // GET ENTRIES //
 /////////////////
-function getEntries(start,callback) {
-	if(arguments.length == 1) { callback = arguments[0]; }
-	if(hasSql) {
-		db.transaction(
-			function(t) {
-				t.executeSql('SELECT id, title, body, published, pro, car, fat FROM "diary_entry" WHERE info IS NOT "deleted" ORDER BY published desc',[],
-				function(t,results) {
-					callback(fixResults(results));
-				},errorHandler);
-		}, errorHandler);
-	} else {
-		callback(lib.query("diary_entry", function(data){ if(data.info != "deleted") { return true; } else { return false; }}));
+function getEntries(callback) {
+	var rowsArray = [];
+	for(var i=0, len=rowsEntry.length; i<len; i++) {
+		if(rowsEntry[i].info !== 'deleted') {
+			rowsArray.push(rowsEntry[i]);
+		}
 	}
+	callback(rowsEntry);
 }
 ///////////////
 // GET ENTRY //
 ///////////////
 function getEntry(eid,callback) {
-	if(arguments.length == 1) { callback = arguments[0]; }
-	if(hasSql) {
-		db.transaction(function(t) {
-			t.executeSql('select * from diary_entry where ID=?', [eid], function(t,results) { callback(fixResults(results)); });
-		});
-	} else {
-		callback(lib.query("diary_entry", {id: eid}));
+	for(var i=0, len=rowsEntry.length; i<len; i++) {
+		if(rowsEntry[i].id == eid) {
+			callback(rowsEntry[i]);
+			break;
+		}
 	}
 }
 //#//////////////////#//
 //# DB: UPDATE ENTRY #//
 //#//////////////////#//
-function updateEntry(data) {
-	if(hasSql) {
-		db.transaction(function(t) {
-			t.executeSql('insert or replace into diary_entry(id,title,body,published,pro,car,fat) values(?,?,?,?,?,?,?)', [data.id,parseInt(data.title) + '',data.body,parseInt(data.published) + '',data.pro,data.car,data.fat]);
-			setPush();
-		});
-	} else {
-		lib.insertOrUpdate("diary_entry", { id: parseInt(data.id) }, {
-			"id":data.id,
-			"title":parseInt(data.title),
-			"body":data.body,
-			"published": parseInt(data.published),
-			"info":'',
-			"kcal":'',
-			"pro":data.pro,
-			"car":data.car,
-			"fat":data.fat,
-			"fib":''
-		});
-		lib.commit();
-		setPush();
+function updateEntry(data,callback) {
+	for(var i=0, len=rowsEntry.length; i<len; i++) {
+		if(rowsEntry[i].id == data.id) {
+			rowsEntry[i].id        = data.id;
+			rowsEntry[i].title     = parseInt(data.title);
+			rowsEntry[i].body      = data.body;
+			rowsEntry[i].published = parseInt(data.published);
+			rowsEntry[i].info      = '';
+			rowsEntry[i].kcal      = '';
+			rowsEntry[i].pro       = data.pro;
+			rowsEntry[i].car       = data.car;
+			rowsEntry[i].fat       = data.fat;
+			rowsEntry[i].fib       = '';
+			break;
+		}
 	}
+	localforage.setItem('diary_entry',rowsEntry,function(rows) {
+		rowsEntry = rows;
+		setPush();
+		callback();
+	});
 }
 //#//////////////////#//
 //# DB: DELETE ENTRY #//
 //#//////////////////#//
-function deleteEntry(rid, callback) {
-	if(hasSql) {
-		db.transaction(function(t) {
-			t.executeSql('update "diary_entry" set info="deleted" where id = ?', [rid.id]);
-			setPush();
-		});
-	} else {
-		//lib.deleteRows("diary_entry",{id: rid.id});
-		lib.update("diary_entry", {"id": rid.id}, function(row) {
-			row.info = 'deleted';
-			return row;
-		});
-		lib.commit();
-		setPush();
+function deleteEntry(entry) {
+	for(var i=0, len=rowsEntry.length; i<len; i++) {
+		if(rowsEntry[i].id == entry.id) {
+			rowsEntry[i].info = 'deleted';
+			break;
+		}
 	}
+	localforage.setItem('diary_entry',rowsEntry,function(rows) {
+		rowsEntry = rows;
+		setPush();
+	});
 }
 ////////////////
 // SAVE ENTRY //
 ////////////////
-function saveEntry(data) {
-	//if(!data.published) { data.published = 'quicksave'; }
-	if(hasSql) {
-		db.transaction(function(t) {
-			//UPDATE BODY
-			if(data.id && !data.title) {
-				t.executeSql('update diary_entry set body=? where id=' + data.id, [data.body]);
-				setPush();
-			//UPDATE TITLE
-			} else if(data.id && data.title) {
-				t.executeSql('update diary_entry set title=? where id=' + data.id, [data.title]);
-				setPush();
-			//INSERT FULL
-			} else if(data.pro || data.car || data.fat) {
-				getRateDialog();
-				expireNotice();
-				t.executeSql('insert into diary_entry(id,title,body,published,pro,car,fat) values(?,?,?,?,?,?,?)', [parseInt(data.published),data.title,data.body,parseInt(data.published) + '',data.pro,data.car,data.fat]); 
-				setPush();
-			//INSERT QUICK
-			} else {
-				getRateDialog();
-				expireNotice();
-				t.executeSql('insert into diary_entry(id,title,body,published) values(?,?,?,?)', [parseInt(data.published),data.title,data.body,parseInt(data.published) + '']); 
-				setPush();
-			} 
+function saveEntry(data,callback) {
+	/////////////////
+	// UPDATE BODY //
+	/////////////////
+	if(data.id && !data.title) {
+		for(var i=0, len=rowsEntry.length; i<len; i++) {
+			if(rowsEntry[i].id == data.id) {
+				rowsEntry[i].body = data.body;
+				break;
+			}
+		}
+		localforage.setItem('diary_entry',rowsEntry,function(rows) {
+			rowsEntry = rows;
+			setPush();
+			if(callback) {
+				callback();
+			}
+		});
+	} else if(data.id && data.title) {
+	//////////////////
+	// UPDATE TITLE //
+	//////////////////
+		for(var i=0, len=rowsEntry.length; i<len; i++) {
+			if(rowsEntry[i].id == data.id) {
+				rowsEntry[i].title = data.title;
+				break;
+			}
+		}
+		localforage.setItem('diary_entry',rowsEntry,function(rows) {
+			rowsEntry = rows;
+			setPush();
+			if(callback) {
+				callback();
+			}
+		});
+	} else if(data.pro || data.car || data.fat) {
+	/////////////////
+	// INSERT FULL //
+	/////////////////
+		rowsEntry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: ''});
+		//SAVE
+		localforage.setItem('diary_entry',rowsEntry,function(rows) {
+			rowsEntry = rows;
+			getRateDialog();
+			setPush();
+			if(callback) {
+				callback();
+			}
 		});
 	} else {
-		//UPDATE BODY
-		if(data.id && !data.title) {
-			lib.update("diary_entry", {"id": data.id}, function(row) {
-				row.body = data.body;
-				return row;
-			});
-			lib.commit();
-			setPush();
-		//UPDATE TITLE
-		} else if(data.id && data.title) {
-			lib.update("diary_entry", {"id": data.id}, function(row) {
-				row.title = data.title;
-				return row;
-			});
-			lib.commit();
-			setPush();
-		//INSERT FULL
-		} else if(data.pro || data.car || data.fat) {
+	//////////////////
+	// INSERT QUICK //
+	//////////////////
+		rowsEntry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: '', car: '', fat: '', fib: ''});
+		//SAVE
+		localforage.setItem('diary_entry',rowsEntry,function(rows) {
+			rowsEntry = rows;
 			getRateDialog();
-			expireNotice();
-			lib.insert("diary_entry", {"id": parseInt(data.published), "title": data.title, "body": data.body, "published": parseInt(data.published), "pro":data.pro, "car":data.car, "fat":data.fat});
-			lib.commit();
 			setPush();
-		//INSERT QUICK
-		} else {
-			getRateDialog();
-			expireNotice();
-			lib.insert("diary_entry", {"id": parseInt(data.published),"title": data.title, "body": data.body, "published": parseInt(data.published)});
-			lib.commit();
-			setPush();
-		}
+			if(callback) {
+				callback();
+			}
+		});
 	}
 }
 //////////////
 // SET FOOD //
 //////////////
 function setFood(data, callback) {
-	if(hasSql) {
-		db.transaction(function(t) {
-			if(data.act == "update") {
-				t.executeSql('delete from diary_food where CODE = ?', [data.code]);
-				t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib],function() {
-				callback();	
-				});
-			} else {
-				t.executeSql('insert into diary_food(id,type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?,?)', [new Date().getTime(),data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib],
-				function() {
-					callback();
-				});
+	if(data.act == "update") {
+		// UPDATE
+		for(var i=0, len=rowsFood.length; i<len; i++) {
+			if(rowsFood[i].code == data.code) {
+				rowsFood[i].type = data.type;
+				rowsFood[i].code = data.code;
+				rowsFood[i].name = data.name;
+				rowsFood[i].term = data.term;
+				rowsFood[i].kcal = data.kcal;
+				rowsFood[i].pro  = data.pro;
+				rowsFood[i].car  = data.car;
+				rowsFood[i].fat  = data.fat;																																			
+				rowsFood[i].fib  = data.fib;
+				break;
 			}
+		}
+		localforage.setItem('diary_food',rowsFood,function(rows) {
+			rowsFood = rows;
+			callback();
 		});
 	} else {
-		if(data.act == "update") {
-			lib2.update("diary_food",{code: data.code}, function(row) {
-				return {"id":data.id,"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib};
-			});
-			lib2.commit();
+		rowsFood.push({
+			id: new Date().getTime(),
+			type:data.type,
+			code:data.code,
+			name:data.name,
+			term:sanitize(data.name),
+			kcal:data.kcal,
+			pro:data.pro,
+			car:data.car,
+			fat:data.fat,
+			fib:data.fib
+		});
+		localforage.setItem('diary_food',rowsFood,function(rows) {
+			rowsFood = rows;
 			callback();
-		} else {
-			lib2.insert("diary_food", {"id": new Date().getTime(),"type":data.type,"code":data.code,"name":data.name,"term":sanitize(data.name),"kcal":data.kcal,"pro":data.pro,"car":data.car,"fat":data.fat,"fib":data.fib});
-			lib2.commit();
-			callback();
-		}
+		});
 	}
 }
 //////////////
 // GET FOOD //
 //////////////
 function getFood(fCode,callback) {
-	if(arguments.length == 1) { callback = arguments[0]; }
-	if(hasSql) {
-		db.transaction(function(t) {
-			t.executeSql('select * from diary_food where CODE=?', [fCode], function(t,results) { callback(fixResults(results)); });
-		});
-	} else {
-		callback(lib2.query("diary_food", {code: fCode}));
+	for(var i=0, len=rowsFood.length; i<len; i++) {
+		if(rowsFood[i].code == fCode) {
+			callback(rowsFood[i]);
+			break;
+		}
 	}
 }
 /////////////////
 // DELETE FOOD //
 /////////////////
 function delFood(fCode, callback) {
-	if(hasSql) {
-		db.transaction(function(t) {
-			t.executeSql('delete from diary_food where CODE = ?', [fCode]); 
-		});
-	} else {
-		lib2.deleteRows("diary_food",{code: fCode});
-		lib2.commit();
+	for(var i=0, len=rowsFood.length; i<len; i++) {
+		if(rowsFood[i].code == fCode) {
+			rowsFood.splice(i,1);
+			break;
+		}
 	}
+	callback();
+	localforage.setItem('diary_food',rowsFood,function(rows) {
+		rowsFood = rows;
+	});
 }
-/*
-function delFood(fCode, callback) {
-	if(hasSql) {
-		db.transaction(function(t) {
-			//t.executeSql('delete from diary_food where CODE = ?', [fCode]);
-			t.executeSql('update "diary_food" set fib="deleted" where CODE = ?', [fCode]);
-		});
-	} else {
-		//lib2.deleteRows("diary_food",{code: fCode});
-		lib2.update("diary_food", {"code": fCode}, function(row) {
-			row.fib = 'deleted';
-			return row;
-		});
-		lib2.commit();
-	}
-};
-*/
 /////////////////////
 // GET CUSTOM LIST //
 /////////////////////
@@ -749,75 +856,49 @@ function callbackOpen() {
 		}
 	}
 }
-function getCustomList(rType,callback) {
-	if(arguments.length == 1) { callback = arguments[0]; }
-	
-	if(hasSql) {
-		db.transaction(function(t) {
-			//////////////
-			// FAV LIST //
-			//////////////
-			if(rType == "fav") {
-				t.executeSql('select * from diary_food where FIB=? order by TERM COLLATE NOCASE ASC',[rType],function(t,results) {
-					callback(fixResults(results));
-					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1") { callbackOpen(); }
-				});
-			////////////////////////
-			// FOOD~EXERCISE LIST //
-			////////////////////////
-			} else {
-				t.executeSql('select * from diary_food where length(CODE)=14 order by TERM COLLATE NOCASE ASC',[],function(t,results) {
-					callback(fixResults(results));
-					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
-					//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
-				});
+function getCustomList(listType,callback) {
+	//////////////
+	// FAV LIST //
+	//////////////
+	if(listType == "fav") {
+		var rowsArray = [];
+		for(var i=0, len=rowsFood.length; i<len; i++) {
+			if(rowsFood[i]) {
+				if(rowsFood[i].fib == 'fav') {
+					rowsArray.push(rowsFood[i]);
+				}
 			}
-		});
-	} else {
-		//////////////
-		// FAV LIST //
-		//////////////
-		if(rType == "fav") {
-			//////////
-			// SORT //
-			//////////
-			var favArray = lib2.query("diary_food",{fib: "fav"});
-			favArray = favArray.sort(function(a, b) {
-				return (a.term > b.term) ? 1 : ((a.term < b.term) ? -1 : 0);
-			});
-			callback(favArray);
-		////////////////////////
-		// FOOD~EXERCISE LIST //
-		////////////////////////			
-		} else {
-			//////////
-			// SORT //
-			//////////
-			var CustomsArray = lib2.query("diary_food",function(row) { if(row.code.slice(0, 1) == "c") { return true; }});
-			CustomsArray = CustomsArray.sort(function(a, b) {
-				return (a.term > b.term) ? 1 : ((a.term < b.term) ? -1 : 0);
-			});
-			callback(CustomsArray);			
 		}
-		//if(window.localStorage.getItem("lastInfoTab") == "topBarItem-1")							{ callbackOpen(); }
-		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-2" && rType == "food")		{ callbackOpen(); }
-		//else if(window.localStorage.getItem("lastInfoTab") == "topBarItem-3" && rType == "exercise")	{ callbackOpen(); }
+		callback(rowsArray.sortbyattr('term'));
+	////////////////////////
+	// FOOD~EXERCISE LIST //
+	////////////////////////
+	} else {
+		var rowsArray = [];
+		for(var i=0, len=rowsFood.length; i<len; i++) {
+			if(rowsFood[i]) {
+				if(rowsFood[i].code.slice(0, 1) == "c") {
+					rowsArray.push(rowsFood[i]);
+				}
+			}
+		}
+		callback(rowsArray.sortbyattr('term'));
 	}
 }
 /////////////
 // SET FAV //
 /////////////
 function setFav(data, callback) {
-	if(hasSql) {
-		db.transaction(function(t) {
-			t.executeSql('delete from diary_food where CODE = ?', [data.code]);
-			t.executeSql('insert into diary_food(type,code,name,term,kcal,pro,car,fat,fib) values(?,?,?,?,?,?,?,?,?)', [data.type,data.code,data.name,sanitize(data.name),data.kcal,data.pro,data.car,data.fat,data.fib]);
-		});
-	} else {
-		lib2.deleteRows('diary_food', {code: data.code});
-		lib2.insert('diary_food', {type:data.type,code:data.code,name:data.name,term:sanitize(data.name),kcal:data.kcal,pro:data.pro,car:data.car,fat:data.fat,fib:data.fib});
-		lib2.commit();
+	for(var i=0, len=rowsFood.length; i<len; i++) {
+		if(rowsFood[i].code == data.code) {
+			rowsFood[i].fib = data.fib;
+			break;
+		}
 	}
+	callback();
+	localforage.setItem('diary_food',rowsFood,function(rows) {
+		rowsFood = rows;
+	});
 }
 ///////////////
 // AFTERHIDE //
@@ -937,83 +1018,44 @@ function updateFoodDb() {
 			// IMPORT //
 			////////////
 			function doImport(dbExt) {
-		
-			foodDbTimer = setTimeout(function() {
-				spinner(45);
-				try{
-				/////////
-				// SQL //
-				/////////
-				if(hasSql) {
-					html5sql.openDatabase(dbName, dbName + "DB", 5*1024*1024);
-					$.ajax({type: "GET", dataType: "text", url: hostLocal + "sql/searchdb_" + langDB + dbExt, success: function(sql) {
-						//drop-recreate 
-						sql = 'DROP TABLE IF EXISTS "diary_food"; CREATE TABLE "diary_food"(id INTEGER PRIMARY KEY AUTOINCREMENT,type TEXT,code VARCHAR UNIQUE,name TEXT,term TEXT,kcal TEXT,pro TEXT,car TEXT,fat TEXT,fib TEXT);' + sql;
-						//http://regex101.com
-						var postCustom = '';
-						if(trim(window.localStorage.getItem("customItemsSql"))     != '') { postCustom += trim(window.localStorage.getItem("customItemsSql"));     }
-						//if(trim(window.localStorage.getItem("customExerciseSql")) != '') { postCustom += trim(window.localStorage.getItem("customExerciseSql")); }						
-						if(trim(window.localStorage.getItem("customFavSql"))      != '') { postCustom += trim(window.localStorage.getItem("customFavSql"));      }
-						sql = sql.replace(/lib2(.*)\{"id"\:"/g, 'INSERT OR REPLACE INTO "diary_food" VALUES(');
-						sql = sql.split('", "type":').join(',').split('"code":').join('').split('"name":').join('').split('"kcal":').join('').split('"term":').join('').split('"kcal":').join('').split('"pro":').join('').split('"car":').join('').split('"fat":').join('').split('"fib":').join('').split('});').join(');');
-						sql = sql + postCustom;
-						//
-						html5sql.process(sql,function() {
-							//success
-							demoRunning = false;
-							window.localStorage.setItem("foodDbLoaded","done");
-							window.localStorage.setItem("foodDbVersion","2");
-							window.localStorage.removeItem("startLock");
-							setTimeout(function() { niceResizer(); },300);
-							spinner('stop');
-							if(window.localStorage.getItem("facebook_userid")) {
-								syncEntries(window.localStorage.getItem("facebook_userid"));
-							} else {
-								updateCustomList('fav');
-								updateCustomList('items');
-								getCatList();
+				spinner();
+				foodDbTimer = setTimeout(function() {
+					try{
+						$.ajax({type: "GET", dataType: "text", url: hostLocal + "sql/searchdb_" + langDB + dbExt, success: function(ls) {
+							var rowsArray = [];
+							//PARSE
+							ls = ls.split('lib2.insert("diary_food", ').join('');
+							ls = ls.split(');').join('');
+							ls = ls.split('\n');
+							for(var l=0, llen=ls.length; l<llen; l++) {
+								rowsArray.push(JSON.parse(ls[l]));
 							}
-						},
-						function(error, failingQuery) {
-							//failure
-							demoRunning = false;
-							window.localStorage.removeItem("foodDbLoaded");
-							window.localStorage.removeItem("startLock");
-							spinner('stop');
-						});
-					}});
-				//////////////////
-				// LOCALSTORAGE //
-				//////////////////
-				} else {
-					$.ajax({type: "GET", dataType: "text", url: hostLocal + "sql/searchdb_" + langDB + dbExt, success: function(ls) {
-						//delete non-fav/custom
-						lib2.deleteRows("diary_food", function(row) {
-							if(row.code.length < 11 && row.fib != "fav") {
-								return true;
-							} else {
-								return false;
-							}
-						});
-						eval(ls);
-						lib2.commit();
-						//success
-						demoRunning = false;
-						window.localStorage.setItem("foodDbLoaded","done");
-						window.localStorage.setItem("foodDbVersion","2");
-						window.localStorage.removeItem("startLock");
-						setTimeout(function() { niceResizer(); },300);
-						spinner('stop');
-						if(window.localStorage.getItem("facebook_userid")) {
-							syncEntries(window.localStorage.getItem("facebook_userid"));
-						} else {
-							updateCustomList('fav');
-							updateCustomList('items');	
-							getCatList();					
-						}
-					}});			
-				}
-				} catch(e) { 
+							//REINSERT
+							var postCustom = '';
+							if(trim(window.localStorage.getItem("customItemsSql")) != '') { postCustom += trim(window.localStorage.getItem("customItemsSql")); }
+							if(trim(window.localStorage.getItem("customFavSql"))   != '') { postCustom += trim(window.localStorage.getItem("customFavSql"));   }
+							rowsFood = rowsArray;
+							localforage.setItem('diary_food',rowsArray,function() {
+								insertOrUpdate(postCustom,function() {
+									//success
+									demoRunning = false;
+									window.localStorage.setItem("foodDbLoaded","done");
+									window.localStorage.setItem("foodDbVersion",3);
+									window.localStorage.removeItem("startLock");
+									setTimeout(function() { niceResizer(); },300);
+									spinner('stop');
+									$('body').removeClass('updtdb');
+									if(window.localStorage.getItem("facebook_userid")) {
+										syncEntries(window.localStorage.getItem("facebook_userid"));
+									} else {
+										updateCustomList('fav');
+										updateCustomList('items');	
+										getCatList();
+									}
+								});
+							});
+						}});
+					} catch(e) { 
 					//failure
 					demoRunning = false;
 					window.localStorage.removeItem("foodDbLoaded");
@@ -1021,7 +1063,7 @@ function updateFoodDb() {
 					spinner('stop');
 					errorHandler(e);
 				}
-		},100);
+			},100);
 		}}
 		//////////////////////
 		// CALLBACK TRIGGER //
@@ -1114,7 +1156,7 @@ function fillDate(timestamp,element) {
 //////////////////////
 // UPDATE ENTRYLIST //
 //////////////////////
-var partial = "";
+var partial = '';
 function updateEntries(partial,range,callback) {
 	var totalEntryS       = parseInt(window.localStorage.getItem('totalEntries'));
 	var totalRecentEntryS = parseInt(window.localStorage.getItem('totalRecentEntries'));
@@ -1122,11 +1164,11 @@ function updateEntries(partial,range,callback) {
 	// GET LOOP //
 	//////////////
 	getEntries(function(data) {
-		var s = "";
-		var p = "";
+		var s = '';
+		var p = '';
 		var rowClass;
-		var lastRow = "";
-		var lastId  = "";
+		var lastRow = '';
+		var lastId  = '';
 		var lastPub = 0;
 		var totalArray = [];
 		var langFood = LANG.FOOD[lang];
@@ -1143,13 +1185,13 @@ function updateEntries(partial,range,callback) {
 			var dataBody      = data[i].body;
 			var dataPublished = parseInt(data[i].published);
 			// 0 : 1
-			if(data[i].body == "") {
+			if(data[i].body == '') {
                        if(dataTitle > 0) {
 					dataBody = langFood;
 				} else if(dataTitle < 0) {
 					dataBody = langExer;
 				} else {
-					dataBody = "";
+					dataBody = '';
 				}
 			}
 			// row colors
@@ -1164,7 +1206,6 @@ function updateEntries(partial,range,callback) {
 			// EXPIRED
 			if(window.localStorage.getItem("config_start_time") > dataPublished || window.localStorage.getItem("appStatus") != "running") { rowClass = rowClass + " expired"; }
 			// CORE OUTPUT
-			//<p class='entriesId'>#" + Number(i+1) + "</p>
 			var dataHandler = "\
 			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + " day" + dayFormat(dataPublished).split("/").join("x") + "' name='" + dataPublished + "'>\
 				<p class='entriesTitle'>" + dataTitle + "</p>\
@@ -1173,7 +1214,9 @@ function updateEntries(partial,range,callback) {
 				<p id='t" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
-			// ROW++ (sqlish sort)
+			///////////////////
+			// ROW PRELOADER //
+			///////////////////
 			totalEntries++;
 			if((new Date().getTime() - dataPublished) < 60*60*24*5*1000) {
 				totalRecentEntries++;
@@ -1191,13 +1234,11 @@ function updateEntries(partial,range,callback) {
 		///////////////////
 		// ORDER BY DATE //
 		///////////////////
-		var prop = 'dati';
-		totalArray = totalArray.sort(function(a, b) {
-			return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
-		});
-		$.each(totalArray,function(k,v) {
-			s += v.dato;
-		});
+		totalArray = totalArray.sortbyattr('dati','desc');
+		//BUILD OUTPUT
+		for(var t=0, ten=totalArray.length; t<ten; t++) {
+			s += totalArray[t].dato;
+		}
 		//////////////
 		// CALLBACK //
 		//////////////
@@ -1461,13 +1502,10 @@ function buildHelpMenu() {
 	
 	$("#appHelper, #appHelper li").on("scroll " + touchmove,function(evt) {
 		touchHelper++;
-		
 		if(touchHelper > 5 || (touchHelper > 1 && isMobile.Android())) {
 			$(".activeRow").removeClass("activeRow");
 			touchHelper = 0;
 		}
-		//evt.preventDefault();
-		//evt.stopPropagation();
 	});
 	//////////////////////////////////
 	// content-builder self-handler //
@@ -1540,7 +1578,6 @@ function buildHelpMenu() {
 			$("#appSubHelper").css("overflow","hidden");
 			$("#appSubHelper").addClass("open");
 			$("#appHelper").addClass("out");
-			//$("#appContent").getNiceScroll().remove();
 		},50);
 	});
 }
@@ -1612,7 +1649,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 				//if(isMobile.Android()) { touchBeh = false; }
 				//$("#newWindow").css("overflow","hidden");
 				//$("#newWindow").niceScroll({touchbehavior:touchBeh,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
-			} else if((isMobile.Windows() || isMobile.MSApp()) && $('#appHistory').html()) {
+			} else if(($.nicescroll && isMobile.Windows() || isMobile.MSApp()) && $('#appHistory').html()) {
 				$("#newWindow").css("overflow","hidden");
 				$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:true,hwacceleration:false});
 			} else {
@@ -1632,7 +1669,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 				});
 			}
 			$('#appContent, #foodSearch, #newWindowWrapper').css('pointer-events','none');
-			$("#newWindow").getNiceScroll().remove();
+			if($.nicescroll) {
+				$("#newWindow").getNiceScroll().remove();
+			}
 			setTimeout(function() {
 				$("#newWindowWrapper").removeClass('open');
 				$("#newWindowWrapper").css('opacity',0);
@@ -1815,7 +1854,7 @@ function buildLangMenu(opt) {
 //////////////////
 var niceTimer;
 function niceResizer() {
-	if(!isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+	if($.nicescroll && !isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
 		$("#appHelper").getNiceScroll().resize();
@@ -1829,19 +1868,27 @@ function niceResizer() {
 // GETNICESCROLL //
 ///////////////////
 function getNiceScroll(target) {
-	var NSettings = {touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid rgba(0,0,0,0)",cursoropacitymax:.3,cursorwidth:3,horizrailenabled:false,hwacceleration:true};
+	if(!$.nicescroll) { return; }
+	var NSettings = { touchbehavior:true, cursorcolor:"rgba(0,0,0,1)", cursorborder: "1px solid rgba(0,0,0,0)", cursoropacitymax:.3, cursorwidth:3, horizrailenabled:false, hwacceleration:true };
 	//
-	if(isMobile.Android()) {
-		//NSettings.cursorborder = "1px solid rgba(0,0,0,0)";
-		//NSettings.cursorwidth  = 3;
+	if($('#appHistory').html()) {
+		NSettings.horizrailenabled = true;
 	}
+	//NSettings.hwacceleration        = false;
+	//NSettings.touchbehavior         = false;
+	//NSettings.nativeparentscrolling = false;
+	//NSettings.directionlockdeadzone = 9;	
+	//NSettings.enabletranslate3d     = false;
+	//NSettings.bouncescroll          = false;
+	//NSettings.hwacceleration        = false;
+	//NSettings.usetransition         = false;
 	//NOTES
 	if(target == "#diaryNotesInput") {			
 		if(!isMobile.Windows() && !isMobile.MSApp()) {
-			$('#diaryNotesInput').css("overflow","hidden");
-			$("#diaryNotesInput").niceScroll(NSettings);
+			$(target).css("overflow","hidden");
+			$(target).niceScroll(NSettings);
 		} else {
-			$('#diaryNotesInput').css("overflow","auto");
+			$(target).css("overflow","auto");
 		}
 	} else {
 		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
@@ -1937,7 +1984,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	///////////////
-	var timeRate = 2.1 * 24 * 60 * 60 * 1000;
+	var timeRate = 1 * 24 * 60 * 60 * 1000;
 	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
@@ -1945,7 +1992,7 @@ function getRateDialog() {
 			//SHOW DIALOG
 			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], getStoreUrl, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
 			window.localStorage.setItem("getRate","locked");
-		},3000);
+		},3500);
 	}
 }
 ///////////////////

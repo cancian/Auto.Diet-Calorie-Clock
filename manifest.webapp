@@ -21,7 +21,7 @@
 	"installs_allowed_from" : [
 		"*"
 	],
-	"version" : "1.3.3",
+	"version" : "1.4",
 	"default_locale" : "en-us",
 	"name" : "Calorie Counter",
 	"size": 1612346,

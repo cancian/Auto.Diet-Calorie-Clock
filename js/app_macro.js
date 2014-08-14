@@ -1025,9 +1025,6 @@ function getElapsed(swap) {
 		     if(window.localStorage.getItem("config_swap") == 1) { window.localStorage.setItem("config_swap",2); swap = 2; }
 		else if(window.localStorage.getItem("config_swap") == 2) { window.localStorage.setItem("config_swap",3); swap = 3; }
 		else if(window.localStorage.getItem("config_swap") == 3) { window.localStorage.setItem("config_swap",1); swap = 1; }
-		//$("#appStatusElapsed div span").stop().animate({ color: "#007aff" }, 1).animate({ color: "#aaa" }, 450);
-		//$("#appStatusElapsed").stop().animate({ borderColor: "rgba(0,117,255,0.7)" }, 1).animate({ borderColor: "#eee" }, 350);
-		//$("#appStatusElapsed").stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" }, 325);
 	}
 	//////////
 	// VARS //
@@ -1123,6 +1120,7 @@ function getEntryEdit(eid) {
 				$("#divEntryTitle").addClass('exercise');
 			}
 			//MOBISCROLL
+			if($.mobiscroll) {
 			$('#getEntryDate').mobiscroll().datetime({
 				preset: 'datetime',
 				minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0),
@@ -1150,6 +1148,7 @@ function getEntryEdit(eid) {
 				showLabel: true,
 				useShortLabels: true,
 			});
+			}
 			//HOLD FLICKER
 			if(isMobile.Android() ) {
 				$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
@@ -1257,34 +1256,34 @@ function getEntryEdit(eid) {
 				pro:parseFloat($("#getEntryPro").val())            + '',
 				car:parseFloat($("#getEntryCar").val())            + '',
 				fat:parseFloat($("#getEntryFat").val())            + '',
+			},function() {
+				//REFRESH DATA
+				setTimeout(function() {
+					updateEntries(parseInt($('#getEntryDateHidden').val()));
+					updateEntriesSum();
+				}, 0);
 			});
-			//REFRESH DATA
-			setTimeout(function() {
-				//$('#' + $('#getEntryId').val()).remove();
-				updateEntries(parseInt($('#getEntryDateHidden').val()));
-				updateEntriesSum();
-			}, 0);
 			return true;
 		};
 		//////////
 		// HTML //
 		//////////
-		var pro = data[0].pro;
-		var car = data[0].car;
-		var fat = data[0].fat;
-		if(!data[0].pro || isNaN(pro)) { pro = 0; }
-		if(!data[0].car || isNaN(car)) { car = 0; }
-		if(!data[0].fat || isNaN(fat)) { fat = 0; }
+		var pro = data.pro;
+		var car = data.car;
+		var fat = data.fat;
+		if(!data.pro || isNaN(pro)) { pro = 0; }
+		if(!data.car || isNaN(car)) { car = 0; }
+		if(!data.fat || isNaN(fat)) { fat = 0; }
 		var getEntryHtml = "\
 			<div id='getEntryWrapper'>\
-				<div id='divEntryBody'><span>"  + LANG.ADD_NAME[lang] + "</span><input type='text' id='getEntryBody' value='"    + data[0].body      + "' /></div>\
-				<div id='divEntryTitle'><span>" + LANG.KCAL[lang]     + "</span><input type='number' id='getEntryTitle' value='" + data[0].title     + "' /></div>\
-				<div id='divEntryPro'><span>"   + LANG.PRO[lang]      + "</span><input type='number' id='getEntryPro' value='"   + pro               + "' /></div>\
-				<div id='divEntryCar'><span>"   + LANG.CAR[lang]      + "</span><input type='number' id='getEntryCar' value='"   + car               + "' /></div>\
-				<div id='divEntryFat'><span>"   + LANG.FAT[lang]      + "</span><input type='number' id='getEntryFat' value='"   + fat               + "' /></div>\
-				<div id='divEntryDate'><span>"  + LANG.DATE[lang]     + "</span><input type='text' id='getEntryDate' value='"    + data[0].published + "' /></div>\
-				<input type='hidden' id='getEntryId'         value='" + data[0].id        + "' />\
-				<input type='hidden' id='getEntryDateHidden' value='" + data[0].published + "' />\
+				<div id='divEntryBody'><span>"  + LANG.ADD_NAME[lang] + "</span><input type='text'   id='getEntryBody'  value='" + data.body      + "' /></div>\
+				<div id='divEntryTitle'><span>" + LANG.KCAL[lang]     + "</span><input type='number' id='getEntryTitle' value='" + data.title     + "' /></div>\
+				<div id='divEntryPro'><span>"   + LANG.PRO[lang]      + "</span><input type='number' id='getEntryPro'   value='" + pro            + "' /></div>\
+				<div id='divEntryCar'><span>"   + LANG.CAR[lang]      + "</span><input type='number' id='getEntryCar'   value='" + car            + "' /></div>\
+				<div id='divEntryFat'><span>"   + LANG.FAT[lang]      + "</span><input type='number' id='getEntryFat'   value='" + fat            + "' /></div>\
+				<div id='divEntryDate'><span>"  + LANG.DATE[lang]     + "</span><input type='text'   id='getEntryDate'  value='" + data.published + "' /></div>\
+				<input type='hidden' id='getEntryId'         value='" + data.id        + "' />\
+				<input type='hidden' id='getEntryDateHidden' value='" + data.published + "' />\
 			</div>";
 		/////////////////
 		// CALL WINDOW //
@@ -1295,12 +1294,14 @@ function getEntryEdit(eid) {
 //##////////////////##//
 //## BILLING MODULE ##//
 //##////////////////##//
+var expireNoticeTimer;
 function expireNotice() {
 	if(window.localStorage.getItem("config_no_notice")) { 
 		window.localStorage.removeItem("config_no_notice");
 		return; 
 	}
-	setTimeout(function() {
+	clearTimeout(expireNoticeTimer);
+	expireNoticeTimer = setTimeout(function() {
 		if(window.localStorage.getItem("config_mode") == 'expired' && !$("body").hasClass("full")) {
 			////////////
 			// UNLOCK //
@@ -1318,10 +1319,12 @@ function expireNotice() {
 			// CONFIRM/NOTIFY //
 			////////////////////
 			if(!$("#buyButton").length) {
-				appConfirm(LANG.EVALUATION_EXPIRED[lang], LANG.BUY_FULL_VERSION[lang] + '?', doBuy, LANG.BUY[lang], LANG.NO_THANKS[lang]);
+				if((isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) && isCordova()) {
+					appConfirm(LANG.EVALUATION_EXPIRED[lang], LANG.BUY_FULL_VERSION[lang] + '?', doBuy, LANG.BUY[lang], LANG.NO_THANKS[lang]);
+				}
 			}
 		}
-	},2000);
+	},7000);
 }
 ///////////////
 // DAYS LEFT //
@@ -1338,14 +1341,16 @@ function daysLeft() {
 	if(daysLeft < 0 || daysLeft > 7) { daysLeft = 0; }
 	//write expired if not paid
 	if(daysLeft == 0) {
-		if(window.localStorage.getItem("config_mode") != 'full') {
-			if(window.localStorage.getItem("config_mode") != 'expired') {
-				$("body").removeClass("full trial");
-				$("body").addClass("expired");
-				window.localStorage.setItem("config_mode","expired");
-				window.localStorage.setItem("config_install_time",(new Date().getTime()) - (60*60*24*8*1000));
-				expireNotice();
-				getAnalytics('expired');
+		if((isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) && isCordova()) {
+			if(window.localStorage.getItem("config_mode") != 'full') {
+				if(window.localStorage.getItem("config_mode") != 'expired') {
+					$("body").removeClass("full trial");
+					$("body").addClass("expired");
+					window.localStorage.setItem("config_mode","expired");
+					window.localStorage.setItem("config_install_time",(new Date().getTime()) - (60*60*24*8*1000));
+					getAnalytics('expired');
+					expireNotice();
+				}
 			}
 		}
 	}
@@ -1496,66 +1501,6 @@ function billingBuy() {
 			billingAuthorize(0, LANG.UNEXPECTED_ERROR[lang]);
 		}
 	}
-	/*///////
-	// IOS //
-	///////*/
-	if(isMobile.iOS()) {
-		try {
-	/*		
-    window.storekit.init({
-
-        debug: true,
-
-        purchase: function (transactionId, productId) {
-            console.log('purchased: ' + productId);
-        },
-        restore: function (transactionId, productId) {
-            console.log('restored: ' + productId);
-        },
-        restoreCompleted: function () {
-           console.log('all restore complete');
-        },
-        restoreFailed: function (errCode) {
-            console.log('restore failed: ' + errCode);
-        },
-        error: function (errno, errtext) {
-            console.log('Failed: ' + errtext);
-        },
-        ready: function () {
-            var productIds = [
-                "com.cancian.mylivediet"
-            ];
-            window.storekit.load(productIds, function(validProducts, invalidProductIds) {
-                $.each(validProducts, function (i, val) {
-                    alert.log("id: " + val.id + " title: " + val.title + " val: " + val.description + " price: " + val.price);
-                });
-                if(invalidProductIds.length) {
-                    alert.log("Invalid Product IDs: " + JSON.stringify(invalidProductIds));
-                }
-            });
-        }
-    });
-	*/
-	///window.storekit.verifyReceipt(function(){ alert('s'); },function(){ alert('x'); });
-
-
-
-    window.storekit.loadReceipts(function (receipts) {
-		var appReceipt      = Base64.decode(receipts.appStoreReceipt);
-		var originalDatePos = (Base64.decode(receipts.appStoreReceipt)).indexOf('com.cancian.mylivediet');
-		var originalDate    = appReceipt.slice((originalDatePos-32),(originalDatePos-13));
-		if(Date.parse(originalDate) > Date.UTC(2014,6,22)) {
-			alert('free');
-		} else {
-			alert('paid');		
-		}
-    });	
-	//
-
-		} catch (e) {
-alert(e);
-		}
-	}	
 }
 //#/////////#//
 //# RESTORE #//
@@ -1627,10 +1572,12 @@ function billingWindow() {
 		$('#buyButton').on(touchend,function(evt) {
 			evt.stopPropagation();
 			billingBuy();
+			getAnalytics("billingBuy");			
 		});
 		$('#restoreButton').on(touchend,function(evt) {
 			evt.stopPropagation();
 			billingRestore();
+			getAnalytics("billingRestore");
 		});
 	}
 	//////////
@@ -1884,32 +1831,18 @@ function buildAdvancedMenu() {
 //## GET CATEGORY~IES ##//
 //##//////////////////##//
 function getCategory(catId, callback) {
-	if(arguments.length == 1) {
-		callback = arguments[0];
+	var orType = '';
+	if(catId == '9999') { orType = 'food';     }
+	if(catId == '0000') { orType = 'exercise'; }
+	var rowsArray = [];
+	for(var i=0, len=rowsFood.length; i<len; i++) {
+		if(rowsFood[i]) {
+			if(rowsFood[i].type == catId || rowsFood[i].type == orType) {
+				rowsArray.push(rowsFood[i]);
+			}
+		}
 	}
-	if(hasSql) {
-		db.transaction(function (t) {
-			var orType = '';
-			if (catId == "9999") { orType = ', "food"';     }
-			if (catId == "0000") { orType = ', "exercise"'; }
-			t.executeSql('select * from diary_food where TYPE IN (?' + orType + ') order by TERM COLLATE NOCASE ASC', [catId], function (t, results) {
-				callback(fixResults(results));
-			});
-		});
-	} else {
-		var orType = '';
-		if(catId == "9999") { orType = 'food';     }
-		if(catId == "0000") { orType = 'exercise'; }
-		var favArray = lib2.query("diary_food", function (row) {
-				if(row.type == catId || row.type == orType) {
-					return true;
-				}
-			});
-		favArray = favArray.sort(function (a, b) {
-			return (a["term"] > b["term"]) ? 1 : ((a["term"] < b["term"]) ? -1 : 0);
-		});
-		callback(favArray);
-	}
+	callback(rowsArray.sortbyattr('term'));
 }
 function sortObject(obj) {
     var arr = [];
@@ -1940,8 +1873,12 @@ function getCatList(callback) {
 	// INSERT TOPIC LIST //
 	///////////////////////
 	$("#tabMyCatsBlock").html('<ul>' + helpHtml + '</ul>');
-	if(callback == 'open') { callbackOpen(); }
 	setTimeout(function() { niceResizer(); },300);
+	if(callback == 'open' && window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
+		setTimeout(function() {
+			callbackOpen();
+		},0);
+	}
 	/////////////
 	// HANDLER //
 	/////////////
@@ -2075,7 +2012,9 @@ function getCatList(callback) {
 				$("#tabMyCatsBlock").addClass('out');
 				setTimeout(function () {
 					$("#newWindowWrapper").on(transitionend, function() {
-						$("#pageSlideFood").hide();
+						setTimeout(function () {
+							$("#pageSlideFood").hide();
+						}, 0);
 					});
 				}, 0);
 				//////////////////
