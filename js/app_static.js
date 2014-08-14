@@ -2,7 +2,7 @@
 // DEVICE READY //
 //////////////////
 function kickStarter(initCmds) {
-	if(isMobile.Cordova()) {
+	if(isMobile.Cordova() && !isMobile.OSXApp()) {
 		document.addEventListener("deviceready", initCmds, false);
 	} else {
 		$(document).ready(function() { initCmds(); });
@@ -11,6 +11,10 @@ function kickStarter(initCmds) {
 kickStarter(function() {
 	//MARK AS READY
 	$('body').addClass('ready');
+	//SWAP CACHE
+	//window.applicationCache.addEventListener('updateready', function (event) {
+	//	window.applicationCache.swapCache(); 
+	//}, false);
 	//SETUP DB
 	try {
 		localforage.config({storeName: 'KCals'});
