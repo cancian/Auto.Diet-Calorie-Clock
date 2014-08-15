@@ -330,6 +330,7 @@ function openStatus(keepOpen) {
 	//#/////////////#//
 	//# ADD BUTTONS #//
 	//#/////////////#//
+	//app.handlers.activeRow('#appStatusAddLeft','clicked',function(evt) {
 	$("#appStatusAddLeft").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		evt.preventDefault();
@@ -340,6 +341,7 @@ function openStatus(keepOpen) {
 		}
 		$(document).trigger("pageReload");
 	});
+	//app.handlers.activeRow('#appStatusAddRight','clicked',function(evt) {
 	$("#appStatusAddRight").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		evt.preventDefault();

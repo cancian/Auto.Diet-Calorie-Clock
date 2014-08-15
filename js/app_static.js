@@ -747,7 +747,7 @@ setTimeout(function () {
 			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,2000);
+	setTimeout(lastEntryPush,1000);
 })();
 	//////////////////////
 	// PAGESLIDE CLOSER //

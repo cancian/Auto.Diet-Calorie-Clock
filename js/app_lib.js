@@ -2,28 +2,133 @@
 //# GLOBAL VARS #//
 //#/////////////#//
 var app  = {};
-app.vars = {
-	useragent: navigator.userAgent,
-};
 //////////////
 // APP TIME //
 //////////////
 //app.counter.start();
 //app.counter.stop(0,'before callback');
-var lastTime;
 app.counter = {
+	startTime: 0,
 	start: function() {
-		lastTime = new Date().getTime();
+		app.counter.startTime = new Date().getTime();
 	},
 	stop: function(action,msg) {
 		if(msg) { msg = msg + ':  '; }
 		if(action == 1) {
-			alert(msg + (new Date().getTime() - lastTime));	
+			alert(msg + (new Date().getTime() - app.counter.startTime));
 		} else {
-			console.log(msg + (new Date().getTime() - lastTime));
+			console.log(msg + (new Date().getTime() - app.counter.startTime));
 		}
 	}
 }
+/////////////////////////
+// GLOBAL APP HANDLERS //app.handlers.activeRow('#appStatusAddRight','clicked',function(evt) {});
+/////////////////////////app.handlers.activeRow('#target','class',function() {});
+app.handlers = {
+	activeButton : function (target, style, callback) {
+		$(target).on(touchstart, function (evt) {
+			$(target).addClass(style);
+			callback();
+		});
+		$(target).on(touchend + ' mouseout mouseleave touchleave touchcancel', function (evt) {
+			evt.stopPropagation();
+			setTimeout(function() {
+				$(target).removeClass(style);
+			}, 100);
+			return false;
+		});
+	},
+	////////////////
+	// ACTIVE ROW //
+	////////////////
+	activeRowBlock : 0,
+	activeRowTouches : 0,
+	activeRowTimer : '',
+	activeRow : function (target, style, callback) {
+		//RESET
+		app.handlers.activeRowTouches = 0;
+		app.handlers.activeRowBlock = 0;
+		////////////////
+		// SET PARENT //
+		////////////////
+		var targetParent = target;
+		if (target.match(' ')) {
+			targetParent = target.split(' ')[0] + ', ' + target;
+		}
+		//////////////////
+		// MAIN TRIGGER //
+		//////////////////
+		$(target).on(tap, function (evt) {
+			if ($(target).hasClass(style) && app.handlers.activeRowBlock == 0) {
+				$(this).addClass(style);
+				app.handlers.activeRowBlock = 1;
+				if (callback) {
+					callback($(this).attr('id'));
+					setTimeout(function () {
+						app.handlers.activeRowBlock = 0;
+						$('.' + style).removeClass(style);
+					}, 500);
+					return false;
+				}
+			} else {
+				$('.' + style).removeClass(style);
+				app.handlers.activeRowTouches = 0
+			}
+		});
+		////////////////////////////
+		// ROW ACTIVATION HANDLER //
+		////////////////////////////
+		setTimeout(function () {
+			$(target).on(touchstart, function (evt) {
+				$('.' + style).removeClass(style);
+				var localTarget = this;
+				app.handlers.activeRowTouches = 0;
+				clearTimeout(app.handlers.activeRowTimer);
+				app.handlers.activeRowTimer = setTimeout(function () {
+					if (app.handlers.activeRowTouches == 0 && app.handlers.activeRowBlock == 0) {
+						$(localTarget).addClass(style);
+					} else {
+						$('.' + style).removeClass(style);
+					}
+				}, 80);
+			});
+		}, 450);
+		/////////////////////////
+		// TARGET + MOUSELEAVE //
+		/////////////////////////
+		$(targetParent).on('mouseout mouseleave touchleave touchcancel', function (evt) {
+			$('.' + style).removeClass(style);
+			app.handlers.activeRowTouches++;
+			clearTimeout(app.handlers.activeRowTimer);
+		});
+		///////////////////////
+		// SCROLL DEACTIVATE //
+		///////////////////////
+		$(targetParent).on('scroll ' + touchmove, function (evt) {
+			app.handlers.activeRowTouches++;
+			clearTimeout(app.handlers.activeRowTimer);
+			if (app.handlers.activeRowTouches > 5 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
+				$('.' + style).removeClass(style);
+				app.handlers.activeRowTouches = 0;
+			}
+		});
+		////////////////////////
+		// SCROLL TIMER BLOCK //
+		////////////////////////
+		$(targetParent).on('scroll ' + doubletap, function (evt) {
+			app.handlers.activeRowBlock = 1;
+			setTimeout(function () {
+				app.handlers.activeRowBlock = 0;
+			}, 100);
+		});
+	}
+};
+/////////////////
+// GLOBAL VARS //
+/////////////////
+app.vars = {
+	useragent: navigator.userAgent,
+};
 var storage             = window.localStorage;
 var userAgent           = navigator.userAgent;
 var appBalance;

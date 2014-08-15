@@ -1494,36 +1494,14 @@ function buildHelpMenu() {
 			$('#appHelper').remove();
 		});
 	});
-	var touchHelper = 0;
-	//TOPIC HANDLERS
-	$("#appHelper li").on(touchstart,function(evt) {
-		touchHelper = 0;
-		//evt.preventDefault();
-		$(this).addClass("activeRow");
-	});
-	$("#appHelper, #appHelper li").on("mouseout mouseleave",function(evt) {
-		$(".activeRow").removeClass("activeRow");
-		//evt.preventDefault();
-	});
-	
-	$("#appHelper, #appHelper li").on("scroll " + touchmove,function(evt) {
-		touchHelper++;
-		if(touchHelper > 5 || (touchHelper > 1 && isMobile.Android())) {
-			$(".activeRow").removeClass("activeRow");
-			touchHelper = 0;
-		}
-	});
 	//////////////////////////////////
-	// content-builder self-handler //
+	// CONTENT-BUILDER SELF-HANDLER //
 	//////////////////////////////////
-	$("#appHelper ul li").on(tap,function(evt) {
+	app.handlers.activeRow('#appHelper li','activeRow',function(targetId) {
 		if(startLock != 0) { return; }
-		if(!$(this).hasClass("activeRow")) { return; }
-		//reapply style
-		$(this).addClass("activeRow");
 		//PASS CONTENT
-		var subTitle   = $("#" + $(this).attr("id") + " .topicTitle").html();
-		var subContent = $("#" + $(this).attr("id") + " .topicContent").html();
+		var subTitle   = $("#" + targetId + " .topicTitle").html();
+		var subContent = $("#" + targetId + " .topicContent").html();
 		//BUILD SUB-CONTENT
 		$("body").append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
 		$("#appSubHelper").hide();

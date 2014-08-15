@@ -570,12 +570,10 @@ $(document).on("pageload", function (evt) {
 $(document).on("pageReload", function (evt) {
 	evt.preventDefault();
 	//PREVENT DOUBLE LOAD
-	if($("#pageSlideFood").html()) {
-		if(!$("#pageSlideFood").is(":animated")) {
-			$("#pageSlideFood").remove();
-			$("#appHeader").removeClass("open");
-		} else {
-			$('#appHeader').trigger(touchstart);
+	if($('#pageSlideFood').html()) {
+		if(!$('#pageSlideFood').is(":animated")) {
+			$('#pageSlideFood').remove();
+			return;
 		}
 	}
 	//evt.stopPropagation();
@@ -1225,9 +1223,9 @@ function buildFoodMenu() {
 		////////////////////
 		// CUSTOM FAV SQL //
 		////////////////////
-		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 2 : 200;
-		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 2 : 200;
-		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 2 : 200;
+		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 20 : 200;
+		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 20 : 200;
+		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 20 : 200;
 		setTimeout(function () {
 			getCatList('open');
 		}, tabTimer1);

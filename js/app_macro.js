@@ -1907,75 +1907,8 @@ function getCatList(callback) {
 	/////////////
 	// HANDLER //
 	/////////////
-	var catBlockTap = false;
-	var catBlockTimer;
-	var catMoveCount = 0;
-	$("#foodList").scroll(function() {
-		//block tap
-		catBlockTap = true;
-		//hide under
-		if($('#pageSlideFood').hasClass("open")) {
-			$("#appContent").hide();
-		} else {
-			$("#appContent").show();
-		}
-		if(catMoveCount > 1) {
-			$(".activeRow").removeClass("activeRow");
-		}
-		clearTimeout(catBlockTimer);
-		catBlockTimer = setTimeout(function() { 
-			catBlockTap = false;
-			$("#appContent").show();
-		},300);
-	});
-	//TOPIC HANDLERS	
-	$("#tabMyCatsBlock li").on(touchstart,function(evt) {
-		if($("#foodSearch").is(":focus")) {
-			$("#foodSearch").trigger("blur");
-			return false;
-		};
-		$(".activeRow").removeClass("activeRow");
-		if(catBlockTap == true) {
-			return;
-		} else {
-			if(catMoveCount >= 0) {
-				$(this).addClass('activeRow');
-			}
-		}
-		catMoveCount = 0;
-	});
-	$("#tabMyCatsBlock, #tabMyCatsBlock li").on(touchend + ' mouseleave mouseout',function() {
-		if(catMoveCount > 0) {
-			$(".activeRow").removeClass("activeRow");
-		}
-	});
-	$("#tabMyCatsBlock, #tabMyCatsBlock li").on(touchmove,function() {
-		catMoveCount++;
-		if(catMoveCount > 1) {
-			$(".activeRow").removeClass("activeRow");
-			catMoveCount = 0;
-		}
-	});	
-	///////////////////////////////////
-	// INVOKE NEWWINDOW SELF-HANDLER //
-	///////////////////////////////////
-	$("#tabMyCatsBlock div").on(tap, function (evt) {
-		if(catBlockTap == true) { 
-			$(".activeRow").removeClass("activeRow");
-			return;
-		} else {
-			catMoveCount = -100;
-			catBlockTap = true;
-			clearTimeout(catBlockTimer);
-			catBlockTimer = setTimeout(function() { 
-				catBlockTap = false;
-				$("#appContent").show();
-			},300);
-		}
-		//
-		$(".activeRow").removeClass("activeRow");
-		$(this).parent('li').addClass('activeRow');
-		var catCode = ($(this).parent('li').attr('id')).replace('cat', '');
+	app.handlers.activeRow('#foodList li','activeRow',function(targetId) {
+		var catCode = targetId.replace('cat', '');
 		//SQL QUERY
 		getCategory(catCode, function(data) {
 			//////////
