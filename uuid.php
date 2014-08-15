@@ -39,9 +39,9 @@ $getUUID = htmlentities($_GET['uuid']);
 $gotUUID = getLineWithString($getUUID);
 if($gotUUID !== -1) {
 	//FOUND
-	echo substr($gotUUID, strlen($gotUUID)-14);
+	echo 0;//substr($gotUUID, strlen($gotUUID)-14);
 } else {
 	//NOT FOUND
-	echo saveUUID($getUUID,$getTime);
+	echo 0;//saveUUID($getUUID,$getTime);
 }
 ?>

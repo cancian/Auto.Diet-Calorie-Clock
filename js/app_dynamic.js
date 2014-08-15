@@ -569,6 +569,15 @@ $(document).on("pageload", function (evt) {
 //#//////////////////////#//
 $(document).on("pageReload", function (evt) {
 	evt.preventDefault();
+	//PREVENT DOUBLE LOAD
+	if($("#pageSlideFood").html()) {
+		if(!$("#pageSlideFood").is(":animated")) {
+			$("#pageSlideFood").remove();
+			$("#appHeader").removeClass("open");
+		} else {
+			$('#appHeader').trigger(touchstart);
+		}
+	}
 	//evt.stopPropagation();
 	//not while editing ~
 	if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#appStatusFix').hasClass('open')) {
@@ -1310,7 +1319,8 @@ function addNewItem(opt) {
 	///////////////
 	// HTML FORM //
 	///////////////
-	$("#modalWindow").remove();
+	$("#tempHolder,#modalWindow,#addNewWrapper").remove();
+	//$("#modalWindow").remove();
 
 	if (!$("#modalOverlay").html()) {
 		var modalOverlay = '<div id="modalOverlay"></div>';
@@ -1695,6 +1705,10 @@ function addNewItem(opt) {
 //#////////////////////#//
 //#    MODAL WINDOW    #//
 //#////////////////////#//
+var pressTimerModalNeg;
+var pressTimerModalPos;
+var pressRepeatModalNeg;
+var pressRepeatModalPos;
 function getModalWindow(itemId) {
 	if (!itemId) {
 		return;
@@ -1702,6 +1716,13 @@ function getModalWindow(itemId) {
 	if ($("#addNewWrapper").html()) {
 		return;
 	}
+	////////////////////
+	// RESET REPEATER //
+	////////////////////
+	clearTimeout(pressTimerModalNeg);
+	clearTimeout(pressTimerModalPos);
+	clearInterval(pressRepeatModalNeg);
+	clearInterval(pressRepeatModalPos);
 	///////////
 	// QUERY //
 	///////////
@@ -1729,8 +1750,7 @@ function getModalWindow(itemId) {
 		// FOODLIST MODAL-TAP //
 		////////////////////////
 		//prevent flood
-		$("#modalOverlay").remove();
-		$("#modalWindow").remove();
+		$("#tempHolder,#modalWindow,#modalOverlay,#addNewWrapper").remove();
 		//insert frame
 		$("body").append('<div id="modalOverlay"></div>');
 		$("body").append('<div id="modalWindow"></div>');
@@ -1756,10 +1776,7 @@ function getModalWindow(itemId) {
 		//#/////////////////////////////////#//
 		//# MODAL ADD/REMOVE CORE FUNCTIONS #//
 		//#/////////////////////////////////#//
-		var pressTimerModalNeg;
-		var pressTimerModalPos;
-		var pressRepeatModalNeg;
-		var pressRepeatModalPos;
+
 		//////////////////
 		// GETNUTRIDATA //
 		//////////////////

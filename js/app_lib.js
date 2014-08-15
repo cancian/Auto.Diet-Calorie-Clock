@@ -5,6 +5,25 @@ var app  = {};
 app.vars = {
 	useragent: navigator.userAgent,
 };
+//////////////
+// APP TIME //
+//////////////
+//app.counter.start();
+//app.counter.stop(0,'before callback');
+var lastTime;
+app.counter = {
+	start: function() {
+		lastTime = new Date().getTime();
+	},
+	stop: function(action,msg) {
+		if(msg) { msg = msg + ':  '; }
+		if(action == 1) {
+			alert(msg + (new Date().getTime() - lastTime));	
+		} else {
+			console.log(msg + (new Date().getTime() - lastTime));
+		}
+	}
+}
 var storage             = window.localStorage;
 var userAgent           = navigator.userAgent;
 var appBalance;

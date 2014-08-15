@@ -424,6 +424,10 @@ function pushEntries(userId) {
 		//insert custom diary_food
 		if(window.localStorage.getItem("customItemsSql")) {
 			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customItemsSql"));
+			//padding
+			if(window.localStorage.getItem("customFavSql")) {
+				fetchEntries = fetchEntries + '\n';
+			}
 		}
 		if(window.localStorage.getItem("customFavSql")) {
 			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFavSql"));
@@ -493,9 +497,9 @@ function rowsLoop(sqlEntry, hive, callback) {
 	//////////////////
 	// ENTRIES LOOP //
 	//////////////////
+	var allRows = JSON.stringify(rows);
 	for (var i = 0, len = sqlEntry.length; i < len; i++) {
 		if (sqlEntry[i]) {
-			var allRows = JSON.stringify(rows);
 			var lookFor = (hive == 'diary_entry') ? sqlEntry[i][1] : sqlEntry[i][3];
 			var rowIndex = (allRows).indexOf(lookFor);
 			if (rowIndex !== -1) {

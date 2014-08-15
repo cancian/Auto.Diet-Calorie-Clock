@@ -14,6 +14,25 @@ var bodyTimer = setTimeout(function() {
 		window.location.reload(true);
 	}
 },10000);
+////////////////////
+// BREAK BOOTLOOP //
+////////////////////
+setTimeout(function() {
+	if(!window.localStorage.getItem("consecutive_reboots")) {
+		window.localStorage.setItem("consecutive_reboots",0);
+	} else if(window.localStorage.getItem("consecutive_reboots") > 10) {
+		window.localStorage.removeItem("config_debug");
+		window.localStorage.removeItem("remoteSuperBlockJS");
+		window.localStorage.removeItem("remoteSuperBlockCSS");
+		window.localStorage.removeItem("app_autoupdate_hash");
+		//RESTART
+		console.log('erasing cache...');
+		window.localStorage.removeItem("consecutive_reboots");
+		window.location.reload(true);
+	} else {
+		window.localStorage.setItem("consecutive_reboots",window.localStorage.getItem("consecutive_reboots")+1);
+	}
+},0);
 //////////////
 // VIEWPORT //
 //////////////	

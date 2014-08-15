@@ -97,7 +97,7 @@ setTimeout(function() {
 	window.localStorage.removeItem("app_restart_pending");
 	getAnalytics('init'); 
 },0);
-setTimeout(function() { 
+setTimeout(function() {
 	expireNotice();
 	updateLoginStatus(1);
 	getAnalytics('startApp');
@@ -111,6 +111,8 @@ setTimeout(function() {
 			});
 		},5000);
 	});
+	//MARK BOOT SUCCESS
+	window.localStorage.removeItem("consecutive_reboots");
 },5000);
 ////////////////
 // PARSED CSS //
