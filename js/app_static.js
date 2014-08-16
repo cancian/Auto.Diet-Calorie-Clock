@@ -220,7 +220,8 @@ appFooter(window.localStorage.getItem("app_last_tab"));
 // LISTEN FOR CLICKS //
 ///////////////////////
 var touchFootTimer;
-$("#appFooter li").on(touchstart + " click", function(evt) {
+var footerAction = (androidVersion() >= 4 && androidVersion() < 4.2) ? ' click' : '';
+$("#appFooter li").on(touchstart + footerAction, function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
 	//not while editing
@@ -702,14 +703,14 @@ setTimeout(function () {
 	} catch (e) {
 		errorHandler(e);
 	}
-}, 9000);
+}, 8000);
 /////////////
 // LICENSE //
 /////////////
 (function licenseTimer() {
 	isPaid();
 	checkLicense();
-	setTimeout(licenseTimer, 5000);
+	setTimeout(licenseTimer, 4000);
 })();
 ////////////////
 // MAIN TIMER //
@@ -722,6 +723,7 @@ setTimeout(function () {
 		if(typeof timeBomb !== 'undefined') {
 			clearTimeout(timeBomb);
 		}
+		document.getElementById('appHeader').innerHTML = appHeader;	
 		setTimeout(startTimer,timerDiff);
 	}
 })();
@@ -753,14 +755,19 @@ setTimeout(function () {
 	// PAGESLIDE CLOSER //
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
+		if(evt.target.id == 'editableDiv' && $('#pageSlideFood').length) { 
+			$('#appHeader').trigger(touchstart);
+			return;
+		}
 		     if($("#subBackButton").length)		{ $("#subBackButton").trigger(touchend); }
 		else if($("#backButton").length)		{ $("#backButton").trigger(touchend); }
 		else if($("#advBackButton").length)		{ $("#advBackButton").trigger(touchend); }
 		else if($("#langSelect").length)		{ $(".set").trigger(tap); }
 		
-		if($("body").hasClass("newwindow") && !$('#modalWindow').html()) { return; }
+		if($("body").hasClass("newwindow") && !$('#modalWindow').length) { return; }
 		if(!$("#appHeader").hasClass("closer")) { return; }
 		if($("#addNewWrapper").html())			{ return; }
+
 		//hide food
 		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy") && !$('#pageSlideFood').is(":animated")) {
 			$("#foodSearch").blur();

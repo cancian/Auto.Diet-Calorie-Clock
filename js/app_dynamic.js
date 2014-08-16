@@ -570,10 +570,11 @@ $(document).on("pageload", function (evt) {
 $(document).on("pageReload", function (evt) {
 	evt.preventDefault();
 	//PREVENT DOUBLE LOAD
-	if($('#pageSlideFood').html()) {
-		if(!$('#pageSlideFood').is(":animated")) {
-			$('#pageSlideFood').remove();
+	if($("#pageSlideFood").html()) {
+		if($("#pageSlideFood").is(":animated")) {
 			return;
+		} else {
+			$("#pageSlideFood").remove();
 		}
 	}
 	//evt.stopPropagation();
@@ -803,18 +804,22 @@ function searchFood(searchSQL, callback) {
 	var limited = 0;
 	
 	var results = 0;
-	for (var z = 0, len = dato.length; z < len; z++) {
+	var z = dato.length;
+	while(z--) {
+	//for (var z = 0, len = dato.length; z < len; z++) {
 		keyScore = 0;
 		keyJunk = 0;
-		if (((dato[z].type == "0000" || dato[z].type == "exercise") && typeTerm == "exercise") || ((dato[z].type != "0000" && dato[z].type != "exercise") && typeTerm == "food")) {
-			for (var k = 0, lenn = searchSQL.length; k < lenn; k++) {
-				if (dato[z].term.indexOf(searchSQL[k]) != -1 && keyJunk == 0) {
+		if (((dato[z].type === "0000" || dato[z].type === "exercise") && typeTerm === "exercise") || ((dato[z].type !== "0000" && dato[z].type !== "exercise") && typeTerm === "food")) {
+			var k = searchSQL.length;
+			while(k--) {
+			//for (var k = 0, lenn = searchSQL.length; k < lenn; k++) {
+				if (dato[z].term.indexOf(searchSQL[k]) !== -1 && keyJunk == 0) {
 					keyScore = keyScore + Math.abs(dato[z].term.match(searchSQL[k]).index);
 				} else {
 					keyJunk = 1;
 				}
 			}
-			if (keyJunk == 0) {
+			if (keyJunk === 0) {
 				mi.push({
 					id : keyScore,
 					value : dato[z]
@@ -1013,7 +1018,10 @@ function updateCustomList(filter, callback) {
 		var favSql;
 		var favLine;
 		var favLastId = '';
-		for (var c = 0, len = data.length; c < len; c++) {
+		var c = len = data.length;
+		data = data.reverse();
+		while(c--) {
+		//for (var c = 0, len = data.length; c < len; c++) {
 			//get current weight//
 			if (!window.localStorage.getItem("calcForm#pA3B")) {
 				var totalWeight = 80;
@@ -1223,9 +1231,9 @@ function buildFoodMenu() {
 		////////////////////
 		// CUSTOM FAV SQL //
 		////////////////////
-		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 20 : 200;
-		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 20 : 200;
-		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 20 : 200;
+		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 100 : 200;
+		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 100 : 200;
+		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 100 : 200;
 		setTimeout(function () {
 			getCatList('open');
 		}, tabTimer1);

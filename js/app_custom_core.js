@@ -71,21 +71,7 @@ function appTimer(id,content) {
 	}
 	kcalsHtmlOutput     += "</div>";
 	//REPLACE
-	function updateHeader() {
-		if(appHeader == kcalsHtmlOutput) { return; }
-		//$("#appHeader").html("");
-		$("#appHeader").html(kcalsHtmlOutput);
-		appHeader = kcalsHtmlOutput;
-	}
-	//ios flicker, who knows why
-	if(isMobile.iOS()) {
-		setTimeout(updateHeader,0);
-	} else {
-		updateHeader();
-	}
-	//plus~minus de-bump
-	//if(kcalsInput > 0) { kcalsInput = "+" + kcalsInput; }
-	//if(kcalsInput <= 0) { kcalsInput = "−" + Math.abs(kcalsInput).toFixed(2); }
+	appHeader = kcalsHtmlOutput;
 	//STATUS
 	if(!$("body").hasClass(cssClass) || !$("#appHeader").hasClass(cssClass) || !$("#appStatusBalance").hasClass(cssClass)) {
 		$("body,#appHeader,#appStatusBalance").addClass(cssClass);
@@ -129,6 +115,7 @@ function appTimer(id,content) {
 		window.localStorage.setItem("cssOver",cssOver);
 	}
 	function updateStatus() {
+		if(window.localStorage.getItem("app_last_tab") != "tab1") { return; }
 		if($("#appStatusBalance div p").html() != window.localStorage.getItem("appBalance")) {
 			$("#appStatusBalance div p").html(window.localStorage.getItem("appBalance"));
 		}
@@ -165,11 +152,14 @@ function appTimer(id,content) {
 	var timeWait = timerDiff;
 	timerDiff = (((new Date().getTime()) - timerPerf) * 2);
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
+	
 	if(isMobile.Windows()) {
 		timerDiff = timerDiff*5;
+	} else {
+		timerDiff = timerDiff*1.54321;		
 	}
-	if(timerDiff > 500) { timerDiff = 500; }
-	if(timerDiff < 100) { timerDiff = 100; }
+	if(timerDiff > 800) { timerDiff = 800; }
+	if(timerDiff < 200) { timerDiff = 200; }
 	/////////////////////
 	// pre-show reward //
 	/////////////////////

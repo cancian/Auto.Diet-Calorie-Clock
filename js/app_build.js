@@ -1226,7 +1226,9 @@ function sliderNeg() {
 			$('#diaryNotesInput').val(window.localStorage.getItem("appNotes"));
 		}
 		//focus
-		$('#diaryNotesInput').focus();
+		if(!isMobile.Windows()) {
+			$('#diaryNotesInput').focus();
+		}
 		$('#diaryNotesInput').height(window.innerHeight - 32);
 		$('#diaryNotesInput').width(window.innerWidth - 24);
 		//load scroller & set window < height

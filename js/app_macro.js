@@ -1860,37 +1860,28 @@ function getCategory(catId, callback) {
 	if(catId == '9999') { orType = 'food';     }
 	if(catId == '0000') { orType = 'exercise'; }
 	var rowsArray = [];
-	for(var i=0, len=rowsFood.length; i<len; i++) {
+	var i = rowsFood.length;
+	//for(var i=0, len=rowsFood.length; i<len; i++) {
+	while(i--) {
 		if(rowsFood[i]) {
-			if(rowsFood[i].type == catId || rowsFood[i].type == orType) {
+			if(rowsFood[i].type === catId || rowsFood[i].type === orType) {
 				rowsArray.push(rowsFood[i]);
 			}
 		}
 	}
-	callback(rowsArray.sortbyattr('term'));
-}
-function sortObject(obj) {
-    var arr = [];
-    for (var prop in obj) {
-        if (obj.hasOwnProperty(prop)) {
-            arr.push([
-               prop,
-               obj[prop]
-            ]);
-        }
-    }
-    arr.sort();
-    return arr;
+	callback(rowsArray.sortbyattr('term','desc'));
 }
 function getCatList(callback) {
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
-	var helpTopics = LANG.FOOD_CATEGORIES[lang];
+	var helpTopics = sortObject(LANG.FOOD_CATEGORIES[lang]);
 	var helpHtml = "";
-	$.each(sortObject(helpTopics), function (key, value) {
-		helpHtml = helpHtml + "<li id='cat" + value[0] + "'><div>" + value[1] + "</div></li>";
-	});
+	//CATLIST
+	var h = helpTopics.length;
+	while(h--) {
+		helpHtml = helpHtml + "<li id='cat" + helpTopics[h][0] + "'><div>" + helpTopics[h][1] + "</div></li>";
+	};
 	/////////////////////
 	// RE-INSERT INTRO //
 	/////////////////////
@@ -1916,7 +1907,9 @@ function getCatList(callback) {
 			//////////
 			var catListHtml = '';
 			var catLine     = '';
-			for(var c=0, len=data.length; c<len; c++) {
+			var c = data.length;
+			while(c--) {
+			//for(var c=0, len=data.length; c<len; c++) {
 				//get current weight
 				var totalWeight = 80;
 				if(window.localStorage.getItem("calcForm#pA3B")) {

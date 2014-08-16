@@ -13,7 +13,11 @@ app.counter = {
 		app.counter.startTime = new Date().getTime();
 	},
 	stop: function(action,msg) {
-		if(msg) { msg = msg + ':  '; }
+		if(msg) {
+			msg = msg + ':  ';
+		} else {
+			msg = 0;
+		}
 		if(action == 1) {
 			alert(msg + (new Date().getTime() - app.counter.startTime));
 		} else {
@@ -59,14 +63,14 @@ app.handlers = {
 		// MAIN TRIGGER //
 		//////////////////
 		$(target).on(tap, function (evt) {
-			if ($(target).hasClass(style) && app.handlers.activeRowBlock == 0) {
+			if ($(target).hasClass(style) && app.handlers.activeRowBlock === 0) {
 				$(this).addClass(style);
 				app.handlers.activeRowBlock = 1;
 				if (callback) {
 					callback($(this).attr('id'));
 					setTimeout(function () {
 						app.handlers.activeRowBlock = 0;
-						$('.' + style).removeClass(style);
+						$(target + '.' + style).removeClass(style);
 					}, 500);
 					return false;
 				}
@@ -80,7 +84,7 @@ app.handlers = {
 		////////////////////////////
 		setTimeout(function () {
 			$(target).on(touchstart, function (evt) {
-				$('.' + style).removeClass(style);
+				$(target + '.' + style).removeClass(style);
 				var localTarget = this;
 				app.handlers.activeRowTouches = 0;
 				clearTimeout(app.handlers.activeRowTimer);
@@ -88,30 +92,43 @@ app.handlers = {
 					if (app.handlers.activeRowTouches == 0 && app.handlers.activeRowBlock == 0) {
 						$(localTarget).addClass(style);
 					} else {
-						$('.' + style).removeClass(style);
+						$(target + '.' + style).removeClass(style);
 					}
-				}, 80);
+				}, 70);
 			});
-		}, 450);
+		}, 400);
 		/////////////////////////
 		// TARGET + MOUSELEAVE //
 		/////////////////////////
-		$(targetParent).on('mouseout mouseleave touchleave touchcancel', function (evt) {
-			$('.' + style).removeClass(style);
-			app.handlers.activeRowTouches++;
-			clearTimeout(app.handlers.activeRowTimer);
-		});
+		if(isMobile.MSApp()) {
+			$(target).on('pointerleave pointercancel pointerout', function (evt) {
+				$(target + '.' + style).removeClass(style);
+				clearTimeout(app.handlers.activeRowTimer);
+			});
+		}
+		if(!isMobile.MSApp()) {
+			$(targetParent).on('mouseout mouseleave touchleave touchcancel', function (evt) {
+				app.handlers.activeRowTouches++;
+				if(!isMobile.Windows()) {
+					clearTimeout(app.handlers.activeRowTimer);
+					$(target + '.' + style).removeClass(style);
+				}
+			});
+		}
 		///////////////////////
 		// SCROLL DEACTIVATE //
 		///////////////////////
-		$(targetParent).on('scroll ' + touchmove, function (evt) {
-			app.handlers.activeRowTouches++;
-			clearTimeout(app.handlers.activeRowTimer);
-			if (app.handlers.activeRowTouches > 5 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
-				$('.' + style).removeClass(style);
-				app.handlers.activeRowTouches = 0;
-			}
-		});
+		if(!isMobile.MSApp()) {
+			var moveCancel = isMobile.OSXApp() ? '' : touchmove;
+			$(targetParent).on('scroll ' + moveCancel, function (evt) {
+				app.handlers.activeRowTouches++;
+				clearTimeout(app.handlers.activeRowTimer);
+				if (app.handlers.activeRowTouches > 5 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
+					$(target + '.' + style).removeClass(style);
+					app.handlers.activeRowTouches = 0;
+				}
+			});
+		}
 		////////////////////////
 		// SCROLL TIMER BLOCK //
 		////////////////////////
@@ -407,6 +424,7 @@ String.prototype.capitalize = function() {
 // SORTBYATTR //
 ////////////////
 Array.prototype.sortbyattr = function(attr,order) {
+	// NORMAL ATTR SORT
 	this.sort(function(a, b) {
 		if(order == 'desc') {
 			return (b[attr] > a[attr]) ? 1 : ((b[attr] < a[attr]) ? -1 : 0);
@@ -416,8 +434,16 @@ Array.prototype.sortbyattr = function(attr,order) {
 	});
 	return this;	
 }
-		
-
+// OBJECT
+function sortObject(obj) {
+	var arr = [];
+	for (var prop in obj) {
+		if (obj.hasOwnProperty(prop)) {
+			arr.push([prop,obj[prop]]);
+		}
+	}
+	return arr.sort().reverse();
+}
 /////////////////
 // DATE FORMAT //
 /////////////////

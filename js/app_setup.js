@@ -475,10 +475,12 @@ function setComplete() {
 	//refresh tabs
 	appFooter(window.localStorage.getItem("app_last_tab"),1);
 	//dump diary_food data
-	if(typeof updateCustomList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
-		updateCustomList('fav');
-		updateCustomList('items');
-		getCatList();
+	if(typeof getCatList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
+		setTimeout(function() {
+			updateCustomList('fav');
+			updateCustomList('items');	
+			getCatList();
+		},200);
 	}
 	//update last sync date
 	window.localStorage.setItem("lastSync",new Date().getTime());
@@ -498,7 +500,8 @@ function rowsLoop(sqlEntry, hive, callback) {
 	// ENTRIES LOOP //
 	//////////////////
 	var allRows = JSON.stringify(rows);
-	for (var i = 0, len = sqlEntry.length; i < len; i++) {
+	for(var i = sqlEntry.length - 1; i > -1; i--) {
+	//for (var i = 0, len = sqlEntry.length; i < len; i++) {
 		if (sqlEntry[i]) {
 			var lookFor = (hive == 'diary_entry') ? sqlEntry[i][1] : sqlEntry[i][3];
 			var rowIndex = (allRows).indexOf(lookFor);
@@ -506,7 +509,9 @@ function rowsLoop(sqlEntry, hive, callback) {
 				//////////////
 				// ON MATCH //
 				//////////////
-				for (var x = 0, xen = rows.length; x < xen; x++) {
+				var x = rows.length;
+				while(x--) {	
+				//for (var x = 0, xen = rows.length; x < xen; x++) {
 					if (rows[x]) {
 						var rowAttr = (hive == 'diary_entry') ? rows[x].id : rows[x].code;
 						if (rowAttr == lookFor) {
@@ -870,7 +875,7 @@ function getCustomList(listType,callback) {
 		var rowsArray = [];
 		for(var i=0, len=rowsFood.length; i<len; i++) {
 			if(rowsFood[i]) {
-				if(rowsFood[i].fib == 'fav') {
+				if(rowsFood[i].fib === 'fav') {
 					rowsArray.push(rowsFood[i]);
 				}
 			}
@@ -883,7 +888,7 @@ function getCustomList(listType,callback) {
 		var rowsArray = [];
 		for(var i=0, len=rowsFood.length; i<len; i++) {
 			if(rowsFood[i]) {
-				if(rowsFood[i].code.slice(0, 1) == "c") {
+				if(rowsFood[i].code.slice(0, 1) === "c") {
 					rowsArray.push(rowsFood[i]);
 				}
 			}
@@ -895,6 +900,8 @@ function getCustomList(listType,callback) {
 // SET FAV //
 /////////////
 function setFav(data, callback) {
+	//var i = rowsFood.length;
+	//while(i--) {
 	for(var i=0, len=rowsFood.length; i<len; i++) {
 		if(rowsFood[i].code == data.code) {
 			rowsFood[i].fib = data.fib;
@@ -1054,9 +1061,11 @@ function updateFoodDb() {
 									if(window.localStorage.getItem("facebook_userid")) {
 										syncEntries(window.localStorage.getItem("facebook_userid"));
 									} else {
-										updateCustomList('fav');
-										updateCustomList('items');	
-										getCatList();
+										setTimeout(function() {
+											updateCustomList('fav');
+											updateCustomList('items');	
+											getCatList();
+										},100);
 									}
 								});
 							});
@@ -1633,7 +1642,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 				//if(isMobile.Android()) { touchBeh = false; }
 				//$("#newWindow").css("overflow","hidden");
 				//$("#newWindow").niceScroll({touchbehavior:touchBeh,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
-			} else if(($.nicescroll && isMobile.Windows() || isMobile.MSApp()) && $('#appHistory').html()) {
+			} else if($.nicescroll && (isMobile.Windows() || isMobile.MSApp()) && $('#appHistory').html()) {
 				$("#newWindow").css("overflow","hidden");
 				$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:true,hwacceleration:false});
 			} else {
