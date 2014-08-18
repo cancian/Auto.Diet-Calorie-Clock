@@ -12,11 +12,17 @@ $(document).on("pageload", function (evt) {
 	//#///////////#//
 	//# HOLD EDIT #//
 	//#///////////#//
+	var holdStart;
 	var deMove = 0;
 	var cancelEdit = 0;
 	$("#entryList div" + tgt).on("longhold", function (evt) {
+		clearTimeout(holdStart);
+		deMove = 0;
 		if (!$("#entryList div" + tgt + " .entriesTitle").html()) {
 			return;
+		}
+		if (!$(this).hasClass("longHold")) {
+			return;	
 		}
 		if ($("#editableInput").is(":visible")) {
 			return;
@@ -27,10 +33,13 @@ $(document).on("pageload", function (evt) {
 			getEntryEdit($(this).attr('id'));
 		}
 	});
-	$("#entryList div, #appContent").on(touchmove + ' mouseleave mouseout mouseup ' + touchend, function (evt) {
+	var isHoldMove = isMobile.MSApp() ? '' : touchmove;
+	$("#entryList div, #appContent").on(isHoldMove + ' mouseleave mouseout mouseup ' + touchend, function (evt) {
 		deMove++;
-		if (deMove > 20 || (isMobile.Android() && deMove > 1)) {
+		if (deMove > 40 || (isMobile.Android() && deMove > 1)) {
 			cancelEdit = 1;
+			clearTimeout(holdStart);
+			$('.longHold').removeClass('longHold');
 		}
 	});
 	$("#appContent").scroll(function () {
@@ -41,7 +50,24 @@ $(document).on("pageload", function (evt) {
 	//////////////////
 	// FORCE RETURN //
 	//////////////////
+	$("#entryList div" + tgt).on(touchend, function (evt) {
+		deMove = 0;
+		clearTimeout(holdStart);
+		$('.longHold').removeClass('longHold');
+	});
+
 	$("#entryList div" + tgt).on(touchstart, function (evt) {
+		deMove = 0;
+		clearTimeout(holdStart);
+		var holdThis = this;
+		if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
+			holdStart = setTimeout(function() {
+				if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
+					$(holdThis).addClass('longHold');
+					entryReturn = true;
+				}
+			},200);
+		}
 		if ($('#entryTime').is(':focus')) {
 			entryReturn = true;
 		}
@@ -55,6 +81,9 @@ $(document).on("pageload", function (evt) {
 	$("#entryList div" + tgt).on(tap, function (event) {
 		//$("#entryList div" + tgt).swipe({tap:function(event) {
 		event.preventDefault();
+		// clear hold		
+		clearTimeout(holdStart);
+		$('.longHold').removeClass('longHold');
 		//////////////
 		// TAP DATE //
 		//////////////

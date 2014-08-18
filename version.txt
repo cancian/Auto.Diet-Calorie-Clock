@@ -1,6 +1,12 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.5 [2014/08/16]
+• Visual indication for entry editing
+• Improved touch handling
+• 
+• 
+
 # 1.4 [2014/08/13]
 • Improved database engine
 • Calories can be entered manually on slider input (tap & hold to focus)

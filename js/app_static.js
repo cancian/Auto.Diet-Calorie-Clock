@@ -12,9 +12,9 @@ kickStarter(function() {
 	//MARK AS READY
 	$('body').addClass('ready');
 	//SWAP CACHE
-	//window.applicationCache.addEventListener('updateready', function (event) {
-	//	window.applicationCache.swapCache(); 
-	//}, false);
+	window.applicationCache.addEventListener('updateready', function (event) {
+		window.applicationCache.swapCache(); 
+	}, false);
 	//SETUP DB
 	try {
 		localforage.config({storeName: 'KCals'});

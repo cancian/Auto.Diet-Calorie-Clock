@@ -1867,12 +1867,15 @@ function getNiceScroll(target) {
 	if($('#appHistory').html()) {
 		NSettings.horizrailenabled = true;
 	}
-	//NSettings.hwacceleration        = false;
-	//NSettings.touchbehavior         = false;
-	//NSettings.nativeparentscrolling = false;
+	//NSettings.smoothscroll        = false;
+	//NSettings.hwacceleration      = false;
+	NSettings.bouncescroll          = false;
+	NSettings.nativeparentscrolling = false;
+	if(!isDesktop()) {
+		NSettings.touchbehavior     = false;
+	}
 	//NSettings.directionlockdeadzone = 9;	
 	//NSettings.enabletranslate3d     = false;
-	//NSettings.bouncescroll          = false;
 	//NSettings.hwacceleration        = false;
 	//NSettings.usetransition         = false;
 	//NOTES
@@ -1977,7 +1980,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	///////////////
-	var timeRate = 1 * 24 * 60 * 60 * 1000;
+	var timeRate = 2.5 * 24 * 60 * 60 * 1000;
 	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {

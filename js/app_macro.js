@@ -1335,10 +1335,10 @@ function daysLeft() {
 	var day  = 1000 * 1 * 24 * 60 * 60;
 	var week = 1000 * 7 * 24 * 60 * 60;
 	var installTime = parseInt(window.localStorage.getItem('config_install_time'));
-	var expireTime  = installTime+week;
+	var expireTime  = installTime+(week*2);
 	var daysLeft    = Math.ceil((expireTime-now) / day);
 	//check range
-	if(daysLeft < 0 || daysLeft > 7) { daysLeft = 0; }
+	if(daysLeft < 0 || daysLeft > 14) { daysLeft = 0; }
 	//write expired if not paid
 	if(daysLeft == 0) {
 		if((isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) && isCordova()) {
@@ -1355,7 +1355,7 @@ function daysLeft() {
 		}
 	}
 	//update fix
-	if(isNaN(daysLeft))	{ daysLeft = 7; }
+	if(isNaN(daysLeft))	{ daysLeft = 14; }
 	//return
 	return daysLeft;
 }

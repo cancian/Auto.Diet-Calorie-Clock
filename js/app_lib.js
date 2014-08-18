@@ -70,7 +70,9 @@ app.handlers = {
 					callback($(this).attr('id'));
 					setTimeout(function () {
 						app.handlers.activeRowBlock = 0;
-						$(target + '.' + style).removeClass(style);
+						if(style != 'activeOverflow') {
+							$(target + '.' + style).removeClass(style);
+						}
 					}, 500);
 					return false;
 				}
@@ -109,7 +111,7 @@ app.handlers = {
 		if(!isMobile.MSApp()) {
 			$(targetParent).on('mouseout mouseleave touchleave touchcancel', function (evt) {
 				app.handlers.activeRowTouches++;
-				if(!isMobile.Windows()) {
+				if(!isMobile.Windows() && style != 'activeOverflow') {
 					clearTimeout(app.handlers.activeRowTimer);
 					$(target + '.' + style).removeClass(style);
 				}
@@ -138,7 +140,144 @@ app.handlers = {
 				app.handlers.activeRowBlock = 0;
 			}, 100);
 		});
-	}
+	},
+	///////////////////
+	// HIGHLIGHT ROW //
+	///////////////////
+	updateRow: function(target,content,callback) {
+		//target = '#' + target;
+		//var parentDiv = '#' + $(target).parent('div').attr('id') + ' ';
+
+		//$('.yellow').removeClass('yellow');
+		//$('.trans').removeClass('trans');
+		//$('.fade').removeClass('fade');
+		
+		$('.activeOverflow').addClass('yellow');
+		$('.activeOverflow').removeClass('activeOverflow');
+
+		if(callback) {
+			callback();
+		}
+		
+		setTimeout(function () {
+			//$(parentDiv + target).addClass('fade');
+			//$(parentDiv + target).addClass('trans');
+			$('.activeOverflow').removeClass('activeOverflow');
+			$('.yellow').addClass('fade');
+			$('.yellow').addClass('trans');
+		}, 0);
+		setTimeout(function () {
+			$('.yellow').removeClass('yellow');
+			$('.trans').removeClass('trans');
+			$('.fade').removeClass('fade');
+		}, 1500);
+	},
+	///////////////
+	// BUILD ROW //
+	///////////////
+	buildRows: function(data,filter) {
+		//////////////////
+		// TOTAL WEIGHT //
+		//////////////////
+		var totalWeight = window.localStorage.getItem('calcForm#pA3B') ? parseInt(window.localStorage.getItem('calcForm#pA3B')) : 80;
+		if (window.localStorage.getItem('calcForm#pA3C') === 'pounds') {
+			totalWeight = Math.round((totalWeight) / (2.2));
+		}
+		////////////////
+		// LOOP ARRAY //
+		////////////////
+		var rowHtml = '';
+		var rowSql  = '';
+		var lastRowId = '';
+		var i = data.length;
+		//data = data.reverse();
+		while(i--) {
+			/////////////////////
+			// FILTER REPEATED //
+			/////////////////////
+			if (data[i].id && data[i].id !== lastRowId) {
+				lastRowId = data[i].id;
+				var favClass = (data[i].fib === 'fav') ? ' favItem' : '';
+				var rowType  = (data[i].type == '0000' || data[i].type == 'exercise') ? 'exercise' : 'food';
+				///////////////////////////
+				// AJUST WEIGHT EXERCISE //
+				///////////////////////////
+				var kcals = data[i].kcal;
+				if (rowType == 'exercise') {
+					kcals = Math.round(((data[i].kcal * totalWeight) / 60) * 30);
+				}
+				//FORCE DECIMAL
+				data[i].name = sanitizeSql(data[i].name);
+				if(!data[i].pro)  { data[i].pro  = 0; }
+				if(!data[i].car)  { data[i].car  = 0; }
+				if(!data[i].fat)  { data[i].fat  = 0; }
+				data[i].pro  = Math.round(data[i].pro  * 100) / 100;
+				data[i].car  = Math.round(data[i].car  * 100) / 100;
+				data[i].fat  = Math.round(data[i].fat  * 100) / 100;
+				data[i].fib  = (data[i].fib).split('diary_food').join('');
+				//////////////
+				// ROW HTML //
+				//////////////
+				rowHtml += '\
+				<div class="searcheable' + favClass + ' ' + rowType + ' ' + data[i].id + '" id="' + data[i].id + '">\
+				<div class="foodName ' + rowType + '">' + data[i].name + '</div>\
+				<span class="foodKcal"><span class="preSpan">' + LANG.KCAL[lang] + '</span>' + kcals + '</span>';
+				////////////////////////
+				// ADD NUTRITION INFO //
+				////////////////////////
+				if (rowType === 'food') {
+					rowHtml += '\
+					<span class="foodPro ' + rowType + '"><span class="preSpan">' + LANG.PRO[lang] + '</span>' + data[i].pro + '</span>\
+					<span class="foodCar ' + rowType + '"><span class="preSpan">' + LANG.CAR[lang] + '</span>' + data[i].car + '</span>\
+					<span class="foodFat ' + rowType + '"><span class="preSpan">' + LANG.FAT[lang] + '</span>' + data[i].fat + '</span>';
+				}
+				rowHtml += '</div>';
+				///////////////
+				// BUILD SQL //
+				///////////////
+				if(filter) {
+					rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].id + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + kcals + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + "');\n";
+				}
+			}
+		}
+		///////////////
+		// WRITE SQL //
+		///////////////
+		if(filter) {
+			//PREPARE
+			if(rowSql == '') {
+				rowSql = ' ';	
+			}
+			rowSql = rowSql.split('undefined').join('');
+			//
+			if(filter === 'fav') {
+				window.localStorage.setItem('customFavSql', rowSql);
+			} else {
+				window.localStorage.setItem('customItemsSql', rowSql);				
+			}
+		}
+		/////////////////
+		// RETURN HTML //
+		/////////////////
+		if(rowHtml == '') {
+			if($('#searchContents').is(':visible')) {
+				rowHtml = '<div class="searcheable noContent"><div><em>' + LANG.NO_MATCHES[lang] + '</em></div></div>';
+			} else {
+				//rowHtml = '<span id="noMatches"> ' + LANG.NO_ENTRIES[lang] +' </span>'; //
+				rowHtml = '<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>';
+			}
+		}
+		////////////
+		// OUTPUT //
+		////////////
+		return rowHtml;
+	},
+	//////////////
+	// REPEATER //
+	//////////////
+	repeater: function(target,triggerTime,repeatTime,value,callback) {
+		//#abc 400, 200, +1, nutri recalcs
+	},
 };
 /////////////////
 // GLOBAL VARS //
