@@ -45,13 +45,15 @@ app.handlers = {
 	////////////////
 	// ACTIVE ROW //
 	////////////////
-	activeRowBlock : 0,
 	activeRowTouches : 0,
-	activeRowTimer : '',
+	activeRowBlock   : 0,
+	activeRowTimer   : '',
+	activeLastId     : '',
 	activeRow : function (target, style, callback) {
 		//RESET
 		app.handlers.activeRowTouches = 0;
-		app.handlers.activeRowBlock = 0;
+		app.handlers.activeRowBlock   = 0;
+		clearTimeout(app.handlers.activeRowTimer);
 		////////////////
 		// SET PARENT //
 		////////////////
@@ -59,52 +61,60 @@ app.handlers = {
 		if (target.match(' ')) {
 			targetParent = target.split(' ')[0] + ', ' + target;
 		}
-		//////////////////
-		// MAIN TRIGGER //
-		//////////////////
-		$(target).on(tap, function (evt) {
-			if ($(target).hasClass(style) && app.handlers.activeRowBlock === 0) {
-				$(this).addClass(style);
-				app.handlers.activeRowBlock = 1;
+		//////////////
+		// TOUCHEND //
+		//////////////
+		$(target).on(touchend, function (evt) {
+			if($(this).hasClass(style) && app.handlers.activeRowBlock === 0) {
 				if (callback) {
+					app.handlers.activeRowBlock = 1;
 					callback($(this).attr('id'));
+					$(this).addClass(style);
+					app.handlers.activeLastId = '#' + $(this).attr('id');
+					var resetTime = (style == 'activeOverflow') ? 0 : 500;
 					setTimeout(function () {
-						app.handlers.activeRowBlock = 0;
+						app.handlers.activeRowTouches = 0;
+						app.handlers.activeRowBlock   = 0;
+						clearTimeout(app.handlers.activeRowTimer);
 						if(style != 'activeOverflow') {
-							$(target + '.' + style).removeClass(style);
+							$(app.handlers.activeLastId).removeClass(style);
 						}
-					}, 500);
-					return false;
+					}, resetTime);
+					
 				}
 			} else {
-				$('.' + style).removeClass(style);
-				app.handlers.activeRowTouches = 0
+				app.handlers.activeRowTouches = 0;
+				app.handlers.activeRowBlock   = 0;
+				clearTimeout(app.handlers.activeRowTimer);
 			}
 		});
-		////////////////////////////
-		// ROW ACTIVATION HANDLER //
-		////////////////////////////
+		////////////////
+		// TOUCHSTART //
+		////////////////
 		setTimeout(function () {
 			$(target).on(touchstart, function (evt) {
-				$(target + '.' + style).removeClass(style);
+				if(!$(this).hasClass(style)) {
+					$(app.handlers.activeLastId).removeClass(style);
+				}
 				var localTarget = this;
 				app.handlers.activeRowTouches = 0;
 				clearTimeout(app.handlers.activeRowTimer);
 				app.handlers.activeRowTimer = setTimeout(function () {
 					if (app.handlers.activeRowTouches == 0 && app.handlers.activeRowBlock == 0) {
 						$(localTarget).addClass(style);
+						app.handlers.activeLastId = '#' + $(localTarget).attr('id');
 					} else {
-						$(target + '.' + style).removeClass(style);
+						$(app.handlers.activeLastId).removeClass(style);
 					}
-				}, 70);
+				}, 75);
 			});
 		}, 400);
-		/////////////////////////
-		// TARGET + MOUSELEAVE //
-		/////////////////////////
+		//////////////////////
+		// ROW LEAVE CANCEL //
+		//////////////////////
 		if(isMobile.MSApp()) {
 			$(target).on('pointerleave pointercancel pointerout', function (evt) {
-				$(target + '.' + style).removeClass(style);
+				$(app.handlers.activeLastId).removeClass(style);
 				clearTimeout(app.handlers.activeRowTimer);
 			});
 		}
@@ -113,28 +123,28 @@ app.handlers = {
 				app.handlers.activeRowTouches++;
 				if(!isMobile.Windows() && style != 'activeOverflow') {
 					clearTimeout(app.handlers.activeRowTimer);
-					$(target + '.' + style).removeClass(style);
+					$(app.handlers.activeLastId).removeClass(style);
 				}
 			});
 		}
-		///////////////////////
-		// SCROLL DEACTIVATE //
-		///////////////////////
+		////////////////////////
+		// SCROLL/MOVE CANCEL //
+		////////////////////////
 		if(!isMobile.MSApp()) {
 			var moveCancel = isMobile.OSXApp() ? '' : touchmove;
 			$(targetParent).on('scroll ' + moveCancel, function (evt) {
 				app.handlers.activeRowTouches++;
 				clearTimeout(app.handlers.activeRowTimer);
 				if (app.handlers.activeRowTouches > 5 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
-					$(target + '.' + style).removeClass(style);
+					$(app.handlers.activeLastId).removeClass(style);
 					app.handlers.activeRowTouches = 0;
 				}
 			});
 		}
-		////////////////////////
-		// SCROLL TIMER BLOCK //
-		////////////////////////
-		$(targetParent).on('scroll ' + doubletap, function (evt) {
+		///////////////////////
+		// SCROLL TIME BLOCK //
+		///////////////////////
+		$(targetParent).on('scroll', function (evt) {
 			app.handlers.activeRowBlock = 1;
 			setTimeout(function () {
 				app.handlers.activeRowBlock = 0;
@@ -369,6 +379,16 @@ var isMobile = {
 	},
 	OSXApp: function() {
 		return isMobileOSXApp;
+	},
+	ChromeApp: function() {
+		if(chrome) {
+			if(chrome.app) {
+				if(chrome.app.isInstalled) {
+					 return true;	
+				}
+			}
+		}
+		return false;
 	}
 };
 ////////////
@@ -582,6 +602,17 @@ function sortObject(obj) {
 		}
 	}
 	return arr.sort().reverse();
+}
+/////////////////
+// PUSH UNIQUE //
+/////////////////
+Array.prototype.pushUnique = function (item) {
+	if (this.indexOf(item) == -1) {
+		//if(jQuery.inArray(item, this) == -1) {
+		this.push(item);
+		return true;
+	}
+	return false;
 }
 /////////////////
 // DATE FORMAT //

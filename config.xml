@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.mylivediet"
-        versionCode="14000" 
-        version   = "1.4">
+        versionCode="14100" 
+        version   = "1.4.1">
 
 	<content src="index.html" />
 	<access origin="*" />
@@ -86,14 +86,6 @@
     <feature name="org.apache.cordova.facebook.Connect">
         <param name="ios-package" value="FacebookConnectPlugin" />
         <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
-    </feature>
-
-    <feature name="InAppBillingPlugin">
-        <param name="android-package" value="com.smartmobilesoftware.inappbilling.InAppBillingPlugin" />
-    </feature>
-
-    <feature name="InAppPurchaseManager">
-        <param name="wp-package" value="InAppPurchaseManager" />
     </feature>
 
 	<feature name="Device">

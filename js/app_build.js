@@ -19,7 +19,6 @@ function openSettings(keepOpen) {
 			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.SETTINGS_BACKUP[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
 			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
-			<li id="optionBuy"><div><p class="contentTitle">'      + LANG.BUY_FULL_VERSION[lang]     + '<span>' + LANG.DAYS_LEFT[lang] + ': ' + daysLeft() + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite">' + appName + " v" + appVersion + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
@@ -54,19 +53,6 @@ function openSettings(keepOpen) {
 		buildHelpMenu();
 		return false;
 	});	
-	/////////////
-	// BUY TAP //
-	/////////////
-	if(!isPaid()) {	
-	$("#optionBuy").on(touchend,function(evt) {
-		$(this).addClass("activeRow");
-		evt.preventDefault();
-		billingWindow();
-		return false;
-	});	
-	} else {
-		$("#optionBuy").remove();
-	}
 	//////////////
 	// LANG TAP //
 	//////////////

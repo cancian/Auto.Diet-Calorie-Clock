@@ -27,6 +27,7 @@ $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
 //#//////////////////#//
 function InitializeLocalSuperBlock(opt) {
 	if(opt == "cached") { return; }
+	//if(location.protocol.indexOf('http') !== -1) { return; }
 	var dataJS  = '';
 	var dataCSS = '';
 	$.ajax({type: "GET", dataType: "text", url: "js/app_lib.js",         success: function(raw) { dataJS  = dataJS  + raw;
@@ -186,6 +187,9 @@ function buildRemoteSuperBlock(opt) {
 					}
 				},2000);
 			}
+		} else {
+			$('body').removeClass('loading');
+			$('body').addClass('uptodate');	
 		}
 	} catch(e) { }
 	//

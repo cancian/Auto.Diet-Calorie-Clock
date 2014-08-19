@@ -42,7 +42,7 @@ kickStarter(function() {
 var resumeTimeout;
 $(document).on('resume',function() {
 	//silent restart
-	if(window.localStorage.getItem("app_restart_pending") && !$("#buyButton").length) {
+	if(window.localStorage.getItem("app_restart_pending")) {
 		window.localStorage.removeItem("app_restart_pending");
 		if(window.MyReload) {
 			window.MyReload.reloadActivity();
@@ -55,20 +55,9 @@ $(document).on('resume',function() {
 	$('body').removeClass('hidenotice');
 	noteContent = '';
 	resumeTimeout = setTimeout(function() { 
-		expireNotice();
 		updateLoginStatus(1);
 		getAnalytics('resume');
 		buildRemoteSuperBlock('cached');
-		//SHOWHIDE NOTICE
-		$('#timerTrial').fadeOut(100,function() {
-			noteContent = LANG.DAYS_LEFT[lang] + ': ' + daysLeft();
-			$('#timerTrial').fadeIn(300);
-			setTimeout(function() { 
-				$('#timerTrial').fadeOut(100,function() {
-					$('body').addClass('hidenotice');
-				});
-			},5000);
-		});
 	},5000);
 });
 ///////////////////////
@@ -98,19 +87,8 @@ setTimeout(function() {
 	getAnalytics('init'); 
 },0);
 setTimeout(function() {
-	expireNotice();
 	updateLoginStatus(1);
 	getAnalytics('startApp');
-	//SHOWHIDE NOTICE
-	$('#timerTrial').fadeOut(100,function() {
-		noteContent = LANG.DAYS_LEFT[lang] + ': ' + daysLeft();
-		$('#timerTrial').fadeIn(300);
-		setTimeout(function() { 
-			$('#timerTrial').fadeOut(100,function() {
-				$('body').addClass('hidenotice');
-			});
-		},5000);
-	});
 	//MARK BOOT SUCCESS
 	window.localStorage.removeItem("consecutive_reboots");
 },5000);
@@ -171,7 +149,7 @@ preTab = function(keepOpen) {
 };
 afterTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
-	$("#appContent").show();
+	$("#appContent").css('display','block');
 	$("#appContent").css('pointer-events','auto');
 	$("body").removeClass("newwindow");
 	//
@@ -361,20 +339,9 @@ $(document).keyup(function(e) {
 		}
 	}
 });
-//FORCE SHOW KEYBOARD
-$(document).on("click", function(evt) {
-	if(isMobile.Android() || isMobile.FirefoxOS()) {
-		if($('#diaryNotesInput').length) {
-			$('#diaryNotesInput').focus();
-		}
-	}
-	if(isMobile.Windows() || isMobile.MSApp()) {
-		if(evt.target.id == "editableDiv") {
-			$('#editable').focus();
-		}
-	}
-});
-//ON SHOW KEYBOARD
+///////////////////
+// SHOW KEYBOARD //
+///////////////////
 $(document).on("showkeyboard", function(evt) {
 	if($('#diaryNotesInput').length) {
 		setTimeout(function() {
@@ -395,7 +362,9 @@ $(document).on("showkeyboard", function(evt) {
 		},300);
 	}
 });
-//ON HIDE KEYBOARD
+//////////////////////
+// ON HIDE KEYBOARD //
+//////////////////////
 $(document).on("hidekeyboard",function() {
 	appResizer(100);
 	if($('#editable').val()) {
@@ -669,49 +638,6 @@ setTimeout(function() {
 		navigator.splashscreen.hide();
 	}
 },1000);
-////////////////////
-// CHECK PREVIOUS //
-////////////////////
-setTimeout(function () {
-	if(window.localStorage.getItem("config_mode") == 'full') { return; }
-	try {
-		if ((isMobile.Android() || isMobile.Windows() || isMobile.MSApp()) && isMobile.Cordova() && !$('body').hasClass('full')) {
-			if (window.device) {
-				if (window.device.uuid) {
-					if (window.device.uuid.length > 10) {
-						var getHost = (window.localStorage.getItem("config_debug") == "active") ? "http://192.168.1.5/com.cancian.mylivediet/www/" : "http://kcals.net/";
-						$.ajax({
-							type : "GET",
-							dataType : "text",
-							url : getHost + "uuid.php?uuid=" + window.device.uuid + "&time=" + window.localStorage.getItem("config_install_time"),
-							error : function (xhr, statusText) {
-								errorHandler(statusText);
-							},
-							success : function (returnTime) {
-								returnTime = trim(returnTime);
-								if (returnTime.length == 13) {
-									if (returnTime < parseInt(window.localStorage.getItem("config_install_time"))) {
-										window.localStorage.setItem("config_install_time", returnTime);
-									}
-								}
-							}
-						});
-					}
-				}
-			}
-		}
-	} catch (e) {
-		errorHandler(e);
-	}
-}, 8000);
-/////////////
-// LICENSE //
-/////////////
-(function licenseTimer() {
-	isPaid();
-	checkLicense();
-	setTimeout(licenseTimer, 4000);
-})();
 ////////////////
 // MAIN TIMER //
 ////////////////
@@ -841,7 +767,7 @@ setTimeout(function () {
 			}
 		}
 	});
-	$("#appHeader").swipe("option", "threshold", 32);
+	$('#appHeader').swipe('option', 'threshold', 32);
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //
 	//////////////////////////

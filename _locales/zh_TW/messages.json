@@ -1,0 +1,9 @@
+﻿{
+	"appName" : {
+		"message" : "KCals 卡路里計數器"
+
+	},
+	"appDesc" : {
+		"message" : "KCals 旨在幫助您控制您的卡路里攝入量。"
+	}
+}

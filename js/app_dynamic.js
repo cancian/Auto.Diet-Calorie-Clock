@@ -1260,9 +1260,9 @@ function buildFoodMenu() {
 		////////////////////
 		// CUSTOM FAV SQL //
 		////////////////////
-		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 100 : 200;
-		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 100 : 200;
-		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 100 : 200;
+		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 0 : 200;
+		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 0 : 200;
+		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 0 : 200;
 		setTimeout(function () {
 			getCatList('open');
 		}, tabTimer1);

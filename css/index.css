@@ -429,12 +429,6 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #getEntryWrapper input:focus							{ color: #0072BC; }
 #getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 2px;  font-family: "FontAwesome"; content: '\F000'; color: #00c; }
 #getEntryWrapper #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 2px;  font-family: "FontAwesome"; content: '\F17D'; color: #c30; }
-/*#/////////////#//
-//# GET BILLING #//
-//#/////////////#*/
-#premiumInfo						{ margin: 25px; text-align: left; display: none; }
-#restoreButton,
-#buyButton							{ font-size: 18px; display: block; padding: 12px 0; margin: 24px; text-align: center; background-color: #eee; }
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
@@ -1129,26 +1123,6 @@ body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }
 body.ios7 span#timerExercise:after	{ bottom: 2px; }
-/*#////////////#//
-//#//LICENSE //#//
-//#////////////#*/
-#timerTrial							{ position: absolute; bottom: 0; left: 0; text-indent: 0; right: 0; display: block; text-align: center; font-weight: bold; height: 10px; line-height: 9px; font-size: 9px; color: #fff; overflow: hidden; white-space: nowrap; }
-.hidenotice #timerTrial				{ display: none !important; }
-.full #timerTrial,
-.full #optionBuy 					{ display: none !important; }
-.expired #pageSlideFood,
-.expired.tab1 #newWindowWrapper,
-.expired.tab2 #newWindowWrapper,
-.expired.tab3 #newWindowWrapper		{ display: none !important; pointer-events: none !important; }
-.expired.tab1 #appContent,
-.expired.tab2 #appContent,
-.expired.tab3 #appContent			{ pointer-events: none !important; -ms-touch-action: none; }
-.expired.tab1 #appContent:before,
-.expired.tab2 #appContent:before,
-.expired.tab3 #appContent:before	{ pointer-events: none !important;  background-color: #fff; opacity: .5 !important; -ms-touch-action: none; z-index: 9999; content: ''; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
-.expired #startDateSpan:before		{ display: none !important; opacity: 0 !important; }
-.expired #editableDiv 				{ pointer-events: none !important; z-index: 0; }
-.expired #appHeader 				{ background-color: #fc3 !important; }
 /*#////////////////#//
 //#// CATEGORIES //#//
 //#////////////////#*/

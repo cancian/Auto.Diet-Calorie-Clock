@@ -192,6 +192,7 @@ function initDB(t) {
 	////////////////////
 	if(!window.localStorage.getItem("config_kcals_day_0") || window.localStorage.getItem("config_debug") == "active") {
 		if(!window.localStorage.getItem("config_install_time")) {
+			window.localStorage.setItem("config_install_time",new Date().getTime())
 			showIntro(1);
 		} else {
 			showIntro(0);
@@ -926,9 +927,6 @@ function afterHide(cmd) {
 		$('*').css('pointer-events','none');
 		blockAlerts = 1; 
 		//preserve data
-		if(window.localStorage.getItem("config_mode")) {
-			var configMode = window.localStorage.getItem("config_mode");
-		}
 		if(window.localStorage.getItem("config_install_time")) {
 			var installTime = window.localStorage.getItem("config_install_time");
 		}
@@ -955,9 +953,6 @@ function afterHide(cmd) {
 					///////////
 					if(cmd == "clear") {
 						window.localStorage.clear();
-						if(configMode) {
-							window.localStorage.setItem('config_mode',configMode);
-						}
 						if(installTime) {
 							window.localStorage.setItem('config_install_time',installTime);
 						}
@@ -976,9 +971,6 @@ function afterHide(cmd) {
 					///////////
 					if(cmd == "clear") { 
 						window.localStorage.clear();
-						if(configMode) {
-							window.localStorage.setItem('config_mode',configMode);
-						}
 						if(installTime) {
 							window.localStorage.setItem('config_install_time',installTime);
 						}
@@ -1960,7 +1952,7 @@ function getStoreUrl(button) {
 	if(button == 1) {
 		getAnalytics("vote");
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/app/id732382802', '_system', 'location=yes');														}
-		else if(isMobile.Android())   { window.open('market://details?id=com.cancian.mylivediet', '_system', 'location=yes');													}
+		else if(isMobile.Android())   { window.open('market://details?id=com.cancian.kcals', '_system', 'location=yes');													}
 		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
 		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e'));	}
 		else if(isMobile.FirefoxOS()) { ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');												}

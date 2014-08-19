@@ -143,14 +143,11 @@ function initJS() {
 		//DEFINE VALIDITY
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
 		if(isCurrentCacheValid == 1) {
-			document.write("\
-				<style type='text/css' id='superBlockCSS'>\
-					" + window.localStorage.getItem("remoteSuperBlockCSS") + "\
-				<\/style>\
-				<script type='text/javascript' id='superBlockJS'>\
-					" + window.localStorage.getItem("remoteSuperBlockJS") + "\
-				<\/script>\
-			");
+			document.write("<style type='text/css' id='superBlockCSS'>" + window.localStorage.getItem("remoteSuperBlockCSS") + "<\/style>");
+			//document.write("<script type='text/javascript' id='superBlockJS'>" + window.localStorage.getItem("remoteSuperBlockJS") + "<\/script>");
+			document.addEventListener("DOMContentLoaded", function(event) {
+				$.globalEval(window.localStorage.getItem("remoteSuperBlockJS"));
+			},false);
 		}
 	} else {
 		/////////
