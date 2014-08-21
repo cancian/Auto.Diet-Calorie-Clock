@@ -1,7 +1,7 @@
 ﻿//#/////////////#//
 //# GLOBAL VARS #//
 //#/////////////#//
-var app  = {};
+var app = {};
 //////////////
 // APP TIME //
 //////////////
@@ -29,6 +29,57 @@ app.counter = {
 // GLOBAL APP HANDLERS //app.handlers.activeRow('#appStatusAddRight','clicked',function(evt) {});
 /////////////////////////app.handlers.activeRow('#target','class',function() {});
 app.handlers = {
+	//////////////////
+	// CSS FADE OUT //
+	//////////////////
+	fade : function(inOut,target,callback) {
+		//PRE-HIDE FADE-IN
+		if(inOut == 1) {
+			$(target).css(prefix + 'transition-duration', '0s');
+			$(target).css('opacity',0);
+			$(target).hide();
+		}
+		////////////////////
+		// TRANSITION END //
+		////////////////////
+		$(target).off(transitionend).on(transitionend,function(evt) {
+			if(inOut == 0) {
+				$(target).remove();
+			} else {
+				//fast resizing
+				$(target).css(prefix + 'transition-duration', '0s');
+			}
+			if(callback) {
+				callback(evt);
+				callback = '';
+			}
+		});
+		//////////////////
+		// SET ANIMATED //
+		//////////////////
+		$(target).css(prefix + 'transform', 'translate3d(0, 0, 0)');
+		$(target).css(prefix + 'transition-timing-function', 'linear');
+		$(target).css(prefix + 'transition-duration', '.16s');
+		///////////////////////////////////
+		// SET OPACITY ~ ENFORCE REMOVAL //
+		///////////////////////////////////
+		if(inOut == 1) {
+			$(target).show();
+		}
+		setTimeout(function(evt) {
+			$(target).css('opacity',inOut);
+			setTimeout(function(evt) {
+				if($(target).length && callback !== '') {
+					$(target).trigger(transitionend);
+				}
+			//ENFORCE
+			},300);
+		//DEFER
+		},0);
+	},
+	///////////////////
+	// ACTIVE BUTTON //
+	///////////////////
 	activeButton : function (target, style, callback) {
 		$(target).on(touchstart, function (evt) {
 			$(target).addClass(style);
@@ -106,7 +157,7 @@ app.handlers = {
 					} else {
 						$(app.handlers.activeLastId).removeClass(style);
 					}
-				}, 75);
+				}, 40);
 			});
 		}, 400);
 		//////////////////////
@@ -161,18 +212,15 @@ app.handlers = {
 		//$('.yellow').removeClass('yellow');
 		//$('.trans').removeClass('trans');
 		//$('.fade').removeClass('fade');
-		
-		$('.activeOverflow').addClass('yellow');
-		$('.activeOverflow').removeClass('activeOverflow');
-
+		//$('.activeOverflow').removeClass('activeOverflow');	
+		$(target).removeClass('activeOverflow');
+		$(target).addClass('yellow');
 		if(callback) {
 			callback();
 		}
-		
 		setTimeout(function () {
 			//$(parentDiv + target).addClass('fade');
 			//$(parentDiv + target).addClass('trans');
-			$('.activeOverflow').removeClass('activeOverflow');
 			$('.yellow').addClass('fade');
 			$('.yellow').addClass('trans');
 		}, 0);
@@ -282,11 +330,44 @@ app.handlers = {
 		////////////
 		return rowHtml;
 	},
-	//////////////
-	// REPEATER //
-	//////////////
-	repeater: function(target,triggerTime,repeatTime,value,callback) {
-		//#abc 400, 200, +1, nutri recalcs
+	//@//////////@//
+	//@ REPEATER @//
+	//@//////////@//
+	repeater: function(target,style,triggerMs,repeatMs,callback) {
+		var triggerTimer;
+		var repeatTimer;
+		$(target).removeClass(style);
+		clearTimeout(triggerTimer);
+		clearTimeout(repeatTimer);
+		///////////////
+		// AUTOCLEAR //
+		///////////////
+		var clearActions = touchend + ' mouseout mouseleave mouseup';
+		$(target).off(clearActions).on(clearActions, function (evt) {
+			evt.preventDefault();
+			$(target).removeClass(style);
+			clearTimeout(triggerTimer);
+			clearTimeout(repeatTimer);
+		});
+		/////////////
+		// TRIGGER //
+		/////////////
+		$(target).off(touchstart).on(touchstart, function (evt) {
+			evt.preventDefault();
+			clearTimeout(triggerTimer);
+			clearTimeout(repeatTimer);
+			//TAP
+			$(target).addClass(style);
+			callback();
+			//START
+			triggerTimer = setTimeout(function() {
+				//REPEAT
+				(function repeaterLoop() {
+					callback();
+					repeatTimer = setTimeout(repeaterLoop,repeatMs);
+				})();
+			}, triggerMs);
+		});
 	},
 };
 /////////////////
@@ -343,15 +424,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//
-var isMobileCordova   = (typeof cordova != 'undefined' || typeof Cordova != 'undefined') ? true : false;
-var isMobileAndroid   = (/Android/i).test(userAgent) ? true : false;
-var isMobileiOS       = (/(iPhone|iPad|iPod)/i).test(userAgent) ? true : false;
-var isMobileWindows   = (/IEMobile/i).test(userAgent) ? true : false;
-var isMobileWP81      = (/Windows Phone 8.1/i).test(userAgent) ? true : false;
-var isMobileMSApp     = (/MSApp/i).test(userAgent) ? true : false;
-var isMobileFirefoxOS = ((/firefox/).test(userAgent.toLowerCase()) && (/mobile/).test(userAgent.toLowerCase()) && (/gecko/).test(userAgent.toLowerCase())) ? true : false;
-var isMobileOSX       = ((/(Macintosh|Mac OS X)/i).test(userAgent) && !(/(iPhone|iPad|iPod)/i).test(userAgent)) ? true : false;
-var isMobileOSXApp    = (/MacGap/i).test(userAgent) ? true : false;
+var isMobileCordova    = (typeof cordova != 'undefined' || typeof Cordova != 'undefined') ? true : false;
+var isMobileAndroid    = (/Android/i).test(userAgent) ? true : false;
+var isMobileiOS        = (/(iPhone|iPad|iPod)/i).test(userAgent) ? true : false;
+var isMobileWindows    = (/IEMobile/i).test(userAgent) ? true : false;
+var isMobileWP81       = (/Windows Phone 8.1/i).test(userAgent) ? true : false;
+var isMobileMSApp      = (/MSApp/i).test(userAgent) ? true : false;
+var isMobileFirefoxOS  = ((/firefox/).test(userAgent.toLowerCase()) && (/mobile/).test(userAgent.toLowerCase()) && (/gecko/).test(userAgent.toLowerCase())) ? true : false;
+var isMobileOSX        = ((/(Macintosh|Mac OS X)/i).test(userAgent) && !(/(iPhone|iPad|iPod)/i).test(userAgent)) ? true : false;
+var isMobileOSXApp     = (/MacGap/i).test(userAgent) ? true : false;
+var isMobileBlackBerry = (/BlackBerry/i).test(userAgent) ? true : false;
 var isMobile = {
 	Cordova: function() {
 		return isMobileCordova;
@@ -380,6 +462,9 @@ var isMobile = {
 	OSXApp: function() {
 		return isMobileOSXApp;
 	},
+	BlackBerry: function() {
+		return isMobileBlackBerry;
+	},	
 	ChromeApp: function() {
 		if(chrome) {
 			if(chrome.app) {

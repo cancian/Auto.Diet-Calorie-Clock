@@ -1506,7 +1506,7 @@ function addNewItem(opt) {
 	//# CONFIRM ADD #//
 	//#/////////////#//
 	var lockAdd = 0;
-	$("#addNewConfirm").off().on(touchstart, function (evt) {
+	$("#addNewConfirm").off(touchstart).on(touchstart, function (evt) {
 		if (lockAdd == 0) {
 			lockAdd++;
 			// INSERT NEW ? UPDATE EXISTING
@@ -1740,10 +1740,6 @@ function addNewItem(opt) {
 //#////////////////////#//
 //#    MODAL WINDOW    #//
 //#////////////////////#//
-var pressTimerModalNeg;
-var pressTimerModalPos;
-var pressRepeatModalNeg;
-var pressRepeatModalPos;
 function getModalWindow(itemId) {
 	if (!itemId) {
 		return;
@@ -1751,13 +1747,6 @@ function getModalWindow(itemId) {
 	if ($("#addNewWrapper").html()) {
 		return;
 	}
-	////////////////////
-	// RESET REPEATER //
-	////////////////////
-	clearTimeout(pressTimerModalNeg);
-	clearTimeout(pressTimerModalPos);
-	clearInterval(pressRepeatModalNeg);
-	clearInterval(pressRepeatModalPos);
 	///////////
 	// QUERY //
 	///////////
@@ -1785,12 +1774,15 @@ function getModalWindow(itemId) {
 		// FOODLIST MODAL-TAP //
 		////////////////////////
 		//prevent flood
-		$("#tempHolder,#modalWindow,#modalOverlay,#addNewWrapper").remove();
+		$("#modalWrapper,#addNewWrapper").remove();
 		//insert frame
-		$("body").append('<div id="modalOverlay"></div>');
-		$("body").append('<div id="modalWindow"></div>');
-		$("body").addClass("overlay");
+		//$("body").addClass("overlay");
 		//add content
+		$("body").append('\
+		<div id="modalWrapper">\
+			<div id="modalOverlay"></div>\
+			<div id="modalWindow"></div>\
+		</div>');
 		$("#modalWindow").html("<div id='modalDelete'></div><div id='modalEdit'></div><div id='modalFav'></div><div id='modalContent'>" + mName + "&nbsp; <span>&nbsp;" + LANG.PRE_FILL[lang] + "</span></div>");
 		$("#modalWindow").append("<div id='modalButtons'><span id='modalOk'>" + LANG.ADD[lang] + "</span><span id='modalCancel'>" + LANG.CANCEL[lang] + "</span></div>");
 		$("#modalWindow").append('<div id="modalAdjust"><span id="modalNegBlock"><span id="modalNeg" class="icon-chevron-sign-left"></span></span><span id="modalPosBlock"><span id="modalPos" class="icon-chevron-sign-right"></span></span><span id="modalAmountBlock"><span id="modalAmount">0</span><span id="modalAmountType">' + LANG.GRAMS[lang] + '</span></span><span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">' + LANG.KCAL[lang] + '</span></span></div>');
@@ -1806,8 +1798,7 @@ function getModalWindow(itemId) {
 		//#////////////#//
 		//# SHOW MODAL #//
 		//#////////////#//
-		$("#modalWindow,#modalOverlay").fadeIn(200);
-		$('#modalWindow,#modalOverlay').addClass('show');
+		app.handlers.fade(1,"#modalWrapper");
 		//#/////////////////////////////////#//
 		//# MODAL ADD/REMOVE CORE FUNCTIONS #//
 		//#/////////////////////////////////#//
@@ -1872,9 +1863,10 @@ function getModalWindow(itemId) {
 		/////////////////////
 		// POSITIVE ADJUST //
 		/////////////////////
+		/*
 		$("#modalPosBlock").on(touchstart, function (evt) {
-			evt.preventDefault();
-			modalAdd();
+			//evt.preventDefault();
+			//modalAdd();
 		});
 		/////////////////////
 		// NEGATIVE ADJUST //
@@ -1892,13 +1884,29 @@ function getModalWindow(itemId) {
 			clearInterval(pressRepeatModalNeg);
 			clearInterval(pressRepeatModalPos);
 		}
+		*/
 		///////////////
 		// AUTOCLEAR //
 		///////////////
-		$("#modalPosBlock,#modalNegBlock").on(touchend + " mouseout mouseleave mouseup", function (evt) {
-			evt.preventDefault();
-			clearRepeaterModal();
+		//$("#modalPosBlock,#modalNegBlock").on(touchend + " mouseout mouseleave mouseup", function (evt) {
+		//	evt.preventDefault();
+			//clearRepeaterModal();
+		///});
+		
+		/////////////////////
+		// MODAL REPEATERS //
+		/////////////////////
+		app.handlers.repeater('#modalPosBlock','active',400,50,function() {
+			modalAdd();
+			console.log('repeat pos');
 		});
+
+		app.handlers.repeater('#modalNegBlock','active',400,50,function() {
+			modalRem();
+			console.log('repeat neg');
+		});
+
+		/*
 		$("#adjustPosBlock").on(touchend, function (evt) {
 			evt.preventDefault();
 			clearRepeaterModal();
@@ -1911,10 +1919,11 @@ function getModalWindow(itemId) {
 							modalAdd();
 						}, 50);
 				}, 400);
-		});
+		});*/
 		///////////////////////
 		// NEGATIVE REPEATER //
 		///////////////////////
+		/*
 		$("#modalNegBlock").on(touchend, function (evt) {
 			evt.preventDefault();
 			clearRepeaterModal();
@@ -1928,6 +1937,7 @@ function getModalWindow(itemId) {
 						}, 50);
 				}, 400);
 		});
+		*/
 		//#/////////////////////////#//
 		//# SMALLER MODAL FUNCTIONS #//
 		//#/////////////////////////#//
@@ -1936,8 +1946,15 @@ function getModalWindow(itemId) {
 		//////////////////////////////
 		var im = 0;
 		$("#modalOk").on(touchstart, function (evt) {
+			//$("#modalOk").off();
+			//$("#modalOk").css('opacity',.5);
+			//if content, disable handler, else notify
+			//if (title != 0 && im == 0) {
+			//$("#modalOk").off();
+			//ON CHANGE, CHECK VALUE VALID/INVALID>ACTIVE CLASS
+			
 			evt.preventDefault();
-			clearRepeaterModal();
+			//clearRepeaterModal();
 			//ADJUST TYPE
 			if (searchType == "food") {
 				var valueType = 1;
@@ -1966,7 +1983,11 @@ function getModalWindow(itemId) {
 					pro : parseFloat($("#proData").text()),
 					car : parseFloat($("#carData").text()),
 					fat : parseFloat($("#fatData").text())
-				});
+				},function() {
+					
+					//////////////
+					// CALLBACK //
+					//////////////
 				//auto start
 				function onConfirmStart(button) {
 					if (button == 1) {
@@ -1983,45 +2004,63 @@ function getModalWindow(itemId) {
 				if (window.localStorage.getItem("appStatus") != "running") {
 					appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], onConfirmStart, LANG.OK[lang], LANG.CANCEL[lang]);
 				}
+				//////////////
+				// FADE OUT //
+				//////////////
+				app.handlers.fade(0,'#modalWrapper',function() {
+					//////////////
+					// CALLBACK //
+					//////////////
+					if (document.getElementById('slider') && document.getElementById('entryBody')) {
+						document.getElementById('slider').slider.setValue(0);
+						$('#entryTitle').val(0);
+						$('#entryTitle').trigger('update');
+					}
+					//////////////////
+					// refresh data //
+					//////////////////
+					updateTimer();
+					//defer heavy
+					setTimeout(function() {
+						updateEntries(published);
+						updateEntriesTime();
+						updateEntriesSum();
+						intakeHistory();
+					}, 1000);
+				});
+				/////////////////////
+				// DEFER HIGHLIGHT //
+				/////////////////////TODO: id as class
+				setTimeout(function() {
+					var parentId = $('#' + itemId).parent('div').attr('id');
+					app.handlers.updateRow('#' + parentId + ' #' + itemId);
+				}, 0);
+			});
 				//CSS FADE OUT
-				$('#modalWindow').removeClass('show');
-				$('#modalOverlay').removeClass('show');
-				$(".searcheable").removeClass('fade');
+				//$('#modalWindow').removeClass('show');
+				//$('#modalOverlay').removeClass('show');
+				//$(".searcheable").removeClass('fade');
 				//CSS HIGHLIGHT
-				$(".activeOverflow").removeClass("activeOverflow");
-				$(".searcheable").removeClass('yellow');
-				$(".searcheable").removeClass('trans');
+				//$(".activeOverflow").removeClass("activeOverflow");
+				//$(".searcheable").removeClass('yellow');
+				//$(".searcheable").removeClass('trans');
 				//$("#" + mCode).addClass('yellow');
-				$("#activeOverflow").parent('div').addClass('yellow');
-				setTimeout(function () {
+				//$("#activeOverflow").parent('div').addClass('yellow');
+				//setTimeout(function () {
 					//$("#" + mCode).addClass('fade');
 					//$("#" + mCode).addClass('trans');
-					$("#activeOverflow").parent('div').addClass('fade');
-					$("#activeOverflow").parent('div').addClass('trans');
-				}, 0);
-				$(".activeOverflow").removeClass("activeOverflow");
+					//$("#activeOverflow").parent('div').addClass('fade');
+					//$("#activeOverflow").parent('div').addClass('trans');
+				//}, 0);
+				//$(".activeOverflow").removeClass("activeOverflow");
 				//SELF-REMOVE
-				$('#modalOverlay').on(transitionend, function (e) {
-					$("#modalOverlay,#modalWindow").remove();
-					$("body").removeClass("overlay");
-				});
-				if (document.getElementById('slider') && document.getElementById('entryBody')) {
-					document.getElementById('slider').slider.setValue(0);
-					//$("#entryTime").val('0');
-					$("#entryTitle").val(0);
-					$("#entryTitle").trigger("update");
-					//$("#entryBody").val('');
-				}
-				//REFRESH DATA
-				updateTimer();
-				clearRepeaterModal();
-				//update intake graph
-				intakeHistory();
-				setTimeout(function (evt) {
-					updateEntries(published);
-					updateEntriesTime();
-					updateEntriesSum();
-				}, 1000);
+				//$('#modalOverlay').on(transitionend, function (e) {
+					//$("#modalOverlay,#modalWindow").remove();
+					//$("body").removeClass("overlay");
+				//});
+				/////////
+				//
+				////////
 			}
 		});
 		///////////////////
@@ -2043,15 +2082,8 @@ function getModalWindow(itemId) {
 			//fade (time protected)
 			var deFade = new Date().getTime();
 			if ((deFade - initTime > 350)) {
-				//CSS FADE OUT
-				$('#modalWindow').removeClass('show');
-				$('#modalOverlay').removeClass('show');
-				clearRepeaterModal();
-				//SELF-REMOVE
-				$('#modalOverlay').on(transitionend, function (e) {
-					$("#modalOverlay,#modalWindow").remove();
-					$("body").removeClass("overlay");
-				});
+				app.handlers.fade(0,"#modalWrapper");
+				$(".activeOverflow").removeClass('activeOverflow');
 			}
 		});
 		///////////////////
@@ -2061,7 +2093,7 @@ function getModalWindow(itemId) {
 		$("#modalContent").on(touchstart, function (evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
-			clearRepeaterModal();
+			//clearRepeaterModal();
 			if (mc == 0) {
 				mc++;
 				///////////////

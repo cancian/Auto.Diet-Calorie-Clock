@@ -96,9 +96,9 @@ setTimeout(function() {
 // PARSED CSS //
 ////////////////
 safeExec(function() {
-	$("head").prepend("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
-	$("head").prepend("<style type='text/css' id='daySum'></style>");
-	$("head").prepend("<style type='text/css' id='cssAutoUpdate'>\
+	$("head").append("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
+	$("head").append("<style type='text/css' id='daySum'></style>");
+	$("head").append("<style type='text/css' id='cssAutoUpdate'>\
 		.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + "';/**/}\
 		.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
 		.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
@@ -198,8 +198,7 @@ appFooter(window.localStorage.getItem("app_last_tab"));
 // LISTEN FOR CLICKS //
 ///////////////////////
 var touchFootTimer;
-var footerAction = (androidVersion() >= 4 && androidVersion() < 4.2) ? ' click' : '';
-$("#appFooter li").on(touchstart + footerAction, function(evt) {
+$("#appFooter li").on(touchstart, function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
 	//not while editing
@@ -236,7 +235,8 @@ $(document).on("backbutton", function(evt) {
 	if($('body').hasClass('spinnerMask')) { return false; }
 	//
 	if($("#langSelect").length) {
-		$(".set").trigger(tap);
+		$(".preset").addClass('set');
+		$(".preset").trigger(touchend);
 	} else if($("#skipIntro").length && myScroll.x) {
 		if(myScroll) {
 			myScroll.prev();
@@ -300,8 +300,9 @@ $(document).on("pressenter", function(evt) {
 		$("#entrySubmit").trigger(touchstart);
 		$("#modalOk").trigger(touchstart);
 		$("#addNewConfirm").trigger(touchstart);
-		if($(".set").html()) {
-			$(".set").trigger(tap);
+		if($("#langSelect").length) {
+			$(".preset").addClass('set');
+			$(".preset").trigger(touchend);
 		} else {
 			$("#skipIntro").trigger(touchend);
 		}
@@ -454,9 +455,7 @@ $(window).on("resize", function(evt) {
 //##////////////##//
 //##//  ONLOAD  ##//
 //##////////////##//
-setTimeout(function() {
-	appResizer(1);
-},1)
+appResizer(0);
 /////////////////////
 // DEBUG INDICATOR //
 /////////////////////
@@ -688,7 +687,7 @@ setTimeout(function() {
 		     if($("#subBackButton").length)		{ $("#subBackButton").trigger(touchend); }
 		else if($("#backButton").length)		{ $("#backButton").trigger(touchend); }
 		else if($("#advBackButton").length)		{ $("#advBackButton").trigger(touchend); }
-		else if($("#langSelect").length)		{ $(".set").trigger(tap); }
+		else if($("#langSelect").length)		{ $(".preset").addClass('set'); $(".preset").trigger(touchend); }
 		
 		if($("body").hasClass("newwindow") && !$('#modalWindow').length) { return; }
 		if(!$("#appHeader").hasClass("closer")) { return; }

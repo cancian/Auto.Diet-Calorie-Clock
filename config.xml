@@ -88,9 +88,4 @@
         <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
     </feature>
 
-	<feature name="Device">
-		<param name="android-package" value="org.apache.cordova.device.Device" />
-		<param name="wp-package" value="Device" />
-	</feature>
-
 </widget>

@@ -1658,28 +1658,22 @@ function getCatList(callback) {
 				//////////////////
 				// MODAL CALLER //
 				//////////////////
-				$("#newWindow div.searcheable").on(singletap, function(evt) {
-					evt.preventDefault();
-					if(blockModal == true) {
-						return;
-					}
-					getModalWindow($(this).attr("id"));
-				});
-				$("#newWindow div.searcheable").on(tap, function (evt) {
-					$("#activeOverflow").removeAttr("id");
-					$(".activeOverflow").removeClass("activeOverflow");
-					$(this).addClass("activeOverflow");
-					$(".foodName", this).attr("id", "activeOverflow");
-					$(".foodName").css("overflow", "auto");
-				});
-				//app.handlers.activeRow('#newWindow .searcheable','activeOverflow',function(rowId) {
-				//	getModalWindow(rowId);
+				//$("#newWindow div.searcheable").on(tap, function (evt) {
+				//	$("#activeOverflow").removeAttr("id");
+				//	$(".activeOverflow").removeClass("activeOverflow");
+				//	$(this).addClass("activeOverflow");
+				//	$(".foodName", this).attr("id", "activeOverflow");
+				//	$(".foodName").css("overflow", "auto");
 				//});
+				app.handlers.activeRow('#newWindow .searcheable','activeOverflow',function(rowId) {
+					getModalWindow(rowId);
+				});
 			}
 			////////////
 			// CLOSER //
 			////////////
 			var catListCloser = function () {
+				//closer for ios if ~backbutton return
 				catMoveCount = 0;
 				catBlockTap = false;
 				$(".activeRow").removeClass("activeRow");

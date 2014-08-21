@@ -4347,3 +4347,10 @@ else if ((/IEMobile/i).test(navigator.userAgent)) {
 		})();
 	}
 }
+////////////////
+// BLACKBERRY //
+////////////////
+else if ((/BlackBerry/i).test(navigator.userAgent)) {
+
+	
+}

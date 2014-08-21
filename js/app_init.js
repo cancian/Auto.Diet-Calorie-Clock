@@ -1,6 +1,7 @@
 ﻿///////////////
 // SAFE EXEC //
 ///////////////
+var baseVersion = 1.4;
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
 function safeExec(callback) {

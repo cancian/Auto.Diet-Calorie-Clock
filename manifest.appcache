@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# v14101 2014-08-18
+# v14102 2014-08-20
 # APP
 index.html
 version.txt
@@ -21,12 +21,10 @@ css/fontawesome.ttf
 js/cordova.js
 js/cordova_plugins.js
 # CDV PLUGINS
-js/plugins/org.apache.cordova.splashscreen/www/splashscreen.js
-js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
-js/plugins/org.apache.cordova.device/www/device.js
-js/plugins/org.apache.cordova.device/src/windows8/DeviceProxy.js
+js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
+js/plugins/org.apache.cordova.splashscreen/www/splashscreen.js
 # FACEBOOK
 js/facebook-js-sdk.js
 js/facebook-js-sdk.min.js
