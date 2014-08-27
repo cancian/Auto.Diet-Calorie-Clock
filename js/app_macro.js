@@ -232,6 +232,10 @@ function intakeHistory() {
 	//check exists
 	if(window.localStorage.getItem("app_last_tab") != "tab1")	{ return; }
 	if(!$('#appStatusIntake').html())							{ return; } 
+	if($('body').hasClass('closer')) {
+		$('body').removeClass('closer');
+		$('body').addClass('reCloser');
+	}
 	//if($('#appStatusIntake div').length === 0) { return; }
 	//go
 	var firstTick = 0;
@@ -513,6 +517,10 @@ function intakeHistory() {
 		//write cache
 		window.localStorage.setItem("appStatusIntake",$('#appStatusIntake').html());
 		$('#appStatusIntake div').css("padding-top", "0px");
+		if($('body').hasClass('reCloser')) { 
+			$('body').removeClass('reCloser');
+			$('body').addClass('closer');
+		}
 	});
 	//wp8 nonstandand
 	$('#appStatusIntake').on(touchend,function(){
@@ -744,53 +752,23 @@ function getCyclicMenu() {
 	//////////////
 	// HANDLERS //
 	//////////////
-	var appModeHandlers = function() {	
-		/////////////////////////
-		// backport validation //
-		/////////////////////////
-		var defaultInputHeaderi = "keypress";
-		if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputHeaderi = "keydown"; }		
-		$("#appCyclic1,#appCyclic2").on(defaultInputHeaderi, function(evt) {
-			//no dots
-			if((evt.which || evt.keyCode) == 46) { return false; }
-			if((evt.which || evt.keyCode) == 8)  { return true; }
-			if((evt.which || evt.keyCode) == 13) { return true; }
-			//max
-			if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
-				$(this).val( parseInt($(this).val()) );
-				if(isNumberKey(evt)) {	
-					$(this).val( $(this).val().slice(0,-1) );
-				}
-			}
-			//num only
-			return isNumberKey(evt);
-		});
-		//////////////////////
-		// BASIC VALIDATION //
-		//////////////////////
-		$("#appCyclic1").blur(defaultInputHeaderi, function(evt) {
-			$(this).val( parseInt($(this).val()) );
-			if($(this).val() == "")  { $(this).val(1600); }
-			if($(this).val() == 0)   { $(this).val(1600); }
-			if(isNaN($(this).val())) { $(this).val(1600); }
-			if($(this).val() < 100)  { $(this).val(100);  }
-			if($(this).val() > 9999) { $(this).val(9999); }
-			window.localStorage.setItem("config_kcals_day_1",$(this).val());
-			if(window.localStorage.getItem("config_kcals_type") == "cyclic" && window.localStorage.getItem("config_kcals_day") != "d") {
-				$("#editableDiv").html(parseInt(window.localStorage.getItem("config_kcals_day_1")));
+	var appModeHandlers = function() {
+		////////////////
+		// VALIDATION //
+		////////////////
+		app.handlers.validate('#appCyclic1',{minValue: 100, defaultValue: 1600},'','','',function() {
+			//BLUR HANDLER
+			app.save('config_kcals_day_1',$('#appCyclic1').val());
+			if(app.read('config_kcals_type') == 'cyclic' && app.read('config_kcals_day') != 'd') {
+				$('#editableDiv').html(app.read('config_kcals_day_1'));
 			}
 			updateTodayOverview();
 		});
-		$("#appCyclic2").blur(defaultInputHeaderi, function(evt) {
-			$(this).val( parseInt($(this).val()) );
-			if($(this).val() == "")  { $(this).val(2000); }
-			if($(this).val() == 0)   { $(this).val(2000); }
-			if(isNaN($(this).val())) { $(this).val(2000); }
-			if($(this).val() < 100)  { $(this).val(100);  }
-			if($(this).val() > 9999) { $(this).val(9999); }
-			window.localStorage.setItem("config_kcals_day_2",$(this).val());
-			if(window.localStorage.getItem("config_kcals_type") == "cyclic" && window.localStorage.getItem("config_kcals_day") == "d") {
-				$("#editableDiv").html(parseInt(window.localStorage.getItem("config_kcals_day_2")));
+		app.handlers.validate('#appCyclic2',{minValue: 100, defaultValue: 2000},'','','',function() {
+			//BLUR HANDLER
+			app.save('config_kcals_day_2',$('#appCyclic2').val());
+			if(app.read('config_kcals_type') == 'cyclic' && app.read('config_kcals_day') == 'd') {
+				$('#editableDiv').html(app.read('config_kcals_day_2'));
 			}
 			updateTodayOverview();
 		});
@@ -939,44 +917,14 @@ function getLimitMenu() {
 	// HANDLERS //
 	//////////////
 	var appLimitHandlers = function() {	
-		/////////////////////////
-		// backport validation //
-		/////////////////////////
-		var defaultInputHeaderl = "keypress";
-		if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputHeaderl = "keydown"; }		
-		$("#appLimit1,#appLimit2").on(defaultInputHeaderl, function(evt) {
-			//no dots
-			if((evt.which || evt.keyCode) == 46) { return false; }
-			if((evt.which || evt.keyCode) == 8)  { return true; }
-			if((evt.which || evt.keyCode) == 13) { return true; }
-			//max
-			if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
-				$(this).val( parseInt($(this).val()) );
-				if(isNumberKey(evt)) {	
-					$(this).val( $(this).val().slice(0,-1) );
-				}
-			}
-			//num only
-			return isNumberKey(evt);
+		/////////////////////
+		// CORE VALIDATION //
+		/////////////////////
+		app.handlers.validate('#appLimit1',{minValue: 100, defaultValue: 600},'','','',function() {
+			app.save('config_limit_1',$('#appLimit1').val()*-1);
 		});
-		//////////////////////
-		// BASIC VALIDATION //
-		//////////////////////
-		$("#appLimit1").blur(defaultInputHeaderl, function(evt) {
-			if($(this).val() == "")  { $(this).val(600);  }
-			if($(this).val() == 0)   { $(this).val(600);  }
-			if(isNaN($(this).val())) { $(this).val(600);  }
-			if($(this).val() < 100)  { $(this).val(100);  }
-			if($(this).val() > 9999) { $(this).val(9999); }
-			window.localStorage.setItem("config_limit_1",$(this).val()*-1);
-		});
-		$("#appLimit2").blur(defaultInputHeaderl, function(evt) {
-			if($(this).val() == "")  { $(this).val(600);  }
-			if($(this).val() == 0)   { $(this).val(600);  }
-			if(isNaN($(this).val())) { $(this).val(600);  }
-			if($(this).val() < 100)  { $(this).val(100);  }
-			if($(this).val() > 9999) { $(this).val(9999); }
-			window.localStorage.setItem("config_limit_2",$(this).val());
+		app.handlers.validate('#appLimit2',{minValue: 100, defaultValue: 600},'','','',function() {
+			app.save('config_limit_2',$('#appLimit2').val());
 		});
 		//////////////
 		// TAP BLUR //
@@ -1112,6 +1060,10 @@ function getEntryEdit(eid) {
 		// HANDLERS //
 		//////////////
 		var getEntryHandler = function() {
+			// CLEAR HIGHTLIGHT //
+			setTimeout(function() {
+				$('.longHold').removeClass('longHold');
+			},600);
 			//food/exercise
 			if($("#getEntryTitle").val() >= 0) { 
 				$("#divEntryTitle").addClass('food');
@@ -1184,27 +1136,12 @@ function getEntryEdit(eid) {
 			/////////////////////////
 			// backport validation //
 			/////////////////////////
-			var defaultInputHeaderi = "keypress";
-			if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputHeaderi = "keydown"; }
-			$("#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat").on(defaultInputHeaderi, function(evt) {
-				//no dots
-				if((evt.which || evt.keyCode) == 46) { return false; }
-				if((evt.which || evt.keyCode) == 8)  { return true; }
-				if((evt.which || evt.keyCode) == 13) { return true; }
-				//max
-				if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
-					$(this).val( parseInt($(this).val()) );
-					if(isNumberKey(evt)) {
-						$(this).val( $(this).val().slice(0,-1) );
-					}
-				}
-				//num only
-				return isNumberKey(evt);
-			});
+			app.handlers.validate('#getEntryTitle',{allowDots:true,maxValue:9999,maxLength:4});
+			app.handlers.validate('#getEntryPro,#getEntryCar,#getEntryFat',{allowDots:true,maxValue:999,maxLength:7});
 			//////////////////////
 			// BASIC VALIDATION //
 			//////////////////////
-			$("#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat").blur(defaultInputHeaderi, function(evt) {
+			$("#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat").on('blur',function(evt) {
 				if(evt.target.id == "getEntryTitle") {
 					$(this).val(parseInt($(this).val()));
 				} else {
@@ -1259,7 +1196,7 @@ function getEntryEdit(eid) {
 			},function() {
 				//REFRESH DATA
 				setTimeout(function() {
-					updateEntries(parseInt($('#getEntryDateHidden').val()));
+					app.exec.updateEntries(parseInt($('#getEntryDateHidden').val()));
 					updateEntriesSum();
 				}, 0);
 			});
@@ -1304,6 +1241,7 @@ function buildAdvancedMenu() {
 		</div>\
 		<div id='advancedMenu'></div>\
 	</div>");
+	$("#advancedMenuWrapper").hide();
 	//WRAPPER HEIGHT
 	$("#advancedMenuWrapper").css("top",($("#appHeader").height()) + "px");
 	$("#advancedMenuWrapper").css("bottom",($("#appFooter").height()) + "px");
@@ -1329,17 +1267,18 @@ function buildAdvancedMenu() {
 	$("#advancedMenu").css("top",($("#advancedMenuHeader").height()+1) + "px");	
 	$("#advancedMenuWrapper").height($("#appContent").height());	
 	//SHOW
-	$("#advancedMenuWrapper").hide();
-	$("#advancedMenuWrapper").fadeIn(200,function() {
+	app.handlers.fade(1,'#advancedMenuWrapper',function() {
+	//$("#advancedMenuWrapper").fadeIn(200,function() {
 		getNiceScroll("#advancedMenu");
 		//////////////////
 		// LIST HANDLER //
 		//////////////////
 		//LIST CLOSER HANDLER
 		$("#advBackButton").on(touchend,function() {
-			$("#advancedMenuWrapper").fadeOut(200,function() {
-				$('#advancedMenuWrapper').remove();
-			});
+			app.handlers.fade(0,'#advancedMenuWrapper');
+			//$("#advancedMenuWrapper").fadeOut(200,function() {
+			//	$('#advancedMenuWrapper').remove();
+			//});
 		});
 	//ADD ACTIVE
 	$("#advancedMenu li").on(touchstart,function(evt) {
@@ -1498,7 +1437,7 @@ function buildAdvancedMenu() {
 	//read stored
 	var isAUChecked = (window.localStorage.getItem("config_autoupdate") == "on") ? 'checked' : '';
 	//append
-	safeExec(function() {
+	app.safeExec(function() {
 		$("#advancedAutoUpdate").append("\
 			<div>\
 				<span id='appAutoUpdateButton'></span>\
@@ -1592,6 +1531,7 @@ function getCatList(callback) {
 			//////////
 			// HTML //
 			//////////
+			/*
 			var catListHtml = '';
 			var catLine     = '';
 			var c = data.length;
@@ -1616,12 +1556,13 @@ function getCatList(callback) {
 			//EMPTY
 			if(catListHtml == '') {
 				catListHtml = '<span id="noMatches"> ' + LANG.NO_ENTRIES[lang] +' </span>';
-			}
+			}*/
+			catListHtml = app.handlers.buildRows(data);
 			/////////////
 			// HANDLER //
 			/////////////
 			var catListHandler = function () {
-				$("#newWindow").addClass('firstLoad');
+				$('#newWindow').addClass('firstLoad');
 				//////////////////////
 				// ENDSCROLL LOADER //
 				//////////////////////
@@ -1633,10 +1574,10 @@ function getCatList(callback) {
 						//
 						var catlistHeight = $('#newWindow').height() * .5;
 						if(catLock != 0)                  { return; }
-						if(!$('#newWindow').hasClass("firstLoad")) { return; }
+						if(!$('#newWindow').hasClass('firstLoad')) { return; }
 						if($('#newWindow').scrollTop()+500 > catlistHeight) {
 							catLock = 1;
-							$("#newWindow").removeClass('firstLoad');
+							$('#newWindow').removeClass('firstLoad');
 							kickDown();
 							return false;
 							setTimeout(function () {
@@ -1647,12 +1588,12 @@ function getCatList(callback) {
 						}
 					},300);
 				});
-				$("#tabMyCatsBlock").addClass('out');
+				$('#tabMyCatsBlock').addClass('out');
 				setTimeout(function () {
-					$("#newWindowWrapper").on(transitionend, function() {
+					$('#newWindowWrapper').on(transitionend, function() {
 						setTimeout(function () {
-							$("#pageSlideFood").hide();
-						}, 0);
+							$('#pageSlideFood').hide();
+						}, 100);
 					});
 				}, 0);
 				//////////////////
@@ -1691,5 +1632,9 @@ function getCatList(callback) {
 			/////////////////
 			getNewWindow(LANG.FOOD_CATEGORIES[lang][catCode], catListHtml, catListHandler, '', catListCloser,'sideload','flush');
 		});
+	},function() {
+		if(!$('#pageSlideFood').length || ($('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open'))) {
+			return false; 
+		}
 	});
 }

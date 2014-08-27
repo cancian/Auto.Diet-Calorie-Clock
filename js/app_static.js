@@ -41,6 +41,7 @@ kickStarter(function() {
 ////////////////
 var resumeTimeout;
 $(document).on('resume',function() {
+	clearTimeout(app.repeaterLoop);
 	//silent restart
 	if(window.localStorage.getItem("app_restart_pending")) {
 		window.localStorage.removeItem("app_restart_pending");
@@ -64,6 +65,7 @@ $(document).on('resume',function() {
 // VISIBILITY CHANGE //
 ///////////////////////
 $(document).on('visibilitychange', function () {
+	clearTimeout(app.repeaterLoop);
 	if (document.hidden == false || document.visibilityState == 'visible') {
 		if (isMobile.OSXApp()) {
 			$(document).trigger('resume');
@@ -73,6 +75,9 @@ $(document).on('visibilitychange', function () {
 			$(document).trigger('resume');
 		}
 	}
+});
+$(window).on('pause',function() {
+	clearTimeout(app.repeaterLoop);
 });
 //##///////////##//
 //## START APP ##//
@@ -95,7 +100,7 @@ setTimeout(function() {
 ////////////////
 // PARSED CSS //
 ////////////////
-safeExec(function() {
+app.safeExec(function() {
 	$("head").append("<style type='text/css' id='cssStartDate'> #startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; } </style>");
 	$("head").append("<style type='text/css' id='daySum'></style>");
 	$("head").append("<style type='text/css' id='cssAutoUpdate'>\
@@ -116,8 +121,13 @@ $("title").html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 //# INDEX.HTML #//
 //#////////////#//
 $("body").prepend('\
-	<div id="appHeader"></div>\
-	<div id="loadingDiv"></div>\
+	<div id="appHeader">\
+		<div id="timerBlocks">\
+			<div id="timerKcals"><p></p><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
+			<div id="timerDaily"><p></p><span>' + LANG.DAILY_CALORIES[lang] + '</span></div>\
+		</div>\
+	</div>\
+	<div id="loadingDiv"><input readonly="readonly" id="lid" value="0" type="text" /></div>\
 	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
 	<div id="appContent"></div>\
 	<div id="appFooter">\
@@ -150,8 +160,9 @@ preTab = function(keepOpen) {
 afterTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
 	$("#appContent").css('display','block');
+	$("#appContent").css('visibility','visible');
 	$("#appContent").css('pointer-events','auto');
-	$("body").removeClass("newwindow");
+	$("body").removeClass("newwindow closer");
 	//
 	$("#langSelect").remove();
 	$("#newWindowWrapper").remove();
@@ -171,7 +182,7 @@ afterTab = function(keepOpen) {
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
 };
-appFooter = function (id,keepOpen) {
+appFooter = function (id,keepOpen,callback) {
 	if(new Date().getTime() - lastTab < 250) { lastTab = new Date().getTime(); return; }
 	lastTab = new Date().getTime();
 	var tabId = id;
@@ -181,12 +192,17 @@ appFooter = function (id,keepOpen) {
 	//SCROLLBAR
 	getNiceScroll("#appContent");
 	//ACTION
-	if(tabId == "tab1") { openStatus(keepOpen);   }
-	if(tabId == "tab2") { updateEntries('','','callback',keepOpen); }
-	if(tabId == "tab3") { openProfile(keepOpen);  }
-	if(tabId == "tab4") { openSettings(keepOpen); }
+	if(tabId == "tab1") { app.tab.status(keepOpen);   }
+	if(tabId == "tab2") { app.exec.updateEntries('','','callback',keepOpen); }
+	if(tabId == "tab3") { app.tab.profile(keepOpen);  }
+	if(tabId == "tab4") { app.tab.settings(keepOpen); }
 	$("body").removeClass("tab1 tab2 tab3 tab4 newwindow");
 	$("body").addClass(tabId);
+	if(callback) {
+		setTimeout(function() {
+			callback();
+		},0);
+	}
 };
 //PRELOAD TAB1
 if(!window.localStorage.getItem("app_last_tab")) {
@@ -418,7 +434,7 @@ $(window).on("resize", function(evt) {
 		if(!$("input").has(":focus")) {
 			appResizer(0);
 		}
-	} else if(isDesktop()) {
+	} else if(app.device.desktop) {
 		appResizer(0);
 	}
 	//notepad (ios6 fix)(window.innerHeight)
@@ -483,87 +499,82 @@ $("#editableDiv").html(getKcalsItem);
 // OPTIONS //
 /////////////
 //set default
-if(!window.localStorage.getItem("config_kcals_type")) {
-	window.localStorage.setItem("config_kcals_type","simple");
-}
-if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-	$("body").addClass("cyclic");
-} else {
-	$("body").addClass("simple");	
-}
+app.define('config_kcals_type','simple');
+(app.read('config_kcals_type') == 'cyclic') ? $("body").addClass("cyclic") : $("body").addClass("simple");
 ///////////
 // IOS 7 //
 ///////////
-if(/OS [7-9](.*) like Mac OS X/i.test(userAgent) && isMobile.Cordova()) {
-	$("body").addClass("ios7");
+if(app.device.ios7) {
+	$('body').addClass('ios7');
 }
-if(isMobile.iOS()) {
-	$("body").addClass("ios");
+if(app.device.ios) {
+	$('body').addClass('ios');
 }
 /////////////
 // ANDROID //
 /////////////
-if(isMobile.Android()) {
-	$("body").addClass("android");
-}
-if(isMobile.Android() && androidVersion() < 4) {
-	$("body").addClass("android2");
-}
-if(isMobile.Android() && androidVersion() >= 4 && androidVersion() < 4.4) {
-	$("body").addClass("android4");
-}
-if(isMobile.Android() && androidVersion() >= 4.4) {
-	$("body").addClass("android44");
-}
-if(isMobile.Android() && androidVersion() < 4.4) {
-	$("body").addClass("android4lt");
-}
-if(isMobile.Android() && androidVersion() == 4) {
-	$("body").addClass("android40");
-}
-if(isMobile.Android() && androidVersion() == 4.1) {
-	$("body").addClass("android41");
-}
-if(isMobile.Android() && androidVersion() == 4.2) {
-	$("body").addClass("android42");
-}
-if(isMobile.Android() && androidVersion() == 4.3) {
-	$("body").addClass("android43");
+if(app.device.android) {
+	$('body').addClass('android');
+	//VERSION SPECIFIC
+	if(app.device.android < 4) {
+		$('body').addClass('android2');
+	}
+	if(app.device.android == 4) {
+		$('body').addClass('android40');
+	}
+	if(app.device.android == 4.1) {
+		$('body').addClass('android41');
+	}
+	if(app.device.android == 4.2) {
+		$('body').addClass('android42');
+	}
+	if(app.device.android == 4.3) {
+		$('body').addClass('android43');
+	}
+	if(app.device.android < 4.4) {
+		$('body').addClass('android4lt');
+	}
+	if(app.device.android >= 4 && app.device.android < 4.4) {
+		$('body').addClass('android4');
+	}
+	if(app.device.android >= 4.4) {
+		$('body').addClass('android44');
+	}
 }
 /////////////
 // WINDOWS //
 /////////////
-if(isMobile.Windows()) {
-	$("body").addClass("windows");
+if(app.device.wp8) {
+	$('body').addClass('windows');
 }
-if(isMobile.MSApp()) {
-	$("body").addClass("msapp");
+if(app.device.windows8) {
+	$('body').addClass('msapp');
 }
 ////////////////////////////
 // FF OS ORIENTATION LOCK //
 ////////////////////////////
 if(isMobile.FirefoxOS()) {
-	screen.mozLockOrientation("portrait-primary");
+	screen.mozLockOrientation('portrait-primary');
 }
 ////////////
 // VENDOR //
 ////////////
-$("body").addClass(vendorClass);
-$("body").addClass("appLang-" + lang);
+$('body').addClass(vendorClass);
+$('body').addClass('appLang-' + lang);
 /////////
 // OSX //
 /////////
-if(isMobile.OSX()) {
-	$("body").addClass("osx");
+if(app.device.osxapp) {
+	$('body').addClass('osx');
 }
-if(isMobile.OSXApp()) {
-	$("body").addClass("osxapp");
+if(app.device.osxapp) {
+	$('body').addClass('osxapp');
 	//ADD MENU (RESET SETTINGS)
-	if(macgap.menu.getItem("KCals").submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
-		macgap.menu.getItem("KCals").submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
+	if(macgap.menu.getItem('KCals').submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
+		macgap.menu.getItem('KCals').submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
 	}
-	macgap.menu.getItem("KCals").submenu().addSeparator();
-	macgap.menu.getItem("KCals").submenu().addItem(LANG.SETTINGS_WIPE[lang], "cmd+opt+r", function() {
+	macgap.menu.getItem('KCals').submenu().addSeparator();
+	macgap.menu.getItem('KCals').submenu().addItem(LANG.SETTINGS_WIPE[lang], 'cmd+opt+r', function() {
 		appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
 			if(button == 1) {
 				deSetup();
@@ -581,46 +592,46 @@ if(isMobile.OSXApp()) {
 /////////////
 // CORDOVA //
 /////////////
-if(isMobile.Cordova()) {
-	$("body").addClass("cordova");
+if(app.device.cordova) {
+	$('body').addClass('cordova');
 }
 /////////////
 // DESKTOP //
 /////////////
-if(isDesktop()) {
-	$("body").addClass("desktop");
+if(app.device.desktop) {
+	$('body').addClass('desktop');
 } else {
-	$("body").addClass("mobile");	
+	$('body').addClass('mobile');	
 }
 ////////////////////
 // PRESET PROFILE //
 ////////////////////
-if(!window.localStorage.getItem("calcForm#pA1B")) {
+if(!window.localStorage.getItem('calcForm#pA1B')) {
 	//male/female
-	window.localStorage.setItem("calcForm#pA1B","Male");
-	window.localStorage.setItem("calcForm#pA2B","70");
-	window.localStorage.setItem("calcForm#pA2C","inches");
-	window.localStorage.setItem("calcForm#pA3B","160");
-	window.localStorage.setItem("calcForm#pA3C","pounds");
-	window.localStorage.setItem("calcForm#pA4B","20");
-	window.localStorage.setItem("calcForm#pA5B","Sedentary (little or no exercise, desk job)");
-	window.localStorage.setItem("calcForm#pA6G","1");
-	window.localStorage.setItem("calcForm#pA6H","pounds");
-	window.localStorage.setItem("calcForm#pA6M","1");
-	window.localStorage.setItem("calcForm#pA6N","pounds");
-	window.localStorage.setItem("calcForm#feet","5");
-	window.localStorage.setItem("calcForm#inches","10");
+	window.localStorage.setItem('calcForm#pA1B','Male');
+	window.localStorage.setItem('calcForm#pA2B','70');
+	window.localStorage.setItem('calcForm#pA2C','inches');
+	window.localStorage.setItem('calcForm#pA3B','160');
+	window.localStorage.setItem('calcForm#pA3C','pounds');
+	window.localStorage.setItem('calcForm#pA4B','20');
+	window.localStorage.setItem('calcForm#pA5B','Sedentary (little or no exercise, desk job)');
+	window.localStorage.setItem('calcForm#pA6G','1');
+	window.localStorage.setItem('calcForm#pA6H','pounds');
+	window.localStorage.setItem('calcForm#pA6M','1');
+	window.localStorage.setItem('calcForm#pA6N','pounds');
+	window.localStorage.setItem('calcForm#feet','5');
+	window.localStorage.setItem('calcForm#inches','10');
 	//LOCALE
-	window.localStorage.setItem("config_measurement","imperial");
-	if(LANG.LANGUAGE[lang] != "en") {
-		window.localStorage.setItem("calcForm#feet","0");
-		window.localStorage.setItem("calcForm#inches","170");
-		window.localStorage.setItem("calcForm#pA3B","70");	
-		window.localStorage.setItem("config_measurement","metric");
-		window.localStorage.setItem("calcForm#pA2C","centimetres");
-		window.localStorage.setItem("calcForm#pA3C","kilograms");
-		window.localStorage.setItem("calcForm#pA6H","kilograms");
-		window.localStorage.setItem("calcForm#pA6N","kilograms");
+	window.localStorage.setItem('config_measurement','imperial');
+	if(LANG.LANGUAGE[lang] != 'en') {
+		window.localStorage.setItem('calcForm#feet','0');
+		window.localStorage.setItem('calcForm#inches','170');
+		window.localStorage.setItem('calcForm#pA3B','70');	
+		window.localStorage.setItem('config_measurement','metric');
+		window.localStorage.setItem('calcForm#pA2C','centimetres');
+		window.localStorage.setItem('calcForm#pA3C','kilograms');
+		window.localStorage.setItem('calcForm#pA6H','kilograms');
+		window.localStorage.setItem('calcForm#pA6N','kilograms');
 	}
 }
 //###########################//
@@ -631,7 +642,7 @@ setTimeout(function() {
 	if(opaLock < 2) {		
 		$('body').addClass('started');
 		$('body').removeClass('unloaded');
-		$('body').css("opacity","1");
+		$('body').css('opacity','1');
 	}
 	if(isMobile.iOS() && typeof navigator.splashscreen !== 'undefined') {
 		navigator.splashscreen.hide();
@@ -643,12 +654,11 @@ setTimeout(function() {
 (function startTimer() {
 	if(typeof updateTimer == 'function') {
 		timerPerf = (new Date().getTime());
-		//CONSOLE(timerDiff,1);
 		updateTimer();
 		if(typeof timeBomb !== 'undefined') {
 			clearTimeout(timeBomb);
 		}
-		document.getElementById('appHeader').innerHTML = appHeader;	
+//		document.getElementById('appHeader').innerHTML = appHeader;	
 		setTimeout(startTimer,timerDiff);
 	}
 })();
@@ -680,6 +690,9 @@ setTimeout(function() {
 	// PAGESLIDE CLOSER //
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
+		if($("#tabMyCatsBlock li").hasClass("activeRow")) {
+			return;
+		}	
 		if(evt.target.id == 'editableDiv' && $('#pageSlideFood').length) { 
 			$('#appHeader').trigger(touchstart);
 			return;
@@ -690,11 +703,10 @@ setTimeout(function() {
 		else if($("#langSelect").length)		{ $(".preset").addClass('set'); $(".preset").trigger(touchend); }
 		
 		if($("body").hasClass("newwindow") && !$('#modalWindow').length) { return; }
-		if(!$("#appHeader").hasClass("closer")) { return; }
+		//if(!$("#appHeader").hasClass("closer")) { return; }
 		if($("#addNewWrapper").html())			{ return; }
-
 		//hide food
-		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy") && !$('#pageSlideFood').is(":animated")) {
+		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').is(":animated") && !$("body").hasClass("newwindow")) {
 			$("#foodSearch").blur();
 			$('#pageSlideFood').addClass('busy');
 			$('#appHeader').removeClass("open");
@@ -752,17 +764,17 @@ setTimeout(function() {
 			if(direction == 'left') {
 				clearTimeout(headerSwipe);
 				kickDown();
-			         if(window.localStorage.getItem("app_last_tab") == "tab4") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab3"); headerSwipeBlock = 0; }, 150); }
-				else if(window.localStorage.getItem("app_last_tab") == "tab3") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab2"); headerSwipeBlock = 0; }, 150); }
-				else if(window.localStorage.getItem("app_last_tab") == "tab2") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab1"); headerSwipeBlock = 0; }, 150); }
-				else if(window.localStorage.getItem("app_last_tab") == "tab1") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab4"); headerSwipeBlock = 0; }, 150); }
+			         if(app.read('app_last_tab') == 'tab4') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab') == 'tab3') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab') == 'tab2') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab') == 'tab1') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
 			} else if(direction == 'right') {
 				clearTimeout(headerSwipe);
 				kickDown();
-			         if(window.localStorage.getItem("app_last_tab") == "tab4") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab1"); headerSwipeBlock = 0; }, 150); }
-				else if(window.localStorage.getItem("app_last_tab") == "tab3") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab4"); headerSwipeBlock = 0; }, 150); }
-				else if(window.localStorage.getItem("app_last_tab") == "tab2") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab3"); headerSwipeBlock = 0; }, 150); }
-				else if(window.localStorage.getItem("app_last_tab") == "tab1") { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter("tab2"); headerSwipeBlock = 0; }, 150); }	
+			         if(app.read('app_last_tab') == 'tab4') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab') == 'tab3') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab') == 'tab2') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab') == 'tab1') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }	
 			}
 		}
 	});
@@ -833,15 +845,15 @@ setTimeout(function() {
 						}
 						var new_value = Math.ceil($(this).val());
 						//NULL-MIN-MAX
-						if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)   { this.value = resetValue; }
-						if(this.value < 100 && !isNaN(this.value) && this.value > 1)            { this.value = 100;  }
-						if(this.value > 9999)													{ this.value = 9999; }
+						//if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)   { this.value = resetValue; }
+						//if(this.value < 100 && !isNaN(this.value) && this.value > 1)            { this.value = 100;  }
+						//if(this.value > 9999)													{ this.value = 9999; }
 						//filter zeros
 						var permValue = Math.round(parseInt(this.value));
 						window.localStorage.setItem(getKcalsKey,permValue);
 						//SET CSS TRANSITION
-						$('#editable').css(prefix + "transition-timing-function","ease");
-						$('#editable').css(prefix + "transition-duration",".175s");
+						//$('#editable').css(prefix + "transition-timing-function","ease");
+						//$('#editable').css(prefix + "transition-duration",".175s");
 						clearTimeout(editableTimeout);
 						editableTimeout = setTimeout(function() {
 							// BACKUPDATE
@@ -852,21 +864,15 @@ setTimeout(function() {
 									$("#appCyclic2").val(window.localStorage.getItem("config_kcals_day_1"));	
 								}
 							}
-							//
-							$("#editable").css("opacity",0);
-							if(!isMobile.Android()) {
-								$('#editable').on(transitionend,function(e) {
-									$("#editable").remove();
-									$("#editableDiv").html(window.localStorage.getItem(getKcalsKey));
-									updateTimer();
-									setPush();
-								});
-							} else {
-								$("#editable").remove();
-								$("#editableDiv").html(window.localStorage.getItem(getKcalsKey));
+							//////////////
+							// FADE OUT //
+							//////////////
+							app.handlers.fade(0,'#editable',function() {
+								$('#editable').remove();
+								$('#editableDiv').html(app.read(getKcalsKey));
 								updateTimer();
 								setPush();
-							}
+							});
 						},600);
 						$("#editableBlock").remove();
 						updateTodayOverview();
@@ -885,30 +891,12 @@ setTimeout(function() {
 				//slider temp blocker
 				$("body").append("<div id='editableBlock'></div>");
 				$("#editableBlock").css("top",$("#appHeader").height() + "px");
-				//android focus-blink fix
-				//$("#editable").focus();
+				//SET
 				$(this).val(editableValue);
-				//$("#editable").select();
-				/////////////////////////
-				// backport validation //
-				/////////////////////////
-				var defaultInputHeader = "keypress";
-				if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInputHeader = "keydown"; }
-				$("#editable").on(defaultInputHeader, function(evt) {
-					//no dots
-					if((evt.which || evt.keyCode) == 46) { return false; }
-					if((evt.which || evt.keyCode) == 8)  { return true; }
-					if((evt.which || evt.keyCode) == 13) { return true; }
-					//max
-					if(parseInt($(this).val()) > 9999 || $(this).val().length > 3) {
-						$(this).val( parseInt($(this).val()) );
-						if(isNumberKey(evt)) {
-							$(this).val( $(this).val().slice(0,-1) );
-						}
-					}
-					return isNumberKey(evt);
-				});
-				//
+				/////////////////////
+				// CORE VALIDATION //
+				/////////////////////
+				app.handlers.validate('#editable',{minValue:100,defaultValue:resetValue});
 			}}}}
 		}
 	});

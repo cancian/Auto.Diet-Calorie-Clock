@@ -1,7 +1,7 @@
 ﻿/*########################################
 ####    HTML BUILDS ~ OPEN SETTINGS   ####
-########################################*/
-function openSettings(keepOpen) {
+###################function openSettings*/
+app.tab.settings = function(keepOpen) {
 	//RAW HTML
 	var settingsHtml = '\
 	<a name="top"></a>\
@@ -156,7 +156,8 @@ function openSettings(keepOpen) {
 /*#######################################
 ####    HTML BUILDS ~ OPEN STATUS    ####
 #######################################*/
-function openStatus(keepOpen) {
+app.tab.status = function(keepOpen) {
+//function openStatus(keepOpen) {
 	////////////////////
 	// TODAY OVERVIEW //
 	////////////////////
@@ -316,7 +317,21 @@ function openStatus(keepOpen) {
 	//#/////////////#//
 	//# ADD BUTTONS #//
 	//#/////////////#//
-	//app.handlers.activeRow('#appStatusAddLeft','clicked',function(evt) {
+	/*
+	app.handlers.activeRow('#appStatusAddLeft,#appStatusAddRight','clicked',function(targetId) {
+		if(targetId == 'appStatusAddLeft') {
+			app.save('searchType','food');
+		} else {
+			app.save('searchType','exercise');
+		}
+		$(document).trigger('pageReload');
+	},function() {
+		if($('#editable').is(':visible') || $('#pageSlideFood').hasClass('busy')) { 
+			$('#editable').trigger('blur');
+			return false;
+		}
+	});
+	*/
 	$("#appStatusAddLeft").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		evt.preventDefault();
@@ -327,7 +342,6 @@ function openStatus(keepOpen) {
 		}
 		$(document).trigger("pageReload");
 	});
-	//app.handlers.activeRow('#appStatusAddRight','clicked',function(evt) {
 	$("#appStatusAddRight").on(touchstart,function(evt) {
 		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
 		evt.preventDefault();
@@ -440,7 +454,7 @@ function openStatus(keepOpen) {
 			setPush();
 			onChange = 0;
 			updateTimer();
-			updateEntries();
+			app.exec.updateEntries();
 		}
 	});
 	// AUTOCLOSE n' hide //
@@ -463,19 +477,19 @@ function openStatus(keepOpen) {
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
-function openDiary(entryListHtml,keepOpen) {
+app.tab.diary = function(entryListHtml,keepOpen) {
 	if(!entryListHtml) { return; }
 	updateEntriesSum();
-//RAW HTML
-var diaryHtml    = "";
-var lHour        = LANG.HOUR[lang];
-var lHours       = LANG.HOURS[lang];
-var lDay         = LANG.DAY[lang];
-var lDays        = LANG.DAYS[lang];
-var lAgo         = " " + LANG.AGO[lang];
-var lPreAgo      = LANG.PREAGO[lang] + " ";
-//android 2.x select fix
-var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
+	//RAW HTML
+	var diaryHtml = '';
+	var lHour     = LANG.HOUR[lang];
+	var lHours    = LANG.HOURS[lang];
+	var lDay      = LANG.DAY[lang];
+	var lDays     = LANG.DAYS[lang];
+	var lAgo      = ' ' + LANG.AGO[lang];
+	var lPreAgo   = LANG.PREAGO[lang] + ' ';
+	//android 2.x select fix
+	var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
 		<option value="0">'   + LANG.NOW[lang]  +                 '</option>\
 		<option value="1">'   + lPreAgo + '1 '  + lHour  + lAgo + '</option>\
 		<option value="2">'   + lPreAgo + '2 '  + lHours + lAgo + '</option>\
@@ -508,394 +522,291 @@ var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
 		<option value="144">' + lPreAgo + '6 '  + lDays  + lAgo + '</option>\
 		<option value="168">' + lPreAgo + '7 '  + lDays  + lAgo + '</option>\
 	</select>';
-	var textOrNumber = isDesktop() ? 'text' : 'number';
-diaryHtml += '\
-<a name="top"></a>	\
-<div id="entryListForm">\
-	<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
-	<div id="sliderNum"><input type="' + textOrNumber + '" id="entryTitle" readonly value="0" />' + LANG.KCAL[lang] + '</div>\
-	<div id="sliderNeg"><span></span>' + LANG.EXERCISE[lang] + '</div>\
-	<div id="sliderPos">' + LANG.FOOD[lang] + '<span></span></div>\
-	<input type="text" id="entryBody" placeholder="' + LANG.DESCRIPTION[lang] + '" tabindex="-1" />\
-	<div id="entryBodySearch"><div></div></div>\
-	' + formSelect + '\
-	<div id="entrySubmit">' + LANG.ADD_ENTRY[lang] + '</div>\
-</div>\
-<div id="entryListWrapper">\
-	<div class="heading" id="go">' + LANG.ACTIVITY_LOG[lang] + '<div id="diarySidebar"></div><div id="diaryNotes"></div></div>\
-	<div id="entryList">';
-//////////////////////
-// CALLBACK CONTENT //
-//////////////////////
-diaryHtml += entryListHtml;
-///////////////////
-diaryHtml += '</div>\
+	var textOrNumber = app.device.desktop || app.device.android ? 'text' : 'number';
+	diaryHtml += '\
+	<a name="top"></a>	\
+	<div id="entryListForm">\
+		<div id="sliderWrapper"><input id="slider" type="range" min="-750" max="750" step="25" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" /></div>\
+		<div id="sliderNum"><input type="' + textOrNumber + '" id="entryTitle" readonly value="0" />' + LANG.KCAL[lang] + '</div>\
+		<div id="sliderNeg"><span></span>' + LANG.EXERCISE[lang] + '</div>\
+		<div id="sliderPos">' + LANG.FOOD[lang] + '<span></span></div>\
+		<input type="text" id="entryBody" placeholder="' + LANG.DESCRIPTION[lang] + '" tabindex="-1" />\
+		<div id="entryBodySearch"><div></div></div>\
+		' + formSelect + '\
+		<div id="entrySubmit">' + LANG.ADD_ENTRY[lang] + '</div>\
+	</div>\
+	<div id="entryListWrapper">\
+		<div class="heading" id="go">' + LANG.ACTIVITY_LOG[lang] + '<div id="diarySidebar"></div><div id="diaryNotes"></div></div>\
+		<div id="entryList">';
+	//////////////////////
+	// CALLBACK CONTENT //
+	//////////////////////
+	diaryHtml += entryListHtml;
+	///////////////////
+	diaryHtml += '</div>\
 		<div id="entryListBottomBar">' + LANG.CLEAR_ALL[lang] + '</div>\
 		</div>\
-	</div>\
-';
-//#////////#//
-//# OUTPUT #//
-//#////////#//
-if(window.localStorage.getItem("app_last_tab") != "tab2") { return; }
-//HTML
-preTab(keepOpen);
-pageLoad("#appContent",diaryHtml);
-afterTab(keepOpen);
-//desktop odd resize -1 bug
-if(Math.round(window.innerWidth % 2)) {
-	$("#sliderWrapper").width(window.innerWidth-49);
-	$(document).trigger("sliderInit");
-} else {
-	$(document).trigger("sliderInit");
-	//$("#sliderWrapper").width(window.innerWidth-48);
-}
-///////////////////////////////////////////
-// ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
-///////////////////////////////////////////
-if(isMobile.iOS()) {
-	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height()-1);
-} else {
-	var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
-}
-$("#entryListWrapper").css("min-height",wrapperMinH + "px");
-/////////////
-// SIDEBAR //
-/////////////
-updateEntriesTime();
-if(!window.localStorage.getItem('config_sidebar')) {
-	window.localStorage.setItem('config_sidebar',1);
-}
-if(window.localStorage.getItem('config_sidebar') == 1) {
-	$('body').addClass('sidebar');
-} else {
-	$('body').removeClass('sidebar');
-}
-$("#diarySidebar").on(touchstart, function(evt) {
-	if(window.localStorage.getItem('config_sidebar') == 1) {
-		$('body').removeClass('sidebar');
-		window.localStorage.setItem('config_sidebar',0);
-	} else {
-		$('body').addClass('sidebar');
-		window.localStorage.setItem('config_sidebar',1);
+	</div>';
+	//#////////#//
+	//# OUTPUT #//
+	//#////////#//
+	//block deferred
+	if(app.read('app_last_tab') != 'tab2') { return; }
+	//HTML
+	preTab(keepOpen);
+	pageLoad('#appContent',diaryHtml);
+	afterTab(keepOpen);
+	///////////////////////////////
+	// desktop odd resize -1 bug //
+	///////////////////////////////
+	if(isOdd(window.innerWidth)) {
+		$('#sliderWrapper').width(window.innerWidth-49);
 	}
-	return false;
-});
-//#//////////#//
-//# HANDLERS #//
-//#//////////#//
-function sliderPos() {
-		//console.log("increase slider value");
-		var posVal = Number($('#entryTitle').val());
-		document.getElementById('slider').slider.increment(1);
-		$('#entryTitle').val(posVal+1);
-		$("#sliderPos").addClass("activeArrow");
-		clearTimeout(loadingDivTimer);
-		loadingDivTimer = setTimeout(function() {
-			$("#loadingDiv").stop().fadeOut(200);
-		},600);
-		if($("#loadingDiv").val() != Math.round(document.getElementById('entryTitle').value)) {
-			$("#loadingDiv").show();
-			$("#lid").val(parseInt($("#entryTitle").val()));
-		}	
-}
-
-function sliderNeg() {
-		//console.log("decrease slider value");
-		var negVal = Number($('#entryTitle').val());
- 		document.getElementById('slider').slider.increment(-1);
-		$('#entryTitle').val(negVal-1);
-		$("#sliderNeg").addClass("activeArrow");
-		clearTimeout(loadingDivTimer);
-		loadingDivTimer = setTimeout(function() {
-			$("#loadingDiv").stop().fadeOut(200);
-		},600);
-		if($("#loadingDiv").val() != Math.round(document.getElementById('entryTitle').value)) {
-			$("#loadingDiv").show();
-			$("#lid").val(parseInt($("#entryTitle").val()));
-		}	
-}
-	///////////////////
-	// ARROW BUTTONS //
-	///////////////////
-	$("#sliderNum").off().on(touchstart, function(evt) {
-		evt.preventDefault();
-		$("#entryTime").blur();
-		$("#entryBody").blur();
-		//console.log("reset slider value");
- 		document.getElementById('slider').slider.setValue(0);
- 		$("#entryTitle").val(0);
-		$("#entryTitle").trigger("update");
+	$(document).trigger('sliderInit');
+	///////////////////////////////////////////
+	// ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
+	///////////////////////////////////////////
+	$("#entryListWrapper").css("min-height",(window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height()) + "px");
+	updateEntriesTime();
+	//#//////////#//
+	//# HANDLERS #//
+	//#//////////#//
+	var slider = {};
+	/////////////
+	// SIDEBAR //
+	/////////////
+	app.define('config_sidebar',1);
+	if(app.read('config_sidebar') == 1) {
+		$('body').addClass('sidebar');
+	} else {
+		$('body').removeClass('sidebar');
+	}
+	//HANDLER	
+	$('#diarySidebar').on(touchstart, function(evt) {
+		if(app.read('config_sidebar') == 1) {
+			$('body').removeClass('sidebar');
+			app.save('config_sidebar',0);
+		} else {
+			$('body').addClass('sidebar');
+			app.save('config_sidebar',1);
+		}
 		return false;
 	});
-	$("#sliderPos").off().on(touchstart, function(evt) {
-		evt.preventDefault();
-		sliderPos();
-	});
-	$("#sliderNeg").off().on(touchstart, function(evt) {
-		evt.preventDefault();
-		sliderNeg();
-	});
-	//
-	$("#entryTitle").on("focus", function(evt) {
-		if($("#entryTitle").attr('readonly')) {
-			$("#entryTitle").blur();
+	/////////////////////
+	// SLIDER.UPDATE() //
+	/////////////////////
+	slider.update = function() {
+		//NOT WHILE MANUAL
+		if(!$("#entryTitle").attr('readonly')) { return; }
+		/////////////////////
+		// CACHE SELECTORS //
+		/////////////////////
+		var sliderValue  = $('#slider').val();
+		var inputValue   = (sliderValue == -0) ? 0 : Math.round(sliderValue);
+		/////////////////
+		// CHECK TRACK //
+		/////////////////
+		if(inputValue == 0) {
+			if($('.carpe-slider-track').attr('id')) {
+				$('.carpe-slider-track').removeAttr('id');
+			}
+		} else if(inputValue > 0) {
+			if($('.carpe-slider-track').attr('id') != 'positiveTrack') {
+				$('.carpe-slider-track').attr('id','positiveTrack');
+			}
+		} else if(inputValue < 0) {
+			if($('.carpe-slider-track').attr('id') != 'negativeTrack') {
+				$('.carpe-slider-track').attr('id','negativeTrack');
+			}
 		}
+		//////////////////
+		// CHECK SUBMIT //
+		//////////////////
+		if(inputValue == 0) {
+			if($('#entrySubmit').hasClass('submitActive')) {
+				$('#entrySubmit').removeClass('submitActive');
+			}
+		} else {
+			if(!$('#entrySubmit').hasClass('submitActive')) {
+				$('#entrySubmit').addClass('submitActive');
+			}
+		}
+		////////////
+		// UPDATE //
+		////////////
+		slider.lid(inputValue);
+		$('#entryTitle').val(inputValue);
+	};
+	//////////////////
+	// SLIDER.LID() //
+	//////////////////
+	clearTimeout(app.vars.lidTimer);
+	slider.lid = function(inputValue) {
+		var lidValue = Number($('#lid').val());
+		clearTimeout(app.vars.lidTimer);
+		clearTimeout(app.vars.lidInnerTimer);
+		app.vars.lidTimer = setTimeout(function() {
+			$('#loadingDiv').css(prefix + 'transition-duration','.2s');
+			setTimeout(function() {
+				$('#loadingDiv').css('opacity',0);
+				app.vars.lidInnerTimer = setTimeout(function() {
+					$('#loadingDiv').css('display','none');
+					//POST SUBMIT RESET
+					if($('#entryTitle').val() == 0) {
+						$('#lid').val(0);
+					}
+				},200);
+			},0);
+		},600);
+		//show zero~ing
+		if(inputValue != 0) {
+			$('#lid').val(inputValue);
+		}
+		//faded~show
+		if(lidValue != 0) {
+			$('#loadingDiv').css(prefix + 'transition-duration','0s');
+			$('#loadingDiv').css('opacity',.66);
+			$('#loadingDiv').css('display','block');
+		}	
+	};
+	////////////////////
+	// SLIDER.RESET() //
+	////////////////////
+	slider.reset = function() {
+		clearTimeout(app.repeaterLoop);
+		$('#entryTitle').trigger('blur');
+		$('#entryBody').trigger('blur');
+		$('#entryTime').trigger('blur');
+		$('#editable').trigger('blur');
+		document.getElementById('slider').slider.setValue(0);
+		//show zero-ing
+		if(Number($('#lid').val()) != 0) {
+			slider.lid(0);
+		}
+		$('#lid').val(0);
+		$('#entryBody').val('');
+		$('#entryTitle').val(0);
+		$('#entryTitle').trigger('update');
+		$('#entrySubmit').removeClass('submitActive');
+	};
+	//////////////////
+	// SLIDER.ADD() //
+	//////////////////
+	app.handlers.repeater('#sliderPos','activeArrow',400,25,function() {
+		var inputValue = Number($('#entryTitle').val());
+		document.getElementById('slider').slider.increment(1);
+		$('#entryTitle').val(inputValue+1);
+		slider.lid(inputValue+1);
 	});
-	////////////////////////////////
-	// SAVE ENTRY (SUBMIT BUTTON) //
-	////////////////////////////////
-	$("#entrySubmit").on(touchstart, function(evt) {
-		evt.preventDefault();
-		//grab values
-		var title     = $("#entryTitle").val();
-		var body      = $("#entryBody").val();
+	//////////////////
+	// SLIDER.REM() //
+	//////////////////
+	app.handlers.repeater('#sliderNeg','activeArrow',400,25,function() {
+		var inputValue = Number($('#entryTitle').val());
+		document.getElementById('slider').slider.increment(-1);
+		$('#entryTitle').val(inputValue-1);
+		slider.lid(inputValue-1);
+	});
+	///////////////////
+	// SLIDER.SAVE() //
+	///////////////////
+	slider.save = function() {
+		var title     = $('#entryTitle').val();
+		var body      = $('#entryBody').val();
 		var published = new Date().getTime();
+		//not null
+		if(title == 0) { return; }
 		//hours ago
-		if(Number($("#entryTime").val()) >= 1) {
-			published = published - (Number($("#entryTime").val()) * (60 * 60 * 1000) );
+		if(Number($('#entryTime').val()) >= 1) {
+			published = published - (Number($('#entryTime').val()) * (60 * 60 * 1000) );
 		}
 		//null default values
 		if(body == LANG.FOOD[lang] || body == LANG.EXERCISE[lang]) {
-			body = "";
+			body = '';
 		}
-		/////////////////////
-		// SAVE (NOT NULL) //
-		/////////////////////
-		if(title == 0) { return; }
+		////////////////
+		// SAVE ENTRY //
+		////////////////
 		saveEntry({title:title,body:body,published:published},function() {
-			updateEntriesSum();
-			//RESET FORM
-			document.getElementById('slider').slider.setValue(0);
-			//$("#entryTime").val('0');
-			$("#entryTitle").val(0);
-			$("#entryTitle").trigger("update");
-			$("#entryBody").val('');
-			//DISMISS KEYBOARD
-			$('#entryTitle').blur();
-			$('#entryTime').blur();
-			$('#entryBody').blur();
-			$('#editable').blur();
-			//auto start
-			if(window.localStorage.getItem("appStatus") != "running") {
-				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
-					if(button == 1) {
-						window.localStorage.setItem("config_start_time",published);
-						window.localStorage.setItem("appStatus","running");
-						updateEntries();
-						setPush();
-						$("#appStatus").removeClass("start");
-						$("#appStatus").addClass("reset");
-						$("#appStatusTitle").html(LANG.RESET[lang]);
-					}
-				}, LANG.OK[lang], LANG.CANCEL[lang]);
-			}
+			//RESET
+			slider.reset();
+			slider.lid(title);
 			//REFRESH DATA
-			updateEntries(published);
+			app.exec.updateEntries(published);
 			updateTimer();
+			updateEntriesSum();
 			updateEntriesTime();
 			//SCROLLBAR UPDATE
 			clearTimeout(niceTimer);
 			niceTimer = setTimeout(function() {
 				niceResizer();
-				return false;
 			}, 100);
 			kickDown();
-			return false;
-		});
-	});
-	//#//////////////////////#//
-	//# SLIDER VALUE CHANGES #//
-	//#//////////////////////#//
-	clearTimeout(loadingDivTimer);
-	$("#loadingDiv").html("<input id='lid' value='0' type='text' />");
-	(function() { 
-		if(!document.getElementById('entryTitle')) { return; }
-		document.getElementById('entryTitle').update = function() {
-			if(!$("#entryTitle").attr('readonly')) { return; }
-			//UPDATE INPUT
-			document.getElementById('entryTitle').value = document.getElementById('slider').value;
-
-			clearTimeout(loadingDivTimer);
-			loadingDivTimer = setTimeout(function() {
-				$("#loadingDiv").stop().fadeOut(200);
-			},600);
-			if($("#loadingDiv").val() != Math.round(document.getElementById('entryTitle').value)) {
-				$("#loadingDiv").show();
-				$("#lid").val(parseInt($("#entryTitle").val()));
-			}	
-			//force reset < 25
-			if(document.getElementById('entryTitle').value == -0) {
-				document.getElementById('entryTitle').value = 0;
-			}
-			////////////////////////
-			// CHANGE TRACK COLOR //
-			////////////////////////
-			(function checkTrack() {
-				if(document.getElementById('entryTitle').value == 0) {
-					$('.carpe-slider-track').css("background-color", "#666");
-				} else
-				if(document.getElementById('entryTitle').value > 0) {
-					$('.carpe-slider-track').css("background-color", "#0000dd");
-				} else {
-					$('.carpe-slider-track').css("background-color", "#cc3300");
-				}
-			})();
-			/////////////////////////
-			// CHANGE SUBMIT COLOR //
-			/////////////////////////
-			(function checkSubmit() {
-				if(document.getElementById('entryTitle').value == 0) {
-					if($('#entrySubmit').hasClass('submitActive')) {
-						$('#entrySubmit').removeClass('submitActive');
+			//PROMPT AUTOSTART
+			if(app.read('appStatus') != 'running') {
+				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
+					if(button == 1) {
+						app.save('config_start_time',published);
+						app.save('appStatus','running');
+						app.exec.updateEntries();
+						setPush();
+						$('#appStatus').removeClass('start');
+						$('#appStatus').addClass('reset');
+						$('#appStatusTitle').html(LANG.RESET[lang]);
 					}
-				} else
-				if(!$('#entrySubmit').hasClass('submitActive')) {
-					$('#entrySubmit').addClass('submitActive');
-				}
-			})();
-			document.getElementById('entryTitle').value = Math.round(document.getElementById('entryTitle').value);
-		return;
-		};
-	})();
-	/////////////////////
-	// REPEATER SHARED //
-	/////////////////////
-	function clearRepeater() {
-		clearTimeout(pressTimerNeg);
-		clearTimeout(pressTimerPos);
-		clearInterval(pressRepeatNeg);
-		clearInterval(pressRepeatPos);
-	}
-	///////////////
-	// autoclear //
-	///////////////
-	$("#sliderPos,#sliderNeg,#sliderNum").on(touchend + " mouseout", function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-		$("#sliderPos").removeClass("activeArrow");
-		$("#sliderNeg").removeClass("activeArrow");
-	});
-	///////////////////////
-	// POSITIVE REPEATER //
-	///////////////////////
-	var pressTimerPos;
-	var pressRepeatPos;
-	$("#sliderPos").on(touchend, function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-	});
-	$("#sliderPos").on(touchstart, function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-		pressTimerPos  = setTimeout(function()  {
-		pressRepeatPos = setInterval(function() {
-			//ACTION
-			sliderPos();
-		},25);
-		},400);
-	});
-	///////////////////////
-	// NEGATIVE REPEATER //
-	///////////////////////
-	var pressTimerNeg;
-	var pressRepeatNeg;
-	$("#sliderNeg").on(touchend, function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-	});
-	$("#sliderNeg").on(touchstart, function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-		pressTimerNeg  = setTimeout(function()  {
-		pressRepeatNeg = setInterval(function() {
-			//ACTION
-			sliderNeg();
-		},25);
-		},400);
-	});
-	/////////////////////
-	// NUM DE-REPEATER //
-	/////////////////////
-	$("#sliderNum").on(touchstart + " touchmove", function(evt) {
-		evt.preventDefault();
-		clearRepeater();
-		//show zero-ing
-		if($("#lid").val() != 0) {
-			clearTimeout(loadingDivTimer);
-			loadingDivTimer = setTimeout(function() {
-				$("#loadingDiv").stop().fadeOut(200);
-			},600);
-			$("#loadingDiv").css("display","block");
-			$("#lid").val(0);
-		}
- 		document.getElementById('slider').slider.setValue(0);
- 		$("#entryTitle").val(0);
-		$("#entryTitle").trigger("update");
-		//return false;
-	});
-	////////////////////////
-	// MANUAL HOLD SLIDER //
-	////////////////////////
-	$("#sliderNum").on("longhold", function(evt) {
-		$("#entryTitle").removeAttr('readonly');
-		$("#entryTitle").focus();
-	});
-	$("#entryTitle").on("focus", function(evt) {
-		if($(this).val() == 0) {
-			$(this).val('');
-		}	
-	});
-	$("#entryTitle").on("blur", function(evt) {
-		$("#entryTitle").attr('readonly','readonly');
-		if($("#entryTitle").val() == '') { 
-			$("#entryTitle").val(0);
-		}
-	});
-	// VALIDATION
-	var defaultInput = "keypress";
-	if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInput = "keydown"; }
-	$("#entryTitle").on(defaultInput, function(evt) {
-		if($(this).val() == '0') {
-			$(this).val('');
-			$('#entrySubmit').removeClass('submitActive');	
-		} else if($(this).val() === '') {
-			$('#entrySubmit').removeClass('submitActive');	
-		}
-		//no dots
-		var keyCode = (evt.which) ? evt.which : evt.keyCode;
-		if(keyCode == 45) { $(this).val( $(this).val()*-1 ); return false; }
-		if(keyCode == 46) { $(this).val( $(this).val()*-1 ); return false; }
-		if(keyCode == 8)  { return true; }
-		if(keyCode == 13) { $(this).blur(); return true; }
-		//max
-		if(parseInt($(this).val()) > 999 || $(this).val().length > 2) {
-			$(this).val( parseInt($(this).val()) );
-			if(isNumberKey(evt)) {
-				$(this).val( $(this).val().slice(0,-1) );
+				}, LANG.OK[lang], LANG.CANCEL[lang]);
 			}
-		}
-		//num only
-		return isNumberKey(evt);
+		});		
+	};
+	///////////////////
+	// ARROW BUTTONS //
+	///////////////////
+	$('#sliderNum').on(touchstart, function(evt) {
+		slider.reset();
+		return false;
 	});
-	// KEYUP INVERTER
-	$("#entryTitle").on('keyup change', function(evt) {
-		if(Math.abs($("#entryTitle").val()) > 0) {
-			$('#entrySubmit').addClass('submitActive');
+	////////////////////////////////
+	// SAVE ENTRY (SUBMIT BUTTON) //
+	////////////////////////////////
+	$('#entrySubmit').on(touchstart, function(evt) {
+		evt.preventDefault();
+		slider.save();
+	});
+	/////////////////////////
+	// SLIDER UPDATE EVENT //
+	/////////////////////////
+	if(document.getElementById('entryTitle')) {
+		document.getElementById('entryTitle').update = slider.update;
+	}
+	//#//////////////#//
+	//# HOLD TO EDIT #//
+	//#//////////////#//
+	$('#sliderNum').on('longhold', function(evt) {
+		$('#entryTitle').removeAttr('readonly');
+		$('#entryTitle').focus();
+	});
+	//CORE VALIDATION
+	app.handlers.validate('#entryTitle',{maxLength:3,inverter:1},'',function() {
+		//KEYUP
+		if($('#entryTitle').val() == '' || $('#entryTitle').val() == 0) {
+			$('#entrySubmit').removeClass('submitActive');
 		} else {
-			$('#entrySubmit').removeClass('submitActive');				
+			$('#entrySubmit').addClass('submitActive');
 		}
-		var keyCode = (evt.which) ? evt.which : evt.keyCode;
-		if(keyCode == 0 || keyCode == 45 || keyCode == 190) {
-			$("#entryTitle").val($("#entryTitle").val()*-1 );
-			return false;
+	},function() {
+		//FOCUS
+		if($('#entryTitle').attr('readonly')) {
+			$('#entryTitle').blur();
 		}
+	},function() {
+		//BLUR
+		$('#entryTitle').attr('readonly','readonly');
 	});
 	//////////////////
 	// DEV KEYCODES //
 	//////////////////
-	$("#entryBody").on("keyup", function(evt) {
-		if((/dev/).test($("#entryBody").val().toLowerCase())) {
+	$('#entryBody').on('keyup', function(evt) {
+		if((/dev/).test($('#entryBody').val().toLowerCase())) {
 			//////////
 			// GOTO //
 			//////////
@@ -1049,37 +960,31 @@ function sliderNeg() {
 			}
 		}
 	});
-	//#///////////////#//
-	//# CLEAR ALL BAR #//
-	//#///////////////#//
-	$("#entryListBottomBar").on(touchend, function(evt) {
-		evt.preventDefault();
-		//not while editing		
-		if($('#entryList div').is(':animated') || $('.editableInput').is(':visible')) { return; }	
-		//CLEAR DIALOG
+	///////////////
+	// CLEAR ALL //
+	///////////////
+	app.handlers.activeRow('#entryListBottomBar','activeRow',function() {
+		//CONFIRM DIALOG
 		appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
 			if(button == 1) {
 				clearEntries(function() {
-					updateEntries();
-					$(window).trigger("orientationchange");
+					app.exec.updateEntries();
+					$(window).trigger('orientationchange');
 					return false;
 				});
 			}
 		}, LANG.OK[lang], LANG.CANCEL[lang]);
-	});
-	//style
-	$("#entryListBottomBar").on(touchstart,function(evt) {
-		evt.preventDefault();
-		$("#entryListBottomBar").addClass("activeRow");
-	});
-	$("#entryListBottomBar").on(touchend + " mouseout",function(evt) {
-		$("#entryListBottomBar").removeClass("activeRow");
+	},function() {
+		//CALLBACK CONDITION
+		if($('#entryList div').is(':animated') || $('.editableInput').is(':visible')) {
+			return false;
+		}
 	});
 	//#//////////////////#//
 	//# FOOD SEARCH ICON #//
 	//#//////////////////#//
 	$("#entryBodySearch").on(touchstart,function(evt) {
-		if($("#entryBody").is(":focus") || evt.target.id == "entryTime") {
+		if($("#entryBody").is(":focus") || $("#entryTime").is(":focus") || evt.target.id == "entryTime") {
 			return;
 		}
 		evt.preventDefault();
@@ -1092,32 +997,32 @@ function sliderNeg() {
 	///////////////////////////
 	// blur edit / entrybody //
 	///////////////////////////
-	$('#appHeader').on(touchstart, function(evt) {
+	//$('#appHeader').on(touchstart, function(evt) {
+	//	evt.preventDefault();
+	//	evt.stopPropagation();
+	//	$("#editable").blur();
+	//	$("#entryTime").blur();
+	//	$("#entryBody").blur();
+	//});
+	$('#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		$("#editable").blur();
-		$("#entryTime").blur();
-		$("#entryBody").blur();
-	});
-	$('#appHeader,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-			if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
-				$("#entryTime").focus();
-			} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
-				$("#entryBody").focus();
-			} else if(evt.target.id != "entryTime" && evt.target.id != "entryBody") {
-				$("#editable").blur();
-				$("#entryTime").blur();
-				$("#entryBody").blur();
-			}
+		if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
+			$("#entryTime").focus();
+		} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
+			$("#entryBody").focus();
+		} else if(evt.target.id != "entryTime" && evt.target.id != "entryBody") {
+			$("#editable").blur();
+			$("#entryTime").blur();
+			$("#entryBody").blur();
+		}
 	});
 	////////////////////////
 	// QUICK FOCUS INPUTS //
 	////////////////////////
 	$('#entryBody').on(touchstart, function(evt) {
-		//allow text select
-		if(isMobile.iOS && $("#entryBody").is(":focus")) {
+		//allow text select (ios)
+		if($('#entryBody').is(':focus')) {
 			//evt.preventDefault();
 		} else {
 			//critical re-keyboarding entrybody/entrytime
@@ -1127,70 +1032,61 @@ function sliderNeg() {
 			evt.stopPropagation();
 		}
 		//android keyboard focus
-		if(isMobile.Android) {
-			$("#entryBody").focus();
+		if(isMobile.Android()) {
+			$('#entryBody').focus();
 		}
-		if(!$("#entryBody").is(":focus") && !$(".delete").is(":visible")) {
+		if(!$('#entryBody').is(':focus') && !$('.delete').is(':visible')) {
 			//ios, switch blur entrytime > entrybody || kitkat non-selectable focus
 			if(isMobile.iOS()) {
 				evt.preventDefault();
 			}
-			$("#entryBody").focus();
+			$('#entryBody').focus();
 		}
 	});
 	$('#entryTime').on(touchstart, function(evt) {
-			//evt.preventDefault();
-			evt.stopPropagation();	
-		if(!$("#entryTime").is(":focus") && !$(".delete").is(":visible")) {
-			if(!isMobile.Android() && !isMobile.MSApp()) {
+		//evt.preventDefault();
+		evt.stopPropagation();	
+		if(!$('#entryTime').is(':focus') && !$('.delete').is(':visible')) {
+			if(!app.device.android && !app.device.windows8) {
 				evt.preventDefault();
 			}
-			$("#entryTime").focus();
+			$('#entryTime').focus();
 		}
-		//msapp
 		//force hide keyboard
-		if(isMobile.FirefoxOS()) {
-			$("#entryTime").on(touchstart,function() {
+		if(app.device.firefoxos) {
+			$('#entryTime').on(touchstart,function() {
 				evt.preventDefault();
-				$("#entryBody").blur();
+				$('#entryBody').blur();
 			});
 		}
 	});
-	//SUPERBORDER FOCUS (IOS)
-	if(isMobile.iOS()) {
+	////////////////////////////////
+	// IOS EASY FOCUS SUPERBORDER //
+	////////////////////////////////
+	if(app.device.ios) {
 		$('#entryTime').focus(function(evt) {
-			$('#entryBody').removeClass("focusMy");
-			$('#entryBody').addClass("focusMe");
+			$('#entryBody').removeClass('focusMy');
+			$('#entryBody').addClass('focusMe');
 		});
 		$('#entryBody').focus(function(evt) {
-			//evt.preventDefault();
-			//evt.stopPropagation();
-			$('#entryBody').removeClass("focusMe");
-			$('#entryBody').addClass("focusMy");
+			$('#entryBody').removeClass('focusMe');
+			$('#entryBody').addClass('focusMy');
 		});	
 		$('#entryTime,#entryBody').blur(function(evt) {
-			$('#entryBody').removeClass("focusMe");
-			$('#entryBody').removeClass("focusMy");
+			$('#entryBody').removeClass('focusMe focusMy');
 		});
 	}
 	//////////////////////////////
 	// FIX KEYBOARD PROPAGATION //
 	//////////////////////////////
 	$('#entryListForm,#go').on(touchstart, function(evt) {
-		if(evt.target.id == "entryTime") {
-			//$("#entryTime").focus();
-		} else if(evt.target.id == "entryBody") {
-			//$("#entryBody").focus();
-		} else {
-			if($("#entryTime").is(":focus") || $("#entryBody").is(":focus") ) {
+		if(evt.target.id != 'entryTime' && evt.target.id != 'entryBody') {
+			if($('#entryTime').is(':focus') || $('#entryBody').is(':focus')) {
 				//block re-keyboarding on dismiss
 				evt.preventDefault();
 				evt.stopPropagation();
-				//autoclose bug on return
-				if(evt.target.id != "entryBody") {
-					$("#entryBody").blur();
-				}
-				$("#entryTime").blur();
+				$('#entryBody').blur();
+				$('#entryTime').blur();
 			}
 		}
 	});
@@ -1275,9 +1171,9 @@ function sliderNeg() {
 				$("#diaryNotesInput").getNiceScroll().resize();
 			}
 		});
-		////////////
-		// closer //
-		////////////
+		//////////////////
+		// notes closer //
+		//////////////////
 		var closeAction = $('body').hasClass('android2') ? 'click' : touchstart;
 		$('#diaryNotesButton').on(closeAction,function(evt) {
 			evt.preventDefault();
@@ -1300,36 +1196,33 @@ function sliderNeg() {
 			}, 400);
 		});
 	});
-//////////////////////
-// ENDSCROLL LOADER //
-//////////////////////
-var topLock = 0;
-var topTimer;
-$('#appContent').scroll(function() {
-	clearTimeout(topTimer);
-	blockModal = true;
-	topTimer = setTimeout(function() {
-		blockModal = false;
-		//
-		var entryListHeight = $('#entryList').height() * 0.5;
-		if(topLock != 0)                  { return; }
-		if($('#go').hasClass("scrolled")) { return; }
-		if($('#appContent').scrollTop()+500 > entryListHeight) {
-			topLock = 1;
-			$('#go').addClass("scrolled");
-			updateEntries('','full');
-		}
-		// FIX ANDROID 2 SELECT
-		android2Select();
-	},300);
+	//////////////////////
+	// SLIDER ENDSCROLL //
+	//////////////////////
+	app.vars.topLock = 0;
+	$('#appContent').scroll(function() {
+		blockModal = true;
+		clearTimeout(app.vars.topTimer);
+		app.vars.topTimer = setTimeout(function() {
+			blockModal = false;
+			//HEIGHT
+			var entryListHeight = $('#entryList').height() * 0.5;
+			if(app.vars.topLock != 0)         { return; }
+			if($('#go').hasClass('scrolled')) { return; }
+			if($('#appContent').scrollTop()+500 > entryListHeight) {
+				app.vars.topLock = 1;
+				$('#go').addClass('scrolled');
+				app.exec.updateEntries('','full');
+			}
+			//FIX
+			android2Select();
+		},300);
 	});
-	// FIX ANDROID 2 SELECT
-	android2Select();
 }
 /*##############################
 ## HTML BUILDS ~ OPEN PROFILE ##
 ##############################*/
-function openProfile(keepOpen) {
+app.tab.profile = function(keepOpen) {
 //RAW HTML
 var profileHtml = '\
 <a name="top"></a>\
@@ -1599,31 +1492,11 @@ $("#feet").on("change keypress",function(evt) {
 	$("#pA2B").val( Number(($("#feet").val()*12))  +  Number($("#inches").val()) );
 	writeCalcValues();
 });
-//input validate
-var defaultInput = "keypress";
-if(androidVersion() == 4.1 || isMobile.Windows()) { defaultInput = "keydown"; }
-$("#pA3B,#feet,#inches").on(defaultInput, function(evt) {
-	//no dots
-	var keyCode = (evt.which) ? evt.which : evt.keyCode;
-	if(keyCode == 46) { return false; }
-	if(keyCode == 8)  { return true; }
-	if(keyCode == 13) { $(this).blur(); return true; }
-	//max
-	if(parseInt($(this).val()) > 999 || $(this).val().length > 2) {
-		$(this).val( parseInt($(this).val()) );
-		if(isNumberKey(evt)) {
-			$(this).val( $(this).val().slice(0,-1) );
-		}
-	}
-	//num only
-	return isNumberKey(evt);
-});
-//place zero if empty
-$("#pA3B,#feet,#inches").on("blur", function(evt) {
-	if($(this).val().length == 0) {
-		$(this).val('0');
-	}
-});
+/////////////////////
+// CORE VALIDATION //
+/////////////////////
+app.handlers.validate('#feet',{maxLength:2,maxValue:99});
+app.handlers.validate('#inches,#pA3B',{maxLength:3,maxValue:999});
 ///////////////
 // TAP VALUE //
 ///////////////

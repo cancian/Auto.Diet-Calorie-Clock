@@ -1,20 +1,20 @@
 ﻿CACHE MANIFEST
-# v14102 2014-08-20
+# v15000 2014-08-27
 # APP
 index.html
 version.txt
 js/app_init.js
 js/app_bootstrap.js
-js/app_lib.js
-js/app_lang.js
-js/app_setup.js
-js/app_macro.js
-js/app_build.js
-js/app_static.js
-js/app_dynamic.js
-js/app_custom_core.js
-css/index.css
-css/fonts.css
+#js/app_lib.js
+#js/app_lang.js
+#js/app_setup.js
+#js/app_macro.js
+#js/app_build.js
+#js/app_static.js
+#js/app_dynamic.js
+#js/app_custom_core.js
+#css/index.css
+#css/fonts.css
 css/openhand.cur
 css/fontawesome.ttf
 # CORDOVA

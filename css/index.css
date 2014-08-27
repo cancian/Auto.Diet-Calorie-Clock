@@ -1,7 +1,7 @@
-﻿head,script,style						{ display: none; visibility: hidden; }
-html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; border: 0; box-sizing: border-box; background-color: #fff; touch-action: none; -ms-touch-action: none; user-zoom: fixed; -webkit-transform: translate3d(0, 0, 0); }
+﻿head,script,style						{ display: none; }
+html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; border: 0; box-sizing: border-box; background-color: #fff; touch-action: none; -ms-touch-action: none; user-zoom: fixed; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-body.osxapp								{ -webkit-font-smoothing: antialiased; } 
+body.osxapp *							{ -webkit-font-smoothing: antialiased; }
 body.msapp 								{ overflow: hidden !important; } 
 #infocontents,
 #tabMyCatsBlock,#infocontents,
@@ -14,18 +14,19 @@ input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helveti
 div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
 body.msie.thin							{ letter-spacing: 0.02em; }
 body.msie,
-body.android 							{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
+body.android 							{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
 body.msie #appContent,
 body.msie #foodList,
 body.android #newWindow,
 body.android #appContent,
-body.android #foodList					{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
+body.android #foodList					{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
 body > *,h2,input[readonly]				{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
 /*ffos fixtext-rendering: optimizeLegibility*/
 body.ios,body.android,body.windows,body.msie,
+
 body.wekbit,body.osx,body.osxapp		{ -webkit-user-select: none; }
 body > *								{ -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); outline: none; }
-input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; /*background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); */ }
+input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 .moz input,.moz select,.moz textarea	{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
 select::-ms-expand						{ display: none; }
@@ -64,7 +65,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; -webkit-transform: translate3d(0, 0, 0); }
+#appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
 /*.msie.newwindow #appContent	{ overflow: hidden; }*/
 .android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
 .android2.tab2  #appContent,
@@ -165,15 +166,13 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 .appLang-uk #closeDiv	{ font-size: 21px; }
 #viewport				{ position: absolute; top: 0; left: 0; right: 0; bottom: 100px; background: #fff; overflow: hidden; }
 /*snapper*/
-#wrapper				{ width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0 auto; background-color: #fff; -webkit-transform: translate3d(0, 0, 0); z-index: 2001; }
+#wrapper				{ width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0 auto; background-color: #fff; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); z-index: 2001; }
 .android #wrapper,
 .msie #wrapper			{ -webkit-perspective: 800; }
 /*total width*/
-#scroller				{ position: absolute; z-index: 1; -webkit-tap-highlight-color: rgba(0,0,0,0); width: 600%; top: 20%; left: 0; right: 0; bottom: 0; -webkit-transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; -webkit-perspective: 800; background-color: #fff; }
+#scroller				{ position: absolute; z-index: 1; -webkit-tap-highlight-color: rgba(0,0,0,0); width: 600%; top: 20%; left: 0; right: 0; bottom: 0;  -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 /*width relative to total over-width*/
-.slide					{ position: relative; width: 16.666%; height: 100%; float: left; display: block; box-sizing: border-box;
- -webkit-perspective: 1000; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); 
-}
+.slide					{ position: relative; width: 16.666%; height: 100%; float: left; display: block; box-sizing: border-box; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 #slide1,#slide2,#slide3,
 #slide4,#slide5,#slide6	{ background-color: #fff; font-size: 16px; line-height: 23px; text-align: center; padding-top: 120px; padding-left: 0; padding-right: 0; }
 #slide1 p:before		{ content: "\A100"; font-size: 96px; top: 0; }
@@ -187,7 +186,7 @@ input#editable					{ position: absolute; top: 13px; right: 9px; display: block !
 #slide3 p:before,
 #slide4 p:before,
 #slide5 p:before,
-#slide6 p:before		{ font-family: "FontAwesome"; line-height: 96px; /*text-shadow: 1px 1px 2px rgba(0,0,0,.14);*/ color: #09F; position: absolute; left: 0; right: 0; height: 100px; text-align: center; -webkit-perspective: 1000; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
+#slide6 p:before		{ font-family: "FontAwesome"; line-height: 96px; color: #09F; position: absolute; left: 0; right: 0; height: 100px; text-align: center; -webkit-perspective: 1000; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 .slide p				{ display: block; max-width: 520px; margin: 0 auto; background-color: #fff; padding: 0 14px; }
 .appLang-el .slide p	{ font-size: 15px; }
 #indicator				{ position: absolute; width: 170px; height: 20px; margin: 0; bottom: 74px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUGCDYztyDUJgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAGFBMVEUAAADNzc3Nzc3Nzc3Nzc3Nzc3Nzc3///8aWwwLAAAABnRSTlMAX5Ks3/nRD0HIAAAAAWJLR0QHFmGI6wAAAFtJREFUGFdjYGBgEHYNMWRAAJE0IHCEc5nSwEABxleD8JOgXMY0KBCA8FlgfAcIXwzGT4TwzWD8ZAjfDcZPgfDDYPxU7Hx09ejmoduH7h5096L7B8O/6OGBGl4APYg8TQ0XAScAAAAASUVORK5CYII=); }
@@ -290,7 +289,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #advancedMenu ul+ul						{ margin-top: 28px; border-top: 1px solid #eee; }
 #advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 45px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; box-sizing: border-box; z-index: 1; }
 #advancedMenuHeader #advBackButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
-#advancedMenuHeader #advBackButton:active{ color: #C6DEF9; }
+#advancedMenuHeader #advBackButton:active{ color: #C6DEF9; color: #ccc; }
 #advancedMenuHeader #advBackButton:before{ font-family: "FontAwesome"; content: "\f104"; }
 #advancedMenuTitle						{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
 /*single options*/
@@ -346,17 +345,17 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
-#newWindowHeader #saveButton		{ color: #C6DEF9; -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; height: 44px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
+#newWindowHeader #saveButton		{ color: #C6DEF9; color: #ccc; -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; height: 44px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
 #newWindowHeader #backButton:active,
-#newWindowHeader #saveButton:active	{ color: #C6DEF9; }
+#newWindowHeader #saveButton:active	{ color: #C6DEF9; color: #ccc; }
 #newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 44px; color: #555; text-align: center; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #appContent												{ pointer-events: auto; }
 .newwindow #appContent									{ pointer-events: none !important; }
 #newWindowWrapper.sideload								{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; background-color: #fff; overflow: hidden; }
 .ios7 #newWindowWrapper.sideload						{ top: 77px; }
 #newWindowWrapper.open.sideload							{ -webkit-transform: translate3d(0, 0, 0); }
+.windows #newWindow.firstLoad div:nth-of-type(1n+15)	{ display: none !important; }
 #newWindow.firstLoad div:nth-of-type(1n+100)			{ display: none; }
-.windows #newWindow.firstLoad div:nth-of-type(1n+50)	{ display: none; }
 .android4lt #newWindow div:nth-of-type(1n+750)			{ display: none; }
 /*#///////////////#//
 //# NUTRI SLIDERS #//
@@ -441,7 +440,9 @@ ul#langSelectList li				{ position: relative; height: 45px; margin-left: 22px; f
 ul#langSelectList li+li				{ border-top: 1px solid #eee; }
 ul#langSelectList li.preset,
 ul#langSelectList li.set			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
-ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }
+ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: ' ';  z-index: 99; }
+ul#langSelectList li.preset			{ background-color: #fff; }
+ul#langSelectList li.preset:before	{ content: '✓'; position: absolute; top: 2px; right: 18px; font-size: 24px; color: #007aff; }
 /*//////////////////
 // SETTINGS: HELP //
 //////////////////*/
@@ -459,12 +460,12 @@ ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; le
 #appHelper								{ -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; opacity: 0; -webkit-overflow-scrolling: touch; }
 #appHelper h2							{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee;  }
 #appHelper h2 #backButton				{ position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
-#appHelper h2 #backButton:active		{ color: #C6DEF9; }
+#appHelper h2 #backButton:active		{ color: #C6DEF9; color: #ccc; }
 #appHelper h2 #backButton:before		{ font-family: "FontAwesome"; content: "\f104"; -webkit-backface-visibility: hidden; }
 #appHelper h2 #helpTitle				{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
 #appSubHelper h2						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 0px solid #eee;  }
 #appSubHelper h2 #subBackButton			{ position: absolute; top: 0; left: 0; width: 76px; height: 44px; padding-top: 3px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
-#appSubHelper h2 #subBackButton:active	{ color: #C6DEF9; }
+#appSubHelper h2 #subBackButton:active	{ color: #C6DEF9; color: #ccc; }
 #appSubHelper h2 #subBackButton:before	{ font-family: "FontAwesome"; content: "\f104"; -webkit-backface-visibility: hidden; }
 #appSubHelper h2 #subHelpTitle			{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
 #appSubHelper #subHelpContent			{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
@@ -745,10 +746,10 @@ select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px;
 .ios select#entryTime			{ padding: 6px 4px 5px 7px; }
 #entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; box-sizing: border-box; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; white-space: nowrap; }
 div.submitActive				{ color: #fff !important; background-color: #316ADC; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; box-sizing: border-box; /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important;*/ opacity: 1; }
-#loadingDiv						{ position: absolute; top: 18px; left: 0; display: none; width: 100%; z-index: 99; text-align:center; text-indent: 57px; opacity: .666; }
+#loadingDiv						{ position: absolute; top: 18px; left: 0; width: 100%; z-index: 99; text-align:center; text-indent: 57px; display: none; opacity: 0; -webkit-transition-timing-function: linear; -webkit-user-select: none; pointer-events: none; -ms-touch-action: none; }
 #appHeader.open + #loadingDiv	{ display: none !important; } 
 .ios7 #loadingDiv				{ top: 31px; }
-#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: transparent; color: #fff; -webkit-user-select: none; pointer-events: none; }
+#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: rgba(0,0,0,0); color: #fff; -webkit-user-select: none; pointer-events: none; -ms-touch-action: none; }
 .android .submitActive			{ -webkit-box-shadow: none !important; }  
 .android #entrySubmit			{ text-shadow: none !important; }
 #sliderBlock					{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: transparent; opacity: 0; }
@@ -888,7 +889,9 @@ div.editing p				{ opacity: 1; }
 .android #slider,
 .msie #slider				{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 /*track*/
-.carpe-slider-track			{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #444; opacity: .5; }
+.carpe-slider-track			{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #666; opacity: .5; }
+#positiveTrack				{ background-color: #0000dd; }
+#negativeTrack				{ background-color: #cc3300; }
 .carpe-slider-knob			{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ddd; border-radius: 12px; background: #fff; margin-left: 0px; }
 .carpe-slider-knob.active	{ border: 1px solid #009900; }
 /*/////////
@@ -924,10 +927,10 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .ios #foodList							{ position: inherit; }
 #foodListWrapper						{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
 .searcheable							{ position: relative; margin: 0; padding: 12px 8px 5px 23px; min-height: 42px;  margin-bottom: 0px; overflow: hidden; }
-.searcheable.activeOverflow				{ background-color: #e2e2e2; }
+.searcheable.activeOverflow				{ background-color: rgba(0,0,0,.1) !important; }
 .searcheable ::-webkit-scrollbar		{ display: none; }
 .searcheable.noContent					{ color: #999; }
-.searcheable.activeOverflow.noContent	{ background-color: transparent !important; }
+.searcheable.activeOverflow.noContent	{ background-color: rgba(0,0,0,0) !important; }
 /*food sub itens*/
 span#noMatches			{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
 span#iconRefresh,
@@ -937,13 +940,10 @@ span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
 span#iconRefresh:before { content: "\f021"; }
 span#iconClear:before	{ content: "\F00D"; }
-.foodName				{ color: #0033cc; /*position: absolute; top: 12px; left: 23px; right: 8px;  padding-right: 1px; */ font-weight: bold; -webkit-backface-visibility: hidden; }
-.moz .foodName			{ overflow-x: hidden !important; }
-.foodName				{ overflow: hidden !important;   }
-div#activeOverflow		{ /*color: #fff;*/ overflow: auto; padding-right: 0px; border-right: 0px solid transparent; -webkit-backface-visibility: visible; display: block; float: none; text-align: left; text-indent: 0px; }
+.foodName				{ color: #0033cc; font-weight: bold; }
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .8s; }
-.yellow					{ background-color: rgba(255,200,0,.88); }
 .trans					{ background-color: rgba(255,255,255,0); }
+.yellow					{ background-color: rgba(255,200,0,.88); }
 /*align fix*/
 .android4lt #foodSearch,
 .android4lt #foodSearch		{ padding: 25px 26px 14px 30px; }
@@ -975,6 +975,9 @@ body.android44 #appHeader:before{ padding-top: 11px; }
 .msie.closer #appContent,
 .android.closer #appContent			{ overflow: hidden; }
 .android2.closer select#entryTime	{ pointer-events: none; display: none; }
+/*performancer ~ review*/
+body.android4lt #appContent			{ visibility: visible; }
+body.android4lt.closer #appContent	{ visibility: hidden !important; }
 /*search nutri colors
 .food								{ color: #0033cc ; }
 .exercise							{ color: #cc3300 ; }
@@ -994,7 +997,7 @@ body.android44 #appHeader:before{ padding-top: 11px; }
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodCar,
 .searcheable.exercise span.foodFat	{ display: none; }
-.searcheable.favItem:before			{ content: "\f005"; font-family: "FontAwesome"; font-size: 28px; position: absolute; top: 0px; right: 0; width: 44px; height: 56px; color: #ffcc33; line-height: 58px; opacity: .7; text-shadow: rgba(0,0,0,.5) 0px 0px 1px; }
+.searcheable.favItem:before			{ content: "\f005"; font-family: "FontAwesome"; font-size: 28px; position: absolute; top: 0px; right: 0; width: 44px; height: 56px; color: #ffcc33; line-height: 58px; opacity: .7; text-shadow: rgba(0,0,0,.4) 0px 0px 1px; }
 /*/////////////
 // MODAL BOX //
 /////////////*/
@@ -1003,20 +1006,30 @@ body.android44 #appHeader:before{ padding-top: 11px; }
 #modalOverlay			{ background-color: rgba(0,0,0,1); opacity: .44; }
 #modalWindow			{ position: absolute; top: 74px; left: 0; right: 0; height: 200px; background-color: #ffffff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.54); z-index: 99; }
 body.ios7 #modalWindow	{ top: 94px; }
-#modalContent			{ padding: 12px; font-size: 13px; font-weight: bold; max-height: 38px; overflow: hidden; color: #777; }
+#modalContent			{ padding: 12px; font-size: 13px; max-height: 38px; overflow: hidden; color: #777; font-weight: bold; }
 #modalContent span		{ color: #3287F5; white-space: nowrap; }
-#modalButtons			{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; line-height: 46px; text-align: center; }
-#modalOk				{ position: absolute; bottom: 0; left: 0; right: 50%; height: 44px; background-color: #5497E6; color: #fff; font-weight: bold; text-shadow: rgba(0,0,0,.24) 0 1px 0; /*background-image: -webkit-linear-gradient(#4D9AE5,#4A93DA);*/ }
-#modalCancel			{ position: absolute; bottom: 0; left: 50%; right: 0; height: 44px; background-color: #f5f5f5; text-shadow: rgba(0,0,0,.04) 0 1px 0; /*background-image: -webkit-linear-gradient(#f9f9f9,#f1f1f1);*/ }
+#modalContent:active span,
+#modalContent span:active,
+#modalContent span.active{ color: #ccc; }
+#modalButtons			{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; line-height: 46px; text-align: center; font-size: 18px; }
+#modalOk				{ position: absolute; bottom: 0; left: 0; right: 50%; height: 44px; background-color: #5497E6; color: rgba(255,255,255,.45); pointer-events: none; }
+#modalOk.active			{ color: #fff; pointer-events: auto; }
+#modalOk.done,
+#modalOk:active			{ color: #ccc !important; }
+#modalCancel			{ position: absolute; bottom: 0; left: 50%; right: 0; height: 44px; background-color: #f5f5f5; }
 #modalAdjust			{ position: absolute; top: 65px; left: 0; background-color: #fff; width: 100%; height: 92px; z-index: 99999; }
-#modalPosBlock			{ position: absolute; top: 5px; right: 9px; display: block; width: 25%; height: 40px; background-color: #f7f7f7; /*background-image: -webkit-linear-gradient(#f8f8f8,#f5f5f5);*/ border-radius: 0px 6px 6px 0; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
-#modalNegBlock			{ position: absolute; top: 5px; left:  9px;  display: block; width: 25%; height: 40px; background-color: #f7f7f7; /*background-image: -webkit-linear-gradient(#f8f8f8,#f5f5f5);*/ border-radius: 6px 0 0 6px; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
+#modalPosBlock			{ position: absolute; top: 5px; right: 9px; display: block; width: 25%; height: 40px; background-color: #f7f7f7; border-radius: 0px 6px 6px 0; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
+#modalNegBlock			{ position: absolute; top: 5px; left:  9px;  display: block; width: 25%; height: 40px; background-color: #f7f7f7; border-radius: 6px 0 0 6px; border: 1px solid transparent; border-width: 1px 0 1px 0; color: #bbb; -webkit-backface-visibility: hidden; }
 #modalNeg				{ font-size: 24px; display: block; position: absolute; top: 8px; right: 27%; }
 #modalPos				{ font-size: 24px; display: block; position: absolute; top: 8px; left: 27%; }
-#modalNeg.icon-chevron-sign-left,
-#modalPos.icon-chevron-sign-right			{ font-family: "FontAwesome"; line-height: 39px; font-size: 39px; font-weight: normal; color: #007AFF; margin-top: -8px; display:block; }
-#modalNeg.icon-chevron-sign-left:before		{ content: "\f104"; font-family: "FontAwesome"; }
-#modalPos.icon-chevron-sign-right:before	{ content: "\f105"; font-family: "FontAwesome"; }
+#modalNeg,
+#modalPos				{ font-family: 'FontAwesome'; line-height: 39px; font-size: 39px; font-weight: normal; color: #007AFF; margin-top: -8px; display:block; }
+#modalNeg:before		{ content: '\f104'; }
+#modalPos:before		{ content: '\f105'; }
+#modalNegBlock.active,
+#modalPosBlock.active	{ background-color: #f2f2f2; }
+#modalNegBlock.active #modalNeg,
+#modalPosBlock.active #modalPos	{ color: #C8DFF9; color: #ccc; }
 #modalAmountBlock		{ position: absolute; top: 5px; left: 25%; display: block; width: 50%; height: 40px; border: 1px solid #eee; border-width: 1px 0 1px 0; }
 #modalAmount			{ display: block; width: 100%; text-align: center; font-size: 12pt; line-height: 10pt; font-weight: bold; padding-top: 7px; }
 #modalAmountType		{ display: block; width: 100%; text-align: center; font-size: 10pt; font-variant: small-caps; }
@@ -1026,32 +1039,31 @@ body.ios7 #modalWindow	{ top: 94px; }
 span#proLabel,
 span#carLabel,
 span#fatLabel,
-span#fibLabel,
 span#proData,
 span#carData,
-span#fatData,
-span#fibData			{ font-size: 11px; position: absolute; top: 0; left: 30px; text-align: left; font-size: 11px; text-transform: lowercase; -webkit-transform: translate3d(0, 0, 0); }
+span#fatData			{ font-size: 11px; position: absolute; top: 0; left: 30px; text-align: left; font-size: 11px; text-transform: lowercase; }
+span#proData p,
+span#carData p,
+span#fatData p			{ font-weight: normal; color: #666; padding-left: 0px; float: left; }
 span#proData span,
 span#carData span,
-span#fatData span,
-span#fibData span		{ font-weight: normal; color: #999; padding-left: 1px; -webkit-transform: translate3d(0, 0, 0); }
+span#fatData span		{ font-weight: normal; color: #999; padding-left: 1px; float: left; }
 span#proData			{ top:  0px; font-variant: normal; color: #666; }
 span#carData			{ top: 14px; font-variant: normal; color: #666; }
 span#fatData			{ top: 28px; font-variant: normal; color: #666; }
-span#fibData			{ top: 38px; font-variant: normal; color: #666; }
-span#proLabel			{ top:  0px; text-align: left; left: 67px; color: #666; /*right: 247px;*/ }
+span#proLabel			{ top:  0px; text-align: left; left: 67px; color: #666; }
 span#carLabel			{ top: 14px; text-align: left; left: 67px; color: #666; }
 span#fatLabel			{ top: 28px; text-align: left; left: 67px; color: #666; }
-span#fibLabel			{ top: 38px; text-align: left; left: 67px; color: #666; }
 /*modal delete*/
-#modalDelete:before			{ color: #333; content: "\f014"; font-family: "FontAwesome"; font-size: 30px; position: absolute; top: -62px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
-#modalDelete:active:before	{ color: #333; }
+#modalDelete:before			{ content: "\f014"; font-family: "FontAwesome"; font-size: 30px; position: absolute; top: -62px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
+#modalDelete:active:before	{ color: #ccc; }
 /*modal edit*/
 #modalEdit:before			{ content: "\f040"; font-family: "FontAwesome"; font-size: 30px; position: absolute; top: -62px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
-#modalEdit:active:before	{ color: #333; }
+#modalEdit:active:before	{ color: #ccc; }
 /*modal fav*/
 #modalFav:before			{ content: "\f006"; font-family: "FontAwesome"; font-size: 32px; position: absolute; top: -62px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalFav.favorite:before	{ content: "\f005"; font-family: "FontAwesome"; }
+#modalFav:active:before		{ color: #ccc; }
 /*///////////
 // SPINNER //
 ///////////*/
@@ -1093,13 +1105,16 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #tabMyItemsBlock			{ position: relative; padding-bottom: 68px; -webkit-backface-visibility: hidden; }
 #addNewFood,
 #addNewExercise				{ position: absolute; bottom: 12px; left: 12px; right: 12px; background-color: #fff; height: 44px; line-height: 44px; color: #3169DE; display: block; text-align: center; font-weight: bold; font-size: 14px; opacity: 1; border: 1px solid #3169DE; box-sizing: border-box; white-space: nowrap; }
+#addNewFood.active,
+#addNewExercise.active		{ border-color: #ddd; color: #cbcbcb; }
 #addNewFood					{ right: 50%; margin-right: 5px; }
 #addNewExercise				{ left:  50%; margin-left: 5px; }
-#addNewWrapper				{ opacity: 0; position: absolute; top: 75px; bottom: 66px; left: 12px; right: 12px; min-height: 325px; background-color: #fff; display: block; z-index: 99; overflow: hidden; display: block; -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); }
+#addNewWrapper				{ position: absolute; top: 75px; bottom: 66px; left: 12px; right: 12px; min-height: 325px; background-color: #fff; display: block; z-index: 99; overflow: hidden; display: block; -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); }
 body.ios7 #addNewWrapper	{ top: 91px; }
-#addNewWrapper.show			{ opacity: 1; }
-#addNewConfirm				{ position: absolute; bottom: 0; left:  0; width: 50%; background-color: #4D9AE5; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: bold; }
-#addNewCancel				{ position: absolute; bottom: 0; right: 0; width: 50%; background-color: #eeeeee; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: bold; }
+#addNewConfirm				{ position: absolute; bottom: 0; left:  0; width: 50%; background-color: #4D9AE5; font-size: 18px; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: normal; }
+#addNewCancel				{ position: absolute; bottom: 0; right: 0; width: 50%; background-color: #eeeeee; font-size: 18px; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: normal; }
+#addNewConfirm.done,
+#addNewConfirm:active		{ color: #ccc !important; }
 ul#addNewList				{ padding: 9px 0 22px 22px; }
 ul#addNewList li			{ display: block; height: 44px; line-height: 44px; position: relative; }
 ul#addNewList li+li			{ border-top: 1px solid #eee; }

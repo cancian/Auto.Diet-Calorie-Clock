@@ -33,13 +33,9 @@ function appTimer(id,content) {
 	var lBalanced = LANG.BALANCED[lang];
 	var limit1    = parseInt(window.localStorage.getItem("config_limit_1"));
 	var limit2    = parseInt(window.localStorage.getItem("config_limit_2"));
-	//STATUSES (RELATIVE)
-         if(kcalsInput >  9999 )      { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; kcalsInput =  9999.99; }
-	else if(kcalsInput < -9999 )      { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; kcalsInput = -9999.99; }
-//	else if(kcalsInput > eqPerDay * .50) { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
-//	else if(kcalsInput < eqPerDay *-.50) { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
-//	else if(kcalsInput > eqPerDay * .25) { status = lDeficit;  cssClass = "deficit";  }
-//	else if(kcalsInput < eqPerDay *-.25) { status = lSurplus;  cssClass = "surplus";  } 
+	//STATUSES
+         if(kcalsInput >  9999 )   { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; kcalsInput =  9999.99; }
+	else if(kcalsInput < -9999 )   { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; kcalsInput = -9999.99; }
 	else if(kcalsInput > limit2)   { status = lSurplus;  cssClass = "surplus"; cssOver = "over"; }
 	else if(kcalsInput < limit1)   { status = lDeficit;  cssClass = "deficit"; cssOver = "over"; }
 	else if(kcalsInput > limit2/2) { status = lSurplus;  cssClass = "surplus";  }
@@ -48,24 +44,20 @@ function appTimer(id,content) {
 	///////////////////
 	// UPDATE HEADER //
 	///////////////////
-	//global
-	timerKcals = kcalsInput;
-	//$("#timerKcals p").html(kcalsInput);
-	//$("#timerDaily p").html(eqPerDay);  
-	var kcalsHtmlOutput = "";
-	kcalsHtmlOutput     += "<div id='timerBlocks'>";
-	kcalsHtmlOutput     += "<div id='timerKcals'>"   + kcalsInput + "<span>" + LANG.CALORIC_BALANCE[lang] + "</span></div>";
-	kcalsHtmlOutput     += "<div id='timerDaily'>"   + eqPerDay   + "<span>" + LANG.DAILY_CALORIES[lang] + "</span></div>"; //" + LANG.KCAL[lang] + " / " + LANG.DAY[lang] + "
-	kcalsHtmlOutput     += "</div>";
-	//REPLACE
-	appHeader = kcalsHtmlOutput;
+	if($('#timerKcals p').html() != kcalsInput) {
+		$('#timerKcals p').html(kcalsInput);
+		timerKcals = kcalsInput;
+	}
+	if($('#timerDaily p').html() != eqPerDay) {
+		$('#timerDaily p').html(eqPerDay);
+	}
 	//STATUS
 	if(!$("body").hasClass(cssClass) || !$("#appHeader").hasClass(cssClass) || !$("#appStatusBalance").hasClass(cssClass)) {
 		$("body,#appHeader,#appStatusBalance").addClass(cssClass);
-		if(cssClass != "balanced") { 
+		if(cssClass != "balanced") {
 			$("body,#appHeader,#appStatusBalance").removeClass("balanced");
 		}
-		if(cssClass != "deficit") { 
+		if(cssClass != "deficit") {
 			$("body,#appHeader,#appStatusBalance").removeClass("deficit");
 		}
 		if(cssClass != "surplus") { 

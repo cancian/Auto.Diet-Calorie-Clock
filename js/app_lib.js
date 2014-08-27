@@ -1,10 +1,92 @@
-﻿//#/////////////#//
-//# GLOBAL VARS #//
-//#/////////////#//
-var app = {};
+﻿//#////////////#//
+//# APP OBJECT #//
+//#////////////#//
+var app = {
+	db: {},
+	tab: {},
+	get: {},
+	call: {},
+	exec: {},
+	vars: {},
+	timer: {},
+	is: {},
+	handlers: {},
+	now: function() {
+		return new Date().getTime();
+	},
+	define: function(key,value) {
+		if(!window.localStorage.getItem(key)) {
+			window.localStorage.setItem(key,value);
+			return false;
+		}
+		return true;
+	},
+	read: function(key,value) {
+		if(value) {
+			if(window.localStorage.getItem(key) == value) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		if(!window.localStorage.getItem(key)) {
+			return false;
+		} else {
+			return window.localStorage.getItem(key);
+		}
+	},
+	save: function(key,value) {
+		window.localStorage.setItem(key,value)	
+	},
+	remove: function(key) {
+		window.localStorage.removeItem(key)	
+	},
+}
 //////////////
-// APP TIME //
+// APP VARS //
 //////////////
+app.vars.useragent      = navigator.userAgent;
+var userAgent           = navigator.userAgent;
+var appBalance;
+var appBalanceOver;
+var appStatus;
+var appHeader;
+var appFooter;
+var db;
+var dbName              = "mylivediet.app";
+var lib;
+var lib2;
+var storeEntry;
+var storeFood;
+var hasSql              = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
+var AND                 = " ";
+var initialScreenWidth  = window.innerWidth;
+var initialScreenHeight = window.innerHeight;
+var orientationSwitched = 0;
+var initialScreenSize   = window.innerHeight;
+var lastScreenSize      = window.innerHeight;
+var lastScreenResize    = window.innerHeight;
+var opaLock             = 0;
+var loadingDivTimer;
+var timerPerf           = (new Date().getTime());
+var timerDiff           = 100;
+var timerWait           = 100;
+var noteContent         = '';
+var noTimer;
+var ref;
+var preTab;
+var afterTab;
+var timerKcals;
+var rebuildHistory;
+var blockModal = false;
+var modalTimer;
+var rowsEntry = [];
+var rowsFood  = [];
+function voidThis()   { }
+function voidMe()     { }
+/////////////////
+// APP COUNTER //
+/////////////////
 //app.counter.start();
 //app.counter.stop(0,'before callback');
 app.counter = {
@@ -25,9 +107,9 @@ app.counter = {
 		}
 	}
 }
-/////////////////////////
-// GLOBAL APP HANDLERS //app.handlers.activeRow('#appStatusAddRight','clicked',function(evt) {});
-/////////////////////////app.handlers.activeRow('#target','class',function() {});
+//////////////////
+// APP HANDLERS //
+//////////////////
 app.handlers = {
 	//////////////////
 	// CSS FADE OUT //
@@ -77,22 +159,6 @@ app.handlers = {
 		//DEFER
 		},0);
 	},
-	///////////////////
-	// ACTIVE BUTTON //
-	///////////////////
-	activeButton : function (target, style, callback) {
-		$(target).on(touchstart, function (evt) {
-			$(target).addClass(style);
-			callback();
-		});
-		$(target).on(touchend + ' mouseout mouseleave touchleave touchcancel', function (evt) {
-			evt.stopPropagation();
-			setTimeout(function() {
-				$(target).removeClass(style);
-			}, 100);
-			return false;
-		});
-	},
 	////////////////
 	// ACTIVE ROW //
 	////////////////
@@ -100,7 +166,7 @@ app.handlers = {
 	activeRowBlock   : 0,
 	activeRowTimer   : '',
 	activeLastId     : '',
-	activeRow : function (target, style, callback) {
+	activeRow : function (target, style, callback,callbackCondition) {
 		//RESET
 		app.handlers.activeRowTouches = 0;
 		app.handlers.activeRowBlock   = 0;
@@ -122,7 +188,7 @@ app.handlers = {
 					callback($(this).attr('id'));
 					$(this).addClass(style);
 					app.handlers.activeLastId = '#' + $(this).attr('id');
-					var resetTime = (style == 'activeOverflow') ? 0 : 500;
+					var resetTime = (style == 'activeOverflow') ? 0 : 800;
 					setTimeout(function () {
 						app.handlers.activeRowTouches = 0;
 						app.handlers.activeRowBlock   = 0;
@@ -158,6 +224,12 @@ app.handlers = {
 						$(app.handlers.activeLastId).removeClass(style);
 					}
 				}, 40);
+				//CALLBACK CONDITION
+				if(callbackCondition) {
+					if(callbackCondition() === false) {
+						clearTimeout(app.handlers.activeRowTimer);
+					}
+				}				
 			});
 		}, 400);
 		//////////////////////
@@ -186,7 +258,7 @@ app.handlers = {
 			$(targetParent).on('scroll ' + moveCancel, function (evt) {
 				app.handlers.activeRowTouches++;
 				clearTimeout(app.handlers.activeRowTimer);
-				if (app.handlers.activeRowTouches > 5 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
+				if (app.handlers.activeRowTouches > 7 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
 					$(app.handlers.activeLastId).removeClass(style);
 					app.handlers.activeRowTouches = 0;
 				}
@@ -205,30 +277,27 @@ app.handlers = {
 	///////////////////
 	// HIGHLIGHT ROW //
 	///////////////////
-	updateRow: function(target,content,callback) {
-		//target = '#' + target;
-		//var parentDiv = '#' + $(target).parent('div').attr('id') + ' ';
-
-		//$('.yellow').removeClass('yellow');
-		//$('.trans').removeClass('trans');
-		//$('.fade').removeClass('fade');
-		//$('.activeOverflow').removeClass('activeOverflow');	
+	highlight: function(target,callback) {
 		$(target).removeClass('activeOverflow');
+		//QUICK COLOR
+		$(target).css(prefix + 'transition-timing-function', 'linear');
+		$(target).css(prefix + 'transition-duration', '0s');
 		$(target).addClass('yellow');
-		if(callback) {
-			callback();
-		}
+		//FADE
 		setTimeout(function () {
-			//$(parentDiv + target).addClass('fade');
-			//$(parentDiv + target).addClass('trans');
-			$('.yellow').addClass('fade');
-			$('.yellow').addClass('trans');
-		}, 0);
-		setTimeout(function () {
-			$('.yellow').removeClass('yellow');
-			$('.trans').removeClass('trans');
-			$('.fade').removeClass('fade');
-		}, 1500);
+			$(target).css(prefix + 'transition-duration', '.8s');
+			setTimeout(function () {
+				$(target).removeClass('yellow');
+				if(callback) {
+					callback();
+				}
+				//CLEAR			
+				setTimeout(function () {
+					$(target).css(prefix + 'transition-duration', '0s');
+					$(target).removeClass('yellow');
+				}, 900);
+			}, 20);
+		}, 20);
 	},
 	///////////////
 	// BUILD ROW //
@@ -237,10 +306,7 @@ app.handlers = {
 		//////////////////
 		// TOTAL WEIGHT //
 		//////////////////
-		var totalWeight = window.localStorage.getItem('calcForm#pA3B') ? parseInt(window.localStorage.getItem('calcForm#pA3B')) : 80;
-		if (window.localStorage.getItem('calcForm#pA3C') === 'pounds') {
-			totalWeight = Math.round((totalWeight) / (2.2));
-		}
+		var totalWeight = app.get.totalweight();
 		////////////////
 		// LOOP ARRAY //
 		////////////////
@@ -294,7 +360,7 @@ app.handlers = {
 				// BUILD SQL //
 				///////////////
 				if(filter) {
-					rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].id + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + kcals + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + "');\n";
+					rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + data[i].kcal + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + "');\n";
 				}
 			}
 		}
@@ -318,7 +384,7 @@ app.handlers = {
 		// RETURN HTML //
 		/////////////////
 		if(rowHtml == '') {
-			if($('#searchContents').is(':visible')) {
+			if($('#foodSearch').is(':focus')) {
 				rowHtml = '<div class="searcheable noContent"><div><em>' + LANG.NO_MATCHES[lang] + '</em></div></div>';
 			} else {
 				//rowHtml = '<span id="noMatches"> ' + LANG.NO_ENTRIES[lang] +' </span>'; //
@@ -333,91 +399,93 @@ app.handlers = {
 	//@//////////@//
 	//@ REPEATER @//
 	//@//////////@//
+	repeaterTrigger: '',
+	repeaterLoop:    '',
 	repeater: function(target,style,triggerMs,repeatMs,callback) {
-		var triggerTimer;
-		var repeatTimer;
 		$(target).removeClass(style);
-		clearTimeout(triggerTimer);
-		clearTimeout(repeatTimer);
+		clearTimeout(app.repeaterTrigger);
+		clearTimeout(app.repeaterLoop);
 		///////////////
 		// AUTOCLEAR //
 		///////////////
-		var clearActions = touchend + ' mouseout mouseleave mouseup';
+		var clearActions = touchend + ' mouseout mouseleave touchleave touchcancel';
 		$(target).off(clearActions).on(clearActions, function (evt) {
 			evt.preventDefault();
 			$(target).removeClass(style);
-			clearTimeout(triggerTimer);
-			clearTimeout(repeatTimer);
+			clearTimeout(app.repeaterTrigger);
+			clearTimeout(app.repeaterLoop);
 		});
 		/////////////
 		// TRIGGER //
 		/////////////
 		$(target).off(touchstart).on(touchstart, function (evt) {
 			evt.preventDefault();
-			clearTimeout(triggerTimer);
-			clearTimeout(repeatTimer);
+			clearTimeout(app.repeaterTrigger);
+			clearTimeout(app.repeaterLoop);
 			//TAP
 			$(target).addClass(style);
 			callback();
 			//START
-			triggerTimer = setTimeout(function() {
+			app.repeaterTrigger = setTimeout(function() {
 				//REPEAT
-				(function repeaterLoop() {
+				(function repeatMe() {
+					clearTimeout(app.repeaterTrigger);
+					clearTimeout(app.repeaterLoop);
 					callback();
-					repeatTimer = setTimeout(repeaterLoop,repeatMs);
+					app.repeaterLoop = setTimeout(repeatMe,repeatMs);
 				})();
 			}, triggerMs);
+			return false;
 		});
 	},
 };
-/////////////////
-// GLOBAL VARS //
-/////////////////
-app.vars = {
-	useragent: navigator.userAgent,
+/////////////
+// APP GET //
+/////////////
+app.get.totalweight = function() {
+	if (!window.localStorage.getItem('calcForm#pA3B')) {
+		return 80;
+	}
+	if (window.localStorage.getItem('calcForm#pA3C') == 'pounds') {
+		return Math.round(parseInt(window.localStorage.getItem('calcForm#pA3B'))/2.2);
+	}	
+	return parseInt(window.localStorage.getItem('calcForm#pA3B'));
 };
-var storage             = window.localStorage;
-var userAgent           = navigator.userAgent;
-var appBalance;
-var appBalanceOver;
-var appStatus;
-var appHeader;
-var appFooter;
-var db;
-var dbName              = "mylivediet.app";
-var lib;
-var lib2;
-var storeEntry;
-var storeFood;
-var hasSql              = (window.openDatabase && window.localStorage.getItem("config_nodb") != "active") ? true : false;
-var AND                 = " ";
-var initialScreenWidth  = window.innerWidth;
-var initialScreenHeight = window.innerHeight;
-var orientationSwitched = 0;
-var initialScreenSize   = window.innerHeight;
-var lastScreenSize      = window.innerHeight;
-var lastScreenResize    = window.innerHeight;
-var opaLock             = 0;
-var loadingDivTimer;
-var timerPerf           = (new Date().getTime());
-var timerDiff           = 100;
-var timerWait           = 100;
-var noteContent         = '';
-var noTimer;
-var ref;
-var preTab;
-var afterTab;
-var timerKcals;
-var rebuildHistory;
-var blockModal = false;
-var modalTimer;
-var rowsEntry = [];
-var rowsFood  = [];
-function voidThis()   { }
-function voidMe()     { }
+app.get.androidVersion = function() {
+	if((/Android/i).test(userAgent) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
+		//android L
+		if((/Build\/L/i).test(userAgent)) { return 4.4; }
+		return parseFloat(userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
+	} else {
+		return false;
+	}
+};
+app.get.isDesktop = function() {
+	//first
+	var isDesktop = ('DeviceOrientationEvent' in window || 'orientation' in window);
+	if(/(Windows NT|Macintosh|Mac OS X|Linux)/i.test(userAgent)) { isDesktop = true; }
+	if(/Mobile/i.test(userAgent)) { isDesktop = false; }
+	//second
+	var a = userAgent || navigator.vendor || window.opera;
+	if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) { isDesktop = false; }
+	//return
+	return isDesktop;
+}
+//#///////////#//
+//# MOBILE OS #//
+//#///////////#//
+function getIsDesktop() {
+}
+var isItDesktop = getIsDesktop();
+function isDesktop() {
+	return isItDesktop;
+}
 ///////////
 // LOADER //
 ///////////
+if($('#loadMask').html() == '') {
+	$('#loadMask').html('<span></span>');
+}
 document.addEventListener("DOMContentLoaded", function(event) {
 	$('body').addClass('domcontentloaded');
 });
@@ -476,40 +544,25 @@ var isMobile = {
 		return false;
 	}
 };
-////////////
-// APP IS //
-////////////
-app.is = {
-	cordova:   (typeof cordova !== 'undefined' || typeof Cordova !== 'undefined') ? true : false,
-	android:   (/Android/i).test(app.vars.useragent) ? true : false,
-	ios:       (/iPhone|iPad|iPod/i).test(app.vars.useragent) ? true : false,
-	wp:        (/IEMobile/i).test(app.vars.useragent) ? true : false,
-	wp81:      (/Windows Phone 8.1/i).test(app.vars.useragent) ? true : false,
-	msapp:     (/MSApp/i).test(app.vars.useragent) ? true : false,
-	firefoxos: ((/firefox/i).test(app.vars.useragent) && (/mobile/i).test(app.vars.useragent) && (/gecko/i).test(app.vars.useragent)) ? true : false,
-	osx:       ((/Macintosh|Mac OS X/i).test(app.vars.useragent) && !(/iPhone|iPad|iPod/i).test(app.vars.useragent)) ? true : false,
-	osxapp:    (/MacGap/i).test(app.vars.useragent) ? true : false,
-	mobile:    ((/Mobile/i).test(app.vars.useragent) || ('DeviceOrientationEvent' in window || 'orientation' in window)) && !(/Windows NT|Macintosh|Mac OS X|Linux/i.test(app.vars.useragent))  ? true : false,
-	desktop:   ((/Mobile/i).test(app.vars.useragent) || ('DeviceOrientationEvent' in window || 'orientation' in window)) && !(/Windows NT|Macintosh|Mac OS X|Linux/i.test(app.vars.useragent))  ? false : true,
+////////////////
+// APP DEVICE //
+////////////////
+app.device = {
+	cordova    : ((typeof cordova || typeof Cordova) !== 'undefined') ? true : false,
+	android    : (/Android/i).test(app.vars.useragent) ? app.get.androidVersion() : false,
+	ios        : (/iPhone|iPad|iPod/i).test(app.vars.useragent) ? true : false,
+	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.vars.useragent) ? true : false,
+	wp8        : (/IEMobile/i).test(app.vars.useragent) ? true : false,
+	wp81       : (/Windows Phone 8.1/i).test(app.vars.useragent) ? true : false,
+	windows8   : (/MSApp/i).test(app.vars.useragent) ? true : false,
+	windows81  : (/MSAppHost\/2.0/i).test(app.vars.useragent) ? true : false,
+	firefoxos  : ((/firefox/i).test(app.vars.useragent) && (/mobile/i).test(app.vars.useragent) && (/gecko/i).test(app.vars.useragent)) ? true : false,
+	osx        : ((/Macintosh|Mac OS X/i).test(app.vars.useragent) && !(/iPhone|iPad|iPod/i).test(app.vars.useragent)) ? true : false,
+	osxapp     : (/MacGap/i).test(app.vars.useragent) ? true : false,
+	blackberry : (/BlackBerry/i).test(app.vars.useragent) ? true : false,
+	mobile     : app.get.isDesktop() ? false : true,
+	desktop    : app.get.isDesktop() ? true : false,
 };
-//#///////////#//
-//# MOBILE OS #//
-//#///////////#//
-function getIsDesktop() {
-	//first
-	var isDesktop = ('DeviceOrientationEvent' in window || 'orientation' in window);
-	if(/(Windows NT|Macintosh|Mac OS X|Linux)/i.test(userAgent)) isDesktop = true;
-	if(/Mobile/i.test(userAgent)) isDesktop = false;
-	//second
-	var a = userAgent || navigator.vendor || window.opera;
-	if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) { isDesktop = false; }
-	//return
-	return isDesktop;
-}
-var isItDesktop = getIsDesktop();
-function isDesktop() {
-	return isItDesktop;
-}
 //#///////////////#//
 //# GET USERAGENT #//
 //#///////////////#//
@@ -537,7 +590,7 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length) {
 				if (vendorClass == "msie") {
 					//rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
 				}
-				safeExec(function () {
+				app.safeExec(function () {
 					$("#coreCss").remove();
 					$("#coreFonts").prepend("<style type='text/css' id='coreCss'></style>");
 					$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie", "") + '-'));
@@ -552,7 +605,7 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length) {
 function isCordova() {
 	return isMobileCordova; //(typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
 }
-function androidVersion() {
+function getAndroidVersion() {
 	if((/Android/i).test(userAgent) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1) {
 		//android L
 		if((/Build\/L/i).test(userAgent)) { return 4.4; }
@@ -561,6 +614,11 @@ function androidVersion() {
 		return -1;
 	}
 }
+var gotAndroidVersion = getAndroidVersion();
+var androidVersion = function() {
+	return gotAndroidVersion;
+};
+
 var varHasTouch = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && (/(iPhone|iPod|iPad|Android|BlackBerry)/).test(userAgent);
 function hasTouch() {
 	return varHasTouch;
@@ -599,15 +657,13 @@ MSPointerLeave			pointerleave
 ///////////////
 // SAFE EXEC //
 ///////////////
-if(typeof safeExec != 'function') {
-	function safeExec(callback) {
-		if(isMobile.MSApp()) {
-			MSApp.execUnsafeLocalFunction(function () {
-				callback();
-			});
-		} else {
+app.safeExec = function (callback) {
+	if (app.device.windows8) {
+		MSApp.execUnsafeLocalFunction(function () {
 			callback();
-		}
+		});
+	} else {
+		callback();
 	}
 }
 ///////////////////
@@ -628,28 +684,142 @@ function errorHandler(error) {
 		}
 		console.log(JSON.stringify(error));
 	}
-	
 }
 /////////////////
 // NUMBER ONLY //
 /////////////////
 function isNumberKey(evt){
-	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	var keyCode = (evt.which) ? evt.which : evt.keyCode;
 	//backspace, enter, shift, left, right
-	if(charCode == 8 || charCode == 13 || charCode == 16 || charCode == 37 || charCode == 39) { 
+	if(keyCode == 8 || keyCode == 13 || keyCode == 16 || keyCode == 37 || keyCode == 39) { 
 		return true; 
 	}
-	if(charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+	if(keyCode != 46 && keyCode > 31 && (keyCode < 48 || keyCode > 57)) {
 		return false;
 	}
 	return true;
 }
+app.handlers.validate = function(target,config,preProcess,postProcess,focusProcess,blurProcess) {
+	var inputHandler = (app.device.android == 4.1 || app.device.wp8) ? 'keydown' : 'keypress';
+	//SETTINGS
+	if(!config)           { config = {}; }
+	if(!config.maxValue)  { config.maxValue  = 9999; }
+	if(!config.maxLength) { config.maxLength = 4;    }
+	//if(!config.allowDots) { config.allowDots = 0; }
+	//if(!config.inverter)  { config.inverter  = 0; }
+	////////////////////////
+	// KEYDOWN VALIDATION //
+	////////////////////////
+	var keydownId;
+	var keydownValue;
+	$(target).on(inputHandler, function(evt) {
+		keydownId    = evt.target.id;
+		keydownValue = JSON.stringify($(this).val());
+		var keyCode  = evt.which || evt.keyCode;
+		//PRE HANDLERS
+		if(preProcess) {
+			preProcess();	
+		}
+		////////////
+		// CONFIG //
+		////////////
+		//ENTER
+		if(keyCode == 13)								{ $(this).blur(); return true; }
+		//MINUS INVERTER
+		if(keyCode == 45 && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
+		if(keyCode == 46 && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
+		//DOT
+		if(keyCode == 46) {
+			if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) {
+				return false;
+			}
+			return true;
+		}
+		///////////////////
+		// ENFORCE LIMIT //
+		///////////////////
+		keydownValue = $(this).val();
+		if(parseInt($(this).val()) > config.maxValue || JSON.stringify($(this).val()).length > config.maxLength+1) {
+			if(config.allowDots == true)  {
+				$(this).val( parseFloat($(this).val()) );				
+			} else {
+				$(this).val( parseInt($(this).val()) );
+			}
+			//PRE-CHECK
+			if(isNumberKey(evt)) {
+				keydownValue = $(this).val();
+				$(this).val( $(this).val().slice(0,-1) );
+			}
+		}
+		//CHECK
+		return isNumberKey(evt);
+	});
+	//////////////////////
+	// KEYUP VALIDATION //
+	//////////////////////
+	$(target).on('keyup change input past', function(evt) {
+		var keyCode = evt.which || evt.keyCode;
+		//' bug
+		if(keyCode == 222 || isNaN($(this).val())) {
+			$('#' + keydownId).val( keydownValue );
+		}
+		//NO NEGATIVE		
+		if(!config.inverter) {
+			if(parseInt($(this).val()) < 0) {
+				$(this).val( Math.abs($(this).val()) )
+			}
+		}
+		//POST HANDLERS
+		if(postProcess) {
+			postProcess();
+		}
+	});
+	///////////
+	// FOCUS //
+	///////////
+	$(target).on('focus', function(evt) {
+		if($(this).val() == '0') {
+			$(this).val('');
+		}
+		//FOCUS HANDLER
+		if(focusProcess) {
+			focusProcess();
+		}
+	});
+	//////////
+	// BLUR //
+	//////////
+	$(target).on('blur', function(evt) {
+		if($(this).val().length == 0 || $(this).val() == '0' || isNaN($(this).val())) {
+			if(config.defaultValue) {
+				$(this).val(config.defaultValue);
+			} else {
+				$(this).val('0');
+			}
+		}
+		if(config.minValue) {
+			if($(this).val() < config.minValue) {
+				$(this).val(config.minValue);
+			}
+		}
+		if(config.maxValue) {
+			if($(this).val() > config.maxValue) {
+				$(this).val(config.maxValue);
+			}
+		}
+		//BLUR HANDLER
+		if(blurProcess) {
+			blurProcess();
+		}
+	});	
+};
 //////////
 // TRIM //
 //////////
 function trim(str) {
 	if(!str) { return ''; }
 	str = str.replace(/^\s+/, '');
+	str = str.replace(/(^[ \t]*\n)/gm, "");
 	for(var i = str.length - 1; i >= 0; i--) {
 		if(/\S/.test(str.charAt(i))) {
 			str = str.substring(0, i + 1);
@@ -658,12 +828,47 @@ function trim(str) {
 	}
 	return str;
 }
+//////////////
+// HIGHLIGH //
+//////////////
+function highlight(targetId) {
+	$(targetId).animate({backgroundColor : "#ff8"}, 1).animate({backgroundColor : "rgba(255,255,255,0.36)"}, 1500);
+}
 ////////////////
 // CAPITALIZE //
 ////////////////
 String.prototype.capitalize = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1);
 }
+///////////
+// isOdd //
+///////////
+function isOdd(int) {
+	return int % Math.round(2);
+}
+////////////////
+// DECIMALIZE //
+////////////////
+function decimalize(int,p) {
+	if((Math.round(Number(int) *  10)  / 10) == 0 && p == 1) { return '0.0';  }
+	if((Math.round(Number(int) * 100) / 100) == 0)			 { return '0.00'; }
+	if(p == 1)				{
+		return Math.round(Number(int) * 10) / 10;
+	}
+	return Math.round(Number(int) * 100) / 100;
+}
+//////////////
+// CONTAINS //
+//////////////
+String.prototype.contains = function() {
+	return String.prototype.indexOf.apply( this, arguments ) !== -1;
+};
+//Array.prototype.contains = function(obj) {
+//	return JSON.stringify(this).indexOf(obj) > -1;
+//};
+//String.prototype.contains = function(obj) {
+//	return this.indexOf(obj) > -1;
+//};
 ////////////////
 // SORTBYATTR //
 ////////////////
@@ -810,7 +1015,7 @@ function android2Select() {
 function cssLoadCount(num,total) {
 	var loadCounter = " (" + num + "/" + total + ")";
 	if(num == 0 && total == 0) { loadCounter = ''; }
-	safeExec(function() {
+	app.safeExec(function() {
 		$("#cssAutoUpdate").html("\
 			.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + loadCounter + "'; }\
 			.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\

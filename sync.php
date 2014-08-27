@@ -2,7 +2,7 @@
 ## KCALS PHP BACKEND ##
 #######################
 //header('content-type: application/json; charset=utf-8');
-header("access-control-allow-origin: *");
+//header("access-control-allow-origin: *");
 header("cache-control: no-cache");
 ##
 if($_GET && $_POST)   { die(); }

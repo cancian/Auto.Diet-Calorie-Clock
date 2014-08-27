@@ -37,9 +37,8 @@ function showIntro(isNew) {
 				setTimeout(function() {
 					if(baseVersion) {
 						getAnalytics('paidInstall');
-					} else {
-						getAnalytics('newInstall');
 					}
+					getAnalytics('newInstall');
 				},1000);
 			}
 			if(myScroll) {
@@ -194,68 +193,39 @@ function initDB(t) {
 	////////////////////
 	// IF NEW INSTALL //
 	////////////////////
-	if(!window.localStorage.getItem("config_kcals_day_0") || window.localStorage.getItem("config_debug") == "active") {
-		if(!window.localStorage.getItem("config_install_time")) {
-			window.localStorage.setItem("config_install_time",new Date().getTime())
+	if(!app.read('config_kcals_day_0') || app.read('config_debug','active')) {
+		if(!app.define('config_install_time',new Date().getTime())) {
 			showIntro(1);
 		} else {
 			showIntro(0);
 		}
 	}
-	//config
-	if(!window.localStorage.getItem("config_start_time")) {
-		window.localStorage.setItem("config_start_time",Number(new Date().getTime()));
-	}
-	if(!window.localStorage.getItem("config_kcals_day_0")) {
-		window.localStorage.setItem("config_kcals_day_0",2000);
-	}
-	if(!window.localStorage.getItem("config_kcals_day_1")) {
-		window.localStorage.setItem("config_kcals_day_1",1600);
-	}
-	if(!window.localStorage.getItem("config_kcals_day_2")) {
-		window.localStorage.setItem("config_kcals_day_2",2000);
-	}
-	if(!window.localStorage.getItem("lastSync")) {
-		window.localStorage.setItem("lastSync","never");
-	}
-	if(!window.localStorage.getItem("searchType")) {
-		window.localStorage.setItem("searchType","food");
-	}
-	if(!window.localStorage.getItem("lastInfoTab")) {
-		window.localStorage.setItem("lastInfoTab","topBarItem-1");
-	}
-	if(!window.localStorage.getItem("totalEntries")) {
-		window.localStorage.setItem("totalEntries",0);
-	}	
-	if(!window.localStorage.getItem("totalRecentEntries")) {
-		window.localStorage.setItem("totalRecentEntries",0);
-	}
-	if(!window.localStorage.getItem("appNutrients")) {
-		window.localStorage.setItem("appNutrients",'25|50|25');
-	}
-	if(!window.localStorage.getItem("appNutrientTimeSpan")) {
-		window.localStorage.setItem("appNutrientTimeSpan",7);
-	}
-	if(!window.localStorage.getItem("config_ttf")) {
-		window.localStorage.setItem("config_ttf",0);
-	}	
-	if(!window.localStorage.getItem("config_tte")) {
-		window.localStorage.setItem("config_tte",0);
-	}		
-	if(!window.localStorage.getItem("config_limit_1")) {
-		window.localStorage.setItem("config_limit_1",-600);
-	}	
-	if(!window.localStorage.getItem("config_limit_2")) {
-		window.localStorage.setItem("config_limit_2",600);
-	}
-	if(!window.localStorage.getItem("foodDbVersion") && window.localStorage.getItem("foodDbLoaded") != "done") {
-		window.localStorage.setItem("foodDbVersion",3);
+	////////////
+	// DEFINE //
+	////////////
+	app.define('config_start_time',app.now());
+	app.define('config_kcals_day_0',2000);
+	app.define('config_kcals_day_1',1600);
+	app.define('config_kcals_day_2',2000);
+	app.define('lastSync','never');
+	app.define('searchType','food');
+	app.define('lastInfoTab','topBarItem-1');
+	app.define('totalEntries',0);
+	app.define('totalRecentEntries',0);
+	app.define('appNutrients','25|50|25');
+	app.define('appNutrientTimeSpan',7);
+	app.define('config_ttf',0);
+	app.define('config_tte',0);
+	app.define('config_limit_1',-600);
+	app.define('config_limit_2',600);
+	if(!app.read('foodDbVersion') && !app.read('foodDbLoaded','done')) {
+		app.save('foodDbVersion',3);
 	}	
 	//////////////////
 	// UPDATE CHECK //
 	//////////////////
 	//DETECT 2.0/1.0
-	if(window.localStorage.getItem("foodDbVersion") == 2 || (window.localStorage.getItem("foodDbLoaded") == "done" && !window.localStorage.getItem("foodDbVersion"))) {
+	if(app.read('foodDbVersion') == 2 || (app.read('foodDbLoaded','done') && !app.read('foodDbVersion'))) {
 		updateOldDatabase();
 	} else {
 		loadDatabase();
@@ -387,46 +357,50 @@ function pushEntries(userId) {
 		var fib;
 		if(data) {
 		for(var i=0, len=data.length; i<len; i++) {
-			id        = data[i].id;
-			title     = data[i].title;
-			body      = sanitizeSql(data[i].body);
-			published = parseInt(data[i].published);
-			info      = data[i].info;
-			kcal      = data[i].kcal;
-			pro       = data[i].pro;
-			car       = data[i].car;
-			fat       = data[i].fat;
-			fib       = data[i].fib;
+			if(data[i].id) {
+				id        = data[i].id;
+				title     = data[i].title;
+				body      = sanitizeSql(data[i].body);
+				published = parseInt(data[i].published);
+				info      = data[i].info;
+				kcal      = data[i].kcal;
+				pro       = data[i].pro;
+				car       = data[i].car;
+				fat       = data[i].fat;
+				fib       = data[i].fib;
 			
-			if(!body) { body = ''; }
-			if(!kcal) { kcal = ''; }
-			if(!info) { info = ''; }
-			if(!kcal) { kcal = ''; }
-			if(!pro)  { pro  = ''; }
-			if(!car)  { car  = ''; }
-			if(!fat)  { fat  = ''; }
-			if(!fib)  { fib  = ''; }
+				if(!body) { body = ''; }
+				if(!kcal) { kcal = ''; }
+				if(!info) { info = ''; }
+				if(!kcal) { kcal = ''; }
+				if(!pro)  { pro  = ''; }
+				if(!car)  { car  = ''; }
+				if(!fat)  { fat  = ''; }
+				if(!fib)  { fib  = ''; }
 
-			if(id && published != '' && allFetchIds.indexOf('#' + id + '#') === -1) { 
-				newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
-				fetchEntries += newLineFetch; 
-				newLineFetch = '';
-				allFetchIds.push('#' + id + '#');
-				//empty loop
-				id        = '';
-				title     = '';
-				body      = '';
-				published = '';
-				info      = '';
-				kcal      = '';
-				pro       = '';
-				car       = '';
-				fat       = '';
-				fib       = '';
+				if(id && published != '' && allFetchIds.indexOf('#' + id + '#') === -1) { 
+					newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
+					fetchEntries += newLineFetch; 
+					newLineFetch = '';
+					allFetchIds.push('#' + id + '#');
+					//empty loop
+					id        = '';
+					title     = '';
+					body      = '';
+					published = '';
+					info      = '';
+					kcal      = '';
+					pro       = '';
+					car       = '';
+					fat       = '';
+					fib       = '';
+				}
 			}
 		}
 		}
-		//insert custom diary_food
+		//////////////////////
+		// ADD CUSTOM ITEMS //
+		//////////////////////
 		if(window.localStorage.getItem("customItemsSql")) {
 			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customItemsSql"));
 			//padding
@@ -434,9 +408,15 @@ function pushEntries(userId) {
 				fetchEntries = fetchEntries + '\n';
 			}
 		}
+		///////////////////
+		// ADD FAVORITES //
+		///////////////////
 		if(window.localStorage.getItem("customFavSql")) {
 			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFavSql"));
 		}
+		//////////////////
+		// ADD SETTINGS //
+		//////////////////
 		if(localStorageSql()) {
 			fetchEntries = fetchEntries + "\n" + trim(localStorageSql());
 		}	
@@ -445,6 +425,8 @@ function pushEntries(userId) {
 		/////////////////
 		// POST RESULT //
 		/////////////////
+		fetchEntries = trim(fetchEntries);
+		
 		if(fetchEntries == " " || !fetchEntries) { fetchEntries = " "; }
 		if(fetchEntries) {
 			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
@@ -457,8 +439,10 @@ function pushEntries(userId) {
 	});
 }
 function setPush() {
-	if(window.localStorage.getItem("facebook_logged")) { updateFoodDb(); }
-	window.localStorage.setItem("lastEntryPush",new Date().getTime());
+	if(app.read('facebook_logged')) {
+		updateFoodDb();
+	}
+	app.save('lastEntryPush',app.now());
 }
 //#///////////////////#//
 //# AUX: SYNC ENTRIES #//
@@ -467,8 +451,8 @@ function setComplete() {
 	//nprogress
 	NProgress.done();
 	//set complete
-	window.localStorage.removeItem("pendingSync");
-	if(window.localStorage.getItem("foodDbLoaded") != "done") {
+	app.remove('pendingSync');
+	if(app.read('foodDbLoaded','done')) {
 		updateFoodDb();
 	} else {
 		setPush();
@@ -478,9 +462,9 @@ function setComplete() {
 	//update nutri pseudos
 	updateNutriRatio();
 	//refresh tabs
-	appFooter(window.localStorage.getItem("app_last_tab"),1);
+	appFooter(app.read('app_last_tab'),1);
 	//dump diary_food data
-	if(typeof getCatList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
+	if(typeof getCatList == 'function' && app.read('foodDbLoaded','done')) {
 		setTimeout(function() {
 			updateCustomList('fav');
 			updateCustomList('items');	
@@ -488,8 +472,8 @@ function setComplete() {
 		},200);
 	}
 	//update last sync date
-	window.localStorage.setItem("lastSync",new Date().getTime());
-	$("#optionLastSync span").html(dateDiff(window.localStorage.getItem("lastSync"),(new Date().getTime())));
+	app.save('lastSync',app.now());
+	$('#optionLastSync span').html( dateDiff( app.read('lastSync'), app.now()) );
 }
 ///////////////
 // ROWS LOOP //
@@ -508,7 +492,7 @@ function rowsLoop(sqlEntry, hive, callback) {
 	for(var i = sqlEntry.length - 1; i > -1; i--) {
 	//for (var i = 0, len = sqlEntry.length; i < len; i++) {
 		if (sqlEntry[i]) {
-			var lookFor = (hive == 'diary_entry') ? sqlEntry[i][1] : sqlEntry[i][3];
+			var lookFor = (hive == 'diary_entry') ? sqlEntry[i].id : sqlEntry[i].code;
 			var rowIndex = (allRows).indexOf(lookFor);
 			if (rowIndex !== -1) {
 				//////////////
@@ -520,23 +504,7 @@ function rowsLoop(sqlEntry, hive, callback) {
 					if (rows[x]) {
 						var rowAttr = (hive == 'diary_entry') ? rows[x].id : rows[x].code;
 						if (rowAttr == lookFor) {
-							rows[x].id = sqlEntry[i][1];
-							if (hive == 'diary_entry') {
-								rows[x].title = sqlEntry[i][2];
-								rows[x].body = sqlEntry[i][3];
-								rows[x].published = parseInt(sqlEntry[i][4]);
-								rows[x].info = sqlEntry[i][5];
-							} else {
-								rows[x].type = sqlEntry[i][2];
-								rows[x].code = sqlEntry[i][3];
-								rows[x].name = sqlEntry[i][4];
-								rows[x].term = sqlEntry[i][5];
-							}
-							rows[x].kcal = sqlEntry[i][6];
-							rows[x].pro = sqlEntry[i][7];
-							rows[x].car = sqlEntry[i][8];
-							rows[x].fat = sqlEntry[i][9];
-							rows[x].fib = sqlEntry[i][10];
+							rows[x] = sqlEntry[i];
 							break;
 						}
 					}
@@ -545,33 +513,7 @@ function rowsLoop(sqlEntry, hive, callback) {
 				////////////////
 				// INSERT NEW //
 				////////////////
-				if (hive == 'diary_entry') {
-					rows.push({
-						id        : sqlEntry[i][1],
-						title     : sqlEntry[i][2],
-						body      : sqlEntry[i][3],
-						published : parseInt(sqlEntry[i][4]),
-						info      : sqlEntry[i][5],
-						kcal      : sqlEntry[i][6],
-						pro       : sqlEntry[i][7],
-						car       : sqlEntry[i][8],
-						fat       : sqlEntry[i][9],
-						fib       : sqlEntry[i][10]
-					});
-				} else {
-					rows.push({
-						id   : sqlEntry[i][1],
-						type : sqlEntry[i][2],
-						code : sqlEntry[i][3],
-						name : sqlEntry[i][4],
-						term : sqlEntry[i][5],
-						kcal : sqlEntry[i][6],
-						pro  : sqlEntry[i][7],
-						car  : sqlEntry[i][8],
-						fat  : sqlEntry[i][9],
-						fib  : sqlEntry[i][10]
-					});
-				}
+				rows.push(sqlEntry[i])
 			}
 		}
 	}
@@ -588,30 +530,74 @@ function rowsLoop(sqlEntry, hive, callback) {
 		callback();
 	});
 }
+/////////////////
+// SQL TO JSON //
+/////////////////
+function sqlToJson(row) {
+	if(!row)           { return ''; }
+	if(row.length < 5) { return ''; }
+	var jsonRow = '';
+	if ((/diary_entry|diary_food/).test(row)) {
+		row = row.replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','");
+		if((/diary_entry/).test(row)) {
+			jsonRow = {
+				id        : row[1],
+				title     : row[2],
+				body      : row[3],
+				published : row[4],
+				info      : row[5],
+				kcal      : row[6],
+				pro       : row[7],
+				car       : row[8],
+				fat       : row[9],
+				fib       : row[10]
+			};
+		}
+		else if((/diary_food/).test(row)) {
+			jsonRow = {
+				id   : row[1],
+				type : row[2],
+				code : row[3],
+				name : row[4],
+				term : row[5],
+				kcal : row[6],
+				pro  : row[7],
+				car  : row[8],
+				fat  : row[9],
+				fib  : row[10]
+			};
+		}
+	}
+	return jsonRow;
+}
 //////////////////////
 // INSERT OR UPDATE //
 //////////////////////
-function insertOrUpdate(sql, callback) {
-	if (!sql || sql == '') {
+function insertOrUpdate(rows, callback) {
+	if (!rows || rows == '') {
 		callback();
 		return;
 	}
 	/////////////////////
 	// POPULATE ARRAYS //
 	/////////////////////
-	if (sql.match('\n')) {
-		sql = sql.split('\n');
+	if (rows.match('\n')) {
+		rows = rows.split('\n');
 	} else {
-		var ctts = sql;
-		sql = [];
-		sql.push(ctts);
+		var ctts = rows;
+		rows = [];
+		rows.push(ctts);
 	}
 	var sqlEntry = [];
 	var sqlFood  = [];
-	for (var s = 0, sen = sql.length; s < sen; s++) {
-		if ((/diary_entry|diary_food/).test(sql[s])) {
-			var addTo = (/diary_entry/).test(sql[s]) ? sqlEntry : sqlFood;
-			addTo.push(sql[s].replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','"));
+	for (var i = 0, len = rows.length;i < len; i++) {
+		if (rows[i] && rows[i].length > 5) {
+			if((/diary_entry/).test(rows[i])) {
+				sqlEntry.push(sqlToJson(rows[i]));
+			}
+			if((/diary_food/).test(rows[i])) {
+				sqlFood.push(sqlToJson(rows[i]));
+			}
 		}
 	}
 	//////////////////
@@ -796,9 +782,10 @@ function saveEntry(data,callback) {
 //////////////
 function setFood(data, callback) {
 	if(data.act == "update") {
-		// UPDATE
+		//UPDATE
 		for(var i=0, len=rowsFood.length; i<len; i++) {
-			if(rowsFood[i].code == data.code) {
+			if(rowsFood[i].id == data.id) {
+				rowsFood[i].id   = data.id;
 				rowsFood[i].type = data.type;
 				rowsFood[i].code = data.code;
 				rowsFood[i].name = data.name;
@@ -806,40 +793,41 @@ function setFood(data, callback) {
 				rowsFood[i].kcal = data.kcal;
 				rowsFood[i].pro  = data.pro;
 				rowsFood[i].car  = data.car;
-				rowsFood[i].fat  = data.fat;																																			
+				rowsFood[i].fat  = data.fat;
 				rowsFood[i].fib  = data.fib;
 				break;
 			}
 		}
+		callback();
 		localforage.setItem('diary_food',rowsFood,function(rows) {
 			rowsFood = rows;
-			callback();
 		});
 	} else {
+	//INSERT
 		rowsFood.push({
-			id: new Date().getTime(),
-			type:data.type,
-			code:data.code,
-			name:data.name,
-			term:sanitize(data.name),
-			kcal:data.kcal,
-			pro:data.pro,
-			car:data.car,
-			fat:data.fat,
-			fib:data.fib
+			id:   data.id,
+			type: data.type,
+			code: data.code,
+			name: data.name,
+			term: sanitize(data.name),
+			kcal: data.kcal,
+			pro:  data.pro,
+			car:  data.car,
+			fat:  data.fat,
+			fib:  data.fib
 		});
-		localforage.setItem('diary_food',rowsFood,function(rows) {
+		callback();
+		localforage.setItem('diary_food',rowsFood,function(rows) {	
 			rowsFood = rows;
-			callback();
 		});
 	}
 }
 //////////////
 // GET FOOD //
 //////////////
-function getFood(fCode,callback) {
+function getFood(foodId,callback) {
 	for(var i=0, len=rowsFood.length; i<len; i++) {
-		if(rowsFood[i].code == fCode) {
+		if(rowsFood[i].id == foodId) {
 			callback(rowsFood[i]);
 			break;
 		}
@@ -848,9 +836,9 @@ function getFood(fCode,callback) {
 /////////////////
 // DELETE FOOD //
 /////////////////
-function delFood(fCode, callback) {
+function delFood(foodId, callback) {
 	for(var i=0, len=rowsFood.length; i<len; i++) {
-		if(rowsFood[i].code == fCode) {
+		if(rowsFood[i].id == foodId) {
 			rowsFood.splice(i,1);
 			break;
 		}
@@ -880,12 +868,14 @@ function getCustomList(listType,callback) {
 		var rowsArray = [];
 		for(var i=0, len=rowsFood.length; i<len; i++) {
 			if(rowsFood[i]) {
-				if(rowsFood[i].fib === 'fav') {
-					rowsArray.push(rowsFood[i]);
+				if(rowsFood[i].fib) {
+					if(rowsFood[i].fib === 'fav') {
+						rowsArray.push(rowsFood[i]);
+					}
 				}
 			}
 		}
-		callback(rowsArray.sortbyattr('term'));
+		callback(rowsArray.sortbyattr('term','desc'));
 	////////////////////////
 	// FOOD~EXERCISE LIST //
 	////////////////////////
@@ -893,22 +883,22 @@ function getCustomList(listType,callback) {
 		var rowsArray = [];
 		for(var i=0, len=rowsFood.length; i<len; i++) {
 			if(rowsFood[i]) {
-				if(rowsFood[i].code.slice(0, 1) === "c") {
-					rowsArray.push(rowsFood[i]);
+				if(rowsFood[i].id) {
+					if((JSON.stringify(rowsFood[i].id)).length >= 13) {
+						rowsArray.push(rowsFood[i]);
+					}
 				}
 			}
 		}
-		callback(rowsArray.sortbyattr('term'));
+		callback(rowsArray.sortbyattr('term','desc'));
 	}
 }
 /////////////
 // SET FAV //
 /////////////
 function setFav(data, callback) {
-	//var i = rowsFood.length;
-	//while(i--) {
 	for(var i=0, len=rowsFood.length; i<len; i++) {
-		if(rowsFood[i].code == data.code) {
+		if(rowsFood[i].id == data.id) {
 			rowsFood[i].fib = data.fib;
 			break;
 		}
@@ -934,11 +924,10 @@ function afterHide(cmd) {
 		if(window.localStorage.getItem("config_install_time")) {
 			var installTime = window.localStorage.getItem("config_install_time");
 		}
-		//SET CSS TRANSITION
-		$('body').css(prefix + "transition-timing-function","ease");
-		$('body').css(prefix + "transition-duration",".25s");
-		$("body").css("opacity","0");
-		$('body').on(transitionend,function(e) { 
+		//////////////
+		// FADE OUT //
+		//////////////
+		app.handlers.fade(0,'body',function() {
 			if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
 				navigator.splashscreen.show();
 			}		
@@ -987,7 +976,8 @@ function afterHide(cmd) {
 // SPINNER //
 /////////////
 function spinner(size) {
-	if(!$("#loadMask").length) { $('body').prepend('<div id="loadMask"></div>'); }
+	if(!$("#loadMask").length)		{ $('body').prepend('<div id="loadMask"><span></span></div>'); }
+	if($('#loadMask').html() == '') { $('#loadMask').html('<span></span>'); }
 	if(size == 'stop') {
 		$('body').removeClass('spinnerMask');
 		$('body').addClass('started');
@@ -1119,17 +1109,17 @@ function pageLoad(target,content,published) {
 		// INSERT PARTIAL
 		//overwrite 'no entries'
 		if(i == 1) {
-			safeExec(function() {
+			app.safeExec(function() {
 			$("#entryList").html($(content).animate({ backgroundColor: "#ffffcc" }, 1).animate({ backgroundColor: "#fff" },1000));
 			});
 		//match div before
 		} else if($("#entryList>div:eq(" + entryPos + ")").html()) {
-			safeExec(function() {
+			app.safeExec(function() {
 				$("#entryList>div:eq(" + entryPos + ")").before($(content).animate({ backgroundColor: "#ffffcc" }, 1 ).animate({ backgroundColor: "#fff" },1000));
 			});
 		} else {
 			//append if none
-			safeExec(function() {
+			app.safeExec(function() {
 				$("#entryList").append($(content).animate({ backgroundColor: "#ffffcc" }, 1).animate({ backgroundColor: "#fff" },1000));
 			});
 		}
@@ -1139,7 +1129,7 @@ function pageLoad(target,content,published) {
 	} else {
 		//check existence
 		if($(target).html(content)) {
-			safeExec(function() {
+			app.safeExec(function() {
 				$(target).html(content);
 			});
 		}
@@ -1168,7 +1158,7 @@ function fillDate(timestamp,element) {
 // UPDATE ENTRYLIST //
 //////////////////////
 var partial = '';
-function updateEntries(partial,range,callback) {
+app.exec.updateEntries = function(partial,range,callback) {
 	var totalEntryS       = parseInt(window.localStorage.getItem('totalEntries'));
 	var totalRecentEntryS = parseInt(window.localStorage.getItem('totalRecentEntries'));
 	//////////////
@@ -1255,9 +1245,9 @@ function updateEntries(partial,range,callback) {
 		//////////////
 		if(callback) { 
 			if(s != "") {
-				openDiary(s);
+				app.tab.diary(s);
 			} else {
-				openDiary('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+				app.tab.diary('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 			}
 		} else {
 		////////////////////
@@ -1361,7 +1351,7 @@ function updateEntriesSum() {
 			'; 
 		}
 		//OUTPUT
-		safeExec(function() {
+		app.safeExec(function() {
 			$("#daySum").html(reStyle);
 		});
 	});
@@ -1383,7 +1373,7 @@ function updateNutriRatio() {
 	//////////
 	// EXEC //
 	//////////
-	safeExec(function() {
+	app.safeExec(function() {
 		if(!$("#appNutrients").html()) {
 			$("head").append("<style type='text/css' id='appNutrients'></style>");
 		}
@@ -1577,6 +1567,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return; }
 	//FLOOD
 	if($("#newWindowWrapper").html()) { return; }
+	$('body').addClass('newwindow');
 	//////////
 	// HTML //
 	//////////
@@ -1590,7 +1581,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			</div>\
 		<div id='newWindow'>" + content + "</div>\
 	</div>";
-	safeExec(function() {
+	app.safeExec(function() {
 		$("#appContent").after(newContent);
 	});
 	$("#newWindowWrapper").hide();
@@ -1609,19 +1600,18 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		$("#newWindowWrapper").height($("#appContent").height() + $("#appFooter").height());
 		$("#newWindowWrapper").css("bottom",'0px');		
 	}
-	
+	//
 	$("#newWindowWrapper").show();
 	$("#newWindow").show();
 	//
 	$("#newWindow").css("top",($("#newWindowHeader").height()+1) + "px");
-	$('body').addClass('newwindow');
 	$("#newWindowWrapper").addClass('open');
 	$("#newWindowWrapper").addClass('busy');
 	///////////////////
 	// EXEC HANDLERS //
 	///////////////////
 	if(handlers) {
-		safeExec(function() {
+		app.safeExec(function() {
 			handlers();
 		});
 	}
@@ -1653,7 +1643,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		var timerCloser;
 		function windowCloser() {
 			if(closer) {
-				safeExec(function() {
+				app.safeExec(function() {
 					closer();
 				});
 			}
@@ -1727,25 +1717,24 @@ $.each(langListArray, function(l, Langline) {
 var langSelectTap;
 function buildLangMenu(opt) {
 	$("#langSelect").remove();
+	/////////////////
+	// APPEND HTML //
+	/////////////////
+	$('body').append("<div id='langSelect'><ul id='langSelectList'><li id='setAuto'>" + LANG.AUTO_DETECT[lang] + " (" + LANG.LANGUAGE_NAME[defaultLang] + ")</li>" + langListCore + "</ul></div>");
+	$("#langSelect").hide();
 	//intro
-	if(opt == "intro") {
-		$("body").append("<div id='langSelect'></div>");
-	} else {
-		//$("#appContent").append("<div id='langSelect'></div>");
-		$("body").append("<div id='langSelect'></div>");
+	if(opt !== 'intro') {
 		$("#langSelect").css("top",($("#appHeader").height()) + "px");
-		$("#langSelect").height($("#appContent").height());
 		$("#langSelect").css("bottom",($("#appFooter").height()) + "px");
+		$("#langSelect").height($("#appContent").height());
+
 	}
-	//add auto detect
-	langListAutoCore = "<li id='setAuto'>" + LANG.AUTO_DETECT[lang] + " (" + LANG.LANGUAGE_NAME[defaultLang] + ")</li>" + langListCore;
-	$("#langSelect").html("<ul id='langSelectList'>" + langListAutoCore + "</ul>");
 	//intro
-	if(opt == "intro") { 
-		$("#langSelect").css("z-index",100);
+	if(opt == 'intro') { 
+		$('#langSelect').css('z-index',100);
 		//pad
-		if($("body").hasClass("ios7")) {
-			$("#langSelect").css("padding-top","24px");
+		if($('body').hasClass('ios7')) {
+			$('#langSelect').css('padding-top','24px');
 		}
 	}
 	//mark current
@@ -1792,10 +1781,15 @@ function buildLangMenu(opt) {
 				if(lang != "en" && lang != "pt") { 
 					LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
 				}
+				//FOOTER
 				$("#tab1").html(LANG.MENU_STATUS[lang]);
 				$("#tab2").html(LANG.MENU_DIARY[lang]);
 				$("#tab3").html(LANG.MENU_PROFILE[lang]);
 				$("#tab4").html(LANG.MENU_SETTINGS[lang]);
+				//HEADER
+				$('#timerKcals span').html(LANG.CALORIC_BALANCE[lang]);
+				$('#timerDaily span').html(LANG.DAILY_CALORIES[lang]);
+				//CONTENT
 				appFooter(window.localStorage.getItem("app_last_tab"),0);
 				//start date
 				$("#cssStartDate").html("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
@@ -1858,7 +1852,7 @@ function getNiceScroll(target) {
 	//NSettings.hwacceleration      = false;
 	//NSettings.bouncescroll        = false;
 	NSettings.nativeparentscrolling = false;
-	if(!isDesktop()) {
+	if(!app.device.desktop) {
 		//NSettings.touchbehavior     = false;
 	}
 	//NSettings.directionlockdeadzone = 9;	
@@ -1889,7 +1883,7 @@ function appResizer(time) {
 	setTimeout(function() {
 		$('body').height(window.innerHeight);
 		//unlock top white gap
-		$('body').trigger("touchmove");
+		$('body').trigger('touchmove');
 		//NO < 0
 		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
 		//force scrolling ios
@@ -1897,29 +1891,30 @@ function appResizer(time) {
 		if(wrapperMinH < 0) {
 			wrapperMinH = 0;
 		}
-		$('#entryListWrapper').css("height","auto");
-		$('#entryListWrapper').css("min-height",wrapperMinH + "px");
-		$("#appHelper").height($("#appContent").height());
-		$("#appSubHelper").height($("#appContent").height());
-		$("#newWindowWrapper").height($("#appContent").height());
+		$('#entryListWrapper').css('height','auto');
+		$('#entryListWrapper').css('min-height',wrapperMinH + 'px');
+		$('#appHelper').height($('#appContent').height());
+		$('#appSubHelper').height($('#appContent').height());
+		$('#newWindowWrapper').height($('#appContent').height());
 		if($('#skipIntro').length) {
 			$('#langSelect').height($('body').height());
 		} else {
 			$('#langSelect').height($('#appContent').height());
 		}
-		//$('#foodList').css("min-height",$('#foodList').height() + "px");
-		//$('#foodList').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
 		$('#advancedMenuWrapper').height($('#appContent').height());
-		$('#foodList,#pageSlideFood').css("height",(window.innerHeight - ($('#appHeader').height() + 60)) + "px");
-		$('#tabMyItemsBlock').css("min-height", ($('#foodList').height() - 128) + "px");
+		//FAST RESIZE
+		$('#foodList,#pageSlideFood').hide();
+		$('#foodList,#pageSlideFood').css('height',(window.innerHeight - ($('#appHeader').height() + 60)) + 'px');
+		$('#foodList,#pageSlideFood').show();
+		$('#tabMyItemsBlock').css('min-height', ($('#foodList').height() - 128) + 'px');
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);
 		//chrome v32 input width
-		if(isDesktop() || isMobile.MSApp()) {
+		if(app.device.desktop || isMobile.MSApp()) {
 			$('#entryBody').width(window.innerWidth -58);
 			$('#foodSearch').width(window.innerWidth -55);
-			$("ul#addNewList input").width(window.innerWidth - 180);
+			$('ul#addNewList input').width(window.innerWidth - 180);
 		}
 	 },time);
 }
@@ -1927,7 +1922,7 @@ function appResizer(time) {
 // SANITIZE //
 //////////////
 function sanitize(str) {
-	if(str != "") {
+	if(str != '') {
 		var result = str.split(" ").join("").split("’").join("").split("”").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
 		return result;
 	}
@@ -1971,7 +1966,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	///////////////
-	var timeRate = 2.5 * 24 * 60 * 60 * 1000;
+	var timeRate = 2.9 * 24 * 60 * 60 * 1000;
 	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
@@ -2003,7 +1998,7 @@ function getAnalytics(target) {
 		////////////////
 		// TRACK VARS //
 		////////////////
-		var deviceType = isDesktop() ? 'desktop' : 'mobile';
+		var deviceType = app.device.desktop ? 'desktop' : 'mobile';
 		var appOS      = vendorClass;
 		if(isMobile.iOS())		{ appOS = "ios";       deviceType = 'mobile';  }
 		if(isMobile.Android())	{ appOS = "android";   deviceType = 'mobile';  }
