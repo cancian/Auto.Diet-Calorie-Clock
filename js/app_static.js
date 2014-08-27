@@ -162,7 +162,7 @@ afterTab = function(keepOpen) {
 	$("#appContent").css('display','block');
 	$("#appContent").css('visibility','visible');
 	$("#appContent").css('pointer-events','auto');
-	$("body").removeClass("newwindow closer");
+	$("body").removeClass("newwindow");
 	//
 	$("#langSelect").remove();
 	$("#newWindowWrapper").remove();
@@ -171,13 +171,15 @@ afterTab = function(keepOpen) {
 	$("#appSubHelper").remove();
 	$('#diaryNotesWrapper').remove();
 	//clear pageslidefood
-	if($("#pageSlideFood").html()) {
+	if($("#pageSlideFood").length) {
 		if(!$("#pageSlideFood").is(":animated")) {
 			$("#pageSlideFood").remove();
 			$("#appHeader").removeClass("open");
 		} else {
 			$('#appHeader').trigger(touchstart);
 		}
+	} else {
+		$("body").removeClass("closer");
 	}
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);

@@ -254,12 +254,15 @@ app.handlers = {
 		// SCROLL/MOVE CANCEL //
 		////////////////////////
 		if(!isMobile.MSApp()) {
-			var moveCancel = isMobile.OSXApp() ? '' : touchmove;
+			var moveCancel = app.device.osxapp ? 'mouseout' : touchmove;
 			$(targetParent).on('scroll ' + moveCancel, function (evt) {
 				app.handlers.activeRowTouches++;
 				clearTimeout(app.handlers.activeRowTimer);
 				if (app.handlers.activeRowTouches > 7 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
 					$(app.handlers.activeLastId).removeClass(style);
+					if(app.device.osxapp) {
+						$('.activeOverflow').removeClass(style);
+					}
 					app.handlers.activeRowTouches = 0;
 				}
 			});
