@@ -1,7 +1,7 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.5 [2014/08/26]
+# 1.5 [2014/08/27]
 • Standardized touch events
 • Improved visual feedback
 • Improved performance
@@ -65,17 +65,17 @@
 
 # 1.2.3/4 [2014/05/15]
 • Improved data synchronization
-• Fixed an issue with favorites being duplicated;
+• Fixed an issue with favorites being duplicated
 • Improved performance
 • Minor bug fixes
 
 # 1.2.2 [2014/05/08]
-• More detailed nutritional data; 
-• Improved overall performance; 
-• Smarter management for long lists; 
-• Fixed an issue where Spinner does not disappear after the end of the task; 
-• Translated into Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian; 
-• Minor bug fixes.
+• More detailed nutritional data 
+• Improved overall performance 
+• Smarter management for long lists 
+• Fixed an issue where Spinner does not disappear after the end of the task 
+• Translated into Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian 
+• Minor bug fixes
 
 # 1.2.1 [2014/04/18]
 • Status now displays statistics

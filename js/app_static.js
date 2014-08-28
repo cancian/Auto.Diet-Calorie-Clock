@@ -123,7 +123,7 @@ $("title").html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 $("body").prepend('\
 	<div id="appHeader">\
 		<div id="timerBlocks">\
-			<div id="timerKcals"><p></p><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
+			<div id="timerKcals"><input id="timerKcalsInput" readonly="readonly" type="text" /><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
 			<div id="timerDaily"><p></p><span>' + LANG.DAILY_CALORIES[lang] + '</span></div>\
 		</div>\
 	</div>\

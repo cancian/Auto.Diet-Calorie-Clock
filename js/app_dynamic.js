@@ -813,9 +813,9 @@ $(document).on("pageReload", function (evt) {
 						if (window.localStorage.getItem("foodDbLoaded") != "done") {
 							$('#pageSlideFood').addClass("open");
 						}
-						//setTimeout(function() {
-							callbackOpen();
-						//},0);
+						setTimeout(function() {
+						//	callbackOpen();
+						},0);
 						
 						$('#loadingDiv').hide();
 						$('#appHeader').addClass("open");
@@ -1915,6 +1915,7 @@ function getModalWindow(itemId) {
 		// MODAL.PREFILL() //
 		/////////////////////
 		modal.prefill = function() {
+			$('#appContent').show();
 			$('#modalContent span').addClass('active');
 			modal.close();
 			setTimeout(function() {
@@ -2001,6 +2002,7 @@ function getModalWindow(itemId) {
 					$('#modalOk').off();				
 					modal.save();				
 				}
+				return false;
 			});
 			//CANCEL
 			$('#modalOverlay, #modalCancel').on(touchstart, function (evt) {
@@ -2010,20 +2012,36 @@ function getModalWindow(itemId) {
 				return false;
 			});
 			//EDIT
-			app.handlers.activeRow('#modalEdit','active',function(targetId) {
+			$('#modalEdit').on(touchend, function (evt) {
+			//app.handlers.activeRow('#modalEdit','active',function(targetId) {
+				evt.preventDefault();
+				evt.stopPropagation();
 				addNewItem(modal);
+				return false;
 			});
 			//FAV
-			app.handlers.activeRow('#modalFav','active',function(targetId) {
+			$('#modalFav').on(touchend, function (evt) {
+			//app.handlers.activeRow('#modalFav','active',function(targetId) {
+				evt.preventDefault();
+				evt.stopPropagation();
 				modal.fav();
+				return false;
 			});
 			//DELETE
-			app.handlers.activeRow('#modalDelete','active',function(targetId) {
+			$('#modalDelete').on(touchend, function (evt) {
+			//app.handlers.activeRow('#modalDelete','active',function(targetId) {
+				evt.preventDefault();
+				evt.stopPropagation();
 				modal.remove();
+				return false;
 			});
 			//PREFILL
-			app.handlers.activeRow('#modalContent','active',function(targetId) {
+			$('#modalContent').on(touchend, function (evt) {
+			//app.handlers.activeRow('#modalContent','active',function(targetId) {
+				evt.preventDefault();
+				evt.stopPropagation();
 				modal.prefill();
+				return false;
 			});
 		});
 	});

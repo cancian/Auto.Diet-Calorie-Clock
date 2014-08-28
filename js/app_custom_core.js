@@ -44,8 +44,8 @@ function appTimer(id,content) {
 	///////////////////
 	// UPDATE HEADER //
 	///////////////////
-	if($('#timerKcals p').html() != kcalsInput) {
-		$('#timerKcals p').html(kcalsInput);
+	if($('#timerKcalsInput').val() != kcalsInput) {
+		$('#timerKcalsInput').val(kcalsInput);
 		timerKcals = kcalsInput;
 	}
 	if($('#timerDaily p').html() != eqPerDay) {

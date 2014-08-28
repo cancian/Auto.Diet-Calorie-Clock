@@ -102,7 +102,8 @@ body.android ::-webkit-scrollbar{ display: none; }
 // CALORIE CLOCK //
 /////////////////*/
 #timerKcals						{ position: absolute; bottom: 16px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; }
-#timerKcals span				{ position: absolute; bottom: -9px; left:  0px; font-size: 9px;  line-height: normal; text-transform: uppercase; color: #fff; }
+#timerKcalsInput				{ pointer-events: none; touch-action: none; -ms-touch-action: none; box-sizing: border-box; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 32px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(255,255,255,0); background-image: rgba(255,255,255,0); -webkit-appearance: none; }
+#timerKcals span				{ position: absolute; bottom: -9px; left:  0px; font-size: 9px; line-height: normal; text-transform: uppercase; color: #fff; }
 /*//////////////////
 // DAILY CALORIES //
 //////////////////*/

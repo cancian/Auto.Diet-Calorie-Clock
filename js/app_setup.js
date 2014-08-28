@@ -36,7 +36,9 @@ function showIntro(isNew) {
 			if(isNew == true) {
 				setTimeout(function() {
 					if(baseVersion) {
-						getAnalytics('paidInstall');
+						if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.chromeapp || app.device.blackberry) {
+							getAnalytics('paidInstall');
+						}
 					}
 					getAnalytics('newInstall');
 				},1000);

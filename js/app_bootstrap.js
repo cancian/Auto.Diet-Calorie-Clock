@@ -218,7 +218,9 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 		//SAVE REQUEST
 		if(!window.localStorage.getItem("remoteSuperBlockJS") || !window.localStorage.getItem("remoteSuperBlockCSS")) {
 			setTimeout(function() {
-				InitializeLocalSuperBlock();
+				if(location.protocol.indexOf('http') === -1) {
+					InitializeLocalSuperBlock();
+				}
 			},2000);
 		}
 		setTimeout(function() {

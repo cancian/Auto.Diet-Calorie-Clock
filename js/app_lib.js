@@ -11,6 +11,7 @@ var app = {
 	timer: {},
 	is: {},
 	handlers: {},
+	ua: navigator.userAgent,
 	now: function() {
 		return new Date().getTime();
 	},
@@ -254,13 +255,13 @@ app.handlers = {
 		// SCROLL/MOVE CANCEL //
 		////////////////////////
 		if(!isMobile.MSApp()) {
-			var moveCancel = app.device.osxapp ? 'mouseout' : touchmove;
+			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
 			$(targetParent).on('scroll ' + moveCancel, function (evt) {
 				app.handlers.activeRowTouches++;
 				clearTimeout(app.handlers.activeRowTimer);
 				if (app.handlers.activeRowTouches > 7 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
 					$(app.handlers.activeLastId).removeClass(style);
-					if(app.device.osxapp) {
+					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
 					}
 					app.handlers.activeRowTouches = 0;
@@ -463,6 +464,16 @@ app.get.androidVersion = function() {
 		return false;
 	}
 };
+app.get.isChromeApp = function() {
+	if(typeof chrome !== 'undefined') {
+		if(typeof chrome.app !== 'undefined') {
+			if(chrome.app.isInstalled) {
+				return true;	
+			}
+		}
+	}
+	return false;
+}
 app.get.isDesktop = function() {
 	//first
 	var isDesktop = ('DeviceOrientationEvent' in window || 'orientation' in window);
@@ -552,17 +563,19 @@ var isMobile = {
 ////////////////
 app.device = {
 	cordova    : ((typeof cordova || typeof Cordova) !== 'undefined') ? true : false,
-	android    : (/Android/i).test(app.vars.useragent) ? app.get.androidVersion() : false,
-	ios        : (/iPhone|iPad|iPod/i).test(app.vars.useragent) ? true : false,
-	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.vars.useragent) ? true : false,
-	wp8        : (/IEMobile/i).test(app.vars.useragent) ? true : false,
-	wp81       : (/Windows Phone 8.1/i).test(app.vars.useragent) ? true : false,
-	windows8   : (/MSApp/i).test(app.vars.useragent) ? true : false,
-	windows81  : (/MSAppHost\/2.0/i).test(app.vars.useragent) ? true : false,
-	firefoxos  : ((/firefox/i).test(app.vars.useragent) && (/mobile/i).test(app.vars.useragent) && (/gecko/i).test(app.vars.useragent)) ? true : false,
-	osx        : ((/Macintosh|Mac OS X/i).test(app.vars.useragent) && !(/iPhone|iPad|iPod/i).test(app.vars.useragent)) ? true : false,
-	osxapp     : (/MacGap/i).test(app.vars.useragent) ? true : false,
-	blackberry : (/BlackBerry/i).test(app.vars.useragent) ? true : false,
+	android    : (/Android/i).test(app.ua) ? app.get.androidVersion() : false,
+	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
+	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) ? true : false,
+	wp8        : (/IEMobile/i).test(app.ua) ? true : false,
+	wp81       : (/Windows Phone 8.1/i).test(app.ua) ? true : false,
+	windows8   : (/MSApp/i).test(app.ua) ? true : false,
+	windows81  : (/MSAppHost\/2.0/i).test(app.ua) ? true : false,
+	firefoxos  : ((/firefox/i).test(app.ua) && (/mobile/i).test(app.ua) && (/gecko/i).test(app.ua)) ? true : false,
+	osx        : ((/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua)) ? true : false,
+	osxapp     : (/MacGap/i).test(app.ua) ? true : false,
+	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
+	chromeapp  : app.get.isChromeApp() ? true : false,
+	blackberry : (/BlackBerry/i).test(app.ua) ? true : false,
 	mobile     : app.get.isDesktop() ? false : true,
 	desktop    : app.get.isDesktop() ? true : false,
 };
@@ -572,9 +585,9 @@ app.device = {
 var prefix;
 var vendorClass; 
 var transitionend;
-     if((/trident|IEMobile/i).test(userAgent))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
-else if((/firefox/i).test(userAgent))			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
-else											{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
+     if((/trident|IEMobile/i).test(app.ua))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
+else if((/firefox/i).test(app.ua))			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
+else										{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
 ///////////////////////////////////
