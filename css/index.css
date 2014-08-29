@@ -1,8 +1,8 @@
-﻿head,script,style						{ display: none; }
+﻿head									{ display: none !important; }
 html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; border: 0; box-sizing: border-box; background-color: #fff; touch-action: none; -ms-touch-action: none; user-zoom: fixed; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-body.osxapp *							{ -webkit-font-smoothing: antialiased; }
-body.msapp 								{ overflow: hidden !important; } 
+.osxapp > *								{ -webkit-font-smoothing: antialiased; }
+.msapp 									{ overflow: hidden !important; }
 #infocontents,
 #tabMyCatsBlock,#infocontents,
 #appContent,#pageSlideFood,
@@ -13,19 +13,19 @@ html,body,input,select,textarea,
 input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; line-height: normal; }
 div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
 body.msie.thin							{ letter-spacing: 0.02em; }
+/*
 body.msie,
-body.android 							{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
+body.android 							{ -webkit-perspective: 800; }
 body.msie #appContent,
 body.msie #foodList,
 body.android #newWindow,
 body.android #appContent,
 body.android #foodList					{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
-body > *,h2,input[readonly]				{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; }
+*/
 /*ffos fixtext-rendering: optimizeLegibility*/
 body.ios,body.android,body.windows,body.msie,
-
 body.wekbit,body.osx,body.osxapp		{ -webkit-user-select: none; }
-body > *								{ -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); outline: none; }
+*,h2,input[readonly]					{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0);}
 input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 .moz input,.moz select,.moz textarea	{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
@@ -539,7 +539,7 @@ ul#langSelectList li.preset:before	{ content: '✓'; position: absolute; top: 2p
 #appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0px solid #000; }
 #appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
-#appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #cc3300; position: absolute; top: 0; right: 24%; }
+#appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #D55621; position: absolute; top: 0; right: 24%; }
 /**/
 #appStatusAddLeft,
 #appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; border: 1px solid #4285F4; border-width: 2px 1px; color: #fff; font-size: 18px; line-height: 18px;  box-sizing: border-box; display: inline-block; }
@@ -550,7 +550,7 @@ ul#langSelectList li.preset:before	{ content: '✓'; position: absolute; top: 2p
 .android2 #appStatusAddLeft,
 .android2 #appStatusAddRight	{ padding-top: 4px; }
 #appStatusAddLeft span,
-#appStatusAddRight span			{ display: inline-block; background-color: #cc3300; text-align: center; font-size: 10px; text-transform: uppercase; }
+#appStatusAddRight span			{ display: inline-block; background-color: #D55621; text-align: center; font-size: 10px; text-transform: uppercase; }
 #appStatusAddLeft div,
 #appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; }
 /*nutrition bars*/
@@ -892,7 +892,7 @@ div.editing p				{ opacity: 1; }
 /*track*/
 .carpe-slider-track			{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #666; opacity: .5; }
 #positiveTrack				{ background-color: #0000dd; }
-#negativeTrack				{ background-color: #cc3300; }
+#negativeTrack				{ background-color: #D55621; }
 .carpe-slider-knob			{ z-index: 1; top: 0; left: 1px; width: 16px; height: 16px; border: 1px solid #ddd; border-radius: 12px; background: #fff; margin-left: 0px; }
 .carpe-slider-knob.active	{ border: 1px solid #009900; }
 /*/////////
@@ -927,7 +927,8 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .android #foodList						{ /* background-image: -webkit-linear-gradient(#fff,#fefefe); */ }
 .ios #foodList							{ position: inherit; }
 #foodListWrapper						{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
-.searcheable							{ position: relative; margin: 0; padding: 12px 8px 5px 23px; min-height: 42px;  margin-bottom: 0px; overflow: hidden; }
+.searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px;  margin-bottom: 0px; overflow: hidden; box-sizing: border-box; width: 100%; display: block; }
+.searcheable:nth-child(even)			{ background-color: #f9f9f9; }
 .searcheable.activeOverflow				{ background-color: rgba(0,0,0,.1) !important; }
 .searcheable ::-webkit-scrollbar		{ display: none; }
 .searcheable.noContent					{ color: #999; }
@@ -941,10 +942,10 @@ span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
 span#iconRefresh:before { content: "\f021"; }
 span#iconClear:before	{ content: "\F00D"; }
-.foodName				{ color: #0033cc; font-weight: bold; }
-.fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .8s; }
-.trans					{ background-color: rgba(255,255,255,0); }
-.yellow					{ background-color: rgba(255,200,0,.88); }
+.foodName				{ color: #2157D6; font-weight: bold; }
+.fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .15s; -webkit-transform: translate3d(0, 0, 0); }
+.trans					{ background-color: rgba(255,255,255,0) !important; -webkit-backface-visibility: hidden; }
+.yellow					{ background-color: rgba(255,200,0,.8) !important; -webkit-backface-visibility: hidden; }
 /*align fix*/
 .android4lt #foodSearch,
 .android4lt #foodSearch		{ padding: 25px 26px 14px 30px; }
@@ -956,13 +957,13 @@ span.foodPro			{ float: left; min-width: 60px; padding-top: 0px; padding-right: 
 span.foodFat			{ float: left; min-width: 60px; padding-top: 0px; padding-right: 4px; font-size: 12px; color: #000; font-weight: bold; }
 span.foodCar			{ float: left; min-width: 60px; padding-top: 0px; padding-right: 4px; font-size: 12px; color: #000; font-weight: bold; }
 /*pro|car|fat*/
-span.preSpan			{ font-size: 11px; padding-right: 4px; color: #0033cc; }
+span.preSpan			{ font-size: 11px; padding-right: 4px; color: #2157D6; }
 .appLang-fa .preSpan,
 .appLang-ar .preSpan,
 .appLang-ja .preSpan	{ font-size: 9px; padding-right: 2px; }
 /**/
-.exerciseType span.preSpan { color: #cc3300; }
-.exerciseType div.foodName { color: #cc3300; }
+.exerciseType span.preSpan { color: #D55621; }
+.exerciseType div.foodName { color: #D55621; }
 .exerciseType span.foodKcal,
 .exerciseType span.foodPro,
 .exerciseType span.foodFat,
@@ -980,17 +981,17 @@ body.android44 #appHeader:before{ padding-top: 11px; }
 body.android4lt #appContent			{ visibility: visible; }
 body.android4lt.closer #appContent	{ visibility: hidden !important; }
 /*search nutri colors
-.food								{ color: #0033cc ; }
-.exercise							{ color: #cc3300 ; }
+.food								{ color: #2157D6 ; }
+.exercise							{ color: #D55621 ; }
 */
-.searcheable.food span.preSpan		{ color: #0033cc; }
-.searcheable.food div.foodName		{ color: #0033cc; }
+.searcheable.food span.preSpan		{ color: #2157D6; }
+.searcheable.food div.foodName		{ color: #2157D6; }
 .searcheable.food span.foodKcal,
 .searcheable.food span.foodPro,
 .searcheable.food span.foodFat,
 .searcheable.food span.foodCar		{ color: #000; }
-.searcheable.exercise span.preSpan	{ color: #cc3300; }
-.searcheable.exercise div.foodName	{ color: #cc3300; }
+.searcheable.exercise span.preSpan	{ color: #D55621; }
+.searcheable.exercise div.foodName	{ color: #D55621; }
 .searcheable.exercise span.foodKcal,
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodFat,
@@ -1057,14 +1058,14 @@ span#carLabel			{ top: 14px; text-align: left; left: 67px; color: #666; }
 span#fatLabel			{ top: 28px; text-align: left; left: 67px; color: #666; }
 /*modal delete*/
 #modalDelete:before			{ content: "\f014"; font-family: "FontAwesome"; font-size: 30px; position: absolute; top: -62px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
-#modalDelete:active:before	{ color: #ccc; }
+#modalDelete.button:before	{ color: #ccc; }
 /*modal edit*/
 #modalEdit:before			{ content: "\f040"; font-family: "FontAwesome"; font-size: 30px; position: absolute; top: -62px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
-#modalEdit:active:before	{ color: #ccc; }
+#modalEdit.button:before	{ color: #ccc; }
 /*modal fav*/
 #modalFav:before			{ content: "\f006"; font-family: "FontAwesome"; font-size: 32px; position: absolute; top: -62px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalFav.favorite:before	{ content: "\f005"; font-family: "FontAwesome"; }
-#modalFav:active:before		{ color: #ccc; }
+#modalFav.button:before		{ color: #ccc; }
 /*///////////
 // SPINNER //
 ///////////*/
@@ -1120,7 +1121,7 @@ ul#addNewList				{ padding: 9px 0 22px 22px; }
 ul#addNewList li			{ display: block; height: 44px; line-height: 44px; position: relative; }
 ul#addNewList li+li			{ border-top: 1px solid #eee; }
 ul#addNewList label			{ color: #333; display: inline-block; float: left;  text-align: left; }
-ul#addNewList label.error	{ color: #cc3300; }
+ul#addNewList label.error	{ color: #D55621; }
 ul#addNewList input			{ position: absolute; top: 0px; right: 0px; text-align: right; color: #888; background-color: transparent; display: inline-block; font-size: 15px; height: 44px; border-left: 38px solid rgba(0,0,0,0); border-right: 44px solid rgba(0,0,0,0); box-sizing: border-box; }
 ul#addNewList input:focus,
 ul#addNewList input:active	{ color: #0072BC; /*background-color: #FFFBCC;*/ }
@@ -1160,33 +1161,36 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .ios #tabMyCatsBlock li:after,
 .ios #tabMyCatsBlock li				{ -webkit-backface-visibility: hidden; }
 /*ICONS*/
-#tabMyCatsBlock div:before	{ font-family: "FontAwesome"; text-indent: 15px; font-size: 28px; width: 20px; color: #000; position: absolute; top: 0; left: 0; }
+.searcheable:after					{ font-family: "FontAwesome"; text-indent: 15px; font-size: 28px; width: 20px; color: #2157D6; opacity: .36; position: absolute; top: 25%; left: 0; }
+#tabMyCatsBlock div:before			{ font-family: "FontAwesome"; text-indent: 15px; font-size: 28px; width: 20px; color: #000; position: absolute; top: 0; left: 0; }
 #cat0300, #cat3500					{ display: none !important; }
-#cat0000 div:before 				{ content: "\F17D"; top: -2px !important; color: #D55621; }
-#cat0100 div:before 				{ content: "\C010"; }
-#cat0200 div:before 				{ content: "\C020"; }
-#cat0300 div:before 				{ content: "\C030"; }
-#cat0400 div:before 				{ content: "\C040"; }
-#cat0500 div:before 				{ content: "\C050"; }
-#cat0600 div:before 				{ content: "\C060"; }
-#cat0700 div:before 				{ content: "\C070"; }
-#cat0800 div:before 				{ content: "\C080"; }
-#cat0900 div:before 				{ content: "\C090"; }
-#cat1000 div:before 				{ content: "\C100"; }
-#cat1100 div:before 				{ content: "\C110"; }
-#cat1200 div:before 				{ content: "\C120"; }
-#cat1300 div:before 				{ content: "\C130"; }
-#cat1400 div:before 				{ content: "\C140"; }
-#cat1500 div:before 				{ content: "\C150"; }
-#cat1600 div:before 				{ content: "\C160"; }
-#cat1700 div:before 				{ content: "\C170"; font-size: 42px !important; font-size: 42px !important; left: -8px !important; }
-#cat1800 div:before 				{ content: "\C180"; }
-#cat1900 div:before 				{ content: "\C190"; }
-#cat2000 div:before 				{ content: "\C200"; }
-#cat2100 div:before 				{ content: "\C210"; }
-#cat2200 div:before 				{ content: "\C220"; top: -4px !important; }
-#cat2500 div:before 				{ content: "\C250"; }
-#cat3500 div:before 				{ content: "\C350"; }
-#cat3600 div:before 				{ content: "\C360"; }
-#cat9999 div:before					{ content: "\C999"; }
+.cat0000:after,#cat0000 div:before	{ content: "\F17D"; top: -2px !important; color: #D55621; }
+.cat0000:after						{ top: 24% !important; }
+.cat0100:after,#cat0100 div:before { content: "\C010"; }
+.cat0200:after,#cat0200 div:before { content: "\C020"; }
+.cat0300:after,#cat0300 div:before { content: "\C030"; }
+.cat0400:after,#cat0400 div:before { content: "\C040"; }
+.cat0500:after,#cat0500 div:before { content: "\C050"; }
+.cat0600:after,#cat0600 div:before { content: "\C060"; }
+.cat0700:after,#cat0700 div:before { content: "\C070"; }
+.cat0800:after,#cat0800 div:before { content: "\C080"; }
+.cat0900:after,#cat0900 div:before { content: "\C090"; }
+.cat1000:after,#cat1000 div:before { content: "\C100"; }
+.cat1100:after,#cat1100 div:before { content: "\C110"; }
+.cat1200:after,#cat1200 div:before { content: "\C120"; }
+.cat1300:after,#cat1300 div:before { content: "\C130"; }
+.cat1400:after,#cat1400 div:before { content: "\C140"; }
+.cat1500:after,#cat1500 div:before { content: "\C150"; }
+.cat1600:after,#cat1600 div:before { content: "\C160"; }
+.cat1700:after,#cat1700 div:before { content: "\C170"; font-size: 42px !important; font-size: 42px !important; left: -8px !important; }
+.cat1800:after,#cat1800 div:before { content: "\C180"; }
+.cat1900:after,#cat1900 div:before { content: "\C190"; }
+.cat2000:after,#cat2000 div:before { content: "\C200"; }
+.cat2100:after,#cat2100 div:before { content: "\C210"; }
+.cat2200:after,#cat2200 div:before { content: "\C220"; top: -4px !important; }
+.cat2200:after					   { content: "\C220"; top: 25% !important; }
+.cat2500:after,#cat2500 div:before { content: "\C250"; }
+.cat3500:after,#cat3500 div:before { content: "\C350"; }
+.cat3600:after,#cat3600 div:before { content: "\C360"; }
+.cat9999:after,#cat9999 div:before	{ content: "\C999"; }
 

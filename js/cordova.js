@@ -1,7 +1,7 @@
 ﻿/////////
 // IOS //
 /////////
-if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://')) {
+if (window.location.protocol.indexOf('http') === -1) {
 	if ((/(iPhone|iPad|iPod)/i).test(navigator.userAgent)) {
 		(function () {
 			var CORDOVA_JS_BUILD_LABEL = '3.3.0';
@@ -4350,7 +4350,7 @@ else if ((/IEMobile/i).test(navigator.userAgent)) {
 ////////////////
 // BLACKBERRY //
 ////////////////
-else if ((/BlackBerry/i).test(navigator.userAgent)) {
+else if ((/BB10|BlackBerry/i).test(navigator.userAgent)) {
 
 // Platform: blackberry10
 // 3.4.0

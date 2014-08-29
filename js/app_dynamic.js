@@ -2012,32 +2012,32 @@ function getModalWindow(itemId) {
 				return false;
 			});
 			//EDIT
-			$('#modalEdit').on(touchend, function (evt) {
-			//app.handlers.activeRow('#modalEdit','active',function(targetId) {
+			//$('#modalEdit').on(touchend, function (evt) {
+			app.handlers.activeRow('#modalEdit','button',function(evt) {
 				evt.preventDefault();
 				evt.stopPropagation();
 				addNewItem(modal);
 				return false;
 			});
 			//FAV
-			$('#modalFav').on(touchend, function (evt) {
-			//app.handlers.activeRow('#modalFav','active',function(targetId) {
+			//$('#modalFav').on(touchend, function (evt) {
+			app.handlers.activeRow('#modalFav','button',function(evt) {
 				evt.preventDefault();
 				evt.stopPropagation();
 				modal.fav();
 				return false;
 			});
 			//DELETE
-			$('#modalDelete').on(touchend, function (evt) {
-			//app.handlers.activeRow('#modalDelete','active',function(targetId) {
+			//$('#modalDelete').on(touchend, function (evt) {
+			app.handlers.activeRow('#modalDelete','button',function(evt) {
 				evt.preventDefault();
 				evt.stopPropagation();
 				modal.remove();
 				return false;
 			});
 			//PREFILL
-			$('#modalContent').on(touchend, function (evt) {
-			//app.handlers.activeRow('#modalContent','active',function(targetId) {
+			//$('#modalContent').on(touchend, function (evt) {
+			app.handlers.activeRow('#modalContent','button',function(evt) {
 				evt.preventDefault();
 				evt.stopPropagation();
 				modal.prefill();

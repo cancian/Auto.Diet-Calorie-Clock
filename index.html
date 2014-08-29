@@ -6,7 +6,7 @@
 // DETECT OFFLINE //
 ////////////////////
 var bodyTimer = setTimeout(function() {
-	if((typeof updateTimer != 'function') && ((document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1) || (window.localStorage.getItem("remoteSuperBlockJS") || window.localStorage.getItem("remoteSuperBlockCSS")))) {
+	if((typeof updateTimer != 'function') && ((window.location.protocol.indexOf('http') === -1) || (window.localStorage.getItem("remoteSuperBlockJS") || window.localStorage.getItem("remoteSuperBlockCSS")))) {
 		window.localStorage.removeItem("config_debug");
 		window.localStorage.removeItem("remoteSuperBlockJS");
 		window.localStorage.removeItem("remoteSuperBlockCSS");
@@ -45,6 +45,18 @@ if ((/iPhone|iPod|iPad/).test(navigator.userAgent)) {
 }
 </script>
 <style type="text/css">
+html,body {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+border: none;
+width: 100%;
+height: 100%;
+overflow: hidden;
+background-color: #fff;
+}
 body.started #loadMask {
 	display: none;
 }

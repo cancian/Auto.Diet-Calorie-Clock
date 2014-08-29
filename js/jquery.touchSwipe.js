@@ -2026,7 +2026,7 @@
 
 	function hasTouch() {
 		//return ('ontouchstart' in document);
-		return (document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && (/(iPhone|iPod|iPad|Android|BlackBerry)/).test(navigator.userAgent) || isFirefoxOS);
+		return (window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android|BlackBerry|BB10)/).test(navigator.userAgent) || isFirefoxOS);
 	}
 
     var TOUCHSTART = hasTouch() ? 'touchstart' : 'mousedown';

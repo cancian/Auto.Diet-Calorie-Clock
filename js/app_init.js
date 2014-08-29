@@ -1,7 +1,7 @@
 ﻿///////////////
 // SAFE EXEC //
 ///////////////
-var baseVersion = 1.4;
+var baseVersion = 1.5;
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
 function safeExec(callback) {
@@ -95,13 +95,11 @@ function initJS() {
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
-	if((/(iPhone|iPod|iPad|Android|IEMobile|MSApp)/).test(navigator.userAgent) && document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://')) {
-		document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
-	}
+	document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
 	////////
 	// FB //
 	////////
-	if (document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
+	if (window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-js-sdk.js'><\/script>");
 		document.write("<script type='text/javascript' src='" + hostLocal + "js/facebook-connect.js'><\/script>");
 	} else if ((/IEMobile/i).test(navigator.userAgent)) {

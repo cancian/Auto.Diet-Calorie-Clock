@@ -1,4 +1,4 @@
-﻿if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
+﻿if(window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
 
 CDV = ( typeof CDV == 'undefined' ? {} : CDV );
 var cordova = window.cordova || window.Cordova;

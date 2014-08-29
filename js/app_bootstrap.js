@@ -168,7 +168,7 @@ function buildRemoteSuperBlock(opt) {
 		// RESTART DIALOG //
 		////////////////////
 		if(updatePending == 1) {
-			getAnalytics('autoupdate');
+			app.analytics('autoupdate');
 			$('body').removeClass('loading');
 			$('body').addClass('pending');
 			window.localStorage.setItem("app_build",appBuild);
@@ -218,7 +218,7 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 		//SAVE REQUEST
 		if(!window.localStorage.getItem("remoteSuperBlockJS") || !window.localStorage.getItem("remoteSuperBlockCSS")) {
 			setTimeout(function() {
-				if(location.protocol.indexOf('http') === -1) {
+				if(window.location.protocol.indexOf('http') === -1) {
 					InitializeLocalSuperBlock();
 				}
 			},2000);

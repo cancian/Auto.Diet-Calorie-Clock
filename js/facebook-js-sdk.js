@@ -1,4 +1,4 @@
-﻿if(document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
+﻿if(window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
 
 /*1329323125,171364642,JIT Construction: v510186,en_US*/
 

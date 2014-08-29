@@ -37,10 +37,10 @@ function showIntro(isNew) {
 				setTimeout(function() {
 					if(baseVersion) {
 						if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.chromeapp || app.device.blackberry) {
-							getAnalytics('paidInstall');
+							app.analytics('paidInstall');
 						}
 					}
-					getAnalytics('newInstall');
+					app.analytics('newInstall');
 				},1000);
 			}
 			if(myScroll) {
@@ -1485,7 +1485,8 @@ function buildHelpMenu() {
 		},50);
 	},250);
 	//LIST CLOSER HANDLER
-	$("#backButton").on(touchend,function() {
+	app.handlers.activeRow('#backButton','button',function(evt) {
+	//$("#backButton").on(touchend,function() {
 		$("#appHelper").css("opacity",0);
 		$('#appHelper').on(transitionend,function() {
 			$('#appHelper').remove();
@@ -1544,7 +1545,8 @@ function buildHelpMenu() {
 			},100);
 		});
 		//SUB-CONTENT HANDLERS
-		$("#subBackButton").on(touchend,function() {
+		app.handlers.activeRow('#subBackButton','button',function(evt) {
+		//$("#subBackButton").on(touchend,function() {
 			//remove
 			$("#appSubHelper").removeClass("open");
 			$("#appHelper").removeClass("out");
@@ -1676,9 +1678,10 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		///////////////////////////////////
 		// SAVE HANDLER //
 		//////////////////
-		$("#saveButton").off().on(touchend,function(evt) {
-			evt.preventDefault();
-			evt.stopPropagation();
+		app.handlers.activeRow('#saveButton','button',function(evt) {
+		//$("#saveButton").off().on(touchend,function(evt) {
+			//evt.preventDefault();
+			//evt.stopPropagation();
 			//VALIDATION
 			if(save() == true) {
 				windowCloser();
@@ -1687,9 +1690,10 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		////////////////////
 		// CLOSER HANDLER //
 		////////////////////
-		$("#backButton").off().on(touchend,function(evt) {
-			evt.preventDefault();
-			evt.stopPropagation();
+		app.handlers.activeRow('#backButton','button',function(evt) {
+		//$("#backButton").off().on(touchend,function(evt) {
+			//evt.preventDefault();
+			//evt.stopPropagation();
 			windowCloser();
 		});
 	});
@@ -1944,9 +1948,9 @@ function sanitizeSql(str) {
 // store url //
 ///////////////
 function getStoreUrl(button) {
-		getAnalytics("rate");
+		app.analytics('rate');
 	if(button == 1) {
-		getAnalytics("vote");
+		app.analytics('vote');
              if(isMobile.iOS())       { window.open('https://itunes.apple.com/app/id732382802', '_system', 'location=yes');														}
 		else if(isMobile.Android())   { window.open('market://details?id=com.cancian.kcals', '_system', 'location=yes');													}
 		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
@@ -1982,39 +1986,39 @@ function getRateDialog() {
 ///////////////////
 // GET ANALYTICS //
 ///////////////////
-var trackString;
-function getAnalytics(target) {
-	if(typeof ga_storage === 'undefined')								{ return; }
+app.analytics = function(target) {
+	if(typeof ga_storage === 'undefined')		{ return; }
 	//not dev
-	if(window.localStorage.getItem("config_debug")    == "active")		{ return; }
-	if(window.localStorage.getItem("facebook_userid") == 1051211303)	{ return; }
-	if((/192.168.1.5/).test(document.URL))								{ return; }
-	if((/home/).test(document.URL))										{ return; }
-	if((/www.cancian/).test(document.URL))								{ return; }
+	if(app.read('config_debug','active'))		{ return; }
+	if(app.read('facebook_userid',1051211303))	{ return; }
+	if((/192.168.1.5|/).test(document.URL))		{ return; }
+	if((/home|www.cancian/).test(document.URL))	{ return; }
 	//////////
 	// INIT //
 	//////////
-	if(target == "init") {
+	if(target == 'init') {
 		ga_storage._setAccount('UA-46450510-2');
 	} else {
 		////////////////
 		// TRACK VARS //
 		////////////////
-		var deviceType = app.device.desktop ? 'desktop' : 'mobile';
+		var deviceType = 'web';
 		var appOS      = vendorClass;
-		if(isMobile.iOS())		{ appOS = "ios";       deviceType = 'mobile';  }
-		if(isMobile.Android())	{ appOS = "android";   deviceType = 'mobile';  }
-		if(isMobile.Windows())	{ appOS = "windows";   deviceType = 'mobile';  }
-		if(isMobile.MSApp())	{ appOS = "msapp";     deviceType = 'desktop'; }
-		if(isMobile.FirefoxOS()){ appOS = "firefoxos"; deviceType = 'mobile';  }
-		if(isMobile.OSXApp())   { appOS = "osxapp";    deviceType = 'desktop'; }
+		     if(app.device.ios)		   { appOS = 'ios';        deviceType = 'app'; }
+		else if(app.device.android)	   { appOS = 'android';    deviceType = 'app'; }
+		else if(app.device.wp8)		   { appOS = 'wp8';        deviceType = 'app'; }
+		else if(app.device.windows8)   { appOS = 'windows8';   deviceType = 'app'; }
+		else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
+		else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
+		else if(app.device.chromeapp)  { appOS = 'chromeapp';  deviceType = 'app'; }
+		else if(app.device.blackberry) { appOS = 'blackberry'; deviceType = 'app'; }
 		//string
-		trackString = appOS + "." + deviceType + "/#" + target + "(" + appBuild + ")" + "(" + lang + ")";
+		var trackString = deviceType + '.' + appOS + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event
-		ga_storage._trackPageview(trackString,appOS + " (" + lang + ")");
+		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
 		ga_storage._trackEvent(appOS, target, lang, appBuild);
 	}
-}
+};
 //#//////////////////////#//
 //# FACEBOOK INTEGRATION #//
 //#//////////////////////#//
@@ -2097,7 +2101,7 @@ function getLoginFB() {
 		/////////////////
 		// IOS/ANDROID //
 		/////////////////
-		if(document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1 && (/(iPhone|iPod|iPad|Android)/).test(userAgent)) {
+		if(window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android)/).test(userAgent)) {
 			if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') {
 				FB.init({ appId : '577673025616946', nativeInterface : CDV.FB, useCachedDialogs : false });
 				FB.login(function (response) {

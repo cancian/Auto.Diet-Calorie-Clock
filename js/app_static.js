@@ -1,39 +1,17 @@
 ﻿//////////////////
 // DEVICE READY //
 //////////////////
-function kickStarter(initCmds) {
-	if(isMobile.Cordova() && !isMobile.OSXApp()) {
-		document.addEventListener("deviceready", initCmds, false);
-	} else {
-		$(document).ready(function() { initCmds(); });
-	}
-}
-kickStarter(function() {
-	//MARK AS READY
+$(document).ready(function() { 
+	//READY
 	$('body').addClass('ready');
-	//SWAP CACHE
-	window.applicationCache.addEventListener('updateready', function (event) {
-		window.applicationCache.swapCache(); 
-	}, false);
-	//SETUP DB
+	//DB
 	try {
 		localforage.config({storeName: 'KCals'});
-		localforage.setDriver(['webSQLStorage', 'asyncStorage', 'localStorageWrapper']).then(function() {
+		localforage.setDriver(['webSQLStorage','asyncStorage','localStorageWrapper']).then(function() {
 			initDB();
 		});
 	} catch(error) {
-		setTimeout(function() {
-			//FIX LOOPS
-			window.localStorage.removeItem("remoteSuperBlockJS");
-			window.localStorage.removeItem("remoteSuperBlockCSS");
-			window.localStorage.removeItem("app_autoupdate_hash");
-			if(window.MyReload) {
-				window.MyReload.reloadActivity();
-			} else {
-				window.location.reload(true);
-			}
-		},1000);
-		console.log(error);
+		app.reboot(error);
 	}
 });
 ////////////////
@@ -57,7 +35,7 @@ $(document).on('resume',function() {
 	noteContent = '';
 	resumeTimeout = setTimeout(function() { 
 		updateLoginStatus(1);
-		getAnalytics('resume');
+		app.analytics('resume');
 		buildRemoteSuperBlock('cached');
 	},5000);
 });
@@ -83,17 +61,21 @@ $(window).on('pause',function() {
 //## START APP ##//
 //##///////////##//
 function startApp() {
-try {
+
 ///////////////
 // KICKSTART //
 ///////////////
 setTimeout(function() {
 	window.localStorage.removeItem("app_restart_pending");
-	getAnalytics('init'); 
+	app.analytics('init'); 
 },0);
 setTimeout(function() {
 	updateLoginStatus(1);
-	getAnalytics('startApp');
+	app.analytics('startApp');
+	//SWAP CACHE
+	window.applicationCache.addEventListener('updateready', function (event) {
+		window.applicationCache.swapCache(); 
+	}, false);
 	//MARK BOOT SUCCESS
 	window.localStorage.removeItem("consecutive_reboots");
 },5000);
@@ -232,7 +214,7 @@ $("#appFooter li").on(touchstart, function(evt) {
 	}
 	clearTimeout(touchFootTimer);
 	touchFootTimer = setTimeout(function() {
-		getAnalytics("tab");
+		app.analytics("tab");
 	},600);
 });
 ////////////////////////
@@ -266,14 +248,17 @@ $(document).on("backbutton", function(evt) {
 		$("#addNewCancel").trigger(touchstart);
 		$("#modalCancel").trigger(touchstart);
 	} else if($("#subBackButton").length) {
+		$("#subBackButton").addClass('button');
 		$("#subBackButton").trigger(touchend);
 	} else if($("#backButton").length && $("#backButton").is(":visible")) {
 		if($('.dwo').length) {
 			$("#getEntryDate").mobiscroll('cancel');
 		} else {
+			$("#backButton").addClass('button');
 			$("#backButton").trigger(touchend);
 		}
 	} else if($("#advBackButton").length) {
+			$("#advBackButton").addClass('button');
 			$("#advBackButton").trigger(touchend);
 	} else if($('#iconClear').is(":visible")) {
 		$('#iconClear').trigger(touchstart);
@@ -692,23 +677,22 @@ setTimeout(function() {
 	// PAGESLIDE CLOSER //
 	//////////////////////
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
-		if($("#tabMyCatsBlock li").hasClass("activeRow")) {
-			return;
-		}	
-		if(evt.target.id == 'editableDiv' && $('#pageSlideFood').length) { 
-			$('#appHeader').trigger(touchstart);
-			return;
+		var targetId = evt.target.id;
+		//DEFER
+		setTimeout(function() {
+		if(targetId == 'editableDiv' && $('#pageSlideFood').length) { 
+			$(document).trigger('backbutton'); return;
 		}
-		     if($("#subBackButton").length)		{ $("#subBackButton").trigger(touchend); }
-		else if($("#backButton").length)		{ $("#backButton").trigger(touchend); }
-		else if($("#advBackButton").length)		{ $("#advBackButton").trigger(touchend); }
-		else if($("#langSelect").length)		{ $(".preset").addClass('set'); $(".preset").trigger(touchend); }
+		if($("#subBackButton").length)	{ $(document).trigger('backbutton'); return; }
+		if($("#backButton").length)		{ $(document).trigger('backbutton'); return; }
+		if($("#advBackButton").length)	{ $(document).trigger('backbutton'); return; }
+		if($("#langSelect").length)		{ $(document).trigger('backbutton'); return; }
 		
 		if($("body").hasClass("newwindow") && !$('#modalWindow').length) { return; }
 		//if(!$("#appHeader").hasClass("closer")) { return; }
 		if($("#addNewWrapper").html())			{ return; }
 		//hide food
-		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').is(":animated") && !$("body").hasClass("newwindow")) {
+		if($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').is(":animated")) {
 			$("#foodSearch").blur();
 			$('#pageSlideFood').addClass('busy');
 			$('#appHeader').removeClass("open");
@@ -730,6 +714,7 @@ setTimeout(function() {
 				}
 			});
 		}
+		},200);
 	});
 	///////////////////////////
 	// blur edit / entrybody //
@@ -902,20 +887,6 @@ setTimeout(function() {
 			}}}}
 		}
 	});
-} catch(error) {
-	setTimeout(function() {
-		//FIX LOOPS
-		window.localStorage.removeItem("remoteSuperBlockJS");
-		window.localStorage.removeItem("remoteSuperBlockCSS");
-		window.localStorage.removeItem("app_autoupdate_hash");
-		if(window.MyReload) {
-			window.MyReload.reloadActivity();
-		} else {
-			window.location.reload(true);
-		}
-	},1000);
-		console.log(error);
-	}
 ////#//
 } //#//
 ////#//

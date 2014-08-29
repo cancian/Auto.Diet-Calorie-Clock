@@ -799,14 +799,15 @@ function getCyclicMenu() {
 			$("#appModeToggle").prop('checked',true);
 		}
 		//TAP
+		//app.handlers.activeRow('#appMode label','button',function(evt) {
 		$("#appMode label").on(tap,function(evt) {
-			if((/checkbox/).test($(this).html())) {
-				if($('input[type=checkbox]', this).prop('checked') == true) {
-					$('input[type=checkbox]', this).prop('checked',false);
+			if((/checkbox/).test($('#' + evt.target.id).html())) {
+				if($('input[type=checkbox]', '#' + evt.target.id).prop('checked') == true) {
+					$('input[type=checkbox]', '#' + evt.target.id).prop('checked',false);
 				} else {
-					$('input[type=checkbox]', this).prop('checked',true);
+					$('input[type=checkbox]', '#' + evt.target.id).prop('checked',true);
 				}
-				$('input[type=checkbox]', this).trigger('change');
+				$('input[type=checkbox]', '#' + evt.target.id).trigger('change');
 			}
 		});	
 		//ON CHANGE
@@ -1274,7 +1275,9 @@ function buildAdvancedMenu() {
 		// LIST HANDLER //
 		//////////////////
 		//LIST CLOSER HANDLER
-		$("#advBackButton").on(touchend,function() {
+		
+		app.handlers.activeRow('#advBackButton','button',function() {
+		//$("#advBackButton").on(touchend,function() {
 			app.handlers.fade(0,'#advancedMenuWrapper');
 			//$("#advancedMenuWrapper").fadeOut(200,function() {
 			//	$('#advancedMenuWrapper').remove();
@@ -1293,7 +1296,8 @@ function buildAdvancedMenu() {
 	//#////////////#//
 	//# CHANGE LOG #//
 	//#////////////#//
-	$("#advancedChangelog").on(tap, function(evt) {
+	app.handlers.activeRow('#advancedChangelog','button',function(evt) {
+	//$("#advancedChangelog").on(tap, function(evt) {
 		$.get(hostLocal + "version.txt",function(logFile) {
 			var logContent = '';
 			//////////
@@ -1353,7 +1357,8 @@ function buildAdvancedMenu() {
 	//#/////////#//
 	//# CONTACT #//
 	//#/////////#//
-	$("#advancedContact").on(tap,function(evt) {
+	app.handlers.activeRow('#advancedContact','button',function(evt) {
+	//$("#advancedContact").on(tap,function(evt) {
              if(isMobile.iOS())       { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(iOS)', '_system', 'location=yes');                               }
 		else if(isMobile.Android())   { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(Android)', '_system', 'location=yes');                           }
 		else if(isMobile.Windows())   { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(WP)', '_blank', 'location=no');                            }
@@ -1365,8 +1370,9 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	//# RELOAD FOOD DB #//
 	//#////////////////#//
-	$('#advancedReload').on(tap,function(evt) {
-		evt.preventDefault();
+	app.handlers.activeRow('#advancedReload','button',function() {
+	//$('#advancedReload').on(tap,function(evt) {
+		//evt.preventDefault();
 		function onConfirmReloadDB(button) {
 			if(button == 1) {
 				window.localStorage.removeItem("foodDbLoaded");
@@ -1395,7 +1401,8 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	//# RESET SETTINGS #//
 	//#////////////////#//
-	$('#advancedReset').on(tap,function(evt) {
+	app.handlers.activeRow('#advancedReset','button',function(evt) {
+	//$('#advancedReset').on(tap,function(evt) {
 		evt.preventDefault();
 		function onConfirmWipe(button) {
 			if(button == 1) {
@@ -1410,14 +1417,15 @@ function buildAdvancedMenu() {
 	//#//////////////////////////#//
 	//# GENERIC CHECKBOX HANDLER #//
 	//#//////////////////////////#//
+	//app.handlers.activeRow('#advancedMenu li','button',function(evt) {
 	$("#advancedMenu li").on(tap,function(evt) {
-		if((/checkbox/).test($(this).html())) {
-			if($('input[type=checkbox]', this).prop('checked') == true) {
-				$('input[type=checkbox]', this).prop('checked',false);
+		if((/checkbox/).test($('#' + evt.target.id).html())) {
+			if($('input[type=checkbox]', '#' + evt.target.id).prop('checked') == true) {
+				$('input[type=checkbox]', '#' + evt.target.id).prop('checked',false);
 			} else {
-				$('input[type=checkbox]', this).prop('checked',true);
+				$('input[type=checkbox]', '#' + evt.target.id).prop('checked',true);
 			}
-			$('input[type=checkbox]', this).trigger('change');
+			$('input[type=checkbox]', '#' + evt.target.id).trigger('change');
 		}
 	});	
 	});
@@ -1425,7 +1433,8 @@ function buildAdvancedMenu() {
 	//# REVIEW #//
 	//#////////#//
 	if(isMobile.iOS() || isMobile.Android() || isMobile.Windows() || isMobile.MSApp() || isMobile.FirefoxOS() || isMobile.OSXApp()) {
-		$("#advancedReview").on(tap,function(evt) {
+		app.handlers.activeRow('#advancedReview','button',function(evt) {
+		//$("#advancedReview").on(tap,function(evt) {
 			getStoreUrl(1);
 		});	
 	} else {
@@ -1449,7 +1458,8 @@ function buildAdvancedMenu() {
 	/////////////////////////////
 	// MANUAL RESTART SHORTCUT //
 	/////////////////////////////
-	$("#appAutoUpdateButton").on(tap,function(evt) {
+	app.handlers.activeRow('#appAutoUpdateButton','button',function(evt) {
+	//$("#appAutoUpdateButton").on(tap,function(evt) {
 		//evt.stopPropagation();
 		function quickReboot(ok) {
 			if(ok == 1) {
