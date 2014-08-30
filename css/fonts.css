@@ -22,6 +22,8 @@ body.started #loadMask {
 	display: none;
 }
 body.spinnerMask #loadMask {
+	-ms-touch-action: none;
+	pointer-events: none;
 	position: absolute;
 	top: 0;
 	left: 0;

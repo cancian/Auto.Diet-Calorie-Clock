@@ -35,15 +35,15 @@ function showIntro(isNew) {
 		app.handlers.fade(0,'#gettingStarted',function() {
 			if(isNew == true) {
 				setTimeout(function() {
-					if(baseVersion) {
-						if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.chromeapp || app.device.blackberry) {
+					if(typeof baseVersion !== 'undefined') {
+						if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.blackberry) {
 							app.analytics('paidInstall');
 						}
 					}
 					app.analytics('newInstall');
 				},1000);
 			}
-			if(myScroll) {
+			if(typeof myScroll !== 'undefined') {
 				myScroll.destroy();
 			}
 		});
@@ -1951,35 +1951,34 @@ function getStoreUrl(button) {
 		app.analytics('rate');
 	if(button == 1) {
 		app.analytics('vote');
-             if(isMobile.iOS())       { window.open('https://itunes.apple.com/app/id732382802', '_system', 'location=yes');														}
-		else if(isMobile.Android())   { window.open('market://details?id=com.cancian.kcals', '_system', 'location=yes');													}
-		else if(isMobile.Windows())   { ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
-		else if(isMobile.MSApp())     { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e'));	}
-		else if(isMobile.FirefoxOS()) { ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');												}
-		else if(isMobile.OSXApp())    { macgap.app.open('macappstores://itunes.apple.com/app/id898749118');																		}
+             if(app.device.ios)			{ window.open('https://itunes.apple.com/app/id732382802', '_system', 'location=yes');														}
+		else if(app.device.android)		{ window.open('market://details?id=com.cancian.kcals', '_system', 'location=yes');															}
+		else if(app.device.wp8)			{ ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
+		else if(app.device.windows8)	{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e'));	}
+		else if(app.device.firefoxos)	{ ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');												}
+		else if(app.device.osxapp)		{ macgap.app.open('macappstores://itunes.apple.com/app/id898749118');																		}
+		else if(app.device.chromeapp)	{ window.open('https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc/reviews', '_blank');		}
 	}
 }
 var rateTimer;
 function getRateDialog() {
 	//appstore enabled
-	if(!isMobile.iOS() && !isMobile.Android() && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS() && !isMobile.OSXApp()) { return; }
+	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeapp) { return; }
 	//first use
-	if(!window.localStorage.getItem("getRate")) {
-		window.localStorage.setItem("getRate", new Date().getTime());
-	}
+	app.define('getRate',app.now());
 	//return
-	if(window.localStorage.getItem("getRate") == 'locked') { return; }
+	if(app.read('getRate','locked')) { return; }
 	///////////////
 	// IF 1 WEEK //
-	///////////////
-	var timeRate = 2.9 * 24 * 60 * 60 * 1000;
-	if((new Date().getTime()) - parseInt(window.localStorage.getItem("getRate")) > (timeRate)) {
+	//////////////
+	var timeRate = 3 * 24 * 60 * 60 * 1000;
+	if((new Date().getTime()) - parseInt(app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
-			if(window.localStorage.getItem("getRate") == 'locked') { return; }
+			if(app.read('getRate','locked')) { return; }
 			//SHOW DIALOG
 			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], getStoreUrl, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-			window.localStorage.setItem("getRate","locked");
+			app.save('getRate','locked')
 		},3500);
 	}
 }
@@ -1987,12 +1986,11 @@ function getRateDialog() {
 // GET ANALYTICS //
 ///////////////////
 app.analytics = function(target) {
-	if(typeof ga_storage === 'undefined')		{ return; }
+	if(typeof ga_storage === 'undefined')				{ return; }
 	//not dev
-	if(app.read('config_debug','active'))		{ return; }
-	if(app.read('facebook_userid',1051211303))	{ return; }
-	if((/192.168.1.5|/).test(document.URL))		{ return; }
-	if((/home|www.cancian/).test(document.URL))	{ return; }
+	if(app.read('config_debug','active'))				{ return; }
+	if(app.read('facebook_userid',1051211303))			{ return; }
+	if((/192.168|home|www.cancian/).test(document.URL))	{ return; }
 	//////////
 	// INIT //
 	//////////
@@ -2019,6 +2017,10 @@ app.analytics = function(target) {
 		ga_storage._trackEvent(appOS, target, lang, appBuild);
 	}
 };
+//BACKWARDS C.
+function getAnalytics(action) {
+	app.analytics(action);
+}
 //#//////////////////////#//
 //# FACEBOOK INTEGRATION #//
 //#//////////////////////#//
@@ -2028,23 +2030,23 @@ app.analytics = function(target) {
 function getLogoutFB(button) {
 	NProgress.done();
 	if(button == 1) {
-		window.localStorage.removeItem("facebook_logged");
-		window.localStorage.removeItem("facebook_userid");
-		window.localStorage.removeItem("facebook_username");	
-		$("body").removeClass("appFacebook");
-		$("#appFooter").removeClass("appFacebook");
-		$("#optionFacebook span").html(LANG.SETTINGS_BACKUP_INFO[lang]);
+		app.remove('facebook_logged');
+		app.remove('facebook_userid');
+		app.remove('facebook_username');
+		$('body').removeClass('appFacebook');
+		$('#appFooter').removeClass('appFacebook');
+		$('#optionFacebook span').html(LANG.SETTINGS_BACKUP_INFO[lang]);
 	}
 }
 /////////////////////////
 // UPDATE LOGIN STATUS //
 /////////////////////////
 function updateLoginStatus(sync) {
-	if(window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_username")) {
-		$("body").addClass("appFacebook");
-		$("#appFooter").addClass("appFacebook");
-		$("#optionFacebook span").html(LANG.LOGGED_IN_AS[lang] + ' ' + window.localStorage.getItem("facebook_username"));
-		if(sync == 1) { syncEntries(window.localStorage.getItem("facebook_userid")); }
+	if(app.read('facebook_logged') && app.read('facebook_userid') && app.read('facebook_username')) {
+		$('body').addClass('appFacebook');
+		$('#appFooter').addClass('appFacebook');
+		$('#optionFacebook span').html(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
+		if(sync == 1) { syncEntries(app.read('facebook_userid')); }
 	} else {
 		getLogoutFB(1);
 	}
@@ -2080,9 +2082,9 @@ function getTokenFB(result) {
 		///////////////////
 		$.get("https://graph.facebook.com/me?access_token=" + access_token,function(me) {
 			if(me.id && me.name) {
-				window.localStorage.setItem("facebook_logged",true);
-				window.localStorage.setItem("facebook_userid",me.id);
-				window.localStorage.setItem("facebook_username",me.name);
+				app.save('facebook_logged',true);
+				app.save('facebook_userid',me.id);
+				app.save('facebook_username',me.name);
 				updateLoginStatus(1);
 			}
 		});

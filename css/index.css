@@ -13,15 +13,15 @@ html,body,input,select,textarea,
 input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; line-height: normal; }
 div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
 body.msie.thin							{ letter-spacing: 0.02em; }
+/*body.android*/
+body.msie								{ -webkit-perspective: 800; }
 /*
-body.msie,
-body.android 							{ -webkit-perspective: 800; }
-body.msie #appContent,
-body.msie #foodList,
 body.android #newWindow,
 body.android #appContent,
-body.android #foodList					{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
-*/
+body.android #foodList,
+*/					
+body.msie #appContent,
+body.msie #foodList						{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
 /*ffos fixtext-rendering: optimizeLegibility*/
 body.ios,body.android,body.windows,body.msie,
 body.wekbit,body.osx,body.osxapp		{ -webkit-user-select: none; }
@@ -96,8 +96,9 @@ body.android ::-webkit-scrollbar{ display: none; }
 .error.deficit #appHeader	{ background-color: #000 !important;  }
 /*android hacks*/
 .android #appHeader			{ z-index: 50 !important; }
+/*
 .android.tab1 #appHeader,
-.android.tab2 #appHeader	{ z-index: 0; }
+.android.tab2 #appHeader	{ z-index: 0; }*/
 /*/////////////////
 // CALORIE CLOCK //
 /////////////////*/
@@ -944,8 +945,8 @@ span#iconRefresh:before { content: "\f021"; }
 span#iconClear:before	{ content: "\F00D"; }
 .foodName				{ color: #2157D6; font-weight: bold; }
 .fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .15s; -webkit-transform: translate3d(0, 0, 0); }
-.trans					{ background-color: rgba(255,255,255,0) !important; -webkit-backface-visibility: hidden; }
-.yellow					{ background-color: rgba(255,200,0,.8) !important; -webkit-backface-visibility: hidden; }
+.trans					{ background-color: rgba(255,255,255,0); }
+.yellow					{ background-color: rgba(255,200,0,.8) !important;  }
 /*align fix*/
 .android4lt #foodSearch,
 .android4lt #foodSearch		{ padding: 25px 26px 14px 30px; }

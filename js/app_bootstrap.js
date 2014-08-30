@@ -157,10 +157,12 @@ function buildRemoteSuperBlock(opt) {
 	//QUOTA
 	try {
 		if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
+			window.localStorage.removeItem('remoteSuperBlockJS');
 			window.localStorage.setItem("remoteSuperBlockJS",dataJS);
 			updatePending = 1;
 		}
 		if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
+			window.localStorage.removeItem('remoteSuperBlockJS');
 			window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
 			updatePending = 1;
 		}
@@ -168,7 +170,13 @@ function buildRemoteSuperBlock(opt) {
 		// RESTART DIALOG //
 		////////////////////
 		if(updatePending == 1) {
-			app.analytics('autoupdate');
+			setTimeout(function() {
+				if(app) {
+					if(app.analytics) {
+						app.analytics('autoupdate');
+					}
+				}
+			},5000);
 			$('body').removeClass('loading');
 			$('body').addClass('pending');
 			window.localStorage.setItem("app_build",appBuild);

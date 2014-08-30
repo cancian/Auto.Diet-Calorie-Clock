@@ -61,7 +61,7 @@ $(window).on('pause',function() {
 //## START APP ##//
 //##///////////##//
 function startApp() {
-
+try {
 ///////////////
 // KICKSTART //
 ///////////////
@@ -576,6 +576,18 @@ if(app.device.osxapp) {
 		}
 	});
 }
+/////////.//////
+// CHROME APP //
+//////////./////
+if(app.device.chromeapp) {
+	$('body').addClass('chromeapp');
+}
+////////////////
+// BLACKBERRY //
+////////////////
+if(app.device.blackberry) {
+	$('body').addClass('blackberry');
+}
 /////////////
 // CORDOVA //
 /////////////
@@ -679,7 +691,6 @@ setTimeout(function() {
 	$("#appHeader,#editableDiv").on(touchstart, function(evt) {
 		var targetId = evt.target.id;
 		//DEFER
-		setTimeout(function() {
 		if(targetId == 'editableDiv' && $('#pageSlideFood').length) { 
 			$(document).trigger('backbutton'); return;
 		}
@@ -714,7 +725,6 @@ setTimeout(function() {
 				}
 			});
 		}
-		},200);
 	});
 	///////////////////////////
 	// blur edit / entrybody //
@@ -751,17 +761,17 @@ setTimeout(function() {
 			if(direction == 'left') {
 				clearTimeout(headerSwipe);
 				kickDown();
-			         if(app.read('app_last_tab') == 'tab4') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab') == 'tab3') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab') == 'tab2') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab') == 'tab1') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
+			         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
 			} else if(direction == 'right') {
 				clearTimeout(headerSwipe);
 				kickDown();
-			         if(app.read('app_last_tab') == 'tab4') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab') == 'tab3') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab') == 'tab2') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab') == 'tab1') { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }	
+			         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
+				else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }	
 			}
 		}
 	});
@@ -887,6 +897,9 @@ setTimeout(function() {
 			}}}}
 		}
 	});
+} catch(error) {
+	app.reboot(error);	
+}
 ////#//
 } //#//
 ////#//

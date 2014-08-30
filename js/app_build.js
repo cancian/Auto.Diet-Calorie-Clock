@@ -1528,18 +1528,18 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 	if(calcResult >= 100 && calcResult <= 9999) {
 		//adjust current value
 		var getKcalsKey = "config_kcals_day_0";
-		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-			if(window.localStorage.getItem("config_kcals_day") == "d") {
-				getKcalsKey = "config_kcals_day_2";
+		if(app.read('config_kcals_type','cyclic')) {
+			if(app.read('config_kcals_day','d')) {
+				getKcalsKey = 'config_kcals_day_2';
 			} else {
-				getKcalsKey = "config_kcals_day_1";
+				getKcalsKey = 'config_kcals_day_1';
 			}
 		}
 		//update db
-		window.localStorage.setItem(getKcalsKey,calcResult);
-		document.getElementById('editableDiv').innerHTML = window.localStorage.getItem(getKcalsKey);
+		app.save(getKcalsKey,calcResult);
+		$('#editableDiv').html(app.read(getKcalsKey));
 		//HIGHLIGHT
-		$(this).addClass("tapActive");
+		$(this).addClass('tapActive');
 		$(this).stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" }, 450);
 		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); }, 200);
 		updateTimer();
@@ -1555,8 +1555,8 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 // BLUR ON NULL ID TOUCHEND //
 //////////////////////////////
 //wp8 pan (quick drop)
-$("#calcForm input, #calcForm select").on("blur",function(evt) {
-	if(isMobile.Windows()) {
+$('#calcForm input, #calcForm select').on('blur',function(evt) {
+	if(app.device.wp8) {
 		kickDown('#appContent');
 		return false;
 	}

@@ -33,7 +33,11 @@ var app = {
 		if(!window.localStorage.getItem(key)) {
 			return false;
 		} else {
-			return window.localStorage.getItem(key);
+			if(isNaN(Number(window.localStorage.getItem(key)))) {
+				return window.localStorage.getItem(key);
+			} else {
+				return Number(window.localStorage.getItem(key));
+			}
 		}
 	},
 	save: function(key,value) {
@@ -62,6 +66,15 @@ app.reboot = function(error) {
 	} else {
 		window.location.reload(true);
 	}
+};
+///////////////////
+// APPEND SCRIPT //
+///////////////////
+app.appendScript = function(url) {
+	var script   = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = url;
+	document.getElementsByTagName('head')[0].appendChild(script);
 };
 /////////////////////
 // ISCROLL WRAPPER //
@@ -517,6 +530,21 @@ app.handlers = {
 /////////////
 // APP GET //
 /////////////
+//KCALS
+app.get.kcalsDay = function() {
+	if(app.read('config_kcals_type','cyclic')) {
+		if(app.read('config_kcals_day','d')) {
+			return app.read('config_kcals_day_2');
+		} else {
+			return app.read('config_kcals_day_1');
+		}
+	} else {
+		return app.read('config_kcals_day_0');
+	}
+};
+//////////////////
+// TOTAL WEIGHT //
+//////////////////
 app.get.totalweight = function() {
 	if (!window.localStorage.getItem('calcForm#pA3B')) {
 		return 80;
