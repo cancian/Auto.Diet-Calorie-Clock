@@ -366,25 +366,19 @@ app.handlers = {
 	///////////////////
 	highlight: function(target,callback) {
 		$(target).removeClass('activeOverflow');
-		//QUICK COLOR
-		$(target).css(prefix + 'transition-timing-function', 'ease');
-		$(target).css(prefix + 'transition-duration', '0s');
 		$(target).addClass('yellow');
-		//FADE
 		setTimeout(function () {
-			$(target).css(prefix + 'transition-duration', '.9s');
-			setTimeout(function () {
+			$(target).css(prefix + 'transition','background linear .5s');
+			setTimeout(function () {		
 				$(target).removeClass('yellow');
-				if(callback) {
-					callback();
-				}
-				//CLEAR			
 				setTimeout(function () {
-					$(target).css(prefix + 'transition-duration', '0s');
-					$(target).removeClass('yellow');
-				}, 900);
-			}, 50);
-		}, 50);
+					$(target).css(prefix + 'transition','background linear 0s');
+					if(callback) {
+						callback();
+					}
+				}, 500);
+			}, 100);
+		}, 100);
 	},
 	///////////////
 	// BUILD ROW //
@@ -671,10 +665,9 @@ app.device = {
 	windows81  : (/MSAppHost\/2.0/i).test(app.ua) ? true : false,
 	firefoxos  : ((/firefox/i).test(app.ua) && (/mobile/i).test(app.ua) && (/gecko/i).test(app.ua)) ? true : false,
 	osx        : ((/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua)) ? true : false,
-	osxapp     : (/MacGap/i).test(app.ua) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
 	chromeapp  : app.get.isChromeApp() ? true : false,
-	blackberry : (/BlackBerry/i).test(app.ua) ? true : false,
+	blackberry : (/BB10|BlackBerry/i).test(app.ua) ? true : false,
 	mobile     : app.get.isDesktop() ? false : true,
 	desktop    : app.get.isDesktop() ? true : false,
 };
@@ -946,8 +939,11 @@ function trim(str) {
 //////////////
 // HIGHLIGH //
 //////////////
-function highlight(targetId) {
-	$(targetId).animate({backgroundColor : "#ff8"}, 1).animate({backgroundColor : "rgba(255,255,255,0.36)"}, 1500);
+function highlight(targetId,startColor,endColor,fadeTime) {
+	if(!startColor) { starColor = '#ff8'; }
+	if(!endColor) { endColor = 'rgba(255,255,255,0.36)'; }
+	if(!fadeTime) { fadeTime = 1500; }
+	$(targetId).animate({backgroundColor : startColor}, 1).animate({backgroundColor: endColor}, fadeTime);
 }
 ////////////////
 // CAPITALIZE //

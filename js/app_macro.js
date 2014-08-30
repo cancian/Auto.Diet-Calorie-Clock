@@ -54,40 +54,6 @@ function getFullHistory() {
 			//while
 			countBack = countBack - day;
 		}
-		/////////////////
-		// MANUAL TICK //
-		/////////////////
-		/*
-		var upperTick = 0;
-		var lowerTick = 0;
-		//HIGHEST/LOWEST
-		for(var i=0, ien=dayArray.length; i<ien; i++) {
-			if(dayArray[i][1] > upperTick) {
-				upperTick = dayArray[i][1]
-			}
-			if(dayArray[i][1] < lowerTick) {
-				lowerTick = dayArray[i][1]
-			}
-		}
-		lowerTick = lowerTick*1.5;
-		upperTick = upperTick*1.5;
-		// MID TICK
-		midTick = parseInt(window.localStorage.getItem("config_kcals_day_0"));
-		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-			if(window.localStorage.getItem("config_kcals_day") == "d") {
-				midTick = parseInt(window.localStorage.getItem("config_kcals_day_2"));
-			} else {
-				midTick = parseInt(window.localStorage.getItem("config_kcals_day_1"));
-			}
-		}
-		// CHECK
-		if(upperTick < 600) {
-			upperTick = midTick+600;
-		}
-		if(midTick >= upperTick) {
-			upperTick = midTick*1.5;
-		}
-		*/
 		//////////////
 		// HANDLERS //
 		//////////////

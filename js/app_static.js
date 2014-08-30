@@ -21,8 +21,8 @@ var resumeTimeout;
 $(document).on('resume',function() {
 	clearTimeout(app.repeaterLoop);
 	//silent restart
-	if(window.localStorage.getItem("app_restart_pending")) {
-		window.localStorage.removeItem("app_restart_pending");
+	if(app.read('app_restart_pending')) {
+		app.remove('app_restart_pending');
 		if(window.MyReload) {
 			window.MyReload.reloadActivity();
 		} else {
@@ -66,7 +66,7 @@ try {
 // KICKSTART //
 ///////////////
 setTimeout(function() {
-	window.localStorage.removeItem("app_restart_pending");
+	app.remove('app_restart_pending');
 	app.analytics('init'); 
 },0);
 setTimeout(function() {
@@ -77,7 +77,7 @@ setTimeout(function() {
 		window.applicationCache.swapCache(); 
 	}, false);
 	//MARK BOOT SUCCESS
-	window.localStorage.removeItem("consecutive_reboots");
+	app.remove('consecutive_reboots');
 },5000);
 ////////////////
 // PARSED CSS //
@@ -110,7 +110,7 @@ $("body").prepend('\
 		</div>\
 	</div>\
 	<div id="loadingDiv"><input readonly="readonly" id="lid" value="0" type="text" /></div>\
-	<div class="editable" id="editableDiv">' + window.localStorage.getItem("config_kcals_day_0") + '</div>\
+	<div class="editable" id="editableDiv">' + app.read('config_kcals_day_0') + '</div>\
 	<div id="appContent"></div>\
 	<div id="appFooter">\
 		<ul>\
@@ -171,7 +171,7 @@ appFooter = function (id,keepOpen,callback) {
 	lastTab = new Date().getTime();
 	var tabId = id;
 	$("#appFooter li").removeClass("selected");
-	window.localStorage.setItem("app_last_tab",tabId);
+	app.save('app_last_tab',tabId);
 	$("#" + tabId).addClass("selected");
 	//SCROLLBAR
 	getNiceScroll("#appContent");
@@ -189,11 +189,9 @@ appFooter = function (id,keepOpen,callback) {
 	}
 };
 //PRELOAD TAB1
-if(!window.localStorage.getItem("app_last_tab")) {
-	window.localStorage.setItem("app_last_tab","tab1");
-}
+app.define('app_last_tab','tab1');
 //READ STORED
-appFooter(window.localStorage.getItem("app_last_tab"));
+appFooter(app.read('app_last_tab'));
 ///////////////////////
 // LISTEN FOR CLICKS //
 ///////////////////////
@@ -280,10 +278,10 @@ $(document).on("backbutton", function(evt) {
 		$("#editableInput").trigger('blur');
 	} else if($('input,select').is(":focus")) {
 		$('input,select,textarea').trigger('blur');
-	} else if(window.localStorage.getItem("app_last_tab") != "tab1") {
-		appFooter("tab1");
+	} else if(!app.read('app_last_tab','tab1')) {
+		appFooter('tab1');
 	} else {
-		if(window.localStorage.getItem("config_debug") != "active" && navigator.app) {
+		if(!app.read('config_debug','active') && navigator.app) {
 			navigator.app.exitApp();
 		} else {
 			afterHide();			
@@ -293,7 +291,7 @@ $(document).on("backbutton", function(evt) {
 /////////////////
 // PRESS ENTER //
 /////////////////
-$(document).on("pressenter", function(evt) {
+$(document).on('pressenter', function(evt) {
 	if($('#diaryNotesButton').length) {
 		return true;
 	} else {
@@ -328,18 +326,18 @@ $(document).keyup(function(e) {
 	//////////////
 	// side nav //
 	//////////////
-	if(!$("input, textarea, select").is(":focus") && !$("#gettingStarted").html() && !$('.dwo').length) {
-		if(e.keyCode == 37) {  
-		         if(window.localStorage.getItem("app_last_tab") == "tab4") { appFooter("tab3"); }
-			else if(window.localStorage.getItem("app_last_tab") == "tab3") { appFooter("tab2"); }
-			else if(window.localStorage.getItem("app_last_tab") == "tab2") { appFooter("tab1"); }
-			else if(window.localStorage.getItem("app_last_tab") == "tab1") { appFooter("tab4"); }
+	if(!$("input, textarea, select").is(":focus") && !$("#gettingStarted").html() && !$('.dwo').length && !$('#modalWrapper').length) {
+		if(e.keyCode == 37) {
+		         if(app.read('app_last_tab','tab4')) { appFooter('tab3'); }
+			else if(app.read('app_last_tab','tab3')) { appFooter('tab2'); }
+			else if(app.read('app_last_tab','tab2')) { appFooter('tab1'); }
+			else if(app.read('app_last_tab','tab1')) { appFooter('tab4'); }
 		}
-		if(e.keyCode == 39) { 
-		         if(window.localStorage.getItem("app_last_tab") == "tab4") { appFooter("tab1"); }
-			else if(window.localStorage.getItem("app_last_tab") == "tab3") { appFooter("tab4"); }
-			else if(window.localStorage.getItem("app_last_tab") == "tab2") { appFooter("tab3"); }
-			else if(window.localStorage.getItem("app_last_tab") == "tab1") { appFooter("tab2"); }	
+		if(e.keyCode == 39) {
+		         if(app.read('app_last_tab','tab4')) { appFooter('tab1'); }
+			else if(app.read('app_last_tab','tab3')) { appFooter('tab4'); }
+			else if(app.read('app_last_tab','tab2')) { appFooter('tab3'); }
+			else if(app.read('app_last_tab','tab1')) { appFooter('tab2'); }	
 		}
 	}
 });
@@ -436,7 +434,7 @@ $(window).on("resize", function(evt) {
 			$('#diaryNotesButton span').css("top",(window.innerHeight/2) + "px");
 		}
 	}
-	if(window.localStorage.getItem("app_last_tab") == "tab1") {
+	if(app.read('app_last_tab','tab1')) {
 		//balance
 		balanceMeter(timerKcals,'now');
 		setTimeout(function() { balanceMeter(timerKcals,'now');	},0);
@@ -462,32 +460,24 @@ appResizer(0);
 /////////////////////
 // DEBUG INDICATOR //
 /////////////////////
-if(window.localStorage.getItem("config_debug") == "active") {
+if(app.read('config_debug','active')) {
 	$("#appFooter").addClass("appDebug");
 	$("body").addClass("appDebug");
 }
-if(window.localStorage.getItem("facebook_logged")) {
+if(app.read('facebook_logged')) {
 	$("#appFooter").addClass("appFacebook");
 	$("body").addClass("appFacebook");
 }
 /////////////////////
 // ADJUST ELEMENTS //
 /////////////////////
-var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
-if(window.localStorage.getItem("config_kcals_type") == "cyclic")  {
-	if(window.localStorage.getItem("config_kcals_day") == "d") {
-		getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
-	} else {
-		getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
-	}
-}
-$("#editableDiv").html(getKcalsItem);
+$('#editableDiv').html(app.get.kcalsDay());
 /////////////
 // OPTIONS //
 /////////////
 //set default
 app.define('config_kcals_type','simple');
-(app.read('config_kcals_type') == 'cyclic') ? $("body").addClass("cyclic") : $("body").addClass("simple");
+app.read('config_kcals_type','cyclic') ? $('body').addClass('cyclic') : $('body').addClass('simple');
 ///////////
 // IOS 7 //
 ///////////
@@ -605,32 +595,32 @@ if(app.device.desktop) {
 ////////////////////
 // PRESET PROFILE //
 ////////////////////
-if(!window.localStorage.getItem('calcForm#pA1B')) {
+if(!app.read('calcForm#pA1B')) {
 	//male/female
-	window.localStorage.setItem('calcForm#pA1B','Male');
-	window.localStorage.setItem('calcForm#pA2B','70');
-	window.localStorage.setItem('calcForm#pA2C','inches');
-	window.localStorage.setItem('calcForm#pA3B','160');
-	window.localStorage.setItem('calcForm#pA3C','pounds');
-	window.localStorage.setItem('calcForm#pA4B','20');
-	window.localStorage.setItem('calcForm#pA5B','Sedentary (little or no exercise, desk job)');
-	window.localStorage.setItem('calcForm#pA6G','1');
-	window.localStorage.setItem('calcForm#pA6H','pounds');
-	window.localStorage.setItem('calcForm#pA6M','1');
-	window.localStorage.setItem('calcForm#pA6N','pounds');
-	window.localStorage.setItem('calcForm#feet','5');
-	window.localStorage.setItem('calcForm#inches','10');
+	app.save('calcForm#pA1B','Male');
+	app.save('calcForm#pA2B','70');
+	app.save('calcForm#pA2C','inches');
+	app.save('calcForm#pA3B','160');
+	app.save('calcForm#pA3C','pounds');
+	app.save('calcForm#pA4B','20');
+	app.save('calcForm#pA5B','Sedentary (little or no exercise, desk job)');
+	app.save('calcForm#pA6G','1');
+	app.save('calcForm#pA6H','pounds');
+	app.save('calcForm#pA6M','1');
+	app.save('calcForm#pA6N','pounds');
+	app.save('calcForm#feet','5');
+	app.save('calcForm#inches','10');
 	//LOCALE
-	window.localStorage.setItem('config_measurement','imperial');
+	app.save('config_measurement','imperial');
 	if(LANG.LANGUAGE[lang] != 'en') {
-		window.localStorage.setItem('calcForm#feet','0');
-		window.localStorage.setItem('calcForm#inches','170');
-		window.localStorage.setItem('calcForm#pA3B','70');	
-		window.localStorage.setItem('config_measurement','metric');
-		window.localStorage.setItem('calcForm#pA2C','centimetres');
-		window.localStorage.setItem('calcForm#pA3C','kilograms');
-		window.localStorage.setItem('calcForm#pA6H','kilograms');
-		window.localStorage.setItem('calcForm#pA6N','kilograms');
+		app.save('calcForm#feet','0');
+		app.save('calcForm#inches','170');
+		app.save('calcForm#pA3B','70');	
+		app.save('config_measurement','metric');
+		app.save('calcForm#pA2C','centimetres');
+		app.save('calcForm#pA3C','kilograms');
+		app.save('calcForm#pA6H','kilograms');
+		app.save('calcForm#pA6N','kilograms');
 	}
 }
 //###########################//
@@ -718,7 +708,7 @@ setTimeout(function() {
 				//WIPE ON CLOSE
 				$('#pageSlideFood').remove();
 				//force custom dump/save
-				if(typeof updateCustomList == 'function' && window.localStorage.getItem("foodDbLoaded") == "done") {
+				if(typeof updateCustomList == 'function' && app.read('foodDbLoaded','done')) {
 					updateCustomList('fav');
 					updateCustomList('items');
 					setTimeout(function() { setPush(); }, 1000);
@@ -738,7 +728,7 @@ setTimeout(function() {
 		}
 	});
 	$('#appHeader,#appContent,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
-		if(window.localStorage.getItem("app_last_tab") != "tab4") {
+		if(!app.read('app_last_tab','tab4')) {
 			evt.preventDefault();
 		}
 		if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
@@ -800,18 +790,18 @@ setTimeout(function() {
 			// DEFINE KCALS VALUE //
 			////////////////////////
 			var getKcalsKey  = "config_kcals_day_0";
-			var getKcalsItem = window.localStorage.getItem("config_kcals_day_0");
-			var eqPerDay     = window.localStorage.getItem("config_kcals_day_0");
+			var getKcalsItem = app.read('config_kcals_day_0');
+			var eqPerDay     = app.read('config_kcals_day_0');
 			var resetValue   = 2000;
-			if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-				if(window.localStorage.getItem("config_kcals_day") == "d") {
-					getKcalsKey  = "config_kcals_day_2";
-					getKcalsItem = window.localStorage.getItem("config_kcals_day_2");
-					eqPerDay     = window.localStorage.getItem("config_kcals_day_2");
+			if(app.read('config_kcals_type','cyclic')) {
+				if(app.read('config_kcals_day','d')) {
+					getKcalsKey  = 'config_kcals_day_2';
+					getKcalsItem = app.read('config_kcals_day_2');
+					eqPerDay     = app.read('config_kcals_day_2');
 				} else {
-					getKcalsKey  = "config_kcals_day_1";
-					getKcalsItem = window.localStorage.getItem("config_kcals_day_1");
-					eqPerDay     = window.localStorage.getItem("config_kcals_day_1");
+					getKcalsKey  = 'config_kcals_day_1';
+					getKcalsItem = app.read('config_kcals_day_1');
+					eqPerDay     = app.read('config_kcals_day_1');
 					resetValue   = 1600;
 				}
 			}	
@@ -847,18 +837,18 @@ setTimeout(function() {
 						//if(this.value > 9999)													{ this.value = 9999; }
 						//filter zeros
 						var permValue = Math.round(parseInt(this.value));
-						window.localStorage.setItem(getKcalsKey,permValue);
+						app.save(getKcalsKey,permValue);
 						//SET CSS TRANSITION
 						//$('#editable').css(prefix + "transition-timing-function","ease");
 						//$('#editable').css(prefix + "transition-duration",".175s");
 						clearTimeout(editableTimeout);
 						editableTimeout = setTimeout(function() {
 							// BACKUPDATE
-							if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-								if(window.localStorage.getItem("config_kcals_day") == "d") {
-									$("#appCyclic2").val(window.localStorage.getItem("config_kcals_day_2"));
+							if(app.read('config_kcals_type','cyclic')) {
+								if(app.read('config_kcals_day','d')) {
+									$("#appCyclic2").val(app.read('config_kcals_day_2'));
 								} else {
-									$("#appCyclic2").val(window.localStorage.getItem("config_kcals_day_1"));	
+									$("#appCyclic2").val(app.read('config_kcals_day_1'));
 								}
 							}
 							//////////////

@@ -929,8 +929,9 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .ios #foodList							{ position: inherit; }
 #foodListWrapper						{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2;  background-color: #fff;  }
 .searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px;  margin-bottom: 0px; overflow: hidden; box-sizing: border-box; width: 100%; display: block; }
-.searcheable:nth-child(even)			{ background-color: #f9f9f9; }
-.searcheable.activeOverflow				{ background-color: rgba(0,0,0,.1) !important; }
+.searcheable:nth-child(even)			{ background-color: rgba(0,0,0,.02);    }
+.searcheable.activeOverflow				{ background-color: rgba(0,0,0,.10);    }
+.searcheable.yellow						{ background-color: rgba(255,200,0,.8); }
 .searcheable ::-webkit-scrollbar		{ display: none; }
 .searcheable.noContent					{ color: #999; }
 .searcheable.activeOverflow.noContent	{ background-color: rgba(0,0,0,0) !important; }
@@ -943,10 +944,7 @@ span#iconClear:before,
 span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
 span#iconRefresh:before { content: "\f021"; }
 span#iconClear:before	{ content: "\F00D"; }
-.foodName				{ color: #2157D6; font-weight: bold; }
-.fade					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .15s; -webkit-transform: translate3d(0, 0, 0); }
-.trans					{ background-color: rgba(255,255,255,0); }
-.yellow					{ background-color: rgba(255,200,0,.8) !important;  }
+.searcheable .foodName	{ color: #2157D6; font-weight: bold; }
 /*align fix*/
 .android4lt #foodSearch,
 .android4lt #foodSearch		{ padding: 25px 26px 14px 30px; }

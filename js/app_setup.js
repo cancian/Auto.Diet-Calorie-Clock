@@ -41,10 +41,7 @@ function showIntro(isNew) {
 						}
 					}
 					app.analytics('newInstall');
-				},1000);
-			}
-			if(typeof myScroll !== 'undefined') {
-				myScroll.destroy();
+				},5000);
 			}
 		});
 		evt.preventDefault();
@@ -1161,8 +1158,8 @@ function fillDate(timestamp,element) {
 //////////////////////
 var partial = '';
 app.exec.updateEntries = function(partial,range,callback) {
-	var totalEntryS       = parseInt(window.localStorage.getItem('totalEntries'));
-	var totalRecentEntryS = parseInt(window.localStorage.getItem('totalRecentEntries'));
+	var totalEntryS       = app.read('totalEntries');
+	var totalRecentEntryS = app.read('totalRecentEntries');
 	//////////////
 	// GET LOOP //
 	//////////////
@@ -1180,8 +1177,8 @@ app.exec.updateEntries = function(partial,range,callback) {
 		var langKcal = LANG.KCAL[lang];
 		var totalEntries       = 0;
 		var totalRecentEntries = 0;
-		var totalEntried       = parseInt(window.localStorage.getItem('totalEntries'));
-		var totalRecentEntried = parseInt(window.localStorage.getItem('totalRecentEntries'));
+		var totalEntried       = app.read('totalEntries');
+		var totalRecentEntried = app.read('totalRecentEntries');
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = parseInt(data[i].title);
@@ -1207,7 +1204,7 @@ app.exec.updateEntries = function(partial,range,callback) {
 
 			if(dataTitle < 0)	{ rowClass = "e-" + rowClass; }
 			// EXPIRED
-			if(window.localStorage.getItem("config_start_time") > dataPublished || window.localStorage.getItem("appStatus") != "running") { rowClass = rowClass + " expired"; }
+			if(app.read('config_start_time') > dataPublished || !app.read('appStatus','running')) { rowClass = rowClass + " expired"; }
 			// CORE OUTPUT
 			var dataHandler = "\
 			<div data-id='" + data[i].id + "' id='" + data[i].id + "' class='entryListRow " + rowClass + " day" + dayFormat(dataPublished).split("/").join("x") + "' name='" + dataPublished + "'>\
@@ -1277,8 +1274,8 @@ app.exec.updateEntries = function(partial,range,callback) {
 			$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 		}}
 		//N# OF ENTRIES
-		window.localStorage.setItem('totalEntries',totalEntries);
-		window.localStorage.setItem('totalRecentEntries',totalRecentEntries);
+		app.save('totalEntries',totalEntries);
+		app.save('totalRecentEntries',totalRecentEntries);
 	});
 }
 /////////////////////////////
@@ -1362,7 +1359,7 @@ function updateEntriesSum() {
 //# UPDATE NUTRI RATIO PSEUDOS #//
 //#////////////////////////////#//
 function updateNutriRatio() {
-	var appNutrients = window.localStorage.getItem('appNutrients').split('|');
+	var appNutrients = app.read('appNutrients').split('|');
 	var proRatio = parseInt(appNutrients[0]);
 	var carRatio = parseInt(appNutrients[1]);
 	var fatRatio = parseInt(appNutrients[2]);
@@ -1767,9 +1764,9 @@ function buildLangMenu(opt) {
 		//$("#langSelect li").on(tap,function(evt) {
 			$(".preset").removeClass("preset");
 			if(rowId == 'setAuto') {
-				window.localStorage.removeItem('devSetLang');
+				app.remove('devSetLang');
 			} else {
-				window.localStorage.setItem('devSetLang',rowId.replace('set',''));
+				app.save('devSetLang',rowId.replace('set',''));
 			}
 			//////////////
 			// fade out //
@@ -1796,7 +1793,7 @@ function buildLangMenu(opt) {
 				$('#timerKcals span').html(LANG.CALORIC_BALANCE[lang]);
 				$('#timerDaily span').html(LANG.DAILY_CALORIES[lang]);
 				//CONTENT
-				appFooter(window.localStorage.getItem("app_last_tab"),0);
+				appFooter(app.read('app_last_tab'),0);
 				//start date
 				$("#cssStartDate").html("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
 				//page title
@@ -2103,7 +2100,7 @@ function getLoginFB() {
 		/////////////////
 		// IOS/ANDROID //
 		/////////////////
-		if(window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android)/).test(userAgent)) {
+		if(app.device.cordova && (app.device.android || app.device.ios)) {
 			if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') {
 				FB.init({ appId : '577673025616946', nativeInterface : CDV.FB, useCachedDialogs : false });
 				FB.login(function (response) {
@@ -2115,7 +2112,7 @@ function getLoginFB() {
 		/////////
 		// WP8 //
 		/////////
-		} else if (isMobile.Windows()) {
+		} else if (app.device.wp8) {
 			if(typeof openFB !== 'undefined') {
 				openFB.init('577673025616946');
 				openFB.login('email',
@@ -2129,7 +2126,7 @@ function getLoginFB() {
 		///////////
 		// MSAPP //
 		///////////
-		} else if(isMobile.MSApp()) {
+		} else if(app.device.windows8) {
 			if(Windows.Foundation) {
 				var callbackURL = "https://www.facebook.com/connect/login_success.html";
 				var facebookURL = "https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=" + encodeURIComponent(callbackURL);
@@ -2140,7 +2137,7 @@ function getLoginFB() {
 		////////////
 		// OSXAPP //
 		////////////			
-		} else if(isMobile.OSXApp()) {
+		} else if(app.device.osxapp) {
 			if(typeof FB !== 'undefined' && typeof macgap !== 'undefined') {
 				var pops;
 				//callback listener

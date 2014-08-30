@@ -1302,9 +1302,9 @@ function buildFoodMenu() {
 		////////////////////
 		// CUSTOM FAV SQL //
 		////////////////////
-		var tabTimer1 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") ? 20 : 200;
-		var tabTimer2 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") ? 20 : 200;
-		var tabTimer3 = (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") ? 20 : 200;
+		var tabTimer1 = app.read('lastInfoTab','topBarItem-1') ? 20 : 200;
+		var tabTimer2 = app.read('lastInfoTab','topBarItem-2') ? 20 : 200;
+		var tabTimer3 = app.read('lastInfoTab','topBarItem-3') ? 20 : 200;
 		setTimeout(function () {
 			getCatList('open');
 		}, tabTimer1);
@@ -1318,56 +1318,51 @@ function buildFoodMenu() {
 	/////////////////////
 	// FIRST LOAD TABS //
 	/////////////////////
-	if (!window.localStorage.getItem("lastInfoTab")) {
-		window.localStorage.setItem("lastInfoTab", "topBarItem-1");
-	}
+	app.define('lastInfoTab','topBarItem-1');
 	////////////
 	// TAB #1 //
 	////////////
-	if (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
-		$("#tabMyCats, #topBarItem-1").addClass("onFocus");
+	if (app.read('lastInfoTab','topBarItem-1')) {
+		$('#tabMyCats, #topBarItem-1').addClass('onFocus');
 	}
 	////////////
 	// TAB #2 //
 	////////////
-	if (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
-		$("#tabMyFavs, #topBarItem-2").addClass("onFocus");
+	if (app.read('lastInfoTab','topBarItem-2')) {
+		$('#tabMyFavs, #topBarItem-2').addClass('onFocus');
 	}
 	////////////
 	// TAB #3 //
 	////////////
-	if (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
-		$("#tabMyItems, #topBarItem-3").addClass("onFocus");
+	if (app.read('lastInfoTab','topBarItem-3')) {
+		$('#tabMyItems, #topBarItem-3').addClass('onFocus');
 	}
 	////////////////////////
 	// SWITCH VISIBLE TAB //
 	////////////////////////
-	$("#menuTopBar h3").on(touchstart, function (evt) {
+	$('#menuTopBar h3').on(touchstart, function (evt) {
 		evt.preventDefault();
 		$('#foodList').scrollTop(0);
-		window.localStorage.setItem("lastInfoTab", $(this).attr("id"));
-		//$(".onFocus").removeClass("onFocus");
-		//$("#activeOverflow").removeAttr("id");
+		app.save('lastInfoTab',$(this).attr('id'));
 		$(".activeOverflow").removeClass("activeOverflow");
-		//$("#foodList .foodName").css("overflow", "hidden");
 		////////////
 		// TAB #1 //
 		////////////
-		if (window.localStorage.getItem("lastInfoTab") == "topBarItem-1") {
+		if (app.read('lastInfoTab','topBarItem-1')) {
 			$("#topBarItem-2,#topBarItem-3,#tabMyFavs,#tabMyItems").removeClass("onFocus");
 			$("#topBarItem-1,#tabMyCats").addClass("onFocus");
 		}
 		////////////
 		// TAB #2 //
 		////////////
-		else if (window.localStorage.getItem("lastInfoTab") == "topBarItem-2") {
+		else if (app.read('lastInfoTab','topBarItem-2')) {
 			$("#topBarItem-1,#topBarItem-3,#tabMyCats,#tabMyItems").removeClass("onFocus");
 			$("#topBarItem-2,#tabMyFavs").addClass("onFocus");
 		}
 		////////////
 		// TAB #3 //
 		////////////
-		else if (window.localStorage.getItem("lastInfoTab") == "topBarItem-3") {
+		else if (app.read('lastInfoTab','topBarItem-3')) {
 			$("#topBarItem-1,#topBarItem-2,#tabMyCats,#tabMyFavs").removeClass("onFocus");
 			$("#topBarItem-3,#tabMyItems").addClass("onFocus");
 		}
@@ -1378,15 +1373,6 @@ function buildFoodMenu() {
 			}, 0);
 		return false;
 	});
-	/////////////
-	// ACTIONS //
-	/////////////
-	//$(".searcheable").on(tap + ' ' + touchstart, function (evt) {
-		//$("#activeOverflow").removeAttr("id");
-		//$(this).addClass("activeOverflow");
-		//$(".foodName", this).attr("id", "activeOverflow");
-		//$(".foodName").css("overflow", "auto");
-	//});
 }
 //##//////////////////////////##//
 //##    CORE: ADD NEW ITEM    ##//

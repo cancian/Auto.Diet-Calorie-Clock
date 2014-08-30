@@ -27,7 +27,6 @@ $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
 //#//////////////////#//
 function InitializeLocalSuperBlock(opt) {
 	if(opt == "cached") { return; }
-	//if(location.protocol.indexOf('http') !== -1) { return; }
 	var dataJS  = '';
 	var dataCSS = '';
 	$.ajax({type: "GET", dataType: "text", url: "js/app_lib.js",         success: function(raw) { dataJS  = dataJS  + raw;
@@ -229,11 +228,11 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 				if(window.location.protocol.indexOf('http') === -1) {
 					InitializeLocalSuperBlock();
 				}
-			},2000);
+			},4500);
 		}
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		},5000);
+		},9000);
 	});
 }
 // BACKWARDS COMP
