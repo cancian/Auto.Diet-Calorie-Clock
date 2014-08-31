@@ -940,10 +940,11 @@ function trim(str) {
 // HIGHLIGH //
 //////////////
 function highlight(targetId,startColor,endColor,fadeTime) {
-	if(!startColor) { starColor = '#ff8'; }
-	if(!endColor) { endColor = 'rgba(255,255,255,0.36)'; }
-	if(!fadeTime) { fadeTime = 1500; }
-	$(targetId).animate({backgroundColor : startColor}, 1).animate({backgroundColor: endColor}, fadeTime);
+	$(targetId).animate({backgroundColor : "#ff8"}, 1).animate({backgroundColor : "rgba(255,255,255,0.36)"}, 1500);
+	//if(!startColor) { starColor = '#ff8'; }
+	//if(!endColor) { endColor = 'rgba(255,255,255,0.36)'; }
+	//if(!fadeTime) { fadeTime = 1500; }
+	//$(targetId).animate({backgroundColor : startColor}, 1).animate({backgroundColor: endColor}, fadeTime);
 }
 ////////////////
 // CAPITALIZE //

@@ -155,8 +155,8 @@ function importEntries(res) {
 	}
 	localforage.setItem('diary_entry',rowsArray,function(rows) {
 		rowsEntry = rows;
-		window.localStorage.removeItem("foodDbLoaded");
-		window.localStorage.removeItem("startLock");
+		app.remove('foodDbLoaded');
+		app.remove('startLock');
 		updateFoodDb();
 		setTimeout(function() {
 			//INIT
@@ -258,44 +258,42 @@ function clearEntries(callback) {
 function localStorageSql() {
 	var keyList = "";
 	//start
-	if(window.localStorage.getItem("config_start_time") && window.localStorage.getItem("appStatus") == "running") {
-		keyList = keyList + "#@@@#" + "config_start_time" + "#@@#" + window.localStorage.getItem("config_start_time");
-		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + window.localStorage.getItem("appStatus");
+	if(app.read('config_start_time') && app.read('appStatus','running')) {
+		keyList = keyList + "#@@@#" + "config_start_time" + "#@@#" + app.read('config_start_time');
+		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + app.read('appStatus');
 	} else {
 		keyList = keyList + "#@@@#" + "appStatus" + "#@@#" + "stopped";
 	}
 	//daily
-	if(window.localStorage.getItem("config_kcals_type"))  { keyList = keyList + "#@@@#" + "config_kcals_type"  + "#@@#" + window.localStorage.getItem("config_kcals_type");  }
-	if(window.localStorage.getItem("config_kcals_day_0")) { keyList = keyList + "#@@@#" + "config_kcals_day_0" + "#@@#" + window.localStorage.getItem("config_kcals_day_0"); }
-	if(window.localStorage.getItem("config_kcals_day_1")) { keyList = keyList + "#@@@#" + "config_kcals_day_1" + "#@@#" + window.localStorage.getItem("config_kcals_day_1"); }
-	if(window.localStorage.getItem("config_kcals_day_2")) { keyList = keyList + "#@@@#" + "config_kcals_day_2" + "#@@#" + window.localStorage.getItem("config_kcals_day_2"); }
-	if(window.localStorage.getItem("config_measurement")) { keyList = keyList + "#@@@#" + "config_measurement" + "#@@#" + window.localStorage.getItem("config_measurement"); }
-	if(window.localStorage.getItem("config_limit_1"))     { keyList = keyList + "#@@@#" + "config_limit_1"     + "#@@#" + window.localStorage.getItem("config_limit_1");     }
-	if(window.localStorage.getItem("config_limit_2"))     { keyList = keyList + "#@@@#" + "config_limit_2"     + "#@@#" + window.localStorage.getItem("config_limit_2");     }	
+	if(app.read("config_kcals_type"))  { keyList = keyList + "#@@@#" + "config_kcals_type"  + "#@@#" + app.read("config_kcals_type");  }
+	if(app.read("config_kcals_day_0")) { keyList = keyList + "#@@@#" + "config_kcals_day_0" + "#@@#" + app.read("config_kcals_day_0"); }
+	if(app.read("config_kcals_day_1")) { keyList = keyList + "#@@@#" + "config_kcals_day_1" + "#@@#" + app.read("config_kcals_day_1"); }
+	if(app.read("config_kcals_day_2")) { keyList = keyList + "#@@@#" + "config_kcals_day_2" + "#@@#" + app.read("config_kcals_day_2"); }
+	if(app.read("config_measurement")) { keyList = keyList + "#@@@#" + "config_measurement" + "#@@#" + app.read("config_measurement"); }
+	if(app.read("config_limit_1"))     { keyList = keyList + "#@@@#" + "config_limit_1"     + "#@@#" + app.read("config_limit_1");     }
+	if(app.read("config_limit_2"))     { keyList = keyList + "#@@@#" + "config_limit_2"     + "#@@#" + app.read("config_limit_2");     }	
 	//nutrients
-	if(window.localStorage.getItem("appNutrients"))		  { keyList = keyList + "#@@@#" + "appNutrients" + "#@@#" + window.localStorage.getItem("appNutrients"); }
-	//mode
-	if(window.localStorage.getItem("config_mode"))	      { keyList = keyList + "#@@@#" + "config_mode"  + "#@@#" + window.localStorage.getItem("config_mode"); }
+	if(app.read("appNutrients"))	   { keyList = keyList + "#@@@#" + "appNutrients" + "#@@#" + app.read('appNutrients'); }
 	//notes
-	if(window.localStorage.getItem("appNotes")) { 
-		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + window.localStorage.getItem("appNotes").replace(/(\n|\r\n)/g, "#@#").split("/*").join("/ *");
+	if(app.read("appNotes")) { 
+		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + app.read("appNotes").replace(/(\n|\r\n)/g, "#@#").split("/*").join("/ *");
 	} else {
 		keyList = keyList + "#@@@#" + "appNotes" + "#@@#" + "";
 	}
 	//form
-	if(window.localStorage.getItem("calcForm#feet"))	{ keyList = keyList + "#@@@#" + "calcForm#feet" + "#@@#" + window.localStorage.getItem("calcForm#feet"); }
-	if(window.localStorage.getItem("calcForm#inches"))	{ keyList = keyList + "#@@@#" + "calcForm#inches" + "#@@#" + window.localStorage.getItem("calcForm#inches"); }
-	if(window.localStorage.getItem("calcForm#pA1B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA1B" + "#@@#" + window.localStorage.getItem("calcForm#pA1B"); }
-	if(window.localStorage.getItem("calcForm#pA2B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA2B" + "#@@#" + window.localStorage.getItem("calcForm#pA2B"); }
-	if(window.localStorage.getItem("calcForm#pA2C"))	{ keyList = keyList + "#@@@#" + "calcForm#pA2C" + "#@@#" + window.localStorage.getItem("calcForm#pA2C"); }
-	if(window.localStorage.getItem("calcForm#pA3B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA3B" + "#@@#" + window.localStorage.getItem("calcForm#pA3B"); }
-	if(window.localStorage.getItem("calcForm#pA3C"))	{ keyList = keyList + "#@@@#" + "calcForm#pA3C" + "#@@#" + window.localStorage.getItem("calcForm#pA3C"); }
-	if(window.localStorage.getItem("calcForm#pA4B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA4B" + "#@@#" + window.localStorage.getItem("calcForm#pA4B"); }
-	if(window.localStorage.getItem("calcForm#pA5B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA5B" + "#@@#" + window.localStorage.getItem("calcForm#pA5B"); }
-	if(window.localStorage.getItem("calcForm#pA6G"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6G" + "#@@#" + window.localStorage.getItem("calcForm#pA6G"); }
-	if(window.localStorage.getItem("calcForm#pA6H"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6H" + "#@@#" + window.localStorage.getItem("calcForm#pA6H"); }
-	if(window.localStorage.getItem("calcForm#pA6M"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6M" + "#@@#" + window.localStorage.getItem("calcForm#pA6M"); }
-	if(window.localStorage.getItem("calcForm#pA6N"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6N" + "#@@#" + window.localStorage.getItem("calcForm#pA6N"); }
+	if(app.read("calcForm#feet"))	{ keyList = keyList + "#@@@#" + "calcForm#feet" + "#@@#" + app.read("calcForm#feet"); }
+	if(app.read("calcForm#inches"))	{ keyList = keyList + "#@@@#" + "calcForm#inches" + "#@@#" + app.read("calcForm#inches"); }
+	if(app.read("calcForm#pA1B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA1B" + "#@@#" + app.read("calcForm#pA1B"); }
+	if(app.read("calcForm#pA2B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA2B" + "#@@#" + app.read("calcForm#pA2B"); }
+	if(app.read("calcForm#pA2C"))	{ keyList = keyList + "#@@@#" + "calcForm#pA2C" + "#@@#" + app.read("calcForm#pA2C"); }
+	if(app.read("calcForm#pA3B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA3B" + "#@@#" + app.read("calcForm#pA3B"); }
+	if(app.read("calcForm#pA3C"))	{ keyList = keyList + "#@@@#" + "calcForm#pA3C" + "#@@#" + app.read("calcForm#pA3C"); }
+	if(app.read("calcForm#pA4B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA4B" + "#@@#" + app.read("calcForm#pA4B"); }
+	if(app.read("calcForm#pA5B"))	{ keyList = keyList + "#@@@#" + "calcForm#pA5B" + "#@@#" + app.read("calcForm#pA5B"); }
+	if(app.read("calcForm#pA6G"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6G" + "#@@#" + app.read("calcForm#pA6G"); }
+	if(app.read("calcForm#pA6H"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6H" + "#@@#" + app.read("calcForm#pA6H"); }
+	if(app.read("calcForm#pA6M"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6M" + "#@@#" + app.read("calcForm#pA6M"); }
+	if(app.read("calcForm#pA6N"))	{ keyList = keyList + "#@@@#" + "calcForm#pA6N" + "#@@#" + app.read("calcForm#pA6N"); }
 	//return
 	if(keyList != "") { keyList = "/*" + keyList + "*/"; }
 	return keyList;
@@ -312,21 +310,15 @@ function rebuildLocalStorage(lsp) {
 	for(i=0; i<lsp.length; i++) {
 		lsPart = lsp[i].split("#@@#");
 		if(lsPart[0]) {
-			if(lsPart[0] == "appNotes") {
-				window.localStorage.setItem(lsPart[0],lsPart[1].split("#@#").join("\n"));
-			} else if(lsPart[0] == "config_mode") {
-				if(window.localStorage.getItem("config_mode") != "full") {
-					window.localStorage.setItem(lsPart[0],lsPart[1]);
-				}
+			if(lsPart[0] == 'appNotes') {
+				app.save(lsPart[0],lsPart[1].split("#@#").join("\n"));
 			} else {
-				window.localStorage.setItem(lsPart[0],lsPart[1]);
-			}
-			//update underlying value
-			if(lsPart[0] == "config_kcals_day_0") {
-				$("#editableDiv").html(lsPart[1]);
+				app.save(lsPart[0],lsPart[1]);
 			}
 		}
 	}
+	//UPDATE UNDERLYING
+	$('#editableDiv').html(app.get.kcalsDay());
 }
 ///////////////////
 // FETCH ENTRIES //
@@ -338,8 +330,8 @@ function fetchEntries(callback) {
 //# ONLINE: PUSH ENTRIES #//
 //#//////////////////////#//
 function pushEntries(userId) {
-	if(isNaN(userId))                              { return; }
-	if(window.localStorage.getItem("pendingSync")) { return; }
+	if(isNaN(userId))           { return; }
+	if(app.read('pendingSync')) { return; }
 	fetchEntries(function(data) {
 		var fetchEntries = '';
 		var newLineFetch = '';
@@ -400,18 +392,18 @@ function pushEntries(userId) {
 		//////////////////////
 		// ADD CUSTOM ITEMS //
 		//////////////////////
-		if(window.localStorage.getItem("customItemsSql")) {
-			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customItemsSql"));
+		if(app.read('customItemsSql')) {
+			fetchEntries = fetchEntries + trim(app.read('customItemsSql'));
 			//padding
-			if(window.localStorage.getItem("customFavSql")) {
+			if(app.read('customFavSql')) {
 				fetchEntries = fetchEntries + '\n';
 			}
 		}
 		///////////////////
 		// ADD FAVORITES //
 		///////////////////
-		if(window.localStorage.getItem("customFavSql")) {
-			fetchEntries = fetchEntries + trim(window.localStorage.getItem("customFavSql"));
+		if(app.read('customFavSql')) {
+			fetchEntries = fetchEntries + trim(app.read('customFavSql'));
 		}
 		//////////////////
 		// ADD SETTINGS //
@@ -428,10 +420,10 @@ function pushEntries(userId) {
 		
 		if(fetchEntries == " " || !fetchEntries) { fetchEntries = " "; }
 		if(fetchEntries) {
-			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
+			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 			$.post("http://kcals.net/sync.php", { "sql":fetchEntries,"uid":userId }, function(data) {
 				//clear marker
-				window.localStorage.removeItem("lastEntryPush");
+				app.remove('lastEntryPush');
 				NProgress.done();
 			}, "text");
 		}
@@ -612,12 +604,13 @@ function insertOrUpdate(rows, callback) {
 //## SYNC ENTRIES ##//
 //##//////////////##//
 function syncEntries(userId) {
-	if(window.localStorage.getItem("facebook_logged")) { updateFoodDb(); }
-	window.localStorage.setItem("pendingSync",new Date().getTime());
-	if(isNaN(userId))                                   { return; }
-	if(!window.localStorage.getItem("facebook_logged")) { return; }
-	if(!window.localStorage.getItem("facebook_userid")) { return; }
-	if($("#nprogress").html()) 							{ return; }
+	if(app.read('facebook_logged'))  { updateFoodDb(); }
+	if(isNaN(userId))                { return; }
+	if(!app.read('facebook_logged')) { return; }
+	if(!app.read('facebook_userid')) { return; }
+	if($("#nprogress").html())       { return; }
+	//OK, UPDATE TIME
+	app.save('pendingSync',app.now());
 	var demoRunning = false;
 	if(!demoRunning) {
 		demoRunning = true;
@@ -754,7 +747,7 @@ function saveEntry(data,callback) {
 		//SAVE
 		localforage.setItem('diary_entry',rowsEntry,function(rows) {
 			rowsEntry = rows;
-			getRateDialog();
+			//getRateDialog();
 			setPush();
 			if(callback) {
 				callback();
@@ -768,7 +761,7 @@ function saveEntry(data,callback) {
 		//SAVE
 		localforage.setItem('diary_entry',rowsEntry,function(rows) {
 			rowsEntry = rows;
-			getRateDialog();
+			//getRateDialog();
 			setPush();
 			if(callback) {
 				callback();
@@ -920,43 +913,31 @@ function afterHide(cmd) {
 		$('*').css('pointer-events','none');
 		blockAlerts = 1; 
 		//preserve data
-		if(window.localStorage.getItem("config_install_time")) {
-			var installTime = window.localStorage.getItem("config_install_time");
+		if(app.read('config_install_time')) {
+			var installTime = app.read('config_install_time');
 		}
 		//////////////
 		// FADE OUT //
 		//////////////
 		app.handlers.fade(0,'body',function() {
-			if(isMobile.iOS && hasTouch() && navigator.splashscreen) {
-				navigator.splashscreen.show();
-			}		
-			//
-			if(window.localStorage.getItem("facebook_logged") && cmd == "clear") {
-				$.post("http://kcals.net/sync.php", { "sql":" ","uid":window.localStorage.getItem("facebook_userid") }, function(data) {
+			if(app.read('facebook_logged') && cmd == 'clear') {
+				$.post("http://kcals.net/sync.php", { "sql":" ","uid":app.read('facebook_userid') }, function(data) {
 					setTimeout(function() { 
-						if(androidVersion() >= 4 && window.MyReload) { 
-							window.MyReload.reloadActivity();
-						} else {
-							window.location.reload(true);
-						}
+						app.reboot();
 					},250);
 					///////////
 					// CLEAR //
 					///////////
-					if(cmd == "clear") {
+					if(cmd == 'clear') {
 						window.localStorage.clear();
 						if(installTime) {
-							window.localStorage.setItem('config_install_time',installTime);
+							app.save('config_install_time',installTime);
 						}
 					}
 				}, "text");
 			} else {
-					setTimeout(function() { 
-						if(androidVersion() >= 4 && window.MyReload) { 
-							window.MyReload.reloadActivity();
-						} else {
-							window.location.reload(true);
-						}
+					setTimeout(function() {
+						app.reboot();
 					},250);
 					///////////
 					// CLEAR //
@@ -964,7 +945,7 @@ function afterHide(cmd) {
 					if(cmd == "clear") { 
 						window.localStorage.clear();
 						if(installTime) {
-							window.localStorage.setItem('config_install_time',installTime);
+							app.save('config_install_time',installTime);
 						}
 					}
 			}
@@ -998,20 +979,20 @@ function spinner(size) {
 var demoRunning = false;
 var foodDbTimer;
 function updateFoodDb() {
-	if(window.localStorage.getItem("foodDbLoaded") == "done" && !window.localStorage.getItem("foodDbVersion")) { window.localStorage.removeItem("foodDbLoaded"); }
-	if(window.localStorage.getItem("foodDbLoaded") == "done") { return; }
-	if(window.localStorage.getItem("foodDbLoaded") != "done" && window.localStorage.getItem("startLock") != "running") {
+	if(app.read('foodDbLoaded','done') && !app.read('foodDbVersion')) { app.remove('foodDbLoaded'); }
+	if(app.read('foodDbLoaded','done')) { return; }
+	if(!app.read('foodDbLoaded','done') && !app.read('startLock','running')) {
 		//reset blocks
 		$("#tabMyCatsBlock,#tabMyFavsBlock,#tabMyItemsBlock").html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 		if(demoRunning == false) {
 			//start
 			demoRunning = true;
-			window.localStorage.setItem("startLock","running");
+			app.save('startLock','running');
 			clearTimeout(foodDbTimer);
 			/////////////////////////
 			// PING DEFINE DB PATH //
 			/////////////////////////
-			var langDB = (lang == "en" && window.localStorage.getItem("config_measurement") == "metric") ? 'em' : lang;
+			var langDB = (lang == 'en' && app.read('config_measurement','metric')) ? 'em' : lang;
 			////////////
 			// IMPORT //
 			////////////
@@ -1030,21 +1011,21 @@ function updateFoodDb() {
 							}
 							//REINSERT
 							var postCustom = '';
-							if(trim(window.localStorage.getItem("customItemsSql")) != '') { postCustom += trim(window.localStorage.getItem("customItemsSql")); }
-							if(trim(window.localStorage.getItem("customFavSql"))   != '') { postCustom += trim(window.localStorage.getItem("customFavSql"));   }
+							if(trim(app.read('customItemsSql')) != '') { postCustom += trim(app.read('customItemsSql')); }
+							if(trim(app.read('customFavSql'))   != '') { postCustom += trim(app.read('customFavSql'));   }
 							rowsFood = rowsArray;
 							localforage.setItem('diary_food',rowsArray,function() {
 								insertOrUpdate(postCustom,function() {
 									//success
 									demoRunning = false;
-									window.localStorage.setItem("foodDbLoaded","done");
-									window.localStorage.setItem("foodDbVersion",3);
-									window.localStorage.removeItem("startLock");
+									app.save('foodDbLoaded','done');
+									app.save('foodDbVersion',3);
+									app.remove('startLock');
 									setTimeout(function() { niceResizer(); },300);
 									spinner('stop');
 									$('body').removeClass('updtdb');
-									if(window.localStorage.getItem("facebook_userid")) {
-										syncEntries(window.localStorage.getItem("facebook_userid"));
+									if(app.read('facebook_userid')) {
+										syncEntries(app.read('facebook_userid'));
 									} else {
 										setTimeout(function() {
 											updateCustomList('fav');
@@ -1058,8 +1039,8 @@ function updateFoodDb() {
 					} catch(e) { 
 					//failure
 					demoRunning = false;
-					window.localStorage.removeItem("foodDbLoaded");
-					window.localStorage.removeItem("startLock");
+					app.remove('foodDbLoaded');
+					app.remove('startLock');
 					spinner('stop');
 					errorHandler(e);
 				}
@@ -1068,10 +1049,10 @@ function updateFoodDb() {
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
-		if(isMobile.iOS()) {
+		if(app.device.ios) {
 			doImport('.db');
 		} else {
-			var ajaxAction = (isMobile.MSApp()) ? "GET" : "HEAD";
+			var ajaxAction = app.device.windows8 ? "GET" : "HEAD";
 			setTimeout(function() {
 				$.ajax({ url: hostLocal + "sql/searchdb_" + langDB + '.db', type: ajaxAction,
 					success: function() { doImport('.db');  },
@@ -1147,10 +1128,7 @@ function fillDate(timestamp,element) {
 	//time [ datetime-local / 2013-01-01T00:00 ]
 	var d = (timestamp != "") ? new Date(Number(timestamp)) : new Date();
 	//fill
-	if(element != "") {
-		//document.getElementById(element).value = d.toISOString();
-		document.getElementById(element).value = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + (d.getDate())).slice(-2) + "T" + ("0" + (d.getHours() + 0)).slice(-2) + ":" + ("0" + (d.getMinutes() + 0)).slice(-2);
-	}
+	$('#' + element).val(d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + (d.getDate())).slice(-2) + "T" + ("0" + (d.getHours() + 0)).slice(-2) + ":" + ("0" + (d.getMinutes() + 0)).slice(-2));
 	return;
 }
 //////////////////////
@@ -1211,17 +1189,17 @@ app.exec.updateEntries = function(partial,range,callback) {
 				<p class='entriesTitle'>" + dataTitle + "</p>\
 				<p class='entriesKcals'>" + langKcal + "</p>\
 				<p class='entriesBody'>" + dataBody + "</p>\
-				<p id='t" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,(new Date()).getTime()) + "</p>\
+				<p id='t" + dataPublished + "' class='entriesPublished'> " + dateDiff(dataPublished,app.now()) + "</p>\
 				<span class='delete'>" + langDel + "</span>\
 			</div>";
 			///////////////////
 			// ROW PRELOADER //
 			///////////////////
 			totalEntries++;
-			if((new Date().getTime() - dataPublished) < 60*60*24*5*1000) {
+			if((app.now() - dataPublished) < 60*60*24*5*1000) {
 				totalRecentEntries++;
 			}
-			if(((new Date().getTime() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20 || range == "full") {
+			if(((app.now() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20 || range == "full") {
 				totalArray.push({dati:dataPublished , dato: dataHandler});
 			}
 			lastPub = parseInt(data[i].published);
@@ -1285,7 +1263,7 @@ function updateEntriesTime() {
 	getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			var dataPublished = parseInt(data[i].published);
-			$("#t" + dataPublished).html(dateDiff(dataPublished,(new Date()).getTime()));
+			$("#t" + dataPublished).html(dateDiff(dataPublished,app.now()));
 		}
 	});
 	//SIDEBAR TIME CLASS
@@ -1334,7 +1312,7 @@ function updateEntriesSum() {
 					}
 				}
 			}
-			if(eachDay[d] == dayFormat(new Date().getTime()).split("/").join("x")) {
+			if(eachDay[d] == dayFormat(app.now()).split("/").join("x")) {
 				thisDay = lToday;
 			} else {
 				thisDay = eachDay[d];
@@ -1385,7 +1363,7 @@ function updateNutriRatio() {
 //# NUTRI TIME SPAN #//
 //#/////////////////#//
 function getNutriTimeSpan(entryTime) {
-	var now        = (new Date()).getTime();
+	var now        = app.now();
 	var day        = 60 * 60 * 24 * 1000;
 	var todaysTime = (new Date(dayFormat(now))).getTime();
 	var last7Time  = (new Date(dayFormat(todaysTime - (7*day)))).getTime();
@@ -1393,13 +1371,13 @@ function getNutriTimeSpan(entryTime) {
 	/////////
 	// ALL //
 	/////////
-	if(window.localStorage.getItem("appNutrientTimeSpan") == 0)  {
+	if(app.read('appNutrientTimeSpan',0)) {
 		return true;
 	}
 	///////////
 	// TODAY //
 	///////////
-	else if(window.localStorage.getItem("appNutrientTimeSpan") == 1)  {
+	else if(app.read('appNutrientTimeSpan',1))  {
 		if(dayFormat(entryTime) == dayFormat(now)) {
 			return true;
 		} else {
@@ -1409,7 +1387,7 @@ function getNutriTimeSpan(entryTime) {
 	////////////
 	// LAST 7 //
 	////////////
-	else if(window.localStorage.getItem("appNutrientTimeSpan") == 7)  {
+	else if(app.read('appNutrientTimeSpan',7))  {
 		if(entryTime > last7Time) {
 			return true;
 		} else {
@@ -1419,7 +1397,7 @@ function getNutriTimeSpan(entryTime) {
 	/////////////
 	// LAST 30 //
 	/////////////
-	else if(window.localStorage.getItem("appNutrientTimeSpan") == 30) { 
+	else if(app.read('appNutrientTimeSpan',30)) { 
 		if(entryTime > last30Time) {
 			return true;
 		} else {
@@ -1742,7 +1720,7 @@ function buildLangMenu(opt) {
 	}
 	//mark current
 	//window.localStorage.setItem("devSetLang",lang);
-	if(window.localStorage.getItem("devSetLang")) {
+	if(app.read('devSetLang')) {
 		$("#set" + lang).addClass("set");
 	} else {
 		$("#setAuto").addClass("set");
@@ -1775,8 +1753,8 @@ function buildLangMenu(opt) {
 			//$("#langSelect").stop().fadeOut(200,function() {
 				setTimeout(function() {
 				$("body").removeClass("appLang-" + lang);
-				if(window.localStorage.getItem("devSetLang")) {
-					lang = window.localStorage.getItem("devSetLang");
+				if(app.read('devSetLang')) {
+					lang = app.read('devSetLang');
 				} else {
 					lang = defaultLang;	
 				}
@@ -1831,7 +1809,7 @@ function buildLangMenu(opt) {
 //////////////////
 var niceTimer;
 function niceResizer() {
-	if($.nicescroll && !isMobile.iOS() && !isMobile.Windows() && !isMobile.MSApp() && androidVersion() < 4.4 && !isMobile.FirefoxOS()) {
+	if($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && app.device.android < 4.4) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
 		$("#appHelper").getNiceScroll().resize();
@@ -1851,17 +1829,6 @@ function getNiceScroll(target) {
 	if($('#appHistory').html()) {
 		NSettings.horizrailenabled = true;
 	}
-	//NSettings.smoothscroll        = false;
-	//NSettings.hwacceleration      = false;
-	//NSettings.bouncescroll        = false;
-	NSettings.nativeparentscrolling = false;
-	if(!app.device.desktop) {
-		//NSettings.touchbehavior     = false;
-	}
-	//NSettings.directionlockdeadzone = 9;	
-	//NSettings.enabletranslate3d     = false;
-	//NSettings.hwacceleration        = false;
-	//NSettings.usetransition         = false;
 	//NOTES
 	if(target == "#diaryNotesInput") {			
 		if(!isMobile.Windows() && !isMobile.MSApp()) {

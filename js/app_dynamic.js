@@ -170,7 +170,6 @@ $(document).on("pageload", function (evt) {
 								});
 								$('#kcalsDiv').removeAttr('id');
 								$("#sliderBlock").fadeOut(500);
-								clearRepeaterBlock();
 								//whitegap fix
 								setTimeout(function () {
 									updateEntriesSum();
@@ -202,8 +201,7 @@ $(document).on("pageload", function (evt) {
 					///////////////////////
 					// RESET ENTRY VALUE //
 					///////////////////////
-					$("#kcalsDiv").off(touchstart);
-					$("#kcalsDiv").on(touchstart, function (evt) {
+					$("#kcalsDiv").off(touchstart).on(touchstart, function (evt) {
 						evt.preventDefault();
 						timedBlur = new Date().getTime() - 6 * 1000;
 						//no reset block
@@ -235,38 +233,39 @@ $(document).on("pageload", function (evt) {
 					// POSITIVE ADJUST //
 					/////////////////////
 					var adjustPosBlockSave;
-					$("#adjustPosBlock").on(touchstart, function (evt) {
-						evt.preventDefault();
+					app.handlers.repeater('#adjustPosBlock','activeBlock',400,25,function() {
+					//$("#adjustPosBlock").on(touchstart, function (evt) {
+						var titleVal = Number($('#kcalsDiv').html());
+						var idVal    = $('#kcalsDiv').parent('div').attr('id');
+						var bodyVal  = $('#editableInput').val();
 						//prevent android click-blur
-						timedBlur = new Date().getTime();
-						$(this).addClass("activeBlock");
-						if (Number(document.getElementById('kcalsDiv').innerHTML) <= 9999) {
+						timedBlur = app.now();
+						if (titleVal <= 9999) {
 							//first click 9999
-							if (Number(document.getElementById('kcalsDiv').innerHTML) == -9999) {
-								document.getElementById('kcalsDiv').innerHTML = -9975;
+							if (titleVal == -9999) {
+								titleVal = -9998;
 							} else {
-								document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) + (1);
+								titleVal = titleVal + 1;
 							}
 							//limit 9999
-							if (Number(document.getElementById('kcalsDiv').innerHTML) >= 9999) {
-								document.getElementById('kcalsDiv').innerHTML = 9999;
+							if (titleVal >= 9999) {
+								titleVal = 9999;
 							}
-							if (Number(document.getElementById('kcalsDiv').innerHTML) >= 0) {
-								document.getElementById('kcalsDiv').style.color = '#333';
+							if (titleVal >= 0) {
+								$('#kcalsDiv').css('color','#333');
 							}
+							//update dom
+							$('#kcalsDiv').html(titleVal);
 							//save value
-							var idVal = $('#kcalsDiv').parent('div').data("id");
-							var titleVal = document.getElementById('kcalsDiv').innerHTML;
-							var bodyVal = document.getElementById('editableInput').value;
 							clearTimeout(adjustPosBlockSave);
 							adjustPosBlockSave = setTimeout(function () {
-									saveEntry({
-										title : titleVal,
-										body : bodyVal,
-										id : idVal
-									});
-									updateTimer();
-								}, 450);
+								saveEntry({
+									title : titleVal,
+									body : bodyVal,
+									id : idVal
+								});
+								updateTimer();
+							}, 450);
 						}
 						return false;
 					});
@@ -274,151 +273,45 @@ $(document).on("pageload", function (evt) {
 					// NEGATIVE ADJUST //
 					/////////////////////
 					var adjustNegBlockSave;
-					$("#adjustNegBlock").on(touchstart, function (evt) {
-						evt.preventDefault();
+					app.handlers.repeater('#adjustNegBlock','activeBlock',400,25,function() {
+					//$("#adjustNegBlock").on(touchstart, function (evt) {
+						var titleVal = Number($('#kcalsDiv').html());
+						var idVal    = $('#kcalsDiv').parent('div').attr('id');
+						var bodyVal  = $('#editableInput').val();
 						//prevent android click-blur
-						timedBlur = new Date().getTime();
-						$(this).addClass("activeBlock");
-						if (Number(document.getElementById('kcalsDiv').innerHTML) >= -9999) {
+						timedBlur = app.now();
+						if (titleVal >= -9999) {
 							//first click 9999
-							if (Number(document.getElementById('kcalsDiv').innerHTML) == 9999) {
-								document.getElementById('kcalsDiv').innerHTML = 9975;
+							if (titleVal == 9999) {
+								titleVal = 9998;
 							} else {
-								document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) - (1);
+								titleVal = titleVal - 1;
 							}
 							//limit 9999
-							if (Number(document.getElementById('kcalsDiv').innerHTML) < -9999) {
-								document.getElementById('kcalsDiv').innerHTML = -9999;
+							if (titleVal < -9999) {
+								titleVal = -9999;
 							}
-							if (Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
-								document.getElementById('kcalsDiv').style.color = '#C00';
+							if (titleVal < 0) {
+								$('#kcalsDiv').css('color','#C00');
 							}
+							//update dom
+							$('#kcalsDiv').html(titleVal);
 							//save value
-							var idVal = $('#kcalsDiv').parent('div').data("id");
-							var titleVal = document.getElementById('kcalsDiv').innerHTML;
-							var bodyVal = document.getElementById('editableInput').value;
 							clearTimeout(adjustNegBlockSave);
 							adjustNegBlockSave = setTimeout(function () {
-									saveEntry({
-										title : titleVal,
-										body : bodyVal,
-										id : idVal
-									});
-									updateTimer();
-								}, 450);
+								saveEntry({
+									title : titleVal,
+									body : bodyVal,
+									id : idVal
+								});
+								updateTimer();
+							}, 450);
 						}
 						return false;
 					});
-					///////////////////////
-					// POSITIVE REPEATER //
-					///////////////////////
-					function clearRepeaterBlock() {
-						clearTimeout(pressTimerNeg);
-						clearTimeout(pressTimerPos);
-						clearInterval(pressRepeatNeg);
-						clearInterval(pressRepeatPos);
-					}
-					///////////////
-					// AUTOCLEAR //
-					///////////////
-					$("#adjustPosBlock,#adjustNegBlock").on(touchend + " mouseout mouseup mouseleave", function (evt) {
-						evt.preventDefault();
-						$(".activeBlock").removeClass("activeBlock");
-						clearRepeaterBlock();
-					});
-					//
-					var pressTimerPos;
-					var pressRepeatPos;
-					$("#adjustPosBlock").on(touchend, function (evt) {
-						evt.preventDefault();
-						clearRepeaterBlock();
-					});
-					$("#adjustPosBlock").on(touchstart, function (evt) {
-						evt.preventDefault();
-						clearRepeaterBlock();
-						pressTimerPos = setTimeout(function () {
-								pressRepeatPos = setInterval(function () {
-										//ACTION
-										if (Number(document.getElementById('kcalsDiv').innerHTML) <= 9999) {
-											//first click 9999
-											if (Number(document.getElementById('kcalsDiv').innerHTML) == -9999) {
-												document.getElementById('kcalsDiv').innerHTML = -9975;
-											} else {
-												document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) + (1);
-											}
-											//limit 9999
-											if (Number(document.getElementById('kcalsDiv').innerHTML) >= 9999) {
-												document.getElementById('kcalsDiv').innerHTML = 9999;
-											}
-											if (Number(document.getElementById('kcalsDiv').innerHTML) >= 0) {
-												document.getElementById('kcalsDiv').style.color = '#333';
-											}
-											//save value
-											var idVal = $('#kcalsDiv').parent('div').data("id");
-											var titleVal = document.getElementById('kcalsDiv').innerHTML;
-											var bodyVal = document.getElementById('editableInput').value;
-											clearTimeout(adjustPosBlockSave);
-											adjustPosBlockSave = setTimeout(function () {
-													saveEntry({
-														title : titleVal,
-														body : bodyVal,
-														id : idVal
-													});
-													updateTimer();
-												}, 450);
-										}
-										return false;
-									}, 25);
-							}, 400);
-					});
-					///////////////////////
-					// NEGATIVE REPEATER //
-					///////////////////////
-					var pressTimerNeg;
-					var pressRepeatNeg;
-					$("#adjustNegBlock").on(touchend, function (evt) {
-						evt.preventDefault();
-						clearRepeaterBlock();
-					});
-					$("#adjustNegBlock").on(touchstart, function (evt) {
-						evt.preventDefault();
-						clearRepeaterBlock();
-						pressTimerNeg = setTimeout(function () {
-								pressRepeatNeg = setInterval(function () {
-										//ACTION
-										if (Number(document.getElementById('kcalsDiv').innerHTML) >= -9999) {
-											//first click 9999
-											if (Number(document.getElementById('kcalsDiv').innerHTML) == 9999) {
-												document.getElementById('kcalsDiv').innerHTML = 9975;
-											} else {
-												document.getElementById('kcalsDiv').innerHTML = Number(document.getElementById('kcalsDiv').innerHTML) - (1);
-											}
-											//limit 9999
-											if (Number(document.getElementById('kcalsDiv').innerHTML) < -9999) {
-												document.getElementById('kcalsDiv').innerHTML = -9999;
-											}
-											if (Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
-												document.getElementById('kcalsDiv').style.color = '#C00';
-											}
-											//save value
-											var idVal = $('#kcalsDiv').parent('div').data("id");
-											var titleVal = document.getElementById('kcalsDiv').innerHTML;
-											var bodyVal = document.getElementById('editableInput').value;
-											clearTimeout(adjustNegBlockSave);
-											adjustNegBlockSave = setTimeout(function () {
-													saveEntry({
-														title : titleVal,
-														body : bodyVal,
-														id : idVal
-													});
-													updateTimer();
-												}, 450);
-										}
-										return false;
-									}, 25);
-							}, 400);
-					});
-					//prevent empty list highlight
+					//////////////////////////////////
+					// prevent empty list highlight //
+					//////////////////////////////////
 					if (!isNaN($(this).closest("div").attr("id"))) {
 						var editableValue = $("#editableInput").val();
 						if (editableValue == LANG.FOOD[lang] || editableValue == LANG.EXERCISE[lang]) {
@@ -491,7 +384,7 @@ $(document).on("pageload", function (evt) {
 	/////////////////////
 	// STOP ENTRY EDIT //
 	/////////////////////
-	$("#appHeader,#entryListForm,#go,#sliderBlock,#entryList div,#entryListBottomBar").on(touchstart, function (evt) {
+	$("#entryListForm,#go,#sliderBlock,#entryList div,#entryListBottomBar").on(touchstart, function (evt) {
 		if (!$('.editableInput').is(':visible')) {
 			return;
 		}
@@ -542,7 +435,7 @@ $(document).on("pageload", function (evt) {
 	/////////////////
 	// GLOBAL HIDE //
 	/////////////////
-	$("#appHeader,#entryListForm,#go,#sliderBlock,#editablediv,#entryListWrapper").on(tap + " swipeLeft swipeRight", function (evt) {
+	$("#entryListForm,#go,#sliderBlock,#entryListWrapper").on(tap + " swipeLeft swipeRight", function (evt) {
 		if (!isMobile.Android()) {
 			evt.preventDefault();
 		}
@@ -558,7 +451,7 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	var delGesture = isMobile.FirefoxOS() ? touchend : tap;
+	var delGesture = app.device.firefoxos ? touchend : tap;
 	$('div span.delete', this).on(delGesture, function (evt) {
 		//evt.preventDefault();
 		$(this).parent('div').hide();
@@ -930,6 +823,7 @@ function doSearch(rawInput) {
 		//# QUERY FOOD DB #//
 		//#///////////////#//
 		var foodList = '';
+		/*
 		var countMatch = 0;
 		//ADJUST SEARCH TYPE
 		if (window.localStorage.getItem("searchType") == "exercise") {
@@ -947,7 +841,7 @@ function doSearch(rawInput) {
 			var searchType = 'exercise';
 		} else {
 			var searchType = 'food';
-		}
+		}*/
 		///////////////////
 		// EXECUTE QUERY //
 		///////////////////
@@ -1235,7 +1129,7 @@ function updateCustomList(filter, callback) {
 		///////////////////
 		// CALLBACK OPEN //
 		///////////////////
-		if (callback == 'open' && window.localStorage.getItem('lastInfoTab') != 'topBarItem-1') {
+		if (callback == 'open' && !app.read('lastInfoTab','topBarItem-1')) {
 			setTimeout(function() {
 				callbackOpen();
 			},0);

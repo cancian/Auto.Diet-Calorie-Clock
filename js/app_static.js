@@ -70,6 +70,7 @@ setTimeout(function() {
 	app.analytics('init'); 
 },0);
 setTimeout(function() {
+	getRateDialog();
 	updateLoginStatus(1);
 	app.analytics('startApp');
 	//SWAP CACHE
@@ -261,7 +262,7 @@ $(document).on("backbutton", function(evt) {
 	} else if($('#iconClear').is(":visible")) {
 		$('#iconClear').trigger(touchstart);
 	} else if($('#pageSlideFood').hasClass("open")) {
-		if(window.localStorage.getItem("foodDbLoaded") == "done") {
+		if(app.read('foodDbLoaded','done')) {
 			$('#appHeader').trigger(touchstart);
 		}
 	} else if($('#editable').val()) {
@@ -593,35 +594,33 @@ if(app.device.desktop) {
 	$('body').addClass('mobile');	
 }
 ////////////////////
-// PRESET PROFILE //
+// DEFINE PROFILE //
 ////////////////////
-if(!app.read('calcForm#pA1B')) {
-	//male/female
-	app.save('calcForm#pA1B','Male');
-	app.save('calcForm#pA2B','70');
-	app.save('calcForm#pA2C','inches');
-	app.save('calcForm#pA3B','160');
-	app.save('calcForm#pA3C','pounds');
-	app.save('calcForm#pA4B','20');
-	app.save('calcForm#pA5B','Sedentary (little or no exercise, desk job)');
-	app.save('calcForm#pA6G','1');
-	app.save('calcForm#pA6H','pounds');
-	app.save('calcForm#pA6M','1');
-	app.save('calcForm#pA6N','pounds');
-	app.save('calcForm#feet','5');
-	app.save('calcForm#inches','10');
-	//LOCALE
-	app.save('config_measurement','imperial');
-	if(LANG.LANGUAGE[lang] != 'en') {
-		app.save('calcForm#feet','0');
-		app.save('calcForm#inches','170');
-		app.save('calcForm#pA3B','70');	
-		app.save('config_measurement','metric');
-		app.save('calcForm#pA2C','centimetres');
-		app.save('calcForm#pA3C','kilograms');
-		app.save('calcForm#pA6H','kilograms');
-		app.save('calcForm#pA6N','kilograms');
-	}
+//male/female
+app.define('calcForm#pA1B','Male');
+app.define('calcForm#pA2B','70');
+app.define('calcForm#pA4B','20');
+app.define('calcForm#pA5B','Sedentary (little or no exercise, desk job)');
+app.define('calcForm#pA6G','1');
+app.define('calcForm#pA6M','1');
+if(LANG.LANGUAGE[lang] == 'en') {
+	app.define('config_measurement','imperial');
+	app.define('calcForm#feet','5');
+	app.define('calcForm#inches','10');
+	app.define('calcForm#pA3B','160');
+	app.define('calcForm#pA2C','inches');
+	app.define('calcForm#pA3C','pounds');
+	app.define('calcForm#pA6H','pounds');
+	app.define('calcForm#pA6N','pounds');
+} else {
+	app.define('config_measurement','metric');
+	app.define('calcForm#feet','0');
+	app.define('calcForm#inches','170');
+	app.define('calcForm#pA3B','70');	
+	app.define('calcForm#pA2C','centimetres');
+	app.define('calcForm#pA3C','kilograms');
+	app.define('calcForm#pA6H','kilograms');
+	app.define('calcForm#pA6N','kilograms');
 }
 //###########################//
 //####   START WORKING   ####//
@@ -633,7 +632,7 @@ setTimeout(function() {
 		$('body').removeClass('unloaded');
 		$('body').css('opacity','1');
 	}
-	if(isMobile.iOS() && typeof navigator.splashscreen !== 'undefined') {
+	if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {
 		navigator.splashscreen.hide();
 	}
 },1000);
@@ -642,12 +641,11 @@ setTimeout(function() {
 ////////////////
 (function startTimer() {
 	if(typeof updateTimer == 'function') {
-		timerPerf = (new Date().getTime());
+		timerPerf = app.now();
 		updateTimer();
 		if(typeof timeBomb !== 'undefined') {
 			clearTimeout(timeBomb);
 		}
-//		document.getElementById('appHeader').innerHTML = appHeader;	
 		setTimeout(startTimer,timerDiff);
 	}
 })();
@@ -658,19 +656,19 @@ setTimeout(function() {
 })();
 //check last push
 (function lastEntryPush() {
-	var now = new Date().getTime();
+	var now =  app.now();
 	//sync lock
-	if(window.localStorage.getItem("pendingSync") && window.localStorage.getItem("facebook_userid") && window.localStorage.getItem("facebook_logged")) {
-		if(now - window.localStorage.getItem("pendingSync") > 30000) {
-			syncEntries(window.localStorage.getItem("facebook_userid"));
-			window.localStorage.setItem("pendingSync",Number(window.localStorage.getItem("pendingSync")) + 30000);
+	if(app.read('pendingSync') && app.read('facebook_userid') && app.read('facebook_logged')) {
+		if(now - app.read('pendingSync') > 30000) {
+			syncEntries(app.read('facebook_userid'));
+			app.save('pendingSync',app.read('pendingSync') + 30000);
 		}
 	}
 	//push lock
-	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged") && window.localStorage.getItem("lastEntryPush")) {
-		if(now - window.localStorage.getItem("lastEntryPush") > 500 && window.localStorage.getItem("foodDbLoaded") == "done") {
-			pushEntries(window.localStorage.getItem("facebook_userid"));
-			window.localStorage.setItem("lastEntryPush",Number(window.localStorage.getItem("lastEntryPush")) + 30000);
+	if(app.read('facebook_username') && app.read('facebook_logged') && app.read('lastEntryPush')) {
+		if(now - app.read('lastEntryPush') > 500 && app.read('foodDbLoaded','done')) {
+			pushEntries(app.read('facebook_userid'));
+			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
 	setTimeout(lastEntryPush,1000);

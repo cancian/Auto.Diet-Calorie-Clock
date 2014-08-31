@@ -67,7 +67,7 @@ function InitializeLocalSuperBlock(opt) {
 				$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
 			});
 		}
-	} catch(e) { }
+	} catch(e) { throw(e); }
 	//
 	}});}});}});}});
 	}});}});}});
@@ -198,7 +198,7 @@ function buildRemoteSuperBlock(opt) {
 			$('body').removeClass('loading');
 			$('body').addClass('uptodate');	
 		}
-	} catch(e) { }
+	} catch(e) { throw(e); }
 	//
 	}});}});
 	}});}});}});
@@ -228,11 +228,11 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 				if(window.location.protocol.indexOf('http') === -1) {
 					InitializeLocalSuperBlock();
 				}
-			},4500);
+			},5000);
 		}
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		},9000);
+		},8000);
 	});
 }
 // BACKWARDS COMP
@@ -240,6 +240,6 @@ $(document).ready(function() {
 	setTimeout(function() {
 		$('body').addClass('started');
 		$('body').removeClass('unloaded');
-	},2000);
+	},5000);
 });
 
