@@ -72,7 +72,7 @@ setTimeout(function() {
 setTimeout(function() {
 	getRateDialog();
 	updateLoginStatus(1);
-	app.analytics('startApp');
+	app.analytics('start');
 	//SWAP CACHE
 	window.applicationCache.addEventListener('updateready', function (event) {
 		window.applicationCache.swapCache(); 
@@ -105,8 +105,8 @@ $("title").html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 //#////////////#//
 $("body").prepend('\
 	<div id="appHeader">\
+		<div id="timerKcals"><input id="timerKcalsInput" readonly="readonly" type="text" /><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
 		<div id="timerBlocks">\
-			<div id="timerKcals"><input id="timerKcalsInput" readonly="readonly" type="text" /><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
 			<div id="timerDaily"><p></p><span>' + LANG.DAILY_CALORIES[lang] + '</span></div>\
 		</div>\
 	</div>\
@@ -627,15 +627,15 @@ if(LANG.LANGUAGE[lang] == 'en') {
 //###########################//
 setTimeout(function() {
 	//updateEntries();
-	if(opaLock < 2) {		
-		$('body').addClass('started');
+	if(opaLock < 3) {		
 		$('body').removeClass('unloaded');
+		$('body').addClass('started');
 		$('body').css('opacity','1');
 	}
 	if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {
 		navigator.splashscreen.hide();
 	}
-},1000);
+},999);
 ////////////////
 // MAIN TIMER //
 ////////////////

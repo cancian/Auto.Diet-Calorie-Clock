@@ -36,11 +36,8 @@ function showIntro(isNew) {
 			if(isNew == true) {
 				setTimeout(function() {
 					if(typeof baseVersion !== 'undefined') {
-						if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.blackberry) {
-							app.analytics('paidInstall');
-						}
+						app.analytics('install');
 					}
-					app.analytics('newInstall');
 				},5000);
 			}
 		});
@@ -1966,14 +1963,14 @@ app.analytics = function(target) {
 		////////////////
 		var deviceType = 'web';
 		var appOS      = vendorClass;
-		     if(app.device.ios)		   { appOS = 'ios';        deviceType = 'app'; }
-		else if(app.device.android)	   { appOS = 'android';    deviceType = 'app'; }
-		else if(app.device.wp8)		   { appOS = 'wp8';        deviceType = 'app'; }
-		else if(app.device.windows8)   { appOS = 'windows8';   deviceType = 'app'; }
+		     if(app.device.ios)		   { appOS = 'ios';        if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.android)	   { appOS = 'android';    if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.windows8)   { appOS = 'windows8';   if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
 		else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
 		else if(app.device.chromeapp)  { appOS = 'chromeapp';  deviceType = 'app'; }
-		else if(app.device.blackberry) { appOS = 'blackberry'; deviceType = 'app'; }
+		else if(app.device.blackberry) { appOS = 'blackberry'; if(app.device.cordova) { deviceType = 'app'; } }
 		//string
 		var trackString = deviceType + '.' + appOS + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event

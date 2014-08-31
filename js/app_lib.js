@@ -54,12 +54,14 @@ var app = {
 //////////////////
 // APP.REBOOT() //
 //////////////////
-app.reboot = function(error) {
-	if(error) { console.log(error); }
-	//CLEAR CACHE
-	app.remove('remoteSuperBlockJS');
-	app.remove('remoteSuperBlockCSS');
-	app.remove('app_autoupdate_hash');
+app.reboot = function(e) {
+	if(e) {
+		errorHandler(e);
+		//CLEAR CACHE
+		app.remove('remoteSuperBlockJS');
+		app.remove('remoteSuperBlockCSS');
+		app.remove('app_autoupdate_hash');
+	}
 	//RELOAD
 	if(window.MyReload) {
 		window.MyReload.reloadActivity();
@@ -219,9 +221,7 @@ app.handlers = {
 		//////////////////
 		// SET ANIMATED //
 		//////////////////
-		$(target).css(prefix + 'transform', 'translate3d(0, 0, 0)');
-		$(target).css(prefix + 'transition-timing-function', 'linear');
-		$(target).css(prefix + 'transition-duration', '.16s');
+		$(target).css(prefix + 'transition', 'opacity ease .2s');
 		///////////////////////////////////
 		// SET OPACITY ~ ENFORCE REMOVAL //
 		///////////////////////////////////

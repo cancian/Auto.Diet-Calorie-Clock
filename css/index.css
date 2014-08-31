@@ -76,7 +76,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 //# APP HEADER #//
 //#////////////#*/
 #appHeader					{ height: 62px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; }
-#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; pointer-events: none; z-index: 70; -webkit-backface-visibility: hidden; }
+#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; pointer-events: none; z-index: 70; -webkit-backface-visibility: hidden; background-color: rgba(0,0,0,0); }
 /*status colors 316ADC 5890FF           457CEE 457BEE 5B89F0 */
 #editable,
 #appHeader					{ background-color: #ffffff; color: #fff !important; font-weight: 300; /*-webkit-transition-timing-function: linear; -webkit-transition-duration: .25s;*/ }
@@ -103,7 +103,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 // CALORIE CLOCK //
 /////////////////*/
 #timerKcals						{ position: absolute; bottom: 16px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; }
-#timerKcalsInput				{ pointer-events: none; touch-action: none; -ms-touch-action: none; box-sizing: border-box; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 32px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(255,255,255,0); background-image: rgba(255,255,255,0); -webkit-appearance: none; }
+#timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; box-sizing: border-box; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 32px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(255,255,255,0); background-image: rgba(255,255,255,0); -webkit-appearance: none; }
 #timerKcals span				{ position: absolute; bottom: -9px; left:  0px; font-size: 9px; line-height: normal; text-transform: uppercase; color: #fff; }
 /*//////////////////
 // DAILY CALORIES //
@@ -443,13 +443,13 @@ ul#langSelectList li+li				{ border-top: 1px solid #eee; }
 ul#langSelectList li.preset,
 ul#langSelectList li.set			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: ' ';  z-index: 99; }
-ul#langSelectList li.preset			{ background-color: #fff; }
-ul#langSelectList li.preset:before	{ content: '✓'; position: absolute; top: 2px; right: 18px; font-size: 24px; color: #007aff; }
+ul#langSelectList li.preset			{ background-color: #fff !important; }
+ul#langSelectList li.preset:before	{ font-family: "FontAwesome"; content: "\A000"; position: absolute; top: 2px; right: 18px; font-size: 21px; color: #007aff; }
 /*//////////////////
 // SETTINGS: HELP //
 //////////////////*/
 #optionHelp:after 					{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
-#optionHelp:after					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; }
+#optionHelp:after					{ font-family: "FontAwesome"; content: "\f105"; font-weight: normal; }
 /*///////////////////////
 // SETTINGS: HELP MENU //
 ///////////////////////*/

@@ -51,20 +51,20 @@ function InitializeLocalSuperBlock(opt) {
 	//QUOTA
 	try {
 		//WRITE RESULTS
-		if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
-			window.localStorage.setItem("remoteSuperBlockJS",dataJS);
+		if(dataJS != window.localStorage.getItem('remoteSuperBlockJS')) {
+			window.localStorage.setItem('remoteSuperBlockJS',dataJS);
 		}
-		if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
-			window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
+		if(dataCSS != window.localStorage.getItem('remoteSuperBlockCSS')) {
+			window.localStorage.setItem('remoteSuperBlockCSS',dataCSS);
 		}
 		/////////////////////////////////
 		// APPEND IF USING SUPERBLOCKS //
 		/////////////////////////////////
-		if(!$("#plainLoad").length && !$("#superBlockJS").length) {
+		if(!$('#plainLoad').length && !$('#superBlockCSS').length) {
 			safeExec(function() {		
-				$("#coreCss,#coreFonts").remove();
-				$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
-				$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
+				$('#coreCss,#coreFonts').remove();
+				$('head').append('<style id="superBlockCSS">' + dataCSS + '<\/style>');
+				$.globalEval(dataJS);
 			});
 		}
 	} catch(e) { throw(e); }
@@ -156,12 +156,10 @@ function buildRemoteSuperBlock(opt) {
 	//QUOTA
 	try {
 		if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
-			window.localStorage.removeItem('remoteSuperBlockJS');
 			window.localStorage.setItem("remoteSuperBlockJS",dataJS);
 			updatePending = 1;
 		}
 		if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
-			window.localStorage.removeItem('remoteSuperBlockJS');
 			window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
 			updatePending = 1;
 		}
@@ -232,7 +230,7 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 		}
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		},8000);
+		},10000);
 	});
 }
 // BACKWARDS COMP

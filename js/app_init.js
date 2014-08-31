@@ -137,13 +137,18 @@ function initJS() {
 			isCurrentCacheValid = 1;
 		}
 		//DEFINE VALIDITY
-		document.write("<script type='text/javascript' src='" + hostLocal + "js/app_bootstrap.js'><\/script>");
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
 		if(isCurrentCacheValid == 1) {
-			document.write("<style type='text/css' id='superBlockCSS'>" + window.localStorage.getItem("remoteSuperBlockCSS") + "<\/style>");
-			//document.write("<script type='text/javascript' id='superBlockJS'>" + window.localStorage.getItem("remoteSuperBlockJS") + "<\/script>");
-			document.addEventListener("DOMContentLoaded", function(event) {
-				$.globalEval(window.localStorage.getItem("remoteSuperBlockJS"));
-			},false);
+			if(!document.getElementById('superBlockCSS')) {
+				if(document.getElementById('CSSPlaceholder')) {
+					document.getElementById('CSSPlaceholder').innerHTML = window.localStorage.getItem('remoteSuperBlockCSS');
+				} else {
+					document.write('<style type="text/css" id="superBlockCSS">' + window.localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
+				}
+				document.addEventListener('DOMContentLoaded', function(event) {
+					$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
+				},false);
+			}
 		}
 	} else {
 		/////////

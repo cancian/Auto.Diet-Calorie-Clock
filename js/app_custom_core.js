@@ -132,12 +132,11 @@ function appTimer(content) {
 	/////////////////////
 	// pre-show reward //
 	/////////////////////
-	if(opaLock < 2) {
+	if(opaLock < 3) {
 		opaLock++;
-		if(opaLock == 2) {
-			$('body').addClass('started');
+		if(opaLock == 3) {
 			$('body').removeClass('unloaded');
-			$('body').css('opacity','1');
+			$('body').addClass('started');
 			if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {
 				navigator.splashscreen.hide();
 			}
