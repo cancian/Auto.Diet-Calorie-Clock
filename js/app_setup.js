@@ -1604,7 +1604,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 				//if(isMobile.Android()) { touchBeh = false; }
 				//$("#newWindow").css("overflow","hidden");
 				//$("#newWindow").niceScroll({touchbehavior:touchBeh,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
-			} else if($.nicescroll && (isMobile.Windows() || isMobile.MSApp()) && $('#appHistory').html()) {
+			} else if($.nicescroll && (app.device.wp8 || app.device.windows8) && $('#appHistory').html()) {
 				$("#newWindow").css("overflow","hidden");
 				$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:true,hwacceleration:false});
 			} else {
@@ -1835,11 +1835,11 @@ function getNiceScroll(target) {
 			$(target).css("overflow","auto");
 		}
 	} else {
-		if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
-			$(target).css("overflow","hidden");
+		if(!app.device.ios && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && app.device.android < 4.4) {
+			$(target).css('overflow','hidden');
 			$(target).niceScroll(NSettings);
 		} else {
-			$(target).css("overflow","auto");
+			$(target).css('overflow','auto');
 		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿head									{ display: none !important; }
 html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; border: 0; box-sizing: border-box; background-color: #fff; touch-action: none; -ms-touch-action: none; user-zoom: fixed; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-.osxapp > *								{ -webkit-font-smoothing: antialiased; }
+.osxapp *								{ -webkit-font-smoothing: antialiased; }
 .msapp 									{ overflow: hidden !important; }
 #infocontents,
 #tabMyCatsBlock,#infocontents,
@@ -25,7 +25,7 @@ body.msie #foodList						{ -webkit-perspective: 800; -webkit-transform: translat
 /*ffos fixtext-rendering: optimizeLegibility*/
 body.ios,body.android,body.windows,body.msie,
 body.wekbit,body.osx,body.osxapp		{ -webkit-user-select: none; }
-*,h2,input[readonly]					{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0);}
+body *,h2,input[readonly]				{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0);}
 input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 .moz input,.moz select,.moz textarea	{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
