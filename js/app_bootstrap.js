@@ -62,9 +62,10 @@ function InitializeLocalSuperBlock(opt) {
 		/////////////////////////////////
 		if(!$('#plainLoad').length && !$('#superBlockCSS').length) {
 			safeExec(function() {		
+				$('head').append('<style id="superBlockCSS">' + dataCSS + '</style>');
+				$('head').append('<script id="superBlockJS">' + dataJS  + '</script>');
+				//$.globalEval(dataJS);
 				$('#coreCss,#coreFonts').remove();
-				$('head').append('<style id="superBlockCSS">' + dataCSS + '<\/style>');
-				$.globalEval(dataJS);
 			});
 		}
 	} catch(e) { throw(e); }

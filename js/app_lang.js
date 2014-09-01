@@ -8268,7 +8268,9 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 				• Windows 8<br />\
 				• FirefoxOS<br />\
 				• Mac OSX<br />\
-				• WebApp (http://kcals.net)</p>\
+				• Chrome App<br />\
+				• Blackberry<br />\
+				• Desktop (http://kcals.net)</p>\
 				<p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Automatic Backup feature.</p>\
 			   ",
 			"Getting started" : "\
@@ -8282,9 +8284,16 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 				<p>So, after 30 minutes, the counter will indicate your caloric balance is “-50”. Its that simple!</p>\
 				<p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>\
 			   ",
-			"The main counter" : "\
-				<p>The main counter has 3 states: balanced (between -300 and 300, shown in blue), deficit (-300 and below, shown in red), and excess (300 and up, shown in green).</p>\
-				<p>When the counter hits +/-600, the “caloric balance” block will be highlighted to indicate you are getting too distant from the balanced state. The value 600 was chosen because it is usually the highest amount of calories recommend per meal.</p>\
+			"The Status Bar" : "\
+				<p>The status bar displays your actual calorie balance as well as your daily intake. Your calorie balance is the difference between the calories you burn and the calories you consume. Calorie balance has three states: deficit, surplus, and balanced.</p>\
+				<p>A calorie deficit means that you have burned more calories than you have consumed. It is displayed in your status bar as a red bar. </p>\
+				<p>A calorie surplus means that you have consumed more calories than you have burned. It is displayed as green in your status bar. </p>\
+				<p>A calorie balance means that you have burned the same or nearly equal amount of calories as you have consumed. It is displayed as blue in your status bar. </p>\
+				<p><strong>Balanced:</strong> between -300 and +300 calories </p>\
+				<p><strong>Deficit:</strong>  below -300 calories </p>\
+				<p><strong>Surplus:</strong>  above +300 calories </p>\
+				<p>When the counter hits +/-600, the “caloric balance” block will be highlighted to indicate you are getting too distant from the balanced state. The value 600 was chosen as default because it is usually the highest amount of calories recommend per meal.</p>\
+				<p>You can customize that value to anything between 100 and 9999 by tapping the “Caloric Balance” block on the Status tab.</p>\
 			   ",
 			"Changing the start date" : "\
 				<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>\
@@ -8312,59 +8321,14 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 				<p>The ratio of each nutrient is calculated by total calories, not by weight. So it is important to remember that while proteins and carbs have 4 kcal per gram, fats have 9 kcal.</p>\
 				<p>The default nutrient ratio is 25% proteins / 50% carbs / 25% fats. You can change these values by tapping the nutrition bars on the status tab.</p>\
 			   ",
-		},
-		pt : {
-			"Plataformas suportadas" : "\
-				<p>KCals está disponível nas seguintes plataformas:</p>\
-				<p>• Android<br />\
-				• iOS<br />\
-				• Windows Phone<br />\
-				• Windows 8<br />\
-				• FirefoxOS<br />\
-				• Mac OSX<br />\
-				• WebApp (http://kcals.net)</p>\
-				<p>Dica: Você pode sincronizar os dados entre vários dispositivos (mesmo em diferentes plataformas) ativando a função Backup Automático.</p>\
-			   ",
-			"Como começar?" : "\
-				<p>Seu corpo não esquece as calorias a cada 24 horas, então por que seu contador de calorias deveria? KCals simula a maneira como seu corpo realmente usa energia, fornecendo um feedback mais realístico e atualizado.</p>\
-				<p>Primeiro, preencha seu perfil. Com base nessa informação, o aplicativo calculará quantas calorias você precisa para manter seu peso atual.</p>\
-				<p>Depois você deve definir a perda de peso (em kg por semana).</p>\
-				<p>O valor resultante incluirá a restrição calórica necessária para que você atinja esse objetivo.</p>\
-				<p>Agora pressione Iniciar, e o aplicativo passará a mostrar quantas calorias você queimou ao longo do tempo, e assim você saberá sempre quantas calorias deve consumir - já estando incluso nesse valor o cálculo da restrição calórica.</p>\
-				<p>Por exemplo:</p>\
-				<p>2400 calorias por dia / 24 horas = 100 calorias por hora</p>\
-				<p>Então, após 30 minutos, o contador indicará que seu balanço calórico é de “-50”. É simples assim!</p>\
-				<p>Você só precisa manter o contador em torno de zero, e estará automaticamente caminhando em direção ao seu objetivo!</p>\
-			   ",
-			"O contador principal" : "\
-				<p>O contador principal possui 3 estados: balanceado (entre -300 e 300, mostrado em azul), déficit (-300 e abaixo, mostrado em vermelho), e excesso (300 e acima, mostrado em verde). </p>\
-				<p>Quando o contador chega em +/-600, o bloco de “balanço calórico” é destacado para indicar que você está distanciando-se demais do balanço calórico ideal (zero). O valor 600 foi escolhido porque esse é geralmente o número máximo de calorias recomendado por refeição.</p>\
-			   ",
-			"Mudar data inicial" : "\
-				<p>O comportamento padrão do aplicativo é começar a contagem a partir do momento em que o botão Iniciar é pressionado. Porém, se por algum motivo você precisar ajustar esse valor (e.g. você começou a dieta esta manhã, mas só teve tempo de configurar o aplicativo à tarde), basta pressionar a seta para baixo (no botão Iniciar) para revelar o seletor de data.</p>\
-			   ",
-			"Calculando calorias" : "\
-				<p>A perda de peso (em kg por semana) é calculada utilizando-se uma fórmula simples, baseada no número de calorias em um quilograma de gordura (7700).</p>\
-				<p>Suponhamos que você precise de 2000 calorias por dia para manter seu peso atual, e deseja perder 0.5 kg por semana.</p>\
-				<p>Divida 7700 por 2 para encontrar o total de calorias em 0.5 kg de gordura:</p>\
-				<p>7700 / 2 = 3850</p>\
-				<p>Depois divida esse valor por 7 para saber quantas calorias diárias você precisa reduzir:</p>\
-				<p>3850 / 7 = 550</p>\
-				<p>Agora subtraia esse valor de sua ingestão diária:</p>\
-				<p>2000 – 550 = 1450</p>\
-				<p>Esse é o número de calorias que você deve consumir diariamente para perder 0.5 kg por semana.</p>\
-			   ",
-			"Sincronização de dados" : "\
-				<p>Ao ativar o Backup Automático, seus dados e informações pessoais passam a ser armazenados no Kcals.net. Assim, mesmo que você reinstale seu sistema, todos os dados serão restaurados assim que você reativar o Backup Automático.</p>\
-				<p>Outra vantagem é que você pode utilizar vários dispositivos simultaneamente. Por exemplo, se você estiver em casa, pode atualizar o diário em seu laptop, com seu navegador favorito. Mais tarde, na academia, você pode atualizá-lo usando o aplicativo em seu celular.</p>\
-				<p>Mesmo estando off-line, você ainda pode adicionar novos itens, que serão enviados ao servidor assim que houver uma conexão disponível.</p>\
-				<p>Note que, para alterar os itens já existentes, é preciso estar online, do contrário as alterações serão desfeitas na sincronização seguinte.</p>\
-				<p>*A autenticação via Facebook é utilizada somente para identificar seus dados no Kcals.net, que é onde a informação de fato fica armazenada. O aplicativo em si jamais irá interagir diretamente com sua conta no Facebook.</p>\
-			   ",
-			"Proporção de nutrientes" : "\
-				<p>Quando você adiciona um alimento que contém informação nutricional, o aplicativo utiliza essa informação para calcular a porcentagem média de calorias fornecida por cada nutriente (proteínas, carboidratos e gorduras).</p>\
-				<p>A proporção de cada nutriente é calculada pelo total de calorias, não pelo peso. Enquanto proteínas e carboidratos têm 4 kcal por grama, gorduras têm 9 kcal.</p>\
-				<p>Os valores padrão para cada nutriente são: 25% proteínas / 50% carboidratos / 25% gorduras. Esses valores podem ser alterados clicando no bloco de informações nutricionais na tela de status.</p>\
+			"Elapsed Time / Relative Time" : "\
+				<p>“Elapsed Time” means the total time since you pressed Start.</p>\
+				<p>“Relative Time” indicates how long you have to wait until your caloric balance returns to zero. </p>\
+				<p>The “Relative Time” is particularly useful to calculate when you should have your next meal. </p>\
+				<p>For instance, if you have eaten something like 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p>\
+				<p>1/4 of your daily intake = 1/4 of the day</p>\
+				<p>Calories are converted into time.</p>\
+				<p>This means that within 6 hours your body will have consumed the 500 calories, so you can eat again, and then wait accordingly, depending on how much you have eaten.</p>\
 			   ",
 		}
 	},
@@ -9531,10 +9495,4 @@ Lý do thứ hai là sự thay đổi trong lượng calo (lý thuyết) giữ c
 		},
 	},
 };
-/////////////////////////
-// fallback to english //
-/////////////////////////
-if(lang != "en" && lang != "pt") { 
-	LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
-}
 

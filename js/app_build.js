@@ -240,7 +240,7 @@ app.tab.status = function(keepOpen) {
 	$("#appStatusElapsed").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
+		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		getElapsed('next');
 	});	
 	////////////////
@@ -249,7 +249,7 @@ app.tab.status = function(keepOpen) {
 	$("#appStatusBalance").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }		
+		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		getLimitMenu();
 	});	
 	/////////////////
@@ -258,7 +258,7 @@ app.tab.status = function(keepOpen) {
 	$("#appStatusWeight").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
+		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		getCyclicMenu();
 	});
 	//////////////////
@@ -267,7 +267,7 @@ app.tab.status = function(keepOpen) {
 	$("#appStatusIntake").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
+		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		getFullHistory();
 	});
 	////////////////
@@ -276,7 +276,7 @@ app.tab.status = function(keepOpen) {
 	$("#appStatusBars").on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
+		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		getNutriSliders();
 	});
 	//#///////////#//
@@ -333,7 +333,7 @@ app.tab.status = function(keepOpen) {
 	});
 	*/
 	$("#appStatusAddLeft").on(touchstart,function(evt) {
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
+		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		evt.preventDefault();
 		if(!$("#pageSlideFood").hasClass("busy")) {
 			window.localStorage.setItem("searchType","food");
@@ -343,7 +343,7 @@ app.tab.status = function(keepOpen) {
 		$(document).trigger("pageReload");
 	});
 	$("#appStatusAddRight").on(touchstart,function(evt) {
-		if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return false; }
+		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		evt.preventDefault();
 		if(!$("#pageSlideFood").hasClass("busy")) {
 			window.localStorage.setItem("searchType","exercise");
@@ -677,7 +677,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#entryTitle').trigger('blur');
 		$('#entryBody').trigger('blur');
 		$('#entryTime').trigger('blur');
-		$('#editable').trigger('blur');
+		$('#timerDailyInput').trigger('blur');
 		document.getElementById('slider').slider.setValue(0);
 		//show zero-ing
 		if(Number($('#lid').val()) != 0) {
@@ -989,7 +989,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		}
 		evt.preventDefault();
 		evt.stopPropagation();
-		$("#editable").blur();
+		$("#timerDailyInput").blur();
 		$("#entryTime").blur();
 		$("#entryBody").blur();
 		$(document).trigger("pageReload");
@@ -1012,7 +1012,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
 			$("#entryBody").focus();
 		} else if(evt.target.id != "entryTime" && evt.target.id != "entryBody") {
-			$("#editable").blur();
+			$("#timerDailyInput").blur();
 			$("#entryTime").blur();
 			$("#entryBody").blur();
 		}
@@ -1537,7 +1537,14 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 		}
 		//update db
 		app.save(getKcalsKey,calcResult);
-		$('#editableDiv').html(app.read(getKcalsKey));
+		$('#timerDailyInput').val(app.read(getKcalsKey));
+		//HIGHLIGH INPUT
+		$('#timerDailyInput').css(prefix + 'transition-duration','0s');
+		$('#timerDailyInput').css('color','rgba(255,255,255,1');
+		setTimeout(function() {
+			$('#timerDailyInput').css(prefix + 'transition-duration','.3s');
+			$('#timerDailyInput').css('color','rgba(255,255,255,.72');
+		},200);
 		//HIGHLIGHT
 		$(this).addClass('tapActive');
 		$(this).stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" }, 450);

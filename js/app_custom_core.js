@@ -48,8 +48,10 @@ function appTimer(content) {
 		$('#timerKcalsInput').val(kcalsInput);
 		timerKcals = kcalsInput;
 	}
-	if($('#timerDaily p').html() != eqPerDay) {
-		$('#timerDaily p').html(eqPerDay);
+	if($('#timerDailyInput').val() != eqPerDay) {
+		if(!$('#timerDailyInput').is(':focus') && !$('#timerDailyInput').is(':animated')) {
+			$('#timerDailyInput').val(eqPerDay);
+		}
 	}
 	//STATUS
 	if(!$('body').hasClass(cssClass) || !$('#appHeader').hasClass(cssClass) || !$('#appStatusBalance').hasClass(cssClass)) {
@@ -106,9 +108,9 @@ function appTimer(content) {
 	if(!app.read('lastToday',DayUtcFormat(app.now()))) {
 		if(app.read('config_kcals_type','cyclic')) {
 			if(app.read('config_kcals_day','d')) {
-				$('#editableDiv').html(app.read('config_kcals_day_2'));
+				$('#timerDailyInput').val(app.read('config_kcals_day_2'));
 			} else {
-				$('#editableDiv').html(app.read('config_kcals_day_1'));
+				$('#timerDailyInput').val(app.read('config_kcals_day_1'));
 			}
 		}
 		app.save('lastToday',DayUtcFormat(app.now()));

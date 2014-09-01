@@ -33,12 +33,13 @@ body.spinnerMask #loadMask {
 	display: block;
 	overflow: hidden;
 	background-image: none;
-	background-color: rgba(255,255,255,.8);
+	background-color: rgba(255,255,255,.75);
 	-webkit-perspective: 800;
+	perspective: 800;
 }
 body.spinnerMask #loadMask span {
 	-webkit-perspective: 800;
-	background-image: none;
+	perspective: 800;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -46,7 +47,7 @@ body.spinnerMask #loadMask span {
 	height: 24px;
 	margin-top: -14px;
 	margin-left: -14px;
-	border-radius: 50px;
+	border-radius: 90px;
 	border: 2px solid #ddd;
 	border-left-color: #007aff;
 	-webkit-animation: rotate .65s infinite linear;

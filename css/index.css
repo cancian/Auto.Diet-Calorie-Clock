@@ -1,7 +1,7 @@
 ﻿head									{ display: none !important; }
 html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; border: 0; box-sizing: border-box; background-color: #fff; touch-action: none; -ms-touch-action: none; user-zoom: fixed; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-.osxapp *								{ -webkit-font-smoothing: antialiased; }
+.osx *									{ -webkit-font-smoothing: antialiased; }
 .msapp 									{ overflow: hidden !important; }
 #infocontents,
 #tabMyCatsBlock,#infocontents,
@@ -24,8 +24,8 @@ body.msie #appContent,
 body.msie #foodList						{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
 /*ffos fixtext-rendering: optimizeLegibility*/
 body.ios,body.android,body.windows,body.msie,
-body.wekbit,body.osx,body.osxapp		{ -webkit-user-select: none; }
-body *,h2,input[readonly]				{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0);}
+body.wekbit,body.osx,body.osx			{ -webkit-user-select: none; }
+body *,h2,input[readonly]				{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0); }
 input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 .moz input,.moz select,.moz textarea	{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
@@ -62,6 +62,13 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 #fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
 @media all and (orientation:portrait)	{ -ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 @media all and (orientation:landscape)	{ -ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+/*
+@media screen and (max-width:400px) {
+    @-ms-viewport{
+        width:85%; 
+    }  
+}
+*/
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
@@ -76,29 +83,18 @@ body.android ::-webkit-scrollbar{ display: none; }
 //# APP HEADER #//
 //#////////////#*/
 #appHeader					{ height: 62px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; }
-#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; pointer-events: none; z-index: 70; -webkit-backface-visibility: hidden; background-color: rgba(0,0,0,0); }
+#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; background-color: rgba(0,0,0,0); }
 /*status colors 316ADC 5890FF           457CEE 457BEE 5B89F0 */
-#editable,
-#appHeader					{ background-color: #ffffff; color: #fff !important; font-weight: 300; /*-webkit-transition-timing-function: linear; -webkit-transition-duration: .25s;*/ }
-.surplus #editable,
+#appHeader					{ background-color: #fff; color: #fff !important; font-weight: 300; }
 .surplus #appHeader			{ background-color: #309030 !important; font-weight: 300; }
-.balanced #editable,
 .balanced #appHeader		{ background-color: #4496F1 !important; font-weight: 300; }
-.deficit #editable,
 .deficit #appHeader			{ background-color: #C85834 !important; font-weight: 300; }
-.over.surplus #editable,
 .over.surplus #appHeader	{ background-color: #309030 !important; }
-.over.deficit #editable,
 .over.deficit #appHeader	{ background-color: #C85834 !important;  }
-.error.surplus #editable,
-.error.surplus #appHeader	{ background-color: #000 !important; }
-.error.deficit #editable,
+.error.surplus #appHeader,
 .error.deficit #appHeader	{ background-color: #000 !important;  }
 /*android hacks*/
 .android #appHeader			{ z-index: 50 !important; }
-/*
-.android.tab1 #appHeader,
-.android.tab2 #appHeader	{ z-index: 0; }*/
 /*/////////////////
 // CALORIE CLOCK //
 /////////////////*/
@@ -108,33 +104,32 @@ body.android ::-webkit-scrollbar{ display: none; }
 /*//////////////////
 // DAILY CALORIES //
 //////////////////*/
-#timerDaily						{ position: absolute; bottom: 6px; top: 7px; right: 5px; width: 93px; font-size: 24px; line-height: 42px; text-indent: 14px; font-weight: 300; }
-/*edit color*/
-#timerDaily						{ opacity: .72; }
-#timerDaily span				{ opacity: .99; }
-#timerDaily span				{ position: absolute; bottom: 5px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: #fff; }
+#timerDaily						{ position: absolute; bottom: 0px; top: 0px; right: 0px; width: 84px; }
+#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: rgba(255,255,255,.8); }
 .appLang-el #timerDaily span	{ font-size: 7px; }
 .appLang-hi #timerDaily span	{ bottom: 2px; }
 .android2 #timerDaily span		{ bottom: 4px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: transparent; z-index: 9999; }
+#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 75px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; z-index: 999; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.72); -webkit-transition: color linear .3s; }
+#timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: color linear .0s; }
+.newwindow #timerDailyInput,
+.closer #timerDailyInput		{ pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
+#timerDailyInput.dull			{ color: rgba(255,255,255,.72) !important; pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
 /*//////////////////////////////
 // DAILY CALORIES INPUT ALIGN //
 //////////////////////////////*/
-#editableDiv					{ color: transparent; height: 62px; background-color: rgba(0,0,0,0) !important; text-indent: 150px; position: absolute; top: 0; right: 0; display: block; width: 100px; font-size: 18px !important; line-height: 24px; border: 0; padding: 0; margin: 0; text-align: right; z-index: 71; overflow: hidden; }
-/*onfocus*/
-input#editable					{ position: absolute; top: 13px; right: 9px; display: block !important; width: 75px !important; height: 29px; font-size: 24px !important; line-height: 24px; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; }
 /*pixel adjusts*/
-.ios input#editable,
-.moz.mobile input#editable		{ text-indent: -1px; }
-.osx input#editable,
-.msie input#editable,
-.ios7 input#editable			{ margin-top: 1px; text-indent: 0; }
-.android input#editable			{ margin-top: 1px; padding-right: 1px; }
-.msapp input#editable,
-.android44 input#editable		{ margin-top: 0px; padding-right: 0px; }
+.ios input#timerDailyInput,
+.moz.mobile timerDailyInput#editable	{ text-indent: -1px; }
+.osx input#timerDailyInput,
+.msie input#timerDailyInput,
+.ios7 input#timerDailyInput				{ margin-top: 1px; text-indent: 0; }
+.android input#timerDailyInput			{ margin-top: 1px; padding-right: 1px; }
+.msapp input#timerDailyInput,
+.android44 input#timerDailyInput		{ margin-top: 0px; padding-right: 0px; }
 /*nprogress*/
-#nprogress						{ position: fixed; z-index: 100; }
-#nprogress .bar					{ background: rgba(255, 255, 255, 1); position: fixed; top: 0; left: 0; width: 100%; height: 2px; }
+#nprogress								{ position: fixed; z-index: 100; }
+#nprogress .bar							{ background: rgba(255, 255, 255, 1); position: fixed; top: 0; left: 0; width: 100%; height: 2px; }
 /*#////////////#//
 //# APP FOOTER #//
 //#////////////#*/
@@ -1135,7 +1130,6 @@ body.ios7 #editableDiv,
 body.ios7 #appHeader				{ height: 77px; }
 body.ios7 #appContent				{ top: 77px; }
 body.ios7 span#subKcalsDay			{ top: 21px; }
-body.ios7 input#editable			{ top: 27px; }
 body.ios7 span#timerFood 			{ margin-top: 14px; }
 body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
 body.ios7 span#timerFood:after		{ bottom: 2px; }

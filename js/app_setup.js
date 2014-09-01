@@ -32,6 +32,9 @@ function showIntro(isNew) {
 	//////////////
 	$("#skipIntro, #closeDiv").on(touchend,function(evt) {
 		evt.stopPropagation();
+		if(typeof myScroll !== 'undefined') {
+			myScroll.destroy();
+		}
 		app.handlers.fade(0,'#gettingStarted',function() {
 			if(isNew == true) {
 				setTimeout(function() {
@@ -56,7 +59,7 @@ function showIntro(isNew) {
 	///////////////	
 	$("#nextDiv").on(touchstart,function(evt) {
 		evt.stopPropagation();
-		if(myScroll) {
+		if(typeof myScroll !== 'undefined') {
 			if(myScroll.currentPage.pageX == 5) {
 				$("#skipIntro").trigger(touchend);	
 			}
@@ -65,7 +68,7 @@ function showIntro(isNew) {
 	});
 	$("#prevDiv").on(touchstart,function(evt) {
 		evt.stopPropagation();
-		if(myScroll) {
+		if(typeof myScroll !== 'undefined') {
 			myScroll.prev();
 		}
 	});
@@ -199,6 +202,7 @@ function initDB(t) {
 	////////////
 	// DEFINE //
 	////////////
+	app.define('app_last_tab','tab1');
 	app.define('config_start_time',app.now());
 	app.define('config_kcals_day_0',2000);
 	app.define('config_kcals_day_1',1600);
@@ -315,7 +319,7 @@ function rebuildLocalStorage(lsp) {
 		}
 	}
 	//UPDATE UNDERLYING
-	$('#editableDiv').html(app.get.kcalsDay());
+	$('#timerDailyInput').val(app.get.kcals());
 }
 ///////////////////
 // FETCH ENTRIES //
@@ -1049,7 +1053,7 @@ function updateFoodDb() {
 		if(app.device.ios) {
 			doImport('.db');
 		} else {
-			var ajaxAction = app.device.windows8 ? "GET" : "HEAD";
+			var ajaxAction = app.device.windows8 || app.device.wp81JS ? "GET" : "HEAD";
 			setTimeout(function() {
 				$.ajax({ url: hostLocal + "sql/searchdb_" + langDB + '.db', type: ajaxAction,
 					success: function() { doImport('.db');  },
@@ -1597,19 +1601,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	$("#newWindowWrapper").off().on(transitionend,function() {
 		//scroller
 		setTimeout(function() {
-			if(!isMobile.iOS() && androidVersion() < 4.4 && !isMobile.Windows() && !isMobile.MSApp() && !isMobile.FirefoxOS()) {
-				var horizScroll = $('#appHistory').html() ? true : false;
-				var touchBeh = true;
-				getNiceScroll("#newWindow");
-				//if(isMobile.Android()) { touchBeh = false; }
-				//$("#newWindow").css("overflow","hidden");
-				//$("#newWindow").niceScroll({touchbehavior:touchBeh,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:horizScroll,hwacceleration:true});
-			} else if($.nicescroll && (app.device.wp8 || app.device.windows8) && $('#appHistory').html()) {
-				$("#newWindow").css("overflow","hidden");
-				$("#newWindow").niceScroll({touchbehavior:true,cursorcolor:"#000",cursorborder: "1px solid transparent",cursoropacitymax:0.3,cursorwidth:3,horizrailenabled:true,hwacceleration:false});
-			} else {
-				$("#newWindow").css("overflow","auto");
-			}
+			getNiceScroll("#newWindow");
 			//busy
 			$("#newWindowWrapper").removeClass('busy');
 		},250);
@@ -1776,12 +1768,13 @@ function buildLangMenu(opt) {
 				//heading sum
 				updateEntriesSum();
 				//AUTO UPDATE CSS TITLES
-				$("#cssAutoUpdate").html("\
-					.loading #advancedAutoUpdate:before	 { content: '" + LANG.DOWNLOADING[lang]     + "';/**/}\
-					.pending #advancedAutoUpdate:before	 { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
-					.uptodate #advancedAutoUpdate:before { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
-					.spinnerMask #loadMask:before		 { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
-				");
+				$("#cssAutoUpdate").html('\
+					.loading #advancedAutoUpdate:before	 { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
+					.pending #advancedAutoUpdate:before	 { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
+					.uptodate #advancedAutoUpdate:before { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
+					.spinnerMask #loadMask:before		 { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
+					.spinnerMask.updtdb #loadMask:before { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
+				');		
 				///////////////////
 				// refresh intro //
 				///////////////////
@@ -1806,7 +1799,7 @@ function buildLangMenu(opt) {
 //////////////////
 var niceTimer;
 function niceResizer() {
-	if($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && app.device.android < 4.4) {
+	if($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) {
 		$("#appContent").getNiceScroll().resize();
 		$("#foodList").getNiceScroll().resize();
 		$("#appHelper").getNiceScroll().resize();
@@ -1828,14 +1821,14 @@ function getNiceScroll(target) {
 	}
 	//NOTES
 	if(target == "#diaryNotesInput") {			
-		if(!isMobile.Windows() && !isMobile.MSApp()) {
+		if(!app.device.wp8 && !app.device.windows8) {
 			$(target).css("overflow","hidden");
 			$(target).niceScroll(NSettings);
 		} else {
 			$(target).css("overflow","auto");
 		}
 	} else {
-		if(!app.device.ios && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && app.device.android < 4.4) {
+		if($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) {
 			$(target).css('overflow','hidden');
 			$(target).niceScroll(NSettings);
 		} else {
@@ -1972,7 +1965,7 @@ app.analytics = function(target) {
 		else if(app.device.chromeapp)  { appOS = 'chromeapp';  deviceType = 'app'; }
 		else if(app.device.blackberry) { appOS = 'blackberry'; if(app.device.cordova) { deviceType = 'app'; } }
 		//string
-		var trackString = deviceType + '.' + appOS + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
+		var trackString = appOS + '.' + deviceType  + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event
 		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
 		ga_storage._trackEvent(appOS, target, lang, appBuild);

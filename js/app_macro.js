@@ -726,7 +726,7 @@ function getCyclicMenu() {
 			//BLUR HANDLER
 			app.save('config_kcals_day_1',$('#appCyclic1').val());
 			if(app.read('config_kcals_type') == 'cyclic' && app.read('config_kcals_day') != 'd') {
-				$('#editableDiv').html(app.read('config_kcals_day_1'));
+				$('#timerDailyInput').val(app.read('config_kcals_day_1'));
 			}
 			updateTodayOverview();
 		});
@@ -734,7 +734,7 @@ function getCyclicMenu() {
 			//BLUR HANDLER
 			app.save('config_kcals_day_2',$('#appCyclic2').val());
 			if(app.read('config_kcals_type') == 'cyclic' && app.read('config_kcals_day') == 'd') {
-				$('#editableDiv').html(app.read('config_kcals_day_2'));
+				$('#timerDailyInput').val(app.read('config_kcals_day_2'));
 			}
 			updateTodayOverview();
 		});
@@ -792,12 +792,12 @@ function getCyclicMenu() {
 			//update underlying
 			if(app.read('config_kcals_type','cyclic')) {
 				if(app.read('config_kcals_day','d')) {
-					$('#editableDiv').html(app.read('config_kcals_day_2'));
+					$('#timerDailyInput').val(app.read('config_kcals_day_2'));
 				} else {
-					$('#editableDiv').html(app.read('config_kcals_day_1'));
+					$('#timerDailyInput').val(app.read('config_kcals_day_1'));
 				}
 			} else {
-				$('#editableDiv').html(app.read('config_kcals_day_0'));
+				$('#timerDailyInput').val(app.read('config_kcals_day_0'));
 			}
 		});
 	}
@@ -957,7 +957,7 @@ function getElapsed(swap) {
 	///////////////////
 	} else if(swap == 2) {
 		var nowDate = app.now();
-		var eqRatio = (60*60*24*1000) / app.get.kcalsDay();
+		var eqRatio = (60*60*24*1000) / app.get.kcals();
 		var eqDiff  = nowDate - Math.floor(Math.abs(timerKcals*eqRatio));
 		//DATA
 		swapData = dateDiff(eqDiff,nowDate);

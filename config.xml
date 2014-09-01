@@ -19,6 +19,9 @@
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
+	
+    <preference name="windows-target-version" value="8.0" />
+    <preference name="windows-phone-target-version" value="8.0" />
 
     <!-- Customize your app and platform with the preference element. -->
     <preference name="permissions"                value="none"/>

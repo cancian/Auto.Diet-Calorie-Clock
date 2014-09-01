@@ -525,14 +525,32 @@ app.handlers = {
 // APP GET //
 /////////////
 //KCALS
-app.get.kcalsDay = function() {
+app.get.kcals = function(opt) {
 	if(app.read('config_kcals_type','cyclic')) {
 		if(app.read('config_kcals_day','d')) {
+			if(opt == 'reset') {
+				return 2000;
+			}
+			if(opt == 'key') {
+				return 'config_kcals_day_2';
+			}
 			return app.read('config_kcals_day_2');
 		} else {
+			if(opt == 'reset') {
+				return 1600;
+			}
+			if(opt == 'key') {
+				return 'config_kcals_day_1';
+			}
 			return app.read('config_kcals_day_1');
 		}
 	} else {
+		if(opt == 'reset') {
+			return 2000;
+		}
+		if(opt == 'key') {
+			return 'config_kcals_day_0';
+		}
 		return app.read('config_kcals_day_0');
 	}
 };
@@ -661,8 +679,10 @@ app.device = {
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) ? true : false,
 	wp81       : (/Windows Phone 8.1/i).test(app.ua) ? true : false,
-	windows8   : (/MSApp/i).test(app.ua) ? true : false,
-	windows81  : (/MSAppHost\/2.0/i).test(app.ua) ? true : false,
+	wp81JS     : (/Windows Phone 8.1/i).test(app.ua) && (/MSApp/i).test(app.ua) ? true : false,
+	windows8   : (/MSApp/i).test(app.ua) && !(/IEMobile/i).test(app.ua) ? true : false,
+	windows81  : (/MSAppHost\/2.0/i).test(app.ua) && !(/IEMobile/i).test(app.ua)? true : false,
+	windows8T  : (/MSApp/i).test(app.ua) && (/Touch/i).test(app.ua) && !(/IEMobile/i).test(app.ua) ? true : false,
 	firefoxos  : ((/firefox/i).test(app.ua) && (/mobile/i).test(app.ua) && (/gecko/i).test(app.ua)) ? true : false,
 	osx        : ((/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua)) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
@@ -743,12 +763,12 @@ var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
 var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
 var singletap  = hasTap() ? 'singleTap'  : 'click';
 var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
-if ((/MSAppHost\/1.0|IEMobile/i).test(userAgent) && window.navigator.msPointerEnabled) {
+if ((/MSAppHost\/1.0|IEMobile/i).test(userAgent) && !app.device.wp81JS && window.navigator.msPointerEnabled) {
 	//touchmove  = "MSPointerMove";
 	touchend = "MSPointerUp";
 	//touchstart = "MSPointerDown";
 }
-if (isMobile.FirefoxOS()) {
+if (app.device.firefoxos) {
 	tap       = 'click';
 	singletap = 'click';
 }
@@ -898,7 +918,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 	// BLUR //
 	//////////
 	$(target).on('blur', function(evt) {
-		if($(this).val().length == 0 || $(this).val() == '0' || isNaN($(this).val())) {
+		if($(this).val().length == 0 || parseInt($(this).val()) == 0 || isNaN($(this).val())) {
 			if(config.defaultValue) {
 				$(this).val(config.defaultValue);
 			} else {

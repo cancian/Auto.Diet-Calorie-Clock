@@ -60,9 +60,9 @@ $(document).on("pageload", function (evt) {
 		deMove = 0;
 		clearTimeout(holdStart);
 		var holdThis = this;
-		if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
+		if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
 			holdStart = setTimeout(function() {
-				if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
+				if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
 					$(holdThis).addClass('longHold');
 					entryReturn = true;
 				}
@@ -87,7 +87,7 @@ $(document).on("pageload", function (evt) {
 		//////////////
 		// TAP DATE //
 		//////////////
-		if (event.target.id.length == 14 && !$('#entryList div').is(':animated') && !$('.editableInput').is(':visible')) {
+		if (event.target.id.length == 14 && !$('#entryList div').is(':animated') && !$("#timerDailyInput").is(":focus")) {
 			$("#" + event.target.id).html(dtFormat(Number(event.target.id.replace("t", ""))));
 			setTimeout(function () {
 				$("#" + event.target.id).html(dateDiff(event.target.id.replace("t", ""), (new Date()).getTime()));
@@ -362,7 +362,7 @@ $(document).on("pageload", function (evt) {
 					$('.active').removeClass('active');
 				}
 				//SHOW
-				if (!$('#entryList div:animated').length > 0 && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('.editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
+				if (!$('#entryList div:animated').length > 0 && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
 					$('.delete', swippen).addClass('busy');
 					setTimeout(function () {
 						$('.delete', swippen).addClass('active');
@@ -506,7 +506,7 @@ $(document).on("pageReload", function (evt) {
 	}
 	//evt.stopPropagation();
 	//not while editing ~
-	if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#editable').is(':visible') && !$('#appStatusFix').hasClass('open')) {
+	if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#appStatusFix').hasClass('open')) {
 		//NO SWIPE OVERLAP
 		if (!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
