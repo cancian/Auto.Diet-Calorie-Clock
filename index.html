@@ -1,6 +1,68 @@
 ﻿<!DOCTYPE HTML>
 <html manifest="manifest.appcache">
 <head>
+<style type="text/css">
+body.started #loadMask {
+	display: none;
+}
+body.unloaded #loadMask {
+	-ms-touch-action: none;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1999;
+	display: block;
+	overflow: hidden;
+	background-color: #fff;
+	-webkit-perspective: 800;
+	perspective: 800;
+}
+body.unloaded #loadMask span {
+	-webkit-perspective: 800;
+	perspective: 800;
+	position: absolute;
+	display: block;
+	top: 50%; 
+	left: 50%;
+	width: 28px;
+	height: 28px;
+	margin-top: -14px;
+	margin-left: -14px;
+	border-radius: 60px;
+	box-sizing: border-box;
+	border: 2px solid #ddd;
+	border-left-color: #007aff;
+	-webkit-animation: rotate .65s infinite linear;
+	-moz-animation: rotate .65s infinite linear;
+	-ms-animation: rotate .65s infinite linear;
+	-webkit-animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	-ms-animation-fill-mode: forwards;
+}
+@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
+@-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
+@-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
+body.unloaded > * {
+	pointer-events: none;
+}
+</style>
+<!--###########################################-->
+<title>KCals Calorie Counter</title>
+<meta charset="utf-8" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="msApplication-ID" content="48310mylivediet.com.Kcals"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
+<!--###########################################-->
 <script type="text/javascript">
 ////////////////////	
 // DETECT OFFLINE //
@@ -35,75 +97,19 @@ setTimeout(function() {
 },0);
 //////////////
 // VIEWPORT //
-//////////////	
+//////////////
 if ((/iPhone|iPod|iPad/).test(navigator.userAgent)) {
 	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');
 } else if((/MSApp/).test(navigator.userAgent)) {
-	MSApp.execUnsafeLocalFunction(function() { document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=device-dpi" />'); });
+	MSApp.execUnsafeLocalFunction(function() { document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi" />'); });
 } else {
-	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />');
+	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi, height=device-height" />');
 }
 </script>
-<style type="text/css">
-body.started #loadMask {
-	display: none;
-}
-body.unloaded #loadMask {
-	-ms-touch-action: none;
-	pointer-events: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1999;
-	display: block;
-	overflow: hidden;
-	background-color: #fff;
-	-webkit-perspective: 800;
-	perspective: 800;
-}
-body.unloaded #loadMask span {
-	-webkit-perspective: 800;
-	perspective: 800;
-	position: absolute;
-	display: block;
-	top: 50%; 
-	left: 50%;
-	width: 24px;
-	height: 24px;
-	margin-top: -14px;
-	margin-left: -14px;
-	border-radius: 90px;
-	border: 2px solid #ddd;
-	border-left-color: #007aff;
-	-webkit-animation: rotate .65s infinite linear;
-	-moz-animation: rotate .65s infinite linear;
-	-ms-animation: rotate .65s infinite linear;
-	-webkit-animation-fill-mode: forwards;
-	-moz-animation-fill-mode: forwards;
-	-ms-animation-fill-mode: forwards;
-}
-@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
-@-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
-@-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
-body.unloaded > * {
-	pointer-events: none;
-}
-</style>
-<title>KCals Calorie Counter</title>
-<meta charset="utf-8" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="msapplication-tap-highlight" content="no" />
-<meta name="format-detection" content="telephone=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="msApplication-ID" content="48310mylivediet.com.Kcals"/>
-<meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0"/>
-<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
+<!--###########################################-->
 <style type="text/css" id="CSSPlaceholder"></style>
 <script type="text/javascript" id="JSPlaceholder"></script>
+<!--###########################################-->
 </head>
 <body class="unloaded">
 <div id='fb-root'></div>

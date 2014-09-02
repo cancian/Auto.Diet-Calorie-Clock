@@ -62,9 +62,9 @@ function InitializeLocalSuperBlock(opt) {
 		/////////////////////////////////
 		if(!$('#plainLoad').length && !$('#superBlockCSS').length) {
 			safeExec(function() {		
-				$('head').append('<style id="superBlockCSS">' + dataCSS + '</style>');
-				$('head').append('<script id="superBlockJS">' + dataJS  + '</script>');
-				//$.globalEval(dataJS);
+				$('head').append('<style id="superBlockCSS">' + dataCSS + '<\/style>');
+				//$('head').append('<script id="superBlockJS">' + dataJS  + '<\/script>');
+				$.globalEval(dataJS);
 				$('#coreCss,#coreFonts').remove();
 			});
 		}
@@ -177,7 +177,9 @@ function buildRemoteSuperBlock(opt) {
 			},5000);
 			$('body').removeClass('loading');
 			$('body').addClass('pending');
-			window.localStorage.setItem("app_build",appBuild);
+			if(typeof appBuild !== 'undefined') {
+				window.localStorage.setItem("app_build",appBuild);
+			}
 			window.localStorage.setItem("app_restart_pending",true);
 			if(window.localStorage.getItem("app_notify_update")) {
 				setTimeout(function() {

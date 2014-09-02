@@ -481,7 +481,7 @@ function intakeHistory() {
 			]
 		});
 		//write cache
-		window.localStorage.setItem("appStatusIntake",$('#appStatusIntake').html());
+		app.save('appStatusIntake',$('#appStatusIntake').html());
 		$('#appStatusIntake div').css("padding-top", "0px");
 		if($('body').hasClass('reCloser')) { 
 			$('body').removeClass('reCloser');
@@ -602,17 +602,17 @@ function getNutriSliders() {
 		$("#sliderTimeSpan div").on(touchstart,function(evt) {
 			$('.activeOption').removeClass('activeOption');
 			$(this).addClass('activeOption');
-				 if($(this).attr('id') == 'divTimeSpan1') { window.localStorage.setItem("appNutrientTimeSpan",1);  }
-		    else if($(this).attr('id') == 'divTimeSpan2') { window.localStorage.setItem("appNutrientTimeSpan",7);  }
-			else if($(this).attr('id') == 'divTimeSpan3') { window.localStorage.setItem("appNutrientTimeSpan",30); }
-			else if($(this).attr('id') == 'divTimeSpan4') { window.localStorage.setItem("appNutrientTimeSpan",0);  }
+				 if($(this).attr('id') == 'divTimeSpan1') { app.save('appNutrientTimeSpan',1);  }
+		    else if($(this).attr('id') == 'divTimeSpan2') { app.save('appNutrientTimeSpan',7);  }
+			else if($(this).attr('id') == 'divTimeSpan3') { app.save('appNutrientTimeSpan',30); }
+			else if($(this).attr('id') == 'divTimeSpan4') { app.save('appNutrientTimeSpan',0);  }
 			return false;
 		});
 		//READ STORED
-		     if(window.localStorage.getItem("appNutrientTimeSpan") == 1)  { $('#divTimeSpan1').addClass('activeOption'); }
-		else if(window.localStorage.getItem("appNutrientTimeSpan") == 7)  { $('#divTimeSpan2').addClass('activeOption'); }	
-		else if(window.localStorage.getItem("appNutrientTimeSpan") == 30) { $('#divTimeSpan3').addClass('activeOption'); }
-		else if(window.localStorage.getItem("appNutrientTimeSpan") == 0)  { $('#divTimeSpan4').addClass('activeOption'); }
+		     if(app.read('appNutrientTimeSpan',1))  { $('#divTimeSpan1').addClass('activeOption'); }
+		else if(app.read('appNutrientTimeSpan',7))  { $('#divTimeSpan2').addClass('activeOption'); }	
+		else if(app.read('appNutrientTimeSpan',30)) { $('#divTimeSpan3').addClass('activeOption'); }
+		else if(app.read('appNutrientTimeSpan',0))  { $('#divTimeSpan4').addClass('activeOption'); }
 	}
 	////////////////
 	// HTML BLOCK //
@@ -653,8 +653,8 @@ function updateTodayOverview() {
 	////////////
 	// DEFINE //
 	////////////
-	var totalConsumed = parseInt(window.localStorage.getItem("config_ttf"));
-	var totalIntake   = parseInt(window.localStorage.getItem("config_kcals_day_0")) + Math.abs(parseInt(window.localStorage.getItem("config_tte")));
+	var totalConsumed = app.read('config_ttf');
+	var totalIntake   = app.read('config_kcals_day_0') + Math.abs(app.read('config_tte'));
 	var totalPercent  = totalConsumed / (totalIntake / 100);
 	/////////////////////////
 	// UPDATE BLOCK VALUES //

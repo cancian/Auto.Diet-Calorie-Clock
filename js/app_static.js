@@ -68,15 +68,15 @@ try {
 setTimeout(function() {
 	app.remove('app_restart_pending');
 	app.analytics('init'); 
-},0);
+},100);
 setTimeout(function() {
 	getRateDialog();
 	updateLoginStatus(1);
 	app.analytics('start');
 	//SWAP CACHE
-	window.applicationCache.addEventListener('updateready', function (event) {
-		window.applicationCache.swapCache(); 
-	}, false);
+	//window.applicationCache.addEventListener('updateready', function (event) {
+	//	window.applicationCache.swapCache(); 
+	//}, false);
 	//MARK BOOT SUCCESS
 	app.remove('consecutive_reboots');
 },5000);
@@ -280,7 +280,7 @@ $(document).on('backbutton', function(evt) {
 		appFooter('tab1');
 	} else {
 		if(app.read('config_debug','active')) {
-			app.reboot();
+			afterHide();
 		} else if(app.device.wp8) {
 			$(document).off('backbutton');
 			blockAlerts = 1;
@@ -290,7 +290,7 @@ $(document).on('backbutton', function(evt) {
 				navigator.app.exitApp();
 			}
 		} else {
-			app.reboot();
+			afterHide();
 		}
 	}
 });
@@ -842,7 +842,7 @@ setTimeout(function() {
 			}
 		});
 	}
-	if(app.device.osx) {
+	if(app.device.desktop) {
 		$('#timerDailyInput').attr('type','text');
 	}
 	
@@ -854,7 +854,7 @@ setTimeout(function() {
 		}
 	},function() {
 		//FOCUS
-		if(app.device.osx) {
+		if(app.device.desktop) {
 			$('#timerDailyInput').attr('type','number');
 		}
 		if($('#pageSlideFood').length || $('#newWindow').length) {
@@ -862,7 +862,7 @@ setTimeout(function() {
 		}
 	},function() {
 		//BLUR
-		if(app.device.osx) {
+		if(app.device.desktop) {
 			setTimeout(function() {
 				if(!$('#timerDailyInput').is(':focus')) {
 					$('#timerDailyInput').attr('type','text');
