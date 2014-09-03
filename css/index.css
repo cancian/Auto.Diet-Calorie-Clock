@@ -10,8 +10,8 @@ html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 #appSubHelper,#newWindow,
 #langSelect,#advancedMenuWrapper		{ -ms-touch-action: pan-y; touch-action: pan-y; }
 html,body,input,select,textarea,
-input[type='number'],input[type='text']	{ font-family: "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; line-height: normal; }
-div#sliderNeg,div#sliderPos				{ font-family: "Futura", "Helvetica Neue", Helvetica, "Segoe WP", Arial, sans-serif; }
+input[type='number'],input[type='text']	{ font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif; line-height: normal; }
+div#sliderNeg,div#sliderPos				{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif; }
 body.msie.thin							{ letter-spacing: 0.02em; }
 /*body.android*/
 body.msie								{ -webkit-perspective: 800; }
@@ -142,15 +142,15 @@ body.android ::-webkit-scrollbar{ display: none; }
 .deficit #appFooter li.selected:before	{ color: #C85834; }
 .surplus #appFooter li.selected,
 .surplus #appFooter li.selected:before	{ color: #309030; }
-.appDebug #appHeader:after				{ content: ""; position: absolute; top: 4px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #0F6; border: 1px solid #0C0; z-index: 9999; display: block; }
+.appDebug #appHeader:after				{ content: ''; position: absolute; top: 4px; right: 3px; width: 8px; height: 8px; border-radius: 18px; background-color: #0F6; border: 1px solid #0C0; z-index: 9999; display: block; }
 .ios7.appDebug #appHeader:after			{ top: 18px; }
 /*footer icons*/
-#appFooter li:before					{ display: block; font-family: "FontAwesome"; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
+#appFooter li:before					{ display: block; font-family: 'FontAwesome'; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
 #appFooter li							{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal;  -webkit-backface-visibility: hidden; position: relative; }
-#appFooter li#tab1:before				{ content: "\f080"; }
-#appFooter li#tab2:before				{ content: "\f0f5"; }
-#appFooter li#tab3:before				{ content: "\f007"; }
-#appFooter li#tab4:before				{ content: "\f013"; }
+#appFooter li#tab1:before				{ content: '\f080'; }
+#appFooter li#tab2:before				{ content: '\f0f5'; }
+#appFooter li#tab3:before				{ content: '\f007'; }
+#appFooter li#tab4:before				{ content: '\f013'; }
 /*///////////////////
 // GETTING STARTED //
 ///////////////////*/
@@ -172,18 +172,18 @@ body.android ::-webkit-scrollbar{ display: none; }
 .slide					{ position: relative; width: 16.666%; height: 100%; float: left; display: block; box-sizing: border-box; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 #slide1,#slide2,#slide3,
 #slide4,#slide5,#slide6	{ background-color: #fff; font-size: 16px; line-height: 23px; text-align: center; padding-top: 120px; padding-left: 0; padding-right: 0; }
-#slide1 p:before		{ content: "\A100"; font-size: 96px; top: 0; }
-#slide2 p:before		{ content: "\A200"; font-size: 122px; top: -10px; }
-#slide3 p:before		{ content: "\F000"; font-size: 92px; top: 4px; }
-#slide4 p:before		{ content: "\A300";  font-size: 96px; top: 0; }
-#slide5 p:before		{ content: "\F17D"; font-size: 96px; top: 0;}
-#slide6 p:before		{ content: "\A600"; font-size: 148px; top: 0; }
+#slide1 p:before		{ content: '\A100'; font-size: 96px; top: 0; }
+#slide2 p:before		{ content: '\A200'; font-size: 122px; top: -10px; }
+#slide3 p:before		{ content: '\F000'; font-size: 92px; top: 4px; }
+#slide4 p:before		{ content: '\A300';  font-size: 96px; top: 0; }
+#slide5 p:before		{ content: '\F17D'; font-size: 96px; top: 0;}
+#slide6 p:before		{ content: '\A600'; font-size: 148px; top: 0; }
 #slide1 p:before,
 #slide2 p:before,
 #slide3 p:before,
 #slide4 p:before,
 #slide5 p:before,
-#slide6 p:before		{ font-family: "FontAwesome"; line-height: 96px; color: #09F; position: absolute; left: 0; right: 0; height: 100px; text-align: center; -webkit-perspective: 1000; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
+#slide6 p:before		{ font-family: 'FontAwesome'; line-height: 96px; color: #09F; position: absolute; left: 0; right: 0; height: 100px; text-align: center; -webkit-perspective: 1000; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 .slide p				{ display: block; max-width: 520px; margin: 0 auto; background-color: #fff; padding: 0 14px; }
 .appLang-el .slide p	{ font-size: 15px; }
 #indicator				{ position: absolute; width: 170px; height: 20px; margin: 0; bottom: 74px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUGCDYztyDUJgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAGFBMVEUAAADNzc3Nzc3Nzc3Nzc3Nzc3Nzc3///8aWwwLAAAABnRSTlMAX5Ks3/nRD0HIAAAAAWJLR0QHFmGI6wAAAFtJREFUGFdjYGBgEHYNMWRAAJE0IHCEc5nSwEABxleD8JOgXMY0KBCA8FlgfAcIXwzGT4TwzWD8ZAjfDcZPgfDDYPxU7Hx09ejmoduH7h5096L7B8O/6OGBGl4APYg8TQ0XAScAAAAASUVORK5CYII=); }
@@ -199,9 +199,9 @@ body.android ::-webkit-scrollbar{ display: none; }
 #nextDiv:active,
 #prevDiv:active			{ color: #ccc; }
 #nextDiv:before,
-#prevDiv:before			{ font-family: "FontAwesome"; position: absolute; top: 43%; font-size: 48px; }
-#nextDiv:before			{ content: "\f105"; right: 0; }
-#prevDiv:before			{ content: "\f104"; left: 0; }
+#prevDiv:before			{ font-family: 'FontAwesome'; position: absolute; top: 43%; font-size: 48px; }
+#nextDiv:before			{ content: '\f105'; right: 0; }
+#prevDiv:before			{ content: '\f104'; left: 0; }
 }
 /*#################################
 ####    BUILD: APP SETTINGS    ####
@@ -213,18 +213,18 @@ ul#settingsList li					{ position: relative; display: block; height: 46px; line-
 ul#settingsList li div				{ margin-left: 45px; /*-webkit-backface-visibility: hidden;*/ }
 ul#settingsList li+li div			{ border-top: 1px solid #eee; }
 ul#settingsList li.activeRow		{ background-color: #eee; color: #555; }
-ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: " ";  z-index: 99; }
+ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: ' ';  z-index: 99; }
 /*////////////////////////
 // titles and subtitles //
 ////////////////////////*/
 .contentTitle						{ display: block; font-weight: normal; color: #555; line-height: normal; padding-top: 10px; padding-bottom: 2px; line-height: 16px;}
 .contentTitle span					{ display: block; font-weight: normal; opacity: 1; color: #aaa; line-height: normal; font-size: 10px; white-space: nowrap; line-height: 13px;}
 /*icons*/
-#optionMeasure .contentTitle:before	{ content: "\E060"; font-family: "FontAwesome"; }
-#optionFacebook .contentTitle:before{ content: "\E050"; font-family: "FontAwesome"; }
-#optionLang .contentTitle:before	{ content: "\E030"; font-family: "FontAwesome"; }
-#optionHelp .contentTitle:before	{ content: "\E020"; font-family: "FontAwesome"; }
-#optionBuy .contentTitle:before		{ content: "\E040"; font-family: "FontAwesome"; }
+#optionMeasure .contentTitle:before	{ content: '\E060'; font-family: 'FontAwesome'; }
+#optionFacebook .contentTitle:before{ content: '\E050'; font-family: 'FontAwesome'; }
+#optionLang .contentTitle:before	{ content: '\E030'; font-family: 'FontAwesome'; }
+#optionHelp .contentTitle:before	{ content: '\E020'; font-family: 'FontAwesome'; }
+#optionBuy .contentTitle:before		{ content: '\E040'; font-family: 'FontAwesome'; }
 .contentTitle:before				{ position: absolute; top: 3px; left: -8px; display: block; width: 60px; height: 46px; line-height: 41px; font-size: 24px; text-align: left; background-color: transparent; color: #000; font-weight: normal; text-indent: 23px; }
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
@@ -242,7 +242,7 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 /*//////////////////////
 // SETTINGS: FACEBOOK //
 //////////////////////*/
-#optionFacebook:after				{ font-family: "FontAwesome"; content: "\f082"; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
+#optionFacebook:after				{ font-family: 'FontAwesome'; content: '\f082'; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
 .appFacebook #optionFacebook:after	{ color: #4862A3; }
 #optionLastSync						{ position: absolute; bottom: 46px; padding-top: 40px; right: 4px; display: block; text-align: right; white-space:nowrap; line-height: 14px; font-size: 8px; color: #999; z-index: auto; }
 #optionLastSync span				{ color: #bbb; padding-left: 4px; }
@@ -259,7 +259,7 @@ div#optionWebsite 					{ display: block; }
 ///////////////////*/
 #optionReview						{ position: relative; }
 #optionShare 						{ position: absolute; top: 0; right: 0; display: block; width: 60px; height: 46px; line-height: 52px; font-size: 22px; text-align: center; background-color: transparent; color: #bbb; display: none; }
-#optionShare:after					{ content: "\f045"; font-family: "FontAwesome"; }
+#optionShare:after					{ content: '\f045'; font-family: 'FontAwesome'; }
 /*///////////////////
 // SETTINGS: RESET //
 ///////////////////*/
@@ -271,8 +271,8 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #optionAdvanced 						{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 48px; overflow: hidden; color: #555; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; text-indent: 48px; }
 #optionAdvanced.activeRow				{ background-color: #eee; }
 #optionAdvanced:after 					{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
-#optionAdvanced:after					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; text-indent: 0px; }
-#optionAdvanced:before					{ content: "\E070"; font-family: "FontAwesome"; font-weight: normal; position: absolute; top: 3px; left: -8px; display: block; width: 60px; height: 46px; line-height: 41px; font-size: 22px; text-align: left; background-color: transparent; color: #555; font-weight: normal; text-indent: 27px; }
+#optionAdvanced:after					{ content: '\f105'; font-family: 'FontAwesome'; font-weight: normal; text-indent: 0px; }
+#optionAdvanced:before					{ content: '\E070'; font-family: 'FontAwesome'; font-weight: normal; position: absolute; top: 3px; left: -8px; display: block; width: 60px; height: 46px; line-height: 41px; font-size: 22px; text-align: left; background-color: transparent; color: #555; font-weight: normal; text-indent: 27px; }
 /**/
 #advancedMenuWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F2F5F6; -webkit-perspective: 800; }
 #advancedMenu							{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F2F5F6; -webkit-overflow-scrolling: touch; }
@@ -282,12 +282,12 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #advancedMenu ul li						{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; white-space: nowrap; overflow: hidden; }
 #advancedMenu ul li+li					{ border-top: 1px solid #eee; }
 #advancedMenu ul li.activeRow			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
-#advancedMenu ul li.activeRow:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: " ";  z-index: 99; }
+#advancedMenu ul li.activeRow:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: ' ';  z-index: 99; }
 #advancedMenu ul+ul						{ margin-top: 28px; border-top: 1px solid #eee; }
 #advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 45px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; box-sizing: border-box; z-index: 1; }
 #advancedMenuHeader #advBackButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #advancedMenuHeader #advBackButton:active{ color: #C6DEF9; color: #ccc; }
-#advancedMenuHeader #advBackButton:before{ font-family: "FontAwesome"; content: "\f104"; }
+#advancedMenuHeader #advBackButton:before{ font-family: 'FontAwesome'; content: '\f104'; }
 #advancedMenuTitle						{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
 /*single options*/
 #advancedReload							{ margin-bottom: 28px; color: #007aff; }
@@ -312,7 +312,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #advancedAutoUpdate,
 #advancedAutoUpdate input			{ -webkit-user-select: none; }
 #appAutoUpdateButton				{ position: absolute; top: 0px; right: 80px; color: #999; line-height: normal; font-size: 28px; white-space: nowrap; line-height: 27px; width: 60px; display: none; background-color: rgba(0,0,0,0); height: 60px; padding-top: 10px; text-align: center; }
-#appAutoUpdateButton:before			{ font-family: "FontAwesome"; content: "\f01e"; }
+#appAutoUpdateButton:before			{ font-family: 'FontAwesome'; content: '\f01e'; }
 .pending #appAutoUpdateButton		{ display: block; }
 /*#///////////////#// http://callmenick.com/tutorial-demos/css-toggle-switch/
 //# TOGGLE SWITCH #// 
@@ -320,7 +320,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 input.toggle		 				{ opacity: 0; }
 input.toggle + label				{ padding: 2px; width: 54px; height: 26px; background-color: #dddddd; border-radius: 20px; -webkit-transition:  all 0.1s ease .1s; }
 input.toggle + label:before,
-input.toggle + label:after			{ display: block; position: absolute; content: ""; }
+input.toggle + label:after			{ display: block; position: absolute; content: ''; }
 input.toggle + label:before			{ top: 2px; left: 2px; bottom: 2px; right: 2px; background-color: #fff; border-radius: 20px; -webkit-transition:  all 0.1s ease .1s; } 
 input.toggle + label:after			{ top: 4px; left: 4px; bottom: 4px; width: 22px; background-color: #dddddd; border-radius: 12px; -webkit-transition:  all 0.1s ease .1s; }
 input.toggle:checked + label		{ background-color: #8ce196; }
@@ -341,7 +341,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; -webkit-overflow-scrolling: touch; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
-#newWindowHeader #backButton:before	{ font-family: "FontAwesome"; content: "\f104"; }
+#newWindowHeader #backButton:before	{ font-family: 'FontAwesome'; content: '\f104'; }
 #newWindowHeader #saveButton		{ color: #C6DEF9; color: #ccc; -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; height: 44px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
 #newWindowHeader #backButton:active,
 #newWindowHeader #saveButton:active	{ color: #C6DEF9; color: #ccc; }
@@ -425,8 +425,8 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 .android2 #getEntryWrapper input						{ left: 0; }
 #getEntryWrapper span									{ position: absolute; top: -16px; left: 0; padding: 16px 0; text-transform: capitalize; width: 100px; font-size: 18px; font-weight: 400; float: left; z-index: 100; color: #333; background-color: #fff; }
 #getEntryWrapper input:focus							{ color: #0072BC; }
-#getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 2px;  font-family: "FontAwesome"; content: '\F000'; color: #00c; }
-#getEntryWrapper #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 2px;  font-family: "FontAwesome"; content: '\F17D'; color: #c30; }
+#getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 2px;  font-family: 'FontAwesome'; content: '\F000'; color: #00c; }
+#getEntryWrapper #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 2px;  font-family: 'FontAwesome'; content: '\F17D'; color: #c30; }
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
@@ -439,18 +439,18 @@ ul#langSelectList li.preset,
 ul#langSelectList li.set			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: ' ';  z-index: 99; }
 ul#langSelectList li.preset			{ background-color: #fff !important; }
-ul#langSelectList li.preset:before	{ font-family: "FontAwesome"; content: "\A000"; position: absolute; top: 2px; right: 18px; font-size: 21px; color: #007aff; }
+ul#langSelectList li.preset:before	{ font-family: 'FontAwesome'; content: '\A000'; position: absolute; top: 2px; right: 18px; font-size: 21px; color: #007aff; }
 /*//////////////////
 // SETTINGS: HELP //
 //////////////////*/
 #optionHelp:after 					{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
-#optionHelp:after					{ font-family: "FontAwesome"; content: "\f105"; font-weight: normal; }
+#optionHelp:after					{ font-family: 'FontAwesome'; content: '\f105'; font-weight: normal; }
 /*///////////////////////
 // SETTINGS: HELP MENU //
 ///////////////////////*/
 #appHelper ul							{ padding: 0; margin: 0; text-indent: 0; }
 #appHelper ul li						{ position: relative; padding: 0 22px; border-bottom: 1px solid #eee; height: 44px; line-height: 45px; overflow: hidden; }
-#appHelper ul li:after 					{ content: "\f105"; font-family: "FontAwesome"; font-weight: normal; position: absolute; top: 2px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
+#appHelper ul li:after 					{ content: '\f105'; font-family: 'FontAwesome'; font-weight: normal; position: absolute; top: 2px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: transparent; color: #bbb; }
 #appHelper ul li.activeRow				{ background-color: #f5f5f5; } 
 #helperWrapper,
 #appHelper								{ position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 100%; background-color: #fff; display: block; }
@@ -458,12 +458,12 @@ ul#langSelectList li.preset:before	{ font-family: "FontAwesome"; content: "\A000
 #appHelper h2							{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee;  }
 #appHelper h2 #backButton				{ position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #appHelper h2 #backButton:active		{ color: #C6DEF9; color: #ccc; }
-#appHelper h2 #backButton:before		{ font-family: "FontAwesome"; content: "\f104"; -webkit-backface-visibility: hidden; }
+#appHelper h2 #backButton:before		{ font-family: 'FontAwesome'; content: '\f104'; -webkit-backface-visibility: hidden; }
 #appHelper h2 #helpTitle				{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
 #appSubHelper h2						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 0px solid #eee;  }
 #appSubHelper h2 #subBackButton			{ position: absolute; top: 0; left: 0; width: 76px; height: 44px; padding-top: 3px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #appSubHelper h2 #subBackButton:active	{ color: #C6DEF9; color: #ccc; }
-#appSubHelper h2 #subBackButton:before	{ font-family: "FontAwesome"; content: "\f104"; -webkit-backface-visibility: hidden; }
+#appSubHelper h2 #subBackButton:before	{ font-family: 'FontAwesome'; content: '\f104'; -webkit-backface-visibility: hidden; }
 #appSubHelper h2 #subHelpTitle			{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
 #appSubHelper #subHelpContent			{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
 #appSubHelper #subHelpContent p			{ display: block; }
@@ -527,9 +527,9 @@ ul#langSelectList li.preset:before	{ font-family: "FontAwesome"; content: "\A000
 // color balance bar //
 /////////////////////*/
 #balanceBar						{ position: absolute; bottom: 0px; left: -2px; right:  11px; height: 3px; padding: 0; }
-#balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#E3825F), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#58B558)); 	background: -webkit-linear-gradient(left,                                  #E3825F 25.5%,             #207cca 25.5%,             #207cca 73.9%,             #58B558 73.9%); content: " "; }
-#balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: "FontAwesome"; content: "\f175"; font-size: 12px; line-height: 12px; padding: 0; color: #555; }
-.over div #balanceBar:after		{ /*content: "\e175";*/ color: #000; opacity: .55; }
+#balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#E3825F), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#58B558)); 	background: -webkit-linear-gradient(left,                                  #E3825F 25.5%,             #207cca 25.5%,             #207cca 73.9%,             #58B558 73.9%); content: ' '; }
+#balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: 'FontAwesome'; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; }
+.over div #balanceBar:after		{ /*content: '\e175';*/ color: #000; opacity: .55; }
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; box-sizing: border-box; overflow: hidden; }
 #appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
@@ -542,7 +542,7 @@ ul#langSelectList li.preset:before	{ font-family: "FontAwesome"; content: "\A000
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
 #appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
 #appStatusAddLeft div:before,
-#appStatusAddRight div:before	{ content: "+"; font-family: "FontAwesome"; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
+#appStatusAddRight div:before	{ content: '+'; font-family: 'FontAwesome'; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
 .android2 #appStatusAddLeft,
 .android2 #appStatusAddRight	{ padding-top: 4px; }
 #appStatusAddLeft span,
@@ -563,9 +563,9 @@ ul#langSelectList li.preset:before	{ font-family: "FontAwesome"; content: "\A000
 .msie.mobile #appStatusBarsPro span,
 .msie.mobile #appStatusBarsCar span,
 .msie.mobile #appStatusBarsFat span	{ margin-right: -38px; }
-#appStatusBarsPro span:after	{ content: " (25%)"; opacity: .6; }
-#appStatusBarsCar span:after	{ content: " (50%)"; opacity: .6; }
-#appStatusBarsFat span:after	{ content: " (25%)"; opacity: .6; }
+#appStatusBarsPro span:after	{ content: ' (25%)'; opacity: .6; }
+#appStatusBarsCar span:after	{ content: ' (50%)'; opacity: .6; }
+#appStatusBarsFat span:after	{ content: ' (25%)'; opacity: .6; }
 #appStatusBarsPro p,
 #appStatusBarsCar p,
 #appStatusBarsFat p				{ width: 0%; }
@@ -612,11 +612,11 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 /*status reload*/
 #appStatusReload					{ position: absolute; bottom: 0px; left: 0; width: 48px; height: 45px; display: inline-block; font-size: 28px; line-height: 28px; text-indent: 7px; padding-right: 11px; }
 .android44 #appStatusReload			{ bottom: -1px; }
-#appStatusReload:before				{ content: "\f01e"; font-family: "FontAwesome"; display: inline-block; padding-top: 10px; }
+#appStatusReload:before				{ content: '\f01e'; font-family: 'FontAwesome'; display: inline-block; padding-top: 10px; }
 /*status arrow*/
 #appStatusToggle					{ position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; line-height: 49px; z-index: 10; background-color: rgba(255,255,255,0); }
 #appStatusFix #appStatusArrow		{ line-height: 30px; position: absolute; top: 3px; right: 32px; height: 0; width: 0; font-size: 30px; -webkit-backface-visibility: hidden; }
-#appStatusFix #appStatusArrow:before{ content: "\f107"; font-family: "FontAwesome"; position: absolute; top: 5px; right: 12px; height: 0; width: 0; display: inline-block; }
+#appStatusFix #appStatusArrow:before{ content: '\f107'; font-family: 'FontAwesome'; position: absolute; top: 5px; right: 12px; height: 0; width: 0; display: inline-block; }
 .android44 #appStatusFix #appStatusArrow:before { top: 6px; }
 #appStatusFix.open #appStatusArrow	{ -webkit-transform: scaleY(-1); }
 /*F106 up*/
@@ -655,7 +655,7 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 #calcForm #feet.metric					{ display: none !important; }
 /*select arrow*/
 #calcForm .selectArrow					{ position: relative; }
-#calcForm .selectArrow:after			{ content: "\f078"; font-family: "FontAwesome"; position: absolute; top: 18px; right: -10px; color: #666; font-size: 10px; line-height: 10px; }
+#calcForm .selectArrow:after			{ content: '\f078'; font-family: 'FontAwesome'; position: absolute; top: 18px; right: -10px; color: #666; font-size: 10px; line-height: 10px; }
 #calcForm .calcResult .selectArrow:after{ right: -12px; }
 .moz.mobile #calcForm .selectArrow:after{ color: rgba(0,0,0,0); }
 /*activity select*/
@@ -717,17 +717,17 @@ div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; 
 .appLang-th div#sliderPos		{ font-size: 10.5pt; line-height: 16pt; padding-right: 21px; }
 .appLang-th div#sliderNeg 		{ font-size: 10.5pt; line-height: 16pt; padding-left:  21px; }
 div#sliderNeg:before,
-div#sliderPos:before			{ font-family: "FontAwesome"; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
-div#sliderNeg:before			{ left: 0; content: "\F010"; }	
-div#sliderPos:before			{ right: 0; content: "\F020"; }
+div#sliderPos:before			{ font-family: 'FontAwesome'; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
+div#sliderNeg:before			{ left: 0; content: '\F010'; }	
+div#sliderPos:before			{ right: 0; content: '\F020'; }
 .android div#sliderPos:before,
 .android div#sliderNeg:before	{ top: 3px; }
 .android44 div#sliderPos:before,
 .android44 div#sliderNeg:before	{ top: 5px; }
 div#sliderNeg span				{ width: 0; height: 0; border-style: solid; border-width: 7px 14px 7px 0; border-color: transparent #D55621 transparent transparent; position: absolute; top: 7px; left: 3px; display: none; }
 div#sliderPos span				{ width: 0; height: 0; border-style: solid; border-width: 7px 0 7px 14px; border-color: transparent transparent transparent #316ADC; position: absolute; top: 7px; right: 3px; display: none; }
-div#sliderNeg.activeArrow:before{ color: #CB5220; font-family: "FontAwesome"; content: "\F001"; }
-div#sliderPos.activeArrow:before{ color: #2052CB; font-family: "FontAwesome"; content: "\F002"; }
+div#sliderNeg.activeArrow:before{ color: #CB5220; font-family: 'FontAwesome'; content: '\F001'; }
+div#sliderPos.activeArrow:before{ color: #2052CB; font-family: 'FontAwesome'; content: '\F002'; }
 /*MAIN FORM*/
 input#entryTitle				{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 47px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: transparent; padding: 2px 1px 0 2px; border-radius: 0; text-indent: 0; margin: 0; border: none; }
 .moz input#entryTitle,
@@ -737,7 +737,7 @@ input#entryBody.focusMe			{ top: -5px; border: 1px solid transparent; border-col
 input#entryBody.focusMy			{ top: 46px; border: 1px solid transparent; border-color: transparent; -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
 div#entryBodySearch				{ position: absolute; top: 67px; right: 15px; width: 30px; height: 28px; display: block; padding: 5px 0 0 20px; background-color: rgba(0,0,0,0); opacity: .5; z-index: 999; }
 #entryBodySearch div			{ font-size: 32px; display: inline-block; width: 0.4em; height: 0.4em; border: 0.1em solid #bbb; position: relative; border-radius: 0.35em; }
-#entryBodySearch div:before		{ content: ""; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #bbb; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
+#entryBodySearch div:before		{ content: ''; display: inline-block; position: absolute; left: -0.25em; bottom: -0.16em; border-width: 0; background: #bbb; width: 0.35em; height: 0.11em; -webkit-transform: rotate(-45deg); }
 div#entryBodySearch:active		{ opacity: 1; }
 select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; box-sizing: border-box; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 .ios select#entryTime			{ padding: 6px 4px 5px 7px; }
@@ -827,7 +827,7 @@ div.editing p				{ opacity: 1; }
 .sidebar.afternoon #diarySidebar	{ color: #F29D50; }
 .sidebar.night #diarySidebar		{ color: #4486E5; }
 .sidebar.afterhours #diarySidebar	{ color: #4141D1; }
-#diarySidebar:before				{ font-family: "FontAwesome"; content: "\F025"; }
+#diarySidebar:before				{ font-family: 'FontAwesome'; content: '\F025'; }
 #diarySidebar						{ font-size: 18px; line-height: 19px; position: absolute; top: 0; left: 0; width: 88px; height: 35px; background-color: rgba(0,0,0,0); padding-top: 10px; overflow: hidden; text-align: left; }
 .android #diarySidebar				{ padding-top: 11px; }
 .sidebar #entryList div				{ border-bottom-width: 0; padding-bottom: 1px; }
@@ -860,8 +860,8 @@ div.editing p				{ opacity: 1; }
 // IN-LINE EDIT //
 ////////////////*/
 #kcalsAdjust							{ color: rgba(0,0,0,.1); }
-#adjustPos:before						{ content: "\f054"; font-family: "FontAwesome"; font-size: 20pt; line-height: 47px; margin-left: -10px; }
-#adjustNeg:before 						{ content: "\f053"; font-family: "FontAwesome"; font-size: 20pt; line-height: 47px; margin-right: -10px; }
+#adjustPos:before						{ content: '\f054'; font-family: 'FontAwesome'; font-size: 20pt; line-height: 47px; margin-left: -10px; }
+#adjustNeg:before 						{ content: '\f053'; font-family: 'FontAwesome'; font-size: 20pt; line-height: 47px; margin-right: -10px; }
 .mobile #adjustNegBlock,
 .mobile #adjustPosBlock					{ color: #007AFF; background-color: rgba(0,0,0,.1); }
 .mobile #adjustNegBlock.activeBlock,
@@ -895,7 +895,7 @@ div.editing p				{ opacity: 1; }
 // NOTES //
 /////////*/
 #diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 22px; color: #ddd; }
-#diaryNotes:before			{ content: "\f02d"; font-family: "FontAwesome"; display: inline-block; font-weight: normal; }
+#diaryNotes:before			{ content: '\f02d'; font-family: 'FontAwesome'; display: inline-block; font-weight: normal; }
 #diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
 #diaryNotesInput 			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: transparent; z-index: 98; box-sizing: border-box; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
 #diaryNotesButton			{ position: fixed; top: 0; right: 0; width: 124px; height: 62px; background-color: rgba(255,255,255,.7); display: block; z-index: 999; text-align: center; line-height: 65px; font-size: 18px; color: #007aff; font-weight: bold; -webkit-backface-visibility: hidden; }
@@ -936,9 +936,9 @@ span#iconRefresh,
 span#iconClear			{ padding: 19px 25px 16px 22px; font-size: 28px; line-height: 28px; position: absolute; top: 0px; right: -2px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 9999; display: block; background-color: rgba(0,0,0,0); }
 span#iconClear			{ display: none; }
 span#iconClear:before,
-span#iconRefresh:before { font-family: "FontAwesome"; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
-span#iconRefresh:before { content: "\f021"; }
-span#iconClear:before	{ content: "\F00D"; }
+span#iconRefresh:before { font-family: 'FontAwesome'; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
+span#iconRefresh:before { content: '\f021'; }
+span#iconClear:before	{ content: '\F00D'; }
 .searcheable .foodName	{ color: #2157D6; font-weight: bold; }
 /*align fix*/
 .android4lt #foodSearch,
@@ -963,7 +963,7 @@ span.preSpan			{ font-size: 11px; padding-right: 4px; color: #2157D6; }
 .exerciseType span.foodFat,
 .exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
-#appHeader:before				{ font-family: "FontAwesome"; content: "\f0a8"; color: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; box-sizing: border-box; -webkit-backface-visibility:hidden; }
+#appHeader:before				{ font-family: 'FontAwesome'; content: '\f0a8'; color: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; box-sizing: border-box; -webkit-backface-visibility:hidden; }
 body.ios7 #appHeader:before 	{ padding-top: 24px; }
 body.android44 #appHeader:before{ padding-top: 11px; }
 #appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
@@ -993,7 +993,7 @@ body.android4lt.closer #appContent	{ visibility: hidden !important; }
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodCar,
 .searcheable.exercise span.foodFat	{ display: none; }
-.searcheable.favItem:before			{ content: "\f005"; font-family: "FontAwesome"; font-size: 28px; position: absolute; top: 0px; right: 0; width: 44px; height: 56px; color: #ffcc33; line-height: 58px; opacity: .7; text-shadow: rgba(0,0,0,.4) 0px 0px 1px; }
+.searcheable.favItem:before			{ content: '\f005'; font-family: 'FontAwesome'; font-size: 28px; position: absolute; top: 0px; right: 0; width: 44px; height: 56px; color: #ffcc33; line-height: 58px; opacity: .7; text-shadow: rgba(0,0,0,.4) 0px 0px 1px; }
 /*/////////////
 // MODAL BOX //
 /////////////*/
@@ -1051,14 +1051,14 @@ span#proLabel			{ top:  0px; text-align: left; left: 67px; color: #666; }
 span#carLabel			{ top: 14px; text-align: left; left: 67px; color: #666; }
 span#fatLabel			{ top: 28px; text-align: left; left: 67px; color: #666; }
 /*modal delete*/
-#modalDelete:before			{ content: "\f014"; font-family: "FontAwesome"; font-size: 30px; position: absolute; top: -62px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
+#modalDelete:before			{ content: '\f014'; font-family: 'FontAwesome'; font-size: 30px; position: absolute; top: -62px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
 #modalDelete.button:before	{ color: #ccc; }
 /*modal edit*/
-#modalEdit:before			{ content: "\f040"; font-family: "FontAwesome"; font-size: 30px; position: absolute; top: -62px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
+#modalEdit:before			{ content: '\f040'; font-family: 'FontAwesome'; font-size: 30px; position: absolute; top: -62px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalEdit.button:before	{ color: #ccc; }
 /*modal fav*/
-#modalFav:before			{ content: "\f006"; font-family: "FontAwesome"; font-size: 32px; position: absolute; top: -62px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
-#modalFav.favorite:before	{ content: "\f005"; font-family: "FontAwesome"; }
+#modalFav:before			{ content: '\f006'; font-family: 'FontAwesome'; font-size: 32px; position: absolute; top: -62px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
+#modalFav.favorite:before	{ content: '\f005'; font-family: 'FontAwesome'; }
 #modalFav.button:before		{ color: #ccc; }
 /*///////////
 // SPINNER //
@@ -1092,9 +1092,9 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #topBarItem-1 span:before,
 #topBarItem-2 span:before,
 #topBarItem-3 span:before	{ position: absolute; top: 10px; left: -4px; display: inline-block; font-size: 15px; line-height: 15px; font-weight: normal !important; }
-#topBarItem-1 span:before	{ font-family: "FontAwesome"; content: "\F028"; }
-#topBarItem-2 span:before	{ font-family: "FontAwesome"; content: "\F005"; }
-#topBarItem-3 span:before	{ font-family: "FontAwesome"; content: "\F029"; }
+#topBarItem-1 span:before	{ font-family: 'FontAwesome'; content: '\F028'; }
+#topBarItem-2 span:before	{ font-family: 'FontAwesome'; content: '\F005'; }
+#topBarItem-3 span:before	{ font-family: 'FontAwesome'; content: '\F029'; }
 /*////////////////
 // ADD NEW FOOD //
 ////////////////*/
@@ -1147,43 +1147,56 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #tabMyCatsBlock li div				{ margin-left: 54px; display: block; margin-right: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #tabMyCatsBlock li+li div			{ border-top: 1px solid #eee; }
 #tabMyCatsBlock li.activeRow		{ background-color: #eee; color: #555; }
-#tabMyCatsBlock li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: " ";  z-index: 99; }
-#tabMyCatsBlock ul li:after			{ font-family: "FontAwesome"; content: "\f105"; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
+#tabMyCatsBlock li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: ' ';  z-index: 99; }
+#tabMyCatsBlock ul li:after			{ font-family: 'FontAwesome'; content: '\f105'; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; }
 #tabMyCatsBlock ul li div			{ } 
 .ios #tabMyCatsBlock div:before,
 .ios #tabMyCatsBlock li:after,
 .ios #tabMyCatsBlock li				{ -webkit-backface-visibility: hidden; }
 /*ICONS*/
-.searcheable:after					{ font-family: "FontAwesome"; text-indent: 15px; font-size: 28px; width: 20px; color: #2157D6; opacity: .36; position: absolute; top: 25%; left: 0; }
-#tabMyCatsBlock div:before			{ font-family: "FontAwesome"; text-indent: 15px; font-size: 28px; width: 20px; color: #000; position: absolute; top: 0; left: 0; }
+.searcheable:after					{ font-family: 'FontAwesome'; text-indent: 15px; font-size: 28px; width: 20px; color: #2157D6; opacity: .36; position: absolute; top: 25%; left: 0; }
+#tabMyCatsBlock div:before			{ font-family: 'FontAwesome'; text-indent: 15px; font-size: 28px; width: 20px; color: #000; position: absolute; top: 0; left: 0; }
 #cat0300, #cat3500					{ display: none !important; }
-.cat0000:after,#cat0000 div:before	{ content: "\F17D"; top: -2px !important; color: #D55621; }
+.cat0000:after,#cat0000 div:before	{ content: '\F17D'; top: -2px !important; color: #D55621; }
 .cat0000:after						{ top: 24% !important; }
-.cat0100:after,#cat0100 div:before { content: "\C010"; }
-.cat0200:after,#cat0200 div:before { content: "\C020"; }
-.cat0300:after,#cat0300 div:before { content: "\C030"; }
-.cat0400:after,#cat0400 div:before { content: "\C040"; }
-.cat0500:after,#cat0500 div:before { content: "\C050"; }
-.cat0600:after,#cat0600 div:before { content: "\C060"; }
-.cat0700:after,#cat0700 div:before { content: "\C070"; }
-.cat0800:after,#cat0800 div:before { content: "\C080"; }
-.cat0900:after,#cat0900 div:before { content: "\C090"; }
-.cat1000:after,#cat1000 div:before { content: "\C100"; }
-.cat1100:after,#cat1100 div:before { content: "\C110"; }
-.cat1200:after,#cat1200 div:before { content: "\C120"; }
-.cat1300:after,#cat1300 div:before { content: "\C130"; }
-.cat1400:after,#cat1400 div:before { content: "\C140"; }
-.cat1500:after,#cat1500 div:before { content: "\C150"; }
-.cat1600:after,#cat1600 div:before { content: "\C160"; }
-.cat1700:after,#cat1700 div:before { content: "\C170"; font-size: 42px !important; font-size: 42px !important; left: -8px !important; }
-.cat1800:after,#cat1800 div:before { content: "\C180"; }
-.cat1900:after,#cat1900 div:before { content: "\C190"; }
-.cat2000:after,#cat2000 div:before { content: "\C200"; }
-.cat2100:after,#cat2100 div:before { content: "\C210"; }
-.cat2200:after,#cat2200 div:before { content: "\C220"; top: -4px !important; }
-.cat2200:after					   { content: "\C220"; top: 25% !important; }
-.cat2500:after,#cat2500 div:before { content: "\C250"; }
-.cat3500:after,#cat3500 div:before { content: "\C350"; }
-.cat3600:after,#cat3600 div:before { content: "\C360"; }
-.cat9999:after,#cat9999 div:before	{ content: "\C999"; }
+.cat0100:after,#cat0100 div:before { content: '\C010'; }
+.cat0200:after,#cat0200 div:before { content: '\C020'; }
+.cat0300:after,#cat0300 div:before { content: '\C030'; }
+.cat0400:after,#cat0400 div:before { content: '\C040'; }
+.cat0500:after,#cat0500 div:before { content: '\C050'; }
+.cat0600:after,#cat0600 div:before { content: '\C060'; }
+.cat0700:after,#cat0700 div:before { content: '\C070'; }
+.cat0800:after,#cat0800 div:before { content: '\C080'; }
+.cat0900:after,#cat0900 div:before { content: '\C090'; }
+.cat1000:after,#cat1000 div:before { content: '\C100'; }
+.cat1100:after,#cat1100 div:before { content: '\C110'; }
+.cat1200:after,#cat1200 div:before { content: '\C120'; }
+.cat1300:after,#cat1300 div:before { content: '\C130'; }
+.cat1400:after,#cat1400 div:before { content: '\C140'; }
+.cat1500:after,#cat1500 div:before { content: '\C150'; }
+.cat1600:after,#cat1600 div:before { content: '\C160'; }
+.cat1700:after,#cat1700 div:before { content: '\C170'; font-size: 42px !important; font-size: 42px !important; left: -8px !important; }
+.cat1800:after,#cat1800 div:before { content: '\C180'; }
+.cat1900:after,#cat1900 div:before { content: '\C190'; }
+.cat2000:after,#cat2000 div:before { content: '\C200'; }
+.cat2100:after,#cat2100 div:before { content: '\C210'; }
+.cat2200:after,#cat2200 div:before { content: '\C220'; top: -4px !important; }
+.cat2200:after					   { content: '\C220'; top: 25% !important; }
+.cat2500:after,#cat2500 div:before { content: '\C250'; }
+.cat3500:after,#cat3500 div:before { content: '\C350'; }
+.cat3600:after,#cat3600 div:before { content: '\C360'; }
+.cat9999:after,#cat9999 div:before { content: '\C999'; }
+/*STORES*/
+#appStores							{ position: relative; display: block; height: 100%; padding-top: 36px; box-sizing: border-box; min-height: 300px; }
+#appStores span						{ position: relative; display: block; float: left; font-size: 34px; color: #000; width: 33%; height: 33%; text-align: center; }
+#appStores span:before				{ font-family: 'FontAwesome'; display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-align: center; }
+#b000:before						{ content: '\B000'; }
+#b100:before						{ content: '\B100'; }
+#b200:before						{ content: '\B200'; }
+#b300:before						{ content: '\B300'; }
+#b400:before						{ content: '\B401'; }
+#b500:before						{ content: '\B500'; }
+#b600:before						{ content: '\B600'; }
+#b700:before						{ content: '\B700'; }
+#b800:before						{ content: '\B800'; }
 

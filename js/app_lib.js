@@ -78,6 +78,43 @@ app.appendScript = function(url) {
 	script.src = url;
 	document.getElementsByTagName('head')[0].appendChild(script);
 };
+/////////
+// URL //
+/////////
+app.url = function(url) {
+	//STORES
+	var store = {
+		web:        'http://kcals.net',
+		ios:        'https://itunes.apple.com/app/id732382802',
+		android:    app.device.android ? 'market://details?id=com.cancian.kcals' : 'https://play.google.com/store/apps/details?id=com.cancian.kcals',
+		wp8:        'http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e',
+		windows8:   app.device.windows8 ? 'ms-windows-store:PDP?PFN=27631189-ce9d-444e-a46b-31b8f294f14e' : 'http://apps.microsoft.com/windows/app/kcals/27631189-ce9d-444e-a46b-31b8f294f14e',
+		firefoxos:  'https://marketplace.firefox.com/app/kcals',
+		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
+		chromeapp:  'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc',
+		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'http://appworld.blackberry.com/webstore/content/59937667',
+	};
+	//SHORTCUT
+	     if((!url && app.device.ios)       || url == 'ios')        { url = store.ios;        }
+	else if((!url && app.device.android)   || url == 'android')    { url = store.android;    }
+	else if((!url && app.device.wp8)       || url == 'wp8')        { url = store.wp8;        }
+	else if((!url && app.device.windows8)  || url == 'windows8')   { url = store.windows8;   }
+	else if((!url && app.device.firefoxos) || url == 'firefoxos')  { url = store.firefoxos;  }	
+	else if((!url && app.device.osxapp)    || url == 'osxapp')     { url = store.osxapp;     }
+	else if((!url && app.device.chromeapp) || url == 'chromeapp')  { url = store.chromeapp;  }
+	else if((!url && app.device.blackbery) || url == 'blackberry') { url = store.blackberry; }
+	else if(url == 'www')										   { url = store.web;        }
+	//OPEN
+	if(url) {
+		     if(app.device.ios)			{ window.open(url, '_system', 'location=yes');								}
+		else if(app.device.android)		{ window.open(url, '_system', 'location=yes');								}
+		else if(app.device.wp8)			{ ref = window.open(url, '_blank', 'location=no');							}
+		else if(app.device.windows8)	{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(url));	}
+		else if(app.device.firefoxos)	{ ref = window.open(url, '_system', 'location=yes');						}
+		else if(app.device.osxapp)		{ macgap.app.open(url);														}
+		else 							{ window.open(url, '_blank'); 												}
+	}
+};
 /////////////////////
 // ISCROLL WRAPPER //
 /////////////////////

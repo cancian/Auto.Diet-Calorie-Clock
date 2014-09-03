@@ -1211,6 +1211,7 @@ function buildAdvancedMenu() {
 		<li id='advancedChangelog'>" + LANG.CHANGELOG[lang] + "</li>\
 		<li id='advancedReview'>" + LANG.REVIEW[lang] + "</li>\
 		<li id='advancedContact'>" + LANG.CONTACT[lang] + "</li>\
+		<li id='advancedAbout'>"   + LANG.ABOUT[lang] + "</li>\
 	</ul>\
 	<ul>\
 		<li id='advancedReload'>" + LANG.REBUILD_FOOD_DB[lang] + "</li>\
@@ -1294,21 +1295,9 @@ function buildAdvancedMenu() {
 	//#///////#//
 	//# ABOUT #//
 	//#///////#//
-	/*
-	$("#advancedAbout").remove();
-	//<li id='advancedAbout'>" + LANG.ABOUT[lang] + "</li>\
-	$("#advancedAbout").on(tap, function(evt) {
-		if(hasTouch()) {
-			navigator.notification.alert(LANG("ABOUT_DIALOG"), voidThis,LANG("ABOUT_TITLE"),LANG("OK"));
-		} else {
-			alert(LANG("ABOUT_TITLE") + " \n" + LANG("ABOUT_DIALOG"));
-			setTimeout(function() {
-				//$(".nextChild").removeClass("nextChild");
-				$(".activeRow").removeClass("activeRow");
-			},0);
-		}
+	app.handlers.activeRow('#advancedAbout','button',function(evt) {
+		app.about();
 	});
-	*/
 	//#/////////#//
 	//# CONTACT #//
 	//#/////////#//

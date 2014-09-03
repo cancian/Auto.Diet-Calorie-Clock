@@ -537,7 +537,7 @@ app.read('config_kcals_type','cyclic') ? $('body').addClass('cyclic') : $('body'
 ///////////
 // IOS 7 //
 ///////////
-if(app.device.ios7) {
+if(app.device.ios7 && app.device.cordova) {
 	$('body').addClass('ios7');
 }
 if(app.device.ios) {

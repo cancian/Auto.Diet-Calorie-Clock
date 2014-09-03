@@ -1901,19 +1901,6 @@ function sanitizeSql(str) {
 /////////////////////
 // store url //
 ///////////////
-function getStoreUrl(button) {
-		app.analytics('rate');
-	if(button == 1) {
-		app.analytics('vote');
-             if(app.device.ios)			{ window.open('https://itunes.apple.com/app/id732382802', '_system', 'location=yes');														}
-		else if(app.device.android)		{ window.open('market://details?id=com.cancian.kcals', '_system', 'location=yes');															}
-		else if(app.device.wp8)			{ ref = window.open('http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e', '_blank', 'location=no');					}
-		else if(app.device.windows8)	{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e'));	}
-		else if(app.device.firefoxos)	{ ref = window.open('https://marketplace.firefox.com/app/kcals', '_system', 'location=yes');												}
-		else if(app.device.osxapp)		{ macgap.app.open('macappstores://itunes.apple.com/app/id898749118');																		}
-		else if(app.device.chromeapp)	{ window.open('https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc/reviews', '_blank');		}
-	}
-}
 var rateTimer;
 function getRateDialog() {
 	//appstore enabled
@@ -1926,12 +1913,18 @@ function getRateDialog() {
 	// IF 1 WEEK //
 	//////////////
 	var timeRate = 3 * 24 * 60 * 60 * 1000;
-	if((new Date().getTime()) - parseInt(app.read('getRate')) > (timeRate)) {
+	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
 			if(app.read('getRate','locked')) { return; }
 			//SHOW DIALOG
-			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], getStoreUrl, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
+			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function(button) {
+				app.analytics('rate');
+				if(button == 1) {
+					app.analytics('vote');
+					app.url();
+				}
+			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
 			app.save('getRate','locked')
 		},3500);
 	}

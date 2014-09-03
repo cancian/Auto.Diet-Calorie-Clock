@@ -44,6 +44,47 @@ app.tab.settings = function(keepOpen) {
 		}
 		return false;
 	});
+	//#///////#//
+	//# ABOUT #//
+	//#///////#//
+	app.about = function() {
+		//////////
+		// HTML //
+		//////////
+		var aboutHtml = '\
+		<div id="appStores">\
+			<span id="b000"></span>\
+			<span id="b100"></span>\
+			<span id="b200"></span>\
+			<span id="b300"></span>\
+			<span id="b400"></span>\
+			<span id="b500"></span>\
+			<span id="b600"></span>\
+			<span id="b700"></span>\
+			<span id="b800"></span>\
+		</div>';
+		/////////////
+		// HANDLER //
+		/////////////
+		var aboutHandler = function() { 
+			$('#b000').on(touchend,function() { app.url('www');        });
+			$('#b100').on(touchend,function() { app.url('android');    });
+			$('#b200').on(touchend,function() {	app.url('ios');        });
+			$('#b300').on(touchend,function() {	app.url('wp8');        });
+			$('#b400').on(touchend,function() {	app.url('windows8');   });
+			$('#b500').on(touchend,function() { app.url('firefoxos');  });
+			$('#b600').on(touchend,function() { app.url('osxapp');     });
+			$('#b700').on(touchend,function() { app.url('chromeapp');  });
+			$('#b800').on(touchend,function() {	app.url('blackberry'); });
+		};
+		/////////////////
+		// CALL WINDOW //
+		/////////////////
+		getNewWindow('KCals ' + appVersion, aboutHtml, aboutHandler);
+	};
+	$("#optionWebsite").on(touchend,function(evt) {
+		app.about();
+	});
 	//////////////
 	// HELP TAP //
 	//////////////
