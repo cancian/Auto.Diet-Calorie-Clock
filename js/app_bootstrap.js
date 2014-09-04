@@ -50,24 +50,28 @@ function InitializeLocalSuperBlock(opt) {
 	}
 	//QUOTA
 	try {
-		//WRITE RESULTS
-		if(dataJS != window.localStorage.getItem('remoteSuperBlockJS')) {
-			window.localStorage.setItem('remoteSuperBlockJS',dataJS);
-		}
-		if(dataCSS != window.localStorage.getItem('remoteSuperBlockCSS')) {
-			window.localStorage.setItem('remoteSuperBlockCSS',dataCSS);
-		}
 		/////////////////////////////////
 		// APPEND IF USING SUPERBLOCKS //
 		/////////////////////////////////
 		if(!$('#plainLoad').length && !$('#superBlockCSS').length) {
-			safeExec(function() {		
-				$('head').append('<style id="superBlockCSS">' + dataCSS + '<\/style>');
-				//$('head').append('<script id="superBlockJS">' + dataJS  + '<\/script>');
-				$.globalEval(dataJS);
-				$('#coreCss,#coreFonts').remove();
-			});
+			setTimeout(function() {
+				safeExec(function() {		
+					$('#coreCss,#coreFonts').remove();
+					$('head').append('<style id="superBlockCSS">' + dataCSS + '<\/style>');
+					$('head').append('<script id="superBlockJS">' + dataJS  + '<\/script>');
+					//$.globalEval(dataJS);
+				});
+			},0);
 		}
+		setTimeout(function() {
+			//WRITE RESULTS
+			if(dataJS != window.localStorage.getItem('remoteSuperBlockJS')) {
+				window.localStorage.setItem('remoteSuperBlockJS',dataJS);
+			}
+			if(dataCSS != window.localStorage.getItem('remoteSuperBlockCSS')) {
+				window.localStorage.setItem('remoteSuperBlockCSS',dataCSS);
+			}
+		},0);
 	} catch(e) { throw(e); }
 	//
 	}});}});}});}});
@@ -169,8 +173,8 @@ function buildRemoteSuperBlock(opt) {
 		////////////////////
 		if(updatePending == 1) {
 			setTimeout(function() {
-				if(app) {
-					if(app.analytics) {
+				if(typeof app !== 'undefined') {
+					if(typeof app.analytics !== 'undefined') {
 						app.analytics('autoupdate');
 					}
 				}
@@ -226,14 +230,14 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 		//SAVE REQUEST
 		if(!window.localStorage.getItem("remoteSuperBlockJS") || !window.localStorage.getItem("remoteSuperBlockCSS")) {
 			setTimeout(function() {
-				if(window.location.protocol.indexOf('http') === -1) {
+				//if(window.location.protocol.indexOf('http') === -1) {
 					InitializeLocalSuperBlock();
-				}
-			},5000);
+				//}
+			},2000);
 		}
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		},10000);
+		},5000);
 	});
 }
 // BACKWARDS COMP
@@ -241,6 +245,6 @@ $(document).ready(function() {
 	setTimeout(function() {
 		$('body').addClass('started');
 		$('body').removeClass('unloaded');
-	},5000);
+	},2000);
 });
 

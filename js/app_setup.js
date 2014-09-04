@@ -39,7 +39,11 @@ function showIntro(isNew) {
 			if(isNew == true) {
 				setTimeout(function() {
 					if(typeof baseVersion !== 'undefined') {
-						app.analytics('install');
+						if(app.vars.http) {
+							app.analytics('webinstall');
+						} else {
+							app.analytics('install');
+						}
 					}
 				},5000);
 			}
@@ -1424,7 +1428,7 @@ function buildHelpMenu() {
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
-	var helpTopics = LANG.HELP_TOPICS_ARRAY[lang];
+	var helpTopics = LANG.HELP_TOPICS_ARRAY['en'];
 	var helpHtml   = "";
 	var topicId    = 0;
 	$.each(helpTopics, function(key, value) {

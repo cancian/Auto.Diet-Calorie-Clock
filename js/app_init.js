@@ -95,7 +95,9 @@ function initJS() {
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
+	if (window.location.protocol.indexOf('http') === -1) {
+		document.write("<script type='text/javascript' src='" + hostLocal + "js/cordova.js'><\/script>");
+	}
 	////////
 	// FB //
 	////////
@@ -142,7 +144,9 @@ function initJS() {
 			if(!document.getElementById('superBlockCSS')) {
 				document.write('<style type="text/css" id="superBlockCSS">' + window.localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
 				document.addEventListener('DOMContentLoaded', function(event) {
-					$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
+					setTimeout(function() {
+						$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
+					},0);
 				},false);
 			}
 		}

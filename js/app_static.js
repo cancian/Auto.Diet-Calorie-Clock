@@ -11,7 +11,7 @@ $(document).ready(function() {
 			initDB();
 		});
 	} catch(error) {
-		app.reboot(error);
+		app.reboot('reset');
 	}
 });
 ////////////////
@@ -605,18 +605,22 @@ if(app.device.osx) {
 if(app.device.osxapp) {
 	$('body').addClass('osxapp');
 	//ADD MENU (RESET SETTINGS)
-	if(macgap.menu.getItem('KCals').submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
-		macgap.menu.getItem('KCals').submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
+	try {
+		if(macgap.menu.getItem('KCals').submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
+			macgap.menu.getItem('KCals').submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
+		}
+		macgap.menu.getItem('KCals').submenu().addSeparator();
+		macgap.menu.getItem('KCals').submenu().addItem(LANG.SETTINGS_WIPE[lang], 'cmd+opt+r', function() {
+			appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
+				if(button == 1) {
+					deSetup();
+					return false;
+				}
+			}, LANG.OK[lang], LANG.CANCEL[lang]);
+		});
+	} catch(e) {
+		errorHandler(e);	
 	}
-	macgap.menu.getItem('KCals').submenu().addSeparator();
-	macgap.menu.getItem('KCals').submenu().addItem(LANG.SETTINGS_WIPE[lang], 'cmd+opt+r', function() {
-		appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
-			if(button == 1) {
-				deSetup();
-				return false;
-			}
-		}, LANG.OK[lang], LANG.CANCEL[lang]);
-	});
 	//CLOSE ON MINIMIZE
 	$(document).on('visibilitychange', function () {
 		if (document.hidden == true || document.visibilityState == 'hidden') {
@@ -777,7 +781,10 @@ setTimeout(function() {
 				if(typeof updateCustomList == 'function' && app.read('foodDbLoaded','done')) {
 					updateCustomList('fav');
 					updateCustomList('items');
-					setTimeout(function() { setPush(); }, 1000);
+					updateTodayOverview();
+					setTimeout(function() {
+						setPush();
+					},1000);
 				}
 			});
 		}
@@ -863,6 +870,10 @@ setTimeout(function() {
 			$('#timerDailyInput').trigger('blur');
 		}
 	},function() {
+		//UPDATE TODAY'S
+		setTimeout(function() {
+			updateTodayOverview();
+		},1000);
 		//BLUR
 		if(app.device.desktop) {
 			setTimeout(function() {
@@ -1002,7 +1013,7 @@ setTimeout(function() {
 	});
 	*/
 } catch(error) {
-	app.reboot(error);	
+	app.reboot('reset');	
 }
 ////#//
 } //#//

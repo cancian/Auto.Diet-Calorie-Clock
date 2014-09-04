@@ -1749,6 +1749,10 @@ function getModalWindow(itemId) {
 					modal.close(saveTime);
 					//HIGHLIGHT
 					app.handlers.highlight('.' + modal.id);
+					//UPDATE TODAY'S
+					setTimeout(function() {
+						updateTodayOverview();
+					},1000);
 				},25);
 			});
 		};
