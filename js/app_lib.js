@@ -7,6 +7,7 @@ var app = {
 	get: {},
 	call: {},
 	exec: {},
+	info: {},
 	vars: {},
 	timer: {},
 	is: {},
@@ -115,55 +116,20 @@ app.url = function(url) {
 		else 							{ window.open(url, '_blank'); 												}
 	}
 };
-/////////////////////
-// ISCROLL WRAPPER //
-/////////////////////
-var scrollTarget;
-app.scroller = function(target) {
-
-var iWrapper  = target + 'wrapper';
-
-$(target).wrap('<div id="' + target.replace('#','') + 'wrapper' + '"></div>' );
-
-$(iWrapper).css('overflow','hidden');
-$(iWrapper).css('position','absolute');
-$(iWrapper).css('top','0px');
-$(iWrapper).css('bottom','0');
-$(iWrapper).css('left','0');
-$(iWrapper).css('right','0');
-$(iWrapper).css('width','100%');
-$(iWrapper).css('height','100%');
-$(iWrapper).css('box-sizing','border-box');
-$(iWrapper).css(prefix + 'backface-visibility', 'hidden');
-
-$(target).css('padding-top',$('#appHeader').height() + 'px');
-$(target).css('padding-bottom',$('#appFooter').height() + 'px');
-$(target).css('bottom','0');
-$(target).css('top','0');
-$(target).css('position','relative');
-$(target).css('display','block');
-
-$(target).css(prefix + 'backface-visibility', 'hidden');
-	setTimeout(function() {
-				scrollTarget = new IScroll(iWrapper, {
-					//scrollX : false,
-					scrollY : true,
-					momentum : true,
-					//bindToWrapper: true,
-				});
-	}, 300);
-
-
+//////////////
+// APP INFO //
+//////////////
+app.vars.platform = function() {
+	     if(app.device.ios)        { return 'iOS';           }
+	else if(app.device.android)    { return 'Android';       }
+	else if(app.device.wp8)        { return 'Windows Phone'; }
+	else if(app.device.windows8)   { return 'Windows 8';     }
+	else if(app.device.firefoxos)  { return 'FirefoxOS';     }	
+	else if(app.device.osxapp)     { return 'Mac OSX';       }
+	else if(app.device.chromeapp)  { return 'ChromeOS';      }
+	else if(app.device.blackbery)  { return 'BlackBerry';    }
+	else                           { return 'web';           }
 };
-$(document).ready(function() {
-	//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-	setTimeout(function() {
-	//	app.scroller('#appContent');
-	}, 1000);
-});
-//////////////
-// APP VARS //
-//////////////
 app.vars.useragent      = navigator.userAgent;
 var userAgent           = navigator.userAgent;
 var appBalance;

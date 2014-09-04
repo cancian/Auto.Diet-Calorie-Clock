@@ -251,9 +251,9 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 /*/////////////////////
 // SETTINGS: WEBSITE //
 /////////////////////*/
-div#optionWebsite					{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-transform: uppercase; }
+div#optionWebsite					{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-shadow: rgba(255,255,255,.5) 0 1px 0; }
+div#optionWebsite span				{ color: #999; }
 div#optionWebsite 					{ display: block; }
-/*body.appDebug #optionWebsite		{ display: block; color: #008800; }*/
 /*///////////////////
 // SETTINGS: SHARE //
 ///////////////////*/
@@ -1187,9 +1187,10 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .cat3600:after,#cat3600 div:before { content: '\C360'; }
 .cat9999:after,#cat9999 div:before { content: '\C999'; }
 /*STORES*/
-#appStores							{ position: relative; display: block; height: 100%; padding-top: 36px; box-sizing: border-box; min-height: 300px; }
-#appStores span						{ position: relative; display: block; float: left; font-size: 34px; color: #000; width: 33%; height: 33%; text-align: center; }
-#appStores span:before				{ font-family: 'FontAwesome'; display: block; position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-align: center; }
+#appStores							{ position: relative; display: block; height: 100%; min-height: 280px; max-height: 800px; }
+#appStores span						{ position: relative; display: block; float: left; font-size: 36px; color: #000; width: 33.333%; height: 30%; text-align: center; }
+#appStores span.button				{ color: #ccc; }
+#appStores span:before				{ font-family: 'FontAwesome'; display: block; position: absolute; top: 40%; left: 0; width: 100%; text-align: center; }
 #b000:before						{ content: '\B000'; }
 #b100:before						{ content: '\B100'; }
 #b200:before						{ content: '\B200'; }

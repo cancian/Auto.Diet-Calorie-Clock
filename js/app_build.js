@@ -20,7 +20,7 @@ app.tab.settings = function(keepOpen) {
 			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
 		</ul>\
-		<div id="optionWebsite">' + appName + " v" + appVersion + '</div>\
+		<div id="optionWebsite"><span>' + appName + "</span> for " + app.vars.platform() + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
 		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 	</div>\
@@ -67,15 +67,15 @@ app.tab.settings = function(keepOpen) {
 		// HANDLER //
 		/////////////
 		var aboutHandler = function() { 
-			$('#b000').on(touchend,function() { app.url('www');        });
-			$('#b100').on(touchend,function() { app.url('android');    });
-			$('#b200').on(touchend,function() {	app.url('ios');        });
-			$('#b300').on(touchend,function() {	app.url('wp8');        });
-			$('#b400').on(touchend,function() {	app.url('windows8');   });
-			$('#b500').on(touchend,function() { app.url('firefoxos');  });
-			$('#b600').on(touchend,function() { app.url('osxapp');     });
-			$('#b700').on(touchend,function() { app.url('chromeapp');  });
-			$('#b800').on(touchend,function() {	app.url('blackberry'); });
+			app.handlers.activeRow('#b000','button',function() { app.url('www');        });
+			app.handlers.activeRow('#b100','button',function() { app.url('android');    });
+			app.handlers.activeRow('#b200','button',function() { app.url('ios');        });
+			app.handlers.activeRow('#b300','button',function() { app.url('wp8');        });
+			app.handlers.activeRow('#b400','button',function() { app.url('windows8');   });
+			app.handlers.activeRow('#b500','button',function() { app.url('firefoxos');  });
+			app.handlers.activeRow('#b600','button',function() { app.url('osxapp');     });
+			app.handlers.activeRow('#b700','button',function() { app.url('chromeapp');  });
+			app.handlers.activeRow('#b800','button',function() { app.url('blackberry'); });
 		};
 		/////////////////
 		// CALL WINDOW //

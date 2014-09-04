@@ -87,11 +87,12 @@ app.safeExec(function() {
 	$('head').append('<style type="text/css" id="cssStartDate"> #startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; } </style>');
 	$('head').append('<style type="text/css" id="daySum"></style>');
 	$('head').append('<style type="text/css" id="cssAutoUpdate">\
-		.loading #advancedAutoUpdate:before	 { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
-		.pending #advancedAutoUpdate:before	 { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
-		.uptodate #advancedAutoUpdate:before { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
-		.spinnerMask #loadMask:before		 { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
-		.spinnerMask.updtdb #loadMask:before { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
+		.loading #advancedAutoUpdate:before	    { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
+		.pending #advancedAutoUpdate:before	    { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
+		.uptodate #advancedAutoUpdate:before    { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
+		.spinnerMask #loadMask:before	        { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
+		.spinnerMask.updtdb #loadMask:before    { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
+		.spinnerMask.newwindow #loadMask:before { content: "' + LANG.LOADING[lang]         + '"; }\
 	</style>');
 });
 updateNutriRatio();
@@ -329,6 +330,7 @@ $(document).on('pressenter', function(evt) {
 // KEYCODE LISTENER //
 //////////////////////
 $(document).keyup(function(e) {
+	if($('body').hasClass('spinnerMask')) { return false; }
 	if(e.keyCode == 13) { $(document).trigger('pressenter'); }
 	if(e.keyCode == 27) { $(document).trigger('backbutton'); }
 	//CONSOLE(e.keyCode);

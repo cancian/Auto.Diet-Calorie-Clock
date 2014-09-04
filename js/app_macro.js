@@ -1334,7 +1334,7 @@ function buildAdvancedMenu() {
 	// ALTERNATIVE DEBUG ENABLER //
 	///////////////////////////////
 	$('#advancedReload').on('longhold', function(evt) {
-		evt.preventDefault();
+		//evt.preventDefault();
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
 			afterHide();
@@ -1349,7 +1349,7 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	app.handlers.activeRow('#advancedReset','button',function(evt) {
 	//$('#advancedReset').on(tap,function(evt) {
-		evt.preventDefault();
+		//evt.preventDefault();
 		//SHOW DIALOG
 		appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
 			if(button == 1) {
@@ -1380,7 +1380,7 @@ function buildAdvancedMenu() {
 	if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.firefoxos || app.device.osxapp || app.device.chromeapp) {
 		app.handlers.activeRow('#advancedReview','button',function(evt) {
 		//$("#advancedReview").on(tap,function(evt) {
-			getStoreUrl(1);
+			app.url();
 		});	
 	} else {
 		$('#advancedReview').remove();
@@ -1532,14 +1532,14 @@ function getCatList(callback) {
 						if(!$('#newWindow').hasClass('firstLoad')) { return; }
 						if($('#newWindow').scrollTop()+500 > catlistHeight) {
 							catLock = 1;
-							$('#newWindow').removeClass('firstLoad');
-							kickDown();
-							return false;
+							//spinner();
 							setTimeout(function () {
-								niceResizer();
-								kickDown();
-								return false;
-							}, 100);
+								$('#newWindow').removeClass('firstLoad');
+								//spinner('stop');
+								setTimeout(function () {
+									niceResizer();
+								}, 100);
+							},0);
 						}
 					},300);
 				});
