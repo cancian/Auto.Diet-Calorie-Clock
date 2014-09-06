@@ -11,18 +11,16 @@ body.unloaded #loadMask {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	right: 0;
+	bottom: 0;
 	z-index: 1999;
 	display: block;
 	overflow: hidden;
+	background-image: none;
 	background-color: #fff;
-	-webkit-perspective: 800;
-	perspective: 800;
+	opacity: 1;
 }
 body.unloaded #loadMask span {
-	-webkit-perspective: 800;
-	perspective: 800;
 	position: absolute;
 	display: block;
 	top: 50%; 
@@ -32,6 +30,9 @@ body.unloaded #loadMask span {
 	margin-top: -14px;
 	margin-left: -14px;
 	border-radius: 60px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
 	box-sizing: border-box;
 	border: 2px solid #ddd;
 	border-left-color: #007aff;
@@ -41,6 +42,10 @@ body.unloaded #loadMask span {
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;
 	-ms-animation-fill-mode: forwards;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
 }
 @-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
 @-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
@@ -68,11 +73,11 @@ body.unloaded > * {
 // DETECT OFFLINE //
 ////////////////////
 var bodyTimer = setTimeout(function() {
-	if((typeof updateTimer != 'function') && ((window.location.protocol.indexOf('http') === -1) || (window.localStorage.getItem("remoteSuperBlockJS") || window.localStorage.getItem("remoteSuperBlockCSS")))) {
-		window.localStorage.removeItem("config_debug");
-		window.localStorage.removeItem("remoteSuperBlockJS");
-		window.localStorage.removeItem("remoteSuperBlockCSS");
-		window.localStorage.removeItem("app_autoupdate_hash");
+	if((typeof updateTimer != 'function') && ((window.location.protocol.indexOf('http') === -1) || (window.localStorage.getItem('remoteSuperBlockJS') || window.localStorage.getItem('remoteSuperBlockCSS')))) {
+		window.localStorage.removeItem('config_debug');
+		window.localStorage.removeItem('remoteSuperBlockJS');
+		window.localStorage.removeItem('remoteSuperBlockCSS');
+		window.localStorage.removeItem('app_autoupdate_hash');
 		window.location.reload(true);
 	}
 },10000);
@@ -80,19 +85,19 @@ var bodyTimer = setTimeout(function() {
 // BREAK BOOTLOOP //
 ////////////////////
 setTimeout(function() {
-	if(!window.localStorage.getItem("consecutive_reboots")) {
-		window.localStorage.setItem("consecutive_reboots",0);
-	} else if(window.localStorage.getItem("consecutive_reboots") > 10) {
-		window.localStorage.removeItem("config_debug");
-		window.localStorage.removeItem("remoteSuperBlockJS");
-		window.localStorage.removeItem("remoteSuperBlockCSS");
-		window.localStorage.removeItem("app_autoupdate_hash");
+	if(!window.localStorage.getItem('consecutive_reboots')) {
+		window.localStorage.setItem('consecutive_reboots',0);
+	} else if(window.localStorage.getItem('consecutive_reboots') > 10) {
+		window.localStorage.removeItem('config_debug');
+		window.localStorage.removeItem('remoteSuperBlockJS');
+		window.localStorage.removeItem('remoteSuperBlockCSS');
+		window.localStorage.removeItem('app_autoupdate_hash');
 		//RESTART
 		console.log('erasing cache...');
-		window.localStorage.removeItem("consecutive_reboots");
+		window.localStorage.removeItem('consecutive_reboots');
 		window.location.reload(true);
 	} else {
-		window.localStorage.setItem("consecutive_reboots",window.localStorage.getItem("consecutive_reboots")+1);
+		window.localStorage.setItem('consecutive_reboots',window.localStorage.getItem('consecutive_reboots')+1);
 	}
 },0);
 //////////////
@@ -112,19 +117,19 @@ if ((/iPhone|iPod|iPad/).test(navigator.userAgent)) {
 <!--###########################################-->
 </head>
 <body class="unloaded">
-<div id='fb-root'></div>
-<div id='loadMask'><span></span></div>
+<div id="fb-root"></div>
+<div id="loadMask"><span></span></div>
 <script type="text/javascript">
 ///////////////
 // BOOTSTRAP //
 ///////////////
 var hostLocal = '';
-if(window.localStorage.getItem("config_debug") == "active") { hostLocal = "http://192.168.1.5/com.cancian.mylivediet/www/"; }
+if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = 'http://192.168.1.5/com.cancian.mylivediet/www/'; }
 //INIT
 if ((/MSApp/).test(navigator.userAgent)) {
-	MSApp.execUnsafeLocalFunction(function() { hostLocal = ''; document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js'><\/script>"); });
+	MSApp.execUnsafeLocalFunction(function() { hostLocal = ''; document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); });
 } else {
-	document.write("<script type='text/javascript' src='" + hostLocal + "js/app_init.js'><\/script>");
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>');
 }
 </script>
 </body>

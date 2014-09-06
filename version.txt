@@ -1,6 +1,10 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.6 [2014/09/06]
+• Static "add new" buttons on search menu
+• Fixed issue with date conflict
+
 # 1.5 [2014/08/27]
 • Standardized touch events
 • Improved visual feedback

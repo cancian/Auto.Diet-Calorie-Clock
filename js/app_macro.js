@@ -1149,10 +1149,13 @@ function getEntryEdit(eid) {
 				pro:parseFloat($("#getEntryPro").val())            + '',
 				car:parseFloat($("#getEntryCar").val())            + '',
 				fat:parseFloat($("#getEntryFat").val())            + '',
-			},function() {
+			},function(removeId,insertDate) {
 				//REFRESH DATA
 				setTimeout(function() {
-					app.exec.updateEntries(parseInt($('#getEntryDateHidden').val()));
+					//remove by id
+					$('#' + removeId).remove();
+					//reinsert by date
+					app.exec.updateEntries(insertDate);
 					updateEntriesSum();
 				}, 0);
 			});
@@ -1471,11 +1474,6 @@ function getCatList(callback) {
 	///////////////////////
 	$('#tabMyCatsBlock').html('<ul>' + helpHtml + '</ul>');
 	setTimeout(function() { niceResizer(); }, 300);
-	if(callback == 'open' && app.read('lastInfoTab','topBarItem-1')) {
-		setTimeout(function() {
-			callbackOpen();
-		},0);
-	}
 	/////////////
 	// HANDLER //
 	/////////////

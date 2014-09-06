@@ -20,7 +20,7 @@ app.tab.settings = function(keepOpen) {
 			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
 		</ul>\
-		<div id="optionWebsite"><span>' + appName + "</span> for " + app.vars.platform() + '</div>\
+		<div id="optionWebsite"><span>' + appName + "</span> for " + app.get.platform() + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
 		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 	</div>\
@@ -34,13 +34,13 @@ app.tab.settings = function(keepOpen) {
 	///////////////////
 	// last sync tap //
 	///////////////////
-	if(window.localStorage.getItem("lastSync") != "never") {
-		$("#optionLastSync span").html(dateDiff(window.localStorage.getItem("lastSync"),(new Date().getTime())));
+	if(!app.read('lastSync','never')) {
+		$("#optionLastSync span").html(dateDiff(app.read('lastSync'),app.now()));
 	}
 	$("#optionLastSync").on(touchend,function(evt) {
 		evt.preventDefault();
 		if(!$("#nprogress").html()) {
-			syncEntries(window.localStorage.getItem("facebook_userid"));
+			syncEntries(app.read('facebook_userid'));
 		}
 		return false;
 	});
@@ -111,7 +111,7 @@ app.tab.settings = function(keepOpen) {
 			updateFoodDb();
 		}
 		if(!$("#nprogress").html()) {
-			if(window.localStorage.getItem("facebook_logged")) {
+			if(app.read('facebook_logged')) {
 				//CONFIRM DIALOG
 				appConfirm(LANG.LOGOUT_TITLE[lang], LANG.ARE_YOU_SURE[lang], getLogoutFB, LANG.OK[lang], LANG.CANCEL[lang]);
 			} else {
@@ -130,8 +130,8 @@ app.tab.settings = function(keepOpen) {
 		$("#optionFacebook").removeClass("activeRow");
 	});
 	//SET USERNAME (IF LOGGED)
-	if(window.localStorage.getItem("facebook_username") && window.localStorage.getItem("facebook_logged")) {
-		$("#optionFacebook span").html(LANG.LOGGED_IN_AS[lang] + ' ' + window.localStorage.getItem("facebook_username"));
+	if(app.read('facebook_username') && app.read('facebook_logged')) {
+		$("#optionFacebook span").html(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
 	}
 	////////////////
 	// ACTIVE ROW //
@@ -232,8 +232,8 @@ app.tab.status = function(keepOpen) {
 			<div id="appDayC">' + LANG.DAY[lang] + ' C</div>\
 			<div id="appDayD">' + LANG.DAY[lang] + ' D</div>\
 		</div></div></div>\
-		<div id="appStatusBalance" class=" ' + window.localStorage.getItem("cssOver") + '"><div><p>' + window.localStorage.getItem("appBalance") + '</p><span>' + LANG.CALORIC_BALANCE[lang] + '</span><div id="balanceBar"></div></div></div>\
-		<div id="appStatusIntake">' + window.localStorage.getItem("appStatusIntake") + '</div>\
+		<div id="appStatusBalance" class=" ' + app.read('cssOver') + '"><div><p>' + app.read('appBalance') + '</p><span>' + LANG.CALORIC_BALANCE[lang] + '</span><div id="balanceBar"></div></div></div>\
+		<div id="appStatusIntake">' + app.read('appStatusIntake') + '</div>\
 		<div id="appStatusBars">\
 			<div id="appStatusBarsPro"><p>' + LANG.PROTEINS[lang].toUpperCase() + '</p><span>0%</span></div>\
 			<div id="appStatusBarsCar"><p>' + LANG.CARBS[lang].toUpperCase() + '</p><span>0%</span></div>\
@@ -324,7 +324,7 @@ app.tab.status = function(keepOpen) {
 	//# START BAR #//
 	//#///////////#//
 	$("#appStatusTitle").on(touchend,function(evt) {
-		if(window.localStorage.getItem("appStatus") == "running") {
+		if(app.read('appStatus','running')) {
 			function appReset(button) {
 				//ON CONFIRM
 				if(button == 1) {
@@ -332,12 +332,12 @@ app.tab.status = function(keepOpen) {
 					$("#appStatus").removeClass("reset");
 					$("#appStatus").addClass("start");
 					$("#appStatusTitle").html(LANG.START[lang]);
-					window.localStorage.removeItem("appStatus");
-					window.localStorage.setItem("config_start_time",new Date().getTime());
+					app.remove('appStatus');
+					app.save('config_start_time',app.now());
 					//RESET BACKPORT
-					window.localStorage.removeItem("config_entry_sum");
-					window.localStorage.removeItem("config_entry_f-sum");
-					window.localStorage.removeItem("config_entry_e-sum");	
+					app.remove('config_entry_sum');
+					app.remove('config_entry_f-sum');
+					app.remove('config_entry_e-sum');
 					$("#appStatusBars p").css("width",0);
 					$("#appStatusBars span").html("0%");
 				}
@@ -350,8 +350,8 @@ app.tab.status = function(keepOpen) {
 			$("#appStatus").removeClass("start");
 			$("#appStatus").addClass("reset");
 			$("#appStatusTitle").html(LANG.RESET[lang]);
-			window.localStorage.setItem("appStatus","running");
-			window.localStorage.setItem("config_start_time",new Date().getTime());
+			app.save('appStatus','running');
+			app.save('config_start_time',app.now());
 		}
 		evt.preventDefault();
 	});
@@ -377,7 +377,7 @@ app.tab.status = function(keepOpen) {
 		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		evt.preventDefault();
 		if(!$("#pageSlideFood").hasClass("busy")) {
-			window.localStorage.setItem("searchType","food");
+			app.save('searchType','food');
 		} else {
 			//return false;
 		}
@@ -387,7 +387,7 @@ app.tab.status = function(keepOpen) {
 		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
 		evt.preventDefault();
 		if(!$("#pageSlideFood").hasClass("busy")) {
-			window.localStorage.setItem("searchType","exercise");
+			app.save('searchType','exercise');
 		} else {
 			//return false;
 		}
@@ -443,11 +443,11 @@ app.tab.status = function(keepOpen) {
 	//////////////////	
 	$("#appStatusReload").on("longhold", function(evt) {
 		evt.preventDefault();		
-		if(window.localStorage.getItem("config_debug") == "active") {
-			window.localStorage.removeItem("config_debug");
+		if(app.read('config_debug','active')) {
+			app.remove('config_debug');
 			afterHide();
 		} else {
-			window.localStorage.setItem("config_debug","active");
+			app.save('config_debug','active"');
 			afterHide();
 		}
 		$("#appStatusReload").off();
@@ -474,7 +474,7 @@ app.tab.status = function(keepOpen) {
 		} else {
 			$("#appStatusFix").addClass("open");
 		}
-		$('#startDate').scroller('setDate',new Date(Number(window.localStorage.getItem("config_start_time"))), true);
+		$('#startDate').scroller('setDate',new Date(app.read('config_start_time')), true);
 		return false;
 	});
 	// ON BLUR //
@@ -490,7 +490,7 @@ app.tab.status = function(keepOpen) {
 			//if not future
 			if(Number(Date.parse($("#startDate").val())) < Number((new Date().getTime())) ) {
 				//write input date as time
-				window.localStorage.setItem("config_start_time",Number(Date.parse($("#startDate").val())));
+				app.save('config_start_time',Date.parse($('#startDate').val()));
 			}
 			setPush();
 			onChange = 0;
@@ -607,7 +607,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	///////////////////////////////////////////
 	// ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
 	///////////////////////////////////////////
-	$("#entryListWrapper").css("min-height",(window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height()) + "px");
+	$("#entryListWrapper").css("min-height",(window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height()) + "px");
 	updateEntriesTime();
 	//#//////////#//
 	//# HANDLERS #//
@@ -681,16 +681,16 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//////////////////
 	// SLIDER.LID() //
 	//////////////////
-	clearTimeout(app.vars.lidTimer);
+	clearTimeout(app.globals.lidTimer);
 	slider.lid = function(inputValue) {
 		var lidValue = Number($('#lid').val());
-		clearTimeout(app.vars.lidTimer);
-		clearTimeout(app.vars.lidInnerTimer);
-		app.vars.lidTimer = setTimeout(function() {
+		clearTimeout(app.globals.lidTimer);
+		clearTimeout(app.globals.lidInnerTimer);
+		app.globals.lidTimer = setTimeout(function() {
 			$('#loadingDiv').css(prefix + 'transition-duration','.2s');
 			setTimeout(function() {
 				$('#loadingDiv').css('opacity',0);
-				app.vars.lidInnerTimer = setTimeout(function() {
+				app.globals.lidInnerTimer = setTimeout(function() {
 					$('#loadingDiv').css('display','none');
 					//POST SUBMIT RESET
 					if($('#entryTitle').val() == 0) {
@@ -872,13 +872,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// DEBUG //
 			///////////
 			if ($("#entryBody").val().toLowerCase() == "devdebug") {
-				if (window.localStorage.getItem("config_debug") == "active") {
-					window.localStorage.setItem("config_debug", "inactive");
+				if (app.read('config_debug','active')) {
+					app.save('config_debug','inactive');
 					$("#entryBody").val('');
 					$("#entryBody").blur();
 					afterHide();
 				} else {
-					window.localStorage.setItem("config_debug", "active");
+					app.save('config_debug','active');
 					$("#entryBody").val('');
 					$("#entryBody").blur();
 					afterHide();
@@ -1240,18 +1240,18 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//////////////////////
 	// SLIDER ENDSCROLL //
 	//////////////////////
-	app.vars.topLock = 0;
+	app.globals.topLock = 0;
 	$('#appContent').scroll(function() {
 		blockModal = true;
-		clearTimeout(app.vars.topTimer);
-		app.vars.topTimer = setTimeout(function() {
+		clearTimeout(app.globals.topTimer);
+		app.globals.topTimer = setTimeout(function() {
 			blockModal = false;
 			//HEIGHT
 			var entryListHeight = $('#entryList').height() * 0.5;
-			if(app.vars.topLock != 0)         { return; }
+			if(app.globals.topLock != 0)         { return; }
 			if($('#go').hasClass('scrolled')) { return; }
 			if($('#appContent').scrollTop()+500 > entryListHeight) {
-				app.vars.topLock = 1;
+				app.globals.topLock = 1;
 				$('#go').addClass('scrolled');
 				app.exec.updateEntries('','full');
 			}

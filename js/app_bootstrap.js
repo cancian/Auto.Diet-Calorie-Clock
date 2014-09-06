@@ -42,10 +42,11 @@ function InitializeLocalSuperBlock(opt) {
 	//GET SIZE
 	window.localStorage.setItem("app_autoupdate_hash",(dataJS + dataCSS).length);
 	//MOZIE CSS CONVERT
-	if((/firefox/).test(navigator.userAgent.toLowerCase())) {
-		dataCSS = dataCSS.split('box-sizing').join('-moz-box-sizing').split('-webkit-').join('-moz-');
+	if((/Firefox/i).test(navigator.userAgent)) {
+		dataCSS = dataCSS.split('-webkit-').join('-moz-');
 	}
-	if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase())) {
+	if((/trident|IEMobile/i).test(navigator.userAgent))	{ 
+		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
 	//QUOTA
@@ -143,10 +144,11 @@ function buildRemoteSuperBlock(opt) {
 	//store original hash
 	window.localStorage.setItem("app_autoupdate_hash",(dataJS + dataCSS).length);	
 	//MOZ~IE CSS
-	if((/firefox/).test(navigator.userAgent.toLowerCase())) {
-		dataCSS = dataCSS.split('box-sizing').join('-moz-box-sizing').split('-webkit-').join('-moz-');
+	if((/Firefox/i).test(navigator.userAgent)) {
+		dataCSS = dataCSS.split('-webkit-').join('-moz-');
 	}
-	if((/trident|IEMobile/).test(navigator.userAgent.toLowerCase()))	{ 
+	if((/trident|IEMobile/i).test(navigator.userAgent))	{ 
+		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
 	//APPEND

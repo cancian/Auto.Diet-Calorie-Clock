@@ -39,7 +39,7 @@ function showIntro(isNew) {
 			if(isNew == true) {
 				setTimeout(function() {
 					if(typeof baseVersion !== 'undefined') {
-						if(app.vars.http) {
+						if(app.http) {
 							app.analytics('webinstall');
 						} else {
 							app.analytics('install');
@@ -211,6 +211,7 @@ function initDB(t) {
 	app.define('config_kcals_day_0',2000);
 	app.define('config_kcals_day_1',1600);
 	app.define('config_kcals_day_2',2000);
+	app.define('appBalance',LANG.BALANCED[lang]);
 	app.define('lastSync','never');
 	app.define('searchType','food');
 	app.define('lastInfoTab','topBarItem-1');
@@ -670,6 +671,11 @@ function getEntry(eid,callback) {
 //# DB: UPDATE ENTRY #//
 //#//////////////////#//
 function updateEntry(data,callback) {
+	var endDate = (data.published.toString()).slice((data.published.toString()).length-4,(data.published.toString()).length);
+	var endId   = (data.id.toString()).slice((data.id.toString()).length-4,(data.id.toString()).length);
+	if(endDate == '0000') {
+		data.published = data.published.split(endDate).join(endId);
+	}
 	for(var i=0, len=rowsEntry.length; i<len; i++) {
 		if(rowsEntry[i].id == data.id) {
 			rowsEntry[i].id        = data.id;
@@ -685,10 +691,10 @@ function updateEntry(data,callback) {
 			break;
 		}
 	}
+	//return id/date pair
+	callback(data.id,data.published);
 	localforage.setItem('diary_entry',rowsEntry,function(rows) {
-		rowsEntry = rows;
 		setPush();
-		callback();
 	});
 }
 //#//////////////////#//
@@ -848,20 +854,28 @@ function delFood(foodId, callback) {
 /////////////////////
 // GET CUSTOM LIST //
 /////////////////////
-function callbackOpen() {
-	if(!$('#pageSlideFood').is(":animated")) {
-		$('#pageSlideFood').addClass("open"); 
-		if(!$('#appHeader').hasClass("open")) {
-			$('#appHeader').removeClass("closer");
-			$('body').removeClass("closer");
+function getCustomList(listType) {
+	//////////////
+	// CAT LIST //
+	//////////////
+	if(!isNaN(listType)) {
+		var orType = '';
+		if(listType == '9999') { orType = 'food';     }
+		if(listType == '0000') { orType = 'exercise'; }
+		var rowsArray = [];
+		var i = rowsFood.length;
+		while(i--) {
+			if(rowsFood[i]) {
+				if(rowsFood[i].type === listType || rowsFood[i].type === orType) {
+					rowsArray.push(rowsFood[i]);
+				}
+			}
 		}
-	}
-}
-function getCustomList(listType,callback) {
+		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'));
 	//////////////
 	// FAV LIST //
 	//////////////
-	if(listType == "fav") {
+	} else if(listType == "fav") {
 		var rowsArray = [];
 		for(var i=0, len=rowsFood.length; i<len; i++) {
 			if(rowsFood[i]) {
@@ -872,7 +886,7 @@ function getCustomList(listType,callback) {
 				}
 			}
 		}
-		callback(rowsArray.sortbyattr('term','desc'));
+		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'));
 	////////////////////////
 	// FOOD~EXERCISE LIST //
 	////////////////////////
@@ -887,7 +901,7 @@ function getCustomList(listType,callback) {
 				}
 			}
 		}
-		callback(rowsArray.sortbyattr('term','desc'));
+		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'))
 	}
 }
 /////////////
@@ -983,7 +997,7 @@ function spinner(size) {
 ////////////////////
 var demoRunning = false;
 var foodDbTimer;
-function updateFoodDb() {
+function updateFoodDb(callback) {
 	if(app.read('foodDbLoaded','done') && !app.read('foodDbVersion')) { app.remove('foodDbLoaded'); }
 	if(app.read('foodDbLoaded','done')) { return; }
 	if(!app.read('foodDbLoaded','done') && !app.read('startLock','running')) {
@@ -1033,10 +1047,14 @@ function updateFoodDb() {
 										syncEntries(app.read('facebook_userid'));
 									} else {
 										setTimeout(function() {
-											updateCustomList('fav');
-											updateCustomList('items');	
-											getCatList();
+											updateCustomList('all');
 										},100);
+									}
+									//////////////
+									// CALLBACK //
+									//////////////
+									if(callback) {
+										callback();
 									}
 								});
 							});
@@ -1324,9 +1342,9 @@ function updateEntriesSum() {
 			}
 
 			reStyle = reStyle + '\
-			#entryList div.day' + eachDay[d] + ' { border-top: 21px solid #eee;	}\
-			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ' { margin-top: 0px; border-top: 0px solid #eee; }\
-			#entryList div.day' + eachDay[d] + ':before { content: "' + lFood + ': ' + totalDayF + '  /  ' + lExe + ': ' + totalDayE + '"; color: #bbb; position: absolute; top: -22px; right: 0px; font-size: 12px; line-height: 16px; background-color: #eee; width: 100%; text-align: right; padding-top: 4px; padding-bottom: 2px; padding-right: 9px; }\
+			#entryList div.day' + eachDay[d] + ' { border-top: 21px solid #eee; min-height: 66px; }\
+			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ' { margin-top: 0px; min-height: 45px; border-top: 0px solid #eee; }\
+			#entryList div.day' + eachDay[d] + ':before { content: "' + lFood + ': ' + totalDayF + '  /  ' + lExe + ': ' + totalDayE + '"; color: #bbb; position: absolute; top: -22px; right: 0px; left: -3px; font-size: 12px; line-height: 16px; background-color: #eee; width: 100%; text-align: right; padding-top: 4px; padding-bottom: 2px; padding-right: 6px; }\
 			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':before { content: ""; padding-top: 0; padding-bottom: 0; }\
 			#entryList div.day' + eachDay[d] + ':after { content: "' + thisDay.split("x").join("/") +'"; color: #999; position: absolute; top: -18px; left: 15px; font-size: 12px; line-height: 16px; }\
 			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':after { content: "";  }\
@@ -1548,49 +1566,60 @@ function buildHelpMenu() {
 //## GETNEWwINDOW ##//
 //##//////////////##//
 function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
-	if($('#editable').is(':visible')) { $('#editable').trigger("blur"); return; }
+	var newWindow = (title == 'newSearch') ? 'newSearch' : 'newWindow';
+	var newClass  = (title == 'newSearch') ? 'newsearch' : 'newwindow';
+	if(title == 'newSearch') {
+		bottom = 'flush';	
+	}
+	//
+	if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return; }
 	//FLOOD
-	if($("#newWindowWrapper").html()) { return; }
-	$('body').addClass('newwindow');
+	if($('#' + newWindow + 'Wrapper').html()) { return; }
+	$('body').addClass(newClass);
 	//////////
 	// HTML //
 	//////////
-	$("#newWindowWrapper").remove();
-	var newContent = "\
-	<div id='newWindowWrapper'>\
-		<div id='newWindowHeader'>\
-			<div id='backButton'></div>\
-			<div id='saveButton'>" + LANG.OK[lang] + "</div>\
-			<div id='newWindowTitle'>" + title + "</div>\
+	$('#' + newWindow + 'Wrapper').remove();
+	var newContent = '\
+	<div id="' + newWindow + 'Wrapper">\
+		<div id="' + newWindow + 'Header">\
+			<div id="backButton"></div>\
+			<div id="saveButton">' + LANG.OK[lang] + '</div>\
+			<div id="' + newWindow + 'Title">' + title + '</div>\
 			</div>\
-		<div id='newWindow'>" + content + "</div>\
-	</div>";
+		<div id="' + newWindow + '">' + content + '</div>\
+	</div>';
 	app.safeExec(function() {
-		$("#appContent").after(newContent);
+		$('#appContent').after(newContent);
 	});
-	$("#newWindowWrapper").hide();
-	$("#newWindow").hide();
+	$('#' + newWindow + 'Wrapper').hide();
+	$('#' + newWindow).hide();
 	//configure ui
-	if(direction == "sideload") {
-		$("#newWindowWrapper").addClass('sideload');
+	if(direction == 'sideload') {
+		$('#' + newWindow + 'Wrapper').addClass('sideload');
 	}
-	if(!save) { $("#saveButton").remove(); }
+	if(!save) { $('#saveButton').remove(); }
 
-	$("#newWindowWrapper").css("top",($("#appHeader").height()) + "px");
+	$('#' + newWindow + 'Wrapper').css('top',($('#appHeader').height()) + 'px');
 	if(bottom != 'flush') {
-		$("#newWindowWrapper").height($("#appContent").height());
-		$("#newWindowWrapper").css("bottom",($("#appFooter").height()) + "px");
+		$('#' + newWindow + 'Wrapper').height($('#appContent').height());
+		$('#' + newWindow + 'Wrapper').css('bottom',($('#appFooter').height()) + 'px');
 	} else {
-		$("#newWindowWrapper").height($("#appContent").height() + $("#appFooter").height());
-		$("#newWindowWrapper").css("bottom",'0px');		
+		$('#' + newWindow + 'Wrapper').height($('#appContent').height() + $('#appFooter').height());
+		$('#' + newWindow + 'Wrapper').css('bottom','0px');		
 	}
 	//
-	$("#newWindowWrapper").show();
-	$("#newWindow").show();
+	$('#' + newWindow + 'Wrapper').show();
+	$('#' + newWindow).show();
 	//
-	$("#newWindow").css("top",($("#newWindowHeader").height()+1) + "px");
-	$("#newWindowWrapper").addClass('open');
-	$("#newWindowWrapper").addClass('busy');
+	if(title != 'newSearch') {
+		$('#' + newWindow).css('top',($('#' + newWindow + 'Header').height()+1) + 'px');
+	} else {
+		$('#' + newWindow).css('top','0px');
+	}
+	$('#' + newWindow + 'Wrapper').addClass('open');
+	$('#' + newWindow + 'Wrapper').addClass('busy');
+
 	///////////////////
 	// EXEC HANDLERS //
 	///////////////////
@@ -1602,12 +1631,12 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	////////////////////
 	// TRANSISION END //
 	////////////////////
-	$("#newWindowWrapper").off().on(transitionend,function() {
+	$('#' + newWindow + 'Wrapper').off().on(transitionend,function() {
 		//scroller
 		setTimeout(function() {
-			getNiceScroll("#newWindow");
+			getNiceScroll('#' + newWindow);
 			//busy
-			$("#newWindowWrapper").removeClass('busy');
+			$('#' + newWindow + 'Wrapper').removeClass('busy');
 		},250);
 		///////////////////
 		// GLOBAL CLOSER //
@@ -1619,25 +1648,25 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 					closer();
 				});
 			}
-			$('#appContent, #foodSearch, #newWindowWrapper').css('pointer-events','none');
+			$('#appContent, #foodSearch, #' + newWindow + 'Wrapper').css('pointer-events','none');
 			if($.nicescroll) {
-				$("#newWindow").getNiceScroll().remove();
+				$('#' + newWindow).getNiceScroll().remove();
 			}
 			setTimeout(function() {
-				$("#newWindowWrapper").removeClass('open');
-				$("#newWindowWrapper").css('opacity',0);
+				$('#' + newWindow + 'Wrapper').removeClass('open');
+				$('#' + newWindow + 'Wrapper').css('opacity',0);
 			},50);
-			$("#newWindowWrapper").off().on(transitionend,function() {
-				$('#newWindowWrapper').remove();
+			$('#' + newWindow + 'Wrapper').off().on(transitionend,function() {
+				$('#' + newWindow + 'Wrapper').remove();
 				$('#appContent, #foodSearch').css('pointer-events','auto');
-				$('body').removeClass('newwindow');
+				$('body').removeClass(newClass);
 				clearTimeout(timerCloser);
 				setPush();	
 			});	
 			timerCloser = setTimeout(function() {
-				$('#newWindowWrapper').remove();
+				$('#' + newWindow + 'Wrapper').remove();
 				$('#appContent, #foodSearch').css('pointer-events','auto');
-				$('body').removeClass('newwindow');
+				$('body').removeClass(newClass);
 				setPush();				
 			},500);
 		}
@@ -1647,7 +1676,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		// SAVE HANDLER //
 		//////////////////
 		app.handlers.activeRow('#saveButton','button',function(evt) {
-		//$("#saveButton").off().on(touchend,function(evt) {
+		//$('#saveButton').off().on(touchend,function(evt) {
 			//evt.preventDefault();
 			//evt.stopPropagation();
 			//VALIDATION
@@ -1659,7 +1688,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		// CLOSER HANDLER //
 		////////////////////
 		app.handlers.activeRow('#backButton','button',function(evt) {
-		//$("#backButton").off().on(touchend,function(evt) {
+		//$('#backButton').off().on(touchend,function(evt) {
 			//evt.preventDefault();
 			//evt.stopPropagation();
 			windowCloser();
@@ -1675,7 +1704,7 @@ var langListString = [];
 $.each(LANG, function(i, langCode) {
 	langListString.push(langCode[lang]);
 });
-window.localStorage.setItem("langDump",JSON.stringify(langListString));
+window.localStorage.setItem('langDump',JSON.stringify(langListString));
 */
 //pre-process
 var langListArray = [];
@@ -1803,14 +1832,8 @@ function buildLangMenu(opt) {
 //////////////////
 var niceTimer;
 function niceResizer() {
-	if($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) {
-		$("#appContent").getNiceScroll().resize();
-		$("#foodList").getNiceScroll().resize();
-		$("#appHelper").getNiceScroll().resize();
-		$("#appSubHelper").getNiceScroll().resize();
-		$("#newWindow").getNiceScroll().resize();
-		$("#langSelect").getNiceScroll().resize();
-		$("#advancedMenuWrapper").getNiceScroll().resize();
+	if(app.is.scrollable && app.globals.scrollerList) {
+		$(app.globals.scrollerList).getNiceScroll().resize();
 	}
 }
 ///////////////////
@@ -1818,24 +1841,38 @@ function niceResizer() {
 ///////////////////
 function getNiceScroll(target) {
 	if(!$.nicescroll) { return; }
-	var NSettings = { touchbehavior:true, cursorcolor:"rgba(0,0,0,1)", cursorborder: "1px solid rgba(0,0,0,0)", cursoropacitymax:.3, cursorwidth:3, horizrailenabled:false, hwacceleration:true };
-	//
+	//SETTINGS
+	var NSettings = { touchbehavior: false, preservenativescrolling: false, nativeparentscrolling: false, cursorcolor: 'rgba(0,0,0,1)', cursorborderradius: '0px', cursorborder: '1px solid rgba(0,0,0,0)', cursoropacitymax: .3, cursorwidth: 5, horizrailenabled:false, sensitiverail: false, hwacceleration:true };
 	if($('#appHistory').html()) {
 		NSettings.horizrailenabled = true;
 	}
+	if(app.device.desktop) {
+		NSettings.touchbehavior = true;
+	}
+	//UPDATE LIST
+	if(!app.globals.scrollerList) {
+		app.globals.scrollerList = target;
+	}
+	if(!(app.globals.scrollerList).contains(target)) {
+		app.globals.scrollerList += ',' + target;
+	}
 	//NOTES
-	if(target == "#diaryNotesInput") {			
+	if(target == '#diaryNotesInput') {			
 		if(!app.device.wp8 && !app.device.windows8) {
-			$(target).css("overflow","hidden");
-			$(target).niceScroll(NSettings);
-		} else {
-			$(target).css("overflow","auto");
-		}
-	} else {
-		if($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) {
 			$(target).css('overflow','hidden');
 			$(target).niceScroll(NSettings);
 		} else {
+			$(target).css('overflow','auto');
+		}
+	//APPLY
+	} else {
+		if(app.is.scrollable) {
+			$(target).css('overflow','hidden');
+			$(target).niceScroll(NSettings);
+		} else {
+			if(app.device.ios) {
+				$(target).css('-webkit-overflow-scrolling','touch');
+			}
 			$(target).css('overflow','auto');
 		}
 	}
@@ -1849,9 +1886,8 @@ function appResizer(time) {
 		//unlock top white gap
 		$('body').trigger('touchmove');
 		//NO < 0
-		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height() + $('#entryListBottomBar').height());
+		var wrapperMinH = (window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
 		//force scrolling ios
-		if(isMobile.iOS()) { wrapperMinH = wrapperMinH + 1; }
 		if(wrapperMinH < 0) {
 			wrapperMinH = 0;
 		}
@@ -1867,10 +1903,11 @@ function appResizer(time) {
 		}
 		$('#advancedMenuWrapper').height($('#appContent').height());
 		//FAST RESIZE
-		$('#foodList,#pageSlideFood').hide();
-		$('#foodList,#pageSlideFood').css('height',(window.innerHeight - ($('#appHeader').height() + 60)) + 'px');
-		$('#foodList,#pageSlideFood').show();
-		$('#tabMyItemsBlock').css('min-height', ($('#foodList').height() - 128) + 'px');
+		$('#pageSlideFood').hide();
+		$('#pageSlideFood').height($('body').height() - ($('#appHeader').height()));
+		//$('#pageSlideFood').css('min-height',($('body').height() - ($('#appHeader').height())) + 'px');
+		$('#pageSlideFood').show();
+		//$('#tabMyItemsBlock').css('min-height', ($('#foodList').height() - 128) + 'px');
 		//SCROLLBAR UPDATE	
 		clearTimeout(niceTimer);
 		niceTimer = setTimeout(niceResizer,20);
@@ -1909,6 +1946,7 @@ var rateTimer;
 function getRateDialog() {
 	//appstore enabled
 	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeapp) { return; }
+	if(app.get.platform() == 'web')	{ return; }
 	//first use
 	app.define('getRate',app.now());
 	//return
@@ -1923,13 +1961,13 @@ function getRateDialog() {
 			if(app.read('getRate','locked')) { return; }
 			//SHOW DIALOG
 			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function(button) {
+				app.save('getRate','locked');
 				app.analytics('rate');
 				if(button == 1) {
 					app.analytics('vote');
 					app.url();
 				}
 			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-			app.save('getRate','locked')
 		},3500);
 	}
 }

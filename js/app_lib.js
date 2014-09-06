@@ -2,17 +2,20 @@
 //# APP OBJECT #//
 //#////////////#//
 var app = {
+	globals: {},
+	handlers: {},
+	timers: {},
+	vars: {},
+	is: {},
+	config: {},
 	db: {},
 	tab: {},
 	get: {},
 	call: {},
 	exec: {},
 	info: {},
-	vars: {},
-	timer: {},
-	is: {},
-	handlers: {},
-	ua: navigator.userAgent,
+	ua:   navigator.userAgent,
+	http: window.location.protocol.indexOf('http') !== -1 ? true : false,
 	now: function() {
 		return new Date().getTime();
 	},
@@ -118,23 +121,6 @@ app.url = function(url) {
 //////////////
 // APP INFO //
 //////////////
-app.vars.http      = window.location.protocol.indexOf('http') !== -1 ? true : false;
-app.vars.useragent = navigator.userAgent;
-app.vars.platform = function() {
-	if(app.device.ios && app.vars.http)     { return 'web';           }
-	if(app.device.android && app.vars.http) { return 'web';           }
-	if(app.device.wp8 && app.vars.http)     { return 'web';           }
-	if(app.device.ios)                      { return 'iOS';           }
-	if(app.device.android)                  { return 'Android';       }
-	if(app.device.wp8)                      { return 'Windows Phone'; }
-	if(app.device.windows8)                 { return 'Windows 8';     }
-	if(app.device.firefoxos)                { return 'FirefoxOS';     }	
-	if(app.device.osxapp)                   { return 'Mac';           }
-	if(app.device.chromeapp)                { return 'ChromeOS';      }
-	if(app.device.blackbery)                { return 'BlackBerry';    }
-	return 'web';
-};
-
 var userAgent           = navigator.userAgent;
 var appBalance;
 var appBalanceOver;
@@ -697,6 +683,27 @@ app.device = {
 	mobile     : app.get.isDesktop() ? false : true,
 	desktop    : app.get.isDesktop() ? true : false,
 };
+//////////////////////
+// GLOBAL SHORTCUTS //
+//////////////////////
+app.get.platform = function() {
+	if(app.device.ios && app.http)     { return 'web';           }
+	if(app.device.android && app.http) { return 'web';           }
+	if(app.device.wp8 && app.http)     { return 'web';           }
+	if(app.device.ios)                 { return 'iOS';           }
+	if(app.device.android)             { return 'Android';       }
+	if(app.device.wp8)                 { return 'Windows Phone'; }
+	if(app.device.windows8)            { return 'Windows 8';     }
+	if(app.device.firefoxos)           { return 'FirefoxOS';     }	
+	if(app.device.osxapp)              { return 'Mac';           }
+	if(app.device.chromeapp)           { return 'ChromeOS';      }
+	if(app.device.blackbery)           { return 'BlackBerry';    }
+	return 'web';
+};
+////////////////////
+// GLOBAL BOOLEAN //
+////////////////////
+app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
 //#///////////////#//
 //# GET USERAGENT #//
 //#///////////////#//
@@ -704,7 +711,7 @@ var prefix;
 var vendorClass; 
 var transitionend;
      if((/trident|IEMobile/i).test(app.ua))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
-else if((/firefox/i).test(app.ua))			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
+else if((/Firefox/i).test(app.ua))			{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
 else										{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
@@ -715,19 +722,18 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length) {
 		$.ajax({
 			url : hostLocal + "css/index.css",
 			dataType : "text",
-			success : function (rawCss) {
-				//moz syntax
-				if (vendorClass == "moz") {
-					rawCss = rawCss.split('box-sizing').join('-moz-box-sizing');
+			success : function (dataCSS) {
+				if(vendorClass == 'moz') {
+					dataCSS = dataCSS.split('-webkit-').join('-moz-');
 				}
-				//msie backface slowdown
-				if (vendorClass == "msie") {
-					//rawCss = rawCss.split('-webkit-backface-visibility: hidden;').join('');
+				if(vendorClass == 'msie') {
+					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
+					dataCSS = dataCSS.split('-webkit-').join('-ms-');
 				}
 				app.safeExec(function () {
 					$("#coreCss").remove();
 					$("#coreFonts").prepend("<style type='text/css' id='coreCss'></style>");
-					$("#coreCss").html(rawCss.split('-webkit-').join('-' + vendorClass.replace("ie", "") + '-'));
+					$("#coreCss").html(dataCSS);
 				});
 			}
 		});
