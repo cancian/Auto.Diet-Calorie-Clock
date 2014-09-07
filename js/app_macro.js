@@ -196,8 +196,8 @@ function getFullHistory() {
 //##////////////////##//
 function intakeHistory() {
 	//check exists
-	if(window.localStorage.getItem("app_last_tab") != "tab1")	{ return; }
-	if(!$('#appStatusIntake').html())							{ return; } 
+	if(!app.read('app_last_tab','tab1'))	{ return; }
+	if(!$('#appStatusIntake').html())		{ return; } 
 	if($('body').hasClass('closer')) {
 		$('body').removeClass('closer');
 		$('body').addClass('reCloser');
@@ -205,18 +205,18 @@ function intakeHistory() {
 	//if($('#appStatusIntake div').length === 0) { return; }
 	//go
 	var firstTick = 0;
-	var lastTick  = parseInt(window.localStorage.getItem("config_kcals_day_0")) * 1.5;
-	var origTick  = parseInt(window.localStorage.getItem("config_kcals_day_0"));
+	var lastTick  = app.read('config_kcals_day_0') * 1.5;
+	var origTick  = app.read('config_kcals_day_0');
 	/////////////////
 	// CYCLIC CASE //
 	/////////////////
-	if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-		if(window.localStorage.getItem("config_kcals_day") == "d") {
-			lastTick = parseInt(window.localStorage.getItem("config_kcals_day_2")) * 1.5;
-			origTick = parseInt(window.localStorage.getItem("config_kcals_day_2"));
+	if(app.read('config_kcals_type','cyclic')) {
+		if(app.read('config_kcals_day','d')) {
+			lastTick = app.read('config_kcals_day_2') * 1.5;
+			origTick = app.read('config_kcals_day_2');
 		} else {
-			lastTick = parseInt(window.localStorage.getItem("config_kcals_day_1")) * 1.5;
-			origTick = parseInt(window.localStorage.getItem("config_kcals_day_1"));
+			lastTick = app.read('config_kcals_day_1') * 1.5;
+			origTick = app.read('config_kcals_day_1');
 		}
 	}
 	///////////////////////////////////////
@@ -341,12 +341,12 @@ function intakeHistory() {
 		// GENERATE CHART //
 		////////////////////
 		$('#appStatusIntake div').css("padding-top", "0px");
-		var checkHeight = (hasTap() || isMobile.OSX()) ? 64 : 66;
+		var checkHeight = (hasTap() || app.device.osx) ? 64 : 66;
 		var catFontSize = "9px";
 		if(lang == "fa") { catFontSize = "8px"; }
 		//check exists
-		if(window.localStorage.getItem("app_last_tab") != "tab1")	{ return; }
-		if(!$('#appStatusIntake').html())							{ return; } 
+		if(!app.read('app_last_tab','tab1'))	{ return; }
+		if(!$('#appStatusIntake').html())		{ return; } 
 		$('#appStatusIntake').highcharts({
 			chart : {
 				reflow: false,
@@ -500,15 +500,15 @@ function getNutriSliders() {
 	///////////////////
 	// AUTOFIX RATIO //
 	///////////////////
-	if(isNaN(parseInt(window.localStorage.getItem('appNutrients').split('|')[0])) || isNaN(parseInt(window.localStorage.getItem('appNutrients').split('|')[1])) || isNaN(parseInt(window.localStorage.getItem('appNutrients').split('|')[2]))  ) {
-		window.localStorage.setItem("appNutrients",'25|50|25');
+	if(isNaN(parseInt(app.read('appNutrients').split('|')[0])) || isNaN(parseInt(app.read('appNutrients').split('|')[1])) || isNaN(parseInt(app.read('appNutrients').split('|')[2]))  ) {
+		app.save('appNutrients','25|50|25');
 	}
 	///////////////////
 	// SAVE CALLBACK //
 	///////////////////
 	var save = function() {
 		if(parseInt(document.getElementById('sliderProInput').value) + parseInt(document.getElementById('sliderCarInput').value) + parseInt(document.getElementById('sliderFatInput').value) == 100) {
-			window.localStorage.setItem('appNutrients',parseInt(document.getElementById('sliderProInput').value) + '|' + parseInt(document.getElementById('sliderCarInput').value) + '|' + parseInt(document.getElementById('sliderFatInput').value));
+			app.save('appNutrients',parseInt(document.getElementById('sliderProInput').value) + '|' + parseInt(document.getElementById('sliderCarInput').value) + '|' + parseInt(document.getElementById('sliderFatInput').value));
 			updateNutriRatio();
 			return true;
 		} else {
@@ -538,9 +538,9 @@ function getNutriSliders() {
 			document.getElementById('sliderProRange').slider.setValue(0);
 			document.getElementById('sliderCarRange').slider.setValue(0);
 			document.getElementById('sliderFatRange').slider.setValue(0);
-			document.getElementById('sliderProRange').slider.setValue(parseInt(window.localStorage.getItem('appNutrients').split('|')[0]));
-			document.getElementById('sliderCarRange').slider.setValue(parseInt(window.localStorage.getItem('appNutrients').split('|')[1]));
-			document.getElementById('sliderFatRange').slider.setValue(parseInt(window.localStorage.getItem('appNutrients').split('|')[2]));
+			document.getElementById('sliderProRange').slider.setValue(parseInt(app.read('appNutrients').split('|')[0]));
+			document.getElementById('sliderCarRange').slider.setValue(parseInt(app.read('appNutrients').split('|')[1]));
+			document.getElementById('sliderFatRange').slider.setValue(parseInt(app.read('appNutrients').split('|')[2]));
 		}
 		////////////////
 		// PRO.UPDATE //
@@ -659,15 +659,15 @@ function updateTodayOverview() {
 	/////////////////////////
 	// UPDATE BLOCK VALUES //
 	/////////////////////////
-	if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
-		if(window.localStorage.getItem("config_kcals_day") == "d") {
-			totalIntake = parseInt(window.localStorage.getItem("config_kcals_day_2")) + Math.abs(parseInt(window.localStorage.getItem("config_tte")));
+	if(app.read('config_kcals_type','cyclic')) {
+		if(app.read('config_kcals_day','d')) {
+			totalIntake = app.read('config_kcals_day_2') + Math.abs(app.read('config_tte'));
 			totalPercent  = totalConsumed / (totalIntake / 100);
-			$("#appStatusWeight div p").html(totalConsumed + '<strong> / ' + window.localStorage.getItem("config_kcals_day_1") + '~<b>' + totalIntake + '</b></strong>');
+			$("#appStatusWeight div p").html(totalConsumed + '<strong> / ' + app.read('config_kcals_day_1') + '~<b>' + totalIntake + '</b></strong>');
 		} else {
-			totalIntake = parseInt(window.localStorage.getItem("config_kcals_day_1")) + Math.abs(parseInt(window.localStorage.getItem("config_tte")));
+			totalIntake = app.read('config_kcals_day_1') + Math.abs(app.read('config_tte'));
 			totalPercent  = totalConsumed / (totalIntake / 100);
-			$("#appStatusWeight div p").html(totalConsumed + '<strong> / <b>' + totalIntake + '</b>~' + window.localStorage.getItem("config_kcals_day_2") + '</strong>');
+			$("#appStatusWeight div p").html(totalConsumed + '<strong> / <b>' + totalIntake + '</b>~' + app.read('config_kcals_day_2') + '</strong>');
 		}
 	} else {
 		$("#appStatusWeight div p").html(totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong>');
@@ -675,8 +675,8 @@ function updateTodayOverview() {
 	///////////////////////
 	// INDICATE ADDITION //
 	///////////////////////
-	if(Math.abs(parseInt(window.localStorage.getItem("config_tte")) != 0)) {
-		$("#appStatusWeight span").html(LANG.TODAY[lang] + ' (+' + Math.abs(parseInt(window.localStorage.getItem("config_tte"))) + ')');
+	if(Math.abs(parseInt(app.read('config_tte')) != 0)) {
+		$("#appStatusWeight span").html(LANG.TODAY[lang] + ' (+' + Math.abs(parseInt(app.read('config_tte'))) + ')');
 	}
 	/////////////////
 	// PERCENT BAR //
@@ -690,9 +690,9 @@ function updateTodayOverview() {
 	/////////////////////
 	// SET CURRENT DAY //
 	/////////////////////
-	if(window.localStorage.getItem("config_kcals_day")) {
+	if(app.read('config_kcals_day')) {
 		$('.current').removeClass('current');
-		$('#' + 'appDay' + window.localStorage.getItem("config_kcals_day").toUpperCase()).addClass('current');
+		$('#' + 'appDay' + app.read('config_kcals_day').toUpperCase()).addClass('current');
 	}
 }
 //##/////////////##//
@@ -702,15 +702,15 @@ function getCyclicMenu() {
 	//////////
 	// HTML //
 	//////////
-	var isCyclic = (window.localStorage.getItem("config_kcals_type") == "cyclic") ? 'checked' : '';
+	var isCyclic = app.read('config_kcals_type','cyclic') ? 'checked' : '';
 	var appModeHtml = "\
 	<div id='appMode'>\
 		<input id='appModeToggle' class='toggle' type='checkbox' " + isCyclic + ">\
 		<label for='appModeToggle'></label>\
 		<div id='appModeEnable'>\
-			<input id='appCyclic1' type='number' value='" + window.localStorage.getItem("config_kcals_day_1") + "' />\
+			<input id='appCyclic1' type='number' value='" + app.read('config_kcals_day_1') + "' />\
 			<div id='appCyclic1Title'>" + LANG.DAYS[lang] + " A B C</div>\
-			<input id='appCyclic2' type='number' value='" + window.localStorage.getItem("config_kcals_day_2") + "' />\
+			<input id='appCyclic2' type='number' value='" + app.read('config_kcals_day_2') + "' />\
 			<div id='appCyclic2Title'>" + LANG.DAY[lang] + " D</div>\
 			<div id='appModeEnableInfo'><p>" + LANG.CYCLIC_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + "</p></div>\
 		</div>\
@@ -757,11 +757,9 @@ function getCyclicMenu() {
 		// SWITCH LISTENER //
 		/////////////////////
 		//set default
-		if(!window.localStorage.getItem("config_kcals_type")) {
-			window.localStorage.setItem("config_kcals_type","simple");
-		}
+		app.define('config_kcals_type','simple');
 		//read stored
-		if(window.localStorage.getItem("config_kcals_type") == "cyclic") {
+		if(app.read('config_kcals_type','cyclic')) {
 			$("#appModeToggle").prop('checked',true);
 		}
 		//TAP
@@ -1058,7 +1056,7 @@ function getEntryEdit(eid) {
 			});
 			}
 			//HOLD FLICKER
-			if(isMobile.Android() ) {
+			if(app.device.android) {
 				$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 				$('#dummyInput').focus();
 				$('#dummyInput').blur();
@@ -1484,32 +1482,6 @@ function getCatList(callback) {
 			//////////
 			// HTML //
 			//////////
-			/*
-			var catListHtml = '';
-			var catLine     = '';
-			var c = data.length;
-			while(c--) {
-			//for(var c=0, len=data.length; c<len; c++) {
-				//get current weight
-				var totalWeight = 80;
-				if(window.localStorage.getItem("calcForm#pA3B")) {
-					totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
-				}
-				//convert to kg
-				if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
-					totalWeight = Math.round( (totalWeight) / (2.2) );
-				}
-				//ADJUST TO EXERCISE
-				var cKcal    = (data[c].type == "0000" || data[c].type == "exercise") ? Math.round(((data[c].kcal * totalWeight) / 60) * 30) : Math.round(data[c].kcal * 100) / 100;
-				var Ktype    = (data[c].type == '0000' || data[c].type == 'exercise') ? "exercise" : "food";
-				var favClass = (data[c].fib == "fav") ? "favItem" : "";
-				catLine      = "<div class='searcheable " + favClass + " " + Ktype + "' id='" + data[c].code + "' title='" + cKcal + "'><div class='foodName " + Ktype + "'>" + data[c].name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + cKcal + "</span><span class='foodPro " + Ktype + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + data[c].pro + "</span><span class='foodCar " + Ktype + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>" + data[c].car + "</span><span class='foodFat " + Ktype + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>" + data[c].fat + "</span></div>";
-				catListHtml += catLine;
-			}
-			//EMPTY
-			if(catListHtml == '') {
-				catListHtml = '<span id="noMatches"> ' + LANG.NO_ENTRIES[lang] +' </span>';
-			}*/
 			catListHtml = app.handlers.buildRows(data);
 			/////////////
 			// HANDLER //
@@ -1571,7 +1543,7 @@ function getCatList(callback) {
 				catMoveCount = 0;
 				catBlockTap = false;
 				$(".activeRow").removeClass("activeRow");
-				if(isMobile.Windows()) {
+				if(app.device.wp8) {
 					$("#tabMyCatsBlock").removeClass('out');
 				}
 				$("#pageSlideFood").show();

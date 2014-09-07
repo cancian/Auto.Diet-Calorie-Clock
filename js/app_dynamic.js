@@ -33,10 +33,10 @@ $(document).on("pageload", function (evt) {
 			getEntryEdit($(this).attr('id'));
 		}
 	});
-	var isHoldMove = isMobile.MSApp() ? '' : touchmove;
+	var isHoldMove = app.device.windows8 ? '' : touchmove;
 	$("#entryList div, #appContent").on(isHoldMove + ' mouseleave mouseout mouseup ' + touchend, function (evt) {
 		deMove++;
-		if (deMove > 40 || (isMobile.Android() && deMove > 1)) {
+		if (deMove > 40 || (app.device.android && deMove > 1)) {
 			cancelEdit = 1;
 			clearTimeout(holdStart);
 			$('.longHold').removeClass('longHold');
@@ -135,7 +135,7 @@ $(document).on("pageload", function (evt) {
 								// TIMED BLUR //
 								////////////////
 								var nowBlur = new Date().getTime();
-								if (isMobile.Android() || isMobile.FirefoxOS()) {
+								if (app.device.android || app.device.firefoxos) {
 									if (nowBlur - timedBlur < 600) {
 										var blurVal = $("#editableInput").val();
 										$("#editableInput").focus();
@@ -388,7 +388,7 @@ $(document).on("pageload", function (evt) {
 		if (!$('.editableInput').is(':visible')) {
 			return;
 		}
-		if ($('.editableInput').is(':visible') && ($("#editableInput").is(":focus") || isMobile.Windows())) {
+		if ($('.editableInput').is(':visible') && ($("#editableInput").is(":focus") || app.device.wp8)) {
 			//dismiss protection
 			//if($("#entryList div" + tgt).is(':animated')) { return; }
 			//ALLOW ENTRY INPUT RETINA FOCUS
@@ -416,7 +416,7 @@ $(document).on("pageload", function (evt) {
 			if (!$("#entryList div").is(':animated')) {
 				$("#editableInput").blur();
 				//rekeyboarding on entrywrapper tap dismiss
-				if (isMobile.iOS()) {
+				if (app.device.ios) {
 					//evt.preventDefault();
 					//evt.stopPropagation();
 					$("#entryListForm").prepend("<div id='sliderBlock'></div>");
@@ -425,7 +425,7 @@ $(document).on("pageload", function (evt) {
 					});
 				}
 				//whitegap mitigation
-				if (isMobile.Android() && !$('.active').hasClass('open')) {
+				if (app.device.android && !$('.active').hasClass('open')) {
 					return false;
 				}
 				//evt.preventDefault();
@@ -436,7 +436,7 @@ $(document).on("pageload", function (evt) {
 	// GLOBAL HIDE //
 	/////////////////
 	$("#entryListForm,#go,#sliderBlock,#entryListWrapper").on(tap + " swipeLeft swipeRight", function (evt) {
-		if (!isMobile.Android()) {
+		if (!app.device.android) {
 			evt.preventDefault();
 		}
 		if (!$('.active').hasClass('busy')) {
@@ -561,7 +561,7 @@ $(document).on("pageReload", function (evt) {
 						$('#foodSearch').width(window.innerWidth - 55);
 						buildFoodMenu();
 						//remember search type
-						if (window.localStorage.getItem("searchType") == "exercise") {
+						if (app.read('searchType','exercise')) {
 							$("#foodSearch").attr('placeholder', LANG.EXERCISE_SEARCH[lang]);
 							$("#foodSearch,#pageSlideFood").addClass("exerciseType");
 						}
@@ -574,29 +574,47 @@ $(document).on("pageReload", function (evt) {
 						//$('#foodList').css("height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
 						//$('#foodList').css("top",($('#appHeader').height()) + "px");
 						setTimeout(function () {
-							getNiceScroll("#foodList");
-							$("body").trigger("resize");
+							getNiceScroll('#foodList');
+							setTimeout(function () {
+								niceResizer();
+							}, 200);
 						}, 300);
-						//SCROLLBAR UPDATE
-						clearTimeout(niceTimer);
-						niceTimer = setTimeout(niceResizer, 200);
 						/////////////
 						// handler //
 						/////////////
-						$("#foodList").scroll(function () {
-							//$("body").addClass("closer");
-							blockModal = true;
-							clearTimeout(modalTimer);
-							modalTimer = setTimeout(function () {
-									blockModal = false;
-								}, 300);
+						$('#foodList').scroll(function () {
+							if (app.device.ios) {
+								if ($('#foodList').scrollTop() <= 0) {
+									app.hide('#addNewFood,#addNewExercise');
+									clearTimeout(app.timers.foodlist);
+									app.timers.foodlist = setTimeout(function () {
+										app.show('#addNewFood,#addNewExercise');
+									}, 1000);
+								} else {
+									if ($('#addNewFood').css('opacity') == 0) {
+										app.hide('#addNewFood,#addNewExercise');
+										clearTimeout(app.timers.foodlist);
+										app.timers.foodlist = setTimeout(function () {
+											app.show('#addNewFood,#addNewExercise');
+										}, 1000);
+									} else {
+										app.hide('#addNewFood,#addNewExercise');
+									}
+								}
+							} else {
+								app.hide('#addNewFood,#addNewExercise');
+								clearTimeout(app.timers.foodlist);
+								app.timers.foodlist = setTimeout(function () {
+									app.show('#addNewFood,#addNewExercise');
+								}, 600);
+							}
 						});
 						//#/////////////////////////////////////#//
 						//# KEYUP LISTENER SEARCH TIMER-LIMITER #//
 						//#/////////////////////////////////////#//
 						var timer;
 						
-						var inputEvent = isMobile.Windows() ? 'keyup' : 'input';
+						var inputEvent = app.device.wp8 ? 'keyup' : 'input';
 						$("#foodSearch").on(inputEvent,function() {
 						//document.getElementById('foodSearch').addEventListener(inputEvent, function () {
 							//CLEAR ICON
@@ -661,7 +679,7 @@ $(document).on("pageReload", function (evt) {
 								$('#infoContents').show();
 								//update placeholder n' animate
 								if ($("#foodSearch").hasClass("exerciseType")) {
-									window.localStorage.setItem("searchType", "exercise");
+									app.save('searchType','exercise');
 									$("#foodSearch").attr('placeholder', LANG.EXERCISE_SEARCH[lang]);
 									$("#foodSearch").addClass('busy');
 									$("#foodSearch").animate({
@@ -672,7 +690,7 @@ $(document).on("pageReload", function (evt) {
 										$("#foodSearch").removeClass('busy');
 									});
 								} else {
-									window.localStorage.removeItem("searchType");
+									app.remove('searchType');
 									$("#foodSearch").attr('placeholder', LANG.FOOD_SEARCH[lang]);
 									$("#foodSearch").addClass('busy');
 									$("#foodSearch").animate({
@@ -703,7 +721,7 @@ $(document).on("pageReload", function (evt) {
 						//$('#pageSlideFood').css("opacity",".925");
 						$('#pageSlideFood').addClass('busy');
 						//open directly on first load
-						if (window.localStorage.getItem("foodDbLoaded") != "done") {
+						if (!app.read('foodDbLoaded','done')) {
 							$('#pageSlideFood').addClass("open");
 						}
 						setTimeout(function() {
@@ -733,7 +751,7 @@ $(document).on("pageReload", function (evt) {
 //# CORE SQL SEARCH #//
 //#/////////////////#//
 function searchFood(searchSQL, callback) {
-	if (window.localStorage.getItem("searchType") == "exercise") {
+	if (app.read('searchType','exercise')) {
 		var typeTerm = 'exercise';
 	} else {
 		var typeTerm = 'food';
@@ -791,13 +809,13 @@ function doSearch(rawInput) {
 	// FETCH INPUT //
 	/////////////////
 	var timerStart = new Date().getTime();
-	var lastSearch = window.localStorage.getItem("lastSearchTerm");
+	var lastSearch = app.read('lastSearchTerm');
 		//sanitize user input
 		var searchQuery = trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
 		//partial sql syntax
 		var searchSQL = searchQuery.split(" ");
 		//prevent multiple identical searches
-		window.localStorage.setItem("lastSearchTerm", searchQuery);
+		app.save('lastSearchTerm"', searchQuery);
 		//#/////////////////////#//
 		//# BUILD KEYWORD ARRAY #//
 		//#/////////////////////#//
@@ -829,69 +847,16 @@ function doSearch(rawInput) {
 		//# QUERY FOOD DB #//
 		//#///////////////#//
 		var foodList = '';
-		/*
-		var countMatch = 0;
-		//ADJUST SEARCH TYPE
-		if (window.localStorage.getItem("searchType") == "exercise") {
-			//get current weight
-			if (!window.localStorage.getItem("calcForm#pA3B")) {
-				var totalWeight = 80;
-			} else {
-				var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
-			}
-			//convert to kg
-			if (window.localStorage.getItem("calcForm#pA3C") == "pounds") {
-				var totalWeight = Math.round((totalWeight) / (2.2));
-			}
-			//TYPES
-			var searchType = 'exercise';
-		} else {
-			var searchType = 'food';
-		}*/
 		///////////////////
 		// EXECUTE QUERY //
 		///////////////////
 		searchFood(searchSQL, function (data) {
 			// LOOP RESULTS //
-			/*
-			for (var s = 0, len = data.length; s < len; s++) {
-				//total results
-				//organize relevant columuns
-				var id = data[s].id;
-				var type = data[s].type;
-				var code = data[s].code;
-				var name = data[s].name;
-				var term = data[s].term;
-				var kcal = Math.round(data[s].kcal * 100) / 100;
-				var pro = Math.round(data[s].pro * 100) / 100;
-				var car = Math.round(data[s].car * 100) / 100;
-				var fat = Math.round(data[s].fat * 100) / 100;
-				var fib = 0;
-				// SEARCH TYPE //
-				var typeClass;
-				var favClass = (data[s].fib == "fav") ? 'favItem' : '';
-				if (searchType == "exercise") {
-					typeClass = " hidden";
-					//calculate weight proportion
-					kcalBase = kcal;
-					kcal = Math.round(((kcal * totalWeight) / 60) * 30);
-				} else {
-					typeClass = "";
-					kcalBase = kcal;
-				}
-				//html
-				var foodLine = "<div class='searcheable " + favClass + "' id='" + code + "' title='" + kcalBase + "'><div class='foodName'>" + name + "</div><span class='foodKcal'><span class='preSpan'>" + LANG.KCAL[lang] + "</span>" + kcal + "</span><span class='foodPro " + typeClass + "'><span class='preSpan'>" + LANG.PRO[lang] + "</span>" + pro + "</span><span class='foodCar " + typeClass + "'><span class='preSpan'>" + LANG.CAR[lang] + "</span>" + car + "</span><span class='foodFat " + typeClass + "'><span class='preSpan'>" + LANG.FAT[lang] + "</span>" + fat + "</span></div>";
-				*/
-				
-				//result list
-				//foodList += foodLine;
-			//} //end loop
 			foodList = app.handlers.buildRows(data.reverse());
 			/////////////////////
 			// DISPLAY RESULTS //
 			/////////////////////
 			//matches number
-			//$("#iCounter").html(countMatch + " matches");
 			$("#menuTopBar").hide();
 			$("#infoContents").hide();
 			//prevent overflow blinking
@@ -924,34 +889,6 @@ function doSearch(rawInput) {
 			////////////////////////
 			// OVERFLOW ON-DEMAND //
 			////////////////////////
-			/*
-			$(".searcheable").on(tap + ' ' + touchstart, function (evt) {
-				if (blockModal == true) {
-					return;
-				}
-				if ($("#addNewWrapper").html()) {
-					return;
-				}
-				if ($("#foodSearch").is(":focus") && !isDesktop()) {
-					//evt.preventDefault();
-					//return;
-				}
-				$("#activeOverflow").removeAttr("id");
-				$(".activeOverflow").removeClass("activeOverflow");
-				$(this).addClass("activeOverflow");
-				$(".foodName", this).attr("id", "activeOverflow");
-				$(".foodName").css("overflow", "auto");
-			});
-			/////////////////////////////////
-			// TAP FOOD-ENTRY EDIT (MODAL) //
-			/////////////////////////////////
-			$("#searchContents div.searcheable").on(singletap, function (event) {
-				event.preventDefault();
-				if (blockModal == true) {
-					return;
-				}
-				getModalWindow($(this).attr("id"));
-			});*/
 			app.handlers.activeRow('#searchContents .searcheable','activeOverflow',function(rowId) {
 				getModalWindow(rowId);
 			});
@@ -975,18 +912,18 @@ function updateCustomList(filter,callback) {
 	//ITEM
 	if(/items|all|cache/.test(filter)) {
 		$('#tabMyItemsBlock').html(getCustomList('items'));
-		$('#addNewFood, #addNewExercise').remove();
-		$('#foodList').after('<div id="addButtons"><div id="addNewFood">' + LANG.NEW_FOOD[lang] + '</div><div id="addNewExercise">' + LANG.NEW_EXERCISE[lang] + '</div></div>');
+		$('#addButtons').remove();
+		$('#foodList').after('<div id="addButtons"><div id="addNewFood"><div id="addNewFoodTitle"><span>+</span>' + LANG.NEW_FOOD[lang] + '</div></div><div id="addNewExercise"><div id="addNewExerciseTitle"><span>+</span>' + LANG.NEW_EXERCISE[lang] + '</div></div></div>');
 		app.handlers.activeRow('#tabMyItemsBlock .searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
 		});	
 		//EXTRA HANDLERS
 		$('#addNewFood').on(touchstart, function (evt) {
-			$(this).addClass('active');
+			$('#addNewFood').addClass('active');
 			addNewItem({type : 'food',act : 'insert'});
 		});
 		$('#addNewExercise').on(touchstart, function (evt) {
-			$(this).addClass('active');
+			$('#addNewExercise').addClass('active');
 			addNewItem({type: 'exercise',act: 'insert'});
 		});
 	}
@@ -1156,7 +1093,7 @@ function addNewItem(addnew) {
 			$('#addNewWrapper input').trigger('blur');
 			return false;
 		}
-		if (isMobile.Android()) {
+		if (app.device.android) {
 			kickDown();
 		}
 		$('#addNewExercise, #addNewFood').removeClass('active');
@@ -1341,7 +1278,7 @@ function addNewItem(addnew) {
 	///////////////////////////////////////////
 	// android input blur blank viewport bug //
 	///////////////////////////////////////////
-	if (isMobile.Android()) {
+	if (app.device.android) {
 		//preset wrapper min-height
 		$('#addNewWrapper').css('min-height', $('#addNewWrapper').height() + 'px');
 		//trigger on touchmove if not focused (closing-touch white gap)
@@ -1438,8 +1375,8 @@ function getModalWindow(itemId) {
 		// FOOD ? EXERCISE //
 		/////////////////////
 		var isFoodRow = (modal.type != '0000' && modal.type != 'exercise') ? true : false;
-		var totalWeight = window.localStorage.getItem('calcForm#pA3B') ? parseInt(window.localStorage.getItem('calcForm#pA3B')) : 80;
-		if (window.localStorage.getItem('calcForm#pA3C') == 'pounds') {
+		var totalWeight = app.read('calcForm#pA3B') ? app.read('calcForm#pA3B') : 80;
+		if (app.read('calcForm#pA3C','pounds')) {
 			totalWeight = Math.round((totalWeight) / (2.2));
 		}
 		/////////////////////////////
@@ -1568,11 +1505,11 @@ function getModalWindow(itemId) {
 				// CALLBACK //
 				//////////////
 				//AUTO START
-				if (window.localStorage.getItem('appStatus') != 'running') {
+				if (!app.read('appStatus','running')) {
 					appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
 						if (button == 1) {
-							window.localStorage.setItem('config_start_time', saveTime);
-							window.localStorage.setItem('appStatus', 'running');
+							app.save('config_start_time',saveTime);
+							app.save('appStatus','running');
 							$('#appStatusTitle').html(LANG.RESET[lang]);
 							$('#appStatus').removeClass('start');
 							$('#appStatus').addClass('reset');
@@ -1703,7 +1640,7 @@ function getModalWindow(itemId) {
 				evt.preventDefault();
 				evt.stopPropagation();
 			});
-			if (isMobile.Windows()) {
+			if (app.device.wp8) {
 				$('#modalWindow').on(touchstart, function (evt) {
 					evt.stopPropagation();
 				});
@@ -1727,40 +1664,30 @@ function getModalWindow(itemId) {
 			});
 			//CANCEL
 			$('#modalOverlay, #modalCancel').on(touchstart, function (evt) {
-				evt.preventDefault();
-				evt.stopPropagation();
 				modal.close();
 				return false;
 			});
 			//EDIT
 			//$('#modalEdit').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalEdit','button',function(evt) {
-				evt.preventDefault();
-				evt.stopPropagation();
 				addNewItem(modal);
 				return false;
 			});
 			//FAV
 			//$('#modalFav').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalFav','button',function(evt) {
-				evt.preventDefault();
-				evt.stopPropagation();
 				modal.fav();
 				return false;
 			});
 			//DELETE
 			//$('#modalDelete').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalDelete','button',function(evt) {
-				evt.preventDefault();
-				evt.stopPropagation();
 				modal.remove();
 				return false;
 			});
 			//PREFILL
 			//$('#modalContent').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalContent','button',function(evt) {
-				evt.preventDefault();
-				evt.stopPropagation();
 				modal.prefill();
 				return false;
 			});

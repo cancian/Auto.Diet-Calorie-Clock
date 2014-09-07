@@ -26,21 +26,21 @@ $.ajaxSetup({cache: false, error: function(jqXHR, exception) {
 //# LOCAL SUPERBLOCK #//
 //#//////////////////#//
 function InitializeLocalSuperBlock(opt) {
-	if(opt == "cached") { return; }
+	if(opt == 'cached') { return; }
 	var dataJS  = '';
 	var dataCSS = '';
-	$.ajax({type: "GET", dataType: "text", url: "js/app_lib.js",         success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: "GET", dataType: "text", url: "js/app_lang.js",        success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: "GET", dataType: "text", url: "js/app_setup.js",       success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: "GET", dataType: "text", url: "js/app_macro.js",       success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: "GET", dataType: "text", url: "js/app_build.js",       success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: "GET", dataType: "text", url: "js/app_static.js",      success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: "GET", dataType: "text", url: "js/app_dynamic.js",     success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: "GET", dataType: "text", url: "js/app_custom_core.js", success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: "GET", dataType: "text", url: "css/index.css",         success: function(raw) { dataCSS = dataCSS + raw;
-	$.ajax({type: "GET", dataType: "text", url: "css/fonts.css",         success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_lib.js',         success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_lang.js',        success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_setup.js',       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_macro.js',       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_build.js',       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_static.js',      success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_dynamic.js',     success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_custom_core.js', success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'css/index.css',         success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'css/fonts.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	//GET SIZE
-	window.localStorage.setItem("app_autoupdate_hash",(dataJS + dataCSS).length);
+	window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
 	//MOZIE CSS CONVERT
 	if((/Firefox/i).test(navigator.userAgent)) {
 		dataCSS = dataCSS.split('-webkit-').join('-moz-');
@@ -88,9 +88,9 @@ function buildRemoteSuperBlock(opt) {
 	//
 	var dataJS  = '';
 	var dataCSS = '';
-	var hostLocal2 = "http://kcals.net/";
-	if(window.localStorage.getItem("config_debug") == "active") {
-		hostLocal2 = "http://192.168.1.5/com.cancian.mylivediet/www/";
+	var hostLocal2 = 'http://kcals.net/';
+	if(window.localStorage.getItem('config_debug') == 'active') {
+		hostLocal2 = 'http://192.168.1.5/com.cancian.mylivediet/www/';
 	}
 	//retrieve ajax check
 	if(typeof cssLoadCount === 'undefined') { return; }
@@ -98,15 +98,15 @@ function buildRemoteSuperBlock(opt) {
 	$('body').removeClass('loading');
 	$('body').removeClass('uptodate');
 	$('body').removeClass('pending');
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "update.php?type=md5", error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=md5', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
 		//null
 		if(hash == '') { $('body').removeClass('loading'); return; }
 		var hashObj = hash.split(',');
 		//length
 		if(parseInt(hashObj[1]) > 1000) {
 			//diff
-			if(parseInt(hashObj[0]) == window.localStorage.getItem("app_build") && window.localStorage.getItem("app_autoupdate_hash") == hashObj[1]) {
-				if(window.localStorage.getItem("app_restart_pending")) {
+			if(parseInt(hashObj[0]) == window.localStorage.getItem('app_build') && window.localStorage.getItem('app_autoupdate_hash') == hashObj[1]) {
+				if(window.localStorage.getItem('app_restart_pending')) {
 					$('body').addClass('pending');
 				} else {
 					$('body').addClass('uptodate');					
@@ -116,25 +116,25 @@ function buildRemoteSuperBlock(opt) {
 		}
 	$('body').addClass('loading');
 	cssLoadCount(0,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_lib.js",         error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_lib.js',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(1,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_lang.js",        error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_lang.js',        error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(2,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_setup.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_setup.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(3,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_macro.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_macro.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(4,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_build.js",       error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_build.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(5,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_static.js",      error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_static.js',      error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(6,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_dynamic.js",     error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_dynamic.js',     error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(7,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "js/app_custom_core.js", error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_custom_core.js', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(8,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "css/index.css",         error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/index.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	cssLoadCount(9,10);
-	$.ajax({type: "GET", dataType: "text", url: hostLocal2 + "css/fonts.css",         error: function(xhr, statusText) { console.log("Error: "+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/fonts.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	cssLoadCount(10,10);
 	/////////////////////
 	// INTEGRITY CHECK //
@@ -142,7 +142,7 @@ function buildRemoteSuperBlock(opt) {
 	cssLoadCount(0,0);
 	if(!isCacheValid(dataJS + dataCSS)) { $('body').removeClass('loading'); return; }
 	//store original hash
-	window.localStorage.setItem("app_autoupdate_hash",(dataJS + dataCSS).length);	
+	window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);	
 	//MOZ~IE CSS
 	if((/Firefox/i).test(navigator.userAgent)) {
 		dataCSS = dataCSS.split('-webkit-').join('-moz-');
@@ -152,9 +152,9 @@ function buildRemoteSuperBlock(opt) {
 		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
 	//APPEND
-	if(opt == "load") {
-		$("head").append("<script id='superBlockJS'>" + dataJS  + "</script>");
-		$("head").append("<style id='superBlockCSS'>" + dataCSS + "</style>");
+	if(opt == 'load') {
+		$('head').append('<script id="superBlockJS">' + dataJS  + '</script>');
+		$('head').append('<style id="superBlockCSS">' + dataCSS + '</style>');
 	}
 	////////////////////
 	// UPDATE PENDING //
@@ -162,12 +162,12 @@ function buildRemoteSuperBlock(opt) {
 	var updatePending = 0;
 	//QUOTA
 	try {
-		if(dataJS != window.localStorage.getItem("remoteSuperBlockJS")) {
-			window.localStorage.setItem("remoteSuperBlockJS",dataJS);
+		if(dataJS != window.localStorage.getItem('remoteSuperBlockJS')) {
+			window.localStorage.setItem('remoteSuperBlockJS',dataJS);
 			updatePending = 1;
 		}
-		if(dataCSS != window.localStorage.getItem("remoteSuperBlockCSS")) {
-			window.localStorage.setItem("remoteSuperBlockCSS",dataCSS);
+		if(dataCSS != window.localStorage.getItem('remoteSuperBlockCSS')) {
+			window.localStorage.setItem('remoteSuperBlockCSS',dataCSS);
 			updatePending = 1;
 		}
 		////////////////////
@@ -184,17 +184,17 @@ function buildRemoteSuperBlock(opt) {
 			$('body').removeClass('loading');
 			$('body').addClass('pending');
 			if(typeof appBuild !== 'undefined') {
-				window.localStorage.setItem("app_build",appBuild);
+				window.localStorage.setItem('app_build',appBuild);
 			}
-			window.localStorage.setItem("app_restart_pending",true);
-			if(window.localStorage.getItem("app_notify_update")) {
+			window.localStorage.setItem('app_restart_pending',true);
+			if(window.localStorage.getItem('app_notify_update')) {
 				setTimeout(function() {
-					if(typeof appConfirm == "function") {
+					if(typeof appConfirm == 'function') {
 						function quickReboot(ok) {
 							if(ok == 1) {
 								afterHide();
 							} else {
-								window.localStorage.setItem("app_restart_pending",true);
+								window.localStorage.setItem('app_restart_pending',true);
 							}
 						}
 						appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
@@ -216,21 +216,21 @@ function buildRemoteSuperBlock(opt) {
 //#///////////////////#//
 //# APPEND SUPERBLOCK #//
 //#///////////////////#//
-if(!window.localStorage.getItem("config_autoupdate")) {
-	window.localStorage.setItem("config_autoupdate","on");
+if(!window.localStorage.getItem('config_autoupdate')) {
+	window.localStorage.setItem('config_autoupdate','on');
 }
-if(window.localStorage.getItem("config_autoupdate") == "on") {
+if(window.localStorage.getItem('config_autoupdate') == 'on') {
 	//IF SUPERBLOCK MISSING
 	if(isCurrentCacheValid != 1) {
 		//BUILD LOCAL SUPERBLOCK
-		if(!$("#plainLoad").length) {
+		if(!$('#plainLoad').length) {
 			InitializeLocalSuperBlock();
 		}
 	}
 	//CHECK UPDATES
 	$(document).ready(function() {
 		//SAVE REQUEST
-		if(!window.localStorage.getItem("remoteSuperBlockJS") || !window.localStorage.getItem("remoteSuperBlockCSS")) {
+		if(!window.localStorage.getItem('remoteSuperBlockJS') || !window.localStorage.getItem('remoteSuperBlockCSS')) {
 			setTimeout(function() {
 				//if(window.location.protocol.indexOf('http') === -1) {
 					InitializeLocalSuperBlock();
@@ -245,8 +245,10 @@ if(window.localStorage.getItem("config_autoupdate") == "on") {
 // BACKWARDS COMP
 $(document).ready(function() {
 	setTimeout(function() {
-		$('body').addClass('started');
-		$('body').removeClass('unloaded');
-	},2000);
+		if(window.location.protocol.indexOf('http') === -1) {
+			$('body').addClass('started');
+			$('body').removeClass('unloaded');
+		}
+	},5000);
 });
 

@@ -45,10 +45,10 @@ $(document).on('resume',function() {
 $(document).on('visibilitychange', function () {
 	clearTimeout(app.repeaterLoop);
 	if (document.hidden == false || document.visibilityState == 'visible') {
-		if (isMobile.OSXApp()) {
+		if (app.device.osxapp) {
 			$(document).trigger('resume');
 		}
-		if(isMobile.FirefoxOS()) {
+		if(app.device.firefoxos) {
 			screen.mozLockOrientation('portrait-primary');
 			$(document).trigger('resume');
 		}
@@ -131,7 +131,7 @@ preTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
 	kickDown();
 	if($('#appContent').scrollTop() > 0) {
-		if(isMobile.MSApp()) {
+		if(app.device.windows8) {
 			$('#appContent').scrollTop(0);
 		} else {
 			window.location='#top';
@@ -153,16 +153,15 @@ afterTab = function(keepOpen) {
 	$('#appHelper').remove();
 	$('#appSubHelper').remove();
 	$('#diaryNotesWrapper').remove();
-	//clear pageslidefood
-	if($('#pageSlideFood').length) {
-		if(!$('#pageSlideFood').is(':animated')) {
-			$('#pageSlideFood').remove();
-			$('#appHeader').removeClass('open');
-		} else {
-			$('#appHeader').trigger(touchstart);
-		}
-	} else {
+	//
+	if(!$('#pageSlideFood').is(':animated')) {
+		$('#timerDailyInput').removeAttr('readonly'); 
+		$('#timerDailyInput').removeClass('dull'); 
+		$('#pageSlideFood').remove();
+		$('#appHeader').removeClass('open');
 		$('body').removeClass('closer');
+	} else {
+		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER (android profile)
 	appResizer(200);
@@ -217,7 +216,7 @@ $('#appFooter li').on(touchstart, function(evt) {
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////
-if(isMobile.Windows()) {
+if(app.device.wp8) {
 	$('input').on('focus', function(evt) {
 		$('html,body').css('position','fixed');
 	});
@@ -329,6 +328,13 @@ $(document).on('pressenter', function(evt) {
 //////////////////////
 // KEYCODE LISTENER //
 //////////////////////
+$(document).keydown(function(e) {
+	if(app.device.osxapp) {
+		if(!$('input,input[type="number"]select,textarea').is(':focus')) {
+			e.preventDefault();	
+		}
+	}
+});
 $(document).keyup(function(e) {
 	if($('body').hasClass('spinnerMask')) { return false; }
 	if(e.keyCode == 13) { $(document).trigger('pressenter'); }
@@ -369,6 +375,10 @@ $(document).keyup(function(e) {
 			return false;
 		}
 	}
+	//////////////////
+	// NOT ON FOCUS //
+	//////////////////
+	if($('input,input[type="number"]select,textarea').is(':focus')) { return; }
 	//////////////////
 	// FAVS KEY NAV //
 	//////////////////
@@ -460,14 +470,14 @@ $(window).on('resize', function(evt) {
 	$('body').trigger('touchmove');
 	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
 	//if(window.innerHeight > $('body').height()) {
-	if(initialScreenSize > $('body').height() && !isMobile.MSApp()) {
+	if(initialScreenSize > $('body').height() && !app.device.windows8) {
 		//IOS re-scrolling bug
 		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
 		$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);
 		appResizer(0);
 	}
 	//ALWAYS RESIZE NON-MOBILE BROWSER
-	if(isMobile.MSApp()) {
+	if(app.device.windows8) {
 		//resize triggers blur on orientation change
 		if(window.innerWidth == initialScreenHeight && orientationSwitched == 0) {
 			appResizer(0);
@@ -486,7 +496,7 @@ $(window).on('resize', function(evt) {
 	}
 	//notepad (ios6 fix)(window.innerHeight)
 	if($('#diaryNotesInput').length) {
-		if($('#diaryNotesInput').length && !isMobile.Windows() && !isMobile.MSApp()) {
+		if($('#diaryNotesInput').length && !app.device.wp8 && !app.device.windows8) {
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 			$('#diaryNotesInput').height(window.innerHeight - 32);
 			$('#diaryNotesInput').width(window.innerWidth - 24);
@@ -580,15 +590,15 @@ if(app.device.android) {
 // WINDOWS //
 /////////////
 if(app.device.wp8) {
-	$('body').addClass('windows');
+	$('body').addClass('wp8');
 }
 if(app.device.windows8) {
-	$('body').addClass('msapp');
+	$('body').addClass('windows8');
 }
 ////////////////////////////
 // FF OS ORIENTATION LOCK //
 ////////////////////////////
-if(isMobile.FirefoxOS()) {
+if(app.device.firefoxos) {
 	screen.mozLockOrientation('portrait-primary');
 }
 ////////////
@@ -645,6 +655,16 @@ if(app.device.blackberry) {
 /////////////
 if(app.device.cordova) {
 	$('body').addClass('cordova');
+} else {
+	$('body').addClass('noncordova');	
+}
+//////////
+// HTTP //
+//////////
+if(app.http) {
+	$('body').addClass('http');
+} else {
+	$('body').addClass('local');	
 }
 /////////////
 // DESKTOP //
@@ -739,8 +759,15 @@ setTimeout(function() {
 	//////////////////////
 	$('#appHeader').on(touchstart, function(evt) {
 		var targetId = evt.target.id;
+		//CLEAR BLOCK
+		if(!$('#pageSlideFood').html() && !$('#newWindow').html()) {
+			$('#appHeader').removeClass('closer');
+			$('body').removeClass('closer');
+			$('#timerDailyInput').removeAttr('readonly'); 
+			$('#timerDailyInput').removeClass('dull'); 
+		}
 		//DEFER
-		if(targetId == 'timerDailyInput' && ($('#pageSlideFood').length || $('#newWindow').length)) {
+		if(targetId == 'timerDailyInput' && ($('#pageSlideFood').html() || $('#newWindow').html())) {
 			//inactive
 			$('#timerDailyInput').attr('readonly','readonly'); 
 			$('#timerDailyInput').addClass('dull'); 
@@ -749,8 +776,12 @@ setTimeout(function() {
 				$('#appHeader').trigger(touchstart);
 			},0);
 			setTimeout(function() {
-				$('#timerDailyInput').removeAttr('readonly'); 
-				$('#timerDailyInput').removeClass('dull'); 
+				if(!$('#pageSlideFood').html() && !$('#newWindow').html()) {
+					$('#appHeader').removeClass('closer');
+					$('body').removeClass('closer');
+					$('#timerDailyInput').removeAttr('readonly'); 
+					$('#timerDailyInput').removeClass('dull'); 
+				}
 			},200);
 			return false;
 		}
@@ -857,7 +888,7 @@ setTimeout(function() {
 	
 	var editableTimeout;
 	app.handlers.validate('#timerDailyInput',{minValue: 100, defaultValue: function() { return app.get.kcals('reset'); }},'',function() {
-		if($('#pageSlideFood').length || $('#newWindow').length) {
+		if($('#pageSlideFood').html() || $('#newWindow').html()) {
 			$('#timerDailyInput').trigger('focus');
 			$('#timerDailyInput').trigger('blur');
 		}
@@ -866,7 +897,7 @@ setTimeout(function() {
 		if(app.device.desktop) {
 			$('#timerDailyInput').attr('type','number');
 		}
-		if($('#pageSlideFood').length || $('#newWindow').length) {
+		if($('#pageSlideFood').html() || $('#newWindow').html()) {
 			$('#timerDailyInput').trigger('blur');
 		}
 	},function() {

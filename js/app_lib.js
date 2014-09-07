@@ -54,6 +54,16 @@ var app = {
 			window.localStorage.removeItem(key);
 		}
 	},
+	show: function(target) {
+		$(target).css('pointer-events','auto');
+		$(target).css(prefix + 'transition', 'opacity ease .32s');
+		$(target).css('opacity',1);
+	},
+	hide: function(target) {
+		$(target).css('pointer-events','none');
+		$(target).css(prefix + 'transition', 'opacity ease .12s');
+		$(target).css('opacity',0);	
+	}
 }
 //////////////////
 // APP.REBOOT() //
@@ -240,7 +250,7 @@ app.handlers = {
 	activeRowTimer   : '',
 	activeLastId     : '',
 	activeRow : function (target, style, callback,callbackCondition) {
-		var isButton = style == 'button' ? 0 : 40;
+		var isButton = style == 'button' ? 40 : 40;
 		//RESET
 		app.handlers.activeRowTouches = 0;
 		app.handlers.activeRowBlock   = 0;
@@ -312,16 +322,16 @@ app.handlers = {
 		//////////////////////
 		// ROW LEAVE CANCEL //
 		//////////////////////
-		if(isMobile.MSApp()) {
+		if(app.device.windows8) {
 			$(target).on('pointerleave pointercancel pointerout', function (evt) {
 				$(app.handlers.activeLastId).removeClass(style);
 				clearTimeout(app.handlers.activeRowTimer);
 			});
 		}
-		if(!isMobile.MSApp()) {
+		if(!app.device.windows8) {
 			$(targetParent).on('mouseout mouseleave touchleave touchcancel', function (evt) {
 				app.handlers.activeRowTouches++;
-				if(!isMobile.Windows() && style != 'activeOverflow') {
+				if(!app.device.wp8 && style != 'activeOverflow') {
 					clearTimeout(app.handlers.activeRowTimer);
 					$(app.handlers.activeLastId).removeClass(style);
 				}
@@ -330,12 +340,12 @@ app.handlers = {
 		////////////////////////
 		// SCROLL/MOVE CANCEL //
 		////////////////////////
-		if(!isMobile.MSApp()) {
+		if(!app.device.windows8) {
 			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
 			$(targetParent).on('scroll ' + moveCancel, function (evt) {
 				app.handlers.activeRowTouches++;
 				clearTimeout(app.handlers.activeRowTimer);
-				if (app.handlers.activeRowTouches > 7 || (app.handlers.activeRowTouches > 1 && isMobile.Android())) {
+				if (app.handlers.activeRowTouches > 7 || (app.handlers.activeRowTouches > 1 && app.device.android)) {
 					$(app.handlers.activeLastId).removeClass(style);
 					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
@@ -450,9 +460,9 @@ app.handlers = {
 			rowSql = rowSql.split('undefined').join('');
 			//
 			if(filter === 'fav') {
-				window.localStorage.setItem('customFavSql', rowSql);
+				app.save('customFavSql', rowSql);
 			} else {
-				window.localStorage.setItem('customItemsSql', rowSql);				
+				app.save('customItemsSql', rowSql);				
 			}
 		}
 		/////////////////
@@ -551,13 +561,13 @@ app.get.kcals = function(opt) {
 // TOTAL WEIGHT //
 //////////////////
 app.get.totalweight = function() {
-	if (!window.localStorage.getItem('calcForm#pA3B')) {
+	if (!app.read('calcForm#pA3B')) {
 		return 80;
 	}
-	if (window.localStorage.getItem('calcForm#pA3C') == 'pounds') {
-		return Math.round(parseInt(window.localStorage.getItem('calcForm#pA3B'))/2.2);
+	if (app.read('calcForm#pA3C','pounds')) {
+		return Math.round(app.read('calcForm#pA3B')/2.2);
 	}	
-	return parseInt(window.localStorage.getItem('calcForm#pA3B'));
+	return app.read('calcForm#pA3B');
 };
 app.get.androidVersion = function() {
 	if((/Android/i).test(userAgent) && window.location.protocol.indexOf('http') === -1) {
@@ -811,7 +821,7 @@ app.safeExec = function (callback) {
 ///////////////////
 function errorHandler(error) {
 	if (window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
-		if (isMobile.MSApp()) {
+		if (app.device.windows8) {
 			if (typeof alert !== 'undefined') {
 				alert(JSON.stringify(error));
 			}
@@ -951,7 +961,13 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		if(blurProcess) {
 			blurProcess();
 		}
-	});	
+	});
+	/////////////////
+	// PROPAGATION //
+	/////////////////
+	$(target).on(touchmove, function(evt) {	
+		evt.preventDefault();
+	});
 };
 //////////
 // TRIM //
@@ -1146,7 +1162,7 @@ function getOrientation() {
 // ANDROID 2 SELECT //
 //////////////////////
 function android2Select() {
-	if(isMobile.Android() && androidVersion() < 4) {
+	if(app.device.android && app.device.android < 4) {
 		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 		$('#dummyInput').focus();
 		$('#dummyInput').blur();
@@ -1174,7 +1190,7 @@ function cssLoadCount(num,total) {
 function kickDown(el) {
 	if(!el) { el = '#appContent'; }
 	if(!$('body').hasClass('android2')) {
-		if(!isDesktop() || isMobile.MSApp()) {
+		if(!app.device.desktop || app.device.windows8) {
 			window.scrollTo(0, 0);
 			document.body.scrollTop = 0;
 			//window.scroll($(el)[0].scrollTop,0,0);
@@ -1186,7 +1202,7 @@ function kickDown(el) {
 /////////////////
 // MSAPP METRO //
 /////////////////
-if(isMobile.MSApp()) {
+if(app.device.windows8) {
 	/////////////////
 	// METRO ALERT //
 	/////////////////
@@ -1433,7 +1449,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	///////////
 	// MSAPP //
 	///////////
-	if (isMobile.MSApp()) {
+	if (app.device.windows8) {
 		//STORE NEXT
 		if (MSDialog == true) {
 			var isRepeated = 0;

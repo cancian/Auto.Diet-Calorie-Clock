@@ -107,7 +107,7 @@ app.tab.settings = function(keepOpen) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		//fix exception 18
-		if(isMobile.Android()) {
+		if(app.device.android) {
 			updateFoodDb();
 		}
 		if(!$("#nprogress").html()) {
@@ -168,11 +168,11 @@ app.tab.settings = function(keepOpen) {
 		evt.stopPropagation();
 		$("#leftOption").addClass("toggle");
 		$("#rightOption").removeClass("toggle");
-		window.localStorage.setItem("config_measurement","imperial");
-		window.localStorage.setItem("calcForm#pA2C","inches");
-		window.localStorage.setItem("calcForm#pA3C","pounds");
-		window.localStorage.setItem("calcForm#pA6H","pounds");
-		window.localStorage.setItem("calcForm#pA6N","pounds");
+		app.save('config_measurement','imperial');
+		app.save('calcForm#pA2C','inches');
+		app.save('calcForm#pA3C','pounds');
+		app.save('calcForm#pA6H','pounds');
+		app.save('calcForm#pA6N','pounds');
 		setPush();
 	});
 	$("#rightOption").on(touchstart,function(evt){
@@ -180,15 +180,15 @@ app.tab.settings = function(keepOpen) {
 		evt.stopPropagation();
 		$("#rightOption").addClass("toggle");
 		$("#leftOption").removeClass("toggle");
-		window.localStorage.setItem("config_measurement","metric");
-		window.localStorage.setItem("calcForm#pA2C","centimetres");
-		window.localStorage.setItem("calcForm#pA3C","kilograms");
-		window.localStorage.setItem("calcForm#pA6H","kilograms");
-		window.localStorage.setItem("calcForm#pA6N","kilograms");
+		app.save('config_measurement','metric');
+		app.save('calcForm#pA2C','centimetres');
+		app.save('calcForm#pA3C','kilograms');
+		app.save('calcForm#pA6H','kilograms');
+		app.save('calcForm#pA6N','kilograms');
 		setPush();
 	});
 	//read stored
-	if(window.localStorage.getItem("config_measurement") == "metric") {
+	if(app.read('config_measurement','metric')) {
 		$("#rightOption").addClass("toggle");
 	} else {
 		$("#leftOption").addClass("toggle");
@@ -202,19 +202,17 @@ app.tab.status = function(keepOpen) {
 	////////////////////
 	// TODAY OVERVIEW //
 	////////////////////
-	var totalConsumed = parseInt(window.localStorage.getItem("config_ttf"));
-	var totalIntake   = parseInt(window.localStorage.getItem("config_kcals_day_0")) + (parseInt(window.localStorage.getItem("config_tte"))*-1);
+	var totalConsumed = app.read('config_ttf');
+	var totalIntake   = app.read('config_kcals_day_0') + (app.read('config_tte')*-1);
 	var totalPercent  = totalConsumed / (totalIntake / 100);
 	//create empty intake html cache
-	if(!window.localStorage.getItem("appStatusIntake")) {
-		window.localStorage.setItem("appStatusIntake"," ");
-	}
+	app.define('appStatusIntake',' ');
 	/////////////////////////////
 	// PRE-SET START/RESET BAR //
 	/////////////////////////////
 	var appStatusClass = "start";
 	var appStatusTitle = LANG.START[lang];
-	if(window.localStorage.getItem("appStatus") == "running") {
+	if(app.read('appStatus','running')) {
 		appStatusClass = "reset"; 
 		appStatusTitle = LANG.RESET[lang];
 	}
@@ -271,7 +269,7 @@ app.tab.status = function(keepOpen) {
 	$('#appStatusIntake div').css("padding-top", "0px");
 	intakeHistory();
 	//NUTRI
-	updateNutriBars(window.localStorage.getItem("tPro"),window.localStorage.getItem("tCar"),window.localStorage.getItem("tFat"));
+	updateNutriBars(app.read('tPro'),app.read('tCar'),app.read('tFat'));
 	//#//////////#//
 	//# HANDLERS #//
 	//#//////////#//
@@ -429,7 +427,7 @@ app.tab.status = function(keepOpen) {
     });
 	}
 	$('#startDate').on(touchstart,function(evt) {
-		if(isMobile.Android() && androidVersion() < 4.4)  {
+		if(app.device.android && app.device.android < 4.4)  {
 			//
 		} else {
 			evt.preventDefault();
@@ -884,40 +882,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 					afterHide();
 				}
 			}
-			////////
-			// DB //
-			////////
-			if ($("#entryBody").val().toLowerCase() == "devdb") {
-				if (window.localStorage.getItem("config_nodb") == "active") {
-					window.localStorage.setItem("config_nodb", "inactive");
-					window.localStorage.removeItem("foodDbLoaded");
-					$("#entryBody").val('');
-					$("#entryBody").blur();
-					afterHide();
-				} else {
-					window.localStorage.setItem("config_nodb", "active");
-					window.localStorage.removeItem("foodDbLoaded");
-					$("#entryBody").val('');
-					$("#entryBody").blur();
-					afterHide();
-				}
-			}
-			////////////////
-			// SET EXPIRE //
-			////////////////
-			if ($("#entryBody").val().toLowerCase() == "devsetexpire") {
-				window.localStorage.setItem("config_mode", "expired");
-				window.localStorage.setItem("config_install_time", (new Date().getTime()) - (60 * 60 * 24 * 8 * 1000));
-				$("#entryBody").val('');
-				$("#entryBody").blur();
-			}
 			///////////
 			// PURGE //
 			///////////
 			if ($("#entryBody").val().toLowerCase() == "devpurge") {
-				window.localStorage.removeItem("remoteSuperBlockJS");
-				window.localStorage.removeItem("remoteSuperBlockCSS");
-				window.localStorage.removeItem("app_autoupdate_hash");
+				app.remove("remoteSuperBlockJS");
+				app.remove("remoteSuperBlockCSS");
+				app.remove("app_autoupdate_hash");
 				//buildRemoteSuperBlock('cached');
 				$("#entryBody").val('');
 				$("#entryBody").blur();
@@ -926,10 +897,10 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// NOTIFY //
 			////////////
 			if ($("#entryBody").val().toLowerCase() == "devnotify") {
-				if (window.localStorage.getItem("app_notify_update")) {
-					window.localStorage.removeItem("app_notify_update");
+				if (app.read('app_notify_update')) {
+					app.remove('app_notify_update');
 				} else {
-					window.localStorage.setItem("app_notify_update", true);
+					app.save('app_notify_update', true);
 				}
 				$("#entryBody").val('');
 				$("#entryBody").blur();
@@ -974,7 +945,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// INSTALLTIME //
 			/////////////////
 			if ($("#entryBody").val().toLowerCase() == "devinstalltime") {
-				alert(dtFormat(parseInt(window.localStorage.getItem("config_install_time"))));
+				alert(dtFormat(app.read('config_install_time')));
 			}
 			//////////
 			// EVAL //
@@ -1067,18 +1038,18 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			//evt.preventDefault();
 		} else {
 			//critical re-keyboarding entrybody/entrytime
-			if(!isMobile.Android()) {
+			if(!app.device.android) {
 				evt.preventDefault();
 			}
 			evt.stopPropagation();
 		}
 		//android keyboard focus
-		if(isMobile.Android()) {
+		if(app.device.android) {
 			$('#entryBody').focus();
 		}
 		if(!$('#entryBody').is(':focus') && !$('.delete').is(':visible')) {
 			//ios, switch blur entrytime > entrybody || kitkat non-selectable focus
-			if(isMobile.iOS()) {
+			if(app.device.ios) {
 				evt.preventDefault();
 			}
 			$('#entryBody').focus();
@@ -1145,11 +1116,11 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#diaryNotesWrapper').remove();
 		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'>" + LANG.OK[lang] + "</div><textarea id='diaryNotesInput'></textarea></div>");
 		//load content
-		if(window.localStorage.getItem("appNotes") != "") {
-			$('#diaryNotesInput').val(window.localStorage.getItem("appNotes"));
+		if(app.read('appNotes')) {
+			$('#diaryNotesInput').val(app.read('appNotes'));
 		}
 		//focus
-		if(!isMobile.Windows()) {
+		if(!app.device.wp8) {
 			$('#diaryNotesInput').focus();
 		}
 		$('#diaryNotesInput').height(window.innerHeight - 32);
@@ -1169,7 +1140,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			}
 		});
 		//fix android 4.4 scrolling bug
-		if(isMobile.Android()) {
+		if(app.device.android) {
 			$('#diaryNotesInput').on(tap, function(evt) {
 				var notesScroll = $('#diaryNotesInput').scrollTop();
 				//allow toolbar select
@@ -1206,7 +1177,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		});		
 		//keypress save
 		$('#diaryNotesInput').on("keypress", function(evt) {
-			window.localStorage.setItem("appNotes",$('#diaryNotesInput').val());
+			app.save('appNotes',$('#diaryNotesInput').val());
 			$('#diaryNotesInput').height(window.innerHeight - 32);
 			if($.nicescroll) {
 				$("#diaryNotesInput").getNiceScroll().resize();
@@ -1223,7 +1194,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if($("#diaryNotesInput").is(":focus")) {
 				$('#diaryNotesInput').blur();
 			}
-			window.localStorage.setItem("appNotes",$('#diaryNotesInput').val());
+			app.save('appNotes',$('#diaryNotesInput').val());
 			$('#appHeader, #appContent').css('pointer-events','none');
 			$("#diaryNotesWrapper").css(prefix + 'transition-duration','.2s');
 			$("#diaryNotesWrapper").css(prefix + 'transition-timing-function','linear');
@@ -1545,7 +1516,7 @@ var tapVar;
 $("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
 	tapVar = this;
 	setTimeout(function(){ if(tapVar) { tapVar.blur(); } },1);
-	if(isMobile.MSApp() || (isMobile.Android() && androidVersion() < 4)) {
+	if(app.device.windows8 || (app.device.android && app.device.android < 4)) {
 		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 		$('#dummyInput').focus();
 		$('#dummyInput').blur();
@@ -1553,7 +1524,7 @@ $("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
 	}
 });
 //KEYBOARD PREVENT
-if(isMobile.FirefoxOS()) {
+if(app.device.firefoxos) {
 	$("#pA7B,#pA7F,#pA7L").on(touchstart, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
@@ -1612,7 +1583,7 @@ $('#calcForm input, #calcForm select').on('blur',function(evt) {
 $("#calcForm").on(touchend, function(evt) {
 	if(evt.target.id == "") {
 		evt.preventDefault();
-		if(isMobile.iOS()) {
+		if(app.device.ios) {
 			evt.stopPropagation();
 		}
 		//PROTECT FROM CALCULATOR BLUR SLOWDOWN
@@ -1676,41 +1647,41 @@ $("#formc input").on("keyup",function() {
 function writeCalcValues() {
 	var preffix = "calcForm";
 	//male/female
-	window.localStorage.setItem(preffix + "#pA1B",$("#pA1B").val());
+	app.save(preffix + "#pA1B",$("#pA1B").val());
 	//height (hidden)
 	if(!isNaN(parseInt($("#pA2B").val()))) {
 		$("#pA2B").val( Math.abs(parseInt($("#pA2B").val())) );
-		window.localStorage.setItem(preffix + "#pA2B",parseInt($("#pA2B").val()));
+		app.save(preffix + "#pA2B",parseInt($("#pA2B").val()));
 	}
 	//cm/in
-	window.localStorage.setItem(preffix + "#pA2C",$("#pA2C").val());
+	app.save(preffix + "#pA2C",$("#pA2C").val());
 	//weight
 	if(!isNaN(parseInt($("#pA3B").val()))) {
 		$("#pA3B").val( Math.abs(parseInt($("#pA3B").val())) );
-		window.localStorage.setItem(preffix + "#pA3B",parseInt($("#pA3B").val()));
+		app.save(preffix + "#pA3B",parseInt($("#pA3B").val()));
 	}
 	//kg/lb
-	window.localStorage.setItem(preffix + "#pA3C",$("#pA3C").val());
+	app.save(preffix + "#pA3C",$("#pA3C").val());
 	//age
-	window.localStorage.setItem(preffix + "#pA4B",$("#pA4B").val());
+	app.save(preffix + "#pA4B",$("#pA4B").val());
 	//activity
-	window.localStorage.setItem(preffix + "#pA5B",$("#pA5B").val());
+	app.save(preffix + "#pA5B",$("#pA5B").val());
 	//weight
-	window.localStorage.setItem(preffix + "#pA6G",$("#pA6G").val());
+	app.save(preffix + "#pA6G",$("#pA6G").val());
 	//measure
-	window.localStorage.setItem(preffix + "#pA6H",$("#pA6H").val());
+	app.save(preffix + "#pA6H",$("#pA6H").val());
 	//gain weight
-	window.localStorage.setItem(preffix + "#pA6M",$("#pA6M").val());
+	app.save(preffix + "#pA6M",$("#pA6M").val());
 	//measure
-	window.localStorage.setItem(preffix + "#pA6N",$("#pA6N").val());
+	app.save(preffix + "#pA6N",$("#pA6N").val());
 	//measure
 	if(!isNaN(parseInt($("#feet").val()))) {
 		$("#feet").val( Math.abs(parseInt($("#feet").val())) );
-		window.localStorage.setItem(preffix + "#feet",parseInt($("#feet").val()));
+		app.save(preffix + "#feet",parseInt($("#feet").val()));
 	}
 	if(!isNaN(parseInt($("#inches").val()))) {
 		$("#inches").val( Math.abs(parseInt($("#inches").val())) );
-		window.localStorage.setItem(preffix + "#inches",parseInt($("#inches").val()));	
+		app.save(preffix + "#inches",parseInt($("#inches").val()));	
 	}
 }
 /////////////////
@@ -1719,32 +1690,32 @@ function writeCalcValues() {
 function loadCalcValues() {
 	var preffix = "calcForm";
 	//check
-	if(window.localStorage.getItem(preffix + "#pA1B")) {
+	if(app.read(preffix + "#pA1B")) {
 		//male/female
-		$("#pA1B").val(window.localStorage.getItem(preffix + "#pA1B"));
+		$("#pA1B").val(app.read(preffix + "#pA1B"));
 		//height
-		$("#pA2B").val(window.localStorage.getItem(preffix + "#pA2B"));
+		$("#pA2B").val(app.read(preffix + "#pA2B"));
 		//cm/in
-		$("#pA2C").val(window.localStorage.getItem(preffix + "#pA2C"));
+		$("#pA2C").val(app.read(preffix + "#pA2C"));
 		//weight
-		$("#pA3B").val(window.localStorage.getItem(preffix + "#pA3B"));
+		$("#pA3B").val(app.read(preffix + "#pA3B"));
 		//kg/lb
-		$("#pA3C").val(window.localStorage.getItem(preffix + "#pA3C"));
+		$("#pA3C").val(app.read(preffix + "#pA3C"));
 		//age
-		$("#pA4B").val(window.localStorage.getItem(preffix + "#pA4B"));
+		$("#pA4B").val(app.read(preffix + "#pA4B"));
 		//activity
-		$("#pA5B").val(window.localStorage.getItem(preffix + "#pA5B"));
+		$("#pA5B").val(app.read(preffix + "#pA5B"));
 		//weight
-		$("#pA6G").val(window.localStorage.getItem(preffix + "#pA6G"));
+		$("#pA6G").val(app.read(preffix + "#pA6G"));
 		//measure
-		$("#pA6H").val(window.localStorage.getItem(preffix + "#pA6H"));
+		$("#pA6H").val(app.read(preffix + "#pA6H"));
 		//gain weight
-		$("#pA6M").val(window.localStorage.getItem(preffix + "#pA6M"));
+		$("#pA6M").val(app.read(preffix + "#pA6M"));
 		//measure
-		$("#pA6N").val(window.localStorage.getItem(preffix + "#pA6N"));
+		$("#pA6N").val(app.read(preffix + "#pA6N"));
 		//measure
-		$("#feet").val(window.localStorage.getItem(preffix + "#feet"));
-		$("#inches").val(window.localStorage.getItem(preffix + "#inches"));	
+		$("#feet").val(app.read(preffix + "#feet"));
+		$("#inches").val(app.read(preffix + "#inches"));	
 	}
 	//recalc
 	$('#do_recalc').trigger('click');
@@ -1755,7 +1726,7 @@ loadCalcValues();
 // SWAP FEET/INCHES //
 //////////////////////
 function feetInchesToMetric() {
-	if(document.getElementById("pA2C").value == "centimetres") {
+	if($('#pA2C').val() == 'centimetres') {
 		$("#feet").val(0);
 		$("#feet").removeClass("imperial");
 		$("#inches").removeClass("imperial");
