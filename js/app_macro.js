@@ -1487,7 +1487,8 @@ function getCatList(callback) {
 			// HANDLER //
 			/////////////
 			var catListHandler = function () {
-				$('#newWindow').addClass('firstLoad');
+				$("#tabMyCatsBlock").addClass('out');
+				//$("#newWindow").addClass('firstLoad');
 				//////////////////////
 				// ENDSCROLL LOADER //
 				//////////////////////
@@ -1499,25 +1500,24 @@ function getCatList(callback) {
 						//
 						var catlistHeight = $('#newWindow').height() * .5;
 						if(catLock != 0)                  { return; }
-						if(!$('#newWindow').hasClass('firstLoad')) { return; }
+						if(!$('#newWindow').hasClass("firstLoad")) { return; }
 						if($('#newWindow').scrollTop()+500 > catlistHeight) {
 							catLock = 1;
-							//spinner();
+							$("#newWindow").removeClass('firstLoad');
+							kickDown();
+							return false;
 							setTimeout(function () {
-								$('#newWindow').removeClass('firstLoad');
-								//spinner('stop');
-								setTimeout(function () {
-									niceResizer();
-								}, 100);
-							},0);
+								niceResizer();
+								kickDown();
+								return false;
+							}, 100);
 						}
 					},300);
 				});
-				$('#tabMyCatsBlock').addClass('out');
 				setTimeout(function () {
-					$('#newWindowWrapper').on(transitionend, function() {
+					$("#newWindowWrapper").on(transitionend, function() {
 						setTimeout(function () {
-							$('#pageSlideFood').hide();
+							$("#pageSlideFood").hide();
 						}, 100);
 					});
 				}, 0);
@@ -1539,7 +1539,6 @@ function getCatList(callback) {
 			// CLOSER //
 			////////////
 			var catListCloser = function () {
-				//closer for ios if ~backbutton return
 				catMoveCount = 0;
 				catBlockTap = false;
 				$(".activeRow").removeClass("activeRow");

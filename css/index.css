@@ -1,7 +1,8 @@
 ﻿head,style,script						{ display: none; }
 html,body								{ position: absolute; width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; touch-action: none; -ms-touch-action: none; user-zoom: fixed; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-.osx *									{ -webkit-font-smoothing: antialiased; }
+.ios *,
+.osx *									{ -webkit-font-smoothing: antialiased; font-weight: 400; }
 .windows8 								{ overflow: hidden !important; }
 #infocontents,
 #tabMyCatsBlock,#infocontents,
@@ -816,7 +817,7 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 .entriesPublished			{ padding-top: 28px; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; white-space: nowrap; }
 .editing .entriesPublished	{ opacity: 0; display: none; }
 /*GENERIC*/
-div#noEntries				{ border-left: 5px solid rgba(0,0,0,0); pointer-events: none; }
+div#noEntries				{ border-left: 5px solid rgba(0,0,0,0); pointer-events: none; height: 45px; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
 .heading					{ -webkit-user-select: none; -ms-touch-action: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #fff; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; background-color: #fff; font-weight: normal; margin: 0; text-align: left; text-transform: uppercase; letter-spacing: 3px; line-height: 1; }
 .appLang-el .heading		{ font-size: 14px; letter-spacing: 2px; }
@@ -850,8 +851,8 @@ div.editing p				{ opacity: 1; }
 
 .sidebar.msie #entryList div		{ padding: 15px 0 2px 0; }
 
-.sidebar #entryList					{ -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); }
-.sidebar div#noEntries				{ border-left: 3px solid #ccc; padding-left: 3px; }
+.sidebar #entryList					{ -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); }
+.sidebar div#noEntries				{ border-left: 3px solid #ccc; padding-left: 3px !important; height: 45px; }
 .sidebar .rowMorning,
 .sidebar .e-rowMorning				{ color: #000; border-left: 3px solid #FFEC3C; }
 .sidebar .rowAfternoon,
@@ -902,8 +903,8 @@ div.editing p				{ opacity: 1; }
 .carpe-slider-track			{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #666; opacity: .5; }
 #positiveTrack				{ background-color: #0000dd; }
 #negativeTrack				{ background-color: #D55621; }
-.carpe-slider-knob			{ z-index: 1; top: 0; left: 1px; width: 18px; height: 18px; border: 1px solid #ddd; border-radius: 12px; background: #fff; margin-left: 0px; }
-.carpe-slider-knob.active	{ border: 1px solid #009900; }
+.carpe-slider-knob			{ z-index: 1; top: 0px; left: 2px; margin-left: 0; margin-right: 2px; width: 18px; height: 18px; border: 1px solid #fff; border-radius: 100%; background-color: #fff; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
+.carpe-slider-knob.active	{ border: 1px solid #009900; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
 /*/////////
 // NOTES //
 /////////*/
@@ -1177,7 +1178,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #tabMyCatsBlock						{ -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
 #tabMyCatsBlock.out					{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
 .windows8 #tabMyCatsBlock.out,
-.wp8 #tabMyCatsBlock.out		{ -webkit-transform: translate3d(0, 0, 0); margin-left: -25%; }
+.wp8 #tabMyCatsBlock.out			{ -webkit-transform: translate3d(0, 0, 0); margin-left: -25%; }
 #tabMyCatsBlock li					{ position: relative; display: block; height: 45px; line-height: 49px; color: #555; }
 #tabMyCatsBlock li div				{ margin-left: 54px; display: block; margin-right: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #tabMyCatsBlock li+li div			{ border-top: 1px solid #eee; }

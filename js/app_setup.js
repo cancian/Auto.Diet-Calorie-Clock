@@ -1577,6 +1577,8 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	//////////
 	// HTML //
 	//////////
+	//add heavy class
+	var sideLoader = (direction == 'sideload') ? ' class="firstLoad"' : '';
 	$('#' + newWindow + 'Wrapper').remove();
 	var newContent = '\
 	<div id="' + newWindow + 'Wrapper">\
@@ -1585,7 +1587,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			<div id="saveButton">' + LANG.OK[lang] + '</div>\
 			<div id="' + newWindow + 'Title">' + title + '</div>\
 			</div>\
-		<div id="' + newWindow + '">' + content + '</div>\
+		<div id="' + newWindow + '"' + sideLoader + '>' + content + '</div>\
 	</div>';
 	app.safeExec(function() {
 		$('#appContent').after(newContent);
