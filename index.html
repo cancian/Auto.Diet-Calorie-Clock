@@ -64,9 +64,9 @@ body.unloaded * {
 <meta name="msApplication-ID" content="48310mylivediet.com.Kcals"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
+<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 <!--###########################################-->
 <script type="text/javascript">
 ////////////////////	
@@ -100,16 +100,6 @@ setTimeout(function() {
 		window.localStorage.setItem('consecutive_reboots',window.localStorage.getItem('consecutive_reboots')+1);
 	}
 },0);
-//////////////
-// VIEWPORT //
-//////////////
-if ((/iPhone|iPod|iPad/).test(navigator.userAgent)) {
-	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />');
-} else if((/MSApp/).test(navigator.userAgent)) {
-	MSApp.execUnsafeLocalFunction(function() { document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi" />'); });
-} else {
-	document.write('<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=medium-dpi, height=device-height" />');
-}
 </script>
 <!--###########################################-->
 <style type="text/css" id="CSSPlaceholder"></style>
@@ -117,8 +107,6 @@ if ((/iPhone|iPod|iPad/).test(navigator.userAgent)) {
 <!--###########################################-->
 </head>
 <body class="unloaded">
-<div id="fb-root"></div>
-<div id="loadMask"><span></span></div>
 <script type="text/javascript">
 ///////////////
 // BOOTSTRAP //
@@ -132,5 +120,7 @@ if ((/MSApp/).test(navigator.userAgent)) {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>');
 }
 </script>
+<div id="loadMask"><span></span></div>
+<div id="fb-root"></div>
 </body>
 </html>

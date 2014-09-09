@@ -11,7 +11,7 @@ $(document).ready(function() {
 			initDB();
 		});
 	} catch(error) {
-		app.reboot('reset');
+		app.reboot('reset',error);
 	}
 });
 ////////////////
@@ -68,18 +68,21 @@ try {
 setTimeout(function() {
 	app.remove('app_restart_pending');
 	app.analytics('init'); 
-},100);
+},0);
+///////////////////////
+// MARK BOOT SUCCESS //
+///////////////////////
 setTimeout(function() {
-	getRateDialog();
 	updateLoginStatus(1);
 	app.analytics('start');
-	//SWAP CACHE
-	//window.applicationCache.addEventListener('updateready', function (event) {
-	//	window.applicationCache.swapCache(); 
-	//}, false);
-	//MARK BOOT SUCCESS
 	app.remove('consecutive_reboots');
 },5000);
+////////////////
+// RATE KCALS //
+////////////////
+setTimeout(function() {
+	getRateDialog();
+},12000);
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -136,9 +139,8 @@ preTab = function(keepOpen) {
 			window.location='#top';
 			history.pushState('', document.title, window.location.pathname);
 		}
+		kickDown();
 	}
-	//kickDown();
-	//window.location.hash='';
 };
 afterTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
@@ -164,17 +166,16 @@ afterTab = function(keepOpen) {
 		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER (android profile)
-	appResizer(50);
+	//appResizer(100);
+	niceResizer(100);
 };
 appFooter = function (id,keepOpen,callback) {
-	if(new Date().getTime() - lastTab < 250) { lastTab = new Date().getTime(); return; }
-	lastTab = new Date().getTime();
+	if(app.now() - lastTab < 300) { lastTab = app.now(); return; }
+	lastTab = app.now();
 	var tabId = id;
 	$('#appFooter li').removeClass('selected');
 	app.save('app_last_tab',tabId);
 	$('#' + tabId).addClass('selected');
-	//SCROLLBAR
-
 	//ACTION
 	if(tabId == 'tab1') { app.tab.status(keepOpen);   }
 	if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
@@ -808,8 +809,7 @@ setTimeout(function() {
 				$('#pageSlideFood').remove();
 				//force custom dump/save
 				if(typeof updateCustomList == 'function' && app.read('foodDbLoaded','done')) {
-					updateCustomList('fav');
-					updateCustomList('items');
+					updateCustomList('cache');
 					updateTodayOverview();
 					setTimeout(function() {
 						setPush();
@@ -1042,7 +1042,7 @@ setTimeout(function() {
 	});
 	*/
 } catch(error) {
-	app.reboot('reset');	
+	app.reboot('reset',error);
 }
 ////#//
 } //#//

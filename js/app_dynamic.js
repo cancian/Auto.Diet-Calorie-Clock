@@ -15,6 +15,7 @@ $(document).on("pageload", function (evt) {
 	var holdStart;
 	var deMove = 0;
 	var cancelEdit = 0;
+	/*
 	$("#entryList div" + tgt).on("longhold", function (evt) {
 		clearTimeout(holdStart);
 		deMove = 0;
@@ -42,6 +43,7 @@ $(document).on("pageload", function (evt) {
 			$('.longHold').removeClass('longHold');
 		}
 	});
+	
 	$("#appContent").scroll(function () {
 		deKeyboard = 1;
 		deMove++;
@@ -55,9 +57,10 @@ $(document).on("pageload", function (evt) {
 		clearTimeout(holdStart);
 		$('.longHold').removeClass('longHold');
 	});
-
+	*/
 	$("#entryList div" + tgt).on(touchstart, function (evt) {
 		deMove = 0;
+		/*
 		clearTimeout(holdStart);
 		var holdThis = this;
 		if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
@@ -68,6 +71,7 @@ $(document).on("pageload", function (evt) {
 				}
 			},200);
 		}
+		*/
 		if ($('#entryTime').is(':focus')) {
 			entryReturn = true;
 		}

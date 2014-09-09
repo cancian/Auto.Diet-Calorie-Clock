@@ -94,7 +94,7 @@ var app = {
 //////////////////
 // APP.REBOOT() //
 //////////////////
-app.reboot = function(type) {
+app.reboot = function(type,error) {
 	//CLEAR CACHE
 	if(type == 'reset') {
 		app.remove('remoteSuperBlockJS');
@@ -105,19 +105,18 @@ app.reboot = function(type) {
 	if(type == 'clear') {
 		app.clear();	
 	}
-	//RELOAD
-	if(typeof window.MyReload !== 'undefined') {
-		if(typeof window.MyReload.reloadActivity !== 'undefined') {
-			try {
-				window.MyReload.reloadActivity();
-				return;	
-			} catch(e) {
-				window.location.reload(true);				
-				return;
-			}
+	setTimeout(function() {	
+		//RELOAD
+		if(typeof window.MyReload !== 'undefined') {
+			window.MyReload.reloadActivity();
+		} else {
+			window.location.reload(true);				
 		}
+		window.location.reload(true);
+	},500);
+	if(error) {
+		throw error;
 	}
-	window.location.reload(true);
 };
 ///////////////////
 // APPEND SCRIPT //

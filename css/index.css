@@ -1,5 +1,6 @@
 ﻿head,style,script						{ display: none; }
-html,body								{ position: absolute; top: 0; right: 0; left: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; }
+html,body								{ position: absolute; top: 0; right: 0; left: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
+body 									{ touch-action: none; -ms-touch-action: none;   }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 .ios *,
 .osx *									{ -webkit-font-smoothing: antialiased; font-weight: 400; }
@@ -69,7 +70,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; }
+#appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
 /*.msie.newwindow #appContent	{ overflow: hidden; }*/
 .android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
 .android2.tab2  #appContent,
@@ -1259,5 +1260,5 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #b700:before						{ content: '\B700'; font-size: 35px; }
 #b800:before						{ content: '\B800'; }
 /*despair*/
-.nicescroll-rails					{ pointer-events: none !important; overflow: hidden !important; position: fixed !important; -webkit-user-select: none !important; }
+.nicescroll-rails					{ pointer-events: none !important; overflow: hidden !important; -webkit-user-select: none !important; -webkit-backface-visibility:hidden; }
 

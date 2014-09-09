@@ -196,11 +196,13 @@ function initDB(t) {
 	////////////////////
 	// IF NEW INSTALL //
 	////////////////////
-	if(!app.read('config_install_time')) {
+	if(!app.read('config_install_time') || app.read('config_debug','active')) {
 		app.save('config_install_time',app.now());
 		showIntro(1);
 	} else {
-		showIntro(0);
+		if(!app.read('config_kcals_day_0')) {
+			showIntro(0);
+		}
 	}
 	////////////
 	// DEFINE //
@@ -1840,13 +1842,13 @@ function getNiceScroll(target,timeout,callback) {
 	setTimeout(function() {
 	//SETTINGS
 	var NSettings = {
-		touchbehavior: true,
+		touchbehavior: false,
 		nativeparentscrolling: false,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '0px',
 		cursorborder: '1px solid rgba(0,0,0,0)',
 		cursoropacitymax: .3,
-		cursorwidth: 5,
+		cursorwidth: '5px',
 		horizrailenabled: false,
 		hwacceleration: true,
 	};
@@ -1876,7 +1878,7 @@ function getNiceScroll(target,timeout,callback) {
 	} else {
 		if(app.is.scrollable) {
 			$(target).css('overflow','hidden');
-			$(target).niceScroll(NSettings);
+			$(target).niceScroll(NSettings);				
 		} else {
 			if(app.device.ios) {
 				$(target).css('-webkit-overflow-scrolling','touch');
