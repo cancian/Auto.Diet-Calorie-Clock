@@ -137,7 +137,7 @@ preTab = function(keepOpen) {
 			history.pushState('', document.title, window.location.pathname);
 		}
 	}
-	kickDown();
+	//kickDown();
 	//window.location.hash='';
 };
 afterTab = function(keepOpen) {

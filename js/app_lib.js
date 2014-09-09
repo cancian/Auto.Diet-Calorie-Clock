@@ -14,6 +14,16 @@ var app = {
 	call: {},
 	exec: {},
 	info: {},
+	exists: function(targetId) {
+		if(targetId) {
+			targetId = targetId.replace('#','');
+		}
+		if(document.getElementById(targetId)) { 
+			return true;
+		} else {
+			return false;
+		}
+	},
 	ua:   navigator.userAgent,
 	http: window.location.protocol.indexOf('http') !== -1 ? true : false,
 	now: function() {

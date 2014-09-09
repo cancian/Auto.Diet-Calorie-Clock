@@ -1841,25 +1841,14 @@ function getNiceScroll(target,timeout,callback) {
 	//SETTINGS
 	var NSettings = {
 		touchbehavior: true,
-		preservenativescrolling: true,
-		nativeparentscrolling: true,
+		nativeparentscrolling: false,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '0px',
 		cursorborder: '1px solid rgba(0,0,0,0)',
-		railvalign: 'top',
-		railalign: 'right',
 		cursoropacitymax: .3,
 		cursorwidth: 5,
 		horizrailenabled: false,
 		hwacceleration: true,
-		enablemouselockapi: false,
-		gesturezoom: false,
-		dblclickzoom: false,
-		boxzoom: false,
-		scrollspeed: 100,
-		mousescrollstep: 60,
-		spacebarenabled: false,
-		cursordragontouch: false,
 	};
 	//HORIZONTAL
 	if($('#appHistory').html()) {
