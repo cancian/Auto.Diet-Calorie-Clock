@@ -1471,7 +1471,7 @@ function getCatList(callback) {
 	// INSERT TOPIC LIST //
 	///////////////////////
 	$('#tabMyCatsBlock').html('<ul>' + helpHtml + '</ul>');
-	setTimeout(function() { niceResizer(); }, 300);
+	niceResizer(300);
 	/////////////
 	// HANDLER //
 	/////////////
@@ -1506,11 +1506,10 @@ function getCatList(callback) {
 							$("#newWindow").removeClass('firstLoad');
 							kickDown();
 							return false;
-							setTimeout(function () {
-								niceResizer();
+							niceResizer(100,function() {
 								kickDown();
 								return false;
-							}, 100);
+							});
 						}
 					},300);
 				});

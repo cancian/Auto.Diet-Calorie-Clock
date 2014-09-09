@@ -54,33 +54,60 @@ var app = {
 			window.localStorage.removeItem(key);
 		}
 	},
-	show: function(target) {
+	clear: function() {
+		app.define('config_install_time',app.now());
+		var installTime = app.read('config_install_time');
+		window.localStorage.clear();
+		app.save('config_install_time',installTime);
+	},
+	show: function(target,callback) {
 		$(target).css('pointer-events','auto');
 		$(target).css(prefix + 'transition', 'opacity ease .32s');
 		$(target).css('opacity',1);
+		setTimeout(function() {
+			if(callback) {
+				callback(target);	
+			}
+		},320);
 	},
-	hide: function(target) {
+	hide: function(target,callback) {
 		$(target).css('pointer-events','none');
 		$(target).css(prefix + 'transition', 'opacity ease .12s');
 		$(target).css('opacity',0);	
+		setTimeout(function() {
+			if(callback) {
+				callback(target);	
+			}
+		},120);
 	}
 }
 //////////////////
 // APP.REBOOT() //
 //////////////////
 app.reboot = function(type) {
+	//CLEAR CACHE
 	if(type == 'reset') {
-		//CLEAR CACHE
 		app.remove('remoteSuperBlockJS');
 		app.remove('remoteSuperBlockCSS');
 		app.remove('app_autoupdate_hash');
 	}
+	//WIPE STORAGE
+	if(type == 'clear') {
+		app.clear();	
+	}
 	//RELOAD
 	if(typeof window.MyReload !== 'undefined') {
-		window.MyReload.reloadActivity();
-	} else {
-		window.location.reload(true);
+		if(typeof window.MyReload.reloadActivity !== 'undefined') {
+			try {
+				window.MyReload.reloadActivity();
+				return;	
+			} catch(e) {
+				window.location.reload(true);				
+				return;
+			}
+		}
 	}
+	window.location.reload(true);
 };
 ///////////////////
 // APPEND SCRIPT //
@@ -406,6 +433,9 @@ app.handlers = {
 			if (data[i].id && data[i].id !== lastRowId) {
 				lastRowId = data[i].id;
 				var favClass = (data[i].fib === 'fav') ? ' favItem' : '';
+				if((JSON.stringify(data[i].id)).length >= 13) {
+					favClass = favClass + ' customItem';
+				}
 				var rowType  = (data[i].type == '0000' || data[i].type == 'exercise') ? 'exercise' : 'food';
 				var catClass = 'cat' + (data[i].type).split('food').join('9999').split('exercise').join('0000');
 				///////////////////////////

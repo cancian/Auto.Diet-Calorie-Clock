@@ -452,36 +452,59 @@ $(document).on("pageload", function (evt) {
 	// SPAN TAP //
 	//////////////
 	var delGesture = app.device.firefoxos ? touchend : tap;
-	$('div span.delete', this).on(delGesture, function (evt) {
-		//evt.preventDefault();
-		$(this).parent('div').hide();
-		//UPDATE DB
-		deleteEntry({
-			id : $(this).parent('div').data("id"),
-			published : $(this).parent('div').attr("name")
-		});
-		//REMOVE CLICKED
-		$(this).parent('div').remove();
-		updateTimer();
-		updateEntriesTime();
-		updateEntriesSum();
-		//SCROLLBAR UPDATE
-		//clearTimeout(niceTimer);
-		//niceTimer = setTimeout(niceResizer, 200);
-		//IF LAST ROW
-		if ($('#entryList .entryListRow').length == 0) {
-			$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+	$('#entryList div' + tgt + ' span.delete').off(delGesture).on(delGesture, function (evt) {
+		//REUSE
+		if(evt.target.id == 'reuse') {
+			getEntry($(this).parent('div').attr('id'),function(data) {
+				data.reuse = true;
+				saveEntry(data,function(newRowId) {
+					setTimeout(function() {
+						app.exec.updateEntries(newRowId);
+						updateTimer();
+						updateEntriesSum();
+						updateEntriesTime();
+						//SCROLLBAR UPDATE
+						niceResizer(100);
+					},100);
+				});
+				$('.active').addClass('busy');
+				$('.active').removeClass('open');
+				$('.active').on(transitionend, function (e) {
+					$('.active').removeClass('busy');
+				});
+				$('.active').removeClass('active');
+			});
+		//EDIT
+		} else if(evt.target.id == 'edit') {
+			getEntryEdit($(this).parent('div').attr('id'));
+			setTimeout(function() {
+				$('#go').trigger(tap);
+			},300);
+			return false;
+		//DELETE
+		} else if(evt.target.id == 'delete') {
+			$(this).parent('div').hide();
+			//UPDATE DB
+			deleteEntry({
+				id : $(this).parent('div').attr('id'),
+				published : $(this).parent('div').attr('name')
+			});
+			//REMOVE
+			$(this).parent('div').remove();
 			updateTimer();
+			updateEntriesTime();
+			updateEntriesSum();
+			//IF LAST ROW
+			if ($('#entryList .entryListRow').length == 0) {
+				$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+				updateTimer();
+				return false;
+			}
+			//force error
+			kickDown();
+			niceResizer(100);
 			return false;
 		}
-		//force error
-		//kickDown();
-		clearTimeout(niceTimer);
-		niceTimer = setTimeout(function () {
-				niceResizer();
-				return false;
-			}, 100);
-		return false;
 	});
 	//////#//
 }); //#//
@@ -573,12 +596,9 @@ $(document).on("pageReload", function (evt) {
 						//$('#foodList').css("min-height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
 						//$('#foodList').css("height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
 						//$('#foodList').css("top",($('#appHeader').height()) + "px");
-						setTimeout(function () {
-							getNiceScroll('#foodList');
-							setTimeout(function () {
-								niceResizer();
-							}, 200);
-						}, 300);
+						getNiceScroll('#foodList',200,function() {
+							niceResizer(200);
+						});
 						/////////////
 						// handler //
 						/////////////
@@ -877,7 +897,7 @@ function doSearch(rawInput) {
 				$("#searchContents").html(foodList);
 			}
 			$("#searchContents").show();
-			setTimeout(niceResizer, 200);
+			niceResizer(200);
 			//enforce clearIcon display
 			if ($("#foodSearch").val().length != 0) {
 				$('#iconRefresh').hide();
@@ -1019,11 +1039,7 @@ function buildFoodMenu() {
 			$("#topBarItem-1,#topBarItem-2,#tabMyCats,#tabMyFavs").removeClass("onFocus");
 			$("#topBarItem-3,#tabMyItems").addClass("onFocus");
 		}
-		clearTimeout(niceTimer);
-		niceTimer = setTimeout(function () {
-				niceResizer();
-				return false;
-			}, 0);
+		niceResizer(0);
 		return false;
 	});
 }
@@ -1105,11 +1121,17 @@ function addNewItem(addnew) {
 	// ADDNEW.SAVE() //
 	///////////////////
 	addnew.save = function() {
+		if($('#saveAsNew').hasClass('active')) {
+			addnew.act = 'insert';
+		}
 		//CREATE ID FOR NEW
 		if(addnew.act == 'insert') {
 			addnew.id   = new Date().getTime();
 			addnew.code = 'c' + addnew.id;
-			addnew.fib  = 'custom';
+			//allow fav duplication
+			if(!$('#saveAsNew').hasClass('active')) {
+				addnew.fib  = 'custom';				
+			}
 		}
 		//READ INPUT VALUES
 		addnew.name = $('#inputNewName').val();
@@ -1189,7 +1211,7 @@ function addNewItem(addnew) {
 			/////////////////////
 			// INSERT NEW ITEM //
 			/////////////////////
-				updateCustomList('items');
+				updateCustomList('cache');
 				//REDO SEARCH
 				if ($('#searchContents').html()) {
 					if ((/0000|exercise/).test(addnew.type) && !$('#foodSearch').hasClass('exerciseType')) {
@@ -1211,20 +1233,21 @@ function addNewItem(addnew) {
 	///////////////
 	// CORE HTML //
 	///////////////
+	var saveAsNew = (addnew.act == 'update') ? '<div id="saveAsNew">' + LANG.SAVE_AS_NEW[lang] + '</div>' : '';
 	var addNewCoreHtml = '\
-		<div id="addNewWrapper">\
-			<ul id="addNewList">\
-				<li id="addNewName">   <label>' + LANG.ADD_NAME[lang] + '</label>                          <input tabindex="3" type="text"   id="inputNewName"                /></li>\
-				<li id="addNewAmount"><label>' + LANG.ADD_AMOUNT[lang] + ' (' + LANG.G[lang] + ')</label>  <input tabindex="3" type="number" id="inputNewAmount"  value="100" /></li>\
-				<li id="addNewKcal">   <label>' + LANG.KCAL[lang] + '</label>                              <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
-				<li id="addNewPro">    <label>' + LANG.PRO[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
-				<li id="addNewCar">    <label>' + LANG.CAR[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
-				<li id="addNewFat">    <label>' + LANG.FAT[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
-			</ul>\
-			<div id="addNewCancel">' + LANG.CANCEL[lang] + '</div>\
-			<div id="addNewConfirm">' + LANG.SAVE[lang] + '</div>\
-		</div>\
-	';
+	<div id="addNewWrapper">\
+		<ul id="addNewList">\
+			<li id="addNewName">   <label>' + LANG.ADD_NAME[lang] + '</label>                          <input tabindex="3" type="text"   id="inputNewName"                /></li>\
+			<li id="addNewAmount"><label>' + LANG.ADD_AMOUNT[lang] + ' (' + LANG.G[lang] + ')</label>  <input tabindex="3" type="number" id="inputNewAmount"  value="100" /></li>\
+			<li id="addNewKcal">   <label>' + LANG.KCAL[lang] + '</label>                              <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
+			<li id="addNewPro">    <label>' + LANG.PRO[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
+			<li id="addNewCar">    <label>' + LANG.CAR[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
+			<li id="addNewFat">    <label>' + LANG.FAT[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
+		</ul>\
+		<div id="addNewCancel">' + LANG.CANCEL[lang] + '</div>\
+		<div id="addNewConfirm">' + LANG.SAVE[lang] + '</div>\
+		' + saveAsNew + '\
+	</div>';
 	//////////////////////////////
 	// INSERT ? UPDATE WRAPPER //
 	//////////////////////////////
@@ -1340,6 +1363,14 @@ function addNewItem(addnew) {
 		$('#addNewConfirm').off(touchstart);
 		addnew.save();
 		return false;
+	});
+	//AS NEW
+	$('#saveAsNew').on(touchstart, function (evt) {
+		if($('#saveAsNew').hasClass('active')) {
+			$('#saveAsNew').removeClass('active');
+		} else {
+			$('#saveAsNew').addClass('active');
+		}
 	});
 }
 //#////////////////////#//

@@ -129,7 +129,6 @@ var releaseFooter;
 var lastTab = 0;
 preTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
-	kickDown();
 	if($('#appContent').scrollTop() > 0) {
 		if(app.device.windows8) {
 			$('#appContent').scrollTop(0);
@@ -138,6 +137,7 @@ preTab = function(keepOpen) {
 			history.pushState('', document.title, window.location.pathname);
 		}
 	}
+	kickDown();
 	//window.location.hash='';
 };
 afterTab = function(keepOpen) {
@@ -164,7 +164,7 @@ afterTab = function(keepOpen) {
 		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER (android profile)
-	appResizer(200);
+	appResizer(50);
 };
 appFooter = function (id,keepOpen,callback) {
 	if(new Date().getTime() - lastTab < 250) { lastTab = new Date().getTime(); return; }
@@ -174,7 +174,7 @@ appFooter = function (id,keepOpen,callback) {
 	app.save('app_last_tab',tabId);
 	$('#' + tabId).addClass('selected');
 	//SCROLLBAR
-	getNiceScroll('#appContent');
+
 	//ACTION
 	if(tabId == 'tab1') { app.tab.status(keepOpen);   }
 	if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
@@ -524,11 +524,8 @@ $(window).on('resize', function(evt) {
 			rebuildHistory();
 		}
 	},100);
+	niceResizer(300);
 });
-//##////////////##//
-//##//  ONLOAD  ##//
-//##////////////##//
-appResizer(0);
 /////////////////////
 // DEBUG INDICATOR //
 /////////////////////
@@ -707,6 +704,7 @@ if(LANG.LANGUAGE[lang] == 'en') {
 //####   START WORKING   ####//
 //###########################//
 setTimeout(function() {
+	getNiceScroll('#appContent');
 	//updateEntries();
 	if(opaLock < 3) {		
 		$('body').removeClass('unloaded');
@@ -737,7 +735,7 @@ setTimeout(function() {
 })();
 //check last push
 (function lastEntryPush() {
-	var now =  app.now();
+	var now = app.now();
 	//sync lock
 	if(app.read('pendingSync') && app.read('facebook_userid') && app.read('facebook_logged')) {
 		if(now - app.read('pendingSync') > 30000) {

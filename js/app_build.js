@@ -776,10 +776,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			updateEntriesSum();
 			updateEntriesTime();
 			//SCROLLBAR UPDATE
-			clearTimeout(niceTimer);
-			niceTimer = setTimeout(function() {
-				niceResizer();
-			}, 100);
+			niceResizer();
 			kickDown();
 			//PROMPT AUTOSTART
 			if(app.read('appStatus') != 'running') {
@@ -1126,10 +1123,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#diaryNotesInput').height(window.innerHeight - 32);
 		$('#diaryNotesInput').width(window.innerWidth - 24);
 		//load scroller & set window < height
-		setTimeout(function() {
-			$('#diaryNotesInput').height(window.innerHeight - 32);
-			getNiceScroll("#diaryNotesInput");
-		},200);
+		getNiceScroll("#diaryNotesInput",200,function() {
+			$('#diaryNotesInput').height(window.innerHeight - 32);				
+		});
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {
 			if($('.nicescroll-rails').is(":visible")) { 

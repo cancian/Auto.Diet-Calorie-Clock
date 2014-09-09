@@ -2516,6 +2516,48 @@ Kiểm tra hồ sơ của bạn. \
 		zh : '保存',
 		zt : '保存',
 	},
+	SAVE_AS_NEW : {
+		en : 'Save as new',
+		pt : 'Salvar como novo',
+		ar : 'حفظ باسم جديد',
+		bg : 'Запиши като нов',
+		ca : 'Desa com a nou',
+		cs : 'Uložit jako nový',
+		da : 'Gem som ny',
+		de : 'Speichern als neue',
+		el : 'Αποθηκεύσετε ως νέα',
+		es : 'Guardar como nuevo',
+		et : 'Salvesta uue',
+		fa : 'ذخیره به عنوان جدید',
+		fi : 'Tallenna uutena',
+		fr : 'Enregistrer comme nouveau',
+		hi : 'नए रूप में सहेजें',
+		hr : 'Spremi kao novo',
+		hu : 'Megment mint új',
+		it : 'Salva come nuovo',
+		id : 'Simpan sebagai baru',
+		iw : 'שמור כמו חדש',
+		ja : '新規として保存',
+		ko : '새로운으로 저장',
+		lt : 'Įrašyti kaip naują',
+		lv : 'Saglabāt kā jaunu',
+		ms : 'Simpan sebagai baru',
+		nl : 'Opslaan als nieuwe',
+		nb : 'Lagre som ny',
+		pl : 'Zapisz jako nowy',
+		ro : 'Salvare ca nou',
+		ru : 'Сохранить как новый',
+		sk : 'Uložiť ako nový',
+		sl : 'Shrani kot nov',
+		sr : 'Сачувај као нову',
+		sv : 'Spara som ny',
+		th : 'บันทึกเป็นใหม่',
+		tr : 'Yeni olarak kaydet',
+		uk : 'Зберегти як новий',
+		vi : 'Tiết kiệm như mới',
+		zh : '另存为新',
+		zt : '另存為新',
+	},
 	ADD_NAME : {
 		en : 'Name',
 		pt : 'Nome',
@@ -4647,7 +4689,7 @@ Kiểm tra hồ sơ của bạn. \
 		pl : 'ostatnie 7',
 		ro : 'ultimele 7',
 		ru : '7 дней',
-		sk : '7 dní ',
+		sk : '7 dní',
 		sl : 'zadnjih 7',
 		sr : '7 дана',
 		sv : 'senaste 7',
@@ -4689,7 +4731,7 @@ Kiểm tra hồ sơ của bạn. \
 		pl : 'ostatnie 30',
 		ro : 'ultimele 30',
 		ru : '30 дней',
-		sk : '30 dní ',
+		sk : '30 dní',
 		sl : 'zadnjih 30',
 		sr : '30 дана',
 		sv : 'senaste 30',
@@ -4711,7 +4753,7 @@ Kiểm tra hồ sơ của bạn. \
 		de : 'alle',
 		el : 'όλες',
 		es : 'todos',
-		et : 'kõik ',
+		et : 'kõik',
 		fa : 'تمام',
 		fi : 'kaikki',
 		fr : 'tous',
@@ -8116,7 +8158,7 @@ Kiểm tra hồ sơ của bạn. \
 				• Blackberry<br />\
 				• Desktop (http://kcals.net)</p>\
 				<p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Automatic Backup feature.</p>\
-			   ',
+			',
 			'Getting started' : '\
 				<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? KCals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
 				<p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
@@ -8127,7 +8169,7 @@ Kiểm tra hồ sơ của bạn. \
 				<p>2400 per day / 24 hours = 100 calories per hour</p>\
 				<p>So, after 30 minutes, the counter will indicate your caloric balance is “-50”. Its that simple!</p>\
 				<p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>\
-			   ',
+			',
 			'The Status Bar' : '\
 				<p>The status bar displays your actual calorie balance as well as your daily intake. Your calorie balance is the difference between the calories you burn and the calories you consume. Calorie balance has three states: deficit, surplus, and balanced.</p>\
 				<p>A calorie deficit means that you have burned more calories than you have consumed. It is displayed in your status bar as a red bar. </p>\
@@ -8138,10 +8180,10 @@ Kiểm tra hồ sơ của bạn. \
 				<p><strong>Surplus:</strong>  above +300 calories </p>\
 				<p>When the counter hits +/-600, the “caloric balance” block will be highlighted to indicate you are getting too distant from the balanced state. The value 600 was chosen as default because it is usually the highest amount of calories recommend per meal.</p>\
 				<p>You can customize that value to anything between 100 and 9999 by tapping the “Caloric Balance” block on the Status tab.</p>\
-			   ',
+			',
 			'Changing the start date' : '\
 				<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>\
-			   ',
+			',
 			'Calculating calories' : '\
 				<p>The weight loss rate (kg/lb per week) is calculated using a simple formula based on the number of calories in a pound (3500) or kilogram (7700) of fat. </p>\
 				<p>Let us say you need 2000 daily calories in order to keep your current weight, and you want to lose 0.5 kg per week.</p>\
@@ -8152,19 +8194,19 @@ Kiểm tra hồ sơ của bạn. \
 				<p>Now subtract that value from your daily intake:</p>\
 				<p>2000 – 550 = 1450</p>\
 				<p>That’s how many you have to consume daily in order to lose 0.5 kg a week.</p>\
-			   ',
+			',
 			'Data synchronization' : '\
 				<p>By enabling Automatic Backup, your data and personal settings are stored at Kcals.net. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p>\
 				<p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p>\
 				<p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p>\
 				<p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p>\
 				<p>*The Facebook authentication is used solely to identify your account at Kcals.net, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>\
-			   ',
+			',
 			'Nutrient ratio' : '\
 				<p>When you add a food that includes nutritional information, the app will use this data to calculate the average percentage of calories you are getting from each nutrient (proteins, carbs and fats).</p>\
 				<p>The ratio of each nutrient is calculated by total calories, not by weight. So it is important to remember that while proteins and carbs have 4 kcal per gram, fats have 9 kcal.</p>\
 				<p>The default nutrient ratio is 25% proteins / 50% carbs / 25% fats. You can change these values by tapping the nutrition bars on the status tab.</p>\
-			   ',
+			',
 			'Elapsed Time / Relative Time' : '\
 				<p>“Elapsed Time” means the total time since you pressed Start.</p>\
 				<p>“Relative Time” indicates how long you have to wait until your caloric balance returns to zero. </p>\
@@ -8173,14 +8215,14 @@ Kiểm tra hồ sơ của bạn. \
 				<p>1/4 of your daily intake = 1/4 of the day</p>\
 				<p>Calories are converted into time.</p>\
 				<p>This means that within 6 hours your body will have consumed the 500 calories, so you can eat again, and then wait accordingly, depending on how much you have eaten.</p>\
-			   ',
+			',
 			'Cyclical Mode' : '\
 				<p>The Cyclical Mode allows you to alternate between two different caloric values along a period of four days.</p>\
 				<p>Days (A, B, C) will use the first value, while day (D) will use the second.</p>\
 				<p>This configuration is typically used to accommodate a “rest day” (maintenance level) in a dieting plan.</p>\
 				<p>The reason for this is mostly the psychological comfort of having some kind of “reward” to look forward to, making it easier to endure the dieting days.</p>\
 				<p>A second reason is that the change in calories (theoretically) keeps your body guessing, and make it harder for your body to adjust its metabolism.</p>\
-			   ',
+			',
 		}
 	},
 	FOOD_CATEGORIES : {

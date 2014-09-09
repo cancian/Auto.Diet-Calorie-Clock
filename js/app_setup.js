@@ -196,12 +196,11 @@ function initDB(t) {
 	////////////////////
 	// IF NEW INSTALL //
 	////////////////////
-	if(!app.read('config_kcals_day_0') || app.read('config_debug','active')) {
-		if(!app.define('config_install_time',new Date().getTime())) {
-			showIntro(1);
-		} else {
-			showIntro(0);
-		}
+	if(!app.read('config_install_time')) {
+		app.save('config_install_time',app.now());
+		showIntro(1);
+	} else {
+		showIntro(0);
 	}
 	////////////
 	// DEFINE //
@@ -717,9 +716,23 @@ function deleteEntry(entry) {
 ////////////////
 function saveEntry(data,callback) {
 	/////////////////
+	// REUSE ENTRY //
+	/////////////////
+	if(data.reuse == true) {
+		//SAVE
+		var saveTime = app.now()
+		rowsEntry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib});
+		localforage.setItem('diary_entry',rowsEntry,function(rows) {
+			rowsEntry = rows;
+			setPush();
+			if(callback) {
+				callback(saveTime);
+			}
+		});
+	/////////////////
 	// UPDATE BODY //
 	/////////////////
-	if(data.id && !data.title) {
+	} else if(data.id && !data.title) {
 		for(var i=0, len=rowsEntry.length; i<len; i++) {
 			if(rowsEntry[i].id == data.id) {
 				rowsEntry[i].body = data.body;
@@ -926,13 +939,8 @@ function afterHide(cmd) {
 	opaLock = 2;
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
-		$('*').off();
 		$('*').css('pointer-events','none');
 		blockAlerts = 1; 
-		//preserve data
-		if(app.read('config_install_time')) {
-			var installTime = app.read('config_install_time');
-		}
 		//////////////
 		// FADE OUT //
 		//////////////
@@ -940,34 +948,16 @@ function afterHide(cmd) {
 			if(app.read('facebook_logged') && cmd == 'clear') {
 				$.post('http://kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
 					setTimeout(function() { 
-						app.reboot();
-					},250);
-					///////////
-					// CLEAR //
-					///////////
-					if(cmd == 'clear') {
-						window.localStorage.clear();
-						if(installTime) {
-							app.save('config_install_time',installTime);
-						}
-					}
+						app.reboot(cmd);
+					},200);
 				}, 'text');
 			} else {
-					setTimeout(function() {
-						app.reboot();
-					},250);
-					///////////
-					// CLEAR //
-					///////////
-					if(cmd == 'clear') { 
-						window.localStorage.clear();
-						if(installTime) {
-							app.save('config_install_time',installTime);
-						}
-					}
+				setTimeout(function() {
+					app.reboot(cmd);
+				},200);
 			}
 		});
-	},250);
+	},100);
 }
 /////////////
 // SPINNER //
@@ -1038,7 +1028,7 @@ function updateFoodDb(callback) {
 									app.save('foodDbLoaded','done');
 									app.save('foodDbVersion',3);
 									app.remove('startLock');
-									setTimeout(function() { niceResizer(); },300);
+									niceResizer(300);
 									spinner('stop');
 									$('body').removeClass('updtdb');
 									if(app.read('facebook_userid')) {
@@ -1211,7 +1201,7 @@ app.exec.updateEntries = function(partial,range,callback) {
 				<p class="entriesKcals">' + langKcal + '</p>\
 				<p class="entriesBody">' + dataBody + '</p>\
 				<p id="t' + dataPublished + '" class="entriesPublished"> ' + dateDiff(dataPublished,app.now()) + '</p>\
-				<span class="delete">' + langDel + '</span>\
+				<span class="delete"><span id="reuse"></span><span id="edit"></span><span id="delete"></span></span>\
 			</div>';
 			///////////////////
 			// ROW PRELOADER //
@@ -1473,13 +1463,9 @@ function buildHelpMenu() {
 		//$('#appHelper').height($('#appContent').height());
 	},0);
 	//SCROLLER
-	setTimeout(function() {
-		getNiceScroll('#appHelper');
-		//UNLOCK TAP
-		setTimeout(function() {
-			startLock = 0;
-		},50);
-	},250);
+	getNiceScroll('#appHelper',250,function() {
+		startLock = 0;
+	});
 	//LIST CLOSER HANDLER
 	app.handlers.activeRow('#backButton','button',function(evt) {
 	//$('#backButton').on(touchend,function() {
@@ -1521,7 +1507,7 @@ function buildHelpMenu() {
 			$('#appSubHelper').height($('#appContent').height());
 		},0);
 		$('#appSubHelper').on(transitionend,function(e) { 
-			niceResizer();
+			niceResizer(100);
 			//IF CLOSED
 			if(!$('#appSubHelper').hasClass('open')) {
 				$('#appSubHelper').remove();
@@ -1633,11 +1619,10 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	////////////////////
 	$('#' + newWindow + 'Wrapper').off().on(transitionend,function() {
 		//scroller
-		setTimeout(function() {
-			getNiceScroll('#' + newWindow);
+		getNiceScroll('#' + newWindow,250,function() {
 			//busy
 			$('#' + newWindow + 'Wrapper').removeClass('busy');
-		},250);
+		});
 		///////////////////
 		// GLOBAL CLOSER //
 		///////////////////
@@ -1834,18 +1819,49 @@ function buildLangMenu(opt) {
 // NICE RESIZER //
 //////////////////
 var niceTimer;
-function niceResizer() {
-	if(app.is.scrollable && app.globals.scrollerList) {
-		$(app.globals.scrollerList).getNiceScroll().resize();
-	}
+function niceResizer(timeout,callback) {
+	if(!timeout) { timeout = 100; }
+	clearTimeout(niceTimer);
+	niceTimer = setTimeout(function() {
+		if(app.is.scrollable && app.globals.scrollerList) {
+			$(app.globals.scrollerList).getNiceScroll().resize();
+		}
+		if(callback) {
+			callback();
+		}
+	},timeout);
 }
 ///////////////////
 // GETNICESCROLL //
 ///////////////////
-function getNiceScroll(target) {
+function getNiceScroll(target,timeout,callback) {
 	if(!$.nicescroll) { return; }
+	if(!timeout)	  { timeout = 0; }
+	setTimeout(function() {
 	//SETTINGS
-	var NSettings = { touchbehavior: false, preservenativescrolling: false, nativeparentscrolling: false, cursorcolor: 'rgba(0,0,0,1)', cursorborderradius: '0px', cursorborder: '1px solid rgba(0,0,0,0)', cursoropacitymax: .3, cursorwidth: 5, horizrailenabled:false, sensitiverail: false, hwacceleration:true };
+	var NSettings = {
+		touchbehavior: true,
+		preservenativescrolling: true,
+		nativeparentscrolling: true,
+		cursorcolor: 'rgba(0,0,0,1)',
+		cursorborderradius: '0px',
+		cursorborder: '1px solid rgba(0,0,0,0)',
+		railvalign: 'top',
+		railalign: 'right',
+		cursoropacitymax: .3,
+		cursorwidth: 5,
+		horizrailenabled: false,
+		hwacceleration: true,
+		enablemouselockapi: false,
+		gesturezoom: false,
+		dblclickzoom: false,
+		boxzoom: false,
+		scrollspeed: 100,
+		mousescrollstep: 60,
+		spacebarenabled: false,
+		cursordragontouch: false,
+	};
+	//HORIZONTAL
 	if($('#appHistory').html()) {
 		NSettings.horizrailenabled = true;
 	}
@@ -1879,6 +1895,14 @@ function getNiceScroll(target) {
 			$(target).css('overflow','auto');
 		}
 	}
+	if(callback) {
+		setTimeout(function() {
+			callback();
+		},0);
+	}
+	//
+	niceResizer(100);
+	},timeout);
 }
 //#/////////////#//
 //# APP RESIZER #//
@@ -1886,6 +1910,7 @@ function getNiceScroll(target) {
 function appResizer(time) {
 	setTimeout(function() {
 		$('body').height(window.innerHeight);
+		$('#appContent').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
 		//unlock top white gap
 		$('body').trigger('touchmove');
 		//NO < 0
@@ -1912,8 +1937,7 @@ function appResizer(time) {
 		$('#pageSlideFood').show();
 		//$('#tabMyItemsBlock').css('min-height', ($('#foodList').height() - 128) + 'px');
 		//SCROLLBAR UPDATE	
-		clearTimeout(niceTimer);
-		niceTimer = setTimeout(niceResizer,20);
+		niceResizer();
 		//chrome v32 input width
 		if(app.device.desktop || app.device.windows8) {
 			$('#entryBody').width(window.innerWidth -58);
