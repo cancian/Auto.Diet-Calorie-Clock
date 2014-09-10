@@ -121,22 +121,26 @@ function appTimer(content) {
 	// self adjust refresh rate based on perfomance //
 	//////////////////////////////////////////////////
 	var timeWait = timerDiff;
-	timerDiff = (((new Date().getTime()) - timerPerf) * 2);
+	timerDiff = (app.now() - timerPerf) * 2;
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
 	
 	if(app.device.wp8) {
-		timerDiff = timerDiff*5;
+		timerDiff = timerDiff*6;
 	} else {
-		timerDiff = timerDiff*1.5;
+		timerDiff = timerDiff*2;
 	}
 	if(timerDiff > 800) { timerDiff = 800; }
-	if(timerDiff < 200) { timerDiff = 200; }
+	if(timerDiff < 100) { timerDiff = 100; }
 	/////////////////////
 	// pre-show reward //
 	/////////////////////
 	if(opaLock < 3) {
 		opaLock++;
 		if(opaLock == 3) {
+			if(window.parent.document.getElementsByTagName('body')) {
+				var parentBody = window.parent.document.getElementsByTagName('body')[0];
+				$(parentBody).removeClass('unloaded');
+			}
 			$('body').removeClass('unloaded');
 			$('body').addClass('started');
 			if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {

@@ -1259,6 +1259,10 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #b600:before						{ content: '\B600'; }
 #b700:before						{ content: '\B700'; font-size: 35px; }
 #b800:before						{ content: '\B800'; }
-/*despair*/
-.nicescroll-rails					{ pointer-events: none !important; overflow: hidden !important; -webkit-user-select: none !important; -webkit-backface-visibility:hidden; }
+
+/*
+F050 search
+B001 +
+B002 -
+*/
 

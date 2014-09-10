@@ -937,6 +937,12 @@ function setFav(data, callback) {
 ///////////////
 var afterHidden;
 function afterHide(cmd) {
+	if(window.parent.document.getElementsByTagName('body')) {
+		var parentBody = window.parent.document.getElementsByTagName('body')[0];
+		$(parentBody).addClass('unloaded');
+	}
+	//$('body').removeClass('started');
+	//$('body').addClass('unloaded');
 	noTimer = 'active';
 	opaLock = 2;
 	clearTimeout(afterHidden);

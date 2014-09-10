@@ -66,6 +66,7 @@ try {
 // KICKSTART //
 ///////////////
 setTimeout(function() {
+	clearTimeout(bodyTimer);
 	app.remove('app_restart_pending');
 	app.analytics('init'); 
 },0);
@@ -166,8 +167,8 @@ afterTab = function(keepOpen) {
 		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER (android profile)
-	//appResizer(100);
-	niceResizer(100);
+	appResizer(100);
+	//niceResizer(100);
 };
 appFooter = function (id,keepOpen,callback) {
 	if(app.now() - lastTab < 300) { lastTab = app.now(); return; }
@@ -544,9 +545,12 @@ if(app.read('facebook_logged')) {
 //set default
 app.define('config_kcals_type','simple');
 app.read('config_kcals_type','cyclic') ? $('body').addClass('cyclic') : $('body').addClass('simple');
-///////////
-// IOS 7 //
-///////////
+/////////////
+// IOS 7/8 //
+/////////////
+if(app.device.ios8 && app.device.cordova) {
+	$('body').addClass('ios8');
+}
 if(app.device.ios7 && app.device.cordova) {
 	$('body').addClass('ios7');
 }
@@ -922,125 +926,9 @@ setTimeout(function() {
 			}
 		}
 	});	
-	/*
-	$('div.editable').on(tap, function(evt) {
-		     if($('#subBackButton').length)		{ return; }
-		else if($('#advBackButton').length)		{ return; }
-		else if($('#backButton').length)		{ return; }
-		else if($('#langSelect').length)		{ return; }
-		//not with sidemenu
-		if(!$('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open') && !$('#pageSlideFood').is(':animated') ) {
-		//not while editing
-		if(!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#modalOverlay').is(':visible') ) {
-		//not with delete button
-		if(!$('.active').hasClass('open')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on(transitionend,function(e) { $('.active').removeClass('busy'); });
-			$('.active').removeClass('active');
-			if(!$('.delete').hasClass('busy')) {
-			////////////////////////
-			// DEFINE KCALS VALUE //
-			////////////////////////
-			var getKcalsKey  = 'config_kcals_day_0';
-			var getKcalsItem = app.read('config_kcals_day_0');
-			var eqPerDay     = app.read('config_kcals_day_0');
-			var resetValue   = 2000;
-			if(app.read('config_kcals_type','cyclic')) {
-				if(app.read('config_kcals_day','d')) {
-					getKcalsKey  = 'config_kcals_day_2';
-					getKcalsItem = app.read('config_kcals_day_2');
-					eqPerDay     = app.read('config_kcals_day_2');
-				} else {
-					getKcalsKey  = 'config_kcals_day_1';
-					getKcalsItem = app.read('config_kcals_day_1');
-					eqPerDay     = app.read('config_kcals_day_1');
-					resetValue   = 1600;
-				}
-			}	
-			//edit
-			if(!$(this).has('input').length) {
-				var timedBlur = new Date().getTime();
-				var value = $(this).text();
-				var input = $('<input/>', {
-					'type':'number',
-					'id':'editable',
-					'class':'editable',
-					'value': Number(value),
-					//ONCHANGE HANDLER
-					blur: function() {
-						$(this).val( parseInt($(this).val()) );
-						////////////////
-						// TIMED BLUR //
-						////////////////
-						var nowBlur = new Date().getTime();
-						if(nowBlur - timedBlur < 500) {
-							var blurVal = $('#editable').val();
-							$('#editable').val('');
-							$('#editable').focus();
-							setTimeout( function() {
-								$('#editable').val(blurVal);
-							},0);
-						return; 
-						}
-						var new_value = Math.ceil($(this).val());
-						//NULL-MIN-MAX
-						//if(isNaN( $(this).val()) || $(this).val() == 0 || $(this).val() <= 1)   { this.value = resetValue; }
-						//if(this.value < 100 && !isNaN(this.value) && this.value > 1)            { this.value = 100;  }
-						//if(this.value > 9999)													{ this.value = 9999; }
-						//filter zeros
-						var permValue = Math.round(parseInt(this.value));
-						app.save(getKcalsKey,permValue);
-						//SET CSS TRANSITION
-						//$('#editable').css(prefix + 'transition-timing-function','ease');
-						//$('#editable').css(prefix + 'transition-duration','.175s');
-						clearTimeout(editableTimeout);
-						editableTimeout = setTimeout(function() {
-							// BACKUPDATE
-							if(app.read('config_kcals_type','cyclic')) {
-								if(app.read('config_kcals_day','d')) {
-									$('#appCyclic2').val(app.read('config_kcals_day_2'));
-								} else {
-									$('#appCyclic1').val(app.read('config_kcals_day_1'));
-								}
-							}
-							//////////////
-							// FADE OUT //
-							//////////////
-							app.handlers.fade(0,'#editable',function() {
-								$('#editable').remove();
-								$('#editableDiv').html(app.read(getKcalsKey));
-								updateTimer();
-								setPush();
-							});
-						},600);
-						$('#editableBlock').remove();
-						updateTodayOverview();
-						intakeHistory();
-					},
-					change: function() {
-						if(hasTap()) {
-							$('#editable').blur();
-						}
-					}
-				});
-				$(this).empty();
-				$(this).append(input);
-				//FOCUS, THEN SET VALUE
-				var editableValue = $('#editable').val();
-				//slider temp blocker
-				$('body').append('<div id='editableBlock'></div>');
-				$('#editableBlock').css('top',$('#appHeader').height() + 'px');
-				//SET
-				$(this).val(editableValue);
-				/////////////////////
-				// CORE VALIDATION //
-				/////////////////////
-				app.handlers.validate('#editable',{minValue:100,defaultValue:resetValue});
-			}}}}
-		}
-	});
-	*/
+///////
+///////
+///////
 } catch(error) {
 	app.reboot('reset',error);
 }

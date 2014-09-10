@@ -9,6 +9,7 @@ copy 100.png ..\icon-50@2x.png
 
 copy 60.png ..\icon-60.png
 copy 120.png ..\icon-60@2x.png
+copy 180.png ..\icon-60@3x.png
 
 copy 72.png ..\icon-72.png
 copy 144.png ..\icon-72@2x.png
