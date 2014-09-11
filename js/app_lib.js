@@ -95,6 +95,7 @@ var app = {
 // APP.REBOOT() //
 //////////////////
 app.reboot = function(type,error) {
+	var timeout = type == 'now' ? 0 : 500;
 	//CLEAR CACHE
 	if(type == 'reset') {
 		app.remove('remoteSuperBlockJS');
@@ -113,7 +114,7 @@ app.reboot = function(type,error) {
 			window.location.reload(true);				
 		}
 		window.location.reload(true);
-	},500);
+	},timeout);
 	if(error) {
 		throw error;
 	}

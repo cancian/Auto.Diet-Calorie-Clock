@@ -975,12 +975,12 @@ function spinner(size) {
 	if($('#loadMask').html() == '') { $('#loadMask').html('<span></span>'); }
 	if(size == 'stop') {
 		$('body').removeClass('spinnerMask');
-		$('body').addClass('started');
+		//$('body').addClass('started');
 		$('#loadMask').css('display','none');
 		return;
 	} else {
 		$('body').addClass('spinnerMask');
-		$('body').removeClass('started');
+		//$('body').removeClass('started');
 		$('#loadMask').css('display','block');
 		$('#loadMask').css('pointer-events','auto');
 		$('#loadMask').off().on(touchstart,function(evt) { 
@@ -1907,7 +1907,7 @@ function getNiceScroll(target,timeout,callback) {
 function appResizer(time) {
 	setTimeout(function() {
 		$('body').height(window.innerHeight);
-		$('#appContent').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
+		//$('#appContent').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
 		//unlock top white gap
 		$('body').trigger('touchmove');
 		//NO < 0

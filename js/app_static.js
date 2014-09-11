@@ -19,25 +19,23 @@ $(document).ready(function() {
 ////////////////
 var resumeTimeout;
 $(document).on('resume',function() {
+	updateTimer();
 	clearTimeout(app.repeaterLoop);
-	//silent restart
-	if(app.read('app_restart_pending')) {
-		app.remove('app_restart_pending');
-		if(window.MyReload) {
-			window.MyReload.reloadActivity();
-		} else {
-			window.location.reload(true);
-		}
-	}
 	clearTimeout(resumeTimeout);
-	//unhide
-	$('body').removeClass('hidenotice');
-	noteContent = '';
 	resumeTimeout = setTimeout(function() { 
 		updateLoginStatus(1);
 		app.analytics('resume');
-		buildRemoteSuperBlock('cached');
+		if(app.read('config_autoupdate','on')) {
+			buildRemoteSuperBlock('cached');
+		}
 	},5000);
+	//silent restart
+	if(app.read('app_restart_pending')) {
+		app.remove('app_restart_pending');
+		if(app.read('config_autoupdate','on')) {
+			app.reboot('now');
+		}
+	}
 });
 ///////////////////////
 // VISIBILITY CHANGE //
