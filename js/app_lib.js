@@ -108,12 +108,15 @@ app.reboot = function(type,error) {
 	}
 	setTimeout(function() {	
 		//RELOAD
-		if(typeof window.MyReload !== 'undefined') {
-			window.MyReload.reloadActivity();
+		if(app.device.android >= 3) {
+			if(typeof window.MyReload !== 'undefined') {
+				window.MyReload.reloadActivity();
+			} else {
+				window.location.reload(true);	
+			}
 		} else {
-			window.location.reload(true);				
+			window.location.reload(true);
 		}
-		window.location.reload(true);
 	},timeout);
 	if(error) {
 		throw error;
@@ -246,7 +249,7 @@ app.handlers = {
 		////////////////////
 		// TRANSITION END //
 		////////////////////
-		$(target).off(transitionend).on(transitionend,function(evt) {
+		$(target).off(transitionend).on(transitionend,function() {
 			if(inOut == 0) {
 				$(target).remove();
 			} else {
@@ -254,7 +257,7 @@ app.handlers = {
 				$(target).css(prefix + 'transition-duration', '0s');
 			}
 			if(callback) {
-				callback(evt);
+				callback();
 				callback = '';
 			}
 		});
@@ -268,16 +271,16 @@ app.handlers = {
 		if(inOut == 1) {
 			$(target).show();
 		}
-		setTimeout(function(evt) {
+		//setTimeout(function() {
 			$(target).css('opacity',inOut);
-			setTimeout(function(evt) {
+			setTimeout(function() {
 				if($(target).length && callback !== '') {
 					$(target).trigger(transitionend);
 				}
 			//ENFORCE
 			},300);
 		//DEFER
-		},0);
+		//},0);
 	},
 	////////////////
 	// ACTIVE ROW //
@@ -684,6 +687,7 @@ app.get.isChromeApp = function() {
 	return false;
 }
 app.get.isDesktop = function() {
+	//isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
 	//first
 	var isDesktop = ('DeviceOrientationEvent' in window || 'orientation' in window) ? false : true;
 	if(/(Windows NT|Macintosh|Mac OS X|Linux)/i.test(userAgent)) { isDesktop = true; }
@@ -772,6 +776,7 @@ var isMobile = {
 app.device = {
 	cordova    : ((typeof cordova || typeof Cordova) !== 'undefined') ? true : false,
 	android    : (/Android/i).test(app.ua) ? app.get.androidVersion() : false,
+	android2   : (/Android/i).test(app.ua) && app.get.androidVersion() < 4 ? true : false,
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
@@ -1090,11 +1095,11 @@ function trim(str) {
 // HIGHLIGH //
 //////////////
 function highlight(targetId,startColor,endColor,fadeTime) {
-	$(targetId).animate({backgroundColor : "#ff8"}, 1).animate({backgroundColor : "rgba(255,255,255,0.36)"}, 1500);
-	//if(!startColor) { starColor = '#ff8'; }
-	//if(!endColor) { endColor = 'rgba(255,255,255,0.36)'; }
-	//if(!fadeTime) { fadeTime = 1500; }
-	//$(targetId).animate({backgroundColor : startColor}, 1).animate({backgroundColor: endColor}, fadeTime);
+	//$(targetId).animate({backgroundColor : "#ff8"}, 1).animate({backgroundColor : "rgba(255,255,255,0.36)"}, 1500);
+	if(!startColor) { startColor = '#ff8'; }
+	if(!endColor)   { endColor   = 'rgba(255,255,255,0.36)'; }
+	if(!fadeTime)   { fadeTime   = 1500; }
+	$(targetId).animate({backgroundColor : startColor}, 1).animate({backgroundColor: endColor}, fadeTime);
 }
 ////////////////
 // CAPITALIZE //

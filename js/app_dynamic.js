@@ -1241,7 +1241,7 @@ function addNewItem(addnew) {
 					addnew.close();
 					app.handlers.highlight('.' + addnew.id);
 					if (!app.read('lastInfoTab','topBarItem-3')) {
-						highlight('#topBarItem-3');
+						highlight('#topBarItem-3','rgba(255,200,0,0.8)','#fff',800);
 					}
 				}, 25);
 

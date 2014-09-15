@@ -342,6 +342,8 @@ function intakeHistory() {
 		////////////////////
 		$('#appStatusIntake div').css('padding-top', '0px');
 		var catFontSize = lang == "fa" ? '8px' : '9px';
+		var spacingBottom = Highcharts.product.contains('4.0') ? 0 : -12
+		if(app.device.android2) { spacingBottom = -16; }
 		//check exists
 		if(!app.read('app_last_tab','tab1'))	{ return; }
 		if(!$('#appStatusIntake').html())		{ return; } 
@@ -351,7 +353,7 @@ function intakeHistory() {
 				spacingLeft   : $("#appStatusIntake").width() / -6,
 				spacingRight  : $("#appStatusIntake").width() / -7.2,
 				spacingTop    : -1,
-				spacingBottom : Highcharts.product.contains('4.0') ? 0 : -12,
+				spacingBottom : spacingBottom,
 				height : (hasTap() || app.device.osx) ? 64 : 66,
 				width : $("#appStatusIntake").width()
 			},
@@ -1348,7 +1350,6 @@ function buildAdvancedMenu() {
 			app.save('config_debug','active');
 			afterHide();
 		}
-		$('#advancedReload').off();
 	});
 	//#////////////////#//
 	//# RESET SETTINGS #//

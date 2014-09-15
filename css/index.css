@@ -21,8 +21,10 @@ body.msie #appContent,
 body.msie #foodList						{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
 /*ffos fixtext-rendering: optimizeLegibility*/
 body.ios,body.android,body.wp8,body.msie,
-body.wekbit,body.osx,body.osx			{ -webkit-user-select: none; }
-.started *,body *:before,body *:after	{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0); box-sizing: border-box; -webkit-box-sizing: border-box; }
+body.wekbit,body.osx					{ -webkit-user-select: none; }
+body.started *,
+body.started *:before,
+body.started *:after					{ -webkit-touch-callout: none; -webkit-text-size-adjust: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0); box-sizing: border-box; -webkit-box-sizing: border-box; }
 input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 .moz input,.moz select,.moz textarea	{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
@@ -73,8 +75,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 #appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
 /*.msie.newwindow #appContent	{ overflow: hidden; }*/
 .android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
-.android2.tab2  #appContent,
-.android2.tab3  #appContent		{ top: 0; border-top: 62px solid rgba(0,0,0,0); }
+.android2 #appContent			{ top: 0; border-top: 62px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
 /*kitkat scrollbar*/
 body.android ::-webkit-scrollbar{ display: none; }
 /*#////////////#//
@@ -106,9 +107,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 #timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: rgba(255,255,255,.8); }
 .appLang-el #timerDaily span	{ font-size: 7px; }
 .appLang-hi #timerDaily span	{ bottom: 2px; }
-.android2 #timerDaily span		{ bottom: 4px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 9999; }
-
 #timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; z-index: 999; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.72); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; }
 #timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: color linear .0s; }
 .newwindow #timerDailyInput,
@@ -157,7 +156,6 @@ body.android ::-webkit-scrollbar{ display: none; }
 .android #gettingStarted,
 .msie #gettingStarted	{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 #closeDiv				{ position: absolute; top: 75%; left: 0px; display: block; width: 100%; text-align: center; margin: 0 auto; background-color: #fff; color: #2672ec; padding: 12px 0; font-size: 24px; }
-.android2 #closeDiv		{ top: 59%; }
 #appLang				{ position: absolute; bottom: 12px; left: 0px; display: block; width: 100%; text-align: center; background-color: #fff; color: #aaa; padding: 12px 0; font-size: 16px; text-indent: 0; }
 .appLang-uk #closeDiv	{ font-size: 21px; }
 #viewport				{ position: absolute; top: 0; left: 0; right: 0; bottom: 100px; background: #fff; overflow: hidden; }
@@ -554,13 +552,11 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #D55621; position: absolute; top: 0; right: 24%; }
 /**/
 #appStatusAddLeft,
-#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; border: 1px solid #4285F4; border-width: 2px 1px; color: #fff; font-size: 18px; line-height: 18px;  display: inline-block; }
+#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; color: #fff; font-size: 18px; line-height: 18px; display: inline-block; padding-top: 2px; }
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
 #appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
 #appStatusAddLeft div:before,
 #appStatusAddRight div:before	{ content: '+'; font-family: 'KCals'; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
-.android2 #appStatusAddLeft,
-.android2 #appStatusAddRight	{ padding-top: 4px; }
 #appStatusAddLeft span,
 #appStatusAddRight span			{ display: inline-block; background-color: #D55621; text-align: center; font-size: 10px; text-transform: uppercase; }
 #appStatusAddLeft div,
@@ -620,7 +616,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusTitle,
 #appStatusArrow,
 #appStatusReload					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .165s; -webkit-backface-visibility: hidden; }
-.pending #appStatusReload			{ color: #E86401 !important; }
+.pending #appStatusReload			{ color: #C75050 !important; }
 /*date sub div*/
 #startDateBar						{ width: 100%; position: relative; display: block; height: 44px; overflow: hidden; }
 span#startDateSpan					{ position: relative; height: 44px; }
@@ -917,6 +913,8 @@ div.editing p				{ opacity: 1; }
 #negativeTrack				{ background-color: #D55621; }
 .carpe-slider-knob			{ z-index: 1; top: 0px; left: 2px; margin-left: 0; margin-right: 2px; width: 18px; height: 18px; border: 1px solid #fff; border-radius: 60px; background-color: #fff; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-backface-visibility: hidden; }
 .carpe-slider-knob.active	{ border: 1px solid #009900; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+/**/
+.android2 .carpe-slider-knob{ -webkit-backface-visibility: visible; }
 /*/////////
 // NOTES //
 /////////*/
@@ -1022,7 +1020,7 @@ body.android4lt.closer #appContent	{ visibility: hidden !important; }
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodCar,
 .searcheable.exercise span.foodFat	{ display: none; }
-.searcheable.favItem:before			{ content: '\f005'; font-family: 'KCals'; font-size: 28px; position: absolute; top: 0px; right: 0; width: 44px; height: 56px; color: #ffcc33; line-height: 58px; opacity: .7; text-shadow: rgba(0,0,0,.4) 0px 0px 1px; }
+.searcheable.favItem:before			{ content: '\f005'; font-family: 'KCals'; font-size: 28px; position: absolute; top: 0px; right: 0; width: 44px; height: 56px; color: rgba(250,200,50,.75); line-height: 58px; text-shadow: rgba(0,0,0,.38) 0px 0px 1px; -webkit-backface-visibility: hidden; }
 .searcheable.favItem.customItem:before,
 .searcheable.customItem:before		{  }
 /*/////////////

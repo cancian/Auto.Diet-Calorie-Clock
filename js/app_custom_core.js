@@ -130,7 +130,7 @@ function appTimer(content) {
 		timerDiff = timerDiff*2;
 	}
 	if(timerDiff > 800) { timerDiff = 800; }
-	if(timerDiff < 100) { timerDiff = 100; }
+	if(timerDiff < 200) { timerDiff = 200; }
 	/////////////////////
 	// pre-show reward //
 	/////////////////////

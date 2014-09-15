@@ -712,40 +712,40 @@ setTimeout(function() {
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
 ////////////////////////////
-app.globals.X     = 0; 
-app.globals.Y     = 0;
-app.globals.MX    = 0; 
-app.globals.MY    = 0;
-app.globals.XLock = 0;
-
-$('body').on(touchend + ' mouseup',function(evt) {
-	app.globals.XLock = 0;
-	app.globals.X     = evt.pageX;
-	app.globals.Y     = evt.pageY;
-	app.globals.MX    = 0;
+if(app.is.scrollable) {
+	app.globals.X     = 0; 
+	app.globals.Y     = 0;
+	app.globals.MX    = 0; 
 	app.globals.MY    = 0;
-});
-
-$('body').on(touchmove,function(evt) {
-	//UPDATE POS
-	app.globals.MX = app.globals.MX - (app.globals.X - evt.pageX); 
-	app.globals.MY = app.globals.MY - Math.abs(app.globals.Y - evt.pageY);
-	//
-	app.globals.X = evt.pageX; 
-	app.globals.Y = evt.pageY;
-	//ENABLE LOCK
-	if(Math.abs(app.globals.MY) < 32 && Math.abs(app.globals.MX) > 6) {
-		app.globals.XLock = 1;
-	}	
-	//HEIGHT UNBLOCK
-	if(Math.abs(app.globals.MY) > 120) {
+	app.globals.XLock = 0;
+	$('body').on(touchend + ' mouseup',function(evt) {
 		app.globals.XLock = 0;
-	}	
-	//READ LOCK
-	if(app.globals.XLock == 1 && app.read('app_last_tab','tab2')) {
-		evt.stopPropagation();
-	}	
-});
+		app.globals.X     = evt.pageX;
+		app.globals.Y     = evt.pageY;
+		app.globals.MX    = 0;
+		app.globals.MY    = 0;
+	});
+	$('body').on(touchmove,function(evt) {
+		//UPDATE POS
+		app.globals.MX = app.globals.MX - (app.globals.X - evt.pageX); 
+		app.globals.MY = app.globals.MY - Math.abs(app.globals.Y - evt.pageY);
+		//
+		app.globals.X = evt.pageX; 
+		app.globals.Y = evt.pageY;
+		//ENABLE LOCK
+		if(Math.abs(app.globals.MY) < 32 && Math.abs(app.globals.MX) > 6) {
+			app.globals.XLock = 1;
+		}	
+		//HEIGHT UNBLOCK
+		if(Math.abs(app.globals.MY) > 120) {
+			app.globals.XLock = 0;
+		}	
+		//READ LOCK
+		if(app.globals.XLock == 1 && app.read('app_last_tab','tab2')) {
+			evt.stopPropagation();
+		}	
+	});
+}
 ////////////////
 // MAIN TIMER //
 ////////////////

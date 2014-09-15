@@ -440,15 +440,14 @@ app.tab.status = function(keepOpen) {
 	// ENABLE DEBUG //
 	//////////////////	
 	$("#appStatusReload").on("longhold", function(evt) {
-		evt.preventDefault();		
+		//evt.preventDefault();
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
 			afterHide();
 		} else {
-			app.save('config_debug','active"');
+			app.save('config_debug','active');
 			afterHide();
 		}
-		$("#appStatusReload").off();
 	});
 	/////////////////
 	// RELOAD ICON //
