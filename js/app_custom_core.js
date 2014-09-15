@@ -143,6 +143,7 @@ function appTimer(content) {
 			}
 			$('body').removeClass('unloaded');
 			$('body').addClass('started');
+			$('body').css('opacity',1);
 			if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {
 				navigator.splashscreen.hide();
 			}

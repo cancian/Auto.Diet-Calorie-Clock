@@ -64,7 +64,9 @@ try {
 // KICKSTART //
 ///////////////
 setTimeout(function() {
-	clearTimeout(bodyTimer);
+	if(typeof bodyTimer !== 'undefined') {
+		clearTimeout(bodyTimer);
+	}
 	app.remove('app_restart_pending');
 	app.analytics('init'); 
 },0);
@@ -76,12 +78,6 @@ setTimeout(function() {
 	app.analytics('start');
 	app.remove('consecutive_reboots');
 },5000);
-////////////////
-// RATE KCALS //
-////////////////
-setTimeout(function() {
-	getRateDialog();
-},12000);
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -132,12 +128,7 @@ var lastTab = 0;
 preTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
 	if($('#appContent').scrollTop() > 0) {
-		if(app.device.windows8) {
-			$('#appContent').scrollTop(0);
-		} else {
-			window.location='#top';
-			history.pushState('', document.title, window.location.pathname);
-		}
+		document.getElementById('appContent').scrollTop = 0;
 		kickDown();
 	}
 };
@@ -712,12 +703,49 @@ setTimeout(function() {
 	if(opaLock < 3) {		
 		$('body').removeClass('unloaded');
 		$('body').addClass('started');
-		$('body').css('opacity','1');
+		$('body').css('opacity',1);
 	}
 	if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {
 		navigator.splashscreen.hide();
 	}
 },999);
+////////////////////////////
+// ALLOW HORIZONTAL SWIPE //
+////////////////////////////
+app.globals.X     = 0; 
+app.globals.Y     = 0;
+app.globals.MX    = 0; 
+app.globals.MY    = 0;
+app.globals.XLock = 0;
+
+$('body').on(touchend + ' mouseup',function(evt) {
+	app.globals.XLock = 0;
+	app.globals.X     = evt.pageX;
+	app.globals.Y     = evt.pageY;
+	app.globals.MX    = 0;
+	app.globals.MY    = 0;
+});
+
+$('body').on(touchmove,function(evt) {
+	//UPDATE POS
+	app.globals.MX = app.globals.MX - (app.globals.X - evt.pageX); 
+	app.globals.MY = app.globals.MY - Math.abs(app.globals.Y - evt.pageY);
+	//
+	app.globals.X = evt.pageX; 
+	app.globals.Y = evt.pageY;
+	//ENABLE LOCK
+	if(Math.abs(app.globals.MY) < 32 && Math.abs(app.globals.MX) > 6) {
+		app.globals.XLock = 1;
+	}	
+	//HEIGHT UNBLOCK
+	if(Math.abs(app.globals.MY) > 120) {
+		app.globals.XLock = 0;
+	}	
+	//READ LOCK
+	if(app.globals.XLock == 1 && app.read('app_last_tab','tab2')) {
+		evt.stopPropagation();
+	}	
+});
 ////////////////
 // MAIN TIMER //
 ////////////////
@@ -813,6 +841,7 @@ setTimeout(function() {
 				if(typeof updateCustomList == 'function' && app.read('foodDbLoaded','done')) {
 					updateCustomList('cache');
 					updateTodayOverview();
+					intakeHistory();
 					setTimeout(function() {
 						setPush();
 					},1000);
@@ -904,6 +933,7 @@ setTimeout(function() {
 		//UPDATE TODAY'S
 		setTimeout(function() {
 			updateTodayOverview();
+			intakeHistory();
 		},1000);
 		//BLUR
 		if(app.device.desktop) {

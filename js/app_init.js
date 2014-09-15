@@ -1,7 +1,8 @@
 ﻿///////////////
 // SAFE EXEC //
 ///////////////
-var baseVersion = 1.5;
+var staticVendor = ''; //'blackberry';
+var baseVersion  = 1.6;
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
 function safeExec(callback) {

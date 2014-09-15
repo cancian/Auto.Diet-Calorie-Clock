@@ -1,11 +1,13 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.6 [2014/09/06]
-• Existing diary entries can be quickly reused, edited or deleted (swipe left to reveal options)
-• New "add new" buttons on search menu
+# 1.6 [2014/09/14]
+• Diary entries can be quickly reused, edited or deleted (swipe left to reveal options)
+• Prevent page scrolling while swiping (Diary)
+• Numeric inputs now have +/- buttons
+• New "add food/exercise" buttons on search menu
 • Option to "save as new" when editing existing foods
-• Fixed date conflict issue when multiple entries are set to the same minute
+• Fixed minor issue when multiple entries are set to the same time
 
 # 1.5 [2014/08/27]
 • Standardized touch events

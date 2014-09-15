@@ -635,8 +635,10 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// SLIDER.UPDATE() //
 	/////////////////////
 	slider.update = function() {
+		app.globals.XLock = 0;
+		app.globals.MY    = 200;
 		//NOT WHILE MANUAL
-		if(!$("#entryTitle").attr('readonly')) { return; }
+		if(!$('#entryTitle').attr('readonly')) { return; }
 		/////////////////////
 		// CACHE SELECTORS //
 		/////////////////////
@@ -841,7 +843,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//////////////////
 	// DEV KEYCODES //
 	//////////////////
-	$('#entryBody').on('keyup', function(evt) {
+	$('#entryBody').on('keyup paste', function(evt) {
 		if((/dev/).test($('#entryBody').val().toLowerCase())) {
 			//////////
 			// GOTO //

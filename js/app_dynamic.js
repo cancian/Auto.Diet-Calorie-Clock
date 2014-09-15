@@ -1137,8 +1137,19 @@ function addNewItem(addnew) {
 				addnew.fib  = 'custom';				
 			}
 		}
+		//(P)RE-FILL EMPTY NAME
+		if($('#inputNewName').val() == '') {
+			if(addnew.act == 'insert') {
+				if ((/0000|exercise/).test(addnew.type)) {
+					addnew.name = LANG.NEW_EXERCISE[lang];
+				} else {
+					addnew.name = LANG.NEW_FOOD[lang]
+				}
+			}
+		} else {
+			addnew.name = $('#inputNewName').val();	
+		}
 		//READ INPUT VALUES
-		addnew.name = $('#inputNewName').val();
 		addnew.term = sanitize(addnew.name);
 		addnew.kcal = $('#inputNewKcal').val();
 		addnew.pro  = $('#inputNewPro').val();
@@ -1229,6 +1240,9 @@ function addNewItem(addnew) {
 				setTimeout(function() {
 					addnew.close();
 					app.handlers.highlight('.' + addnew.id);
+					if (!app.read('lastInfoTab','topBarItem-3')) {
+						highlight('#topBarItem-3');
+					}
 				}, 25);
 
 			}
@@ -1241,12 +1255,12 @@ function addNewItem(addnew) {
 	var addNewCoreHtml = '\
 	<div id="addNewWrapper">\
 		<ul id="addNewList">\
-			<li id="addNewName">   <label>' + LANG.ADD_NAME[lang] + '</label>                          <input tabindex="3" type="text"   id="inputNewName"                /></li>\
-			<li id="addNewAmount"><label>' + LANG.ADD_AMOUNT[lang] + ' (' + LANG.G[lang] + ')</label>  <input tabindex="3" type="number" id="inputNewAmount"  value="100" /></li>\
-			<li id="addNewKcal">   <label>' + LANG.KCAL[lang] + '</label>                              <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
-			<li id="addNewPro">    <label>' + LANG.PRO[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
-			<li id="addNewCar">    <label>' + LANG.CAR[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
-			<li id="addNewFat">    <label>' + LANG.FAT[lang] + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
+			<li id="addNewName">   <label>' + LANG.ADD_NAME[lang].capitalize() + '</label>                          <input tabindex="3" type="text"   id="inputNewName"                /></li>\
+			<li id="addNewAmount"><label>' + LANG.ADD_AMOUNT[lang].capitalize() + ' (' + LANG.G[lang] + ')</label>  <input tabindex="3" type="number" id="inputNewAmount"  value="100" /></li>\
+			<li id="addNewKcal">   <label>' + LANG.KCAL[lang].capitalize() + '</label>                              <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
+			<li id="addNewPro">    <label>' + LANG.PRO[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
+			<li id="addNewCar">    <label>' + LANG.CAR[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
+			<li id="addNewFat">    <label>' + LANG.FAT[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
 		</ul>\
 		<div id="addNewCancel">' + LANG.CANCEL[lang] + '</div>\
 		<div id="addNewConfirm">' + LANG.SAVE[lang] + '</div>\
@@ -1274,22 +1288,30 @@ function addNewItem(addnew) {
 		$('#addNewWrapper').show();
 		app.handlers.fade(1,'#modalWrapper');
 		app.handlers.fade(1,'#addNewWrapper');
-	}			
+	}
+	////////////////
+	// ADD/REMOVE //
+	////////////////
+	app.handlers.addRemove('#inputNewAmount',0,999,'int');
+	app.handlers.addRemove('#inputNewKcal',0,9999,'int');
+	app.handlers.addRemove('#inputNewPro',0,999);
+	app.handlers.addRemove('#inputNewCar',0,999);	
+	app.handlers.addRemove('#inputNewFat',0,999);
 	/////////////////////
 	// POPULATE INPUTS //
 	/////////////////////
 	if (addnew.act == 'update') {
 		$('#inputNewName').val(addnew.name);
 		$('#inputNewKcal').val(Math.round(addnew.kcal))
-		$('#inputNewPro').val(addnew.pro);
-		$('#inputNewCar').val(addnew.car);
-		$('#inputNewFat').val(addnew.fat);
+		$('#inputNewPro').val(decimalize(addnew.pro,-1));
+		$('#inputNewCar').val(decimalize(addnew.car,-1));
+		$('#inputNewFat').val(decimalize(addnew.fat,-1));
 	}
 	/////////////////////////////
 	// ADJUST FORM TO EXERCISE //
 	/////////////////////////////
 	if ((/0000|exercise/).test(addnew.type)) {
-		$('#addNewAmount label').html(LANG.ADD_DURATION[lang] + ' (' + LANG.MIN[lang] + ')');
+		$('#addNewAmount label').html(LANG.MINUTES[lang].capitalize());
 		$('#inputNewAmount').val(30);
 		$('#addNewPro').hide();
 		$('#addNewCar').hide();
@@ -1298,10 +1320,6 @@ function addNewItem(addnew) {
 			$('#inputNewKcal').val(Math.round(((addnew.kcal * addnew.totalweight) / 60) * $('#inputNewAmount').val()));
 		}
 	}
-	////////////////
-	// SET STYLES //
-	////////////////
-	$('ul#addNewList input').width(window.innerWidth - 180);
 	///////////////////////////////////////////
 	// android input blur blank viewport bug //
 	///////////////////////////////////////////
@@ -1335,23 +1353,11 @@ function addNewItem(addnew) {
 			$('#addNewWrapper input').trigger('blur');
 		}
 	});
-	/////////////////////
-	// AUTO EMPTY IF 0 //
-	/////////////////////
-	$('#addNewWrapper input[type="number"]').on('focus', function (evt) {
-		if ($(this).val() == 0) {
-			$(this).val('');
-		}
-	});
-	$('#addNewWrapper input[type="number"]').on('blur', function (evt) {
-		if ($(this).val() == '') {
-			$(this).val('0');
-		}
-	});
 	////////////////
 	// VALIDATION //
 	////////////////
-	app.handlers.validate('#addNewWrapper input[type="number"]',{maxLength:7,allowDots:1});
+	app.handlers.validate('#inputNewKcal,#inputNewAmount',{maxLength:4,allowDots:0});
+	app.handlers.validate('#inputNewPro, #inputNewCar, #inputNewFat',{maxLength:7,allowDots:1});
 	//////////////
 	// HANDLERS //
 	//////////////
@@ -1561,6 +1567,7 @@ function getModalWindow(itemId) {
 					//UPDATE TODAY'S
 					setTimeout(function() {
 						updateTodayOverview();
+						intakeHistory();
 					},1000);
 				},25);
 			});

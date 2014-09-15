@@ -340,10 +340,8 @@ function intakeHistory() {
 		////////////////////
 		// GENERATE CHART //
 		////////////////////
-		$('#appStatusIntake div').css("padding-top", "0px");
-		var checkHeight = (hasTap() || app.device.osx) ? 64 : 66;
-		var catFontSize = "9px";
-		if(lang == "fa") { catFontSize = "8px"; }
+		$('#appStatusIntake div').css('padding-top', '0px');
+		var catFontSize = lang == "fa" ? '8px' : '9px';
 		//check exists
 		if(!app.read('app_last_tab','tab1'))	{ return; }
 		if(!$('#appStatusIntake').html())		{ return; } 
@@ -351,10 +349,10 @@ function intakeHistory() {
 			chart : {
 				reflow: false,
 				spacingLeft   : $("#appStatusIntake").width() / -6,
-				spacingRight  : $("#appStatusIntake").width() / -9.2,
+				spacingRight  : $("#appStatusIntake").width() / -7.2,
 				spacingTop    : -1,
-				spacingBottom : -12,
-				height : checkHeight,
+				spacingBottom : Highcharts.product.contains('4.0') ? 0 : -12,
+				height : (hasTap() || app.device.osx) ? 64 : 66,
 				width : $("#appStatusIntake").width()
 			},
 			credits : {
@@ -1090,7 +1088,7 @@ function getEntryEdit(eid) {
 			/////////////////////////
 			// backport validation //
 			/////////////////////////
-			app.handlers.validate('#getEntryTitle',{allowDots:true,maxValue:9999,maxLength:4});
+			app.handlers.validate('#getEntryTitle',{allowDots:false,maxValue:9999,maxLength:4});
 			app.handlers.validate('#getEntryPro,#getEntryCar,#getEntryFat',{allowDots:true,maxValue:999,maxLength:7});
 			//////////////////////
 			// BASIC VALIDATION //
@@ -1132,6 +1130,13 @@ function getEntryEdit(eid) {
 					},300);
 				}
 			});
+			////////////////
+			// ADD/REMOVE //
+			////////////////
+			app.handlers.addRemove('#getEntryTitle',0,9999,'int');
+			app.handlers.addRemove('#getEntryPro',0,999);
+			app.handlers.addRemove('#getEntryCar',0,999);	
+			app.handlers.addRemove('#getEntryFat',0,999);
 		};
 		/////////////
 		// CONFIRM //
@@ -1168,17 +1173,17 @@ function getEntryEdit(eid) {
 		if(!data.pro || isNaN(pro)) { pro = 0; }
 		if(!data.car || isNaN(car)) { car = 0; }
 		if(!data.fat || isNaN(fat)) { fat = 0; }
-		var getEntryHtml = "\
-			<div id='getEntryWrapper'>\
-				<div id='divEntryBody'><span>"  + LANG.ADD_NAME[lang] + "</span><input type='text'   id='getEntryBody'  value='" + data.body      + "' /></div>\
-				<div id='divEntryTitle'><span>" + LANG.KCAL[lang]     + "</span><input type='number' id='getEntryTitle' value='" + data.title     + "' /></div>\
-				<div id='divEntryPro'><span>"   + LANG.PRO[lang]      + "</span><input type='number' id='getEntryPro'   value='" + pro            + "' /></div>\
-				<div id='divEntryCar'><span>"   + LANG.CAR[lang]      + "</span><input type='number' id='getEntryCar'   value='" + car            + "' /></div>\
-				<div id='divEntryFat'><span>"   + LANG.FAT[lang]      + "</span><input type='number' id='getEntryFat'   value='" + fat            + "' /></div>\
-				<div id='divEntryDate'><span>"  + LANG.DATE[lang]     + "</span><input type='text'   id='getEntryDate'  value='" + data.published + "' /></div>\
-				<input type='hidden' id='getEntryId'         value='" + data.id        + "' />\
-				<input type='hidden' id='getEntryDateHidden' value='" + data.published + "' />\
-			</div>";
+		var getEntryHtml = '\
+			<div id="getEntryWrapper">\
+				<div id="divEntryBody"><span>'  + LANG.ADD_NAME[lang] + '</span><input type="text"   id="getEntryBody"  value="' + data.body      + '" /></div>\
+				<div id="divEntryTitle"><span>' + LANG.KCAL[lang]     + '</span><input type="number" id="getEntryTitle" value="' + data.title     + '" /></div>\
+				<div id="divEntryPro"><span>'   + LANG.PRO[lang]      + '</span><input type="number" id="getEntryPro"   value="' + pro            + '" /></div>\
+				<div id="divEntryCar"><span>'   + LANG.CAR[lang]      + '</span><input type="number" id="getEntryCar"   value="' + car            + '" /></div>\
+				<div id="divEntryFat"><span>'   + LANG.FAT[lang]      + '</span><input type="number" id="getEntryFat"   value="' + fat            + '" /></div>\
+				<div id="divEntryDate"><span>'  + LANG.DATE[lang]     + '</span><input type="text"   id="getEntryDate"  value="' + data.published + '" /></div>\
+				<input type="hidden" id="getEntryId"         value="' + data.id        + '" />\
+				<input type="hidden" id="getEntryDateHidden" value="' + data.published + '" />\
+			</div>';
 		/////////////////
 		// CALL WINDOW //
 		/////////////////
@@ -1487,7 +1492,7 @@ function getCatList(callback) {
 			// HANDLER //
 			/////////////
 			var catListHandler = function () {
-				$("#tabMyCatsBlock").addClass('out');
+				$('#tabMyCatsBlock').addClass('out');
 				//$("#newWindow").addClass('firstLoad');
 				//////////////////////
 				// ENDSCROLL LOADER //
@@ -1497,19 +1502,18 @@ function getCatList(callback) {
 				$('#newWindow').scroll(function() {
 					clearTimeout(catTimer);
 					catTimer = setTimeout(function() {
-						//
-						var catlistHeight = $('#newWindow').height() * .5;
-						if(catLock != 0)                  { return; }
-						if(!$('#newWindow').hasClass("firstLoad")) { return; }
-						if($('#newWindow').scrollTop()+500 > catlistHeight) {
+						if(catLock != 0)                           { return; }
+						if(!$('#newWindow').hasClass('firstLoad')) { return; }
+						if($('#newWindow').scrollTop() > 3000 || ($('#newWindow').scrollTop() > 300 && app.device.wp8)) {
+							spinner('start','loadingMask');
 							catLock = 1;
-							$("#newWindow").removeClass('firstLoad');
-							kickDown();
-							return false;
-							niceResizer(100,function() {
+							setTimeout(function() {
+								$("#newWindow").removeClass('firstLoad');
+								spinner('stop','loadingMask');
+								niceResizer();
 								kickDown();
 								return false;
-							});
+							},300);
 						}
 					},300);
 				});
