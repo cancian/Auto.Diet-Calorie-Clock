@@ -395,7 +395,7 @@
     };
     Slider.prototype.start = function (e) {
         var evnt = e || window.event;
-		$(".carpe-slider-knob").addClass("active");
+		$(".carpe-slider-knob", ".carpe-slider-box").addClass("active");
         this.startOffset = this.pxPos - evnt[this.pointerProp];
         this.documentListeners(true);
         CARPE.stop(evnt);
@@ -403,7 +403,7 @@
         return false;
     };
     Slider.prototype.jump = function (e) {
-		$(".carpe-slider-knob").addClass("active");
+		$(".carpe-slider-knob", ".carpe-slider-box").addClass("active");
         var evnt = e || window.event,
             pos = evnt[this.pointerProp] - CARPE.getPos(this.knob)[this.dir] +
                     CARPE.scroll()[this.dir] + this.pxPos - this.halfKnob;
@@ -422,7 +422,7 @@
     };
     Slider.prototype.stop = function (e) {
         var evnt = e || window.event;
-		$(".carpe-slider-knob").removeClass("active");
+		$(".carpe-slider-knob", ".carpe-slider-box").removeClass("active");
         this.snap();
         this.documentListeners(false);
         this.onStop(evnt);
@@ -588,7 +588,7 @@ function reSlider() {
 		var sliderMemory = $("#entryTitle").val();
 		$("#sliderWrapper").html('<input id="slider" type="range" min="-750" max="750" step="1" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="8" />');
 		CARPE.sliders.init();
-		$('#sliderNum').css("left",((Number($(".carpe-slider-knob").css("left").replace("px",""))) - (23)) + "px");
+		$('#sliderNum').css("left",((Number($(".carpe-slider-knob", ".carpe-slider-box").css("left").replace("px",""))) - (23)) + "px");
 		document.getElementById('slider').slider.setValue(sliderMemory);
 		$("#entryTitle").val(sliderMemory);
 		$("#loadingDiv").hide();

@@ -1926,12 +1926,12 @@ function appResizer(time) {
 	setTimeout(function() {
 		app.globals.zoom = 1;
 		$('body').height(window.innerHeight/app.globals.zoom);
-		//$('body').width(window.innerWidth/app.globals.zoom);
-		/*
-		$('body').css('zoom',Math.round(app.globals.zoom * 100) + '%');
-		$('body').css('zoom',app.globals.zoom);
-		$('body').css('-moz-transform','scale(' + app.globals.zoom + ',' + app.globals.zoom + ')');
-		*/
+		if(app.globals.zoom !== 1) {
+			$('body').width(window.innerWidth/app.globals.zoom);
+			$('body').css('zoom',Math.round(app.globals.zoom * 100) + '%');
+			$('body').css('zoom',app.globals.zoom);
+			$('body').css('-moz-transform','scale(' + app.globals.zoom + ',' + app.globals.zoom + ')');
+		}
 		//$('#appContent').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
 		//unlock top white gap
 		$('body').trigger('touchmove');
