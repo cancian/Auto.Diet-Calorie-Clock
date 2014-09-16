@@ -500,12 +500,11 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusElapsed div				{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
 #appStatusElapsed span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 /*swap*/
-#elapsedIndicators div				{ width: 100%; text-align: center; position: absolute; bottom: 0px; color: #ddd; font-size: 16px; line-height: 16px; height: 14px; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: linear; -webkit-transition-duration: .1s; }
-#elapsedIndicators div.activeSwap	{ color: #39F; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: linear; -webkit-transition-duration: 0s; }
-#elapsedIndicators div:before		{ content: '•'; }
-#elapsedIndicators div#ind1			{ left: -12px; }
-#elapsedIndicators div#ind2			{ left: 0;     }
-#elapsedIndicators div#ind3			{ left: 12px;  }
+#elapsedIndicators div				{ text-align: left; width: 14px; height: 0; position: absolute; left: 50%; bottom: 14px; color: #ddd; font-size: 16px; line-height: 16px; }
+#elapsedIndicators div.activeSwap	{ color: #39F; }
+#elapsedIndicators div#ind1			{ margin-left: -15px; }
+#elapsedIndicators div#ind2			{ margin-left: -3px;  }
+#elapsedIndicators div#ind3			{ margin-left: 9px;  }
 /**/
 #appStatusWeight					{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusWeight div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
@@ -786,12 +785,12 @@ body.ios #entryList div		{ padding: 15px 0 1px 0; }
 /*SWIPE DELETE*/
 span.delete					{ display: none; line-height: 16px; font-size: 13px; position: relative; }
 span.delete.busy,
-span.delete.active			{ display: inline-block; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; z-index: 3; margin: 0; -webkit-transition-timing-function: ease; -webkit-transform: translate3d(180px, 0, 0); -webkit-transition-duration: .15s; -webkit-backface-visibility: hidden; opacity: 1; pointer-events: auto; }
+span.delete.active			{ display: inline-block; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; margin: 0; -webkit-transition-timing-function: ease; -webkit-transform: translate3d(180px, 0, 0); -webkit-transition-duration: .15s; -webkit-backface-visibility: hidden; opacity: 1; pointer-events: auto; }
 span.delete.open			{ display: inline-block; -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .150s; -webkit-backface-visibility: hidden; }
 /*buttons*/
 span.delete #reuse,
 span.delete #edit,
-span.delete #delete			{ z-index: 3; font-size: 24px; position: absolute; top: 0; width: 60px; height: 44px; color: #007aff; background-color: rgba(255,255,255,.75); text-align: center; line-height: 46px; }
+span.delete #delete			{ font-size: 24px; position: absolute; top: 0; width: 60px; height: 44px; color: #007aff; background-color: rgba(255,255,255,.75); text-align: center; line-height: 46px; }
 span.delete #reuse			{ left: -180px; top: 0; }
 span.delete #edit			{ left: -123px; top: 0; }
 span.delete #delete			{ left: -67px;  top: 0; color: #FF3B30; }
@@ -1020,7 +1019,7 @@ body.android4lt.closer #appContent	{ visibility: hidden !important; }
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodCar,
 .searcheable.exercise span.foodFat	{ display: none; }
-.searcheable.favItem:before			{ content: '\f005'; font-family: 'KCals'; font-size: 28px; position: absolute; top: 0px; right: 0; width: 44px; height: 56px; color: rgba(250,200,50,.75); line-height: 58px; text-shadow: rgba(0,0,0,.38) 0px 0px 1px; -webkit-backface-visibility: hidden; }
+.searcheable.favItem:before			{ content: '\f005'; font-family: 'KCals'; font-size: 28px; position: absolute; top: 0; right: 0; width: 44px; height: 56px; color: rgba(250,200,50,1); line-height: 58px; text-shadow: rgba(0,0,0,.24) 0px 0px 1px; -webkit-backface-visibility: hidden; opacity: .75; }
 .searcheable.favItem.customItem:before,
 .searcheable.customItem:before		{  }
 /*/////////////
@@ -1205,7 +1204,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #tabMyCatsBlock.out					{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
 .windows8 #tabMyCatsBlock.out,
 .wp8 #tabMyCatsBlock.out			{ -webkit-transform: translate3d(0, 0, 0); margin-left: -25%; }
-#tabMyCatsBlock li					{ position: relative; display: block; height: 45px; line-height: 49px; color: #555; }
+#tabMyCatsBlock li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; }
 #tabMyCatsBlock li div				{ margin-left: 54px; display: block; margin-right: 0px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #tabMyCatsBlock li+li div			{ border-top: 1px solid #eee; }
 #tabMyCatsBlock li.activeRow		{ background-color: #eee; color: #555; }

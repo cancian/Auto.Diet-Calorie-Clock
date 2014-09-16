@@ -457,7 +457,9 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	var delGesture = app.device.firefoxos ? touchend : tap;
 	$('#entryList div' + tgt + ' span.delete').off(delGesture).on(delGesture, function (evt) {
-		//REUSE
+		///////////
+		// REUSE //
+		///////////
 		if(evt.target.id == 'reuse') {
 			getEntry($(this).parent('div').attr('id'),function(data) {
 				data.reuse = true;
@@ -478,23 +480,32 @@ $(document).on("pageload", function (evt) {
 				});
 				$('.active').removeClass('active');
 			});
-		//EDIT
+		//////////
+		// EDIT //
+		//////////
 		} else if(evt.target.id == 'edit') {
 			getEntryEdit($(this).parent('div').attr('id'));
 			setTimeout(function() {
 				$('#go').trigger(tap);
 			},300);
 			return false;
-		//DELETE
+		////////////
+		// DELETE //
+		////////////
 		} else if(evt.target.id == 'delete') {
-			$(this).parent('div').hide();
+			var rowId   = $(this).parent('div').attr('id');
+			var rowTime = $(this).parent('div').attr('name');
+			
+			$('#appContent').scrollTop($('#appContent').scrollTop());
+			$('#' + rowId).hide();
+			setTimeout(function() {
 			//UPDATE DB
 			deleteEntry({
-				id : $(this).parent('div').attr('id'),
-				published : $(this).parent('div').attr('name')
+				id : rowId,
+				published : rowTime
 			});
 			//REMOVE
-			$(this).parent('div').remove();
+			$('#' + rowId).remove();
 			updateTimer();
 			updateEntriesTime();
 			updateEntriesSum();
@@ -505,8 +516,8 @@ $(document).on("pageload", function (evt) {
 				return false;
 			}
 			//force error
-			kickDown();
 			niceResizer(100);
+			},0);
 			return false;
 		}
 	});

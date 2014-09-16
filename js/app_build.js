@@ -221,7 +221,7 @@ app.tab.status = function(keepOpen) {
 	<a name="top"></a>\
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p></p><span></span></div>\
-		<div id="elapsedIndicators"><div id="ind1"></div><div id="ind2"></div><div id="ind3"></div></div>\
+		<div id="elapsedIndicators"><div id="ind1">•</div><div id="ind2">•</div><div id="ind3">•</div></div>\
 		</div>\
 		<div id="appStatusWeight"><div><p>' + totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong></p><span>' + LANG.TODAY[lang] + '</span><em></em>\
 		<div id="appDays">\

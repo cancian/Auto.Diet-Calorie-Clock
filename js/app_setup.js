@@ -701,7 +701,7 @@ function updateEntry(data,callback) {
 //#//////////////////#//
 //# DB: DELETE ENTRY #//
 //#//////////////////#//
-function deleteEntry(entry) {
+function deleteEntry(entry,callback) {
 	for(var i=0, len=rowsEntry.length; i<len; i++) {
 		if(rowsEntry[i].id == entry.id) {
 			rowsEntry[i].info = 'deleted';
@@ -711,6 +711,9 @@ function deleteEntry(entry) {
 	localforage.setItem('diary_entry',rowsEntry,function(rows) {
 		//rowsEntry = rows;
 		setPush();
+		if(callback) {
+			callback();
+		}
 	});
 }
 ////////////////
