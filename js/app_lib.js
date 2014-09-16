@@ -239,7 +239,10 @@ app.handlers = {
 	//////////////////
 	// CSS FADE OUT //
 	//////////////////
-	fade : function(inOut,target,callback) {
+	fade : function(inOut,target,callback,duration) {
+		if(!duration) {
+			duration = 200;
+		}
 		//PRE-HIDE FADE-IN
 		if(inOut == 1) {
 			$(target).css(prefix + 'transition-duration', '0s');
@@ -264,7 +267,7 @@ app.handlers = {
 		//////////////////
 		// SET ANIMATED //
 		//////////////////
-		$(target).css(prefix + 'transition', 'opacity ease .2s');
+		$(target).css(prefix + 'transition', 'opacity ease ' + (duration/1000) + 's');
 		///////////////////////////////////
 		// SET OPACITY ~ ENFORCE REMOVAL //
 		///////////////////////////////////

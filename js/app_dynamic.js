@@ -495,29 +495,28 @@ $(document).on("pageload", function (evt) {
 		} else if(evt.target.id == 'delete') {
 			var rowId   = $(this).parent('div').attr('id');
 			var rowTime = $(this).parent('div').attr('name');
-			
+			//no jump
 			$('#appContent').scrollTop($('#appContent').scrollTop());
 			$('#' + rowId).hide();
-			setTimeout(function() {
 			//UPDATE DB
 			deleteEntry({
 				id : rowId,
 				published : rowTime
-			});
-			//REMOVE
-			$('#' + rowId).remove();
-			updateTimer();
-			updateEntriesTime();
-			updateEntriesSum();
-			//IF LAST ROW
-			if ($('#entryList .entryListRow').length == 0) {
-				$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+			}, function() {
+				//REMOVE
+				$('#' + rowId).remove();
 				updateTimer();
-				return false;
-			}
-			//force error
-			niceResizer(100);
-			},0);
+				updateEntriesTime();
+				updateEntriesSum();
+				//IF LAST ROW
+				if ($('#entryList .entryListRow').length == 0) {
+					$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+					updateTimer();
+					return false;
+				}
+				//force error
+				niceResizer();
+			});
 			return false;
 		}
 	});
