@@ -395,7 +395,9 @@
     };
     Slider.prototype.start = function (e) {
         var evnt = e || window.event;
-		$(".carpe-slider-knob", ".carpe-slider-box").addClass("active");
+		if(!$('.carpe-slider-knob').hasClass('active')) {
+			$('.carpe-slider-knob').addClass('active');
+		}
         this.startOffset = this.pxPos - evnt[this.pointerProp];
         this.documentListeners(true);
         CARPE.stop(evnt);
@@ -403,7 +405,9 @@
         return false;
     };
     Slider.prototype.jump = function (e) {
-		$(".carpe-slider-knob", ".carpe-slider-box").addClass("active");
+		if(!$('.carpe-slider-knob').hasClass('active')) {
+			$('.carpe-slider-knob').addClass('active');
+		}
         var evnt = e || window.event,
             pos = evnt[this.pointerProp] - CARPE.getPos(this.knob)[this.dir] +
                     CARPE.scroll()[this.dir] + this.pxPos - this.halfKnob;
@@ -422,7 +426,9 @@
     };
     Slider.prototype.stop = function (e) {
         var evnt = e || window.event;
-		$(".carpe-slider-knob", ".carpe-slider-box").removeClass("active");
+		if($('.carpe-slider-knob').hasClass('active')) {
+			$('.carpe-slider-knob').removeClass('active');
+		}
         this.snap();
         this.documentListeners(false);
         this.onStop(evnt);
@@ -574,13 +580,12 @@
 ////////////
 function reSlider() {
 	if (document.getElementById('slider')) {
-		var sliderMemory = $('#entryTitle').val();
+		Math.round(window.innerWidth % 2) ? $("#sliderWrapper").width( $("#appContent").width()-49) : $("#sliderWrapper").width($("#appContent").width()-48);
+		var sliderMemory = parseInt($('#entryTitle').val());
 		$('#sliderWrapper').html('<input id="slider" type="range" min="-750" max="750" step="1" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="8" />');
 		CARPE.sliders.init();
 		$('#sliderNum').css('left', ((Number($('.carpe-slider-knob', '.carpe-slider-box').css('left').replace('px', ''))) - (23)) + 'px');
-		if (sliderMemory != 0) {
-			document.getElementById('slider').slider.setValue(sliderMemory);
-		}
+		document.getElementById('slider').slider.setValue(sliderMemory);
 		$('#entryTitle').val(sliderMemory);
 		$('#loadingDiv').hide();
 	}
