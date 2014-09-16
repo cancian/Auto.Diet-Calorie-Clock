@@ -454,7 +454,13 @@ $(window).on('orientationchange', function(evt) {
 ////////////
 // RESIZE //
 ////////////
+app.globals.recentResize = 0;
 $(window).on('resize', function(evt) {
+	app.globals.recentResize = 1;
+	clearTimeout(app.timers.recentResize);
+	app.timers.recentResize = setTimeout(function() {
+		app.globals.recentResize = 0;
+	},300);
 	lastScreenResize = lastScreenSize;
 	lastScreenSize = window.innerHeight;
 	//unlock top white gap

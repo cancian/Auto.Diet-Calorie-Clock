@@ -589,23 +589,14 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//# OUTPUT #//
 	//#////////#//
 	//block deferred
-	if(app.read('app_last_tab') != 'tab2') { return; }
+	if(!app.read('app_last_tab','tab2')) { return; }
 	//HTML
 	preTab(keepOpen);
 	pageLoad('#appContent',diaryHtml);
 	afterTab(keepOpen);
-	///////////////////////////////
-	// desktop odd resize -1 bug //
-	///////////////////////////////
-	if(isOdd(window.innerWidth)) {
-		$('#sliderWrapper').width(window.innerWidth-49);
-	}
+	//SET SLIDER+HEIGHT
 	$(document).trigger('sliderInit');
-	///////////////////////////////////////////
-	// ENTRYLISTWRAPPER PRE FIXED MIN-HEIGHT //
-	///////////////////////////////////////////
-	$("#entryListWrapper").css("min-height",(window.innerHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height()) + "px");
-	updateEntriesTime();
+	$('#entryListWrapper').css('min-height',$('body').height() - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height()) + 'px');
 	//#//////////#//
 	//# HANDLERS #//
 	//#//////////#//
@@ -635,34 +626,34 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	/////////////////////
 	slider.update = function() {
 		app.globals.XLock = 0;
-		app.globals.MY    = 200;
+		app.globals.MX    = 0;
+		app.globals.MY    = 500;
 		//NOT WHILE MANUAL
 		if(!$('#entryTitle').attr('readonly')) { return; }
 		/////////////////////
 		// CACHE SELECTORS //
 		/////////////////////
-		var sliderValue  = $('#slider').val();
-		var inputValue   = (sliderValue == -0) ? 0 : Math.round(sliderValue);
+		var inputValue = (app.globals.recentResize == 0) ? parseInt($('#slider').val()) : parseInt($('#entryTitle').val());
 		/////////////////
 		// CHECK TRACK //
 		/////////////////
-		if(inputValue == 0) {
-			if($('.carpe-slider-track').attr('id')) {
-				$('.carpe-slider-track').removeAttr('id');
-			}
-		} else if(inputValue > 0) {
+		if(inputValue >= 1) {
 			if($('.carpe-slider-track').attr('id') != 'positiveTrack') {
 				$('.carpe-slider-track').attr('id','positiveTrack');
 			}
-		} else if(inputValue < 0) {
+		} else if(inputValue <= -1) {
 			if($('.carpe-slider-track').attr('id') != 'negativeTrack') {
 				$('.carpe-slider-track').attr('id','negativeTrack');
 			}
+		} else {
+			if($('.carpe-slider-track').attr('id')) {
+				$('.carpe-slider-track').removeAttr('id');
+			}			
 		}
 		//////////////////
 		// CHECK SUBMIT //
 		//////////////////
-		if(inputValue == 0) {
+		if(inputValue > -1 && inputValue < 1) {
 			if($('#entrySubmit').hasClass('submitActive')) {
 				$('#entrySubmit').removeClass('submitActive');
 			}
@@ -720,7 +711,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#timerDailyInput').trigger('blur');
 		document.getElementById('slider').slider.setValue(0);
 		//show zero-ing
-		if(Number($('#lid').val()) != 0) {
+		if(parseInt($('#lid').val()) != 0) {
 			slider.lid(0);
 		}
 		$('#lid').val(0);
@@ -799,7 +790,12 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// ARROW BUTTONS //
 	///////////////////
 	$('#sliderNum').on(touchstart, function(evt) {
-		slider.reset();
+		document.getElementById('slider').slider.setValue(0);
+		if(parseInt($('#lid').val()) != 0) {
+			slider.lid(0);
+		}
+		$('#lid').val(0);
+		$('#entryTitle').val('0');
 		return false;
 	});
 	////////////////////////////////
@@ -1004,16 +1000,6 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$("#entryBody").blur();
 		$(document).trigger("pageReload");
 	});
-	///////////////////////////
-	// blur edit / entrybody //
-	///////////////////////////
-	//$('#appHeader').on(touchstart, function(evt) {
-	//	evt.preventDefault();
-	//	evt.stopPropagation();
-	//	$("#editable").blur();
-	//	$("#entryTime").blur();
-	//	$("#entryBody").blur();
-	//});
 	$('#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
@@ -1090,6 +1076,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// FIX KEYBOARD PROPAGATION //
 	//////////////////////////////
 	$('#entryListForm,#go').on(touchstart, function(evt) {
+		app.globals.XLock = 0;
+		app.globals.MX    = 0;
+		app.globals.MY    = 500;
 		if(evt.target.id != 'entryTime' && evt.target.id != 'entryBody') {
 			if($('#entryTime').is(':focus') || $('#entryBody').is(':focus')) {
 				//block re-keyboarding on dismiss

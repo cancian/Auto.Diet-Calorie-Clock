@@ -582,7 +582,7 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 		$(target).before('<p class="neg" id="' + target.replace('#','') + 'Neg"></p><p class="pos" id="' + target.replace('#','') + 'Pos"></p>');
 	}
 	//NEG
-	app.handlers.repeater(target + 'Neg','active',400,20,function() {
+	app.handlers.repeater(target + 'Neg','active',400,25,function() {
 		var inputValue = valueType == 'int' ? parseInt($(target).val()) : parseFloat($(target).val());
 		if(inputValue >= minValue + 1) {
 			inputValue = inputValue - 1;
@@ -592,7 +592,7 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 		$(target).val(decimalize(inputValue,-1));
 	})
 	//POS
-	app.handlers.repeater(target + 'Pos','active',400,20,function() {
+	app.handlers.repeater(target + 'Pos','active',400,25,function() {
 		if($(target).val() == '') { 
 			$(target).val(0);
 		}
