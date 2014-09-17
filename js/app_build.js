@@ -704,39 +704,45 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// SLIDER.RESET() //
 	////////////////////
 	slider.reset = function() {
-		clearTimeout(app.repeaterLoop);
-		$('#entryTitle').trigger('blur');
-		$('#entryBody').trigger('blur');
-		$('#entryTime').trigger('blur');
-		$('#timerDailyInput').trigger('blur');
-		document.getElementById('slider').slider.setValue(0);
-		//show zero-ing
-		if(parseInt($('#lid').val()) != 0) {
-			slider.lid(0);
+		if(document.getElementById('slider')) {
+			clearTimeout(app.repeaterLoop);
+			$('#entryTitle').trigger('blur');
+			$('#entryBody').trigger('blur');
+			$('#entryTime').trigger('blur');
+			$('#timerDailyInput').trigger('blur');
+			document.getElementById('slider').slider.setValue(0);
+			//show zero-ing
+			if(parseInt($('#lid').val()) != 0) {
+				slider.lid(0);
+			}
+			$('#lid').val(0);
+			$('#entryBody').val('');
+			$('#entryTitle').val(0);
+			$('#entryTitle').trigger('update');
+			$('#entrySubmit').removeClass('submitActive');
 		}
-		$('#lid').val(0);
-		$('#entryBody').val('');
-		$('#entryTitle').val(0);
-		$('#entryTitle').trigger('update');
-		$('#entrySubmit').removeClass('submitActive');
 	};
 	//////////////////
 	// SLIDER.ADD() //
 	//////////////////
 	app.handlers.repeater('#sliderPos','activeArrow',400,25,function() {
-		var inputValue = Number($('#entryTitle').val());
-		document.getElementById('slider').slider.increment(1);
-		$('#entryTitle').val(inputValue+1);
-		slider.lid(inputValue+1);
+		if(document.getElementById('slider')) {
+			var inputValue = Number($('#entryTitle').val());
+			document.getElementById('slider').slider.increment(1);
+			$('#entryTitle').val(inputValue+1);
+			slider.lid(inputValue+1);
+		}
 	});
 	//////////////////
 	// SLIDER.REM() //
 	//////////////////
 	app.handlers.repeater('#sliderNeg','activeArrow',400,25,function() {
-		var inputValue = Number($('#entryTitle').val());
-		document.getElementById('slider').slider.increment(-1);
-		$('#entryTitle').val(inputValue-1);
-		slider.lid(inputValue-1);
+		if(document.getElementById('slider')) {
+			var inputValue = Number($('#entryTitle').val());
+			document.getElementById('slider').slider.increment(-1);
+			$('#entryTitle').val(inputValue-1);
+			slider.lid(inputValue-1);
+		}
 	});
 	///////////////////
 	// SLIDER.SAVE() //
@@ -790,13 +796,15 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// ARROW BUTTONS //
 	///////////////////
 	$('#sliderNum').on(touchstart, function(evt) {
-		document.getElementById('slider').slider.setValue(0);
-		if(parseInt($('#lid').val()) != 0) {
-			slider.lid(0);
+		if(document.getElementById('slider')) {
+			document.getElementById('slider').slider.setValue(0);
+			if(parseInt($('#lid').val()) != 0) {
+				slider.lid(0);
+			}
+			$('#lid').val(0);
+			$('#entryTitle').val('0');
+			return false;
 		}
-		$('#lid').val(0);
-		$('#entryTitle').val('0');
-		return false;
 	});
 	////////////////////////////////
 	// SAVE ENTRY (SUBMIT BUTTON) //

@@ -315,11 +315,11 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 //# TOGGLE SWITCH #// 
 //#///////////////#*/
 input.toggle		 				{ opacity: 0; }
-input.toggle + label				{ padding: 2px; width: 58px; height: 30px; background-color: #dddddd; border-radius: 20px; -webkit-transition:  all 0.1s ease .1s; }
+input.toggle + label				{ padding: 2px; width: 58px; height: 30px; background-color: #ddd; border-radius: 20px; -webkit-transition: all ease .1s; }
 input.toggle + label:before,
 input.toggle + label:after			{ display: block; position: absolute; content: ''; }
-input.toggle + label:before			{ top: 2px; left: 2px; bottom: 2px; right: 2px; background-color: #fff; border-radius: 20px; -webkit-transition:  all 0.1s ease .1s; } 
-input.toggle + label:after			{ top: 4px; left: 4px; bottom: 4px; width: 22px; background-color: #dddddd; border-radius: 12px; -webkit-transition:  all 0.1s ease .1s; }
+input.toggle + label:before			{ top: 2px; left: 2px; bottom: 2px; right: 2px; background-color: #fff; border-radius: 20px; -webkit-transition: all ease .1s; } 
+input.toggle + label:after			{ top: 4px; left: 4px; bottom: 4px; width: 22px; background-color: #ddd; border-radius: 12px; -webkit-transition: all ease .1s; }
 input.toggle:checked + label		{ background-color: #8ce196; }
 input.toggle:checked + label:after	{ margin-left: 28px; background-color: #8ce196; }
 /**/
@@ -335,7 +335,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
 .windows8 #newWindowWrapper			{ -webkit-backface-visibility: hidden; }
 .android #newWindow					{ /*-webkit-backface-visibility: hidden;*/ -webkit-perspective: 800; }
-#newWindow							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; }
+#newWindow							{ position: absolute; top: 45px; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: 'KCals'; content: '\f104'; }
@@ -344,6 +344,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader #saveButton:active	{ color: #C6DEF9; color: #ccc; }
 #newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 45px; color: #555; text-align: center; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #appContent												{ pointer-events: auto; }
+.newwindow #startDate,
 .newwindow #appContent									{ pointer-events: none !important; }
 #newWindowWrapper.sideload								{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; background-color: #fff; overflow: hidden; }
 .ios7 #newWindowWrapper.sideload						{ top: 77px; }
@@ -351,6 +352,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 .wp8 #newWindow.firstLoad div:nth-of-type(1n+15)	{ display: none !important; }
 #newWindow.firstLoad div:nth-of-type(1n+100)			{ display: none; }
 .android4lt #newWindow div:nth-of-type(1n+750)			{ display: none; }
+/**************/
 #newSearchWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 55; }
 #newSearchWrapper.busy				{ pointer-events: none; overflow: hidden; }
 .ios7 #newSearchWrapper				{ top: 77px; }

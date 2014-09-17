@@ -1,6 +1,10 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.7 [2014/09/14]
+• Foram feitas algumas melhorias técnicas na capacidade de redimensionamento do app
+• Zoom
+
 # 1.6 [2014/09/14]
 • Diary entries can be quickly reused, edited or deleted (swipe left to reveal options)
 • Prevent page scrolling while swiping (Diary)
@@ -27,7 +31,6 @@
 • Fixed db import issue
 • Improved input validation
 • Fixed toggle issues
-• Selects are now menu driven
 • Bug fixes
 
 # 1.3.1 [2014/07/20]

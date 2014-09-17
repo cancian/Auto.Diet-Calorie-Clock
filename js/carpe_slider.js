@@ -2,7 +2,15 @@
     Copyright CARPE Design, http://carpe.ambiprospect.com/
     carpe@ambiprospect.com, tom@ambiprospect.com
 */
+
 (function () {
+	
+var carpeZoom = function() {
+	if(!window.localStorage.getItem('app_zoom')) {
+		window.localStorage.setItem('app_zoom',1);
+	}
+	return parseFloat(window.localStorage.getItem('app_zoom'));
+}	
    // 'use strict';
     var CARPE,
         Slider;
@@ -398,7 +406,7 @@
 		if(!$('.carpe-slider-knob').hasClass('active')) {
 			$('.carpe-slider-knob').addClass('active');
 		}
-        this.startOffset = this.pxPos - evnt[this.pointerProp];
+        this.startOffset = this.pxPos - (evnt[this.pointerProp]/(carpeZoom()));
         this.documentListeners(true);
         CARPE.stop(evnt);
         this.panel.focus();
@@ -409,13 +417,13 @@
 			$('.carpe-slider-knob').addClass('active');
 		}
         var evnt = e || window.event,
-            pos = evnt[this.pointerProp] - CARPE.getPos(this.knob)[this.dir] +
+            pos = ((evnt[this.pointerProp]/(carpeZoom()))) - CARPE.getPos(this.knob)[this.dir] +
                     CARPE.scroll()[this.dir] + this.pxPos - this.halfKnob;
         return this.setPosition(pos).start(evnt);
     };
     Slider.prototype.move = function (e) {
         var evnt = e || window.event;
-        this.setPosition(this.startOffset + evnt[this.pointerProp]);
+        this.setPosition(this.startOffset + (evnt[this.pointerProp]/(carpeZoom())));
         return false;
     };
     Slider.prototype.onMove = function () {
@@ -610,15 +618,22 @@ function reNutri() {
 ///////////////
 // ON RESIZE //
 ///////////////
-var UAGT = navigator.userAgent;
-$(window).on('resize', function (evt) {
+function carpeResizer() {
 	if ($('#diaryNotesWrapper').length) {
 		return;
 	}
-	if (!(/IEMobile/i).test(UAGT)) {
+	if (!(/IEMobile/i).test(navigator.userAgent)) {
 		reSlider();
 		reNutri();
 	}
+}
+var carpeResizerTimer;
+$(window).on('resize', function (evt) {
+	clearTimeout(carpeResizerTimer);
+	carpeResizerTimer = setTimeout(function() {
+		carpeResizer();	
+	},50);
+	carpeResizer();
 });
 ///////////////////
 // CUSTOM EVENTS //

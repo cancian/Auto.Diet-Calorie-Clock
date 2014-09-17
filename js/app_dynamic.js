@@ -498,22 +498,22 @@ $(document).on("pageload", function (evt) {
 			//no jump
 			$('#appContent').scrollTop($('#appContent').scrollTop());
 			$('#' + rowId).hide();
+			$('#' + rowId).remove();
+			//IF LAST ROW
+			if ($('#entryList .entryListRow').length == 0) {
+				$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+				updateTimer();
+				return false;
+			}
 			//UPDATE DB
 			deleteEntry({
 				id : rowId,
 				published : rowTime
 			}, function() {
 				//REMOVE
-				$('#' + rowId).remove();
 				updateTimer();
 				updateEntriesTime();
 				updateEntriesSum();
-				//IF LAST ROW
-				if ($('#entryList .entryListRow').length == 0) {
-					$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
-					updateTimer();
-					return false;
-				}
 				//force error
 				niceResizer();
 			});
@@ -824,7 +824,7 @@ function searchFood(searchSQL, callback) {
 	mi = mi.sortbyattr('id');
 
 	var mou = [];
-	for (var u = 0, lenu = mi.length; u < 120; u++) {
+	for (var u = 0, lenu = mi.length; u < 90; u++) {
 		if (mi[u]) {
 			mou.push(mi[u].value);
 		}

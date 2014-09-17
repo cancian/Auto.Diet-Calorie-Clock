@@ -8211,10 +8211,14 @@ Kiểm tra hồ sơ của bạn. \
 				<p>“Elapsed Time” means the total time since you pressed Start.</p>\
 				<p>“Relative Time” indicates how long you have to wait until your caloric balance returns to zero. </p>\
 				<p>The “Relative Time” is particularly useful to calculate when you should have your next meal. </p>\
-				<p>For instance, if you have eaten something like 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p>\
-				<p>1/4 of your daily intake = 1/4 of the day</p>\
-				<p>Calories are converted into time.</p>\
-				<p>This means that within 6 hours your body will have consumed the 500 calories, so you can eat again, and then wait accordingly, depending on how much you have eaten.</p>\
+				<p>For instance, if you have eaten 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p>\
+				<p>500 kcal = 1/4 of your daily intake</p>\
+				<p>6 hours = 1/4 of the day</p>\
+				<p>Therefore:</p>\
+				<p>500 kcal = 6 hours </p>\
+				<p>Simply put, calories are converted into time.</p>\
+				<p>In practical terms, this means that within 6 hours (1/4 of the day) your body will have burned the 500 calories you consumed (1/4 of your daily intake).</p>\
+				<p>As you can see, more than just counting calories, KCals helps you to reeducate your eating habits.</p>\
 			',
 			'Cyclical Mode' : '\
 				<p>The Cyclical Mode allows you to alternate between two different caloric values along a period of four days.</p>\
