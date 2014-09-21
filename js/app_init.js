@@ -1,7 +1,7 @@
 ﻿///////////////
 // SAFE EXEC //
 ///////////////
-var staticVendor = ''; //'blackberry';
+var staticVendor = ''; //'amazon'; //'blackberry';
 var baseVersion  = 1.6;
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;

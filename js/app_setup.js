@@ -1843,7 +1843,7 @@ function getNiceScroll(target,timeout,callback) {
 	setTimeout(function() {
 	//SETTINGS
 	var NSettings = {
-		touchbehavior: false,
+		touchbehavior: true,
 		nativeparentscrolling: false,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '5px',
@@ -1901,16 +1901,11 @@ function getNiceScroll(target,timeout,callback) {
 //# APP RESIZER #//
 //#/////////////#//
 function appResizer(time) {
+	if(!time) { time = 0; }
 	setTimeout(function() {
-		var zoomRatio = 1;//decimalize(1 + (((-600+window.innerWidth)/75)*.012))
-		//console.log(zoomRatio);
-		app.save('app_zoom',zoomRatio);
-		$('body').height(window.innerHeight/app.read('app_zoom'));
-		if(!app.read('app_zoom',1)) {
-			$('body').width(window.innerWidth/app.read('app_zoom'));
-			$('body').css('zoom',Math.round(app.read('app_zoom') * 100) + '%');
-			$('body').css('zoom',app.read('app_zoom'));
-			$('body').css('-moz-transform','scale(' + app.read('app_zoom') + ',' + app.read('app_zoom') + ')');
+		$('body').height(window.innerHeight / app.read('app_zoom'));
+		if(vendorClass == 'moz') {
+			$('body').width(window.innerWidth / app.read('app_zoom'));
 		}
 		//$('#appContent').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
 		//unlock top white gap
@@ -1950,8 +1945,8 @@ function appResizer(time) {
 		niceResizer();
 		//chrome v32 input width
 		if(app.device.desktop || app.device.windows8) {
-			$('#entryBody').width(window.innerWidth -58);
-			$('#foodSearch').width(window.innerWidth -55);
+			$('#entryBody').width( $('body').width() -58);
+			$('#foodSearch').width( $('body').width() -55);
 		}
 	 },time);
 }
@@ -1981,7 +1976,7 @@ function sanitizeSql(str) {
 var rateTimer;
 function getRateDialog() {
 	//appstore enabled
-	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeapp) { return; }
+	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos) { return; }
 	if(app.get.platform() == 'web')	{ return; }
 	//first use
 	app.define('getRate',app.now());
@@ -2028,13 +2023,14 @@ app.analytics = function(target) {
 		var deviceType = 'web';
 		var appOS      = vendorClass;
 		     if(app.device.ios)		   { appOS = 'ios';        if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.amazon)     { appOS = 'amazon';     if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.blackberry) { appOS = 'blackberry'; if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.android)	   { appOS = 'android';    if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.windows8)   { appOS = 'windows8';   if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
 		else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
-		else if(app.device.chromeapp)  { appOS = 'chromeapp';  deviceType = 'app'; }
-		else if(app.device.blackberry) { appOS = 'blackberry'; if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.chromeos)   { appOS = 'chromeos';   deviceType = 'app'; }
 		//string
 		var trackString = appOS + '.' + deviceType  + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event

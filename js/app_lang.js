@@ -2432,6 +2432,48 @@ Kiểm tra hồ sơ của bạn. \
 		zh : '添加新的运动',
 		zt : '添加新的運動',
 	},
+	RECENT_ENTRIES : {
+		en : 'Recent entries',
+		pt : 'Entradas recentes',
+		ar : '',
+		bg : '',
+		ca : '',
+		cs : '',
+		da : '',
+		de : '',
+		el : '',
+		es : '',
+		et : '',
+		fa : '',
+		fi : '',
+		fr : '',
+		hi : '',
+		hr : '',
+		hu : '',
+		it : '',
+		id : '',
+		iw : '',
+		ja : '',
+		ko : '',
+		lt : '',
+		lv : '',
+		ms : '',
+		nl : '',
+		nb : '',
+		pl : '',
+		ro : '',
+		ru : '',
+		sk : '',
+		sl : '',
+		sr : '',
+		sv : '',
+		th : '',
+		tr : '',
+		uk : '',
+		vi : '',
+		zh : '',
+		zt : '',
+	},
 	ADD : {
 		en : 'add',
 		pt : 'adicionar',
@@ -8153,8 +8195,8 @@ Kiểm tra hồ sơ của bạn. \
 				• Windows Phone<br />\
 				• Windows 8<br />\
 				• FirefoxOS<br />\
-				• Mac OSX<br />\
-				• Chrome App<br />\
+				• Mac OS X<br />\
+				• ChromeOS<br />\
 				• Blackberry<br />\
 				• Desktop (http://kcals.net)</p>\
 				<p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Automatic Backup feature.</p>\

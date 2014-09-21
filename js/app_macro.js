@@ -982,7 +982,7 @@ function getElapsed(swap) {
 		//selective shrink
 		if(swapData) {
 			swapData = swapData.split(LANG.AGO[lang]).join('').split(LANG.PREAGO[lang]).join('');
-			if(swapData.length > 20 && window.innerWidth <= 360) {
+			if(swapData.length > 20 && $('body').width() <= 360) {
 				swapData = swapData.replace(LANG.MINUTES[lang],LANG.MIN[lang]);
 				swapData = swapData.replace(LANG.MINUTE[lang],LANG.MIN[lang]);
 				swapData = trim(swapData.replace('.',''));
@@ -1306,6 +1306,21 @@ function buildAdvancedMenu() {
 	app.handlers.activeRow('#advancedAbout','button',function(evt) {
 		app.about();
 	});
+	//#//////#//
+	//# ZOOM #//
+	//#//////#//
+	/*
+	//<li id='advancedZoom'><span id='zoomx1'></span><span id='zoomx2'></span><span id='zoomx3'></span>zoom</li>\
+	app.handlers.activeRow('#zoomx1','button',function(evt) {
+		app.zoom(1);
+	});
+	app.handlers.activeRow('#zoomx2','button',function(evt) {
+		app.zoom(2);
+	});
+	app.handlers.activeRow('#zoomx3','button',function(evt) {
+		app.zoom(3);
+	});
+	*/
 	//#/////////#//
 	//# CONTACT #//
 	//#/////////#//
@@ -1317,7 +1332,7 @@ function buildAdvancedMenu() {
 		else if(app.device.windows8)   { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(MSApp)')); }
 		else if(app.device.firefoxos)  { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(FirefoxOS)', '_system', 'location=no');                    }
 		else if(app.device.osxapp)     { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(OSX)';                                                       }
-		else if(app.device.chromeapp)  { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(Chrome)';                                                    }
+		else if(app.device.chromeos)   { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(Chrome)';                                                    }
 		else if(app.device.blackberry) { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(Blackberry)', '_system', 'location=yes');                        }
 		else                           { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(other)';                                                     }
 	});
@@ -1384,7 +1399,7 @@ function buildAdvancedMenu() {
 	//#////////#//
 	//# REVIEW #//
 	//#////////#//
-	if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.firefoxos || app.device.osxapp || app.device.chromeapp) {
+	if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.firefoxos || app.device.osxapp || app.device.chromeos) {
 		app.handlers.activeRow('#advancedReview','button',function(evt) {
 		//$("#advancedReview").on(tap,function(evt) {
 			app.url();
@@ -1470,6 +1485,7 @@ function getCatList(callback) {
 	while(h--) {
 		helpHtml = helpHtml + "<li id='cat" + helpTopics[h][0] + "'><div>" + helpTopics[h][1] + "</div></li>";
 	};
+	//helpHtml = '<li id="cat0001"><div>' + LANG.RECENT_ENTRIES[lang] + '</div></li>' + helpHtml;
 	/////////////////////
 	// RE-INSERT INTRO //
 	/////////////////////

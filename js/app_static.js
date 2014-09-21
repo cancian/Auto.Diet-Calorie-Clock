@@ -43,7 +43,9 @@ $(document).on('resume',function() {
 $(document).on('visibilitychange', function () {
 	clearTimeout(app.repeaterLoop);
 	if (document.hidden == false || document.visibilityState == 'visible') {
-		if (app.device.osxapp) {
+		if (app.device.desktop) {
+			$(document).trigger('resume');		
+		} else if (app.device.osxapp) {
 			$(document).trigger('resume');
 		}
 		if(app.device.firefoxos) {
@@ -412,7 +414,7 @@ $(document).on('showkeyboard', function(evt) {
 		setTimeout(function() {
 			$('#diaryNotesInput').focus();
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-			$('#diaryNotesInput').height(window.innerHeight - 32);
+			$('#diaryNotesInput').height($('body').height() - 32);
 			if($.nicescroll) {
 				$('#diaryNotesInput').getNiceScroll().resize();
 			}
@@ -420,7 +422,7 @@ $(document).on('showkeyboard', function(evt) {
 		setTimeout(function() {
 			$('#diaryNotesInput').focus();
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-			$('#diaryNotesInput').height(window.innerHeight - 32);
+			$('#diaryNotesInput').height($('body').height() - 32);
 			if($.nicescroll) {
 				$('#diaryNotesInput').getNiceScroll().resize();
 			}
@@ -495,12 +497,12 @@ $(window).on('resize', function(evt) {
 	if($('#diaryNotesInput').length) {
 		if($('#diaryNotesInput').length && !app.device.wp8 && !app.device.windows8) {
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-			$('#diaryNotesInput').height(window.innerHeight - 32);
-			$('#diaryNotesInput').width(window.innerWidth - 24);
+			$('#diaryNotesInput').height($('body').height() - 32);
+			$('#diaryNotesInput').width($('body').width() - 24);
 			if($.nicescroll) {
 				$('#diaryNotesInput').getNiceScroll().resize();	
 			}
-			$('#diaryNotesButton span').css('top',(window.innerHeight/2) + 'px');
+			$('#diaryNotesButton span').css('top',($('body').height()/2) + 'px');
 		}
 	}
 	if(app.read('app_last_tab','tab1')) {
@@ -638,8 +640,8 @@ if(app.device.osxapp) {
 /////////.//////
 // CHROME APP //
 //////////./////
-if(app.device.chromeapp) {
-	$('body').addClass('chromeapp');
+if(app.device.chromeos) {
+	$('body').addClass('chromeos');
 }
 ////////////////
 // BLACKBERRY //

@@ -588,11 +588,9 @@ var carpeZoom = function() {
 ////////////
 function reSlider() {
 	if (document.getElementById('slider')) {
-		Math.round(window.innerWidth % 2) ? $("#sliderWrapper").width( $("#appContent").width()-49) : $("#sliderWrapper").width($("#appContent").width()-48);
 		var sliderMemory = parseInt($('#entryTitle').val());
 		$('#sliderWrapper').html('<input id="slider" type="range" min="-750" max="750" step="1" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="8" />');
 		CARPE.sliders.init();
-		$('#sliderNum').css('left', ((Number($('.carpe-slider-knob', '.carpe-slider-box').css('left').replace('px', ''))) - (23)) + 'px');
 		document.getElementById('slider').slider.setValue(sliderMemory);
 		$('#entryTitle').val(sliderMemory);
 		$('#loadingDiv').hide();

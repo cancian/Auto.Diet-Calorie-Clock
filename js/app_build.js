@@ -68,13 +68,13 @@ app.tab.settings = function(keepOpen) {
 		/////////////
 		var aboutHandler = function() { 
 			app.handlers.activeRow('#b000','button',function() { app.url('www');        });
-			app.handlers.activeRow('#b100','button',function() { app.url('android');    });
+			app.handlers.activeRow('#b100','button',function() { app.device.amazon == true ? app.url('amazon') : app.url('android'); });
 			app.handlers.activeRow('#b200','button',function() { app.url('ios');        });
 			app.handlers.activeRow('#b300','button',function() { app.url('wp8');        });
 			app.handlers.activeRow('#b400','button',function() { app.url('windows8');   });
 			app.handlers.activeRow('#b500','button',function() { app.url('firefoxos');  });
 			app.handlers.activeRow('#b600','button',function() { app.url('osxapp');     });
-			app.handlers.activeRow('#b700','button',function() { app.url('chromeapp');  });
+			app.handlers.activeRow('#b700','button',function() { app.url('chromeos');   });
 			app.handlers.activeRow('#b800','button',function() { app.url('blackberry'); });
 		};
 		/////////////////
@@ -1118,11 +1118,11 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		if(!app.device.wp8) {
 			$('#diaryNotesInput').focus();
 		}
-		$('#diaryNotesInput').height(window.innerHeight - 32);
-		$('#diaryNotesInput').width(window.innerWidth - 24);
+		$('#diaryNotesInput').height($('body').height() - 32);
+		$('#diaryNotesInput').width($('body').width() - 24);
 		//load scroller & set window < height
 		getNiceScroll("#diaryNotesInput",200,function() {
-			$('#diaryNotesInput').height(window.innerHeight - 32);				
+			$('#diaryNotesInput').height($('body').height() - 32);				
 		});
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {
@@ -1149,14 +1149,14 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#diaryNotesInput').on('focus', function(evt) {
 			//window.scroll($('#diaryNotesInput').scrollTop,0,0);
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-			$("#diaryNotesInput").height(window.innerHeight - 32);
+			$("#diaryNotesInput").height($('body').height() - 32);
 			if($.nicescroll) {
 				$("#diaryNotesInput").getNiceScroll().resize();	
 			}
 			setTimeout(function() {
 				kickDown('#diaryNotesInput');
 				//$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-				$("#diaryNotesInput").height(window.innerHeight - 32);
+				$("#diaryNotesInput").height($('body').height() - 32);
 				if($.nicescroll) {
 					$("#diaryNotesInput").getNiceScroll().resize();	
 				}
@@ -1172,7 +1172,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		//keypress save
 		$('#diaryNotesInput').on("keypress", function(evt) {
 			app.save('appNotes',$('#diaryNotesInput').val());
-			$('#diaryNotesInput').height(window.innerHeight - 32);
+			$('#diaryNotesInput').height($('body').height() - 32);
 			if($.nicescroll) {
 				$("#diaryNotesInput").getNiceScroll().resize();
 			}

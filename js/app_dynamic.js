@@ -569,7 +569,7 @@ $(document).on("pageReload", function (evt) {
 						///////////////////////
 						$('#pageSlideFood').remove();
 						$('body').append("<div id='pageSlideFood'></div>");
-						$('#pageSlideFood').css("height", (window.innerHeight - $('#appHeader').height()) + "px");
+						$('#pageSlideFood').css("height", ($('body').height() - $('#appHeader').height()) + "px");
 						$('#pageSlideFood').css("top", $('#appHeader').height() + "px");
 						///////////////
 						// CREATE DB //
@@ -595,7 +595,7 @@ $(document).on("pageReload", function (evt) {
 						///////////////
 						$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG.FOOD_SEARCH[lang] + '" /><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG.NO_MATCHES[lang] + '</span></div></div></div>');
 						//PRE-ADJUST RESULTS HEIGHT
-						$('#foodSearch').width(window.innerWidth - 55);
+						$('#foodSearch').width($('body').width() - 55);
 						buildFoodMenu();
 						//remember search type
 						if (app.read('searchType','exercise')) {
@@ -802,7 +802,7 @@ function searchFood(searchSQL, callback) {
 	//for (var z = 0, len = dato.length; z < len; z++) {
 		keyScore = 0;
 		keyJunk = 0;
-		if (((dato[z].type == "0000" || dato[z].type == "exercise") && typeTerm == "exercise") || ((dato[z].type != "0000" && dato[z].type != "exercise") && typeTerm == "food")) {
+		if ((/0000|exercise/.test(dato[z].type) && typeTerm == "exercise") || (!/0000|exercise/.test(dato[z].type) && typeTerm == "food")) {
 			var k = searchSQL.length;
 			while(k--) {
 			//for (var k = 0, lenn = searchSQL.length; k < lenn; k++) {
@@ -1634,7 +1634,7 @@ function getModalWindow(itemId) {
 					setTimeout(function () {
 						$('#appHeader').trigger(touchstart);
 					}, 300);
-					$('#entryBody').width(window.innerWidth - 58);
+					$('#entryBody').width($('body').width() - 58);
 					highlight('#entryBody');
 				});
 			},0);
