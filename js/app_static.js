@@ -1,28 +1,29 @@
-﻿//////////////////
-// DEVICE READY //
-//////////////////
-$(document).ready(function() { 
-	//READY
-	$('body').addClass('ready');
-	//DB
-	try {
-		localforage.config({storeName: 'KCals'});
-		localforage.setDriver(['webSQLStorage','asyncStorage','localStorageWrapper']).then(function() {
-			initDB();
-		});
-	} catch(error) {
-		app.reboot('reset',error);
-	}
+﻿////////////////////
+// DOCUMENT READY //
+////////////////////
+$(document).ready(function() {
+	app.ready(function() {
+		///////////////////
+		// OPEN DATABASE //
+		///////////////////
+		try {
+			localforage.config({storeName: 'KCals'});
+			localforage.setDriver(['webSQLStorage','asyncStorage','localStorageWrapper']).then(function() {
+				initDB();
+			});
+		} catch(error) {
+			app.reboot('reset',error);
+		}
+	});
 });
 ////////////////
 // RESUME EVT //
 ////////////////
-var resumeTimeout;
 $(document).on('resume',function() {
 	updateTimer();
 	clearTimeout(app.repeaterLoop);
-	clearTimeout(resumeTimeout);
-	resumeTimeout = setTimeout(function() { 
+	clearTimeout(app.timers.resume);
+	app.timers.resume = setTimeout(function() { 
 		updateLoginStatus(1);
 		app.analytics('resume');
 		if(app.read('config_autoupdate','on')) {
@@ -79,6 +80,7 @@ setTimeout(function() {
 	updateLoginStatus(1);
 	app.analytics('start');
 	app.remove('consecutive_reboots');
+	clearTimeout(app.timers.resume);
 },5000);
 ////////////////
 // PARSED CSS //
@@ -458,18 +460,20 @@ $(window).on('orientationchange', function(evt) {
 ////////////
 app.globals.recentResize = 0;
 $(window).on('resize', function(evt) {
+	app.width  = window.innerWidth;
+	app.height = window.innerHeight;
 	app.globals.recentResize = 1;
 	clearTimeout(app.timers.recentResize);
 	app.timers.recentResize = setTimeout(function() {
 		app.globals.recentResize = 0;
 	},300);
 	lastScreenResize = lastScreenSize;
-	lastScreenSize = window.innerHeight;
+	lastScreenSize = app.height;
 	//unlock top white gap
 	$('body').trigger('touchmove');
 	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
 	//if(window.innerHeight > $('body').height()) {
-	if(initialScreenSize > $('body').height() && !app.device.windows8) {
+	if(initialScreenSize > app.height && !app.device.windows8) {
 		//IOS re-scrolling bug
 		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
 		$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);

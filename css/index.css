@@ -335,7 +335,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
 .windows8 #newWindowWrapper			{ -webkit-backface-visibility: hidden; }
 .android #newWindow					{ /*-webkit-backface-visibility: hidden;*/ -webkit-perspective: 800; }
-#newWindow							{ position: absolute; top: 45px; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; }
+#newWindow							{ position: absolute; top: 44px; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: 'KCals'; content: '\f104'; }
@@ -343,15 +343,15 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader #backButton:active,
 #newWindowHeader #saveButton:active	{ color: #C6DEF9; color: #ccc; }
 #newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 45px; color: #555; text-align: center; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-#appContent												{ pointer-events: auto; }
+#appContent							{ pointer-events: auto; }
 .newwindow #startDate,
-.newwindow #appContent									{ pointer-events: none !important; }
-#newWindowWrapper.sideload								{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; background-color: #fff; overflow: hidden; }
-.ios7 #newWindowWrapper.sideload						{ top: 77px; }
-#newWindowWrapper.open.sideload							{ -webkit-transform: translate3d(0, 0, 0); }
+.newwindow #appContent				{ pointer-events: none !important; }
+#newWindowWrapper.sideload							{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; background-color: #fff; overflow: hidden; }
+.ios7 #newWindowWrapper.sideload					{ top: 77px; }
+#newWindowWrapper.open.sideload						{ -webkit-transform: translate3d(0, 0, 0); }
 .wp8 #newWindow.firstLoad div:nth-of-type(1n+15)	{ display: none !important; }
-#newWindow.firstLoad div:nth-of-type(1n+100)			{ display: none; }
-.android4lt #newWindow div:nth-of-type(1n+750)			{ display: none; }
+#newWindow.firstLoad div:nth-of-type(1n+100)		{ display: none; }
+.android4lt #newWindow div:nth-of-type(1n+750)		{ display: none; }
 /**************/
 #newSearchWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 55; }
 #newSearchWrapper.busy				{ pointer-events: none; overflow: hidden; }
@@ -502,11 +502,12 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusElapsed div				{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
 #appStatusElapsed span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 /*swap*/
-#elapsedIndicators div				{ text-align: left; width: 14px; height: 0; position: absolute; left: 50%; bottom: 14px; color: #ddd; font-size: 16px; line-height: 16px; }
-#elapsedIndicators div.activeSwap	{ color: #39F; }
-#elapsedIndicators div#ind1			{ margin-left: -15px; }
-#elapsedIndicators div#ind2			{ margin-left: -3px;  }
-#elapsedIndicators div#ind3			{ margin-left: 9px;  }
+#elapsedIndicators div						{ text-align: left; width: 14px; height: 0; position: absolute; left: 50%; bottom: 8px; color: #ddd; font-size: 16px; line-height: 16px; font-family: Arial; }
+#elapsedIndicators div:before				{ border: 2px solid #ddd; border-radius: 20px; width: 0; height: 0; padding: 0px; display: block; content: ''; }
+#elapsedIndicators div.activeSwap:before	{ border-color: #39F; }
+#elapsedIndicators div#ind1					{ margin-left: -14px; }
+#elapsedIndicators div#ind2					{ margin-left: -2px;  }
+#elapsedIndicators div#ind3					{ margin-left: 10px;  }
 /**/
 #appStatusWeight					{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusWeight div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
@@ -1256,6 +1257,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .cat3500:after,#cat3500 div:before { content: '\C350'; }
 .cat3600:after,#cat3600 div:before { content: '\C360'; }
 .cat9999:after,#cat9999 div:before { content: '\C999'; }
+.cat0001:after,#cat0001 div:before { content: '\C000'; color:#007aff; }
 /*STORES*/
 #appStores							{ position: relative; display: block; height: 100%; min-height: 280px; max-height: 800px; }
 #appStores span						{ position: relative; display: block; float: left; font-size: 38px; color: #000; width: 33.333%; height: 30%; text-align: center; }
@@ -1270,8 +1272,6 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #b600:before						{ content: '\B600'; }
 #b700:before						{ content: '\B700'; font-size: 35px; }
 #b800:before						{ content: '\B800'; }
-#tabMyCatsBlock li#cat0001			{ }
-.cat0001:after,#cat0001 div:before	{ content: '\C000'; color:#007aff; }
 /*ADD/REMOVE*/
 .neg,
 .pos			{ position: absolute; top: 0; width: 60px; color: #007aff; height: 50px; line-height: 50px; font-size: 18px; text-align: center; background-color: rgba(0,0,0,0); z-index: 999; display: block; }

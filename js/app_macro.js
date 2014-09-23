@@ -1460,19 +1460,47 @@ function buildAdvancedMenu() {
 //##//////////////////##//
 function getCategory(catId, callback) {
 	var orType = '';
-	if(catId == '9999') { orType = 'food';     }
-	if(catId == '0000') { orType = 'exercise'; }
+	if (catId == '9999') {
+		orType = 'food';
+	}
+	if (catId == '0000') {
+		orType = 'exercise';
+	}
 	var rowsArray = [];
 	var i = rowsFood.length;
-	//for(var i=0, len=rowsFood.length; i<len; i++) {
-	while(i--) {
-		if(rowsFood[i]) {
-			if(rowsFood[i].type === catId || rowsFood[i].type === orType) {
-				rowsArray.push(rowsFood[i]);
+	////////////
+	// RECENT //
+	////////////
+	if (catId == '0001') {
+		var recentArray = app.read('app_recent_items', '', 'object');
+		while (i--) {
+			if (recentArray.length > 0 && rowsFood[i]) {
+				if (recentArray.contains('#' + rowsFood[i].id + '#')) {
+					var recentRow = rowsFood[i];
+					for (var r = 0, len = recentArray.length; r < len; r++) {
+						if ('#' + recentRow.id + '#' == recentArray[r].id) {
+							recentRow.time = recentArray[r].time;
+							rowsArray.push(recentRow);
+							break;
+						}
+					}
+				}
 			}
 		}
+		callback(rowsArray.sortbyattr('time', 'asc'));
+		//////////////////
+		// REGULAR DUMP //
+		//////////////////
+	} else {
+		while (i--) {
+			if (rowsFood[i]) {
+				if (rowsFood[i].type === catId || rowsFood[i].type === orType) {
+					rowsArray.push(rowsFood[i]);
+				}
+			}
+		}
+		callback(rowsArray.sortbyattr('term', 'desc'));
 	}
-	callback(rowsArray.sortbyattr('term','desc'));
 }
 function getCatList(callback) {
 	//STARTLOCK
@@ -1485,10 +1513,8 @@ function getCatList(callback) {
 	while(h--) {
 		helpHtml = helpHtml + "<li id='cat" + helpTopics[h][0] + "'><div>" + helpTopics[h][1] + "</div></li>";
 	};
-	//helpHtml = '<li id="cat0001"><div>' + LANG.RECENT_ENTRIES[lang] + '</div></li>' + helpHtml;
-	/////////////////////
-	// RE-INSERT INTRO //
-	/////////////////////
+	//RECENT ROW
+	helpHtml = '<li id="cat0001"><div>' + LANG.RECENT_ENTRIES[lang] + '</div></li>' + helpHtml;
 	///////////////////////
 	// INSERT TOPIC LIST //
 	///////////////////////
@@ -1501,6 +1527,12 @@ function getCatList(callback) {
 		var catCode = targetId.replace('cat', '');
 		//SQL QUERY
 		getCategory(catCode, function(data) {
+			///////////
+			// TITLE //
+			///////////
+			var catListTitle   = LANG.FOOD_CATEGORIES[lang];
+			catListTitle[0001] = LANG.RECENT_ENTRIES[lang];
+			//add 'clear all' 
 			//////////
 			// HTML //
 			//////////
@@ -1574,7 +1606,7 @@ function getCatList(callback) {
 			/////////////////
 			// CALL WINDOW //
 			/////////////////
-			getNewWindow(LANG.FOOD_CATEGORIES[lang][catCode], catListHtml, catListHandler, '', catListCloser,'sideload','flush');
+			getNewWindow(catListTitle[catCode], catListHtml, catListHandler, '', catListCloser,'sideload','flush');
 		});
 	},function() {
 		if(!$('#pageSlideFood').length || ($('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open'))) {

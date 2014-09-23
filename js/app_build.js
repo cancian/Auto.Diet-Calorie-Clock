@@ -221,7 +221,7 @@ app.tab.status = function(keepOpen) {
 	<a name="top"></a>\
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p></p><span></span></div>\
-		<div id="elapsedIndicators"><div id="ind1">•</div><div id="ind2">•</div><div id="ind3">•</div></div>\
+		<div id="elapsedIndicators"><div id="ind1"></div><div id="ind2"></div><div id="ind3"></div></div>\
 		</div>\
 		<div id="appStatusWeight"><div><p>' + totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong></p><span>' + LANG.TODAY[lang] + '</span><em></em>\
 		<div id="appDays">\
@@ -516,8 +516,11 @@ app.tab.status = function(keepOpen) {
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
 app.tab.diary = function(entryListHtml,keepOpen) {
+	if(keepOpen == 1) {
+		app.exec.updateEntries();
+		return;
+	}
 	if(!entryListHtml) { return; }
-	updateEntriesSum();
 	//RAW HTML
 	var diaryHtml = '';
 	var lHour     = LANG.HOUR[lang];
@@ -595,6 +598,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	pageLoad('#appContent',diaryHtml);
 	afterTab(keepOpen);
 	//SET SLIDER+HEIGHT
+	updateEntriesSum();
 	$(document).trigger('sliderInit');
 	$('#entryListWrapper').css('min-height',$('body').height() - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height()) + 'px');
 	//#//////////#//

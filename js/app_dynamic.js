@@ -1555,7 +1555,27 @@ function getModalWindow(itemId) {
 				//////////////
 				// CALLBACK //
 				//////////////
-				//AUTO START
+				////////////////////////
+				// UPDATE RECENT LIST //
+				////////////////////////
+				var recentArray = app.read('app_recent_items','','object');
+				if(recentArray.contains(itemId)) {
+					//UPDATE EXISTING
+					var r = recentArray.length;
+					while(r--) {
+						if(recentArray[r].id == '#' + itemId + '#') {
+							recentArray[r].time = app.now();
+							break;	
+						}
+					}
+				} else {
+					//INSERT NEW
+					recentArray.push({id: '#' + itemId + '#', time: app.now()});
+				}
+				app.save('app_recent_items',recentArray,'object');
+				///////////////////////
+				// PROMPT AUTO START //
+				///////////////////////
 				if (!app.read('appStatus','running')) {
 					appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
 						if (button == 1) {

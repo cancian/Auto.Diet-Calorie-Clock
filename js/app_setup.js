@@ -1172,7 +1172,7 @@ function fillDate(timestamp,element) {
 // UPDATE ENTRYLIST //
 //////////////////////
 var partial = '';
-app.exec.updateEntries = function(partial,range,callback) {
+app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 	var totalEntryS       = app.read('totalEntries');
 	var totalRecentEntryS = app.read('totalRecentEntries');
 	//////////////
@@ -1259,9 +1259,9 @@ app.exec.updateEntries = function(partial,range,callback) {
 		//////////////
 		if(callback) { 
 			if(s != '') {
-				app.tab.diary(s);
+				app.tab.diary(s,keepOpen);
 			} else {
-				app.tab.diary('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+				app.tab.diary('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>',keepOpen);
 			}
 		} else {
 		////////////////////
@@ -1903,15 +1903,21 @@ function getNiceScroll(target,timeout,callback) {
 function appResizer(time) {
 	if(!time) { time = 0; }
 	setTimeout(function() {
-		$('body').height(window.innerHeight / app.read('app_zoom'));
+		app.width  = window.innerWidth;
+		app.height = window.innerHeight;
+		app.relWidth   = app.width  / app.read('app_zoom');
+		app.relHeight =  app.height / app.read('app_zoom'); 
+		$('body').css('min-height', app.relHeight + 'px');
+		$('body').css('min-width', app.relWidth + 'px');
+		//$('body').height( app.height / app.read('app_zoom'));
 		if(vendorClass == 'moz') {
-			$('body').width(window.innerWidth / app.read('app_zoom'));
+			//$('body').width( app.width / app.read('app_zoom'));
 		}
 		//$('#appContent').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
 		//unlock top white gap
 		$('body').trigger('touchmove');
 		//NO < 0
-		var wrapperMinH = (window.innerHeight/app.read('app_zoom')) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
+		var wrapperMinH = (app.height/app.read('app_zoom')) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
 		//force scrolling ios
 		if(wrapperMinH < 0) {
 			wrapperMinH = 0;
