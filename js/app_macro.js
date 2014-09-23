@@ -1530,8 +1530,7 @@ function getCatList(callback) {
 			///////////
 			// TITLE //
 			///////////
-			var catListTitle   = LANG.FOOD_CATEGORIES[lang];
-			catListTitle[0001] = LANG.RECENT_ENTRIES[lang];
+			var catListTitle = catCode == 0001 ? LANG.RECENT_ENTRIES[lang] : LANG.FOOD_CATEGORIES[lang][catCode];
 			//add 'clear all' 
 			//////////
 			// HTML //
@@ -1606,7 +1605,7 @@ function getCatList(callback) {
 			/////////////////
 			// CALL WINDOW //
 			/////////////////
-			getNewWindow(catListTitle[catCode], catListHtml, catListHandler, '', catListCloser,'sideload','flush');
+			getNewWindow(catListTitle, catListHtml, catListHandler, '', catListCloser,'sideload','flush');
 		});
 	},function() {
 		if(!$('#pageSlideFood').length || ($('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open'))) {

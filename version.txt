@@ -2,6 +2,8 @@
 ## VERSION LOG ##
 #################
 # 1.7 [2014/09/14]
+• Sharper icons
+• Fixed keepopen
 • Foram feitas algumas melhorias técnicas na capacidade de redimensionamento do app
 • Zoom
 

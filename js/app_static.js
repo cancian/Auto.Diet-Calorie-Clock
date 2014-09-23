@@ -473,7 +473,7 @@ $(window).on('resize', function(evt) {
 	$('body').trigger('touchmove');
 	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
 	//if(window.innerHeight > $('body').height()) {
-	if(initialScreenSize > app.height && !app.device.windows8) {
+	if(initialScreenSize > $('body').height() && !app.device.windows8) {
 		//IOS re-scrolling bug
 		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
 		$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);

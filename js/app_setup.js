@@ -1908,16 +1908,13 @@ function appResizer(time) {
 		app.relWidth   = app.width  / app.read('app_zoom');
 		app.relHeight =  app.height / app.read('app_zoom'); 
 		$('body').css('min-height', app.relHeight + 'px');
-		$('body').css('min-width', app.relWidth + 'px');
-		//$('body').height( app.height / app.read('app_zoom'));
 		if(vendorClass == 'moz') {
-			//$('body').width( app.width / app.read('app_zoom'));
+			$('body').css('min-width', app.relWidth + 'px');
 		}
-		//$('#appContent').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
 		//unlock top white gap
 		$('body').trigger('touchmove');
 		//NO < 0
-		var wrapperMinH = (app.height/app.read('app_zoom')) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
+		var wrapperMinH = (app.relHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
 		//force scrolling ios
 		if(wrapperMinH < 0) {
 			wrapperMinH = 0;

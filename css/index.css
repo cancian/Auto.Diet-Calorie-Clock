@@ -2,8 +2,12 @@
 html,body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
 body 									{ touch-action: none; -ms-touch-action: none;   }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
+.ios *:before,
+.osx *:before,
+.ios *:after,
+.osx *:after,
 .ios *,
-.osx *									{ -webkit-font-smoothing: antialiased; font-weight: 400; }
+.osx *									{ -webkit-font-smoothing: subpixel-antialiased; font-weight: 400; -webkit-perspective: none !important; }
 .windows8 								{ overflow: hidden !important; }
 #infocontents,
 #newWindowWrapper,#advancedMenu,
@@ -1111,7 +1115,7 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 .ios7 #foodList				{ margin-top: 0; }
 #topBarItem-1,
 #topBarItem-2,
-#topBarItem-3				{ margin: 0; color: #000; background-color: #fff; display: inline-block; height: 36px; line-height: 36px; font-size: 12px; text-align: center; -webkit-font-smoothing: antialiased; margin: 0; text-shadow: rgba(255,255,255,.3) 0 1px 0; }
+#topBarItem-3				{ margin: 0; color: #000; background-color: #fff; display: inline-block; height: 36px; line-height: 36px; font-size: 12px; text-align: center; -webkit-font-smoothing: subpixel-antialiased; margin: 0; text-shadow: rgba(255,255,255,.3) 0 1px 0; }
 #topBarItem-1				{ width: 33.2%; }
 #topBarItem-2				{ width: 33.2%; }
 #topBarItem-3				{ width: 33.6%; }
@@ -1257,7 +1261,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .cat3500:after,#cat3500 div:before { content: '\C350'; }
 .cat3600:after,#cat3600 div:before { content: '\C360'; }
 .cat9999:after,#cat9999 div:before { content: '\C999'; }
-.cat0001:after,#cat0001 div:before { content: '\C000'; color:#007aff; }
+.cat0001:after,#cat0001 div:before { content: '\C000'; color:#007aff; font-size: 27px; }
 /*STORES*/
 #appStores							{ position: relative; display: block; height: 100%; min-height: 280px; max-height: 800px; }
 #appStores span						{ position: relative; display: block; float: left; font-size: 38px; color: #000; width: 33.333%; height: 30%; text-align: center; }
