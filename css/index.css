@@ -343,9 +343,13 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: 'KCals'; content: '\f104'; }
-#newWindowHeader #saveButton		{ color: #C6DEF9; color: #ccc; -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; height: 44px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
+#newWindowHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; height: 44px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
+#saveButton.removeAll				{ color: rgba(0,0,0,0); }
+#saveButton.removeAll:before		{ content: '\f014'; font-family: KCals; font-size: 26px; display: block; color: #007AFF; }
+#saveButton.removeAll:active:before,
 #newWindowHeader #backButton:active,
-#newWindowHeader #saveButton:active	{ color: #C6DEF9; color: #ccc; }
+#newWindowHeader #saveButton:active,
+#newWindowHeader .removeAll:active	{ color: #ccc; }
 #newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 45px; color: #555; text-align: center; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #appContent							{ pointer-events: auto; }
 .newwindow #startDate,
@@ -1263,7 +1267,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .cat9999:after,#cat9999 div:before { content: '\C999'; }
 .cat0001:after,#cat0001 div:before { content: '\C000'; color:#007aff; font-size: 27px; }
 /*STORES*/
-#appStores							{ position: relative; display: block; height: 100%; min-height: 280px; max-height: 800px; }
+#appStores							{ position: relative; display: block; height: 92%; min-height: 260px; max-height: 800px; }
 #appStores span						{ position: relative; display: block; float: left; font-size: 38px; color: #000; width: 33.333%; height: 30%; text-align: center; }
 #appStores span.button				{ color: #ccc; }
 #appStores span:before				{ font-family: 'KCals'; display: block; position: absolute; top: 40%; left: 0; width: 100%; text-align: center; }
@@ -1276,6 +1280,9 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #b600:before						{ content: '\B600'; }
 #b700:before						{ content: '\B700'; font-size: 35px; }
 #b800:before						{ content: '\B800'; }
+#developedBy						{ position: absolute; bottom: 0; left: 0; right: 0; display: block; text-align: center; font-size: 16px; color: #999; height: 44px; line-height: 16px; }
+#contactDeveloper 					{ color: #007aff; display: block; padding-top: 3px; }
+#developedBy.button span			{ color: #ccc; }
 /*ADD/REMOVE*/
 .neg,
 .pos			{ position: absolute; top: 0; width: 60px; color: #007aff; height: 50px; line-height: 50px; font-size: 18px; text-align: center; background-color: rgba(0,0,0,0); z-index: 999; display: block; }
@@ -1290,8 +1297,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 
 
 
-
-#advancedZoom.activeRow { background-color: #fff!important; }
+#advancedZoom.activeRow { background-color: #fff !important; }
 #zoomx1,
 #zoomx2,
 #zoomx3	{

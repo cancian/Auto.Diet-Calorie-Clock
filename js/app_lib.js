@@ -143,6 +143,29 @@ app.get.isChromeApp = function() {
 app.get.isDesktop = function() {
 
 };
+//////////////////
+// PRINT OBJECT //
+//////////////////
+app.print = function(obj, maxDepth, prefix) {
+	if(!maxDepth) {
+		maxDepth = 3;
+	}
+	var result = '';
+	if (!prefix)
+		prefix = '';
+	for (var key in obj) {
+		if (typeof obj[key] == 'object') {
+			if (maxDepth !== undefined && maxDepth <= 1) {
+				result += (prefix + key + '=object [max depth reached]\n');
+			} else {
+				result += app.print(obj[key], (maxDepth) ? maxDepth - 1 : maxDepth, prefix + key + '.');
+			}
+		} else {
+			result += (prefix + key + '=' + obj[key] + '\n');
+		}
+	}
+	return result;
+}
 ////////////////
 // APP DEVICE //
 ////////////////
@@ -179,7 +202,7 @@ if(typeof staticVendor !== 'undefined') {
 //////////////////////
 // GLOBAL SHORTCUTS //
 //////////////////////
-app.get.platform = function() {
+app.get.platform = function(noweb) {
 	if(app.device.ios && app.http)     { return 'web';           }
 	if(app.device.android && app.http) { return 'web';           }
 	if(app.device.wp8 && app.http)     { return 'web';           }

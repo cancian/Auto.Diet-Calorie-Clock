@@ -281,7 +281,9 @@ function localStorageSql() {
 	if(app.read('config_limit_1'))     { keyList = keyList + '#@@@#' + 'config_limit_1'     + '#@@#' + app.read('config_limit_1');     }
 	if(app.read('config_limit_2'))     { keyList = keyList + '#@@@#' + 'config_limit_2'     + '#@@#' + app.read('config_limit_2');     }	
 	//nutrients
-	if(app.read('appNutrients'))	   { keyList = keyList + '#@@@#' + 'appNutrients' + '#@@#' + app.read('appNutrients'); }
+	if(app.read('appNutrients'))	   { keyList = keyList + '#@@@#' + 'appNutrients' + '#@@#' + app.read('appNutrients');             }
+	//recents
+	if(app.read('app_recent_items'))   { keyList = keyList + '#@@@#' + 'app_recent_items' + '#@@#' + app.read('app_recent_items');     }
 	//notes
 	if(app.read('appNotes')) { 
 		keyList = keyList + '#@@@#' + 'appNotes' + '#@@#' + app.read('appNotes').replace(/(\n|\r\n)/g, '#@#').split('/*').join('/ *');
@@ -1608,7 +1610,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	if(direction == 'sideload') {
 		$('#' + newWindow + 'Wrapper').addClass('sideload');
 	}
-	if(!save) { 
+	if(typeof save !== 'function') { 
 		$('#saveButton').remove();
 	}
 	if(bottom == 'flush') {

@@ -2,10 +2,10 @@
 ## VERSION LOG ##
 #################
 # 1.7 [2014/09/14]
-• Sharper icons
-• Fixed keepopen
-• Foram feitas algumas melhorias técnicas na capacidade de redimensionamento do app
-• Zoom
+• Added "Recent items" section to categories
+• Slightly sharper text/icons
+• Improved app resizing
+• Fixed issue with app synchronization resetting diary slider/description unnecessarily
 
 # 1.6 [2014/09/14]
 • Diary entries can be quickly reused, edited or deleted (swipe left to reveal options)

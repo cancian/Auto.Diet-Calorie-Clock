@@ -1325,16 +1325,7 @@ function buildAdvancedMenu() {
 	//# CONTACT #//
 	//#/////////#//
 	app.handlers.activeRow('#advancedContact','button',function(evt) {
-	//$("#advancedContact").on(tap,function(evt) {
-             if(app.device.ios)        { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(iOS)', '_system', 'location=yes');                               }
-		else if(app.device.android)    { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(Android)', '_system', 'location=yes');                           }
-		else if(app.device.wp8)        { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(WP)', '_blank', 'location=no');                            }
-		else if(app.device.windows8)   { Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(MSApp)')); }
-		else if(app.device.firefoxos)  { ref = window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(FirefoxOS)', '_system', 'location=no');                    }
-		else if(app.device.osxapp)     { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(OSX)';                                                       }
-		else if(app.device.chromeos)   { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(Chrome)';                                                    }
-		else if(app.device.blackberry) { window.open('mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(Blackberry)', '_system', 'location=yes');                        }
-		else                           { window.location='mailto:support@kcals.net?Subject=Kcals%20-%20Support%20(other)';                                                     }
+		app.url('mailto:support@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')');
 	});
 	//#////////////////#//
 	//# RELOAD FOOD DB #//
@@ -1536,6 +1527,7 @@ function getCatList(callback) {
 			// HTML //
 			//////////
 			catListHtml = app.handlers.buildRows(data);
+
 			/////////////
 			// HANDLER //
 			/////////////
@@ -1545,6 +1537,10 @@ function getCatList(callback) {
 				//////////////////////
 				// ENDSCROLL LOADER //
 				//////////////////////
+				if(catCode == 0001) { 
+					$('#newWindow').removeClass('firstLoad');
+					$('#saveButton').addClass('removeAll');
+				}
 				var catLock = 0;
 				var catTimer;
 				$('#newWindow').scroll(function() {
@@ -1602,10 +1598,23 @@ function getCatList(callback) {
 					niceResizer();
 				}, 0);
 			}
+			/////////////
+			// CONFIRM //
+			/////////////
+			var catListConfirm = (catCode == 0001) ? function() {
+				appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
+					if(button == 1) {
+						$('#newWindow .searcheable').remove();
+						$('#newWindow').prepend('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+						app.remove('app_recent_items');
+						setPush();
+					}
+				}, LANG.OK[lang], LANG.CANCEL[lang]);
+			} : '';
 			/////////////////
 			// CALL WINDOW //
 			/////////////////
-			getNewWindow(catListTitle, catListHtml, catListHandler, '', catListCloser,'sideload','flush');
+			getNewWindow(catListTitle, catListHtml, catListHandler, catListConfirm, catListCloser,'sideload','flush');
 		});
 	},function() {
 		if(!$('#pageSlideFood').length || ($('#pageSlideFood').hasClass('busy') && !$('#pageSlideFood').hasClass('open'))) {

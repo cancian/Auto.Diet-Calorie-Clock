@@ -62,7 +62,9 @@ app.tab.settings = function(keepOpen) {
 			<span id="b600"></span>\
 			<span id="b700"></span>\
 			<span id="b800"></span>\
-		</div>';
+		</div>\
+		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">support@kcals.net</span></div>\
+		';
 		/////////////
 		// HANDLER //
 		/////////////
@@ -76,6 +78,10 @@ app.tab.settings = function(keepOpen) {
 			app.handlers.activeRow('#b600','button',function() { app.url('osxapp');     });
 			app.handlers.activeRow('#b700','button',function() { app.url('chromeos');   });
 			app.handlers.activeRow('#b800','button',function() { app.url('blackberry'); });
+			//CONTACT
+			app.handlers.activeRow('#developedBy','button',function(evt) {
+				app.url('mailto:support@kcals.net?Subject=KCals%20-%20Dev Support%20(' + app.get.platform(1) + ')'); 
+			});
 		};
 		/////////////////
 		// CALL WINDOW //

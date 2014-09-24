@@ -1565,12 +1565,16 @@ function getModalWindow(itemId) {
 					while(r--) {
 						if(recentArray[r].id == '#' + itemId + '#') {
 							recentArray[r].time = app.now();
+							if(!recentArray[r].count) {
+								recentArray[r].count = 1;								
+							}
+							recentArray[r].count = recentArray[r].count + 1;
 							break;	
 						}
 					}
 				} else {
 					//INSERT NEW
-					recentArray.push({id: '#' + itemId + '#', time: app.now()});
+					recentArray.push({id: '#' + itemId + '#', time: app.now(),count: 1});
 				}
 				app.save('app_recent_items',recentArray,'object');
 				///////////////////////
