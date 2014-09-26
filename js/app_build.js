@@ -327,23 +327,27 @@ app.tab.status = function(keepOpen) {
 	//#///////////#//
 	//# START BAR #//
 	//#///////////#//
-	$("#appStatusTitle").on(touchend,function(evt) {
+	$('#appStatusTitle').on(touchend,function(evt) {
 		if(app.read('appStatus','running')) {
 			function appReset(button) {
 				//ON CONFIRM
 				if(button == 1) {
 					setPush();
-					$("#appStatus").removeClass("reset");
-					$("#appStatus").addClass("start");
-					$("#appStatusTitle").html(LANG.START[lang]);
+					$('#appStatus').removeClass('reset');
+					$('#appStatus').addClass('start');
+					$('#appStatusTitle').html(LANG.START[lang]);
 					app.remove('appStatus');
 					app.save('config_start_time',app.now());
 					//RESET BACKPORT
-					app.remove('config_entry_sum');
-					app.remove('config_entry_f-sum');
-					app.remove('config_entry_e-sum');
-					$("#appStatusBars p").css("width",0);
-					$("#appStatusBars span").html("0%");
+					app.save('config_entry_sum',0);
+					app.save('config_entry_f-sum',0);
+					app.save('config_entry_e-sum',0);
+					app.save('config_ttf',0);
+					app.save('config_tte',0);
+					$('#appStatusBars p').css('width',0);
+					$('#appStatusBars span').html('0%');
+					$('#appStatusBalance div p').html(LANG.BALANCED[lang]);
+					updateTodayOverview();
 				}
 				return false;
 			}
@@ -351,9 +355,9 @@ app.tab.status = function(keepOpen) {
 			appConfirm(LANG.RESET_COUNTER_TITLE[lang], LANG.ARE_YOU_SURE[lang], appReset, LANG.OK[lang], LANG.CANCEL[lang]);
 		} else {
 			setPush();
-			$("#appStatus").removeClass("start");
-			$("#appStatus").addClass("reset");
-			$("#appStatusTitle").html(LANG.RESET[lang]);
+			$('#appStatus').removeClass('start');
+			$('#appStatus').addClass('reset');
+			$('#appStatusTitle').html(LANG.RESET[lang]);
 			app.save('appStatus','running');
 			app.save('config_start_time',app.now());
 		}
@@ -1605,10 +1609,65 @@ $("#calcForm").on(touchend, function(evt) {
 		}
 	}
 });
+/////////////////////////////
+// SELECT MEASURE SWITCHER //
+/////////////////////////////
+$('#formc select').on(touchstart,function(evt) {
+	if(/male|inches|pounds|centimetres|kilograms/i.test($(this).val())) {
+		evt.preventDefault();
+		evt.stopPropagation();
+	}
+});
+$('#formc select').on(touchend,function(evt) {
+	var thisInput = this;
+	setTimeout(function() {
+		$(thisInput).removeAttr('disabled');
+	},0);
+	if(evt.target.id == 'pA1B') {
+		var gender = app.read('calcForm#pA1B','Male') ? 'Female' : 'Male'
+		app.save('calcForm#pA1B',gender);
+		//GENERIC
+		//feetInchesToMetric();
+		loadCalcValues();
+		$('#do_recalc').trigger('click');
+		writeCalcValues();
+		setPush();
+		$(this).attr('disabled','disabled');
+		return false;
+	} else if(/inches|pounds/.test($(this).val())) {
+		app.save('config_measurement','metric');
+		app.save('calcForm#pA2C','centimetres');
+		app.save('calcForm#pA3C','kilograms');
+		app.save('calcForm#pA6H','kilograms');
+		app.save('calcForm#pA6N','kilograms');
+		//GENERIC
+		loadCalcValues();
+		feetInchesToMetric();
+		$('#do_recalc').trigger('click');
+		writeCalcValues();
+		setPush();
+		$(this).attr('disabled','disabled');
+		return false;
+	} else if(/centimetres|kilograms/.test($(this).val())) {
+		app.save('config_measurement','imperial');
+		app.save('calcForm#pA2C','inches');
+		app.save('calcForm#pA3C','pounds');
+		app.save('calcForm#pA6H','pounds');
+		app.save('calcForm#pA6N','pounds');
+		//GENERIC
+		loadCalcValues();
+		feetInchesToMetric();
+		$('#do_recalc').trigger('click');
+		writeCalcValues();
+		setPush();
+		$(this).attr('disabled','disabled');
+		return false;
+	}
+});
 //////////////////////
 // ONCHANGE TRIGGER //
 //////////////////////
-$("#formc input").on("change",function() {
+$('#formc input').on('change',function() {
 	$('#do_recalc').trigger('click');	
 	writeCalcValues();
 	setPush();

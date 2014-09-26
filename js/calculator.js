@@ -139,6 +139,7 @@ function calc(data) {
 }
 
 function str_eq(x, y) {
+	if(!x || !y) { return; }
     return (x.toLowerCase() == y.toLowerCase());
 }
 

@@ -1653,7 +1653,7 @@ function getModalWindow(itemId) {
 			$('#modalContent span').addClass('active');
 			modal.close();
 			setTimeout(function() {
-				appFooter('tab2',1,function() {
+				appFooter('tab2',0,function() {
 					$("#entryBody").val(modal.name);
 					setTimeout(function () {
 						$('#appHeader').trigger(touchstart);

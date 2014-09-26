@@ -402,16 +402,19 @@ function updateTimer() {
 			var tCar = 0;
 			var tFat = 0; 
 			for(var i=0, len=data.length; i<len; i++) {
-				//today's totals
-				if(dayFormat(parseInt(data[i].published)) == today) {
-					if(Number(data[i].title) > 0) {
-						ttf += parseInt(data[i].title);
-					} else {
-						tte += parseInt(data[i].title);
-					}
-				}
 				// EXPIRED
 				if(app.read('config_start_time') <= Number(data[i].published)) {
+					//today's totals
+					if(dayFormat(parseInt(data[i].published)) == today) {
+						if(Number(data[i].title) > 0) {
+							ttf += parseInt(data[i].title);
+						} else {
+							tte += parseInt(data[i].title);
+						}
+					}
+					///////////////
+					// TOTAL SUM //
+					///////////////
 					ts = Number(data[i].title) + ts;
 					//total food/exercise
 					if(Number(data[i].title) > 0) {

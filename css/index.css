@@ -7,7 +7,7 @@ html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 .ios *:after,
 .osx *:after,
 .ios *,
-.osx *									{ -webkit-font-smoothing: subpixel-antialiased; font-weight: 400; -webkit-perspective: none !important; }
+.osx *									{ -webkit-font-smoothing: antialiased; font-weight: 400; -webkit-perspective: none !important; }
 .windows8 								{ overflow: hidden !important; }
 #infocontents,
 #newWindowWrapper,#advancedMenu,
@@ -345,7 +345,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader #backButton:before	{ font-family: 'KCals'; content: '\f104'; }
 #newWindowHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; height: 44px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
 #saveButton.removeAll				{ color: rgba(0,0,0,0); }
-#saveButton.removeAll:before		{ content: '\f014'; font-family: KCals; font-size: 26px; display: block; color: #007AFF; }
+#saveButton.removeAll:before		{ content: '\f014'; font-family: KCals; font-size: 26px; display: block; color: #007AFF; margin-right: -20px; font-weight: normal; }
 #saveButton.removeAll:active:before,
 #newWindowHeader #backButton:active,
 #newWindowHeader #saveButton:active,
@@ -553,7 +553,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 /////////////////////*/
 #balanceBar						{ position: absolute; bottom: 0px; left: -2px; right:  11px; height: 3px; padding: 0; }
 #balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#E3825F), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#58B558)); 	background: -webkit-linear-gradient(left,                                  #E3825F 25.5%,             #207cca 25.5%,             #207cca 73.9%,             #58B558 73.9%); content: ' '; }
-#balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: 'KCals'; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: subpixel-antialiased; }
+#balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: 'KCals'; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; }
 #appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }
@@ -867,12 +867,9 @@ div.editing p				{ opacity: 1; }
 #diarySidebar						{ font-size: 18px; line-height: 19px; position: absolute; top: 0; left: 0; width: 88px; height: 35px; background-color: rgba(0,0,0,0); padding-top: 10px; overflow: hidden; text-align: left; }
 .android #diarySidebar				{ padding-top: 11px; }
 .sidebar #entryList div				{ border-bottom-width: 0; padding-bottom: 1px; }
-
 .sidebar .entriesPublished			{ bottom: 0; }
 .sidebar.ios #entryList div			{ padding: 15px 0 2px 0; }
-
 .sidebar.msie #entryList div		{ padding: 15px 0 2px 0; }
-
 .sidebar #entryList					{ -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); }
 .sidebar div#noEntries				{ border-left: 3px solid #ccc; padding-left: 3px !important; height: 45px; }
 .sidebar .rowMorning,
@@ -1067,7 +1064,6 @@ body.ios7 #modalWindow	{ top: 94px; }
 #modalPos:before		{ content: '\f105'; }
 #modalNegBlock.active,
 #modalPosBlock.active	{ background-color: #f2f2f2; }
-
 #modalNegBlock.active #modalNeg,
 #modalPosBlock.active #modalPos	{ color: #C8DFF9; color: #ccc; }
 #modalAmountBlock		{ position: absolute; top: 5px; left: 25%; display: block; width: 50%; height: 42px; border: 1px solid #eee; border-width: 1px 0 1px 0; }
@@ -1119,24 +1115,24 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 .ios7 #foodList				{ margin-top: 0; }
 #topBarItem-1,
 #topBarItem-2,
-#topBarItem-3				{ margin: 0; color: #000; background-color: #fff; display: inline-block; height: 36px; line-height: 36px; font-size: 12px; text-align: center; -webkit-font-smoothing: subpixel-antialiased; margin: 0; text-shadow: rgba(255,255,255,.3) 0 1px 0; }
+#topBarItem-3				{ margin: 0; color: #000; background-color: #fff; display: inline-block; height: 36px; line-height: 36px; font-size: 12px; text-align: center; -webkit-font-smoothing: antialiased; margin: 0; text-shadow: rgba(255,255,255,.3) 0 1px 0; }
 #topBarItem-1				{ width: 33.2%; }
 #topBarItem-2				{ width: 33.2%; }
 #topBarItem-3				{ width: 33.6%; }
 #menuTopBar h3.onFocus		{ background-color:#eee !important; border-color: #fff; }
 #tabMyCats,
 #tabMyFavs,
-#tabMyItems				{ display: none; }
+#tabMyItems					{ display: none; }
 /*bottom pad*/
 #searchContents,
 #tabMyCatsBlock,
 #tabMyFavsBlock,
-#tabMyItemsBlock		{ padding-bottom: 42px; }
-#searchContents			{ margin-top: 22px; display: none; height: 0; background-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; }
+#tabMyItemsBlock			{ padding-bottom: 42px; }
+#searchContents				{ margin-top: 22px; display: none; height: 0; background-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; }
 /**/
 #tabMyCats.onFocus,
 #tabMyFavs.onFocus,
-#tabMyItems.onFocus		{ display: inline; }
+#tabMyItems.onFocus			{ display: inline; }
 #topBarItem-1 span,
 #topBarItem-2 span,
 #topBarItem-3 span			{ position: relative; font-weight: bold; display: inline-block; font-size: 12px; padding-left: 15px; }
@@ -1283,7 +1279,9 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #developedBy						{ position: absolute; bottom: 0; left: 0; right: 0; display: block; text-align: center; font-size: 16px; color: #999; height: 44px; line-height: 16px; }
 #contactDeveloper 					{ color: #007aff; display: block; padding-top: 3px; }
 #developedBy.button span			{ color: #ccc; }
-/*ADD/REMOVE*/
+/*//////////////
+// ADD/REMOVE //
+//////////////*/
 .neg,
 .pos			{ position: absolute; top: 0; width: 60px; color: #007aff; height: 50px; line-height: 50px; font-size: 18px; text-align: center; background-color: rgba(0,0,0,0); z-index: 999; display: block; }
 .neg			{ right: 50px; }
@@ -1294,39 +1292,23 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .pos:before		{ position: absolute; top: 0; right: 0; font-family: KCals; width: 60px; height: 50px; text-align: center; }
 .neg:before		{ content: '\B002'; }
 .pos:before		{ content: '\B001'; }
-
-
-
-#advancedZoom.activeRow { background-color: #fff !important; }
+/*////////
+// ZOOM //
+////////*/
+#advancedZoom.activeRow		{ background-color: #fff !important; }
 #zoomx1,
 #zoomx2,
-#zoomx3	{
-position: absolute;
-top: 0px;
-right: 5px;
-width: 40px; 
-text-align: center; 
-font-size: 20px; 
-height: 44px; 
-line-height: 20px; 
-background-color: #fff; 
-display: block; 
-text-indent: 0;
-color: #aaa !important;
-padding-top: 13px;
-font-variant:small-caps;
-}
+#zoomx3						{ position: absolute; top: 0; right: 5px; width: 40px; text-align: center; font-size: 20px; height: 44px; line-height: 20px; display: block; text-indent: 0; color: #aaa !important; padding-top: 13px; font-variant: small-caps; }
 .zoomx1 #zoomx1,
 .zoomx2 #zoomx2,
-.zoomx3 #zoomx3 { color: #007aff !important; }
+.zoomx3 #zoomx3				{ color: #007aff !important; }
+.zoomx1						{ zoom: 100%; zoom: 1; -moz-transform: scale(1,1); -moz-transform-origin: 0 0; }
+.zoomx2						{ zoom: 120%; zoom: 1.2; -moz-transform: scale(1.2,1.2); -moz-transform-origin: 0 0; }
+.zoomx3						{ zoom: 140%; zoom: 1.4; -moz-transform: scale(1.4,1.4); -moz-transform-origin: 0 0; }
+#zoomx3						{ right: 20px;  }
+#zoomx2						{ right: 60px;  }
+#zoomx1						{ right: 100px; }
+#zoomx1:before				{ content: 'x1'; }
+#zoomx2:before				{ content: 'x2'; }
+#zoomx3:before				{ content: 'x3'; }
 
-.zoomx1 { zoom: 100%; zoom: 1; -moz-transform: scale(1,1); -moz-transform-origin: 0 0; }
-.zoomx2 { zoom: 120%; zoom: 1.2; -moz-transform: scale(1.2,1.2); -moz-transform-origin: 0 0; }
-.zoomx3 { zoom: 140%; zoom: 1.4; -moz-transform: scale(1.4,1.4); -moz-transform-origin: 0 0; }
-
-#zoomx3		{ right: 20px;  }
-#zoomx2		{ right: 60px;  }
-#zoomx1		{ right: 100px; }
-#zoomx1:before { content: 'x1'; }
-#zoomx2:before { content: 'x2'; }
-#zoomx3:before { content: 'x3'; }

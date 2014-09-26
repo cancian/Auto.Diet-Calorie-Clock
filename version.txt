@@ -1,11 +1,12 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.7 [2014/09/14]
+# 1.6.1 [2014/09/25]
 • Added "Recent items" section to categories
 • Slightly sharper text/icons
 • Improved app resizing
 • Fixed issue with app synchronization resetting diary slider/description unnecessarily
+• Automatic measurement system switching (profile tab)
 
 # 1.6 [2014/09/14]
 • Diary entries can be quickly reused, edited or deleted (swipe left to reveal options)
