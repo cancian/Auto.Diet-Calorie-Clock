@@ -137,7 +137,7 @@
 
 		ALL_FINGERS = "all",
 		
-		DOUBLE_TAP_THRESHOLD = 300,
+		DOUBLE_TAP_THRESHOLD = 10,
 
 		PHASE_START = "start",
 		PHASE_MOVE = "move",
@@ -207,13 +207,15 @@
 		click:null, //Deprecated since 1.6.2
 		tap:null,
 		doubleTap:null,
-		longTap:null,
-		triggerOnTouchEnd: true,
-		triggerOnTouchLeave:true,
-		allowPageScroll: "auto",
-		fallbackToMouseEvents: true,
+		longTap:null, 		
+		triggerOnTouchEnd: true, 
+		triggerOnTouchLeave:false, 
+		allowPageScroll: "auto", 
+		fallbackToMouseEvents: true,	
 		excludedElements:"label, button, input, select, textarea, a, .noSwipe"
 	};
+
+
 
 	/**
 	* Applies TouchSwipe behaviour to one or more jQuery objects.
@@ -523,23 +525,16 @@
 			//As we use Jquery bind for events, we need to target the original event object
 			//If these events are being programmatically triggered, we don't have an original event object, so use the Jq one.
 			var event = jqEvent.originalEvent ? jqEvent.originalEvent : jqEvent;
+			
+			var ret,
+				evt = SUPPORTS_TOUCH ? event.touches[0] : event;
 
-			var event0;
-			event0 = event;
-			if(typeof event.touches !== 'undefined') {
-				if(typeof event.touches[0] !== 'undefined') {
-					event0 = event.touches[0];	
-				}
-			}
-			var ret,evt = ($('body').hasClass('mobile') && SUPPORTS_TOUCH) ? event0 : event;
 			phase = PHASE_START;
 
 			//If we support touches, get the finger count
 			if (SUPPORTS_TOUCH) {
 				// get the total number of fingers touching the screen
-				if(event.touches) {
-					fingerCount = event.touches.length;
-				}
+				fingerCount = event.touches.length;
 			}
 			//Else this is the desktop, so stop the browser from dragging the image
 			else {
@@ -652,7 +647,7 @@
 			
 			
 			if ( (fingerCount === options.fingers || options.fingers === ALL_FINGERS) || !SUPPORTS_TOUCH || hasPinches() ) {
-				if(currentFinger) {
+				
 				direction = calculateDirection(currentFinger.start, currentFinger.end);
 				
 				//Check if we need to prevent default event (page scroll / pinch zoom) or not
@@ -664,7 +659,7 @@
 
                 //Cache the maximum distance we made in this direction
                 setMaxDistance(direction, distance);
-				}
+
 
 				if (options.swipeStatus || options.pinchStatus) {
 					ret = triggerHandler(event, phase);
@@ -675,13 +670,13 @@
 				if(!options.triggerOnTouchEnd || options.triggerOnTouchLeave) {
 					
 					var inBounds = true;
-					if(currentFinger) {
+					
 					//If checking if we leave the element, run the bounds check (we can use touchleave as its not supported on webkit)
 					if(options.triggerOnTouchLeave) {
 						var bounds = getbounds( this );
 						inBounds = isInBounds( currentFinger.end, bounds );
 					}
-					}
+					
 					//Trigger end handles as we swipe if thresholds met or if we have left the element if the user has asked to check these..
 					if(!options.triggerOnTouchEnd && inBounds) {
 						phase = getNextPhase( PHASE_MOVE );
@@ -1459,10 +1454,8 @@
 		 * @inner
 		*/
 		function startMultiFingerRelease() {
-			if(event) {
-				previousTouchEndTime = getTimeStamp();
-				previousTouchFingerCount = event.touches.length+1;
-			}
+			previousTouchEndTime = getTimeStamp();
+			previousTouchFingerCount = event.touches.length+1;
 		}
 		
 		/**
@@ -1563,10 +1556,10 @@
 			
 			var id = evt.identifier!==undefined ? evt.identifier : 0; 
 			var f = getFingerData( id );
-			if(f) {
-				f.end.x = evt.pageX||evt.clientX;
-				f.end.y = evt.pageY||evt.clientY;
-			}
+			
+			f.end.x = evt.pageX||evt.clientX;
+			f.end.y = evt.pageY||evt.clientY;
+			
 			return f;
 		}
 		
@@ -1985,8 +1978,6 @@
  */
 
 }));
-
-
 
 
 

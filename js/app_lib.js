@@ -255,7 +255,7 @@ app.reboot = function(type,error) {
 //////////
 // ZOOM //
 //////////
-/*
+/**/
 app.zoom = function(ratio) {
 	if(!ratio) {
 		//ratio = app.read('app_zoom');
@@ -278,16 +278,17 @@ app.zoom = function(ratio) {
 	//$('body').css('zoom',Math.round(app.read('app_zoom') * 100) + '%');
 	//$('body').css('zoom',app.read('app_zoom'));
 	//$('body').css('-moz-transform','scale(' + app.read('app_zoom') + ',' + app.read('app_zoom') + ')');
-	if(typeof appResizer === 'function') {
-		$('.nicescroll-rails').css('display','none');
+	if(typeof appResizer == 'function') {
 		appResizer();
-		setTimeout(function() {
+		$('.nicescroll-rails').css('display','none');
+		clearTimeout(app.timers.zoomRails);
+		app.timers.zoomRails = setTimeout(function() {
 			$('.nicescroll-rails').css('display','block');
 		},400);
 	}
 };
-app.zoom();
-*/
+//app.zoom();
+
 ///////////////
 // APP READY //
 ///////////////

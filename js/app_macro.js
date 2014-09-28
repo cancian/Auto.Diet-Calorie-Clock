@@ -1311,6 +1311,7 @@ function buildAdvancedMenu() {
 	//#//////#//
 	/*
 	//<li id='advancedZoom'><span id='zoomx1'></span><span id='zoomx2'></span><span id='zoomx3'></span>zoom</li>\
+
 	app.handlers.activeRow('#zoomx1','button',function(evt) {
 		app.zoom(1);
 	});
@@ -1320,7 +1321,7 @@ function buildAdvancedMenu() {
 	app.handlers.activeRow('#zoomx3','button',function(evt) {
 		app.zoom(3);
 	});
-	*/
+		*/
 	//#/////////#//
 	//# CONTACT #//
 	//#/////////#//

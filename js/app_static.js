@@ -124,6 +124,10 @@ $('body').prepend('\
 		</ul>\
 	</div>\
 ');
+$('html,body').scroll(function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//

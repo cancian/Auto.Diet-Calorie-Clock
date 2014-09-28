@@ -1909,10 +1909,10 @@ function appResizer(time) {
 		app.height = window.innerHeight;
 		app.relWidth   = app.width  / app.read('app_zoom');
 		app.relHeight =  app.height / app.read('app_zoom'); 
-		$('body').css('min-height', app.relHeight + 'px');
-		if(vendorClass == 'moz') {
-			$('body').css('min-width', app.relWidth + 'px');
-		}
+		$('body').css('min-height', app.height + 'px');
+		//if(vendorClass == 'moz' || vendorClass == 'msie') {
+			//$('body').css('width', app.relWidth + 'px');
+		//}
 		//unlock top white gap
 		$('body').trigger('touchmove');
 		//NO < 0

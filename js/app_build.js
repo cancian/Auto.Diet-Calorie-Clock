@@ -1479,6 +1479,8 @@ var profileHtml = '\
 preTab(keepOpen);
 $("#appContent").html(profileHtml);
 afterTab(keepOpen);
+//app.handlers.addRemove('#pA3B',0,9999);
+//app.handlers.addRemove('#pA6M',0,999);
 //////////////////////////
 // FIX ANDROID 2 SELECT //
 //////////////////////////
@@ -1612,10 +1614,11 @@ $("#calcForm").on(touchend, function(evt) {
 /////////////////////////////
 // SELECT MEASURE SWITCHER //
 /////////////////////////////
-$('#formc select').on(touchstart,function(evt) {
+$('#formc select').on(touchstart + ' focus',function(evt) {
 	if(/male|inches|pounds|centimetres|kilograms/i.test($(this).val())) {
 		evt.preventDefault();
 		evt.stopPropagation();
+		$(this).blur();
 	}
 });
 $('#formc select').on(touchend,function(evt) {
@@ -1642,7 +1645,8 @@ $('#formc select').on(touchend,function(evt) {
 		app.save('calcForm#pA6N','kilograms');
 		//GENERIC
 		loadCalcValues();
-		feetInchesToMetric();
+		//feetInchesToMetric();
+		$("#pA2C").change();
 		$('#do_recalc').trigger('click');
 		writeCalcValues();
 		setPush();
@@ -1790,30 +1794,58 @@ loadCalcValues();
 //////////////////////
 function feetInchesToMetric() {
 	if($('#pA2C').val() == 'centimetres') {
-		$("#feet").val(0);
-		$("#feet").removeClass("imperial");
-		$("#inches").removeClass("imperial");
-		$("#feet").addClass("metric");
-		$("#inches").addClass("metric");
+		$('#feet').removeClass('imperial');
+		$('#inches').removeClass('imperial');
+		$('#feet').addClass('metric');
+		$('#inches').addClass('metric');
 	} else {
-		$("#feet").removeClass("metric");
-		$("#inches").removeClass("metric");
-		$("#feet").addClass("imperial");
-		$("#inches").addClass("imperial");		
+		$('#feet').removeClass('metric');
+		$('#inches').removeClass('metric');
+		$('#feet').addClass('imperial');
+		$('#inches').addClass('imperial');
 	}
+	//fix conversion
 	loadCalcValues();
+	//////////////////
+	// AUTO CONVERT //
+	//////////////////
+	var calcInches = Number($('#inches').val());
+	var calcFeet   = Number($('#feet').val());
+	///////////////
+	// TO METRIC //
+	///////////////
+	if($('#pA3C').val() == 'kilograms') {
+		//TO KG
+		$('#pA3B').val( Math.round($('#pA3B').val()*0.454) );
+		//TO CM
+		$('#inches').val( Math.round(((calcFeet*12) + calcInches) * 2.54) );
+		$('#feet').val(0);
+	/////////////////
+	// TO IMPERIAL //
+	/////////////////
+	} else {
+		//TO LB
+		$('#pA3B').val(  Math.round($('#pA3B').val()/0.454) );
+		//TO FT/IN
+		calcInches = calcInches/2.54;
+		//MAKE FEET
+		while(calcInches >= 12) {
+			calcInches = calcInches-12;
+			calcFeet   = calcFeet+1;
+		}
+		$('#feet').val(calcFeet);
+		$('#inches').val(Math.round(calcInches));
+	}
+	//glitch
+	$('#pA2B').change();
 }
-$("#pA2C").on("change",function(evt) {
+$('#pA2C').on('change',function(evt) {
 	feetInchesToMetric();
-	//STARTUP FIX
-	$("#feet").val(0);
-	$("#pA2B").val(  Number($("#inches").val())  );
-	$("#pA2B").change();
+	$('#pA2B').val(  Number($('#inches').val())  );
+	$('#pA2B').change();
 	writeCalcValues();
 });
 if(document.getElementById("pA2C").value == "centimetres") {
-	//FIX
-	$("#feet").val(0);
 	$("#pA2B").val(  Number($("#inches").val())  );
 	//
 	$("#feet").removeClass("imperial");
