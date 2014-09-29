@@ -725,7 +725,6 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 /*
 #entryTitle						{ margin-right: -8px; padding: 0 0px 0 0; width: 50px; font-size: 18px; font-weight: bold; color: #999; text-align: right; background-color: rgba(0,0,0,0); border-radius: 0; text-indent: 0; border: none; text-shadow: rgba(255,255,255,.5) 0 1px 0; letter-spacing: 0; position: absolute; right: 50%; top: 0; }
 div#sliderNum					{ padding: 6px 0 0 40px; font-size: 12px; line-height: 13px; margin-right: 0; text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; left: 50px; right: 50px; top: 33px; display: block; white-space: nowrap; color: #999; text-align: center; }
-
 .zoomx1 .ios #entryTitle,
 .zoomx1 .osxapp #entryTitle		{ padding: 0 0 0 0; }
 .zoomx1 .ios #sliderNum,
@@ -736,7 +735,6 @@ div#sliderNum					{ margin-right: -46px; text-shadow: rgba(255,255,255,.35) 0 1p
 .moz #sliderNum,
 .android4lt #sliderNum			{ margin-right: -47px; }
 input#entryTitle				{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 50px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: rgba(0,0,0,0); padding: 0 2px 0 0; border-radius: 0; text-indent: 0; margin: 0; border: none; }
-
 div#sliderNeg					{ position: absolute; left:  14px; top: 27px; display: block; width: 116px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 14pt; height: 36px; padding-left: 26px; padding-top: 3px; }
 div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; width: 106px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 14pt; height: 36px; padding-right: 26px; padding-top: 3px; }
 .appLang-lv div#sliderPos,

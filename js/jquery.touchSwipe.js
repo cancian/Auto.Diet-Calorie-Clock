@@ -209,8 +209,8 @@
 		doubleTap:null,
 		longTap:null, 		
 		triggerOnTouchEnd: true, 
-		triggerOnTouchLeave:false, 
-		allowPageScroll: "auto", 
+		triggerOnTouchLeave:true, 
+		allowPageScroll: "vertical", 
 		fallbackToMouseEvents: true,	
 		excludedElements:"label, button, input, select, textarea, a, .noSwipe"
 	};
@@ -525,14 +525,13 @@
 			//As we use Jquery bind for events, we need to target the original event object
 			//If these events are being programmatically triggered, we don't have an original event object, so use the Jq one.
 			var event = jqEvent.originalEvent ? jqEvent.originalEvent : jqEvent;
-			
-			var ret,
-				evt = SUPPORTS_TOUCH ? event.touches[0] : event;
+
+			var ret,evt = SUPPORTS_TOUCH && event.touches ? event.touches[0] : event;
 
 			phase = PHASE_START;
 
 			//If we support touches, get the finger count
-			if (SUPPORTS_TOUCH) {
+			if (SUPPORTS_TOUCH && event.touches) {
 				// get the total number of fingers touching the screen
 				fingerCount = event.touches.length;
 			}

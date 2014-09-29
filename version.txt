@@ -2,8 +2,8 @@
 ## VERSION LOG ##
 #################
 # 1.6.2 [2014/09/25]
-• Automatic weight/height recalculation on measurement change
-• Today's overview no longer includes expired entries
+• Automatic weight/height recalculation when measurement system is changed
+• Today's overview no longer considers expired entries
 
 # 1.6.1 [2014/09/25]
 • Added "Recent items" section to categories

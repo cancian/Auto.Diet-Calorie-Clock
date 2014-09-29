@@ -174,6 +174,18 @@ app.tab.settings = function(keepOpen) {
 		evt.stopPropagation();
 		$("#leftOption").addClass("toggle");
 		$("#rightOption").removeClass("toggle");
+		//AUTO CONVERT
+		if(!app.read('config_measurement','imperial')) {
+			app.save('calcForm#pA3B',Math.round(app.read('calcForm#pA3B')/0.454));
+			var calcInches = app.read('calcForm#inches')/2.54;
+			var calcFeet   = 0;
+			while(calcInches >= 12) {
+				calcInches = calcInches-12;
+				calcFeet   = calcFeet+1;
+			}
+			app.save('calcForm#feet',calcFeet);
+			app.save('calcForm#inches',Math.round(calcInches));
+		}
 		app.save('config_measurement','imperial');
 		app.save('calcForm#pA2C','inches');
 		app.save('calcForm#pA3C','pounds');
@@ -186,6 +198,12 @@ app.tab.settings = function(keepOpen) {
 		evt.stopPropagation();
 		$("#rightOption").addClass("toggle");
 		$("#leftOption").removeClass("toggle");
+		//AUTO CONVERT
+		if(!app.read('config_measurement','metric')) {
+			app.save('calcForm#pA3B',Math.round(app.read('calcForm#pA3B')*0.454));
+			app.save('calcForm#inches',Math.round(((app.read('calcForm#feet')*12) + app.read('calcForm#inches')) * 2.54));
+			app.save('calcForm#feet','0');
+		}
 		app.save('config_measurement','metric');
 		app.save('calcForm#pA2C','centimetres');
 		app.save('calcForm#pA3C','kilograms');
