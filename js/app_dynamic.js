@@ -839,13 +839,14 @@ function doSearch(rawInput) {
 	if (rawInput == 0) {
 		rawInput = "00000000";
 	}
+	rawInput = toAscii(trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase()));
 	/////////////////
 	// FETCH INPUT //
 	/////////////////
 	var timerStart = new Date().getTime();
 	var lastSearch = app.read('lastSearchTerm');
 		//sanitize user input
-		var searchQuery = trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase());
+		var searchQuery = rawInput;
 		//partial sql syntax
 		var searchSQL = searchQuery.split(" ");
 		//prevent multiple identical searches

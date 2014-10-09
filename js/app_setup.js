@@ -1909,20 +1909,29 @@ function appResizer(time) {
 		app.height = window.innerHeight;
 		app.relWidth   = app.width  / app.read('app_zoom');
 		app.relHeight =  app.height / app.read('app_zoom'); 
-		$('body').css('min-height', app.height + 'px');
+		$('body').css('min-height', app.relHeight + 'px');
 		//if(vendorClass == 'moz' || vendorClass == 'msie') {
 			//$('body').css('width', app.relWidth + 'px');
 		//}
 		//unlock top white gap
 		$('body').trigger('touchmove');
-		//NO < 0
-		var wrapperMinH = (app.relHeight) - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height());
-		//force scrolling ios
+		////////////////////////
+		// WRAPPER MIN-HEIGHT //
+		////////////////////////
+		var wrapperMinH = (app.relHeight) - (154 + $('#appHeader').height() + $('#appFooter').height());
 		if(wrapperMinH < 0) {
 			wrapperMinH = 0;
 		}
-		$('#entryListWrapper').css('height','auto');
-		$('#entryListWrapper').css('min-height',wrapperMinH + 'px');
+		//HOLDER
+		if(!$('#entryListHeight').length) {
+			$('head').append('<style type="text/css" id="entryListHeight"></style>');
+		}
+		//IF NEEDED
+		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
+		if(!$('#entryListHeight').html() !== wrapperMinH) {
+			$('#entryListHeight').html(wrapperMinH);
+		}
+		//
 		$('#appHelper').height($('#appContent').height());
 		$('#appSubHelper').height($('#appContent').height());
 		//
@@ -1990,7 +1999,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	//////////////
-	var timeRate = 3 * 24 * 60 * 60 * 1000;
+	var timeRate = 2 * 24 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {

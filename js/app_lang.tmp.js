@@ -1,7 +1,7 @@
 ﻿var mi = {
-	RECENT_ENTRIES : {
-		en : 'Recent entries',
-		pt : 'Entradas recentes',
+	CLOSE : {
+		en : 'Close',
+		pt : 'Fechar',
 		ar : '',
 		bg : '',
 		ca : '',

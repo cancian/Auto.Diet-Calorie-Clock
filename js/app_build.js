@@ -378,6 +378,21 @@ app.tab.status = function(keepOpen) {
 			$('#appStatusTitle').html(LANG.RESET[lang]);
 			app.save('appStatus','running');
 			app.save('config_start_time',app.now());
+			/////////////////
+			// SCREEN INFO //
+			/////////////////
+			$('body').prepend('<div id="screenInfo"><div id="circleFocus"></div><div id="textBlock">' + LANG.CLOSE_TO_ZERO[lang] + '</div><div id="closeButton">' + LANG.CLOSE[lang] + '</div></div>');
+			$('#screenInfo').hide();
+			app.handlers.fade(1,'#screenInfo');
+			$('#screenInfo').on(touchstart,function(evt) {
+				evt.stopPropagation();
+				evt.preventDefault();
+			});
+			setTimeout(function() {
+				$('#closeButton').on(touchend,function(evt) {
+					app.handlers.fade(0,'#screenInfo');
+				});
+			},300);
 		}
 		evt.preventDefault();
 	});
@@ -628,7 +643,6 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//SET SLIDER+HEIGHT
 	updateEntriesSum();
 	$(document).trigger('sliderInit');
-	$('#entryListWrapper').css('min-height',$('body').height() - ($('#entryListForm').height() + $('#appHeader').height() + $('#appFooter').height()) + 'px');
 	//#//////////#//
 	//# HANDLERS #//
 	//#//////////#//
@@ -1632,19 +1646,40 @@ $("#calcForm").on(touchend, function(evt) {
 /////////////////////////////
 // SELECT MEASURE SWITCHER //
 /////////////////////////////
-$('#formc select').on(touchstart + ' focus',function(evt) {
+$('#formc select').on(touchstart,function(evt) {
+	var thisInput = this;
 	if(/male|inches|pounds|centimetres|kilograms/i.test($(this).val())) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		$(this).blur();
+		$(thisInput).attr('readonly','readonly');
+		$(thisInput).attr('disabled','disabled');
+		setTimeout(function() {
+			$(thisInput).removeAttr('disabled');
+			$(thisInput).removeAttr('readonly','readonly');
+		},0);
+	}
+});
+$('#formc select').focus(function(evt) {
+	var thisInput = this;
+	if(/male|inches|pounds|centimetres|kilograms/i.test($(this).val())) {
+		evt.preventDefault();
+		evt.stopPropagation();
+		$(thisInput).removeAttr('disabled');
+		$(thisInput).removeAttr('readonly','readonly');
+		$(thisInput).blur();
 	}
 });
 $('#formc select').on(touchend,function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();
 	var thisInput = this;
 	setTimeout(function() {
 		$(thisInput).removeAttr('disabled');
-	},0);
+		$(thisInput).removeAttr('readonly','readonly');
+	},400);
 	if(evt.target.id == 'pA1B') {
+		$(this).attr('readonly','readonly');
+		$(this).attr('disabled','disabled');
 		var gender = app.read('calcForm#pA1B','Male') ? 'Female' : 'Male'
 		app.save('calcForm#pA1B',gender);
 		//GENERIC
@@ -1653,9 +1688,10 @@ $('#formc select').on(touchend,function(evt) {
 		$('#do_recalc').trigger('click');
 		writeCalcValues();
 		setPush();
-		$(this).attr('disabled','disabled');
 		return false;
 	} else if(/inches|pounds/.test($(this).val())) {
+		$(this).attr('readonly','readonly');
+		$(this).attr('disabled','disabled');
 		app.save('config_measurement','metric');
 		app.save('calcForm#pA2C','centimetres');
 		app.save('calcForm#pA3C','kilograms');
@@ -1668,9 +1704,10 @@ $('#formc select').on(touchend,function(evt) {
 		$('#do_recalc').trigger('click');
 		writeCalcValues();
 		setPush();
-		$(this).attr('disabled','disabled');
 		return false;
 	} else if(/centimetres|kilograms/.test($(this).val())) {
+		$(this).attr('readonly','readonly');
+		$(this).attr('disabled','disabled');
 		app.save('config_measurement','imperial');
 		app.save('calcForm#pA2C','inches');
 		app.save('calcForm#pA3C','pounds');
@@ -1682,7 +1719,6 @@ $('#formc select').on(touchend,function(evt) {
 		$('#do_recalc').trigger('click');
 		writeCalcValues();
 		setPush();
-		$(this).attr('disabled','disabled');
 		return false;
 	}
 });

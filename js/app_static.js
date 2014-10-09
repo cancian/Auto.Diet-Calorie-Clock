@@ -117,10 +117,10 @@ $('body').prepend('\
 	<div id="appContent"></div>\
 	<div id="appFooter">\
 		<ul>\
-			<li id="tab1">' + LANG.MENU_STATUS[lang]   + '</li>\
-			<li id="tab2">' + LANG.MENU_DIARY[lang]    + '</li>\
-			<li id="tab3">' + LANG.MENU_PROFILE[lang]  + '</li>\
-			<li id="tab4">' + LANG.MENU_SETTINGS[lang] + '</li>\
+			<li id="tab1">' + LANG.MENU_STATUS[lang].capitalize()   + '</li>\
+			<li id="tab2">' + LANG.MENU_DIARY[lang].capitalize()    + '</li>\
+			<li id="tab3">' + LANG.MENU_PROFILE[lang].capitalize()  + '</li>\
+			<li id="tab4">' + LANG.MENU_SETTINGS[lang].capitalize() + '</li>\
 		</ul>\
 	</div>\
 ');
@@ -242,6 +242,8 @@ $(document).on('backbutton', function(evt) {
 	} else if($('#addNewCancel').length || $('#modalCancel').length) {
 		$('#addNewCancel').trigger(touchstart);
 		$('#modalCancel').trigger(touchstart);
+	} else if($('#closeButton').length) {
+		$('#closeButton').trigger(touchend);
 	} else if($('#subBackButton').length) {
 		$('#subBackButton').addClass('button');
 		$('#subBackButton').trigger(touchend);
@@ -305,6 +307,7 @@ $(document).on('pressenter', function(evt) {
 			$('#saveButton').addClass('button');
 			$('#saveButton').trigger(touchend);
 		}
+		$('#closeButton').trigger(touchend);
 		$('#editableInput').trigger('blur');
 		$('#entrySubmit').trigger(touchstart);
 		$('#modalOk').trigger(touchstart);
@@ -342,7 +345,9 @@ $(document).keyup(function(e) {
 	///////////////////
 	// MENU BACK KEY //
 	///////////////////
-	if((e.keyCode == 37 || e.keyCode == 39) && !$('#modalWrapper').length) {
+	if($('#closeButton').length) { return; }
+	if($('#modalWrapper').length) { return; }
+	if(e.keyCode == 37 || e.keyCode == 39) {
 		if($('#subBackButton').length) {
 			if(e.keyCode == 37) {
 				$('#subBackButton').addClass('button');
@@ -479,8 +484,10 @@ $(window).on('resize', function(evt) {
 	//if(window.innerHeight > $('body').height()) {
 	if(initialScreenSize > $('body').height() && !app.device.windows8) {
 		//IOS re-scrolling bug
-		$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
-		$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);
+		if(app.device.ios) {
+			$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
+			$('#entryListWrapper').height( $('#entryListWrapper').height() - 1);
+		}
 		appResizer(0);
 	}
 	//ALWAYS RESIZE NON-MOBILE BROWSER
@@ -640,9 +647,12 @@ if(app.device.osxapp) {
 	}
 	//CLOSE ON MINIMIZE
 	$(document).on('visibilitychange', function () {
-		if (document.hidden == true || document.visibilityState == 'hidden') {
-			macgap.app.terminate();
-		}
+		clearTimeout(app.timers.terminate);
+		app.timers.terminate = setTimeout(function() {
+			if (document.hidden == true || document.visibilityState == 'hidden') {
+				macgap.app.terminate();
+			}
+		},1000);
 	});
 }
 /////////.//////
@@ -713,8 +723,10 @@ if(LANG.LANGUAGE[lang] == 'en') {
 //###########################//
 //####   START WORKING   ####//
 //###########################//
+//
 setTimeout(function() {
 	getNiceScroll('#appContent');
+	appResizer(0);
 	//updateEntries();
 	if(opaLock < 3) {		
 		$('body').removeClass('unloaded');

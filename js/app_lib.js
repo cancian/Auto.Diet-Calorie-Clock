@@ -797,7 +797,7 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 ////////////////
 // SCREENSHOT //
 ////////////////
-app.get.screenshot = function() {
+app.screenshot = function() {
 //SCREENSHOT
 	var day = 60 * 60 * 24 * 1000;
 	clearEntries(function() {
@@ -1222,6 +1222,26 @@ function decimalize(int,p) {
 		return Math.round(Number(int) * 10) / 10;
 	}
 	return Math.round(Number(int) * 100) / 100;
+}
+/////////////
+// TOASCII //
+/////////////
+function toAscii(newStringComAcento) {
+	var string = newStringComAcento;
+	var mapaAcentosHex = {
+		a : /[\xE0-\xE6]/g,
+		e : /[\xE8-\xEB]/g,
+		i : /[\xEC-\xEF]/g,
+		o : /[\xF2-\xF6]/g,
+		u : /[\xF9-\xFC]/g,
+		c : /\xE7/g,
+		n : /\xF1/g
+	};
+	for (var letra in mapaAcentosHex) {
+		var expressaoRegular = mapaAcentosHex[letra];
+		string = string.replace(expressaoRegular, letra);
+	}
+	return string;
 }
 //////////////
 // CONTAINS //

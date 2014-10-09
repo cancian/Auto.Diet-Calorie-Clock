@@ -141,6 +141,7 @@ function appTimer(content) {
 				var parentBody = window.parent.document.getElementsByTagName('body')[0];
 				$(parentBody).removeClass('unloaded');
 			}
+			appResizer(0);
 			$('body').removeClass('unloaded');
 			$('body').addClass('started');
 			$('body').css('opacity',1);

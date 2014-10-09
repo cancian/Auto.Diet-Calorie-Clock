@@ -1,6 +1,13 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.6.3 [2014/10/08]
+• Additional on-screen instructions on counter start
+• Additional on-screen instructions on diary tab
+• New profile target calculator
+• BMI display on profile
+• Circular daily sum
+
 # 1.6.2 [2014/09/25]
 • Automatic weight/height recalculation when measurement system is changed
 • Today's overview no longer considers expired entries

@@ -1,6 +1,6 @@
 ﻿head,style,script						{ display: none; }
-html,body								{ overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
-body 									{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; touch-action: none; -ms-touch-action: none; }
+html,body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
+body 									{ touch-action: none; -ms-touch-action: none; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 .ios *:before,
 .osx *:before,
@@ -562,7 +562,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #D55621; position: absolute; top: 0; right: 24%; }
 /**/
 #appStatusAddLeft,
-#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; color: #fff; font-size: 18px; line-height: 18px; display: inline-block; padding-top: 2px; }
+#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; color: #fff; font-size: 18px; line-height: 18px; display: inline-block; padding-top: 2px; white-space: nowrap; }
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
 #appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
 #appStatusAddLeft div:before,
@@ -571,6 +571,8 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusAddRight span			{ display: inline-block; background-color: #D55621; text-align: center; font-size: 10px; text-transform: uppercase; }
 #appStatusAddLeft div,
 #appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; }
+.appLang-th #appStatusAddLeft div,
+.appLang-th #appStatusAddRight div	{ font-size: 15px; }
 /*nutrition bars*/
 #appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: rgba(0,0,0,0); white-space: nowrap; }
 #appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 0; height:  16px; margin: 0 0px; background-color: #fff; display: block; background-color: #fff; color: #999; border: 1px solid #eee; }
@@ -1276,7 +1278,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .cat0001:after,#cat0001 div:before { content: '\C000'; color:#007aff; font-size: 27px; }
 /*STORES*/
 #appStores							{ position: relative; display: block; height: 92%; min-height: 260px; max-height: 800px; }
-#appStores span						{ position: relative; display: block; float: left; font-size: 38px; color: #000; width: 33.333%; height: 30%; text-align: center; }
+#appStores span						{ position: relative; display: block; float: left; font-size: 36px; color: #222; width: 33.333%; height: 30%; text-align: center; }
 #appStores span.button				{ color: #ccc; }
 #appStores span:before				{ font-family: 'KCals'; display: block; position: absolute; top: 40%; left: 0; width: 100%; text-align: center; }
 #b000:before						{ content: '\B000'; }
@@ -1286,11 +1288,11 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #b400:before						{ content: '\B401'; }
 #b500:before						{ content: '\B500'; }
 #b600:before						{ content: '\B600'; }
-#b700:before						{ content: '\B700'; font-size: 35px; }
+#b700:before						{ content: '\B700'; font-size: 34px; }
 #b800:before						{ content: '\B800'; }
-#developedBy						{ position: absolute; bottom: 0; left: 0; right: 0; display: block; text-align: center; font-size: 16px; color: #999; height: 44px; line-height: 16px; }
-#contactDeveloper 					{ color: #007aff; display: block; padding-top: 3px; }
-#developedBy.button span			{ color: #ccc; }
+#developedBy						{ position: absolute; bottom: 0; left: 0; right: 0; display: block; text-align: center; font-size: 13px; color: #aaa; height: 44px; line-height: 16px; }
+#contactDeveloper 					{ color: #777; display: block; padding-top: 3px; }
+#developedBy.button span			{ color: #bbb; }
 /*//////////////
 // ADD/REMOVE //
 //////////////*/
@@ -1323,4 +1325,10 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #zoomx1:before				{ content: 'x1'; }
 #zoomx2:before				{ content: 'x2'; }
 #zoomx3:before				{ content: 'x3'; }
+/*SCREEN INFO*/
+#screenInfo,#screenInfo *	{ -webkit-backface-visibility: hidden; }
+#screenInfo					{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; background-color: rgba(0,0,0,.4); -webkit-transform: translate3d(0, 0, 0); }
+#screenInfo #circleFocus	{ position: absolute; top: -124px; left: -54px; width: 230px; height: 230px; background-color: rgba(255,255,255,.32); display: block; border-radius: 500px; -webkit-box-shadow: 0 0px 50px rgba(0, 0, 0,.6) } 
+#screenInfo #closeButton	{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); }
+#screenInfo #textBlock		{ position: absolute; top: 142px; left: 25px; right: 25px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
 
