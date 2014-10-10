@@ -503,7 +503,7 @@ $(document).on("pageload", function (evt) {
 			if ($('#entryList .entryListRow').length == 0) {
 				$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 				updateTimer();
-				return false;
+				//return false;
 			}
 			//UPDATE DB
 			deleteEntry({

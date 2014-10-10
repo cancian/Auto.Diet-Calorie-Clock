@@ -814,12 +814,12 @@ body.ios #entryList div		{ padding: 15px 0 1px 0; }
 /*SWIPE DELETE*/
 span.delete					{ display: none; line-height: 16px; font-size: 13px; position: relative; }
 span.delete.busy,
-span.delete.active			{ display: inline-block; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; margin: 0; -webkit-transition-timing-function: ease; -webkit-transform: translate3d(180px, 0, 0); -webkit-transition-duration: .15s; -webkit-backface-visibility: hidden; opacity: 1; pointer-events: auto; }
+span.delete.active			{ display: inline-block; -webkit-backface-visibility: hidden; position: absolute; right: 0; top: 0; margin: 0; -webkit-transition-timing-function: ease; -webkit-transform: translate3d(180px, 0, 0); -webkit-transition-duration: .15s; -webkit-backface-visibility: hidden; opacity: 1; pointer-events: auto; z-index: 1; }
 span.delete.open			{ display: inline-block; -webkit-transition-timing-function: ease; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-duration: .150s; -webkit-backface-visibility: hidden; }
 /*buttons*/
 span.delete #reuse,
 span.delete #edit,
-span.delete #delete			{ font-size: 24px; position: absolute; top: 0; width: 60px; height: 44px; color: #007aff; background-color: rgba(255,255,255,.75); text-align: center; line-height: 46px; }
+span.delete #delete			{ font-size: 24px; position: absolute; top: 0; width: 60px; height: 44px; color: #007aff; background-color: rgba(255,255,255,.75); text-align: center; line-height: 46px; z-index: 1; }
 span.delete #reuse			{ left: -180px; top: 0; }
 span.delete #edit			{ left: -123px; top: 0; }
 span.delete #delete			{ left: -67px;  top: 0; color: #FF3B30; }
