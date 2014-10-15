@@ -1,4 +1,5 @@
-﻿//#////////////#//
+﻿$.ajaxSetup({cache: false, crossDomain: true, async:true});
+//#////////////#//
 //# APP OBJECT #//
 //#////////////#//
 var app = {
@@ -27,7 +28,8 @@ var app = {
 		}
 	},
 	ua:   navigator.userAgent,
-	http: window.location.protocol.indexOf('http') !== -1 ? true : false,
+	http: /http/i.test(window.location.protocol) ? true : false,
+	https: /https/i.test(window.location.protocol) ? 'https://' : 'http://',
 	now: function() {
 		return new Date().getTime();
 	},
@@ -122,7 +124,7 @@ app.get.totalweight = function() {
 	return app.read('calcForm#pA3B');
 };
 app.get.androidVersion = function() {
-	if((/Android/i).test(app.ua) && window.location.protocol.indexOf('http') === -1) {
+	if((/Android/i).test(app.ua) && !app.http) {
 		//android L
 		if((/Build\/L/i).test(app.ua)) { return 4.4; }
 		return parseFloat(app.ua.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
@@ -961,7 +963,7 @@ function isCordova() {
 	return isMobileCordova; //(typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
 }
 function getAndroidVersion() {
-	if((/Android/i).test(userAgent) && window.location.protocol.indexOf('http') === -1) {
+	if((/Android/i).test(userAgent) && !app.http) {
 		//android L
 		if((/Build\/L/i).test(userAgent)) { return 4.4; }
 		return parseFloat(userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
@@ -974,7 +976,7 @@ var androidVersion = function() {
 	return gotAndroidVersion;
 };
 
-var varHasTouch = window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android|BlackBerry)/).test(userAgent);
+var varHasTouch = !app.http && (/(iPhone|iPod|iPad|Android|BlackBerry)/).test(userAgent);
 function hasTouch() {
 	return varHasTouch;
 }

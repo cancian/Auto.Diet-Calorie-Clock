@@ -137,12 +137,13 @@ function appTimer(content) {
 	if(opaLock < 3) {
 		opaLock++;
 		if(opaLock == 3) {
-			if(window.parent.document.getElementsByTagName('body')) {
-				var parentBody = window.parent.document.getElementsByTagName('body')[0];
-				$(parentBody).removeClass('unloaded');
-			}
+			//if(window.parent.document.getElementsByTagName('body')) {
+			//	var parentBody = window.parent.document.getElementsByTagName('body')[0];
+			//	$(parentBody).removeClass('unloaded');
+			//}
 			appResizer(0);
 			$('body').removeClass('unloaded');
+			$('.unloaded').removeClass('unloaded');
 			$('body').addClass('started');
 			$('body').css('opacity',1);
 			if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {

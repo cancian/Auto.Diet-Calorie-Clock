@@ -1073,7 +1073,7 @@ function addNewItem(addnew) {
 	///////////////////
 	if($('#addNewWrapper').length) {
 		$('#modalWrapper').remove();
-	}
+	}	
 	/////////////////////
 	// FOOD ? EXERCISE //
 	/////////////////////
@@ -1284,6 +1284,7 @@ function addNewItem(addnew) {
 		$('#modalOverlay').off();
 		$('#modalWrapper').append(addNewCoreHtml);
 		$('#addNewWrapper').hide();
+		app.handlers.fade(0,'#modalConversions');
 		app.handlers.fade(0,'#modalWindow',function() {
 			app.handlers.fade(1,'#addNewWrapper');
 		});
@@ -1700,6 +1701,17 @@ function getModalWindow(itemId) {
 				<span id='carLabel'>" + LANG.CAR[lang] + "</span>\
 				<span id='fatLabel'>" + LANG.FAT[lang] + "</span>\
 			");
+			//APROX CONVERSIONS
+			$('#modalWrapper').append('\
+			<div id="modalConversions">\
+				<div id="modalConversionsTitle">' + LANG.APROX_CONVERSIONS[lang]  + '</div>\
+				<div><span>1 ' + LANG.ML[lang]         + '</span><span> = </span><span>1'   + LANG.G[lang] + '</span></div>\
+				<div><span>1 ' + LANG.TEASPOON[lang]   + '</span><span> = </span><span>5'   + LANG.G[lang] + '</span></div>\
+				<div><span>1 ' + LANG.TABLESPOON[lang] + '</span><span> = </span><span>15'  + LANG.G[lang] + '</span></div>\
+				<div><span>1 ' + LANG.CUP[lang]        + '</span><span> = </span><span>240' + LANG.G[lang] + '</span></div>\
+				<div><span>1 ' + LANG.OZ[lang]         + '</span><span> = </span><span>28'  + LANG.G[lang] + '</span></div>\
+				<div><span>1 ' + LANG.LB[lang]         + '</span><span> = </span><span>454' + LANG.G[lang] + '</span></div>\
+			</div>');
 		}
 		//READ STORED
 		if (modal.fib == 'fav') {

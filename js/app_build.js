@@ -984,7 +984,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			////////////////
 			if ($("#entryBody").val().toLowerCase() == "devinstallpkg") {
 				if (vendorClass == "moz") {
-					navigator.mozApps.install('http://kcals.net/manifest.webapp');
+					navigator.mozApps.install(app.https + 'kcals.net/manifest.webapp');
 					$("#entryBody").val('');
 					$("#entryBody").blur();
 				}

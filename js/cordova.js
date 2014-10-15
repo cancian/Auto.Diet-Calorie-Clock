@@ -1,7 +1,7 @@
 ﻿/////////////
 // CORDOVA //
 /////////////http://jscompress.com
-if(window.location.protocol.indexOf('http') !== -1) {
+if(!/http/i.test(window.location.protocol)) {
 /////////
 // IOS //
 /////////

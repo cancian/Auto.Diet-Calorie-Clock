@@ -8,15 +8,13 @@ AddType text/cache-manifest .manifest
 AddType text/cache-manifest .appcache
 AddType application/octet-stream .bin
 AddType application/octet-stream .img
-
 #############
 ## HEADERS ##
 #############
-Header add Access-Control-Allow-Origin "*"
 Header set Cache-Control "max-age=0"
 Header unset ETag
 FileETag None
-
+Header add Access-Control-Allow-Origin "*"
 #############
 ## EXPIRES ##
 #############

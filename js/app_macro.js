@@ -694,6 +694,63 @@ function updateTodayOverview() {
 		$('.current').removeClass('current');
 		$('#' + 'appDay' + app.read('config_kcals_day').toUpperCase()).addClass('current');
 	}
+
+
+//$('#appStatusWeight div').css('padding-top',0);
+/*
+$('#appStatusWeight').append('<div id="dailyCircle"><div id="dailyPercent">50%</div></div>');
+	
+$('#dailyCircle').highcharts({
+	reflow : false,
+	colors : ['#2f7ed8', '#ee704e', '#f5f5f5'],
+	credits : {
+		enabled : false
+	},
+	chart : {
+		reflow : false,
+		spacingLeft : 0,
+		spacingRight : 0,
+		spacingTop : 0,
+		spacingBottom : 0,
+		height : 56,
+		width : 56,
+		plotBackgroundColor : '#fff',
+		plotBorderWidth : 0,
+		plotShadow : false
+	},
+	title : {
+		text : ''
+	},
+	tooltip : {
+		pointFormat : ''
+	},
+	plotOptions : {
+		pie : {
+			color : '#fff',
+			allowPointSelect : false,
+			cursor : 'pointer',
+			dataLabels : {
+				enabled : false,
+			},
+		}
+	},
+	series : [{
+			type : 'pie',
+			name : 'Browser share',
+			color : '#fff',
+			innerSize : '5',
+			size : '4',
+
+			animation : false,
+			data : [
+				['Fill', 1440],
+				['Fill', 0],
+				['Left', 600]
+			]
+		}
+	]
+});
+*/
 }
 //##/////////////##//
 //## CYCLIC MENU ##//

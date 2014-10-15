@@ -431,7 +431,7 @@ function pushEntries(userId) {
 		if(fetchEntries == ' ' || !fetchEntries) { fetchEntries = ' '; }
 		if(fetchEntries) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
-			$.post('http://kcals.net/sync.php', { 'sql':fetchEntries,'uid':userId }, function(data) {
+			$.post(app.https + 'kcals.net/sync.php', { 'sql':fetchEntries,'uid':userId }, function(data) {
 				//clear marker
 				app.remove('lastEntryPush');
 				NProgress.done();
@@ -626,7 +626,7 @@ function syncEntries(userId) {
 		demoRunning = true;
 		NProgress.start();
 		//get remote sql
-		$.get('http://kcals.net/sync.php?uid=' + userId,function(sql) {
+		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
 			sql = sql.split('undefined').join('');
 			//local storage slice
 			if(sql.match('#@@@#')) {
@@ -960,10 +960,10 @@ function setFav(data, callback) {
 ///////////////
 var afterHidden;
 function afterHide(cmd) {
-	if(window.parent.document.getElementsByTagName('body')) {
-		var parentBody = window.parent.document.getElementsByTagName('body')[0];
-		$(parentBody).addClass('unloaded');
-	}
+	//if(window.parent.document.getElementsByTagName('body')) {
+	//	var parentBody = window.parent.document.getElementsByTagName('body')[0];
+	//	$(parentBody).addClass('unloaded');
+	//}
 	//$('body').removeClass('started');
 	//$('body').addClass('unloaded');
 	noTimer = 'active';
@@ -977,7 +977,7 @@ function afterHide(cmd) {
 		//////////////
 		app.handlers.fade(0,'body',function() {
 			if(app.read('facebook_logged') && cmd == 'clear') {
-				$.post('http://kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
+				$.post(app.https + 'kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
 					setTimeout(function() { 
 						app.reboot(cmd);
 					},200);
@@ -2189,7 +2189,7 @@ function getLoginFB() {
 					}
 				});
 				//window
-				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=http://kcals.net/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
+				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + app.https + 'kcals.net/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
 			}
 		////////////
 		// JS SDK //

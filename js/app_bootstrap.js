@@ -4,7 +4,7 @@
 // AJAX ERRORS //
 /////////////////
 $.support.cors = true;
-$.ajaxSetup({cache: false, error: function(jqXHR, exception) {
+$.ajaxSetup({cache: false, crossDomain: true, async:true,  error: function(jqXHR, exception) {
 		 if(jqXHR.status === 0)           { console.log('Not connect.\n Verify Network.');         }
 	else if (jqXHR.status == 404)         { console.log('Requested page not found. [404]');        }
 	else if (jqXHR.status == 500)         { console.log('Internal Server Error [500].');           }
@@ -86,11 +86,12 @@ function InitializeLocalSuperBlock(opt) {
 function buildRemoteSuperBlock(opt) {
 	if($('body').hasClass('loading')) { return; }
 	//
+	var https = /https/i.test(window.location.protocol) ? 'https://' : 'http://';
 	var dataJS  = '';
 	var dataCSS = '';
-	var hostLocal2 = 'http://kcals.net/';
+	var hostLocal2 = https + 'kcals.net/';
 	if(window.localStorage.getItem('config_debug') == 'active') {
-		hostLocal2 = 'http://192.168.1.5/com.cancian.mylivediet/www/';
+		hostLocal2 = https + '192.168.1.5/';
 	}
 	//retrieve ajax check
 	if(typeof cssLoadCount === 'undefined') { return; }
@@ -245,7 +246,7 @@ if(window.localStorage.getItem('config_autoupdate') == 'on') {
 // BACKWARDS COMP
 $(document).ready(function() {
 	setTimeout(function() {
-		if(window.location.protocol.indexOf('http') === -1) {
+		if(/http/i.test(window.location.protocol)) {
 			$('body').addClass('started');
 			$('body').removeClass('unloaded');
 		}

@@ -1,8 +1,8 @@
 ﻿var mi = {
-	CLOSE : {
-		en : 'Close',
-		pt : 'Fechar',
-		ar : '',
+	ML : {
+		en : 'ml',
+		pt : 'ml',
+		ar : 'مل',
 		bg : '',
 		ca : '',
 		cs : '',
@@ -41,10 +41,10 @@
 		zh : '',
 		zt : '',
 	},
-	ALL_TIME : {
-		en : '',
-		pt : '',
-		ar : '',
+	OZ : {
+		en : 'oz',
+		pt : 'oz',
+		ar : 'أوقية',
 		bg : '',
 		ca : '',
 		cs : '',

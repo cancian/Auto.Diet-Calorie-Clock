@@ -543,6 +543,13 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 .appLang-el #appStatusWeight #appDays div,
 .appLang-it #appStatusWeight #appDays div	{ text-transform: none; }
 /**/
+#appStatusWeight #dailyCircle		{ position: absolute; top: 9px; left: 50%; margin-left: -33px; width: 66px; height: 66px; overflow: hidden; background-color: transparent; }
+#dailyPercent { position: absolute; top: 21px; left: 0; width: 60px; text-align: center; color: #000; font-size: 16px;
+ font-weight: normal;
+ font-family: arial;
+ background-color: 
+}
+/**/
 #appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusBalance div			{ padding-top: 15px; text-align: center; display: block; font-size: 14px; }
 #appStatusBalance span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
@@ -1053,8 +1060,8 @@ body.android4lt.closer #appContent	{ visibility: hidden !important; }
 /////////////*/
 #modalWrapper,
 #modalOverlay			{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; display: block; z-index: 98; }
-#modalOverlay			{ background-color: rgba(0,0,0,1); opacity: .5; -webkit-backface-visibility: hidden; }
-#modalWindow			{ position: absolute; top: 74px; left: 0; right: 0; height: 200px; background-color: #ffffff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.54); z-index: 99; }
+#modalOverlay			{ background-color: rgba(0,0,0,1); opacity: .6; -webkit-backface-visibility: hidden; }
+#modalWindow			{ position: absolute; top: 74px; left: 0; right: 0; height: 200px; background-color: #ffffff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 99; }
 body.ios7 #modalWindow	{ top: 94px; }
 #modalContent			{ padding: 12px; font-size: 13px; max-height: 62px; overflow: hidden; color: #777; font-weight: bold; }
 #modalContent span		{ color: #3287F5; white-space: nowrap; }
@@ -1114,6 +1121,12 @@ span#fatLabel			{ top: 28px; text-align: left; left: 67px; color: #666; }
 #modalFav:before			{ content: '\f006'; font-family: 'KCals'; font-size: 32px; position: absolute; top: -62px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalFav.favorite:before	{ content: '\f005'; font-family: 'KCals'; }
 #modalFav.button:before		{ color: #ccc; }
+/*modal conversions*/
+#modalConversions			{ display: block; width: 300px; height: 165px; position: absolute; bottom: 0; left: 20px; color: #fff; font-size: 16px; z-index: 98; pointer-events: none; text-shadow: rgba(0,0,0,1) 0 0 1px; }
+#modalConversions div		{ height: 21px; }
+#modalConversions span		{  }
+#modalConversionsTitle		{ text-transform: uppercase; font-size: 16px; padding-bottom: 2px; }
+#modalConversions span+span { padding-left: 4px; }
 /*///////////
 // SPINNER //
 ///////////*/

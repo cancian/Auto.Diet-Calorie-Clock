@@ -96,13 +96,13 @@ function initJS() {
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
-	if (window.location.protocol.indexOf('http') === -1) {
+	if (!/http/i.test(window.location.protocol)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js"><\/script>');
 	}
 	////////
 	// FB //
 	////////
-	if (window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
+	if (!/http/i.test(window.location.protocol) && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.js"><\/script>');
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-connect.js"><\/script>');
 	} else if ((/IEMobile/i).test(navigator.userAgent)) {

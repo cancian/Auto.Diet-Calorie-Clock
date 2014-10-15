@@ -2016,9 +2016,8 @@
 
 	function hasTouch() {
 		//return ('ontouchstart' in document);
-		return (window.location.protocol.indexOf('http') === -1 && (/(iPhone|iPod|iPad|Android|BlackBerry|BB10)/).test(navigator.userAgent) || isFirefoxOS);
+		return (!/http/i.test(window.location.protocol) && (/(iPhone|iPod|iPad|Android|BlackBerry|BB10)/).test(navigator.userAgent) || isFirefoxOS);
 	}
-
     var TOUCHSTART = hasTouch() ? 'touchstart' : 'mousedown';
     var TOUCHEND   = hasTouch() ? 'touchend mouseout' : 'mouseup mouseout';
     var TOUCHMOVE  = hasTouch() ? 'touchmove' : 'mousemove';

@@ -50,11 +50,12 @@
     };
     
     ga_storage = new function() {
+		var https = window.location.protocol.indexOf('https') !== -1 ? 'https://' : 'http://';
         var that = this;
         var initialized = false;
         
-        var tracking_code_url = 'http://www.google-analytics.com/analytics.js';//'http://www.google-analytics.com/ga.js';
-        var beacon_url = 'http://www.google-analytics.com/__utm.gif';
+        var tracking_code_url = https + 'www.google-analytics.com/analytics.js';//'http://www.google-analytics.com/ga.js';
+        var beacon_url = https + 'www.google-analytics.com/__utm.gif';
         var last_url = '/'; // used to keep track of last page view logged to pass forward to subsequent events tracked
         var last_nav_url = '/'; // used to keep track of last page actually visited by the user (not popup_hidden or popup_blurred!)
         var last_page_title = '-'; // used to keep track of last page view logged to pass forward to subsequent events tracked
