@@ -2,6 +2,7 @@
 ## VERSION LOG ##
 #################
 # 1.6.3 [2014/10/08]
+• Approximate conversions table
 • Additional on-screen instructions on counter start
 • Additional on-screen instructions on diary tab
 • New profile target calculator
