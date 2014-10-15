@@ -5,7 +5,7 @@ _gsdata_/
 userdata/
 # ANDROID / ECLIPSE
 com.cancian.mylivediet
-
+/fontawesome.ttf
 # built application files
 *.apk
 *.ap_
