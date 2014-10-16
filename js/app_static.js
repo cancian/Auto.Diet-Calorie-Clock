@@ -250,8 +250,8 @@ if(app.device.wp8) {
 }
 ////////////////////////
 // BACK BUTTON (+ESC) //
-////////////////////////
-$(document).on('backbutton backclick', function(evt) {
+//////////////////////// backclick?
+$(document).on('backbutton', function(evt) {
 	if($('body').hasClass('spinnerMask')) { return false; }
 	//
 	if($('#langSelect').length) {
