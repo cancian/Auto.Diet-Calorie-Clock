@@ -329,7 +329,7 @@ app.url = function(url) {
 		ios:        'https://itunes.apple.com/app/id732382802',
 		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
 		wp8:        'http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e',
-		windows8:   app.device.windows8 ? 'ms-windows-store:PDP?PFN=27631189-ce9d-444e-a46b-31b8f294f14e' : 'http://apps.microsoft.com/windows/app/kcals/27631189-ce9d-444e-a46b-31b8f294f14e',
+		windows8:   app.device.windows8 ? 'ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e' : 'http://apps.microsoft.com/windows/app/kcals/27631189-ce9d-444e-a46b-31b8f294f14e',
 		firefoxos:  'https://marketplace.firefox.com/app/kcals',
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc',

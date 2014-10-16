@@ -128,6 +128,31 @@ $('html,body').scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
 });
+//////////////
+// KEY DUMP //
+//////////////
+/*
+var keyDump = '';
+$.each(LANG.LANGUAGE,function(k,v) {
+	var addThis = '<div>' + v + '</div><div>' +
+	LANG.FOOD[v]     + ',' +
+	LANG.EXERCISE[v] + ',' +
+	LANG.TIME[v]     + ',' +
+	LANG.SURPLUS[v]  + ',' +
+	LANG.DEFICIT[v]  + ',' +
+	LANG.CALORIC[v]  + ',' +
+	LANG.WEIGHT_LOSS[v] + ',' +
+	LANG.KCAL[v]        + ',' +
+	'myfitnesspal,ipad,' +
+	LANG.FATS[v] + ',' +
+	LANG.PROTEINS[v]+ ',' +
+	LANG.CARBS[v];
+	//ADD
+	addThis = (addThis.split(' ').join(','));//.slice(0,100);
+	keyDump += addThis + '</div>';
+});
+$('body').html(keyDump.toLowerCase());
+*/
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -226,7 +251,7 @@ if(app.device.wp8) {
 ////////////////////////
 // BACK BUTTON (+ESC) //
 ////////////////////////
-$(document).on('backbutton', function(evt) {
+$(document).on('backbutton backclick', function(evt) {
 	if($('body').hasClass('spinnerMask')) { return false; }
 	//
 	if($('#langSelect').length) {
@@ -723,7 +748,6 @@ if(LANG.LANGUAGE[lang] == 'en') {
 //###########################//
 //####   START WORKING   ####//
 //###########################//
-//
 setTimeout(function() {
 	getNiceScroll('#appContent');
 	appResizer(0);

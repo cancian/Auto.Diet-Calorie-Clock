@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.kcals"
-        versionCode="16400" 
-        version   = "1.6.4">
+        versionCode="16500" 
+        version   = "1.6.5">
 
 	<content src="index.html" />
 	<access origin="*" subdomains="true"/>
