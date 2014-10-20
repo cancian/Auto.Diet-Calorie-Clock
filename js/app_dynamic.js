@@ -939,14 +939,14 @@ function updateCustomList(filter,callback) {
 	}
 	//FAV
 	if(/fav|all|cache/.test(filter)) {
-		$('#tabMyFavsBlock').html(getCustomList('fav'));
+		$('#tabMyFavsBlock').html(getCustomList('fav',filter));
 		app.handlers.activeRow('#tabMyFavsBlock .searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
 		});	
 	}
 	//ITEM
 	if(/items|all|cache/.test(filter)) {
-		$('#tabMyItemsBlock').html(getCustomList('items'));
+		$('#tabMyItemsBlock').html(getCustomList('items',filter));
 		$('#addButtons').remove();
 		$('#foodList').after('<div id="addButtons"><div id="addNewFood"><div id="addNewFoodTitle"><span>+</span>' + LANG.NEW_FOOD[lang] + '</div></div><div id="addNewExercise"><div id="addNewExerciseTitle"><span>+</span>' + LANG.NEW_EXERCISE[lang] + '</div></div></div>');
 		app.handlers.activeRow('#tabMyItemsBlock .searcheable','activeOverflow',function(rowId) {

@@ -1585,7 +1585,6 @@ function getCatList(callback) {
 			// HTML //
 			//////////
 			catListHtml = app.handlers.buildRows(data);
-
 			/////////////
 			// HANDLER //
 			/////////////

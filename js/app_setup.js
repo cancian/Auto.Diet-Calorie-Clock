@@ -890,7 +890,7 @@ function delFood(foodId, callback) {
 /////////////////////
 // GET CUSTOM LIST //
 /////////////////////
-function getCustomList(listType) {
+function getCustomList(listType,filter) {
 	//////////////
 	// CAT LIST //
 	//////////////
@@ -922,7 +922,7 @@ function getCustomList(listType) {
 				}
 			}
 		}
-		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'));
+		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'),filter);
 	////////////////////////
 	// FOOD~EXERCISE LIST //
 	////////////////////////
@@ -937,7 +937,7 @@ function getCustomList(listType) {
 				}
 			}
 		}
-		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'))
+		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'),filter)
 	}
 }
 /////////////

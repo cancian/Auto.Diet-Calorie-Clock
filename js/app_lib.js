@@ -188,14 +188,14 @@ app.device = {
 	osx        : ((/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua)) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
 	chromeos   : app.get.isChromeApp() ? true : false,
-	blackberry : (/BB10|BlackBerry/i).test(app.ua) ? true : false,
+	blackberry : ((/Android/i).test(app.ua) && (/(BB10|BlackBerry|All Touch|10.)/i).test(app.ua)) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
 	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Touch/i.test(app.ua) || document.createTouch) ? false : true,
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
 	if(staticVendor == 'blackberry') {
-		app.device.blackberry = true;	
+		app.device.blackberry = true;
 	}
 	if(staticVendor == 'amazon') {
 		app.device.amazon = true;	
@@ -210,7 +210,7 @@ app.get.platform = function(noweb) {
 	if(app.device.wp8 && app.http)     { return 'web';           }
 	if(app.device.ios)                 { return 'iOS';           }
 	if(app.device.amazon)              { return 'FireOS';        }
-	if(app.device.blackbery)           { return 'BlackBerry';    }
+	if(app.device.blackberry)          { return 'BlackBerry';    }
 	if(app.device.android)             { return 'Android';       }
 	if(app.device.wp8)                 { return 'Windows Phone'; }
 	if(app.device.windows8)            { return 'Windows 8';     }
@@ -329,7 +329,7 @@ app.url = function(url) {
 		ios:        'https://itunes.apple.com/app/id732382802',
 		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
 		wp8:        'http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e',
-		windows8:   app.device.windows8 ? 'ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e' : 'http://apps.microsoft.com/windows/app/kcals/27631189-ce9d-444e-a46b-31b8f294f14e',
+		windows8:   app.device.windows8 ? 'ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e' : 'http://apps.microsoft.com/windows/app/27631189-ce9d-444e-a46b-31b8f294f14e',
 		firefoxos:  'https://marketplace.firefox.com/app/kcals',
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc',
@@ -337,16 +337,16 @@ app.url = function(url) {
 		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533',
 	};
 	//SHORTCUT
-	     if((!url && app.device.ios)       || url == 'ios')        { url = store.ios;        }
-	else if((!url && app.device.amazon)    || url == 'amazon')     { url = store.amazon; store.android = store.amazon; }
-	else if((!url && app.device.blackbery) || url == 'blackberry') { url = store.blackberry; }
-	else if((!url && app.device.android)   || url == 'android')    { url = store.android;    }
-	else if((!url && app.device.wp8)       || url == 'wp8')        { url = store.wp8;        }
-	else if((!url && app.device.windows8)  || url == 'windows8')   { url = store.windows8;   }
-	else if((!url && app.device.firefoxos) || url == 'firefoxos')  { url = store.firefoxos;  }	
-	else if((!url && app.device.osxapp)    || url == 'osxapp')     { url = store.osxapp;     }
-	else if((!url && app.device.chromeos)  || url == 'chromeos')   { url = store.chromeos;   }
-	else if(url == 'www')										   { url = store.web;        }
+	     if((!url && app.device.ios)        || url == 'ios')        { url = store.ios;        }
+	else if((!url && app.device.amazon)     || url == 'amazon')     { url = store.amazon; store.android = store.amazon; }
+	else if((!url && app.device.blackberry) || url == 'blackberry') { url = store.blackberry; }
+	else if((!url && app.device.android)    || url == 'android')    { url = store.android;    }
+	else if((!url && app.device.wp8)        || url == 'wp8')        { url = store.wp8;        }
+	else if((!url && app.device.windows8)   || url == 'windows8')   { url = store.windows8;   }
+	else if((!url && app.device.firefoxos)  || url == 'firefoxos')  { url = store.firefoxos;  }	
+	else if((!url && app.device.osxapp)     || url == 'osxapp')     { url = store.osxapp;     }
+	else if((!url && app.device.chromeos)   || url == 'chromeos')   { url = store.chromeos;   }
+	else if(url == 'www')										    { url = store.web;        }
 	//OPEN
 	if(url) {
 		     if(app.device.ios)			{ window.open(url, '_system', 'location=yes');								}

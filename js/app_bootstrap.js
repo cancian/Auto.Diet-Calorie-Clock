@@ -83,7 +83,10 @@ function InitializeLocalSuperBlock(opt) {
 //#///////////////////#//
 //# REMOTE SUPERBLOCK #//
 //#///////////////////#//
+var remoteBlockTimer;
 function buildRemoteSuperBlock(opt) {
+	clearTimeout(remoteBlockTimer);
+	remoteBlockTimer = setTimeout(function() {
 	if($('body').hasClass('loading')) { return; }
 	//
 	var https = /https/i.test(window.location.protocol) ? 'https://' : 'http://';
@@ -213,6 +216,7 @@ function buildRemoteSuperBlock(opt) {
 	}});}});}});
 	}});}});
 	}});
+	},2000);
 }
 //#///////////////////#//
 //# APPEND SUPERBLOCK #//
@@ -233,14 +237,14 @@ if(window.localStorage.getItem('config_autoupdate') == 'on') {
 		//SAVE REQUEST
 		if(!window.localStorage.getItem('remoteSuperBlockJS') || !window.localStorage.getItem('remoteSuperBlockCSS')) {
 			setTimeout(function() {
-				//if(window.location.protocol.indexOf('http') === -1) {
+				if(/http/i.test(window.location.protocol)) {
 					InitializeLocalSuperBlock();
-				//}
-			},2000);
+				}
+			},2500);
 		}
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		},5000);
+		},6000);
 	});
 }
 // BACKWARDS COMP
