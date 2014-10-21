@@ -1,6 +1,9 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.6.6 [2014/10/08]
+• Fixed an issue with food/favs sync
+
 # 1.6.3 [2014/10/08]
 • Approximate conversions table
 • Additional on-screen instructions on counter start

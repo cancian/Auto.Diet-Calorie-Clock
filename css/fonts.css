@@ -41,9 +41,7 @@ body.spinnerMask #loadMask {
 	-ms-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
-@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
-@-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
-@-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
+
 body.loadingMask #loadMask span,
 body.spinnerMask #loadMask span {
 	-webkit-box-sizing: border-box;
@@ -63,20 +61,22 @@ body.spinnerMask #loadMask span {
 	-ms-backface-visibility: hidden;
 	backface-visibility: hidden;
 	position: absolute;
+	display: block;
 	top: 50%; 
 	left: 50%;
-	width: 30px;
-	height: 30px;
-	padding: 0px;
+	width: 0;
+	height: 0;
+	padding: 12px;
 	margin-top: -10px;
 	margin-left: -14px;
 	border-radius: 100px;
 }
+@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
+@-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
+@-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
 body.spinnerMask * {
 	pointer-events: none;
 }
-
-
 body.loadingMask #loadMask:before,
 body.spinnerMask #loadMask:before {
 	position: absolute;

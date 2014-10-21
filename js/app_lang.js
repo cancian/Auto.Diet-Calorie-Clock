@@ -1,5 +1,5 @@
 ﻿var appName     = 'KCals';
-var appVersion  = '1.6.5 (16500)';
+var appVersion  = '1.6.6 (16600)';
 var appBuild    = appVersion.split(' ')[1].replace('(','').replace(')',''); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(' ')[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|hi|hr|hu|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
@@ -8617,7 +8617,7 @@ Kiểm tra hồ sơ của bạn. \
 				• FirefoxOS<br />\
 				• Mac OS X<br />\
 				• ChromeOS<br />\
-				• Blackberry<br />\
+				• BlackBerry<br />\
 				• Desktop (http://kcals.net)</p>\
 				<p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Automatic Backup feature.</p>\
 			',

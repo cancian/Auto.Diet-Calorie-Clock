@@ -20,9 +20,6 @@ body.unloaded #loadMask {
 	background-color: #fff;
 	opacity: 1;
 }
-@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
-@-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
-@-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
 body.unloaded #loadMask span {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -44,13 +41,16 @@ body.unloaded #loadMask span {
 	display: block;
 	top: 50%; 
 	left: 50%;
-	width: 30px;
-	height: 30px;
-	padding: 0px;
+	width: 0;
+	height: 0;
+	padding: 12px;
 	margin-top: -10px;
 	margin-left: -14px;
 	border-radius: 100px;
 }
+@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
+@-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
+@-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
 body.unloaded * {
 	pointer-events: none;
 }

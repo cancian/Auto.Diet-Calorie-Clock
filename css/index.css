@@ -168,18 +168,18 @@ body.android ::-webkit-scrollbar{ display: none; }
 .android #wrapper,
 .msie #wrapper			{ -webkit-perspective: 800; }
 /*total width*/
-#scroller				{ position: absolute; z-index: 1; -webkit-tap-highlight-color: rgba(0,0,0,0); width: 600%; top: 20%; left: 0; right: 0; bottom: 0;  -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
+#scroller					{ position: absolute; z-index: 1; -webkit-tap-highlight-color: rgba(0,0,0,0); width: 600%; top: 20%; left: 0; right: 0; bottom: 0;  -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 /*width relative to total over-width*/
-.slide					{ position: relative; width: 16.666%; height: 100%; float: left; display: block; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
+.slide						{ position: relative; width: 16.666%; height: 100%; float: left; display: block; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 #slide1,#slide2,#slide3,
-#slide4,#slide5,#slide6	{ background-color: #fff; font-size: 16px; line-height: 23px; text-align: center; padding-top: 120px; padding-left: 0; padding-right: 0; }
-#slide1 p:before		{ content: 'k';     font-size: 120px; top: 3px;   }
-.android4lt #slide1 p:before { margin-left: -87px; }
-#slide2 p:before		{ content: '\A200'; font-size: 122px; top: -10px; }
-#slide3 p:before		{ content: '\F000'; font-size: 92px; top: 4px;    }
-#slide4 p:before		{ content: '\A300';  font-size: 96px; top: 0;     }
-#slide5 p:before		{ content: '\F17D'; font-size: 96px; top: 0;      }
-#slide6 p:before		{ content: '\A600'; font-size: 148px; top: 0;     }
+#slide4,#slide5,#slide6		{ background-color: #fff; font-size: 16px; line-height: 23px; text-align: center; padding-top: 120px; padding-left: 0; padding-right: 0; }
+#slide1 p:before			{ content: 'k';     font-size: 120px; top: 3px;   }
+.android4 #slide1 p:before	{ margin-left: -87px; }
+#slide2 p:before			{ content: '\A200'; font-size: 122px; top: -10px; }
+#slide3 p:before			{ content: '\F000'; font-size: 92px; top: 4px;    }
+#slide4 p:before			{ content: '\A300';  font-size: 96px; top: 0;     }
+#slide5 p:before			{ content: '\F17D'; font-size: 96px; top: 0;      }
+#slide6 p:before			{ content: '\A600'; font-size: 148px; top: 0;     }
 #slide1 p:before,
 #slide2 p:before,
 #slide3 p:before,
