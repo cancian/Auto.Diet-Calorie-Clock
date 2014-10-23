@@ -865,7 +865,7 @@ if($('#loadMask').html() == '') {
 }
 document.addEventListener("DOMContentLoaded", function(event) {
 	$('body').addClass('domcontentloaded');
-});
+},true);
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//

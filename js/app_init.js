@@ -96,7 +96,9 @@ function initJS() {
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js"><\/script>');
+	if (!/http/i.test(window.location.protocol)) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js"><\/script>');
+	}
 	////////
 	// FB //
 	////////
@@ -146,7 +148,7 @@ function initJS() {
 					setTimeout(function() {
 						$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
 					},0);
-				},false);
+				},true);
 			}
 		}
 	} else {

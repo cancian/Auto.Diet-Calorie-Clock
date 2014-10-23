@@ -2,7 +2,7 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.kcals"
-        versionCode="16600" 
+        versionCode="16602"
         version   = "1.6.6">
 
 	<content src="index.html" />
@@ -21,7 +21,7 @@
     <feature name="http://api.phonegap.com/1.0/device" />
 	
     <preference name="windows-target-version" value="8.0" />
-    <preference name="windows-phone-target-version" value="8.0" />
+    <preference name="windows-phone-target-version" value="8.1" />
 
     <!-- Customize your app and platform with the preference element. -->
     <preference name="permissions"                value="none"/>
@@ -42,25 +42,28 @@
     <preference name="stay-in-webview"            value="false" />
     <preference name="show-splash-screen-spinner" value="false" />
 	<preference name="splash-screen-duration"     value="0" />
-	<!--<preference name="LoadingDialog"          value=""/>        -->
+	<preference name="KeepRunning"                value="true" />
+	<preference name="AndroidLaunchMode"          value="singleTop" />
+	<!--<preference name="LoadingDialog"          value=""/>     -->
 
 	
     <!-- Preferences for iOS -->
-    <preference name="AllowInlineMediaPlayback" value="false" />
-    <preference name="AutoHideSplashScreen" value="true" />
-    <preference name="BackupWebStorage" value="local" />
-    <preference name="DisallowOverscroll" value="true" />
-    <preference name="EnableViewportScale" value="false" />
-    <preference name="FadeSplashScreen" value="false" />
-    <preference name="FadeSplashScreenDuration" value="0" />
-    <preference name="HideKeyboardFormAccessoryBar" value="false" />
+    <preference name="AllowInlineMediaPlayback"          value="false" />
+    <preference name="AutoHideSplashScreen"              value="true" />
+    <preference name="BackupWebStorage"                  value="local" />
+    <preference name="DisallowOverscroll"                value="true" />
+    <preference name="EnableViewportScale"               value="false" />
+    <preference name="FadeSplashScreen"                  value="false" />
+    <preference name="FadeSplashScreenDuration"          value="0" />
+    <preference name="HideKeyboardFormAccessoryBar"      value="false" />
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
-    <preference name="KeyboardShrinksView" value="false" />
-    <preference name="MediaPlaybackRequiresUserAction" value="false" />
-    <preference name="ShowSplashScreenSpinner" value="false" />
-    <preference name="SuppressesIncrementalRendering" value="false" />
-    <preference name="TopActivityIndicator" value="gray" />
-	<preference name="SplashScreenDelay" value="0" />
+    <preference name="KeyboardShrinksView"               value="false" />
+    <preference name="MediaPlaybackRequiresUserAction"   value="false" />
+    <preference name="ShowSplashScreenSpinner"           value="false" />
+    <preference name="SuppressesIncrementalRendering"    value="true" />
+    <preference name="TopActivityIndicator"              value="gray" />
+	<preference name="SplashScreenDelay"                 value="0" />
+	<!--<preference name="UIWebViewDecelerationSpeed"        value="fast" />-->
     <!-- Preferences for iOS -->
 
 

@@ -1924,12 +1924,16 @@ function appResizer(time) {
 		}
 		//HOLDER
 		if(!$('#entryListHeight').length) {
-			$('head').append('<style type="text/css" id="entryListHeight"></style>');
+			app.safeExec(function() {
+				$('head').append('<style type="text/css" id="entryListHeight"></style>');
+			});
 		}
 		//IF NEEDED
 		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
 		if(!$('#entryListHeight').html() !== wrapperMinH) {
-			$('#entryListHeight').html(wrapperMinH);
+			app.safeExec(function() {
+				$('#entryListHeight').html(wrapperMinH);
+			});
 		}
 		//
 		$('#appHelper').height($('#appContent').height());
