@@ -1181,9 +1181,9 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #addNewFood,
 #addNewExercise				{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; font-size: 14px; line-height: 44px; display: inline-block; text-align: center; z-index: 50; -webkit-backface-visibility: hidden; }
 #addNewFoodTitle,
-#addNewExerciseTitle		{ position: relative; text-shadow: 0 0 8px #eee; white-space: nowrap; color: #aaa; display: inline-block; margin-right: -18px; }
+#addNewExerciseTitle		{ position: relative; text-shadow: 0 0 8px #eee; white-space: nowrap; color: #007aff; display: inline-block; margin-right: -18px; }
 #addNewFoodTitle span,
-#addNewExerciseTitle span	{ position: absolute; top: 0px; left: -18px; width: 10px; height: 10px; text-align: left; font-size: 13px; font-family: KCals; display: inline-block; color: #999; }
+#addNewExerciseTitle span	{ position: absolute; top: 0px; left: -18px; width: 10px; height: 10px; text-align: left; font-size: 13px; font-family: KCals; display: inline-block; color: #007aff; }
 #addNewFood.active *,
 #addNewExercise.active *	{ color: #444; }
 
