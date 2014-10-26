@@ -1241,7 +1241,8 @@ function addNewItem(addnew) {
 			/////////////////////
 			// INSERT NEW ITEM //
 			/////////////////////
-				updateCustomList('cache');
+				updateCustomList('fav');
+				updateCustomList('items');	
 				//REDO SEARCH
 				if ($('#searchContents').html()) {
 					if ((/0000|exercise/).test(addnew.type) && !$('#foodSearch').hasClass('exerciseType')) {

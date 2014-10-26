@@ -309,6 +309,8 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #logContent							{ font-size: 13px; line-height: 20px; color: #333; padding: 0px 0 14px 18px; }
 #newWindowWrapper.open #logContent,
 #newWindowWrapper.busy #logContent	{ display: block; }
+#newWindowWrapper.busy				{ pointer-events: none; }
+.closer #newWindowWrapper.busy		{ pointer-events: auto; }
 #newWindowWrapper #logContent		{ display: none; }
 #logContent	p						{ position: relative; color: #000; display: block; text-align: left; font-size: 18px; font-weight: 400; margin-top: 9px; padding-top: 12px; padding-right: 12px; margin-bottom: 6px; }
 #logContent p	 					{ border-top: 1px solid #D6D6D6; }
@@ -392,7 +394,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #sliderPro,
 #sliderCar,
 #sliderFat							{ margin: 0 22px 0 7px; position: relative; height: 90px; padding-top: 38px; }
-#sliderPro							{ margin-top: 28px; }
+#sliderPro							{ margin-top: 34px; }
 #sliderProRange,
 #sliderCarRange,
 #sliderFatRange						{ width: 100%; display: block; }
@@ -417,44 +419,14 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #divTimeSpan4						{ left: 75%; }
 #sliderTimeSpan div.activeOption	{ /*background-color: #f6f6f6;*/ border-top: 2px solid rgba(0,122,255,.6); }
 .appLang-fr #sliderTimeSpan			{ font-size: 13px; }
-
-#sliderRatioBy { 
- position: absolute; top: 56px; right: 13px; width: 130px; height: 18px; display: block; 
-font-size: 13px;
-z-index: 100;
-overflow: hidden;
-}
-
-
-
+/*ratio by*/
+#sliderRatioBy						{ position: absolute; top: 59px; right: 13px; width: 127px; height: 18px; display: block; font-size: 13px; z-index: 100; overflow: hidden; }
 #sliderRatioByKcal,
-#sliderRatioByG {
-	background-color: #fff;
-	position: absolute; top: 0; 
-	left: 50%; right: 0;
-	height: 18px; display: block; 
-	text-align: center;
-	border: 1px solid #007aff;
-	color: #007aff;
-	border-radius: 0 3px 3px 0;
-	line-height: 13px;
-}
-#sliderRatioByKcal {
-	left: 0; right: 50%;
-	border-radius: 3px 0 0 3px;	
-	line-height: 16px;
-}
-
+#sliderRatioByG						{ background-color: #fff; position: absolute; top: 0; left: 50%; right: 0; height: 18px; display: block; text-align: center; border: 1px solid #007aff;	color: #007aff; border-radius: 0 3px 3px 0; line-height: 13px; }
+#sliderRatioByKcal					{ left: 0; right: 50%; border-radius: 3px 0 0 3px; line-height: 16px; }
 #sliderRatioByKcal.active,
-#sliderRatioByG.active {
-	color: #fff;
-	background-color: #007aff;
-}
-
-
-
-#sliderRatioBy div + div { border-right: 0; } 
-
+#sliderRatioByG.active				{ color: #fff; background-color: #007aff; }
+#sliderRatioBy div + div			{ border-right: 0; }
 /*#////////////#//
 //# APP CYCLIC #//
 //#////////////#*/
@@ -938,7 +910,9 @@ div.editing p				{ opacity: 1; }
 .sidebar.ios #entryList div			{ padding: 15px 0 2px 0; }
 .sidebar.msie #entryList div		{ padding: 15px 0 2px 0; }
 .sidebar #entryList					{ -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); }
-.sidebar div#noEntries				{ border-left: 3px solid #ccc; padding-left: 3px !important; height: 45px; }
+/*no colapse*/
+div#noEntries						{ height: 45px !important; }
+.sidebar div#noEntries				{ border-left: 3px solid #ccc; padding-left: 3px !important; }
 .sidebar .rowMorning,
 .sidebar .e-rowMorning				{ color: #000; border-left: 3px solid #FFEC3C; }
 .sidebar .rowAfternoon,

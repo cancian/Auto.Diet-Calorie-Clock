@@ -892,7 +892,8 @@ if(app.is.scrollable) {
 				$('#pageSlideFood').remove();
 				//force custom dump/save
 				if(typeof updateCustomList == 'function' && app.read('foodDbLoaded','done')) {
-					updateCustomList('cache');
+					updateCustomList('fav');
+					updateCustomList('items');	
 					updateTodayOverview();
 					intakeHistory();
 					setTimeout(function() {

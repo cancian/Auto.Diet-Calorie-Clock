@@ -878,14 +878,19 @@ function getFood(foodId,callback) {
 // DELETE FOOD //
 /////////////////
 function delFood(foodId, callback) {
+	var rowsArray = [];
 	for(var i=0, len=rowsFood.length; i<len; i++) {
-		if(rowsFood[i].id == foodId) {
-			rowsFood.splice(i,1);
-			break;
+		if(rowsFood[i]) {
+			if(rowsFood[i].id !== foodId) {
+				rowsArray.push(rowsFood[i]);
+			}
 		}
 	}
-	callback();
-	localforage.setItem('diary_food',rowsFood,function(rows) {
+	rowsFood = rowsArray;
+	if(callback) {
+		callback();
+	}
+	localforage.setItem('diary_food',rowsArray,function(rows) {
 		rowsFood = rows;
 	});
 }
@@ -1065,7 +1070,8 @@ function updateFoodDb(callback) {
 										syncEntries(app.read('facebook_userid'));
 									} else {
 										setTimeout(function() {
-											updateCustomList('all');
+											updateCustomList('fav');
+											updateCustomList('items');	
 										},100);
 									}
 									//////////////

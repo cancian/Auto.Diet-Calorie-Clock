@@ -682,7 +682,9 @@ app.handlers = {
 				// BUILD SQL //
 				///////////////
 				if(filter) {
-					rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + data[i].kcal + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + "');\n";
+					if(!rowSql.contains(data[i].id)) {
+						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + data[i].kcal + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + "');\n";
+					}
 				}
 			}
 		}
@@ -865,7 +867,7 @@ if($('#loadMask').html() == '') {
 }
 document.addEventListener("DOMContentLoaded", function(event) {
 	$('body').addClass('domcontentloaded');
-},true);
+},false);
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//

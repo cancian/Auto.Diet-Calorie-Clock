@@ -148,7 +148,7 @@ function initJS() {
 					setTimeout(function() {
 						$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
 					},0);
-				},true);
+				},false);
 			}
 		}
 	} else {
