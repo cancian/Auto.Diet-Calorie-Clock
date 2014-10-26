@@ -1455,20 +1455,6 @@ if(app.device.windows8) {
 			showPendingAlerts();
 		};
 	})();
-	/////////////
-	// LICENSE //
-	/////////////
-	function isInAppPurchaseValid(pName) {
-		//var currentApp = Windows.ApplicationModel.Store.CurrentAppSimulator;
-		var currentApp    = Windows.ApplicationModel.Store.CurrentApp;
-		var inAppLicenses = currentApp.licenseInformation.productLicenses;
-		if(inAppLicenses.hasKey(pName)) {
-			if(inAppLicenses.lookup(pName).isActive) { 
-				return true;
-			}
-		}
-		return false;
-	}
 }
 //#////////////////////////#//
 //# Base64 encode / decode #// 

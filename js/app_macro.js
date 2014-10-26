@@ -613,12 +613,35 @@ function getNutriSliders() {
 		else if(app.read('appNutrientTimeSpan',7))  { $('#divTimeSpan2').addClass('activeOption'); }	
 		else if(app.read('appNutrientTimeSpan',30)) { $('#divTimeSpan3').addClass('activeOption'); }
 		else if(app.read('appNutrientTimeSpan',0))  { $('#divTimeSpan4').addClass('activeOption'); }
+		//////////////
+		// RATIO BY //
+		//////////////
+		$('#sliderRatioByG,#sliderRatioByKcal').on(touchstart,function(evt) {
+			$('#sliderRatioByG,#sliderRatioByKcal').removeClass('active');
+			$('#' + evt.target.id).addClass('active');
+			if(evt.target.id == 'sliderRatioByG') {
+				app.save('appRatioBy','g');
+			} else {
+				app.save('appRatioBy','kcal');
+			}
+			return false;
+		});
+		//
+		if(app.read('appRatioBy','g')) {
+			$('#sliderRatioByG').addClass('active');
+		} else {
+			$('#sliderRatioByKcal').addClass('active');
+		}
 	}
 	////////////////
 	// HTML BLOCK //
 	////////////////
 	var htmlContent = '\
 		<input type="text" id="sliderTotalInput" />\
+		<div id="sliderRatioBy">\
+			<div id="sliderRatioByG">' + LANG.G[lang]       + '</div>\
+			<div id="sliderRatioByKcal">' + LANG.KCAL[lang] + '</div>\
+		</div>\
 		<div id="sliderTimeSpan">\
 			<div id="divTimeSpan1">' + LANG.TODAY[lang]    + '</div>\
 			<div id="divTimeSpan2">' + LANG.LAST_7[lang]   + '</div>\

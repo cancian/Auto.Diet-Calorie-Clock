@@ -282,6 +282,7 @@ function localStorageSql() {
 	if(app.read('config_limit_2'))     { keyList = keyList + '#@@@#' + 'config_limit_2'     + '#@@#' + app.read('config_limit_2');     }	
 	//nutrients
 	if(app.read('appNutrients'))	   { keyList = keyList + '#@@@#' + 'appNutrients' + '#@@#' + app.read('appNutrients');             }
+	if(app.read('appRatioBy'))	       { keyList = keyList + '#@@@#' + 'appRatioBy'   + '#@@#' + app.read('appRatioBy');               }
 	//recents
 	if(app.read('app_recent_items'))   { keyList = keyList + '#@@@#' + 'app_recent_items' + '#@@#' + app.read('app_recent_items');     }
 	//notes
@@ -470,6 +471,7 @@ function setComplete() {
 			updateCustomList('fav');
 			updateCustomList('items');	
 			getCatList();
+			setPush();
 		},200);
 	}
 	//update last sync date

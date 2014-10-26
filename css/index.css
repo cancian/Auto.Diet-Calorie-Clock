@@ -417,6 +417,44 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #divTimeSpan4						{ left: 75%; }
 #sliderTimeSpan div.activeOption	{ /*background-color: #f6f6f6;*/ border-top: 2px solid rgba(0,122,255,.6); }
 .appLang-fr #sliderTimeSpan			{ font-size: 13px; }
+
+#sliderRatioBy { 
+ position: absolute; top: 56px; right: 13px; width: 130px; height: 18px; display: block; 
+font-size: 13px;
+z-index: 100;
+overflow: hidden;
+}
+
+
+
+#sliderRatioByKcal,
+#sliderRatioByG {
+	background-color: #fff;
+	position: absolute; top: 0; 
+	left: 50%; right: 0;
+	height: 18px; display: block; 
+	text-align: center;
+	border: 1px solid #007aff;
+	color: #007aff;
+	border-radius: 0 3px 3px 0;
+	line-height: 13px;
+}
+#sliderRatioByKcal {
+	left: 0; right: 50%;
+	border-radius: 3px 0 0 3px;	
+	line-height: 16px;
+}
+
+#sliderRatioByKcal.active,
+#sliderRatioByG.active {
+	color: #fff;
+	background-color: #007aff;
+}
+
+
+
+#sliderRatioBy div + div { border-right: 0; } 
+
 /*#////////////#//
 //# APP CYCLIC #//
 //#////////////#*/

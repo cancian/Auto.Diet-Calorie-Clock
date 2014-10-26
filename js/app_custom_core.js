@@ -292,9 +292,11 @@ function cyclicTimeToKcals(startTime) {
 //#///////////////////#//
 function updateNutriBars(tPro,tCar,tFat) {
 	if(!app.read('app_last_tab','tab1')) { return; }
-	if(!$('#appStatusBars').length)		 { return; } 	
+	if(!$('#appStatusBars').length)		 { return; }
+	//ratio by	
+	var ratioBy = app.read('appRatioBy','g') ? 4 : 9;
 	//total calories
-	var nTotal  = (tPro*4) + (tCar*4) + (tFat*9);
+	var nTotal  = (tPro*4) + (tCar*4) + (tFat*ratioBy);
 	//return null
 	if(!app.read('appStatus','running') || nTotal == 0) {
 		$('#appStatusBarsPro p').html(LANG.PROTEINS[lang].toUpperCase());
@@ -312,9 +314,9 @@ function updateNutriBars(tPro,tCar,tFat) {
 	//css pseudos
 	updateNutriRatio();
 	//relative total
-	var nPerPro = ( (tPro*4) / nTotal ) * 100;
-	var nPerCar = ( (tCar*4) / nTotal ) * 100;
-	var nPerFat = ( (tFat*9) / nTotal ) * 100;
+	var nPerPro = ( (tPro*4)       / nTotal ) * 100;
+	var nPerCar = ( (tCar*4)       / nTotal ) * 100;
+	var nPerFat = ( (tFat*ratioBy) / nTotal ) * 100;
 	//ratio-relative percent
 	var nProPerRatio = Math.round( (nPerPro / proRatio) * 100);
 	var nCarPerRatio = Math.round( (nPerCar / carRatio) * 100);
