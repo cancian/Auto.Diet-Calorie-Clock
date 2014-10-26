@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# v16600 2014-10-20
+# v16600 2014-10-26
 # APP
 index.html
 version.txt
@@ -24,8 +24,6 @@ js/cordova_plugins.js
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
 js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
-js/plugins/org.apache.cordova.dialogs/src/windows8/NotificationProxy.js
-js/plugins/org.apache.cordova.inappbrowser/src/windows/InAppBrowserProxy.js
 # FACEBOOK
 js/facebook-js-sdk.js
 js/facebook-js-sdk.min.js

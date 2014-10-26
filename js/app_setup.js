@@ -434,7 +434,7 @@ function pushEntries(userId) {
 			$.post(app.https + 'kcals.net/sync.php', { 'sql':fetchEntries,'uid':userId }, function(data) {
 				//clear marker
 				app.remove('lastEntryPush');
-				NProgress.done();
+				$('body').removeClass('insync');
 			}, 'text');
 		}
 	});
@@ -450,7 +450,7 @@ function setPush() {
 //#///////////////////#//
 function setComplete() {
 	//nprogress
-	NProgress.done();
+	$('body').removeClass('insync');
 	//set complete
 	app.remove('pendingSync');
 	if(app.read('foodDbLoaded','done')) {
@@ -618,13 +618,13 @@ function syncEntries(userId) {
 	if(isNaN(userId))                { return; }
 	if(!app.read('facebook_logged')) { return; }
 	if(!app.read('facebook_userid')) { return; }
-	if($('#nprogress').html())       { return; }
+	if($('body').hasClass('insync')) { return; }
 	//OK, UPDATE TIME
 	app.save('pendingSync',app.now());
 	var demoRunning = false;
 	if(!demoRunning) {
 		demoRunning = true;
-		NProgress.start();
+		$('body').addClass('insync')
 		//get remote sql
 		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
 			sql = sql.split('undefined').join('');
@@ -2025,6 +2025,7 @@ function getRateDialog() {
 ///////////////////
 app.analytics = function(target) {
 	if(typeof ga_storage === 'undefined')				{ return; }
+	if(typeof baseVersion === 'undefined')				{ return; }
 	//not dev
 	if(app.read('config_debug','active'))				{ return; }
 	if(app.read('facebook_userid',1051211303))			{ return; }
@@ -2067,7 +2068,7 @@ function getAnalytics(action) {
 // GET LOGOUT FB //
 ///////////////////
 function getLogoutFB(button) {
-	NProgress.done();
+	$('body').removeClass('insync')
 	if(button == 1) {
 		app.remove('facebook_logged');
 		app.remove('facebook_userid');

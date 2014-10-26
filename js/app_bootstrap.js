@@ -14,7 +14,7 @@ $.ajaxSetup({cache: false, crossDomain: true, async:true,  error: function(jqXHR
 	else                                  { console.log('Uncaught Error.\n' + jqXHR.responseText); }
 	setTimeout(function() {
 		if(typeof spinner !== 'undefined') {
-			NProgress.done();
+			$('body').removeClass('insync');
 			spinner('stop');
 			$('body').removeClass('loading');
 			$('body').removeClass('uptodate');

@@ -39,7 +39,7 @@ app.tab.settings = function(keepOpen) {
 	}
 	$("#optionLastSync").on(touchend,function(evt) {
 		evt.preventDefault();
-		if(!$("#nprogress").html()) {
+		if(!$('body').hasClass('insync')) {
 			syncEntries(app.read('facebook_userid'));
 		}
 		return false;
@@ -116,7 +116,7 @@ app.tab.settings = function(keepOpen) {
 		if(app.device.android) {
 			updateFoodDb();
 		}
-		if(!$("#nprogress").html()) {
+		if(!$('body').hasClass('insync')) {
 			if(app.read('facebook_logged')) {
 				//CONFIRM DIALOG
 				appConfirm(LANG.LOGOUT_TITLE[lang], LANG.ARE_YOU_SURE[lang], getLogoutFB, LANG.OK[lang], LANG.CANCEL[lang]);

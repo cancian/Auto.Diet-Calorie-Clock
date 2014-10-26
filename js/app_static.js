@@ -112,6 +112,7 @@ $('body').prepend('\
 		<div id="timerBlocks">\
 			<div id="timerDaily"><input id="timerDailyInput" type="number" value="' + app.get.kcals() + '" /><span>' + LANG.DAILY_CALORIES[lang] + '</span></div>\
 		</div>\
+		<div id="appHeaderIcon"><span></span></div>\
 	</div>\
 	<div id="loadingDiv"><input readonly="readonly" id="lid" value="0" type="text" /></div>\
 	<div id="appContent"></div>\

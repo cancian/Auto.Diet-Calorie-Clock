@@ -92,10 +92,14 @@ $(document).on("pageload", function (evt) {
 		// TAP DATE //
 		//////////////
 		if (event.target.id.length == 14 && !$('#entryList div').is(':animated') && !$("#timerDailyInput").is(":focus")) {
-			$("#" + event.target.id).html(dtFormat(Number(event.target.id.replace("t", ""))));
-			setTimeout(function () {
-				$("#" + event.target.id).html(dateDiff(event.target.id.replace("t", ""), (new Date()).getTime()));
-			}, 2000);
+			if(!$('.editableInput').is(':visible')) {
+				$("#" + event.target.id).html(dtFormat(Number(event.target.id.replace("t", ""))));
+				setTimeout(function () {
+					if(!$('.editableInput').is(':visible')) {
+						$("#" + event.target.id).html(dateDiff(event.target.id.replace("t", ""), (new Date()).getTime()));
+					}
+				}, 2000);
+			}
 			entryReturn = true;
 		}
 		//////////////////

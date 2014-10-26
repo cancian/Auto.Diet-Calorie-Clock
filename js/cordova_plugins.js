@@ -18,18 +18,6 @@
 				"clobbers" : [
 					"window.open"
 				]
-			}, {
-				"file" : "plugins/org.apache.cordova.inappbrowser/src/windows/InAppBrowserProxy.js",
-				"id" : "org.apache.cordova.inappbrowser.InAppBrowserProxy",
-				"merges" : [
-					""
-				]
-			}, {
-				"file" : "plugins/org.apache.cordova.dialogs/src/windows8/NotificationProxy.js",
-				"id" : "org.apache.cordova.dialogs.NotificationProxy",
-				"merges" : [
-					""
-				]
 			}
 		];
 	});
