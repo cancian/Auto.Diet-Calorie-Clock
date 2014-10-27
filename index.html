@@ -46,11 +46,11 @@ body.unloaded #loadMask span {
 	padding: 12px;
 	margin-top: -10px;
 	margin-left: -14px;
-	border-radius: 100px;
+	border-radius: 24px;
 }
-@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
-@-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
-@-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
+@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotateZ(0deg); } 100% { -webkit-transform: rotateZ(360deg); }}
+@-moz-keyframes rotate		{ 0% { -moz-transform: rotateZ(0deg);    } 100% { -moz-transform: rotateZ(360deg);    }}
+@-ms-keyframes rotate		{ 0% { -ms-transform: rotateZ(0deg);     } 100% { -ms-transform: rotateZ(360deg);     }}
 body.unloaded * {
 	pointer-events: none;
 }
@@ -70,6 +70,12 @@ body.unloaded * {
 <meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 <!--###########################################-->
 <script type="text/javascript">
+////////////////
+// HTTP CACHE //
+////////////////
+if(!/http/i.test(window.location.protocol)) {
+	document.getElementsByTagName('html')[0].removeAttribute('manifest');
+}
 ////////////////////	
 // DETECT OFFLINE //
 ////////////////////
