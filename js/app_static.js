@@ -988,6 +988,7 @@ if(app.is.scrollable) {
 		setTimeout(function() {
 			updateTodayOverview();
 			intakeHistory();
+			setPush();
 		},1000);
 		//BLUR
 		if(app.device.desktop) {

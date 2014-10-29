@@ -116,11 +116,12 @@ app.tab.settings = function(keepOpen) {
 		if(app.device.android) {
 			updateFoodDb();
 		}
-		if(!$('body').hasClass('insync')) {
+		if(!$('body').hasClass('insync') && !$('body').hasClass('setpush')) {
 			if(app.read('facebook_logged')) {
 				//CONFIRM DIALOG
 				appConfirm(LANG.LOGOUT_TITLE[lang], LANG.ARE_YOU_SURE[lang], getLogoutFB, LANG.OK[lang], LANG.CANCEL[lang]);
 			} else {
+				app.remove('app_restart_pending');
 				setTimeout(function() {
 					getLoginFB();
 				},100);
