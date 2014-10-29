@@ -349,7 +349,7 @@ app.tab.status = function(keepOpen) {
 		if(app.read('appStatus','running')) {
 			function appReset(button) {
 				//ON CONFIRM
-				if(button == 1) {
+				if(button === 2) {
 					setPush();
 					$('#appStatus').removeClass('reset');
 					$('#appStatus').addClass('start');
@@ -825,7 +825,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			//PROMPT AUTOSTART
 			if(app.read('appStatus') != 'running') {
 				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
-					if(button == 1) {
+					if(button === 2) {
 						app.save('config_start_time',published);
 						app.save('appStatus','running');
 						app.exec.updateEntries();
@@ -1026,7 +1026,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	app.handlers.activeRow('#entryListBottomBar','activeRow',function() {
 		//CONFIRM DIALOG
 		appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
-			if(button == 1) {
+			if(button === 2) {
 				clearEntries(function() {
 					app.exec.updateEntries();
 					$(window).trigger('orientationchange');

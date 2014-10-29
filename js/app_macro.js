@@ -1492,7 +1492,7 @@ function buildAdvancedMenu() {
 	//$('#advancedReload').on(tap,function(evt) {
 		//evt.preventDefault();
 		function onConfirmReloadDB(button) {
-			if(button == 1) {
+			if(button === 2) {
 				app.remove('foodDbLoaded');
 				app.remove('startLock');
 				updateFoodDb();
@@ -1523,7 +1523,7 @@ function buildAdvancedMenu() {
 		//evt.preventDefault();
 		//SHOW DIALOG
 		appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
-			if(button == 1) {
+			if(button === 2) {
 				$('#advancedReset').off();
 				deSetup();
 				return false;
@@ -1577,8 +1577,8 @@ function buildAdvancedMenu() {
 	app.handlers.activeRow('#appAutoUpdateButton','button',function(evt) {
 	//$("#appAutoUpdateButton").on(tap,function(evt) {
 		//evt.stopPropagation();
-		function quickReboot(ok) {
-			if(ok == 1) {
+		function quickReboot(button) {
+			if(button === 2) {
 				afterHide();
 			}
 		}
@@ -1760,7 +1760,7 @@ function getCatList(callback) {
 			/////////////
 			var catListConfirm = (catCode == 0001) ? function() {
 				appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
-					if(button == 1) {
+					if(button === 2) {
 						$('#newWindow .searcheable').remove();
 						$('#newWindow').prepend('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 						app.remove('app_recent_items');

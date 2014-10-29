@@ -112,7 +112,7 @@ $('body').prepend('\
 		<div id="timerBlocks">\
 			<div id="timerDaily"><input id="timerDailyInput" type="number" value="' + app.get.kcals() + '" /><span>' + LANG.DAILY_CALORIES[lang] + '</span></div>\
 		</div>\
-		<div id="appHeaderIcon"><span></span></div>\
+		<div id="appHeaderIcon"><span></span><p></p></div>\
 	</div>\
 	<div id="loadingDiv"><input readonly="readonly" id="lid" value="0" type="text" /></div>\
 	<div id="appContent"></div>\
@@ -662,7 +662,7 @@ if(app.device.osxapp) {
 		macgap.menu.getItem('KCals').submenu().addSeparator();
 		macgap.menu.getItem('KCals').submenu().addItem(LANG.SETTINGS_WIPE[lang], 'cmd+opt+r', function() {
 			appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
-				if(button == 1) {
+				if(button === 2) {
 					deSetup();
 					return false;
 				}

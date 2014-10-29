@@ -1661,7 +1661,7 @@ function unzip(s) {
 var MSDialog;
 var MSNext = [];
 function appConfirm(title, msg, callback, ok, cancel) { 
-	var okCancel = (cancel == 'hide') ? [ok] : [ok, cancel];
+	var okCancel = (cancel == 'hide') ? [ok] : [cancel, ok];
 	///////////
 	// MSAPP //
 	///////////
@@ -1691,10 +1691,10 @@ function appConfirm(title, msg, callback, ok, cancel) {
 			md.showAsync()
 			.then(function (command) {
 				if (command.label == ok) {
-					callback(1);
+					callback(2);
 				}
 				if (command.label == cancel) {
-					callback(0);
+					callback(1);
 				}
 			})
 			.done(function () {
@@ -1718,9 +1718,9 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	//////////////
 	} else {
 		if (confirm(title + "\n" + msg)) {
-			callback(1);
+			callback(2);
 		} else {
-			callback(0);
+			callback(1);
 		}
 	}
 }

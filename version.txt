@@ -4,7 +4,8 @@
 # 1.6.7 [2014/10/08]
 • Macronutrient average can be calculated by weight (g) or by total calories (kcal)
 • Fixed an issue with food/favs not being synced
-• Sync indicator changed from progress bar to spinner
+• New sync activity indicator (spinner)
+• Confirmation prompt default format: [cancel] [ok]
 
 # 1.6.3 [2014/10/08]
 • Approximate conversions table

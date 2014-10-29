@@ -15,6 +15,7 @@ $.ajaxSetup({cache: false, crossDomain: true, async:true,  error: function(jqXHR
 	setTimeout(function() {
 		if(typeof spinner !== 'undefined') {
 			$('body').removeClass('insync');
+			$('body').removeClass('setpush');
 			spinner('stop');
 			$('body').removeClass('loading');
 			$('body').removeClass('uptodate');
@@ -194,8 +195,8 @@ function buildRemoteSuperBlock(opt) {
 			if(window.localStorage.getItem('app_notify_update')) {
 				setTimeout(function() {
 					if(typeof appConfirm == 'function') {
-						function quickReboot(ok) {
-							if(ok == 1) {
+						function quickReboot(button) {
+							if(button === 2) {
 								afterHide();
 							} else {
 								window.localStorage.setItem('app_restart_pending',true);

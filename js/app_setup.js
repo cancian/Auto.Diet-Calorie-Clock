@@ -432,9 +432,12 @@ function pushEntries(userId) {
 		if(fetchEntries == ' ' || !fetchEntries) { fetchEntries = ' '; }
 		if(fetchEntries) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
+			//set push
+			$('body').addClass('setpush');
 			$.post(app.https + 'kcals.net/sync.php', { 'sql':fetchEntries,'uid':userId }, function(data) {
 				//clear marker
 				app.remove('lastEntryPush');
+				$('body').removeClass('setpush');
 				$('body').removeClass('insync');
 			}, 'text');
 		}
@@ -2020,7 +2023,7 @@ function getRateDialog() {
 			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function(button) {
 				app.save('getRate','locked');
 				app.analytics('rate');
-				if(button == 1) {
+				if(button === 2) {
 					app.analytics('vote');
 					app.url();
 				}
@@ -2076,8 +2079,9 @@ function getAnalytics(action) {
 // GET LOGOUT FB //
 ///////////////////
 function getLogoutFB(button) {
-	$('body').removeClass('insync')
-	if(button == 1) {
+	$('body').removeClass('insync');
+	$('body').removeClass('setpush');
+	if(button === 2) {
 		app.remove('facebook_logged');
 		app.remove('facebook_userid');
 		app.remove('facebook_username');

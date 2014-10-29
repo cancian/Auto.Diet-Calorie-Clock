@@ -221,7 +221,7 @@ $(document).on("pageload", function (evt) {
 						function intoTheVoid(button) {
 							//ON CONFIRM
 							timedBlur = new Date().getTime();
-							if (button == 1) {
+							if (button === 2) {
 								$("#" + thisRowId + " " + ".entriesTitle").html("0");
 								$("#" + thisRowId + " " + ".entriesTitle").css("color", "#333");
 								//save
@@ -1592,7 +1592,7 @@ function getModalWindow(itemId) {
 				///////////////////////
 				if (!app.read('appStatus','running')) {
 					appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
-						if (button == 1) {
+						if (button === 2) {
 							app.save('config_start_time',saveTime);
 							app.save('appStatus','running');
 							$('#appStatusTitle').html(LANG.RESET[lang]);
@@ -1640,7 +1640,7 @@ function getModalWindow(itemId) {
 		////////////////////
 		modal.remove = function() {
 			appConfirm(LANG.DELETE_ITEM[lang], LANG.ARE_YOU_SURE[lang], function(button) {
-				if (button == 1) {
+				if (button === 2) {
 					modal.close();			
 					setTimeout(function() {
 						delFood(modal.id,function() {
