@@ -125,12 +125,10 @@ function appTimer(content) {
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
 	
 	if(app.device.wp8) {
-		timerDiff = timerDiff*6;
+		timerDiff = timerDiff*3;
 	} else {
-		timerDiff = timerDiff*2;
+		timerDiff = timerDiff*1.3;
 	}
-	if(timerDiff > 800) { timerDiff = 800; }
-	if(timerDiff < 200) { timerDiff = 200; }
 	/////////////////////
 	// pre-show reward //
 	/////////////////////
@@ -150,6 +148,10 @@ function appTimer(content) {
 				navigator.splashscreen.hide();
 			}
 		}
+	} else {
+		//POST THROTTLE
+		if(timerDiff > 999) { timerDiff = 999; }
+		if(timerDiff < 100) { timerDiff = 100; }
 	}
 }
 //#////////////////////////#//

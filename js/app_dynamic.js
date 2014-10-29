@@ -896,16 +896,16 @@ function doSearch(rawInput) {
 			// DISPLAY RESULTS //
 			/////////////////////
 			//matches number
-			$("#menuTopBar").hide();
-			$("#infoContents").hide();
+			$('#menuTopBar').hide();
+			$('#infoContents').hide();
 			//prevent overflow blinking
-			$("#searchContents").hide();
-			$("#searchContents").html('');
+			$('#searchContents').hide();
+			$('#searchContents').html('');
 			//if empty
-			//if (foodList == "") {
+			//if (foodList == '') {
 			if (foodList.contains('noContent')) {
-				if ($("#foodSearch").val() != "") {
-					$("#searchContents").html('<span id="noMatches"> ' + LANG.NO_MATCHES[lang] + ' </span>');
+				if ($('#foodSearch').val() != '') {
+					$('#searchContents').html('<span id="noMatches"> ' + LANG.NO_MATCHES[lang] + ' </span>');
 				} else {
 					//buildFoodMenu();
 					$('#searchContents').hide();
@@ -913,12 +913,15 @@ function doSearch(rawInput) {
 					$('#infoContents').show();
 				}
 			} else {
-				$("#searchContents").html(foodList);
+				$('#searchContents').html(foodList);
 			}
-			$("#searchContents").show();
+			//chrome height fix
+			$('#searchContents').css('min-height',$('#pageSlideFood').height() + 'px');
+			//
+			$('#searchContents').show();
 			niceResizer(200);
 			//enforce clearIcon display
-			if ($("#foodSearch").val().length != 0) {
+			if ($('#foodSearch').val().length != 0) {
 				$('#iconRefresh').hide();
 				$('#iconClear').show();
 			} else {

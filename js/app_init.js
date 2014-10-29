@@ -145,7 +145,7 @@ function initJS() {
 			if(!document.getElementById('superBlockCSS')) {
 				document.write('<style type="text/css" id="superBlockCSS">' + window.localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
 				//JS
-				document.addEventListener('DOMContentLoaded', function(event) {
+				document.addEventListener('DOMContentLoaded', function() {
 					setTimeout(function() {
 						$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
 					},0);
