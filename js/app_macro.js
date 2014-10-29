@@ -673,6 +673,83 @@ function getNutriSliders() {
 //## TODAYOVERVIEW ##//
 //##///////////////##//
 function updateTodayOverview() {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*
+$('#appStatusWeight div p').highcharts({
+	reflow : false,
+	colors : ['#2f7ed8', '#ee704e', '#f5f5f5'],
+	credits : {
+		enabled : false
+	},
+	chart : {
+		reflow : false,
+		spacingLeft : 0,
+		spacingRight : 0,
+		spacingTop : 18,
+		spacingBottom : 0,
+		height : 56,
+		width : 56,
+		plotBackgroundColor : '#fff',
+		plotBorderWidth : 0,
+		plotShadow : false
+	},
+	title : {
+		text : ''
+	},
+	tooltip : {
+		pointFormat : ''
+	},
+	plotOptions : {
+		pie : {
+			color : '#fff',
+			allowPointSelect : false,
+			cursor : 'pointer',
+			dataLabels : {
+				enabled : false,
+			},
+		}
+	},
+	series : [{
+			type : 'pie',
+			name : 'Browser share',
+			color : '#fff',
+			innerSize : '5',
+			size : '4',
+
+			animation : false,
+			data : [
+				['Fill', 1440],
+				['Fill', 0],
+				['Left', 600]
+			]
+		}
+	]
+
+});
+*/
+/*
+$("#appStatusWeight").html('\
+                <div class="c100 p19">\
+                    <span>19%</span>\
+                    <div class="slice">\
+                        <div class="bar"></div>\
+                        <div class="fill"></div>\
+                    </div>\
+                </div>\
+');
+
+return;
+*/
 	////////////
 	// DEFINE //
 	////////////

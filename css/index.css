@@ -585,6 +585,9 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #elapsedIndicators div#ind3					{ margin-left: 10px;  }
 /**/
 #appStatusWeight					{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
+/*
+#appStatusWeight					{ font-size: 46pt; }
+*/
 #appStatusWeight div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
 #appStatusWeight span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 #appStatusWeight strong				{ font-weight: normal; opacity: .55; }

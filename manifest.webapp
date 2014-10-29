@@ -25,7 +25,7 @@
 		"*"
 	],
 	"default_locale" : "en-us",
-	"size": 2412346,
+	"size": 2312346,
 	"locales" :
 	{
 		"en" :    { "name": "Calorie Counter"		},
