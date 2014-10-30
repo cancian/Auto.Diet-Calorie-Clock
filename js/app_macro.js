@@ -673,17 +673,6 @@ function getNutriSliders() {
 //## TODAYOVERVIEW ##//
 //##///////////////##//
 function updateTodayOverview() {
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 /*
 $('#appStatusWeight div p').highcharts({
 	reflow : false,
@@ -736,8 +725,8 @@ $('#appStatusWeight div p').highcharts({
 	]
 
 });
-*/
-/*
+
+
 $("#appStatusWeight").html('\
                 <div class="c100 p19">\
                     <span>19%</span>\

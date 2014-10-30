@@ -121,11 +121,13 @@ body.loadingMask #loadMask:before {
 /*###############
 ## CSS CIRCLES ##
 ###############*/
-.c100 *,.c100:before,.c100:after	{ -webkit-box-sizing: content-box !important; }
-.c100			 	{ position: relative; width: 1em; height: 1em; border-radius: 50%; float: left; margin: 0 .1em .1em 0; background-color: #eee; }
+.c100 *,
+.c100:before,
+.c100:after			{ -webkit-box-sizing: content-box !important; }
+.c100			 	{ position: relative; width: 60px; height: 60px; border-radius: 50%; float: left; margin: 2px 0 0 2.8%; background-color: #e4e4e4; }
 .c100.center		{ float: none; margin: 0 auto; }
 .c100 > span		{ position: absolute; width: 100%; z-index: 1; left: 0; top: 0; width: 5em; line-height: 5em; font-size: .2em; color: #ccc; display: block; text-align: center; white-space: nowrap; -webkit-transition: all .2s ease-out; }
-.c100:after			{ position: absolute; top: .08em; left: .08em; display: block; content: " "; border-radius: 50%; background-color: #fff; width: .82em; height: .82em; -webkit-transition: all .2s ease-in; }
+.c100:after			{ position: absolute; top: 4px; left: 4px; width: 52px; height: 52px; display: block; content: " "; border-radius: 50%; background-color: #fff;  -webkit-transition: all .2s ease-in; }
 .c100 .slice		{ position: absolute; width: 1em; height: 1em; clip: rect(0em,1em,1em,0.5em); }
 .c100 .bar,
 .c100 .fill			{ border-color: #007aff !important; }

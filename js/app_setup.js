@@ -1041,18 +1041,20 @@ function updateFoodDb(callback) {
 			////////////
 			// IMPORT //
 			////////////
-			function doImport(dbExt) {
+			function doImport() {
 				spinner();
 				foodDbTimer = setTimeout(function() {
 					try{
-						$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/searchdb_' + langDB + dbExt, success: function(ls) {
+						$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/searchdb_' + langDB + '.db', success: function(ls) {
 							var rowsArray = [];
 							//PARSE
 							ls = ls.split('lib2.insert("diary_food", ').join('');
 							ls = ls.split(');').join('');
 							ls = ls.split('\n');
 							for(var l=0, llen=ls.length; l<llen; l++) {
-								rowsArray.push(JSON.parse(ls[l]));
+								try {
+									rowsArray.push(JSON.parse(ls[l]));
+								} catch(e) {}
 							}
 							//REINSERT
 							var postCustom = '';
@@ -1099,17 +1101,7 @@ function updateFoodDb(callback) {
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
-		if(app.device.ios) {
-			doImport('.db');
-		} else {
-			var ajaxAction = app.device.windows8 || app.device.wp81JS ? 'GET' : 'HEAD';
-			setTimeout(function() {
-				$.ajax({ url: hostLocal + 'sql/searchdb_' + langDB + '.db', type: ajaxAction,
-					success: function() { doImport('.db');  },
-					error: function()   { doImport('.sql'); }
-				});
-			},100);
-		}
+		doImport();
 	}
 }
 ///////////////////

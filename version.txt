@@ -6,6 +6,7 @@
 • Fixed an issue with food/favs not being synced
 • New sync activity indicator (spinner)
 • Confirmation prompt default format: [cancel] [ok]
+• Added start-up check for locked databases
 
 # 1.6.3 [2014/10/08]
 • Approximate conversions table

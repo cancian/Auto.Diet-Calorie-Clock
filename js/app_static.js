@@ -37,6 +37,10 @@ $(document).on('resume',function() {
 			app.reboot('now');
 		}
 	}
+	//fix locked dbs
+	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
+		app.remove('startLock');
+	}
 });
 ///////////////////////
 // VISIBILITY CHANGE //
@@ -63,6 +67,10 @@ $(window).on('pause',function() {
 //##///////////##//
 function startApp() {
 try {
+	//fix locked dbs
+	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
+		app.remove('startLock');
+	}
 ///////////////
 // KICKSTART //
 ///////////////
@@ -357,13 +365,19 @@ $(document).on('pressenter', function(evt) {
 // KEYCODE LISTENER //
 //////////////////////
 $(document).keydown(function(e) {
-	if(app.device.osxapp) {
+	if((/18|81/).test(e.keyCode)) {
+		app.timers.keystrokeLock = 1;
+	}
+	if(app.device.osxapp && app.timers.keystrokeLock !== 1) {
 		if(!$('input,input[type="number"]select,textarea').is(':focus')) {
 			e.preventDefault();	
 		}
 	}
 });
 $(document).keyup(function(e) {
+	if(e.keyCode == 81) {
+		app.timers.keystrokeLock = 0;
+	}
 	if($('body').hasClass('spinnerMask')) { return false; }
 	if(e.keyCode == 13) { $(document).trigger('pressenter'); }
 	if(e.keyCode == 27) { $(document).trigger('backbutton'); }

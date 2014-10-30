@@ -146,6 +146,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 .surplus #appFooter li.selected:before	{ color: #309030; }
 /*sync icon*/
 #appHeaderIcon				{ display: none; }
+.appDebug #appHeaderIcon,
 .appFacebook #appHeaderIcon	{ display: block; }
 #appHeaderIcon				{ position: absolute; top: 4px; right: 3px; width: 18px; height: 18px; z-index: 100; overflow: hidden; -webkit-backface-visibility: hidden; -webkit-user-select: none; -ms-user-select: none; pointer-events: none; }
 .started #appHeaderIcon span{ -webkit-animation: rotate 1000ms infinite linear; -webkit-animation-play-state: paused !important; border: 2px solid rgba(255,255,255,.28); border-top-color: #fff; border-left-color: #fff; -webkit-animation-fill-mode: forwards; -webkit-backface-visibility: hidden; position: absolute; display: block; top: 0; left: 0; width: 0; height: 0; padding: 5px; border-radius: 100px; }
@@ -155,6 +156,10 @@ body.android ::-webkit-scrollbar{ display: none; }
 .started #appHeaderIcon p	{ -webkit-animation-fill-mode: forwards; -webkit-backface-visibility: hidden; position: absolute; display: block; top: 3px; right: 7px; width: 0px; height: 0px; padding: 3px; border-radius: 9px; background-color: #fff; border: 1px solid #fff; }
 .setpush #appHeaderIcon p	{ -webkit-animation: scaleout 1000ms infinite linear; }
 .appDebug #appHeaderIcon p	{ background-color: #0f0; border: 1px solid #0c0; }
+.appFacebook #appHeaderIcon	{ display: block; }
+.appDebug #appHeaderIcon p	{ background-color: #0f0; border: 1px solid #0c0; }
+.appDebug #appHeaderIcon span { display: none; }
+.appDebug.appFacebook #appHeaderIcon span { display: block; }
 /*footer icons*/
 #appFooter li:before					{ display: block; font-family: 'KCals'; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
 #appFooter li							{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal;  -webkit-backface-visibility: hidden; position: relative; }
