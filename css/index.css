@@ -144,7 +144,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 .deficit #appFooter li.selected:before	{ color: #C85834; }
 .surplus #appFooter li.selected,
 .surplus #appFooter li.selected:before	{ color: #309030; }
-/*sync icon*/
+/*sync icon
 #appHeaderIcon				{ display: none; }
 .appDebug #appHeaderIcon,
 .appFacebook #appHeaderIcon	{ display: block; }
@@ -159,6 +159,24 @@ body.android ::-webkit-scrollbar{ display: none; }
 .appFacebook #appHeaderIcon	{ display: block; }
 .appDebug #appHeaderIcon p	{ background-color: #0f0; border: 1px solid #0c0; }
 .appDebug #appHeaderIcon span { display: none; }
+.appDebug.appFacebook #appHeaderIcon span { display: block; }
+*/
+#appHeaderIcon					{ display: none; }
+.appDebug #appHeaderIcon,
+.appFacebook #appHeaderIcon		{ display: block; }
+#appHeaderIcon					{ position: absolute; top: 4px; right: 3px; width: 18px; height: 18px; z-index: 100; /*overflow: hidden; -webkit-backface-visibility: hidden;*/ -webkit-user-select: none; -ms-user-select: none; pointer-events: none; }
+.started #appHeaderIcon span	{ -webkit-animation: rotate 1000ms infinite linear; -webkit-animation-play-state: paused; border: 2px solid rgba(255,255,255,.28); border-top-color: #fff; border-left-color: #fff; /*-webkit-animation-fill-mode: forwards; -webkit-backface-visibility: hidden;*/ position: absolute; display: block; top: 0; left: 0; width: 0; height: 0; padding: 5px; border-radius: 100px; }
+.android #appHeaderIcon span	{ -webkit-animation-name: bug; }
+.insync #appHeaderIcon span		{ -webkit-animation: rotate 1000ms infinite linear; -webkit-animation-play-state: running; }
+.ios7 #appHeaderIcon			{ top: 18px; }
+@-webkit-keyframes scaleout		{ 0% { opacity: 1; } 25% { -webkit-transform: scale(1.0); } 100% {  -webkit-transform: scale(0); }}
+.started #appHeaderIcon p		{ -webkit-animation-fill-mode: forwards; /*-webkit-backface-visibility: hidden;*/ position: absolute; display: block; top: 3px; right: 7px; width: 0px; height: 0px; padding: 3px; border-radius: 9px; background-color: #fff; border: 1px solid #fff; }
+.android #appHeaderIcon p		{ -webkit-animation-name: bug; }
+.setpush #appHeaderIcon p		{ -webkit-animation: scaleout 1000ms infinite linear; }
+.appDebug #appHeaderIcon p		{ background-color: #0f0; border: 1px solid #0c0; }
+.appFacebook #appHeaderIcon		{ display: block; }
+.appDebug #appHeaderIcon p		{ background-color: #0f0; border: 1px solid #0c0; }
+.appDebug #appHeaderIcon span	{ display: none; }
 .appDebug.appFacebook #appHeaderIcon span { display: block; }
 /*footer icons*/
 #appFooter li:before					{ display: block; font-family: 'KCals'; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
@@ -581,14 +599,20 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusBalance div			{ padding-top: 15px; text-align: center; display: block; font-size: 14px; }
 #appStatusBalance span			{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
+/*
 .deficit #appStatusBalance.over	{ background-color: #fff; border-color: #E3825F; border-color: rgba(227,130,95,.5); }
 .surplus #appStatusBalance.over { background-color: #fff; border-color: #58B558; border-color: rgba(88,181,88,.5); }
+*/
 /*/////////////////////
 // color balance bar //
 /////////////////////*/
 #balanceBar						{ position: absolute; bottom: 0px; left: -2px; right:  11px; height: 3px; padding: 0; }
-#balanceBar:before				{ position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#E3825F), color-stop(25.5%,#207cca), color-stop(73.9%,#207cca), color-stop(73.9%,#58B558)); 	background: -webkit-linear-gradient(left,                                  #E3825F 25.5%,             #207cca 25.5%,             #207cca 73.9%,             #58B558 73.9%); content: ' '; }
+#balanceBar:before				{ background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#EE8176), color-stop(25.5%,#3DB3E2), color-stop(73.9%,#3DB3E2), color-stop(73.9%,#63C980)); 
+								  background: -webkit-linear-gradient(left,                                  #EE8176 25.5%,             #3DB3E2 25.5%,             #3DB3E2 73.9%,             #63C980 73.9%);
+								  content: ' '; position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; }
 #balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: 'KCals'; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
+.deficit #appStatusBalance.over #balanceBar:after	{ color: #EE8176; color: #C85834; }
+.surplus #appStatusBalance.over #balanceBar:after	{ color: #63C980; color: #309030; }
 /**/
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; }
 #appStatusIntake div			{ padding-top: 17px; display: block; font-size: 14px; position: relative; }

@@ -8,9 +8,9 @@ function getFullHistory() {
 	var day         = 60*60*24*1000;
 	var week        = day*7;
 	var month       = day*30;
-	var months      = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+	var months      = ['January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December'];
 	var monthName   = months[new Date().getMonth()];
-	var todaysTime  = Date.parse(new Date(monthName + " " +  new Date().getDate() + ", " + new Date().getFullYear()));
+	var todaysTime  = Date.parse(new Date(monthName + ' ' +  new Date().getDate() + ', ' + new Date().getFullYear()));
 	/////////////////
 	// GET ENTRIES //
 	/////////////////
@@ -74,7 +74,7 @@ function getFullHistory() {
 				///////////////
 				// MIN WIDTH //
 				///////////////
-				var minWidth = $("#appContent").width() / dayArray.length;
+				var minWidth = $('#appContent').width() / dayArray.length;
 				if (minWidth < 20) {
 					minWidth = 20;
 				}
@@ -82,8 +82,8 @@ function getFullHistory() {
 					minWidth = 100;
 				}
 				minWidth = dayArray.length * minWidth;
-				if (minWidth < $("#appContent").width()) {
-					minWidth = $("#appContent").width();
+				if (minWidth < $('#appContent').width()) {
+					minWidth = $('#appContent').width();
 				}
 				////////////////
 				// STATISTICS //
@@ -96,7 +96,7 @@ function getFullHistory() {
 						spacingRight : 0,
 						spacingTop : 0,
 						spacingBottom : 9,
-						height : $("#newWindow").height() - heightAdjust,
+						height : $('#newWindow').height() - heightAdjust,
 						width : minWidth
 					},
 					credits : {
@@ -168,7 +168,7 @@ function getFullHistory() {
 						}
 					},
 					series : [{
-							type : 'line',
+							type : 'area',
 							name : LANG.KCAL[lang],
 							animation : false,
 							data : dayArray.sort()
@@ -184,7 +184,7 @@ function getFullHistory() {
 		//////////
 		// HTML //
 		//////////
-		var appHistoryHtml = "<div id='appHistory'></div>";
+		var appHistoryHtml = '<div id="appHistory"></div>';
 		/////////////////
 		// CALL WINDOW //
 		/////////////////
@@ -234,7 +234,7 @@ function intakeHistory() {
 	var past6days = DayUtcFormat(now - (day*6));
 	var past7days = DayUtcFormat(now - (day*7));
 	//weekday lang array
-	var weekdaysArray = LANG.WEEKDAY_SHORT[lang].split(", ");
+	var weekdaysArray = LANG.WEEKDAY_SHORT[lang].split(', ');
 	//parse date as time
 	var past0daysTime = Date.parse(DayUtcFormat(past0days));
 	var past1daysTime = Date.parse(DayUtcFormat(past1days));
@@ -341,7 +341,7 @@ function intakeHistory() {
 		// GENERATE CHART //
 		////////////////////
 		$('#appStatusIntake div').css('padding-top', '0px');
-		var catFontSize = lang == "fa" ? '8px' : '9px';
+		var catFontSize = lang == 'fa' ? '8px' : '9px';
 		var spacingBottom = Highcharts.product.contains('4.0') ? 0 : -12
 		if(app.device.android2) { spacingBottom = -16; }
 		//check exists
@@ -350,12 +350,12 @@ function intakeHistory() {
 		$('#appStatusIntake').highcharts({
 			chart : {
 				reflow: false,
-				spacingLeft   : $("#appStatusIntake").width() / -6,
-				spacingRight  : $("#appStatusIntake").width() / -7.2,
+				spacingLeft   : $('#appStatusIntake').width() / -6,
+				spacingRight  : $('#appStatusIntake').width() / -7.2,
 				spacingTop    : -1,
 				spacingBottom : spacingBottom,
 				height : (hasTap() || app.device.osx) ? 64 : 66,
-				width : $("#appStatusIntake").width()
+				width : $('#appStatusIntake').width()
 			},
 			credits : {
 				enabled : false
@@ -373,7 +373,7 @@ function intakeHistory() {
 				categories : ['', past4daysLabel, past3daysLabel, past2daysLabel, past1daysLabel, ''],
 				labels : {
 					style : {
-						color : "rgba(47, 126, 216, .45)",
+						color : 'rgba(47, 126, 216, .45)',
 						fontSize : catFontSize
 					},
 					y : -2,
@@ -436,13 +436,13 @@ function intakeHistory() {
 						past0daysSum
 					],
 					lineWidth : 1,
-					lineColor : "rgba(47, 126, 216, .5)",
-					fillColor : "rgba(47, 126, 216, .1)",
+					lineColor : 'rgba(47, 126, 216, .5)',
+					fillColor : 'rgba(47, 126, 216, .1)',
 					marker : {
 						enabled : false,
 						lineWidth : 0,
-						lineColor : "rgba(0, 0, 0, 0)",
-						fillColor : "rgba(0, 0, 0, 0)",
+						lineColor : 'rgba(0, 0, 0, 0)',
+						fillColor : 'rgba(0, 0, 0, 0)',
 						states: {
 							hover: {
 								lineWidth : 1
@@ -482,7 +482,7 @@ function intakeHistory() {
 		});
 		//write cache
 		app.save('appStatusIntake',$('#appStatusIntake').html());
-		$('#appStatusIntake div').css("padding-top", "0px");
+		$('#appStatusIntake div').css('padding-top', '0px');
 		if($('body').hasClass('reCloser')) { 
 			$('body').removeClass('reCloser');
 			$('body').addClass('closer');
@@ -515,7 +515,7 @@ function getNutriSliders() {
 			if(hasTouch()) {
 				navigator.notification.alert(LANG.PLEASE_REVIEW[lang], voidThis,LANG.TOTAL_ERROR[lang],LANG.OK[lang]);
 			} else {
-				if(alert(LANG.TOTAL_ERROR[lang] + "\n" + LANG.PLEASE_REVIEW[lang]));
+				if(alert(LANG.TOTAL_ERROR[lang] + '\n' + LANG.PLEASE_REVIEW[lang]));
 			}
 			return false;
 		}
@@ -527,7 +527,7 @@ function getNutriSliders() {
 		///////////////////
 		// PREVENT FOCUS //
 		///////////////////
-		$("#newWindow input").on(touchstart,function() {
+		$('#newWindow input').on(touchstart,function() {
 			return false; 
 		});
 		///////////
@@ -592,14 +592,14 @@ function getNutriSliders() {
 		// INIT VALUES //
 		/////////////////
 		if(document.getElementById('sliderProRange')) {
-			$("#sliderProInput").trigger('update');
-			$("#sliderCarInput").trigger('update');
-			$("#sliderFatInput").trigger('update');
+			$('#sliderProInput').trigger('update');
+			$('#sliderCarInput').trigger('update');
+			$('#sliderFatInput').trigger('update');
 		}
 		///////////////////////
 		// TIME SPAN CONTROL //
 		///////////////////////
-		$("#sliderTimeSpan div").on(touchstart,function(evt) {
+		$('#sliderTimeSpan div').on(touchstart,function(evt) {
 			$('.activeOption').removeClass('activeOption');
 			$(this).addClass('activeOption');
 				 if($(this).attr('id') == 'divTimeSpan1') { app.save('appNutrientTimeSpan',1);  }
@@ -726,7 +726,6 @@ $('#appStatusWeight div p').highcharts({
 
 });
 
-
 $("#appStatusWeight").html('\
                 <div class="c100 p19">\
                     <span>19%</span>\
@@ -736,7 +735,6 @@ $("#appStatusWeight").html('\
                     </div>\
                 </div>\
 ');
-
 return;
 */
 	////////////
