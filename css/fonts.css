@@ -116,7 +116,6 @@ body.loadingMask #loadMask span {
 
 body.loadingMask #loadMask:before {
 	display: none;
-
 }
 /*###############
 ## CSS CIRCLES ##
@@ -124,14 +123,13 @@ body.loadingMask #loadMask:before {
 .c100 *,
 .c100:before,
 .c100:after			{ -webkit-box-sizing: content-box !important; }
-.c100			 	{ position: relative; width: 60px; height: 60px; border-radius: 50%; float: left; margin: 2px 0 0 2.8%; background-color: #e4e4e4; }
+.c100			 	{ position: relative; width: 56px; height: 56px; border-radius: 50%; float: left; margin: 4px 0 0 2.8%; background-color: #ddd; }
 .c100.center		{ float: none; margin: 0 auto; }
 .c100 > span		{ position: absolute; width: 100%; z-index: 1; left: 0; top: 0; width: 5em; line-height: 5em; font-size: .2em; color: #ccc; display: block; text-align: center; white-space: nowrap; -webkit-transition: all .2s ease-out; }
-.c100:after			{ position: absolute; top: 4px; left: 4px; width: 52px; height: 52px; display: block; content: " "; border-radius: 50%; background-color: #fff;  -webkit-transition: all .2s ease-in; }
+.c100:after			{ position: absolute; top: 4px; left: 4px; width: 48px; height: 48px; display: block; content: " "; border-radius: 50%; background-color: #fff;  -webkit-transition: all .2s ease-in; }
 .c100 .slice		{ position: absolute; width: 1em; height: 1em; clip: rect(0em,1em,1em,0.5em); }
 .c100 .bar,
 .c100 .fill			{ border-color: #007aff !important; }
-.c100:hover > span	{ color: #007aff; }
 .c100 > span		{ color: #007aff; width: 3.33em; line-height: 3.33em; font-size: .3em; }
 /*
 .c100:after			{ position: absolute; top: .06em; left: .06em; display: block; content: " "; border-radius: 50%; background-color: #fff; width: .88em; height: .88em; -webkit-transition: all .2s ease-in; }
@@ -250,7 +248,7 @@ body.loadingMask #loadMask:before {
 .c100.p78 .fill,.c100.p79 .fill,.c100.p80 .fill,.c100.p81 .fill,.c100.p82 .fill,.c100.p83 .fill,.c100.p84 .fill,
 .c100.p85 .fill,.c100.p86 .fill,.c100.p87 .fill,.c100.p88 .fill,.c100.p89 .fill,.c100.p90 .fill,.c100.p91 .fill,
 .c100.p92 .fill,.c100.p93 .fill,.c100.p94 .fill,.c100.p95 .fill,.c100.p96 .fill,.c100.p97 .fill,.c100.p98 .fill,.c100.p99 .fill,
-.c100.p100 .fill { position: absolute; border: .08em solid rgba(0,0,0,0); width: .84em; height: .84em; clip: rect(0em,0.5em,1em,0em); border-radius: 50%; -webkit-transform: rotate(0deg); }
+.c100.p100 .fill { position: absolute; border: 4px solid rgba(0,0,0,0); width: 48px; height: 48px; clip: rect(0em,0.5em,1em,0em); border-radius: 50%; -webkit-transform: rotate(0deg); }
 .pie-fill,.c100.p51 .bar:after,.c100.p51 .fill,.c100.p52 .bar:after,
 .c100.p52 .fill,.c100.p53 .bar:after,.c100.p53 .fill,.c100.p54 .bar:after,.c100.p54 .fill,.c100.p55 .bar:after,.c100.p55 .fill,.c100.p56 .bar:after,
 .c100.p56 .fill,.c100.p57 .bar:after,.c100.p57 .fill,.c100.p58 .bar:after,.c100.p58 .fill,.c100.p59 .bar:after,.c100.p59 .fill,.c100.p60 .bar:after,
