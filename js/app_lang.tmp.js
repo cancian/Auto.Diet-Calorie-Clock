@@ -694,6 +694,94 @@ zt
 
 
 
+##################
+## DESCRIPTIONS ##
+##################
+########
+## EN ##
+########
+KCals Calorie Counter is a new way to control your calorie intake.
+It displays your calorie usage in real time!
+At a glance, the app will show you how much to eat every day.
+ 
+The app is very easy to understand - It works like a calorie chronometer.
+• Calories from food will be added to the total. 
+• Calories burned (including exercise) will be subtracted from the total.
+ 
+So all you have to do is keep the counter close to zero - by logging what you eat!
+  
+Just set-up your daily calorie intake, hit start, and you’re good to go!
+ 
+Losing weight has never been easier!
+  
+///////////////////////////////////////
+// MULTI-DEVICE DATA SYNCHRONIZATION //
+///////////////////////////////////////
+The app also features automatic backup and data synchronization.
+ 
+You can easily sync your data between multiple devices, and keep logging on the go!
+ 
+To enable synchronization, simply login to the same account on another device, and the app will download all data and sync everything exactly like it is on the first device - and then back to each other in real time!
+ 
+The synchronization service is free, fast, and zero configuration!
+ 
+///////////////////
+// MAIN FEATURES //
+///////////////////
+• Real time calorie counter (no other application does that!) 
+• Translated into 40 languages 
+• Available in 10 different platforms (including free web version)
+• Simple, clean and intuitive interface
+• Automatic backup and data synchronization (multiple devices) 
+• Realistic estimation of weight loss 
+• Shows how fast your body burns calories 
+• Complete nutrition information (macronutrients) 
+• Adjustable macronutrient ratio
+• Flexible, customizable, and transparent system (you are in control)
+• Advanced search engine 
+• Statistics on calorie consumption 
+• Huge database (10,000 + items) 
+• You can browse food categories 
+• Add custom foods and exercises 
+• Bookmark your favorite items 
+• Fully editable entries 
+• Automatic Updates 
+• Today's overview
+• Adjustable calorie threshold (caloric balance) 
+• Cyclic mode (alternating caloric intake) 
+ 
+////////////////////
+// QUICK OVERVIEW //
+////////////////////
+KCals is designed to help you control your calorie intake.
+ 
+Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your caloric balance.
+ 
+The idea is simple. Define a goal (daily calories) and keep yourself Balanced in the context of this goal.
+ 
+The app will indicate when you’ve eaten too much (surplus), or too little (deficit).
+ 
+Calories from food will be added to the total. 
+ 
+Calories burned (including exercise) will be subtracted from the total.
+ 
+Elapsed time is converted into calories burned. 
+ 
+Therefore, your caloric balance will be reduced automatically throughout the day. 
+ 
+Think of it in terms of fuel consumption.
+ 
+If you overeat, you can compensate by doing exercises or eating less over the next few hours.
+ 
+Check your Profile to determine your ideal calorie intake.
+
+
+
+
+
+
+
+
 
 
 */

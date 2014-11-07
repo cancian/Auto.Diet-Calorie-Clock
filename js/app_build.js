@@ -62,6 +62,7 @@ app.tab.settings = function(keepOpen) {
 			<span id="b600"></span>\
 			<span id="b700"></span>\
 			<span id="b800"></span>\
+			<span id="b900"></span>\
 		</div>\
 		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">support@kcals.net</span></div>\
 		';
@@ -70,7 +71,7 @@ app.tab.settings = function(keepOpen) {
 		/////////////
 		var aboutHandler = function() { 
 			app.handlers.activeRow('#b000','button',function() { app.url('www');        });
-			app.handlers.activeRow('#b100','button',function() { app.device.amazon == true ? app.url('amazon') : app.url('android'); });
+			app.handlers.activeRow('#b100','button',function() { app.url('android');    });
 			app.handlers.activeRow('#b200','button',function() { app.url('ios');        });
 			app.handlers.activeRow('#b300','button',function() { app.url('wp8');        });
 			app.handlers.activeRow('#b400','button',function() { app.url('windows8');   });
@@ -78,6 +79,7 @@ app.tab.settings = function(keepOpen) {
 			app.handlers.activeRow('#b600','button',function() { app.url('osxapp');     });
 			app.handlers.activeRow('#b700','button',function() { app.url('chromeos');   });
 			app.handlers.activeRow('#b800','button',function() { app.url('blackberry'); });
+			app.handlers.activeRow('#b900','button',function() { app.url('amazon'); });
 			//CONTACT
 			app.handlers.activeRow('#developedBy','button',function(evt) {
 				app.url('mailto:support@kcals.net?Subject=KCals%20-%20Dev Support%20(' + app.get.platform(1) + ')'); 
@@ -1671,7 +1673,10 @@ $('#formc select').focus(function(evt) {
 	}
 });
 $('#formc select').on(touchend,function(evt) {
-	evt.preventDefault();
+	//kitkat focus
+	if(app.device.android < 4.4) {
+		evt.preventDefault();
+	}
 	evt.stopPropagation();
 	var thisInput = this;
 	setTimeout(function() {

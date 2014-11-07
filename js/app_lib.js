@@ -194,10 +194,10 @@ app.device = {
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
-	if(staticVendor == 'blackberry') {
+	if(staticVendor == 'blackberry' && (/Android/i).test(app.ua)) {
 		app.device.blackberry = true;
 	}
-	if(staticVendor == 'amazon') {
+	if(staticVendor == 'amazon' && (/Android/i).test(app.ua)) {
 		app.device.amazon = true;	
 	}	
 }
@@ -205,18 +205,18 @@ if(typeof staticVendor !== 'undefined') {
 // GLOBAL SHORTCUTS //
 //////////////////////
 app.get.platform = function(noweb) {
-	if(app.device.ios && app.http)     { return 'web';           }
-	if(app.device.android && app.http) { return 'web';           }
-	if(app.device.wp8 && app.http)     { return 'web';           }
-	if(app.device.ios)                 { return 'iOS';           }
-	if(app.device.amazon)              { return 'FireOS';        }
-	if(app.device.blackberry)          { return 'BlackBerry';    }
-	if(app.device.android)             { return 'Android';       }
-	if(app.device.wp8)                 { return 'Windows Phone'; }
-	if(app.device.windows8)            { return 'Windows 8';     }
-	if(app.device.firefoxos)           { return 'FirefoxOS';     }	
-	if(app.device.osxapp)              { return 'Mac';           }
-	if(app.device.chromeos)            { return 'ChromeOS';      }
+	if(app.device.ios && app.http)     { return 'web';              }
+	if(app.device.android && app.http) { return 'web';              }
+	if(app.device.wp8 && app.http)     { return 'web';              }
+	if(app.device.ios)                 { return 'iOS';              }
+	if(app.device.amazon)              { return 'Android (Amazon)'; }
+	if(app.device.blackberry)          { return 'BlackBerry';       }
+	if(app.device.android)             { return 'Android';          }
+	if(app.device.wp8)                 { return 'Windows Phone';    }
+	if(app.device.windows8)            { return 'Windows 8';        }
+	if(app.device.firefoxos)           { return 'FirefoxOS';        }	
+	if(app.device.osxapp)              { return 'Mac';              }
+	if(app.device.chromeos)            { return 'ChromeOS';         }
 	return 'web';
 };
 ////////////////////
@@ -863,7 +863,14 @@ function isDesktop() {
 // LOADER //
 ///////////
 if($('#loadMask').html() == '') {
-	$('#loadMask').html('<span></span>');
+	$('#loadMask').html('\
+<table width="100%" height="100%" border="0">\
+  <tbody>\
+    <tr>\
+      <td align="center" valign="middle"><span></span></td>\
+    </tr>\
+  </tbody>\
+</table>');
 }
 document.addEventListener("DOMContentLoaded", function(event) {
 	$('body').addClass('domcontentloaded');

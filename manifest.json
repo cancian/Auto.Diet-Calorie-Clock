@@ -3,10 +3,11 @@
 	"short_name" : "__MSG_appName__",
 	"description" : "__MSG_appDesc__",
 	"default_locale" : "en",
-	"version" : "1.6.7",
+	"version" : "1.6.8",
 	"manifest_version" : 2,
 	"offline_enabled": true,
 	"icons" : {
+		"16" : "res/icon/ffos/16.png",
 		"32" : "res/icon/ffos/32.png",
 		"36" : "res/icon/ffos/32.png",
 		"48" : "res/icon/ffos/48.png",
@@ -16,7 +17,7 @@
 		"96" : "res/icon/ffos/96.png",
 		"120" : "res/icon/ffos/120.png",
 		"128" : "res/icon/ffos/128.png",
-		"256" : "res/icon/ffos/256.png"
+		"256" : "/res/icon/ffos/256.png"
 	},
 	"app" : {
 		"urls" : [

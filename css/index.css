@@ -205,7 +205,7 @@ body.android ::-webkit-scrollbar{ display: none; }
 .slide						{ position: relative; width: 16.666%; height: 100%; float: left; display: block; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 #slide1,#slide2,#slide3,
 #slide4,#slide5,#slide6		{ background-color: #fff; font-size: 16px; line-height: 23px; text-align: center; padding-top: 120px; padding-left: 0; padding-right: 0; }
-#slide1 p:before			{ content: 'k';     font-size: 120px; top: 3px;   }
+#slide1 p:before			{ content: 'k';     font-size: 109px; top: 0px;   }
 .android4 #slide1 p:before	{ margin-left: -87px; }
 #slide2 p:before			{ content: '\A200'; font-size: 122px; top: -10px; }
 #slide3 p:before			{ content: '\F000'; font-size: 92px; top: 4px;    }
@@ -350,6 +350,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #appAutoUpdateButton				{ position: absolute; top: 0px; right: 80px; color: #999; line-height: normal; font-size: 28px; white-space: nowrap; line-height: 27px; width: 60px; display: none; background-color: rgba(0,0,0,0); height: 60px; padding-top: 10px; text-align: center; }
 #appAutoUpdateButton:before			{ font-family: 'KCals'; content: '\f01e'; }
 .pending #appAutoUpdateButton		{ display: block; }
+.osxapp #advancedAutoUpdate			{ display: none; }
 /*#///////////////#// http://callmenick.com/tutorial-demos/css-toggle-switch/
 //# TOGGLE SWITCH #// 
 //#///////////////#*/
@@ -1344,10 +1345,10 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .cat9999:after,#cat9999 div:before { content: '\C999'; }
 .cat0001:after,#cat0001 div:before { content: '\C000'; color:#007aff; font-size: 27px; }
 /*STORES*/
-#appStores							{ position: relative; display: block; height: 92%; min-height: 260px; max-height: 800px; }
-#appStores span						{ position: relative; display: block; float: left; font-size: 36px; color: #222; width: 33.333%; height: 30%; text-align: center; }
+#appStores							{ position: relative; display: block; height: 90%; min-height: 250px; max-height: 920px; }
+#appStores span						{ position: relative; display: block; float: left; font-size: 36px; color: #222; width: 33.333%; height: 29%; text-align: center; }
 #appStores span.button				{ color: #ccc; }
-#appStores span:before				{ font-family: 'KCals'; display: block; position: absolute; top: 40%; left: 0; width: 100%; text-align: center; }
+#appStores span:before				{ font-family: 'KCals'; display: block; position: absolute; top: 37%; left: 0; width: 100%; text-align: center; }
 #b000:before						{ content: '\B000'; }
 #b100:before						{ content: '\B100'; }
 #b200:before						{ content: '\B200'; }
@@ -1357,6 +1358,9 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #b600:before						{ content: '\B600'; }
 #b700:before						{ content: '\B700'; font-size: 34px; }
 #b800:before						{ content: '\B800'; }
+#b900:before						{ content: '\B900'; }
+#appStores #b000					{ position: absolute; bottom: 0px; left: 0; width: 100%; display: block; height: 50px; background-color: rgba(0,0,0,0);  }
+#b000:before						{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: block; text-align: center; line-height: 0px; padding: 0; margin: 0; min-height: auto; content: 'kcals.net'; font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif !important; text-transform: lowercase; font-variant: small-caps; }
 #developedBy						{ position: absolute; bottom: 0; left: 0; right: 0; display: block; text-align: center; font-size: 13px; color: #aaa; height: 44px; line-height: 16px; }
 #contactDeveloper 					{ color: #777; display: block; padding-top: 3px; }
 #developedBy.button span			{ color: #bbb; }

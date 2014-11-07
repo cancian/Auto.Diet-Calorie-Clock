@@ -1,12 +1,14 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.6.7 [2014/10/08]
+# 1.6.7 [2014/11/02]
 • Macronutrient average can be calculated by weight (g) or by total calories (kcal)
 • Fixed an issue with food/favs not being synced
 • New sync activity indicator (spinner)
-• Confirmation prompt default format: [cancel] [ok]
+• Confirmation prompt default format changed to: [cancel] [ok]
 • Added start-up check for locked databases
+• Additional data integrity checks when importing food database
+• Fixed some click events not being handled properly
 
 # 1.6.3 [2014/10/08]
 • Approximate conversions table

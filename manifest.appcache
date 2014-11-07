@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# v16600 2014-10-26
+# v16701 2014-11-06
 # APP
 index.html
 version.txt
@@ -16,7 +16,7 @@ js/app_custom_core.js
 css/index.css
 css/fonts.css
 css/openhand.cur
-css/fontawesome.ttf
+css/kcals.ttf
 # CORDOVA
 js/cordova.js
 js/cordova_plugins.js

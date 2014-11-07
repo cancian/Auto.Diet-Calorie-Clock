@@ -1,5 +1,5 @@
 ﻿var appName     = 'KCals';
-var appVersion  = '1.6.6 (16600)';
+var appVersion  = '1.7 (17000)';
 var appBuild    = appVersion.split(' ')[1].replace('(','').replace(')',''); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(' ')[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|hi|hr|hu|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
@@ -353,8 +353,8 @@ var LANG = {
 		tr : 'KCals Kalori Sayacı',
 		uk : 'KCals Лічильник Калорій',
 		vi : 'KCals Truy Cập Calo',
-		zh : 'KCals卡路里计数器',
-		zt : 'KCals卡路里計數器',
+		zh : 'KCals 卡路里计数器',
+		zt : 'KCals 卡路里計數器',
 	},
 	INTRO : {
 		en : 'Introduction',
