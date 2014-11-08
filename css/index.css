@@ -87,13 +87,15 @@ body.android ::-webkit-scrollbar{ display: none; }
 //#////////////#*/
 #appHeader					{ height: 62px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; }
 #timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; background-color: rgba(0,0,0,0); }
-/*status colors 316ADC 5890FF           457CEE 457BEE 5B89F0 */
+/*status colors*/
 #appHeader					{ background-color: #fff; color: #fff !important; font-weight: 300; }
-.surplus #appHeader			{ background-color: #309030 !important; font-weight: 300; }
-.balanced #appHeader		{ background-color: #4496F1 !important; font-weight: 300; }
-.deficit #appHeader			{ background-color: #C85834 !important; font-weight: 300; }
-.over.surplus #appHeader	{ background-color: #309030 !important; }
-.over.deficit #appHeader	{ background-color: #C85834 !important;  }
+/**/
+.balanced #appHeader		{ background-color: #1B73D6 !important; font-weight: 300; }
+.deficit #appHeader,
+.over.deficit #appHeader	{ background-color: #CE2E2F !important; font-weight: 300; }
+.surplus #appHeader,
+.over.surplus #appHeader	{ background-color: #4FAF00 !important; font-weight: 300; }
+/**/
 .error.surplus #appHeader,
 .error.deficit #appHeader	{ background-color: #000 !important;  }
 /*android hacks*/
