@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# v16701 2014-11-06
+# v16900 2014-11-09
 # APP
 index.html
 version.txt
@@ -36,11 +36,8 @@ js/jquery.ui.js
 js/jquery.color.js
 js/jquery.nicescroll.js
 js/jquery.touchswipe.js
-js/jquery.nprogress.js
 # DB
-js/html5sql.js
 js/localforage.js
-js/localstoragedb.js
 # UTILS
 js/carpe_slider.js
 js/calculator.js
@@ -48,7 +45,5 @@ js/highcharts.js
 js/mobiscroll.js
 js/galocalstorage.js
 js/quo.js
-
 NETWORK:
 *
-

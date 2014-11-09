@@ -113,6 +113,7 @@ function initJS() {
 	////////
 	// JS //
 	////////
+	//ISCROLL
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js"><\/script>');
@@ -121,11 +122,8 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.ui.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.color.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nprogress.js"><\/script>');
 	//DB
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js"><\/script>');
--	document.write('<script type="text/javascript" src="' + hostLocal + 'js/html5sql.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localstoragedb.js"><\/script>');
 	//UTILS
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js"><\/script>');

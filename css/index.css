@@ -90,11 +90,11 @@ body.android ::-webkit-scrollbar{ display: none; }
 /*status colors*/
 #appHeader					{ background-color: #fff; color: #fff !important; font-weight: 300; }
 /**/
-.balanced #appHeader		{ background-color: #1B73D6 !important; font-weight: 300; }
+.balanced #appHeader		{ background-color: #4496F1 !important; font-weight: 300; }
 .deficit #appHeader,
-.over.deficit #appHeader	{ background-color: #CE2E2F !important; font-weight: 300; }
+.over.deficit #appHeader	{ background-color: #C85834; background-color: #CE2E2F; background-color: #D50B09 !important; font-weight: 300; }
 .surplus #appHeader,
-.over.surplus #appHeader	{ background-color: #4FAF00 !important; font-weight: 300; }
+.over.surplus #appHeader	{ background-color: #309030 !important; font-weight: 300; }
 /**/
 .error.surplus #appHeader,
 .error.deficit #appHeader	{ background-color: #000 !important;  }

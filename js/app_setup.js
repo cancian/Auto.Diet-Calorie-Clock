@@ -126,69 +126,6 @@ function loadDatabase() {
 		});
 	});
 }
-////////////////////
-// IMPORT ENTRIES //
-////////////////////
-function importEntries(res) {
-	if(!res) { return []; }
-	var result = [];
-	//FIX SQL RESULTS
-	if(hasSql) {
-		if(res.rows) {
-			for (var i=0; i<res.rows.length; i++) { 
-				result.push(res.rows.item(i));
-			}
-		}
-	} else {
-		result = res;
-	}
-	var rowsArray = [];
-	for(var r=0, ren=result.length; r<ren; r++) {
-		rowsArray.push({
-			id:        result[r].id,
-			title:     result[r].title,
-			body:      result[r].body,
-			published: result[r].published,
-			info:      result[r].info,
-			kcal:      result[r].kcal,
-			pro:       result[r].pro,
-			car:       result[r].car,
-			fat:       result[r].fat,
-			fib:       result[r].fib,
-		});
-	}
-	localforage.setItem('diary_entry',rowsArray,function(rows) {
-		rowsEntry = rows;
-		app.remove('foodDbLoaded');
-		app.remove('startLock');
-		updateFoodDb();
-		setTimeout(function() {
-			//INIT
-			startApp();
-		},0);
-	});
-}
-///////////////////
-// UPDATE OLD DB //
-///////////////////
-function updateOldDatabase() {
-	$('body').addClass('updtdb');
-	try {
-		if(hasSql) {
-			db = window.openDatabase(dbName, 1, dbName + 'DB', 5*1024*1024);
-			db.transaction(function(t) {
-				t.executeSql('SELECT id, title, body, published, pro, car, fat FROM "diary_entry" ORDER BY published desc',[],function(t,results) {
-					importEntries(results);
-				}, errorHandler);
-			});
-		} else {
-			lib = new localStorageDB('mylivediet', localStorage);
-			importEntries(lib.query('diary_entry'));
-		}
-	} catch(e) {
-		errorHandler(e);
-	}
-}
 /////////////
 // INIT DB //
 /////////////
@@ -228,15 +165,10 @@ function initDB(t) {
 	if(!app.read('foodDbVersion') && !app.read('foodDbLoaded','done')) {
 		app.save('foodDbVersion',3);
 	}	
-	//////////////////
-	// UPDATE CHECK //
-	//////////////////
-	//DETECT 2.0/1.0
-	if(app.read('foodDbVersion') == 2 || (app.read('foodDbLoaded','done') && !app.read('foodDbVersion'))) {
-		updateOldDatabase();
-	} else {
-		loadDatabase();
-	}
+	///////////
+	// START //
+	///////////
+	loadDatabase();
 }
 ////////////////////
 // RESET DATA+SQL //

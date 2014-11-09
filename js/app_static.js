@@ -9,6 +9,7 @@ $(document).ready(function() {
 		try {
 			localforage.config({storeName: 'KCals'});
 			localforage.setDriver(['webSQLStorage','asyncStorage','localStorageWrapper']).then(function() {
+			//localforage.setDriver([localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE]).then(function() {
 				initDB();
 			});
 		} catch(error) {
