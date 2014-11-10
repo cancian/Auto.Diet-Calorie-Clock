@@ -352,7 +352,6 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #appAutoUpdateButton				{ position: absolute; top: 0px; right: 80px; color: #999; line-height: normal; font-size: 28px; white-space: nowrap; line-height: 27px; width: 60px; display: none; background-color: rgba(0,0,0,0); height: 60px; padding-top: 10px; text-align: center; }
 #appAutoUpdateButton:before			{ font-family: 'KCals'; content: '\f01e'; }
 .pending #appAutoUpdateButton		{ display: block; }
-.osxapp #advancedAutoUpdate			{ display: none; }
 /*#///////////////#// http://callmenick.com/tutorial-demos/css-toggle-switch/
 //# TOGGLE SWITCH #// 
 //#///////////////#*/
@@ -690,10 +689,12 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusTitle,
 #appStatusArrow,
 #appStatusReload					{ -webkit-transition-timing-function: linear; -webkit-transition-duration: .165s; -webkit-backface-visibility: hidden; }
-.pending #appStatusReload			{ color: #080; }
-.pending #appStatusReload			{ -webkit-animation: pulse infinite 4s; }
+.pending #appStatusReload			{ color: #080; -webkit-animation: pulse infinite 4s; }
 @keyframes pulse					{ 0% { color: #080; } 60% { color: #080; } 70% { color: #0f0; } 100% { color: #080; } }
 @-webkit-keyframes pulse			{ 0% { color: #080; } 60% { color: #080; } 70% { color: #0f0; } 100% { color: #080; } }
+/*OSXAPP*/
+.pending.osxapp #appStatusReload	{ color: inherit; -webkit-animation: null 0 0; }
+.osxapp #advancedAutoUpdate			{ display: none; }
 /*date sub div*/
 #startDateBar						{ width: 100%; position: relative; display: block; height: 44px; overflow: hidden; }
 span#startDateSpan					{ position: relative; height: 44px; }

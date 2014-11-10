@@ -11,19 +11,16 @@ AddType application/octet-stream .img
 #############
 ## HEADERS ##
 #############
-#Header set Cache-Control "max-age=0"
-#Header unset ETag
-#FileETag None
+Header set Cache-Control "max-age=0"
+Header unset ETag
+FileETag None
 Header add Access-Control-Allow-Origin "*"
 #############
 ## EXPIRES ##
 #############
-#<IfModule mod_expires.c>
-#    ExpiresActive On
-#    ExpiresDefault "access"
-#</IfModule>
+ExpiresActive On
+ExpiresDefault "access"
 #################
 ## COMPRESSION ##
 #################
 AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
-
