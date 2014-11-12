@@ -8,6 +8,7 @@ AddType text/cache-manifest .manifest
 AddType text/cache-manifest .appcache
 AddType application/octet-stream .bin
 AddType application/octet-stream .img
+AddType text/plain .db
 #############
 ## HEADERS ##
 #############

@@ -2,20 +2,20 @@
 	"version" : "1.6.9",
 	"name" : "Calorie Counter",
 	"description" : "KCals is a real-time calorie counter.",
-	"launch_path" : "http://kcals.net/index.html",
+	"launch_path" : "/index.html",
+	"appcache_path": "/manifest.appcache",
 	"icons" :
 	{
-		"16" :  "http://kcals.net/res/icon/ffos/16.png",
-		"32" :  "http://kcals.net/res/icon/ffos/32.png",
-		"36" :  "http://kcals.net/res/icon/ffos/36.png",
-		"48" :  "http://kcals.net/res/icon/ffos/48.png",
-		"60" :  "http://kcals.net/res/icon/ffos/60.png",
-		"72" :  "http://kcals.net/res/icon/ffos/72.png",
-		"90" :  "http://kcals.net/res/icon/ffos/90.png",
-		"96" :  "http://kcals.net/res/icon/ffos/96.png",
-		"120" : "http://kcals.net/res/icon/ffos/120.png",
-		"128" : "http://kcals.net/res/icon/ffos/128.png",
-		"256" : "http://kcals.net/res/icon/ffos/256.png"
+		"32" :  "/res/icon/ffos/32.png",
+		"36" :  "/res/icon/ffos/36.png",
+		"48" :  "/res/icon/ffos/48.png",
+		"60" :  "/res/icon/ffos/60.png",
+		"72" :  "/res/icon/ffos/72.png",
+		"90" :  "/res/icon/ffos/90.png",
+		"96" :  "/res/icon/ffos/96.png",
+		"120" : "/res/icon/ffos/120.png",
+		"128" : "/res/icon/ffos/128.png",
+		"256" : "/res/icon/ffos/256.png"
 	},
 	"developer" :
 	{
@@ -26,7 +26,7 @@
 		"*"
 	],
 	"default_locale" : "en-us",
-	"size": 2303346,
+	"size": 1884555,
 	"locales" :
 	{
 		"en" :    { "name": "Calorie Counter"		},
@@ -50,8 +50,8 @@
 		"hu" :    { "name": "Kalóriaszámláló"		},
 		"it" :    { "name": "Contacalorie"			},
 		"id" :    { "name": "Penghitung Kalori"		},
-		"iw" :    { "name": "קלוריה מונה"				},
-		"ja" :    { "name": "カロリーカウンター"		},
+		"he" :    { "name": "קלוריה מונה"				},
+		"ja" :    { "name": "カロリーカウンター"			},
 		"ko" :    { "name": "칼로리 카운터"			},     
 		"lt" :    { "name": "Kalorijų Skaitiklis"	},
 		"lv" :    { "name": "Kaloriju Skaitītājs"	},

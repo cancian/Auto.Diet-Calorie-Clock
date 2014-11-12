@@ -561,7 +561,7 @@ function syncEntries(userId) {
 	var demoRunning = false;
 	if(!demoRunning) {
 		demoRunning = true;
-		$('body').addClass('insync')
+		$('body').addClass('insync');
 		//get remote sql
 		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
 			sql = sql.split('undefined').join('');
@@ -678,7 +678,7 @@ function saveEntry(data,callback) {
 	/////////////////
 	} else if(data.reuse == true) {
 		//SAVE
-		var saveTime = app.now()
+		var saveTime = app.now();
 		rowsEntry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib});
 		localforage.setItem('diary_entry',rowsEntry,function(rows) {
 			rowsEntry = rows;
@@ -1960,11 +1960,11 @@ function getRateDialog() {
 ///////////////////
 app.analytics = function(target) {
 	if(typeof ga_storage === 'undefined')				{ return; }
-	if(typeof baseVersion === 'undefined')				{ return; }
+	//if(typeof baseVersion === 'undefined')			{ return; }
 	//not dev
 	if(app.read('config_debug','active'))				{ return; }
 	if(app.read('facebook_userid',1051211303))			{ return; }
-	if((/192.168|home|www.cancian/).test(document.URL))	{ return; }
+	if((/local.kcals|192.168.1.5/).test(document.URL))	{ return; }
 	//////////
 	// INIT //
 	//////////
@@ -1988,8 +1988,12 @@ app.analytics = function(target) {
 		//string
 		var trackString = appOS + '.' + deviceType  + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event
-		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
-		ga_storage._trackEvent(appOS, target, lang, appBuild);
+		setTimeout(function() {
+			ga_storage._trackEvent(appOS, target, lang, appBuild);
+		},50);
+		setTimeout(function() {
+			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
+		},500);
 	}
 };
 //BACKWARDS C.

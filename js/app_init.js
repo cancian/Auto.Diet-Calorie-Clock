@@ -125,11 +125,11 @@ function initJS() {
 	//DB
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js"><\/script>');
 	//UTILS
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//

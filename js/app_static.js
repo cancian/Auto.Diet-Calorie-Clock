@@ -580,6 +580,10 @@ $(window).on('resize', function(evt) {
 		}
 	},100);
 	niceResizer(300);
+	//ffos portrait reinforce
+	if(app.device.firefoxos) {
+		screen.mozLockOrientation('portrait-primary');
+	}
 });
 /////////////////////
 // DEBUG INDICATOR //
