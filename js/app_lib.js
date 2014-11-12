@@ -45,7 +45,7 @@ var app = {
 			if(!window.localStorage.getItem(key)) {
 				return [];
 			}
-			var value = window.localStorage.getItem(key)
+			var value = window.localStorage.getItem(key);
 			return value && JSON.parse(value);			
 			
 		}
@@ -141,33 +141,8 @@ app.get.isChromeApp = function() {
 		}
 	}
 	return false;
-}
-app.get.isDesktop = function() {
-
 };
-//////////////////
-// PRINT OBJECT //
-//////////////////
-app.print = function(obj, maxDepth, prefix) {
-	if(!maxDepth) {
-		maxDepth = 3;
-	}
-	var result = '';
-	if (!prefix)
-		prefix = '';
-	for (var key in obj) {
-		if (typeof obj[key] == 'object') {
-			if (maxDepth !== undefined && maxDepth <= 1) {
-				result += (prefix + key + '=object [max depth reached]\n');
-			} else {
-				result += app.print(obj[key], (maxDepth) ? maxDepth - 1 : maxDepth, prefix + key + '.');
-			}
-		} else {
-			result += (prefix + key + '=' + obj[key] + '\n');
-		}
-	}
-	return result;
-}
+app.get.isDesktop = function() {};
 ////////////////
 // APP DEVICE //
 ////////////////
@@ -782,7 +757,7 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 			inputValue = 0;
 		}
 		$(target).val(decimalize(inputValue,-1));
-	})
+	});
 	//POS
 	app.handlers.repeater(target + 'Pos','active',400,25,function() {
 		if($(target).val() == '') { 
@@ -793,7 +768,7 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 			inputValue = inputValue + 1;
 		}
 		$(target).val( decimalize(inputValue,-1) );
-	})				
+	});				
 };
 /////////////
 // APP GET //
