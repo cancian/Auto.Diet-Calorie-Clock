@@ -1990,10 +1990,10 @@ app.analytics = function(target) {
 		//track page/event
 		setTimeout(function() {
 			ga_storage._trackEvent(appOS, target, lang, appBuild);
-		},50);
-		setTimeout(function() {
-			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
-		},500);
+		},0);
+		//setTimeout(function() {
+			//ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
+		//},500);
 	}
 };
 //BACKWARDS C.

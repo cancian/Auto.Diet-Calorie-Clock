@@ -3,10 +3,10 @@
 #################
 # 1.6.9 [2014/11/02]
 • Macronutrient average can be calculated by weight (g) or by total calories (kcal)
-• Fixed an issue with food/favs not being synced
-• New sync activity indicator (spinner)
+• Fixed an issue with foods/favorites not being synced
+• New sync indicator (spinner)
 • Confirmation prompt default format changed to: [cancel] [ok]
-• Added start-up check for locked databases
+• Checks for locked databases on startup
 • Additional data integrity verification when importing food database
 • Fixed some click events not being handled properly
 
