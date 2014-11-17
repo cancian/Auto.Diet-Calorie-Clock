@@ -700,34 +700,34 @@ zt
 ########
 ## EN ##
 ########
-KCals Calorie Counter is a new way to control your calorie intake.
-It displays your calorie usage in real time!
-At a glance, the app will show you how much to eat every day.
+KCals Calorie Counter is a new way for you to control your calorie intake.
+It displays your calorie usage in real time, and at a glance KCals will show you how much to eat every day.
  
-The app is very easy to understand - It works like a calorie chronometer.
-• Calories from food will be added to the total. 
-• Calories burned (including exercise) will be subtracted from the total.
+KCals is very easy to understand – It works like a calorie chronometer.
+1) Calories from food will be added to the total. 
+2) Calories burned (including your exercise) will be subtracted from the total.
  
-So all you have to do is keep the counter close to zero - by logging what you eat!
+So all that you have to do is keep the counter as close to zero as possible by logging what you eat.
   
 Just set-up your daily calorie intake, hit start, and you’re good to go!
  
-Losing weight has never been easier!
-  
-///////////////////////////////////////
-// MULTI-DEVICE DATA SYNCHRONIZATION //
-///////////////////////////////////////
-The app also features automatic backup and data synchronization.
+Losing weight has never been this easy!
+
+■ MULTI-DEVICE DATA SYNCHRONIZATION
+KCals also features automatic backup and data synchronization.
+
+Easily sync your data between multiple devices, and keep logging on the go!
  
-You can easily sync your data between multiple devices, and keep logging on the go!
+Whenever you add something to your diary, or update your profile, it will sync across all your devices instantaneously.
+To enable synchronization, simply login to the same account on another device, then KCals will download all the data and sync everything exactly like it is on the first device – and then back to each other in real time!
  
-To enable synchronization, simply login to the same account on another device, and the app will download all data and sync everything exactly like it is on the first device - and then back to each other in real time!
- 
-The synchronization service is free, fast, and zero configuration!
- 
-///////////////////
-// MAIN FEATURES //
-///////////////////
+The synchronization service is free, fast, and requires zero configuration.
+
+KCals is available on 10 different platforms, so no matter device you have, you will be able log all of your information from your favorite device.
+
+And to get a feel for how KCals works, go to Kcals.net and you can get started right away. Then later on, you can send the data back to your mobile device.
+
+■ MAIN FEATURES
 • Real time calorie counter (no other application does that!) 
 • Translated into 40 languages 
 • Available in 10 different platforms (including free web version)
@@ -737,7 +737,7 @@ The synchronization service is free, fast, and zero configuration!
 • Shows how fast your body burns calories 
 • Complete nutrition information (macronutrients) 
 • Adjustable macronutrient ratio
-• Flexible, customizable, and transparent system (you are in control)
+• Flexible, customizable, and transparent system
 • Advanced search engine 
 • Statistics on calorie consumption 
 • Huge database (10,000 + items) 
@@ -749,10 +749,8 @@ The synchronization service is free, fast, and zero configuration!
 • Today's overview
 • Adjustable calorie threshold (caloric balance) 
 • Cyclic mode (alternating caloric intake) 
- 
-////////////////////
-// QUICK OVERVIEW //
-////////////////////
+
+■ QUICK OVERVIEW
 KCals is designed to help you control your calorie intake.
  
 Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your caloric balance.
@@ -774,6 +772,7 @@ Think of it in terms of fuel consumption.
 If you overeat, you can compensate by doing exercises or eating less over the next few hours.
  
 Check your Profile to determine your ideal calorie intake.
+
 
 
 

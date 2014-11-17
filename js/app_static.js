@@ -313,7 +313,13 @@ $(document).on('backbutton', function(evt) {
 	} else if($('input,select').is(':focus')) {
 		$('input,select,textarea').trigger('blur');
 	} else if(!app.read('app_last_tab','tab1')) {
-		appFooter('tab1');
+		if(app.read('app_last_tab','tab4')) {
+			appFooter('tab3');	
+		} else if(app.read('app_last_tab','tab3')) {
+			appFooter('tab2');
+		} else {
+			appFooter('tab1');
+		}
 	} else {
 		if(app.read('config_debug','active')) {
 			afterHide();
