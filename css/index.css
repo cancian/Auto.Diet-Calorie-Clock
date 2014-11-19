@@ -1363,7 +1363,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #b800:before						{ content: '\B800'; }
 #b900:before						{ content: '\B900'; }
 #appStores #b000					{ position: absolute; bottom: 0px; left: 0; width: 100%; display: block; height: 50px; background-color: rgba(0,0,0,0);  }
-#b000:before						{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: block; text-align: center; line-height: 0px; padding: 0; margin: 0; min-height: auto; content: 'kcals.net'; font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif !important; text-transform: lowercase; font-variant: small-caps; }
+#b000:before						{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: block; content: 'kcals.net'; font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif !important; text-align: center; line-height: 0; padding: 0; margin: 0; min-height: auto; text-transform: lowercase; font-variant: small-caps; font-weight: 200; }
 #developedBy						{ position: absolute; bottom: 0; left: 0; right: 0; display: block; text-align: center; font-size: 13px; color: #aaa; height: 44px; line-height: 16px; }
 #contactDeveloper 					{ color: #777; display: block; padding-top: 3px; }
 #developedBy.button span			{ color: #bbb; }

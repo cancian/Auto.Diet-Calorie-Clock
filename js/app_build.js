@@ -92,6 +92,7 @@ app.tab.settings = function(keepOpen) {
 	};
 	$("#optionWebsite").on(touchend,function(evt) {
 		app.about();
+		//getNewWindow('teste', '<iframe width="640" height="360" src="http://www.youtube.com/embed/Px3gXf1GOrQ?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>');
 	});
 	//////////////
 	// HELP TAP //
@@ -1011,13 +1012,38 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 					}
 				}
 			}
+			///////////
+			// INTRO //
+			///////////
+			if ($('#entryBody').val().length == 10) {
+				if (/devintro/i.test($('#entryBody').val())) {
+					var introLang = 'en';
+					if ((langArray).test($('#entryBody').val().toLowerCase().split('devintro').join(''))) {
+						introLang = $('#entryBody').val().split('devintro').join('');
+					}
+					//text
+					var introValue = '';
+					introValue += LANG.INTRO_SLIDE_1[introLang] + '\n';
+					introValue += LANG.INTRO_SLIDE_2[introLang] + '\n';
+					introValue += LANG.INTRO_SLIDE_3[introLang] + '\n';
+					introValue += LANG.INTRO_SLIDE_4[introLang] + '\n';
+					introValue += LANG.INTRO_SLIDE_5[introLang] + '\n';
+					introValue += LANG.INTRO_SLIDE_6[introLang] + '\n';
+					//output
+					console.log(introValue);
+					alert(introValue);
+					//reset
+					$('#entryBody').val('devintro');
+					$('#entryBody').blur();
+				}
+			}
 			////////////
 			// REWIPE //
 			////////////
-			if ($("#entryBody").val().toLowerCase() == "devrewipe") {
+			if ($('#entryBody').val().toLowerCase() == 'devrewipe') {
 				deSetup();
-				$("#entryBody").val('');
-				$("#entryBody").blur();
+				$('#entryBody').val('');
+				$('#entryBody').blur();
 				afterHide();
 				return false;
 			}
@@ -1046,28 +1072,28 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//#//////////////////#//
 	//# FOOD SEARCH ICON #//
 	//#//////////////////#//
-	$("#entryBodySearch").on(touchstart,function(evt) {
-		if($("#entryBody").is(":focus") || $("#entryTime").is(":focus") || evt.target.id == "entryTime") {
+	$('#entryBodySearch').on(touchstart,function(evt) {
+		if($('#entryBody').is(':focus') || $('#entryTime').is(':focus') || evt.target.id == 'entryTime') {
 			return;
 		}
 		evt.preventDefault();
 		evt.stopPropagation();
-		$("#timerDailyInput").blur();
-		$("#entryTime").blur();
-		$("#entryBody").blur();
-		$(document).trigger("pageReload");
+		$('#timerDailyInput').blur();
+		$('#entryTime').blur();
+		$('#entryBody').blur();
+		$(document).trigger('pageReload');
 	});
 	$('#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($("#entryBody").is(":focus") && evt.target.id == "entryTime") {
-			$("#entryTime").focus();
-		} else if($("#entryTime").is(":focus") && evt.target.id == "entryBody") {
-			$("#entryBody").focus();
-		} else if(evt.target.id != "entryTime" && evt.target.id != "entryBody") {
-			$("#timerDailyInput").blur();
-			$("#entryTime").blur();
-			$("#entryBody").blur();
+		if($('#entryBody').is(':focus') && evt.target.id == 'entryTime') {
+			$('#entryTime').focus();
+		} else if($('#entryTime').is(':focus') && evt.target.id == 'entryBody') {
+			$('#entryBody').focus();
+		} else if(evt.target.id != 'entryTime' && evt.target.id != 'entryBody') {
+			$('#timerDailyInput').blur();
+			$('#entryTime').blur();
+			$('#entryBody').blur();
 		}
 	});
 	////////////////////////
@@ -1152,7 +1178,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	$('#diaryNotes').on(touchstart, function(evt) {
 		if($('#diaryNotesWrapper').length) { return; }
 		//no overlap
-		if($('#pageSlideFood').length || $('input,select').is(":focus") || $(".delete").hasClass("active") || $('#entryList div').is(":animated")) {
+		if($('#pageSlideFood').length || $('input,select').is(':focus') || $('.delete').hasClass('active') || $('#entryList div').is(':animated')) {
 			$('#go').trigger(touchend);
 			return;
 		}

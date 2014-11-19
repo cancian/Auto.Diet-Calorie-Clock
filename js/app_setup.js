@@ -1416,7 +1416,6 @@ function buildHelpMenu() {
 	<p>' + LANG.INTRO_SLIDE_5[lang].split('.').join('. ') + '</p>\
 	<p>' + LANG.INTRO_SLIDE_6[lang].split('.').join('. ') + '</p>';
 	helpHtml = '<li id="topic' + (topicId+1) + '">' + LANG.INTRO[lang] + '<div class="topicTitle">' + LANG.INTRO[lang] + '</div><div class="topicContent">' + introValue + '</div></li>' + helpHtml;
-	//alert(introValue.split('</p>').join('\r\n').split('<p>').join(''));
 	///////////////////////
 	// INSERT TOPIC LIST //
 	///////////////////////
