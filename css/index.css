@@ -17,8 +17,8 @@ html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 #appSubHelper,#newWindow,
 #langSelect,#advancedMenuWrapper		{ -ms-touch-action: pan-y; touch-action: pan-y; }
 html,body,input,select,textarea,
-input[type='number'],input[type='text']	{ font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif; line-height: normal; }
-div#sliderNeg,div#sliderPos				{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif; }
+input[type='number'],input[type='text']	{ font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
+div#sliderNeg,div#sliderPos				{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif;; }
 body.msie.thin							{ letter-spacing: 0.02em; }
 body.msie								{ -webkit-perspective: 800; }
 body.msie #appContent,

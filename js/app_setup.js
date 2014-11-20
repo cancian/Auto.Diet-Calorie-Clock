@@ -1988,12 +1988,10 @@ app.analytics = function(target) {
 		//string
 		var trackString = appOS + '.' + deviceType  + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event
+		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
 		setTimeout(function() {
-			ga_storage._trackEvent(appOS, target, lang, appBuild);
-		},0);
-		setTimeout(function() {
-			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
-		},100);
+			ga_storage._trackEvent(appOS, target, lang, appBuild);			
+		},600);
 	}
 };
 //BACKWARDS C.
