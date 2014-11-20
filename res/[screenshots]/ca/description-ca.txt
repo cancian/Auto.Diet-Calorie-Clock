@@ -1,0 +1,45 @@
+﻿KCals està dissenyat per ajudar a controlar la seva ingesta de calories. Si vostè vol mantenir, perdre o guanyar pes, aquest app l’ajudarà a mantenir enfocat en el que és important: el seu balanç calòric.
+La idea és simple. Fixar un objectiu ("calories diàries") i quedar-se "equilibrat" dins d’aquest objectiu. El comptador de calories indicarà quan vostè menjar massa ("excés") o molt poc ("dèficit").
+Calories dels aliments s’afegiran a la total. Calories cremades (incloent-hi exercicis) es descomptarà del total.
+El temps transcorregut és convertida en calories cremades. Per tant, el seu balanç calòric disminuirà de forma passiva durant tot el dia. Penseu en això com l’ús de combustible.
+Si vostè menjar en excés, pot compensar fent exercicis o menjant menys en les hores posteriors.
+Revisi el seu perfil. Allà podreu trobar tota la informació que necessita per definir la seva ingesta de calories ideal.
+
+--------------------
+
+Proveu abans de comprar! Estem segurs que va encantar! 
+
+-------------------- 
+
+Amb KCals que s'obté: 
+
+• Molt fàcil d'usar 
+• Comptador de calories en temps real (sense cap altra aplicació fa això!) 
+• Traduït a 40 idiomes 
+• Disponible en 6 plataformes diferents (incloent web) 
+• Integració amb Facebook 
+• Còpia de seguretat automàtica i la sincronització de dades (diversos dispositius) 
+• Estimació de la pèrdua de pes realista 
+• Mostra la rapidesa amb que el cos crema calories 
+• Informació nutricional integral (macronutrients) 
+• Sistema flexible, personalitzable i transparent (vostè està en control) 
+• Cercador Avançat 
+• Estadístiques de la ingesta de calories 
+• Enorme base de dades (10.000 + articles) 
+• Categories d'aliments podeu navegar pel 
+• Afegir els aliments i exercicis personalitzats 
+• Afegir a favorits teus articles preferits 
+• Entrades completament editable 
+• Actualitzacions automàtiques 
+• Veure d'avui 
+• Llindar de calories ajustable 
+• Modalitat cíclic (consum de calories altern) 
+
+-------------------- 
+
+Tot això en una interfície senzilla, clara i intuïtiva!
+
+--------------------
+
+http://kcals.net
+support@kcals.net

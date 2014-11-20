@@ -1,0 +1,46 @@
+﻿KCals a célja, hogy segítsen irányítani a kalória bevitelt. Akár szeretnénk fenntartani, veszít, vagy hízik, ez az alkalmazás segít összpontosítani, ami fontos: a kalória-egyensúlyt.
+Az ötlet egyszerű. Állítsa be a cél ("napi kalória"), és stay "kiegyensúlyozott" belül ezt a célt. A kalóriaszámláló jelzi ha már evett túl sokat ("felesleges"), vagy túl kevés ("deficit").
+Élelmiszer kalória hozzáadásra kerül a teljes. Elégetett kalória (beleértve a gyakorlat) levonásra kerül a teljes.
+Az eltelt idő alakul át az elégetett kalóriákat. Therefore, the calorie balance is automatically reduced during the day. Gondolj rá úgy, mint üzemanyag használatát.
+Ha a Ön sokat eszik, lehet gyakorolni kompenzálására, vagy kevesebbet eszik, az elkövetkezendő órára.
+Ellenőrizze a profilt. Meg fogja találni a szükséges információt, hogy meghatározza az ideális kalóriabevitel.
+
+--------------------
+
+Próbálja ki, mielőtt megvásárolná! Biztosak vagyunk benne, szeretni fogod! 
+
+-------------------- 
+
+A KCals kapsz: 
+
+• Szuper könnyű használni 
+• Valós idejű kalória számláló (nincs más app csinálja!) 
+• Lefordítva 40 nyelven 
+• Kapható 6 különböző platformokon (beleértve a web) 
+• Integráció a Facebook 
+• Az automatikus biztonsági mentés és adat-szinkronizálás (több eszköz) 
+• Reális fogyás becslés 
+• Megmutatja milyen gyors a test kalóriát éget 
+• Átfogó táplálkozási információkat (makrotápanyag) 
+• Állítható makrotápanyag arány 
+• Rugalmas, testre szabható és átlátható rendszert (van az irányítás) 
+• Részletes kereső 
+• Kalória fogyasztási statisztikák 
+• Hatalmas adatbázis (10.000 + elem) 
+• Böngészhető élelmiszer-kategóriák 
+• Add Egyéni élelmiszerek és a gyakorlatok 
+• Könyvjelző kedvenc elemek 
+• Teljesen szerkeszthető bejegyzések 
+• Automatikus frissítések 
+• A mai áttekintése 
+• Állítható kalória küszöb (kalória egyensúly) 
+• Ciklikus üzemmód (váltakozva kalóriabevitel) 
+
+-------------------- 
+
+Mindez egy egyszerű, tiszta és intuitív interfész! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

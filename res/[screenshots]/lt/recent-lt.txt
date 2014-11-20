@@ -1,0 +1,2 @@
+﻿• Automatinis svorio / aukštis perskaičiuojamas, kai matavimo sistema pasikeitė 
+• Šios apžvalga nebeįtrauktas pasibaigęs įrašai

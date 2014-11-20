@@ -1,0 +1,46 @@
+﻿KCals este conceput pentru a vă ajuta să controla aportul de calorii. Fie că doriți să mențină, pierde, sau creștere în greutate, această aplicație vă va ajuta să se concentreze pe ceea ce este important: echilibru caloric.
+Ideea este simpla. Defini un scop ("calorii pe zi") și menține-te "echilibrat" în contextul acestui obiectiv. Aplicatia va indica, atunci când v-ați mâncat prea mult ("exces"), sau prea puțin ("deficit").
+Calorii din alimente vor fi adăugate la totalul. Caloriile arse (inclusiv exercițiu) vor fi scazute din totalul.
+Timpul scurs este transformat în calorii arse. Prin urmare, ta echilibru caloric va scădea în mod automat pe tot parcursul zilei. Gândiți-vă de ea în ceea ce privește consumul de combustibil.
+Dacă ați mânca prea mult, puteți compensa prin a face exerciții, sau mananca mai putin peste următoarele câteva ore.
+Verifica profilul dvs. Acolo veţi găsi toate informaţiile necesare pentru a determina aportul ideal de calorii.
+
+--------------------
+
+Încercați înainte de a cumpăra! Suntem siguri că vă va place! 
+
+-------------------- 
+
+Cu KCals te:
+
+• Super ușor de utilizat 
+• Contor de calorii in timp real (nici un alt app face asta!) 
+• Tradus în 40 de limbi 
+• Disponibil in 6 platforme diferite (inclusiv versiunea web gratuit) 
+• Integrare cu Facebook 
+• Copie de rezervă automată și sincronizare de date (mai multe dispozitive) 
+• Estimări realiste de pierdere in greutate 
+• Arată cât de repede corpul tau arde calorii 
+• Informații cuprinzătoare nutritionale (macronutrienti) 
+• Raport macronutrient reglabil 
+• Sistem flexibil, personalizabil și transparent (vă aflați în control) 
+• Avansat motor de căutare 
+• Statisticile privind consumul de calorii 
+• Baza de date Huge (10.000 + articole) 
+• Categorii de produse alimentare care poate fi răsfoită 
+• Adăugați alimente și exerciții personalizate 
+• Marcați elementele preferate 
+• Intrări complet editabile 
+• Actualizări automate 
+• Prezentare generală de astăzi 
+• Pragul calorii reglabil (echilibru de calorii) 
+• Modul ciclic (aportul de calorii alternativ) 
+
+-------------------- 
+
+Toate acestea cu o interfață simplă, curată și intuitivă! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

@@ -1,0 +1,46 @@
+﻿KCals Eğer kalori alımını kontrol yardımcı olmak için tasarlanmıştır. Korumak, kaybetmek veya kilo alımı için bu program hangi konular üzerinde odaklanmanıza yardımcı olacaktır: kalori dengesi.
+Fikir basittir. Bir hedef belirleyin ("günlük kalori") ve kendinizi bu amaç bağlamında "dengeli" tutmak. Uygulama gösterecektir ne zaman yediğiniz çok fazla ("fazla") veya çok az ("açık").
+Gıda kalori toplam eklenir. Yakılan kalori (spor dahil olmak üzere) toplam düşülecektir.
+Geçen süre yakılan kalori dönüştürülür. Yani, kalori dengesi otomatik olarak gün boyunca azalacaktır. Yakıt tüketimi olarak düşünün.
+Eğer çok fazla yerseniz, egzersizleri yaparak telafi edebilir ya da önümüzdeki birkaç saat içinde daha az yemek.
+Profilinizi kontrol edin. Orada için gerekli tüm bilgileri bulabilirsiniz ideal kalori alımını belirlemek.
+
+--------------------
+
+Eğer satın almadan önce deneyin! Biz bunu seveceksiniz eminiz! 
+
+-------------------- 
+
+KCals ile elde edersiniz:
+
+• Süper kullanımı kolay 
+• Gerçek zamanlı kalori sayacı (başka hiçbir uygulamanın bu özelliği sunuyor!)
+• 40 dile çevrildi 
+• 6 farklı platformlarda mevcuttur (ücretsiz web sürümü dahil)
+• Facebook ile entegrasyon 
+• Otomatik yedekleme ve veri senkronizasyonu (çoklu cihazlar) 
+• Kilo kaybı gerçekçi tahmin
+• Vücudunuzun kalori yakar ne kadar hızlı gösterir 
+• Komple beslenme bilgileri (makro-besleyiciler) 
+• Ayarlanabilir makronutrientlerin oranı 
+• Esnek, özelleştirilebilir ve şeffaf sistem (kontrol sizdedir) 
+• Gelişmiş arama motoru 
+• Kalori tüketimi ile ilgili istatistikler 
+• Büyük veri tabanı (10.000 + öğe) 
+• Sen gıda kategorileri tarayabilir 
+• Özel gıdalar ve egzersizleri ekle 
+• Imi favori ürün 
+• Tamamen düzenlenebilir girişleri 
+• Otomatik Güncelleştirmeler 
+• Bugünün bakış 
+• Ayarlanabilir kalori eşiği (kalori dengesi) 
+• Döngüsel modu (alternatif kalori alımı)
+
+-------------------- 
+
+Tüm bu temiz ile, basit ve sezgisel bir arayüz! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

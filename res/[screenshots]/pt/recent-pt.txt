@@ -1,0 +1,2 @@
+﻿• Recálculo automático de peso / altura quando o sistema de medição é alterado 
+• Visão geral de hoje já não inclui entradas expiradas

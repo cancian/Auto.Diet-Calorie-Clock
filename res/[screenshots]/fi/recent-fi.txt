@@ -1,0 +1,2 @@
+﻿• Automaattinen paino / pituus uudelleenlaskentaa kun mittausjärjestelmä on muuttunut 
+• Päivän yhteenveto ei enää ole vanhentuneet merkinnät

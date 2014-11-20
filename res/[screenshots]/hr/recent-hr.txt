@@ -1,0 +1,2 @@
+﻿• Automatsko težina / visina preračunavanje kad mjerni sustav se mijenja 
+• Današnji pregled više ne uključuje istekle unose

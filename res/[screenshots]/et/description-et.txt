@@ -1,0 +1,46 @@
+﻿KCals eesmärk on aidata teil kontrollida oma kalorite tarbimist. Kas soovite, et hoida, kaotada või kaalutõus, see app aitab teil püsida keskendunud mis loeb: kalorite bilanss.
+Idee on lihtne. Määratle eesmärk ("kaloritest") ja hoida ennast "tasakaalustatud" raames selle eesmärgi. App näitab, millal olete söönud liiga palju ("liigne"), või liiga vähe ("puudujääk").
+Toit kaloreid lisatakse kogusummast. Põletatud kaloreid (sh harjutusi) lahutatakse kokku.
+Kulunud aeg teisendatakse põletatud kaloreid. Nii kalorite tasakaalu automaatselt vähendada üle päeva. Mõtle seda kütusena kasutada.
+Kui sa sööd liiga palju, võite võib kompenseerida, treenimist või süüa vähem järgneva tunni jooksul.
+Kontrolli oma profiili. Sealt leiad kõik andmed, mida on vaja, et määratleda teie ideaalne kalorite omastamist.
+
+--------------------
+
+Proovi enne ostmist! Oleme kindlad, et see meeldib sulle! 
+
+-------------------- 
+
+Mis KCals saad: 
+
+• Super lihtne kasutada 
+• Reaalajas kalorikulu (pole teistele app teeb seda!) 
+• Tõlgitud 40 keelde 
+• Saadaval 6 erinevate platvormide (sh veebis) 
+• Integratsioon Facebook 
+• Automaatne backup ja andmete sünkroniseerimine (mitu seadet) 
+• Realistlik kaalulangus hinnang 
+• Näitab, kui kiiresti keha põletab kaloreid 
+• Põhjalik toitumisalase teabe (makrotoitainete) 
+• Reguleeritav makrotoitainete suhe 
+• Paindlik, kohandatav ja läbipaistva süsteemi (Sul on kontrolli) 
+• Advanced Search Engine 
+• Kalorite tarbimine statistika
+• Suur andmebaas (10,000 + toodet) 
+• Sirvitavad toiduainete kategooriate 
+• Lisa kohandatud toidud ja harjutused 
+• Järjehoidja oma lemmik teemad 
+• Täielikult muudetav kanded 
+• Automaatsed uuendused
+• Tänane ülevaade 
+• Reguleeritav kalorite künnis (kalorite bilanss) 
+• Tsükliline mode (vahelduv kalorite tarbimine) 
+
+-------------------- 
+
+Kõik see on lihtne, puhas ja intuitiivse! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

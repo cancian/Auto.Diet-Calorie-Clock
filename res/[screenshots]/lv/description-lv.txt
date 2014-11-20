@@ -1,0 +1,46 @@
+﻿KCals ir izstrādāta, lai palīdzētu jums kontrolēt savu kaloriju uzņemšanu. Vai jūs vēlaties, lai saglabātu, zaudēt vai iegūt svaru, šis pieteikums palīdzēs jums koncentrēties uz to, kas ir svarīgi: jūsu kaloriju bilance.
+Ideja ir vienkārša. Noteikts mērķis ("ikdienas kalorijas"), un palikt "līdzsvarotu" saistībā ar šo mērķi. App stāsta jums, kad esat ēst pārāk daudz ("pārpalikums"), vai par mazu ("deficīts").
+Kalorijas no pārtikas tiks pievienota kopumā. Sadedzinātās kalorijas (ieskaitot izmantošanu) tiks atskaitīti no kopumā.
+Pagajušais laiks tiek parversta sadedzina kalorijas. Tadel jusu kaloriju balanss samazinas automatiski visas dienas garuma. Domajiet par to ka degvielas paterinu.
+Ja jūs pārēsties, var kompensēt, veicot vingrinājumus vai ēdot mazāk nākamo pāris stundu laikā.
+Pārbaudiet savu profilu. Tur jūs atradīsiet visu jums nepieciešamo informāciju, lai noteiktu savu ideālo kaloriju patēriņu.
+
+--------------------
+
+Izmēģiniet pirms pērkat! Mēs esam pārliecināti, jums tas patiks! 
+
+-------------------- 
+
+Ar KCals jums: 
+
+• Super viegli izmantot 
+• Reālā laika kaloriju skaitītājs (neviens cits app tas ka!) 
+• Tulko 40 valodās 
+• Pieejami 6 dažādās platformās (tostarp bezmaksas interneta versija)
+• Integrācija ar Facebook 
+• Automātiskās backup un datu sinhronizācija (vairākas ierīces) 
+• Reāli svara zudums tāme 
+• Parāda cik ātri jūsu ķermeņa apdegumus kalorijas 
+• Visaptverošu uztura informāciju (macronutrient)
+• Regulējams macronutrient attiecība 
+• Elastīgas, pielāgojamas un pārredzama sistēma (Jums ir kontroli) 
+• Advanced search engine 
+• Kaloriju patēriņa statistika
+• Milzīgs datu bāze (10.000 + vienības) 
+• Pārlūkojamajiem pārtikas kategorijas 
+• Pievienot pielāgotu pārtiku un vingrinājumi 
+• Grāmatzīme iecienītākās preces 
+• Pilnībā rediģējami ierakstus 
+• Automātiskie atjauninājumi 
+• Šodienas pārskats 
+• Regulējams kaloriju slieksnis (kaloriju balanss) 
+• Cikliskā režīmā (pārmaiņus uzņemto kaloriju daudzumu) 
+
+-------------------- 
+
+Tas viss ar vienkāršu, tīru un intuitīvu interfeisu! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

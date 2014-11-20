@@ -1,0 +1,45 @@
+﻿KCals er designet til at hjælpe dig kontrollere dit kalorieindtag. Uanset om du ønsker at opretholde, taber eller tager på i vægt, vil dette program hjælpe dig med at fokusere på hvad der er vigtigt: Dit kalorie balance.
+Ideen er simpel. Definer et mål ("daglige kalorier") og opretholde dig "afbalanceret" indenfor dette formål. Kalorietælleren angiver, når du har spist for meget ("overskydende") eller for lidt ("underskud").
+Kalorier fra fødevarer vil blive tilføjet til det samlede beløb. Kalorier du forbrænder (herunder motion) vil blive trukket fra det samlede beløb.
+Den forløbne tid omdannes til kalorieforbrænding. Så din kaloriefattige balance formindskes automatisk hele dagen. Tænk på det som brændsel spenderes.
+Hvis du spise, kan du kompensere ved at lave øvelser eller ved at spise mindre i løbet af de næste timer.
+Tjek din profil. Der vil du finde alle de oplysninger, du har brug for at definere din ideelle kalorieindtag.
+
+--------------------
+
+Prøv før du køber! Vi er sikker på du vil elske det! 
+
+-------------------- 
+
+Med KCals får du: 
+
+• Super let at bruge 
+• Real tid kalorietæller (ingen andre app gør det!) 
+• Oversat til 40 sprog 
+• Fås i 6 forskellige platforme (herunder web) 
+• Integration med Facebook 
+• Automatisk backup og synkronisering af data (flere enheder) 
+• Realistisk vægttab estimering 
+• Viser, hvor hurtigt din krop forbrænder kalorier 
+• Omfattende ernæringsmæssige oplysninger (makronæringsstoffer) 
+• Fleksibel, tilpasses og gennemsigtigt system (du er i kontrol) 
+• Avanceret søgemaskine 
+• Kalorie indtag statistik
+• Kæmpe database (10.000 + poster) 
+• Søgbar fødevarekategorier 
+• Tilføj brugerdefinerede fødevarer og øvelser 
+• Bogmærke dine foretrukne emner 
+• Fuldt redigerbare poster 
+• Automatiske opdateringer 
+• Dagens overblik 
+• Justerbar kalorieindhold tærskel
+• Cyklisk tilstand (skiftevis kalorieindtag) 
+
+-------------------- 
+
+Alt, i en enkel, ren og intuitiv brugerflade! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

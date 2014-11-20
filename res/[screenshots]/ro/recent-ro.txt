@@ -1,0 +1,2 @@
+﻿• Automatic recalculare greutate / înălțime, atunci când sistemul de măsurare este schimbat 
+• Privire de ansamblu asupra azi nu mai include înregistrări expirate

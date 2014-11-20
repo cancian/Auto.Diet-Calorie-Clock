@@ -1,0 +1,1 @@
+﻿kalorieindhold,kaloriefattige,kcal,kcals,tæller,tracker,vægt,tab,tabe,vinde,sund,kost,ur, real time

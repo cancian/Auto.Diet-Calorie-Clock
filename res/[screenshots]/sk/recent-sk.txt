@@ -1,0 +1,2 @@
+﻿• Automatická váha / výška prepočítanie, pokiaľ sa zmení systém merania 
+• Dnešný prehľad už obsahuje položky s uplynutou platnosťou

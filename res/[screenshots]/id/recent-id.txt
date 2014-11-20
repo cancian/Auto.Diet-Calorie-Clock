@@ -1,0 +1,2 @@
+﻿• Otomatis BB / TB perhitungan kembali ketika sistem pengukuran berubah 
+• Ikhtisar hari ini tidak lagi termasuk entri kedaluwarsa

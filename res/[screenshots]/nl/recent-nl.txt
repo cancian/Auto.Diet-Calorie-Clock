@@ -1,0 +1,2 @@
+﻿• Automatische gewicht / lengte herberekening wanneer het meetsysteem wordt gewijzigd 
+• Overzicht van vandaag niet meer bestaat verlopen inzendingen

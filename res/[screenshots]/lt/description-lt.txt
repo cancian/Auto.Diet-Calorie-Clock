@@ -1,0 +1,46 @@
+﻿KCals yra skirtas padėti jums kontroliuoti savo suvartojamų kalorijų kiekį. Nesvarbu, ar norite išsaugoti, numesti ar priaugti svorio, ši programa padės jums sutelkti dėmesį į tai, kas svarbu: jūsų kalorijų balansas.
+Idėja paprasta. Nustatyti tikslą ("dienos kalorijų"), ir likti "subalansuotas" ir šio tikslo atžvilgiu. Programa parodys, kai jūs valgyti per daug ("perteklius"), ar per mažai ("deficitas").
+Kalorijos iš maisto bus pridėtas prie viso. Sudegintas kalorijas (įskaitant pratybų) bus atimta iš viso.
+Praejes laikas yra paverciamas sudegintu kaloriju. Taigi jusu kaloriju balansas bus automatiškai sumažinti visa diena. Pagalvokite apie tai, kalbant apie kuro sanaudas.
+Jei persivalgyti, jūs galite kompensuoti daryti pratimus, arba mažiau valgyti per ateinančius keletą valandų.
+Patikrinkite profili. Ten rasite visa informacija, jums reikia nustatyti savo idealus suvartojamu kaloriju.
+
+--------------------
+
+Išbandykite prieš pirkdami! Esame įsitikinę, jums bus meilė jį! 
+
+-------------------- 
+
+Su KCals jūs gaunate: 
+
+• Super lengva naudotis 
+• Realaus laiko kalorijų skaitiklis (jokia kita programa tai daro!) 
+• Išversta į 40 kalbų 
+• Galite 6 skirtingų platformų (įskaitant nemokamą interneto versija) 
+• Integracija su Facebook 
+• Automatinis atsarginės ir duomenų sinchronizacija (kelis įrenginius) 
+• Realius svorio nuostolio įvertis
+• Rodo, kaip greitai jūsų kūnas degina kalorijas 
+• Išsami informaciją apie mitybą (makroelementų) 
+• Reguliuojamas macronutrient santykis 
+• Lankstus, pritaikoma ir skaidri sistema (jūs kontroliuojate) 
+• Papildomi paieškos 
+• Kalorijų suvartojimas statistika 
+• Didelis duomenų bazė (10.000 + dalys) 
+• Naršytinos maisto kategorijos 
+• Pridėti pasirinktinius maisto produktų ir pratybas 
+• Išsaugoti nuorodą mėgstamiausias elementai 
+• Pilnai redaguojamą įrašus
+• Automatiniai atnaujinimai 
+• Šiandienos apžvalga
+• Reguliuojamas kalorijų riba (kalorijų balansas)
+• Ciklinis režimas (kintamojo kalorijų) 
+
+-------------------- 
+
+Visa tai su paprastu, švarus ir intuityvi sąsaja! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

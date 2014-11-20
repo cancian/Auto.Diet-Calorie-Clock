@@ -1,0 +1,46 @@
+﻿Kcals on suunniteltu auttamaan sinua hallitsemaan kalorien saanti. Olipa haluat säilyttää, menettää tai lihoa, tämä sovellus auttaa sinua keskittymään olennaiseen: kaloritasapaino.
+Idea on yksinkertainen. Määrittele tavoite ("kaloria päivässä") ja pitää itse "tasapainoinen" sisällä tähän tavoite. Sovellus ilmoittaa, kun olet syönyt liikaa ("ylimäärä"), tai liian vähän ("alijäämä").
+Ruoka kaloreita on lisätty yhteensä. Kalorikulutus (mukaan liikunta) vähennetään kokonaismäärästä.
+Kulunut aika muunnetaan poltetut kalorit. Joten kalorien saldo vähenee automaattisesti koko päivän. Ajattele sitä polttoaineen kulutusta.
+Jos syödä liikaa, voit kompensoida tekemällä harjoituksia tai syö vähemmän seuraavalla tunnin.
+Tarkista profiilisi. Sieltä löydät kaikki tiedot, sinun täytyy määrittää ihanteellinen kalorimäärää.
+
+--------------------
+
+Kokeile ennen kuin ostat! Olemme varmoja, tulet rakastamaan sitä! 
+
+-------------------- 
+
+Kanssa KCalZZ saat: 
+
+• Super helppokäyttöinen 
+• Reaaliaikainen kalorilaskurin (ei muita app tekee sen!) 
+• Käännetty 40 kielelle 
+• Saatavana 6 eri alustoilla (myös www) 
+• Integrointi Facebook 
+• Automaattinen varmuuskopiointi ja tietojen synkronointi (useita laitteita) 
+• Realistinen laihtuminen arvio 
+• Näyttää kuinka nopeasti elimistö polttaa kaloreita 
+• Kattavat ravintosisältö (macronutrients) 
+• Säädettävä macronutrient suhde 
+• Joustava, muokattavissa ja avoin järjestelmä (olet valvonta) 
+• Tarkennettu hakukone 
+• Kalorit kulutusta koskevat tilastot 
+• Valtava tietokanta (10,000 + tuotetta) 
+• Selattavat elintarvikeryhmissä 
+• Lisää omia elintarvikkeita ja harjoituksia 
+• Suosikkiraporttien kohdetta 
+• Täysin muokattavissa merkinnät 
+• Automaattiset päivitykset 
+• Päivän yleiskatsaus 
+• Säädettävä kalorien kynnys (kalori balance)
+• Sykliset tila (vuorottelee kalorimäärää) 
+
+-------------------- 
+
+Kaikki tämä yksinkertainen, puhdas ja intuitiivinen käyttöliittymä! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

@@ -1,0 +1,46 @@
+﻿KCals er utviklet for å hjelpe deg med å kontrollere kaloriinntaket. Enten du ønsker å opprettholde, tape, eller opp i vekt, vil dette programmet hjelpe deg å fokusere på det som er viktig: Ditt kaloribalanse.
+Ideen er enkel. Definer et mål ("daglige kalorier") og holde deg "balansert" i sammenheng med dette målet. Programmet vil vise når du har spist for mye ("overflødig"), eller for lite ("underskudd").
+Kaloriene fra maten vil bli lagt til totalen. Kalorier brent (inkludert øvelse) vil bli trukket fra totalsummen.
+Medgått tid omdannes til forbrente kalorier. Derfor vil kaloribalanse reduseres automatisk i løpet av dagen. Tenk på det i form av drivstofforbruk.
+Hvis du overspise, kan du kompensere ved å gjøre øvelser eller ved å spise mindre i løpet av de neste par timene.
+Sjekk din profil. Der vil du finne all informasjon du trenger for å beregne din ideelle kaloriinntaket.
+
+--------------------
+
+Prøv før du kjøper! Vi er sikker på at du vil elske det! 
+
+-------------------- 
+
+Med KCals får du:
+
+• Super lett å bruke 
+• Sanntid kaloriteller (ingen annen app gjør det!) 
+• Oversatt til 40 språk 
+• Tilgjengelig i 6 forskjellige plattformer (inkludert gratis web-versjon) 
+• Integrasjon med Facebook 
+• Automatisk sikkerhetskopiering og datasynkronisering (flere enheter) 
+• Realistiske beregninger av vekttap 
+• Viser hvor raskt kroppen din forbrenner kalorier
+• Omfattende ernæringsmessige informasjon (makronæringsstoffer) 
+• Justerbar macronutrient ratio 
+• Fleksibel, tilpasses og gjennomsiktig system (du er i kontroll) 
+• Avansert søkemotor 
+• Kalorier forbruksstatistikk 
+• Enorm database (10.000 + elementer) 
+• Søkbare mat kategorier 
+• Legg tilpasset mat og øvelser 
+• Bokmerke dine favorittelementer 
+• Fullt redigerbare oppføringer 
+• Automatiske oppdateringer 
+• Dagens oversikt 
+• Justerbar kalori terskel (kaloribalanse) 
+• Syklisk modus (vekslende kaloriinntak) 
+
+-------------------- 
+
+Alt dette med et enkelt, rent og intuitivt grensesnitt! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

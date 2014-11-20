@@ -1,0 +1,2 @@
+﻿• Automātiska svars / augstums pārrēķinu, kad mērīšanas sistēma tiek mainīta 
+• Šodienas pārskats vairs nav iekļauti ieraksti beidzies

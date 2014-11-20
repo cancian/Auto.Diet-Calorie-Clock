@@ -1,0 +1,2 @@
+﻿• Automatique calcul poids / taille lorsque le système de mesure est modifiée 
+• La présentation d'aujourd'hui ne comprend plus les entrées périmés

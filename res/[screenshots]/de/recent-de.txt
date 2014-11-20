@@ -1,0 +1,2 @@
+﻿• Gewichtsautomatik / Höhe Neuberechnung, wenn das Messsystem geändert wird 
+• Die heutige Übersicht enthält nicht mehr abgelaufenen Einträge

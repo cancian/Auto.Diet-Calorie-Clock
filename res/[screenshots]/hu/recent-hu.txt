@@ -1,0 +1,2 @@
+﻿• Automatikus súly / magasság újratervezés, ha a mérési rendszer megváltozott 
+• A mai áttekintés nem tartalmazza lejárt bejegyzések

@@ -1,0 +1,2 @@
+﻿• Automatisk vekt / høyde omregning når målesystemet er endret 
+• Dagens oversikt inkluderer ikke lenger utgåtte oppføringer

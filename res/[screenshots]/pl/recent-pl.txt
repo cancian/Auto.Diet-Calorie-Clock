@@ -1,0 +1,2 @@
+﻿• Automatyczna waga / wysokość przeliczenie kiedy zmienia się układ pomiarowy 
+• Dzisiejszy przegląd nie obejmuje już wygasłe wpisy

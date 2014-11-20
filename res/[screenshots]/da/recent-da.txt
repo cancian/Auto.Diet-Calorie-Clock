@@ -1,0 +1,2 @@
+﻿• Automatisk vægt / højde genberegning når målesystemet er ændret 
+• Dagens oversigt omfatter ikke længere udløbne poster

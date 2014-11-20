@@ -1,0 +1,45 @@
+﻿KCals je navržen tak, aby vám pomůže kontrolovat svůj příjem kalorií. Ať už si chcete udržet, ztratit, nebo přibírání na váze, bude tato aplikace vám pomůže soustředit se na to, co je důležité: váš kalorický zůstatek.
+Myšlenka je jednoduchá. Nastavte cíl ("denních kalorií") a zůstaň "vyvážený" v kontextu tohoto cíle. Aplikace bude ukazovat, když jste jedli příliš mnoho ("přebytek"), nebo příliš málo ("deficit").
+Kalorií z potravin, bude přidána k celkové. Spálených kalorií (včetně cvičení) bude odečtena z celkové částky.
+Uplynulý čas je převeden do spálených kalorií. Proto bude váš kalorický zůstatek se automaticky sníží po celý den. Myslete na to, pokud jde o spotřebu paliva.
+Pokud se přejídat, můžete kompenzovat tím, že dělá cvičení nebo tím, že jí méně během příštích několika hodin.
+Zkontrolujte svůj profil. Zde najdete všechny informace potřebné k definování optimální příjem kalorií.
+
+--------------------
+
+Vyzkoušejte před zakoupením! Jsme si jisti, že ji budete milovat! 
+
+-------------------- 
+
+S KCals získáte: 
+
+• Super snadné použití 
+• Reálném čase počítadlo kalorií (žádná jiná aplikace to dělá!) 
+• Přeloženo do 40 jazyků 
+• K dispozici v 6 různých platformách (včetně internetu) 
+• Integrace se s Facebook účtem 
+• Automatické zálohování a synchronizaci dat (více zařízení) 
+• Realistická váha odhadem ztrát
+• Ukazuje, jak rychle se vaše tělo spaluje kalorie 
+• Komplexní nutriční informace (macronutrients) 
+• Flexibilní přizpůsobitelný a transparentní systém (jste v ovládání) 
+• Pokročilé vyhledávač 
+• Statistika příjmu kalorií
+• Rozsáhlá databáze (10.000 + položek) 
+• Kategorie které lze procházet potravin 
+• Přidejte vlastní potraviny a cvičení 
+• Záložky své oblíbené položky 
+• Plně editovatelné položky 
+• Automatické aktualizace 
+• Dnešní přehled 
+• Nastavitelný kalorií práh
+• Cyklický režim (střídání příjem kalorií) 
+
+-------------------- 
+
+Vše v jednoduché, čisté a intuitivní rozhraní!
+
+--------------------
+
+http://kcals.net
+support@kcals.net

@@ -1,0 +1,2 @@
+﻿• Ricalcolo automatico del peso / altezza quando il sistema di misura viene modificata 
+• Panoramica di oggi non comprende più voci scadute

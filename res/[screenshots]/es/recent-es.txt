@@ -1,0 +1,2 @@
+﻿• Automático nuevo cálculo de peso / altura al cambiar el sistema de medición 
+• Vista general de hoy ya no incluye entradas caducadas

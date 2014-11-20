@@ -1,0 +1,46 @@
+﻿KCals jest zaprojektowany, aby pomóc Ci kontrolowac ilosc spozywanych kalorii. Czy chcesz zachowac, stracic lub przyrost masy ciala, ta aplikacja pomoze Ci skupic sie na tym co wazne: Twój bilans kaloryczny.
+Pomysl jest prosty. Zdefiniowac cel ("dziennie kalorii") i trzymac sie "zrównoważony", w kontekscie tego celu. Aplikacja pokaze kiedy jesc zbyt duzo ("nadmiar"), lub zbyt malo ("deficyt").
+Kalorii z pożywienia zostanie dodana do całkowitej. Kalorie spalone (w tym ćwiczenia) będzie odjęta od całości.
+Upływający czas jest przekształcony kalorii spalone. Dlatego twój bilans kaloryczny zmniejszy się automatycznie w ciągu dnia. Pomysl o tym w kategoriach zuzycie paliwa.
+Jeśli przejadać, można zrekompensować wykonując ćwiczenia, lub jedząc mniej w ciągu najbliższych kilku godzin.
+Sprawdź swój profil. Tam znajdziesz wszystkie informacje potrzebne do określenia idealnego spożycie kalorii.
+
+--------------------
+
+Wypróbuj zanim kupisz! Jesteśmy pewni, że to kochasz! 
+
+-------------------- 
+
+Z KCals otrzymasz: 
+
+• Bardzo łatwy w użyciu 
+• Licznik kalorii w czasie rzeczywistym (żadna inna aplikacja robi!) 
+• Przetłumaczone na 40 języków 
+• Dostępny w 6 różnych platformach (w tym darmowej wersji internetowej) 
+• Integracja z Facebook 
+• Automatyczne tworzenie kopii zapasowych i synchronizacji danych (różne urządzenia) 
+• Realistyczne szacunki utraty wagi 
+• Pokazuje jak szybko organizm spala kalorie 
+• Kompleksowa informacja żywieniowa (makroelementy) 
+• Regulowany stosunek makroskładników 
+• Elastyczny, konfigurowalny i przejrzysty system (jesteś w kontroli) 
+• Zaawansowana wyszukiwarka 
+• Statystyki zużycia kalorii 
+• Obszerna baza danych (10,000 + szt.) 
+• Przeglądania kategorii żywności 
+• Dodaj własne żywności i ćwiczenia 
+• Zaznacz swoje ulubione przedmioty 
+• W pełni edytowalne wpisy 
+• Automatyczne aktualizacje 
+• Dzisiejszy przegląd 
+• Regulowany próg kalorii (bilans kalorii) 
+• Tryb cykliczny (naprzemienne spożycie kalorii) 
+
+-------------------- 
+
+Wszystko to w prosty, czysty i intuicyjny interfejs! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net

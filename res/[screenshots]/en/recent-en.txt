@@ -1,0 +1,2 @@
+﻿• Automatic weight/height recalculation when the measurement system is changed
+• Today's overview no longer includes expired entries

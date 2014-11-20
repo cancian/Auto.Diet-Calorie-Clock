@@ -1,0 +1,2 @@
+﻿• Automatisk vikt / längd omräkning när mätsystemet ändras 
+• Dagens översikt omfattar inte längre utgångna poster

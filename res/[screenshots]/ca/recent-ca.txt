@@ -1,0 +1,2 @@
+﻿• Automàtic nou càlcul de pes / alçada en canviar el sistema de mesurament 
+• Vista general d'avui ja no inclou entrades caducades
