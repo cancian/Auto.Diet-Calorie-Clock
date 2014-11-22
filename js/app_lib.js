@@ -917,7 +917,7 @@ else										{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vend
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
 ///////////////////////////////////
-if (!$("#plainLoad").length && !$("#superBlockCSS").length) {
+if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheValid !== 1) {
 	if (vendorClass == "moz" || vendorClass == "msie") {
 		$.support.cors = true;
 		$.ajax({
