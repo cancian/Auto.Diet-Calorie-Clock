@@ -1,6 +1,7 @@
 ﻿{
 	"version" : "1.6.10",
 	"name" : "Calorie Counter",
+	"type" : "web",
 	"description" : "KCals is a real-time calorie counter.",
 	"launch_path" : "/index.html",
 	"appcache_path": "/manifest.appcache",
@@ -41,7 +42,6 @@
 		"de" :    { "name": "Kalorienzähler"		},
 		"el" :    { "name": "Θερμιδομετρητής"			},
 		"es" :    { "name": "Contador de Calorías"	},
-		"et" :    { "name": "Kalorikulu"			},
 		"fa" :    { "name": "کالری مبارزه با"			},
 		"fi" :    { "name": "Kalorilaskuri"			},
 		"fr" :    { "name": "Compteur de Calories"	},
@@ -57,7 +57,6 @@
 		"lv" :    { "name": "Kaloriju Skaitītājs"	},
 		"ms" :    { "name": "Kaunter Kalori"		},
 		"nl" :    { "name": "Calorieënteller"		},
-		"nb" :    { "name": "Kaloriteller"			},
 		"nb-no" : { "name": "Kaloriteller"			},
 		"pl" :    { "name": "Licznik Kalorii"		},
 		"ro" :    { "name": "Contor de Calorii"		},

@@ -1,6 +1,6 @@
 ﻿CACHE MANIFEST
-# v16910 2014-11-14
-# APP
+# v 16910 2014-11-22
+CACHE:
 index.html
 version.txt
 js/app_init.js
@@ -36,7 +36,6 @@ js/jquery.ui.js
 js/jquery.color.js
 js/jquery.nicescroll.js
 js/jquery.touchswipe.js
-# DB
 js/localforage.js
 # UTILS
 js/carpe_slider.js
@@ -47,3 +46,5 @@ js/galocalstorage.js
 js/quo.js
 NETWORK:
 *
+http://*
+https://*
