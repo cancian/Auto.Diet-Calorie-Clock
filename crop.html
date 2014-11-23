@@ -1,0 +1,65 @@
+<html>
+<head>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function () {
+	setTimeout(function () {
+		var cropper = document.getElementById('cropper');
+		function cropout() {
+			if (cropper.value) {
+				cropper.value = cropper.value.split('–EN\n').join('');
+				cropper.value = cropper.value.split('–PT\n').join('');
+				cropper.value = cropper.value.split('–AR\n').join('');
+				cropper.value = cropper.value.split('–BG\n').join('');
+				cropper.value = cropper.value.split('–CA\n').join('');
+				cropper.value = cropper.value.split('–CS\n').join('');
+				cropper.value = cropper.value.split('–DA\n').join('');
+				cropper.value = cropper.value.split('–DE\n').join('');
+				cropper.value = cropper.value.split('–EL\n').join('');
+				cropper.value = cropper.value.split('–ES\n').join('');
+				cropper.value = cropper.value.split('–ET\n').join('');
+				cropper.value = cropper.value.split('–FA\n').join('');
+				cropper.value = cropper.value.split('–FI\n').join('');
+				cropper.value = cropper.value.split('–FR\n').join('');
+				cropper.value = cropper.value.split('–HI\n').join('');
+				cropper.value = cropper.value.split('–HR\n').join('');
+				cropper.value = cropper.value.split('–HU\n').join('');
+				cropper.value = cropper.value.split('–IT\n').join('');
+				cropper.value = cropper.value.split('–ID\n').join('');
+				cropper.value = cropper.value.split('–IW\n').join('');
+				cropper.value = cropper.value.split('–JA\n').join('');
+				cropper.value = cropper.value.split('–KO\n').join('');
+				cropper.value = cropper.value.split('–LT\n').join('');
+				cropper.value = cropper.value.split('–LV\n').join('');
+				cropper.value = cropper.value.split('–MS\n').join('');
+				cropper.value = cropper.value.split('–NL\n').join('');
+				cropper.value = cropper.value.split('–NB\n').join('');
+				cropper.value = cropper.value.split('–PL\n').join('');
+				cropper.value = cropper.value.split('–RO\n').join('');
+				cropper.value = cropper.value.split('–RU\n').join('');
+				cropper.value = cropper.value.split('–SK\n').join('');
+				cropper.value = cropper.value.split('–SL\n').join('');
+				cropper.value = cropper.value.split('–SR\n').join('');
+				cropper.value = cropper.value.split('–SV\n').join('');
+				cropper.value = cropper.value.split('–TH\n').join('');
+				cropper.value = cropper.value.split('–TR\n').join('');
+				cropper.value = cropper.value.split('–UK\n').join('');
+				cropper.value = cropper.value.split('–VI\n').join('');
+				cropper.value = cropper.value.split('–ZH\n').join('');
+				cropper.value = cropper.value.split('–ZT\n').join('');
+				var encode = unescape(encodeURIComponent(cropper.value));
+				console.log(encode.length);
+				//encode = encode.slice(0, 4000);
+				//cropper.value = decodeURIComponent(escape(encode));
+			}
+		}
+		cropper.addEventListener('input', cropout);
+	}, 0);
+}, false);
+</script>
+<title>description 4000 char cropper</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<textarea id="cropper" style="width: 100%; height: 100%; overflow: auto; border: 0; padding: 30px; box-sizing: border-box; margin: 0; font-size: 16px; line-height: 150%;"></textarea>
+</body>
+</html>

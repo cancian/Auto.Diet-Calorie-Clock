@@ -12,15 +12,18 @@ AddType text/plain .db
 #############
 ## HEADERS ##
 #############
-Header set Cache-Control "max-age=0"
-Header unset ETag
-FileETag None
+<IfModule mod_headers.c>
 Header add Access-Control-Allow-Origin "*"
+Header set Cache-Control "max-age=0, no-store, no-cache, private, must-revalidate, post-check=0, pre-check=0"
+Header unset ETag
+</IfModule>
 #############
 ## EXPIRES ##
 #############
-ExpiresActive On
-ExpiresDefault "access"
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault now
+</IfModule>
 #################
 ## COMPRESSION ##
 #################

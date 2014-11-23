@@ -45,6 +45,5 @@ js/mobiscroll.js
 js/galocalstorage.js
 js/quo.js
 NETWORK:
-*
 http://*
 https://*
