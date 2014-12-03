@@ -896,12 +896,12 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//////////////////
 	// DEV KEYCODES //
 	//////////////////
-	$('#entryBody').on('keyup paste', function(evt) {
-		if((/dev/).test($('#entryBody').val().toLowerCase())) {
+	$('#entryBody').on('keyup input paste', function(evt) {
+		if((/dev/i).test($('#entryBody').val())) {
 			//////////
 			// GOTO //
 			//////////
-			if ((/devgoto/).test($("#entryBody").val().toLowerCase())) {
+			if (/devgoto/i.test($('#entryBody').val())) {
 				window.location.href = 'http://' + $("#entryBody").val().toLowerCase().split("devgoto").join('');
 				$("#entryBody").val('');
 				$("#entryBody").blur();
@@ -909,7 +909,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			//////////
 			// UUID //
 			//////////
-			if ((/devuuid/).test($("#entryBody").val().toLowerCase())) {
+			if (/devuuid/i.test($('#entryBody').val())) {
 				$("#entryBody").val('');
 				$("#entryBody").blur();
 				if(window.device) {
@@ -921,7 +921,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			///////////
 			// DEBUG //
 			///////////
-			if ($("#entryBody").val().toLowerCase() == "devdebug") {
+			if (/devdebug/i.test($('#entryBody').val())) {
 				if (app.read('config_debug','active')) {
 					app.save('config_debug','inactive');
 					$("#entryBody").val('');
@@ -937,7 +937,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			///////////
 			// PURGE //
 			///////////
-			if ($("#entryBody").val().toLowerCase() == "devpurge") {
+			if (/devpurge/i.test($('#entryBody').val())) {
 				app.remove("remoteSuperBlockJS");
 				app.remove("remoteSuperBlockCSS");
 				app.remove("app_autoupdate_hash");
@@ -948,7 +948,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			////////////
 			// NOTIFY //
 			////////////
-			if ($("#entryBody").val().toLowerCase() == "devnotify") {
+			if (/devnotify/i.test($('#entryBody').val())) {
 				if (app.read('app_notify_update')) {
 					app.remove('app_notify_update');
 				} else {
@@ -960,7 +960,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			////////////
 			// DRIVER //
 			////////////
-			if ($("#entryBody").val().toLowerCase() == "devdriver") {
+			if (/devdriver/i.test($('#entryBody').val())) {
 				if (localforage) {
 					alert(localforage._driver);
 				}
@@ -970,7 +970,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			///////////
 			// CLEAR //
 			///////////
-			if ($("#entryBody").val().toLowerCase() == "devclear") {
+			if (/devclear/i.test($('#entryBody').val())) {
 				window.localStorage.clear();
 				$("#entryBody").val('');
 				$("#entryBody").blur();
@@ -978,7 +978,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			////////////
 			// RELOAD //
 			////////////
-			if ($("#entryBody").val().toLowerCase() == "devreload") {
+			if (/devreload/i.test($('#entryBody').val())) {
 				window.location.reload(true);
 				$("#entryBody").val('');
 				$("#entryBody").blur();
@@ -986,7 +986,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			////////////////
 			// INSTALLPKG //
 			////////////////
-			if ($("#entryBody").val().toLowerCase() == "devinstallpkg") {
+			if (/devinstallpkg/i.test($('#entryBody').val())) {
 				if (vendorClass == "moz") {
 					navigator.mozApps.install(app.https + 'kcals.net/manifest.webapp');
 					$("#entryBody").val('');
@@ -996,13 +996,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			/////////////////
 			// INSTALLTIME //
 			/////////////////
-			if ($("#entryBody").val().toLowerCase() == "devinstalltime") {
+			if (/devinstalltime/i.test($('#entryBody').val())) {
 				alert(dtFormat(app.read('config_install_time')));
 			}
 			//////////
 			// EVAL //
 			//////////
-			if ((/deveval/).test($("#entryBody").val().toLowerCase())) {
+			if ((/deveval/i).test($("#entryBody").val())) {
 				if($("#entryBody").val().split("deveval").join('') != '') {
 					$("#entryBody").val( $("#entryBody").val().split("deveval").join('deveva') );
 					try {
@@ -1038,9 +1038,31 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				}
 			}
 			////////////
+			// DUMPDB //
+			////////////
+			if (/devdumpdb/i.test($('#entryBody').val())) {
+				var rowsArray = rowsFood;
+				var rowsHtml = '';
+				for(var i=0, len=rowsArray.length; i<len; i++) {
+					
+					rowsHtml += rowsArray[i].name + '<br>\n';
+					//if(rowsArray[i].term) {
+					//	delete rowsArray[i].term;
+					//}
+					//if(rowsArray[i].name) {
+					//	console.log(JSON.stringify(rowsArray[i].name);
+						//delete rowsArray[i].term;
+					//}
+				}
+				$('#entryBody').val('devdumpd');
+				$('#entryBody').blur();
+				$('body').html(rowsHtml);
+				//console.log(JSON.stringify(rowsArray));
+			}
+			////////////
 			// REWIPE //
 			////////////
-			if ($('#entryBody').val().toLowerCase() == 'devrewipe') {
+			if (/devrewipe/i.test($('#entryBody').val())) {
 				deSetup();
 				$('#entryBody').val('');
 				$('#entryBody').blur();

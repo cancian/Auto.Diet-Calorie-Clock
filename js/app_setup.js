@@ -973,21 +973,7 @@ function updateFoodDb(callback) {
 			////////////
 			// IMPORT //
 			////////////
-			function doImport() {
-				spinner();
-				foodDbTimer = setTimeout(function() {
-					try{
-						$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/searchdb_' + langDB + '.db', success: function(ls) {
-							var rowsArray = [];
-							//PARSE
-							ls = ls.split('lib2.insert("diary_food", ').join('');
-							ls = ls.split(');').join('');
-							ls = ls.split('\n');
-							for(var l=0, llen=ls.length; l<llen; l++) {
-								try {
-									rowsArray.push(JSON.parse(ls[l]));
-								} catch(e) {}
-							}
+			function saveParsed(rowsArray) {
 							//REINSERT
 							var postCustom = '';
 							if(trim(app.read('customItemsSql')) != '') { postCustom += trim(app.read('customItemsSql')); }
@@ -1019,6 +1005,56 @@ function updateFoodDb(callback) {
 									}
 								});
 							});
+			};
+			
+			function doImport() {
+				spinner();
+				foodDbTimer = setTimeout(function() {
+					try{
+						$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/searchdb_' + langDB + '.db', success: function(ls) {
+							var rowsArray = [];
+							if(!ls.contains('lib2.insert')) {
+							//////////////////
+							// PARSE NEW DB //
+							//////////////////
+							ls = ls.split('"').join('”');
+							ls = ls.split("'").join('’');
+							ls = ls.split('  ').join(' ');
+							ls = ls.split(' %').join('%');
+							ls = ls.split(' / ').join('/');
+							ls = ls.split('\r').join('');
+							ls = ls.split('\n');
+							$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/searchdb.db', success: function(sdb) {
+								rowsArray = JSON.parse(sdb);
+								for(var s=0, slen=rowsArray.length; s<slen; s++) {
+									try {
+										rowsArray[s].name = ls[s];
+										rowsArray[s].term = searchalize(rowsArray[s].name);
+										rowsArray[s].kcal = rowsArray[s].kcal;
+										rowsArray[s].pro  = rowsArray[s].pro;
+										rowsArray[s].car  = rowsArray[s].car;
+										rowsArray[s].fat  = rowsArray[s].fat;
+										rowsArray[s].fib  = rowsArray[s].fib;
+										//console.log(s+1 + '  - ' + JSON.stringify(rowsArray[s]));
+										//console.log(rowsArray[s].term + '  - ' + rowsArray[s].name);
+									} catch(e) {}
+								}
+								saveParsed(rowsArray);
+							}});
+							} else {
+							//////////////////
+							// PARSE OLD DB //
+							//////////////////
+							ls = ls.split('lib2.insert("diary_food", ').join('');
+							ls = ls.split(');').join('');
+							ls = ls.split('\n');
+							for(var l=0, llen=ls.length; l<llen; l++) {
+								try {
+									rowsArray.push(JSON.parse(ls[l]));
+								} catch(e) {}
+							}
+							}
+							saveParsed(rowsArray);
 						}});
 					} catch(e) { 
 					//failure
@@ -1406,6 +1442,10 @@ function buildHelpMenu() {
 			helpHtml = helpHtml + '<li id="topic' + topicId + '">' + key + '<div class="topicTitle">' + key + '</div><div class="topicContent">' + value + '</div></li>';
 		}
 	});
+	//
+	//helpHtml = '<li id="topic' + (topicId+2) + '">Youtube Video<div class="topicTitle">Youtube Video</div><div class="topicContent">\
+	//<iframe style="max-width: 1920px; max-height: 1080px; min-width: 480px; min-height: 320px; display: block; margin: 0 auto;" src="https://www.youtube.com/embed/Px3gXf1GOrQ?feature=player_embedded" frameborder="0" allowfullscreen></iframe>\
+	//</div></li>' + helpHtml;
 	/////////////////////
 	// RE-INSERT INTRO //
 	/////////////////////
@@ -1917,7 +1957,7 @@ function sanitize(str) {
 //////////////////
 function sanitizeSql(str) {
 	if(str) {
-		var result = str.split("'").join(" ").split('"').join(" ").split(";").join(" ").split("&").join(" ").split("\\").join(" ").split("/").join(" ").split("  ").join(" ").split("  ").join(" ");
+		var result = str.split("'").join("’").split('"').join("”").split(";").join(",").split("\\").join(" ").split("  ").join(" ").split("  ").join(" ");
 		return result;
 	}
 }

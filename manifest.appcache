@@ -1,6 +1,6 @@
 ﻿CACHE MANIFEST
-# v 16910 2014-11-22
-CACHE:
+# v16911 2014-11-24
+# APP
 index.html
 version.txt
 js/app_init.js
@@ -20,7 +20,6 @@ css/kcals.ttf
 # CORDOVA
 js/cordova.js
 js/cordova_plugins.js
-# CDV PLUGINS
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
 js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
@@ -44,6 +43,6 @@ js/highcharts.js
 js/mobiscroll.js
 js/galocalstorage.js
 js/quo.js
+
 NETWORK:
-http://*
-https://*
+*

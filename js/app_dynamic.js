@@ -843,7 +843,7 @@ function doSearch(rawInput) {
 	if (rawInput == 0) {
 		rawInput = "00000000";
 	}
-	rawInput = toAscii(trim(rawInput.split("~").join("").split("’").join("").split("”").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").toLowerCase()));
+	rawInput = (searchalize(rawInput.split(' ').join('xxxyyzyyxxx'))).split('xxxyyzyyxxx').join(' ');
 	/////////////////
 	// FETCH INPUT //
 	/////////////////

@@ -9,22 +9,13 @@ AddType text/cache-manifest .appcache
 AddType application/octet-stream .bin
 AddType application/octet-stream .img
 AddType text/plain .db
-#############
-## HEADERS ##
-#############
-<IfModule mod_headers.c>
-Header add Access-Control-Allow-Origin "*"
-Header set Cache-Control "max-age=0, no-store, no-cache, private, must-revalidate, post-check=0, pre-check=0"
-Header unset ETag
-</IfModule>
-#############
 ## EXPIRES ##
-#############
-<IfModule mod_expires.c>
-	ExpiresActive On
-	ExpiresDefault now
-</IfModule>
-#################
+ExpiresActive On
+ExpiresDefault now
+## HEADERS ##
+Header add Access-Control-Allow-Origin "*"
+Header set Cache-Control "max-age=0"
+Header unset ETag
+FileETag None
 ## COMPRESSION ##
-#################
 AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript

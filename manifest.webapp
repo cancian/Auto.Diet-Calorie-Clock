@@ -1,7 +1,6 @@
 ﻿{
 	"version" : "1.6.10",
 	"name" : "Calorie Counter",
-	"type" : "web",
 	"description" : "KCals is a real-time calorie counter.",
 	"launch_path" : "/index.html",
 	"appcache_path": "/manifest.appcache",
