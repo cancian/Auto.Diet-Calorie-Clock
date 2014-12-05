@@ -1015,32 +1015,30 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			///////////
 			// INTRO //
 			///////////
-			if ($('#entryBody').val().length == 10) {
-				if (/devintro/i.test($('#entryBody').val())) {
-					var introLang = 'en';
-					if ((langArray).test($('#entryBody').val().toLowerCase().split('devintro').join(''))) {
-						introLang = $('#entryBody').val().split('devintro').join('');
-					}
-					//text
-					var introValue = '';
-					introValue += LANG.INTRO_SLIDE_1[introLang] + '\n';
-					introValue += LANG.INTRO_SLIDE_2[introLang] + '\n';
-					introValue += LANG.INTRO_SLIDE_3[introLang] + '\n';
-					introValue += LANG.INTRO_SLIDE_4[introLang] + '\n';
-					introValue += LANG.INTRO_SLIDE_5[introLang] + '\n';
-					introValue += LANG.INTRO_SLIDE_6[introLang] + '\n';
-					//output
-					console.log(introValue);
-					alert(introValue);
-					//reset
-					$('#entryBody').val('devintro');
-					$('#entryBody').blur();
+			if ($('#entryBody').val().length == 10 && /devintro/i.test($('#entryBody').val())) {
+				var introLang = 'en';
+				if ((langArray).test($('#entryBody').val().toLowerCase().split('devintro').join(''))) {
+					introLang = $('#entryBody').val().split('devintro').join('');
 				}
+				//text
+				var introValue = '';
+				introValue += LANG.INTRO_SLIDE_1[introLang] + '\n';
+				introValue += LANG.INTRO_SLIDE_2[introLang] + '\n';
+				introValue += LANG.INTRO_SLIDE_3[introLang] + '\n';
+				introValue += LANG.INTRO_SLIDE_4[introLang] + '\n';
+				introValue += LANG.INTRO_SLIDE_5[introLang] + '\n';
+				introValue += LANG.INTRO_SLIDE_6[introLang] + '\n';
+				//output
+				console.log(introValue);
+				alert(introValue);
+				//reset
+				$('#entryBody').val('devintro');
+				$('#entryBody').blur();
 			}
 			////////////
 			// DUMPDB //
 			////////////
-			if (/devdumpdb/i.test($('#entryBody').val())) {
+			if (/devdumpnames/i.test($('#entryBody').val())) {
 				var rowsArray = rowsFood;
 				var rowsHtml = '';
 				for(var i=0, len=rowsArray.length; i<len; i++) {
@@ -1059,6 +1057,75 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				$('body').html(rowsHtml);
 				//console.log(JSON.stringify(rowsArray));
 			}
+			////////////
+			// DUMPDB //
+			////////////
+			if (/devdumpdb/i.test($('#entryBody').val())) {
+var dumper = '';
+
+$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/en.txt', success: function(lsen) {
+
+lsen = JSON.parse(lsen);
+
+
+				$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/pt.txt', success: function(ls) {
+					
+					ls = ls.split('###').join('');
+					ls = ls.split('\r\n');
+										
+					for(var i=0, len=ls.length; i<len; i++) {
+					var newRow = ls[i].split('##');
+					if(ls[i].contains('##')) {
+					
+						//loop
+						var rowsHtml = '';
+						for(var r=0, ren=lsen.length; r<ren; r++) {					
+							if(ls[i].split('##')[0] === lsen[r].id) {
+								//console.log(ls[i].split('##')[1] + lsen[r].name);
+								
+								//dumper += ls[i].split('##')[1] + '<br>\n';;
+								//dumper += lsen[r].name + '<br>\n';
+dumper += '{	"id" : "' + lsen[r].id + '",	"type" : "' + lsen[r].type + '",	"code" : "' + lsen[r].code + '",	"kcal" : "' + lsen[r].kcal + '",	"pro" : "' + lsen[r].pro + '",	"car" : "' + lsen[r].car + '",	"fat" : "' + lsen[r].fat + '",	"fib" : "' + lsen[r].fib + '"	},<br>\n';
+								
+								//dumper += lsen[r].name + '<br>\n';
+								break;
+								//lsen[r].name
+								//dumper += ls[i].split('##')[1];
+								
+								
+							}
+						//console.log(newRow[0] + newRow[1]);
+						//var rowsDump = [];
+						
+						
+						}
+						
+					}
+						
+					}
+					$('body').html(dumper);
+				}});
+
+}});
+				$('#entryBody').val('devdumpd');
+
+			//	var rowsArray = rowsFood;
+			/////	var rowsHtml = '';
+			//	for(var i=0, len=rowsArray.length; i<len; i++) {
+					
+			//		rowsHtml += rowsArray[i].name + '<br>\n';
+					//if(rowsArray[i].term) {
+					//	delete rowsArray[i].term;
+					//}
+					//if(rowsArray[i].name) {
+					//	console.log(JSON.stringify(rowsArray[i].name);
+						//delete rowsArray[i].term;
+					//}
+				}
+			//	$('#entryBody').blur();
+			//	$('body').html(rowsHtml);
+				//console.log(JSON.stringify(rowsArray));
+			//}
 			////////////
 			// REWIPE //
 			////////////

@@ -1017,8 +1017,14 @@ function updateFoodDb(callback) {
 							//////////////////
 							// PARSE NEW DB //
 							//////////////////
+							ls = ls.split('.').join(' ');
+							ls = ls.split('।').join(' ');
+							ls = ls.split('。').join(' ');
 							ls = ls.split('"').join('”');
 							ls = ls.split("'").join('’');
+							ls = ls.split("、").join(',');
+							ls = ls.split(",.").join(' ');
+							ls = ls.split(",,").join(',');
 							ls = ls.split('  ').join(' ');
 							ls = ls.split(' %').join('%');
 							ls = ls.split(' / ').join('/');
@@ -1028,7 +1034,7 @@ function updateFoodDb(callback) {
 								rowsArray = JSON.parse(sdb);
 								for(var s=0, slen=rowsArray.length; s<slen; s++) {
 									try {
-										rowsArray[s].name = ls[s];
+										rowsArray[s].name = trim(ls[s]);
 										rowsArray[s].term = searchalize(rowsArray[s].name);
 										rowsArray[s].kcal = rowsArray[s].kcal;
 										rowsArray[s].pro  = rowsArray[s].pro;
