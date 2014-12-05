@@ -1017,13 +1017,13 @@ function updateFoodDb(callback) {
 							//////////////////
 							// PARSE NEW DB //
 							//////////////////
+							ls = ls.split(",.").join(' ');
 							ls = ls.split('.').join(' ');
 							ls = ls.split('।').join(' ');
 							ls = ls.split('。').join(' ');
 							ls = ls.split('"').join('”');
 							ls = ls.split("'").join('’');
 							ls = ls.split("、").join(',');
-							ls = ls.split(",.").join(' ');
 							ls = ls.split(",,").join(',');
 							ls = ls.split('  ').join(' ');
 							ls = ls.split(' %').join('%');

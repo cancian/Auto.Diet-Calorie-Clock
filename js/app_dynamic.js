@@ -840,8 +840,8 @@ function searchFood(searchSQL, callback) {
 //#////////////////////////#//
 function doSearch(rawInput) {
 	//ignore null searches
-	if (rawInput == 0) {
-		rawInput = "00000000";
+	if (rawInput == '') {
+		rawInput = '•••';
 	}
 	rawInput = (searchalize(rawInput.split(' ').join('xxxyyzyyxxx'))).split('xxxyyzyyxxx').join(' ');
 	/////////////////

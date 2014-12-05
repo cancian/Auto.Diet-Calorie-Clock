@@ -1217,8 +1217,7 @@ function decimalize(int,p) {
 // SEARCHALIZE //
 /////////////////
 function searchalize(str) {
-	if (str) {
-		str = toAscii(str.toLowerCase());
+	if (str.length) {
 		str = str.split('	').join('').
 			split('0').join('').
 			split('1').join('').
@@ -1265,9 +1264,12 @@ function searchalize(str) {
 			split('?').join('').
 			split('>').join('').
 			split('<').join('').
+			split('=').join('').
 			split('\\').join('');
+		str = toAscii(str.toLowerCase());
 		return trim(str);
 	}
+	return '';
 }
 //////////////
 // CONTAINS //
