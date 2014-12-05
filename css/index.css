@@ -110,11 +110,11 @@ body.android ::-webkit-scrollbar{ display: none; }
 // DAILY CALORIES //
 //////////////////*/
 #timerDaily						{ position: absolute; bottom: 0px; top: 0px; right: 0px; width: 84px; }
-#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: rgba(255,255,255,.8); }
+#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: rgba(255,255,255,.90); }
 .appLang-el #timerDaily span	{ font-size: 7px; }
 .appLang-hi #timerDaily span	{ bottom: 2px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 9999; }
-#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; z-index: 999; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.72); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; }
+#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; z-index: 999; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.75); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; }
 #timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: color linear .0s; }
 .newwindow #timerDailyInput,
 .closer #timerDailyInput		{ pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }

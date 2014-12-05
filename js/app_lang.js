@@ -1,5 +1,5 @@
 ﻿var appName     = 'KCals';
-var appVersion  = '1.6.10 (16910)';
+var appVersion  = '1.6.11 (16911)';
 var appBuild    = appVersion.split(' ')[1].replace('(','').replace(')',''); //appVersion.slice(7,-1);
 var appRelease  = appVersion.split(' ')[0];
 var langArray   = /(en|pt|ar|bg|ca|cs|da|de|el|es|et|fa|fi|fr|hi|hr|hu|it|id|in|iw|he|ja|ko|lt|lv|ms|nl|no|nb|pl|ro|ru|sk|sl|sr|sv|th|tr|uk|vi|zh|zt)/;
@@ -272,48 +272,6 @@ var LANG = {
 		zh : '一月, 二月, 三月, 四月, 五月, 六月, 七月, 八月, 九月, 十月, 十一月, 十二月',
 		zt : '一月, 二月, 三月, 四月, 五月, 六月, 七月, 八月, 九月, 十月, 十一月, 十二月',
 	},
-	CALORIE_COUNTER : {
-		en : 'Calorie counter',
-		pt : 'Contador de Calorias',
-		ar : 'عدَّاد السعرات الحرارية',
-		bg : 'калория тезгях',
-		ca : 'Comptador de calories',
-		cs : 'Počítadlo kalorií',
-		da : 'Kalorietæller',
-		de : 'Kalorienzähler',
-		el : 'θερμιδομετρητής',
-		es : 'Contador de calorías',
-		et : 'kalorikulu',
-		fa : 'کالری مبارزه با',
-		fi : 'kalorilaskuri',
-		fr : 'Compteur de calories',
-		hi : 'कैलोरी काउंटर',
-		hr : 'brojač kalorija',
-		hu : 'kalóriaszámláló',
-		it : 'contacalorie',
-		id : 'penghitung kalori',
-		iw : 'קלוריה מונה',
-		ja : 'カロリーカウンター',
-		ko : '칼로리 카운터',
-		lt : 'kalorijų skaitiklis',
-		lv : 'kaloriju skaitītājs',
-		ms : 'Kaunter Kalori',
-		nl : 'calorieënteller',
-		nb : 'kaloriteller',
-		pl : 'licznik kalorii',
-		ro : 'Contor de calorii',
-		ru : 'Счётчик калорий',
-		sk : 'počítadlo kalórií',
-		sl : 'števec kalorij',
-		sr : 'Бројач калорија',
-		sv : 'Kaloriräknare',
-		th : 'แคลอรี่เคาน์เตอร์',
-		tr : 'kalori sayacı',
-		uk : 'Лічильник калорій',
-		vi : 'truy cập calo',
-		zh : '卡路里计数器',
-		zt : '卡路里計數器',
-	},
 	CALORIE_COUNTER_FULL_TITLE : {
 		en : 'KCals Calorie Counter',
 		pt : 'KCals Contador de Calorias',
@@ -327,7 +285,7 @@ var LANG = {
 		es : 'KCals Comptador de Calories',
 		et : 'KCals Kalorikulu',
 		fa : 'KCals کالری مبارزه با',
-		fi : 'KCals Kalorilaskuri',
+		fi : 'KCals-kalorilaskin',
 		fr : 'KCals Compteur de Calories',
 		hi : 'KCals कैलोरी काउंटर',
 		hr : 'KCals Brojač Kalorija',
@@ -340,7 +298,7 @@ var LANG = {
 		lt : 'KCals Kalorijų Skaitiklis',
 		lv : 'KCals Kaloriju Skaitītājs',
 		ms : 'KCals Kaunter Kalori',
-		nl : 'KCals Calorieënteller',
+		nl : 'KCals Calorie Teller',
 		nb : 'KCals Kaloriteller',
 		pl : 'KCals Licznik Kalorii',
 		ro : 'KCals Contor de Calorii',
@@ -353,8 +311,8 @@ var LANG = {
 		tr : 'KCals Kalori Sayacı',
 		uk : 'KCals Лічильник Калорій',
 		vi : 'KCals Truy Cập Calo',
-		zh : 'KCals 卡路里计数器',
-		zt : 'KCals 卡路里計數器',
+		zh : 'KCals 卡路里计算器',
+		zt : 'KCals 卡路里計算機',
 	},
 	INTRO : {
 		en : 'Introduction',
@@ -722,8 +680,8 @@ KCals er designet til at hjælpe dig kontrollere dit kalorieindtag. \
 Uanset om du ønsker at opretholde, taber eller tager på i vægt, vil dette program hjælpe dig med at fokusere på hvad der er vigtigt: Dit kalorie balance. \
 ',
 		de : '\
-KCals wurde entwickelt um Ihnen zu helfen Ihre Kalorienzufuhr zu kontrollieren. \
-Ob zu pflegen, zu verlieren oder Gewichtszunahme, wird dieses Programm Ihnen helfen sich auf das Wesentliche konzentrieren können: Ihre Kalorienbilanz. \
+KCals wurde entwickelt, um Ihnen bei der Kontrolle Ihrer Kalorienzufuhr behilflich zu sein. \
+Ob Sie Ihr Gewicht halten, verringern oder vergrößern möchten, diese App hilft Ihnen sich auf das zu konzentireren, was wichtig ist: Ihre Kalorienbalance. \
 ',
 		el : '\
 KCals έχει σχεδιαστεί για να σας βοηθήσει να ελέγξετε την πρόσληψη θερμίδων σας. \
@@ -742,12 +700,12 @@ KCals طراحی شده است برای کمک به شما در کنترل کا�
 این که آیا برای حفظ، از دست دادن یا به دست آوردن وزن، این برنامه به شما کمک خواهد تا در آنچه اهمیت تمرکز: کالری موجودی. \
 ',
 		fi : '\
-KCals on suunniteltu auttamaan sinua hallitsemaan kalorien saanti. \
-Olipa haluat säilyttää, menettää tai lihoa, tämä sovellus auttaa sinua keskittymään olennaiseen: kaloritasapaino. \
+KCals on kehitetty auttamaan kalorien saannin kontrolloimisessa. \
+Halusitpa sitten ylläpitää, pudottaa tai saada lisää painoa, tämä sovellus auttaa sinua keskittymään tärkeimpään: kaloritasapainoon. \
 ',
 		fr : '\
 KCals est conçu pour vous aider à contrôler votre apport calorique. \
-Si vous souhaitez conserver, perdre ou prendre du poids, cette application vous aidera à se concentrer sur ce qui est important : votre équilibre calorique. \
+Que vous souhaitez conserver, perdre ou gagner du poids, cette application vous aidera à vous concentrer sur ce qui est important: votre solde calorique. \
 ',
 		hi : '\
 KCals डिज़ाइन किया गया है मदद से आप अपने गरमी सेवन को नियंत्रित करने के लिए। \
@@ -762,8 +720,8 @@ KCals a célja, hogy segítsen irányítani a kalória bevitelt. \
 Akár szeretnénk fenntartani, veszít, vagy hízik, ez az alkalmazás segít összpontosítani, ami fontos: a kalória-egyensúlyt. \
 ',
 		it : '\
-KCals è progettato per aiutare a controllare l’apporto calorico. \
-Se si desidera mantenere, perdere o guadagnare peso, questa applicazione vi aiuterà a concentrarsi su ciò che è importante: il vostro equilibrio calorico. \
+KCals è stato progettato per aiutare a controllare l’apporto calorico. \
+Se si desidera mantenere, perdere, o aumento di peso, questa applicazione vi aiuterà a concentrarsi su ciò che è importante: il vostro equilibrio calorico. \
 ',
 		id : '\
 KCals dirancang untuk membantu Anda mengontrol asupan kalori Anda. \
@@ -794,8 +752,8 @@ KCals dirancang untuk membantu anda mengontrol asupan kalori anda. \
 Jika Anda ingin mempertahankan, kehilangan atau menambah berat badan, aplikasi ini akan membantu anda berfokus pada apa yang penting: keseimbangan kalori anda. \
 ',
 		nl : '\
-KCals is ontworpen om u te helpen de controle van uw calorie-inname. \
-Of u nu wilt behouden, verliezen of winnen gewicht, zal deze applicatie kunt u zich richten op wat belangrijk is: uw calorie-balans. \
+KCals is ontwikkeld om u meer controle te geven over je calorie inname. \
+Wat ook je doel is afvallen, aankomen, of uw gewicht behouden, deze app helpt je met wat belangrijk is: uw calorie balans. \
 ',
 		nb : '\
 KCals er utviklet for å hjelpe deg med å kontrollere kaloriinntaket. \
@@ -810,8 +768,8 @@ KCals este conceput pentru a vă ajuta să controla aportul de calorii. \
 Fie că doriți să mențină, pierde, sau creștere în greutate, această aplicație vă va ajuta să se concentreze pe ceea ce este important: echilibru caloric. \
 ',
 		ru : '\
-KCals разработан, чтобы помочь вам контролировать потребление калорий. \
-Если вы хотите сохранить, потерять или набрать вес, это приложение поможет вам сосредоточиться на том, что важно: ваш баланс калорий. \
+KCals создан чтобы помочь вам контролировать потребление калорий. \
+Если вы хотите сохранить, сбросить или набрать вес, это приложение поможет вам сосредоточиться на том, что важнее всего - на балансе калорий. \
 ',
 		sk : '\
 KCals je navrhnutý tak, aby vám pomôže kontrolovať svoj ​​príjem kalórií. \
@@ -846,13 +804,14 @@ KCals được thiết kế để giúp bạn kiểm soát lượng calo của b
 Cho dù bạn muốn duy trì, giảm hoặc tăng cân, ứng dụng này sẽ giúp bạn tập trung vào những gì là quan trọng: số dư lượng calo của bạn. \
 ',
 		zh : '\
-KCals 旨在帮助您控制您的卡路里摄入量。 \
-无论你是想保持，失去或体重增加，这个应用程序将帮助你专注于什么是重要的：你的热量平衡。 \
+KCals是为了说明您控制卡路里摄入而设计的。 \
+无论您是想维持体重、减重或增重，这款应用程序将说明您专注于该过程中最重要的一点，即您的热量平衡。 \
 ',
 		zt : '\
-KCals 旨在幫助您控制您的卡路里攝入量。 \
-無論你是想保持，失去或體重增加，這個應用程序將幫助你專注於什麼是重要的：你的熱量平衡。 \
+KCals是為了説明您控制卡路里攝入而設計的。 \
+無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的熱量平衡。 \
 ',
+
 	},
 	INTRO_SLIDE_2 : {
 		en : '\
@@ -884,8 +843,8 @@ Ideen er simpel. Definer et mål (daglige kalorier) og opretholde dig “afbalan
 Kalorietælleren angiver når du har spist for meget (overskydende) eller for lidt (underskud). \
 ',
 		de : '\
-Die Idee ist einfach. Definieren Sie ein Ziel (Tägliche Kalorien) und halten Sie sich “Ausgeglichen” innerhalb diesen Zweck. \
-Der Kalorienzähler zeigt an wenn Sie zu viel gegessen haben (Überschuss) oder zu wenig (Defizit). \
+Die Idee ist einfach. Definieren Sie ein Ziel (tägliche Kalorienzufuhr) und bleiben Sie im Bereich dieses Ziels. \
+Die App zeigt Ihnen an, wenn Sie zu viel (Überschuss) oder zu wenig (Defizit) zu sich genommen haben. \
 ',
 		el : '\
 Η ιδέα είναι απλή. Θέστε ένα στόχο (ημερήσιων θερμίδων) και να παραμείνει «ισορροπημένη» σε αυτό το θέμα. \
@@ -904,12 +863,12 @@ App näitab, millal olete söönud liiga palju (liigne), või liiga vähe (puudu
 کالری مبارزه نشان می دهد زمانی که شما بیش از حد مصرف کرده اید (مازاد) و یا بیش از حد کم (کمبود). \
 ',
 		fi : '\
-Idea on yksinkertainen. Määrittele tavoite (kaloria päivässä) ja pitää itse “tasapainoinen” sisällä tähän tavoite. \
-Sovellus ilmoittaa, kun olet syönyt liikaa (ylimäärä), tai liian vähän (alijäämä). \
+Idea on yksinkertainen. Määritä tavoite (päivittäiset kalorit) ja pidä itsesi tasapainossa tässä tavoitteessa. \
+Sovellus ilmoittaa, kun olet syönyt liikaa (ylimäärä) tai liian vähän (alijäämä). \
 ',
 		fr : '\
-L’idée est simple. Définir un objectif (kcal/jour), et tenez-vous «équilibrée» dans le cadre de cet objectif. \
-L’application vous indiquera quand vous avez mangé trop (excès), ou trop peu (déficit). \
+L’idée est simple. Établie un but (des calories quotidiennes) et vous tiens équilibré dans le cadre de cet objectif. \
+L’application indiquera quand vous avez trop mangé (excédent), ou trop peu (déficit). \
 ',
 		hi : '\
 सेट एक लक्ष्य (दैदैनिक कैलोरी) और इस लक्ष्य के भीतर संतुलित रखें अपने. \
@@ -924,8 +883,8 @@ Az ötlet egyszerű. Állítsa be a cél (napi kalória), és stay “kiegyensú
 A kalória számláló jelzi, ha már evett túl sokat (felesleges), vagy túl kevés (deficit). \
 ',
 		it : '\
-L’idea è semplice. Impostare un obiettivo (calorie al giorno) e rimanere “bilanciato” all’interno di tale obiettivo. \
-L’applicazione vi dirà quando si mangia troppo (eccesso),o troppo poco (deficit) \
+L’idea è semplice. Definire un obiettivo (calorie giornaliere) e mantenersi equilibrato nel quadro di questo obiettivo. \
+L’applicazione indica quando hai mangiato troppo (surplus), o troppo poco (deficit). \
 ',
 		id : '\
 Idenya sederhana. Tentukan target (kalori harian) dan tinggal “seimbang” dalam tujuan ini. \
@@ -957,8 +916,8 @@ Ideanya adalah mudah. Tentukan target (kalori harian) dan tinggal “seimbang”
 Aplikasi ini akan menunjukkan bila anda sudah makan terlalu banyak (berlebihan), atau terlalu sedikit (defisit). \
 ',
 		nl : '\
-Het idee is simpel. Definieer een doel (calorieën per dag) en houd jezelf “evenwichtige” in het kader van deze doelstelling. \
-De app geeft aan wanneer u te veel (overmaat) hebt gegeten, of te weinig (tekort). \
+Het idee is simpel. Zet een doel en hou uzelf in balans met het oog op uw doel. \
+De app geeft aan wanneer u teveel (overschot) of the weinig (tekort) heeft gegeten. \
 ',
 		nb : '\
 Ideen er enkel. Definer et mål (daglige kalorier) og holde deg “balansert” i sammenheng med dette målet. \
@@ -973,8 +932,8 @@ Ideea este simpla. Defini un scop (calorii pe zi) și menține-te “echilibrat�
 Aplicatia va indica, atunci când v-ați mâncat prea mult (exces), sau prea puțin (deficit). \
 ',
 		ru : '\
-Идея проста. Поставьте себе цель (ежедневно калорий) и остаться “сбалансированная” в контексте этой цели. \
-Приложение будет указано, когда вы съели слишком много (избыток) или слишком мало (дефицит). \
+Идея проста. Определите цель (дневную норму потребления калорий) и поддерживайте баланс в соответствии с этой целью. \
+Приложение сообщит, если вы съели слишком много (избыток) или слишком мало (недостаток). \
 ',
 		sk : '\
 Myšlienka je jednoduchá. Nastavte cieľ (denných kalórií) a zostaň “vyvážený” v kontexte tohto cieľa. \
@@ -1010,12 +969,12 @@ Mục đích là đơn giản. Đặt ra mục tiêu (calo hàng ngày) và duy 
 Các ứng dụng sẽ cho biết khi bạn đã ăn quá nhiều (dư thừa), hoặc quá ít (thâm hụt). \
 ',
 		zh : '\
-这个想法很简单。设定一个目标（每日的卡路里）并保持“均衡”的这一目标。 \
-卡路里计数器指示当你吃得太多（多余的）或太少（赤字）。 \
+产品构思很简单。 设定一个目标（每日卡路里），并且使得自己在这个目标中保持平衡状态。 \
+该应用程序将显示，您什么时候吃了太多（热量摄入超值），或吃了过少（热量摄入负值）。 \
 ',
 		zt : '\
-這個想法很簡單。設定一個目標（每日的卡路里）並保持“均衡”的這一目標。 \
-卡路里计数器指示当你吃得太多（多餘的）或太少（赤字）。 \
+產品構思很簡單。 設定一個目標（每日卡路里），並且使得自己在這個目標中保持平衡狀態。 \
+該應用程式將顯示，您什麼時候吃了太多（熱量攝入超值），或吃了過少（熱量攝入負值）。 \
 ',
 	},
 	INTRO_SLIDE_3 : {
@@ -1041,7 +1000,7 @@ Kalorií z potravin, bude přidána k celkové. Spálených kalorií (včetně c
 Kalorier fra fødevarer vil blive tilføjet til det samlede beløb. Kalorier du forbrænder (herunder motion) vil blive trukket fra det samlede beløb. \
 ',
 		de : '\
-Kalorien aus der Nahrung wird auf den Gesamt hinzugefügt werden. Kalorienverbrauch (inklusive Training) wird vom Gesamtbetrag abgezogen werden. \
+Kalorien aus der aufgenommenen Nahrung werden zur Summe addiert. Verbrannte Kalorien (inklusive Ihrer sportlichen Betätigung) werden von der Summe abgezogen. \
 ',
 		el : '\
 Οι θερμίδες των τροφίμων προστίθεται στο σύνολο. Θερμίδων δαπάνες (συμπεριλαμβανομένης της κατάρτισης) θα πρέπει να αφαιρείται από το σύνολο. \
@@ -1056,10 +1015,10 @@ Toit kaloreid lisatakse kogusummast. Põletatud kaloreid (sh harjutusi) lahutata
 کالری از مواد غذایی را به کل اضافه شده است. کالری های سوخته شده (از جمله ورزش) را از کل کسر خواهد شد. \
 ',
 		fi : '\
-Ruoka kaloreita on lisätty yhteensä. Kalorikulutus (mukaan liikunta) vähennetään kokonaismäärästä. \
+Ruoan kalorit lisätään kokonaismäärään. Poltetut kalorit (mukaan lukien liikunta) vähennetään kokonaismäärästä. \
 ',
 		fr : '\
-Calories de la nourriture seront ajoutés au total. Calories que vous brûlez (y compris l’exercice) seront soustrait du total. \
+Les calories provenant des aliments seront ajoutées au total. Calories brûlées (y compris l’exercice) seront soustraites du total. \
 ',
 		hi : '\
 खाद्य कैलोरी कुल करने के लिए जोड़ दिया जाएगा. कैलोरी जल - व्यायाम सहित - कुल से घटाया जाता है. \
@@ -1071,7 +1030,7 @@ Kalorije iz hrane će biti dodan u ukupno. Kalorija ste spali (uključujući i v
 Élelmiszer kalória hozzáadásra kerül a teljes. Elégetett kalória (beleértve a gyakorlat) levonásra kerül a teljes. \
 ',
 		it : '\
-Calorie degli alimenti saranno aggiunti al totale. Calorie bruciate (incluse esercitazioni) saranno sottratti dal totale. \
+Le calorie da cibo saranno aggiunti al totale. Le calorie bruciate (compreso l’esercizio) saranno sottratti dal totale. \
 ',
 		id : '\
 Makanan kalori akan ditambahkan ke total. Kalori yang Anda bakar (termasuk olahraga) akan dikurangi dari total. \
@@ -1097,7 +1056,7 @@ Kalorijas no pārtikas tiks pievienota kopumā. Sadedzinātās kalorijas (ieskai
 Makanan kalori akan ditambah ke total. Kalori yang anda bakar (termasuk sukan) akan dikurangkan dari jumlah keseluruhan. \
 ',
 		nl : '\
-Calorieën uit voedsel zal worden toegevoegd aan het totaal. Calorieverbruik (met inbegrip van oefening) zal worden afgetrokken van het totaal. \
+Calorieën van het eten worden toegevoegd aan het totaal. Verbrande calorieën worden van het totaal afgetrokken. \
 ',
 		nb : '\
 Kaloriene fra maten vil bli lagt til totalen. Kalorier brent (inkludert øvelse) vil bli trukket fra totalsummen. \
@@ -1109,7 +1068,7 @@ Kalorii z pożywienia zostanie dodana do całkowitej. Kalorie spalone (w tym ćw
 Calorii din alimente vor fi adăugate la totalul. Caloriile arse (inclusiv exercițiu) vor fi scazute din totalul. \
 ',
 		ru : '\
-Калории из пищи будет добавлен к общей сумме. Сожженных калорий (включая упражнения) будет вычитаться из общей суммы. \
+Калории поступающие с пищей прибавляются к общей сумме калорий. Потраченные калории (в том числе сожженные во время тренировок) вычитаются из общей суммы калорий. \
 ',
 		sk : '\
 Kalórií z potravín, bude pridaná k celkovej. Spálených kalórií (vrátane cvičení) bude odpočítaná z celkovej sumy. \
@@ -1138,12 +1097,12 @@ Yakılan kalori (spor dahil olmak üzere) toplam düşülecektir. \
 Calo từ thức ăn sẽ được thêm vào tổng số. Calo bị đốt cháy (bao gồm cả tập thể dục) sẽ được trừ vào tổng số. \
 ',
 		zh : '\
-从食物的卡路里将添加到总。 \
-消耗的热量（包括运动）会从总数中减去。 \
+各种食物的卡路里将被添加到计算的总合中。 \
+消耗的热量（包括运动消耗）将被从总合中扣去。 \
 ',
 		zt : '\
-從食物的卡路里將添加到總。 \
-消耗的熱量（包括運動）會從總數中減去。 \
+各種食物的卡路里將被添加到計算的總合中。 \
+消耗的熱量（包括運動消耗）將被從總合中扣去。 \
 ',
 	},
 	INTRO_SLIDE_4 : {
@@ -1183,9 +1142,9 @@ Så din kaloriefattige balance formindskes automatisk hele dagen. \
 Tænk på det som brændsel spenderes. \
 ',
 		de : '\
-Die abgelaufene Zeit wird in Kalorien verbrannt umgewandelt. \
-Also Ihr Kalorienbalance wird automatisch über den Tag zu verringern. \
-Betrachten Sie es als Treibstoffverbrauch. \
+Verstrichene Zeit wird in vebrannte Kalorien umgerechnet. \
+Daher verbessert sich Ihre Kalorienbalance im Laufe des Tages. \
+Sehen Sie es wie Energieverbrauch. \
 ',
 		el : '\
 Ο χρόνος που παρήλθε μετατρέπεται σε θερμίδες που καίγονται. \
@@ -1208,14 +1167,14 @@ Mõtle seda kütusena kasutada. \
 فکر می کنم از آن را به عنوان مصرف سوخت. \
 ',
 		fi : '\
-Kulunut aika muunnetaan poltetut kalorit. \
-Joten kalorien saldo vähenee automaattisesti koko päivän. \
-Ajattele sitä polttoaineen kulutusta. \
+Kulunut aika muunnetaan poltetuiksi kaloreiksi. \
+Näin kaloritasapaino vähenee automaattisesti päivän mittaan. \
+Ajattele sitä polttoaineen kulutuksena. \
 ',
 		fr : '\
-Le temps écoulé est converti en nombre de calories brûlées. \
-Donc, votre équilibre calorique diminue passivement tout au long de la journée. \
-Pensez-y comme la consommation de carburant. \
+Le temps écoulé est converti en calories brûlées. \
+Par conséquence, votre équilibre calorique sera réduit automatiquement pendant toute la journée. \
+Pensez-y en termes de consommation de carburant. \
 ',
 		hi : '\
 बीता समय कैलोरी जल में बदल जाती है। \
@@ -1233,9 +1192,9 @@ Therefore, the calorie balance is automatically reduced during the day. \
 Gondolj rá úgy, mint üzemanyag használatát. \
 ',
 		it : '\
-Il tempo trascorso è convertito in calorie bruciate. \
-Pertanto, il vostro bilancio calorico diminuisce passivamente per tutta la giornata. \
-Pensare in termini di consumo di carburante. \
+Il tempo trascorso viene convertito in calorie bruciate. \
+Pertanto il saldo calorico sarà ridotto automaticamente per tutto il giorno. \
+Pensato in termini di consumo di carburante. \
 ',
 		id : '\
 Waktu berlalu dikonversi menjadi kalori dibakar. \
@@ -1273,9 +1232,9 @@ Jadi keseimbangan kalori anda dikurangkan secara automatik di siang hari. \
 Berfikir dari segi penggunaan bahan api. \
 ',
 		nl : '\
-De verstreken tijd wordt omgezet in calorieën verbrand. \
-Dus je calorie saldo zal automatisch afnemen gedurende de dag. \
-Denk aan het in termen van brandstofverbruik. \
+Verlopen tijd wordt omgezet naar verbrande calorieën. \
+Hierdoor neemt uw calorie balans automatisch af gedurende de dag. \
+Zie het voor u als brandstof verbranding. \
 ',
 		nb : '\
 Medgått tid omdannes til forbrente kalorier. \
@@ -1293,9 +1252,9 @@ Prin urmare, ta echilibru caloric va scădea în mod automat pe tot parcursul zi
 Gândiți-vă de ea în ceea ce privește consumul de combustibil. \
 ',
 		ru : '\
-Прошедшее время преобразуется в сжигаемых калорий. \
-Таким образом, ваш калорийность баланс будет уменьшаться автоматически в течение всего дня. \
-Подумайте об этом с точки зрения потребления топлива. \
+Время превращается в сожжённые калории. \
+Таким образом, баланс калорий будет автоматически уменьшаться в течение дня. \
+Это похоже на расход топлива в автомобиле. \
 ',
 		sk : '\
 Uplynutý čas je premenená spálených kalórií. \
@@ -1338,14 +1297,14 @@ Do đó, số dư bằng calo của bạn sẽ được giảm xuống tự đ�
 Hãy suy nghĩ về nó trong điều kiện tiêu thụ nhiên liệu. \
 ',
 		zh : '\
-经过时间被转换成热量消耗。 \
-因此，你的热量平衡将被自动全天减少。 \
-认为它在油耗方面。 \
+进行时间也将被转化合算至热量的消耗中去。 \
+因此，您可摄取的热量余额将会在一天中自动减少。 \
+你可以把它想象成汽油的消耗。 \
 ',
 		zt : '\
-經過時間被轉換成熱量消耗。 \
-因此，你的热量平衡將被自動全天減少。 \
-認為它在油耗方面。 \
+進行時間也將被轉化合算至熱量的消耗中去。 \
+因此，您可攝取的熱量餘額將會在一天中自動減少。 \
+你可以把它想像成汽油的消耗。 \
 ',
 	},
 	INTRO_SLIDE_5 : {
@@ -1373,7 +1332,7 @@ Pokud se přejídat, můžete kompenzovat tím, že dělá cvičení nebo tím, 
 Hvis du spise, kan du kompensere ved at lave øvelser eller ved at spise mindre i løbet af de næste timer. \
 ',
 		de : '\
-Wenn Sie zu viel essen, können Sie durch die Ausübung kompensieren kann oder durch weniger essen während der nächsten Stunden. \
+Wenn Sie mal zu viel essen, können Sie das durch Sport oder weniger Essen in den nächsten Stunden wieder kompensieren. \
 ',
 		el : '\
 Εάν τρώτε πάρα πολύ, μπορείτε να αντισταθμίσετε με την άσκηση ή με λιγότερο φαγητό κατά τη διάρκεια τις επόμενες ώρες. \
@@ -1388,10 +1347,10 @@ Kui sa sööd liiga palju, võite võib kompenseerida, treenimist või süüa v�
 اگر شما پر خوردن شما می توانید با انجام تمرینات جبران کند یا با خوردن کمتر در طول ساعت آینده. \
 ',
 		fi : '\
-Jos syödä liikaa, voit kompensoida tekemällä harjoituksia tai syö vähemmän seuraavalla tunnin. \
+Jos syöt liikaa, voit korvata tämän liikkumalla tai syömällä vähemmän seuraavien tuntien kuluessa. \
 ',
 		fr : '\
-Si vous mangez trop, vous pouvez compenser en faisant des exercices ou en mangeant moins pendant les prochaines heures. \
+Si vous mangez trop, vous pouvez compenser en faisant des exercices ou en mangeant moins au cours des prochaines heures. \
 ',
 		hi : '\
 आप पेट भर खा जाना है, तो आप व्यायाम करने से क्षतिपूर्ति कर सकते हैं या अगले घंटे के दौरान कम खाने से. \
@@ -1403,7 +1362,7 @@ Ako se prejedete, možete nadoknaditi s vježbama ili jesti manje tijekom sljede
 Ha a Ön sokat eszik, lehet gyakorolni kompenzálására, vagy kevesebbet eszik, az elkövetkezendő órára. \
 ',
 		it : '\
-Se si mangia troppo, è possibile compensare facendo esercizi, o mangiando meno durante le prossime ore. \
+Se mangiate troppo, è possibile compensare facendo esercizi o mangiando di meno nel corso delle ore seguenti. \
 ',
 		id : '\
 Jika Anda makan terlalu banyak, Anda dapat mengkompensasi dengan melakukan latihan atau dengan mengurangi makan selama jam-jam berikutnya. \
@@ -1427,7 +1386,7 @@ Ja jūs pārēsties, var kompensēt, veicot vingrinājumus vai ēdot mazāk nāk
 Jika anda makan terlalu banyak, anda boleh membayar pampasan dengan melakukan latihan atau dengan mengurangkan makan selama jam-jam berikutnya. \
 ',
 		nl : '\
-Als u te veel eten, u kan compenseren door het doen van oefeningen of door het eten van minder tijdens de komende uren. \
+Als u teveel eet, kunt u compenseren door oefeningen te doen of door minder te eten in de komende uren. \
 ',
 		nb : '\
 Hvis du overspise, kan du kompensere ved å gjøre øvelser eller ved å spise mindre i løpet av de neste par timene. \
@@ -1439,7 +1398,7 @@ Jeśli przejadać, można zrekompensować wykonując ćwiczenia, lub jedząc mni
 Dacă ați mânca prea mult, puteți compensa prin a face exerciții, sau mananca mai putin peste următoarele câteva ore. \
 ',
 		ru : '\
-Если вы переедать, вы можете компенсировать, делая упражнения или есть меньше в течение ближайших нескольких часов. \
+Если вы переели, займитесь упражнениями или ограничьте себя в еде на нескольких часов. \
 ',
 		sk : '\
 Ak budete přejídat, môžete kompenzovať tým, že robí cvičenie, alebo jesť menej cez najbližších niekoľkých hodín. \
@@ -1466,10 +1425,10 @@ Eğer çok fazla yerseniz, egzersizleri yaparak telafi edebilir ya da önümüzd
 Nếu bạn ăn quá nhiều, bạn có thể bù đắp bằng cách làm bài tập hoặc ăn ít trong vài giờ tới. \
 ',
 		zh : '\
-如果你吃得太多，你可以通过做练习补偿,或进食少在接下来的几个小时。 \
+如果您吃得过多，您可以通过运动或在接下来的几个小时里少吃作为弥补。 \
 ',
 		zt : '\
-如果你吃得太多，你可以通過做練習補償,或進食少在接下來的幾個小時。 \
+如果您吃得過多，您可以通過運動或在接下來的幾個小時裡少吃作為彌補。 \
 ',
 	},	
 	INTRO_SLIDE_6 : {
@@ -1502,8 +1461,7 @@ Tjek din profil. \
 Der vil du finde alle de oplysninger, du har brug for at definere din ideelle kalorieindtag. \
 ',
 		de : '\
-Überprüfen Sie Ihr Profil. \
-Dort finden Sie alle Informationen, die Sie benötigen, um Ihre ideale Kalorienzufuhr zu definieren. \
+Halten Sie Ihr Profil im Blick, um Ihre ideale Kalorienzufuhr zu bestimmen. \
 ',
 		el : '\
 Ελέγξτε το προφίλ σας. \
@@ -1522,12 +1480,10 @@ Sealt leiad kõik andmed, mida on vaja, et määratleda teie ideaalne kalorite o
 وجود دارد شما می توانید تمام اطلاعات شما نیاز به تعیین ایده آل کالری مصرفی خود را. \
 ',
 		fi : '\
-Tarkista profiilisi. \
-Sieltä löydät kaikki tiedot, sinun täytyy määrittää ihanteellinen kalorimäärää. \
+Tarkista profiilisi ja määritä ihanteellinen kalorien saantimäärä. \
 ',
 		fr : '\
-Vérifiez votre profil. \
-Vous y trouverez toutes les informations dont vous avez besoin pour déterminer votre apport calorique idéal. \
+Vérifiez votre profil afin de déterminer votre apport calorique idéal. \
 ',
 		hi : '\
 आपकी प्रोफ़ाइल की जाँच करें। \
@@ -1542,8 +1498,7 @@ Ellenőrizze a profilt. \
 Meg fogja találni a szükséges információt, hogy meghatározza az ideális kalóriabevitel. \
 ',
 		it : '\
-Controlla il tuo profilo. \
-Troverete tutte le informazioni necessarie per determinare l’apporto calorico ideale. \
+Controlla il tuo Profilo per determinare l’apporto calorico ideale. \
 ',
 		id : '\
 Memeriksa profil Anda. \
@@ -1574,8 +1529,7 @@ Menyemak profil anda. \
 Di sana anda akan mencari semua maklumat yang anda perlu menentukan pengambilan kalori yang ideal. \
 ',
 		nl : '\
-Controleer uw profiel. \
-Daar vindt u alle informatie die u nodig hebt om te bepalen van uw ideale calorie-inname. \
+Check uw profiel om vast te stellen wat uw ideale calorie inname is. \
 ',
 		nb : '\
 Sjekk din profil. \
@@ -1590,8 +1544,7 @@ Verifica profilul dvs. \
 Acolo veţi găsi toate informaţiile necesare pentru a determina aportul ideal de calorii. \
 ',
 		ru : '\
-Проверьте свой ​​профиль. \
-Там вы найдете всю информацию, необходимую для определения своего идеального потребление калорий. \
+Проверьте свой профиль, чтобы определить идеальное потребление калорий. \
 ',
 		sk : '\
 Skontrolujte svoj profil. \
@@ -1626,12 +1579,10 @@ Kiểm tra hồ sơ của bạn. \
 Ở đó bạn sẽ tìm thấy tất cả các thông tin cần thiết để xác định lượng calo lý tưởng của bạn. \
 ',
 		zh : '\
-请检查您的轮廓 。 \
-那里您会发现所有的信息需要确定你的理想的卡路里摄取量。 \
+查阅您的个人资料，以确定您理想的卡路里摄取量。 \
 ',
 		zt : '\
-請檢查您的輪廓 。 \
-那里您會發現所有的信息需要確定你的理想的卡路里攝取量。 \
+查閱您的個人資料，以確定您理想的卡路里攝取量。 \
 ',
 	},
 	SKIP : {
@@ -9852,51 +9803,6 @@ Kiểm tra hồ sơ của bạn. \
 		'3600': '餐廳',
 		'9999': '雜項',
 		},
-	},
-	/////////////////////
-	// SYSTEM RESERVED //
-	/////////////////////
-	CALORIE_CHRONOMETER : {
-		en : 'Calorie Chronometer',
-		pt : 'Cronômetro de Calorias',
-		ar : 'السعرات الحرارية الكرونومتر',
-		bg : 'Калория Хронометър',
-		ca : 'Cronòmetre de Calories',
-		cs : 'Kalorie Chronometr',
-		da : 'Kalorie Kronometer',
-		de : 'Kalorien Chronometer',
-		el : 'Χρονόμετρο Θερμίδα',
-		es : 'Cronómetro de Calorías',
-		et : 'Kalorite Stopperiga',
-		fa : 'کالری تایمر',
-		fi : 'Kalori Kronometri',
-		fr : 'Chronomètre de Calories',
-		hi : 'कैलोरी ठीक घड़ी',
-		hr : 'Kalorija Kronometar',
-		hu : 'Kalória Kronométer',
-		it : 'Cronometro di Caloria',
-		id : 'Chronometer Kalori',
-		iw : 'כרונומטר של קלוריות',
-		ja : 'カロリー クロノメーター',
-		ko : '칼로리 크로노 미터',
-		lt : 'Kalorijų Chronometras',
-		lv : 'Kaloriju Hronometrs',
-		ms : 'Chronometer Kalori',
-		nl : 'Calorie Chronometer',
-		nb : 'Kalori Kronometer',
-		pl : 'Chronometr Kalorii',
-		ro : 'Cronometru de Calorii',
-		ru : 'Калорий Хронометр',
-		sk : 'Kalórie Chronometer',
-		sl : 'Kalorija Kronometer',
-		sr : 'Калорија Хронометар',
-		sv : 'Kalori Kronometer',
-		th : 'โครโนมิเตอร์ของแคลอรี่',
-		tr : 'Kalori Kronometre',
-		uk : 'Калорій Хронометр',
-		vi : 'Calo Chronometer',
-		zh : '热量的天文台表',
-		zt : '熱量的天文台表',
 	},
 	SHORT_DESCRIPTION : {
 		en : 'Real time calorie counting. The easy way to lose weight.',
