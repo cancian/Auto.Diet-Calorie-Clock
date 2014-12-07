@@ -113,4 +113,10 @@ mklink /h k:\platforms\windows8\images\wp8_SplashScreen.scale-140.png k:\www\res
 mklink /h k:\platforms\windows8\images\Wide310x150Logo.scale-240.png k:\www\res\icon\windows8\744x360.png
 mklink /h k:\platforms\windows8\images\wp8_SplashScreen.scale-240.png k:\www\res\icon\windows8\1152x1920.png
 
+RD /S /Q K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset
+mklink /j /d K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset K:\www\res\icon\ios\AppIcon.appiconset
+
+RD /S /Q K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset
+mklink /j /d K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset K:\www\res\icon\osx\AppIcon.appiconset
+
 sleep 10
