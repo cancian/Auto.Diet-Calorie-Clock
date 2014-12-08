@@ -122,6 +122,23 @@ function loadDatabase() {
 			setTimeout(function() {
 				//INIT
 				startApp();
+				//////////////////////////////
+				// update search terms v3.0 //
+				//////////////////////////////
+				if(app.read('foodDbVersion') == 3) {
+					$('body').addClass('updtdb');
+					spinner();
+					setTimeout(function() {
+						for(var i=0, len=rowsFood.length; i<len; i++) {
+							rowsFood[i].term = searchalize(rowsFood[i].name);
+						}
+						localforage.setItem('diary_food',rowsFood,function(rows) {
+							app.save('foodDbVersion',4);
+							rowsFood = rows;
+							spinner('stop');
+						},100);
+					});
+				}
 			},0);
 		});
 	});
@@ -163,7 +180,7 @@ function initDB(t) {
 	app.define('config_limit_2',600);
 	app.define('app_zoom',1);
 	if(!app.read('foodDbVersion') && !app.read('foodDbLoaded','done')) {
-		app.save('foodDbVersion',3);
+		app.save('foodDbVersion',4);
 	}	
 	///////////
 	// START //
@@ -943,6 +960,7 @@ function spinner(action,target) {
 	if(action == 'stop') {
 		$('body').removeClass(target);
 		$('#loadMask').off();
+		$('body').removeClass('updtdb');
 	} else {
 		$('body').addClass(target);
 		$('#loadMask').off().on(touchstart,function(evt) { 
@@ -984,7 +1002,7 @@ function updateFoodDb(callback) {
 									//success
 									demoRunning = false;
 									app.save('foodDbLoaded','done');
-									app.save('foodDbVersion',3);
+									app.save('foodDbVersion',4);
 									app.remove('startLock');
 									niceResizer(300);
 									spinner('stop');
@@ -1056,6 +1074,7 @@ function updateFoodDb(callback) {
 							ls = ls.split('\n');
 							for(var l=0, llen=ls.length; l<llen; l++) {
 								try {
+									ls[l].term =  searchalize(ls[l].name)
 									rowsArray.push(JSON.parse(ls[l]));
 								} catch(e) {}
 							}
