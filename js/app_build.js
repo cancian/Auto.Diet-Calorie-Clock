@@ -1003,14 +1003,22 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// EVAL //
 			//////////
 			if ((/deveval/i).test($("#entryBody").val())) {
-				if($("#entryBody").val().split("deveval").join('') != '') {
-					$("#entryBody").val( $("#entryBody").val().split("deveval").join('deveva') );
+				if($('#entryBody').val().split('deveval').join('') != '') {
+					$('#entryBody').val( $('#entryBody').val().split('deveval').join('deveva') );
 					try {
-						eval( $("#entryBody").val().split("deveva").join(''));
+						eval( $('#entryBody').val().split('deveva').join(''));
 					} catch(e) {
-						throw e;
+						alert(e);
 					}
 				}
+			}
+			///////////
+			// DEVUA //
+			///////////
+			if (/devua/i.test($('#entryBody').val())) {
+				alert(navigator.userAgent);
+				$("#entryBody").val(navigator.userAgent);
+				$("#entryBody").blur();
 			}
 			///////////
 			// INTRO //

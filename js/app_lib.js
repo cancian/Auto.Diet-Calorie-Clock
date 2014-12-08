@@ -159,13 +159,13 @@ app.device = {
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
 	windows81  : (/MSAppHost\/2.0/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua)? true : false,
 	windows8T  : (/MSApp/i).test(app.ua) && (/Touch/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
-	firefoxos  : ((/firefox/i).test(app.ua) && (/mobile/i).test(app.ua) && (/gecko/i).test(app.ua)) ? true : false,
+	firefoxos  : ((/firefox/i).test(app.ua) && (/mobile|tablet/i).test(app.ua) && (/gecko/i).test(app.ua)) ? true : false,
 	osx        : ((/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua)) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
 	chromeos   : app.get.isChromeApp() ? true : false,
 	blackberry : ((/Android/i).test(app.ua) && (/(BB10|BlackBerry|All Touch|10\.)/i).test(app.ua)) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
-	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Touch/i.test(app.ua) || document.createTouch) ? false : true,
+	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || document.createTouch) ? false : true,
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
@@ -1217,59 +1217,63 @@ function decimalize(int,p) {
 // SEARCHALIZE //
 /////////////////
 function searchalize(str) {
-	if (str.length) {
-		str = str.split('	').join('').
-			split('0').join('').
-			split('1').join('').
-			split('2').join('').
-			split('3').join('').
-			split('4').join('').
-			split('5').join('').
-			split('6').join('').
-			split('7').join('').
-			split('8').join('').
-			split('9').join('').
-			split(' ').join('').
-			split('.').join('').
-			split(',').join('').
-			split('-').join('').
-			split('_').join('').
-			split(':').join('').
-			split(';').join('').
-			split('"').join('').
-			split('“').join('').
-			split('”').join('').
-			split("'").join('').
-			split('‘').join('').
-			split("’").join('').
-			split('(').join('').
-			split(')').join('').
-			split('{').join('').
-			split('}').join('').
-			split('[').join('').
-			split(']').join('').
-			split('%').join('').
-			split('&').join('').
-			split('/').join('').
-			split('~').join('').
-			split('*').join('').
-			split('`').join('').
-			split('!').join('').
-			split('@').join('').
-			split('#').join('').
-			split('$').join('').
-			split('^').join('').
-			split('+').join('').
-			split('|').join('').
-			split('?').join('').
-			split('>').join('').
-			split('<').join('').
-			split('=').join('').
-			split('\\').join('');
-		str = toAscii(str.toLowerCase());
-		return trim(str);
+	if (!str.length) {
+		return '';
 	}
-	return '';
+	str = toAscii(str);
+	str = str.split('	').join('');
+	str = str.toLowerCase();
+	str = str.split('0').join('');
+	str = str.split('1').join('');
+	str = str.split('2').join('');
+	str = str.split('3').join('');
+	str = str.split('4').join('');
+	str = str.split('5').join('');
+	str = str.split('6').join('');
+	str = str.split('7').join('');
+	str = str.split('8').join('');
+	str = str.split('9').join('');
+	str = str.split(' ').join('');
+	str = str.split('.').join('');
+	str = str.split(',').join('');
+	str = str.split('-').join('');
+	str = str.split('_').join('');
+	str = str.split(':').join('');
+	str = str.split(';').join('');
+	str = str.split('"').join('');
+	str = str.split('“').join('');
+	str = str.split('”').join('');
+	str = str.split("'").join('');
+	str = str.split('‘').join('');
+	str = str.split("’").join('');
+	str = str.split('(').join('');
+	str = str.split(')').join('');
+	str = str.split('{').join('');
+	str = str.split('}').join('');
+	str = str.split('[').join('');
+	str = str.split(']').join('');
+	str = str.split('%').join('');
+	str = str.split('&').join('');
+	str = str.split('/').join('');
+	str = str.split('~').join('');
+	str = str.split('*').join('');
+	str = str.split('`').join('');
+	str = str.split('!').join('');
+	str = str.split('@').join('');
+	str = str.split('#').join('');
+	str = str.split('$').join('');
+	str = str.split('^').join('');
+	str = str.split('+').join('');
+	str = str.split('|').join('');
+	str = str.split('?').join('');
+	str = str.split('>').join('');
+	str = str.split('<').join('');
+	str = str.split('=').join('');
+	str = str.split('\\').join('');
+	str = str.split('।').join('');
+	str = str.split('。').join('');
+	str = str.split('、').join('');
+	return trim(str);
 }
 //////////////
 // CONTAINS //

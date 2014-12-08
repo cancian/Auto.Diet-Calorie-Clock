@@ -1943,7 +1943,7 @@ function appResizer(time) {
 		//SCROLLBAR UPDATE	
 		niceResizer();
 		//chrome v32 input width
-		if(app.device.desktop || app.device.windows8) {
+		if(app.device.desktop || app.device.windows8 || app.device.firefoxos || app.device.android) {
 			$('#entryBody').width( $('body').width() -58);
 			$('#foodSearch').width( $('body').width() -55);
 		}
