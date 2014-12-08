@@ -250,6 +250,7 @@ app.tab.status = function(keepOpen) {
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p></p><span></span></div>\
 		<div id="elapsedIndicators"><div id="ind1"></div><div id="ind2"></div><div id="ind3"></div></div>\
+		<div id="elapsedInfo"></div>\
 		</div>\
 		<div id="appStatusWeight"><div><p>' + totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong></p><span>' + LANG.TODAY[lang] + '</span><em></em>\
 		<div id="appDays">\
@@ -304,12 +305,19 @@ app.tab.status = function(keepOpen) {
 	//////////////////
 	// ELAPSED SWAP //
 	//////////////////
-	$("#appStatusElapsed").on(touchstart,function(evt) {
+	$('#appStatusElapsed').on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
+		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getElapsed('next');
-	});	
+	});
+	//info block
+	$('#elapsedInfo').on(touchstart,function(evt) {
+		return false;
+	});
+	app.handlers.activeRow('#elapsedInfo','button',function() {
+		getNewWindow('Elapsed Time / Relative Time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Elapsed Time / Relative Time'] + '</div>');
+	});
 	////////////////
 	// LIMIT MENU //
 	////////////////

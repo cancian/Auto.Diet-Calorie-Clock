@@ -8569,6 +8569,7 @@ Kiểm tra hồ sơ của bạn. \
 				• Mac OS X<br />\
 				• ChromeOS<br />\
 				• BlackBerry<br />\
+				• Amazon FireOS (Android runtime)<br />\
 				• Desktop (http://kcals.net)</p>\
 				<p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Automatic Backup feature.</p>\
 			',

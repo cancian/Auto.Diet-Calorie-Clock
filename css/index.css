@@ -666,6 +666,12 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusElapsed					{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusElapsed div				{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
 #appStatusElapsed span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
+#elapsedInfo						{ position: absolute; top: -18px; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #ccc; }
+#elapsedInfo:after					{ font-family: KCals; content: '\A175'; padding-top: 3px; padding-right: 2px; font-size: 14px; line-height: 14px; display: block; }
+#elapsedInfo.button					{ color: #aaa; }
+#blockInfo p						{ margin: 24px; }
+#blockInfo p						{ display: block; }
+#blockInfo p + p					{ margin-top: 18px; }
 /*swap*/
 #elapsedIndicators div						{ text-align: left; width: 14px; height: 0; position: absolute; left: 50%; bottom: 8px; color: #ddd; font-size: 16px; line-height: 16px; font-family: Arial; }
 #elapsedIndicators div:before				{ border: 2px solid #ddd; border-radius: 20px; width: 0; height: 0; padding: 0px; display: block; content: ''; }
