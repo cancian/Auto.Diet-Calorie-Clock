@@ -125,7 +125,7 @@ function loadDatabase() {
 				//////////////////////////////
 				// update search terms v3.0 //
 				//////////////////////////////
-				if(app.read('foodDbVersion') == 3) {
+				if(app.read('foodDbVersion') == 3 && app.read('foodDbLoaded','done')) {
 					$('body').addClass('updtdb');
 					spinner();
 					setTimeout(function() {
