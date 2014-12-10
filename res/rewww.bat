@@ -119,4 +119,30 @@ mklink /j /d K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset K:\www\re
 RD /S /Q K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset
 mklink /j /d K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset K:\www\res\icon\osx\AppIcon.appiconset
 
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-hdpi\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-mdpi\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-ldpi\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-xxhdpi\icon.png 
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-xhdpi\icon.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable\icon.png K:\www\res\icon\android\144.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-xhdpi\icon.png K:\www\res\icon\android\96.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-hdpi\icon.png K:\www\res\icon\android\72.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-mdpi\icon.png K:\www\res\icon\android\48.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-ldpi\icon.png K:\www\res\icon\android\36.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-xxhdpi\icon.png K:\www\res\icon\android\144.png
+
+del /q K:\platforms\android\res\drawable\icon.png
+del /q K:\platforms\android\res\drawable-hdpi\icon.png
+del /q K:\platforms\android\res\drawable-mdpi\icon.png
+del /q K:\platforms\android\res\drawable-ldpi\icon.png
+del /q K:\platforms\android\res\drawable-xxhdpi\icon.png 
+del /q K:\platforms\android\res\drawable-xhdpi\icon.png
+mklink /h K:\platforms\android\res\drawable\icon.png K:\www\res\icon\android\144.png
+mklink /h K:\platforms\android\res\drawable-xhdpi\icon.png K:\www\res\icon\android\96.png
+mklink /h K:\platforms\android\res\drawable-hdpi\icon.png K:\www\res\icon\android\72.png
+mklink /h K:\platforms\android\res\drawable-mdpi\icon.png K:\www\res\icon\android\48.png
+mklink /h K:\platforms\android\res\drawable-ldpi\icon.png K:\www\res\icon\android\36.png
+mklink /h K:\platforms\android\res\drawable-xxhdpi\icon.png K:\www\res\icon\android\144.png
+
 sleep 10

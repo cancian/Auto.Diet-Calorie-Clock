@@ -1074,8 +1074,9 @@ function updateFoodDb(callback) {
 							ls = ls.split('\n');
 							for(var l=0, llen=ls.length; l<llen; l++) {
 								try {
-									ls[l].term =  searchalize(ls[l].name)
-									rowsArray.push(JSON.parse(ls[l]));
+									ls[l] = JSON.parse(ls[l]);
+									ls[l].term = searchalize(ls[l].name);
+									rowsArray.push(ls[l]);
 								} catch(e) {}
 							}
 							}
