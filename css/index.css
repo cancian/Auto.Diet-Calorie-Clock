@@ -555,12 +555,12 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 // BLOCK 2 // 
 ///////////*/
 #appStatusBlock2						{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; text-align: center; }
-#blockWrapper							{ position: relative; display: block; height: 66px; overflow: hidden; min-width: 120px; max-width: 140px; margin: 0 auto; overflow: hidden; }
+#blockWrapper							{ position: relative; display: block; height: 66px; overflow: hidden; min-width: 124px; max-width: 140px; margin: 0 auto; overflow: hidden; }
 /**/
-#appStatusBlock2 #circlePercent			{ position: absolute; top: 5px; left: 5px; display: block; z-index: 1; }
+#appStatusBlock2 #circlePercent			{ position: absolute; top: 5px; left: 5px; display: block; z-index: 1; width: 56px; overflow: hidden; }
 .cyclic #appStatusBlock2 #circlePercentInner,
 .cyclic #appStatusBlock2 #circlePercent	{ top: 1px; }
-#appStatusBlock2 #circlePercentInner	{ position: absolute; top: 5px; left: 5px; width: 56px; height: 60px; display: block; text-align: center; font-size: 12px; line-height: 54px; color: #999; z-index: 2; }
+#appStatusBlock2 #circlePercentInner	{ position: absolute; top: 5px; left: 5px; width: 59px; height: 60px; display: block; text-align: center; font-size: 12px; line-height: 54px; color: #999; z-index: 2; }
 #totalChartWrapper						{ width: 100%; text-align: center; }
 #totalChart								{ margin: 0 auto; display: inline-block; width: 280px; overflow: hidden; }
 #circlePercent,
@@ -673,7 +673,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusFix.open #appStatus		{ -webkit-transform: translate3d(0, 100%, 0); }
 #appStatusFix.open #startDate		{ display: inline-block; }
 /*// app status title //*/
-#appStatus #appStatusTitle			{ position: absolute; top: 100%; left: 0; right: 0; margin-top: -42px; background-color: #fff; text-align: center; padding-top: 13px; line-height: 16px; font-size: 16px; height: 42px; display: block; overflow: hidden; -webkit-backface-visibility: hidden; }
+#appStatus #appStatusTitle			{ position: absolute; bottom: 0; left: 0; right: 0; background-color: #fff; text-align: center; padding-top: 13px; line-height: 16px; font-size: 16px; height: 42px; display: block; overflow: hidden; -webkit-backface-visibility: hidden; }
 /*border-color*/
 #appStatus.start #appStatusTitle	{ border: 1px solid #080; color: #080; }
 #appStatus.reset #appStatusTitle	{ border: 1px solid #ddd; color: #999; }

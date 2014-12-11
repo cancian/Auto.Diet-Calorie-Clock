@@ -147,4 +147,4 @@ mklink /h K:\platforms\android\res\drawable-xxhdpi\icon.png K:\www\res\icon\andr
 
 K:\[bin]\embed K:\www\css\kcals.ttf
 
-sleep 10
+sleep 3

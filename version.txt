@@ -1,7 +1,8 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.6.11 [2014/12/08]
+# 1.7 [2014/12/12]
+• Improved "Today overview" section (tap for detailed statistics)
 • Fixed search issue for non-ascii
 
 # 1.6.9 [2014/11/02]

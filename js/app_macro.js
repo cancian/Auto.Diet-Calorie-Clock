@@ -706,6 +706,11 @@ function updateTodayOverview(fullWindow) {
 	//////////
 	//update percent
 	$('#circlePercentInner').html(today.percent + '%');
+	$('#totalConsumed').html(today.food - today.exercise);
+	$('#appDayA').html(LANG.DAY[lang] + ' A');
+	$('#appDayB').html(LANG.DAY[lang] + ' B');
+	$('#appDayC').html(LANG.DAY[lang] + ' C');
+	$('#appDayD').html(LANG.DAY[lang] + ' D');
 	//update intake
 	if (app.read('config_kcals_type', 'cyclic')) {
 		//highlight cycle day
@@ -738,7 +743,7 @@ function updateTodayOverview(fullWindow) {
 			spacingTop : (fullWindow == 1) ? 10 : -5,
 			spacingBottom : (fullWindow == 1) ? 25 : 0,
 			height : (fullWindow == 1) ? 390 : 56,
-			width : (fullWindow == 1) ? 280 : 56,
+			width : (fullWindow == 1) ? 280 : 60,
 			plotBackgroundColor : '#fff',
 			plotBorderWidth : 0,
 			plotShadow : false
