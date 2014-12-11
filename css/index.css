@@ -106,118 +106,6 @@ body.android ::-webkit-scrollbar{ display: none; }
 #timerKcals						{ position: absolute; bottom: 16px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; }
 #timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 32px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(255,255,255,0); background-image: rgba(255,255,255,.75);  -webkit-appearance: none; }
 #timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; color: #fff; font-weight: 500; }
-/*
-body:before						{ position: absolute; top: 76px; left: 0; width: 50px; content: ''; display: block; height: 1px; background-color: rgba(255,255,255,1); z-index: 9999; }
-body#p0:before { left: 0%; }
-body#p1:before { left: 1%; }
-body#p2:before { left: 2%; }
-body#p3:before { left: 3%; }
-body#p4:before { left: 4%; }
-body#p5:before { left: 5%; }
-body#p6:before { left: 6%; }
-body#p7:before { left: 7%; }
-body#p8:before { left: 8%; }
-body#p9:before { left: 9%; }
-
-body#p10:before { left: 10%; }
-body#p11:before { left: 11%; }
-body#p12:before { left: 12%; }
-body#p13:before { left: 13%; }
-body#p14:before { left: 14%; }
-body#p15:before { left: 15%; }
-body#p16:before { left: 16%; }
-body#p17:before { left: 17%; }
-body#p18:before { left: 18%; }
-body#p19:before { left: 19%; }
-
-body#p20:before { left: 20%; }
-body#p21:before { left: 21%; }
-body#p22:before { left: 22%; }
-body#p23:before { left: 23%; }
-body#p24:before { left: 24%; }
-body#p25:before { left: 25%; }
-body#p26:before { left: 26%; }
-body#p27:before { left: 27%; }
-body#p28:before { left: 28%; }
-body#p29:before { left: 29%; }
-
-body#p30:before { left: 30%; }
-body#p31:before { left: 31%; }
-body#p32:before { left: 32%; }
-body#p33:before { left: 33%; }
-body#p34:before { left: 34%; }
-body#p35:before { left: 35%; }
-body#p36:before { left: 36%; }
-body#p37:before { left: 37%; }
-body#p38:before { left: 38%; }
-body#p39:before { left: 39%; }
-
-body#p40:before { left: 40%; }
-body#p41:before { left: 41%; }
-body#p42:before { left: 42%; }
-body#p43:before { left: 43%; }
-body#p44:before { left: 44%; }
-body#p45:before { left: 45%; }
-body#p46:before { left: 46%; }
-body#p47:before { left: 47%; }
-body#p48:before { left: 48%; }
-body#p49:before { left: 49%; }
-
-body#p50:before { left: 50%; }
-body#p51:before { left: 51%; }
-body#p52:before { left: 52%; }
-body#p53:before { left: 53%; }
-body#p54:before { left: 54%; }
-body#p55:before { left: 55%; }
-body#p56:before { left: 56%; }
-body#p57:before { left: 57%; }
-body#p58:before { left: 58%; }
-body#p59:before { left: 59%; }
-
-body#p60:before { left: 60%; }
-body#p61:before { left: 61%; }
-body#p62:before { left: 62%; }
-body#p63:before { left: 63%; }
-body#p64:before { left: 64%; }
-body#p65:before { left: 65%; }
-body#p66:before { left: 66%; }
-body#p67:before { left: 67%; }
-body#p68:before { left: 68%; }
-body#p69:before { left: 69%; }
-
-body#p70:before { left: 70%; }
-body#p71:before { left: 71%; }
-body#p72:before { left: 72%; }
-body#p73:before { left: 73%; }
-body#p74:before { left: 74%; }
-body#p75:before { left: 75%; }
-body#p76:before { left: 76%; }
-body#p77:before { left: 77%; }
-body#p78:before { left: 78%; }
-body#p79:before { left: 79%; }
-
-body#p80:before { left: 80%; }
-body#p81:before { left: 81%; }
-body#p82:before { left: 82%; }
-body#p83:before { left: 83%; }
-body#p84:before { left: 84%; }
-body#p85:before { left: 85%; }
-body#p86:before { left: 86%; }
-body#p87:before { left: 87%; }
-body#p88:before { left: 88%; }
-body#p89:before { left: 89%; }
-
-body#p90:before { left: 90%; }
-body#p91:before { left: 91%; }
-body#p92:before { left: 92%; }
-body#p93:before { left: 93%; }
-body#p94:before { left: 94%; }
-body#p95:before { left: 95%; }
-body#p96:before { left: 96%; }
-body#p97:before { left: 97%; }
-body#p98:before { left: 98%; }
-body#p99:before { left: 99%; }
-*/
 /*//////////////////
 // DAILY CALORIES //
 //////////////////*/
@@ -258,23 +146,7 @@ body#p99:before { left: 99%; }
 .deficit #appFooter li.selected:before	{ color: #C85834; }
 .surplus #appFooter li.selected,
 .surplus #appFooter li.selected:before	{ color: #309030; }
-/*sync icon
-#appHeaderIcon				{ display: none; }
-.appDebug #appHeaderIcon,
-.appFacebook #appHeaderIcon	{ display: block; }
-#appHeaderIcon				{ position: absolute; top: 4px; right: 3px; width: 18px; height: 18px; z-index: 100; overflow: hidden; -webkit-backface-visibility: hidden; -webkit-user-select: none; -ms-user-select: none; pointer-events: none; }
-.started #appHeaderIcon span{ -webkit-animation: rotate 1000ms infinite linear; -webkit-animation-play-state: paused !important; border: 2px solid rgba(255,255,255,.28); border-top-color: #fff; border-left-color: #fff; -webkit-animation-fill-mode: forwards; -webkit-backface-visibility: hidden; position: absolute; display: block; top: 0; left: 0; width: 0; height: 0; padding: 5px; border-radius: 100px; }
-.insync #appHeaderIcon span	{ -webkit-animation-play-state: running !important; }
-.ios7 #appHeaderIcon		{ top: 18px; }
-@-webkit-keyframes scaleout	{ 0% { opacity: 1; } 25% { -webkit-transform: scale(1.0); } 100% {  -webkit-transform: scale(0); }}
-.started #appHeaderIcon p	{ -webkit-animation-fill-mode: forwards; -webkit-backface-visibility: hidden; position: absolute; display: block; top: 3px; right: 7px; width: 0px; height: 0px; padding: 3px; border-radius: 9px; background-color: #fff; border: 1px solid #fff; }
-.setpush #appHeaderIcon p	{ -webkit-animation: scaleout 1000ms infinite linear; }
-.appDebug #appHeaderIcon p	{ background-color: #0f0; border: 1px solid #0c0; }
-.appFacebook #appHeaderIcon	{ display: block; }
-.appDebug #appHeaderIcon p	{ background-color: #0f0; border: 1px solid #0c0; }
-.appDebug #appHeaderIcon span { display: none; }
-.appDebug.appFacebook #appHeaderIcon span { display: block; }
-*/
+/*sync icon*/
 #appHeaderIcon					{ display: none; }
 .appDebug #appHeaderIcon,
 .appFacebook #appHeaderIcon		{ display: block; }
@@ -679,42 +551,48 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #elapsedIndicators div#ind1					{ margin-left: -14px; }
 #elapsedIndicators div#ind2					{ margin-left: -2px;  }
 #elapsedIndicators div#ind3					{ margin-left: 10px;  }
+/*///////////
+// BLOCK 2 // 
+///////////*/
+#appStatusBlock2						{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; text-align: center; }
+#blockWrapper							{ position: relative; display: block; height: 66px; overflow: hidden; min-width: 120px; max-width: 140px; margin: 0 auto; overflow: hidden; }
 /**/
-#appStatusWeight					{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
-/*
-#appStatusWeight					{ font-size: 46pt; }
-*/
-#appStatusWeight div				{ padding-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
-#appStatusWeight span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
-#appStatusWeight strong				{ font-weight: normal; opacity: .55; }
-#appStatusWeight span:after			{ position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; background-color: #E5E8EA; content: ''; }
-#appStatusWeight em					{ position: absolute; bottom: 0; left: 0; width: 0px; height: 6px;  background-color: #4EA6EA; }
-#appStatusWeight em.exceed			{ background-color: #E3825F; }
-#appStatusWeight #appDays 			{ position: absolute; top: 0; left: 0; width: 100%; padding-top: 0; height: 10px; text-align: center; text-transform: uppercase; background-color: #f5f5f5; }
-#appStatusWeight #appDayA			{ left: 0;   }
-#appStatusWeight #appDayB			{ left: 25%; }
-#appStatusWeight #appDayC			{ left: 50%; }
-#appStatusWeight #appDayD			{ left: 75%; }
-#appStatusWeight #appDayA,
-#appStatusWeight #appDayB,
-#appStatusWeight #appDayC,
-#appStatusWeight #appDayD			{ position: absolute; top: 0; padding-top: 0; width: 25%; text-align: center; font-size: 8px; line-height: 10px; height: 10px; color: rgba(0,0,0,.4); }
-#appStatusWeight #appDays .current	{ font-weight: bold; color: #39F; }
-.simple #appStatusWeight #appDays	{ display: none; }
-.cyclic #appStatusWeight #appDays	{ display: block; }
-.appLang-fi #appStatusWeight #appDays div,
-.appLang-lt #appStatusWeight #appDays div, 
-.appLang-lv #appStatusWeight #appDays div,
-.appLang-pl #appStatusWeight #appDays div,
-.appLang-el #appStatusWeight #appDays div,
-.appLang-it #appStatusWeight #appDays div	{ text-transform: none; }
-/**/
-#appStatusWeight #dailyCircle		{ position: absolute; top: 9px; left: 50%; margin-left: -33px; width: 66px; height: 66px; overflow: hidden; background-color: transparent; }
-#dailyPercent { position: absolute; top: 21px; left: 0; width: 60px; text-align: center; color: #000; font-size: 16px;
- font-weight: normal;
- font-family: arial;
- background-color: 
-}
+#appStatusBlock2 #circlePercent			{ position: absolute; top: 5px; left: 5px; display: block; z-index: 1; }
+.cyclic #appStatusBlock2 #circlePercentInner,
+.cyclic #appStatusBlock2 #circlePercent	{ top: 1px; }
+#appStatusBlock2 #circlePercentInner	{ position: absolute; top: 5px; left: 5px; width: 56px; height: 60px; display: block; text-align: center; font-size: 12px; line-height: 54px; color: #999; z-index: 2; }
+#totalChartWrapper						{ width: 100%; text-align: center; }
+#totalChart								{ margin: 0 auto; display: inline-block; width: 280px; overflow: hidden; }
+#circlePercent,
+#newWindow #totalChart,
+.highcharts-legend-item					{ pointer-events: none; }
+#totalConsumed							{ margin: 0 0 0 50%; padding-top: 13px; padding-left: 0; display: block; text-align: left; font-size: 22px; line-height: 22px; color: #2f7ed8; }
+.cyclic #totalConsumed					{ padding-top: 9px;	}
+#totalIntake							{ margin: 0 0 0 50%; padding-top: 0; padding-left: 0; display: block; text-align: left; font-size: 11px; line-height: 14px; color: #999; }
+#totalIntake span						{ font-weight: bold; color: #777; }
+#todayInfo								{ position: absolute; top: -18px; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #bbb; }
+#todayInfo:after						{ font-family: KCals; content: '\A176'; padding-top: 3px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; }
+.cyclic #todayInfo						{ color: #007aff; }
+#todayInfo.button						{ color: #999; }
+/*days~abcd*/
+#appStatusBlock2 #appDays 					{ position: absolute; bottom: 0; left: 0; width: 100%; padding-top: 0; height: 10px; text-align: center; text-transform: uppercase; background-color: #f5f5f5; z-index: 2; }
+#appStatusBlock2 #appDayA					{ left: 0;   }
+#appStatusBlock2 #appDayB					{ left: 25%; }
+#appStatusBlock2 #appDayC					{ left: 50%; }
+#appStatusBlock2 #appDayD					{ left: 75%; }
+#appStatusBlock2 #appDayA,
+#appStatusBlock2 #appDayB,
+#appStatusBlock2 #appDayC,
+#appStatusBlock2 #appDayD					{ position: absolute; top: 0; padding-top: 0; width: 25%; text-align: center; font-size: 8px; line-height: 10px; height: 10px; color: rgba(0,0,0,.4); }
+#appStatusBlock2 #appDays .current			{ font-weight: bold; color: #39F; }
+.simple #appStatusBlock2 #appDays			{ display: none; }
+.cyclic #appStatusBlock2 #appDays			{ display: block; }
+.appLang-fi #appStatusBlock2 #appDays div,
+.appLang-lt #appStatusBlock2 #appDays div, 
+.appLang-lv #appStatusBlock2 #appDays div,
+.appLang-pl #appStatusBlock2 #appDays div,
+.appLang-el #appStatusBlock2 #appDays div,
+.appLang-it #appStatusBlock2 #appDays div	{ text-transform: none; }
 /**/
 #appStatusBalance				{ position: absolute; top: 75px; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusBalance div			{ padding-top: 15px; text-align: center; display: block; font-size: 14px; }
@@ -795,7 +673,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusFix.open #appStatus		{ -webkit-transform: translate3d(0, 100%, 0); }
 #appStatusFix.open #startDate		{ display: inline-block; }
 /*// app status title //*/
-#appStatus #appStatusTitle			{ position: absolute; bottom: 0; left: 0; right: 0; background-color: #fff; text-align: center; padding-top: 13px; line-height: 16px; font-size: 16px; height: 42px; display: block; overflow: hidden; -webkit-backface-visibility: hidden; }
+#appStatus #appStatusTitle			{ position: absolute; top: 100%; left: 0; right: 0; margin-top: -42px; background-color: #fff; text-align: center; padding-top: 13px; line-height: 16px; font-size: 16px; height: 42px; display: block; overflow: hidden; -webkit-backface-visibility: hidden; }
 /*border-color*/
 #appStatus.start #appStatusTitle	{ border: 1px solid #080; color: #080; }
 #appStatus.reset #appStatusTitle	{ border: 1px solid #ddd; color: #999; }
@@ -1496,6 +1374,7 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 .pos			{ right: 0;    }
 .neg.active,
 .pos.active		{ color: #ccc; }
+
 .neg:before,
 .pos:before		{ position: absolute; top: 0; right: 0; font-family: KCals; width: 60px; height: 50px; text-align: center; }
 .neg:before		{ content: '\B002'; }

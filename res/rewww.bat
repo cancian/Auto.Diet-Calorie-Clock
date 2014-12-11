@@ -145,4 +145,6 @@ mklink /h K:\platforms\android\res\drawable-mdpi\icon.png K:\www\res\icon\androi
 mklink /h K:\platforms\android\res\drawable-ldpi\icon.png K:\www\res\icon\android\36.png
 mklink /h K:\platforms\android\res\drawable-xxhdpi\icon.png K:\www\res\icon\android\144.png
 
+K:\[bin]\embed K:\www\css\kcals.ttf
+
 sleep 10

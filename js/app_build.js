@@ -29,15 +29,15 @@ app.tab.settings = function(keepOpen) {
 	//# OUTPUT #//
 	//#////////#//
 	preTab(keepOpen);
-	$("#appContent").html(settingsHtml);
+	$('#appContent').html(settingsHtml);
 	afterTab(keepOpen);
 	///////////////////
 	// last sync tap //
 	///////////////////
 	if(!app.read('lastSync','never')) {
-		$("#optionLastSync span").html(dateDiff(app.read('lastSync'),app.now()));
+		$('#optionLastSync span').html(dateDiff(app.read('lastSync'),app.now()));
 	}
-	$("#optionLastSync").on(touchend,function(evt) {
+	$('#optionLastSync').on(touchend,function(evt) {
 		evt.preventDefault();
 		if(!$('body').hasClass('insync')) {
 			syncEntries(app.read('facebook_userid'));
@@ -90,15 +90,15 @@ app.tab.settings = function(keepOpen) {
 		/////////////////
 		getNewWindow('KCals ' + appVersion, aboutHtml, aboutHandler);
 	};
-	$("#optionWebsite").on(touchend,function(evt) {
+	$('#optionWebsite').on(touchend,function(evt) {
 		app.about();
 		//getNewWindow('teste', '<iframe width="640" height="360" src="http://www.youtube.com/embed/Px3gXf1GOrQ?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>');
 	});
 	//////////////
 	// HELP TAP //
 	//////////////
-	$("#optionHelp").on(touchend,function(evt) {
-		$(this).addClass("activeRow");
+	$('#optionHelp').on(touchend,function(evt) {
+		$(this).addClass('activeRow');
 		evt.preventDefault();
 		buildHelpMenu();
 		return false;
@@ -106,13 +106,13 @@ app.tab.settings = function(keepOpen) {
 	//////////////
 	// LANG TAP //
 	//////////////
-	$("#optionLang").on(touchend,function(evt) {
+	$('#optionLang').on(touchend,function(evt) {
 		buildLangMenu();
 	});
 	////////////////////////
 	// SETTINGS: FACEBOOK //
 	////////////////////////
-	$("#optionFacebook").on(touchend, function(evt) {
+	$('#optionFacebook').on(touchend, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		//fix exception 18
@@ -132,52 +132,52 @@ app.tab.settings = function(keepOpen) {
 		}
 	});
 	//TOGGLE ACTIVE
-	$("#optionFacebook").on(touchstart,function(evt) {
+	$('#optionFacebook').on(touchstart,function(evt) {
 		evt.preventDefault();
-		$("#optionFacebook").addClass("activeRow");
+		$('#optionFacebook').addClass('activeRow');
 	});
-	$("#optionFacebook").on(touchend + " mouseout",function(evt) {
-		$("#optionFacebook").removeClass("activeRow");
+	$('#optionFacebook').on(touchend + ' mouseout',function(evt) {
+		$('#optionFacebook').removeClass('activeRow');
 	});
 	//SET USERNAME (IF LOGGED)
 	if(app.read('facebook_username') && app.read('facebook_logged')) {
-		$("#optionFacebook span").html(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
+		$('#optionFacebook span').html(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
 	}
 	////////////////
 	// ACTIVE ROW //
 	////////////////
-	$("#settingsList li").on(touchstart,function(evt) {
+	$('#settingsList li').on(touchstart,function(evt) {
 		evt.preventDefault();
-		$(this).addClass("activeRow");
+		$(this).addClass('activeRow');
 	});
-	$("#settingsList,#settingsList li").on(touchend + " mouseout",function(evt) {
-		$(".activeRow").removeClass("activeRow");
+	$('#settingsList,#settingsList li').on(touchend + ' mouseout',function(evt) {
+		$('.activeRow').removeClass('activeRow');
 		evt.preventDefault();
 	});
 	////////////////////////
 	// SETTINGS: ADVANCED //
 	////////////////////////
-	$("#optionAdvanced").on(touchend, function(evt) {
+	$('#optionAdvanced').on(touchend, function(evt) {
 		buildAdvancedMenu();
 	});
-	$("#optionAdvanced").on(touchstart,function(evt) {
+	$('#optionAdvanced').on(touchstart,function(evt) {
 		evt.preventDefault();
-		$("#optionAdvanced").addClass("activeRow");
+		$('#optionAdvanced').addClass('activeRow');
 	});
-	$("#optionAdvanced").on(touchend + " mouseout",function(evt) {
-		$("#optionAdvanced").removeClass("activeRow");
+	$('#optionAdvanced').on(touchend + ' mouseout',function(evt) {
+		$('#optionAdvanced').removeClass('activeRow');
 	});
 	///////////////////////////
 	// SETTINGS: UNIT TOGGLE //
 	///////////////////////////
-	$("#optionMeasure").on(touchstart,function(evt) {
+	$('#optionMeasure').on(touchstart,function(evt) {
 		evt.preventDefault();
 	});	
-	$("#leftOption").on(touchstart,function(evt){
+	$('#leftOption').on(touchstart,function(evt){
 		evt.preventDefault();
 		evt.stopPropagation();
-		$("#leftOption").addClass("toggle");
-		$("#rightOption").removeClass("toggle");
+		$('#leftOption').addClass('toggle');
+		$('#rightOption').removeClass('toggle');
 		//AUTO CONVERT
 		if(!app.read('config_measurement','imperial')) {
 			app.save('calcForm#pA3B',Math.round(app.read('calcForm#pA3B')/0.454));
@@ -197,11 +197,11 @@ app.tab.settings = function(keepOpen) {
 		app.save('calcForm#pA6N','pounds');
 		setPush();
 	});
-	$("#rightOption").on(touchstart,function(evt){
+	$('#rightOption').on(touchstart,function(evt){
 		evt.preventDefault();
 		evt.stopPropagation();
-		$("#rightOption").addClass("toggle");
-		$("#leftOption").removeClass("toggle");
+		$('#rightOption').addClass('toggle');
+		$('#leftOption').removeClass('toggle');
 		//AUTO CONVERT
 		if(!app.read('config_measurement','metric')) {
 			app.save('calcForm#pA3B',Math.round(app.read('calcForm#pA3B')*0.454));
@@ -217,9 +217,9 @@ app.tab.settings = function(keepOpen) {
 	});
 	//read stored
 	if(app.read('config_measurement','metric')) {
-		$("#rightOption").addClass("toggle");
+		$('#rightOption').addClass('toggle');
 	} else {
-		$("#leftOption").addClass("toggle");
+		$('#leftOption').addClass('toggle');
 	}
 }
 /*#######################################
@@ -230,20 +230,38 @@ app.tab.status = function(keepOpen) {
 	////////////////////
 	// TODAY OVERVIEW //
 	////////////////////
-	var totalConsumed = app.read('config_ttf');
-	var totalIntake   = app.read('config_kcals_day_0') + (app.read('config_tte')*-1);
+	var totalConsumed = app.read('config_ttf') - (Math.abs(app.read('config_tte')));
+	var totalIntake   = app.read('config_kcals_day_0');
 	var totalPercent  = totalConsumed / (totalIntake / 100);
 	//create empty intake html cache
 	app.define('appStatusIntake',' ');
 	/////////////////////////////
 	// PRE-SET START/RESET BAR //
 	/////////////////////////////
-	var appStatusClass = "start";
+	var appStatusClass = 'start';
 	var appStatusTitle = LANG.START[lang];
 	if(app.read('appStatus','running')) {
-		appStatusClass = "reset"; 
+		appStatusClass = 'reset'; 
 		appStatusTitle = LANG.RESET[lang];
 	}
+	////////////////////
+	// READ PIE CACHE //
+	////////////////////
+	var statusBlock2 = app.read('pieCache').length > 10 ? app.read('pieCache') : '\
+		<div id="blockWrapper">\
+		<div id="circlePercent"></div>\
+		<div id="circlePercentInner"></div>\
+		<div id="totalConsumed">' + totalConsumed + '</div>\
+		<div id="totalIntake">/ ' + totalIntake + ' ' + LANG.KCAL[lang] + ' </div>\
+		</div>\
+		<div id="appDays">\
+			<div id="appDayA">' + LANG.DAY[lang] + ' A</div>\
+			<div id="appDayB">' + LANG.DAY[lang] + ' B</div>\
+			<div id="appDayC">' + LANG.DAY[lang] + ' C</div>\
+			<div id="appDayD">' + LANG.DAY[lang] + ' D</div>\
+		</div>\
+		<div id="todayInfo">' + LANG.TODAY[lang] + '</div>\
+	';
 	//RAW HTML
 	var statusHtml = '\
 	<a name="top"></a>\
@@ -252,13 +270,7 @@ app.tab.status = function(keepOpen) {
 		<div id="elapsedIndicators"><div id="ind1"></div><div id="ind2"></div><div id="ind3"></div></div>\
 		<div id="elapsedInfo"></div>\
 		</div>\
-		<div id="appStatusWeight"><div><p>' + totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong></p><span>' + LANG.TODAY[lang] + '</span><em></em>\
-		<div id="appDays">\
-			<div id="appDayA">' + LANG.DAY[lang] + ' A</div>\
-			<div id="appDayB">' + LANG.DAY[lang] + ' B</div>\
-			<div id="appDayC">' + LANG.DAY[lang] + ' C</div>\
-			<div id="appDayD">' + LANG.DAY[lang] + ' D</div>\
-		</div></div></div>\
+		<div id="appStatusBlock2">' + statusBlock2 + '</div>\
 		<div id="appStatusBalance" class=" ' + app.read('cssOver') + '"><div><p>' + app.read('appBalance') + '</p><span>' + LANG.CALORIC_BALANCE[lang] + '</span><div id="balanceBar"></div></div></div>\
 		<div id="appStatusIntake">' + app.read('appStatusIntake') + '</div>\
 		<div id="appStatusBars">\
@@ -282,7 +294,7 @@ app.tab.status = function(keepOpen) {
 	//# OUTPUT #//
 	//#////////#//
 	preTab(keepOpen);
-	$("#appContent").html(statusHtml);
+	$('#appContent').html(statusHtml);
 	afterTab(keepOpen);
 	////////////////
 	// PRE CONFIG //
@@ -292,10 +304,9 @@ app.tab.status = function(keepOpen) {
 	//BALANCE
 	balanceMeter(timerKcals);	
 	//TODAY
-	$('#appStatusWeight em').css('width',totalPercent + "%");
 	updateTodayOverview();
 	//INTAKE
-	$('#appStatusIntake div').css("padding-top", "0px");
+	$('#appStatusIntake div').css('padding-top', '0px');
 	intakeHistory();
 	//NUTRI
 	updateNutriBars(app.read('tPro'),app.read('tCar'),app.read('tFat'));
@@ -321,37 +332,44 @@ app.tab.status = function(keepOpen) {
 	////////////////
 	// LIMIT MENU //
 	////////////////
-	$("#appStatusBalance").on(touchstart,function(evt) {
+	$('#appStatusBalance').on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
+		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getLimitMenu();
 	});	
 	/////////////////
 	// CYCLIC MENU //
 	/////////////////
-	$("#appStatusWeight").on(touchstart,function(evt) {
+	$('#appStatusBlock2').on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
+		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
+		updateTodayOverview(1);
+	});
+	//cyclic block
+	$('#todayInfo').on(touchstart,function(evt) {
+		return false;
+	});
+	app.handlers.activeRow('#todayInfo','button',function() {
 		getCyclicMenu();
 	});
 	//////////////////
 	// HISTORY MENU //
 	//////////////////
-	$("#appStatusIntake").on(touchstart,function(evt) {
+	$('#appStatusIntake').on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
+		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getFullHistory();
 	});
 	////////////////
 	// NUTRI MENU //
 	////////////////
-	$("#appStatusBars").on(touchstart,function(evt) {
+	$('#appStatusBars').on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
+		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getNutriSliders();
 	});
 	//#///////////#//
@@ -378,6 +396,7 @@ app.tab.status = function(keepOpen) {
 					$('#appStatusBars span').html('0%');
 					$('#appStatusBalance div p').html(LANG.BALANCED[lang]);
 					updateTodayOverview();
+					appFooter('tab1');
 				}
 				return false;
 			}
@@ -426,25 +445,25 @@ app.tab.status = function(keepOpen) {
 		}
 	});
 	*/
-	$("#appStatusAddLeft").on(touchstart,function(evt) {
-		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
+	$('#appStatusAddLeft').on(touchstart,function(evt) {
+		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		evt.preventDefault();
-		if(!$("#pageSlideFood").hasClass("busy")) {
+		if(!$('#pageSlideFood').hasClass('busy')) {
 			app.save('searchType','food');
 		} else {
 			//return false;
 		}
-		$(document).trigger("pageReload");
+		$(document).trigger('pageReload');
 	});
-	$("#appStatusAddRight").on(touchstart,function(evt) {
-		if($("#timerDailyInput").is(":focus")) { $('#timerDailyInput').trigger("blur"); return false; }
+	$('#appStatusAddRight').on(touchstart,function(evt) {
+		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		evt.preventDefault();
-		if(!$("#pageSlideFood").hasClass("busy")) {
+		if(!$('#pageSlideFood').hasClass('busy')) {
 			app.save('searchType','exercise');
 		} else {
 			//return false;
 		}
-		$(document).trigger("pageReload");
+		$(document).trigger('pageReload');
 	});
 	//#/////////////////////#//
 	//# APP STATUS/DATE BAR #//
@@ -494,7 +513,7 @@ app.tab.status = function(keepOpen) {
 	//////////////////
 	// ENABLE DEBUG //
 	//////////////////	
-	$("#appStatusReload").on("longhold", function(evt) {
+	$('#appStatusReload').on('longhold', function(evt) {
 		//evt.preventDefault();
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
@@ -507,40 +526,40 @@ app.tab.status = function(keepOpen) {
 	/////////////////
 	// RELOAD ICON //
 	/////////////////
-	$("#appStatusReload").on(tap,function(evt) {
+	$('#appStatusReload').on(tap,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		$('#startDateBar').hide();
-		$("#appStatusReload").off();
+		$('#appStatusReload').off();
 		afterHide();
 	});
 	////////////////////
 	// SHOW STARTDATE //
 	////////////////////
-	$("#appStatusToggle").on(tap,function(evt) {
+	$('#appStatusToggle').on(tap,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($('#appStatusFix').hasClass("open")) {
+		if($('#appStatusFix').hasClass('open')) {
 			$('#startDate').blur();
-			$('#appStatusFix').removeClass("open");
+			$('#appStatusFix').removeClass('open');
 		} else {
-			$("#appStatusFix").addClass("open");
+			$('#appStatusFix').addClass('open');
 		}
 		$('#startDate').scroller('setDate',new Date(app.read('config_start_time')), true);
 		return false;
 	});
 	// ON BLUR //
 	var onChange = 0;
-	$("#startDate").change(function() {
+	$('#startDate').change(function() {
 		if($('.dwo').length) {
 			onChange++;
 		}
 	});
-	$("#startDate").blur(function(){
+	$('#startDate').blur(function(){
 		//write if changed
 		if(onChange > 0) {
 			//if not future
-			if(Number(Date.parse($("#startDate").val())) < Number((new Date().getTime())) ) {
+			if(Number(Date.parse($('#startDate').val())) < Number((new Date().getTime())) ) {
 				//write input date as time
 				app.save('config_start_time',Date.parse($('#startDate').val()));
 			}
@@ -551,20 +570,20 @@ app.tab.status = function(keepOpen) {
 		}
 	});
 	// AUTOCLOSE n' hide //
-	$("#appHeader,#appContent").on(touchstart, function(evt) {
+	$('#appHeader,#appContent').on(touchstart, function(evt) {
 		//GLOBAL CLOSER
-		if(evt.target.id == "startDate" || evt.target.id == "startDateBar" || evt.target.id == "appStatusToggle") {
+		if(evt.target.id == 'startDate' || evt.target.id == 'startDateBar' || evt.target.id == 'appStatusToggle') {
 			return;
 		}
 		//TRIGGER BLUR (SAVE) & CLOSE
-		if($('#appStatusFix').hasClass("open")) {
+		if($('#appStatusFix').hasClass('open')) {
 			$('#startDate').blur();
-			$('#appStatusFix').removeClass("open");
+			$('#appStatusFix').removeClass('open');
 		}
 	});
 	//prevent keyboard
-	$("#startDate").on("focus", function(evt) {
-		$("#startDate").blur();
+	$('#startDate').on('focus', function(evt) {
+		$('#startDate').blur();
 	});
 }
 /*############################
@@ -910,16 +929,16 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// GOTO //
 			//////////
 			if (/devgoto/i.test($('#entryBody').val())) {
-				window.location.href = 'http://' + $("#entryBody").val().toLowerCase().split("devgoto").join('');
-				$("#entryBody").val('');
-				$("#entryBody").blur();
+				window.location.href = 'http://' + $('#entryBody').val().toLowerCase().split('devgoto').join('');
+				$('#entryBody').val('');
+				$('#entryBody').blur();
 			}
 			//////////
 			// UUID //
 			//////////
 			if (/devuuid/i.test($('#entryBody').val())) {
-				$("#entryBody").val('');
-				$("#entryBody").blur();
+				$('#entryBody').val('');
+				$('#entryBody').blur();
 				if(window.device) {
 					if(window.device.uuid) {
 						alert(window.device.uuid);
@@ -932,13 +951,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if (/devdebug/i.test($('#entryBody').val())) {
 				if (app.read('config_debug','active')) {
 					app.save('config_debug','inactive');
-					$("#entryBody").val('');
-					$("#entryBody").blur();
+					$('#entryBody').val('');
+					$('#entryBody').blur();
 					afterHide();
 				} else {
 					app.save('config_debug','active');
-					$("#entryBody").val('');
-					$("#entryBody").blur();
+					$('#entryBody').val('');
+					$('#entryBody').blur();
 					afterHide();
 				}
 			}
@@ -946,12 +965,12 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// PURGE //
 			///////////
 			if (/devpurge/i.test($('#entryBody').val())) {
-				app.remove("remoteSuperBlockJS");
-				app.remove("remoteSuperBlockCSS");
-				app.remove("app_autoupdate_hash");
+				app.remove('remoteSuperBlockJS');
+				app.remove('remoteSuperBlockCSS');
+				app.remove('app_autoupdate_hash');
 				//buildRemoteSuperBlock('cached');
-				$("#entryBody").val('');
-				$("#entryBody").blur();
+				$('#entryBody').val('');
+				$('#entryBody').blur();
 			}
 			////////////
 			// NOTIFY //
@@ -962,8 +981,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				} else {
 					app.save('app_notify_update', true);
 				}
-				$("#entryBody").val('');
-				$("#entryBody").blur();
+				$('#entryBody').val('');
+				$('#entryBody').blur();
 			}
 			////////////
 			// DRIVER //
@@ -972,33 +991,33 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				if (localforage) {
 					alert(localforage._driver);
 				}
-				$("#entryBody").val('');
-				$("#entryBody").blur();
+				$('#entryBody').val('');
+				$('#entryBody').blur();
 			}
 			///////////
 			// CLEAR //
 			///////////
 			if (/devclear/i.test($('#entryBody').val())) {
 				window.localStorage.clear();
-				$("#entryBody").val('');
-				$("#entryBody").blur();
+				$('#entryBody').val('');
+				$('#entryBody').blur();
 			}
 			////////////
 			// RELOAD //
 			////////////
 			if (/devreload/i.test($('#entryBody').val())) {
 				window.location.reload(true);
-				$("#entryBody").val('');
-				$("#entryBody").blur();
+				$('#entryBody').val('');
+				$('#entryBody').blur();
 			}
 			////////////////
 			// INSTALLPKG //
 			////////////////
 			if (/devinstallpkg/i.test($('#entryBody').val())) {
-				if (vendorClass == "moz") {
+				if (vendorClass == 'moz') {
 					navigator.mozApps.install(app.https + 'kcals.net/manifest.webapp');
-					$("#entryBody").val('');
-					$("#entryBody").blur();
+					$('#entryBody').val('');
+					$('#entryBody').blur();
 				}
 			}
 			/////////////////
@@ -1010,7 +1029,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			//////////
 			// EVAL //
 			//////////
-			if ((/deveval/i).test($("#entryBody").val())) {
+			if ((/deveval/i).test($('#entryBody').val())) {
 				if($('#entryBody').val().split('deveval').join('') != '') {
 					$('#entryBody').val( $('#entryBody').val().split('deveval').join('deveva') );
 					try {
@@ -1025,8 +1044,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			///////////
 			if (/devua/i.test($('#entryBody').val())) {
 				alert(navigator.userAgent);
-				$("#entryBody").val(navigator.userAgent);
-				$("#entryBody").blur();
+				$('#entryBody').val(navigator.userAgent);
+				$('#entryBody').blur();
 			}
 			///////////
 			// INTRO //
@@ -1289,7 +1308,7 @@ dumper += '{	"id" : "' + lsen[r].id + '",	"type" : "' + lsen[r].type + '",	"code
 		}
 		//show
 		$('#diaryNotesWrapper').remove();
-		$('body').append("<div id='diaryNotesWrapper'><div id='diaryNotesButton'>" + LANG.OK[lang] + "</div><textarea id='diaryNotesInput'></textarea></div>");
+		$('body').append('<div id="diaryNotesWrapper"><div id="diaryNotesButton">' + LANG.OK[lang] + '</div><textarea id="diaryNotesInput"></textarea></div>');
 		//load content
 		if(app.read('appNotes')) {
 			$('#diaryNotesInput').val(app.read('appNotes'));
@@ -1301,12 +1320,12 @@ dumper += '{	"id" : "' + lsen[r].id + '",	"type" : "' + lsen[r].type + '",	"code
 		$('#diaryNotesInput').height($('body').height() - 32);
 		$('#diaryNotesInput').width($('body').width() - 24);
 		//load scroller & set window < height
-		getNiceScroll("#diaryNotesInput",200,function() {
+		getNiceScroll('#diaryNotesInput',200,function() {
 			$('#diaryNotesInput').height($('body').height() - 32);				
 		});
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {
-			if($('.nicescroll-rails').is(":visible")) { 
+			if($('.nicescroll-rails').is(':visible')) { 
 			//
 			} else {
 				evt.preventDefault();
@@ -1329,32 +1348,32 @@ dumper += '{	"id" : "' + lsen[r].id + '",	"type" : "' + lsen[r].type + '",	"code
 		$('#diaryNotesInput').on('focus', function(evt) {
 			//window.scroll($('#diaryNotesInput').scrollTop,0,0);
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-			$("#diaryNotesInput").height($('body').height() - 32);
+			$('#diaryNotesInput').height($('body').height() - 32);
 			if($.nicescroll) {
-				$("#diaryNotesInput").getNiceScroll().resize();	
+				$('#diaryNotesInput').getNiceScroll().resize();	
 			}
 			setTimeout(function() {
 				kickDown('#diaryNotesInput');
 				//$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
-				$("#diaryNotesInput").height($('body').height() - 32);
+				$('#diaryNotesInput').height($('body').height() - 32);
 				if($.nicescroll) {
-					$("#diaryNotesInput").getNiceScroll().resize();	
+					$('#diaryNotesInput').getNiceScroll().resize();	
 				}
 			},100);
 		});
 		//trigger resize (ios 7.1)
-		$('#diaryNotesInput').on("blur",function(){
-			$(window).trigger("resize");
+		$('#diaryNotesInput').on('blur',function(){
+			$(window).trigger('resize');
 		});
-		$('#diaryNotesInput').on("focus",function(){
-			$(window).trigger("resize");
+		$('#diaryNotesInput').on('focus',function(){
+			$(window).trigger('resize');
 		});		
 		//keypress save
-		$('#diaryNotesInput').on("keypress", function(evt) {
+		$('#diaryNotesInput').on('keypress', function(evt) {
 			app.save('appNotes',$('#diaryNotesInput').val());
 			$('#diaryNotesInput').height($('body').height() - 32);
 			if($.nicescroll) {
-				$("#diaryNotesInput").getNiceScroll().resize();
+				$('#diaryNotesInput').getNiceScroll().resize();
 			}
 		});
 		//////////////////
@@ -1365,15 +1384,15 @@ dumper += '{	"id" : "' + lsen[r].id + '",	"type" : "' + lsen[r].type + '",	"code
 			evt.preventDefault();
 			evt.stopPropagation();
 			$('#diaryNotesInput').off();
-			if($("#diaryNotesInput").is(":focus")) {
+			if($('#diaryNotesInput').is(':focus')) {
 				$('#diaryNotesInput').blur();
 			}
 			app.save('appNotes',$('#diaryNotesInput').val());
 			$('#appHeader, #appContent').css('pointer-events','none');
-			$("#diaryNotesWrapper").css(prefix + 'transition-duration','.2s');
-			$("#diaryNotesWrapper").css(prefix + 'transition-timing-function','linear');
+			$('#diaryNotesWrapper').css(prefix + 'transition-duration','.2s');
+			$('#diaryNotesWrapper').css(prefix + 'transition-timing-function','linear');
 			setTimeout(function() {
-				$("#diaryNotesWrapper").css('opacity', 0);
+				$('#diaryNotesWrapper').css('opacity', 0);
 			}, 0);
 			setTimeout(function() {
 				$('#diaryNotesWrapper').remove();
@@ -1643,7 +1662,7 @@ var profileHtml = '\
 //# OUTPUT #//
 //#////////#//
 preTab(keepOpen);
-$("#appContent").html(profileHtml);
+$('#appContent').html(profileHtml);
 afterTab(keepOpen);
 //app.handlers.addRemove('#pA3B',0,9999);
 //app.handlers.addRemove('#pA6M',0,999);
@@ -1663,21 +1682,21 @@ $('#appContent').scroll(function() {
 //# HANDLERS #//
 //#//////////#//
 //enforce onchange
-$("#pA2B").on("blur",function(evt) {
-	$("#pA2B").val( eedisplayFloat(eeparseFloat( $(this).val() )) );
-	recalc_onclick("pA2B");
+$('#pA2B').on('blur',function(evt) {
+	$('#pA2B').val( eedisplayFloat(eeparseFloat( $(this).val() )) );
+	recalc_onclick('pA2B');
 	writeCalcValues();
 });
-$("#pA2B").on("change keypress",function(evt) {
-	$("#pA2B").val( (Number($("#feet").val())*12)  +  Number($("#inches").val()) );
+$('#pA2B').on('change keypress',function(evt) {
+	$('#pA2B').val( (Number($('#feet').val())*12)  +  Number($('#inches').val()) );
 	writeCalcValues();
 });
-$("#inches").on("change keypress",function(evt) {
-	$("#pA2B").val( Number(($("#feet").val()*12))  +  Number($("#inches").val()) );
+$('#inches').on('change keypress',function(evt) {
+	$('#pA2B').val( Number(($('#feet').val()*12))  +  Number($('#inches').val()) );
 	writeCalcValues();
 });
-$("#feet").on("change keypress",function(evt) {
-	$("#pA2B").val( Number(($("#feet").val()*12))  +  Number($("#inches").val()) );
+$('#feet').on('change keypress',function(evt) {
+	$('#pA2B').val( Number(($('#feet').val()*12))  +  Number($('#inches').val()) );
 	writeCalcValues();
 });
 /////////////////////
@@ -1689,7 +1708,7 @@ app.handlers.validate('#inches,#pA3B',{maxLength:3,maxValue:999});
 // TAP VALUE //
 ///////////////
 var tapVar;
-$("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
+$('#pA7B,#pA7F,#pA7L').on('focus', function(evt) {
 	tapVar = this;
 	setTimeout(function(){ if(tapVar) { tapVar.blur(); } },1);
 	if(app.device.windows8 || (app.device.android && app.device.android < 4)) {
@@ -1701,7 +1720,7 @@ $("#pA7B,#pA7F,#pA7L").on("focus", function(evt) {
 });
 //KEYBOARD PREVENT
 if(app.device.firefoxos) {
-	$("#pA7B,#pA7F,#pA7L").on(touchstart, function(evt) {
+	$('#pA7B,#pA7F,#pA7L').on(touchstart, function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		$(this).trigger(tap);
@@ -1709,13 +1728,13 @@ if(app.device.firefoxos) {
 	});
 }
 //
-$("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
+$('#pA7B,#pA7F,#pA7L').on(tap, function(evt) {
 	//RELOAD INFO HTML
 	var calcResult = Math.round($(this).val());
 	//check n'updt
 	if(calcResult >= 100 && calcResult <= 9999) {
 		//adjust current value
-		var getKcalsKey = "config_kcals_day_0";
+		var getKcalsKey = 'config_kcals_day_0';
 		if(app.read('config_kcals_type','cyclic')) {
 			if(app.read('config_kcals_day','d')) {
 				getKcalsKey = 'config_kcals_day_2';
@@ -1735,14 +1754,14 @@ $("#pA7B,#pA7F,#pA7L").on(tap, function(evt) {
 		},200);
 		//HIGHLIGHT
 		$(this).addClass('tapActive');
-		$(this).stop().animate({ backgroundColor: "rgba(255,255,0,0.2)" }, 1).animate({ backgroundColor: "rgba(255,255,255,0.2)" }, 450);
-		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); }, 200);
+		$(this).stop().animate({ backgroundColor: 'rgba(255,255,0,0.2)' }, 1).animate({ backgroundColor: 'rgba(255,255,255,0.2)' }, 450);
+		setTimeout (function() { $('#pA7B,#pA7F,#pA7L').removeClass('tapActive'); }, 200);
 		updateTimer();
 	} else {
 		//shake error
-		$(this).addClass("tapActive");
-		setTimeout (function() { $("#pA7B,#pA7F,#pA7L").removeClass("tapActive"); }, 400);
-		$(this).stop().parent("div").effect("shake",{times:3,direction:'left',distance:6}, 300);
+		$(this).addClass('tapActive');
+		setTimeout (function() { $('#pA7B,#pA7F,#pA7L').removeClass('tapActive'); }, 400);
+		$(this).stop().parent('div').effect('shake',{times:3,direction:'left',distance:6}, 300);
 	}
 	return false;
 });
@@ -1756,21 +1775,21 @@ $('#calcForm input, #calcForm select').on('blur',function(evt) {
 		return false;
 	}
 });
-$("#calcForm").on(touchend, function(evt) {
-	if(evt.target.id == "") {
+$('#calcForm').on(touchend, function(evt) {
+	if(evt.target.id == '') {
 		evt.preventDefault();
 		if(app.device.ios) {
 			evt.stopPropagation();
 		}
 		//PROTECT FROM CALCULATOR BLUR SLOWDOWN
-		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
-			$("#calcForm input").each(function(evt) {
-				if($(this).is(":focus") && vendorClass != "moz") {
+		if($('#calcForm input').is(':focus') || $('#calcForm select').is(':focus')) {
+			$('#calcForm input').each(function(evt) {
+				if($(this).is(':focus') && vendorClass != 'moz') {
 					$(this).blur();
 				}
 			});
-			$("#calcForm select").each(function(evt) {
-				if($(this).is(":focus") && vendorClass != "moz") {
+			$('#calcForm select').each(function(evt) {
+				if($(this).is(':focus') && vendorClass != 'moz') {
 					$(this).blur();
 				}
 			});
@@ -1837,7 +1856,7 @@ $('#formc select').on(touchend,function(evt) {
 		//GENERIC
 		loadCalcValues();
 		//feetInchesToMetric();
-		$("#pA2C").change();
+		$('#pA2C').change();
 		$('#do_recalc').trigger('click');
 		writeCalcValues();
 		setPush();
@@ -1867,113 +1886,113 @@ $('#formc input').on('change',function() {
 	writeCalcValues();
 	setPush();
 });
-$("#formc select").on("change",function() {
+$('#formc select').on('change',function() {
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
 	setPush();
 });
-$("#formc input").on("blur",function() {
+$('#formc input').on('blur',function() {
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
 	setPush();
 });
-$("#formc select").on("blur",function() {
+$('#formc select').on('blur',function() {
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
 	setPush();
 });
-$(document).on("hidekeyboard",function() {
-		if($("#calcForm input").is(":focus") || $("#calcForm select").is(":focus")) {
-			$("#calcForm input").each(function(evt) {
-				if($(this).is(":focus") && vendorClass != "moz") {
+$(document).on('hidekeyboard',function() {
+		if($('#calcForm input').is(':focus') || $('#calcForm select').is(':focus')) {
+			$('#calcForm input').each(function(evt) {
+				if($(this).is(':focus') && vendorClass != 'moz') {
 					$(this).blur();
 				}
 			});
-			$("#calcForm select").each(function(evt) {
-				if($(this).is(":focus") && vendorClass != "moz") {
+			$('#calcForm select').each(function(evt) {
+				if($(this).is(':focus') && vendorClass != 'moz') {
 					$(this).blur();
 				}
 			});
 		}
 });
-$("#formc input").on("keyup",function() {
+$('#formc input').on('keyup',function() {
 	writeCalcValues();
 });
 ///////////////////
 // WRITE CHANGES //
 ///////////////////
 function writeCalcValues() {
-	var preffix = "calcForm";
+	var preffix = 'calcForm';
 	//male/female
-	app.save(preffix + "#pA1B",$("#pA1B").val());
+	app.save(preffix + '#pA1B',$('#pA1B').val());
 	//height (hidden)
-	if(!isNaN(parseInt($("#pA2B").val()))) {
-		$("#pA2B").val( Math.abs(parseInt($("#pA2B").val())) );
-		app.save(preffix + "#pA2B",parseInt($("#pA2B").val()));
+	if(!isNaN(parseInt($('#pA2B').val()))) {
+		$('#pA2B').val( Math.abs(parseInt($('#pA2B').val())) );
+		app.save(preffix + '#pA2B',parseInt($('#pA2B').val()));
 	}
 	//cm/in
-	app.save(preffix + "#pA2C",$("#pA2C").val());
+	app.save(preffix + '#pA2C',$('#pA2C').val());
 	//weight
-	if(!isNaN(parseInt($("#pA3B").val()))) {
-		$("#pA3B").val( Math.abs(parseInt($("#pA3B").val())) );
-		app.save(preffix + "#pA3B",parseInt($("#pA3B").val()));
+	if(!isNaN(parseInt($('#pA3B').val()))) {
+		$('#pA3B').val( Math.abs(parseInt($('#pA3B').val())) );
+		app.save(preffix + '#pA3B',parseInt($('#pA3B').val()));
 	}
 	//kg/lb
-	app.save(preffix + "#pA3C",$("#pA3C").val());
+	app.save(preffix + '#pA3C',$('#pA3C').val());
 	//age
-	app.save(preffix + "#pA4B",$("#pA4B").val());
+	app.save(preffix + '#pA4B',$('#pA4B').val());
 	//activity
-	app.save(preffix + "#pA5B",$("#pA5B").val());
+	app.save(preffix + '#pA5B',$('#pA5B').val());
 	//weight
-	app.save(preffix + "#pA6G",$("#pA6G").val());
+	app.save(preffix + '#pA6G',$('#pA6G').val());
 	//measure
-	app.save(preffix + "#pA6H",$("#pA6H").val());
+	app.save(preffix + '#pA6H',$('#pA6H').val());
 	//gain weight
-	app.save(preffix + "#pA6M",$("#pA6M").val());
+	app.save(preffix + '#pA6M',$('#pA6M').val());
 	//measure
-	app.save(preffix + "#pA6N",$("#pA6N").val());
+	app.save(preffix + '#pA6N',$('#pA6N').val());
 	//measure
-	if(!isNaN(parseInt($("#feet").val()))) {
-		$("#feet").val( Math.abs(parseInt($("#feet").val())) );
-		app.save(preffix + "#feet",parseInt($("#feet").val()));
+	if(!isNaN(parseInt($('#feet').val()))) {
+		$('#feet').val( Math.abs(parseInt($('#feet').val())) );
+		app.save(preffix + '#feet',parseInt($('#feet').val()));
 	}
-	if(!isNaN(parseInt($("#inches").val()))) {
-		$("#inches").val( Math.abs(parseInt($("#inches").val())) );
-		app.save(preffix + "#inches",parseInt($("#inches").val()));	
+	if(!isNaN(parseInt($('#inches').val()))) {
+		$('#inches').val( Math.abs(parseInt($('#inches').val())) );
+		app.save(preffix + '#inches',parseInt($('#inches').val()));	
 	}
 }
 /////////////////
 // LOAD VALUES //
 /////////////////
 function loadCalcValues() {
-	var preffix = "calcForm";
+	var preffix = 'calcForm';
 	//check
-	if(app.read(preffix + "#pA1B")) {
+	if(app.read(preffix + '#pA1B')) {
 		//male/female
-		$("#pA1B").val(app.read(preffix + "#pA1B"));
+		$('#pA1B').val(app.read(preffix + '#pA1B'));
 		//height
-		$("#pA2B").val(app.read(preffix + "#pA2B"));
+		$('#pA2B').val(app.read(preffix + '#pA2B'));
 		//cm/in
-		$("#pA2C").val(app.read(preffix + "#pA2C"));
+		$('#pA2C').val(app.read(preffix + '#pA2C'));
 		//weight
-		$("#pA3B").val(app.read(preffix + "#pA3B"));
+		$('#pA3B').val(app.read(preffix + '#pA3B'));
 		//kg/lb
-		$("#pA3C").val(app.read(preffix + "#pA3C"));
+		$('#pA3C').val(app.read(preffix + '#pA3C'));
 		//age
-		$("#pA4B").val(app.read(preffix + "#pA4B"));
+		$('#pA4B').val(app.read(preffix + '#pA4B'));
 		//activity
-		$("#pA5B").val(app.read(preffix + "#pA5B"));
+		$('#pA5B').val(app.read(preffix + '#pA5B'));
 		//weight
-		$("#pA6G").val(app.read(preffix + "#pA6G"));
+		$('#pA6G').val(app.read(preffix + '#pA6G'));
 		//measure
-		$("#pA6H").val(app.read(preffix + "#pA6H"));
+		$('#pA6H').val(app.read(preffix + '#pA6H'));
 		//gain weight
-		$("#pA6M").val(app.read(preffix + "#pA6M"));
+		$('#pA6M').val(app.read(preffix + '#pA6M'));
 		//measure
-		$("#pA6N").val(app.read(preffix + "#pA6N"));
+		$('#pA6N').val(app.read(preffix + '#pA6N'));
 		//measure
-		$("#feet").val(app.read(preffix + "#feet"));
-		$("#inches").val(app.read(preffix + "#inches"));	
+		$('#feet').val(app.read(preffix + '#feet'));
+		$('#inches').val(app.read(preffix + '#inches'));	
 	}
 	//recalc
 	$('#do_recalc').trigger('click');
@@ -2036,23 +2055,23 @@ $('#pA2C').on('change',function(evt) {
 	$('#pA2B').change();
 	writeCalcValues();
 });
-if(document.getElementById("pA2C").value == "centimetres") {
-	$("#pA2B").val(  Number($("#inches").val())  );
+if(document.getElementById('pA2C').value == 'centimetres') {
+	$('#pA2B').val(  Number($('#inches').val())  );
 	//
-	$("#feet").removeClass("imperial");
-	$("#inches").removeClass("imperial");
-	$("#feet").addClass("metric");
-	$("#inches").addClass("metric");
+	$('#feet').removeClass('imperial');
+	$('#inches').removeClass('imperial');
+	$('#feet').addClass('metric');
+	$('#inches').addClass('metric');
 } else {
-	$("#feet").removeClass("metric");
-	$("#inches").removeClass("metric");
-	$("#feet").addClass("imperial");
-	$("#inches").addClass("imperial");		
+	$('#feet').removeClass('metric');
+	$('#inches').removeClass('metric');
+	$('#feet').addClass('imperial');
+	$('#inches').addClass('imperial');		
 }
 /////////////
 // ON LOAD //
 /////////////
-$("#pA2B").change();
+$('#pA2B').change();
 	writeCalcValues();
 }
 

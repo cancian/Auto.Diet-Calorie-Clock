@@ -672,172 +672,141 @@ function getNutriSliders() {
 //##///////////////##//
 //## TODAYOVERVIEW ##//
 //##///////////////##//
-function updateTodayOverview() {
-/*
-$('#appStatusWeight div p').highcharts({
-	reflow : false,
-	colors : ['#2f7ed8', '#ee704e', '#f5f5f5'],
-	credits : {
-		enabled : false
-	},
-	chart : {
-		reflow : false,
-		spacingLeft : 0,
-		spacingRight : 0,
-		spacingTop : 18,
-		spacingBottom : 0,
-		height : 56,
-		width : 56,
-		plotBackgroundColor : '#fff',
-		plotBorderWidth : 0,
-		plotShadow : false
-	},
-	title : {
-		text : ''
-	},
-	tooltip : {
-		pointFormat : ''
-	},
-	plotOptions : {
-		pie : {
-			color : '#fff',
-			allowPointSelect : false,
-			cursor : 'pointer',
-			dataLabels : {
-				enabled : false,
-			},
+function updateTodayOverview(fullWindow) {
+	if (!app.read('app_last_tab', 'tab1')) {
+		return;
+	}
+	//vars
+	var today = [];
+	today.food = app.read('config_ttf');
+	today.exercise = Math.abs(app.read('config_tte'));
+	today.intake = app.get.kcals();
+	today.absIntake = today.intake + today.exercise;
+	today.percent = Math.round((today.food - today.exercise) / ((today.intake) / 100));
+	today.left = today.absIntake - today.food;
+	//////////
+	// calc //
+	//////////
+	if (today.left < today.exercise && today.exercise > 0 && today.left >= 0) {
+		// partially compensaed
+		today.Cexercise = today.exercise - today.left;
+		today.Lexercise = today.exercise - today.Cexercise;
+		today.left = 0;
+	} else if (today.left < 0) {
+		//fully compensated
+		today.Cexercise = today.exercise;
+		today.Lexercise = 0;
+	} else {
+		//still left
+		today.Cexercise = 0;
+		today.Lexercise = today.exercise;
+	}
+	//////////
+	// HTML //
+	//////////
+	//update percent
+	$('#circlePercentInner').html(today.percent + '%');
+	//update intake
+	if (app.read('config_kcals_type', 'cyclic')) {
+		//highlight cycle day
+		if (app.read('config_kcals_day')) {
+			$('.current').removeClass('current');
+			$('#' + 'appDay' + app.read('config_kcals_day').toUpperCase()).addClass('current');
 		}
-	},
-	series : [{
-			type : 'pie',
-			name : 'Browser share',
-			color : '#fff',
-			innerSize : '5',
-			size : '4',
-
-			animation : false,
-			data : [
-				['Fill', 1440],
-				['Fill', 0],
-				['Left', 600]
-			]
-		}
-	]
-
-});
-
-$("#appStatusWeight").html('\
-                <div class="c100 p19">\
-                    <span>19%</span>\
-                    <div class="slice">\
-                        <div class="bar"></div>\
-                        <div class="fill"></div>\
-                    </div>\
-                </div>\
-');
-return;
-*/
-	////////////
-	// DEFINE //
-	////////////
-	var totalConsumed = app.read('config_ttf');
-	var totalIntake   = app.read('config_kcals_day_0') + Math.abs(app.read('config_tte'));
-	var totalPercent  = totalConsumed / (totalIntake / 100);
-	/////////////////////////
-	// UPDATE BLOCK VALUES //
-	/////////////////////////
-	if(app.read('config_kcals_type','cyclic')) {
-		if(app.read('config_kcals_day','d')) {
-			totalIntake = app.read('config_kcals_day_2') + Math.abs(app.read('config_tte'));
-			totalPercent  = totalConsumed / (totalIntake / 100);
-			$("#appStatusWeight div p").html(totalConsumed + '<strong> / ' + app.read('config_kcals_day_1') + '~<b>' + totalIntake + '</b></strong>');
+		//
+		if (app.read('config_kcals_day', 'd')) {
+			$('#totalIntake').html('<div id="intakeContent">/ ' + app.read('config_kcals_day_1') + '~<span>' + app.read('config_kcals_day_2') + '</span></div>');
 		} else {
-			totalIntake = app.read('config_kcals_day_1') + Math.abs(app.read('config_tte'));
-			totalPercent  = totalConsumed / (totalIntake / 100);
-			$("#appStatusWeight div p").html(totalConsumed + '<strong> / <b>' + totalIntake + '</b>~' + app.read('config_kcals_day_2') + '</strong>');
+			$('#totalIntake').html('<div id="intakeContent">/ <span>' + app.read('config_kcals_day_1') + '</span>~' + app.read('config_kcals_day_2') + '</div>');
 		}
 	} else {
-		$("#appStatusWeight div p").html(totalConsumed + '<strong> / ' + totalIntake + ' ' + LANG.KCAL[lang] + '</strong>');
+		$('#totalIntake').html('<div id="intakeContent">/ ' + app.read('config_kcals_day_0') + ' ' + LANG.KCAL[lang] + '</div>');
 	}
-	///////////////////////
-	// INDICATE ADDITION //
-	///////////////////////
-	if(Math.abs(parseInt(app.read('config_tte')) != 0)) {
-		$("#appStatusWeight span").html(LANG.TODAY[lang] + ' (+' + Math.abs(parseInt(app.read('config_tte'))) + ')');
-	}
-	/////////////////
-	// PERCENT BAR //
-	/////////////////
-	$('#appStatusWeight em').css('width',totalPercent + "%");
-	if(totalPercent >= 115) {
-		$('#appStatusWeight em').addClass('exceed');
-	} else {
-		$('#appStatusWeight em').removeClass('exceed');
-	}
-	/////////////////////
-	// SET CURRENT DAY //
-	/////////////////////
-	if(app.read('config_kcals_day')) {
-		$('.current').removeClass('current');
-		$('#' + 'appDay' + app.read('config_kcals_day').toUpperCase()).addClass('current');
-	}
-
-
-//$('#appStatusWeight div').css('padding-top',0);
-/*
-$('#appStatusWeight').append('<div id="dailyCircle"><div id="dailyPercent">50%</div></div>');
-	
-$('#dailyCircle').highcharts({
-	reflow : false,
-	colors : ['#2f7ed8', '#ee704e', '#f5f5f5'],
-	credits : {
-		enabled : false
-	},
-	chart : {
+	///////////////////
+	// CHART OPTIONS //
+	///////////////////
+	var pieOptions = {
 		reflow : false,
-		spacingLeft : 0,
-		spacingRight : 0,
-		spacingTop : 0,
-		spacingBottom : 0,
-		height : 56,
-		width : 56,
-		plotBackgroundColor : '#fff',
-		plotBorderWidth : 0,
-		plotShadow : false
-	},
-	title : {
-		text : ''
-	},
-	tooltip : {
-		pointFormat : ''
-	},
-	plotOptions : {
-		pie : {
-			color : '#fff',
-			allowPointSelect : false,
-			cursor : 'pointer',
-			dataLabels : {
-				enabled : false,
+		colors : ['#1EB618', '#2f7ed8', '#9947F0', '#ee704e', (fullWindow == 1) ? '#ddd' : '#f3f3f3'],
+		credits : {
+			enabled : false
+		},
+		chart : {
+			reflow : false,
+			spacingRight : 0,
+			spacingLeft : (fullWindow == 1) ? 0 : -4,
+			spacingTop : (fullWindow == 1) ? 10 : -5,
+			spacingBottom : (fullWindow == 1) ? 25 : 0,
+			height : (fullWindow == 1) ? 390 : 56,
+			width : (fullWindow == 1) ? 280 : 56,
+			plotBackgroundColor : '#fff',
+			plotBorderWidth : 0,
+			plotShadow : false
+		},
+		title : {
+			text : ''
+		},
+		tooltip : {
+			pointFormat : ''
+		},
+		plotOptions : {
+			pie : {
+				borderColor : '#fff',
+				borderWidth : today.percent == 0 ? 0 : 1,
+				allowPointSelect : false,
+				cursor : 'pointer',
+				dataLabels : {
+					softConnector : false,
+					enabled : (fullWindow == 1) ? true : false,
+					format : '{point.y}',
+				},
+				showInLegend : (fullWindow == 1) ? true : false,
+			}
+		},
+		legend : {
+			enabled : (fullWindow == 1) ? true : false,
+			itemWidth : 250,
+			layout : 'vertical',
+			itemStyle : {
+				lineHeight : '14px'
 			},
-		}
-	},
-	series : [{
-			type : 'pie',
-			name : 'Browser share',
-			color : '#fff',
-			innerSize : '5',
-			size : '4',
-
-			animation : false,
-			data : [
-				['Fill', 1440],
-				['Fill', 0],
-				['Left', 600]
-			]
-		}
-	]
-});
-*/
+			nagivation : {
+				animation : 0
+			},
+			borderRadius : 0,
+			borderWidth : 1
+		},
+		series : [{
+				type : 'pie',
+				name : '',
+				color : '#fff',
+				innerSize : (fullWindow == 1) ? '13' : '250%',
+				size : (fullWindow == 1) ? '15' : '120%',
+				animation : false,
+				data : [
+					[LANG.FOOD[lang].capitalize() + ' (' + LANG.SURPLUS[lang] + ')', today.left < 0 ? Math.abs(today.left) : 0],
+					[LANG.FOOD[lang].capitalize(), today.left > 0 ? today.food : today.food - Math.abs(today.left)],
+					[LANG.EXERCISE[lang].capitalize() + ' (' + LANG.COMPENSATED[lang] + ')', today.Cexercise],
+					[LANG.EXERCISE[lang].capitalize() + ' (' + LANG.NON_COMPENSATED[lang] + ')', today.Lexercise],
+					[LANG.CALORIES_LEFT[lang].capitalize(), today.left < 0 ? 0 : today.left],
+				]
+			}
+		]
+	};
+	/////////////////////
+	// CALL HIGHCHARTS //
+	/////////////////////
+	if (fullWindow == 1) {
+		getNewWindow(LANG.TODAY[lang].capitalize(), '<div id="totalChartWrapper"><div id="totalChart"></div></div>', function () {
+			$('#totalChart').highcharts(pieOptions);
+		});
+	} else {
+		$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
+	}
+	////////////////
+	// SAVE CACHE //
+	////////////////
+	app.save('pieCache',$('#appStatusBlock2').html());
 }
 //##/////////////##//
 //## CYCLIC MENU ##//
