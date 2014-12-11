@@ -260,7 +260,7 @@ app.tab.status = function(keepOpen) {
 			<div id="appDayC">' + LANG.DAY[lang] + ' C</div>\
 			<div id="appDayD">' + LANG.DAY[lang] + ' D</div>\
 		</div>\
-		<div id="todayInfo">' + LANG.TODAY[lang] + '</div>\
+		<div id="todayInfo"></div>\
 	';
 	//RAW HTML
 	var statusHtml = '\
@@ -299,12 +299,12 @@ app.tab.status = function(keepOpen) {
 	////////////////
 	// PRE CONFIG //
 	////////////////
+	//TODAY
+	updateTodayOverview();
 	//ELAPSED
 	getElapsed();
 	//BALANCE
 	balanceMeter(timerKcals);	
-	//TODAY
-	updateTodayOverview();
 	//INTAKE
 	$('#appStatusIntake div').css('padding-top', '0px');
 	intakeHistory();
@@ -396,7 +396,6 @@ app.tab.status = function(keepOpen) {
 					$('#appStatusBars span').html('0%');
 					$('#appStatusBalance div p').html(LANG.BALANCED[lang]);
 					updateTodayOverview();
-					appFooter('tab1');
 				}
 				return false;
 			}

@@ -570,8 +570,8 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 .cyclic #totalConsumed					{ padding-top: 9px;	}
 #totalIntake							{ margin: 0 0 0 50%; padding-top: 0; padding-left: 0; display: block; text-align: left; font-size: 11px; line-height: 14px; color: #999; }
 #totalIntake span						{ font-weight: bold; color: #777; }
-#todayInfo								{ position: absolute; top: -18px; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #bbb; }
-#todayInfo:after						{ font-family: KCals; content: '\A176'; padding-top: 3px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; }
+#todayInfo								{ position: absolute; top: 0; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #bbb; z-index: 3; }
+#todayInfo:after						{ font-family: KCals; content: '\A176'; padding-top: 1px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; }
 .cyclic #todayInfo						{ color: #007aff; }
 #todayInfo.button						{ color: #999; }
 /*days~abcd*/

@@ -740,9 +740,9 @@ function updateTodayOverview(fullWindow) {
 			reflow : false,
 			spacingRight : 0,
 			spacingLeft : (fullWindow == 1) ? 0 : -4,
-			spacingTop : (fullWindow == 1) ? 10 : -5,
-			spacingBottom : (fullWindow == 1) ? 25 : 0,
-			height : (fullWindow == 1) ? 390 : 56,
+			spacingTop : (fullWindow == 1) ? 5 : -5,
+			spacingBottom : (fullWindow == 1) ? 20 : 0,
+			height : (fullWindow == 1) ? 380 : 56,
 			width : (fullWindow == 1) ? 280 : 60,
 			plotBackgroundColor : '#fff',
 			plotBorderWidth : 0,
@@ -785,8 +785,8 @@ function updateTodayOverview(fullWindow) {
 				type : 'pie',
 				name : '',
 				color : '#fff',
-				innerSize : (fullWindow == 1) ? '13' : '250%',
-				size : (fullWindow == 1) ? '15' : '120%',
+				innerSize : (fullWindow == 1) ? '12' : '250%',
+				size : (fullWindow == 1) ? '14' : '120%',
 				animation : false,
 				data : [
 					[LANG.FOOD[lang].capitalize() + ' (' + LANG.SURPLUS[lang] + ')', today.left < 0 ? Math.abs(today.left) : 0],
@@ -807,11 +807,9 @@ function updateTodayOverview(fullWindow) {
 		});
 	} else {
 		$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
+		//SAVE CACHE
+		app.save('pieCache',$('#appStatusBlock2').html());
 	}
-	////////////////
-	// SAVE CACHE //
-	////////////////
-	app.save('pieCache',$('#appStatusBlock2').html());
 }
 //##/////////////##//
 //## CYCLIC MENU ##//
