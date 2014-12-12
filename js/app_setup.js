@@ -1027,9 +1027,10 @@ function updateFoodDb(callback) {
 			
 			function doImport() {
 				spinner();
+				var databaseHost = app.read('config_autoupdate','on') ? app.https + 'kcals.net/' : hostLocal;
 				foodDbTimer = setTimeout(function() {
 					try{
-						$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/searchdb_' + langDB + '.db', success: function(ls) {
+						$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb_' + langDB + '.db', success: function(ls) {
 							var rowsArray = [];
 							if(!ls.contains('lib2.insert')) {
 							//////////////////
@@ -1048,7 +1049,7 @@ function updateFoodDb(callback) {
 							ls = ls.split(' / ').join('/');
 							ls = ls.split('\r').join('');
 							ls = ls.split('\n');
-							$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/searchdb.db', success: function(sdb) {
+							$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb.db', success: function(sdb) {
 								rowsArray = JSON.parse(sdb);
 								for(var s=0, slen=rowsArray.length; s<slen; s++) {
 									try {
