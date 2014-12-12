@@ -740,9 +740,9 @@ function updateTodayOverview(fullWindow) {
 			reflow : false,
 			spacingRight : 0,
 			spacingLeft : (fullWindow == 1) ? 0 : -4,
-			spacingTop : (fullWindow == 1) ? 5 : -5,
+			spacingTop : (fullWindow == 1) ? 10 : -5,
 			spacingBottom : (fullWindow == 1) ? 20 : 0,
-			height : (fullWindow == 1) ? 380 : 56,
+			height : (fullWindow == 1) ? 390 : 56,
 			width : (fullWindow == 1) ? 280 : 60,
 			plotBackgroundColor : '#fff',
 			plotBorderWidth : 0,
@@ -800,16 +800,21 @@ function updateTodayOverview(fullWindow) {
 	};
 	/////////////////////
 	// CALL HIGHCHARTS //
-	/////////////////////
-	if (fullWindow == 1) {
-		getNewWindow(LANG.TODAY[lang].capitalize(), '<div id="totalChartWrapper"><div id="totalChart"></div></div>', function () {
-			$('#totalChart').highcharts(pieOptions);
-		});
-	} else {
-		$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
-		//SAVE CACHE
-		app.save('pieCache',$('#appStatusBlock2').html());
-	}
+	/////////////////////`
+	setTimeout(function() {
+		if (!app.read('app_last_tab', 'tab1')) {
+			return;
+		}
+		if (fullWindow == 1) {
+			getNewWindow(LANG.TODAY[lang].capitalize(), '<div id="totalChartWrapper"><div id="totalChart"></div></div>', function () {
+				$('#totalChart').highcharts(pieOptions);
+			});
+		} else {
+			$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
+			//SAVE CACHE
+			app.save('pieCache',$('#appStatusBlock2').html());
+		}
+	}, 1);
 }
 //##/////////////##//
 //## CYCLIC MENU ##//
