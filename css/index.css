@@ -1,13 +1,12 @@
-﻿head,style,script						{ display: none; }
-html,body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
+﻿html,body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
 body 									{ touch-action: none; -ms-touch-action: none; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-.ios *:before,
-.osx *:before,
-.ios *:after,
-.osx *:after,
-.ios *,
-.osx *									{ -webkit-font-smoothing: antialiased; font-weight: 400; -webkit-perspective: none !important; }
+body.ios *:before,
+body.osx *:before,
+body.ios *:after,
+body.osx *:after,
+body.ios *,
+body.osx *								{ -webkit-font-smoothing: antialiased; font-weight: 400; -webkit-perspective: none !important; }
 .windows8 								{ overflow: hidden !important; }
 #infocontents,
 #newWindowWrapper,#advancedMenu,

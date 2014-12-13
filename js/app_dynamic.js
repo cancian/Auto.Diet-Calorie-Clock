@@ -1322,7 +1322,7 @@ function addNewItem(addnew) {
 	/////////////////////
 	if (addnew.act == 'update') {
 		$('#inputNewName').val(addnew.name);
-		$('#inputNewKcal').val(Math.round(addnew.kcal))
+		$('#inputNewKcal').val(Math.round(addnew.kcal));
 		$('#inputNewPro').val(decimalize(addnew.pro,-1));
 		$('#inputNewCar').val(decimalize(addnew.car,-1));
 		$('#inputNewFat').val(decimalize(addnew.fat,-1));
@@ -1450,7 +1450,7 @@ function getModalWindow(itemId) {
 				$('#carData p').html(decimalize((modal.car/100)*modalAmount,1));				
 				$('#fatData p').html(decimalize((modal.fat/100)*modalAmount,1));				
 			}
-		}
+		};
 		/////////////////////////
 		// MODAL.CHECKACTIVE() //
 		/////////////////////////
@@ -1480,7 +1480,7 @@ function getModalWindow(itemId) {
 			} else {
 				//EXERCISE
 				var modalAmount = parseInt($("#modalAmount").html()) + 1;
-				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount)
+				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
 				if (modalAmount < 360 && modalTotal <= 9999) {
 					$("#modalAmount").html(modalAmount);
 					$("#modalTotal").html(modalTotal);
@@ -1505,7 +1505,7 @@ function getModalWindow(itemId) {
 			} else {
 				//EXERCISE
 				var modalAmount = parseInt($("#modalAmount").html()) - 1;
-				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount)
+				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
 				if (modalAmount >= 0) {
 					$("#modalAmount").html(modalAmount);
 					$("#modalTotal").html(modalTotal);

@@ -110,7 +110,7 @@ var app = {
 			}
 		},120);
 	}
-}
+};
 //////////////////
 // TOTAL WEIGHT //
 //////////////////
@@ -396,7 +396,7 @@ app.counter = {
 			console.log(msg + (new Date().getTime() - app.counter.startTime));
 		}
 	}
-}
+};
 //////////////////
 // APP HANDLERS //
 //////////////////
@@ -939,7 +939,7 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 			}
 		});
 	}
-}
+};
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
@@ -1006,7 +1006,7 @@ app.safeExec = function (callback) {
 	} else {
 		callback();
 	}
-}
+};
 ///////////////////
 // ERROR HANDLER //
 ///////////////////
@@ -1190,7 +1190,7 @@ function highlight(targetId,startColor,endColor,fadeTime) {
 ////////////////
 String.prototype.capitalize = function() {
 	return this.charAt(0).toUpperCase() + this.slice(1);
-}
+};
 ///////////
 // isOdd //
 ///////////
@@ -1300,7 +1300,7 @@ Array.prototype.sortbyattr = function(attr,order) {
 		}
 	});
 	return this;	
-}
+};
 // OBJECT
 function sortObject(obj) {
 	var arr = [];
@@ -1321,7 +1321,7 @@ Array.prototype.pushUnique = function (item) {
 		return true;
 	}
 	return false;
-}
+};
 /////////////////
 // DATE FORMAT //
 /////////////////
@@ -1488,7 +1488,7 @@ if(app.device.windows8) {
 }
 //#////////////////////////#//
 //# Base64 encode / decode #// 
-//#////////////////////////#// http://www.webtoolkit.info
+//#////////////////////////#//
 var Base64 = {
 	// private property
 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",

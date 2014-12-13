@@ -92,7 +92,6 @@ app.tab.settings = function(keepOpen) {
 	};
 	$('#optionWebsite').on(touchend,function(evt) {
 		app.about();
-		//getNewWindow('teste', '<iframe width="640" height="360" src="http://www.youtube.com/embed/Px3gXf1GOrQ?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>');
 	});
 	//////////////
 	// HELP TAP //
@@ -221,7 +220,7 @@ app.tab.settings = function(keepOpen) {
 	} else {
 		$('#leftOption').addClass('toggle');
 	}
-}
+};
 /*#######################################
 ####    HTML BUILDS ~ OPEN STATUS    ####
 #######################################*/
@@ -584,7 +583,7 @@ app.tab.status = function(keepOpen) {
 	$('#startDate').on('focus', function(evt) {
 		$('#startDate').blur();
 	});
-}
+};
 /*############################
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
@@ -1422,7 +1421,7 @@ dumper += '{	"id" : "' + lsen[r].id + '",	"type" : "' + lsen[r].type + '",	"code
 			android2Select();
 		},300);
 	});
-}
+};
 /*##############################
 ## HTML BUILDS ~ OPEN PROFILE ##
 ##############################*/
@@ -1835,7 +1834,7 @@ $('#formc select').on(touchend,function(evt) {
 	if(evt.target.id == 'pA1B') {
 		$(this).attr('readonly','readonly');
 		$(this).attr('disabled','disabled');
-		var gender = app.read('calcForm#pA1B','Male') ? 'Female' : 'Male'
+		var gender = app.read('calcForm#pA1B','Male') ? 'Female' : 'Male';
 		app.save('calcForm#pA1B',gender);
 		//GENERIC
 		//feetInchesToMetric();
@@ -2072,5 +2071,5 @@ if(document.getElementById('pA2C').value == 'centimetres') {
 /////////////
 $('#pA2B').change();
 	writeCalcValues();
-}
+};
 

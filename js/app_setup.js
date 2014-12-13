@@ -1024,13 +1024,19 @@ function updateFoodDb(callback) {
 								});
 							});
 			};
-			
+			function unlockDb() {
+				//failure
+				demoRunning = false;
+				app.remove('foodDbLoaded');
+				app.remove('startLock');
+				spinner('stop');
+			}
 			function doImport() {
 				spinner();
 				var databaseHost = app.read('config_autoupdate','on') ? app.https + 'kcals.net/' : hostLocal;
 				foodDbTimer = setTimeout(function() {
 					try{
-						$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb_' + langDB + '.db', success: function(ls) {
+						$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb_' + langDB + '.db', error: function(xhr, statusText) { unlockDb(); }, success: function(ls) {
 							var rowsArray = [];
 							if(!ls.contains('lib2.insert')) {
 							//////////////////
@@ -1049,7 +1055,7 @@ function updateFoodDb(callback) {
 							ls = ls.split(' / ').join('/');
 							ls = ls.split('\r').join('');
 							ls = ls.split('\n');
-							$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb.db', success: function(sdb) {
+							$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb.db', error: function(xhr, statusText) { unlockDb(); }, success: function(sdb) {
 								rowsArray = JSON.parse(sdb);
 								for(var s=0, slen=rowsArray.length; s<slen; s++) {
 									try {
@@ -1084,12 +1090,8 @@ function updateFoodDb(callback) {
 							saveParsed(rowsArray);
 						}});
 					} catch(e) { 
-					//failure
-					demoRunning = false;
-					app.remove('foodDbLoaded');
-					app.remove('startLock');
-					spinner('stop');
-					errorHandler(e);
+						//failure
+						unlockDb();
 				}
 			},100);
 		}}
@@ -1292,7 +1294,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 		app.save('totalEntries',totalEntries);
 		app.save('totalRecentEntries',totalRecentEntries);
 	});
-}
+};
 /////////////////////////////
 // UPDATE ENTRYLIST *TIME* //
 /////////////////////////////
@@ -1469,10 +1471,6 @@ function buildHelpMenu() {
 			helpHtml = helpHtml + '<li id="topic' + topicId + '">' + key + '<div class="topicTitle">' + key + '</div><div class="topicContent">' + value + '</div></li>';
 		}
 	});
-	//
-	//helpHtml = '<li id="topic' + (topicId+2) + '">Youtube Video<div class="topicTitle">Youtube Video</div><div class="topicContent">\
-	//<iframe style="max-width: 1920px; max-height: 1080px; min-width: 480px; min-height: 320px; display: block; margin: 0 auto;" src="https://www.youtube.com/embed/Px3gXf1GOrQ?feature=player_embedded" frameborder="0" allowfullscreen></iframe>\
-	//</div></li>' + helpHtml;
 	/////////////////////
 	// RE-INSERT INTRO //
 	/////////////////////

@@ -342,7 +342,7 @@ function intakeHistory() {
 		////////////////////
 		$('#appStatusIntake div').css('padding-top', '0px');
 		var catFontSize = lang == 'fa' ? '8px' : '9px';
-		var spacingBottom = Highcharts.product.contains('4.0') ? 0 : -12
+		var spacingBottom = Highcharts.product.contains('4.0') ? 0 : -12;
 		if(app.device.android2) { spacingBottom = -16; }
 		//check exists
 		if(!app.read('app_last_tab','tab1'))	{ return; }
@@ -518,7 +518,7 @@ function getNutriSliders() {
 				if(alert(LANG.TOTAL_ERROR[lang] + '\n' + LANG.PLEASE_REVIEW[lang]));
 			}
 			return false;
-		}
+		};
 	};
 	///////////////////////
 	// HANDLERS CALLBACK //
@@ -555,7 +555,7 @@ function getNutriSliders() {
 				}
 				//update total
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
-			}
+			};
 		};
 		}
 		////////////////
@@ -571,8 +571,9 @@ function getNutriSliders() {
 				}
 				//update total	
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
-			}
-		}}
+			};
+		};
+		}
 		////////////////
 		// FAT.UPDATE //
 		////////////////
@@ -586,8 +587,9 @@ function getNutriSliders() {
 				}
 				//update total	
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
-			}
-		}}	
+			};
+		};
+		}	
 		/////////////////
 		// INIT VALUES //
 		/////////////////
@@ -632,7 +634,7 @@ function getNutriSliders() {
 		} else {
 			$('#sliderRatioByKcal').addClass('active');
 		}
-	}
+	};
 	////////////////
 	// HTML BLOCK //
 	////////////////
@@ -919,7 +921,7 @@ function getCyclicMenu() {
 				$('#timerDailyInput').val(app.read('config_kcals_day_0'));
 			}
 		});
-	}
+	};
 	/////////////
 	// CONFIRM //
 	/////////////
@@ -929,7 +931,7 @@ function getCyclicMenu() {
 		updateTodayOverview();
 		intakeHistory();
 		return true;
-	}
+	};
 	/////////////////
 	// CALL WINDOW //
 	/////////////////
@@ -1027,7 +1029,7 @@ function getLimitMenu() {
 				$('#appLimit2').blur();
 			}
 		});
-	}
+	};
 	/////////////
 	// CONFIRM //
 	/////////////
@@ -1035,7 +1037,7 @@ function getLimitMenu() {
 		$('#appLimit1').blur();
 		$('#appLimit2').blur();
 		return true;
-	}
+	};
 	/////////////////
 	// CALL WINDOW //
 	/////////////////
@@ -1408,13 +1410,13 @@ function buildAdvancedMenu() {
 						$("#advancedMenuWrapper").hide();
 					});
 				}, 1);
-			}
+			};
 			////////////
 			// CLOSER //
 			////////////
 			var logCloser = function() {
 				$("#advancedMenuWrapper").show();
-			}
+			};
 			/////////////////
 			// CALL WINDOW //
 			/////////////////
@@ -1702,7 +1704,7 @@ function getCatList(callback) {
 				app.handlers.activeRow('#newWindow .searcheable','activeOverflow',function(rowId) {
 					getModalWindow(rowId);
 				});
-			}
+			};
 			////////////
 			// CLOSER //
 			////////////
@@ -1718,7 +1720,7 @@ function getCatList(callback) {
 					$("#tabMyCatsBlock").removeClass('out');	
 					niceResizer();
 				}, 0);
-			}
+			};
 			/////////////
 			// CONFIRM //
 			/////////////
