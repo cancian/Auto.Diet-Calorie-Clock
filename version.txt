@@ -3,8 +3,8 @@
 #################
 # 1.7 [2014/12/12]
 • Improved "Today overview" section (tap for detailed statistics)
-• Fixed search issue for non-ascii
-• Dropped support for: Thai, Persian, Hindi, Hebrew, Catalan.
+• Fixed search issue with non-ascii searches
+• Dropped support for: Thai, Persian, Hindi, Hebrew, Catalan, Estonian, Croatian, Lithuanian, Latvian, Malay, Slovak, Slovenian, Serbian, Ukranian, Vietnamese.
 
 # 1.6.9 [2014/11/02]
 • Macronutrient average can be calculated by weight (g) or by total calories (kcal)

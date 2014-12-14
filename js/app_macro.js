@@ -342,7 +342,7 @@ function intakeHistory() {
 		////////////////////
 		$('#appStatusIntake div').css('padding-top', '0px');
 		var catFontSize = lang == 'fa' ? '8px' : '9px';
-		var spacingBottom = Highcharts.product.contains('4.0') ? 0 : -12;
+		var spacingBottom = Highcharts.version.contains('4.0') ? 0 : -12;
 		if(app.device.android2) { spacingBottom = -16; }
 		//check exists
 		if(!app.read('app_last_tab','tab1'))	{ return; }

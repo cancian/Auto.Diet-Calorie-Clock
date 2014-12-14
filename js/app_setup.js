@@ -1843,20 +1843,29 @@ function getNiceScroll(target,timeout,callback) {
 	setTimeout(function() {
 	//SETTINGS
 	var NSettings = {
-		touchbehavior: true,
-		nativeparentscrolling: false,
+		touchbehavior: false,
 		cursorcolor: 'rgba(0,0,0,1)',
-		cursorborderradius: '5px',
+		cursorborderradius: '0px',
 		railpadding: {right: 1,bottom: 1},
 		cursorborder: '1px solid rgba(0,0,0,0)',
 		cursoropacitymax: .5,
 		cursorwidth: '4px',
 		horizrailenabled: false,
 		hwacceleration: true,
+		enablescrollonselection: true,
+		nativeparentscrolling: false,
+		preventmultitouchscrolling: false,
+		oneaxismousemode: false,
+		directionlockdeadzone: 18,
+		sensitiverail: false,
+		spacebarenabled: false,
+		gesturezoom: 0,
+		enablemouselockapi: false,
 	};
 	//HORIZONTAL
 	if($('#appHistory').html()) {
 		NSettings.horizrailenabled = true;
+		NSettings.oneaxismousemode = 'auto';
 	}
 	if(app.device.desktop) {
 		NSettings.touchbehavior = true;
