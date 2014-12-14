@@ -26,57 +26,77 @@ $.ajaxSetup({cache: false, crossDomain: true, async:true,  error: function(jqXHR
 //#/////////////#//
 //# JS COMPRESS #//
 //#/////////////#//
-function JSCompress(input) {
-	if (!input.length) {
+function cropSlashes(str) {
+	if (!str) {
 		return;
 	}
-	var dataJS = input.split('\\\r\n').join('').split('\r\n');
-	var dataJSC = '';
-	for (var i = 0, len = dataJS.length; i < len; i++) {
-		var indexJS = dataJS[i].indexOf('//');
-		if (indexJS !== -1 && dataJS[i].indexOf('://') === -1 && !/https|https|indexJS/.test(dataJS[i])) {
-			if (indexJS == 0) {
-				//
-			} else {
-				dataJSC += dataJS[i].slice(0, indexJS);
-			}
-		} else {
-			dataJSC += dataJS[i];
+	if(str.indexOf('//') == 0) {
+		return '';
+	} else if(str.indexOf('//') !== -1) {
+		if(str.indexOf('://') === -1 && !/http|data:|/.test(str)) {
+			return str.split('//')[0];
 		}
 	}
-	dataJSC = dataJSC.split('	').join('');
-	dataJSC = dataJSC.split('  ').join(' ').split('  ').join(' ');
-	dataJSC = dataJSC.split('} ').join('}');
-	dataJSC = dataJSC.split('{ ').join('{');
-	dataJSC = dataJSC.split(' }').join('}');
-	dataJSC = dataJSC.split(' {').join('{');
-	dataJSC = dataJSC.split('= ').join('=');
-	dataJSC = dataJSC.split(' =').join('=');
-	dataJSC = dataJSC.split(' :').join(':');
-	dataJSC = dataJSC.split(': ').join(':');
-	dataJSC = dataJSC.split(' >').join('>');
-	dataJSC = dataJSC.split('> ').join('>');
-	dataJSC = dataJSC.split(' <').join('<');
-	dataJSC = dataJSC.split('< ').join('<');
-	dataJSC = dataJSC.split(') {').join('){');
-	dataJSC = dataJSC.split('; ').join(';');
-	dataJSC = dataJSC.split('else {').join('else {');
-	dataJSC = dataJSC.split('} else').join('}else');
-	dataJSC = dataJSC.split('if {').join('if{');
-	dataJSC = dataJSC.split(' +').join('+');
-	dataJSC = dataJSC.split('+ ').join('+');
-	dataJSC = dataJSC.split(', function').join(', function');
-	var dataJSCC = ''
-		dataJSC = dataJSC.split('/*');
-	for (var i = 0, len = dataJSC.length; i < len; i++) {
-		var indexJSCI = dataJSC[i].indexOf('*' + '/');
-		if (indexJSCI !== -1) {
-			dataJSCC += dataJSC[i].split('*' + '/')[1];
-		} else {
-			dataJSCC += dataJSC[i];
+	return str;
+}
+function removeSlashComments(input) {
+	if (!input) {
+		return;
+	}
+	input = input.split('\r\n');
+	//
+	for (var i = 0, len = input.length; i < len; i++) {
+		input[i] = cropSlashes(input[i]);
+	}
+	return input.join('\r\n');
+}
+function removeMultiComments(input) {
+	if (!input) {
+		return;
+	}
+	input = input.split('/*');
+
+	for (var i = 0, len = input.length; i < len; i++) {
+		if(input[i].indexOf('*/') !== -1 && input[i].indexOf("*'") === -1 && input[i].indexOf("'*") === -1) {
+
+			input[i] = input[i].split('*/')[1];
 		}
 	}
-	return dataJSCC;
+	return input.join('');
+}
+function JSCompress(input) {
+	if (!input) {
+		return;
+	}
+	//remove comments
+	input = removeMultiComments(input);
+	input = removeSlashComments(input);
+	input = input.split('\\\r\n').join('')
+	input = input.split('\r\n').join('');
+	input = input.split('	').join('');
+	input = input.split('   ').join(' ').split('   ').join(' ');
+	input = input.split('  ').join(' ').split('  ').join(' ').split('  ').join(' ').split('  ').join(' ');
+	input = input.split('} ').join('}');
+	input = input.split('{ ').join('{');
+	input = input.split(' }').join('}');
+	input = input.split(' {').join('{');
+	input = input.split('= ').join('=');
+	input = input.split(' =').join('=');
+	input = input.split(' :').join(':');
+	input = input.split(': ').join(':');
+	input = input.split(' >').join('>');
+	input = input.split('> ').join('>');
+	input = input.split(' <').join('<');
+	input = input.split('< ').join('<');
+	input = input.split(') {').join('){');
+	input = input.split('; ').join(';');
+	input = input.split('else {').join('else {');
+	input = input.split('} else').join('}else');
+	input = input.split('if {').join('if{');
+	input = input.split(' +').join('+');
+	input = input.split('+ ').join('+');
+	input = input.split(', function').join(', function');
+	return input;
 }
 //#//////////////////#//
 //# LOCAL SUPERBLOCK #//

@@ -41,7 +41,6 @@ body.spinnerMask #loadMask {
 	-ms-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
-
 body.loadingMask #loadMask span,
 body.spinnerMask #loadMask span {
 	-webkit-box-sizing: border-box;

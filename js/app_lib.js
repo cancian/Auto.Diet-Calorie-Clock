@@ -232,7 +232,6 @@ app.reboot = function(type,error) {
 //////////
 // ZOOM //
 //////////
-/**/
 app.zoom = function(ratio) {
 	if(!ratio) {
 		//ratio = app.read('app_zoom');
@@ -1174,6 +1173,11 @@ function trim(str) {
 		}
 	}
 	return str;
+}
+function trimDot(x) {
+	if(x.length) {
+		return x.replace(/\.$/, '').replace(/\,$/, '');
+	}
 }
 //////////////
 // HIGHLIGH //

@@ -2,7 +2,7 @@
 // SAFE EXEC //
 ///////////////
 var staticVendor = ''; //'amazon'; //'blackberry';
-var baseVersion  = 1.6;
+var baseVersion  = 1.7;
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
 function safeExec(callback) {
@@ -67,7 +67,7 @@ function isCacheValid(input) {
 	if(input.indexOf('function getFullHistory') === -1)		{ return false; }
 	if(input.indexOf('function getCatList')     === -1)		{ return false; }
 	//APP_BUILD
-	if(input.indexOf('function openSettings')       === -1)	{ return false; }
+	if(input.indexOf('var settingsHtml')            === -1)	{ return false; }
 	if(input.indexOf('function feetInchesToMetric') === -1)	{ return false; }
 	//APP_STATIC
 	if(input.indexOf('function startApp')   === -1)			{ return false; }
@@ -82,8 +82,8 @@ function isCacheValid(input) {
 	if(input.indexOf('html,body') === -1)					{ return false; }
 	if(input.indexOf('#cat9999')  === -1)					{ return false; }
 	//FONTS.CSS
-	if(input.indexOf('@font-face') === -1)					{ return false; }
-	if(input.indexOf('.msie-png')  === -1)					{ return false; }
+	if(input.indexOf('@font-face')   === -1)				{ return false; }
+	if(input.indexOf('spinnerMask')  === -1)				{ return false; }
 	//ISVALID
 	return isValid;
 }
