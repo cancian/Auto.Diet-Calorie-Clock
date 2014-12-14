@@ -1756,4 +1756,3 @@ function appConfirm(title, msg, callback, ok, cancel) {
 		}
 	}
 }
-

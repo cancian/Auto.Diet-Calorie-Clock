@@ -774,19 +774,36 @@ if(LANG.LANGUAGE[lang] == 'en') {
 //###########################//
 //####   START WORKING   ####//
 //###########################//
-setTimeout(function() {
+///////////////////
+// FONT UNLOCKER //
+///////////////////
+function unlockApp() {
 	getNiceScroll('#appContent');
 	appResizer(0);
-	//updateEntries();
-	if(opaLock < 3) {		
-		$('body').removeClass('unloaded');
-		$('body').addClass('started');
-		$('body').css('opacity',1);
+	$('body').removeClass('unloaded');
+	$('body').addClass('started');
+	$('body').css('opacity',1);
+	$('#fontTest').remove();
+	if(typeof fontTestInterval !== 'undefined') {
+		clearInterval(fontTestInterval);
 	}
-	if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {
-		navigator.splashscreen.hide();
+	if(typeof loadTimeout !== 'undefined') {
+		clearInterval(loadTimeout);
 	}
+}
+var loadTimeout = setTimeout(function() {
+	unlockApp();
 },999);
+if(!$('#fontTest').length) {
+	$('body').append('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
+	var fontTestInterval = setInterval(function() {
+		if($('#fontTest').width() == 80) {
+			clearInterval(fontTestInterval);
+			clearInterval(loadTimeout);
+			unlockApp();
+		}
+	},5);
+}
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
 ////////////////////////////

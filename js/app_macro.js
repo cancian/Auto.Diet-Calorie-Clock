@@ -343,7 +343,7 @@ function intakeHistory() {
 		$('#appStatusIntake div').css('padding-top', '0px');
 		var catFontSize = lang == 'fa' ? '8px' : '9px';
 		var spacingBottom = Highcharts.version.contains('4.0') ? 0 : -12;
-		if(app.device.android2) { spacingBottom = -16; }
+		if(app.device.android2) { spacingBottom = Highcharts.version.contains('4.0') ? -4 : -16; }
 		//check exists
 		if(!app.read('app_last_tab','tab1'))	{ return; }
 		if(!$('#appStatusIntake').html())		{ return; } 
@@ -806,11 +806,15 @@ function updateTodayOverview(fullWindow) {
 	/////////////////////`
 	if (fullWindow == 1) {
 		getNewWindow(LANG.TODAY[lang].capitalize(), '<div id="totalChartWrapper"><div id="totalChart"></div></div>', function () {
-			$('#totalChart').highcharts(pieOptions);
+			if($('#totalChart').html()) {
+				$('#totalChart').highcharts(pieOptions);
+			}
 		});
 	} else {
-		$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
-		app.save('pieCache',$('#appStatusBlock2').html());
+		if($('#circlePercent').html()) {
+			$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
+			app.save('pieCache',$('#appStatusBlock2').html());
+		}
 	}
 }
 //##/////////////##//

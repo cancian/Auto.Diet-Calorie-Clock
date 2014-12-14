@@ -127,34 +127,13 @@ function appTimer(content) {
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
 	
 	if(app.device.wp8) {
-		timerDiff = timerDiff*3;
+		timerDiff = timerDiff*6;
 	} else {
-		timerDiff = timerDiff*1.3;
+		timerDiff = timerDiff*2;
 	}
-	/////////////////////
-	// pre-show reward //
-	/////////////////////
-	if(opaLock < 3) {
-		opaLock++;
-		if(opaLock == 3) {
-			//if(window.parent.document.getElementsByTagName('body')) {
-			//	var parentBody = window.parent.document.getElementsByTagName('body')[0];
-			//	$(parentBody).removeClass('unloaded');
-			//}
-			appResizer(0);
-			$('body').removeClass('unloaded');
-			$('.unloaded').removeClass('unloaded');
-			$('body').addClass('started');
-			$('body').css('opacity',1);
-			if(app.device.ios && typeof navigator.splashscreen !== 'undefined') {
-				navigator.splashscreen.hide();
-			}
-		}
-	} else {
-		//POST THROTTLE
-		if(timerDiff > 999) { timerDiff = 999; }
-		if(timerDiff < 100) { timerDiff = 100; }
-	}
+	//THROTTLE LIMIT
+	if(timerDiff > 1000) { timerDiff = 1000; }
+	if(timerDiff < 200)  { timerDiff = 200;  }
 }
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//
