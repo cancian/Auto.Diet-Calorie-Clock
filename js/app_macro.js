@@ -734,7 +734,7 @@ function updateTodayOverview(fullWindow) {
 	///////////////////
 	var pieOptions = {
 		reflow : false,
-		colors : ['#1EB618', '#2f7ed8', '#9947F0', '#ee704e', (fullWindow == 1) ? '#ddd' : '#f3f3f3'],
+		colors : ['#1eb618', '#2f7ed8', '#9947f0', '#ee704e', (fullWindow == 1) ? '#ddd' : '#f3f3f3'],
 		credits : {
 			enabled : false
 		},
@@ -754,12 +754,13 @@ function updateTodayOverview(fullWindow) {
 			text : ''
 		},
 		tooltip : {
-			pointFormat : ''
+			pointFormat : '',
+			enabled : false
 		},
 		plotOptions : {
 			pie : {
 				borderColor : '#fff',
-				borderWidth : today.percent == 0 ? 0 : 1,
+				borderWidth : (today.percent == 0 && today.food == 0) ? 0 : 1,
 				allowPointSelect : false,
 				cursor : 'pointer',
 				dataLabels : {
@@ -803,20 +804,14 @@ function updateTodayOverview(fullWindow) {
 	/////////////////////
 	// CALL HIGHCHARTS //
 	/////////////////////`
-	setTimeout(function() {
-		if (!app.read('app_last_tab', 'tab1')) {
-			return;
-		}
-		if (fullWindow == 1) {
-			getNewWindow(LANG.TODAY[lang].capitalize(), '<div id="totalChartWrapper"><div id="totalChart"></div></div>', function () {
-				$('#totalChart').highcharts(pieOptions);
-			});
-		} else {
-			$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
-			//SAVE CACHE
-			app.save('pieCache',$('#appStatusBlock2').html());
-		}
-	}, 1);
+	if (fullWindow == 1) {
+		getNewWindow(LANG.TODAY[lang].capitalize(), '<div id="totalChartWrapper"><div id="totalChart"></div></div>', function () {
+			$('#totalChart').highcharts(pieOptions);
+		});
+	} else {
+		$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
+		app.save('pieCache',$('#appStatusBlock2').html());
+	}
 }
 //##/////////////##//
 //## CYCLIC MENU ##//

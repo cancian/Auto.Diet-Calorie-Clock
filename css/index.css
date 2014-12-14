@@ -1,12 +1,14 @@
 ﻿html,body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
 body 									{ touch-action: none; -ms-touch-action: none; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
+/*
 body.ios *:before,
 body.osx *:before,
 body.ios *:after,
 body.osx *:after,
-body.ios *,
-body.osx *								{ -webkit-font-smoothing: antialiased; font-weight: 400; -webkit-perspective: none !important; }
+*/
+.ios *,
+.osx *									{ -webkit-font-smoothing: antialiased; -webkit-perspective: none !important; }
 .windows8 								{ overflow: hidden !important; }
 #infocontents,
 #newWindowWrapper,#advancedMenu,
@@ -555,6 +557,8 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 ///////////*/
 #appStatusBlock2						{ position: absolute; top: 0; left: 50%; right: 0; height: 66px; margin-left: 6px; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; text-align: center; }
 #blockWrapper							{ position: relative; display: block; height: 66px; overflow: hidden; min-width: 124px; max-width: 140px; margin: 0 auto; overflow: hidden; }
+#blockWrapper .highcharts-markers,
+#blockWrapper .highcharts-tooltip		{ display: none; visibility: hidden; }
 /**/
 #appStatusBlock2 #circlePercent			{ position: absolute; top: 5px; left: 5px; display: block; z-index: 1; width: 56px; overflow: hidden; }
 .cyclic #appStatusBlock2 #circlePercentInner,

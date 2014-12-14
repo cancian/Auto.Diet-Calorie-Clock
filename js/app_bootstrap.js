@@ -23,6 +23,61 @@ $.ajaxSetup({cache: false, crossDomain: true, async:true,  error: function(jqXHR
 		}
 	},6000);
 }});
+//#/////////////#//
+//# JS COMPRESS #//
+//#/////////////#//
+function JSCompress(input) {
+	if (!input.length) {
+		return;
+	}
+	var dataJS = input.split('\\\r\n').join('').split('\r\n');
+	var dataJSC = '';
+	for (var i = 0, len = dataJS.length; i < len; i++) {
+		var indexJS = dataJS[i].indexOf('//');
+		if (indexJS !== -1 && dataJS[i].indexOf('://') === -1 && !/https|https|indexJS/.test(dataJS[i])) {
+			if (indexJS == 0) {
+				//
+			} else {
+				dataJSC += dataJS[i].slice(0, indexJS);
+			}
+		} else {
+			dataJSC += dataJS[i];
+		}
+	}
+	dataJSC = dataJSC.split('	').join('');
+	dataJSC = dataJSC.split('  ').join(' ').split('  ').join(' ');
+	dataJSC = dataJSC.split('} ').join('}');
+	dataJSC = dataJSC.split('{ ').join('{');
+	dataJSC = dataJSC.split(' }').join('}');
+	dataJSC = dataJSC.split(' {').join('{');
+	dataJSC = dataJSC.split('= ').join('=');
+	dataJSC = dataJSC.split(' =').join('=');
+	dataJSC = dataJSC.split(' :').join(':');
+	dataJSC = dataJSC.split(': ').join(':');
+	dataJSC = dataJSC.split(' >').join('>');
+	dataJSC = dataJSC.split('> ').join('>');
+	dataJSC = dataJSC.split(' <').join('<');
+	dataJSC = dataJSC.split('< ').join('<');
+	dataJSC = dataJSC.split(') {').join('){');
+	dataJSC = dataJSC.split('; ').join(';');
+	dataJSC = dataJSC.split('else {').join('else {');
+	dataJSC = dataJSC.split('} else').join('}else');
+	dataJSC = dataJSC.split('if {').join('if{');
+	dataJSC = dataJSC.split(' +').join('+');
+	dataJSC = dataJSC.split('+ ').join('+');
+	dataJSC = dataJSC.split(', function').join(', function');
+	var dataJSCC = ''
+		dataJSC = dataJSC.split('/*');
+	for (var i = 0, len = dataJSC.length; i < len; i++) {
+		var indexJSCI = dataJSC[i].indexOf('*' + '/');
+		if (indexJSCI !== -1) {
+			dataJSCC += dataJSC[i].split('*' + '/')[1];
+		} else {
+			dataJSCC += dataJSC[i];
+		}
+	}
+	return dataJSCC;
+}
 //#//////////////////#//
 //# LOCAL SUPERBLOCK #//
 //#//////////////////#//
