@@ -2,7 +2,7 @@
 var appVersion = '1.7 (17003)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|sw|tr|zh|zt/i;
+var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|zh|zt/i;
 var lang = 'en';
 var defaultLang = 'en';
 var userLang = window.navigator.language || window.navigator.browserLanguage;
@@ -28,9 +28,6 @@ function filterLocale(locale) {
 	}
 	if (locale == 'no') {
 		locale = 'nb';
-	}
-	if (locale == 'sw') {
-		locale = 'sv';
 	}
 	//chinese
 	if (locale == 'zh') {

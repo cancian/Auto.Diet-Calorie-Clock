@@ -122,18 +122,18 @@ function appTimer(content) {
 	//////////////////////////////////////////////////
 	// self adjust refresh rate based on perfomance //
 	//////////////////////////////////////////////////
-	var timeWait = timerDiff;
-	timerDiff = (app.now() - timerPerf) * 2;
+	//sensibility
+	timerDiff = (app.now() - timerPerf) * 3;
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
-	
+	timerWait = timerDiff;	
 	if(app.device.wp8) {
-		timerDiff = timerDiff*6;
+		timerDiff = timerDiff*3;
 	} else {
-		timerDiff = timerDiff*2;
+		timerDiff = timerDiff*1.5;
 	}
 	//THROTTLE LIMIT
-	if(timerDiff > 1000) { timerDiff = 1000; }
-	if(timerDiff < 200)  { timerDiff = 200;  }
+	if(timerDiff > 999) { timerDiff  = 999; }
+	if(timerDiff < 100)  { timerDiff = 100; }
 }
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//
