@@ -228,6 +228,124 @@ span#surplus				{ right: 10%; color: #63C980; }
 #slide4 p:before			{ content: '\f175'; font-size: 72px; top: -7px; color: #09F; -webkit-animation: goleft infinite ease-out 18s; }
 @keyframes goleft			{ 0% { left: 0; color: #09F; } 35.75% { color: #09F; } 36% { color: #EE8176; } 100% { color: #EE8176; left: -75%; } }
 @-webkit-keyframes goleft	{ 0% { left: 0; color: #09F; } 35.75% { color: #09F; } 36% { color: #EE8176; } 100% { color: #EE8176; left: -75%; } }
+/*
+<div id="clock">
+	<span class="hand second"></span>
+	<span class="hand minute"></span>
+	<span class="hand hour"></span>
+</div>
+
+body {
+	margin: 0;
+	padding: 0;
+
+}
+
+body {
+	margin: 0;
+	padding: 0;
+
+}
+
+#clock {
+	position: absolute;
+	top: 20px;
+  left: 20px;
+  display: block;
+  width: 200px;
+	height: 200px;
+	background: #fff;
+	margin: 50px auto 0;
+	border: 1px solid #007aff;
+	border-radius: 100px;
+	}
+
+
+#clock:before {
+	content: '';
+	position: absolute;
+	z-index: 2;
+	width: 8px;
+	height: 8px;
+	background: #333;
+  opacity: .3;
+	left: 50%;
+	top: 50%;
+	margin: -4px 0 0 -4px;
+  border-radius: 4px;
+}
+
+#clock span.hand {
+	background: #c30;
+	position: absolute;
+	left: 50%;
+	-webkit-animation: rotate 1s infinite linear;
+	-webkit-transform-origin: left bottom;
+	-moz-animation: rotate 1s infinite linear;
+	-moz-transform-origin: left bottom;
+	-ms-animation: rotate 1s infinite linear;
+	-ms-transform-origin: left bottom;
+	-o-animation: rotate 1s infinite linear;
+	-o-transform-origin: left bottom;
+	animation: rotate 1s infinite linear;
+	transform-origin: left bottom;
+}
+
+#clock span.hand.minute {
+	height: 40px;
+	width: 4px;	
+	margin-left: -2px;
+	top: 20px;
+	-webkit-animation-duration: 1s;
+	-moz-animation-duration: 1s;
+	-ms-animation-duration: 1s;
+	-o-animation-duration: 1s;
+	animation-duration: 1s;
+}
+
+#clock span.hand.hour {
+	height: 90px;
+	width: 4px;
+ 
+  display: block;
+  top: 50%;
+  left: 50%;
+  margin-left: -2px;  
+margin-top: -2px;  
+   transform-origin: 2px 2px;
+  -webkit-transform-origin: 2px 2px;
+  -webkit-animation-duration: 4s;
+	-moz-animation-duration: 4s;
+	-ms-animation-duration: 4s;
+	-o-animation-duration: 4s;
+	animation-duration: 4s;
+}
+
+@-webkit-keyframes rotate {
+	0% { -webkit-transform: rotate(0deg);}
+	100% { -webkit-transform: rotate(360deg);}
+}	
+
+@-moz-keyframes rotate {
+	0% { -moz-transform: rotate(0deg);}
+	100% { -moz-transform: rotate(360deg);}
+}	
+
+@-ms-keyframes rotate {
+	0% { -ms-transform: rotate(0deg);}
+	100% { -ms-transform: rotate(360deg);}
+}	
+
+@-o-keyframes rotate {
+	0% { -o-transform: rotate(0deg);}
+	100% { -o-transform: rotate(360deg);}
+}	
+
+@keyframes rotate {
+	0% { transform: rotate(0deg);}
+	100% { transform: rotate(360deg);}
+}		
+*/
 /*overeat*/
 #slide5 p:before			{ content: '\f175'; font-size: 72px; top: -7px; right: -65% !important; color: #63C980 !important; }
 #slide6 p:before			{ content: '\A600'; font-size: 142px; top: -3px;     }
@@ -892,6 +1010,11 @@ div.submitActive				{ color: #fff !important; background-color: #316ADC; border-
 /*//////////////
 // ENTRY LIST //
 //////////////*/
+/*
+finger swipe icon
+\C099
+*/
+
 #entryList					{ width: 100%; font-size: 13px; /*-webkit-transform: translate3d(0, 0, 0);*/ }
 #entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; border-top: 0px solid #fff; /*overflow: hidden;*/ }
 #entryList div				{ -webkit-transition-duration: 0s; }

@@ -1928,6 +1928,32 @@ function getNiceScroll(target,timeout,callback) {
 //#/////////////#//
 //# APP RESIZER #//
 //#/////////////#//
+function setMinHeight() {
+	if(!$('#entryListHeight').length) {
+		app.safeExec(function() {
+			$('head').append('<style type="text/css" id="entryListHeight"></style>');
+		});
+	}
+
+	app.width  = window.innerWidth;
+	app.height = window.innerHeight;
+	app.relWidth   = app.width  / app.read('app_zoom');
+	app.relHeight =  app.height / app.read('app_zoom'); 
+	$('body').css('min-height', app.relHeight + 'px');
+	var wrapperMinH = (app.relHeight) - (154 + $('#appHeader').height() + $('#appFooter').height());
+	if(wrapperMinH < 0) {
+		wrapperMinH = 0;
+	}
+	wrapperMinH = '\
+		#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }\
+		#appContent       { min-height: ' + (app.height - ($('#appHeader').height() + $('#appFooter').height()))  + 'px !important; }';
+	if(!$('#entryListHeight').html() !== wrapperMinH) {
+		app.safeExec(function() {
+			$('#entryListHeight').html(wrapperMinH);
+		});
+	}
+}
+
 function appResizer(time) {
 	if(!time) { time = 0; }
 	setTimeout(function() {
@@ -1944,34 +1970,10 @@ function appResizer(time) {
 		////////////////////////
 		// WRAPPER MIN-HEIGHT //
 		////////////////////////
-		var wrapperMinH = (app.relHeight) - (154 + $('#appHeader').height() + $('#appFooter').height());
-		if(wrapperMinH < 0) {
-			wrapperMinH = 0;
-		}
-		//HOLDER
-		if(!$('#entryListHeight').length) {
-			app.safeExec(function() {
-				$('head').append('<style type="text/css" id="entryListHeight"></style>');
-			});
-		}
-		//IF NEEDED
-		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
-		if(!$('#entryListHeight').html() !== wrapperMinH) {
-			app.safeExec(function() {
-				$('#entryListHeight').html(wrapperMinH);
-			});
-		}
+		setMinHeight();
 		//
 		$('#appHelper').height($('#appContent').height());
 		$('#appSubHelper').height($('#appContent').height());
-		//
-		//$('#newWindowWrapper').hide();
-		//if($('#newWindowWrapper').hasClass('sideload')) {
-		//	$('#newWindowWrapper').height($('body').height() - $('#appHeader').height());
-		//} else {
-		//	$('#newWindowWrapper').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
-		//}
-		//$('#newWindowWrapper').show();
 		//
 		if($('#skipIntro').length) {
 			$('#langSelect').height($('body').height());
