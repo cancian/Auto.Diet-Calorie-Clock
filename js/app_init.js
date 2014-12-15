@@ -3,6 +3,7 @@
 ///////////////
 var staticVendor = ''; //'amazon'; //'blackberry';
 var baseVersion  = 1.7;
+var initTime     = new Date().getTime();
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
 function safeExec(callback) {

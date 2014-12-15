@@ -113,8 +113,8 @@ function InitializeLocalSuperBlock(opt) {
 	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_static.js',      success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_dynamic.js',     success: function(raw) { dataJS  = dataJS  + raw;
 	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_custom_core.js', success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'css/index.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	$.ajax({type: 'GET', dataType: 'text', url: 'css/fonts.css',         success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'css/index.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	//GET SIZE
 	window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
 	//MOZIE CSS CONVERT
@@ -212,9 +212,9 @@ function buildRemoteSuperBlock(opt) {
 	cssLoadCount(7,10);
 	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_custom_core.js', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(8,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/index.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
-	cssLoadCount(9,10);
 	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/fonts.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	cssLoadCount(9,10);
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/index.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	cssLoadCount(10,10);
 	/////////////////////
 	// INTEGRITY CHECK //

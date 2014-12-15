@@ -201,21 +201,23 @@ afterTab = function(keepOpen) {
 		}
 	}
 	//NO 50ms FLICKER (android profile)
-	appResizer(100);
+	appResizer(200);
+	//niceResizer(100);
 };
 appFooter = function (id, keepOpen, callback) {
 	if (app.now() - lastTab < 300) {
 		lastTab = app.now();
 	} else {
 		lastTab = app.now();
-		$('body').addClass(id);
+		app.read('app_last_tab');
 		$('body').removeClass(app.read('app_last_tab'));
-		app.save('app_last_tab',id);
+		app.save('app_last_tab', id);
+		$('body').addClass(app.read('app_last_tab'));
 		//ACTION
-		     if (id == 'tab1') { app.tab.status(keepOpen); ;                           }
-		else if (id == 'tab2') { app.exec.updateEntries('', '', 'callback', keepOpen); }
-		else if (id == 'tab3') { app.tab.profile(keepOpen); ;                          } 
-		else if (id == 'tab4') { app.tab.settings(keepOpen); ;                         }
+		if (id == 'tab1') { app.tab.status(keepOpen); }
+		if (id == 'tab2') { app.exec.updateEntries('', '', 'callback', keepOpen); }
+		if (id == 'tab3') { app.tab.profile(keepOpen); }
+		if (id == 'tab4') { app.tab.settings(keepOpen); }
 		//callback
 		if (callback) {
 			setTimeout(function () {
@@ -247,7 +249,7 @@ $('#appFooter li').on(touchstart, function(evt) {
 	clearTimeout(touchFootTimer);
 	touchFootTimer = setTimeout(function() {
 		app.analytics('tab');
-	},500);
+	},600);
 });
 ////////////////////////
 // WINDOWS OVERSCROLL //
@@ -792,6 +794,13 @@ function unlockApp() {
 	if(typeof loadTimeout !== 'undefined') {
 		clearInterval(loadTimeout);
 	}
+	//dev timer
+	if(app.read('config_debug','active') || app.read('devShowTimer','active') && typeof initTime !== 'undefined') {
+		$('body').append('<div id="initTime" style="font-family: KCals; font-size: 32px; background-color: rgba(255,255,255,.9); position: absolute; top: 78px; padding: 6px; left: 16px; z-index: 999; display: inline-block;">' + (new Date().getTime() - initTime) + ' ms</div>');
+		setTimeout(function() {
+			app.handlers.fade(0,'#initTime','',200);
+		},1600);
+	}
 }
 var loadTimeout = setTimeout(function() {
 	unlockApp();
@@ -804,7 +813,7 @@ if(!$('#fontTest').length) {
 			clearInterval(loadTimeout);
 			unlockApp();
 		}
-	},5);
+	},1);
 }
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //

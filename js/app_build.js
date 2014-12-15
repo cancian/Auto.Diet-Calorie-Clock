@@ -1092,74 +1092,19 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				//console.log(JSON.stringify(rowsArray));
 			}
 			////////////
-			// DUMPDB //
+			// REWIPE //
 			////////////
-			if (/devdumpdb/i.test($('#entryBody').val())) {
-var dumper = '';
-
-$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/en.txt', success: function(lsen) {
-
-lsen = JSON.parse(lsen);
-
-
-				$.ajax({type: 'GET', dataType: 'text', url: hostLocal + 'sql/pt.txt', success: function(ls) {
-					
-					ls = ls.split('###').join('');
-					ls = ls.split('\r\n');
-										
-					for(var i=0, len=ls.length; i<len; i++) {
-					var newRow = ls[i].split('##');
-					if(ls[i].contains('##')) {
-					
-						//loop
-						var rowsHtml = '';
-						for(var r=0, ren=lsen.length; r<ren; r++) {					
-							if(ls[i].split('##')[0] === lsen[r].id) {
-								//console.log(ls[i].split('##')[1] + lsen[r].name);
-								
-								//dumper += ls[i].split('##')[1] + '<br>\n';;
-								//dumper += lsen[r].name + '<br>\n';
-dumper += '{	"id" : "' + lsen[r].id + '",	"type" : "' + lsen[r].type + '",	"code" : "' + lsen[r].code + '",	"kcal" : "' + lsen[r].kcal + '",	"pro" : "' + lsen[r].pro + '",	"car" : "' + lsen[r].car + '",	"fat" : "' + lsen[r].fat + '",	"fib" : "' + lsen[r].fib + '"	},<br>\n';
-								
-								//dumper += lsen[r].name + '<br>\n';
-								break;
-								//lsen[r].name
-								//dumper += ls[i].split('##')[1];
-								
-								
-							}
-						//console.log(newRow[0] + newRow[1]);
-						//var rowsDump = [];
-						
-						
-						}
-						
-					}
-						
-					}
-					$('body').html(dumper);
-				}});
-
-}});
-				$('#entryBody').val('devdumpd');
-
-			//	var rowsArray = rowsFood;
-			/////	var rowsHtml = '';
-			//	for(var i=0, len=rowsArray.length; i<len; i++) {
-					
-			//		rowsHtml += rowsArray[i].name + '<br>\n';
-					//if(rowsArray[i].term) {
-					//	delete rowsArray[i].term;
-					//}
-					//if(rowsArray[i].name) {
-					//	console.log(JSON.stringify(rowsArray[i].name);
-						//delete rowsArray[i].term;
-					//}
+			if (/devtimer/i.test($('#entryBody').val())) {
+				if(app.read('devShowTimer','active')) {
+					app.remove('devShowTimer');					
+				} else {
+					app.save('devShowTimer','active');
 				}
-			//	$('#entryBody').blur();
-			//	$('body').html(rowsHtml);
-				//console.log(JSON.stringify(rowsArray));
-			//}
+				$('#entryBody').val('');
+				$('#entryBody').blur();
+				afterHide();
+				return false;
+			}
 			////////////
 			// REWIPE //
 			////////////
