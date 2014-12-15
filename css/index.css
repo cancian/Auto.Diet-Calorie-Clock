@@ -198,11 +198,39 @@ body.android ::-webkit-scrollbar{ display: none; }
 #slide4,#slide5,#slide6		{ background-color: #fff; font-size: 16px; line-height: 23px; text-align: center; padding-top: 120px; padding-left: 0; padding-right: 0; }
 #slide1 p:before			{ content: 'k';     font-size: 109px; top: 0px;   }
 .android4 #slide1 p:before	{ margin-left: -87px; }
-#slide2 p:before			{ content: '\A200'; font-size: 122px; top: -10px; }
-#slide3 p:before			{ content: '\F000'; font-size: 92px; top: 4px;    }
-#slide4 p:before			{ content: '\A300';  font-size: 96px; top: 0;     }
-#slide5 p:before			{ content: '\F17D'; font-size: 96px; top: 0;      }
-#slide6 p:before			{ content: '\A600'; font-size: 148px; top: 0;     }
+/*SLIDE 2 BAR*/
+#slide2,
+#slide3,
+#slide4,
+#slide5						{ position: relative; }
+#slide2 p:before,
+#slide3 p:before,
+#slide4 p:before,
+#slide5 p:before			{ content: '\f175'; font-size: 72px; top: -7px; color: #09F; }
+#slide2 p:after,
+#slide3 p:after,
+#slide4 p:after,
+#slide5 p:after				{ background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#EE8176), color-stop(25.5%,#09F), color-stop(73.9%,#09F), color-stop(73.9%,#63C980)); 
+							  background: -webkit-linear-gradient(left,                                  #EE8176 25.5%,             #09F 25.5%,             #09F 73.9%,             #63C980 73.9%);
+							  content: ' '; position: absolute; top: 81px; left: 10%; right: 10%; height: 3px; padding: 0; }
+span#deficit, 
+span#balanced,
+span#surplus				{ position: absolute; top: 88px; font-size: 12px; color: #EE8176; display: block; line-height: 12px; padding: 0; text-indent: 0; }
+span#deficit				{ left: 10%; color: #EE8176; }
+span#balanced				{ left: 0; right: 0; text-align: center; color: #09F; }
+span#surplus				{ right: 10%; color: #63C980; }
+/*food/exercise*/
+#slide3 #deficit:before		{ content: '\A600'; display: inline-block; font-family: KCals; position: absolute; font-size: 36px; top: -40px; left: 20px ; color: #EE8176; }
+#slide3 #surplus:before		{ content: '\F000'; display: inline-block; font-family: KCals; position: absolute; font-size: 34px; top: -42px; right: 20px; color: #63C980; }
+#slide3 #deficit:after		{ content: '\F010'; display: inline-block; font-family: KCals; position: absolute; font-size: 32px; top: -40px; text-align: left; left: -16px; color: #EE8176; }
+#slide3 #surplus:after		{ content: '\F020'; display: inline-block; font-family: KCals; position: absolute; font-size: 32px; top: -40px; right: -16px; text-align: right; color: #63C980; }
+/*automatic decrease*/
+#slide4 p:before			{ content: '\f175'; font-size: 72px; top: -7px; color: #09F; -webkit-animation: goleft infinite ease-out 18s; }
+@keyframes goleft			{ 0% { left: 0; color: #09F; } 35.75% { color: #09F; } 36% { color: #EE8176; } 100% { color: #EE8176; left: -75%; } }
+@-webkit-keyframes goleft	{ 0% { left: 0; color: #09F; } 35.75% { color: #09F; } 36% { color: #EE8176; } 100% { color: #EE8176; left: -75%; } }
+/*overeat*/
+#slide5 p:before			{ content: '\f175'; font-size: 72px; top: -7px; right: -65% !important; color: #63C980 !important; }
+#slide6 p:before			{ content: '\A600'; font-size: 142px; top: -3px;     }
 #slide1 p:before,
 #slide2 p:before,
 #slide3 p:before,
@@ -227,6 +255,9 @@ body.android ::-webkit-scrollbar{ display: none; }
 #prevDiv:before			{ font-family: 'KCals'; position: absolute; top: 43%; font-size: 48px; }
 #nextDiv:before			{ content: '\f105'; right: 0; }
 #prevDiv:before			{ content: '\f104'; left: 0; }
+span#deficit, 
+span#balanced,
+span#surplus			{ font-size: 16px; line-height: 16px; }
 }
 /*#################################
 ####    BUILD: APP SETTINGS    ####

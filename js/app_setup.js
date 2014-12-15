@@ -11,10 +11,26 @@ function showIntro(isNew) {
 			<div id="wrapper">\
 				<div id="scroller">\
 					<div class="slide" id="slide1"><p>' + LANG.INTRO_SLIDE_1[lang].split('.').join('. ') + '</p></div>\
-					<div class="slide" id="slide2"><p>' + LANG.INTRO_SLIDE_2[lang].split('.').join('. ') + '</p></div>\
-					<div class="slide" id="slide3"><p>' + LANG.INTRO_SLIDE_3[lang].split('.').join('. ') + '</p></div>\
-					<div class="slide" id="slide4"><p>' + LANG.INTRO_SLIDE_4[lang].split('.').join('. ') + '</p></div>\
-					<div class="slide" id="slide5"><p>' + LANG.INTRO_SLIDE_5[lang].split('.').join('. ') + '</p></div>\
+					<div class="slide" id="slide2"><p>' + LANG.INTRO_SLIDE_2[lang].split('.').join('. ') + '</p>\
+						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
+						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
+						<span id="surplus">' + LANG.SURPLUS[lang] + '</span>\
+					</div>\
+					<div class="slide" id="slide3"><p>' + LANG.INTRO_SLIDE_3[lang].split('.').join('. ') + '</p>\
+						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
+						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
+						<span id="surplus">' + LANG.SURPLUS[lang] + '</span>\
+					</div>\
+					<div class="slide" id="slide4"><p>' + LANG.INTRO_SLIDE_4[lang].split('.').join('. ') + '</p>\
+						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
+						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
+						<span id="surplus">' + LANG.SURPLUS[lang] + '</span>\
+					</div>\
+					<div class="slide" id="slide5"><p>' + LANG.INTRO_SLIDE_5[lang].split('.').join('. ') + '</p>\
+						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
+						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
+						<span id="surplus">' + LANG.SURPLUS[lang] + '</span>\
+					</div>\
 					<div class="slide" id="slide6"><p>' + LANG.INTRO_SLIDE_6[lang].split('.').join('. ') + '</p><div id="closeDiv">' + LANG.CLOSE_INTRO[lang] + '</div></div>\
 				</div>\
 			</div>\
@@ -1809,6 +1825,9 @@ function buildLangMenu(opt) {
 					$('#closeDiv').html(LANG.CLOSE_INTRO[lang]);
 					$('#appLang').html(LANG.LANGUAGE_NAME[lang]);
 					$('#skipIntro').html(LANG.SKIP[lang]);
+					$('span#deficit').html(LANG.DEFICIT[lang]);
+					$('span#balanced').html(LANG.BALANCED[lang]);
+					$('span#surplus').html(LANG.SURPLUS[lang]);										
 					setTimeout(function() {
 						appFooter('tab1',1);
 					},100);
