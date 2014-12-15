@@ -189,37 +189,39 @@ afterTab = function(keepOpen) {
 	$('#appSubHelper').remove();
 	$('#diaryNotesWrapper').remove();
 	//
-	if(!$('#pageSlideFood').is(':animated')) {
-		$('#timerDailyInput').removeAttr('readonly'); 
-		$('#timerDailyInput').removeClass('dull'); 
-		$('#pageSlideFood').remove();
-		$('#appHeader').removeClass('open');
-		$('body').removeClass('closer');
-	} else {
-		$('#appHeader').trigger(touchstart);
+	if($('#pageSlideFood').length) {
+		if(!$('#pageSlideFood').is(':animated')) {
+			$('#timerDailyInput').removeAttr('readonly'); 
+			$('#timerDailyInput').removeClass('dull'); 
+			$('#pageSlideFood').remove();
+			$('#appHeader').removeClass('open');
+			$('body').removeClass('closer');
+		} else {
+			$('#appHeader').trigger(touchstart);
+		}
 	}
 	//NO 50ms FLICKER (android profile)
 	appResizer(100);
-	//niceResizer(100);
 };
-appFooter = function (id,keepOpen,callback) {
-	if(app.now() - lastTab < 300) { lastTab = app.now(); return; }
-	lastTab = app.now();
-	var tabId = id;
-	$('#appFooter li').removeClass('selected');
-	app.save('app_last_tab',tabId);
-	$('#' + tabId).addClass('selected');
-	//ACTION
-	if(tabId == 'tab1') { app.tab.status(keepOpen);   }
-	if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
-	if(tabId == 'tab3') { app.tab.profile(keepOpen);  }
-	if(tabId == 'tab4') { app.tab.settings(keepOpen); }
-	$('body').removeClass('tab1 tab2 tab3 tab4 newwindow');
-	$('body').addClass(tabId);
-	if(callback) {
-		setTimeout(function() {
-			callback();
-		},0);
+appFooter = function (id, keepOpen, callback) {
+	if (app.now() - lastTab < 300) {
+		lastTab = app.now();
+	} else {
+		lastTab = app.now();
+		$('body').addClass(id);
+		$('body').removeClass(app.read('app_last_tab'));
+		app.save('app_last_tab',id);
+		//ACTION
+		     if (id == 'tab1') { app.tab.status(keepOpen); ;                           }
+		else if (id == 'tab2') { app.exec.updateEntries('', '', 'callback', keepOpen); }
+		else if (id == 'tab3') { app.tab.profile(keepOpen); ;                          } 
+		else if (id == 'tab4') { app.tab.settings(keepOpen); ;                         }
+		//callback
+		if (callback) {
+			setTimeout(function () {
+				callback();
+			}, 0);
+		}
 	}
 };
 //READ STORED
@@ -245,7 +247,7 @@ $('#appFooter li').on(touchstart, function(evt) {
 	clearTimeout(touchFootTimer);
 	touchFootTimer = setTimeout(function() {
 		app.analytics('tab');
-	},600);
+	},500);
 });
 ////////////////////////
 // WINDOWS OVERSCROLL //

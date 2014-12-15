@@ -806,12 +806,12 @@ function updateTodayOverview(fullWindow) {
 	/////////////////////`
 	if (fullWindow == 1) {
 		getNewWindow(LANG.TODAY[lang].capitalize(), '<div id="totalChartWrapper"><div id="totalChart"></div></div>', function () {
-			if($('#totalChart').html()) {
+			if($('#totalChart').length) {
 				$('#totalChart').highcharts(pieOptions);
 			}
 		});
 	} else {
-		if($('#circlePercent').html()) {
+		if($('#circlePercent').length) {
 			$('#appStatusBlock2 #circlePercent').highcharts(pieOptions);
 			app.save('pieCache',$('#appStatusBlock2').html());
 		}

@@ -132,21 +132,32 @@ body.android ::-webkit-scrollbar{ display: none; }
 .android input#timerDailyInput			{ margin-top: 1px; padding-right: 1px; }
 .windows8 input#timerDailyInput,
 .android44 input#timerDailyInput		{ margin-top: 0px; padding-right: 0px; }
-/*nprogress*/
-#nprogress								{ position: fixed; z-index: 100; }
-#nprogress .bar							{ background: rgba(255, 255, 255, 1); position: fixed; top: 0; left: 0; width: 100%; height: 2px; }
 /*#////////////#//
 //# APP FOOTER #//
 //#////////////#*/
-#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; width: 100%; border-top: 1px solid #dfdfdf; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; background-color: #f5f5f5; text-align: center; z-index: 20; -webkit-user-select: none; /*-webkit-backface-visibility: hidden;*/ }
-#appFooter li							{ float: left; width: 25%; height: 44px; line-height: 18px; color: #626262; }
-#appFooter li.selected,
-#appFooter li.selected:before			{ color: #007AFF; }
-/*footer colors*/
-.deficit #appFooter li.selected,
-.deficit #appFooter li.selected:before	{ color: #C85834; }
-.surplus #appFooter li.selected,
-.surplus #appFooter li.selected:before	{ color: #309030; }
+/*footer icons*/
+#appFooter li:before					{ display: block; font-family: 'KCals'; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
+#appFooter li							{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal; -webkit-backface-visibility: hidden; position: relative; }
+#appFooter li#tab1:before				{ content: '\f080'; }
+#appFooter li#tab2:before				{ content: '\f0f5'; }
+#appFooter li#tab3:before				{ content: '\f007'; }
+#appFooter li#tab4:before				{ content: '\f013'; }
+/*blocks*/
+#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; width: 100%; border-top: 1px solid #dfdfdf; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; background-color: #f5f5f5; text-align: center; z-index: 20; -webkit-user-select: none; }
+#appFooter li							{ color: #656565; float: left; width: 25%; height: 44px; line-height: 18px;  }
+/*selected*/
+.tab1 #appFooter li#tab1,
+.tab2 #appFooter li#tab2,
+.tab3 #appFooter li#tab3,
+.tab4 #appFooter li#tab4				{ color: #007AFF; }
+.tab1.surplus #appFooter li#tab1,
+.tab2.surplus #appFooter li#tab2,
+.tab3.surplus #appFooter li#tab3,
+.tab4.surplus #appFooter li#tab4		{ color: #309030; }
+.tab1.deficit #appFooter li#tab1,
+.tab2.deficit #appFooter li#tab2,
+.tab3.deficit #appFooter li#tab3,
+.tab4.deficit #appFooter li#tab4		{ color: #C85834; }
 /*sync icon*/
 #appHeaderIcon					{ display: none; }
 .appDebug #appHeaderIcon,
@@ -165,13 +176,6 @@ body.android ::-webkit-scrollbar{ display: none; }
 .appDebug #appHeaderIcon p		{ background-color: #0f0; border: 1px solid #0c0; }
 .appDebug #appHeaderIcon span	{ display: none; }
 .appDebug.appFacebook #appHeaderIcon span { display: block; }
-/*footer icons*/
-#appFooter li:before					{ display: block; font-family: 'KCals'; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; }
-#appFooter li							{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal;  -webkit-backface-visibility: hidden; position: relative; }
-#appFooter li#tab1:before				{ content: '\f080'; }
-#appFooter li#tab2:before				{ content: '\f0f5'; }
-#appFooter li#tab3:before				{ content: '\f007'; }
-#appFooter li#tab4:before				{ content: '\f013'; }
 /*///////////////////
 // GETTING STARTED //
 ///////////////////*/

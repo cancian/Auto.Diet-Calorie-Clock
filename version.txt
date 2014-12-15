@@ -2,6 +2,7 @@
 ## VERSION LOG ##
 #################
 # 1.7 [2014/12/12]
+• Faster start-up time
 • Improved "Today overview" section (tap for detailed statistics)
 • Fixed search issue with non-ascii searches
 • Dropped support for: Thai, Persian, Hindi, Hebrew, Catalan, Estonian, Croatian, Lithuanian, Latvian, Malay, Slovak, Slovenian, Serbian, Ukranian, Vietnamese.
