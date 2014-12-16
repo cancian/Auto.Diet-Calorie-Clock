@@ -434,7 +434,7 @@ var LANG = {
 		zt : 'KCals是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的熱量平衡。'
 	},
 	INTRO_SLIDE_2 : {
-		en : 'The idea is simple. Define a goal (daily calories) and keep yourself “balanced” in the context of this goal. The app will indicate when you’ve eaten too much (excess), or too little (deficit).',
+		en : 'The idea is simple. Define a goal (daily calories) and keep yourself Balanced in the context of this goal. The app will indicate when you’ve eaten too much (surplus), or too little (deficit)',
 		pt : 'A ideia é simples. Defina uma meta (calorias por dia) e permaneça “balanceado” dentro dessa meta. O aplicativo indicará quando você come demais (excesso) ou muito pouco (déficit).',
 		ar : 'الفكرة بسيطة. تحديد الكمية (من السعرات الحرارية اليومية) والحفاظ على التوازن في سياق هذه الكمية.  التطبيق سينبهك عندما تأكل  أكثر من اللازم (فائض)، أو أقل من اللازم (العجز).',
 		bg : 'Идеята е проста. Определете си цел (дневни калории) поддържайте Баланс за постигането на тази цел. Приложението ще показва кога сте превишили с приема на храна  (излишък), или сте приели твърде малко  (дефицит).',
@@ -542,8 +542,8 @@ var LANG = {
 		zt : '如果您吃得過多，您可以通過運動或在接下來的幾個小時裡少吃作為彌補。'
 	},
 	INTRO_SLIDE_6 : {
-		en : 'Check your Profile. There you will find all the information needed to determine your ideal calorie intake.',
-		pt : 'Verifique seu perfil. Lá você encontrará todas as informações de que precisa para definir sua ingestão calórica ideal.',
+		en : 'Check your Profile to determine your ideal calorie intake.',
+		pt : 'Verifique seu perfil para determinar sua ingestão calórica ideal.',
 		ar : 'تحقق من الملف الخاص بك لتحديد عدد السعرات الحرارية المثالي لحالتك.',
 		bg : 'Проверете вашия профил, за да определите своя най-добър прием на калории.',
 		cs : 'Zkontrolujte svůj profil. Zde najdete všechny informace potřebné k definování optimální příjem kalorií.',

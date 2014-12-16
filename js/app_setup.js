@@ -25,11 +25,13 @@ function showIntro(isNew) {
 						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
 						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
 						<span id="surplus">' + LANG.SURPLUS[lang] + '</span>\
+						<span id="clock"><span class="hand minute"></span><span class="hand hour"></span></span>\
 					</div>\
 					<div class="slide" id="slide5"><p>' + LANG.INTRO_SLIDE_5[lang].split('.').join('. ') + '</p>\
 						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
 						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
 						<span id="surplus">' + LANG.SURPLUS[lang] + '</span>\
+						<span id="clock"><span class="hand minute"></span><span class="hand hour"></span></span>\
 					</div>\
 					<div class="slide" id="slide6"><p>' + LANG.INTRO_SLIDE_6[lang].split('.').join('. ') + '</p><div id="closeDiv">' + LANG.CLOSE_INTRO[lang] + '</div></div>\
 				</div>\
@@ -1021,8 +1023,10 @@ function updateFoodDb(callback) {
 									app.save('foodDbVersion',4);
 									app.remove('startLock');
 									niceResizer(300);
-									spinner('stop');
-									$('body').removeClass('updtdb');
+									setTimeout(function() {
+										spinner('stop');
+										$('body').removeClass('updtdb');
+									},300);
 									if(app.read('facebook_userid')) {
 										syncEntries(app.read('facebook_userid'));
 									} else {
@@ -1040,12 +1044,22 @@ function updateFoodDb(callback) {
 								});
 							});
 			};
-			function unlockDb() {
-				//failure
-				demoRunning = false;
-				app.remove('foodDbLoaded');
-				app.remove('startLock');
-				spinner('stop');
+			function unlockDb(e) {
+				clearTimeout(app.timers.unlockDb);
+				app.timers.unlockDb = setTimeout(function() {
+					//failure
+					demoRunning = false;
+					app.remove('foodDbLoaded');
+					app.remove('startLock');
+					spinner('stop');
+					//////////////////////////////////////////
+					if(hasTouch() && navigator.notification) {
+						navigator.notification.alert('Please connect to the internet and try again.', voidThis, 'Error downloading database', LANG.OK[lang]);
+					} else {
+						if (alert('Error downloading database' + "\n" + 'Please connect to the internet and try again.'));
+					}
+					//////////////////////////////////////////
+				},300);
 			}
 			function doImport() {
 				spinner();
@@ -1105,7 +1119,7 @@ function updateFoodDb(callback) {
 						}});
 					} catch(e) { 
 						//failure
-						unlockDb();
+						unlockDb(e);
 				}
 			},100);
 		}}
