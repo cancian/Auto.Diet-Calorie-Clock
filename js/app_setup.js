@@ -17,9 +17,9 @@ function showIntro(isNew) {
 						<span id="surplus">' + LANG.SURPLUS[lang] + '</span>\
 					</div>\
 					<div class="slide" id="slide3"><p>' + LANG.INTRO_SLIDE_3[lang].split('.').join('. ') + '</p>\
-						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
-						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
-						<span id="surplus">' + LANG.SURPLUS[lang] + '</span>\
+						<span id="deficit">' + LANG.EXERCISE[lang] + '</span>\
+						<span id="balanced">' + LANG.CALORIC_BALANCE[lang] + '</span>\
+						<span id="surplus">' + LANG.FOOD[lang] + '</span>\
 					</div>\
 					<div class="slide" id="slide4"><p>' + LANG.INTRO_SLIDE_4[lang].split('.').join('. ') + '</p>\
 						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
@@ -1841,8 +1841,11 @@ function buildLangMenu(opt) {
 					$('#skipIntro').html(LANG.SKIP[lang]);
 					$('span#deficit').html(LANG.DEFICIT[lang]);
 					$('span#balanced').html(LANG.BALANCED[lang]);
-					$('span#surplus').html(LANG.SURPLUS[lang]);										
-					setTimeout(function() {
+					$('span#surplus').html(LANG.SURPLUS[lang]);
+					$('#slide3 span#deficit').html(LANG.EXERCISE[lang]);
+					$('#slide3 span#balanced').html(LANG.CALORIC_BALANCE[lang]);
+					$('#slide3 span#surplus').html(LANG.FOOD[lang]);										
+				setTimeout(function() {
 						appFooter('tab1',1);
 					},100);
 				}
@@ -1942,32 +1945,6 @@ function getNiceScroll(target,timeout,callback) {
 //#/////////////#//
 //# APP RESIZER #//
 //#/////////////#//
-function setMinHeight() {
-	if(!$('#entryListHeight').length) {
-		app.safeExec(function() {
-			$('head').append('<style type="text/css" id="entryListHeight"></style>');
-		});
-	}
-
-	app.width  = window.innerWidth;
-	app.height = window.innerHeight;
-	app.relWidth   = app.width  / app.read('app_zoom');
-	app.relHeight =  app.height / app.read('app_zoom'); 
-	$('body').css('min-height', app.relHeight + 'px');
-	var wrapperMinH = (app.relHeight) - (154 + $('#appHeader').height() + $('#appFooter').height());
-	if(wrapperMinH < 0) {
-		wrapperMinH = 0;
-	}
-	wrapperMinH = '\
-		#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }\
-		#appContent       { min-height: ' + (app.height - ($('#appHeader').height() + $('#appFooter').height()))  + 'px !important; }';
-	if(!$('#entryListHeight').html() !== wrapperMinH) {
-		app.safeExec(function() {
-			$('#entryListHeight').html(wrapperMinH);
-		});
-	}
-}
-
 function appResizer(time) {
 	if(!time) { time = 0; }
 	setTimeout(function() {
@@ -1984,10 +1961,34 @@ function appResizer(time) {
 		////////////////////////
 		// WRAPPER MIN-HEIGHT //
 		////////////////////////
-		setMinHeight();
+		var wrapperMinH = (app.relHeight) - (154 + $('#appHeader').height() + $('#appFooter').height());
+		if(wrapperMinH < 0) {
+			wrapperMinH = 0;
+		}
+		//HOLDER
+		if(!$('#entryListHeight').length) {
+			app.safeExec(function() {
+				$('head').append('<style type="text/css" id="entryListHeight"></style>');
+			});
+		}
+		//IF NEEDED
+		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
+		if(!$('#entryListHeight').html() !== wrapperMinH) {
+			app.safeExec(function() {
+				$('#entryListHeight').html(wrapperMinH);
+			});
+		}
 		//
 		$('#appHelper').height($('#appContent').height());
 		$('#appSubHelper').height($('#appContent').height());
+		//
+		//$('#newWindowWrapper').hide();
+		//if($('#newWindowWrapper').hasClass('sideload')) {
+		//	$('#newWindowWrapper').height($('body').height() - $('#appHeader').height());
+		//} else {
+		//	$('#newWindowWrapper').height($('body').height() - ($('#appHeader').height() + $('#appFooter').height()));
+		//}
+		//$('#newWindowWrapper').show();
 		//
 		if($('#skipIntro').length) {
 			$('#langSelect').height($('body').height());

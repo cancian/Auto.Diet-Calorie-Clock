@@ -408,21 +408,24 @@ app.tab.status = function(keepOpen) {
 			$('#appStatusTitle').html(LANG.RESET[lang]);
 			app.save('appStatus','running');
 			app.save('config_start_time',app.now());
-			/////////////////
-			// SCREEN INFO //
-			/////////////////
-			$('body').prepend('<div id="screenInfo"><div id="circleFocus"></div><div id="textBlock">' + LANG.CLOSE_TO_ZERO[lang] + '</div><div id="closeButton">' + LANG.CLOSE[lang] + '</div></div>');
-			$('#screenInfo').hide();
-			app.handlers.fade(1,'#screenInfo');
-			$('#screenInfo').on(touchstart,function(evt) {
-				evt.stopPropagation();
-				evt.preventDefault();
-			});
-			setTimeout(function() {
-				$('#closeButton').on(touchend,function(evt) {
-					app.handlers.fade(0,'#screenInfo');
+			/////////////////////////
+			// INFO: CLOSE TO ZERO //
+			/////////////////////////
+			if(!app.read('app_info_close_to_zero')) {
+				$('body').prepend('<div id="screenInfo"><div id="circleFocus"></div><div id="textBlock">' + LANG.CLOSE_TO_ZERO[lang] + '</div><div id="closeButton">' + LANG.CLOSE[lang] + '</div></div>');
+				$('#screenInfo').hide();
+				app.handlers.fade(1,'#screenInfo');
+				$('#screenInfo').on(touchstart,function(evt) {
+					evt.stopPropagation();
+					evt.preventDefault();
 				});
-			},300);
+				setTimeout(function() {
+					$('#closeButton').on(touchend,function(evt) {
+						app.save('app_info_close_to_zero',true)
+						app.handlers.fade(0,'#screenInfo');
+					});
+				},300);
+			}
 		}
 		evt.preventDefault();
 	});
@@ -852,7 +855,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			//SCROLLBAR UPDATE
 			niceResizer();
 			kickDown();
-			//PROMPT AUTOSTART
+			//////////////////////
+			// PROMPT AUTOSTART //
+			//////////////////////
 			if(app.read('appStatus') != 'running') {
 				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
 					if(button === 2) {
@@ -866,6 +871,34 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 					}
 				}, LANG.OK[lang], LANG.CANCEL[lang]);
 			}
+			/////////////////////
+			// SWIPE LEFT INFO //
+			/////////////////////
+			if(!app.read('app_info_swipe')) {
+				//swipe left to reveal options
+				$('body').prepend('<div id="screenInfo"><div id="circleFocus"></div><div id="textBlock">' + LANG.SWIPE_LEFT[lang] + '</div><div id="closeButton">' + LANG.CLOSE[lang] + '</div></div>');
+				$('#screenInfo').hide();
+				app.handlers.fade(1,'#screenInfo');
+				$('#screenInfo').on(touchstart,function(evt) {
+					evt.stopPropagation();
+					evt.preventDefault();
+				});
+				setTimeout(function() {
+					$('#closeButton').on(touchend,function(evt) {
+						app.save('app_info_swipe',true);
+						app.handlers.fade(0,'#screenInfo');
+						$('#go').trigger(tap);
+					});
+				},300);
+				//trigger demo swipe
+				setTimeout(function () {
+					$('.delete','#' + published).addClass('active open');
+					$('.delete','#' + published).on(transitionend, function (evt) {
+						$('.delete', '#' + published).removeClass('busy');
+					});
+				},0);
+			}
+
 		});		
 	};
 	///////////////////

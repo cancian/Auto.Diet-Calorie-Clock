@@ -1,5 +1,5 @@
 ﻿var appName = 'KCals';
-var appVersion = '1.7 (17004)';
+var appVersion = '1.7 (17005)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|zh|zt/i;
@@ -351,6 +351,33 @@ var LANG = {
 		tr : 'Kapatmak',
 		zh : '关闭',
 		zt : '關閉'
+	},
+	SWIPE_LEFT : {
+		en : 'Swipe left to edit existing entries.',
+		pt : 'Deslize para a esquerda para editar entradas existentes.',
+		ar : 'انتقاد اليسار إلى تعديل إدخالات القائمة.',
+		bg : 'Плъзнете наляво, за да редактирате съществуващи вписвания.',
+		cs : 'Přejeďte vlevo upravit stávající položky.',
+		da : 'Stryg til venstre for at redigere eksisterende poster.',
+		de : 'Streichen Sie nach links um vorhandene Einträge zu bearbeiten.',
+		el : 'Ισχυρό κτύπημα που αφήνεται να επεξεργαστείτε υπάρχουσες εγγραφές.',
+		es : 'Deslízate a la izquierda para editar las entradas existentes.',
+		fi : 'Pyyhkäise vasemmalle muokata olemassa olevia merkintöjä.',
+		fr : 'Balayez vers la gauche pour modifier les entrées existantes.',
+		hu : 'Ellop marad a meglévő bejegyzések szerkesztése.',
+		it : 'Scorri a sinistra per modificare le voci esistenti.',
+		id : 'Menggesek kiri untuk mengedit entri yang sudah ada.',
+		ja : '既存のエントリを編集する左スワイプ。',
+		ko : '기존 항목을 편집 하려면 왼쪽 강타.',
+		nl : 'Jat links om de bestaande items bewerken.',
+		nb : 'Sveip til venstre for å redigere eksisterende oppføringer.',
+		pl : 'Przesuń palcem w lewo aby edytować istniejące wpisy.',
+		ro : 'Bețivan stânga pentru a edita intrările existente.',
+		ru : 'Смахните слева для редактирования существующих записей.',
+		sv : 'Svep åt vänster om du vill redigera befintliga poster.',
+		tr : 'Varolan girişleri düzenlemek için sol tokatlamak.',
+		zh : '刷卡左编辑现有条目。',
+		zt : '刷卡左編輯現有條目。',
 	},
 	CLOSE_TO_ZERO : {
 		en : 'Keep the counter close to zero using what you eat.',

@@ -1,12 +1,10 @@
-﻿html,body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
+﻿/*#############
+## KCALS CSS ##
+#############*/
+head,style,script						{ display: none; }
+html,body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
 body 									{ touch-action: none; -ms-touch-action: none; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-/*
-body.ios *:before,
-body.osx *:before,
-body.ios *:after,
-body.osx *:after,
-*/
 .ios *,
 .osx *									{ -webkit-font-smoothing: antialiased; -webkit-perspective: none !important; }
 .windows8 								{ overflow: hidden !important; }
@@ -213,30 +211,35 @@ body.android ::-webkit-scrollbar{ display: none; }
 #slide5 p:after				{ background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#EE8176), color-stop(25.5%,#09F), color-stop(73.9%,#09F), color-stop(73.9%,#63C980)); 
 							  background: -webkit-linear-gradient(left,                                  #EE8176 25.5%,             #09F 25.5%,             #09F 73.9%,             #63C980 73.9%);
 							  content: ' '; position: absolute; top: 81px; left: 10%; right: 10%; height: 3px; padding: 0; }
-span#deficit, 
-span#balanced,
-span#surplus				{ position: absolute; top: 88px; font-size: 12px; color: #EE8176; display: block; line-height: 12px; padding: 0; text-indent: 0; }
-span#deficit				{ left: 10%; color: #EE8176; }
-span#balanced				{ left: 0; right: 0; text-align: center; color: #09F; }
-span#surplus				{ right: 10%; color: #63C980; }
+#gettingStarted span#deficit, 
+#gettingStarted span#balanced,
+#gettingStarted span#surplus				{ position: absolute; top: 88px; font-size: 12px; color: #EE8176; display: block; line-height: 12px; padding: 0; text-indent: 0; }
+#gettingStarted span#deficit				{ left: 10%; color: #EE8176; }
+#gettingStarted span#balanced				{ left: 0; right: 0; text-align: center; color: #09F; }
+#gettingStarted span#surplus				{ right: 10%; color: #63C980; }
+/*+-600 kcal*/
+#slide2 #deficit:before		{ content: '- 600 kcal'; white-space: nowrap; display: inline-block; position: absolute; font-size: 18px; line-height: 18px; top: -64px;  left: -12px ; color: #EE8176; opacity: .76; }
+#slide2 #surplus:before		{ content: '+ 600 kcal'; white-space: nowrap; display: inline-block; position: absolute; font-size: 18px; line-height: 18px; top: -64px; right: -12px; color: #63C980; opacity: .76; }
 /*food/exercise*/
 #slide3 #deficit:before		{ content: '\A600'; display: inline-block; font-family: KCals; position: absolute; font-size: 36px; top: -40px; left: 20px ; color: #EE8176; }
 #slide3 #surplus:before		{ content: '\F000'; display: inline-block; font-family: KCals; position: absolute; font-size: 34px; top: -42px; right: 20px; color: #63C980; }
 #slide3 #deficit:after		{ content: '\F010'; display: inline-block; font-family: KCals; position: absolute; font-size: 32px; top: -40px; text-align: left; left: -16px; color: #EE8176; }
 #slide3 #surplus:after		{ content: '\F020'; display: inline-block; font-family: KCals; position: absolute; font-size: 32px; top: -40px; right: -16px; text-align: right; color: #63C980; }
 /*automatic decrease*/
-#slide4 p:before			{ content: '\f175'; font-size: 72px; top: -7px; color: #09F; -webkit-animation: goleft infinite ease-out 18s; }
-@keyframes goleft			{ 0% { left: 0; color: #09F; } 35.75% { color: #09F; } 36% { color: #EE8176; } 100% { color: #EE8176; left: -75%; } }
-@-webkit-keyframes goleft	{ 0% { left: 0; color: #09F; } 35.75% { color: #09F; } 36% { color: #EE8176; } 100% { color: #EE8176; left: -75%; } }
-#slide5 p:before			{ content: '\f175'; font-size: 72px; top: -7px; right: -65%; color: #63C980; color: #09F; -webkit-animation: gocenter infinite ease-out 18s !important; }
-@keyframes gocenter			{ 0% { right: -65%; color: #63C980; } 27.5% { color: #63C980; } 28% { color: #09F; } 100% { color: #09F; right: 0; } }
-@-webkit-keyframes gocenter	{ 0% { right: -65%; color: #63C980; } 27.5% { color: #63C980; } 28% { color: #09F; } 100% { color: #09F; right: 0; } }
+#slide4 p:before			{ content: '\f175'; font-size: 72px; top: -7px; color: #09F; -webkit-animation: goleft infinite linear 10s; }
+@keyframes goleft			{ 0% { left: 0; color: #09F; } 49% { color: #09F; } 51% { color: #EE8176; } 100% { color: #EE8176; left: -75%; } }
+@-webkit-keyframes goleft	{ 0% { left: 0; color: #09F; } 49% { color: #09F; } 51% { color: #EE8176; } 100% { color: #EE8176; left: -75%; } }
+#slide5 p:before			{ content: '\f175'; font-size: 72px; top: -7px; right: -65%; color: #63C980; color: #09F; -webkit-animation: gocenter infinite linear 10s !important; }
+@keyframes gocenter			{ 0% { right: -65%; color: #63C980; } 39% { color: #63C980; } 41% { color: #09F; } 100% { color: #09F; right: 0; } }
+@-webkit-keyframes gocenter	{ 0% { right: -65%; color: #63C980; } 39% { color: #63C980; } 41% { color: #09F; } 100% { color: #09F; right: 0; } }
 /*click anim*/
-#clock						{ position: absolute; top: -21%; right: 11%; display: block; width: 50px; height: 50px; border: 1px solid #000; border-radius: 100px; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); box-shadow: 0 1px 3px rgba(0, 0, 0, .18); opacity: .18; -webkit-backface-visibility: hidden; overflow: hidden; pointer-events: none !important; }
-#clock:before				{ content: ''; position: absolute; z-index: 2; width: 4px; height: 4px; overflow: hidden; display: block; background: #000; opacity: 1; left: 50%; top: 50%; margin: -2px 0 0 -2px; border-radius: 6px; border: 1px solid #000; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+#clock						{ position: absolute; top: -21%; right: 11%; display: block; width: 40px; height: 40px; border: 1px solid #ddd; border-radius: 100px; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .05); box-shadow: 0 1px 3px rgba(0, 0, 0, .05); -webkit-backface-visibility: hidden; overflow: hidden; pointer-events: none; }
+.ios7 #clock				{ top: -16%; }
+#clock:before				{ content: ''; position: absolute; z-index: 2; width: 4px; height: 4px; overflow: hidden; display: block; background: #fff; opacity: 1; left: 50%; top: 50%; margin: -2px 0 0 -2px; border-radius: 6px; border: 1px solid #ccc; z-index: 5; }
 #clock span.hand.minute,
-#clock span.hand.hour		{ position: absolute; background: #000; height: 22px; width: 2px; display: block; top: 50%; left: 50%; margin-left: -1px; margin-top: -1px; -webkit-transform-origin: 1px 1px; -webkit-animation: rotate 2s infinite linear; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
-#clock span.hand.minute		{ height: 14px; -webkit-animation: rotate 48s infinite linear; }	
+#clock span.hand.hour		{ position: absolute; display: block; top: 50%; left: 50%; }
+#clock span.hand.hour		{ margin-left: -1px; margin-top: -1px; height: 10px; width: 0; border-left: 2px solid #ddd; -webkit-transform-origin: 1px 1px; -webkit-animation: rotate 24s infinite linear; background: #ddd; }
+#clock span.hand.minute		{ margin-left: 0px; margin-top: 0px; height: 16px; width: 0px; border-left: 1px solid #ccc; -webkit-transform-origin: 0px 0px; -webkit-animation: rotate 1s infinite linear; background: #ccc; }	
 /*overeat*/
 #slide6 p:before			{ content: '\A600'; font-size: 142px; top: -3px; }
 #slide1 p:before,
@@ -263,9 +266,9 @@ span#surplus				{ right: 10%; color: #63C980; }
 #prevDiv:before			{ font-family: 'KCals'; position: absolute; top: 43%; font-size: 48px; }
 #nextDiv:before			{ content: '\f105'; right: 0; }
 #prevDiv:before			{ content: '\f104'; left: 0; }
-span#deficit, 
-span#balanced,
-span#surplus			{ font-size: 16px; line-height: 16px; }
+#gettingStarted span#deficit, 
+#gettingStarted span#balanced,
+#gettingStarted span#surplus			{ font-size: 16px; line-height: 16px; }
 }
 /*#################################
 ####    BUILD: APP SETTINGS    ####
@@ -900,11 +903,6 @@ div.submitActive				{ color: #fff !important; background-color: #316ADC; border-
 /*//////////////
 // ENTRY LIST //
 //////////////*/
-/*
-finger swipe icon
-\C099
-*/
-
 #entryList					{ width: 100%; font-size: 13px; /*-webkit-transform: translate3d(0, 0, 0);*/ }
 #entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; border-top: 0px solid #fff; /*overflow: hidden;*/ }
 #entryList div				{ -webkit-transition-duration: 0s; }
@@ -1451,9 +1449,12 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #zoomx2:before				{ content: 'x2'; }
 #zoomx3:before				{ content: 'x3'; }
 /*SCREEN INFO*/
-#screenInfo,#screenInfo *	{ -webkit-backface-visibility: hidden; }
-#screenInfo					{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; background-color: rgba(0,0,0,.4); -webkit-transform: translate3d(0, 0, 0); }
-#screenInfo #circleFocus	{ position: absolute; top: -124px; left: -54px; width: 230px; height: 230px; background-color: rgba(255,255,255,.32); display: block; border-radius: 500px; -webkit-box-shadow: 0 0px 50px rgba(0, 0, 0,.6) } 
-#screenInfo #closeButton	{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); }
-#screenInfo #textBlock		{ position: absolute; top: 142px; left: 25px; right: 25px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
+#screenInfo,
+#screenInfo *					{ -webkit-backface-visibility: hidden; }
+#screenInfo						{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; background-color: rgba(0,0,0,.4); -webkit-transform: translate3d(0, 0, 0); }
+#screenInfo #circleFocus		{ position: absolute; top: -124px; left: -54px; width: 230px; height: 230px; background-color: rgba(255,255,255,.32); display: block; border-radius: 500px; -webkit-box-shadow: 0 0px 50px rgba(0, 0, 0,.6) } 
+#screenInfo #closeButton		{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); }
+#screenInfo #textBlock			{ position: absolute; top: 142px; left: 25px; right: 25px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
+.tab2 #screenInfo #circleFocus	{ position: absolute; top: 220px; right: 80px; left: auto; }
+.tab2 #screenInfo:before  		{ font-family: kcals; content: '\C099'; position: absolute; top: 232px; right: 90px; padding: 50px; display: block; color: #fff;  font-size: 120px; -webkit-transform: scaleX(-1); }
 
