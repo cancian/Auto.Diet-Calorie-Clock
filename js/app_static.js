@@ -1,4 +1,10 @@
 ﻿////////////////////
+// CACHE LISTENER //
+////////////////////
+window.applicationCache.addEventListener('error', function(e) { 
+	alert('Error: Cache failed to update!');
+});
+////////////////////
 // DOCUMENT READY //
 ////////////////////
 $(document).ready(function() {
@@ -710,9 +716,15 @@ if(app.device.osxapp) {
 		},1000);
 	});
 }
-/////////.//////
+///////////
+// LINUX //
+///////////
+if(app.device.linux) {
+	$('body').addClass('linux');
+}
+////////////////
 // CHROME APP //
-//////////./////
+////////////////
 if(app.device.chromeos) {
 	$('body').addClass('chromeos');
 }
@@ -721,6 +733,12 @@ if(app.device.chromeos) {
 ////////////////
 if(app.device.blackberry) {
 	$('body').addClass('blackberry');
+}
+////////////
+// AMAZON //
+////////////
+if(app.device.amazon) {
+	$('body').addClass('amazon');
 }
 /////////////
 // CORDOVA //

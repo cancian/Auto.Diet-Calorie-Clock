@@ -1053,11 +1053,7 @@ function updateFoodDb(callback) {
 					app.remove('startLock');
 					spinner('stop');
 					//////////////////////////////////////////
-					if(hasTouch() && navigator.notification) {
-						navigator.notification.alert('Please connect to the internet and try again.', voidThis, 'Error downloading database', LANG.OK[lang]);
-					} else {
-						if (alert('Error downloading database' + "\n" + 'Please connect to the internet and try again.'));
-					}
+					alert('Error downloading database','Please connect to the internet and try again.');
 					//////////////////////////////////////////
 				},300);
 			}
@@ -1879,7 +1875,7 @@ function getNiceScroll(target,timeout,callback) {
 	setTimeout(function() {
 	//SETTINGS
 	var NSettings = {
-		touchbehavior: false,
+		touchbehavior: true,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '0px',
 		railpadding: {right: 1,bottom: 1},
@@ -1888,15 +1884,15 @@ function getNiceScroll(target,timeout,callback) {
 		cursorwidth: '4px',
 		horizrailenabled: false,
 		hwacceleration: true,
-		enablescrollonselection: true,
-		nativeparentscrolling: false,
+		enablescrollonselection: false,
+		nativeparentscrolling: true,
 		preventmultitouchscrolling: false,
 		oneaxismousemode: false,
-		directionlockdeadzone: 18,
-		sensitiverail: false,
+		directionlockdeadzone: 0,
+		sensitiverail: true,
 		spacebarenabled: false,
 		gesturezoom: 0,
-		enablemouselockapi: false,
+		enablemouselockapi: true,
 	};
 	//HORIZONTAL
 	if($('#appHistory').html()) {

@@ -1,8 +1,10 @@
 <?php #################
 ## KCALS PHP BACKEND ##
 #######################
-header("access-control-allow-origin: *");
-header("cache-control: no-cache");
+if(!preg_match("^home|local|192.168.1.5|local^",$_SERVER['HTTP_HOST'])) {
+	header("access-control-allow-origin: *");
+	header("cache-control: no-cache");
+}
 ?>
 <!doctype html>
 <html>

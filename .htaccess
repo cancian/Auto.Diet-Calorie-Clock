@@ -1,22 +1,38 @@
-AddDefaultCharset UTF-8
-AddType application/vnd.ms-fontobject .eot
-AddType application/font-woff .woff
-AddType font/ttf .ttf
-AddType font/otf .otf
-AddType application/x-web-app-manifest+json .webapp
-AddType text/cache-manifest .manifest
-AddType text/cache-manifest .appcache
-AddType application/octet-stream .bin
-AddType application/octet-stream .img
-AddType text/plain .db
-## EXPIRES ##
-ExpiresActive On
-ExpiresDefault now
-## HEADERS ##
-Header add Access-Control-Allow-Origin "*"
-Header set Cache-Control "max-age=0"
-Header unset ETag
-FileETag None
-## COMPRESSION ##
-AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+###############
+## KCALS.NET ##
+###############
+<IfModule mod_mime.c>
+	Options -Indexes
+	SetEnv TZ America/Sao_Paulo
+	AddDefaultCharset UTF-8
+	AddType application/vnd.ms-fontobject .eot
+	AddType application/font-woff .woff
+	AddType font/ttf .ttf
+	AddType font/otf .otf
+	AddType application/x-web-app-manifest+json .webapp
+	AddType text/cache-manifest .manifest
+	AddType text/cache-manifest .appcache
+	AddType application/octet-stream .bin
+	AddType application/octet-stream .img
+	AddType text/plain .db
+</IfModule>
 
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault now
+</IfModule>
+
+<IfModule mod_headers.c>
+	Header add Access-Control-Allow-Origin "*"
+	Header set Cache-Control "max-age=0"
+	Header unset ETag
+	FileETag None
+</IfModule>
+
+<IfModule mod_deflate.c>
+	#sudo nano /usr/local/dh/apache2/apache2-ps386756/etc/httpd.conf
+	SetOutputFilter DEFLATE
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml
+	#DeflateMemLevel 9
+	#DeflateCompressionLevel 9
+</IfModule>

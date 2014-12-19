@@ -1109,11 +1109,7 @@ function addNewItem(addnew) {
 			return true;
 		} else {
 			//ALERT
-			if(hasTouch() && navigator.notification) {
-				navigator.notification.alert(LANG.BLANK_FIELD_DIALOG[lang], voidThis, LANG.BLANK_FIELD_TITLE[lang], LANG.OK[lang]);
-			} else {
-				if (alert(LANG.BLANK_FIELD_TITLE[lang] + "\n" + LANG.BLANK_FIELD_DIALOG[lang]));
-			}
+			alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
 			return false;
 		}
 	};

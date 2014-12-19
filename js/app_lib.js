@@ -153,6 +153,7 @@ app.device = {
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
+	linux      : (/X11|Linux/i).test(app.ua) || !app.http ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) ? true : false,
 	wp81       : (/Windows Phone 8.1/i).test(app.ua) ? true : false,
 	wp81JS     : (/Windows Phone 8.1/i).test(app.ua) && (/MSApp/i).test(app.ua) ? true : false,
@@ -183,6 +184,8 @@ app.get.platform = function(noweb) {
 	if(app.device.ios && app.http)     { return 'web';              }
 	if(app.device.android && app.http) { return 'web';              }
 	if(app.device.wp8 && app.http)     { return 'web';              }
+	if(app.device.linux && app.http)   { return 'web';              }
+	if(app.device.linux)               { return 'Linux';            }
 	if(app.device.ios)                 { return 'iOS';              }
 	if(app.device.amazon)              { return 'Android (Amazon)'; }
 	if(app.device.blackberry)          { return 'BlackBerry';       }
@@ -963,8 +966,11 @@ var varHasTouch = !app.http && (/(iPhone|iPod|iPad|Android|BlackBerry)/).test(us
 function hasTouch() {
 	return varHasTouch;
 }
-var varHasTap = (("ontouchstart" in document) || ("ontouchstart" in window));
+var varHasTap = (('ontouchstart' in document) || ('ontouchstart' in window));
 function hasTap() {
+	if(app.device.linux) {
+		return varHasTap ? false : true;
+	}
 	return varHasTap;
 }
 var touchstart = hasTap() ? 'touchstart' : 'mousedown';
@@ -1687,6 +1693,28 @@ function unzip(s) {
     }
     return out.join("");
 }
+//##//////////////##//
+//## APP.ALERT(); ##//
+//##//////////////##//
+window.azert = window.alert;
+window.alert = {};
+window.alert = function (title, msg, button, callback) {
+	if (typeof title    !== 'undefined' && typeof msg === 'undefined') { msg  = ' '; }
+	if (typeof title    === 'undefined') { title  = 'alert';       }
+	if (typeof msg      === 'undefined') { msg    = 'msg';         }
+	if (typeof button   === 'undefined') { button = LANG.OK[lang]; }
+	if (typeof callback !== 'function')  { callback = voidThis;    }
+	//
+	if (typeof navigator.notification !== 'undefined') {
+		navigator.notification.alert(msg, callback, title, button);
+	} else {
+		if ((msg != 'msg' && msg != ' ') || title == 'alert') { msg = '\n' + msg; }
+		if (window.azert(title + '\n' + msg));
+		setTimeout(function () {
+			callback();
+		}, 0);
+	}
+};
 //##///////////////////##//
 //## APP CONFIRM LAYER ##//
 //##///////////////////##// appConfirm(title, msg, callback, LANG.OK[lang], LANG.CANCEL[lang]);

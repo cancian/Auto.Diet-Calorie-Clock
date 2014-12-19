@@ -896,7 +896,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 					$('.delete','#' + published).on(transitionend, function (evt) {
 						$('.delete', '#' + published).removeClass('busy');
 					});
-				},0);
+				},300);
 			}
 
 		});		

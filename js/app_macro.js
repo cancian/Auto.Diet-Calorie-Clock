@@ -512,11 +512,7 @@ function getNutriSliders() {
 			updateNutriRatio();
 			return true;
 		} else {
-			if(hasTouch()) {
-				navigator.notification.alert(LANG.PLEASE_REVIEW[lang], voidThis,LANG.TOTAL_ERROR[lang],LANG.OK[lang]);
-			} else {
-				if(alert(LANG.TOTAL_ERROR[lang] + '\n' + LANG.PLEASE_REVIEW[lang]));
-			}
+			alert(LANG.TOTAL_ERROR[lang],LANG.PLEASE_REVIEW[lang]);
 			return false;
 		};
 	};
@@ -1385,11 +1381,7 @@ function buildAdvancedMenu() {
 	app.handlers.activeRow('#advancedChangelog','button',function(evt) {
 		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/version.txt', 
 			error: function(xhr, statusText) { 
-				if(hasTouch() && typeof navigator.notification !== 'undefined') {
-					navigator.notification.alert('Please connect to the internet and try again.', voidThis, 'Error reading file', LANG.OK[lang]);
-				} else {
-					if (alert('Error reading file' + "\n" + 'Please connect to the internet and try again.'));
-				}	
+				alert('Error reading file','Please connect to the internet and try again.');
 			}, 
 			success: function(logFile) {
 				var logContent = '';
