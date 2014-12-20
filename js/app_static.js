@@ -800,29 +800,29 @@ if(LANG.LANGUAGE[lang] == 'en') {
 // FONT UNLOCKER //
 ///////////////////
 function unlockApp() {
-	getNiceScroll('#appContent');
-	appResizer(0);
-	$('body').removeClass('unloaded');
-	$('body').addClass('started');
-	$('body').css('opacity',1);
-	$('#fontTest').remove();
-	if(typeof fontTestInterval !== 'undefined') {
-		clearInterval(fontTestInterval);
-	}
-	if(typeof loadTimeout !== 'undefined') {
-		clearInterval(loadTimeout);
-	}
+	appResizer(0, function () {
+		$('body').removeClass('unloaded');
+		$('body').addClass('started');
+		$('body').css('opacity', 1);
+		$('#fontTest').remove();
+		if (typeof fontTestInterval !== 'undefined') {
+			clearInterval(fontTestInterval);
+		}
+		if (typeof loadTimeout !== 'undefined') {
+			clearInterval(loadTimeout);
+		}
+	});
 	//dev timer
 	try {
-		if(typeof initTime !== 'undefined') {
-			if(app.read('config_debug','active') || app.read('devShowTimer','active')) {
+		if (typeof initTime !== 'undefined') {
+			if (app.read('config_debug', 'active') || app.read('devShowTimer', 'active')) {
 				$('body').append('<div id="initTime" style="font-family: KCals; font-size: 32px; background-color: rgba(255,255,255,.9); position: absolute; top: 78px; padding: 6px; left: 16px; z-index: 999; display: inline-block;">' + (new Date().getTime() - initTime) + ' ms</div>');
-				setTimeout(function() {
-					app.handlers.fade(0,'#initTime','',175);
-				},1200);
+				setTimeout(function () {
+					app.handlers.fade(0, '#initTime', '', 175);
+				}, 1200);
 			}
 		}
-	} catch(e) {}
+	} catch (e) {}
 }
 var loadTimeout = setTimeout(function() {
 	unlockApp();

@@ -153,7 +153,7 @@ app.device = {
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
-	linux      : (/X11|Linux/i).test(app.ua) || !app.http ? true : false,
+	linux      : (/X11|Linux/i).test(app.ua) && !app.http ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) ? true : false,
 	wp81       : (/Windows Phone 8.1/i).test(app.ua) ? true : false,
 	wp81JS     : (/Windows Phone 8.1/i).test(app.ua) && (/MSApp/i).test(app.ua) ? true : false,
@@ -166,7 +166,7 @@ app.device = {
 	chromeos   : app.get.isChromeApp() ? true : false,
 	blackberry : ((/Android/i).test(app.ua) && (/(BB10|BlackBerry|All Touch|10\.)/i).test(app.ua)) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
-	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || document.createTouch) ? false : true,
+	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch && !(/X11|Linux/i).test(app.ua)) ) ? false : true,
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {

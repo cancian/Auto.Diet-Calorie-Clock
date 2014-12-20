@@ -1941,7 +1941,7 @@ function getNiceScroll(target,timeout,callback) {
 //#/////////////#//
 //# APP RESIZER #//
 //#/////////////#//
-function appResizer(time) {
+function appResizer(time,callback) {
 	if(!time) { time = 0; }
 	setTimeout(function() {
 		app.width  = window.innerWidth;
@@ -2004,6 +2004,12 @@ function appResizer(time) {
 		if(app.device.desktop || app.device.windows8 || app.device.firefoxos || app.device.android) {
 			$('#entryBody').width( $('body').width() -58);
 			$('#foodSearch').width( $('body').width() -55);
+		}
+		//////////////
+		// CALLBACK //
+		//////////////
+		if(typeof callback === 'function') {
+			callback();
 		}
 	 },time);
 }
