@@ -267,7 +267,56 @@ app.zoom = function(ratio) {
 	}
 };
 //app.zoom();
-
+////////////////
+// APP.INFO() //
+////////////////
+app.info = function (title, msg, preHandler, postHandler) {
+	if (app.read('info_' + title)) {
+		return;
+	}
+	/////////////////
+	// INSERT HTML //
+	/////////////////
+	$('body').prepend('\
+	<div id="screenInfo" class="info_' + title + '">\
+		<div id="circleFocus"></div>\
+		<div id="textBlock">' + msg + '</div>\
+		<div id="closeButton">' + LANG.CLOSE[lang] + '</div>\
+	</div>');
+	$('#screenInfo').hide();
+	//////////////////////
+	// STOP PROPAGATION //
+	//////////////////////
+	$('#screenInfo').on(touchstart, function (evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+	});
+	/////////////
+	// FADE IN //
+	/////////////
+	app.handlers.fade(1, '#screenInfo', function () {
+		////////////////
+		// PREHANDLER //
+		////////////////
+		setTimeout(function () {
+			if (typeof preHandler === 'function') {
+				preHandler();
+			}
+		}, 0);
+	});
+	/////////////////
+	// POSTHANDLER //
+	/////////////////
+	setTimeout(function () {
+		$('#closeButton').on(touchend, function (evt) {
+			app.save('info_' + title, true);
+			app.handlers.fade(0, '#screenInfo');
+			if (typeof postHandler === 'function') {
+				postHandler();
+			}
+		});
+	}, 300);
+};
 ///////////////
 // APP READY //
 ///////////////

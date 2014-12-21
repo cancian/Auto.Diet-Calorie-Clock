@@ -139,7 +139,7 @@ function getFullHistory() {
 							marker : {
 								enabled : true,
 								lineWidth : 2,
-								lineColor : '#2F7ED8',
+								lineColor : '#317FD8',
 								fillColor : 'white',
 								states : {
 									hover : {
@@ -171,6 +171,8 @@ function getFullHistory() {
 							type : 'area',
 							name : LANG.KCAL[lang],
 							animation : false,
+							lineColor : '#317FD8',
+							fillColor : '#f2f2f2',
 							data : dayArray.sort()
 						}
 					]

@@ -801,6 +801,7 @@ if(LANG.LANGUAGE[lang] == 'en') {
 ///////////////////
 function unlockApp() {
 	appResizer(0, function () {
+		getNiceScroll('#appContent');
 		$('body').removeClass('unloaded');
 		$('body').addClass('started');
 		$('body').css('opacity', 1);

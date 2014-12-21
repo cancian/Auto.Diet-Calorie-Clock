@@ -1044,7 +1044,7 @@ function updateFoodDb(callback) {
 								});
 							});
 			};
-			function unlockDb(e) {
+			function unlockDb() {
 				clearTimeout(app.timers.unlockDb);
 				app.timers.unlockDb = setTimeout(function() {
 					//failure
@@ -1063,6 +1063,10 @@ function updateFoodDb(callback) {
 				foodDbTimer = setTimeout(function() {
 					try{
 						$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb_' + langDB + '.db', error: function(xhr, statusText) { unlockDb(); }, success: function(ls) {
+							if(ls.length < 18270) {
+								unlockDb();
+								return false;
+							}
 							var rowsArray = [];
 							if(!ls.contains('lib2.insert')) {
 							//////////////////

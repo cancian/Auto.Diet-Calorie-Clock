@@ -1,6 +1,9 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.8 [2014/12/12]
+• Protection against failed downloads
+
 # 1.7 [2014/12/12]
 • Faster start-up time
 • The "Getting started" slides are more informative

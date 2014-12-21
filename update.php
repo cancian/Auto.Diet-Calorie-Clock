@@ -1,10 +1,10 @@
 <?php #################
 ## KCALS PHP BACKEND ##
 #######################
-if(!preg_match("^home|local|192.168.1.5|local^",$_SERVER['HTTP_HOST'])) {
-	header("access-control-allow-origin: *");
+//if(!preg_match("^home|local|192.168.1.5|local^",$_SERVER['HTTP_HOST'])) {
+	//header("access-control-allow-origin: *");
 	header("cache-control: no-cache");
-}
+//}
 /*
 $userdata  = file_get_contents('js/cordova.js');
 $userdata .= file_get_contents('js/facebook-js-sdk.js');
