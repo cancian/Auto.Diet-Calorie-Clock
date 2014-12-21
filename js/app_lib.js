@@ -153,7 +153,7 @@ app.device = {
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
-	linux      : (/X11|Linux/i).test(app.ua) && !app.http ? true : false,
+	linux      : (/X11/i).test(navigator.userAgent) && (/Linux/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) && !app.http ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) ? true : false,
 	wp81       : (/Windows Phone 8.1/i).test(app.ua) ? true : false,
 	wp81JS     : (/Windows Phone 8.1/i).test(app.ua) && (/MSApp/i).test(app.ua) ? true : false,
@@ -184,7 +184,6 @@ app.get.platform = function(noweb) {
 	if(app.device.ios && app.http)     { return 'web';              }
 	if(app.device.android && app.http) { return 'web';              }
 	if(app.device.wp8 && app.http)     { return 'web';              }
-	if(app.device.linux && app.http)   { return 'web';              }
 	if(app.device.linux)               { return 'Linux';            }
 	if(app.device.ios)                 { return 'iOS';              }
 	if(app.device.amazon)              { return 'Android (Amazon)'; }

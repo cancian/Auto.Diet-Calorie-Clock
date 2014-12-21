@@ -169,6 +169,7 @@ $.each(LANG.LANGUAGE,function(k,v) {
 });
 $('body').html(keyDump.toLowerCase());
 */
+
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -195,41 +196,37 @@ afterTab = function(keepOpen) {
 	$('#appSubHelper').remove();
 	$('#diaryNotesWrapper').remove();
 	//
-	if($('#pageSlideFood').length) {
-		if(!$('#pageSlideFood').is(':animated')) {
-			$('#timerDailyInput').removeAttr('readonly'); 
-			$('#timerDailyInput').removeClass('dull'); 
-			$('#pageSlideFood').remove();
-			$('#appHeader').removeClass('open');
-			$('body').removeClass('closer');
-		} else {
-			$('#appHeader').trigger(touchstart);
-		}
+	if(!$('#pageSlideFood').is(':animated')) {
+		$('#timerDailyInput').removeAttr('readonly'); 
+		$('#timerDailyInput').removeClass('dull'); 
+		$('#pageSlideFood').remove();
+		$('#appHeader').removeClass('open');
+		$('body').removeClass('closer');
+	} else {
+		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER (android profile)
-	appResizer(200);
+	appResizer(100);
 	//niceResizer(100);
 };
-appFooter = function (id, keepOpen, callback) {
-	if (app.now() - lastTab < 300) {
-		lastTab = app.now();
-	} else {
-		lastTab = app.now();
-		app.read('app_last_tab');
-		$('body').removeClass(app.read('app_last_tab'));
-		app.save('app_last_tab', id);
-		$('body').addClass(app.read('app_last_tab'));
-		//ACTION
-		if (id == 'tab1') { app.tab.status(keepOpen); }
-		if (id == 'tab2') { app.exec.updateEntries('', '', 'callback', keepOpen); }
-		if (id == 'tab3') { app.tab.profile(keepOpen); }
-		if (id == 'tab4') { app.tab.settings(keepOpen); }
-		//callback
-		if (callback) {
-			setTimeout(function () {
-				callback();
-			}, 0);
-		}
+appFooter = function (id,keepOpen,callback) {
+	if(app.now() - lastTab < 300) { lastTab = app.now(); return; }
+	lastTab = app.now();
+	var tabId = id;
+	$('#appFooter li').removeClass('selected');
+	app.save('app_last_tab',tabId);
+	$('#' + tabId).addClass('selected');
+	//ACTION
+	if(tabId == 'tab1') { app.tab.status(keepOpen);   }
+	if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
+	if(tabId == 'tab3') { app.tab.profile(keepOpen);  }
+	if(tabId == 'tab4') { app.tab.settings(keepOpen); }
+	$('body').removeClass('tab1 tab2 tab3 tab4 newwindow');
+	$('body').addClass(tabId);
+	if(callback) {
+		setTimeout(function() {
+			callback();
+		},0);
 	}
 };
 //READ STORED
@@ -799,21 +796,27 @@ if(LANG.LANGUAGE[lang] == 'en') {
 ///////////////////
 // FONT UNLOCKER //
 ///////////////////
+appResizer(0);
 function unlockApp() {
-	appResizer(0, function () {
+	//start scrolling
+	setTimeout(function() {
 		getNiceScroll('#appContent');
-		$('body').removeClass('unloaded');
-		$('body').addClass('started');
-		$('body').css('opacity', 1);
-		$('#fontTest').remove();
-		if (typeof fontTestInterval !== 'undefined') {
-			clearInterval(fontTestInterval);
-		}
-		if (typeof loadTimeout !== 'undefined') {
-			clearInterval(loadTimeout);
-		}
-	});
-	//dev timer
+		appResizer(0);
+	},300);
+	$('body').removeClass('unloaded');
+	$('body').addClass('started');
+	$('body').css('opacity',1);
+	$('#fontTest').remove();
+	//clear safe-loader
+	if (typeof fontTestInterval !== 'undefined') {
+		clearInterval(fontTestInterval);
+	}
+	if (typeof loadTimeout !== 'undefined') {
+		clearInterval(loadTimeout);
+	}
+	///////////////
+	// dev timer //
+	///////////////
 	try {
 		if (typeof initTime !== 'undefined') {
 			if (app.read('config_debug', 'active') || app.read('devShowTimer', 'active')) {
@@ -825,9 +828,16 @@ function unlockApp() {
 		}
 	} catch (e) {}
 }
+/////////////////
+// SAFE-LOADER //
+/////////////////
 var loadTimeout = setTimeout(function() {
 	unlockApp();
 },999);
+//////////////////
+// ON FONT LOAD //
+//////////////////
+var timerFont = 1;
 if(!$('#fontTest').length) {
 	$('body').append('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
 	var fontTestInterval = setInterval(function() {
@@ -835,8 +845,11 @@ if(!$('#fontTest').length) {
 			clearInterval(fontTestInterval);
 			clearInterval(loadTimeout);
 			unlockApp();
+		} else {
+			//decelerate
+			timerFont++;	
 		}
-	},1);
+	},timerFont);
 }
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //

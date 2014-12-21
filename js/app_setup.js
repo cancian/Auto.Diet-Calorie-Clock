@@ -1879,7 +1879,7 @@ function getNiceScroll(target,timeout,callback) {
 	setTimeout(function() {
 	//SETTINGS
 	var NSettings = {
-		touchbehavior: true,
+		touchbehavior: false,
 		nativeparentscrolling: false,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '5px',
