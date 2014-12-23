@@ -76,7 +76,9 @@
 	<preference name="PopupBlocker" value="disable"/>
 	<preference name="WebSecurity" value="disable"/>
 	<preference name="AutoHideSplashScreen" value="true"/>
-	<icon src="/icon.png"/> <!-- 80 -->
+
+	<icon src="/icon.png" />
+	
     <!-- Preferences for BB10 -->
 
 

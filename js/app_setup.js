@@ -4,6 +4,19 @@
 ////////////////
 var myScroll;
 function showIntro(isNew) {
+	//INSTALL
+	if(isNew == true) {
+		setTimeout(function() {
+			if(typeof baseVersion !== 'undefined') {
+				if(app.http) {
+					app.analytics('webinstall');
+				} else {
+					app.analytics('install');
+				}
+			}
+		},0);
+	}
+	//ISCROLL
 	$('#gettingStarted').remove();
 	$('body').append('\
 	<div id="gettingStarted">\
@@ -53,19 +66,14 @@ function showIntro(isNew) {
 		if(typeof myScroll !== 'undefined') {
 			myScroll.destroy();
 		}
-		app.handlers.fade(0,'#gettingStarted',function() {
-			if(isNew == true) {
-				setTimeout(function() {
-					if(typeof baseVersion !== 'undefined') {
-						if(app.http) {
-							app.analytics('webinstall');
-						} else {
-							app.analytics('install');
-						}
-					}
-				},5000);
+		if(app.read('app_restart_pending')) {
+			app.remove('app_restart_pending');
+			if(app.read('config_autoupdate','on')) {
+				app.reboot('now');
 			}
-		});
+		} else {
+			app.handlers.fade(0,'#gettingStarted');
+		}
 		evt.preventDefault();
 	});
 	$('#gettingStarted').on(touchstart,function(evt) {

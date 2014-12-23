@@ -1,8 +1,10 @@
 ﻿////////////////////
 // CACHE LISTENER //
 ////////////////////
-window.applicationCache.addEventListener('error', function(e) { 
-	alert('Error: Cache failed to update!');
+window.applicationCache.addEventListener('error', function(e) {
+	if(app.dev) {
+		alert('Error fetching cache');
+	}
 });
 ////////////////////
 // DOCUMENT READY //
@@ -140,9 +142,20 @@ $('body').prepend('\
 		</ul>\
 	</div>\
 ');
-$('html,body').scroll(function(evt) {
+$(document).scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
+	return false;
+});
+$(window).scroll(function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();
+	return false;
+});
+$('body').scroll(function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+	return false;
 });
 //////////////
 // KEY DUMP //
@@ -205,9 +218,9 @@ afterTab = function(keepOpen) {
 	} else {
 		$('#appHeader').trigger(touchstart);
 	}
-	//NO 50ms FLICKER (android profile)
+	//NO 50ms FLICKER
 	appResizer(100);
-	//niceResizer(100);
+	app.analytics('tab');
 };
 appFooter = function (id,keepOpen,callback) {
 	if(app.now() - lastTab < 300) { lastTab = app.now(); return; }
@@ -234,7 +247,6 @@ appFooter(app.read('app_last_tab'));
 ///////////////////////
 // LISTEN FOR CLICKS //
 ///////////////////////
-var touchFootTimer;
 $('#appFooter li').on(touchstart, function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
@@ -249,10 +261,6 @@ $('#appFooter li').on(touchstart, function(evt) {
 	if($('#timerDailyInput').is(':focus')) {
 		$('#timerDailyInput').blur();
 	}
-	clearTimeout(touchFootTimer);
-	touchFootTimer = setTimeout(function() {
-		app.analytics('tab');
-	},600);
 });
 ////////////////////////
 // WINDOWS OVERSCROLL //

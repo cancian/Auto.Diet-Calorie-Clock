@@ -9,6 +9,7 @@ var app = {
 	handlers: {},
 	timers: {},
 	vars: {},
+	dev: window.localStorage.getItem('config_debug' === 'active') ? true : false,
 	is: {},
 	config: {},
 	db: {},
@@ -204,7 +205,12 @@ app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.
 // APP.REBOOT() //
 //////////////////
 app.reboot = function(type,error) {
-	var timeout = type == 'now' ? 0 : 500;
+	if(type == 'now') {	
+		$('body').hide();
+		$('body').css('opacity',0);
+		window.location.reload(true);
+		return;
+	}
 	//CLEAR CACHE
 	if(type == 'reset') {
 		app.remove('remoteSuperBlockJS');
@@ -223,10 +229,8 @@ app.reboot = function(type,error) {
 			} else {
 				window.location.reload(true);	
 			}
-		} else {
-			window.location.reload(true);
 		}
-	},timeout);
+	},500);
 	if(error) {
 		throw error;
 	}
