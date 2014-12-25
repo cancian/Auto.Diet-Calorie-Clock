@@ -1,8 +1,9 @@
 ﻿#################
 ## VERSION LOG ##
 #################
--- 
 -- use JSON for synchronization data
+-- dar um valor menor para matches curtas (apfel, single word should the the first)
+-- 
 -- 
 -- 
 

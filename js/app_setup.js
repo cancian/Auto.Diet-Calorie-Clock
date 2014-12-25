@@ -14,7 +14,7 @@ function showIntro(isNew) {
 					app.analytics('install');
 				}
 			}
-		},0);
+		},2000);
 	}
 	//ISCROLL
 	$('#gettingStarted').remove();

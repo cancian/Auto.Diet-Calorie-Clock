@@ -223,7 +223,9 @@ afterTab = function(keepOpen) {
 	}
 	//NO 50ms FLICKER
 	appResizer(100);
-	app.analytics('tab');
+	setTimeout(function() {
+		app.analytics('tab');
+	}, 1000);
 };
 appFooter = function (id,keepOpen,callback) {
 	if(app.now() - lastTab < 300) { lastTab = app.now(); return; }
