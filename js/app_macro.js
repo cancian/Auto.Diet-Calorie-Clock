@@ -1381,7 +1381,7 @@ function buildAdvancedMenu() {
 	//# CHANGE LOG #//
 	//#////////////#//
 	app.handlers.activeRow('#advancedChangelog','button',function(evt) {
-		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/version.txt', 
+		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/' + 'version.txt', 
 			error: function(xhr, statusText) { 
 				alert('Error reading file','Please connect to the internet and try again.');
 			}, 
@@ -1397,7 +1397,13 @@ function buildAdvancedMenu() {
 						logLine = (trim(logLine.replace('#',''))).split(' ');
 						logContent += '<p>Version ' + logLine[0] + '<span>' + logLine[1].replace('[','').replace(']','') + '</span></p>';
 					} else {
-						logContent += logLine + '<br />';
+						if(/--/.test(logLine)) {
+							if(app.dev) {
+								logContent += logLine + '<br />';
+							}
+						} else {
+							logContent += logLine + '<br />';	
+						}
 					}
 				});
 			logContent =  '<div id="logContent">' + logContent + '</div>';

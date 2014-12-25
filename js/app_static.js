@@ -45,6 +45,9 @@ $(document).on('resume',function() {
 		if(app.read('config_autoupdate','on')) {
 			app.reboot('now');
 		}
+	} else {
+		$('body').css('opacity',1);
+		$('body').show();
 	}
 	//fix locked dbs
 	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
@@ -804,8 +807,8 @@ if(LANG.LANGUAGE[lang] == 'en') {
 ///////////////////
 // FONT UNLOCKER //
 ///////////////////
-appResizer(0);
 function unlockApp() {
+	appResizer(0);
 	//start scrolling
 	setTimeout(function() {
 		getNiceScroll('#appContent');
@@ -814,6 +817,7 @@ function unlockApp() {
 	$('body').removeClass('unloaded');
 	$('body').addClass('started');
 	$('body').css('opacity',1);
+	$('body').show();
 	$('#fontTest').remove();
 	//clear safe-loader
 	if (typeof fontTestInterval !== 'undefined') {

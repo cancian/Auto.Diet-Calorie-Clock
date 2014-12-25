@@ -1095,7 +1095,7 @@ function updateFoodDb(callback) {
 								rowsArray = JSON.parse(sdb);
 								for(var s=0, slen=rowsArray.length; s<slen; s++) {
 									try {
-										rowsArray[s].name = trim(trimDot(ls[s]));
+										rowsArray[s].name = (trim(trimDot(ls[s]))).capitalize();
 										rowsArray[s].term = searchalize(rowsArray[s].name);
 										rowsArray[s].kcal = rowsArray[s].kcal;
 										rowsArray[s].pro  = rowsArray[s].pro;

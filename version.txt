@@ -1,6 +1,11 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+-- 
+-- use JSON for synchronization data
+-- 
+-- 
+
 # 1.8 [2014/12/12]
 • Protection against failed downloads
 
