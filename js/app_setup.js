@@ -1031,10 +1031,6 @@ function updateFoodDb(callback) {
 									app.save('foodDbVersion',4);
 									app.remove('startLock');
 									niceResizer(300);
-									setTimeout(function() {
-										spinner('stop');
-										$('body').removeClass('updtdb');
-									},300);
 									if(app.read('facebook_userid')) {
 										syncEntries(app.read('facebook_userid'));
 									} else {
@@ -1049,6 +1045,10 @@ function updateFoodDb(callback) {
 									if(callback) {
 										callback();
 									}
+									setTimeout(function() {
+										spinner('stop');
+										$('body').removeClass('updtdb');
+									},500);
 								});
 							});
 			};
@@ -1063,7 +1063,7 @@ function updateFoodDb(callback) {
 					//////////////////////////////////////////
 					alert('Error downloading database','Please connect to the internet and try again.');
 					//////////////////////////////////////////
-				},300);
+				},500);
 			}
 			function doImport() {
 				spinner();
@@ -1095,15 +1095,13 @@ function updateFoodDb(callback) {
 								rowsArray = JSON.parse(sdb);
 								for(var s=0, slen=rowsArray.length; s<slen; s++) {
 									try {
-										rowsArray[s].name = (trim(trimDot(ls[s]))).capitalize();
+										rowsArray[s].name = trim(trimDot(ls[s])).capitalize();
 										rowsArray[s].term = searchalize(rowsArray[s].name);
 										rowsArray[s].kcal = rowsArray[s].kcal;
 										rowsArray[s].pro  = rowsArray[s].pro;
 										rowsArray[s].car  = rowsArray[s].car;
 										rowsArray[s].fat  = rowsArray[s].fat;
 										rowsArray[s].fib  = rowsArray[s].fib;
-										//console.log(s+1 + '  - ' + JSON.stringify(rowsArray[s]));
-										//console.log(rowsArray[s].term + '  - ' + rowsArray[s].name);
 									} catch(e) {}
 								}
 								saveParsed(rowsArray);
