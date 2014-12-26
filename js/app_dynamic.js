@@ -799,28 +799,26 @@ function searchFood(searchSQL, callback) {
 	var keyScore = 0;
 	var mi = [];
 	var limited = 0;
-	
 	var results = 0;
 	var z = dato.length;
 	while(z--) {
-	//for (var z = 0, len = dato.length; z < len; z++) {
 		keyScore = 0;
 		keyJunk = 0;
 		if ((/0000|exercise/.test(dato[z].type) && typeTerm == "exercise") || (!/0000|exercise/.test(dato[z].type) && typeTerm == "food")) {
 			var k = searchSQL.length;
 			while(k--) {
-			//for (var k = 0, lenn = searchSQL.length; k < lenn; k++) {
 				if (dato[z].term.indexOf(searchSQL[k]) != -1 && keyJunk == 0) {
-					keyScore = keyScore + Math.abs(dato[z].term.match(searchSQL[k]).index);
+					keyScore = keyScore + dato[z].term.match(searchSQL[k]).index;
 				} else {
 					keyJunk = 1;
 				}
 			}
 			if (keyJunk == 0) {
 				mi.push({
-					id : keyScore,
+					id : keyScore + (dato[z].term.length/100),
 					value : dato[z]
 				});
+				
 			}
 		}
 	}
@@ -828,7 +826,7 @@ function searchFood(searchSQL, callback) {
 	mi = mi.sortbyattr('id');
 
 	var mou = [];
-	for (var u = 0, lenu = mi.length; u < 90; u++) {
+	for (var u = 0, lenu = mi.length; u < 100; u++) {
 		if (mi[u]) {
 			mou.push(mi[u].value);
 		}

@@ -2,13 +2,27 @@
 ## VERSION LOG ##
 #################
 -- use JSON for synchronization data
--- dar um valor menor para matches curtas (apfel, single word should the the first)
+-- do remote cache only after cache-done event (web version)
+-- favs and custonms livesearch on diary
+-- opcao 50 100 500 resultados ~ * p tudo
+-- opcao de 100, 200, 500 ou 1s de refreesh
+-- detectar o sync vindo de outro pc, pingando o last push
+-- icone d emudar categoria, ou espeficiar busca?
+-- food/exercide unify (to allow number of matches?)
+-- 
+-- 
+-- 
+-- 
+-- 
+-- 
 -- 
 -- 
 -- 
 
 # 1.8 [2014/12/12]
-• Protection against failed downloads
+• Protection against failed downloads (set to retry)
+• Shorter names rate slightly higher on search results (other things being equal)
+• Fixed issue where custom items with empty names would not be deletable
 
 # 1.7 [2014/12/12]
 • Faster start-up time

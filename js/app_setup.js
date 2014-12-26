@@ -859,7 +859,7 @@ function delFood(foodId, callback) {
 	var rowsArray = [];
 	for(var i=0, len=rowsFood.length; i<len; i++) {
 		if(rowsFood[i]) {
-			if(rowsFood[i].id !== foodId) {
+			if(!foodId.contains(rowsFood[i].id)) {
 				rowsArray.push(rowsFood[i]);
 			}
 		}

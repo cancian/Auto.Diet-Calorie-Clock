@@ -63,9 +63,7 @@
     <preference name="SuppressesIncrementalRendering"    value="true" />
     <preference name="TopActivityIndicator"              value="gray" />
 	<preference name="SplashScreenDelay"                 value="0" />
-	<!--<preference name="UIWebViewDecelerationSpeed"        value="fast" />-->
     <!-- Preferences for iOS -->
-
 
     <!-- Preferences for BB10 -->
 	<feature name="Notification" value="Notification"/>	
@@ -76,11 +74,11 @@
 	<preference name="PopupBlocker" value="disable"/>
 	<preference name="WebSecurity" value="disable"/>
 	<preference name="AutoHideSplashScreen" value="true"/>
-
-	<icon src="/icon.png" />
-	
     <!-- Preferences for BB10 -->
-
+	
+    <!-- Preferences for UBUNTU -->
+	<icon src="icon.png" />
+    <!-- Preferences for UBUNTU -->
 
 	<feature name="LocalStorage">
 		<param name="ios-package" value="CDVLocalStorage" />
