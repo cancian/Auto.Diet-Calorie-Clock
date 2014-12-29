@@ -1,6 +1,7 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+-- new circle screenshots
 -- use JSON for synchronization data
 -- do remote cache only after cache-done event (web version)
 -- favs and custonms livesearch on diary
@@ -9,8 +10,8 @@
 -- detectar o sync vindo de outro pc, pingando o last push
 -- icone d emudar categoria, ou espeficiar busca?
 -- food/exercide unify (to allow number of matches?)
--- 
--- 
+-- auto share my custom foods
+-- profile tab with weight loss tracking
 -- 
 -- 
 -- 
@@ -19,10 +20,11 @@
 -- 
 -- 
 
-# 1.8 [2014/12/12]
+# 1.8 [2014/12/27]
 • Protection against failed downloads (set to retry)
 • Shorter names rate slightly higher on search results (other things being equal)
 • Fixed issue where custom items with empty names would not be deletable
+• Added a few info boxes to help users get started
 
 # 1.7 [2014/12/12]
 • Faster start-up time

@@ -154,7 +154,7 @@ app.device = {
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
-	linux      : (/X11/i).test(navigator.userAgent) && (/Linux/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) && !app.http ? true : false,
+	linux      : (/X11/i).test(navigator.userAgent) && (/Linux/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) ? true : false,
 	wp81       : (/Windows Phone 8.1/i).test(app.ua) ? true : false,
 	wp81JS     : (/Windows Phone 8.1/i).test(app.ua) && (/MSApp/i).test(app.ua) ? true : false,
@@ -167,7 +167,7 @@ app.device = {
 	chromeos   : app.get.isChromeApp() ? true : false,
 	blackberry : ((/Android/i).test(app.ua) && (/(BB10|BlackBerry|All Touch|10\.)/i).test(app.ua)) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
-	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch && !(/X11|Linux/i).test(app.ua)) ) ? false : true,
+	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch) ) ? false : true,
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
@@ -277,6 +277,7 @@ app.info = function (title, msg, preHandler, postHandler) {
 	if (app.read('info_' + title)) {
 		return;
 	}
+	$('#screenInfo').remove();
 	/////////////////
 	// INSERT HTML //
 	/////////////////
@@ -312,7 +313,6 @@ app.info = function (title, msg, preHandler, postHandler) {
 	/////////////////
 	setTimeout(function () {
 		$('#closeButton').on(touchend, function (evt) {
-
 			app.save('info_' + title, true);
 			app.handlers.fade(0, '#screenInfo');
 			if (typeof postHandler === 'function') {
@@ -1023,9 +1023,9 @@ function hasTouch() {
 }
 var varHasTap = (('ontouchstart' in document) || ('ontouchstart' in window));
 function hasTap() {
-	if(app.device.linux) {
-		return varHasTap ? false : true;
-	}
+	//if(app.device.linux) {
+	//	return varHasTap ? false : true;
+	//}
 	return varHasTap;
 }
 var touchstart = hasTap() ? 'touchstart' : 'mousedown';

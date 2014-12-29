@@ -975,6 +975,9 @@ function updateCustomList(filter,callback) {
 //##    CORE: BUILD FOOD LAYER   ##//
 //##/////////////////////////////##//
 function buildFoodMenu() {
+	
+	
+	
 	var recentBlock = '\
 		<div id="infoContents" class="infoContents">\
 		<div id="tabMyCats">\
@@ -1006,7 +1009,7 @@ function buildFoodMenu() {
 			});
 		},200);
 	} else {
-		updateCustomList('all');	
+		updateCustomList('all');
 	}
 	/////////////////////
 	// FIRST LOAD TABS //
@@ -1062,6 +1065,10 @@ function buildFoodMenu() {
 		niceResizer(0);
 		return false;
 	});
+	//TYPE FOOD
+	setTimeout(function() {
+		app.info('type_food',LANG.TYPE_FOOD[lang]);
+	},450);
 }
 //##//////////////////////////##//
 //##    CORE: ADD NEW ITEM    ##//

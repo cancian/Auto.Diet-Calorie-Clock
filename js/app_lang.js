@@ -1,5 +1,5 @@
 ﻿var appName = 'KCals';
-var appVersion = '1.8 (18000)';
+var appVersion = '1.8 (18001)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|zh|zt/;
@@ -351,6 +351,33 @@ var LANG = {
 		tr : 'Kapatmak',
 		zh : '关闭',
 		zt : '關閉'
+	},
+	TYPE_FOOD : {
+		en : 'Type the food name, or browse the categories.',
+		pt : 'Digite o nome do alimento, ou navegue nas categorias.',
+		ar : 'اكتب اسم الغذاء، أو تصفح الفئات.',
+		bg : 'Въведете името на храните, или разглеждате каталога.',
+		cs : 'Zadejte název potravin, nebo procházet kategorie.',
+		da : 'Skriv navnet mad, eller gennemse kategorier.',
+		de : 'Geben Sie den Namen des Lebensmittels, oder durchsuchen die Kategorien.',
+		el : 'Πληκτρολογήστε το όνομα των τροφίμων, ή περιηγηθείτε στις κατηγορίες.',
+		es : 'Escriba el nombre del alimento, o navega por las categorías.',
+		fi : 'Kirjoita ruokaa nimi, tai selata luokkia.',
+		fr : 'Tapez le nom de l’aliment, ou parcourez les catégories.',
+		hu : 'Írja be az élelmiszer nevét, vagy böngésszen a kategóriákban.',
+		it : 'Digitare il nome di cibo, o sfogliare le categorie.',
+		id : 'Ketik nama makanan, atau menelusuri kategori.',
+		ja : '食品の名前を入力します、またはカテゴリをブラウズ。',
+		ko : '음식 이름을 입력합니다, 또는 카테고리 검색.',
+		nl : 'Typ de naam van voedsel, of browse de categorieën.',
+		nb : 'Skriv inn mat navnet, eller bla gjennom kategorier.',
+		pl : 'Wpisz nazwę żywności, lub przejrzyj kategorie.',
+		ro : 'Tastați numele alimente, sau naviga pe categorii.',
+		ru : 'Введите имя продовольствия, или просмотреть категорий.',
+		sv : 'Skriv livsmedelsnamn, eller bläddra i kategorierna.',
+		tr : 'Gıda adını yazın, ya da kategorileri göz atın.',
+		zh : '輸入食品名稱，或瀏覽的類別。',
+		zt : '輸入食品名稱，或瀏覽的類別。'
 	},
 	SWIPE_LEFT : {
 		en : 'Swipe left to edit existing entries.',

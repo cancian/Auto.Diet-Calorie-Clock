@@ -1611,6 +1611,21 @@ var profileHtml = '\
 preTab(keepOpen);
 $('#appContent').html(profileHtml);
 afterTab(keepOpen);
+/*
+<div id="globalProfile">\
+<div id="globalProfileCircle">\
+<div id="globalProfileStatus"></div>\
+</div>\
+<div id="globalProfileBlock">\
+<div id="globalProfileAdjust">\
+<input id="globalProfileValue" type="text" />\
+</div>\
+</div>\
+<div id="globalProfileGoal"></div>\
+<div id="globalProfileTarget"></div>\
+</div>\
+*/
+//app.handlers.addRemove('#globalProfileValue',0,999);
 //app.handlers.addRemove('#pA3B',0,9999);
 //app.handlers.addRemove('#pA6M',0,999);
 //////////////////////////

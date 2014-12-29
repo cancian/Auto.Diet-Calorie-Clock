@@ -827,6 +827,97 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 #calcForm input:active,
 #calcForm select:focus,
 #calcForm select:active					{ color: #0072BC; }
+/*/////////////////
+// gobal profile //
+/////////////////*/
+/*
+#globalProfile			{
+	position: relative;
+	display: block; 
+	width: 100%;
+	height: 300px;
+	background-color: #fff;
+}
+
+#globalProfileStatus	{ }
+
+#globalProfileAdjust	{
+
+position: absolute; top: 0; left: 0; width: 33.3%;
+text-align: center;
+font-size: 16px;
+line-height: 32px;
+white-space: nowrap;
+background-color: #f5f5f5; color: #007aff;
+
+}
+
+#globalProfileBlock {}
+#globalProfileAdjust {}
+#globalProfileValue {}
+
+
+#globalProfileAdjust {  }
+#globalProfileStatus {  
+}
+
+
+#globalProfileValue {
+	
+background-color: rgba(255,255,255,0) !important;
+border: 0px solid #007aff !important;
+display: inline-block;	
+position: absolute; 
+top: 125px;
+right: 50%;
+width: 100px !important;
+margin-right: -46px !important;
+text-align: center !important;
+font-size: 24px !important;
+color: #000;
+z-index: 0;
+border-radius: 100px;
+}
+
+#globalProfileValueNeg {
+position: absolute;
+top: 122px; right: 50%;	
+margin-right: 100px;
+font-size: 54px;
+}
+#globalProfileValuePos {
+position: absolute;
+top: 122px; left: 50%;
+margin-left: 100px;
+font-size: 54px;
+}
+#globalProfileValueNeg:before {
+content: '\F010';
+}
+#globalProfileValuePos:before {
+content: '\F020';
+}
+
+#globalProfileCircle {
+position: absolute;
+top: 50px;
+left: 50%;
+margin-left: -100px;
+width: 200px;
+height: 200px;
+border: 2px solid #f5f5f5;
+background-color: #fff;
+border-radius: 100px;
+overflow: hidden;
+}
+
+#globalProfileStatus:before {  }
+#globalProfileStatus:after	{ }
+#globalProfileStatus		{}
+#globalProfileGoal			{  }
+#globalProfileTarget		{  }
+
+*/
 /*##############################
 ####    BUILD: APP DIARY    ####
 ##############################*/
@@ -1450,11 +1541,15 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 #zoomx3:before				{ content: 'x3'; }
 /*SCREEN INFO*/
 #screenInfo,
-#screenInfo *					{ -webkit-backface-visibility: hidden; }
-#screenInfo						{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; background-color: rgba(0,0,0,.4); -webkit-transform: translate3d(0, 0, 0); }
-#screenInfo #circleFocus		{ position: absolute; top: -124px; left: -54px; width: 230px; height: 230px; background-color: rgba(255,255,255,.32); display: block; border-radius: 500px; -webkit-box-shadow: 0 0px 50px rgba(0, 0, 0,.6) } 
-#screenInfo #closeButton		{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); }
-#screenInfo #textBlock			{ position: absolute; top: 142px; left: 25px; right: 25px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
-.tab2 #screenInfo #circleFocus	{ position: absolute; top: 220px; right: 80px; left: auto; }
-.tab2 #screenInfo:before  		{ font-family: kcals; content: '\C099'; position: absolute; top: 232px; right: 90px; padding: 50px; display: block; color: #fff;  font-size: 120px; -webkit-transform: scaleX(-1); }
+#screenInfo *								{ -webkit-backface-visibility: hidden; }
+#screenInfo									{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; background-color: rgba(0,0,0,.4); -webkit-transform: translate3d(0, 0, 0); }
+#screenInfo #circleFocus					{ position: absolute; top: -124px; left: -54px; width: 230px; height: 230px; background-color: rgba(255,255,255,.32); display: block; border-radius: 500px; -webkit-box-shadow: 0 0px 50px rgba(0, 0, 0,.6) } 
+#screenInfo #closeButton					{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); }
+#screenInfo #textBlock						{ position: absolute; top: 142px; left: 25px; right: 25px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
+/*swipe left*/
+#screenInfo.info_swipe_left #circleFocus	{ position: absolute; top: 220px; right: 80px; left: auto; }
+#screenInfo.info_swipe_left:before  		{ font-family: kcals; content: '\C099'; position: absolute; top: 232px; right: 90px; padding: 50px; display: block; color: #fff;  font-size: 120px; -webkit-transform: scaleX(-1); }
+/*type food*/
+#screenInfo.info_type_food #circleFocus		{ top: -25px; left: 12px; }
+#screenInfo.info_type_food #textBlock		{ top: 237px; left: 25px; }
 
