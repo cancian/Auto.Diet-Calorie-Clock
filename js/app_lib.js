@@ -1001,7 +1001,7 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 //# TOUCH ? CLICK #//
 //#///////////////#//
 function isCordova() {
-	return isMobileCordova; //(typeof cordova != 'undefined') || (typeof Cordova != 'undefined');
+	return isMobileCordova;
 }
 function getAndroidVersion() {
 	if((/Android/i).test(userAgent) && !app.http) {

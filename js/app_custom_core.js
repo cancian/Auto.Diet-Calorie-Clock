@@ -273,9 +273,14 @@ function cyclicTimeToKcals(startTime) {
 //#///////////////////#//
 //# UPDATE NUTRI BARS #//
 //#///////////////////#//
-function updateNutriBars(tPro,tCar,tFat) {
-	if(!app.read('app_last_tab','tab1')) { return; }
-	if(!$('#appStatusBars').length)		 { return; }
+function updateNutriBars() {
+	if(!app.read('app_last_tab','tab1'))	{ return; }
+	if(!$('#appStatusBars').length)			{ return; }
+	
+	var tPro = app.read('tPro');
+	var tCar = app.read('tCar');
+	var tFat = app.read('tFat');
+	//
 	//ratio by	
 	var ratioBy = app.read('appRatioBy','g') ? 4 : 9;
 	//total calories

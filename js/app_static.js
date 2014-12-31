@@ -184,7 +184,6 @@ $.each(LANG.LANGUAGE,function(k,v) {
 });
 $('body').html(keyDump.toLowerCase());
 */
-
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -227,20 +226,20 @@ afterTab = function(keepOpen) {
 	}, 1000);
 };
 appFooter = function (id,keepOpen,callback) {
-	if(app.now() - lastTab < 300) { lastTab = app.now(); return; }
+	if(app.now() - lastTab < 275) { lastTab = app.now(); return; }
 	lastTab = app.now();
 	var tabId = id;
 	$('#appFooter li').removeClass('selected');
 	app.save('app_last_tab',tabId);
 	$('#' + tabId).addClass('selected');
 	//ACTION
-	if(tabId == 'tab1') { app.tab.status(keepOpen);   }
-	if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
-	if(tabId == 'tab3') { app.tab.profile(keepOpen);  }
-	if(tabId == 'tab4') { app.tab.settings(keepOpen); }
+	     if(tabId == 'tab1') { app.tab.status(keepOpen);   }
+	else if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
+	else if(tabId == 'tab3') { app.tab.profile(keepOpen);  }
+	else if(tabId == 'tab4') { app.tab.settings(keepOpen); }
 	$('body').removeClass('tab1 tab2 tab3 tab4 newwindow');
 	$('body').addClass(tabId);
-	if(callback) {
+	if(typeof callback === 'function') {
 		setTimeout(function() {
 			callback();
 		},0);

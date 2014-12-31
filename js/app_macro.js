@@ -172,7 +172,7 @@ function getFullHistory() {
 							name : LANG.KCAL[lang],
 							animation : false,
 							lineColor : '#317FD8',
-							fillColor : '#f2f2f2',
+							fillColor : '#EAF3FB',
 							data : dayArray.sort()
 						}
 					]
@@ -803,7 +803,11 @@ function updateTodayOverview(fullWindow) {
 	// CALL HIGHCHARTS //
 	/////////////////////`
 	if (fullWindow == 1) {
-		getNewWindow(LANG.TODAY[lang].capitalize(), '<div id="totalChartWrapper"><div id="totalChart"></div></div>', function () {
+		getNewWindow(LANG.TODAY[lang].capitalize(), '\
+			<div id="totalChartWrapper">\
+				<div id="circlePercentInner">' + today.percent + '%</div>\
+				<div id="totalChart"></div>\
+			</div>', function () {
 			if($('#totalChart').length) {
 				$('#totalChart').highcharts(pieOptions);
 			}

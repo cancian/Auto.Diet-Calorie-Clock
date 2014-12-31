@@ -295,24 +295,15 @@ app.tab.status = function(keepOpen) {
 	preTab(keepOpen);
 	$('#appContent').html(statusHtml);
 	afterTab(keepOpen);
-	////////////////
-	// PRE CONFIG //
-	////////////////
-	//ELAPSED
-	getElapsed();
-	//BALANCE
-	balanceMeter(timerKcals);	
-	//INTAKE
-	$('#appStatusIntake div').css('padding-top', '0px');
-	//
-	intakeHistory();
-	//NUTRI
-	updateNutriBars(app.read('tPro'),app.read('tCar'),app.read('tFat'));
 	//#//////////#//
 	//# HANDLERS #//
 	//#//////////#//
-	//TODAY
+	//PRE
+	getElapsed();
+	updateNutriBars();
+	balanceMeter(timerKcals);
 	updateTodayOverview();
+	intakeHistory();
 	//////////////////
 	// ELAPSED SWAP //
 	//////////////////
