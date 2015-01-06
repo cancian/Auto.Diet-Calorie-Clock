@@ -1,2 +1,0 @@
-﻿• Automaatne kaal / kõrgus ümberarvutamist kui mõõtesüsteem on muutunud 
-• Tänane ülevaade ei sisalda enam aegunud kanded

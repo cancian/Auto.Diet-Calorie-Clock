@@ -1,2 +1,0 @@
-﻿• Tự động cân nặng / chiều cao tính toán lại khi hệ thống đo lường được thay đổi 
-• Hôm nay của tổng quan không còn bao gồm các mục đã hết hạn

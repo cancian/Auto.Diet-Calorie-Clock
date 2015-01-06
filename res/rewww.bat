@@ -1,8 +1,13 @@
 echo wwwing...
 
-RD /S /Q K:\platforms\android\kcals\src\main\assets\www
-MKDIR K:\platforms\android\kcals\src\main\assets\www
+RD /S /Q K:\platforms\android-gradle\kcals\src\main\assets\www
+MKDIR K:\platforms\android-gradle\kcals\src\main\assets\www
 cd K:\platforms\android\kcals\src\main\assets\www
+call reswww
+
+RD /S /Q K:\platforms\android\assets\www
+MKDIR K:\platforms\android\assets\www
+cd K:\platforms\android\assets\www
 call reswww
 
 RD /S /Q K:\platforms\ios\www
@@ -25,11 +30,13 @@ MKDIR K:\platforms\wp8\www
 cd K:\platforms\wp8\www
 call reswww
 
-del /q K:\platforms\android\kcals\src\main\res\xml\config.xml
+del /q K:\platforms\android-gradle\kcals\src\main\res\xml\config.xml
+del /q K:\platforms\android-eclipse\res\xml\config.xml
 del /q K:\platforms\ios\KCals\config.xml
 del /q K:\platforms\windows8\config.xml
 del /q K:\platforms\wp8\config.xml
-mklink /h K:\platforms\android\kcals\src\main\res\xml\config.xml k:\www\config.xml
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\xml\config.xml k:\www\config.xml
+mklink /h K:\platforms\android-eclipse\res\xml\config.xml k:\www\config.xml
 mklink /h K:\platforms\ios\KCals\config.xml k:\www\config.xml
 mklink /h K:\platforms\windows8\config.xml k:\www\config.xml
 mklink /h K:\platforms\wp8\config.xml k:\www\config.xml
@@ -113,20 +120,32 @@ mklink /j /d K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset K:\www\re
 RD /S /Q K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset
 mklink /j /d K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset K:\www\res\icon\osx\AppIcon.appiconset
 
-del /q K:\platforms\android\kcals\src\main\res\drawable\icon.png
-del /q K:\platforms\android\kcals\src\main\res\drawable-hdpi\icon.png
-del /q K:\platforms\android\kcals\src\main\res\drawable-mdpi\icon.png
-del /q K:\platforms\android\kcals\src\main\res\drawable-ldpi\icon.png
-del /q K:\platforms\android\kcals\src\main\res\drawable-xxhdpi\icon.png 
-del /q K:\platforms\android\kcals\src\main\res\drawable-xhdpi\icon.png
-mklink /h K:\platforms\android\kcals\src\main\res\drawable\icon.png K:\www\res\icon\android\144.png
-mklink /h K:\platforms\android\kcals\src\main\res\drawable-xhdpi\icon.png K:\www\res\icon\android\96.png
-mklink /h K:\platforms\android\kcals\src\main\res\drawable-hdpi\icon.png K:\www\res\icon\android\72.png
-mklink /h K:\platforms\android\kcals\src\main\res\drawable-mdpi\icon.png K:\www\res\icon\android\48.png
-mklink /h K:\platforms\android\kcals\src\main\res\drawable-ldpi\icon.png K:\www\res\icon\android\36.png
-mklink /h K:\platforms\android\kcals\src\main\res\drawable-xxhdpi\icon.png K:\www\res\icon\android\144.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-ldpi\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-mdpi\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-hdpi\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-xhdpi\icon.png
+del /q K:\platforms\android-gradle\kcals\src\main\res\drawable-xxhdpi\icon.png 
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable\icon.png K:\www\res\icon\android\144.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-ldpi\icon.png K:\www\res\icon\android\36.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-mdpi\icon.png K:\www\res\icon\android\48.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-hdpi\icon.png K:\www\res\icon\android\72.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-xhdpi\icon.png K:\www\res\icon\android\96.png
+mklink /h K:\platforms\android-gradle\kcals\src\main\res\drawable-xxhdpi\icon.png K:\www\res\icon\android\144.png
 
 
+del /q K:\platforms\android-eclipse\res\drawable\icon.png
+del /q K:\platforms\android-eclipse\res\drawable-ldpi\icon.png
+del /q K:\platforms\android-eclipse\res\drawable-mdpi\icon.png
+del /q K:\platforms\android-eclipse\res\drawable-hdpi\icon.png
+del /q K:\platforms\android-eclipse\res\drawable-xhdpi\icon.png
+del /q K:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
+mklink /h K:\platforms\android-eclipse\res\drawable\icon.png K:\www\res\icon\android\144.png
+mklink /h K:\platforms\android-eclipse\res\drawable-ldpi\icon.png K:\www\res\icon\android\36.png
+mklink /h K:\platforms\android-eclipse\res\drawable-mdpi\icon.png K:\www\res\icon\android\48.png
+mklink /h K:\platforms\android-eclipse\res\drawable-hdpi\icon.png K:\www\res\icon\android\72.png
+mklink /h K:\platforms\android-eclipse\res\drawable-xhdpi\icon.png K:\www\res\icon\android\96.png
+mklink /h K:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png K:\www\res\icon\android\144.png
 
 K:\[bin]\embed K:\www\css\kcals.ttf
 

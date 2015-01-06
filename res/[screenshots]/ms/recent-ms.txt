@@ -1,2 +1,0 @@
-﻿• Automatik pengiraan semula berat badan / ketinggian apabila sistem pengukuran yang ditukar 
-• Gambaran keseluruhan hari ini tidak lagi termasuk penyertaan tamat tempoh
