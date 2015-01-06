@@ -1,12 +1,13 @@
 <html>
 <head>
 <script>
-var day = (new Date().getDate());
-if(day <= 9) { day = '0' + day; }
-var today = (new Date().getFullYear()) + '' + (new Date().getMonth()+1) + '' + day;
+var day   = new Date().getDate();
+var month = new Date().getMonth()+1;
+if(day <= 9)   { day   = '0' + day;   }
+if(month <= 9) { month = '0' + month; }
+var today = (new Date().getFullYear()) + '' + month + '' + day;
 var goto = 'https://www.google.com/analytics/web/?authuser=0#report/content-event-events/a46450510w78556339p81224546/%3F_u.date00%3DXXX%26_u.date01%3DXXX%26explorer-segmentExplorer.segmentId%3Danalytics.eventAction%26explorer-table.plotKeys%3D%5B%5D/';
 window.location = goto.split('XXX').join(today);
 </script>
 </head>
-
 </html>

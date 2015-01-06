@@ -274,7 +274,8 @@ app.zoom = function(ratio) {
 // APP.INFO() //
 ////////////////
 app.info = function (title, msg, preHandler, postHandler) {
-	if (app.read('info_' + title)) {
+	if($('#skipIntro').length) { return; }
+	if (app.read('info_' + title) && !app.dev) {
 		return;
 	}
 	$('#screenInfo').remove();
@@ -364,7 +365,7 @@ app.url = function(url) {
 		windows8:   app.device.windows8 ? 'ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e' : 'http://apps.microsoft.com/windows/app/27631189-ce9d-444e-a46b-31b8f294f14e',
 		firefoxos:  'https://marketplace.firefox.com/app/kcals',
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
-		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc',
+		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc/reviews',
 		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'http://appworld.blackberry.com/webstore/content/59937667',
 		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533',
 	};
@@ -982,6 +983,7 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 			dataType : "text",
 			success : function (dataCSS) {
 				if(vendorClass == 'moz') {
+					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 					dataCSS = dataCSS.split('-webkit-').join('-moz-');
 				}
 				if(vendorClass == 'msie') {

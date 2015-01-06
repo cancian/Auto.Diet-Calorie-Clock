@@ -269,6 +269,9 @@ body.android ::-webkit-scrollbar{ display: none; }
 #gettingStarted span#balanced,
 #gettingStarted span#surplus			{ font-size: 16px; line-height: 16px; }
 }
+@media all and (max-height: 438px) {
+	#appStatusBars		{ display: none !important; }
+}
 /*#################################
 ####    BUILD: APP SETTINGS    ####
 #################################*/
@@ -609,9 +612,13 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 .cyclic #appStatusBlock2 #circlePercentInner,
 .cyclic #appStatusBlock2 #circlePercent	{ top: 1px; }
 #appStatusBlock2 #circlePercentInner	{ position: absolute; top: 5px; left: 5px; width: 59px; height: 60px; display: block; text-align: center; font-size: 12px; line-height: 54px; color: #999; z-index: 2; }
-#totalChartWrapper #circlePercentInner	{ position: absolute; left: 0; right: 0; text-align: center; top: 115px; font-size: 24px; line-height: 24px; font-weight: 400; color: #bababa; z-index: 2; }
-.ios7 #totalChartWrapper #circlePercentInner	{ top: 130px; }
+#totalChartWrapper #circlePercentInner			{ top: 115px; position: absolute; left: 0; right: 0; text-align: center; font-size: 24px; line-height: 24px; font-weight: 400; color: #bababa; z-index: 2; }
+.osxapp #totalChartWrapper #circlePercentInner,
+.android #totalChartWrapper #circlePercentInner,
+.ios #totalChartWrapper #circlePercentInner		{ top: 130px; }
 .msie #totalChartWrapper #circlePercentInner	{ top: 96px; }
+
+
 #totalChartWrapper						{ width: 100%; text-align: center; }
 #totalChart								{ margin: 0 auto; display: inline-block; width: 280px; overflow: hidden; }
 #circlePercent,
@@ -619,8 +626,9 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 .highcharts-legend-item					{ pointer-events: none; }
 #totalConsumed							{ margin: 0 0 0 50%; padding-top: 13px; padding-left: 0; display: block; text-align: left; font-size: 22px; line-height: 22px; color: #2f7ed8; }
 .cyclic #totalConsumed					{ padding-top: 9px;	}
-#totalIntake							{ margin: 0 0 0 50%; padding-top: 0; padding-left: 0; display: block; text-align: left; font-size: 11px; line-height: 14px; color: #999; }
-#totalIntake span						{ font-weight: bold; color: #777; }
+#totalIntake							{ margin: 0 0 0 50%; padding-top: 0; padding-left: 0; display: block; text-align: left; font-size: 11px; line-height: 14px; color: #999; white-space: nowrap; }
+.appLang-ja #totalIntake				{ font-size: 9px; }
+#totalIntake span						{ font-weight: bold; color: #c30; }
 #todayInfo								{ position: absolute; top: 0; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #bbb; z-index: 3; }
 #todayInfo:after						{ font-family: KCals; content: '\A176'; padding-top: 1px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; }
 .cyclic #todayInfo						{ color: #007aff; }
@@ -1065,10 +1073,10 @@ span.delete.open			{ display: inline-block; -webkit-transition-timing-function: 
 /*buttons*/
 span.delete #reuse,
 span.delete #edit,
-span.delete #delete			{ font-size: 24px; position: absolute; top: 0; width: 60px; height: 44px; color: #007aff; background-color: rgba(255,255,255,.75); text-align: center; line-height: 46px; z-index: 1; }
+span.delete #delete			{ font-size: 24px; position: absolute; top: 0; width: 60px; height: 44px; color: #007aff; background-color: rgba(255,255,255,.7); text-align: center; line-height: 46px; z-index: 1; }
 span.delete #reuse			{ left: -180px; top: 0; }
-span.delete #edit			{ left: -123px; top: 0; }
-span.delete #delete			{ left: -67px;  top: 0; color: #FF3B30; }
+span.delete #edit			{ left: -120px; top: 0; }
+span.delete #delete			{ left: -60px;  top: 0; color: #FF3B30; }
 span.delete #reuse:before	{ content: '\f099'; font-family: KCals; font-size: 30px; display: block; padding-top: 1px; }
 span.delete #edit:before	{ content: '\f040'; font-family: KCals; font-size: 26px; display: block; padding-top: 1px; }
 span.delete #delete:before	{ content: '\f014'; font-family: KCals; font-size: 26px; display: block; }
@@ -1587,16 +1595,39 @@ body.ios7 span#timerExercise:after	{ bottom: 2px; }
 /*SCREEN INFO*/
 #screenInfo,
 #screenInfo *									{ -webkit-backface-visibility: hidden; }
-#screenInfo										{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; background-color: rgba(0,0,0,.4); -webkit-transform: translate3d(0, 0, 0); }
-#screenInfo #circleFocus						{ position: absolute; top: -124px; left: -54px; width: 230px; height: 230px; background-color: rgba(255,255,255,.32); display: block; border-radius: 500px; -webkit-box-shadow: 0 0px 50px rgba(0, 0, 0,.6) } 
+#screenInfo										{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; -webkit-transform: translate3d(0, 0, 0); }
+#screenInfo #circleFocus						{ position:absolute; top: 0; left: 0; right: 0; bottom: 0; overflow:hidden;  display: block; }
+#screenInfo #circleFocus:before,
+#screenInfo #circleFocus:after					{ content:''; position: absolute; border-radius: 900px; top: -124px; left: -54px; width: 230px; height: 230px; -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); }
+/*tweaks*/
+.ios #screenInfo #circleFocus:before,
+.ios #screenInfo #circleFocus:after,
+.android2 #screenInfo #circleFocus:before,
+.android2 #screenInfo #circleFocus:after		{ -webkit-box-shadow: 0 0 9000px 9000px rgba(0, 0, 0,.4); }
+.webkit.desktop #screenInfo #circleFocus:before,
+.webkit.desktop #screenInfo #circleFocus:after	{ -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.6); }
+/*text~shadow*/
+#screenInfo #circleFocus:before					{ -webkit-box-shadow: 0 0 50px 0px rgba(0, 0, 0,.4) !important; }
 #screenInfo #closeButton						{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); }
-#screenInfo #textBlock							{ position: absolute; top: 142px; left: 25px; right: 25px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
+#screenInfo #textBlock							{ position: absolute; top: 142px; left: 25px; right: 20px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
 /*swipe left*/
-#screenInfo.info_swipe_left #circleFocus		{ position: absolute; top: 220px; right: 80px; left: auto; }
-#screenInfo.info_swipe_left:before  			{ font-family: kcals; content: '\C099'; position: absolute; top: 232px; right: 90px; padding: 50px; display: block; color: #fff;  font-size: 120px; -webkit-transform: scaleX(-1); }
+#screenInfo.info_swipe_left #textBlock			{ top: 74px; }
+#screenInfo.info_swipe_left #circleFocus:before,
+#screenInfo.info_swipe_left #circleFocus:after	{ position: absolute; top: 220px !important; right: 80px!important; left: auto !important; }
+#screenInfo.info_swipe_left:before  			{ font-family: kcals; content: '\C099'; position: absolute; top: 232px; right: 96px; padding: 50px; display: block; color: #4285F4; font-size: 120px; -webkit-transform: scaleX(-1); }
+
 /*type food*/
-#screenInfo.info_type_food #circleFocus			{ top: -25px; left: 12px; }
-#screenInfo.info_type_food #textBlock			{ top: 230px; left: 25px; }
-.ios7 #screenInfo.info_type_food #circleFocus	{ top: -5px;  }
-.ios7 #screenInfo.info_type_food #textBlock		{ top: 240px; }
+#screenInfo.info_type_food #circleFocus:before,
+#screenInfo.info_type_food #circleFocus:after				{ top: -25px !important; left: 12px !important; }
+#screenInfo.info_type_food #textBlock						{ top: 230px; left: 25px; }
+.ios7 #screenInfo.info_type_food #circleFocus:before,
+.ios7 #screenInfo.info_type_food #circleFocus:after			{ top: -5px !important;  }
+.ios7 #screenInfo.info_type_food #textBlock					{ top: 240px; }
+/*known foods*/
+#screenInfo.info_slider_quick_add #circleFocus:before,
+#screenInfo.info_slider_quick_add #circleFocus:after		{ top: -15px !important; left: 50% !important; margin-left: -97px !important; width: 200px !important; height: 200px !important; }
+#screenInfo.info_slider_quick_add #textBlock				{ top: 220px; font-size: 20px; }
+.ios7 #screenInfo.info_slider_quick_add #circleFocus:before,
+.ios7 #screenInfo.info_slider_quick_add #circleFocus:after	{ top: 5px !important; }
+.ios7 #screenInfo.info_slider_quick_add #textBlock			{ top: 230px; }
 

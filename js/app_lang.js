@@ -1,5 +1,5 @@
 ﻿var appName = 'KCals';
-var appVersion = '1.8 (18001)';
+var appVersion = '1.8.1 (18102)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|zh|zt/;
@@ -352,6 +352,33 @@ var LANG = {
 		zh : '关闭',
 		zt : '關閉'
 	},
+	SLIDER_QUICK_ADD : {
+		'en' : 'Use the slider to quickly add known foods and exercises.',
+		'pt' : 'Ao adicionar alimentos e exercícios que você já conhece, é mais rápido usar o slider.',
+		'ar' : 'استخدم شريط التمرير لإضافة بسرعة الأطعمة المعروفة والتدريبات.',
+		'bg' : 'Използвайте плъзгача за да добавите бързо познатите храни и упражнения.',
+		'cs' : 'Pomocí posuvníku rychle přidat známých potravin a cvičení.',
+		'da' : 'Brug skyderen til hurtigt at tilføje kendte fødevarer og øvelser.',
+		'de' : 'Beim Hinzufügen von Lebensmitteln und Übungen die Sie bereits wissen, ist es schneller den Schieberegler verwenden.',
+		'el' : 'Κατά την προσθήκη γνωστά τρόφιμα / ασκήσεις, είναι γρηγορότερο να χρησιμοποιήσετε το ρυθμιστικό.',
+		'es' : 'Utilice el control deslizante para añadir rápidamente los alimentos y ejercicios conocidos.',
+		'fi' : 'Liukusäätimellä nopeasti lisätä tunnettuja elintarvikkeita ja harjoituksia.',
+		'fr' : 'Utilisez le curseur pour ajouter rapidement des aliments et des exercices connus.',
+		'hu' : 'Használja a csúszkát a gyorsan hozzá ismert élelmiszerek vagy gyakorlatokat.',
+		'it' : 'Quando si aggiungono cibi ed esercizi che conoscete già, è più veloce di utilizzare il dispositivo di scorrimento.',
+		'id' : 'Ketika menambahkan dikenal makanan / latihan, itu lebih cepat untuk menggunakan slider.',
+		'ja' : '知ら食品/演習を追加する場合、それはスライダーを使用する方が速い。',
+		'ko' : '공지 식품 / 운동을 추가 할 때, 슬라이더를 사용하는 것이 더 빠릅니다.',
+		'nl' : 'Gebruik de schuifregelaar snel toevoegen van bekende voedingsmiddelen en oefeningen.',
+		'nb' : 'Bruk glidebryteren til å raskt legge til matvarer og øvelser du allerede vet.',
+		'pl' : 'Za pomocą suwaka można szybko dodać pokarmy i ćwiczenia już wiesz.',
+		'ro' : 'Utilizaţi glisorul pentru a adăuga rapid alimente şi exerciţii ştiţi deja.',
+		'ru' : 'Используйте ползунок, чтобы быстро добавить известные продукты или упражнения.',
+		'sv' : 'Använd reglaget för att snabbt lägga livsmedel och övningar som du redan vet.',
+		'tr' : 'Bilinen gıdalar veya çalışmaları hızla eklemek için kaydırıcıyı kullanın.',
+		'zh' : '使用滑块来快速添加食品和练习你已经知道了。',
+		'zt' : '使用滑塊來快速添加食品和練習你已經知道了。'
+	},
 	TYPE_FOOD : {
 		en : 'Type the food name, or browse the categories.',
 		pt : 'Digite o nome do alimento, ou navegue nas categorias.',
@@ -376,8 +403,8 @@ var LANG = {
 		ru : 'Введите имя продовольствия, или просмотреть категорий.',
 		sv : 'Skriv livsmedelsnamn, eller bläddra i kategorierna.',
 		tr : 'Gıda adını yazın, ya da kategorileri göz atın.',
-		zh : '輸入食品名稱，或瀏覽的類別。',
-		zt : '輸入食品名稱，或瀏覽的類別。'
+		zh : '输入食品名称，或浏览的类别。',
+		zt : '輸入食品名稱，或流覽的類別。'
 	},
 	SWIPE_LEFT : {
 		en : 'Swipe left to edit existing entries.',

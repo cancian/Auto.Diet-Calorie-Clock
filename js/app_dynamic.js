@@ -1067,8 +1067,10 @@ function buildFoodMenu() {
 	});
 	//TYPE FOOD
 	setTimeout(function() {
-		app.info('type_food',LANG.TYPE_FOOD[lang]);
-	},450);
+		setTimeout(function() {
+			app.info('type_food',LANG.TYPE_FOOD[lang]);
+		},250);
+	},250);
 }
 //##//////////////////////////##//
 //##    CORE: ADD NEW ITEM    ##//

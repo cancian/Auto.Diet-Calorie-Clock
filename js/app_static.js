@@ -276,6 +276,21 @@ if(app.device.wp8) {
 		$('html,body').css('position','absolute');
 	});
 }
+/////////////////
+// MENU BUTTON //
+/////////////////
+$(document).on('menubutton', function(evt) {
+		if($('#timerDailyInput').is(':focus') || $('#skipIntro').length) { 
+			$('#timerDailyInput').trigger('blur');
+			return false;
+		}
+		evt.preventDefault();
+		if($('#pageSlideFood').hasClass('busy') || $('#pageSlideFood').hasClass('open') || $('#screenInfo').length) {
+			$(document).trigger('backbutton');
+		} else {
+			$(document).trigger('pageReload');
+		}
+});
 ////////////////////////
 // BACK BUTTON (+ESC) //
 //////////////////////// backclick?
@@ -536,6 +551,9 @@ app.globals.recentResize = 0;
 $(window).on('resize', function(evt) {
 	app.width  = window.innerWidth;
 	app.height = window.innerHeight;
+	if(app.dev) {
+		console.log(app.width + ' x ' + app.height);
+	}
 	app.globals.recentResize = 1;
 	clearTimeout(app.timers.recentResize);
 	app.timers.recentResize = setTimeout(function() {

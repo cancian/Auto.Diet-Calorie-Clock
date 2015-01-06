@@ -21,18 +21,17 @@
 -- 
 
 # 1.8 [2014/12/27]
-• Protection against failed downloads (set to retry)
-• Shorter names rate slightly higher on search results (other things being equal)
+• Better protection against download failure
+• Shorter names rank slightly better on search results (other things being equal)
 • Fixed issue where custom items with empty names would not be deletable
-• Added a few info boxes to help users get started
+• Added a few information boxes to help users get started
 
 # 1.7 [2014/12/12]
 • Faster start-up time
 • The "Getting started" slides are more informative
 • Improved "Today overview" section (tap for detailed statistics)
-• Fixed search issue with non-ascii searches
+• Fixed issue with non-ascii search queries
 • Dropped support for: Thai, Persian, Hindi, Hebrew, Catalan, Estonian, Croatian, Lithuanian, Latvian, Malay, Slovak, Slovenian, Serbian, Ukrainian, Vietnamese
-• A "Swipe to show options" screen is displayed when adding the first diary entry
 
 # 1.6.9 [2014/11/02]
 • Macronutrient average can be calculated by weight (g) or by total calories (kcal)
