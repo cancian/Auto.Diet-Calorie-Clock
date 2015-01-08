@@ -983,7 +983,7 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 			dataType : "text",
 			success : function (dataCSS) {
 				if(vendorClass == 'moz') {
-					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
+					dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 					dataCSS = dataCSS.split('-webkit-').join('-moz-');
 				}
 				if(vendorClass == 'msie') {
@@ -1132,7 +1132,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		if(keyCode == 45 && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
 		if(keyCode == 46 && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
 		//DOT
-		if(keyCode == 46) {
+		if(keyCode == 46 || (keyCode == 190 && app.device.wp8)) {
 			if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) {
 				return false;
 			}
