@@ -86,10 +86,22 @@ var app = {
 		}
 	},
 	clear: function() {
+		var beenDev = app.read('been_dev') ? true : false;
 		app.define('config_install_time',app.now());
 		var installTime = app.read('config_install_time');
+		var jsCache     = app.read('remoteSuperBlockJS');
+		var cssCache    = app.read('remoteSuperBlockCSS');
+		var hashCache   = app.read('app_autoupdate_hash');
 		window.localStorage.clear();
 		app.save('config_install_time',installTime);
+		if(jsCache.length && cssCache.length && hashCache.length) {
+			app.save('remoteSuperBlockJS',jsCache);
+			app.save('remoteSuperBlockCSS',cssCache);
+			app.save('app_autoupdate_hash',hashCache);
+		}
+		if(beenDev == 1) {
+			app.save('been_dev',1);
+		}
 	},
 	show: function(target,callback) {
 		$(target).css('pointer-events','auto');

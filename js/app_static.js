@@ -826,6 +826,9 @@ if(LANG.LANGUAGE[lang] == 'en') {
 // FONT UNLOCKER //
 ///////////////////
 function unlockApp() {
+	if(app.dev) {
+		app.save('been_dev',1);
+	}
 	appResizer(0);
 	//start scrolling
 	setTimeout(function() {

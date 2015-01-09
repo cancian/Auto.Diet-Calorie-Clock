@@ -4,18 +4,6 @@
 ////////////////
 var myScroll;
 function showIntro(isNew) {
-	//INSTALL
-	if(isNew == true) {
-		setTimeout(function() {
-			if(typeof baseVersion !== 'undefined') {
-				if(app.http) {
-					app.analytics('webinstall');
-				} else {
-					app.analytics('install');
-				}
-			}
-		},2000);
-	}
 	//ISCROLL
 	$('#gettingStarted').remove();
 	$('body').append('\
@@ -75,6 +63,18 @@ function showIntro(isNew) {
 			app.handlers.fade(0,'#gettingStarted');
 		}
 		evt.preventDefault();
+		/////////////
+		// INSTALL //
+		/////////////
+		if(isNew == true) {
+		if(typeof baseVersion !== 'undefined') {
+			if(app.http) {
+				app.analytics('webinstall');
+			} else {
+				app.analytics('install');
+			}
+		}
+	}
 	});
 	$('#gettingStarted').on(touchstart,function(evt) {
 		evt.stopPropagation();
@@ -106,7 +106,9 @@ function showIntro(isNew) {
 	// INDICATOR //
 	///////////////
 	$(window).on('resize',function() {
-		$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
+		if($('#indicator').length) {
+			$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
+		}
 	});
 	$(window).trigger('resize');
 	/////////////
@@ -2049,7 +2051,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	//////////////
-	var timeRate = 2 * 24 * 60 * 60 * 1000;
+	var timeRate = 3 * 24 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
@@ -2063,7 +2065,7 @@ function getRateDialog() {
 					app.url();
 				}
 			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-		},4500);
+		},3500);
 	}
 }
 ///////////////////
@@ -2071,9 +2073,10 @@ function getRateDialog() {
 ///////////////////
 app.analytics = function(target) {
 	if(typeof ga_storage === 'undefined')				{ return; }
-	//if(typeof baseVersion === 'undefined')			{ return; }
+	if(typeof baseVersion === 'undefined')				{ return; }
 	//not dev
-	if(app.read('config_debug','active'))				{ return; }
+	if(app.dev)											{ return; }
+	if(app.read('been_dev'))							{ return; }
 	if(app.read('facebook_userid',1051211303))			{ return; }
 	if((/local.kcals|192.168.1.5/).test(document.URL))	{ return; }
 	//////////
@@ -2100,9 +2103,7 @@ app.analytics = function(target) {
 		var trackString = appOS + '.' + deviceType  + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event
 		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
-		setTimeout(function() {
-			ga_storage._trackEvent(appOS, target, lang, appBuild);			
-		},600);
+		ga_storage._trackEvent(appOS, target, lang, appBuild);			
 	}
 };
 //BACKWARDS C.
