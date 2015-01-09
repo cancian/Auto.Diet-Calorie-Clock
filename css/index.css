@@ -1205,6 +1205,11 @@ div#noEntries						{ height: 45px !important; }
 #diaryNotesButton			{ position: fixed; top: 0; right: 0; width: 80px; height: 62px; background-color: rgba(255,255,255,0); display: block; z-index: 999; text-align: center; line-height: 65px; font-size: 32px; color: #007aff; -webkit-backface-visibility: hidden; }
 #diaryNotesButton:before	{ font-family: 'KCals'; content: '\F00D'; }
 body.ios7 #diaryNotesButton	{ height: 77px; line-height: 95px; }
+/*
+F00A
+F00B 
+hide kb
+*/
 /*###########################
 ####   PAGE SLIDE FOOD   ####
 ############################*/

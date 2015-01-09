@@ -105,4 +105,11 @@
         <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
     </feature>
 
+<!--
+	<feature name="LiveTiles">
+		<param name="wp-package" value="LiveTiles" />
+	</feature>
+
+-->
+
 </widget>

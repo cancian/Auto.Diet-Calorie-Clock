@@ -12,7 +12,7 @@
 -- food/exercide unify (to allow number of matches?)
 -- auto share my custom foods
 -- profile tab with weight loss tracking
--- 
+-- protein/fat/carbohydrates in grams per kg of body
 -- 
 -- 
 -- 

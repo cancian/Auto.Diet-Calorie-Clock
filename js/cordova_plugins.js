@@ -18,7 +18,16 @@
 				"clobbers" : [
 					"window.open"
 				]
-			}
+			},
+/*
+		    {
+		        "file": "plugins/com.risingj.cordova.livetiles/www/livetiles.js",
+        		"id": "com.risingj.cordova.livetiles.livetiles",
+		        "clobbers": [
+	        	    "LiveTiles"
+    		    ]
+		    }
+*/
 		];
 	});
 }
