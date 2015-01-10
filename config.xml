@@ -2,7 +2,7 @@
     <widget xmlns = "http://www.w3.org/ns/widgets" 
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cancian.kcals"
-        versionCode="18100"
+        versionCode="18107"
         version   = "1.8.1">
 
 	<content src="index.html" />

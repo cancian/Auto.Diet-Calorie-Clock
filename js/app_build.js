@@ -1248,7 +1248,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		}
 		//show
 		$('#diaryNotesWrapper').remove();
-		$('body').append('<div id="diaryNotesWrapper"><div id="diaryNotesButton"></div><textarea id="diaryNotesInput"></textarea></div>');
+		$('body').append('<div id="diaryNotesWrapper"><div id="diaryNotesButton"></div><textarea id="diaryNotesInput"></textarea><div id="diaryCloser"></div></div>');
 		//load content
 		if(app.read('appNotes')) {
 			$('#diaryNotesInput').val(app.read('appNotes'));
@@ -1307,7 +1307,14 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		});
 		$('#diaryNotesInput').on('focus',function(){
 			$(window).trigger('resize');
-		});		
+		});
+		//kb closer
+		$('#diaryCloser').on(touchend,function() {
+			$(window).trigger('backbutton');
+			$('#diaryNotesInput').focus();
+			$('#diaryNotesInput').blur();
+			return false;
+		});
 		//keypress save
 		$('#diaryNotesInput').on('keypress', function(evt) {
 			app.save('appNotes',$('#diaryNotesInput').val());

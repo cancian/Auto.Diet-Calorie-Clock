@@ -700,6 +700,7 @@ if(app.device.windows8) {
 // FF OS ORIENTATION LOCK //
 ////////////////////////////
 if(app.device.firefoxos) {
+	$('body').addClass('firefoxos');
 	screen.mozLockOrientation('portrait-primary');
 }
 ////////////
@@ -853,7 +854,7 @@ function unlockApp() {
 	try {
 		if (typeof initTime !== 'undefined') {
 			if (app.read('config_debug', 'active') || app.read('devShowTimer', 'active')) {
-				$('body').append('<div id="initTime" style="font-family: KCals; font-size: 32px; background-color: rgba(255,255,255,.9); position: absolute; top: 78px; padding: 6px; left: 16px; z-index: 999; display: inline-block;">' + (new Date().getTime() - initTime) + ' ms</div>');
+				$('body').append('<div id="initTime" style="font-family: KCals; font-size: 32px; background-color: rgba(255,255,255,.9); position: absolute; top: 78px; padding: 6px; left: 16px; z-index: 999; white-space: nowrap; display: inline-block;">' + (new Date().getTime() - initTime) + ' ms</div>');
 				setTimeout(function () {
 					app.handlers.fade(0, '#initTime', '', 175);
 				}, 1200);

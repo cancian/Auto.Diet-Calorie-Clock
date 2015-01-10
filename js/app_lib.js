@@ -86,22 +86,15 @@ var app = {
 		}
 	},
 	clear: function() {
-		var beenDev = app.read('been_dev') ? true : false;
 		app.define('config_install_time',app.now());
-		var installTime = app.read('config_install_time');
-		var jsCache     = app.read('remoteSuperBlockJS');
-		var cssCache    = app.read('remoteSuperBlockCSS');
-		var hashCache   = app.read('app_autoupdate_hash');
-		window.localStorage.clear();
-		app.save('config_install_time',installTime);
-		if(jsCache.length && cssCache.length && hashCache.length) {
-			app.save('remoteSuperBlockJS',jsCache);
-			app.save('remoteSuperBlockCSS',cssCache);
-			app.save('app_autoupdate_hash',hashCache);
+		var keys = Object.keys(window.localStorage);
+		for (var i=0; i < keys.length; i++) {
+			//protected keys
+			if(!(/app_build|config_autoupdate|debug|config_install_time|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS|been_dev/).test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
+				window.localStorage.removeItem(keys[i]);			
+			}
 		}
-		if(beenDev == 1) {
-			app.save('been_dev',1);
-		}
+		//window.localStorage.clear();
 	},
 	show: function(target,callback) {
 		$(target).css('pointer-events','auto');
@@ -229,7 +222,7 @@ app.reboot = function(type,error) {
 	}
 	//WIPE STORAGE
 	if(type == 'clear') {
-		app.clear();	
+		app.clear();
 	}
 	setTimeout(function() {	
 		//RELOAD
@@ -1011,6 +1004,48 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 		});
 	}
 };
+//#/////////////#//
+//# TAP HANDLER #//
+//#/////////////#//
+(function ($, _) {
+	'use strict';
+	var ev = {
+		start : 'touchstart',
+		end : 'touchend'
+	};
+	$.event.special[_] = {
+		setup : function () {
+			$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
+				if(e) {
+					if(e.originalEvent) {
+						ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
+					}
+				}
+			}).on(ev.start, function (e) {
+				if (e.which && e.which !== 1) {
+					return;
+				}
+				ev.target = e.target;
+				ev.time = new Date().getTime();
+				ev.X = ev.E.pageX;
+				ev.Y = ev.E.pageY;
+			}).on(ev.end, function (e) {
+				if (ev.target === e.target && ((new Date().getTime() - ev.time) < 750) && (ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
+					e.type = _;
+					e.pageX = ev.E.pageX;
+					e.pageY = ev.E.pageY;
+					$.event.dispatch.call(this, e);
+				}
+			});
+		},
+		remove : function () {
+			$(this).off(ev.start + ' ' + ev.end);
+		}
+	};
+	$.fn[_] = function (fn) {
+		return this[fn ? 'on' : 'trigger'](_, fn);
+	};
+})(jQuery, 'tap');
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
