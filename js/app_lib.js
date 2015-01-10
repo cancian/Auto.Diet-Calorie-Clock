@@ -205,7 +205,7 @@ app.get.platform = function(noweb) {
 ////////////////////
 // GLOBAL BOOLEAN //
 ////////////////////
-app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
+app.is.scrollable = ($.nice_scroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
 //////////////////
 // APP.REBOOT() //
 //////////////////
@@ -922,7 +922,7 @@ var isMobileiOS        = (/(iPhone|iPad|iPod)/i).test(userAgent) ? true : false;
 var isMobileWindows    = (/IEMobile/i).test(userAgent) ? true : false;
 var isMobileWP81       = (/Windows Phone 8.1/i).test(userAgent) ? true : false;
 var isMobileMSApp      = (/MSApp/i).test(userAgent) ? true : false;
-var isMobileFirefoxOS  = ((/firefox/).test(userAgent.toLowerCase()) && (/mobile/).test(userAgent.toLowerCase()) && (/gecko/).test(userAgent.toLowerCase())) ? true : false;
+var isMobileFirefoxOS  = ((/firefox/i).test(userAgent) && (/mobile/i).test(userAgent) && (/gecko/i).test(userAgent)) ? true : false;
 var isMobileOSX        = ((/(Macintosh|Mac OS X)/i).test(userAgent) && !(/(iPhone|iPad|iPod)/i).test(userAgent)) ? true : false;
 var isMobileOSXApp     = (/MacGap/i).test(userAgent) ? true : false;
 var isMobileBlackBerry = (/BB10|BlackBerry/i).test(userAgent) ? true : false;

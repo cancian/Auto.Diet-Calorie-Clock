@@ -33,7 +33,7 @@
 		var utmwv = '4.3';
 		var utmcs = 'UTF-8';
 		var utmul = window.navigator.language || window.navigator.browserLanguage;
-		if (utmul) {
+		if (utmul.length) {
 			utmul = utmul.slice(0, 2).toLowerCase();
 		} else {
 			utmul = "en";

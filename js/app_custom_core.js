@@ -127,13 +127,17 @@ function appTimer(content) {
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
 	timerWait = timerDiff;	
 	if(app.device.wp8) {
-		timerDiff = timerDiff*3;
+		timerDiff = timerDiff*5;
 	} else {
-		timerDiff = timerDiff*1.5;
+		timerDiff = timerDiff*3;
 	}
 	//THROTTLE LIMIT
-	if(timerDiff > 999) { timerDiff  = 999; }
-	if(timerDiff < 100)  { timerDiff = 100; }
+	if(timerDiff > 800) { timerDiff = 800; }
+	if(app.device.mobile) {
+		if(timerDiff < 200) { timerDiff = 200; }
+	} else {
+		if(timerDiff < 50)	{ timerDiff  = 50; }
+	}
 }
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//

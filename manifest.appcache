@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# v18107 2015-01-10
+# v18200 2015-01-10
 # APP
 index.html
 version.txt
@@ -42,6 +42,5 @@ js/calculator.js
 js/highcharts.js
 js/mobiscroll.js
 js/galocalstorage.js
-js/quo.js
 NETWORK:
 *

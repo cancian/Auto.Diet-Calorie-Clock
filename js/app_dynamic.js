@@ -676,10 +676,10 @@ $(document).on("pageReload", function (evt) {
 							});
 							//SET TIMER
 							clearTimeout(timer);
-							var ms = 200; //275;
+							var ms = 250; //275;
 							//faster desktop
 							if (!app.device.mobile) {
-								ms = 50;
+								ms = 25;
 							}
 							var val = this.value;
 							//DO SEARCH

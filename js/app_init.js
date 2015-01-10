@@ -118,7 +118,6 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/quo.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.ui.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.color.js"><\/script>');
