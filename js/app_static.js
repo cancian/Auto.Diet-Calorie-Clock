@@ -14,14 +14,11 @@ $(document).ready(function() {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
-		try {
-			localforage.config({storeName: 'KCals'});
-			localforage.setDriver(['webSQLStorage','asyncStorage','localStorageWrapper']).then(function() {
-				initDB();
-			});
-		} catch(error) {
-			app.reboot('reset',error);
-		}
+		localforage.config({storeName: 'KCals'});
+		//localforage.setDriver([localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE]).then(function() {
+		localforage.setDriver(['webSQLStorage','asyncStorage','localStorageWrapper']).then(function() {
+			initDB();
+		});
 	});
 });
 ////////////////
@@ -39,15 +36,15 @@ $(document).on('resume',function() {
 		}
 	},5000);
 	//silent restart
-	if(app.read('app_restart_pending')) {
-		app.remove('app_restart_pending');
-		if(app.read('config_autoupdate','on')) {
-			app.reboot('now');
-		}
-	} else {
+	//if(app.read('app_restart_pending')) {
+	//	app.remove('app_restart_pending');
+	//	if(app.read('config_autoupdate','on')) {
+	//		app.reboot('now');
+	//	}
+	//} else {
 		$('body').css('opacity',1);
 		$('body').show();
-	}
+	///}
 	//fix locked dbs
 	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
 		app.remove('startLock');
@@ -126,6 +123,7 @@ $('title').html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 //# INDEX.HTML #//
 //#////////////#//
 $('body').prepend('\
+	<div id="appContent"></div>\
 	<div id="appHeader">\
 		<div id="timerKcals"><input id="timerKcalsInput" readonly="readonly" type="text" /><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
 		<div id="timerBlocks">\
@@ -134,7 +132,6 @@ $('body').prepend('\
 		<div id="appHeaderIcon"><span></span><p></p></div>\
 	</div>\
 	<div id="loadingDiv"><input readonly="readonly" id="lid" value="0" type="text" /></div>\
-	<div id="appContent"></div>\
 	<div id="appFooter">\
 		<ul>\
 			<li id="tab1">' + LANG.MENU_STATUS[lang].capitalize()   + '</li>\
@@ -155,6 +152,11 @@ $(window).scroll(function(evt) {
 	return false;
 });
 $('body').scroll(function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+	return false;
+});
+$('html').scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
 	return false;
@@ -196,6 +198,7 @@ preTab = function(keepOpen) {
 		kickDown();
 	}
 };
+var afterTrack;
 afterTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
 	$('#appContent').css('display','block');
@@ -221,9 +224,10 @@ afterTab = function(keepOpen) {
 	}
 	//NO 50ms FLICKER
 	appResizer(100);
-	setTimeout(function() {
+	clearTimeout(afterTrack);
+	afterTrack = setTimeout(function() {
 		app.analytics('tab');
-	}, 1000);
+	}, 300);
 };
 appFooter = function (id,keepOpen,callback) {
 	if(app.now() - lastTab < 275) { lastTab = app.now(); return; }
@@ -237,7 +241,7 @@ appFooter = function (id,keepOpen,callback) {
 	else if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
 	else if(tabId == 'tab3') { app.tab.profile(keepOpen);  }
 	else if(tabId == 'tab4') { app.tab.settings(keepOpen); }
-	$('body').removeClass('tab1 tab2 tab3 tab4 newwindow');
+	$('body').removeClass('tab1 tab2 tab3 tab4 newwindow'.split(id).join(''));
 	$('body').addClass(tabId);
 	if(typeof callback === 'function') {
 		setTimeout(function() {

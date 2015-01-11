@@ -113,6 +113,29 @@ setTimeout(function() {
 <style type="text/css" id="CSSPlaceholder"></style>
 <script type="text/javascript" id="JSPlaceholder"></script>
 <!--###########################################-->
+<script type="text/javascript">
+///////////////
+// BOOTSTRAP //
+///////////////
+var hostLocal = '';
+var https     = /https/i.test(window.location.protocol) ? 'https://' : 'http://';
+function bootStraper() {
+	if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = https + '192.168.1.5/'; }
+	//INIT
+	if ((/MSApp/).test(navigator.userAgent)) {
+		MSApp.execUnsafeLocalFunction(function() { 
+			hostLocal = ''; 
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
+			document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } <\/style>');
+		});
+	} else {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>');
+	}
+}
+if(!/http/i.test(window.location.protocol)) {
+	bootStraper();
+}
+</script>
 </head>
 <body class="unloaded">
 <div id="loadMask"><span></span></div>
@@ -121,18 +144,8 @@ setTimeout(function() {
 ///////////////
 // BOOTSTRAP //
 ///////////////
-var hostLocal = '';
-var https     = /https/i.test(window.location.protocol) ? 'https://' : 'http://';
-if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = https + '192.168.1.5/'; }
-//INIT
-if ((/MSApp/).test(navigator.userAgent)) {
-	MSApp.execUnsafeLocalFunction(function() { 
-		hostLocal = ''; 
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
-		document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } <\/style>');
-	});
-} else {
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>');
+if(/http/i.test(window.location.protocol)) {
+	bootStraper();
 }
 </script>
 </body>
