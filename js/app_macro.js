@@ -1584,6 +1584,7 @@ function buildAdvancedMenu() {
 //## GET CATEGORY~IES ##//
 //##//////////////////##//
 function getCategory(catId, callback) {
+	var startCat = app.now();
 	var orType = '';
 	if (catId == '9999') {
 		orType = 'food';
@@ -1613,6 +1614,9 @@ function getCategory(catId, callback) {
 			}
 		}
 		callback(rowsArray.sortbyattr('time', 'asc'));
+		if(app.dev) {
+			app.save(app.get.kcals('key'),app.now() - startCat);
+		}
 		//////////////////
 		// REGULAR DUMP //
 		//////////////////
@@ -1625,6 +1629,9 @@ function getCategory(catId, callback) {
 			}
 		}
 		callback(rowsArray.sortbyattr('term', 'desc'));
+		if(app.dev) {
+			app.save(app.get.kcals('key'),app.now() - startCat);
+		}
 	}
 }
 function getCatList(callback) {

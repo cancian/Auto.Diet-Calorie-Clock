@@ -205,7 +205,7 @@ app.get.platform = function(noweb) {
 ////////////////////
 // GLOBAL BOOLEAN //
 ////////////////////
-app.is.scrollable = ($.nice_scroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
+app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
 //////////////////
 // APP.REBOOT() //
 //////////////////
@@ -1004,48 +1004,6 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 		});
 	}
 };
-//#/////////////#//
-//# TAP HANDLER #//
-//#/////////////#//
-(function ($, _) {
-	'use strict';
-	var ev = {
-		start : 'touchstart',
-		end : 'touchend'
-	};
-	$.event.special[_] = {
-		setup : function () {
-			$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
-				if(e) {
-					if(e.originalEvent) {
-						ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
-					}
-				}
-			}).on(ev.start, function (e) {
-				if (e.which && e.which !== 1) {
-					return;
-				}
-				ev.target = e.target;
-				ev.time = new Date().getTime();
-				ev.X = ev.E.pageX;
-				ev.Y = ev.E.pageY;
-			}).on(ev.end, function (e) {
-				if (ev.target === e.target && ((new Date().getTime() - ev.time) < 750) && (ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
-					e.type = _;
-					e.pageX = ev.E.pageX;
-					e.pageY = ev.E.pageY;
-					$.event.dispatch.call(this, e);
-				}
-			});
-		},
-		remove : function () {
-			$(this).off(ev.start + ' ' + ev.end);
-		}
-	};
-	$.fn[_] = function (fn) {
-		return this[fn ? 'on' : 'trigger'](_, fn);
-	};
-})(jQuery, 'tap');
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//

@@ -1108,10 +1108,14 @@
 					e.ctrlKey && (b.wheelprevented = !0)
 				});
 				b.bind(document, "keyup", function (e) {
-					e.ctrlKey || (b.wheelprevented = !1)
+					if(b) {
+						e.ctrlKey || (b.wheelprevented = !1)
+					}
 				});
 				b.bind(window, "blur", function (e) {
-					b.wheelprevented = !1
+					if(b) {
+						b.wheelprevented = !1
+					}
 				});
 				b.bind(window, "resize", b.lazyResize);
 				b.bind(window, "orientationchange", b.lazyResize);
