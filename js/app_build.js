@@ -505,9 +505,7 @@ app.tab.status = function(keepOpen) {
 	/////////////////
 	// RELOAD ICON //
 	/////////////////
-	$('#appStatusReload').on(tap,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
+	app.handlers.activeRow('#appStatusReload','button',function(evt) {
 		$('#startDateBar').hide();
 		$('#appStatusReload').off();
 		afterHide();
@@ -515,9 +513,7 @@ app.tab.status = function(keepOpen) {
 	////////////////////
 	// SHOW STARTDATE //
 	////////////////////
-	$('#appStatusToggle').on(tap,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
+	app.handlers.activeRow('#appStatusToggle','button',function(evt) {
 		if($('#appStatusFix').hasClass('open')) {
 			$('#startDate').blur();
 			$('#appStatusFix').removeClass('open');

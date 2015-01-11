@@ -17,10 +17,10 @@ html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 html,body,input,select,textarea,
 input[type='number'],input[type='text']	{ font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
 div#sliderNeg,div#sliderPos				{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; }
-body.msie.thin							{ letter-spacing: 0.02em; }
-body.msie								{ -webkit-perspective: 800; }
-body.msie #appContent,
-body.msie #foodList						{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
+.msie.thin								{ letter-spacing: 0.02em; }
+.msie									{ -webkit-perspective: 800; }
+.msie #appContent,
+.msie #foodList							{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
 /*ffos fixtext-rendering: optimizeLegibility*/
 .ios,
 .android,
@@ -28,9 +28,9 @@ body.msie #foodList						{ -webkit-perspective: 800; -webkit-transform: translat
 .msie,
 .wekbit,
 .osx									{ -webkit-user-select: none; }
-*, 
+*,
 ::before,
-::after									{ -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0); box-sizing: border-box; }
+::after									{ -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-box-sizing: border-box; }
 input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 .moz input,
 .moz select,
@@ -78,7 +78,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 .android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
 .android2 #appContent			{ top: 0; border-top: 62px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
 /*kitkat scrollbar*/
-body.android ::-webkit-scrollbar{ display: none; }
+.android ::-webkit-scrollbar	{ display: none; }
 /*#////////////#//
 //# APP HEADER #//
 //#////////////#*/
@@ -109,7 +109,6 @@ body.android ::-webkit-scrollbar{ display: none; }
 #timerDaily						{ position: absolute; bottom: 0px; top: 0px; right: 0px; width: 84px; }
 #timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: rgba(255,255,255,.8); font-weight: 500; }
 .appLang-el #timerDaily span	{ font-size: 7px; }
-.appLang-hi #timerDaily span	{ bottom: 2px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 9999; }
 #timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; z-index: 999; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.75); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; }
 #timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: color linear .0s; }
@@ -180,7 +179,6 @@ body.android ::-webkit-scrollbar{ display: none; }
 .msie #gettingStarted	{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 #closeDiv				{ position: absolute; top: 75%; left: 0px; display: block; width: 100%; text-align: center; margin: 0 auto; background-color: #fff; color: #2672ec; padding: 12px 0; font-size: 24px; }
 #appLang				{ position: absolute; bottom: 12px; left: 0px; display: block; width: 100%; text-align: center; background-color: #fff; color: #aaa; padding: 12px 0; font-size: 16px; text-indent: 0; }
-.appLang-uk #closeDiv	{ font-size: 21px; }
 #viewport				{ position: absolute; top: 0; left: 0; right: 0; bottom: 100px; background: #fff; overflow: hidden; }
 /*snapper*/
 #wrapper				{ width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0 auto; background-color: #fff; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); z-index: 2001; }
@@ -648,8 +646,6 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 .simple #appStatusBlock2 #appDays			{ display: none; }
 .cyclic #appStatusBlock2 #appDays			{ display: block; }
 .appLang-fi #appStatusBlock2 #appDays div,
-.appLang-lt #appStatusBlock2 #appDays div, 
-.appLang-lv #appStatusBlock2 #appDays div,
 .appLang-pl #appStatusBlock2 #appDays div,
 .appLang-el #appStatusBlock2 #appDays div,
 .appLang-it #appStatusBlock2 #appDays div	{ text-transform: none; }
@@ -689,8 +685,6 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusAddRight span			{ display: inline-block; background-color: #D55621; text-align: center; font-size: 10px; text-transform: uppercase; }
 #appStatusAddLeft div,
 #appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; }
-.appLang-th #appStatusAddLeft div,
-.appLang-th #appStatusAddRight div	{ font-size: 15px; }
 /*nutrition bars*/
 #appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: rgba(0,0,0,0); white-space: nowrap; }
 #appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 0; height:  16px; margin: 0 0px; background-color: #fff; display: block; background-color: #fff; color: #999; border: 1px solid #eee; }
@@ -886,23 +880,6 @@ border-color: #eee #ddd #007aff #ddd;
 
 
 /*
-
-
-
-<div id="globalProfile">\
-<div id="globalProfileCircle">\
-<div id="globalProfileStatus"></div>\
-</div>\
-<div id="globalProfileBlock">\
-<div id="globalProfileAdjust">\
-<input id="globalProfileValue" type="text" />\
-</div>\
-</div>\
-<div id="globalProfileGoal"></div>\
-<div id="globalProfileTarget"></div>\
-</div>\
-
-
 #globalProfileBlock {}
 #globalProfileAdjust {}
 #globalProfileValue {}
@@ -992,10 +969,6 @@ div#sliderNum					{ margin-right: -46px; text-shadow: rgba(255,255,255,.35) 0 1p
 input#entryTitle				{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 50px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: rgba(0,0,0,0); padding: 0 2px 0 0; border-radius: 0; text-indent: 0; margin: 0; border: none; }
 div#sliderNeg					{ position: absolute; left:  14px; top: 27px; display: block; width: 116px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 14pt; height: 36px; padding-left: 26px; padding-top: 3px; }
 div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; width: 106px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 14pt; height: 36px; padding-right: 26px; padding-top: 3px; }
-.appLang-lv div#sliderPos,
-.appLang-lv div#sliderNeg,
-.appLang-vi div#sliderPos,
-.appLang-vi div#sliderNeg,
 .appLang-bg div#sliderPos,
 .appLang-bg div#sliderNeg,
 .appLang-de div#sliderPos,
@@ -1008,8 +981,6 @@ div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; 
 .appLang-pl div#sliderNeg,
 .appLang-nl div#sliderPos,
 .appLang-nl div#sliderNeg		{ font-size: 13pt; line-height: 16pt; }
-.appLang-th div#sliderPos		{ font-size: 10.5pt; line-height: 16pt; padding-right: 21px; }
-.appLang-th div#sliderNeg 		{ font-size: 10.5pt; line-height: 16pt; padding-left:  21px; }
 div#sliderNeg:before,
 div#sliderPos:before			{ font-family: 'KCals'; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
 div#sliderNeg:before			{ left: 0; content: '\F010'; }	
@@ -1050,7 +1021,7 @@ div.submitActive				{ color: #fff !important; background-color: #316ADC; border-
 #entryList div				{ -webkit-transition-duration: 0s; }
 #entryList div.longHold		{ -webkit-transition-timing-function: ease; -webkit-transition-duration: 1.1s; background-color: #ffff86 !important; }
 .msie #entryList div		{ padding: 15px 0 1px 0; height: 29px; }
-body.ios #entryList div		{ padding: 15px 0 1px 0; }
+.ios #entryList div			{ padding: 15px 0 1px 0; }
 #entryList					{ width: 100%; min-height: 45px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
 #editableInput				{ -webkit-user-select: auto; background-color: rgba(0,0,0,0) !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; }
@@ -1094,15 +1065,10 @@ span.delete #delete:active	{ color: #ccc !important; }
 .entriesBody				{ font-size: 10pt; height: 18px; line-height: 16px;  }
 .entriesBody input,
 #editableInput				{ font-size: 10pt; height: 18px; line-height: 18px; margin-top: -1px; }
-.appLang-fa .entriesKcals,
 .appLang-ar .entriesKcals	{ width: 70px; font-size: 10px; color: #999; padding-top: 0px; float: left; position: absolute; bottom: 0px; left: 13px; }
-.appLang-fa .entriesTitle,
 .appLang-ar .entriesTitle	{ margin-right: 16px; }
 .appLang-ja .entriesKcals	{ width: 51px; font-size: 11px; color: #999; padding-top: 1px;  }
 .appLang-ko .entriesKcals	{ width: 48px; font-size: 10pt; color: #aaa; padding-top: 1px;  }
-.appLang-hi .entriesKcals,
-.appLang-iw .entriesKcals	{ margin-right: 16px; }
-/*body.android .entriesBody input { text-indent: -1px; }*/
 .entriesPublished			{ padding-top: 28px; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; white-space: nowrap; }
 .editing .entriesPublished	{ opacity: 0; display: none; }
 /*GENERIC*/
@@ -1204,7 +1170,7 @@ div#noEntries						{ height: 45px !important; }
 #diaryNotesInput 			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(0,0,0,0); z-index: 98; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
 #diaryNotesButton			{ position: fixed; top: 0; right: 0; width: 80px; height: 62px; background-color: rgba(255,255,255,0); display: block; z-index: 999; text-align: center; line-height: 65px; font-size: 32px; color: #007aff; -webkit-backface-visibility: hidden; }
 #diaryNotesButton:before	{ font-family: 'KCals'; content: '\F00D'; }
-body.ios7 #diaryNotesButton	{ height: 77px; line-height: 95px; }
+.ios7 #diaryNotesButton		{ height: 77px; line-height: 95px; }
 /*kb closer*/
 .firefoxos #diaryCloser,
 .mobile.android #diaryCloser						{ display: none; }
@@ -1225,22 +1191,16 @@ body.ios7 #diaryNotesButton	{ height: 77px; line-height: 95px; }
 input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; background-color: #fff; }
 .newwindow input#foodSearch	{ pointer-events: none; }
 input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-height: 21px; }
-.appLang-lv input#foodSearch,
-.appLang-fa input#foodSearch,
-.appLang-vi input#foodSearch,
 .appLang-pl input#foodSearch,
 .appLang-id input#foodSearch,
 .appLang-el input#foodSearch,
 .appLang-bg input#foodSearch,
 .appLang-fr input#foodSearch			{ font-size: 16px; }
-.android #foodList						{ /* background-image: -webkit-linear-gradient(#fff,#fefefe); */ }
-/*.ios #foodList						{ position: inherit; }*/
-#foodListWrapper						{ width: 100%; display: block; float: left; overflow: hidden; z-index: 2; background-color: #fff;  }
-.searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px;  margin-bottom: 0px; overflow: hidden; width: 100%; display: block; }
-.searcheable:nth-child(even)			{ background-color: #f9f9f9;  }
+#foodListWrapper						{ width: 100%; overflow: hidden; z-index: 2; background-color: #fff; }
+.searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px; margin-bottom: 0px; overflow: hidden; width: 100%; }
+.searcheable:nth-child(even)			{ background-color: #f9f9f9; }
 .searcheable.activeOverflow				{ background-color: #e4e4e4; }
 .searcheable.yellow						{ background-color: rgba(255,200,0,.8); }
-.searcheable ::-webkit-scrollbar		{ display: none; }
 /*blank*/
 .noContent em							{ color: #999; font-style: normal !important; }
 span#noMatches							{ color: #999; margin-top: 19px; }
@@ -1267,7 +1227,6 @@ span.foodFat			{ float: left; min-width: 64px; padding-top: 0px; padding-right: 
 span.foodCar			{ float: left; min-width: 64px; padding-top: 0px; padding-right: 4px; font-size: 12px; color: #000; font-weight: bold; }
 /*pro|car|fat*/
 span.preSpan			{ font-size: 11px; padding-right: 4px; color: #2157D6; }
-.appLang-fa .preSpan,
 .appLang-ar .preSpan,
 .appLang-ja .preSpan	{ font-size: 9px; padding-right: 2px; }
 /**/
@@ -1279,20 +1238,17 @@ span.preSpan			{ font-size: 11px; padding-right: 4px; color: #2157D6; }
 .exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
 #appHeader:before				{ font-family: 'KCals'; content: '\f0a8'; color: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; -webkit-backface-visibility:hidden; }
-body.ios7 #appHeader:before 	{ padding-top: 24px; }
-body.android44 #appHeader:before{ padding-top: 11px; }
+.ios7 #appHeader:before 		{ padding-top: 24px; }
+.android44 #appHeader:before	{ padding-top: 11px; }
 #appHeader.open:before			{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*android scroll blur fix*/
 .msie.closer #appContent,
 .android.closer #appContent			{ overflow: hidden; }
 .android2.closer select#entryTime	{ pointer-events: none; display: none; }
 /*performancer ~ review*/
-body.android4lt #appContent			{ visibility: visible; }
-body.android4lt.closer #appContent	{ visibility: hidden !important; }
-/*search nutri colors
-.food								{ color: #2157D6 ; }
-.exercise							{ color: #D55621 ; }
-*/
+.android4lt #appContent			{ visibility: visible; }
+.android4lt.closer #appContent	{ visibility: hidden !important; }
+/*search nutri colors*/
 .searcheable.food span.preSpan		{ color: #2157D6; }
 .searcheable.food div.foodName		{ color: #2157D6; }
 .searcheable.food span.foodKcal,
@@ -1309,8 +1265,6 @@ body.android4lt.closer #appContent	{ visibility: hidden !important; }
 .searcheable.exercise span.foodCar,
 .searcheable.exercise span.foodFat	{ display: none; }
 .searcheable.favItem:before			{ content: '\f005'; font-family: 'KCals'; font-size: 28px; position: absolute; top: 0; right: 0; width: 44px; height: 56px; color: rgba(250,200,50,1); line-height: 58px; text-shadow: rgba(0,0,0,.24) 0px 0px 1px; -webkit-backface-visibility: hidden; opacity: .75; }
-.searcheable.favItem.customItem:before,
-.searcheable.customItem:before		{  }
 /*/////////////
 // MODAL BOX //
 /////////////*/
@@ -1318,7 +1272,7 @@ body.android4lt.closer #appContent	{ visibility: hidden !important; }
 #modalOverlay			{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; display: block; z-index: 98; }
 #modalOverlay			{ background-color: rgba(0,0,0,1); opacity: .6; -webkit-backface-visibility: hidden; }
 #modalWindow			{ position: absolute; top: 74px; left: 0; right: 0; height: 200px; background-color: #ffffff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 99; }
-body.ios7 #modalWindow	{ top: 94px; }
+.ios7 #modalWindow		{ top: 94px; }
 #modalContent			{ padding: 12px; font-size: 13px; max-height: 62px; overflow: hidden; color: #777; font-weight: bold; }
 #modalContent span		{ color: #3287F5; white-space: nowrap; }
 #modalContent:active span,
@@ -1446,7 +1400,7 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #addNewFood					{ right: 50%; }
 #addNewExercise				{ left:  50%; }
 #addNewWrapper				{ position: absolute; top: 75px; bottom: 66px; left: 12px; right: 12px; min-height: 325px; background-color: #fff; display: block; z-index: 99; display: block; -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); }
-body.ios7 #addNewWrapper	{ top: 91px; }
+.ios7 #addNewWrapper		{ top: 91px; }
 #addNewConfirm				{ position: absolute; bottom: 0; left:  0; width: 50%; background-color: #4D9AE5; font-size: 18px; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: normal; }
 #addNewCancel				{ position: absolute; bottom: 0; right: 0; width: 50%; background-color: #eeeeee; font-size: 18px; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: normal; }
 #addNewConfirm.done,
@@ -1480,15 +1434,15 @@ ul#addNewList input			{ position: absolute; top: 0; right: 120px; text-align: le
 //#// IOS 7 //#//
 //#///////////#*/
 /*ios6 calc form resize bug*/
-body.ios #appHeader					{ position: absolute; }
-body.ios7 #editableDiv,
-body.ios7 #appHeader				{ height: 77px; }
-body.ios7 #appContent				{ top: 77px; }
-body.ios7 span#subKcalsDay			{ top: 21px; }
-body.ios7 span#timerFood 			{ margin-top: 14px; }
-body.ios7 span#timerExercise 		{ margin-bottom: -4px; }
-body.ios7 span#timerFood:after		{ bottom: 2px; }
-body.ios7 span#timerExercise:after	{ bottom: 2px; }
+.ios #appHeader					{ position: absolute; }
+.ios7 #editableDiv,
+.ios7 #appHeader				{ height: 77px; }
+.ios7 #appContent				{ top: 77px; }
+.ios7 span#subKcalsDay			{ top: 21px; }
+.ios7 span#timerFood 			{ margin-top: 14px; }
+.ios7 span#timerExercise 		{ margin-bottom: -4px; }
+.ios7 span#timerFood:after		{ bottom: 2px; }
+.ios7 span#timerExercise:after	{ bottom: 2px; }
 /*#////////////////#//
 //#// CATEGORIES //#//
 //#////////////////#*/
