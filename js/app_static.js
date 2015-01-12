@@ -123,7 +123,6 @@ $('title').html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 //# INDEX.HTML #//
 //#////////////#//
 $('body').prepend('\
-	<div id="appContent"></div>\
 	<div id="appHeader">\
 		<div id="timerKcals"><input id="timerKcalsInput" readonly="readonly" type="text" /><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
 		<div id="timerBlocks">\
@@ -132,6 +131,7 @@ $('body').prepend('\
 		<div id="appHeaderIcon"><span></span><p></p></div>\
 	</div>\
 	<div id="loadingDiv"><input readonly="readonly" id="lid" value="0" type="text" /></div>\
+	<div id="appContent"></div>\
 	<div id="appFooter">\
 		<ul>\
 			<li id="tab1">' + LANG.MENU_STATUS[lang].capitalize()   + '</li>\
@@ -152,11 +152,6 @@ $(window).scroll(function(evt) {
 	return false;
 });
 $('body').scroll(function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-	return false;
-});
-$('html').scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
 	return false;

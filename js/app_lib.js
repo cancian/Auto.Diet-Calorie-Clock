@@ -522,6 +522,9 @@ app.handlers = {
 	activeLastId     : '',
 	activeRow : function (target, style, callback,callbackCondition) {
 		var isButton = style == 'button' ? 40 : 40;
+		if(app.is.scrollable && app.device.desktop) {
+			isButton = 1;	
+		}
 		//RESET
 		app.handlers.activeRowTouches = 0;
 		app.handlers.activeRowBlock   = 0;
@@ -1767,7 +1770,7 @@ window.alert = function (title, msg, button, callback) {
 	if (typeof button   === 'undefined') { button = LANG.OK[lang]; }
 	if (typeof callback !== 'function')  { callback = voidThis;    }
 	//
-	if (typeof navigator.notification !== 'undefined') {
+	if (typeof navigator.notification !== 'undefined' && !app.http) {
 		navigator.notification.alert(msg, callback, title, button);
 	} else {
 		if ((msg != 'msg' && msg != ' ') || title == 'alert') { msg = '\n' + msg; }

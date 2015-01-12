@@ -1,7 +1,8 @@
 ﻿#################
 ## VERSION LOG ##
 #################
--- new circle screenshots
+-- zoom
+-- tile data plugin
 -- use JSON for synchronization data
 -- do remote cache only after cache-done event (web version)
 -- favs and custonms livesearch on diary
@@ -19,7 +20,7 @@
 -- 
 -- 
 -- 
-# 1.9 [2015/01/10]
+# 1.8.2 [2015/01/10]
 • Update cache is preserved upon full data reset.
 
 # 1.8 [2014/12/27]

@@ -1718,7 +1718,7 @@ function getCatList(callback) {
 				//	$('.foodName', this).attr('id', 'activeOverflow');
 				//	$('.foodName').css('overflow', 'auto');
 				//});
-				app.handlers.activeRow('#newWindow .searcheable','activeOverflow',function(rowId) {
+				app.handlers.activeRow('#newWindow div.searcheable','activeOverflow',function(rowId) {
 					getModalWindow(rowId);
 				});
 			};
@@ -1728,7 +1728,7 @@ function getCatList(callback) {
 			var catListCloser = function () {
 				catMoveCount = 0;
 				catBlockTap = false;
-				$('.activeRow').removeClass('activeRow');
+				$('div.activeRow').removeClass('activeRow');
 				if(app.device.wp8) {
 					$('#tabMyCatsBlock').removeClass('out');
 				}
@@ -1744,7 +1744,7 @@ function getCatList(callback) {
 			var catListConfirm = (catCode == 0001) ? function() {
 				appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
 					if(button === 2) {
-						$('#newWindow .searcheable').remove();
+						$('#newWindow div.searcheable').remove();
 						$('#newWindow').prepend('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 						app.remove('app_recent_items');
 						setPush();

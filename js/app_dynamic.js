@@ -929,7 +929,8 @@ function doSearch(rawInput) {
 			////////////////////////
 			// OVERFLOW ON-DEMAND //
 			////////////////////////
-			app.handlers.activeRow('#searchContents .searcheable','activeOverflow',function(rowId) {
+			
+			app.handlers.activeRow('#searchContents div.searcheable','activeOverflow',function(rowId) {
 				getModalWindow(rowId);
 			});
 		});//END QUERY CONTEXT
@@ -945,7 +946,7 @@ function updateCustomList(filter,callback) {
 	//FAV
 	if(/fav|all|cache/.test(filter)) {
 		$('#tabMyFavsBlock').html(getCustomList('fav',filter));
-		app.handlers.activeRow('#tabMyFavsBlock .searcheable','activeOverflow',function(rowId) {
+		app.handlers.activeRow('#tabMyFavsBlock div.searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
 		});	
 	}
@@ -954,7 +955,7 @@ function updateCustomList(filter,callback) {
 		$('#tabMyItemsBlock').html(getCustomList('items',filter));
 		$('#addButtons').remove();
 		$('#foodList').after('<div id="addButtons"><div id="addNewFood"><div id="addNewFoodTitle"><span>+</span>' + LANG.NEW_FOOD[lang] + '</div></div><div id="addNewExercise"><div id="addNewExerciseTitle"><span>+</span>' + LANG.NEW_EXERCISE[lang] + '</div></div></div>');
-		app.handlers.activeRow('#tabMyItemsBlock .searcheable','activeOverflow',function(rowId) {
+		app.handlers.activeRow('#tabMyItemsBlock div.searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
 		});	
 		//EXTRA HANDLERS
@@ -1040,7 +1041,7 @@ function buildFoodMenu() {
 		evt.preventDefault();
 		$('#foodList').scrollTop(0);
 		app.save('lastInfoTab',$(this).attr('id'));
-		$(".activeOverflow").removeClass("activeOverflow");
+		$("div.activeOverflow").removeClass("activeOverflow");
 		////////////
 		// TAB #1 //
 		////////////
@@ -1140,7 +1141,7 @@ function addNewItem(addnew) {
 			kickDown();
 		}
 		$('#addNewExercise, #addNewFood').removeClass('active');
-		$('.activeOverflow').removeClass('activeOverflow');
+		$('div.activeOverflow').removeClass('activeOverflow');
 		app.handlers.fade(0,'#modalWrapper');
 		clearTimeout(app.repeaterLoop);
 	};
@@ -1534,7 +1535,7 @@ function getModalWindow(itemId) {
 					}, 1000);
 				}	
 			});
-			$('.activeOverflow').removeClass('activeOverflow');
+			$('div.activeOverflow').removeClass('activeOverflow');
 			clearTimeout(app.repeaterLoop);
 		};
 		//////////////////
@@ -1650,7 +1651,7 @@ function getModalWindow(itemId) {
 					setTimeout(function() {
 						delFood(modal.id,function() {
 							$('.' + modal.id).each(function(row) {
-								if ($('#' + $(this).parent('div').attr('id') + ' .searcheable').length == 1) {
+								if ($('#' + $(this).parent('div').attr('id') + ' div.searcheable').length == 1) {
 									$(this).parent('div').append('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 								}
 								$('#' + $(this).parent('div').attr('id') + ' .' + modal.id).remove();
