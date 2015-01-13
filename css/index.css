@@ -64,6 +64,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 .show									{ display: inline; }
 .blur									{ -webkit-filter: blur(9px); }
 .white									{ color: #fff !important; }
+.blue									{ color: #007aff !important; }
 .invisible								{ visibility: hidden; position: absolute; left: 0; top: 0; }
 .noOverflow								{ overflow: hidden !important; }
 .clicked								{ opacity: .6; -webkit-filter: grayscale(10%); -moz-filter: grayscale(10%); filter: grayscale(10%); }

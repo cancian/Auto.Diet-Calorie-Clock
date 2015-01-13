@@ -21,7 +21,9 @@
 -- 
 -- 
 # 1.8.2 [2015/01/10]
+• Faster start-up time
 • Update cache is preserved upon full data reset
+• "Automatic Backup" has been renamed to "Backup & Synchronization"
 
 # 1.8 [2014/12/27]
 • Better protection against download failure
@@ -30,7 +32,6 @@
 • Added a few information boxes to help users get started
 
 # 1.7 [2014/12/12]
-• Faster start-up time
 • The "Getting started" slides are more informative
 • Improved "Today overview" section (tap for detailed statistics)
 • Fixed issue with non-ascii search queries
@@ -47,7 +48,6 @@
 
 # 1.6.3 [2014/10/08]
 • Approximate conversions table
-• Additional on-screen instructions on counter start
 
 # 1.6.2 [2014/09/25]
 • Automatic weight/height recalculation when measurement system is changed
