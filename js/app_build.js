@@ -1305,10 +1305,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			$(window).trigger('resize');
 		});
 		//kb closer
-		$('#diaryCloser').on(touchend,function() {
-			$(window).trigger('backbutton');
-			$('#diaryNotesInput').focus();
-			$('#diaryNotesInput').blur();
+		$('#diaryCloser').on(tap,function(evt) {
+			evt.preventDefault();
+			evt.stopPropagation();
+			$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+			$('#dummyInput').focus();
+			$('#dummyInput').blur();
+			$('#dummyInput').remove();
 			return false;
 		});
 		//keypress save

@@ -14,14 +14,14 @@
 -- auto share my custom foods
 -- profile tab with weight loss tracking
 -- protein/fat/carbohydrates in grams per kg of body
--- 
+-- icone de sino no bloco 3 p/ local notifications
 -- 
 -- 
 -- 
 -- 
 -- 
 # 1.8.2 [2015/01/10]
-• Update cache is preserved upon full data reset.
+• Update cache is preserved upon full data reset
 
 # 1.8 [2014/12/27]
 • Better protection against download failure

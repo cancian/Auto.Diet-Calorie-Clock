@@ -67,14 +67,14 @@ function showIntro(isNew) {
 		// INSTALL //
 		/////////////
 		if(isNew == true) {
-		if(typeof baseVersion !== 'undefined') {
-			if(app.http) {
-				app.analytics('webinstall');
-			} else {
-				app.analytics('install');
+			if(typeof baseVersion !== 'undefined') {
+				if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+					app.analytics('install');
+				} else {
+					app.analytics('webinstall');
+				}
 			}
 		}
-	}
 	});
 	$('#gettingStarted').on(touchstart,function(evt) {
 		evt.stopPropagation();
@@ -2051,7 +2051,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	//////////////
-	var timeRate = 3 * 24 * 60 * 60 * 1000;
+	var timeRate = 4.8 * 24 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
@@ -2065,7 +2065,7 @@ function getRateDialog() {
 					app.url();
 				}
 			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-		},3500);
+		},3000);
 	}
 }
 ///////////////////
