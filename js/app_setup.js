@@ -2256,13 +2256,21 @@ function getLoginFB() {
 		////////////
 		} else {
 			if(typeof FB !== 'undefined') {
-				FB.init({ appId : '577673025616946', status : false, version: 'v2.0', cookie : false, xfbml : false });
+				FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
+				var getLogin;
+				//check status
+				FB.getLoginStatus(function(response) {
+					//already logged
+					if(response.authResponse) {
+						getTokenFB(response.authResponse.accessToken);
+					}
+				});
 				FB.login(function (response) {
+					//auth dialog
 					if(response.authResponse) {
 						getTokenFB(response.authResponse.accessToken);
 					}
 				}, { scope : 'email' });
-				//redirect_uri:'where_to_go_when_login_ends'}
 			}
 		}
 	///////////

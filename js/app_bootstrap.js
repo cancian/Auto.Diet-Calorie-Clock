@@ -4,7 +4,7 @@
 // AJAX ERRORS //
 /////////////////
 $.support.cors = true;
-$.ajaxSetup({cache: false, crossDomain: true, async:true,  error: function(jqXHR, exception) {
+$.ajaxSetup({ xhr: function() {return new window.XMLHttpRequest({mozSystem: true}); }, cache: false, crossDomain: true, async:true,  error: function(jqXHR, exception) {
 		 if(jqXHR.status === 0)           { console.log('Not connect.\n Verify Network.');         }
 	else if (jqXHR.status == 404)         { console.log('Requested page not found. [404]');        }
 	else if (jqXHR.status == 500)         { console.log('Internal Server Error [500].');           }

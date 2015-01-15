@@ -26,6 +26,11 @@
 	"installs_allowed_from" : [
 		"*"
 	],
+	"permissions": {
+		"systemXHR": {
+			"description": "Required for Facebook desktop app authentication."
+		}
+	},
 	"default_locale" : "en-us",
 	"size": 1884555,
 	"locales" :

@@ -115,7 +115,7 @@ function initJS() {
 	} else if ((/IEMobile/i).test(navigator.userAgent)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js"><\/script>');
 	} else if (!IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.min.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.min.js" async="async"><\/script>');
 	}
 	////////
 	// JS //
