@@ -237,6 +237,7 @@ app.reboot = function(type,error) {
 		}
 	},timeout);
 	if(error) {
+		app.analytics('error','rebootHandler: ' + JSON.stringify(error));
 		//throw error;
 	}
 };
@@ -1105,7 +1106,9 @@ function errorHandler(error) {
 				blockAlerts = 1;
 			}
 		}
-		console.log(JSON.stringify(error));
+		console.log('errorHandler: ' + JSON.stringify(error));
+	} else {
+		app.analytics('error','errorHandler: ' + JSON.stringify(error));
 	}
 }
 /////////////////

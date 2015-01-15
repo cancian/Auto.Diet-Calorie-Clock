@@ -2256,7 +2256,7 @@ function getLoginFB() {
 		////////////
 		} else {
 			if(typeof FB !== 'undefined') {
-				FB.init({ appId : '577673025616946', status : true, cookie : true, xfbml : true });
+				FB.init({ appId : '577673025616946', status : false, version: 'v2.0', cookie : false, xfbml : false });
 				FB.login(function (response) {
 					if(response.authResponse) {
 						getTokenFB(response.authResponse.accessToken);
