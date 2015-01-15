@@ -156,6 +156,21 @@ $('body').scroll(function(evt) {
 	evt.stopPropagation();	
 	return false;
 });
+$(document).on('dblclick',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+	return false;
+});
+$(window).on('dblclick',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+	return false;
+});
+$('body').on('dblclick',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+	return false;
+});
 //////////////
 // KEY DUMP //
 //////////////
@@ -218,7 +233,7 @@ afterTab = function(keepOpen) {
 		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER
-	appResizer(100);
+	appResizer(200);
 	clearTimeout(afterTrack);
 	afterTrack = setTimeout(function() {
 		app.analytics('tab');
@@ -1137,8 +1152,8 @@ if(app.is.scrollable) {
 (function ($, _) {
 	//'use strict';
 	var ev = {
-		start : 'touchstart',
-		end : 'touchend'
+		start : touchstart,
+		end : touchend
 	};
 	$.event.special[_] = {
 		setup : function () {

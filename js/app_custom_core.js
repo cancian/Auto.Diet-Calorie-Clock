@@ -123,20 +123,20 @@ function appTimer(content) {
 	// self adjust refresh rate based on perfomance //
 	//////////////////////////////////////////////////
 	//sensibility
-	timerDiff = (app.now() - timerPerf) * 3;
-	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
+	timerDiff = (app.now() - timerPerf) * 5;
 	timerWait = timerDiff;	
+	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
 	if(app.device.wp8) {
-		timerDiff = timerDiff*5;
+		timerDiff = timerDiff*10;
 	} else {
-		timerDiff = timerDiff*3;
+		timerDiff = timerDiff*10;
 	}
 	//THROTTLE LIMIT
-	if(timerDiff > 800) { timerDiff = 800; }
+	if(timerDiff > 600)		{ timerDiff = 600; }
 	if(app.device.mobile) {
 		if(timerDiff < 200) { timerDiff = 200; }
 	} else {
-		if(timerDiff < 50)	{ timerDiff  = 50; }
+		if(timerDiff < 100)	{ timerDiff = 100; }
 	}
 }
 //#////////////////////////#//

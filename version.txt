@@ -15,7 +15,8 @@
 -- profile tab with weight loss tracking
 -- protein/fat/carbohydrates in grams per kg of body
 -- icone de sino no bloco 3 p/ local notifications
--- 
+-- informacao nutricional no diário in-line
+-- sync ping detector last sync (not push)
 -- 
 -- 
 -- 

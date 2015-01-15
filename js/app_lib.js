@@ -1051,10 +1051,22 @@ if ((/MSAppHost\/1.0|IEMobile/i).test(app.ua) && !app.device.wp81JS && window.na
 	touchend = "MSPointerUp";
 	//touchstart = "MSPointerDown";
 }
+if(document.documentMode) {
+	if(document.documentMode == 11) {
+		//tap        = 'click';
+		touchend   = 'pointerup';
+		touchstart = 'pointerdown';	
+		touchmove  = 'pointermove';
+	}
+}
+
+
 if (app.device.firefoxos) {
 	tap       = 'click';
 	singletap = 'click';
 }
+
+
 /*
 MSPointerDown			pointerdown
 MSPointerUp				pointerup
@@ -1770,7 +1782,7 @@ window.alert = function (title, msg, button, callback) {
 	if (typeof button   === 'undefined') { button = LANG.OK[lang]; }
 	if (typeof callback !== 'function')  { callback = voidThis;    }
 	//
-	if (typeof navigator.notification !== 'undefined' && !app.http) {
+	if (typeof navigator.notification !== 'undefined' && !app.http && !app.device.windows8) {
 		navigator.notification.alert(msg, callback, title, button);
 	} else {
 		if ((msg != 'msg' && msg != ' ') || title == 'alert') { msg = '\n' + msg; }
