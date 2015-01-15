@@ -2071,7 +2071,7 @@ function getRateDialog() {
 ///////////////////
 // GET ANALYTICS //
 ///////////////////
-app.analytics = function(target) {
+app.analytics = function(target,desc) {
 	if(typeof ga_storage === 'undefined')				{ return; }
 	if(typeof baseVersion === 'undefined')				{ return; }
 	//not dev
@@ -2102,8 +2102,13 @@ app.analytics = function(target) {
 		//string
 		var trackString = appOS + '.' + deviceType  + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event
-		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
-		ga_storage._trackEvent(appOS, target, lang, appBuild);			
+		if(target == 'error') {
+			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ')');
+			ga_storage._trackEvent(appOS, target, desc, appBuild);	
+		} else {
+			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
+			ga_storage._trackEvent(appOS, target, lang, appBuild);		
+		}
 	}
 };
 //BACKWARDS C.

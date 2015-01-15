@@ -37,6 +37,12 @@ window.onerror = function (e, url, line) {
 	if (typeof spinner !== 'undefined') {
 		spinner('stop');
 	}
+	//ERROR
+	if (typeof app !== 'undefined') {
+		if (typeof app.analytics !== 'undefined') {
+			app.analytics('error','onerror: ' + e + ' URL:' + url + ' Line:' + line);
+		}	
+	}
 	//auto restart
 	if ((/Exception 18/i).test(e)) {
 		setTimeout(function () {

@@ -237,7 +237,7 @@ app.reboot = function(type,error) {
 		}
 	},timeout);
 	if(error) {
-		throw error;
+		//throw error;
 	}
 };
 //////////
