@@ -2257,7 +2257,6 @@ function getLoginFB() {
 		} else {
 			if(typeof FB !== 'undefined') {
 				FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
-				var getLogin;
 				//check status
 				FB.getLoginStatus(function(response) {
 					//already logged

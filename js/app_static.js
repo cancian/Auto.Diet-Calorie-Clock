@@ -45,19 +45,21 @@ $(document).on('resume',function() {
 		$('body').css('opacity',1);
 		$('body').show();
 	///}
-	//fix locked dbs
-	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
-		app.remove('startLock');
+	//fix locked dbs ~ mobile
+	if (!app.device.desktop) {
+		if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
+			app.remove('startLock');
+		}
 	}
 });
 ///////////////////////
 // VISIBILITY CHANGE //
 ///////////////////////
-$(document).on('visibilitychange', function () {
+$(document).on('visibilitychange focus', function (evt) {
 	clearTimeout(app.repeaterLoop);
-	if (document.hidden == false || document.visibilityState == 'visible') {
+	if (window.hidden == false || window.visibilityState == 'visible' || evt.type == 'focus') {
 		if (app.device.desktop) {
-			$(document).trigger('resume');		
+			$(document).trigger('resume');
 		} else if (app.device.osxapp) {
 			$(document).trigger('resume');
 		}
