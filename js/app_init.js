@@ -154,11 +154,16 @@ function initJS() {
 					document.write('<style type="text/css" id="superBlockCSS">' + window.localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
 				}
 				//JS
-				document.addEventListener('DOMContentLoaded', function() {
-					setTimeout(function() {
-						$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
-					},0);
-				},false);
+				//if(document.getElementById('JSPlaceholder')) {
+				//	document.write('<script type="text/javascript" id="superBlockJS">' + window.localStorage.getItem('remoteSuperBlockJS') + '<\/script>');
+				//} else {
+					var RSB = window.localStorage.getItem('remoteSuperBlockJS');
+					document.addEventListener('DOMContentLoaded', function() {
+						setTimeout(function() {
+							$.globalEval(RSB);
+						},0);
+					},false);
+				//}
 			}
 		}
 	} else {

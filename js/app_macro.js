@@ -1634,7 +1634,11 @@ function getCategory(catId, callback) {
 		}
 	}
 }
-function getCatList(callback) {
+///////////////////
+// CATLIST CACHE //
+///////////////////
+var catListCache;
+function buildCatListMenu() {
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
@@ -1650,11 +1654,24 @@ function getCatList(callback) {
 	///////////////////////
 	// INSERT TOPIC LIST //
 	///////////////////////
-	$('#tabMyCatsBlock').html('<ul>' + helpHtml + '</ul>');
+	catListCache = helpHtml;
+}
+buildCatListMenu();
+////////////////////
+// CATLIST OPENER //
+////////////////////
+function getCatList(callback) {
+	//STARTLOCK
+	var startLock = 1;
+	///////////////////////
+	// INSERT TOPIC LIST //
+	///////////////////////
+	$('#tabMyCatsBlock').html('<ul>' + catListCache + '</ul>');
 	niceResizer(300);
 	/////////////
 	// HANDLER //
 	/////////////
+	setTimeout(function() {
 	app.handlers.activeRow('#foodList li','activeRow',function(targetId) {
 		var catCode = targetId.replace('cat', '');
 		//SQL QUERY
@@ -1674,6 +1691,7 @@ function getCatList(callback) {
 			var catListHandler = function () {
 				$('#tabMyCatsBlock').addClass('out');
 				//$('#newWindow').addClass('firstLoad');
+				setTimeout(function() {
 				//////////////////////
 				// ENDSCROLL LOADER //
 				//////////////////////
@@ -1683,6 +1701,7 @@ function getCatList(callback) {
 				}
 				var catLock = 0;
 				var catTimer;
+
 				$('#newWindow').scroll(function() {
 					clearTimeout(catTimer);
 					catTimer = setTimeout(function() {
@@ -1711,16 +1730,12 @@ function getCatList(callback) {
 				//////////////////
 				// MODAL CALLER //
 				//////////////////
-				//$('#newWindow div.searcheable').on(tap, function (evt) {
-				//	$('#activeOverflow').removeAttr('id');
-				//	$('.activeOverflow').removeClass('activeOverflow');
-				//	$(this).addClass('activeOverflow');
-				//	$('.foodName', this).attr('id', 'activeOverflow');
-				//	$('.foodName').css('overflow', 'auto');
-				//});
-				app.handlers.activeRow('#newWindow div.searcheable','activeOverflow',function(rowId) {
-					getModalWindow(rowId);
-				});
+				setTimeout(function() {
+					app.handlers.activeRow('#newWindow div.searcheable','activeOverflow',function(rowId) {
+						getModalWindow(rowId);
+					});
+				}, 0);
+				}, 0);
 			};
 			////////////
 			// CLOSER //
@@ -1761,4 +1776,5 @@ function getCatList(callback) {
 			return false; 
 		}
 	});
+	},0);
 }

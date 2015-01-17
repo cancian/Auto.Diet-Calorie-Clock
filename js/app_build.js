@@ -1522,19 +1522,6 @@ var profileHtml = '\
 <div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
 <div class="invisible"><h2>Nutrition requirements</h2></div>\
 \
-<div id="globalProfile">\
-<div id="globalProfileCircle">\
-<div id="globalProfileStatus"></div>\
-</div>\
-<div id="globalProfileBlock">\
-<div id="globalProfileAdjust">\
-<input id="globalProfileValue" type="text" />\
-</div>\
-</div>\
-<div id="globalProfileGoal"></div>\
-<div id="globalProfileTarget"></div>\
-</div>\
-\
 <h2 id="mantain"><span>A.</span> ' + LANG.KEEP_WEIGHT[lang] + '</h2>\
 <div class="tapSelect"><input class="ee101" id="pA7B" readonly size="7" value="0" name="pA7B" /><span class="bold">' + LANG.KCAL[lang] + ' / ' + LANG.DAY[lang] + '</span></div>\
 <div class="invisible">Carbohydrates (55%)<input class="ee101" id="pA8B" readonly size="7" value="0" name="pA8B" />cal =<input id="pA8D" readonly size="6" value="0" name="pA8D" />gm</div>\
@@ -1623,9 +1610,6 @@ var profileHtml = '\
 preTab(keepOpen);
 $('#appContent').html(profileHtml);
 afterTab(keepOpen);
-//app.handlers.addRemove('#globalProfileValue',0,999);
-//app.handlers.addRemove('#pA3B',0,9999);
-//app.handlers.addRemove('#pA6M',0,999);
 //////////////////////////
 // FIX ANDROID 2 SELECT //
 //////////////////////////
@@ -1771,6 +1755,10 @@ $('#formc select').on(touchstart,function(evt) {
 			$(thisInput).removeAttr('readonly','readonly');
 		},0);
 	}
+	//prevent drag
+	if(app.is.scrollable && app.device.desktop) {
+		evt.stopPropagation();
+	}
 });
 $('#formc select').focus(function(evt) {
 	var thisInput = this;
@@ -1860,20 +1848,6 @@ $('#formc select').on('blur',function() {
 	$('#do_recalc').trigger('click');
 	writeCalcValues();
 	setPush();
-});
-$(document).on('hidekeyboard',function() {
-		if($('#calcForm input').is(':focus') || $('#calcForm select').is(':focus')) {
-			$('#calcForm input').each(function(evt) {
-				if($(this).is(':focus') && vendorClass != 'moz') {
-					$(this).blur();
-				}
-			});
-			$('#calcForm select').each(function(evt) {
-				if($(this).is(':focus') && vendorClass != 'moz') {
-					$(this).blur();
-				}
-			});
-		}
 });
 $('#formc input').on('keyup',function() {
 	writeCalcValues();

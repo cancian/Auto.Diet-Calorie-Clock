@@ -1048,9 +1048,15 @@ function updateFoodDb(callback) {
 										callback();
 									}
 									setTimeout(function() {
-										spinner('stop');
-										$('body').removeClass('updtdb');
-									},500);
+										setTimeout(function() {
+											setTimeout(function() {
+												setTimeout(function() {
+													spinner('stop');
+													$('body').removeClass('updtdb');
+												},250);
+											},250);
+										},250);
+									},250);
 								});
 							});
 			};
@@ -1073,7 +1079,7 @@ function updateFoodDb(callback) {
 				foodDbTimer = setTimeout(function() {
 					try{
 						$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb_' + langDB + '.db', error: function(xhr, statusText) { unlockDb(); }, success: function(ls) {
-							if(ls.length < 18270) {
+							if(ls.length < 15000) {
 								unlockDb();
 								return false;
 							}
@@ -1826,6 +1832,8 @@ function buildLangMenu(opt) {
 				$('title').html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 				//heading sum
 				updateEntriesSum();
+				//update cat list cache
+				buildCatListMenu();
 				//AUTO UPDATE CSS TITLES
 				$('#cssAutoUpdate').html('\
 					.loading #advancedAutoUpdate:before	 { content: "' + LANG.DOWNLOADING[lang]     + '"; }\

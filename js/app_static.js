@@ -548,6 +548,22 @@ $(document).on('hidekeyboard',function() {
 		$('#editableInput').trigger('focus');
 		$('#editableInput').trigger('blur');
 	}
+	//profile blur
+	if(app.read('app_last_tab','tab3')) {
+		if($('#calcForm input').is(':focus') || $('#calcForm select').is(':focus')) {
+			$('#calcForm input').each(function(evt) {
+				if($(this).is(':focus') && vendorClass != 'moz') {
+					$(this).blur();
+				}
+			});
+			$('#calcForm select').each(function(evt) {
+				if($(this).is(':focus') && vendorClass != 'moz') {
+					$(this).blur();
+				}
+			});
+		}
+	}
+	//
 	kickDown();
 	return false;
 });
