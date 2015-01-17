@@ -115,6 +115,14 @@ var app = {
 				callback(target);	
 			}
 		},120);
+	},
+	timeout: function(gid,time,callback) {
+		clearTimeout(app.timers[gid]);
+		app.timers[gid] = setTimeout(function() {
+			if(typeof callback === 'function') {
+				callback();
+			}
+		}, time);
 	}
 };
 //////////////////

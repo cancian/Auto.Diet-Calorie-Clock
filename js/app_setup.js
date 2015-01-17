@@ -2111,8 +2111,10 @@ app.analytics = function(target,desc) {
 		var trackString = appOS + '.' + deviceType  + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
 		//track page/event
 		if(target == 'error') {
-			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ')');
-			ga_storage._trackEvent(appOS, target, desc, appBuild);	
+			if(!/800a139e/i.test(desc)) {
+				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ')');
+				ga_storage._trackEvent(appOS, target, desc, appBuild);	
+			}
 		} else {
 			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
 			ga_storage._trackEvent(appOS, target, lang, appBuild);		
