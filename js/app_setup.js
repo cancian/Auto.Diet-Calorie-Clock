@@ -639,9 +639,14 @@ function syncEntries(userId) {
 /////////////////
 function getEntries(callback) {
 	var rowsArray = [];
-	for(var i=0, len=rowsEntry.length; i<len; i++) {
-		if(rowsEntry[i].info !== 'deleted') {
-			rowsArray.push(rowsEntry[i]);
+	//Die Eigenschaft "length" eines undefinierten oder Nullverweises kann nicht abgerufen werden.
+	if(rowsEntry) {
+		if(rowsEntry.length) {
+			for(var i=0, len=rowsEntry.length; i<len; i++) {
+				if(rowsEntry[i].info !== 'deleted') {
+					rowsArray.push(rowsEntry[i]);
+				}
+			}
 		}
 	}
 	callback(rowsArray);

@@ -14,11 +14,15 @@ $(document).ready(function() {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
-		localforage.config({storeName: 'KCals'});
-		//localforage.setDriver([localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE]).then(function() {
-		localforage.setDriver(['webSQLStorage','asyncStorage','localStorageWrapper']).then(function() {
-			initDB();
-		});
+		try {
+			localforage.config({storeName: 'KCals'});
+			//localforage.setDriver([localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE]).then(function() {
+			localforage.setDriver(['webSQLStorage','asyncStorage','localStorageWrapper']).then(function() {
+				initDB();
+			});
+		} catch(error) {
+			app.reboot('reset',error);
+		}
 	});
 });
 ////////////////
