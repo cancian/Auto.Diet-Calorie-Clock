@@ -60,7 +60,9 @@ function showIntro(isNew) {
 				app.reboot('now');
 			}
 		} else {
-			app.handlers.fade(0,'#gettingStarted');
+			app.handlers.fade(0,'#gettingStarted',function() {
+				$('#iScrollTag').remove();
+			});
 		}
 		evt.preventDefault();
 		/////////////
@@ -184,6 +186,8 @@ function initDB(t) {
 	} else {
 		if(!app.read('config_kcals_day_0')) {
 			showIntro(0);
+		} else {
+			$('#iScrollTag').remove();
 		}
 	}
 	////////////

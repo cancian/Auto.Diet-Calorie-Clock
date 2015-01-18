@@ -440,9 +440,12 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 /*#///////////////#//
 //# NUTRI SLIDERS #//
 //#///////////////#*/
-#newWindow .carpe-slider-track		{ z-index: 0; top: 10px; left: -1px; margin: 0 0 0 0; padding: 0 3px; height: 22px; border: 1px solid #ccc; background-color: rgba(255,255,255,1); opacity: 1; border-radius: 12px; }
-#newWindow .carpe-slider-knob		{ border: 1px solid #aaa; background-color: #fff; box-shadow: none; }
-#newWindow .carpe-slider-knob.active{ border: 1px solid #ccc; background-color: #fff; box-shadow: none; }
+#newWindow .carpe-slider-track		{ z-index: 0; top: 10px; left: -1px; margin: 0 0 0 0; padding: 0 3px; border: 1px solid #ccc; background-color: rgba(255,255,255,1); opacity: 1; border-radius: 12px; -webkit-box-sizing: content-box; height: 20px; }
+#sliderProWrapper,
+#sliderCarWrapper,
+#sliderFatWrapper					{ margin-right: 8px; }
+#newWindow .carpe-slider-knob		{ border: 1px solid #aaa; background-color: #fff; -webkit-box-shadow: none; }
+#newWindow .carpe-slider-knob.active{ border: 1px solid #ccc; background-color: #fff; -webkit-box-shadow: none; }
 #sliderPro,
 #sliderCar,
 #sliderFat							{ margin: 0 22px 0 7px; position: relative; height: 90px; padding-top: 38px; }
@@ -818,7 +821,7 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 #calcForm .tapSelect span				{ display: block; position: absolute; top: 20px; left: 128px; color: #aaa; white-space: nowrap; }
 #calcForm .tapSelect input				{ position: absolute; top: -9px; left: 0; display: block; width: 100%; height: 73px; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: normal; color: #000 !important; background-color: rgba(100,100,100,.0); text-align: left; z-index: 5; -ms-user-select: none; -moz-user-select: none; }
 #calcForm  input[readonly]				{ pointer-events: auto; }
-#calcForm .tapSelect input.tapActive	{ color: #cc0000 !important; }
+#calcForm .tapSelect input.tapActive	{ color: #cc0000 !important; pointer-events: none; -webkit-user-select: none; }
 /*by/unit width*/
 #calcForm select#pA1B,
 #calcForm select#pA4B					{ min-width: 66px; width: 66px; }
@@ -1078,7 +1081,7 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .appLang-bg input#foodSearch,
 .appLang-fr input#foodSearch			{ font-size: 16px; }
 #foodListWrapper						{ width: 100%; overflow: hidden; z-index: 2; background-color: #fff; }
-.searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px; margin-bottom: 0; overflow: hidden; width: 100%; }
+.searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px; float: left; display: block; width: 100%; }
 .searcheable:nth-child(even)			{ background-color: #f8f8f8; }
 .searcheable.activeOverflow				{ background-color: #e4e4e4; }
 .searcheable.yellow						{ background-color: rgba(255,200,0,.8); }

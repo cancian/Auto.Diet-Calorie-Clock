@@ -121,7 +121,7 @@ function initJS() {
 	// JS //
 	////////
 	//ISCROLL
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iScrollTag"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js"><\/script>');

@@ -89,9 +89,10 @@ var app = {
 		app.define('config_install_time',app.now());
 		var keys = Object.keys(window.localStorage);
 		for (var i=0; i < keys.length; i++) {
-			//protected keys
-			if(!(/app_build|config_autoupdate|debug|config_install_time|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS|been_dev/).test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
-				if(!(/config_install_time|been_dev/).test(keys[i])) {
+			//cached keys
+			if(!(/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/).test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
+				//protected keys
+				if(!(/config_install_time|debug|been_dev|config_autoupdate/).test(keys[i])) {
 					window.localStorage.removeItem(keys[i]);
 				}
 			}
