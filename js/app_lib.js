@@ -572,6 +572,9 @@ app.handlers = {
 				app.handlers.activeRowBlock   = 0;
 				clearTimeout(app.handlers.activeRowTimer);
 			}
+			if(style == 'false') {
+				return false;	
+			}
 		});
 		////////////////
 		// TOUCHSTART //

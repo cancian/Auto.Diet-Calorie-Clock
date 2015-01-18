@@ -1674,7 +1674,7 @@ if(app.device.firefoxos) {
 ///////////////
 // TAP VALUE //
 ///////////////
-app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
+app.handlers.activeRow('#pA7B,#pA7F,#pA7L','false',function(thisId) {
 	//RELOAD INFO HTML
 	var calcResult = Math.round($('#' + thisId).val());
 	//check n'updt
