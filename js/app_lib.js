@@ -101,7 +101,7 @@ var app = {
 		$(target).css(prefix + 'transition', 'opacity ease .32s');
 		$(target).css('opacity',1);
 		setTimeout(function() {
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback(target);	
 			}
 		},320);
@@ -111,7 +111,7 @@ var app = {
 		$(target).css(prefix + 'transition', 'opacity ease .12s');
 		$(target).css('opacity',0);	
 		setTimeout(function() {
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback(target);	
 			}
 		},120);
@@ -496,7 +496,7 @@ app.handlers = {
 				//fast resizing
 				$(target).css(prefix + 'transition-duration', '0s');
 			}
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback();
 				callback = '';
 			}
@@ -551,7 +551,7 @@ app.handlers = {
 		//////////////
 		$(target).on(touchend, function (evt) {
 			if($(this).hasClass(style) && app.handlers.activeRowBlock == 0) {
-				if (callback) {
+				if (typeof callback === 'function') {
 					app.handlers.activeRowBlock = 1;
 					if(isButton == 0) {
 						callback(evt);
@@ -660,7 +660,7 @@ app.handlers = {
 				$(target).removeClass('yellow');
 				setTimeout(function () {
 					$(target).css(prefix + 'transition','background linear 0s');
-					if(callback) {
+					if(typeof callback === 'function') {
 						callback();
 					}
 				}, 500);

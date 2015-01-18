@@ -1671,24 +1671,16 @@ if(app.device.firefoxos) {
 		return false;
 	});
 }
-//
-$('#pA7B,#pA7F,#pA7L').on(tap, function(evt) {
+///////////////
+// TAP VALUE //
+///////////////
+app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
 	//RELOAD INFO HTML
-	var calcResult = Math.round($(this).val());
+	var calcResult = Math.round($('#' + thisId).val());
 	//check n'updt
 	if(calcResult >= 100 && calcResult <= 9999) {
-		//adjust current value
-		var getKcalsKey = 'config_kcals_day_0';
-		if(app.read('config_kcals_type','cyclic')) {
-			if(app.read('config_kcals_day','d')) {
-				getKcalsKey = 'config_kcals_day_2';
-			} else {
-				getKcalsKey = 'config_kcals_day_1';
-			}
-		}
-		//update db
-		app.save(getKcalsKey,calcResult);
-		$('#timerDailyInput').val(app.read(getKcalsKey));
+		app.save(app.get.kcals('key'),calcResult);
+		$('#timerDailyInput').val(app.read(app.get.kcals('key')));
 		//HIGHLIGH INPUT
 		$('#timerDailyInput').css(prefix + 'transition-duration','0s');
 		$('#timerDailyInput').css('color','rgba(255,255,255,1');
@@ -1697,17 +1689,16 @@ $('#pA7B,#pA7F,#pA7L').on(tap, function(evt) {
 			$('#timerDailyInput').css('color','rgba(255,255,255,.72');
 		},200);
 		//HIGHLIGHT
-		$(this).addClass('tapActive');
-		$(this).stop().animate({ backgroundColor: 'rgba(255,255,0,0.2)' }, 1).animate({ backgroundColor: 'rgba(255,255,255,0.2)' }, 450);
+		$('#' + thisId).addClass('tapActive');
+		$('#' + thisId).stop().animate({ backgroundColor: 'rgba(255,255,0,0.2)' }, 1).animate({ backgroundColor: 'rgba(255,255,255,0.2)' }, 450);
 		setTimeout (function() { $('#pA7B,#pA7F,#pA7L').removeClass('tapActive'); }, 200);
 		updateTimer();
 	} else {
 		//shake error
-		$(this).addClass('tapActive');
+		$('#' + thisId).addClass('tapActive');
 		setTimeout (function() { $('#pA7B,#pA7F,#pA7L').removeClass('tapActive'); }, 400);
-		$(this).stop().parent('div').effect('shake',{times:3,direction:'left',distance:6}, 300);
+		$('#' + thisId).stop().parent('div').effect('shake',{times:3,direction:'left',distance:6}, 300);
 	}
-	return false;
 });
 //////////////////////////////
 // BLUR ON NULL ID TOUCHEND //

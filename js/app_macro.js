@@ -1667,11 +1667,11 @@ function getCatList(callback) {
 	// INSERT TOPIC LIST //
 	///////////////////////
 	$('#tabMyCatsBlock').html('<ul>' + catListCache + '</ul>');
-	niceResizer(300);
 	/////////////
 	// HANDLER //
 	/////////////
 	setTimeout(function() {
+	niceResizer(300);
 	app.handlers.activeRow('#foodList li','activeRow',function(targetId) {
 		var catCode = targetId.replace('cat', '');
 		//SQL QUERY
@@ -1691,7 +1691,6 @@ function getCatList(callback) {
 			var catListHandler = function () {
 				$('#tabMyCatsBlock').addClass('out');
 				//$('#newWindow').addClass('firstLoad');
-				setTimeout(function() {
 				//////////////////////
 				// ENDSCROLL LOADER //
 				//////////////////////
@@ -1701,7 +1700,7 @@ function getCatList(callback) {
 				}
 				var catLock = 0;
 				var catTimer;
-
+				setTimeout(function() {
 				$('#newWindow').scroll(function() {
 					clearTimeout(catTimer);
 					catTimer = setTimeout(function() {
