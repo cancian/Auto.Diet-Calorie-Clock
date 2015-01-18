@@ -1143,7 +1143,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#entryBody').blur();
 		$(document).trigger('pageReload');
 	});
-	$('#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
+	$('#entryListForm,#go,#entryListWrapper').click(function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		if($('#entryBody').is(':focus') && evt.target.id == 'entryTime') {
@@ -1270,7 +1270,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		});
 		//fix android 4.4 scrolling bug
 		if(app.device.android) {
-			$('#diaryNotesInput').on(tap, function(evt) {
+			$('#diaryNotesInput').click(function(evt) {
 				var notesScroll = $('#diaryNotesInput').scrollTop();
 				//allow toolbar select
 				if(Math.abs(lastScreenResize - lastScreenSize) > 48) {
@@ -1305,7 +1305,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			$(window).trigger('resize');
 		});
 		//kb closer
-		$('#diaryCloser').on(tap,function(evt) {
+		$('#diaryCloser').click(function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
 			$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');

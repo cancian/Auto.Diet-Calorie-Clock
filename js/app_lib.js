@@ -91,7 +91,9 @@ var app = {
 		for (var i=0; i < keys.length; i++) {
 			//protected keys
 			if(!(/app_build|config_autoupdate|debug|config_install_time|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS|been_dev/).test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
-				window.localStorage.removeItem(keys[i]);			
+				if(!(/config_install_time|been_dev/).test(keys[i])) {
+					window.localStorage.removeItem(keys[i]);
+				}
 			}
 		}
 		//window.localStorage.clear();
@@ -573,7 +575,11 @@ app.handlers = {
 				clearTimeout(app.handlers.activeRowTimer);
 			}
 			if(style == 'false') {
-				return false;	
+				var falseThis = this;
+				$(falseThis).css('pointer-events','none');
+				app.timeout('tapSelect',500,function() {
+					$(falseThis).css('pointer-events','auto');						
+				});
 			}
 		});
 		////////////////
