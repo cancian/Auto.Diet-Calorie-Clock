@@ -210,7 +210,6 @@ preTab = function(keepOpen) {
 		kickDown();
 	}
 };
-var afterTrack;
 afterTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
 	$('#appContent').css('display','block');
@@ -1184,16 +1183,24 @@ if(app.is.scrollable) {
 				if (e.which && e.which !== 1) {
 					return;
 				}
-				ev.target = e.target;
-				ev.time = new Date().getTime();
-				ev.X = ev.E.pageX;
-				ev.Y = ev.E.pageY;
+				if(ev) {
+					if(ev.E) {
+						ev.target = e.target;
+						ev.time = new Date().getTime();
+						ev.X = ev.E.pageX;
+						ev.Y = ev.E.pageY;
+					}
+				}
 			}).on(ev.end, function (e) {
 				if (ev.target === e.target && ((new Date().getTime() - ev.time) < 750) && (ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
-					e.type = _;
-					e.pageX = ev.E.pageX;
-					e.pageY = ev.E.pageY;
-					$.event.dispatch.call(this, e);
+					if(ev) {
+						if(ev.E) {
+							e.type = _;
+							e.pageX = ev.E.pageX;
+							e.pageY = ev.E.pageY;
+							$.event.dispatch.call(this, e);
+						}
+					}
 				}
 			});
 		},
