@@ -388,6 +388,8 @@ $(document).on('backbutton', function(evt) {
 $(document).on('pressenter', function(evt) {
 	if($('#diaryNotesButton').length) {
 		return true;
+	} else if($('#closeButton').length) {
+		$('#closeButton').trigger(touchend);
 	} else {
 		$('#timerDailyInput').trigger('blur');
 		if($('#saveButton').length) {
