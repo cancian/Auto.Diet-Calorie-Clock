@@ -1558,7 +1558,9 @@ function kickDown(el) {
 	if(!$('body').hasClass('android2')) {
 		if(!app.device.desktop || app.device.windows8) {
 			window.scrollTo(0, 0);
-			document.body.scrollTop = 0;
+			if(document.body) {
+				document.body.scrollTop = 0;
+			}
 			//window.scroll($(el)[0].scrollTop,0,0);
 		}
 	} else {
