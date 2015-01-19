@@ -25,6 +25,7 @@
 • Faster start-up time
 • Update cache is preserved upon full data reset
 • "Automatic Backup" has been renamed to "Backup & Synchronization"
+• Fixed an issue with the "Daily Intake" input triggering unnecessary synchronization requests
 
 # 1.8 [2014/12/27]
 • Better protection against download failure

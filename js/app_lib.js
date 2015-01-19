@@ -130,7 +130,17 @@ var app = {
 				callback();
 			}
 		}, time);
-	}
+	},
+	suspend: function(target,time,callback) {
+		clearTimeout(app.timers[searchalize(target)]);
+		$(target).css('pointer-events','none');
+		app.timers[app.timers[searchalize(target)]] = setTimeout(function() {
+			if(typeof callback === 'function') {
+				callback();
+			}
+			$(target).css('pointer-events','auto');
+		}, time);
+	},
 };
 //////////////////
 // TOTAL WEIGHT //
@@ -590,18 +600,18 @@ app.handlers = {
 		////////////////
 		setTimeout(function () {
 			$(target).on(touchstart, function (evt) {
-				if(!$(this).hasClass(style)) {
+				var localTarget = '#' + $(this).attr('id');				
+				if(!$(localTarget).hasClass(style)) {
 					$(app.handlers.activeLastId).removeClass(style);
 				}
-				var localTarget = this;
-				app.handlers.activeRowTouches = 0;
+				app.handlers.activeRowTouches = 0; 
 				clearTimeout(app.handlers.activeRowTimer);
 				app.handlers.activeRowTimer = setTimeout(function () {
 					if (app.handlers.activeRowTouches == 0 && app.handlers.activeRowBlock == 0) {
 						$(localTarget).addClass(style);
-						app.handlers.activeLastId = '#' + $(localTarget).attr('id');
+						app.handlers.activeLastId = localTarget;
 					} else {
-						$(app.handlers.activeLastId).removeClass(style);
+						$(localTarget).removeClass(style);
 					}
 				}, isButton);
 				//CALLBACK CONDITION
@@ -614,7 +624,7 @@ app.handlers = {
 					return false;
 				}
 			});
-		}, 400);
+		}, 350);
 		//////////////////////
 		// ROW LEAVE CANCEL //
 		//////////////////////

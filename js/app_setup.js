@@ -424,11 +424,14 @@ function pushEntries(userId) {
 		}
 	});
 }
-function setPush() {
+function setPush(msg) {
 	if(app.read('facebook_logged')) {
 		updateFoodDb();
 	}
 	app.save('lastEntryPush',app.now());
+	if(msg && app.dev) {
+		console.log(msg);
+	}
 }
 //#///////////////////#//
 //# AUX: SYNC ENTRIES #//

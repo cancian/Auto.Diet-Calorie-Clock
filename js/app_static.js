@@ -1028,6 +1028,7 @@ if(app.is.scrollable) {
 		if($('#addNewWrapper').html())			{ return; }
 		//hide food
 		if($('#pageSlideFood').hasClass('open') && !$('#pageSlideFood').is(':animated')) {
+			app.suspend('#entryListForm',500);
 			$('#foodSearch').blur();
 			$('#pageSlideFood').addClass('busy');
 			$('#appHeader').removeClass('open');
@@ -1059,7 +1060,8 @@ if(app.is.scrollable) {
 	/////////////////////////// BETA ~ ~ ~
 	$('#appHeader,#appContent').on(touchstart, function(evt) {
 		$('#appContent').show();
-		if(evt.target.id != 'timerDailyInput') {
+		if(evt.target.id != 'timerDailyInput' && $('#timerDailyInput').is(':focus')) {
+			//triggers setpush
 			$('#timerDailyInput').blur();
 		}
 		$('#entryTime').blur();

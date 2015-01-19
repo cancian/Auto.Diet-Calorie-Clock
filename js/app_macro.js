@@ -522,6 +522,8 @@ function getNutriSliders() {
 	// HANDLERS CALLBACK //
 	///////////////////////
 	var handlers = function() {
+		//FIX PROPAGATION
+		app.suspend('#sliderProWrapper,#sliderCarWrapper,#sliderFatWrapper',400);
 		///////////////////
 		// PREVENT FOCUS //
 		///////////////////
