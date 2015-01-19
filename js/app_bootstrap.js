@@ -123,6 +123,7 @@ function InitializeLocalSuperBlock(opt) {
 		dataCSS = dataCSS.split('-webkit-').join('-moz-');
 	}
 	if((/trident|IEMobile/i).test(navigator.userAgent))	{ 
+		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
@@ -230,6 +231,7 @@ function buildRemoteSuperBlock(opt) {
 		dataCSS = dataCSS.split('-webkit-').join('-moz-');
 	}
 	if((/trident|IEMobile/i).test(navigator.userAgent))	{ 
+		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}

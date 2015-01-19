@@ -269,6 +269,7 @@ app.reboot = function(type,error) {
 //////////
 // ZOOM //
 //////////
+/*
 app.zoom = function(ratio) {
 	if(!ratio) {
 		//ratio = app.read('app_zoom');
@@ -292,15 +293,15 @@ app.zoom = function(ratio) {
 	//$('body').css('zoom',app.read('app_zoom'));
 	//$('body').css('-moz-transform','scale(' + app.read('app_zoom') + ',' + app.read('app_zoom') + ')');
 	if(typeof appResizer == 'function') {
-		appResizer();
 		$('.nicescroll-rails').css('display','none');
-		clearTimeout(app.timers.zoomRails);
-		app.timers.zoomRails = setTimeout(function() {
+		appResizer();
+		app.timeout('zoomHideScrollar',400,function() {
 			$('.nicescroll-rails').css('display','block');
-		},400);
+		});
 	}
 };
-//app.zoom();
+app.zoom();
+*/
 ////////////////
 // APP.INFO() //
 ////////////////
@@ -1026,6 +1027,7 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 					dataCSS = dataCSS.split('-webkit-').join('-moz-');
 				}
 				if(vendorClass == 'msie') {
+					dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 					dataCSS = dataCSS.split('-webkit-').join('-ms-');
 				}

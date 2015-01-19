@@ -224,7 +224,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 @keyframes gocenter			{ 0% { right: -65%; color: #63C980; } 39% { color: #63C980; } 41% { color: #09F; } 100% { color: #09F; right: 0; } }
 @-webkit-keyframes gocenter	{ 0% { right: -65%; color: #63C980; } 39% { color: #63C980; } 41% { color: #09F; } 100% { color: #09F; right: 0; } }
 /*click anim*/
-#clock						{ position: absolute; top: -21%; right: 11%; display: block; width: 40px; height: 40px; border: 1px solid #ddd; border-radius: 100px; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .05); box-shadow: 0 1px 3px rgba(0, 0, 0, .05); -webkit-backface-visibility: hidden; overflow: hidden; pointer-events: none; }
+#clock						{ position: absolute; top: -21%; right: 11%; display: block; width: 40px; height: 40px; border: 1px solid #ddd; border-radius: 100px; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .05); -webkit-backface-visibility: hidden; overflow: hidden; pointer-events: none; }
 .ios7 #clock				{ top: -16%; }
 #clock:before				{ content: ''; position: absolute; z-index: 2; width: 4px; height: 4px; overflow: hidden; display: block; background: #fff; opacity: 1; left: 50%; top: 50%; margin: -2px 0 0 -2px; border-radius: 6px; border: 1px solid #ccc; z-index: 5; }
 #clock span.hand.minute,
@@ -888,7 +888,7 @@ div#entryBodySearch:active		{ color: #eee; }
 select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
 .ios select#entryTime			{ padding: 6px 4px 5px 7px; }
 #entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; white-space: nowrap; }
-div.submitActive				{ color: #fff !important; background-color: #316ADC; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; /*-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.09) !important;*/ opacity: 1; }
+div.submitActive				{ color: #fff !important; background-color: #316ADC; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; opacity: 1; }
 #loadingDiv						{ position: absolute; top: 18px; left: 0; width: 100%; z-index: 99; text-align:center; text-indent: 57px; display: none; opacity: 0; -webkit-transition-timing-function: linear; -webkit-user-select: none; pointer-events: none; -ms-touch-action: none; }
 #appHeader.open + #loadingDiv	{ display: none !important; } 
 .ios7 #loadingDiv				{ top: 31px; }
@@ -986,7 +986,7 @@ div.editing p				{ opacity: 1; }
 .sidebar .entriesPublished			{ bottom: 0; }
 .sidebar.ios #entryList div			{ padding: 15px 0 2px 0; }
 .sidebar.msie #entryList div		{ padding: 15px 0 2px 0; }
-.sidebar #entryList					{ -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); }
+.sidebar #entryList					{ -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,.1); }
 /*no colapse*/
 div#noEntries						{ height: 45px !important; }
 .sidebar div#noEntries				{ border-left: 3px solid #ccc; padding-left: 3px !important; }
@@ -1040,8 +1040,8 @@ div#noEntries						{ height: 45px !important; }
 .carpe-slider-track			{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #666; opacity: .5; }
 #positiveTrack				{ background-color: #0000dd; }
 #negativeTrack				{ background-color: #D55621; }
-.carpe-slider-knob			{ z-index: 1; top: 0px; left: 2px; margin-left: 0; margin-right: 2px; width: 18px; height: 18px; border: 1px solid #fff; border-radius: 60px; background-color: #fff; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-backface-visibility: hidden; }
-.carpe-slider-knob.active	{ border: 1px solid #009900; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+.carpe-slider-knob			{ z-index: 1; top: 0px; left: 2px; margin-left: 0; margin-right: 2px; width: 18px; height: 18px; border: 1px solid #fff; border-radius: 60px; background-color: #fff; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-backface-visibility: hidden; }
+.carpe-slider-knob.active	{ border: 1px solid #009900; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
 /**/
 .android2 .carpe-slider-knob{ -webkit-backface-visibility: visible; }
 /*/////////
@@ -1419,6 +1419,7 @@ ul#addNewList input			{ position: absolute; top: 0; right: 120px; text-align: le
 /*////////
 // ZOOM //
 ////////*/
+/*
 #advancedZoom.activeRow		{ background-color: #fff !important; }
 #zoomx1,
 #zoomx2,
@@ -1435,11 +1436,12 @@ ul#addNewList input			{ position: absolute; top: 0; right: 120px; text-align: le
 #zoomx1:before				{ content: 'x1'; }
 #zoomx2:before				{ content: 'x2'; }
 #zoomx3:before				{ content: 'x3'; }
+*/
 /*SCREEN INFO*/
 #screenInfo										{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; -webkit-transform: translate3d(0, 0, 0); }
 #screenInfo #circleFocus						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow:hidden;  display: block; -webkit-transform: translate3d(0, 0, 0); }
 #screenInfo #circleFocus:before,
-#screenInfo #circleFocus:after					{ content:''; position: absolute; border-radius: 900px; top: -124px; left: -54px; width: 230px; height: 230px; -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); }
+#screenInfo #circleFocus:after					{ content:''; position: absolute; border-radius: 900px; top: -124px; left: -54px; width: 230px; height: 230px; -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); }
 /*tweaks*/
 .ios #screenInfo #circleFocus:before,
 .ios #screenInfo #circleFocus:after,

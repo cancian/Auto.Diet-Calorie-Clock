@@ -1456,7 +1456,7 @@ function buildAdvancedMenu() {
 	app.handlers.activeRow('#zoomx3','button',function(evt) {
 		app.zoom(3);
 	});
-		*/
+	*/
 	//#/////////#//
 	//# CONTACT #//
 	//#/////////#//
