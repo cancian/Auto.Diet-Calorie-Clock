@@ -781,10 +781,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//////////////////
 	app.handlers.repeater('#sliderPos','activeArrow',400,25,function() {
 		if(document.getElementById('slider')) {
-			var inputValue = Number($('#entryTitle').val());
-			document.getElementById('slider').slider.increment(1);
-			$('#entryTitle').val(inputValue+1);
-			slider.lid(inputValue+1);
+			//Cannot read property increment of undefined
+			if(typeof document.getElementById('slider').slider !== 'undefined') {
+				var inputValue = Number($('#entryTitle').val());
+				document.getElementById('slider').slider.increment(1);
+				$('#entryTitle').val(inputValue+1);
+				slider.lid(inputValue+1);
+			}
 		}
 	});
 	//////////////////
@@ -792,10 +795,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//////////////////
 	app.handlers.repeater('#sliderNeg','activeArrow',400,25,function() {
 		if(document.getElementById('slider')) {
-			var inputValue = Number($('#entryTitle').val());
-			document.getElementById('slider').slider.increment(-1);
-			$('#entryTitle').val(inputValue-1);
-			slider.lid(inputValue-1);
+			//Cannot read property increment of undefined
+			if(typeof document.getElementById('slider').slider !== 'undefined') {
+				var inputValue = Number($('#entryTitle').val());
+				document.getElementById('slider').slider.increment(-1);
+				$('#entryTitle').val(inputValue-1);
+				slider.lid(inputValue-1);
+			}
 		}
 	});
 	///////////////////

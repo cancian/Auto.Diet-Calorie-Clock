@@ -150,32 +150,26 @@ $('body').prepend('\
 $(document).scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
-	return false;
 });
 $(window).scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
-	return false;
 });
 $('body').scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
-	return false;
 });
 $(document).on('dblclick',function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
-	return false;
 });
 $(window).on('dblclick',function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
-	return false;
 });
 $('body').on('dblclick',function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
-	return false;
 });
 //////////////
 // KEY DUMP //
