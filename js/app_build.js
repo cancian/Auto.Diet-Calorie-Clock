@@ -1071,7 +1071,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// DUMPDB //
 			////////////
 			if (/devdumpnames/i.test($('#entryBody').val())) {
-				var rowsArray = rowsFood;
+				var rowsArray = app.rows.food;
 				var rowsHtml = '';
 				for(var i=0, len=rowsArray.length; i<len; i++) {
 					

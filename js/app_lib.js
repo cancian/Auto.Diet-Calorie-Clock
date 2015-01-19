@@ -18,6 +18,10 @@ var app = {
 	call: {},
 	exec: {},
 	info: {},
+	rows : {
+		entry: {},
+		food:  {},
+	},
 	exists: function(targetId) {
 		if(targetId) {
 			targetId = targetId.replace('#','');
@@ -445,8 +449,6 @@ var timerKcals;
 var rebuildHistory;
 var blockModal = false;
 var modalTimer;
-var rowsEntry = [];
-var rowsFood  = [];
 function voidThis()   { }
 function voidMe()     { }
 /////////////////

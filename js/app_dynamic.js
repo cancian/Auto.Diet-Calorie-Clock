@@ -794,7 +794,7 @@ function searchFood(searchSQL, callback) {
 	} else {
 		var typeTerm = 'food';
 	}
-	var dato = rowsFood;
+	var dato = app.rows.food;
 	var keyJunk = 0;
 	var keyScore = 0;
 	var mi = [];

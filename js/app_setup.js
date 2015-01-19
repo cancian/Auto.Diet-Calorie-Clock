@@ -145,10 +145,10 @@ function showIntro(isNew) {
 function loadDatabase() {
 	localforage.getItem('diary_entry',function(rows) {
 		if(!rows) { rows = []; }
-		rowsEntry = rows;
+		app.rows.entry = rows;
 		localforage.getItem('diary_food',function(rows) {
 			if(!rows) { rows = []; }
-			rowsFood = rows;
+			app.rows.food = rows;
 			setTimeout(function() {
 				//INIT
 				startApp();
@@ -159,12 +159,12 @@ function loadDatabase() {
 					$('body').addClass('updtdb');
 					spinner();
 					setTimeout(function() {
-						for(var i=0, len=rowsFood.length; i<len; i++) {
-							rowsFood[i].term = searchalize(rowsFood[i].name);
+						for(var i=0, len=app.rows.food.length; i<len; i++) {
+							app.rows.food[i].term = searchalize(app.rows.food[i].name);
 						}
-						localforage.setItem('diary_food',rowsFood,function(rows) {
+						localforage.setItem('diary_food',app.rows.food,function(rows) {
 							app.save('foodDbVersion',4);
-							rowsFood = rows;
+							app.rows.food = rows;
 							spinner('stop');
 						},100);
 					});
@@ -232,11 +232,11 @@ function deSetup(callback) {
 // CLEAR ENTRIES //
 ///////////////////
 function clearEntries(callback) {
-	for(var i=0, len=rowsEntry.length; i<len; i++) {
-		rowsEntry[i].info = 'deleted';
+	for(var i=0, len=app.rows.entry.length; i<len; i++) {
+		app.rows.entry[i].info = 'deleted';
 	}
-	localforage.setItem('diary_entry',rowsEntry,function(rows) {
-		rowsEntry = rows;
+	localforage.setItem('diary_entry',app.rows.entry,function(rows) {
+		app.rows.entry = rows;
 		setPush();
 		callback();
 	});
@@ -316,7 +316,7 @@ function rebuildLocalStorage(lsp) {
 // FETCH ENTRIES //
 ///////////////////
 function fetchEntries(callback) {
-	callback(rowsEntry.sortbyattr('published','desc'));
+	callback(app.rows.entry.sortbyattr('published','desc'));
 }
 //#//////////////////////#//
 //# ONLINE: PUSH ENTRIES #//
@@ -467,9 +467,9 @@ function setComplete() {
 ///////////////
 function rowsLoop(sqlEntry, hive, callback) {
 	if (hive == 'diary_entry') {
-		rows = rowsEntry;
+		rows = app.rows.entry;
 	} else {
-		rows = rowsFood;
+		rows = app.rows.food;
 		hive = 'diary_food';
 	}
 	//////////////////
@@ -506,9 +506,9 @@ function rowsLoop(sqlEntry, hive, callback) {
 	}
 	//UPDATE CACHE
 	if (hive == 'diary_entry') {
-		rowsEntry = rows;
+		app.rows.entry = rows;
 	} else {
-		rowsFood  = rows;		
+		app.rows.food  = rows;		
 	}
 	////////////////////
 	// WRITE CALLBACK //
@@ -640,11 +640,11 @@ function syncEntries(userId) {
 function getEntries(callback) {
 	var rowsArray = [];
 	//Die Eigenschaft "length" eines undefinierten oder Nullverweises kann nicht abgerufen werden.
-	if(rowsEntry) {
-		if(rowsEntry.length) {
-			for(var i=0, len=rowsEntry.length; i<len; i++) {
-				if(rowsEntry[i].info !== 'deleted') {
-					rowsArray.push(rowsEntry[i]);
+	if(app.rows.entry) {
+		if(app.rows.entry.length) {
+			for(var i=0, len=app.rows.entry.length; i<len; i++) {
+				if(app.rows.entry[i].info !== 'deleted') {
+					rowsArray.push(app.rows.entry[i]);
 				}
 			}
 		}
@@ -655,9 +655,9 @@ function getEntries(callback) {
 // GET ENTRY //
 ///////////////
 function getEntry(eid,callback) {
-	for(var i=0, len=rowsEntry.length; i<len; i++) {
-		if(rowsEntry[i].id == eid) {
-			callback(rowsEntry[i]);
+	for(var i=0, len=app.rows.entry.length; i<len; i++) {
+		if(app.rows.entry[i].id == eid) {
+			callback(app.rows.entry[i]);
 			break;
 		}
 	}
@@ -671,24 +671,24 @@ function updateEntry(data,callback) {
 	if(endDate == '0000') {
 		data.published = data.published.split(endDate).join(endId);
 	}
-	for(var i=0, len=rowsEntry.length; i<len; i++) {
-		if(rowsEntry[i].id == data.id) {
-			rowsEntry[i].id        = data.id;
-			rowsEntry[i].title     = parseInt(data.title);
-			rowsEntry[i].body      = data.body;
-			rowsEntry[i].published = parseInt(data.published);
-			rowsEntry[i].info      = '';
-			rowsEntry[i].kcal      = '';
-			rowsEntry[i].pro       = data.pro;
-			rowsEntry[i].car       = data.car;
-			rowsEntry[i].fat       = data.fat;
-			rowsEntry[i].fib       = '';
+	for(var i=0, len=app.rows.entry.length; i<len; i++) {
+		if(app.rows.entry[i].id == data.id) {
+			app.rows.entry[i].id        = data.id;
+			app.rows.entry[i].title     = parseInt(data.title);
+			app.rows.entry[i].body      = data.body;
+			app.rows.entry[i].published = parseInt(data.published);
+			app.rows.entry[i].info      = '';
+			app.rows.entry[i].kcal      = '';
+			app.rows.entry[i].pro       = data.pro;
+			app.rows.entry[i].car       = data.car;
+			app.rows.entry[i].fat       = data.fat;
+			app.rows.entry[i].fib       = '';
 			break;
 		}
 	}
 	//return id/date pair
 	callback(data.id,data.published);
-	localforage.setItem('diary_entry',rowsEntry,function(rows) {
+	localforage.setItem('diary_entry',app.rows.entry,function(rows) {
 		setPush();
 	});
 }
@@ -696,14 +696,14 @@ function updateEntry(data,callback) {
 //# DB: DELETE ENTRY #//
 //#//////////////////#//
 function deleteEntry(entry,callback) {
-	for(var i=0, len=rowsEntry.length; i<len; i++) {
-		if(rowsEntry[i].id == entry.id) {
-			rowsEntry[i].info = 'deleted';
+	for(var i=0, len=app.rows.entry.length; i<len; i++) {
+		if(app.rows.entry[i].id == entry.id) {
+			app.rows.entry[i].info = 'deleted';
 			break;
 		}
 	}
-	localforage.setItem('diary_entry',rowsEntry,function(rows) {
-		//rowsEntry = rows;
+	localforage.setItem('diary_entry',app.rows.entry,function(rows) {
+		//app.rows.entry = rows;
 		setPush();
 		if(callback) {
 			callback();
@@ -719,9 +719,9 @@ function saveEntry(data,callback) {
 	////////////////
 	if(data.raw == true) {
 		//SAVE
-		rowsEntry.push(data);
-		localforage.setItem('diary_entry',rowsEntry,function(rows) {
-			rowsEntry = rows;
+		app.rows.entry.push(data);
+		localforage.setItem('diary_entry',app.rows.entry,function(rows) {
+			app.rows.entry = rows;
 			setPush();
 			if(callback) {
 				callback();
@@ -733,9 +733,9 @@ function saveEntry(data,callback) {
 	} else if(data.reuse == true) {
 		//SAVE
 		var saveTime = app.now();
-		rowsEntry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib});
-		localforage.setItem('diary_entry',rowsEntry,function(rows) {
-			rowsEntry = rows;
+		app.rows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib});
+		localforage.setItem('diary_entry',app.rows.entry,function(rows) {
+			app.rows.entry = rows;
 			setPush();
 			if(callback) {
 				callback(saveTime);
@@ -745,14 +745,14 @@ function saveEntry(data,callback) {
 	// UPDATE BODY //
 	/////////////////
 	} else if(data.id && !data.title) {
-		for(var i=0, len=rowsEntry.length; i<len; i++) {
-			if(rowsEntry[i].id == data.id) {
-				rowsEntry[i].body = data.body;
+		for(var i=0, len=app.rows.entry.length; i<len; i++) {
+			if(app.rows.entry[i].id == data.id) {
+				app.rows.entry[i].body = data.body;
 				break;
 			}
 		}
-		localforage.setItem('diary_entry',rowsEntry,function(rows) {
-			rowsEntry = rows;
+		localforage.setItem('diary_entry',app.rows.entry,function(rows) {
+			app.rows.entry = rows;
 			setPush();
 			if(callback) {
 				callback();
@@ -762,14 +762,14 @@ function saveEntry(data,callback) {
 	//////////////////
 	// UPDATE TITLE //
 	//////////////////
-		for(var i=0, len=rowsEntry.length; i<len; i++) {
-			if(rowsEntry[i].id == data.id) {
-				rowsEntry[i].title = data.title;
+		for(var i=0, len=app.rows.entry.length; i<len; i++) {
+			if(app.rows.entry[i].id == data.id) {
+				app.rows.entry[i].title = data.title;
 				break;
 			}
 		}
-		localforage.setItem('diary_entry',rowsEntry,function(rows) {
-			rowsEntry = rows;
+		localforage.setItem('diary_entry',app.rows.entry,function(rows) {
+			app.rows.entry = rows;
 			setPush();
 			if(callback) {
 				callback();
@@ -779,10 +779,10 @@ function saveEntry(data,callback) {
 	/////////////////
 	// INSERT FULL //
 	/////////////////
-		rowsEntry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: ''});
+		app.rows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: ''});
 		//SAVE
-		localforage.setItem('diary_entry',rowsEntry,function(rows) {
-			rowsEntry = rows;
+		localforage.setItem('diary_entry',app.rows.entry,function(rows) {
+			app.rows.entry = rows;
 			setPush();
 			getRateDialog();
 			app.analytics('add');
@@ -794,10 +794,10 @@ function saveEntry(data,callback) {
 	//////////////////
 	// INSERT QUICK //
 	//////////////////
-		rowsEntry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: '', car: '', fat: '', fib: ''});
+		app.rows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: '', car: '', fat: '', fib: ''});
 		//SAVE
-		localforage.setItem('diary_entry',rowsEntry,function(rows) {
-			rowsEntry = rows;
+		localforage.setItem('diary_entry',app.rows.entry,function(rows) {
+			app.rows.entry = rows;
 			setPush();
 			getRateDialog();
 			app.analytics('add');
@@ -813,28 +813,28 @@ function saveEntry(data,callback) {
 function setFood(data, callback) {
 	if(data.act == 'update') {
 		//UPDATE
-		for(var i=0, len=rowsFood.length; i<len; i++) {
-			if(rowsFood[i].id == data.id) {
-				rowsFood[i].id   = data.id;
-				rowsFood[i].type = data.type;
-				rowsFood[i].code = data.code;
-				rowsFood[i].name = data.name;
-				rowsFood[i].term = data.term;
-				rowsFood[i].kcal = data.kcal;
-				rowsFood[i].pro  = data.pro;
-				rowsFood[i].car  = data.car;
-				rowsFood[i].fat  = data.fat;
-				rowsFood[i].fib  = data.fib;
+		for(var i=0, len=app.rows.food.length; i<len; i++) {
+			if(app.rows.food[i].id == data.id) {
+				app.rows.food[i].id   = data.id;
+				app.rows.food[i].type = data.type;
+				app.rows.food[i].code = data.code;
+				app.rows.food[i].name = data.name;
+				app.rows.food[i].term = data.term;
+				app.rows.food[i].kcal = data.kcal;
+				app.rows.food[i].pro  = data.pro;
+				app.rows.food[i].car  = data.car;
+				app.rows.food[i].fat  = data.fat;
+				app.rows.food[i].fib  = data.fib;
 				break;
 			}
 		}
 		callback();
-		localforage.setItem('diary_food',rowsFood,function(rows) {
-			rowsFood = rows;
+		localforage.setItem('diary_food',app.rows.food,function(rows) {
+			app.rows.food = rows;
 		});
 	} else {
 	//INSERT
-		rowsFood.push({
+		app.rows.food.push({
 			id:   data.id,
 			type: data.type,
 			code: data.code,
@@ -847,8 +847,8 @@ function setFood(data, callback) {
 			fib:  data.fib
 		});
 		callback();
-		localforage.setItem('diary_food',rowsFood,function(rows) {	
-			rowsFood = rows;
+		localforage.setItem('diary_food',app.rows.food,function(rows) {	
+			app.rows.food = rows;
 		});
 	}
 }
@@ -856,9 +856,9 @@ function setFood(data, callback) {
 // GET FOOD //
 //////////////
 function getFood(foodId,callback) {
-	for(var i=0, len=rowsFood.length; i<len; i++) {
-		if(rowsFood[i].id == foodId) {
-			callback(rowsFood[i]);
+	for(var i=0, len=app.rows.food.length; i<len; i++) {
+		if(app.rows.food[i].id == foodId) {
+			callback(app.rows.food[i]);
 			break;
 		}
 	}
@@ -868,19 +868,19 @@ function getFood(foodId,callback) {
 /////////////////
 function delFood(foodId, callback) {
 	var rowsArray = [];
-	for(var i=0, len=rowsFood.length; i<len; i++) {
-		if(rowsFood[i]) {
-			if(!foodId.contains(rowsFood[i].id)) {
-				rowsArray.push(rowsFood[i]);
+	for(var i=0, len=app.rows.food.length; i<len; i++) {
+		if(app.rows.food[i]) {
+			if(!foodId.contains(app.rows.food[i].id)) {
+				rowsArray.push(app.rows.food[i]);
 			}
 		}
 	}
-	rowsFood = rowsArray;
+	app.rows.food = rowsArray;
 	if(callback) {
 		callback();
 	}
 	localforage.setItem('diary_food',rowsArray,function(rows) {
-		rowsFood = rows;
+		app.rows.food = rows;
 	});
 }
 /////////////////////
@@ -895,11 +895,11 @@ function getCustomList(listType,filter) {
 		if(listType == '9999') { orType = 'food';     }
 		if(listType == '0000') { orType = 'exercise'; }
 		var rowsArray = [];
-		var i = rowsFood.length;
+		var i = app.rows.food.length;
 		while(i--) {
-			if(rowsFood[i]) {
-				if(rowsFood[i].type === listType || rowsFood[i].type === orType) {
-					rowsArray.push(rowsFood[i]);
+			if(app.rows.food[i]) {
+				if(app.rows.food[i].type === listType || app.rows.food[i].type === orType) {
+					rowsArray.push(app.rows.food[i]);
 				}
 			}
 		}
@@ -909,11 +909,11 @@ function getCustomList(listType,filter) {
 	//////////////
 	} else if(listType == 'fav') {
 		var rowsArray = [];
-		for(var i=0, len=rowsFood.length; i<len; i++) {
-			if(rowsFood[i]) {
-				if(rowsFood[i].fib) {
-					if(rowsFood[i].fib === 'fav') {
-						rowsArray.push(rowsFood[i]);
+		for(var i=0, len=app.rows.food.length; i<len; i++) {
+			if(app.rows.food[i]) {
+				if(app.rows.food[i].fib) {
+					if(app.rows.food[i].fib === 'fav') {
+						rowsArray.push(app.rows.food[i]);
 					}
 				}
 			}
@@ -924,11 +924,11 @@ function getCustomList(listType,filter) {
 	////////////////////////
 	} else {
 		var rowsArray = [];
-		for(var i=0, len=rowsFood.length; i<len; i++) {
-			if(rowsFood[i]) {
-				if(rowsFood[i].id) {
-					if((JSON.stringify(rowsFood[i].id)).length >= 13) {
-						rowsArray.push(rowsFood[i]);
+		for(var i=0, len=app.rows.food.length; i<len; i++) {
+			if(app.rows.food[i]) {
+				if(app.rows.food[i].id) {
+					if((JSON.stringify(app.rows.food[i].id)).length >= 13) {
+						rowsArray.push(app.rows.food[i]);
 					}
 				}
 			}
@@ -940,15 +940,15 @@ function getCustomList(listType,filter) {
 // SET FAV //
 /////////////
 function setFav(data, callback) {
-	for(var i=0, len=rowsFood.length; i<len; i++) {
-		if(rowsFood[i].id == data.id) {
-			rowsFood[i].fib = data.fib;
+	for(var i=0, len=app.rows.food.length; i<len; i++) {
+		if(app.rows.food[i].id == data.id) {
+			app.rows.food[i].fib = data.fib;
 			break;
 		}
 	}
 	callback();
-	localforage.setItem('diary_food',rowsFood,function(rows) {
-		rowsFood = rows;
+	localforage.setItem('diary_food',app.rows.food,function(rows) {
+		app.rows.food = rows;
 	});
 }
 ///////////////
@@ -1033,7 +1033,7 @@ function updateFoodDb(callback) {
 							var postCustom = '';
 							if(trim(app.read('customItemsSql')) != '') { postCustom += trim(app.read('customItemsSql')); }
 							if(trim(app.read('customFavSql'))   != '') { postCustom += trim(app.read('customFavSql'));   }
-							rowsFood = rowsArray;
+							app.rows.food = rowsArray;
 							localforage.setItem('diary_food',rowsArray,function() {
 								insertOrUpdate(postCustom,function() {
 									//success

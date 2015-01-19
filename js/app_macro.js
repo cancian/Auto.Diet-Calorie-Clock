@@ -1593,16 +1593,16 @@ function getCategory(catId, callback) {
 		orType = 'exercise';
 	}
 	var rowsArray = [];
-	var i = rowsFood.length;
+	var i = app.rows.food.length;
 	////////////
 	// RECENT //
 	////////////
 	if (catId == '0001') {
 		var recentArray = app.read('app_recent_items', '', 'object');
 		while (i--) {
-			if (recentArray.length > 0 && rowsFood[i]) {
-				if (recentArray.contains('#' + rowsFood[i].id + '#')) {
-					var recentRow = rowsFood[i];
+			if (recentArray.length > 0 && app.rows.food[i]) {
+				if (recentArray.contains('#' + app.rows.food[i].id + '#')) {
+					var recentRow = app.rows.food[i];
 					for (var r = 0, len = recentArray.length; r < len; r++) {
 						if ('#' + recentRow.id + '#' == recentArray[r].id) {
 							recentRow.time = recentArray[r].time;
@@ -1622,9 +1622,9 @@ function getCategory(catId, callback) {
 		//////////////////
 	} else {
 		while (i--) {
-			if (rowsFood[i]) {
-				if (rowsFood[i].type === catId || rowsFood[i].type === orType) {
-					rowsArray.push(rowsFood[i]);
+			if (app.rows.food[i]) {
+				if (app.rows.food[i].type === catId || app.rows.food[i].type === orType) {
+					rowsArray.push(app.rows.food[i]);
 				}
 			}
 		}
