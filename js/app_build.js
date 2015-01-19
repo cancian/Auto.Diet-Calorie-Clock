@@ -1158,7 +1158,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		} else if($('#entryTime').is(':focus') && evt.target.id == 'entryBody') {
 			$('#entryBody').focus();
 		} else if(evt.target.id != 'entryTime' && evt.target.id != 'entryBody') {
-			$('#timerDailyInput').blur();
+			if($('#timerDailyInput').is(':focus')) {
+				$('#timerDailyInput').blur();
+			}
 			$('#entryTime').blur();
 			$('#entryBody').blur();
 		}
