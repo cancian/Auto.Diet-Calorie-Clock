@@ -2956,7 +2956,15 @@
       self.snapx = (newx<0)||(newx>self.nc.page.maxw);
       self.snapy = (newy<0)||(newy>self.nc.page.maxh);
       self.speedx = dx;
-      self.speedy = dy;
+	  ///////////
+	  // TWEAK //
+	  ///////////
+	  //allow precise placement
+	  if(Math.abs(dy) <= 2) { dy = 0; }
+	  //do not respond to sudden snaps
+		if(Math.abs(dy) < 70) {
+			self.speedy = dy;
+		}
       self.lastx = px;
       self.lasty = py;
     };
