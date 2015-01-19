@@ -43,6 +43,13 @@ window.onerror = function (e, url, line) {
 			app.analytics('error','onerror: ' + e + ' URL:' + url + ' Line:' + line);
 		}	
 	}
+	//disable db
+	if ((/InvalidStateError/i).test(e) && !window.localStorage.getItem('config_force_localstorage')) {
+		window.localStorage.setItem('config_force_localstorage',true);
+		setTimeout(function () {
+			window.location.reload(true);
+		}, 100);
+	}
 	//auto restart
 	if ((/Exception 18/i).test(e)) {
 		setTimeout(function () {
