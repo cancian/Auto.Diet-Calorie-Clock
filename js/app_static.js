@@ -985,7 +985,7 @@ if(app.is.scrollable) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,1000);
+	setTimeout(lastEntryPush,2000);
 })();
 	//////////////////////
 	// PAGESLIDE CLOSER //

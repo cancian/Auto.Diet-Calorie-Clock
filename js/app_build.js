@@ -1829,10 +1829,17 @@ $('#formc select').on(touchend,function(evt) {
 //////////////////////
 // ONCHANGE TRIGGER //
 //////////////////////
+// PREVENT INITIAL TAB-SYNC
+var trackProfile = 0;
+setTimeout(function() {
+	trackProfile = 1;
+},200);
 $('#formc input').on('change',function() {
 	$('#do_recalc').trigger('click');	
 	writeCalcValues();
-	setPush();
+	if(trackProfile == 1) {
+		setPush();
+	}
 });
 $('#formc select').on('change',function() {
 	$('#do_recalc').trigger('click');
@@ -2006,6 +2013,6 @@ if(document.getElementById('pA2C').value == 'centimetres') {
 // ON LOAD //
 /////////////
 $('#pA2B').change();
-	writeCalcValues();
+writeCalcValues();
 };
 
