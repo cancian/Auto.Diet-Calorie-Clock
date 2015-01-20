@@ -30,32 +30,25 @@ $(document).ready(function() {
 // RESUME EVT //
 ////////////////
 $(document).on('resume',function() {
-	updateTimer();
 	clearTimeout(app.repeaterLoop);
-	clearTimeout(app.timers.resume);
-	app.timers.resume = setTimeout(function() { 
-		updateLoginStatus(1);
-		app.analytics('resume');
-		if(app.read('config_autoupdate','on')) {
-			buildRemoteSuperBlock('cached');
-		}
-	},5000);
-	//silent restart
-	//if(app.read('app_restart_pending')) {
-	//	app.remove('app_restart_pending');
-	//	if(app.read('config_autoupdate','on')) {
-	//		app.reboot('now');
-	//	}
-	//} else {
-		$('body').css('opacity',1);
-		$('body').show();
-	///}
+	$('body').css('opacity',1);
+	$('body').show();
 	//fix locked dbs ~ mobile
 	if (!app.device.desktop) {
 		if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
 			app.remove('startLock');
 		}
 	}
+	//
+	app.timeout('resume',4000,function() { 
+		app.analytics('resume');
+		updateLoginStatus(1);
+		setTimeout(function() {
+			if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
+				buildRemoteSuperBlock('cached');
+			}
+		},2000);
+	},3000);
 });
 ///////////////////////
 // VISIBILITY CHANGE //
@@ -233,7 +226,7 @@ afterTab = function(keepOpen) {
 		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER
-	appResizer(200);
+	appResizer(80);
 	app.timeout('tab',1000,function() {
 		app.analytics('tab');
 	});
@@ -582,9 +575,6 @@ app.globals.recentResize = 0;
 $(window).on('resize', function(evt) {
 	app.width  = window.innerWidth;
 	app.height = window.innerHeight;
-	if(app.dev) {
-		console.log(app.width + ' x ' + app.height);
-	}
 	app.globals.recentResize = 1;
 	clearTimeout(app.timers.recentResize);
 	app.timers.recentResize = setTimeout(function() {
@@ -812,7 +802,7 @@ if(app.device.cordova) {
 if(app.http) {
 	$('body').addClass('http');
 } else {
-	$('body').addClass('local');	
+	$('body').addClass('localhost');	
 }
 /////////////
 // DESKTOP //
@@ -1216,7 +1206,7 @@ if(app.is.scrollable) {
 	$.fn[_] = function (fn) {
 		return this[fn ? 'on' : 'trigger'](_, fn);
 	};
-})(jQuery, 'tap')
+})(jQuery, 'tap');
 ///////
 ///////
 ///////

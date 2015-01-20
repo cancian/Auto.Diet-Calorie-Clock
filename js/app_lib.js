@@ -239,6 +239,10 @@ app.reboot = function(type,error) {
 	if(type == 'now') {	
 		$('body').css('opacity',0);
 	}
+	if(error) {
+		app.analytics('error','rebootHandler: ' + JSON.stringify(error));
+		//throw error;
+	}
 	//CLEAR CACHE
 	if(type == 'reset') {
 		app.remove('remoteSuperBlockJS');
@@ -261,10 +265,6 @@ app.reboot = function(type,error) {
 			window.location.reload(true);
 		}
 	},timeout);
-	if(error) {
-		app.analytics('error','rebootHandler: ' + JSON.stringify(error));
-		//throw error;
-	}
 };
 //////////
 // ZOOM //
