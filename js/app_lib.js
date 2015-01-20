@@ -601,18 +601,18 @@ app.handlers = {
 		////////////////
 		setTimeout(function () {
 			$(target).on(touchstart, function (evt) {
-				var localTarget = '#' + $(this).attr('id');				
-				if(!$(localTarget).hasClass(style)) {
+				if(!$(this).hasClass(style)) {
 					$(app.handlers.activeLastId).removeClass(style);
 				}
-				app.handlers.activeRowTouches = 0; 
+				var localTarget = this;
+				app.handlers.activeRowTouches = 0;
 				clearTimeout(app.handlers.activeRowTimer);
 				app.handlers.activeRowTimer = setTimeout(function () {
 					if (app.handlers.activeRowTouches == 0 && app.handlers.activeRowBlock == 0) {
 						$(localTarget).addClass(style);
-						app.handlers.activeLastId = localTarget;
+						app.handlers.activeLastId = '#' + $(localTarget).attr('id');
 					} else {
-						$(localTarget).removeClass(style);
+						$(app.handlers.activeLastId).removeClass(style);
 					}
 				}, isButton);
 				//CALLBACK CONDITION
