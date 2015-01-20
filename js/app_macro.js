@@ -1073,8 +1073,9 @@ function getElapsed(swap) {
 	// ELAPSED TIME //
 	//////////////////
 	if(swap == 1) {
-		//DATA
-		swapData = dateDiff(app.read('config_start_time'),app.now());
+		//IF RUNNING
+		var swapStarted = app.read('appStatus','running') ? app.read('config_start_time') : app.now();
+		swapData = dateDiff(swapStarted,app.now());
 		swapSub  = LANG.ELAPSED_TIME[lang];
 	///////////////////
 	// RELATIVE TIME //
