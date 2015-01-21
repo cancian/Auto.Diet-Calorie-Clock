@@ -493,7 +493,6 @@ $(document).on("pageload", function (evt) {
 			setTimeout(function() {
 				$('#' + editedEntry).trigger('swipeLeft');
 			},300);
-			return false;
 		////////////
 		// DELETE //
 		////////////
@@ -522,7 +521,6 @@ $(document).on("pageload", function (evt) {
 				//force error
 				niceResizer();
 			});
-			return false;
 		}
 	});
 	//////#//
