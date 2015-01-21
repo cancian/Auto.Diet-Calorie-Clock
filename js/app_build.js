@@ -649,7 +649,6 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//SET SLIDER+HEIGHT
 	updateEntriesSum();
 	$(document).trigger('sliderInit');
-	app.suspend('#entryListForm',100);
 	//slider info
 	app.info('slider_quick_add',LANG.SLIDER_QUICK_ADD[lang]);
 	//#//////////#//

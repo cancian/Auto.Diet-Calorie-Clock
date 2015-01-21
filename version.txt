@@ -26,6 +26,8 @@
 • Update cache is preserved upon full data reset
 • "Automatic Backup" has been renamed to "Backup & Synchronization"
 • Fixed an issue with the "Daily Intake" input triggering unnecessary synchronization requests
+• Fixed custom items not being selectable when marked as favorites
+• Elapsed time now remains paused while the counter is stopped
 
 # 1.8 [2014/12/27]
 • Better protection against download failure

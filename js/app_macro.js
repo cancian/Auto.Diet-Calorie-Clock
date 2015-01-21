@@ -523,7 +523,7 @@ function getNutriSliders() {
 	///////////////////////
 	var handlers = function() {
 		//FIX PROPAGATION
-		app.suspend('#sliderProWrapper,#sliderCarWrapper,#sliderFatWrapper',400);
+		app.suspend('#sliderProWrapper,#sliderCarWrapper,#sliderFatWrapper',600);
 		///////////////////
 		// PREVENT FOCUS //
 		///////////////////
@@ -1360,19 +1360,13 @@ function buildAdvancedMenu() {
 	$("#advancedMenuWrapper").height($("#appContent").height());	
 	//SHOW
 	app.handlers.fade(1,'#advancedMenuWrapper',function() {
-	//$("#advancedMenuWrapper").fadeIn(200,function() {
 		getNiceScroll('#advancedMenu');
 		//////////////////
 		// LIST HANDLER //
 		//////////////////
 		//LIST CLOSER HANDLER
-		
 		app.handlers.activeRow('#advBackButton','button',function() {
-		//$('#advBackButton').on(touchend,function() {
 			app.handlers.fade(0,'#advancedMenuWrapper');
-			//$('#advancedMenuWrapper').fadeOut(200,function() {
-			//	$('#advancedMenuWrapper').remove();
-			//});
 		});
 	//ADD ACTIVE
 	$('#advancedMenu li').on(touchstart,function(evt) {
@@ -1387,54 +1381,70 @@ function buildAdvancedMenu() {
 	//#////////////#//
 	//# CHANGE LOG #//
 	//#////////////#//
+	app.parseLogContent = function (logFile) {
+		if (!logFile) {
+			return;
+		}
+		var logContent = '';
+		//////////
+		// HTML //
+		//////////
+		$.each((logFile.split('\n')), function (l, logLine) {
+			if (logLine.indexOf('##') !== -1 || logLine.length < 4) {
+				//logContent.push('<p>' + logLine + '</p>');
+			} else if (logLine.indexOf('#') !== -1) {
+				logLine = (trim(logLine.replace('#', ''))).split(' ');
+				logContent += '<p>Version ' + logLine[0] + '<span>' + logLine[1].replace('[', '').replace(']', '') + '</span></p>';
+			} else {
+				if (/--/.test(logLine)) {
+					if (app.dev) {
+						logContent += logLine + '<br />';
+					}
+				} else {
+					logContent += logLine + '<br />';
+				}
+			}
+		});
+		logContent = '<div id="logContent">' + logContent + '</div>';
+		//////////////
+		// HANDLERS //
+		//////////////
+		var logHandler = function () {
+			setTimeout(function () {
+				$('#newWindowWrapper').on(transitionend, function () {
+					$('#advancedMenuWrapper').hide();
+				});
+			}, 1);
+		};
+		////////////
+		// CLOSER //
+		////////////
+		var logCloser = function () {
+			$('#advancedMenuWrapper').show();
+		};
+		/////////////////
+		// CALL WINDOW //
+		/////////////////
+		getNewWindow(LANG.CHANGELOG[lang], logContent, logHandler, '', logCloser);
+	};
+	//GET VERSION.TXT WITH FALLBACK
 	app.handlers.activeRow('#advancedChangelog','button',function(evt) {
-		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/' + 'version.txt', 
-			error: function(xhr, statusText) { 
-				alert('Error reading file','Please connect to the internet and try again.');
-			}, 
-			success: function(logFile) {
-				var logContent = '';
-					//////////
-				// HTML //
-				//////////
-				$.each((logFile.split('\n')),function(l,logLine) {
-					if(logLine.indexOf('##') !== -1 || logLine.length < 4) {
-						//logContent.push('<p>' + logLine + '</p>');
-					} else if(logLine.indexOf('#') !== -1) {
-						logLine = (trim(logLine.replace('#',''))).split(' ');
-						logContent += '<p>Version ' + logLine[0] + '<span>' + logLine[1].replace('[','').replace(']','') + '</span></p>';
-					} else {
-						if(/--/.test(logLine)) {
-							if(app.dev) {
-								logContent += logLine + '<br />';
-							}
-						} else {
-							logContent += logLine + '<br />';	
-						}
+		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/' + 'version.txt',
+			error: function(xhr, statusText) {
+				//RETRY LOCAL
+				$.ajax({type: 'GET', dataType: 'text', url: 'version.txt', 
+					error: function(xhr, statusText) { 
+						alert('Error reading file','Please connect to the internet and try again.');
+					},
+					success: function(logFile) {
+						app.parseLogContent(logFile);
 					}
 				});
-			logContent =  '<div id="logContent">' + logContent + '</div>';
-			//////////////
-			// HANDLERS //
-			//////////////
-			var logHandler = function () {
-				setTimeout(function () {
-					$('#newWindowWrapper').on(transitionend, function () {
-						$('#advancedMenuWrapper').hide();
-					});
-				}, 1);
-			};
-			////////////
-			// CLOSER //
-			////////////
-			var logCloser = function() {
-				$('#advancedMenuWrapper').show();
-			};
-			/////////////////
-			// CALL WINDOW //
-			/////////////////
-			getNewWindow(LANG.CHANGELOG[lang],logContent,logHandler,'',logCloser);
-		}});
+			},
+			success: function(logFile) {
+				app.parseLogContent(logFile);
+			}	
+		});
 	});
 	//#///////#//
 	//# ABOUT #//

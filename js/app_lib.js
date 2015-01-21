@@ -208,6 +208,10 @@ if(typeof staticVendor !== 'undefined') {
 		app.device.amazon = true;	
 	}	
 }
+//windows 8 metro
+if(app.device.windows8) {
+	app.device.desktop = true;	
+}
 //////////////////////
 // GLOBAL SHORTCUTS //
 //////////////////////
@@ -230,7 +234,7 @@ app.get.platform = function(noweb) {
 ////////////////////
 // GLOBAL BOOLEAN //
 ////////////////////
-app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
+app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && app.device.android < 4.4) ? true : false;
 //////////////////
 // APP.REBOOT() //
 //////////////////
@@ -306,7 +310,8 @@ app.zoom();
 // APP.INFO() //
 ////////////////
 app.info = function (title, msg, preHandler, postHandler) {
-	if($('#skipIntro').length) { return; }
+	if($('#skipIntro').length)		{ return; }
+	if(app.globals.blockInfo == 1)	{ return; }
 	if (app.read('info_' + title) && !app.dev) {
 		return;
 	}
@@ -354,6 +359,14 @@ app.info = function (title, msg, preHandler, postHandler) {
 			evt.preventDefault();
 			evt.stopPropagation();
 		});
+		//allow disable
+		if(app.dev) {
+			$('#closeButton').on('longhold', function(evt) {
+				app.globals.blockInfo = 1;
+				$('#closeButton').trigger(touchend);
+				return false;
+			});
+		}
 	}, 300);
 };
 ///////////////

@@ -1670,6 +1670,7 @@ function getModalWindow(itemId) {
 			modal.close();
 			setTimeout(function() {
 				appFooter('tab2',0,function() {
+					app.suspend('#entryListForm',300);
 					$("#entryBody").val(modal.name);
 					setTimeout(function () {
 						$('#appHeader').trigger(touchstart);
