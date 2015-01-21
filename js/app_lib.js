@@ -19,8 +19,8 @@ var app = {
 	exec: {},
 	info: {},
 	rows : {
-		entry: {},
-		food:  {},
+		entry: [],
+		food:  [],
 	},
 	exists: function(targetId) {
 		if(targetId) {
@@ -554,20 +554,21 @@ app.handlers = {
 	////////////////
 	// ACTIVE ROW //
 	////////////////
-	activeRowTouches : 0,
-	activeRowBlock   : 0,
-	activeRowTimer   : '',
-	activeLastId     : '',
+	activeRowTouches : [],
+	activeRowBlock   : [],
+	activeRowTimer   : [],
+	activeLastId     : [],
 	activeRow : function (target, style, callback,callbackCondition) {
+		var t = searchalize(target);
 		var isButton = style == 'button' ? 40 : 40;
 		if(app.is.scrollable && app.device.desktop) {
 			isButton = 1;	
 		}
 		//RESET
-		app.handlers.activeRowTouches = 0;
-		app.handlers.activeRowBlock   = 0;
-		app.handlers.activeLastId     = '';				
-		clearTimeout(app.handlers.activeRowTimer);
+		app.handlers.activeRowTouches[t] = 0;
+		app.handlers.activeRowBlock[t]   = 0;
+		app.handlers.activeLastId[t]     = '';				
+		clearTimeout(app.handlers.activeRowTimer[t]);
 		////////////////
 		// SET PARENT //
 		////////////////
@@ -579,27 +580,27 @@ app.handlers = {
 		// TOUCHEND //
 		//////////////
 		$(target).on(touchend, function (evt) {
-			if($(this).hasClass(style) && app.handlers.activeRowBlock == 0) {
+			if($(this).hasClass(style) && app.handlers.activeRowBlock[t] == 0) {
 				if (typeof callback === 'function') {
-					app.handlers.activeRowBlock = 1;
+					app.handlers.activeRowBlock[t] = 1;
 					if(style == 'button') {
 						callback(evt);
 					} else {
 						callback($(this).attr('id'));
 					}
 					$(this).addClass(style);
-					app.handlers.activeLastId = '#' + $(this).attr('id');
-					app.handlers.activeRowTouches = 0;
-					app.handlers.activeRowBlock   = 0;
-					clearTimeout(app.handlers.activeRowTimer);
+					app.handlers.activeLastId[t] = '#' + $(this).attr('id');
+					app.handlers.activeRowTouches[t] = 0;
+					app.handlers.activeRowBlock[t]   = 0;
+					clearTimeout(app.handlers.activeRowTimer[t]);
 					if(style != 'activeOverflow') {
-						$(app.handlers.activeLastId).removeClass(style);
+						$(app.handlers.activeLastId[t]).removeClass(style);
 					}
 				}
 			} else {
-				app.handlers.activeRowTouches = 0;
-				app.handlers.activeRowBlock   = 0;
-				clearTimeout(app.handlers.activeRowTimer);
+				app.handlers.activeRowTouches[t] = 0;
+				app.handlers.activeRowBlock[t]   = 0;
+				clearTimeout(app.handlers.activeRowTimer[t]);
 			}
 			if(style == 'false') {
 				var falseThis = this;
@@ -615,23 +616,23 @@ app.handlers = {
 		setTimeout(function () {
 			$(target).on(touchstart, function (evt) {
 				if(!$(this).hasClass(style)) {
-					$(app.handlers.activeLastId).removeClass(style);
+					$(app.handlers.activeLastId[t]).removeClass(style);
 				}
 				var localTarget = this;
-				app.handlers.activeRowTouches = 0;
-				clearTimeout(app.handlers.activeRowTimer);
-				app.handlers.activeRowTimer = setTimeout(function () {
-					if (app.handlers.activeRowTouches == 0 && app.handlers.activeRowBlock == 0) {
+				app.handlers.activeRowTouches[t] = 0;
+				clearTimeout(app.handlers.activeRowTimer[t]);
+				app.handlers.activeRowTimer[t] = setTimeout(function () {
+					if (app.handlers.activeRowTouches[t] == 0 && app.handlers.activeRowBlock[t] == 0) {
 						$(localTarget).addClass(style);
-						app.handlers.activeLastId = '#' + $(localTarget).attr('id');
+						app.handlers.activeLastId[t] = '#' + $(localTarget).attr('id');
 					} else {
-						$(app.handlers.activeLastId).removeClass(style);
+						$(app.handlers.activeLastId[t]).removeClass(style);
 					}
 				}, isButton);
 				//CALLBACK CONDITION
 				if(callbackCondition) {
 					if(callbackCondition() === false) {
-						clearTimeout(app.handlers.activeRowTimer);
+						clearTimeout(app.handlers.activeRowTimer[t]);
 					}
 				}
 				//no drag
@@ -645,16 +646,16 @@ app.handlers = {
 		//////////////////////
 		if(app.device.windows8) {
 			$(target).on('pointerleave pointercancel pointerout', function (evt) {
-				$(app.handlers.activeLastId).removeClass(style);
-				clearTimeout(app.handlers.activeRowTimer);
+				$(app.handlers.activeLastId[t]).removeClass(style);
+				clearTimeout(app.handlers.activeRowTimer[t]);
 			});
 		}
 		if(!app.device.windows8) {
 			$(targetParent).on('mouseout mouseleave touchleave touchcancel', function (evt) {
-				app.handlers.activeRowTouches++;
+				app.handlers.activeRowTouches[t]++;
 				if(!app.device.wp8 && style != 'activeOverflow') {
-					clearTimeout(app.handlers.activeRowTimer);
-					$(app.handlers.activeLastId).removeClass(style);
+					clearTimeout(app.handlers.activeRowTimer[t]);
+					$(app.handlers.activeLastId[t]).removeClass(style);
 				}
 			});
 		}
@@ -664,26 +665,28 @@ app.handlers = {
 		if(!app.device.windows8) {
 			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
 			$(targetParent).on('scroll ' + moveCancel, function (evt) {
-				app.handlers.activeRowTouches++;
-				clearTimeout(app.handlers.activeRowTimer);
-				if (app.handlers.activeRowTouches > 7 || (app.handlers.activeRowTouches > 1 && app.device.android)) {
-					$(app.handlers.activeLastId).removeClass(style);
+				app.handlers.activeRowTouches[t]++;
+				clearTimeout(app.handlers.activeRowTimer[t]);
+				if (app.handlers.activeRowTouches[t] > 7 || (app.handlers.activeRowTouches[t] > 1 && app.device.android)) {
+					$(app.handlers.activeLastId[t]).removeClass(style);
 					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
 					}
-					app.handlers.activeRowTouches = 0;
+					app.handlers.activeRowTouches[t] = 0;
 				}
 			});
 		}
 		///////////////////////
 		// SCROLL TIME BLOCK //
 		///////////////////////
-		$(targetParent).on('scroll', function (evt) {
-			app.handlers.activeRowBlock = 1;
-			setTimeout(function () {
-				app.handlers.activeRowBlock = 0;
-			}, 100);
-		});
+		if(targetParent !== target) {
+			$(targetParent).on('scroll', function (evt) {
+				app.handlers.activeRowBlock[t] = 1;
+				setTimeout(function () {
+					app.handlers.activeRowBlock[t] = 0;
+				}, 100);
+			});
+		}
 	},
 	///////////////////
 	// HIGHLIGHT ROW //

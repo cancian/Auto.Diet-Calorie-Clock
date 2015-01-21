@@ -488,9 +488,10 @@ $(document).on("pageload", function (evt) {
 		// EDIT //
 		//////////
 		} else if(evt.target.id == 'edit') {
-			getEntryEdit($(this).parent('div').attr('id'));
+			var editedEntry = $(this).parent('div').attr('id');
+			getEntryEdit(editedEntry);
 			setTimeout(function() {
-				$('#go').trigger(tap);
+				$('#' + editedEntry).trigger('swipeLeft');
 			},300);
 			return false;
 		////////////

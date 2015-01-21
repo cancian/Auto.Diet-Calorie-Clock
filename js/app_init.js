@@ -107,6 +107,8 @@ function isCacheValid(input) {
 function initJS() {
 	// MSAPP //
 	if (IsMsApp) { hostLocal = ''; }
+	//DB
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js"><\/script>');
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
@@ -131,12 +133,10 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iScrollTag"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.color.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.ui.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js"><\/script>');
-	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js"><\/script>');
 	//UTILS
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js"><\/script>');

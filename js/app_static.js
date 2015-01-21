@@ -17,7 +17,7 @@ $(document).ready(function() {
 		try {
 			localforage.config({storeName: 'KCals'});
 			//localforage.setDriver([localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE]).then(function() {
-			var dbDriver = app.read('config_force_localstorage') ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
+			var dbDriver = (app.read('config_force_localstorage') && vendorClass == 'moz' && app.device.desktop) ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
 			localforage.setDriver(dbDriver).then(function() {
 				initDB();
 			});
@@ -226,7 +226,7 @@ afterTab = function(keepOpen) {
 		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER
-	appResizer(125);
+	appResizer(100);
 	app.timeout('tab',1000,function() {
 		app.analytics('tab');
 	});
