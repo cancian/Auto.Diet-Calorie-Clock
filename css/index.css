@@ -618,14 +618,14 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #totalChart								{ margin: 0 auto; display: inline-block; width: 280px; overflow: hidden; }
 #circlePercent,
 #newWindow #totalChart,
-.highcharts-legend-item					{ pointer-events: none; }
+.highcharts-legend-item					{ pointer-events: none; z-index: 2; }
 #totalConsumed							{ margin: 0 0 0 50%; padding-top: 13px; padding-left: 0; display: block; text-align: left; font-size: 22px; line-height: 22px; color: #2f7ed8; }
 .cyclic #totalConsumed					{ padding-top: 9px;	}
 #totalIntake							{ margin: 0 0 0 50%; padding-top: 0; padding-left: 0; display: block; text-align: left; font-size: 11px; line-height: 14px; color: #999; white-space: nowrap; }
 .appLang-ja #totalIntake				{ font-size: 9px; }
 #totalIntake span						{ font-weight: bold; color: #c30; }
-#todayInfo								{ position: absolute; top: 0; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #bbb; z-index: 3; }
-#todayInfo:after						{ font-family: KCals; content: '\A176'; padding-top: 1px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; }
+#todayInfo								{ position: absolute; top: 0; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #bbb; z-index: 3; display: block; overflow: hidden; }
+#todayInfo:after						{ font-family: 'KCals'; content: '\A176'; padding-top: 1px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; z-index: 3; }
 .cyclic #todayInfo						{ color: #007aff; }
 #todayInfo.button						{ color: #999; }
 .highcharts-legend, 
@@ -1337,24 +1337,16 @@ ul#addNewList input			{ position: absolute; top: 0; right: 120px; text-align: le
 #tabMyCatsBlock.out					{ -webkit-transform: translate3d(-25%, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .2s; }
 .windows8 #tabMyCatsBlock.out,
 .wp8 #tabMyCatsBlock.out			{ -webkit-transform: translate3d(0, 0, 0); margin-left: -25%; }
-#tabMyCatsBlock li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555;  text-indent: -20px; }
+#tabMyCatsBlock li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; text-indent: -20px; }
 #tabMyCatsBlock li div				{ margin-left: 54px; text-indent: 0; display: block; margin-right: 0px; white-space: nowrap; text-overflow: ellipsis; }
 #tabMyCatsBlock li+li div			{ border-top: 1px solid #eee; }
 #tabMyCatsBlock li.activeRow		{ background-color: #eee; color: #555; }
 #tabMyCatsBlock li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: ' ';  z-index: 99; }
 #tabMyCatsBlock ul li:after			{ font-family: 'KCals'; content: '\f105'; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; text-indent: 0; }
-/*
-.ios #tabMyCatsBlock div:before,
-.ios #tabMyCatsBlock li:after,
-.ios #tabMyCatsBlock li				{ -webkit-backface-visibility: hidden; }
-*/
 /*ICONS*/
-/*android anim. fix*/
-/*
-.ios .searcheable:after				{ -webkit-backface-visibility: hidden; }
-*/
-.searcheable:after					{ font-family: 'KCals'; text-indent: 15px; font-size: 28px; width: 20px; color: #ABBFEC; position: absolute; top: 25%; left: 0; }
-#tabMyCatsBlock div:before			{ font-family: 'KCals'; text-indent: 15px; font-size: 28px; width: 20px; color: #000; position: absolute; top: 0; left: 0; }
+.searcheable:after,
+#tabMyCatsBlock div:before			{ font-family: 'KCals'; text-indent: 15px; font-size: 28px; width: 20px; color: #ABBFEC; position: absolute; top: 25%; left: 0; }
+#tabMyCatsBlock div:before			{ color: #000; top: 0; }
 #cat0300, #cat3500					{ display: none !important; }
 .cat0000:after,#cat0000 div:before	{ content: '\F17D'; top: -2px !important; color: #D55621; }
 .cat0000:after						{ top: 24% !important; color: #ECBEAB; }

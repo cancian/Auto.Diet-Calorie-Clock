@@ -226,7 +226,7 @@ afterTab = function(keepOpen) {
 		$('#appHeader').trigger(touchstart);
 	}
 	//NO 50ms FLICKER
-	appResizer(80);
+	appResizer(125);
 	app.timeout('tab',1000,function() {
 		app.analytics('tab');
 	});

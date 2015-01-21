@@ -582,7 +582,7 @@ app.handlers = {
 			if($(this).hasClass(style) && app.handlers.activeRowBlock == 0) {
 				if (typeof callback === 'function') {
 					app.handlers.activeRowBlock = 1;
-					if(isButton == 0) {
+					if(style == 'button') {
 						callback(evt);
 					} else {
 						callback($(this).attr('id'));
@@ -634,11 +634,12 @@ app.handlers = {
 						clearTimeout(app.handlers.activeRowTimer);
 					}
 				}
-				if(isButton == 0) {
+				//no drag
+				if(style == 'button') {
 					return false;
 				}
 			});
-		}, 350);
+		}, 400);
 		//////////////////////
 		// ROW LEAVE CANCEL //
 		//////////////////////
