@@ -1738,16 +1738,6 @@ function getModalWindow(itemId) {
 			//////////////
 			// HANDLERS //
 			//////////////
-			//FIX PROPAGATION
-			$('#modalWindow').on(touchmove, function (evt) {
-				evt.preventDefault();
-				evt.stopPropagation();
-			});
-			if (app.device.wp8) {
-				$('#modalWindow').on(touchstart, function (evt) {
-					evt.stopPropagation();
-				});
-			}
 			//REPEATERS
 			app.handlers.repeater('#modalPosBlock','active',400,50,function() {
 				modal.add();
@@ -1763,38 +1753,43 @@ function getModalWindow(itemId) {
 					$('#modalOk').off();				
 					modal.save();				
 				}
-				return false;
 			});
 			//CANCEL
 			$('#modalOverlay, #modalCancel').on(touchstart, function (evt) {
 				modal.close();
-				return false;
 			});
+		});
+		//faster button
+			//FIX PROPAGATION
+			$('#modalWindow').on(touchmove, function (evt) {
+				evt.preventDefault();
+				evt.stopPropagation();
+			});
+			if (app.device.wp8) {
+				$('#modalWindow').on(touchstart, function (evt) {
+					evt.stopPropagation();
+				});
+			}
 			//EDIT
 			//$('#modalEdit').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalEdit','button',function(evt) {
 				addNewItem(modal);
-				return false;
 			});
 			//FAV
 			//$('#modalFav').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalFav','button',function(evt) {
 				modal.fav();
-				return false;
 			});
 			//DELETE
 			//$('#modalDelete').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalDelete','button',function(evt) {
 				modal.remove();
-				return false;
 			});
 			//PREFILL
 			//$('#modalContent').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalContent','button',function(evt) {
 				modal.prefill();
-				return false;
 			});
-		});
 	});
 }
 
