@@ -619,7 +619,7 @@ app.handlers = {
 						callback($(this).attr('id'));
 					}
 					$(this).addClass(style);
-					app.handlers.activeLastId[t] = '#' + $(this).attr('id');
+					app.handlers.activeLastId[t] = this;
 					app.handlers.activeRowTouches[t] = 0;
 					app.handlers.activeRowBlock[t]   = 0;
 					clearTimeout(app.handlers.activeRowTimer[t]);
@@ -654,7 +654,7 @@ app.handlers = {
 				app.handlers.activeRowTimer[t] = setTimeout(function () {
 					if (app.handlers.activeRowTouches[t] == 0 && app.handlers.activeRowBlock[t] == 0) {
 						$(localTarget).addClass(style);
-						app.handlers.activeLastId[t] = '#' + $(localTarget).attr('id');
+						app.handlers.activeLastId[t] = localTarget;
 					} else {
 						$(app.handlers.activeLastId[t]).removeClass(style);
 					}
