@@ -18,10 +18,6 @@ var app = {
 	call: {},
 	exec: {},
 	info: {},
-	rows : {
-		entry: [],
-		food:  [],
-	},
 	exists: function(targetId) {
 		if(targetId) {
 			targetId = targetId.replace('#','');
@@ -45,14 +41,35 @@ var app = {
 		}
 		return true;
 	},
+	rows: { 
+		entry: [],
+		food: [],
+	},
 	read: function(key,value,type) {
+		//localforage wrapper
+		if(/diary_entry|diary_food/.test(key)) {
+			//localforage.getItem(key,function(err, rows) {
+			localforage.getItem(key,function(rows) {
+				//if (err) {
+				//	console.log('Oh noes!');
+				//} else {
+				if(typeof value === 'function') {
+					if(rows == null) { 
+						rows = []; 
+					}
+					value(rows);
+				}
+			    //}
+			});
+			return;
+		}
+		//
 		if(type == 'object') {
 			if(!window.localStorage.getItem(key)) {
 				return [];
 			}
 			var value = window.localStorage.getItem(key);
-			return value && JSON.parse(value);			
-			
+			return value && JSON.parse(value);
 		}
 		//
 		if(typeof value !== 'undefined') {
@@ -73,6 +90,22 @@ var app = {
 		}
 	},
 	save: function(key,value,type) {
+		//localforage wrapper
+		if(/diary_entry|diary_food/.test(key)) {
+			//localforage.setItem(key,value).then(function(rows) {
+			localforage.setItem(key,value,function(rows) {
+				if(typeof type === 'function') {
+					if(rows == null) { 
+						rows = []; 
+					}
+					type(value);
+				}
+			//}, function(error) {
+			//	console.log(error);
+			});
+			return;
+		}
+		//
 		if(type == 'object') {
 			if(value) {
 				window.localStorage.setItem(key,JSON.stringify(value));
@@ -142,6 +175,7 @@ var app = {
 		}, time);
 	},
 };
+
 //////////////////
 // TOTAL WEIGHT //
 //////////////////
@@ -208,10 +242,6 @@ if(typeof staticVendor !== 'undefined') {
 		app.device.amazon = true;	
 	}	
 }
-//windows 8 metro
-if(app.device.windows8) {
-	app.device.desktop = true;	
-}
 //////////////////////
 // GLOBAL SHORTCUTS //
 //////////////////////
@@ -234,7 +264,7 @@ app.get.platform = function(noweb) {
 ////////////////////
 // GLOBAL BOOLEAN //
 ////////////////////
-app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && app.device.android < 4.4) ? true : false;
+app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
 //////////////////
 // APP.REBOOT() //
 //////////////////
@@ -636,9 +666,9 @@ app.handlers = {
 					}
 				}
 				//no drag
-				if(style == 'button') {
-					return false;
-				}
+				//if(style == 'button') {
+				//	return false;
+				//}
 			});
 		}, 400);
 		//////////////////////
@@ -679,14 +709,12 @@ app.handlers = {
 		///////////////////////
 		// SCROLL TIME BLOCK //
 		///////////////////////
-		if(targetParent !== target) {
-			$(targetParent).on('scroll', function (evt) {
-				app.handlers.activeRowBlock[t] = 1;
-				setTimeout(function () {
-					app.handlers.activeRowBlock[t] = 0;
-				}, 100);
-			});
-		}
+		$(targetParent).on('scroll', function (evt) {
+			app.handlers.activeRowBlock[t] = 1;
+			setTimeout(function () {
+				app.handlers.activeRowBlock[t] = 0;
+			}, 100);
+		});
 	},
 	///////////////////
 	// HIGHLIGHT ROW //
