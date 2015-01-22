@@ -1682,7 +1682,7 @@ if(app.device.firefoxos) {
 ///////////////
 // TAP VALUE //
 ///////////////
-app.handlers.activeRow('#pA7B,#pA7F,#pA7L','false',function(thisId) {
+app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
 	//RELOAD INFO HTML
 	var calcResult = Math.round($('#' + thisId).val());
 	//check n'updt
@@ -1771,7 +1771,7 @@ $('#formc select').focus(function(evt) {
 });
 $('#formc select').on(touchend,function(evt) {
 	//kitkat focus
-	if(app.device.android < 4.4) {
+	if(app.device.android && app.device.android < 4.4) {
 		evt.preventDefault();
 	}
 	evt.stopPropagation();
