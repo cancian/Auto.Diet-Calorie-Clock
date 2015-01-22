@@ -19,7 +19,6 @@ $(document).ready(function() {
 				app.remove('config_force_localstorage');
 			}
 			localforage.config({storeName: 'KCals'});
-			//localforage.setDriver([localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE]).then(function() {
 			var dbDriver = app.read('config_force_localstorage') ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
 			localforage.setDriver(dbDriver).then(function() {
 				initDB();
