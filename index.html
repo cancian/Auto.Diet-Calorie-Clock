@@ -74,7 +74,7 @@ body.unloaded * {
 ////////////////
 // HTTP CACHE //
 ////////////////
-if(!/http/i.test(window.location.protocol)) {
+if(!/http/i.test(window.location.protocol) || window.localStorage.getItem('config_debug') == 'active') {
 	document.getElementsByTagName('html')[0].removeAttribute('manifest');
 }
 ////////////////////	
