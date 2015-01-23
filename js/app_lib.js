@@ -50,15 +50,19 @@ var app = {
 			if(rows == null) { 
 				rows = []; 
 			}
-				func(rows);
-			}
+			func(rows);
+		}
 	},
 	read: function(key,value,type) {
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
 			if(localforage.version == 1.2) {
 				localforage.getItem(key,function(err, rows) {
-					app.returner(value,rows);	
+					if(err) {
+						errorHandler(err);
+					} else {
+						app.returner(value,rows);
+					}
 				});
 			} else {
 				localforage.getItem(key,function(rows) {
