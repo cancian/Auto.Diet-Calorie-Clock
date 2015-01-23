@@ -45,22 +45,26 @@ var app = {
 		entry: [],
 		food: [],
 	},
+	returner: function(func,rows) {
+		if(typeof func === 'function') {
+			if(rows == null) { 
+				rows = []; 
+			}
+				func(rows);
+			}
+	},
 	read: function(key,value,type) {
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
-			//localforage.getItem(key,function(err, rows) {
-			localforage.getItem(key,function(rows) {
-				//if (err) {
-				//	console.log('Oh noes!');
-				//} else {
-				if(typeof value === 'function') {
-					if(rows == null) { 
-						rows = []; 
-					}
-					value(rows);
-				}
-			    //}
-			});
+			if(localforage.version == 1.2) {
+				localforage.getItem(key,function(err, rows) {
+					app.returner(value,rows);	
+				});
+			} else {
+				localforage.getItem(key,function(rows) {
+					app.returner(value,rows);
+				});
+			}
 			return;
 		}
 		//
@@ -92,17 +96,17 @@ var app = {
 	save: function(key,value,type) {
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
-			//localforage.setItem(key,value).then(function(rows) {
-			localforage.setItem(key,value,function(rows) {
-				if(typeof type === 'function') {
-					if(rows == null) { 
-						rows = []; 
-					}
-					type(value);
-				}
-			//}, function(error) {
-			//	console.log(error);
-			});
+			if(localforage.version == 1.2) {
+				localforage.setItem(key,value).then(function(rows) {
+					app.returner(type,rows);
+				}, function(error) {
+					errorHandler(error);
+				});
+			} else {
+				localforage.setItem(key,value,function(rows) {
+					app.returner(type,rows);
+				});
+			}
 			return;
 		}
 		//

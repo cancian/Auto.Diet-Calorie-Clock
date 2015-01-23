@@ -1089,20 +1089,22 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				$('body').html(rowsHtml);
 				//console.log(JSON.stringify(rowsArray));
 			}
-			////////////
-			// REWIPE //
-			////////////
-			if (/devtimer/i.test($('#entryBody').val())) {
-				if(app.read('devShowTimer','active')) {
-					app.remove('devShowTimer');					
-				} else {
-					app.save('devShowTimer','active');
-				}
-				$('#entryBody').val('');
+			/////////////////
+			// DEVLANGPAIR //
+			/////////////////
+			if (/devlangpair/i.test($('#entryBody').val())) {
+				$('#entryBody').val('devlangpai');
 				$('#entryBody').blur();
-				afterHide();
-				return false;
-			}
+				var LANGa = LANG;
+				$.each(LANGa,function(key,value) {
+					$.each(value,function(key,subvalue) {
+						if(!/en|ru/.test(key)) {
+							delete value[key];
+						}
+					});
+				});
+				console.log(JSON.stringify(LANGa));
+			}			
 			////////////
 			// REWIPE //
 			////////////

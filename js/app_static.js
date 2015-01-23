@@ -14,15 +14,26 @@ $(document).ready(function() {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
+		var dbDriver;
+		if(localforage.version == 1.2) {
+			dbDriver = app.read('config_force_localstorage') ? [localforage.LOCALSTORAGE] : [localforage.INDEXEDDB, localforage.WEBSQL, localforage.LOCALSTORAGE];
+		} else {
+			dbDriver = app.read('config_force_localstorage') ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
+		}
+		if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) {
+			app.remove('config_force_localstorage');
+		}
+		//
 		try {
-			if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) {
-				app.remove('config_force_localstorage');
-			}
-			localforage.config({storeName: 'KCals'});
-			var dbDriver = app.read('config_force_localstorage') ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
-			localforage.setDriver(dbDriver).then(function() {
+			if(localforage.version == 1.2) {
+				localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
 				initDB();
-			});
+			} else {
+				localforage.config({name: 'localforage', storeName: 'KCals'});
+				localforage.setDriver(dbDriver).then(function() {
+					initDB();
+				});
+			}
 		} catch(error) {
 			app.reboot('reset',error);
 		}
@@ -1209,6 +1220,35 @@ if(app.is.scrollable) {
 		return this[fn ? 'on' : 'trigger'](_, fn);
 	};
 })(jQuery, 'tap');
+
+(function (e) {
+	e.event.special["ski"] = {
+		setup : function (o,p) {
+			$(this).on('click',function(o,p) {
+			alert($(this).attr('id'));
+			//alert(p);
+			});
+			},
+		add : function (t) {
+			//e(this).data("longhold.handler", t.handler);
+			//if (t.data) {
+			//	e(this).bind(s, t.data, l)
+			//} else {
+			//	e(this).bind(s, l)
+			//}
+		},
+		remove : function (t) {
+			//m.call(this);
+			//if (t.data) {
+			//	e(this).unbind(s, t.data, l)
+		//	} else {
+				//e(this).unbind(s, l)
+//			}
+		},
+		teardown : function () {}
+	}
+})(jQuery);
+
 ///////
 ///////
 ///////

@@ -1,6 +1,7 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+-- mozilla allow keyboard input cursor arrows and copy/paste
 -- zoom
 -- tile data plugin
 -- use JSON for synchronization data
