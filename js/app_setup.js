@@ -1909,7 +1909,7 @@ function getNiceScroll(target,timeout,callback) {
 		nativeparentscrolling: false,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '5px',
-		railpadding: {right: 1,bottom: 1},
+		railpadding: { right: 1, bottom: 1},
 		cursorborder: '1px solid rgba(0,0,0,0)',
 		cursoropacitymax: .5,
 		cursorwidth: '4px',

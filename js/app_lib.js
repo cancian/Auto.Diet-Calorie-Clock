@@ -239,7 +239,7 @@ app.device = {
 	chromeos   : app.get.isChromeApp() ? true : false,
 	blackberry : ((/Android/i).test(app.ua) && (/(BB10|BlackBerry|All Touch|10\.)/i).test(app.ua)) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
-	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch) ) ? false : true,
+	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true,
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
@@ -683,13 +683,12 @@ app.handlers = {
 		// ROW LEAVE CANCEL //
 		//////////////////////
 		if(app.device.windows8) {
-			$(target).on('pointerleave pointercancel pointerout', function (evt) {
+			$(target).on(touchout + ' ' + touchleave + ' ' + touchcancel, function (evt) {
 				$(app.handlers.activeLastId[t]).removeClass(style);
 				clearTimeout(app.handlers.activeRowTimer[t]);
 			});
-		}
-		if(!app.device.windows8) {
-			$(targetParent).on('mouseout mouseleave touchleave touchcancel', function (evt) {
+		} else {
+			$(targetParent).on(touchout + ' ' + touchleave + ' ' + touchcancel, function (evt) {
 				app.handlers.activeRowTouches[t]++;
 				if(!app.device.wp8 && style != 'activeOverflow') {
 					clearTimeout(app.handlers.activeRowTimer[t]);
@@ -1124,27 +1123,48 @@ function hasTap() {
 	//}
 	return varHasTap;
 }
-var touchstart = hasTap() ? 'touchstart' : 'mousedown';
-var touchend   = hasTap() ? 'touchend'   : 'mouseup';
-var touchmove  = hasTap() ? 'touchmove'  : 'mousemove';
-var tap        = hasTap() ? 'tap'        : 'click';
-var longtap    = hasTap() ? 'taphold'    : 'taphold' ;
-var taphold    = hasTap() ? 'taphold'    : 'taphold' ;
-var singletap  = hasTap() ? 'singleTap'  : 'click';
-var doubletap  = hasTap() ? 'doubleTap'  : 'dblclick';
-if ((/MSAppHost\/1.0|IEMobile/i).test(app.ua) && !app.device.wp81JS && window.navigator.msPointerEnabled) {
+var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
+var touchend    = hasTap() ? 'touchend'    : 'mouseup';
+var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
+var tap         = hasTap() ? 'tap'         : 'click';
+var longtap     = hasTap() ? 'taphold'     : 'taphold' ;
+var taphold     = hasTap() ? 'taphold'     : 'taphold' ;
+var singletap   = hasTap() ? 'singleTap'   : 'click';
+var doubletap   = hasTap() ? 'doubleTap'   : 'dblclick';
+var touchcancel = hasTap() ? 'touchcancel' : 'touchcancel';
+var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
+var touchout    = hasTap() ? 'touchout'    : 'mouseout';
+
+if(window.PointerEvent) {
+	//IE11
+	touchend    = 'pointerup';
+	touchstart  = 'pointerdown';	
+	touchmove   = 'pointermove';
+	touchcancel = 'pointercancel';
+	touchleave  = 'pointerleave';
+	touchout    = 'pointerout';
+} else if (window.MSPointerEvent) {
+	//IE10
+	touchend    = 'MSPointerUp';
+	touchstart  = 'MSPointerDown';	
+	touchmove   = 'MSPointerMove';
+	touchcancel = 'MSPointerOver';
+	touchleave  = 'MSPointerLeave';
+	touchout    = 'MSPointerOut';	
+}
+//if ((/MSAppHost\/1.0|IEMobile/i).test(app.ua) && !app.device.wp81JS && window.navigator.msPointerEnabled) {
 	//touchmove  = "MSPointerMove";
-	touchend = "MSPointerUp";
+//	touchend = "MSPointerUp";
 	//touchstart = "MSPointerDown";
-}
-if(document.documentMode) {
-	if(document.documentMode == 11) {
+//}
+//if(document.documentMode) {
+//	if(document.documentMode == 11) {
 		//tap        = 'click';
-		touchend   = 'pointerup';
-		touchstart = 'pointerdown';	
-		touchmove  = 'pointermove';
-	}
-}
+//		touchend   = 'pointerup';
+//		touchstart = 'pointerdown';	
+//		touchmove  = 'pointermove';
+//	}
+//}
 
 
 if (app.device.firefoxos) {
