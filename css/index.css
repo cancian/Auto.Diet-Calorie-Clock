@@ -1,9 +1,10 @@
 ﻿/* KCALS CSS */
-html, body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff; user-zoom: fixed; touch-action: none; -ms-touch-action: none; -webkit-user-select: none; user-select: none; }
+*										{ -webkit-box-sizing: border-box; padding: 0; margin: 0; text-indent: 0; outline: 0; border: 0; border-radius: 0; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); }
+html, body								{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff;  user-zoom: fixed; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
 body 									{ touch-action: none; -ms-touch-action: none; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
-.osx *									{ -webkit-font-smoothing: antialiased; -webkit-perspective: none !important; font-weight: 400; }
-.windows8 								{ overflow: hidden !important; }
+body.osx *								{ -webkit-font-smoothing: antialiased; -webkit-perspective: none !important; font-weight: 400; }
+body.windows8 							{ overflow: hidden !important; }
 #infocontents, #newWindowWrapper, 
 #advancedMenu, #tabMyCatsBlock, 
 #infocontents, #appContent, 
@@ -14,21 +15,20 @@ html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 html, body, input, select, textarea,
 input[type='number'], input[type='text'] { font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
 div#sliderNeg, div#sliderPos			{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; }
-.msie.thin								{ letter-spacing: 0.02em; }
-.msie									{ -webkit-perspective: 800; }
-.msie #appContent,
-.msie #foodList							{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
-.ios,
-.android,
-.wp8,
-.msie,
-.wekbit,
-.osx									{ -webkit-user-select: none; }
-*, *:before, *:after					{ outline: 0; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-box-sizing: border-box; }
+body.msie.thin							{ letter-spacing: 0.02em; }
+body.msie								{ -webkit-perspective: 800; }
+body.msie #appContent,
+body.msie #foodList						{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
+body.ios,
+body.android,
+body.wp8,
+body.msie,
+body.wekbit,
+body.osx								{ -webkit-user-select: none; }
 input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
-.moz input,
-.moz select,
-.moz textarea							{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
+body.moz input,
+body.moz select,
+body.moz textarea							{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
 select::-ms-expand						{ display: none; }
 input::-ms-clear						{ display: none; width: 0; height: 0; }
@@ -48,7 +48,7 @@ textarea								{ -webkit-user-modify: read-write-plaintext-only; }
 input[type='text']						{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; outline: 0; }
 input[readonly]							{ pointer-events: none; -webkit-user-select: none; -webkit-appearance: none; -ms-touch-action: none; }
 input:focus,select:focus,:focus			{ outline: none; }
-.android40 input[type='number']			{ text-indent: 0 !important; }
+body.android40 input[type='number']		{ text-indent: 0 !important; }
 ul										{ padding: 0; margin: 0; text-indent: 0; list-style: none; }
 p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*GENERIC*/
@@ -70,10 +70,10 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 //#/////////////#*/
 #appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
 /*.msie.newwindow #appContent	{ overflow: hidden; }*/
-.android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
-.android2 #appContent			{ top: 0; border-top: 62px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
+body.android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
+body.android2 #appContent			{ top: 0; border-top: 62px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
 /*kitkat scrollbar*/
-.android ::-webkit-scrollbar	{ display: none; }
+body.android ::-webkit-scrollbar	{ display: none; }
 /*#////////////#//
 //# APP HEADER #//
 //#////////////#*/
@@ -82,46 +82,46 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*status colors*/
 #appHeader					{ background-color: #fff; color: #fff !important; font-weight: 300; }
 /**/
-.balanced #appHeader		{ background-color: #4496F1 !important; font-weight: 300; }
-.deficit #appHeader,
-.over.deficit #appHeader	{ background-color: #C85834; background-color: #CE2E2F; background-color: #D50B09 !important; font-weight: 300; }
-.surplus #appHeader,
-.over.surplus #appHeader	{ background-color: #309030 !important; font-weight: 300; }
+body.balanced #appHeader		{ background-color: #4496F1 !important; font-weight: 300; }
+body.deficit #appHeader,
+body.over.deficit #appHeader	{ background-color: #C85834; background-color: #CE2E2F; background-color: #D50B09 !important; font-weight: 300; }
+body.surplus #appHeader,
+body.over.surplus #appHeader	{ background-color: #309030 !important; font-weight: 300; }
 /**/
-.error.surplus #appHeader,
-.error.deficit #appHeader	{ background-color: #000 !important; }
+body.error.surplus #appHeader,
+body.error.deficit #appHeader	{ background-color: #000 !important; }
 /*android hacks*/
-.android #appHeader			{ z-index: 50 !important; }
+body.android #appHeader			{ z-index: 50 !important; }
 /*/////////////////
 // CALORIE CLOCK //
 /////////////////*/
 #timerKcals						{ position: absolute; bottom: 16px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; }
 #timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 32px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(255,255,255,0); -webkit-appearance: none; }
-#timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; color: #fff; font-weight: 500; }
+#timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; color: #fff; font-weight: 600; }
 /*//////////////////
 // DAILY CALORIES //
 //////////////////*/
 #timerDaily						{ position: absolute; bottom: 0px; top: 0px; right: 0px; width: 84px; }
-#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space:nowrap; color: rgba(255,255,255,.8); font-weight: 500; }
-.appLang-el #timerDaily span	{ font-size: 7px; }
+#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space: nowrap; color: rgba(255,255,255,.8); font-weight: 600; }
+body.appLang-el #timerDaily span{ font-size: 7px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 9999; }
 #timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; z-index: 999; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.75); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; }
 #timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: color linear .0s; }
-.newwindow #timerDailyInput,
-.closer #timerDailyInput		{ pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
+body.newwindow #timerDailyInput,
+body.closer #timerDailyInput	{ pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
 #timerDailyInput.dull			{ color: rgba(255,255,255,.72) !important; pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
 /*//////////////////////////////
 // DAILY CALORIES INPUT ALIGN //
 //////////////////////////////*/
 /*pixel adjusts*/
-.ios input#timerDailyInput,
-.moz.mobile timerDailyInput#editable	{ text-indent: -1px; }
-.osx input#timerDailyInput,
-.msie input#timerDailyInput,
-.ios7 input#timerDailyInput				{ margin-top: 1px; text-indent: 0; }
-.android input#timerDailyInput			{ margin-top: 1px; padding-right: 1px; }
-.windows8 input#timerDailyInput,
-.android44 input#timerDailyInput		{ margin-top: 0px; padding-right: 0px; }
+body.ios input#timerDailyInput,
+body.moz.mobile timerDailyInput#editable	{ text-indent: -1px; }
+body.osx input#timerDailyInput,
+body.msie input#timerDailyInput,
+body.ios7 input#timerDailyInput				{ margin-top: 1px; text-indent: 0; }
+body.android input#timerDailyInput			{ margin-top: 1px; padding-right: 1px; }
+body.windows8 input#timerDailyInput,
+body.android44 input#timerDailyInput		{ margin-top: 0px; padding-right: 0px; }
 /*#////////////#//
 //# APP FOOTER #//
 //#////////////#*/
@@ -136,18 +136,18 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 #appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; width: 100%; border-top: 1px solid #dfdfdf; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; background-color: #f5f5f5; text-align: center; z-index: 20; -webkit-user-select: none; }
 #appFooter li							{ color: #656565; float: left; width: 25%; height: 44px; line-height: 18px;  }
 /*selected*/
-.tab1 #appFooter li#tab1,
-.tab2 #appFooter li#tab2,
-.tab3 #appFooter li#tab3,
-.tab4 #appFooter li#tab4				{ color: #007AFF; }
-.tab1.surplus #appFooter li#tab1,
-.tab2.surplus #appFooter li#tab2,
-.tab3.surplus #appFooter li#tab3,
-.tab4.surplus #appFooter li#tab4		{ color: #309030; }
-.tab1.deficit #appFooter li#tab1,
-.tab2.deficit #appFooter li#tab2,
-.tab3.deficit #appFooter li#tab3,
-.tab4.deficit #appFooter li#tab4		{ color: #C85834; }
+body.tab1 #appFooter li#tab1,
+body.tab2 #appFooter li#tab2,
+body.tab3 #appFooter li#tab3,
+body.tab4 #appFooter li#tab4			{ color: #007AFF; }
+body.tab1.surplus #appFooter li#tab1,
+body.tab2.surplus #appFooter li#tab2,
+body.tab3.surplus #appFooter li#tab3,
+body.tab4.surplus #appFooter li#tab4	{ color: #309030; }
+body.tab1.deficit #appFooter li#tab1,
+body.tab2.deficit #appFooter li#tab2,
+body.tab3.deficit #appFooter li#tab3,
+body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 /*sync icon*/
 #appHeaderIcon					{ display: none; }
 .appDebug #appHeaderIcon,
