@@ -1,13 +1,4 @@
-﻿(function (factory) {
-  if (typeof define === 'function' && define.amd) {
-		// AMD. Register as anonymous module.
-		define(['jquery'], factory);
-	} else {
-		// Browser globals.
-		factory(jQuery);
-	}
-}(function(jQuery){
-
+﻿(function($){
   // globals
   var domfocus = false;
   var mousefocus = false;
@@ -2953,8 +2944,8 @@
       self.snapy = (newy<0)||(newy>self.nc.page.maxh);
       self.speedx = dx;
 		//TWEAK
-		if(Math.abs(dy) <= 1) { dy = 0; }
-		if (Math.abs(dy) < 70 || py != 0) {
+		//if(Math.abs(dy) <= 1) { dy = 0; }
+		if (py != 0) {
 			self.speedy = dy;
 		}
       self.lastx = px;
@@ -3269,5 +3260,4 @@
    $.nicescroll.options = _globaloptions;
   }
   
-}));
-  
+})(jQuery);
