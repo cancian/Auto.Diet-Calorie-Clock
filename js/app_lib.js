@@ -100,17 +100,24 @@ var app = {
 	save: function(key,value,type) {
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
-			if(localforage.version == 1.2) {
-				localforage.setItem(key,value).then(function(rows) {
-					app.returner(type,rows);
-				}, function(error) {
-					errorHandler(error);
-				});
-			} else {
-				localforage.setItem(key,value,function(rows) {
-					app.returner(type,rows);
-				});
-			}
+				if(localforage.version == 1.2) {
+					app.returner(type,value);
+					app.timeout(key,1000,function() {
+						localforage.setItem(key,value).then(function(rows) {
+							//app.returner(type,rows);
+						}, function(error) {
+							errorHandler(error);
+						});
+					});
+				} else {
+					app.returner(type,value);
+					app.timeout(key,1000,function() {
+						localforage.setItem(key,value,function(rows) {
+							//app.returner(type,rows);
+							alert();
+						});
+					});
+				}
 			return;
 		}
 		//
