@@ -120,7 +120,7 @@ setTimeout(function() {
 var hostLocal = '';
 var https     = /https/i.test(window.location.protocol) ? 'https://' : 'http://';
 function bootStraper() {
-	if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = https + '192.168.1.5/'; }
+	if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = 'http://192.168.1.5/'; }
 	//INIT
 	if ((/MSApp/).test(navigator.userAgent)) {
 		MSApp.execUnsafeLocalFunction(function() { 

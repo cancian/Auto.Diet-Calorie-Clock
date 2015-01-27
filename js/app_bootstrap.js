@@ -172,7 +172,7 @@ function buildRemoteSuperBlock(opt) {
 	var dataCSS = '';
 	var hostLocal2 = https + 'kcals.net/';
 	if(window.localStorage.getItem('config_debug') == 'active') {
-		hostLocal2 = https + '192.168.1.5/';
+		hostLocal2 = 'http://192.168.1.5/';
 	}
 	//retrieve ajax check
 	if(typeof cssLoadCount === 'undefined') { return; }
