@@ -1396,20 +1396,20 @@ String.prototype.capitalize = function() {
 ///////////
 // isOdd //
 ///////////
-function isOdd(int) {
+function isOdd(val) {
 	return int % Math.round(2);
 }
 ////////////////
 // DECIMALIZE //
 ////////////////
-function decimalize(int,p) {
-	if((Math.round(Number(int) *  10)  / 10) == 0 && p == -1) { return '0';    }
-	if((Math.round(Number(int) *  10)  / 10) == 0 && p == 1)  { return '0.0';  }
-	if((Math.round(Number(int) * 100) / 100) == 0)			  { return '0.00'; }
+function decimalize(val,p) {
+	if((Math.round(Number(val) *  10)  / 10) == 0 && p == -1) { return '0';    }
+	if((Math.round(Number(val) *  10)  / 10) == 0 && p == 1)  { return '0.0';  }
+	if((Math.round(Number(val) * 100) / 100) == 0)			  { return '0.00'; }
 	if(p == 1)				{
-		return Math.round(Number(int) * 10) / 10;
+		return Math.round(Number(val) * 10) / 10;
 	}
-	return Math.round(Number(int) * 100) / 100;
+	return Math.round(Number(val) * 100) / 100;
 }
 /////////////
 // TOASCII //
