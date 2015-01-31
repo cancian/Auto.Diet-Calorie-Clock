@@ -5,16 +5,14 @@
 	Options -Indexes
 	SetEnv TZ America/Sao_Paulo
 	AddDefaultCharset UTF-8
-	AddType application/vnd.ms-fontobject .eot
 	AddType application/font-woff .woff
 	AddType font/ttf .ttf
-	AddType font/otf .otf
 	AddType application/x-web-app-manifest+json .webapp
 	AddType text/cache-manifest .manifest
 	AddType text/cache-manifest .appcache
 	AddType application/octet-stream .bin
 	AddType application/octet-stream .img
-	AddType text/plain .db
+	AddType text/plain .db .txt .md .sql
 </IfModule>
 
 <IfModule mod_expires.c>
@@ -30,9 +28,6 @@
 </IfModule>
 
 <IfModule mod_deflate.c>
-	#sudo nano /usr/local/dh/apache2/apache2-ps386756/etc/httpd.conf
-	#SetOutputFilter DEFLATE
 	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript font/ttf application/font-woff text/cache-manifest application/x-web-app-manifest+json application/octet-stream
-	#DeflateMemLevel 9
-	#DeflateCompressionLevel 9
 </IfModule>
+

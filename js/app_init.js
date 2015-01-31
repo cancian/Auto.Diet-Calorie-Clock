@@ -2,7 +2,7 @@
 // SAFE EXEC //
 ///////////////
 var staticVendor = ''; //'amazon'; //'blackberry';
-var baseVersion  = 1.8;
+var baseVersion  = 1.9;
 var JScompress   = true;
 var initTime     = new Date().getTime();
 var UsrAgt  = navigator.userAgent;
