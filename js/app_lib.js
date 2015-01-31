@@ -103,19 +103,12 @@ var app = {
 				if(localforage.version == 1.2) {
 					app.returner(type,value);
 					app.timeout(key,1000,function() {
-						localforage.setItem(key,value).then(function(rows) {
-							//app.returner(type,rows);
-						}, function(error) {
-							errorHandler(error);
-						});
+						localforage.setItem(key,value);
 					});
 				} else {
 					app.returner(type,value);
 					app.timeout(key,1000,function() {
-						localforage.setItem(key,value,function(rows) {
-							//app.returner(type,rows);
-							alert();
-						});
+						localforage.setItem(key,value);
 					});
 				}
 			return;
@@ -1076,9 +1069,10 @@ else										{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vend
 ///////////////////////////////////
 if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheValid !== 1) {
 	if (vendorClass == "moz" || vendorClass == "msie") {
+		var cssPath = (typeof JScompress === 'undefined') ? 'css/index.css' : 'css/min/index.css';
 		$.support.cors = true;
 		$.ajax({
-			url : hostLocal + "css/index.css",
+			url : hostLocal + cssPath,
 			dataType : "text",
 			success : function (dataCSS) {
 				if(vendorClass == 'moz') {
@@ -1397,7 +1391,7 @@ String.prototype.capitalize = function() {
 // isOdd //
 ///////////
 function isOdd(val) {
-	return int % Math.round(2);
+	return val % Math.round(2);
 }
 ////////////////
 // DECIMALIZE //

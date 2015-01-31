@@ -1,8 +1,6 @@
 ﻿//#///////////#//
 //# BOOTSTRAP #//
 //#///////////#//
-// AJAX ERRORS //
-/////////////////
 $.support.cors = true;
 $.ajaxSetup({ xhr: function() {return new window.XMLHttpRequest({mozSystem: true}); }, cache: false, crossDomain: true, async:true,  error: function(jqXHR, exception) {
 		 if(jqXHR.status === 0)           { console.log('Not connect.\n Verify Network.');         }
@@ -23,81 +21,6 @@ $.ajaxSetup({ xhr: function() {return new window.XMLHttpRequest({mozSystem: true
 		}
 	},6000);
 }});
-//#/////////////#//
-//# JS COMPRESS #//
-//#/////////////#//
-function cropSlashes(str) {
-	if (!str) {
-		return;
-	}
-	if(str.indexOf('//') == 0) {
-		return '';
-	} else if(str.indexOf('//') !== -1) {
-		if(str.indexOf('://') === -1 && !/http|data:|/.test(str)) {
-			return str.split('//')[0];
-		}
-	}
-	return str;
-}
-function removeSlashComments(input) {
-	if (!input) {
-		return;
-	}
-	input = input.split('\r\n');
-	//
-	for (var i = 0, len = input.length; i < len; i++) {
-		input[i] = cropSlashes(input[i]);
-	}
-	return input.join('\r\n');
-}
-function removeMultiComments(input) {
-	if (!input) {
-		return;
-	}
-	input = input.split('/*');
-
-	for (var i = 0, len = input.length; i < len; i++) {
-		if(input[i].indexOf('*/') !== -1 && input[i].indexOf("*'") === -1 && input[i].indexOf("'*") === -1) {
-
-			input[i] = input[i].split('*/')[1];
-		}
-	}
-	return input.join('');
-}
-function JSCompress(input) {
-	if (!input) {
-		return;
-	}
-	//remove comments
-	input = removeMultiComments(input);
-	input = removeSlashComments(input);
-	input = input.split('\\\r\n').join('')
-	input = input.split('\r\n').join('');
-	input = input.split('	').join('');
-	input = input.split('   ').join(' ').split('   ').join(' ');
-	input = input.split('  ').join(' ').split('  ').join(' ').split('  ').join(' ').split('  ').join(' ');
-	input = input.split('} ').join('}');
-	input = input.split('{ ').join('{');
-	input = input.split(' }').join('}');
-	input = input.split(' {').join('{');
-	input = input.split('= ').join('=');
-	input = input.split(' =').join('=');
-	input = input.split(' :').join(':');
-	input = input.split(': ').join(':');
-	input = input.split(' >').join('>');
-	input = input.split('> ').join('>');
-	input = input.split(' <').join('<');
-	input = input.split('< ').join('<');
-	input = input.split(') {').join('){');
-	input = input.split('; ').join(';');
-	input = input.split('else {').join('else {');
-	input = input.split('} else').join('}else');
-	input = input.split('if {').join('if{');
-	input = input.split(' +').join('+');
-	input = input.split('+ ').join('+');
-	input = input.split(', function').join(', function');
-	return input;
-}
 //#//////////////////#//
 //# LOCAL SUPERBLOCK #//
 //#//////////////////#//
@@ -105,16 +28,16 @@ function InitializeLocalSuperBlock(opt) {
 	if(opt == 'cached') { return; }
 	var dataJS  = '';
 	var dataCSS = '';
-	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_lib.js',         success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_lang.js',        success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_setup.js',       success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_macro.js',       success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_build.js',       success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_static.js',      success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_dynamic.js',     success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_custom_core.js', success: function(raw) { dataJS  = dataJS  + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'css/fonts.css',         success: function(raw) { dataCSS = dataCSS + raw;
-	$.ajax({type: 'GET', dataType: 'text', url: 'css/index.css',         success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/min/app_lib.js',         success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/min/app_lang.js',        success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/min/app_setup.js',       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/min/app_macro.js',       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/min/app_build.js',       success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/min/app_static.js',      success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/min/app_dynamic.js',     success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'js/min/app_custom_core.js', success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'css/min/fonts.css',         success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: 'css/min/index.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	//GET SIZE
 	window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
 	//MOZIE CSS CONVERT
@@ -180,7 +103,10 @@ function buildRemoteSuperBlock(opt) {
 	$('body').removeClass('loading');
 	$('body').removeClass('uptodate');
 	$('body').removeClass('pending');
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=md5', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
+	
+	
+	
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=min', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
 		//null
 		if(hash == '') { $('body').removeClass('loading'); return; }
 		var hashObj = hash.split(',');
@@ -198,25 +124,25 @@ function buildRemoteSuperBlock(opt) {
 		}
 	$('body').addClass('loading');
 	cssLoadCount(0,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_lib.js',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/min/app_lib.js',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(1,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_lang.js',        error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/min/app_lang.js',        error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(2,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_setup.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/min/app_setup.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(3,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_macro.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/min/app_macro.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(4,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_build.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/min/app_build.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(5,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_static.js',      error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/min/app_static.js',      error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(6,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_dynamic.js',     error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/min/app_dynamic.js',     error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(7,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_custom_core.js', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/min/app_custom_core.js', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(8,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/fonts.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/min/fonts.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	cssLoadCount(9,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/index.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/min/index.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	cssLoadCount(10,10);
 	/////////////////////
 	// INTEGRITY CHECK //

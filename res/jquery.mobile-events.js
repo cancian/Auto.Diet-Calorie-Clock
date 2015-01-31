@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * jQuery Mobile Events
  * by Ben Major (www.ben-major.co.uk)
  *

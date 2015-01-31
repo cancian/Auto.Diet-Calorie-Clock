@@ -1,7 +1,5 @@
 echo wwwing...
 
-k:
-
 RD /S /Q K:\platforms\android\kcals\src\main\assets\www
 MKDIR K:\platforms\android\kcals\src\main\assets\www
 cd K:\platforms\android\kcals\src\main\assets\www
@@ -146,5 +144,7 @@ mklink /h K:\platforms\android-eclipse\res\drawable-xhdpi\icon.png K:\www\res\ic
 mklink /h K:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png K:\www\res\icon\android\144.png
 
 K:\[bin]\embed K:\www\css\kcals.ttf
+
+call minify.bat
 
 sleep 3
