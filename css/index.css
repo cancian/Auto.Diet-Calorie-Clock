@@ -980,7 +980,7 @@ div.editing p				{ opacity: 1; }
 .sidebar.afternoon #diarySidebar	{ color: #F29D50; }
 .sidebar.night #diarySidebar		{ color: #4486E5; }
 .sidebar.afterhours #diarySidebar	{ color: #4141D1; }
-#diarySidebar:before				{ font-family: 'KCals'; content: '\F025'; }
+#diarySidebar:before				{ font-family: 'KCals'; content: '\F025'; text-indent: 7px; display: block; }
 #diarySidebar						{ font-size: 18px; line-height: 19px; position: absolute; top: 0; left: 0; width: 88px; height: 35px; background-color: rgba(0,0,0,0); padding-top: 10px; overflow: hidden; text-align: left; }
 .android #diarySidebar				{ padding-top: 11px; }
 .sidebar #entryList div				{ border-bottom-width: 0; padding-bottom: 1px; }

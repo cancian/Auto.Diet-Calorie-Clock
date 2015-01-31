@@ -1,6 +1,10 @@
 ##############
 ## PHONEGAP ##
 ##############
+# MINIFIED CONTENT
+js/min/
+css/min/
+
 _gsdata_/
 userdata/
 # ANDROID / ECLIPSE
