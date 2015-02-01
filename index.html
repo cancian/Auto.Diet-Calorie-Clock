@@ -125,11 +125,11 @@ function bootStraper() {
 	if ((/MSApp/).test(navigator.userAgent)) {
 		MSApp.execUnsafeLocalFunction(function() { 
 			hostLocal = ''; 
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/min/app_init.js"><\/script>'); 
 			document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } <\/style>');
 		});
 	} else {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/min/app_init.js"><\/script>');
 	}
 }
 if(!/http/i.test(window.location.protocol)) {

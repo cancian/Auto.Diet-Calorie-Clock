@@ -1098,7 +1098,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				var LANGa = LANG;
 				$.each(LANGa,function(key,value) {
 					$.each(value,function(key,subvalue) {
-						if(!/en|de/.test(key)) {
+						if(!/en|ru/.test(key)) {
 							delete value[key];
 						}
 					});
