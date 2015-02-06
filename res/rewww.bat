@@ -1,52 +1,65 @@
 echo wwwing... 
  
+ 
 K: 
-cd k:\platforms 
-attrib /s -r -h -a 
-cd k:\www 
-attrib /s -r -h -a 
+CD\ 
+attrib k:\platforms\*.* -r -h -a /s
+attrib k:\www\*.* -r -h -a /s
+ 
  
 K:\[bin]\embed K:\www\css\kcals.ttf 
 call minify.bat 
-
-cd \
+ 
+ 
+cd \ 
+DELTREE /Y /Z /S /Q /T K:\platforms\android\kcals\src\main\assets\www 
 RD /S /Q K:\platforms\android\kcals\src\main\assets\www 
 MKDIR K:\platforms\android\kcals\src\main\assets\www 
 cd K:\platforms\android\kcals\src\main\assets\www 
 call reswww 
-
-cd \
+ 
+ 
+cd \ 
+DELTREE /Y /Z /S /Q /T K:\platforms\android-eclipse\assets\www 
 RD /S /Q K:\platforms\android-eclipse\assets\www 
 MKDIR K:\platforms\android-eclipse\assets\www 
 cd K:\platforms\android-eclipse\assets\www 
 call reswww 
  
-cd \
+ 
+cd \ 
+DELTREE /Y /Z /S /Q /T K:\platforms\ios\www 
 RD /S /Q K:\platforms\ios\www 
 MKDIR K:\platforms\ios\www 
 cd K:\platforms\ios\www 
 call reswww 
  
-cd \
+ 
+cd \ 
+DELTREE /Y /Z /S /Q /T K:\platforms\osx\public 
 RD /S /Q K:\platforms\osx\public 
 MKDIR K:\platforms\osx\public 
 cd K:\platforms\osx\public 
 call reswww 
  
-cd \
+ 
+cd \ 
+DELTREE /Y /Z /S /Q /T K:\platforms\windows8\www 
 RD /S /Q K:\platforms\windows8\www 
 MKDIR K:\platforms\windows8\www 
 cd K:\platforms\windows8\www 
 call reswww 
  
-cd \
+ 
+cd \ 
+DELTREE /Y /Z /S /Q /T K:\platforms\wp8\www 
 RD /S /Q K:\platforms\wp8\www 
 MKDIR K:\platforms\wp8\www 
 cd K:\platforms\wp8\www 
 call reswww 
-
-cd \
-
+ 
+ 
+cd \ 
 del /q K:\platforms\android\kcals\src\main\res\xml\config.xml 
 del /q K:\platforms\android-eclipse\res\xml\config.xml 
 del /q K:\platforms\ios\KCals\config.xml 
@@ -58,6 +71,7 @@ copy /y k:\www\config.xml K:\platforms\ios\KCals\config.xml
 copy /y k:\www\config.xml K:\platforms\windows8\config.xml 
 copy /y k:\www\config.xml K:\platforms\wp8\config.xml 
  
+ 
 ECHO "WP8 assets" 
 del /q K:\platforms\wp8\159.png 
 del /q K:\platforms\wp8\336.png 
@@ -65,9 +79,11 @@ del /q K:\platforms\wp8\691x336.png
 copy /y K:\www\res\icon\wp8\159.png K:\platforms\wp8\159.png 
 copy /y K:\www\res\icon\wp8\336.png K:\platforms\wp8\336.png 
 copy /y K:\www\res\icon\wp8\691x336.png K:\platforms\wp8\691x336.png 
-
-cd\
+ 
+ 
+cd\ 
 ECHO "Windows 8 assets" 
+DELTREE /Y /Z /S /Q /T K:\platforms\windows8\images 
 RD /S /Q K:\platforms\windows8\images 
 MKDIR K:\platforms\windows8\images 
 copy /y k:\www\res\icon\windows8\16.png k:\platforms\windows8\images\smalllogo.targetsize-16.png 
@@ -128,15 +144,23 @@ copy /y k:\www\res\icon\windows8\310x150.png k:\platforms\windows8\images\Wide31
 copy /y k:\www\res\icon\windows8\360.png k:\platforms\windows8\images\Square150x150Logo.scale-240.png 
 copy /y k:\www\res\icon\windows8\434x210.png k:\platforms\windows8\images\Wide310x150Logo.scale-140.png 
 copy /y k:\www\res\icon\windows8\744x360.png k:\platforms\windows8\images\Wide310x150Logo.scale-240.png 
-
-cd\
-RD /S /Q K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset 
-cp --recursive --verbose --force K:\www\res\icon\osx\AppIcon.appiconset K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset 
  
+ 
+cd\ 
+DELTREE /Y /Z /S /Q /T K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset 
+RD /S /Q K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset 
+MKDIR K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset 
+cp --recursive --verbose --force K:\www\res\icon\ios\AppIcon.appiconset\*.* K:\platforms\ios\KCals\Images.xcassets\AppIcon.appiconset
+ 
+ 
+cd\ 
+DELTREE /Y /Z /S /Q /T K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset 
 RD /S /Q K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset 
-cp --recursive --verbose --force K:\www\res\icon\osx\AppIcon.appiconset K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset 
-
-cd\
+MKDIR K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset 
+cp --recursive --verbose --force K:\www\res\icon\osx\AppIcon.appiconset\*.* K:\platforms\osx\KCals\Images.xcassets\AppIcon.appiconset
+ 
+ 
+cd\ 
 del /q K:\platforms\android\kcals\src\main\res\drawable\icon.png 
 del /q K:\platforms\android\kcals\src\main\res\drawable-ldpi\icon.png 
 del /q K:\platforms\android\kcals\src\main\res\drawable-mdpi\icon.png 
@@ -165,9 +189,11 @@ copy /y K:\www\res\icon\android\96.png K:\platforms\android-eclipse\res\drawable
 copy /y K:\www\res\icon\android\144.png K:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
  
  
-cd k:\platforms 
-attrib /s -r -h -a 
-cd k:\www 
-attrib /s -r -h -a 
+attrib k:\platforms\*.* -r -h -a /s
+attrib k:\www\*.* -r -h -a /s
+ 
 
-sleep 3 
+echo ################################################## 
+echo ################################################## 
+sleep 3
+

@@ -1093,18 +1093,21 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// DEVLANGPAIR //
 			/////////////////
 			if (/devlangpair/i.test($('#entryBody').val())) {
-				$('#entryBody').val('devlangpai');
+				var targetLang = $('#entryBody').val().split('devlangpair').join('');
+				$('#entryBody').val($('#entryBody').val().split('devlangpair').join('devlangpai'));
 				$('#entryBody').blur();
 				var LANGa = LANG;
-				$.each(LANGa,function(key,value) {
-					$.each(value,function(key,subvalue) {
-						if(!/en|de/.test(key)) {
+				delete LANGa.HELP_TOPICS_ARRAY;
+				$.each(LANGa, function (key, value) {
+					$.each(value, function (key, subvalue) {
+						if (!key.contains('en') && !key.contains(targetLang)) {
 							delete value[key];
 						}
 					});
 				});
+				alert('dumped: ' + targetLang);
 				console.log(JSON.stringify(LANGa));
-			}			
+			}
 			////////////
 			// REWIPE //
 			////////////
