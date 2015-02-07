@@ -1,0 +1,212 @@
+﻿en
+KCals Calorie Counter
+English
+Sun, Mon, Tue, Wed, Thu, Fri, Sat
+Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
+Introduction
+Auto Detect
+start
+reset
+start date
+Close
+Use the slider to quickly add known foods and exercises.
+Use the quick search, or browse the categories.
+Swipe left to edit existing entries.
+Keep the counter close to zero using what you eat.
+ok, let’s get started
+KCals is designed to help you control your calorie intake. Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your caloric balance.
+The idea is simple. Define a goal (daily calories) and keep yourself Balanced in the context of this goal. The app will indicate when you’ve eaten too much (surplus), or too little (deficit)
+Calories from food will be added to the total. Calories burned (including exercise) will be subtracted from the total.
+Elapsed time is converted into calories burned. Therefore, your caloric balance will be reduced automatically throughout the day. This simulates your metabolic rate.
+If you overeat, you can compensate by doing exercises or eating less over the next few hours.
+Check your Profile to determine your ideal calorie intake.
+skip
+food
+exercise
+Description...
+pre-fill
+add entry
+Delete
+clear all
+activity log
+Food search... (100g)
+Exercise search... (30 min)
+no entries
+no matches
+Preparing database
+Updating database
+Loading
+Favorites
+Categories
+My items
+New food
+New exercise
+Recent entries
+add
+save
+Save as new
+Name
+Amount
+Duration
+Delete item
+available calories
+daily calories
+caloric intake
+weight loss
+time
+elapsed time
+relative time
+caloric
+caloric balance
+surplus
+deficit
+balanced
+status
+diary
+profile
+settings
+now
+today
+minute
+minutes
+min
+hour
+hours
+day
+days
+month
+year
+and
+ago
+
+calorie
+calories
+kcal
+centimeters
+feet/inches
+grams
+g
+kilograms
+kg
+pounds
+lb
+Proteins
+Carbohydrates
+Fats
+pro
+car
+fat
+Approximate conversions
+teaspoon
+tablespoon
+cup
+ml
+oz
+Nutrients
+last 7
+last 30
+all
+Total
+The total must add up to 100%.
+Please review the information and try again.
+Cyclical Mode
+This option allows you to alternate between two different caloric values along a period of four days.Days A, B and C will use the first value, while day D will use the second.
+Caloric Threshold
+The status will change when you reach 50% of the defined value.
+Lower limit
+Upper limit
+Statistics
+Date
+Edit
+Success
+Error
+Data Synchronization
+Keep your data safe and synchronized across multiple devices.
+Are you sure?
+ok
+cancel
+Reset settings
+All data will be erased
+The counter is currently stopped
+Would you like to start it now?
+Developed by André Cancian
+Reset counter
+Reset entry value
+Required fields have been left blank.
+The missing information is highlighted in red.
+Clear all entries
+Measurement System
+(height, weight etc.)
+imperial
+metric
+Rate this App
+Backup & Synchronization
+Automatic Backup
+Keep your data safe and synchronized
+Logged in as
+Turn off automatic backup
+last sync
+System language
+Help
+Topics to help you get started
+Contact us
+About
+Version History
+Rebuild food database
+Automatic Updates
+The app has been updated.
+Would you like to restart it now?
+Downloading update
+Up to date
+Pending restart
+Advanced Settings
+male
+female
+Your gender
+Your height
+Your weight
+Your age
+Activity Level
+Sedentary: Mostly sitting down (desk job, designer)
+Lightly Active: Occasionally sitting (teacher, salesman)
+Active: Walking most of the time (waitress, mailman)
+Very Active: Physically hard work (construction worker)
+Keep current weight:
+Lose weight:
+Gain weight:
+per week
+Rate KCals
+If you like using KCals, support us with a positive review!
+Rate KCals
+No, thanks
+Remind me later
+calories remaining
+compensated
+non-compensated
+Pork
+Vegetables
+Nuts and seeds
+Beef
+Drinks
+Fish and seafood
+Legumes
+Lamb, Veal & others
+Bread and bakery
+Sweets
+Pasta, rice and grains
+Fast Foods
+Meals
+Snacks
+Local Food
+Restaurants
+Miscellaneous
+Exercises
+Dairy (cheese, milk, eggs)
+Herbs and Spices
+Baby food
+Oils and fats
+Chicken
+Soups and sauces
+Sausage and processed meats
+Breakfast cereals
+Fruits
