@@ -315,9 +315,7 @@ app.tab.status = function(keepOpen) {
 	});
 	//info block
 	$('#elapsedInfo').on(touchstart,function(evt) {
-		return false;
-	});
-	app.handlers.activeRow('#elapsedInfo','button',function() {
+		evt.stopPropagation();
 		getNewWindow('Elapsed Time / Relative Time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Elapsed Time / Relative Time'] + '</div>');
 	});
 	////////////////
@@ -340,9 +338,7 @@ app.tab.status = function(keepOpen) {
 	});
 	//cyclic block
 	$('#todayInfo').on(touchstart,function(evt) {
-		return false;
-	});
-	app.handlers.activeRow('#todayInfo','button',function() {
+		evt.stopPropagation();
 		getCyclicMenu();
 	});
 	//////////////////

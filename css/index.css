@@ -585,7 +585,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusElapsed div				{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
 #appStatusElapsed span				{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
 #elapsedInfo						{ position: absolute; top: -18px; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #ccc; }
-#elapsedInfo:after					{ font-family: KCals; content: '\A175'; padding-top: 3px; padding-right: 2px; font-size: 14px; line-height: 14px; display: block; }
+#elapsedInfo:after					{ font-family: KCals; content: '\A175'; padding-top: 3px; padding-right: 2px; font-size: 14px; line-height: 14px; display: block; color: #aaa; font-weight: bold; }
 #elapsedInfo.button					{ color: #aaa; }
 #blockInfo p						{ margin: 24px; }
 #blockInfo p						{ display: block; }
@@ -627,7 +627,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 .appLang-ja #totalIntake				{ font-size: 9px; }
 #totalIntake span						{ font-weight: bold; color: #c30; }
 #todayInfo								{ position: absolute; top: 0; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #bbb; z-index: 3; display: block; overflow: hidden; }
-#todayInfo:after						{ font-family: 'KCals'; content: '\A176'; padding-top: 1px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; z-index: 3; }
+#todayInfo:after						{ font-family: 'KCals'; content: '\A176'; padding-top: 1px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; z-index: 3; color: #aaa; font-weight: bold; }
 .cyclic #todayInfo						{ color: #007aff; }
 #todayInfo.button						{ color: #999; }
 .highcharts-legend, 
