@@ -1096,6 +1096,14 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
+//test
+try {
+	document.createEvent('TouchEvent');
+	app.touch = true;
+} catch (e) {
+	app.touch = false;
+}
+//
 function isCordova() {
 	return isMobileCordova;
 }

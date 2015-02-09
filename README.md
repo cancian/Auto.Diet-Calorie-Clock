@@ -1,13 +1,10 @@
-﻿com.cancian.mylivediet
+﻿com.cancian.kcals
 ======================
 
-This is the www/ folder of my phonegap app "Kcals".
+This is the www/ folder of my phonegap/cordova app "KCals Calorie Counter".
 
-I published this just it case it helps anyone who's also into phonegap app development.
+I published this just in case it helps anyone who's also into html5 apps development.
 
 ---
 
-Kcals is a weight loss app based on JS/HTML/CSS, ported to iOS/Android/WP8/FirefoxOS using Cordova.
-
 Web version http://kcals.net
-

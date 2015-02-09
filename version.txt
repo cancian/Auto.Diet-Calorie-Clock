@@ -8,7 +8,6 @@
 • Database updates are now deferred (asynchronous) to improve the overall app responsiveness while saving large amounts of data
 • Revised Russian and German translations
 
-
 # 1.8.2 [2015/01/10]
 • Faster start-up time
 • Update cache is preserved upon full data reset
