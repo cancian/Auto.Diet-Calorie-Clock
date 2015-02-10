@@ -56,7 +56,7 @@ var app = {
 	read: function(key,value,type) {
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
-			if(localforage.version == 1.2) {
+			if(localforageDB == true) {
 				localforage.getItem(key,function(err, rows) {
 					if(err) {
 						errorHandler(err);
@@ -100,7 +100,7 @@ var app = {
 	save: function(key,value,type) {
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
-				if(localforage.version == 1.2) {
+				if(localforageDB == true) {
 					app.returner(type,value);
 					app.timeout(key,1000,function() {
 						localforage.setItem(key,value);
@@ -182,19 +182,6 @@ var app = {
 			$(target).css('pointer-events','auto');
 		}, time);
 	},
-};
-////////////////
-// HOLD EVENT //
-////////////////
-app.hold = function (elem, callback) {
-	$(elem).swipe({
-		hold : function (evt, elem) {
-			if (typeof callback === 'function') {
-				callback(evt);
-			}
-		},
-		threshold : 200
-	});
 };
 /////////////////
 // SWIPE EVENT //
@@ -397,8 +384,10 @@ app.info = function (title, msg, preHandler, postHandler) {
 	// STOP PROPAGATION //
 	//////////////////////
 	$('#screenInfo').on(touchstart, function (evt) {
-		evt.stopPropagation();
-		evt.preventDefault();
+		if(!$('body').hasClass('msie') && !app.device.desktop) {
+			evt.stopPropagation();
+			evt.preventDefault();
+		}
 	});
 	/////////////
 	// FADE IN //
@@ -428,7 +417,9 @@ app.info = function (title, msg, preHandler, postHandler) {
 		});
 		//allow disable
 		if(app.dev) {
-			app.hold('#closeButton',function(evt) {
+			$('#closeButton').on('longhold',function(evt) {
+				evt.preventDefault();
+				evt.stopPropagation();
 				app.globals.blockInfo = 1;
 				$('#closeButton').trigger(touchend);
 				evt.preventDefault();

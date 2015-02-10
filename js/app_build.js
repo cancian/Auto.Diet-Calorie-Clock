@@ -488,7 +488,7 @@ app.tab.status = function(keepOpen) {
 	//////////////////
 	// ENABLE DEBUG //
 	//////////////////	
-	app.hold('#appStatusReload',function(evt) {
+	$('#appStatusReload').on('longhold',function(evt) {
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
 			afterHide();
@@ -502,7 +502,7 @@ app.tab.status = function(keepOpen) {
 	/////////////////
 	app.handlers.activeRow('#appStatusReload','button',function(evt) {
 		$('#startDateBar').hide();
-		$('#appStatusReload').off();
+		$('#appStatusReload').off('longhold');
 		afterHide();
 	});
 	////////////////////
@@ -891,7 +891,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//#//////////////#//
 	//# HOLD TO EDIT #//
 	//#//////////////#//
-	app.hold('#sliderNum',function(evt) {
+	$('#sliderNum').on('longhold',function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
 		$('#entryTitle').removeAttr('readonly');
 		$('#entryTitle').focus();
 	});

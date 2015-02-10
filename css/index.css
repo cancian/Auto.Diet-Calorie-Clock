@@ -1447,7 +1447,7 @@ ul#addNewList input			{ position: absolute; top: 0; right: 120px; text-align: le
 .webkit.desktop #screenInfo #circleFocus:after	{ -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.6); -webkit-backface-visibility: hidden; }
 /*text~shadow*/
 #screenInfo #circleFocus:before					{ -webkit-box-shadow: 0 0 50px 0px rgba(0, 0, 0,.4) !important; -webkit-backface-visibility: hidden; }
-#screenInfo #closeButton						{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); }
+#screenInfo #closeButton						{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); z-index: 50; }
 #screenInfo #textBlock							{ position: absolute; top: 142px; left: 25px; right: 20px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
 /*swipe left*/
 #screenInfo.info_swipe_left #textBlock			{ top: 74px; }

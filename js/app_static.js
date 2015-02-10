@@ -15,7 +15,7 @@ $(document).ready(function() {
 		// OPEN DATABASE //
 		///////////////////
 		var dbDriver;
-		if(localforage.version == 1.2) {
+		if(localforageDB == true) {
 			dbDriver = app.read('config_force_localstorage') ? [localforage.LOCALSTORAGE] : [localforage.INDEXEDDB, localforage.WEBSQL, localforage.LOCALSTORAGE];
 		} else {
 			dbDriver = app.read('config_force_localstorage') ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		}
 		//
 		try {
-			if(localforage.version == 1.2) {
+			if(localforageDB == true) {
 				localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
 				initDB();
 			} else {

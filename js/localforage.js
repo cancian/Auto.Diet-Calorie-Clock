@@ -1,7 +1,2501 @@
-﻿
-(function(){var e,t,n,r;(function(){var i={},s={};e=function(e,t,n){i[e]={deps:t,callback:n}};r=n=t=function(e){function p(t){if(t.charAt(0)!=="."){return t}var n=t.split("/");var r=e.split("/").slice(0,-1);for(var i=0,s=n.length;i<s;i++){var o=n[i];if(o===".."){r.pop()}else if(o==="."){continue}else{r.push(o)}}return r.join("/")}r._eak_seen=i;if(s[e]){return s[e]}s[e]={};if(!i[e]){throw new Error("Could not find module "+e)}var n=i[e],o=n.deps,u=n.callback,a=[],f;for(var l=0,c=o.length;l<c;l++){if(o[l]==="exports"){a.push(f={})}else{a.push(t(p(o[l])))}}var h=u.apply(this,a);return s[e]=f||h}})();e("promise/all",["./utils","exports"],function(e,t){"use strict";function i(e){var t=this;if(!n(e)){throw new TypeError("You must pass an array to all.")}return new t(function(t,n){function u(e){return function(t){a(e,t)}}function a(e,n){i[e]=n;if(--s===0){t(i)}}var i=[],s=e.length,o;if(s===0){t([])}for(var f=0;f<e.length;f++){o=e[f];if(o&&r(o.then)){o.then(u(f),n)}else{a(f,o)}}})}var n=e.isArray;var r=e.isFunction;t.all=i});e("promise/asap",["exports"],function(e){"use strict";function i(){return function(){process.nextTick(a)}}function s(){var e=0;var t=new n(a);var r=document.createTextNode("");t.observe(r,{characterData:true});return function(){r.data=e=++e%2}}function o(){return function(){r.setTimeout(a,1)}}function a(){for(var e=0;e<u.length;e++){var t=u[e];var n=t[0],r=t[1];n(r)}u=[]}function l(e,t){var n=u.push([e,t]);if(n===1){f()}}var t=typeof window!=="undefined"?window:{};var n=t.MutationObserver||t.WebKitMutationObserver;var r=typeof global!=="undefined"?global:this===undefined?window:this;var u=[];var f;if(typeof process!=="undefined"&&{}.toString.call(process)==="[object process]"){f=i()}else if(n){f=s()}else{f=o()}e.asap=l});e("promise/config",["exports"],function(e){"use strict";function n(e,n){if(arguments.length===2){t[e]=n}else{return t[e]}}var t={instrument:false};e.config=t;e.configure=n});e("promise/polyfill",["./promise","./utils","exports"],function(e,t,n){"use strict";function s(){var e;if(typeof global!=="undefined"){e=global}else if(typeof window!=="undefined"&&window.document){e=window}else{e=self}var t="Promise"in e&&"resolve"in e.Promise&&"reject"in e.Promise&&"all"in e.Promise&&"race"in e.Promise&&function(){var t;new e.Promise(function(e){t=e});return i(t)}();if(!t){e.Promise=r}}var r=e.Promise;var i=t.isFunction;n.polyfill=s});e("promise/promise",["./config","./utils","./all","./race","./resolve","./reject","./asap","exports"],function(e,t,n,r,i,s,o,u){"use strict";function b(e){if(!c(e)){throw new TypeError("You must pass a resolver function as the first argument to the promise constructor")}if(!(this instanceof b)){throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.")}this._subscribers=[];w(e,this)}function w(e,t){function n(e){A(t,e)}function r(e){M(t,e)}try{e(n,r)}catch(i){r(i)}}function E(e,t,n,r){var i=c(n),s,o,u,a;if(i){try{s=n(r);u=true}catch(f){a=true;o=f}}else{s=r;u=true}if(L(t,s)){return}else if(i&&u){A(t,s)}else if(a){M(t,o)}else if(e===T){A(t,s)}else if(e===N){M(t,s)}}function C(e,t,n,r){var i=e._subscribers;var s=i.length;i[s]=t;i[s+T]=n;i[s+N]=r}function k(e,t){var n,r,i=e._subscribers,s=e._detail;for(var o=0;o<i.length;o+=3){n=i[o];r=i[o+t];E(t,n,r,s)}e._subscribers=null}function L(e,t){var n=null,r;try{if(e===t){throw new TypeError("A promises callback cannot return that same promise.")}if(l(t)){n=t.then;if(c(n)){n.call(t,function(n){if(r){return true}r=true;if(t!==n){A(e,n)}else{O(e,n)}},function(t){if(r){return true}r=true;M(e,t)});return true}}}catch(i){if(r){return true}M(e,i);return true}return false}function A(e,t){if(e===t){O(e,t)}else if(!L(e,t)){O(e,t)}}function O(e,t){if(e._state!==S){return}e._state=x;e._detail=t;a.async(_,e)}function M(e,t){if(e._state!==S){return}e._state=x;e._detail=t;a.async(D,e)}function _(e){k(e,e._state=T)}function D(e){k(e,e._state=N)}var a=e.config;var f=e.configure;var l=t.objectOrFunction;var c=t.isFunction;var h=t.now;var p=n.all;var d=r.race;var v=i.resolve;var m=s.reject;var g=o.asap;var y=0;a.async=g;var S=void 0;var x=0;var T=1;var N=2;b.prototype={constructor:b,_state:undefined,_detail:undefined,_subscribers:undefined,then:function(e,t){var n=this;var r=new this.constructor(function(){});if(this._state){var i=arguments;a.async(function(){E(n._state,r,i[n._state-1],n._detail)})}else{C(this,r,e,t)}return r},"catch":function(e){return this.then(null,e)}};b.all=p;b.race=d;b.resolve=v;b.reject=m;u.Promise=b});e("promise/race",["./utils","exports"],function(e,t){"use strict";function r(e){var t=this;if(!n(e)){throw new TypeError("You must pass an array to race.")}return new t(function(t,n){var r=[],i;for(var s=0;s<e.length;s++){i=e[s];if(i&&typeof i.then==="function"){i.then(t,n)}else{t(i)}}})}var n=e.isArray;t.race=r});e("promise/reject",["exports"],function(e){"use strict";function t(e){var t=this;return new t(function(t,n){n(e)})}e.reject=t});e("promise/resolve",["exports"],function(e){"use strict";function t(e){if(e&&typeof e==="object"&&e.constructor===this){return e}var t=this;return new t(function(t){t(e)})}e.resolve=t});e("promise/utils",["exports"],function(e){"use strict";function t(e){return n(e)||typeof e==="object"&&e!==null}function n(e){return typeof e==="function"}function r(e){return Object.prototype.toString.call(e)==="[object Array]"}var i=Date.now||function(){return(new Date).getTime()};e.objectOrFunction=t;e.isFunction=n;e.isArray=r;e.now=i});t("promise/polyfill").polyfill()})();(function(){"use strict";function i(i){if(i){for(var s in i){n[s]=i[s]}}return new e(function(e,i){var s=r.open(n.name,n.version);s.onerror=function(){i(s.error)};s.onupgradeneeded=function(){s.result.createObjectStore(n.storeName)};s.onsuccess=function(){t=s.result;e()}})}function s(r,i){var s=this;return new e(function(e,o){s.ready().then(function(){var s=t.transaction(n.storeName,"readonly").objectStore(n.storeName);var u=s.get(r);u.onsuccess=function(){var t=u.result;if(t===undefined){t=null}h(i,t);e(t)};u.onerror=function(){if(i){i(null,u.error)}o(u.error)}},o)})}function o(r,i,s){var o=this;return new e(function(e,u){o.ready().then(function(){var o=t.transaction(n.storeName,"readwrite").objectStore(n.storeName);if(i===null){i=undefined}var a=o.put(i,r);a.onsuccess=function(){if(i===undefined){i=null}h(s,i);e(i)};a.onerror=function(){if(s){s(null,a.error)}u(a.error)}},u)})}function u(r,i){var s=this;return new e(function(e,o){s.ready().then(function(){var s=t.transaction(n.storeName,"readwrite").objectStore(n.storeName);var u=s["delete"](r);u.onsuccess=function(){h(i);e()};u.onerror=function(){if(i){i(u.error)}o(u.error)};u.onabort=function(e){var t=e.target.error;if(t==="QuotaExceededError"){if(i){i(t)}o(t)}}},o)})}function a(r){var i=this;return new e(function(e,s){i.ready().then(function(){var i=t.transaction(n.storeName,"readwrite").objectStore(n.storeName);var o=i.clear();o.onsuccess=function(){h(r);e()};o.onerror=function(){if(r){r(null,o.error)}s(o.error)}},s)})}function f(r){var i=this;return new e(function(e,s){i.ready().then(function(){var i=t.transaction(n.storeName,"readonly").objectStore(n.storeName);var o=i.count();o.onsuccess=function(){if(r){r(o.result)}e(o.result)};o.onerror=function(){if(r){r(null,o.error)}s(o.error)}},s)})}function l(r,i){var s=this;return new e(function(e,o){if(r<0){if(i){i(null)}e(null);return}s.ready().then(function(){var s=t.transaction(n.storeName,"readonly").objectStore(n.storeName);var u=false;var a=s.openCursor();a.onsuccess=function(){var t=a.result;if(!t){if(i){i(null)}e(null);return}if(r===0){if(i){i(t.key)}e(t.key)}else{if(!u){u=true;t.advance(r)}else{if(i){i(t.key)}e(t.key)}}};a.onerror=function(){if(i){i(null,a.error)}o(a.error)}},o)})}function c(r){var i=this;return new e(function(e,s){i.ready().then(function(){var i=t.transaction(n.storeName,"readonly").objectStore(n.storeName);var o=i.openCursor();var u=[];o.onsuccess=function(){var t=o.result;if(!t){if(r){r(u)}e(u);return}u.push(t.key);t["continue"]()};o.onerror=function(){if(r){r(null,o.error)}s(o.error)}},s)})}function h(e,t){if(e){return setTimeout(function(){return e(t)},0)}}var e=typeof module!=="undefined"&&module.exports?require("promise"):this.Promise;var t=null;var n={};var r=r||this.indexedDB||this.webkitIndexedDB||this.mozIndexedDB||this.OIndexedDB||this.msIndexedDB;if(!r){return}var p={_driver:"asyncStorage",_initStorage:i,getItem:s,setItem:o,removeItem:u,clear:a,length:f,key:l,keys:c};if(typeof define==="function"&&define.amd){define("asyncStorage",function(){return p})}else if(typeof module!=="undefined"&&module.exports){module.exports=p}else{this.asyncStorage=p}}).call(this);(function(){"use strict";function s(r){if(r){for(var i in r){t[i]=r[i]}}e=t.name+"/";return n.resolve()}function w(e){var t=this;return new n(function(n,i){t.ready().then(function(){r.clear();if(e){e()}n()},i)})}function E(t,i){var s=this;return new n(function(n,o){s.ready().then(function(){try{var s=r.getItem(e+t);if(s){s=C(s)}if(i){i(s)}n(s)}catch(u){if(i){i(null,u)}o(u)}},o)})}function S(t,i){var s=this;return new n(function(n,o){s.ready().then(function(){var s;try{s=r.key(t)}catch(o){s=null}if(s){s=s.substring(e.length)}if(i){i(s)}n(s)},o)})}function x(t){var i=this;return new n(function(n,s){i.ready().then(function(){var i=r.length;var s=[];for(var o=0;o<i;o++){s.push(r.key(o).substring(e.length))}if(t){t(s)}n(s)},s)})}function T(e){var t=this;return new n(function(n,i){t.ready().then(function(){var t=r.length;if(e){e(t)}n(t)},i)})}function N(t,i){var s=this;return new n(function(n,o){s.ready().then(function(){r.removeItem(e+t);if(i){i()}n()},o)})}function C(e){if(e.substring(0,u)!==o){return JSON.parse(e)}var t=e.substring(b);var n=e.substring(u,b);var r=new ArrayBuffer(t.length*2);var i=new Uint16Array(r);for(var s=t.length-1;s>=0;s--){i[s]=t.charCodeAt(s)}switch(n){case a:return r;case f:return new Blob([r]);case l:return new Int8Array(r);case c:return new Uint8Array(r);case h:return new Uint8ClampedArray(r);case p:return new Int16Array(r);case v:return new Uint16Array(r);case d:return new Int32Array(r);case m:return new Uint32Array(r);case g:return new Float32Array(r);case y:return new Float64Array(r);default:throw new Error("Unkown type: "+n)}}function k(e){var t="";var n=new Uint16Array(e);try{t=String.fromCharCode.apply(null,n)}catch(r){for(var i=0;i<n.length;i++){t+=String.fromCharCode(n[i])}}return t}function L(e,t){var n="";if(e){n=e.toString()}if(e&&(e.toString()==="[object ArrayBuffer]"||e.buffer&&e.buffer.toString()==="[object ArrayBuffer]")){var r;var i=o;if(e instanceof ArrayBuffer){r=e;i+=a}else{r=e.buffer;if(n==="[object Int8Array]"){i+=l}else if(n==="[object Uint8Array]"){i+=c}else if(n==="[object Uint8ClampedArray]"){i+=h}else if(n==="[object Int16Array]"){i+=p}else if(n==="[object Uint16Array]"){i+=v}else if(n==="[object Int32Array]"){i+=d}else if(n==="[object Uint32Array]"){i+=m}else if(n==="[object Float32Array]"){i+=g}else if(n==="[object Float64Array]"){i+=y}else{t(new Error("Failed to get type for BinaryArray"))}}t(i+k(r))}else if(n==="[object Blob]"){var s=new FileReader;s.onload=function(){var e=k(this.result);t(o+f+e)};s.readAsArrayBuffer(e)}else{try{t(JSON.stringify(e))}catch(u){if(this.console&&this.console.error){this.console.error("Couldn't convert value into a JSON string: ",e)}t(null,u)}}}function A(t,i,s){var o=this;return new n(function(n,u){o.ready().then(function(){if(i===undefined){i=null}var o=i;L(i,function(i,a){if(a){if(s){s(null,a)}u(a)}else{try{r.setItem(e+t,i)}catch(f){if(f.name==="QuotaExceededError"||f.name==="NS_ERROR_DOM_QUOTA_REACHED"){if(s){s(null,f)}u(f)}}if(s){s(o)}n(o)}})},u)})}var e="";var t={};var n=typeof module!=="undefined"&&module.exports?require("promise"):this.Promise;var r=null;try{if(!this.localStorage||!("setItem"in this.localStorage)){return}r=this.localStorage}catch(i){return}var o="__lfsc__:";var u=o.length;var a="arbf";var f="blob";var l="si08";var c="ui08";var h="uic8";var p="si16";var d="si32";var v="ur16";var m="ui32";var g="fl32";var y="fl64";var b=u+a.length;var O={_driver:"localStorageWrapper",_initStorage:s,getItem:E,setItem:A,removeItem:N,clear:w,length:T,key:S,keys:x};if(typeof define==="function"&&define.amd){define("localStorageWrapper",function(){return O})}else if(typeof module!=="undefined"&&module.exports){module.exports=O}else{this.localStorageWrapper=O}}).call(this);(function(){"use strict";function b(e){var s=this;if(e){for(var o in e){i[o]=typeof e[o]!=="string"?e[o].toString():e[o]}}return new t(function(e,t){try{r=n(i.name,i.version,i.description,i.size)}catch(o){return s.setDriver("localStorageWrapper").then(e,t)}r.transaction(function(n){n.executeSql("CREATE TABLE IF NOT EXISTS "+i.storeName+" (id INTEGER PRIMARY KEY, key unique, value)",[],function(){e()},function(e,n){t(n)})})})}function w(e,n){var s=this;return new t(function(t,o){s.ready().then(function(){r.transaction(function(r){r.executeSql("SELECT * FROM "+i.storeName+" WHERE key = ? LIMIT 1",[e],function(e,r){var i=r.rows.length?r.rows.item(0).value:null;if(i){i=L(i)}if(n){n(i)}t(i)},function(e,t){if(n){n(null,t)}o(t)})})},o)})}function E(e,n,s){var o=this;return new t(function(t,u){o.ready().then(function(){if(n===undefined){n=null}var o=n;A(n,function(n,a){if(a){u(a)}else{r.transaction(function(r){r.executeSql("INSERT OR REPLACE INTO "+i.storeName+" (key, value) VALUES (?, ?)",[e,n],function(){if(s){s(o)}t(o)},function(e,t){if(s){s(null,t)}u(t)})},function(e){if(e.code===e.QUOTA_ERR){if(s){s(null,e)}u(e)}})}})},u)})}function S(e,n){var s=this;return new t(function(t,o){s.ready().then(function(){r.transaction(function(r){r.executeSql("DELETE FROM "+i.storeName+" WHERE key = ?",[e],function(){if(n){n()}t()},function(e,t){if(n){n(t)}o(t)})})},o)})}function x(e){var n=this;return new t(function(t,s){n.ready().then(function(){r.transaction(function(n){n.executeSql("DELETE FROM "+i.storeName,[],function(){if(e){e()}t()},function(t,n){if(e){e(n)}s(n)})})},s)})}function T(e){var n=this;return new t(function(t,s){n.ready().then(function(){r.transaction(function(n){n.executeSql("SELECT COUNT(key) as c FROM "+i.storeName,[],function(n,r){var i=r.rows.item(0).c;if(e){e(i)}t(i)},function(t,n){if(e){e(null,n)}s(n)})})},s)})}function N(e,n){var s=this;return new t(function(t,o){s.ready().then(function(){r.transaction(function(r){r.executeSql("SELECT key FROM "+i.storeName+" WHERE id = ? LIMIT 1",[e+1],function(e,r){var i=r.rows.length?r.rows.item(0).key:null;if(n){n(i)}t(i)},function(e,t){if(n){n(null,t)}o(t)})})},o)})}function C(e){var n=this;return new t(function(t,s){n.ready().then(function(){r.transaction(function(n){n.executeSql("SELECT key FROM "+i.storeName,[],function(n,r){var i=r.rows.length;var s=[];for(var o=0;o<i;o++){s.push(r.rows.item(o).key)}if(e){e(s)}t(s)},function(t,n){if(e){e(null,n)}s(n)})})},s)})}function k(t){var n=new Uint8Array(t);var r;var i="";for(r=0;r<n.length;r+=3){i+=e[n[r]>>2];i+=e[(n[r]&3)<<4|n[r+1]>>4];i+=e[(n[r+1]&15)<<2|n[r+2]>>6];i+=e[n[r+2]&63]}if(n.length%3===2){i=i.substring(0,i.length-1)+"="}else if(n.length%3===1){i=i.substring(0,i.length-2)+"=="}return i}function L(t){if(t.substring(0,o)!==s){return JSON.parse(t)}var n=t.substring(y);var r=t.substring(o,y);var i=n.length*.75;var b=n.length;var w;var E=0;var S,x,T,N;if(n[n.length-1]==="="){i--;if(n[n.length-2]==="="){i--}}var C=new ArrayBuffer(i);var k=new Uint8Array(C);for(w=0;w<b;w+=4){S=e.indexOf(n[w]);x=e.indexOf(n[w+1]);T=e.indexOf(n[w+2]);N=e.indexOf(n[w+3]);k[E++]=S<<2|x>>4;k[E++]=(x&15)<<4|T>>2;k[E++]=(T&3)<<6|N&63}switch(r){case u:return C;case a:return new Blob([C]);case f:return new Int8Array(C);case l:return new Uint8Array(C);case c:return new Uint8ClampedArray(C);case h:return new Int16Array(C);case d:return new Uint16Array(C);case p:return new Int32Array(C);case v:return new Uint32Array(C);case m:return new Float32Array(C);case g:return new Float64Array(C);default:throw new Error("Unkown type: "+r)}}function A(e,t){var n="";if(e){n=e.toString()}if(e&&(e.toString()==="[object ArrayBuffer]"||e.buffer&&e.buffer.toString()==="[object ArrayBuffer]")){var r;var i=s;if(e instanceof ArrayBuffer){r=e;i+=u}else{r=e.buffer;if(n==="[object Int8Array]"){i+=f}else if(n==="[object Uint8Array]"){i+=l}else if(n==="[object Uint8ClampedArray]"){i+=c}else if(n==="[object Int16Array]"){i+=h}else if(n==="[object Uint16Array]"){i+=d}else if(n==="[object Int32Array]"){i+=p}else if(n==="[object Uint32Array]"){i+=v}else if(n==="[object Float32Array]"){i+=m}else if(n==="[object Float64Array]"){i+=g}else{t(new Error("Failed to get type for BinaryArray"))}}t(i+k(r))}else if(n==="[object Blob]"){var o=new FileReader;o.onload=function(){var e=k(this.result);t(s+a+e)};o.readAsArrayBuffer(e)}else{try{t(JSON.stringify(e))}catch(y){if(this.console&&this.console.error){this.console.error("Couldn't convert value into a JSON string: ",e)}t(null,y)}}}var e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";var t=typeof module!=="undefined"&&module.exports?require("promise"):this.Promise;var n=this.openDatabase;var r=null;var i={};var s="__lfsc__:";var o=s.length;var u="arbf";var a="blob";var f="si08";var l="ui08";var c="uic8";var h="si16";var p="si32";var d="ur16";var v="ui32";var m="fl32";var g="fl64";var y=o+u.length;if(!n){return}var O={_driver:"webSQLStorage",_initStorage:b,getItem:w,setItem:E,removeItem:S,clear:x,length:T,key:N,keys:C};if(typeof define==="function"&&define.amd){define("webSQLStorage",function(){return O})}else if(typeof module!=="undefined"&&module.exports){module.exports=O}else{this.webSQLStorage=O}}).call(this);(function(){"use strict";function f(e){a[e]=function(){var t=arguments;return a.ready().then(function(){return a[e].apply(a,t)})}}var e=typeof module!=="undefined"&&module.exports?require("promise"):this.Promise;var t={INDEXEDDB:"asyncStorage",LOCALSTORAGE:"localStorageWrapper",WEBSQL:"webSQLStorage"};var n=[t.INDEXEDDB,t.WEBSQL,t.LOCALSTORAGE];var r=["clear","getItem","key","keys","length","removeItem","setItem"];var i={DEFINE:1,EXPORT:2,WINDOW:3};var s=i.WINDOW;if(typeof define==="function"&&define.amd){s=i.DEFINE}else if(typeof module!=="undefined"&&module.exports){s=i.EXPORT}var o=function(e){var n=n||e.indexedDB||e.webkitIndexedDB||e.mozIndexedDB||e.OIndexedDB||e.msIndexedDB;var r={};r[t.WEBSQL]=!!e.openDatabase;r[t.INDEXEDDB]=!!(n&&typeof n.open==="function"&&n.open("_localforage_spec_test",1).onupgradeneeded===null);r[t.LOCALSTORAGE]=!!function(){try{return localStorage&&typeof localStorage.setItem==="function"}catch(e){return false}}();return r}(this);var u=this;var a={INDEXEDDB:t.INDEXEDDB,LOCALSTORAGE:t.LOCALSTORAGE,WEBSQL:t.WEBSQL,_config:{description:"",name:"localforage",size:4980736,storeName:"keyvaluepairs",version:1},_driverSet:null,_ready:false,config:function(e){if(typeof e==="object"){if(this._ready){return new Error("Can't call config() after localforage "+"has been used.")}for(var t in e){this._config[t]=e[t]}return true}else if(typeof e==="string"){return this._config[e]}else{return this._config}},driver:function(){return this._driver||null},ready:function(t){var n=new e(function(e,t){a._driverSet.then(function(){if(a._ready===null){a._ready=a._initStorage(a._config)}a._ready.then(e,t)},t)});n.then(t,t);return n},setDriver:function(t,n,r){var o=this;if(typeof t==="string"){t=[t]}this._driverSet=new e(function(a,f){var l=o._getFirstSupportedDriver(t);if(!l){var c=new Error("No available storage method found.");o._driverSet=e.reject(c);if(r){r(c)}f(c);return}o._ready=null;if(s===i.DEFINE){require([l],function(e){o._extend(e);if(n){n()}a()});return}else if(s===i.EXPORT){var h;switch(l){case o.INDEXEDDB:h=require("./drivers/indexeddb");break;case o.LOCALSTORAGE:h=require("./drivers/localstorage");break;case o.WEBSQL:h=require("./drivers/websql")}o._extend(h)}else{o._extend(u[l])}if(n){n()}a()});return this._driverSet},supports:function(e){return!!o[e]},_extend:function(e){for(var t in e){if(e.hasOwnProperty(t)){this[t]=e[t]}}},_getFirstSupportedDriver:function(e){var t=Array.isArray||function(e){return Object.prototype.toString.call(e)==="[object Array]"};if(e&&t(e)){for(var n=0;n<e.length;n++){var r=e[n];if(this.supports(r)){return r}}}return null}};for(var l=0;l<r.length;l++){f(r[l])}a.setDriver(n);if(s===i.DEFINE){define(function(){return a})}else if(s===i.EXPORT){module.exports=a}else{this.localforage=a}}).call(this);
-
-/*
-!function(){var a,b,c,d;!function(){var e={},f={};a=function(a,b,c){e[a]={deps:b,callback:c}},d=c=b=function(a){function c(b){if("."!==b.charAt(0))return b;for(var c=b.split("/"),d=a.split("/").slice(0,-1),e=0,f=c.length;f>e;e++){var g=c[e];if(".."===g)d.pop();else{if("."===g)continue;d.push(g)}}return d.join("/")}if(d._eak_seen=e,f[a])return f[a];if(f[a]={},!e[a])throw new Error("Could not find module "+a);for(var g,h=e[a],i=h.deps,j=h.callback,k=[],l=0,m=i.length;m>l;l++)k.push("exports"===i[l]?g={}:b(c(i[l])));var n=j.apply(this,k);return f[a]=g||n}}(),a("promise/all",["./utils","exports"],function(a,b){"use strict";function c(a){var b=this;if(!d(a))throw new TypeError("You must pass an array to all.");return new b(function(b,c){function d(a){return function(b){f(a,b)}}function f(a,c){h[a]=c,0===--i&&b(h)}var g,h=[],i=a.length;0===i&&b([]);for(var j=0;j<a.length;j++)g=a[j],g&&e(g.then)?g.then(d(j),c):f(j,g)})}var d=a.isArray,e=a.isFunction;b.all=c}),a("promise/asap",["exports"],function(a){"use strict";function b(){return function(){process.nextTick(e)}}function c(){var a=0,b=new i(e),c=document.createTextNode("");return b.observe(c,{characterData:!0}),function(){c.data=a=++a%2}}function d(){return function(){j.setTimeout(e,1)}}function e(){for(var a=0;a<k.length;a++){var b=k[a],c=b[0],d=b[1];c(d)}k=[]}function f(a,b){var c=k.push([a,b]);1===c&&g()}var g,h="undefined"!=typeof window?window:{},i=h.MutationObserver||h.WebKitMutationObserver,j="undefined"!=typeof global?global:void 0===this?window:this,k=[];g="undefined"!=typeof process&&"[object process]"==={}.toString.call(process)?b():i?c():d(),a.asap=f}),a("promise/config",["exports"],function(a){"use strict";function b(a,b){return 2!==arguments.length?c[a]:void(c[a]=b)}var c={instrument:!1};a.config=c,a.configure=b}),a("promise/polyfill",["./promise","./utils","exports"],function(a,b,c){"use strict";function d(){var a;a="undefined"!=typeof global?global:"undefined"!=typeof window&&window.document?window:self;var b="Promise"in a&&"resolve"in a.Promise&&"reject"in a.Promise&&"all"in a.Promise&&"race"in a.Promise&&function(){var b;return new a.Promise(function(a){b=a}),f(b)}();b||(a.Promise=e)}var e=a.Promise,f=b.isFunction;c.polyfill=d}),a("promise/promise",["./config","./utils","./all","./race","./resolve","./reject","./asap","exports"],function(a,b,c,d,e,f,g,h){"use strict";function i(a){if(!v(a))throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");if(!(this instanceof i))throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");this._subscribers=[],j(a,this)}function j(a,b){function c(a){o(b,a)}function d(a){q(b,a)}try{a(c,d)}catch(e){d(e)}}function k(a,b,c,d){var e,f,g,h,i=v(c);if(i)try{e=c(d),g=!0}catch(j){h=!0,f=j}else e=d,g=!0;n(b,e)||(i&&g?o(b,e):h?q(b,f):a===D?o(b,e):a===E&&q(b,e))}function l(a,b,c,d){var e=a._subscribers,f=e.length;e[f]=b,e[f+D]=c,e[f+E]=d}function m(a,b){for(var c,d,e=a._subscribers,f=a._detail,g=0;g<e.length;g+=3)c=e[g],d=e[g+b],k(b,c,d,f);a._subscribers=null}function n(a,b){var c,d=null;try{if(a===b)throw new TypeError("A promises callback cannot return that same promise.");if(u(b)&&(d=b.then,v(d)))return d.call(b,function(d){return c?!0:(c=!0,void(b!==d?o(a,d):p(a,d)))},function(b){return c?!0:(c=!0,void q(a,b))}),!0}catch(e){return c?!0:(q(a,e),!0)}return!1}function o(a,b){a===b?p(a,b):n(a,b)||p(a,b)}function p(a,b){a._state===B&&(a._state=C,a._detail=b,t.async(r,a))}function q(a,b){a._state===B&&(a._state=C,a._detail=b,t.async(s,a))}function r(a){m(a,a._state=D)}function s(a){m(a,a._state=E)}var t=a.config,u=(a.configure,b.objectOrFunction),v=b.isFunction,w=(b.now,c.all),x=d.race,y=e.resolve,z=f.reject,A=g.asap;t.async=A;var B=void 0,C=0,D=1,E=2;i.prototype={constructor:i,_state:void 0,_detail:void 0,_subscribers:void 0,then:function(a,b){var c=this,d=new this.constructor(function(){});if(this._state){var e=arguments;t.async(function(){k(c._state,d,e[c._state-1],c._detail)})}else l(this,d,a,b);return d},"catch":function(a){return this.then(null,a)}},i.all=w,i.race=x,i.resolve=y,i.reject=z,h.Promise=i}),a("promise/race",["./utils","exports"],function(a,b){"use strict";function c(a){var b=this;if(!d(a))throw new TypeError("You must pass an array to race.");return new b(function(b,c){for(var d,e=0;e<a.length;e++)d=a[e],d&&"function"==typeof d.then?d.then(b,c):b(d)})}var d=a.isArray;b.race=c}),a("promise/reject",["exports"],function(a){"use strict";function b(a){var b=this;return new b(function(b,c){c(a)})}a.reject=b}),a("promise/resolve",["exports"],function(a){"use strict";function b(a){if(a&&"object"==typeof a&&a.constructor===this)return a;var b=this;return new b(function(b){b(a)})}a.resolve=b}),a("promise/utils",["exports"],function(a){"use strict";function b(a){return c(a)||"object"==typeof a&&null!==a}function c(a){return"function"==typeof a}function d(a){return"[object Array]"===Object.prototype.toString.call(a)}var e=Date.now||function(){return(new Date).getTime()};a.objectOrFunction=b,a.isFunction=c,a.isArray=d,a.now=e}),b("promise/polyfill").polyfill()}(),function(){"use strict";function a(a,b){var c="";if(a&&(c=a.toString()),a&&("[object ArrayBuffer]"===a.toString()||a.buffer&&"[object ArrayBuffer]"===a.buffer.toString())){var e,g=f;a instanceof ArrayBuffer?(e=a,g+=h):(e=a.buffer,"[object Int8Array]"===c?g+=j:"[object Uint8Array]"===c?g+=k:"[object Uint8ClampedArray]"===c?g+=l:"[object Int16Array]"===c?g+=m:"[object Uint16Array]"===c?g+=o:"[object Int32Array]"===c?g+=n:"[object Uint32Array]"===c?g+=p:"[object Float32Array]"===c?g+=q:"[object Float64Array]"===c?g+=r:b(new Error("Failed to get type for BinaryArray"))),b(g+d(e))}else if("[object Blob]"===c){var s=new FileReader;s.onload=function(){var a=d(this.result);b(f+i+a)},s.readAsArrayBuffer(a)}else try{b(JSON.stringify(a))}catch(t){window.console.error("Couldn't convert value into a JSON string: ",a),b(null,t)}}function b(a){if(a.substring(0,g)!==f)return JSON.parse(a);var b=a.substring(s),d=a.substring(g,s),e=c(b);switch(d){case h:return e;case i:return new Blob([e]);case j:return new Int8Array(e);case k:return new Uint8Array(e);case l:return new Uint8ClampedArray(e);case m:return new Int16Array(e);case o:return new Uint16Array(e);case n:return new Int32Array(e);case p:return new Uint32Array(e);case q:return new Float32Array(e);case r:return new Float64Array(e);default:throw new Error("Unkown type: "+d)}}function c(a){var b,c,d,f,g,h=.75*a.length,i=a.length,j=0;"="===a[a.length-1]&&(h--,"="===a[a.length-2]&&h--);var k=new ArrayBuffer(h),l=new Uint8Array(k);for(b=0;i>b;b+=4)c=e.indexOf(a[b]),d=e.indexOf(a[b+1]),f=e.indexOf(a[b+2]),g=e.indexOf(a[b+3]),l[j++]=c<<2|d>>4,l[j++]=(15&d)<<4|f>>2,l[j++]=(3&f)<<6|63&g;return k}function d(a){var b,c=new Uint8Array(a),d="";for(b=0;b<c.length;b+=3)d+=e[c[b]>>2],d+=e[(3&c[b])<<4|c[b+1]>>4],d+=e[(15&c[b+1])<<2|c[b+2]>>6],d+=e[63&c[b+2]];return c.length%3===2?d=d.substring(0,d.length-1)+"=":c.length%3===1&&(d=d.substring(0,d.length-2)+"=="),d}var e="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",f="__lfsc__:",g=f.length,h="arbf",i="blob",j="si08",k="ui08",l="uic8",m="si16",n="si32",o="ur16",p="ui32",q="fl32",r="fl64",s=g+h.length,t={serialize:a,deserialize:b,stringToBuffer:c,bufferToString:d};"function"==typeof define&&define.amd?define("localforageSerializer",function(){return t}):"undefined"!=typeof module&&module.exports?module.exports=t:this.localforageSerializer=t}.call(window),function(){"use strict";function a(a){var b=this,c={db:null};if(a)for(var d in a)c[d]=a[d];return new m(function(a,d){var e=n.open(c.name,c.version);e.onerror=function(){d(e.error)},e.onupgradeneeded=function(){e.result.createObjectStore(c.storeName)},e.onsuccess=function(){c.db=e.result,b._dbInfo=c,a()}})}function b(a,b){var c=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var d=new m(function(b,d){c.ready().then(function(){var e=c._dbInfo,f=e.db.transaction(e.storeName,"readonly").objectStore(e.storeName),g=f.get(a);g.onsuccess=function(){var a=g.result;void 0===a&&(a=null),b(a)},g.onerror=function(){d(g.error)}})["catch"](d)});return k(d,b),d}function c(a,b){var c=this,d=new m(function(b,d){c.ready().then(function(){var e=c._dbInfo,f=e.db.transaction(e.storeName,"readonly").objectStore(e.storeName),g=f.openCursor(),h=1;g.onsuccess=function(){var c=g.result;if(c){var d=a(c.value,c.key,h++);void 0!==d?b(d):c["continue"]()}else b()},g.onerror=function(){d(g.error)}})["catch"](d)});return k(d,b),d}function d(a,b,c){var d=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var e=new m(function(c,e){d.ready().then(function(){var f=d._dbInfo,g=f.db.transaction(f.storeName,"readwrite"),h=g.objectStore(f.storeName);null===b&&(b=void 0);var i=h.put(b,a);g.oncomplete=function(){void 0===b&&(b=null),c(b)},g.onabort=g.onerror=function(){e(i.error)}})["catch"](e)});return k(e,c),e}function e(a,b){var c=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var d=new m(function(b,d){c.ready().then(function(){var e=c._dbInfo,f=e.db.transaction(e.storeName,"readwrite"),g=f.objectStore(e.storeName),h=g["delete"](a);f.oncomplete=function(){b()},f.onerror=function(){d(h.error)},f.onabort=function(a){var b=a.target.error;"QuotaExceededError"===b&&d(b)}})["catch"](d)});return k(d,b),d}function f(a){var b=this,c=new m(function(a,c){b.ready().then(function(){var d=b._dbInfo,e=d.db.transaction(d.storeName,"readwrite"),f=e.objectStore(d.storeName),g=f.clear();e.oncomplete=function(){a()},e.onabort=e.onerror=function(){c(g.error)}})["catch"](c)});return k(c,a),c}function g(a){var b=this,c=new m(function(a,c){b.ready().then(function(){var d=b._dbInfo,e=d.db.transaction(d.storeName,"readonly").objectStore(d.storeName),f=e.count();f.onsuccess=function(){a(f.result)},f.onerror=function(){c(f.error)}})["catch"](c)});return j(c,a),c}function h(a,b){var c=this,d=new m(function(b,d){return 0>a?void b(null):void c.ready().then(function(){var e=c._dbInfo,f=e.db.transaction(e.storeName,"readonly").objectStore(e.storeName),g=!1,h=f.openCursor();h.onsuccess=function(){var c=h.result;return c?void(0===a?b(c.key):g?b(c.key):(g=!0,c.advance(a))):void b(null)},h.onerror=function(){d(h.error)}})["catch"](d)});return j(d,b),d}function i(a){var b=this,c=new m(function(a,c){b.ready().then(function(){var d=b._dbInfo,e=d.db.transaction(d.storeName,"readonly").objectStore(d.storeName),f=e.openCursor(),g=[];f.onsuccess=function(){var b=f.result;return b?(g.push(b.key),void b["continue"]()):void a(g)},f.onerror=function(){c(f.error)}})["catch"](c)});return j(c,a),c}function j(a,b){b&&a.then(function(a){b(null,a)},function(a){b(a)})}function k(a,b){b&&a.then(function(a){l(b,a)},function(a){b(a)})}function l(a,b){return a?setTimeout(function(){return a(null,b)},0):void 0}var m="undefined"!=typeof module&&module.exports?require("promise"):this.Promise,n=n||this.indexedDB||this.webkitIndexedDB||this.mozIndexedDB||this.OIndexedDB||this.msIndexedDB;if(n){var o={_driver:"asyncStorage",_initStorage:a,iterate:c,getItem:b,setItem:d,removeItem:e,clear:f,length:g,key:h,keys:i};"function"==typeof define&&define.amd?define("asyncStorage",function(){return o}):"undefined"!=typeof module&&module.exports?module.exports=o:this.asyncStorage=o}}.call(window),function(){"use strict";function a(a){var b=this,c={};if(a)for(var d in a)c[d]=a[d];c.keyPrefix=c.name+"/",b._dbInfo=c;var e=new k(function(a){q===p.DEFINE?require(["localforageSerializer"],a):a(q===p.EXPORT?require("./../utils/serializer"):l.localforageSerializer)});return e.then(function(a){return m=a,k.resolve()})}function b(a){var b=this,c=b.ready().then(function(){for(var a=b._dbInfo.keyPrefix,c=n.length-1;c>=0;c--){var d=n.key(c);0===d.indexOf(a)&&n.removeItem(d)}});return j(c,a),c}function c(a,b){var c=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var d=c.ready().then(function(){var b=c._dbInfo,d=n.getItem(b.keyPrefix+a);return d&&(d=m.deserialize(d)),d});return j(d,b),d}function d(a,b){var c=this,d=c.ready().then(function(){for(var b=c._dbInfo.keyPrefix,d=b.length,e=n.length,f=0;e>f;f++){var g=n.key(f),h=n.getItem(g);if(h&&(h=m.deserialize(h)),h=a(h,g.substring(d),f+1),void 0!==h)return h}});return j(d,b),d}function e(a,b){var c=this,d=c.ready().then(function(){var b,d=c._dbInfo;try{b=n.key(a)}catch(e){b=null}return b&&(b=b.substring(d.keyPrefix.length)),b});return j(d,b),d}function f(a){var b=this,c=b.ready().then(function(){for(var a=b._dbInfo,c=n.length,d=[],e=0;c>e;e++)0===n.key(e).indexOf(a.keyPrefix)&&d.push(n.key(e).substring(a.keyPrefix.length));return d});return j(c,a),c}function g(a){var b=this,c=b.keys().then(function(a){return a.length});return j(c,a),c}function h(a,b){var c=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var d=c.ready().then(function(){var b=c._dbInfo;n.removeItem(b.keyPrefix+a)});return j(d,b),d}function i(a,b,c){var d=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var e=d.ready().then(function(){void 0===b&&(b=null);var c=b;return new k(function(e,f){m.serialize(b,function(b,g){if(g)f(g);else try{var h=d._dbInfo;n.setItem(h.keyPrefix+a,b),e(c)}catch(i){("QuotaExceededError"===i.name||"NS_ERROR_DOM_QUOTA_REACHED"===i.name)&&f(i),f(i)}})})});return j(e,c),e}function j(a,b){b&&a.then(function(a){b(null,a)},function(a){b(a)})}var k="undefined"!=typeof module&&module.exports?require("promise"):this.Promise,l=this,m=null,n=null;try{if(!(this.localStorage&&"setItem"in this.localStorage))return;n=this.localStorage}catch(o){return}var p={DEFINE:1,EXPORT:2,WINDOW:3},q=p.WINDOW;"function"==typeof define&&define.amd?q=p.DEFINE:"undefined"!=typeof module&&module.exports&&(q=p.EXPORT);var r={_driver:"localStorageWrapper",_initStorage:a,iterate:d,getItem:c,setItem:i,removeItem:h,clear:b,length:g,key:e,keys:f};q===p.DEFINE?define("localStorageWrapper",function(){return r}):q===p.EXPORT?module.exports=r:this.localStorageWrapper=r}.call(window),function(){"use strict";function a(a){var b=this,c={db:null};if(a)for(var d in a)c[d]="string"!=typeof a[d]?a[d].toString():a[d];var e=new k(function(a){p===o.DEFINE?require(["localforageSerializer"],a):a(p===o.EXPORT?require("./../utils/serializer"):l.localforageSerializer)}),f=new k(function(d,e){try{c.db=n(c.name,String(c.version),c.description,c.size)}catch(f){return b.setDriver(b.LOCALSTORAGE).then(function(){return b._initStorage(a)}).then(d)["catch"](e)}c.db.transaction(function(a){a.executeSql("CREATE TABLE IF NOT EXISTS "+c.storeName+" (id INTEGER PRIMARY KEY, key unique, value)",[],function(){b._dbInfo=c,d()},function(a,b){e(b)})})});return e.then(function(a){return m=a,f})}function b(a,b){var c=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var d=new k(function(b,d){c.ready().then(function(){var e=c._dbInfo;e.db.transaction(function(c){c.executeSql("SELECT * FROM "+e.storeName+" WHERE key = ? LIMIT 1",[a],function(a,c){var d=c.rows.length?c.rows.item(0).value:null;d&&(d=m.deserialize(d)),b(d)},function(a,b){d(b)})})})["catch"](d)});return j(d,b),d}function c(a,b){var c=this,d=new k(function(b,d){c.ready().then(function(){var e=c._dbInfo;e.db.transaction(function(c){c.executeSql("SELECT * FROM "+e.storeName,[],function(c,d){for(var e=d.rows,f=e.length,g=0;f>g;g++){var h=e.item(g),i=h.value;if(i&&(i=m.deserialize(i)),i=a(i,h.key,g+1),void 0!==i)return void b(i)}b()},function(a,b){d(b)})})})["catch"](d)});return j(d,b),d}function d(a,b,c){var d=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var e=new k(function(c,e){d.ready().then(function(){void 0===b&&(b=null);var f=b;m.serialize(b,function(b,g){if(g)e(g);else{var h=d._dbInfo;h.db.transaction(function(d){d.executeSql("INSERT OR REPLACE INTO "+h.storeName+" (key, value) VALUES (?, ?)",[a,b],function(){c(f)},function(a,b){e(b)})},function(a){a.code===a.QUOTA_ERR&&e(a)})}})})["catch"](e)});return j(e,c),e}function e(a,b){var c=this;"string"!=typeof a&&(window.console.warn(a+" used as a key, but it is not a string."),a=String(a));var d=new k(function(b,d){c.ready().then(function(){var e=c._dbInfo;e.db.transaction(function(c){c.executeSql("DELETE FROM "+e.storeName+" WHERE key = ?",[a],function(){b()},function(a,b){d(b)})})})["catch"](d)});return j(d,b),d}function f(a){var b=this,c=new k(function(a,c){b.ready().then(function(){var d=b._dbInfo;d.db.transaction(function(b){b.executeSql("DELETE FROM "+d.storeName,[],function(){a()},function(a,b){c(b)})})})["catch"](c)});return j(c,a),c}function g(a){var b=this,c=new k(function(a,c){b.ready().then(function(){var d=b._dbInfo;d.db.transaction(function(b){b.executeSql("SELECT COUNT(key) as c FROM "+d.storeName,[],function(b,c){var d=c.rows.item(0).c;a(d)},function(a,b){c(b)})})})["catch"](c)});return j(c,a),c}function h(a,b){var c=this,d=new k(function(b,d){c.ready().then(function(){var e=c._dbInfo;e.db.transaction(function(c){c.executeSql("SELECT key FROM "+e.storeName+" WHERE id = ? LIMIT 1",[a+1],function(a,c){var d=c.rows.length?c.rows.item(0).key:null;b(d)},function(a,b){d(b)})})})["catch"](d)});return j(d,b),d}function i(a){var b=this,c=new k(function(a,c){b.ready().then(function(){var d=b._dbInfo;d.db.transaction(function(b){b.executeSql("SELECT key FROM "+d.storeName,[],function(b,c){for(var d=[],e=0;e<c.rows.length;e++)d.push(c.rows.item(e).key);a(d)},function(a,b){c(b)})})})["catch"](c)});return j(c,a),c}function j(a,b){b&&a.then(function(a){b(null,a)},function(a){b(a)})}var k="undefined"!=typeof module&&module.exports?require("promise"):this.Promise,l=this,m=null,n=this.openDatabase;if(n){var o={DEFINE:1,EXPORT:2,WINDOW:3},p=o.WINDOW;"function"==typeof define&&define.amd?p=o.DEFINE:"undefined"!=typeof module&&module.exports&&(p=o.EXPORT);var q={_driver:"webSQLStorage",_initStorage:a,iterate:c,getItem:b,setItem:d,removeItem:e,clear:f,length:g,key:h,keys:i};p===o.DEFINE?define("webSQLStorage",function(){return q}):p===o.EXPORT?module.exports=q:this.webSQLStorage=q}}.call(window),function(){"use strict";function a(a,b){a[b]=function(){var c=arguments;return a.ready().then(function(){return a[b].apply(a,c)})}}function b(){for(var a=1;a<arguments.length;a++){var b=arguments[a];if(b)for(var c in b)b.hasOwnProperty(c)&&(arguments[0][c]=n(b[c])?b[c].slice():b[c])}return arguments[0]}function c(a){for(var b in g)if(g.hasOwnProperty(b)&&g[b]===a)return!0;return!1}function d(c){this._config=b({},k,c),this._driverSet=null,this._ready=!1,this._dbInfo=null;for(var d=0;d<i.length;d++)a(this,i[d]);this.setDriver(this._config.driver)}var e="undefined"!=typeof module&&module.exports?require("promise"):this.Promise,f={},g={INDEXEDDB:"asyncStorage",LOCALSTORAGE:"localStorageWrapper",WEBSQL:"webSQLStorage"},h=[g.INDEXEDDB,g.WEBSQL,g.LOCALSTORAGE],i=["clear","getItem","iterate","key","keys","length","removeItem","setItem"],j={DEFINE:1,EXPORT:2,WINDOW:3},k={description:"",driver:h.slice(),name:"localforage",size:4980736,storeName:"keyvaluepairs",version:1},l=j.WINDOW;"function"==typeof define&&define.amd?l=j.DEFINE:"undefined"!=typeof module&&module.exports&&(l=j.EXPORT);var m=function(a){var b=b||a.indexedDB||a.webkitIndexedDB||a.mozIndexedDB||a.OIndexedDB||a.msIndexedDB,c={};return c[g.WEBSQL]=!!a.openDatabase,c[g.INDEXEDDB]=!!function(){if("undefined"!=typeof a.openDatabase&&a.navigator&&a.navigator.userAgent&&/Safari/.test(a.navigator.userAgent)&&!/Chrome/.test(a.navigator.userAgent))return!1;try{return b&&"function"==typeof b.open&&"undefined"!=typeof a.IDBKeyRange}catch(c){return!1}}(),c[g.LOCALSTORAGE]=!!function(){try{return a.localStorage&&"setItem"in a.localStorage&&a.localStorage.setItem}catch(b){return!1}}(),c}(this),n=Array.isArray||function(a){return"[object Array]"===Object.prototype.toString.call(a)},o=this;d.prototype.INDEXEDDB=g.INDEXEDDB,d.prototype.LOCALSTORAGE=g.LOCALSTORAGE,d.prototype.WEBSQL=g.WEBSQL,d.prototype.config=function(a){if("object"==typeof a){if(this._ready)return new Error("Can't call config() after localforage has been used.");for(var b in a)"storeName"===b&&(a[b]=a[b].replace(/\W/g,"_")),this._config[b]=a[b];return"driver"in a&&a.driver&&this.setDriver(this._config.driver),!0}return"string"==typeof a?this._config[a]:this._config},d.prototype.defineDriver=function(a,b,d){var g=new e(function(b,d){try{var g=a._driver,h=new Error("Custom driver not compliant; see https://mozilla.github.io/localForage/#definedriver"),j=new Error("Custom driver name already in use: "+a._driver);if(!a._driver)return void d(h);if(c(a._driver))return void d(j);for(var k=i.concat("_initStorage"),l=0;l<k.length;l++){var n=k[l];if(!n||!a[n]||"function"!=typeof a[n])return void d(h)}var o=e.resolve(!0);"_support"in a&&(o=a._support&&"function"==typeof a._support?a._support():e.resolve(!!a._support)),o.then(function(c){m[g]=c,f[g]=a,b()},d)}catch(p){d(p)}});return g.then(b,d),g},d.prototype.driver=function(){return this._driver||null},d.prototype.ready=function(a){var b=this,c=new e(function(a,c){b._driverSet.then(function(){null===b._ready&&(b._ready=b._initStorage(b._config)),b._ready.then(a,c)})["catch"](c)});return c.then(a,a),c},d.prototype.setDriver=function(a,b,d){function g(){h._config.driver=h.driver()}var h=this;return"string"==typeof a&&(a=[a]),this._driverSet=new e(function(b,d){var g=h._getFirstSupportedDriver(a),i=new Error("No available storage method found.");if(!g)return h._driverSet=e.reject(i),void d(i);if(h._dbInfo=null,h._ready=null,c(g)){if(l===j.DEFINE)return void require([g],function(a){h._extend(a),b()});if(l===j.EXPORT){var k;switch(g){case h.INDEXEDDB:k=require("./drivers/indexeddb");break;case h.LOCALSTORAGE:k=require("./drivers/localstorage");break;case h.WEBSQL:k=require("./drivers/websql")}h._extend(k)}else h._extend(o[g])}else{if(!f[g])return h._driverSet=e.reject(i),void d(i);h._extend(f[g])}b()}),this._driverSet.then(g,g),this._driverSet.then(b,d),this._driverSet},d.prototype.supports=function(a){return!!m[a]},d.prototype._extend=function(a){b(this,a)},d.prototype._getFirstSupportedDriver=function(a){if(a&&n(a))for(var b=0;b<a.length;b++){var c=a[b];if(this.supports(c))return c}return null},d.prototype.createInstance=function(a){return new d(a)};var p=new d;l===j.DEFINE?define("localforage",function(){return p}):l===j.EXPORT?module.exports=p:this.localforage=p;localforage.version=1.2;}.call(window);
+﻿/////////////////////////
+var localforageDB = true;
+/////////////////////////
+/*!
+    localForage -- Offline Storage, Improved
+    Version 1.2.2
+    https://mozilla.github.io/localForage
+    (c) 2013-2015 Mozilla, Apache License 2.0
 */
+(function() {
+var define, requireModule, require, requirejs;
+
+(function() {
+  var registry = {}, seen = {};
+
+  define = function(name, deps, callback) {
+    registry[name] = { deps: deps, callback: callback };
+  };
+
+  requirejs = require = requireModule = function(name) {
+  requirejs._eak_seen = registry;
+
+    if (seen[name]) { return seen[name]; }
+    seen[name] = {};
+
+    if (!registry[name]) {
+      throw new Error("Could not find module " + name);
+    }
+
+    var mod = registry[name],
+        deps = mod.deps,
+        callback = mod.callback,
+        reified = [],
+        exports;
+
+    for (var i=0, l=deps.length; i<l; i++) {
+      if (deps[i] === 'exports') {
+        reified.push(exports = {});
+      } else {
+        reified.push(requireModule(resolve(deps[i])));
+      }
+    }
+
+    var value = callback.apply(this, reified);
+    return seen[name] = exports || value;
+
+    function resolve(child) {
+      if (child.charAt(0) !== '.') { return child; }
+      var parts = child.split("/");
+      var parentBase = name.split("/").slice(0, -1);
+
+      for (var i=0, l=parts.length; i<l; i++) {
+        var part = parts[i];
+
+        if (part === '..') { parentBase.pop(); }
+        else if (part === '.') { continue; }
+        else { parentBase.push(part); }
+      }
+
+      return parentBase.join("/");
+    }
+  };
+})();
+
+define("promise/all", 
+  ["./utils","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    /* global toString */
+
+    var isArray = __dependency1__.isArray;
+    var isFunction = __dependency1__.isFunction;
+
+    /**
+      Returns a promise that is fulfilled when all the given promises have been
+      fulfilled, or rejected if any of them become rejected. The return promise
+      is fulfilled with an array that gives all the values in the order they were
+      passed in the `promises` array argument.
+
+      Example:
+
+      ```javascript
+      var promise1 = RSVP.resolve(1);
+      var promise2 = RSVP.resolve(2);
+      var promise3 = RSVP.resolve(3);
+      var promises = [ promise1, promise2, promise3 ];
+
+      RSVP.all(promises).then(function(array){
+        // The array here would be [ 1, 2, 3 ];
+      });
+      ```
+
+      If any of the `promises` given to `RSVP.all` are rejected, the first promise
+      that is rejected will be given as an argument to the returned promises's
+      rejection handler. For example:
+
+      Example:
+
+      ```javascript
+      var promise1 = RSVP.resolve(1);
+      var promise2 = RSVP.reject(new Error("2"));
+      var promise3 = RSVP.reject(new Error("3"));
+      var promises = [ promise1, promise2, promise3 ];
+
+      RSVP.all(promises).then(function(array){
+        // Code here never runs because there are rejected promises!
+      }, function(error) {
+        // error.message === "2"
+      });
+      ```
+
+      @method all
+      @for RSVP
+      @param {Array} promises
+      @param {String} label
+      @return {Promise} promise that is fulfilled when all `promises` have been
+      fulfilled, or rejected if any of them become rejected.
+    */
+    function all(promises) {
+      /*jshint validthis:true */
+      var Promise = this;
+
+      if (!isArray(promises)) {
+        throw new TypeError('You must pass an array to all.');
+      }
+
+      return new Promise(function(resolve, reject) {
+        var results = [], remaining = promises.length,
+        promise;
+
+        if (remaining === 0) {
+          resolve([]);
+        }
+
+        function resolver(index) {
+          return function(value) {
+            resolveAll(index, value);
+          };
+        }
+
+        function resolveAll(index, value) {
+          results[index] = value;
+          if (--remaining === 0) {
+            resolve(results);
+          }
+        }
+
+        for (var i = 0; i < promises.length; i++) {
+          promise = promises[i];
+
+          if (promise && isFunction(promise.then)) {
+            promise.then(resolver(i), reject);
+          } else {
+            resolveAll(i, promise);
+          }
+        }
+      });
+    }
+
+    __exports__.all = all;
+  });
+define("promise/asap", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var browserGlobal = (typeof window !== 'undefined') ? window : {};
+    var BrowserMutationObserver = browserGlobal.MutationObserver || browserGlobal.WebKitMutationObserver;
+    var local = (typeof global !== 'undefined') ? global : (this === undefined? window:this);
+
+    // node
+    function useNextTick() {
+      return function() {
+        process.nextTick(flush);
+      };
+    }
+
+    function useMutationObserver() {
+      var iterations = 0;
+      var observer = new BrowserMutationObserver(flush);
+      var node = document.createTextNode('');
+      observer.observe(node, { characterData: true });
+
+      return function() {
+        node.data = (iterations = ++iterations % 2);
+      };
+    }
+
+    function useSetTimeout() {
+      return function() {
+        local.setTimeout(flush, 1);
+      };
+    }
+
+    var queue = [];
+    function flush() {
+      for (var i = 0; i < queue.length; i++) {
+        var tuple = queue[i];
+        var callback = tuple[0], arg = tuple[1];
+        callback(arg);
+      }
+      queue = [];
+    }
+
+    var scheduleFlush;
+
+    // Decide what async method to use to triggering processing of queued callbacks:
+    if (typeof process !== 'undefined' && {}.toString.call(process) === '[object process]') {
+      scheduleFlush = useNextTick();
+    } else if (BrowserMutationObserver) {
+      scheduleFlush = useMutationObserver();
+    } else {
+      scheduleFlush = useSetTimeout();
+    }
+
+    function asap(callback, arg) {
+      var length = queue.push([callback, arg]);
+      if (length === 1) {
+        // If length is 1, that means that we need to schedule an async flush.
+        // If additional callbacks are queued before the queue is flushed, they
+        // will be processed by this flush that we are scheduling.
+        scheduleFlush();
+      }
+    }
+
+    __exports__.asap = asap;
+  });
+define("promise/config", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    var config = {
+      instrument: false
+    };
+
+    function configure(name, value) {
+      if (arguments.length === 2) {
+        config[name] = value;
+      } else {
+        return config[name];
+      }
+    }
+
+    __exports__.config = config;
+    __exports__.configure = configure;
+  });
+define("promise/polyfill", 
+  ["./promise","./utils","exports"],
+  function(__dependency1__, __dependency2__, __exports__) {
+    "use strict";
+    /*global self*/
+    var RSVPPromise = __dependency1__.Promise;
+    var isFunction = __dependency2__.isFunction;
+
+    function polyfill() {
+      var local;
+
+      if (typeof global !== 'undefined') {
+        local = global;
+      } else if (typeof window !== 'undefined' && window.document) {
+        local = window;
+      } else {
+        local = self;
+      }
+
+      var es6PromiseSupport = 
+        "Promise" in local &&
+        // Some of these methods are missing from
+        // Firefox/Chrome experimental implementations
+        "resolve" in local.Promise &&
+        "reject" in local.Promise &&
+        "all" in local.Promise &&
+        "race" in local.Promise &&
+        // Older version of the spec had a resolver object
+        // as the arg rather than a function
+        (function() {
+          var resolve;
+          new local.Promise(function(r) { resolve = r; });
+          return isFunction(resolve);
+        }());
+
+      if (!es6PromiseSupport) {
+        local.Promise = RSVPPromise;
+      }
+    }
+
+    __exports__.polyfill = polyfill;
+  });
+define("promise/promise", 
+  ["./config","./utils","./all","./race","./resolve","./reject","./asap","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __exports__) {
+    "use strict";
+    var config = __dependency1__.config;
+    var configure = __dependency1__.configure;
+    var objectOrFunction = __dependency2__.objectOrFunction;
+    var isFunction = __dependency2__.isFunction;
+    var now = __dependency2__.now;
+    var all = __dependency3__.all;
+    var race = __dependency4__.race;
+    var staticResolve = __dependency5__.resolve;
+    var staticReject = __dependency6__.reject;
+    var asap = __dependency7__.asap;
+
+    var counter = 0;
+
+    config.async = asap; // default async is asap;
+
+    function Promise(resolver) {
+      if (!isFunction(resolver)) {
+        throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
+      }
+
+      if (!(this instanceof Promise)) {
+        throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");
+      }
+
+      this._subscribers = [];
+
+      invokeResolver(resolver, this);
+    }
+
+    function invokeResolver(resolver, promise) {
+      function resolvePromise(value) {
+        resolve(promise, value);
+      }
+
+      function rejectPromise(reason) {
+        reject(promise, reason);
+      }
+
+      try {
+        resolver(resolvePromise, rejectPromise);
+      } catch(e) {
+        rejectPromise(e);
+      }
+    }
+
+    function invokeCallback(settled, promise, callback, detail) {
+      var hasCallback = isFunction(callback),
+          value, error, succeeded, failed;
+
+      if (hasCallback) {
+        try {
+          value = callback(detail);
+          succeeded = true;
+        } catch(e) {
+          failed = true;
+          error = e;
+        }
+      } else {
+        value = detail;
+        succeeded = true;
+      }
+
+      if (handleThenable(promise, value)) {
+        return;
+      } else if (hasCallback && succeeded) {
+        resolve(promise, value);
+      } else if (failed) {
+        reject(promise, error);
+      } else if (settled === FULFILLED) {
+        resolve(promise, value);
+      } else if (settled === REJECTED) {
+        reject(promise, value);
+      }
+    }
+
+    var PENDING   = void 0;
+    var SEALED    = 0;
+    var FULFILLED = 1;
+    var REJECTED  = 2;
+
+    function subscribe(parent, child, onFulfillment, onRejection) {
+      var subscribers = parent._subscribers;
+      var length = subscribers.length;
+
+      subscribers[length] = child;
+      subscribers[length + FULFILLED] = onFulfillment;
+      subscribers[length + REJECTED]  = onRejection;
+    }
+
+    function publish(promise, settled) {
+      var child, callback, subscribers = promise._subscribers, detail = promise._detail;
+
+      for (var i = 0; i < subscribers.length; i += 3) {
+        child = subscribers[i];
+        callback = subscribers[i + settled];
+
+        invokeCallback(settled, child, callback, detail);
+      }
+
+      promise._subscribers = null;
+    }
+
+    Promise.prototype = {
+      constructor: Promise,
+
+      _state: undefined,
+      _detail: undefined,
+      _subscribers: undefined,
+
+      then: function(onFulfillment, onRejection) {
+        var promise = this;
+
+        var thenPromise = new this.constructor(function() {});
+
+        if (this._state) {
+          var callbacks = arguments;
+          config.async(function invokePromiseCallback() {
+            invokeCallback(promise._state, thenPromise, callbacks[promise._state - 1], promise._detail);
+          });
+        } else {
+          subscribe(this, thenPromise, onFulfillment, onRejection);
+        }
+
+        return thenPromise;
+      },
+
+      'catch': function(onRejection) {
+        return this.then(null, onRejection);
+      }
+    };
+
+    Promise.all = all;
+    Promise.race = race;
+    Promise.resolve = staticResolve;
+    Promise.reject = staticReject;
+
+    function handleThenable(promise, value) {
+      var then = null,
+      resolved;
+
+      try {
+        if (promise === value) {
+          throw new TypeError("A promises callback cannot return that same promise.");
+        }
+
+        if (objectOrFunction(value)) {
+          then = value.then;
+
+          if (isFunction(then)) {
+            then.call(value, function(val) {
+              if (resolved) { return true; }
+              resolved = true;
+
+              if (value !== val) {
+                resolve(promise, val);
+              } else {
+                fulfill(promise, val);
+              }
+            }, function(val) {
+              if (resolved) { return true; }
+              resolved = true;
+
+              reject(promise, val);
+            });
+
+            return true;
+          }
+        }
+      } catch (error) {
+        if (resolved) { return true; }
+        reject(promise, error);
+        return true;
+      }
+
+      return false;
+    }
+
+    function resolve(promise, value) {
+      if (promise === value) {
+        fulfill(promise, value);
+      } else if (!handleThenable(promise, value)) {
+        fulfill(promise, value);
+      }
+    }
+
+    function fulfill(promise, value) {
+      if (promise._state !== PENDING) { return; }
+      promise._state = SEALED;
+      promise._detail = value;
+
+      config.async(publishFulfillment, promise);
+    }
+
+    function reject(promise, reason) {
+      if (promise._state !== PENDING) { return; }
+      promise._state = SEALED;
+      promise._detail = reason;
+
+      config.async(publishRejection, promise);
+    }
+
+    function publishFulfillment(promise) {
+      publish(promise, promise._state = FULFILLED);
+    }
+
+    function publishRejection(promise) {
+      publish(promise, promise._state = REJECTED);
+    }
+
+    __exports__.Promise = Promise;
+  });
+define("promise/race", 
+  ["./utils","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    /* global toString */
+    var isArray = __dependency1__.isArray;
+
+    /**
+      `RSVP.race` allows you to watch a series of promises and act as soon as the
+      first promise given to the `promises` argument fulfills or rejects.
+
+      Example:
+
+      ```javascript
+      var promise1 = new RSVP.Promise(function(resolve, reject){
+        setTimeout(function(){
+          resolve("promise 1");
+        }, 200);
+      });
+
+      var promise2 = new RSVP.Promise(function(resolve, reject){
+        setTimeout(function(){
+          resolve("promise 2");
+        }, 100);
+      });
+
+      RSVP.race([promise1, promise2]).then(function(result){
+        // result === "promise 2" because it was resolved before promise1
+        // was resolved.
+      });
+      ```
+
+      `RSVP.race` is deterministic in that only the state of the first completed
+      promise matters. For example, even if other promises given to the `promises`
+      array argument are resolved, but the first completed promise has become
+      rejected before the other promises became fulfilled, the returned promise
+      will become rejected:
+
+      ```javascript
+      var promise1 = new RSVP.Promise(function(resolve, reject){
+        setTimeout(function(){
+          resolve("promise 1");
+        }, 200);
+      });
+
+      var promise2 = new RSVP.Promise(function(resolve, reject){
+        setTimeout(function(){
+          reject(new Error("promise 2"));
+        }, 100);
+      });
+
+      RSVP.race([promise1, promise2]).then(function(result){
+        // Code here never runs because there are rejected promises!
+      }, function(reason){
+        // reason.message === "promise2" because promise 2 became rejected before
+        // promise 1 became fulfilled
+      });
+      ```
+
+      @method race
+      @for RSVP
+      @param {Array} promises array of promises to observe
+      @param {String} label optional string for describing the promise returned.
+      Useful for tooling.
+      @return {Promise} a promise that becomes fulfilled with the value the first
+      completed promises is resolved with if the first completed promise was
+      fulfilled, or rejected with the reason that the first completed promise
+      was rejected with.
+    */
+    function race(promises) {
+      /*jshint validthis:true */
+      var Promise = this;
+
+      if (!isArray(promises)) {
+        throw new TypeError('You must pass an array to race.');
+      }
+      return new Promise(function(resolve, reject) {
+        var results = [], promise;
+
+        for (var i = 0; i < promises.length; i++) {
+          promise = promises[i];
+
+          if (promise && typeof promise.then === 'function') {
+            promise.then(resolve, reject);
+          } else {
+            resolve(promise);
+          }
+        }
+      });
+    }
+
+    __exports__.race = race;
+  });
+define("promise/reject", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    /**
+      `RSVP.reject` returns a promise that will become rejected with the passed
+      `reason`. `RSVP.reject` is essentially shorthand for the following:
+
+      ```javascript
+      var promise = new RSVP.Promise(function(resolve, reject){
+        reject(new Error('WHOOPS'));
+      });
+
+      promise.then(function(value){
+        // Code here doesn't run because the promise is rejected!
+      }, function(reason){
+        // reason.message === 'WHOOPS'
+      });
+      ```
+
+      Instead of writing the above, your code now simply becomes the following:
+
+      ```javascript
+      var promise = RSVP.reject(new Error('WHOOPS'));
+
+      promise.then(function(value){
+        // Code here doesn't run because the promise is rejected!
+      }, function(reason){
+        // reason.message === 'WHOOPS'
+      });
+      ```
+
+      @method reject
+      @for RSVP
+      @param {Any} reason value that the returned promise will be rejected with.
+      @param {String} label optional string for identifying the returned promise.
+      Useful for tooling.
+      @return {Promise} a promise that will become rejected with the given
+      `reason`.
+    */
+    function reject(reason) {
+      /*jshint validthis:true */
+      var Promise = this;
+
+      return new Promise(function (resolve, reject) {
+        reject(reason);
+      });
+    }
+
+    __exports__.reject = reject;
+  });
+define("promise/resolve", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    function resolve(value) {
+      /*jshint validthis:true */
+      if (value && typeof value === 'object' && value.constructor === this) {
+        return value;
+      }
+
+      var Promise = this;
+
+      return new Promise(function(resolve) {
+        resolve(value);
+      });
+    }
+
+    __exports__.resolve = resolve;
+  });
+define("promise/utils", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    function objectOrFunction(x) {
+      return isFunction(x) || (typeof x === "object" && x !== null);
+    }
+
+    function isFunction(x) {
+      return typeof x === "function";
+    }
+
+    function isArray(x) {
+      return Object.prototype.toString.call(x) === "[object Array]";
+    }
+
+    // Date.now is not available in browsers < IE9
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now#Compatibility
+    var now = Date.now || function() { return new Date().getTime(); };
+
+
+    __exports__.objectOrFunction = objectOrFunction;
+    __exports__.isFunction = isFunction;
+    __exports__.isArray = isArray;
+    __exports__.now = now;
+  });
+requireModule('promise/polyfill').polyfill();
+}());(function() {
+    'use strict';
+
+    // Sadly, the best way to save binary data in WebSQL/localStorage is serializing
+    // it to Base64, so this is how we store it to prevent very strange errors with less
+    // verbose ways of binary <-> string data storage.
+    var BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+    var SERIALIZED_MARKER = '__lfsc__:';
+    var SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER.length;
+
+    // OMG the serializations!
+    var TYPE_ARRAYBUFFER = 'arbf';
+    var TYPE_BLOB = 'blob';
+    var TYPE_INT8ARRAY = 'si08';
+    var TYPE_UINT8ARRAY = 'ui08';
+    var TYPE_UINT8CLAMPEDARRAY = 'uic8';
+    var TYPE_INT16ARRAY = 'si16';
+    var TYPE_INT32ARRAY = 'si32';
+    var TYPE_UINT16ARRAY = 'ur16';
+    var TYPE_UINT32ARRAY = 'ui32';
+    var TYPE_FLOAT32ARRAY = 'fl32';
+    var TYPE_FLOAT64ARRAY = 'fl64';
+    var TYPE_SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER_LENGTH +
+                                        TYPE_ARRAYBUFFER.length;
+
+    // Serialize a value, afterwards executing a callback (which usually
+    // instructs the `setItem()` callback/promise to be executed). This is how
+    // we store binary data with localStorage.
+    function serialize(value, callback) {
+        var valueString = '';
+        if (value) {
+            valueString = value.toString();
+        }
+
+        // Cannot use `value instanceof ArrayBuffer` or such here, as these
+        // checks fail when running the tests using casper.js...
+        //
+        // TODO: See why those tests fail and use a better solution.
+        if (value && (value.toString() === '[object ArrayBuffer]' ||
+                      value.buffer &&
+                      value.buffer.toString() === '[object ArrayBuffer]')) {
+            // Convert binary arrays to a string and prefix the string with
+            // a special marker.
+            var buffer;
+            var marker = SERIALIZED_MARKER;
+
+            if (value instanceof ArrayBuffer) {
+                buffer = value;
+                marker += TYPE_ARRAYBUFFER;
+            } else {
+                buffer = value.buffer;
+
+                if (valueString === '[object Int8Array]') {
+                    marker += TYPE_INT8ARRAY;
+                } else if (valueString === '[object Uint8Array]') {
+                    marker += TYPE_UINT8ARRAY;
+                } else if (valueString === '[object Uint8ClampedArray]') {
+                    marker += TYPE_UINT8CLAMPEDARRAY;
+                } else if (valueString === '[object Int16Array]') {
+                    marker += TYPE_INT16ARRAY;
+                } else if (valueString === '[object Uint16Array]') {
+                    marker += TYPE_UINT16ARRAY;
+                } else if (valueString === '[object Int32Array]') {
+                    marker += TYPE_INT32ARRAY;
+                } else if (valueString === '[object Uint32Array]') {
+                    marker += TYPE_UINT32ARRAY;
+                } else if (valueString === '[object Float32Array]') {
+                    marker += TYPE_FLOAT32ARRAY;
+                } else if (valueString === '[object Float64Array]') {
+                    marker += TYPE_FLOAT64ARRAY;
+                } else {
+                    callback(new Error('Failed to get type for BinaryArray'));
+                }
+            }
+
+            callback(marker + bufferToString(buffer));
+        } else if (valueString === '[object Blob]') {
+            // Conver the blob to a binaryArray and then to a string.
+            var fileReader = new FileReader();
+
+            fileReader.onload = function() {
+                var str = bufferToString(this.result);
+
+                callback(SERIALIZED_MARKER + TYPE_BLOB + str);
+            };
+
+            fileReader.readAsArrayBuffer(value);
+        } else {
+            try {
+                callback(JSON.stringify(value));
+            } catch (e) {
+                window.console.error("Couldn't convert value into a JSON " +
+                                     'string: ', value);
+
+                callback(null, e);
+            }
+        }
+    }
+
+    // Deserialize data we've inserted into a value column/field. We place
+    // special markers into our strings to mark them as encoded; this isn't
+    // as nice as a meta field, but it's the only sane thing we can do whilst
+    // keeping localStorage support intact.
+    //
+    // Oftentimes this will just deserialize JSON content, but if we have a
+    // special marker (SERIALIZED_MARKER, defined above), we will extract
+    // some kind of arraybuffer/binary data/typed array out of the string.
+    function deserialize(value) {
+        // If we haven't marked this string as being specially serialized (i.e.
+        // something other than serialized JSON), we can just return it and be
+        // done with it.
+        if (value.substring(0,
+            SERIALIZED_MARKER_LENGTH) !== SERIALIZED_MARKER) {
+            return JSON.parse(value);
+        }
+
+        // The following code deals with deserializing some kind of Blob or
+        // TypedArray. First we separate out the type of data we're dealing
+        // with from the data itself.
+        var serializedString = value.substring(TYPE_SERIALIZED_MARKER_LENGTH);
+        var type = value.substring(SERIALIZED_MARKER_LENGTH,
+                                   TYPE_SERIALIZED_MARKER_LENGTH);
+
+        var buffer = stringToBuffer(serializedString);
+
+        // Return the right type based on the code/type set during
+        // serialization.
+        switch (type) {
+            case TYPE_ARRAYBUFFER:
+                return buffer;
+            case TYPE_BLOB:
+                return new Blob([buffer]);
+            case TYPE_INT8ARRAY:
+                return new Int8Array(buffer);
+            case TYPE_UINT8ARRAY:
+                return new Uint8Array(buffer);
+            case TYPE_UINT8CLAMPEDARRAY:
+                return new Uint8ClampedArray(buffer);
+            case TYPE_INT16ARRAY:
+                return new Int16Array(buffer);
+            case TYPE_UINT16ARRAY:
+                return new Uint16Array(buffer);
+            case TYPE_INT32ARRAY:
+                return new Int32Array(buffer);
+            case TYPE_UINT32ARRAY:
+                return new Uint32Array(buffer);
+            case TYPE_FLOAT32ARRAY:
+                return new Float32Array(buffer);
+            case TYPE_FLOAT64ARRAY:
+                return new Float64Array(buffer);
+            default:
+                throw new Error('Unkown type: ' + type);
+        }
+    }
+
+    function stringToBuffer(serializedString) {
+        // Fill the string into a ArrayBuffer.
+        var bufferLength = serializedString.length * 0.75;
+        var len = serializedString.length;
+        var i;
+        var p = 0;
+        var encoded1, encoded2, encoded3, encoded4;
+
+        if (serializedString[serializedString.length - 1] === '=') {
+            bufferLength--;
+            if (serializedString[serializedString.length - 2] === '=') {
+                bufferLength--;
+            }
+        }
+
+        var buffer = new ArrayBuffer(bufferLength);
+        var bytes = new Uint8Array(buffer);
+
+        for (i = 0; i < len; i+=4) {
+            encoded1 = BASE_CHARS.indexOf(serializedString[i]);
+            encoded2 = BASE_CHARS.indexOf(serializedString[i+1]);
+            encoded3 = BASE_CHARS.indexOf(serializedString[i+2]);
+            encoded4 = BASE_CHARS.indexOf(serializedString[i+3]);
+
+            /*jslint bitwise: true */
+            bytes[p++] = (encoded1 << 2) | (encoded2 >> 4);
+            bytes[p++] = ((encoded2 & 15) << 4) | (encoded3 >> 2);
+            bytes[p++] = ((encoded3 & 3) << 6) | (encoded4 & 63);
+        }
+        return buffer;
+    }
+
+    // Converts a buffer to a string to store, serialized, in the backend
+    // storage library.
+    function bufferToString(buffer) {
+        // base64-arraybuffer
+        var bytes = new Uint8Array(buffer);
+        var base64String = '';
+        var i;
+
+        for (i = 0; i < bytes.length; i += 3) {
+            /*jslint bitwise: true */
+            base64String += BASE_CHARS[bytes[i] >> 2];
+            base64String += BASE_CHARS[((bytes[i] & 3) << 4) | (bytes[i + 1] >> 4)];
+            base64String += BASE_CHARS[((bytes[i + 1] & 15) << 2) | (bytes[i + 2] >> 6)];
+            base64String += BASE_CHARS[bytes[i + 2] & 63];
+        }
+
+        if ((bytes.length % 3) === 2) {
+            base64String = base64String.substring(0, base64String.length - 1) + '=';
+        } else if (bytes.length % 3 === 1) {
+            base64String = base64String.substring(0, base64String.length - 2) + '==';
+        }
+
+        return base64String;
+    }
+
+    var localforageSerializer = {
+        serialize: serialize,
+        deserialize: deserialize,
+        stringToBuffer: stringToBuffer,
+        bufferToString: bufferToString
+    };
+
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = localforageSerializer;
+    } else if (typeof define === 'function' && define.amd) {
+        define('localforageSerializer', function() {
+            return localforageSerializer;
+        });
+    } else {
+        this.localforageSerializer = localforageSerializer;
+    }
+}).call(window);
+// Some code originally from async_storage.js in
+// [Gaia](https://github.com/mozilla-b2g/gaia).
+(function() {
+    'use strict';
+
+    // Originally found in https://github.com/mozilla-b2g/gaia/blob/e8f624e4cc9ea945727278039b3bc9bcb9f8667a/shared/js/async_storage.js
+
+    // Promises!
+    var Promise = (typeof module !== 'undefined' && module.exports) ?
+                  require('promise') : this.Promise;
+
+    // Initialize IndexedDB; fall back to vendor-prefixed versions if needed.
+    var indexedDB = indexedDB || this.indexedDB || this.webkitIndexedDB ||
+                    this.mozIndexedDB || this.OIndexedDB ||
+                    this.msIndexedDB;
+
+    // If IndexedDB isn't available, we get outta here!
+    if (!indexedDB) {
+        return;
+    }
+
+    // Open the IndexedDB database (automatically creates one if one didn't
+    // previously exist), using any options set in the config.
+    function _initStorage(options) {
+        var self = this;
+        var dbInfo = {
+            db: null
+        };
+
+        if (options) {
+            for (var i in options) {
+                dbInfo[i] = options[i];
+            }
+        }
+
+        return new Promise(function(resolve, reject) {
+            var openreq = indexedDB.open(dbInfo.name, dbInfo.version);
+            openreq.onerror = function() {
+                reject(openreq.error);
+            };
+            openreq.onupgradeneeded = function() {
+                // First time setup: create an empty object store
+                openreq.result.createObjectStore(dbInfo.storeName);
+            };
+            openreq.onsuccess = function() {
+                dbInfo.db = openreq.result;
+                self._dbInfo = dbInfo;
+                resolve();
+            };
+        });
+    }
+
+    function getItem(key, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly')
+                    .objectStore(dbInfo.storeName);
+                var req = store.get(key);
+
+                req.onsuccess = function() {
+                    var value = req.result;
+                    if (value === undefined) {
+                        value = null;
+                    }
+
+                    resolve(value);
+                };
+
+                req.onerror = function() {
+                    reject(req.error);
+                };
+            })["catch"](reject);
+        });
+
+        executeDeferedCallback(promise, callback);
+        return promise;
+    }
+
+    // Iterate over all items stored in database.
+    function iterate(iterator, callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly')
+                                     .objectStore(dbInfo.storeName);
+
+                var req = store.openCursor();
+                var iterationNumber = 1;
+
+                req.onsuccess = function() {
+                    var cursor = req.result;
+
+                    if (cursor) {
+                        var result = iterator(cursor.value, cursor.key, iterationNumber++);
+
+                        if (result !== void(0)) {
+                            resolve(result);
+                        } else {
+                            cursor["continue"]();
+                        }
+                    } else {
+                        resolve();
+                    }
+                };
+
+                req.onerror = function() {
+                    reject(req.error);
+                };
+            })["catch"](reject);
+        });
+
+        executeDeferedCallback(promise, callback);
+
+        return promise;
+    }
+
+    function setItem(key, value, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                var store = transaction.objectStore(dbInfo.storeName);
+
+                // The reason we don't _save_ null is because IE 10 does
+                // not support saving the `null` type in IndexedDB. How
+                // ironic, given the bug below!
+                // See: https://github.com/mozilla/localForage/issues/161
+                if (value === null) {
+                    value = undefined;
+                }
+
+                var req = store.put(value, key);
+                transaction.oncomplete = function() {
+                    // Cast to undefined so the value passed to
+                    // callback/promise is the same as what one would get out
+                    // of `getItem()` later. This leads to some weirdness
+                    // (setItem('foo', undefined) will return `null`), but
+                    // it's not my fault localStorage is our baseline and that
+                    // it's weird.
+                    if (value === undefined) {
+                        value = null;
+                    }
+
+                    resolve(value);
+                };
+                transaction.onabort = transaction.onerror = function() {
+                    reject(req.error);
+                };
+            })["catch"](reject);
+        });
+
+        executeDeferedCallback(promise, callback);
+        return promise;
+    }
+
+    function removeItem(key, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                var store = transaction.objectStore(dbInfo.storeName);
+
+                // We use a Grunt task to make this safe for IE and some
+                // versions of Android (including those used by Cordova).
+                // Normally IE won't like `.delete()` and will insist on
+                // using `['delete']()`, but we have a build step that
+                // fixes this for us now.
+                var req = store["delete"](key);
+                transaction.oncomplete = function() {
+                    resolve();
+                };
+
+                transaction.onerror = function() {
+                    reject(req.error);
+                };
+
+                // The request will be aborted if we've exceeded our storage
+                // space. In this case, we will reject with a specific
+                // "QuotaExceededError".
+                transaction.onabort = function(event) {
+                    var error = event.target.error;
+                    if (error === 'QuotaExceededError') {
+                        reject(error);
+                    }
+                };
+            })["catch"](reject);
+        });
+
+        executeDeferedCallback(promise, callback);
+        return promise;
+    }
+
+    function clear(callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var transaction = dbInfo.db.transaction(dbInfo.storeName, 'readwrite');
+                var store = transaction.objectStore(dbInfo.storeName);
+                var req = store.clear();
+
+                transaction.oncomplete = function() {
+                    resolve();
+                };
+
+                transaction.onabort = transaction.onerror = function() {
+                    reject(req.error);
+                };
+            })["catch"](reject);
+        });
+
+        executeDeferedCallback(promise, callback);
+        return promise;
+    }
+
+    function length(callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly')
+                              .objectStore(dbInfo.storeName);
+                var req = store.count();
+
+                req.onsuccess = function() {
+                    resolve(req.result);
+                };
+
+                req.onerror = function() {
+                    reject(req.error);
+                };
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function key(n, callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            if (n < 0) {
+                resolve(null);
+
+                return;
+            }
+
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly')
+                              .objectStore(dbInfo.storeName);
+
+                var advanced = false;
+                var req = store.openCursor();
+                req.onsuccess = function() {
+                    var cursor = req.result;
+                    if (!cursor) {
+                        // this means there weren't enough keys
+                        resolve(null);
+
+                        return;
+                    }
+
+                    if (n === 0) {
+                        // We have the first key, return it if that's what they
+                        // wanted.
+                        resolve(cursor.key);
+                    } else {
+                        if (!advanced) {
+                            // Otherwise, ask the cursor to skip ahead n
+                            // records.
+                            advanced = true;
+                            cursor.advance(n);
+                        } else {
+                            // When we get here, we've got the nth key.
+                            resolve(cursor.key);
+                        }
+                    }
+                };
+
+                req.onerror = function() {
+                    reject(req.error);
+                };
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function keys(callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                var store = dbInfo.db.transaction(dbInfo.storeName, 'readonly')
+                              .objectStore(dbInfo.storeName);
+
+                var req = store.openCursor();
+                var keys = [];
+
+                req.onsuccess = function() {
+                    var cursor = req.result;
+
+                    if (!cursor) {
+                        resolve(keys);
+                        return;
+                    }
+
+                    keys.push(cursor.key);
+                    cursor["continue"]();
+                };
+
+                req.onerror = function() {
+                    reject(req.error);
+                };
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function executeCallback(promise, callback) {
+        if (callback) {
+            promise.then(function(result) {
+                callback(null, result);
+            }, function(error) {
+                callback(error);
+            });
+        }
+    }
+
+    function executeDeferedCallback(promise, callback) {
+        if (callback) {
+            promise.then(function(result) {
+                deferCallback(callback, result);
+            }, function(error) {
+                callback(error);
+            });
+        }
+    }
+
+    // Under Chrome the callback is called before the changes (save, clear)
+    // are actually made. So we use a defer function which wait that the
+    // call stack to be empty.
+    // For more info : https://github.com/mozilla/localForage/issues/175
+    // Pull request : https://github.com/mozilla/localForage/pull/178
+    function deferCallback(callback, result) {
+        if (callback) {
+            return setTimeout(function() {
+                return callback(null, result);
+            }, 0);
+        }
+    }
+
+    var asyncStorage = {
+        _driver: 'asyncStorage',
+        _initStorage: _initStorage,
+        iterate: iterate,
+        getItem: getItem,
+        setItem: setItem,
+        removeItem: removeItem,
+        clear: clear,
+        length: length,
+        key: key,
+        keys: keys
+    };
+
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = asyncStorage;
+    } else if (typeof define === 'function' && define.amd) {
+        define('asyncStorage', function() {
+            return asyncStorage;
+        });
+    } else {
+        this.asyncStorage = asyncStorage;
+    }
+}).call(window);
+// If IndexedDB isn't available, we'll fall back to localStorage.
+// Note that this will have considerable performance and storage
+// side-effects (all data will be serialized on save and only data that
+// can be converted to a string via `JSON.stringify()` will be saved).
+(function() {
+    'use strict';
+
+    // Promises!
+    var Promise = (typeof module !== 'undefined' && module.exports) ?
+                  require('promise') : this.Promise;
+
+    var globalObject = this;
+    var serializer = null;
+    var localStorage = null;
+
+    // If the app is running inside a Google Chrome packaged webapp, or some
+    // other context where localStorage isn't available, we don't use
+    // localStorage. This feature detection is preferred over the old
+    // `if (window.chrome && window.chrome.runtime)` code.
+    // See: https://github.com/mozilla/localForage/issues/68
+    try {
+        // If localStorage isn't available, we get outta here!
+        // This should be inside a try catch
+        if (!this.localStorage || !('setItem' in this.localStorage)) {
+            return;
+        }
+        // Initialize localStorage and create a variable to use throughout
+        // the code.
+        localStorage = this.localStorage;
+    } catch (e) {
+        return;
+    }
+
+    var ModuleType = {
+        DEFINE: 1,
+        EXPORT: 2,
+        WINDOW: 3
+    };
+
+    // Attaching to window (i.e. no module loader) is the assumed,
+    // simple default.
+    var moduleType = ModuleType.WINDOW;
+
+    // Find out what kind of module setup we have; if none, we'll just attach
+    // localForage to the main window.
+    if (typeof module !== 'undefined' && module.exports) {
+        moduleType = ModuleType.EXPORT;
+    } else if (typeof define === 'function' && define.amd) {
+        moduleType = ModuleType.DEFINE;
+    }
+
+    // Config the localStorage backend, using options set in the config.
+    function _initStorage(options) {
+        var self = this;
+        var dbInfo = {};
+        if (options) {
+            for (var i in options) {
+                dbInfo[i] = options[i];
+            }
+        }
+
+        dbInfo.keyPrefix = dbInfo.name + '/';
+
+        self._dbInfo = dbInfo;
+
+        var serializerPromise = new Promise(function(resolve/*, reject*/) {
+            // We allow localForage to be declared as a module or as a
+            // library available without AMD/require.js.
+            if (moduleType === ModuleType.DEFINE) {
+                require(['localforageSerializer'], resolve);
+            } else if (moduleType === ModuleType.EXPORT) {
+                // Making it browserify friendly
+                resolve(require('./../utils/serializer'));
+            } else {
+                resolve(globalObject.localforageSerializer);
+            }
+        });
+
+        return serializerPromise.then(function(lib) {
+            serializer = lib;
+            return Promise.resolve();
+        });
+    }
+
+    // Remove all keys from the datastore, effectively destroying all data in
+    // the app's key/value store!
+    function clear(callback) {
+        var self = this;
+        var promise = self.ready().then(function() {
+            var keyPrefix = self._dbInfo.keyPrefix;
+
+            for (var i = localStorage.length - 1; i >= 0; i--) {
+                var key = localStorage.key(i);
+
+                if (key.indexOf(keyPrefix) === 0) {
+                    localStorage.removeItem(key);
+                }
+            }
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Retrieve an item from the store. Unlike the original async_storage
+    // library in Gaia, we don't modify return values at all. If a key's value
+    // is `undefined`, we pass that value to the callback function.
+    function getItem(key, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var result = localStorage.getItem(dbInfo.keyPrefix + key);
+
+            // If a result was found, parse it from the serialized
+            // string into a JS object. If result isn't truthy, the key
+            // is likely undefined and we'll pass it straight to the
+            // callback.
+            if (result) {
+                result = serializer.deserialize(result);
+            }
+
+            return result;
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Iterate over all items in the store.
+    function iterate(iterator, callback) {
+        var self = this;
+
+        var promise = self.ready().then(function() {
+            var keyPrefix = self._dbInfo.keyPrefix;
+            var keyPrefixLength = keyPrefix.length;
+            var length = localStorage.length;
+
+            for (var i = 0; i < length; i++) {
+                var key = localStorage.key(i);
+                var value = localStorage.getItem(key);
+
+                // If a result was found, parse it from the serialized
+                // string into a JS object. If result isn't truthy, the
+                // key is likely undefined and we'll pass it straight
+                // to the iterator.
+                if (value) {
+                    value = serializer.deserialize(value);
+                }
+
+                value = iterator(value, key.substring(keyPrefixLength), i + 1);
+
+                if (value !== void(0)) {
+                    return value;
+                }
+            }
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Same as localStorage's key() method, except takes a callback.
+    function key(n, callback) {
+        var self = this;
+        var promise = self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var result;
+            try {
+                result = localStorage.key(n);
+            } catch (error) {
+                result = null;
+            }
+
+            // Remove the prefix from the key, if a key is found.
+            if (result) {
+                result = result.substring(dbInfo.keyPrefix.length);
+            }
+
+            return result;
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function keys(callback) {
+        var self = this;
+        var promise = self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            var length = localStorage.length;
+            var keys = [];
+
+            for (var i = 0; i < length; i++) {
+                if (localStorage.key(i).indexOf(dbInfo.keyPrefix) === 0) {
+                    keys.push(localStorage.key(i).substring(dbInfo.keyPrefix.length));
+                }
+            }
+
+            return keys;
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Supply the number of keys in the datastore to the callback function.
+    function length(callback) {
+        var self = this;
+        var promise = self.keys().then(function(keys) {
+            return keys.length;
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Remove an item from the store, nice and simple.
+    function removeItem(key, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = self.ready().then(function() {
+            var dbInfo = self._dbInfo;
+            localStorage.removeItem(dbInfo.keyPrefix + key);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Set a key's value and run an optional callback once the value is set.
+    // Unlike Gaia's implementation, the callback function is passed the value,
+    // in case you want to operate on that value only after you're sure it
+    // saved, or something like that.
+    function setItem(key, value, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = self.ready().then(function() {
+            // Convert undefined values to null.
+            // https://github.com/mozilla/localForage/pull/42
+            if (value === undefined) {
+                value = null;
+            }
+
+            // Save the original value to pass to the callback.
+            var originalValue = value;
+
+            return new Promise(function(resolve, reject) {
+                serializer.serialize(value, function(value, error) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        try {
+                            var dbInfo = self._dbInfo;
+                            localStorage.setItem(dbInfo.keyPrefix + key, value);
+                            resolve(originalValue);
+                        } catch (e) {
+                            // localStorage capacity exceeded.
+                            // TODO: Make this a specific error/event.
+                            if (e.name === 'QuotaExceededError' ||
+                                e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                                reject(e);
+                            }
+                            reject(e);
+                        }
+                    }
+                });
+            });
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function executeCallback(promise, callback) {
+        if (callback) {
+            promise.then(function(result) {
+                callback(null, result);
+            }, function(error) {
+                callback(error);
+            });
+        }
+    }
+
+    var localStorageWrapper = {
+        _driver: 'localStorageWrapper',
+        _initStorage: _initStorage,
+        // Default API, from Gaia/localStorage.
+        iterate: iterate,
+        getItem: getItem,
+        setItem: setItem,
+        removeItem: removeItem,
+        clear: clear,
+        length: length,
+        key: key,
+        keys: keys
+    };
+
+    if (moduleType === ModuleType.EXPORT) {
+        module.exports = localStorageWrapper;
+    } else if (moduleType === ModuleType.DEFINE) {
+        define('localStorageWrapper', function() {
+            return localStorageWrapper;
+        });
+    } else {
+        this.localStorageWrapper = localStorageWrapper;
+    }
+}).call(window);
+/*
+ * Includes code from:
+ *
+ * base64-arraybuffer
+ * https://github.com/niklasvh/base64-arraybuffer
+ *
+ * Copyright (c) 2012 Niklas von Hertzen
+ * Licensed under the MIT license.
+ */
+(function() {
+    'use strict';
+
+    // Promises!
+    var Promise = (typeof module !== 'undefined' && module.exports) ?
+                  require('promise') : this.Promise;
+
+    var globalObject = this;
+    var serializer = null;
+    var openDatabase = this.openDatabase;
+
+    // If WebSQL methods aren't available, we can stop now.
+    if (!openDatabase) {
+        return;
+    }
+
+    var ModuleType = {
+        DEFINE: 1,
+        EXPORT: 2,
+        WINDOW: 3
+    };
+
+    // Attaching to window (i.e. no module loader) is the assumed,
+    // simple default.
+    var moduleType = ModuleType.WINDOW;
+
+    // Find out what kind of module setup we have; if none, we'll just attach
+    // localForage to the main window.
+    if (typeof module !== 'undefined' && module.exports) {
+        moduleType = ModuleType.EXPORT;
+    } else if (typeof define === 'function' && define.amd) {
+        moduleType = ModuleType.DEFINE;
+    }
+
+    // Open the WebSQL database (automatically creates one if one didn't
+    // previously exist), using any options set in the config.
+    function _initStorage(options) {
+        var self = this;
+        var dbInfo = {
+            db: null
+        };
+
+        if (options) {
+            for (var i in options) {
+                dbInfo[i] = typeof(options[i]) !== 'string' ?
+                            options[i].toString() : options[i];
+            }
+        }
+
+        var serializerPromise = new Promise(function(resolve/*, reject*/) {
+            // We allow localForage to be declared as a module or as a
+            // library available without AMD/require.js.
+            if (moduleType === ModuleType.DEFINE) {
+                require(['localforageSerializer'], resolve);
+            } else if (moduleType === ModuleType.EXPORT) {
+                // Making it browserify friendly
+                resolve(require('./../utils/serializer'));
+            } else {
+                resolve(globalObject.localforageSerializer);
+            }
+        });
+
+        var dbInfoPromise = new Promise(function(resolve, reject) {
+            // Open the database; the openDatabase API will automatically
+            // create it for us if it doesn't exist.
+            try {
+                dbInfo.db = openDatabase(dbInfo.name, String(dbInfo.version),
+                                         dbInfo.description, dbInfo.size);
+            } catch (e) {
+                return self.setDriver(self.LOCALSTORAGE).then(function() {
+    return self._initStorage(options);
+}).then(resolve)["catch"](reject);
+            }
+
+            // Create our key/value table if it doesn't exist.
+            dbInfo.db.transaction(function(t) {
+                t.executeSql('CREATE TABLE IF NOT EXISTS ' + dbInfo.storeName +
+                             ' (id INTEGER PRIMARY KEY, key unique, value)', [],
+                             function() {
+                    self._dbInfo = dbInfo;
+                    resolve();
+                }, function(t, error) {
+                    reject(error);
+                });
+            });
+        });
+
+        return serializerPromise.then(function(lib) {
+            serializer = lib;
+            return dbInfoPromise;
+        });
+    }
+
+    function getItem(key, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                    t.executeSql('SELECT * FROM ' + dbInfo.storeName +
+                                 ' WHERE key = ? LIMIT 1', [key],
+                                 function(t, results) {
+                        var result = results.rows.length ?
+                                     results.rows.item(0).value : null;
+
+                        // Check to see if this is serialized content we need to
+                        // unpack.
+                        if (result) {
+                            result = serializer.deserialize(result);
+                        }
+
+                        resolve(result);
+                    }, function(t, error) {
+
+                        reject(error);
+                    });
+                });
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function iterate(iterator, callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+
+                dbInfo.db.transaction(function(t) {
+                    t.executeSql('SELECT * FROM ' + dbInfo.storeName, [],
+                        function(t, results) {
+                            var rows = results.rows;
+                            var length = rows.length;
+
+                            for (var i = 0; i < length; i++) {
+                                var item = rows.item(i);
+                                var result = item.value;
+
+                                // Check to see if this is serialized content
+                                // we need to unpack.
+                                if (result) {
+                                    result = serializer.deserialize(result);
+                                }
+
+                                result = iterator(result, item.key, i + 1);
+
+                                // void(0) prevents problems with redefinition
+                                // of `undefined`.
+                                if (result !== void(0)) {
+                                    resolve(result);
+                                    return;
+                                }
+                            }
+
+                            resolve();
+                        }, function(t, error) {
+                            reject(error);
+                        });
+                });
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function setItem(key, value, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                // The localStorage API doesn't return undefined values in an
+                // "expected" way, so undefined is always cast to null in all
+                // drivers. See: https://github.com/mozilla/localForage/pull/42
+                if (value === undefined) {
+                    value = null;
+                }
+
+                // Save the original value to pass to the callback.
+                var originalValue = value;
+
+                serializer.serialize(value, function(value, error) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        var dbInfo = self._dbInfo;
+                        dbInfo.db.transaction(function(t) {
+                            t.executeSql('INSERT OR REPLACE INTO ' +
+                                         dbInfo.storeName +
+                                         ' (key, value) VALUES (?, ?)',
+                                         [key, value], function() {
+                                resolve(originalValue);
+                            }, function(t, error) {
+                                reject(error);
+                            });
+                        }, function(sqlError) { // The transaction failed; check
+                                                // to see if it's a quota error.
+                            if (sqlError.code === sqlError.QUOTA_ERR) {
+                                // We reject the callback outright for now, but
+                                // it's worth trying to re-run the transaction.
+                                // Even if the user accepts the prompt to use
+                                // more storage on Safari, this error will
+                                // be called.
+                                //
+                                // TODO: Try to re-run the transaction.
+                                reject(sqlError);
+                            }
+                        });
+                    }
+                });
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function removeItem(key, callback) {
+        var self = this;
+
+        // Cast the key to a string, as that's all we can set as a key.
+        if (typeof key !== 'string') {
+            window.console.warn(key +
+                                ' used as a key, but it is not a string.');
+            key = String(key);
+        }
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                    t.executeSql('DELETE FROM ' + dbInfo.storeName +
+                                 ' WHERE key = ?', [key], function() {
+
+                        resolve();
+                    }, function(t, error) {
+
+                        reject(error);
+                    });
+                });
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Deletes every item in the table.
+    // TODO: Find out if this resets the AUTO_INCREMENT number.
+    function clear(callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                    t.executeSql('DELETE FROM ' + dbInfo.storeName, [],
+                                 function() {
+                        resolve();
+                    }, function(t, error) {
+                        reject(error);
+                    });
+                });
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Does a simple `COUNT(key)` to get the number of items stored in
+    // localForage.
+    function length(callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                    // Ahhh, SQL makes this one soooooo easy.
+                    t.executeSql('SELECT COUNT(key) as c FROM ' +
+                                 dbInfo.storeName, [], function(t, results) {
+                        var result = results.rows.item(0).c;
+
+                        resolve(result);
+                    }, function(t, error) {
+
+                        reject(error);
+                    });
+                });
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    // Return the key located at key index X; essentially gets the key from a
+    // `WHERE id = ?`. This is the most efficient way I can think to implement
+    // this rarely-used (in my experience) part of the API, but it can seem
+    // inconsistent, because we do `INSERT OR REPLACE INTO` on `setItem()`, so
+    // the ID of each key will change every time it's updated. Perhaps a stored
+    // procedure for the `setItem()` SQL would solve this problem?
+    // TODO: Don't change ID on `setItem()`.
+    function key(n, callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                    t.executeSql('SELECT key FROM ' + dbInfo.storeName +
+                                 ' WHERE id = ? LIMIT 1', [n + 1],
+                                 function(t, results) {
+                        var result = results.rows.length ?
+                                     results.rows.item(0).key : null;
+                        resolve(result);
+                    }, function(t, error) {
+                        reject(error);
+                    });
+                });
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function keys(callback) {
+        var self = this;
+
+        var promise = new Promise(function(resolve, reject) {
+            self.ready().then(function() {
+                var dbInfo = self._dbInfo;
+                dbInfo.db.transaction(function(t) {
+                    t.executeSql('SELECT key FROM ' + dbInfo.storeName, [],
+                                 function(t, results) {
+                        var keys = [];
+
+                        for (var i = 0; i < results.rows.length; i++) {
+                            keys.push(results.rows.item(i).key);
+                        }
+
+                        resolve(keys);
+                    }, function(t, error) {
+
+                        reject(error);
+                    });
+                });
+            })["catch"](reject);
+        });
+
+        executeCallback(promise, callback);
+        return promise;
+    }
+
+    function executeCallback(promise, callback) {
+        if (callback) {
+            promise.then(function(result) {
+                callback(null, result);
+            }, function(error) {
+                callback(error);
+            });
+        }
+    }
+
+    var webSQLStorage = {
+        _driver: 'webSQLStorage',
+        _initStorage: _initStorage,
+        iterate: iterate,
+        getItem: getItem,
+        setItem: setItem,
+        removeItem: removeItem,
+        clear: clear,
+        length: length,
+        key: key,
+        keys: keys
+    };
+
+    if (moduleType === ModuleType.DEFINE) {
+        define('webSQLStorage', function() {
+            return webSQLStorage;
+        });
+    } else if (moduleType === ModuleType.EXPORT) {
+        module.exports = webSQLStorage;
+    } else {
+        this.webSQLStorage = webSQLStorage;
+    }
+}).call(window);
+(function() {
+    'use strict';
+
+    // Promises!
+    var Promise = (typeof module !== 'undefined' && module.exports) ?
+                  require('promise') : this.Promise;
+
+    // Custom drivers are stored here when `defineDriver()` is called.
+    // They are shared across all instances of localForage.
+    var CustomDrivers = {};
+
+    var DriverType = {
+        INDEXEDDB: 'asyncStorage',
+        LOCALSTORAGE: 'localStorageWrapper',
+        WEBSQL: 'webSQLStorage'
+    };
+
+    var DefaultDriverOrder = [
+        DriverType.INDEXEDDB,
+        DriverType.WEBSQL,
+        DriverType.LOCALSTORAGE
+    ];
+
+    var LibraryMethods = [
+        'clear',
+        'getItem',
+        'iterate',
+        'key',
+        'keys',
+        'length',
+        'removeItem',
+        'setItem'
+    ];
+
+    var ModuleType = {
+        DEFINE: 1,
+        EXPORT: 2,
+        WINDOW: 3
+    };
+
+    var DefaultConfig = {
+        description: '',
+        driver: DefaultDriverOrder.slice(),
+        name: 'localforage',
+        // Default DB size is _JUST UNDER_ 5MB, as it's the highest size
+        // we can use without a prompt.
+        size: 4980736,
+        storeName: 'keyvaluepairs',
+        version: 1.0
+    };
+
+    // Attaching to window (i.e. no module loader) is the assumed,
+    // simple default.
+    var moduleType = ModuleType.WINDOW;
+
+    // Find out what kind of module setup we have; if none, we'll just attach
+    // localForage to the main window.
+    if (typeof module !== 'undefined' && module.exports) {
+        moduleType = ModuleType.EXPORT;
+    } else if (typeof define === 'function' && define.amd) {
+        moduleType = ModuleType.DEFINE;
+    }
+
+    // Check to see if IndexedDB is available and if it is the latest
+    // implementation; it's our preferred backend library. We use "_spec_test"
+    // as the name of the database because it's not the one we'll operate on,
+    // but it's useful to make sure its using the right spec.
+    // See: https://github.com/mozilla/localForage/issues/128
+    var driverSupport = (function(self) {
+        // Initialize IndexedDB; fall back to vendor-prefixed versions
+        // if needed.
+        var indexedDB = indexedDB || self.indexedDB || self.webkitIndexedDB ||
+                        self.mozIndexedDB || self.OIndexedDB ||
+                        self.msIndexedDB;
+
+        var result = {};
+
+        result[DriverType.WEBSQL] = !!self.openDatabase;
+        result[DriverType.INDEXEDDB] = !!(function() {
+            // We mimic PouchDB here; just UA test for Safari (which, as of
+            // iOS 8/Yosemite, doesn't properly support IndexedDB).
+            // IndexedDB support is broken and different from Blink's.
+            // This is faster than the test case (and it's sync), so we just
+            // do this. *SIGH*
+            // http://bl.ocks.org/nolanlawson/raw/c83e9039edf2278047e9/
+            //
+            // We test for openDatabase because IE Mobile identifies itself
+            // as Safari. Oh the lulz...
+            if (typeof self.openDatabase !== 'undefined' && self.navigator &&
+                self.navigator.userAgent &&
+                /Safari/.test(self.navigator.userAgent) &&
+                !/Chrome/.test(self.navigator.userAgent)) {
+                return false;
+            }
+            try {
+                return indexedDB &&
+                       typeof indexedDB.open === 'function' &&
+                       // Some Samsung/HTC Android 4.0-4.3 devices
+                       // have older IndexedDB specs; if this isn't available
+                       // their IndexedDB is too old for us to use.
+                       // (Replaces the onupgradeneeded test.)
+                       typeof self.IDBKeyRange !== 'undefined';
+            } catch (e) {
+                return false;
+            }
+        })();
+
+        result[DriverType.LOCALSTORAGE] = !!(function() {
+            try {
+                return (self.localStorage &&
+                        ('setItem' in self.localStorage) &&
+                        (self.localStorage.setItem));
+            } catch (e) {
+                return false;
+            }
+        })();
+
+        return result;
+    })(this);
+
+    var isArray = Array.isArray || function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+    };
+
+    function callWhenReady(localForageInstance, libraryMethod) {
+        localForageInstance[libraryMethod] = function() {
+            var _args = arguments;
+            return localForageInstance.ready().then(function() {
+                return localForageInstance[libraryMethod].apply(localForageInstance, _args);
+            });
+        };
+    }
+
+    function extend() {
+        for (var i = 1; i < arguments.length; i++) {
+            var arg = arguments[i];
+
+            if (arg) {
+                for (var key in arg) {
+                    if (arg.hasOwnProperty(key)) {
+                        if (isArray(arg[key])) {
+                            arguments[0][key] = arg[key].slice();
+                        } else {
+                            arguments[0][key] = arg[key];
+                        }
+                    }
+                }
+            }
+        }
+
+        return arguments[0];
+    }
+
+    function isLibraryDriver(driverName) {
+        for (var driver in DriverType) {
+            if (DriverType.hasOwnProperty(driver) &&
+                DriverType[driver] === driverName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    var globalObject = this;
+
+    function LocalForage(options) {
+        this._config = extend({}, DefaultConfig, options);
+        this._driverSet = null;
+        this._ready = false;
+        this._dbInfo = null;
+
+        // Add a stub for each driver API method that delays the call to the
+        // corresponding driver method until localForage is ready. These stubs
+        // will be replaced by the driver methods as soon as the driver is
+        // loaded, so there is no performance impact.
+        for (var i = 0; i < LibraryMethods.length; i++) {
+            callWhenReady(this, LibraryMethods[i]);
+        }
+
+        this.setDriver(this._config.driver);
+    }
+
+    LocalForage.prototype.INDEXEDDB = DriverType.INDEXEDDB;
+    LocalForage.prototype.LOCALSTORAGE = DriverType.LOCALSTORAGE;
+    LocalForage.prototype.WEBSQL = DriverType.WEBSQL;
+
+    // Set any config values for localForage; can be called anytime before
+    // the first API call (e.g. `getItem`, `setItem`).
+    // We loop through options so we don't overwrite existing config
+    // values.
+    LocalForage.prototype.config = function(options) {
+        // If the options argument is an object, we use it to set values.
+        // Otherwise, we return either a specified config value or all
+        // config values.
+        if (typeof(options) === 'object') {
+            // If localforage is ready and fully initialized, we can't set
+            // any new configuration values. Instead, we return an error.
+            if (this._ready) {
+                return new Error("Can't call config() after localforage " +
+                                 'has been used.');
+            }
+
+            for (var i in options) {
+                if (i === 'storeName') {
+                    options[i] = options[i].replace(/\W/g, '_');
+                }
+
+                this._config[i] = options[i];
+            }
+
+            // after all config options are set and
+            // the driver option is used, try setting it
+            if ('driver' in options && options.driver) {
+                this.setDriver(this._config.driver);
+            }
+
+            return true;
+        } else if (typeof(options) === 'string') {
+            return this._config[options];
+        } else {
+            return this._config;
+        }
+    };
+
+    // Used to define a custom driver, shared across all instances of
+    // localForage.
+    LocalForage.prototype.defineDriver = function(driverObject, callback,
+                                                  errorCallback) {
+        var defineDriver = new Promise(function(resolve, reject) {
+            try {
+                var driverName = driverObject._driver;
+                var complianceError = new Error(
+                    'Custom driver not compliant; see ' +
+                    'https://mozilla.github.io/localForage/#definedriver'
+                );
+                var namingError = new Error(
+                    'Custom driver name already in use: ' + driverObject._driver
+                );
+
+                // A driver name should be defined and not overlap with the
+                // library-defined, default drivers.
+                if (!driverObject._driver) {
+                    reject(complianceError);
+                    return;
+                }
+                if (isLibraryDriver(driverObject._driver)) {
+                    reject(namingError);
+                    return;
+                }
+
+                var customDriverMethods = LibraryMethods.concat('_initStorage');
+                for (var i = 0; i < customDriverMethods.length; i++) {
+                    var customDriverMethod = customDriverMethods[i];
+                    if (!customDriverMethod ||
+                        !driverObject[customDriverMethod] ||
+                        typeof driverObject[customDriverMethod] !== 'function') {
+                        reject(complianceError);
+                        return;
+                    }
+                }
+
+                var supportPromise = Promise.resolve(true);
+                if ('_support'  in driverObject) {
+                    if (driverObject._support && typeof driverObject._support === 'function') {
+                        supportPromise = driverObject._support();
+                    } else {
+                        supportPromise = Promise.resolve(!!driverObject._support);
+                    }
+                }
+
+                supportPromise.then(function(supportResult) {
+                    driverSupport[driverName] = supportResult;
+                    CustomDrivers[driverName] = driverObject;
+                    resolve();
+                }, reject);
+            } catch (e) {
+                reject(e);
+            }
+        });
+
+        defineDriver.then(callback, errorCallback);
+        return defineDriver;
+    };
+
+    LocalForage.prototype.driver = function() {
+        return this._driver || null;
+    };
+
+    LocalForage.prototype.ready = function(callback) {
+        var self = this;
+
+        var ready = new Promise(function(resolve, reject) {
+            self._driverSet.then(function() {
+                if (self._ready === null) {
+                    self._ready = self._initStorage(self._config);
+                }
+
+                self._ready.then(resolve, reject);
+            })["catch"](reject);
+        });
+
+        ready.then(callback, callback);
+        return ready;
+    };
+
+    LocalForage.prototype.setDriver = function(drivers, callback,
+                                               errorCallback) {
+        var self = this;
+
+        if (typeof drivers === 'string') {
+            drivers = [drivers];
+        }
+
+        this._driverSet = new Promise(function(resolve, reject) {
+            var driverName = self._getFirstSupportedDriver(drivers);
+            var error = new Error('No available storage method found.');
+
+            if (!driverName) {
+                self._driverSet = Promise.reject(error);
+                reject(error);
+                return;
+            }
+
+            self._dbInfo = null;
+            self._ready = null;
+
+            if (isLibraryDriver(driverName)) {
+                // We allow localForage to be declared as a module or as a
+                // library available without AMD/require.js.
+                if (moduleType === ModuleType.DEFINE) {
+                    require([driverName], function(lib) {
+                        self._extend(lib);
+
+                        resolve();
+                    });
+
+                    return;
+                } else if (moduleType === ModuleType.EXPORT) {
+                    // Making it browserify friendly
+                    var driver;
+                    switch (driverName) {
+                        case self.INDEXEDDB:
+                            driver = require('./drivers/indexeddb');
+                            break;
+                        case self.LOCALSTORAGE:
+                            driver = require('./drivers/localstorage');
+                            break;
+                        case self.WEBSQL:
+                            driver = require('./drivers/websql');
+                    }
+
+                    self._extend(driver);
+                } else {
+                    self._extend(globalObject[driverName]);
+                }
+            } else if (CustomDrivers[driverName]) {
+                self._extend(CustomDrivers[driverName]);
+            } else {
+                self._driverSet = Promise.reject(error);
+                reject(error);
+                return;
+            }
+
+            resolve();
+        });
+
+        function setDriverToConfig() {
+            self._config.driver = self.driver();
+        }
+        this._driverSet.then(setDriverToConfig, setDriverToConfig);
+
+        this._driverSet.then(callback, errorCallback);
+        return this._driverSet;
+    };
+
+    LocalForage.prototype.supports = function(driverName) {
+        return !!driverSupport[driverName];
+    };
+
+    LocalForage.prototype._extend = function(libraryMethodsAndProperties) {
+        extend(this, libraryMethodsAndProperties);
+    };
+
+    // Used to determine which driver we should use as the backend for this
+    // instance of localForage.
+    LocalForage.prototype._getFirstSupportedDriver = function(drivers) {
+        if (drivers && isArray(drivers)) {
+            for (var i = 0; i < drivers.length; i++) {
+                var driver = drivers[i];
+
+                if (this.supports(driver)) {
+                    return driver;
+                }
+            }
+        }
+
+        return null;
+    };
+
+    LocalForage.prototype.createInstance = function(options) {
+        return new LocalForage(options);
+    };
+
+    // The actual localForage object that we expose as a module or via a
+    // global. It's extended by pulling in one of our other libraries.
+    var localForage = new LocalForage();
+
+    // We allow localForage to be declared as a module or as a library
+    // available without AMD/require.js.
+    if (moduleType === ModuleType.DEFINE) {
+        define('localforage', function() {
+            return localForage;
+        });
+    } else if (moduleType === ModuleType.EXPORT) {
+        module.exports = localForage;
+    } else {
+        this.localforage = localForage;
+    }
+}).call(window);
 
