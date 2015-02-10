@@ -435,7 +435,7 @@ $(document).on("pageload", function (evt) {
 	/////////////////
 	// GLOBAL HIDE //
 	/////////////////
-	$("#entryListForm,#go,#sliderBlock,#entryListWrapper").on(tap + " swipeLeft swipeRight", function (evt) {
+	$("#entryListForm,#go,#sliderBlock,#entryListWrapper,#appHeader").on(tap + " swipeLeft swipeRight", function (evt) {
 		if (!app.device.android) {
 			evt.preventDefault();
 		}
@@ -451,8 +451,7 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	var delGesture = app.device.firefoxos ? touchend : tap;
-	$('#entryList div' + tgt + ' span.delete').off(delGesture).on(delGesture, function (evt) {
+	$('#entryList div' + tgt + ' span.delete').off(tap).on(delGesture, function (evt) {
 		///////////
 		// REUSE //
 		///////////

@@ -1165,10 +1165,7 @@ function hasTap() {
 var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
 var touchend    = hasTap() ? 'touchend'    : 'mouseup';
 var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
-var tap         = hasTap() ? 'tap'         : 'click';
-var longtap     = hasTap() ? 'taphold'     : 'taphold' ;
-var taphold     = hasTap() ? 'taphold'     : 'taphold' ;
-var singletap   = hasTap() ? 'singleTap'   : 'click';
+var tap         = hasTap() ? 'click'       : 'click';
 var doubletap   = hasTap() ? 'doubleTap'   : 'dblclick';
 var touchcancel = hasTap() ? 'touchcancel' : 'touchcancel';
 var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
@@ -1191,37 +1188,6 @@ if(window.PointerEvent) {
 	touchleave  = 'MSPointerLeave';
 	touchout    = 'MSPointerOut';	
 }
-//if ((/MSAppHost\/1.0|IEMobile/i).test(app.ua) && !app.device.wp81JS && window.navigator.msPointerEnabled) {
-	//touchmove  = "MSPointerMove";
-//	touchend = "MSPointerUp";
-	//touchstart = "MSPointerDown";
-//}
-//if(document.documentMode) {
-//	if(document.documentMode == 11) {
-		//tap        = 'click';
-//		touchend   = 'pointerup';
-//		touchstart = 'pointerdown';	
-//		touchmove  = 'pointermove';
-//	}
-//}
-
-
-if (app.device.firefoxos) {
-	tap       = 'click';
-	singletap = 'click';
-}
-
-
-/*
-MSPointerDown			pointerdown
-MSPointerUp				pointerup
-MSPointerCancel			pointercancel
-MSPointerMove			pointermove 
-MSPointerOver			pointerover 
-MSPointerOut			pointerout 
-MSPointerEnter			pointerenter 
-MSPointerLeave			pointerleave 
-*/
 ///////////////
 // SAFE EXEC //
 ///////////////
