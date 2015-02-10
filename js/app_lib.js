@@ -183,7 +183,36 @@ var app = {
 		}, time);
 	},
 };
-
+////////////////
+// HOLD EVENT //
+////////////////
+app.hold = function (elem, callback) {
+	$(elem).swipe({
+		hold : function (evt, elem) {
+			if (typeof callback === 'function') {
+				callback(evt);
+			}
+		},
+		threshold : 200
+	});
+};
+/////////////////
+// SWIPE EVENT //
+/////////////////
+app.swipe = function (elem, callback) {
+	$(elem).swipe({
+		swipe : function (evt, direction) {
+			if (direction == 'left' || direction == 'right') {
+			if (typeof callback === 'function') {
+				var that = this;
+				callback(that,evt,direction);
+			}
+			}
+		},
+		threshold : 32,
+		allowPageScroll: 'vertical'
+	});
+};
 //////////////////
 // TOTAL WEIGHT //
 //////////////////
@@ -399,10 +428,11 @@ app.info = function (title, msg, preHandler, postHandler) {
 		});
 		//allow disable
 		if(app.dev) {
-			$('#closeButton').on('longhold', function(evt) {
+			app.hold('#closeButton',function(evt) {
 				app.globals.blockInfo = 1;
 				$('#closeButton').trigger(touchend);
-				return false;
+				evt.preventDefault();
+				evt.stopPropagation();
 			});
 		}
 	}, 300);

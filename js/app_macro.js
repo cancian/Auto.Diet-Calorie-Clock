@@ -1494,8 +1494,7 @@ function buildAdvancedMenu() {
 	///////////////////////////////
 	// ALTERNATIVE DEBUG ENABLER //
 	///////////////////////////////
-	$('#advancedReload').on('longhold', function(evt) {
-		//evt.preventDefault();
+	app.hold('#advancedReload',function(evt) {
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
 			afterHide();

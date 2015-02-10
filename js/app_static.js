@@ -1095,17 +1095,16 @@ if(app.is.scrollable) {
 	// HEADER SWIPE //
 	//////////////////
 	var headerSwipe;
-	var headerSwipeBlock = 0;	
-	$('#appHeader').swipe({
-		swipe:function(event,direction) {
-			if(direction == 'left') {
+	var headerSwipeBlock = 0;
+	app.swipe('#appHeader',function(that,evt,direction) {
+			if(direction === 'left') {
 				clearTimeout(headerSwipe);
 				kickDown();
 			         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
 				else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
 				else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
 				else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
-			} else if(direction == 'right') {
+			} else {
 				clearTimeout(headerSwipe);
 				kickDown();
 			         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
@@ -1113,9 +1112,7 @@ if(app.is.scrollable) {
 				else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
 				else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }	
 			}
-		}
 	});
-	$('#appHeader').swipe('option', 'threshold', 32);
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //
 	//////////////////////////

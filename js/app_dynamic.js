@@ -355,40 +355,32 @@ $(document).on("pageload", function (evt) {
 	//#///////////////#//
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
-	var swippen;
-	$("#entryList div" + tgt).swipe({
-		swipe : function (event, direction) {
-			swippen = this;
-			if (direction == 'left' || direction == 'right') {
-				//HIDE ACTIVE
-				if (!$('.delete').hasClass('busy')) {
-					$('.active').addClass('busy');
-					$('.active').removeClass('open');
-					$('.active').on(transitionend, function (evt) {
-						$('.active').removeClass('busy');
-					});
-					$('.active').removeClass('active');
-				}
-				//SHOW
-				if (!$('#entryList div:animated').length > 0 && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
-					$('.delete', swippen).addClass('busy');
-					setTimeout(function () {
-						$('.delete', swippen).addClass('active');
-						$('.delete', swippen).addClass('open');
-						$('.delete', swippen).on(transitionend, function (evt) {
-							$('.delete').removeClass('busy');
-						});
-						//ffos
-						setTimeout(function () {
-							$('.delete').removeClass('busy');
-						}, 200);
-					}, 0);
-				}
-			}
+	app.swipe("#entryList div" + tgt, function (swippen,evt) {
+		//HIDE ACTIVE
+		if (!$('.delete').hasClass('busy')) {
+			$('.active').addClass('busy');
+			$('.active').removeClass('open');
+			$('.active').on(transitionend, function (evt) {
+				$('.active').removeClass('busy');
+			});
+			$('.active').removeClass('active');
+		}
+		//SHOW
+		if (!$('#entryList div:animated').length > 0 && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
+			$('.delete', swippen).addClass('busy');
+			setTimeout(function () {
+				$('.delete', swippen).addClass('active');
+				$('.delete', swippen).addClass('open');
+				$('.delete', swippen).on(transitionend, function (evt) {
+					$('.delete').removeClass('busy');
+				});
+				//ffos
+				setTimeout(function () {
+					$('.delete').removeClass('busy');
+				}, 200);
+			}, 0);
 		}
 	});
-	$("#entryList div").swipe("option", "threshold", 32);
-	$("#entryList div").swipe("option", "allowPageScroll", "vertical");
 	/////////////////////
 	// STOP ENTRY EDIT //
 	/////////////////////

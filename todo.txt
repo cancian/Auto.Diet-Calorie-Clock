@@ -96,6 +96,7 @@ https://github.com/apache/cordova-plugin-file-transfer/blob/master/doc/index.md 
 #####################
 ## ERRORS TO CHECK ##
 #####################
+onerror: TypeError: null is not an object (evaluating event.type'
 onerror: Uncaught Error: Syntax error, unrecognized expression: # URL:http://kcals.net/js/jquery.js Line:1425
 onerror: TypeError: undefined is not an object (evaluating n.end'
 onerror: Could not complete the operation due to error 800a139e. URL:x-wmapp0:www/index.html Line:14111	
@@ -120,7 +121,8 @@ onerror: QuotaExceededError URL:x-wmapp0:www/js/app_bootstrap.js Line:290
 errorHandler: {"line":9875,"column":12}
 onerror: Uncaught ReferenceError: tmmarsobj is not defined URL: Line:1
 nerror: TypeError: null is not an object (evaluating 'self.win') URL:http://192.168.1.5/js/jquery.nicescroll.js Line:1682
-
+[ios] onerror: TypeError: null is not an object (evaluating event.type'
+	
 
 ##############
 ## HELP TXT ##
