@@ -1477,9 +1477,7 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	//# RELOAD FOOD DB #//
 	//#////////////////#//
-	app.handlers.activeRow('#advancedReload','button',function() {
-	//$('#advancedReload').on(tap,function(evt) {
-		//evt.preventDefault();
+	app.handlers.activeRow('#advancedReload','false',function() {
 		function onConfirmReloadDB(button) {
 			if(button === 2) {
 				app.remove('foodDbLoaded');
@@ -1495,8 +1493,6 @@ function buildAdvancedMenu() {
 	// ALTERNATIVE DEBUG ENABLER //
 	///////////////////////////////
 	$('#advancedReload').on('longhold',function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
 			afterHide();
@@ -1508,9 +1504,7 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	//# RESET SETTINGS #//
 	//#////////////////#//
-	app.handlers.activeRow('#advancedReset','button',function(evt) {
-	//$('#advancedReset').on(tap,function(evt) {
-		//evt.preventDefault();
+	app.handlers.activeRow('#advancedReset','false',function(evt) {
 		//SHOW DIALOG
 		appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
 			if(button === 2) {

@@ -500,7 +500,7 @@ app.tab.status = function(keepOpen) {
 	/////////////////
 	// RELOAD ICON //
 	/////////////////
-	app.handlers.activeRow('#appStatusReload','button',function(evt) {
+	app.handlers.activeRow('#appStatusReload','false',function(evt) {
 		$('#startDateBar').hide();
 		$('#appStatusReload').off('longhold');
 		afterHide();
