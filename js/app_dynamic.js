@@ -435,7 +435,7 @@ $(document).on("pageload", function (evt) {
 	/////////////////
 	// GLOBAL HIDE //
 	/////////////////
-	$("#entryListForm,#go,#sliderBlock,#entryListWrapper,#appHeader").on(tap + " swipeLeft swipeRight", function (evt) {
+	$("#entryListForm, #go, #sliderBlock, #entryListWrapper, #appHeader").on(tap + " swipeLeft swipeRight", function (evt) {
 		if (!app.device.android) {
 			evt.preventDefault();
 		}
@@ -451,7 +451,7 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	$('#entryList div' + tgt + ' span.delete').off(tap).on(tap, function (evt) {
+	$('#entryList div' + tgt + ' span.delete').off(tap).on(tap,function(evt) {
 		///////////
 		// REUSE //
 		///////////

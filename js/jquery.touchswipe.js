@@ -2012,11 +2012,11 @@
     var TAP_AND_HOLD_TRIGGER_TIMER = 1000;
     var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 40;
 
-	var isFirefoxOS = ((/firefox/).test(navigator.userAgent.toLowerCase()) && (/mobile/).test(navigator.userAgent.toLowerCase()) && (/gecko/).test(navigator.userAgent.toLowerCase())) ? true : false;
+	var isFirefoxOS = ((/firefox/i).test(navigator.userAgent) && (/mobile/i).test(navigator.userAgent) && (/gecko/i).test(navigator.userAgent)) ? true : false;
 
 	function hasTouch() {
 		//return ('ontouchstart' in document);
-		return (!/http/i.test(window.location.protocol) && (/(iPhone|iPod|iPad|Android|BlackBerry|BB10)/).test(navigator.userAgent) || isFirefoxOS);
+		return (!/http/i.test(window.location.protocol) && (/(iPhone|iPod|iPad|Android|BlackBerry|BB10)/i).test(navigator.userAgent) || isFirefoxOS);
 	}
     var TOUCHSTART = hasTouch() ? 'touchstart' : 'mousedown';
     var TOUCHEND   = hasTouch() ? 'touchend mouseout' : 'mouseup mouseout';

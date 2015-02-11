@@ -15,7 +15,7 @@ $(document).ready(function() {
 		// OPEN DATABASE //
 		///////////////////
 		var dbDriver;
-		if(localforageDB == true) {
+		if(typeof localforageDB !== 'undefined') {
 			dbDriver = app.read('config_force_localstorage') ? [localforage.LOCALSTORAGE] : [localforage.INDEXEDDB, localforage.WEBSQL, localforage.LOCALSTORAGE];
 		} else {
 			dbDriver = app.read('config_force_localstorage') ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		}
 		//
 		try {
-			if(localforageDB == true) {
+			if(typeof localforageDB !== 'undefined') {
 				localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
 				initDB();
 			} else {
@@ -1167,6 +1167,56 @@ if(app.is.scrollable) {
 			}
 		}
 	});	
+//#/////////////#//
+//# TAP HANDLER #//
+//#/////////////#//
+(function ($, _) {
+	'use strict';
+	var ev = {
+		start : touchstart,
+		end : touchend
+	};
+	$.event.special[_] = {
+		setup : function () {
+			$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
+				if(e) {
+					if(e.originalEvent) {
+						ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
+					}
+				}
+			}).on(ev.start, function (e) {
+				if (e.which && e.which !== 1) {
+					return;
+				}
+				if(ev) {
+					if(ev.E) {
+						ev.target = e.target;
+						ev.time = new Date().getTime();
+						ev.X = ev.E.pageX;
+						ev.Y = ev.E.pageY;
+					}
+				}
+			}).on(ev.end, function (e) {
+				if (ev.target === e.target && ((new Date().getTime() - ev.time) < 750) && (ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
+					if(ev) {
+						if(ev.E) {
+							e.type = _;
+							e.pageX = ev.E.pageX;
+							e.pageY = ev.E.pageY;
+							$.event.dispatch.call(this, e);
+						}
+					}
+				}
+			});
+		},
+		remove : function () {
+			$(this).off(ev.start + ' ' + ev.end);
+		}
+	};
+	$.fn[_] = function (fn) {
+		return this[fn ? 'on' : 'trigger'](_, fn);
+	};
+})(jQuery, 'tap');
 ///////
 ///////
 ///////

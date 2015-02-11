@@ -56,7 +56,7 @@ var app = {
 	read: function(key,value,type) {
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
-			if(localforageDB == true) {
+			if(typeof localforageDB !== 'undefined') {
 				localforage.getItem(key,function(err, rows) {
 					if(err) {
 						errorHandler(err);
@@ -100,17 +100,10 @@ var app = {
 	save: function(key,value,type) {
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
-				if(localforageDB == true) {
-					app.returner(type,value);
-					app.timeout(key,1000,function() {
-						localforage.setItem(key,value);
-					});
-				} else {
-					app.returner(type,value);
-					app.timeout(key,1000,function() {
-						localforage.setItem(key,value);
-					});
-				}
+			app.returner(type,value);
+			app.timeout(key,1000,function() {
+				localforage.setItem(key,value);
+			});
 			return;
 		}
 		//
@@ -198,6 +191,19 @@ app.swipe = function (elem, callback) {
 		},
 		threshold : 32,
 		allowPageScroll: 'vertical'
+	});
+};
+///////////////
+// TAP EVENT //
+///////////////
+app.tap = function (elem, callback) {
+	$(elem).swipe({
+		tap : function(evt) {
+			if (typeof callback === 'function') {
+				var that = this;
+				callback(that,evt);
+			}
+		}
 	});
 };
 //////////////////
@@ -1156,7 +1162,7 @@ function hasTap() {
 var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
 var touchend    = hasTap() ? 'touchend'    : 'mouseup';
 var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
-var tap         = hasTap() ? 'click'       : 'click';
+var tap         = hasTap() ? 'tap'         : 'click';
 var doubletap   = hasTap() ? 'doubleTap'   : 'dblclick';
 var touchcancel = hasTap() ? 'touchcancel' : 'touchcancel';
 var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
@@ -1178,6 +1184,10 @@ if(window.PointerEvent) {
 	touchcancel = 'MSPointerOver';
 	touchleave  = 'MSPointerLeave';
 	touchout    = 'MSPointerOut';	
+}
+//
+if (app.device.firefoxos) {
+	tap = 'click';
 }
 ///////////////
 // SAFE EXEC //
