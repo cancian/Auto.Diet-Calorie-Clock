@@ -134,7 +134,7 @@ var LANG = {
 		sv : 'Svenska',
 		tr : 'Türkçe',
 		zh : '中文（简体中文）',
-		zt : '中文（繁體中文）'
+		zt : '中文（簡體中文）'
 	},
 	WEEKDAY_SHORT : {
 		en : 'Sun, Mon, Tue, Wed, Thu, Fri, Sat',
@@ -161,7 +161,7 @@ var LANG = {
 		sv : 'sö, må, ti, on, to, fr, lö',
 		tr : 'Paz, Pzt, Sal, Çar, Per, Cum, Cmt',
 		zh : '周日, 周一, 周二, 周三, 周四, 周五, 周六',
-		zt : '週日, 週一, 週二, 週三, 週四, 週五, 週六'
+		zt : '周日, 週一, 週二, 週三, 週四, 週五, 週六'
 	},
 	MONTH_SHORT : {
 		en : 'Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec',
@@ -377,7 +377,7 @@ var LANG = {
 		'sv' : 'Använd reglaget för att snabbt lägga livsmedel och övningar som du redan vet.',
 		'tr' : 'Bilinen gıdalar veya çalışmaları hızla eklemek için kaydırıcıyı kullanın.',
 		'zh' : '使用滑块来快速添加已知食品和运动。',
-		'zt' : '使用滑塊來快速添加食品和練習你已經知道了。'
+		'zt' : '使用滑塊來快速添加已知食品和運動。'
 	},
 	TYPE_FOOD : {
 		en : 'Use the quick search, or browse the categories.',
@@ -431,7 +431,7 @@ var LANG = {
 		sv : 'Svep åt vänster om du vill redigera befintliga poster.',
 		tr : 'Varolan girişleri düzenlemek için sol tokatlamak.',
 		zh : '向左滑动编辑现有条目。',
-		zt : '刷卡左編輯現有條目。',
+		zt : '向左滑動編輯現有條目。',
 	},
 	CLOSE_TO_ZERO : {
 		en : 'Keep the counter close to zero using what you eat.',
@@ -458,7 +458,7 @@ var LANG = {
 		sv : 'Håll kaloriräknare nära noll med hjälp av vad du äter.',
 		tr : 'Kalori sayacı sıfıra yakın korumak için yemek kullanın.',
 		zh : '通过食物保持卡路里计数器接近零。',
-		zt : '使用你吃什麼保持接近零的卡路里計數器。'
+		zt : '通過食物保持卡路里計數器接近零。'
 	},
 	CLOSE_INTRO : {
 		en : 'ok, let’s get started',
@@ -512,7 +512,7 @@ var LANG = {
 		sv : 'KCals är utformad för att hjälpa dig att kontrollera ditt kaloriintag. Oavsett om du vill behålla, förlora, eller gå upp i vikt, kommer detta program hjälpa dig att fokusera på vad som är viktigt: din kaloribalans.',
 		tr : 'KCals, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır. İster kilonuzu korumak isteyin, ister kilo vermek, ister almak; bu uygulama önemli olana odaklanmanıza yardımcı olacaktır: kalori dengesi.',
 		zh : 'KCals 是为了帮助您控制卡路里摄入而设计的。无论您是想维持体重、减重或增重，这款应用程序将帮助您专注于该过程中最重要的一点，即您的卡路里平衡。',
-		zt : 'KCals是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的熱量平衡。'
+		zt : 'KCals 是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的卡路里平衡。'
 	},
 	INTRO_SLIDE_2 : {
 		en : 'The idea is simple. Define a goal (daily calories) and keep yourself Balanced in the context of this goal. The app will indicate when you’ve eaten too much (surplus), or too little (deficit)',
@@ -539,7 +539,7 @@ var LANG = {
 		sv : 'Idén är enkel. Definiera ett mål (dagliga kalorier) och håll dig balanserad inom ramen av detta mål. Appen kommer att ange när du har ätit för mycket (överskott), eller för lite (underskott).',
 		tr : 'Fikir basit. Bir hedef (günlük kalori) belirleyin ve bu hedefe göre kendinizi Dengede tutun. Uygulama, çok fazla (ihtiyaç fazlası) veya çok az (eksik) yediğinizde bunu belirtecektir.',
 		zh : '产品构思很简单。设定一个目标（每日卡路里），并且使得自己在这个目标中保持平衡状态。该应用程序将显示您什么时候吃了太多（卡路里摄入超值），或吃了过少（卡路里摄入不足）。',
-		zt : '產品構思很簡單。設定一個目標（每日卡路里），並且使得自己在這個目標中保持平衡狀態。該應用程式將顯示，您什麼時候吃了太多（熱量攝入超值），或吃了過少（熱量攝入負值）。'
+		zt : '產品構思很簡單。設定一個目標（每日卡路里），並且使得自己在這個目標中保持平衡狀態。該應用程式將顯示您什麼時候吃了太多（卡路里攝入超值），或吃了過少（卡路里攝入不足）。'
 	},
 	INTRO_SLIDE_3 : {
 		en : 'Calories from food will be added to the total. Calories burned (including exercise) will be subtracted from the total.',
@@ -566,7 +566,7 @@ var LANG = {
 		sv : 'Kalorier från mat kommer att läggas till den totala. Brända kalorier (inklusive träning) kommer att dras av från den totala.',
 		tr : 'Yiyeceklerden alınan kaloriler toplama eklenecektir. Yakılan kaloriler (egzersiz dahil) toplamdan düşülecektir.',
 		zh : '各种食物的卡路里将被添加到计算的总和中。消耗的卡路里（包括运动消耗）将被从总和中扣去。',
-		zt : '各種食物的卡路里將被添加到計算的總合中。消耗的熱量（包括運動消耗）將被從總合中扣去。'
+		zt : '各種食物的卡路里將被添加到計算的總和中。消耗的卡路里（包括運動消耗）將被從總和中扣去。'
 	},
 	INTRO_SLIDE_4 : {
 		en : 'Elapsed time is converted into calories burned. Therefore, your caloric balance will be reduced automatically throughout the day. This simulates your metabolic rate.',
@@ -593,7 +593,7 @@ var LANG = {
 		sv : 'Förfluten tid omvandlas till brända kalorier. Därför kommer din kaloribalans att minskas automatiskt under hela dagen. Detta simulerar din ämnesomsättning.',
 		tr : 'Geçen zaman, yanmış kaloriye dönüştürülür. Bu nedenle, kalori dengesi gün boyunca otomatik olarak düşecektir. Bu metabolizma hızı simüle.',
 		zh : '已过时间也将被转化合算至卡路里的消耗中去。因此，您可摄取的卡路里余额将会在一天中自动减少，模拟您的代谢率。',
-		zt : '進行時間也將被轉化合算至熱量的消耗中去。因此，您可攝取的熱量餘額將會在一天中自動減少。這類比你的代謝率。'
+		zt : '已過時間也將被轉化合算至卡路里的消耗中去。因此，您可攝取的卡路里餘額將會在一天中自動減少，類比您的代謝率。'
 	},
 	INTRO_SLIDE_5 : {
 		en : 'If you overeat, you can compensate by doing exercises or eating less over the next few hours.',
@@ -782,7 +782,7 @@ var LANG = {
 		sv : 'förifyll',
 		tr : 'ön-doldurma',
 		zh : '预填充',
-		zt : '預充'
+		zt : '預填充'
 	},
 	ADD_ENTRY : {
 		en : 'add entry',
@@ -809,7 +809,7 @@ var LANG = {
 		sv : 'lägg till',
 		tr : 'girdisi ekleyin',
 		zh : '添加条目',
-		zt : '快速添加'
+		zt : '添加條目'
 	},
 	DELETE : {
 		en : 'Delete',
@@ -971,7 +971,7 @@ var LANG = {
 		sv : 'inga poster',
 		tr : 'girdi bulunamadı',
 		zh : '无条目',
-		zt : '無項目'
+		zt : '無條目'
 	},
 	NO_MATCHES : {
 		en : 'no matches',
@@ -998,7 +998,7 @@ var LANG = {
 		sv : 'inga matchningar',
 		tr : 'eşleşme bulunamadı',
 		zh : '无匹配项',
-		zt : '不匹配'
+		zt : '無匹配項'
 	},
 	PREPARING_DB : {
 		en : 'Preparing database',
@@ -1025,7 +1025,7 @@ var LANG = {
 		sv : 'Förbereder databas',
 		tr : 'Veritabanı hazırlanıyor',
 		zh : '正在准备数据库',
-		zt : '準備數據庫'
+		zt : '正在準備資料庫'
 	},
 	UPDATING_DB : {
 		en : 'Updating database',
@@ -1052,7 +1052,7 @@ var LANG = {
 		sv : 'Uppdatering av databasen',
 		tr : 'Veritabanının güncellenmesi',
 		zh : '正在更新数据库',
-		zt : '更新數據庫'
+		zt : '正在更新資料庫'
 	},
 	LOADING : {
 		en : 'Loading',
@@ -1160,7 +1160,7 @@ var LANG = {
 		sv : 'Mina matar',
 		tr : 'Benim gıda',
 		zh : '我的项目',
-		zt : '我的食物'
+		zt : '我的專案'
 	},
 	NEW_FOOD : {
 		en : 'New food',
@@ -1187,7 +1187,7 @@ var LANG = {
 		sv : 'Nytt livsmedel',
 		tr : 'Yiyecek ekle',
 		zh : '新食物',
-		zt : '添加新的食物'
+		zt : '新食物'
 	},
 	NEW_EXERCISE : {
 		en : 'New exercise',
@@ -1214,7 +1214,7 @@ var LANG = {
 		sv : 'Ny övning',
 		tr : 'Egzersiz ekle',
 		zh : '新运动',
-		zt : '添加新的運動'
+		zt : '新運動'
 	},
 	RECENT_ENTRIES : {
 		en : 'Recent entries',
@@ -1241,7 +1241,7 @@ var LANG = {
 		sv : 'Senaste posterna',
 		tr : 'Son girdiler',
 		zh : '最近条目',
-		zt : '最近的條目'
+		zt : '最近條目'
 	},
 	ADD : {
 		en : 'add',
@@ -1430,7 +1430,7 @@ var LANG = {
 		sv : 'Radera post',
 		tr : 'Öğeyi sil',
 		zh : '删除项目',
-		zt : '刪除項目'
+		zt : '刪除專案'
 	},
 	CALORIES_AVALIABLE : {
 		en : 'available calories',
@@ -1457,7 +1457,7 @@ var LANG = {
 		sv : 'tillgängliga kalorier',
 		tr : 'mevcut kaloriler',
 		zh : '包含卡路里',
-		zt : '包含的卡路里'
+		zt : '包含卡路里'
 	},
 	DAILY_CALORIES : {
 		en : 'daily calories',
@@ -1484,7 +1484,7 @@ var LANG = {
 		sv : 'dagliga kalorier',
 		tr : 'günlük kalori',
 		zh : '每日卡路里',
-		zt : '每日的卡路里'
+		zt : '每日卡路里'
 	},
 	CALORIC_INTAKE : {
 		en : 'caloric intake',
@@ -1511,7 +1511,7 @@ var LANG = {
 		sv : 'kaloriintag',
 		tr : 'kalori alımı',
 		zh : '卡路里摄入',
-		zt : '攝入卡路里'
+		zt : '卡路里攝入'
 	},
 	WEIGHT_LOSS : {
 		en : 'weight loss',
@@ -1592,7 +1592,7 @@ var LANG = {
 		sv : 'total tid',
 		tr : 'toplam zaman',
 		zh : '已过时间',
-		zt : '總時間'
+		zt : '已過時間'
 	},
 	RELATIVE_TIME : {
 		en : 'relative time',
@@ -1673,7 +1673,7 @@ var LANG = {
 		sv : 'kaloribalans',
 		tr : 'kalori dengesi',
 		zh : '卡路里平衡',
-		zt : '熱量平衡'
+		zt : '卡路里平衡'
 	},
 	SURPLUS : {
 		en : 'surplus',
@@ -1700,7 +1700,7 @@ var LANG = {
 		sv : 'överskott',
 		tr : 'fazla',
 		zh : '多余',
-		zt : '多餘的'
+		zt : '多餘'
 	},
 	DEFICIT : {
 		en : 'deficit',
@@ -1727,7 +1727,7 @@ var LANG = {
 		sv : 'underskott',
 		tr : 'açık',
 		zh : '不足',
-		zt : '赤字'
+		zt : '不足'
 	},
 	BALANCED : {
 		en : 'balanced',
@@ -1808,7 +1808,7 @@ var LANG = {
 		sv : 'dagbok',
 		tr : 'günlük',
 		zh : '日记',
-		zt : '日誌'
+		zt : '日記'
 	},
 	MENU_PROFILE : {
 		en : 'profile',
@@ -1835,7 +1835,7 @@ var LANG = {
 		sv : 'profil',
 		tr : 'profil',
 		zh : '个人资料',
-		zt : '資料'
+		zt : '個人資料'
 	},
 	MENU_SETTINGS : {
 		en : 'settings',
@@ -2348,7 +2348,7 @@ var LANG = {
 		sv : 'centimeter',
 		tr : 'santimetre',
 		zh : '厘米',
-		zt : '厘米'
+		zt : '釐米'
 	},
 	FEET_INCHES : {
 		en : 'feet/inches',
@@ -2375,7 +2375,7 @@ var LANG = {
 		sv : 'fot/tum',
 		tr : 'feet/inç',
 		zh : '英尺/英寸',
-		zt : '英尺 / 英寸'
+		zt : '英尺/英寸'
 	},
 	GRAMS : {
 		en : 'grams',
@@ -2456,7 +2456,7 @@ var LANG = {
 		sv : 'kilogram',
 		tr : 'kilogram',
 		zh : '千克',
-		zt : '公斤'
+		zt : '千克'
 	},
 	KG : {
 		en : 'kg',
@@ -2483,7 +2483,7 @@ var LANG = {
 		sv : 'kg',
 		tr : 'kg',
 		zh : '千克',
-		zt : '公斤'
+		zt : '千克'
 	},
 	POUNDS : {
 		en : 'pounds',
@@ -2672,7 +2672,7 @@ var LANG = {
 		sv : 'kh',
 		tr : 'kh',
 		zh : '碳水化合物',
-		zt : '醣類'
+		zt : '碳水化合物'
 	},
 	FAT : {
 		en : 'fat',
@@ -3023,7 +3023,7 @@ var LANG = {
 		sv : 'Den totala måste lägga upp till 100%.',
 		tr : 'Toplam 100% kadar eklemeniz gerekir',
 		zh : '总计必须为100％。',
-		zt : '總的必須為100％。'
+		zt : '總計必須為100％。'
 	},
 	PLEASE_REVIEW : {
 		en : 'Please review the information and try again.',
@@ -3050,7 +3050,7 @@ var LANG = {
 		sv : 'Läs igenom uppgifterna och försök igen.',
 		tr : 'Bilgilerini gözden geçirin ve tekrar deneyin.',
 		zh : '请检查信息并重试。',
-		zt : '請檢查信息並重試。'
+		zt : '請檢查資訊並重試。'
 	},
 	CYCLIC_TITLE : {
 		en : 'Cyclical Mode',
@@ -3077,7 +3077,7 @@ var LANG = {
 		sv : 'Cyklisk Läge',
 		tr : 'Döngüsel Modu',
 		zh : '循环模式',
-		zt : '循環模式'
+		zt : '迴圈模式'
 	},
 	CYCLIC_INFO : {
 		en : 'This option allows you to alternate between two different caloric values along a period of four days.Days A, B and C will use the first value, while day D will use the second.',
@@ -3104,7 +3104,7 @@ var LANG = {
 		sv : 'Detta alternativ gör att du kan växla mellan två olika kalori värden längs en period på fyra dagar.Dagar A, B och C kommer att använda det första värdet, och dagen D kommer att använda det andra värdet.',
 		tr : 'Bu seçenek, dört günlük bir süre ile iki farklı kalori değerleri arasında geçiş sağlayacak.Gün A, B ve C ilk değerini kullanacak ve gününde D ikinci kullanacak.',
 		zh : '此选项允许您在四天内在两种不同的热值之间交替。前三天将使用第一个值，而第四天将使用第二个值。',
-		zt : '此選項將允許您沿著為期四天兩種不同的熱值之間交替。天A，B和C將使用第一個值，而一天的D將使用第二個值.'
+		zt : '此選項允許您在四天內在兩種不同的熱值之間交替。前三天將使用第一個值，而第四天將使用第二個值。'
 	},
 	CALORIC_THRESHOLD : {
 		en : 'Caloric Threshold',
@@ -3131,7 +3131,7 @@ var LANG = {
 		sv : 'Kalori Tröskel',
 		tr : 'Kalori Eşik',
 		zh : '卡路里门槛',
-		zt : '熱量門檻'
+		zt : '卡路里門檻'
 	},
 	LIMIT_INFO : {
 		en : 'The status will change when you reach 50% of the defined value.',
@@ -3158,7 +3158,7 @@ var LANG = {
 		sv : 'Statusen ändras när du når 50% av det definierade värdet.',
 		tr : 'Durum değişiklikleri eğer tanımlanan değerin 50% ulaştığında.',
 		zh : '当您达到设定值的50％时，状态将改变。',
-		zt : '該狀態將改變當你達到設定值的50％。'
+		zt : '當您達到設定值的50％時，狀態將改變。'
 	},
 	LIMIT_LOWER : {
 		en : 'Lower limit',
@@ -3293,7 +3293,7 @@ var LANG = {
 		sv : 'Redigera',
 		tr : 'Düzenleme',
 		zh : '编辑',
-		zt : '編輯條目'
+		zt : '編輯'
 	},
 	SUCCESS : {
 		en : 'Success',
@@ -3374,7 +3374,7 @@ var LANG = {
 		sv : 'Datasynkronisering',
 		tr : 'Veri Senkronizasyonu',
 		zh : '数据同步',
-		zt : '數據同步'
+		zt : '資料同步'
 	},
 	DATA_SYNC_INFO : {
 		en : 'Keep your data safe and synchronized across multiple devices.',
@@ -3401,7 +3401,7 @@ var LANG = {
 		sv : 'Håll dina data säkra och synkroniseras över flera enheter.',
 		tr : 'Güvenli ve birden fazla cihaz arasında senkronize veri tutun.',
 		zh : '保证您的数据安全，在多个设备上同步。',
-		zt : '讓您的數據安全，在多個設備上同步。'
+		zt : '保證您的資料安全，在多個設備上同步。'
 	},
 	ARE_YOU_SURE : {
 		en : 'Are you sure?',
@@ -3428,7 +3428,7 @@ var LANG = {
 		sv : 'Är du säker?',
 		tr : 'Emin misiniz?',
 		zh : '您确定吗？',
-		zt : '你確定嗎？'
+		zt : '您確定嗎？'
 	},
 	OK : {
 		en : 'ok',
@@ -3455,7 +3455,7 @@ var LANG = {
 		sv : 'ok',
 		tr : 'ok',
 		zh : '确定',
-		zt : '好'
+		zt : '確定'
 	},
 	CANCEL : {
 		en : 'cancel',
@@ -3536,7 +3536,7 @@ var LANG = {
 		sv : 'All data kommer att raderas',
 		tr : 'Tüm veriler silinecek',
 		zh : '所有数据都将被删除',
-		zt : '所有數據都將被刪除'
+		zt : '所有資料都將被刪除'
 	},
 	NOT_RUNNING_TITLE : {
 		en : 'The counter is currently stopped',
@@ -3590,7 +3590,7 @@ var LANG = {
 		sv : 'Vill du starta den nu?',
 		tr : 'Şimdi başlatmak ister misiniz?',
 		zh : '您想现在打开吗?',
-		zt : '你想現在開始?'
+		zt : '您想現在打開嗎?'
 	},
 	DEVELOPED_BY : {
 		en : 'Developed by André Cancian',
@@ -3617,7 +3617,7 @@ var LANG = {
 		sv : 'Utvecklad av André Cancian',
 		tr : 'André Cancian tarafından geliştirilmiştir',
 		zh : '开发者：André Cancian',
-		zt : '由AndréCancian開發'
+		zt : '開發者：André Cancian'
 	},
 	RESET_COUNTER_TITLE : {
 		en : 'Reset counter',
@@ -3671,7 +3671,7 @@ var LANG = {
 		sv : 'Återställ inmatningsvärdet',
 		tr : 'Girdi değerini sıfırlayın',
 		zh : '重置输入值',
-		zt : '重置輸入的值'
+		zt : '重置輸入值'
 	},
 	BLANK_FIELD_TITLE : {
 		en : 'Required fields have been left blank.',
@@ -3698,7 +3698,7 @@ var LANG = {
 		sv : 'Obligatoriska fält har lämnats tomma.',
 		tr : 'Gerekli alanlar boş bırakılmıştır.',
 		zh : '必填字段未填写。',
-		zt : '必填欄位已被留空。'
+		zt : '必要欄位未填寫。'
 	},
 	BLANK_FIELD_DIALOG : {
 		en : 'The missing information is highlighted in red.',
@@ -3725,7 +3725,7 @@ var LANG = {
 		sv : 'Saknad information är understruken med rött.',
 		tr : 'Eksik bilgi kırmızı ile işaretlenmiştir.',
 		zh : '缺少的信息以红色高亮显示。',
-		zt : '缺少的信息以紅色高亮顯示。'
+		zt : '缺少的資訊以紅色高亮顯示。'
 	},
 	CLEAR_ALL_TITLE : {
 		en : 'Clear all entries',
@@ -3833,7 +3833,7 @@ var LANG = {
 		sv : 'kejserlig',
 		tr : 'imperiyal',
 		zh : '英制',
-		zt : '紙張尺寸'
+		zt : '英制'
 	},
 	METRIC : {
 		en : 'metric',
@@ -3887,7 +3887,7 @@ var LANG = {
 		sv : 'Betygsätt den här appen',
 		tr : 'Bu uygulamayı değerlendirin',
 		zh : '评价本应用程序',
-		zt : '為該應用程序評分'
+		zt : '評價本應用程式'
 	},
 	BACKUP_AND_SYNC : {
 		en : 'Backup & Synchronization',
@@ -3914,7 +3914,7 @@ var LANG = {
 		sv : 'Säkerhetskopiering & Synkronisering',
 		tr : 'Yedekleme ve Senkronizasyon',
 		zh : '备份和同步',
-		zt : '備份 & 同步'
+		zt : '備份和同步'
 	},
 	SETTINGS_BACKUP : {
 		en : 'Automatic Backup',
@@ -3968,7 +3968,7 @@ var LANG = {
 		sv : 'Håll dina uppgifter säkra och synkade',
 		tr : 'Verilerinizi güvenli ve senkronize tutun',
 		zh : '保持您的数据安全并同步',
-		zt : '保持你的數據安全並同步'
+		zt : '保持您的資料安全並同步'
 	},
 	LOGGED_IN_AS : {
 		en : 'Logged in as',
@@ -3995,7 +3995,7 @@ var LANG = {
 		sv : 'Inloggad som',
 		tr : 'Giriş Yapan',
 		zh : '登录身份为',
-		zt : '登入身份為'
+		zt : '登錄身份為'
 	},
 	LOGOUT_TITLE : {
 		en : 'Turn off automatic backup',
@@ -4103,7 +4103,7 @@ var LANG = {
 		sv : 'Hjälp',
 		tr : 'Yardım',
 		zh : '帮助',
-		zt : '幫助'
+		zt : '説明'
 	},
 	SETTINGS_HELP_INFO : {
 		en : 'Topics to help you get started',
@@ -4130,7 +4130,7 @@ var LANG = {
 		sv : 'Ämnen som hjälper dig att komma igång',
 		tr : 'Başlamanıza yardımcı olacak konular',
 		zh : '帮助您开始的话题',
-		zt : '幫助你開始的話題'
+		zt : '説明您開始的話題'
 	},
 	CONTACT : {
 		en : 'Contact us',
@@ -4239,7 +4239,7 @@ var LANG = {
 		sv : 'Återingförsel livsmedelsdatabasen',
 		tr : 'Gıda veritabanı geri yükleme',
 		zh : '重建食物数据库',
-		zt : '重新導入數據庫食物'
+		zt : '重建食物資料庫'
 	},
 	AUTO_UPDATE : {
 		en : 'Automatic Updates',
@@ -4293,7 +4293,7 @@ var LANG = {
 		sv : 'Appen har uppdaterats.',
 		tr : 'Uygulaması güncellendi.',
 		zh : '应用程序已更新。',
-		zt : '該應用程序已被更新。'
+		zt : '應用程式已更新。'
 	},
 	RESTART_NOW : {
 		en : 'Would you like to restart it now?',
@@ -4320,7 +4320,7 @@ var LANG = {
 		sv : 'Applicera uppdateringen nu?',
 		tr : 'Güncelleştirmeyi şimdi uygulamak ister misiniz?',
 		zh : '您现在重新启动吗？',
-		zt : '現在重新啟動？'
+		zt : '您現在重新開機嗎？'
 	},
 	DOWNLOADING : {
 		en : 'Downloading update',
@@ -4347,7 +4347,7 @@ var LANG = {
 		sv : 'Laddar ner uppdatering',
 		tr : 'Güncelleme indiriliyor',
 		zh : '正在下载更新',
-		zt : '下載進行中'
+		zt : '正在下載更新'
 	},
 	UP_TO_DATE : {
 		en : 'Up to date',
@@ -4401,7 +4401,7 @@ var LANG = {
 		sv : 'Väntar på omstart',
 		tr : 'Bekleyen yeniden başlatma',
 		zh : '挂起的重新启动',
-		zt : '掛起的重新啟動'
+		zt : '掛起的重新開機'
 	},
 	SETTINGS_ADVANCED : {
 		en : 'Advanced Settings',
@@ -4509,7 +4509,7 @@ var LANG = {
 		sv : 'Ditt kön',
 		tr : 'Cinsiyetiniz',
 		zh : '您的性别',
-		zt : '你的性別'
+		zt : '您的性別'
 	},
 	YOUR_HEIGHT : {
 		en : 'Your height',
@@ -4536,7 +4536,7 @@ var LANG = {
 		sv : 'Din längd',
 		tr : 'Boyunuz',
 		zh : '您的身高',
-		zt : '你的身高'
+		zt : '您的身高'
 	},
 	YOUR_WEIGHT : {
 		en : 'Your weight',
@@ -4563,7 +4563,7 @@ var LANG = {
 		sv : 'Din vikt',
 		tr : 'Kilonuz',
 		zh : '您的体重',
-		zt : '你的體重'
+		zt : '您的體重'
 	},
 	YOUR_AGE : {
 		en : 'Your age',
@@ -4590,7 +4590,7 @@ var LANG = {
 		sv : 'Din ålder',
 		tr : 'Yaşınız',
 		zh : '您的年龄',
-		zt : '你的年齡'
+		zt : '您的年齡'
 	},
 	YOUR_ACTIVITY : {
 		en : 'Activity Level',
@@ -4617,7 +4617,7 @@ var LANG = {
 		sv : 'Din aktivitet',
 		tr : 'Aktiviteniz',
 		zh : '您的活动状态',
-		zt : '你的活動狀態'
+		zt : '您的活動狀態'
 	},
 	YOUR_ACTIVITY_OPTION1 : {
 		en : 'Sedentary: Mostly sitting down (desk job, designer)',
@@ -4644,7 +4644,7 @@ var LANG = {
 		sv : 'Stillasittande: sitter för det mesta (skrivbordsjobb, designer)',
 		tr : 'Hareketsiz: Çoğunlukla oturan (masa başı işi, tasarımcı)',
 		zh : '久坐：大部分时间坐着（办公室工作，设计师）',
-		zt : '固定不動：大部分是坐著（辦公室工作，設計師）'
+		zt : '久坐：大部分時間坐著（辦公室工作，設計師）'
 	},
 	YOUR_ACTIVITY_OPTION2 : {
 		en : 'Lightly Active: Occasionally sitting (teacher, salesman)',
@@ -4698,7 +4698,7 @@ var LANG = {
 		sv : 'Aktiv: går omkring större delen av tiden (servitris, brevbärare)',
 		tr : 'Aktif: Çoğunlukla yürüyen (garson, postacı)',
 		zh : '经常活动：大部分时间都在走动（服务员，邮差）',
-		zt : '活躍的：大部分時間都在走動（服務員，郵差）'
+		zt : '經常活動：大部分時間都在走動（服務員，郵差）'
 	},
 	YOUR_ACTIVITY_OPTION4 : {
 		en : 'Very Active: Physically hard work (construction worker)',
@@ -4725,7 +4725,7 @@ var LANG = {
 		sv : 'Mycket aktiv: fysiskt hårt arbete (byggnadsarbetare)',
 		tr : 'Çok Aktif: Ağır işçi (inşaat işçisi)',
 		zh : '活动非常多：繁重的体力劳动者（建筑工人）',
-		zt : '非常活躍：繁重的體力勞動者（建築工人）'
+		zt : '活動非常多：繁重的體力勞動者（建築工人）'
 	},
 	KEEP_WEIGHT : {
 		en : 'Keep current weight:',
@@ -4779,7 +4779,7 @@ var LANG = {
 		sv : 'Gå ner i vikt:',
 		tr : 'Kilo verid :',
 		zh : '减重：',
-		zt : '用什麼樣的方式來減肥：'
+		zt : '減重：'
 	},
 	GAIN_WEIGHT : {
 		en : 'Gain weight:',
@@ -4806,7 +4806,7 @@ var LANG = {
 		sv : 'Gå upp i vikt:',
 		tr : 'Kilo artışı:',
 		zh : '增重：',
-		zt : '用什麼樣的方式來增胖：'
+		zt : '增重：'
 	},
 	PER_WEEK : {
 		en : 'per week',
@@ -4860,7 +4860,7 @@ var LANG = {
 		sv : 'Betygsätt KCals',
 		tr : 'KCals Oylayın',
 		zh : '评价 KCals',
-		zt : '評分 KCals'
+		zt : '評價 KCals'
 	},
 	RATE_MSG : {
 		en : 'If you like using KCals, support us with a positive review!',
@@ -4887,7 +4887,7 @@ var LANG = {
 		sv : 'Om du gillar KCals, stödja oss med ett positivt betyg!',
 		tr : 'Eğer KCals kullanmaktan zevk varsa, olumlu bir değerlendirme ile bize destek!',
 		zh : '如果您喜欢 KCals，请积极评价，以支持我们！',
-		zt : '如果你喜歡KCals，支持我們以積極的評價！'
+		zt : '如果您喜歡 KCals，請積極評價，以支援我們！'
 	},
 	RATE_IT : {
 		en : 'Rate KCals',
@@ -4914,7 +4914,7 @@ var LANG = {
 		sv : 'Betygsätt KCals',
 		tr : 'Evet KCals oylamak istiyorum',
 		zh : '评价 KCals',
-		zt : '現在評分'
+		zt : '評價 KCals'
 	},
 	NO_THANKS : {
 		en : 'No, thanks',
@@ -4995,7 +4995,7 @@ var LANG = {
 		sv : 'kalorier återstående',
 		tr : 'kalan kalori',
 		zh : '剩余卡路里',
-		zt : '剩餘的熱量'
+		zt : '剩餘卡路里'
 	},
 	COMPENSATED : {
 		en : 'compensated',
@@ -5770,24 +5770,24 @@ var LANG = {
 			'1400' : '飲料',
 			'1500' : '魚和海鮮',
 			'1600' : '豆類',
-			'1700' : '羊肉，牛肉及其他',
+			'1700' : '羊羔肉，小牛肉及其他',
 			'1800' : '麵包和麵包店',
 			'1900' : '糖果',
-			'2000' : '麵食，大米和穀物',
-			'2100' : '快餐食品',
-			'2200' : '餐飲 餐',
+			'2000' : '麵食、大米和穀物',
+			'2100' : '速食食品',
+			'2200' : '餐點',
 			'2500' : '小吃',
 			'3500' : '本地食品',
 			'3600' : '餐廳',
 			'9999' : '雜項',
-			'0000' : '練習',
-			'0100' : '乳製品（奶酪，牛奶，雞蛋）',
+			'0000' : '雜項',
+			'0100' : '乳製品（乳酪，牛奶，雞蛋）',
 			'0200' : '藥草和香料',
 			'0300' : '嬰兒食品',
 			'0400' : '食用油和油脂',
-			'0500' : '雞',
+			'0500' : '雞肉',
 			'0600' : '湯和醬料',
-			'0700' : '香腸和肉類加工',
+			'0700' : '香腸和加工肉類',
 			'0800' : '早餐穀物',
 			'0900' : '水果'
 		}
