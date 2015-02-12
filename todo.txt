@@ -123,6 +123,9 @@ onerror: Uncaught ReferenceError: tmmarsobj is not defined URL: Line:1
 nerror: TypeError: null is not an object (evaluating 'self.win') URL:http://192.168.1.5/js/jquery.nicescroll.js Line:1682
 [ios] onerror: TypeError: null is not an object (evaluating event.type'
 [osx] errorHandler: {"line":9955,"column":12}
+[ios] onerror: TypeError: undefined is not an object (evaluating n.end'
+[osx] errorHandler: {"line":9955,"column":12}
+
 
 ##############
 ## HELP TXT ##

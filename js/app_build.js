@@ -480,7 +480,7 @@ app.tab.status = function(keepOpen) {
 			//
 		} else {
 			evt.preventDefault();
-			evt.stopPropagation();			
+			evt.stopPropagation();	
 			$('#startDate').click();
 			return false;
 		}

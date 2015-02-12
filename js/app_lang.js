@@ -376,7 +376,7 @@ var LANG = {
 		'ru' : 'Используйте ползунок, чтобы быстро добавить известные продукты или упражнения.',
 		'sv' : 'Använd reglaget för att snabbt lägga livsmedel och övningar som du redan vet.',
 		'tr' : 'Bilinen gıdalar veya çalışmaları hızla eklemek için kaydırıcıyı kullanın.',
-		'zh' : '使用滑块来快速添加食品和练习你已经知道了。',
+		'zh' : '使用滑块来快速添加已知食品和运动。',
 		'zt' : '使用滑塊來快速添加食品和練習你已經知道了。'
 	},
 	TYPE_FOOD : {
@@ -430,7 +430,7 @@ var LANG = {
 		ru : 'Сдвиньте влево, чтобы изменить существующие записи.',
 		sv : 'Svep åt vänster om du vill redigera befintliga poster.',
 		tr : 'Varolan girişleri düzenlemek için sol tokatlamak.',
-		zh : '刷卡左编辑现有条目。',
+		zh : '向左滑动编辑现有条目。',
 		zt : '刷卡左編輯現有條目。',
 	},
 	CLOSE_TO_ZERO : {
@@ -457,7 +457,7 @@ var LANG = {
 		ru : 'Держите счетчик ближе к нулю и контролируйте, что вы едите.',
 		sv : 'Håll kaloriräknare nära noll med hjälp av vad du äter.',
 		tr : 'Kalori sayacı sıfıra yakın korumak için yemek kullanın.',
-		zh : '使用你吃什么保持接近零的卡路里计数器。',
+		zh : '通过食物保持卡路里计数器接近零。',
 		zt : '使用你吃什麼保持接近零的卡路里計數器。'
 	},
 	CLOSE_INTRO : {
@@ -511,7 +511,7 @@ var LANG = {
 		ru : 'Приложение KCals поможет вам контролировать потребление калорий. Если вы хотите сохранить, сбросить или набрать вес, это приложение поможет вам сосредоточиться на том, что важнее всего - на балансе калорий.',
 		sv : 'KCals är utformad för att hjälpa dig att kontrollera ditt kaloriintag. Oavsett om du vill behålla, förlora, eller gå upp i vikt, kommer detta program hjälpa dig att fokusera på vad som är viktigt: din kaloribalans.',
 		tr : 'KCals, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır. İster kilonuzu korumak isteyin, ister kilo vermek, ister almak; bu uygulama önemli olana odaklanmanıza yardımcı olacaktır: kalori dengesi.',
-		zh : 'KCals是为了说明您控制卡路里摄入而设计的。无论您是想维持体重、减重或增重，这款应用程序将说明您专注于该过程中最重要的一点，即您的热量平衡。',
+		zh : 'KCals 是为了帮助您控制卡路里摄入而设计的。无论您是想维持体重、减重或增重，这款应用程序将帮助您专注于该过程中最重要的一点，即您的卡路里平衡。',
 		zt : 'KCals是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的熱量平衡。'
 	},
 	INTRO_SLIDE_2 : {
@@ -538,7 +538,7 @@ var LANG = {
 		ru : 'Идея проста. Определите цель (дневную норму потребления калорий) и поддерживайте баланс в соответствии с этой целью. Приложение сообщает, когда вы съели слишком много (избыток) или слишком мало (недостаток).',
 		sv : 'Idén är enkel. Definiera ett mål (dagliga kalorier) och håll dig balanserad inom ramen av detta mål. Appen kommer att ange när du har ätit för mycket (överskott), eller för lite (underskott).',
 		tr : 'Fikir basit. Bir hedef (günlük kalori) belirleyin ve bu hedefe göre kendinizi Dengede tutun. Uygulama, çok fazla (ihtiyaç fazlası) veya çok az (eksik) yediğinizde bunu belirtecektir.',
-		zh : '产品构思很简单。设定一个目标（每日卡路里），并且使得自己在这个目标中保持平衡状态。该应用程序将显示，您什么时候吃了太多（热量摄入超值），或吃了过少（热量摄入负值）。',
+		zh : '产品构思很简单。设定一个目标（每日卡路里），并且使得自己在这个目标中保持平衡状态。该应用程序将显示您什么时候吃了太多（卡路里摄入超值），或吃了过少（卡路里摄入不足）。',
 		zt : '產品構思很簡單。設定一個目標（每日卡路里），並且使得自己在這個目標中保持平衡狀態。該應用程式將顯示，您什麼時候吃了太多（熱量攝入超值），或吃了過少（熱量攝入負值）。'
 	},
 	INTRO_SLIDE_3 : {
@@ -565,7 +565,7 @@ var LANG = {
 		ru : 'Калории, поступающие с пищей, прибавляются к общей сумме калорий. Потраченные калории (в том числе израсходованные во время тренировок) вычитаются из общей суммы калорий.',
 		sv : 'Kalorier från mat kommer att läggas till den totala. Brända kalorier (inklusive träning) kommer att dras av från den totala.',
 		tr : 'Yiyeceklerden alınan kaloriler toplama eklenecektir. Yakılan kaloriler (egzersiz dahil) toplamdan düşülecektir.',
-		zh : '各种食物的卡路里将被添加到计算的总合中。消耗的热量（包括运动消耗）将被从总合中扣去。',
+		zh : '各种食物的卡路里将被添加到计算的总和中。消耗的卡路里（包括运动消耗）将被从总和中扣去。',
 		zt : '各種食物的卡路里將被添加到計算的總合中。消耗的熱量（包括運動消耗）將被從總合中扣去。'
 	},
 	INTRO_SLIDE_4 : {
@@ -592,7 +592,7 @@ var LANG = {
 		ru : 'Общее время трансформируется в потраченные калории. Таким образом, в течение дня баланс калорий будет автоматически уменьшаться. Таким образом мы моделируем скорость вашего метаболизма.',
 		sv : 'Förfluten tid omvandlas till brända kalorier. Därför kommer din kaloribalans att minskas automatiskt under hela dagen. Detta simulerar din ämnesomsättning.',
 		tr : 'Geçen zaman, yanmış kaloriye dönüştürülür. Bu nedenle, kalori dengesi gün boyunca otomatik olarak düşecektir. Bu metabolizma hızı simüle.',
-		zh : '进行时间也将被转化合算至热量的消耗中去。因此，您可摄取的热量余额将会在一天中自动减少。这模拟你的代谢率。',
+		zh : '已过时间也将被转化合算至卡路里的消耗中去。因此，您可摄取的卡路里余额将会在一天中自动减少，模拟您的代谢率。',
 		zt : '進行時間也將被轉化合算至熱量的消耗中去。因此，您可攝取的熱量餘額將會在一天中自動減少。這類比你的代謝率。'
 	},
 	INTRO_SLIDE_5 : {
@@ -781,7 +781,7 @@ var LANG = {
 		ru : 'предварительное заполнение',
 		sv : 'förifyll',
 		tr : 'ön-doldurma',
-		zh : '预充',
+		zh : '预填充',
 		zt : '預充'
 	},
 	ADD_ENTRY : {
@@ -808,7 +808,7 @@ var LANG = {
 		ru : 'добавить запись',
 		sv : 'lägg till',
 		tr : 'girdisi ekleyin',
-		zh : '快速添加',
+		zh : '添加条目',
 		zt : '快速添加'
 	},
 	DELETE : {
@@ -970,7 +970,7 @@ var LANG = {
 		ru : 'записей нет',
 		sv : 'inga poster',
 		tr : 'girdi bulunamadı',
-		zh : '无项目',
+		zh : '无条目',
 		zt : '無項目'
 	},
 	NO_MATCHES : {
@@ -997,7 +997,7 @@ var LANG = {
 		ru : 'нет совпадений',
 		sv : 'inga matchningar',
 		tr : 'eşleşme bulunamadı',
-		zh : '不匹配',
+		zh : '无匹配项',
 		zt : '不匹配'
 	},
 	PREPARING_DB : {
@@ -1024,7 +1024,7 @@ var LANG = {
 		ru : 'Подготовка базы данных',
 		sv : 'Förbereder databas',
 		tr : 'Veritabanı hazırlanıyor',
-		zh : '准备数据库',
+		zh : '正在准备数据库',
 		zt : '準備數據庫'
 	},
 	UPDATING_DB : {
@@ -1051,7 +1051,7 @@ var LANG = {
 		ru : 'Обновление базы данных',
 		sv : 'Uppdatering av databasen',
 		tr : 'Veritabanının güncellenmesi',
-		zh : '更新数据库',
+		zh : '正在更新数据库',
 		zt : '更新數據庫'
 	},
 	LOADING : {
@@ -1159,7 +1159,7 @@ var LANG = {
 		ru : 'Мои записи',
 		sv : 'Mina matar',
 		tr : 'Benim gıda',
-		zh : '我的食物',
+		zh : '我的项目',
 		zt : '我的食物'
 	},
 	NEW_FOOD : {
@@ -1186,7 +1186,7 @@ var LANG = {
 		ru : 'Новый продукт',
 		sv : 'Nytt livsmedel',
 		tr : 'Yiyecek ekle',
-		zh : '添加新的食物',
+		zh : '新食物',
 		zt : '添加新的食物'
 	},
 	NEW_EXERCISE : {
@@ -1213,7 +1213,7 @@ var LANG = {
 		ru : 'Новое упражнение',
 		sv : 'Ny övning',
 		tr : 'Egzersiz ekle',
-		zh : '添加新的运动',
+		zh : '新运动',
 		zt : '添加新的運動'
 	},
 	RECENT_ENTRIES : {
@@ -1240,7 +1240,7 @@ var LANG = {
 		ru : 'Последние записи',
 		sv : 'Senaste posterna',
 		tr : 'Son girdiler',
-		zh : '最近的条目',
+		zh : '最近条目',
 		zt : '最近的條目'
 	},
 	ADD : {
@@ -1456,7 +1456,7 @@ var LANG = {
 		ru : 'доступные калории',
 		sv : 'tillgängliga kalorier',
 		tr : 'mevcut kaloriler',
-		zh : '包含的卡路里',
+		zh : '包含卡路里',
 		zt : '包含的卡路里'
 	},
 	DAILY_CALORIES : {
@@ -1483,7 +1483,7 @@ var LANG = {
 		ru : 'ежедневное количество калорий',
 		sv : 'dagliga kalorier',
 		tr : 'günlük kalori',
-		zh : '每日的卡路里',
+		zh : '每日卡路里',
 		zt : '每日的卡路里'
 	},
 	CALORIC_INTAKE : {
@@ -1510,7 +1510,7 @@ var LANG = {
 		ru : 'потребление калорий',
 		sv : 'kaloriintag',
 		tr : 'kalori alımı',
-		zh : '摄入卡路里',
+		zh : '卡路里摄入',
 		zt : '攝入卡路里'
 	},
 	WEIGHT_LOSS : {
@@ -1591,7 +1591,7 @@ var LANG = {
 		ru : 'общее время',
 		sv : 'total tid',
 		tr : 'toplam zaman',
-		zh : '总时间',
+		zh : '已过时间',
 		zt : '總時間'
 	},
 	RELATIVE_TIME : {
@@ -1672,7 +1672,7 @@ var LANG = {
 		ru : 'баланс калорий',
 		sv : 'kaloribalans',
 		tr : 'kalori dengesi',
-		zh : '热量平衡',
+		zh : '卡路里平衡',
 		zt : '熱量平衡'
 	},
 	SURPLUS : {
@@ -1699,7 +1699,7 @@ var LANG = {
 		ru : 'избыток',
 		sv : 'överskott',
 		tr : 'fazla',
-		zh : '多余的',
+		zh : '多余',
 		zt : '多餘的'
 	},
 	DEFICIT : {
@@ -1726,7 +1726,7 @@ var LANG = {
 		ru : 'дефицит',
 		sv : 'underskott',
 		tr : 'açık',
-		zh : '赤字',
+		zh : '不足',
 		zt : '赤字'
 	},
 	BALANCED : {
@@ -1807,7 +1807,7 @@ var LANG = {
 		ru : 'Дневник',
 		sv : 'dagbok',
 		tr : 'günlük',
-		zh : '日志',
+		zh : '日记',
 		zt : '日誌'
 	},
 	MENU_PROFILE : {
@@ -1834,7 +1834,7 @@ var LANG = {
 		ru : 'профиль',
 		sv : 'profil',
 		tr : 'profil',
-		zh : '资料',
+		zh : '个人资料',
 		zt : '資料'
 	},
 	MENU_SETTINGS : {
@@ -2374,7 +2374,7 @@ var LANG = {
 		ru : 'фут/дюйм',
 		sv : 'fot/tum',
 		tr : 'feet/inç',
-		zh : '英尺 / 英寸',
+		zh : '英尺/英寸',
 		zt : '英尺 / 英寸'
 	},
 	GRAMS : {
@@ -2455,7 +2455,7 @@ var LANG = {
 		ru : 'килограммов',
 		sv : 'kilogram',
 		tr : 'kilogram',
-		zh : '公斤',
+		zh : '千克',
 		zt : '公斤'
 	},
 	KG : {
@@ -2482,7 +2482,7 @@ var LANG = {
 		ru : 'кг',
 		sv : 'kg',
 		tr : 'kg',
-		zh : '公斤',
+		zh : '千克',
 		zt : '公斤'
 	},
 	POUNDS : {
@@ -2671,7 +2671,7 @@ var LANG = {
 		ru : 'углевод',
 		sv : 'kh',
 		tr : 'kh',
-		zh : '糖类',
+		zh : '碳水化合物',
 		zt : '醣類'
 	},
 	FAT : {
@@ -3022,7 +3022,7 @@ var LANG = {
 		ru : 'Итог должен составлять 100%.',
 		sv : 'Den totala måste lägga upp till 100%.',
 		tr : 'Toplam 100% kadar eklemeniz gerekir',
-		zh : '总的必须为100％。',
+		zh : '总计必须为100％。',
 		zt : '總的必須為100％。'
 	},
 	PLEASE_REVIEW : {
@@ -3103,7 +3103,7 @@ var LANG = {
 		ru : 'Эта опция используется для переключения между двумя разными значениями энергетической ценности в течение четырех дней. В дни A, В и С будет использоваться первое значение, а в день D - второе значение.',
 		sv : 'Detta alternativ gör att du kan växla mellan två olika kalori värden längs en period på fyra dagar.Dagar A, B och C kommer att använda det första värdet, och dagen D kommer att använda det andra värdet.',
 		tr : 'Bu seçenek, dört günlük bir süre ile iki farklı kalori değerleri arasında geçiş sağlayacak.Gün A, B ve C ilk değerini kullanacak ve gününde D ikinci kullanacak.',
-		zh : '此选项将允许您沿着为期四天两种不同的热值之间交替。天A，B和C将使用第一个值，而一天的D将使用第二个值.',
+		zh : '此选项允许您在四天内在两种不同的热值之间交替。前三天将使用第一个值，而第四天将使用第二个值。',
 		zt : '此選項將允許您沿著為期四天兩種不同的熱值之間交替。天A，B和C將使用第一個值，而一天的D將使用第二個值.'
 	},
 	CALORIC_THRESHOLD : {
@@ -3130,7 +3130,7 @@ var LANG = {
 		ru : 'Порог калорийности',
 		sv : 'Kalori Tröskel',
 		tr : 'Kalori Eşik',
-		zh : '热量门槛',
+		zh : '卡路里门槛',
 		zt : '熱量門檻'
 	},
 	LIMIT_INFO : {
@@ -3157,7 +3157,7 @@ var LANG = {
 		ru : 'Статус изменится, когда вы достигнете 50% от заданного значения.',
 		sv : 'Statusen ändras när du når 50% av det definierade värdet.',
 		tr : 'Durum değişiklikleri eğer tanımlanan değerin 50% ulaştığında.',
-		zh : '该状态将改变当你达到设定值的50％。',
+		zh : '当您达到设定值的50％时，状态将改变。',
 		zt : '該狀態將改變當你達到設定值的50％。'
 	},
 	LIMIT_LOWER : {
@@ -3292,7 +3292,7 @@ var LANG = {
 		ru : 'Изменить',
 		sv : 'Redigera',
 		tr : 'Düzenleme',
-		zh : '编辑条目',
+		zh : '编辑',
 		zt : '編輯條目'
 	},
 	SUCCESS : {
@@ -3400,7 +3400,7 @@ var LANG = {
 		ru : 'Сохраняйте данные и синхронизируйте их между несколькими устройствами.',
 		sv : 'Håll dina data säkra och synkroniseras över flera enheter.',
 		tr : 'Güvenli ve birden fazla cihaz arasında senkronize veri tutun.',
-		zh : '让您的数据安全，在多个设备上同步。',
+		zh : '保证您的数据安全，在多个设备上同步。',
 		zt : '讓您的數據安全，在多個設備上同步。'
 	},
 	ARE_YOU_SURE : {
@@ -3427,7 +3427,7 @@ var LANG = {
 		ru : 'Вы уверены?',
 		sv : 'Är du säker?',
 		tr : 'Emin misiniz?',
-		zh : '你确定吗？',
+		zh : '您确定吗？',
 		zt : '你確定嗎？'
 	},
 	OK : {
@@ -3454,7 +3454,7 @@ var LANG = {
 		ru : 'ок',
 		sv : 'ok',
 		tr : 'ok',
-		zh : '好',
+		zh : '确定',
 		zt : '好'
 	},
 	CANCEL : {
@@ -3589,7 +3589,7 @@ var LANG = {
 		ru : 'Хотите запустить его сейчас?',
 		sv : 'Vill du starta den nu?',
 		tr : 'Şimdi başlatmak ister misiniz?',
-		zh : '你想现在开始?',
+		zh : '您想现在打开吗?',
 		zt : '你想現在開始?'
 	},
 	DEVELOPED_BY : {
@@ -3616,7 +3616,7 @@ var LANG = {
 		ru : 'Разработано Андре Канчиан',
 		sv : 'Utvecklad av André Cancian',
 		tr : 'André Cancian tarafından geliştirilmiştir',
-		zh : '由AndréCancian开发',
+		zh : '开发者：André Cancian',
 		zt : '由AndréCancian開發'
 	},
 	RESET_COUNTER_TITLE : {
@@ -3670,7 +3670,7 @@ var LANG = {
 		ru : 'Сбросить значение записи',
 		sv : 'Återställ inmatningsvärdet',
 		tr : 'Girdi değerini sıfırlayın',
-		zh : '重置输入的值',
+		zh : '重置输入值',
 		zt : '重置輸入的值'
 	},
 	BLANK_FIELD_TITLE : {
@@ -3697,7 +3697,7 @@ var LANG = {
 		ru : 'Поля, обязательные для заполнения, оставлены пустыми.',
 		sv : 'Obligatoriska fält har lämnats tomma.',
 		tr : 'Gerekli alanlar boş bırakılmıştır.',
-		zh : '必填栏位已被留空。',
+		zh : '必填字段未填写。',
 		zt : '必填欄位已被留空。'
 	},
 	BLANK_FIELD_DIALOG : {
@@ -3832,7 +3832,7 @@ var LANG = {
 		ru : 'британские единицы',
 		sv : 'kejserlig',
 		tr : 'imperiyal',
-		zh : '纸张尺寸',
+		zh : '英制',
 		zt : '紙張尺寸'
 	},
 	METRIC : {
@@ -3886,7 +3886,7 @@ var LANG = {
 		ru : 'Оценить это приложение',
 		sv : 'Betygsätt den här appen',
 		tr : 'Bu uygulamayı değerlendirin',
-		zh : '为该应用程序评分',
+		zh : '评价本应用程序',
 		zt : '為該應用程序評分'
 	},
 	BACKUP_AND_SYNC : {
@@ -3913,7 +3913,7 @@ var LANG = {
 		ru : 'Резервное копирование и синхронизации',
 		sv : 'Säkerhetskopiering & Synkronisering',
 		tr : 'Yedekleme ve Senkronizasyon',
-		zh : '备份 & 同步',
+		zh : '备份和同步',
 		zt : '備份 & 同步'
 	},
 	SETTINGS_BACKUP : {
@@ -3967,7 +3967,7 @@ var LANG = {
 		ru : 'Хранение и синхронизация данных',
 		sv : 'Håll dina uppgifter säkra och synkade',
 		tr : 'Verilerinizi güvenli ve senkronize tutun',
-		zh : '保持你的数据安全并同步',
+		zh : '保持您的数据安全并同步',
 		zt : '保持你的數據安全並同步'
 	},
 	LOGGED_IN_AS : {
@@ -3994,7 +3994,7 @@ var LANG = {
 		ru : 'Выполнен вход как',
 		sv : 'Inloggad som',
 		tr : 'Giriş Yapan',
-		zh : '登入身份为',
+		zh : '登录身份为',
 		zt : '登入身份為'
 	},
 	LOGOUT_TITLE : {
@@ -4129,7 +4129,7 @@ var LANG = {
 		ru : 'Инструкции для начала работы',
 		sv : 'Ämnen som hjälper dig att komma igång',
 		tr : 'Başlamanıza yardımcı olacak konular',
-		zh : '帮助你开始的话题',
+		zh : '帮助您开始的话题',
 		zt : '幫助你開始的話題'
 	},
 	CONTACT : {
@@ -4238,7 +4238,7 @@ var LANG = {
 		ru : 'Обновить базу данных продуктов',
 		sv : 'Återingförsel livsmedelsdatabasen',
 		tr : 'Gıda veritabanı geri yükleme',
-		zh : '重新导入数据库食物',
+		zh : '重建食物数据库',
 		zt : '重新導入數據庫食物'
 	},
 	AUTO_UPDATE : {
@@ -4292,7 +4292,7 @@ var LANG = {
 		ru : 'Приложение было обновлено.',
 		sv : 'Appen har uppdaterats.',
 		tr : 'Uygulaması güncellendi.',
-		zh : '该应用程序已被更新。',
+		zh : '应用程序已更新。',
 		zt : '該應用程序已被更新。'
 	},
 	RESTART_NOW : {
@@ -4319,7 +4319,7 @@ var LANG = {
 		ru : 'Хотите перезапустить прямо сейчас?',
 		sv : 'Applicera uppdateringen nu?',
 		tr : 'Güncelleştirmeyi şimdi uygulamak ister misiniz?',
-		zh : '现在重新启动？',
+		zh : '您现在重新启动吗？',
 		zt : '現在重新啟動？'
 	},
 	DOWNLOADING : {
@@ -4346,7 +4346,7 @@ var LANG = {
 		ru : 'Скачивание обновления',
 		sv : 'Laddar ner uppdatering',
 		tr : 'Güncelleme indiriliyor',
-		zh : '下载进行中',
+		zh : '正在下载更新',
 		zt : '下載進行中'
 	},
 	UP_TO_DATE : {
@@ -4508,7 +4508,7 @@ var LANG = {
 		ru : 'Ваш пол',
 		sv : 'Ditt kön',
 		tr : 'Cinsiyetiniz',
-		zh : '你的性别',
+		zh : '您的性别',
 		zt : '你的性別'
 	},
 	YOUR_HEIGHT : {
@@ -4535,7 +4535,7 @@ var LANG = {
 		ru : 'Ваш рост',
 		sv : 'Din längd',
 		tr : 'Boyunuz',
-		zh : '你的身高',
+		zh : '您的身高',
 		zt : '你的身高'
 	},
 	YOUR_WEIGHT : {
@@ -4562,7 +4562,7 @@ var LANG = {
 		ru : 'Ваш вес',
 		sv : 'Din vikt',
 		tr : 'Kilonuz',
-		zh : '你的体重',
+		zh : '您的体重',
 		zt : '你的體重'
 	},
 	YOUR_AGE : {
@@ -4589,7 +4589,7 @@ var LANG = {
 		ru : 'Ваш возраст',
 		sv : 'Din ålder',
 		tr : 'Yaşınız',
-		zh : '你的年龄',
+		zh : '您的年龄',
 		zt : '你的年齡'
 	},
 	YOUR_ACTIVITY : {
@@ -4616,7 +4616,7 @@ var LANG = {
 		ru : 'Уровень активности',
 		sv : 'Din aktivitet',
 		tr : 'Aktiviteniz',
-		zh : '你的活动状态',
+		zh : '您的活动状态',
 		zt : '你的活動狀態'
 	},
 	YOUR_ACTIVITY_OPTION1 : {
@@ -4643,7 +4643,7 @@ var LANG = {
 		ru : 'Сидячий образ жизни: в основном в положении сидя (работа за компьютером)',
 		sv : 'Stillasittande: sitter för det mesta (skrivbordsjobb, designer)',
 		tr : 'Hareketsiz: Çoğunlukla oturan (masa başı işi, tasarımcı)',
-		zh : '固定不动：大部分是坐着（办公室工作，设计师）',
+		zh : '久坐：大部分时间坐着（办公室工作，设计师）',
 		zt : '固定不動：大部分是坐著（辦公室工作，設計師）'
 	},
 	YOUR_ACTIVITY_OPTION2 : {
@@ -4697,7 +4697,7 @@ var LANG = {
 		ru : 'Активный образ жизни: большая часть времени в движении (официант, почтальон)',
 		sv : 'Aktiv: går omkring större delen av tiden (servitris, brevbärare)',
 		tr : 'Aktif: Çoğunlukla yürüyen (garson, postacı)',
-		zh : '活跃的：大部分时间都在走动（服务员，邮差）',
+		zh : '经常活动：大部分时间都在走动（服务员，邮差）',
 		zt : '活躍的：大部分時間都在走動（服務員，郵差）'
 	},
 	YOUR_ACTIVITY_OPTION4 : {
@@ -4724,7 +4724,7 @@ var LANG = {
 		ru : 'Очень активный образ жизни: тяжёлый физический труд (строитель)',
 		sv : 'Mycket aktiv: fysiskt hårt arbete (byggnadsarbetare)',
 		tr : 'Çok Aktif: Ağır işçi (inşaat işçisi)',
-		zh : '非常活跃：繁重的体力劳动者（建筑工人）',
+		zh : '活动非常多：繁重的体力劳动者（建筑工人）',
 		zt : '非常活躍：繁重的體力勞動者（建築工人）'
 	},
 	KEEP_WEIGHT : {
@@ -4778,7 +4778,7 @@ var LANG = {
 		ru : 'Сбросить вес:',
 		sv : 'Gå ner i vikt:',
 		tr : 'Kilo verid :',
-		zh : '用什么样的方式来减肥：',
+		zh : '减重：',
 		zt : '用什麼樣的方式來減肥：'
 	},
 	GAIN_WEIGHT : {
@@ -4805,7 +4805,7 @@ var LANG = {
 		ru : 'Набрать вес:',
 		sv : 'Gå upp i vikt:',
 		tr : 'Kilo artışı:',
-		zh : '用什么样的方式来增胖：',
+		zh : '增重：',
 		zt : '用什麼樣的方式來增胖：'
 	},
 	PER_WEEK : {
@@ -4859,7 +4859,7 @@ var LANG = {
 		ru : 'Оценить KCals',
 		sv : 'Betygsätt KCals',
 		tr : 'KCals Oylayın',
-		zh : '評分 KCals',
+		zh : '评价 KCals',
 		zt : '評分 KCals'
 	},
 	RATE_MSG : {
@@ -4886,7 +4886,7 @@ var LANG = {
 		ru : 'Если вам нравится KCals, поддержите нас, оставив положительный отзыв!',
 		sv : 'Om du gillar KCals, stödja oss med ett positivt betyg!',
 		tr : 'Eğer KCals kullanmaktan zevk varsa, olumlu bir değerlendirme ile bize destek!',
-		zh : '如果你喜欢KCals，支持我们以积极的评价！',
+		zh : '如果您喜欢 KCals，请积极评价，以支持我们！',
 		zt : '如果你喜歡KCals，支持我們以積極的評價！'
 	},
 	RATE_IT : {
@@ -4913,7 +4913,7 @@ var LANG = {
 		ru : 'Оценить KCals',
 		sv : 'Betygsätt KCals',
 		tr : 'Evet KCals oylamak istiyorum',
-		zh : '現在評分',
+		zh : '评价 KCals',
 		zt : '現在評分'
 	},
 	NO_THANKS : {
@@ -4994,7 +4994,7 @@ var LANG = {
 		ru : 'оставшиеся калории',
 		sv : 'kalorier återstående',
 		tr : 'kalan kalori',
-		zh : '剩余的热量',
+		zh : '剩余卡路里',
 		zt : '剩餘的熱量'
 	},
 	COMPENSATED : {
@@ -5741,24 +5741,24 @@ var LANG = {
 			'1400' : '饮料',
 			'1500' : '鱼和海鲜',
 			'1600' : '豆类',
-			'1700' : '羊肉，牛肉及其他',
+			'1700' : '羊羔肉，小牛肉及其他',
 			'1800' : '面包和面包店',
 			'1900' : '糖果',
-			'2000' : '面食，大米和谷物',
+			'2000' : '面食、大米和谷物',
 			'2100' : '快餐食品',
-			'2200' : '餐',
+			'2200' : '餐点',
 			'2500' : '小吃',
 			'3500' : '本地食品',
 			'3600' : '餐厅',
 			'9999' : '杂项',
-			'0000' : '练习',
+			'0000' : '运动',
 			'0100' : '乳制品（奶酪，牛奶，鸡蛋）',
 			'0200' : '药草和香料',
 			'0300' : '婴儿食品',
 			'0400' : '食用油和油脂',
-			'0500' : '鸡',
+			'0500' : '鸡肉',
 			'0600' : '汤和酱料',
-			'0700' : '香肠和肉类加工',
+			'0700' : '香肠和加工肉类',
 			'0800' : '早餐谷物',
 			'0900' : '水果'
 		},

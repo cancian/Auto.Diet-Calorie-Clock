@@ -913,7 +913,7 @@ app.handlers = {
 			}, triggerMs);
 			return false;
 		});
-	},
+	}
 };
 ////////////////
 // ADD/REMOVE //
