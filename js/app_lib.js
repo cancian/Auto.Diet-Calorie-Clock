@@ -43,7 +43,7 @@ var app = {
 	},
 	rows: { 
 		entry: [],
-		food: [],
+		food: []
 	},
 	returner: function(func,rows) {
 		if(typeof func === 'function') {
@@ -174,7 +174,7 @@ var app = {
 			}
 			$(target).css('pointer-events','auto');
 		}, time);
-	},
+	}
 };
 /////////////////
 // SWIPE EVENT //
@@ -261,7 +261,7 @@ app.device = {
 	chromeos   : app.get.isChromeApp() ? true : false,
 	blackberry : ((/Android/i).test(app.ua) && (/(BB10|BlackBerry|All Touch|10\.)/i).test(app.ua)) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
-	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true,
+	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
@@ -477,7 +477,7 @@ app.url = function(url) {
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc/reviews',
 		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'http://appworld.blackberry.com/webstore/content/59937667',
-		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533',
+		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533'
 	};
 	//SHORTCUT
 	     if((!url && app.device.ios)        || url == 'ios')        { url = store.ios;        }
@@ -1902,7 +1902,7 @@ window.alert = function (title, msg, button, callback) {
 		navigator.notification.alert(msg, callback, title, button);
 	} else {
 		if ((msg != 'msg' && msg != ' ') || title == 'alert') { msg = '\n' + msg; }
-		if (window.azert(title + '\n' + msg));
+		if (window.azert(title + '\n' + msg))
 		setTimeout(function () {
 			callback();
 		}, 0);

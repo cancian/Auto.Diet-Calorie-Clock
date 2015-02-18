@@ -31,9 +31,9 @@ function getFullHistory() {
 			oldestEntry = now - week;
 		}
 		//at most a month
-		if(now - oldestEntry > month) {
+		//if(now - oldestEntry > month) {
 			//oldestEntry = now - month;
-		}
+		//}
 		//MORE THAN A DAY
 		//if(DayUtcFormat(now) != DayUtcFormat(oldestEntry)) {
 		var countBack = todaysTime;
@@ -766,9 +766,9 @@ function updateTodayOverview(fullWindow) {
 				dataLabels : {
 					softConnector : false,
 					enabled : (fullWindow == 1) ? true : false,
-					format : '{point.y}',
+					format : '{point.y}'
 				},
-				showInLegend : (fullWindow == 1) ? true : false,
+				showInLegend : (fullWindow == 1) ? true : false
 			}
 		},
 		legend : {
@@ -796,7 +796,7 @@ function updateTodayOverview(fullWindow) {
 					[LANG.FOOD[lang].capitalize(), today.left > 0 ? today.food : today.food - Math.abs(today.left)],
 					[LANG.EXERCISE[lang].capitalize() + ' (' + LANG.COMPENSATED[lang] + ')', today.Cexercise],
 					[LANG.EXERCISE[lang].capitalize() + ' (' + LANG.NON_COMPENSATED[lang] + ')', today.Lexercise],
-					[LANG.CALORIES_LEFT[lang].capitalize(), today.left < 0 ? 0 : today.left],
+					[LANG.CALORIES_LEFT[lang].capitalize(), today.left < 0 ? 0 : today.left]
 				]
 			}
 		]
@@ -1179,7 +1179,7 @@ function getEntryEdit(eid) {
 				monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
 				mode: 'scroller',
 				showLabel: true,
-				useShortLabels: true,
+				useShortLabels: true
 			});
 			}
 			//HOLD FLICKER
@@ -1280,7 +1280,7 @@ function getEntryEdit(eid) {
 				published:parseInt($('#getEntryDateHidden').val()) + '',
 				pro:parseFloat($('#getEntryPro').val())            + '',
 				car:parseFloat($('#getEntryCar').val())            + '',
-				fat:parseFloat($('#getEntryFat').val())            + '',
+				fat:parseFloat($('#getEntryFat').val())            + ''
 			},function(removeId,insertDate) {
 				//REFRESH DATA
 				setTimeout(function() {
@@ -1687,7 +1687,7 @@ function getCatList(callback) {
 			///////////
 			// TITLE //
 			///////////
-			var catListTitle = catCode == 0001 ? LANG.RECENT_ENTRIES[lang] : LANG.FOOD_CATEGORIES[lang][catCode];
+			var catListTitle = catCode == '0001' ? LANG.RECENT_ENTRIES[lang] : LANG.FOOD_CATEGORIES[lang][catCode];
 			//add 'clear all' 
 			//////////
 			// HTML //
@@ -1702,7 +1702,7 @@ function getCatList(callback) {
 				//////////////////////
 				// ENDSCROLL LOADER //
 				//////////////////////
-				if(catCode == 0001) { 
+				if(catCode == '0001') { 
 					$('#newWindow').removeClass('firstLoad');
 					$('#saveButton').addClass('removeAll');
 				}
@@ -1763,7 +1763,7 @@ function getCatList(callback) {
 			/////////////
 			// CONFIRM //
 			/////////////
-			var catListConfirm = (catCode == 0001) ? function() {
+			var catListConfirm = (catCode == '0001') ? function() {
 				appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
 					if(button === 2) {
 						$('#newWindow div.searcheable').remove();

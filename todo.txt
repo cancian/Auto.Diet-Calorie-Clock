@@ -125,8 +125,12 @@ nerror: TypeError: null is not an object (evaluating 'self.win') URL:http://192.
 [osx] errorHandler: {"line":9955,"column":12}
 [ios] onerror: TypeError: undefined is not an object (evaluating n.end'
 [osx] errorHandler: {"line":9955,"column":12}
-
-
+rebootHandler: {"line":10862,"column":51}
+[osx] 1.	errorHandler: {"line":9952,"column":12}	
+[osx] errorHandler: {"stack":"getTokenFB\n\ndispatch@file:///Applications/KCals%20Calorie%20Counter.app/Contents/Resources/public/js/jquery.js:1:52593\nhandle@file:///Applications/KCals%20Calorie%20Counter.app/Contents/Resources/public/js/jquery.js:1:48917\ndispatchEvent@[native code]\nglobal code@file:///Applications/KCals%20Calorie%20Counter.app/Contents/Resources/public/index.html:3:26","line":9952}
+[ios] nerror: TypeError: null is not an object (evaluating event.type'
+	
+	
 ##############
 ## HELP TXT ##
 ##############

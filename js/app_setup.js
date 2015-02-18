@@ -1914,7 +1914,7 @@ function getNiceScroll(target,timeout,callback) {
 		cursoropacitymax: .5,
 		cursorwidth: '4px',
 		horizrailenabled: false,
-		hwacceleration: true,
+		hwacceleration: true
 	};
 	//HORIZONTAL
 	if($('#appHistory').html()) {

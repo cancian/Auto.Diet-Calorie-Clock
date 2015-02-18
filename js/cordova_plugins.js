@@ -18,7 +18,7 @@
 				"clobbers" : [
 					"window.open"
 				]
-			},
+			}
 		];
 	});
 }

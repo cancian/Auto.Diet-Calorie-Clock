@@ -134,7 +134,7 @@ var LANG = {
 		sv : 'Svenska',
 		tr : 'Türkçe',
 		zh : '中文（简体中文）',
-		zt : '中文（簡體中文）'
+		zt : '中文（繁體中文）'
 	},
 	WEEKDAY_SHORT : {
 		en : 'Sun, Mon, Tue, Wed, Thu, Fri, Sat',
@@ -431,7 +431,7 @@ var LANG = {
 		sv : 'Svep åt vänster om du vill redigera befintliga poster.',
 		tr : 'Varolan girişleri düzenlemek için sol tokatlamak.',
 		zh : '向左滑动编辑现有条目。',
-		zt : '向左滑動編輯現有條目。',
+		zt : '向左滑動編輯現有條目。'
 	},
 	CLOSE_TO_ZERO : {
 		en : 'Keep the counter close to zero using what you eat.',
