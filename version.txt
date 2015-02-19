@@ -15,7 +15,7 @@
 • Fixed an issue with the "Daily Intake" input triggering unnecessary synchronization requests
 • Fixed custom items not being selectable when marked as favorites
 • Elapsed time now remains paused while the counter is stopped
-
+ 
 # 1.8 [2014/12/27]
 • Better protection against download failure
 • Shorter names rank slightly better on search results (other things being equal)
@@ -102,7 +102,7 @@
 • Translated and expanded food database
 
 # 1.2.7 [2014/06/20]
-• Full entry edit, including custom date (tap & hold entry to open editor)
+• Full entry edit, including custom date
 • Dropped support for Armenian and Irish
 • Improved stability
 • Fixed issue with Daylight Savings while on Cyclic Mode

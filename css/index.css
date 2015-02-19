@@ -360,7 +360,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 /*#////////////#//
 //# CHANGE LOG #//
 //#////////////#*/
-#logContent							{ font-size: 13px; line-height: 20px; color: #333; padding: 0px 0 14px 18px; }
+#logContent							{ font-size: 13px; line-height: 20px; color: #333; padding: 0px 0 14px 18px; z-index: 100; background-color: #fff; }
 #newWindowWrapper.open #logContent,
 #newWindowWrapper.busy #logContent	{ display: block; }
 #newWindowWrapper.busy				{ pointer-events: none; }

@@ -1414,6 +1414,11 @@ function buildAdvancedMenu() {
 				$('#newWindowWrapper').on(transitionend, function () {
 					$('#advancedMenuWrapper').hide();
 				});
+				if(app.device.ios) {
+					$('#logContent').on(touchstart, function (evt) {
+						evt.stopPropagation();
+					});
+				}
 			}, 1);
 		};
 		////////////
@@ -1785,3 +1790,4 @@ function getCatList(callback) {
 	});
 	},0);
 }
+
