@@ -1846,11 +1846,12 @@ function buildLangMenu(opt) {
 				buildCatListMenu();
 				//AUTO UPDATE CSS TITLES
 				$('#cssAutoUpdate').html('\
-					.loading #advancedAutoUpdate:before	 { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
-					.pending #advancedAutoUpdate:before	 { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
-					.uptodate #advancedAutoUpdate:before { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
-					.spinnerMask #loadMask:before		 { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
-					.spinnerMask.updtdb #loadMask:before { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
+					.loading #advancedAutoUpdate:before	  { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
+					.pending #advancedAutoUpdate:before	  { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
+					.uptodate #advancedAutoUpdate:before  { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
+					.corrupted #advancedAutoUpdate:before { content: "' + LANG.CORRUPTED[lang]       + '"; }\
+					.spinnerMask #loadMask:before		  { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
+					.spinnerMask.updtdb #loadMask:before  { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
 				');		
 				///////////////////
 				// refresh intro //

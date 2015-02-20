@@ -190,9 +190,3 @@ copy /y K:\www\res\icon\android\144.png K:\platforms\android-eclipse\res\drawabl
  
 attrib k:\platforms\*.* -r -h -a /s
 attrib k:\www\*.* -r -h -a /s
- 
-
-echo #########
-echo #########
-sleep 3
-
