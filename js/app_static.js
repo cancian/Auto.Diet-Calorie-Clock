@@ -864,11 +864,11 @@ function unlockApp() {
 	if(app.dev) {
 		app.save('been_dev',1);
 	}
-	appResizer(0);
+	appResizer(100);
+	appResizer(300);
 	//start scrolling
 	setTimeout(function() {
 		getNiceScroll('#appContent');
-		appResizer(0);
 	},300);
 	$('body').removeClass('unloaded');
 	$('body').addClass('started');
@@ -905,7 +905,7 @@ var loadTimeout = setTimeout(function() {
 //////////////////
 // ON FONT LOAD //
 //////////////////
-var timerFont = 1;
+var timerFont = 5;
 if(!$('#fontTest').length) {
 	$('body').append('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
 	var fontTestInterval = setInterval(function() {
@@ -915,7 +915,7 @@ if(!$('#fontTest').length) {
 			unlockApp();
 		} else {
 			//decelerate
-			timerFont++;	
+			//timerFont++;	
 		}
 	},timerFont);
 }

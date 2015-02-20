@@ -103,9 +103,8 @@ function buildRemoteSuperBlock(opt) {
 	$('body').removeClass('loading');
 	$('body').removeClass('uptodate');
 	$('body').removeClass('pending');
-	
-	var JStype = 'min';
-	if(window.localStorage.getItem('config_debug') == 'active') { JStype = 'md5'; }
+	//update.php
+	var JStype = JSdev == 'min/' ? 'min' : 'md5';
 	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=' + JStype, error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
 		//null
 		if(hash == '') { $('body').removeClass('loading'); return; }

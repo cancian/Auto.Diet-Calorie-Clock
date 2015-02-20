@@ -8,8 +8,7 @@ attrib k:\www\*.* -r -h -a /s
  
  
 K:\[bin]\embed K:\www\css\kcals.ttf 
-call minify.bat 
- 
+
  
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\android\kcals\src\main\assets\www 
