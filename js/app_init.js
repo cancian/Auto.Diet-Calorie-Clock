@@ -4,7 +4,7 @@
 var staticVendor = ''; //'amazon'; //'blackberry';
 var baseVersion  = 1.9;
 var JScompress   = true;
-var JSdev        = (window.localStorage.getItem('config_debug') == 'active' && window.localStorage.getItem('config_autoupdate') !== 'on') ? '' : 'min/';
+var JSdev        = (window.localStorage.getItem('config_debug') == 'active' && window.localStorage.getItem('config_autoupdate') != 'on') ? '' : 'min/';
 var initTime     = new Date().getTime();
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;

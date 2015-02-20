@@ -104,8 +104,7 @@ function buildRemoteSuperBlock(opt) {
 	$('body').removeClass('uptodate');
 	$('body').removeClass('pending');
 	//update.php
-	var JStype = JSdev == 'min/' ? 'min' : 'md5';
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=' + JStype, error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=min', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
 		//null
 		if(hash == '') { $('body').removeClass('loading'); return; }
 		var hashObj = hash.split(',');
