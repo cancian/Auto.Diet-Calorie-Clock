@@ -451,7 +451,7 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	$('#entryList div' + tgt + ' span.delete').off(tap).on(tap,function(evt) {
+	$('#entryList div' + tgt + ' span.delete').off(tap + ' click').on(tap + ' click',function(evt) {
 		///////////
 		// REUSE //
 		///////////
