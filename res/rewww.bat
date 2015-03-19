@@ -9,7 +9,7 @@ attrib k:\www\*.* -r -h -a /s
  
 K:\[bin]\embed K:\www\css\kcals.ttf 
 
- 
+
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\android\kcals\src\main\assets\www 
 RD /S /Q K:\platforms\android\kcals\src\main\assets\www 
