@@ -451,22 +451,22 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	$('#entryList div' + tgt + ' span.delete').off(tap + ' click').on(tap + ' click',function(evt) {
+	app.tap('#entryList div' + tgt + ' span.delete', function (target, evt) {
 		///////////
 		// REUSE //
 		///////////
-		if(evt.target.id == 'reuse') {
-			getEntry($(this).parent('div').attr('id'),function(data) {
+		if (evt.target.id == 'reuse') {
+			getEntry($(target).parent('div').attr('id'), function (data) {
 				data.reuse = true;
-				saveEntry(data,function(newRowId) {
-					setTimeout(function() {
+				saveEntry(data, function (newRowId) {
+					setTimeout(function () {
 						app.exec.updateEntries(newRowId);
 						updateTimer();
 						updateEntriesSum();
 						updateEntriesTime();
 						//SCROLLBAR UPDATE
 						niceResizer(100);
-					},100);
+					}, 100);
 				});
 				$('.active').addClass('busy');
 				$('.active').removeClass('open');
@@ -475,21 +475,25 @@ $(document).on("pageload", function (evt) {
 				});
 				$('.active').removeClass('active');
 			});
+			return;
+		}
 		//////////
 		// EDIT //
 		//////////
-		} else if(evt.target.id == 'edit') {
-			var editedEntry = $(this).parent('div').attr('id');
+		if (evt.target.id == 'edit') {
+			var editedEntry = $(target).parent('div').attr('id');
 			getEntryEdit(editedEntry);
-			setTimeout(function() {
+			setTimeout(function () {
 				$('#' + editedEntry).trigger('swipeLeft');
-			},300);
+			}, 300);
+			return;
+		}
 		////////////
 		// DELETE //
 		////////////
-		} else if(evt.target.id == 'delete') {
-			var rowId   = $(this).parent('div').attr('id');
-			var rowTime = $(this).parent('div').attr('name');
+		if (evt.target.id == 'delete') {
+			var rowId = $(target).parent('div').attr('id');
+			var rowTime = $(target).parent('div').attr('name');
 			//no jump
 			$('#appContent').scrollTop($('#appContent').scrollTop());
 			$('#' + rowId).hide();
@@ -504,7 +508,7 @@ $(document).on("pageload", function (evt) {
 			deleteEntry({
 				id : rowId,
 				published : rowTime
-			}, function() {
+			}, function () {
 				//REMOVE
 				updateTimer();
 				updateEntriesTime();
@@ -512,9 +516,10 @@ $(document).on("pageload", function (evt) {
 				//force error
 				niceResizer();
 			});
+			return;
 		}
-	});
-	//////#//
+});
+//////#//
 }); //#//
 //////#//
 //#//////////////////////#//

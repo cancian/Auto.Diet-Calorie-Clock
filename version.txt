@@ -1,12 +1,16 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# 1.9.2 [2015/03/19]
+• Support for multiple user profiles
+• Translation proofreading: Dutch, Swedish, Danish, French
+
 # 1.9 [2015/01/31]
 • Source code optimization for maximum performance and faster downloads
 • Fixed Copy/Paste not working under certain circumstances
 • Mitigated some scrolling inconsistencies on slower devices
 • Database updates are now deferred (asynchronous) to improve the overall app responsiveness while saving large amounts of data
-• Revised Russian, Chinese, and German translations
+• Translation proofreading: Russian, German, Chinese, Norwegian
 
 # 1.8.2 [2015/01/10]
 • Faster start-up time
