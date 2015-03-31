@@ -105,7 +105,7 @@ var LANG = {
 		ro : '',
 		ru : '',
 		sv : '',
-		tr : '',
+		tr : 'Kullanıcıları yönet',
 		zh : '',
 		zt : ''
 	},
@@ -132,7 +132,7 @@ var LANG = {
 		ro : '',
 		ru : '',
 		sv : '',
-		tr : '',
+		tr : 'Varsayılan kullanıcı',
 		zh : '',
 		zt : ''
 	},	
@@ -141,7 +141,7 @@ var LANG = {
 		pt : 'pt', //REV
 		ar : 'ar', //
 		bg : 'bg', //
-		cs : 'cs', //~~
+		cs : 'cs', //REV
 		da : 'da', //REV
 		de : 'de', //REV
 		el : 'el', //~~
@@ -159,7 +159,7 @@ var LANG = {
 		ro : 'ro', //
 		ru : 'ru', //REV
 		sv : 'sv', //REV
-		tr : 'tr', //~~
+		tr : 'tr', //REV
 		zh : 'zh', //REV
 		zt : 'zt'  //REV
 	},
@@ -321,7 +321,7 @@ var LANG = {
 		ro : 'Detectarea automată',
 		ru : 'Автоматическое определение',
 		sv : 'Automatisk identifiering',
-		tr : 'Otomatik algılama',
+		tr : 'Otomatik Algılama',
 		zh : '自动检测',
 		zt : '自動檢測'
 	},
@@ -429,7 +429,7 @@ var LANG = {
 		ro : 'închide',
 		ru : 'закрыть',
 		sv : 'Stäng',
-		tr : 'Kapatmak',
+		tr : 'Kapat',
 		zh : '关闭',
 		zt : '關閉'
 	},
@@ -483,7 +483,7 @@ var LANG = {
 		ro : 'Utilizaţi căutare rapidă, sau răsfoiți categoriile.',
 		ru : 'Используйте быстрый поиск или выберите категории.',
 		sv : 'Använd snabbsökningen, eller bläddra bland kategorierna.',
-		tr : 'Hızlı aramayı kullanın, ya da kategoriler göz atın.',
+		tr : 'Hızlı aramayı kullanın ya da kategorilere göz atın.',
 		zh : '使用快速搜索，或浏览类别。',
 		zt : '使用快速搜尋，或流覽類別。'
 	},
@@ -510,7 +510,7 @@ var LANG = {
 		ro : 'Bețivan stânga pentru a edita intrările existente.',
 		ru : 'Сдвиньте влево, чтобы изменить существующие записи.',
 		sv : 'Svep åt vänster om du vill redigera befintliga poster.',
-		tr : 'Varolan girişleri düzenlemek için sol tokatlamak.',
+		tr : 'Var olan girişleri düzenlemek için sola kaydırın.',
 		zh : '向左滑动编辑现有条目。',
 		zt : '向左滑動編輯現有條目。'
 	},
@@ -537,7 +537,7 @@ var LANG = {
 		ro : 'Utilizați ceea ce mananci pentru a păstra contorul de calorii aproape de zero.',
 		ru : 'Держите счетчик ближе к нулю и контролируйте, что вы едите.',
 		sv : 'Håll kaloriräknaren nära noll med hjälp av vad du äter.',
-		tr : 'Kalori sayacı sıfıra yakın korumak için yemek kullanın.',
+		tr : 'Yediklerinizi kullanarak kalori sayacının sıfıra yakın olmasını sağlayın.',
 		zh : '通过食物保持卡路里计数器接近零。',
 		zt : '通過食物保持卡路里計數器接近零。'
 	},
@@ -591,7 +591,7 @@ var LANG = {
 		ro : 'KCals este proiectat pentru a vă ajuta să vă controlați aportul de calorii. Fie că doriți să mențineți, să pierdeți, sau să creșteți în greutate, această aplicație vă va ajuta să vă concentrați pe ceea ce este important: echilibrul caloric.',
 		ru : 'Приложение KCals поможет вам контролировать потребление калорий. Если вы хотите сохранить, сбросить или набрать вес, это приложение поможет вам сосредоточиться на том, что важнее всего - на балансе калорий.',
 		sv : 'KCals är utformad för att hjälpa dig att kontrollera ditt kaloriintag. Oavsett om du vill bibehålla, gå ner eller gå upp i vikt kommer detta program att hjälpa dig att fokusera på vad som är viktigt: din kaloribalans.',
-		tr : 'KCals, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır. İster kilonuzu korumak isteyin, ister kilo vermek, ister almak; bu uygulama önemli olana odaklanmanıza yardımcı olacaktır: kalori dengesi.',
+		tr : 'KCals, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır. İster kilonuzu korumak isteyin, ister kilo vermek, ister almak; bu uygulama önemli olana yani kalori dengesine odaklanmanıza yardımcı olacaktır.',
 		zh : 'KCals 是为了帮助您控制卡路里摄入而设计的。无论您是想维持体重、减重或增重，这款应用程序将帮助您专注于该过程中最重要的一点，即您的卡路里平衡。',
 		zt : 'KCals 是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的卡路里平衡。'
 	},
@@ -672,7 +672,7 @@ var LANG = {
 		ro : 'Timpul scurs este transformat în calorii arse. Prin urmare, nivelul caloric va fi redus în mod automat pe parcursul zilei. Acest simuleaza rata metabolica.',
 		ru : 'Общее время трансформируется в потраченные калории. Таким образом, в течение дня баланс калорий будет автоматически уменьшаться. Таким образом мы моделируем скорость вашего метаболизма.',
 		sv : 'Förfluten tid omvandlas till brända kalorier. Därför kommer din kaloribalans att minskas automatiskt under dagen. Detta simulerar din ämnesomsättning.',
-		tr : 'Geçen zaman, yanmış kaloriye dönüştürülür. Bu nedenle, kalori dengesi gün boyunca otomatik olarak düşecektir. Bu metabolizma hızı simüle.',
+		tr : 'Geçen zaman, yakılan kalori miktarına dönüştürülür. Bu nedenle, kalori dengesi gün boyunca otomatik olarak düşecektir. Bu, metabolizma hızınıza benzer.',
 		zh : '已过时间也将被转化合算至卡路里的消耗中去。因此，您可摄取的卡路里余额将会在一天中自动减少，模拟您的代谢率。',
 		zt : '已過時間也將被轉化合算至卡路里的消耗中去。因此，您可攝取的卡路里餘額將會在一天中自動減少，類比您的代謝率。'
 	},
@@ -861,7 +861,7 @@ var LANG = {
 		ro : 'pre-umplere',
 		ru : 'предварительное заполнение',
 		sv : 'förifyll',
-		tr : 'ön-doldurma',
+		tr : 'önceden doldur',
 		zh : '预填充',
 		zt : '預填充'
 	},
@@ -888,7 +888,7 @@ var LANG = {
 		ro : 'adăuga intrare',
 		ru : 'добавить запись',
 		sv : 'lägg till',
-		tr : 'girdisi ekleyin',
+		tr : 'kayıt ekle',
 		zh : '添加条目',
 		zt : '添加條目'
 	},
@@ -1050,7 +1050,7 @@ var LANG = {
 		ro : 'nu există intrări',
 		ru : 'записей нет',
 		sv : 'inga poster',
-		tr : 'girdi bulunamadı',
+		tr : 'kayıt bulunamadı',
 		zh : '无条目',
 		zt : '無條目'
 	},
@@ -1131,7 +1131,7 @@ var LANG = {
 		ro : 'Actualizarea bazei de date',
 		ru : 'Обновление базы данных',
 		sv : 'Uppdaterar databasen',
-		tr : 'Veritabanının güncellenmesi',
+		tr : 'Veritabanı güncelleniyor',
 		zh : '正在更新数据库',
 		zt : '正在更新資料庫'
 	},
@@ -1158,7 +1158,7 @@ var LANG = {
 		ro : 'Încărcare',
 		ru : 'Загрузка',
 		sv : 'Läser in',
-		tr : 'Yükleme',
+		tr : 'Yükleniyor',
 		zh : '正在加载',
 		zt : '正在載入'
 	},
@@ -1239,7 +1239,7 @@ var LANG = {
 		ro : 'Mâncarea mea',
 		ru : 'Мои записи',
 		sv : 'Mina poster',
-		tr : 'Benim gıda',
+		tr : 'Öğelerim',
 		zh : '我的项目',
 		zt : '我的專案'
 	},
@@ -1320,7 +1320,7 @@ var LANG = {
 		ro : 'Intrările recente',
 		ru : 'Последние записи',
 		sv : 'Senaste posterna',
-		tr : 'Son girdiler',
+		tr : 'Son kayıtlar',
 		zh : '最近条目',
 		zt : '最近條目'
 	},
@@ -1536,7 +1536,7 @@ var LANG = {
 		ro : 'calorii disponibile',
 		ru : 'доступные калории',
 		sv : 'tillgängliga kalorier',
-		tr : 'mevcut kaloriler',
+		tr : 'mevcut kalori',
 		zh : '包含卡路里',
 		zt : '包含卡路里'
 	},
@@ -1806,7 +1806,7 @@ var LANG = {
 		ro : 'deficit',
 		ru : 'дефицит',
 		sv : 'underskott',
-		tr : 'açık',
+		tr : 'eksik',
 		zh : '不足',
 		zt : '不足'
 	},
@@ -2589,7 +2589,7 @@ var LANG = {
 		ro : 'livre',
 		ru : 'фунтов',
 		sv : 'pund',
-		tr : 'paund',
+		tr : 'pound',
 		zh : '磅',
 		zt : '磅'
 	},
@@ -2778,7 +2778,7 @@ var LANG = {
 		ro : 'gră',
 		ru : 'жир',
 		sv : 'fett',
-		tr : 'Yağ',
+		tr : 'yağ',
 		zh : '脂肪',
 		zt : '脂肪'
 	},
@@ -2805,7 +2805,7 @@ var LANG = {
 		ro : 'Conversii aproximative',
 		ru : 'Приблизительные преобразования',
 		sv : 'Ungefärliga omvandlingar',
-		tr : 'Yaklaşık dönüşümleri',
+		tr : 'Yaklaşık dönüşümler',
 		zh : '近似​​转换',
 		zt : '近似​​轉換'
 	},
@@ -3048,7 +3048,7 @@ var LANG = {
 		ro : 'toate',
 		ru : 'все',
 		sv : 'alla',
-		tr : 'tüm',
+		tr : 'tümü',
 		zh : '所有',
 		zt : '所有'
 	},
@@ -3102,7 +3102,7 @@ var LANG = {
 		ro : 'Totalul trebuie să adauge până la 100%.',
 		ru : 'Итог должен составлять 100%.',
 		sv : 'Den totala räkningen måste uppgå till 100 %.',
-		tr : 'Toplam 100% kadar eklemeniz gerekir',
+		tr : 'Toplam, %100 olmalıdır',
 		zh : '总计必须为100％。',
 		zt : '總計必須為100％。'
 	},
@@ -3129,7 +3129,7 @@ var LANG = {
 		ro : 'Vă rugăm să revedeți informațiile și încercați din nou.',
 		ru : 'Ознакомьтесь с информацией и попробуйте еще раз.',
 		sv : 'Läs igenom uppgifterna och försök igen.',
-		tr : 'Bilgilerini gözden geçirin ve tekrar deneyin.',
+		tr : 'Lütfen bilgileri gözden geçirin ve tekrar deneyin.',
 		zh : '请检查信息并重试。',
 		zt : '請檢查資訊並重試。'
 	},
@@ -3156,7 +3156,7 @@ var LANG = {
 		ro : 'Modul Ciclic',
 		ru : 'Циклический режим',
 		sv : 'Cykliskt läge',
-		tr : 'Döngüsel Modu',
+		tr : 'Döngüsel Mod',
 		zh : '循环模式',
 		zt : '迴圈模式'
 	},
@@ -3183,7 +3183,7 @@ var LANG = {
 		ro : 'Această opțiune vă va permite să alterneze între două valori calorice diferite de-a lungul unei perioade de patru zile.Zilele A, B și C se vor folosi prima valoare, și ziua D va folosi doua valoare.',
 		ru : 'Эта опция используется для переключения между двумя разными значениями энергетической ценности в течение четырех дней. В дни A, В и С будет использоваться первое значение, а в день D - второе значение.',
 		sv : 'Detta alternativ gör att du kan växla mellan två olika kalorivärden under en period på fyra dagar. Dagarna A, B och C använder det första värdet, medan dagen D använder det andra värdet.',
-		tr : 'Bu seçenek, dört günlük bir süre ile iki farklı kalori değerleri arasında geçiş sağlayacak.Gün A, B ve C ilk değerini kullanacak ve gününde D ikinci kullanacak.',
+		tr : 'Bu seçenek, dört gün içinde iki farklı kalori değeri arasında gidip gelmenize olanak sağlar. A, B ve C günlerinde ilk değer, D gününde ise ikinci değer kullanılacaktır.',
 		zh : '此选项允许您在四天内在两种不同的热值之间交替。前三天将使用第一个值，而第四天将使用第二个值。',
 		zt : '此選項允許您在四天內在兩種不同的熱值之間交替。前三天將使用第一個值，而第四天將使用第二個值。'
 	},
@@ -3210,7 +3210,7 @@ var LANG = {
 		ro : 'Pragul Caloric',
 		ru : 'Порог калорийности',
 		sv : 'Kaloritröskel',
-		tr : 'Kalori Eşik',
+		tr : 'Kalori Eşik Değeri',
 		zh : '卡路里门槛',
 		zt : '卡路里門檻'
 	},
@@ -3237,7 +3237,7 @@ var LANG = {
 		ro : 'Statutul se modifică atunci când ajunge la 50% din valoarea definită.',
 		ru : 'Статус изменится, когда вы достигнете 50% от заданного значения.',
 		sv : 'Statusen ändras när du når 50 % av det definierade värdet.',
-		tr : 'Durum değişiklikleri eğer tanımlanan değerin 50% ulaştığında.',
+		tr : 'Tanımlanan değerin %50’sine ulaştığınızda durum değişir.',
 		zh : '当您达到设定值的50％时，状态将改变。',
 		zt : '當您達到設定值的50％時，狀態將改變。'
 	},
@@ -3345,7 +3345,7 @@ var LANG = {
 		ro : 'Data',
 		ru : 'Дата',
 		sv : 'Datum',
-		tr : 'Tarihi',
+		tr : 'Tarih',
 		zh : '日期',
 		zt : '日期'
 	},
@@ -3372,7 +3372,7 @@ var LANG = {
 		ro : 'Editare',
 		ru : 'Изменить',
 		sv : 'Redigera',
-		tr : 'Düzenleme',
+		tr : 'Düzenle',
 		zh : '编辑',
 		zt : '編輯'
 	},
@@ -3399,7 +3399,7 @@ var LANG = {
 		ro : 'Succes',
 		ru : 'Успех',
 		sv : 'Framgång',
-		tr : 'Başarı',
+		tr : 'Başarılı',
 		zh : '成功',
 		zt : '成功'
 	},
@@ -3480,7 +3480,7 @@ var LANG = {
 		ro : 'Păstrați-vă datele în siguranță și sincronizate pe mai multe dispozitive.',
 		ru : 'Сохраняйте данные и синхронизируйте их между несколькими устройствами.',
 		sv : 'Håll dina uppgifter säkra och synkroniserade på flera enheter.',
-		tr : 'Güvenli ve birden fazla cihaz arasında senkronize veri tutun.',
+		tr : 'Verilerinizi koruyun ve birden fazla cihaz arasında senkronize ederek saklayın.',
 		zh : '保证您的数据安全，在多个设备上同步。',
 		zt : '保證您的資料安全，在多個設備上同步。'
 	},
@@ -3534,7 +3534,7 @@ var LANG = {
 		ro : 'ok',
 		ru : 'ок',
 		sv : 'ok',
-		tr : 'ok',
+		tr : 'tamam',
 		zh : '确定',
 		zt : '確定'
 	},
@@ -3750,7 +3750,7 @@ var LANG = {
 		ro : 'Reset valoare de intrare',
 		ru : 'Сбросить значение записи',
 		sv : 'Återställ inmatningsvärdet',
-		tr : 'Girdi değerini sıfırlayın',
+		tr : 'Kayıt değerini sıfırla',
 		zh : '重置输入值',
 		zt : '重置輸入值'
 	},
@@ -3831,7 +3831,7 @@ var LANG = {
 		ro : 'Șterge toate intrările',
 		ru : 'Очистить все записи',
 		sv : 'Rensa alla poster',
-		tr : 'Tüm girdileri temizle',
+		tr : 'Tüm kayıtları sil',
 		zh : '清除所有条目',
 		zt : '清除所有條目'
 	},
@@ -3858,7 +3858,7 @@ var LANG = {
 		ro : 'Sistem de măsurare',
 		ru : 'Система измерения',
 		sv : 'Måttsystem',
-		tr : 'Ölçme sistemi',
+		tr : 'Ölçme Sistemi',
 		zh : '测量系统',
 		zt : '測量系統'
 	},
@@ -3912,7 +3912,7 @@ var LANG = {
 		ro : 'imperial',
 		ru : 'британские единицы',
 		sv : 'brittiskt',
-		tr : 'imperiyal',
+		tr : 'İngiliz',
 		zh : '英制',
 		zt : '英制'
 	},
@@ -4047,7 +4047,7 @@ var LANG = {
 		ro : 'Menține datele în siguranță și sincronizate',
 		ru : 'Хранение и синхронизация данных',
 		sv : 'Håll dina uppgifter säkra och synkroniserade',
-		tr : 'Verilerinizi güvenli ve senkronize tutun',
+		tr : 'Verilerinizi koruyun ve senkronize ederek saklayın',
 		zh : '保持您的数据安全并同步',
 		zt : '保持您的資料安全並同步'
 	},
@@ -4155,7 +4155,7 @@ var LANG = {
 		ro : 'Limba sistem',
 		ru : 'Язык системы',
 		sv : 'Systemspråk',
-		tr : 'Sistem dili',
+		tr : 'Sistemin dili',
 		zh : '系统语言',
 		zt : '系統語言'
 	},
@@ -4209,7 +4209,7 @@ var LANG = {
 		ro : 'Răspunsuri la întrebări frecvente',
 		ru : 'Инструкции для начала работы',
 		sv : 'Ämnen som hjälper dig att komma igång',
-		tr : 'Başlamanıza yardımcı olacak konular',
+		tr : 'Başlarken yardımcı olacak konular',
 		zh : '帮助您开始的话题',
 		zt : '説明您開始的話題'
 	},
@@ -4291,7 +4291,7 @@ var LANG = {
 		ro : 'Istoricul versiunilor',
 		ru : 'История версий',
 		sv : 'Versionshistorik',
-		tr : 'Sürüm geçmişi',
+		tr : 'Sürüm Geçmişi',
 		zh : '版本历史',
 		zt : '版本歷史'
 	},
@@ -4318,7 +4318,7 @@ var LANG = {
 		ro : 'Recrea baze de date alimentare',
 		ru : 'Обновить базу данных продуктов',
 		sv : 'Återuppbygg livsmedelsdatabasen',
-		tr : 'Gıda veritabanı geri yükleme',
+		tr : 'Gıda veritabanını yeniden oluştur',
 		zh : '重建食物数据库',
 		zt : '重建食物資料庫'
 	},
@@ -4372,7 +4372,7 @@ var LANG = {
 		ro : 'Aplicatia a fost actualizat.',
 		ru : 'Приложение было обновлено.',
 		sv : 'Appen har uppdaterats.',
-		tr : 'Uygulaması güncellendi.',
+		tr : 'Uygulama güncellendi.',
 		zh : '应用程序已更新。',
 		zt : '應用程式已更新。'
 	},
@@ -4399,7 +4399,7 @@ var LANG = {
 		ro : 'Aplicați actualizarea acum?',
 		ru : 'Хотите перезапустить прямо сейчас?',
 		sv : 'Vill du starta om den nu?',
-		tr : 'Güncelleştirmeyi şimdi uygulamak ister misiniz?',
+		tr : 'Şimdi yeniden başlatmak ister misiniz?',
 		zh : '您现在重新启动吗？',
 		zt : '您現在重新開機嗎？'
 	},
@@ -4426,7 +4426,7 @@ var LANG = {
 		ro : 'Descărcați în curs',
 		ru : 'Скачивание обновления',
 		sv : 'Laddar ner uppdatering',
-		tr : 'Güncelleme indiriliyor',
+		tr : 'Güncelleştirme indiriliyor',
 		zh : '正在下载更新',
 		zt : '正在下載更新'
 	},
@@ -4453,7 +4453,7 @@ var LANG = {
 		ro : 'Actualizat',
 		ru : 'Актуальное состояние',
 		sv : 'Uppdaterad',
-		tr : 'Güncellendi',
+		tr : 'Güncel',
 		zh : '最新',
 		zt : '最新'
 	},
@@ -4507,7 +4507,7 @@ var LANG = {
 		ro : 'Descarca corupt sau incomplet',
 		ru : 'Поврежденные или неполной загрузки',
 		sv : 'Skadad eller ofullständig nedladdning',
-		tr : 'Bozuk veya eksik indir',
+		tr : 'Bozuk veya eksik indirme',
 		zh : '损坏或不完整的下载',
 		zt : '損壞或不完整的下載'
 	},
@@ -4723,7 +4723,7 @@ var LANG = {
 		ro : 'Activitatea dumneavoastră',
 		ru : 'Уровень активности',
 		sv : 'Aktivitetsnivå',
-		tr : 'Aktiviteniz',
+		tr : 'Aktivite Seviyeniz',
 		zh : '您的活动状态',
 		zt : '您的活動狀態'
 	},
@@ -4858,7 +4858,7 @@ var LANG = {
 		ro : 'Păstra greutatea curent:',
 		ru : 'Сохранить текущий вес:',
 		sv : 'Bibehåll nuvarande vikt:',
-		tr : 'Mevcut ağırlığı tutun:',
+		tr : 'Mevcut ağırlığı koruyun:',
 		zh : '保持当前体重：',
 		zt : '保持當前體重：'
 	},
@@ -4885,7 +4885,7 @@ var LANG = {
 		ro : 'Pierde in greutate:',
 		ru : 'Сбросить вес:',
 		sv : 'Gå ner i vikt:',
-		tr : 'Kilo verid :',
+		tr : 'Kilo ver:',
 		zh : '减重：',
 		zt : '減重：'
 	},
@@ -4912,7 +4912,7 @@ var LANG = {
 		ro : 'Creștere în greutate:',
 		ru : 'Набрать вес:',
 		sv : 'Gå upp i vikt:',
-		tr : 'Kilo artışı:',
+		tr : 'Kilo al:',
 		zh : '增重：',
 		zt : '增重：'
 	},
@@ -4966,7 +4966,7 @@ var LANG = {
 		ro : 'Acordă notă pentru KCals',
 		ru : 'Оценить KCals',
 		sv : 'Betygsätt KCals',
-		tr : 'KCals Oylayın',
+		tr : 'KCals uygulamasını değerlendirin',
 		zh : '评价 KCals',
 		zt : '評價 KCals'
 	},
@@ -4993,7 +4993,7 @@ var LANG = {
 		ro : 'Dacă vă place KCals, susține ne cu un rating pozitiv!',
 		ru : 'Если вам нравится KCals, поддержите нас, оставив положительный отзыв!',
 		sv : 'Om du gillar att använda KCals får du gärna stödja oss med ett positivt betyg!',
-		tr : 'Eğer KCals kullanmaktan zevk varsa, olumlu bir değerlendirme ile bize destek!',
+		tr : 'Eğer KCals uygulamasını sevdiyseniz, olumlu bir yorum yaparak bizi destekleyebilirsiniz!',
 		zh : '如果您喜欢 KCals，请积极评价，以支持我们！',
 		zt : '如果您喜歡 KCals，請積極評價，以支援我們！'
 	},
@@ -5020,7 +5020,7 @@ var LANG = {
 		ro : 'Acordă notă pentru KCals',
 		ru : 'Оценить KCals',
 		sv : 'Betygsätt KCals',
-		tr : 'Evet KCals oylamak istiyorum',
+		tr : 'KCals uygulamasını değerlendir',
 		zh : '评价 KCals',
 		zt : '評價 KCals'
 	},
@@ -5047,7 +5047,7 @@ var LANG = {
 		ro : 'Nu, mulțumesc',
 		ru : 'Нет, спасибо',
 		sv : 'Nej tack',
-		tr : 'Hayır, Teşekkürler',
+		tr : 'Hayır, teşekkürler',
 		zh : '不，谢谢',
 		zt : '不，謝謝'
 	},
@@ -5128,7 +5128,7 @@ var LANG = {
 		ro : 'compensate',
 		ru : 'компенсированные',
 		sv : 'kompenserade',
-		tr : 'telafi',
+		tr : 'dengeli',
 		zh : '补偿',
 		zt : '補償'
 	},
@@ -5155,7 +5155,7 @@ var LANG = {
 		ro : 'non-compensate',
 		ru : 'не компенсированные',
 		sv : 'icke-kompenserade',
-		tr : 'sigara telafi',
+		tr : 'dengesiz',
 		zh : '非补偿',
 		zt : '非補償'
 	},
@@ -5820,17 +5820,17 @@ var LANG = {
 			'1500' : 'Balık ve deniz mahsulleri',
 			'1600' : 'Baklagiller',
 			'1700' : 'Kuzu, dana ve diğerleri',
-			'1800' : 'Ekmek ve unlu',
+			'1800' : 'Ekmek ve unlu mamuller',
 			'1900' : 'Tatlılar',
 			'2000' : 'Makarna, pirinç ve tahıllar',
-			'2100' : 'Hızlı gıdalar',
+			'2100' : 'Hazır gıdalar',
 			'2200' : 'Yemekler',
-			'2500' : 'Aperatifler',
+			'2500' : 'Atıştırmalıklar',
 			'3500' : 'Yerel gıda',
 			'3600' : 'Restoranlar',
 			'9999' : 'Çeşitli',
 			'0000' : 'Egzersizler',
-			'0100' : 'Süt (süt, peynir, yumurta)',
+			'0100' : 'Süt ürünleri (süt, peynir, yumurta)',
 			'0200' : 'Otlar ve Baharatlar',
 			'0300' : 'Bebek maması',
 			'0400' : 'Sıvı ve katı yağlar',
