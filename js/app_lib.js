@@ -2,9 +2,23 @@
 //#////////////#//
 //# APP OBJECT #//
 //#////////////#//
+//MULTIUSER
+// checar a autenticacao com o facebook
+// menu dropdown e de add
+// criar base de dados permanente com todos usuários
+// welcome "username"
+// user time(uid) to check current user
+//////////////
+// SET USER //
+//////////////
+if(!window.localStorage.getItem('app_current_user')) {
+	window.localStorage.setItem('app_current_user','mud_default###default###' + new Date().getTime());
+};
+
 var app = {
 	width: window.innerWidth,
 	height: window.innerHeight,
+	user: (window.localStorage.getItem('app_current_user')).split('###'),
 	globals: {},
 	handlers: {},
 	timers: {},
@@ -35,6 +49,14 @@ var app = {
 		return new Date().getTime();
 	},
 	define: function(key,value) {
+		//MULTIUSER
+		if(!/mud_default/i.test(app.user)) {
+			//protect superglobals
+			if(!/remoteSuperBlock|autoupdate|app_build|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/.test(key)) {
+				key = app.user[0] + '_' + key;
+			}
+		}
+		//
 		if(!window.localStorage.getItem(key)) {
 			window.localStorage.setItem(key,value);
 			return false;
@@ -54,6 +76,14 @@ var app = {
 		}
 	},
 	read: function(key,value,type) {
+		//MULTIUSER
+		if(!/mud_default/i.test(app.user)) {
+			//protect superglobals
+			if(!/remoteSuperBlock|autoupdate|app_build|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/i.test(key)) {
+				key = app.user[0] + '_' + key;
+			}
+		}
+		//
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
 			if(typeof localforageDB !== 'undefined') {
@@ -72,15 +102,24 @@ var app = {
 			return;
 		}
 		//
+		//OBJECT
 		if(type == 'object') {
 			if(!window.localStorage.getItem(key)) {
 				return [];
 			}
-			var value = window.localStorage.getItem(key);
-			return value && JSON.parse(value);
+			var keyValue = window.localStorage.getItem(key);
+			if(value == '') {
+				//return whole object
+				return JSON.parse(keyValue);
+				//return keyValue && JSON.parse(keyValue);
+			} else {
+				//return key's value
+				return JSON.parse(keyValue)[value];
+				//return keyValue[value] && JSON.parse(keyValue)[value];
+			}
 		}
 		//
-		if(typeof value !== 'undefined') {
+		if(typeof value != 'undefined') {
 			if(window.localStorage.getItem(key) == value) {
 				return true;
 			} else {
@@ -98,6 +137,14 @@ var app = {
 		}
 	},
 	save: function(key,value,type) {
+		//MULTIUSER
+		if(!/mud_default/i.test(app.user)) {
+			//protect superglobals
+			if(!/remoteSuperBlock|autoupdate|app_build|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/i.test(key)) {
+				key = app.user[0] + '_' + key;
+			}
+		}
+		//
 		//localforage wrapper
 		if(/diary_entry|diary_food/.test(key)) {
 			app.returner(type,value);
@@ -106,7 +153,7 @@ var app = {
 			});
 			return;
 		}
-		//
+		//OBJECT
 		if(type == 'object') {
 			if(value) {
 				window.localStorage.setItem(key,JSON.stringify(value));
@@ -119,23 +166,37 @@ var app = {
 		}
 	},
 	remove: function(key) {
+		//MULTIUSER
+		if(!/mud_default/i.test(app.user)) {
+			//protect superglobals
+			if(!/remoteSuperBlock|autoupdate|app_build|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/i.test(key)) {
+				key = app.user[0] + '_' + key;
+			}
+		}
+		//
 		if(window.localStorage.getItem(key)) {
 			window.localStorage.removeItem(key);
 		}
 	},
-	clear: function() {
-		app.define('config_install_time',app.now());
+	clear : function () {
+		app.define('config_install_time', app.now());
 		var keys = Object.keys(window.localStorage);
-		for (var i=0; i < keys.length; i++) {
+		for (var i = 0; i < keys.length; i++) {
 			//cached keys
-			if(!(/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/).test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
+			if (!(/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i).test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
 				//protected keys
-				if(!(/config_install_time|debug|been_dev|config_autoupdate/).test(keys[i])) {
-					window.localStorage.removeItem(keys[i]);
+				if(!/autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/i.test(key)) {
+					//remove current user settings
+					if (keys[i].contains(app.user[0])) {
+						window.localStorage.removeItem(keys[i]);
+					}
+					//remove default user settings
+					if(app.user.id === 'mud_default' && !keys[i].contains(app.user.id)) {
+						window.localStorage.removeItem(keys[i]);
+					}
 				}
 			}
 		}
-		//window.localStorage.clear();
 	},
 	show: function(target,callback) {
 		$(target).css('pointer-events','auto');
@@ -177,9 +238,43 @@ var app = {
 	}
 };
 /////////////////
+// SWITCH USER //
+/////////////////
+app.switchUser = function(switchTo) {
+	if(switchTo) {
+		var newUserLine = 'mui_' + searchalize(switchTo) + '###' + switchTo + '###' + app.now() + '\r\n';
+		//first use
+		if(!app.read('app_userlist')) {
+			app.save('app_userlist',newUserLine)
+			app.save('app_current_user',newUserLine);
+		} else {
+			if(app.read('app_userlist').contains(switchTo)) {
+				//add new user line
+				var userArray = app.read('app_userlist').split('\r\n');
+				for (var i = 0; i < userArray.length; i++) {
+					if(userArray[i].contains(switchTo)) {
+						app.save('app_current_user',trim(userArray[i]));
+						break;
+					}
+				}
+			} else {
+				app.save('app_userlist',app.read('app_userlist') + newUserLine)
+				app.save('app_current_user',trim(newUserLine));
+			}
+		}
+		//	
+		$('body').css('opacity',0);
+		noTimer = 'active';
+		setTimeout(function() {
+			window.location.reload(true);
+		},0);
+	}
+};
+/////////////////
 // SWIPE EVENT //
 /////////////////
 app.swipe = function (elem, callback) {
+	//$(elem).swipe('destroy');
 	$(elem).swipe({
 		swipe : function (evt, direction) {
 			if (direction == 'left' || direction == 'right') {
@@ -197,6 +292,7 @@ app.swipe = function (elem, callback) {
 // TAP EVENT //
 ///////////////
 app.tap = function (elem, callback) {
+	//$(elem).swipe('destroy');
 	$(elem).swipe({
 		tap : function(evt) {
 			if (typeof callback === 'function') {
@@ -1888,9 +1984,9 @@ function unzip(s) {
     }
     return out.join("");
 }
-//##//////////////##//
-//## APP.ALERT(); ##//
-//##//////////////##//
+//##/////////////##//
+//## APP.ALERT() ##//
+//##/////////////##//
 window.azert = window.alert;
 window.alert = {};
 window.alert = function (title, msg, button, callback) {
@@ -1910,6 +2006,31 @@ window.alert = function (title, msg, button, callback) {
 		}, 0);
 	}
 };
+//##//////////////##//
+//## APP.PROMPT() ##//
+//##//////////////##// prompt: function(message, resultCallback, title, buttonLabels, defaultText) {
+app.prompt = function(title,content,callback) {
+	var usrPrompt = window.prompt(title,content);
+	if(usrPrompt !== null) {
+		callback(usrPrompt);
+	}
+};
+/*window.navigator.notification.prompt(
+    new String(), // message
+    function(answer) {
+        if (answer.buttonIndex === 1) {
+            // Ok
+            var newcat = answer.input1;
+            transaction.executeSql("INSERT INTO cat (Name) VALUES (?)", [newcat]);
+        }
+        else {
+            // Exit
+        }
+    }, // callback
+    "ADD CATEGORY", //title
+    ["Ok", "Exit"], // button titles
+    new String() // defaultText
+);*/
 //##///////////////////##//
 //## APP CONFIRM LAYER ##//
 //##///////////////////##// appConfirm(title, msg, callback, LANG.OK[lang], LANG.CANCEL[lang]);

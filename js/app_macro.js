@@ -1572,23 +1572,23 @@ function buildAdvancedMenu() {
 			}
 		}
 		appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
-		return false;
 	});
 	//////////////////
 	// read changes //
 	//////////////////
-	var buildRemoteTimer;
 	$('#appAutoUpdateToggle').on('change',function(evt) {
-		if($(this).prop('checked') == true) {
+		if($('#appAutoUpdateToggle').prop('checked') == true) {
 			app.save('config_autoupdate','on');
-			clearTimeout(buildRemoteTimer);
-			buildRemoteTimer = setTimeout(function() {
-				buildRemoteSuperBlock('cached');
-			},2000);
+			app.timeout('AutoUpdateToggle',2000,function() {
+				if(app.read('config_autoupdate','on')) {
+					buildRemoteSuperBlock('cached');
+				}
+			});
 		} else {
 			$('body').removeClass('loading');
 			$('body').removeClass('uptodate');
 			$('body').removeClass('pending');
+			$('body').removeClass('corrupted');
 			app.save('config_autoupdate','off');
 		}
 	});
@@ -1611,6 +1611,7 @@ function getCategory(catId, callback) {
 	// RECENT //
 	////////////
 	if (catId == '0001') {
+		//var recentArray = app.read('app_recent_items');
 		var recentArray = app.read('app_recent_items', '', 'object');
 		while (i--) {
 			if (recentArray.length > 0 && app.rows.food[i]) {
@@ -1709,6 +1710,7 @@ function getCatList(callback) {
 				//////////////////////
 				if(catCode == '0001') { 
 					$('#newWindow').removeClass('firstLoad');
+					$('#saveButton').html('');
 					$('#saveButton').addClass('removeAll');
 				}
 				var catLock = 0;
@@ -1790,4 +1792,86 @@ function getCatList(callback) {
 	});
 	},0);
 }
+////////////////
+// USERWINDOW //
+////////////////
+function getUserWindow() {
+	//////////
+	// HTML //
+	//////////
+	var multiUserHtml = '<li id="mud_default">' + LANG.DEFAULT_USER[lang] + '</li>';
+	//ADD
+	if(app.read('app_userlist')) {
+		//add new user line
+		var userArray = app.read('app_userlist').split('\r\n');
+		for (var i = 0; i < userArray.length; i++) {
+			if(userArray[i]) {
+				var usrId   = trim((userArray[i].split('###'))[0]);
+				var usrName = trim((userArray[i].split('###'))[1]);
+				multiUserHtml = multiUserHtml + '<li id="' + usrId + '">' + usrName + '</li>';
+			}
+		}
+	}
+	//WRAP
+	multiUserHtml = '<div id="userWindow"><ul id="userList">' + multiUserHtml + '</ul></div>';
+	// = '<div id="user0">default user</div> <div id="user1">user 1</div><div id="user2">user 2</div>';
+	//////////////
+	// HANDLERS //
+	//////////////
+	var multiUserHandler = function() {
 
+		//if(catCode == '0001') { 
+			//$('#newWindow').removeClass('firstLoad');
+			$('#saveButton').html('');
+			$('#saveButton').addClass('addNewUser');
+		//} 
+
+		//
+		var usrname = 'default user';
+		
+		$('#user0').on(touchend,function(evt) {
+			evt.preventDefault();
+			usrname = 'default';
+			app.switchUser(usrname);
+		});	
+		$('#user1').on(touchend,function(evt) {
+			evt.preventDefault();
+			usrname = 'Teste 123';
+			app.switchUser(usrname);
+		});		
+		$('#user2').on(touchend,function(evt) {
+			evt.preventDefault();
+			usrname = 'André Cancian';
+			app.switchUser(usrname);
+		});	
+	};
+	/////////////
+	// CONFIRM //
+	/////////////
+	var multiUserConfirm = function() {
+
+	app.prompt("Please enter your name", "Harry Potter",function(input) {
+		//alert(input);
+		app.switchUser(input);
+	});
+   // var person = prompt("Please enter your name", "Harry Potter");
+    //if (person != null) {
+	//	alert(person);
+     //   document.getElementById("demo").innerHTML = "Hello " + person + "! How are you today?";
+   /// }
+
+
+
+		//
+	};
+	////////////
+	// CLOSER //
+	////////////
+	var multiUserCloser = function() {
+		//
+	};
+	/////////////////
+	// CALL WINDOW //
+	/////////////////
+	getNewWindow(LANG.MANAGE_USERS[lang], multiUserHtml, multiUserHandler, multiUserConfirm, multiUserCloser,'','');
+}
