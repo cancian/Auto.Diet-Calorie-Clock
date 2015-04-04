@@ -7,10 +7,18 @@ app.tab.settings = function(keepOpen) {
 	<a name="top"></a>\
 	<div id="settingsWrapper">\
 		<ul id="settingsList">\
-			<li id="optionUser"><div><p class="contentTitle">'     + LANG.MANAGE_USERS[lang]         + '<span>' + app.user[1]                     + '</span></p></div></li>\
-			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.BACKUP_AND_SYNC[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang] + '</span></p></div></li>\
-			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]        + '</span></p></div></li>\
-			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]   + '</span></p></div></li>\
+			<li id="optionMeasure">\
+				<div class="contentToggleTitle">\
+					<p class="contentTitle" id="contentToggleTitle">' + LANG.MEASURE_SYSTEM[lang] + '<span>' + LANG.MEASURE_SYSTEM_INFO[lang] + '</span></p>\
+					<div id="tapSwitch">\
+						<div id="leftOption"><span>'  + LANG.IMPERIAL[lang] + ' </span></div>\
+						<div id="rightOption"><span>' + LANG.METRIC[lang]   + ' </span></div>\
+					</div>\
+				</div>\
+			</li>\
+			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.BACKUP_AND_SYNC[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
+			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
+			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite"><span>' + appName + "</span> for " + app.get.platform() + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
@@ -158,15 +166,60 @@ app.tab.settings = function(keepOpen) {
 	$('#optionAdvanced').on(touchend + ' mouseout',function(evt) {
 		$('#optionAdvanced').removeClass('activeRow');
 	});
-	////////////////
-	// optionUser //
-	////////////////
-	$('#optionUser').on(touchend,function(evt) {
-		$(this).addClass('activeRow');
+	///////////////////////////
+	// SETTINGS: UNIT TOGGLE //
+	///////////////////////////
+	$('#optionMeasure').on(touchstart,function(evt) {
 		evt.preventDefault();
-		getUserWindow();
-		return false;
-	});		
+	});	
+	$('#leftOption').on(touchstart,function(evt){
+		evt.preventDefault();
+		evt.stopPropagation();
+		$('#leftOption').addClass('toggle');
+		$('#rightOption').removeClass('toggle');
+		//AUTO CONVERT
+		if(!app.read('config_measurement','imperial')) {
+			app.save('calcForm#pA3B',Math.round(app.read('calcForm#pA3B')/0.454));
+			var calcInches = app.read('calcForm#inches')/2.54;
+			var calcFeet   = 0;
+			while(calcInches >= 12) {
+				calcInches = calcInches-12;
+				calcFeet   = calcFeet+1;
+			}
+			app.save('calcForm#feet',calcFeet);
+			app.save('calcForm#inches',Math.round(calcInches));
+		}
+		app.save('config_measurement','imperial');
+		app.save('calcForm#pA2C','inches');
+		app.save('calcForm#pA3C','pounds');
+		app.save('calcForm#pA6H','pounds');
+		app.save('calcForm#pA6N','pounds');
+		setPush();
+	});
+	$('#rightOption').on(touchstart,function(evt){
+		evt.preventDefault();
+		evt.stopPropagation();
+		$('#rightOption').addClass('toggle');
+		$('#leftOption').removeClass('toggle');
+		//AUTO CONVERT
+		if(!app.read('config_measurement','metric')) {
+			app.save('calcForm#pA3B',Math.round(app.read('calcForm#pA3B')*0.454));
+			app.save('calcForm#inches',Math.round(((app.read('calcForm#feet')*12) + app.read('calcForm#inches')) * 2.54));
+			app.save('calcForm#feet','0');
+		}
+		app.save('config_measurement','metric');
+		app.save('calcForm#pA2C','centimetres');
+		app.save('calcForm#pA3C','kilograms');
+		app.save('calcForm#pA6H','kilograms');
+		app.save('calcForm#pA6N','kilograms');
+		setPush();
+	});
+	//read stored
+	if(app.read('config_measurement','metric')) {
+		$('#rightOption').addClass('toggle');
+	} else {
+		$('#leftOption').addClass('toggle');
+	}
 };
 /*#######################################
 ####    HTML BUILDS ~ OPEN STATUS    ####

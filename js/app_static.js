@@ -25,17 +25,11 @@ $(document).ready(function() {
 		}
 		//
 		try {
-			//DATABASE SUFFIX
-			var UserDB = 'KCals';
-			if(!/mud_default/i.test(app.user)) {
-				UserDB = UserDB + '_' + app.user[0];
-			}
-			//load db
 			if(typeof localforageDB !== 'undefined') {
-				localforage.config({driver: dbDriver, name: 'localforage', storeName: UserDB});
+				localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
 				initDB();
 			} else {
-				localforage.config({name: 'localforage', storeName: UserDB});
+				localforage.config({name: 'localforage', storeName: 'KCals'});
 				localforage.setDriver(dbDriver).then(function() {
 					initDB();
 				});
@@ -112,12 +106,9 @@ setTimeout(function() {
 // MARK BOOT SUCCESS //
 ///////////////////////
 setTimeout(function() {
-	app.remove('consecutive_reboots');
-},2000);
-//
-setTimeout(function() {
 	updateLoginStatus(1);
 	app.analytics('start');
+	app.remove('consecutive_reboots');
 	clearTimeout(app.timers.resume);
 },5000);
 ////////////////

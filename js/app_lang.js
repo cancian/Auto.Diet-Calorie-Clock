@@ -109,7 +109,7 @@ var LANG = {
 		zh : '',
 		zt : ''
 	},
-	DEFAULT_USER : {
+	CURRENT_USER : {
 		en : 'Default user',
 		pt : 'Usuário padrão',
 		ar : '',
@@ -144,18 +144,18 @@ var LANG = {
 		cs : 'cs', //REV
 		da : 'da', //REV
 		de : 'de', //REV
-		el : 'el', //REV
+		el : 'el', //~~
 		es : 'es', //
-		fi : 'fi', //~~
+		fi : 'fi', //
 		fr : 'fr', //REV
 		hu : 'hu', //
-		it : 'it', //REV
+		it : 'it', //~~
 		id : 'id', //
 		ja : 'ja', //
 		ko : 'ko', //
 		nl : 'nl', //REV
 		nb : 'nb', //REV
-		pl : 'pl', //REV
+		pl : 'pl', //~~
 		ro : 'ro', //
 		ru : 'ru', //REV
 		sv : 'sv', //REV
