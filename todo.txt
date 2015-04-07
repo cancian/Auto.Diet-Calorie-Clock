@@ -1,8 +1,7 @@
-﻿
-###############
+﻿###############
 ## APP TO DO ##
 ###############
--- multiuser
+-- Support for multiple user profiles
 -- sugestao form
 -- database source, sr26,
 -- it is store offline storage

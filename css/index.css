@@ -105,7 +105,12 @@ body.ios #timerKcals span		{ font-weight: 600; }
 #timerDaily						{ position: absolute; bottom: 0px; top: 0px; right: 0px; width: 84px; }
 #timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space: nowrap; color: rgba(255,255,255,.8); font-weight: 600; }
 body.ios #timerDaily span		{ font-weight: 400; }
+body.appLang-ru #timerDaily,
+body.appLang-nl #timerDaily		{ right: 6px;  }
 body.appLang-fr #timerDaily		{ right: 12px; }
+body.appLang-ru #timerDaily span,
+body.appLang-it #timerDaily span,
+body.appLang-nl #timerDaily span,
 body.appLang-fr #timerDaily span,
 body.appLang-el #timerDaily span{ font-size: 7px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 9999; }

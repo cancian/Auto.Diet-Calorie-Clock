@@ -2,7 +2,6 @@
 ## VERSION LOG ##
 #################
 # 1.9.2 [2015/03/19]
-• Support for multiple user profiles
 • Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek
 
 # 1.9 [2015/01/31]
