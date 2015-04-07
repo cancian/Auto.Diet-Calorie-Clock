@@ -190,7 +190,9 @@ var app = {
 			//cached keys
 			if (!(/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i).test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
 				//protected keys
-				if(!/autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/i.test(key)) {
+				if(!/autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/i.test(keys[i])) {
+					//MULTIUSER
+					/*
 					//remove current user settings
 					if (keys[i].contains(app.user[0])) {
 						window.localStorage.removeItem(keys[i]);
@@ -199,6 +201,8 @@ var app = {
 					if(app.user.id === 'mud_default' && !keys[i].contains(app.user.id)) {
 						window.localStorage.removeItem(keys[i]);
 					}
+					*/
+					window.localStorage.removeItem(keys[i]);
 				}
 			}
 		}

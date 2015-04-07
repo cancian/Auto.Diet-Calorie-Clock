@@ -1,7 +1,7 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# 1.9.2 [2015/03/19]
+# 1.9.3 [2015/04/07]
 • Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek
 
 # 1.9 [2015/01/31]
