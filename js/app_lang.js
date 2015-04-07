@@ -1,5 +1,5 @@
 ﻿var appName = 'KCals';
-var appVersion = '1.9.2 (19200)';
+var appVersion = '1.9.3 (19300)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|zh|zt/;
@@ -109,7 +109,7 @@ var LANG = {
 		zh : '',
 		zt : ''
 	},
-	CURRENT_USER : {
+	DEFAULT_USER : {
 		en : 'Default user',
 		pt : 'Usuário padrão',
 		ar : '',
@@ -144,24 +144,24 @@ var LANG = {
 		cs : 'cs', //REV
 		da : 'da', //REV
 		de : 'de', //REV
-		el : 'el', //~~
+		el : 'el', //REV
 		es : 'es', //
-		fi : 'fi', //
+		fi : 'fi', //~~
 		fr : 'fr', //REV
 		hu : 'hu', //
-		it : 'it', //~~
+		it : 'it', //REV
 		id : 'id', //
 		ja : 'ja', //
 		ko : 'ko', //
 		nl : 'nl', //REV
 		nb : 'nb', //REV
-		pl : 'pl', //~~
+		pl : 'pl', //REV
 		ro : 'ro', //
 		ru : 'ru', //REV
 		sv : 'sv', //REV
 		tr : 'tr', //REV
 		zh : 'zh', //REV
-		zt : 'zt'  //REV
+		zt : 'zt'
 	},
 	CALORIE_COUNTER_FULL_TITLE : {
 		en : 'KCals Calorie Counter',
@@ -454,6 +454,7 @@ var LANG = {
 		'nb' : 'Bruk glidebryteren til å legge til matvarer og øvelser du allerede kjenner til.',
 		'pl' : 'Za pomocą suwaka można szybko dodawać pokarmy i ćwiczenia.',
 		'ro' : 'Utilizaţi glisorul pentru a adăuga rapid alimente şi exerciţii ştiţi deja.',
+
 		'ru' : 'Используйте ползунок, чтобы быстро добавить известные продукты или упражнения.',
 		'sv' : 'Använd reglaget för att snabbt lägga till livsmedel och träningsformer som du redan känner till.',
 		'tr' : 'Bilinen gıdalar veya çalışmaları hızla eklemek için kaydırıcıyı kullanın.',
@@ -602,7 +603,7 @@ var LANG = {
 		bg : 'Идеята е проста. Определете си цел (дневни калории) поддържайте Баланс за постигането на тази цел. Приложението ще показва кога сте превишили с приема на храна (излишък), или сте приели твърде малко (дефицит).',
 		cs : 'Princip je jednoduchý. Definujte si cíl (denní spotřebu kalorií) a v kontextu tohoto cíle se udržujte v rovnováze. Tato aplikace vám ukáže, kdy jste jedli příliš mnoho (nadbytek) nebo příliš málo (nedostatek).',
 		da : 'Idéen er enkel. Fastsæt et mål (daglige kalorier) og hold balancen med hensyn til dette mål. Appen angiver, når du har spist for meget (overskud) eller for lidt (underskud).',
-		de : 'Die Idee ist einfach. Definieren Sie ein Ziel (tägliche Kalorienzufuhr) und bleiben Sie im Bereich dieses Ziels. Die App zeigt Ihnen an, wenn Sie zu viel (Überschuss) oder zu wenig (Defizit) zu sich genommen haben.',
+		de : 'Die Idee ist einfach. Definieren Sie ein Ziel (tägliche Kalorienzufuhr) und bleiben Sie im Bereich dieses Ziels. Die App zeigt Ihnen an, wenn Sie zu viel (Überschuss) oder zu wenig (Defizit) zu sich genommen haben.',
 		el : 'Η ιδέα είναι απλή. Ορίστε ένα στόχο (ημερήσιων θερμίδων) και κρατήστε τον εαυτό σας ισορροπημένο στο πλαίσιο αυτού του στόχου. Η εφαρμογή θα υποδείξει πότε έχετε φάει πάρα πολύ (πλεόνασμα), ή πολύ λίγο (έλλειμμα).',
 		es : 'La idea es simple. Establezca una meta (calorías diarias) y seguir siendo “equilibrado” dentro de ese objetivo. La aplicación le indicará cuando usted come demasiado (exceso) o muy poco (déficit).',
 		fi : 'Idea on yksinkertainen. Määritä tavoite (päivittäiset kalorit) ja pidä itsesi tasapainossa tässä tavoitteessa. Sovellus ilmoittaa, kun olet syönyt liikaa (ylimäärä) tai liian vähän (alijäämä).',
@@ -3657,7 +3658,7 @@ var LANG = {
 		el : 'Θέλετε να τον ξεκινήσετε τώρα;',
 		es : '¿Le gustaría empezar ahora?',
 		fi : 'Haluatko käynnistää sen nyt?',
-		fr : 'Voulez-vous le lancer maintenant ?',
+		fr : 'Voulez-vous le lancer maintenant ?',
 		hu : 'Szeretne kezdeni most?',
 		it : 'Desideri avviarlo adesso?',
 		id : 'Anda ingin memulainya sekarang?',
@@ -4765,7 +4766,7 @@ var LANG = {
 		el : 'Ελαφρώς Δραστήρια ζωή: Κάθεστε κάποιες φορές (καθηγητής, πωλητής)',
 		es : 'Ligeramente activo: se sienta de vez en cuando (profesor, vendedor)',
 		fi : 'Kevyesti Active: Joskus istuu (opettaja, myyntimies)',
-		fr : 'Moyennement actif : parfois assis (enseignant, vendeur)',
+		fr : 'Moyennement actif : parfois assis (enseignant, vendeur)',
 		hu : 'Enyhén Aktív: Néha ül (tanár, eladó)',
 		it : 'Parzialmente attivo: Di tanto in tanto si siede (insegnante, venditore)',
 		id : 'Lumayan Aktif: Kadang duduk (guru, penjual)',
@@ -4792,7 +4793,7 @@ var LANG = {
 		el : 'Δραστήρια ζωή: Περπατάτε ως επί το πλείστον (σερβιτόρος, ταχυδρόμος)',
 		es : 'Activo: camina la mayor parte del tiempo (camarera, cartero)',
 		fi : 'Aktiivinen: Kävely suurimman osan ajasta (tarjoilija, postinkantaja)',
-		fr : 'Actif : en mouvement la plupart du temps (serveur, facteur)',
+		fr : 'Actif : en mouvement la plupart du temps (serveur, facteur)',
 		hu : 'Aktív: Séta az idő nagy részében (pincérnő, postás)',
 		it : 'Attivo: In movimento la maggior parte del tempo (cameriera, postino)',
 		id : 'Aktif: Selalu berjalan (pelayan, tukang surat)',
@@ -5772,6 +5773,7 @@ var LANG = {
 			'3600' : 'Рестораны',
 			'9999' : 'Разное',
 			'0000' : 'Упражнения',
+
 			'0100' : 'Молочные продукты (сыр, молоко, яйца)',
 			'0200' : 'Травы и специи',
 			'0300' : 'Детское питание',
@@ -5900,3 +5902,4 @@ var LANG = {
 		}
 	}
 };
+

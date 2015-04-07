@@ -1572,23 +1572,23 @@ function buildAdvancedMenu() {
 			}
 		}
 		appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
-		return false;
 	});
 	//////////////////
 	// read changes //
 	//////////////////
-	var buildRemoteTimer;
 	$('#appAutoUpdateToggle').on('change',function(evt) {
-		if($(this).prop('checked') == true) {
+		if($('#appAutoUpdateToggle').prop('checked') == true) {
 			app.save('config_autoupdate','on');
-			clearTimeout(buildRemoteTimer);
-			buildRemoteTimer = setTimeout(function() {
-				buildRemoteSuperBlock('cached');
-			},2000);
+			app.timeout('AutoUpdateToggle',2000,function() {
+				if(app.read('config_autoupdate','on')) {
+					buildRemoteSuperBlock('cached');
+				}
+			});
 		} else {
 			$('body').removeClass('loading');
 			$('body').removeClass('uptodate');
 			$('body').removeClass('pending');
+			$('body').removeClass('corrupted');
 			app.save('config_autoupdate','off');
 		}
 	});
@@ -1611,6 +1611,7 @@ function getCategory(catId, callback) {
 	// RECENT //
 	////////////
 	if (catId == '0001') {
+		//var recentArray = app.read('app_recent_items');
 		var recentArray = app.read('app_recent_items', '', 'object');
 		while (i--) {
 			if (recentArray.length > 0 && app.rows.food[i]) {
@@ -1709,6 +1710,7 @@ function getCatList(callback) {
 				//////////////////////
 				if(catCode == '0001') { 
 					$('#newWindow').removeClass('firstLoad');
+					$('#saveButton').html('');
 					$('#saveButton').addClass('removeAll');
 				}
 				var catLock = 0;
@@ -1789,5 +1791,65 @@ function getCatList(callback) {
 		}
 	});
 	},0);
+}
+////////////////
+// USERWINDOW //
+////////////////
+function getUserWindow() {
+	//////////
+	// HTML //
+	//////////
+	var defaultUsrSet = (app.user[0] == 'mud_default') ? ' class="preset"' : '';
+	var multiUserHtml = '<li id="mud_default" ' + defaultUsrSet + '>' + LANG.DEFAULT_USER[lang] + '</li>';
+	//ADD
+	if(app.read('app_userlist')) {
+		//add new user line
+		var userArray = app.read('app_userlist').split('\r\n');
+		for (var i = 0; i < userArray.length; i++) {
+			if(userArray[i]) {
+				var usrId   = trim((userArray[i].split('###'))[0]);
+				var usrName = trim((userArray[i].split('###'))[1]);
+				var usrSet  = (app.user[0] === usrId) ? ' class="preset"' : '';
+				multiUserHtml = multiUserHtml + '<li id="' + usrId + '" ' + usrSet + '>' + usrName + '</li>';
+			}
+		}
+	}
+	//WRAP
+	multiUserHtml = '<div id="userWindow"><ul id="userList">' + multiUserHtml + '</ul></div>';
+	//////////////
+	// HANDLERS //
+	//////////////
+	var multiUserHandler = function() {
+		$('#saveButton').html('');
+		$('#saveButton').addClass('addNewUser');
+
+		var usrname = 'default user';
+		
+		app.handlers.activeRow('#userList li','set',function(objId) {
+			if(objId == 'mud_default') {
+				app.switchUser('mud_default');				
+			} else {
+				app.switchUser(trim($('#' + objId).html()));
+			}
+		});
+	};
+	/////////////
+	// CONFIRM //
+	/////////////
+	var multiUserConfirm = function() {
+		app.prompt("Please enter your name", "Harry Potter",function(input) {
+			app.switchUser(input);
+		});
+	};
+	////////////
+	// CLOSER //
+	////////////
+	var multiUserCloser = function() {
+		//
+	};
+	/////////////////
+	// CALL WINDOW //
+	/////////////////
+	getNewWindow(app.user[1], multiUserHtml, multiUserHandler, multiUserConfirm, multiUserCloser,'','');
 }
 

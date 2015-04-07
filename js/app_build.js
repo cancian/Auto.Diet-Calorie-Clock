@@ -31,6 +31,18 @@ app.tab.settings = function(keepOpen) {
 	preTab(keepOpen);
 	$('#appContent').html(settingsHtml);
 	afterTab(keepOpen);
+	////////////////
+	// optionUser //
+	////////////////
+	//<li id="optionUser"><div><p class="contentTitle">'     + LANG.MANAGE_USERS[lang]         + '<span>' + app.user[1]                     + '</span></p></div></li>\
+	/*
+	$('#optionUser').on(touchend,function(evt) {
+		$(this).addClass('activeRow');
+		evt.preventDefault();
+		getUserWindow();
+		return false;
+	});
+	*/
 	///////////////////
 	// last sync tap //
 	///////////////////
