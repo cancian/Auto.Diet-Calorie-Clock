@@ -179,8 +179,8 @@ function initJS() {
 		/////////
 		// CSS //
 		/////////
-		document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/' + JSdev + 'fonts.css" />');
 		document.write('<link rel="stylesheet" type="text/css" id="coreCss"   href="' + hostLocal + 'css/' + JSdev + 'index.css" />');
+		document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/' + JSdev + 'fonts.css" />');
 		////////
 		// JS //
 		////////

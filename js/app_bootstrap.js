@@ -140,9 +140,9 @@ function buildRemoteSuperBlock(opt) {
 	cssLoadCount(7,10);
 	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/' + JSdev + 'app_custom_core.js', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(8,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/' + JSdev + 'fonts.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
-	cssLoadCount(9,10);
 	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/' + JSdev + 'index.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+	cssLoadCount(9,10);	
+	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/' + JSdev + 'fonts.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	cssLoadCount(10,10);
 	/////////////////////
 	// INTEGRITY CHECK //
