@@ -1,7 +1,7 @@
 ﻿///////////////
 // SAFE EXEC //
 ///////////////
-var staticVendor = ''; //'amazon'; //'blackberry';
+var staticVendor = ''; //'amazon';
 var baseVersion  = 1.9;
 var JScompress   = true;
 var JSdev        = (window.localStorage.getItem('config_debug') == 'active' && window.localStorage.getItem('config_autoupdate') != 'on') ? '' : 'min/';
