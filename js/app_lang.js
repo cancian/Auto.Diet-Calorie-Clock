@@ -13,7 +13,7 @@ if (userLang) {
 }
 window.localStorage.setItem('app_build', appBuild);
 /////////////////////
-// DETECT LANGUAGE //
+// DETECT LANGUAGE //f
 /////////////////////
 function filterLocale(locale) {
 	//SAFETY
@@ -85,7 +85,7 @@ var LANG = {
 	MANAGE_USERS : {
 		en : 'Manage users',
 		pt : 'Gerenciar usuários',
-		ar : '',
+		ar : 'إدارة المستخدمين',
 		bg : '',
 		cs : 'Spravovat uživatele',
 		da : '',
@@ -112,7 +112,7 @@ var LANG = {
 	DEFAULT_USER : {
 		en : 'Default user',
 		pt : 'Usuário padrão',
-		ar : '',
+		ar : 'المستخدم الافتراضي',
 		bg : '',
 		cs : 'Výchozí uživatel',
 		da : '',
@@ -139,8 +139,8 @@ var LANG = {
 	LANGUAGE : {
 		en : 'en', //REV
 		pt : 'pt', //REV
-		ar : 'ar', //~~
-		bg : 'bg', //
+		ar : 'ar', //REV
+		bg : 'bg', //^^
 		cs : 'cs', //REV
 		da : 'da', //REV
 		de : 'de', //REV
@@ -148,15 +148,15 @@ var LANG = {
 		es : 'es', //REV
 		fi : 'fi', //~~
 		fr : 'fr', //REV
-		hu : 'hu', //
+		hu : 'hu', //^^
 		it : 'it', //REV
-		id : 'id', //
+		id : 'id', //^^
 		ja : 'ja', //~~
 		ko : 'ko', //~~
 		nl : 'nl', //REV
 		nb : 'nb', //REV
 		pl : 'pl', //REV
-		ro : 'ro', //
+		ro : 'ro', //^^
 		ru : 'ru', //REV
 		sv : 'sv', //REV
 		tr : 'tr', //REV
@@ -301,7 +301,7 @@ var LANG = {
 	AUTO_DETECT : {
 		en : 'Auto Detect',
 		pt : 'Detecção Automática',
-		ar : 'كشف السيارات',
+		ar : 'الكشف التلقائي',
 		bg : 'Автоматично откриване',
 		cs : 'Automaticky detekovat',
 		da : 'Auto-registrering',
@@ -436,7 +436,7 @@ var LANG = {
 	SLIDER_QUICK_ADD : {
 		'en' : 'Use the slider to quickly add known foods and exercises.',
 		'pt' : 'Ao adicionar alimentos e exercícios que você já conhece, é mais rápido usar o slider.',
-		'ar' : 'استخدم شريط التمرير لإضافة بسرعة الأطعمة المعروفة والتدريبات.',
+		'ar' : 'استخدم شريط التمرير لإضافة الأطعمة المعروفة والتدريبات بسرعة.',
 		'bg' : 'Използвайте плъзгача за да добавите бързо познатите храни и упражнения.',
 		'cs' : 'Pomocí posuvníku rychle přidáte předdefinované potraviny a cvičení.',
 		'da' : 'Brug skyderen til hurtigt at tilføje kendte fødevarer og øvelser.',
@@ -464,7 +464,7 @@ var LANG = {
 	TYPE_FOOD : {
 		en : 'Use the quick search, or browse the categories.',
 		pt : 'Use a busca rápida, ou navegue nas categorias.',
-		ar : 'استخدام البحث السريع، أو تصفح الفئات.',
+		ar : 'استخدم البحث السريع، أو تصفح الفئات.',
 		bg : 'Използвайте бързо търсене, или да разглеждате каталога.',
 		cs : 'Použijte rychlé hledání nebo procházejte kategorie.',
 		da : 'Brug hurtigsøgeren eller gennemse kategorier.',
@@ -491,7 +491,7 @@ var LANG = {
 	SWIPE_LEFT : {
 		en : 'Swipe left to edit existing entries.',
 		pt : 'Deslize para a esquerda para editar entradas existentes.',
-		ar : 'انتقاد اليسار إلى تعديل إدخالات القائمة.',
+		ar : 'مرر لليسار لتعديل الإدخالات الحالية.',
 		bg : 'Плъзнете наляво, за да редактирате съществуващи вписвания.',
 		cs : 'Potažením doleva upravíte stávající položky.',
 		da : 'Stryg mod venstre for at redigere eksisterende poster.',
@@ -518,7 +518,7 @@ var LANG = {
 	CLOSE_TO_ZERO : {
 		en : 'Keep the counter close to zero using what you eat.',
 		pt : 'Use o que você come para manter o contador próximo de zero.',
-		ar : 'استخدام ما تأكله للحفاظ على العداد قريبة من الصفر.',
+		ar : 'أبقِ العداد قريبًا من الصفر باستخدام ما تأكله.',
 		bg : 'Използвайте това, което ядем, за да се запази на тезгяха близо до нула.',
 		cs : 'Pomocí toho, co jíte, udržujte počítadlo kalorií blízko nuly.',
 		da : 'Hold tælleren tæt på nul ved hjælp af det du spiser.',
@@ -599,7 +599,7 @@ var LANG = {
 	INTRO_SLIDE_2 : {
 		en : 'The idea is simple. Define a goal (daily calories) and keep yourself Balanced in the context of this goal. The app will indicate when you’ve eaten too much (surplus), or too little (deficit)',
 		pt : 'A ideia é simples. Defina uma meta (calorias por dia) e permaneça “balanceado” dentro dessa meta. O aplicativo indicará quando você come demais (excesso) ou muito pouco (déficit).',
-		ar : 'الفكرة بسيطة. تحديد الكمية (من السعرات الحرارية اليومية) والحفاظ على التوازن في سياق هذه الكمية. التطبيق سينبهك عندما تأكل أكثر من اللازم (فائض)، أو أقل من اللازم (العجز).',
+		ar : 'الفكرة بسيطة. حدد الكمية (من السعرات الحرارية اليومية) وحافظ على التوازن في سياق هذه الكمية. التطبيق سينبهك عندما تأكل أكثر من اللازم (فائض)، أو أقل من اللازم (نقص).',
 		bg : 'Идеята е проста. Определете си цел (дневни калории) поддържайте Баланс за постигането на тази цел. Приложението ще показва кога сте превишили с приема на храна (излишък), или сте приели твърде малко (дефицит).',
 		cs : 'Princip je jednoduchý. Definujte si cíl (denní spotřebu kalorií) a v kontextu tohoto cíle se udržujte v rovnováze. Tato aplikace vám ukáže, kdy jste jedli příliš mnoho (nadbytek) nebo příliš málo (nedostatek).',
 		da : 'Idéen er enkel. Fastsæt et mål (daglige kalorier) og hold balancen med hensyn til dette mål. Appen angiver, når du har spist for meget (overskud) eller for lidt (underskud).',
@@ -653,7 +653,7 @@ var LANG = {
 	INTRO_SLIDE_4 : {
 		en : 'Elapsed time is converted into calories burned. Therefore, your caloric balance will be reduced automatically throughout the day. This simulates your metabolic rate.',
 		pt : 'O tempo transcorrido é convertido em calorias queimadas. Portanto, seu balanço calórico diminuirá passivamente ao longo do dia. Isso simula a sua taxa metabólica.',
-		ar : 'الوقت الذي مر يتم تحويله الى سعرات حرارية تم حرقها. لذلك، سيتم تخفيض السعرات الحرارية تلقائيا على مدار اليوم. هذا يحاكي معدل الأيض الخاصة بك.',
+		ar : 'الوقت الذي مر يتم تحويله الى سعرات حرارية تم حرقها. لذلك، سيتم تخفيض السعرات الحرارية تلقائيا على مدار اليوم. هذا يحاكي معدل الأيض الخاص بك.',
 		bg : 'Изминалото време е превърнато в изгорени калории. След това, Вашият баланс на калориите ще бъде намален автоматично през деня. Това симулира вашия метаболизъм.',
 		cs : 'Uplynulý čas se převádí na spálené kalorie. Proto se bude vaše kalorická rovnováha během dne automaticky snižovat. Tím je simulován váš metabolismus.',
 		da : 'Forløbet tid omregnes til forbrændte kalorier. Din kaloriebalance bliver derfor automatisk reduceret i løbet af dagen. Dette simulerer din stofskiftehastighed.',
@@ -1220,7 +1220,7 @@ var LANG = {
 	MY_ITEMS : {
 		en : 'My items',
 		pt : 'Meus itens',
-		ar : 'سلع بلدي',
+		ar : 'أصنافي',
 		bg : 'Моите храни',
 		cs : 'Moje položky',
 		da : 'Mine emner',
@@ -1301,7 +1301,7 @@ var LANG = {
 	RECENT_ENTRIES : {
 		en : 'Recent entries',
 		pt : 'Entradas recentes',
-		ar : 'إدخالات الأخيرة',
+		ar : 'الإدخالات الأخيرة',
 		bg : 'Последни записи',
 		cs : 'Nejnovější záznamy',
 		da : 'Seneste poster',
@@ -1562,7 +1562,7 @@ var LANG = {
 		nb : 'daglige kalorier',
 		pl : 'kalorie dziennie',
 		ro : 'calorii pe zi',
-		ru : 'ежедневное калорий', //'ежедневное количество калорий',
+		ru : 'калорий / день',
 		sv : 'dagliga kalorier',
 		tr : 'günlük kalori',
 		zh : '每日卡路里',
@@ -1652,7 +1652,7 @@ var LANG = {
 	ELAPSED_TIME : {
 		en : 'elapsed time',
 		pt : 'tempo total',
-		ar : 'الوقت الإجمالي',
+		ar : 'الوقت المنقضي',
 		bg : 'общото време',
 		cs : 'uplynulý čas',
 		da : 'forløbet tid',
@@ -1679,7 +1679,7 @@ var LANG = {
 	RELATIVE_TIME : {
 		en : 'relative time',
 		pt : 'tempo relativo',
-		ar : 'الوقت النسبية',
+		ar : 'الوقت النسبي',
 		bg : 'относително време',
 		cs : 'relativní čas',
 		da : 'relativ tid',
@@ -1787,7 +1787,7 @@ var LANG = {
 	DEFICIT : {
 		en : 'deficit',
 		pt : 'déficit',
-		ar : 'العجز',
+		ar : 'ناقص',
 		bg : 'недостаток',
 		cs : 'deficit',
 		da : 'underskud',
@@ -2462,7 +2462,7 @@ var LANG = {
 	GRAMS : {
 		en : 'grams',
 		pt : 'gramas',
-		ar : 'غرام',
+		ar : 'جرامات',
 		bg : 'грам',
 		cs : 'gramů',
 		da : 'gram',
@@ -2570,7 +2570,7 @@ var LANG = {
 	POUNDS : {
 		en : 'pounds',
 		pt : 'libras',
-		ar : 'جنيه',
+		ar : 'رطل',
 		bg : 'паунда',
 		cs : 'liber',
 		da : 'pund',
@@ -2624,7 +2624,7 @@ var LANG = {
 	PROTEINS : {
 		en : 'Proteins',
 		pt : 'Proteínas',
-		ar : 'بروتينات',
+		ar : 'البروتينات',
 		bg : 'Протеини',
 		cs : 'Bílkoviny',
 		da : 'Proteiner',
@@ -2813,7 +2813,7 @@ var LANG = {
 	TEASPOON : {
 		en : 'teaspoon',
 		pt : 'colher de chá',
-		ar : 'ة صغيرة = 5',
+		ar : 'ملعقة صغيرة',
 		bg : 'чаена лъжичка',
 		cs : 'čajová lžička',
 		da : 'tsk',
@@ -2840,7 +2840,7 @@ var LANG = {
 	TABLESPOON : {
 		en : 'tablespoon',
 		pt : 'colher de sopa',
-		ar : 'ملعقة طعام',
+		ar : 'ملعقة كبيرة',
 		bg : 'супена лъжица',
 		cs : 'polévková lžíce',
 		da : 'spsk',
@@ -3029,7 +3029,7 @@ var LANG = {
 	ALL_DAYS : {
 		en : 'all',
 		pt : 'todos',
-		ar : 'جميع',
+		ar : 'الكل',
 		bg : 'всички',
 		cs : 'všechny',
 		da : 'alle',
@@ -3083,7 +3083,7 @@ var LANG = {
 	TOTAL_ERROR : {
 		en : 'The total must add up to 100%.',
 		pt : 'O total deve somar 100%.',
-		ar : 'مجموع يجب أن تضيف ما يصل الى 100​​٪.',
+		ar : 'يجب أن يصل المجموع إلى 100٪.',
 		bg : 'Общата сума трябва да добавите до 100%.',
 		cs : 'Celkový součet musí být 100 %.',
 		da : 'Den samlede sum skal være 100%.',
@@ -3164,7 +3164,7 @@ var LANG = {
 	CYCLIC_INFO : {
 		en : 'This option allows you to alternate between two different caloric values along a period of four days.Days A, B and C will use the first value, while day D will use the second.',
 		pt : 'Esta opção permite que você alterne entre dois valores calóricos distintos, em ciclos de 4 dias.Os dias (a,b,c) usarão o primeiro valor, enquanto o dia (d) usará o segundo.',
-		ar : 'وهذا الخيار يسمح لك بالتناوب بين قيمتين السعرات الحرارية مختلفة على طول فترة 4 أيام.سوف يوما A، B و C استخدام القيمة الأولى، بينما اليوم D سوف تستخدم الثانية.',
+		ar : 'هذا الخيار يسمح لك بالتناوب بين قيمتين مختلفتين للسعرات الحرارية على طول فترة 4 أيام.الأيامA و B و C سوف تستخدم القيمة الأولى، بينما اليوم D سوف يستخدم الثانية.',
 		bg : 'Тази опция ще ви позволи да се редува между две различни калорични стойности по период от четири дни.Дни А, В и С ще използва първата стойност и ден D ще използва втория.',
 		cs : 'Tato volba umožňuje přepínat mezi dvěma různými kalorickými hodnotami po dobu čtyř dnů. Pro dny A, B a C bude použita první hodnota a pro den D hodnota druhá.',
 		da : 'Denne valgmulighed giver dig mulighed for at skifte mellem to forskellige kalorieværdier over en periode på fire dage. Dagene A, B og C benytter den første værdi, mens dag D benytter den anden.',
@@ -3191,7 +3191,7 @@ var LANG = {
 	CALORIC_THRESHOLD : {
 		en : 'Caloric Threshold',
 		pt : 'Limiar Calórico',
-		ar : 'عتبة السعرات الحرارية',
+		ar : 'حد السعرات الحرارية',
 		bg : 'Калорична Праг',
 		cs : 'Prahová kalorická hodnota',
 		da : 'Kalorietærskel',
@@ -3218,7 +3218,7 @@ var LANG = {
 	LIMIT_INFO : {
 		en : 'The status will change when you reach 50% of the defined value.',
 		pt : 'O status mudará quando você chegar a 50% do valor definido.',
-		ar : 'فإن الحالة تتغير عند الوصول إلى 50٪ من القيمة المحددة.',
+		ar : 'تتغير الحالة عند الوصول إلى 50٪ من القيمة المحددة.',
 		bg : 'На екрана ще се промени, когато достигне 50% от зададената стойност.',
 		cs : 'Po dosažení 50 % nastavené hodnoty se stav změní.',
 		da : 'Status ændres, når du når til 50% af den definerede værdi.',
@@ -3353,7 +3353,7 @@ var LANG = {
 	EDIT : {
 		en : 'Edit',
 		pt : 'Editar',
-		ar : 'تحرير دخول',
+		ar : 'تعديل',
 		bg : 'Редактиране',
 		cs : 'Upravit',
 		da : 'Rediger',
@@ -3461,7 +3461,7 @@ var LANG = {
 	DATA_SYNC_INFO : {
 		en : 'Keep your data safe and synchronized across multiple devices.',
 		pt : 'Mantenha seus dados seguros e sincronizados entre vários dispositivos.',
-		ar : 'إبقاء بياناتك آمنة ومتزامنة عبر وسائل متعددة.',
+		ar : 'أبقِ بياناتك آمنة ومتزامنة عبر أجهزة متعددة.',
 		bg : 'Дръжте вашите данни безопасно и синхронизирани между множество устройства.',
 		cs : 'Udržujte svoje data v bezpečí a synchronizovaná na více zařízeních.',
 		da : 'Opbevar dine data sikkert og synkroniseret på tværs af flere enheder.',
@@ -3569,7 +3569,7 @@ var LANG = {
 	SETTINGS_WIPE : {
 		en : 'Reset settings',
 		pt : 'Apagar configurações',
-		ar : 'حذف تكوينات',
+		ar : 'إعادة ضبط الإعدادات',
 		bg : 'Връщане на всички настройки',
 		cs : 'Obnovit nastavení',
 		da : 'Nulstil indstillingerne',
@@ -3758,7 +3758,7 @@ var LANG = {
 	BLANK_FIELD_TITLE : {
 		en : 'Required fields have been left blank.',
 		pt : 'Campos obrigatórios foram deixados em branco.',
-		ar : 'وقد ترك الحقول المطلوبة فارغا.',
+		ar : 'هناك حقول مطلوبة تُركت فارغة.',
 		bg : 'Задължителните полета са оставени празни.',
 		cs : 'Povinná pole zůstala prázdná.',
 		da : 'Obligatoriske felter er ikke udfyldt.',
@@ -3812,7 +3812,7 @@ var LANG = {
 	CLEAR_ALL_TITLE : {
 		en : 'Clear all entries',
 		pt : 'Limpar todos itens',
-		ar : 'إزالة جميع',
+		ar : 'مسح جميع الإدخالات',
 		bg : 'Изчистване на всички записи',
 		cs : 'Vymazat všechny položky',
 		da : 'Ryd alle poster',
@@ -4028,7 +4028,7 @@ var LANG = {
 	SETTINGS_BACKUP_INFO : {
 		en : 'Keep your data safe and synchronized',
 		pt : 'Mantenha seus dados seguros e sincronizados',
-		ar : 'إبقاء بياناتك آمنة ومتزامنة',
+		ar : 'أبقِ بياناتك آمنة ومتزامنة',
 		bg : 'Дръжте вашите данни безопасно и синхронизирани',
 		cs : 'Udržujte svoje data v bezpečí a synchronizovaná',
 		da : 'Opbevar dine data sikkert og synkroniseret',
@@ -4190,7 +4190,7 @@ var LANG = {
 	SETTINGS_HELP_INFO : {
 		en : 'Topics to help you get started',
 		pt : 'Respostas para dúvidas frequentes',
-		ar : 'إجابات على أسئلة شائعة',
+		ar : 'موضوعات تساعدك على البدء',
 		bg : 'Инструкции за това как да започнете',
 		cs : 'Témata, která vám pomohou začít',
 		da : 'Emner til at hjælpe dig i gang',
@@ -4271,7 +4271,7 @@ var LANG = {
 	CHANGELOG : {
 		en : 'Version History',
 		pt : 'Histórico de versões',
-		ar : 'النسخة التاريخ',
+		ar : 'تاريخ النسخة',
 		bg : 'История на версиите',
 		cs : 'Historie verzí',
 		da : 'Versionshistorik',
@@ -4407,7 +4407,7 @@ var LANG = {
 	DOWNLOADING : {
 		en : 'Downloading update',
 		pt : 'Baixando atualização',
-		ar : 'تحميل في التقدم',
+		ar : 'جارِ تحميل التحديثات',
 		bg : 'Изтегляне в прогрес',
 		cs : 'Stahování aktualizace',
 		da : 'Indlæser opdatering',
@@ -4434,7 +4434,7 @@ var LANG = {
 	UP_TO_DATE : {
 		en : 'Up to date',
 		pt : 'Atualizado',
-		ar : 'ما يصل إلى تاريخ',
+		ar : 'محدّث',
 		bg : 'Актуализиран',
 		cs : 'Aktuální',
 		da : 'Opdateret',
@@ -4488,7 +4488,7 @@ var LANG = {
 	CORRUPTED : {
 		en : 'Corrupted or incomplete download',
 		pt : 'Download corrompido ou incompleto',
-		ar : 'تحميل معطوبة أو غير مكتملة',
+		ar : 'التحميل معطوب أو غير مكتمل',
 		bg : 'Повреден или непълни изтегляне',
 		cs : 'Poškozené nebo neúplné stažení',
 		da : 'Ødelagt eller ufuldstændig indlæsning',
@@ -4596,7 +4596,7 @@ var LANG = {
 	YOUR_GENDER : {
 		en : 'Your gender',
 		pt : 'Gênero',
-		ar : 'جنس',
+		ar : 'النوع',
 		bg : 'Вашият пол',
 		cs : 'Vaše pohlaví',
 		da : 'Dit køn',
@@ -4650,7 +4650,7 @@ var LANG = {
 	YOUR_WEIGHT : {
 		en : 'Your weight',
 		pt : 'Peso',
-		ar : 'وزن',
+		ar : 'وزنك',
 		bg : 'Вашето тегло',
 		cs : 'Vaše hmotnost',
 		da : 'Din vægt',
@@ -4677,7 +4677,7 @@ var LANG = {
 	YOUR_AGE : {
 		en : 'Your age',
 		pt : 'Idade',
-		ar : 'سن',
+		ar : 'عمرك',
 		bg : 'Вашата възраст',
 		cs : 'Váš věk',
 		da : 'Alder',
@@ -4731,7 +4731,7 @@ var LANG = {
 	YOUR_ACTIVITY_OPTION1 : {
 		en : 'Sedentary: Mostly sitting down (desk job, designer)',
 		pt : 'Sedentário: Quase sempre sentado (designer, escritor)',
-		ar : 'عمل يخلو من النشاط: في أغلب الأحيان الجلوس (الوظائف المكتبية، التصميم)',
+		ar : 'عمل يخلو من النشاط: في أغلب الأحيان جالس (وظائف المكتبية، تصميم)',
 		bg : 'Заседнал начин: Предимно в седнало положение (бюро за работа, дизайнер)',
 		cs : 'Sedavá: Většinou vsedě (kancelářská práce, projektant)',
 		da : 'Stillesiddende: mest siddende (skrivebordsjob, designer)',
@@ -4920,7 +4920,7 @@ var LANG = {
 	PER_WEEK : {
 		en : 'per week',
 		pt : 'por semana',
-		ar : 'أسبوع',
+		ar : 'في الأسبوع',
 		bg : 'на седмица',
 		cs : 'za týden',
 		da : 'om ugen',
@@ -4974,7 +4974,7 @@ var LANG = {
 	RATE_MSG : {
 		en : 'If you like using KCals, support us with a positive review!',
 		pt : 'Se você gosta de usar o KCals, contribua com uma avaliação positiva!',
-		ar : 'إذا كنت تحب ككالز، تقديم الدعم لنا باستعراض إيجابي!',
+		ar : 'إذا أعجبك استخدام KCals، فساعدنا عن طريق إعطاء تقييم إيجابي!',
 		bg : 'Ако ви харесва, използвайки KCals, подкрепете ни с положителен рейтинг!',
 		cs : 'PPokud KCals používáte rádi, podpořte nás pozitivním hodnocením!',
 		da : 'Hvis du kan lide at bruge KCals, så støt os med en positiv anmeldelse!',
@@ -5240,25 +5240,25 @@ var LANG = {
 			'1400' : 'المشروبات',
 			'1500' : 'الأسماك والمأكولات البحرية',
 			'1600' : 'البقوليات',
-			'1700' : 'لحم الضأن، ولحم العجل الآخرين',
-			'1800' : 'الخبز والمخابز',
-			'1900' : 'كاندي',
+			'1700' : 'لحم الضأن، ولحم العجل وغيره',
+			'1800' : 'الخبز والمخبوزات',
+			'1900' : 'الحلويات',
 			'2000' : 'المعكرونة والأرز والحبوب',
-			'2100' : 'الأطعمة سريعة',
-			'2200' : 'وجبات الطعام',
+			'2100' : 'الأطعمة السريعة',
+			'2200' : 'الوجبات',
 			'2500' : 'وجبات خفيفة',
-			'3500' : 'الغذاء المحلي',
+			'3500' : 'الأطعمة المحلية',
 			'3600' : 'مطاعم',
 			'9999' : 'متفرقات',
 			'0000' : 'تمارين',
 			'0100' : 'الألبان (الجبن، والحليب، والبيض)',
 			'0200' : 'الأعشاب والتوابل',
-			'0300' : 'طعام للأطفال',
+			'0300' : 'طعام الأطفال',
 			'0400' : 'زيوت ودهون',
 			'0500' : 'الدجاج',
 			'0600' : 'الحساء والصلصات',
 			'0700' : 'النقانق واللحوم المصنعة',
-			'0800' : 'فطور من الحبوب',
+			'0800' : 'حبوب الإفطار',
 			'0900' : 'الفواكه'
 		},
 		bg : {
