@@ -2,6 +2,9 @@
 ####    HTML BUILDS ~ OPEN SETTINGS   ####
 ###################function openSettings*/
 app.tab.settings = function(keepOpen) {
+	//YUI COMPRESSOR
+	var dummyYUI = 'var settingsHtml';
+	
 	//RAW HTML
 	var settingsHtml = '\
 	<a name="top"></a>\
@@ -1800,7 +1803,7 @@ $('#formc select').on(touchend,function(evt) {
 		var gender = app.read('calcForm#pA1B','Male') ? 'Female' : 'Male';
 		app.save('calcForm#pA1B',gender);
 		//GENERIC
-		//feetInchesToMetric();
+		//app.feetInchesToMetric();
 		loadCalcValues();
 		$('#do_recalc').trigger('click');
 		writeCalcValues();
@@ -1816,7 +1819,7 @@ $('#formc select').on(touchend,function(evt) {
 		app.save('calcForm#pA6N','kilograms');
 		//GENERIC
 		loadCalcValues();
-		//feetInchesToMetric();
+		//app.feetInchesToMetric();
 		$('#pA2C').change();
 		$('#do_recalc').trigger('click');
 		writeCalcValues();
@@ -1832,7 +1835,7 @@ $('#formc select').on(touchend,function(evt) {
 		app.save('calcForm#pA6N','pounds');
 		//GENERIC
 		loadCalcValues();
-		feetInchesToMetric();
+		app.feetInchesToMetric();
 		$('#do_recalc').trigger('click');
 		writeCalcValues();
 		setPush();
@@ -1956,7 +1959,11 @@ loadCalcValues();
 //////////////////////
 // SWAP FEET/INCHES //
 //////////////////////
-function feetInchesToMetric() {
+//YUI COMPRESSOR
+app.feetInchesToMetric = function() {
+	//YUI COMPRESSOR
+	var dummyYUI = "function feetInchesToMetric";
+
 	if($('#pA2C').val() == 'centimetres') {
 		$('#feet').removeClass('imperial');
 		$('#inches').removeClass('imperial');
@@ -2004,7 +2011,7 @@ function feetInchesToMetric() {
 	$('#pA2B').change();
 }
 $('#pA2C').on('change',function(evt) {
-	feetInchesToMetric();
+	app.feetInchesToMetric();
 	$('#pA2B').val(  Number($('#inches').val())  );
 	$('#pA2B').change();
 	writeCalcValues();

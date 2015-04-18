@@ -1,9 +1,17 @@
 ﻿#################
 ## VERSION LOG ##
 #################
+# Upcoming&nbspfeatures [0000/00/00]
+• Multi-user support
+• QR/barcode scanner
+• Search engine with customizable max. results: 50/100/500
+• Import local food database when no internet connection is available
+• Adjustable zoom level for larger screens
+
 # 1.9.3 [2015/04/07]
-• Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek
+• Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek, Arabic, Bulgarian, Finnish, Romanian, Hungarian, Japanese, Korean, Indonesian
 • Fixed propagation issue with information boxes
+• Improved code compression algorithm
 
 # 1.9 [2015/01/31]
 • Source code optimization for maximum performance and faster downloads

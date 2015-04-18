@@ -1393,8 +1393,11 @@ function buildAdvancedMenu() {
 			if (logLine.indexOf('##') !== -1 || logLine.length < 4) {
 				//logContent.push('<p>' + logLine + '</p>');
 			} else if (logLine.indexOf('#') !== -1) {
+				//UPCOMING FEATURES
+				var versionStr  = (/Upcoming/i.test(logLine)) ? '' : 'Version ';
+				var releaseDate = (/Upcoming/i.test(logLine)) ? '' : logLine[1].replace('[', '').replace(']', '');
 				logLine = (trim(logLine.replace('#', ''))).split(' ');
-				logContent += '<p>Version ' + logLine[0] + '<span>' + logLine[1].replace('[', '').replace(']', '') + '</span></p>';
+				logContent += '<p>' + versionStr + ' ' + logLine[0] + '<span>' + releaseDate + '</span></p>';
 			} else {
 				if (/--/.test(logLine)) {
 					if (app.dev) {

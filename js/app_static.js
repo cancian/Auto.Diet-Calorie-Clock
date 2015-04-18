@@ -1138,7 +1138,9 @@ if(app.is.scrollable) {
 		$('#timerDailyInput').attr('type','text');
 	}
 	
-	var editableTimeout;
+	//YUI COMPRESSOR
+	var dummyYUI = 'var editableTimeout';
+
 	app.handlers.validate('#timerDailyInput',{minValue: 100, defaultValue: function() { return app.get.kcals('reset'); }},'',function() {
 		if($('#pageSlideFood').html() || $('#newWindow').html()) {
 			$('#timerDailyInput').trigger('focus');
