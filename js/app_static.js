@@ -70,6 +70,8 @@ $(document).on('resume',function() {
 			}
 		},2000);
 	},3000);
+	//BLOCK PIRACY
+	app.piracy();
 });
 ///////////////////////
 // VISIBILITY CHANGE //
@@ -108,15 +110,21 @@ setTimeout(function() {
 		clearTimeout(bodyTimer);
 	}
 	app.remove('app_restart_pending');
-	app.analytics('init'); 
+	app.analytics('init');
 },0);
+//////////////////
+// BLOCK PIRACY //
+//////////////////
+app.piracy();
 ///////////////////////
 // MARK BOOT SUCCESS //
 ///////////////////////
 setTimeout(function() {
 	app.remove('consecutive_reboots');
 },2000);
-//
+//////////////////////
+// TRIGGER SYNC ETC //
+//////////////////////
 setTimeout(function() {
 	updateLoginStatus(1);
 	app.analytics('start');

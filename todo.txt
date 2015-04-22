@@ -1,6 +1,10 @@
 ﻿###############
 ## APP TO DO ##
 ###############
+-- list de softwares usados
+-- chat room
+-- live chat
+-- new features
 -- Support for multiple user profiles
 -- sugestao form
 -- database source, sr26,

@@ -9,7 +9,7 @@
 • Adjustable zoom level for larger screens
 
 # 1.9.3 [2015/04/07]
-• Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek, Arabic, Bulgarian, Finnish, Romanian, Hungarian, Japanese, Korean, Indonesian
+• Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek, Arabic, Bulgarian, Finnish, Romanian, Japanese, Korean, Indonesian, Hungarian
 • Fixed propagation issue with information boxes
 • Improved code compression algorithm
 

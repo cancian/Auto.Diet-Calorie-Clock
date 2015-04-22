@@ -1802,6 +1802,36 @@ if(app.device.windows8) {
 		};
 	})();
 }
+
+//////////////////////
+// BLOCK DEPRECATED //
+//////////////////////
+app.piracy = function () {
+	app.timeout('piracy',500,function () {
+		if (typeof baseVersion === 'undefined' || baseVersion < 1.7) {
+			app.analytics('blocked');
+			appConfirm('Unauthorized copy', 'Please buy the app', function (button) {
+				if (button <= 2) {
+					if (app.device.ios) {
+						app.url('ios');
+					} else if (app.device.amazon) {
+						app.url('amazon');
+					} else if (app.device.blackberry) {
+						app.url('blackberry');
+					} else if (app.device.android) {
+						app.url('android');
+					} else if (app.device.wp8) {
+						app.url('wp8');
+					} else if (app.device.windows8) {
+						app.url('windows8');
+					} else if (app.device.osxapp) {
+						app.url('osxapp');
+					}
+				}
+			}, LANG.OK[lang], LANG.CANCEL[lang]);
+		}
+	}, 500);
+}
 //#////////////////////////#//
 //# Base64 encode / decode #// 
 //#////////////////////////#//
