@@ -1806,11 +1806,15 @@ if(app.device.windows8) {
 //////////////////////
 // BLOCK DEPRECATED //
 //////////////////////
-app.piracy = function () {
+app.piracy = function (force) {
 	app.timeout('piracy',500,function () {
-		if (typeof baseVersion === 'undefined' || baseVersion < 1.7) {
+		if(force == true) {
+			baseVersion = 1.1;
+			app.device.android = true;
+		}
+		if (typeof baseVersion === 'undefined' || baseVersion < 1.9) {
 			app.analytics('blocked');
-			appConfirm('Unauthorized copy', 'Please buy the app', function (button) {
+			appConfirm('Warning! Critical Update!','This version of KCals is built on a version of Apache Cordova that contains security vulnerabilities. Please update now!', function (button) {
 				if (button <= 2) {
 					if (app.device.ios) {
 						app.url('ios');
