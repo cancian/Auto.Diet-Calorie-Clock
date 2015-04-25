@@ -88,22 +88,57 @@ body.over.deficit #appHeader	{ background-color: #D50B09 !important; font-weight
 body.surplus #appHeader,
 body.over.surplus #appHeader	{ background-color: #309030 !important; font-weight: 300; }
 /**/
+
+
+
+
+
 body.error.surplus #appHeader,
-body.error.deficit #appHeader	{ background-color: #000 !important; }
+body.error.deficit #appHeader			{ background-color: #000 !important; }
+
+
+body.error #timerKcalsInput		{ font-size: 28px !important; width: 190px !important; text-shadow: 0 0 1px rgba(255,255,255,.5) !important; overflow: hidden; }
+
+
+body.error.deficit #timerKcalsInput,
+body.error.deficit #timerKcals span,
+body.error.deficit #timerDailyInput,
+body.error.deficit #timerDaily span  { color: #D50B09 !important; text-shadow: 0 0 1px rgba(255,255,255,.5) !important; }
+
+
+body.error.surplus #timerKcalsInput,
+body.error.surplus #timerKcals span,
+body.error.surplus #timerDailyInput,
+body.error.surplus #timerDaily span  { color: #309030 !important; text-shadow: 0 0 1px rgba(255,255,255,.5) !important; }
+
+
+
+
+#appStatusTips { position: fixed; background-color: rgba(255,255,255,.5); left: 21px; display: block; font-size: 11px; line-height: 11px; pointer-events: none; z-index: 5; white-space: nowrap; color: rgba(220,220,220,.8) !important; }
+
+
+body.error #appStatusTips:before	{ }
+body.error.ios7 #appStatusTips	{ top: 15px; }
+
+
+body.error.surplus #appStatusTips:before	{ left: 12px;  }
+
+
+
+
 /*android hacks*/
 body.android #appHeader			{ z-index: 50 !important; }
 /*/////////////////
 // CALORIE CLOCK //
 /////////////////*/
 #timerKcals						{ position: absolute; bottom: 16px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; }
-#timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 32px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(255,255,255,0); -webkit-appearance: none; }
-#timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; color: #fff; font-weight: 600; }
-body.ios #timerKcals span		{ font-weight: 600; }
+#timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 32px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(0,0,0,0); -webkit-appearance: none; z-index: 4; text-shadow: 0 0 1px rgba(0,0,0,.5); }
+#timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; font-weight: 400; padding-top: 2px; color: #fff; background-color: rgba(0,0,0,0); z-index: 5; text-shadow: 0 0 1px rgba(0,0,0,.25); }
 /*//////////////////
 // DAILY CALORIES //
 //////////////////*/
 #timerDaily						{ position: absolute; bottom: 0px; top: 0px; right: 0px; width: 84px; }
-#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space: nowrap; color: rgba(255,255,255,.8); font-weight: 600; }
+#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space: nowrap; color: #fff; font-weight: 600; text-shadow: 0 0 1px rgba(0,0,0,.25); }
 body.ios #timerDaily span		{ font-weight: 400; }
 body.appLang-nl #timerDaily		{ right: 6px;  }
 body.appLang-fr #timerDaily		{ right: 12px; }
@@ -112,8 +147,8 @@ body.appLang-nl #timerDaily span,
 body.appLang-fr #timerDaily span,
 body.appLang-el #timerDaily span{ font-size: 7px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 9999; }
-#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.75); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; }
-#timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: color linear .0s; }
+#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.93); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; text-shadow: 0px 0 1px rgba(0,0,0,.5); }
+#timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: all linear .0s; text-shadow: 0 0 5px rgba(255,255,255,.6) !important; }
 body.newwindow #timerDailyInput,
 body.closer #timerDailyInput	{ pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
 #timerDailyInput.dull			{ color: rgba(255,255,255,.72) !important; pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }

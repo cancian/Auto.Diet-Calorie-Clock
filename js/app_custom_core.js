@@ -34,9 +34,12 @@ function appTimer(content) {
 	var limit1    = app.read('config_limit_1');
 	var limit2    = app.read('config_limit_2');
 	//STATUSES
+/*
          if(kcalsInput >  9999 )   { status = lSurplus;  cssClass = 'surplus'; cssOver = 'over'; kcalsInput =  9999.99; }
 	else if(kcalsInput < -9999 )   { status = lDeficit;  cssClass = 'deficit'; cssOver = 'over'; kcalsInput = -9999.99; }
-	else if(kcalsInput > limit2)   { status = lSurplus;  cssClass = 'surplus'; cssOver = 'over'; }
+	else 
+*/
+		 if(kcalsInput > limit2)   { status = lSurplus;  cssClass = 'surplus'; cssOver = 'over'; }
 	else if(kcalsInput < limit1)   { status = lDeficit;  cssClass = 'deficit'; cssOver = 'over'; }
 	else if(kcalsInput > limit2/2) { status = lSurplus;  cssClass = 'surplus';  }
 	else if(kcalsInput < limit1/2) { status = lDeficit;  cssClass = 'deficit';  }
@@ -103,6 +106,12 @@ function appTimer(content) {
 	}
 	balanceMeter(kcalsInput);
 	getElapsed();
+	/////////////////
+	// STATUS TIPS //
+	/////////////////
+	//if()
+	
+	
 	/////////////////////////////////////
 	// CHECK DAY CHANGE, ADJUST INTAKE //
 	/////////////////////////////////////
