@@ -17,6 +17,7 @@
 • Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek, Arabic, Bulgarian, Finnish, Romanian, Japanese, Korean, Indonesian, Hungarian
 • Fixed propagation issue with information boxes
 • Improved code compression algorithm
+• Minor cosmetic improvements to header fonts
 
 # 1.9 [2015/01/31]
 • Source code optimization for maximum performance and faster downloads

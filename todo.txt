@@ -1,7 +1,8 @@
 ﻿###############
 ## APP TO DO ##
 ###############
--- list de softwares usados
+- tirar blur da intro do ios  osx
+-- list de softwres usados
 -- chat room
 -- live chat
 -- new features
