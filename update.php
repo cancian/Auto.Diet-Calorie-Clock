@@ -5,57 +5,53 @@ header("cache-control: no-cache");
 //////////////////
 // USERS ONLINE //
 //////////////////
-if(!isset($_SESSION)) {
-	session_start();
-}
-//VARS
-$filetxt = 'userdata/_users_online.txt';
-$timeon  = 900;
-$sep     = '^^';
-$vst_id  = '-vst-';
-//GET IP
-$uvon   = isset($_SESSION['nume']) ? $_SESSION['nume'] : $_SERVER['SERVER_ADDR']. $vst_id;
-$rgxvst = '/^([0-9\.]*)'. $vst_id. '/i';
-$nrvst  = 0;
-// SET ROW
-$addrow[] = $uvon. $sep. time();
-// FILEEXISTS
-if(is_writable($filetxt)) {
-	$ar_rows = file($filetxt, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	$nrrows  = count($ar_rows);
-	//if there is at least one line, parse
-	if($nrrows>0) {
-		for($i=0; $i<$nrrows; $i++) {
-			$ar_line = explode($sep, $ar_rows[$i]);
-			if($ar_line[0]!=$uvon && (intval($ar_line[1])+$timeon)>=time()) {
-				$addrow[] = $ar_rows[$i];
-			}
+
+//////////////////
+// USERS ONLINE //
+//////////////////
+if($_GET['type'] == 'usr') {
+	$ip      = $_SERVER["REMOTE_ADDR"];
+	$time    = time();
+	$minutes = 15;
+	$found   = 0;
+	$users   = 0;
+	$user    = "";
+	$tmpdata = 'userdata';
+
+	if (!is_file("$tmpdata/visits_online.txt"))	{
+		$s = fopen("$tmpdata/visits_online.txt","w");
+		fclose($s);
+		chmod("$tmpdata/visits_online.txt",0666);
+	}
+
+	$f = fopen("$tmpdata/visits_online.txt","r+");
+	flock($f,2);
+
+	while (!feof($f)) {
+		$user[] = chop(fgets($f,65536));
+	}
+
+	fseek($f,0,SEEK_SET);
+	ftruncate($f,0);
+
+	foreach ($user as $line) {
+		list($savedip,$savedtime) = split("\|",$line);
+		if ($savedip == $ip) { 
+			$savedtime = $time;$found = 1;
+		}
+		if ($time < $savedtime + ($minutes * 60)) {
+			fputs($f,"$savedip|$savedtime\n");
+			$users = $users + 1;
 		}
 	}
-}
-//VAR DATA
-$nruvon = count($addrow);
-$usron  = '';
-// GET USER NUMBER
-for($i=0; $i<$nruvon; $i++) {
-	if(preg_match($rgxvst, $addrow[$i])) { 
-		$nrvst++;
-	} else {
-	// STORE USERNAME
-		$ar_usron = explode($sep, $addrow[$i]);
-		$usron   .= '<br/> - <i>'. $ar_usron[0]. '</i>';
+
+	if ($found == 0) {
+		fputs($f,"$ip|$time\n");
+		$users = $users + 1;
 	}
-}
-//(TOTAL - VISITORS)
-$nrusr = $nruvon - $nrvst;
-	// WRITE
-if(!file_put_contents($filetxt, implode("\n", $addrow))) {
-	die();
-}
-//OUTPUT
-if($_GET['type'] == 'usr') {
-	print $nruvon;
-	die();
+	
+	fclose ($f);
+	print $users;
 }
 /////////////////////
 // UNCOMPRESSED JS //
