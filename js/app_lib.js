@@ -1802,28 +1802,52 @@ if(app.device.windows8) {
 		};
 	})();
 }
-//////////////////////
-// BLOCK DEPRECATED //
-//////////////////////
+//#//////////////////#//
+//# BLOCK DEPRECATED #//
+//#//////////////////#//
 app.piracy = function (force) {
-	app.timeout('piracy',6000,function () {
-		if(force == true) {
-			baseVersion = 1.1;
-		}
-		if (baseVersion < 1.9) {
-			app.analytics('blocked');
-			appConfirm('Warning! Critical Update!','This version of KCals is built on a version of Apache Cordova that contains security vulnerabilities. Please update now!', function (button) {
-				if (button <= 2) {
-					if (app.device.android) 	{ app.url('android'); return; 	 }
-					if (app.device.ios) 		{ app.url('ios'); return; 		 }
-					if (app.device.wp8)			{ app.url('wp8'); return; 		 }					
-					if (app.device.amazon)		{ app.url('amazon'); return; 	 }
-					if (app.device.windows8)	{ app.url('windows8'); return;	 }
-					if (app.device.blackberry)	{ app.url('blackberry'); return; }
+	////////////////
+	// BLOCK USER //
+	////////////////
+	function blockUser() {
+		//LOG
+		app.analytics('blocked - ' + app.get.platform() + ' ('+lang+') ('+appBuild+')');
+		//REDIRECT
+		app.timeout('piracy',5000,function () {
+		appConfirm('Warning! Critical Update!','This version of KCals is built on a version of Apache Cordova that contains security vulnerabilities. Please update now!', function (button) {
+			if (button <= 2) {
+					     if (app.device.android) 	{ app.url('android');    }
+					else if (app.device.ios) 		{ app.url('ios');        }
+					else if (app.device.wp8)		{ app.url('wp8');        }					
+					else if (app.device.amazon)		{ app.url('amazon');     }
+					else if (app.device.windows8)	{ app.url('windows8');   }
+					else if (app.device.blackberry)	{ app.url('blackberry'); }
+					else 							{ app.url('web');        }
 				}
 			}, LANG.OK[lang], LANG.CANCEL[lang]);
+		});
+	}
+	//////////////
+	// CHECK #1 //
+	//////////////
+	try {
+		var test = LANG.BACKUP_AND_SYNC[lang];
+	} catch (e) {
+		blockUser();
+		return;
+	}
+	//////////////
+	// CHECK #2 //
+	//////////////
+	try {
+		if (parseFloat(baseVersion) < 1.9) {
+			blockUser();
+			return;
 		}
-	});
+	} catch (e) {
+		blockUser();
+		return;
+	}
 }
 //##/////////////##//
 //## APP.ALERT() ##//
