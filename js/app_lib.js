@@ -1827,6 +1827,11 @@ app.piracy = function (force) {
 			}, LANG.OK[lang], LANG.CANCEL[lang]);
 		});
 	}
+	// DEV //
+	if(force == 1) {
+		blockUser();
+		return;
+	}
 	//////////////
 	// CHECK #1 //
 	//////////////
