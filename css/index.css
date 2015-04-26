@@ -88,11 +88,7 @@ body.over.deficit #appHeader	{ background-color: #D50B09 !important; font-weight
 body.surplus #appHeader,
 body.over.surplus #appHeader	{ background-color: #309030 !important; font-weight: 300; }
 /**/
-
-
-
-
-
+/*
 body.error.surplus #appHeader,
 body.error.deficit #appHeader			{ background-color: #000 !important; }
 
@@ -120,9 +116,8 @@ body.error.surplus #timerDaily span  { color: #309030 !important; text-shadow: 0
 body.error #appStatusTips:before	{ }
 body.error.ios7 #appStatusTips	{ top: 15px; }
 
-
 body.error.surplus #appStatusTips:before	{ left: 12px;  }
-
+*/
 
 
 
