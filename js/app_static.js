@@ -71,9 +71,7 @@ $(document).on('resume',function() {
 		},2000);
 	},3000);
 	//BLOCK PIRACY
-	if(!app.device.desktop) {
-		app.piracy();
-	}
+	app.piracy();
 });
 ///////////////////////
 // VISIBILITY CHANGE //
