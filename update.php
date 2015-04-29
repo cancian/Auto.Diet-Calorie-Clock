@@ -5,53 +5,49 @@ header("cache-control: no-cache");
 //////////////////
 // USERS ONLINE //
 //////////////////
+$ip      = $_SERVER["REMOTE_ADDR"];
+$time    = time();
+$minutes = 60;
+$found   = 0;
+$users   = 0;
+$user    = "";
+$tmpdata = 'userdata';
 
-//////////////////
-// USERS ONLINE //
-//////////////////
-if($_GET['type'] == 'usr') {
-	$ip      = $_SERVER["REMOTE_ADDR"];
-	$time    = time();
-	$minutes = 15;
-	$found   = 0;
-	$users   = 0;
-	$user    = "";
-	$tmpdata = 'userdata';
+if (!is_file("$tmpdata/visits_online.txt"))	{
+	$s = fopen("$tmpdata/visits_online.txt","w");
+	fclose($s);
+	chmod("$tmpdata/visits_online.txt",0666);
+}
+$f = fopen("$tmpdata/visits_online.txt","r+");
+flock($f,2);
 
-	if (!is_file("$tmpdata/visits_online.txt"))	{
-		$s = fopen("$tmpdata/visits_online.txt","w");
-		fclose($s);
-		chmod("$tmpdata/visits_online.txt",0666);
+while (!feof($f)) {
+	$user[] = chop(fgets($f,65536));
+}
+
+fseek($f,0,SEEK_SET);
+ftruncate($f,0);
+
+foreach ($user as $line) {
+	list($savedip,$savedtime) = split("\|",$line);
+	if ($savedip == $ip) { 
+		$savedtime = $time;$found = 1;
 	}
-
-	$f = fopen("$tmpdata/visits_online.txt","r+");
-	flock($f,2);
-
-	while (!feof($f)) {
-		$user[] = chop(fgets($f,65536));
-	}
-
-	fseek($f,0,SEEK_SET);
-	ftruncate($f,0);
-
-	foreach ($user as $line) {
-		list($savedip,$savedtime) = split("\|",$line);
-		if ($savedip == $ip) { 
-			$savedtime = $time;$found = 1;
-		}
-		if ($time < $savedtime + ($minutes * 60)) {
-			fputs($f,"$savedip|$savedtime\n");
-			$users = $users + 1;
-		}
-	}
-
-	if ($found == 0) {
-		fputs($f,"$ip|$time\n");
+	if ($time < $savedtime + ($minutes * 60)) {
+		fputs($f,"$savedip|$savedtime\n");
 		$users = $users + 1;
 	}
+}
+
+if ($found == 0) {
+	fputs($f,"$ip|$time\n");
+	$users = $users + 1;
+}
 	
-	fclose ($f);
+fclose ($f);
+if($_GET['type'] == 'usr') {
 	print $users;
+	die();
 }
 /////////////////////
 // UNCOMPRESSED JS //
