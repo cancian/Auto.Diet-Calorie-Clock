@@ -4783,7 +4783,7 @@ var LANG = {
 		ru : 'Скачивание обновления',
 		sv : 'Laddar ner uppdatering',
 		tr : 'Güncelleştirme indiriliyor',
-		vi : 'Đang tải xuống bản Cập Nhật',
+		vi : 'Đang tải xuống bản cập nhật',
 		zh : '正在下载更新',
 		zt : '正在下載更新'
 	},
@@ -4811,7 +4811,7 @@ var LANG = {
 		ru : 'Актуальное состояние',
 		sv : 'Uppdaterad',
 		tr : 'Güncel',
-		vi : 'Đang tải xuống bản Cập Nhật',
+		vi : 'Cập nhật',
 		zh : '最新',
 		zt : '最新'
 	},
