@@ -1802,16 +1802,27 @@ if(app.device.windows8) {
 		};
 	})();
 }
-//#//////////////////#//
-//# BLOCK DEPRECATED #//
-//#//////////////////#//
+//#//////////////#//
+//# ONLINE USERS #//
+//#//////////////#//
+app.online = function () {
+	$.ajax({type: 'GET', dataType: 'text', url: https + 'kcals.net/' + 'update.php?type=usr', success: function(onlineUsers) {
+		app.save('online_users',onlineUsers);
+		if(app.read('app_last_tab','tab1')) {
+			$('#onlineUsers span').html(app.read('online_users'));
+		}
+	}});
+}
+//#//////////////#//
+//# BLOCK PIRACY #//
+//#//////////////#//
 app.piracy = function (force) {
 	////////////////
 	// BLOCK USER //
 	////////////////
 	function blockUser() {
 		//LOG
-		app.analytics('blocked - ' + app.get.platform() + ' ('+lang+') ('+appBuild+')');
+		app.analytics('blocked');
 		//REDIRECT
 		app.timeout('piracy',5000,function () {
 		appConfirm('Warning! Critical Update!','This version of KCals is built on a version of Apache Cordova that contains security vulnerabilities. Please update now!', function (button) {
@@ -1836,7 +1847,7 @@ app.piracy = function (force) {
 	// CHECK #1 //
 	//////////////
 	try {
-		var test = LANG.BACKUP_AND_SYNC[lang];
+		var test = LANG.BACKUP_AND_SYNC[lang].toLowerCase();
 	} catch (e) {
 		blockUser();
 		return;
