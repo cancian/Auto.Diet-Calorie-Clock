@@ -211,7 +211,7 @@ function initDB(t) {
 	app.define('app_zoom',1);
 	if(!app.read('foodDbVersion') && !app.read('foodDbLoaded','done')) {
 		app.save('foodDbVersion',4);
-	}	
+	}
 	///////////
 	// START //
 	///////////
@@ -2122,16 +2122,18 @@ app.analytics = function(target,desc) {
 		else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
 		else if(app.device.chromeos)   { appOS = 'chromeos';   deviceType = 'app'; }
 		//string
-		var trackString = appOS + '.' + deviceType  + '/#' + target + '(' + appBuild + ')' + '(' + lang + ')';
+		var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')';
 		//track page/event
 		if(target == 'error') {
 			if(!/800a139e/i.test(desc)) {
-				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ')');
-				ga_storage._trackEvent(appOS, target, desc, appBuild);	
+				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
+				ga_storage._trackEvent(appOS, target, desc, baseVersion);
+				ga_storage._trackEvent(appOS, baseVersion, lang);	
 			}
 		} else {
-			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ')');
-			ga_storage._trackEvent(appOS, target, lang, appBuild);		
+			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')');
+			ga_storage._trackEvent(appOS, target, lang, baseVersion);		
+			ga_storage._trackEvent(appOS, baseVersion, lang);	
 		}
 	}
 };
