@@ -1,0 +1,43 @@
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+var hostLocal = '';
+</script>
+
+
+<script type="text/javascript" src="js/app_lib.js"></script>
+<script type="text/javascript" src="js/app_lang.js"></script>
+<script type="text/javascript">
+function trim(str) {
+    str = str.replace(/^\s+/, '');
+    for (var i = str.length - 1; i >= 0; i--) {
+        if (/\S/.test(str.charAt(i))) {
+            str = str.substring(0, i + 1);
+            break;
+        }
+    }
+    return str;
+}
+
+var hash = 'EN';
+var lowerHash = 'en';
+if(window.location.hash) {
+	hash     = window.location.hash.substr(1).toUpperCase();
+	lowerHash = window.location.hash.substr(1).toLowerCase()
+}
+
+$.ajax({type: 'GET', dataType: 'text', url: 'descriptions.txt', success: function(desc) {
+desc  = desc.split('–' + hash)[1];
+desc  = desc.split(hash + '–')[0];
+desc  = desc.split('$KCALS$').join('<strong style="color: #c30;">' + LANG.CALORIE_COUNTER_FULL_TITLE[lowerHash] + '</strong>');
+desc += '1 - ' + LANG.INTRO_SLIDE_1[lowerHash] + '\n<br>';
+desc += '2 - ' + LANG.INTRO_SLIDE_2[lowerHash] + '\n<br>';
+desc += '3 - ' + LANG.INTRO_SLIDE_3[lowerHash] + '\n<br>';
+desc += '4 - ' + LANG.INTRO_SLIDE_4[lowerHash] + '\n<br>';
+desc += '5 - ' + LANG.INTRO_SLIDE_5[lowerHash] + '\n<br>';
+desc += '6 - ' + LANG.INTRO_SLIDE_6[lowerHash];
+desc  = trim(desc);
+desc  = desc.split('\n').join('\n<br>');
+desc  = trim(desc);
+document.write(desc);
+}});
+</script>

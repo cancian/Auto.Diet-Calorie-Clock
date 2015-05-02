@@ -1,0 +1,1405 @@
+–EN
+$KCALS$ is a new way for you to control your calorie intake.
+It displays your calorie usage in real time, and at a glance KCals will show you how much to eat every day.
+ 
+KCals is very easy to understand - It works like a calorie chronometer.
+- Calories from food will be added to the total.
+- Calories burned (including your exercise) will be subtracted from the total.
+ 
+So all you have to do is keep the counter as close to zero as possible - by logging what you eat.
+ 
+Just set your daily calorie intake, hit start, and you're good to go!
+ 
+Losing weight has never been easier!
+ 
+:: DATA SYNCHRONIZATION FOR MULTIPLE DEVICES
+KCals also features automatic backup, and data synchronization.
+ 
+Easily synchronize your data between multiple devices, and keep logging on the go!
+ 
+Whenever you add something to your diary, or update your profile, that information will be instantaneously synchronized across all your devices.
+
+To use data synchronization, simply log into your account using another device, and the app will download all data and synchronize everything exactly as the first device - and then from one device to another in real time!
+ 
+The synchronization service is free, fast, and requires no configuration.
+ 
+KCals is available on 10 different platforms, so no matter which device you use, you will be able log all your information from your favorite device.
+ 
+And to get a feel for how KCals works, go to Kcals.net and you can get started right away. Then later on, you can send the data back to your mobile device.
+ 
+:: MAIN FEATURES
+• Real time calorie counting
+• Translated into 26 languages
+• Available in 10 different platforms
+• Simple, clean and intuitive interface
+• Automatic backup and data synchronization
+• Realistic estimation of weight loss
+• Shows how fast your body burns calories
+• Complete nutrition information
+• Adjustable macronutrient ratio (proteins, fats, and carbohydrates)
+• Advanced search engine
+• Statistics on calorie consumption
+• Large food database
+• Foods divided into navigable categories
+• Add your own foods and exercises
+• Bookmark your favorite items
+• Fully editable entries
+• Automatic updates
+• Today's overview
+• Adjustable calorie threshold
+• Cyclic mode
+ 
+:: QUICK OVERVIEW
+EN–
+ 
+–PT
+$KCALS$ é uma nova forma de controlar sua ingestão de calorias.
+O app mostra seu gasto calórico em tempo real, e num relance você já sabe quanto deve comer a cada dia.
+ 
+KCals é muito fácil de entender - ele funciona como um cronômetro de calorias.
+- Calorias de alimentos serão adicionadas ao total.
+- Calorias queimadas (incluindo seus exercícios) serão subtraídas do total.
+ 
+Então tudo o que você precisa fazer é manter o contador mais próximo possível de zero - usando o que você come.
+ 
+Configure sua ingestão diária de calorias, aperte Iniciar, e pronto!
+ 
+Perder peso nunca foi tão fácil!
+ 
+:: SINCRONIZAÇÃO DE DADOS EM MÚLTIPLOS DISPOSITIVOS
+KCals também oferece backup automático e sincronização de dados.
+ 
+Sincronize facilmente seus dados entre vários dispositivos, e registre suas atividades em qualquer lugar!
+ 
+Sempre que você adiciona algo ao seu diário, ou atualiza seu perfil, KCals sincroniza essa informação em todos os seus dispositivos instantaneamente.
+ 
+Para ativar a sincronização, basta fazer login em sua conta usando outro dispositivo, e KCals irá baixar todos os dados e sincronizar tudo exatamente como no primeiro dispositivo - e depois de um dispositivo para o outro em tempo real!
+
+O serviço de sincronização é grátis, rápido e não requer nenhuma configuração.
+ 
+KCals está disponível em 10 diferentes plataformas, então não importa qual dispositivo você tenha, você poderá registrar todas as informações com seu dispositivo favorito.
+ 
+Para ter uma ideia de como o KCals funciona, visite Kcals.net e comece agora mesmo. Depois você poderá facilmente enviar esses dados iniciais para seu dispositivo móvel!
+ 
+:: PRINCIPAIS CARACTERÍSTICAS
+• Contagem de calorias em tempo real
+• Traduzido em 26 idiomas
+• Disponível em 10 diferentes plataformas
+• Interface simples, limpa e intuitiva
+• Backup automático e sincronização de dados
+• Estimativa realista de perda de peso
+• Mostra o quão rápido você queima calorias
+• Informação nutricional completa
+• Proporção de macronutrientes ajustável (proteínas, gorduras e carboidratos)
+• Mecanismo de busca avançado
+• Estatísticas sobre o consumo de calorias
+• Extenso banco de dados de alimentos
+• Alimentos divididos em categorias navegáveis
+• Adicione alimentos e exercícios personalizados
+• Marque seus itens favoritos 
+• Entradas totalmente editáveis
+• Atualizações automáticas 
+• Visão geral de hoje 
+• Limite de calorias ajustável
+• Modo cíclico
+ 
+:: VISÃO GERAL
+PT–
+
+–AR
+$KCALS$ هو وسيلة جديدة لمراقبة استهلاكك من السعرات الحرارية.
+البرنامج يعرض استهلاكك من السعرات الحرارية أولا بأول و بشكل مستمر، و بلمحة سريعة سوف يعطيك مُقترحا لكمية الطعام التى عليك تناولها كل يوم.
+ 
+برنامج (KCals) يسهل فهمه و إستيعابه - فهو يعمل مثل كرونوميتر للسعرات الحرارية.
+- سيتم إضافة السعرات الحرارية الموجودة فى الغذاء إلى المجموع.
+- السعرات الحرارية التى يتم حرقها (بما فى ذلك ما تقوم بحرقه أثناء القيام بعمل التدريبات) سيتم طرحها من المجموع الكلي.
+ 
+لذلك كل ما عليك القيام به هو الحفاظ على قيمة العداد أقرب إلى الصفر قدر الإمكان - من خلال تسجيل ما تأكله.
+ 
+فقط حدد مقدار السعرات الحرارية التى تحتاجها يومياً، اضغط (ابدأ)، و بإمكانك البدء باستعمال البرنامج مباشرة!
+ 
+فقدان الوزن لم يكن أبدا بهذه السهولة!
+ 
+:: مزامنة البيانات لعدة أجهزة
+كما يحتوي (KCals) على خاصية النَسخ الإحتياطي التلقائي، ومزامنة البيانات.
+ 
+بإمكانك مزامنة البيانات الخاصة بك بسهولة بين أجهزة متعددة، حيث يمكنك استخدام حسابك على البرنامج من أي مكان وفي أي وقت!
+ 
+في كل مرة تضيف شئ لقائمة يومياتك , او عندما تحدث حسابك الشخصي , سوف يتم مزامنة هذه المعلومات لحظياً بكل اجهزتك.
+
+ كل ما عليك فعله لإستخدام خاصية مزامنة البيانات هو تسجيل الدخول إلى حسابك على جهاز آخر، عندها سيقوم التطبيق بتحميل جميع البيانات ومزامنة كل شيء بشكل مطابق للجهاز الأول - و عند الإنتقال من جهاز للاخر يتم تحديث البيانات بشكل مستمر لمطابقة الوضع الحالي!
+ 
+خاصية المزامنة مجانية وسريعة، ولا تحتاج أي إعداد.
+ 
+KCals متاح لـــ 10 منصات تشغيل مختلفة، لذلك بغض النظر عن الجهاز الذي تستخدمه، ستكون قادر على
+ادخال كل معلوماتك من جهازك المفضل.
+ 
+لتتعرف على كيفية عمل (KCals)، اذهب إلى Kcals.net وستجد هناك كل ما تحتاجه. يمكنك لاحقاً ارسال البيانات الى هاتفك المحمول.
+ 
+:: السمات الرئيسية
+• حساب عدد السعرات الحرارية في الحال.
+• مُترجم إلى 26 لغة
+• متوفر لـــ 10 منصات تشغيل مختلفة
+• واجهة بسيطة وواضحة ومريحة
+• نسخ احتياطي تلقائي ومزامنة للبيانات 
+• تقدير واقعي لفقدان الوزن
+• يظهر مدى سرعة جسمك فى حرق السعرات الحرارية
+• معلومات كاملة عن التغذية
+• نسبة المغذيات الكبيرة (البروتينات والدهون والكربوهيدرات) يمكنك تعديلها 
+• محرك بحث متقدم
+• إحصائيات عن استهلاك السعرات الحرارية
+• قاعدة بيانات ضخمة عن المواد الغذائية 
+• تقسيم الأطعمة إلى فئات ليسهل تصفحها
+• إضافة الأطعمة والتمارين الخاصة بك 
+• حفظ العناصر المفضلة لديك
+• ما تدخله يمكنك تعديله بشكل كامل
+• تحديثات تلقائية
+• نظرة اليوم العامة
+• حد اقصى للسعرات الحرارية قابل للتعديل
+• الوضع الدوري
+ 
+:: لمحة سريعة
+AR– 
+
+–BG
+$KCALS$ е нов начин да контролирате Вашия прием на калории.
+Той показва Вашата употреба на калории в реално време, а също така и с един поглед KCals ще Ви покаже колко да ядете всеки ден.
+ 
+KCals е много лесен за разбиране - работи като хронометър на калории.
+- Калории от храни ще бъдат добавени към общата сума.
+- Изгорени калории (включително вашето упражнение) ще се приспадат от общата.
+ 
+Така че всичко, което трябва да направите е да се запазите брояча колкото се може по-близко до нулата- като въвеждате това, което ядете.
+ 
+Просто определете дневния си калориен прием, натиснете старт, и Вие сте готови да започнете!
+ 
+Загубата на тегло никога не е била по-лесна!
+ 
+:: СИНХРОНИЗАЦИЯ НА ДАННИ ЗА НЯКОЛКО УСТРОЙСТВА
+KCals разполага и автоматично архивиране и синхронизиране на данни.
+ 
+Лесно синхронизирайте данни между различни устройства и продължавайте да въвеждате!
+ 
+Дали добавяте нещо към дневника си, или да обновявате своя профил, информацията ще бъде мигновено синхронизирани между всички ваши устройства.
+
+За да използвате синхронизация на данни, просто влезте в профила си с друго устройство, и приложението ще изтегли всички данни и ще синхронизира всичко точно както първото устройство - и след това от едно устройство на друго в реално време!
+ 
+Услугата по синхронизация е безплатно, бърза и не се нуждае от конфигуриране.
+ 
+KCals е достъпна на 10 различни платформи, така че няма значение какво устройство използвате, Вие ще бъдете в състояние да записвате цялата си информация от любимото си устройство.
+ 
+И за да получите представа как работи KCals, отидете на Kcals.net и можете да започнете веднага. След това, можете да изпратите данните обратно на Вашето мобилно устройство.
+ 
+:: ОСНОВНИ ХАРАКТЕРИСТИКИ
+• Броене на калории в реално време
+• Превод на 26 езика
+• Налично в 10 различни платформи
+• Лесен, опростен и интуитивен интерфейс
+• Автоматично архивиране и синхронизиране на данни
+• Реалистична оценка на загуба на тегло
+• Показва колко бързо тялото Ви гори калории
+• Пълна информация за хранителната стойност
+• Регулируемo макрохранително съотношение (протеини, мазнини и въглехидрати)
+• Търсачка с напреднали опции
+• Статистика за консумация на калории
+• Голяма база данни с храни
+• Храни разделени по категории
+• Добавете вашите собствени храни и упражнения
+• Запазете своите любими артикули
+• Напълно редактируеми записи
+• Автоматично обновяване
+• Актуален преглед
+• Регулируем праг на калории
+• Цикличен режим
+ 
+:: БЪРЗ ПРЕГЛЕД
+BG–
+
+–CS
+$KCALS$ je nový způsob, jak můžete kontrolovat svůj příjem kalorií.
+Ukazuje vaši spotřebu kalorií v reálném čase a na první pohled vám KCals ukáže, kolik máte každý den jíst.
+ 
+KCals se velmi snadno chápe - Funguje jako chronometr kalorií.
+- Kalorie z jídla budou připočteny k celkové hodnotě.
+- Spálené kalorie (včetně vašeho cvičení) budou od celkové hodnoty odečteny.
+ 
+Takže vše, co musíte udělat, je udržovat počítadlo co nejblíže nule - zadáváním toho, co jíte.
+ 
+Pouze nastavte svůj denní příjem kalorií, stiskněte start a můžete jít do toho!
+ 
+Hubnutí nikdy nebylo snadnější!
+ 
+:: SYNCHRONIZACE DAT PRO VÍCERO ZAŘÍZENÍ
+KCals má také automatické zálohování a synchronizaci dat.
+ 
+Snadno synchronizujte svá data mezi vícero zařízeními a průběžně se přihlašujte!
+ 
+Kdykoliv zadáte do svého deníku něco nového, nebo budete aktualizovat svůj profil, tyto informace budou okamžitě synchronizovány mezi všemi zařízeními.
+
+K použití synchronizace dat se jednoduše přihlaste ke svému účtu pomocí jiného zařízení a aplikace si stáhne veškerá data a synchronizuje vše přesně tak, jako první zařízení - a pak z jednoho zařízení do druhého v reálném čase!
+ 
+Synchronizační služba je zdarma, je rychlá a nevyžaduje žádnou konfiguraci.
+ 
+Aplikace KCals je dostupná na 10 různých platformách, takže bez ohledu na to, jaké zařízení používáte, budete moci zadat veškeré své informace ze svého oblíbeného zařízení.
+ 
+Pro dokreslení toho, jak aplikace KCals funguje, přejděte na Kcals.net a můžete hned začít. Později pak můžete zaslat data zpět do svého mobilního zařízení.
+ 
+:: HLAVNÍ FUNKCE
+• Počítání kalorií v reálném čase
+• Přeloženo do 26 jazyků
+• Dostupná na 10 různých platformách
+• Jednoduché, čisté a intuitivní rozhraní
+• Automatické zálohování a synchronizace dat
+• Realistický odhad úbytku hmotnosti
+• Ukazuje, jak rychle vaše tělo spaluje kalorie
+• Kompletní výživové informace
+• Nastavitelný poměr makroživin (bílkoviny, tuky a sacharidy)
+• Pokročilé vyhledávání
+• Statistiky o spotřebě kalorií
+• Velká databáze potravin
+• Potraviny rozdělené do navigovatelných kategorií
+• Přidejte své vlastní jídlo a cvičení
+• Označte své oblíbené položky
+• Plně editovatelné záznamy
+• Automatické aktualizace
+• Dnešní přehled
+• Nastavitelný práh kalorií
+• Cyklický režim
+ 
+:: RYCHLÝ PŘEHLED
+CS–
+
+–DA
+$KCALS$ er en ny måde, hvor du kan styre din kalorieindtagelse.
+Den viser dit kalorieforbrug i realtid, og KCals viser dig en hurtig oversigt over, hvor meget du skal spise hver dag.
+ 
+KCals er meget let at forstå - den fungerer på samme måde som et kaloriestopur.
+- Kalorier fra mad bliver føjet til den samlede kaloriemængde.
+- Forbrændte kalorier (inkl. din træning) bliver fratrukket den samlede kaloriemængde.
+ 
+Så du skal kun holde tælleren så tæt på nul som muligt - ved at logføre, hvad du spiser.
+ 
+Du angiver din daglige kalorieindtagelse, trykker på start, og så er du klar til at køre!
+ 
+Det har aldrig været nemmere at tabe sig!
+ 
+:: DATASYNKRONISERING VED FLERE ENHEDER
+KCals kommer også med automatisk sikkerhedskopiering og datasynkronisering.
+ 
+Du kan nemt synkronisere dine data mellem flere enheder og fortsat logføre på farten!
+ 
+Hver gang du føjer noget til din dagbog, eller du opdaterer din profil, bliver disse oplysninger straks synkroniseret på alle dine enheder.
+
+Hvis du vil bruge datasynkronisering, skal du blot logge på din konto ved hjælp af en anden enhed, og applikationen henter alle data og synkroniserer alt på nøjagtigt den samme måde, som på den første enhed - og efterfølgende fra én enhed til en anden i realtid!
+ 
+Synkroniseringstjenesten er gratis, hurtig og kræver ingen konfiguration.
+ 
+KCals er tilgængelig på 10 forskellige platforme, så ligegyldigt hvilken enhed du har, kan du logføre alle dine oplysninger fra din yndlingsenhed.
+ 
+Gå til Kcals.net, så du får en idé om, hvordan KCals fungerer, og du kan komme i gang med det samme. Senere kan du sende dataene tilbage til din mobilenhed.
+ 
+:: HOVEDFUNKTIONER
+• Kalorietælling i realtid
+• Oversat til 26 sprog
+• Tilgængelig på 10 forskellige platforme
+• Enkel, ren og brugervenlig grænseflade
+• Automatisk sikkerhedskopiering og datasynkronisering
+• Realistisk estimering af vægttab
+• Viser, hvor hurtigt din krop forbrænder kalorier
+• Omfattende næringsstofoplysninger
+• Justerbart makronæringsstofforhold (proteiner, fedt og kulhydrater)
+• Avanceret søgemaskine
+• Statistik over kalorieforbrug
+• Stor fødevaredatabase
+• Fødevarer fordelt i navigerbare kategorier
+• Tilføj dine egne fødevarer og øvelser
+• Bogmærk dine yndlingselementer
+• Helt redigerbare indtastninger
+• Automatiske opdateringer
+• Dagens oversigt
+• Justerbar kalorietærskel
+• Cyklisk tilstand
+ 
+:: HURTIG OVERSIGT
+DA–
+
+–DE
+$KCALS$ ist eine neue Methode, die eigene Kalorienzufuhr zu kontrollieren.
+Er zeigt Ihnen die aufgenommenen Kalorien in Echtzeit an und somit liefert KCals Ihnen auf einen Schlag eine Übersicht, wieviel Sie am Tag essen.
+ 
+KCals ist kinderleicht zu nutzen - Es funktioniert wie ein Kalorien-Chronometer.
+- Kalorien aus der aufgenommenen Nahrung werden zur Summe addiert.
+- Verbrannte Kalorien (inklusive Ihrer sportlichen Betätigung) werden von der Summe abgezogen.
+ 
+Alles was Sie tun müssen, ist den Zähler so nah wie möglich an der Null zu halten - in dem Sie eintragen, was Sie essen.
+ 
+Stellen Sie einfach Ihre tägliche Kalorienaufnahme ein, klicken Sie dann auf Start und los geht's!
+ 
+Abnehmen war noch nie einfacher!
+ 
+:: DATENSYNCHRONISIERUNG FÜR MEHRERE GERÄTE
+KCals bietet auch automatische Backups und Datensynchronisation an.
+ 
+Synchronisieren Sie Ihre Daten kinderleicht zwischen mehreren Geräten und nehmen Sie unterwegs Einträge vor!
+ 
+Wann immer Sie etwas zu Ihrem Plan hinzufügen oder Sie Ihr Profil aktualisieren, wird diese Information sofort auf all Ihren Geräten synchronisiert.
+ 
+Um Daten zu synchroniseren, loggen Sie sich einfach mit Ihren Zugangsdaten an einem anderen Gerät ein und die App wird die Daten runterladen und alles mit dem 1. Gerät synchron halten - und dann von einem Gerät zum nächsten in Echtzeit!
+ 
+Die Synchronisation ist kostenlos, schnell und erfordert keinerlei Konfiguration.
+ 
+KCals ist für 10 Plattformen verfügbar! Es ist also völlig egal, welches Gerät Sie nutzen, Sie können Ihre Daten von Ihrem Lieblingsgerät hinzufügen.
+ 
+Und um ein Gefühl dafür zu bekommen, wie KCals funktioniert, gehen Sie auf Kcals.net uns legen Sie direkt los. Im Anchluss können Sie die Daten an Ihr mobiles Gerät schicken.
+ 
+:: HAUPT-FEATURES
+• Echtzeit Kalorienzählung
+• In 26 Sprachen übersetzt
+• Verfügbar für 10 verschiedene Plattformen
+• Einfache, saubere und intuitive Benutzeroberfläche
+• Automatische Backups und Datensynchronisation
+• Realistische Schätzung der Gewichtsabnahme
+• Zeigt, wie schnell Ihr Körper Kalorien verbrennt
+• Komplette Nährwertangabe
+• Anpassbares Nährstoffverhältnis
+• Fortschrittliche Suchfunktion
+• Statistiken der Kalorienaufnahme
+• Riesige Lebensmitteldatenbank
+• Lebensmittel sind in navigierbare Bereiche eingeteilt
+• Fügen Sie Ihre eigenen Lebensmittel und Übungen hinzu
+• Lesezeichen für Ihre Lieblingsprodukte setzen
+• Komplett editierbare Einträge
+• Automatische Updates
+• Tagesansicht
+• Anpassbare Kalorienschwelle
+• Zyklischer Modus
+ 
+:: SCHNELLÜBERSICHT
+DE– 
+
+–EL
+Ο $KCALS$ είναι ένας νέος τρόπος για να ελέγχετε την πρόσληψη θερμίδων σας.
+Εμφανίζει τη κατανάλωση θερμίδων σας σε πραγματικό χρόνο και, με μια ματιά, ο KCals θα σας δείξει πόσο να τρώτε κάθε μέρα.
+ 
+Είναι πολύ εύκολο να καταλάβετε τον KCals - λειτουργεί σαν ένα χρονόμετρο θερμίδων.
+- Οι θερμίδες από τα τρόφιμα θα προστεθούν στο σύνολο.
+- Θερμίδες που καίγονται (συμπεριλαμβανομένης της σωματικής σας άσκησης) θα αφαιρούνται από το σύνολο.
+ 
+Έτσι, το μόνο που έχετε να κάνετε είναι να κρατήσετε τον μετρητή όσο πιο κοντά στο μηδέν είναι δυνατόν - με το να καταγράφετε ό, τι τρώτε.
+ 
+Απλά ορίστε την καθημερινή σας πρόσληψη θερμίδων, πατήστε το Start και είστε έτοιμοι!
+ 
+Η απώλεια βάρους δεν ήταν ποτέ ευκολότερη!
+ 
+:: ΔΕΔΟΜΕΝΑ ΣΥΓΧΡΟΝΙΣΜΟΥ ΓΙΑ ΠΟΛΛΑΠΛΕΣ ΣΥΣΚΕΥΕΣ
+Ο KCals διαθέτει επίσης αυτόματη δημιουργία αντιγράφων ασφαλείας καθώς και συγχρονισμό των δεδομένων.
+ 
+Συγχρονίστε εύκολα τα δεδομένα σας μεταξύ πολλαπλών συσκευών και θα 'χετε τις καταχωρήσεις σας διαθέσιμες ανά πάσα στιγμή!
+ 
+Κάθε φορά που προσθέτετε κάτι στο ημερολόγιό σας ή ενημερώνετε το προφίλ σας, αυτές οι πληροφορίες θα συγχρονίζονται στιγμιαία σε όλες τις συσκευές σας.
+
+Για να χρησιμοποιήσετε το συγχρονισμό δεδομένων, απλά συνδεθείτε στο λογαριασμό σας χρησιμοποιώντας μια άλλη συσκευή και η εφαρμογή θα κατεβάσει όλα τα δεδομένα και θα συγχρονίσει τα πάντα ακριβώς όπως στην πρώτη συσκευή - και, στη συνέχεια, από τη μία συσκευή στην άλλη σε πραγματικό χρόνο!
+ 
+Η υπηρεσία συγχρονισμού είναι δωρεάν, γρήγορη και δεν απαιτεί καμία ρύθμιση.
+ 
+Ο KCals είναι διαθέσιμος σε 10 διαφορετικές πλατφόρμες, οπότε, όποια συσκευή κι αν χρησιμοποιείτε, εσείς θα έχετε πρόσβαση σε όλες τις πληροφορίες σας από την αγαπημένη σας συσκευή.
+ 
+Και, για να πάρετε μια ιδέα για το πώς λειτουργεί ο KCals, πηγαίνετε στο Kcals.net και μπορείτε να ξεκινήσετε αμέσως. Στη συνέχεια, αργότερα, μπορείτε να στείλετε τα στοιχεία πίσω στην κινητή συσκευή σας.
+ 
+:: ΚΥΡΙΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ
+• Καταμέτρηση θερμίδων σε πραγματικό χρόνο
+• Μεταφρασμένο σε 26 γλώσσες
+• Διαθέσιμο σε 10 διαφορετικές πλατφόρμες
+• Απλό, σαφές και εύχρηστο περιβάλλον χρήσης
+• Αυτόματη δημιουργία αντιγράφων ασφαλείας και συγχρονισμός δεδομένων 
+• Ρεαλιστική εκτίμηση της απώλειας βάρους
+• Δείχνει πόσο γρήγορα καίει το σώμα σας θερμίδες
+• Πλήρη στοιχεία διατροφής
+• Ρυθμιζόμενη αναλογία μακροθρεπτικών συστατικών (πρωτεΐνες, λίπη και υδατάνθρακες)
+• Προηγμένη μηχανή αναζήτησης
+• Στατιστικά στοιχεία για την κατανάλωση θερμίδων
+• Μεγάλη βάση δεδομένων των τροφίμων
+• Τα τρόφιμα χωρίζονται σε ευδιάκριτες κατηγορίες
+• Προσθέστε τις δικές σας τροφές και ασκήσεις
+• Καταχωρίστε τα αγαπημένα σας αντικείμενα
+• Πλήρως επεξεργάσιμες καταχωρήσεις
+• Αυτόματες ενημερώσεις
+• Επισκόπηση ημέρας
+• Ρυθμιζόμενο όριο θερμίδων
+• Κυκλική λειτουργία
+ 
+:: ΓΡΗΓΟΡΗ ΕΠΙΣΚΟΠΗΣΗ
+EL–
+
+–ES
+$KCALS$ es una nueva forma de controlar su consumo de calorías.
+La aplicación muestra su gasto de energía en tiempo real, y de un vistazo ya sabes cuánto debes comer cada día.
+
+KCals es muy fácil de entender - funciona como un cronómetro de calorías.
+- Calorías de alimentos se agregan al total.
+- Calorías quemadas (incluyendo sus ejercicios) se restarán del total.
+
+Entonces todo lo que tienes que hacer es mantener el contador lo más cercano posible a cero - usando lo que comes.
+
+Establezca su ingesta diaria de calorías, pulse Inicio, y ¡voilá!
+
+¡Bajar de peso nunca ha sido tan fácil!
+
+:: SINCRONIZACIÓN DE DATOS
+KCals también ofrece copia de seguridad automática y sincronización de datos.
+
+¡Fácilmente sincronice sus datos entre múltiples dispositivos, y registre sus actividades en cualquier lugar!
+
+Siempre que añade algo a tu diario, o actualiza su perfil, KCals sincroniza esa información a través de todos sus dispositivos de forma instantánea.
+
+Para habilitar la sincronización, simplemente entre en su cuenta usando otro dispositivo, y KCals descargará todos los datos y sincronizará todo exactamente como el primer dispositivo - y después de un dispositivo a otro en tiempo real.
+
+El servicio de sincronización es gratis, rápido y no requiere configuración.
+
+KCals está disponible en 10 diferentes plataformas, así que no importa qué dispositivo tienes, puedes grabar toda la información en su dispositivo favorito.
+
+Para tener una idea de cómo funciona KCals, vaya a Kcals.net y empezar ahora mismo. A continuación, puedes enviar fácilmente estos datos iniciales para su dispositivo móvil.
+
+:: CARACTERÍSTICAS PRINCIPALES
+• Conteo de calorías en tiempo real 
+• Traducido en 26 idiomas
+• Disponible en 10 diferentes plataformas
+• Interfaz limpia, sencilla e intuitiva
+• Copia de seguridad automática y sincronización de datos
+• Estimación realista de la pérdida de peso 
+• Muestra la rapidez con que su cuerpo quema calorías
+• Información nutricional completa
+• Proporción de macronutrientes ajustable
+• Motor de búsqueda avanzado
+• Estadísticas sobre el consumo de calorías
+• Vasta base de datos
+• Alimentos divididos en categorías navegables
+• Agregue alimentos y ejercicios personalizados
+• Marque sus artículos favoritos
+• Entradas totalmente editables
+• Actualizaciones automáticas
+• Visión general de hoy
+• Limite de calorías ajustable
+• Modo cíclico
+
+:: VISIÓN DE CONJUNTO
+ES–
+
+–FI
+$KCALS$ on uusi tapa kontrolloida kalorien saantia.
+Se näyttää kalorien kulutuksen tosiaikaisesti, ja KCals näyttää yhdellä silmäyksellä, miten paljon päivittäin tulee syödä.
+ 
+KCals on erittäin helppo ymmärtää - se toimii kalorikellon tapaan.
+- Ruuan kalorit lisätään kokonaismäärään.
+- Poltetut kalorit (mukaan lukien liikunta) vähennetään kokonaismäärästä.
+ 
+Näin kaikki, mitä sinun tarvitsee tehdä, on pitää laskuri mahdollisimman lähellä nollaa - pitämällä kirjaa siitä mitä syöt.
+ 
+Asetat vain päivittäisen kalorien saantisi, käynnistät laitteen ja olet valmis!
+ 
+Painonpudotus ei ole koskaan ollut helpompaa!
+ 
+:: TIETOJEN SYNKRONOINTI USEILLE LAITTEILLE
+KCalsissa on myös automaattinen varmuuskopiointi ja tietojen synkronointi.
+ 
+Synkronoi tietosi helposti useampiin laitteisiin ja kuljeta kirjauksia mukanasi!
+ 
+Aina kun lisäät jotain päiväkirjaan tai päivität profiiliasi, tiedot synkronoituvat heti kaikkiin laitteisiisi.
+
+Saat tiedot synkronoitua kirjautumalla sisään käyttäjätilille toista laitetta käyttäen, jolloin sovellus lataa kaikki tiedot ja synkronoi kaiken aivan samoin kuin ensimmäisessä laitteessa - ja sitten laitteesta toiseen tosiaikaisesti!
+ 
+Synkronointipalvelu on ilmaista ja nopeaa eikä vaadi konfigurointia.
+ 
+KCals on saatavilla 10 erilaisella alustalla, joten käytitpä mitä laitetta tahansa, voit kirjata tietosi suosikkilaitteeltasi.
+ 
+Ja kun haluat katsoa, miten KCals toimii, siirry osoitteeseen Kcals.net ja voit aloittaa käytön heti. Myöhemmin voit sitten lähettää tiedot takaisin mobiililaitteellesi.
+
+:: TÄRKEIMMÄT OMINAISUUDET
+• tosiaikainen kalorilaskuri
+• käännetty 26 kielelle
+• saatavilla 10 erilaista alustaa
+• yksinkertainen, siisti ja intuitiivinen käyttöliittymä
+• automaattinen varmuuskopiointi ja tietojen synkronointi
+• realistinen painonpudotuksen arvio
+• näyttää, kuinka nopeasti kehosi polttaa kaloreita
+• täydelliset ravitsemustiedot
+• säädettävä makroravinnesuhde
+• edistyksellinen hakukone
+• tilastot kalorien kulutuksesta
+• laaja ruoka-ainetietokanta
+• ruoat jaettu navigoitaviin luokkiin
+• lisää omia ruokiasi ja liikuntalajeja
+• merkitse omat ruoka- ja liikuntalajisuosikkisi
+• täysin muokattavat syötteet
+• automaattiset päivitykset
+• kuluvan päivän yleiskatsaus
+• säädettävä kalorikynnys
+• syklinen moodi
+ 
+:: NOPEA YLEISKATSAUS
+FI–
+ 
+–FR
+$KCALS$ est une nouvelle méthode pour contrôler votre apport calorique.
+Il affiche votre consommation de calories en temps réel, et en bref KCals va vous expliquer ce que vous devriez manger chaque jour.
+ 
+KCals est très facile à comprendre - Il fonctionne comme un chronomètre de calories.
+- Les calories provenant des aliments seront ajoutées au total.
+- Les calories brûlées (y compris celles de votre entraînement sportif) seront soustraites du total.
+ 
+Tout ce que vous aurez à faire, est de garder le compteur aussi proche de zéro que possible - en recueillant tout ce que vous mangez.
+ 
+Il suffit de régler votre apport calorique quotidien, de cliquer sur Start, et c’est parti!
+ 
+Perdre du poids n’a jamais été aussi facile!
+ 
+:: SYNCHRONISATION DES DONNEES SUR DIFFERENTS APPAREILS
+KCals dispose également d’une sauvegarde automatique et d’une synchronisation de données.
+ 
+Synchronisez facilement vos données entre plusieurs appareils, et restez branché!
+ 
+Chaque fois que vous ajoutez quelque chose à votre agenda, ou que vous mettez à jour votre profil, cette information sera instantanément synchronisée sur tous vos appareils.
+
+Pour utiliser la synchronisation de données, connectez-vous simplement à votre compte en utilisant un autre appareil, et l’application va télécharger toutes les données, et les synchronisera exactement comme sur le premier appareil - vous pourrez ensuite passer d’un appareil à l’autre en ayant vos données synchronisées en temps réel!
+ 
+Le service de synchronisation est gratuit, rapide et ne nécessite aucune configuration.
+ 
+KCals est disponible sur 10 plateformes différentes, donc peu importe quel appareil vous utilisez, vous pourrez enregistrer toutes vos informations à partir de votre appareil préféré.
+ 
+Pour avoir une idée de la façon dont fonctionne KCals, visitez le site Kcals.net où vous pourrez commencer tout de suite. Puis, plus tard, vous pourrez envoyer les données vers votre appareil mobile.
+ 
+:: CARACTERISTIQUES PRINCIPALES
+• Comptage de calories en temps réel
+• Traduit en 26 langues
+• Disponible sur 10 plates-formes différentes
+• Interface simple, claire et intuitive
+• Synchronisation des données et sauvegardes automatiques
+• Estimation réaliste de la perte de poids
+• Montre à quelle vitesse votre corps brûle les calories
+• Informations complètes sur la nutrition
+• Ratio de macronutriments réglable
+• Moteur de recherche spécialisé
+• Statistiques sur la consommation de calories
+• Grand base de données alimentaire
+• Aliments triés par catégories 
+• Ajoutez vos propres aliments et activités sportives
+• Mettez en favoris vos articles préférés
+• Entrées entièrement modifiables
+• Mises à jour automatiques
+• Récapitulatif de la journée
+• Seuil de calories réglable
+• Mode cyclique
+ 
+:: DESCRIPTION RAPIDE
+FR–
+
+–HU
+A $KCALS$ a legújabb módszer, hogy kézben tartsa a kalóriabevitelét.
+Valós időben naplózza az Ön kalóriafelhasználását, és egy pillanat alatt megmutatja, mennyit ehet egy nap.
+
+A KCals használata nagyon egyszerű - úgy működik, mint egy kalóriamérleg.
+- Az étellel bevitt kalóriamennyiségek összeadódnak.
+- Az elégetett kalóriák (a testedzéssel elfogyasztottak is) pedig levonódnak a fenti értékből.
+
+Az Ön feladata az, hogy a mérleg mutatóját a nullához közel tartsa - miközben rendszeresen naplózza az étkezéseit.
+
+Állítsa be a napi kalóriabevitelét, indítsa el az alkalmazást, és készen is van.
+
+A fogyás soha nem volt még ilyen egyszerű!
+
+:: ADATSZINKRONIZÁLÁS TÖBB ESZKÖZ KÖZÖTT
+A KCals automatikus biztonsági mentéseket készít és szinkronizálja az adatait.
+
+Egyszerűen szinkronizálhatja az adatait több eszközön, és bármikor frissítheti a kalórianaplóját!
+
+Ha valamit beír a naplóba vagy frissíti a profilját, az új adatok azonnal szinkronizálódnak az összes eszközön.
+
+Az adatok szinkronizálásához lépjen be a fiókjába egy másik eszközön. Az alkalmazás minden adatát le fogja tölteni, és mindent összhangba hoz az első eszközön levő alkalmazás adataival. Ezután pedig automatikusan szinkronizálni fog valós időben az összes eszköz között.
+
+A szinkronizálás ingyenes, gyors és nem igényel konfigurálást.
+
+A KCals tíz különböző platformon érhető el, vagyis mindegy, milyen eszközt használ, minden adatát folyamatosan frissítheti bármelyik eszközről.
+
+Ha szeretné megnézni, hogyan is működik a KCals, látogassa meg a Kcals.net oldalt, és ismerkedjen meg az alkalmazással. Később az ide feltöltött adatait átküldheti a mobileszközeire.
+
+:: FŐ JELLEMZŐK
+• Valós idejű kalóriaszámlálás
+• 26 nyelven elérhető
+• 10 különböző platformon
+• Egyszerű, letisztult, gyorsan kiismerhető felület
+• Automatikus mentés és adatszinkronizálás
+• Leadott kilók becslése jó közelítéssel
+• Megmutatja, hogy a szervezete milyen gyorsan égeti a kalóriákat
+• Teljes tápérték-információk
+• Állítható makronutriensarányok
+• Fejlett keresőmotor
+• Statisztika a kalóriafogyasztáshoz
+• Hatalmas élelmiszer-adatbázis
+• Kereshető kategóriákra bontott élelmiszerek
+• Bővítse az applikációt saját ételeivel és mozgásformáival
+• Készítsen könyvjelzőt kedvenceiből
+• A bevitt adatok szabadon szerkeszthetők
+• Automatikus frissítések
+• Napi áttekintés
+• Állítható kalóriaküszöb
+• Ciklikus üzemmód
+
+:: GYORS ÁTTEKINTÉS
+HU–
+
+–IT
+$KCALS$ è un nuovo modo per controllare l’apporto calorico.
+L’applicazione mostra l’assunzione di calorie in tempo reale, e su una schermata vi mostrerà quanto mangiare ogni giorno.
+ 
+KCals è molto facile da capire - funziona come un cronometro di calorie.
+- Le calorie da cibo saranno aggiunte al totale.
+- Le calorie bruciate (comprese quelle bruciate con il vostro esercizio fisico) saranno sottratte dal totale.
+ 
+Quindi tutto quello che dovete fare è tenere il contatore più vicino possibile allo zero - registrando ciò che mangiate.
+ 
+Basta impostare l’apporto calorico giornaliero, premere inizia e siete pronti a partire!
+ 
+Perdere peso non è mai stato così facile!
+ 
+:: SINCRONIZZAZIONE DEI DATI TRA DISPOSITIVI DIVERSI
+KCals dispone anche di backup automatico e di sincronizzazione dei dati.
+ 
+Sincronizza facilmente i tuoi dati tra diversi dispositivi, e accedi anche quando sei fuori!
+ 
+Ogni volta aggiungi qualcosa al tuo diario, o aggiorni il tuo profilo, quella informazione sarà istantaneamente sincronizzata tra tutti i tuoi dispositivi.
+
+Per utilizzare la sincronizzazione dei dati è sufficiente accedere al proprio account utilizzando un altro dispositivo. L’applicazione scaricherà tutti i dati e sincronizzerà tutto esattamente come è nel primo dispositivo usato - e poi da un dispositivo all’altro in tempo reale!
+ 
+Il servizio di sincronizzazione è gratuito, veloce e non richiede alcuna configurazione.
+ 
+KCals è disponibile su 10 piattaforme diverse, quindi indipendentemente dal dispositivo utilizzato, potrai registrare tutte le tue informazioni su quello che preferisci.
+ 
+E per avere un’idea di come KCals funziona, vai a Kcals.net e potrai iniziare subito. Poi in seguito, è possibile inviare i dati al vostro dispositivo mobile.
+ 
+:: CARATTERISTICHE PRINCIPALI
+• Conteggio delle calorie in tempo reale
+• Tradotto in 26 lingue
+• Disponibile su 10 diverse piattaforme
+• Interfaccia semplice, chiara e intuitiva
+• Sincronizzazione automatica di backup e dati
+• Stima realistica della perdita di peso
+• Mostra quanto velocemente il vostro corpo brucia le calorie
+• Informazioni nutrizionali complete 
+• Proporzione regolabile dei macronutrienti
+• Motore di ricerca avanzato
+• Dati statistici sul consumo di calorie
+• Grande database di alimenti
+• Alimenti divisi in categorie navigabili
+• Possibilità di aggiungere i propri alimenti e esercizi
+• Segnalibro per i vostri articoli preferiti
+• Voci completamente modificabili
+• Aggiornamenti automatici
+• Panoramica quotidiana
+• Soglia delle calorie regolabile
+• Modalità ciclica
+ 
+:: INTRODUZIONE RAPIDA
+IT–
+ 
+–ID
+$KCALS$ adalah cara baru bagi Anda untuk mengontrol asupan kalori Anda.
+Aplikasi ini menampilkan penggunaan kalori Anda secara real time, dan dengan sepintas KCals akan menunjukkan berapa banyak makanan yang harus Anda konsumsi setiap hari.
+ 
+KCals sangat mudah dipahami - Aplikasi ini bekerja seperti kronometer kalori.
+- Kalori dari makanan akan ditambahkan ke jumlah total.
+- Pembakaran kalori (termasuk saat Anda berolahraga) akan dikurangi dari jumlah total.
+ 
+Jadi yang harus Anda lakukan adalah menjaga agar counter mendekati angka nol - dengan memasukkan data apa yang Anda makan.
+ 
+Anda hanya perlu mengatur asupan kalori harian Anda, tekan mulai, dan Anda siap untuk menjalankannya!
+ 
+Menurunkan berat badan menjadi begitu mudah!
+ 
+:: SINKRONISASI DATA UNTUK PERANGKAT GANDA
+KCals juga dilengkapi backup dan sinkronisasi data secara otomatis.
+ 
+Sangat mudah melakukan sinkronisasi data di antara beberapa perangkat, dan tetap log on di mana pun Anda berada!
+ 
+Setiap kali Anda menambahkan sesuatu pada buku harian Anda, atau memperbarui profil Anda, informasi tersebut akan seketika disinkronisasi pada semua perangkat Anda.
+
+Untuk menggunakan sinkronisasi data, cukup login ke account Anda pada perangkat lain, dan aplikasi ini akan mengunduh semua data dan melakukan sinkronisasi semua data persis seperti pada perangkat pertama - dan kemudian dari satu perangkat ke perangkat lainnya secara real time!
+ 
+Layanan sinkronisasi ini gratis, cepat, dan tidak memerlukan konfigurasi apa pun.
+ 
+KCals tersedia pada 10 platform yang berbeda, jadi dengan perangkat apa pun yang Anda gunakan, Anda dapat mencatat dan mengambil semua informasi dari perangkat favorit Anda.
+ 
+Dan untuk mencoba cara kerja KCals, silakan buka Kcals.net dan Anda dapat langsung memulai. Kemudian, Anda dapat mengirimkan data ke perangkat mobile Anda.
+ 
+:: FITUR UTAMA
+• Menghitung kalori Real time
+• Diterjemahkan ke dalam 26 bahasa
+• Tersedia dalam 10 platform yang berbeda
+• Antarmuka yang sederhana, bersih dan intuitif
+• Backup dan sinkronisasi data secara otomatis
+• Estimasi penurunan berat badan yang realistis
+• Menunjukkan seberapa cepat tubuh Anda membakar kalori
+• Informasi nutrisi lengkap
+• Rasio makronutrien (protein, lemak, dan karbohidrat) yang bisa diatur
+• Mesin pencari lanjutan
+• Statistik konsumsi kalori
+• Database makanan besar
+• Makanan yang dibagi ke dalam kategori yang dapat dicari
+• Tambahkan makanan dan olahraga Anda
+• Bookmark item favorit Anda
+• Entri yang dapat diedit sepenuhnya
+• Pembaruan otomatis
+• Ikhtisar Hari ini
+• Ambang pengaturan kalori 
+• Modus Cyclic
+ 
+:: TINJAUAN CEPAT
+ID–
+
+–JA
+$KCALS$は、あなたのカロリー摂取量を制御するための新しい方法です。
+これは、リアルタイムであなたのカロリー使用状況を表示し、KCalsは毎日どれだけ食べるべきかをひと目でわかるように示します。
+ 
+KCalsを理解することはとても簡単です - それは、カロリーのクロノメーターのように働きます。
+-食品からのカロリーが合計に加算されます。
+-（あなたの運動を含む）消費カロリーは合計から差し引かれます。
+ 
+あとはカウンターをできるだけゼロに近づけておくだけです - 食べたものを記録することによって。
+ 
+あなたの毎日のカロリー摂取量を設定してスタートボタンを押しましょう。それで準備完了です！
+ 
+体重を減らすことがこんなに簡単だったことはありませんでした！
+ 
+:: 複数デバイスのためのデータ同期
+KCalsは、自動バックアップ、およびデータ同期の機能も備えています。
+ 
+簡単に複数のデバイス間でデータを同期し、外出先で記録をつけましょう！
+ 
+あなたの日記に何かを追加したり、プロファイルを更新するたびに、その情報は瞬時にすべてのデバイス間で同期されます。
+
+データ同期を使用するには、別のデバイスを使用してあなたのアカウントにログインしてください。すると、アプリはすべてのデータをダウンロードして、すべてを最初のデバイスと全く同じに同期します - そしてまた、あるデバイスから別のデバイスにリアルタイムに！
+ 
+同期サービスは、高速、無料で、設定は必要ありません。
+ 
+KCalsは、10種類のプラットフォームで使用できますので、どんなデバイスを使っていても、お気に入りのデバイスからすべての情報をログに記録できるようになります。
+ 
+そしてKCalsがどのように動作するかの感覚をつかむには、Kcals.netに行ってみていただければ、すぐに始めることができます。 そして後に、あなたはモバイルデバイスにあなたのデータを送信することができます。
+ 
+:: 主な特徴
+•リアルタイムカロリー計算
+•26言語に翻訳
+•10種の異なるプラットフォームで利用可能
+•シンプルでクリーンで直感的なインターフェイス
+•自動バックアップとデータ同期
+•体重減少のほぼ正確な推定
+•あなたの体がどれだけ速くカロリーを燃やすか表示
+•完全な栄養情報
+•調整可能な主要栄養素比（タンパク質、脂肪、および炭水化物）
+•高度な検索エンジン
+•カロリー消費に関する統計
+•大規模な食品データベース
+•ナビゲート可能なカテゴリに分類された食品
+•あなたの食品や運動の追加
+•お気に入りのアイテムのブックマーク
+•完全に編集可能なエントリ
+•自動更新
+•今日の概要
+•調節可能なカロリーのしきい値
+•周期モード
+ 
+:: 簡単な概要
+JA–
+
+–KO
+$KCALS$ 칼로리 섭취를 제어하는 새로운 방법입니다.
+칼로리 사용을 실시간으로 표시하며, 매일 먹는 양을 KCals가 한 눈에 알아볼 수 있도록 보여줍니다.
+ 
+KCals는 이해하기가 아주 쉽습니다. 마치 칼로리 시계와도 같습니다.
+- 식품에서 섭취하는 칼로리는 합계에 합산됩니다.
+- 소모되는 칼로리(운동 포함)는 합계에서 차감됩니다.
+ 
+따라서 이용자가 할 일은 먹는 것을 기록하여 칼로리 카운터가 0에 가깝게 유지하기만 하면 됩니다.
+ 
+매일 섭취하는 칼로리를 설정하고, 시작을 누르기만 하면 됩니다!
+ 
+몸무게를 줄이는 일이 이보다 더 쉬울 수는 없겠죠!
+ 
+:: 다수 기기를 위한 데이터 동기화
+KCals는 또한 자동 백업 및 데이터 동기화 기능을 갖추고 있습니다.
+ 
+여러 기기 간에 데이터를 손쉽게 동기화하여 이동 중에도 계속 기록하세요!
+ 
+다이어리에 뭔가를 추가하거나 프로필을 업데이트할 때마다, 해당 정보가 모든 기기에서 즉각 동기화됩니다.
+
+데이터 동기화 기능을 사용하려면, 다른 기기를 사용하여 자기 계정에 로그인하면 해당 앱이 모든 데이터를 다운로드하고 첫 번째 기기로서 정확히 모두 동기화한 다음, 나머지 기기도 하나씩 실시간으로 동기화합니다!
+ 
+동기화 서비스는 무료이며, 빠르고 구성할 필요가 없습니다.
+ 
+KCals는 10가지의 다양한 플랫폼에서 이용할 수 있으므로, 어떤 기기를 사용하든 자주 사용하는 기기로부터 모든 정보를 기록할 수 있습니다.
+ 
+KCals가 어떻게 작동하는지 알아 보시려면, Kcals.net으로 가셔서 바로 시작해 보십시오. 그 다음, 데이터를 모바일 기기로 다시 보낼 수 있습니다.
+ 
+:: 주요 기능
+• 실시간 칼로리 계산
+• 26개 언어로 번역
+• 10개의 다른 플랫폼에서 이용 가능
+• 단순하고, 명료하면서, 직관적인 인터페이스
+• 자동 백업 및 데이터 동기화
+• 체중감소의 현실적인 추정
+• 칼로리 소모 속도를 보여줌
+• 영양 정보 작성
+• 다량 영양소 비율 조정 (단백질, 지방 및 당질)
+• 첨단 검색 엔진
+• 칼로리 소모 통계
+• 대규모 식품 데이터베이스
+• 식품을 검색이 가능한 카테고리로 분류
+• 자신 만의 식품과 운동 추가 가능
+• 즐겨 찾기 항목 북마크
+• 완전한 식품 항목
+• 자동 업데이트
+• 오늘의 개요
+• 조절 가능한 칼로리 한계치
+• 주기적 모드
+ 
+:: 간단한 개요
+KO–
+
+–NL
+$KCALS$ is een nieuwe manier om uw calorie inname te beheersen.
+De app toont u uw calorie verbruik in real time, en KCals laat in een oogopslag zien hoeveel te eten elke dag.
+ 
+KCals is zeer gemakkelijk te begrijpen - het werkt als een calorie chronometer
+- Calorieën uit het voedsel worden toegevoegd aan het totaal
+- Verbrande calorieën (met inbegrip van oefeningen) worden van het totaal afgetrokken
+ 
+Dus alles wat je hoeft te doen, is de teller zo dicht mogelijk bij de mul te houden - door te registreren wat je eet.
+ 
+Stel je dagelijkse calorie-inname in, druk op start, en je bent klaar!
+ 
+Afvallen is nog nooit zo makkelijk geweest!
+ 
+:: DATASYNCHRONISATIE
+KCals beschikt ook over een automatische back-up en data synchronisatie functies.
+ 
+Gemakkelijk synchroniseren van uw gegevens tussen meerdere apparaten, en neem uw activiteiten overal mee naar toe!
+ 
+Wanneer u iets aan uw dagboek toevoegt, of uw profiel bewerkt, synchroniseert KCals die informatie direct met al uw apparaten.
+
+Om de synchronisatie in te schakelen, logt u in op uw account met een ander apparaat. Dan zal de app de data downloaden en synchroniseren met uw eerste apparaat, zodat alle apparaten gelijk aan elkaar staan. In real time!
+ 
+De synchronisatie is gratis, snel en vereist geen configuratie.
+ 
+Kcals is beschikbaar op 10 verschillende platformen, dus het maakt niet uit welk apparaat je hebt, je kan alle gegevens invoeren met behulp van je favoriete apparaat.
+ 
+Om een idee te krijgen van hoe KCals werkt, ga dan naar Kcals.net en je kan meteen aan de slag. Vervolgens kun je later de gegevens synchroniseren naar uw favoriete mobiele apparaat!
+ 
+:: BELANGRIJKSTE KENMERKEN
+• Real-time calorieteller (dit doet geen enkele andere app!)
+• Vertaald naar 26 talen
+• Verkrijgbaar op 10 verschillende platformen (inclusief gratis web versie)
+• Simpel, strak en intuïtieve vormgeving 
+• Automatische back-up en data synchronisatie
+• Realistische schatting van gewichtsverlies
+• Laat zien hoe snel je lichaam calorieën verbruikt
+• Uitgebreide voedingswaarde-informatie (macronutriënten)
+• Verstelbare macronutriënten-verhouding (vetten, eiwitten en koolhydraten)
+• Calorie verbruik statistieken
+• Geavanceerde zoek machine
+• Grote database
+• U kan door voedsel categorieën bladeren
+• Voeg eigen/aangepaste voedingsmiddelen en oefeningen toe
+• Bewaar uw favoriete items
+• Volledig bewerkbare data
+• Automatische updates
+• Overzicht van vandaag
+• Verstelbaar calorie limiet (calorie balans)
+• Cyclische modus (afwisseling calorie inname)
+ 
+:: SNEL OVERZICHT
+NL–
+
+–NB
+$KCALS$ er en ny måte å styre kaloriinntaket på.
+
+Den viser kaloriforbruket ditt i sanntid, og KCals viser en raskt oversikt over hvor mye du skal spise hver dag.
+
+KCals er veldig lett å forstå - den fungerer på samme måte som et kalorikronometer.
+- Kalorier fra mat legges til den samlede kalorimengden.
+- Forbrente kalorier (inkl. trening) trekkes fra den samlede kalorimengden.
+
+Alt du må gjøre er holde telleren så nær null som mulig - ved å loggføre det du spiser.
+
+Du bare angir ditt daglige kaloriinntak, trykker start, så er du klar til å kjøre!
+
+Det har aldri vært lettere å gå ned i vekt!
+
+:: DATASYNKRONISERING FOR FLERE ENHETER
+KCals kommer også med automatisk sikkerhetskopiering og datasynkronisering.
+
+Du kan lett synkronisere dataene dine mellom flere enheter og fortsette å loggføre på farten!
+
+Hver gang du legger til noe i dagboken din, eller oppdaterer profilen din, synkroniseres disse opplysningene på alle dine enhetene dine umiddelbart.
+
+Hvis du vil bruke datasynkronisering, logger du deg ganske enkelt på kontoen din fra en annen enhet. Appen vil da laste ned alle dataene og synkronisere på nøyaktig samme måte som den første enheten - og deretter fra én enhet til en annen i sanntid!
+
+Synkroniseringstjenesten er gratis, hurtig og krever ingen konfigurasjon.
+
+KCals er tilgjengelig på 10 forskjellige plattformer. Uansett hvilken enhet du bruker, kan du dermed loggføre alle opplysningene dine til favorittenheten din.
+
+Gå til Kcals.net, så du får en idé om hvordan KCals fungerer, og du kan komme i gang umiddelbart. Senere kan du sende dataene tilbake til den mobile enheten din.
+
+:: HOVEDFUNKSJONER
+• Kaloritelling i sanntid
+• Oversatt til 26 språk
+• Tilgjengelig på 10 forskjellige plattformer
+• Enkel, ren og brukervennlig grensesnitt
+• Automatisk sikkerhetskopiering og datasynkronisering
+• Realistisk estimering av vekttap
+• Viser, hvor raskt kroppen din forbrenner kalorier
+• Omfattende næringsstoffopplysninger
+• Justerbart makronæringsstofforhold (proteiner, fett og kullhydrater)
+• Avansert søkemaskin
+• Statistikk over kaloriforbruk
+• Stor matdatabase
+• Matvarer fordelt i navigerbare kategorier
+• Legg til egne matvarer og øvelser
+• Bokmerk favorittelementer
+• Fullstendig redigerbare inntastinger
+• Automatiske oppdateringer
+• Dagens oversikt
+• Justerbar kaloriterskel
+• Syklisk tilstand
+
+:: RASK OVERSIKT
+NB–
+
+–PL
+$KCALS$ to nowy sposób kontrolować ilość spożywanych kalorii.
+Pokazuje zużycie kalorii w czasie rzeczywistym, i w mgnieniu oka KCals pokaże ile jeść codziennie.
+ 
+KCals jest bardzo łatwy do zrozumienia - działa jak chronometr kalorii.
+- Kalorie z jedzenia zostaną dodane do sumy.
+- Spalone kalorie (także podczas ćwiczeń fizycznych) zostaną odjęte od sumy.
+ 
+Musisz jedynie utrzymywać licznik tak blisko zera, jak to możliwe - poprzez zapisywanie tego, co jesz.
+ 
+Wystarczy ustawić swoje dzienne spożycie kalorii, nacisnąć przycisk start i możesz zaczynać!
+ 
+Utrata masy ciała nigdy nie była łatwiejsza!
+ 
+:: SYNCHRONIZACJA DANYCH DLA WIELU URADZEN
+KCals oferuje także automatyczne tworzenie kopii zapasowych i synchronizacji danych.
+ 
+W prosty sposób synchronizuj swoje dane pomiędzy wieloma urządzeniami i loguj się mobilnie!
+ 
+Kiedy tylko coś dodasz do swojego dzienniczka lub zaktualizujesz swój profil, informacje zostaną natychmiast zsynchronizowane na wszystkich urządzeniach.
+
+Aby korzystać z synchronizacji danych, wystarczy zalogować się na swoje konto za pomocą innego urządzenia, a aplikacja będzie pobierać wszystkie dane i synchronizować wszystko dokładnie tak, jak pierwsze urządzenie - a następnie z jednego urządzenia do drugiego w czasie rzeczywistym!
+ 
+Usługa synchronizacji jest bezpłatna, szybka i nie wymaga konfiguracji.
+ 
+KCals jest dostępne na 10 różnych platformach, więc bez względu na to, jakiego urządzenia używasz, będziesz mógł zalogować wszystkie informacje z Twojego ulubionego urządzenia.
+ 
+Aby poczuć, jak Kcals działa, odwiedź stronę Kcals.net, na której możesz od razu rozpoczynać. Następnie możesz wysłać dane z powrotem do urządzenia mobilnego.
+ 
+:: GŁÓWNE FUNKCJE
+• Liczenie kalorii w czasie rzeczywistym
+• Przetłumaczone na 26 języków
+• Dostępne na 10 różnych platformach
+• Prosty, schludny i intuicyjny interfejs
+• Automatyczne tworzenie kopii zapasowych i synchronizacji danych
+• Realistyczne szacowanie utraty wagi
+• Pokazuje, jak szybko Twój organizm spala kalorie
+• Pełna informacja o wartościach odżywczych
+• Regulowany stosunek makroskładników (białka, tłuszcze i węglowodany)
+• Zaawansowana wyszukiwarka
+• Statystyki dotyczące spożycia kalorii
+• Duża baza danych żywności
+• Pokarmy podzielone na kategorie nawigacji
+• Dodaj własną żywność i ćwiczenia
+• Dodaj ulubione przedmioty
+• W pełni edytowalne wpisy
+• Automatyczne aktualizacje
+• Dzisiejszy przegląd
+• Regulowany próg kalorii
+• Tryb cykliczny
+ 
+:: SZYBKI PRZEGLAD
+PL–
+
+–RO
+$KCALS$ este un nou mod de a controla aportul de calorii.
+Afișează consumul de calorii în timp real, și dintr-o privire KCals vă va arăta cât de mult să mâncaţi în fiecare zi.
+ 
+KCals este foarte ușor de folosit - Funcționează ca un cronometru pentru calorii.
+- Caloriile din alimente vor fi adăugate la total.
+- Caloriile arse (inclusiv antrenamentul) vor fi scăzute din total.
+ 
+Astfel, tot ce trebuie să faceți este să păstrați contorul cât mai aproape de zero, înregistrând ceea ce mâncați.
+ 
+Trebuie doar să setați aportul zilnic de calorii, și sunteţi gata să începeți!
+ 
+Pierderea în greutate nu a fost niciodată mai ușoară! 
+ 
+:: SINCRONIZAREA DATELOR PENTRU DISPOZITIVE MULTIPLE
+KCals este prevăzut de asemenea backup automat și sincronizator de date.
+ 
+Sincronizează cu ușurință datele între mai multe dispozitive, și înregistrează în mișcare!
+ 
+Ori de câte ori adăugați ceva la jurnalul dumneavoastră, sau actualizați profilul, aceste informații vor fi sincronizate instantaneu pe toate dispozitivele dumneavoastră.
+
+Pentru a utiliza sincronizarea datelor, pur și simplu conectați-vă la contul dvs. utilizând un alt dispozitiv, iar aplicația va descărca toate informațiile și va sincroniza totul exact ca pe primul dispozitiv - și apoi de la un dispozitiv la celălalt în timp real!
+
+Serviciul de sincronizare este gratuit, rapid, și nu necesită configurare.
+ 
+KCals este disponibil pe 10 platforme diferite, astfel încât, indiferent de dispozitivul pe care îl folosiți, veți putea înregistra toate informațiile de pe dispozitivul dumneavoastră preferat.
+ 
+Și pentru a avea o idee despre cum funcționează KCals, intră pe Kcals.net și începe imediat. Apoi mai târziu, puteți trimite datele înapoi la dispozitivul mobil.
+ 
+:: CARACTERISTICI PRINCIPALE
+• Numărarea caloriilor în timp real
+• Tradus în 26 de limbi
+• Disponibil pe 10 platforme diferite
+• Interfață simplă, curată și intuitivă
+• Copiere de rezervă şi sincronizare de date automată
+• Estimare realistă a scăderii în greutate
+• Arată cât de repede corpul tau arde calorii
+• Informații nutriționale complete
+• Raportul macro-nutrienților ajustabil (proteine, grăsimi și carbohidrați)
+• Motor de cautare avansata
+• Statistici privind consumul de calorii
+• Baze de date mare a alimentelor
+• Alimentele împărțite în categorii usor de navigat
+• Adăugați propriile alimente și exerciții
+• Salvati articolele tale preferate
+• Intrări complet editabile
+• Actualizări automate
+• Prezentare generală de astăzi
+• Prag de calorii reglabil
+• Modul ciclic
+ 
+:: PRIVIRE DE ANSAMBLU
+RO–
+
+–RU
+$KCALS$ - это новый способ контролировать потребление калорий.
+KCals отображает расход калорий в режиме реального времени. Вы с первого взгляда поймёте, сколько вам нужно есть каждый день.
+ 
+Научиться пользоваться счётчиком KCals очень просто - он работает как часы.
+- Калории, поступающие с пищей, прибавляются к общей сумме.
+- Потраченные калории (в том числе сожженные во время тренировок) вычитаются из общей суммы.
+ 
+Всё, что вам нужно, держать ползунок как можно ближе к нулю - записывая, что вы едите.
+ 
+Установите ежедневное потребление калорий, нажмите Начать - и всё готово!
+ 
+Худеть ещё никогда не было так просто!
+ 
+:: СИНХРОНИЗАЦИЯ ДАННЫХ МЕЖДУ НЕСКОЛЬКИМИ УСТРОЙСТВАМИ
+KCals автоматически создаёт резервные копии и синхронизирует данные.
+ 
+Синхронизировать данные между несколькими устройствами, чтобы вести записи в любое время - очень просто!
+ 
+Всякий раз, когда вы что-то добавляете в дневник или обновляете свой профиль, новая информация мгновенно появится на всех ваших устройствах.
+
+Чтобы использовать синхронизацию, просто войдите в свой аккаунт на новом устройстве. Приложение загрузит и синхронизирует все данные в точности как на первом устройстве. А затем - обратно со второго устройства на первое, и всё это - в мгновение ока!
+ 
+Синхронизация - это бесплатно, быстро и не требует настройки.
+ 
+KCals доступен на 10 различных платформах, поэтому неважно, какое у вас любимое устройство - вы сможете записывать всю информацию с любого из них.
+ 
+Чтобы понять, как работает KCals, зайдите на Kcals.net и начните прямо сейчас! Потом вы сможете отправить все свои данные на мобильное устройство.
+ 
+:: ОСНОВНЫЕ ВОЗМОЖНОСТИ
+• Подсчёт калорий в режиме реального времени
+• Переведено на 26 языков
+• Доступно на 10 различных платформах
+• Простой, аккуратный и понятный интерфейс
+• Автоматическое резервное копирование и синхронизация
+• Наглядная оценка потери веса
+• Показывает, с какой скоростью ваше тело сжигает калории
+• Полная информация о питании
+• Настраиваемое соотношение макроэлементов
+• Расширенные поисковые возможности
+• Статистика потребления калорий
+• Обширная база продуктов питания
+• Продукты разделены на категории, в которых просто ориентироваться
+• Добавляйте свои продукты и упражнения
+• Закладки для любимых продуктов и упражнений
+• Полностью редактируемые записи
+• Автоматическое обновление
+• Обзор текущего дня
+• Регулируемый предел калорий
+• Циклический режим
+ 
+:: БЫСТРЫЙ ОБЗОР
+RU–
+ 
+–SV
+$KCALS$ är ett nytt sätt för dig att styra ditt kaloriintag.
+Den visar din kalorianvändning i realtid, och med en överblick så visar KCals dig hur mycket du ska äta varje dag.
+
+KCals är mycket lätt att förstå - Den fungerar som en kalori kronometer.
+- Kalorier från livsmedel kommer att läggas till den totala.
+- Kaloriförbrukning (inklusive din träning) kommer att dras av från den totala.
+
+Så allt du behöver göra är att hålla räknaren så nära noll som möjligt - genom att logga vad du äter.
+
+Ställ bara in ditt dagliga kaloriintag, slå start, och du är färdig att gå! 
+
+Gå ner i vikt har aldrig varit enklare! 
+
+:: DATASYNKRONISERING FÖR FLERA ENHETER
+KCals har också automatisk säkerhetskopiering och datasynkronisering.
+
+Enkelt synkronisera data mellan flera enheter, och fortsätt att logga medan du är på språng!
+
+När du lägger till något till din dagbok, eller uppdaterar din profil, omedelbart så synkroniseras informationen mellan alla dina enheter.
+
+Om du vill använda datasynkronisering, så loggar du helt enkelt in på ditt konto med en annan enhet, och appen kommer att ladda ner all data och synkronisera allting precis som första enheten - och sedan från en enhet till en annan i realtid!
+
+Synkroniseringstjänsten är gratis,snabb och kräver ingen konfiguration
+
+KCals är tillgänglig på 10 olika plattformar, så oavsett vilken enhet du använder, kommer du att kunna logga all din information från din favorit enhet. 
+
+Och för att få en känsla för hur KCals fungerar, gå till Kcals.net och du kan komma igång direkt. Senare, kan du skicka tillbaka data till din mobiltelefon.
+
+:: HUVUDFUNKTIONER
+• Räkning av kalorier i real tid
+• Översatt till 26 språk
+• Tillgänglig på 10 olika plattformar
+• Enkel, ren och intuitivt gränssnitt
+• Automatisk säkerhetskopiering och datasynkronisering
+• Realistisk uppskattning av viktminskning
+• Visar hur snabbt din kropp bränner kalorier
+• Fullständig näringsinformation
+• Justerbar makronäringsämnes förhållande (proteiner, fetter och kolhydrater)
+• Avancerad sökmotor
+• Statistik över kaloriförbrukning
+• Stor livsmedelsdatabas
+• Livsmedel indelade i navigerbara kategorier
+• Lägg till dina egna livsmedel och övningar
+• Bokmärk dina favoritobjekt
+• Fullt redigerbara poster
+• Automatiska uppdateringar
+• Dagens översikt
+• Justerbar kaloritröskel
+• Cyklisk läge
+
+:: SNABBÖVERSIKT
+SV–
+
+–TR
+$KCALS$ aldığınız kalorileri kontrol etmeniz için yeni bir yöntem.
+KCals gerçek zamanlı olarak kalori kullanımınızı görüntüler ve bir bakışta her gün ne kadar yemeniz gerektiğini gösterir.
+
+KCals'ı anlamak çok kolay, aynen bir kalori sayacı gibi çalışır.
+- Yiyeceklerden alınan kaloriler toplama eklenecektir.
+- Yakılan kaloriler (antremanlarınız dahil) toplamdan düşülecektir.
+
+Dolayısıyla tek yapmanız gereken sayacı mümkün olduğunca sıfıra yakın tutmak (yediklerinizi kayda geçerek).
+
+Sadece günlük aldığınız kaloriyi ayarlayın, başlata basın ve başlamaya hazırsınız!
+
+Kilo kaybetmek hiç bu kadar kolay olmamıştı!
+
+:: BİRDEN FAZLA CİHAZ İÇİN VERİ SENKRONİZASYONU
+KCals, ayrıca otomatik yedekleme ve veri senkronizasyonu özelliği sunar.
+
+Birden fazla cihaz arasında kolayca veri senkronize edin ve hareket halindeyken kayıt tutmaya devam edin!
+
+Günlüğünüze bir şeyler ekledikçe veya profilinizi güncelledikçe, bu bilgi anlık olarak bütün cihazlarınızda senkronize edilmiş olacak. 
+
+Veri senkronizasyonunu kullanmak için, başka bir cihazı kullanarak hesabınıza giriş yapmanız yeterli, uygulama tüm verileri indirecek ve ilk cihazdaki herşeyi tam olarak senkronize edecek - ve tabi ki bir cihazdan öbürüne gerçek zamanlı olarak!
+
+Senkronizasyon servisi ücretsizdir, hızlıdır ve yapılandırma gerektirmez.
+
+KCals 10 farklı platformlarda kullanılabilir, böylece kullandığınız cihaz ne olursa olsun, istediğiniz cihazdan tüm bilgileri kaydedebilirsiniz.
+
+KCals'ın nasıl çalıştığına dair bir fikir almak için, Kcals.net adresine giderek, hemen başlayabilirsiniz. Daha sonra, veriyi mobil cihazınıza geri gönderebilirsiniz.
+
+:: ANA ÖZELLİKLER
+• Gerçek zamanlı kalori sayma
+• 26 dilde tercüme
+• 10 farklı platformda mevcut
+• Basit, temiz ve sezgisel bir arayüz
+• Otomatik yedekleme ve veri senkronizasyonu
+• Gerçekçi kilo kaybı tahmini
+• Vücudunuzun ne kadar hızlı kalori yaktığını gösterir
+• Eksiksiz beslenme bilgileri
+• Ayarlanabilir makrobesin oranı (proteinler, yağlar ve karbonhidratlar)
+• Gelişmiş arama motoru
+• Kalori tüketimi istatistikleri
+• Geniş gıda veritabanı
+• Gezilebilir kategorilere ayrılmış gıdalar
+• Kendi gıdalarınızı ve egzersizlerinizi ekleyin
+• Sevdiğiniz ürünleri işaretleyin
+• Tamamen düzenlenebilir girişler
+• Otomatik güncellemeler
+• Bugüne bakış
+• Ayarlanabilir kalori eşiği
+• Döngüsel mod
+
+:: HIZLI BAKIŞ
+TR–
+ 
+–VI
+$KCALS$ là một cách mới để bạn có thể kiểm soát lượng calo của bạn.
+Nó hiển thị lượng calo sử dụng của bạn theo thời gian thực, và nhanh chóng, Kclas sẽ cho bạn biết bạn nên ăn bao nhiêu mỗi ngày.
+ 
+KCals là rất dễ hiểu - Nó hoạt động giống như một thước đo lượng calo.
+- Năng lượng từ thực phẩm sẽ được thêm vào tổng số.
+- Năng lượng đốt cháy (bao gồm cả tập thể dục của bạn) sẽ được trừ ra từ tổng số.
+ 
+Vì vậy, việc tất cả các bạn phải làm là giữ cho các bộ đếm gần như không - bằng cách đăng những gì bạn ăn.
+ 
+Chỉ cần cài đặt lượng calo hàng ngày của bạn, nhấn Bắt đầu, và rất tốt để đi!
+ 
+Giảm cân chưa bao giờ dễ dàng hơn!
+ 
+:: DỮ LIỆU ĐỒNG BỘ CHO NHIỀU THIẾT BỊ
+KCals cũng có tính năng tự động sao lưu và đồng bộ dữ liệu.
+ 
+Dễ dàng đồng bộ hóa dữ liệu giữa nhiều thiết bị, và giữ đăng nhập trên suốt đường đi!
+ 
+Bất cứ khi nào bạn thêm một cái gì đó vào nhật ký của bạn, hoặc cập nhật thông tin cá nhân, thông tin đó sẽ được đồng bộ ngay lập tức trên tất cả các thiết bị của bạn.
+
+Để sử dụng đồng bộ hóa dữ liệu, chỉ cần đăng nhập vào tài khoản của bạn bằng cách sử dụng một thiết bị khác, và các ứng dụng sẽ tải về tất cả các dữ liệu và đồng bộ hóa tất cả mọi thứ một cách chính xác như là thiết bị đầu tiên - và sau đó từ một thiết bị khác theo thời gian thực!
+ 
+Các dịch vụ đồng bộ là miễn phí, nhanh chóng, không cần cài đặt.
+ 
+KCals có sẵn trên 10 nền tảng khác nhau, vì vậy không có vấn đề mà thiết bị bạn đang sử dụng, bạn sẽ có thể đăng nhập tất cả các thông tin của bạn từ thiết bị yêu thích của bạn.
+ 
+Và để có được một cảm nhận về cách làm việc của Klals, hãy đến Kcals.net và bạn có thể bắt đầu ngay lập tức. Sau đó, bạn có thể gửi dữ liệu trở lại vào thiết bị di động của bạn.
+ 
+:: NHỮNG ĐẶC ĐIỂM CHÍNH
+• Tính lượng calo theo thời gian thực
+• Đã được dịch sang 26 ngôn ngữ
+• Có sẵn trong 10 nền tảng khác nhau
+• Giao diện đơn giản, sạch sẽ và trực quan
+• Sao lưu dữ liệu và đồng bộ hóa tự động
+• Úớc lượng thực tế của việc giảm cân
+• Hiển thị nhanh khi nào cơ thể bạn đốt cháy calo
+• Thông tin dinh dưỡng đầy đủ
+• Tỷ lệ phần dinh dưỡng có thể điều chỉnh (protein, chất béo và đường)
+• Công cụ tìm kiếm nâng cao
+• Thống kê về mức tiêu thụ calo
+• Cơ sở dữ liệu thực phẩm lớn
+• Thực phẩm chia thành các danh mục
+• Thêm các loại thực phẩm và các bài tập riêng của bạn
+• Tạo chỉ mục ưa thích của bạn
+• Hiệu chỉnh các mục
+• Tự động cập nhật
+• Tổng quan hôm nay
+• Điều chỉnh ngưỡng calo
+• Chế độ chu kì
+ 
+:: TỔNG QUAN
+VI–
+
+–ZH
+$KCALS$是您控制卡路里摄入量的新途径。
+它会显示您的实时卡路里消耗量，只需一眼，KCals就让您每天可进食的数量一目了然。
+
+KCals是一款很容易理解的工具 - 它就像一个卡路里记录表。
+- 根据食物种类，不同的卡路里数值将被自动添加汇总。
+- 热量消耗（包括您锻炼支出的热量）将从总和中自动减去。
+
+您所需要做的就是尽可能保持计数器数值接近零值 - 通过记录您吃了什么食物。
+
+您只需设置每天的卡路里摄入量目标，然后点击开始，仅此而已！
+
+减肥从未像这般简单！
+
+:: 针对多种设备的同步数据终端:: 
+KCals还具有自动备份和数据同步的功能。
+
+在多个设备之间轻松同步您的数据，并保持登录状态！
+
+每当您新添加了一些日志数据，或更新了您的个人资料，这些信息会被瞬间同步到您的所有注册设备上。
+
+要 想使用数据同步功能，只需使用其他设备登录到您的帐户，这款应用会根据第一设备的信息自动精确下载所有数据 ，并以实时状态在所有设备中逐个执行。
+
+该同步共享服务免费、快捷并且无需设置。
+
+KCals可应用于10个不同的平台，所以无论您使用何种设备，您都可以从容地在您最喜爱的设备上获取所有信息。
+
+如您想了解KCals 是如何工作的，就请您速去Kcals.net开始您的体验吧。 之后，你可以将数据发送回您的移动手机设备。
+
+:: 主要特点
+•实时计算卡路里
+•已翻译成26种语言
+•可在10个不同的平台上使用
+•简洁、明了并且直观的操作接口。
+•自动备份并且数据同步共享
+•真实的体重减轻预测
+•呈现身体燃烧卡路里的速率
+•完整的营养信息
+•可调营养素比例
+•先进的搜索引擎
+•热量消耗统计
+•庞大的食品数据库
+•食品细分成可浏览的类别
+•添加您自己的食物和运动类型
+•收藏你喜欢的条目
+•完全可编辑的条目
+•自动更新
+•今天的概述
+•可调节的基础热量值
+•周期模式
+
+:: 简要概述
+ZH–
+
+–ZT
+$KCALS$是您控制卡路里攝入量的新途徑。
+它會顯示您的即時卡路里消耗量，只需一眼，KCals就讓您每天可進食的數量一目了然。
+
+KCals是一款很容易理解的工具 - 它就像一個卡路里記錄表。
+- 根據食物種類，不同的卡路里數值將被自動添加匯總。
+- 熱量消耗（包括您鍛煉支出的熱量）將從總和中自動減去。
+
+您所需要做的就是盡可能保持計數器數值接近零值 - 通過記錄您吃了什麼食物。
+
+您只需設置每天的卡路里攝入量目標，然後點擊開始，僅此而已！
+
+減肥從未像這般簡單！
+
+:: 針對多種設備的同步資料終端
+KCals還具有自動備份和資料同步的功能。
+
+在多個設備之間輕鬆同步您的資料，並保持登錄狀態！
+
+每當您新添加了一些日誌資料，或更新了您的個人資料，這些資訊會被瞬間同步到您的所有註冊設備上。
+
+要 想使用資料同步功能，只需使用其他設備登錄到您的帳戶，這款應用會根據第一設備的資訊自動精確下載所有資料 ，並以即時狀態在所有設備中逐個執行。
+
+該同步共用服務免費、快捷並且無需設置。
+
+KCals可應用於10個不同的平臺，所以無論您使用何種設備，您都可以從容地在您最喜愛的設備上獲取所有資訊。
+
+如您想瞭解KCals 是如何工作的，就請您速去Kcals.net開始您的體驗吧。 之後，你可以將資料發送回您的移動手機設備。
+
+:: 主要特點
+•即時計算卡路里
+•已翻譯成26種語言
+•可在10個不同的平臺上使用
+•簡潔、明瞭並且直觀的操作介面。
+•自動備份並且資料同步共用
+•真實的體重減輕預測
+•呈現身體燃燒卡路里的速率
+•完整的營養資訊
+•可調營養素比例
+•先進的搜尋引擎
+•熱量消耗統計
+•龐大的食品資料庫
+•食品細分成可流覽的類別
+•添加您自己的食物和運動類型
+•收藏你喜歡的條目
+•完全可編輯的條目
+•自動更新
+•今天的概述
+•可調節的基礎熱量值
+•週期模式
+
+:: 簡要概述
+ZT–

@@ -170,7 +170,7 @@ var LANG = {
 	CALORIE_COUNTER_FULL_TITLE : {
 		en : 'KCals Calorie Counter',
 		pt : 'KCals Contador de Calorias',
-		ar : 'KCals عداد السُعرات الحرارية',
+		ar : '(KCals عداد السُعرات الحرارية)',
 		bg : 'KCals Брояч на калории',
 		cs : 'Počítadlo kalorií KCals',
 		da : 'KCals kalorietæller',

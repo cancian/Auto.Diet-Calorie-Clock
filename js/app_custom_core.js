@@ -33,17 +33,15 @@ function appTimer(content) {
 	var lBalanced = LANG.BALANCED[lang];
 	var limit1    = app.read('config_limit_1');
 	var limit2    = app.read('config_limit_2');
+	var statusTip;
 	//STATUSES
-/*
-         if(kcalsInput >  9999 )   { status = lSurplus;  cssClass = 'surplus'; cssOver = 'over'; kcalsInput =  9999.99; }
-	else if(kcalsInput < -9999 )   { status = lDeficit;  cssClass = 'deficit'; cssOver = 'over'; kcalsInput = -9999.99; }
-	else 
-*/
-		 if(kcalsInput > limit2)   { status = lSurplus;  cssClass = 'surplus'; cssOver = 'over'; }
-	else if(kcalsInput < limit1)   { status = lDeficit;  cssClass = 'deficit'; cssOver = 'over'; }
-	else if(kcalsInput > limit2/2) { status = lSurplus;  cssClass = 'surplus';  }
-	else if(kcalsInput < limit1/2) { status = lDeficit;  cssClass = 'deficit';  }
-	else                           { status = lBalanced; cssClass = 'balanced'; }
+         if(kcalsInput >  9999 )   { status = lSurplus;  cssClass = 'surplus';  statusTip = LANG.STATUS_POS_3[lang]; cssOver = 'over'; }
+	else if(kcalsInput < -9999 )   { status = lDeficit;  cssClass = 'deficit';  statusTip = LANG.STATUS_NEG_3[lang]; cssOver = 'over'; }
+	else if(kcalsInput > limit2)   { status = lSurplus;  cssClass = 'surplus';  statusTip = LANG.STATUS_POS_2[lang]; cssOver = 'over'; }
+	else if(kcalsInput < limit1)   { status = lDeficit;  cssClass = 'deficit';  statusTip = LANG.STATUS_NEG_2[lang]; cssOver = 'over'; }
+	else if(kcalsInput > limit2/2) { status = lSurplus;  cssClass = 'surplus';  statusTip = LANG.STATUS_POS_1[lang]; }
+	else if(kcalsInput < limit1/2) { status = lDeficit;  cssClass = 'deficit';  statusTip = LANG.STATUS_NEG_1[lang]; }
+	else                           { status = lBalanced; cssClass = 'balanced'; statusTip = LANG.STATUS_BAL_0[lang]; }
 	///////////////////
 	// UPDATE HEADER //
 	///////////////////
@@ -61,6 +59,7 @@ function appTimer(content) {
 	//STATUS
 	if(!$('body').hasClass(cssClass) || !$('#appHeader').hasClass(cssClass) || !$('#appStatusBalance').hasClass(cssClass)) {
 		$('body,#appHeader,#appStatusBalance').addClass(cssClass);
+		
 		if(cssClass != 'balanced') {
 			$('body,#appHeader,#appStatusBalance').removeClass('balanced');
 		}
@@ -74,6 +73,7 @@ function appTimer(content) {
 			$('body,#appHeader,#appStatusBalance').removeClass('over');
 		}
 	}
+	//OVER
 	if(cssOver == 'over') {
 		if(!$('body').hasClass('over') || !$('#appHeader').hasClass('over') || !$('#appStatusBalance').hasClass('over')) {
 			$('body,#appHeader,#appStatusBalance').addClass('over');
@@ -104,14 +104,29 @@ function appTimer(content) {
 	if(!app.read('app_last_tab','tab1') && $('#appStatusBalance div p').html() != app.read('appBalance')) { 
 		$('#appStatusBalance div p').html(app.read('appBalance'));
 	}
+	// STATUS TIPS
+	//if(!app.dev) {	
+		$('#timerKcalsInput').css('font-size','32px');
+	//}
+	
+	if(!app.read('appStatus','running')) {
+		$('#appStatusTips').hide();
+	} else {
+		//dev only
+		if(app.dev) {
+			$('#appStatusTips').show();
+			$('#timerKcalsInput').css('font-size','24px');
+		} else {
+			$('#appStatusTips').hide();	
+		}
+	}
+	//
+	if($('#appStatusTips').html() != statusTip) {
+		$('#appStatusTips').html(statusTip);
+	}
+	//
 	balanceMeter(kcalsInput);
 	getElapsed();
-	/////////////////
-	// STATUS TIPS //
-	/////////////////
-	//if()
-	
-	
 	/////////////////////////////////////
 	// CHECK DAY CHANGE, ADJUST INTAKE //
 	/////////////////////////////////////

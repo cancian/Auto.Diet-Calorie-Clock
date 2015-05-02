@@ -69,11 +69,13 @@ $(document).on('resume',function() {
 				buildRemoteSuperBlock('cached');
 			}
 		},2000);
+		//ONLINE USERS
+		app.online();
+		//BLOCK PIRACY
+		if(!app.device.desktop) {
+			app.piracy();
+		}
 	},3000);
-	//BLOCK PIRACY
-	if(!app.device.desktop) {
-		app.piracy();
-	}
 });
 ///////////////////////
 // VISIBILITY CHANGE //
@@ -991,9 +993,11 @@ if(app.is.scrollable) {
 		setTimeout(startTimer,timerDiff);
 	}
 })();
-//refresh entrylist time
+//refresh entrylist time & online users
 (function entryRetimer() {
 	updateEntriesTime();
+	//online users
+	app.online();
 	setTimeout(entryRetimer,60*1000);
 })();
 //check last push

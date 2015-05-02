@@ -249,6 +249,8 @@ app.tab.status = function(keepOpen) {
 	var totalPercent  = totalConsumed / (totalIntake / 100);
 	//create empty intake html cache
 	app.define('appStatusIntake',' ');
+	//ONLINE USERS
+	app.define('online_users',0);
 	/////////////////////////////
 	// PRE-SET START/RESET BAR //
 	/////////////////////////////
@@ -279,6 +281,7 @@ app.tab.status = function(keepOpen) {
 	//RAW HTML
 	var statusHtml = '\
 	<a name="top"></a>\
+	<div id="onlineUsers">' + LANG.ACTIVE_USERS[lang] + ': <span>' + app.read("online_users") + '<span></div>\
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p></p><span></span></div>\
 		<div id="elapsedIndicators"><div id="ind1"></div><div id="ind2"></div><div id="ind3"></div></div>\
@@ -313,6 +316,10 @@ app.tab.status = function(keepOpen) {
 	//#//////////#//
 	//# HANDLERS #//
 	//#//////////#//
+	//testing
+	if(!app.read('been_dev')) {
+		$('#CSSPlaceholder').append('#onlineUsers { opacity: 0 !important; }');
+	}
 	//PRE
 	getElapsed();
 	updateNutriBars();
@@ -942,6 +949,22 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				$('#entryBody').val('');
 				$('#entryBody').blur();
 			}
+			///////////
+			// NOMIN //
+			//////////
+			if (/devnomin/i.test($('#entryBody').val())) {
+				if (app.read('config_nomin','active')) {
+					app.remove('config_nomin');
+					$('#entryBody').val('');
+					$('#entryBody').blur();
+					afterHide();
+				} else {
+					app.save('config_nomin','active');
+					$('#entryBody').val('');
+					$('#entryBody').blur();
+					afterHide();
+				}
+			}
 			//////////
 			// UUID //
 			//////////
@@ -959,7 +982,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			///////////
 			if (/devdebug/i.test($('#entryBody').val())) {
 				if (app.read('config_debug','active')) {
-					app.save('config_debug','inactive');
+					app.remove('config_debug');
 					$('#entryBody').val('');
 					$('#entryBody').blur();
 					afterHide();

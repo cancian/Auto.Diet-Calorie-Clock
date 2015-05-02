@@ -68,17 +68,17 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#appContent						{ position: absolute; top: 62px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
+#appContent						{ position: absolute; top: 65px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
 /*.msie.newwindow #appContent	{ overflow: hidden; }*/
 body.android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
-body.android2 #appContent			{ top: 0; border-top: 62px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
+body.android2 #appContent			{ top: 0; border-top: 65px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
 /*kitkat scrollbar*/
 body.android ::-webkit-scrollbar	{ display: none; }
 /*#////////////#//
 //# APP HEADER #//
 //#////////////#*/
-#appHeader					{ height: 62px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; }
-#timerBlocks				{ height: 62px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; background-color: rgba(0,0,0,0); }
+#appHeader					{ height: 65px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; }
+#timerBlocks				{ height: 65px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; background-color: rgba(0,0,0,0); }
 /*status colors*/
 #appHeader					{ background-color: #fff; color: #fff !important; font-weight: 300; }
 /**/
@@ -87,53 +87,42 @@ body.deficit #appHeader,
 body.over.deficit #appHeader	{ background-color: #D50B09 !important; font-weight: 300; }
 body.surplus #appHeader,
 body.over.surplus #appHeader	{ background-color: #309030 !important; font-weight: 300; }
-/**/
-/*
+/*////////////////
+// online users //
+////////////////*/
+#onlineUsers					{ position: absolute; bottom: 109px; right: 15px; display: block; width: 100px; height: 15px; font-size: 10px; line-height: 10px; color: #aaa; text-align: right; pointer-events: none; }
+#onlineUsers span				{ color: #777; }
+/*///////////////
+// status tips //
+///////////////*/
+#appStatusTips						{ position: fixed; background-color: rgba(255,255,255,.84); border-radius: 2px; top: 4px; left: 20px; right: 18px; text-align: left; display: block; font-size: 11px; line-height: 12px; pointer-events: none; z-index: 5; color: rgba(0,0,0,.6) !important; text-shadow: 0 0 1px rgba(255,255,255,.4); padding: 1px 3px; white-space: nowrap; overflow: hidden; }
+.appDebug #appStatusTips			{ right: 22px; }
+.appFacebook #appStatusTips			{ right: 24px; }
+body.ios7 #appStatusTips			{ top: 19px !important; }
 body.error.surplus #appHeader,
-body.error.deficit #appHeader			{ background-color: #000 !important; }
-
-
-body.error #timerKcalsInput		{ font-size: 28px !important; width: 190px !important; text-shadow: 0 0 1px rgba(255,255,255,.5) !important; overflow: hidden; }
-
-
+body.error.deficit #appHeader		{ background-color: #000 !important; }
+body.error #timerKcalsInput			{ font-size: 28px !important; width: 190px !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; overflow: hidden; }
 body.error.deficit #timerKcalsInput,
 body.error.deficit #timerKcals span,
 body.error.deficit #timerDailyInput,
-body.error.deficit #timerDaily span  { color: #D50B09 !important; text-shadow: 0 0 1px rgba(255,255,255,.5) !important; }
-
-
+body.error.deficit #timerDaily span	{ color: #D50B09 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }
 body.error.surplus #timerKcalsInput,
 body.error.surplus #timerKcals span,
 body.error.surplus #timerDailyInput,
-body.error.surplus #timerDaily span  { color: #309030 !important; text-shadow: 0 0 1px rgba(255,255,255,.5) !important; }
-
-
-
-
-#appStatusTips { position: fixed; background-color: rgba(255,255,255,.5); left: 21px; display: block; font-size: 11px; line-height: 11px; pointer-events: none; z-index: 5; white-space: nowrap; color: rgba(220,220,220,.8) !important; }
-
-
-body.error #appStatusTips:before	{ }
-body.error.ios7 #appStatusTips	{ top: 15px; }
-
-body.error.surplus #appStatusTips:before	{ left: 12px;  }
-*/
-
-
-
+body.error.surplus #timerDaily span	{ color: #309030 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }
 /*android hacks*/
 body.android #appHeader			{ z-index: 50 !important; }
 /*/////////////////
 // CALORIE CLOCK //
 /////////////////*/
 #timerKcals						{ position: absolute; bottom: 16px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; }
-#timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 32px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(0,0,0,0); -webkit-appearance: none; z-index: 4; text-shadow: 0 0 1px rgba(0,0,0,.5); }
-#timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; font-weight: 400; padding-top: 2px; color: #fff; background-color: rgba(0,0,0,0); z-index: 5; text-shadow: 0 0 1px rgba(0,0,0,.25); }
+#timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 24px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(0,0,0,0); -webkit-appearance: none; z-index: 4; text-shadow: 0 0 1px rgba(0,0,0,.1); }
+#timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; font-weight: 400; padding-top: 2px; color: #fff; background-color: rgba(0,0,0,0); z-index: 5; text-shadow: 0 0 1px rgba(0,0,0,.1); }
 /*//////////////////
 // DAILY CALORIES //
 //////////////////*/
 #timerDaily						{ position: absolute; bottom: 0px; top: 0px; right: 0px; width: 84px; }
-#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space: nowrap; color: #fff; font-weight: 600; text-shadow: 0 0 1px rgba(0,0,0,.25); }
+#timerDaily span				{ position: absolute; bottom: 11px; left: 0px; font-size: 8px; line-height: normal; text-transform: uppercase; white-space: nowrap; color: #fff; font-weight: 600; text-shadow: 0 0 1px rgba(0,0,0,.1); }
 body.ios #timerDaily span		{ font-weight: 400; }
 body.appLang-nl #timerDaily		{ right: 6px;  }
 body.appLang-fr #timerDaily		{ right: 12px; }
@@ -142,8 +131,8 @@ body.appLang-nl #timerDaily span,
 body.appLang-fr #timerDaily span,
 body.appLang-el #timerDaily span{ font-size: 7px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 9999; }
-#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.93); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; text-shadow: 0px 0 1px rgba(0,0,0,.5); }
-#timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: all linear .0s; text-shadow: 0 0 5px rgba(255,255,255,.6) !important; }
+#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.93); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; text-shadow: 0px 0 1px rgba(0,0,0,.1); }
+#timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: all linear .0s; text-shadow: 0 0 4px rgba(250,250,250,.7) !important; }
 body.newwindow #timerDailyInput,
 body.closer #timerDailyInput	{ pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
 #timerDailyInput.dull			{ color: rgba(255,255,255,.72) !important; pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
@@ -449,9 +438,9 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 /*##///////////##//
 //## newWindow ##//
 //##///////////##*/
-#newWindowWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 15; }
+#newWindowWrapper					{ display: block; position: absolute; top: 65px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 15; }
 #newWindowWrapper.busy				{ -webkit-user-select: none; -ms-user-select: none; pointer-events: none !important; overflow: hidden; }
-.ios7 #newWindowWrapper				{ top: 77px; }
+.ios7 #newWindowWrapper				{ top: 80px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
 .windows8 #newWindowWrapper			{ -webkit-backface-visibility: hidden; }
 .android #newWindow					{ /*-webkit-backface-visibility: hidden;*/ -webkit-perspective: 800; }
@@ -471,15 +460,15 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 .newwindow #startDate,
 .newwindow #appContent				{ pointer-events: none !important; }
 #newWindowWrapper.sideload							{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; background-color: #fff; overflow: hidden; }
-.ios7 #newWindowWrapper.sideload					{ top: 77px; }
+.ios7 #newWindowWrapper.sideload					{ top: 80px; }
 #newWindowWrapper.open.sideload						{ -webkit-transform: translate3d(0, 0, 0); }
 .wp8 #newWindow.firstLoad div:nth-of-type(1n+15)	{ display: none !important; }
 #newWindow.firstLoad div:nth-of-type(1n+100)		{ display: none; }
 .android4lt #newWindow div:nth-of-type(1n+750)		{ display: none; }
 /**************/
-#newSearchWrapper					{ display: block; position: absolute; top: 62px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 55; }
+#newSearchWrapper					{ display: block; position: absolute; top: 65px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 55; }
 #newSearchWrapper.busy				{ pointer-events: none; overflow: hidden; }
-.ios7 #newSearchWrapper				{ top: 77px; }
+.ios7 #newSearchWrapper				{ top: 80px; }
 #newSearchWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
 .windows8 #newSearchWrapper			{ -webkit-backface-visibility: hidden; }
 .android #newSearch					{ /*-webkit-backface-visibility: hidden;*/ -webkit-perspective: 800; }
@@ -1077,7 +1066,7 @@ div#noEntries						{ height: 45px !important; }
 .mobile #adjustNegBlock.activeBlock,
 .mobile #adjustPosBlock.activeBlock 	{ /*color: #C6DEF9;*/ background-color: rgba(0,0,0,.2); }
 .mobile #adjustPosBlock					{ position: absolute; right:  2px; top: -43px; width: 60px; height: 42px; border-radius: 0 2px 2px 0;  line-height: 47px; text-align: center; z-index: 9999; display: block; }
-.mobile #adjustNegBlock					{ position: absolute; right: 62px; top: -43px; width: 60px; height: 42px; border-radius: 2px 0 0 2px; line-height: 47px; text-align: center; z-index: 9999; display: block; }
+.mobile #adjustNegBlock					{ position: absolute; right: 65px; top: -43px; width: 60px; height: 42px; border-radius: 2px 0 0 2px; line-height: 47px; text-align: center; z-index: 9999; display: block; }
 .desktop #adjustPosBlock				{ position: absolute; right:  2px; top: 1px; width: 60px; height: 42px; line-height: 47px; text-align: center; z-index: 9999; display: block; background-color: rgba(0,0,0,0); }
 .desktop #adjustNegBlock				{ position: absolute; right: 60px; top: 1px; width: 60px; height: 42px; line-height: 47px; text-align: center; z-index: 9999; display: block; background-color: rgba(0,0,0,0); }
 .desktop #adjustNegBlock.activeBlock,
@@ -1110,9 +1099,9 @@ div#noEntries						{ height: 45px !important; }
 #diaryNotes:before			{ content: '\f02d'; font-family: 'KCals'; display: inline-block; font-weight: normal; }
 #diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
 #diaryNotesInput 			{ position: absolute; top: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(0,0,0,0); z-index: 98; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
-#diaryNotesButton			{ position: fixed; top: 0; right: 0; width: 80px; height: 62px; background-color: rgba(255,255,255,0); display: block; z-index: 999; text-align: center; line-height: 65px; font-size: 32px; color: #007aff; -webkit-backface-visibility: hidden; }
+#diaryNotesButton			{ position: fixed; top: 0; right: 0; width: 80px; height: 65px; background-color: rgba(255,255,255,0); display: block; z-index: 999; text-align: center; line-height: 65px; font-size: 32px; color: #007aff; -webkit-backface-visibility: hidden; }
 #diaryNotesButton:before	{ font-family: 'KCals'; content: '\F00D'; }
-.ios7 #diaryNotesButton		{ height: 77px; line-height: 95px; }
+.ios7 #diaryNotesButton		{ height: 80px; line-height: 95px; }
 /*kb closer*/
 .firefoxos #diaryCloser,
 .mobile.android #diaryCloser						{ display: none; }
@@ -1124,7 +1113,7 @@ div#noEntries						{ height: 45px !important; }
 ####   PAGE SLIDE FOOD   ####
 ############################*/
 #foodList					{ position: absolute; top: 53px; left: 0; width: 100%; bottom: 0; color: #000; overflow: hidden; background-color: #fff; z-index: 50; }
-#pageSlideFood				{ position: absolute; top: 62px; left: 0; width: 100%; bottom: 0; color: #000; overflow: hidden; background-color: #fff; z-index: 50; height: 100%; }
+#pageSlideFood				{ position: absolute; top: 65px; left: 0; width: 100%; bottom: 0; color: #000; overflow: hidden; background-color: #fff; z-index: 50; height: 100%; }
 #pageSlideFood				{ -webkit-transform: translate3d(0, 100%, 0); -webkit-transition: all ease .3s; }
 #pageSlideFood.open			{ -webkit-transform: translate3d(0,    0, 0); }
 /*msie blink*/
@@ -1217,7 +1206,7 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 #modalOverlay			{ background-color: rgba(0,0,0,1); opacity: .6; -webkit-backface-visibility: hidden; }
 #modalWindow			{ position: absolute; top: 74px; left: 0; right: 0; height: 200px; background-color: #ffffff; -webkit-box-shadow: 2px 0px 6px rgba(0,0,0,.5); z-index: 99; }
 .ios7 #modalWindow		{ top: 94px; }
-#modalContent			{ padding: 12px; font-size: 13px; max-height: 62px; overflow: hidden; color: #777; font-weight: bold; }
+#modalContent			{ padding: 12px; font-size: 13px; max-height: 65px; overflow: hidden; color: #777; font-weight: bold; }
 #modalContent span		{ color: #3287F5; white-space: nowrap; }
 #modalContent:active span,
 #modalContent span:active,
@@ -1266,13 +1255,13 @@ span#proLabel			{ top:  0px; text-align: left; left: 67px; color: #666; }
 span#carLabel			{ top: 14px; text-align: left; left: 67px; color: #666; }
 span#fatLabel			{ top: 28px; text-align: left; left: 67px; color: #666; }
 /*modal delete*/
-#modalDelete:before			{ content: '\f014'; font-family: 'KCals'; font-size: 30px; position: absolute; top: -62px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
+#modalDelete:before			{ content: '\f014'; font-family: 'KCals'; font-size: 30px; position: absolute; top: -65px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
 #modalDelete.button:before	{ color: #ccc; }
 /*modal edit*/
-#modalEdit:before			{ content: '\f040'; font-family: 'KCals'; font-size: 30px; position: absolute; top: -62px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
+#modalEdit:before			{ content: '\f040'; font-family: 'KCals'; font-size: 30px; position: absolute; top: -65px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalEdit.button:before	{ color: #ccc; }
 /*modal fav*/
-#modalFav:before			{ content: '\f006'; font-family: 'KCals'; font-size: 32px; position: absolute; top: -62px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
+#modalFav:before			{ content: '\f006'; font-family: 'KCals'; font-size: 32px; position: absolute; top: -65px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalFav.favorite:before	{ content: '\f005'; font-family: 'KCals'; }
 #modalFav.button:before		{ color: #ccc; }
 /*modal conversions*/
@@ -1380,8 +1369,8 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 /*ios6 calc form resize bug*/
 .ios #appHeader					{ position: absolute; }
 .ios7 #editableDiv,
-.ios7 #appHeader				{ height: 77px; }
-.ios7 #appContent				{ top: 77px; }
+.ios7 #appHeader				{ height: 80px; }
+.ios7 #appContent				{ top: 80px; }
 .ios7 span#subKcalsDay			{ top: 21px; }
 .ios7 span#timerFood 			{ margin-top: 14px; }
 .ios7 span#timerExercise 		{ margin-bottom: -4px; }
