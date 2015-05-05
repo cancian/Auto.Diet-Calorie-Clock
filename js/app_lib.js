@@ -1817,52 +1817,30 @@ app.online = function () {
 //# BLOCK PIRACY #//
 //#//////////////#//
 app.piracy = function (force) {
-	////////////////
-	// BLOCK USER //
-	////////////////
-	function blockUser() {
-		//LOG
+	if (force == 1 || typeof baseVersion === 'undefined' || typeof LANG.BACKUP_AND_SYNC === 'undefined' || baseVersion < 1.9) {
 		app.analytics('blocked');
-		//REDIRECT
-		app.timeout('piracy',5000,function () {
-		appConfirm('Warning! Critical Update!','This version of KCals is built on a version of Apache Cordova that contains security vulnerabilities. Please update now!', function (button) {
-			if (button <= 2) {
-					     if (app.device.android) 	{ app.url('android');    }
-					else if (app.device.ios) 		{ app.url('ios');        }
-					else if (app.device.wp8)		{ app.url('wp8');        }					
-					else if (app.device.amazon)		{ app.url('amazon');     }
-					else if (app.device.windows8)	{ app.url('windows8');   }
-					else if (app.device.blackberry)	{ app.url('blackberry'); }
-					else 							{ app.url('web');        }
+		clearTimeout(app.timers['popTimer']);
+		app.timers['popTimer'] = setTimeout(function () {
+			appConfirm('Warning! Critical Update!', 'This version of KCals is built on a distribution of Apache Cordova that contains security vulnerabilities. Please update now!', function (button) {
+				if (button) {
+					if (app.device.android) {
+						app.url('android');
+					} else if (app.device.ios) {
+						app.url('ios');
+					} else if (app.device.wp8) {
+						app.url('wp8');
+					} else if (app.device.amazon) {
+						app.url('amazon');
+					} else if (app.device.windows8) {
+						app.url('windows8');
+					} else if (app.device.blackberry) {
+						app.url('blackberry');
+					} else {
+						app.url('web');
+					}
 				}
 			}, LANG.OK[lang], LANG.CANCEL[lang]);
-		});
-	}
-	// DEV //
-	if(force == 1) {
-		blockUser();
-		return;
-	}
-	//////////////
-	// CHECK #1 //
-	//////////////
-	try {
-		var test = LANG.BACKUP_AND_SYNC[lang].toLowerCase();
-	} catch (e) {
-		blockUser();
-		return;
-	}
-	//////////////
-	// CHECK #2 //
-	//////////////
-	try {
-		if (parseFloat(baseVersion) < 1.9) {
-			blockUser();
-			return;
-		}
-	} catch (e) {
-		blockUser();
-		return;
+		}, 2000);
 	}
 }
 //##/////////////##//

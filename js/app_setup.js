@@ -2128,12 +2128,10 @@ app.analytics = function(target,desc) {
 			if(!/800a139e/i.test(desc)) {
 				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
 				ga_storage._trackEvent(appOS, target, desc, baseVersion);
-				ga_storage._trackEvent(appOS, baseVersion, lang);	
 			}
 		} else {
 			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')');
-			ga_storage._trackEvent(appOS, target, lang, baseVersion);		
-			ga_storage._trackEvent(appOS, baseVersion, lang);	
+			ga_storage._trackEvent(appOS, target, lang, baseVersion);
 		}
 	}
 };

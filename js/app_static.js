@@ -115,11 +115,9 @@ setTimeout(function() {
 	}
 	app.remove('app_restart_pending');
 	app.analytics('init');
+	// BLOCK PIRACY
+	app.piracy();
 },0);
-//////////////////
-// BLOCK PIRACY //
-//////////////////
-app.piracy();
 ///////////////////////
 // MARK BOOT SUCCESS //
 ///////////////////////
@@ -997,7 +995,9 @@ if(app.is.scrollable) {
 (function entryRetimer() {
 	updateEntriesTime();
 	//online users
-	app.online();
+	setTimeout(function() {
+		app.online();
+	},2000);
 	setTimeout(entryRetimer,60*1000);
 })();
 //check last push

@@ -104,21 +104,12 @@ function appTimer(content) {
 	if(!app.read('app_last_tab','tab1') && $('#appStatusBalance div p').html() != app.read('appBalance')) { 
 		$('#appStatusBalance div p').html(app.read('appBalance'));
 	}
-	// STATUS TIPS
-	//if(!app.dev) {	
-		$('#timerKcalsInput').css('font-size','32px');
-	//}
-	
+	//UPDATE TIPS
 	if(!app.read('appStatus','running')) {
 		$('#appStatusTips').hide();
 	} else {
-		//dev only
-		if(app.dev) {
-			$('#appStatusTips').show();
-			$('#timerKcalsInput').css('font-size','24px');
-		} else {
-			$('#appStatusTips').hide();	
-		}
+		$('#appStatusTips').show();
+		$('#timerKcalsInput').css('font-size','24px');
 	}
 	//
 	if($('#appStatusTips').html() != statusTip) {

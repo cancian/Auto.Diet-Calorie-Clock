@@ -316,10 +316,6 @@ app.tab.status = function(keepOpen) {
 	//#//////////#//
 	//# HANDLERS #//
 	//#//////////#//
-	//testing
-	if(!app.read('been_dev')) {
-		$('#CSSPlaceholder').append('#onlineUsers { opacity: 0 !important; }');
-	}
 	//PRE
 	getElapsed();
 	updateNutriBars();

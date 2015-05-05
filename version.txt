@@ -2,7 +2,6 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbspfeatures [0000/00/00]
-• Real time tips about your current caloric status on the top bar
 • Multi-user support
 • QR/barcode scanner
 • Search engine with customizable max. results: 50/100/500
@@ -10,13 +9,16 @@
 • Adjustable zoom level for larger screens
 • BMI calculator on profile
 • Weight loss tracker
+• New features suggestion box
 • Ability to track weight gain if you goal is to gain weight
 • Auto-Share custom items (every custom item added becomes available to all users)
 • User can choose the food database language independently from the current system language
 
-# 1.9.4 [2015/04/30]4
-• Vietnamese translation
+# 1.9.4 [2015/04/30]
+• Top bar displays real-time tips about your caloric balance
+• Status tab now shows how many users are currently using the app worldwide
 • New help topic: "Today Overview"
+• Vietnamese translation
 
 # 1.9.3 [2015/04/07]
 • Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek, Arabic, Bulgarian, Finnish, Romanian, Japanese, Korean, Indonesian, Hungarian
