@@ -16,7 +16,7 @@
 
 # 1.9.4 [2015/04/30]
 • Top bar displays real-time tips about your caloric balance
-• Status tab now shows how many users are currently using the app worldwide
+• Status tab now shows how many users are using the app worldwide
 • New help topic: "Today Overview"
 • Vietnamese translation
 

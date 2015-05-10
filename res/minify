@@ -1,0 +1,43 @@
+#! /bin/sh
+
+rm -R /Volumes/KCALS_USB/www/css/min
+cd /Volumes/KCALS_USB/www/css
+mkdir min 
+java -jar /Volumes/KCALS_USB/[bin]/closure-stylesheets.jar --output-file ./min/index.css index.css --allow-unrecognized-functions
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar fonts.css -o  ./min/fonts.css --charset UTF-8 --line-break 200 
+cp -r /Volumes/KCALS_USB/www/css/kcals.ttf /Volumes/KCALS_USB/www/css/min 
+cp -r /Volumes/KCALS_USB/www/css/openhand.cur /Volumes/KCALS_USB/www/css/min 
+
+#JS
+rm -R /Volumes/KCALS_USB/www/js/min
+cd /Volumes/KCALS_USB/www/js
+mkdir min 
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_init.js -o  min/app_init.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_bootstrap.js -o  min/app_bootstrap.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_build.js -o  min/app_build.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_custom_core.js -o  min/app_custom_core.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_dynamic.js -o  min/app_dynamic.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_lang.js -o  min/app_lang.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_lib.js -o  min/app_lib.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_macro.js -o  min/app_macro.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_setup.js -o  min/app_setup.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 app_static.js -o  min/app_static.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 calculator.js -o  min/calculator.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 carpe_slider.js -o  min/carpe_slider.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 cordova.js -o  min/cordova.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 cordova_plugins.js -o  min/cordova_plugins.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 facebook-connect.js -o  min/facebook-connect.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 facebook-js-sdk.js -o  min/facebook-js-sdk.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 facebook-js-sdk.min.js -o  min/facebook-js-sdk.min.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 galocalstorage.js -o  min/galocalstorage.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 highcharts.js -o  min/highcharts.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 iscroll.js -o  min/iscroll.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 jquery.color.js -o  min/jquery.color.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 jquery.js -o  min/jquery.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 jquery.nicescroll.js -o  min/jquery.nicescroll.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 jquery.touchswipe.js -o  min/jquery.touchswipe.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 jquery.ui.js -o  min/jquery.ui.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 localforage.js -o  min/localforage.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 mobiscroll.js -o  min/mobiscroll.js  
+java -jar /Volumes/KCALS_USB/[bin]/yuicompressor-2.4.8.jar --charset UTF-8 --line-break 200 openfb.js -o  min/openfb.js 
+cp -r /Volumes/KCALS_USB/www/js/plugins /Volumes/KCALS_USB/www/js/min 

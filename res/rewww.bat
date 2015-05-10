@@ -1,3 +1,4 @@
+﻿ 
 echo wwwing... 
  
  
@@ -187,6 +188,12 @@ copy /y K:\www\res\icon\android\72.png K:\platforms\android-eclipse\res\drawable
 copy /y K:\www\res\icon\android\96.png K:\platforms\android-eclipse\res\drawable-xhdpi\icon.png 
 copy /y K:\www\res\icon\android\144.png K:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
  
- 
+
 attrib k:\platforms\*.* -r -h -a /s
 attrib k:\www\*.* -r -h -a /s
+attrib k:\.* +h +s +r /d /s
+attrib k:\_gsdata_ +h +s +r /d /s
+attrib k:\desktop.ini +h +s +r /s
+attrib k:\autorun.inf +h +s +r /s
+
+
