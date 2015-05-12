@@ -2266,14 +2266,42 @@ function getLoginFB() {
 		// BB10 //
 		//////////			
 		} else if(app.device.blackberry) {
-			if(typeof FB !== 'undefined') {
-				FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
-				FB.login(function (response) {
-					if(response.authResponse) {
-						getTokenFB(response.authResponse.accessToken);
-					}
-				}, { scope : 'email' });
-			}
+			FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
+
+			// open the authorzation url
+			var redirectUri = 'https://www.facebook.com/connect/login_success.html';
+			var url = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&redirect_uri=' + redirectUri + '&scope=email';
+			var childWindow = window.open(url, '_blank');
+			
+			//INTERVAL
+			app.timers.bbtoken = setInterval(function() {
+				var currentURL = childWindow.window.location.href;
+				var callbackURL = redirectUri;
+				var inCallback = currentURL.indexOf(callbackURL);
+
+				// location has changed to our callback url, parse the oauth code
+				if (inCallback == 0) {
+
+            // stop the interval from checking for url changes
+            clearInterval(app.timers.bbtoken)
+
+            // parse the oauth code
+            var code = childWindow.window.location.search;
+            code = code.split('code=');
+            code = code[1];
+            app.save('bbtoken',code);
+			alert(app.read('bbtoken'));
+
+            // close the childWindow
+            childWindow.close();
+		}
+
+    }, 100);
+
+
+				
+
+
 		////////////
 		// OSXAPP //
 		////////////			
