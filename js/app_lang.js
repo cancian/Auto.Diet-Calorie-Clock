@@ -1,5 +1,5 @@
 ﻿var appName = 'KCals';
-var appVersion = '1.9.4 (19404)';
+var appVersion = '1.9.5 (19500)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
@@ -1927,7 +1927,7 @@ var LANG = {
 		ru : 'Активные пользователи',
 		sv : 'Aktiva användare',
 		tr : 'Etkin kullanıcılar',
-		vi : 'Active users',
+		vi : 'Người dùng tích cực',
 		zh : '活跃用户',
 		zt : '活躍使用者'
 	},
@@ -1955,7 +1955,7 @@ var LANG = {
 		ru : 'Ваши уровни энергии сбалансированы. Так держать!',
 		sv : 'Dina energinivåer är balanserade. Fortsätt så!',
 		tr : 'Enerji seviyeleriniz dengeli. Böyle devam edin!',
-		vi : 'Your energy levels are balanced. Keep it up!',
+		vi : 'Mức năng lượng của bạn đang ở mức cân bằng. Đừng để nó tăng lên nhé!',
 		zh : '您的能量均衡。继续保持！',
 		zt : '你的能量均衡。繼續保持！'
 	},
@@ -1983,7 +1983,7 @@ var LANG = {
 		ru : 'У вас немного низкий баланс калорий. Это норма.',
 		sv : 'Din kaloribalans är något låg, men det är ok.',
 		tr : 'Kalori dengeniz biraz düşük olsa da sorun değil.',
-		vi : 'Your caloric balance is a bit low, but it\'s ok.',
+		vi : 'Mức cân bằng calo của bạn hơi thấp nhưng vẫn ok.',
 		zh : '您的热量平衡有一点点低，不过还是正常范围。',
 		zt : '你的熱量平衡有一點點低，不過還是正常範圍。'
 	},
@@ -2011,7 +2011,7 @@ var LANG = {
 		ru : 'Голод приведет только к потере мышечной массы.',
 		sv : 'Svältande gör bara att du förlorar muskelmassa.',
 		tr : 'Aç kalırsanız sadece kas kitlenizi kaybedersiniz.',
-		vi : 'Fasting will only make you lose muscle mass.',
+		vi : 'Nhịn đói chỉ làm bạn mất khối lượng cơ bắp mà thôi.',
 		zh : '饥饿只会让您损失肌肉质量。',
 		zt : '飢餓只會讓你損失肌肉質量。'
 	},
@@ -2039,7 +2039,7 @@ var LANG = {
 		ru : 'С технической точки зрения, вы мертвы :)',
 		sv : 'Tekniskt sett är du död :)',
 		tr : 'Teknik olarak ölüsünüz :)',
-		vi : 'Technically, you`re dead :)',
+		vi : 'Nghiêm túc mà nói, bạn đang chết đói đấy :)',
 		zh : '从技术上讲，您已死亡 :)',
 		zt : '從技術上將，你已死亡 :)'
 	},
@@ -2067,7 +2067,7 @@ var LANG = {
 		ru : 'Ваш калорийный баланс слегка повышен. Но все в порядке!',
 		sv : 'Din kaloribalans är något hög, men det är ok.',
 		tr : 'Kalori dengeniz biraz yüksek olsa da sorun değil.',
-		vi : 'Your caloric balance is a bit high, but it\'s ok.',
+		vi : 'Mức cân bằng calo của bạn hơi cao nhưng vẫn ok.',
 		zh : '您的热量平衡有一点点高，不过还是正常范围。',
 		zt : '你的熱量平衡有一點點高，不過還是正常範圍。'
 	},
@@ -2095,7 +2095,7 @@ var LANG = {
 		ru : 'Вы слишком много кушаете. Притормозите чуть-чуть!',
 		sv : 'Du äter alltför mycket. Håll tillbaka ett tag.',
 		tr : 'Çok fazla yemek yiyorsunuz. Biraz kendinizi tutun.',
-		vi : 'You\'re eating excessively. Hold back for a while.',
+		vi : 'Bạn đang ăn quá nhiều. Chậm lại một chút nào.',
 		zh : '您吃得太多了。要控制一下。',
 		zt : '你吃得太多了。要控制一下。'
 	},
@@ -2123,7 +2123,7 @@ var LANG = {
 		ru : 'Скажите “Привет” ожирению :)',
 		sv : 'Välkomna fetman :)',
 		tr : 'Obeziteye merhaba deyin :)',
-		vi : 'Say hello to obesity :)',
+		vi : 'Xin chào béo phì :)',
 		zh : '跟肥胖打招呼 :)',
 		zt : '跟肥胖打招呼 :)'
 	},
