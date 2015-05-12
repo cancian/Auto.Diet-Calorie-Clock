@@ -2155,6 +2155,12 @@ function getLogoutFB(button) {
 		$('body').removeClass('appFacebook');
 		$('#appFooter').removeClass('appFacebook');
 		$('#optionFacebook span').html(LANG.SETTINGS_BACKUP_INFO[lang]);
+		if(app.dev) {
+			FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
+			setTimeout(function() {
+				FB.logout();	
+			},2000);
+		}
 	}
 }
 /////////////////////////
@@ -2255,6 +2261,18 @@ function getLoginFB() {
 				var startURI    = new Windows.Foundation.Uri(facebookURL);
 				var endURI      = new Windows.Foundation.Uri(callbackURL);
 				Windows.Security.Authentication.Web.WebAuthenticationBroker.authenticateAsync('', startURI, endURI).then(getTokenFB, errorHandler);
+			}
+		//////////
+		// BB10 //
+		//////////			
+		} else if(app.device.blackberry) {
+			if(typeof FB !== 'undefined') {
+				FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
+				FB.login(function (response) {
+					if(response.authResponse) {
+						getTokenFB(response.authResponse.accessToken);
+					}
+				}, { scope : 'email' });
 			}
 		////////////
 		// OSXAPP //
