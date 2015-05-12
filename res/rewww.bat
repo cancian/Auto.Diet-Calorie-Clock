@@ -49,16 +49,14 @@ RD /S /Q K:\platforms\windows8\www
 MKDIR K:\platforms\windows8\www 
 cd K:\platforms\windows8\www 
 call reswww 
- 
- 
+  
 cd \ 
-DELTREE /Y /Z /S /Q /T K:\platforms\wp8\www 
-RD /S /Q K:\platforms\wp8\www 
-MKDIR K:\platforms\wp8\www 
-cd K:\platforms\wp8\www 
+DELTREE /Y /Z /S /Q /T K:\platforms\bb10\www
+RD /S /Q K:\platforms\bb10\www 
+MKDIR K:\platforms\bb10\www
+cd K:\platforms\bb10\www
 call reswww 
- 
- 
+
 cd \ 
 del /q K:\platforms\android\kcals\src\main\res\xml\config.xml 
 del /q K:\platforms\android-eclipse\res\xml\config.xml 

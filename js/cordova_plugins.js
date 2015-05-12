@@ -12,10 +12,6 @@
 				'id' : 'org.apache.cordova.dialogs.notification',
 				'merges' : ['navigator.notification']
 			}, {
-				'file' : 'plugins/org.apache.cordova.dialogs/www/blackberry10/beep.js',
-				'id' : 'org.apache.cordova.dialogs.beep',
-				'clobbers' : ['window.navigator.notification.beep']
-			}, {
 				'file' : 'plugins/org.apache.cordova.dialogs/www/android/notification.js',
 				'id' : 'org.apache.cordova.dialogs.notification_android',
 				'merges' : ['navigator.notification']
