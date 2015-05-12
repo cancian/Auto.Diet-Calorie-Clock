@@ -14,8 +14,8 @@
         KCals is a real-time calorie counter.
     </description>
 
-    <author email="support@kcals.net" href="http://kcals.net">
-        André Cancian
+    <author email=" cancian@kcals.net" href="http://kcals.net">
+        Andre Cancian
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />

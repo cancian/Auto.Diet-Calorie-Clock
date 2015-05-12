@@ -106,6 +106,7 @@ function appTimer(content) {
 	}
 	//UPDATE TIPS
 	if(!app.read('appStatus','running')) {
+		$('#timerKcalsInput').css('font-size','32px');
 		$('#appStatusTips').hide();
 	} else {
 		$('#appStatusTips').show();

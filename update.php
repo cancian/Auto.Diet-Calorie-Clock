@@ -7,7 +7,7 @@ header("cache-control: no-cache");
 //////////////////
 $ip      = $_SERVER["REMOTE_ADDR"];
 $time    = time();
-$minutes = 60;
+$minutes = 240;
 $found   = 0;
 $users   = 0;
 $user    = "";

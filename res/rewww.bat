@@ -195,5 +195,6 @@ attrib k:\.* +h +s +r /d /s
 attrib k:\_gsdata_ +h +s +r /d /s
 attrib k:\desktop.ini +h +s +r /s
 attrib k:\autorun.inf +h +s +r /s
-
+attrib k:\www\.htaccess -r -h -s -a
+attrib d:\_gsdata_ +h +s +r /d /s
 

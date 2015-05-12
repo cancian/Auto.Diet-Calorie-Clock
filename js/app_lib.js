@@ -370,7 +370,7 @@ app.device = {
 	osx        : ((/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua)) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
 	chromeos   : app.get.isChromeApp() ? true : false,
-	blackberry : ((/Android/i).test(app.ua) && (/(BB10|BlackBerry|All Touch|10\.)/i).test(app.ua)) ? true : false,
+	blackberry : ((/(BB10|BlackBerry|All Touch|10\.)/i).test(app.ua)) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
 	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true
 };

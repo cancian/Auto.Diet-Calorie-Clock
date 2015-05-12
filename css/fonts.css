@@ -70,9 +70,8 @@ body.spinnerMask #loadMask span {
 	margin-left: -14px;
 	border-radius: 24px;
 }
-@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotateZ(0deg); } 100% { -webkit-transform: rotateZ(359deg); }}
-@-moz-keyframes rotate		{ 0% { -moz-transform: rotateZ(0deg);    } 100% { -moz-transform: rotateZ(359deg);    }}
-@-ms-keyframes rotate		{ 0% { -ms-transform: rotateZ(0deg);     } 100% { -ms-transform: rotateZ(359deg);     }}
+@-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg) } 100% { -webkit-transform: rotate(360deg) } }
+
 body.spinnerMask * {
 	pointer-events: none;
 }
