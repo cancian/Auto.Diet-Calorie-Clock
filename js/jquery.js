@@ -1,5 +1,5 @@
 ﻿/*!
- * jQuery JavaScript Library v2.1.3
+ * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -9,7 +9,7 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-12-18T15:11Z
+ * Date: 2015-04-28T16:01Z
  */
 
 (function( global, factory ) {
@@ -67,7 +67,7 @@ var
 	// Use the correct document accordingly with window argument (sandbox)
 	document = window.document,
 
-	version = "2.1.3",
+	version = "2.1.4",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -531,7 +531,12 @@ jQuery.each("Boolean Number String Function Array Date RegExp Object Error".spli
 });
 
 function isArraylike( obj ) {
-	var length = obj.length,
+
+	// Support: iOS 8.2 (not reproducible in simulator)
+	// `in` check used to prevent JIT error (gh-2145)
+	// hasOwn isn't used here due to false negatives
+	// regarding Nodelist length in IE
+	var length = "length" in obj && obj.length,
 		type = jQuery.type( obj );
 
 	if ( type === "function" || jQuery.isWindow( obj ) ) {
@@ -1229,7 +1234,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
 
-			// Op0era 10-11 does not throw on post-comma invalid pseudos
+			// Opera 10-11 does not throw on post-comma invalid pseudos
 			//TWEAK
 			if(!IsMsApp) {
 				div.querySelectorAll("*,:x");
@@ -1252,7 +1257,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// This should fail with an exception
 			// Gecko does not error, returns false instead
 			//TWEAK
-			if(!IsMsApp) {			
+			if(!IsMsApp) {	
 				matches.call( div, "[s!='']:x" );
 				rbuggyMatches.push( "!=", pseudos );
 			}
@@ -1412,19 +1417,19 @@ Sizzle.matchesSelector = function( elem, expr ) {
 
 		//TWEAK
 		if(!IsMsApp) {
-		try {
-			var ret = matches.call( elem, expr );
+			try {
+				var ret = matches.call( elem, expr );
 
-			// IE 9's matchesSelector returns false on disconnected nodes
-			if ( ret || support.disconnectedMatch ||
-					// As well, disconnected nodes are said to be in a document
-					// fragment in IE 9
-					elem.document && elem.document.nodeType !== 11 ) {
-				return ret;
-			}
-		} catch (e) {}
-	}
+				// IE 9's matchesSelector returns false on disconnected nodes
+				if ( ret || support.disconnectedMatch ||
+						// As well, disconnected nodes are said to be in a document
+						// fragment in IE 9
+						elem.document && elem.document.nodeType !== 11 ) {
+					return ret;
+				}
+			} catch (e) {}
 		}
+	}
 	return Sizzle( expr, document, null, [ elem ] ).length > 0;
 };
 
@@ -8056,7 +8061,6 @@ jQuery.extend({
 		// Apply prefilters
 		inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );
 
-
 		// If request was aborted inside a prefilter, stop there
 		if ( state === 2 ) {
 			return jqXHR;
@@ -8825,7 +8829,6 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 	}
 
 	return jQuery.merge( [], parsed.childNodes );
-
 };
 
 
@@ -9120,7 +9123,6 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 				if ( jQuery.isWindow( elem ) ) {
 					// As of 5/8/2012 this will yield incorrect results for Mobile Safari, but there
 					// isn't a whole lot we can do. See pull request at this URL for discussion:
-
 					// https://github.com/jquery/jquery/pull/764
 					return elem.document.documentElement[ "client" + name ];
 				}
