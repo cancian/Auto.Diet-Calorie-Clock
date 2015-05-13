@@ -1,10 +1,10 @@
 ﻿/*########################################
 ####    HTML BUILDS ~ OPEN SETTINGS   ####
 ###################function openSettings*/
+app.globals.settingsHtml = 'var settingsHtml';
 app.tab.settings = function(keepOpen) {
 	//YUI COMPRESSOR
-	var dummyYUI = 'var settingsHtml';
-	
+
 	//RAW HTML
 	var settingsHtml = '\
 	<a name="top"></a>\
@@ -1979,10 +1979,8 @@ loadCalcValues();
 // SWAP FEET/INCHES //
 //////////////////////
 //YUI COMPRESSOR
+app.globals.feetInchesToMetric = 'function feetInchesToMetric';
 app.feetInchesToMetric = function() {
-	//YUI COMPRESSOR
-	var dummyYUI = "function feetInchesToMetric";
-
 	if($('#pA2C').val() == 'centimetres') {
 		$('#feet').removeClass('imperial');
 		$('#inches').removeClass('imperial');

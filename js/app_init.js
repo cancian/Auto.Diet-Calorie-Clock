@@ -71,35 +71,35 @@ function isCacheValid(input) {
 	var isValid = 1;
 	if(!input || input == '') { return false; }
 	//APP_LIB
-	if(input.indexOf('var isMobile')        === -1)			{ return false; }
-	if(input.indexOf('function appConfirm') === -1)			{ return false; }
+	if(input.indexOf('var isMobile')        === -1)			{ console.log("APP_LIB: 'var isMobile'"); return false; }
+	if(input.indexOf('function appConfirm') === -1)			{ console.log("APP_LIB: 'function appConfirm'"); return false; }
 	//APP_LANG
-	if(input.indexOf('var appName')     === -1)				{ return false; }
-	if(input.indexOf('FOOD_CATEGORIES') === -1)				{ return false; }
+	if(input.indexOf('var appName')     === -1)				{ console.log("APP_LANG: 'var appName'"); return false; }
+	if(input.indexOf('FOOD_CATEGORIES') === -1)				{ console.log("APP_LANG: 'FOOD_CATEGORIES'"); return false; }
 	//APP_SETUP
-	if(input.indexOf('function showIntro')  === -1)			{ return false; }
-	if(input.indexOf('function getLoginFB') === -1)			{ return false; }
+	if(input.indexOf('function showIntro')  === -1)			{ console.log("APP_SETUP: 'function showIntro'"); return false; }
+	if(input.indexOf('function getLoginFB') === -1)			{ console.log("APP_SETUP: 'function getLoginFB'"); return false; }
 	//APP_MACRO
-	if(input.indexOf('function getFullHistory') === -1)		{ return false; }
-	if(input.indexOf('function getCatList')     === -1)		{ return false; }
+	if(input.indexOf('function getFullHistory') === -1)		{ console.log("APP_MACRO: 'function getFullHistory'"); return false; }
+	if(input.indexOf('function getCatList')     === -1)		{ console.log("APP_MACRO: 'function getCatList'"); return false; }
 	//APP_BUILD
-	if(input.indexOf('var settingsHtml')            === -1)	{ return false; }
-	if(input.indexOf('function feetInchesToMetric') === -1)	{ return false; }
+	if(input.indexOf('var settingsHtml')            === -1)	{ console.log("APP_BUILD: var settingsHtml"); return false; }
+	if(input.indexOf('function feetInchesToMetric') === -1)	{ console.log("APP_BUILD: 'function feetInchesToMetric'"); return false; }
 	//APP_STATIC
-	if(input.indexOf('function startApp')   === -1)			{ return false; }
-	if(input.indexOf('var editableTimeout') === -1)			{ return false; }
+	if(input.indexOf('function startApp')   === -1)			{ console.log("APP_STATIC: 'function startApp'"); return false; }
+	if(input.indexOf('var editableTimeout') === -1)			{ console.log("APP_STATIC: 'var editableTimeout'"); return false; }
 	//APP_DYNAMIC
-	if(input.indexOf('$(document).on("pageload"') === -1)	{ return false; }
-	if(input.indexOf('function getModalWindow')   === -1)	{ return false; }
+	if(input.indexOf('$(document).on("pageload"') === -1)	{ console.log('APP_DYNAMIC: \'$(document).on("pageload"\''); return false; }
+	if(input.indexOf('function getModalWindow')   === -1)	{ console.log("APP_DYNAMIC: 'function getModalWindow'"); return false; }
 	//APP_CUSTOM_CORE
-	if(input.indexOf('function appTimer')    === -1)		{ return false; }
-	if(input.indexOf('function updateTimer') === -1)		{ return false; }
+	if(input.indexOf('function appTimer')    === -1)		{ console.log("APP_CUSTOM_CORE: 'function appTimer'"); return false; }
+	if(input.indexOf('function updateTimer') === -1)		{ console.log("APP_CUSTOM_CORE: 'function updateTimer'"); return false; }
 	//INDEX.CSS
-	if(input.indexOf('html,body') === -1)					{ return false; }
-	if(input.indexOf('#cat9999')  === -1)					{ return false; }
+	if(input.indexOf('html,body') === -1)					{ console.log("INDEX.CSS: 'html,body'"); return false; }
+	if(input.indexOf('#cat9999')  === -1)					{ console.log("INDEX.CSS: '#cat9999'"); return false; }
 	//FONTS.CSS
-	if(input.indexOf('@font-face')   === -1)				{ return false; }
-	if(input.indexOf('spinnerMask')  === -1)				{ return false; }
+	if(input.indexOf('@font-face')   === -1)				{ console.log("FONTS.CSS: '@font-face'"); return false; }
+	if(input.indexOf('spinnerMask')  === -1)				{ console.log("FONTS.CSS: 'spinnerMask'"); return false; }
 	//ISVALID
 	return isValid;
 }

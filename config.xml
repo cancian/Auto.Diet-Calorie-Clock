@@ -64,14 +64,11 @@
     <!-- Preferences for iOS -->
 
     <!-- Preferences for BB10 -->
-	<feature name="Notification" value="Notification"/>	
-	<preference name="ChildBrowser" value="enable"/>
-	<preference name="DiskCache" value="enable"/>
-	<preference name="HideKeyboardFormAccessoryBar" value="true"/>
-	<preference name="Orientation" value="default"/>
+	<preference name="Orientation" value="portrait"/>
 	<preference name="PopupBlocker" value="disable"/>
+	<preference name="ChildBrowser" value="enable"/>
 	<preference name="WebSecurity" value="disable"/>
-	<preference name="AutoHideSplashScreen" value="true"/>
+	<preference name="DiskCache" value="enable"/>
     <!-- Preferences for BB10 -->
 	
     <!-- Preferences for UBUNTU -->

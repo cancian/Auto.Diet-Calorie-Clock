@@ -1,16 +1,13 @@
-﻿ 
-echo wwwing... 
- 
+﻿echo wwwing... 
  
 K: 
 CD\ 
 attrib k:\platforms\*.* -r -h -a /s
 attrib k:\www\*.* -r -h -a /s
  
- 
 K:\[bin]\embed K:\www\css\kcals.ttf 
 
-
+REM "ANDROID"
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\android\kcals\src\main\assets\www 
 RD /S /Q K:\platforms\android\kcals\src\main\assets\www 
@@ -18,7 +15,7 @@ MKDIR K:\platforms\android\kcals\src\main\assets\www
 cd K:\platforms\android\kcals\src\main\assets\www 
 call reswww 
  
- 
+REM "ANDROID-ECLIPSE" 
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\android-eclipse\assets\www 
 RD /S /Q K:\platforms\android-eclipse\assets\www 
@@ -26,7 +23,7 @@ MKDIR K:\platforms\android-eclipse\assets\www
 cd K:\platforms\android-eclipse\assets\www 
 call reswww 
  
- 
+REM "IOS"
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\ios\www 
 RD /S /Q K:\platforms\ios\www 
@@ -34,7 +31,7 @@ MKDIR K:\platforms\ios\www
 cd K:\platforms\ios\www 
 call reswww 
  
- 
+REM "OSX"
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\osx\public 
 RD /S /Q K:\platforms\osx\public 
@@ -42,14 +39,23 @@ MKDIR K:\platforms\osx\public
 cd K:\platforms\osx\public 
 call reswww 
  
- 
+REM "WINDOWS8"
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\windows8\www 
 RD /S /Q K:\platforms\windows8\www 
 MKDIR K:\platforms\windows8\www 
 cd K:\platforms\windows8\www 
 call reswww 
-  
+
+REM "W8"
+cd \ 
+DELTREE /Y /Z /S /Q /T K:\platforms\wp8\www 
+RD /S /Q K:\platforms\wp8\www 
+MKDIR K:\platforms\wp8\www 
+cd K:\platforms\wp8\www 
+call reswww 
+
+REM "BB10"
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\bb10\www
 RD /S /Q K:\platforms\bb10\www 
@@ -57,20 +63,23 @@ MKDIR K:\platforms\bb10\www
 cd K:\platforms\bb10\www
 call reswww 
 
+REM "CONFIG.XML"
 cd \ 
 del /q K:\platforms\android\kcals\src\main\res\xml\config.xml 
 del /q K:\platforms\android-eclipse\res\xml\config.xml 
 del /q K:\platforms\ios\KCals\config.xml 
 del /q K:\platforms\windows8\config.xml 
 del /q K:\platforms\wp8\config.xml 
+del /q K:\platforms\bb10\config.xml
+
 copy /y k:\www\config.xml K:\platforms\android\kcals\src\main\res\xml\config.xml 
 copy /y k:\www\config.xml K:\platforms\android-eclipse\res\xml\config.xml 
 copy /y k:\www\config.xml K:\platforms\ios\KCals\config.xml 
 copy /y k:\www\config.xml K:\platforms\windows8\config.xml 
 copy /y k:\www\config.xml K:\platforms\wp8\config.xml 
- 
- 
-ECHO "WP8 assets" 
+copy /y k:\www\config.xml K:\platforms\bb10\config.xml 
+
+REM "WP8 assets" 
 del /q K:\platforms\wp8\159.png 
 del /q K:\platforms\wp8\336.png 
 del /q K:\platforms\wp8\691x336.png 
@@ -78,9 +87,8 @@ copy /y K:\www\res\icon\wp8\159.png K:\platforms\wp8\159.png
 copy /y K:\www\res\icon\wp8\336.png K:\platforms\wp8\336.png 
 copy /y K:\www\res\icon\wp8\691x336.png K:\platforms\wp8\691x336.png 
  
- 
 cd\ 
-ECHO "Windows 8 assets" 
+REM "Windows 8 assets" 
 DELTREE /Y /Z /S /Q /T K:\platforms\windows8\images 
 RD /S /Q K:\platforms\windows8\images 
 MKDIR K:\platforms\windows8\images 
@@ -187,13 +195,13 @@ copy /y K:\www\res\icon\android\96.png K:\platforms\android-eclipse\res\drawable
 copy /y K:\www\res\icon\android\144.png K:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
 
  
-attrib k:\platforms\*.* -r -h -a /s
-attrib k:\www\*.* -r -h -a /s
+attrib k:\platforms\*.* -r -h /s
+attrib k:\www\*.* -r -h /s
 attrib k:\.* +h +s +r /d /s
 attrib k:\_gsdata_ +h +s +r /d /s
 attrib k:\__MACOSX +h +s +r /d /s
 attrib k:\desktop.ini +h +s +r /s
 attrib k:\autorun.inf +h +s +r /s
-attrib k:\www\.htaccess -r -h -s -a
-attrib d:\_gsdata_ +h +s +r /d /s
+REM attrib k:\www\.htaccess -r -h -s
+REM attrib d:\_gsdata_ +h +s +r /d /s
 
