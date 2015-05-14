@@ -88,7 +88,7 @@ if($_GET['type'] == 'min') {
 	$userdata .= file_get_contents('js/min/app_custom_core.js');
 	$userdata .= file_get_contents('css/min/index.css');
 	$userdata .= file_get_contents('css/min/fonts.css');
-	$size = strlen(utf8_decode($userdata))-2;
+	$size = strlen(utf8_decode($userdata))-10;
 	$pos1 = strpos($userdata,'appVersion');
 	$line = substr($userdata,$pos1,40);
 	preg_match('#\((.*?)\)#', $line, $match);
