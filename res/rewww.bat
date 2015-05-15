@@ -197,13 +197,9 @@ copy /y K:\www\res\icon\android\96.png K:\platforms\android-eclipse\res\drawable
 copy /y K:\www\res\icon\android\144.png K:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
 
  
-attrib k:\platforms\*.* -r -h /s
-attrib k:\www\*.* -r -h /s
-attrib k:\.* +h +s +r /d /s
+attrib k:\.*       +h +s +r /d /s
+attrib k:\www\.*   -h -s -r /s
 attrib k:\_gsdata_ +h +s +r /d /s
 attrib k:\__MACOSX +h +s +r /d /s
-attrib k:\desktop.ini +h +s +r /s
-attrib k:\autorun.inf +h +s +r /s
-REM attrib k:\www\.htaccess -r -h -s
 REM attrib d:\_gsdata_ +h +s +r /d /s
 
