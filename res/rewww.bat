@@ -1,5 +1,7 @@
-﻿echo wwwing... 
- 
+REM MINIFY JS/CSS
+call K:\[bin]\minify.bat
+
+REM UPDATE PROJECTS
 K: 
 CD\ 
 attrib k:\platforms\*.* -r -h -a /s

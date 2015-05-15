@@ -370,7 +370,7 @@ app.device = {
 	osx        : ((/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua)) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
 	chromeos   : app.get.isChromeApp() ? true : false,
-	blackberry : ((/(BB10|BlackBerry|All Touch|10\.)/i).test(app.ua)) ? true : false,
+	blackberry : ((/BB10|BlackBerry|All Touch/i).test(app.ua)) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
 	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true
 };
@@ -393,10 +393,10 @@ app.get.platform = function(noweb) {
 	if(app.device.linux)               { return 'Linux';            }
 	if(app.device.ios)                 { return 'iOS';              }
 	if(app.device.amazon)              { return 'Android (Amazon)'; }
-	if(app.device.blackberry)          { return 'BlackBerry';       }
-	if(app.device.android)             { return 'Android';          }
 	if(app.device.wp8)                 { return 'Windows Phone';    }
 	if(app.device.windows8)            { return 'Windows 8';        }
+	if(app.device.blackberry)          { return 'BlackBerry';       }
+	if(app.device.android)             { return 'Android';          }
 	if(app.device.firefoxos)           { return 'FirefoxOS';        }	
 	if(app.device.osxapp)              { return 'Mac';              }
 	if(app.device.chromeos)            { return 'ChromeOS';         }

@@ -11,10 +11,10 @@
     <name>KCals Calorie Counter</name>
 
     <description>
-        KCals is a real-time calorie counter.
+        KCals is a real-time calorie counter, and it works by simulating the human metabolism.
     </description>
 
-    <author email=" cancian@kcals.net" href="http://kcals.net">
+    <author email="cancian@kcals.net" href="http://kcals.net">
         Andre Cancian
     </author>
 

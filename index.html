@@ -113,20 +113,31 @@ setTimeout(function() {
 ////////////////////
 var bootLoopBroken = false;
 function bootLoopBreaker() {
-	if (!/started/i.test(document.body.classList)) {
+	////////////////////
+	// MANUAL BREAKER //
+	////////////////////
+	if (!/started/i.test(document.body.classList) && bootLoopBroken == false) {
 		//HALT
 		bootLoopBroken = true;
 		document.getElementById('loadMask').style.backgroundColor = '#FBF01F';
-		alert('erasing cache...');
-		//ERASE
-		window.localStorage.removeItem('config_debug');
-		window.localStorage.removeItem('remoteSuperBlockJS');
-		window.localStorage.removeItem('remoteSuperBlockCSS');
-		window.localStorage.removeItem('app_autoupdate_hash');
-		window.localStorage.removeItem('consecutive_reboots');
-		setTimeout(function() {
-			window.location.reload(true);
-		},0);
+		if (confirm('*** KCALS RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
+			//HALT
+			setTimeout(function() {
+				document.getElementsByTagName('head')[0].innerHTML = '';
+				document.body.innerHTML = '';
+				//ERASE
+				window.localStorage.removeItem('config_debug');
+				window.localStorage.removeItem('remoteSuperBlockJS');
+				window.localStorage.removeItem('remoteSuperBlockCSS');
+				window.localStorage.removeItem('app_autoupdate_hash');
+				window.localStorage.removeItem('consecutive_reboots');
+				//RELOAD
+				alert('erasing cache...');
+				window.location.reload(true);
+			},0);
+		} else {
+			document.getElementById('loadMask').style.backgroundColor = '#FFFFFF';
+		}
 	}
 }
 </script>
@@ -167,7 +178,10 @@ if(/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 	bootStraper();
 }
 </script>
-<div id="loadMask" onClick="bootLoopBreaker();"><span></span></div>
+<div id="loadMask"><span></span></div>
+<script type="text/javascript">
+	document.getElementById('loadMask').addEventListener('click', bootLoopBreaker, false);
+</script>
 <div id="fb-root"></div>
 </body>
 </html>
