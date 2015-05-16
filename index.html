@@ -142,6 +142,7 @@ function bootLoopBreaker() {
 		}
 	}
 }
+window.addEventListener('click', bootLoopBreaker, false);
 </script>
 <!--###########################################-->
 <style type="text/css" id="CSSPlaceholder"></style>
@@ -184,9 +185,6 @@ if(/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 }
 </script>
 <div id="loadMask"><span></span></div>
-<script type="text/javascript">
-	window.addEventListener('click', bootLoopBreaker, false);
-</script>
 <div id="fb-root"></div>
 </body>
 </html>

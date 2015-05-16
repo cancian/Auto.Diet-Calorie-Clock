@@ -1,7 +1,7 @@
 ﻿#################
 ## VERSION LOG ##
 #################
-# Upcoming&nbspfeatures [0000/00/00]
+# Upcoming&nbsp;features [0000/00/00]
 • Multi-user support
 • QR/barcode scanner
 • Search engine with customizable max. results: 50/100/500
@@ -14,7 +14,8 @@
 • Auto-Share custom items (every custom item added becomes available to all users)
 • User can choose the food database language independently from the current system language
 
-# 1.9.4 [2015/04/30]
+# 1.9.4 [2015/05/15]
+• Bootloop recovery system: users now can manually erase corrupted application cache by tapping the screen while the app is loading
 • Top bar displays real-time tips about your caloric balance
 • Status tab now shows how many users are using the app worldwide
 • New help topic: "Today Overview"

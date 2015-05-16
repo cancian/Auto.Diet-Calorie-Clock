@@ -196,7 +196,8 @@ copy /y K:\www\res\icon\android\72.png K:\platforms\android-eclipse\res\drawable
 copy /y K:\www\res\icon\android\96.png K:\platforms\android-eclipse\res\drawable-xhdpi\icon.png 
 copy /y K:\www\res\icon\android\144.png K:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
 
- 
+icacls K:\* /T /Q /C /RESET
+attrib k:\*        -r /s
 attrib k:\.*       +h +s +r /d /s
 attrib k:\www\.*   -h -s -r /s
 attrib k:\_gsdata_ +h +s +r /d /s

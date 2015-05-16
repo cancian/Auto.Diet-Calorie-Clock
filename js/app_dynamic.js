@@ -15,6 +15,7 @@ $(document).on("pageload", function (evt) {
 	var holdStart;
 	var deMove = 0;
 	var cancelEdit = 0;
+	var deKeyboard = 0;
 	/*
 	$("#entryList div" + tgt).on("longhold", function (evt) {
 		clearTimeout(holdStart);
