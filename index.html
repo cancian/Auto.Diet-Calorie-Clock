@@ -131,7 +131,7 @@ function bootLoopBreaker() {
 				window.localStorage.removeItem('app_autoupdate_hash');
 				window.localStorage.removeItem('consecutive_reboots');
 				//HALT
-				document.getElementsByTagName('head')[0].innerHTML = '';
+				//document.getElementsByTagName('head')[0].innerHTML = '';
 				document.body.innerHTML = '';
 				//RELOAD
 				alert('erasing cache...');
@@ -142,7 +142,9 @@ function bootLoopBreaker() {
 		}
 	}
 }
-window.addEventListener('click', bootLoopBreaker, false);
+setTimeout(function() {
+	window.addEventListener('click', bootLoopBreaker, false);
+},0);
 </script>
 <!--###########################################-->
 <style type="text/css" id="CSSPlaceholder"></style>
