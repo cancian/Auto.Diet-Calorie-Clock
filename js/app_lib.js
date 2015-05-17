@@ -1313,6 +1313,43 @@ app.safeExec = function (callback) {
 		callback();
 	}
 };
+////////////////////
+// JQUERY WRAPPER //
+////////////////////
+//html
+var safeHtml = $.fn.html;
+$.fn.html = function () {
+	if (app.device.windows8) {
+		MSApp.execUnsafeLocalFunction(function () {
+			return safeHtml.apply(this, arguments);
+		});
+	} else {
+		return safeHtml.apply(this, arguments);
+	}
+}
+//append
+var safeAppend = $.fn.append;
+$.fn.append = function () {
+	// Do what you want here
+	if (app.device.windows8) {
+		MSApp.execUnsafeLocalFunction(function () {
+			return safeAppend.apply(this, arguments);
+		});
+	} else {
+		return safeAppend.apply(this, arguments);
+	}
+}
+//prepend
+var safePrepend = $.fn.prepend;
+$.fn.prepend = function () {
+	if (app.device.windows8) {
+		MSApp.execUnsafeLocalFunction(function () {
+			return safePrepend.apply(this, arguments);
+		});
+	} else {
+		return safePrepend.apply(this, arguments);
+	}
+}
 ///////////////////
 // ERROR HANDLER //
 ///////////////////
