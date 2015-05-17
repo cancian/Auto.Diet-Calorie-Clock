@@ -1180,19 +1180,13 @@ function pageLoad(target,content,published) {
 		// INSERT PARTIAL
 		//overwrite 'no entries'
 		if(i == 1) {
-			app.safeExec(function() {
 			$('#entryList').html($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
-			});
 		//match div before
 		} else if($('#entryList>div:eq(' + entryPos + ')').html()) {
-			app.safeExec(function() {
-				$('#entryList>div:eq(' + entryPos + ')').before($(content).animate({ backgroundColor: '#ffffcc' }, 1 ).animate({ backgroundColor: '#fff' },1000));
-			});
+			$('#entryList>div:eq(' + entryPos + ')').before($(content).animate({ backgroundColor: '#ffffcc' }, 1 ).animate({ backgroundColor: '#fff' },1000));
 		} else {
 			//append if none
-			app.safeExec(function() {
-				$('#entryList').append($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
-			});
+			$('#entryList').append($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
 		}
 		//target [div#partial] ~time's parent div id as target
 		var page = $('#entryList div' + '#' + $('#t' + published).parent('div').attr('id'));
@@ -1200,9 +1194,7 @@ function pageLoad(target,content,published) {
 	} else {
 		//check existence
 		if($(target).html(content)) {
-			app.safeExec(function() {
-				$(target).html(content);
-			});
+			$(target).html(content);
 		}
 		var page = $('#entryList');
 	}
@@ -1419,9 +1411,7 @@ function updateEntriesSum() {
 			'; 
 		}
 		//OUTPUT
-		app.safeExec(function() {
-			$('#daySum').html(reStyle);
-		});
+		$('#daySum').html(reStyle);
 	});
 }
 //#////////////////////////////#//
@@ -1441,14 +1431,12 @@ function updateNutriRatio() {
 	//////////
 	// EXEC //
 	//////////
-	app.safeExec(function() {
-		if(!$('#appNutrients').html()) {
-			$('head').append('<style type="text/css" id="appNutrients"></style>');
-		}
-		if($('#appNutrients').html() != nutrientsStyle) {
-			$('#appNutrients').html(nutrientsStyle);
-		}
-	});
+	if(!$('#appNutrients').html()) {
+		$('head').append('<style type="text/css" id="appNutrients"></style>');
+	}
+	if($('#appNutrients').html() != nutrientsStyle) {
+		$('#appNutrients').html(nutrientsStyle);
+	}
 }
 //#/////////////////#//
 //# NUTRI TIME SPAN #//
@@ -1655,9 +1643,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			</div>\
 		<div id="' + newWindow + '"' + sideLoader + '>' + content + '</div>\
 	</div>';
-	app.safeExec(function() {
-		$('#appContent').after(newContent);
-	});
+	$('#appContent').after(newContent);
 	//configure ui
 	if(direction == 'sideload') {
 		$('#' + newWindow + 'Wrapper').addClass('sideload');
@@ -1674,9 +1660,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	// HANDLERS //
 	//////////////
 	if(handlers) {
-		app.safeExec(function() {
-			handlers();
-		});
+		handlers();
 	}
 	////////////////////
 	// TRANSISION END //
@@ -1691,9 +1675,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		var timerCloser;
 		function windowCloser() {
 			if(closer) {
-				app.safeExec(function() {
-					closer();
-				});
+				closer();
 			}
 			$('#appContent, #foodSearch, #' + newWindow + 'Wrapper').css('pointer-events','none');
 			if($.nicescroll) {
@@ -1988,16 +1970,12 @@ function appResizer(time,callback) {
 		}
 		//HOLDER
 		if(!$('#entryListHeight').length) {
-			app.safeExec(function() {
-				$('head').append('<style type="text/css" id="entryListHeight"></style>');
-			});
+			$('head').append('<style type="text/css" id="entryListHeight"></style>');
 		}
 		//IF NEEDED
 		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
 		if(!$('#entryListHeight').html() !== wrapperMinH) {
-			app.safeExec(function() {
-				$('#entryListHeight').html(wrapperMinH);
-			});
+			$('#entryListHeight').html(wrapperMinH);
 		}
 		//
 		$('#appHelper').height($('#appContent').height());

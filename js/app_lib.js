@@ -1350,6 +1350,17 @@ $.fn.prepend = function () {
 		return safePrepend.apply(this, arguments);
 	}
 }
+//remove
+var safeRemove = $.fn.remove;
+$.fn.remove = function () {
+	if (app.device.windows8) {
+		MSApp.execUnsafeLocalFunction(function () {
+			return safeRemove.apply(this, arguments);
+		});
+	} else {
+		return safeRemove.apply(this, arguments);
+	}
+}
 ///////////////////
 // ERROR HANDLER //
 ///////////////////

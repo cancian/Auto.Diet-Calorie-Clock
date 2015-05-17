@@ -1,16 +1,16 @@
 <?php #################
 ## KCALS PHP BACKEND ##
 #######################
-header("cache-control: no-cache");
+header('cache-control: no-cache');
 //////////////////
 // USERS ONLINE //
 //////////////////
-$ip      = $_SERVER["REMOTE_ADDR"];
+$ip      = $_SERVER['REMOTE_ADDR'];
 $time    = time();
-$minutes = 240;
+$minutes = 1440;
 $found   = 0;
 $users   = 0;
-$user    = "";
+$user    = '';
 $tmpdata = 'userdata';
 
 if (!is_file("$tmpdata/visits_online.txt"))	{
