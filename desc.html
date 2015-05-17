@@ -38,13 +38,19 @@ desc += '6 - ' + LANG.INTRO_SLIDE_6[lowerHash];
 desc  = trim(desc);
 desc  = desc.split('\n').join('\n<br>');
 desc  = trim(desc);
-desc  = '<ul style="display: block; background-color: #eee;"><li>en</li><li>pt</li><li>ar</li><li>bg</li><li>cs</li><li>da</li><li>de</li><li>el</li><li>es</li><li>fi</li><li>fr</li><li>hu</li><li>it</li><li>id</li><li>ja</li><li>ko</li><li>nl</li><li>nb</li><li>pl</li><li>ro</li><li>ru</li><li>sv</li><li>tr</li><li>vi</li><li>zh</li><li>zt</li><ul/>' + desc;
+desc  = '<style>\
+ul { list-style: none; display: block; padding-bottom: 12px; background-color: #eee; font-size: 16px; font-weight: bold; font-family: arial; height: 20px; line-height: 32px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }\
+li { display: inline-block; float: left; width: 3%; text-align: center; }\
+li+li { border-left: 1px solid #ddd; }\
+</style>\
+<ul><li>en</li><li>pt</li><li>ar</li><li>bg</li><li>cs</li><li>da</li><li>de</li><li>el</li><li>es</li><li>fi</li><li>fr</li><li>hu</li><li>it</li><li>id</li><li>ja</li><li>ko</li><li>nl</li><li>nb</li><li>pl</li><li>ro</li><li>ru</li><li>sv</li><li>tr</li><li>vi</li><li>zh</li><li>zt</li></ul>' + desc;
 document.write(desc);
-
-$('ul li').click(function() {
+setTimeout(function() {
+$('ul li').on('click',function() {
 	window.location.hash = $(this).html();
 	window.location.reload(true);
 });
+},100);
 
 }});
 </script>
