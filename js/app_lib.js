@@ -1313,54 +1313,6 @@ app.safeExec = function (callback) {
 		callback();
 	}
 };
-////////////////////
-// JQUERY WRAPPER //
-////////////////////
-//html
-var safeHtml = $.fn.html;
-$.fn.html = function () {
-	if (app.device.windows8) {
-		MSApp.execUnsafeLocalFunction(function () {
-			return safeHtml.apply(this, arguments);
-		});
-	} else {
-		return safeHtml.apply(this, arguments);
-	}
-}
-//append
-var safeAppend = $.fn.append;
-$.fn.append = function () {
-	// Do what you want here
-	if (app.device.windows8) {
-		MSApp.execUnsafeLocalFunction(function () {
-			return safeAppend.apply(this, arguments);
-		});
-	} else {
-		return safeAppend.apply(this, arguments);
-	}
-}
-//prepend
-var safePrepend = $.fn.prepend;
-$.fn.prepend = function () {
-	if (app.device.windows8) {
-		MSApp.execUnsafeLocalFunction(function () {
-			return safePrepend.apply(this, arguments);
-		});
-	} else {
-		return safePrepend.apply(this, arguments);
-	}
-}
-//remove
-var safeRemove = $.fn.remove;
-$.fn.remove = function () {
-	if (app.device.windows8) {
-		MSApp.execUnsafeLocalFunction(function () {
-			return safeRemove.apply(this, arguments);
-		});
-	} else {
-		return safeRemove.apply(this, arguments);
-	}
-}
 ///////////////////
 // ERROR HANDLER //
 ///////////////////
@@ -1858,7 +1810,9 @@ app.online = function () {
 	$.ajax({type: 'GET', dataType: 'text', url: https + 'kcals.net/' + 'update.php?type=usr', success: function(onlineUsers) {
 		app.save('online_users',onlineUsers);
 		if(app.read('app_last_tab','tab1')) {
-			$('#onlineUsers span').html(app.read('online_users'));
+			safeExec(function () {
+				$('#onlineUsers span').html(app.read('online_users'));
+			});
 		}
 	}});
 }

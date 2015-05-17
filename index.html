@@ -112,38 +112,44 @@ setTimeout(function() {
 // MANUAL BREAKER //
 ////////////////////
 var bootLoopBroken = false;
-function bootLoopBreaker() {
+var bootLoopBreaker = function () {
 	////////////////////
 	// MANUAL BREAKER //
 	////////////////////
-	if (!/started/i.test(document.body.classList) && bootLoopBroken == false) {
-		window.removeEventListener('click', bootLoopBreaker, false);
-		//HALT
-		bootLoopBroken = true;
-		document.getElementById('loadMask').style.backgroundColor = '#FBF01F';
-		if (confirm('*** KCALS RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
-			setTimeout(function() {
-				//ERASE
-				window.localStorage.removeItem('config_debug');
-				window.localStorage.removeItem('config_autoupdate');				
-				window.localStorage.removeItem('remoteSuperBlockJS');
-				window.localStorage.removeItem('remoteSuperBlockCSS');
-				window.localStorage.removeItem('app_autoupdate_hash');
-				window.localStorage.removeItem('consecutive_reboots');
+	if (document.body) {
+		if (document.body.classList) {
+			if (/unloaded/i.test(document.body.classList) && bootLoopBroken == false) {
 				//HALT
-				//document.getElementsByTagName('head')[0].innerHTML = '';
-				document.body.innerHTML = '';
-				//RELOAD
-				alert('erasing cache...');
-				window.location.reload(true);
-			},0);
-		} else {
-			document.getElementById('loadMask').style.backgroundColor = '#FFFFFF';
+				bootLoopBroken = true;
+				document.getElementById('loadMask').style.backgroundColor = '#FBF01F';
+				if(typeof confirm !== 'undefined') {
+					if (confirm('*** KCALS RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
+						setTimeout(function () {
+							//ERASE
+							window.localStorage.removeItem('config_debug');
+							window.localStorage.removeItem('config_autoupdate');
+							window.localStorage.removeItem('remoteSuperBlockJS');
+							window.localStorage.removeItem('remoteSuperBlockCSS');
+							window.localStorage.removeItem('app_autoupdate_hash');
+							window.localStorage.removeItem('consecutive_reboots');
+							//HALT
+							//document.getElementsByTagName('head')[0].innerHTML = '';
+							document.body.innerHTML = '';
+							//RELOAD
+							alert('erasing cache...');
+							window.location.reload(true);
+						}, 0);
+					} else {
+						document.getElementById('loadMask').style.backgroundColor = '#FFFFFF';
+					}
+				}
+			}
 		}
 	}
 }
 setTimeout(function() {
-	window.addEventListener('click', bootLoopBreaker, false);
+	window.addEventListener('mousedown', bootLoopBreaker, false);
+	window.addEventListener('touchstart', bootLoopBreaker, false);
 },0);
 </script>
 <!--###########################################-->
@@ -158,7 +164,9 @@ var hostLocal = '';
 var https     = /https/i.test(window.location.protocol) ? 'https://' : 'http://';
 function bootStraper() {
 	//CLEAR RECOVERY
-	window.removeEventListener('click', bootLoopBreaker, false);
+	setTimeout(function() {
+		bootLoopBreaker = function() {}
+	},0);
 	//
 	if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = 'http://192.168.1.5/'; }
 	//INIT

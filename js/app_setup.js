@@ -1179,22 +1179,26 @@ function pageLoad(target,content,published) {
 		}
 		// INSERT PARTIAL
 		//overwrite 'no entries'
-		if(i == 1) {
-			$('#entryList').html($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
-		//match div before
-		} else if($('#entryList>div:eq(' + entryPos + ')').html()) {
-			$('#entryList>div:eq(' + entryPos + ')').before($(content).animate({ backgroundColor: '#ffffcc' }, 1 ).animate({ backgroundColor: '#fff' },1000));
-		} else {
-			//append if none
-			$('#entryList').append($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
-		}
+		safeExec(function () {
+			if(i == 1) {
+				$('#entryList').html($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
+			//match div before
+			} else if($('#entryList>div:eq(' + entryPos + ')').html()) {
+				$('#entryList>div:eq(' + entryPos + ')').before($(content).animate({ backgroundColor: '#ffffcc' }, 1 ).animate({ backgroundColor: '#fff' },1000));
+			} else {
+				//append if none
+				$('#entryList').append($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
+			}
+		});
 		//target [div#partial] ~time's parent div id as target
 		var page = $('#entryList div' + '#' + $('#t' + published).parent('div').attr('id'));
 	// FULL DIV REPLACE //
 	} else {
 		//check existence
 		if($(target).html(content)) {
-			$(target).html(content);
+			safeExec(function () {
+				$(target).html(content);
+			});
 		}
 		var page = $('#entryList');
 	}
@@ -1411,7 +1415,9 @@ function updateEntriesSum() {
 			'; 
 		}
 		//OUTPUT
-		$('#daySum').html(reStyle);
+		safeExec(function () {
+			$('#daySum').html(reStyle);
+		});
 	});
 }
 //#////////////////////////////#//
@@ -1431,12 +1437,14 @@ function updateNutriRatio() {
 	//////////
 	// EXEC //
 	//////////
-	if(!$('#appNutrients').html()) {
-		$('head').append('<style type="text/css" id="appNutrients"></style>');
-	}
-	if($('#appNutrients').html() != nutrientsStyle) {
-		$('#appNutrients').html(nutrientsStyle);
-	}
+	safeExec(function () {
+		if(!$('#appNutrients').html()) {
+			$('head').append('<style type="text/css" id="appNutrients"></style>');
+		}
+		if($('#appNutrients').html() != nutrientsStyle) {
+			$('#appNutrients').html(nutrientsStyle);
+		}
+	});
 }
 //#/////////////////#//
 //# NUTRI TIME SPAN #//
@@ -1643,7 +1651,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			</div>\
 		<div id="' + newWindow + '"' + sideLoader + '>' + content + '</div>\
 	</div>';
-	$('#appContent').after(newContent);
+	safeExec(function () {
+		$('#appContent').after(newContent);
+	});
 	//configure ui
 	if(direction == 'sideload') {
 		$('#' + newWindow + 'Wrapper').addClass('sideload');
@@ -1660,7 +1670,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	// HANDLERS //
 	//////////////
 	if(handlers) {
-		handlers();
+		safeExec(function () {
+			handlers();
+		});
 	}
 	////////////////////
 	// TRANSISION END //
@@ -1675,7 +1687,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		var timerCloser;
 		function windowCloser() {
 			if(closer) {
-				closer();
+				safeExec(function () {
+					closer();
+				});
 			}
 			$('#appContent, #foodSearch, #' + newWindow + 'Wrapper').css('pointer-events','none');
 			if($.nicescroll) {
@@ -1970,12 +1984,16 @@ function appResizer(time,callback) {
 		}
 		//HOLDER
 		if(!$('#entryListHeight').length) {
-			$('head').append('<style type="text/css" id="entryListHeight"></style>');
+			safeExec(function () {
+				$('head').append('<style type="text/css" id="entryListHeight"></style>');
+			});
 		}
 		//IF NEEDED
 		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
 		if(!$('#entryListHeight').html() !== wrapperMinH) {
-			$('#entryListHeight').html(wrapperMinH);
+			safeExec(function () {
+				$('#entryListHeight').html(wrapperMinH);
+			});
 		}
 		//
 		$('#appHelper').height($('#appContent').height());

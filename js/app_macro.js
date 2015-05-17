@@ -1554,13 +1554,15 @@ function buildAdvancedMenu() {
 	//read stored
 	var isAUChecked = app.read('config_autoupdate','on') ? 'checked' : '';
 	//append
-	$('#advancedAutoUpdate').append('\
-		<div>\
-			<span id="appAutoUpdateButton"></span>\
-			<input id="appAutoUpdateToggle" class="toggle" type="checkbox" ' + isAUChecked + '>\
-			<label for="appAutoUpdateToggle"></label>\
-		</div>\
-	');
+	app.safeExec(function() {
+		$('#advancedAutoUpdate').append('\
+			<div>\
+				<span id="appAutoUpdateButton"></span>\
+				<input id="appAutoUpdateToggle" class="toggle" type="checkbox" ' + isAUChecked + '>\
+				<label for="appAutoUpdateToggle"></label>\
+			</div>\
+		');
+	});
 	/////////////////////////////
 	// MANUAL RESTART SHORTCUT //
 	/////////////////////////////
