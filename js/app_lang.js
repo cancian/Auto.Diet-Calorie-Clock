@@ -182,7 +182,7 @@ var LANG = {
 		hu : 'KCals kalóriaszámláló',
 		it : 'KCals Conta Calorie',
 		id : 'KCals Penghitung Kalori',
-		ja : 'KCals カロリー​​カウンター',
+		ja : 'KCals カロリーカウンター',
 		ko : 'KCals 칼로리 카운터',
 		nl : 'KCals Calorie Teller',
 		nb : 'KCals Kaloriteller',
