@@ -919,7 +919,6 @@ NL–
 
 –NB
 $KCALS$ er en ny måte å styre kaloriinntaket på.
-
 Den viser kaloriforbruket ditt i sanntid, og KCals viser en raskt oversikt over hvor mye du skal spise hver dag.
 
 KCals er veldig lett å forstå - den fungerer på samme måte som et kalorikronometer.

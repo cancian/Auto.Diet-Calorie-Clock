@@ -1,0 +1,4 @@
+﻿• Better protection against download errors
+• Shorter names rank slightly better on search results (other things being equal)
+• Fixed issue where custom items with empty names would not be deletable
+• Added a few information boxes to help users get started

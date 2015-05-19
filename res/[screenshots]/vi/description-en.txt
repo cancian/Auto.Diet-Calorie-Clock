@@ -1,0 +1,46 @@
+﻿KCals is designed to help you control your calorie intake. Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your calorie balance.
+The idea is simple. Define a goal ("daily calories") and keep yourself "balanced" in the context of this goal. The app will indicate when you’ve eaten too much ("surplus"), or too little ("deficit").
+Calories from food will be added to the total. Calories burned (including exercise) will be subtracted from the total.
+Elapsed time is converted into calories burned. Therefore, your caloric balance will be reduced automatically throughout the day. Think of it in terms of fuel consumption.
+If you overeat, you can compensate by doing exercises or eating less over the next few hours.
+Check your Profile. There you will find all the information needed to determine your ideal calorie intake.
+
+--------------------
+
+Try before you buy! We are sure you'll love it! 
+
+-------------------- 
+
+With KCals you get: 
+
+• Super easy to use 
+• Real time calorie counter (no other application does that!) 
+• Translated into 40 languages 
+• Available in 6 different platforms (including free web version)
+• Integration with Facebook 
+• Automatic backup and data synchronization (multiple devices) 
+• Realistic estimation of weight loss 
+• Shows how fast your body burns calories 
+• Complete nutrition information (macronutrients) 
+• Adjustable macronutrient ratio
+• Flexible, customizable, and transparent system (you are in control)
+• Advanced search engine 
+• Statistics on calorie consumption 
+• Huge database (10,000 + items) 
+• You can browse food categories 
+• Add custom foods and exercises 
+• Bookmark your favorite items 
+• Fully editable entries 
+• Automatic Updates 
+• Today's overview
+• Adjustable calorie threshold (caloric balance) 
+• Cyclic mode (alternating caloric intake) 
+
+-------------------- 
+
+All this in a simple, clean and intuitive interface! 
+
+--------------------
+
+http://kcals.net
+support@kcals.net
