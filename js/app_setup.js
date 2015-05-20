@@ -2154,7 +2154,7 @@ function getLogoutFB(button) {
 		if(app.dev) {
 			FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
 			setTimeout(function() {
-				FB.logout();	
+				FB.logout();
 			},2000);
 		}
 	}
@@ -2268,23 +2268,27 @@ function getLoginFB() {
 			//open
 			var childWindow = window.open(facebookURL, '_blank');
 			//INTERVAL CHECKER
-			app.timers.bbtoken = setInterval(function () {
-				var currentURL = childWindow.window.location.href;
-				var callbackURL = callback;
-				var inCallback = currentURL.indexOf(callbackURL);
-				//TOKEN
-				if (inCallback == 0) {
-					clearInterval(app.timers.bbtoken);
-					var tokenURL = childWindow.document.URL;
-					tokenURL = tokenURL.split('access_token=')[1];
-					tokenURL = tokenURL.split('&expires_in=')[0];
-					app.save('temp_token', tokenURL);
-					childWindow.close();
-					setTimeout(function () {
-						getTokenFB(app.read('temp_token'));
-					}, 200);
+			app.timers['bbtoken'] = setInterval(function () {
+				try {
+					var currentURL  = childWindow.window.location.href;
+					var callbackURL = callback;
+					var inCallback  = currentURL.indexOf(callbackURL);
+					//TOKEN
+					if (inCallback == 0) {
+						clearInterval(app.timers['bbtoken']);
+						var tokenURL = childWindow.document.URL;
+						tokenURL = tokenURL.split('access_token=')[1];
+						tokenURL = tokenURL.split('&expires_in=')[0];
+						app.save('temp_token', tokenURL);
+						childWindow.close();
+						setTimeout(function () {
+							getTokenFB(app.read('temp_token'));
+						}, 200);
+					}
+				} catch(e) {
+					app.timers['bbtoken'];
 				}
-			}, 50);
+			}, 100);
 		////////////
 		// OSXAPP //
 		////////////			
