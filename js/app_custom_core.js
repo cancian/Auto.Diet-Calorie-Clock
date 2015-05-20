@@ -106,15 +106,19 @@ function appTimer(content) {
 	}
 	//UPDATE TIPS
 	if(!app.read('appStatus','running')) {
-		$('#timerKcalsInput').css('font-size','32px');
-		$('#appStatusTips').hide();
+		if($('#appStatusTips').is(':visible')) {
+			$('#timerKcalsInput').css('font-size','32px');
+			$('#appStatusTips').hide();
+		}
 	} else {
-		$('#appStatusTips').show();
-		$('#timerKcalsInput').css('font-size','24px');
+		if(!$('#appStatusTips').is(':visible')) {
+			$('#appStatusTips').show();
+			$('#timerKcalsInput').css('font-size','24px');
+		}
 	}
 	//
-	if($('#appStatusTips').html() != statusTip) {
-		$('#appStatusTips').html(statusTip);
+	if($('#appStatusTips').text() != statusTip) {
+		$('#appStatusTips').text(statusTip);
 	}
 	//
 	balanceMeter(kcalsInput);
