@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Kalori Hesaplayıcı"
+		"message" : "Kcals Kalori Hesaplayıcı"
 
 	},
 	"appDesc" : {
-		"message" : "KCals Eğer kalori alımını kontrol yardımcı olmak için tasarlanmıştır."
+		"message" : "KCals, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır."
 	}
 }

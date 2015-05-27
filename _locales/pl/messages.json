@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Licznik Kalorii"
+		"message" : "Licznik kalorii KCals"
 
 	},
 	"appDesc" : {
-		"message" : "KCals jest zaprojektowany, aby pomóc Ci kontrolowac ilosc spozywanych kalorii."
+		"message" : "KCals ma na celu pomóc ci kontrolować ilość spożywanych kalorii."
 	}
 }

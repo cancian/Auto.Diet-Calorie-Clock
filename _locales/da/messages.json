@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Kalorietæller"
+		"message" : "KCals kalorietæller"
 
 	},
 	"appDesc" : {
-		"message" : "KCals er designet til at hjælpe dig kontrollere dit kalorieindtag."
+		"message" : "KCals er designet til at hjælpe dig med at styre din kalorieindtagelse."
 	}
 }

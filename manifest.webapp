@@ -1,5 +1,5 @@
 ﻿{
-	"version" : "1.9.3",
+	"version" : "1.9.4",
 	"name" : "Calorie Counter",
 	"description" : "KCals is a real-time calorie counter.",
 	"launch_path" : "/index.html",
@@ -39,8 +39,8 @@
 		"en-us" : { "name": "Calorie Counter"		},
 		"pt" :    { "name": "Contador de Calorias"	},
 		"pt-br" : { "name": "Contador de Calorias"	},
-		"ar" :    { "name": "عداد السُعرات الحرارية"		},
-		"bg" :    { "name": "Брояч на Калории"		},
+		"ar" :    { "name": "(عداد السُعرات الحرارية)"		},
+		"bg" :    { "name": "Брояч на калории"		},
 		"cs" :    { "name": "Počítadlo Kalorií"		},
 		"da" :    { "name": "Kalorietæller"			},
 		"de" :    { "name": "Kalorienzähler"		},
@@ -60,6 +60,7 @@
 		"ru" :    { "name": "Счётчик Калорий"		},
 		"sv" :    { "name": "Kaloriräknare"			},
 		"tr" :    { "name": "Kalori Hesaplayıcı"	},
+		"vi" :    { "name": "Truy Cập Calo"	},
 		"zh" :    { "name": "卡路里计算器"			},
 		"zh-cn" : { "name": "卡路里计算器"			},
 		"zh-tw" : { "name": "卡路里計算機"			}
