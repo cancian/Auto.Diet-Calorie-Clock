@@ -2069,7 +2069,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	//////////////
-	var timeRate = 3 * 24 * 60 * 60 * 1000;
+	var timeRate = 1 * 24 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {

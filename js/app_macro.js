@@ -818,11 +818,20 @@ function updateTodayOverview(fullWindow) {
 			}
 		},function() {
 			//info content replace
-			$('#totalChartWrapper').addClass('getInfo');
+		if(!$('#newWindow').hasClass('getInfo')) {
+			$('#newWindow').addClass('getInfo');
+			app.globals.newWindowTitle    = $('#newWindowTitle').html();
+			app.globals.newWindow = $('#newWindow').html();
 			$('#newWindowTitle').html('Help: Today Overview');
-			$('#totalChartWrapper').html(LANG.HELP_TOPICS_ARRAY['en']['Today Overview']);
-			app.handlers.fade(1,'#totalChartWrapper');
-			return 0;
+			$('#newWindow').html(LANG.HELP_TOPICS_ARRAY['en']['Today Overview']);
+			app.handlers.fade(1,'#newWindow');
+		} else {	
+			$('#newWindow').removeClass('getInfo');
+			$('#newWindowTitle').html(app.globals.newWindowTitle);
+			$('#newWindow').html(app.globals.newWindow);
+			app.handlers.fade(1,'#newWindow');
+		}
+		return 0;
 		});
 	} else {
 		if($('#circlePercent').length) {
@@ -855,6 +864,9 @@ function getCyclicMenu() {
 	// HANDLERS //
 	//////////////
 	var appModeHandlers = function() {
+		//getinfo
+		$('#saveButton').html('');
+		$('#saveButton').addClass('getInfo');
 		////////////////
 		// VALIDATION //
 		////////////////
@@ -934,21 +946,42 @@ function getCyclicMenu() {
 				$('#timerDailyInput').val(app.read('config_kcals_day_0'));
 			}
 		});
+		//
+	};
+	///////////
+	// CLOSE //
+	///////////
+	var appModeClose = function() {
+		$('#appCyclic1').blur();
+		$('#appCyclic2').blur();		
+		updateTodayOverview();
+		intakeHistory();
 	};
 	/////////////
 	// CONFIRM //
 	/////////////
 	var appModeConfirm = function() {
-		$('#appCyclic1').blur();
-		$('#appCyclic2').blur();		
-		updateTodayOverview();
-		intakeHistory();
-		return true;
+		//info content replace
+		if(!$('#newWindow').hasClass('getInfo')) {
+			$('#newWindow').addClass('getInfo');
+			app.globals.newWindowTitle = $('#newWindowTitle').html();
+			$('#newWindowTitle').html('Help: Cyclical Mode');
+			$('#cyclicHelp').remove();
+			$('#appMode').after('<div id="cyclicHelp">' + LANG.HELP_TOPICS_ARRAY['en']['Cyclical Mode'] + '</div>');
+			$('#appMode').hide();
+			app.handlers.fade(1,'#cyclicHelp');
+		} else {	
+			$('#newWindow').removeClass('getInfo');
+			$('#newWindowTitle').html(app.globals.newWindowTitle);
+			$('#cyclicHelp').hide();
+			app.handlers.fade(1,'#appMode');
+		}
+		return 0;
 	};
 	/////////////////
 	// CALL WINDOW //
 	/////////////////
-	getNewWindow(LANG.CYCLIC_TITLE[lang],appModeHtml,appModeHandlers,'',appModeConfirm);
+	getNewWindow(LANG.CYCLIC_TITLE[lang],appModeHtml,appModeHandlers,appModeConfirm,appModeClose);
 }
 //##///////////////##//
 //## BALANCE METER ##//

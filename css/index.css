@@ -458,12 +458,6 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader #backButton:active,
 #newWindowHeader #saveButton:active,
 #newWindowHeader .removeAll:active	{ color: #ccc; }
-
-#saveButton.getInfo					{ color: rgba(0,0,0,0); }
-#saveButton.getInfo:before			{ content: '\A175'; font-family: KCals; font-size: 22px; display: block; color: #007aff; margin-right: -22px; font-weight: normal; margin-top: 0; }
-#saveButton.getInfo:active:before,
-#newWindowHeader .getInfo:active	{ color: #ccc; }
-
 #newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 45px; color: #555; text-align: center; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #appContent							{ pointer-events: auto; }
 .newwindow #startDate,
@@ -474,6 +468,16 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 .wp8 #newWindow.firstLoad div:nth-of-type(1n+15)	{ display: none !important; }
 #newWindow.firstLoad div:nth-of-type(1n+100)		{ display: none; }
 .android4lt #newWindow div:nth-of-type(1n+750)		{ display: none; }
+/*getInfo*/
+#saveButton.getInfo					{ color: rgba(0,0,0,0); }
+#saveButton.getInfo:before			{ content: '\A175'; font-family: KCals; font-size: 22px; display: block; color: #007aff; margin-right: -22px; font-weight: normal; margin-top: 0; }
+#saveButton.getInfo:active:before,
+#newWindowHeader .getInfo:active	{ color: #ccc; }
+#newWindow.getInfo					{ text-align: left; font-weight: normal; }
+#newWindow.getInfo strong			{ font-weight: bold; }
+#newWindow.getInfo p				{ margin: 24px; }
+#newWindow.getInfo p				{ display: block; }
+#newWindow.getInfo p + p			{ margin-top: 18px; }
 /**************/
 #newSearchWrapper					{ display: block; position: absolute; top: 65px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 55; }
 #newSearchWrapper.busy				{ pointer-events: none; overflow: hidden; }
@@ -666,13 +670,6 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 .msie #totalChartWrapper #circlePercentInner	{ top: 96px; }
 #totalChartWrapper						{ width: 100%; text-align: center; }
 #totalChart								{ margin: 0 auto; display: inline-block; width: 280px; overflow: hidden; }
-
-#totalChartWrapper.getInfo				{ text-align: left; font-weight: normal; }
-#totalChartWrapper.getInfo strong		{ font-weight: bold; }
-#totalChartWrapper.getInfo p			{ margin: 24px; }
-#totalChartWrapper.getInfo p			{ display: block; }
-#totalChartWrapper.getInfo p + p		{ margin-top: 18px; }
-
 #circlePercent,
 #newWindow #totalChart,
 .highcharts-legend-item					{ pointer-events: none; z-index: 2; }
