@@ -334,7 +334,7 @@ app.tab.status = function(keepOpen) {
 	//info block
 	$('#elapsedInfo').on(touchstart,function(evt) {
 		evt.stopPropagation();
-		getNewWindow('Elapsed Time / Relative Time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Elapsed Time / Relative Time'] + '</div>');
+		getNewWindow('Help: Elapsed Time / Relative Time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Elapsed Time / Relative Time'] + '</div>');
 	});
 	////////////////
 	// LIMIT MENU //

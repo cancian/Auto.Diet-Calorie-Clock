@@ -812,7 +812,17 @@ function updateTodayOverview(fullWindow) {
 			</div>', function () {
 			if($('#totalChart').length) {
 				$('#totalChart').highcharts(pieOptions);
+				//info icon
+				$('#saveButton').html('');
+				$('#saveButton').addClass('getInfo');
 			}
+		},function() {
+			//info content replace
+			$('#totalChartWrapper').addClass('getInfo');
+			$('#newWindowTitle').html('Help: Today Overview');
+			$('#totalChartWrapper').html(LANG.HELP_TOPICS_ARRAY['en']['Today Overview']);
+			app.handlers.fade(1,'#totalChartWrapper');
+			return 0;
 		});
 	} else {
 		if($('#circlePercent').length) {

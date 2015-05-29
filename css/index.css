@@ -28,7 +28,7 @@ body.osx								{ -webkit-user-select: none; }
 input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 body.moz input,
 body.moz select,
-body.moz textarea							{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
+body.moz textarea						{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
 select::-ms-expand						{ display: none; }
 input::-ms-clear						{ display: none; width: 0; height: 0; }
@@ -70,8 +70,8 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#appContent						{ position: absolute; top: 65px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
-/*.msie.newwindow #appContent	{ overflow: hidden; }*/
+#appContent							{ position: absolute; top: 65px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
+/*.msie.newwindow #appContent		{ overflow: hidden; }*/
 body.android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
 body.android2 #appContent			{ top: 0; border-top: 65px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
 /*kitkat scrollbar*/
@@ -458,6 +458,12 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader #backButton:active,
 #newWindowHeader #saveButton:active,
 #newWindowHeader .removeAll:active	{ color: #ccc; }
+
+#saveButton.getInfo					{ color: rgba(0,0,0,0); }
+#saveButton.getInfo:before			{ content: '\A175'; font-family: KCals; font-size: 22px; display: block; color: #007aff; margin-right: -22px; font-weight: normal; margin-top: 0; }
+#saveButton.getInfo:active:before,
+#newWindowHeader .getInfo:active	{ color: #ccc; }
+
 #newWindowTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 45px; color: #555; text-align: center; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #appContent							{ pointer-events: auto; }
 .newwindow #startDate,
@@ -660,6 +666,13 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 .msie #totalChartWrapper #circlePercentInner	{ top: 96px; }
 #totalChartWrapper						{ width: 100%; text-align: center; }
 #totalChart								{ margin: 0 auto; display: inline-block; width: 280px; overflow: hidden; }
+
+#totalChartWrapper.getInfo				{ text-align: left; font-weight: normal; }
+#totalChartWrapper.getInfo strong		{ font-weight: bold; }
+#totalChartWrapper.getInfo p			{ margin: 24px; }
+#totalChartWrapper.getInfo p			{ display: block; }
+#totalChartWrapper.getInfo p + p		{ margin-top: 18px; }
+
 #circlePercent,
 #newWindow #totalChart,
 .highcharts-legend-item					{ pointer-events: none; z-index: 2; }
@@ -1172,7 +1185,7 @@ span.preSpan			{ font-size: 11px; padding-right: 4px; color: #2157D6; }
 .exerciseType span.foodFat,
 .exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
-#appHeader:before					{ font-family: 'KCals'; content: '\f0a8'; color: rgba(0,0,0,.5); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; -webkit-backface-visibility:hidden; }
+#appHeader:before					{ font-family: 'KCals'; content: '\f0a8'; color: rgba(255,255,255,.75); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; -webkit-backface-visibility: hidden; z-index: 7; }
 body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .ios7 #appHeader:before 			{ padding-top: 24px; }
 .android44 #appHeader:before		{ padding-top: 11px; }
