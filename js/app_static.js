@@ -414,7 +414,7 @@ $(document).on('backbutton', function(evt) {
 // PRESS ENTER //
 /////////////////
 $(document).on('pressenter', function(evt) {
-	if($('#diaryNotesButton').length) {
+	if($('#diaryNotesButton').length || $('#usrMsg').length) {
 		return true;
 	} else if($('#closeButton').length) {
 		$('#closeButton').trigger(touchend);

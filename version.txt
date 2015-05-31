@@ -9,10 +9,13 @@
 • Adjustable zoom level for larger screens
 • BMI calculator on profile
 • Weight loss tracker
-• New features suggestion box
 • Ability to track weight gain if you goal is to gain weight
 • Auto-Share custom items (every custom item added becomes available to all users)
 • User can choose the food database language independently from the current system language
+
+# 1.9.5 [2015/05/31]
+• Toggle between help/content on Today Overview and Cyclical Mode menus
+• New features suggestion box
 
 # 1.9.4 [2015/05/15]
 • Bootloop recovery system: users now can manually erase corrupted application cache by tapping the screen while the app is loading

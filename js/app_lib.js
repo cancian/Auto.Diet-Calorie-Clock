@@ -1962,3 +1962,27 @@ function appConfirm(title, msg, callback, ok, cancel) {
 		}
 	}
 }
+//////////////
+// SENDMAIL //
+//////////////
+app.sendmail = function (usrMail, usrMsg, callback) {
+	if (usrMsg && usrMail) {
+		$.ajax({
+			type : 'POST',
+			url : 'https://kcals.net/mail.php',
+			data : {
+				mail: usrMail,
+				msg: usrMsg,
+				usr: app.get.platform() + ' - ' + lang
+			},
+			dataType : 'text'
+		}).error(function(xhr, statusText) {
+			callback(false);
+		}).success(function (result) {
+			if (typeof callback === 'function') {
+				callback(true);
+			}
+		});
+	}
+};
+

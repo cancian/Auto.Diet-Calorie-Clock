@@ -974,7 +974,8 @@ function getCyclicMenu() {
 			$('#newWindow').removeClass('getInfo');
 			$('#newWindowTitle').html(app.globals.newWindowTitle);
 			$('#cyclicHelp').hide();
-			app.handlers.fade(1,'#appMode');
+			$('#appMode').show();
+			app.handlers.fade(1,'#newWindow');
 		}
 		return 0;
 	};
@@ -1385,11 +1386,11 @@ function buildAdvancedMenu() {
 	///////////////
 	$('#advancedMenu').html("\
 	<ul>\
-		<li id='advancedAutoUpdate'>" + LANG.AUTO_UPDATE[lang] + "</li>\
-		<li id='advancedChangelog'>" + LANG.CHANGELOG[lang] + "</li>\
-		<li id='advancedReview'>" + LANG.REVIEW[lang] + "</li>\
-		<li id='advancedContact'>" + LANG.CONTACT[lang] + "</li>\
-		<li id='advancedAbout'>"   + LANG.ABOUT[lang] + "</li>\
+		<li id='advancedAutoUpdate'>" + LANG.AUTO_UPDATE[lang]    + "</li>\
+		<li id='advancedChangelog'>"  + LANG.CHANGELOG[lang]      + "</li>\
+		<li id='advancedReview'>"     + LANG.REVIEW[lang]         + "</li>\
+		<li id='advancedSuggestion'>" + LANG.SUGGESTION_BOX[lang] + "</li>\
+		<li id='advancedAbout'>"      + LANG.ABOUT[lang]          + "</li>\
 	</ul>\
 	<ul>\
 		<li id='advancedReload'>" + LANG.REBUILD_FOOD_DB[lang] + "</li>\
@@ -1524,6 +1525,60 @@ function buildAdvancedMenu() {
 	//#/////////#//
 	app.handlers.activeRow('#advancedContact','button',function(evt) {
 		app.url('mailto:support@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')');
+	});
+	//#////////////////#//
+	//# SUGGESTION BOX #//
+	//#////////////////#//
+	app.handlers.activeRow('#advancedSuggestion','button',function(evt) {
+		var suggestionBoxHtml     = '<div id="suggestionBox"><label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail"><label for="usrMsg" class="usrMsg">Message:</label><textarea name="usrMsg" id="usrMsg"></textarea></div>';
+		var suggestionBoxHandlers = function() {
+			$('#saveButton').html('Send');
+		};
+		/////////////
+		// CONFIRM //
+		/////////////
+		var suggestionBoxConfirm  = function() {
+			var result = false;
+			//MSG
+			if((trim($('#usrMsg').val())).length > 1) {
+				$('.usrMsg').css('color','#000');
+			} else {
+				$('.usrMsg').css('color','#c30');
+			}
+			//MAIL
+			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val())) {
+				$('.usrMail').css('color','#000');				
+			} else {
+				$('.usrMail').css('color','#c30');				
+			}
+			//VALIDATE
+			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val()) && (trim($('#usrMsg').val())).length > 1) {
+				//send mail
+				$('#saveButton').css('pointer-events','none');
+				var usrMailStore = $('#usrMail').val();
+				var usrMsgStore = $('#usrMail').val();
+				app.sendmail(usrMailStore,usrMsgStore,function(result) {
+					if(result == true) {
+						alert('Submitted Successfully', 'Thanks for the feedback.');
+						$('#saveButton').css('pointer-events','auto');
+						$(document).trigger('backbutton');
+						return true;
+					} else {
+						alert('Error submitting', 'Please check your internet connection and try again.');
+						$('#saveButton').css('pointer-events','auto');
+						return false;
+					}
+				});
+			} else {
+				setTimeout(function() {
+					alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
+				},50);
+				return false;
+			}
+		};
+		//
+		var suggestionBoxClose = function() {};
+		getNewWindow('Suggestion Box',suggestionBoxHtml,suggestionBoxHandlers,suggestionBoxConfirm,suggestionBoxClose);
 	});
 	//#////////////////#//
 	//# RELOAD FOOD DB #//
