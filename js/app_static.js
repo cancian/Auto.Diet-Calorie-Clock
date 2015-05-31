@@ -458,13 +458,14 @@ $(document).keydown(function(e) {
 	}
 });
 $(document).keyup(function(e) {
+	//CONSOLE(e.keyCode);
 	if(e.keyCode == 81) {
 		app.timers.keystrokeLock = 0;
 	}
-	if($('body').hasClass('spinnerMask')) { return false; }
-	if(e.keyCode == 13) { $(document).trigger('pressenter'); }
-	if(e.keyCode == 27) { $(document).trigger('backbutton'); }
-	//CONSOLE(e.keyCode);
+	if($('body').hasClass('spinnerMask'))		{ return false; }
+	if(e.keyCode == 37 && $('#usrMsg').length)	{ return true; }
+	if(e.keyCode == 13) 						{ $(document).trigger('pressenter'); }
+	if(e.keyCode == 27)							{ $(document).trigger('backbutton'); }
 	///////////////////
 	// MENU BACK KEY //
 	///////////////////
