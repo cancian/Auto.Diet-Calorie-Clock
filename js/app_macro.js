@@ -1533,6 +1533,14 @@ function buildAdvancedMenu() {
 		var suggestionBoxHtml     = '<div id="suggestionBox"><label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail"><label for="usrMsg" class="usrMsg">Message:</label><textarea name="usrMsg" id="usrMsg"></textarea></div>';
 		var suggestionBoxHandlers = function() {
 			$('#saveButton').html('Send');
+			$('#saveButton').css('text-transform','capitalize');
+			//
+			$('#suggestionBox').on(touchend,function(evt) {
+				if(evt.target.id === 'suggestionBox') {
+					$('#usrMail').trigger('blur');
+					$('#usrMsg').trigger('blur');
+				}
+			});
 		};
 		/////////////
 		// CONFIRM //
@@ -1555,8 +1563,9 @@ function buildAdvancedMenu() {
 			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val()) && (trim($('#usrMsg').val())).length > 1) {
 				//send mail
 				$('#saveButton').css('pointer-events','none');
+				$('#saveButton').css('color','#ccc');
 				var usrMailStore = $('#usrMail').val();
-				var usrMsgStore = $('#usrMail').val();
+				var usrMsgStore = $('#usrMsg').val();
 				app.sendmail(usrMailStore,usrMsgStore,function(result) {
 					if(result == true) {
 						alert('Submitted Successfully', 'Thanks for the feedback.');
@@ -1566,6 +1575,7 @@ function buildAdvancedMenu() {
 					} else {
 						alert('Error submitting', 'Please check your internet connection and try again.');
 						$('#saveButton').css('pointer-events','auto');
+						$('#saveButton').css('color','#007aff');
 						return false;
 					}
 				});
