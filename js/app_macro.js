@@ -1535,12 +1535,19 @@ function buildAdvancedMenu() {
 			$('#saveButton').html('Send');
 			$('#saveButton').css('text-transform','capitalize');
 			//
-			$('#suggestionBox').on(touchend,function(evt) {
+			$('#suggestionBox').on(touchstart,function(evt) {
 				if(evt.target.id === 'suggestionBox') {
 					$('#usrMail').trigger('blur');
 					$('#usrMsg').trigger('blur');
 				}
 			});
+			//prevent propagation focus
+			$('#usrMail').css('pointer-events','none');
+			$('#usrMsg').css('pointer-events','none');
+			setTimeout(function() {
+				$('#usrMail').css('pointer-events','auto');
+				$('#usrMsg').css('pointer-events','auto');
+			},400);
 		};
 		/////////////
 		// CONFIRM //
