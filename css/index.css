@@ -729,7 +729,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusIntake .highcharts-container { pointer-events: none; }
 /**/
 #appStatusAddLeft,
-#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; color: #fff; font-size: 18px; line-height: 18px; display: inline-block; padding-top: 2px; white-space: nowrap; }
+#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; color: #fff; font-size: 18px; line-height: 18px; display: inline-block; padding-top: 2px; white-space: nowrap; z-index: 10; }
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
 #appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
 #appStatusAddLeft div:before,
@@ -775,7 +775,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 /*#////////////////#//
 //# START DATE BAR #//
 //#////////////////#*/
-#appStatusFix						{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; overflow: hidden; text-align: center; background-color: #fff; }
+#appStatusFix						{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; overflow: hidden; text-align: center; background-color: #fff; z-index: 10; }
 #appStatus							{ position: absolute; bottom: 0; left: 0; right: 0; height: 44px; /*overflow: hidden;*/ -webkit-transform: translate3d(0, 0, 0); }
 /*animate*/
 #appStatusFix.open #appStatus		{ -webkit-transform: translate3d(0, 100%, 0); }

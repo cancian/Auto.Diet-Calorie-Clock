@@ -1438,9 +1438,9 @@ function buildAdvancedMenu() {
 				//logContent.push('<p>' + logLine + '</p>');
 			} else if (logLine.indexOf('#') !== -1) {
 				//UPCOMING FEATURES
+				logLine = (trim(logLine.replace('#', ''))).split(' ');
 				var versionStr  = (/Upcoming/i.test(logLine)) ? '' : 'Version ';
 				var releaseDate = (/Upcoming/i.test(logLine)) ? '' : logLine[1].replace('[', '').replace(']', '');
-				logLine = (trim(logLine.replace('#', ''))).split(' ');
 				logContent += '<p>' + versionStr + ' ' + logLine[0] + '<span>' + releaseDate + '</span></p>';
 			} else {
 				if (/--/.test(logLine)) {
