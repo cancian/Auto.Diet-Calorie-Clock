@@ -43,26 +43,24 @@ return '';
 ////////////////////////////
 ////////////////////////////
 var dataLang;
-$.get("sql/src/ibge-" + (window.location.hash).replace('#','') + ".txt", function(lata2) {
-$.get("sql/src/list-" + (window.location.hash).replace('#','') + ".txt", function(lata) {
-lata = lata + "\n" + lata2;	
-////////////////////////////
-////////////////////////////
-////////////////////////////
+//$.get("sql/src/ibge-" + (window.location.hash).replace('#','') + ".txt", function(lata2) {
+$.get("sql/searchdb.db", function(db) {
+//lata = lata + "\n" + lata2;	
 
-
-dataLang = lata.split("\n");
+////////////////////////////
+////////////////////////////
+////////////////////////////
+//dataLang = lata.split("\n");
 
 /////////////
-$.get("sql/src/src_ibge.txt", function(data2) {
-$.get("sql/src/src_sr26.txt", function(data) {
+$.get("res/2015-ibge.txt", function(data2) {
+$.get("res/2015-usda.txt", function(data) {
 /////////////
-data = data + "\n" + data2;
+data = data;// + "\n" + data2;
 
 
-data = data.split('INSERT INTO "diary_food" VALUES(').join("").split("','").join(",'").split("');").join("");
-
-console.log(data);
+//data = data.split('INSERT INTO "diary_food" VALUES(').join("").split("','").join(",'").split("');").join("");
+//console.log(data);
 
 
 /*
@@ -79,17 +77,232 @@ INSERT INTO "diary_food" VALUES(20016,'2000','20016','Corn flour, whole-grain, y
 INSERT INTO "diary_food" VALUES(20017,'2000','20017','Corn flour, masa, enriched, white','cornflourmasaenrichedwhite','365','9.28','76.29','3.86','6.40');
 INSERT INTO "diary_food" VALUES(20018,'2000','20018','Corn flour, degermed, unenriched, yellow','cornflourdegermedunenrichedyellow','375','5.59','82.75','1.39','1.9
 */
+var rawData = data2.split("\r").join('').split("\n");
 
-	var foodDatabase = data.split("\n");
-	var foodListArray = [];
-	for(i = 0; i < foodDatabase.length; i++) {
-		foodListArray.push(foodDatabase[i].split(",'"));
+var rawArray = [];
+for(i = 0; i < rawData.length; i++) {
+	rawArray.push(rawData[i].split("^"));
+}
+//console.log(JSON.stringify(rawArray));
+	
 
+db = JSON.parse(db);
+//console.log(db);
+
+var newDB = [];
+
+for(d = 0; d < db.length; d++) {
+for(r = 0; r < rawArray.length; r++) {
+
+//console.log(rawArray[r][0]);
+
+
+//console.log(db[d].id + ' == ' + rawArray[r][0]);
+
+
+//console.log(db[d].id + ' == ' + rawArray[r][0]);
+
+	if(db[d].fat == rawArray[r][8] && db[d].car == rawArray[r][9]) {
+		
+
+/*
+0: 8500302,
+1: CACHORRO QUENTE ,
+2: 99,
+3: NAO SE APLICA,
+4: 1,
+5: "Sandwich, hot dog or frankfurter on a bun, with catchup and mustard",
+6: kcal - 272.469,
+7: pro - 8.729,
+8: fat - 15.22,
+9: car - 24.8,
+10: fii - 1.086,
+11: 70.41,
+12: 16.56,
+13: 0.15,
+14: 69.34,
+15: 1.89,
+16: 868.335, (SOD)
+17: -,
+18: 123.95,
+19: 0.13,
+20: 0.93,
+21: 14.43,
+22: 5.79,
+23: 9.43,
+24: 0.23,
+25: 0.19,
+26: 2.85,
+27: 4.38,
+28: 0.11,
+29: 0.35,
+30: 74.20,
+31: 0.14,
+32: 0.22,
+33: 1.20,
+34: 23.59,
+35: 5.32,
+36: 6.23,
+37: 2.22,
+38: 1.92,
+39: 0.24,
+40: 0.65,
+41: 5.81, (SUG)
+42: 5.50,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+	
+	
+
+*/	
+		
+			//db[d].fii = rawArray[r][8];
+			//db[d].sug = rawArray[r][9];
+			//db[d].sod = rawArray[r][15];
+
+			db[d].fii = rawArray[r][10];
+			db[d].sug = rawArray[r][41];
+			db[d].sod = rawArray[r][16];
+
+			if(db[d].fii == "" || db[d].fii == "-") {
+				db[d].fii = '0.0';
+			}
+			if(db[d].sug == "" || db[d].sug == "-") {
+				db[d].sug = '0.0';
+			}
+			if(db[d].sod == "" || db[d].sod == "-") {
+				db[d].sod = '0.0';
+			}
+
+			
+			
+
+//db[d]
+function pad(input) {
+var val = input.length >= 5 ? '	' : '		';
+return val;
+}
+function pad2(input) {
+var val = input.length >= 6 ? '	' : '		';
+return val;
+}
+
+
+
+
+			//newDB.push('{	"id" : "' + db[d].id + '",			"type" : "' + db[d].type + '",		"code" : "' + db[d].code + '",			"kcal" : "' + db[d].kcal + '",		"pro" : "' + db[d].pro + '",	"car" : "' + db[d].car + '",		"fat" : "' + db[d].fat + '",		"fii" : "' + db[d].fii + '",	"sug" : "' + db[d].sug + '",	"sod" : "' + db[d].sod + '"	},');
+			console.log('{	"id" : "' + db[d].id + '",			"type" : "' + db[d].type + '",		"code" : "' + db[d].code + '",			"kcal" : "' + db[d].kcal + '",		"pro" : "' + db[d].pro + '",' + pad(db[d].pro) + '"car" : "' + db[d].car + '",' + pad(db[d].car) + '"fat" : "' + db[d].fat + '",' + pad(db[d].fat) + '"fii" : "' + db[d].fii + '",' + pad(db[d].fii) + '"sug" : "' + db[d].sug + '",' + pad(db[d].sug) + '"sod" : "' + db[d].sod + '"' + pad2(db[d].sod) + '},');
+			break;
+		}
+		//db[d];
+		//rawArray[r];
 	}
-	
+}
+//console.log(JSON.stringify(newDB));
+
+
+//console.log(JSON.stringify(rawArray));
 	
 
 
+
+
+/*
+["09038","AVOCADOS,RAW,CALIFORNIA","72.33","167","1.96","15.41","1.66","8.64","6.80","0.30","13","0.61","29.00","54","507","8","0.68","0.17","0.14","0.40","8.80","0.07","0.14","1.91","1.46","0.28","89.00","0.00","89.00","89.00","14.20","0.00","147","7.00","0.00","24.00","63.00","27.00","0.00","271.00","1.97","0.00","0.00","21.00","2.12","9.79","1.81","0","230.00","1 cup, pureed","136.00","1 fruit, without skin and seed","33"]
+[
+0: "09038",
+1: "AVOCADOS,RAW,CALIFORNIA",
+2: "72.33",
+3: "167",
+4: "1.96", (PRO)
+5: "15.41", (FAT)
+6: "1.66", (ASH)
+7: "8.64", (CAR)
+8: "6.80", (FIBER)
+9: "0.30", (SUGAR)
+10: "13",
+11: "0.61",
+12: "29.00",
+13: "54",
+14: "507",
+15: "8", (SODIUM)
+16: "0.68",
+17: "0.17",
+18: "0.14",
+19: "0.40",
+20: "8.80","0.07","0.14","1.91","1.46","0.28","89.00","0.00","89.00","89.00","14.20","0.00","147","7.00","0.00","24.00","63.00","27.00","0.00","271.00","1.97","0.00","0.00","21.00","2.12","9.79","1.81","0","230.00","1 cup, pureed","136.00","1 fruit, without skin and seed","33"]
+*/
+
+
+
+
+
+
+
+
+
+/*
+
+## SR26 ##
+0 full description
+1 NDB_No
+2 Shrt_Desc
+3 Water_(g)
+4 Energ_Kcal
+5 Protein_(g)
+6 Lipid_Tot_(g)
+7 Ash_(g)
+8 Carbohydrt_(g)
+9 Fiber_TD_(g)
+10 Sugar_Tot_(g)
+Calcium_(mg)
+Iron_(mg)
+Magnesium_(mg)
+Phosphorus_(mg)
+Potassium_(mg)
+Sodium_(mg)
+Zinc_(mg)
+Copper_mg)
+Manganese_(mg)
+Selenium_(µg)
+Vit_C_(mg)
+Thiamin_(mg)
+Riboflavin_(mg)
+Niacin_(mg)
+Panto_Acid_mg)
+Vit_B6_(mg)
+Folate_Tot_(µg)
+Folic_Acid_(µg)
+Food_Folate_(µg)
+Folate_DFE_(µg)
+Choline_Tot_ (mg)
+Vit_B12_(µg)
+Vit_A_IU
+Vit_A_RAE
+Retinol_(µg)
+Alpha_Carot_(µg)
+Beta_Carot_(µg)
+Beta_Crypt_(µg)
+Lycopene_(µg)
+Lut+Zea_ (µg)
+Vit_E_(mg)
+Vit_D_µg
+ViVit_D_IU
+Vit_K_*(µg)
+FA_Sat_(g)
+FA_Mono_(g)
+FA_Poly_(g)
+Cholestrl_(mg)
+GmWt_1
+GmWt_Desc1
+GmWt_2
+GmWt_Desc2
+Refuse_Pct
+*/
+
+
+
+
+return;
 
 	var foodListBasic = "";
 	var searchString  = "";
@@ -280,7 +493,9 @@ $('#list').html(mix);
 });
 });
 });
-});
+//});
+
+
 /*
 ## SR26 ##
 0 full description
