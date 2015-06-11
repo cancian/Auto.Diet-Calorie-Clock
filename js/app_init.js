@@ -194,7 +194,6 @@ function initJS() {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_dynamic.js"><\/script>');
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_custom_core.js"><\/script>');
 	}
-	
 }
 //#//////////////#//
 //# JS KICKSTART #//

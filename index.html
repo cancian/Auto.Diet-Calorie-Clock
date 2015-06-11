@@ -116,7 +116,7 @@ var bootLoopBreaker = function () {
 	////////////////////
 	// MANUAL BREAKER //
 	////////////////////
-	if (document.body) {
+	if (document.body && document.getElementById('loadMask')) {
 		if (document.body.classList) {
 			if (/unloaded/i.test(document.body.classList) && bootLoopBroken == false) {
 				//HALT
@@ -166,7 +166,7 @@ function bootStraper() {
 	//CLEAR RECOVERY
 	setTimeout(function() {
 		bootLoopBreaker = function() {}
-	},0);
+	},5);
 	//
 	if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = 'http://192.168.1.5/'; }
 	//INIT
@@ -186,6 +186,8 @@ if(!/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 </script>
 </head>
 <body class="unloaded">
+<div id="loadMask"><span></span></div>
+<div id="fb-root"></div>
 <script type="text/javascript">
 ///////////////
 // BOOTSTRAP //
@@ -194,7 +196,5 @@ if(/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 	bootStraper();
 }
 </script>
-<div id="loadMask"><span></span></div>
-<div id="fb-root"></div>
 </body>
 </html>
