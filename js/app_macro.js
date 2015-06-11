@@ -1262,11 +1262,11 @@ function getEntryEdit(eid) {
 			// backport validation //
 			/////////////////////////
 			app.handlers.validate('#getEntryTitle',{allowDots:false,maxValue:9999,maxLength:4});
-			app.handlers.validate('#getEntryPro,#getEntryCar,#getEntryFat',{allowDots:true,maxValue:999,maxLength:7});
+			app.handlers.validate('#getEntryPro,#getEntryCar,#getEntryFat,#getEntryFii,#getEntrySug,#getEntrySod',{allowDots:true,maxValue:999,maxLength:7});
 			//////////////////////
 			// BASIC VALIDATION //
 			//////////////////////
-			$('#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat').on('blur',function(evt) {
+			$('#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat,#getEntryFii,#getEntrySug,#getEntrySod').on('blur',function(evt) {
 				if(evt.target.id == 'getEntryTitle') {
 					$(this).val(parseInt($(this).val()));
 				} else {
@@ -1280,14 +1280,16 @@ function getEntryEdit(eid) {
 				}
 				if($(this).val() > 9999)  { $(this).val(9999); }
 			});
-			$('#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat').on('focus', function(evt) {
+			$('#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat,#getEntryFii,#getEntrySug,#getEntrySod').on('focus', function(evt) {
 				if($(this).val() == 0)    { $(this).val(''); }
 			});
 			//////////////
 			// TAP BLUR //
 			//////////////
 			$('#newWindow').on(touchend,function(evt) {
-				evt.stopPropagation();
+				if(!app.device.desktop) {
+					evt.stopPropagation();
+				}
 				if($('#getEntryWrapper input').is(':focus')) {
 					if((evt.target.id).indexOf('getEntry') === -1) {
 						evt.preventDefault();
@@ -1310,6 +1312,9 @@ function getEntryEdit(eid) {
 			app.handlers.addRemove('#getEntryPro',0,999);
 			app.handlers.addRemove('#getEntryCar',0,999);	
 			app.handlers.addRemove('#getEntryFat',0,999);
+			app.handlers.addRemove('#getEntryFii',0,999);
+			app.handlers.addRemove('#getEntrySug',0,999);
+			app.handlers.addRemove('#getEntrySod',0,999);
 		};
 		/////////////
 		// CONFIRM //
@@ -1324,7 +1329,10 @@ function getEntryEdit(eid) {
 				published:parseInt($('#getEntryDateHidden').val()) + '',
 				pro:parseFloat($('#getEntryPro').val())            + '',
 				car:parseFloat($('#getEntryCar').val())            + '',
-				fat:parseFloat($('#getEntryFat').val())            + ''
+				fat:parseFloat($('#getEntryFat').val())            + '',
+				fii:parseFloat($('#getEntryFii').val())            + '',
+				sug:parseFloat($('#getEntrySug').val())            + '',
+				sod:parseFloat($('#getEntrySod').val())            + '',
 			},function(removeId,insertDate) {
 				//REFRESH DATA
 				setTimeout(function() {
@@ -1343,9 +1351,15 @@ function getEntryEdit(eid) {
 		var pro = data.pro;
 		var car = data.car;
 		var fat = data.fat;
+		var fii = data.fii;
+		var sug = data.sug;
+		var sod = data.sod;
 		if(!data.pro || isNaN(pro)) { pro = 0; }
 		if(!data.car || isNaN(car)) { car = 0; }
 		if(!data.fat || isNaN(fat)) { fat = 0; }
+		if(!data.fii || isNaN(fii)) { fii = 0; }
+		if(!data.sug || isNaN(sug)) { sug = 0; }
+		if(!data.sod || isNaN(sod)) { sod = 0; }
 		var getEntryHtml = '\
 			<div id="getEntryWrapper">\
 				<div id="divEntryBody"><span>'  + LANG.ADD_NAME[lang] + '</span><input type="text"   id="getEntryBody"  value="' + data.body      + '" /></div>\
@@ -1353,6 +1367,9 @@ function getEntryEdit(eid) {
 				<div id="divEntryPro"><span>'   + LANG.PRO[lang]      + '</span><input type="number" id="getEntryPro"   value="' + pro            + '" /></div>\
 				<div id="divEntryCar"><span>'   + LANG.CAR[lang]      + '</span><input type="number" id="getEntryCar"   value="' + car            + '" /></div>\
 				<div id="divEntryFat"><span>'   + LANG.FAT[lang]      + '</span><input type="number" id="getEntryFat"   value="' + fat            + '" /></div>\
+				<div id="divEntryFii"><span>'   + LANG.FIB[lang]      + '</span><input type="number" id="getEntryFii"   value="' + fii            + '" /></div>\
+				<div id="divEntrySug"><span>'   + LANG.SUG[lang]      + '</span><input type="number" id="getEntrySug"   value="' + sug            + '" /></div>\
+				<div id="divEntrySod"><span>'   + LANG.SOD[lang]      + '</span><input type="number" id="getEntrySod"   value="' + sod            + '" /></div>\
 				<div id="divEntryDate"><span>'  + LANG.DATE[lang]     + '</span><input type="text"   id="getEntryDate"  value="' + data.published + '" /></div>\
 				<input type="hidden" id="getEntryId"         value="' + data.id        + '" />\
 				<input type="hidden" id="getEntryDateHidden" value="' + data.published + '" />\

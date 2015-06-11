@@ -244,6 +244,23 @@ var app = {
 			}
 			$(target).css('pointer-events','auto');
 		}, time);
+	},
+	html: function(target,content) {
+		if($(target).html() != content)  {
+			safeExec(function () {
+				$(target).html(content);
+			});
+		}
+	},
+	append: function(target,content) {
+		safeExec(function () {
+			$(target).append(content);
+		});
+	},
+	prepend: function(target,content) {
+		safeExec(function () {
+			$(target).prepend(content);
+		});
 	}
 };
 /////////////////
@@ -921,9 +938,15 @@ app.handlers = {
 				if(!data[i].pro)  { data[i].pro  = 0; }
 				if(!data[i].car)  { data[i].car  = 0; }
 				if(!data[i].fat)  { data[i].fat  = 0; }
+				if(!data[i].fii)  { data[i].fii  = 0; }
+				if(!data[i].sug)  { data[i].sug  = 0; }
+				if(!data[i].sod)  { data[i].sod  = 0; }
 				data[i].pro  = Math.round(data[i].pro  * 100) / 100;
 				data[i].car  = Math.round(data[i].car  * 100) / 100;
 				data[i].fat  = Math.round(data[i].fat  * 100) / 100;
+				data[i].fii  = Math.round(data[i].fii  * 100) / 100;
+				data[i].sug  = Math.round(data[i].sug  * 100) / 100;
+				data[i].sod  = Math.round(data[i].sod  * 100) / 100;
 				data[i].fib  = (data[i].fib).split('diary_food').join('');
 				//////////////
 				// ROW HTML //
@@ -947,7 +970,7 @@ app.handlers = {
 				///////////////
 				if(filter) {
 					if(!rowSql.contains(data[i].id)) {
-						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + data[i].kcal + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + "');\n";
+						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + data[i].kcal + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + ",'" + data[i].fii + ",'" + data[i].sug + ",'" + data[i].sod + "');\n";
 					}
 				}
 			}
@@ -998,7 +1021,9 @@ app.handlers = {
 		///////////////
 		var clearActions = touchend + ' mouseout mouseleave touchleave touchcancel';
 		$(target).off(clearActions).on(clearActions, function (evt) {
-			evt.preventDefault();
+			if(!app.device.ios) {
+				evt.preventDefault();
+			}
 			$(target).removeClass(style);
 			clearTimeout(app.repeaterTrigger);
 			clearTimeout(app.repeaterLoop);
@@ -1007,7 +1032,9 @@ app.handlers = {
 		// TRIGGER //
 		/////////////
 		$(target).off(touchstart).on(touchstart, function (evt) {
-			evt.preventDefault();
+			if(!app.device.ios) {
+				evt.preventDefault();
+			}
 			clearTimeout(app.repeaterTrigger);
 			clearTimeout(app.repeaterLoop);
 			//TAP
@@ -1069,14 +1096,14 @@ app.screenshot = function() {
 //SCREENSHOT
 	var day = 60 * 60 * 24 * 1000;
 	clearEntries(function() {
-		saveEntry({raw: true, id: app.now()-(0*day), title: 1300, body: '', published: app.now()-(0*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: ''});
-		saveEntry({raw: true, id: app.now()-(1*day), title: 1800, body: '', published: app.now()-(1*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: ''});
-		saveEntry({raw: true, id: app.now()-(2*day), title: 1500, body: '', published: app.now()-(2*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: ''});
-		saveEntry({raw: true, id: app.now()-(3*day), title: 1000, body: '', published: app.now()-(3*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: ''});
-		saveEntry({raw: true, id: app.now()-(4*day), title: 1300, body: '', published: app.now()-(4*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: ''});
-		saveEntry({raw: true, id: app.now()-(5*day), title: 1800, body: '', published: app.now()-(5*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: ''});
-		saveEntry({raw: true, id: app.now()-(6*day), title: 1300, body: '', published: app.now()-(6*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: ''});
-		saveEntry({raw: true, id: app.now()-(7*day), title: 1000, body: '', published: app.now()-(7*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: ''});
+		saveEntry({raw: true, id: app.now()-(0*day), title: 1300, body: '', published: app.now()-(0*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
+		saveEntry({raw: true, id: app.now()-(1*day), title: 1800, body: '', published: app.now()-(1*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
+		saveEntry({raw: true, id: app.now()-(2*day), title: 1500, body: '', published: app.now()-(2*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
+		saveEntry({raw: true, id: app.now()-(3*day), title: 1000, body: '', published: app.now()-(3*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
+		saveEntry({raw: true, id: app.now()-(4*day), title: 1300, body: '', published: app.now()-(4*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
+		saveEntry({raw: true, id: app.now()-(5*day), title: 1800, body: '', published: app.now()-(5*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
+		saveEntry({raw: true, id: app.now()-(6*day), title: 1300, body: '', published: app.now()-(6*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
+		saveEntry({raw: true, id: app.now()-(7*day), title: 1000, body: '', published: app.now()-(7*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
 		app.save('config_start_time',app.now()-(7.7*day));
 		app.save('config_kcals_day_0',1400);
 		$('#timerDailyInput').val(app.read('config_kcals_day_0'));

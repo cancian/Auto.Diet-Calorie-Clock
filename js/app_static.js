@@ -17,6 +17,7 @@ $(document).ready(function() {
 		var dbDriver;
 		if(typeof localforageDB !== 'undefined') {
 			dbDriver = app.read('config_force_localstorage') ? [localforage.LOCALSTORAGE] : [localforage.INDEXEDDB, localforage.WEBSQL, localforage.LOCALSTORAGE];
+			//dbDriver = app.read('config_force_localstorage') ? [localforage.LOCALSTORAGE] : [localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE];
 		} else {
 			dbDriver = app.read('config_force_localstorage') ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
 		}
@@ -1174,6 +1175,7 @@ if(app.is.scrollable) {
 		//UPDATE TODAY'S
 		setTimeout(function() {
 			updateTodayOverview();
+			updateNutriBars();
 			intakeHistory();
 			setPush();
 		},1000);

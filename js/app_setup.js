@@ -153,7 +153,7 @@ function loadDatabase() {
 				//////////////////////////////
 				// update search terms v3.0 //
 				//////////////////////////////
-				if(app.read('foodDbVersion') == 3 && app.read('foodDbLoaded','done')) {
+				if((app.read('foodDbVersion') == 3 || app.read('foodDbVersion') == 4) && app.read('foodDbLoaded','done')) {
 					$('body').addClass('updtdb');
 					spinner();
 					setTimeout(function() {
@@ -161,7 +161,7 @@ function loadDatabase() {
 							app.rows.food[i].term = searchalize(app.rows.food[i].name);
 						}
 						app.save('diary_food',app.rows.food,function(rows) {
-							app.save('foodDbVersion',4);
+							app.save('foodDbVersion',5);
 							app.rows.food = rows;
 							spinner('stop');
 						});
@@ -210,7 +210,7 @@ function initDB(t) {
 	app.define('config_limit_2',600);
 	app.define('app_zoom',1);
 	if(!app.read('foodDbVersion') && !app.read('foodDbLoaded','done')) {
-		app.save('foodDbVersion',4);
+		app.save('foodDbVersion',5);
 	}
 	///////////
 	// START //
@@ -336,6 +336,10 @@ function pushEntries(userId) {
 		var car;
 		var fat;
 		var fib;
+		var fii;
+		var sug;
+		var sod;
+		
 		if(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			if(data[i].id) {
@@ -349,6 +353,9 @@ function pushEntries(userId) {
 				car       = data[i].car;
 				fat       = data[i].fat;
 				fib       = data[i].fib;
+				fii       = data[i].fii;
+				sug       = data[i].sug;
+				sod       = data[i].sod;
 			
 				if(!body) { body = ''; }
 				if(!kcal) { kcal = ''; }
@@ -358,9 +365,12 @@ function pushEntries(userId) {
 				if(!car)  { car  = ''; }
 				if(!fat)  { fat  = ''; }
 				if(!fib)  { fib  = ''; }
+				if(!fii)  { fii  = ''; }
+				if(!sug)  { sug  = ''; }
+				if(!sod)  { sod  = ''; }								
 
 				if(id && published != '' && allFetchIds.indexOf('#' + id + '#') === -1) { 
-					newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "');\n";
+					newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "','" + fii + "','" + sug + "','" + sod + "');\n";
 					fetchEntries += newLineFetch; 
 					newLineFetch = '';
 					allFetchIds.push('#' + id + '#');
@@ -375,6 +385,9 @@ function pushEntries(userId) {
 					car       = '';
 					fat       = '';
 					fib       = '';
+					fii       = '';
+					sug       = '';
+					sod       = '';
 				}
 			}
 		}
@@ -538,7 +551,10 @@ function sqlToJson(row) {
 				pro       : row[7],
 				car       : row[8],
 				fat       : row[9],
-				fib       : row[10]
+				fib       : row[10],
+				fii       : row[11],
+				sug       : row[12],
+				sod       : row[13],
 			};
 		}
 		else if((/diary_food/).test(row)) {
@@ -552,7 +568,10 @@ function sqlToJson(row) {
 				pro  : row[7],
 				car  : row[8],
 				fat  : row[9],
-				fib  : row[10]
+				fib  : row[10],
+				fii  : row[11],
+				sug  : row[12],
+				sod  : row[13],
 			};
 		}
 	}
@@ -684,6 +703,9 @@ function updateEntry(data,callback) {
 			app.rows.entry[i].car       = data.car;
 			app.rows.entry[i].fat       = data.fat;
 			app.rows.entry[i].fib       = '';
+			app.rows.entry[i].fii       = data.fii;
+			app.rows.entry[i].sug       = data.sug;
+			app.rows.entry[i].sod       = data.sod;
 			break;
 		}
 	}
@@ -734,7 +756,7 @@ function saveEntry(data,callback) {
 	} else if(data.reuse == true) {
 		//SAVE
 		var saveTime = app.now();
-		app.rows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib});
+		app.rows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib, fii: data.fii, sug: data.sug, sod: data.sod});
 		app.save('diary_entry',app.rows.entry,function(rows) {
 			app.rows.entry = rows;
 			setPush();
@@ -776,11 +798,11 @@ function saveEntry(data,callback) {
 				callback();
 			}
 		});
-	} else if(data.pro || data.car || data.fat) {
+	} else if(data.pro || data.car || data.fat || data.fii || data.sug || data.sod) {
 	/////////////////
 	// INSERT FULL //
 	/////////////////
-		app.rows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: ''});
+		app.rows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: '', fii: data.fii, sug: data.sug, sod: data.sod});
 		//SAVE
 		app.save('diary_entry',app.rows.entry,function(rows) {
 			app.rows.entry = rows;
@@ -795,7 +817,7 @@ function saveEntry(data,callback) {
 	//////////////////
 	// INSERT QUICK //
 	//////////////////
-		app.rows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: '', car: '', fat: '', fib: ''});
+		app.rows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: '', car: '', fat: '', fib: '', fii: '', sug: '', sod: ''});
 		//SAVE
 		app.save('diary_entry',app.rows.entry,function(rows) {
 			app.rows.entry = rows;
@@ -826,6 +848,9 @@ function setFood(data, callback) {
 				app.rows.food[i].car  = data.car;
 				app.rows.food[i].fat  = data.fat;
 				app.rows.food[i].fib  = data.fib;
+				app.rows.food[i].fii  = data.fii;
+				app.rows.food[i].sug  = data.sug;
+				app.rows.food[i].sod  = data.sod;
 				break;
 			}
 		}
@@ -845,7 +870,10 @@ function setFood(data, callback) {
 			pro:  data.pro,
 			car:  data.car,
 			fat:  data.fat,
-			fib:  data.fib
+			fib:  data.fib,
+			fii:  data.fii,
+			sug:  data.sug,
+			sod:  data.sod,
 		});
 		callback();
 		app.save('diary_food',app.rows.food,function(rows) {	
@@ -1040,7 +1068,7 @@ function updateFoodDb(callback) {
 									//success
 									demoRunning = false;
 									app.save('foodDbLoaded','done');
-									app.save('foodDbVersion',4);
+									app.save('foodDbVersion',5);
 									app.remove('startLock');
 									niceResizer(300);
 									if(app.read('facebook_userid')) {
@@ -1120,6 +1148,9 @@ function updateFoodDb(callback) {
 										rowsArray[s].car  = rowsArray[s].car;
 										rowsArray[s].fat  = rowsArray[s].fat;
 										rowsArray[s].fib  = rowsArray[s].fib;
+										rowsArray[s].fii  = rowsArray[s].fii;
+										rowsArray[s].sug  = rowsArray[s].sug;
+										rowsArray[s].sod  = rowsArray[s].sod;
 									} catch(e) {}
 								}
 								saveParsed(rowsArray);
@@ -1745,7 +1776,7 @@ window.localStorage.setItem('langDump',JSON.stringify(langListString));
 //pre-process
 var langListArray = [];
 $.each(LANG.LANGUAGE, function(i, langCode) {
-	langListArray.push("<li id='set" + langCode + "'>"+ LANG.LANGUAGE_NAME[langCode] +"</li>");
+	langListArray.push('<li id="set' + langCode + '">'+ LANG.LANGUAGE_NAME[langCode] +'</li>');
 });
 //BUILD ORDERED HTML
 langListArray.sort();
@@ -1759,14 +1790,13 @@ function buildLangMenu(opt) {
 	/////////////////
 	// APPEND HTML //
 	/////////////////
-	$('body').append("<div id='langSelect'><ul id='langSelectList'><li id='setAuto'>" + LANG.AUTO_DETECT[lang] + " (" + LANG.LANGUAGE_NAME[defaultLang] + ")</li>" + langListCore + "</ul></div>");
-	$("#langSelect").hide();
+	$('body').append('<div id="langSelect"><ul id="langSelectList"><li id="setAuto">' + LANG.AUTO_DETECT[lang] + ' (' + LANG.LANGUAGE_NAME[defaultLang] + ')</li>' + langListCore + '</ul></div>');
+	$('#langSelect').hide();
 	//intro
 	if(opt !== 'intro') {
-		$("#langSelect").css("top",($("#appHeader").height()) + "px");
-		$("#langSelect").css("bottom",($("#appFooter").height()) + "px");
-		$("#langSelect").height($("#appContent").height());
-
+		$('#langSelect').css('top',($('#appHeader').height()) + 'px');
+		$('#langSelect').css('bottom',($('#appFooter').height()) + 'px');
+		$('#langSelect').height($('#appContent').height());
 	}
 	//intro
 	if(opt == 'intro') { 
@@ -1779,16 +1809,16 @@ function buildLangMenu(opt) {
 	//mark current
 	//window.localStorage.setItem("devSetLang",lang);
 	if(app.read('devSetLang')) {
-		$("#set" + lang).addClass("set");
+		$('#set' + lang).addClass('set');
 	} else {
-		$("#setAuto").addClass("set");
+		$('#setAuto').addClass('set');
 	}
-	$(".set").addClass("preset");
+	$('.set').addClass('preset');
 	/////////////
 	// FADE IN //
 	/////////////
 	app.handlers.fade(1,'#langSelect',function(evt) {
-		getNiceScroll("#langSelect");
+		getNiceScroll('#langSelect');
 	});
 	/////////////
 	// handler //
@@ -1939,7 +1969,7 @@ function getNiceScroll(target,timeout,callback) {
 	} else {
 		if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
 			$(target).css('overflow','hidden');
-			$(target).niceScroll(NSettings);				
+			$(target).niceScroll(NSettings);
 		} else {
 			if(app.device.ios) {
 				$(target).css('-webkit-overflow-scrolling','touch');

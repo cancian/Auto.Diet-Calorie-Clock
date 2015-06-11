@@ -1175,6 +1175,9 @@ function addNewItem(addnew) {
 		addnew.pro  = $('#inputNewPro').val();
 		addnew.car  = $('#inputNewCar').val();
 		addnew.fat  = $('#inputNewFat').val();
+		addnew.fii  = $('#inputNewFii').val();
+		addnew.sug  = $('#inputNewSug').val();		
+		addnew.sod  = $('#inputNewSod').val();
 		//REVERT TO FORMULA
 		if ((/0000|exercise/).test(addnew.type)) {
 			addnew.kcal = Math.round((((addnew.kcal / addnew.totalweight) / $('#inputNewAmount').val()) * 60) * 100) / 100;
@@ -1205,12 +1208,24 @@ function addNewItem(addnew) {
 		if (addnew.fat == '' || isNaN(addnew.fat)) {
 			addnew.fat = 0;
 		}
+		if (addnew.fii == '' || isNaN(addnew.fii)) {
+			addnew.fii = 0;
+		}
+		if (addnew.sug == '' || isNaN(addnew.sug)) {
+			addnew.sug = 0;
+		}
+		if (addnew.sod == '' || isNaN(addnew.sod)) {
+			addnew.sod = 0;
+		}
 		//revert to 100g
 		if (addnew.type == 'food') {
 			addnew.kcal = Math.round((addnew.kcal / $('#inputNewAmount').val()) * 100 * 100) / 100;
 			addnew.pro  = Math.round((addnew.pro  / $('#inputNewAmount').val()) * 100 * 100) / 100;
 			addnew.car  = Math.round((addnew.car  / $('#inputNewAmount').val()) * 100 * 100) / 100;
 			addnew.fat  = Math.round((addnew.fat  / $('#inputNewAmount').val()) * 100 * 100) / 100;
+			addnew.fii  = Math.round((addnew.fii  / $('#inputNewAmount').val()) * 100 * 100) / 100;
+			addnew.sug  = Math.round((addnew.sug  / $('#inputNewAmount').val()) * 100 * 100) / 100;
+			addnew.sod  = Math.round((addnew.sod  / $('#inputNewAmount').val()) * 100 * 100) / 100;
 			addnew.kcal = Math.round(addnew.kcal);
 		} else {
 			addnew.kcal = decimalize(addnew.kcal);
@@ -1219,6 +1234,9 @@ function addNewItem(addnew) {
 		addnew.pro = decimalize(addnew.pro);
 		addnew.car = decimalize(addnew.car);
 		addnew.fat = decimalize(addnew.fat);
+		addnew.fii = decimalize(addnew.fii);
+		addnew.sug = decimalize(addnew.sug);
+		addnew.sod = decimalize(addnew.sod);
 		////////////////////
 		// SAVE NEW ENTRY //
 		////////////////////
@@ -1274,15 +1292,21 @@ function addNewItem(addnew) {
 	///////////////
 	var saveAsNew = (addnew.act == 'update') ? '<div id="saveAsNew">' + LANG.SAVE_AS_NEW[lang] + '</div>' : '';
 	var addNewCoreHtml = '\
-	<div id="addNewWrapper">\
-		<ul id="addNewList">\
-			<li id="addNewName">   <label>' + LANG.ADD_NAME[lang].capitalize() + '</label>                          <input tabindex="3" type="text"   id="inputNewName"                /></li>\
-			<li id="addNewAmount"><label>' + LANG.ADD_AMOUNT[lang].capitalize() + ' (' + LANG.G[lang] + ')</label>  <input tabindex="3" type="number" id="inputNewAmount"  value="100" /></li>\
-			<li id="addNewKcal">   <label>' + LANG.KCAL[lang].capitalize() + '</label>                              <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
-			<li id="addNewPro">    <label>' + LANG.PRO[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
-			<li id="addNewCar">    <label>' + LANG.CAR[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
-			<li id="addNewFat">    <label>' + LANG.FAT[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
-		</ul>\
+	<div id="addNewListWrapper">\
+		<div id="addNewWrapper">\
+			<ul id="addNewList">\
+				<li id="addNewName">   <label>' + LANG.ADD_NAME[lang].capitalize() + '</label>                          <input tabindex="3" type="text"   id="inputNewName"                /></li>\
+				<li id="addNewAmount"><label>' + LANG.ADD_AMOUNT[lang].capitalize() + ' (' + LANG.G[lang] + ')</label>  <input tabindex="3" type="number" id="inputNewAmount"  value="100" /></li>\
+				<li id="addNewKcal">   <label>' + LANG.KCAL[lang].capitalize() + '</label>                              <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
+				<li id="addNewPro">    <label>' + LANG.PRO[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
+				<li id="addNewCar">    <label>' + LANG.CAR[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
+				<li id="addNewFat">    <label>' + LANG.FAT[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
+				<li id="addNewFii">    <label>' + LANG.FIB[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewFii"     value="0"   /></li>\
+				<li id="addNewSug">    <label>' + LANG.SUG[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewSug"     value="0"   /></li>\
+				<li id="addNewSod">    <label>' + LANG.SOD[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewSod"     value="0"   /></li>\
+			</ul>\
+		</div>\
+	</div>\
 		<div id="addNewCancel">' + LANG.CANCEL[lang] + '</div>\
 		<div id="addNewConfirm">' + LANG.SAVE[lang] + '</div>\
 		' + saveAsNew + '\
@@ -1293,24 +1317,29 @@ function addNewItem(addnew) {
 	if($('#modalWrapper').length) {
 		$('#modalOverlay').off();
 		$('#modalWrapper').append(addNewCoreHtml);
-		$('#addNewWrapper').hide();
+		$('#addNewListWrapper,#addNewCancel,#addNewConfirm').hide();
+
 		app.handlers.fade(0,'#modalConversions');
 		app.handlers.fade(0,'#modalWindow',function() {
-			app.handlers.fade(1,'#addNewWrapper');
+			app.handlers.fade(1,'#addNewListWrapper,#addNewCancel,#addNewConfirm');
 		});
 	} else {
 		//CREATE NEW
 		$('body').append('<div id="modalWrapper"><div id="modalOverlay"></div>' + addNewCoreHtml + '</div>');
-		
+		$('#addNewWrapper,#addNewCancel,#addNewConfirm').hide();
+	
 		if($('#foodSearch').val() != '') {
 			$('#inputNewName').val( $('#foodSearch').val() );
 		}
 		
 		$('#modalWrapper').show();
 		$('#addNewWrapper').show();
-		app.handlers.fade(1,'#modalWrapper');
-		app.handlers.fade(1,'#addNewWrapper');
+		$('#addNewWrapper,#addNewCancel,#addNewConfirm').show();
+		app.handlers.fade(1,'#modalWrapper, #addNewWrapper');
 	}
+	getNiceScroll('#addNewWrapper',0,function() {
+		niceResizer(200);
+	});
 	////////////////
 	// ADD/REMOVE //
 	////////////////
@@ -1319,6 +1348,9 @@ function addNewItem(addnew) {
 	app.handlers.addRemove('#inputNewPro',0,999);
 	app.handlers.addRemove('#inputNewCar',0,999);	
 	app.handlers.addRemove('#inputNewFat',0,999);
+	app.handlers.addRemove('#inputNewFii',0,999);
+	app.handlers.addRemove('#inputNewSug',0,999);
+	app.handlers.addRemove('#inputNewSod',0,999);
 	/////////////////////
 	// POPULATE INPUTS //
 	/////////////////////
@@ -1328,6 +1360,9 @@ function addNewItem(addnew) {
 		$('#inputNewPro').val(decimalize(addnew.pro,-1));
 		$('#inputNewCar').val(decimalize(addnew.car,-1));
 		$('#inputNewFat').val(decimalize(addnew.fat,-1));
+		$('#inputNewFii').val(decimalize(addnew.fii,-1));
+		$('#inputNewSug').val(decimalize(addnew.sug,-1));
+		$('#inputNewSod').val(decimalize(addnew.sod,-1));
 	}
 	/////////////////////////////
 	// ADJUST FORM TO EXERCISE //
@@ -1338,6 +1373,9 @@ function addNewItem(addnew) {
 		$('#addNewPro').hide();
 		$('#addNewCar').hide();
 		$('#addNewFat').hide();
+		$('#addNewFii').hide();
+		$('#addNewSug').hide();
+		$('#addNewSod').hide();
 		if (addnew.act == 'update') {
 			$('#inputNewKcal').val(Math.round(((addnew.kcal * addnew.totalweight) / 60) * $('#inputNewAmount').val()));
 		}
@@ -1370,7 +1408,9 @@ function addNewItem(addnew) {
 	///////////////////////////
 	$('#addNewWrapper').on(touchstart, function (evt) {
 		if (evt.target.id == 'addNewWrapper' || evt.target.id == '') {
-			evt.preventDefault();
+			if(!app.device.ios) {
+				evt.preventDefault();
+			}
 			evt.stopPropagation();
 			$('#addNewWrapper input').trigger('blur');
 		}
@@ -1379,7 +1419,7 @@ function addNewItem(addnew) {
 	// VALIDATION //
 	////////////////
 	app.handlers.validate('#inputNewKcal,#inputNewAmount',{maxLength:4,allowDots:0});
-	app.handlers.validate('#inputNewPro, #inputNewCar, #inputNewFat',{maxLength:7,allowDots:1});
+	app.handlers.validate('#inputNewPro, #inputNewCar, #inputNewFat, #inputNewFii, #inputNewSug, #inputNewSod',{maxLength:7,allowDots:1});
 	//////////////
 	// HANDLERS //
 	//////////////
@@ -1432,7 +1472,10 @@ function getModalWindow(itemId) {
 			pro : decimalize(data.pro),
 			car : decimalize(data.car),
 			fat : decimalize(data.fat),
-			fib : data.fib
+			fib : data.fib,
+			fii : decimalize(data.fii),
+			sug : decimalize(data.sug),
+			sod : decimalize(data.sod),
 		};
 		/////////////////////
 		// FOOD ? EXERCISE //
@@ -1449,8 +1492,11 @@ function getModalWindow(itemId) {
 			if (isFoodRow) {
 				var modalAmount = parseInt($("#modalAmount").html());
 				$('#proData p').html(decimalize((modal.pro/100)*modalAmount,1));
-				$('#carData p').html(decimalize((modal.car/100)*modalAmount,1));				
-				$('#fatData p').html(decimalize((modal.fat/100)*modalAmount,1));				
+				$('#carData p').html(decimalize((modal.car/100)*modalAmount,1));
+				$('#fatData p').html(decimalize((modal.fat/100)*modalAmount,1));
+				$('#fiiData p').html(decimalize((modal.fii/100)*modalAmount,1));
+				$('#sugData p').html(decimalize((modal.sug/100)*modalAmount,1));
+				$('#sodData p').html(decimalize((modal.sod/100)*modalAmount,1));
 			}
 		};
 		/////////////////////////
@@ -1561,7 +1607,10 @@ function getModalWindow(itemId) {
 				type      : modal.type,
 				pro       : parseFloat($("#proData p").html()),
 				car       : parseFloat($("#carData p").html()),
-				fat       : parseFloat($("#fatData p").html())
+				fat       : parseFloat($("#fatData p").html()),
+				fii       : parseFloat($("#fiiData p").html()),
+				sug       : parseFloat($("#sugData p").html()),
+				sod       : parseFloat($("#sodData p").html()),
 			},function() {
 				$('#addNewConfirm').addClass('done');
 				//////////////
@@ -1708,9 +1757,15 @@ function getModalWindow(itemId) {
 				<span id='proData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
 				<span id='carData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
 				<span id='fatData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
+				<span id='fiiData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
+				<span id='sugData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
+				<span id='sodData'><p>0.0</p><span>" + LANG.MG[lang] + "</span></span>\
 				<span id='proLabel'>" + LANG.PRO[lang] + "</span>\
 				<span id='carLabel'>" + LANG.CAR[lang] + "</span>\
 				<span id='fatLabel'>" + LANG.FAT[lang] + "</span>\
+				<span id='fiiLabel'>" + LANG.FIB[lang] + "</span>\
+				<span id='sugLabel'>" + LANG.SUG[lang] + "</span>\
+				<span id='sodLabel'>" + LANG.SOD[lang] + "</span>\
 			");
 			//APROX CONVERSIONS
 			$('#modalWrapper').append('\

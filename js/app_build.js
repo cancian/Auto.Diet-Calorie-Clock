@@ -294,6 +294,11 @@ app.tab.status = function(keepOpen) {
 			<div id="appStatusBarsPro"><p>' + LANG.PROTEINS[lang].toUpperCase() + '</p><span>0%</span></div>\
 			<div id="appStatusBarsCar"><p>' + LANG.CARBS[lang].toUpperCase() + '</p><span>0%</span></div>\
 			<div id="appStatusBarsFat"><p>' + LANG.FATS[lang].toUpperCase() + '</p><span>0%</span></div>\
+			<div id="appStatusBarsSubwrap">\
+				<div id="appStatusBarsFib"><p>' + LANG.FIBER[lang].toUpperCase() + '</p><div>0 / 30g</div></div>\
+				<div id="appStatusBarsSug"><p>' + LANG.SUGAR[lang].toUpperCase() + '</p><div>0 / 20g</div></div>\
+				<div id="appStatusBarsSod"><p>' + LANG.SODIUM[lang].toUpperCase() + '</p><div>0 / 600mg</div></div>\
+			</div>\
 		</div>\
 		<div id="appStatusAddLeft"><div>'  + LANG.FOOD[lang]     + '</div></div>\
 		<div id="appStatusAddRight"><div>' + LANG.EXERCISE[lang] + '</div></div>\
@@ -401,6 +406,7 @@ app.tab.status = function(keepOpen) {
 					$('#appStatusBars span').html('0%');
 					$('#appStatusBalance div p').html(LANG.BALANCED[lang]);
 					updateTodayOverview();
+					updateNutriBars();
 				}
 				return false;
 			}
@@ -408,6 +414,7 @@ app.tab.status = function(keepOpen) {
 			appConfirm(LANG.RESET_COUNTER_TITLE[lang], LANG.ARE_YOU_SURE[lang], appReset, LANG.OK[lang], LANG.CANCEL[lang]);
 		} else {
 			setPush();
+			updateNutriBars()
 			$('#appStatus').removeClass('start');
 			$('#appStatus').addClass('reset');
 			$('#appStatusTitle').html(LANG.RESET[lang]);

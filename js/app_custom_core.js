@@ -102,7 +102,7 @@ function appTimer(content) {
 	}
 	//UPDATE BLOCKS
 	if(!app.read('app_last_tab','tab1') && $('#appStatusBalance div p').html() != app.read('appBalance')) { 
-		$('#appStatusBalance div p').html(app.read('appBalance'));
+		app.html('#appStatusBalance div p',app.read('appBalance'));
 	}
 	//UPDATE TIPS
 	if(!app.read('appStatus','running')) {
@@ -304,18 +304,40 @@ function updateNutriBars() {
 	var tPro = app.read('tPro');
 	var tCar = app.read('tCar');
 	var tFat = app.read('tFat');
+	var tFii = app.read('tFii');
+	var tSug = app.read('tSug');
+	var tSod = app.read('tSod');
 	//
 	//ratio by	
 	var ratioBy = app.read('appRatioBy','g') ? 4 : 9;
 	//total calories
 	var nTotal  = (tPro*4) + (tCar*4) + (tFat*ratioBy);
+
+	//intake formula
+	var intake = app.read('config_kcals_day_0');
+	if(app.read('config_kcals_type','cyclic')) {
+		intake = Math.round(((app.read('config_kcals_day_0')*3) + app.read('config_kcals_day_2'))/4);
+	}
+	var dailyFib = intake * 0.014;
+	var dailySug = intake * 0.025;
+	var dailySod = (Math.round(intake * 0.0325))*10;
+	if(dailySod < 480) {
+		dailySod = 480;
+	}
+	if(dailySod > 1500) {
+		dailySod = 1500;
+	}	
+	var sTotal = tFii + tSug + tSod;
 	//return null
-	if(!app.read('appStatus','running') || nTotal == 0) {
-		$('#appStatusBarsPro p').html(LANG.PROTEINS[lang].toUpperCase());
-		$('#appStatusBarsCar p').html(LANG.CARBS[lang].toUpperCase());
-		$('#appStatusBarsFat p').html(LANG.FATS[lang].toUpperCase());
+	if(!app.read('appStatus','running') || (nTotal == 0 && sTotal == 0)) {
+		app.html('#appStatusBarsPro p',LANG.PROTEINS[lang].toUpperCase());
+		app.html('#appStatusBarsCar p',LANG.CARBS[lang].toUpperCase());
+		app.html('#appStatusBarsFat p',LANG.FATS[lang].toUpperCase());
 		$('#appStatusBars p').css('width',0);
-		$('#appStatusBars span').html('0%');
+		app.html('#appStatusBars span','0%');
+		app.html('#appStatusBarsFib div','0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
+		app.html('#appStatusBarsSug div','0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
+		app.html('#appStatusBarsSod div','0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
 		return false;
 	}
 	//ratios
@@ -385,16 +407,35 @@ function updateNutriBars() {
 	$('#appStatusBarsFat p').addClass(nFatPerClass);
 	$('#appStatusBarsFat p').css('width',Math.round(nFatPerWidth) + '%');
 	//relative percentage
-	
-	$('#appStatusBarsPro p').html(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
-	$('#appStatusBarsCar p').html(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
-	$('#appStatusBarsFat p').html(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
-	
-	$('#appStatusBarsPro span').html(Math.round(nPerPro*1)/1 + '%');
-	$('#appStatusBarsCar span').html(Math.round(nPerCar*1)/1 + '%');
+	app.html('#appStatusBarsPro p',LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
+	app.html('#appStatusBarsCar p',LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
+	app.html('#appStatusBarsFat p',LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
+	//	
+	app.html('#appStatusBarsPro span',Math.round(nPerPro*1)/1 + '%');
+	app.html('#appStatusBarsCar span',Math.round(nPerCar*1)/1 + '%');
 	//$('#appStatusBarsFat span').html(Math.round(nPerFat*1)/1 + '%');
 	//by exclusion
-	$('#appStatusBarsFat span').html( (100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
+	app.html('#appStatusBarsFat span',(100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
+	//subNutrients
+	//average for timespan
+	if(app.read('appNutrientTimeSpan',7)) {
+		tFii = tFii / 7;
+		tSug = tSug / 7;
+		tSod = tSod / 7;		
+	} else if(app.read('appNutrientTimeSpan',30))  {
+		tFii = tFii / 30;
+		tSug = tSug / 30;
+		tSod = tSod / 30;				
+	} else if(app.read('appNutrientTimeSpan',0)) {
+		var elapsedDays = Math.ceil( (app.now() - app.read('config_start_time')) / (60 * 60 * 24 * 1000) );
+		tFii = tFii / elapsedDays;
+		tSug = tSug / elapsedDays;
+		tSod = tSod / elapsedDays;
+	}
+	//replace
+	app.html('#appStatusBarsFib div',Math.round(tFii) + ' / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
+	app.html('#appStatusBarsSug div',Math.round(tSug) + ' / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
+	app.html('#appStatusBarsSod div',Math.round(tSod) + ' / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
 }
 //##################//
 //## UPDATE TIMER ##//
@@ -416,7 +457,10 @@ function updateTimer() {
 			var tte  = 0;
 			var tPro = 0;
 			var tCar = 0;
-			var tFat = 0; 
+			var tFat = 0;
+			var tFii = 0;
+			var tSug = 0;
+			var tSod = 0;		
 			for(var i=0, len=data.length; i<len; i++) {
 				// EXPIRED
 				if(app.read('config_start_time') <= Number(data[i].published)) {
@@ -449,6 +493,15 @@ function updateTimer() {
 						if(Number(data[i].fat) > 0) {
 							tFat = tFat + parseFloat(data[i].fat);
 						}
+						if(Number(data[i].fii) > 0) {
+							tFii = tFii + parseFloat(data[i].fii);
+						}
+						if(Number(data[i].sug) > 0) {
+							tSug = tSug + parseFloat(data[i].sug);
+						}
+						if(Number(data[i].sod) > 0) {
+							tSod = tSod + parseFloat(data[i].sod);
+						}
 					}
 				}
 			}
@@ -457,6 +510,9 @@ function updateTimer() {
 			app.save('tPro',tPro);
 			app.save('tCar',tCar);
 			app.save('tFat',tFat);
+			app.save('tFii',tFii);
+			app.save('tSug',tSug);
+			app.save('tSod',tSod);
 			app.save('config_entry_sum',ts);
 			app.save('config_entry_f',tf);
 			app.save('config_entry_e',te);
