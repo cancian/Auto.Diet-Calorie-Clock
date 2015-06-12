@@ -756,10 +756,12 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusBarsSod				{ top: 47px; border-bottom: 8px solid #4DB84D;  }
 #appStatusBarsFib div,
 #appStatusBarsSug div,
-#appStatusBarsSod div			{ position: absolute; top: 0; left: 0; font-size: 8px; line-height: 15px;  }
+#appStatusBarsSod div			{ position: absolute; top: 0; left: 0; font-size: 8px; line-height: 15px; text-shadow: rgba(0,0,0,.25) 0 1px 0; }
 #appStatusBarsFib p,
 #appStatusBarsSug p,
-#appStatusBarsSod p				{ position: absolute; top: 9px; left: 0; font-size: 8px; line-height: 15px; color: #fff; }
+#appStatusBarsSod p				{ position: absolute; top: 9px; left: 0; font-size: 8px; line-height: 15px; color: #fff; text-shadow: rgba(255,255,255,.5) 0 1px 0; }
+.wp8 #appStatusBarsFib p,
+.wp8 #appStatusBarsSug p		{ line-height: 14px; }
 /**/
 #appStatusBarsPro p,
 #appStatusBarsCar p,

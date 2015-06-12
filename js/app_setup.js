@@ -1050,7 +1050,7 @@ function updateFoodDb(callback) {
 			////////////
 			// IMPORT //
 			////////////
-			function saveParsed(rowsArray) {
+			function saveParsed(rowsArray,callback) {
 							//REINSERT
 							var postCustom = '';
 							if(trim(app.read('customItemsSql')) != '') { postCustom += trim(app.read('customItemsSql')); }
@@ -1068,14 +1068,13 @@ function updateFoodDb(callback) {
 										syncEntries(app.read('facebook_userid'));
 									} else {
 										setTimeout(function() {
-											updateCustomList('fav');
-											updateCustomList('items');	
+											updateCustomList('all');
 										},100);
 									}
 									//////////////
 									// CALLBACK //
 									//////////////
-									if(callback) {
+									if(typeof callback === 'function') {
 										callback();
 									}
 									setTimeout(function() {
@@ -1091,27 +1090,37 @@ function updateFoodDb(callback) {
 								});
 							});
 			};
-			function unlockDb() {
+			function unlockDb(callback) {
 				clearTimeout(app.timers.unlockDb);
-				app.timers.unlockDb = setTimeout(function() {
+				app.timers.unlockDb = setTimeout(function(callback) {
 					//failure
 					demoRunning = false;
 					app.remove('foodDbLoaded');
 					app.remove('startLock');
 					spinner('stop');
 					//////////////////////////////////////////
-					alert('Error downloading database','Please connect to the internet and try again.');
+					if(callback != 'retry') {
+						//retry
+						alert('Error downloading database','Importing local database instead.');
+						updateFoodDb('retry');
+					} else {
+						//give up
+						alert('Error creating database','Please connect to the internet and try again.');
+					}				
 					//////////////////////////////////////////
 				},500);
 			}
-			function doImport() {
+			function doImport(callback) {
 				spinner();
 				var databaseHost = app.read('config_autoupdate','on') ? app.https + 'kcals.net/' : hostLocal;
-				foodDbTimer = setTimeout(function() {
+				if(callback == 'retry') {
+					databaseHost = '';	
+				}
+				foodDbTimer = setTimeout(function(callback) {
 					try{
-						$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb_' + langDB + '.db', error: function(xhr, statusText) { unlockDb(); }, success: function(ls) {
+						$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb_' + langDB + '.db', error: function(xhr, statusText) { unlockDb(callback); }, success: function(ls) {
 							if(ls.length < 15000) {
-								unlockDb();
+								unlockDb(callback);
 								return false;
 							}
 							var rowsArray = [];
@@ -1130,7 +1139,7 @@ function updateFoodDb(callback) {
 							ls = ls.split(' / ').join('/');
 							ls = ls.split('\r').join('');
 							ls = ls.split('\n');
-							$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb.db', error: function(xhr, statusText) { unlockDb(); }, success: function(sdb) {
+							$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb.db', error: function(xhr, statusText) { unlockDb(callback); }, success: function(sdb) {
 								rowsArray = JSON.parse(sdb);
 								for(var s=0, slen=rowsArray.length; s<slen; s++) {
 									try {
@@ -1146,7 +1155,7 @@ function updateFoodDb(callback) {
 										rowsArray[s].sod  = rowsArray[s].sod;
 									} catch(e) {}
 								}
-								saveParsed(rowsArray);
+								saveParsed(rowsArray,callback);
 							}});
 							} else {
 							//////////////////
@@ -1163,18 +1172,18 @@ function updateFoodDb(callback) {
 								} catch(e) {}
 							}
 							}
-							saveParsed(rowsArray);
+							saveParsed(rowsArray,callback);
 						}});
 					} catch(e) { 
 						//failure
-						unlockDb(e);
+						unlockDb(callback);
 				}
 			},100);
 		}}
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
-		doImport();
+		doImport(callback);
 	}
 }
 ///////////////////

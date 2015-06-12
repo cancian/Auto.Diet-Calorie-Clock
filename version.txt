@@ -5,7 +5,6 @@
 • Multi-user support
 • QR/barcode scanner
 • Search engine with customizable max. results: 50/100/500
-• Import local food database when no internet connection is available
 • Adjustable zoom level for larger screens
 • BMI calculator on profile
 • Weight tracker
@@ -17,6 +16,7 @@
 • Filter redundant DOM updates to improve overall performance
 • Track fiber, sugar, and sodium
 • Users can request new features via Suggestion Box
+• Import local food database if no internet connection is available
 • Toggle between help/content on Today Overview and Cyclical Mode menus
 
 # 1.9.4 [2015/05/15]
