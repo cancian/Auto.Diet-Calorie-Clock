@@ -161,11 +161,6 @@ function buildRemoteSuperBlock(opt) {
 		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
-	//APPEND
-	if(opt == 'load') {
-		$('head').append('<script id="superBlockJS">' + dataJS  + '</script>');
-		$('head').append('<style id="superBlockCSS">' + dataCSS + '</style>');
-	}
 	////////////////////
 	// UPDATE PENDING //
 	////////////////////

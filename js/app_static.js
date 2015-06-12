@@ -136,28 +136,26 @@ setTimeout(function() {
 ////////////////
 // PARSED CSS //
 ////////////////
-app.safeExec(function() {
-	$('head').append('<style type="text/css" id="cssStartDate"> #startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; } </style>');
-	$('head').append('<style type="text/css" id="daySum"></style>');
-	$('head').append('<style type="text/css" id="cssAutoUpdate">\
-		.loading #advancedAutoUpdate:before	    { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
-		.pending #advancedAutoUpdate:before	    { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
-		.uptodate #advancedAutoUpdate:before    { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
-		.spinnerMask #loadMask:before	        { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
-		.spinnerMask.updtdb #loadMask:before    { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
-		.spinnerMask.newwindow #loadMask:before { content: "' + LANG.LOADING[lang]         + '"; }\
-	</style>');
-});
+$('head').append2('<style type="text/css" id="cssStartDate"> #startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; } </style>');
+$('head').append2('<style type="text/css" id="daySum"></style>');
+$('head').append2('<style type="text/css" id="cssAutoUpdate">\
+	.loading #advancedAutoUpdate:before	    { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
+	.pending #advancedAutoUpdate:before	    { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
+	.uptodate #advancedAutoUpdate:before    { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
+	.spinnerMask #loadMask:before	        { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
+	.spinnerMask.updtdb #loadMask:before    { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
+	.spinnerMask.newwindow #loadMask:before { content: "' + LANG.LOADING[lang]         + '"; }\
+</style>');
 updateNutriRatio();
 updateEntriesSum();
 ///////////////
 // SET TITLE //
 ///////////////
-$('title').html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
+$('title').html2(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
-$('body').prepend('\
+$('body').prepend2('\
 	<div id="appHeader">\
 		<div id="timerKcals"><input id="timerKcalsInput" readonly="readonly" type="text" /><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
 		<div id="timerBlocks">\
@@ -224,7 +222,7 @@ $.each(LANG.LANGUAGE,function(k,v) {
 	addThis = (addThis.split(' ').join(','));//.slice(0,100);
 	keyDump += addThis + '</div>';
 });
-$('body').html(keyDump.toLowerCase());
+$('body').html2(keyDump.toLowerCase());
 */
 //#////////////#//
 //# APP FOOTER #//
@@ -912,7 +910,7 @@ function unlockApp() {
 	try {
 		if (typeof initTime !== 'undefined') {
 			if (app.read('config_debug', 'active') || app.read('devShowTimer', 'active')) {
-				$('body').append('<div id="initTime" style="font-family: KCals; font-size: 32px; background-color: rgba(255,255,255,.9); position: absolute; top: 78px; padding: 6px; left: 16px; z-index: 999; white-space: nowrap; display: inline-block;">' + (new Date().getTime() - initTime) + ' ms</div>');
+				$('body').append2('<div id="initTime" style="font-family: KCals; font-size: 32px; background-color: rgba(255,255,255,.9); position: absolute; top: 78px; padding: 6px; left: 16px; z-index: 999; white-space: nowrap; display: inline-block;">' + (new Date().getTime() - initTime) + ' ms</div>');
 				setTimeout(function () {
 					app.handlers.fade(0, '#initTime', '', 175);
 				}, 1200);
@@ -931,7 +929,7 @@ var loadTimeout = setTimeout(function() {
 //////////////////
 var timerFont = 5;
 if(!$('#fontTest').length) {
-	$('body').append('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
+	$('body').append2('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
 	var fontTestInterval = setInterval(function() {
 		if($('#fontTest').width() == 80) {
 			clearInterval(fontTestInterval);

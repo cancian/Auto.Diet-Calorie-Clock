@@ -6,7 +6,7 @@ var myScroll;
 function showIntro(isNew) {
 	//ISCROLL
 	$('#gettingStarted').remove();
-	$('body').append('\
+	$('body').append2('\
 	<div id="gettingStarted">\
 		<div id="viewport">\
 			<div id="wrapper">\
@@ -467,7 +467,7 @@ function setComplete() {
 	}
 	//update last sync date
 	app.save('lastSync',app.now());
-	$('#optionLastSync span').html( dateDiff( app.read('lastSync'), app.now()) );
+	$('#optionLastSync span').html2( dateDiff( app.read('lastSync'), app.now()) );
 }
 ///////////////
 // ROWS LOOP //
@@ -1014,8 +1014,8 @@ function afterHide(cmd) {
 function spinner(action,target) {
 	if(!target) { target = 'spinnerMask'; } 
 	
-	if(!$('#loadMask').length)		{ $('body').prepend('<div id="loadMask"><span></span></div>'); }
-	if($('#loadMask').html() == '') { $('#loadMask').html('<span></span>'); }
+	if(!$('#loadMask').length)		{ $('body').prepend2('<div id="loadMask"><span></span></div>'); }
+	if($('#loadMask').html() == '') { $('#loadMask').html2('<span></span>'); }
 	if(action == 'stop') {
 		$('body').removeClass(target);
 		$('#loadMask').off();
@@ -1037,7 +1037,7 @@ function updateFoodDb(callback) {
 	if(app.read('foodDbLoaded','done')) { return; }
 	if(!app.read('foodDbLoaded','done') && !app.read('startLock','running')) {
 		//reset blocks
-		$('#tabMyCatsBlock,#tabMyFavsBlock,#tabMyItemsBlock').html('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+		$('#tabMyCatsBlock,#tabMyFavsBlock,#tabMyItemsBlock').html2('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 		if(demoRunning == false) {
 			//start
 			demoRunning = true;
@@ -1203,27 +1203,29 @@ function pageLoad(target,content,published) {
 		}
 		// INSERT PARTIAL
 		//overwrite 'no entries'
-		safeExec(function () {
+
 			if(i == 1) {
-				$('#entryList').html($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
+				$('#entryList').html2(content,function() {
+					$('#entryList div').animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000);
+				});
 			//match div before
 			} else if($('#entryList>div:eq(' + entryPos + ')').html()) {
-				$('#entryList>div:eq(' + entryPos + ')').before($(content).animate({ backgroundColor: '#ffffcc' }, 1 ).animate({ backgroundColor: '#fff' },1000));
+				$('#entryList>div:eq(' + entryPos + ')').before2(content,function() {
+					$('#entryList>div:eq(' + entryPos + ')').animate({ backgroundColor: '#ffffcc' }, 1 ).animate({ backgroundColor: '#fff' },1000);
+				});
 			} else {
 				//append if none
-				$('#entryList').append($(content).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000));
+				$('#entryList').append2(content,function() {
+					$('#' + published).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000);
+				});
 			}
-		});
+
 		//target [div#partial] ~time's parent div id as target
 		var page = $('#entryList div' + '#' + $('#t' + published).parent('div').attr('id'));
 	// FULL DIV REPLACE //
 	} else {
 		//check existence
-		if($(target).html(content)) {
-			safeExec(function () {
-				$(target).html(content);
-			});
-		}
+		$(target).html2(content);
 		var page = $('#entryList');
 	}
 	// RELOAD HANDLERS //
@@ -1360,7 +1362,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 		///////////
 		} else {
 			//PRE-FILL
-			$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+			$('#entryList').html2('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 		}}
 		//N# OF ENTRIES
 		app.save('totalEntries',totalEntries);
@@ -1374,7 +1376,7 @@ function updateEntriesTime() {
 	getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			var dataPublished = parseInt(data[i].published);
-			$("#t" + dataPublished).html(dateDiff(dataPublished,app.now()));
+			$("#t" + dataPublished).html2(dateDiff(dataPublished,app.now()));
 		}
 	});
 	//SIDEBAR TIME CLASS
@@ -1439,9 +1441,7 @@ function updateEntriesSum() {
 			'; 
 		}
 		//OUTPUT
-		safeExec(function () {
-			$('#daySum').html(reStyle);
-		});
+		$('#daySum').html2(reStyle);
 	});
 }
 //#////////////////////////////#//
@@ -1461,14 +1461,8 @@ function updateNutriRatio() {
 	//////////
 	// EXEC //
 	//////////
-	safeExec(function () {
-		if(!$('#appNutrients').html()) {
-			$('head').append('<style type="text/css" id="appNutrients"></style>');
-		}
-		if($('#appNutrients').html() != nutrientsStyle) {
-			$('#appNutrients').html(nutrientsStyle);
-		}
-	});
+	$('head').append2('<style type="text/css" id="appNutrients"></style>');
+	$('#appNutrients').html2(nutrientsStyle);
 }
 //#/////////////////#//
 //# NUTRI TIME SPAN #//
@@ -1523,7 +1517,7 @@ var subHelperTimer;
 function buildHelpMenu() {
 	//insert menu
 	$('#optionHelp').addClass('activeRow');
-	$('body').append('<div id="appHelper"></div>');
+	$('body').append2('<div id="appHelper"></div>');
 	
 	$('#appHelper').hide();
 	$('#appHelper').css('top',($('#appHeader').height()) + 'px');
@@ -1556,7 +1550,7 @@ function buildHelpMenu() {
 	///////////////////////
 	// INSERT TOPIC LIST //
 	///////////////////////
-	$('#appHelper').html('<h2><span id="backButton"></span><div id="helpTitle">' + LANG.SETTINGS_HELP[lang] + '</div></h2><ul>' + helpHtml + '</ul>');
+	$('#appHelper').html2('<h2><span id="backButton"></span><div id="helpTitle">' + LANG.SETTINGS_HELP[lang] + '</div></h2><ul>' + helpHtml + '</ul>');
 	//FADE IN
 	setTimeout(function() {
 		$('#appHelper').css('opacity','1');
@@ -1583,7 +1577,7 @@ function buildHelpMenu() {
 		var subTitle   = $('#' + targetId + ' .topicTitle').html();
 		var subContent = $('#' + targetId + ' .topicContent').html();
 		//BUILD SUB-CONTENT
-		$('body').append('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
+		$('body').append2('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
 		$('#appSubHelper').hide();
 		$('#appSubHelper').css('top',($('#appHeader').height()) + 'px');
 		$('#appSubHelper').height($('#appContent').height());
@@ -1675,9 +1669,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			</div>\
 		<div id="' + newWindow + '"' + sideLoader + '>' + content + '</div>\
 	</div>';
-	safeExec(function () {
-		$('#appContent').after(newContent);
-	});
+	$('#appContent').after2(newContent);
 	//configure ui
 	if(direction == 'sideload') {
 		$('#' + newWindow + 'Wrapper').addClass('sideload');
@@ -1694,9 +1686,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	// HANDLERS //
 	//////////////
 	if(handlers) {
-		safeExec(function () {
-			handlers();
-		});
+		handlers();
 	}
 	////////////////////
 	// TRANSISION END //
@@ -1711,9 +1701,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		var timerCloser;
 		function windowCloser() {
 			if(closer) {
-				safeExec(function () {
-					closer();
-				});
+				closer();
 			}
 			$('#appContent, #foodSearch, #' + newWindow + 'Wrapper').css('pointer-events','none');
 			if($.nicescroll) {
@@ -1783,7 +1771,7 @@ function buildLangMenu(opt) {
 	/////////////////
 	// APPEND HTML //
 	/////////////////
-	$('body').append('<div id="langSelect"><ul id="langSelectList"><li id="setAuto">' + LANG.AUTO_DETECT[lang] + ' (' + LANG.LANGUAGE_NAME[defaultLang] + ')</li>' + langListCore + '</ul></div>');
+	$('body').append2('<div id="langSelect"><ul id="langSelectList"><li id="setAuto">' + LANG.AUTO_DETECT[lang] + ' (' + LANG.LANGUAGE_NAME[defaultLang] + ')</li>' + langListCore + '</ul></div>');
 	$('#langSelect').hide();
 	//intro
 	if(opt !== 'intro') {
@@ -1844,27 +1832,27 @@ function buildLangMenu(opt) {
 					LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
 				}
 				//FOOTER
-				$('#tab1').html(LANG.MENU_STATUS[lang]);
-				$('#tab2').html(LANG.MENU_DIARY[lang]);
-				$('#tab3').html(LANG.MENU_PROFILE[lang]);
-				$('#tab4').html(LANG.MENU_SETTINGS[lang]);
+				$('#tab1').html2(LANG.MENU_STATUS[lang]);
+				$('#tab2').html2(LANG.MENU_DIARY[lang]);
+				$('#tab3').html2(LANG.MENU_PROFILE[lang]);
+				$('#tab4').html2(LANG.MENU_SETTINGS[lang]);
 				//HEADER
-				$('#timerKcals span').html(LANG.CALORIC_BALANCE[lang]);
-				$('#timerDaily span').html(LANG.DAILY_CALORIES[lang]);
+				$('#timerKcals span').html2(LANG.CALORIC_BALANCE[lang]);
+				$('#timerDaily span').html2(LANG.DAILY_CALORIES[lang]);
 				//CONTENT
 				//prevent colapse
 				$('#timerDailyInput').trigger('blur');
 				appFooter(app.read('app_last_tab'),0);
 				//start date
-				$('#cssStartDate').html("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
+				$('#cssStartDate').html2("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
 				//page title
-				$('title').html(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
+				$('title').html2(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
 				//heading sum
 				updateEntriesSum();
 				//update cat list cache
 				buildCatListMenu();
 				//AUTO UPDATE CSS TITLES
-				$('#cssAutoUpdate').html('\
+				$('#cssAutoUpdate').html2('\
 					.loading #advancedAutoUpdate:before	  { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
 					.pending #advancedAutoUpdate:before	  { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
 					.uptodate #advancedAutoUpdate:before  { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
@@ -1876,21 +1864,21 @@ function buildLangMenu(opt) {
 				// refresh intro //
 				///////////////////
 				if(opt == 'intro') {
-					$('#slide1 p').html(LANG.INTRO_SLIDE_1[lang].split('.').join('. '));
-					$('#slide2 p').html(LANG.INTRO_SLIDE_2[lang].split('.').join('. '));
-					$('#slide3 p').html(LANG.INTRO_SLIDE_3[lang].split('.').join('. '));
-					$('#slide4 p').html(LANG.INTRO_SLIDE_4[lang].split('.').join('. '));
-					$('#slide5 p').html(LANG.INTRO_SLIDE_5[lang].split('.').join('. '));
-					$('#slide6 p').html(LANG.INTRO_SLIDE_6[lang].split('.').join('. '));
-					$('#closeDiv').html(LANG.CLOSE_INTRO[lang]);
-					$('#appLang').html(LANG.LANGUAGE_NAME[lang]);
-					$('#skipIntro').html(LANG.SKIP[lang]);
-					$('span#deficit').html(LANG.DEFICIT[lang]);
-					$('span#balanced').html(LANG.BALANCED[lang]);
-					$('span#surplus').html(LANG.SURPLUS[lang]);
-					$('#slide3 span#deficit').html(LANG.EXERCISE[lang]);
-					$('#slide3 span#balanced').html(LANG.CALORIC_BALANCE[lang]);
-					$('#slide3 span#surplus').html(LANG.FOOD[lang]);										
+					$('#slide1 p').html2(LANG.INTRO_SLIDE_1[lang].split('.').join('. '));
+					$('#slide2 p').html2(LANG.INTRO_SLIDE_2[lang].split('.').join('. '));
+					$('#slide3 p').html2(LANG.INTRO_SLIDE_3[lang].split('.').join('. '));
+					$('#slide4 p').html2(LANG.INTRO_SLIDE_4[lang].split('.').join('. '));
+					$('#slide5 p').html2(LANG.INTRO_SLIDE_5[lang].split('.').join('. '));
+					$('#slide6 p').html2(LANG.INTRO_SLIDE_6[lang].split('.').join('. '));
+					$('#closeDiv').html2(LANG.CLOSE_INTRO[lang]);
+					$('#appLang').html2(LANG.LANGUAGE_NAME[lang]);
+					$('#skipIntro').html2(LANG.SKIP[lang]);
+					$('span#deficit').html2(LANG.DEFICIT[lang]);
+					$('span#balanced').html2(LANG.BALANCED[lang]);
+					$('span#surplus').html2(LANG.SURPLUS[lang]);
+					$('#slide3 span#deficit').html2(LANG.EXERCISE[lang]);
+					$('#slide3 span#balanced').html2(LANG.CALORIC_BALANCE[lang]);
+					$('#slide3 span#surplus').html2(LANG.FOOD[lang]);										
 				setTimeout(function() {
 						appFooter('tab1',1);
 					},100);
@@ -2007,17 +1995,11 @@ function appResizer(time,callback) {
 		}
 		//HOLDER
 		if(!$('#entryListHeight').length) {
-			safeExec(function () {
-				$('head').append('<style type="text/css" id="entryListHeight"></style>');
-			});
+			$('head').append2('<style type="text/css" id="entryListHeight"></style>');
 		}
 		//IF NEEDED
 		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
-		if(!$('#entryListHeight').html() !== wrapperMinH) {
-			safeExec(function () {
-				$('#entryListHeight').html(wrapperMinH);
-			});
-		}
+		$('#entryListHeight').html2(wrapperMinH);
 		//
 		$('#appHelper').height($('#appContent').height());
 		$('#appSubHelper').height($('#appContent').height());
@@ -2173,7 +2155,7 @@ function getLogoutFB(button) {
 		app.remove('facebook_username');
 		$('body').removeClass('appFacebook');
 		$('#appFooter').removeClass('appFacebook');
-		$('#optionFacebook span').html(LANG.SETTINGS_BACKUP_INFO[lang]);
+		$('#optionFacebook span').html2(LANG.SETTINGS_BACKUP_INFO[lang]);
 		if(app.dev) {
 			FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
 			setTimeout(function() {
@@ -2189,7 +2171,7 @@ function updateLoginStatus(sync) {
 	if(app.read('facebook_logged') && app.read('facebook_userid') && app.read('facebook_username')) {
 		$('body').addClass('appFacebook');
 		$('#appFooter').addClass('appFacebook');
-		$('#optionFacebook span').html(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
+		$('#optionFacebook span').html2(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
 		if(sync == 1) { syncEntries(app.read('facebook_userid')); }
 	} else {
 		getLogoutFB(1);

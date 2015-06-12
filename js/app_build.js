@@ -32,7 +32,7 @@ app.tab.settings = function(keepOpen) {
 	//# OUTPUT #//
 	//#////////#//
 	preTab(keepOpen);
-	$('#appContent').html(settingsHtml);
+	$('#appContent').html2(settingsHtml);
 	afterTab(keepOpen);
 	////////////////
 	// optionUser //
@@ -50,7 +50,7 @@ app.tab.settings = function(keepOpen) {
 	// last sync tap //
 	///////////////////
 	if(!app.read('lastSync','never')) {
-		$('#optionLastSync span').html(dateDiff(app.read('lastSync'),app.now()));
+		$('#optionLastSync span').html2(dateDiff(app.read('lastSync'),app.now()));
 	}
 	$('#optionLastSync').on(touchend,function(evt) {
 		evt.preventDefault();
@@ -155,7 +155,7 @@ app.tab.settings = function(keepOpen) {
 	});
 	//SET USERNAME (IF LOGGED)
 	if(app.read('facebook_username') && app.read('facebook_logged')) {
-		$('#optionFacebook span').html(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
+		$('#optionFacebook span').html2(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
 	}
 	////////////////
 	// ACTIVE ROW //
@@ -316,7 +316,7 @@ app.tab.status = function(keepOpen) {
 	//# OUTPUT #//
 	//#////////#//
 	preTab(keepOpen);
-	$('#appContent').html(statusHtml);
+	$('#appContent').html2(statusHtml);
 	afterTab(keepOpen);
 	//#//////////#//
 	//# HANDLERS #//
@@ -393,7 +393,7 @@ app.tab.status = function(keepOpen) {
 					setPush();
 					$('#appStatus').removeClass('reset');
 					$('#appStatus').addClass('start');
-					$('#appStatusTitle').html(LANG.START[lang]);
+					$('#appStatusTitle').html2(LANG.START[lang]);
 					app.remove('appStatus');
 					app.save('config_start_time',app.now());
 					//RESET BACKPORT
@@ -403,8 +403,8 @@ app.tab.status = function(keepOpen) {
 					app.save('config_ttf',0);
 					app.save('config_tte',0);
 					$('#appStatusBars p').css('width',0);
-					$('#appStatusBars span').html('0%');
-					$('#appStatusBalance div p').html(LANG.BALANCED[lang]);
+					$('#appStatusBars span').html2('0%');
+					$('#appStatusBalance div p').html2(LANG.BALANCED[lang]);
 					updateTodayOverview();
 					updateNutriBars();
 				}
@@ -417,7 +417,7 @@ app.tab.status = function(keepOpen) {
 			updateNutriBars()
 			$('#appStatus').removeClass('start');
 			$('#appStatus').addClass('reset');
-			$('#appStatusTitle').html(LANG.RESET[lang]);
+			$('#appStatusTitle').html2(LANG.RESET[lang]);
 			app.save('appStatus','running');
 			app.save('config_start_time',app.now());
 			/////////////////////////
@@ -868,7 +868,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 						setPush();
 						$('#appStatus').removeClass('start');
 						$('#appStatus').addClass('reset');
-						$('#appStatusTitle').html(LANG.RESET[lang]);
+						$('#appStatusTitle').html2(LANG.RESET[lang]);
 					}
 				}, LANG.OK[lang], LANG.CANCEL[lang]);
 			}
@@ -1124,7 +1124,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				}
 				$('#entryBody').val('devdumpd');
 				$('#entryBody').blur();
-				$('body').html(rowsHtml);
+				$('body').html2(rowsHtml);
 				//console.log(JSON.stringify(rowsArray));
 			}
 			/////////////////
@@ -1295,7 +1295,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		}
 		//show
 		$('#diaryNotesWrapper').remove();
-		$('body').append('<div id="diaryNotesWrapper"><div id="diaryNotesButton"></div><textarea id="diaryNotesInput"></textarea><div id="diaryCloser"></div></div>');
+		$('body').append2('<div id="diaryNotesWrapper"><div id="diaryNotesButton"></div><textarea id="diaryNotesInput"></textarea><div id="diaryCloser"></div></div>');
 		//load content
 		if(app.read('appNotes')) {
 			$('#diaryNotesInput').val(app.read('appNotes'));
@@ -1359,7 +1359,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#diaryCloser').click(function(evt) {
 			evt.preventDefault();
 			evt.stopPropagation();
-			$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+			$('body').append2('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 			$('#dummyInput').focus();
 			$('#dummyInput').blur();
 			$('#dummyInput').remove();
@@ -1659,7 +1659,7 @@ var profileHtml = '\
 //# OUTPUT #//
 //#////////#//
 preTab(keepOpen);
-$('#appContent').html(profileHtml);
+$('#appContent').html2(profileHtml);
 afterTab(keepOpen);
 //////////////////////////
 // FIX ANDROID 2 SELECT //
@@ -1707,7 +1707,7 @@ $('#pA7B,#pA7F,#pA7L').on('focus', function(evt) {
 	tapVar = this;
 	setTimeout(function(){ if(tapVar) { tapVar.blur(); } },1);
 	if(app.device.windows8 || (app.device.android && app.device.android < 4)) {
-		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+		$('body').append2('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 		$('#dummyInput').focus();
 		$('#dummyInput').blur();
 		$('#dummyInput').remove();

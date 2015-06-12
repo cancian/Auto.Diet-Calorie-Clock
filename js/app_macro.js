@@ -707,12 +707,12 @@ function updateTodayOverview(fullWindow) {
 	// HTML //
 	//////////
 	//update percent
-	$('#circlePercentInner').html(today.percent + '%');
-	$('#totalConsumed').html(today.food - today.exercise);
-	$('#appDayA').html(LANG.DAY[lang] + ' A');
-	$('#appDayB').html(LANG.DAY[lang] + ' B');
-	$('#appDayC').html(LANG.DAY[lang] + ' C');
-	$('#appDayD').html(LANG.DAY[lang] + ' D');
+	$('#circlePercentInner').html2(today.percent + '%');
+	$('#totalConsumed').html2(today.food - today.exercise);
+	$('#appDayA').html2(LANG.DAY[lang] + ' A');
+	$('#appDayB').html2(LANG.DAY[lang] + ' B');
+	$('#appDayC').html2(LANG.DAY[lang] + ' C');
+	$('#appDayD').html2(LANG.DAY[lang] + ' D');
 	//update intake
 	if (app.read('config_kcals_type', 'cyclic')) {
 		//highlight cycle day
@@ -722,12 +722,12 @@ function updateTodayOverview(fullWindow) {
 		}
 		//
 		if (app.read('config_kcals_day', 'd')) {
-			$('#totalIntake').html('<div id="intakeContent">/ ' + app.read('config_kcals_day_1') + '~<span>' + app.read('config_kcals_day_2') + '</span></div>');
+			$('#totalIntake').html2('<div id="intakeContent">/ ' + app.read('config_kcals_day_1') + '~<span>' + app.read('config_kcals_day_2') + '</span></div>');
 		} else {
-			$('#totalIntake').html('<div id="intakeContent">/ <span>' + app.read('config_kcals_day_1') + '</span>~' + app.read('config_kcals_day_2') + '</div>');
+			$('#totalIntake').html2('<div id="intakeContent">/ <span>' + app.read('config_kcals_day_1') + '</span>~' + app.read('config_kcals_day_2') + '</div>');
 		}
 	} else {
-		$('#totalIntake').html('<div id="intakeContent">/ ' + app.read('config_kcals_day_0') + ' ' + LANG.KCAL[lang] + '</div>');
+		$('#totalIntake').html2('<div id="intakeContent">/ ' + app.read('config_kcals_day_0') + ' ' + LANG.KCAL[lang] + '</div>');
 	}
 	///////////////////
 	// CHART OPTIONS //
@@ -813,7 +813,7 @@ function updateTodayOverview(fullWindow) {
 			if($('#totalChart').length) {
 				$('#totalChart').highcharts(pieOptions);
 				//info icon
-				$('#saveButton').html('');
+				$('#saveButton').html2('');
 				$('#saveButton').addClass('getInfo');
 			}
 		},function() {
@@ -822,13 +822,13 @@ function updateTodayOverview(fullWindow) {
 			$('#newWindow').addClass('getInfo');
 			app.globals.newWindowTitle    = $('#newWindowTitle').html();
 			app.globals.newWindow = $('#newWindow').html();
-			$('#newWindowTitle').html('Help: Today Overview');
-			$('#newWindow').html(LANG.HELP_TOPICS_ARRAY['en']['Today Overview']);
+			$('#newWindowTitle').html2('Help: Today Overview');
+			$('#newWindow').html2(LANG.HELP_TOPICS_ARRAY['en']['Today Overview']);
 			app.handlers.fade(1,'#newWindow');
 		} else {	
 			$('#newWindow').removeClass('getInfo');
-			$('#newWindowTitle').html(app.globals.newWindowTitle);
-			$('#newWindow').html(app.globals.newWindow);
+			$('#newWindowTitle').html2(app.globals.newWindowTitle);
+			$('#newWindow').html2(app.globals.newWindow);
 			app.handlers.fade(1,'#newWindow');
 		}
 		return 0;
@@ -865,7 +865,7 @@ function getCyclicMenu() {
 	//////////////
 	var appModeHandlers = function() {
 		//getinfo
-		$('#saveButton').html('');
+		$('#saveButton').html2('');
 		$('#saveButton').addClass('getInfo');
 		////////////////
 		// VALIDATION //
@@ -965,14 +965,14 @@ function getCyclicMenu() {
 		if(!$('#newWindow').hasClass('getInfo')) {
 			$('#newWindow').addClass('getInfo');
 			app.globals.newWindowTitle = $('#newWindowTitle').html();
-			$('#newWindowTitle').html('Help: Cyclical Mode');
+			$('#newWindowTitle').html2('Help: Cyclical Mode');
 			$('#cyclicHelp').remove();
-			$('#appMode').after('<div id="cyclicHelp">' + LANG.HELP_TOPICS_ARRAY['en']['Cyclical Mode'] + '</div>');
+			$('#appMode').after2('<div id="cyclicHelp">' + LANG.HELP_TOPICS_ARRAY['en']['Cyclical Mode'] + '</div>');
 			$('#appMode').hide();
 			app.handlers.fade(1,'#cyclicHelp');
 		} else {	
 			$('#newWindow').removeClass('getInfo');
-			$('#newWindowTitle').html(app.globals.newWindowTitle);
+			$('#newWindowTitle').html2(app.globals.newWindowTitle);
 			$('#cyclicHelp').hide();
 			$('#appMode').show();
 			app.handlers.fade(1,'#newWindow');
@@ -1167,10 +1167,10 @@ function getElapsed(swap) {
  	// UPDATE CONTENTS //
 	/////////////////////
 	if($('#appStatusElapsed div p').html() != swapData) {
-		$('#appStatusElapsed div p').html(swapData);
+		$('#appStatusElapsed div p').html2(swapData);
 	}
 	if($('#appStatusElapsed div p').html() != swapSub) {
-		$('#appStatusElapsed div span').html(swapSub);
+		$('#appStatusElapsed div span').html2(swapSub);
 		$('#elapsedIndicators div').removeClass('activeSwap');
 		$('#ind' + swap).addClass('activeSwap');
 	}
@@ -1228,7 +1228,7 @@ function getEntryEdit(eid) {
 			}
 			//HOLD FLICKER
 			if(app.device.android) {
-				$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+				$('body').append2('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 				$('#dummyInput').focus();
 				$('#dummyInput').blur();
 				$('#dummyInput').remove();
@@ -1385,7 +1385,7 @@ function getEntryEdit(eid) {
 //##///////////////##//
 function buildAdvancedMenu() {
 	$('#advancedMenuWrapper').remove();
-	$('body').append("\
+	$('body').append2("\
 	<div id='advancedMenuWrapper'>\
 		<div id='advancedMenuHeader'>\
 			<div id='advBackButton'></div>\
@@ -1401,7 +1401,7 @@ function buildAdvancedMenu() {
 	///////////////
 	// CORE HTML //
 	///////////////
-	$('#advancedMenu').html("\
+	$('#advancedMenu').html2("\
 	<ul>\
 		<li id='advancedAutoUpdate'>" + LANG.AUTO_UPDATE[lang]    + "</li>\
 		<li id='advancedChangelog'>"  + LANG.CHANGELOG[lang]      + "</li>\
@@ -1549,7 +1549,7 @@ function buildAdvancedMenu() {
 	app.handlers.activeRow('#advancedSuggestion','button',function(evt) {
 		var suggestionBoxHtml     = '<div id="suggestionBox"><label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail"><label for="usrMsg" class="usrMsg">Message:</label><textarea name="usrMsg" id="usrMsg"></textarea></div>';
 		var suggestionBoxHandlers = function() {
-			$('#saveButton').html('Send');
+			$('#saveButton').html2('Send');
 			$('#saveButton').css('text-transform','capitalize');
 			//
 			$('#suggestionBox').on(touchstart,function(evt) {
@@ -1686,15 +1686,13 @@ function buildAdvancedMenu() {
 	//read stored
 	var isAUChecked = app.read('config_autoupdate','on') ? 'checked' : '';
 	//append
-	app.safeExec(function() {
-		$('#advancedAutoUpdate').append('\
-			<div>\
-				<span id="appAutoUpdateButton"></span>\
-				<input id="appAutoUpdateToggle" class="toggle" type="checkbox" ' + isAUChecked + '>\
-				<label for="appAutoUpdateToggle"></label>\
-			</div>\
-		');
-	});
+	$('#advancedAutoUpdate').append2('\
+		<div>\
+			<span id="appAutoUpdateButton"></span>\
+			<input id="appAutoUpdateToggle" class="toggle" type="checkbox" ' + isAUChecked + '>\
+			<label for="appAutoUpdateToggle"></label>\
+		</div>\
+	');
 	/////////////////////////////
 	// MANUAL RESTART SHORTCUT //
 	/////////////////////////////
@@ -1815,7 +1813,7 @@ function getCatList(callback) {
 	///////////////////////
 	// INSERT TOPIC LIST //
 	///////////////////////
-	$('#tabMyCatsBlock').html('<ul>' + catListCache + '</ul>');
+	$('#tabMyCatsBlock').html2('<ul>' + catListCache + '</ul>');
 	/////////////
 	// HANDLER //
 	/////////////
@@ -1845,7 +1843,7 @@ function getCatList(callback) {
 				//////////////////////
 				if(catCode == '0001') { 
 					$('#newWindow').removeClass('firstLoad');
-					$('#saveButton').html('');
+					$('#saveButton').html2('');
 					$('#saveButton').addClass('removeAll');
 				}
 				var catLock = 0;
@@ -1909,7 +1907,7 @@ function getCatList(callback) {
 				appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
 					if(button === 2) {
 						$('#newWindow div.searcheable').remove();
-						$('#newWindow').prepend('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+						$('#newWindow').prepend2('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 						app.remove('app_recent_items');
 						setPush();
 					}
@@ -1955,7 +1953,7 @@ function getUserWindow() {
 	// HANDLERS //
 	//////////////
 	var multiUserHandler = function() {
-		$('#saveButton').html('');
+		$('#saveButton').html2('');
 		$('#saveButton').addClass('addNewUser');
 
 		var usrname = 'default user';

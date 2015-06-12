@@ -14,6 +14,7 @@
 • Choose the food database language independently from the current system language
 
 # 1.9.5 [2015/06/11]
+• Filter redundant DOM updates to improve overall performance
 • Track fiber, sugar, and sodium
 • Users can request new features via Suggestion Box
 • Toggle between help/content on Today Overview and Cyclical Mode menus

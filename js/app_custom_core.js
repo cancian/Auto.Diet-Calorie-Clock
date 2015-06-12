@@ -101,8 +101,8 @@ function appTimer(content) {
 		app.save('cssOver',cssOver);
 	}
 	//UPDATE BLOCKS
-	if(!app.read('app_last_tab','tab1') && $('#appStatusBalance div p').html() != app.read('appBalance')) { 
-		$('#appStatusBalance div p').html(app.read('appBalance'));
+	if(app.read('app_last_tab','tab1')) { 
+		$('#appStatusBalance div p').html2(app.read('appBalance'));
 	}
 	//UPDATE TIPS
 	if(!app.read('appStatus','running')) {
@@ -330,14 +330,14 @@ function updateNutriBars() {
 	var sTotal = tFii + tSug + tSod;
 	//return null
 	if(!app.read('appStatus','running') || (nTotal == 0 && sTotal == 0)) {
-		$('#appStatusBarsPro p').html(LANG.PROTEINS[lang].toUpperCase());
-		$('#appStatusBarsCar p').html(LANG.CARBS[lang].toUpperCase());
-		$('#appStatusBarsFat p').html(LANG.FATS[lang].toUpperCase());
+		$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase());
+		$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase());
+		$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase());
 		$('#appStatusBars p').css('width',0);
-		$('#appStatusBars span').html('0%');
-		$('#appStatusBarsFib div').html('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
-		$('#appStatusBarsSug div').html('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
-		$('#appStatusBarsSod div').html('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
+		$('#appStatusBars span').html2('0%');
+		$('#appStatusBarsFib div').html2('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
+		$('#appStatusBarsSug div').html2('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
+		$('#appStatusBarsSod div').html2('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
 		return false;
 	}
 	//ratios
@@ -407,15 +407,15 @@ function updateNutriBars() {
 	$('#appStatusBarsFat p').addClass(nFatPerClass);
 	$('#appStatusBarsFat p').css('width',Math.round(nFatPerWidth) + '%');
 	//relative percentage
-	$('#appStatusBarsPro p').html(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
-	$('#appStatusBarsCar p').html(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
-	$('#appStatusBarsFat p').html(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
+	$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
+	$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
+	$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
 	//	
-	$('#appStatusBarsPro span').html(Math.round(nPerPro*1)/1 + '%');
-	$('#appStatusBarsCar span').html(Math.round(nPerCar*1)/1 + '%');
-	//$('#appStatusBarsFat span').html(Math.round(nPerFat*1)/1 + '%');
+	$('#appStatusBarsPro span').html2(Math.round(nPerPro*1)/1 + '%');
+	$('#appStatusBarsCar span').html2(Math.round(nPerCar*1)/1 + '%');
+	//$('#appStatusBarsFat span').html2(Math.round(nPerFat*1)/1 + '%');
 	//by exclusion
-	$('#appStatusBarsFat span').html((100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
+	$('#appStatusBarsFat span').html2((100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
 	//subNutrients
 	//average for timespan
 	if(app.read('appNutrientTimeSpan',7)) {
@@ -433,9 +433,9 @@ function updateNutriBars() {
 		tSod = tSod / elapsedDays;
 	}
 	//replace
-	$('#appStatusBarsFib div').html(Math.round(tFii) + ' / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
-	$('#appStatusBarsSug div').html(Math.round(tSug) + ' / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
-	$('#appStatusBarsSod div').html(Math.round(tSod) + ' / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
+	$('#appStatusBarsFib div').html2(Math.round(tFii) + ' / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
+	$('#appStatusBarsSug div').html2(Math.round(tSug) + ' / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
+	$('#appStatusBarsSod div').html2(Math.round(tSod) + ' / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
 }
 //##################//
 //## UPDATE TIMER ##//

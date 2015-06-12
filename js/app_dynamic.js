@@ -94,10 +94,10 @@ $(document).on("pageload", function (evt) {
 		//////////////
 		if (event.target.id.length == 14 && !$('#entryList div').is(':animated') && !$("#timerDailyInput").is(":focus")) {
 			if(!$('.editableInput').is(':visible')) {
-				$("#" + event.target.id).html(dtFormat(Number(event.target.id.replace("t", ""))));
+				$("#" + event.target.id).html2(dtFormat(Number(event.target.id.replace("t", ""))));
 				setTimeout(function () {
 					if(!$('.editableInput').is(':visible')) {
-						$("#" + event.target.id).html(dateDiff(event.target.id.replace("t", ""), (new Date()).getTime()));
+						$("#" + event.target.id).html2(dateDiff(event.target.id.replace("t", ""), (new Date()).getTime()));
 					}
 				}, 2000);
 			}
@@ -201,8 +201,8 @@ $(document).on("pageload", function (evt) {
 						});
 					//start edit
 					$('.entriesBody', this).empty();
-					$('.entriesBody', this).html(input);
-					$('.entriesBody', this).after('<p id="kcalsAdjust">\
+					$('.entriesBody', this).html2(input);
+					$('.entriesBody', this).after2('<p id="kcalsAdjust">\
 						<span id="adjustNegBlock"><span id="adjustNeg"></span></span>\
 						<span id="adjustPosBlock"><span id="adjustPos"></span></span>\
 						</p>');
@@ -223,7 +223,7 @@ $(document).on("pageload", function (evt) {
 							//ON CONFIRM
 							timedBlur = new Date().getTime();
 							if (button === 2) {
-								$("#" + thisRowId + " " + ".entriesTitle").html("0");
+								$("#" + thisRowId + " " + ".entriesTitle").html2("0");
 								$("#" + thisRowId + " " + ".entriesTitle").css("color", "#333");
 								//save
 								saveEntry({
@@ -244,7 +244,7 @@ $(document).on("pageload", function (evt) {
 					var adjustPosBlockSave;
 					app.handlers.repeater('#adjustPosBlock','activeBlock',400,25,function() {
 					//$("#adjustPosBlock").on(touchstart, function (evt) {
-						var titleVal = Number($('#kcalsDiv').html());
+						var titleVal = Number($('#kcalsDiv').html2());
 						var idVal    = $('#kcalsDiv').parent('div').attr('id');
 						var bodyVal  = $('#editableInput').val();
 						//prevent android click-blur
@@ -264,7 +264,7 @@ $(document).on("pageload", function (evt) {
 								$('#kcalsDiv').css('color','#333');
 							}
 							//update dom
-							$('#kcalsDiv').html(titleVal);
+							$('#kcalsDiv').html2(titleVal);
 							//save value
 							clearTimeout(adjustPosBlockSave);
 							adjustPosBlockSave = setTimeout(function () {
@@ -284,7 +284,7 @@ $(document).on("pageload", function (evt) {
 					var adjustNegBlockSave;
 					app.handlers.repeater('#adjustNegBlock','activeBlock',400,25,function() {
 					//$("#adjustNegBlock").on(touchstart, function (evt) {
-						var titleVal = Number($('#kcalsDiv').html());
+						var titleVal = Number($('#kcalsDiv').html2());
 						var idVal    = $('#kcalsDiv').parent('div').attr('id');
 						var bodyVal  = $('#editableInput').val();
 						//prevent android click-blur
@@ -304,7 +304,7 @@ $(document).on("pageload", function (evt) {
 								$('#kcalsDiv').css('color','#C00');
 							}
 							//update dom
-							$('#kcalsDiv').html(titleVal);
+							$('#kcalsDiv').html2(titleVal);
 							//save value
 							clearTimeout(adjustNegBlockSave);
 							adjustNegBlockSave = setTimeout(function () {
@@ -336,7 +336,7 @@ $(document).on("pageload", function (evt) {
 						}, 600);
 						$(this).closest("div").addClass("editing");
 						$("#sliderBlock").remove();
-						$("#entryListForm").prepend("<div id='sliderBlock'></div>");
+						$("#entryListForm").prepend2("<div id='sliderBlock'></div>");
 						//blur block
 						$("#sliderBlock").on(touchstart, function (evt) {
 							evt.preventDefault();
@@ -420,7 +420,7 @@ $(document).on("pageload", function (evt) {
 				if (app.device.ios) {
 					//evt.preventDefault();
 					//evt.stopPropagation();
-					$("#entryListForm").prepend("<div id='sliderBlock'></div>");
+					$("#entryListForm").prepend2("<div id='sliderBlock'></div>");
 					$("#sliderBlock").fadeOut(700, function (evt) {
 						$("#sliderBlock").remove();
 					});
@@ -501,7 +501,7 @@ $(document).on("pageload", function (evt) {
 			$('#' + rowId).remove();
 			//IF LAST ROW
 			if ($('#entryList .entryListRow').length == 0) {
-				$('#entryList').html('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
+				$('#entryList').html2('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 				updateTimer();
 				//return false;
 			}
@@ -568,7 +568,7 @@ $(document).on("pageReload", function (evt) {
 						// PAGESLIDEFOOD DIV //
 						///////////////////////
 						$('#pageSlideFood').remove();
-						$('body').append("<div id='pageSlideFood'></div>");
+						$('body').append2("<div id='pageSlideFood'></div>");
 						$('#pageSlideFood').css("height", ($('body').height() - $('#appHeader').height()) + "px");
 						$('#pageSlideFood').css("top", $('#appHeader').height() + "px");
 						///////////////
@@ -593,7 +593,7 @@ $(document).on("pageReload", function (evt) {
 						///////////////
 						// FOOD HTML //
 						///////////////
-						$("#pageSlideFood").html('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG.FOOD_SEARCH[lang] + '" /><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG.NO_MATCHES[lang] + '</span></div></div></div>');
+						$("#pageSlideFood").html2('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG.FOOD_SEARCH[lang] + '" /><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG.NO_MATCHES[lang] + '</span></div></div></div>');
 						//PRE-ADJUST RESULTS HEIGHT
 						$('#foodSearch').width($('body').width() - 55);
 						buildFoodMenu();
@@ -894,12 +894,12 @@ function doSearch(rawInput) {
 			$('#infoContents').hide();
 			//prevent overflow blinking
 			$('#searchContents').hide();
-			$('#searchContents').html('');
+			$('#searchContents').html2('');
 			//if empty
 			//if (foodList == '') {
 			if (foodList.contains('noContent')) {
 				if ($('#foodSearch').val() != '') {
-					$('#searchContents').html('<span id="noMatches"> ' + LANG.NO_MATCHES[lang] + ' </span>');
+					$('#searchContents').html2('<span id="noMatches"> ' + LANG.NO_MATCHES[lang] + ' </span>');
 				} else {
 					//buildFoodMenu();
 					$('#searchContents').hide();
@@ -907,7 +907,7 @@ function doSearch(rawInput) {
 					$('#infoContents').show();
 				}
 			} else {
-				$('#searchContents').html(foodList);
+				$('#searchContents').html2(foodList);
 			}
 			//chrome height fix
 			$('#searchContents').css('min-height',$('#pageSlideFood').height() + 'px');
@@ -941,16 +941,16 @@ function updateCustomList(filter,callback) {
 	}
 	//FAV
 	if(/fav|all|cache/.test(filter)) {
-		$('#tabMyFavsBlock').html(getCustomList('fav',filter));
+		$('#tabMyFavsBlock').html2(getCustomList('fav',filter));
 		app.handlers.activeRow('#tabMyFavsBlock div.searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
 		});	
 	}
 	//ITEM
 	if(/items|all|cache/.test(filter)) {
-		$('#tabMyItemsBlock').html(getCustomList('items',filter));
+		$('#tabMyItemsBlock').html2(getCustomList('items',filter));
 		$('#addButtons').remove();
-		$('#foodList').after('<div id="addButtons"><div id="addNewFood"><div id="addNewFoodTitle"><span>+</span>' + LANG.NEW_FOOD[lang] + '</div></div><div id="addNewExercise"><div id="addNewExerciseTitle"><span>+</span>' + LANG.NEW_EXERCISE[lang] + '</div></div></div>');
+		$('#foodList').after2('<div id="addButtons"><div id="addNewFood"><div id="addNewFoodTitle"><span>+</span>' + LANG.NEW_FOOD[lang] + '</div></div><div id="addNewExercise"><div id="addNewExerciseTitle"><span>+</span>' + LANG.NEW_EXERCISE[lang] + '</div></div></div>');
 		app.handlers.activeRow('#tabMyItemsBlock div.searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
 		});	
@@ -991,13 +991,13 @@ function buildFoodMenu() {
 	//////////////
 	// TOP MENU //
 	//////////////
-	$("#foodList").before("<div id='menuTopBar'>\
+	$("#foodList").before2("<div id='menuTopBar'>\
 		<h3 id='topBarItem-1'><span>" + LANG.CATEGORIES[lang] + "</span></h3>\
 		<h3 id='topBarItem-2'><span>" + LANG.FAVORITES[lang] + "</span></h3>\
 		<h3 id='topBarItem-3'><span>" + LANG.MY_ITEMS[lang] + "</span></h3>\
 		</div>\
 		");
-	$("#foodList").html(recentBlock);
+	$("#foodList").html2(recentBlock);
 	//first load db spinner
 	if(!app.read('foodDbLoaded','done')) {
 		setTimeout(function() {
@@ -1250,11 +1250,11 @@ function addNewItem(addnew) {
 					addnew.kcal = Math.round(((addnew.kcal * addnew.totalweight) / 60) * 30);
 				}
 				//MULTIPLE UNIQUE ~ USE ID AS CLASS
-				$('.' + addnew.id + ' .foodName').html(addnew.name);
-				$('.' + addnew.id + ' .foodKcal').html('<span class="preSpan">' + LANG.KCAL[lang] + '</span>' + addnew.kcal + '</span>');
-				$('.' + addnew.id + ' .foodPro').html('<span class="preSpan">'  + LANG.PRO[lang]  + '</span>' + addnew.pro  + '</span>');
-				$('.' + addnew.id + ' .foodCar').html('<span class="preSpan">'  + LANG.CAR[lang]  + '</span>' + addnew.car  + '</span>');
-				$('.' + addnew.id + ' .foodFat').html('<span class="preSpan">'  + LANG.FAT[lang]  + '</span>' + addnew.fat  + '</span>');
+				$('.' + addnew.id + ' .foodName').html2(addnew.name);
+				$('.' + addnew.id + ' .foodKcal').html2('<span class="preSpan">' + LANG.KCAL[lang] + '</span>' + addnew.kcal + '</span>');
+				$('.' + addnew.id + ' .foodPro').html2('<span class="preSpan">'  + LANG.PRO[lang]  + '</span>' + addnew.pro  + '</span>');
+				$('.' + addnew.id + ' .foodCar').html2('<span class="preSpan">'  + LANG.CAR[lang]  + '</span>' + addnew.car  + '</span>');
+				$('.' + addnew.id + ' .foodFat').html2('<span class="preSpan">'  + LANG.FAT[lang]  + '</span>' + addnew.fat  + '</span>');
 				//HIGHTLIGHT UPDATED
 				setTimeout(function() {
 					addnew.close();
@@ -1316,7 +1316,7 @@ function addNewItem(addnew) {
 	//////////////////////////////
 	if($('#modalWrapper').length) {
 		$('#modalOverlay').off();
-		$('#modalWrapper').append(addNewCoreHtml);
+		$('#modalWrapper').append2(addNewCoreHtml);
 		$('#addNewListWrapper,#addNewCancel,#addNewConfirm').hide();
 
 		app.handlers.fade(0,'#modalConversions');
@@ -1325,7 +1325,7 @@ function addNewItem(addnew) {
 		});
 	} else {
 		//CREATE NEW
-		$('body').append('<div id="modalWrapper"><div id="modalOverlay"></div>' + addNewCoreHtml + '</div>');
+		$('body').append2('<div id="modalWrapper"><div id="modalOverlay"></div>' + addNewCoreHtml + '</div>');
 		$('#addNewWrapper,#addNewCancel,#addNewConfirm').hide();
 	
 		if($('#foodSearch').val() != '') {
@@ -1366,7 +1366,7 @@ function addNewItem(addnew) {
 	// ADJUST FORM TO EXERCISE //
 	/////////////////////////////
 	if ((/0000|exercise/).test(addnew.type)) {
-		$('#addNewAmount label').html(LANG.MINUTES[lang].capitalize());
+		$('#addNewAmount label').html2(LANG.MINUTES[lang].capitalize());
 		$('#inputNewAmount').val(30);
 		$('#addNewPro').hide();
 		$('#addNewCar').hide();
@@ -1490,12 +1490,12 @@ function getModalWindow(itemId) {
 		modal.updatenutrients = function() {
 			if (isFoodRow) {
 				var modalAmount = parseInt($("#modalAmount").html());
-				$('#proData p').html(decimalize((modal.pro/100)*modalAmount,1));
-				$('#carData p').html(decimalize((modal.car/100)*modalAmount,1));
-				$('#fatData p').html(decimalize((modal.fat/100)*modalAmount,1));
-				$('#fiiData p').html(decimalize((modal.fii/100)*modalAmount,1));
-				$('#sugData p').html(decimalize((modal.sug/100)*modalAmount,1));
-				$('#sodData p').html(decimalize((modal.sod/100)*modalAmount,1));
+				$('#proData p').html2(decimalize((modal.pro/100)*modalAmount,1));
+				$('#carData p').html2(decimalize((modal.car/100)*modalAmount,1));
+				$('#fatData p').html2(decimalize((modal.fat/100)*modalAmount,1));
+				$('#fiiData p').html2(decimalize((modal.fii/100)*modalAmount,1));
+				$('#sugData p').html2(decimalize((modal.sug/100)*modalAmount,1));
+				$('#sodData p').html2(decimalize((modal.sod/100)*modalAmount,1));
 			}
 		};
 		/////////////////////////
@@ -1519,8 +1519,8 @@ function getModalWindow(itemId) {
 				var modalAmount = parseInt($("#modalAmount").html()) + 5;
 				var modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount <= 750 && modalTotal <= 9999) {
-					$("#modalAmount").html(modalAmount);
-					$("#modalTotal").html(modalTotal);
+					$("#modalAmount").html2(modalAmount);
+					$("#modalTotal").html2(modalTotal);
 					modal.updatenutrients();
 					modal.checkactive();
 				}
@@ -1529,8 +1529,8 @@ function getModalWindow(itemId) {
 				var modalAmount = parseInt($("#modalAmount").html()) + 1;
 				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
 				if (modalAmount <= 360 && modalTotal <= 9999) {
-					$("#modalAmount").html(modalAmount);
-					$("#modalTotal").html(modalTotal);
+					$("#modalAmount").html2(modalAmount);
+					$("#modalTotal").html2(modalTotal);
 					modal.checkactive();
 				}
 			}
@@ -1544,8 +1544,8 @@ function getModalWindow(itemId) {
 				var modalAmount = parseInt($("#modalAmount").html()) - 5;
 				var modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount >= 0) {
-					$("#modalAmount").html(modalAmount);
-					$("#modalTotal").html(modalTotal);
+					$("#modalAmount").html2(modalAmount);
+					$("#modalTotal").html2(modalTotal);
 					modal.updatenutrients();
 					modal.checkactive();
 				}
@@ -1554,8 +1554,8 @@ function getModalWindow(itemId) {
 				var modalAmount = parseInt($("#modalAmount").html()) - 1;
 				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
 				if (modalAmount >= 0) {
-					$("#modalAmount").html(modalAmount);
-					$("#modalTotal").html(modalTotal);
+					$("#modalAmount").html2(modalAmount);
+					$("#modalTotal").html2(modalTotal);
 					modal.checkactive();
 				}
 			}
@@ -1645,7 +1645,7 @@ function getModalWindow(itemId) {
 						if (button === 2) {
 							app.save('config_start_time',saveTime);
 							app.save('appStatus','running');
-							$('#appStatusTitle').html(LANG.RESET[lang]);
+							$('#appStatusTitle').html2(LANG.RESET[lang]);
 							$('#appStatus').removeClass('start');
 							$('#appStatus').addClass('reset');
 							app.exec.updateEntries(saveTime);
@@ -1696,7 +1696,7 @@ function getModalWindow(itemId) {
 						delFood(modal.id,function() {
 							$('.' + modal.id).each(function(row) {
 								if ($('#' + $(this).parent('div').attr('id') + ' div.searcheable').length == 1) {
-									$(this).parent('div').append('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+									$(this).parent('div').append2('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 								}
 								$('#' + $(this).parent('div').attr('id') + ' .' + modal.id).remove();
 							});
@@ -1727,7 +1727,7 @@ function getModalWindow(itemId) {
 		////////////////
 		// HTML FRAME //
 		////////////////
-		$('body').append('\
+		$('body').append2('\
 		<div id="modalWrapper">\
 			<div id="modalOverlay"></div>\
 			<div id="modalWindow">\
@@ -1751,8 +1751,8 @@ function getModalWindow(itemId) {
 		// + FOOD DETAILS //
 		////////////////////
 		if (isFoodRow) {
-			$('#modalAmountType').html(LANG.GRAMS[lang]);
-			$('#modalTotalType').after("\
+			$('#modalAmountType').html2(LANG.GRAMS[lang]);
+			$('#modalTotalType').after2("\
 				<span id='proData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
 				<span id='carData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
 				<span id='fatData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
@@ -1767,7 +1767,7 @@ function getModalWindow(itemId) {
 				<span id='sodLabel'>" + LANG.SOD[lang] + "</span>\
 			");
 			//APROX CONVERSIONS
-			$('#modalWrapper').append('\
+			$('#modalWrapper').append2('\
 			<div id="modalConversions">\
 				<div id="modalConversionsTitle">' + LANG.APROX_CONVERSIONS[lang]  + '</div>\
 				<div><span>1 ' + LANG.ML[lang]         + '</span><span> = </span><span>1'   + LANG.G[lang] + '</span></div>\

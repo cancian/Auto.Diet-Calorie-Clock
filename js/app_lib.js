@@ -244,24 +244,57 @@ var app = {
 			}
 			$(target).css('pointer-events','auto');
 		}, time);
-	},
-	html: function(target,content) {
-		if($(target).html() != content)  {
-			safeExec(function () {
-				$(target).html(content);
-			});
-		}
-	},
-	append: function(target,content) {
+	}
+};
+///////////////////
+// CUSTOM JQUERY //
+///////////////////
+$.prototype.html2 = function (data,callback) {
+	var obj = this;
+	if (obj.html() != data) {
 		safeExec(function () {
-			$(target).append(content);
-		});
-	},
-	prepend: function(target,content) {
-		safeExec(function () {
-			$(target).prepend(content);
+			$(obj).html(data);
+			if(typeof callback === 'function') {
+				callback();	
+			}
 		});
 	}
+};
+$.prototype.append2 = function (data,callback) {
+	var obj = this;
+	safeExec(function () {
+		obj.append(data);
+		if(typeof callback === 'function') {
+			callback();	
+		}
+	});
+};
+$.prototype.prepend2 = function (data,callback) {
+	var obj = this;
+	safeExec(function () {
+		obj.prepend(data);
+		if(typeof callback === 'function') {
+			callback();	
+		}
+	});
+};
+$.prototype.before2 = function (data,callback) {
+	var obj = this;
+	safeExec(function () {
+		$(obj).before(data);
+		if(typeof callback === 'function') {
+			callback();	
+		}
+	});
+};
+$.prototype.after2 = function (data,callback) {
+	var obj = this;
+	safeExec(function () {
+		$(obj).after(data);
+		if(typeof callback === 'function') {
+			callback();	
+		}
+	});
 };
 /////////////////
 // SWITCH USER //
@@ -508,7 +541,7 @@ app.info = function (title, msg, preHandler, postHandler) {
 	/////////////////
 	// INSERT HTML //
 	/////////////////
-	$('body').prepend('\
+	$('body').prepend2('\
 	<div id="screenInfo" class="info_' + title + '">\
 		<div id="circleFocus"></div>\
 		<div id="textBlock">' + msg + '</div>\
@@ -1062,7 +1095,7 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 	if(!maxValue) { maxValue = 9999; }
 	//HTML
 	if(!$( target + 'Neg').html()) {
-		$(target).before('<p class="neg" id="' + target.replace('#','') + 'Neg"></p><p class="pos" id="' + target.replace('#','') + 'Pos"></p>');
+		$(target).before2('<p class="neg" id="' + target.replace('#','') + 'Neg"></p><p class="pos" id="' + target.replace('#','') + 'Pos"></p>');
 	}
 	//NEG
 	app.handlers.repeater(target + 'Neg','active',400,25,function() {
@@ -1154,7 +1187,7 @@ function isDesktop() {
 // LOADER //
 ///////////
 if($('#loadMask').html() == '') {
-	$('#loadMask').html('\
+	$('#loadMask').html2('\
 <table width="100%" height="100%" border="0">\
   <tbody>\
     <tr>\
@@ -1250,11 +1283,9 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 					dataCSS = dataCSS.split('-webkit-').join('-ms-');
 				}
-				app.safeExec(function () {
-					$("#coreCss").remove();
-					$("#coreFonts").prepend("<style type='text/css' id='coreCss'></style>");
-					$("#coreCss").html(dataCSS);
-				});
+				$("#coreCss").remove();
+				$("#coreFonts").prepend2("<style type='text/css' id='coreCss'></style>");
+				$("#coreCss").html2(dataCSS);
 			}
 		});
 	}
@@ -1761,7 +1792,7 @@ function getOrientation() {
 //////////////////////
 function android2Select() {
 	if(app.device.android && app.device.android < 4) {
-		$('body').append('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
+		$('body').append2('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 		$('#dummyInput').focus();
 		$('#dummyInput').blur();
 		$('#dummyInput').remove();
@@ -1773,16 +1804,14 @@ function android2Select() {
 function cssLoadCount(num,total) {
 	var loadCounter = " (" + num + "/" + total + ")";
 	if(num == 0 && total == 0) { loadCounter = ''; }
-	app.safeExec(function() {
-		$("#cssAutoUpdate").html("\
-			.loading #advancedAutoUpdate:before	  { content: '" + LANG.DOWNLOADING[lang]     + loadCounter + "'; }\
-			.pending #advancedAutoUpdate:before	  { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
-			.uptodate #advancedAutoUpdate:before  { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
-			.corrupted #advancedAutoUpdate:before { content: '" + LANG.CORRUPTED[lang]       + "'; }\
-			.spinnerMask #loadMask:before		  { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
-			.spinnerMask.updtdb #loadMask:before  { content: '" + LANG.UPDATING_DB[lang]     + "'; }\
-		");
-	});
+	$("#cssAutoUpdate").html2("\
+		.loading #advancedAutoUpdate:before	  { content: '" + LANG.DOWNLOADING[lang]     + loadCounter + "'; }\
+		.pending #advancedAutoUpdate:before	  { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
+		.uptodate #advancedAutoUpdate:before  { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
+		.corrupted #advancedAutoUpdate:before { content: '" + LANG.CORRUPTED[lang]       + "'; }\
+		.spinnerMask #loadMask:before		  { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
+		.spinnerMask.updtdb #loadMask:before  { content: '" + LANG.UPDATING_DB[lang]     + "'; }\
+	");
 }
 //////////////
 // KICKDOWN //
@@ -1837,9 +1866,7 @@ app.online = function () {
 	$.ajax({type: 'GET', dataType: 'text', url: https + 'kcals.net/' + 'update.php?type=usr', success: function(onlineUsers) {
 		app.save('online_users',onlineUsers);
 		if(app.read('app_last_tab','tab1')) {
-			safeExec(function () {
-				$('#onlineUsers span').html(app.read('online_users'));
-			});
+			$('#onlineUsers span').html2(app.read('online_users'));
 		}
 	}});
 }
