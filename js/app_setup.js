@@ -153,19 +153,12 @@ function loadDatabase() {
 				//////////////////////////////
 				// update search terms v3.0 //
 				//////////////////////////////
-				if((app.read('foodDbVersion') == 3 || app.read('foodDbVersion') == 4) && app.read('foodDbLoaded','done')) {
+				if(!app.read('foodDbVersion',5) && app.read('foodDbLoaded','done')) {
+					app.remove('foodDbLoaded','done');
 					$('body').addClass('updtdb');
-					spinner();
 					setTimeout(function() {
-						for(var i=0, len=app.rows.food.length; i<len; i++) {
-							app.rows.food[i].term = searchalize(app.rows.food[i].name);
-						}
-						app.save('diary_food',app.rows.food,function(rows) {
-							app.save('foodDbVersion',5);
-							app.rows.food = rows;
-							spinner('stop');
-						});
-					},100);						
+						updateFoodDb();
+					},100);
 				}
 			},0);
 		});
