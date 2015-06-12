@@ -102,7 +102,7 @@ function appTimer(content) {
 	}
 	//UPDATE BLOCKS
 	if(!app.read('app_last_tab','tab1') && $('#appStatusBalance div p').html() != app.read('appBalance')) { 
-		app.html('#appStatusBalance div p',app.read('appBalance'));
+		$('#appStatusBalance div p').html(app.read('appBalance'));
 	}
 	//UPDATE TIPS
 	if(!app.read('appStatus','running')) {
@@ -330,14 +330,14 @@ function updateNutriBars() {
 	var sTotal = tFii + tSug + tSod;
 	//return null
 	if(!app.read('appStatus','running') || (nTotal == 0 && sTotal == 0)) {
-		app.html('#appStatusBarsPro p',LANG.PROTEINS[lang].toUpperCase());
-		app.html('#appStatusBarsCar p',LANG.CARBS[lang].toUpperCase());
-		app.html('#appStatusBarsFat p',LANG.FATS[lang].toUpperCase());
+		$('#appStatusBarsPro p').html(LANG.PROTEINS[lang].toUpperCase());
+		$('#appStatusBarsCar p').html(LANG.CARBS[lang].toUpperCase());
+		$('#appStatusBarsFat p').html(LANG.FATS[lang].toUpperCase());
 		$('#appStatusBars p').css('width',0);
-		app.html('#appStatusBars span','0%');
-		app.html('#appStatusBarsFib div','0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
-		app.html('#appStatusBarsSug div','0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
-		app.html('#appStatusBarsSod div','0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
+		$('#appStatusBars span').html('0%');
+		$('#appStatusBarsFib div').html('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
+		$('#appStatusBarsSug div').html('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
+		$('#appStatusBarsSod div').html('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
 		return false;
 	}
 	//ratios
@@ -407,15 +407,15 @@ function updateNutriBars() {
 	$('#appStatusBarsFat p').addClass(nFatPerClass);
 	$('#appStatusBarsFat p').css('width',Math.round(nFatPerWidth) + '%');
 	//relative percentage
-	app.html('#appStatusBarsPro p',LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
-	app.html('#appStatusBarsCar p',LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
-	app.html('#appStatusBarsFat p',LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
+	$('#appStatusBarsPro p').html(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
+	$('#appStatusBarsCar p').html(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
+	$('#appStatusBarsFat p').html(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
 	//	
-	app.html('#appStatusBarsPro span',Math.round(nPerPro*1)/1 + '%');
-	app.html('#appStatusBarsCar span',Math.round(nPerCar*1)/1 + '%');
+	$('#appStatusBarsPro span').html(Math.round(nPerPro*1)/1 + '%');
+	$('#appStatusBarsCar span').html(Math.round(nPerCar*1)/1 + '%');
 	//$('#appStatusBarsFat span').html(Math.round(nPerFat*1)/1 + '%');
 	//by exclusion
-	app.html('#appStatusBarsFat span',(100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
+	$('#appStatusBarsFat span').html((100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
 	//subNutrients
 	//average for timespan
 	if(app.read('appNutrientTimeSpan',7)) {
@@ -433,9 +433,9 @@ function updateNutriBars() {
 		tSod = tSod / elapsedDays;
 	}
 	//replace
-	app.html('#appStatusBarsFib div',Math.round(tFii) + ' / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
-	app.html('#appStatusBarsSug div',Math.round(tSug) + ' / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
-	app.html('#appStatusBarsSod div',Math.round(tSod) + ' / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
+	$('#appStatusBarsFib div').html(Math.round(tFii) + ' / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
+	$('#appStatusBarsSug div').html(Math.round(tSug) + ' / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
+	$('#appStatusBarsSod div').html(Math.round(tSod) + ' / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
 }
 //##################//
 //## UPDATE TIMER ##//

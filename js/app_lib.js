@@ -1021,7 +1021,7 @@ app.handlers = {
 		///////////////
 		var clearActions = touchend + ' mouseout mouseleave touchleave touchcancel';
 		$(target).off(clearActions).on(clearActions, function (evt) {
-			if(!app.device.ios) {
+			if(!app.device.ios && !app.device.firefoxos) {
 				evt.preventDefault();
 			}
 			$(target).removeClass(style);
@@ -1032,7 +1032,7 @@ app.handlers = {
 		// TRIGGER //
 		/////////////
 		$(target).off(touchstart).on(touchstart, function (evt) {
-			if(!app.device.ios) {
+			if(!app.device.ios && !app.device.firefoxos) {
 				evt.preventDefault();
 			}
 			clearTimeout(app.repeaterTrigger);

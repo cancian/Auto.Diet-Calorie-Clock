@@ -1350,7 +1350,7 @@ function addNewItem(addnew) {
 	app.handlers.addRemove('#inputNewFat',0,999);
 	app.handlers.addRemove('#inputNewFii',0,999);
 	app.handlers.addRemove('#inputNewSug',0,999);
-	app.handlers.addRemove('#inputNewSod',0,999);
+	app.handlers.addRemove('#inputNewSod',0,9999);
 	/////////////////////
 	// POPULATE INPUTS //
 	/////////////////////
@@ -1408,7 +1408,7 @@ function addNewItem(addnew) {
 	///////////////////////////
 	$('#addNewWrapper').on(touchstart, function (evt) {
 		if (evt.target.id == 'addNewWrapper' || evt.target.id == '') {
-			if(!app.device.ios) {
+			if(!app.device.ios && !app.device.firefoxos) {
 				evt.preventDefault();
 			}
 			evt.stopPropagation();
