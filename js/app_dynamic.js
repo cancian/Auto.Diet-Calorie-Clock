@@ -1303,7 +1303,7 @@ function addNewItem(addnew) {
 				<li id="addNewFat">    <label>' + LANG.FAT[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
 				<li id="addNewFii">    <label>' + LANG.FIB[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewFii"     value="0"   /></li>\
 				<li id="addNewSug">    <label>' + LANG.SUG[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewSug"     value="0"   /></li>\
-				<li id="addNewSod">    <label>' + LANG.SOD[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewSod"     value="0"   /></li>\
+				<li id="addNewSod">    <label>' + LANG.SOD[lang].capitalize()  + ' (' + LANG.MG[lang] + ')</label>      <input tabindex="3" type="number" id="inputNewSod"     value="0"   /></li>\
 			</ul>\
 		</div>\
 	</div>\
@@ -1337,9 +1337,7 @@ function addNewItem(addnew) {
 		$('#addNewWrapper,#addNewCancel,#addNewConfirm').show();
 		app.handlers.fade(1,'#modalWrapper, #addNewWrapper');
 	}
-	getNiceScroll('#addNewWrapper',0,function() {
-		niceResizer(200);
-	});
+	getNiceScroll('#addNewWrapper',200);
 	////////////////
 	// ADD/REMOVE //
 	////////////////
@@ -1385,22 +1383,23 @@ function addNewItem(addnew) {
 	///////////////////////////////////////////
 	if (app.device.android) {
 		//preset wrapper min-height
-		$('#addNewWrapper').css('min-height', $('#addNewWrapper').height() + 'px');
+		//$('#addNewWrapper').css('min-height', $('#addNewWrapper').height() + 'px');
 		//trigger on touchmove if not focused (closing-touch white gap)
 		$('#addNewWrapper').on('touchmove', function (evt) {
 			if (!$('#addNewWrapper input').is(':focus')) {
-				$(window).trigger('orientationchange');
+				//$(window).trigger('orientationchange');
 			}
 		});
 		//trigger if not focused to another input
 		var newBlurGap;
 		$('#addNewWrapper input').on('blur', function (evt) {
 			newBlurGap = setTimeout(function () {
-				$(window).trigger("orientationchange");
+				kickDown();
+				//$(window).trigger("orientationchange");
 			}, 100);
 		});
 		$('#addNewWrapper input').on('focus', function (evt) {
-			clearTimeout(newBlurGap);
+			//clearTimeout(newBlurGap);
 		});
 	}
 	///////////////////////////

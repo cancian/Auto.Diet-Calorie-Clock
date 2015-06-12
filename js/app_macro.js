@@ -1314,7 +1314,7 @@ function getEntryEdit(eid) {
 			app.handlers.addRemove('#getEntryFat',0,999);
 			app.handlers.addRemove('#getEntryFii',0,999);
 			app.handlers.addRemove('#getEntrySug',0,999);
-			app.handlers.addRemove('#getEntrySod',0,999);
+			app.handlers.addRemove('#getEntrySod',0,9999);
 		};
 		/////////////
 		// CONFIRM //
@@ -1362,16 +1362,16 @@ function getEntryEdit(eid) {
 		if(!data.sod || isNaN(sod)) { sod = 0; }
 		var getEntryHtml = '\
 			<div id="getEntryWrapper">\
-				<div id="divEntryBody"><span>'  + LANG.ADD_NAME[lang] + '</span><input type="text"   id="getEntryBody"  value="' + data.body      + '" /></div>\
-				<div id="divEntryTitle"><span>' + LANG.KCAL[lang]     + '</span><input type="number" id="getEntryTitle" value="' + data.title     + '" /></div>\
-				<div id="divEntryPro"><span>'   + LANG.PRO[lang]      + '</span><input type="number" id="getEntryPro"   value="' + pro            + '" /></div>\
-				<div id="divEntryCar"><span>'   + LANG.CAR[lang]      + '</span><input type="number" id="getEntryCar"   value="' + car            + '" /></div>\
-				<div id="divEntryFat"><span>'   + LANG.FAT[lang]      + '</span><input type="number" id="getEntryFat"   value="' + fat            + '" /></div>\
-				<div id="divEntryFii"><span>'   + LANG.FIB[lang]      + '</span><input type="number" id="getEntryFii"   value="' + fii            + '" /></div>\
-				<div id="divEntrySug"><span>'   + LANG.SUG[lang]      + '</span><input type="number" id="getEntrySug"   value="' + sug            + '" /></div>\
-				<div id="divEntrySod"><span>'   + LANG.SOD[lang]      + '</span><input type="number" id="getEntrySod"   value="' + sod            + '" /></div>\
-				<div id="divEntryDate"><span>'  + LANG.DATE[lang]     + '</span><input type="text"   id="getEntryDate"  value="' + data.published + '" /></div>\
-				<input type="hidden" id="getEntryId"         value="' + data.id        + '" />\
+				<div id="divEntryBody"><span>'  + LANG.ADD_NAME[lang]                  + '</span><input type="text"   id="getEntryBody"  value="' + data.body      + '" /></div>\
+				<div id="divEntryTitle"><span>' + LANG.KCAL[lang]                      + '</span><input type="number" id="getEntryTitle" value="' + data.title     + '" /></div>\
+				<div id="divEntryPro"><span>'   + LANG.PRO[lang] + ' <strong>(' + LANG.G[lang].toUpperCase() + ')</strong></span><input type="number" id="getEntryPro"   value="' + pro            + '" /></div>\
+				<div id="divEntryCar"><span>'   + LANG.CAR[lang]                       + '</span><input type="number" id="getEntryCar"   value="' + car            + '" /></div>\
+				<div id="divEntryFat"><span>'   + LANG.FAT[lang]                       + '</span><input type="number" id="getEntryFat"   value="' + fat            + '" /></div>\
+				<div id="divEntryFii"><span>'   + LANG.FIB[lang]                       + '</span><input type="number" id="getEntryFii"   value="' + fii            + '" /></div>\
+				<div id="divEntrySug"><span>'   + LANG.SUG[lang]                       + '</span><input type="number" id="getEntrySug"   value="' + sug            + '" /></div>\
+				<div id="divEntrySod"><span>'   + LANG.SOD[lang] + ' <strong>(' + LANG.MG[lang].toUpperCase() + ')</strong></span><input type="number" id="getEntrySod" value="' + sod            + '" /></div>\
+				<div id="divEntryDate"><span>'  + LANG.DATE[lang]                      + '</span><input type="text"   id="getEntryDate"  value="' + data.published + '" /></div>\
+				<input type="hidden" id="getEntryId"         value="'                  + data.id        + '" />\
 				<input type="hidden" id="getEntryDateHidden" value="' + data.published + '" />\
 			</div>';
 		/////////////////

@@ -581,6 +581,8 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 2px;  font-family: 'KCals'; content: '\F000'; color: #00c; }
 #getEntryWrapper #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 2px;  font-family: 'KCals'; content: '\F17D'; color: #c30; }
 #getEntryWrapper input[type="text"]						{ border-right: 0; padding-right: 34px; }
+#getEntryWrapper strong 								{ font-weight: normal !important; text-transform: lowercase !important; }
+
 /*/////////////////////////
 // SETTINGS: LANG SELECT //
 /////////////////////////*/
