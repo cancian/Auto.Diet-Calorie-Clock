@@ -18,6 +18,7 @@
 • Users can request new features via Suggestion Box
 • Import local food database if no internet connection is available
 • Toggle between help/content on Today Overview and Cyclical Mode menus
+• Fixed issue with decimals being incorrectly rounded to zero for values below 1
 
 # 1.9.4 [2015/05/15]
 • Bootloop recovery system: users now can manually erase corrupted application cache by tapping the screen while the app is loading

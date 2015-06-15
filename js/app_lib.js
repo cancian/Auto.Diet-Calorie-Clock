@@ -1476,6 +1476,13 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 				$(this).val( Math.abs($(this).val()) )
 			}
 		}
+		//limit to 2 decimals
+		if(($(this).val()).contains('.')) {
+			var number = $(this).val().split('.');
+			if (number[1].length > 2) {
+				$(this).val( parseFloat(number[0] + '.' + number[1].slice(0,2)) );
+			}
+		}
 		//POST HANDLERS
 		if(postProcess) {
 			postProcess();
@@ -1497,7 +1504,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 	// BLUR //
 	//////////
 	$(target).on('blur', function(evt) {
-		if($(this).val().length == 0 || parseInt($(this).val()) == 0 || isNaN($(this).val())) {
+		if($(this).val().length == 0 || parseFloat($(this).val()) == 0 || isNaN($(this).val())) {
 			if(config.defaultValue) {
 				$(this).val(config.defaultValue);
 			} else {

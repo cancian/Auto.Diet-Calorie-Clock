@@ -26,7 +26,7 @@ body.wp8,
 body.msie,
 body.wekbit,
 body.osx								{ -webkit-user-select: none; }
-input, select, textarea					{ -webkit-user-select: auto; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
+input, select, textarea					{ -webkit-user-select: auto; -webkit-box-shadow: none; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 body.moz input,
 body.moz select,
 body.moz textarea						{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
@@ -1208,12 +1208,7 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .android44 #appHeader:before		{ padding-top: 11px; }
 #appHeader.open:before				{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*android scroll blur fix*/
-.msie.closer #appContent,
-.android.closer #appContent			{ overflow: hidden; }
-.android2.closer select#entryTime	{ pointer-events: none; display: none; }
-/*performancer ~ review*/
-.android4lt #appContent			{ visibility: visible; }
-.android4lt.closer #appContent	{ visibility: hidden !important; }
+.closer #appContent					{ -webkit-transform: translate3d(-99999px, 0, 0); }
 /*search nutri colors*/
 .searcheable.food span.preSpan		{ color: #2157D6; }
 .searcheable.food div.foodName		{ color: #2157D6; }

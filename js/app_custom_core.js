@@ -146,7 +146,7 @@ function appTimer(content) {
 	timerDiff = (app.now() - timerPerf) * 5;
 	timerWait = timerDiff;	
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
-	if(app.device.wp8) {
+	if(app.device.wp8 || app.device.android) {
 		timerDiff = timerDiff*10;
 	} else {
 		timerDiff = timerDiff*10;
@@ -299,6 +299,7 @@ function cyclicTimeToKcals(startTime) {
 //#///////////////////#//
 function updateNutriBars() {
 	if(!app.read('app_last_tab','tab1'))	{ return; }
+	if($('body').hasClass('closer')) 		{ return; }
 	if(!$('#appStatusBars').length)			{ return; }
 	var tPro = app.read('tPro');
 	var tCar = app.read('tCar');
@@ -331,6 +332,7 @@ function updateNutriBars() {
 		dailySod = 1500;
 	}	
 	//return null
+	var doReturn = false;
 	if(tPro + tCar + tFat == 0) {
 		$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase());
 		$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase());
@@ -339,11 +341,16 @@ function updateNutriBars() {
 		$('#appStatusBarsPro span').html2('0%');
 		$('#appStatusBarsCar span').html2('0%');			
 		$('#appStatusBarsFat span').html2('0%');
+		doReturn = true;
 	}
 	if(tFii + tSug + tSod == 0) {
 		$('#appStatusBarsFib div').html2('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSug div').html2('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSod div').html2('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
+		doReturn = true;
+	}
+	if(doReturn == true) {
+		return false;
 	}
 	//ratios
 	var appNutrients = app.read('appNutrients').split('|');
@@ -409,21 +416,19 @@ function updateNutriBars() {
 		nFatPerClass = 'normal';
 	}
 	//UPDATE BARS
-	if(tPro + tCar + tFat > 0) {
-		$('#appStatusBarsFat p').removeClass('danger warn over normal');
-		$('#appStatusBarsFat p').addClass(nFatPerClass);
-		$('#appStatusBarsFat p').css('width',Math.round(nFatPerWidth) + '%');
-		//relative percentage
-		$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
-		$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
-		$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
-		//	
-		$('#appStatusBarsPro span').html2(Math.round(nPerPro*1)/1 + '%');
-		$('#appStatusBarsCar span').html2(Math.round(nPerCar*1)/1 + '%');
-		//$('#appStatusBarsFat span').html2(Math.round(nPerFat*1)/1 + '%');
-		//by exclusion
-		$('#appStatusBarsFat span').html2((100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
-	}
+	$('#appStatusBarsFat p').removeClass('danger warn over normal');
+	$('#appStatusBarsFat p').addClass(nFatPerClass);
+	$('#appStatusBarsFat p').css('width',Math.round(nFatPerWidth) + '%');
+	//relative percentage
+	$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
+	$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
+	$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
+	//	
+	$('#appStatusBarsPro span').html2(Math.round(nPerPro*1)/1 + '%');
+	$('#appStatusBarsCar span').html2(Math.round(nPerCar*1)/1 + '%');
+	//$('#appStatusBarsFat span').html2(Math.round(nPerFat*1)/1 + '%');
+	//by exclusion
+	$('#appStatusBarsFat span').html2((100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
 	//subNutrients
 	var elapsedDays = Math.ceil( (app.now() - app.read('config_start_time')) / (60 * 60 * 24 * 1000) );
 	//average for timespan
@@ -441,11 +446,9 @@ function updateNutriBars() {
 		tSod = tSod / elapsedDays;
 	}
 	//UPDATE SUB
-	if(tFii + tSug + tSod > 0) {
-		$('#appStatusBarsFib div').html2(Math.round(tFii) + ' / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
-		$('#appStatusBarsSug div').html2(Math.round(tSug) + ' / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
-		$('#appStatusBarsSod div').html2(Math.round(tSod) + ' / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
-	}
+	$('#appStatusBarsFib div').html2(Math.round(tFii) + ' / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
+	$('#appStatusBarsSug div').html2(Math.round(tSug) + ' / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
+	$('#appStatusBarsSod div').html2(Math.round(tSod) + ' / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
 }
 //##################//
 //## UPDATE TIMER ##//

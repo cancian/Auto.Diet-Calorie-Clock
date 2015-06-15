@@ -1262,7 +1262,12 @@ function getEntryEdit(eid) {
 			// backport validation //
 			/////////////////////////
 			app.handlers.validate('#getEntryTitle',{allowDots:false,maxValue:9999,maxLength:4});
-			app.handlers.validate('#getEntryPro,#getEntryCar,#getEntryFat,#getEntryFii,#getEntrySug,#getEntrySod',{allowDots:true,maxValue:999,maxLength:7});
+			app.handlers.validate('#getEntryPro',{allowDots:true,maxValue:999,maxLength:7});
+			app.handlers.validate('#getEntryCar',{allowDots:true,maxValue:999,maxLength:7});
+			app.handlers.validate('#getEntryFat',{allowDots:true,maxValue:999,maxLength:7});
+			app.handlers.validate('#getEntryFii',{allowDots:true,maxValue:999,maxLength:7});
+			app.handlers.validate('#getEntrySug',{allowDots:true,maxValue:999,maxLength:7});									
+			app.handlers.validate('#getEntrySod',{allowDots:true,maxValue:9999,maxLength:8});
 			//////////////////////
 			// BASIC VALIDATION //
 			//////////////////////
@@ -1278,7 +1283,7 @@ function getEntryEdit(eid) {
 				if(evt.target.id != 'getEntryTitle') {
 					if($(this).val() < 0) { $(this).val(0); }
 				}
-				if($(this).val() > 9999)  { $(this).val(9999); }
+				if($(this).val() > 9999.99)  { $(this).val(9999); }
 			});
 			$('#getEntryTitle,#getEntryPro,#getEntryCar,#getEntryFat,#getEntryFii,#getEntrySug,#getEntrySod').on('focus', function(evt) {
 				if($(this).val() == 0)    { $(this).val(''); }
@@ -1314,7 +1319,7 @@ function getEntryEdit(eid) {
 			app.handlers.addRemove('#getEntryFat',0,999);
 			app.handlers.addRemove('#getEntryFii',0,999);
 			app.handlers.addRemove('#getEntrySug',0,999);
-			app.handlers.addRemove('#getEntrySod',0,9999);
+			app.handlers.addRemove('#getEntrySod',0,9999.99);
 		};
 		/////////////
 		// CONFIRM //
