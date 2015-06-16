@@ -953,6 +953,14 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				$('#entryBody').blur();
 			}
 			///////////
+			// JTEST //
+			///////////
+			if (/devjtest/i.test($('#entryBody').val())) {
+				$('#entryBody').val('devjtes');
+				$('#entryBody').blur();
+				window.location.href = 'http://jsperf.com/speed-comparison-of-jquery-versions/92';
+			}			
+			///////////
 			// NOMIN //
 			//////////
 			if (/devnomin/i.test($('#entryBody').val())) {
