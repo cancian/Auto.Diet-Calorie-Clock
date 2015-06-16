@@ -79,7 +79,7 @@ app.tab.settings = function(keepOpen) {
 			<span id="b800"></span>\
 			<span id="b900"></span>\
 		</div>\
-		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">support@kcals.net</span></div>\
+		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">cancian@kcals.net</span></div>\
 		';
 		/////////////
 		// HANDLER //

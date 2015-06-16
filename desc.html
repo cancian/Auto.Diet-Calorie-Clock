@@ -57,8 +57,6 @@ desc  = trim(desc);
 //////////////
 // KEY DUMP //
 //////////////
-desc = desc + '<br /><br />';
-
 var keyList = 
 LANG.PROTEIN[lang]         + ',' +
 LANG.CARBOHYDRATE[lang]    + ',' +
@@ -93,10 +91,24 @@ keyList0 = '';
 var keyList1 = keyList0.slice(0,100);
 var keyList2 = keyList0.slice(100,-1);
 
-desc = desc + '<br /><br /><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br /><br />';
-desc = desc + '' + LANG.THE_ONLY[lang] + '<br /><br />';
+desc = desc + '<div id="bottom"><br /><br /><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br /><br />';
+desc = desc + '' + LANG.THE_ONLY[lang] + '<br /><br /></div>';
 
-document.getElementById('desc').innerHTML  = desc;
+document.getElementById('desc').innerHTML = trim(desc);
+
+//toggle keywords
+$('#bottom').css('user-select','none');
+$('#bottom').css('background-color','#fff');
+$('#bottom').on('dblclick',function() {
+	if($('#bottom').css('user-select') == 'none') {
+		$('#bottom').css('user-select','auto');
+		$('#bottom').css('background-color','#eee');
+	} else {
+		$('#bottom').css('user-select','none');
+		$('#bottom').css('background-color','#fff');
+	}
+});
+
 }});
 </script>
 
