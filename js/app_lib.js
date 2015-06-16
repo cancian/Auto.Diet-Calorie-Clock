@@ -249,52 +249,62 @@ var app = {
 ///////////////////
 // CUSTOM JQUERY //
 ///////////////////
-$.prototype.html2 = function (data,callback) {
-	var obj = this;
-	if (obj.html() != data) {
+$.prototype.html2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
+		if (obj.html() !== data) {
+			safeExec(function () {
+				obj.html(data);
+				if (typeof callback === 'function') {
+					callback();
+				}
+			});
+		}
+	}
+};
+$.prototype.append2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
 		safeExec(function () {
-			$(obj).html(data);
-			if(typeof callback === 'function') {
-				callback();	
+			obj.append(data);
+			if (typeof callback === 'function') {
+				callback();
 			}
 		});
 	}
 };
-$.prototype.append2 = function (data,callback) {
-	var obj = this;
-	safeExec(function () {
-		obj.append(data);
-		if(typeof callback === 'function') {
-			callback();	
-		}
-	});
+$.prototype.prepend2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
+		safeExec(function () {
+			obj.prepend(data);
+			if (typeof callback === 'function') {
+				callback();
+			}
+		});
+	}
 };
-$.prototype.prepend2 = function (data,callback) {
-	var obj = this;
-	safeExec(function () {
-		obj.prepend(data);
-		if(typeof callback === 'function') {
-			callback();	
-		}
-	});
+$.prototype.before2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
+		safeExec(function () {
+			obj.before(data);
+			if (typeof callback === 'function') {
+				callback();
+			}
+		});
+	}
 };
-$.prototype.before2 = function (data,callback) {
-	var obj = this;
-	safeExec(function () {
-		$(obj).before(data);
-		if(typeof callback === 'function') {
-			callback();	
-		}
-	});
-};
-$.prototype.after2 = function (data,callback) {
-	var obj = this;
-	safeExec(function () {
-		$(obj).after(data);
-		if(typeof callback === 'function') {
-			callback();	
-		}
-	});
+$.prototype.after2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
+		safeExec(function () {
+			obj.after(data);
+			if (typeof callback === 'function') {
+				callback();
+			}
+		});
+	}
 };
 /////////////////
 // SWITCH USER //
@@ -1537,16 +1547,20 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 // TRIM //
 //////////
 function trim(str) {
-	if(!str) { return ''; }
-	str = str.replace(/^\s+/, '');
-	str = str.replace(/(^[ \t]*\n)/gm, "");
-	for(var i = str.length - 1; i >= 0; i--) {
-		if(/\S/.test(str.charAt(i))) {
-			str = str.substring(0, i + 1);
-			break;
+	if(str) { 
+		if(str.length) {
+			str = str.replace(/^\s+/, '');
+			str = str.replace(/(^[ \t]*\n)/gm, "");
+			for(var i = str.length - 1; i >= 0; i--) {
+				if(/\S/.test(str.charAt(i))) {
+				str = str.substring(0, i + 1);
+				break;
+			}
+		}
+		return str;
 		}
 	}
-	return str;
+	return '';
 }
 function trimDot(x) {
 	if(x.length) {
