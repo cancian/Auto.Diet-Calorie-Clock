@@ -35,8 +35,8 @@ And to get a feel for how KCals works, go to Kcals.net and you can get started r
 • Automatic backup and data synchronization
 • Realistic estimation of weight loss
 • Shows how fast your body burns calories
-• Complete nutrition information
-• Adjustable macronutrient ratio (proteins, fats, and carbohydrates)
+• Complete nutrition information (XXX)
+• Adjustable macronutrient ratio (XXXX)
 • Advanced search engine
 • Statistics on calorie consumption
 • Large food database
@@ -89,8 +89,8 @@ Para ter uma ideia de como o KCals funciona, visite Kcals.net e comece agora mes
 • Backup automático e sincronização de dados
 • Estimativa realista de perda de peso
 • Mostra o quão rápido você queima calorias
-• Informação nutricional completa
-• Proporção de macronutrientes ajustável (proteínas, gorduras e carboidratos)
+• Informação nutricional completa (XXX)
+• Proporção de macronutrientes ajustável (XXXX)
 • Mecanismo de busca avançado
 • Estatísticas sobre o consumo de calorias
 • Extenso banco de dados de alimentos
@@ -144,8 +144,8 @@ KCals متاح لـــ 10 منصات تشغيل مختلفة، لذلك بغض 
 • نسخ احتياطي تلقائي ومزامنة للبيانات 
 • تقدير واقعي لفقدان الوزن
 • يظهر مدى سرعة جسمك فى حرق السعرات الحرارية
-• معلومات كاملة عن التغذية
-• نسبة المغذيات الكبيرة (البروتينات والدهون والكربوهيدرات) يمكنك تعديلها 
+• معلومات كاملة عن التغذية (XXX)
+• نسبة المغذيات الكبيرة (XXXX) يمكنك تعديلها 
 • محرك بحث متقدم
 • إحصائيات عن استهلاك السعرات الحرارية
 • قاعدة بيانات ضخمة عن المواد الغذائية 
@@ -198,8 +198,8 @@ KCals е достъпна на 10 различни платформи, така 
 • Автоматично архивиране и синхронизиране на данни
 • Реалистична оценка на загуба на тегло
 • Показва колко бързо тялото Ви гори калории
-• Пълна информация за хранителната стойност
-• Регулируемo макрохранително съотношение (протеини, мазнини и въглехидрати)
+• Пълна информация за хранителната стойност (XXX)
+• Регулируемo макрохранително съотношение (XXXX)
 • Търсачка с напреднали опции
 • Статистика за консумация на калории
 • Голяма база данни с храни
@@ -252,8 +252,8 @@ Pro dokreslení toho, jak aplikace KCals funguje, přejděte na Kcals.net a mů�
 • Automatické zálohování a synchronizace dat
 • Realistický odhad úbytku hmotnosti
 • Ukazuje, jak rychle vaše tělo spaluje kalorie
-• Kompletní výživové informace
-• Nastavitelný poměr makroživin (bílkoviny, tuky a sacharidy)
+• Kompletní výživové informace (XXX)
+• Nastavitelný poměr makroživin (XXXX)
 • Pokročilé vyhledávání
 • Statistiky o spotřebě kalorií
 • Velká databáze potravin
@@ -306,8 +306,8 @@ Gå til Kcals.net, så du får en idé om, hvordan KCals fungerer, og du kan kom
 • Automatisk sikkerhedskopiering og datasynkronisering
 • Realistisk estimering af vægttab
 • Viser, hvor hurtigt din krop forbrænder kalorier
-• Omfattende næringsstofoplysninger
-• Justerbart makronæringsstofforhold (proteiner, fedt og kulhydrater)
+• Omfattende næringsstofoplysninger (XXX)
+• Justerbart makronæringsstofforhold (XXXX)
 • Avanceret søgemaskine
 • Statistik over kalorieforbrug
 • Stor fødevaredatabase
@@ -360,8 +360,8 @@ Und um ein Gefühl dafür zu bekommen, wie KCals funktioniert, gehen Sie auf Kca
 • Automatische Backups und Datensynchronisation
 • Realistische Schätzung der Gewichtsabnahme
 • Zeigt, wie schnell Ihr Körper Kalorien verbrennt
-• Komplette Nährwertangabe
-• Anpassbares Nährstoffverhältnis
+• Komplette Nährwertangabe (XXX)
+• Anpassbares Nährstoffverhältnis (XXXX)
 • Fortschrittliche Suchfunktion
 • Statistiken der Kalorienaufnahme
 • Riesige Lebensmitteldatenbank
@@ -414,8 +414,8 @@ DE–
 • Αυτόματη δημιουργία αντιγράφων ασφαλείας και συγχρονισμός δεδομένων 
 • Ρεαλιστική εκτίμηση της απώλειας βάρους
 • Δείχνει πόσο γρήγορα καίει το σώμα σας θερμίδες
-• Πλήρη στοιχεία διατροφής
-• Ρυθμιζόμενη αναλογία μακροθρεπτικών συστατικών (πρωτεΐνες, λίπη και υδατάνθρακες)
+• Πλήρη στοιχεία διατροφής (XXX)
+• Ρυθμιζόμενη αναλογία μακροθρεπτικών συστατικών (XXXX)
 • Προηγμένη μηχανή αναζήτησης
 • Στατιστικά στοιχεία για την κατανάλωση θερμίδων
 • Μεγάλη βάση δεδομένων των τροφίμων
@@ -468,8 +468,8 @@ Para tener una idea de cómo funciona KCals, vaya a Kcals.net y empezar ahora mi
 • Copia de seguridad automática y sincronización de datos
 • Estimación realista de la pérdida de peso 
 • Muestra la rapidez con que su cuerpo quema calorías
-• Información nutricional completa
-• Proporción de macronutrientes ajustable
+• Información nutricional completa (XXX)
+• Proporción de macronutrientes ajustable (XXXX)
 • Motor de búsqueda avanzado
 • Estadísticas sobre el consumo de calorías
 • Vasta base de datos
@@ -522,8 +522,8 @@ Ja kun haluat katsoa, miten KCals toimii, siirry osoitteeseen Kcals.net ja voit 
 • automaattinen varmuuskopiointi ja tietojen synkronointi
 • realistinen painonpudotuksen arvio
 • näyttää, kuinka nopeasti kehosi polttaa kaloreita
-• täydelliset ravitsemustiedot
-• säädettävä makroravinnesuhde
+• täydelliset ravitsemustiedot (XXX)
+• säädettävä makroravinnesuhde (XXXX)
 • edistyksellinen hakukone
 • tilastot kalorien kulutuksesta
 • laaja ruoka-ainetietokanta
@@ -576,8 +576,8 @@ Pour avoir une idée de la façon dont fonctionne KCals, visitez le site Kcals.n
 • Synchronisation des données et sauvegardes automatiques
 • Estimation réaliste de la perte de poids
 • Montre à quelle vitesse votre corps brûle les calories
-• Informations complètes sur la nutrition
-• Ratio de macronutriments réglable
+• Informations complètes sur la nutrition (XXX)
+• Ratio de macronutriments réglable (XXXX)
 • Moteur de recherche spécialisé
 • Statistiques sur la consommation de calories
 • Grand base de données alimentaire
@@ -630,8 +630,8 @@ Ha szeretné megnézni, hogyan is működik a KCals, látogassa meg a Kcals.net 
 • Automatikus mentés és adatszinkronizálás
 • Leadott kilók becslése jó közelítéssel
 • Megmutatja, hogy a szervezete milyen gyorsan égeti a kalóriákat
-• Teljes tápérték-információk
-• Állítható makronutriensarányok
+• Teljes tápérték-információk (XXX)
+• Állítható makronutriensarányok (XXXX)
 • Fejlett keresőmotor
 • Statisztika a kalóriafogyasztáshoz
 • Hatalmas élelmiszer-adatbázis
@@ -684,8 +684,8 @@ E per avere un’idea di come KCals funziona, vai a Kcals.net e potrai iniziare 
 • Sincronizzazione automatica di backup e dati
 • Stima realistica della perdita di peso
 • Mostra quanto velocemente il vostro corpo brucia le calorie
-• Informazioni nutrizionali complete 
-• Proporzione regolabile dei macronutrienti
+• Informazioni nutrizionali complete (XXX)
+• Proporzione regolabile dei macronutrienti (XXXX)
 • Motore di ricerca avanzato
 • Dati statistici sul consumo di calorie
 • Grande database di alimenti
@@ -738,8 +738,8 @@ Dan untuk mencoba cara kerja KCals, silakan buka Kcals.net dan Anda dapat langsu
 • Backup dan sinkronisasi data secara otomatis
 • Estimasi penurunan berat badan yang realistis
 • Menunjukkan seberapa cepat tubuh Anda membakar kalori
-• Informasi nutrisi lengkap
-• Rasio makronutrien (protein, lemak, dan karbohidrat) yang bisa diatur
+• Informasi nutrisi lengkap (XXX)
+• Rasio makronutrien (XXXX) yang bisa diatur
 • Mesin pencari lanjutan
 • Statistik konsumsi kalori
 • Database makanan besar
@@ -792,8 +792,8 @@ KCalsは、10種類のプラットフォームで使用できますので、ど�
 •自動バックアップとデータ同期
 •体重減少のほぼ正確な推定
 •あなたの体がどれだけ速くカロリーを燃やすか表示
-•完全な栄養情報
-•調整可能な主要栄養素比（タンパク質、脂肪、および炭水化物）
+•完全な栄養情報 （XXX）
+•調整可能な主要栄養素比（XXXX）
 •高度な検索エンジン
 •カロリー消費に関する統計
 •大規模な食品データベース
@@ -846,8 +846,8 @@ KCals가 어떻게 작동하는지 알아 보시려면, Kcals.net으로 가셔�
 • 자동 백업 및 데이터 동기화
 • 체중감소의 현실적인 추정
 • 칼로리 소모 속도를 보여줌
-• 영양 정보 작성
-• 다량 영양소 비율 조정 (단백질, 지방 및 당질)
+• 영양 정보 작성 (XXX)
+• 다량 영양소 비율 조정 (XXXX)
 • 첨단 검색 엔진
 • 칼로리 소모 통계
 • 대규모 식품 데이터베이스
@@ -900,8 +900,8 @@ Om een idee te krijgen van hoe KCals werkt, ga dan naar Kcals.net en je kan mete
 • Automatische back-up en data synchronisatie
 • Realistische schatting van gewichtsverlies
 • Laat zien hoe snel je lichaam calorieën verbruikt
-• Uitgebreide voedingswaarde-informatie (macronutriënten)
-• Verstelbare macronutriënten-verhouding (vetten, eiwitten en koolhydraten)
+• Uitgebreide voedingswaarde-informatie (XXX)
+• Verstelbare macronutriënten-verhouding (XXXX)
 • Calorie verbruik statistieken
 • Geavanceerde zoek machine
 • Grote database
@@ -954,8 +954,8 @@ Gå til Kcals.net, så du får en idé om hvordan KCals fungerer, og du kan komm
 • Automatisk sikkerhetskopiering og datasynkronisering
 • Realistisk estimering av vekttap
 • Viser, hvor raskt kroppen din forbrenner kalorier
-• Omfattende næringsstoffopplysninger
-• Justerbart makronæringsstofforhold (proteiner, fett og kullhydrater)
+• Omfattende næringsstoffopplysninger (XXX)
+• Justerbart makronæringsstofforhold (XXXX)
 • Avansert søkemaskin
 • Statistikk over kaloriforbruk
 • Stor matdatabase
@@ -1008,8 +1008,8 @@ Aby poczuć, jak Kcals działa, odwiedź stronę Kcals.net, na której możesz o
 • Automatyczne tworzenie kopii zapasowych i synchronizacji danych
 • Realistyczne szacowanie utraty wagi
 • Pokazuje, jak szybko Twój organizm spala kalorie
-• Pełna informacja o wartościach odżywczych
-• Regulowany stosunek makroskładników (białka, tłuszcze i węglowodany)
+• Pełna informacja o wartościach odżywczych (XXX)
+• Regulowany stosunek makroskładników (XXXX)
 • Zaawansowana wyszukiwarka
 • Statystyki dotyczące spożycia kalorii
 • Duża baza danych żywności
@@ -1062,8 +1062,8 @@ KCals este disponibil pe 10 platforme diferite, astfel încât, indiferent de di
 • Copiere de rezervă şi sincronizare de date automată
 • Estimare realistă a scăderii în greutate
 • Arată cât de repede corpul tau arde calorii
-• Informații nutriționale complete
-• Raportul macro-nutrienților ajustabil (proteine, grăsimi și carbohidrați)
+• Informații nutriționale complete (XXX)
+• Raportul macro-nutrienților ajustabil (XXXX)
 • Motor de cautare avansata
 • Statistici privind consumul de calorii
 • Baze de date mare a alimentelor
@@ -1116,8 +1116,8 @@ KCals доступен на 10 различных платформах, поэт
 • Автоматическое резервное копирование и синхронизация
 • Наглядная оценка потери веса
 • Показывает, с какой скоростью ваше тело сжигает калории
-• Полная информация о питании
-• Настраиваемое соотношение макроэлементов
+• Полная информация о питании (XXX)
+• Настраиваемое соотношение макроэлементов (XXXX)
 • Расширенные поисковые возможности
 • Статистика потребления калорий
 • Обширная база продуктов питания
@@ -1170,8 +1170,8 @@ Och för att få en känsla för hur KCals fungerar, gå till Kcals.net och du k
 • Automatisk säkerhetskopiering och datasynkronisering
 • Realistisk uppskattning av viktminskning
 • Visar hur snabbt din kropp bränner kalorier
-• Fullständig näringsinformation
-• Justerbar makronäringsämnes förhållande (proteiner, fetter och kolhydrater)
+• Fullständig näringsinformation (XXX)
+• Justerbar makronäringsämnes förhållande (XXXX)
 • Avancerad sökmotor
 • Statistik över kaloriförbrukning
 • Stor livsmedelsdatabas
@@ -1224,8 +1224,8 @@ KCals'ın nasıl çalıştığına dair bir fikir almak için, Kcals.net adresin
 • Otomatik yedekleme ve veri senkronizasyonu
 • Gerçekçi kilo kaybı tahmini
 • Vücudunuzun ne kadar hızlı kalori yaktığını gösterir
-• Eksiksiz beslenme bilgileri
-• Ayarlanabilir makrobesin oranı (proteinler, yağlar ve karbonhidratlar)
+• Eksiksiz beslenme bilgileri (XXX)
+• Ayarlanabilir makrobesin oranı (XXXX)
 • Gelişmiş arama motoru
 • Kalori tüketimi istatistikleri
 • Geniş gıda veritabanı
@@ -1278,8 +1278,8 @@ Và để có được một cảm nhận về cách làm việc của Klals, h�
 • Sao lưu dữ liệu và đồng bộ hóa tự động
 • Úớc lượng thực tế của việc giảm cân
 • Hiển thị nhanh khi nào cơ thể bạn đốt cháy calo
-• Thông tin dinh dưỡng đầy đủ
-• Tỷ lệ phần dinh dưỡng có thể điều chỉnh (protein, chất béo và đường)
+• Thông tin dinh dưỡng đầy đủ (XXX)
+• Tỷ lệ phần dinh dưỡng có thể điều chỉnh (XXXX)
 • Công cụ tìm kiếm nâng cao
 • Thống kê về mức tiêu thụ calo
 • Cơ sở dữ liệu thực phẩm lớn
@@ -1328,12 +1328,12 @@ KCals可应用于10个不同的平台，所以无论您使用何种设备，您�
 •实时计算卡路里
 •已翻译成26种语言
 •可在10个不同的平台上使用
-•简洁、明了并且直观的操作接口。
+•简洁、明了并且直观的操作接口
 •自动备份并且数据同步共享
 •真实的体重减轻预测
 •呈现身体燃烧卡路里的速率
-•完整的营养信息
-•可调营养素比例
+•完整的营养信息 (XXX)
+•可调营养素比例 (XXXX)
 •先进的搜索引擎
 •热量消耗统计
 •庞大的食品数据库
@@ -1382,12 +1382,12 @@ KCals可應用於10個不同的平臺，所以無論您使用何種設備，您�
 •即時計算卡路里
 •已翻譯成26種語言
 •可在10個不同的平臺上使用
-•簡潔、明瞭並且直觀的操作介面。
+•簡潔、明瞭並且直觀的操作介面
 •自動備份並且資料同步共用
 •真實的體重減輕預測
 •呈現身體燃燒卡路里的速率
-•完整的營養資訊
-•可調營養素比例
+•完整的營養資訊 (XXX)
+•可調營養素比例 (XXXX)
 •先進的搜尋引擎
 •熱量消耗統計
 •龐大的食品資料庫

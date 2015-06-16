@@ -199,31 +199,6 @@ $('body').on('dblclick',function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
 });
-//////////////
-// KEY DUMP //
-//////////////
-/*
-var keyDump = '';
-$.each(LANG.LANGUAGE,function(k,v) {
-	var addThis = '<div>' + v + '</div><div>' +
-	LANG.FOOD[v]     + ',' +
-	LANG.EXERCISE[v] + ',' +
-	LANG.TIME[v]     + ',' +
-	LANG.SURPLUS[v]  + ',' +
-	LANG.DEFICIT[v]  + ',' +
-	LANG.CALORIC[v]  + ',' +
-	LANG.WEIGHT_LOSS[v] + ',' +
-	LANG.KCAL[v]        + ',' +
-	'myfitnesspal,ipad,' +
-	LANG.FATS[v] + ',' +
-	LANG.PROTEINS[v]+ ',' +
-	LANG.CARBS[v];
-	//ADD
-	addThis = (addThis.split(' ').join(','));//.slice(0,100);
-	keyDump += addThis + '</div>';
-});
-$('body').html2(keyDump.toLowerCase());
-*/
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//

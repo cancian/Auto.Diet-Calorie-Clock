@@ -10,9 +10,12 @@ var isCurrentCacheValid = 0;
 <script type="text/javascript" src="js/app_lang.js"></script>
 
 <style>
-ul		{ list-style: none; display: block; padding-bottom: 12px; background-color: #eee; font-size: 16px; font-weight: bold; font-family: arial; height: 20px; line-height: 32px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-li		{ display: inline-block; float: left; width: 3%; text-align: center; }
-li+li	{ border-left: 1px solid #ddd; }
+ul		{ list-style: none; display: block; padding-bottom: 12px; font-weight: bold;  padding-left: 3px;
+background-color: #eee; font-size: 14px; font-family: Verdana; height: 22px; line-height: 32px; 
+-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;  white-space: nowrap;}
+li			{ display: inline-block; float: left; width: 3.5%; text-align: center; text-transform: uppercase; white-space: nowrap; }
+li+li		{ border-left: 1px solid #ccc; }
+li:hover	{ background-color: #007aff; color: #fff }
 </style>
 <ul><li>en</li><li>pt</li><li>ar</li><li>bg</li><li>cs</li><li>da</li><li>de</li><li>el</li><li>es</li><li>fi</li><li>fr</li><li>hu</li><li>it</li><li>id</li><li>ja</li><li>ko</li><li>nl</li><li>nb</li><li>pl</li><li>ro</li><li>ru</li><li>sv</li><li>tr</li><li>vi</li><li>zh</li><li>zt</li></ul>
 <div id='desc'></div>
@@ -29,25 +32,70 @@ function trim(str) {
 }
 
 var hash = 'EN';
-var lowerHash = 'en';
+var lang = 'en';
 if(window.location.hash) {
-	hash     = window.location.hash.substr(1).toUpperCase();
-	lowerHash = window.location.hash.substr(1).toLowerCase()
+	hash = window.location.hash.substr(1).toUpperCase();
+	lang = window.location.hash.substr(1).toLowerCase()
 }
 
 $.ajax({type: 'GET', dataType: 'text', url: 'descriptions.txt', success: function(desc) {
 desc  = desc.split('–' + hash)[1];
 desc  = desc.split(hash + '–')[0];
-desc  = desc.split('$KCALS$').join('<strong style="color: #c30;">' + LANG.CALORIE_COUNTER_FULL_TITLE[lowerHash] + '</strong>');
-desc += '1 - ' + LANG.INTRO_SLIDE_1[lowerHash] + '\n<br>';
-desc += '2 - ' + LANG.INTRO_SLIDE_2[lowerHash] + '\n<br>';
-desc += '3 - ' + LANG.INTRO_SLIDE_3[lowerHash] + '\n<br>';
-desc += '4 - ' + LANG.INTRO_SLIDE_4[lowerHash] + '\n<br>';
-desc += '5 - ' + LANG.INTRO_SLIDE_5[lowerHash] + '\n<br>';
-desc += '6 - ' + LANG.INTRO_SLIDE_6[lowerHash];
+desc = '<strong>:: ' + LANG.THE_ONLY[lang].toUpperCase() + '</strong>' + desc;
+desc  = desc.split('$KCALS$').join('<strong style="color: #c30;">' + LANG.CALORIE_COUNTER_FULL_TITLE[lang] + '</strong>');
+desc += '1 - ' + LANG.INTRO_SLIDE_1[lang] + '\n<br>';
+desc += '2 - ' + LANG.INTRO_SLIDE_2[lang] + '\n<br>';
+desc += '3 - ' + LANG.INTRO_SLIDE_3[lang] + '\n<br>';
+desc += '4 - ' + LANG.INTRO_SLIDE_4[lang] + '\n<br>';
+desc += '5 - ' + LANG.INTRO_SLIDE_5[lang] + '\n<br>';
+desc += '6 - ' + LANG.INTRO_SLIDE_6[lang];
+desc  = desc.split('XXXX').join(LANG.PROTEINS[lang].toLowerCase() + ', ' + LANG.CARBS[lang].toLowerCase() + ', ' + LANG.FATS[lang].toLowerCase());
+desc  = desc.split('XXX').join(LANG.FIBER[lang].toLowerCase() + ', ' + LANG.SUGAR[lang].toLowerCase() + ', ' + LANG.SODIUM[lang].toLowerCase());
 desc  = trim(desc);
 desc  = desc.split('\n').join('\n<br>');
 desc  = trim(desc);
+//////////////
+// KEY DUMP //
+//////////////
+desc = desc + '<br /><br />';
+
+var keyList = 
+LANG.PROTEIN[lang]         + ',' +
+LANG.CARBOHYDRATE[lang]    + ',' +
+LANG.FATT[lang]            + ',' +
+LANG.FIBER[lang]           + ',' +
+LANG.SUGAR[lang]           + ',' +
+LANG.SODIUM[lang]          + ',' +
+LANG.METABOLISM[lang]      + ',' +
+LANG.WEIGHT_LOSS[lang]     + ',' +
+'cancian'                  + ',' +
+LANG.NUTRIENT_TITLE[lang]  + ',' +
+LANG.PER_WEEK[lang].split(' ')[1] + ',' +
+LANG.FEMALE[lang]          + ',' +
+LANG.MALE[lang]            + ',' +
+LANG.CALORIC_BALANCE[lang];
+
+keyList = keyList.split('undefined').join('');
+keyList = keyList.split(' ').join(',');
+keyList = keyList.split(',,').join(',');
+keyList = trim(keyList.toLowerCase());
+
+keyList = keyList.split(',');
+
+keyList0 = '';
+
+  for (var i = 0; i < keyList.length; i++) {
+        if (!keyList0.contains(keyList[i])) {
+            keyList0 = keyList0 + keyList[i] + ',';
+        }
+  }
+
+var keyList1 = keyList0.slice(0,100);
+var keyList2 = keyList0.slice(100,-1);
+
+desc = desc + '<br /><br /><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br /><br />';
+desc = desc + '' + LANG.THE_ONLY[lang] + '<br /><br />';
+
 document.getElementById('desc').innerHTML  = desc;
 }});
 </script>
