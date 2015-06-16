@@ -572,14 +572,14 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 //#///////////#*/
 #getEntryWrapper										{ font-size: 16px; position: relative; padding-top: 6px; }
 #getEntryWrapper div									{ position: relative; display: block; margin-left: 24px; display: block; height: 36px; margin-bottom: 15px; white-space: nowrap; border-bottom: 1px solid #eee; }
-#getEntryWrapper div + div 	{ border-top: 1px solid #eee; }
-#getEntryWrapper input									{ position: absolute; top: 0px; right: 0; width: 100%; border-left: 100px solid rgba(0,0,0,0); font-size: 18px; color: #999; background-color: #fff; border-top: 16px solid rgba(0,0,0,0); border-bottom: 16px solid rgba(0,0,0,0); border-right: 150px solid rgba(0,0,0,0); }
+#getEntryWrapper div + div								{ border-top: 1px solid #eee; }
+#getEntryWrapper input									{ position: absolute; top: 0px; right: 0; width: 100%; border-left: 100px solid rgba(0,0,0,0); font-size: 18px; color: #999; background-color: #fff; border-top: 16px solid rgba(0,0,0,0); border-bottom: 16px solid rgba(0,0,0,0); border-right: 120px solid rgba(0,0,0,0); }
 .android #getEntryWrapper input							{ border-right: 0; }
 .android2 #getEntryWrapper input						{ left: 0; }
 #getEntryWrapper span									{ position: absolute; top: 0px; left: 0; padding: 16px 0; text-transform: capitalize; width: 100px; font-size: 18px; font-weight: 400; float: left; z-index: 100; color: #333; background-color: rgba(0,0,0,0); }
 #getEntryWrapper input:focus							{ color: #0072BC; }
-#getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 2px;  font-family: 'KCals'; content: '\F000'; color: #00c; }
-#getEntryWrapper #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 2px;  font-family: 'KCals'; content: '\F17D'; color: #c30; }
+#getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 5px;  font-family: 'KCals'; content: '\F000'; color: #00c; }
+#getEntryWrapper #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 5px;  font-family: 'KCals'; content: '\F17D'; color: #c30; }
 #getEntryWrapper input[type="text"]						{ border-right: 0; padding-right: 34px; }
 #getEntryWrapper strong 								{ font-weight: normal !important; text-transform: lowercase !important; }
 
