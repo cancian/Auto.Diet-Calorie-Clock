@@ -25,26 +25,22 @@ $(document).ready(function() {
 			app.remove('config_force_localstorage');
 		}
 		//
-		try {
-			//DATABASE SUFFIX
-			var UserDB = 'KCals';
-			/*
-			if(!/mud_default/i.test(app.user)) {
-				UserDB = UserDB + '_' + app.user[0];
-			}
-			*/
-			//load db
-			if(typeof localforageDB !== 'undefined') {
-				localforage.config({driver: dbDriver, name: 'localforage', storeName: UserDB});
+		//DATABASE SUFFIX
+		var UserDB = 'KCals';
+		/*
+		if(!/mud_default/i.test(app.user)) {
+			UserDB = UserDB + '_' + app.user[0];
+		}
+		*/
+		//load db
+		if(typeof localforageDB !== 'undefined') {
+			localforage.config({driver: dbDriver, name: 'localforage', storeName: UserDB});
+			initDB();
+		} else {
+			localforage.config({name: 'localforage', storeName: UserDB});
+			localforage.setDriver(dbDriver).then(function() {
 				initDB();
-			} else {
-				localforage.config({name: 'localforage', storeName: UserDB});
-				localforage.setDriver(dbDriver).then(function() {
-					initDB();
-				});
-			}
-		} catch(error) {
-			app.reboot('reset',error);
+			});
 		}
 	});
 });
@@ -102,7 +98,6 @@ $(window).on('pause',function() {
 //## START APP ##//
 //##///////////##//
 function startApp() {
-try {
 	//fix locked dbs
 	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
 		app.remove('startLock');
@@ -1125,7 +1120,7 @@ if(app.is.scrollable) {
 		});
 	}
 	if(app.device.desktop) {
-		$('#timerDailyInput').attr('type','text');
+		$('#timerDailyInput').prop('type','text');
 	}
 	
 	//YUI COMPRESSOR
@@ -1139,7 +1134,7 @@ if(app.is.scrollable) {
 	},function() {
 		//FOCUS
 		if(app.device.desktop) {
-			$('#timerDailyInput').attr('type','number');
+			$('#timerDailyInput').prop('type','number');
 		}
 		if($('#pageSlideFood').html() || $('#newWindow').html()) {
 			$('#timerDailyInput').trigger('blur');
@@ -1156,7 +1151,9 @@ if(app.is.scrollable) {
 		if(app.device.desktop) {
 			setTimeout(function() {
 				if(!$('#timerDailyInput').is(':focus')) {
-					$('#timerDailyInput').attr('type','text');
+					//$('#timerDailyInput').attr('type','text');
+					//$('#timerDailyInput').get(0).type = 'text';
+					$('#timerDailyInput').prop('type','text');
 				}
 			},420);
 		}
@@ -1221,12 +1218,6 @@ if(app.is.scrollable) {
 		return this[fn ? 'on' : 'trigger'](_, fn);
 	};
 })(jQuery, 'tap');
-///////
-///////
-///////
-} catch(error) {
-	app.reboot('reset',error);
-}
 ////#//
 } //#//
 ////#//
