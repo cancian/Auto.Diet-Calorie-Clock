@@ -288,6 +288,7 @@ app.tab.status = function(keepOpen) {
 		</div>\
 		<div id="appStatusBlock2">' + statusBlock2 + '</div>\
 		<div id="appStatusBalance" class=" ' + app.read('cssOver') + '"><div><p>' + app.read('appBalance') + '</p><span>' + LANG.CALORIC_BALANCE[lang] + '</span><div id="balanceBar"></div></div></div>\
+		<div id="appStatusIntakeOver"></div>\
 		<div id="appStatusIntake">' + app.read('appStatusIntake') + '</div>\
 		<div id="appStatusBars">\
 			<div id="appStatusBarsPro"><p>' + LANG.PROTEINS[lang].toUpperCase() + '</p><span>0%</span></div>\
@@ -367,16 +368,13 @@ app.tab.status = function(keepOpen) {
 	//////////////////
 	// HISTORY MENU //
 	//////////////////
-	app.handlers.activeRow('#appStatusIntake','button',function(evt) {
+	app.handlers.activeRow('#appStatusIntakeOver','button',function(evt) {
 		//evt.preventDefault();
 		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getFullHistory();
 	});
-	$('#appStatusIntake').on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-	});
+
 	////////////////
 	// NUTRI MENU //
 	////////////////

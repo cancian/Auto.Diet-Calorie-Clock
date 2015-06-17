@@ -1,19 +1,29 @@
+## ENCODING
 Options -Indexes
 SetEnv TZ America/Sao_Paulo
 AddDefaultCharset UTF-8
-#
+
+## MIME
 AddType font/ttf .ttf
 AddType application/font-woff .woff
 AddType application/x-web-app-manifest+json .webapp
 AddType text/cache-manifest .manifest
 AddType text/cache-manifest .appcache
 AddType text/plain .db
-#
-ExpiresActive On
-ExpiresDefault now
-#
+
+## CROSS-ORIGIN
 Header add Access-Control-Allow-Origin "*"
-Header set Cache-Control "max-age=0"
-Header unset ETag
-#
-AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript font/ttf application/font-woff
+
+## NO CACHE ~ USE MANIFEST
+<filesMatch "\.(html|php|js|css|ttf|cur|ico|png|appcache|json|webapp|txt|db|sql)$">
+  FileETag None
+  <ifModule mod_headers.c>
+     Header unset ETag
+     Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+     Header set Pragma "no-cache"
+     Header set Expires "Fri, 19 Feb 1982 05:00:00 GMT"
+  </ifModule>
+</filesMatch>
+
+## COMPRESS
+AddOutputFilterByType DEFLATE text/html text/javascript text/css text/plain font/ttf

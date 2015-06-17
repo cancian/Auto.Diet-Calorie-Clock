@@ -300,7 +300,7 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 /*#################################
 ####    BUILD: APP SETTINGS    ####
 #################################*/
-#settingsWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; /*background-image: -webkit-linear-gradient(#f2f5f6,#f2f4f6);*/ font-size: 13px; -webkit-backface-visibility: hidden; }
+#settingsWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; /*background-image: -webkit-linear-gradient(#f2f5f6,#f2f4f6);*/ font-size: 13px; -webkit-backface-visibility: hidden; min-height: 267px; }
 /*list*/
 ul#settingsList						{ display: block; background-color: #fff; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; }
 ul#settingsList li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden;  }
@@ -726,12 +726,14 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 /*.balanced #appStatusBalance #balanceBar:after	{ color: #5277FF; }*/
 .surplus #appStatusBalance #balanceBar:after	{ color: #309030; }
 /**/
-#appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; }
+#appStatusIntakeOver,
+#appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; z-index: 1; }
 #appStatusIntake div			{ padding-top: 0px; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0px solid #000; }
 #appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
 #appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #D55621; position: absolute; top: 0; right: 24%; }
 #appStatusIntake .highcharts-container { pointer-events: none; }
+#appStatusIntakeOver			{ background-color: rgba(0,0,0,.0); z-index: 2; }
 /**/
 #appStatusAddLeft,
 #appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; color: #fff; font-size: 18px; line-height: 18px; display: inline-block; padding-top: 2px; white-space: nowrap; z-index: 10; }
