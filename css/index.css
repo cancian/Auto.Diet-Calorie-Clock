@@ -93,7 +93,7 @@ body.over.surplus #appHeader	{ background-color: #309030 !important; font-weight
 /*////////////////
 // online users //
 ////////////////*/
-#onlineUsers					{ position: absolute; bottom: 109px; right: 15px; display: block; width: 150px; height: 15px; font-size: 10px; line-height: 10px; color: #aaa; text-align: right; pointer-events: none; white-space: nowrap; }
+#onlineUsers					{ position: absolute; bottom: 97px; right: 3px; display: block; width: 150px; height: 15px; font-size: 10px; line-height: 10px; color: #aaa; text-align: right; pointer-events: none; white-space: nowrap; }
 #onlineUsers span				{ color: #777; }
 /*///////////////
 // status tips //
@@ -292,9 +292,11 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 #gettingStarted span#balanced,
 #gettingStarted span#surplus			{ font-size: 16px; line-height: 16px; }
 }
+/*
 @media all and (max-height: 438px) {
 	#appStatusBars		{ display: none !important; }
 }
+*/
 /*#################################
 ####    BUILD: APP SETTINGS    ####
 #################################*/
@@ -636,7 +638,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
-#statusWrapper						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; margin: 12px; overflow: hidden; line-height: 16px; /*background-color: #fff;*/ }
+#statusWrapper						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; margin: 12px; overflow: hidden; line-height: 16px; /*background-color: #fff;*/ min-height: 330px; }
 /**/
 #appStatusElapsed					{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusElapsed div				{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }

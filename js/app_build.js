@@ -281,7 +281,6 @@ app.tab.status = function(keepOpen) {
 	//RAW HTML
 	var statusHtml = '\
 	<a name="top"></a>\
-	<div id="onlineUsers">' + LANG.ACTIVE_USERS[lang] + ': <span>' + app.read("online_users") + '<span></div>\
 	<div id="statusWrapper">\
 		<div id="appStatusElapsed"><div><p></p><span></span></div>\
 		<div id="elapsedIndicators"><div id="ind1"></div><div id="ind2"></div><div id="ind3"></div></div>\
@@ -300,6 +299,7 @@ app.tab.status = function(keepOpen) {
 				<div id="appStatusBarsSod"><p>' + LANG.SODIUM[lang].toUpperCase() + '</p><div>0 / 600mg</div></div>\
 			</div>\
 		</div>\
+		<div id="onlineUsers">' + LANG.ACTIVE_USERS[lang] + ': <span>' + app.read("online_users") + '<span></div>\
 		<div id="appStatusAddLeft"><div>'  + LANG.FOOD[lang]     + '</div></div>\
 		<div id="appStatusAddRight"><div>' + LANG.EXERCISE[lang] + '</div></div>\
 		<div id="appStatusFix">\
@@ -330,62 +330,66 @@ app.tab.status = function(keepOpen) {
 	//////////////////
 	// ELAPSED SWAP //
 	//////////////////
-	$('#appStatusElapsed').on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
+	app.handlers.activeRow('#appStatusElapsed','button',function(evt) {
+		//evt.preventDefault();
+		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getElapsed('next');
 	});
 	//info block
-	$('#elapsedInfo').on(touchstart,function(evt) {
-		evt.stopPropagation();
+	app.handlers.activeRow('#elapsedInfo','button',function(evt) {
+		//evt.stopPropagation();
 		getNewWindow('Help: Elapsed Time / Relative Time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Elapsed Time / Relative Time'] + '</div>');
 	});
 	////////////////
 	// LIMIT MENU //
 	////////////////
-	$('#appStatusBalance').on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
+	app.handlers.activeRow('#appStatusBalance','button',function(evt) {
+		//evt.preventDefault();
+		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getLimitMenu();
 	});	
 	/////////////////
 	// CYCLIC MENU //
 	/////////////////
-	$('#appStatusBlock2').on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
+	app.handlers.activeRow('#appStatusBlock2','button',function(evt) {
+		//evt.preventDefault();
+		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		updateTodayOverview(1);
 	});
 	//cyclic block
-	$('#todayInfo').on(touchstart,function(evt) {
-		evt.stopPropagation();
+	app.handlers.activeRow('#todayInfo','button',function(evt) {
+		//evt.stopPropagation();
 		getCyclicMenu();
 	});
 	//////////////////
 	// HISTORY MENU //
 	//////////////////
+	app.handlers.activeRow('#appStatusIntake','button',function(evt) {
+		//evt.preventDefault();
+		//evt.stopPropagation();
+		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
+		getFullHistory();
+	});
 	$('#appStatusIntake').on(touchstart,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
-		getFullHistory();
 	});
 	////////////////
 	// NUTRI MENU //
 	////////////////
-	$('#appStatusBars').on(touchstart,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
+	app.handlers.activeRow('#appStatusBars','button',function(evt) {
+		//evt.preventDefault();
+		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getNutriSliders();
 	});
 	//#///////////#//
 	//# START BAR #//
 	//#///////////#//
-	$('#appStatusTitle').on(touchend,function(evt) {
+	app.handlers.activeRow('#appStatusTitle','button',function(evt) {
 		if(app.read('appStatus','running')) {
 			function appReset(button) {
 				//ON CONFIRM
@@ -425,7 +429,7 @@ app.tab.status = function(keepOpen) {
 			/////////////////////////
 			app.info('close_to_zero',LANG.CLOSE_TO_ZERO[lang]);
 		}
-		evt.preventDefault();
+		//evt.preventDefault();
 	});
 	//#/////////////#//
 	//# ADD BUTTONS #//
@@ -445,9 +449,9 @@ app.tab.status = function(keepOpen) {
 		}
 	});
 	*/
-	$('#appStatusAddLeft').on(touchstart,function(evt) {
+	app.handlers.activeRow('#appStatusAddLeft','button',function(evt) {
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
-		evt.preventDefault();
+		//evt.preventDefault();
 		if(!$('#pageSlideFood').hasClass('busy')) {
 			app.save('searchType','food');
 		} else {
@@ -455,9 +459,9 @@ app.tab.status = function(keepOpen) {
 		}
 		$(document).trigger('pageReload');
 	});
-	$('#appStatusAddRight').on(touchstart,function(evt) {
+	app.handlers.activeRow('#appStatusAddRight','button',function(evt) {
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
-		evt.preventDefault();
+		//evt.preventDefault();
 		if(!$('#pageSlideFood').hasClass('busy')) {
 			app.save('searchType','exercise');
 		} else {
@@ -500,12 +504,12 @@ app.tab.status = function(keepOpen) {
 		useShortLabels: true
     });
 	}
-	$('#startDate').on(touchstart,function(evt) {
+	app.handlers.activeRow('#startDate','button',function(evt) {
 		if(app.device.android && app.device.android < 4.4)  {
 			//
 		} else {
-			evt.preventDefault();
-			evt.stopPropagation();	
+			//evt.preventDefault();
+			//evt.stopPropagation();	
 			$('#startDate').click();
 			return false;
 		}
@@ -525,7 +529,7 @@ app.tab.status = function(keepOpen) {
 	/////////////////
 	// RELOAD ICON //
 	/////////////////
-	app.handlers.activeRow('#appStatusReload','false',function(evt) {
+	app.handlers.activeRow('#appStatusReload','button',function(evt) {
 		$('#startDateBar').hide();
 		$('#appStatusReload').off('longhold');
 		afterHide();

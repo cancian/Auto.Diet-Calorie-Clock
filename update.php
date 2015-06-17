@@ -7,7 +7,7 @@ header('cache-control: no-cache');
 //////////////////
 $ip      = $_SERVER['REMOTE_ADDR'];
 $time    = time();
-$minutes = 1440;
+$minutes = 60 * 60 * 72;
 $found   = 0;
 $users   = 0;
 $user    = '';
@@ -33,7 +33,7 @@ foreach ($user as $line) {
 	if ($savedip == $ip) { 
 		$savedtime = $time;$found = 1;
 	}
-	if ($time < $savedtime + ($minutes * 60)) {
+	if ($time < $savedtime + ($minutes)) {
 		fputs($f,"$savedip|$savedtime\n");
 		$users = $users + 1;
 	}

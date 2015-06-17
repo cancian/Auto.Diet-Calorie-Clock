@@ -65,6 +65,15 @@ MKDIR K:\platforms\bb10\www
 cd K:\platforms\bb10\www
 call reswww 
 
+cd \ 
+DELTREE /Y /Z /S /Q /T K:\platforms\bb10\platforms\blackberry10\www
+RD /S /Q K:\platforms\bb10\platforms\blackberry10\www
+MKDIR K:\platforms\bb10\platforms\blackberry10\www
+cd K:\platforms\bb10\platforms\blackberry10\www
+call reswww 
+DELTREE /Y /Z /S /Q /T K:\platforms\bb10\platforms\blackberry10\build
+RD /S /Q K:\platforms\bb10\platforms\blackberry10\build
+
 REM "CONFIG.XML"
 cd \ 
 del /q K:\platforms\android\kcals\src\main\res\xml\config.xml 
