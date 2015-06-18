@@ -13,7 +13,7 @@
 • Auto-Share custom items (every custom item added becomes available to all users)
 • Choose the food database language independently from the current system language
 
-# 1.9.5 [2015/06/17]
+# 1.9.5 [2015/06/18]
 • Filter redundant DOM updates to improve overall performance
 • Track fiber, sugar, and sodium
 • Users can request new features via Suggestion Box
@@ -21,6 +21,7 @@
 • Toggle between help/content on Today Overview and Cyclical Mode menus
 • Fixed issue with decimals being incorrectly rounded to zero for values below 1
 • The Status tab can be scrolled (for smalls screens)
+• Optimized transitions (CSS)
 
 # 1.9.4 [2015/05/15]
 • Bootloop recovery system: users now can manually erase corrupted application cache by tapping the screen while the app is loading
