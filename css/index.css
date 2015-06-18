@@ -638,7 +638,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
-#statusWrapper						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; margin: 12px; overflow: hidden; line-height: 16px; /*background-color: #fff;*/ min-height: 330px; }
+#statusWrapper						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; border: 12px solid #fff; overflow: hidden; line-height: 16px; background-color: #fff; min-height: 354px; }
 /**/
 #appStatusElapsed					{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusElapsed div				{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
