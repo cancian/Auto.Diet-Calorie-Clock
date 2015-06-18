@@ -250,14 +250,17 @@ var app = {
 // CUSTOM JQUERY //
 ///////////////////
 $.prototype.html2 = function (data, callback) {
-	var selector = this.selector;
-	if(selector.indexOf('#') !== -1 && selector.indexOf(' ') === -1) {
-		var el = document.getElementById(selector.replace('#',''));
-		if(el) {
-			if(el.innerHTML != data) {
-				safeExec(function () {
-					el.innerHTML = data;
-				});
+	var selector = this;
+	if(selector.selector) {
+		selector = selector.selector
+		if(selector.indexOf('#') !== -1 && selector.indexOf(' ') === -1) {
+			var el = document.getElementById(selector.replace('#',''));
+			if(el) {
+				if(el.innerHTML != data) {
+					safeExec(function () {
+						el.innerHTML = data;
+					});
+				}
 			}
 		}
 	} else {

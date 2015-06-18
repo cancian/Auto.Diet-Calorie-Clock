@@ -105,28 +105,25 @@ app.tab.settings = function(keepOpen) {
 		/////////////////
 		getNewWindow('KCals ' + appVersion, aboutHtml, aboutHandler);
 	};
-	$('#optionWebsite').on(touchend,function(evt) {
+	app.handlers.activeRow('#optionWebsite','activeRow',function(evt) {
 		app.about();
 	});
 	//////////////
 	// HELP TAP //
 	//////////////
-	$('#optionHelp').on(touchend,function(evt) {
-		$(this).addClass('activeRow');
-		evt.preventDefault();
+	app.handlers.activeRow('#optionHelp','activeRow',function(evt) {
 		buildHelpMenu();
-		return false;
 	});	
 	//////////////
 	// LANG TAP //
 	//////////////
-	$('#optionLang').on(touchend,function(evt) {
+	app.handlers.activeRow('#optionLang','activeRow',function(evt) {
 		buildLangMenu();
 	});
 	////////////////////////
 	// SETTINGS: FACEBOOK //
 	////////////////////////
-	$('#optionFacebook').on(touchend, function(evt) {
+	app.handlers.activeRow('#optionFacebook','activeRow',function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		//fix exception 18
@@ -145,51 +142,20 @@ app.tab.settings = function(keepOpen) {
 			}
 		}
 	});
-	//TOGGLE ACTIVE
-	$('#optionFacebook').on(touchstart,function(evt) {
-		evt.preventDefault();
-		$('#optionFacebook').addClass('activeRow');
-	});
-	$('#optionFacebook').on(touchend + ' mouseout',function(evt) {
-		$('#optionFacebook').removeClass('activeRow');
-	});
 	//SET USERNAME (IF LOGGED)
 	if(app.read('facebook_username') && app.read('facebook_logged')) {
 		$('#optionFacebook span').html2(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
 	}
-	////////////////
-	// ACTIVE ROW //
-	////////////////
-	$('#settingsList li').on(touchstart,function(evt) {
-		evt.preventDefault();
-		$(this).addClass('activeRow');
-	});
-	$('#settingsList,#settingsList li').on(touchend + ' mouseout',function(evt) {
-		$('.activeRow').removeClass('activeRow');
-		evt.preventDefault();
-	});
 	////////////////////////
 	// SETTINGS: ADVANCED //
 	////////////////////////
-	$('#optionAdvanced').on(touchend, function(evt) {
+	app.handlers.activeRow('#optionAdvanced','activeRow',function(evt) {
 		buildAdvancedMenu();
-	});
-	$('#optionAdvanced').on(touchstart,function(evt) {
-		evt.preventDefault();
-		$('#optionAdvanced').addClass('activeRow');
-	});
-	$('#optionAdvanced').on(touchend + ' mouseout',function(evt) {
-		$('#optionAdvanced').removeClass('activeRow');
 	});
 	///////////////////////////
 	// SETTINGS: UNIT TOGGLE //
 	///////////////////////////
-	$('#optionMeasure').on(touchstart,function(evt) {
-		evt.preventDefault();
-	});	
-	$('#leftOption').on(touchstart,function(evt){
-		evt.preventDefault();
-		evt.stopPropagation();
+	app.handlers.activeRow('#leftOption','button',function(evt) {
 		$('#leftOption').addClass('toggle');
 		$('#rightOption').removeClass('toggle');
 		//AUTO CONVERT
@@ -211,9 +177,7 @@ app.tab.settings = function(keepOpen) {
 		app.save('calcForm#pA6N','pounds');
 		setPush();
 	});
-	$('#rightOption').on(touchstart,function(evt){
-		evt.preventDefault();
-		evt.stopPropagation();
+	app.handlers.activeRow('#rightOption','button',function(evt) {
 		$('#rightOption').addClass('toggle');
 		$('#leftOption').removeClass('toggle');
 		//AUTO CONVERT
