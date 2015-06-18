@@ -71,7 +71,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#appContent							{ position: absolute; top: 65px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: hidden; -webkit-backface-visibility: hidden; }
+#appContent							{ position: absolute; top: 65px; left: 0; right: 0; width: 100%; max-width: 100%; bottom: 44px; display: block; background-color: #fff; overflow: auto; -webkit-backface-visibility: hidden; }
 /*.msie.newwindow #appContent		{ overflow: hidden; }*/
 body.android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
 body.android2 #appContent			{ top: 0; border-top: 65px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
@@ -1199,7 +1199,7 @@ span.preSpan			{ font-size: 11px; padding-right: 4px; color: #2157D6; }
 .appLang-ar .preSpan,
 .appLang-ja .preSpan	{ font-size: 9px; padding-right: 2px; }
 /**/
-.exerciseType span.preSpan { color: #D55621; }
+.exerciseType span.preSpan,
 .exerciseType div.foodName { color: #D55621; }
 .exerciseType span.foodKcal,
 .exerciseType span.foodPro,
@@ -1211,8 +1211,9 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .ios7 #appHeader:before 			{ padding-top: 24px; }
 .android44 #appHeader:before		{ padding-top: 11px; }
 #appHeader.open:before				{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
-/*android scroll blur fix*/
-.closer #appContent					{ -webkit-transform: translate3d(-99999px, 0, 0); }
+/*hide background while searching*/
+.closer #appContent					{ z-index: -1; visibility: hidden; -webkit-transform: translate3d(-99999px,0,0); -webkit-perspective: 800; overflow: hidden; opacity: 0; pointer-events: none; }
+.closer #appContent *				{ pointer-events: none; }
 /*search nutri colors*/
 .searcheable.food span.preSpan		{ color: #2157D6; }
 .searcheable.food div.foodName		{ color: #2157D6; }
@@ -1220,7 +1221,7 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .searcheable.food span.foodPro,
 .searcheable.food span.foodFat,
 .searcheable.food span.foodCar		{ color: #000; }
-.searcheable.exercise span.preSpan	{ color: #D55621; }
+.searcheable.exercise span.preSpan,
 .searcheable.exercise div.foodName	{ color: #D55621; }
 .searcheable.exercise span.foodKcal,
 .searcheable.exercise span.foodPro,
@@ -1298,16 +1299,12 @@ span#fatData			{ top: 28px; font-variant: normal; color: #666; }
 span#proLabel			{ top:  0px; text-align: left; left: 67px; color: #666; }
 span#carLabel			{ top: 14px; text-align: left; left: 67px; color: #666; }
 span#fatLabel			{ top: 28px; text-align: left; left: 67px; color: #666; }
-
 span#fiiData			{ top:  0px; font-variant: normal; color: #666; left: auto; right: 67px; }
 span#sugData			{ top: 14px; font-variant: normal; color: #666; left: auto; right: 67px; }
 span#sodData			{ top: 28px; font-variant: normal; color: #666; left: auto; right: 67px; }
-
 span#fiiLabel			{ top:  0px; display: block; width: 22px; text-align: left; left: auto; right: 30px; color: #666; }
 span#sugLabel			{ top: 14px; display: block; width: 22px;text-align: left; left: auto; right: 30px; color: #666; }
 span#sodLabel			{ top: 28px; display: block; width: 22px;text-align: left; left: auto; right: 30px; color: #666; }
-
-
 /*modal delete*/
 #modalDelete:before			{ content: '\f014'; font-family: 'KCals'; font-size: 30px; position: absolute; top: -65px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
 #modalDelete.button:before	{ color: #ccc; }
