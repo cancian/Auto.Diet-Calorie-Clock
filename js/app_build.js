@@ -53,7 +53,6 @@ app.tab.settings = function(keepOpen) {
 		$('#optionLastSync span').html2(dateDiff(app.read('lastSync'),app.now()));
 	}
 	$('#optionLastSync').on(touchend,function(evt) {
-		evt.preventDefault();
 		if(!$('body').hasClass('insync')) {
 			syncEntries(app.read('facebook_userid'));
 		}
@@ -124,8 +123,6 @@ app.tab.settings = function(keepOpen) {
 	// SETTINGS: FACEBOOK //
 	////////////////////////
 	app.handlers.activeRow('#optionFacebook','activeRow',function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
 		//fix exception 18
 		if(app.device.android) {
 			updateFoodDb();
@@ -296,22 +293,17 @@ app.tab.status = function(keepOpen) {
 	// ELAPSED SWAP //
 	//////////////////
 	app.handlers.activeRow('#appStatusElapsed','button',function(evt) {
-		//evt.preventDefault();
-		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getElapsed('next');
 	});
 	//info block
 	app.handlers.activeRow('#elapsedInfo','button',function(evt) {
-		//evt.stopPropagation();
 		getNewWindow('Help: Elapsed Time / Relative Time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Elapsed Time / Relative Time'] + '</div>');
 	});
 	////////////////
 	// LIMIT MENU //
 	////////////////
 	app.handlers.activeRow('#appStatusBalance','button',function(evt) {
-		//evt.preventDefault();
-		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getLimitMenu();
 	});	
@@ -319,22 +311,17 @@ app.tab.status = function(keepOpen) {
 	// CYCLIC MENU //
 	/////////////////
 	app.handlers.activeRow('#appStatusBlock2','button',function(evt) {
-		//evt.preventDefault();
-		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		updateTodayOverview(1);
 	});
 	//cyclic block
 	app.handlers.activeRow('#todayInfo','button',function(evt) {
-		//evt.stopPropagation();
 		getCyclicMenu();
 	});
 	//////////////////
 	// HISTORY MENU //
 	//////////////////
 	app.handlers.activeRow('#appStatusIntakeOver','button',function(evt) {
-		//evt.preventDefault();
-		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getFullHistory();
 	});
@@ -343,8 +330,6 @@ app.tab.status = function(keepOpen) {
 	// NUTRI MENU //
 	////////////////
 	app.handlers.activeRow('#appStatusBars','button',function(evt) {
-		//evt.preventDefault();
-		//evt.stopPropagation();
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getNutriSliders();
 	});
