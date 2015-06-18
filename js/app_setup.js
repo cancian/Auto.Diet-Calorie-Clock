@@ -1228,17 +1228,17 @@ function pageLoad(target,content,published) {
 
 			if(i == 1) {
 				$('#entryList').html2(content,function() {
-					$('#entryList div').animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000);
+					app.highlight('#entryList div',1000,'#ffffcc'); 
 				});
 			//match div before
 			} else if($('#entryList>div:eq(' + entryPos + ')').html()) {
 				$('#entryList>div:eq(' + entryPos + ')').before2(content,function() {
-					$('#entryList>div:eq(' + entryPos + ')').animate({ backgroundColor: '#ffffcc' }, 1 ).animate({ backgroundColor: '#fff' },1000);
+					app.highlight('#entryList>div:eq(' + entryPos + ')',1000,'#ffffcc'); 
 				});
 			} else {
 				//append if none
 				$('#entryList').append2(content,function() {
-					$('#' + published).animate({ backgroundColor: '#ffffcc' }, 1).animate({ backgroundColor: '#fff' },1000);
+					app.highlight('#' + published,1000,'#ffffcc'); 
 				});
 			}
 

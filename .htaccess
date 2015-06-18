@@ -11,9 +11,19 @@ AddType text/cache-manifest .manifest
 AddType text/cache-manifest .appcache
 AddType text/plain .db
 
-Header unset ETag
+## NO CACHE
+<filesMatch "\.(php|js|css|ttf|cur|ico|png|appcache|json|webapp|txt|db)$">
+  FileETag None
+  <ifModule mod_headers.c>
+     Header unset ETag
+     Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+     Header set Pragma "no-cache"
+     Header set Expires "Fri, 19 Feb 1982 05:00:00 GMT"
+  </ifModule>
+</filesMatch>
+
 ## CROSS-ORIGIN
 Header add Access-Control-Allow-Origin "*"
 
 ## COMPRESS
-AddOutputFilterByType DEFLATE text/html text/javascript text/css text/plain font/ttf
+AddOutputFilterByType DEFLATE text/html text/javascript text/css text/xml text/plain font/ttf application/font-woff text/cache-manifest application/x-web-app-manifest+json

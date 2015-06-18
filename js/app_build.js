@@ -1700,14 +1700,17 @@ app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
 		},200);
 		//HIGHLIGHT
 		$('#' + thisId).addClass('tapActive');
-		$('#' + thisId).stop().animate({ backgroundColor: 'rgba(255,255,0,0.2)' }, 1).animate({ backgroundColor: 'rgba(255,255,255,0.2)' }, 450);
+		app.highlight('#' + thisId,1000,'rgba(255,240,0,0.4)'); 
 		setTimeout (function() { $('#pA7B,#pA7F,#pA7L').removeClass('tapActive'); }, 200);
 		updateTimer();
 	} else {
 		//shake error
+		$('#' + thisId).parent('div').addClass('tapActive shake');
 		$('#' + thisId).addClass('tapActive');
-		setTimeout (function() { $('#pA7B,#pA7F,#pA7L').removeClass('tapActive'); }, 400);
-		$('#' + thisId).stop().parent('div').effect('shake',{times:3,direction:'left',distance:6}, 300);
+		setTimeout (function() { 
+			$('.tapActive').removeClass('tapActive');
+			$('.shake').removeClass('shake');			
+		}, 400);
 	}
 });
 //////////////////////////////

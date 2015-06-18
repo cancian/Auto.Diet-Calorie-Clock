@@ -911,6 +911,21 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 #calcForm input:active,
 #calcForm select:focus,
 #calcForm select:active					{ color: #0072BC; }
+/*shake animation*/
+@-webkit-keyframes shake { 
+	 0% { -webkit-transform: translateX(0);    } 
+	10% { -webkit-transform: translateX(0);    } 
+	20% { -webkit-transform: translateX( 9px); } 
+	30% { -webkit-transform: translateX(-9px); } 
+	40% { -webkit-transform: translateX( 9px); } 
+	50% { -webkit-transform: translateX(-9px); } 
+	60% { -webkit-transform: translateX( 9px); } 
+	70% { -webkit-transform: translateX(-9px); } 
+	80% { -webkit-transform: translateX(0);    } 
+	90% { -webkit-transform: translateX(0);    } 
+   100% { -webkit-transform: translateX(0);    } 
+}
+.shake	{ -webkit-animation: shake 500ms 1 linear; -webkit-animation-play-state: running; pointer-events: none; -webkit-user-select: none; }
 /*##############################
 ####    BUILD: APP DIARY    ####
 ##############################*/

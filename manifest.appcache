@@ -32,8 +32,6 @@ js/min/openfb.js
 # JQUERY
 js/min/iscroll.js
 js/min/jquery.js
-js/min/jquery.ui.js
-js/min/jquery.color.js
 js/min/jquery.nicescroll.js
 js/min/jquery.touchswipe.js
 js/min/localforage.js

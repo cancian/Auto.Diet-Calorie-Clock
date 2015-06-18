@@ -170,9 +170,8 @@ $(document).on("pageload", function (evt) {
 								$(this).replaceWith(new_value);
 								$('#kcalsAdjust').remove();
 								$('#kcalsDiv').parent("div").removeClass("editing");
-								$('#kcalsDiv').parent("div").animate({
-									"backgroundColor" : "#fff"
-								}, 500, function (evt) {
+								var highTarget = $('#kcalsDiv').parent("div");
+								app.highlight(highTarget,300,'#ffffcc','#fff',function () {
 									eP = 0;
 									deKeyboard = (new Date()).getTime();
 									return false;
@@ -331,10 +330,9 @@ $(document).on("pageload", function (evt) {
 						// FOCUS, THEN SET VALUE
 						//$("#editableInput").select();
 						$("#editableInput").focus();
-						$(this).closest("div").animate({
-							"backgroundColor" : "#ffffcc"
-						}, 600);
-						$(this).closest("div").addClass("editing");
+						var closeTarget = $(this).closest("div");
+						app.highlight(closeTarget,300,'#ffffff','#ffffcc');
+						closeTarget.addClass("editing");
 						$("#sliderBlock").remove();
 						$("#entryListForm").prepend2("<div id='sliderBlock'></div>");
 						//blur block
@@ -704,39 +702,26 @@ $(document).on("pageReload", function (evt) {
 						//////////////////////
 						$('#iconRefresh').on(touchstart, function (evt) {
 							//toggle -if not animated
-							if (!$("#foodSearch").hasClass('busy')) {
-								$("#foodSearch").toggleClass("exerciseType");
-								$("#pageSlideFood").toggleClass("exerciseType");
-								//enforce iconClear
-								$('#searchContents').hide();
-								$('#menuTopBar').show();
-								$('#infoContents').show();
-								//update placeholder n' animate
-								if ($("#foodSearch").hasClass("exerciseType")) {
-									app.save('searchType','exercise');
-									$("#foodSearch").attr('placeholder', LANG.EXERCISE_SEARCH[lang]);
-									$("#foodSearch").addClass('busy');
-									$("#foodSearch").animate({
-										backgroundColor : "#FECEC6"
-									}, 1).animate({
-										backgroundColor : "#fff"
-									}, 600, function () {
-										$("#foodSearch").removeClass('busy');
-									});
-								} else {
-									app.remove('searchType');
-									$("#foodSearch").attr('placeholder', LANG.FOOD_SEARCH[lang]);
-									$("#foodSearch").addClass('busy');
-									$("#foodSearch").animate({
-										backgroundColor : "#BBE4FF"
-									}, 1).animate({
-										backgroundColor : "#fff"
-									}, 600, function () {
-										$("#foodSearch").removeClass('busy');
-									});
-								}
+							$('#iconRefresh').css('pointer-events','none');
+							$("#foodSearch").toggleClass("exerciseType");
+							$("#pageSlideFood").toggleClass("exerciseType");
+							//enforce iconClear
+							$('#searchContents').hide();
+							$('#menuTopBar').show();
+							$('#infoContents').show();
+							//update placeholder n' animate
+							if ($("#foodSearch").hasClass("exerciseType")) {
+								app.save('searchType','exercise');
+								$("#foodSearch").prop('placeholder', LANG.EXERCISE_SEARCH[lang]);
+								app.highlight('#foodSearch',500,'#FECEC6','#ffffff');
+							} else {
+								app.remove('searchType');
+								$("#foodSearch").prop('placeholder', LANG.FOOD_SEARCH[lang]);
+								app.highlight('#foodSearch',500,'#BBE4FF','#ffffff');
 							}
-							return false;
+							app.timeout('#iconRefresh',500,function() {
+								$('#iconRefresh').css('pointer-events','auto');
+							});
 						});
 						/////////////////////////////////////////
 						// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //

@@ -234,6 +234,13 @@ afterTab = function(keepOpen) {
 	app.timeout('tab',1000,function() {
 		app.analytics('tab');
 	});
+	//enforce removal
+	if(!$('#skipIntro').length) {
+		if(typeof myScroll !== 'undefined') {
+			myScroll.destroy();
+		}
+		$('#iScrollTag').remove();
+	}
 };
 appFooter = function (id,keepOpen,callback) {
 	if(app.now() - lastTab < 275) { lastTab = app.now(); return; }

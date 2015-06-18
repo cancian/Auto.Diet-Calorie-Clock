@@ -251,6 +251,7 @@ var app = {
 ///////////////////
 $.prototype.html2 = function (data, callback) {
 	var selector = this;
+/*
 	if(selector.selector) {
 		selector = selector.selector
 		if(selector.indexOf('#') !== -1 && selector.indexOf(' ') === -1) {
@@ -264,6 +265,7 @@ $.prototype.html2 = function (data, callback) {
 			}
 		}
 	} else {
+*/		
 		var obj = $(selector);
 		if (obj.length) {
 			if (obj.html() !== data) {
@@ -272,7 +274,7 @@ $.prototype.html2 = function (data, callback) {
 				});
 			}
 		}
-	}
+	//}
 	if (typeof callback === 'function') {
 		callback();
 	}
@@ -1586,13 +1588,30 @@ function trimDot(x) {
 //////////////
 // HIGHLIGH //
 //////////////
-function highlight(targetId,startColor,endColor,fadeTime) {
-	//$(targetId).animate({backgroundColor : "#ff8"}, 1).animate({backgroundColor : "rgba(255,255,255,0.36)"}, 1500);
-	if(!startColor) { startColor = '#ff8'; }
-	if(!endColor)   { endColor   = 'rgba(255,255,255,0.36)'; }
-	if(!fadeTime)   { fadeTime   = 1500; }
-	$(targetId).animate({backgroundColor : startColor}, 1).animate({backgroundColor: endColor}, fadeTime);
-}
+app.highlight = function(target,duration,startColor,endColor,callback) {
+	if(!startColor) { startColor = 'rgba(255,200,0,0.5)'; }
+	if(!endColor)   { endColor   = 'rgba(255,255,255,0)'; }
+	if(!duration)   { duration   = 1000; }
+	//lock
+	$(target).hide();
+	$(target).css('pointer-events','none');
+	$(target).css('background-color',startColor);
+	$(target).show();
+	setTimeout(function() {
+		//animate
+		$(target).css(prefix + 'transition','all ease ' + (duration) + 'ms');
+		$(target).css('background-color',endColor);
+		//callback
+		if(typeof callback === 'function') {
+			callback();	
+		}
+		//unlock
+		setTimeout(function() {		
+			$(target).css('pointer-events', 'auto');
+			$(target).css(prefix + 'transition','');
+		},duration);
+	},0);
+};
 ////////////////
 // CAPITALIZE //
 ////////////////

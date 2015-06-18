@@ -48,8 +48,6 @@ function appTimer(content) {
 	if($('#timerKcalsInput').val() != kcalsInput) {
 		$('#timerKcalsInput').val(kcalsInput);
 		timerKcals = kcalsInput;
-		//var kcalsProg = Math.round((Math.abs(timerKcals) - Math.floor(Math.abs(timerKcals)))*100);
-		//$('body').attr('id','p' + kcalsProg);		
 	}
 	if($('#timerDailyInput').val() != eqPerDay) {
 		if(!$('#timerDailyInput').is(':focus') && !$('#timerDailyInput').is(':animated')) {
