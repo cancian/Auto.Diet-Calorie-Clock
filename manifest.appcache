@@ -1,21 +1,19 @@
 ﻿CACHE MANIFEST
-# v19508 2015-06-18
+# v19509 2015-06-19
 # APP
 index.html
-version.txt
 js/app_init.js
-js/min/app_init.js
 js/min/app_bootstrap.js
-#js/min/app_lib.js
-#js/min/app_lang.js
-#js/min/app_setup.js
-#js/min/app_macro.js
-#js/min/app_build.js
-#js/min/app_static.js
-#js/min/app_dynamic.js
-#js/min/app_custom_core.js
-#css/min/index.css
-#css/min/fonts.css
+js/min/app_lib.js
+js/min/app_lang.js
+js/min/app_setup.js
+js/min/app_macro.js
+js/min/app_build.js
+js/min/app_static.js
+js/min/app_dynamic.js
+js/min/app_custom_core.js
+css/min/index.css
+css/min/fonts.css
 css/min/openhand.cur
 css/min/kcals.ttf
 # CORDOVA
@@ -44,4 +42,3 @@ js/min/galocalstorage.js
 
 NETWORK:
 *
-
