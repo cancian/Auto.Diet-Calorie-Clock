@@ -5,7 +5,8 @@
 var myScroll;
 function showIntro(isNew) {
 	//skip intro for small devices
-	if($('body').height() < 350) { 
+	$(window).trigger('resize');
+	if($(document).height() < 350) { 
 		if(isNew == true) {
 			if(typeof baseVersion !== 'undefined') {
 				if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {

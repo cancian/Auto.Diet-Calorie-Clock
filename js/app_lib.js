@@ -560,7 +560,7 @@ app.zoom();
 ////////////////
 app.info = function (title, msg, preHandler, postHandler) {
 	if($('#skipIntro').length)		{ return; }
-	if($('body').height() < 350)	{ return; }
+	if($(document).height() < 350)	{ return; }
 	if(app.globals.blockInfo == 1)	{ return; }
 	if (app.read('info_' + title) && !app.dev) {
 		return;
