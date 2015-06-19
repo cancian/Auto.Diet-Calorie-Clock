@@ -133,8 +133,6 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'iscroll.js" id="iScrollTag"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'jquery.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'jquery.color.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'jquery.ui.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'jquery.nicescroll.js"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'jquery.touchswipe.js"><\/script>');
 	//DB
