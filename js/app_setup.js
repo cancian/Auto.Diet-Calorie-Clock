@@ -195,6 +195,10 @@ function initDB(t) {
 			$('#iScrollTag').remove();
 		}
 	}
+	////////////////
+	// CURRENT DB //
+	////////////////
+	app.define('app_database',localforage._driver);
 	////////////
 	// DEFINE //
 	////////////
