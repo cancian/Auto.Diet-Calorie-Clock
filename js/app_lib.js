@@ -1296,7 +1296,7 @@ else										{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vend
 ///////////////////////////////////
 if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheValid !== 1) {
 	if (vendorClass == "moz" || vendorClass == "msie") {
-		var cssPath = (typeof JScompress === 'undefined') ? 'css/index.css' : 'css/min/index.css';
+		var cssPath = 'css/index.css';
 		$.support.cors = true;
 		$.ajax({
 			url : hostLocal + cssPath,

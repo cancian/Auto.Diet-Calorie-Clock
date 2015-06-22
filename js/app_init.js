@@ -3,8 +3,6 @@
 ///////////////
 var staticVendor = ''; //'amazon';
 var baseVersion  = 1.9;
-var JScompress   = true;
-var JSdev        = (window.localStorage.getItem('config_debug') == 'active' && window.localStorage.getItem('config_autoupdate') != 'on') ? '' : 'min/';
 var initTime     = new Date().getTime();
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
@@ -113,36 +111,36 @@ function initJS() {
 	// CORDOVA/DESKTOP //
 	/////////////////////
 	if (!/http/i.test(window.location.protocol)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'cordova.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js"><\/script>');
 	}
 	////////
 	// FB //
 	////////
 	if (!/http/i.test(window.location.protocol) && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'facebook-js-sdk.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'facebook-connect.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-connect.js"><\/script>');
 	} else if ((/IEMobile/i).test(navigator.userAgent)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'openfb.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js"><\/script>');
 	} else if (!IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'facebook-js-sdk.min.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.min.js"><\/script>');
 	}
 	////////
 	// JS //
 	////////
 	//ISCROLL
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'iscroll.js" id="iScrollTag"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iScrollTag"><\/script>');
 	//JQUERY
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'jquery.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'jquery.nicescroll.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'jquery.touchswipe.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js"><\/script>');
 	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'localforage.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js"><\/script>');
 	//UTILS
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'galocalstorage.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'carpe_slider.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'highcharts.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'calculator.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'mobiscroll.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
@@ -151,7 +149,7 @@ function initJS() {
 			isCurrentCacheValid = 1;
 		}
 		//DEFINE VALIDITY
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_bootstrap.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
 		if(isCurrentCacheValid == 1) {
 			if(!document.getElementById('superBlockCSS')) {
 				//to head
@@ -177,20 +175,20 @@ function initJS() {
 		/////////
 		// CSS //
 		/////////
-		document.write('<link rel="stylesheet" type="text/css" id="coreCss"   href="' + hostLocal + 'css/' + JSdev + 'index.css" />');
-		document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/' + JSdev + 'fonts.css" />');
+		document.write('<link rel="stylesheet" type="text/css" id="coreCss"   href="' + hostLocal + 'css/index.css" />');
+		document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/fonts.css" />');
 		////////
 		// JS //
 		////////
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_lib.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_lang.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_setup.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_bootstrap.js" id="plainLoad"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_macro.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_build.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_static.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_dynamic.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/' + JSdev + 'app_custom_core.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lib.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lang.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_setup.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js" id="plainLoad"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_macro.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_build.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_static.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_dynamic.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_custom_core.js"><\/script>');
 	}
 }
 //#//////////////#//

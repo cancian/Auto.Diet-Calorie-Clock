@@ -2,6 +2,7 @@
 ## KCALS.NET ##
 ###############
 ## ENCODING ##
+##############
 Options -Indexes
 SetEnv TZ America/Sao_Paulo
 AddDefaultCharset UTF-8
@@ -16,15 +17,23 @@ AddType text/plain .db
 
 ## NO CACHE ##
 <ifModule mod_headers.c>
-	FileETag None
 	Header unset ETag
 	Header add Access-Control-Allow-Origin "*"
-	<filesMatch "\.(php|js|css|ttf|cur|ico|png|appcache|json|webapp|txt|db)$">
-		Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
-		Header set Expires "Fri, 19 Feb 1982 05:00:00 GMT"
-	</filesMatch>
+	Header set Expires "Fri, 19 Feb 1982 05:00:00 GMT"
 </ifModule>
 
+## MOD_REWRITE ##
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+	#JS
+	RewriteCond %{REQUEST_URI} !js/min/
+	RewriteRule ^js/(.*)$ js/min/$1 [L,QSA]
+	#CSS
+	RewriteCond %{REQUEST_URI} !css/min/
+	RewriteRule ^css/(.*)$ css/min/$1 [L,QSA]
+</IfModule>
+
 ## COMPRESS ##
-AddOutputFilterByType DEFLATE text/html text/plain text/javascript text/css font/ttf application/font-woff
+SetOutputFilter DEFLATE
 
