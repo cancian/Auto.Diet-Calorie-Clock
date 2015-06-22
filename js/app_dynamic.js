@@ -171,7 +171,7 @@ $(document).on("pageload", function (evt) {
 								$('#kcalsAdjust').remove();
 								$('#kcalsDiv').parent("div").removeClass("editing");
 								var highTarget = $('#kcalsDiv').parent("div");
-								app.highlight(highTarget,300,'#ffffcc','#fff',function () {
+								app.highlight(highTarget,300,'#ffc','#fff',function () {
 									eP = 0;
 									deKeyboard = (new Date()).getTime();
 									return false;
@@ -331,7 +331,7 @@ $(document).on("pageload", function (evt) {
 						//$("#editableInput").select();
 						$("#editableInput").focus();
 						var closeTarget = $(this).closest("div");
-						app.highlight(closeTarget,300,'#ffffff','#ffffcc');
+						app.highlight(closeTarget,300,'#fff','#ffc');
 						closeTarget.addClass("editing");
 						$("#sliderBlock").remove();
 						$("#entryListForm").prepend2("<div id='sliderBlock'></div>");
@@ -713,11 +713,11 @@ $(document).on("pageReload", function (evt) {
 							if ($("#foodSearch").hasClass("exerciseType")) {
 								app.save('searchType','exercise');
 								$("#foodSearch").prop('placeholder', LANG.EXERCISE_SEARCH[lang]);
-								app.highlight('#foodSearch',500,'#FECEC6','#ffffff');
+								app.highlight('#foodSearch',500,'#FECEC6','#fff');
 							} else {
 								app.remove('searchType');
 								$("#foodSearch").prop('placeholder', LANG.FOOD_SEARCH[lang]);
-								app.highlight('#foodSearch',500,'#BBE4FF','#ffffff');
+								app.highlight('#foodSearch',500,'#BBE4FF','#fff');
 							}
 							app.timeout('#iconRefresh',500,function() {
 								$('#iconRefresh').css('pointer-events','auto');
@@ -1265,7 +1265,8 @@ function addNewItem(addnew) {
 					addnew.close();
 					app.handlers.highlight('.' + addnew.id);
 					if (!app.read('lastInfoTab','topBarItem-3')) {
-						highlight('#topBarItem-3','rgba(255,200,0,0.8)','#fff',800);
+						app.highlight('#topBarItem-3','rgba(255,200,0,0.8)','#fff',800);
+						
 					}
 				}, 25);
 
@@ -1705,7 +1706,7 @@ function getModalWindow(itemId) {
 						$('#appHeader').trigger(touchstart);
 					}, 300);
 					$('#entryBody').width($('body').width() - 58);
-					highlight('#entryBody');
+					app.highlight('#entryBody',1000,'rgba(255,240,0,0.4)');
 				});
 			},0);
 		};
