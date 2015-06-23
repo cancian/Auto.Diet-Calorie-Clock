@@ -1,18 +1,13 @@
-﻿html,body								{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; margin: 0; padding: 0; border: 0; background-color: #fff;  user-zoom: fixed; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
+﻿html,body								{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; margin: 0; padding: 0; border: 0; user-zoom: fixed; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
 body									{ touch-action: none; -ms-touch-action: none; }
 *, ::before, ::after					{ -webkit-box-sizing: border-box; -webkit-user-select: none; padding: 0; margin: 0; outline: 0; border: 0; border-radius: 0; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 .osx *, .osx ::before, .osx ::after,
 .ios *, .ios ::before, .ios ::after		{ -webkit-perspective: 0 !important; font-weight: 400; }
 body.windows8 							{ overflow: hidden !important; }
-#addNewWrapper, #addNewListWrapper,
-#infocontents, #newWindowWrapper, 
-#advancedMenu, #tabMyCatsBlock, 
-#infocontents, #appContent, 
-#pageSlideFood, #foodList, 
-#appHelper, #appSubHelper, 
-#newWindow, #langSelect, 
-#advancedMenuWrapper, #loadMask			{ -ms-touch-action: pan-y; touch-action: pan-y; }
+.scrollz								{ overflow: auto; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
+.scrollz,
+#loadMask								{ -ms-touch-action: pan-y; touch-action: pan-y; }
 html, body, input, select, textarea,
 input[type='number'], input[type='text'] { font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
 div#sliderNeg, div#sliderPos			{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; }

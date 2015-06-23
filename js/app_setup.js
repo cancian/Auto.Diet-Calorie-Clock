@@ -1938,6 +1938,7 @@ function getNiceScroll(target,timeout,callback) {
 	if(!$.nicescroll) { return; }
 	if(!timeout)	  { timeout = 0; }
 	setTimeout(function() {
+	$(target).addClass('scrollz');
 	//SETTINGS
 	var NSettings = {
 		touchbehavior: false,
