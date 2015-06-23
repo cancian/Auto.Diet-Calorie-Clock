@@ -83,13 +83,13 @@ function showIntro(isNew) {
 		// INSTALL //
 		/////////////
 		if(isNew == true) {
-			if(typeof baseVersion !== 'undefined') {
-				if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
-					app.analytics('install');
-				} else {
-					app.analytics('webinstall');
-				}
+			if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+				app.analytics('install');
+			} else {
+				app.analytics('webinstall');
 			}
+			//
+			app.define('app_showintro',true);
 		}
 	});
 	$('#gettingStarted').on(touchstart,function(evt) {
@@ -185,7 +185,7 @@ function initDB(t) {
 	////////////////////
 	// IF NEW INSTALL //
 	////////////////////
-	if(!app.read('config_install_time') || app.read('config_debug','active')) {
+	if((!app.read('config_install_time') || !app.read('app_showintro')) ) {
 		app.save('config_install_time',app.now());
 		showIntro(1);
 	} else {
