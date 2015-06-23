@@ -5,9 +5,9 @@ html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
 .osx *, .osx ::before, .osx ::after,
 .ios *, .ios ::before, .ios ::after		{ -webkit-perspective: 0 !important; font-weight: 400; }
 body.windows8 							{ overflow: hidden !important; }
-.scrollz								{ overflow: auto; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
-.scrollz,
-#loadMask								{ -ms-touch-action: pan-y; touch-action: pan-y; }
+.scrollz								{ /*overflow: auto; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0);*/ }
+.msie .scrollz,
+.msie #loadMask								{ -ms-touch-action: pan-y; touch-action: pan-y; }
 html, body, input, select, textarea,
 input[type='number'], input[type='text'] { font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
 div#sliderNeg, div#sliderPos			{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; }
@@ -540,7 +540,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 //# APP CYCLIC #//
 //#////////////#*/
 #appMode							{ position: relative; }
-#appModeToggle						{ position: absolute; top: 10px; right: 0px; display:block; width: 100px; height: 60px; background-color: rgba(0,0,0,0); } 
+#appModeToggle						{ position: absolute; top: -20px; right: 0; display: block; width: 120px; height: 120px; background-color: rgba(0,0,0,0) } 
 #appModeToggle + label				{ position: absolute; top: 28px; right: 18px; }
 #appModeEnable						{ position: absolute; top: 0px; left: 0px; right: 0; }
 #appCyclic1							{ position: absolute; top: 24px; left: 27px; width: 80px; padding: 4px; text-indent: 4px; font-size: 20px; color: #333; background-color: #fff; border: 1px solid #eee; }

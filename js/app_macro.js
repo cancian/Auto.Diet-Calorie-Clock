@@ -911,9 +911,8 @@ function getCyclicMenu() {
 			$('#appModeToggle').prop('checked',true);
 		}
 		//TAP
-		//app.handlers.activeRow('#appMode label','button',function(evt) {
-		$('#appMode label').on(tap,function(evt) {
-			if((/checkbox/).test($('#' + evt.target.id).html())) {
+		app.handlers.activeRow('#appMode label','button',function(target) {
+			if((/checkbox/).test($(target).html())) {
 				if($('input[type=checkbox]', '#' + evt.target.id).prop('checked') == true) {
 					$('input[type=checkbox]', '#' + evt.target.id).prop('checked',false);
 				} else {
@@ -1663,7 +1662,7 @@ function buildAdvancedMenu() {
 	//# GENERIC CHECKBOX HANDLER #//
 	//#//////////////////////////#//
 	//app.handlers.activeRow('#advancedMenu li','button',function(evt) {
-	$('#advancedMenu li').on(tap,function(evt) {
+	app.handlers.activeRow('#advancedMenu li','button',function(evt) {
 		if((/checkbox/).test($('#' + evt.target.id).html())) {
 			if($('input[type=checkbox]', '#' + evt.target.id).prop('checked') == true) {
 				$('input[type=checkbox]', '#' + evt.target.id).prop('checked',false);

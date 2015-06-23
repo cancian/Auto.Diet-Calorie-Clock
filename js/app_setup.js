@@ -1980,7 +1980,7 @@ function getNiceScroll(target,timeout,callback) {
 			$(target).css('overflow','hidden');
 			$(target).niceScroll(NSettings);
 		} else {
-			if(app.device.ios) {
+			if(app.device.ios || app.device.blackberry) {
 				$(target).css('-webkit-overflow-scrolling','touch');
 			}
 			$(target).css('overflow','auto');

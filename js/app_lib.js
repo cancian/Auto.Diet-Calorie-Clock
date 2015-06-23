@@ -482,7 +482,7 @@ app.get.platform = function(noweb) {
 ////////////////////
 // GLOBAL BOOLEAN //
 ////////////////////
-app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
+app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.blackberry && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
 //&& !app.device.blackberry 
 //////////////////
 // APP.REBOOT() //
