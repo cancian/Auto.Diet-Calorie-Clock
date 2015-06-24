@@ -1,4 +1,4 @@
-﻿html,body								{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; margin: 0; padding: 0; border: 0; user-zoom: fixed; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
+﻿html,body								{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; background-color: #fff;  margin: 0; padding: 0; border: 0; user-zoom: fixed; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
 body									{ touch-action: none; -ms-touch-action: none; }
 *, ::before, ::after					{ -webkit-box-sizing: border-box; -webkit-user-select: none; padding: 0; margin: 0; outline: 0; border: 0; border-radius: 0; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 html									{ -ms-touch-action: pan-x; touch-action: pan-x; }
@@ -66,7 +66,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#appContent							{ position: absolute; top: 65px; left: 0; width: 100%; max-width: 100%; min-height: 50px; bottom: 44px; display: block; background-color: #fff; overflow: auto; -webkit-backface-visibility: hidden; }
+#appContent							{ position: absolute; top: 65px; left: 0; width: 100%; max-width: 100%; min-height: 50px; bottom: 44px; display: block; overflow: auto; }
 /*.msie.newwindow #appContent		{ overflow: hidden; }*/
 body.android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
 body.android2 #appContent			{ top: 0; border-top: 65px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
@@ -295,7 +295,7 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 /*#################################
 ####    BUILD: APP SETTINGS    ####
 #################################*/
-#settingsWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; /*background-image: -webkit-linear-gradient(#f2f5f6,#f2f4f6);*/ font-size: 13px; -webkit-backface-visibility: hidden; min-height: 267px; }
+#settingsWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; font-size: 13px; -webkit-backface-visibility: hidden; min-height: 267px; }
 /*list*/
 ul#settingsList						{ display: block; background-color: #fff; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; }
 ul#settingsList li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden;  }
@@ -633,7 +633,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
-#statusWrapper						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; border: 12px solid #fff; overflow: hidden; line-height: 16px; background-color: #fff; min-height: 354px; }
+#statusWrapper						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; border: 12px solid rgba(255,255,255,0); overflow: hidden; line-height: 16px; min-height: 354px; }
 /**/
 #appStatusElapsed					{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusElapsed div				{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
