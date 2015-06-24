@@ -9,7 +9,15 @@ attrib k:\www\*.* -r -h -a /s
  
 K:\[bin]\embed K:\www\css\kcals.ttf 
 
-REM "ANDROID"
+REM "ANDROID-GRADLE" 
+REM cd \ 
+REM DELTREE /Y /Z /S /Q /T K:\platforms\android\assets\www 
+REM RD /S /Q K:\platforms\android\assets\www 
+REM MKDIR K:\platforms\android\assets\www 
+REM cd K:\platforms\android\assets\www 
+REM call reswww 
+
+REM "ANDROID-IMPORTED-GRADLE"
 cd \ 
 DELTREE /Y /Z /S /Q /T K:\platforms\android\kcals\src\main\assets\www 
 RD /S /Q K:\platforms\android\kcals\src\main\assets\www 
@@ -18,12 +26,12 @@ cd K:\platforms\android\kcals\src\main\assets\www
 call reswww 
  
 REM "ANDROID-ECLIPSE" 
-cd \ 
-DELTREE /Y /Z /S /Q /T K:\platforms\android-eclipse\assets\www 
-RD /S /Q K:\platforms\android-eclipse\assets\www 
-MKDIR K:\platforms\android-eclipse\assets\www 
-cd K:\platforms\android-eclipse\assets\www 
-call reswww 
+REM cd \ 
+REM DELTREE /Y /Z /S /Q /T K:\platforms\android-eclipse\assets\www 
+REM RD /S /Q K:\platforms\android-eclipse\assets\www 
+REM MKDIR K:\platforms\android-eclipse\assets\www 
+REM cd K:\platforms\android-eclipse\assets\www 
+REM call reswww 
  
 REM "IOS"
 cd \ 

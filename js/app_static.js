@@ -14,34 +14,36 @@ $(document).ready(function() {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
-		var dbDriver;
-		if(typeof localforageDB !== 'undefined') {
-			dbDriver = app.read('config_force_localstorage') ? [localforage.LOCALSTORAGE] : [localforage.INDEXEDDB, localforage.WEBSQL, localforage.LOCALSTORAGE];
-			//dbDriver = app.read('config_force_localstorage') ? [localforage.LOCALSTORAGE] : [localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE];
-		} else {
-			dbDriver = app.read('config_force_localstorage') ? ['localStorageWrapper'] : ['webSQLStorage','asyncStorage','localStorageWrapper'];
+		//var dbDriver = [localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE];
+		var dbDriver = ['webSQLStorage','asyncStorage','localStorageWrapper'];
+		//KEEP USING SAME DB (SAY IOS IMPLEMENTS INDEXEDDB)
+		if(app.read('app_database')) {
+			dbDriver = app.read('app_database');
 		}
+		//CHECKS IF IT'S ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
+		if(vendorClass == 'moz') {
+			dbDriver = ['asyncStorage','webSQLStorage','localStorageWrapper'];
+		}
+		
 		if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) {
 			app.remove('config_force_localstorage');
 		}
-		//
-		//DATABASE SUFFIX
-		var UserDB = 'KCals';
 		/*
+		// ~ FORCE DB (USER CHOICE) ~ //
+			 if(app.read('config_force_websql'))		{ dbDriver = 'webSQLStorage';		}
+		else if(app.read('config_force_indexeddb'))		{ dbDriver = 'asyncStorage';		}
+		else if(app.read('config_force_localstorage'))	{ dbDriver = 'localStorageWrapper'; }
+		// ~ MULTIUSER ~ //
+		var UserDB = 'KCals';
 		if(!/mud_default/i.test(app.user)) {
 			UserDB = UserDB + '_' + app.user[0];
 		}
 		*/
-		//load db
-		if(typeof localforageDB !== 'undefined') {
-			localforage.config({driver: dbDriver, name: 'localforage', storeName: UserDB});
-			initDB();
-		} else {
-			localforage.config({name: 'localforage', storeName: UserDB});
-			localforage.setDriver(dbDriver).then(function() {
-				initDB();
-			});
-		}
+		/////////////
+		// LOAD DB //
+		/////////////
+		localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
+		initDB();
 	});
 });
 ////////////////
