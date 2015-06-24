@@ -16,15 +16,15 @@ $(document).ready(function() {
 		///////////////////
 		//var dbDriver = [localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE];
 		var dbDriver = ['webSQLStorage','asyncStorage','localStorageWrapper'];
-		//KEEP USING SAME DB (SAY IOS IMPLEMENTS INDEXEDDB)
+		//KEEP USING SAME DB
 		if(app.read('app_database')) {
 			dbDriver = app.read('app_database');
 		}
-		//CHECKS IF IT'S ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
+		//MOZ FALLBACK
 		if(vendorClass == 'moz') {
-			dbDriver = ['asyncStorage','webSQLStorage','localStorageWrapper'];
+			dbDriver = ['asyncStorage','localStorageWrapper'];
 		}
-		
+		//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
 		if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) {
 			app.remove('config_force_localstorage');
 		}
