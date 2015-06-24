@@ -75,7 +75,9 @@ function showIntro(isNew) {
 			}
 		} else {
 			app.handlers.fade(0,'#gettingStarted',function() {
-				$('#iScrollTag').remove();
+				setTimeout(function() {
+					$('#iScrollTag').remove();
+				},500);
 			});
 		}
 		evt.preventDefault();
@@ -88,9 +90,11 @@ function showIntro(isNew) {
 			} else {
 				app.analytics('webinstall');
 			}
-			//
-			app.define('app_showintro',true);
 		}
+		///////////////////////
+		// LOCK INTRO SCREEN //
+		///////////////////////
+		app.define('config_install_time',app.now());
 	});
 	$('#gettingStarted').on(touchstart,function(evt) {
 		evt.stopPropagation();
@@ -182,18 +186,18 @@ function loadDatabase() {
 // INIT DB //
 /////////////
 function initDB(t) {
-	////////////////////
-	// IF NEW INSTALL //
-	////////////////////
-	if((!app.read('config_install_time') || !app.read('app_showintro')) ) {
-		app.save('config_install_time',app.now());
+	///////////////////////
+	// TRACK NEW INSTALL //
+	///////////////////////
+	if((!app.read('config_install_time')) ) {
+		//first intall (protected key)
 		showIntro(1);
+	} else if(!app.read('config_kcals_day_0')) {
+		//app reset (unprotected key)
+		showIntro(0);		
 	} else {
-		if(!app.read('config_kcals_day_0')) {
-			showIntro(0);
-		} else {
-			$('#iScrollTag').remove();
-		}
+		//regular startup, just remove iscroll
+		$('#iScrollTag').remove();
 	}
 	////////////////
 	// CURRENT DB //

@@ -257,6 +257,6 @@ $(document).ready(function() {
 			$('body').addClass('started');
 			$('body').removeClass('unloaded');
 		}
-	},5000);
+	},9999);
 });
 

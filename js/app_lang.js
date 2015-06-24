@@ -1,5 +1,5 @@
 ﻿var appName = 'KCals';
-var appVersion = '1.9.5 (19510)';
+var appVersion = '1.9.5 (19511)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
@@ -13,7 +13,7 @@ if (userLang) {
 }
 window.localStorage.setItem('app_build', appBuild);
 /////////////////////
-// DETECT LANGUAGE //f
+// DETECT LANGUAGE //
 /////////////////////
 function filterLocale(locale) {
 	//SAFETY

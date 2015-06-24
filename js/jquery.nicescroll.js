@@ -41,14 +41,14 @@
 		cursorborder : "1px solid rgba(0,0,0,0)",
 		cursorborderradius : "5px",
 		scrollspeed : 100,
-		mousescrollstep : 30,
+		mousescrollstep : 45,
 		touchbehavior : true,
 		hwacceleration : true,
 		usetransition : true,
 		boxzoom : false,
 		dblclickzoom : false,
 		gesturezoom : false,
-		grabcursorenabled : false,
+		grabcursorenabled : true,
 		autohidemode : true,
 		background : "",
 		iframeautoresize : true,
@@ -80,7 +80,7 @@
       rtlmode:"auto",
       cursordragontouch:0,
       oneaxismousemode:"auto",
-			scriptpath:getScriptPath()
+	  scriptpath:getScriptPath()
   };
   
   var browserdetected = false;
@@ -176,7 +176,8 @@
         domtest.style['cursor']=p;
         if (domtest.style['cursor']==p) return p;
       }
-      return 'url(css/openhand.cur),n-resize';  // thank you google for custom cursor!
+      //return 'url(css/openhand.cur),n-resize';  // thank you google for custom cursor!
+      return "url('data:image/x-icon;base64,AAACAAEAICACAAcABQAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAAAEAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8AAAA/AAAAfwAAAP+AAAH/gAAB/8AAA//AAAd/wAAGf+AAAH9gAADbYAAA2yAAAZsAAAGbAAAAGAAAAAAAAA//////////////////////////////////////////////////////////////////////////////////////gH///4B///8Af//+AD///AA///wAH//4AB//8AAf//AAD//5AA///gAP//4AD//8AF///AB///5A////5///8='),n-resize";
     }
     d.cursorgrabvalue = detectCursorGrab();
 
