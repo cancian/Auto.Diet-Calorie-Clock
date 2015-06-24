@@ -22,7 +22,11 @@ $(document).ready(function() {
 		}
 		//MOZ FALLBACK
 		if(vendorClass == 'moz') {
-			dbDriver = ['asyncStorage','localStorageWrapper'];
+			if(!app.read('config_force_localstorage')) {
+				dbDriver = ['asyncStorage','localStorageWrapper'];
+			} else {
+				dbDriver = ['localStorageWrapper'];
+			}
 		}
 		//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
 		if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) {
