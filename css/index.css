@@ -20,9 +20,8 @@ body.windows8 							{ overflow: hidden !important; }
 */
 .msie .overthrow,
 .msie #loadMask							{ -ms-touch-action: pan-y; touch-action: pan-y; }
-*, ::before, ::after,
-input, select, textarea,
-input[type='number'], input[type='text']{ font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif !important; line-height: normal; }
+html, body, input, select, textarea,
+input[type='number'], input[type='text']{ font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
 div#sliderNeg, div#sliderPos			{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif !important; }
 body.msie.thin							{ letter-spacing: 0.02em; }
 body.msie								{ -webkit-perspective: 800; }
@@ -86,12 +85,13 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 body.android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
 body.android2 #appContent			{ /*top: 0; border-top: 65px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0);*/ }
 /*webkit scrollbar*/
+/*
+::-webkit-scrollbar							{ display: none; }
 ::-webkit-scrollbar							{ width: 12px; }
-/* Track */ 
 ::-webkit-scrollbar-track					{ -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); -webkit-border-radius: 10px; border-radius: 10px; } 
-/* Handle */ 
 ::-webkit-scrollbar-thumb					{ -webkit-border-radius: 10px; border-radius: 10px; background: rgba(255,0,0,0.8); -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); } 
 ::-webkit-scrollbar-thumb:window-inactive	{ background: rgba(255,0,0,0.4); }
+*/
 /*#////////////#//
 //# APP HEADER #//
 //#////////////#*/

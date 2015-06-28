@@ -3310,7 +3310,7 @@ var LANG = {
 		bg : 'въгл.',
 		cs : 'sach',
 		da : 'kulhydrat',
-		de : 'Klh',
+		de : 'Kohl',
 		el : 'υδρ',
 		es : 'car',
 		fi : 'hiilihyd',

@@ -175,18 +175,18 @@ copy /y k:\www\res\icon\windows8\744x360.png k:\platforms\windows8\images\wide31
  
  
 rem cd\ 
-deltree /y /z /s /q /t k:\platforms\ios\kcals\images.xcassets\appicon.appiconset 
-rm -r k:\platforms\ios\kcals\images.xcassets\appicon.appiconset 
-mkdir k:\platforms\ios\kcals\images.xcassets\appicon.appiconset 
-cp --recursive --verbose --force k:\www\res\icon\ios\appicon.appiconset\*.* k:\platforms\ios\kcals\images.xcassets\appicon.appiconset
-REM cd k:\platforms\ios\kcals\images.xcassets\appicon.appiconset
+deltree /y /z /s /q /t k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset 
+rm -r k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset 
+mkdir k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset 
+cp --recursive --verbose --force k:\www\res\icon\ios\AppIcon.appiconset\*.* k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset
+REM cd k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset
 REM call k:\platforms\ios\kcals\images.xcassets\makeiosicon.bat 
  
 rem cd\ 
-deltree /y /z /s /q /t k:\platforms\osx\kcals\images.xcassets\appicon.appiconset 
-rm -r k:\platforms\osx\kcals\images.xcassets\appicon.appiconset 
-mkdir k:\platforms\osx\kcals\images.xcassets\appicon.appiconset 
-cp --recursive --verbose --force k:\www\res\icon\osx\appicon.appiconset\*.* k:\platforms\osx\kcals\images.xcassets\appicon.appiconset
+deltree /y /z /s /q /t k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
+rm -r k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
+mkdir k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
+cp --recursive --verbose --force k:\www\res\icon\osx\AppIcon.appiconset\*.* k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset
  
  
 rem cd\ 

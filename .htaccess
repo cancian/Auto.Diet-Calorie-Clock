@@ -19,7 +19,7 @@ AddType text/plain .db
 <ifModule mod_headers.c>
 	Header unset ETag
 	Header add Access-Control-Allow-Origin "*"
-	Header set Expires "Fri, 19 Feb 1982 05:00:00 GMT"
+	Header set Expires "Fri, 19 Feb 1982 00:00:00 GMT"
 </ifModule>
 
 ## MOD_REWRITE ##
@@ -27,11 +27,13 @@ AddType text/plain .db
 	RewriteEngine On
 	RewriteBase /
 	#JS
-	RewriteCond %{HTTP_HOST} !kcals.net$ [NC]
+	RewriteCond %{HTTP_HOST} !192.168.1.5$ [NC]
+	RewriteCond %{HTTP_HOST} !.kcals.net$ [NC]
 	RewriteCond %{REQUEST_URI} !js/min/
 	RewriteRule ^js/(.*)$ js/min/$1 [L,QSA]
 	#CSS
-	RewriteCond %{HTTP_HOST} !kcals.net$ [NC]
+	RewriteCond %{HTTP_HOST} !192.168.1.5$ [NC]
+	RewriteCond %{HTTP_HOST} !.kcals.net$ [NC]
 	RewriteCond %{REQUEST_URI} !css/min/
 	RewriteRule ^css/(.*)$ css/min/$1 [L,QSA]
 </IfModule>
