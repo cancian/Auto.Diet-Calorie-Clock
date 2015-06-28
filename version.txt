@@ -14,9 +14,10 @@
 • Choose the food database language independently from the current system language
 
 # 1.9.6 [2015-06-24]
-• Protection against future database implementations
+• Protection against database implementations that might break the default fallback of storage engines
 • Intro screen has to be manually dismissed
 • Improved cache handling
+• Use metric system as default for all users
 
 # 1.9.5 [2015/06/18]
 • Filter redundant DOM updates to improve overall performance
