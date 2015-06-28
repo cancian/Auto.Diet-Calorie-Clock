@@ -166,7 +166,8 @@ $('body').prepend2('\
 		<div id="appStatusTips"></div>\
 	</div>\
 	<div id="loadingDiv"><input readonly="readonly" id="lid" value="0" type="text" /></div>\
-	<div id="appContent"></div>\
+	<div id="contentWrapper">\
+	<div id="appContent"></div></div>\
 	<div id="appFooter">\
 		<ul>\
 			<li id="tab1">' + LANG.MENU_STATUS[lang].capitalize()   + '</li>\
@@ -800,6 +801,12 @@ if(app.device.chromeos) {
 if(app.device.blackberry) {
 	$('body').addClass('blackberry');
 }
+//////////////
+// PLAYBOOK //
+//////////////
+if(app.device.playbook) {
+	$('body').addClass('playbook');
+}
 ////////////
 // AMAZON //
 ////////////
@@ -840,25 +847,14 @@ app.define('calcForm#pA4B','20');
 app.define('calcForm#pA5B','Sedentary (little or no exercise, desk job)');
 app.define('calcForm#pA6G','1');
 app.define('calcForm#pA6M','1');
-if(LANG.LANGUAGE[lang] == 'en') {
-	app.define('config_measurement','imperial');
-	app.define('calcForm#feet','5');
-	app.define('calcForm#inches','10');
-	app.define('calcForm#pA3B','160');
-	app.define('calcForm#pA2C','inches');
-	app.define('calcForm#pA3C','pounds');
-	app.define('calcForm#pA6H','pounds');
-	app.define('calcForm#pA6N','pounds');
-} else {
-	app.define('config_measurement','metric');
-	app.define('calcForm#feet','0');
-	app.define('calcForm#inches','170');
-	app.define('calcForm#pA3B','70');	
-	app.define('calcForm#pA2C','centimetres');
-	app.define('calcForm#pA3C','kilograms');
-	app.define('calcForm#pA6H','kilograms');
-	app.define('calcForm#pA6N','kilograms');
-}
+app.define('config_measurement','metric');
+app.define('calcForm#feet','0');
+app.define('calcForm#inches','170');
+app.define('calcForm#pA3B','70');	
+app.define('calcForm#pA2C','centimetres');
+app.define('calcForm#pA3C','kilograms');
+app.define('calcForm#pA6H','kilograms');
+app.define('calcForm#pA6N','kilograms');
 //###########################//
 //####   START WORKING   ####//
 //###########################//
