@@ -27,9 +27,11 @@ AddType text/plain .db
 	RewriteEngine On
 	RewriteBase /
 	#JS
+	RewriteCond %{HTTP_HOST} !kcals.net$ [NC]
 	RewriteCond %{REQUEST_URI} !js/min/
 	RewriteRule ^js/(.*)$ js/min/$1 [L,QSA]
 	#CSS
+	RewriteCond %{HTTP_HOST} !kcals.net$ [NC]
 	RewriteCond %{REQUEST_URI} !css/min/
 	RewriteRule ^css/(.*)$ css/min/$1 [L,QSA]
 </IfModule>
