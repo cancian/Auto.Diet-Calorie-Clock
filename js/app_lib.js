@@ -2,6 +2,8 @@
 //#////////////#//
 //# APP OBJECT #//
 //#////////////#//
+var isMobile = 'isCurrentCacheValid'; 
+//////////////
 // SET USER //
 //////////////
 /*
@@ -443,19 +445,17 @@ app.device = {
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
 	windows81  : (/MSAppHost\/2.0/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua)? true : false,
 	windows8T  : (/MSApp/i).test(app.ua) && (/Touch/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
-	firefoxos  : ((/firefox/i).test(app.ua) && (/mobile|tablet/i).test(app.ua) && (/gecko/i).test(app.ua)) ? true : false,
-	osx        : ((/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua)) ? true : false,
+	firefoxos  : (/firefox/i).test(app.ua) && (/mobile|tablet/i).test(app.ua) && (/gecko/i).test(app.ua) ? true : false,
+	osx        : (/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
 	chromeos   : app.get.isChromeApp() ? true : false,
-	blackberry : ((/BB10|BlackBerry|All Touch/i).test(app.ua)) ? true : false,
+	blackberry : (/BB10|BlackBerry|All Touch/i).test(app.ua) && !(/(PlayBook)/i).test(app.ua) ? true : false,
+	playbook   : (/PlayBook|Tablet OS/i).test(app.ua) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
-	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true
+	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|PlayBook|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua)) || (document.createTouch && !/Windows NT/.test(app.ua)) ? false : true
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
-	if(staticVendor == 'blackberry' && (/Android/i).test(app.ua)) {
-		app.device.blackberry = true;
-	}
 	if(staticVendor == 'amazon' && (/Android/i).test(app.ua)) {
 		app.device.amazon = true;	
 	}	
@@ -473,6 +473,7 @@ app.get.platform = function(noweb) {
 	if(app.device.wp8)                 { return 'Windows Phone';    }
 	if(app.device.windows8)            { return 'Windows 8';        }
 	if(app.device.blackberry)          { return 'BlackBerry';       }
+	if(app.device.playbook)            { return 'PlayBook';         }
 	if(app.device.android)             { return 'Android';          }
 	if(app.device.firefoxos)           { return 'FirefoxOS';        }	
 	if(app.device.osxapp)              { return 'Mac';              }
@@ -482,8 +483,7 @@ app.get.platform = function(noweb) {
 ////////////////////
 // GLOBAL BOOLEAN //
 ////////////////////
-app.is.scrollable = ($.nicescroll && !app.device.ios && !app.device.blackberry && !app.device.wp8 && !app.device.firefoxos && !app.device.windows8T && app.device.android < 4.4) ? true : false;
-//&& !app.device.blackberry 
+app.is.scrollable = ($.nicescroll && app.device.desktop) ? true : false;
 //////////////////
 // APP.REBOOT() //
 //////////////////
@@ -667,12 +667,14 @@ app.url = function(url) {
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc/reviews',
 		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'http://appworld.blackberry.com/webstore/content/59937667',
+		playbook:   app.device.playbook ? 'appworld://content/59937667' : 'http://appworld.blackberry.com/webstore/content/59937667',
 		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533'
 	};
 	//SHORTCUT
 	     if((!url && app.device.ios)        || url == 'ios')        { url = store.ios;        }
 	else if((!url && app.device.amazon)     || url == 'amazon')     { url = store.amazon; store.android = store.amazon; }
 	else if((!url && app.device.blackberry) || url == 'blackberry') { url = store.blackberry; }
+	else if((!url && app.device.playbook)   || url == 'playbook') { url = store.playbook; }
 	else if((!url && app.device.android)    || url == 'android')    { url = store.android;    }
 	else if((!url && app.device.wp8)        || url == 'wp8')        { url = store.wp8;        }
 	else if((!url && app.device.windows8)   || url == 'windows8')   { url = store.windows8;   }
@@ -1227,61 +1229,6 @@ if($('#loadMask').html() == '') {
 document.addEventListener("DOMContentLoaded", function(event) {
 	$('body').addClass('domcontentloaded');
 },false);
-//#///////////#//
-//# MOBILE OS #//
-//#///////////#//
-var isMobileCordova    = (typeof cordova != 'undefined' || typeof Cordova != 'undefined') ? true : false;
-var isMobileAndroid    = (/Android/i).test(userAgent) ? true : false;
-var isMobileiOS        = (/(iPhone|iPad|iPod)/i).test(userAgent) ? true : false;
-var isMobileWindows    = (/IEMobile/i).test(userAgent) ? true : false;
-var isMobileWP81       = (/Windows Phone 8.1/i).test(userAgent) ? true : false;
-var isMobileMSApp      = (/MSApp/i).test(userAgent) ? true : false;
-var isMobileFirefoxOS  = ((/firefox/i).test(userAgent) && (/mobile/i).test(userAgent) && (/gecko/i).test(userAgent)) ? true : false;
-var isMobileOSX        = ((/(Macintosh|Mac OS X)/i).test(userAgent) && !(/(iPhone|iPad|iPod)/i).test(userAgent)) ? true : false;
-var isMobileOSXApp     = (/MacGap/i).test(userAgent) ? true : false;
-var isMobileBlackBerry = (/BB10|BlackBerry/i).test(userAgent) ? true : false;
-var isMobile = {
-	Cordova: function() {
-		return isMobileCordova;
-	},
-	Android: function() {
-		return isMobileAndroid;
-	},
-	iOS: function() {
-		return isMobileiOS;
-	},
-	Windows: function() {
-		return isMobileWindows;
-	},
-	WP81: function() {
-		return isMobileWP81;
-	},	
-	MSApp: function() {
-		return isMobileMSApp;
-	},	
-	FirefoxOS: function() {
-		return isMobileFirefoxOS;
-	},
-	OSX: function() {
-		return isMobileOSX;
-	},
-	OSXApp: function() {
-		return isMobileOSXApp;
-	},
-	BlackBerry: function() {
-		return isMobileBlackBerry;
-	},	
-	ChromeApp: function() {
-		if(chrome) {
-			if(chrome.app) {
-				if(chrome.app.isInstalled) {
-					 return true;	
-				}
-			}
-		}
-		return false;
-	}
-};
 //#///////////////#//
 //# GET USERAGENT #//
 //#///////////////#//
@@ -1346,7 +1293,7 @@ var androidVersion = function() {
 	return gotAndroidVersion;
 };
 
-var varHasTouch = !app.http && (/(iPhone|iPod|iPad|Android|BlackBerry)/).test(userAgent);
+var varHasTouch = !app.http && (/(iPhone|iPod|iPad|Android|BlackBerry|PlayBook)/).test(userAgent);
 function hasTouch() {
 	return varHasTouch;
 }
@@ -1948,6 +1895,8 @@ app.piracy = function (force) {
 						app.url('windows8');
 					} else if (app.device.blackberry) {
 						app.url('blackberry');
+					} else if (app.device.playbook) {
+						app.url('playbook');
 					} else {
 						app.url('web');
 					}
