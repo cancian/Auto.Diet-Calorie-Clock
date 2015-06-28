@@ -452,7 +452,7 @@ app.device = {
 	blackberry : (/BB10|BlackBerry|All Touch/i).test(app.ua) && !(/(PlayBook)/i).test(app.ua) ? true : false,
 	playbook   : (/PlayBook|Tablet OS/i).test(app.ua) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
-	desktop    : (/Android|webOS|iPhone|iPad|iPod|BlackBerry|PlayBook|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua)) || (document.createTouch && !/Windows NT/.test(app.ua)) ? false : true
+	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|PlayBook|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
