@@ -731,6 +731,7 @@ if(app.device.android) {
 // WINDOWS //
 /////////////
 if(app.device.wp8) {
+	$('html').addClass('wp8');
 	$('body').addClass('wp8');
 }
 if(app.device.windows8) {
