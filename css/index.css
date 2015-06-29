@@ -5,7 +5,7 @@
 /*native scroll*/
 .overthrow								{ overflow: auto !important; -webkit-overflow-scrolling: touch; -ms-touch-action: pan-y; touch-action: pan-y; }
 .windows8 								{ overflow: hidden !important; }
-.desktop								{ overflow: hidden; }
+.desktop								{ overflow: hidden !important; }
 html.wp8								{ -ms-touch-action: pan-x; touch-action: pan-x; }
 /* fonts */
 html, body, input, select, textarea,

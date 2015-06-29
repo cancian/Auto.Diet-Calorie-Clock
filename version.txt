@@ -13,11 +13,12 @@
 • Auto-Share custom items (every custom item added becomes available to all users)
 • Choose the food database language independently from the current system language
 
-# 1.9.6 [2015-06-24]
-• Protection against database implementations that might break the default fallback of storage engines
-• Intro screen has to be manually dismissed
+# 1.9.6 [2015-06-29]
 • Improved cache handling
+• Intro screen has to be manually dismissed
 • Use metric system as default for all users
+• Smoother scrolling on slower devices (uses less resources)
+• Protection against database implementations that might break the default fallback of storage engines (say iOS, for instance, adopts IndexedDB somewhere in the future - that would lock all users out of their current SQLite databases)
 
 # 1.9.5 [2015/06/18]
 • Filter redundant DOM updates to improve overall performance
