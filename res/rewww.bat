@@ -29,12 +29,12 @@ cd k:\platforms\android\kcals\src\main\assets\www
 call reswww 
  
 rem "android-eclipse" 
-rem cd\ 
-rem deltree /y /z /s /q /t k:\platforms\android-eclipse\assets\www 
-rem rd /s /q k:\platforms\android-eclipse\assets\www 
-rem mkdir k:\platforms\android-eclipse\assets\www 
-rem cd k:\platforms\android-eclipse\assets\www 
-rem call reswww 
+cd\ 
+deltree /y /z /s /q /t k:\platforms\android-eclipse\assets\www 
+rd /s /q k:\platforms\android-eclipse\assets\www 
+mkdir k:\platforms\android-eclipse\assets\www 
+cd k:\platforms\android-eclipse\assets\www 
+call reswww 
  
 rem "ios"
 rem cd\ 
@@ -178,16 +178,15 @@ rem cd\
 deltree /y /z /s /q /t k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset 
 rm -r k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset 
 mkdir k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset 
-cp --recursive --verbose --force k:\www\res\icon\ios\AppIcon.appiconset\*.* k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset
-REM cd k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset
-REM call k:\platforms\ios\kcals\images.xcassets\makeiosicon.bat 
+cd k:\www\res\icon\ios\AppIcon.appiconset
+copy *.* k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset
  
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
 rm -r k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
 mkdir k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
-cp --recursive --verbose --force k:\www\res\icon\osx\AppIcon.appiconset\*.* k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset
- 
+cd K:\www\res\icon\osx\AppIcon.appiconset
+copy *.* k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset
  
 rem cd\ 
 del /q k:\platforms\android\kcals\src\main\res\drawable\icon.png 
