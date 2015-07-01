@@ -1,19 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets"
-	id="kcals"
-	version="1.9.5.5"
-	versionCode="19550">
-	
-	<name>KCals Calorie Counter</name>
-	
-	<description>KCals is a real-time calorie counter that simulates the human metabolism.</description>
-	
-	<author email="cancian@kcals.net" href="http://kcals.net">André Cancian</author>
-	
-	<content src="index.html" />
-	<access uri="*" subdomains="true" />
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.cancian.kcals" version="1.9.5.5" versionCode="19550" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
-	<feature name="http://api.phonegap.com/1.0/device" id="http://api.phonegap.com/1.0/device" />
+    <content src="index.html" />
+    <access origin="*" subdomains="true" />
+
+    <name>KCals Calorie Counter</name>
+
+    <description>
+        KCals is a real-time calorie counter that simulates the human metabolism.
+    </description>
+
+    <author email="cancian@kcals.net" href="http://kcals.net">
+        Andre Cancian
+    </author>
+
+    <feature name="http://api.phonegap.com/1.0/device" />
 	
     <preference name="windows-target-version" value="8.0" />
     <preference name="windows-phone-target-version" value="8.1" />
@@ -38,7 +39,6 @@
 	<preference name="splash-screen-duration"     value="0" />
 	<preference name="KeepRunning"                value="true" />
 	<preference name="AndroidLaunchMode"          value="singleTop" />
-	<!--<preference name="LoadingDialog"          value=""/>     -->
 
 	<!-- Preferences for iOS -->
     <preference name="AllowInlineMediaPlayback"          value="false" />
@@ -59,48 +59,51 @@
     <!-- Preferences for iOS -->
 
     <!-- Preferences for BB10 -->
-	<preference name="Orientation" value="portrait"/>
-	<preference name="PopupBlocker" value="disable"/>
+	<feature name="Notification" value="Notification"/>	
 	<preference name="ChildBrowser" value="enable"/>
-	<preference name="WebSecurity" value="disable"/>
 	<preference name="DiskCache" value="enable"/>
+	<preference name="HideKeyboardFormAccessoryBar" value="true"/>
+	<preference name="Orientation" value="default"/>
+	<preference name="PopupBlocker" value="disable"/>
+	<preference name="WebSecurity" value="disable"/>
+	<preference name="AutoHideSplashScreen" value="true"/>
     <!-- Preferences for BB10 -->
 	
     <!-- Preferences for UBUNTU -->
-	<icon src="Icon.png" />
+	<icon src="icon.png" />
     <!-- Preferences for UBUNTU -->
 
-	<feature name="LocalStorage" id="LocalStorage">
+	<feature name="LocalStorage">
 		<param name="ios-package" value="CDVLocalStorage" />
 	</feature>
 	
-	<feature name="App" id="App">
+	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
 
-    <feature name="Notification" id="Notification">
+    <feature name="Notification">
         <param name="ios-package" value="CDVNotification" />
         <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
         <param name="wp-package" value="Notification" />
     </feature>
 	
-    <feature name="InAppBrowser" id="InAppBrowser">
+    <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
         <param name="wp-package" value="InAppBrowser" />
     </feature>
 
-    <feature name="org.apache.cordova.facebook.Connect" id="org.apache.cordova.facebook.Connect">
+    <feature name="org.apache.cordova.facebook.Connect">
         <param name="ios-package" value="FacebookConnectPlugin" />
         <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
     </feature>
 
-    <feature name="Device" id="Device">
+    <feature name="Device">
         <param name="wp-package" value="Device" />
     </feature>
 	
-	<feature name="LocalNotification" id="LocalNotification">
+	<feature name="LocalNotification">
 		<param name="wp-package" value="LocalNotification"/>
 	</feature>
-
+	
 </widget>
