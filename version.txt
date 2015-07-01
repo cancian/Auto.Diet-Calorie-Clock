@@ -18,7 +18,7 @@
 • Intro screen has to be manually dismissed
 • Use metric system as default for all users
 • Smoother scrolling on slower devices (uses less resources)
-• Protection against database implementations that might break the default fallback of storage engines (say iOS, for instance, adopts IndexedDB somewhere in the future - that would lock all users out of their current SQLite databases)
+• Hardened security
 
 # 1.9.5 [2015/06/18]
 • Filter redundant DOM updates to improve overall performance

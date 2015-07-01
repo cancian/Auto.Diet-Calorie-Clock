@@ -1,24 +1,19 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-    <widget xmlns = "http://www.w3.org/ns/widgets" 
-        xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.cancian.kcals"
-        versionCode="19540"
-        version   = "1.9.5.4">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+	id="kcals"
+	version="1.9.5.5"
+	versionCode="19550">
+	
+	<name>KCals Calorie Counter</name>
+	
+	<description>KCals is a real-time calorie counter that simulates the human metabolism.</description>
+	
+	<author email="cancian@kcals.net" href="http://kcals.net">André Cancian</author>
+	
 	<content src="index.html" />
-	<access origin="*" subdomains="true"/>
+	<access uri="*" subdomains="true" />
 
-    <name>KCals Calorie Counter</name>
-
-    <description>
-        KCals is a real-time calorie counter that simulates the human metabolism.
-    </description>
-
-    <author email="cancian@kcals.net" href="http://kcals.net">
-        Andre Cancian
-    </author>
-
-    <feature name="http://api.phonegap.com/1.0/device" />
+	<feature name="http://api.phonegap.com/1.0/device" id="http://api.phonegap.com/1.0/device" />
 	
     <preference name="windows-target-version" value="8.0" />
     <preference name="windows-phone-target-version" value="8.1" />
@@ -72,40 +67,40 @@
     <!-- Preferences for BB10 -->
 	
     <!-- Preferences for UBUNTU -->
-	<icon src="icon.png" />
+	<icon src="Icon.png" />
     <!-- Preferences for UBUNTU -->
 
-	<feature name="LocalStorage">
+	<feature name="LocalStorage" id="LocalStorage">
 		<param name="ios-package" value="CDVLocalStorage" />
 	</feature>
 	
-	<feature name="App">
+	<feature name="App" id="App">
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
 
-    <feature name="Notification">
+    <feature name="Notification" id="Notification">
         <param name="ios-package" value="CDVNotification" />
         <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
         <param name="wp-package" value="Notification" />
     </feature>
 	
-    <feature name="InAppBrowser">
+    <feature name="InAppBrowser" id="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
         <param name="wp-package" value="InAppBrowser" />
     </feature>
 
-    <feature name="org.apache.cordova.facebook.Connect">
+    <feature name="org.apache.cordova.facebook.Connect" id="org.apache.cordova.facebook.Connect">
         <param name="ios-package" value="FacebookConnectPlugin" />
         <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
     </feature>
 
-    <feature name="Device">
+    <feature name="Device" id="Device">
         <param name="wp-package" value="Device" />
     </feature>
 	
-	<feature name="LocalNotification">
+	<feature name="LocalNotification" id="LocalNotification">
 		<param name="wp-package" value="LocalNotification"/>
 	</feature>
-	
+
 </widget>
