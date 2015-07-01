@@ -449,7 +449,7 @@ app.device = {
 	osx        : (/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
 	chromeos   : app.get.isChromeApp() ? true : false,
-	blackberry : (/BB10|BlackBerry|All Touch/i).test(app.ua) && !(/(PlayBook)/i).test(app.ua) ? true : false,
+	blackberry : (/BB10|BlackBerry|All Touch/i).test(app.ua) && !/(PlayBook)/i.test(app.ua) ? true : false,
 	playbook   : (/PlayBook|Tablet OS/i).test(app.ua) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
 	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|PlayBook|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true
@@ -493,7 +493,7 @@ app.reboot = function(type,error) {
 		$('body').css('opacity',0);
 	}
 	if(error) {
-		app.analytics('error','rebootHandler: ' + JSON.stringify(error));
+		app.analytics('error',error);
 		//throw error;
 	}
 	//CLEAR CACHE
@@ -674,7 +674,7 @@ app.url = function(url) {
 	     if((!url && app.device.ios)        || url == 'ios')        { url = store.ios;        }
 	else if((!url && app.device.amazon)     || url == 'amazon')     { url = store.amazon; store.android = store.amazon; }
 	else if((!url && app.device.blackberry) || url == 'blackberry') { url = store.blackberry; }
-	else if((!url && app.device.playbook)   || url == 'playbook') { url = store.playbook; }
+	else if((!url && app.device.playbook)   || url == 'playbook')   { url = store.playbook; }
 	else if((!url && app.device.android)    || url == 'android')    { url = store.android;    }
 	else if((!url && app.device.wp8)        || url == 'wp8')        { url = store.wp8;        }
 	else if((!url && app.device.windows8)   || url == 'windows8')   { url = store.windows8;   }
@@ -1350,21 +1350,25 @@ app.safeExec = function (callback) {
 // ERROR HANDLER //
 ///////////////////
 function errorHandler(error) {
-	if (window.localStorage.getItem("config_debug") == "active" && blockAlerts == 0) {
+	if(typeof error !== 'string') {
+		error = JSON.stringify(error);
+	}
+	console.log('errorHandler (app_lib): ' + error);
+	//
+	if (app.dev && blockAlerts == 0) {
 		if (app.device.windows8) {
 			if (typeof alert !== 'undefined') {
-				alert(JSON.stringify(error));
+				alert(error);
 			}
 		} else {
-			if (confirm(JSON.stringify(error))) {
+			if (confirm(error)) {
 				blockAlerts = 0;
 			} else {
 				blockAlerts = 1;
 			}
 		}
-		console.log('errorHandler: ' + JSON.stringify(error));
 	} else {
-		app.analytics('error','errorHandler: ' + JSON.stringify(error));
+		app.analytics('error',error);
 	}
 }
 /////////////////

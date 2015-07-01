@@ -20,6 +20,17 @@ function safeExec(callback) {
 /////////////////
 var blockAlerts = 0;
 window.onerror = function (e, url, line) {
+	if(typeof e !== 'string') {
+		e = JSON.stringify(e);
+	}
+	if(typeof url !== 'string') {
+		url = JSON.stringify(url);
+	}
+	if(typeof line !== 'string') {
+		line = JSON.stringify(line);
+	}	
+	console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+	//
 	if (window.localStorage.getItem('config_debug') == 'active' && blockAlerts == 0) {
 		if (IsMsApp) {
 			if (typeof alert !== 'undefined') {
@@ -53,7 +64,7 @@ window.onerror = function (e, url, line) {
 	//auto restart
 	if ((/Exception 18/i).test(e)) {
 		setTimeout(function () {
-			if (window.MyReload) {
+			if (typeof window.MyReload !== 'undefined') {
 				window.MyReload.reloadActivity();
 			} else {
 				window.location.reload(true);

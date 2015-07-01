@@ -5,6 +5,7 @@ window.applicationCache.addEventListener('error', function(e) {
 	if(app.dev) {
 		alert('Error fetching cache');
 	}
+	app.analytics('error',e)
 });
 ////////////////////
 // DOCUMENT READY //

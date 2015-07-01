@@ -180,7 +180,7 @@ function buildRemoteSuperBlock(opt) {
 	if (updatePending == 1) {
 		setTimeout(function () {
 			if (typeof app !== 'undefined') {
-				if (typeof app.analytics !== 'undefined') {
+				if (typeof app.analytics === 'function') {
 					app.analytics('autoupdate');
 				}
 			}

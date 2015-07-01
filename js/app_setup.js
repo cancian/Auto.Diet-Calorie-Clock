@@ -9,7 +9,7 @@ function showIntro(isNew) {
 	if($(document).height() < 350) { 
 		if(isNew == true) {
 			if(typeof baseVersion !== 'undefined') {
-				if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+				if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
 					app.analytics('install');
 				} else {
 					app.analytics('webinstall');
@@ -85,7 +85,7 @@ function showIntro(isNew) {
 		// INSTALL //
 		/////////////
 		if(isNew == true) {
-			if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+			if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
 				app.analytics('install');
 			} else {
 				app.analytics('webinstall');
@@ -152,7 +152,7 @@ function showIntro(isNew) {
 					}
 				});
 			} catch(e) {
-				console.log('iscroll error');
+				app.analytics('error',e);
 			}
 		}
 	}, 300);
@@ -1124,13 +1124,15 @@ function updateFoodDb(callback) {
 					if(callback != 'retry') {
 						//retry
 						alert('Error downloading database','Importing local database instead.');
+						app.analytics('error','Error downloading database');
 						updateFoodDb('retry');
 					} else {
 						//give up
 						alert('Error creating database','Please connect to the internet and try again.');
+						app.analytics('error','Error creating database');
 					}				
 					//////////////////////////////////////////
-				},500);
+				},1000);
 			}
 			function doImport(callback) {
 				spinner();
@@ -1919,10 +1921,6 @@ function buildLangMenu(opt) {
 		});
 	},300);
 }
-/////////////////////////////
-// OVERTHROW FOR ANDROID 2 //
-/////////////////////////////
-if(app.device.android2)	{ !function(a){var b=a.document,c=b.documentElement,d="overthrow-enabled",e="ontouchmove"in b,f="WebkitOverflowScrolling"in c.style||"msOverflowStyle"in c.style||!e&&a.screen.width>800||function(){var b=a.navigator.userAgent,c=b.match(/AppleWebKit\/([0-9]+)/),d=c&&c[1],e=c&&d>=534;return b.match(/Android ([0-9]+)/)&&RegExp.$1>=3&&e||b.match(/ Version\/([0-9]+)/)&&RegExp.$1>=0&&a.blackberry&&e||b.indexOf("PlayBook")>-1&&e&&-1===!b.indexOf("Android 2")||b.match(/Firefox\/([0-9]+)/)&&RegExp.$1>=4||b.match(/wOSBrowser\/([0-9]+)/)&&RegExp.$1>=233&&e||b.match(/NokiaBrowser\/([0-9\.]+)/)&&7.3===parseFloat(RegExp.$1)&&c&&d>=533}();a.overthrow={},a.overthrow.enabledClassName=d,a.overthrow.addClass=function(){-1===c.className.indexOf(a.overthrow.enabledClassName)&&(c.className+=" "+a.overthrow.enabledClassName)},a.overthrow.removeClass=function(){c.className=c.className.replace(a.overthrow.enabledClassName,"")},a.overthrow.set=function(){f&&a.overthrow.addClass()},a.overthrow.canBeFilledWithPoly=e,a.overthrow.forget=function(){a.overthrow.removeClass()},a.overthrow.support=f?"native":"none"}(this),function(a,b,c){if(b!==c){b.easing=function(a,b,c,d){return c*((a=a/d-1)*a*a+1)+b},b.tossing=!1;var d;b.toss=function(a,e){b.intercept();var f,g,h=0,i=a.scrollLeft,j=a.scrollTop,k={top:"+0",left:"+0",duration:50,easing:b.easing,finished:function(){}},l=!1;if(e)for(var m in k)e[m]!==c&&(k[m]=e[m]);return"string"==typeof k.left?(k.left=parseFloat(k.left),f=k.left+i):(f=k.left,k.left=k.left-i),"string"==typeof k.top?(k.top=parseFloat(k.top),g=k.top+j):(g=k.top,k.top=k.top-j),b.tossing=!0,d=setInterval(function(){h++<k.duration?(a.scrollLeft=k.easing(h,i,k.left,k.duration),a.scrollTop=k.easing(h,j,k.top,k.duration)):(f!==a.scrollLeft?a.scrollLeft=f:(l&&k.finished(),l=!0),g!==a.scrollTop?a.scrollTop=g:(l&&k.finished(),l=!0),b.intercept())},1),{top:g,left:f,duration:b.duration,easing:b.easing}},b.intercept=function(){clearInterval(d),b.tossing=!1}}}(this,this.overthrow),function(a,b,c){if(b!==c){b.scrollIndicatorClassName="overthrow";var d=a.document,e=d.documentElement,f="native"===b.support,g=b.canBeFilledWithPoly,h=(b.configure,b.set),i=b.forget,j=b.scrollIndicatorClassName;b.closest=function(a,c){return!c&&a.className&&a.className.indexOf(j)>-1&&a||b.closest(a.parentNode)};var k=!1;b.set=function(){if(h(),!k&&!f&&g){a.overthrow.addClass(),k=!0,b.support="polyfilled",b.forget=function(){i(),k=!1,d.removeEventListener&&d.removeEventListener("touchstart",u,!1)};var j,l,m,n,o=[],p=[],q=function(){o=[],l=null},r=function(){p=[],m=null},s=function(a){n=j.querySelectorAll("textarea, input");for(var b=0,c=n.length;c>b;b++)n[b].style.pointerEvents=a},t=function(a,b){if(d.createEvent){var e,f=(!b||b===c)&&j.parentNode||j.touchchild||j;f!==j&&(e=d.createEvent("HTMLEvents"),e.initEvent("touchend",!0,!0),j.dispatchEvent(e),f.touchchild=j,j=f,f.dispatchEvent(a))}},u=function(a){if(b.intercept&&b.intercept(),q(),r(),j=b.closest(a.target),j&&j!==e&&!(a.touches.length>1)){s("none");var c=a,d=j.scrollTop,f=j.scrollLeft,g=j.offsetHeight,h=j.offsetWidth,i=a.touches[0].pageY,k=a.touches[0].pageX,n=j.scrollHeight,u=j.scrollWidth,v=function(a){var b=d+i-a.touches[0].pageY,e=f+k-a.touches[0].pageX,s=b>=(o.length?o[0]:0),v=e>=(p.length?p[0]:0);b>0&&n-g>b||e>0&&u-h>e?a.preventDefault():t(c),l&&s!==l&&q(),m&&v!==m&&r(),l=s,m=v,j.scrollTop=b,j.scrollLeft=e,o.unshift(b),p.unshift(e),o.length>3&&o.pop(),p.length>3&&p.pop()},w=function(){s("auto"),setTimeout(function(){s("none")},450),j.removeEventListener("touchmove",v,!1),j.removeEventListener("touchend",w,!1)};j.addEventListener("touchmove",v,!1),j.addEventListener("touchend",w,!1)}};d.addEventListener("touchstart",u,!1)}}}}(this,this.overthrow),function(a){a.overthrow.set()}(this); }
 //////////////////
 // NICE RESIZER //
 //////////////////
@@ -2135,6 +2133,13 @@ function getRateDialog() {
 // GET ANALYTICS //
 ///////////////////
 app.analytics = function(target,desc) {
+	if(target == 'error') {
+		if(typeof desc !== 'string') {
+			desc = JSON.stringify(desc);
+		}
+		console.log('Analytics: ' + desc);
+	}
+	//
 	if(typeof ga_storage === 'undefined')				{ return; }
 	if(typeof baseVersion === 'undefined')				{ return; }
 	//not dev
@@ -2156,6 +2161,7 @@ app.analytics = function(target,desc) {
 		     if(app.device.ios)		   { appOS = 'ios';        if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.amazon)     { appOS = 'amazon';     if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.blackberry) { appOS = 'blackberry'; if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.playbook)   { appOS = 'playbook';   if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.android)	   { appOS = 'android';    if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.windows8)   { appOS = 'windows8';   if(app.device.cordova) { deviceType = 'app'; } }
@@ -2306,7 +2312,7 @@ function getLoginFB() {
 		//////////
 		// BB10 //
 		//////////			
-		} else if(app.device.blackberry) {
+		} else if(app.device.blackberry || app.device.playbook) {
 			FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
 			var callback = 'https://www.facebook.com/connect/login_success.html';
 			var facebookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&response_type=token&redirect_uri=' + encodeURIComponent(callback);
