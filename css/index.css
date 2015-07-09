@@ -353,6 +353,7 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 /////////////////////*/
 div#optionWebsite					{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-shadow: rgba(255,255,255,.5) 0 1px 0; }
 div#optionWebsite:active			{ color: #999; }
+.osx div#optionWebsite:active		{ color: #bbb !important; }
 div#optionWebsite 					{ display: block; }
 /*///////////////////
 // SETTINGS: SHARE //

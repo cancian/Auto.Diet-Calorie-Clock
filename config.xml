@@ -1,20 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0"
-	xmlns:rim="http://www.blackberry.com/ns/widgets" id="com.cancian.kcals"
-	version="1.9.5.5" versionCode="19550" xmlns="http://www.w3.org/ns/widgets">
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.cancian.kcals" version="1.9.6" versionCode="19600" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
 	<access origin="*" subdomains="true" />
-		
+	
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+	
 	<name>KCals Calorie Counter</name>
 
-	<description>
-		KCals is a real-time calorie counter that simulates the human metabolism.
-	</description>
+	<description>KCals is a real-time calorie counter that simulates the human metabolism.</description>
 
-	<author email="cancian@kcals.net" href="http://kcals.net">
-		Andre Cancian
-	</author>
+	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>
 
 	<icon src="icon.png" />
 
@@ -63,10 +64,9 @@
 	<!-- Preferences for iOS -->
 
 	<!-- Preferences for BB10 -->
-	<feature name="Notification" value="Notification" />
 	<preference name="ChildBrowser" value="enable" />
 	<preference name="DiskCache" value="enable" />
-	<preference name="HideKeyboardFormAccessoryBar" value="true" />
+	<preference name="HideKeyboardFormAccessoryBar" value="false" />
 	<preference name="Orientation" value="default" />
 	<preference name="PopupBlocker" value="disable" />
 	<preference name="WebSecurity" value="disable" />
@@ -84,7 +84,7 @@
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
 
-	<feature name="Notification">
+	<feature name="Notification" value="Notification">
 		<param name="ios-package" value="CDVNotification" />
 		<param name="android-package" value="org.apache.cordova.dialogs.Notification" />
 		<param name="wp-package" value="Notification" />
