@@ -394,6 +394,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #advancedReload.activeRow				{ background-color: #007aff !important; color: #fff; }
 #advancedReset							{ margin-bottom: 28px; color: #F22323; }
 #advancedReset.activeRow				{ background-color: #E86401 !important; color: #fff; }
+.osx #advancedAbout						{ display: none; }
 /*//////////////////
 // MULTIUSER MENU //
 //////////////////*/
