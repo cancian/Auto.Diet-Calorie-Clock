@@ -13,11 +13,12 @@
 • Auto-Share custom items (every custom item added becomes available to all users)
 • Choose the food database language independently from the current system language
 
-# 1.9.6 [2015-06-29]
+# 1.9.6 [2015-07-11]
+• Fixed an issue with favorites disappearing during synchronization
 • Improved cache handling
 • Intro screen has to be manually dismissed
 • Use metric system as default for all users
-• Smoother scrolling on slower devices (uses less resources)
+• Smoother scrolling on slower devices (uses fewer resources)
 • Hardened security
 
 # 1.9.5 [2015/06/18]
