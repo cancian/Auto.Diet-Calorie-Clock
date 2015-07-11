@@ -1033,7 +1033,7 @@ app.handlers = {
 				///////////////
 				if(filter) {
 					if(!rowSql.contains(data[i].id)) {
-						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + data[i].kcal + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + ",'" + data[i].fii + ",'" + data[i].sug + ",'" + data[i].sod + "');\n";
+						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + data[i].kcal + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + "','" + data[i].fii + "','" + data[i].sug + "','" + data[i].sod + "');\n";
 					}
 				}
 			}
