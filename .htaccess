@@ -2,38 +2,42 @@
 ## KCALS.NET ##
 ###############
 ## ENCODING ##
-##############
-Options -Indexes
 SetEnv TZ America/Sao_Paulo
 AddDefaultCharset UTF-8
+Options -Indexes
 
 ## MIME ##
 AddType font/ttf .ttf
+AddType text/plain .db
 AddType application/font-woff .woff
-AddType application/x-web-app-manifest+json .webapp
 AddType text/cache-manifest .manifest
 AddType text/cache-manifest .appcache
-AddType text/plain .db
+AddType application/x-web-app-manifest+json .webapp
 
-## NO CACHE ##
-<ifModule mod_headers.c>
-	Header unset ETag
-	Header add Access-Control-Allow-Origin "*"
-	Header set Expires "Fri, 19 Feb 1982 00:00:00 GMT"
-</ifModule>
+## NO CACHE ~ USE MANIFEST
+<filesMatch "\.(php|js|css|ttf|cur|ico|png|appcache|json|webapp|txt|db|sql)$">
+	FileETag None
+	<ifModule mod_headers.c>
+		Header unset ETag
+		Header set Pragma "no-cache"
+		Header add Access-Control-Allow-Origin "*"
+		Header set Expires "Fri, 19 Feb 1982 06:06:06 GMT"
+		Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+	</ifModule>
+</filesMatch>
 
 ## MOD_REWRITE ##
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 	RewriteBase /
 	#JS
+	RewriteCond %{HTTP_HOST} !.kcals.net$  [NC]
 	RewriteCond %{HTTP_HOST} !192.168.1.5$ [NC]
-	RewriteCond %{HTTP_HOST} !.kcals.net$ [NC]
 	RewriteCond %{REQUEST_URI} !js/min/
 	RewriteRule ^js/(.*)$ js/min/$1 [L,QSA]
 	#CSS
+	RewriteCond %{HTTP_HOST} !.kcals.net$  [NC]
 	RewriteCond %{HTTP_HOST} !192.168.1.5$ [NC]
-	RewriteCond %{HTTP_HOST} !.kcals.net$ [NC]
 	RewriteCond %{REQUEST_URI} !css/min/
 	RewriteRule ^css/(.*)$ css/min/$1 [L,QSA]
 </IfModule>
