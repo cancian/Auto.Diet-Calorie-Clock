@@ -74,7 +74,9 @@ $(document).on('resume',function() {
 			}
 		},2000);
 		//ONLINE USERS
-		app.online();
+		if(typeof app.online === 'function') {
+			app.online();
+		}
 		//BLOCK PIRACY
 		if(!app.device.desktop) {
 			app.piracy();

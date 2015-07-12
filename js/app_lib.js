@@ -491,7 +491,11 @@ app.get.platform = function(noweb) {
 ////////////////////
 // GLOBAL BOOLEAN //
 ////////////////////
-app.is.scrollable = ($.nicescroll && (app.device.desktop || app.device.android2)) ? true : false;
+app.is.scrollable = false;
+if($.nicescroll) {
+	if(app.device.desktop)								{ app.is.scrollable = true; }
+	if(app.device.android && app.device.android < 4.4)	{ app.is.scrollable = true; }
+}
 //////////////////
 // APP.REBOOT() //
 //////////////////
