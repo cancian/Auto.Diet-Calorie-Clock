@@ -132,7 +132,10 @@ function initJS() {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-connect.js"><\/script>');
 	} else if ((/IEMobile/i).test(navigator.userAgent)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js"><\/script>');
-	} else if (!IsMsApp) {
+	} else if (IsMsApp) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winjs.js"><\/script>');	
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"><\/script>');	
+	} else {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.min.js"><\/script>');
 	}
 	////////
