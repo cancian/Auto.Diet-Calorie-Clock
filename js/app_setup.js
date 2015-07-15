@@ -2302,12 +2302,19 @@ function getLoginFB() {
 		// MSAPP //
 		///////////
 		} else if(app.device.windows8) {
-			if(Windows.Foundation) {
-				var callbackURL = 'https://www.facebook.com/connect/login_success.html';
-				var facebookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + encodeURIComponent(callbackURL);
-				var startURI    = new Windows.Foundation.Uri(facebookURL);
-				var endURI      = new Windows.Foundation.Uri(callbackURL);
-				Windows.Security.Authentication.Web.WebAuthenticationBroker.authenticateAsync('', startURI, endURI).then(getTokenFB, errorHandler);
+			var callbackURL = 'https://www.facebook.com/connect/login_success.html';
+			var facebookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + encodeURIComponent(callbackURL);
+			var startURI    = new Windows.Foundation.Uri(facebookURL);
+			var endURI      = new Windows.Foundation.Uri(callbackURL);
+			//METHODS
+			try {
+				if(/IEMobile/i.test(app.ua)) {
+					(function() { Windows.Security.Authentication.Web.WebAuthenticationBroker.authenticateAndContinue(startURI, endURI); })();
+				} else {
+					(function() { Windows.Security.Authentication.Web.WebAuthenticationBroker.authenticateAsync('', startURI, endURI).then(getTokenFB, errorHandler); })();
+				}
+			} catch(e) {
+				errorHandler(e);
 			}
 		//////////
 		// BB10 //

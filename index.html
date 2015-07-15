@@ -12,6 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0"/>
 <meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <!--###########################################-->
@@ -172,7 +173,11 @@ function bootStraper() {
 	//INIT
 	if ((/MSApp/).test(navigator.userAgent)) {
 		MSApp.execUnsafeLocalFunction(function() { 
-			hostLocal = ''; 
+			//WINJS
+			document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/base.js"><\/script>');
+			document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/ui.js"><\/script>');
+			//MSAPP
+			hostLocal = '';
 			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
 			document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } <\/style>');
 		});
