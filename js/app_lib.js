@@ -251,72 +251,64 @@ var app = {
 ///////////////////
 // CUSTOM JQUERY //
 ///////////////////
-if (/MSApp/i.test(app.ua)) {
-	$.prototype.html2 = function (data, callback) {
-		var selector = this;
-		var obj = $(selector);
-		if (obj.length) {
-			if (obj.html() !== data) {
-				safeExec(function () {
-					obj.html(data);
-				});
+$.prototype.html2 = function (data, callback) {
+	var selector = this;
+	var obj = $(selector);
+	if (obj.length) {
+		if (obj.html() !== data) {
+			safeExec(function () {
+				obj.html(data);
+			});
+		}
+	}
+	if (typeof callback === 'function') {
+		callback();
+	}
+};
+$.prototype.append2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
+		safeExec(function () {
+			obj.append(data);
+			if (typeof callback === 'function') {
+				callback();
 			}
-		}
-		if (typeof callback === 'function') {
-			callback();
-		}
-	};
-	$.prototype.append2 = function (data, callback) {
-		var obj = $(this);
-		if (obj.length) {
-			safeExec(function () {
-				obj.append(data);
-				if (typeof callback === 'function') {
-					callback();
-				}
-			});
-		}
-	};
-	$.prototype.prepend2 = function (data, callback) {
-		var obj = $(this);
-		if (obj.length) {
-			safeExec(function () {
-				obj.prepend(data);
-				if (typeof callback === 'function') {
-					callback();
-				}
-			});
-		}
-	};
-	$.prototype.before2 = function (data, callback) {
-		var obj = $(this);
-		if (obj.length) {
-			safeExec(function () {
-				obj.before(data);
-				if (typeof callback === 'function') {
-					callback();
-				}
-			});
-		}
-	};
-	$.prototype.after2 = function (data, callback) {
-		var obj = $(this);
-		if (obj.length) {
-			safeExec(function () {
-				obj.after(data);
-				if (typeof callback === 'function') {
-					callback();
-				}
-			});
-		}
-	};
-} else {
-	$.prototype.html2    = $.prototype.html;
-	$.prototype.append2  = $.prototype.append;
-	$.prototype.prepend2 = $.prototype.prepend;
-	$.prototype.before2  = $.prototype.before;
-	$.prototype.after2   = $.prototype.after;
-}
+		});
+	}
+};
+$.prototype.prepend2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
+		safeExec(function () {
+			obj.prepend(data);
+			if (typeof callback === 'function') {
+				callback();
+			}
+		});
+	}
+};
+$.prototype.before2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
+		safeExec(function () {
+			obj.before(data);
+			if (typeof callback === 'function') {
+				callback();
+			}
+		});
+	}
+};
+$.prototype.after2 = function (data, callback) {
+	var obj = $(this);
+	if (obj.length) {
+		safeExec(function () {
+			obj.after(data);
+			if (typeof callback === 'function') {
+				callback();
+			}
+		});
+	}
+};
 /////////////////
 // SWITCH USER //
 /////////////////
