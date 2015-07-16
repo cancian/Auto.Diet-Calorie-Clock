@@ -15,7 +15,7 @@ AddType text/cache-manifest .appcache
 AddType application/x-web-app-manifest+json .webapp
 
 ## NO CACHE ~ USE MANIFEST
-<filesMatch "\.(html|htm|php|js|css|ttf|woff|cur|ico|jpg|png|appcache|webapp|json|webapp|txt|db|sql|xml)$">
+<filesMatch "\.(php|js|css|ttf|woff|cur|ico|jpg|png|appcache|webapp|json|webapp|txt|db|sql|xml)$">
 	FileETag None
 	<ifModule mod_headers.c>
 		Header unset ETag

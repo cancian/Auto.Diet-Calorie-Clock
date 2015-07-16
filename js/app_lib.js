@@ -258,11 +258,11 @@ $.prototype.html2 = function (data, callback) {
 		if (obj.html() !== data) {
 			safeExec(function () {
 				obj.html(data);
+				if (typeof callback === 'function') {
+					callback();
+				}
 			});
 		}
-	}
-	if (typeof callback === 'function') {
-		callback();
 	}
 };
 $.prototype.append2 = function (data, callback) {

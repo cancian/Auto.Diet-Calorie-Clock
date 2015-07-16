@@ -349,6 +349,7 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 #optionLastSync span				{ color: #bbb; padding-left: 4px; }
 #optionLastSync 					{ display: none; }
 .appFacebook #optionLastSync		{ display: block; }
+.playbook #optionFacebook			{ display: none; }
 /*/////////////////////
 // SETTINGS: WEBSITE //
 /////////////////////*/
