@@ -251,23 +251,9 @@ var app = {
 ///////////////////
 // CUSTOM JQUERY //
 ///////////////////
-$.prototype.html2 = function (data, callback) {
-	var selector = this;
-/*
-	if(selector.selector) {
-		selector = selector.selector
-		if(selector.indexOf('#') !== -1 && selector.indexOf(' ') === -1) {
-			var el = document.getElementById(selector.replace('#',''));
-			if(el) {
-				if(el.innerHTML != data) {
-					safeExec(function () {
-						el.innerHTML = data;
-					});
-				}
-			}
-		}
-	} else {
-*/		
+if (/MSApp/i.test(app.ua)) {
+	$.prototype.html2 = function (data, callback) {
+		var selector = this;
 		var obj = $(selector);
 		if (obj.length) {
 			if (obj.html() !== data) {
@@ -276,55 +262,61 @@ $.prototype.html2 = function (data, callback) {
 				});
 			}
 		}
-	//}
-	if (typeof callback === 'function') {
-		callback();
-	}
-};
-$.prototype.append2 = function (data, callback) {
-	var obj = $(this);
-	if (obj.length) {
-		safeExec(function () {
-			obj.append(data);
-			if (typeof callback === 'function') {
-				callback();
-			}
-		});
-	}
-};
-$.prototype.prepend2 = function (data, callback) {
-	var obj = $(this);
-	if (obj.length) {
-		safeExec(function () {
-			obj.prepend(data);
-			if (typeof callback === 'function') {
-				callback();
-			}
-		});
-	}
-};
-$.prototype.before2 = function (data, callback) {
-	var obj = $(this);
-	if (obj.length) {
-		safeExec(function () {
-			obj.before(data);
-			if (typeof callback === 'function') {
-				callback();
-			}
-		});
-	}
-};
-$.prototype.after2 = function (data, callback) {
-	var obj = $(this);
-	if (obj.length) {
-		safeExec(function () {
-			obj.after(data);
-			if (typeof callback === 'function') {
-				callback();
-			}
-		});
-	}
-};
+		if (typeof callback === 'function') {
+			callback();
+		}
+	};
+	$.prototype.append2 = function (data, callback) {
+		var obj = $(this);
+		if (obj.length) {
+			safeExec(function () {
+				obj.append(data);
+				if (typeof callback === 'function') {
+					callback();
+				}
+			});
+		}
+	};
+	$.prototype.prepend2 = function (data, callback) {
+		var obj = $(this);
+		if (obj.length) {
+			safeExec(function () {
+				obj.prepend(data);
+				if (typeof callback === 'function') {
+					callback();
+				}
+			});
+		}
+	};
+	$.prototype.before2 = function (data, callback) {
+		var obj = $(this);
+		if (obj.length) {
+			safeExec(function () {
+				obj.before(data);
+				if (typeof callback === 'function') {
+					callback();
+				}
+			});
+		}
+	};
+	$.prototype.after2 = function (data, callback) {
+		var obj = $(this);
+		if (obj.length) {
+			safeExec(function () {
+				obj.after(data);
+				if (typeof callback === 'function') {
+					callback();
+				}
+			});
+		}
+	};
+} else {
+	$.prototype.html2    = $.prototype.html;
+	$.prototype.append2  = $.prototype.append;
+	$.prototype.prepend2 = $.prototype.prepend;
+	$.prototype.before2  = $.prototype.before;
+	$.prototype.after2   = $.prototype.after;
+}
 /////////////////
 // SWITCH USER //
 /////////////////
@@ -440,8 +432,7 @@ app.device = {
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	linux      : (/X11/i).test(navigator.userAgent) && (/Linux/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) && !/MSApp/i.test(app.ua) ? true : false,
-	wp81       : (/Windows Phone 8.1/i).test(app.ua) && !/MSApp/i.test(app.ua) ? true : false,
-	wp81JS     : (/Windows Phone 8.1/i).test(app.ua) && (/MSApp/i).test(app.ua) ? true : false,
+	wp81       : (/IEMobile/i).test(app.ua) && /MSApp/i.test(app.ua)  ? true : false,
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
 	windows81  : (/MSAppHost\/2.0/i).test(app.ua) && !(/IE__Mobile/i).test(app.ua)? true : false,
 	windows8T  : (/MSApp/i).test(app.ua) && (/Touch/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
@@ -460,32 +451,24 @@ if(typeof staticVendor !== 'undefined') {
 		app.device.amazon = true;	
 	}	
 }
-/*
-if(app.device.wp81JS == true) {
-	app.device.wp8       = false;
-	app.device.wp81      = false;
-	app.device.windows8  = true;
-	app.device.windows81 = true;
-	app.device.windows8T = true;
-}*/
 //////////////////////
 // GLOBAL SHORTCUTS //
 //////////////////////
 app.get.platform = function(noweb) {
-	if(app.device.ios && app.http)     { return 'web';              }
-	if(app.device.android && app.http) { return 'web';              }
-	if(app.device.wp8 && app.http)     { return 'web';              }
-	if(app.device.linux)               { return 'Linux';            }
-	if(app.device.ios)                 { return 'iOS';              }
-	if(app.device.amazon)              { return 'Android (Amazon)'; }
-	if(app.device.wp8)                 { return 'Windows Phone';    }
-	if(app.device.windows8)            { return 'Windows 8';        }
-	if(app.device.blackberry)          { return 'BlackBerry';       }
-	if(app.device.playbook)            { return 'PlayBook';         }
-	if(app.device.android)             { return 'Android';          }
-	if(app.device.firefoxos)           { return 'FirefoxOS';        }	
-	if(app.device.osxapp)              { return 'Mac';              }
-	if(app.device.chromeos)            { return 'ChromeOS';         }
+	if(app.device.ios && app.http)        { return 'web';              }
+	if(app.device.android && app.http)    { return 'web';              }
+	if(app.device.wp8 && app.http)        { return 'web';              }
+	if(app.device.linux)                  { return 'Linux';            }
+	if(app.device.ios)                    { return 'iOS';              }
+	if(app.device.amazon)                 { return 'Android (Amazon)'; }
+	if(app.device.wp8 || app.device.wp81) { return 'Windows Phone';    }
+	if(app.device.windows8)               { return 'Windows 8';        }
+	if(app.device.blackberry)             { return 'BlackBerry';       }
+	if(app.device.playbook)               { return 'PlayBook';         }
+	if(app.device.android)                { return 'Android';          }
+	if(app.device.firefoxos)              { return 'FirefoxOS';        }	
+	if(app.device.osxapp)                 { return 'Mac';              }
+	if(app.device.chromeos)               { return 'ChromeOS';         }
 	return 'web';
 };
 ////////////////////
@@ -1219,9 +1202,8 @@ app.get.kcals = function(opt) {
 //#///////////#//
 //# MOBILE OS #//
 //#///////////#//
-function getIsDesktop() {
-}
-var isItDesktop = getIsDesktop();
+function getIsDesktop() {}
+var isItDesktop = getIsDesktop;
 function isDesktop() {
 	return isItDesktop;
 }

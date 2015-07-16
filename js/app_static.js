@@ -54,7 +54,7 @@ $(document).ready(function() {
 ////////////////
 // RESUME EVT //
 ////////////////
-$(document).on('resume',function() {
+$(document).on('resume',function(evt) {
 	clearTimeout(app.repeaterLoop);
 	$('body').css('opacity',1);
 	$('body').show();
@@ -736,6 +736,10 @@ if(app.device.android) {
 if(app.device.wp8) {
 	$('html').addClass('wp8');
 	$('body').addClass('wp8');
+}
+if(app.device.wp81) {
+	$('html').addClass('wp81');
+	$('body').addClass('wp81');
 }
 if(app.device.windows8) {
 	$('body').addClass('windows8');

@@ -63,12 +63,13 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 .noOverflow								{ overflow: hidden !important; }
 .clicked								{ opacity: .6; -webkit-filter: grayscale(10%); -moz-filter: grayscale(10%); filter: grayscale(10%); }
 #fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
-@media all and (orientation:portrait)	{ -ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
-@media all and (orientation:landscape)	{ -ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+@media all and (orientation:portrait)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+@media all and (orientation:landscape)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+@media (max-width: 400px)				{ @-ms-viewport { width: 320px; }}
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#contentWrapper						{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; background-color: #fff; margin: 0; padding: 0; border: 0; user-zoom: fixed; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
+#contentWrapper						{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; background-color: #fff; user-zoom: fixed; margin: 0; padding: 0; border: 0; user-zoom: fixed; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
 #appContent							{ position: absolute; top: 0; left: 0; right: 0; bottom: 44px; display: block; border-top: 65px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
 .ios #appContent					{ border-top: none; top: 65px; }
 .msie.newwindow #appContent			{ /*overflow: hidden;*/ }

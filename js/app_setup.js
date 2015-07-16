@@ -4,8 +4,8 @@
 ////////////////
 var myScroll;
 function showIntro(isNew) {
-	//skip intro for small devices
 	$(window).trigger('resize');
+	//skip intro for very small devices
 	if($(document).height() < 350) { 
 		if(isNew == true) {
 			if(typeof baseVersion !== 'undefined') {
