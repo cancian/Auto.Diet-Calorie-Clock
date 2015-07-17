@@ -180,30 +180,6 @@ $('body').prepend2('\
 		</ul>\
 	</div>\
 ');
-$(document).scroll(function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$(window).scroll(function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();
-});
-$('body').scroll(function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$(document).on('dblclick',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$(window).on('dblclick',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$('body').on('dblclick',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -1006,31 +982,45 @@ if(app.is.scrollable) {
 	}
 	setTimeout(lastEntryPush,2000);
 })();
-	/////////////////
-	// HEADER INFO //
-	/////////////////
-	function headerInfo(evt) {
-		app.handlers.activeRow('#appHeader','button',function(evt) {
-			if(evt.pageY < 72 && evt.pageX < 130) {
-				if($('#appHelper').length)		{ return; }
-				if($('#advancedMenu').length)	{ return; }
-				if($('#backButton').length)		{ return; }
-				if($('#subBackButton').length)	{ return; }
-				if($('#langSelect').length)		{ return; }
-				if($('#advancedMenu').length)	{ return; }
-				if($('#pageSlideFood').length)	{ return; }
-				getNewWindow('Help: What is KCals?','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['What is KCals?'] + '</div>',function() {
-					$('#tabHelp').removeClass('hidden');
-					app.handlers.activeRow('#openHelp','button',function(evt) {
-						appFooter('tab4',0,function() {
-							buildHelpMenu('direct');
-						});
+	//#////////////////#//
+	//# XY HEADER INFO #//
+	//#////////////////#//
+	//LISTENER
+	document.getElementById('appHeader').addEventListener(touchstart, function(evt) {
+		if(evt) {
+			if (typeof evt.targetTouches !== 'undefined') {
+				//TOUCH
+				if (typeof evt.targetTouches[0] !== 'undefined') {
+					app.infoX = evt.targetTouches[0].pageX;
+					app.infoY = evt.targetTouches[0].pageY;
+				}
+			} else {
+				//CLICK
+				app.infoX = evt.pageX;
+				app.infoY = evt.pageY;
+			}
+		}
+	}, false);
+	// HANDLER
+	app.handlers.activeRow('#appHeader','button',function(evt) {
+		if(app.infoX < 132 && app.infoY < 72) {
+			if($('#appHelper').length)		{ return; }
+			if($('#advancedMenu').length)	{ return; }
+			if($('#backButton').length)		{ return; }
+			if($('#subBackButton').length)	{ return; }
+			if($('#langSelect').length)		{ return; }
+			if($('#advancedMenu').length)	{ return; }
+			if($('#pageSlideFood').length)	{ return; }
+			getNewWindow('Help: What is KCals?','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['What is KCals?'] + '</div>',function() {
+				$('#tabHelp').removeClass('hidden');
+				app.handlers.activeRow('#openHelp','button',function(evt) {
+					appFooter('tab4',0,function() {
+						buildHelpMenu('direct');
 					});
 				});
-			}
-		});
-	};
-	headerInfo();
+			});
+		}
+	});
 	//////////////////////
 	// PAGESLIDE CLOSER //
 	//////////////////////
@@ -1100,8 +1090,6 @@ if(app.is.scrollable) {
 			});
 			return;
 		}
-		//
-		headerInfo(evt);
 	});
 	///////////////////////////
 	// blur edit / entrybody //

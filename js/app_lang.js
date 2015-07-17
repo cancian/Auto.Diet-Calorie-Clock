@@ -6668,8 +6668,8 @@ var LANG = {
 'What is KCals?' : '\
 <p>KCals is a cross-platform web app that allows you to count your calories from anywhere.</p>\
 <p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, KCals works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
-<p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much and when to eat, and even how much to exercise to make up for that little extra snack!</p>\
-<p id="tabHelp" class="hidden">For more information on how to take full advantage of the app, be sure to check the<span id="openHelp" class="blue bold"> help section</span>.</p>\
+<p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p>\
+<p id="tabHelp" class="hidden">For more information on how to take full advantage of this app, be sure to check the<span id="openHelp" class="blue bold"> help section</span>.</p>\
 ',
 
 'Getting started' : 

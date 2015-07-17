@@ -127,7 +127,7 @@ body.android #appHeader				{ z-index: 50 !important; }
 #timerKcals						{ position: absolute; bottom: 0px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; border-bottom: 16px solid rgba(0,0,0,0); background-color: rgba(0,0,0,0); display: block; height: 100px; }
 #timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 24px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(0,0,0,0); -webkit-appearance: none; z-index: 4; text-shadow: 0 0 1px rgba(0,0,0,.1); }
 #timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; font-weight: 400; padding-top: 2px; color: #fff; background-color: rgba(0,0,0,0); z-index: 5; text-shadow: 0 0 1px rgba(0,0,0,.1); }
-#timerKcals span:after			{ content: '\A175'; font-family: KCals; font-size: 13px; display: block; font-weight: normal; margin-top: 0; position: absolute; bottom: -1px; right: -18px; color: rgba(255,255,255,.45); font-size: 14px; line-height: 13px; display: block; z-index: 3; font-weight: bold; }
+#timerKcals span:after			{ content: '\A175'; font-family: KCals; font-size: 13px; display: block; font-weight: normal; margin-top: 0; position: absolute; bottom: -1px; right: -18px; color: #fff; font-size: 14px; line-height: 13px; display: block; z-index: 3; font-weight: bold; opacity: .55; }
 #openHelp.button				{ color: #ccc !important; }
 /*#appHeader.button #timerKcals:after { color: rgba(255,255,255,.7) !important; }*/
 /*//////////////////
