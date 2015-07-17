@@ -1,4 +1,4 @@
-﻿$.ajaxSetup({ xhr: function() {return new window.XMLHttpRequest({mozSystem: true}); }, cache: false, crossDomain: true, async:true});
+﻿$.ajaxSetup({cache: false, crossDomain: true, async:true});
 //#////////////#//
 //# APP OBJECT #//
 //#////////////#//
