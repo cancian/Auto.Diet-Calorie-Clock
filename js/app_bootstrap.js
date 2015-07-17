@@ -245,9 +245,10 @@ if(window.localStorage.getItem('config_autoupdate') == 'on') {
 				}
 			},2500);
 		}
+		var cacheTimeout = window.localStorage.getItem('config_debug') == 'active' ? 500 : 6000;
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		},6000);
+		},cacheTimeout);
 	});
 }
 // BACKWARDS COMP

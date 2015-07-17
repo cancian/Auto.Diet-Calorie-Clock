@@ -190,9 +190,9 @@ var app = {
 		var keys = Object.keys(window.localStorage);
 		for (var i = 0; i < keys.length; i++) {
 			//cached keys
-			if (!(/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i).test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
+			if (!/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i.test(keys[i]) || window.localStorage.getItem('config_autoupdate') !== 'on') {
 				//protected keys
-				if(!/autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_database/i.test(keys[i])) {
+				if(!/autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_database|app_installed/i.test(keys[i])) {
 					//MULTIUSER
 					/*
 					//remove current user settings

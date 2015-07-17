@@ -4,18 +4,24 @@
 ////////////////
 var myScroll;
 function showIntro(isNew) {
-	$(window).trigger('resize');
-	//skip intro for very small devices
-	if($(document).height() < 350) { 
+	/////////////
+	// INSTALL //
+	/////////////
+	setTimeout(function(isNew) {
 		if(isNew == true) {
-			if(typeof baseVersion !== 'undefined') {
-				if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+			if(!app.read('app_installed')) {
+				if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
 					app.analytics('install');
 				} else {
 					app.analytics('webinstall');
 				}
+				app.define('app_installed',true);
 			}
 		}
+	},4000);
+	//skip intro for very small devices
+	$(window).trigger('resize');
+	if($(document).height() < 350) { 
 		return;
 	}
 	//ISCROLL
@@ -81,16 +87,6 @@ function showIntro(isNew) {
 			});
 		}
 		evt.preventDefault();
-		/////////////
-		// INSTALL //
-		/////////////
-		if(isNew == true) {
-			if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
-				app.analytics('install');
-			} else {
-				app.analytics('webinstall');
-			}
-		}
 		///////////////////////
 		// LOCK INTRO SCREEN //
 		///////////////////////
@@ -1547,9 +1543,11 @@ function getNutriTimeSpan(entryTime) {
 //## BUILD HELP MENU ##//
 //##/////////////////##//
 var subHelperTimer;
-function buildHelpMenu() {
+function buildHelpMenu(args) {
 	//insert menu
-	$('#optionHelp').addClass('activeRow');
+	if(args !== 'direct') {
+		$('#optionHelp').addClass('activeRow');
+	}
 	$('body').append2('<div id="appHelper"></div>');
 	
 	$('#appHelper').hide();
@@ -2164,6 +2162,7 @@ app.analytics = function(target,desc) {
 		else if(app.device.playbook)   { appOS = 'playbook';   if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.android)	   { appOS = 'android';    if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.wp81)	   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.windows8)   { appOS = 'windows8';   if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
 		else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }

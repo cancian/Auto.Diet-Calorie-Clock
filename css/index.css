@@ -120,13 +120,16 @@ body.error.surplus #timerKcals span,
 body.error.surplus #timerDailyInput,
 body.error.surplus #timerDaily span	{ color: #309030 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }
 /*android hacks*/
-body.android #appHeader			{ z-index: 50 !important; }
+body.android #appHeader				{ z-index: 50 !important; }
 /*/////////////////
 // CALORIE CLOCK //
 /////////////////*/
-#timerKcals						{ position: absolute; bottom: 16px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; }
+#timerKcals						{ position: absolute; bottom: 0px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; border-bottom: 16px solid rgba(0,0,0,0); background-color: rgba(0,0,0,0); display: block; height: 100px; }
 #timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 24px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(0,0,0,0); -webkit-appearance: none; z-index: 4; text-shadow: 0 0 1px rgba(0,0,0,.1); }
 #timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; font-weight: 400; padding-top: 2px; color: #fff; background-color: rgba(0,0,0,0); z-index: 5; text-shadow: 0 0 1px rgba(0,0,0,.1); }
+#timerKcals span:after			{ content: '\A175'; font-family: KCals; font-size: 13px; display: block; font-weight: normal; margin-top: 0; position: absolute; bottom: -1px; right: -18px; color: rgba(255,255,255,.45); font-size: 14px; line-height: 13px; display: block; z-index: 3; font-weight: bold; }
+#openHelp.button				{ color: #ccc !important; }
+/*#appHeader.button #timerKcals:after { color: rgba(255,255,255,.7) !important; }*/
 /*//////////////////
 // DAILY CALORIES //
 //////////////////*/
@@ -1441,6 +1444,7 @@ ul#addNewList input			{ position: absolute; top: 0; right: 120px; text-align: le
 #saveAsNew:before								{ position: absolute; top: 12px; left: 12px; width: 23px; height: 23px; border: 3px solid #fff; display: block; font-size: 28px; line-height: 10px; color: #0f0; text-shadow: 0 1px 0 rgba(0,200,0,.5); content: ''; }
 #saveAsNew.active:before						{ content: ''; background-color: #0f0; }
 body.appLang-fr #saveAsNew						{ font-size: 14px; }
+.ios7 #saveAsNew								{ top: 43px; }
 /*#///////////#//
 //#// IOS 7 //#//
 //#///////////#*/

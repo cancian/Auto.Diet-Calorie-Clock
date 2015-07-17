@@ -2,7 +2,7 @@
 <widget id="com.cancian.kcals" version="1.9.6" versionCode="19602" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 
 	<content src="index.html" />
-	<access origin="*" subdomains="true" />
+	<access subdomains="true" uri="*" origin="*" />
 	
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -69,6 +69,12 @@
 	<preference name="AutoHideSplashScreen" value="true" />
 	<preference name="HideKeyboardFormAccessoryBar" value="false" />
 	<!-- Preferences for BB10 -->
+
+	<!-- Preferences for PLAYBOOK -->
+	<feature id="blackberry.ui.dialog" /> 
+	<feature id="blackberry.invoke" /> 
+	<feature id="blackberry.utils" />
+	<!-- Preferences for PLAYBOOK -->
 
 	<!-- CORDOVA PLUGINS -->
 	<feature name="http://api.phonegap.com/1.0/device" />

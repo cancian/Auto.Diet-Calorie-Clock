@@ -1006,6 +1006,31 @@ if(app.is.scrollable) {
 	}
 	setTimeout(lastEntryPush,2000);
 })();
+	/////////////////
+	// HEADER INFO //
+	/////////////////
+	function headerInfo(evt) {
+		app.handlers.activeRow('#appHeader','button',function(evt) {
+			if(evt.pageY < 72 && evt.pageX < 130) {
+				if($('#appHelper').length)		{ return; }
+				if($('#advancedMenu').length)	{ return; }
+				if($('#backButton').length)		{ return; }
+				if($('#subBackButton').length)	{ return; }
+				if($('#langSelect').length)		{ return; }
+				if($('#advancedMenu').length)	{ return; }
+				if($('#pageSlideFood').length)	{ return; }
+				getNewWindow('Help: What is KCals?','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['What is KCals?'] + '</div>',function() {
+					$('#tabHelp').removeClass('hidden');
+					app.handlers.activeRow('#openHelp','button',function(evt) {
+						appFooter('tab4',0,function() {
+							buildHelpMenu('direct');
+						});
+					});
+				});
+			}
+		});
+	};
+	headerInfo();
 	//////////////////////
 	// PAGESLIDE CLOSER //
 	//////////////////////
@@ -1039,8 +1064,9 @@ if(app.is.scrollable) {
 		}
 		if($('#subBackButton').length)	{ $(document).trigger('backbutton'); return; }
 		if($('#backButton').length)		{ $(document).trigger('backbutton'); return; }
-		if($('#advBackButton').length)	{ $(document).trigger('backbutton'); return; }
+		if($('#advancedMenu').length)	{ $(document).trigger('backbutton'); return; }
 		if($('#langSelect').length)		{ $(document).trigger('backbutton'); return; }
+		if($('#appHelper').length)		{ $(document).trigger('backbutton'); return; }
 		
 		if($('body').hasClass('newwindow') && !$('#modalWindow').length) { return; }
 		//if(!$('#appHeader').hasClass('closer')) { return; }
@@ -1072,7 +1098,10 @@ if(app.is.scrollable) {
 					},1000);
 				}
 			});
+			return;
 		}
+		//
+		headerInfo(evt);
 	});
 	///////////////////////////
 	// blur edit / entrybody //
@@ -1185,6 +1214,11 @@ if(app.is.scrollable) {
 			}
 		}
 	});	
+/////////////////////
+// TIMERKCALS INFO //
+/////////////////////
+
+
 //#/////////////#//
 //# TAP HANDLER #//
 //#/////////////#//
