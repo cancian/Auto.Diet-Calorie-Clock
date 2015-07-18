@@ -297,6 +297,7 @@ $(document).on('menubutton', function(evt) {
 ////////////////////////
 // BACK BUTTON (+ESC) //
 //////////////////////// backclick?
+var backer = 0;
 $(document).on('backbutton', function(evt) {
 	if($('body').hasClass('spinnerMask')) { return false; }
 	//
@@ -359,6 +360,9 @@ $(document).on('backbutton', function(evt) {
 	} else {
 		if(app.read('config_debug','active')) {
 			afterHide();
+		} else if(app.device.windows8) {
+			backer = 1;
+			$(document).trigger('backbutton');
 		} else if(app.device.wp8) {
 			$(document).off('backbutton');
 			blockAlerts = 1;
@@ -372,6 +376,15 @@ $(document).on('backbutton', function(evt) {
 		}
 	}
 });
+// WINDOWS BACKBUTTON //
+if (app.device.windows8) {
+	WinJS.Application.onbackclick = function (arg) {
+		$(document).trigger('backbutton');
+		if(backer == 0) {
+    	    return true;
+		}
+	}
+}
 /////////////////
 // PRESS ENTER //
 /////////////////
