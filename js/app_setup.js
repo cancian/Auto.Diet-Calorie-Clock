@@ -2171,7 +2171,7 @@ app.analytics = function(target,desc) {
 		var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')';
 		//track page/event
 		if(target == 'error') {
-			if(!/800a139e/i.test(desc)) {
+			if(!/800a139e/i.test(desc) && !/isTrusted/i.test(desc)) {
 				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
 				ga_storage._trackEvent(appOS, target, desc, baseVersion);
 			}
