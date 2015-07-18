@@ -378,10 +378,12 @@ $(document).on('backbutton', function(evt) {
 });
 // WINDOWS BACKBUTTON //
 if (app.device.windows8) {
-	WinJS.Application.onbackclick = function (arg) {
-		$(document).trigger('backbutton');
-		if(backer == 0) {
-    	    return true;
+	if (typeof WinJS !== 'undefined') {
+		WinJS.Application.onbackclick = function (arg) {
+			$(document).trigger('backbutton');
+				if(backer == 0) {
+   			    return true;
+			}
 		}
 	}
 }
