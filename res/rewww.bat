@@ -68,6 +68,16 @@ mkdir k:\platforms\wp8\www
 cd k:\platforms\wp8\www 
 call reswww 
 
+REM PLAYBOOK
+cd K:\platforms\playbook\www
+call reswww
+REM CP OVER CDVJS
+del /q K:\platforms\playbook\www\js\cordova.js
+copy /y K:\platforms\playbook\lib\cordova.2.9.0\javascript\cordova.js K:\platforms\playbook\www\js\cordova.js
+
+
+K:\platforms\playbook\[playbook-old]\lib\cordova.2.9.0\javascript
+
 rem "bb10"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\bb10\www
@@ -93,6 +103,7 @@ del /q k:\platforms\ios\kcals\config.xml
 del /q k:\platforms\windows8\config.xml 
 del /q k:\platforms\wp8\config.xml 
 del /q k:\platforms\bb10\config.xml
+del /q K:\platforms\playbook\www\config.xml
 
 copy /y k:\www\config.xml k:\platforms\android\kcals\src\main\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\android-eclipse\res\xml\config.xml 
@@ -100,6 +111,13 @@ copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml
 copy /y k:\www\config.xml k:\platforms\windows8\config.xml 
 copy /y k:\www\config.xml k:\platforms\wp8\config.xml 
 copy /y k:\www\config.xml k:\platforms\bb10\config.xml 
+copy /y k:\www\config.xml k:\platforms\playbook\www\config.xml 
+
+REM "PLAYBOOK ASSETS" 
+del /q K:\platforms\playbook\www\80.png 
+del /q K:\platforms\playbook\www\225.png 
+copy /y k:\www\res\icon\playbook\80.png K:\platforms\playbook\www\80.png 
+copy /y k:\www\res\icon\playbook\225.png K:\platforms\playbook\www\225.png
 
 rem "wp8 assets" 
 del /q k:\platforms\wp8\159.png 

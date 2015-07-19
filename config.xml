@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="com.cancian.kcals" version="1.9.6" versionCode="19602" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.cancian.kcals" version="1.9.6" versionCode="19602" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
+
 	<access subdomains="true" uri="*" origin="*" />
-	
+	<access subdomains="true" uri="file:///store/home" />
+	<access subdomains="true" uri="file:///SDCard" />
+
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -13,9 +16,11 @@
 	
 	<name>KCals Calorie Counter</name>
 
+	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>
+	
 	<description>KCals is a real-time calorie counter that simulates the human metabolism.</description>
 
-	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>
+	<license href="http://opensource.org/licenses/alphabetical"></license>
 
 	<icon src="icon.png" />
 
@@ -71,9 +76,29 @@
 	<!-- Preferences for BB10 -->
 
 	<!-- Preferences for PLAYBOOK -->
-	<feature id="blackberry.ui.dialog" /> 
-	<feature id="blackberry.invoke" /> 
-	<feature id="blackberry.utils" />
+	<icon rim:hover="false" src="80.png" />
+	<icon rim:hover="true" src="80.png" />
+
+	<rim:loadingScreen 
+		backgroundColor="#2529F6" 
+		foregroundImage="225.png" 
+		onFirstLaunch="true">
+		<rim:transitionEffect type="fadeOut" />
+	</rim:loadingScreen>	
+
+	<feature id="blackberry.system" required="true" version="1.0.0.0" />
+	<feature id="org.apache.cordova" required="true" version="1.0.0" />
+	<feature id="blackberry.utils" required="true" version="1.0.0.0" />
+	<feature id="blackberry.app" required="true" version="1.0.0.0" />
+	<feature id="blackberry.app.event" required="true" version="1.0.0.0" />
+	<feature id="blackberry.ui.dialog" />
+	<feature id="blackberry.connection" />
+	<feature id="blackberry.bbm.platform" />
+	<feature id="blackberry.invoke" />
+	<feature id="blackberry.invoked" />
+	
+	<plugin name="Notification" value="org.apache.cordova.notification.Notification" />
+	<plugin name="InAppBrowser" value="org.apache.cordova.inappbrowser.InAppBrowser" />
 	<!-- Preferences for PLAYBOOK -->
 
 	<!-- CORDOVA PLUGINS -->
