@@ -18,9 +18,9 @@
 • Improved cache handling
 • Intro screen has to be manually dismissed
 • Use metric system as default for all users
-• Smoother scrolling on slower devices (uses fewer resources)
 • "Save as new" now shows on the top-left
 • Information tooltip on app header
+• Supressed +/- inline buttons when editing diary entries
 
 # 1.9.5 [2015/06/18]
 • Filter redundant DOM updates to improve overall performance
