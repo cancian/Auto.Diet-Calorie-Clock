@@ -1548,7 +1548,7 @@ function buildHelpMenu(args) {
 	if(args !== 'direct') {
 		$('#optionHelp').addClass('activeRow');
 	}
-	$('body').append2('<div id="appHelper"></div>');
+	$('body').append2('<div id="appHelperWrapper"><div id="appHelper"></div></div>');
 	
 	$('#appHelper').hide();
 	$('#appHelper').css('top',($('#appHeader').height()) + 'px');
@@ -1581,7 +1581,7 @@ function buildHelpMenu(args) {
 	///////////////////////
 	// INSERT TOPIC LIST //
 	///////////////////////
-	$('#appHelper').html2('<h2><span id="backButton"></span><div id="helpTitle">' + LANG.SETTINGS_HELP[lang] + '</div></h2><ul>' + helpHtml + '</ul>');
+	$('#appHelper').html2('<h2><span id="backButton"> </span><div id="helpTitle">' + LANG.SETTINGS_HELP[lang] + '</div></h2><ul>' + helpHtml + '</ul>');
 	//FADE IN
 	setTimeout(function() {
 		$('#appHelper').css('opacity','1');
@@ -1593,11 +1593,9 @@ function buildHelpMenu(args) {
 	});
 	//LIST CLOSER HANDLER
 	app.handlers.activeRow('#backButton','button',function(evt) {
-	//$('#backButton').on(touchend,function() {
-		$('#appHelper').css('opacity',0);
-		$('#appHelper').on(transitionend,function() {
-			$('#appHelper').remove();
-		});
+	app.handlers.fade(0,'#appHelperWrapper',function() {
+		$('#appHelperWrapper').remove();			
+	});
 	});
 	//////////////////////////////////
 	// CONTENT-BUILDER SELF-HANDLER //
@@ -1608,7 +1606,7 @@ function buildHelpMenu(args) {
 		var subTitle   = $('#' + targetId + ' .topicTitle').html();
 		var subContent = $('#' + targetId + ' .topicContent').html();
 		//BUILD SUB-CONTENT
-		$('body').append2('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
+		$('#appHelper').after('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
 		$('#appSubHelper').hide();
 		$('#appSubHelper').css('top',($('#appHeader').height()) + 'px');
 		$('#appSubHelper').height($('#appContent').height());

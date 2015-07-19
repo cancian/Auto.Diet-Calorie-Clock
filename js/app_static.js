@@ -202,8 +202,7 @@ afterTab = function(keepOpen) {
 	$('#langSelect').remove();
 	$('#newWindowWrapper').remove();
 	$('#advancedMenuWrapper').remove();
-	$('#appHelper').remove();
-	$('#appSubHelper').remove();
+	$('#appHelperWrapper').remove();
 	$('#diaryNotesWrapper').remove();
 	//
 	if(!$('#pageSlideFood').is(':animated')) {
