@@ -10,18 +10,18 @@ Options -Indexes
 AddType font/ttf .ttf
 AddType text/plain .db
 AddType application/font-woff .woff
-AddType text/cache-manifest .manifest
 AddType text/cache-manifest .appcache
+AddType text/cache-manifest .manifest
 AddType application/x-web-app-manifest+json .webapp
 
 ## NO CACHE ~ USE MANIFEST
-<filesMatch "\.(php|js|css|ttf|woff|cur|ico|jpg|png|appcache|webapp|json|webapp|txt|db|sql|xml)$">
+<filesMatch "\.(html|htm|php|js|css|ttf|woff|cur|ico|jpg|png|gif|json|txt|db|sql|xml)$">
 	FileETag None
 	<ifModule mod_headers.c>
 		Header unset ETag
 		Header add Access-Control-Allow-Origin "*"
 		Header set Expires "Fri, 19 Feb 1982 06:06:06 GMT"
-		Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+		Header set Cache-Control "max-age=0"
 	</ifModule>
 </filesMatch>
 

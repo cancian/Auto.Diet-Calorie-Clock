@@ -1,33 +1,27 @@
 ﻿CACHE MANIFEST
-# v19606 2015-07-17
-
-# HTML
+# v19608 - 2015-07-19
 index.html
-
 # JS
 js/app_init.js
 js/app_bootstrap.js
 js/iscroll.js
-
 # CORDOVA
 js/cordova.js
 js/cordova_plugins.js
 js/plugins/org.apache.cordova.dialogs/www/notification.js
 js/plugins/org.apache.cordova.dialogs/www/android/notification.js
 js/plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js
-
 # FACEBOOK
 js/facebook-js-sdk.js
 js/facebook-js-sdk.min.js
 js/facebook-connect.js
 js/openfb.js
-
+js/winfb.js
 # JQUERY
 js/jquery.js
 js/jquery.nicescroll.js
 js/jquery.touchswipe.js
 js/localforage.js
-
 # UTILS
 js/carpe_slider.js
 js/calculator.js
@@ -37,3 +31,7 @@ js/galocalstorage.js
 
 NETWORK:
 *
+
+FALLBACK:
+/ index.html
+
