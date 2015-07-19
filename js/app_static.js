@@ -267,6 +267,33 @@ $('#appFooter li').on(touchstart, function(evt) {
 		$('#timerDailyInput').blur();
 	}
 });
+////////////////
+// OVERSCROLL //
+////////////////
+$(document).scroll(function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
+$(window).scroll(function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();
+});
+$('body').scroll(function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
+$(document).on('dblclick',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
+$(window).on('dblclick',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
+$('body').on('dblclick',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////
@@ -732,6 +759,7 @@ if(app.device.wp81) {
 	$('body').addClass('wp81');
 }
 if(app.device.windows8) {
+	$('html').addClass('windows8');
 	$('body').addClass('windows8');
 }
 ////////////////////////////

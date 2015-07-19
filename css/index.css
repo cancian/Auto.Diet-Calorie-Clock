@@ -6,7 +6,9 @@
 .overthrow								{ overflow: auto !important; -webkit-overflow-scrolling: touch; -ms-touch-action: pan-y; touch-action: pan-y; }
 .windows8 								{ overflow: hidden !important; }
 .desktop								{ overflow: hidden !important; }
-html.wp8								{ -ms-touch-action: pan-x; touch-action: pan-x; }
+html.wp8,
+html.wp81,
+html.windows8							{ -ms-touch-action: pan-x; touch-action: pan-x; }
 /* fonts */
 html, body, input, select, textarea,
 input[type='number'], input[type='text']{ font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
@@ -63,11 +65,13 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 .noOverflow								{ overflow: hidden !important; }
 .clicked								{ opacity: .6; -webkit-filter: grayscale(10%); -moz-filter: grayscale(10%); filter: grayscale(10%); }
 #fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
+/*
 @media all and (orientation:portrait)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 @media all and (orientation:landscape)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 @media (max-width: 600px)				{ @-ms-viewport { width: 340px; }}
 @media (max-width: 500px)				{ @-ms-viewport { width: 330px; }}
-@media (max-width: 400px)				{ @-ms-viewport { width: 320px; }}
+*/
+@media (max-width: 600px)				{ @-ms-viewport { width: 70%; }}
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
