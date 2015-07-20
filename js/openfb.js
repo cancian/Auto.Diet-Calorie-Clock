@@ -152,5 +152,4 @@
 		api : h,
 		oauthCallback : l
 	}
-}
-()
+}();

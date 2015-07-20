@@ -1,4 +1,4 @@
-﻿function recalc_onclick(e) {
+﻿!function recalc_onclick(e) {
 	co.pA1B = $("#pA1B").val();
 	co.pA2B = eeparseFloat($("#pA2B").val());
 	co.pA2C = $("#pA2C").val();
@@ -216,4 +216,4 @@ var eedec = ".";
 var eeth = ",";
 var eedecreg = new RegExp("[.]", "g");
 var eethreg = new RegExp(",", "g");
-var eeparseFloatVreg = new RegExp("^ *-?[0-9.]+ *$")
+var eeparseFloatVreg = new RegExp("^ *-?[0-9.]+ *$");

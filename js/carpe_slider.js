@@ -598,4 +598,4 @@
 	$(document).on("carpeSlider", function (e) {
 		i()
 	})
-})()
+})();

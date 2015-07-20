@@ -1835,4 +1835,4 @@
 		btnPlusClass : "mbsc-ic mbsc-ic-arrow-down5",
 		btnMinusClass : "mbsc-ic mbsc-ic-arrow-up5"
 	}
-})(jQuery)
+})(jQuery);

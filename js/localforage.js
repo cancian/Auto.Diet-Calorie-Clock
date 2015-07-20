@@ -2496,4 +2496,3 @@ requireModule('promise/polyfill').polyfill();
         this.localforage = localForage;
     }
 }).call(window);
-

@@ -1,6 +1,4 @@
-﻿CDV = typeof CDV == "undefined" ? {}
-
- : CDV;
+﻿CDV = typeof CDV == "undefined" ? {} : CDV;
 var cordova = window.cordova || window.Cordova;
 CDV.FB = {
 	init : function (e, t) {
