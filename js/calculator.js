@@ -1,4 +1,4 @@
-﻿!function recalc_onclick(e) {
+﻿function recalc_onclick(e) {
 	co.pA1B = $("#pA1B").val();
 	co.pA2B = eeparseFloat($("#pA2B").val());
 	co.pA2C = $("#pA2C").val();

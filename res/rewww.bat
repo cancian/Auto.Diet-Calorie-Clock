@@ -74,6 +74,8 @@ rd /s /q K:\platforms\playbook\www
 mkdir K:\platforms\playbook\www
 cd K:\platforms\playbook\www
 call reswww 
+cp -R K:\platforms\playbook\lib\cordova.2.9.0\ext-air K:\platforms\playbook\www
+
 REM CP OVER CDVJS
 REM del /q K:\platforms\playbook\www\js\cordova.js
 REM copy /y K:\platforms\playbook\lib\cordova.2.9.0\javascript\cordova.js K:\platforms\playbook\www\js\cordova.js
@@ -103,7 +105,7 @@ del /q k:\platforms\ios\kcals\config.xml
 del /q k:\platforms\windows8\config.xml 
 del /q k:\platforms\wp8\config.xml 
 del /q k:\platforms\bb10\config.xml
-del /q K:\platforms\playbook\config.xml
+del /q K:\platforms\playbook\www\config.xml
 
 copy /y k:\www\config.xml k:\platforms\android\kcals\src\main\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\android-eclipse\res\xml\config.xml 
@@ -111,7 +113,8 @@ copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml
 copy /y k:\www\config.xml k:\platforms\windows8\config.xml 
 copy /y k:\www\config.xml k:\platforms\wp8\config.xml 
 copy /y k:\www\config.xml k:\platforms\bb10\config.xml 
-copy /y k:\www\config.xml k:\platforms\playbook\config.xml 
+copy /y K:\platforms\playbook\config.playbook.xml k:\platforms\playbook\www\config.xml 
+
 
 REM "PLAYBOOK ASSETS" 
 del /q K:\platforms\playbook\www\80.png 
