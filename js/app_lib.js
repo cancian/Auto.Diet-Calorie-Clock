@@ -654,7 +654,7 @@ app.url = function(url) {
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc/reviews',
 		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'http://appworld.blackberry.com/webstore/content/59937667',
-		playbook:   app.device.playbook ? 'appworld://content/59937667' : 'http://appworld.blackberry.com/webstore/content/59937667',
+		playbook:   app.device.playbook ? 'http://appworld.blackberry.com/webstore/content/59937667' : 'http://appworld.blackberry.com/webstore/content/59937667',
 		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533'
 	};
 	//SHORTCUT
@@ -677,6 +677,7 @@ app.url = function(url) {
 		else if(app.device.windows8)	{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(url));	}
 		else if(app.device.firefoxos)	{ ref = window.open(url, '_system', 'location=yes');						}
 		else if(app.device.osxapp)		{ macgap.app.open(url);														}
+		else if(app.device.playbook)	{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (e) {}}
 		else 							{ window.open(url, '_blank'); 												}
 	}
 };
@@ -1826,35 +1827,6 @@ function kickDown(el) {
 		$(el).scrollTop($(el).scrollTop());
 	}
 }
-/////////////////
-// MSAPP METRO //
-/////////////////
-if(app.device.windows8) {
-	/////////////////
-	// METRO ALERT //
-	/////////////////
-	(function() {
-		var alertsToShow = [];
-		var dialogVisible = false;
-		function showPendingAlerts() {
-			if (dialogVisible || !alertsToShow.length) {
-				return;
-			}
-			dialogVisible = true;
-			(new Windows.UI.Popups.MessageDialog(alertsToShow.shift())).showAsync().done(function () {
-				dialogVisible = false;
-				showPendingAlerts();
-			});
-		}
-		window.alert = function (message) {
-			if (window.console && window.console.log) {
-				window.console.log(message);
-			}
-			alertsToShow.push(message);
-			showPendingAlerts();
-		};
-	})();
-}
 //#//////////////#//
 //# ONLINE USERS #//
 //#//////////////#//
@@ -1898,6 +1870,35 @@ app.piracy = function (force) {
 		}, 2000);
 	}
 }
+/////////////////
+// MSAPP METRO //
+/////////////////
+if(app.device.windows8) {
+	/////////////////
+	// METRO ALERT //
+	/////////////////
+	(function() {
+		var alertsToShow = [];
+		var dialogVisible = false;
+		function showPendingAlerts() {
+			if (dialogVisible || !alertsToShow.length) {
+				return;
+			}
+			dialogVisible = true;
+			(new Windows.UI.Popups.MessageDialog(alertsToShow.shift())).showAsync().done(function () {
+				dialogVisible = false;
+				showPendingAlerts();
+			});
+		}
+		window.alert = function (message) {
+			if (window.console && window.console.log) {
+				window.console.log(message);
+			}
+			alertsToShow.push(message);
+			showPendingAlerts();
+		};
+	})();
+}
 //##/////////////##//
 //## APP.ALERT() ##//
 //##/////////////##//
@@ -1910,7 +1911,11 @@ window.alert = function (title, msg, button, callback) {
 	if (typeof button   === 'undefined') { button = LANG.OK[lang]; }
 	if (typeof callback !== 'function')  { callback = voidThis;    }
 	//
-	if (typeof navigator.notification !== 'undefined' && !app.http && !app.device.windows8) {
+	if (app.device.playbook) {
+		try {
+			blackberry.ui.dialog.customAskAsync(msg, [button], function(button) { callback(button+1); }, {title : title});
+		} catch(e) {}
+	} else if (typeof navigator.notification !== 'undefined' && !app.http && !app.device.windows8) {
 		navigator.notification.alert(msg, callback, title, button);
 	} else {
 		if ((msg != 'msg' && msg != ' ') || title == 'alert') { msg = '\n' + msg; }
@@ -1998,6 +2003,13 @@ function appConfirm(title, msg, callback, ok, cancel) {
 			MSDialog = false;
 			errorHandler(e);
 		}
+	//////////////
+	// PLAYBOOK //
+	//////////////
+	} else if (app.device.playbook) {
+		try {
+			blackberry.ui.dialog.customAskAsync(msg, [cancel, ok], function(button) { callback(button+1); }, {title : title});
+		} catch(e) {}
 	////////////////////
 	// CORDOVA PLUGIN //
 	////////////////////

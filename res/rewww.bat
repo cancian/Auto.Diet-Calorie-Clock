@@ -69,14 +69,14 @@ cd k:\platforms\wp8\www
 call reswww 
 
 REM PLAYBOOK
+deltree /y /z /s /q /t K:\platforms\playbook\www
+rd /s /q K:\platforms\playbook\www
+mkdir K:\platforms\playbook\www
 cd K:\platforms\playbook\www
-call reswww
+call reswww 
 REM CP OVER CDVJS
-del /q K:\platforms\playbook\www\js\cordova.js
-copy /y K:\platforms\playbook\lib\cordova.2.9.0\javascript\cordova.js K:\platforms\playbook\www\js\cordova.js
-
-
-K:\platforms\playbook\[playbook-old]\lib\cordova.2.9.0\javascript
+REM del /q K:\platforms\playbook\www\js\cordova.js
+REM copy /y K:\platforms\playbook\lib\cordova.2.9.0\javascript\cordova.js K:\platforms\playbook\www\js\cordova.js
 
 rem "bb10"
 rem cd\ 
@@ -103,7 +103,7 @@ del /q k:\platforms\ios\kcals\config.xml
 del /q k:\platforms\windows8\config.xml 
 del /q k:\platforms\wp8\config.xml 
 del /q k:\platforms\bb10\config.xml
-del /q K:\platforms\playbook\www\config.xml
+del /q K:\platforms\playbook\config.xml
 
 copy /y k:\www\config.xml k:\platforms\android\kcals\src\main\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\android-eclipse\res\xml\config.xml 
@@ -111,7 +111,7 @@ copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml
 copy /y k:\www\config.xml k:\platforms\windows8\config.xml 
 copy /y k:\www\config.xml k:\platforms\wp8\config.xml 
 copy /y k:\www\config.xml k:\platforms\bb10\config.xml 
-copy /y k:\www\config.xml k:\platforms\playbook\www\config.xml 
+copy /y k:\www\config.xml k:\platforms\playbook\config.xml 
 
 REM "PLAYBOOK ASSETS" 
 del /q K:\platforms\playbook\www\80.png 
