@@ -7,18 +7,13 @@ function showIntro(isNew) {
 	/////////////
 	// INSTALL //
 	/////////////
-	setTimeout(function(isNew) {
-		if(isNew == true) {
-			if(!app.read('app_installed')) {
-				if(!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
-					app.analytics('install');
-				} else {
-					app.analytics('webinstall');
-				}
-				app.define('app_installed',true);
-			}
+	if (isNew == true) {
+		if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+			app.analytics('install');
+		} else {
+			app.analytics('webinstall');
 		}
-	},4000);
+	}
 	//skip intro for very small devices
 	$(window).trigger('resize');
 	if($(document).height() < 350) { 

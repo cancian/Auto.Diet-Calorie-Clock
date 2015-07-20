@@ -105,7 +105,7 @@ app.tab.settings = function(keepOpen) {
 		getNewWindow('KCals ' + appVersion, aboutHtml, aboutHandler);
 	};
 	app.handlers.activeRow('#optionWebsite','activeRow',function(evt) {
-		if(!app.device.osx) {
+		if((!app.device.osxapp && lang != 'en') || app.dev) {
 			app.about();
 		}
 	});
