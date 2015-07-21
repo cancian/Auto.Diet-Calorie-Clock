@@ -103,10 +103,11 @@ $(document).on('visibilitychange focus', function (evt) {
 $(window).on('pause',function() {
 	clearTimeout(app.repeaterLoop);
 });
-//##///////////##//
+//###############//
 //## START APP ##//
-//##///////////##//
+//###############//
 function startApp() {
+try {
 	//fix locked dbs
 	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
 		app.remove('startLock');
@@ -128,7 +129,7 @@ setTimeout(function() {
 ///////////////////////
 setTimeout(function() {
 	app.remove('consecutive_reboots');
-},2000);
+},2500);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
@@ -890,6 +891,9 @@ app.define('calcForm#pA6N','kilograms');
 // FONT UNLOCKER //
 ///////////////////
 function unlockApp() {
+	//////////////
+	// DEV LOCK //
+	//////////////
 	if(app.dev) {
 		app.save('been_dev',1);
 	}
@@ -1246,11 +1250,32 @@ if(app.is.scrollable) {
 			}
 		}
 	});	
-/////////////////////
-// TIMERKCALS INFO //
-/////////////////////
-
-
+///////////////////
+// TRACK INSTALL //
+///////////////////
+setTimeout(function () {
+	if (!app.read('app_installed', 'installed')) {
+		app.save('app_installed', 'installed');
+		var hour = 60 * 60 * 1 * 1000;
+		var installTime = app.now() - app.read('config_install_time');
+		if (installTime < hour * 2) {
+			/////////////////
+			// TIME LOCKER //
+			/////////////////
+			if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+				////////////
+				// INTALL //
+				////////////
+				app.analytics('install');
+			} else {
+				////////////////
+				// WEBINSTALL //
+				////////////////
+				app.analytics('webinstall');
+			}
+		}
+	}
+}, 8000);
 //#/////////////#//
 //# TAP HANDLER #//
 //#/////////////#//
@@ -1301,6 +1326,15 @@ if(app.is.scrollable) {
 		return this[fn ? 'on' : 'trigger'](_, fn);
 	};
 })(jQuery, 'tap');
+/////////////////////
+// REBOOT ON ERROR //
+/////////////////////
+} catch(e) {
+	setTimeout(function() {
+		app.reboot('now');
+	},1500);
+	errorHandler(e);
+}
 ////#//
 } //#//
 ////#//

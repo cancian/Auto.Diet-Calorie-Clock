@@ -22,6 +22,18 @@ https://developer.amazon.com/public/solutions/platforms/android-fireos/docs/buil
 
 
 
+
+
+https://github.com/apache/cordova-amazon-fireos/tree/3.6.x
+https://github.com/apache/cordova-android
+https://github.com/apache/cordova-blackberry/
+https://github.com/apache/cordova-browser
+https://github.com/apache/cordova-firefoxos/
+https://github.com/apache/cordova-ios
+https://github.com/apache/cordova-ubuntu
+https://github.com/apache/cordova-wp8/tree/3.7.x
+
+
 cordova platform add amazon-fireos@3.6.3
 cordova platform add android@3.7.2
 cordova platform add blackberry10@3.7.0
@@ -66,4 +78,16 @@ GitHub URL : https://github.com/Wizcorp/phonegap-facebook-plugin/
 
 
 
+
+git clone https://git-wip-us.apache.org/repos/asf/cordova-plugman.git
+cd cordova-plugman
+npm install
+sudo npm link
+
+
+git clone https://git-wip-us.apache.org/repos/asf/cordova-cli.git
+cd cordova-cli
+npm install
+sudo cd ..
+npm link plugman
 

@@ -4,22 +4,15 @@
 ////////////////
 var myScroll;
 function showIntro(isNew) {
-	/////////////
-	// INSTALL //
-	/////////////
-	if (isNew == true) {
-		if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
-			app.analytics('install');
-		} else {
-			app.analytics('webinstall');
-		}
-	}
-	//skip intro for very small devices
-	$(window).trigger('resize');
-	if($(document).height() < 350) { 
+	///////////////////////////////////////
+	// SKIP INTRO FOR VERY SMALL DEVICES //
+	///////////////////////////////////////
+	if($('body').height() < 350) { 
 		return;
-	}
-	//ISCROLL
+	}	
+	///////////////////
+	// ISCROLL HTML //
+	//////////////////
 	$('#gettingStarted').remove();
 	$('body').append2('\
 	<div id="gettingStarted">\
@@ -82,10 +75,6 @@ function showIntro(isNew) {
 			});
 		}
 		evt.preventDefault();
-		///////////////////////
-		// LOCK INTRO SCREEN //
-		///////////////////////
-		app.define('config_install_time',app.now());
 	});
 	$('#gettingStarted').on(touchstart,function(evt) {
 		evt.stopPropagation();
@@ -113,9 +102,17 @@ function showIntro(isNew) {
 			myScroll.prev();
 		}
 	});
-	///////////////
-	// INDICATOR //
-	///////////////
+	///////////////////////
+	// INDICATOR RESIZER //
+	///////////////////////
+	$(window).on('resize',function() {
+		if($('#indicator').length) {
+			$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
+		}
+	});
+	///////////////////////
+	// INDICATOR RESIZER //
+	///////////////////////
 	$(window).on('resize',function() {
 		if($('#indicator').length) {
 			$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
@@ -138,7 +135,7 @@ function showIntro(isNew) {
 					keyBindings : true,
 					//bindToWrapper: true,
 					indicators : {
-						el : document.getElementById('indicator'),
+						el : $('#indicator'),
 						resize : false
 					}
 				});
@@ -159,10 +156,10 @@ function loadDatabase() {
 			setTimeout(function() {
 				//INIT
 				startApp();
-				//////////////////////////////
-				// update search terms v3.0 //
-				//////////////////////////////
-				if(!app.read('foodDbVersion',5) && app.read('foodDbLoaded','done')) {
+				/////////////////////////
+				// rebuild outdated db //
+				/////////////////////////
+				if(app.read('foodDbLoaded','done') && app.read('foodDbVersion') > 0 && app.read('foodDbVersion') != 5) {
 					app.remove('foodDbLoaded','done');
 					$('body').addClass('updtdb');
 					setTimeout(function() {
@@ -180,23 +177,16 @@ function initDB(t) {
 	///////////////////////
 	// TRACK NEW INSTALL //
 	///////////////////////
-	if((!app.read('config_install_time')) ) {
-		//first intall (protected key)
-		showIntro(1);
-	} else if(!app.read('config_kcals_day_0')) {
-		//app reset (unprotected key)
+	if(!app.read('config_kcals_day_0')) {
 		showIntro(0);		
 	} else {
-		//regular startup, just remove iscroll
 		$('#iScrollTag').remove();
 	}
-	////////////////
-	// CURRENT DB //
-	////////////////
-	app.define('app_database',localforage._driver);
 	////////////
 	// DEFINE //
 	////////////
+	app.define('app_database',localforage._driver);
+	app.define('config_install_time',app.now());
 	app.define('app_last_tab','tab1');
 	app.define('config_start_time',app.now());
 	app.define('config_kcals_day_0',2000);
@@ -215,9 +205,6 @@ function initDB(t) {
 	app.define('config_limit_1',-600);
 	app.define('config_limit_2',600);
 	app.define('app_zoom',1);
-	if(!app.read('foodDbVersion') && !app.read('foodDbLoaded','done')) {
-		app.save('foodDbVersion',5);
-	}
 	///////////
 	// START //
 	///////////
