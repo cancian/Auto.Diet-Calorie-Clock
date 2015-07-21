@@ -422,7 +422,7 @@ app.device = {
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
-	linux      : (/X11/i).test(navigator.userAgent) && (/Linux/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
+	linux      : (/X11/i).test(navigator.userAgent) && (/Linux/i).test(navigator.userAgent) && !(/Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) && !/MSApp/i.test(app.ua) ? true : false,
 	wp81       : (/IEMobile/i).test(app.ua) && /MSApp/i.test(app.ua)  ? true : false,
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
@@ -469,6 +469,7 @@ app.get.platform = function(noweb) {
 app.is.scrollable = false;
 if($.nicescroll) {
 	if(app.device.desktop)								{ app.is.scrollable = true; }
+	if(app.device.linux)								{ app.is.scrollable = true; }
 	if(app.device.android && app.device.android < 4.4)	{ app.is.scrollable = true; }
 }
 //////////////////
@@ -1289,9 +1290,9 @@ function hasTouch() {
 }
 var varHasTap = (('ontouchstart' in document) || ('ontouchstart' in window));
 function hasTap() {
-	//if(app.device.linux) {
-	//	return varHasTap ? false : true;
-	//}
+	if(app.device.linux) {
+		return varHasTap ? false : true;
+	}
 	return varHasTap;
 }
 var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
