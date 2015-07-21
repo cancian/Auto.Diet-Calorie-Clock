@@ -1,0 +1,69 @@
+###################
+## CORDOVA 4.3.1 ##
+###################
+
+npm config set cache k:\sdk\nodejs\npm-cache --global 
+
+
+npm install -g cordova@4.3.1
+npm install -g phonegap
+npm install -g cordova
+npm install -g plugman
+npm install -g grunt-cli
+
+
+phonegap create com.cancian.kcals com.cancian.kcals kcals
+cordova create com.cancian.kcals com.cancian.kcals kcals
+cd com.cancian.kcals
+
+
+https://developer.amazon.com/public/solutions/platforms/android-fireos/docs/building-and-testing-your-hybrid-app
+- copy awv_interface.jar to C:\Users\Administrator\.cordova\lib\commonlibs
+
+
+
+cordova platform add amazon-fireos@3.6.3
+cordova platform add android@3.7.2
+cordova platform add blackberry10@3.7.0
+cordova platform add browser@3.6.0
+cordova platform add firefoxos@3.6.3
+cordova platform add ios@3.8.0
+cordova platform add ubuntu@4.0.0
+cordova platform add windows@3.8.0
+cordova platform add wp8@3.7.1
+
+
+phonegap platform add amazon-fireos@3.6.3
+phonegap platform add android@3.7.2
+phonegap platform add blackberry10@3.7.0
+phonegap platform add browser@3.6.0
+phonegap platform add firefoxos@3.6.3
+phonegap platform add ios@3.8.0
+phonegap platform add ubuntu@4.0.0
+phonegap platform add windows@3.8.0
+phonegap platform add wp8@3.7.1
+
+phonegap plugin add https://github.com/apache/cordova-plugin-dialogs.git
+phonegap plugin add https://github.com/apache/cordova-plugin-inappbrowser.git
+phonegap plugin add https://github.com/Wizcorp/phonegap-facebook-plugin --variable APP_ID="577673025616946" --variable APP_NAME="kcals"
+
+
+
+cordova plugin add https://github.com/apache/cordova-plugin-dialogs.git
+cordova plugin add https://github.com/apache/cordova-plugin-inappbrowser.git
+cordova plugin add https://github.com/Wizcorp/phonegap-facebook-plugin --variable APP_ID="577673025616946" --variable APP_NAME="kcals"
+
+
+cordova plugin add org.apache.cordova.dialogs
+cordova plugin add org.apache.cordova.inappbrowser
+
+cordova plugin add https://github.com/jeduan/cordova-plugin-facebook4 --save --variable APP_ID="577673025616946" --variable APP_NAME="kcals"
+
+
+iOS FacebookSDK 3.21.1
+Android FacebookSDK 3.21.1
+GitHub URL : https://github.com/Wizcorp/phonegap-facebook-plugin/
+
+
+
+
