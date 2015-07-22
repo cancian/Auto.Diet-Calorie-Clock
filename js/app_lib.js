@@ -422,7 +422,7 @@ app.device = {
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
-	linux      : (/X11/i).test(navigator.userAgent) && (/Linux/i).test(navigator.userAgent) && !(/Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
+	linux      : (/X11|Linux/i).test(navigator.userAgent) && (/Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) && !/MSApp/i.test(app.ua) ? true : false,
 	wp81       : (/IEMobile/i).test(app.ua) && /MSApp/i.test(app.ua)  ? true : false,
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,

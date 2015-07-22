@@ -7,10 +7,11 @@ function showIntro(isNew) {
 	///////////////////////////////////////
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
+	$(window).trigger('resize');
 	if($('body').height() < 350) { 
 		return;
-	}	
-	///////////////////
+	}
+	//////////////////
 	// ISCROLL HTML //
 	//////////////////
 	$('#gettingStarted').remove();
@@ -71,7 +72,7 @@ function showIntro(isNew) {
 			app.handlers.fade(0,'#gettingStarted',function() {
 				setTimeout(function() {
 					$('#iScrollTag').remove();
-				},500);
+				},200);
 			});
 		}
 		evt.preventDefault();
@@ -102,17 +103,9 @@ function showIntro(isNew) {
 			myScroll.prev();
 		}
 	});
-	///////////////////////
-	// INDICATOR RESIZER //
-	///////////////////////
-	$(window).on('resize',function() {
-		if($('#indicator').length) {
-			$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
-		}
-	});
-	///////////////////////
-	// INDICATOR RESIZER //
-	///////////////////////
+	///////////////
+	// INDICATOR //
+	///////////////
 	$(window).on('resize',function() {
 		if($('#indicator').length) {
 			$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
@@ -135,7 +128,7 @@ function showIntro(isNew) {
 					keyBindings : true,
 					//bindToWrapper: true,
 					indicators : {
-						el : $('#indicator'),
+						el : document.getElementById('indicator'),
 						resize : false
 					}
 				});
@@ -157,7 +150,7 @@ function loadDatabase() {
 				//INIT
 				startApp();
 				/////////////////////////
-				// rebuild outdated db //
+				// REBUILD OUTDATED DB //
 				/////////////////////////
 				if(app.read('foodDbLoaded','done') && app.read('foodDbVersion') > 0 && app.read('foodDbVersion') != 5) {
 					app.remove('foodDbLoaded','done');
