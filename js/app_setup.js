@@ -60,9 +60,6 @@ function showIntro(isNew) {
 	//////////////
 	$('#skipIntro, #closeDiv').on(touchend,function(evt) {
 		evt.stopPropagation();
-		if(typeof myScroll !== 'undefined') {
-			myScroll.destroy();
-		}
 		if(app.read('app_restart_pending')) {
 			app.remove('app_restart_pending');
 			if(app.read('config_autoupdate','on')) {
@@ -71,8 +68,11 @@ function showIntro(isNew) {
 		} else {
 			app.handlers.fade(0,'#gettingStarted',function() {
 				setTimeout(function() {
+					if(typeof myScroll !== 'undefined') {
+						myScroll.destroy();
+					}
 					$('#iScrollTag').remove();
-				},200);
+				},500);
 			});
 		}
 		evt.preventDefault();

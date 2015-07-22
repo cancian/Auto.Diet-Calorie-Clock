@@ -971,8 +971,10 @@ IScroll.prototype = {
 
 		// TODO: check if we can use array.map (wide compatibility and performance issues)
 		function _indicatorsMap (fn) {
-			for ( var i = that.indicators.length; i--; ) {
-				fn.call(that.indicators[i]);
+			if(typeof that.indicators !== 'undefined') {
+				for ( var i = that.indicators.length; i--; ) {
+					fn.call(that.indicators[i]);
+				}
 			}
 		}
 
