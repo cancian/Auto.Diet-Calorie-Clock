@@ -1,4 +1,5 @@
-﻿(function (window, document, Math) {
+﻿/*! iScroll v5.1.3 ~ (c) 2008-2014 Matteo Spinelli ~ http://cubiq.org/license */
+(function (window, document, Math) {
 var rAF = window.requestAnimationFrame	||
 	window.webkitRequestAnimationFrame	||
 	window.mozRequestAnimationFrame		||
@@ -46,6 +47,12 @@ var utils = (function () {
 		el.removeEventListener(type, fn, !!capture);
 	};
 
+	me.prefixPointerEvent = function (pointerEvent) {
+		return window.MSPointerEvent ? 
+			'MSPointer' + pointerEvent.charAt(9).toUpperCase() + pointerEvent.substr(10):
+			pointerEvent;
+	};
+
 	me.momentum = function (current, start, time, lowerMargin, wrapperSize, deceleration) {
 		var distance = current - start,
 			speed = Math.abs(distance) / time,
@@ -79,7 +86,7 @@ var utils = (function () {
 		hasTransform: _transform !== false,
 		hasPerspective: _prefixStyle('perspective') in _elementStyle,
 		hasTouch: 'ontouchstart' in window,
-		hasPointer: navigator.msPointerEnabled,
+		hasPointer: window.PointerEvent || window.MSPointerEvent, // IE10 is prefixed
 		hasTransition: _prefixStyle('transition') in _elementStyle
 	});
 
@@ -153,6 +160,10 @@ var utils = (function () {
 		mousedown: 2,
 		mousemove: 2,
 		mouseup: 2,
+
+		pointerdown: 3,
+		pointermove: 3,
+		pointerup: 3,
 
 		MSPointerDown: 3,
 		MSPointerMove: 3,
@@ -321,7 +332,7 @@ function IScroll (el, options) {
 }
 
 IScroll.prototype = {
-	version: '5.1.1',
+	version: '5.1.3',
 
 	_init: function () {
 		this._initEvents();
@@ -456,7 +467,6 @@ IScroll.prototype = {
 		}
 
 		if ( this.directionLocked == 'h' ) {
-
 			if ( this.options.eventPassthrough == 'vertical' ) {
 				e.preventDefault();
 			} else if ( this.options.eventPassthrough == 'horizontal' ) {
@@ -869,10 +879,10 @@ IScroll.prototype = {
 		}
 
 		if ( utils.hasPointer && !this.options.disablePointer ) {
-			eventType(this.wrapper, 'MSPointerDown', this);
-			eventType(target, 'MSPointerMove', this);
-			eventType(target, 'MSPointerCancel', this);
-			eventType(target, 'MSPointerUp', this);
+			eventType(this.wrapper, utils.prefixPointerEvent('pointerdown'), this);
+			eventType(target, utils.prefixPointerEvent('pointermove'), this);
+			eventType(target, utils.prefixPointerEvent('pointercancel'), this);
+			eventType(target, utils.prefixPointerEvent('pointerup'), this);
 		}
 
 		if ( utils.hasTouch && !this.options.disableTouch ) {
@@ -961,10 +971,8 @@ IScroll.prototype = {
 
 		// TODO: check if we can use array.map (wide compatibility and performance issues)
 		function _indicatorsMap (fn) {
-			if(that.indicators) {
-				for ( var i = that.indicators.length; i--; ) {
-					fn.call(that.indicators[i]);
-				}
+			for ( var i = that.indicators.length; i--; ) {
+				fn.call(that.indicators[i]);
 			}
 		}
 
@@ -1046,8 +1054,13 @@ IScroll.prototype = {
 		}, 400);
 
 		if ( 'deltaX' in e ) {
-			wheelDeltaX = -e.deltaX;
-			wheelDeltaY = -e.deltaY;
+			if (e.deltaMode === 1) {
+				wheelDeltaX = -e.deltaX * this.options.mouseWheelSpeed;
+				wheelDeltaY = -e.deltaY * this.options.mouseWheelSpeed;
+			} else {
+				wheelDeltaX = -e.deltaX;
+				wheelDeltaY = -e.deltaY;
+			}
 		} else if ( 'wheelDeltaX' in e ) {
 			wheelDeltaX = e.wheelDeltaX / 120 * this.options.mouseWheelSpeed;
 			wheelDeltaY = e.wheelDeltaY / 120 * this.options.mouseWheelSpeed;
@@ -1087,6 +1100,7 @@ IScroll.prototype = {
 
 			return;
 		}
+
 
 		newX = this.x + Math.round(this.hasHorizontalScroll ? wheelDeltaX : 0);
 		newY = this.y + Math.round(this.hasVerticalScroll ? wheelDeltaY : 0);
@@ -1295,20 +1309,19 @@ IScroll.prototype = {
 
 	goToPage: function (x, y, time, easing) {
 		easing = easing || this.options.bounceEasing;
-		if (this.pages) {
-			if ( x >= this.pages.length ) {
-				x = this.pages.length - 1;
-			} else if ( x < 0 ) {
-				x = 0;
-			}
+
+		if ( x >= this.pages.length ) {
+			x = this.pages.length - 1;
+		} else if ( x < 0 ) {
+			x = 0;
 		}
-		if (this.pages[x]) {
-			if ( y >= this.pages[x].length ) {
-				y = this.pages[x].length - 1;
-			} else if ( y < 0 ) {
-				y = 0;
-			}
+
+		if ( y >= this.pages[x].length ) {
+			y = this.pages[x].length - 1;
+		} else if ( y < 0 ) {
+			y = 0;
 		}
+
 		var posX = this.pages[x][y].x,
 			posY = this.pages[x][y].y;
 
@@ -1466,7 +1479,6 @@ IScroll.prototype = {
 			this.keyAcceleration = 0;
 		}
 
-
 		if ( newY > 0 ) {
 			newY = 0;
 			this.keyAcceleration = 0;
@@ -1520,19 +1532,23 @@ IScroll.prototype = {
 	handleEvent: function (e) {
 		switch ( e.type ) {
 			case 'touchstart':
+			case 'pointerdown':
 			case 'MSPointerDown':
 			case 'mousedown':
 				this._start(e);
 				break;
 			case 'touchmove':
+			case 'pointermove':
 			case 'MSPointerMove':
 			case 'mousemove':
 				this._move(e);
 				break;
 			case 'touchend':
+			case 'pointerup':
 			case 'MSPointerUp':
 			case 'mouseup':
 			case 'touchcancel':
+			case 'pointercancel':
 			case 'MSPointerCancel':
 			case 'mousecancel':
 				this._end(e);
@@ -1634,8 +1650,8 @@ function Indicator (scroller, options) {
 			utils.addEvent(window, 'touchend', this);
 		}
 		if ( !this.options.disablePointer ) {
-			utils.addEvent(this.indicator, 'MSPointerDown', this);
-			utils.addEvent(window, 'MSPointerUp', this);
+			utils.addEvent(this.indicator, utils.prefixPointerEvent('pointerdown'), this);
+			utils.addEvent(window, utils.prefixPointerEvent('pointerup'), this);
 		}
 		if ( !this.options.disableMouse ) {
 			utils.addEvent(this.indicator, 'mousedown', this);
@@ -1654,19 +1670,23 @@ Indicator.prototype = {
 	handleEvent: function (e) {
 		switch ( e.type ) {
 			case 'touchstart':
+			case 'pointerdown':
 			case 'MSPointerDown':
 			case 'mousedown':
 				this._start(e);
 				break;
 			case 'touchmove':
+			case 'pointermove':
 			case 'MSPointerMove':
 			case 'mousemove':
 				this._move(e);
 				break;
 			case 'touchend':
+			case 'pointerup':
 			case 'MSPointerUp':
 			case 'mouseup':
 			case 'touchcancel':
+			case 'pointercancel':
 			case 'MSPointerCancel':
 			case 'mousecancel':
 				this._end(e);
@@ -1677,15 +1697,15 @@ Indicator.prototype = {
 	destroy: function () {
 		if ( this.options.interactive ) {
 			utils.removeEvent(this.indicator, 'touchstart', this);
-			utils.removeEvent(this.indicator, 'MSPointerDown', this);
+			utils.removeEvent(this.indicator, utils.prefixPointerEvent('pointerdown'), this);
 			utils.removeEvent(this.indicator, 'mousedown', this);
 
 			utils.removeEvent(window, 'touchmove', this);
-			utils.removeEvent(window, 'MSPointerMove', this);
+			utils.removeEvent(window, utils.prefixPointerEvent('pointermove'), this);
 			utils.removeEvent(window, 'mousemove', this);
 
 			utils.removeEvent(window, 'touchend', this);
-			utils.removeEvent(window, 'MSPointerUp', this);
+			utils.removeEvent(window, utils.prefixPointerEvent('pointerup'), this);
 			utils.removeEvent(window, 'mouseup', this);
 		}
 
@@ -1713,7 +1733,7 @@ Indicator.prototype = {
 			utils.addEvent(window, 'touchmove', this);
 		}
 		if ( !this.options.disablePointer ) {
-			utils.addEvent(window, 'MSPointerMove', this);
+			utils.addEvent(window, utils.prefixPointerEvent('pointermove'), this);
 		}
 		if ( !this.options.disableMouse ) {
 			utils.addEvent(window, 'mousemove', this);
@@ -1762,7 +1782,7 @@ Indicator.prototype = {
 		e.stopPropagation();
 
 		utils.removeEvent(window, 'touchmove', this);
-		utils.removeEvent(window, 'MSPointerMove', this);
+		utils.removeEvent(window, utils.prefixPointerEvent('pointermove'), this);
 		utils.removeEvent(window, 'mousemove', this);
 
 		if ( this.scroller.options.snap ) {
