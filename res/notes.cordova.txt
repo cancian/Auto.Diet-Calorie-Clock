@@ -91,3 +91,26 @@ npm install
 sudo cd ..
 npm link plugman
 
+
+####################
+## COMPILE JQUERY ##
+####################
+https://github.com/jquery/jquery/
+git clone git://github.com/jquery/jquery.git
+git checkout 2.1-stable
+cd jquery && npm run build
+npm install -g grunt-cli
+grunt / npm run build
+
+
+
+
+
+
+
+
+
+
+
+
+

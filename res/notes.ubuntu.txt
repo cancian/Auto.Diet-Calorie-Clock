@@ -18,9 +18,21 @@ sudo apt-get install gnome-session-flashback
 
 
 
+######################
+## PERMANENT SHARES ##
+######################
+//192.168.1.5/home              /home/cancian/shared/home-2012         cifs  username=cancian,password=@@@@@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
+//192.168.1.5/com.cancian.kcals /home/cancian/shared/com.cancian.kcals cifs  username=cancian,password=@@@@@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
+//192.168.1.200/public          /home/cancian/shared/blackarmor-public cifs  username=cancian,password=@@@@@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
+//192.168.1.200/home            /home/cancian/shared/blackarmor-home   cifs  username=cancian,password=@@@@@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
 
 
-
+#################
+## ENABLE ROOT ##
+#################
+sudo -i
+sudo passwd root
+sudo passwd -dl root
 
 
 
