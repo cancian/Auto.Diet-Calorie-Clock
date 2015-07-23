@@ -37,4 +37,23 @@ sudo passwd -dl root
 
 
 
+##################
+## CORDOVA REPO ##
+##################
+sudo apt-add-repository ppa:cordova-ubuntu/ppa
+sudo apt-get update
+sudo apt-get install cordova-cli
+
+## Create a click chroot for the armhf architecture:
+sudo click chroot -a armhf -f ubuntu-sdk-14.10 create
+
+## run this command from your application directory
+cordova platform add ubuntu
+
+##
+cordova plugin add org.apache.cordova.camera
+
+##
+cordova build --device
+
 

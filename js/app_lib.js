@@ -422,7 +422,7 @@ app.device = {
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
-	linux      : (/X11|Linux/i).test(navigator.userAgent) && (/Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
+	linux      : (/X11|Linux|Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) && !/MSApp/i.test(app.ua) ? true : false,
 	wp81       : (/IEMobile/i).test(app.ua) && /MSApp/i.test(app.ua)  ? true : false,
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
@@ -1288,11 +1288,8 @@ var varHasTouch = !app.http && (/(iPhone|iPod|iPad|Android|BlackBerry|PlayBook)/
 function hasTouch() {
 	return varHasTouch;
 }
-var varHasTap = (('ontouchstart' in document) || ('ontouchstart' in window));
+var varHasTap = (('ontouchstart' in document) || ('ontouchstart' in window)) && !app.device.linux;
 function hasTap() {
-	if(app.device.linux) {
-		return varHasTap ? false : true;
-	}
 	return varHasTap;
 }
 var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
