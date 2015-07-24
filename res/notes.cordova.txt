@@ -12,6 +12,16 @@ npm install -g plugman
 npm install -g grunt-cli
 
 
+cordova plugin rm  cordova-plugin-dialogs --save
+cordova plugin add cordova-plugin-dialogs --save
+
+cordova plugin rm  cordova-plugin-inappbrowser --save
+cordova plugin add cordova-plugin-inappbrowser --save
+
+cordova plugin add cordova-plugin-whitelist --save
+
+
+
 phonegap create com.cancian.kcals com.cancian.kcals kcals
 cordova create com.cancian.kcals com.cancian.kcals kcals
 cd com.cancian.kcals
@@ -19,9 +29,6 @@ cd com.cancian.kcals
 
 https://developer.amazon.com/public/solutions/platforms/android-fireos/docs/building-and-testing-your-hybrid-app
 - copy awv_interface.jar to C:\Users\Administrator\.cordova\lib\commonlibs
-
-
-
 
 
 https://github.com/apache/cordova-amazon-fireos/tree/3.6.x
@@ -68,6 +75,10 @@ cordova plugin add https://github.com/Wizcorp/phonegap-facebook-plugin --variabl
 
 cordova plugin add org.apache.cordova.dialogs
 cordova plugin add org.apache.cordova.inappbrowser
+
+
+
+
 
 cordova plugin add https://github.com/jeduan/cordova-plugin-facebook4 --save --variable APP_ID="577673025616946" --variable APP_NAME="kcals"
 

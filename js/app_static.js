@@ -387,11 +387,10 @@ $(document).on('backbutton', function(evt) {
 			appFooter('tab1');
 		}
 	} else {
-		if(app.read('config_debug','active')) {
+		if(app.dev) {
 			afterHide();
 		} else if(app.device.windows8) {
 			backer = 1;
-			$(document).trigger('backbutton');
 		} else if(app.device.wp8) {
 			$(document).off('backbutton');
 			blockAlerts = 1;
@@ -405,14 +404,19 @@ $(document).on('backbutton', function(evt) {
 		}
 	}
 });
-// WINDOWS BACKBUTTON //
+//////////////////////
+// WINJS BACKBUTTON //
+//////////////////////
 if (app.device.windows8) {
 	if (typeof WinJS !== 'undefined') {
 		WinJS.Application.onbackclick = function (arg) {
 			$(document).trigger('backbutton');
-				if(backer == 0) {
-   			    return true;
+			if(backer == 0) {
+				//prevent default
+   			   	return true;
 			}
+			//allow default once && re-enable
+			backer = 0;
 		}
 	}
 }
