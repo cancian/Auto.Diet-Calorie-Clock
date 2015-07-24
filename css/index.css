@@ -71,7 +71,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 @media (max-width: 600px)				{ @-ms-viewport { width: 340px; }}
 @media (max-width: 500px)				{ @-ms-viewport { width: 330px; }}
 */
-@media (max-width: 600px)				{ @-ms-viewport { width: 75%; }}
+@media (max-width: 600px)				{ @-ms-viewport { width: 80%; }}
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
