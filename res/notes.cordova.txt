@@ -2,7 +2,17 @@
 ## CORDOVA 4.3.1 ##
 ###################
 
+sudo ln -f -s /usr/bin/nodejs /usr/bin/node
+
+
 npm config set cache k:\sdk\nodejs\npm-cache --global 
+
+## root login
+sudo -i
+sudo passwd root
+sudo sh -c 'echo "greeter-show-manual-login=true" >> /etc/lightdm/lightdm.conf'
+
+
 
 
 npm install -g cordova@4.3.1
@@ -20,6 +30,11 @@ cordova plugin add cordova-plugin-inappbrowser --save
 
 cordova plugin add cordova-plugin-whitelist --save
 
+
+## update npm
+sudo npm update npm -g
+sudo npm install n -g
+sudo n stable
 
 
 phonegap create com.cancian.kcals com.cancian.kcals kcals

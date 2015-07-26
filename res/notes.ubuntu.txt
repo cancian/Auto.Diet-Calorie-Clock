@@ -21,10 +21,20 @@ sudo apt-get install gnome-session-flashback
 ######################
 ## PERMANENT SHARES ##
 ######################
-//192.168.1.5/home              /home/cancian/shared/home-2012         cifs  username=cancian,password=@@@@@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
-//192.168.1.5/com.cancian.kcals /home/cancian/shared/com.cancian.kcals cifs  username=cancian,password=@@@@@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
-//192.168.1.200/public          /home/cancian/shared/blackarmor-public cifs  username=cancian,password=@@@@@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
-//192.168.1.200/home            /home/cancian/shared/blackarmor-home   cifs  username=cancian,password=@@@@@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
+mkdir /shared
+mkdir /shared/home-2012
+mkdir /shared/com.cancian.kcals
+mkdir /shared/BA-public
+mkdir /shared/BA-home
+
+sudo nano /etc/fstab
+
+//192.168.1.5/home              /shared/home-2012         cifs  username=cancian,password=XXXXX@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
+//192.168.1.5/com.cancian.kcals /shared/com.cancian.kcals cifs  username=cancian,password=XXXXX@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
+//192.168.1.200/public          /shared/BA-public         cifs  username=cancian,password=XXXXX@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
+//192.168.1.200/home            /shared/BA-home           cifs  username=cancian,password=XXXXX@,iocharset=utf8,gid=1000,uid=1000,sec=ntlm,file_mode=0777,dir_mode=0777 0 0
+
+sudo mount -a
 
 
 #################
