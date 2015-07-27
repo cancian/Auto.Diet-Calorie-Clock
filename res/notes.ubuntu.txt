@@ -54,6 +54,10 @@ sudo apt-add-repository ppa:cordova-ubuntu/ppa
 sudo apt-get update
 sudo apt-get install cordova-cli
 
+cordova plugin add cordova-plugin-inappbrowser@0.2.0
+cordova plugin add cordova-plugin-dialogs@0.2.0
+
+
 ## Create a click chroot for the armhf architecture:
 sudo click chroot -a armhf -f ubuntu-sdk-14.10 create
 

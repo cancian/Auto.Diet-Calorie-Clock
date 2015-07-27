@@ -1245,9 +1245,6 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 					dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 					dataCSS = dataCSS.split('-webkit-').join('-ms-');
-					if(/IEMobile/i.test(navigator.userAgent) && /MSApp/i.test(navigator.userAgent))	{
-						dataCSS = dataCSS.split('@-ms-viewport').join('dummy');
-					}
 				}
 				$("#coreCss").remove();
 				$("#coreFonts").prepend2("<style type='text/css' id='coreCss'></style>");

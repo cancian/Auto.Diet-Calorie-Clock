@@ -8,7 +8,7 @@ function showIntro(isNew) {
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
 	$(window).trigger('resize');
-	if($('body').height() < 350) { 
+	if(window.innerHeight < 350) { 
 		return;
 	}
 	//////////////////
@@ -72,7 +72,7 @@ function showIntro(isNew) {
 						myScroll.destroy();
 					}
 					$('#iScrollTag').remove();
-				},500);
+				},600);
 			});
 		}
 		evt.preventDefault();
@@ -103,15 +103,6 @@ function showIntro(isNew) {
 			myScroll.prev();
 		}
 	});
-	///////////////
-	// INDICATOR //
-	///////////////
-	$(window).on('resize',function() {
-		if($('#indicator').length) {
-			$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
-		}
-	});
-	$(window).trigger('resize');
 	/////////////
 	// ISCROLL //
 	/////////////
@@ -136,6 +127,15 @@ function showIntro(isNew) {
 				app.analytics('error',e);
 			}
 		}
+		///////////////
+		// INDICATOR //
+		///////////////
+		$(window).on('resize',function() {
+			if($('#indicator').length) {
+				$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
+			}
+		});
+		$(window).trigger('resize');
 	}, 300);
 }
 ///////////////////
