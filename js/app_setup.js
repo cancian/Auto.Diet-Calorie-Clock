@@ -7,8 +7,7 @@ function showIntro(isNew) {
 	///////////////////////////////////////
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
-	$(window).trigger('resize');
-	if(window.innerHeight < 350) { 
+	if(window.innerHeight < 350 && app.device.blackberry) { 
 		return;
 	}
 	//////////////////
@@ -103,6 +102,15 @@ function showIntro(isNew) {
 			myScroll.prev();
 		}
 	});
+	///////////////
+	// INDICATOR //
+	///////////////
+	$(window).on('resize',function() {
+		if($('#indicator').length) {
+			$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
+		}
+	});
+	$(window).trigger('resize');
 	/////////////
 	// ISCROLL //
 	/////////////
@@ -127,15 +135,6 @@ function showIntro(isNew) {
 				app.analytics('error',e);
 			}
 		}
-		///////////////
-		// INDICATOR //
-		///////////////
-		$(window).on('resize',function() {
-			if($('#indicator').length) {
-				$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
-			}
-		});
-		$(window).trigger('resize');
 	}, 300);
 }
 ///////////////////
