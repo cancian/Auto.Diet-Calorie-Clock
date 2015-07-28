@@ -13,6 +13,11 @@ sudo passwd root
 sudo sh -c 'echo "greeter-show-manual-login=true" >> /etc/lightdm/lightdm.conf'
 
 
+cordova plugin add org.apache.cordova.dialogs
+cordova plugin add org.apache.cordova.inappbrowser
+
+cordova plugin add cordova-plugin-dialogs
+cordova plugin add cordova-plugin-inappbrowser
 
 
 npm install -g cordova@4.3.1

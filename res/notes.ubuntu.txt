@@ -60,7 +60,9 @@ cordova plugin add cordova-plugin-dialogs@0.2.0
 
 
 ## Create a click chroot for the armhf architecture:
-sudo click chroot -a armhf -f ubuntu-sdk-14.10 create
+sudo click chroot -a armhf -f ubuntu-sdk-14.04 create
+sudo click chroot -a i386  -f ubuntu-sdk-14.04 create
+
 
 ## run this command from your application directory
 cordova platform add ubuntu
