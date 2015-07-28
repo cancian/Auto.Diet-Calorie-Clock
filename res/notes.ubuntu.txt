@@ -18,6 +18,7 @@ sudo apt-get install gnome-session-flashback
 
 
 
+
 ######################
 ## PERMANENT SHARES ##
 ######################
@@ -70,4 +71,26 @@ cordova plugin add org.apache.cordova.camera
 ##
 cordova build --device
 
+
+################
+## ELEMENTARY ##
+################
+sudo apt-add-repository ppa.launchpad.net/elementary-os/stable/ubuntu
+
+sudo apt-add-repository ppa:elementary-os/testing
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-add-repository ppa:elementary-os/daily
+sudo apt-get update
+sudo apt-get install elementary-desktop
+
+gedit /etc/xdg/autostart/indicator*
+ADD 'Pantheon'
+
+gsettings set org.gnome.settings-daemon.plugins.background active true
+
+## ELEMENTARY TWEAKS
+sudo add-apt-repository ppa:mpstark/elementary-tweaks-daily
+sudo apt-get update
+sudo apt-get install elementary-tweaks
 

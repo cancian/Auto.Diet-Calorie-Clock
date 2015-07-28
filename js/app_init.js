@@ -1,6 +1,9 @@
 ﻿///////////////
 // SAFE EXEC //
 ///////////////
+if(typeof hostLocal === 'undefined') {
+	var hostLocal = window.localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
+}
 var staticVendor = ''; //'amazon';
 var baseVersion  = 1.9;
 var initTime     = new Date().getTime();
@@ -9,10 +12,14 @@ var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
 function safeExec(callback) {
 	if (IsMsApp) {
 		MSApp.execUnsafeLocalFunction(function () {
-			callback();
+			if(typeof callback === 'function') {
+				callback();
+			}
 		});
 	} else {
-		callback();
+		if(typeof callback === 'function') {
+			callback();
+		}
 	}
 }
 /////////////////
@@ -116,8 +123,12 @@ function isCacheValid(input) {
 //## INIT JS ##//
 //##/////////##//
 function initJS() {
+	if(typeof hostLocal === 'undefined') {
+		var hostLocal = window.localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
+	}
+	///////////
 	// MSAPP //
-	if (IsMsApp) { hostLocal = ''; }
+	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
