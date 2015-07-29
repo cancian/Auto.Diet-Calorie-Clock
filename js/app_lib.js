@@ -1285,7 +1285,7 @@ var varHasTouch = !app.http && (/(iPhone|iPod|iPad|Android|BlackBerry|PlayBook)/
 function hasTouch() {
 	return varHasTouch;
 }
-var varHasTap = (('ontouchstart' in document) || ('ontouchstart' in window)) && !app.device.linux;
+var varHasTap = ((('ontouchstart' in document) || ('ontouchstart' in window)) && !app.device.linux) ? true : false;
 function hasTap() {
 	return varHasTap;
 }

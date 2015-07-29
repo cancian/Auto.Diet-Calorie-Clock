@@ -1,27 +1,24 @@
 ############
 ## UBUNTU ##
 ############
-
-///////////////////
-// CLICK PACKAGE //
-///////////////////
-click build .
-
-///////////////////
-// GNOME CLASSIC //
-///////////////////
-sudo add-apt-repository ppa:gnome3-team/gnome3
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install gnome-session-fallback
-sudo apt-get install gnome-session-flashback
+sudo apt-get install ubuntu-sdk
 
 
 
+//#//////////////////#//
+//# OPEN IN TERMINAL #//
+//#//////////////////#//
+sudo add-apt-repository universe
+sudo apt-get update
+sudo apt-get install nautilus-open-terminal
+sudo apt-get install nautilus-actions
+nautilus -q && nautilus
 
-######################
-## PERMANENT SHARES ##
-######################
+//#//////////////////#//
+//# PERMANENT SHARES #//
+//#//////////////////#//
 mkdir /shared
 mkdir /shared/home-2012
 mkdir /shared/com.cancian.kcals
@@ -37,62 +34,74 @@ sudo nano /etc/fstab
 
 sudo mount -a
 
-
-#################
-## ENABLE ROOT ##
-#################
-sudo -i
-sudo passwd root
-sudo passwd -dl root
-
-
+//#////////////////#//
+//# NODEJS COMPILE #//
+//#////////////////#//
+wget https://nodejs.org/dist/v0.12.7/node-v0.12.7.tar.gz
+./configure
+make
+sudo make install 
 
 
-##################
-## CORDOVA REPO ##
-##################
+//#////////////#//
+//# UPDATE NPM #//
+//#////////////#//
+sudo npm update npm -g
+sudo npm install n -g
+sudo n stable
+
+
+//#//////////////#//
+//# CORDOVA REPO #//
+//#//////////////#//
 sudo apt-add-repository ppa:cordova-ubuntu/ppa
 sudo apt-get update
 sudo apt-get install cordova-cli
 
+## UBUNTU PLATFORM ##
+npm install -g cordova@4.3.1
+cordova platform add ubuntu@3.6.3
+cordova plugin add org.apache.cordova.dialogs
+cordova plugin add org.apache.cordova.inappbrowser
+
 cordova plugin add cordova-plugin-inappbrowser@0.2.0
 cordova plugin add cordova-plugin-dialogs@0.2.0
+cordova platform add ubuntu@4.0.0
+
+npm install shelljs@0.2.6 elementtree colors@0.6.2 optimist@0.6.0 q@2.0.*
+
+## VIA GIT ##
+git clone https://github.com/apache/cordova-ubuntu/
+it checkout 3.6.x
+
+//#//////////////#//
+//# CLICK CHROOT #//
+//#//////////////#//
+sudo click chroot -a i386  -f ubuntu-sdk-15.04 create
+sudo click chroot -a armhf -f ubuntu-sdk-15.04 create
+click chroot -a i386  -f ubuntu-sdk-15.04 create && click chroot -a armhf -f ubuntu-sdk-15.04 create
+
+//#///////////////#//
+//# CLICK PACKAGE #//
+//#///////////////#//
+click build .
 
 
-## Create a click chroot for the armhf architecture:
-sudo click chroot -a armhf -f ubuntu-sdk-14.04 create
-sudo click chroot -a i386  -f ubuntu-sdk-14.04 create
-
-
-## run this command from your application directory
-cordova platform add ubuntu
-
-##
-cordova plugin add org.apache.cordova.camera
-
-##
-cordova build --device
-
-
-################
-## ELEMENTARY ##
-################
-sudo apt-add-repository ppa.launchpad.net/elementary-os/stable/ubuntu
-
-sudo apt-add-repository ppa:elementary-os/testing
+//#///////////////#//
+//# GNOME CLASSIC #//
+//#///////////////#//
+sudo add-apt-repository ppa:gnome3-team/gnome3
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-add-repository ppa:elementary-os/daily
-sudo apt-get update
-sudo apt-get install elementary-desktop
+sudo apt-get install gnome-session-fallback
+sudo apt-get install gnome-session-flashback
 
-gedit /etc/xdg/autostart/indicator*
-ADD 'Pantheon'
 
-gsettings set org.gnome.settings-daemon.plugins.background active true
+//#/////////////#//
+//# ENABLE ROOT #//
+//#/////////////#//
+sudo -i
+sudo passwd root
+sudo passwd -dl root
 
-## ELEMENTARY TWEAKS
-sudo add-apt-repository ppa:mpstark/elementary-tweaks-daily
-sudo apt-get update
-sudo apt-get install elementary-tweaks
 
