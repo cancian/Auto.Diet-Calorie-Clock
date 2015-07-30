@@ -72,7 +72,7 @@ npm install shelljs@0.2.6 elementtree colors@0.6.2 optimist@0.6.0 q@2.0.*
 
 ## VIA GIT ##
 git clone https://github.com/apache/cordova-ubuntu/
-it checkout 3.6.x
+git checkout 3.6.x
 
 //#//////////////#//
 //# CLICK CHROOT #//
