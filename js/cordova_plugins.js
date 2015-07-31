@@ -1,8 +1,8 @@
 ﻿if (typeof cordova !== 'undefined') {
 	//BB10 ~ inappbrowser
 	var BBINAPP = /BB10/.test(navigator.userAgent) ? '' : { 
-		'file' : 'plugins/org.apache.cordova.inappbrowser/www/InAppBrowser.js',
-		'id' : 'org.apache.cordova.inappbrowser.InAppBrowser',
+		'file' : 'plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js',
+		'id' : 'org.apache.cordova.inappbrowser.inappbrowser',
 		'clobbers' : ['window.open'] 
 	};
 	//CORDOVA
