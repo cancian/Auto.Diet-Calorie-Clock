@@ -68,7 +68,7 @@ cordova plugin add cordova-plugin-inappbrowser@0.2.0
 cordova plugin add cordova-plugin-dialogs@0.2.0
 cordova platform add ubuntu@4.0.0
 
-npm install shelljs@0.2.6 elementtree colors@0.6.2 optimist@0.6.0 q@2.0.*
+npm install -g shelljs@0.2.6 elementtree colors@0.6.2 optimist@0.6.0 q@2.0.*
 
 ## VIA GIT ##
 git clone https://github.com/apache/cordova-ubuntu/
