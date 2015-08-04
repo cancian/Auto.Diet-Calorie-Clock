@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# v19700 - 2015-07-31
+# v19700 - 2015-08-04
 index.html
 # JS
 js/app_init.js
@@ -31,7 +31,4 @@ js/galocalstorage.js
 
 NETWORK:
 *
-
-FALLBACK:
-/ index.html
 

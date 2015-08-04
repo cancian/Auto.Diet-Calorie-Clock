@@ -107,7 +107,6 @@ $(window).on('pause',function() {
 //## START APP ##//
 //###############//
 function startApp() {
-try {
 	//fix locked dbs
 	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
 		app.remove('startLock');
@@ -1333,15 +1332,6 @@ setTimeout(function () {
 		return this[fn ? 'on' : 'trigger'](_, fn);
 	};
 })(jQuery, 'tap');
-/////////////////////
-// REBOOT ON ERROR //
-/////////////////////
-} catch(e) {
-	setTimeout(function() {
-		app.reboot('now');
-	},1500);
-	errorHandler(e);
-}
 ////#//
 } //#//
 ////#//
