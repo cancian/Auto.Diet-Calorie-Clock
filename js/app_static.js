@@ -1015,7 +1015,7 @@ if(app.is.scrollable) {
 	setTimeout(function() {
 		app.online();
 	},2000);
-	setTimeout(entryRetimer,60*1000);
+	setTimeout(entryRetimer,30*1000);
 })();
 //check last push
 (function lastEntryPush() {
