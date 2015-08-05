@@ -818,7 +818,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		if(title == 0) { return; }
 		//hours ago
 		if(Number($('#entryTime').val()) < 0) {
-			published = published - (Number($('#entryTime').val()) * (60 * 60 * 1000) );
+			published = published + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
 		} else if(Number($('#entryTime').val()) > 0) {
 			//schedule
 			published = published + (Number($('#entryTime').val()) * (60 * 60 * 1000) );

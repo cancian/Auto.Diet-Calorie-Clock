@@ -741,6 +741,13 @@ function saveEntry(data,callback) {
 	} else if(data.reuse == true) {
 		//SAVE
 		var saveTime = app.now();
+		if(Number($('#entryTime').val()) < 0) {
+			//past
+			saveTime = saveTime + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
+		} else if(Number($('#entryTime').val()) > 0) {
+			//schedule
+			saveTime = saveTime + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
+		}
 		app.rows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib, fii: data.fii, sug: data.sug, sod: data.sod});
 		app.save('diary_entry',app.rows.entry,function(rows) {
 			app.rows.entry = rows;
