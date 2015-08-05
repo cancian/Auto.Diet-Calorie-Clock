@@ -54,6 +54,7 @@ sudo n stable
 //#//////////////#//
 //# CORDOVA REPO #//
 //#//////////////#//
+sudo apt-add-repository ppa:ubuntu-sdk-team/ppa
 sudo apt-add-repository ppa:cordova-ubuntu/ppa
 sudo apt-get update
 sudo apt-get install cordova-cli

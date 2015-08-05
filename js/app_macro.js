@@ -16,7 +16,9 @@ function getFullHistory() {
 	/////////////////
 	getEntries(function(data) {
 		for(var g=0, len=data.length; g<len; g++) {
-			fullArray.push({ date: DayUtcFormat(parseInt(data[g].published)),val: data[g].title});
+			if(parseInt(data[g].published) <= app.now()) {
+				fullArray.push({ date: DayUtcFormat(parseInt(data[g].published)),val: data[g].title});
+			}
 			//GET OLDEST
 			if(oldestEntry > parseInt(data[g].published)) {
 				oldestEntry = parseInt(data[g].published);
@@ -283,19 +285,21 @@ function intakeHistory() {
 		var dataPublished;
 		var dataTitle;
 		for(var i=0, len=data.length; i<len; i++) {
-			dataPublished = DayUtcFormat(parseInt(data[i].published));
-			dataTitle     = parseInt(data[i].title);
-			if(dataPublished == past0days) { past0daysSum = past0daysSum + dataTitle; }
-			if(dataPublished == past1days) { past1daysSum = past1daysSum + dataTitle; }
-			if(dataPublished == past2days) { past2daysSum = past2daysSum + dataTitle; }
-			if(dataPublished == past3days) { past3daysSum = past3daysSum + dataTitle; }
-			if(dataPublished == past4days) { past4daysSum = past4daysSum + dataTitle; }
-			if(dataPublished == past5days) { past5daysSum = past5daysSum + dataTitle; }
-			if(dataPublished == past6days) { past6daysSum = past6daysSum + dataTitle; }
-			if(dataPublished == past7days) { past7daysSum = past7daysSum + dataTitle; }
-			//reset
-			dataPublished = 0;
-			dataTitle     = 0;
+			if(parseInt(data[i].published) <= app.now()) {
+				dataPublished = DayUtcFormat(parseInt(data[i].published));
+				dataTitle     = parseInt(data[i].title);
+				if(dataPublished == past0days) { past0daysSum = past0daysSum + dataTitle; }
+				if(dataPublished == past1days) { past1daysSum = past1daysSum + dataTitle; }
+				if(dataPublished == past2days) { past2daysSum = past2daysSum + dataTitle; }
+				if(dataPublished == past3days) { past3daysSum = past3daysSum + dataTitle; }
+				if(dataPublished == past4days) { past4daysSum = past4daysSum + dataTitle; }
+				if(dataPublished == past5days) { past5daysSum = past5daysSum + dataTitle; }
+				if(dataPublished == past6days) { past6daysSum = past6daysSum + dataTitle; }
+				if(dataPublished == past7days) { past7daysSum = past7daysSum + dataTitle; }
+				//reset
+				dataPublished = 0;
+				dataTitle     = 0;
+			}
 		}
 		//null for zero
 		//if(past0daysSum == 0) { past0daysSum = null; }
@@ -1734,7 +1738,7 @@ function buildAdvancedMenu() {
 //## GET CATEGORY~IES ##//
 //##//////////////////##//
 function getCategory(catId, callback) {
-	var startCat = app.now();
+	//var startCat = app.now();
 	var orType = '';
 	if (catId == '9999') {
 		orType = 'food';
@@ -1765,9 +1769,9 @@ function getCategory(catId, callback) {
 			}
 		}
 		callback(rowsArray.sortbyattr('time', 'asc'));
-		if(app.dev) {
-			app.save(app.get.kcals('key'),app.now() - startCat);
-		}
+		//if(app.dev) {
+		//	app.save(app.get.kcals('key'),app.now() - startCat);
+		//}
 		//////////////////
 		// REGULAR DUMP //
 		//////////////////
@@ -1780,9 +1784,9 @@ function getCategory(catId, callback) {
 			}
 		}
 		callback(rowsArray.sortbyattr('term', 'desc'));
-		if(app.dev) {
-			app.save(app.get.kcals('key'),app.now() - startCat);
-		}
+		//if(app.dev) {
+		//	app.save(app.get.kcals('key'),app.now() - startCat);
+		//}
 	}
 }
 ///////////////////

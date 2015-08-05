@@ -553,37 +553,67 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	var lPreAgo   = LANG.PREAGO[lang] + ' ';
 	//android 2.x select fix
 	var formSelect = '<select id="entryTime" name="entryTime" tabindex="-1">\
-		<option value="0">'   + LANG.NOW[lang]  +                 '</option>\
-		<option value="1">'   + lPreAgo + '1 '  + lHour  + lAgo + '</option>\
-		<option value="2">'   + lPreAgo + '2 '  + lHours + lAgo + '</option>\
-		<option value="3">'   + lPreAgo + '3 '  + lHours + lAgo + '</option>\
-		<option value="4">'   + lPreAgo + '4 '  + lHours + lAgo + '</option>\
-		<option value="5">'   + lPreAgo + '5 '  + lHours + lAgo + '</option>\
-		<option value="6">'   + lPreAgo + '6 '  + lHours + lAgo + '</option>\
-		<option value="7">'   + lPreAgo + '7 '  + lHours + lAgo + '</option>\
-		<option value="8">'   + lPreAgo + '8 '  + lHours + lAgo + '</option>\
-		<option value="9">'   + lPreAgo + '9 '  + lHours + lAgo + '</option>\
-		<option value="10">'  + lPreAgo + '10 ' + lHours + lAgo + '</option>\
-		<option value="11">'  + lPreAgo + '11 ' + lHours + lAgo + '</option>\
-		<option value="12">'  + lPreAgo + '12 ' + lHours + lAgo + '</option>\
-		<option value="13">'  + lPreAgo + '13 ' + lHours + lAgo + '</option>\
-		<option value="14">'  + lPreAgo + '14 ' + lHours + lAgo + '</option>\
-		<option value="15">'  + lPreAgo + '15 ' + lHours + lAgo + '</option>\
-		<option value="16">'  + lPreAgo + '16 ' + lHours + lAgo + '</option>\
-		<option value="17">'  + lPreAgo + '17 ' + lHours + lAgo + '</option>\
-		<option value="18">'  + lPreAgo + '18 ' + lHours + lAgo + '</option>\
-		<option value="19">'  + lPreAgo + '19 ' + lHours + lAgo + '</option>\
-		<option value="20">'  + lPreAgo + '20 ' + lHours + lAgo + '</option>\
-		<option value="21">'  + lPreAgo + '21 ' + lHours + lAgo + '</option>\
-		<option value="22">'  + lPreAgo + '22 ' + lHours + lAgo + '</option>\
-		<option value="23">'  + lPreAgo + '23 ' + lHours + lAgo + '</option>\
-		<option value="24">'  + lPreAgo + '1 '  + lDay   + lAgo + '</option>\
-		<option value="48">'  + lPreAgo + '2 '  + lDays  + lAgo + '</option>\
-		<option value="72">'  + lPreAgo + '3 '  + lDays  + lAgo + '</option>\
-		<option value="96">'  + lPreAgo + '4 '  + lDays  + lAgo + '</option>\
-		<option value="120">' + lPreAgo + '5 '  + lDays  + lAgo + '</option>\
-		<option value="144">' + lPreAgo + '6 '  + lDays  + lAgo + '</option>\
-		<option value="168">' + lPreAgo + '7 '  + lDays  + lAgo + '</option>\
+		<option value="168">' + '+7 '  + lDays  + '</option>\
+		<option value="144">' + '+6 '  + lDays  + '</option>\
+		<option value="120">' + '+5 '  + lDays  + '</option>\
+		<option value="96">'  + '+4 '  + lDays  + '</option>\
+		<option value="72">'  + '+3 '  + lDays  + '</option>\
+		<option value="48">'  + '+2 '  + lDays  + '</option>\
+		<option value="24">'  + '+1 '  + lDay   + '</option>\
+		<option value="23">'  + '+23 ' + lHours + '</option>\
+		<option value="22">'  + '+22 ' + lHours + '</option>\
+		<option value="21">'  + '+21 ' + lHours + '</option>\
+		<option value="20">'  + '+20 ' + lHours + '</option>\
+		<option value="19">'  + '+19 ' + lHours + '</option>\
+		<option value="18">'  + '+18 ' + lHours + '</option>\
+		<option value="17">'  + '+17 ' + lHours + '</option>\
+		<option value="16">'  + '+16 ' + lHours + '</option>\
+		<option value="15">'  + '+15 ' + lHours + '</option>\
+		<option value="14">'  + '+14 ' + lHours + '</option>\
+		<option value="13">'  + '+13 ' + lHours + '</option>\
+		<option value="12">'  + '+12 ' + lHours + '</option>\
+		<option value="11">'  + '+11 ' + lHours + '</option>\
+		<option value="10">'  + '+10 ' + lHours + '</option>\
+		<option value="9">'   + '+9 '  + lHours + '</option>\
+		<option value="8">'   + '+8 '  + lHours + '</option>\
+		<option value="7">'   + '+7 '  + lHours + '</option>\
+		<option value="6">'   + '+6 '  + lHours + '</option>\
+		<option value="5">'   + '+5 '  + lHours + '</option>\
+		<option value="4">'   + '+4 '  + lHours + '</option>\
+		<option value="3">'   + '+3 '  + lHours + '</option>\
+		<option value="2">'   + '+2 '  + lHours + '</option>\
+		<option value="1">'   + '+1 '  + lHour  + '</option>\
+		<option value="0" selected>'   + LANG.NOW[lang]    +        '</option>\
+		<option value="-1">'    + lPreAgo + '1 '  + lHour  + lAgo + '</option>\
+		<option value="-2">'    + lPreAgo + '2 '  + lHours + lAgo + '</option>\
+		<option value="-3">'    + lPreAgo + '3 '  + lHours + lAgo + '</option>\
+		<option value="-4">'    + lPreAgo + '4 '  + lHours + lAgo + '</option>\
+		<option value="-5">'    + lPreAgo + '5 '  + lHours + lAgo + '</option>\
+		<option value="-6">'    + lPreAgo + '6 '  + lHours + lAgo + '</option>\
+		<option value="-7">'    + lPreAgo + '7 '  + lHours + lAgo + '</option>\
+		<option value="-8">'    + lPreAgo + '8 '  + lHours + lAgo + '</option>\
+		<option value="-9">'    + lPreAgo + '9 '  + lHours + lAgo + '</option>\
+		<option value="-10">'   + lPreAgo + '10 ' + lHours + lAgo + '</option>\
+		<option value="-11">'   + lPreAgo + '11 ' + lHours + lAgo + '</option>\
+		<option value="-12">'   + lPreAgo + '12 ' + lHours + lAgo + '</option>\
+		<option value="-13">'   + lPreAgo + '13 ' + lHours + lAgo + '</option>\
+		<option value="-14">'   + lPreAgo + '14 ' + lHours + lAgo + '</option>\
+		<option value="-15">'   + lPreAgo + '15 ' + lHours + lAgo + '</option>\
+		<option value="-16">'   + lPreAgo + '16 ' + lHours + lAgo + '</option>\
+		<option value="-17">'   + lPreAgo + '17 ' + lHours + lAgo + '</option>\
+		<option value="-18">'   + lPreAgo + '18 ' + lHours + lAgo + '</option>\
+		<option value="-19">'   + lPreAgo + '19 ' + lHours + lAgo + '</option>\
+		<option value="-20">'   + lPreAgo + '20 ' + lHours + lAgo + '</option>\
+		<option value="-21">'   + lPreAgo + '21 ' + lHours + lAgo + '</option>\
+		<option value="-22">'   + lPreAgo + '22 ' + lHours + lAgo + '</option>\
+		<option value="-23">'   + lPreAgo + '23 ' + lHours + lAgo + '</option>\
+		<option value="-24">'   + lPreAgo + '1 '  + lDay   + lAgo + '</option>\
+		<option value="-48">'   + lPreAgo + '2 '  + lDays  + lAgo + '</option>\
+		<option value="-72">'   + lPreAgo + '3 '  + lDays  + lAgo + '</option>\
+		<option value="-96">'   + lPreAgo + '4 '  + lDays  + lAgo + '</option>\
+		<option value="-120">'  + lPreAgo + '5 '  + lDays  + lAgo + '</option>\
+		<option value="-144">'  + lPreAgo + '6 '  + lDays  + lAgo + '</option>\
+		<option value="-168">'  + lPreAgo + '7 '  + lDays  + lAgo + '</option>\
 	</select>';
 	var textOrNumber = app.device.desktop || app.device.android ? 'text' : 'number';
 	diaryHtml += '\
@@ -787,8 +817,11 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		//not null
 		if(title == 0) { return; }
 		//hours ago
-		if(Number($('#entryTime').val()) >= 1) {
+		if(Number($('#entryTime').val()) < 0) {
 			published = published - (Number($('#entryTime').val()) * (60 * 60 * 1000) );
+		} else if(Number($('#entryTime').val()) > 0) {
+			//schedule
+			published = published + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
 		}
 		//null default values
 		if(body == LANG.FOOD[lang] || body == LANG.EXERCISE[lang]) {
@@ -913,34 +946,6 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				$('#entryBody').blur();
 				window.location.href = 'http://jsperf.com/speed-comparison-of-jquery-versions/92';
 			}			
-			///////////
-			// NOMIN //
-			//////////
-			if (/devnomin/i.test($('#entryBody').val())) {
-				if (app.read('config_nomin','active')) {
-					app.remove('config_nomin');
-					$('#entryBody').val('');
-					$('#entryBody').blur();
-					afterHide();
-				} else {
-					app.save('config_nomin','active');
-					$('#entryBody').val('');
-					$('#entryBody').blur();
-					afterHide();
-				}
-			}
-			//////////
-			// UUID //
-			//////////
-			if (/devuuid/i.test($('#entryBody').val())) {
-				$('#entryBody').val('');
-				$('#entryBody').blur();
-				if(window.device) {
-					if(window.device.uuid) {
-						alert(window.device.uuid);
-					}
-				}
-			}
 			///////////
 			// DEBUG //
 			///////////

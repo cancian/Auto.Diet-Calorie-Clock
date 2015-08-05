@@ -1072,6 +1072,7 @@ span.delete #delete:active	{ color: #ccc !important; }
 .appLang-ko .entriesKcals	{ width: 48px; font-size: 10pt; color: #aaa; padding-top: 1px;  }
 .entriesPublished			{ padding-top: 28px; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; white-space: nowrap; }
 .editing .entriesPublished	{ opacity: 0; display: none; }
+.scheduled 					{ color: #cc3300; }
 /*GENERIC*/
 div#noEntries				{ border-left: 5px solid rgba(0,0,0,0); pointer-events: none; height: 45px; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }

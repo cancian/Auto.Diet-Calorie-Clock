@@ -474,7 +474,7 @@ function updateTimer() {
 			var tSod = 0;		
 			for(var i=0, len=data.length; i<len; i++) {
 				// EXPIRED
-				if(app.read('config_start_time') <= Number(data[i].published)) {
+				if(app.read('config_start_time') <= Number(data[i].published) && Number(data[i].published <= app.now())) {
 					//today's totals
 					if(dayFormat(parseInt(data[i].published)) == today) {
 						if(Number(data[i].title) > 0) {

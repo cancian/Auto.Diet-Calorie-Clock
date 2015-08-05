@@ -13,8 +13,9 @@
 • Auto-Share custom items (every custom item added becomes available to all users)
 • Choose the food database language independently from the current system language
 
-# 1.9.7 [2015-07-31]
+# 1.9.7 [2015-08-05]
 • Fixed an issue with the viewport being rendered incorrectly
+• Added future dates to the diary dropdown so entries can be scheduled (future dates shown in red)
 
 # 1.9.6 [2015-07-20]
 • Fixed an issue with favorites disappearing during synchronization

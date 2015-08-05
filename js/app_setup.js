@@ -398,7 +398,7 @@ function pushEntries(userId) {
 		//////////////////
 		if(localStorageSql()) {
 			fetchEntries = fetchEntries + '\n' + trim(localStorageSql());
-		}	
+		}
 		fetchEntries = fetchEntries.split('undefined').join('');
 		fetchEntries = fetchEntries.split('NaN').join('');
 		/////////////////
@@ -1371,6 +1371,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 		app.save('totalEntries',totalEntries);
 		app.save('totalRecentEntries',totalRecentEntries);
 	});
+	updateEntriesTime();
 };
 /////////////////////////////
 // UPDATE ENTRYLIST *TIME* //
@@ -1379,7 +1380,12 @@ function updateEntriesTime() {
 	getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			var dataPublished = parseInt(data[i].published);
-			$("#t" + dataPublished).html2(dateDiff(dataPublished,app.now()));
+			$('#t' + dataPublished).html2(dateDiff(dataPublished,app.now()));
+			if(dataPublished > app.now()){
+				$('#t' + dataPublished).addClass('scheduled');
+			} else {
+				$('#t' + dataPublished).removeClass('scheduled');
+			}
 		}
 	});
 	//SIDEBAR TIME CLASS
@@ -1913,7 +1919,13 @@ function niceResizer(timeout,callback) {
 function getNiceScroll(target,timeout,callback) {
 	if(!$.nicescroll) { return; }
 	if(!timeout)	  { timeout = 0; }
-	$(target).addClass('overthrow');
+	//quick scrolling / prevent scrollbar
+	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
+		$(target).removeClass('overthrow');
+		$(target).css('overflow','hidden');
+	} else {
+		$(target).addClass('overthrow');
+	}
 	//NICESCROLL
 	setTimeout(function() {
 		//SETTINGS

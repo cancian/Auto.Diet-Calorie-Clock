@@ -1730,7 +1730,7 @@ function dayFormat(input) {
 //////////////
 function dateDiff(date1,date2) {
 	//no future dates
-	if(date1 > date2) { date1 = new Date().getTime(); }
+	//if(date1 > date2) { date1 = new Date().getTime(); }
 
 	//Get 1 day in milliseconds
 	var one_day  = 1000*60*60*24;
@@ -1739,6 +1739,9 @@ function dateDiff(date1,date2) {
 	var date2_ms = date2;
 	// Calculate the difference in milliseconds
 	var difference_ms = date2_ms - date1_ms;
+	var showAgo = difference_ms >= 0 ? true : false;
+	difference_ms = Math.abs(difference_ms);
+	
 	//take out milliseconds
 	difference_ms = difference_ms/1000;
 	var seconds   = Math.floor(difference_ms % 60);
@@ -1766,7 +1769,12 @@ function dateDiff(date1,date2) {
 	if(hours   > 0 && minutes > 0)              { lHours   = lHours + LANG.AND[lang] + " "; }
 	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; lMinutes = " " + LANG.MINUTES[lang] + " "; }
 
-	return LANG.PREAGO[lang] + " " + days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
+	if(showAgo == true) {
+		return LANG.PREAGO[lang] + " " + days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
+	} else 
+		return days + lDays + hours + lHours + minutes + lMinutes + " "; {
+	}
+
 }
 ////////////////////////
 // WINDOW ORIENTATION //

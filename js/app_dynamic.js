@@ -1579,8 +1579,12 @@ function getModalWindow(itemId) {
 			// ENTRY TIME //
 			////////////////
 			var saveTime = new Date().getTime();
-			if (Number($('#entryTime').val()) >= 1) {
-				saveTime = saveTime - (Number($('#entryTime').val()) * (60 * 60 * 1000));
+			if(Number($('#entryTime').val()) < 0) {
+				//past
+				saveTime = saveTime - (Number($('#entryTime').val()) * (60 * 60 * 1000) );
+			} else if(Number($('#entryTime').val()) > 0) {
+				//schedule
+				saveTime = saveTime + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
 			}
 			///////////////
 			// ADD ENTRY //
