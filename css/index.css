@@ -363,6 +363,7 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 #emailLogin:after		{ font-family: 'Arial'; content: '@'; right: 0px; font-size: 33px; line-height: 41px; }
 
 .playbook #FacebookLogin{ display: none; }
+.android2 #emailLogin	{ display: none; }
 /*icon highlight*/
 .appFacebook #FacebookLogin:after				{ color: #4862A3; }
 .appFacebook #emailLogin:after,
