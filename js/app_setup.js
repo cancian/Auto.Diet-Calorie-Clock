@@ -197,6 +197,7 @@ function initDB(t) {
 	app.define('config_limit_1',-600);
 	app.define('config_limit_2',600);
 	app.define('app_zoom',1);
+	app.define('appStatus','stopped');
 	///////////
 	// START //
 	///////////
@@ -224,18 +225,35 @@ function clearEntries(callback) {
 		callback();
 	});
 }
+///////////////////
+// RESET COUNTER //
+///////////////////
+app.resetCounter = function(pusher) {
+	$('#appStatus').removeClass('reset');
+	$('#appStatus').addClass('start');
+	$('#appStatusTitle').html2(LANG.START[lang]);
+	app.save('appStatus','stopped');
+	app.save('config_start_time',app.now());
+	//RESET BACKPORT
+	app.save('config_entry_sum',0);
+	app.save('config_entry_f-sum',0);
+	app.save('config_entry_e-sum',0);
+	app.save('config_ttf',0);
+	app.save('config_tte',0);
+	$('#appStatusBars p').css('width',0);
+	$('#appStatusBars span').html2('0%');
+	$('#appStatusBalance div p').html2(LANG.BALANCED[lang]);
+	updateTodayOverview();
+	updateNutriBars();
+	if(pusher == 1) {
+		setPush();
+	}
+};
 //////////////////////////////
 // SQL-ENCODE LOCAL STORAGE //
 //////////////////////////////
 function localStorageSql() {
 	var keyList = '';
-	//start
-	if(app.read('config_start_time') && app.read('appStatus','running')) {
-		keyList = keyList + '#@@@#' + 'config_start_time' + '#@@#' + app.read('config_start_time');
-		keyList = keyList + '#@@@#' + 'appStatus' + '#@@#' + app.read('appStatus');
-	} else {
-		keyList = keyList + '#@@@#' + 'appStatus' + '#@@#' + 'stopped';
-	}
 	//daily
 	if(app.read('config_kcals_type'))  { keyList = keyList + '#@@@#' + 'config_kcals_type'  + '#@@#' + app.read('config_kcals_type');  }
 	if(app.read('config_kcals_day_0')) { keyList = keyList + '#@@@#' + 'config_kcals_day_0' + '#@@#' + app.read('config_kcals_day_0'); }
@@ -269,6 +287,13 @@ function localStorageSql() {
 	if(app.read('calcForm#pA6H'))	{ keyList = keyList + '#@@@#' + 'calcForm#pA6H' + '#@@#' + app.read('calcForm#pA6H'); }
 	if(app.read('calcForm#pA6M'))	{ keyList = keyList + '#@@@#' + 'calcForm#pA6M' + '#@@#' + app.read('calcForm#pA6M'); }
 	if(app.read('calcForm#pA6N'))	{ keyList = keyList + '#@@@#' + 'calcForm#pA6N' + '#@@#' + app.read('calcForm#pA6N'); }
+	//start
+	keyList = keyList + '#@@@#' + 'config_start_time' + '#@@#' + app.read('config_start_time');
+	keyList = keyList + '#@@@#' + 'appStatus' + '#@@#'         + app.read('appStatus');
+	//dom reset
+	if(app.read('appStatus','stopped')) {
+		app.resetCounter();
+	}
 	//return
 	if(keyList != '') { keyList = '/*' + keyList + '*/'; }
 	return keyList;

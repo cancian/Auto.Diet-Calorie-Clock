@@ -123,10 +123,8 @@ app.tab.settings = function(keepOpen) {
 	// SETTINGS: FACEBOOK //
 	////////////////////////
 	app.handlers.activeRow('#emailLogin','button',function(evt) {
-		//fix exception 18
-		if(app.device.android) {
-			updateFoodDb();
-		}
+		//prevent window not closing from spinner
+		updateFoodDb();
 		if(!$('body').hasClass('insync') && !$('body').hasClass('setpush')) {
 			if(app.read('facebook_logged')) {
 				//CONFIRM DIALOG
@@ -358,31 +356,14 @@ app.tab.status = function(keepOpen) {
 			function appReset(button) {
 				//ON CONFIRM
 				if(button === 2) {
-					setPush();
-					$('#appStatus').removeClass('reset');
-					$('#appStatus').addClass('start');
-					$('#appStatusTitle').html2(LANG.START[lang]);
-					app.remove('appStatus');
-					app.save('config_start_time',app.now());
-					//RESET BACKPORT
-					app.save('config_entry_sum',0);
-					app.save('config_entry_f-sum',0);
-					app.save('config_entry_e-sum',0);
-					app.save('config_ttf',0);
-					app.save('config_tte',0);
-					$('#appStatusBars p').css('width',0);
-					$('#appStatusBars span').html2('0%');
-					$('#appStatusBalance div p').html2(LANG.BALANCED[lang]);
-					updateTodayOverview();
-					updateNutriBars();
+					app.resetCounter(1);
 				}
 				return false;
 			}
 			//SHOW DIALOG
 			appConfirm(LANG.RESET_COUNTER_TITLE[lang], LANG.ARE_YOU_SURE[lang], appReset, LANG.OK[lang], LANG.CANCEL[lang]);
 		} else {
-			setPush();
-			updateNutriBars()
+			updateNutriBars();
 			$('#appStatus').removeClass('start');
 			$('#appStatus').addClass('reset');
 			$('#appStatusTitle').html2(LANG.RESET[lang]);
@@ -392,6 +373,7 @@ app.tab.status = function(keepOpen) {
 			// INFO: CLOSE TO ZERO //
 			/////////////////////////
 			app.info('close_to_zero',LANG.CLOSE_TO_ZERO[lang]);
+			setPush();
 		}
 		//evt.preventDefault();
 	});
