@@ -700,12 +700,13 @@ $(window).on('resize', function(evt) {
 // DEBUG INDICATOR //
 /////////////////////
 if(app.read('config_debug','active')) {
-	$('#appFooter').addClass('appDebug');
 	$('body').addClass('appDebug');
 }
 if(app.read('facebook_logged')) {
-	$('#appFooter').addClass('appFacebook');
 	$('body').addClass('appFacebook');
+	if(/@/.test(app.read('facebook_username'))) {
+		$('body').addClass('appEmailLogin');
+	}
 }
 /////////////
 // OPTIONS //

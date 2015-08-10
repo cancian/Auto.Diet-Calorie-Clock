@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>KCals Calorie Counter - Reset Password</title>
+<meta name="Description" content="KCals is a real-time calorie counter that simulates the human metabolism. Available in 10 different platforms.">
+<meta name="Keywords" content="kcals, calorie, counter, tracker, calculator, caloric, kcal, cal, cals, nutrient, health, healthy, loseit, diary, realtime, real-time, real, time, macronutrient, nutrient, metabolic, daily, intake, metabolism, simulator, app, application, myfitnesspal, fatsecret, mobile, fitness, food, exercise, calculate, bmi, loss, lose, weight, burn, fat, fit">
+<meta charset="utf-8" />
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="css/index.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/fonts.css" type="text/css" media="all" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<style type="text/css">
+body			{ overflow: hidden !important; background-color: #F2F4F6; }
+#formWrapper	{ position: absolute; top: 20%; left: 50%; width: 320px; margin-left: -209px; height: 250px; overflow: hidden; background-color: #fff; border: 1px solid #eee; border-radius: 32px; padding: 80px 48px 0 48px; }
+#pass1,
+#pass2			{ display: block; width: 320px; font-size: 16px; border: 0; padding: 6px 0 6px; margin-bottom: 24px; text-indent: 7px; border-bottom: 1px solid #ccc; }
+#passSubmit		{ display: block; width: 320px; font-size: 16px; border: 0; background-color: #2529F6; color: #fff; padding: 9px; margin-top: 48px; font-weight: bold; }
+#formNotice		{ display: block; width: 320px; font-size: 14px; line-height: 14px; color: #c30; top: 36px; left: 48px; right: 24px; position: absolute; }
+</style>
+</head>
+<body>
+
+<div id="formWrapper">
+<div id="formNotice"></div>
+<form action="" method="post" name="resetForm" id="resetForm">
+<input type="password" id="pass1" name="pass1" placeholder="Password">
+<input type="password" id="pass2" name="pass2" placeholder="Confirm password">
+<input type="submit" id="passSubmit" value="Change password">
+</form>
+</div>
+
+<script type="text/javascript">
+var formSubmitted = false;
+$('#resetForm').submit(function(evt) {
+	if(formSubmitted == true) {
+		evt.preventDefault();
+	}
+	var pass1 = $('#pass1').val();	
+	var pass2 = $('#pass2').val();
+	$('#formNotice').html('');
+	if(pass1.length == 0 || pass2 == 0) {
+		$('#formNotice').html('Required fields were left blank.');
+		evt.preventDefault();
+		return;
+	}
+	if(pass1 != pass2) {
+		$('#formNotice').html('The passwords do not match.');
+		evt.preventDefault();
+		return;
+	}	
+	if(pass1.length < 4 || pass2 < 4) {
+		$('#formNotice').html('The password must have at least 4 characters.');
+		evt.preventDefault();
+		return;
+	}
+	//preven multiple
+	formSubmitted = true;	
+});
+</script>
+
+
+</body>
+</html>

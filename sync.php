@@ -11,7 +11,7 @@ if($_GET && $_POST)   { die(); }
 if(!$_GET && !$_POST) { die(); }
 
 if(!$_POST) {
-	if($_GET && is_numeric($_GET['uid']))  { 
+	if($_GET)  { 
 		if(file_exists('userdata/'.$_GET['uid'].'.sql')) {
 			$userdata = file_get_contents('userdata/'.$_GET['uid'].'.sql');
 			print($userdata);
@@ -21,9 +21,8 @@ if(!$_POST) {
 		die();
 	}
 } else {
-	if($_POST && !is_numeric($_POST['uid'])) { die(); }
-	if($_POST && !$_POST['sql']) 			 { die(); }
-	if($_GET) 								 { die(); }
+	if($_POST && !$_POST['sql']) 			{ die(); }
+	if($_GET) 								{ die(); }
 	//vars
 	$pushed_data = stripslashes($_POST['sql']);
 	$userid      = $_POST['uid'];

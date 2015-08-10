@@ -14,6 +14,7 @@
 • Choose the food database language independently from the current system language
 
 # 1.9.7 [2015-08-05]
+• Added e-mail authentication for users who do not use Facebook
 • Fixed an issue with the viewport being rendered incorrectly
 • Added future dates to the diary dropdown so entries can be scheduled (future dates shown in red)
 • Replicated entries now inherit the date specificied in the diary dropdown
@@ -215,7 +216,7 @@
 • Fixed log-out not being triggered under certain circumstances
 
 # 1.1.5 [2014/02/04]
-• Entries, custom items, and personal settings can now be backed up online and synced across multiple devices (via Facebook account)
+• Entries, custom items, and personal settings can be backed up online and synced across multiple devices (via Facebook account)
 • Counter now prompts for auto start when adding new entries
 • Added "clear all" option to diary
 

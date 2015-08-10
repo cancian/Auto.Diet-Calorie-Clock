@@ -3,8 +3,6 @@
 ###################function openSettings*/
 app.globals.settingsHtml = 'var settingsHtml';
 app.tab.settings = function(keepOpen) {
-	//YUI COMPRESSOR
-
 	//RAW HTML
 	var settingsHtml = '\
 	<a name="top"></a>\
@@ -19,7 +17,7 @@ app.tab.settings = function(keepOpen) {
 					</div>\
 				</div>\
 			</li>\
-			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.BACKUP_AND_SYNC[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div></li>\
+			<li id="optionFacebook"><div><p class="contentTitle">' + LANG.BACKUP_AND_SYNC[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></div><p id="emailLogin"></p><p id="FacebookLogin"></p></li>\
 			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
 		</ul>\
@@ -124,7 +122,24 @@ app.tab.settings = function(keepOpen) {
 	////////////////////////
 	// SETTINGS: FACEBOOK //
 	////////////////////////
-	app.handlers.activeRow('#optionFacebook','activeRow',function(evt) {
+	app.handlers.activeRow('#emailLogin','button',function(evt) {
+		//fix exception 18
+		if(app.device.android) {
+			updateFoodDb();
+		}
+		if(!$('body').hasClass('insync') && !$('body').hasClass('setpush')) {
+			if(app.read('facebook_logged')) {
+				//CONFIRM DIALOG
+				appConfirm(LANG.LOGOUT_TITLE[lang], LANG.ARE_YOU_SURE[lang], getLogoutFB, LANG.OK[lang], LANG.CANCEL[lang]);
+			} else {
+				app.remove('app_restart_pending');
+				setTimeout(function() {
+					getLoginEmail();
+				},100);
+			}
+		}
+	});
+	app.handlers.activeRow('#FacebookLogin','button',function(evt) {
 		//fix exception 18
 		if(app.device.android) {
 			updateFoodDb();

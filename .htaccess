@@ -45,6 +45,15 @@ AddType application/x-web-app-manifest+json .webapp
 	RewriteRule index.html static.html [L,QSA]
 </IfModule>
 
+## DIRECT ACCESS ##
+<Files "userlist.txt">
+	Order Allow,Deny
+	Deny from all
+</Files>
+<Files "auth.html">
+	Order Allow,Deny
+	Deny from all
+</Files>
+
 ## COMPRESS ##
 SetOutputFilter DEFLATE
-

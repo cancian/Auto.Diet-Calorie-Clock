@@ -245,7 +245,7 @@ if(window.localStorage.getItem('config_autoupdate') == 'on') {
 				}
 			},2500);
 		}
-		var cacheTimeout = window.localStorage.getItem('config_debug') == 'active' ? 500 : 6000;
+		var cacheTimeout = window.localStorage.getItem('config_debug') == 'active' ? 0 : 6000;
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
 		},cacheTimeout);
