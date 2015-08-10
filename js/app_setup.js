@@ -254,6 +254,10 @@ app.resetCounter = function(pusher) {
 //////////////////////////////
 function localStorageSql() {
 	var keyList = '';
+	//dom reset
+	if(app.read('appStatus','stopped')) {
+		app.resetCounter();
+	}
 	//daily
 	if(app.read('config_kcals_type'))  { keyList = keyList + '#@@@#' + 'config_kcals_type'  + '#@@#' + app.read('config_kcals_type');  }
 	if(app.read('config_kcals_day_0')) { keyList = keyList + '#@@@#' + 'config_kcals_day_0' + '#@@#' + app.read('config_kcals_day_0'); }
@@ -288,12 +292,8 @@ function localStorageSql() {
 	if(app.read('calcForm#pA6M'))	{ keyList = keyList + '#@@@#' + 'calcForm#pA6M' + '#@@#' + app.read('calcForm#pA6M'); }
 	if(app.read('calcForm#pA6N'))	{ keyList = keyList + '#@@@#' + 'calcForm#pA6N' + '#@@#' + app.read('calcForm#pA6N'); }
 	//start
-	keyList = keyList + '#@@@#' + 'config_start_time' + '#@@#' + app.read('config_start_time');
 	keyList = keyList + '#@@@#' + 'appStatus' + '#@@#'         + app.read('appStatus');
-	//dom reset
-	if(app.read('appStatus','stopped')) {
-		app.resetCounter();
-	}
+	keyList = keyList + '#@@@#' + 'config_start_time' + '#@@#' + app.read('config_start_time');
 	//return
 	if(keyList != '') { keyList = '/*' + keyList + '*/'; }
 	return keyList;
