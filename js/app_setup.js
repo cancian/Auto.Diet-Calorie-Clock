@@ -2410,10 +2410,9 @@ function getLoginFB() {
 /////////////////////
 function getLoginEmail() {
 	var suggestionBoxHtml = '<div id="suggestionBox">\
-			<label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail">\
-			<label for="usrPass" class="usrPass">Password:</label><input type="password" name="usrPass" id="usrPass">\
+			<label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail" value="">\
+			<label for="usrPass" class="usrPass">Password:</label><input type="password" name="usrPass" id="usrPass" value="">\
 			<div id="resetPass">reset my password</div>\
-			<div id="usrError"></div>\
 			</div>';
 	//////////////
 	// HANDLERS //
@@ -2439,12 +2438,12 @@ function getLoginEmail() {
 		}, 400);
 		// SAVE LAST EMAIL
 		$('#usrMail').on('keyup', function(evt) {
-			app.save('usrMail',$('#usrMail').val());
+			app.save('usrMail',trim($('#usrMail').val()));
 		});
 		//PRE-FILL
 		if(app.read('usrMail')) {
-			if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(app.read('usrMail'))) {
-				$('#usrMail').val(app.read('usrMail'));
+			if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(trim(app.read('usrMail')))) {
+				$('#usrMail').val(trim(app.read('usrMail')));
 			}
 		}
 		////////////////////
@@ -2452,7 +2451,7 @@ function getLoginEmail() {
 		////////////////////
 		app.handlers.activeRow('#resetPass', 'button', function (evt) {
 			//validate e-mail
-			if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val())) {
+			if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(trim($('#usrMail').val()))) {
 				$('.usrMail').css('color', '#c30');
 				setTimeout(function () {
 					alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
@@ -2461,14 +2460,14 @@ function getLoginEmail() {
 			} else {
 				//send mail
 				$('.usrMail').css('color', '#000');
-				var usrMailStore = ($('#usrMail').val()).toLowerCase();
-				var usrPassStore = md5($('#usrPass').val());
+				var usrMailStore = (trim($('#usrMail').val())).toLowerCase();
+				var usrPassStore = md5(trim($('#usrPass').val()));
 				$.ajax({
 					type : 'GET',
 					dataType : 'text',
 					url : 'https://kcals.net/auth.php?user=' + usrMailStore,
 					error : function (xhr, statusText) {
-						alert('error: ' + xhr + statusText);
+						errorHandler('error: ' + xhr + statusText);
 					},
 					success : function (reply) {
 						if (reply == 'sent') {
@@ -2489,31 +2488,31 @@ function getLoginEmail() {
 	var suggestionBoxConfirm = function () {
 		var result = false;
 		//MSG
-		if ((trim($('#usrPass').val())).length >= 4) {
+		if ((trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
 			$('.usrPass').css('color', '#000');
 		} else {
 			$('.usrPass').css('color', '#c30');
 		}
 		//MAIL
-		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val())) {
+		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(trim($('#usrMail').val()))) {
 			$('.usrMail').css('color', '#000');
 		} else {
 			$('.usrMail').css('color', '#c30');
 		}
 		//VALIDATE
-		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val()) && (trim($('#usrPass').val())).length > 1) {
+		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(trim($('#usrMail').val())) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
 			//send mail
 			$('#saveButton').css('pointer-events', 'none');
 			$('#saveButton').css('color', '#ccc');
-			var usrMailStore = ($('#usrMail').val()).toLowerCase();
-			var usrPassStore = md5($('#usrPass').val());
+			var usrMailStore = (trim($('#usrMail').val())).toLowerCase();
+			var usrPassStore = md5(trim($('#usrPass').val()));
 
 			$.ajax({
 				type : 'GET',
 				dataType : 'text',
 				url : 'https://kcals.net/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore,
 				error : function (xhr, statusText) {
-					alert('error: ' + xhr + statusText);
+					errorHandler('error: ' + xhr + statusText);
 				},
 				success : function (reply) {
 					if (reply == 'created') {
@@ -2545,6 +2544,8 @@ function getLoginEmail() {
 			});
 		} else {
 			setTimeout(function () {
+				$('#saveButton').css('pointer-events', 'auto');
+				$('#saveButton').css('color', '#007aff');
 				alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
 			}, 50);
 			return false;
