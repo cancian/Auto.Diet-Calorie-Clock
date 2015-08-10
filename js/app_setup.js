@@ -2413,6 +2413,7 @@ function getLoginEmail() {
 			<label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail" value="">\
 			<label for="usrPass" class="usrPass">Password:</label><input type="password" name="usrPass" id="usrPass" value="">\
 			<div id="resetPass">reset my password</div>\
+			<div id="newUsers">*If you don’t have an account yet, it will be automatically created the first time you login.</div>\
 			</div>';
 	//////////////
 	// HANDLERS //
@@ -2555,5 +2556,4 @@ function getLoginEmail() {
 	var suggestionBoxClose = function () {};
 	getNewWindow('E-mail Login', suggestionBoxHtml, suggestionBoxHandlers, suggestionBoxConfirm, suggestionBoxClose);
 }
-
 
