@@ -2409,118 +2409,150 @@ function getLoginFB() {
 // GET LOGIN EMAIL //
 /////////////////////
 function getLoginEmail() {
-		var suggestionBoxHtml     = '<div id="suggestionBox">\
-		<label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail">\
-		<label for="usrPass" class="usrPass">Password:</label><input type="password" name="usrPass" id="usrPass">\
-		<div id="resetPass">reset my password</div>\
-		<div id="usrError"></div>\
-		</div>';
-		var suggestionBoxHandlers = function() {
-			$('#saveButton').html2('Login');
-			$('#saveButton').css('text-transform','capitalize');
-			//
-			$('#suggestionBox').on(touchstart,function(evt) {
-				if(evt.target.id === 'suggestionBox') {
-					$('#usrMail').trigger('blur');
-					$('#usrPass').trigger('blur');
-				}
-			});
-			//prevent propagation focus
-			$('#usrMail').css('pointer-events','none');
-			$('#usrPass').css('pointer-events','none');
-			$('#resetPass').css('pointer-events','none');			
-			setTimeout(function() {
-				$('#usrMail').css('pointer-events','auto');
-				$('#usrPass').css('pointer-events','auto');
-				$('#resetPass').css('pointer-events','auto');
-			},400);
-
-		app.handlers.activeRow('#resetPass','button',function(evt) {
+	var suggestionBoxHtml = '<div id="suggestionBox">\
+			<label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail">\
+			<label for="usrPass" class="usrPass">Password:</label><input type="password" name="usrPass" id="usrPass">\
+			<div id="resetPass">reset my password</div>\
+			<div id="usrError"></div>\
+			</div>';
+	//////////////
+	// HANDLERS //
+	//////////////
+	var suggestionBoxHandlers = function () {
+		$('#saveButton').html2('Login');
+		$('#saveButton').css('text-transform', 'capitalize');
+		//
+		$('#suggestionBox').on(touchstart, function (evt) {
+			if (evt.target.id === 'suggestionBox') {
+				$('#usrMail').trigger('blur');
+				$('#usrPass').trigger('blur');
+			}
+		});
+		//prevent propagation focus
+		$('#usrMail').css('pointer-events', 'none');
+		$('#usrPass').css('pointer-events', 'none');
+		$('#resetPass').css('pointer-events', 'none');
+		setTimeout(function () {
+			$('#usrMail').css('pointer-events', 'auto');
+			$('#usrPass').css('pointer-events', 'auto');
+			$('#resetPass').css('pointer-events', 'auto');
+		}, 400);
+		// SAVE LAST EMAIL
+		$('#usrMail').on('keyup', function(evt) {
+			app.save('usrMail',$('#usrMail').val());
+		});
+		//PRE-FILL
+		if(app.read('usrMail')) {
+			if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(app.read('usrMail'))) {
+				$('#usrMail').val(app.read('usrMail'));
+			}
+		}
+		////////////////////
+		// RESET PASSWORD //
+		////////////////////
+		app.handlers.activeRow('#resetPass', 'button', function (evt) {
 			//validate e-mail
-			if(!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val())) {
-				$('.usrMail').css('color','#c30');				
-				setTimeout(function() {
+			if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val())) {
+				$('.usrMail').css('color', '#c30');
+				setTimeout(function () {
 					alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
-				},50);
+				}, 50);
 				return false;
 			} else {
 				//send mail
-				$('.usrMail').css('color','#000');
+				$('.usrMail').css('color', '#000');
 				var usrMailStore = ($('#usrMail').val()).toLowerCase();
 				var usrPassStore = md5($('#usrPass').val());
-				$.ajax({type: 'GET', dataType: 'text', url: 'https://kcals.net/auth.php?user=' + usrMailStore, error: function(xhr, statusText) { alert('error: ' + xhr + statusText); }, success: function(reply) {
-					if (reply == 'sent') {
-						 alert('A message with further instructions has been sent to your email address.','');
-					} else if(reply === 'error') {
-						//login to account
-						alert('The specified account does not exist.','');
+				$.ajax({
+					type : 'GET',
+					dataType : 'text',
+					url : 'https://kcals.net/auth.php?user=' + usrMailStore,
+					error : function (xhr, statusText) {
+						alert('error: ' + xhr + statusText);
+					},
+					success : function (reply) {
+						if (reply == 'sent') {
+							alert('A message with further instructions has been sent to your email address.', '');
+						} else if (reply === 'error') {
+							//login to account
+							alert('The specified account does not exist.', '');
+						}
 					}
-				}});				
+				});
 
 			}
 		});
-		};
-		/////////////
-		// CONFIRM //
-		/////////////
-		var suggestionBoxConfirm  = function() {
-			var result = false;
-			//MSG
-			if((trim($('#usrPass').val())).length >= 4) {
-				$('.usrPass').css('color','#000');
-			} else {
-				$('.usrPass').css('color','#c30');
-			}
-			//MAIL
-			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val())) {
-				$('.usrMail').css('color','#000');				
-			} else {
-				$('.usrMail').css('color','#c30');				
-			}
-			//VALIDATE
-			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val()) && (trim($('#usrPass').val())).length > 1) {
-				//send mail
-				$('#saveButton').css('pointer-events','none');
-				$('#saveButton').css('color','#ccc');
-				var usrMailStore = ($('#usrMail').val()).toLowerCase();
-				var usrPassStore = md5($('#usrPass').val());
-				
-				$.ajax({type: 'GET', dataType: 'text', url: 'https://kcals.net/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore, error: function(xhr, statusText) { alert('error: ' + xhr + statusText); }, success: function(reply) {
+	};
+	/////////////
+	// CONFIRM //
+	/////////////
+	var suggestionBoxConfirm = function () {
+		var result = false;
+		//MSG
+		if ((trim($('#usrPass').val())).length >= 4) {
+			$('.usrPass').css('color', '#000');
+		} else {
+			$('.usrPass').css('color', '#c30');
+		}
+		//MAIL
+		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val())) {
+			$('.usrMail').css('color', '#000');
+		} else {
+			$('.usrMail').css('color', '#c30');
+		}
+		//VALIDATE
+		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val()) && (trim($('#usrPass').val())).length > 1) {
+			//send mail
+			$('#saveButton').css('pointer-events', 'none');
+			$('#saveButton').css('color', '#ccc');
+			var usrMailStore = ($('#usrMail').val()).toLowerCase();
+			var usrPassStore = md5($('#usrPass').val());
+
+			$.ajax({
+				type : 'GET',
+				dataType : 'text',
+				url : 'https://kcals.net/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore,
+				error : function (xhr, statusText) {
+					alert('error: ' + xhr + statusText);
+				},
+				success : function (reply) {
 					if (reply == 'created') {
-						app.save('facebook_logged',true);
-						app.save('facebook_userid',usrMailStore);
-						app.save('facebook_username',usrMailStore);
+						app.save('facebook_logged', true);
+						app.save('facebook_userid', usrMailStore);
+						app.save('facebook_username', usrMailStore);
 						updateLoginStatus(1);
 						alert('Account created successfully', '');
 						$('#usrMail').trigger('blur');
 						$('#usrPass').trigger('blur');
 						$(document).trigger('backbutton');
-					} else if(reply === 'logged') {
-						app.save('facebook_logged',true);
-						app.save('facebook_userid',usrMailStore);
-						app.save('facebook_username',usrMailStore);
+					} else if (reply === 'logged') {
+						app.save('facebook_logged', true);
+						app.save('facebook_userid', usrMailStore);
+						app.save('facebook_username', usrMailStore);
 						updateLoginStatus(1);
 						$('#usrMail').trigger('blur');
 						$('#usrPass').trigger('blur');
 						$(document).trigger('backbutton');
 					} else if (reply == 'error') {
-						setTimeout(function() {
-							$('#saveButton').css('pointer-events','auto');
-							$('#saveButton').css('color','#007aff');
+						setTimeout(function () {
+							$('#saveButton').css('pointer-events', 'auto');
+							$('#saveButton').css('color', '#007aff');
 							alert('Error', 'Invalid e-mail/password combination.');
-						},50);
+						}, 50);
 					}
-					
-				}});
-			} else {
-				setTimeout(function() {
-					alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
-				},50);
-				return false;
-			}
-		};
-		//
-		var suggestionBoxClose = function() {};
-		getNewWindow('E-mail Login',suggestionBoxHtml,suggestionBoxHandlers,suggestionBoxConfirm,suggestionBoxClose);
+
+				}
+			});
+		} else {
+			setTimeout(function () {
+				alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
+			}, 50);
+			return false;
+		}
+	};
+	//
+	var suggestionBoxClose = function () {};
+	getNewWindow('E-mail Login', suggestionBoxHtml, suggestionBoxHandlers, suggestionBoxConfirm, suggestionBoxClose);
 }
+
 
