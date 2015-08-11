@@ -1957,12 +1957,14 @@ function getNiceScroll(target,timeout,callback) {
 		$(target).css('overflow','hidden');
 	} else {
 		$(target).addClass('overthrow');
+		$(target).css('overflow','auto');
+		$(target).css('-webkit-overflow-scrolling','touch');
 	}
 	//NICESCROLL
 	setTimeout(function() {
 		//SETTINGS
 		var NSettings = {
-		touchbehavior: false,
+		touchbehavior: true,
 		nativeparentscrolling: false,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '5px',
@@ -1979,6 +1981,9 @@ function getNiceScroll(target,timeout,callback) {
 	}
 	if(app.device.desktop) {
 		NSettings.touchbehavior = true;
+	}
+	if(app.device.windows8) {
+		NSettings.grabcursorenabled = false;
 	}
 	//UPDATE LIST
 	if(!app.globals.scrollerList) {
