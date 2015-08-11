@@ -2415,17 +2415,17 @@ function getLoginFB() {
 /////////////////////
 function getLoginEmail() {
 	var suggestionBoxHtml = '<div id="suggestionBox">\
-			<label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail" value="">\
-			<label for="usrPass" class="usrPass">Password:</label><input type="password" name="usrPass" id="usrPass" value="">\
-			<div id="resetPass">reset my password</div>\
+			<label for="usrMail" class="usrMail">' + LANG.EMAIL[lang] + ':</label><input type="text" name="usrMail" id="usrMail" value="">\
+			<label for="usrPass" class="usrPass">' + LANG.PASSWORD[lang] + ':</label><input type="password" name="usrPass" id="usrPass" value="">\
+			<div id="resetPass">' + LANG.RESET_PASSWORD[lang] + '</div>\
 			<div id="newUsers">*If you don’t have an account yet, it will be automatically created the first time you login.</div>\
 			</div>';
 	//////////////
 	// HANDLERS //
 	//////////////
 	var suggestionBoxHandlers = function () {
-		$('#saveButton').html2('Login');
-		$('#saveButton').css('text-transform', 'capitalize');
+		$('#saveButton').html2(LANG.OK[lang]);
+		$('#saveButton').css('text-transform', 'uppercase');
 		//
 		$('#suggestionBox').on(touchstart, function (evt) {
 			if (evt.target.id === 'suggestionBox') {
@@ -2477,10 +2477,11 @@ function getLoginEmail() {
 					},
 					success : function (reply) {
 						if (reply == 'sent') {
-							alert('A message with further instructions has been sent to your email address.', '');
+							alert(LANG.EMAIL_SENT[lang].split('{{email}}').join(usrMailStore), '');
 						} else if (reply === 'error') {
 							//login to account
-							alert('The specified account does not exist.', '');
+							alert(LANG.ERROR[lang],LANG.NO_ENTRIES[lang]);
+							//alert('The specified account does not exist.', '');
 						}
 					}
 				});
@@ -2526,7 +2527,7 @@ function getLoginEmail() {
 						app.save('facebook_userid', usrMailStore);
 						app.save('facebook_username', usrMailStore);
 						updateLoginStatus(1);
-						alert('Account created successfully', '');
+						alert(LANG.ALL_DONE[lang], '');
 						$('#usrMail').trigger('blur');
 						$('#usrPass').trigger('blur');
 						$(document).trigger('backbutton');
@@ -2542,10 +2543,9 @@ function getLoginEmail() {
 						setTimeout(function () {
 							$('#saveButton').css('pointer-events', 'auto');
 							$('#saveButton').css('color', '#007aff');
-							alert('Error', 'Invalid e-mail/password combination.');
+							alert(LANG.ERROR[lang], LANG.WRONG_PASSWORD[lang]);
 						}, 50);
 					}
-
 				}
 			});
 		} else {
