@@ -1999,7 +1999,7 @@ app.feetInchesToMetric = function() {
 	}
 	//glitch
 	$('#pA2B').change();
-}
+};
 $('#pA2C').on('change',function(evt) {
 	app.feetInchesToMetric();
 	$('#pA2B').val(  Number($('#inches').val())  );

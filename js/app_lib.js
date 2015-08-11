@@ -252,62 +252,49 @@ var app = {
 // CUSTOM JQUERY //
 ///////////////////
 $.prototype.html2 = function (data, callback) {
-	var selector = this;
-	var obj = $(selector);
-	if (obj.length) {
-		if (obj.html() !== data) {
-			safeExec(function () {
-				obj.html(data);
-				if (typeof callback === 'function') {
-					callback();
-				}
-			});
+	var obj = $(this);
+	safeExec(function () {
+		obj.html(data);
+		if (typeof callback === 'function') {
+			callback();
 		}
-	}
+	});
 };
 $.prototype.append2 = function (data, callback) {
 	var obj = $(this);
-	if (obj.length) {
-		safeExec(function () {
-			obj.append(data);
-			if (typeof callback === 'function') {
-				callback();
-			}
-		});
-	}
+	safeExec(function () {
+		obj.append(data);
+		if (typeof callback === 'function') {
+			callback();
+		}
+	});
 };
 $.prototype.prepend2 = function (data, callback) {
 	var obj = $(this);
-	if (obj.length) {
-		safeExec(function () {
-			obj.prepend(data);
-			if (typeof callback === 'function') {
-				callback();
-			}
-		});
-	}
+	safeExec(function () {
+		obj.prepend(data);
+		if (typeof callback === 'function') {
+			callback();
+		}
+	});
 };
 $.prototype.before2 = function (data, callback) {
 	var obj = $(this);
-	if (obj.length) {
-		safeExec(function () {
-			obj.before(data);
-			if (typeof callback === 'function') {
-				callback();
-			}
-		});
-	}
+	safeExec(function () {
+		obj.before(data);
+		if (typeof callback === 'function') {
+			callback();
+		}
+	});
 };
 $.prototype.after2 = function (data, callback) {
 	var obj = $(this);
-	if (obj.length) {
-		safeExec(function () {
-			obj.after(data);
-			if (typeof callback === 'function') {
-				callback();
-			}
-		});
-	}
+	safeExec(function () {
+		obj.after(data);
+		if (typeof callback === 'function') {
+			callback();
+		}
+	});
 };
 /////////////////
 // SWITCH USER //
@@ -323,7 +310,7 @@ app.switchUser = function(switchTo) {
 				window.localStorage.removeItem('app_current_user');
 		//first use
 		} else if(!app.read('app_userlist')) {
-			app.save('app_userlist',newUserLine)
+			app.save('app_userlist',newUserLine);
 			app.save('app_current_user',newUserLine);
 		} else {
 			if(app.read('app_userlist').contains(usrMatch)) {
@@ -336,7 +323,7 @@ app.switchUser = function(switchTo) {
 					}
 				}
 			} else {
-				app.save('app_userlist',app.read('app_userlist') + newUserLine)
+				app.save('app_userlist',app.read('app_userlist') + newUserLine);
 				app.save('app_current_user',trim(newUserLine));
 			}
 		}
@@ -669,7 +656,7 @@ app.url = function(url) {
 	else if((!url && app.device.firefoxos)  || url == 'firefoxos')  { url = store.firefoxos;  }	
 	else if((!url && app.device.osxapp)     || url == 'osxapp')     { url = store.osxapp;     }
 	else if((!url && app.device.chromeos)   || url == 'chromeos')   { url = store.chromeos;   }
-	else if(url == 'www')										    { url = store.web;        }
+	else if(url == 'www')											{ url = store.web;        }
 	//OPEN
 	if(url) {
 		     if(app.device.ios)			{ window.open(url, '_system', 'location=yes');								}
@@ -1252,7 +1239,7 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 			}
 		});
 	}
-};
+}
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
@@ -1437,7 +1424,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		//NO NEGATIVE		
 		if(!config.inverter) {
 			if(parseInt($(this).val()) < 0) {
-				$(this).val( Math.abs($(this).val()) )
+				$(this).val(Math.abs($(this).val()));
 			}
 		}
 		//limit to 2 decimals
@@ -1840,7 +1827,7 @@ app.online = function () {
 			$('#onlineUsers span').html2(app.read('online_users'));
 		}
 	}});
-}
+};
 //#//////////////#//
 //# BLOCK PIRACY #//
 //#//////////////#//
@@ -1872,7 +1859,7 @@ app.piracy = function (force) {
 			}, LANG.OK[lang], LANG.CANCEL[lang]);
 		}, 2000);
 	}
-}
+};
 /////////////////
 // MSAPP METRO //
 /////////////////

@@ -524,7 +524,7 @@ function rowsLoop(sqlEntry, hive, callback) {
 				////////////////
 				// INSERT NEW //
 				////////////////
-				rows.push(sqlEntry[i])
+				rows.push(sqlEntry[i]);
 			}
 		}
 	}

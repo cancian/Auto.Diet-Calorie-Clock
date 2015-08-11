@@ -5,7 +5,7 @@ window.applicationCache.addEventListener('error', function(e) {
 	if(app.dev) {
 		alert('Error fetching cache');
 	}
-	app.analytics('error',e)
+	app.analytics('error',e);
 });
 ////////////////////
 // DOCUMENT READY //
@@ -419,7 +419,7 @@ if (app.device.windows8) {
 			}
 			//allow default once && re-enable
 			backer = 0;
-		}
+		};
 	}
 }
 /////////////////
@@ -510,7 +510,7 @@ $(document).keyup(function(e) {
 		if($('#langSelect').length) {
 			if(e.keyCode == 37) {
 				$('.preset').addClass('set');
-				$('.preset').trigger(touchend)		
+				$('.preset').trigger(touchend);
 			}
 			return false;
 		}
@@ -1261,33 +1261,21 @@ if(app.is.scrollable) {
 // TRACK INSTALL //
 ///////////////////
 setTimeout(function () {
-	if (!app.read('app_installed', 'installed')) {
-		app.save('app_installed', 'installed');
-		var hour = 60 * 60 * 1 * 1000;
-		var installTime = app.now() - app.read('config_install_time');
-		if (installTime < hour * 2) {
-			/////////////////
-			// TIME LOCKER //
-			/////////////////
-			if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
-				////////////
-				// INTALL //
-				////////////
+	if (!app.read('app_installed')) {
+		if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+				//INTALL
 				app.analytics('install');
 			} else {
-				////////////////
-				// WEBINSTALL //
-				////////////////
+				//WEBINSTALL
 				app.analytics('webinstall');
 			}
 		}
-	}
-}, 8000);
+		app.define('app_installed', 'installed');
+}, 5000);
 //#/////////////#//
 //# TAP HANDLER #//
 //#/////////////#//
 (function ($, _) {
-	'use strict';
 	var ev = {
 		start : touchstart,
 		end : touchend

@@ -520,7 +520,7 @@ function getNutriSliders() {
 		} else {
 			alert(LANG.TOTAL_ERROR[lang],LANG.PLEASE_REVIEW[lang]);
 			return false;
-		};
+		}
 	};
 	///////////////////////
 	// HANDLERS CALLBACK //
@@ -559,7 +559,7 @@ function getNutriSliders() {
 				}
 				//update total
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
-			};
+			}
 		};
 		}
 		////////////////
@@ -575,7 +575,7 @@ function getNutriSliders() {
 				}
 				//update total	
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
-			};
+			}
 		};
 		}
 		////////////////

@@ -3,11 +3,7 @@
 //##//////////////////##//
 $(document).on("pageload", function (evt) {
 	// PREVENT++ //
-	if ((evt.target.id) > 0) {
-		var tgt = "#" + evt.target.id;
-	} else {
-		var tgt = "";
-	}
+	var tgt = (evt.target.id > 0) ? '#' + evt.target.id : '';
 	var entryReturn = false;
 	//#///////////#//
 	//# HOLD EDIT #//
@@ -365,7 +361,7 @@ $(document).on("pageload", function (evt) {
 			$('.active').removeClass('active');
 		}
 		//SHOW
-		if (!$('#entryList div:animated').length > 0 && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
+		if (!$('#entryList div:animated').length && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
 			$('.delete', swippen).addClass('busy');
 			setTimeout(function () {
 				$('.delete', swippen).addClass('active');
@@ -770,11 +766,7 @@ $(document).on("pageReload", function (evt) {
 //# CORE SQL SEARCH #//
 //#/////////////////#//
 function searchFood(searchSQL, callback) {
-	if (app.read('searchType','exercise')) {
-		var typeTerm = 'exercise';
-	} else {
-		var typeTerm = 'food';
-	}
+	var typeTerm = app.read('searchType','exercise') ? 'exercise' : 'food';
 	var dato = app.rows.food;
 	var keyJunk = 0;
 	var keyScore = 0;
@@ -1148,7 +1140,7 @@ function addNewItem(addnew) {
 				if ((/0000|exercise/).test(addnew.type)) {
 					addnew.name = LANG.NEW_EXERCISE[lang];
 				} else {
-					addnew.name = LANG.NEW_FOOD[lang]
+					addnew.name = LANG.NEW_FOOD[lang];
 				}
 			}
 		} else {
