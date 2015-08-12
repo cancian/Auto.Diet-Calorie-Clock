@@ -1056,16 +1056,24 @@ if(app.is.scrollable) {
 			}
 		}
 	}, false);
+	//NOT WHILE EDITING
+	$('#timerDailyInput').on('blur',function() {
+		$('#appHeader').addClass('blockInfo');
+		app.timeout('blockInfo',1000,function() { 
+			$('#appHeader').removeClass('blockInfo');
+		})
+	});
 	// HANDLER
 	app.handlers.activeRow('#appHeader','button',function(evt) {
 		if(app.infoX < 132 && app.infoY < 72) {
-			if($('#appHelper').length)		{ return; }
-			if($('#advancedMenu').length)	{ return; }
-			if($('#backButton').length)		{ return; }
-			if($('#subBackButton').length)	{ return; }
-			if($('#langSelect').length)		{ return; }
-			if($('#advancedMenu').length)	{ return; }
-			if($('#pageSlideFood').length)	{ return; }
+			if($('#appHeader').hasClass('blockInfo'))	{ return; }
+			if($('#appHelper').length)					{ return; }
+			if($('#advancedMenu').length)				{ return; }
+			if($('#backButton').length)					{ return; }
+			if($('#subBackButton').length)				{ return; }
+			if($('#langSelect').length)					{ return; }
+			if($('#advancedMenu').length)				{ return; }
+			if($('#pageSlideFood').length)				{ return; }
 			getNewWindow('Help: What is KCals?','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['What is KCals?'] + '</div>',function() {
 				$('#tabHelp').removeClass('hidden');
 				app.handlers.activeRow('#openHelp','button',function(evt) {
