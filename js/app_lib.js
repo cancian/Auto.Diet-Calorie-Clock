@@ -411,12 +411,13 @@ app.device = {
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	linux      : (/X11|Linux|Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
+	msapp      : (/MSApp/i).test(app.ua) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) && !/MSApp/i.test(app.ua) ? true : false,
 	wp81       : (/IEMobile/i).test(app.ua) && /MSApp/i.test(app.ua)  ? true : false,
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
 	windows81  : (/MSAppHost\/2.0/i).test(app.ua) && !(/IE__Mobile/i).test(app.ua)? true : false,
 	windows8T  : (/MSApp/i).test(app.ua) && (/Touch/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
-	windows10  : (/MSAppHost\/3.0/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
+	windows10  : (/MSAppHost\/3.0/i).test(app.ua) ? true : false,
 	firefoxos  : (/firefox/i).test(app.ua) && (/mobile|tablet/i).test(app.ua) && (/gecko/i).test(app.ua) ? true : false,
 	osx        : (/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
@@ -1312,7 +1313,7 @@ if (app.device.firefoxos) {
 // SAFE EXEC //
 ///////////////
 app.safeExec = function (callback) {
-	if (app.device.windows8) {
+	if (app.device.msapp && !app.device.windows10) {
 		MSApp.execUnsafeLocalFunction(function () {
 			callback();
 		});

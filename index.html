@@ -170,14 +170,7 @@ function bootStraper() {
 	//
 	if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = 'http://192.168.1.5/'; }
 	//INIT
-	if ((/MSApp/).test(navigator.userAgent)) {
-		if(typeof MSApp.execUnsafeLocalFunction === 'undefined') {
-			MSApp.execUnsafeLocalFunction = function(callback) {
-				if(typeof callback === 'function') {
-					callback();
-				}
-			};
-		}
+	if (/MSApp/.test(navigator.userAgent) && !/MSAppHost\/3.0/i.test(navigator.userAgent)) {
 		MSApp.execUnsafeLocalFunction(function() { 
 			//WINJS
 			if ((/IEMobile/).test(navigator.userAgent)) {
