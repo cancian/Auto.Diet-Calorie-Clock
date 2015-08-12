@@ -773,6 +773,10 @@ if(app.device.windows8) {
 	$('html').addClass('windows8');
 	$('body').addClass('windows8');
 }
+if(app.device.windows10) {
+	$('html').addClass('windows10');
+	$('body').addClass('windows10');
+}
 ////////////////////////////
 // FF OS ORIENTATION LOCK //
 ////////////////////////////

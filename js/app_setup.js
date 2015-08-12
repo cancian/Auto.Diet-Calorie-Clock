@@ -2034,7 +2034,9 @@ function appResizer(time,callback) {
 		app.height = window.innerHeight;
 		app.relWidth  = app.width  / app.read('app_zoom');
 		app.relHeight =  app.height / app.read('app_zoom'); 
-		$('body').css('min-height', app.height);
+		if(!app.device.windows8 && !app.device.windows10 && !app.device.linux) {
+			$('body').css('min-height', app.height);
+		}
 		/*
 		if(vendorClass == 'moz' || vendorClass == 'msie') {
 			$('body').css('width', app.relWidth + 'px');
