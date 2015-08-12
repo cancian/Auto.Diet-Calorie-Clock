@@ -1007,9 +1007,9 @@ div#sliderPos:before			{ right: 0; content: '\F020'; }
 div#sliderNeg.activeArrow:before{ color: #CB5220; font-family: 'KCals'; content: '\F001'; }
 div#sliderPos.activeArrow:before{ color: #2052CB; font-family: 'KCals'; content: '\F002'; }
 /*MAIN FORM*/
-input#entryBody					{ position: absolute; margin-top: 6px; left: 16px; right: 16px; background-color: rgba(0,0,0,0); color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
-input#entry.focusMe			{ top: -5px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
-input#entry.focusMy			{ top: 46px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
+input#entryBody					{ position: absolute; margin-top: 6px; left: 16px; right: 63px; background-color: rgba(0,0,0,0); color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
+input#entry.focusMe				{ top: -5px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
+input#entry.focusMy				{ top: 46px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
 div#entryBodySearch				{ position: absolute; top: 67px; right: 15px; width: 50px; height: 33px; text-align: center; display: block; background-color: rgba(0,0,0,0); z-index: 99; font-size: 30px; line-height: 32px; color: #ccc; }
 #entryBodySearch:before			{ content: '\F050'; font-family: KCals; display: inline-block; position: absolute; right: 0; left: 0;}
 div#entryBodySearch:active		{ color: #eee; }

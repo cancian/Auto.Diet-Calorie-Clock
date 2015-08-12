@@ -653,9 +653,10 @@ $(window).on('resize', function(evt) {
 			appResizer(0);
 			appResizer(300);
 			orientationSwitched = 0;
-		}
-		if(!$('input').has(':focus')) {
-			appResizer(0);
+		} else if($('input').has(':focus')) {
+			//appResizer(0);
+		} else {
+			appResizer(0);	
 		}
 	} else if(app.device.desktop) {
 		appResizer(0);
@@ -1284,6 +1285,7 @@ setTimeout(function () {
 //# TAP HANDLER #//
 //#/////////////#//
 (function ($, _) {
+	//"use strict";
 	var ev = {
 		start : touchstart,
 		end : touchend

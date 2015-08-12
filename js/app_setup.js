@@ -1964,7 +1964,7 @@ function getNiceScroll(target,timeout,callback) {
 	setTimeout(function() {
 		//SETTINGS
 		var NSettings = {
-		touchbehavior: true,
+		touchbehavior: false,
 		nativeparentscrolling: false,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '5px',
@@ -2085,7 +2085,7 @@ function appResizer(time,callback) {
 		niceResizer();
 		//chrome v32 input width
 		if(app.device.desktop || app.device.windows8 || app.device.firefoxos || app.device.android) {
-			$('#entryBody').width( $('body').width() -58);
+			$('#entryBody').width( $('body').width() -105);
 			$('#foodSearch').width( $('body').width() -55);
 		}
 		//////////////

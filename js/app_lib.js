@@ -343,10 +343,10 @@ app.swipe = function (elem, callback) {
 	$(elem).swipe({
 		swipe : function (evt, direction) {
 			if (direction == 'left' || direction == 'right') {
-			if (typeof callback === 'function') {
-				var that = this;
-				callback(that,evt,direction);
-			}
+				if (typeof callback === 'function') {
+					var that = this;
+					callback(that,evt,direction);
+				}
 			}
 		},
 		fingers:1,

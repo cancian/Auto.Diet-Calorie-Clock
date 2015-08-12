@@ -1701,7 +1701,7 @@ function getModalWindow(itemId) {
 					setTimeout(function () {
 						$('#appHeader').trigger(touchstart);
 					}, 300);
-					$('#entryBody').width($('body').width() - 58);
+					$('#entryBody').width($('body').width() - 105);
 					app.highlight('#entryBody',1000,'rgba(255,240,0,0.4)');
 				});
 			},0);
