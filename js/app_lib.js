@@ -349,6 +349,7 @@ app.swipe = function (elem, callback) {
 			}
 			}
 		},
+		fingers:1
 		threshold : 32,
 		allowPageScroll: 'vertical'
 	});
