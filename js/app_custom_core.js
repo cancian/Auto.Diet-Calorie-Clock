@@ -330,7 +330,7 @@ function updateNutriBars() {
 		dailySod = 1500;
 	}	
 	//return null
-	var doReturn = false;
+	var doReturn = 0;
 	if(tPro + tCar + tFat == 0) {
 		$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase());
 		$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase());
@@ -339,15 +339,15 @@ function updateNutriBars() {
 		$('#appStatusBarsPro span').html2('0%');
 		$('#appStatusBarsCar span').html2('0%');			
 		$('#appStatusBarsFat span').html2('0%');
-		doReturn = true;
+		doReturn++;
 	}
 	if(tFii + tSug + tSod == 0) {
 		$('#appStatusBarsFib div').html2('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSug div').html2('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSod div').html2('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
-		doReturn = true;
+		doReturn++;
 	}
-	if(doReturn == true) {
+	if(doReturn == 2) {
 		return false;
 	}
 	//ratios
