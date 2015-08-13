@@ -269,7 +269,7 @@ function localStorageSql() {
 	//nutrients
 	if(app.read('appNutrients'))	   { keyList = keyList + '#@@@#' + 'appNutrients' + '#@@#' + app.read('appNutrients');             }
 	if(app.read('appRatioBy'))	       { keyList = keyList + '#@@@#' + 'appRatioBy'   + '#@@#' + app.read('appRatioBy');               }
-	if(app.read('appNutrientTimeSpan')){ keyList = keyList + '#@@@#' + 'appNutrientTimeSpan'   +'#@@#'+ JSON.stringify(app.read('appNutrientTimeSpan')); }
+	if(!isNaN(app.read('appNutrientTimeSpan'))) { keyList = keyList + '#@@@#' + 'appNutrientTimeSpan' +'#@@#'+ JSON.stringify(app.read('appNutrientTimeSpan')); }
 	//recents
 	if(app.read('app_recent_items'))   { keyList = keyList + '#@@@#' + 'app_recent_items' + '#@@#' + app.read('app_recent_items');     }
 	//notes
