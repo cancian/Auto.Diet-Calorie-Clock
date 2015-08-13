@@ -1044,7 +1044,7 @@ if(app.is.scrollable) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,2000);
+	setTimeout(lastEntryPush,5000);
 })();
 	//#////////////////#//
 	//# XY HEADER INFO #//

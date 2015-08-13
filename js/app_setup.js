@@ -191,7 +191,7 @@ function initDB(t) {
 	app.define('totalEntries',0);
 	app.define('totalRecentEntries',0);
 	app.define('appNutrients','25|50|25');
-	app.define('appNutrientTimeSpan',7);
+	app.define('appNutrientTimeSpan',1);
 	app.define('config_ttf',0);
 	app.define('config_tte',0);
 	app.define('config_limit_1',-600);
@@ -269,6 +269,7 @@ function localStorageSql() {
 	//nutrients
 	if(app.read('appNutrients'))	   { keyList = keyList + '#@@@#' + 'appNutrients' + '#@@#' + app.read('appNutrients');             }
 	if(app.read('appRatioBy'))	       { keyList = keyList + '#@@@#' + 'appRatioBy'   + '#@@#' + app.read('appRatioBy');               }
+	if(app.read('appNutrientTimeSpan')){ keyList = keyList + '#@@@#' + 'appNutrientTimeSpan'   +'#@@#'+ JSON.stringify(app.read('appNutrientTimeSpan')); }
 	//recents
 	if(app.read('app_recent_items'))   { keyList = keyList + '#@@@#' + 'app_recent_items' + '#@@#' + app.read('app_recent_items');     }
 	//notes

@@ -1707,6 +1707,7 @@ app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
 		app.highlight('#' + thisId,1000,'rgba(255,240,0,0.4)'); 
 		setTimeout (function() { $('#pA7B,#pA7F,#pA7L').removeClass('tapActive'); }, 200);
 		updateTimer();
+		setPush();
 	} else {
 		//shake error
 		$('#' + thisId).parent('div').addClass('tapActive shake');
