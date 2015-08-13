@@ -1602,7 +1602,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #screenInfo										{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; -webkit-transform: translate3d(0, 0, 0); background-color: rgba(0,0,0,0); }
 #screenInfo #circleFocus						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow:hidden;  display: block; -webkit-transform: translate3d(0, 0, 0); }
 #screenInfo #circleFocus:before,
-#screenInfo #circleFocus:after					{ content:''; position: absolute; border-radius: 900px; top: -124px; left: -54px; width: 230px; height: 230px; -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); }
+#screenInfo #circleFocus:after					{ content:''; position: absolute; border-radius: 900px; top: -124px; left: -54px; width: 230px; height: 230px; -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); }
 /*tweaks*/
 .ios #screenInfo #circleFocus:before,
 .ios #screenInfo #circleFocus:after,
@@ -1611,7 +1611,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 .webkit.desktop #screenInfo #circleFocus:before,
 .webkit.desktop #screenInfo #circleFocus:after	{ -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.6); -webkit-backface-visibility: hidden; }
 /*text~shadow*/
-#screenInfo #circleFocus:before					{ -webkit-box-shadow: 0 0 50px 0px rgba(0, 0, 0,.4) !important; -webkit-backface-visibility: hidden; }
+#screenInfo #circleFocus:before					{ -webkit-box-shadow: 0 0 50px 0px rgba(0, 0, 0,.4) !important; box-shadow: 0 0 50px 0px rgba(0, 0, 0,.4) !important; -webkit-backface-visibility: hidden; }
 #screenInfo #closeButton						{ position: absolute; bottom: 20px; right: 25px; height: 50px; width: 15%; min-width: 150px; background-color: rgba(255,255,255,1); color: #007aff; font-size: 18px; line-height: 50px; text-align: center; display: block; -webkit-box-shadow: 0 0px 20px rgba(0,0,0,.4); text-shadow: 0 -1px 1px rgba(255,255,255,.3); background-clip: padding-box; border: 1px solid rgba(255,255,255,.75); z-index: 50; }
 #screenInfo #textBlock							{ position: absolute; top: 142px; left: 25px; right: 20px; height: 50px; color: #fff; font-size: 24px; line-height: 36px; text-align: left; display: block; font-weight: bold; text-shadow: 0 0px 1px rgba(0,0,0,.75); }
 /*swipe left*/

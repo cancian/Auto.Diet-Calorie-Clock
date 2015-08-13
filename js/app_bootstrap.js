@@ -46,10 +46,16 @@ function InitializeLocalSuperBlock(opt) {
 		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 		dataCSS = dataCSS.split('-webkit-').join('-moz-');
 	}
-	if((/edge|trident|IEMobile/i).test(navigator.userAgent))	{ 
+	if((/edge|trident|IEMobile|MSAppHost\/3.0/i).test(navigator.userAgent)) {
 		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
-		dataCSS = dataCSS.split('-webkit-').join('-ms-');
+		if(/MSAppHost\/3.0/i.test(navigator.userAgent)) {
+			//MSAPP3
+			dataCSS = dataCSS.split('-webkit-').join('');
+		} else {
+			//MSAPP2
+			dataCSS = dataCSS.split('-webkit-').join('-ms-');
+		}
 	}
 	//QUOTA
 	try {

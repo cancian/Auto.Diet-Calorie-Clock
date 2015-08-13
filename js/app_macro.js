@@ -915,6 +915,7 @@ function getCyclicMenu() {
 			$('#appModeToggle').prop('checked',true);
 		}
 		//TAP
+		/*
 		app.handlers.activeRow('#appMode label','button',function(target) {
 			if((/checkbox/).test($(target).html())) {
 				if($('input[type=checkbox]', '#' + evt.target.id).prop('checked') == true) {
@@ -924,7 +925,8 @@ function getCyclicMenu() {
 				}
 				$('input[type=checkbox]', '#' + evt.target.id).trigger('change');
 			}
-		});	
+		});
+		*/
 		//ON CHANGE
 		$('#appModeToggle').on('change',function(obj) {
 			if($('#appModeToggle').prop('checked')) {
@@ -949,7 +951,6 @@ function getCyclicMenu() {
 				$('#timerDailyInput').val(app.read('config_kcals_day_0'));
 			}
 		});
-		//
 	};
 	///////////
 	// CLOSE //
@@ -1720,7 +1721,8 @@ function buildAdvancedMenu() {
 	$('#appAutoUpdateToggle').on('change',function(evt) {
 		if($('#appAutoUpdateToggle').prop('checked') == true) {
 			app.save('config_autoupdate','on');
-			app.timeout('AutoUpdateToggle',2000,function() {
+			var checkTimeout = app.dev? 0 : 2000;
+			app.timeout('AutoUpdateToggle',checkTimeout,function() {
 				if(app.read('config_autoupdate','on')) {
 					buildRemoteSuperBlock('cached');
 				}

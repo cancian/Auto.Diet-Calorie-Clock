@@ -405,15 +405,16 @@ app.get.isDesktop = function() {};
 ////////////////
 app.device = {
 	cordova    : ((typeof cordova || typeof Cordova) !== 'undefined') ? true : false,
-	android    : (/Android/i).test(app.ua) ? app.get.androidVersion() : false,
+	android    : (/Android/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? app.get.androidVersion() : false,
 	android2   : (/Android/i).test(app.ua) && app.get.androidVersion() < 4 ? true : false,
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	linux      : (/X11|Linux|Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
 	msapp      : (/MSApp/i).test(app.ua) ? true : false,
-	wp8        : (/IEMobile/i).test(app.ua) && !/MSApp/i.test(app.ua) ? true : false,
-	wp81       : (/IEMobile/i).test(app.ua) && /MSApp/i.test(app.ua)  ? true : false,
+	wp8        : (/IEMobile/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? true : false,
+	wp81       : (/Mobile/i).test(app.ua) && (/MSApp/i).test(app.ua)  ? true : false,
+	wp10       : (/MSAppHost\/3.0/i).test(app.ua) && (/Windows Phone 10/i).test(app.ua) ? true : false,
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
 	windows81  : (/MSAppHost\/2.0/i).test(app.ua) && !(/IE__Mobile/i).test(app.ua)? true : false,
 	windows8T  : (/MSApp/i).test(app.ua) && (/Touch/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
@@ -437,21 +438,25 @@ if(typeof staticVendor !== 'undefined') {
 // GLOBAL SHORTCUTS //
 //////////////////////
 app.get.platform = function(noweb) {
-	if(app.device.ios && app.http)        { return 'web';              }
-	if(app.device.android && app.http)    { return 'web';              }
-	if(app.device.wp8 && app.http)        { return 'web';              }
-	if(app.device.linux)                  { return 'Linux';            }
-	if(app.device.ios)                    { return 'iOS';              }
-	if(app.device.amazon)                 { return 'Android (Amazon)'; }
-	if(app.device.wp8 || app.device.wp81) { return 'Windows Phone';    }
-	if(app.device.windows8)               { return 'Windows 8';        }
-	if(app.device.blackberry)             { return 'BlackBerry';       }
-	if(app.device.playbook)               { return 'PlayBook';         }
-	if(app.device.android)                { return 'Android';          }
-	if(app.device.firefoxos)              { return 'FirefoxOS';        }	
-	if(app.device.osxapp)                 { return 'Mac';              }
-	if(app.device.chromeos)               { return 'ChromeOS';         }
-	return 'web';
+	     if(app.device.ios && app.http)		{ return 'web';              }
+	else if(app.device.android && app.http)	{ return 'web';              }
+	else if(app.device.wp8 && app.http)		{ return 'web';              }
+	else if(app.device.linux)				{ return 'Linux';            }
+	else if(app.device.ios)					{ return 'iOS';              }
+	else if(app.device.amazon)				{ return 'Android (Amazon)'; }
+	else if(app.device.wp8)					{ return 'Windows Phone';    }
+	else if(app.device.wp81)				{ return 'Windows Phone';    }
+	else if(app.device.wp10)				{ return 'Windows Phone';    }
+	else if(app.device.windows8)			{ return 'Windows';          }
+	else if(app.device.windows81)			{ return 'Windows';          }
+	else if(app.device.windows10)			{ return 'Windows';          }
+	else if(app.device.blackberry)			{ return 'BlackBerry';       }
+	else if(app.device.playbook)			{ return 'PlayBook';         }
+	else if(app.device.android)				{ return 'Android';          }
+	else if(app.device.firefoxos)			{ return 'FirefoxOS';        }	
+	else if(app.device.osxapp)				{ return 'Mac';              }
+	else if(app.device.chromeos)			{ return 'ChromeOS';         }
+	else									{ return 'web'; }
 };
 ////////////////////
 // GLOBAL BOOLEAN //
@@ -665,7 +670,7 @@ app.url = function(url) {
 		     if(app.device.ios)			{ window.open(url, '_system', 'location=yes');								}
 		else if(app.device.android)		{ window.open(url, '_system', 'location=yes');								}
 		else if(app.device.wp8)			{ ref = window.open(url, '_blank', 'location=no');							}
-		else if(app.device.windows8)	{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(url));	}
+		else if(app.device.msapp)		{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(url));	}
 		else if(app.device.firefoxos)	{ ref = window.open(url, '_system', 'location=yes');						}
 		else if(app.device.osxapp)		{ macgap.app.open(url);														}
 		else if(app.device.playbook)	{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (e) {}}
@@ -1213,7 +1218,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 var prefix;
 var vendorClass; 
 var transitionend;
-     if((/edge|trident|IEMobile/i).test(app.ua))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
+     if(/MSAppHost\/3.0/i.test(app.ua))				{ prefix = '';         transitionend = 'transitionend';       vendorClass = 'msie';   }
+else if((/edge|trident|IEMobile/i).test(app.ua))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
 else if((/Firefox/i).test(app.ua))					{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
 else												{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
 ///////////////////////////////////
@@ -1234,7 +1240,13 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 				if(vendorClass == 'msie') {
 					dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
-					dataCSS = dataCSS.split('-webkit-').join('-ms-');
+					if(/MSAppHost\/3.0/i.test(app.ua)) {
+						//MSAPP3
+						dataCSS = dataCSS.split('-webkit-').join('');
+					} else {
+						//MSAPP2
+						dataCSS = dataCSS.split('-webkit-').join('-ms-');
+					}
 				}
 				$("#coreCss").remove();
 				$("#coreFonts").prepend2("<style type='text/css' id='coreCss'></style>");

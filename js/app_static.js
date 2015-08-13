@@ -140,7 +140,7 @@ setTimeout(function() {
 ////////////////
 // PARSED CSS //
 ////////////////
-if(app.device.wp81 && !document.getElementById('wp81ViewportFix')) {
+if(app.device.wp81 && !app.device.wp10 && !document.getElementById('wp81ViewportFix')) {
 	$('head').append2('<style type="text/css" id="wp81ViewportFix">@media (max-width: 600px) { @-ms-viewport { width: 80%; }}</style>');
 }
 $('head').append2('<style type="text/css" id="cssStartDate"> #startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; } </style>');
@@ -768,6 +768,10 @@ if(app.device.wp8) {
 if(app.device.wp81) {
 	$('html').addClass('wp81');
 	$('body').addClass('wp81');
+}
+if(app.device.wp10) {
+	$('html').addClass('wp10');
+	$('body').addClass('wp10');
 }
 if(app.device.windows8) {
 	$('html').addClass('windows8');
