@@ -1978,11 +1978,13 @@ function appConfirm(title, msg, callback, ok, cancel) {
 			}
 			md.showAsync()
 			.then(function (command) {
-				if (command.label == ok) {
-					callback(2);
-				}
-				if (command.label == cancel) {
-					callback(1);
+				if(typeof command !== 'undefined') {
+					if (command.label == ok) {
+						callback(2);
+					}
+					if (command.label == cancel) {
+						callback(1);
+					}
 				}
 			})
 			.done(function () {
