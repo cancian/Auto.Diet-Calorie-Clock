@@ -430,7 +430,7 @@ $(document).on("pageload", function (evt) {
 	/////////////////
 	// GLOBAL HIDE //
 	/////////////////
-	$("#entryListForm, #go, #sliderBlock, #entryListWrapper, #appHeader").on(tap + " swipeLeft swipeRight", function (evt) {
+	function hideEntry(evt) {
 		if (!app.device.android) {
 			evt.preventDefault();
 		}
@@ -442,6 +442,13 @@ $(document).on("pageload", function (evt) {
 			});
 			$('.active').removeClass('active');
 		}
+	}
+	//HIDE HANDLERS
+	$('#entryListForm, #go, #sliderBlock, #entryListWrapper, #appHeader').click(function (evt) {
+		hideEntry(evt);
+	});
+	$('#entryListForm, #go, #sliderBlock, #entryListWrapper, #appHeader').on(tap + ' swipeLeft swipeRight', function (evt) {
+		hideEntry(evt);
 	});
 	//////////////
 	// SPAN TAP //
