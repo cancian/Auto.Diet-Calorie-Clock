@@ -1325,11 +1325,6 @@ if (app.device.firefoxos) {
 // SAFE EXEC //
 ///////////////
 app.safeExec = function (callback) {
-	if(typeof MSApp !== 'undefined' && /MSAppHost\/3.0/i.test(navigator.userAgent)) {
-		MSApp.execUnsafeLocalFunction = function(callback) {
-			callback();	
-		}
-	}
 	if (app.device.msapp) {
 		MSApp.execUnsafeLocalFunction(function () {
 			callback();
