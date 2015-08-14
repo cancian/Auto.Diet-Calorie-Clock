@@ -71,6 +71,58 @@ body.unloaded * {
 </style>
 <!--###########################################-->
 <script type="text/javascript">
+/////////////////////////
+// MSAPP CONFIRM LAYER //
+/////////////////////////
+if (/MSApp/i.test(navigator.userAgent) && typeof window.confirm === 'undefined') {
+	var MSDialog2;
+	var MSNext2 = [];
+	function MSAppConfirm(title, msg, callback, ok, cancel) {
+		//STORE NEXT
+		if (MSDialog2 == true) {
+			var isRepeated = 0;
+			//NOREPEAT
+			$.each(MSNext2, function (key, value) {
+				if (title == MSNext2[key][0]) {
+					isRepeated = 1;
+				}
+			});
+			if (isRepeated == 0) {
+				MSNext2.push([title, msg, callback, 'ok', 'cancel']);
+			}
+			return;
+		}
+		// SHOW
+		try {
+			MSDialog2 = true;
+			var md = new Windows.UI.Popups.MessageDialog(msg, title);
+			md.commands.append(new Windows.UI.Popups.UICommand('ok'));
+			if (cancel != "hide") {
+				md.commands.append(new Windows.UI.Popups.UICommand('cancel'));
+			}
+			md.showAsync()
+			.then(function (command) {
+				if (typeof command !== 'undefined') {
+					if (command.label == 'ok') {
+						callback(2);
+					}
+					if (command.label == 'cancel') {
+						callback(1);
+					}
+				}
+			})
+			.done(function () {
+				MSDialog2 = false;
+				if (MSNext2.length) {
+					appConfirm(MSNext2[0][0], MSNext2[0][1], MSNext2[0][2], MSNext2[0][3], MSNext2[0][4]);
+					MSNext2.shift();
+				}
+			});
+		} catch (e) {
+			MSDialog2 = false;
+		}
+	}
+}
 ////////////////
 // HTTP CACHE //
 ////////////////
@@ -108,39 +160,50 @@ setTimeout(function() {
 		window.localStorage.setItem('consecutive_reboots',window.localStorage.getItem('consecutive_reboots')+1);
 	}
 },0);
+/////////////////////////
+// WIPE CACHE FUNCTION //
+/////////////////////////
+function wipeCache(button) {
+	if(button == 2) {
+	setTimeout(function () {
+		//ERASE
+		window.localStorage.removeItem('config_debug');
+		window.localStorage.removeItem('config_autoupdate');
+		window.localStorage.removeItem('remoteSuperBlockJS');
+		window.localStorage.removeItem('remoteSuperBlockCSS');
+		window.localStorage.removeItem('app_autoupdate_hash');
+		window.localStorage.removeItem('consecutive_reboots');
+		//HALT
+		//document.getElementsByTagName('head')[0].innerHTML = '';
+		document.body.innerHTML = '';
+		//RELOAD
+		alert('erasing cache...');
+		window.location.reload(true);
+	},0);
+	} else {
+		document.getElementById('loadMask').style.backgroundColor = '#ffffff';
+	}
+}
 ////////////////////
 // MANUAL BREAKER //
 ////////////////////
 var bootLoopBroken = false;
 var bootLoopBreaker = function () {
-	////////////////////
-	// MANUAL BREAKER //
-	////////////////////
 	if (document.body && document.getElementById('loadMask')) {
 		if (document.body.classList) {
 			if (/unloaded/i.test(document.body.classList) && bootLoopBroken == false) {
 				//HALT
 				bootLoopBroken = true;
 				document.getElementById('loadMask').style.backgroundColor = '#FBF01F';
-				if(typeof confirm !== 'undefined') {
+				if(typeof MSAppConfirm !== 'undefined') {
+					MSAppConfirm('*** KCALS RECOVERY SYSTEM ***','Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.', function(button) {
+						wipeCache(button);
+					});
+				} else if(typeof window.confirm !== 'undefined') {
 					if (confirm('*** KCALS RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
-						setTimeout(function () {
-							//ERASE
-							window.localStorage.removeItem('config_debug');
-							window.localStorage.removeItem('config_autoupdate');
-							window.localStorage.removeItem('remoteSuperBlockJS');
-							window.localStorage.removeItem('remoteSuperBlockCSS');
-							window.localStorage.removeItem('app_autoupdate_hash');
-							window.localStorage.removeItem('consecutive_reboots');
-							//HALT
-							//document.getElementsByTagName('head')[0].innerHTML = '';
-							document.body.innerHTML = '';
-							//RELOAD
-							alert('erasing cache...');
-							window.location.reload(true);
-						}, 0);
+						wipeCache(2);
 					} else {
-						document.getElementById('loadMask').style.backgroundColor = '#FFFFFF';
+						wipeCache(1);	
 					}
 				}
 			}
