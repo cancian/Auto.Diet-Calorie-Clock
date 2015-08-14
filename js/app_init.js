@@ -10,7 +10,12 @@ var initTime     = new Date().getTime();
 var UsrAgt  = navigator.userAgent;
 var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
 function safeExec(callback) {
-	if (/MSApp/.test(navigator.userAgent) && !/MSAppHost\/3.0/i.test(navigator.userAgent)) {
+	if(typeof MSApp !== 'undefined' && /MSAppHost\/3.0/i.test(navigator.userAgent)) {
+		MSApp.execUnsafeLocalFunction = function(callback) {
+			callback();	
+		}
+	}
+	if (/MSApp/.test(navigator.userAgent)) {
 		MSApp.execUnsafeLocalFunction(function () {
 			if(typeof callback === 'function') {
 				callback();

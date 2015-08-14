@@ -170,13 +170,22 @@ function bootStraper() {
 	//
 	if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = 'http://192.168.1.5/'; }
 	//INIT
-	if (/MSApp/.test(navigator.userAgent) && !/MSAppHost\/3.0/i.test(navigator.userAgent)) {
+	if (/MSApp/.test(navigator.userAgent)) {
+		if(typeof MSApp !== 'undefined' && /MSAppHost\/3.0/i.test(navigator.userAgent)) {
+			MSApp.execUnsafeLocalFunction = function(callback) {
+				callback();	
+			}
+		}
 		MSApp.execUnsafeLocalFunction(function() { 
 			//WINJS
-			if ((/IEMobile/).test(navigator.userAgent)) {
+			if ((/IEMobile/i).test(navigator.userAgent)) {
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/base.js"><\/script>');
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/ui.js"><\/script>');
 				document.write('<style type="text/css" id="wp81ViewportFix">@media (max-width: 600px) { @-ms-viewport { width: 80%; }}<\/style>');
+			}
+			if(/MSAppHost\/3.0/i.test(navigator.userAgent) && (/Mobile/i).test(navigator.userAgent)) {
+				//document.write('<script src="WinJS/js/base.js"><\/script>');
+				//document.write('<script src="WinJS/js/ui.js"><\/script>');
 			}
 			//MSAPP
 			hostLocal = '';
