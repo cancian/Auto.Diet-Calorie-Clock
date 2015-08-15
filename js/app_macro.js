@@ -1469,7 +1469,7 @@ function buildAdvancedMenu() {
 				var releaseDate = (/Upcoming/i.test(logLine)) ? '' : logLine[1].replace('[', '').replace(']', '');
 				logContent += '<p>' + versionStr + ' ' + logLine[0] + '<span>' + releaseDate + '</span></p>';
 			} else {
-				if (/--/.test(logLine)) {
+				if (/--/i.test(logLine)) {
 					if (app.dev) {
 						logContent += logLine + '<br />';
 					}
@@ -1587,13 +1587,13 @@ function buildAdvancedMenu() {
 				$('.usrMsg').css('color','#c30');
 			}
 			//MAIL
-			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val())) {
+			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test($('#usrMail').val())) {
 				$('.usrMail').css('color','#000');				
 			} else {
 				$('.usrMail').css('color','#c30');				
 			}
 			//VALIDATE
-			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($('#usrMail').val()) && (trim($('#usrMsg').val())).length > 1) {
+			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test($('#usrMail').val()) && (trim($('#usrMsg').val())).length > 1) {
 				//send mail
 				$('#saveButton').css('pointer-events','none');
 				$('#saveButton').css('color','#ccc');

@@ -2035,17 +2035,20 @@ function appResizer(time,callback) {
 		app.height = window.innerHeight;
 		app.relWidth  = app.width  / app.read('app_zoom');
 		app.relHeight =  app.height / app.read('app_zoom'); 
-		if(!app.device.windows8 && !app.device.windows10 && !app.device.linux) {
-			$('body').css('min-height', app.height);
-		}
 		/*
 		if(vendorClass == 'moz' || vendorClass == 'msie') {
 			$('body').css('width', app.relWidth + 'px');
 			$('body').css('height', app.relHeight + 'px');
 		}
 		*/
+		if(!app.device.msapp && !app.device.desktop && !app.device.linux) {
+			$('body').css('min-height', app.height);
+		}
 		//unlock top white gap
 		$('body').trigger('touchmove');
+		//SCROLLBAR UPDATE	
+		niceResizer();
+		niceResizer(400);
 		////////////////////////
 		// WRAPPER MIN-HEIGHT //
 		////////////////////////
@@ -2084,8 +2087,6 @@ function appResizer(time,callback) {
 		//$('#pageSlideFood').css('min-height',($('body').height() - ($('#appHeader').height())) + 'px');
 		$('#pageSlideFood').show();
 		//$('#tabMyItemsBlock').css('min-height', ($('#foodList').height() - 128) + 'px');
-		//SCROLLBAR UPDATE	
-		niceResizer();
 		//chrome v32 input width
 		if(app.device.desktop || app.device.windows8 || app.device.firefoxos || app.device.android) {
 			$('#entryBody').width( $('body').width() -105);
@@ -2233,7 +2234,7 @@ function getLogoutFB(button) {
 function updateLoginStatus(sync) {
 	if(app.read('facebook_logged') && app.read('facebook_userid') && app.read('facebook_username')) {
 		$('body').addClass('appFacebook');
-		if(/@/.test(app.read('facebook_username'))) {
+		if(/@/i.test(app.read('facebook_username'))) {
 			$('body').addClass('appEmailLogin');
 		}
 		$('#optionFacebook span').html2(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
@@ -2453,7 +2454,7 @@ function getLoginEmail() {
 		});
 		//PRE-FILL
 		if(app.read('usrMail')) {
-			if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(trim(app.read('usrMail')))) {
+			if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim(app.read('usrMail')))) {
 				$('#usrMail').val(trim(app.read('usrMail')));
 			}
 		}
@@ -2462,7 +2463,7 @@ function getLoginEmail() {
 		////////////////////
 		app.handlers.activeRow('#resetPass', 'button', function (evt) {
 			//validate e-mail
-			if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(trim($('#usrMail').val()))) {
+			if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val()))) {
 				$('.usrMail').css('color', '#c30');
 				setTimeout(function () {
 					alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
@@ -2506,13 +2507,13 @@ function getLoginEmail() {
 			$('.usrPass').css('color', '#c30');
 		}
 		//MAIL
-		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(trim($('#usrMail').val()))) {
+		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val()))) {
 			$('.usrMail').css('color', '#000');
 		} else {
 			$('.usrMail').css('color', '#c30');
 		}
 		//VALIDATE
-		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(trim($('#usrMail').val())) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
+		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val())) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
 			//send mail
 			$('#saveButton').css('pointer-events', 'none');
 			$('#saveButton').css('color', '#ccc');

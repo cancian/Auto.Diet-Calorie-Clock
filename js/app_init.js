@@ -58,7 +58,7 @@ window.onerror = function (e, url, line) {
 	//ERROR
 	if (typeof app !== 'undefined') {
 		if (typeof app.analytics !== 'undefined') {
-			app.analytics('error','onerror: ' + e + ' URL:' + url + ' Line:' + line);
+			app.analytics('error','unhandled: ' + e + ' URL:' + url + ' Line:' + line);
 		}	
 	}
 	//disable db

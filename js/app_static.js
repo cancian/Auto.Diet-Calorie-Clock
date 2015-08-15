@@ -705,7 +705,7 @@ if(app.read('config_debug','active')) {
 }
 if(app.read('facebook_logged')) {
 	$('body').addClass('appFacebook');
-	if(/@/.test(app.read('facebook_username'))) {
+	if(/@/i.test(app.read('facebook_username'))) {
 		$('body').addClass('appEmailLogin');
 	}
 }
@@ -914,10 +914,10 @@ function unlockApp() {
 		app.save('been_dev',1);
 	}
 	appResizer(100);
-	appResizer(300);
 	//start scrolling
 	setTimeout(function() {
 		getNiceScroll('#appContent');
+		niceResizer();
 	},300);
 	$('body').removeClass('unloaded');
 	$('body').addClass('started');

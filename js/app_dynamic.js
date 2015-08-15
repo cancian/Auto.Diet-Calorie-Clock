@@ -784,7 +784,7 @@ function searchFood(searchSQL, callback) {
 	while(z--) {
 		keyScore = 0;
 		keyJunk = 0;
-		if ((/0000|exercise/.test(dato[z].type) && typeTerm == "exercise") || (!/0000|exercise/.test(dato[z].type) && typeTerm == "food")) {
+		if ((/0000|exercise/i.test(dato[z].type) && typeTerm == "exercise") || (!/0000|exercise/i.test(dato[z].type) && typeTerm == "food")) {
 			var k = searchSQL.length;
 			while(k--) {
 				if (dato[z].term.indexOf(searchSQL[k]) != -1 && keyJunk == 0) {
@@ -920,18 +920,18 @@ function doSearch(rawInput) {
 //#  UPDATE CUSTOM LIST  #//
 //#//////////////////////#//
 function updateCustomList(filter,callback) {
-	if(/cat|all/.test(filter)) {
+	if(/cat|all/i.test(filter)) {
 		getCatList();		
 	}
 	//FAV
-	if(/fav|all|cache/.test(filter)) {
+	if(/fav|all|cache/i.test(filter)) {
 		$('#tabMyFavsBlock').html2(getCustomList('fav',filter));
 		app.handlers.activeRow('#tabMyFavsBlock div.searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
 		});	
 	}
 	//ITEM
-	if(/items|all|cache/.test(filter)) {
+	if(/items|all|cache/i.test(filter)) {
 		$('#tabMyItemsBlock').html2(getCustomList('items',filter));
 		$('#addButtons').remove();
 		$('#foodList').after2('<div id="addButtons"><div id="addNewFood"><div id="addNewFoodTitle"><span>+</span>' + LANG.NEW_FOOD[lang] + '</div></div><div id="addNewExercise"><div id="addNewExerciseTitle"><span>+</span>' + LANG.NEW_EXERCISE[lang] + '</div></div></div>');

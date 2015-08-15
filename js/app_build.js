@@ -1802,7 +1802,7 @@ $('#formc select').on(touchend,function(evt) {
 		writeCalcValues();
 		setPush();
 		return false;
-	} else if(/inches|pounds/.test($(this).val())) {
+	} else if(/inches|pounds/i.test($(this).val())) {
 		$(this).attr('readonly','readonly');
 		$(this).attr('disabled','disabled');
 		app.save('config_measurement','metric');
@@ -1818,7 +1818,7 @@ $('#formc select').on(touchend,function(evt) {
 		writeCalcValues();
 		setPush();
 		return false;
-	} else if(/centimetres|kilograms/.test($(this).val())) {
+	} else if(/centimetres|kilograms/i.test($(this).val())) {
 		$(this).attr('readonly','readonly');
 		$(this).attr('disabled','disabled');
 		app.save('config_measurement','imperial');

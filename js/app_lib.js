@@ -52,7 +52,7 @@ var app = {
 		/*
 		if(!/mud_default/i.test(app.user)) {
 			//protect superglobals
-			if(!/remoteSuperBlock|autoupdate|app_build|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/.test(key)) {
+			if(!/remoteSuperBlock|autoupdate|app_build|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots/i.test(key)) {
 				key = app.user[0] + '_' + key;
 			}
 		}
@@ -88,7 +88,7 @@ var app = {
 		*/
 		//
 		//localforage wrapper
-		if(/diary_entry|diary_food/.test(key)) {
+		if(/diary_entry|diary_food/i.test(key)) {
 			if(typeof localforageDB !== 'undefined') {
 				localforage.getItem(key,function(err, rows) {
 					if(err) {
@@ -151,7 +151,7 @@ var app = {
 		*/
 		//
 		//localforage wrapper
-		if(/diary_entry|diary_food/.test(key)) {
+		if(/diary_entry|diary_food/i.test(key)) {
 			app.returner(type,value);
 			app.timeout(key,1000,function() {
 				localforage.setItem(key,value);
@@ -426,7 +426,7 @@ app.device = {
 	blackberry : (/BB10|BlackBerry|All Touch/i).test(app.ua) && !/(PlayBook)/i.test(app.ua) ? true : false,
 	playbook   : (/PlayBook|Tablet OS/i).test(app.ua) ? true : false,
 	amazon     : (/Amazon|FireOS/i).test(app.ua) ? true : false,
-	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|PlayBook|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/.test(app.ua)) ? false : true
+	desktop    : ((/Android|webOS|iPhone|iPad|iPod|BlackBerry|PlayBook|IEMobile|Opera Mini|Tablet|Mobile|Touch/i.test(app.ua) || (document.createTouch)) && !/Windows NT/i.test(app.ua)) ? false : true
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
@@ -1348,14 +1348,14 @@ function errorHandler(error) {
 				alert(error);
 			}
 		} else {
-			if (confirm(error)) {
+			if (window.confirm(error)) {
 				blockAlerts = 0;
 			} else {
 				blockAlerts = 1;
 			}
 		}
 	} else {
-		app.analytics('error',error);
+		app.analytics('error','handled: ' + error);
 	}
 }
 /////////////////
@@ -1508,7 +1508,7 @@ function trim(str) {
 			str = str.replace(/^\s+/, '');
 			str = str.replace(/(^[ \t]*\n)/gm, "");
 			for(var i = str.length - 1; i >= 0; i--) {
-				if(/\S/.test(str.charAt(i))) {
+				if(/\S/i.test(str.charAt(i))) {
 				str = str.substring(0, i + 1);
 				break;
 			}
@@ -2026,7 +2026,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	// FALLBACK //
 	//////////////
 	} else {
-		if (confirm(title + "\n" + msg)) {
+		if (window.confirm(title + "\n" + msg)) {
 			callback(2);
 		} else {
 			callback(1);
