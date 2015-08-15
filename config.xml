@@ -73,7 +73,7 @@
 	<preference name="HideKeyboardFormAccessoryBar" value="false" />
 	<!-- Preferences for BB10 -->
 
-	<!-- Preferences for PLAYBOOK -->
+	<!-- Preferences for PLAYBOOK 
 	<icon rim:hover="false" src="icon.png" />
 	<icon rim:hover="true" src="icon.png" />
 
@@ -83,7 +83,7 @@
 		onFirstLaunch="true">
 		<rim:transitionEffect type="fadeOut" />
 	</rim:loadingScreen>	
-	<!-- Preferences for PLAYBOOK -->
+	Preferences for PLAYBOOK -->
 	
 	<!-- Plugins for PLAYBOOK -->
 	<feature id="blackberry.app" />
