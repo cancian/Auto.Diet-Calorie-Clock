@@ -43,9 +43,11 @@ body.unloaded #loadMask span {
 	-webkit-animation: rotate .65s infinite linear;
 	-moz-animation: rotate .65s infinite linear;
 	-ms-animation: rotate .65s infinite linear;
+	animation: rotate .65s infinite linear;
 	-webkit-animation-fill-mode: forwards;
 	-moz-animation-fill-mode: forwards;
 	-ms-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	-ms-backface-visibility: hidden;
@@ -64,6 +66,7 @@ body.unloaded #loadMask span {
 @-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); }}
 @-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
 @-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
+@keyframes rotate			{ 0% { transform: rotate(0deg);     } 	  100% { transform: rotate(360deg);         }}
 body.unloaded * {
 	-ms-touch-action: none;
 	overflow: hidden;
@@ -147,7 +150,7 @@ var bodyTimer = setTimeout(function() {
 setTimeout(function() {
 	if(!window.localStorage.getItem('consecutive_reboots')) {
 		window.localStorage.setItem('consecutive_reboots',0);
-	} else if(window.localStorage.getItem('consecutive_reboots') > 10) {
+	} else if(window.localStorage.getItem('consecutive_reboots') > 5) {
 		window.localStorage.removeItem('config_debug');
 		window.localStorage.removeItem('remoteSuperBlockJS');
 		window.localStorage.removeItem('remoteSuperBlockCSS');
@@ -195,12 +198,12 @@ var bootLoopBreaker = function () {
 				//HALT
 				bootLoopBroken = true;
 				document.getElementById('loadMask').style.backgroundColor = '#FBF01F';
-				if(typeof MSAppConfirm !== 'undefined') {
+				if(typeof MSAppConfirm === 'function') {
 					MSAppConfirm('*** KCALS RECOVERY SYSTEM ***','Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.', function(button) {
 						wipeCache(button);
 					});
 				} else if(typeof window.confirm !== 'undefined') {
-					if (confirm('*** KCALS RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
+					if (window.confirm('*** KCALS RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
 						wipeCache(2);
 					} else {
 						wipeCache(1);	
@@ -209,11 +212,10 @@ var bootLoopBreaker = function () {
 			}
 		}
 	}
-}
-setTimeout(function() {
-	window.addEventListener('mousedown', bootLoopBreaker, false);
-	window.addEventListener('touchstart', bootLoopBreaker, false);
-},0);
+};
+//PRE-LISTENERS
+window.addEventListener('mousedown', bootLoopBreaker, false);
+window.addEventListener('touchstart', bootLoopBreaker, false);
 </script>
 <!--###########################################-->
 <style type="text/css" id="CSSPlaceholder"></style>
