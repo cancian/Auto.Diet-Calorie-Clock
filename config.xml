@@ -5,20 +5,11 @@
 
 	<access subdomains="true" uri="*" origin="*" />
 
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-	
 	<name>KCals Calorie Counter</name>
 
 	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>
 	
 	<description>KCals is a real-time calorie counter that simulates the human metabolism.</description>
-
-	<license href="http://opensource.org/licenses/alphabetical"></license>
 
 	<icon src="icon.png" />
 
@@ -111,6 +102,11 @@
 		<param name="android-package" value="org.apache.cordova.App" />
 	</feature>
 
+	<feature name="Whitelist">
+		<param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+		<param name="onload" value="true" />
+	</feature>
+
 	<feature name="Notification" value="Notification">
 		<param name="ios-package" value="CDVNotification" />
 		<param name="android-package" value="org.apache.cordova.dialogs.Notification" />
@@ -136,5 +132,32 @@
 		<param name="wp-package" value="LocalNotification" />
 	</feature>
 	<!-- CORDOVA PLUGINS -->
-
+	
+	<!-- INTENT WHITELIST -->
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+	<!-- INTENT WHITELIST -->
+	
+	<!-- PLATFORM SPECIFIC INTENT -->
+	<platform name="android">
+		<allow-intent href="market:*" />
+	</platform>
+	<platform name="ios">
+		<allow-intent href="itms:*" />
+		<allow-intent href="itms-apps:*" />
+	</platform>
+	<!-- PLATFORM SPECIFIC INTENT -->
+		
+	<!-- ORIGIN WHITELIST -->
+    <access origin="https://m.facebook.com" />
+    <access origin="https://graph.facebook.com" />
+    <access origin="https://api.facebook.com" />
+    <access origin="https://*.fbcdn.net" />
+    <access origin="https://*.akamaihd.net" />
+	<!-- ORIGIN WHITELIST -->
+	
 </widget>
