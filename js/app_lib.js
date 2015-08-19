@@ -491,12 +491,8 @@ app.reboot = function(type,error) {
 	}
 	setTimeout(function() {	
 		//RELOAD
-		if(app.device.android >= 3) {
-			if(typeof window.MyReload !== 'undefined') {
-				window.MyReload.reloadActivity();
-			} else {
-				window.location.reload(true);	
-			}
+		if(typeof window.MyReload !== 'undefined') {
+			(function() { try { window.MyReload.reloadActivity(); } catch(e) { window.location.reload(true); }})();
 		} else {
 			window.location.reload(true);
 		}
@@ -2192,4 +2188,243 @@ $.prototype.tap = function (style, callback, callbackCondition) {
 //# MD5 #//
 //#/////#//
 var md5=function(r){function n(r,n){return r<<n|r>>>32-n}function t(r,n){var t,o,e,u,f;return e=2147483648&r,u=2147483648&n,t=1073741824&r,o=1073741824&n,f=(1073741823&r)+(1073741823&n),t&o?2147483648^f^e^u:t|o?1073741824&f?3221225472^f^e^u:1073741824^f^e^u:f^e^u}function o(r,n,t){return r&n|~r&t}function e(r,n,t){return r&t|n&~t}function u(r,n,t){return r^n^t}function f(r,n,t){return n^(r|~t)}function i(r,e,u,f,i,a,c){return r=t(r,t(t(o(e,u,f),i),c)),t(n(r,a),e)}function a(r,o,u,f,i,a,c){return r=t(r,t(t(e(o,u,f),i),c)),t(n(r,a),o)}function c(r,o,e,f,i,a,c){return r=t(r,t(t(u(o,e,f),i),c)),t(n(r,a),o)}function C(r,o,e,u,i,a,c){return r=t(r,t(t(f(o,e,u),i),c)),t(n(r,a),o)}function g(r){for(var n,t=r.length,o=t+8,e=(o-o%64)/64,u=16*(e+1),f=Array(u-1),i=0,a=0;t>a;)n=(a-a%4)/4,i=a%4*8,f[n]=f[n]|r.charCodeAt(a)<<i,a++;return n=(a-a%4)/4,i=a%4*8,f[n]=f[n]|128<<i,f[u-2]=t<<3,f[u-1]=t>>>29,f}function h(r){var n,t,o="",e="";for(t=0;3>=t;t++)n=r>>>8*t&255,e="0"+n.toString(16),o+=e.substr(e.length-2,2);return o}function d(r){r=r.replace(/\r\n/g,"\n");for(var n="",t=0;t<r.length;t++){var o=r.charCodeAt(t);128>o?n+=String.fromCharCode(o):o>127&&2048>o?(n+=String.fromCharCode(o>>6|192),n+=String.fromCharCode(63&o|128)):(n+=String.fromCharCode(o>>12|224),n+=String.fromCharCode(o>>6&63|128),n+=String.fromCharCode(63&o|128))}return n}var v,m,S,l,A,s,y,b,p,w=Array(),L=7,j=12,k=17,q=22,x=5,z=9,B=14,D=20,E=4,F=11,G=16,H=23,I=6,J=10,K=15,M=21;for(r=d(r),w=g(r),s=1732584193,y=4023233417,b=2562383102,p=271733878,v=0;v<w.length;v+=16)m=s,S=y,l=b,A=p,s=i(s,y,b,p,w[v+0],L,3614090360),p=i(p,s,y,b,w[v+1],j,3905402710),b=i(b,p,s,y,w[v+2],k,606105819),y=i(y,b,p,s,w[v+3],q,3250441966),s=i(s,y,b,p,w[v+4],L,4118548399),p=i(p,s,y,b,w[v+5],j,1200080426),b=i(b,p,s,y,w[v+6],k,2821735955),y=i(y,b,p,s,w[v+7],q,4249261313),s=i(s,y,b,p,w[v+8],L,1770035416),p=i(p,s,y,b,w[v+9],j,2336552879),b=i(b,p,s,y,w[v+10],k,4294925233),y=i(y,b,p,s,w[v+11],q,2304563134),s=i(s,y,b,p,w[v+12],L,1804603682),p=i(p,s,y,b,w[v+13],j,4254626195),b=i(b,p,s,y,w[v+14],k,2792965006),y=i(y,b,p,s,w[v+15],q,1236535329),s=a(s,y,b,p,w[v+1],x,4129170786),p=a(p,s,y,b,w[v+6],z,3225465664),b=a(b,p,s,y,w[v+11],B,643717713),y=a(y,b,p,s,w[v+0],D,3921069994),s=a(s,y,b,p,w[v+5],x,3593408605),p=a(p,s,y,b,w[v+10],z,38016083),b=a(b,p,s,y,w[v+15],B,3634488961),y=a(y,b,p,s,w[v+4],D,3889429448),s=a(s,y,b,p,w[v+9],x,568446438),p=a(p,s,y,b,w[v+14],z,3275163606),b=a(b,p,s,y,w[v+3],B,4107603335),y=a(y,b,p,s,w[v+8],D,1163531501),s=a(s,y,b,p,w[v+13],x,2850285829),p=a(p,s,y,b,w[v+2],z,4243563512),b=a(b,p,s,y,w[v+7],B,1735328473),y=a(y,b,p,s,w[v+12],D,2368359562),s=c(s,y,b,p,w[v+5],E,4294588738),p=c(p,s,y,b,w[v+8],F,2272392833),b=c(b,p,s,y,w[v+11],G,1839030562),y=c(y,b,p,s,w[v+14],H,4259657740),s=c(s,y,b,p,w[v+1],E,2763975236),p=c(p,s,y,b,w[v+4],F,1272893353),b=c(b,p,s,y,w[v+7],G,4139469664),y=c(y,b,p,s,w[v+10],H,3200236656),s=c(s,y,b,p,w[v+13],E,681279174),p=c(p,s,y,b,w[v+0],F,3936430074),b=c(b,p,s,y,w[v+3],G,3572445317),y=c(y,b,p,s,w[v+6],H,76029189),s=c(s,y,b,p,w[v+9],E,3654602809),p=c(p,s,y,b,w[v+12],F,3873151461),b=c(b,p,s,y,w[v+15],G,530742520),y=c(y,b,p,s,w[v+2],H,3299628645),s=C(s,y,b,p,w[v+0],I,4096336452),p=C(p,s,y,b,w[v+7],J,1126891415),b=C(b,p,s,y,w[v+14],K,2878612391),y=C(y,b,p,s,w[v+5],M,4237533241),s=C(s,y,b,p,w[v+12],I,1700485571),p=C(p,s,y,b,w[v+3],J,2399980690),b=C(b,p,s,y,w[v+10],K,4293915773),y=C(y,b,p,s,w[v+1],M,2240044497),s=C(s,y,b,p,w[v+8],I,1873313359),p=C(p,s,y,b,w[v+15],J,4264355552),b=C(b,p,s,y,w[v+6],K,2734768916),y=C(y,b,p,s,w[v+13],M,1309151649),s=C(s,y,b,p,w[v+4],I,4149444226),p=C(p,s,y,b,w[v+11],J,3174756917),b=C(b,p,s,y,w[v+2],K,718787259),y=C(y,b,p,s,w[v+9],M,3951481745),s=t(s,m),y=t(y,S),b=t(b,l),p=t(p,A);var N=h(s)+h(y)+h(b)+h(p);return N.toLowerCase()};
+//#////////////#// $.wAlert.okButton     = 'zaz';
+//# JS DIALOGS #// $.wAlert.cancelButton = 'Cancel';
+//#////////////#// wConfirm('Demo wConfirm Callback', 'Title', alert );
+!function(t){t.wAlert=function(e){var n=this;n._overlay=function(e){var n="number"==typeof e.get("zIndex")?parseInt(e.get("zIndex"),10):1e4,r=t("<div class='overlay'>").css("zIndex",n-1);t("body > .overlay").length?r=t("body > .overlay"):t("body").prepend(r);var o=t("<div id='wAlert_container'><div class='wAlert_message'><header class='wAlert_title'></header><p class='wAlert_content'></p></div><ul class='wAlert_buttons'></ul></div>").css("zIndex",n);return t("body > #wAlert_container").length?o=t("body > #wAlert_container"):t("body").prepend(o),e.get("customClass")&&o.addClass(e.get("customClass")),{overlay:r,wAlert_container:o}},n.reposition=function(e){var r=n._overlay(e),o="number"==typeof e.get("vOffset")?parseInt(e.get("vOffset"),10):0,l="number"==typeof e.get("hOffset")?parseInt(e.get("hOffset"),10):0,i=t(window).height()/2-r.wAlert_container.height()/2+o,a=t(window).width()/2-r.wAlert_container.width()/2+l;0>i&&(i=0),0>a&&(a=0);var s=t(document).height()<=t("body").height()?"absolute":"fixed";r.overlay.height(t(document).height()),r.wAlert_container.css({position:s,top:i,left:a}),r.overlay.height(t(document).height())},n.maintainPosition=function(e){if(t.wAlert.options.get("autoResize")){var r=function(){n.reposition(t.wAlert.options)};e?t(window).bind("resize.wAlert orientationchange.wAlert",r):t(window).unbind(".wAlert",r)}},n._show=function(e,r,o,l,i){n._hide(!1),n.maintainPosition(!0);var a=n._overlay(t.wAlert.options);t.wAlert.dialogClass&&a.wAlert_container.addClass(t.wAlert.dialogClass),a.wAlert_container.addClass(l);var s=t(".wAlert_message > .wAlert_title",a.wAlert_container);e?s.text(e):s.remove();var w=t(".wAlert_message > .wAlert_content",a.wAlert_container);r&&(w.text(r),w.html(w.text().replace(/\n/g,"<br />")));var c=t("<li id='wAlert_Cancel'></li>").text(t.wAlert.cancelButton),u=t("<li id='wAlert_Ok'></li>").text(t.wAlert.okButton),v=t("<input type='text' size='30' id='wAlert_Prompt' value='' />");t.wAlert.options.get("isPlaceholder")?v.attr("placeholder",o).val(""):v.val(o?o:""),v.bind("keyup.wAlert",function(t){return 13==t.which&&u.trigger("click"),!1}),t("#wAlert_container > .wAlert_message *:not(.wAlert_title):not(.wAlert_content)").remove(),t("#wAlert_container > .wAlert_buttons").empty(),t("#wAlert_container > .wAlert_buttons").prepend(u),u.bind("click.wAlert",function(){var e="prompt"===l?""===t("#wAlert_Prompt").val()?!0:t("#wAlert_Prompt").val():!0;!!i&&i(e),n._hide(!0)}),("confirm"===l||"prompt"===l)&&(t("#wAlert_container > .wAlert_buttons").prepend(c),c.bind("click.wAlert",function(){var e="prompt"===l?""===t("#wAlert_Prompt").val()?!1:t("#wAlert_Prompt").val():!1;!!i&&i(e),n._hide(!0)})),n.reposition(t.wAlert.options);var g="number"==typeof t.wAlert.options.get("overlayOpacity")?t.wAlert.options.get("overlayOpacity"):.25;a.overlay.css("opacity",g>=0&&1>=g?g:.25).addClass("overlay_show"),a.wAlert_container.addClass("wAlert_container_show"),"prompt"===l&&(t("#wAlert_container > .wAlert_message").append(v),v.focus())},n._hide=function(e){n.maintainPosition(!1),t("body > #wAlert_container").remove(),t("body > .overlay").removeClass("overlay_show").removeAttr("style"),e&&(t.wAlert.dialogClass=null)},n._getFunction=function(t){for(var e=0;e<t.length;e++)if("function"==typeof t[e])return t[e];return null},n.tmv=[],n._getStrings=function(t){for(var e=0;e<t.length;e++)n.tmv.length<3&&("string"==typeof t[e]||"number"==typeof t[e]||"boolean"==typeof t[e])&&n.tmv.push(t[e].toString())},window.wMsg=function(){n._getStrings(arguments),n._show(n.tmv.length>=2?n.tmv[1]:null,n.tmv.length>=1?n.tmv[0]:null,null,"msg",n._getFunction(arguments)),n.tmv=[]},window.wAlert=function(){n._getStrings(arguments),n._show(n.tmv.length>=2?n.tmv[1]:"Alert",n.tmv.length>=1?n.tmv[0]:null,null,"alert",n._getFunction(arguments)),n.tmv=[]},window.wConfirm=function(){n._getStrings(arguments),n._show(n.tmv.length>=2?n.tmv[1]:"Confirm",n.tmv.length>=1?n.tmv[0]:null,null,"confirm",n._getFunction(arguments)),n.tmv=[]},window.wPrompt=function(){n._getStrings(arguments),n._show(n.tmv.length>=2?n.tmv[1]:"Prompt",n.tmv.length>=1?n.tmv[0]:null,n.tmv.length>=3?n.tmv[2]:"","prompt",n._getFunction(arguments)),n.tmv=[]},n.init=function(e){t.wAlert.options=function(){var n=t.extend({},t.wAlert.defaultOptions,e);return{setisPlaceholder:function(t){n.isPlaceholder=!!t},get:function(t){return n[t]}}}()},n.init(e)},t.wAlert.okButton=" OK ",t.wAlert.cancelButton=" Cancel ",t.wAlert.defaultOptions={zIndex:1e4,overlayOpacity:.25,vOffset:0,hOffset:0,autoResize:!0,isPlaceholder:!1,customClass:"ios"},t.wAlert.autoExe=!0,t(function(){try{!!t.wAlert.autoExe&&t.wAlert()}catch(e){!!console&&console.warn(e),console.log("Auto Exe jQuery.plugin.wAlert Failed.")}})}(jQuery);
 
+/*
+; (function ($) {
+    //wAlert Method
+    $.wAlert = function (opt) {
+        //Base.
+        var self = this;
+
+        //[Private methods]
+        //Overlay
+        self._overlay = function (option) {
+            //zIndex
+            var zIndex = typeof(option.get("zIndex")) === 'number' ? parseInt(option.get("zIndex"), 10) : 10000 ;
+            //if overlay not exists then Create
+            var overlay = $("<div class='overlay'>").css("zIndex", zIndex - 1);
+            if (!$("body > .overlay").length) {
+                $("body").prepend(overlay);
+            } else {
+                overlay = $("body > .overlay");
+            }
+            //if wAlert_container not exists then Create
+            var wAlert_container = $("<div id='wAlert_container'>" +
+                "<div class='wAlert_message'>" +
+                    "<header class='wAlert_title'></header>" +
+                    "<p class='wAlert_content'></p>" +
+                "</div>" +
+                "<ul class='wAlert_buttons'>" +
+                "</ul>" +
+            "</div>").css("zIndex", zIndex);
+            if (!$("body > #wAlert_container").length) {
+                $("body").prepend(wAlert_container);
+            } else {
+                wAlert_container = $("body > #wAlert_container");
+            }
+            //Custom Class
+            if (!!option.get("customClass")) { wAlert_container.addClass(option.get("customClass")); }
+            //return
+            return { overlay: overlay, wAlert_container: wAlert_container };
+        };
+
+        //Reposition
+        self.reposition = function (option) {
+            //Set overlay
+            var obj = self._overlay(option);
+            //zIndex
+            var vOffset = typeof(option.get("vOffset")) === 'number' ? parseInt(option.get("vOffset"), 10) : 0 ;
+            var hOffset = typeof(option.get("hOffset")) === 'number' ? parseInt(option.get("hOffset"), 10) : 0 ;
+            //Window's width/2 & height/2 - alert width/2 & height/2 + Offset = alert top & left Offset
+            var top = ( ($(window).height() / 2) - (obj.wAlert_container.height() / 2) ) + vOffset;
+            var left = ( ($(window).width() / 2) - (obj.wAlert_container.width() / 2) ) + hOffset;
+            if (top < 0) top = 0;
+            if (left < 0) left = 0;
+            //Position
+            var position = ($(document).height() <= $("body").height()) ? "absolute" : "fixed";
+            //Reset Css
+            obj.overlay.height($(document).height());
+            obj.wAlert_container.css({ "position": position, "top": top, "left": left });
+            //Reset Overlay Height
+            obj.overlay.height($(document).height());
+        };
+
+        //Maintain Position
+        self.maintainPosition = function (_switch) {
+            if (!!$.wAlert.options.get("autoResize")) {
+                var maintainPosition = function () {
+                    self.reposition($.wAlert.options)
+                };
+                //resize or orientationchange will Auto Resize
+                if (!!_switch) {
+                    $(window).bind("resize.wAlert orientationchange.wAlert", maintainPosition);
+                } else {
+                    $(window).unbind(".wAlert", maintainPosition);
+                }
+            }
+        };
+
+        //Show
+        self._show = function (title, msg, value, type, callback) {
+            //Hide Before Show
+            self._hide(false);
+            //Maintain Position
+            self.maintainPosition(true);
+            //if overlay not exists then Create
+            var _overlay = self._overlay($.wAlert.options);
+            //wAlert_container add Custom Class
+            if ($.wAlert.dialogClass) _overlay.wAlert_container.addClass($.wAlert.dialogClass);
+            _overlay.wAlert_container.addClass(type);
+            //Title Display
+            var _title = $(".wAlert_message > .wAlert_title", _overlay.wAlert_container);
+            if (!!title) { _title.text(title); } else { _title.remove(); }
+            //Message Display
+            var _container = $(".wAlert_message > .wAlert_content", _overlay.wAlert_container);
+            if (!!msg) {
+                _container.text(msg);
+                _container.html(_container.text().replace(/\n/g, '<br />'));
+            }
+            //Button
+            var _Cancel = $("<li id='wAlert_Cancel'></li>").text($.wAlert.cancelButton);
+            var _Ok = $("<li id='wAlert_Ok'></li>").text($.wAlert.okButton);
+            //Prompt
+            var _Prompt = $("<input type='text' size='30' id='wAlert_Prompt' value='' />");
+            !!$.wAlert.options.get("isPlaceholder") ? _Prompt.attr("placeholder", value).val("") : !!value ? _Prompt.val(value) : _Prompt.val("");
+            _Prompt.bind("keyup.wAlert", function(event) {
+                if (event.which == 13) _Ok.trigger('click');
+                return false;
+            });
+            //Clear
+            $("#wAlert_container > .wAlert_message *:not(.wAlert_title):not(.wAlert_content)").remove();
+            $("#wAlert_container > .wAlert_buttons").empty();
+            //Add Ok Button
+            $("#wAlert_container > .wAlert_buttons").prepend(_Ok);
+            _Ok.bind("click.wAlert", function () {
+                var _value = (type === "prompt") ? $("#wAlert_Prompt").val() === "" ? true : $("#wAlert_Prompt").val() : true;
+                !!callback && callback(_value);
+                self._hide(true);
+            });
+            //Add Cancel Button
+            if (type === "confirm" || type === "prompt") {
+                $("#wAlert_container > .wAlert_buttons").prepend(_Cancel);
+                _Cancel.bind("click.wAlert", function () {
+                    var _value = (type === "prompt") ? $("#wAlert_Prompt").val() === "" ? false : $("#wAlert_Prompt").val() : false;
+                    !!callback && callback(_value);
+                    self._hide(true);
+                });
+            }
+            //Reposition
+            self.reposition($.wAlert.options);
+            //Show
+            var opacity = typeof($.wAlert.options.get("overlayOpacity")) === 'number' ? $.wAlert.options.get("overlayOpacity") : 0.25;
+            _overlay.overlay.css("opacity", opacity >=0 && opacity <= 1 ? opacity : 0.25 ).addClass("overlay_show");
+            _overlay.wAlert_container.addClass("wAlert_container_show");
+            //Add Prompt Button
+            if (type === "prompt") {
+                $("#wAlert_container > .wAlert_message").append(_Prompt);
+                _Prompt.focus();
+            }
+        };
+
+        //Hide
+        self._hide = function (autoResetDialogClass) {
+            //Stop Maintain Position
+            self.maintainPosition(false);
+            //Remove
+            $("body > #wAlert_container").remove();
+            $("body > .overlay").removeClass("overlay_show").removeAttr("style");
+            //Auto Reset Dialog Class
+            if (autoResetDialogClass) $.wAlert.dialogClass = null;
+        };
+
+        self._getFunction = function (args) {
+            for (var i = 0; i < args.length; i++)
+            {
+                if (typeof(args[i]) === 'function') {
+                    return args[i];
+                }
+            }
+            return null;
+        }
+
+        self.tmv = [];
+        self._getStrings = function (args) {
+            for (var i = 0; i < args.length; i++)
+            {
+                if (self.tmv.length < 3 && (typeof(args[i]) === 'string' || typeof(args[i]) === 'number' || typeof(args[i]) === 'boolean') )
+                {
+                    self.tmv.push(args[i].toString());
+                }
+            }
+        }
+
+        //[Public methods]
+        //No Header
+        window.wMsg = function wMsg(message, title, callback) {
+            self._getStrings(arguments);
+            self._show(self.tmv.length >= 2 ? self.tmv[1] : null, self.tmv.length >= 1 ? self.tmv[0] : null, null, 'msg', self._getFunction(arguments));
+            self.tmv = [];
+        };
+        window.wAlert = function wAlert(message, title, callback) {
+            self._getStrings(arguments);
+            self._show(self.tmv.length >= 2 ? self.tmv[1] : 'Alert', self.tmv.length >= 1 ? self.tmv[0] : null, null, 'alert', self._getFunction(arguments));
+            self.tmv = [];
+        };
+        window.wConfirm = function wConfirm(message, title, callback) {
+            self._getStrings(arguments);
+            self._show(self.tmv.length >= 2 ? self.tmv[1] : 'Confirm', self.tmv.length >= 1 ? self.tmv[0] : null, null, 'confirm', self._getFunction(arguments));
+            self.tmv = [];
+        };
+        window.wPrompt = function wPrompt() {
+            self._getStrings(arguments);
+            self._show(self.tmv.length >= 2 ? self.tmv[1] : 'Prompt', self.tmv.length >= 1 ? self.tmv[0] : null, self.tmv.length >= 3 ? self.tmv[2] : "", 'prompt', self._getFunction(arguments));
+            self.tmv = [];
+        };
+
+        //Init
+        self.init = function (options) {
+            //Set Options
+            $.wAlert.options = (function () {
+                var privateopt = $.extend({}, $.wAlert.defaultOptions, options);
+                return {
+                    setisPlaceholder: function(bool) {privateopt["isPlaceholder"] = !!bool},
+                    get: function (name) { return privateopt[name]; }
+                };
+            })();
+        };
+        self.init(opt);
+    };
+
+    //wAlert Default Options
+    $.wAlert.okButton = ' OK ';             //Ok Button Default Text
+    $.wAlert.cancelButton = ' Cancel ';     //Cancel Button Default Text
+    $.wAlert.defaultOptions = {
+        zIndex: 10000,                       //Default z-index 10000
+        overlayOpacity: .25,                //overlay(mask) Background Opacity
+
+        vOffset: 0,                         //Vertical Offset
+        hOffset: 0,                         //Horizontal Offset
+
+        autoResize: true,                   //Auto Resize
+        isPlaceholder: false,               //wPrompt's value is Placeholder?
+
+        customClass: "ios"                  //Default Style
+    };
+
+    //wAlert Auto Exe
+    $.wAlert.autoExe = true;                //true: auto Exe Plugin
+
+    //wAlert Auto Exe
+    $(function() {
+        try {
+            !!$.wAlert.autoExe && $.wAlert();
+        } catch (err) {
+            !!console && console.warn(err); console.log("Auto Exe jQuery.plugin.wAlert Failed.");
+        }
+    });
+})(jQuery);
+*/

@@ -71,12 +71,12 @@ window.onerror = function (e, url, line) {
 	//auto restart
 	if ((/Exception 18/i).test(e)) {
 		setTimeout(function () {
-			if (typeof window.MyReload !== 'undefined') {
-				window.MyReload.reloadActivity();
+			if(typeof window.MyReload !== 'undefined') {
+				(function() { try { window.MyReload.reloadActivity(); } catch(e) { window.location.reload(true); }})();
 			} else {
 				window.location.reload(true);
 			}
-		}, 1000);
+		}, 100);
 	}
 };
 //##//////////////##
