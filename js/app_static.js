@@ -273,7 +273,6 @@ $('#appFooter li').on(touchstart, function(evt) {
 ////////////////
 // OVERSCROLL //
 ////////////////
-/*
 $(document).scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
@@ -281,6 +280,10 @@ $(document).scroll(function(evt) {
 $(window).scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();
+});
+$('html').scroll(function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
 });
 $('body').scroll(function(evt) {
 	evt.preventDefault();
@@ -294,11 +297,14 @@ $(window).on('dblclick',function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
 });
+$('html').on('dblclick',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
 $('body').on('dblclick',function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
 });
-*/
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////

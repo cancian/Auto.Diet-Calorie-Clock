@@ -71,8 +71,9 @@ window.onerror = function (e, url, line) {
 	//auto restart
 	if ((/Exception 18/i).test(e)) {
 		setTimeout(function () {
+			//RELOAD
 			if(typeof window.MyReload !== 'undefined') {
-				(function() { try { window.MyReload.reloadActivity(); } catch(e) { window.location.reload(true); }})();
+				try { window.location.reload(true); } catch(e) { window.MyReload.reloadActivity(); }
 			} else {
 				window.location.reload(true);
 			}
