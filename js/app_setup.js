@@ -1619,8 +1619,10 @@ function buildHelpMenu(args) {
 		var subTitle   = $('#' + targetId + ' .topicTitle').html();
 		var subContent = $('#' + targetId + ' .topicContent').html();
 		//BUILD SUB-CONTENT
-		$('#appHelper').after('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
-		$('#appSubHelper').hide();
+		app.safeExec(function() {
+			$('#appHelper').after('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
+		});
+		$('#appSubHelper').hide();		
 		$('#appSubHelper').css('top',($('#appHeader').height()) + 'px');
 		$('#appSubHelper').height($('#appContent').height());
 		$('#appSubHelper').css('bottom',($('#appFooter').height()) + 'px');		

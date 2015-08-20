@@ -6840,7 +6840,7 @@ var LANG = {
 <p id="tabHelp" class="hidden">For more information on how to take full advantage of this app, be sure to check the<span id="openHelp" class="blue bold"> help section</span>.</p>',
 
 'Video Presentation':
-'<p align="center"><iframe width="560" height="315" id="appVideo"  src="https://www.youtube.com/embed/Px3gXf1GOrQ" frameborder="0" allowfullscreen></iframe></p>',
+'<p align="center"><iframe width="560" height="315" id="appVideo" src="http://www.youtube.com/embed/Px3gXf1GOrQ" frameborder="0" allowfullscreen></iframe></p>',
 
 'Getting started' : 
 '<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? KCals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p><p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p><p>Then you should define a weight loss rate, given in lb/kg per week.</p><p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p><p>Now hit start, and the app will show how many calories you have burned over time, so you’ll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p><p>For instance:</p><p>2400 per day / 24 hours = 100 calories per hour</p><p>So, after 30 minutes, the counter will indicate your caloric balance is “-50”. Its that simple!</p><p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>',
