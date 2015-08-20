@@ -679,6 +679,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appVideo								{ border: 1px solid #aaa; background-color: #555; display: block; }
 .appVideo								{ display: block; background-color: rgba(0,0,0,0); margin: 0; }
 #videoLink								{ text-align: center; font-size: 16px; color: #007aff; display: block; padding: 14px; }
+#videoLink:active						{ color: #ccc; }
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
