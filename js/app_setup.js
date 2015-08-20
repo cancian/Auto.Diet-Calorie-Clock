@@ -1950,8 +1950,9 @@ function niceResizer(timeout,callback) {
 // GETNICESCROLL //
 ///////////////////
 function getNiceScroll(target,timeout,callback) {
-	if(!$.nicescroll) { return; }
-	if(!timeout)	  { timeout = 0; }
+	if(!$.nicescroll)		{ return; }
+	if(!app.exists(target)) { return; }
+	if(!timeout)	  		{ timeout = 0; }
 	//quick scrolling / prevent scrollbar
 	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
 		$(target).removeClass('overthrow');
@@ -1968,7 +1969,7 @@ function getNiceScroll(target,timeout,callback) {
 		touchbehavior: false,
 		nativeparentscrolling: false,
 		cursorcolor: 'rgba(0,0,0,1)',
-		cursorborderradius: '5px',
+		cursorborderradius: '6px',
 		railpadding: { right: 1, bottom: 1},
 		cursorborder: '1px solid rgba(0,0,0,0)',
 		cursoropacitymax: .5,
