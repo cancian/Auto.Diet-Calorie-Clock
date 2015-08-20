@@ -676,6 +676,9 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 @media all and (min-width: 480px)		{ #appVideo	{ width: 420px; height: 250px; display: block; }}
 @media all and (min-width: 640px)		{ #appVideo	{ width: 560px; height: 320px; display: block; }}
 @media all and (min-width: 1024px)		{ #appVideo	{ width: 720px; height: 420px; display: block; }}
+#appVideo								{ border: 1px solid #aaa; background-color: #555; display: block; }
+.appVideo								{ display: block; background-color: rgba(0,0,0,0); margin: 0; }
+#videoLink								{ text-align: center; font-size: 16px; color: #007aff; display: block; padding: 14px; }
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
