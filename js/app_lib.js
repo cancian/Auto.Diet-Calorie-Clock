@@ -1027,6 +1027,10 @@ app.handlers = {
 				rowSql = ' ';	
 			}
 			rowSql = rowSql.split('undefined').join('');
+			//BACKWARD FIX BROKEN SQL
+			rowSql = rowSql.split("'0,").join("'0',");
+			rowSql = rowSql.split("'custom,").join("'custom',");
+			rowSql = rowSql.split("'fav,").join("'fav',");
 			//
 			if(filter === 'fav') {
 				app.save('customFavSql', rowSql);
