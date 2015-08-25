@@ -89,19 +89,13 @@ var app = {
 		//
 		//localforage wrapper
 		if(/diary_entry|diary_food/i.test(key)) {
-			if(typeof localforageDB !== 'undefined') {
-				localforage.getItem(key,function(err, rows) {
-					if(err) {
-						errorHandler(err);
-					} else {
-						app.returner(value,rows);
-					}
-				});
-			} else {
-				localforage.getItem(key,function(rows) {
+			localforage.getItem(key,function(err, rows) {
+				if(err) {
+					errorHandler(err);
+				} else {
 					app.returner(value,rows);
-				});
-			}
+				}
+			});
 			return;
 		}
 		//
@@ -247,54 +241,6 @@ var app = {
 			$(target).css('pointer-events','auto');
 		}, time);
 	}
-};
-///////////////////
-// CUSTOM JQUERY //
-///////////////////
-$.prototype.html2 = function (data, callback) {
-	var obj = $(this);
-	safeExec(function () {
-		obj.html(data);
-		if (typeof callback === 'function') {
-			callback();
-		}
-	});
-};
-$.prototype.append2 = function (data, callback) {
-	var obj = $(this);
-	safeExec(function () {
-		obj.append(data);
-		if (typeof callback === 'function') {
-			callback();
-		}
-	});
-};
-$.prototype.prepend2 = function (data, callback) {
-	var obj = $(this);
-	safeExec(function () {
-		obj.prepend(data);
-		if (typeof callback === 'function') {
-			callback();
-		}
-	});
-};
-$.prototype.before2 = function (data, callback) {
-	var obj = $(this);
-	safeExec(function () {
-		obj.before(data);
-		if (typeof callback === 'function') {
-			callback();
-		}
-	});
-};
-$.prototype.after2 = function (data, callback) {
-	var obj = $(this);
-	safeExec(function () {
-		obj.after(data);
-		if (typeof callback === 'function') {
-			callback();
-		}
-	});
 };
 /////////////////
 // SWITCH USER //
@@ -497,6 +443,82 @@ app.reboot = function(type,error) {
 			window.location.reload(true);
 		}
 	},timeout);
+};
+///////////////////
+// CUSTOM JQUERY //
+///////////////////
+$.prototype.html2 = function (data, callback) {
+	var obj = $(this);
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
+			obj.html(data);
+		});
+	} else {
+		obj.html(data);
+	}
+	//CALLBACK
+	if (typeof callback === 'function') {
+		callback();
+	}
+
+};
+$.prototype.append2 = function (data, callback) {
+	var obj = $(this);
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
+			append.after(data);
+		});
+	} else {
+		obj.append(data);
+	}
+	//CALLBACK
+	if (typeof callback === 'function') {
+		callback();
+	}
+
+};
+$.prototype.prepend2 = function (data, callback) {
+	var obj = $(this);
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
+			obj.prepend(data);
+		});
+	} else {
+		obj.prepend(data);
+	}
+	//CALLBACK
+	if (typeof callback === 'function') {
+		callback();
+	}
+
+};
+$.prototype.before2 = function (data, callback) {
+	var obj = $(this);
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
+			obj.before(data);
+		});
+	} else {
+		obj.before(data);
+	}
+	//CALLBACK
+	if (typeof callback === 'function') {
+		callback();
+	}
+};
+$.prototype.after2 = function (data, callback) {
+	var obj = $(this);
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
+			obj.after(data);
+		});
+	} else {
+		obj.after(data);
+	}
+	//CALLBACK
+	if (typeof callback === 'function') {
+		callback();
+	}
 };
 //////////
 // ZOOM //
@@ -1990,13 +2012,8 @@ function appConfirm(title, msg, callback, ok, cancel) {
 			}
 			md.showAsync()
 			.then(function (command) {
-				if(typeof command !== 'undefined') {
-					if (command.label == ok) {
-						callback(2);
-					}
-					if (command.label == cancel) {
-						callback(1);
-					}
+				if(typeof command !== 'undefined' && typeof command !== 'null') {
+					if (command.label == ok) { callback(2); } else if (command.label == cancel) { callback(1); }
 				}
 			})
 			.done(function () {

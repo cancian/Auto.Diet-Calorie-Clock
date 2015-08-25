@@ -11,7 +11,7 @@ $.ajaxSetup({cache: false, crossDomain: true, async:true, error: function(jqXHR,
 	else if (exception === 'abort')       { console.log('Ajax request aborted.');                  }
 	else                                  { console.log('Uncaught Error.\n' + jqXHR.responseText); }
 	setTimeout(function() {
-		if(typeof spinner !== 'undefined') {
+		if(typeof spinner === 'function') {
 			$('body').removeClass('insync');
 			$('body').removeClass('setpush');
 			spinner('stop');
