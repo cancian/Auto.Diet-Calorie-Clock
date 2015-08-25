@@ -1218,7 +1218,9 @@ div#noEntries						{ height: 45px !important; }
 .msie #pageSlideFood.busy #foodList { overflow: hidden !important; /*-webkit-backface-visibility: hidden;*/ }
 /*food search*/
 input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; background-color: #fff; }
-.moz input#foodSearch		{ line-height: 24px; }
+#foodSearchLabel:before		{ content: '\F050'; font-family: KCals; display: inline-block; position: absolute; left: 5px; top: 20px; color: #007aff; z-index: 1000; font-size: 20px; }
+#foodSearchLabel:active		{ color: #ccc; }
+.moz input1#foodSearch		{ line-height: 24px; }
 .newwindow input#foodSearch	{ pointer-events: none; }
 input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-height: 21px; }
 .appLang-pl input#foodSearch,

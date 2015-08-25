@@ -219,9 +219,6 @@ afterTab = function(keepOpen) {
 	}
 	//NO 50ms FLICKER
 	appResizer(100);
-	app.timeout('tab',1000,function() {
-		app.analytics('tab');
-	});
 	//enforce removal
 	if(!$('#skipIntro').length) {
 		if(typeof myScroll !== 'undefined') {

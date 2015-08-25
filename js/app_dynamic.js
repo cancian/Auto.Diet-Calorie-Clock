@@ -594,7 +594,7 @@ $(document).on("pageReload", function (evt) {
 						///////////////
 						// FOOD HTML //
 						///////////////
-						$("#pageSlideFood").html2('<div id="sideMenuFood"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG.FOOD_SEARCH[lang] + '" /><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG.NO_MATCHES[lang] + '</span></div></div></div>');
+						$("#pageSlideFood").html2('<div id="sideMenuFood"><label id="foodSearchLabel" for="foodSearch"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG.FOOD_SEARCH[lang] + '" /></label><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG.NO_MATCHES[lang] + '</span></div></div></div>');
 						//PRE-ADJUST RESULTS HEIGHT
 						$('#foodSearch').width($('body').width() - 55);
 						buildFoodMenu();
