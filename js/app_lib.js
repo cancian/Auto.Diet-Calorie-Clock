@@ -466,7 +466,7 @@ $.prototype.append2 = function (data, callback) {
 	var obj = $(this);
 	if (app.device.msapp) {
 		MSApp.execUnsafeLocalFunction(function () {
-			append.after(data);
+			obj.append(data);
 		});
 	} else {
 		obj.append(data);
