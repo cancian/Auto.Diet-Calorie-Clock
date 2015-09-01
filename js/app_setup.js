@@ -198,6 +198,7 @@ function initDB(t) {
 	app.define('config_limit_2',600);
 	app.define('app_zoom',1);
 	app.define('appStatus','stopped');
+	app.define('app_counter_mode','regressive');
 	///////////
 	// START //
 	///////////
@@ -259,19 +260,21 @@ function localStorageSql() {
 		app.resetCounter();
 	}
 	//daily
-	if(app.read('config_kcals_type'))  { keyList = keyList + '#@@@#' + 'config_kcals_type'  + '#@@#' + app.read('config_kcals_type');  }
-	if(app.read('config_kcals_day_0')) { keyList = keyList + '#@@@#' + 'config_kcals_day_0' + '#@@#' + app.read('config_kcals_day_0'); }
-	if(app.read('config_kcals_day_1')) { keyList = keyList + '#@@@#' + 'config_kcals_day_1' + '#@@#' + app.read('config_kcals_day_1'); }
-	if(app.read('config_kcals_day_2')) { keyList = keyList + '#@@@#' + 'config_kcals_day_2' + '#@@#' + app.read('config_kcals_day_2'); }
-	if(app.read('config_measurement')) { keyList = keyList + '#@@@#' + 'config_measurement' + '#@@#' + app.read('config_measurement'); }
-	if(app.read('config_limit_1'))     { keyList = keyList + '#@@@#' + 'config_limit_1'     + '#@@#' + app.read('config_limit_1');     }
-	if(app.read('config_limit_2'))     { keyList = keyList + '#@@@#' + 'config_limit_2'     + '#@@#' + app.read('config_limit_2');     }	
-	//nutrients
-	if(app.read('appNutrients'))	   { keyList = keyList + '#@@@#' + 'appNutrients' + '#@@#' + app.read('appNutrients');             }
-	if(app.read('appRatioBy'))	       { keyList = keyList + '#@@@#' + 'appRatioBy'   + '#@@#' + app.read('appRatioBy');               }
-	if(!isNaN(app.read('appNutrientTimeSpan'))) { keyList = keyList + '#@@@#' + 'appNutrientTimeSpan' +'#@@#'+ JSON.stringify(app.read('appNutrientTimeSpan')); }
+	if(app.read('config_kcals_type'))	{ keyList = keyList + '#@@@#' + 'config_kcals_type'  + '#@@#' + app.read('config_kcals_type');  }
+	if(app.read('config_kcals_day_0'))	{ keyList = keyList + '#@@@#' + 'config_kcals_day_0' + '#@@#' + app.read('config_kcals_day_0'); }
+	if(app.read('config_kcals_day_1'))	{ keyList = keyList + '#@@@#' + 'config_kcals_day_1' + '#@@#' + app.read('config_kcals_day_1'); }
+	if(app.read('config_kcals_day_2'))	{ keyList = keyList + '#@@@#' + 'config_kcals_day_2' + '#@@#' + app.read('config_kcals_day_2'); }
+	if(app.read('config_measurement'))	{ keyList = keyList + '#@@@#' + 'config_measurement' + '#@@#' + app.read('config_measurement'); }
+	if(app.read('config_limit_1'))		{ keyList = keyList + '#@@@#' + 'config_limit_1'     + '#@@#' + app.read('config_limit_1');     }
+	if(app.read('config_limit_2'))		{ keyList = keyList + '#@@@#' + 'config_limit_2'     + '#@@#' + app.read('config_limit_2');     }
+	//counter mode
+	if(app.read('app_counter_mode'))	{ keyList = keyList + '#@@@#' + 'app_counter_mode' + '#@@#' + app.read('app_counter_mode');		}
 	//recents
-	if(app.read('app_recent_items'))   { keyList = keyList + '#@@@#' + 'app_recent_items' + '#@@#' + app.read('app_recent_items');     }
+	if(app.read('app_recent_items'))	{ keyList = keyList + '#@@@#' + 'app_recent_items' + '#@@#' + app.read('app_recent_items');     }
+	//nutrients
+	if(app.read('appNutrients'))		{ keyList = keyList + '#@@@#' + 'appNutrients' + '#@@#' + app.read('appNutrients');             }
+	if(app.read('appRatioBy'))			{ keyList = keyList + '#@@@#' + 'appRatioBy'   + '#@@#' + app.read('appRatioBy');               }
+	if(!isNaN(app.read('appNutrientTimeSpan'))) { keyList = keyList + '#@@@#' + 'appNutrientTimeSpan' +'#@@#'+ JSON.stringify(app.read('appNutrientTimeSpan')); }
 	//notes
 	if(app.read('appNotes')) { 
 		keyList = keyList + '#@@@#' + 'appNotes' + '#@@#' + app.read('appNotes').replace(/(\n|\r\n)/g, '#@#').split('/*').join('/ *');

@@ -326,6 +326,7 @@ ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0
 ////////////////////////*/
 .contentTitle						{ display: block; font-weight: normal; color: #555; padding-top: 10px; padding-bottom: 2px; line-height: 16px;}
 .contentTitle span					{ display: block; font-weight: normal; opacity: 1; color: #aaa; font-size: 10px; white-space: nowrap; line-height: 13px;}
+#advancedCounterMode .contentTitle	{ pointer-events: none; }
 /*icons*/
 #optionMeasure .contentTitle:before	{ content: '\E060'; font-family: 'KCals'; }
 #optionUser .contentTitle:before	{ content: '\f007'; font-family: 'KCals'; }
@@ -423,6 +424,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #advancedReset							{ margin-bottom: 28px; color: #F22323; }
 #advancedReset.activeRow				{ background-color: #E86401 !important; color: #fff; }
 .osxapp.appLang-en #advancedAbout		{ display: none; }
+#advancedReload							{ margin-bottom: 28px; color: #007aff; }
 /*//////////////////
 // MULTIUSER MENU //
 //////////////////*/

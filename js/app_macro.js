@@ -1051,11 +1051,19 @@ function getLimitMenu() {
 			<div id='appLimit2Title'>" + LANG.LIMIT_UPPER[lang] + " <span>(" + LANG.SURPLUS[lang] + ")</span></div>\
 			<div id='appLimitInfo'><p>" + LANG.LIMIT_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + "</p></div>\
 		</div>\
+		<div id='appColorPicker'>\
+			<div id='appColorPickerSurplus'>"  + LANG.SURPLUS[lang]  + " <span id='colorSurplus'> O </span></div>\
+			<div id='appColorPickerBalanced'>" + LANG.BALANCED[lang] + " <span id='colorBalanced'> O </span></div>\
+			<div id='appColorPickerDeficit'>"  + LANG.DEFICIT[lang]  + " <span id='colorDeficit'> O </span></div>\
+		</div>\
 	</div>";
 	//////////////
 	// HANDLERS //
 	//////////////
 	var appLimitHandlers = function() {	
+	
+		//$("#appColorPicker").mobiscroll().color();
+	
 		/////////////////////
 		// CORE VALIDATION //
 		/////////////////////
@@ -1412,11 +1420,17 @@ function buildAdvancedMenu() {
 	///////////////
 	$('#advancedMenu').html2("\
 	<ul>\
-		<li id='advancedAutoUpdate'>" + LANG.AUTO_UPDATE[lang]    + "</li>\
-		<li id='advancedChangelog'>"  + LANG.CHANGELOG[lang]      + "</li>\
-		<li id='advancedReview'>"     + LANG.REVIEW[lang]         + "</li>\
-		<li id='advancedSuggestion'>" + LANG.SUGGESTION_BOX[lang] + "</li>\
-		<li id='advancedAbout'>"      + LANG.ABOUT[lang]          + "</li>\
+		<li id='advancedAutoUpdate'>"  + LANG.AUTO_UPDATE[lang]    + "</li>\
+		<li id='advancedCounterMode'><p class='contentTitle'>"     + LANG.COUNTING_MODE[lang] + "<span>" +	
+		(app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang]) + " (" + 
+		(app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang]) +
+		")</span></p></li>\
+	</ul>\
+	<ul>\
+		<li id='advancedChangelog'>"   + LANG.CHANGELOG[lang]      + "</li>\
+		<li id='advancedReview'>"      + LANG.REVIEW[lang]         + "</li>\
+		<li id='advancedSuggestion'>"  + LANG.SUGGESTION_BOX[lang] + "</li>\
+		<li id='advancedAbout'>"       + LANG.ABOUT[lang]          + "</li>\
 	</ul>\
 	<ul>\
 		<li id='advancedReload'>" + LANG.REBUILD_FOOD_DB[lang] + "</li>\
@@ -1735,6 +1749,39 @@ function buildAdvancedMenu() {
 			app.save('config_autoupdate','off');
 		}
 	});
+	//#//////////////////////#//
+	//# TOGGLE: COUNTER MODE #//
+	//#//////////////////////#//
+	//read stored
+	var storedCounterMode = app.read('app_counter_mode','progressive') ? 'checked' : '';
+	//append
+	$('#advancedCounterMode').append2('\
+		<div>\
+			<span id="appCounterModeButton"></span>\
+			<input id="appCounterModeToggle" class="toggle" type="checkbox" ' + storedCounterMode + '>\
+			<label for="appCounterModeToggle"></label>\
+		</div>\
+	');
+	//////////////////
+	// read changes //
+	//////////////////
+	$('#appCounterModeToggle').on('change',function(evt) {
+		if($('#appCounterModeToggle').prop('checked') == true) {
+			app.save('app_counter_mode','progressive');
+
+//		(app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang]) + " (" + 
+	//	(app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang]) +
+
+			//DOM MANIP
+		} else {
+			app.save('app_counter_mode','regressive');
+			//DOM MANIP
+//		(app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang]) + " (" + 
+	//	(app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang]) +
+
+		}
+	});	
+	
 }
 //##//////////////////##//
 //## GET CATEGORY~IES ##//

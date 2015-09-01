@@ -46,6 +46,7 @@ function appTimer(content) {
 	// UPDATE HEADER //
 	///////////////////
 	if($('#timerKcalsInput').val() != kcalsInput) {
+		if(app.read('app_counter_mode','progressive')) { kcalsInput = (kcalsInput*-1).toFixed(2); }
 		$('#timerKcalsInput').val(kcalsInput);
 		timerKcals = kcalsInput;
 	}
