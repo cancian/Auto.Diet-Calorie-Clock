@@ -95,11 +95,11 @@ body.android2 #appContent			{ /*top: 0; border-top: 65px solid rgba(0,0,0,0); -w
 /*status colors*/
 #appHeader					{ background-color: #fff; color: #fff !important; font-weight: 300; }
 /**/
-body.balanced #appHeader		{ background-color: #4496F1 !important; font-weight: 300; }
+body.balanced #appHeader		{ background-color: #4496F1; font-weight: 300; }
 body.deficit #appHeader,
-body.over.deficit #appHeader	{ background-color: #D50B09 !important; font-weight: 300; }
+body.over.deficit #appHeader	{ background-color: #D50B09; font-weight: 300; }
 body.surplus #appHeader,
-body.over.surplus #appHeader	{ background-color: #309030 !important; font-weight: 300; }
+body.over.surplus #appHeader	{ background-color: #309030; font-weight: 300; }
 /*////////////////
 // online users //
 ////////////////*/
@@ -601,10 +601,21 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 .android #appLimit input			{ text-indent: 0 !important; }
 #appLimit1Title 					{ position: absolute; top: 26px; left: 114px; width: 100px; font-size: 18px; line-height: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
 #appLimit2Title 					{ position: absolute; top: 67px; left: 114px; width: 100px; font-size: 18px; line-height: 18px; text-transform: uppercase; color: #309030; white-space: nowrap; font-weight: 300; }
-#appLimitInfo 						{ position: absolute; top: 120px; left: 24px; right: 24px; padding-bottom: 15px; font-size: 14px; }
+#appLimitInfo 						{ position: absolute; top: 110px; left: 27px; right: 24px; padding-bottom: 20px; font-size: 13px; color: #777; }
 #appLimit1Title span,
 #appLimit2Title span				{ position: absolute; bottom: -13px; left: 0; opacity: .75; font-size: 10px; line-height: 12px; color: #000; }
 #appLimitInfo p + p	 				{ margin-top: 18px; }
+/*#//////////////#//
+//# COLOR PICKER #//
+//#//////////////#*/
+#appColorPicker						{ position: absolute; top: 168px; left: 32px; right: 32px; white-space: nowrap; display: block; background-color: #f7f7f7; border: 1px solid #ddd; height: 146px; }
+#appColorPickerInputs				{ position: absolute; top: 0; left: 0; width: 80px; height: 50px; display: block; }
+#appColorPickerInputs span			{ padding: 8px; display: block; position: relative; }
+#appColorPickerSurplus,
+#appColorPickerBalanced,
+#appColorPickerDeficit				{ position: absolute; top: 13px; left: 67px; white-space: nowrap; font-size: 16px; text-transform: uppercase; color: #888; }
+.sp-choose							{ font-size: 18px !important; border: 0px solid #007aff !important; background-color: rgba(0,0,0,0) !important; background-image: none !important; color: #007aff !important; font-weight: normal !important; text-transform: uppercase !important; }
+a.sp-cancel							{ font-size: 18px !important; color: #888 !important; font-weight: normal !important; padding-right: 4px !important; }
 /*#///////////#//
 //# GET ENTRY #//
 //#///////////#*/

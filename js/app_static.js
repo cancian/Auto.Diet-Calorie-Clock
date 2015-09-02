@@ -202,6 +202,7 @@ afterTab = function(keepOpen) {
 	$('#appContent').css('pointer-events','auto');
 	$('body').removeClass('newwindow');
 	//
+	$('.sp-picker-container').remove();
 	$('#langSelect').remove();
 	$('#newWindowWrapper').remove();
 	$('#advancedMenuWrapper').remove();

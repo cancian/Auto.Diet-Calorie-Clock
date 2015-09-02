@@ -16,15 +16,18 @@
 • Alternative diary view with entries ordered by nutrients
 • Daily tips
 
+# 1.9.8 [2015/09/01]
+• Users can now customize the colors of the caloric balance status (deficit/balanced/surplus)
+• Added a "Counting Mode" option to settings, allowing users to switch between the caloric balance as a Count Up ("calories available") or as a Countdown ("calorie usage"). The app defaults to Countdown mode. (English-only, translations are in progress)
+
 # 1.9.7 [2015/08/13]
-• Added a "Counting Mode" switch to settings, allowing users to define the caloric balance as a Count Up ("calories available" mode) or a Countdown ("metabolism simulator" mode). The app defaults to Countdown mode. (For now this feature is English-only, translations are in progress)
 • Added a video to the help section showing how to use the app
 • KCals was awarded the Bootstrap track by the FbStart program
 • Added e-mail authentication for users who do not use Facebook
 • The nutrient time span is now a synchronized setting
 • Fixed an issue with the viewport being rendered incorrectly
 • Added future dates to the diary dropdown so entries can be scheduled (future dates shown in red)
-• Replicated entries now inherit the date specificied in the diary dropdown
+• Replicated entries now inherit the date specified in the diary dropdown
 • Fixed some minor synchronization inconsistencies between running and stopped apps
 • Fixed an issue with the nutrients bar not showing correctly
 • Added a few self-healing methods for corrupted database entries

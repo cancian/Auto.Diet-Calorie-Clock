@@ -199,6 +199,9 @@ function initDB(t) {
 	app.define('app_zoom',1);
 	app.define('appStatus','stopped');
 	app.define('app_counter_mode','regressive');
+	app.define('colorDeficit','#D50B09');
+	app.define('colorBalanced','#4496F1');
+	app.define('colorSurplus','#309030');
 	///////////
 	// START //
 	///////////
@@ -269,6 +272,9 @@ function localStorageSql() {
 	if(app.read('config_limit_2'))		{ keyList = keyList + '#@@@#' + 'config_limit_2'     + '#@@#' + app.read('config_limit_2');     }
 	//counter mode
 	if(app.read('app_counter_mode'))	{ keyList = keyList + '#@@@#' + 'app_counter_mode' + '#@@#' + app.read('app_counter_mode');		}
+	if(app.read('colorDeficit'))		{ keyList = keyList + '#@@@#' + 'colorDeficit'     + '#@@#' + app.read('colorDeficit');			}
+	if(app.read('colorBalanced'))		{ keyList = keyList + '#@@@#' + 'colorBalanced'    + '#@@#' + app.read('colorBalanced');		}
+	if(app.read('colorSurplus'))		{ keyList = keyList + '#@@@#' + 'colorSurplus'     + '#@@#' + app.read('colorSurplus');			}
 	//recents
 	if(app.read('app_recent_items'))	{ keyList = keyList + '#@@@#' + 'app_recent_items' + '#@@#' + app.read('app_recent_items');     }
 	//nutrients

@@ -995,7 +995,12 @@ function balanceMeter(kcalsInput,update) {
 	if(!app.read('app_last_tab','tab1')) { return false; }
 	if(isNaN(parseInt(kcalsInput)))		 { return false; }
 	if(!kcalsInput)						 { return false; }
-	kcalsInput = kcalsInput*-1;
+	//COUNTER MODE
+	if(app.read('app_counter_mode','progressive')) {
+		kcalsInput = kcalsInput;
+	} else {
+		kcalsInput = kcalsInput*-1;
+	}
 	var balancePos = 0;
 	//GET DEFINED
 	var llim = app.read('config_limit_1');
@@ -1049,21 +1054,64 @@ function getLimitMenu() {
 			<div id='appLimit1Title'>" + LANG.LIMIT_LOWER[lang] + " <span>(" + LANG.DEFICIT[lang] + ")</span></div>\
 			<input id='appLimit2' type='number' value='" + app.read('config_limit_2') + "' />\
 			<div id='appLimit2Title'>" + LANG.LIMIT_UPPER[lang] + " <span>(" + LANG.SURPLUS[lang] + ")</span></div>\
-			<div id='appLimitInfo'><p>" + LANG.LIMIT_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + "</p></div>\
+			<div id='appLimitInfo'><p>*" + LANG.LIMIT_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + "</p></div>\
 		</div>\
 		<div id='appColorPicker'>\
-			<div id='appColorPickerSurplus'>"  + LANG.SURPLUS[lang]  + " <span id='colorSurplus'> O </span></div>\
-			<div id='appColorPickerBalanced'>" + LANG.BALANCED[lang] + " <span id='colorBalanced'> O </span></div>\
-			<div id='appColorPickerDeficit'>"  + LANG.DEFICIT[lang]  + " <span id='colorDeficit'> O </span></div>\
+			<div id='appColorPickerInputs'>\
+				<span><input id='colorDeficit'  /><div id='appColorPickerDeficit'>"  + LANG.DEFICIT[lang]  + "</div></span>\
+				<span><input id='colorBalanced' /><div id='appColorPickerBalanced'>" + LANG.BALANCED[lang] + "</div></span>\
+				<span><input id='colorSurplus'  /><div id='appColorPickerSurplus'>"  + LANG.SURPLUS[lang]  + "</div></span>\
+			</div>\
 		</div>\
 	</div>";
 	//////////////
 	// HANDLERS //
 	//////////////
 	var appLimitHandlers = function() {	
-	
-		//$("#appColorPicker").mobiscroll().color();
-	
+		$('#saveButton').hide();
+		//prevent propagation focus
+		$('#appLimit1').css('pointer-events','none');
+		$('#appLimit2').css('pointer-events','none');
+		setTimeout(function() {
+			$('#appLimit1').css('pointer-events','auto');
+			$('#appLimit2').css('pointer-events','auto');
+		},500);
+		//////////////////
+		// COLOR PICKER //
+		//////////////////
+		var pickerSettings = JSON.stringify({ color: '#XXXXXX', allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput' });
+		//INIT
+		$('#colorDeficit').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join(app.read('colorDeficit'))));
+		$('#colorBalanced').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join(app.read('colorBalanced'))));
+		$('#colorSurplus').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join(app.read('colorSurplus'))));
+		//ONCHANGE
+		$('#colorDeficit').on('change',function () {
+			if(!this.value) {
+				app.save('colorDeficit','#D50B09');
+				$('#colorDeficit').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#D50B09')));
+			} else {
+				app.save('colorDeficit',$('#colorDeficit').val());
+			}
+			app.updateColorPicker();
+		});
+		$('#colorBalanced').on('change',function () {
+			if(!this.value) {
+				app.save('colorBalanced','#4496F1');
+				$('#colorBalanced').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#4496F1')));
+			} else {
+				app.save('colorBalanced',$('#colorBalanced').val());
+			}
+			app.updateColorPicker();
+		});
+		$('#colorSurplus').on('change',function () {
+			if(!this.value) {
+				app.save('colorSurplus','#309030');
+				$('#colorSurplus').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#309030')));
+			} else {
+				app.save('colorSurplus',$('#colorSurplus').val());
+			}
+			app.updateColorPicker();
+		});
 		/////////////////////
 		// CORE VALIDATION //
 		/////////////////////
@@ -1076,6 +1124,9 @@ function getLimitMenu() {
 		//////////////
 		// TAP BLUR //
 		//////////////
+		
+		//trigger 
+		
 		$('#appLimit').on(touchend,function(evt) {
 			evt.stopPropagation();
 			if($('#appLimit1').is(':focus') || $('#appLimit2').is(':focus')) {
@@ -1086,6 +1137,9 @@ function getLimitMenu() {
 			if(evt.target.id != 'appLimit1' && evt.target.id != 'appLimit2') {
 				$('#appLimit1').blur();
 				$('#appLimit2').blur();
+				$('#colorDeficit').blur();
+				$('#colorBalanced').blur();
+				$('#colorSurplus').blur();
 			}
 		});
 	};
@@ -1093,6 +1147,7 @@ function getLimitMenu() {
 	// CONFIRM //
 	/////////////
 	var appLimitConfirm = function() {
+		$('.sp-picker-container').remove();
 		$('#appLimit1').blur();
 		$('#appLimit2').blur();
 		return true;
@@ -1100,7 +1155,7 @@ function getLimitMenu() {
 	/////////////////
 	// CALL WINDOW //
 	/////////////////
-	getNewWindow(LANG.CALORIC_THRESHOLD[lang],appLimitHtml,appLimitHandlers,'',appLimitConfirm);
+	getNewWindow(LANG.CALORIC_THRESHOLD[lang],appLimitHtml,appLimitHandlers,appLimitConfirm,appLimitConfirm);
 }
 //##/////////////##//
 //## GET ELAPSED ##//
@@ -1422,8 +1477,8 @@ function buildAdvancedMenu() {
 	<ul>\
 		<li id='advancedAutoUpdate'>"  + LANG.AUTO_UPDATE[lang]    + "</li>\
 		<li id='advancedCounterMode'><p class='contentTitle'>"     + LANG.COUNTING_MODE[lang] + "<span>" +	
-		(app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang]) + " (" + 
-		(app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang]) +
+		((app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang])).capitalize() + " (" + 
+		((app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang])).toLowerCase() +
 		")</span></p></li>\
 	</ul>\
 	<ul>\
@@ -1763,25 +1818,20 @@ function buildAdvancedMenu() {
 		</div>\
 	');
 	//////////////////
-	// read changes //
+	// READ CHANGES //
 	//////////////////
 	$('#appCounterModeToggle').on('change',function(evt) {
 		if($('#appCounterModeToggle').prop('checked') == true) {
 			app.save('app_counter_mode','progressive');
-
-//		(app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang]) + " (" + 
-	//	(app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang]) +
-
-			//DOM MANIP
+			//DOM
+			$('#advancedCounterMode .contentTitle span').html2((LANG.CALORIES_AVAILABLE[lang]).capitalize() + ' (' + (LANG.PROGRESSIVE[lang]).toLowerCase() + ')');
 		} else {
 			app.save('app_counter_mode','regressive');
-			//DOM MANIP
-//		(app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang]) + " (" + 
-	//	(app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang]) +
-
+			//DOM
+			$('#advancedCounterMode .contentTitle span').html2((LANG.CALORIE_USAGE[lang]).capitalize()      + ' (' + (LANG.REGRESSIVE[lang]).toLowerCase()  + ')');
 		}
-	});	
-	
+		setPush();
+	});
 }
 //##//////////////////##//
 //## GET CATEGORY~IES ##//
