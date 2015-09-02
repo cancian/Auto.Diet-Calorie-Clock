@@ -324,9 +324,9 @@ ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0
 /*////////////////////////
 // titles and subtitles //
 ////////////////////////*/
-.contentTitle						{ display: block; font-weight: normal; color: #555; padding-top: 10px; padding-bottom: 2px; line-height: 16px;}
+.contentTitle						{ display: block; font-weight: normal; color: #000; padding-top: 10px; padding-bottom: 2px; line-height: 16px;}
 .contentTitle span					{ display: block; font-weight: normal; opacity: 1; color: #aaa; font-size: 10px; white-space: nowrap; line-height: 13px;}
-#advancedCounterMode .contentTitle	{ pointer-events: none; }
+#advancedCounterMode .contentTitle	{ pointer-events: none; color: #000; }
 /*icons*/
 #optionMeasure .contentTitle:before	{ content: '\E060'; font-family: 'KCals'; }
 #optionUser .contentTitle:before	{ content: '\f007'; font-family: 'KCals'; }
@@ -615,7 +615,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #appColorPickerBalanced,
 #appColorPickerDeficit				{ position: absolute; top: 13px; left: 67px; white-space: nowrap; font-size: 16px; text-transform: uppercase; color: #888; }
 .sp-choose							{ font-size: 18px !important; border: 0px solid #007aff !important; background-color: rgba(0,0,0,0) !important; background-image: none !important; color: #007aff !important; font-weight: normal !important; text-transform: uppercase !important; }
-a.sp-cancel							{ font-size: 18px !important; color: #888 !important; font-weight: normal !important; padding-right: 4px !important; }
+.sp-cancel						`	{ font-size: 18px !important; color: #888 !important; font-weight: normal !important; padding-right: 4px !important; }
 /*#///////////#//
 //# GET ENTRY #//
 //#///////////#*/
@@ -915,7 +915,7 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 #calcForm input,
 #calcForm select 						{ width: 80px; min-width: 80px; font-size: 12px; line-height: 16px; color: #666; -webkit-appearance: none; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; height: 44px; background-color: rgba(0,0,0,0); }
 #calcForm .selectArrow					{ font-size: 12px; line-height: 44px; color: #666; border: none; text-indent: 0; padding: 0; margin: 0; display: inline-block; height: 44px; background-color: rgba(0,0,0,0); }
-.moz #calcForm select 				{ height: 16px; line-height: 12px; }
+.moz #calcForm select 					{ height: 16px; line-height: 12px; }
 #calcForm input							{ text-indent: 2px; }
 #calcForm select						{ text-indent: 3px; }
 #calcForm input							{ text-indent: 3px; }

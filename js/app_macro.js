@@ -1124,9 +1124,6 @@ function getLimitMenu() {
 		//////////////
 		// TAP BLUR //
 		//////////////
-		
-		//trigger 
-		
 		$('#appLimit').on(touchend,function(evt) {
 			evt.stopPropagation();
 			if($('#appLimit1').is(':focus') || $('#appLimit2').is(':focus')) {
@@ -1134,12 +1131,10 @@ function getLimitMenu() {
 					evt.preventDefault();
 				}
 			}
-			if(evt.target.id != 'appLimit1' && evt.target.id != 'appLimit2') {
+			if(evt.target.id != 'appLimit1' && evt.target.id != 'appLimit2' && evt.target.id != '') {
 				$('#appLimit1').blur();
 				$('#appLimit2').blur();
-				$('#colorDeficit').blur();
-				$('#colorBalanced').blur();
-				$('#colorSurplus').blur();
+				$('.sp-choose').click();
 			}
 		});
 	};
@@ -1147,9 +1142,9 @@ function getLimitMenu() {
 	// CONFIRM //
 	/////////////
 	var appLimitConfirm = function() {
-		$('.sp-picker-container').remove();
 		$('#appLimit1').blur();
 		$('#appLimit2').blur();
+		$('.sp-choose').click();
 		return true;
 	};
 	/////////////////
