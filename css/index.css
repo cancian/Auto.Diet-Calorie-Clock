@@ -616,8 +616,6 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #appColorPickerSurplus,
 #appColorPickerBalanced,
 #appColorPickerDeficit				{ position: absolute; top: 13px; left: 67px; white-space: nowrap; font-size: 16px; text-transform: uppercase; color: #888; }
-.sp-choose							{ font-size: 18px !important; border: 0px solid #007aff !important; background-color: rgba(0,0,0,0) !important; background-image: none !important; color: #007aff !important; font-weight: normal !important; text-transform: uppercase !important; }
-.sp-cancel						`	{ font-size: 18px !important; color: #888 !important; font-weight: normal !important; padding-right: 4px !important; }
 /*#///////////#//
 //# GET ENTRY #//
 //#///////////#*/
