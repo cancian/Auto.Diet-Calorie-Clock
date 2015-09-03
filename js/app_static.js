@@ -140,8 +140,8 @@ setTimeout(function() {
 ////////////////
 // PARSED CSS //
 ////////////////
-if(app.device.wp81 && !app.device.wp10 && !document.getElementById('wp81ViewportFix')) {
-	$('head').append2('<style type="text/css" id="wp81ViewportFix">@media (max-width: 600px) { @-ms-viewport { width: 80%; }}</style>');
+if(app.device.msapp && !document.getElementById('wp81ViewportFix')) {
+	$('head').append2('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}</style>');
 }
 $('head').append2('<style type="text/css" id="cssStartDate"> #startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; } </style>');
 $('head').append2('<style type="text/css" id="daySum"></style>');

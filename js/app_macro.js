@@ -1471,9 +1471,9 @@ function buildAdvancedMenu() {
 	$('#advancedMenu').html2("\
 	<ul>\
 		<li id='advancedAutoUpdate'>"  + LANG.AUTO_UPDATE[lang]    + "</li>\
-		<li id='advancedCounterMode'><p class='contentTitle'>"     + LANG.COUNTING_MODE[lang] + "<span>" +	
-		((app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang])).capitalize() + " (" + 
-		((app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang])).toLowerCase() +
+		<li id='advancedCounterMode'><p class='contentTitle'>"     + LANG.COUNTING_MODE[lang] + "<span><strong>" +	
+		((app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang])).capitalize() + "</strong> (" + 
+		((app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang])).toLowerCase() +
 		")</span></p></li>\
 	</ul>\
 	<ul>\
@@ -1819,11 +1819,11 @@ function buildAdvancedMenu() {
 		if($('#appCounterModeToggle').prop('checked') == true) {
 			app.save('app_counter_mode','progressive');
 			//DOM
-			$('#advancedCounterMode .contentTitle span').html2((LANG.CALORIES_AVAILABLE[lang]).capitalize() + ' (' + (LANG.PROGRESSIVE[lang]).toLowerCase() + ')');
+			$('#advancedCounterMode .contentTitle span').html2('<strong>' + (LANG.PROGRESSIVE[lang]).capitalize() + ' </strong>(' + (LANG.CALORIES_AVAILABLE[lang]).toLowerCase() + ')');
 		} else {
 			app.save('app_counter_mode','regressive');
 			//DOM
-			$('#advancedCounterMode .contentTitle span').html2((LANG.CALORIE_USAGE[lang]).capitalize()      + ' (' + (LANG.REGRESSIVE[lang]).toLowerCase()  + ')');
+			$('#advancedCounterMode .contentTitle span').html2('<strong>' + (LANG.REGRESSIVE[lang]).capitalize()      + ' </strong>(' + (LANG.CALORIE_USAGE[lang]).toLowerCase()  + ')');
 		}
 		setPush();
 	});

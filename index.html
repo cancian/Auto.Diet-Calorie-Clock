@@ -248,7 +248,6 @@ function bootStraper() {
 			if ((/IEMobile/i).test(navigator.userAgent)) {
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/base.js"><\/script>');
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/ui.js"><\/script>');
-				document.write('<style type="text/css" id="wp81ViewportFix">@media (max-width: 600px) { @-ms-viewport { width: 80%; }}<\/style>');
 			}
 			if(/MSAppHost\/3.0/i.test(navigator.userAgent) && (/Mobile/i).test(navigator.userAgent)) {
 				//document.write('<script src="WinJS/js/base.js"><\/script>');
@@ -256,6 +255,7 @@ function bootStraper() {
 			}
 			//MSAPP
 			hostLocal = '';
+			document.write('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}<\/style>');
 			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
 			document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } <\/style>');
 		});
