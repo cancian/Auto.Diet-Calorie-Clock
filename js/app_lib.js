@@ -418,13 +418,6 @@ if($.nicescroll) {
 //////////////////
 app.reboot = function(type,error) {
 	var timeout = type == 'now' ? 0 : 500;
-	if(type == 'now') {	
-		$('body').css('opacity',0);
-	}
-	if(error) {
-		app.analytics('error',error);
-		//throw error;
-	}
 	//CLEAR CACHE
 	if(type == 'reset') {
 		app.remove('remoteSuperBlockJS');
@@ -433,16 +426,23 @@ app.reboot = function(type,error) {
 	}
 	//WIPE STORAGE
 	if(type == 'clear') {
-		app.clear();
+		app.clear();	
 	}
 	setTimeout(function() {	
 		//RELOAD
-		if(typeof window.MyReload !== 'undefined') {
-			try { window.location.reload(true); } catch(e) { window.MyReload.reloadActivity(); }
+		if(app.device.android >= 3) {
+			if(typeof window.MyReload !== 'undefined') {
+				window.MyReload.reloadActivity();
+			} else {
+				window.location.reload(true);	
+			}
 		} else {
 			window.location.reload(true);
 		}
 	},timeout);
+	if(error) {
+		throw error;
+	}
 };
 ///////////////////
 // CUSTOM JQUERY //

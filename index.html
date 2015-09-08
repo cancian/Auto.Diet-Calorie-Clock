@@ -198,24 +198,26 @@ var bootLoopBreaker = function () {
 				//HALT
 				bootLoopBroken = true;
 				document.getElementById('loadMask').style.backgroundColor = '#FBF01F';
-				if(typeof MSAppConfirm === 'function') {
-					MSAppConfirm('*** KCALS RECOVERY SYSTEM ***','Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.', function(button) {
-						wipeCache(button);
-					});
-				} else if(typeof window.confirm !== 'undefined') {
-					if (window.confirm('*** KCALS RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
+				if(typeof confirm !== 'undefined') {
+					if (confirm('*** KCALS RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
 						wipeCache(2);
 					} else {
 						wipeCache(1);	
 					}
+				} else if (/MSApp/i.test(navigator.userAgent) && typeof confirm === 'undefined') {
+					MSAppConfirm('*** KCALS RECOVERY SYSTEM ***','Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.', function(button) {
+						wipeCache(button);
+					});
 				}
 			}
 		}
 	}
 };
 //PRE-LISTENERS
-window.addEventListener('mousedown', bootLoopBreaker, false);
-window.addEventListener('touchstart', bootLoopBreaker, false);
+setTimeout(function() {
+	window.addEventListener('mousedown', bootLoopBreaker, false);
+	window.addEventListener('touchstart', bootLoopBreaker, false);
+},0);
 </script>
 <!--###########################################-->
 <style type="text/css" id="CSSPlaceholder"></style>

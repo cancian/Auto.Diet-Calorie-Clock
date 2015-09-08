@@ -6279,3 +6279,4 @@ FB.subclass("XFBML.Subscribe", "XFBML.EdgeWidget", null, {
 		return r
 	}
 });
+

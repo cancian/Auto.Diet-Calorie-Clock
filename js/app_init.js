@@ -61,14 +61,14 @@ window.onerror = function (e, url, line) {
 			app.analytics('error','unhandled: ' + e + ' URL:' + url + ' Line:' + line);
 		}	
 	}
-	//disable db
+	//disable ff db
 	if ((/InvalidStateError/i).test(e) && !window.localStorage.getItem('config_force_localstorage')) {
 		window.localStorage.setItem('config_force_localstorage',true);
 		setTimeout(function () {
 			window.location.reload(true);
-		}, 100);
+		}, 0);
 	}
-	//auto restart
+	//auto restart android
 	if ((/Exception 18/i).test(e)) {
 		setTimeout(function () {
 			//RELOAD
@@ -77,7 +77,7 @@ window.onerror = function (e, url, line) {
 			} else {
 				window.location.reload(true);
 			}
-		}, 100);
+		}, 0);
 	}
 };
 //##//////////////##
