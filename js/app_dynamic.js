@@ -1280,15 +1280,15 @@ function addNewItem(addnew) {
 	<div id="addNewListWrapper">\
 		<div id="addNewWrapper">\
 			<ul id="addNewList">\
-				<li id="addNewName">   <label>' + LANG.ADD_NAME[lang].capitalize() + '</label>                          <input tabindex="3" type="text"   id="inputNewName"                /></li>\
+				<li id="addNewName">  <label>' + LANG.ADD_NAME[lang].capitalize()   + '</label>                         <input tabindex="3" type="text"   id="inputNewName"                /></li>\
 				<li id="addNewAmount"><label>' + LANG.ADD_AMOUNT[lang].capitalize() + ' (' + LANG.G[lang] + ')</label>  <input tabindex="3" type="number" id="inputNewAmount"  value="100" /></li>\
-				<li id="addNewKcal">   <label>' + LANG.KCAL[lang].capitalize() + '</label>                              <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
-				<li id="addNewPro">    <label>' + LANG.PRO[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
-				<li id="addNewCar">    <label>' + LANG.CAR[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
-				<li id="addNewFat">    <label>' + LANG.FAT[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
-				<li id="addNewFii">    <label>' + LANG.FIB[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewFii"     value="0"   /></li>\
-				<li id="addNewSug">    <label>' + LANG.SUG[lang].capitalize() + '</label>                               <input tabindex="3" type="number" id="inputNewSug"     value="0"   /></li>\
-				<li id="addNewSod">    <label>' + LANG.SOD[lang].capitalize()  + ' (' + LANG.MG[lang] + ')</label>      <input tabindex="3" type="number" id="inputNewSod"     value="0"   /></li>\
+				<li id="addNewKcal">  <label>' + LANG.KCAL[lang].capitalize()       + '</label>                         <input tabindex="3" type="number" id="inputNewKcal"    value="0"   /></li>\
+				<li id="addNewPro">   <label>' + LANG.PRO[lang].capitalize()        + '</label>                         <input tabindex="3" type="number" id="inputNewPro"     value="0"   /></li>\
+				<li id="addNewCar">   <label>' + LANG.CAR[lang].capitalize()        + '</label>                         <input tabindex="3" type="number" id="inputNewCar"     value="0"   /></li>\
+				<li id="addNewFat">   <label>' + LANG.FAT[lang].capitalize()        + '</label>                         <input tabindex="3" type="number" id="inputNewFat"     value="0"   /></li>\
+				<li id="addNewFii">   <label>' + LANG.FIB[lang].capitalize()        + '</label>                         <input tabindex="3" type="number" id="inputNewFii"     value="0"   /></li>\
+				<li id="addNewSug">   <label>' + LANG.SUG[lang].capitalize()        + '</label>                         <input tabindex="3" type="number" id="inputNewSug"     value="0"   /></li>\
+				<li id="addNewSod">   <label>' + LANG.SOD[lang].capitalize()        + ' (' + LANG.MG[lang] + ')</label> <input tabindex="3" type="number" id="inputNewSod"     value="0"   /></li>\
 			</ul>\
 		</div>\
 	</div>\

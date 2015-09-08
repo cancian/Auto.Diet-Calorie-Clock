@@ -105,7 +105,7 @@ if (/MSApp/i.test(navigator.userAgent) && typeof window.confirm === 'undefined')
 			}
 			md.showAsync()
 			.then(function (command) {
-				if (typeof command !== 'undefined') {
+				if(typeof command !== 'undefined' && typeof command !== 'null') {
 					if (command.label == 'ok') {
 						callback(2);
 					}
