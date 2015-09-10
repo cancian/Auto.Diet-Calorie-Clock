@@ -5,6 +5,9 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install ubuntu-sdk
 
+PATH="/home/cancian/toolchain-i386_gcc-4.6-linaro_uClibc-0.9.33.2/bin:$PATH"
+PATH="/home/cancian/toolchain-i386_gcc-4.6-linaro_uClibc-0.9.33.2/bin:$PATH"
+
 
 
 //#//////////////////#//

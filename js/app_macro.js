@@ -391,7 +391,7 @@ function intakeHistory() {
 					text : ''
 				},
 				tickPositions : [firstTick, origTick, lastTick],
-				gridLineColor : 'rgba(0,0,0,.16)',
+				gridLineColor : 'rgba(204,51,0,.66)',
 				gridLineDashStyle : 'longdash',
 				labels : {
 					enabled : false,
