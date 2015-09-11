@@ -1966,9 +1966,11 @@ function getNiceScroll(target,timeout,callback) {
 	if(!timeout)	  		{ timeout = 0; }
 	//quick scrolling / prevent scrollbar
 	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
-		$(target).removeClass('overthrow');
+		//$(target).removeClass('overthrow');
+		$('.overthrow').removeClass('overthrow');
 		$(target).css('overflow','hidden');
 	} else {
+		$('.overthrow').removeClass('overthrow');
 		$(target).addClass('overthrow');
 		$(target).css('overflow','auto');
 		$(target).css('-webkit-overflow-scrolling','touch');
@@ -1978,15 +1980,16 @@ function getNiceScroll(target,timeout,callback) {
 		//SETTINGS
 		var NSettings = {
 		touchbehavior: false,
-		nativeparentscrolling: false,
-		cursorcolor: 'rgba(0,0,0,1)',
+		nativeparentscrolling: true,
+		cursorcolor: '#808080',
 		cursorborderradius: '6px',
 		railpadding: { right: 1, bottom: 1},
-		cursorborder: '1px solid rgba(0,0,0,0)',
-		cursoropacitymax: .5,
+		cursorborder: '1px solid rgba(255,255,255,0)',
+		cursoropacitymax: 1,
 		cursorwidth: '4px',
 		horizrailenabled: false,
-		hwacceleration: true
+		hwacceleration: true,
+		zindex: 50
 	};
 	//HORIZONTAL
 	if($('#appHistory').html()) {
@@ -1996,7 +1999,7 @@ function getNiceScroll(target,timeout,callback) {
 		NSettings.touchbehavior = true;
 	}
 	if(app.device.windows8) {
-		NSettings.grabcursorenabled = false;
+		NSettings.grabcursorenabled = true;
 	}
 	//UPDATE LIST
 	if(!app.globals.scrollerList) {

@@ -19,6 +19,7 @@
 # 1.9.8 [2015/09/01]
 • Users can now customize the colors of the caloric balance status (deficit/balanced/surplus)
 • Added a "Counting Mode" option to settings, allowing users to switch between the caloric balance as a Count Up ("calories available") or as a Countdown ("calorie usage"). The app defaults to Countdown mode. (English-only, translations are in progress)
+• Fixed scrollbar issue that caused it to show behind the content under certain circumstances
 
 # 1.9.7 [2015/08/13]
 • Added a video to the help section showing how to use the app

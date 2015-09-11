@@ -469,23 +469,33 @@
 		} else {
 			// native scroll
 			this.getScrollTop = function() {
-				return self.docscroll.scrollTop();
+				//TWEAK
+				if (self) {
+					return self.docscroll.scrollTop();
+				}
 			};
 			this.setScrollTop = function(val) {
 				//return self.docscroll.scrollTop(val);
 				//TWEAK
 				return setTimeout(function() {
-					self.docscroll.scrollTop(val)
+					if (self) {
+						self.docscroll.scrollTop(val)
+					}
 				}, 1);
 			};
 			this.getScrollLeft = function() {
-				return self.docscroll.scrollLeft();
+				//TWEAK
+				if (self) {
+					return self.docscroll.scrollLeft();
+				}
 			};
 			this.setScrollLeft = function(val) {
 				//return self.docscroll.scrollLeft(val);
 				//TWEAK
 				return setTimeout(function() {
-					self.docscroll.scrollLeft(val)
+					if (self) {
+						self.docscroll.scrollLeft(val)
+					}
 				}, 1);
 			};
 		}
