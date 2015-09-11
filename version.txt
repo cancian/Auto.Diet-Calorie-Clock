@@ -16,10 +16,10 @@
 • Alternative diary view with entries ordered by nutrients
 • Daily tips
 
-# 1.9.8 [2015/09/01]
+# 1.9.8 [2015/09/11]
 • Users can now customize the colors of the caloric balance status (deficit/balanced/surplus)
 • Added a "Counting Mode" option to settings, allowing users to switch between the caloric balance as a Count Up ("calories available") or as a Countdown ("calorie usage"). The app defaults to Countdown mode. (English-only, translations are in progress)
-• Fixed scrollbar issue that caused it to show behind the content under certain circumstances
+• Fixed scrollbar issue that sometimes caused it to show behind the content
 
 # 1.9.7 [2015/08/13]
 • Added a video to the help section showing how to use the app
