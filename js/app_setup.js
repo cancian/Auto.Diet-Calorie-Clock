@@ -1690,6 +1690,7 @@ function buildHelpMenu(args) {
 			$('#appSubHelper').css('overflow','hidden');
 			$('#appSubHelper').addClass('open');
 			$('#appHelper').addClass('out');
+			$('.nicescroll-rails').css('display','none');
 		},50);
 	});
 }
