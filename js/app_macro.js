@@ -116,8 +116,8 @@ function getFullHistory() {
 				// MIN WIDTH //
 				///////////////
 				var minWidth = $('#appContent').width() / dayArray.length;
-				if (minWidth < 20) {
-					minWidth = 20;
+				if (minWidth < 42) {
+					minWidth = 42;
 				}
 				if (minWidth > 100) {
 					minWidth = 100;
@@ -133,8 +133,8 @@ function getFullHistory() {
 				$('#appHistory').highcharts({
 					chart : {
 						reflow : false,
-						spacingLeft : 0,
-						spacingRight : 0,
+						spacingLeft : 2,
+						spacingRight : 6,
 						spacingTop : 0,
 						spacingBottom : 9,
 						height : $('#newWindow').height() - heightAdjust,
@@ -159,7 +159,7 @@ function getFullHistory() {
 						title : {
 							text : ''
 						},
-						tickPositions : [lowestDay, origTick, highestDay+40],
+						tickPositions : [lowestDay, origTick, highestDay+(origTick+75)],
 						gridLineColor : 'rgba(204,51,0,.66)',
 						gridLineDashStyle : 'longdash',
 						showFirstLabel : false,
@@ -169,7 +169,7 @@ function getFullHistory() {
 							align : 'left',
 							x : 4,
 							y : -3,
-							textSize : '8px'
+							textSize : '9px'
 						},						
 					},
 					xAxis : {
@@ -181,10 +181,10 @@ function getFullHistory() {
 								enabled : true,
 								style : {
 									textShadow : '0 0 3px white',
-									fontSize : '10px'
+									fontSize : '9px'
 								},
-								x : 4,
-								y : -3,
+								//x : 4,
+								//y : -3,
 							},
 							marker : {
 								enabled : true,
