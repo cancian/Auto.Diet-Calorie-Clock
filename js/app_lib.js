@@ -32,10 +32,7 @@ var app = {
 	exec: {},
 	info: {},
 	exists: function(targetId) {
-		if(targetId) {
-			targetId = targetId.replace('#','');
-		}
-		if(document.getElementById(targetId)) { 
+		if($(targetId).length) {
 			return true;
 		} else {
 			return false;
@@ -449,27 +446,30 @@ app.reboot = function(type,error) {
 ///////////////////
 $.prototype.html2 = function (data, callback) {
 	var obj = $(this);
-	if (app.device.msapp) {
-		MSApp.execUnsafeLocalFunction(function () {
+	if($(obj).length) {
+		if (app.device.msapp) {
+			MSApp.execUnsafeLocalFunction(function () {
+				obj.html(data);
+			});
+		} else {
 			obj.html(data);
-		});
-	} else {
-		obj.html(data);
+		}
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {
 		callback();
 	}
-
 };
 $.prototype.append2 = function (data, callback) {
 	var obj = $(this);
-	if (app.device.msapp) {
-		MSApp.execUnsafeLocalFunction(function () {
+	if($(obj).length) {
+		if (app.device.msapp) {
+			MSApp.execUnsafeLocalFunction(function () {
+				obj.append(data);
+			});
+		} else {
 			obj.append(data);
-		});
-	} else {
-		obj.append(data);
+		}
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {
@@ -479,27 +479,30 @@ $.prototype.append2 = function (data, callback) {
 };
 $.prototype.prepend2 = function (data, callback) {
 	var obj = $(this);
-	if (app.device.msapp) {
-		MSApp.execUnsafeLocalFunction(function () {
+	if($(obj).length) {
+		if (app.device.msapp) {
+			MSApp.execUnsafeLocalFunction(function () {
+				obj.prepend(data);
+			});
+		} else {
 			obj.prepend(data);
-		});
-	} else {
-		obj.prepend(data);
+		}
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {
 		callback();
 	}
-
 };
 $.prototype.before2 = function (data, callback) {
 	var obj = $(this);
-	if (app.device.msapp) {
-		MSApp.execUnsafeLocalFunction(function () {
+	if($(obj).length) {
+		if (app.device.msapp) {
+			MSApp.execUnsafeLocalFunction(function () {
+				obj.before(data);
+			});
+		} else {
 			obj.before(data);
-		});
-	} else {
-		obj.before(data);
+		}
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {
@@ -508,12 +511,14 @@ $.prototype.before2 = function (data, callback) {
 };
 $.prototype.after2 = function (data, callback) {
 	var obj = $(this);
-	if (app.device.msapp) {
-		MSApp.execUnsafeLocalFunction(function () {
+	if($(obj).length) {
+		if (app.device.msapp) {
+			MSApp.execUnsafeLocalFunction(function () {
+				obj.after(data);
+			});
+		} else {
 			obj.after(data);
-		});
-	} else {
-		obj.after(data);
+		}
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {

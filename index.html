@@ -178,13 +178,17 @@ function wipeCache(button) {
 		window.localStorage.removeItem('consecutive_reboots');
 		//HALT
 		//document.getElementsByTagName('head')[0].innerHTML = '';
-		document.body.innerHTML = '';
+		if(document.body) {
+			document.body.innerHTML = '';
+		}
 		//RELOAD
 		alert('erasing cache...');
 		window.location.reload(true);
-	},0);
+	}, 50);
 	} else {
-		document.getElementById('loadMask').style.backgroundColor = '#ffffff';
+		if(document.getElementById('loadMask')) {
+			document.getElementById('loadMask').style.backgroundColor = '#ffffff';
+		}
 	}
 }
 ////////////////////
