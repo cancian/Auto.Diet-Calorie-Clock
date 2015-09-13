@@ -86,23 +86,23 @@ function getFullHistory() {
 				//#///////////////#//
 				//# TICK POSITION #//
 				//#///////////////#//
-				var firstTick = 0;
-				var lastTick  = app.read('config_kcals_day_0') * 1.5;
+				//var firstTick = 0;
+				//var lastTick  = app.read('config_kcals_day_0') * 1.5;
 				var origTick  = app.read('config_kcals_day_0');
 				/////////////////
 				// CYCLIC CASE //
 				/////////////////
 				if(app.read('config_kcals_type','cyclic')) {
 					if(app.read('config_kcals_day','d')) {
-						lastTick = app.read('config_kcals_day_2') * 1.5;
+						//highestDay = app.read('config_kcals_day_2') * 1.5;
 						origTick = app.read('config_kcals_day_2');
 					} else {
-						lastTick = app.read('config_kcals_day_1') * 1.5;
+						//highestDay = app.read('config_kcals_day_1') * 1.5;
 						origTick = app.read('config_kcals_day_1');
 					}
 				}
-				if(firstTick < 0 && firstTick > -500)	{ firstTick = -500; }
-				if(lastTick < 600)						{ lastTick = lastTick+600; }
+				//if(lowestDay < 0)			{ lowestDay = lowestDay - (origTick/2.5); }
+				//if(highestDay < 600)		{ highestDay = highestDay+600; }
 				//##////////////////##//
 				//## HIGHCHART CODE ##//
 				//##////////////////##//
@@ -161,6 +161,7 @@ function getFullHistory() {
 						},
 						tickPositions : [lowestDay, origTick, highestDay+(origTick+75)],
 						gridLineColor : 'rgba(204,51,0,.66)',
+						gridZIndex: 4,
 						gridLineDashStyle : 'longdash',
 						showFirstLabel : false,
 						showLastLabel : false,
@@ -181,10 +182,11 @@ function getFullHistory() {
 								enabled : true,
 								style : {
 									textShadow : '0 0 3px white',
-									fontSize : '9px'
+									fontSize : '10px',
+									color: '#222'
 								},
-								//x : 4,
-								//y : -3,
+								x : 0,
+								y : -3,
 							},
 							marker : {
 								enabled : true,
@@ -216,6 +218,8 @@ function getFullHistory() {
 						}
 					]
 				});
+				//remove bottom grid line
+		    	$('.highcharts-grid path:last').remove();
 			};
 			/////////////
 			// EXECUTE //
