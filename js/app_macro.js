@@ -43,12 +43,31 @@ function getFullHistory() {
 		/////////////////////
 		// DAY INJECT LOOP //
 		/////////////////////
+		var lowestDay = 0;
+		var highestDay = app.read('config_kcals_day_0') * 1.5;
+		if(app.read('config_kcals_type','cyclic')) {
+			if(app.read('config_kcals_day','d')) {
+				highestDay = app.read('config_kcals_day_2') * 1.5;
+			} else {
+				highestDay = app.read('config_kcals_day_1') * 1.5;
+			}
+		}
+		
+		
 		while(oldestEntry-(day*1) < countBack) {
 			var daySum = 0;
 			//dump all day data in date array
 			for(var h=0, hen=fullArray.length; h<hen; h++) {
 				if(fullArray[h].date == DayUtcFormat(countBack)) {
 					daySum = daySum + parseInt(fullArray[h].val);
+					//highest & lowest
+					if(daySum > highestDay) {
+						highestDay = daySum;
+					}
+					if(daySum < lowestDay) {
+						lowestDay = daySum;
+					}
+					//
 				}
 			}
 			//insert
@@ -64,9 +83,29 @@ function getFullHistory() {
 			//# REBUILD HISTORY SNIPPET #//
 			//#/////////////////////////#//
 			rebuildHistory = function () {
-				////////////////
-				// LOCAL DATE //
-				////////////////
+				//#///////////////#//
+				//# TICK POSITION #//
+				//#///////////////#//
+				var firstTick = 0;
+				var lastTick  = app.read('config_kcals_day_0') * 1.5;
+				var origTick  = app.read('config_kcals_day_0');
+				/////////////////
+				// CYCLIC CASE //
+				/////////////////
+				if(app.read('config_kcals_type','cyclic')) {
+					if(app.read('config_kcals_day','d')) {
+						lastTick = app.read('config_kcals_day_2') * 1.5;
+						origTick = app.read('config_kcals_day_2');
+					} else {
+						lastTick = app.read('config_kcals_day_1') * 1.5;
+						origTick = app.read('config_kcals_day_1');
+					}
+				}
+				if(firstTick < 0 && firstTick > -500)	{ firstTick = -500; }
+				if(lastTick < 600)						{ lastTick = lastTick+600; }
+				//##////////////////##//
+				//## HIGHCHART CODE ##//
+				//##////////////////##//
 				Highcharts.setOptions({
 					lang : {
 						shortMonths : LANG.MONTH_SHORT[lang].split(', '),
@@ -120,24 +159,33 @@ function getFullHistory() {
 						title : {
 							text : ''
 						},
-						//tickPositions : [lowerTick, midTick, upperTick],
-						gridLineColor : 'rgba(0,0,0,.12)',
-						//gridLineDashStyle : 'longdash',
-						labels : {
-							enabled : true,
-							align : 'left',
-							x : 2, //31,
-							y : -1,
-							textSize : '9px'
-						},
+						tickPositions : [lowestDay, origTick, highestDay+40],
+						gridLineColor : 'rgba(204,51,0,.66)',
+						gridLineDashStyle : 'longdash',
 						showFirstLabel : false,
-						showLastLabel : false
+						showLastLabel : false,
+						labels : {
+							enabled : false,
+							align : 'left',
+							x : 4,
+							y : -3,
+							textSize : '8px'
+						},						
 					},
 					xAxis : {
 						type : 'datetime'
 					},
 					plotOptions : {
 						series : {
+							dataLabels : {
+								enabled : true,
+								style : {
+									textShadow : '0 0 3px white',
+									fontSize : '10px'
+								},
+								x : 4,
+								y : -3,
+							},
 							marker : {
 								enabled : true,
 								lineWidth : 2,
@@ -156,17 +204,6 @@ function getFullHistory() {
 									lineWidth : 2
 								}
 							}
-						},
-						line : {
-							dataLabels : {
-								enabled : false,
-								style : {
-									textShadow : '0 0 3px white',
-									fontSize : '12px'
-								},
-								y : -9
-							},
-							enableMouseTracking : true
 						}
 					},
 					series : [{
@@ -347,7 +384,6 @@ function intakeHistory() {
 		// GENERATE CHART //
 		////////////////////
 		$('#appStatusIntake div').css('padding-top', '0px');
-		var catFontSize = lang == 'fa' ? '8px' : '9px';
 		var spacingBottom = Highcharts.version.contains('4.0') ? 0 : -12;
 		if(app.device.android2) { spacingBottom = Highcharts.version.contains('4.0') ? -4 : -16; }
 		//check exists
@@ -380,7 +416,7 @@ function intakeHistory() {
 				labels : {
 					style : {
 						color : 'rgba(47, 126, 216, .45)',
-						fontSize : catFontSize
+						fontSize : '9px'
 					},
 					y : -2,
 					x : 0

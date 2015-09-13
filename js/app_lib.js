@@ -1,4 +1,4 @@
-﻿$.ajaxSetup({cache: false, crossDomain: true, async:true});
+﻿$.ajaxSetup({cache: false, crossDomain: true, async: true});
 //#////////////#//
 //# APP OBJECT #//
 //#////////////#//
