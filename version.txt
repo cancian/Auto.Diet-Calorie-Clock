@@ -21,6 +21,7 @@
 • Added a "Counting Mode" option to settings, allowing users to switch between the caloric balance as a Count Up ("calories available") or as a Countdown ("calorie usage"). The app defaults to Countdown mode. (English-only, translations are in progress)
 • Fixed scrollbar issue that sometimes caused it to show behind the content
 • More detailed charts for easier reading
+• Filter uncecessary data synchronization requests to improve overall app responsiveness
 
 # 1.9.7 [2015/08/13]
 • Added a video to the help section showing how to use the app
