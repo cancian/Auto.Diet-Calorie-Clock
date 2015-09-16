@@ -1197,6 +1197,7 @@ function getLimitMenu() {
 //##/////////////##//
 function getElapsed(swap) {
 	if(!app.read('app_last_tab','tab1')) { return false; }
+	if($('body').hasClass('newwindow'))  { return false; }
 	////////////////
 	// FIRST LOAD //
 	////////////////
