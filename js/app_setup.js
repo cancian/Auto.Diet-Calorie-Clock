@@ -1130,7 +1130,7 @@ function updateFoodDb(callback) {
 						setTimeout(function () {
 							spinner('stop');
 							$('body').removeClass('updtdb');
-						}, 2000);
+						}, 500);
 					});
 				});
 			};
@@ -1138,7 +1138,7 @@ function updateFoodDb(callback) {
 			// UNLOCK DB //
 			///////////////
 			function unlockDb(callback) {
-				app.timeout('unlockDb', 2000, function (callback) {
+				app.timeout('unlockDb', 500, function (callback) {
 					//failure
 					app.globals.foodDbRunning = false;
 					app.remove('foodDbLoaded');
@@ -1214,7 +1214,7 @@ function updateFoodDb(callback) {
 												rowsArray[s].fii = rowsArray[s].fii;
 												rowsArray[s].sug = rowsArray[s].sug;
 												rowsArray[s].sod = rowsArray[s].sod;
-											} catch (e) {}
+											} catch (e) {  }
 										}
 										saveParsed(rowsArray, callback);
 									}
