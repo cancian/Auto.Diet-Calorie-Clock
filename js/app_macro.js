@@ -1145,8 +1145,8 @@ function getLimitMenu() {
 		});
 		$('#colorSurplus').on('change',function () {
 			if(!this.value) {
-				app.save('colorSurplus','#309030');
-				$('#colorSurplus').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#309030')));
+				app.save('colorSurplus','#2db454');
+				$('#colorSurplus').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#2db454')));
 			} else {
 				app.save('colorSurplus',$('#colorSurplus').val());
 			}

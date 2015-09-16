@@ -99,7 +99,7 @@ body.balanced #appHeader		{ background-color: #4496F1; font-weight: 300; }
 body.deficit #appHeader,
 body.over.deficit #appHeader	{ background-color: #D50B09; font-weight: 300; }
 body.surplus #appHeader,
-body.over.surplus #appHeader	{ background-color: #309030; font-weight: 300; }
+body.over.surplus #appHeader	{ background-color: #2db454; font-weight: 300; }
 /*////////////////
 // online users //
 ////////////////*/
@@ -122,7 +122,7 @@ body.error.deficit #timerDaily span	{ color: #D50B09 !important; text-shadow: 0 
 body.error.surplus #timerKcalsInput,
 body.error.surplus #timerKcals span,
 body.error.surplus #timerDailyInput,
-body.error.surplus #timerDaily span	{ color: #309030 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }
+body.error.surplus #timerDaily span	{ color: #2db454 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }
 /*android hacks*/
 body.android #appHeader				{ z-index: 50 !important; }
 /*/////////////////
@@ -185,7 +185,7 @@ body.tab4 #appFooter li#tab4			{ color: #007AFF; }
 body.tab1.surplus #appFooter li#tab1,
 body.tab2.surplus #appFooter li#tab2,
 body.tab3.surplus #appFooter li#tab3,
-body.tab4.surplus #appFooter li#tab4	{ color: #309030; }
+body.tab4.surplus #appFooter li#tab4	{ color: #2db454; }
 body.tab1.deficit #appFooter li#tab1,
 body.tab2.deficit #appFooter li#tab2,
 body.tab3.deficit #appFooter li#tab3,
@@ -782,7 +782,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: 'KCals'; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
 .deficit #appStatusBalance #balanceBar:after	{ color: #D50B09; }
 /*.balanced #appStatusBalance #balanceBar:after	{ color: #5277FF; }*/
-.surplus #appStatusBalance #balanceBar:after	{ color: #309030; }
+.surplus #appStatusBalance #balanceBar:after	{ color: #2db454; }
 /**/
 #appStatusIntakeOver,
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; z-index: 1; }

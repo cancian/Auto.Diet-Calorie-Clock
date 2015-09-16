@@ -201,7 +201,7 @@ function initDB(t) {
 	app.define('app_counter_mode','regressive');
 	app.define('colorDeficit','#D50B09');
 	app.define('colorBalanced','#4496F1');
-	app.define('colorSurplus','#309030');
+	app.define('colorSurplus','#2db454');
 	///////////
 	// START //
 	///////////
@@ -647,23 +647,15 @@ function syncEntries(userId) {
 	if($('body').hasClass('insync')) { return; }
 	//OK, UPDATE TIME
 	app.save('pendingSync',app.now());
-	var demoRunning = false;
-	if(!demoRunning) {
-		demoRunning = true;
+	app.globals.syncRunning = false;
+	if(!app.globals.syncRunning) {
+		app.globals.syncRunning = true;
 		$('body').addClass('insync');
 		//get remote sql
 		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
-			//return for no diff
-			if(app.read('last_sync_data') && sql === app.read('last_sync_data')) {
-				demoRunning = false;
-				setComplete();
-				return;
-			}
-			//save sync cache
-			app.save('last_sync_data',sql);
-			///////////////
-			//parse data //
-			///////////////
+			//////////////////
+			// prepare data //
+			//////////////////
 			sql = sql.split('undefined').join('');
 			//local storage slice
 			if(sql.match('#@@@#')) {
@@ -671,17 +663,27 @@ function syncEntries(userId) {
 				sql = sql.replace(/\r?\n?[^\r\n]*$/, '');
 			}
 			///////////////////////
-			// FAKE VALID RESULT //
-			///////////////////////empty but valid result ~ trigger success
-			if(trim(sql) == '') {
-				demoRunning = false;
+			// FAKE VALID RESULT // empty but valid result ~ trigger success
+			/////////////////////// return for no diff
+			if(trim(sql) == '' || sql == app.read('last_sync_data')) {
+				if(app.dev) {
+					console.log('sync: no diff');
+				}
+				app.globals.syncRunning = false;
 				setComplete();
-			} else {
-				insertOrUpdate(sql,function() {
-					demoRunning = false;
-					setComplete();					
-				});
+				return;
 			}
+			//SAVE CACHE DIFF
+			app.save('last_sync_data',sql);
+			//////////////////////
+			// FULLY PARSE DATA //
+			//////////////////////
+			setTimeout(function() {
+				insertOrUpdate(sql,function() {
+					app.globals.syncRunning = false;
+					setComplete();			
+				});
+			},0);
 		});
 	}
 }
@@ -1075,158 +1077,157 @@ function spinner(action,target) {
 ////////////////////
 // FOOD DB IMPORT //
 ////////////////////
-var demoRunning = false;
-var foodDbTimer;
 function updateFoodDb(callback) {
-	if(app.read('foodDbLoaded','done') && !app.read('foodDbVersion')) { app.remove('foodDbLoaded'); }
-	if(app.read('foodDbLoaded','done')) { return; }
-	if(!app.read('foodDbLoaded','done') && !app.read('startLock','running')) {
+	if (app.read('foodDbLoaded', 'done') && !app.read('foodDbVersion')) { app.remove('foodDbLoaded'); }
+	if (app.read('foodDbLoaded', 'done')) { return; }
+	if (!app.read('foodDbLoaded', 'done') && !app.read('startLock', 'running')) {
+		//GLOBALS
+		app.globals.foodDbRunning = false;
 		//reset blocks
 		$('#tabMyCatsBlock,#tabMyFavsBlock,#tabMyItemsBlock').html2('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
-		if(demoRunning == false) {
+		if (app.globals.foodDbRunning == false) {
 			//start
-			demoRunning = true;
-			app.save('startLock','running');
-			clearTimeout(foodDbTimer);
+			app.globals.foodDbRunning = true;
+			app.save('startLock', 'running');
 			/////////////////////////
 			// PING DEFINE DB PATH //
 			/////////////////////////
-			var langDB = (lang == 'en' && app.read('config_measurement','metric')) ? 'em' : lang;
+			var langDB = (lang == 'en' && app.read('config_measurement', 'metric')) ? 'em' : lang;
 			////////////
 			// IMPORT //
 			////////////
-			function saveParsed(rowsArray,callback) {
-							//REINSERT
-							var postCustom = '';
-							if(trim(app.read('customItemsSql')) != '') { postCustom += trim(app.read('customItemsSql')); }
-							if(trim(app.read('customFavSql'))   != '') { postCustom += trim(app.read('customFavSql'));   }
-							app.rows.food = rowsArray;
-							app.save('diary_food',rowsArray,function() {
-								insertOrUpdate(postCustom,function() {
-									//success
-									demoRunning = false;
-									app.save('foodDbLoaded','done');
-									app.save('foodDbVersion',5);
-									app.remove('startLock');
-									niceResizer(300);
-									if(app.read('facebook_userid')) {
-										syncEntries(app.read('facebook_userid'));
-									} else {
-										setTimeout(function() {
-											updateCustomList('all');
-										},100);
-									}
-									//////////////
-									// CALLBACK //
-									//////////////
-									if(typeof callback === 'function') {
-										callback();
-									}
-									setTimeout(function() {
-										setTimeout(function() {
-											setTimeout(function() {
-												setTimeout(function() {
-													spinner('stop');
-													$('body').removeClass('updtdb');
-												},250);
-											},250);
-										},250);
-									},250);
-								});
-							});
+			function saveParsed(rowsArray, callback) {
+				//REINSERT
+				var postCustom = '';
+				if (trim(app.read('customItemsSql')) != '') {
+					postCustom += trim(app.read('customItemsSql'));
+				}
+				if (trim(app.read('customFavSql')) != '') {
+					postCustom += trim(app.read('customFavSql'));
+				}
+				app.rows.food = rowsArray;
+				app.save('diary_food', rowsArray, function () {
+					insertOrUpdate(postCustom, function () {
+						//success
+						app.globals.foodDbRunning = false;
+						app.save('foodDbLoaded', 'done');
+						app.save('foodDbVersion', 5);
+						app.remove('startLock');
+						niceResizer(300);
+						if (app.read('facebook_userid')) {
+							syncEntries(app.read('facebook_userid'));
+						} else {
+							setTimeout(function () {
+								updateCustomList('all');
+							}, 100);
+						}
+						//////////////
+						// CALLBACK //
+						//////////////
+						if (typeof callback === 'function') {
+							callback();
+						}
+						setTimeout(function () {
+							spinner('stop');
+							$('body').removeClass('updtdb');
+						}, 2000);
+					});
+				});
 			};
+			///////////////
+			// UNLOCK DB //
+			///////////////
 			function unlockDb(callback) {
-				clearTimeout(app.timers.unlockDb);
-				app.timers.unlockDb = setTimeout(function(callback) {
+				app.timeout('unlockDb', 2000, function (callback) {
 					//failure
-					demoRunning = false;
+					app.globals.foodDbRunning = false;
 					app.remove('foodDbLoaded');
 					app.remove('startLock');
 					spinner('stop');
 					//////////////////////////////////////////
-					if(callback != 'retry') {
+					if (callback != 'retry') {
 						//retry
-						alert('Error downloading database','Importing local database instead.');
-						app.analytics('error','Error downloading database');
+						alert('Error downloading database', 'Importing local database instead.');
+						app.analytics('error', 'Error downloading database');
 						updateFoodDb('retry');
 					} else {
 						//give up
-						alert('Error creating database','Please connect to the internet and try again.');
-						app.analytics('error','Error creating database');
-					}				
+						alert('Error creating database', 'Please connect to the internet and try again.');
+						app.analytics('error', 'Error creating database');
+					}
 					//////////////////////////////////////////
-				},1000);
+				});
 			}
 			function doImport(callback) {
 				spinner();
-				var databaseHost = app.read('config_autoupdate','on') ? app.https + 'kcals.net/' : hostLocal;
-				if(callback == 'retry') {
-					databaseHost = '';	
+				var databaseHost = app.read('config_autoupdate', 'on') ? app.https + 'kcals.net/' : hostLocal;
+				if (callback == 'retry') {
+					databaseHost = '';
 				}
-				foodDbTimer = setTimeout(function(callback) {
-					try{
-						$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb_' + langDB + '.db', error: function(xhr, statusText) { unlockDb(callback); }, success: function(ls) {
-							if(ls.length < 15000) {
+				app.timeout('foodDbTimer', 100, function (callback) {
+					try {
+						$.ajax({
+							type : 'GET',
+							dataType : 'text',
+							url : databaseHost + 'sql/searchdb_' + langDB + '.db',
+							error : function (xhr, statusText) {
 								unlockDb(callback);
-								return false;
-							}
-							var rowsArray = [];
-							if(!ls.contains('lib2.insert')) {
-							//////////////////
-							// PARSE NEW DB //
-							//////////////////
-							ls = ls.split('।').join('');
-							ls = ls.split('。').join('');
-							ls = ls.split('"').join('”');
-							ls = ls.split("'").join('’');
-							ls = ls.split("、").join(',');
-							ls = ls.split(",,").join(',');
-							ls = ls.split('  ').join(' ');
-							ls = ls.split(' %').join('%');
-							ls = ls.split(' / ').join('/');
-							ls = ls.split('\r').join('');
-							ls = ls.split('\n');
-							$.ajax({type: 'GET', dataType: 'text', url: databaseHost + 'sql/searchdb.db', error: function(xhr, statusText) { unlockDb(callback); }, success: function(sdb) {
-								rowsArray = JSON.parse(sdb);
-								for(var s=0, slen=rowsArray.length; s<slen; s++) {
-									try {
-										rowsArray[s].name = trim(trimDot(ls[s])).capitalize();
-										rowsArray[s].term = searchalize(rowsArray[s].name);
-										rowsArray[s].kcal = rowsArray[s].kcal;
-										rowsArray[s].pro  = rowsArray[s].pro;
-										rowsArray[s].car  = rowsArray[s].car;
-										rowsArray[s].fat  = rowsArray[s].fat;
-										rowsArray[s].fib  = rowsArray[s].fib;
-										rowsArray[s].fii  = rowsArray[s].fii;
-										rowsArray[s].sug  = rowsArray[s].sug;
-										rowsArray[s].sod  = rowsArray[s].sod;
-									} catch(e) {}
+							},
+							success : function (ls) {
+								if (ls.length < 15000) {
+									unlockDb(callback);
+									return false;
 								}
-								saveParsed(rowsArray,callback);
-							}});
-							} else {
-							//////////////////
-							// PARSE OLD DB //
-							//////////////////
-							ls = ls.split('lib2.insert("diary_food", ').join('');
-							ls = ls.split(');').join('');
-							ls = ls.split('\n');
-							for(var l=0, llen=ls.length; l<llen; l++) {
-								try {
-									ls[l] = JSON.parse(ls[l]);
-									ls[l].term = searchalize(ls[l].name);
-									rowsArray.push(ls[l]);
-								} catch(e) {}
+								var rowsArray = [];
+								//////////////////
+								// PARSE NEW DB //
+								//////////////////
+								ls = ls.split('।').join('');
+								ls = ls.split('。').join('');
+								ls = ls.split('"').join('”');
+								ls = ls.split("'").join('’');
+								ls = ls.split("、").join(',');
+								ls = ls.split(",,").join(',');
+								ls = ls.split('  ').join(' ');
+								ls = ls.split(' %').join('%');
+								ls = ls.split(' / ').join('/');
+								ls = ls.split('\r').join('');
+								ls = ls.split('\n');
+								$.ajax({
+									type : 'GET',
+									dataType : 'text',
+									url : databaseHost + 'sql/searchdb.db',
+									error : function (xhr, statusText) {
+										unlockDb(callback);
+									},
+									success : function (sdb) {
+										rowsArray = JSON.parse(sdb);
+										for (var s = 0, slen = rowsArray.length; s < slen; s++) {
+											try {
+												rowsArray[s].name = trim(trimDot(ls[s])).capitalize();
+												rowsArray[s].term = searchalize(rowsArray[s].name);
+												rowsArray[s].kcal = rowsArray[s].kcal;
+												rowsArray[s].pro = rowsArray[s].pro;
+												rowsArray[s].car = rowsArray[s].car;
+												rowsArray[s].fat = rowsArray[s].fat;
+												rowsArray[s].fib = rowsArray[s].fib;
+												rowsArray[s].fii = rowsArray[s].fii;
+												rowsArray[s].sug = rowsArray[s].sug;
+												rowsArray[s].sod = rowsArray[s].sod;
+											} catch (e) {}
+										}
+										saveParsed(rowsArray, callback);
+									}
+								});
 							}
-							}
-							saveParsed(rowsArray,callback);
-						}});
-					} catch(e) { 
+						});
+					} catch (e) {
 						//failure
 						unlockDb(callback);
-				}
-			},100);
-		}}
+					}
+				});
+			}
+		}
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////

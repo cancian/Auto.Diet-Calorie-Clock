@@ -17,7 +17,7 @@
 • Daily tips
 
 # 1.9.9 [2015/09/15]
-• Filter unnecessary data synchronization requests mitigate app slowdown when using large databases
+• Filter unnecessary data synchronization requests
 • More detailed charts for easier reading
 
 # 1.9.8 [2015/09/01]
