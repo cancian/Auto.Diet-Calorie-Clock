@@ -653,15 +653,17 @@ function syncEntries(userId) {
 		$('body').addClass('insync');
 		//get remote sql
 		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
-			//save date
-			app.save('last_sync_data',sql);
-			//sync if different
-			if(sql == app.read('last_sync_data')) {
+			//return for no diff
+			if(trim(sql) == trim(app.read('last_sync_data')) && trim(sql) != '') {
 				demoRunning = false;
 				setComplete();
 				return;
 			}
-			//parse
+			//save sync cache
+			app.save('last_sync_data',sql);
+			///////////////
+			//parse data //
+			///////////////
 			sql = sql.split('undefined').join('');
 			//local storage slice
 			if(sql.match('#@@@#')) {
