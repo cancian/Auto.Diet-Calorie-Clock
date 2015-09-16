@@ -654,7 +654,7 @@ function syncEntries(userId) {
 		//get remote sql
 		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
 			//return for no diff
-			if(trim(sql) == trim(app.read('last_sync_data')) && trim(sql) != '') {
+			if(app.read('last_sync_data') && sql === app.read('last_sync_data')) {
 				demoRunning = false;
 				setComplete();
 				return;
