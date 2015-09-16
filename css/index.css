@@ -1,5 +1,5 @@
 ﻿html, body								{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%; overflow: hidden; margin: 0; background-color: #fff; -ms-touch-action: none; touch-action: none; }
-*, ::before, ::after					{ -webkit-box-sizing: border-box; -webkit-user-select: none; padding: 0; margin: 0; outline: 0; border: 0; border-radius: 0; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
+*, ::before, ::after					{ -webkit-box-sizing: border-box; -webkit-user-select: none; user-select: none; padding: 0; margin: 0; outline: 0; border: 0; border-radius: 0; -webkit-touch-callout: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 .osx *, .osx ::before, .osx ::after,
 .ios *, .ios ::before, .ios ::after		{ -webkit-perspective: 0 !important; font-weight: 400; }
 /*native scroll*/
@@ -24,8 +24,8 @@ body.msie,
 body.blackberry,
 body.playbook,
 body.wekbit,
-body.osx								{ -webkit-user-select: none; }
-input, select, textarea					{ -webkit-user-select: auto; -webkit-box-shadow: none; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
+body.osx								{ -webkit-user-select: none; user-select-: none; }
+input, select, textarea					{ -webkit-user-select: auto; user-select: auto; -webkit-box-shadow: none; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-color: #fff; color: #000; }
 body.moz input,
 body.moz select,
 body.moz textarea						{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
@@ -46,8 +46,8 @@ textarea::-ms-selection					{ background-color: rgba(0,0,0,.1); color: inherit; 
 textarea::-moz-selection				{ background-color: rgba(0,0,0,.1); color: inherit; }
 textarea::-webkit-selection				{ background-color: rgba(0,0,0,.1); color: inherit; }
 textarea								{ -webkit-user-modify: read-write-plaintext-only; }
-input[type='text']						{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; outline: 0; }
-input['readonly'], input[readonly]		{ pointer-events: none; -webkit-user-select: none; -webkit-appearance: none; -ms-touch-action: none; }
+input[type='text']						{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; user-select: auto; outline: 0; }
+input['readonly'], input[readonly]		{ pointer-events: none; -webkit-user-select: none; user-select: none; -webkit-appearance: none; -ms-touch-action: none; }
 input:focus,select:focus,:focus			{ outline: none; }
 body.android40 input[type='number']		{ text-indent: 0 !important; }
 ul										{ padding: 0; margin: 0; text-indent: 0; list-style: none; }
@@ -129,7 +129,7 @@ body.android #appHeader				{ z-index: 50 !important; }
 // CALORIE CLOCK //
 /////////////////*/
 #timerKcals						{ position: absolute; bottom: 0px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; border-bottom: 16px solid rgba(0,0,0,0); background-color: rgba(0,0,0,0); display: block; height: 100px; }
-#timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 24px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(0,0,0,0); -webkit-appearance: none; z-index: 4; text-shadow: 0 0 1px rgba(0,0,0,.1); }
+#timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 24px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(0,0,0,0); -webkit-appearance: none; z-index: 4; text-shadow: 0 0 1px rgba(0,0,0,.1); }
 #timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; font-weight: 400; padding-top: 2px; color: #fff; background-color: rgba(0,0,0,0); z-index: 5; text-shadow: 0 0 1px rgba(0,0,0,.1); }
 #timerKcals span:after			{ content: '\A175'; font-family: KCals; font-size: 13px; display: block; font-weight: normal; margin-top: 0; position: absolute; bottom: -1px; right: -18px; color: #fff; font-size: 14px; line-height: 13px; display: block; z-index: 3; font-weight: bold; opacity: .55; }
 #openHelp.button				{ color: #ccc !important; }
@@ -147,11 +147,11 @@ body.appLang-nl #timerDaily span,
 body.appLang-fr #timerDaily span,
 body.appLang-el #timerDaily span{ font-size: 7px; }
 #editableBlock					{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 9999; }
-#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.93); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; text-shadow: 0px 0 1px rgba(0,0,0,.1); }
+#timerDailyInput				{ position: absolute; bottom: 20px; right: 9px; width: 85px; height: 29px; font-size: 24px; line-height: 24px; display: block; font-weight: 300; border: 0; padding: 0 0 0 10px; margin: 0; text-align: left; z-index: 999 !important; -webkit-user-select: auto; user-select: auto; overflow: hidden; background-color: rgba(0,0,0,0); color: rgba(255,255,255,.93); -webkit-transition: color linear .3s; -webkit-transition-delay: .3s; text-shadow: 0px 0 1px rgba(0,0,0,.1); }
 #timerDailyInput:focus			{ color: rgba(255,255,255,1) !important; -webkit-transition: all linear .0s; text-shadow: 0 0 4px rgba(250,250,250,.7) !important; }
 body.newwindow #timerDailyInput,
-body.closer #timerDailyInput	{ pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
-#timerDailyInput.dull			{ color: rgba(255,255,255,.72) !important; pointer-events: none; user-select: none; -webkit-user-select: none;  touch-action: none; -ms-touch-action: none; }
+body.closer #timerDailyInput	{ pointer-events: none; -webkit-user-select: none; user-select: none; touch-action: none; -ms-touch-action: none; }
+#timerDailyInput.dull			{ color: rgba(255,255,255,.72) !important; pointer-events: none; -webkit-user-select: none; user-select: none; touch-action: none; -ms-touch-action: none; }
 /*//////////////////////////////
 // DAILY CALORIES INPUT ALIGN //
 //////////////////////////////*/
@@ -175,7 +175,7 @@ body.android44 input#timerDailyInput		{ margin-top: 0px; padding-right: 0px; }
 #appFooter li#tab3:before				{ content: '\f007'; }
 #appFooter li#tab4:before				{ content: '\f013'; }
 /*blocks*/
-#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; width: 100%; border-top: 1px solid #dfdfdf; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; background-color: #f5f5f5; text-align: center; z-index: 20; -webkit-user-select: none; }
+#appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; width: 100%; border-top: 1px solid #dfdfdf; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; background-color: #f5f5f5; text-align: center; z-index: 20; -webkit-user-select: none; user-select: none; }
 #appFooter li							{ color: #656565; float: left; width: 25%; height: 44px; line-height: 18px;  }
 /*selected*/
 body.tab1 #appFooter li#tab1,
@@ -195,7 +195,7 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 #appHeaderIcon					{ display: none; }
 .appDebug #appHeaderIcon,
 .appFacebook #appHeaderIcon		{ display: block; }
-#appHeaderIcon					{ position: absolute; top: 4px; right: 3px; width: 18px; height: 18px; z-index: 100; /*overflow: hidden; -webkit-backface-visibility: hidden;*/ -webkit-user-select: none; -ms-user-select: none; pointer-events: none; }
+#appHeaderIcon					{ position: absolute; top: 4px; right: 3px; width: 18px; height: 18px; z-index: 100; /*overflow: hidden; -webkit-backface-visibility: hidden;*/ -webkit-user-select: none; user-select: none; -ms-user-select: none; pointer-events: none; }
 .started #appHeaderIcon span	{ -webkit-animation: rotate 1000ms infinite linear; -webkit-animation-play-state: paused; border: 2px solid rgba(255,255,255,.28); border-top-color: #fff; border-left-color: #fff; /*-webkit-animation-fill-mode: forwards; -webkit-backface-visibility: hidden;*/ position: absolute; display: block; top: 0; left: 0; width: 0; height: 0; padding: 5px; border-radius: 100px; }
 .android #appHeaderIcon span	{ -webkit-animation-name: bug; }
 .insync #appHeaderIcon span		{ -webkit-animation: rotate 1000ms infinite linear; -webkit-animation-play-state: running; }
@@ -460,7 +460,7 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 //#///////////////////#*/
 #advancedAutoUpdate:before			{ position: absolute; top: 29px; left: 0px; color: #aaa; font-size: 10px; white-space: nowrap; line-height: 13px; }
 #advancedAutoUpdate,
-#advancedAutoUpdate input			{ -webkit-user-select: none; }
+#advancedAutoUpdate input			{ -webkit-user-select: none; user-select: none; }
 #appAutoUpdateButton				{ position: absolute; top: 0px; right: 80px; color: #999; font-size: 28px; white-space: nowrap; line-height: 27px; width: 60px; display: none; background-color: rgba(0,0,0,0); height: 60px; padding-top: 10px; text-align: center; }
 #appAutoUpdateButton:before			{ font-family: 'KCals'; content: '\f01e'; }
 .pending #appAutoUpdateButton		{ display: block; }
@@ -483,7 +483,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 //## newWindow ##//
 //##///////////##*/
 #newWindowWrapper					{ display: block; position: absolute; top: 65px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 15; }
-#newWindowWrapper.busy				{ -webkit-user-select: none; -ms-user-select: none; pointer-events: none !important; overflow: hidden; }
+#newWindowWrapper.busy				{ -webkit-user-select: none; user-select: none; -ms-user-select: none; pointer-events: none !important; overflow: hidden; }
 .ios7 #newWindowWrapper				{ top: 80px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
 .windows8 #newWindowWrapper			{ -webkit-backface-visibility: hidden; }
@@ -552,8 +552,8 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #sliderFatRange						{ width: 100%; display: block; }
 #sliderProInput,
 #sliderCarInput,
-#sliderFatInput						{ font-size: 24px; color: #309030; font-weight: 300; -webkit-user-select: none; -ms-user-select: none; pointer-events: none; position: absolute; top: 0; left: 20px; width: 100px; }
-#sliderTotalInput					{ font-size: 24px; color: #666666; font-weight: 300; -webkit-user-select: none; -ms-user-select: none; pointer-events: none; position: absolute; top: 30px; right: 14px; width: 200px; text-align: right; }
+#sliderFatInput						{ font-size: 24px; color: #309030; font-weight: 300; -webkit-user-select: none; user-select: none; -ms-user-select: none; pointer-events: none; position: absolute; top: 0; left: 20px; width: 100px; }
+#sliderTotalInput					{ font-size: 24px; color: #666666; font-weight: 300; -webkit-user-select: none; user-select: none; -ms-user-select: none; pointer-events: none; position: absolute; top: 30px; right: 14px; width: 200px; text-align: right; }
 #sliderProLabel,
 #sliderCarLabel,
 #sliderFatLabel						{ font-size: 13px; color: #309030; text-transform: uppercase; padding-left: 18px; padding-top: 4px;  position: absolute; top: 24px; left: 0; }
@@ -955,9 +955,9 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 /*tap select*/
 #calcForm .tapSelect  					{ display: block; position: relative; margin: 0px 12px 12px 12px; overflow: hidden; height: 54px; }
 #calcForm .tapSelect span				{ display: block; position: absolute; top: 20px; left: 128px; color: #aaa; white-space: nowrap; }
-#calcForm .tapSelect input				{ position: absolute; top: -9px; left: 0; display: block; width: 100%; height: 73px; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: normal; color: #000 !important; background-color: rgba(100,100,100,.0); text-align: left; z-index: 5; -ms-user-select: none; -moz-user-select: none; }
+#calcForm .tapSelect input				{ position: absolute; top: -9px; left: 0; display: block; width: 100%; height: 73px; padding: 15px 0px 14px 0px; text-indent: 30px; font-size: 18px; font-weight: normal; color: #000 !important; background-color: rgba(100,100,100,.0); text-align: left; z-index: 5; -ms-user-select: none; -moz-user-select: none; user-select: none; }
 #calcForm  input[readonly]				{ pointer-events: auto; }
-#calcForm .tapSelect input.tapActive	{ color: #cc0000 !important; pointer-events: none; -webkit-user-select: none; }
+#calcForm .tapSelect input.tapActive	{ color: #cc0000 !important; pointer-events: none; -webkit-user-select: none; user-select: none; }
 /*by/unit width*/
 #calcForm select#pA1B,
 #calcForm select#pA4B					{ min-width: 66px; width: 66px; }
@@ -983,7 +983,7 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 	90% { -webkit-transform: translateX(0);    } 
    100% { -webkit-transform: translateX(0);    } 
 }
-.shake	{ -webkit-animation: shake 500ms 1 linear; -webkit-animation-play-state: running; pointer-events: none; -webkit-user-select: none; }
+.shake	{ -webkit-animation: shake 500ms 1 linear; -webkit-animation-play-state: running; pointer-events: none; -webkit-user-select: none; user-select: none; }
 /*##############################
 ####    BUILD: APP DIARY    ####
 ##############################*/
@@ -1030,20 +1030,20 @@ div#sliderPos:before			{ right: 0; content: '\F020'; }
 div#sliderNeg.activeArrow:before{ color: #CB5220; font-family: 'KCals'; content: '\F001'; }
 div#sliderPos.activeArrow:before{ color: #2052CB; font-family: 'KCals'; content: '\F002'; }
 /*MAIN FORM*/
-input#entryBody					{ position: absolute; margin-top: 6px; left: 16px; right: 63px; background-color: rgba(0,0,0,0); color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; }
+input#entryBody					{ position: absolute; margin-top: 6px; left: 16px; right: 63px; background-color: rgba(0,0,0,0); color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: auto; user-select: auto; }
 input#entry.focusMe				{ top: -5px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
 input#entry.focusMy				{ top: 46px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 14px 0 0px 0; background-clip: padding-box; z-index: 998; }
 div#entryBodySearch				{ position: absolute; top: 67px; right: 15px; width: 50px; height: 33px; text-align: center; display: block; background-color: rgba(0,0,0,0); z-index: 99; font-size: 30px; line-height: 32px; color: #ccc; }
 #entryBodySearch:before			{ content: '\F050'; font-family: KCals; display: inline-block; position: absolute; right: 0; left: 0;}
 div#entryBodySearch:active		{ color: #eee; }
-select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; }
+select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; text-indent: 0px; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: auto !important; user-select: auto !important; }
 .ios select#entryTime			{ padding: 6px 4px 5px 7px; }
 #entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; white-space: nowrap; }
 div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; opacity: 1; }
-#loadingDiv						{ position: absolute; top: 18px; left: 0; width: 100%; z-index: 99; text-align:center; text-indent: 57px; display: none; opacity: 0; -webkit-transition-timing-function: linear; -webkit-user-select: none; pointer-events: none; -ms-touch-action: none; }
+#loadingDiv						{ position: absolute; top: 18px; left: 0; width: 100%; z-index: 99; text-align:center; text-indent: 57px; display: none; opacity: 0; -webkit-transition-timing-function: linear; -webkit-user-select: none; user-select: none; pointer-events: none; -ms-touch-action: none; }
 #appHeader.open + #loadingDiv	{ display: none !important; } 
 .ios7 #loadingDiv				{ top: 31px; }
-#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: rgba(0,0,0,0); color: #fff; -webkit-user-select: none; pointer-events: none; -ms-touch-action: none; }
+#lid							{ width: 100px; font-size: 30px; font-weight: 300; text-align: center; background-color: rgba(0,0,0,0); color: #fff; -webkit-user-select: none; user-select: none; pointer-events: none; -ms-touch-action: none; }
 .android .submitActive			{ -webkit-box-shadow: none !important; }  
 .android #entrySubmit			{ text-shadow: none !important; }
 #sliderBlock					{ width: 100%; display: block; z-index: 9999; position: absolute; top: 0; left: 0; height: 190px; background-color: rgba(0,0,0,0); opacity: 0; }
@@ -1058,7 +1058,7 @@ div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; 
 .ios #entryList div			{ padding: 15px 0 1px 0; }
 #entryList					{ width: 100%; min-height: 45px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
-#editableInput				{ -webkit-user-select: auto; background-color: rgba(0,0,0,0) !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; }
+#editableInput				{ -webkit-user-select: auto; user-select: auto; background-color: rgba(0,0,0,0) !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; }
 .moz.mobile #editableInput,
 .ios #editableInput,
 .android #editableInput		{ margin-left : -1px; }
@@ -1116,7 +1116,7 @@ span.delete #delete:active	{ color: #ccc !important; }
 /*GENERIC*/
 div#noEntries				{ border-left: 5px solid rgba(0,0,0,0); pointer-events: none; height: 45px; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
-.heading					{ -webkit-user-select: none; -ms-touch-action: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #fff; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; background-color: #fff; font-weight: normal; margin: 0; text-align: left; text-transform: uppercase; letter-spacing: 3px; line-height: 1; }
+.heading					{ -webkit-user-select: none; user-select: none; -ms-touch-action: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #fff; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; background-color: #fff; font-weight: normal; margin: 0; text-align: left; text-transform: uppercase; letter-spacing: 3px; line-height: 1; }
 .appLang-el .heading		{ font-size: 14px; letter-spacing: 2px; }
 .appLang-it .heading,
 .appLang-es .heading		{ font-size: 16px; letter-spacing: 2px; }
@@ -1185,31 +1185,33 @@ div#noEntries						{ height: 45px !important; }
 /*////////////////
 // CARPE SLIDER //
 ////////////////*/
-#slider						{ width: 100%; display: block; }
-#sliderWrapper				{ display: block; position: relative; margin-right: 32px; margin-left: 14px; }
-.carpe-slider-box 			{ position: relative; top: 14px; left: 0; right: 0; height: 60px; }
+#slider							{ width: 100%; display: block; }
+#sliderWrapper					{ display: block; position: relative; margin-right: 32px; margin-left: 14px; }
+.carpe-slider-box 				{ position: relative; top: 14px; left: 0; right: 0; height: 60px; }
 .carpe-slider-box,
-.carpe-slider-box *			{ position: relative; display: block; }
-.carpe-slider-panel			{ top: -30px; height: 60px; }
+.carpe-slider-box *				{ position: relative; display: block; }
+.carpe-slider-panel				{ top: -30px; height: 60px; }
 .carpe-slider-panel:focus,
-.carpe-slider-panel:active	{ outline: none; }
+.carpe-slider-panel:active		{ outline: none; }
 .android #slider,
-.msie #slider				{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
+.msie #slider					{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 /*track*/
-.carpe-slider-track			{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #666; opacity: .5; }
-#positiveTrack				{ background-color: #0000dd; }
-#negativeTrack				{ background-color: #D55621; }
-.carpe-slider-knob			{ z-index: 1; top: 0px; left: 2px; margin-left: 0; margin-right: 2px; width: 18px; height: 18px; border: 1px solid #fff; border-radius: 60px; background-color: #fff; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-backface-visibility: hidden; }
-.carpe-slider-knob.active	{ border: 1px solid #009900; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+.carpe-slider-track				{ z-index: 0; top: 21px; margin: 0 0 0 2px; padding: 0; height: 1px; border: none; background-color: #666; opacity: .5; }
+#positiveTrack					{ background-color: #0000dd; }
+#negativeTrack					{ background-color: #D55621; }
+.carpe-slider-knob				{ z-index: 1; top: 0px; left: 2px; margin-left: 0; margin-right: 2px; width: 18px; height: 18px; border: 1px solid #fff; border-radius: 60px; background-color: #fff; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); -webkit-backface-visibility: hidden; }
+.carpe-slider-knob.active		{ border: 1px solid #009900; -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
 /**/
-.android2 .carpe-slider-knob{ -webkit-backface-visibility: visible; }
+.android2 .carpe-slider-knob	{ -webkit-backface-visibility: visible; }
+/*propagation fix*/
+.tab2.newwindow #sliderWrapper	{ background-color: rgba(255,255,255,0); pointer-events: none; }
 /*/////////
 // NOTES //
 /////////*/
 #diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 22px; color: #ddd; }
 #diaryNotes:before			{ content: '\f02d'; font-family: 'KCals'; display: inline-block; font-weight: normal; }
 #diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
-#diaryNotesInput 			{ position: absolute; top: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(0,0,0,0); z-index: 98; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
+#diaryNotesInput 			{ position: absolute; top: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(0,0,0,0); z-index: 98; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: auto; user-select: auto; -webkit-transform: translate3d(0, 0, 0); }
 #diaryNotesButton			{ position: fixed; top: 0; right: 0; width: 80px; height: 65px; background-color: rgba(255,255,255,0); display: block; z-index: 999; text-align: center; line-height: 65px; font-size: 32px; color: #007aff; -webkit-backface-visibility: hidden; }
 #diaryNotesButton:before	{ font-family: 'KCals'; content: '\F00D'; }
 .ios7 #diaryNotesButton		{ height: 80px; line-height: 95px; }
@@ -1230,7 +1232,7 @@ div#noEntries						{ height: 45px !important; }
 /*msie blink*/
 .msie #pageSlideFood.busy #foodList { overflow: hidden !important; /*-webkit-backface-visibility: hidden;*/ }
 /*food search*/
-input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; margin: 0; overflow: hidden; background-color: #fff; }
+input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: auto; user-select: auto; margin: 0; overflow: hidden; background-color: #fff; }
 #foodSearchLabel:before		{ content: '\F050'; font-family: KCals; display: inline-block; position: absolute; left: 5px; top: 20px; color: #007aff; z-index: 1000; font-size: 20px; }
 #foodSearchLabel:active		{ color: #ccc; }
 .moz input1#foodSearch		{ line-height: 24px; }
