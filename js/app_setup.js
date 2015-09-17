@@ -3,7 +3,7 @@
 // SHOW INTRO //
 ////////////////
 var myScroll;
-function showIntro(isNew) {
+function showIntro() {
 	///////////////////////////////////////
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
@@ -59,6 +59,9 @@ function showIntro(isNew) {
 	//////////////
 	$('#skipIntro, #closeDiv').on(touchend,function(evt) {
 		evt.stopPropagation();
+		//manually dismissed
+		app.save('intro_dismissed','done')
+		//QUICK PRE-UPDATE
 		if(app.read('app_restart_pending')) {
 			app.remove('app_restart_pending');
 			if(app.read('config_autoupdate','on')) {
@@ -73,6 +76,8 @@ function showIntro(isNew) {
 					$('#iScrollTag').remove();
 				},600);
 			});
+			//track install
+			app.trackInstall();
 		}
 		evt.preventDefault();
 	});
@@ -169,8 +174,8 @@ function initDB(t) {
 	///////////////////////
 	// TRACK NEW INSTALL //
 	///////////////////////
-	if(!app.read('config_kcals_day_0')) {
-		showIntro(0);		
+	if(!app.read('intro_dismissed')) {
+		showIntro();
 	} else {
 		$('#iScrollTag').remove();
 	}
@@ -1148,7 +1153,7 @@ function updateFoodDb(callback) {
 					if (callback != 'retry') {
 						//retry
 						alert('Error downloading database', 'Importing local database instead.');
-						app.analytics('error', 'Error downloading database');
+						//app.analytics('error', 'Error downloading database');
 						updateFoodDb('retry');
 					} else {
 						//give up
@@ -1758,6 +1763,21 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	// TRANSISION END //
 	////////////////////
 	$('#' + newWindow + 'Wrapper').off().on(transitionend,function() {
+	
+		//swipe left close category
+		app.swipe('#newWindow',function(that,evt,direction) {
+			if($('body').hasClass('closer')) {
+				if(direction === 'right') {
+					$(document).trigger('backbutton');			
+				}
+			}
+		});
+		//swipe closer
+		app.swipe('#newWindowTitle',function(that,evt,direction) {
+			if(/right|left/i.test(direction)) {
+				$(document).trigger('backbutton');			
+			}
+		});
 		//scroller
 		getNiceScroll('#' + newWindow,250);
 		$('#' + newWindow + 'Wrapper').removeClass('busy');

@@ -2,23 +2,16 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
+• Custom portion sizes
 • Multi-user support
-• QR/barcode scanner
-• Track water and cholesterol
-• Search engine with customizable max. results: 50/100/500
-• Adjustable zoom level for larger screens
-• BMI calculator on profile
 • Weight tracker
-• Ability to track weight gain if you goal is to gain weight
-• Auto-Share custom items (every custom item added becomes available to all users)
-• Choose the food database language independently from the current system language
-• Define custom portion sizes to existing food items
-• Alternative diary view with entries ordered by nutrients
+• Water tracker
 • Daily tips
 
-# 1.9.9 [2015/09/15]
+# 1.9.9 [2015/09/17]
 • Filter unnecessary data synchronization requests
 • More detailed charts for easier reading
+• Intro slides now require manual dismissing
 
 # 1.9.8 [2015/09/01]
 • Users can now customize the colors of the caloric balance status (deficit/balanced/surplus)

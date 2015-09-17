@@ -1612,9 +1612,9 @@ function trimDot(x) {
 		return x.replace(/\.$/, '').replace(/\,$/, '');
 	}
 }
-//////////////
-// HIGHLIGH //
-//////////////
+///////////////
+// HIGHLIGHT //
+///////////////
 app.highlight = function(target,duration,startColor,endColor,callback) {
 	if(!startColor) { startColor = 'rgba(255,200,0,0.5)'; }
 	if(!endColor)   { endColor   = 'rgba(255,255,255,0)'; }
@@ -1921,6 +1921,25 @@ function kickDown(el) {
 		$(el).scrollTop($(el).scrollTop());
 	}
 }
+///////////////////
+// TRACK INSTALL //
+///////////////////
+app.trackInstall = function () {
+	if (!app.read('app_installed') && app.read('intro_dismissed','done')) {
+		if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+			//INTALL
+			app.analytics('install');
+		} else {
+			//WEBINSTALL
+			app.analytics('webinstall');
+		}
+		//DEV
+		if (app.dev) {
+			console.log('install tracked');
+		}
+	}
+	app.save('app_installed', 'installed');
+};
 //#//////////////#//
 //# ONLINE USERS #//
 //#//////////////#//

@@ -122,7 +122,7 @@ setTimeout(function() {
 	app.analytics('init');
 	// BLOCK PIRACY
 	app.piracy();
-},0);
+},50);
 ///////////////////////
 // MARK BOOT SUCCESS //
 ///////////////////////
@@ -133,6 +133,7 @@ setTimeout(function() {
 // TRIGGER SYNC ETC //
 //////////////////////
 setTimeout(function() {
+	app.trackInstall();
 	updateLoginStatus(1);
 	app.analytics('start');
 	clearTimeout(app.timers.resume);
@@ -1050,7 +1051,7 @@ if(app.is.scrollable) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,3000);
+	setTimeout(lastEntryPush,2750);
 })();
 	//#////////////////#//
 	//# XY HEADER INFO #//
@@ -1280,71 +1281,56 @@ if(app.is.scrollable) {
 			}
 		}
 	});	
-///////////////////
-// TRACK INSTALL //
-///////////////////
-setTimeout(function () {
-	if (!app.read('app_installed')) {
-		if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
-				//INTALL
-				app.analytics('install');
-			} else {
-				//WEBINSTALL
-				app.analytics('webinstall');
-			}
-		}
-		app.define('app_installed', 'installed');
-}, 5000);
-//#/////////////#//
-//# TAP HANDLER #//
-//#/////////////#//
-(function ($, _) {
-	//"use strict";
-	var ev = {
-		start : touchstart,
-		end : touchend
-	};
-	$.event.special[_] = {
-		setup : function () {
-			$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
-				if(e) {
-					if(e.originalEvent) {
-						ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
-					}
-				}
-			}).on(ev.start, function (e) {
-				if (e.which && e.which !== 1) {
-					return;
-				}
-				if(ev) {
-					if(ev.E) {
-						ev.target = e.target;
-						ev.time = new Date().getTime();
-						ev.X = ev.E.pageX;
-						ev.Y = ev.E.pageY;
-					}
-				}
-			}).on(ev.end, function (e) {
-				if (ev.target === e.target && ((new Date().getTime() - ev.time) < 750) && (ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
-					if(ev) {
-						if(ev.E) {
-							e.type = _;
-							e.pageX = ev.E.pageX;
-							e.pageY = ev.E.pageY;
-							$.event.dispatch.call(this, e);
+	//#/////////////#//
+	//# TAP HANDLER #//
+	//#/////////////#//
+	(function ($, _) {
+		//"use strict";
+		var ev = {
+			start : touchstart,
+			end : touchend
+		};
+		$.event.special[_] = {
+			setup : function () {
+				$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
+					if(e) {
+						if(e.originalEvent) {
+							ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
 						}
 					}
-				}
-			});
-		},
-		remove : function () {
-			$(this).off(ev.start + ' ' + ev.end);
-		}
-	};
-	$.fn[_] = function (fn) {
-		return this[fn ? 'on' : 'trigger'](_, fn);
-	};
-})(jQuery, 'tap');
+				}).on(ev.start, function (e) {
+					if (e.which && e.which !== 1) {
+						return;
+					}
+					if(ev) {
+						if(ev.E) {
+							ev.target = e.target;
+							ev.time = new Date().getTime();
+							ev.X = ev.E.pageX;
+							ev.Y = ev.E.pageY;
+						}
+					}
+				}).on(ev.end, function (e) {
+					if (ev.target === e.target && ((new Date().getTime() - ev.time) < 750) && (ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
+							if(ev) {
+							if(ev.E) {
+								e.type = _;
+								e.pageX = ev.E.pageX;
+								e.pageY = ev.E.pageY;
+								$.event.dispatch.call(this, e);
+							}
+						}
+					}
+				});
+			},
+			remove : function () {
+				$(this).off(ev.start + ' ' + ev.end);
+			}
+		};
+		$.fn[_] = function (fn) {
+			return this[fn ? 'on' : 'trigger'](_, fn);
+		};
+	})(jQuery, 'tap');
 ////#//
 } //#//
 ////#//
