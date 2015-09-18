@@ -8,10 +8,11 @@
 • Water tracker
 • Daily tips
 
-# 1.9.9 [2015/09/17]
+# 1.9.9 [2015/09/18]
 • Filter unnecessary data synchronization requests
 • More detailed charts for easier reading
 • Intro slides now require manual dismissing
+• Fixed minor propagation issue on status tab affecting the info icon
 
 # 1.9.8 [2015/09/01]
 • Users can now customize the colors of the caloric balance status (deficit/balanced/surplus)
