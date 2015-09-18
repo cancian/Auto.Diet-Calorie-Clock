@@ -289,6 +289,7 @@ $('body').scroll(function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
 });
+*/
 $(document).on('dblclick',function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
@@ -305,7 +306,7 @@ $('body').on('dblclick',function(evt) {
 	evt.preventDefault();
 	evt.stopPropagation();	
 });
-*/
+
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////
