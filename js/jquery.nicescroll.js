@@ -3491,12 +3491,9 @@
 								self.nc.hideCursor();
 								self.doSnapy(nx, ny);
 							}
-
+														
 						});
-					} //END
 
-					//TWEAK
-					if (self) {
 						if (self.demulxy < 1) {
 							self.timer = setTimeout(onscroll, tm);
 						} else {
@@ -3504,9 +3501,8 @@
 							self.nc.hideCursor();
 							self.doSnapy(nx, ny);
 						}
-					} //END
+					}//END
 				};
-
 				onscroll();
 
 			} else {
