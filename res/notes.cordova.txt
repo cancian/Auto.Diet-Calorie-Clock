@@ -3,6 +3,10 @@
 ###################
 
 
+plugman install --platform android --project ./ --plugin https://github.com/jeduan/cordova-plugin-facebook4.git --variable APP_ID="577673025616946" --variable APP_NAME="KCals"
+plugman install --platform ios --project ./ --plugin https://github.com/jeduan/cordova-plugin-facebook4.git --variable APP_ID="577673025616946" --variable APP_NAME="KCals"
+
+
 git clone https://github.com/apache/cordova-ubuntu/
 git checkout 3.6.x
 
