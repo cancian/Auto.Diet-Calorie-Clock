@@ -1763,16 +1763,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	// TRANSISION END //
 	////////////////////
 	$('#' + newWindow + 'Wrapper').off().on(transitionend,function() {
-	
-		//swipe left close category
-		app.swipe('#newWindow',function(that,evt,direction) {
-			if($('body').hasClass('closer')) {
-				if(direction === 'right') {
-					$(document).trigger('backbutton');			
-				}
-			}
-		});
-		//swipe closer
+		//swipe h2 closer
 		app.swipe('#newWindowTitle',function(that,evt,direction) {
 			if(/right|left/i.test(direction)) {
 				$(document).trigger('backbutton');			
