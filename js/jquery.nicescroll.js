@@ -2250,10 +2250,16 @@
 				self.scrollratio.x = 0;
 				self.cursorwidth = 0;
 				self.setScrollLeft(0);
-				self.railh.scrollable = false;
+				//TWEAK
+				if (self.railh) {
+					self.railh.scrollable = false;
+				}
 			} else {
 				self.page.maxw -= (self.opt.railpadding.left + self.opt.railpadding.right); //**
-				self.railh.scrollable = true;
+				//TWEAK
+				if (self.railh) {
+					self.railh.scrollable = true;
+				}
 			}
 
 			self.railslocked = (self.locked) || ((self.page.maxh == 0) && (self.page.maxw == 0));
