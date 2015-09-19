@@ -204,9 +204,9 @@ function initDB(t) {
 	app.define('app_zoom',1);
 	app.define('appStatus','stopped');
 	app.define('app_counter_mode','regressive');
-	app.define('colorDeficit','#D50B09');
-	app.define('colorBalanced','#4496F1');
-	app.define('colorSurplus','#2db454');
+	app.define('colorDeficit','#FF3A2F');
+	app.define('colorBalanced','#007AFF');
+	app.define('colorSurplus','#2DB454');
 	///////////
 	// START //
 	///////////

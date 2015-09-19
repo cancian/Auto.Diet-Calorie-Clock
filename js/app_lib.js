@@ -1322,11 +1322,11 @@ body.error #timerKcalsInput			{ text-shadow: 0 0 1px rgba(255,255,255,.4) !impor
 body.error.deficit #timerKcalsInput,\
 body.error.deficit #timerKcals span,\
 body.error.deficit #timerDailyInput,\
-body.error.deficit #timerDaily span	{ color: #D50B09 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }\
+body.error.deficit #timerDaily span	{ color: #FF3A2F !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }\
 body.error.surplus #timerKcalsInput,\
 body.error.surplus #timerKcals span,\
 body.error.surplus #timerDailyInput,\
-body.error.surplus #timerDaily span	{ color: #2db454 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }\
+body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }\
 ';
 	//VENDOR PREFIX
 	if(vendorClass == 'moz') {

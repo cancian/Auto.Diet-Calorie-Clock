@@ -1127,8 +1127,8 @@ function getLimitMenu() {
 		//ONCHANGE
 		$('#colorDeficit').on('change',function () {
 			if(!this.value) {
-				app.save('colorDeficit','#D50B09');
-				$('#colorDeficit').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#D50B09')));
+				app.save('colorDeficit','#FF3A2F');
+				$('#colorDeficit').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#FF3A2F')));
 			} else {
 				app.save('colorDeficit',$('#colorDeficit').val());
 			}
@@ -1136,8 +1136,8 @@ function getLimitMenu() {
 		});
 		$('#colorBalanced').on('change',function () {
 			if(!this.value) {
-				app.save('colorBalanced','#4496F1');
-				$('#colorBalanced').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#4496F1')));
+				app.save('colorBalanced','#007AFF');
+				$('#colorBalanced').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#007AFF')));
 			} else {
 				app.save('colorBalanced',$('#colorBalanced').val());
 			}
@@ -1145,8 +1145,8 @@ function getLimitMenu() {
 		});
 		$('#colorSurplus').on('change',function () {
 			if(!this.value) {
-				app.save('colorSurplus','#2db454');
-				$('#colorSurplus').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#2db454')));
+				app.save('colorSurplus','#2DB454');
+				$('#colorSurplus').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#2DB454')));
 			} else {
 				app.save('colorSurplus',$('#colorSurplus').val());
 			}

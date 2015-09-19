@@ -93,13 +93,14 @@ body.android2 #appContent			{ /*top: 0; border-top: 65px solid rgba(0,0,0,0); -w
 #appHeader					{ height: 65px; position: absolute; left: 0; right: 0; top: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; }
 #timerBlocks				{ height: 65px; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; display: block; z-index: 70; -webkit-backface-visibility: hidden; background-color: rgba(0,0,0,0); }
 /*status colors*/
-#appHeader					{ background-color: #fff; color: #fff !important; font-weight: 300; }
-/**/
-body.balanced #appHeader		{ background-color: #4496F1; font-weight: 300; }
-body.deficit #appHeader,
-body.over.deficit #appHeader	{ background-color: #D50B09; font-weight: 300; }
-body.surplus #appHeader,
-body.over.surplus #appHeader	{ background-color: #2db454; font-weight: 300; }
+#appHeader					{ background-color: rgba(0,0,0,0); color: #fff !important; font-weight: 300; }
+/*#/////////////////////////#//
+//#   HEADER STATUS COLOR   #//
+//# #FF3A2F #007AFF #2DB454 #//
+//#/////////////////////////#*/
+body.deficit #appHeader			{ background-color: #FF3A2F; font-weight: 300; }
+body.balanced #appHeader		{ background-color: #007AFF; font-weight: 300; }
+body.surplus #appHeader			{ background-color: #2DB454; font-weight: 300; }
 /*////////////////
 // online users //
 ////////////////*/
@@ -114,15 +115,15 @@ body.over.surplus #appHeader	{ background-color: #2db454; font-weight: 300; }
 body.ios7 #appStatusTips			{ top: 19px !important; }
 body.error.surplus #appHeader,
 body.error.deficit #appHeader		{ background-color: #000 !important; }
-body.error #timerKcalsInput			{ font-size: 28px !important; width: 190px !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; overflow: hidden; }
+body.error #timerKcalsInput			{ font-size: 28px !important; width: 190px !important; text-shadow: 0 0 1px rgba(255,255,255,0) !important; overflow: hidden; }
 body.error.deficit #timerKcalsInput,
 body.error.deficit #timerKcals span,
 body.error.deficit #timerDailyInput,
-body.error.deficit #timerDaily span	{ color: #D50B09 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }
+body.error.deficit #timerDaily span	{ color: #FF3A2F !important; text-shadow: 0 0 1px rgba(255,255,255,0) !important; }
 body.error.surplus #timerKcalsInput,
 body.error.surplus #timerKcals span,
 body.error.surplus #timerDailyInput,
-body.error.surplus #timerDaily span	{ color: #2db454 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }
+body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 0 1px rgba(255,255,255,0) !important; }
 /*android hacks*/
 body.android #appHeader				{ z-index: 50 !important; }
 /*/////////////////
@@ -185,7 +186,7 @@ body.tab4 #appFooter li#tab4			{ color: #007AFF; }
 body.tab1.surplus #appFooter li#tab1,
 body.tab2.surplus #appFooter li#tab2,
 body.tab3.surplus #appFooter li#tab3,
-body.tab4.surplus #appFooter li#tab4	{ color: #2db454; }
+body.tab4.surplus #appFooter li#tab4	{ color: #2DB454; }
 body.tab1.deficit #appFooter li#tab1,
 body.tab2.deficit #appFooter li#tab2,
 body.tab3.deficit #appFooter li#tab3,
@@ -780,9 +781,9 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #balanceBar:before				{ background: -webkit-linear-gradient(left,                                  #EE8176 25.5%,             #3DB3E2 25.5%,             #3DB3E2 73.9%,             #63C980 73.9%);
 								  content: ' '; position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; }
 #balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: 'KCals'; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
-.deficit #appStatusBalance #balanceBar:after	{ color: #D50B09; }
-/*.balanced #appStatusBalance #balanceBar:after	{ color: #5277FF; }*/
-.surplus #appStatusBalance #balanceBar:after	{ color: #2db454; }
+.deficit #appStatusBalance #balanceBar:after	{ color: #FF3A2F; }
+/*.balanced #appStatusBalance #balanceBar:after	{ color: #007AFF; }*/
+.surplus #appStatusBalance #balanceBar:after	{ color: #2DB454; }
 /**/
 #appStatusIntakeOver,
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; z-index: 1; }
