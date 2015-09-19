@@ -2166,21 +2166,23 @@
 			self.showCursor(py, px);
 			if (!self.rail.active) self.hideCursor(tm);
 		};
-
-		this.getContentSize = (self.ispage) ? function() {
+		
+		//TWEAK
+		this.getContentSize = (self.ispage) ?
+		function () {
 			return {
-				w: Math.max(document.body.scrollWidth, document.documentElement.scrollWidth),
-				h: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
+				w : Math.max(document.body.scrollWidth, document.documentElement.scrollWidth) + (self.opt.railpadding.left + self.opt.railpadding.right),
+				h : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) + (self.opt.railpadding.top + self.opt.railpadding.bottom)
 			}
-		} : (self.haswrapper) ? function() {
+		} : (self.haswrapper) ? function () {
 			return {
-				w: self.doc.outerWidth() + parseInt(self.win.css('paddingLeft')) + parseInt(self.win.css('paddingRight')),
-				h: self.doc.outerHeight() + parseInt(self.win.css('paddingTop')) + parseInt(self.win.css('paddingBottom'))
+				w : self.doc.outerWidth() + parseInt(self.win.css('paddingLeft')) + parseInt(self.win.css('paddingRight')),
+				h : self.doc.outerHeight() + parseInt(self.win.css('paddingTop')) + parseInt(self.win.css('paddingBottom'))
 			}
-		} : function() {
+		} : function () {
 			return {
-				w: self.docscroll[0].scrollWidth,
-				h: self.docscroll[0].scrollHeight
+				w : self.docscroll[0].scrollWidth,
+				h : self.docscroll[0].scrollHeight
 			}
 		};
 
