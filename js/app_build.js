@@ -986,37 +986,28 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// DRIVER //
 			////////////
 			if (/devdriver/i.test($('#entryBody').val())) {
+				$('#entryBody').val('devdrive');
+				$('#entryBody').blur();
 				if (localforage) {
 					alert(localforage._driver);
 				}
-				$('#entryBody').val('');
-				$('#entryBody').blur();
+
 			}
 			///////////
 			// CLEAR //
 			///////////
 			if (/devclear/i.test($('#entryBody').val())) {
 				window.localStorage.clear();
-				$('#entryBody').val('');
+				$('#entryBody').val('devclea');
 				$('#entryBody').blur();
 			}
 			////////////
 			// RELOAD //
 			////////////
 			if (/devreload/i.test($('#entryBody').val())) {
-				window.location.reload(true);
 				$('#entryBody').val('');
 				$('#entryBody').blur();
-			}
-			////////////////
-			// INSTALLPKG //
-			////////////////
-			if (/devinstallpkg/i.test($('#entryBody').val())) {
-				if (vendorClass == 'moz') {
-					navigator.mozApps.install(app.https + 'kcals.net/manifest.webapp');
-					$('#entryBody').val('');
-					$('#entryBody').blur();
-				}
+				window.location.reload(true);
 			}
 			/////////////////
 			// INSTALLTIME //
