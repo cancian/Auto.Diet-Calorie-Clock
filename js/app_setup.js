@@ -1764,11 +1764,13 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	////////////////////
 	$('#' + newWindow + 'Wrapper').off().on(transitionend,function() {
 		//swipe h2 closer
+		/*
 		app.swipe('#newWindowTitle',function(that,evt,direction) {
 			if(/right|left/i.test(direction)) {
 				$(document).trigger('backbutton');			
 			}
 		});
+		*/
 		//scroller
 		getNiceScroll('#' + newWindow,250);
 		$('#' + newWindow + 'Wrapper').removeClass('busy');
@@ -1990,11 +1992,11 @@ function getNiceScroll(target,timeout,callback) {
 	if(!timeout)	  		{ timeout = 0; }
 	//quick scrolling / prevent scrollbar
 	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
-		//$(target).removeClass('overthrow');
-		$('.overthrow').removeClass('overthrow');
+		//$('.overthrow').removeClass('overthrow');
+		$(target).removeClass('overthrow');
 		$(target).css('overflow','hidden');
 	} else {
-		$('.overthrow').removeClass('overthrow');
+		//$('.overthrow').removeClass('overthrow');
 		$(target).addClass('overthrow');
 		$(target).css('overflow','auto');
 		$(target).css('-webkit-overflow-scrolling','touch');
@@ -2004,7 +2006,7 @@ function getNiceScroll(target,timeout,callback) {
 		//SETTINGS
 		var NSettings = {
 		touchbehavior: false,
-		nativeparentscrolling: true,
+		nativeparentscrolling: false,
 		cursorcolor: '#808080',
 		cursorborderradius: '6px',
 		railpadding: { right: 1, bottom: 1},

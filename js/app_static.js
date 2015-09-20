@@ -269,44 +269,6 @@ $('#appFooter li').on(touchstart, function(evt) {
 		$('#timerDailyInput').blur();
 	}
 });
-////////////////
-// OVERSCROLL //
-////////////////
-/*
-$(document).scroll(function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$(window).scroll(function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();
-});
-$('html').scroll(function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$('body').scroll(function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-*/
-$(document).on('dblclick',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$(window).on('dblclick',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$('html').on('dblclick',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$('body').on('dblclick',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////
