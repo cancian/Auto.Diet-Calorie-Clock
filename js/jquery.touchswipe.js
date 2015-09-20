@@ -1633,14 +1633,16 @@
 		 * @inner
 		*/
 		function updateFingerData(evt) {
+			//TWEAK undefined f.end
+			try {
+				var id = evt.identifier!==undefined ? evt.identifier : 0; 
+				var f = getFingerData( id );
 			
-			var id = evt.identifier!==undefined ? evt.identifier : 0; 
-			var f = getFingerData( id );
+				f.end.x = evt.pageX||evt.clientX;
+				f.end.y = evt.pageY||evt.clientY;
 			
-			f.end.x = evt.pageX||evt.clientX;
-			f.end.y = evt.pageY||evt.clientY;
-			
-			return f;
+				return f;
+			} catch(e) { }
 		}
 		
 		/**
