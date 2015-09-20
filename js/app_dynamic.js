@@ -20,7 +20,7 @@ $(document).on("pageload", function (evt) {
 			return;
 		}
 		if (!$(this).hasClass("longHold")) {
-			return;	
+			return;
 		}
 		if ($("#editableInput").is(":visible")) {
 			return;
@@ -40,7 +40,7 @@ $(document).on("pageload", function (evt) {
 			$('.longHold').removeClass('longHold');
 		}
 	});
-	
+
 	$("#appContent").scroll(function () {
 		deKeyboard = 1;
 		deMove++;
@@ -82,7 +82,7 @@ $(document).on("pageload", function (evt) {
 	$("#entryList div" + tgt).on(tap, function (event) {
 		//$("#entryList div" + tgt).swipe({tap:function(event) {
 		event.preventDefault();
-		// clear hold		
+		// clear hold
 		clearTimeout(holdStart);
 		$('.longHold').removeClass('longHold');
 		//////////////
@@ -531,7 +531,7 @@ $(document).on("pageReload", function (evt) {
 	evt.preventDefault();
 	//PREVENT DOUBLE LOAD
 	if($('#pageSlideFood').hasClass("busy") && $('#pageSlideFood').hasClass('open')) {
-		return;	
+		return;
 	} else {
 		$("#pageSlideFood").remove();
 	}
@@ -648,7 +648,6 @@ $(document).on("pageReload", function (evt) {
 						//# KEYUP LISTENER SEARCH TIMER-LIMITER #//
 						//#/////////////////////////////////////#//
 						var timer;
-						
 						var inputEvent = app.device.wp8 ? 'keyup' : 'input';
 						$("#foodSearch").on(inputEvent,function() {
 						//document.getElementById('foodSearch').addEventListener(inputEvent, function () {
@@ -748,14 +747,14 @@ $(document).on("pageReload", function (evt) {
 						}
 						setTimeout(function() {
 							if(!$('#pageSlideFood').is(":animated")) {
-								$('#pageSlideFood').addClass("open"); 
+								$('#pageSlideFood').addClass("open");
 								if(!$('#appHeader').hasClass("open")) {
 									$('#appHeader').removeClass("closer");
 									$('body').removeClass("closer");
 								}
 							}
 						},0);
-						
+
 						$('#loadingDiv').hide();
 						$('#appHeader').addClass("open");
 						$('#pageSlideFood').on(transitionend, function (e) {
@@ -798,7 +797,6 @@ function searchFood(searchSQL, callback) {
 					id : keyScore + (dato[z].term.length/100),
 					value : dato[z]
 				});
-				
 			}
 		}
 	}
@@ -909,7 +907,6 @@ function doSearch(rawInput) {
 			////////////////////////
 			// OVERFLOW ON-DEMAND //
 			////////////////////////
-			
 			app.handlers.activeRow('#searchContents div.searcheable','activeOverflow',function(rowId) {
 				getModalWindow(rowId);
 			});
@@ -921,14 +918,14 @@ function doSearch(rawInput) {
 //#//////////////////////#//
 function updateCustomList(filter,callback) {
 	if(/cat|all/i.test(filter)) {
-		getCatList();		
+		getCatList();
 	}
 	//FAV
 	if(/fav|all|cache/i.test(filter)) {
 		$('#tabMyFavsBlock').html2(getCustomList('fav',filter));
 		app.handlers.activeRow('#tabMyFavsBlock div.searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
-		});	
+		});
 	}
 	//ITEM
 	if(/items|all|cache/i.test(filter)) {
@@ -937,7 +934,7 @@ function updateCustomList(filter,callback) {
 		$('#foodList').after2('<div id="addButtons"><div id="addNewFood"><div id="addNewFoodTitle"><span>+</span>' + LANG.NEW_FOOD[lang] + '</div></div><div id="addNewExercise"><div id="addNewExerciseTitle"><span>+</span>' + LANG.NEW_EXERCISE[lang] + '</div></div></div>');
 		app.handlers.activeRow('#tabMyItemsBlock div.searcheable','activeOverflow',function(rowId) {
 			getModalWindow(rowId);
-		});	
+		});
 		//EXTRA HANDLERS
 		$('#addNewFood').on(touchstart, function (evt) {
 			$('#addNewFood').addClass('active');
@@ -956,9 +953,6 @@ function updateCustomList(filter,callback) {
 //##    CORE: BUILD FOOD LAYER   ##//
 //##/////////////////////////////##//
 function buildFoodMenu() {
-	
-	
-	
 	var recentBlock = '\
 		<div id="infoContents" class="infoContents">\
 		<div id="tabMyCats">\
@@ -985,7 +979,7 @@ function buildFoodMenu() {
 	//first load db spinner
 	if(!app.read('foodDbLoaded','done')) {
 		setTimeout(function() {
-			updateFoodDb(function() { 
+			updateFoodDb(function() {
 				updateCustomList('all');
 			});
 		},200);
@@ -1070,7 +1064,7 @@ function addNewItem(addnew) {
 	///////////////////
 	if($('#addNewWrapper').length) {
 		$('#modalWrapper').remove();
-	}	
+	}
 	/////////////////////
 	// FOOD ? EXERCISE //
 	/////////////////////
@@ -1107,7 +1101,7 @@ function addNewItem(addnew) {
 	// ADDNEW.CLOSE() //
 	////////////////////
 	addnew.close = function(evt) {
-		if(evt) { 
+		if(evt) {
 			evt = evt.target.id;
 		} else {
 			evt = '';
@@ -1138,7 +1132,7 @@ function addNewItem(addnew) {
 			addnew.code = 'c' + addnew.id;
 			//allow fav duplication
 			if(!$('#saveAsNew').hasClass('active')) {
-				addnew.fib  = 'custom';				
+				addnew.fib  = 'custom';
 			}
 		}
 		//(P)RE-FILL EMPTY NAME
@@ -1151,7 +1145,7 @@ function addNewItem(addnew) {
 				}
 			}
 		} else {
-			addnew.name = $('#inputNewName').val();	
+			addnew.name = $('#inputNewName').val();
 		}
 		//READ INPUT VALUES
 		addnew.term = sanitize(addnew.name);
@@ -1160,7 +1154,7 @@ function addNewItem(addnew) {
 		addnew.car  = $('#inputNewCar').val();
 		addnew.fat  = $('#inputNewFat').val();
 		addnew.fii  = $('#inputNewFii').val();
-		addnew.sug  = $('#inputNewSug').val();		
+		addnew.sug  = $('#inputNewSug').val();
 		addnew.sod  = $('#inputNewSod').val();
 		//REVERT TO FORMULA
 		if ((/0000|exercise/).test(addnew.type)) {
@@ -1249,7 +1243,7 @@ function addNewItem(addnew) {
 			// INSERT NEW ITEM //
 			/////////////////////
 				updateCustomList('fav');
-				updateCustomList('items');	
+				updateCustomList('items');
 				//REDO SEARCH
 				if ($('#searchContents').html()) {
 					if ((/0000|exercise/).test(addnew.type) && !$('#foodSearch').hasClass('exerciseType')) {
@@ -1265,7 +1259,6 @@ function addNewItem(addnew) {
 					app.handlers.highlight('.' + addnew.id);
 					if (!app.read('lastInfoTab','topBarItem-3')) {
 						app.highlight('#topBarItem-3','rgba(255,200,0,0.8)','#fff',800);
-						
 					}
 				}, 25);
 
@@ -1312,11 +1305,11 @@ function addNewItem(addnew) {
 		//CREATE NEW
 		$('body').append2('<div id="modalWrapper"><div id="modalOverlay"></div>' + addNewCoreHtml + '</div>');
 		$('#addNewWrapper,#addNewCancel,#addNewConfirm').hide();
-	
+
 		if($('#foodSearch').val() != '') {
 			$('#inputNewName').val( $('#foodSearch').val() );
 		}
-		
+
 		$('#modalWrapper').show();
 		$('#addNewWrapper').show();
 		$('#addNewWrapper,#addNewCancel,#addNewConfirm').show();
@@ -1329,7 +1322,7 @@ function addNewItem(addnew) {
 	app.handlers.addRemove('#inputNewAmount',0,999,'int');
 	app.handlers.addRemove('#inputNewKcal',0,9999,'int');
 	app.handlers.addRemove('#inputNewPro',0,999);
-	app.handlers.addRemove('#inputNewCar',0,999);	
+	app.handlers.addRemove('#inputNewCar',0,999);
 	app.handlers.addRemove('#inputNewFat',0,999);
 	app.handlers.addRemove('#inputNewFii',0,999);
 	app.handlers.addRemove('#inputNewSug',0,999);
@@ -1559,7 +1552,7 @@ function getModalWindow(itemId) {
 						intakeHistory();
 						setPush();
 					}, 1000);
-				}	
+				}
 			});
 			$('div.activeOverflow').removeClass('activeOverflow');
 			clearTimeout(app.repeaterLoop);
@@ -1615,10 +1608,10 @@ function getModalWindow(itemId) {
 						if(recentArray[r].id == '#' + itemId + '#') {
 							recentArray[r].time = app.now();
 							if(!recentArray[r].count) {
-								recentArray[r].count = 1;								
+								recentArray[r].count = 1;
 							}
 							recentArray[r].count = recentArray[r].count + 1;
-							break;	
+							break;
 						}
 					}
 				} else {
@@ -1680,7 +1673,7 @@ function getModalWindow(itemId) {
 		modal.remove = function() {
 			appConfirm(LANG.DELETE_ITEM[lang], LANG.ARE_YOU_SURE[lang], function(button) {
 				if (button === 2) {
-					modal.close();			
+					modal.close();
 					setTimeout(function() {
 						delFood(modal.id,function() {
 							$('.' + modal.id).each(function(row) {
@@ -1770,7 +1763,7 @@ function getModalWindow(itemId) {
 		//READ STORED
 		if (modal.fib == 'fav') {
 			$('#modalFav').addClass('favorite');
-		}		
+		}
 		//////////
 		// SHOW //
 		//////////
@@ -1790,8 +1783,8 @@ function getModalWindow(itemId) {
 				evt.preventDefault();
 				evt.stopPropagation();
 				if(parseInt($('#modalTotal').html()) != 0) {
-					$('#modalOk').off();				
-					modal.save();				
+					$('#modalOk').off();
+					modal.save();
 				}
 			});
 			//CANCEL

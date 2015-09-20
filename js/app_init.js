@@ -35,7 +35,7 @@ window.onerror = function (e, url, line) {
 	}
 	if(typeof line !== 'string') {
 		line = JSON.stringify(line);
-	}	
+	}
 	console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	//
 	if (window.localStorage.getItem('config_debug') == 'active' && blockAlerts == 0) {
@@ -59,7 +59,7 @@ window.onerror = function (e, url, line) {
 	if (typeof app !== 'undefined') {
 		if (typeof app.analytics !== 'undefined') {
 			app.analytics('error','unhandled: ' + e + ' URL:' + url + ' Line:' + line);
-		}	
+		}
 	}
 	//disable ff db
 	if ((/InvalidStateError/i).test(e) && !window.localStorage.getItem('config_force_localstorage')) {

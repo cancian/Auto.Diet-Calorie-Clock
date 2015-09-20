@@ -81,7 +81,7 @@ app.tab.settings = function(keepOpen) {
 		/////////////
 		// HANDLER //
 		/////////////
-		var aboutHandler = function() { 
+		var aboutHandler = function() {
 			app.handlers.activeRow('#b000','button',function() { app.url('www');        });
 			app.handlers.activeRow('#b100','button',function() { app.url('android');    });
 			app.handlers.activeRow('#b200','button',function() { app.url('ios');        });
@@ -94,7 +94,7 @@ app.tab.settings = function(keepOpen) {
 			app.handlers.activeRow('#b900','button',function() { app.url('amazon'); });
 			//CONTACT
 			app.handlers.activeRow('#developedBy','button',function(evt) {
-				app.url('mailto:support@kcals.net?Subject=KCals%20-%20Dev Support%20(' + app.get.platform(1) + ')'); 
+				app.url('mailto:cancian@kcals.net?Subject=KCals%20-%20Dev Support%20(' + app.get.platform(1) + ')');
 			});
 		};
 		/////////////////
@@ -112,7 +112,7 @@ app.tab.settings = function(keepOpen) {
 	//////////////
 	app.handlers.activeRow('#optionHelp','activeRow',function(evt) {
 		buildHelpMenu();
-	});	
+	});
 	//////////////
 	// LANG TAP //
 	//////////////
@@ -233,7 +233,7 @@ app.tab.status = function(keepOpen) {
 	var appStatusClass = 'start';
 	var appStatusTitle = LANG.START[lang];
 	if(app.read('appStatus','running')) {
-		appStatusClass = 'reset'; 
+		appStatusClass = 'reset';
 		appStatusTitle = LANG.RESET[lang];
 	}
 	////////////////////
@@ -321,7 +321,7 @@ app.tab.status = function(keepOpen) {
 	app.handlers.activeRow('#appStatusBalance','button',function(evt) {
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		getLimitMenu();
-	});	
+	});
 	/////////////////
 	// CYCLIC MENU //
 	/////////////////
@@ -389,7 +389,7 @@ app.tab.status = function(keepOpen) {
 		}
 		$(document).trigger('pageReload');
 	},function() {
-		if($('#editable').is(':visible') || $('#pageSlideFood').hasClass('busy')) { 
+		if($('#editable').is(':visible') || $('#pageSlideFood').hasClass('busy')) {
 			$('#editable').trigger('blur');
 			return false;
 		}
@@ -417,7 +417,7 @@ app.tab.status = function(keepOpen) {
 	});
 	//#/////////////////////#//
 	//# APP STATUS/DATE BAR #//
-	//#/////////////////////#//	
+	//#/////////////////////#//
 	////////////////
 	// DATEPICKER //
 	////////////////
@@ -455,14 +455,14 @@ app.tab.status = function(keepOpen) {
 			//
 		} else {
 			//evt.preventDefault();
-			//evt.stopPropagation();	
+			//evt.stopPropagation();
 			$('#startDate').click();
 			return false;
 		}
 	});
 	//////////////////
 	// ENABLE DEBUG //
-	//////////////////	
+	//////////////////
 	$('#appStatusReload').on('longhold',function(evt) {
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
@@ -664,7 +664,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	} else {
 		$('body').removeClass('sidebar');
 	}
-	//HANDLER	
+	//HANDLER
 	$('#diarySidebar').on(touchstart, function(evt) {
 		if(app.read('config_sidebar') == 1) {
 			$('body').removeClass('sidebar');
@@ -702,7 +702,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		} else {
 			if($('.carpe-slider-track').attr('id')) {
 				$('.carpe-slider-track').removeAttr('id');
-			}			
+			}
 		}
 		//////////////////
 		// CHECK SUBMIT //
@@ -752,7 +752,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			$('#loadingDiv').css(prefix + 'transition-duration','0s');
 			$('#loadingDiv').css('opacity',.66);
 			$('#loadingDiv').css('display','block');
-		}	
+		}
 	};
 	////////////////////
 	// SLIDER.RESET() //
@@ -865,9 +865,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 					$('.delete', '#' + published).removeClass('busy');
 				});
 			},function() {
-				$('#go').trigger(tap);				
+				$('#go').trigger(tap);
 			});
-		});		
+		});
 	};
 	///////////////////
 	// ARROW BUTTONS //
@@ -942,7 +942,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				$('#entryBody').val('devjtes');
 				$('#entryBody').blur();
 				window.location.href = 'http://jsperf.com/speed-comparison-of-jquery-versions/92';
-			}			
+			}
 			///////////
 			// DEBUG //
 			///////////
@@ -1066,7 +1066,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				var rowsArray = app.rows.food;
 				var rowsHtml = '';
 				for(var i=0, len=rowsArray.length; i<len; i++) {
-					
+
 					rowsHtml += rowsArray[i].name + '<br>\n';
 					//if(rowsArray[i].term) {
 					//	delete rowsArray[i].term;
@@ -1189,7 +1189,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	});
 	$('#entryTime').on(touchstart, function(evt) {
 		//evt.preventDefault();
-		evt.stopPropagation();	
+		evt.stopPropagation();
 		if(!$('#entryTime').is(':focus') && !$('.delete').is(':visible')) {
 			if(!app.device.android && !app.device.windows8) {
 				evt.preventDefault();
@@ -1215,7 +1215,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#entryBody').focus(function(evt) {
 			$('#entryBody').removeClass('focusMe');
 			$('#entryBody').addClass('focusMy');
-		});	
+		});
 		$('#entryTime,#entryBody').blur(function(evt) {
 			$('#entryBody').removeClass('focusMe focusMy');
 		});
@@ -1262,11 +1262,11 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#diaryNotesInput').width($('body').width() - 24);
 		//load scroller & set window < height
 		getNiceScroll('#diaryNotesInput',200,function() {
-			$('#diaryNotesInput').height($('body').height() - 32);				
+			$('#diaryNotesInput').height($('body').height() - 32);
 		});
 		//cancel drag for non-overflow
 		$('#diaryNotesInput').on(touchmove, function(evt) {
-			if($('.nicescroll-rails').is(':visible')) { 
+			if($('.nicescroll-rails').is(':visible')) {
 			//
 			} else {
 				evt.preventDefault();
@@ -1291,14 +1291,14 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 			$('#diaryNotesInput').height($('body').height() - 32);
 			if($.nicescroll) {
-				$('#diaryNotesInput').getNiceScroll().resize();	
+				$('#diaryNotesInput').getNiceScroll().resize();
 			}
 			setTimeout(function() {
 				kickDown('#diaryNotesInput');
 				//$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());
 				$('#diaryNotesInput').height($('body').height() - 32);
 				if($.nicescroll) {
-					$('#diaryNotesInput').getNiceScroll().resize();	
+					$('#diaryNotesInput').getNiceScroll().resize();
 				}
 			},100);
 		});
@@ -1695,7 +1695,7 @@ app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
 		},200);
 		//HIGHLIGHT
 		$('#' + thisId).addClass('tapActive');
-		app.highlight('#' + thisId,1000,'rgba(255,240,0,0.4)'); 
+		app.highlight('#' + thisId,1000,'rgba(255,240,0,0.4)');
 		setTimeout (function() { $('#pA7B,#pA7F,#pA7L').removeClass('tapActive'); }, 200);
 		updateTimer();
 		setPush();
@@ -1703,9 +1703,9 @@ app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
 		//shake error
 		$('#' + thisId).parent('div').addClass('tapActive shake');
 		$('#' + thisId).addClass('tapActive');
-		setTimeout (function() { 
+		setTimeout (function() {
 			$('.tapActive').removeClass('tapActive');
-			$('.shake').removeClass('shake');			
+			$('.shake').removeClass('shake');
 		}, 400);
 	}
 });
@@ -1835,7 +1835,7 @@ setTimeout(function() {
 	trackProfile = 1;
 },200);
 $('#formc input').on('change',function() {
-	$('#do_recalc').trigger('click');	
+	$('#do_recalc').trigger('click');
 	writeCalcValues();
 	if(trackProfile == 1) {
 		setPush();
@@ -1899,7 +1899,7 @@ function writeCalcValues() {
 	}
 	if(!isNaN(parseInt($('#inches').val()))) {
 		$('#inches').val( Math.abs(parseInt($('#inches').val())) );
-		app.save(preffix + '#inches',parseInt($('#inches').val()));	
+		app.save(preffix + '#inches',parseInt($('#inches').val()));
 	}
 }
 /////////////////
@@ -1933,7 +1933,7 @@ function loadCalcValues() {
 		$('#pA6N').val(app.read(preffix + '#pA6N'));
 		//measure
 		$('#feet').val(app.read(preffix + '#feet'));
-		$('#inches').val(app.read(preffix + '#inches'));	
+		$('#inches').val(app.read(preffix + '#inches'));
 	}
 	//recalc
 	$('#do_recalc').trigger('click');
@@ -2009,7 +2009,7 @@ if(document.getElementById('pA2C').value == 'centimetres') {
 	$('#feet').removeClass('metric');
 	$('#inches').removeClass('metric');
 	$('#feet').addClass('imperial');
-	$('#inches').addClass('imperial');		
+	$('#inches').addClass('imperial');
 }
 /////////////
 // ON LOAD //
@@ -2069,7 +2069,7 @@ $("#bmiInfo").on(touchend, function(evt) {
 });
 
 //BMI//
-#rowBMI { 
+#rowBMI {
 background-image: -webkit-gradient(
 	linear,
 	left top,
@@ -2079,16 +2079,16 @@ background-image: -webkit-gradient(
 
 	color-stop(6%, #E4F6FD),
 	color-stop(17%, #E4F6FD),
-	
+
 	color-stop(17%, #C8E5B9),
 	color-stop(43%, #C8E5B9),
 
 	color-stop(43%, #FDD389),
 	color-stop(62%, #FDD389),
-	
+
 	color-stop(62%, #F4B8B8),
 	color-stop(81%, #F4B8B8),
-	
+
 	color-stop(81%, #F68080),
 	color-stop(100%, #F68080)
 );
@@ -2104,8 +2104,8 @@ position: relative;
 
 .info { position: relative; }
 .info:after				{ font-family: "FontAwesome"; content: "\A0000"; font-size: 14px;
-padding-top: 0px; vertical-align:;  margin-bottom: 0px; display: inline-block; color: rgba(0,0,0,.35); font-weight: normal; 
-position: absolute; top: -1px; right: -18px; 
+padding-top: 0px; vertical-align:;  margin-bottom: 0px; display: inline-block; color: rgba(0,0,0,.35); font-weight: normal;
+position: absolute; top: -1px; right: -18px;
  }
 
 background-image: -o-linear-gradient(bottom, #A8C7BE 0%, #405880 100%, #83CD63 100%, #D8DB73 100%, #EEA444 100%, #C84047 100%);

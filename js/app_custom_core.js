@@ -58,17 +58,17 @@ function appTimer(content) {
 	//STATUS
 	if(!$('body').hasClass(cssClass) || !$('#appHeader').hasClass(cssClass) || !$('#appStatusBalance').hasClass(cssClass)) {
 		$('body,#appHeader,#appStatusBalance').addClass(cssClass);
-		
+
 		if(cssClass != 'balanced') {
 			$('body,#appHeader,#appStatusBalance').removeClass('balanced');
 		}
 		if(cssClass != 'deficit') {
 			$('body,#appHeader,#appStatusBalance').removeClass('deficit');
 		}
-		if(cssClass != 'surplus') { 
+		if(cssClass != 'surplus') {
 			$('body,#appHeader,#appStatusBalance').removeClass('surplus');
 		}
-		if(cssOver != 'over') { 
+		if(cssOver != 'over') {
 			$('body,#appHeader,#appStatusBalance').removeClass('over');
 		}
 	}
@@ -85,7 +85,7 @@ function appTimer(content) {
 		}
 	} else {
 		if($('body').hasClass('error')) {
-			$('body').removeClass('error');	
+			$('body').removeClass('error');
 		}
 	}
 	///////////////////////
@@ -95,12 +95,12 @@ function appTimer(content) {
 		appBalance = status;
 		app.save('appBalance',status);
 	}
-	if(appBalanceOver != cssOver) {		
+	if(appBalanceOver != cssOver) {
 		appBalanceOver = cssOver;
 		app.save('cssOver',cssOver);
 	}
 	//UPDATE BLOCKS
-	if(app.read('app_last_tab','tab1')) { 
+	if(app.read('app_last_tab','tab1')) {
 		$('#appStatusBalance div p').html2(app.read('appBalance'));
 	}
 	//UPDATE TIPS
@@ -143,7 +143,7 @@ function appTimer(content) {
 	//////////////////////////////////////////////////
 	//sensibility
 	timerDiff = (app.now() - timerPerf) * 5;
-	timerWait = timerDiff;	
+	timerWait = timerDiff;
 	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
 	if(app.device.wp8 || app.device.android) {
 		timerDiff = timerDiff*10;
@@ -306,7 +306,7 @@ function updateNutriBars() {
 	var tFii = app.read('tFii');
 	var tSug = app.read('tSug');
 	var tSod = app.read('tSod');
-	//ratio by	
+	//ratio by
 	var ratioBy = app.read('appRatioBy','g') ? 4 : 9;
 	//total calories
 	var nTotal  = (tPro*4) + (tCar*4) + (tFat*ratioBy);
@@ -329,7 +329,7 @@ function updateNutriBars() {
 	}
 	if(dailySod > 1500) {
 		dailySod = 1500;
-	}	
+	}
 	//return null
 	var doReturn = 0;
 	if(tPro + tCar + tFat == 0) {
@@ -338,7 +338,7 @@ function updateNutriBars() {
 		$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase());
 		$('#appStatusBars p').css('width',0);
 		$('#appStatusBarsPro span').html2('0%');
-		$('#appStatusBarsCar span').html2('0%');			
+		$('#appStatusBarsCar span').html2('0%');
 		$('#appStatusBarsFat span').html2('0%');
 		doReturn++;
 	}
@@ -422,7 +422,7 @@ function updateNutriBars() {
 	$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
 	$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
 	$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
-	//	
+	//
 	$('#appStatusBarsPro span').html2(Math.round(nPerPro*1)/1 + '%');
 	$('#appStatusBarsCar span').html2(Math.round(nPerCar*1)/1 + '%');
 	//$('#appStatusBarsFat span').html2(Math.round(nPerFat*1)/1 + '%');
@@ -434,11 +434,11 @@ function updateNutriBars() {
 	if(app.read('appNutrientTimeSpan',7) && elapsedDays > 7) {
 		tFii = tFii / 7;
 		tSug = tSug / 7;
-		tSod = tSod / 7;		
+		tSod = tSod / 7;
 	} else if(app.read('appNutrientTimeSpan',30) && elapsedDays > 30)  {
 		tFii = tFii / 30;
 		tSug = tSug / 30;
-		tSod = tSod / 30;				
+		tSod = tSod / 30;
 	} else if(app.read('appNutrientTimeSpan',0)) {
 		tFii = tFii / elapsedDays;
 		tSug = tSug / elapsedDays;
@@ -472,7 +472,7 @@ function updateTimer() {
 			var tFat = 0;
 			var tFii = 0;
 			var tSug = 0;
-			var tSod = 0;		
+			var tSod = 0;
 			for(var i=0, len=data.length; i<len; i++) {
 				// EXPIRED
 				if(app.read('config_start_time') <= Number(data[i].published) && Number(data[i].published <= app.now())) {
@@ -531,7 +531,7 @@ function updateTimer() {
 			app.save('config_ttf',ttf);
 			app.save('config_tte',tte);
 			if(!app.read('config_ttf',ttf) || !app.read('config_tte',tte)) {
-				updateTodayOverview();	
+				updateTodayOverview();
 			}
 		}
 		///////////////////

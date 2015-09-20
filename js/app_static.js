@@ -65,7 +65,7 @@ $(document).on('resume',function(evt) {
 		}
 	}
 	//
-	app.timeout('resume',4000,function() { 
+	app.timeout('resume',4000,function() {
 		app.analytics('resume');
 		updateLoginStatus(1);
 		setTimeout(function() {
@@ -211,8 +211,8 @@ afterTab = function(keepOpen) {
 	$('#diaryNotesWrapper').remove();
 	//
 	if(!$('#pageSlideFood').is(':animated')) {
-		$('#timerDailyInput').removeAttr('readonly'); 
-		$('#timerDailyInput').removeClass('dull'); 
+		$('#timerDailyInput').removeAttr('readonly');
+		$('#timerDailyInput').removeClass('dull');
 		$('#pageSlideFood').remove();
 		$('#appHeader').removeClass('open');
 		$('body').removeClass('closer');
@@ -284,7 +284,7 @@ if(app.device.wp8) {
 // MENU BUTTON //
 /////////////////
 $(document).on('menubutton', function(evt) {
-		if($('#timerDailyInput').is(':focus') || $('#skipIntro').length) { 
+		if($('#timerDailyInput').is(':focus') || $('#skipIntro').length) {
 			$('#timerDailyInput').trigger('blur');
 			return false;
 		}
@@ -352,7 +352,7 @@ $(document).on('backbutton', function(evt) {
 		$('input,select,textarea').trigger('blur');
 	} else if(!app.read('app_last_tab','tab1')) {
 		if(app.read('app_last_tab','tab4')) {
-			appFooter('tab3');	
+			appFooter('tab3');
 		} else if(app.read('app_last_tab','tab3')) {
 			appFooter('tab2');
 		} else {
@@ -435,7 +435,7 @@ $(document).keydown(function(e) {
 	}
 	if(app.device.osxapp && app.timers.keystrokeLock !== 1) {
 		if(!$('input,input[type="number"]select,textarea').is(':focus')) {
-			e.preventDefault();	
+			e.preventDefault();
 		}
 	}
 });
@@ -519,7 +519,7 @@ $(document).keyup(function(e) {
 		         if(app.read('app_last_tab','tab4')) { appFooter('tab1'); }
 			else if(app.read('app_last_tab','tab3')) { appFooter('tab4'); }
 			else if(app.read('app_last_tab','tab2')) { appFooter('tab3'); }
-			else if(app.read('app_last_tab','tab1')) { appFooter('tab2'); }	
+			else if(app.read('app_last_tab','tab1')) { appFooter('tab2'); }
 		}
 	}
 });
@@ -584,7 +584,7 @@ $(window).on('orientationchange', function(evt) {
 	appResizer(0);
 	appResizer(100);
 	appResizer(300);
-	appResizer(600); 
+	appResizer(600);
 });
 ////////////
 // RESIZE //
@@ -626,7 +626,7 @@ $(window).on('resize', function(evt) {
 		} else if($('input').has(':focus')) {
 			//appResizer(0);
 		} else {
-			appResizer(0);	
+			appResizer(0);
 		}
 	} else if(app.device.desktop) {
 		appResizer(0);
@@ -638,7 +638,7 @@ $(window).on('resize', function(evt) {
 			$('#diaryNotesInput').height($('body').height() - 32);
 			$('#diaryNotesInput').width($('body').width() - 24);
 			if($.nicescroll) {
-				$('#diaryNotesInput').getNiceScroll().resize();	
+				$('#diaryNotesInput').getNiceScroll().resize();
 			}
 			$('#diaryNotesButton span').css('top',($('body').height()/2) + 'px');
 		}
@@ -786,7 +786,7 @@ if(app.device.osxapp) {
 			}, LANG.OK[lang], LANG.CANCEL[lang]);
 		});
 	} catch(e) {
-		errorHandler(e);	
+		errorHandler(e);
 	}
 	//CLOSE ON MINIMIZE
 	$(document).on('visibilitychange', function () {
@@ -834,7 +834,7 @@ if(app.device.amazon) {
 if(app.device.cordova) {
 	$('body').addClass('cordova');
 } else {
-	$('body').addClass('noncordova');	
+	$('body').addClass('noncordova');
 }
 //////////
 // HTTP //
@@ -842,7 +842,7 @@ if(app.device.cordova) {
 if(app.http) {
 	$('body').addClass('http');
 } else {
-	$('body').addClass('localhost');	
+	$('body').addClass('localhost');
 }
 /////////////
 // DESKTOP //
@@ -850,7 +850,7 @@ if(app.http) {
 if(app.device.desktop) {
 	$('body').addClass('desktop');
 } else {
-	$('body').addClass('mobile');	
+	$('body').addClass('mobile');
 }
 ////////////////////
 // DEFINE PROFILE //
@@ -865,7 +865,7 @@ app.define('calcForm#pA6M','1');
 app.define('config_measurement','metric');
 app.define('calcForm#feet','0');
 app.define('calcForm#inches','170');
-app.define('calcForm#pA3B','70');	
+app.define('calcForm#pA3B','70');
 app.define('calcForm#pA2C','centimetres');
 app.define('calcForm#pA3C','kilograms');
 app.define('calcForm#pA6H','kilograms');
@@ -934,7 +934,7 @@ if(!$('#fontTest').length) {
 			unlockApp();
 		} else {
 			//decelerate
-			//timerFont++;	
+			//timerFont++;
 		}
 	},timerFont);
 }
@@ -942,9 +942,9 @@ if(!$('#fontTest').length) {
 // ALLOW HORIZONTAL SWIPE //
 ////////////////////////////
 if(app.is.scrollable) {
-	app.globals.X     = 0; 
+	app.globals.X     = 0;
 	app.globals.Y     = 0;
-	app.globals.MX    = 0; 
+	app.globals.MX    = 0;
 	app.globals.MY    = 0;
 	app.globals.XLock = 0;
 	$('body').on(touchend + ' mouseup',function(evt) {
@@ -956,23 +956,23 @@ if(app.is.scrollable) {
 	});
 	$('body').on(touchmove,function(evt) {
 		//UPDATE POS
-		app.globals.MX = app.globals.MX - (app.globals.X - evt.pageX); 
+		app.globals.MX = app.globals.MX - (app.globals.X - evt.pageX);
 		app.globals.MY = app.globals.MY - Math.abs(app.globals.Y - evt.pageY);
 		//
-		app.globals.X = evt.pageX; 
+		app.globals.X = evt.pageX;
 		app.globals.Y = evt.pageY;
 		//ENABLE LOCK
 		if(Math.abs(app.globals.MY) < 32 && Math.abs(app.globals.MX) > 6) {
 			app.globals.XLock = 1;
-		}	
+		}
 		//HEIGHT UNBLOCK
 		if(Math.abs(app.globals.MY) > 120) {
 			app.globals.XLock = 0;
-		}	
+		}
 		//READ LOCK
 		if(app.globals.XLock == 1 && app.read('app_last_tab','tab2')) {
 			evt.stopPropagation();
-		}	
+		}
 	});
 }
 ////////////////
@@ -1038,7 +1038,7 @@ if(app.is.scrollable) {
 	//NOT WHILE EDITING
 	$('#timerDailyInput').on('blur',function() {
 		$('#appHeader').addClass('blockInfo');
-		app.timeout('blockInfo',1000,function() { 
+		app.timeout('blockInfo',1000,function() {
 			$('#appHeader').removeClass('blockInfo');
 		})
 	});
@@ -1072,14 +1072,14 @@ if(app.is.scrollable) {
 		if(!$('#pageSlideFood').html() && !$('#newWindow').html()) {
 			$('#appHeader').removeClass('closer');
 			$('body').removeClass('closer');
-			$('#timerDailyInput').removeAttr('readonly'); 
-			$('#timerDailyInput').removeClass('dull'); 
+			$('#timerDailyInput').removeAttr('readonly');
+			$('#timerDailyInput').removeClass('dull');
 		}
 		//DEFER
 		if(targetId == 'timerDailyInput' && ($('#pageSlideFood').html() || $('#newWindow').html())) {
 			//inactive
-			$('#timerDailyInput').attr('readonly','readonly'); 
-			$('#timerDailyInput').addClass('dull'); 
+			$('#timerDailyInput').attr('readonly','readonly');
+			$('#timerDailyInput').addClass('dull');
 			setTimeout(function() {
 				$('#timerDailyInput').blur();
 				$('#appHeader').trigger(touchstart);
@@ -1088,8 +1088,8 @@ if(app.is.scrollable) {
 				if(!$('#pageSlideFood').html() && !$('#newWindow').html()) {
 					$('#appHeader').removeClass('closer');
 					$('body').removeClass('closer');
-					$('#timerDailyInput').removeAttr('readonly'); 
-					$('#timerDailyInput').removeClass('dull'); 
+					$('#timerDailyInput').removeAttr('readonly');
+					$('#timerDailyInput').removeClass('dull');
 				}
 			},200);
 			return false;
@@ -1099,7 +1099,7 @@ if(app.is.scrollable) {
 		if($('#advancedMenu').length)	{ $(document).trigger('backbutton'); return; }
 		if($('#langSelect').length)		{ $(document).trigger('backbutton'); return; }
 		if($('#appHelper').length)		{ $(document).trigger('backbutton'); return; }
-		
+
 		if($('body').hasClass('newwindow') && !$('#modalWindow').length) { return; }
 		//if(!$('#appHeader').hasClass('closer')) { return; }
 		if($('#addNewWrapper').html())			{ return; }
@@ -1122,7 +1122,7 @@ if(app.is.scrollable) {
 				//force custom dump/save
 				if(typeof updateCustomList == 'function' && app.read('foodDbLoaded','done')) {
 					updateCustomList('fav');
-					updateCustomList('items');	
+					updateCustomList('items');
 					updateTodayOverview();
 					intakeHistory();
 					setTimeout(function() {
@@ -1182,7 +1182,7 @@ if(app.is.scrollable) {
 			         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
 				else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
 				else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }	
+				else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
 			}
 	});
 	//////////////////////////
@@ -1198,7 +1198,7 @@ if(app.is.scrollable) {
 	if(app.device.desktop) {
 		$('#timerDailyInput').prop('type','text');
 	}
-	
+
 	//YUI COMPRESSOR
 	var dummyYUI = 'var editableTimeout';
 
@@ -1243,7 +1243,7 @@ if(app.is.scrollable) {
 				$('#appCyclic1').val(app.read('config_kcals_day_1'));
 			}
 		}
-	});	
+	});
 	//#/////////////#//
 	//# TAP HANDLER #//
 	//#/////////////#//

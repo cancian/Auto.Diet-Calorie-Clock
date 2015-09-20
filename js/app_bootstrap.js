@@ -64,7 +64,7 @@ function InitializeLocalSuperBlock(opt) {
 		/////////////////////////////////
 		if(!$('#plainLoad').length && !$('#superBlockCSS').length) {
 			setTimeout(function() {
-				safeExec(function() {		
+				safeExec(function() {
 					$('#coreCss,#coreFonts').remove();
 					$('head').append('<style id="superBlockCSS">' + dataCSS + '<\/style>');
 					$('head').append('<script id="superBlockJS">' + dataJS  + '<\/script>');
@@ -147,7 +147,7 @@ function buildRemoteSuperBlock(opt) {
 	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_custom_core.js', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
 	cssLoadCount(8,10);
 	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/index.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
-	cssLoadCount(9,10);	
+	cssLoadCount(9,10);
 	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/fonts.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
 	cssLoadCount(10,10);
 	/////////////////////
@@ -156,13 +156,13 @@ function buildRemoteSuperBlock(opt) {
 	cssLoadCount(0,0);
 	if(!isCacheValid(dataJS + dataCSS)) { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
 	//store original hash
-	window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);	
+	window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
 	//MOZ~IE CSS
 	if((/Firefox/i).test(navigator.userAgent)) {
 		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 		dataCSS = dataCSS.split('-webkit-').join('-moz-');
 	}
-	if((/trident|IEMobile/i).test(navigator.userAgent))	{ 
+	if((/trident|IEMobile/i).test(navigator.userAgent))	{
 		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 		dataCSS = dataCSS.split('-webkit-').join('-ms-');

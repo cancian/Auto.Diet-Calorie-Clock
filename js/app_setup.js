@@ -7,7 +7,7 @@ function showIntro() {
 	///////////////////////////////////////
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
-	if(window.innerHeight < 350 && app.device.blackberry) { 
+	if(window.innerHeight < 350 && app.device.blackberry) {
 		return;
 	}
 	//////////////////
@@ -91,12 +91,12 @@ function showIntro() {
 	});
 	///////////////
 	// NEXT/PREV //
-	///////////////	
+	///////////////
 	$('#nextDiv').on(touchstart,function(evt) {
 		evt.stopPropagation();
 		if(typeof myScroll !== 'undefined') {
 			if(myScroll.currentPage.pageX == 5) {
-				$('#skipIntro').trigger(touchend);	
+				$('#skipIntro').trigger(touchend);
 			}
 			myScroll.next();
 		}
@@ -287,7 +287,7 @@ function localStorageSql() {
 	if(app.read('appRatioBy'))			{ keyList = keyList + '#@@@#' + 'appRatioBy'   + '#@@#' + app.read('appRatioBy');               }
 	if(!isNaN(app.read('appNutrientTimeSpan'))) { keyList = keyList + '#@@@#' + 'appNutrientTimeSpan' +'#@@#'+ JSON.stringify(app.read('appNutrientTimeSpan')); }
 	//notes
-	if(app.read('appNotes')) { 
+	if(app.read('appNotes')) {
 		keyList = keyList + '#@@@#' + 'appNotes' + '#@@#' + app.read('appNotes').replace(/(\n|\r\n)/g, '#@#').split('/*').join('/ *');
 	} else {
 		keyList = keyList + '#@@@#' + 'appNotes' + '#@@#' + '';
@@ -364,7 +364,7 @@ function pushEntries(userId) {
 		var fii;
 		var sug;
 		var sod;
-		
+
 		if(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			if(data[i].id) {
@@ -381,7 +381,7 @@ function pushEntries(userId) {
 				fii       = data[i].fii;
 				sug       = data[i].sug;
 				sod       = data[i].sod;
-			
+
 				if(!body) { body = ''; }
 				if(!kcal) { kcal = ''; }
 				if(!info) { info = ''; }
@@ -392,11 +392,11 @@ function pushEntries(userId) {
 				if(!fib)  { fib  = ''; }
 				if(!fii)  { fii  = ''; }
 				if(!sug)  { sug  = ''; }
-				if(!sod)  { sod  = ''; }								
+				if(!sod)  { sod  = ''; }
 
-				if(id && published != '' && allFetchIds.indexOf('#' + id + '#') === -1) { 
+				if(id && published != '' && allFetchIds.indexOf('#' + id + '#') === -1) {
 					newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "','" + fii + "','" + sug + "','" + sod + "');\n";
-					fetchEntries += newLineFetch; 
+					fetchEntries += newLineFetch;
 					newLineFetch = '';
 					allFetchIds.push('#' + id + '#');
 					//empty loop
@@ -445,7 +445,7 @@ function pushEntries(userId) {
 		// POST RESULT //
 		/////////////////
 		fetchEntries = trim(fetchEntries);
-		
+
 		if(fetchEntries == ' ' || !fetchEntries) { fetchEntries = ' '; }
 		if(fetchEntries) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
@@ -492,7 +492,7 @@ function setComplete() {
 	if(typeof getCatList == 'function' && app.read('foodDbLoaded','done')) {
 		setTimeout(function() {
 			updateCustomList('fav');
-			updateCustomList('items');	
+			updateCustomList('items');
 			getCatList();
 			setPush();
 		},200);
@@ -525,7 +525,7 @@ function rowsLoop(sqlEntry, hive, callback) {
 				// ON MATCH //
 				//////////////
 				var x = rows.length;
-				while(x--) {	
+				while(x--) {
 				//for (var x = 0, xen = rows.length; x < xen; x++) {
 					if (rows[x]) {
 						var rowAttr = (hive == 'diary_entry') ? rows[x].id : rows[x].code;
@@ -547,7 +547,7 @@ function rowsLoop(sqlEntry, hive, callback) {
 	if (hive == 'diary_entry') {
 		app.rows.entry = rows;
 	} else {
-		app.rows.food  = rows;		
+		app.rows.food  = rows;
 	}
 	////////////////////
 	// WRITE CALLBACK //
@@ -686,7 +686,7 @@ function syncEntries(userId) {
 			setTimeout(function() {
 				insertOrUpdate(sql,function() {
 					app.globals.syncRunning = false;
-					setComplete();			
+					setComplete();
 				});
 			},0);
 		});
@@ -921,7 +921,7 @@ function setFood(data, callback) {
 			sod:  data.sod,
 		});
 		callback();
-		app.save('diary_food',app.rows.food,function(rows) {	
+		app.save('diary_food',app.rows.food,function(rows) {
 			app.rows.food = rows;
 		});
 	}
@@ -1041,14 +1041,14 @@ function afterHide(cmd) {
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
 		$('*').css('pointer-events','none');
-		blockAlerts = 1; 
+		blockAlerts = 1;
 		//////////////
 		// FADE OUT //
 		//////////////
 		app.handlers.fade(0,'body',function() {
 			if(app.read('facebook_logged') && cmd == 'clear') {
 				$.post(app.https + 'kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
-					setTimeout(function() { 
+					setTimeout(function() {
 						app.reboot(cmd);
 					},200);
 				}, 'text');
@@ -1064,8 +1064,8 @@ function afterHide(cmd) {
 // SPINNER //
 /////////////
 function spinner(action,target) {
-	if(!target) { target = 'spinnerMask'; } 
-	
+	if(!target) { target = 'spinnerMask'; }
+
 	if(!$('#loadMask').length)		{ $('body').prepend2('<div id="loadMask"><span></span></div>'); }
 	if($('#loadMask').html() == '') { $('#loadMask').html2('<span></span>'); }
 	if(action == 'stop') {
@@ -1074,7 +1074,7 @@ function spinner(action,target) {
 		$('body').removeClass('updtdb');
 	} else {
 		$('body').addClass(target);
-		$('#loadMask').off().on(touchstart,function(evt) { 
+		$('#loadMask').off().on(touchstart,function(evt) {
 			return false;
 		});
 	}
@@ -1245,7 +1245,7 @@ function updateFoodDb(callback) {
 function pageLoad(target,content,published) {
 	//if partial
 	if(published) {
-		var arr = [];		
+		var arr = [];
 		var entryPos;
 		//push 'published' into array
 		arr.push(published);
@@ -1268,17 +1268,17 @@ function pageLoad(target,content,published) {
 
 			if(i == 1) {
 				$('#entryList').html2(content,function() {
-					app.highlight('#entryList div',1000,'#ffffcc'); 
+					app.highlight('#entryList div',1000,'#ffffcc');
 				});
 			//match div before
 			} else if($('#entryList>div:eq(' + entryPos + ')').html()) {
 				$('#entryList>div:eq(' + entryPos + ')').before2(content,function() {
-					app.highlight('#entryList>div:eq(' + entryPos + ')',1000,'#ffffcc'); 
+					app.highlight('#entryList>div:eq(' + entryPos + ')',1000,'#ffffcc');
 				});
 			} else {
 				//append if none
 				$('#entryList').append2(content,function() {
-					app.highlight('#' + published,1000,'#ffffcc'); 
+					app.highlight('#' + published,1000,'#ffffcc');
 				});
 			}
 
@@ -1395,7 +1395,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 		//////////////
 		// CALLBACK //
 		//////////////
-		if(callback) { 
+		if(callback) {
 			if(s != '') {
 				app.tab.diary(s,keepOpen);
 			} else {
@@ -1452,7 +1452,7 @@ function updateEntriesTime() {
          if(currentHour <  6) { rowClass = "afterhours"; }
 	else if(currentHour < 12) { rowClass = "morning";    }
 	else if(currentHour < 18) { rowClass = "afternoon";  }
-	else if(currentHour < 24) { rowClass = "night";      }	
+	else if(currentHour < 24) { rowClass = "night";      }
 	$('body').removeClass(('morning afternoon night afterhours').replace(rowClass));
 	$('body').addClass(rowClass);
 }
@@ -1489,7 +1489,7 @@ function updateEntriesSum() {
 					if(pushTitle[x].val > 0)  {
 						totalDayF = totalDayF + parseInt(pushTitle[x].val);
 					} else {
-						totalDayE = totalDayE + parseInt(pushTitle[x].val);	
+						totalDayE = totalDayE + parseInt(pushTitle[x].val);
 					}
 				}
 			}
@@ -1506,7 +1506,7 @@ function updateEntriesSum() {
 			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':before { content: ""; padding-top: 0; padding-bottom: 0; }\
 			#entryList div.day' + eachDay[d] + ':after { content: "' + thisDay.split("x").join("/") +'"; color: #999; position: absolute; top: -18px; left: 15px; font-size: 12px; line-height: 16px; }\
 			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':after { content: "";  }\
-			'; 
+			';
 		}
 		//OUTPUT
 		$('#daySum').html2(reStyle);
@@ -1570,7 +1570,7 @@ function getNutriTimeSpan(entryTime) {
 	/////////////
 	// LAST 30 //
 	/////////////
-	else if(app.read('appNutrientTimeSpan',30)) { 
+	else if(app.read('appNutrientTimeSpan',30)) {
 		if(entryTime > last30Time) {
 			return true;
 		} else {
@@ -1588,13 +1588,13 @@ function buildHelpMenu(args) {
 		$('#optionHelp').addClass('activeRow');
 	}
 	$('body').append2('<div id="appHelperWrapper"><div id="appHelper"></div></div>');
-	
+
 	$('#appHelper').hide();
 	$('#appHelper').css('top',($('#appHeader').height()) + 'px');
 	$('#appHelper').height($('#appContent').height());
 	$('#appHelper').css('bottom',($('#appFooter').height()) + 'px');
 	$('#appHelper').show();
-	
+
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
@@ -1633,7 +1633,7 @@ function buildHelpMenu(args) {
 	//LIST CLOSER HANDLER
 	app.handlers.activeRow('#backButton','button',function(evt) {
 	app.handlers.fade(0,'#appHelperWrapper',function() {
-		$('#appHelperWrapper').remove();			
+		$('#appHelperWrapper').remove();
 	});
 	});
 	//////////////////////////////////
@@ -1648,10 +1648,10 @@ function buildHelpMenu(args) {
 		app.safeExec(function() {
 			$('#appHelper').after('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
 		});
-		$('#appSubHelper').hide();		
+		$('#appSubHelper').hide();
 		$('#appSubHelper').css('top',($('#appHeader').height()) + 'px');
 		$('#appSubHelper').height($('#appContent').height());
-		$('#appSubHelper').css('bottom',($('#appFooter').height()) + 'px');		
+		$('#appSubHelper').css('bottom',($('#appFooter').height()) + 'px');
 		$('#appSubHelper').show();
 		/////////////
 		// SUBHIDE //
@@ -1670,7 +1670,7 @@ function buildHelpMenu(args) {
 			//ios horiz-scrolling crazy bug
 			$('#appSubHelper').height($('#appContent').height());
 		},0);
-		$('#appSubHelper').on(transitionend,function(e) { 
+		$('#appSubHelper').on(transitionend,function(e) {
 			niceResizer(100);
 			//IF CLOSED
 			if(!$('#appSubHelper').hasClass('open')) {
@@ -1718,7 +1718,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	var newWindow = (title == 'newSearch') ? 'newSearch' : 'newWindow';
 	var newClass  = (title == 'newSearch') ? 'newsearch' : 'newwindow';
 	if(title == 'newSearch') {
-		bottom = 'flush';	
+		bottom = 'flush';
 	}
 	//
 	if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return; }
@@ -1745,7 +1745,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 	if(direction == 'sideload') {
 		$('#' + newWindow + 'Wrapper').addClass('sideload');
 	}
-	if(typeof save !== 'function') { 
+	if(typeof save !== 'function') {
 		$('#saveButton').remove();
 	}
 	if(bottom == 'flush') {
@@ -1767,7 +1767,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		/*
 		app.swipe('#newWindowTitle',function(that,evt,direction) {
 			if(/right|left/i.test(direction)) {
-				$(document).trigger('backbutton');			
+				$(document).trigger('backbutton');
 			}
 		});
 		*/
@@ -1795,13 +1795,13 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 				$('#appContent, #foodSearch').css('pointer-events','auto');
 				$('body').removeClass(newClass);
 				clearTimeout(timerCloser);
-				setPush();	
-			});	
+				setPush();
+			});
 			timerCloser = setTimeout(function() {
 				$('#' + newWindow + 'Wrapper').remove();
 				$('#appContent, #foodSearch').css('pointer-events','auto');
 				$('body').removeClass(newClass);
-				setPush();				
+				setPush();
 			},500);
 		}
 		///////////////////////////////////
@@ -1859,7 +1859,7 @@ function buildLangMenu(opt) {
 		$('#langSelect').height($('#appContent').height());
 	}
 	//intro
-	if(opt == 'intro') { 
+	if(opt == 'intro') {
 		$('#langSelect').css('z-index',100);
 		//pad
 		if($('body').hasClass('ios7')) {
@@ -1884,7 +1884,7 @@ function buildLangMenu(opt) {
 	// handler //
 	/////////////
 	//FLOOD PROTECTION
-	clearTimeout(langSelectTap);	
+	clearTimeout(langSelectTap);
 	langSelectTap = setTimeout(function() {
 		app.handlers.activeRow('#langSelect li','set',function(rowId) {
 		//$('#langSelect li').on(tap,function(evt) {
@@ -1904,10 +1904,10 @@ function buildLangMenu(opt) {
 				if(app.read('devSetLang')) {
 					lang = app.read('devSetLang');
 				} else {
-					lang = defaultLang;	
+					lang = defaultLang;
 				}
 				$('body').addClass('appLang-' + lang);
-				if(lang != 'en' && lang != 'pt') { 
+				if(lang != 'en' && lang != 'pt') {
 					LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
 				}
 				//FOOTER
@@ -1938,7 +1938,7 @@ function buildLangMenu(opt) {
 					.corrupted #advancedAutoUpdate:before { content: "' + LANG.CORRUPTED[lang]       + '"; }\
 					.spinnerMask #loadMask:before		  { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
 					.spinnerMask.updtdb #loadMask:before  { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
-				');		
+				');
 				///////////////////
 				// refresh intro //
 				///////////////////
@@ -1957,7 +1957,7 @@ function buildLangMenu(opt) {
 					$('span#surplus').html2(LANG.SURPLUS[lang]);
 					$('#slide3 span#deficit').html2(LANG.EXERCISE[lang]);
 					$('#slide3 span#balanced').html2(LANG.CALORIC_BALANCE[lang]);
-					$('#slide3 span#surplus').html2(LANG.FOOD[lang]);										
+					$('#slide3 span#surplus').html2(LANG.FOOD[lang]);
 				setTimeout(function() {
 						appFooter('tab1',1);
 					},100);
@@ -2035,7 +2035,7 @@ function getNiceScroll(target,timeout,callback) {
 		app.globals.scrollerList += ',' + target;
 	}
 	//NOTES
-	if(target == '#diaryNotesInput') {			
+	if(target == '#diaryNotesInput') {
 		if(!app.device.wp8 && !app.device.windows8) {
 			$(target).removeClass('overthrow');
 			$(target).css('overflow','hidden');
@@ -2075,7 +2075,7 @@ function appResizer(time,callback) {
 		app.width  = window.innerWidth;
 		app.height = window.innerHeight;
 		app.relWidth  = app.width  / app.read('app_zoom');
-		app.relHeight =  app.height / app.read('app_zoom'); 
+		app.relHeight =  app.height / app.read('app_zoom');
 		/*
 		if(vendorClass == 'moz' || vendorClass == 'msie') {
 			$('body').css('width', app.relWidth + 'px');
@@ -2087,7 +2087,7 @@ function appResizer(time,callback) {
 		}
 		//unlock top white gap
 		$('body').trigger('touchmove');
-		//SCROLLBAR UPDATE	
+		//SCROLLBAR UPDATE
 		niceResizer();
 		niceResizer(400);
 		////////////////////////
@@ -2381,7 +2381,7 @@ function getLoginFB() {
 			}
 		//////////
 		// BB10 //
-		//////////			
+		//////////
 		} else if(app.device.blackberry || app.device.playbook) {
 			FB.init({ appId : '577673025616946', status : true, version: 'v2.0', cookie : true, xfbml : true });
 			var callback = 'https://www.facebook.com/connect/login_success.html';
@@ -2412,7 +2412,7 @@ function getLoginFB() {
 			}, 100);
 		////////////
 		// OSXAPP //
-		////////////			
+		////////////
 		} else if(app.device.osxapp) {
 			if(typeof FB !== 'undefined' && typeof macgap !== 'undefined') {
 				var pops;
