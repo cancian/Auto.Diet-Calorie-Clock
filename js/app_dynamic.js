@@ -715,11 +715,11 @@ $(document).on("pageReload", function (evt) {
 							if ($("#foodSearch").hasClass("exerciseType")) {
 								app.save('searchType','exercise');
 								$("#foodSearch").prop('placeholder', LANG.EXERCISE_SEARCH[lang]);
-								app.highlight('#foodSearch',500,'#FECEC6','#fff');
+								app.highlight('#foodSearch',500,'#FECEC6','#fff','',500);
 							} else {
 								app.remove('searchType');
 								$("#foodSearch").prop('placeholder', LANG.FOOD_SEARCH[lang]);
-								app.highlight('#foodSearch',500,'#BBE4FF','#fff');
+								app.highlight('#foodSearch',500,'#BBE4FF','#fff','',500);
 							}
 							app.timeout('#iconRefresh',500,function() {
 								$('#iconRefresh').css('pointer-events','auto');

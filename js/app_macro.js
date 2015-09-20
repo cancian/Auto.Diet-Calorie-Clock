@@ -1448,7 +1448,7 @@ function getEntryEdit(eid) {
 					//reinsert by date
 					app.exec.updateEntries(insertDate);
 					updateEntriesSum();
-				}, 0);
+				}, 25);
 			});
 			return true;
 		};
