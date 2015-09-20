@@ -2,7 +2,7 @@
 //#////////////#//
 //# APP OBJECT #//
 //#////////////#//
-var isMobile = 'isCurrentCacheValid'; 
+var isMobile = 'isCurrentCacheValid';
 //////////////
 // SET USER //
 //////////////
@@ -11,7 +11,7 @@ var appUser = ('mud_default###default').split('###');
 if(!window.localStorage.getItem('app_current_user')) {
 	window.localStorage.setItem('app_current_user','mud_default###default###' + new Date().getTime());
 } else {
-	appUser = window.localStorage.getItem('app_current_user').split('###');	
+	appUser = window.localStorage.getItem('app_current_user').split('###');
 }
 */
 var app = {
@@ -61,14 +61,14 @@ var app = {
 		}
 		return true;
 	},
-	rows: { 
+	rows: {
 		entry: [],
 		food: []
 	},
 	returner: function(func,rows) {
 		if(typeof func === 'function') {
-			if(rows == null) { 
-				rows = []; 
+			if(rows == null) {
+				rows = [];
 			}
 			func(rows);
 		}
@@ -154,7 +154,7 @@ var app = {
 			if(value) {
 				window.localStorage.setItem(key,JSON.stringify(value));
 			}
-			return;	
+			return;
 		}
 		//
 		if(window.localStorage.getItem(key) != value) {
@@ -206,17 +206,17 @@ var app = {
 		$(target).css('opacity',1);
 		setTimeout(function() {
 			if(typeof callback === 'function') {
-				callback(target);	
+				callback(target);
 			}
 		},320);
 	},
 	hide: function(target,callback) {
 		$(target).css('pointer-events','none');
 		$(target).css(prefix + 'transition', 'opacity ease .12s');
-		$(target).css('opacity',0);	
+		$(target).css('opacity',0);
 		setTimeout(function() {
 			if(typeof callback === 'function') {
-				callback(target);	
+				callback(target);
 			}
 		},120);
 	},
@@ -270,7 +270,7 @@ app.switchUser = function(switchTo) {
 				app.save('app_current_user',trim(newUserLine));
 			}
 		}
-		//	
+		//
 		$('body').css('opacity',0);
 		noTimer = 'active';
 		setTimeout(function() {
@@ -292,6 +292,8 @@ app.swipe = function (elem, callback) {
 				}
 			}
 		},
+
+
 		fingers:1,
 		threshold : 32,
 		allowPageScroll: 'vertical'
@@ -320,7 +322,7 @@ app.get.totalweight = function() {
 	}
 	if (app.read('calcForm#pA3C','pounds')) {
 		return Math.round(app.read('calcForm#pA3B')/2.2);
-	}	
+	}
 	return app.read('calcForm#pA3B');
 };
 app.get.androidVersion = function() {
@@ -336,7 +338,7 @@ app.get.isChromeApp = function() {
 	if(typeof chrome !== 'undefined') {
 		if(typeof chrome.app !== 'undefined') {
 			if(chrome.app.isInstalled) {
-				return true;	
+				return true;
 			}
 		}
 	}
@@ -364,7 +366,7 @@ app.device = {
 	windows10  : (/MSAppHost\/3.0/i).test(app.ua) ? true : false,
 	firefoxos  : (/firefox/i).test(app.ua) && (/mobile|tablet/i).test(app.ua) && (/gecko/i).test(app.ua) ? true : false,
 	osx        : (/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
-	osxapp     : (/MacGap/i).test(app.ua) ? true : false,	
+	osxapp     : (/MacGap/i).test(app.ua) ? true : false,
 	chromeos   : app.get.isChromeApp() ? true : false,
 	blackberry : (/BB10|BlackBerry|All Touch/i).test(app.ua) && !/(PlayBook)/i.test(app.ua) ? true : false,
 	playbook   : (/PlayBook|Tablet OS/i).test(app.ua) ? true : false,
@@ -374,8 +376,8 @@ app.device = {
 //STATIC
 if(typeof staticVendor !== 'undefined') {
 	if(staticVendor == 'amazon' && (/Android/i).test(app.ua)) {
-		app.device.amazon = true;	
-	}	
+		app.device.amazon = true;
+	}
 }
 //////////////////////
 // GLOBAL SHORTCUTS //
@@ -396,7 +398,7 @@ app.get.platform = function(noweb) {
 	else if(app.device.blackberry)			{ return 'BlackBerry';       }
 	else if(app.device.playbook)			{ return 'PlayBook';         }
 	else if(app.device.android)				{ return 'Android';          }
-	else if(app.device.firefoxos)			{ return 'FirefoxOS';        }	
+	else if(app.device.firefoxos)			{ return 'FirefoxOS';        }
 	else if(app.device.osxapp)				{ return 'Mac';              }
 	else if(app.device.chromeos)			{ return 'ChromeOS';         }
 	else									{ return 'web'; }
@@ -423,15 +425,15 @@ app.reboot = function(type,error) {
 	}
 	//WIPE STORAGE
 	if(type == 'clear') {
-		app.clear();	
+		app.clear();
 	}
-	setTimeout(function() {	
+	setTimeout(function() {
 		//RELOAD
 		if(app.device.android >= 3) {
 			if(typeof window.MyReload !== 'undefined') {
 				window.MyReload.reloadActivity();
 			} else {
-				window.location.reload(true);	
+				window.location.reload(true);
 			}
 		} else {
 			window.location.reload(true);
@@ -545,7 +547,7 @@ app.zoom = function(ratio) {
 	}
 	if(ratio == 3 || app.read('app_zoom',1.4)) {
 		$('html').addClass('zoomx3');
-		$('html').removeClass('zoomx1 zoomx2');		
+		$('html').removeClass('zoomx1 zoomx2');
 		app.save('app_zoom',1.4);
 	}
 	//$('body').css('zoom',Math.round(app.read('app_zoom') * 100) + '%');
@@ -648,7 +650,7 @@ app.ready = function(callback) {
 	// CALLBACK //
 	//////////////
 	if(typeof callback === 'function') {
-		callback();	
+		callback();
 	}
 };
 ///////////////////
@@ -686,7 +688,7 @@ app.url = function(url) {
 	else if((!url && app.device.android)    || url == 'android')    { url = store.android;    }
 	else if((!url && app.device.wp8)        || url == 'wp8')        { url = store.wp8;        }
 	else if((!url && app.device.windows8)   || url == 'windows8')   { url = store.windows8;   }
-	else if((!url && app.device.firefoxos)  || url == 'firefoxos')  { url = store.firefoxos;  }	
+	else if((!url && app.device.firefoxos)  || url == 'firefoxos')  { url = store.firefoxos;  }
 	else if((!url && app.device.osxapp)     || url == 'osxapp')     { url = store.osxapp;     }
 	else if((!url && app.device.chromeos)   || url == 'chromeos')   { url = store.chromeos;   }
 	else if(url == 'www')											{ url = store.web;        }
@@ -828,12 +830,12 @@ app.handlers = {
 		var t = searchalize(target);
 		var isButton = style == 'button' ? 40 : 40;
 		if(app.is.scrollable && app.device.desktop) {
-			isButton = 1;	
+			isButton = 1;
 		}
 		//RESET
 		app.handlers.activeRowTouches[t] = 0;
 		app.handlers.activeRowBlock[t]   = 0;
-		app.handlers.activeLastId[t]     = '';				
+		app.handlers.activeLastId[t]     = '';
 		clearTimeout(app.handlers.activeRowTimer[t]);
 		////////////////
 		// SET PARENT //
@@ -872,7 +874,7 @@ app.handlers = {
 				var falseThis = this;
 				$(falseThis).css('pointer-events','none');
 				app.timeout('tapSelect',500,function() {
-					$(falseThis).css('pointer-events','auto');						
+					$(falseThis).css('pointer-events','auto');
 				});
 			}
 		});
@@ -959,7 +961,7 @@ app.handlers = {
 		$(target).addClass('yellow');
 		setTimeout(function () {
 			$(target).css(prefix + 'transition','background linear .5s');
-			setTimeout(function () {		
+			setTimeout(function () {
 				$(target).removeClass('yellow');
 				setTimeout(function () {
 					$(target).css(prefix + 'transition','background linear 0s');
@@ -1053,7 +1055,7 @@ app.handlers = {
 		if(filter) {
 			//PREPARE
 			if(rowSql == '') {
-				rowSql = ' ';	
+				rowSql = ' ';
 			}
 			rowSql = rowSql.split('undefined').join('');
 			//BACKWARD FIX BROKEN SQL
@@ -1064,7 +1066,7 @@ app.handlers = {
 			if(filter === 'fav') {
 				app.save('customFavSql', rowSql);
 			} else {
-				app.save('customItemsSql', rowSql);				
+				app.save('customItemsSql', rowSql);
 			}
 		}
 		/////////////////
@@ -1151,7 +1153,7 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 	});
 	//POS
 	app.handlers.repeater(target + 'Pos','active',400,25,function() {
-		if($(target).val() == '') { 
+		if($(target).val() == '') {
 			$(target).val(0);
 		}
 		var inputValue = valueType == 'int' ? parseInt($(target).val()) : parseFloat($(target).val());
@@ -1159,7 +1161,7 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 			inputValue = inputValue + 1;
 		}
 		$(target).val( decimalize(inputValue,-1) );
-	});				
+	});
 };
 /////////////
 // APP GET //
@@ -1244,12 +1246,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 //# GET USERAGENT #//
 //#///////////////#//
 var prefix;
-var vendorClass; 
+var vendorClass;
 var transitionend;
      if(/MSAppHost\/3.0/i.test(app.ua))				{ prefix = '';         transitionend = 'transitionend';       vendorClass = 'msie';   }
 else if((/edge|trident|IEMobile/i).test(app.ua))	{ prefix = '-ms-';     transitionend = 'transitionend';       vendorClass = 'msie';   }
 else if((/Firefox/i).test(app.ua))					{ prefix = '-moz-';    transitionend = 'transitionend';       vendorClass = 'moz';    }
-else												{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; } 
+else												{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; vendorClass = 'webkit'; }
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
 ///////////////////////////////////
@@ -1292,8 +1294,8 @@ app.updateColorPicker = function() {
 	}
 	var deficitColor  = app.read('colorDeficit');
 	var balancedColor = app.read('colorBalanced');
-	var surplusColor  = app.read('colorSurplus');	
-	
+	var surplusColor  = app.read('colorSurplus');
+
 var pickerCss = '\
 body.tab1 #appFooter li#tab1,\
 body.tab2 #appFooter li#tab2,\
@@ -1392,7 +1394,7 @@ var touchout    = hasTap() ? 'touchout'    : 'mouseout';
 if(window.PointerEvent) {
 	//IE11
 	touchend    = 'pointerup';
-	touchstart  = 'pointerdown';	
+	touchstart  = 'pointerdown';
 	touchmove   = 'pointermove';
 	touchcancel = 'pointercancel';
 	touchleave  = 'pointerleave';
@@ -1400,11 +1402,11 @@ if(window.PointerEvent) {
 } else if (window.MSPointerEvent) {
 	//IE10
 	touchend    = 'MSPointerUp';
-	touchstart  = 'MSPointerDown';	
+	touchstart  = 'MSPointerDown';
 	touchmove   = 'MSPointerMove';
 	touchcancel = 'MSPointerOver';
 	touchleave  = 'MSPointerLeave';
-	touchout    = 'MSPointerOut';	
+	touchout    = 'MSPointerOut';
 }
 //
 if (app.device.firefoxos) {
@@ -1453,8 +1455,8 @@ function errorHandler(error) {
 function isNumberKey(evt){
 	var keyCode = (evt.which) ? evt.which : evt.keyCode;
 	//backspace, enter, shift, left, right
-	if(keyCode == 8 || keyCode == 13 || keyCode == 16 || keyCode == 37 || keyCode == 39) { 
-		return true; 
+	if(keyCode == 8 || keyCode == 13 || keyCode == 16 || keyCode == 37 || keyCode == 39) {
+		return true;
 	}
 	if(keyCode != 46 && keyCode > 31 && (keyCode < 48 || keyCode > 57)) {
 		return false;
@@ -1480,7 +1482,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		var keyCode  = evt.which || evt.keyCode;
 		//PRE HANDLERS
 		if(preProcess) {
-			preProcess();	
+			preProcess();
 		}
 		////////////
 		// CONFIG //
@@ -1503,7 +1505,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		keydownValue = $(this).val();
 		if(parseInt($(this).val()) > config.maxValue || JSON.stringify($(this).val()).length > config.maxLength+1) {
 			if(config.allowDots == true)  {
-				$(this).val( parseFloat($(this).val()) );				
+				$(this).val( parseFloat($(this).val()) );
 			} else {
 				$(this).val( parseInt($(this).val()) );
 			}
@@ -1525,7 +1527,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		if(keyCode == 222 || isNaN($(this).val())) {
 			$('#' + keydownId).val( keydownValue );
 		}
-		//NO NEGATIVE		
+		//NO NEGATIVE
 		if(!config.inverter) {
 			if(parseInt($(this).val()) < 0) {
 				$(this).val(Math.abs($(this).val()));
@@ -1584,7 +1586,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 	/////////////////
 	// PROPAGATION //
 	/////////////////
-	$(target).on(touchmove, function(evt) {	
+	$(target).on(touchmove, function(evt) {
 		evt.preventDefault();
 	});
 };
@@ -1592,7 +1594,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 // TRIM //
 //////////
 function trim(str) {
-	if(str) { 
+	if(str) {
 		if(str.length) {
 			str = str.replace(/^\s+/, '');
 			str = str.replace(/(^[ \t]*\n)/gm, "");
@@ -1615,29 +1617,26 @@ function trimDot(x) {
 ///////////////
 // HIGHLIGHT //
 ///////////////
-app.highlight = function(target,duration,startColor,endColor,callback) {
-	if(!startColor) { startColor = 'rgba(255,200,0,0.5)'; }
-	if(!endColor)   { endColor   = 'rgba(255,255,255,0)'; }
-	if(!duration)   { duration   = 1000; }
-	//lock
-	$(target).hide();
+app.highlight = function (target, duration, startColor, endColor, callback) {
+	if (!startColor) { startColor = 'rgba(255,200,0,0.5)'; }
+	if (!endColor)   { endColor   = 'rgba(255,255,255,0)'; }
+	if (!duration)   { duration   = 1000; }
+	$(target).css('background-color', startColor);
 	$(target).css('pointer-events','none');
-	$(target).css('background-color',startColor);
-	$(target).show();
-	setTimeout(function() {
-		//animate
-		$(target).css(prefix + 'transition','all ease ' + (duration) + 'ms');
-		$(target).css('background-color',endColor);
-		//callback
-		if(typeof callback === 'function') {
-			callback();	
-		}
-		//unlock
-		setTimeout(function() {		
-			$(target).css('pointer-events', 'auto');
-			$(target).css(prefix + 'transition','');
-		},duration);
-	},0);
+	setTimeout(function () {
+		$(target).css(prefix + 'transition', 'background-color linear ' + (duration) + 'ms');
+		setTimeout(function () {
+			$(target).css('background-color', endColor);
+			//WAIT TO DISABLE
+			setTimeout(function () {
+				$(target).css('pointer-events','auto');
+				$(target).css(prefix + 'transition', 'background-color linear 0ms');
+				if (typeof callback === 'function') {
+					callback();
+				}
+			}, duration);
+		}, 0);
+	}, 0);
 };
 ////////////////
 // CAPITALIZE //
@@ -1753,7 +1752,7 @@ Array.prototype.sortbyattr = function(attr,order) {
 			return (a[attr] > b[attr]) ? 1 : ((a[attr] < b[attr]) ? -1 : 0);
 		}
 	});
-	return this;	
+	return this;
 };
 // OBJECT
 function sortObject(obj) {
@@ -1832,7 +1831,7 @@ function dateDiff(date1,date2) {
 	var difference_ms = date2_ms - date1_ms;
 	var showAgo = difference_ms >= 0 ? true : false;
 	difference_ms = Math.abs(difference_ms);
-	
+
 	//take out milliseconds
 	difference_ms = difference_ms/1000;
 	var seconds   = Math.floor(difference_ms % 60);
@@ -1862,7 +1861,7 @@ function dateDiff(date1,date2) {
 
 	if(showAgo == true) {
 		return LANG.PREAGO[lang] + " " + days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
-	} else 
+	} else
 		return days + lDays + hours + lHours + minutes + lMinutes + " "; {
 	}
 
@@ -2068,7 +2067,7 @@ app.prompt = function(title,content,callback) {
 //##///////////////////##// appConfirm(title, msg, callback, LANG.OK[lang], LANG.CANCEL[lang]);
 var MSDialog;
 var MSNext = [];
-function appConfirm(title, msg, callback, ok, cancel) { 
+function appConfirm(title, msg, callback, ok, cancel) {
 	var okCancel = (cancel == 'hide') ? [ok] : [cancel, ok];
 	///////////
 	// MSAPP //
