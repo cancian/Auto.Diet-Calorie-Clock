@@ -12,6 +12,7 @@ $(document).on("pageload", function (evt) {
 	var deMove = 0;
 	var cancelEdit = 0;
 	var deKeyboard = 0;
+	app.globals.blockEntrylist = false;
 	/*
 	$("#entryList div" + tgt).on("longhold", function (evt) {
 		clearTimeout(holdStart);
@@ -116,7 +117,7 @@ $(document).on("pageload", function (evt) {
 			if ($('#kcalsDiv').is(':visible')) {
 				return;
 			}
-			if ($('#entryList div').is(':animated').lenght <= 0 || $('.editableInput').is(':visible') || $('#entryBody').is(':animated') || entryReturn == true || deKeyboard != 0 || blockModal == true) {
+			if ($('#entryList div').is(':animated') || $('.editableInput').is(':visible') || $('#entryBody').is(':animated') || entryReturn == true || deKeyboard != 0 || blockModal == true || app.globals.blockEntrylist == true) {
 				entryReturn = false;
 				return;
 			}
@@ -139,6 +140,11 @@ $(document).on("pageload", function (evt) {
 								////////////////
 								// TIMED BLUR //
 								////////////////
+								app.globals.blockEntrylist = true;
+								app.timeout('blockEntrylist',1000,function() {
+									app.globals.blockEntrylist = false;
+								});
+								
 								var nowBlur = new Date().getTime();
 								if (app.device.android || app.device.firefoxos) {
 									if (nowBlur - timedBlur < 600) {
