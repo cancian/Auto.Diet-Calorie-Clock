@@ -960,11 +960,11 @@ app.handlers = {
 		$(target).removeClass('activeOverflow');
 		$(target).addClass('yellow');
 		setTimeout(function () {
-			$(target).css(prefix + 'transition','background linear .5s');
+			$(target).css(prefix + 'transition','all ease .5s');
 			setTimeout(function () {
 				$(target).removeClass('yellow');
 				setTimeout(function () {
-					$(target).css(prefix + 'transition','background linear 0s');
+					$(target).css(prefix + 'transition','all ease 0s');
 					if(typeof callback === 'function') {
 						callback();
 					}
@@ -1617,24 +1617,24 @@ function trimDot(x) {
 ///////////////
 // HIGHLIGHT //
 ///////////////
-app.highlight = function (target, duration, startColor, endColor, callback) {
+app.highlight = function (target, duration, startColor, endColor, callback, forceWait) {
 	if (!startColor) { startColor = 'rgba(255,200,0,0.5)'; }
 	if (!endColor)   { endColor   = 'rgba(255,255,255,0)'; }
 	if (!duration)   { duration   = 1000; }
-	$(target).css('background-color', startColor);
-	$(target).css('pointer-events','none');
+	if (!forceWait)  { forceWait  = 0; }
+	$(target).css(prefix + 'transition', 'all ease 0s');
+	$(target).css('background-color', startColor);	
 	setTimeout(function () {
-		$(target).css(prefix + 'transition', 'background-color linear ' + (duration) + 'ms');
+		$(target).css(prefix + 'transition', 'all ease ' + (duration) + 'ms');
 		setTimeout(function () {
 			$(target).css('background-color', endColor);
 			//WAIT TO DISABLE
 			setTimeout(function () {
-				$(target).css('pointer-events','auto');
-				$(target).css(prefix + 'transition', 'background-color linear 0ms');
+				$(target).css(prefix + 'transition', 'all ease 0s');
 				if (typeof callback === 'function') {
 					callback();
 				}
-			}, duration);
+			}, forceWait);
 		}, 0);
 	}, 0);
 };
