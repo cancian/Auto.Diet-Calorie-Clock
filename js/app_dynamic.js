@@ -80,7 +80,7 @@ $(document).on("pageload", function (evt) {
 		deMove = 0;
 		cancelEdit = 0;
 	});
-	$("#entryList div" + tgt).on(tap, function (event) {
+	$("#entryList div" + tgt).on(tap + ' tap', function (event) {
 		//$("#entryList div" + tgt).swipe({tap:function(event) {
 		event.preventDefault();
 		// clear hold
