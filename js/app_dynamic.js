@@ -85,21 +85,16 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	$("#entryList div" + tgt).on(tap, function (event) {
 		//$("#entryList div" + tgt).swipe({tap:function(event) {
-		//event.preventDefault();
-		// clear hold
-		clearTimeout(holdStart);
-		$('.longHold').removeClass('longHold');
+		event.preventDefault();
 		//////////////
 		// TAP DATE //
 		//////////////
-		if (event.target.id.length == 14 && !$('#entryList div').is(':animated') && !$("#timerDailyInput").is(":focus")) {
+		if (event.target.id.length == 14 && !$('#kcalsDiv').is(':visible') && !$('#timerDailyInput').is(':focus')) {
 			if(!$('.editableInput').is(':visible')) {
-				$("#" + event.target.id).html2(dtFormat(Number(event.target.id.replace("t", ""))));
+				$('#' + event.target.id).html2(dtFormat(Number(event.target.id.replace('t', ''))));
 				setTimeout(function () {
-					if(!$('.editableInput').is(':visible')) {
-						$("#" + event.target.id).html2(dateDiff(event.target.id.replace("t", ""), (new Date()).getTime()));
-					}
-				}, 2000);
+					$("#" + event.target.id).html2(dateDiff(event.target.id.replace('t', ''), (new Date()).getTime()));
+				},2000);
 			}
 			entryReturn = true;
 		}
@@ -120,7 +115,7 @@ $(document).on("pageload", function (evt) {
 			if ($('#kcalsDiv').is(':visible')) {
 				return;
 			}
-			if ($('#entryList div').is(':animated') || $('.editableInput').is(':visible') || $('#entryBody').is(':animated') || entryReturn == true || deKeyboard != 0 || blockModal == true || app.globals.blockEntrylist == true) {
+			if ($('.editableInput').is(':visible') || $('#entryBody').is(':animated') || entryReturn == true || deKeyboard != 0 || blockModal == true || app.globals.blockEntrylist == true) {
 				entryReturn = false;
 				return;
 			}
