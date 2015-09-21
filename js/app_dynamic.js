@@ -80,9 +80,12 @@ $(document).on("pageload", function (evt) {
 		deMove = 0;
 		cancelEdit = 0;
 	});
-	$("#entryList div" + tgt).on(tap + ' tap', function (event) {
+	//////////////
+	// TAP EDIT //
+	//////////////
+	$("#entryList div" + tgt).on(tap, function (event) {
 		//$("#entryList div" + tgt).swipe({tap:function(event) {
-		event.preventDefault();
+		//event.preventDefault();
 		// clear hold
 		clearTimeout(holdStart);
 		$('.longHold').removeClass('longHold');

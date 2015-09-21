@@ -1409,7 +1409,7 @@ if(window.PointerEvent) {
 	touchout    = 'MSPointerOut';
 }
 //
-if (app.device.firefoxos) {
+if (app.device.firefoxos || app.device.blackberry) {
 	tap = 'click';
 }
 ///////////////
