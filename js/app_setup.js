@@ -2015,7 +2015,7 @@ function getNiceScroll(target,timeout,callback) {
 		cursorwidth: '4px',
 		horizrailenabled: false,
 		hwacceleration: true,
-		zindex: 50
+		zindex: 100
 	};
 	//HORIZONTAL
 	if($('#appHistory').html()) {
@@ -2023,9 +2023,6 @@ function getNiceScroll(target,timeout,callback) {
 	}
 	if(app.device.desktop) {
 		NSettings.touchbehavior = true;
-	}
-	if(app.device.windows8) {
-		NSettings.grabcursorenabled = true;
 	}
 	//UPDATE LIST
 	if(!app.globals.scrollerList) {

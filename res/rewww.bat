@@ -54,11 +54,11 @@ call reswww
 
 rem "windows10"
 rem cd\ 
-deltree /y /z /s /q /t k:\platforms\windows10\www 
-rd /s /q k:\platforms\windows10\www 
-mkdir k:\platforms\windows10\www 
-cd k:\platforms\windows10\www 
-call reswww 
+REM deltree /y /z /s /q /t k:\platforms\windows10\www 
+REM rd /s /q k:\platforms\windows10\www 
+REM mkdir k:\platforms\windows10\www 
+REM cd k:\platforms\windows10\www 
+REM call reswww 
  
 rem "windows8"
 rem cd\ 
@@ -110,7 +110,7 @@ rem cd\
 del /q k:\platforms\android\kcals\src\main\res\xml\config.xml 
 REM del /q k:\platforms\android-eclipse\res\xml\config.xml 
 del /q k:\platforms\ios\kcals\config.xml 
-del /q k:\platforms\windows10\config.xml 
+REM del /q k:\platforms\windows10\config.xml 
 del /q k:\platforms\windows8\config.xml 
 del /q k:\platforms\wp8\config.xml 
 del /q k:\platforms\bb10\config.xml
@@ -119,7 +119,7 @@ del /q K:\platforms\playbook\www\config.xml
 copy /y k:\www\config.xml k:\platforms\android\kcals\src\main\res\xml\config.xml 
 REM copy /y k:\www\config.xml k:\platforms\android-eclipse\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml 
-copy /y k:\www\config.xml k:\platforms\windows10\config.xml 
+REM copy /y k:\www\config.xml k:\platforms\windows10\config.xml 
 copy /y k:\www\config.xml k:\platforms\windows8\config.xml 
 copy /y k:\www\config.xml k:\platforms\wp8\config.xml 
 copy /y k:\www\config.xml k:\platforms\bb10\config.xml 

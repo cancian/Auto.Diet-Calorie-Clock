@@ -61,7 +61,7 @@
 		cursorborderradius: "5px",
 		scrollspeed: 100,
 		mousescrollstep: 8 * 5,
-		touchbehavior: true,
+		touchbehavior: false,
 		hwacceleration: true,
 		usetransition: true,
 		boxzoom: false,
@@ -84,20 +84,20 @@
 			bottom: 0
 		},
 		disableoutline: true,
-		horizrailenabled: true,
+		horizrailenabled: false,
 		railalign: "right",
 		railvalign: "bottom",
 		enabletranslate3d: true,
 		enablemousewheel: true,
 		enablekeyboard: true,
 		smoothscroll: true,
-		sensitiverail: true,
-		enablemouselockapi: true,
+		sensitiverail: false,
+		enablemouselockapi: false,
 		//cursormaxheight:false,
 		cursorfixedheight: false,
 		directionlockdeadzone: 6,
-		hidecursordelay: 400,
-		nativeparentscrolling: true,
+		hidecursordelay: 350,
+		nativeparentscrolling: false,
 		enablescrollonselection: false,
 		overflowx: true,
 		overflowy: true,
@@ -1239,7 +1239,10 @@
 
 									var ip = (tg) ? /INPUT|SELECT|TEXTAREA/i.test(tg.nodeName) : false;
 									if (!ip) {
-										if (!self.ispage && cap.hasmousecapture) tg.setCapture();
+										//TWEAK
+										if(typeof tg.setCapture !== 'undefined') {
+											if (!self.ispage && cap.hasmousecapture) { tg.setCapture(); }
+										}
 										if (self.opt.touchbehavior) {
 											if (tg.onclick && !(tg._onclick || false)) { // intercept DOM0 onclick event
 												tg._onclick = tg.onclick;
@@ -1452,7 +1455,10 @@
 							hr: ( !! hronly)
 						};
 						var tg = self.getTarget(e);
-						if (!self.ispage && cap.hasmousecapture) tg.setCapture();
+						//TWEAK
+						if(typeof tg.setCapture !== 'undefined') {
+							if (!self.ispage && cap.hasmousecapture) { tg.setCapture(); }
+						}
 						if (self.isiframe && !cap.hasmousecapture) {
 							self.saved.csspointerevents = self.doc.css("pointer-events");
 							self.css(self.doc, {
