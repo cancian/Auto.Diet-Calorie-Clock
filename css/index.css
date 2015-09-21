@@ -1170,7 +1170,7 @@ div#noEntries						{ height: 45px !important; }
 /*////////////////
 // IN-LINE EDIT //
 ////////////////*/
-#kcalsAdjust							{ color: rgba(0,0,0,.1); display: none; }
+#kcalsAdjust							{ color: rgba(0,0,0,.1); }
 #adjustPos:before						{ content: '\f054'; font-family: 'KCals'; font-size: 20pt; line-height: 47px; margin-left: -10px; }
 #adjustNeg:before 						{ content: '\f053'; font-family: 'KCals'; font-size: 20pt; line-height: 47px; margin-right: -10px; }
 .mobile #adjustNegBlock,

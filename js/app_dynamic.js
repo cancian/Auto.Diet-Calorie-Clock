@@ -109,13 +109,10 @@ $(document).on("pageload", function (evt) {
 				$('.active').removeClass('busy');
 			});
 			$('.active').removeClass('active');
-			if ($('.delete').hasClass('busy')) {
-				return;
-			}
-			if ($('#kcalsDiv').is(':visible')) {
-				return;
-			}
-			if ($('.editableInput').is(':visible') || $('#entryBody').is(':animated') || entryReturn == true || deKeyboard != 0 || blockModal == true || app.globals.blockEntrylist == true) {
+			/////////////////////
+			// EDIT CONDITIONS //
+			/////////////////////w
+			if ($('.delete').hasClass('busy') || $('#kcalsDiv').is(':visible') || $('.editableInput').is(':visible') || $('#entryBody').is(':animated') || entryReturn == true || deKeyboard != 0 || blockModal == true || app.globals.blockEntrylist == true) {
 				entryReturn = false;
 				return;
 			}
@@ -243,8 +240,8 @@ $(document).on("pageload", function (evt) {
 					var adjustPosBlockSave;
 					app.handlers.repeater('#adjustPosBlock','activeBlock',400,25,function() {
 					//$("#adjustPosBlock").on(touchstart, function (evt) {
-						var titleVal = Number($('#kcalsDiv').html2());
-						var idVal    = $('#kcalsDiv').parent('div').attr('id');
+						var titleVal = Number($('#kcalsDiv').html());
+						var idVal    = $('#kcalsDiv').parent('div').prop('id');
 						var bodyVal  = $('#editableInput').val();
 						//prevent android click-blur
 						timedBlur = app.now();
@@ -283,8 +280,8 @@ $(document).on("pageload", function (evt) {
 					var adjustNegBlockSave;
 					app.handlers.repeater('#adjustNegBlock','activeBlock',400,25,function() {
 					//$("#adjustNegBlock").on(touchstart, function (evt) {
-						var titleVal = Number($('#kcalsDiv').html2());
-						var idVal    = $('#kcalsDiv').parent('div').attr('id');
+						var titleVal = Number($('#kcalsDiv').html());
+						var idVal    = $('#kcalsDiv').parent('div').prop('id');
 						var bodyVal  = $('#editableInput').val();
 						//prevent android click-blur
 						timedBlur = app.now();
@@ -320,7 +317,7 @@ $(document).on("pageload", function (evt) {
 					//////////////////////////////////
 					// prevent empty list highlight //
 					//////////////////////////////////
-					if (!isNaN($(this).closest("div").attr("id"))) {
+					if (!isNaN($(this).closest("div").prop("id"))) {
 						var editableValue = $("#editableInput").val();
 						if (editableValue == LANG.FOOD[lang] || editableValue == LANG.EXERCISE[lang]) {
 							$("#editableInput").val('');

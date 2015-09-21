@@ -1,5 +1,5 @@
 ﻿var appName = 'KCals';
-var appVersion = '1.9.9 (19908)';
+var appVersion = '1.9.9 (19909)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
@@ -218,7 +218,7 @@ var LANG = {
 		ro : 'KCals Contor de Calorii',
 		ru : 'KCals Счетчик Калорий',
 		sv : 'KCals Kaloriräknare',
-		tr : 'Kcals Kalori Hesaplayıcı',
+		tr : 'KCals Kalori Hesaplayıcı',
 		vi : 'KCals Truy Cập Calo',
 		zh : 'KCals 卡路里计算器',
 		zt : 'KCals 卡路里計算機'
