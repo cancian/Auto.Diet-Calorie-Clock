@@ -217,7 +217,8 @@ function getFullHistory() {
 						}
 					]
 				});
-				//remove bottom grid line
+				//remove top-bottom grid lines
+				$('.highcharts-grid path:eq(3)').remove();
 		    	$('.highcharts-grid path:last').remove();
 			};
 			/////////////
