@@ -477,7 +477,7 @@ function setComplete() {
 	$('body').removeClass('insync');
 	//set complete
 	app.remove('pendingSync');
-	if(app.read('foodDbLoaded','done')) {
+	if(!app.read('foodDbLoaded','done')) {
 		updateFoodDb();
 	} else {
 		setPush();

@@ -298,6 +298,9 @@ app.tab.status = function(keepOpen) {
 	//#//////////#//
 	//# HANDLERS #//
 	//#//////////#//
+	
+	//test events
+	//
 	//PRE
 	getElapsed();
 	updateNutriBars();
@@ -981,6 +984,14 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				}
 				$('#entryBody').val('');
 				$('#entryBody').blur();
+			}
+			///////////////////
+			// SUPPORTED DBS //
+			///////////////////
+			if (/devdbs/i.test($('#entryBody').val())) {
+				$('#entryBody').val('devdb');
+				$('#entryBody').blur();
+				alert('indexedDB: ' + app.db.indexedDB + ' | webSQL: ' + app.db.webSQL + ' | localStorage: ' + app.db.localStorage);	
 			}
 			////////////
 			// DRIVER //

@@ -1509,27 +1509,53 @@ function buildAdvancedMenu() {
 	///////////////
 	// CORE HTML //
 	///////////////
-	$('#advancedMenu').html2("\
+	$('#advancedMenu').html2('\
 	<ul>\
-		<li id='advancedAutoUpdate'>"  + LANG.AUTO_UPDATE[lang]    + "</li>\
-		<li id='advancedCounterMode'><p class='contentTitle'>"     + LANG.COUNTING_MODE[lang] + "<span><strong>" +
-		((app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang])).capitalize() + "</strong> (" +
+		<li id="advancedAutoUpdate">' + LANG.AUTO_UPDATE[lang]     + '</li>\
+		<li id="advancedCounterMode"><p class="contentTitle">'     + LANG.COUNTING_MODE[lang] + '<span><strong>' +
+		((app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang])).capitalize() + '</strong> (' +
 		((app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang])).toLowerCase() +
-		")</span></p></li>\
+		')</span></p></li>\
+		<li id="advancedDatabase">\
+			<div class="contentToggleTitle">\
+				<p class="contentTitle" id="contentToggleTitle">' + LANG.DATABASE[lang] + '<span>' + LANG.APP_STORAGE[lang] + '</span></p>\
+				<div id="tapSwitchDB">\
+					<div id="optLocalStorage"><span>' + 'localStorage' + ' </span></div>\
+					<div id="optWebSQL"><span>'       + 'webSQL'       + ' </span></div>\
+					<div id="optIndexedDB"><span>'    + 'indexedDB'    + ' </span></div>\
+				</div>\
+			</div>\
+		</li>\
 	</ul>\
 	<ul>\
-		<li id='advancedChangelog'>"   + LANG.CHANGELOG[lang]      + "</li>\
-		<li id='advancedReview'>"      + LANG.REVIEW[lang]         + "</li>\
-		<li id='advancedSuggestion'>"  + LANG.SUGGESTION_BOX[lang] + "</li>\
-		<li id='advancedAbout'>"       + LANG.ABOUT[lang]          + "</li>\
+		<li id="advancedChangelog">'   + LANG.CHANGELOG[lang]      + '</li>\
+		<li id="advancedReview">'      + LANG.REVIEW[lang]         + '</li>\
+		<li id="advancedSuggestion">'  + LANG.SUGGESTION_BOX[lang] + '</li>\
+		<li id="advancedAbout">'       + LANG.ABOUT[lang]          + '</li>\
 	</ul>\
 	<ul>\
-		<li id='advancedReload'>" + LANG.REBUILD_FOOD_DB[lang] + "</li>\
+		<li id="advancedReload">' + LANG.REBUILD_FOOD_DB[lang] + '</li>\
 	</ul>\
 	<ul>\
-		<li id='advancedReset'>" + LANG.SETTINGS_WIPE[lang] + "</li>\
+		<li id="advancedReset">' + LANG.SETTINGS_WIPE[lang] + '</li>\
 	</ul>\
-	");
+	');
+	//PARSE DB CONFIG
+	if(app.db.indexedDB    !== true) { $('#optIndexedDB').hide();    }
+	if(app.db.webSQL       !== true) { $('#optWebSQL').hide();       }
+	if(app.db.localStorage !== true) { $('#optLocalStorage').hide(); }	
+	//GET CURRENT ENGINE
+	if (localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
+	if (localforage._driver == 'webSQLStorage')			{ app.save('app_database','webSQLStorage'); $('#optWebSQL').addClass('toggle');		} 
+	if (localforage._driver == 'localStorageWrapper')	{ app.save('app_database','localStorageWrapper'); $('#optLocalStorage').addClass('toggle');	}
+	//PARSE DB STYLE
+	function styleResetDB() {
+	$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
+		if (app.read('app_database','asyncStorage'))		{ $('#optIndexedDB').addClass('toggle');	} 
+		if (app.read('app_database','webSQLStorage'))		{ $('#optWebSQL').addClass('toggle');		} 
+		if (app.read('app_database','localStorageWrapper')) { $('#optLocalStorage').addClass('toggle');	}
+	};
+	styleResetDB();
 	//CONTENT HEIGHT
 	$("#advancedMenu").css("top",($("#advancedMenuHeader").height()+1) + "px");
 	$("#advancedMenuWrapper").height($("#appContent").height());
@@ -1552,6 +1578,70 @@ function buildAdvancedMenu() {
 	//REMOVE ACTIVE
 	$('#advancedMenu, #advancedMenu li').on(touchend + ' ' + touchmove + ' mouseout scroll',function(evt) {
 		$('.activeRow').removeClass('activeRow');
+	});
+	//#//////////////////////#//
+	//#// DB ENGINE PICKER //#//
+	//#//////////////////////#//
+	//READ CURRENT
+	/*
+	if (localforage._driver == 'asyncStorage') {
+		$('#optIndexedDB').addClass('toggle');
+	} else if(localforage._driver == 'webSQLStorage') {
+		$('#optWebSQL').addClass('toggle');
+	} else {
+		$('#optLocalStorage').addClass('toggle');
+	}
+	*/
+	// INDEXEDDB ~ asyncStorage //
+	app.handlers.activeRow('#optIndexedDB','button',function(evt) {
+		//STYLE
+		$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
+		$('#optIndexedDB').addClass('toggle');
+		//REBOOT CONFIRM
+		app.timeout('rebootconfirm',1200,function() {
+			//FILTER
+			if(app.read('app_database','asyncStorage')) { app.timeout('rebootconfirm','clear'); return; }
+			//SAVE
+			app.save('app_database','asyncStorage');
+			app.save('foodDbLoaded','pending');
+			styleResetDB();
+			//DIALOG
+			appConfirm(LANG.DATABASE_UPDATE[lang], LANG.RESTART_NOW[lang], function(button) { if(button === 2) { afterHide(); }}, LANG.OK[lang], LANG.CANCEL[lang]);
+		});
+	});
+	// WEBSQL ~ webSQLStorage //
+	app.handlers.activeRow('#optWebSQL','button',function(evt) {
+		//STYLE
+		$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
+		$('#optWebSQL').addClass('toggle');
+		//REBOOT CONFIRM
+		app.timeout('rebootconfirm',1200,function() {
+			//FILTER
+			if(app.read('app_database','webSQLStorage')) { app.timeout('rebootconfirm','clear'); return; }
+			//SAVE
+			app.save('app_database','webSQLStorage');
+			app.save('foodDbLoaded','pending');
+			styleResetDB();
+			//DIALOG
+			appConfirm(LANG.DATABASE_UPDATE[lang], LANG.RESTART_NOW[lang], function(button) { if(button === 2) { afterHide(); }}, LANG.OK[lang], LANG.CANCEL[lang]);
+		});
+	});
+	// LOCALSTORAGE ~ localStorageWrapper //
+	app.handlers.activeRow('#optLocalStorage','button',function(evt) {
+		//STYLE
+		$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
+		$('#optLocalStorage').addClass('toggle');
+		//REBOOT CONFIRM
+		app.timeout('rebootconfirm',1200,function() {
+			//FILTER
+			if(app.read('app_database','localStorageWrapper')) { app.timeout('rebootconfirm','clear'); return; }
+			//SAVE
+			app.save('app_database','localStorageWrapper');
+			app.save('foodDbLoaded','pending');
+			styleResetDB();
+			//DIALOG
+			appConfirm(LANG.DATABASE_UPDATE[lang], LANG.RESTART_NOW[lang], function(button) { if(button === 2) { afterHide(); }}, LANG.OK[lang], LANG.CANCEL[lang]);
+		});
 	});
 	//#////////////#//
 	//# CHANGE LOG #//

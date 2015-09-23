@@ -19,13 +19,19 @@ $(document).ready(function() {
 		var dbDriver = ['webSQLStorage','asyncStorage','localStorageWrapper'];
 		//KEEP USING SAME DB
 		if(app.read('app_database')) {
-			dbDriver = app.read('app_database');
+			dbDriver = [app.read('app_database')];
 		}
-		//MOZ FALLBACK
+		/////////////////////
+		// FORCE DB ENGINE //
+		/////////////////////
+		     if(app.read('app_database','webSQLStorage'))		{ dbDriver = ['webSQLStorage'];		  }
+		else if(app.read('app_database','asyncStorage'))		{ dbDriver = ['asyncStorage'];		  }
+		else if(app.read('app_database','localStorageWrapper'))	{ dbDriver = ['localStorageWrapper']; }
+		//////////////////////////////
+		// MOZ FALLBACK ~ INCOGNITO //
+		//////////////////////////////
 		if(vendorClass == 'moz') {
-			if(!app.read('config_force_localstorage')) {
-				dbDriver = ['asyncStorage','localStorageWrapper'];
-			} else {
+			if(app.read('config_force_localstorage')) {
 				dbDriver = ['localStorageWrapper'];
 			}
 		}
@@ -111,6 +117,17 @@ function startApp() {
 	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
 		app.remove('startLock');
 	}
+//#///////////////////#//
+//# DB UPDATE PENDING #//
+//#///////////////////#//
+if(!app.read('startLock','running') && app.read('foodDbLoaded','pending')) {
+	app.remove('foodDbLoaded');		
+	app.remove('startLock');
+	$('body').addClass('updtdb');
+	setTimeout(function() {
+		updateFoodDb();
+	},100);
+}
 ///////////////
 // KICKSTART //
 ///////////////

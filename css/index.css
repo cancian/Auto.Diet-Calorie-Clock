@@ -465,6 +465,30 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #appAutoUpdateButton				{ position: absolute; top: 0px; right: 80px; color: #999; font-size: 28px; white-space: nowrap; line-height: 27px; width: 60px; display: none; background-color: rgba(0,0,0,0); height: 60px; padding-top: 10px; text-align: center; }
 #appAutoUpdateButton:before			{ font-family: 'KCals'; content: '\f01e'; }
 .pending #appAutoUpdateButton		{ display: block; }
+/*#//////////////////#//
+//# DATABASE OPTIONS #//
+//#//////////////////#*/
+#advancedDatabase.activeRow			{ background-color: #fff !important; }
+#advancedDatabase #tapSwitchDB		{ text-indent: 0px !important; -webkit-backface-visibility: hidden;  position: absolute; right: 18px; top: 0px; width: 300px; height: 60px; font-size: 11px; line-height: 32px; text-shadow: none !important;}
+/**/
+#optLocalStorage,
+#optIndexedDB,
+#optWebSQL							{ padding: 0 5px; margin-left: 4px; color: #777; background-color: #eee; display: inline-block; float: right; height: 44px; border: 6px solid rgba(255,255,255,0); border-width: 7px 0; z-index: 30; background-clip: padding-box; }
+/*nochange current*/
+#optLocalStorage.button,
+#optIndexedDB.button,
+#optWebSQL.button					{ background-color: rgba(0,0,0,.09) !important; }
+/*onclick*/
+#optLocalStorage.toggle,
+#optIndexedDB.toggle,
+#optWebSQL.toggle					{ background-color: #5ED872 !important; color: #fff; } 
+/*small*/
+@media all and (min-width: 380px)	{ 
+	#tapSwitchDB { font-size: 12px; line-height: 32px; }
+	#optLocalStorage,
+	#optIndexedDB,
+	#optWebSQL						{ padding: 0 12px; margin-left: 6px; color: #777; }
+}
 /*#///////////////#// http://callmenick.com/tutorial-demos/css-toggle-switch/
 //# TOGGLE SWITCH #// 
 //#///////////////#*/
