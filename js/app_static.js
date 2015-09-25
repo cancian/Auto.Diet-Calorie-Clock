@@ -16,7 +16,11 @@ $(document).ready(function() {
 		// OPEN DATABASE //
 		///////////////////
 		//var dbDriver = [localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE];
-		var dbDriver = ['webSQLStorage','asyncStorage','localStorageWrapper'];
+		var indexedDB    = localforage.INDEXEDDB    || 'asyncStorage';
+		var webSQL       = localforage.WEBSQL       || 'webSQLStorage';
+		var localStorage = localforage.LOCALSTORAGE || 'localStorageWrapper';		
+		
+		var dbDriver = [webSQL,indexedDB,localStorage];
 		//KEEP USING SAME DB
 		if(app.read('app_database')) {
 			dbDriver = [app.read('app_database')];
@@ -24,15 +28,15 @@ $(document).ready(function() {
 		/////////////////////
 		// FORCE DB ENGINE //
 		/////////////////////
-		     if(app.read('app_database','webSQLStorage'))		{ dbDriver = ['webSQLStorage'];		  }
-		else if(app.read('app_database','asyncStorage'))		{ dbDriver = ['asyncStorage'];		  }
-		else if(app.read('app_database','localStorageWrapper'))	{ dbDriver = ['localStorageWrapper']; }
+		     if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL];		 }
+		else if(app.read('app_database','asyncStorage'))		{ dbDriver = [indexedDB];	 }
+		else if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage]; }
 		//////////////////////////////
 		// MOZ FALLBACK ~ INCOGNITO //
 		//////////////////////////////
 		if(vendorClass == 'moz') {
 			if(app.read('config_force_localstorage')) {
-				dbDriver = ['localStorageWrapper'];
+				dbDriver = [localStorage];
 			}
 		}
 		//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
@@ -257,7 +261,7 @@ appFooter = function (id,keepOpen,callback) {
 	     if(tabId == 'tab1') { app.tab.status(keepOpen);   }
 	else if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
 	else if(tabId == 'tab3') { app.tab.profile(keepOpen);  }
-	else if(tabId == 'tab4') { app.tab.settings(keepOpen); }
+	else if(tabId == 'tab4') { app.tab.settings(keepOpen); updateFoodDb(); }
 	$('body').removeClass('tab1 tab2 tab3 tab4 newwindow'.split(id).join(''));
 	$('body').addClass(tabId);
 	if(typeof callback === 'function') {
