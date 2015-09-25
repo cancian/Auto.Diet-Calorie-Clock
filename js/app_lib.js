@@ -243,6 +243,10 @@ var app = {
 			}
 			$(target).css('pointer-events','auto');
 		}, time);
+	},
+	timer: {
+		start : function() { app.globals.toatTimer = app.now(); },
+		end   : function() { app.toast('total time: ' + (app.now() - app.globals.toatTimer) + 'ms'); }
 	}
 };
 /////////////////
@@ -532,6 +536,20 @@ $.prototype.after2 = function (data, callback) {
 	if (typeof callback === 'function') {
 		callback();
 	}
+};
+///////////
+// TOAST //
+///////////
+app.toast = function (msg, timeout) {
+	if(!msg)		{ msg = 'no content'; }
+	if(!timeout)	{ timeout = 2000; }	
+	$('#appToast').remove();
+	$('body').append2('<div id="appToast">' + msg + '</div>');
+	setTimeout(function () {
+		app.handlers.fade(0, '#appToast', function () {
+			$('#appToast').remove();
+		}, 275);
+	}, timeout);
 };
 //////////
 // ZOOM //

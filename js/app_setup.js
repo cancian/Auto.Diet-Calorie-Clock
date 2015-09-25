@@ -501,6 +501,9 @@ function setComplete() {
 	//update last sync date
 	app.save('lastSync',app.now());
 	$('#optionLastSync span').html2( dateDiff( app.read('lastSync'), app.now()) );
+	if(app.dev) {
+		app.timer.end();
+	}
 }
 ///////////////
 // ROWS LOOP //
@@ -650,6 +653,7 @@ function syncEntries(userId) {
 	if(!app.read('facebook_logged')) { return; }
 	if(!app.read('facebook_userid')) { return; }
 	if($('body').hasClass('insync')) { return; }
+	
 	//OK, UPDATE TIME
 	app.save('pendingSync',app.now());
 	app.globals.syncRunning = false;
@@ -658,6 +662,9 @@ function syncEntries(userId) {
 		$('body').addClass('insync');
 		//get remote sql
 		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
+			if(app.dev) {
+				app.timer.start();
+			}
 			//////////////////
 			// prepare data //
 			//////////////////
@@ -1027,12 +1034,6 @@ function setFav(data, callback) {
 ///////////////
 var afterHidden;
 function afterHide(cmd) {
-	//if(window.parent.document.getElementsByTagName('body')) {
-	//	var parentBody = window.parent.document.getElementsByTagName('body')[0];
-	//	$(parentBody).addClass('unloaded');
-	//}
-	//$('body').removeClass('started');
-	//$('body').addClass('unloaded');
 	noTimer = 'active';
 	opaLock = 2;
 	clearTimeout(afterHidden);
@@ -1155,7 +1156,6 @@ function updateFoodDb(callback) {
 					} else {
 						//give up
 						alert('Error creating database', 'Please connect to the internet and try again.');
-						app.analytics('error', 'Error creating database');
 					}
 					//////////////////////////////////////////
 				});
@@ -1174,6 +1174,7 @@ function updateFoodDb(callback) {
 							url : databaseHost + 'sql/searchdb_' + langDB + '.db',
 							error : function (xhr, statusText) {
 								unlockDb(callback);
+								errorHandler(e);
 							},
 							success : function (ls) {
 								if (ls.length < 15000) {
@@ -1203,20 +1204,15 @@ function updateFoodDb(callback) {
 										unlockDb(callback);
 									},
 									success : function (sdb) {
+										//////////////////
+										// SAVE DB DATA //
+										//////////////////
 										rowsArray = JSON.parse(sdb);
 										for (var s = 0, slen = rowsArray.length; s < slen; s++) {
 											try {
 												rowsArray[s].name = trim(trimDot(ls[s])).capitalize();
 												rowsArray[s].term = searchalize(rowsArray[s].name);
-												rowsArray[s].kcal = rowsArray[s].kcal;
-												rowsArray[s].pro = rowsArray[s].pro;
-												rowsArray[s].car = rowsArray[s].car;
-												rowsArray[s].fat = rowsArray[s].fat;
-												rowsArray[s].fib = rowsArray[s].fib;
-												rowsArray[s].fii = rowsArray[s].fii;
-												rowsArray[s].sug = rowsArray[s].sug;
-												rowsArray[s].sod = rowsArray[s].sod;
-											} catch (e) {  }
+											} catch (e) { }
 										}
 										saveParsed(rowsArray, callback);
 									}
@@ -1225,6 +1221,7 @@ function updateFoodDb(callback) {
 						});
 					} catch (e) {
 						//failure
+						errorHandler(e);
 						unlockDb(callback);
 					}
 				});
