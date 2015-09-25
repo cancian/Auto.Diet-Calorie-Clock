@@ -1543,7 +1543,9 @@ function buildAdvancedMenu() {
 	//PARSE DB CONFIG
 	if(app.db.indexedDB    !== true) { $('#optIndexedDB').hide();    }
 	if(app.db.webSQL       !== true) { $('#optWebSQL').hide();       }
-	if(app.db.localStorage !== true) { $('#optLocalStorage').hide(); }	
+	if(app.db.localStorage !== true) { $('#optLocalStorage').hide(); }
+	if(app.device.osxapp)			 { $('#optIndexedDB').hide();    }
+	if(app.device.blackberry)		 { $('#optIndexedDB').hide();    }
 	//GET CURRENT ENGINE
 	if (localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
 	if (localforage._driver == 'webSQLStorage')			{ app.save('app_database','webSQLStorage'); $('#optWebSQL').addClass('toggle');		} 

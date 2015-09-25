@@ -15,10 +15,9 @@ $(document).ready(function() {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
-		//var dbDriver = [localforage.WEBSQL, localforage.INDEXEDDB, localforage.LOCALSTORAGE];
-		var indexedDB    = localforage.INDEXEDDB    || 'asyncStorage';
-		var webSQL       = localforage.WEBSQL       || 'webSQLStorage';
-		var localStorage = localforage.LOCALSTORAGE || 'localStorageWrapper';		
+		var indexedDB    = 'asyncStorage';
+		var webSQL       = 'webSQLStorage';
+		var localStorage = 'localStorageWrapper';		
 		
 		var dbDriver = [webSQL,indexedDB,localStorage];
 		//KEEP USING SAME DB
