@@ -348,9 +348,11 @@ function pushEntries(userId) {
 	if(!userId) 		        { return; }
 	if(app.read('pendingSync')) { return; }
 	fetchEntries(function(data) {
+		if(!data) { return; }
+		//VARTS
 		var fetchEntries = '';
 		var newLineFetch = '';
-		var allFetchIds  = [];
+		//var allFetchIds  = [];
 		var id;
 		var title;
 		var body;
@@ -365,7 +367,7 @@ function pushEntries(userId) {
 		var sug;
 		var sod;
 
-		if(data) {
+		// BUILD SQL ROW //
 		for(var i=0, len=data.length; i<len; i++) {
 			if(data[i].id) {
 				id        = data[i].id;
@@ -394,11 +396,11 @@ function pushEntries(userId) {
 				if(!sug)  { sug  = ''; }
 				if(!sod)  { sod  = ''; }
 
-				if(id && published != '' && allFetchIds.indexOf('#' + id + '#') === -1) {
+				if(id && published != '') { // && allFetchIds.indexOf('#' + id + '#') === -1) {
 					newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "','" + fii + "','" + sug + "','" + sod + "');\n";
 					fetchEntries += newLineFetch;
 					newLineFetch = '';
-					allFetchIds.push('#' + id + '#');
+					//allFetchIds.push('#' + id + '#');
 					//empty loop
 					id        = '';
 					title     = '';
@@ -415,7 +417,6 @@ function pushEntries(userId) {
 					sod       = '';
 				}
 			}
-		}
 		}
 		//////////////////////
 		// ADD CUSTOM ITEMS //
@@ -439,15 +440,13 @@ function pushEntries(userId) {
 		if(localStorageSql()) {
 			fetchEntries = fetchEntries + '\n' + trim(localStorageSql());
 		}
-		fetchEntries = fetchEntries.split('undefined').join('');
-		fetchEntries = fetchEntries.split('NaN').join('');
+		fetchEntries = trim(fetchEntries.split('undefined').join('').split('NaN').join(''));
 		/////////////////
 		// POST RESULT //
 		/////////////////
-		fetchEntries = trim(fetchEntries);
-
-		if(fetchEntries == ' ' || !fetchEntries) { fetchEntries = ' '; }
+		if(fetchEntries.length == 0) { fetchEntries = ' '; }
 		if(fetchEntries) {
+			//wait longer to unlock next try if no response
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 			//set push
 			$('body').addClass('setpush');
@@ -479,31 +478,25 @@ function setComplete() {
 	app.remove('pendingSync');
 	if(!app.read('foodDbLoaded','done')) {
 		updateFoodDb();
-	} 
-	//update entrylist sum
+	}
+	//update DOM
 	updateEntriesSum();
-	//update nutri pseudos
 	updateNutriRatio();
-	//refresh tabs
-	setTimeout(function() {
-		appFooter(app.read('app_last_tab'),1);
-	},0);
-	//dump diary_food data
-	setTimeout(function() {
+	appFooter(app.read('app_last_tab'),1);
+	//dump custom data to sql
+	app.timeout('setComplete',500,function() {
 		if(app.read('foodDbLoaded','done')) {
-			//updateCustomList('all');
-			updateCustomList('items');
-			updateCustomList('fav');
-			getCatList();
+			updateCustomList('all');
+			//catlist first-load
+			if($('body').hasClass('closer')) {
+				getCatList();
+			}
 			setPush();
 		}
-	},600);
+	});
 	//update last sync date
 	app.save('lastSync',app.now());
 	$('#optionLastSync span').html2( dateDiff( app.read('lastSync'), app.now()) );
-	if(app.dev) {
-		app.timer.end();
-	}
 }
 ///////////////
 // ROWS LOOP //
@@ -653,7 +646,6 @@ function syncEntries(userId) {
 	if(!app.read('facebook_logged')) { return; }
 	if(!app.read('facebook_userid')) { return; }
 	if($('body').hasClass('insync')) { return; }
-	
 	//OK, UPDATE TIME
 	app.save('pendingSync',app.now());
 	app.globals.syncRunning = false;
@@ -662,9 +654,6 @@ function syncEntries(userId) {
 		$('body').addClass('insync');
 		//get remote sql
 		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
-			if(app.dev) {
-				app.timer.start();
-			}
 			//////////////////
 			// prepare data //
 			//////////////////
@@ -672,12 +661,12 @@ function syncEntries(userId) {
 			//local storage slice
 			if(sql.match('#@@@#')) {
 				rebuildLocalStorage(sql.split('\n').pop());
-				sql = sql.replace(/\r?\n?[^\r\n]*$/, '');
+				sql = sql.split('\n\r\n\r').join('\n\r').split('\n\r\n\r').join('\n\r');
 			}
 			///////////////////////
 			// FAKE VALID RESULT // empty but valid result ~ trigger success
 			/////////////////////// return for no diff
-			if(trim(sql) == '' || sql == app.read('last_sync_data')) {
+			if(sql.length <= 2 || sql == app.read('last_sync_data')) {
 				app.globals.syncRunning = false;
 				setComplete();
 				return;
