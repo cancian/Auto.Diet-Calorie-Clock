@@ -245,8 +245,8 @@ var app = {
 		}, time);
 	},
 	timer: {
-		start : function() { app.globals.toatTimer = app.now(); },
-		end   : function() { app.toast('total time: ' + (app.now() - app.globals.toatTimer) + 'ms'); }
+		start : function()    { if(app.dev) { app.globals.toastTimer = app.now(); } },
+		end   : function(txt) { if(app.dev) { if(!txt) { txt = ''; }; app.toast(txt + ' - Total time: ' + (app.now() - app.globals.toastTimer) + 'ms'); } }
 	}
 };
 /////////////////
@@ -540,16 +540,13 @@ $.prototype.after2 = function (data, callback) {
 ///////////
 // TOAST //
 ///////////
-app.toast = function (msg, timeout) {
-	if(!msg)		{ msg = 'no content'; }
-	if(!timeout)	{ timeout = 2000; }	
+app.toast = function (msg, duration) {
+	if(!msg)		{ msg = '-------'; }
 	$('#appToast').remove();
 	$('body').append2('<div id="appToast">' + msg + '</div>');
-	setTimeout(function () {
-		app.handlers.fade(0, '#appToast', function () {
-			$('#appToast').remove();
-		}, 275);
-	}, timeout);
+	$('#appToast').on(tap,function () {
+		app.handlers.fade(0, '#appToast');
+	});
 };
 //////////
 // ZOOM //

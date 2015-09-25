@@ -65,7 +65,8 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 .noOverflow								{ overflow: hidden !important; }
 .clicked								{ opacity: .6; -webkit-filter: grayscale(10%); -moz-filter: grayscale(10%); filter: grayscale(10%); }
 #fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
-#appToast								{ position: absolute; top: 78px; left: 20px; right: 20px; padding: 16px; min-height: 160px; max-height: 400px; overflow: auto; z-index: 9999; text-align: left; font-size: 17px; line-height: 165%; display: block; background-color: rgba(0,0,0,.75); border: 1px solid rgba(0,0,0,.95); color: #fff; pointer-events: none; }
+#appToast								{ position: absolute; top: 78px; left: 20px; right: 20px; padding: 16px; min-height: 100px; max-height: 400px; overflow: auto; z-index: 9999; text-align: left; font-size: 17px; line-height: 165%; display: block; background-color: rgba(0,0,0,.75); border: 1px solid rgba(0,0,0,.95); color: #fff; }
+.ios7 #appToast							{ top: 88px; }
 @media all and (orientation:portrait)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 @media all and (orientation:landscape)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 /*
