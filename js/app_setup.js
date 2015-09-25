@@ -479,24 +479,25 @@ function setComplete() {
 	app.remove('pendingSync');
 	if(!app.read('foodDbLoaded','done')) {
 		updateFoodDb();
-	} else {
-		setPush();
-	}
+	} 
 	//update entrylist sum
 	updateEntriesSum();
 	//update nutri pseudos
 	updateNutriRatio();
 	//refresh tabs
-	appFooter(app.read('app_last_tab'),1);
+	setTimeout(function() {
+		appFooter(app.read('app_last_tab'),1);
+	},0);
 	//dump diary_food data
-	if(typeof getCatList == 'function' && app.read('foodDbLoaded','done')) {
-		setTimeout(function() {
-			updateCustomList('fav');
+	setTimeout(function() {
+		if(app.read('foodDbLoaded','done')) {
+			//updateCustomList('all');
 			updateCustomList('items');
+			updateCustomList('fav');
 			getCatList();
 			setPush();
-		},200);
-	}
+		}
+	},600);
 	//update last sync date
 	app.save('lastSync',app.now());
 	$('#optionLastSync span').html2( dateDiff( app.read('lastSync'), app.now()) );
@@ -505,46 +506,45 @@ function setComplete() {
 // ROWS LOOP //
 ///////////////
 function rowsLoop(sqlEntry, hive, callback) {
-	if (hive == 'diary_entry') {
+	if (hive === 'diary_entry') {
 		rows = app.rows.entry;
 	} else {
 		rows = app.rows.food;
 		hive = 'diary_food';
 	}
 	//////////////////
-	// ENTRIES LOOP //
+	// INDEXED ROWS //
 	//////////////////
-	var allRows = JSON.stringify(rows);
-	for(var i = sqlEntry.length - 1; i > -1; i--) {
-	//for (var i = 0, len = sqlEntry.length; i < len; i++) {
+	var indexedRows = {};
+	(function() {
+		for (var i = 0, len = rows.length; i < len; i++) {
+			var rowId = (hive === 'diary_entry') ? rows[i].id : rows[i].code;
+			indexedRows[rowId] = { index: i, row: rows[i] };
+		}
+	}());
+	/////////////////////
+	// UPDATE ROW LOOP //
+	/////////////////////
+	for (var i = 0, len = sqlEntry.length; i < len; i++) {
 		if (sqlEntry[i]) {
-			var lookFor = (hive == 'diary_entry') ? sqlEntry[i].id : sqlEntry[i].code;
-			var rowIndex = (allRows).indexOf(lookFor);
-			if (rowIndex !== -1) {
-				//////////////
-				// ON MATCH //
-				//////////////
-				var x = rows.length;
-				while(x--) {
-				//for (var x = 0, xen = rows.length; x < xen; x++) {
-					if (rows[x]) {
-						var rowAttr = (hive == 'diary_entry') ? rows[x].id : rows[x].code;
-						if (rowAttr == lookFor) {
-							rows[x] = sqlEntry[i];
-							break;
-						}
-					}
+			var lookFor    = (hive === 'diary_entry') ? sqlEntry[i].id : sqlEntry[i].code;
+			var indexedRow = indexedRows[lookFor];
+			//////////////////////
+			// INSERT OR UPDATE //
+			//////////////////////
+			if(typeof indexedRow !== 'undefined') {
+				// UPDATE ON DIFF //
+				if(rows[indexedRow.index] !== sqlEntry[i]) {
+					rows[indexedRow.index] = sqlEntry[i];
 				}
 			} else {
-				////////////////
 				// INSERT NEW //
-				////////////////
-				rows.push(sqlEntry[i]);
+				rows.push(sqlEntry[i]);	
 			}
 		}
 	}
 	//UPDATE CACHE
-	if (hive == 'diary_entry') {
+	if (hive === 'diary_entry') {
 		app.rows.entry = rows;
 	} else {
 		app.rows.food  = rows;
@@ -671,9 +671,6 @@ function syncEntries(userId) {
 			// FAKE VALID RESULT // empty but valid result ~ trigger success
 			/////////////////////// return for no diff
 			if(trim(sql) == '' || sql == app.read('last_sync_data')) {
-				if(app.dev) {
-					console.log('sync: no diff');
-				}
 				app.globals.syncRunning = false;
 				setComplete();
 				return;
@@ -2173,7 +2170,7 @@ function getRateDialog() {
 	///////////////
 	// IF 1 WEEK //
 	//////////////
-	var timeRate = 1 * 24 * 60 * 60 * 1000;
+	var timeRate = 36 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
@@ -2187,7 +2184,7 @@ function getRateDialog() {
 					app.url();
 				}
 			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-		},3000);
+		},5000);
 	}
 }
 ///////////////////
