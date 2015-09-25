@@ -484,14 +484,17 @@ function setComplete() {
 	updateNutriRatio();
 	appFooter(app.read('app_last_tab'),1);
 	//dump custom data to sql
-	if(app.read('foodDbLoaded','done')) {
-		updateCustomList('all');
-		//catlist first-load
-		if($('body').hasClass('closer')) {
-			getCatList();
+	setTimeout(function() {
+		if(app.read('foodDbLoaded','done')) {
+			updateCustomList('fav');
+			updateCustomList('items');
+			//catlist first-load
+			if($('body').hasClass('closer')) {
+				getCatList();
+			}
+			setPush();
 		}
-		setPush();
-	}
+	},100);
 	//update last sync date
 	app.save('lastSync',app.now());
 	$('#optionLastSync span').html2( dateDiff( app.read('lastSync'), app.now()) );
