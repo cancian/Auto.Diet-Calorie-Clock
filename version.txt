@@ -8,9 +8,10 @@
 • Water tracker
 • Daily tips
 
-# 1.9.9 [2015/09/23]
+# 1.9.9 [2015/09/25]
+• Improved synchronization speed, specially for users with large custom databases
 • Filter unnecessary data synchronization requests
-• Users can manually change the data storage engine used by the app for performance tweaking purposes (indexedDB, webSQL, localStorage)
+• Users can manually change the data storage engine used by the app for performance tweaking purposes (indexedDB, webSQL, localStorage, as available on the device)
 • More detailed charts for easier reading
 • Intro slides now require manual dismissing
 • Fixed minor propagation issue on status tab affecting the info icon
