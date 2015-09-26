@@ -816,6 +816,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		var published = new Date().getTime();
 		//not null
 		if(title == 0) { return; }
+		//not while editing
+		if(app.globals.blockEntrylist == true) { return; }
 		//hours ago
 		if(Number($('#entryTime').val()) < 0) {
 			published = published + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
