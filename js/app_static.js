@@ -204,6 +204,21 @@ $('body').prepend2('\
 		</ul>\
 	</div>\
 ');
+////////////////////
+// OVERSCROLL FIX //
+////////////////////
+$(document).on('dblclick scroll',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
+$(window).on('dblclick scroll',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
+$('body').on('dblclick scroll',function(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();	
+});
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
