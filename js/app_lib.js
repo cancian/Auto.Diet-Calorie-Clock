@@ -1749,45 +1749,82 @@ function searchalize(str) {
 	str = str.split('、').join('');
 	return trim(str);
 }
+//////////////////
+// ARRAY FILTER //
+//////////////////
+if (!Array.prototype.filter) {
+	Array.prototype.filter = function (fun /*, thisArg*/
+	) {
+		'use strict';
+
+		if (this === void 0 || this === null) {
+			throw new TypeError();
+		}
+
+		var t = Object(this);
+		var len = t.length >>> 0;
+		if (typeof fun !== 'function') {
+			throw new TypeError();
+		}
+
+		var res = [];
+		var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+		for (var i = 0; i < len; i++) {
+			if (i in t) {
+				var val = t[i];
+				if (fun.call(thisArg, val, i, t)) {
+					res.push(val);
+				}
+			}
+		}
+		return res;
+	};
+}
 //////////////
 // CONTAINS //
 //////////////
 if (![].contains) {
-  Object.defineProperty(Array.prototype, 'contains', {
-    enumerable: false,
-    configurable: true,
-    writable: true,
-    value: function(searchElement/*, fromIndex*/) {
-      if (this === undefined || this === null) {
-        throw new TypeError('Cannot convert this value to object');
-      }
-      var O = Object(this);
-      var len = parseInt(O.length) || 0;
-      if (len === 0) { return false; }
-      var n = parseInt(arguments[1]) || 0;
-      if (n >= len) { return false; }
-      var k;
-      if (n >= 0) {
-        k = n;
-      } else {
-        k = len + n;
-        if (k < 0) k = 0;
-      }
-      while (k < len) {
-        var currentElement = O[k];
-        if (searchElement === currentElement ||
-            searchElement !== searchElement && currentElement !== currentElement
-        ) {
-          return true;
-        }
-        k++;
-      }
-      return false;
-    }
-  });
+	Object.defineProperty(Array.prototype, 'contains', {
+		enumerable : false,
+		configurable : true,
+		writable : true,
+		value : function (searchElement /*, fromIndex*/
+		) {
+			if (this === undefined || this === null) {
+				throw new TypeError('Cannot convert this value to object');
+			}
+			var O = Object(this);
+			var len = parseInt(O.length) || 0;
+			if (len === 0) {
+				return false;
+			}
+			var n = parseInt(arguments[1]) || 0;
+			if (n >= len) {
+				return false;
+			}
+			var k;
+			if (n >= 0) {
+				k = n;
+			} else {
+				k = len + n;
+				if (k < 0)
+					k = 0;
+			}
+			while (k < len) {
+				var currentElement = O[k];
+				if (searchElement === currentElement ||
+					searchElement !== searchElement && currentElement !== currentElement) {
+					return true;
+				}
+				k++;
+			}
+			return false;
+		}
+	});
 }
-String.prototype.contains = function() {
-	return String.prototype.indexOf.apply( this, arguments ) !== -1;
+//STRING
+String.prototype.contains = function () {
+	return String.prototype.indexOf.apply(this, arguments) !== -1;
 };
 ////////////////
 // SORTBYATTR //
