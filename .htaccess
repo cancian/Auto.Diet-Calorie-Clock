@@ -19,10 +19,13 @@ AddType application/x-web-app-manifest+json .webapp
 	FileETag None
 	<ifModule mod_headers.c>
 		Header unset ETag
-		Header add Access-Control-Allow-Origin "*"
 		Header set Expires "Fri, 19 Feb 1982 06:06:06 GMT"
 		Header set Cache-Control "max-age=0"
 	</ifModule>
+</filesMatch>
+
+<filesMatch "\.(html|htm|js|css|ttf|woff|cur|ico|jpg|png|gif|json|txt|db|sql|xml)$">
+	Header add Access-Control-Allow-Origin "*"
 </filesMatch>
 
 ## MOD_REWRITE ##

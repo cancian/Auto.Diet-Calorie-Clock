@@ -1,8 +1,9 @@
 <?php ##########
 ## EMAIL AUTH ##
 ################
-header("cache-control: no-cache");
-header('Content-Type: text/html; charset=utf-8');
+@require_once('cors.php');
+//header('Content-Type: text/html; charset=utf-8');
+################
 //CREATE FILE
 if(!file_exists('userdata/userlist.txt')) { 
 	touch('userdata/userlist.txt'); 

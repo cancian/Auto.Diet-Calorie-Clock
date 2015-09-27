@@ -1,7 +1,8 @@
 <?php #################
 ## KCALS PHP BACKEND ##
 #######################
-header('cache-control: no-cache');
+@require_once('cors.php');
+#######################
 //////////////////
 // USERS ONLINE //
 //////////////////

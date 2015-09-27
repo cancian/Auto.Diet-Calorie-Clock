@@ -1,7 +1,8 @@
 <?php #################
 ## KCALS PHP BACKEND ##
 #######################
-header('cache-control: no-cache');
+@require_once('cors.php');
+#######################
 if(strlen($_REQUEST['msg']) > 0) {
 	mail("cancian@kcals.net", "« KCals » Suggestion Box (".$_REQUEST['usr'].")","E-mail: " . htmlspecialchars($_REQUEST['mail']) . "<br /><br />Message: <br />" . htmlspecialchars($_REQUEST['msg']),
 	"From:" . $_REQUEST['mail'] . "r\n"

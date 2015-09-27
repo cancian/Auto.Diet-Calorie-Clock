@@ -1,6 +1,8 @@
 <?php #################
 ## KCALS PHP BACKEND ##
 #######################
+@require_once('cors.php');
+#######################
 /*
 INSERT OR REPLACE INTO "diary_food" VALUES(1405938069203,'exercise','c1405938068902','897','897','24.58','0.0','0.0','0.0','custom');
 INSERT OR REPLACE INTO "diary_food" VALUES(1405938083647,'exercise','c1405938083345','987','987','24.58','0.0','0.0','0.0','custom');
@@ -11,7 +13,7 @@ INSERT OR REPLACE INTO "diary_food" VALUES(1405938025812,'food','c1405938025510'
 ##
 //if(!preg_match("^home|local|192.168.1.5|local^",$_SERVER['HTTP_HOST'])) {
 	//header("access-control-allow-origin: *");
-	header("cache-control: no-cache");
+
 //}
 /*
 $userdata  = file_get_contents('js/cordova.js');
