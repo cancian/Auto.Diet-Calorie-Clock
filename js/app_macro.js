@@ -1544,8 +1544,10 @@ function buildAdvancedMenu() {
 	if(app.db.indexedDB    !== true) { $('#optIndexedDB').hide();    }
 	if(app.db.webSQL       !== true) { $('#optWebSQL').hide();       }
 	if(app.db.localStorage !== true) { $('#optLocalStorage').hide(); }
-	if(app.device.osxapp)			 { $('#optIndexedDB').hide();    }
-	if(app.device.blackberry)		 { $('#optIndexedDB').hide();    }
+	if(!app.dev) {
+		if(app.device.osxapp)			 { $('#optIndexedDB').hide();    }
+		if(app.device.blackberry)		 { $('#optIndexedDB').hide();    }
+	}
 	//GET CURRENT ENGINE
 	if (localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
 	if (localforage._driver == 'webSQLStorage')			{ app.save('app_database','webSQLStorage'); $('#optWebSQL').addClass('toggle');		} 
@@ -1878,9 +1880,8 @@ function buildAdvancedMenu() {
 	//#////////#//
 	//# REVIEW #//
 	//#////////#//
-	if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.firefoxos || app.device.osxapp || app.device.chromeos) {
+	if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.msapp || app.device.firefoxos || app.device.osxapp || app.device.chromeos || app.device.blackberry || app.device.playbook) {
 		app.handlers.activeRow('#advancedReview','button',function(evt) {
-		//$('#advancedReview').on(tap,function(evt) {
 			app.url();
 		});
 	} else {
