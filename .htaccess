@@ -25,7 +25,10 @@ AddType application/x-web-app-manifest+json .webapp
 </filesMatch>
 
 <filesMatch "\.(html|htm|js|css|ttf|woff|cur|ico|jpg|png|gif|json|txt|db|sql|xml)$">
-	Header add Access-Control-Allow-Origin "*"
+	Header set Access-Control-Allow-Origin "*"
+	Header set Access-Control-Allow-Credentials "true"
+	Header set Access-Control-Allow-Methods "OPTIONS, GET, POST"
+	Header set Access-Control-Allow-Headers "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control"
 </filesMatch>
 
 ## MOD_REWRITE ##
