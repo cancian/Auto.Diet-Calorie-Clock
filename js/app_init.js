@@ -36,7 +36,8 @@ window.onerror = function (e, url, line) {
 	if(typeof line !== 'string') {
 		line = JSON.stringify(line);
 	}
-	console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+	//LOG ERROR
+	window.localStorage.setItem('error_log_unhandled','unhandled log: ' + e + ' URL:' + url + ' Line:' + line)
 	//
 	if (window.localStorage.getItem('config_debug') == 'active' && blockAlerts == 0) {
 		if (IsMsApp) {

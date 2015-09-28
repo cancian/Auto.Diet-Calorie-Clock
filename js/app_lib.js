@@ -288,6 +288,21 @@ app.switchUser = function(switchTo) {
 		},0);
 	}
 };
+///////////////
+// LOG ERROR //
+///////////////
+app.parseErrorLog = function() {
+	//UNHANDLED
+	if(app.read('error_log_unhandled')) {
+		app.analytics('error',app.read('error_log_unhandled'));
+		app.remove('error_log_unhandled')
+	}
+	//HANDLED
+	if(app.read('error_log_handled')) {
+		app.analytics('error',app.read('error_log_handled'));
+		app.remove('error_log_handled')
+	}
+};
 /////////////////
 // SWIPE EVENT //
 /////////////////
@@ -302,8 +317,6 @@ app.swipe = function (elem, callback) {
 				}
 			}
 		},
-
-
 		fingers:1,
 		threshold : 32,
 		allowPageScroll: 'vertical'
@@ -1452,8 +1465,9 @@ function errorHandler(error) {
 	if(typeof error !== 'string') {
 		error = JSON.stringify(error);
 	}
-	console.log('errorHandler (app_lib): ' + error);
-	//
+	//LOG ERROR
+	app.save('error_log_handled','handled log: ' + error)
+	//DEV ALERT
 	if (app.dev && blockAlerts == 0) {
 		if (app.device.windows8) {
 			if (typeof alert !== 'undefined') {
@@ -1467,6 +1481,7 @@ function errorHandler(error) {
 			}
 		}
 	} else {
+		//TRACK
 		app.analytics('error','handled: ' + error);
 	}
 }
