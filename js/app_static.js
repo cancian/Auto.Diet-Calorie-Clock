@@ -206,21 +206,6 @@ $('body').prepend2('\
 		</ul>\
 	</div>\
 ');
-////////////////////
-// OVERSCROLL FIX //
-////////////////////
-$(document).on('dblclick scroll',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$(window).on('dblclick scroll',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
-$('body').on('dblclick scroll',function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();	
-});
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -288,6 +273,10 @@ appFooter = function (id,keepOpen,callback) {
 			callback();
 		},0);
 	}
+	//tab tracker
+	app.timeout('tab',275,function() {
+		app.analytics('tab');
+	});
 };
 //READ STORED
 appFooter(app.read('app_last_tab'));
@@ -1030,16 +1019,33 @@ if(app.is.scrollable) {
 		setTimeout(startTimer,timerDiff);
 	}
 })();
-//refresh entrylist time & online users
+///////////////////////////////////////////
+// refresh entrylist time & online users //
+///////////////////////////////////////////
 (function entryRetimer() {
+	//every 30s
 	updateEntriesTime();
-	//online users
+	//online users ~ wait wifi
 	setTimeout(function() {
 		app.online();
 	},2000);
 	setTimeout(entryRetimer,30*1000);
 })();
-//check last push
+/////////////////////////////
+// check updates regularly //
+/////////////////////////////
+(function updateChecker() {
+	if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
+		setTimeout(function() {
+			buildRemoteSuperBlock('cached');
+		},300*1000);
+	}
+	//every 5+5 min
+	setTimeout(updateChecker,300*1000);
+})();
+/////////////////////
+// check last push //
+/////////////////////
 (function lastEntryPush() {
 	var now = app.now();
 	//sync lock
@@ -1056,7 +1062,7 @@ if(app.is.scrollable) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,2750);
+	setTimeout(lastEntryPush,2000);
 })();
 	//#////////////////#//
 	//# XY HEADER INFO #//
@@ -1087,7 +1093,6 @@ if(app.is.scrollable) {
 	// HANDLER
 	app.handlers.activeRow('#appHeader','button',function(evt) {
 		if(app.infoX < 132 && app.infoY < 72) {
-			if($('#appHeader').hasClass('blockInfo'))	{ return; }
 			if($('#appHelper').length)					{ return; }
 			if($('#advancedMenu').length)				{ return; }
 			if($('#backButton').length)					{ return; }
@@ -1095,6 +1100,7 @@ if(app.is.scrollable) {
 			if($('#langSelect').length)					{ return; }
 			if($('#advancedMenu').length)				{ return; }
 			if($('#pageSlideFood').length)				{ return; }
+			if($('#appHeader').hasClass('blockInfo'))	{ return; }
 			getNewWindow('Help: What is KCals?','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['What is KCals?'] + '</div>',function() {
 				$('#tabHelp').removeClass('hidden');
 				app.handlers.activeRow('#openHelp','button',function(evt) {
@@ -1240,7 +1246,6 @@ if(app.is.scrollable) {
 	if(app.device.desktop) {
 		$('#timerDailyInput').prop('type','text');
 	}
-
 	//YUI COMPRESSOR
 	var dummyYUI = 'var editableTimeout';
 
