@@ -8,6 +8,10 @@
 • Water tracker
 • Daily tips
 
+# 1.9.10 [2015/09/28]
+• Prevent new diary entries from being added via return (enter) while editing an existing entry 
+• Improved error handling
+
 # 1.9.9 [2015/09/25]
 • Improved synchronization speed, specially for users with large custom databases
 • Filter unnecessary data synchronization requests
@@ -17,7 +21,6 @@
 • Fixed minor propagation issue on status tab affecting the info icon
 • Fixed some issues with the tap (click) handler
 • Fixed unusual behavior on the horizontal scrollbar (full scale chart)
-• Prevent new diary entries from being added via return (enter) while editing an existing entry
 
 # 1.9.8 [2015/09/01]
 • Users can now customize the colors of the caloric balance status (deficit/balanced/surplus)
