@@ -18,7 +18,7 @@
 	}
 }
 (function(jQuery) {
-	"use strict";
+	//"use strict";
 
 	// globals
 	var domfocus = false;

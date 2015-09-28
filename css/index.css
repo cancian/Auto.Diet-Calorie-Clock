@@ -47,7 +47,7 @@ textarea::-moz-selection				{ background-color: rgba(0,0,0,.1); color: inherit; 
 textarea::-webkit-selection				{ background-color: rgba(0,0,0,.1); color: inherit; }
 textarea								{ -webkit-user-modify: read-write-plaintext-only; }
 input[type='text']						{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: auto; user-select: auto; outline: 0; }
-input['readonly'], input[readonly]		{ pointer-events: none; -webkit-user-select: none; user-select: none; -webkit-appearance: none; -ms-touch-action: none; }
+input[readonly]							{ pointer-events: none; -webkit-user-select: none; user-select: none; -webkit-appearance: none; -ms-touch-action: none; }
 input:focus,select:focus,:focus			{ outline: none; }
 body.android40 input[type='number']		{ text-indent: 0 !important; }
 ul										{ padding: 0; margin: 0; text-indent: 0; list-style: none; }
