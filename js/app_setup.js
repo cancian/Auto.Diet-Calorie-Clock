@@ -690,17 +690,23 @@ function syncEntries(userId) {
 // GET ENTRIES //
 /////////////////
 function getEntries(callback) {
-	var rowsArray = [];
-	//Die Eigenschaft "length" eines undefinierten oder Nullverweises kann nicht abgerufen werden.
-	if(app.rows.entry) {
-		if(app.rows.entry.length) {
-			for(var i=0, len=app.rows.entry.length; i<len; i++) {
-				if(app.rows.entry[i].info !== 'deleted') {
-					rowsArray.push(app.rows.entry[i]);
+	var rowsArray = app.rows.entry;
+	if (app.rows.entry) {
+		if (app.rows.entry.length) {
+			rowsArray = rowsArray.filter(function (row) {
+				if (row.info !== 'deleted') {
+					return row;
 				}
-			}
+			});
 		}
 	}
+	/*
+	for (var i = 0, len = app.rows.entry.length; i < len; i++) {
+		if (app.rows.entry[i].info !== 'deleted') {
+			rowsArray.push(app.rows.entry[i]);
+		}
+	}
+	*/
 	callback(rowsArray);
 }
 ///////////////

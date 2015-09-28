@@ -80,7 +80,7 @@ window.onerror = function (e, url, line) {
 			}
 		}, 0);
 	}
-	return false;
+	return true;
 };
 //##//////////////##
 //## ISCACHEVALID ##
