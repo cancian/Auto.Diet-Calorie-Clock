@@ -2054,19 +2054,16 @@ function kickDown(el) {
 ///////////////////
 app.trackInstall = function () {
 	if (!app.read('app_installed') && app.read('intro_dismissed','done')) {
-		if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.wp81 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
+		if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.wp8 || app.device.msapp || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
 			//INTALL
 			app.analytics('install');
 		} else {
 			//WEBINSTALL
 			app.analytics('webinstall');
 		}
-		//DEV
-		if (app.dev) {
-			console.log('install tracked');
-		}
+		//LOCK
+		app.save('app_installed', 'installed');
 	}
-	app.save('app_installed', 'installed');
 };
 //#//////////////#//
 //# ONLINE USERS #//
