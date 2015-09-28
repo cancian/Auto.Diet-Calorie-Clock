@@ -60,7 +60,7 @@ function showIntro() {
 	$('#skipIntro, #closeDiv').on(touchend,function(evt) {
 		evt.stopPropagation();
 		//manually dismissed
-		app.save('intro_dismissed','done')
+		app.save('intro_dismissed','done');
 		//QUICK PRE-UPDATE
 		if(app.read('app_restart_pending')) {
 			app.remove('app_restart_pending');
