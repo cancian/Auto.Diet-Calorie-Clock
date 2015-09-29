@@ -136,7 +136,8 @@ body.android #appHeader				{ z-index: 50 !important; }
 #timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; font-weight: 400; padding-top: 2px; color: #fff; background-color: rgba(0,0,0,0); z-index: 5; text-shadow: 0 0 1px rgba(0,0,0,.1); }
 #timerKcals span:after			{ content: '\A175'; font-family: KCals; font-size: 13px; display: block; font-weight: normal; margin-top: 0; position: absolute; bottom: -1px; right: -18px; color: #fff; font-size: 14px; line-height: 13px; display: block; z-index: 3; font-weight: bold; opacity: .55; }
 #openHelp.button				{ color: #ccc !important; }
-/*#appHeader.button #timerKcals:after { color: rgba(255,255,255,.7) !important; }*/
+/*info spinner for dev*/
+.appDebug.pending #timerKcals span:after	{ content: '\f01e'; opacity: 1 !important; color: rgba(255,255,255,.99) !important; -webkit-animation: rotate infinite 1.5s; font-weight: bold !important; text-shadow: none !important; font-size: 12.5px; line-height: 12.5px !important; display: inline-block; border: 1.5px solid rgba(0,0,0,0); }
 /*//////////////////
 // DAILY CALORIES //
 //////////////////*/
@@ -358,18 +359,19 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 //////////////////////*/
 #emailLogin,
 #FacebookLogin			{ position: absolute; display: block; z-index: 5; width: 65px; height: 46px; top: 0; }
-
-#emailLogin				{ background-color: rgba(0,0,0,0); right: 65px; }
-#FacebookLogin			{ background-color: rgba(0,0,0,0); right: 0px; }
-
+#emailLogin				{ background-color: rgba(255,255,255,.62); right: 65px; }
+#FacebookLogin			{ background-color: rgba(255,255,255,.62); right: 0px; }
 #FacebookLogin:after,
 #emailLogin:after		{ position: absolute; top: 0; font-size: 36px; line-height: 48px; color: #ccc; display: inline-block; }
-
 #FacebookLogin:after	{ font-family: 'KCals'; content: '\f082'; right: 20px; }
 #emailLogin:after		{ font-family: 'Arial'; content: '@'; right: 0px; font-size: 33px; line-height: 41px; }
-
 .playbook #FacebookLogin{ display: none; }
 .android2 #emailLogin	{ display: none; }
+/*sync info icon*/
+#optionFacebook div		{ display: block; float: left; }
+#syncInfo				{ width: 36px; height: 44px; float: left; text-align: center; font-size: 20px; line-height: 45px; display: inline-block; color: #007aff; font-weight: normal; background-color: rgba(0,0,0,0); z-index: 0; }
+#syncInfo.button		{ color: #ccc; }
+#syncInfo:before		{ content: '\A175' !important; font-family: KCals; }
 /*icon highlight*/
 .appFacebook #FacebookLogin:after				{ color: #4862A3; }
 .appFacebook #emailLogin:after,

@@ -12,6 +12,7 @@
 • Prevent new diary entries from being added via return (enter) while editing an existing entry 
 • Improved error handling
 • New help topic: "Synchronizing two devices"
+• Added an info icon next to the "Backup & Synchronization" option, linking to the corresponding help topic
 
 # 1.9.9 [2015/09/25]
 • Improved synchronization speed, specially for users with large custom databases
