@@ -358,17 +358,17 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 // SETTINGS: FACEBOOK //
 //////////////////////*/
 #emailLogin,
-#FacebookLogin			{ position: absolute; display: block; z-index: 5; width: 65px; height: 46px; top: 0; }
+#FacebookLogin			{ position: absolute; display: block; z-index: 5; width: 65px; height: 45px; top: 1px; }
 #emailLogin				{ background-color: rgba(255,255,255,.62); right: 65px; }
 #FacebookLogin			{ background-color: rgba(255,255,255,.62); right: 0px; }
 #FacebookLogin:after,
-#emailLogin:after		{ position: absolute; top: 0; font-size: 36px; line-height: 48px; color: #ccc; display: inline-block; }
+#emailLogin:after		{ position: absolute; top: 0; font-size: 36px; line-height: 46px; color: #ccc; display: inline-block; }
 #FacebookLogin:after	{ font-family: 'KCals'; content: '\f082'; right: 20px; }
 #emailLogin:after		{ font-family: 'Arial'; content: '@'; right: 0px; font-size: 33px; line-height: 41px; }
 .playbook #FacebookLogin{ display: none; }
 .android2 #emailLogin	{ display: none; }
 /*sync info icon*/
-#optionFacebook div		{ display: block; float: left; }
+#optionFacebook div p	{ display: block; float: left; }
 #syncInfo				{ width: 36px; height: 44px; float: left; text-align: center; font-size: 20px; line-height: 45px; display: inline-block; color: #007aff; font-weight: normal; background-color: rgba(0,0,0,0); z-index: 0; }
 #syncInfo.button		{ color: #ccc; }
 #syncInfo:before		{ content: '\A175' !important; font-family: KCals; }
