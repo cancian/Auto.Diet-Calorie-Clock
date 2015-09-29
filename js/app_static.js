@@ -1037,9 +1037,7 @@ if(app.is.scrollable) {
 (function updateChecker() {
 	if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
 		setTimeout(function() {
-			if(!$('body').hasClass('pending')) {
-				buildRemoteSuperBlock('cached');
-			}
+			buildRemoteSuperBlock('cached');
 		},300*1000);
 	}
 	//every 5+5 min
