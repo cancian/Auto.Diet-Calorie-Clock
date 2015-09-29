@@ -1,5 +1,5 @@
 ﻿var appName = 'KCals';
-var appVersion = '1.9.10 (191000)';
+var appVersion = '1.9.10 (191001)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
@@ -7195,6 +7195,14 @@ var LANG = {
 
 'Data synchronization':
 '<p>By enabling Backup & Synchronization, your data and personal settings are stored at Kcals.net. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at Kcals.net, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
+
+'Synchronizing two devices' : 
+'<p>If you wish to synchronize two or more devices, it’s safer to use one device at time, to avoid data conflicts.</p>\
+<p>The app synchronization routine is very simple. It downloads the existing data from the cloud, merges it with the local data, then sends the whole package back to the cloud.</p>\
+<p>As a rule, the app fully synchronizes the data every time it starts (download/merge/upload). After that, the app will just upload your local changes back to the cloud, so your other devices can download it.</p>\
+<p>If you wish to force a synchronization, you can either restart the app, or tap the “last sync” date on the bottom of the settings tab.</p>\
+<p>This will trigger a full synchronization cycle. The existing data will be downloaded, merged, then pushed back to the cloud.</p>\
+<p>Now repeat this process on the other devices you wish to synchronize, and they should match each other perfectly.</p>',
 
 'Nutrient ratio':
 '<p>When you add a food that includes nutritional information, the app will use this data to calculate the average percentage of calories you are getting from each nutrient (proteins, carbs and fats).</p><p>The ratio of each nutrient is calculated by total calories, not by weight. So it is important to remember that while proteins and carbs have 4 kcal per gram, fats have 9 kcal.</p><p>The default nutrient ratio is 25% proteins / 50% carbs / 25% fats. You can change these values by tapping the nutrition bars on the status tab.</p>',
