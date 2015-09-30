@@ -1030,20 +1030,39 @@ if(app.is.scrollable) {
 	//online users ~ wait wifi
 	setTimeout(function() {
 		app.online();
-	},1000);
-	setTimeout(entryRetimer,30*1000);
+	},2000);
+	setTimeout(entryRetimer,(60*1000));
 })();
 /////////////////////////////
 // check updates regularly //
 /////////////////////////////
 (function updateChecker() {
-	if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
-		setTimeout(function() {
+	if (typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate', 'on')) {
+		/////////////////
+		// AUTO UPDATE //
+		/////////////////
+		setTimeout(function () {
 			buildRemoteSuperBlock('cached');
-		},5*60*1000);
+			if (app.dev) {
+				console.log('buildRemoteSuperBlock();');
+			}
+		}, (5 * 60 * 1000));
 	}
-	//every 5+5 min
-	setTimeout(updateChecker,5*60*1000);
+	///////////////
+	// AUTO SYNC //
+	///////////////
+	/*
+	setTimeout(function () {
+		updateLoginStatus(1);
+		if (app.dev) {
+			console.log('updateLoginStatus();');
+		}
+	}, (5 * 60 * 1000));
+	*/
+	///////////////////
+	// every 5+5 min //
+	///////////////////
+	setTimeout(updateChecker, (5 * 60 * 1000));
 })();
 /////////////////////
 // check last push //
