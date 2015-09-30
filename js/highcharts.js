@@ -2837,8 +2837,8 @@ SVGRenderer.prototype = {
 			'';
 
 		// Add description
-		desc = this.createElement('desc').add();
-		desc.element.appendChild(doc.createTextNode('Created with ' + PRODUCT + ' ' + VERSION));
+		//desc = this.createElement('desc').add();
+		//desc.element.appendChild(doc.createTextNode('Created with ' + PRODUCT + ' ' + VERSION));
 
 
 		renderer.defs = this.createElement('defs').add();

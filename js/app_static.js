@@ -1024,11 +1024,13 @@ if(app.is.scrollable) {
 ///////////////////////////////////////////
 (function entryRetimer() {
 	//every 30s
-	updateEntriesTime();
+	setTimeout(function() {
+		updateEntriesTime();
+	},0);
 	//online users ~ wait wifi
 	setTimeout(function() {
 		app.online();
-	},2000);
+	},1000);
 	setTimeout(entryRetimer,30*1000);
 })();
 /////////////////////////////
@@ -1038,10 +1040,10 @@ if(app.is.scrollable) {
 	if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		},300*1000);
+		},5*60*1000);
 	}
 	//every 5+5 min
-	setTimeout(updateChecker,300*1000);
+	setTimeout(updateChecker,5*60*1000);
 })();
 /////////////////////
 // check last push //
