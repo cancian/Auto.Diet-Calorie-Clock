@@ -667,22 +667,22 @@ function syncEntries(userId) {
 			///////////////////////
 			// FAKE VALID RESULT // empty but valid result ~ trigger success
 			/////////////////////// return for no diff
-			if(sql == app.read('last_sync_data')) {
+			if(trim(sql) == '' || sql == app.read('last_sync_data')) {
 				app.globals.syncRunning = false;
 				setComplete();
-				return;
+			} else {
+				//SAVE CACHE DIFF
+				app.save('last_sync_data',sql);
+				//////////////////////
+				// FULLY PARSE DATA //
+				//////////////////////
+				setTimeout(function() {
+					insertOrUpdate(sql,function() {
+						app.globals.syncRunning = false;
+						setComplete();
+					});
+				},0);
 			}
-			//SAVE CACHE DIFF
-			app.save('last_sync_data',sql);
-			//////////////////////
-			// FULLY PARSE DATA //
-			//////////////////////
-			setTimeout(function() {
-				insertOrUpdate(sql,function() {
-					app.globals.syncRunning = false;
-					setComplete();
-				});
-			},0);
 		});
 	}
 }
