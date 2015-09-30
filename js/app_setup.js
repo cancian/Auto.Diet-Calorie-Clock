@@ -667,7 +667,7 @@ function syncEntries(userId) {
 			///////////////////////
 			// FAKE VALID RESULT // empty but valid result ~ trigger success
 			/////////////////////// return for no diff
-			if(sql.length <= 2 || sql == app.read('last_sync_data')) {
+			if(sql == app.read('last_sync_data')) {
 				app.globals.syncRunning = false;
 				setComplete();
 				return;
