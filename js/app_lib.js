@@ -26,8 +26,7 @@ var app = {
 	is: {},
 	config: {},
 	db: {
-		//indexedDB    : typeof window.indexedDB === 'undefined' && typeof window.webkitIndexedDB === 'undefined' && typeof window.mozIndexedDB === 'undefined' && typeof window.OIndexedDB === 'undefined' && typeof window.msIndexedDB === 'undefined' ? false : true,
-		indexedDB	 : 'indexedDB' in window || typeof window.indexedDB !== 'undefined' ? true : false,
+		indexedDB    : ('indexedDB' in window || typeof window.indexedDB !== 'undefined' || typeof window.webkitIndexedDB !== 'undefined' || typeof window.mozIndexedDB !== 'undefined' || typeof window.OIndexedDB !== 'undefined' || typeof window.msIndexedDB !== 'undefined') ? true : false,
 		webSQL       : !window.openDatabase ? false : true,
 		localStorage : !window.localStorage ? false : true,
 	},
@@ -294,12 +293,18 @@ app.switchUser = function(switchTo) {
 app.parseErrorLog = function() {
 	//UNHANDLED
 	if(app.read('error_log_unhandled')) {
-		app.analytics('error',app.read('error_log_unhandled'));
+		var unhandledError = app.read('error_log_unhandled');
+		setTimeout(function() {
+			app.analytics('error',unhandledError);
+		},0);
 		app.remove('error_log_unhandled')
 	}
 	//HANDLED
 	if(app.read('error_log_handled')) {
-		app.analytics('error',app.read('error_log_handled'));
+		var handledError = app.read('error_log_handled');
+		setTimeout(function() {
+			app.analytics('error',handledError);
+		},0);
 		app.remove('error_log_handled')
 	}
 };

@@ -75,7 +75,6 @@ $(document).on('resume',function(evt) {
 	}
 	//
 	app.timeout('resume',4000,function() {
-		app.parseErrorLog();
 		app.analytics('resume');
 		updateLoginStatus(1);
 		setTimeout(function() {
@@ -157,7 +156,6 @@ setTimeout(function() {
 	app.trackInstall();
 	updateLoginStatus(1);
 	app.analytics('start');
-	app.parseErrorLog();
 	clearTimeout(app.timers.resume);
 },5000);
 ////////////////
@@ -252,8 +250,6 @@ afterTab = function(keepOpen) {
 	}
 };
 appFooter = function (id,keepOpen,callback) {
-	//PARSE ERRORS
-	app.parseErrorLog();
 	//FLOOD
 	if(app.now() - lastTab < 275) { lastTab = app.now(); return; }
 	lastTab = app.now();
@@ -329,7 +325,6 @@ $(document).on('menubutton', function(evt) {
 //////////////////////// backclick?
 var backer = 0;
 $(document).on('backbutton', function(evt) {
-	app.parseErrorLog();
 	//CHAIN
 	if($('body').hasClass('spinnerMask')) { return false; }
 	//
@@ -1023,7 +1018,11 @@ if(app.is.scrollable) {
 // refresh entrylist time & online users //
 ///////////////////////////////////////////
 (function entryRetimer() {
-	//every 30s
+	//PARSE ERRORS
+	setTimeout(function() {
+		app.parseErrorLog();
+	},6000);
+	//every 45s
 	setTimeout(function() {
 		updateEntriesTime();
 	},0);
@@ -1031,7 +1030,7 @@ if(app.is.scrollable) {
 	setTimeout(function() {
 		app.online();
 	},2000);
-	setTimeout(entryRetimer,(60*1000));
+	setTimeout(entryRetimer,(45*1000));
 })();
 /////////////////////////////
 // check updates regularly //
