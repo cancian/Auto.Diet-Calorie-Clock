@@ -658,7 +658,9 @@ function syncEntries(userId) {
 			//////////////////
 			// prepare data //
 			//////////////////
-			sql = sql.split('undefined').join('');
+			if(sql) {
+				sql = sql.split('undefined').join('');
+			}
 			//local storage slice
 			if(sql.match('#@@@#')) {
 				rebuildLocalStorage(sql.split('\n').pop());
@@ -667,7 +669,7 @@ function syncEntries(userId) {
 			///////////////////////
 			// FAKE VALID RESULT // empty but valid result ~ trigger success
 			/////////////////////// return for no diff
-			if(trim(sql) == '' || sql == app.read('last_sync_data')) {
+			if(!sql || sql.trim() == '' || sql == app.read('last_sync_data')) {
 				app.globals.syncRunning = false;
 				setComplete();
 			} else {

@@ -1656,6 +1656,29 @@ function trimDot(x) {
 	}
 }
 ///////////////
+// ISEMPTY() //
+///////////////
+function isEmpty(val){
+	if (typeof val === 'undefined' || !val) {
+		return true;
+	} else {
+		return false;
+	}
+}
+//////////////////////
+// PROTOTYPE.TRIM() //
+//////////////////////
+if (!String.prototype.trim) {
+	String.prototype.trim = function () {
+		if (typeof this !== 'undefined') {
+			if (this.length) {
+				return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+			}
+		}
+		return '';
+	};
+}
+///////////////
 // HIGHLIGHT //
 ///////////////
 app.highlight = function (target, duration, startColor, endColor, callback, forceWait) {

@@ -1314,7 +1314,6 @@ if(app.is.scrollable) {
 	//#/////////////#//
 	//# TAP HANDLER #//
 	//#/////////////#//
-	if(!app.dev) {
 	(function ($, _) {
 		//"use strict";
 		var ev = {
@@ -1362,45 +1361,6 @@ if(app.is.scrollable) {
 			return this[fn ? 'on' : 'trigger'](_, fn);
 		};
 	})(jQuery, 'tap');
-//////////////////////////////
-// EXPERIMENTAL TAP HANDLER //
-//////////////////////////////
-} else {
-(function ($, window, undefined) {
-	touchStartEventc = touchstart;
-	touchStopEventcc = touchend;
-	touchCancelEvent = touchcancel;
-	$.event.special.tap = {
-		handler : function (ev) {
-			var elem = $(this);
-			var doc = $(document);
-
-			function endHandler(ev) {
-				doc.off(touchStopEvent, endHandler).off(touchCancelEvent, endHandler);
-				if (typeof ev !== 'undefined') {
-					if (typeof elem !== 'undefined') {
-						if (typeof elem[0] !== 'undefined') {
-							if (ev.target == elem[0])
-								try {
-									elem.trigger('tap');
-								} catch (e) {
-									errorHandler(e);
-								}
-						}
-					}
-				}
-			}
-			doc.on(touchStopEvent, endHandler).on(touchCancelEvent, endHandler);
-		},
-		setup : function () {
-			$(this).on(touchStartEvent, $.event.special.tap.handler);
-		},
-		teardown : function () {
-			$(this).off(touchStartEvent, $.event.special.tap.handler);
-		}
-	};
-})(jQuery, 'tap');
-}
 ////#//
 } //#//
 ////#//
