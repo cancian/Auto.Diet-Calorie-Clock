@@ -182,7 +182,8 @@ function getFullHistory() {
 								style : {
 									textShadow : '0 0 3px white',
 									fontSize : '10px',
-									color: '#222'
+									color: '#222',
+									fontWeight: 'normal'
 								},
 								x : 0,
 								y : -3,
@@ -388,8 +389,8 @@ function intakeHistory() {
 		// GENERATE CHART //
 		////////////////////
 		$('#appStatusIntake div').css('padding-top', '0px');
-		var spacingBottom = Highcharts.version.contains('4.0') ? 0 : -12;
-		if(app.device.android2) { spacingBottom = Highcharts.version.contains('4.0') ? -4 : -16; }
+		var spacingBottom = Highcharts.version.contains('4.') ? 0 : -12;
+		if(app.device.android2) { spacingBottom = Highcharts.version.contains('4.') ? -4 : -16; }
 		//check exists
 		if(!app.read('app_last_tab','tab1'))	{ return; }
 		if(!$('#appStatusIntake').html())		{ return; }
@@ -463,7 +464,8 @@ function intakeHistory() {
 						enabled : true,
 						style : {
 							textShadow : '0 0 3px white',
-							fontSize : '8px'
+							fontSize : '8px',
+							fontWeight: 'normal'
 						}
 					},
 					enableMouseTracking : false
@@ -519,7 +521,8 @@ function intakeHistory() {
 							enabled : true,
 							style : {
 								textShadow : '0 0 3px white',
-								fontSize : '8px'
+								fontSize : '8px',
+								fontWeight: 'normal'
 							}
 						}
 					}
@@ -810,7 +813,8 @@ function updateTodayOverview(fullWindow) {
 				dataLabels : {
 					softConnector : false,
 					enabled : (fullWindow == 1) ? true : false,
-					format : '{point.y}'
+					format : '{point.y}',
+					fontWeight: 'normal'
 				},
 				showInLegend : (fullWindow == 1) ? true : false
 			}

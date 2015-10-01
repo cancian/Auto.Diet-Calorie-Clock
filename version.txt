@@ -8,7 +8,7 @@
 • Water tracker
 • Daily tips
 
-# 1.9.10 [2015/09/29]
+# 1.9.10 [2015/09/30]
 • Prevent new diary entries from being added via return (enter) while editing an existing entry 
 • Improved error handling
 • New help topic: "Synchronizing two devices"
