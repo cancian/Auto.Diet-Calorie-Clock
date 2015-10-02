@@ -559,11 +559,13 @@ $.prototype.after2 = function (data, callback) {
 // TOAST //
 ///////////
 app.toast = function (msg, duration) {
-	if(!msg)		{ msg = '-------'; }
+	if(!msg)		{ msg = ''; }
+	console.log(msg);
+	//
 	$('#appToast').remove();
 	$('body').append2('<div id="appToast">' + msg + '</div>');
 	$('#appToast').on(tap,function () {
-		app.handlers.fade(0, '#appToast');
+		app.handlers.fade(0,'#appToast');
 	});
 };
 //////////
@@ -704,14 +706,15 @@ app.appendScript = function(url) {
 /////////
 // URL //
 /////////
+var ref;
 app.url = function(url) {
 	//STORES
 	var store = {
-		web:        'http://kcals.net',
+		web:        'https://kcals.net',
 		ios:        'https://itunes.apple.com/app/id732382802',
 		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
-		wp8:        'http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e',
-		windows8:   app.device.windows8 ? 'ms-windows-store:REVIEW?PFN=27631189-ce9d-444e-a46b-31b8f294f14e' : 'http://apps.microsoft.com/windows/app/27631189-ce9d-444e-a46b-31b8f294f14e',
+		wp8:        'http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e#ratings-reviews',
+		windows8:   'https://www.microsoft.com/store/apps/9wzdncrdkhz5#ratings-reviews',
 		firefoxos:  'https://marketplace.firefox.com/app/kcals',
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc/reviews',
@@ -773,7 +776,6 @@ var timerDiff           = 100;
 var timerWait           = 100;
 var noteContent         = '';
 var noTimer;
-var ref;
 var preTab;
 var afterTab;
 var timerKcals;
@@ -782,29 +784,6 @@ var blockModal = false;
 var modalTimer;
 function voidThis()   { }
 function voidMe()     { }
-/////////////////
-// APP COUNTER //
-/////////////////
-//app.counter.start();
-//app.counter.stop(0,'before callback');
-app.counter = {
-	startTime: 0,
-	start: function() {
-		app.counter.startTime = new Date().getTime();
-	},
-	stop: function(action,msg) {
-		if(msg) {
-			msg = msg + ':  ';
-		} else {
-			msg = 0;
-		}
-		if(action == 1) {
-			alert(msg + (new Date().getTime() - app.counter.startTime));
-		} else {
-			console.log(msg + (new Date().getTime() - app.counter.startTime));
-		}
-	}
-};
 //////////////////
 // APP HANDLERS //
 //////////////////
@@ -2147,7 +2126,7 @@ app.trackInstall = function () {
 //# ONLINE USERS #//
 //#//////////////#//
 app.online = function () {
-	$.ajax({type: 'GET', dataType: 'text', url: https + 'kcals.net/' + 'update.php?type=usr', success: function(onlineUsers) {
+	$.ajax({type: 'GET', dataType: 'text', url: 'https://kcals.net/' + 'update.php?type=usr', success: function(onlineUsers) {
 		app.save('online_users',onlineUsers);
 		if(app.read('app_last_tab','tab1')) {
 			$('#onlineUsers span').html2(app.read('online_users'));
