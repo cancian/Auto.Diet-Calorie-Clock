@@ -15,21 +15,16 @@ $(document).ready(function() {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
-		var indexedDB    = 'asyncStorage';
 		var webSQL       = 'webSQLStorage';
+		var indexedDB    = 'asyncStorage';
 		var localStorage = 'localStorageWrapper';		
-		
-		var dbDriver = [webSQL,indexedDB,localStorage];
-		//KEEP USING SAME DB
-		if(app.read('app_database')) {
-			dbDriver = [app.read('app_database')];
-		}
+		var dbDriver     = [webSQL,indexedDB,localStorage];
 		/////////////////////
 		// FORCE DB ENGINE //
 		/////////////////////
-		     if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL];		 }
-		else if(app.read('app_database','asyncStorage'))		{ dbDriver = [indexedDB];	 }
-		else if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage]; }
+		if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL,indexedDB,localStorage]; }
+		if(app.read('app_database','asyncStorage'))			{ dbDriver = [indexedDB,webSQL,localStorage]; }
+		if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,webSQL,indexedDB]; }
 		//////////////////////////////
 		// MOZ FALLBACK ~ INCOGNITO //
 		//////////////////////////////
@@ -44,9 +39,6 @@ $(document).ready(function() {
 		}
 		/*
 		// ~ FORCE DB (USER CHOICE) ~ //
-			 if(app.read('config_force_websql'))		{ dbDriver = 'webSQLStorage';		}
-		else if(app.read('config_force_indexeddb'))		{ dbDriver = 'asyncStorage';		}
-		else if(app.read('config_force_localstorage'))	{ dbDriver = 'localStorageWrapper'; }
 		// ~ MULTIUSER ~ //
 		var UserDB = 'KCals';
 		if(!/mud_default/i.test(app.user)) {
