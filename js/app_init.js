@@ -131,43 +131,44 @@ function initJS() {
 	}
 	///////////
 	// MSAPP //
+	///////////
 	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
 	if (!/http/i.test(window.location.protocol)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
 	}
 	////////
 	// FB //
 	////////
 	if (!/http/i.test(window.location.protocol) && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-connect.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.js" id="facebookcordovaJS"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-connect.js" id="facebookconnectJS"><\/script>');
 	} else if (/IEMobile/i.test(navigator.userAgent) && !IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
 	} else if (/IEMobile/i.test(navigator.userAgent) && IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
 	} else if (!IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.min.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.min.js" id="facebookJS"><\/script>');
 	}
 	////////
 	// JS //
 	////////
-	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js"><\/script>');
 	//ISCROLL
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iScrollTag"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
 	//JQUERY
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
+	//DB
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	//UTILS
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
