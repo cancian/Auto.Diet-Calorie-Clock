@@ -1148,12 +1148,15 @@ function updateFoodDb(callback) {
 					//////////////////////////////////////////
 					if (callback != 'retry') {
 						//retry
-						alert('Error downloading database', 'Importing local database instead.');
-						//app.analytics('error', 'Error downloading database');
-						updateFoodDb('retry');
+						//alert('Error downloading database', 'Importing local database instead.');
+						app.timeout('retryDB',500,function() {
+							updateFoodDb('retry');
+						});
 					} else {
 						//give up
-						alert('Error creating database', 'Please connect to the internet and try again.');
+						app.timeout('giveUpDB',500,function() {						
+							alert('Error creating database', 'Please connect to the internet and try again.');
+						});
 					}
 					//////////////////////////////////////////
 				});
