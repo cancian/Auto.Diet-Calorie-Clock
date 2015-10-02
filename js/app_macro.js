@@ -1549,8 +1549,9 @@ function buildAdvancedMenu() {
 	if(app.db.webSQL       !== true) { $('#optWebSQL').hide();       }
 	if(app.db.localStorage !== true) { $('#optLocalStorage').hide(); }
 	if(!app.dev) {
-		if(app.device.osxapp)			 { $('#optIndexedDB').hide();    }
-		if(app.device.blackberry)		 { $('#optIndexedDB').hide();    }
+		if(app.device.ios)				 { $('#optIndexedDB').hide(); }
+		if(app.device.osxapp)			 { $('#optIndexedDB').hide(); }
+		if(app.device.blackberry)		 { $('#optIndexedDB').hide(); }
 	}
 	//GET CURRENT ENGINE
 	if (localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
