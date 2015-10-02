@@ -450,7 +450,7 @@ function pushEntries(userId) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 			//set push
 			$('body').addClass('setpush');
-			$.post(app.https + 'kcals.net/sync.php', { 'sql':fetchEntries,'uid':userId }, function(data) {
+			$.post('https://kcals.net/sync.php', { 'sql':fetchEntries,'uid':userId }, function(data) {
 				//clear marker
 				app.remove('lastEntryPush');
 				$('body').removeClass('setpush');
@@ -654,7 +654,7 @@ function syncEntries(userId) {
 		app.globals.syncRunning = true;
 		$('body').addClass('insync');
 		//get remote sql
-		$.get(app.https + 'kcals.net/sync.php?uid=' + userId,function(sql) {
+		$.get('https://kcals.net/sync.php?uid=' + userId,function(sql) {
 			//////////////////
 			// prepare data //
 			//////////////////
@@ -1043,7 +1043,7 @@ function afterHide(cmd) {
 		//////////////
 		app.handlers.fade(0,'body',function() {
 			if(app.read('facebook_logged') && cmd == 'clear') {
-				$.post(app.https + 'kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
+				$.post('https://kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
 					setTimeout(function() {
 						app.reboot(cmd);
 					},200);
@@ -1163,7 +1163,7 @@ function updateFoodDb(callback) {
 			}
 			function doImport(callback) {
 				spinner();
-				var databaseHost = app.read('config_autoupdate', 'on') ? app.https + 'kcals.net/' : hostLocal;
+				var databaseHost = app.read('config_autoupdate', 'on') ? 'https://kcals.net/' : hostLocal;
 				if (callback == 'retry') {
 					databaseHost = '';
 				}
@@ -2419,7 +2419,7 @@ function getLoginFB() {
 					}
 				});
 				//window
-				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + app.https + 'kcals.net/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
+				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + 'https://kcals.net/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
 			}
 		////////////
 		// JS SDK //

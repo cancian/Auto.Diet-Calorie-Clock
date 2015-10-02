@@ -1711,7 +1711,7 @@ function buildAdvancedMenu() {
 	};
 	//GET VERSION.TXT WITH FALLBACK
 	app.handlers.activeRow('#advancedChangelog','button',function(evt) {
-		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/' + 'version.txt',
+		$.ajax({type: 'GET', dataType: 'text', url: 'https://kcals.net/' + 'version.txt',
 			error: function(xhr, statusText) {
 				//RETRY LOCAL
 				$.ajax({type: 'GET', dataType: 'text', url: 'version.txt',
