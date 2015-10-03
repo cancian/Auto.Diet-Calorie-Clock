@@ -136,8 +136,8 @@ function showIntro() {
 						resize : false
 					}
 				});
-			} catch(e) {
-				app.analytics('error',e);
+			} catch(err) {
+				errorHandler('error: new IScroll | ' + err);
 			}
 		}
 	}, 300);
@@ -1151,10 +1151,12 @@ function updateFoodDb(callback) {
 						//alert('Error downloading database', 'Importing local database instead.');
 						app.timeout('retryDB',500,function() {
 							updateFoodDb('retry');
+							//errorHandler('error: ajax get | xhr: ' + xhr + ' | statusText: ' + statusText);
 						});
 					} else {
 						//give up
 						app.timeout('giveUpDB',500,function() {						
+							errorHandler('error: ajax retry failed | statusText:  Error creating database');
 							alert('Error creating database', 'Please connect to the internet and try again.');
 						});
 					}
@@ -1174,8 +1176,8 @@ function updateFoodDb(callback) {
 							dataType : 'text',
 							url : databaseHost + 'sql/searchdb_' + langDB + '.db',
 							error : function (xhr, statusText) {
+								//CONNECTION ERROR
 								unlockDb(callback);
-								errorHandler(e);
 							},
 							success : function (ls) {
 								if (ls.length < 15000) {
@@ -1213,16 +1215,16 @@ function updateFoodDb(callback) {
 											try {
 												rowsArray[s].name = trim(trimDot(ls[s])).capitalize();
 												rowsArray[s].term = searchalize(rowsArray[s].name);
-											} catch (e) { }
+											} catch (err) { }
 										}
 										saveParsed(rowsArray, callback);
 									}
 								});
 							}
 						});
-					} catch (e) {
+					} catch (err) {
 						//failure
-						errorHandler(e);
+						errorHandler('db parse catch: ' + err);
 						unlockDb(callback);
 					}
 				});
@@ -1665,7 +1667,7 @@ function buildHelpMenu(args) {
 			//ios horiz-scrolling crazy bug
 			$('#appSubHelper').height($('#appContent').height());
 		},0);
-		$('#appSubHelper').on(transitionend,function(e) {
+		$('#appSubHelper').on(transitionend,function(evt) {
 			niceResizer(100);
 			//IF CLOSED
 			if(!$('#appSubHelper').hasClass('open')) {
@@ -2351,8 +2353,8 @@ function getLoginFB() {
 					function() {
 						getTokenFB(window.sessionStorage['fbtoken']);
 					},
-					function (error) {
-						errorHandler(error);
+					function (err) {
+						errorHandler(err);
 				});
 			}
 		///////////
@@ -2372,8 +2374,8 @@ function getLoginFB() {
 					//WINDOWS
 					(function() { Windows.Security.Authentication.Web.WebAuthenticationBroker.authenticateAsync('', startURI, endURI).then(getTokenFB, errorHandler); })();
 				}
-			} catch(e) {
-				errorHandler(e);
+			} catch(err) {
+				errorHandler('error: getLoginFB (msapp) | catch: ' + err);
 			}
 		//////////
 		// BB10 //
@@ -2402,8 +2404,9 @@ function getLoginFB() {
 							getTokenFB(app.read('temp_token'));
 						}, 200);
 					}
-				} catch(e) {
-					app.timers['bbtoken'];
+				} catch(err) {					
+					clearInterval(app.timers['bbtoken']);
+					errorHandler('error: bbtoken setInterval | catch: ' + err);
 				}
 			}, 100);
 		////////////

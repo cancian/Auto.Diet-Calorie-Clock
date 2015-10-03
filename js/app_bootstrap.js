@@ -81,7 +81,7 @@ function InitializeLocalSuperBlock(opt) {
 				window.localStorage.setItem('remoteSuperBlockCSS',dataCSS);
 			}
 		},0);
-	} catch(e) { throw(e); }
+	} catch(err) { throw(err); }
 	//
 	}});}});}});}});
 	}});}});}});

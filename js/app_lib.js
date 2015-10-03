@@ -742,7 +742,7 @@ app.url = function(url) {
 		else if(app.device.msapp)		{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(url));	}
 		else if(app.device.firefoxos)	{ ref = window.open(url, '_system', 'location=yes');						}
 		else if(app.device.osxapp)		{ macgap.app.open(url);														}
-		else if(app.device.playbook)	{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (e) {}}
+		else if(app.device.playbook)	{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (err) { errorHandler('url: ' + err); }}
 		else 							{ window.open(url, '_blank'); 												}
 	}
 };
@@ -1371,7 +1371,7 @@ app.updateColorPicker();
 try {
 	document.createEvent('TouchEvent');
 	app.touch = true;
-} catch (e) {
+} catch (err) {
 	app.touch = false;
 }
 //
@@ -1446,9 +1446,10 @@ app.safeExec = function (callback) {
 // ERROR HANDLER //
 ///////////////////
 function errorHandler(error) {
-	if(typeof error !== 'string') {
-		error = JSON.stringify(error);
+	if(typeof error === 'undefined') {
+		error = '';
 	}
+	error = JSON.stringify(error);
 	//LOG ERROR
 	app.save('error_log_handled','handled log: ' + error)
 	//DEV ALERT
@@ -2209,7 +2210,7 @@ window.alert = function (title, msg, button, callback) {
 	if (app.device.playbook) {
 		try {
 			blackberry.ui.dialog.customAskAsync(msg, [button], function(button) { callback(button+1); }, {title : title});
-		} catch(e) {}
+		} catch(err) { errorHandler(err); }
 	} else if (typeof navigator.notification !== 'undefined' && !app.http && !app.device.windows8) {
 		navigator.notification.alert(msg, callback, title, button);
 	} else {
@@ -2291,9 +2292,9 @@ function appConfirm(title, msg, callback, ok, cancel) {
 					MSNext.shift();
 				}
 			});
-		} catch (e) {
+		} catch (err) {
 			MSDialog = false;
-			errorHandler(e);
+			errorHandler(err);
 		}
 	//////////////
 	// PLAYBOOK //
@@ -2301,7 +2302,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	} else if (app.device.playbook) {
 		try {
 			blackberry.ui.dialog.customAskAsync(msg, [cancel, ok], function(button) { callback(button+1); }, {title : title});
-		} catch(e) {}
+		} catch(err) { errorHandler(err); }
 	////////////////////
 	// CORDOVA PLUGIN //
 	////////////////////

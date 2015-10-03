@@ -7,8 +7,9 @@ if(typeof hostLocal === 'undefined') {
 var staticVendor = ''; //'amazon';
 var baseVersion  = 1.9;
 var initTime     = new Date().getTime();
-var UsrAgt  = navigator.userAgent;
-var IsMsApp = (/MSApp/i).test(UsrAgt) ? true : false;
+var UsrAgt       = navigator.userAgent;
+var IsMsApp      = (/MSApp/i).test(UsrAgt) ? true : false;
+//safeExec
 function safeExec(callback) {
 	if (/MSApp/i.test(UsrAgt)) {
 		MSApp.execUnsafeLocalFunction(function () {
@@ -26,32 +27,34 @@ function safeExec(callback) {
 // DEV DEBUGER //
 /////////////////
 var blockAlerts = 0;
-window.onerror = function (e, url, line) {
-	if(typeof e !== 'string') {
-		e = JSON.stringify(e);
+window.onerror = function (err, url, line) {
+	if(typeof err === 'undefined') {
+		err = '';
 	}
-	if(typeof url !== 'string') {
-		url = JSON.stringify(url);
+	if(typeof url === 'undefined') {
+		url = '';
 	}
-	if(typeof line !== 'string') {
-		line = JSON.stringify(line);
+	if(typeof line === 'undefined') {
+		line = '';
 	}
+	err  = JSON.stringify(err);
+	url  = JSON.stringify(url);
+	line = JSON.stringify(line);
 	//LOG ERROR
-	window.localStorage.setItem('error_log_unhandled','unhandled log: ' + e + ' URL:' + url + ' Line:' + line)
+	window.localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line)
 	//
-	if (window.localStorage.getItem('config_debug') == 'active' && blockAlerts == 0) {
+	if (window.localStorage.getItem('config_debug') === 'active' && blockAlerts == 0) {
 		if (IsMsApp) {
 			if (typeof alert !== 'undefined') {
-				alert('onerror: ' + e + ' URL:' + url + ' Line:' + line);
+				alert('onerror: ' + err + ' URL: ' + url + ' Line: ' + line);
 			}
 		} else {
-			if (confirm('onerror: ' + e + ' URL:' + url + ' Line:' + line)) {
+			if (confirm('onerror: ' + err + ' URL: ' + url + ' Line: ' + line)) {
 				blockAlerts = 0;
 			} else {
 				blockAlerts = 1;
 			}
 		}
-		console.log('onerror: ' + e + ' URL:' + url + ' Line:' + line);
 	}
 	if (typeof spinner !== 'undefined') {
 		spinner('stop');
@@ -59,22 +62,22 @@ window.onerror = function (e, url, line) {
 	//ERROR
 	if (typeof app !== 'undefined') {
 		if (typeof app.analytics !== 'undefined') {
-			app.analytics('error','unhandled: ' + e + ' URL:' + url + ' Line:' + line);
+			app.analytics('error','unhandled: ' + err + ' URL: ' + url + ' Line: ' + line);
 		}
 	}
 	//disable ff db
-	if ((/InvalidStateError/i).test(e) && !window.localStorage.getItem('config_force_localstorage')) {
+	if ((/InvalidStateError/i).test(err) && !window.localStorage.getItem('config_force_localstorage')) {
 		window.localStorage.setItem('config_force_localstorage',true);
 		setTimeout(function () {
 			window.location.reload(true);
 		}, 0);
 	}
 	//auto restart android
-	if ((/Exception 18/i).test(e)) {
+	if ((/Exception 18/i).test(err)) {
 		setTimeout(function () {
 			//RELOAD
 			if(typeof window.MyReload !== 'undefined') {
-				try { window.location.reload(true); } catch(e) { window.MyReload.reloadActivity(); }
+				try { window.location.reload(true); } catch(err) { window.MyReload.reloadActivity(); }
 			} else {
 				window.location.reload(true);
 			}
@@ -142,7 +145,7 @@ function initJS() {
 	////////
 	// FB //
 	////////
-	if (!/http/i.test(window.location.protocol) && (/(iPhone|iPod|iPad|Android)/).test(navigator.userAgent)) {
+	if (!/http/i.test(window.location.protocol) && /iPhone|iPod|iPad|Android/i.test(navigator.userAgent)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.js" id="facebookcordovaJS"><\/script>');
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-connect.js" id="facebookconnectJS"><\/script>');
 	} else if (/IEMobile/i.test(navigator.userAgent) && !IsMsApp) {

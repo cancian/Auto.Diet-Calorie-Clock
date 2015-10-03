@@ -1052,8 +1052,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 					$('#entryBody').val( $('#entryBody').val().split('deveval').join('deveva') );
 					try {
 						eval( $('#entryBody').val().split('deveva').join(''));
-					} catch(e) {
-						alert(e);
+					} catch(err) {
+						alert(JSON.stringify(err));
 					}
 				}
 			}

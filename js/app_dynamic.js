@@ -105,7 +105,7 @@ $(document).on("pageload", function (evt) {
 		if (!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on(transitionend, function (e) {
+			$('.active').on(transitionend, function (evt) {
 				$('.active').removeClass('busy');
 			});
 			$('.active').removeClass('active');
@@ -438,7 +438,7 @@ $(document).on("pageload", function (evt) {
 		if (!$('.active').hasClass('busy')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on(transitionend, function (e) {
+			$('.active').on(transitionend, function (evt) {
 				$('.active').removeClass('busy');
 			});
 			$('.active').removeClass('active');
@@ -473,7 +473,7 @@ $(document).on("pageload", function (evt) {
 				});
 				$('.active').addClass('busy');
 				$('.active').removeClass('open');
-				$('.active').on(transitionend, function (e) {
+				$('.active').on(transitionend, function (evt) {
 					$('.active').removeClass('busy');
 				});
 				$('.active').removeClass('active');
@@ -550,7 +550,7 @@ $(document).on("pageReload", function (evt) {
 		if (!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
 			$('.active').removeClass('open');
-			$('.active').on(transitionend, function (e) {
+			$('.active').on(transitionend, function (evt) {
 				$('.active').removeClass('busy');
 			});
 			$('.active').removeClass('active');
@@ -558,7 +558,7 @@ $(document).on("pageReload", function (evt) {
 				//hide
 				if ($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
 					$('#pageSlideFood').addClass('busy');
-					$('#pageSlideFood').on(transitionend, function (e) {
+					$('#pageSlideFood').on(transitionend, function (evt) {
 						$('#pageSlideFood').removeClass('busy');
 						$("#foodSearch").blur();
 					});
@@ -755,10 +755,10 @@ $(document).on("pageReload", function (evt) {
 								}
 							}
 						},0);
-
+						//
 						$('#loadingDiv').hide();
 						$('#appHeader').addClass("open");
-						$('#pageSlideFood').on(transitionend, function (e) {
+						$('#pageSlideFood').on(transitionend, function (evt) {
 							$('#pageSlideFood').removeClass('busy');
 						});
 					}
