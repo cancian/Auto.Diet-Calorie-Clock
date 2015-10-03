@@ -1747,16 +1747,17 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		$('#' + newWindow + 'Wrapper').css('bottom','0px');
 	}
 	$('#' + newWindow + 'Wrapper').css('top',($('#appHeader').height()) + 'px');
-	//ios9 async
-	setTimeout(function() {
-		$('#' + newWindow + 'Wrapper').addClass('open busy');
-	},0);
 	//////////////
 	// HANDLERS //
 	//////////////
-	if(handlers) {
+	if(typeof handlers === 'function') {
 		handlers();
 	}
+	////////////////////
+	// OPEN NEWWINDOW //
+	////////////////////	
+	$('#' + newWindow + 'Wrapper').addClass('busy');
+	$('#' + newWindow + 'Wrapper').addClass('open');
 	////////////////////
 	// TRANSISION END //
 	////////////////////
