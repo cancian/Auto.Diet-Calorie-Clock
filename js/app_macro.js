@@ -1545,13 +1545,12 @@ function buildAdvancedMenu() {
 	</ul>\
 	');
 	//PARSE DB CONFIG
-	if(app.db.indexedDB    !== true) { $('#optIndexedDB').hide();    }
 	if(app.db.webSQL       !== true) { $('#optWebSQL').hide();       }
+	if(app.db.indexedDB    !== true) { $('#optIndexedDB').hide();    }
 	if(app.db.localStorage !== true) { $('#optLocalStorage').hide(); }
-	if(!app.dev) {
-		if(app.device.ios)				 { $('#optIndexedDB').hide(); }
-		if(app.device.osxapp)			 { $('#optIndexedDB').hide(); }
-		if(app.device.blackberry)		 { $('#optIndexedDB').hide(); }
+	//HIDE UNSTABLE
+	if(app.device.ios || app.device.osxapp || app.device.blackberry || app.read('config_force_localstorage')) { 
+		$('#optIndexedDB').hide();
 	}
 	//GET CURRENT ENGINE
 	if (localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
