@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="com.cancian.kcals" version="1.9.10" versionCode="191000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+<widget id="com.cancian.kcals" version="1.9.10.1" versionCode="191002" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
 
-	<access subdomains="true" uri="*" origin="*" />
+	<access origin="*" />
+	<!-- <access subdomains="true" uri="*" origin="*" /> -->
 
 	<name>KCals Calorie Counter</name>
 
@@ -15,7 +16,7 @@
 
 	<!-- Preferences for Android -->
 	<preference name="permissions" value="none" />
-	<preference name="phonegap-version" value="3.6.0" />
+	<preference name="phonegap-version" value="3.9.0" />
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="universal" />
 	<preference name="fullscreen" value="false" />
@@ -25,7 +26,7 @@
 	<preference name="exit-on-suspend" value="false" />
 	<preference name="auto-hide-splash-screen" value="true" />
 	<preference name="disable-cursor" value="false" />
-	<preference name="android-minSdkVersion" value="8" />
+	<preference name="android-minSdkVersion" value="7" />
 	<preference name="android-installLocation" value="auto" />
 	<preference name="BackgroundColor" value="0xffffffff" />
 	<preference name="webviewbounce" value="false" />
@@ -92,21 +93,6 @@
 	<!-- Plugins for PLAYBOOK -->
 
 	<!-- CORDOVA PLUGINS -->
-	<feature name="http://api.phonegap.com/1.0/device" />
-	
-	<feature name="LocalStorage">
-		<param name="ios-package" value="CDVLocalStorage" />
-	</feature>
-
-	<feature name="App">
-		<param name="android-package" value="org.apache.cordova.App" />
-	</feature>
-
-	<feature name="Whitelist">
-		<param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-		<param name="onload" value="true" />
-	</feature>
-
 	<feature name="Notification" value="Notification">
 		<param name="ios-package" value="CDVNotification" />
 		<param name="android-package" value="org.apache.cordova.dialogs.Notification" />
@@ -123,41 +109,6 @@
 		<param name="ios-package" value="FacebookConnectPlugin" />
 		<param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
 	</feature>
-
-	<feature name="Device">
-		<param name="wp-package" value="Device" />
-	</feature>
-
-	<feature name="LocalNotification">
-		<param name="wp-package" value="LocalNotification" />
-	</feature>
 	<!-- CORDOVA PLUGINS -->
-	
-	<!-- INTENT WHITELIST -->
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-	<!-- INTENT WHITELIST -->
-	
-	<!-- PLATFORM SPECIFIC INTENT -->
-	<platform name="android">
-		<allow-intent href="market:*" />
-	</platform>
-	<platform name="ios">
-		<allow-intent href="itms:*" />
-		<allow-intent href="itms-apps:*" />
-	</platform>
-	<!-- PLATFORM SPECIFIC INTENT -->
-		
-	<!-- ORIGIN WHITELIST -->
-    <access origin="https://m.facebook.com" />
-    <access origin="https://graph.facebook.com" />
-    <access origin="https://api.facebook.com" />
-    <access origin="https://*.fbcdn.net" />
-    <access origin="https://*.akamaihd.net" />
-	<!-- ORIGIN WHITELIST -->
 	
 </widget>

@@ -1747,7 +1747,10 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		$('#' + newWindow + 'Wrapper').css('bottom','0px');
 	}
 	$('#' + newWindow + 'Wrapper').css('top',($('#appHeader').height()) + 'px');
-	$('#' + newWindow + 'Wrapper').addClass('open busy');
+	//ios9 async
+	setTimeout(function() {
+		$('#' + newWindow + 'Wrapper').addClass('open busy');
+	},0);
 	//////////////
 	// HANDLERS //
 	//////////////
