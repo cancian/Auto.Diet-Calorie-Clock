@@ -1497,7 +1497,7 @@ function getModalWindow(itemId) {
 				//FOOD
 				var modalAmount = parseInt($("#modalAmount").html()) + 5;
 				var modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
-				if (modalAmount <= 750 && modalTotal <= 9999) {
+				if (modalAmount < 755 && modalTotal < 9999) {
 					$("#modalAmount").html2(modalAmount);
 					$("#modalTotal").html2(modalTotal);
 					modal.updatenutrients();
@@ -1507,7 +1507,7 @@ function getModalWindow(itemId) {
 				//EXERCISE
 				var modalAmount = parseInt($("#modalAmount").html()) + 1;
 				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
-				if (modalAmount <= 360 && modalTotal <= 9999) {
+				if (modalAmount < 361 && modalTotal < 9999) {
 					$("#modalAmount").html2(modalAmount);
 					$("#modalTotal").html2(modalTotal);
 					modal.checkactive();

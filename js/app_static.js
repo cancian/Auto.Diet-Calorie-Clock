@@ -12,9 +12,9 @@ $(document).ready(function() {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
-		var webSQL       = 'webSQLStorage';
-		var indexedDB    = 'asyncStorage';
-		var localStorage = 'localStorageWrapper';		
+		var webSQL       = 'webSQLStorage' || localforage.WEBSQL;
+		var indexedDB    = 'asyncStorage' || localforage.INDEXEDDB;
+		var localStorage = 'localStorageWrapper' || localforage.LOCALSTORAGE;		
 		var dbDriver     = [webSQL,indexedDB,localStorage];
 		/////////////////////
 		// FORCE DB ENGINE //
