@@ -1035,9 +1035,6 @@ if(app.is.scrollable) {
 		/////////////////
 		setTimeout(function () {
 			buildRemoteSuperBlock('cached');
-			if (app.dev) {
-				console.log('buildRemoteSuperBlock();');
-			}
 		}, (5 * 60 * 1000));
 	}
 	///////////////
@@ -1046,9 +1043,6 @@ if(app.is.scrollable) {
 	/*
 	setTimeout(function () {
 		updateLoginStatus(1);
-		if (app.dev) {
-			console.log('updateLoginStatus();');
-		}
 	}, (5 * 60 * 1000));
 	*/
 	///////////////////

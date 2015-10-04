@@ -41,10 +41,21 @@ window.onerror = function (err, url, line) {
 	if(!typeof line === 'string') {
 		line = JSON.stringify(line);
 	}
-	//LOG ERROR
+	//LOG
+	console.log('window.onerror Log: ' + err + ' URL: ' + url + ' Line: ' + line);
+	//SAVE
 	window.localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
+	//TRACK
+	if (typeof app !== 'undefined') {
+		if (typeof app.analytics !== 'undefined') {
+			app.analytics('error','unhandled: ' + err + ' URL: ' + url + ' Line: ' + line);
+		}
+	}
+	if (typeof spinner !== 'undefined') {
+		spinner('stop');
+	}
 	//DEV ALERT
-	if (window.localStorage.getItem('config_debug') === 'active' && blockAlerts == 0) {
+	if (window.localStorage.getItem('config_debug') === 'active' && blockAlerts == 0 && !(/InvalidStateError/i).test(err)) {
 		if (IsMsApp) {
 			if (typeof alert !== 'undefined') {
 				alert('onerror: ' + err + ' URL: ' + url + ' Line: ' + line);
@@ -55,15 +66,6 @@ window.onerror = function (err, url, line) {
 			} else {
 				blockAlerts = 1;
 			}
-		}
-	}
-	if (typeof spinner !== 'undefined') {
-		spinner('stop');
-	}
-	//ERROR
-	if (typeof app !== 'undefined') {
-		if (typeof app.analytics !== 'undefined') {
-			app.analytics('error','unhandled: ' + err + ' URL: ' + url + ' Line: ' + line);
 		}
 	}
 	//disable ff db

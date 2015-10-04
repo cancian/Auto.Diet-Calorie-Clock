@@ -23,6 +23,7 @@ var app = {
 	vars: {},
 	//user: window.localStorage.getItem('app_current_user').split('###'),
 	dev: window.localStorage.getItem('config_debug') === 'active' ? true : false,
+	beenDev: (window.localStorage.getItem('config_debug') === 'active' || window.localStorage.getItem('been_dev')) ? true : false,
 	is: {},
 	config: {},
 	db: {
@@ -1342,7 +1343,7 @@ body.error #timerKcalsInput			{ text-shadow: 0 0 1px rgba(255,255,255,.4) !impor
 body.error.deficit #timerKcalsInput,\
 body.error.deficit #timerKcals span,\
 body.error.deficit #timerDailyInput,\
-body.error.deficit #timerDaily span	{ color: #FF3A2F !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }\
+body.error.deficit #timerDaily span	{ color: #E54B1D !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }\
 body.error.surplus #timerKcalsInput,\
 body.error.surplus #timerKcals span,\
 body.error.surplus #timerDailyInput,\
@@ -1449,9 +1450,14 @@ function errorHandler(error) {
 	if(typeof error === 'undefined') {
 		error = '';
 	}
-	error = JSON.stringify(error);
-	//LOG ERROR
-	app.save('error_log_handled','handled log: ' + error)
+	//STRINGIFY
+	if(typeof error !== 'string') {
+		error = JSON.stringify(error);
+	}
+	//DEV
+	if(app.beenDev) {
+		console.log('errorHandler Log: ' + error);
+	}
 	//DEV ALERT
 	if (app.dev && blockAlerts == 0) {
 		if (app.device.windows8) {
@@ -1466,6 +1472,8 @@ function errorHandler(error) {
 			}
 		}
 	} else {
+		//LOG ERROR
+		app.save('error_log_handled','handled log: ' + error)
 		//TRACK
 		app.analytics('error','handled: ' + error);
 	}

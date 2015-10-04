@@ -98,16 +98,16 @@ body.android2 #appContent			{ /*top: 0; border-top: 65px solid rgba(0,0,0,0); -w
 #appHeader					{ background-color: rgba(0,0,0,0); color: #fff !important; font-weight: 300; }
 /*#/////////////////////////#//
 //#   HEADER STATUS COLOR   #//
-//# #FF3A2F #007AFF #2DB454 #//
+//# #E54B1D #007AFF #2DB454 #//
 //#/////////////////////////#*/
-body.deficit #appHeader			{ background-color: #FF3A2F; font-weight: 300; }
-body.balanced #appHeader		{ background-color: #007AFF; font-weight: 300; }
-body.surplus #appHeader			{ background-color: #2DB454; font-weight: 300; }
+.deficit #appHeader			{ background-color: #E54B1D; font-weight: 300; }
+.balanced #appHeader		{ background-color: #007AFF; font-weight: 300; }
+.surplus #appHeader			{ background-color: #2DB454; font-weight: 300; }
 /*////////////////
 // online users //
 ////////////////*/
-#onlineUsers					{ position: absolute; bottom: 97px; right: 3px; display: block; width: 150px; height: 15px; font-size: 10px; line-height: 10px; color: #aaa; text-align: right; pointer-events: none; white-space: nowrap; }
-#onlineUsers span				{ color: #777; }
+#onlineUsers				{ position: absolute; bottom: 97px; right: 3px; display: block; width: 150px; height: 15px; font-size: 10px; line-height: 10px; color: #aaa; text-align: right; pointer-events: none; white-space: nowrap; }
+#onlineUsers span			{ color: #777; }
 /*///////////////
 // status tips //
 ///////////////*/
@@ -121,7 +121,7 @@ body.error #timerKcalsInput			{ font-size: 28px !important; width: 190px !import
 body.error.deficit #timerKcalsInput,
 body.error.deficit #timerKcals span,
 body.error.deficit #timerDailyInput,
-body.error.deficit #timerDaily span	{ color: #FF3A2F !important; text-shadow: 0 0 1px rgba(255,255,255,0) !important; }
+body.error.deficit #timerDaily span	{ color: #E54B1D !important; text-shadow: 0 0 1px rgba(255,255,255,0) !important; }
 body.error.surplus #timerKcalsInput,
 body.error.surplus #timerKcals span,
 body.error.surplus #timerDailyInput,
@@ -809,7 +809,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #balanceBar:before				{ background: -webkit-linear-gradient(left,                                  #EE8176 25.5%,             #3DB3E2 25.5%,             #3DB3E2 73.9%,             #63C980 73.9%);
 								  content: ' '; position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; }
 #balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: 'KCals'; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
-.deficit #appStatusBalance #balanceBar:after	{ color: #FF3A2F; }
+.deficit #appStatusBalance #balanceBar:after	{ color: #E54B1D; }
 /*.balanced #appStatusBalance #balanceBar:after	{ color: #007AFF; }*/
 .surplus #appStatusBalance #balanceBar:after	{ color: #2DB454; }
 /**/

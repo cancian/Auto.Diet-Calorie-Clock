@@ -204,7 +204,7 @@ function initDB(t) {
 	app.define('app_zoom',1);
 	app.define('appStatus','stopped');
 	app.define('app_counter_mode','regressive');
-	app.define('colorDeficit','#FF3A2F');
+	app.define('colorDeficit','#E54B1D');
 	app.define('colorBalanced','#007AFF');
 	app.define('colorSurplus','#2DB454');
 	///////////
@@ -2204,7 +2204,9 @@ app.analytics = function(target,desc) {
 		if(typeof desc !== 'string') {
 			desc = JSON.stringify(desc);
 		}
-		console.log('Error (analytics): ' + desc);
+		if(app.beenDev) {
+			console.log('Analytics Log: ' + desc);
+		}
 	}
 	//PREVENT DEV
 	if(typeof ga_storage === 'undefined')				 { return; }

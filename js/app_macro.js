@@ -1131,8 +1131,8 @@ function getLimitMenu() {
 		//ONCHANGE
 		$('#colorDeficit').on('change',function () {
 			if(!this.value) {
-				app.save('colorDeficit','#FF3A2F');
-				$('#colorDeficit').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#FF3A2F')));
+				app.save('colorDeficit','#E54B1D');
+				$('#colorDeficit').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#E54B1D')));
 			} else {
 				app.save('colorDeficit',$('#colorDeficit').val());
 			}
