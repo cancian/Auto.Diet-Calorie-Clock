@@ -2195,20 +2195,25 @@ function getRateDialog() {
 // GET ANALYTICS //
 ///////////////////
 app.analytics = function(target,desc) {
+	//ERROR
 	if(target == 'error') {
-		if(typeof desc !== 'string') {
-			desc = JSON.stringify(desc);
+		if(typeof desc === 'undefined') {
+			desc = '';
 		}
-		console.log('Analytics: ' + desc);
+		//CONSOLE
+		desc = JSON.stringify(desc);
+		console.log('Error (analytics): ' + desc);
 	}
-	//
-	if(typeof ga_storage === 'undefined')				{ return; }
-	if(typeof baseVersion === 'undefined')				{ return; }
-	//not dev
-	if(app.dev)											{ return; }
-	if(app.read('been_dev'))							{ return; }
-	if(app.read('facebook_userid',1051211303))			{ return; }
-	if((/local.kcals|192.168.1.5/).test(document.URL))	{ return; }
+	//PREVENT DEV
+	if(typeof ga_storage === 'undefined')				 { return; }
+	if(typeof baseVersion === 'undefined')				 { return; }
+	if(app.dev)											 { return; }
+	if(app.read('been_dev'))							 { return; }
+	if(app.read('facebook_userid',1051211303))			 { return; }
+	if(app.read('facebook_userid').indexOf('cancian'))	 { return; }
+	if(app.read('facebook_userid').indexOf('kcals.net')) { return; }
+	if(app.read('facebook_userid').indexOf('ateus.net')) { return; }
+	if(/local.kcals|192.168.1.5/i.test(document.URL))	 { return; }
 	//////////
 	// INIT //
 	//////////
