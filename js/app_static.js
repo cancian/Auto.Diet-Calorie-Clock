@@ -25,15 +25,19 @@ $(document).ready(function() {
 		//////////////////////////////
 		// MOZ FALLBACK ~ INCOGNITO //
 		//////////////////////////////
+		app.remove('config_force_localstorage');
 		if(vendorClass == 'moz') {
-			if(app.read('config_force_localstorage')) {
-				dbDriver = [localStorage];
-			}
+			detectPrivateMode(function(incognito) { 
+				if(incognito) {
+					app.incognito = true;
+					dbDriver = [localStorage];
+				}
+			});
 		}
 		//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
-		if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) {
-			app.remove('config_force_localstorage');
-		}
+		//if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) {
+		//	app.remove('config_force_localstorage');
+		//}
 		/*
 		// ~ FORCE DB (USER CHOICE) ~ //
 		// ~ MULTIUSER ~ //

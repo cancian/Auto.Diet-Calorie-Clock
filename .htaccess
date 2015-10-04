@@ -9,27 +9,26 @@ Options -Indexes
 ## MIME ##
 AddType font/ttf .ttf
 AddType text/plain .db
+AddType text/plain .sql
 AddType application/font-woff .woff
 AddType text/cache-manifest .appcache
 AddType text/cache-manifest .manifest
 AddType application/x-web-app-manifest+json .webapp
 
 ## NO CACHE ~ USE MANIFEST
-<filesMatch "\.(html|htm|php|js|css|ttf|woff|cur|ico|jpg|png|gif|json|txt|db|sql|xml)$">
+#<filesMatch "\.(html|htm|php|js|css|ttf|woff|cur|ico|jpg|png|gif|json|txt|db|sql|xml|appcache|manifest|webapp)$">
+<ifModule mod_headers.c>
 	FileETag None
-	<ifModule mod_headers.c>
-		Header unset ETag
-		Header set Expires "Fri, 19 Feb 1982 06:06:06 GMT"
-		Header set Cache-Control "max-age=0"
-	</ifModule>
-</filesMatch>
-
-<filesMatch "\.(html|htm|js|css|ttf|woff|cur|ico|jpg|png|gif|json|txt|db|sql|xml)$">
+	Header unset ETag
+	Header set Expires "Fri, 19 Feb 1982 06:06:06 GMT"
+	#Header set Cache-Control "max-age=0"
+	## CORS
 	Header set Access-Control-Allow-Origin "*"
 	Header set Access-Control-Allow-Credentials "true"
 	Header set Access-Control-Allow-Methods "OPTIONS, GET, POST"
 	Header set Access-Control-Allow-Headers "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control"
-</filesMatch>
+</ifModule>
+#</filesMatch>
 
 ## MOD_REWRITE ##
 <IfModule mod_rewrite.c>
