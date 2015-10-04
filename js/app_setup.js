@@ -2201,18 +2201,18 @@ app.analytics = function(target,desc) {
 			desc = '';
 		}
 		//CONSOLE
-		desc = JSON.stringify(desc);
+		if(typeof desc !== 'string') {
+			desc = JSON.stringify(desc);
+		}
 		console.log('Error (analytics): ' + desc);
 	}
 	//PREVENT DEV
 	if(typeof ga_storage === 'undefined')				 { return; }
 	if(typeof baseVersion === 'undefined')				 { return; }
-	if(app.dev)											 { return; }
-	if(app.read('been_dev'))							 { return; }
+	if(app.dev || app.read('been_dev'))					 { return; }
 	if(app.read('facebook_userid',1051211303))			 { return; }
-	if(app.read('facebook_userid').indexOf('cancian'))	 { return; }
-	if(app.read('facebook_userid').indexOf('kcals.net')) { return; }
-	if(app.read('facebook_userid').indexOf('ateus.net')) { return; }
+	if(app.read('facebook_userid','cancian@ateus.net'))	 { return; }
+	if(app.read('facebook_userid','cancian@kcals.net'))	 { return; }
 	if(/local.kcals|192.168.1.5/i.test(document.URL))	 { return; }
 	//////////
 	// INIT //

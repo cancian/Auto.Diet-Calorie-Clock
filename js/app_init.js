@@ -28,21 +28,22 @@ function safeExec(callback) {
 /////////////////
 var blockAlerts = 0;
 window.onerror = function (err, url, line) {
-	if(typeof err === 'undefined') {
-		err = '';
+	if(!err)  { err  = ''; }
+	if(!url)  { url  = ''; }
+	if(!line) { line = ''; }
+	//STRINGIFY
+	if(typeof err !== 'string') {
+		err  = JSON.stringify(err);
 	}
-	if(typeof url === 'undefined') {
-		url = '';
+	if(typeof url === 'string') {
+		url  = JSON.stringify(url);
 	}
-	if(typeof line === 'undefined') {
-		line = '';
+	if(!typeof line === 'string') {
+		line = JSON.stringify(line);
 	}
-	err  = JSON.stringify(err);
-	url  = JSON.stringify(url);
-	line = JSON.stringify(line);
 	//LOG ERROR
-	window.localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line)
-	//
+	window.localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
+	//DEV ALERT
 	if (window.localStorage.getItem('config_debug') === 'active' && blockAlerts == 0) {
 		if (IsMsApp) {
 			if (typeof alert !== 'undefined') {
@@ -66,14 +67,16 @@ window.onerror = function (err, url, line) {
 		}
 	}
 	//disable ff db
+	/*
 	if ((/InvalidStateError/i).test(err) && !window.localStorage.getItem('config_force_localstorage')) {
 		window.localStorage.setItem('config_force_localstorage',true);
 		setTimeout(function () {
 			window.location.reload(true);
 		}, 0);
 	}
+	*/
 	//auto restart android
-	if ((/Exception 18/i).test(err)) {
+	if (/Exception 18/i.test(err)) {
 		setTimeout(function () {
 			//RELOAD
 			if(typeof window.MyReload !== 'undefined') {

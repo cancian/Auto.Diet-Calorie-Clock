@@ -1549,7 +1549,7 @@ function buildAdvancedMenu() {
 	if(app.db.indexedDB    !== true) { $('#optIndexedDB').hide();    }
 	if(app.db.localStorage !== true) { $('#optLocalStorage').hide(); }
 	//HIDE UNSTABLE
-	if(app.device.ios || app.device.osxapp || app.device.blackberry || app.read('config_force_localstorage')) { 
+	if(app.device.ios || app.device.osxapp || app.device.blackberry || app.incognito) { 
 		$('#optIndexedDB').hide();
 	}
 	//GET CURRENT ENGINE
