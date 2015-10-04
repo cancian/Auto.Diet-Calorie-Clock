@@ -8,12 +8,13 @@
 • Water tracker
 • Daily tips
 
-# 1.9.10 [2015/09/30]
+# 1.9.10 [2015/10/04]
 • Prevent new diary entries from being added via return (enter) while editing an existing entry 
 • Improved error handling
 • New help topic: "Synchronizing two devices"
 • Added an info icon next to the "Backup & Synchronization" option, linking to the corresponding help topic
 • Fixed an issue with the "Recent entries" category not showing
+• The weight limit on the food dialog would only reach 745 grams, instead of 750
 
 # 1.9.9 [2015/09/25]
 • Improved synchronization speed, specially for users with large custom databases
