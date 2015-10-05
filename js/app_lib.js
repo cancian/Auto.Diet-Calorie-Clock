@@ -1004,15 +1004,12 @@ app.handlers = {
 		////////////////
 		var rowHtml = '';
 		var rowSql  = '';
-		var lastRowId = '';
 		var i = data.length;
-		//data = data.reverse();
 		while(i--) {
 			/////////////////////
 			// FILTER REPEATED //
 			/////////////////////
-			if (data[i].id && data[i].id !== lastRowId) {
-				lastRowId = data[i].id;
+			if (data[i].id) {
 				var favClass = (data[i].fib === 'fav') ? ' favItem' : '';
 				if((JSON.stringify(data[i].id)).length >= 13) {
 					favClass = favClass + ' customItem';
@@ -1063,7 +1060,7 @@ app.handlers = {
 				///////////////
 				if(filter) {
 					if(!rowSql.contains(data[i].id)) {
-						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(" + data[i].id + ",'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + data[i].kcal + "','" + data[i].pro + "','" + data[i].car + "','" + data[i].fat + "','" + data[i].fib + "','" + data[i].fii + "','" + data[i].sug + "','" + data[i].sod + "');\n";
+						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(#^#" + Number(data[i].id) + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";
 					}
 				}
 			}
@@ -1075,13 +1072,13 @@ app.handlers = {
 			//PREPARE
 			if(rowSql == '') {
 				rowSql = ' ';
+			} else {
+				rowSql = app.fixSql(rowSql);
 			}
-			rowSql = rowSql.split('undefined').join('');
-			//BACKWARD FIX BROKEN SQL
-			rowSql = rowSql.split("'0,").join("'0',");
-			rowSql = rowSql.split("'custom,").join("'custom',");
-			rowSql = rowSql.split("'fav,").join("'fav',");
-			//
+			///////////////////
+			// FIX MALFORMED //
+			///////////////////
+			//FAV~CUSTOM
 			if(filter === 'fav') {
 				app.save('customFavSql', rowSql);
 			} else {
@@ -1618,6 +1615,39 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 	$(target).on(touchmove, function(evt) {
 		evt.preventDefault();
 	});
+};
+app.fixSql = function(fetchEntries) {
+	if(!fetchEntries) { return ''; }
+	//NULL
+	fetchEntries = fetchEntries.split('undefined').join('');
+	fetchEntries = fetchEntries.split('NaN').join('');
+	//NUMERIC
+	fetchEntries = fetchEntries.split("0,'").join("0','");
+	fetchEntries = fetchEntries.split("1,'").join("1','");
+	fetchEntries = fetchEntries.split("2,'").join("2','");
+	fetchEntries = fetchEntries.split("3,'").join("3','");
+	fetchEntries = fetchEntries.split("4,'").join("4','");
+	fetchEntries = fetchEntries.split("5,'").join("5','");
+	fetchEntries = fetchEntries.split("6,'").join("6','");
+	fetchEntries = fetchEntries.split("7,'").join("7','");
+	fetchEntries = fetchEntries.split("8,'").join("8','");
+	fetchEntries = fetchEntries.split("9,'").join("9','");
+	//CUSTOM
+	fetchEntries = fetchEntries.split("'fav,").join("'fav',");
+	fetchEntries = fetchEntries.split("'nonFav,").join("'nonFav',");
+	fetchEntries = fetchEntries.split("'custom,").join("'custom',");
+	//GENERIC
+	fetchEntries = fetchEntries.split("'','").join("','");
+	fetchEntries = fetchEntries.split("',''").join("','");
+	//ENDINGS
+	fetchEntries = fetchEntries.split("(''").join("('");
+	fetchEntries = fetchEntries.split(",');").join(",'');");
+	//REFILL
+	fetchEntries = fetchEntries.split(",',").join(",'',");
+	//RESTORE
+	fetchEntries = fetchEntries.split("#^#").join("");
+	//
+	return fetchEntries;
 };
 //////////
 // TRIM //
