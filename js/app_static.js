@@ -2,7 +2,7 @@
 // CACHE LISTENER //
 ////////////////////
 window.applicationCache.addEventListener('error', function(err) {
-	errorHandler('Error fetching cache | statusText: ' + err);
+	errorHandler('Error fetching cache: ' + JSON.stringify(err));
 });
 ////////////////////
 // DOCUMENT READY //
