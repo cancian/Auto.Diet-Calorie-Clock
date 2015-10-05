@@ -1621,6 +1621,10 @@ app.fixSql = function(fetchEntries) {
 	//NULL
 	fetchEntries = fetchEntries.split('undefined').join('');
 	fetchEntries = fetchEntries.split('NaN').join('');
+	//ZEROES
+	fetchEntries = fetchEntries.split("'0,'").join("'0','");
+	fetchEntries = fetchEntries.split("'0.0,'").join("'0.0','");
+	fetchEntries = fetchEntries.split("'0.00,'").join("'0.00','");
 	//NUMERIC
 	fetchEntries = fetchEntries.split("0,'").join("0','");
 	fetchEntries = fetchEntries.split("1,'").join("1','");
