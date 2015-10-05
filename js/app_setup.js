@@ -670,12 +670,12 @@ function syncEntries(userId) {
 			///////////////////////
 			// FAKE VALID RESULT // empty but valid result ~ trigger success
 			/////////////////////// return for no diff
-			if(!sql || sql.trim() == '' || sql == app.read('last_sync_data')) {
+			if(!sql || sql.trim() == '' || md5(sql) == app.read('last_sync_data')) {
 				app.globals.syncRunning = false;
 				setComplete();
 			} else {
 				//SAVE CACHE DIFF
-				app.save('last_sync_data',sql);
+				app.save('last_sync_data',md5(sql));
 				//////////////////////
 				// FULLY PARSE DATA //
 				//////////////////////
