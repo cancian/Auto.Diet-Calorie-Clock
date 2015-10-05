@@ -395,27 +395,28 @@ function pushEntries(userId) {
 				if(!fii)  { fii  = ''; }
 				if(!sug)  { sug  = ''; }
 				if(!sod)  { sod  = ''; }
-
-				if(id && published != '') { // && allFetchIds.indexOf('#' + id + '#') === -1) {
+				//INSERT
+				if(id != '' && published != '') {
 					newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "','" + fii + "','" + sug + "','" + sod + "');\n";
 					fetchEntries += newLineFetch;
-					newLineFetch = '';
-					//allFetchIds.push('#' + id + '#');
-					//empty loop
-					id        = '';
-					title     = '';
-					body      = '';
-					published = '';
-					info      = '';
-					kcal      = '';
-					pro       = '';
-					car       = '';
-					fat       = '';
-					fib       = '';
-					fii       = '';
-					sug       = '';
-					sod       = '';
 				}
+				////////////////
+				// reset loop //
+				////////////////
+				newLineFetch = '';
+				id        = '';
+				title     = '';
+				body      = '';
+				published = '';
+				info      = '';
+				kcal      = '';
+				pro       = '';
+				car       = '';
+				fat       = '';
+				fib       = '';
+				fii       = '';
+				sug       = '';
+				sod       = '';
 			}
 		}
 		//////////////////////
