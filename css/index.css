@@ -832,10 +832,15 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusAddRight span			{ display: inline-block; background-color: #D55621; text-align: center; font-size: 10px; text-transform: uppercase; }
 #appStatusAddLeft div,
 #appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; }
-#appStatusAddLeft:active,
-#appStatusAddRight:active,
+/*keep active*/
+#appStatusAddLeft.activeButton div:before,
+#appStatusAddRight.activeButton div:before,
+#appStatusAddLeft.button div:before,
+#appStatusAddRight.button div:before	{ /*text-shadow: rgba(255,255,255,.8) 0 0 4px;*/ }
+#appStatusAddLeft.activeButton,
+#appStatusAddRight.activeButton,
 #appStatusAddLeft.button,
-#appStatusAddRight.button		{ background-color: #007AFF !important; }
+#appStatusAddRight.button				{ background-color: #007AFF; /*text-shadow: rgba(255,255,255,.7) 0 0 2px;*/ }
 /*nutrition bars*/
 #appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0px; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: rgba(0,0,0,0); white-space: nowrap; }
 #appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }

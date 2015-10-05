@@ -415,7 +415,13 @@ app.tab.status = function(keepOpen) {
 		} else {
 			//return false;
 		}
+		//OPEN
 		$(document).trigger('pageReload');
+		//KEEP ACTIVE
+		$('#appStatusAddLeft').addClass('activeButton');
+		app.timeout('appStatusAddLeft',700,function() {
+			$('#appStatusAddLeft').removeClass('activeButton');
+		});
 	});
 	app.handlers.activeRow('#appStatusAddRight','button',function(evt) {
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
@@ -425,7 +431,13 @@ app.tab.status = function(keepOpen) {
 		} else {
 			//return false;
 		}
+		//OPEN
 		$(document).trigger('pageReload');
+		//KEEP ACTIVE
+		$('#appStatusAddRight').addClass('activeButton');
+		app.timeout('appStatusAddRight',700,function() {
+			$('#appStatusAddRight').removeClass('activeButton');
+		});
 	});
 	//#/////////////////////#//
 	//# APP STATUS/DATE BAR #//
