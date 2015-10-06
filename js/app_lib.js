@@ -561,18 +561,20 @@ $.prototype.after2 = function (data, callback) {
 ///////////
 app.toast = function (msg, tag) {
 	if(!msg)		{ msg = ''; }
-	if(!tag)		{ tag = 'appToast_ ' + JSON.stringify(app.now()); }
+	if(!tag)		{ tag = 'appToast' + JSON.stringify(app.now()); }
 	////////////
 	// INSERT //
 	////////////
 	$('body').append2('<div id="appToast" class="' + tag + '">' + msg + '</div>');
 	//DISMISS
-	$('.' + tag).on(tap, function () {
-		app.handlers.fade(0, '.' + tag, '', 300);
-	});
-	setTimeout(function() { 
-		app.handlers.fade(0, '.' + tag, '', 300);
-	},2000);
+	setTimeout(function() {
+		$('.' + tag).on(tap, function () {
+			app.handlers.fade(0, '.' + tag, '', 300);
+		});
+		setTimeout(function() { 
+			app.handlers.fade(0, '.' + tag, '', 300);
+		},2000);
+	},0);
 };
 //////////
 // ZOOM //
@@ -1716,12 +1718,12 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 	$(target).css(prefix + 'transition', 'all ease 0s');
 	$(target).css('background-color', startColor);	
 	setTimeout(function () {
-		$(target).css(prefix + 'transition', 'all ease ' + (duration) + 'ms');
+		$(target).css(prefix + 'transition', 'all linear ' + (duration) + 'ms');
 		setTimeout(function () {
 			$(target).css('background-color', endColor);
 			//WAIT TO DISABLE
 			setTimeout(function () {
-				$(target).css(prefix + 'transition', 'all ease 0s');
+				$(target).css(prefix + 'transition', 'all linear 0s');
 				if (typeof callback === 'function') {
 					callback();
 				}

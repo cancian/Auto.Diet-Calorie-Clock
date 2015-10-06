@@ -345,7 +345,7 @@ function fetchEntries(callback) {
 //# ONLINE: PUSH ENTRIES #//
 //#//////////////////////#//
 function pushEntries() {
-app.timeout('pushEntries',2000,function() {
+app.timeout('pushEntries',3000,function() {
 	if(!app.read('facebook_logged'))	{ return; }
 	if($('body').hasClass('insync'))	{ return; }	
 	if(app.read('pendingSync'))			{ return; }
@@ -692,7 +692,7 @@ function insertOrUpdate(rows, callback) {
 //## SYNC ENTRIES ##//
 //##//////////////##//
 function syncEntries() {
-app.timeout('syncEntries',2000,function() {
+app.timeout('syncEntries',3000,function() {
 	if(app.read('facebook_logged'))   { updateFoodDb(); }
 	if(!app.read('facebook_logged'))  { return; }
 	if(!app.read('facebook_userid'))  { return; }
