@@ -245,8 +245,8 @@ var app = {
 		}, time);
 	},
 	timer: {
-		start : function()    { if(app.dev) { app.globals.toastTimer = app.now(); } },
-		end   : function(txt) { if(app.dev) { if(!txt) { txt = ''; }; app.toast(txt + ' - Total time: ' + (app.now() - app.globals.toastTimer) + 'ms'); } }
+		start : function(str)     { if(!str) { str = 'generic'; }; app.globals[str] = app.now(); },
+		end   : function(str,txt) { if(!str) { str = 'generic'; }; if(txt) { txt = txt + ': '; } else { txt = 'total: '; }; app.toast(txt + (Number((app.now() - app.globals[str]))) + ' ms', 'timer_' + (JSON.stringify(app.globals[str]))); }
 	}
 };
 /////////////////
@@ -559,15 +559,20 @@ $.prototype.after2 = function (data, callback) {
 ///////////
 // TOAST //
 ///////////
-app.toast = function (msg, duration) {
+app.toast = function (msg, tag) {
 	if(!msg)		{ msg = ''; }
-	console.log(msg);
-	//
-	$('#appToast').remove();
-	$('body').append2('<div id="appToast">' + msg + '</div>');
-	$('#appToast').on(tap,function () {
-		app.handlers.fade(0,'#appToast');
+	if(!tag)		{ tag = 'appToast_ ' + JSON.stringify(app.now()); }
+	////////////
+	// INSERT //
+	////////////
+	$('body').append2('<div id="appToast" class="' + tag + '">' + msg + '</div>');
+	//DISMISS
+	$('.' + tag).on(tap, function () {
+		app.handlers.fade(0, '.' + tag, '', 300);
 	});
+	setTimeout(function() { 
+		app.handlers.fade(0, '.' + tag, '', 300);
+	},2000);
 };
 //////////
 // ZOOM //
