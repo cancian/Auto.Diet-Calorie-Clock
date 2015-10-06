@@ -52,7 +52,7 @@ app.tab.settings = function(keepOpen) {
 	}
 	$('#optionLastSync').on(touchend,function(evt) {
 		if(!$('body').hasClass('insync')) {
-			syncEntries(app.read('facebook_userid'));
+			syncEntries();
 		}
 		return false;
 	});

@@ -1058,14 +1058,14 @@ if(app.is.scrollable) {
 	//sync lock
 	if(app.read('pendingSync') && app.read('facebook_userid') && app.read('facebook_logged')) {
 		if(now - app.read('pendingSync') > 30000) {
-			syncEntries(app.read('facebook_userid'));
+			syncEntries();
 			app.save('pendingSync',app.read('pendingSync') + 30000);
 		}
 	}
 	//push lock
 	if(app.read('facebook_username') && app.read('facebook_logged') && app.read('lastEntryPush')) {
 		if(now - app.read('lastEntryPush') > 500 && app.read('foodDbLoaded','done')) {
-			pushEntries(app.read('facebook_userid'));
+			pushEntries();
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
