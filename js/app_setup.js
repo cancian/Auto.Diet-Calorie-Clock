@@ -344,9 +344,26 @@ function fetchEntries(callback) {
 //#//////////////////////#//
 //# ONLINE: PUSH ENTRIES #//
 //#//////////////////////#//
-function pushEntries(userId) {
-	if(!userId) 		        { return; }
-	if(app.read('pendingSync')) { return; }
+function pushEntries() {
+app.timeout('pushEntries',2000,function() {
+	if(!app.read('facebook_logged'))	{ return; }
+	if($('body').hasClass('insync'))	{ return; }	
+	if(app.read('pendingSync'))			{ return; }
+	if($('body').hasClass('setpush'))	{ $('body').removeClass('setpush'); return; }
+	//////////
+	// LOCK //
+	//////////	
+	$('body').addClass('setpush');	
+	////////////
+	// USERID //
+	////////////
+	var userId = app.read('facebook_userid');
+	///////////
+	// TIMER //
+	///////////
+	if(app.beenDev) {
+		app.timer.start('push');
+	}
 	fetchEntries(function(data) {
 		if(!data) { return; }
 		//VARTS
@@ -441,24 +458,45 @@ function pushEntries(userId) {
 		if(localStorageSql()) {
 			fetchEntries = fetchEntries + '\n' + trim(localStorageSql());
 		}
+		//////////////////
+		// BASIC FILTER //
+		//////////////////
 		fetchEntries = trim(fetchEntries.split('undefined').join('').split('NaN').join(''));
-		/////////////////
-		// POST RESULT //
-		/////////////////
 		if(fetchEntries.length == 0) { fetchEntries = ' '; }
-		if(fetchEntries) {
-			//wait longer to unlock next try if no response
-			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
-			//set push
-			$('body').addClass('setpush');
+		/////////////////////////////////////
+		// AUTO RETRY IN 30s, not every 5s //
+		/////////////////////////////////////
+		if(app.read('lastEntryPush')) {
+			app.save('lastEntryPush',app.now() + (30000));
+		}
+		////////////////
+		// CHECK DIFF //
+		////////////////
+		if(md5(fetchEntries) == app.read('last_push_data')) {
+			//fake success ~ disable spinner
+			$('body').removeClass('setpush');
+			$('body').removeClass('insync');
+			// END TIMER //
+			if(app.beenDev) { app.timer.end('push','not pushing'); }
+			return;
+		} else {
+			// END TIMER //
+			if(app.beenDev) { app.timer.end('push','pushing'); }				
+			/////////////////
+			// UPLOAD DATA //
+			/////////////////
 			$.post('https://kcals.net/sync.php', { 'sql':fetchEntries,'uid':userId }, function(data) {
 				//clear marker
 				app.remove('lastEntryPush');
 				$('body').removeClass('setpush');
 				$('body').removeClass('insync');
+				//save data
+				app.save('last_push_data',md5(fetchEntries));
 			}, 'text');
 		}
 	});
+//
+});
 }
 function setPush(msg) {
 	if(app.read('facebook_logged')) {
@@ -499,6 +537,17 @@ function setComplete() {
 	//update last sync date
 	app.save('lastSync',app.now());
 	$('#optionLastSync span').html2( dateDiff( app.read('lastSync'), app.now()) );
+	////////////////////
+	// SHOW SYNC TIME //
+	////////////////////
+	if(app.beenDev) {
+		if(app.globals.noSyncDiff == 1) {
+			//do nothing
+		} else {
+			app.timer.end('sync','sync');
+		}
+		app.globals.noSyncDiff = 0;
+	}
 }
 ///////////////
 // ROWS LOOP //
@@ -642,13 +691,20 @@ function insertOrUpdate(rows, callback) {
 //##//////////////##//
 //## SYNC ENTRIES ##//
 //##//////////////##//
-function syncEntries(userId) {
-	if(app.read('facebook_logged'))  { updateFoodDb(); }
-	if(!userId) 		             { return; }
-	if(!app.read('facebook_logged')) { return; }
-	if(!app.read('facebook_userid')) { return; }
-	if($('body').hasClass('insync')) { return; }
-	//OK, UPDATE TIME
+function syncEntries() {
+app.timeout('syncEntries',2000,function() {
+	if(app.read('facebook_logged'))   { updateFoodDb(); }
+	if(!app.read('facebook_logged'))  { return; }
+	if(!app.read('facebook_userid'))  { return; }
+	if($('body').hasClass('insync'))  { return; }
+	if($('body').hasClass('setpush')) { return; }
+	////////////////
+	// SET USERID //
+	////////////////
+	var userId = app.read('facebook_userid');
+	/////////////////////
+	// OK, UPDATE TIME //
+	/////////////////////
 	app.save('pendingSync',app.now());
 	app.globals.syncRunning = false;
 	if(!app.globals.syncRunning) {
@@ -656,6 +712,9 @@ function syncEntries(userId) {
 		$('body').addClass('insync');
 		//get remote sql
 		$.get('https://kcals.net/sync.php?uid=' + userId,function(sql) {
+			if(app.beenDev) {
+				app.timer.start('sync');	
+			}
 			//////////////////
 			// prepare data //
 			//////////////////
@@ -672,6 +731,12 @@ function syncEntries(userId) {
 			/////////////////////// return for no diff
 			if(!sql || sql.trim() == '' || md5(sql) == app.read('last_sync_data')) {
 				app.globals.syncRunning = false;
+				app.remove('pendingSync');
+				//NO DIFF
+				if(app.beenDev) {
+					app.globals.noSyncDiff = 1;
+					app.timer.end('sync','no diff');
+				}
 				setComplete();
 			} else {
 				//SAVE CACHE DIFF
@@ -688,6 +753,8 @@ function syncEntries(userId) {
 			}
 		});
 	}
+//
+});
 }
 /////////////////
 // GET ENTRIES //
@@ -1117,7 +1184,7 @@ function updateFoodDb(callback) {
 						app.remove('startLock');
 						niceResizer(300);
 						if (app.read('facebook_userid')) {
-							syncEntries(app.read('facebook_userid'));
+							syncEntries();
 						} else {
 							setTimeout(function () {
 								updateCustomList('all');
@@ -2285,7 +2352,7 @@ function updateLoginStatus(sync) {
 			$('body').addClass('appEmailLogin');
 		}
 		$('#optionFacebook span').html2(LANG.LOGGED_IN_AS[lang] + ' ' + app.read('facebook_username'));
-		if(sync == 1) { syncEntries(app.read('facebook_userid')); }
+		if(sync == 1) { syncEntries(); }
 	} else {
 		getLogoutFB(1);
 	}
