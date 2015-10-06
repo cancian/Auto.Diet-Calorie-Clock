@@ -920,19 +920,6 @@ function unlockApp() {
 	if (typeof loadTimeout !== 'undefined') {
 		clearInterval(loadTimeout);
 	}
-	///////////////
-	// dev timer //
-	///////////////
-	try {
-		if (typeof initTime !== 'undefined') {
-			if (app.read('config_debug', 'active') || app.read('devShowTimer', 'active')) {
-				$('body').append2('<div id="initTime" style="font-family: KCals; font-size: 32px; background-color: rgba(255,255,255,.9); position: absolute; top: 78px; padding: 6px; left: 16px; z-index: 999; white-space: nowrap; display: inline-block;">' + (new Date().getTime() - initTime) + ' ms</div>');
-				setTimeout(function () {
-					app.handlers.fade(0, '#initTime', '', 175);
-				}, 1200);
-			}
-		}
-	} catch (err) { errorHandler('initTime: ' + err); }
 }
 /////////////////
 // SAFE-LOADER //
@@ -1069,7 +1056,7 @@ if(app.is.scrollable) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,2000);
+	setTimeout(lastEntryPush,3000);
 })();
 	//#////////////////#//
 	//# XY HEADER INFO #//
@@ -1348,6 +1335,14 @@ if(app.is.scrollable) {
 			return this[fn ? 'on' : 'trigger'](_, fn);
 		};
 	})(jQuery, 'tap');
+	///////////////
+	// DEV TIMER //
+	///////////////
+	if (typeof initTime !== 'undefined') {
+		if (app.beenDev) {
+			app.toast('boot: ' + ((new Date().getTime()) - initTime) + ' ms');
+		}
+	}
 ////#//
 } //#//
 ////#//
