@@ -8,14 +8,15 @@
 • Water tracker
 • Daily tips
 
-# 1.9.10 [2015/10/05]
+# 1.9.10 [2015/10/06]
 • Enhanced data integrity verification for the Backup & Synchronization feature
-• Prevent new diary entries from being added via return (enter) while editing an existing entry 
+• Prevent new diary entries from being added via return (enter) while editing an existing entry
 • Improved stability, error handling, and crash prevention methods
+• Fixed the "Recent entries" category not showing
+• The weight limit on the food dialog would only reach 745 grams, instead of 750
+• Synchronization now uses md5 hashes, instead of cached data, to determine whether local or remote data has changed
 • New help topic: "Synchronizing two devices"
 • Added an info icon next to the "Backup & Synchronization" option, linking to the corresponding help topic
-• Fixed an issue with the "Recent entries" category not showing
-• The weight limit on the food dialog would only reach 745 grams, instead of 750
 
 # 1.9.9 [2015/09/25]
 • Improved synchronization speed, specially for users with large custom databases
