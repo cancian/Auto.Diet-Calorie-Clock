@@ -840,7 +840,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusAddLeft.activeButton,
 #appStatusAddRight.activeButton,
 #appStatusAddLeft.button,
-#appStatusAddRight.button				{ background-color: #007AFF; /*text-shadow: rgba(255,255,255,.7) 0 0 2px;*/ }
+#appStatusAddRight.button				{ background-color: #2F72F2; /*text-shadow: rgba(255,255,255,.7) 0 0 2px;*/ }
 /*nutrition bars*/
 #appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0px; height: 71px; padding: 0px; display: block; margin-left: 0px; background-color: rgba(0,0,0,0); white-space: nowrap; }
 #appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
