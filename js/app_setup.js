@@ -140,7 +140,7 @@ function showIntro() {
 				errorHandler('error: new IScroll | ' + err);
 			}
 		}
-	}, 300);
+	}, 400);
 }
 ///////////////////
 // INITIAL CACHE //
@@ -2039,18 +2039,16 @@ function buildLangMenu(opt) {
 //////////////////
 // NICE RESIZER //
 //////////////////
-var niceTimer;
 function niceResizer(timeout,callback) {
 	if(!timeout) { timeout = 100; }
-	clearTimeout(niceTimer);
-	niceTimer = setTimeout(function() {
+	app.timeout('niceResizer',timeout,function() {
 		if(app.is.scrollable && app.globals.scrollerList) {
 			$(app.globals.scrollerList).getNiceScroll().resize();
 		}
-		if(callback) {
+		if(typeof callback === 'function') {
 			callback();
 		}
-	},timeout);
+	});
 }
 ///////////////////
 // GETNICESCROLL //
@@ -2123,7 +2121,7 @@ function getNiceScroll(target,timeout,callback) {
 		}
 	}
 	//CALLBACK
-	if(callback) {
+	if(typeof callback === 'function') {
 		setTimeout(function() {
 			callback();
 		},0);
@@ -2137,7 +2135,7 @@ function getNiceScroll(target,timeout,callback) {
 //#/////////////#//
 function appResizer(time,callback) {
 	if(!time) { time = 0; }
-	setTimeout(function() {
+	app.timeout('appResizer',time,function() {
 		app.width  = window.innerWidth;
 		app.height = window.innerHeight;
 		app.relWidth  = app.width  / app.read('app_zoom');
@@ -2205,7 +2203,7 @@ function appResizer(time,callback) {
 		if(typeof callback === 'function') {
 			callback();
 		}
-	 },time);
+	 });
 }
 //////////////
 // SANITIZE //
