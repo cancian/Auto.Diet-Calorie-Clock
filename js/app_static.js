@@ -609,7 +609,7 @@ $(window).on('orientationchange', function(evt) {
 // RESIZE //
 ////////////
 app.globals.recentResize = 0;
-$(window).on('resize', function(evt) {
+window.onresize = function(evt) {
 	app.width  = window.innerWidth;
 	app.height = window.innerHeight;
 	app.globals.recentResize = 1;
@@ -685,7 +685,7 @@ $(window).on('resize', function(evt) {
 	if(app.device.firefoxos) {
 		screen.mozLockOrientation('portrait-primary');
 	}
-});
+};
 /////////////////////
 // DEBUG INDICATOR //
 /////////////////////
