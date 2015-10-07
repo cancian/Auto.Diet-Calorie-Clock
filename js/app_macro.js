@@ -1611,7 +1611,7 @@ function buildAdvancedMenu() {
 			if(app.read('app_database','asyncStorage')) { app.timeout('rebootconfirm','clear'); return; }
 			//SAVE
 			app.save('app_database','asyncStorage');
-			app.save('foodDbLoaded','pending');
+			app.save('foodDbPending',true);
 			styleResetDB();
 			//DIALOG
 			appConfirm(LANG.DATABASE_UPDATE[lang], LANG.RESTART_NOW[lang], function(button) { if(button === 2) { afterHide(); }}, LANG.OK[lang], LANG.CANCEL[lang]);
@@ -1628,7 +1628,7 @@ function buildAdvancedMenu() {
 			if(app.read('app_database','webSQLStorage')) { app.timeout('rebootconfirm','clear'); return; }
 			//SAVE
 			app.save('app_database','webSQLStorage');
-			app.save('foodDbLoaded','pending');
+			app.save('foodDbPending',true);
 			styleResetDB();
 			//DIALOG
 			appConfirm(LANG.DATABASE_UPDATE[lang], LANG.RESTART_NOW[lang], function(button) { if(button === 2) { afterHide(); }}, LANG.OK[lang], LANG.CANCEL[lang]);
@@ -1645,7 +1645,7 @@ function buildAdvancedMenu() {
 			if(app.read('app_database','localStorageWrapper')) { app.timeout('rebootconfirm','clear'); return; }
 			//SAVE
 			app.save('app_database','localStorageWrapper');
-			app.save('foodDbLoaded','pending');
+			app.save('foodDbPending',true);
 			styleResetDB();
 			//DIALOG
 			appConfirm(LANG.DATABASE_UPDATE[lang], LANG.RESTART_NOW[lang], function(button) { if(button === 2) { afterHide(); }}, LANG.OK[lang], LANG.CANCEL[lang]);

@@ -116,8 +116,9 @@ function startApp() {
 //#///////////////////#//
 //# DB UPDATE PENDING #//
 //#///////////////////#//
-if(!app.read('startLock','running') && app.read('foodDbLoaded','pending')) {
-	app.remove('foodDbLoaded');		
+if(!app.read('startLock','running') && app.read('foodDbPending')) {
+	app.remove('foodDbLoaded');
+	app.remove('foodDbPending');	
 	app.remove('startLock');
 	$('body').addClass('updtdb');
 	setTimeout(function() {
