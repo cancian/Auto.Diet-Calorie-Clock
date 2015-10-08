@@ -1187,7 +1187,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#entryBody').blur();
 		$(document).trigger('pageReload');
 	});
-	$('#entryListForm,#go,#entryListWrapper').click(function(evt) {
+	$('#entryListForm,#go,#entryListWrapper').on(tap,function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		if($('#entryBody').is(':focus') && evt.target.id == 'entryTime') {
@@ -1195,11 +1195,17 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		} else if($('#entryTime').is(':focus') && evt.target.id == 'entryBody') {
 			$('#entryBody').focus();
 		} else if(evt.target.id != 'entryTime' && evt.target.id != 'entryBody') {
+			//blur on outside tapping
 			if($('#timerDailyInput').is(':focus')) {
 				$('#timerDailyInput').blur();
 			}
-			$('#entryTime').blur();
-			$('#entryBody').blur();
+			//fix ff select blur
+			if(!$('#entryTime').is(':focus')) {
+				$('#entryTime').blur();
+			}
+			if(!$('#entryBody').is(':focus')) {
+				$('#entryBody').blur();
+			}
 		}
 	});
 	////////////////////////

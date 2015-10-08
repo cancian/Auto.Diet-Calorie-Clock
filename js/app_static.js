@@ -1190,7 +1190,7 @@ if(app.is.scrollable) {
 			$('#entryBody').blur();
 		}
 	});
-	$('#appHeader,#appContent,#entryListForm,#go,#entryListWrapper').on(tap, function(evt) {
+	$('#appHeader,#appContent').on(tap, function(evt) {
 		if(!app.read('app_last_tab','tab4')) {
 			evt.preventDefault();
 		}
@@ -1199,11 +1199,17 @@ if(app.is.scrollable) {
 		} else if($('#entryTime').is(':focus') && evt.target.id == 'entryBody') {
 			$('#entryBody').focus();
 		} else if(evt.target.id != 'entryTime' && evt.target.id != 'entryBody' && evt.target.id != 'timerDailyInput') {
+			//blur on outside tapping
 			if($('#timerDailyInput').is(':focus')) {
 				$('#timerDailyInput').blur();
 			}
-			$('#entryTime').blur();
-			$('#entryBody').blur();
+			//fix ff select blur
+			if(!$('#entryTime').is(':focus')) {
+				$('#entryTime').blur();
+			}
+			if(!$('#entryBody').is(':focus')) {
+				$('#entryBody').blur();
+			}
 		}
 	});
 	//////////////////
