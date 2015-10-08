@@ -19,7 +19,7 @@
 		};
 	};
 	ga_storage = new function () {
-		var https = window.location.protocol.indexOf('https') !== -1 ? 'https://' : 'http://';
+		var https = 'https://'; //window.location.protocol.indexOf('https') !== -1 ? 'https://' : 'http://';
 		var that = this;
 		var initialized = false;
 		var tracking_code_url = https + 'www.google-analytics.com/analytics.js';
