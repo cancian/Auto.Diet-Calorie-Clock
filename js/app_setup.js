@@ -383,8 +383,9 @@ app.timeout('pushEntries',3000,function() {
 		var fii;
 		var sug;
 		var sod;
-
+		///////////////////
 		// BUILD SQL ROW //
+		///////////////////
 		for(var i=0, len=data.length; i<len; i++) {
 			if(data[i].id) {
 				id        = data[i].id;
@@ -484,15 +485,26 @@ app.timeout('pushEntries',3000,function() {
 			if(app.beenDev) { app.timer.end('push','pushing'); }				
 			/////////////////
 			// UPLOAD DATA //
-			/////////////////
-			$.post('https://kcals.net/sync.php', { 'sql':fetchEntries,'uid':userId }, function(data) {
-				//clear marker
-				app.remove('lastEntryPush');
-				$('body').removeClass('setpush');
-				$('body').removeClass('insync');
-				//save data
-				app.save('last_push_data',md5(fetchEntries));
-			}, 'text');
+			/////////////////		
+			$.ajax({type: 'POST', dataType: 'text', url: app.https + 'kcals.net/sync.php', data: { 'sql':fetchEntries,'uid':userId },  
+				/////////////////////
+				// ERROR ~ OFFLINE //
+				/////////////////////
+				error: function(xhr, statusText) { 
+					$('body').removeClass('setpush');
+					app.save('lastEntryPush',app.now() + (30000));
+				//////////////////
+				// SUCCESS PUSH //
+				//////////////////
+				}, success: function(data) {				
+					//clear marker
+					app.remove('lastEntryPush');
+					$('body').removeClass('setpush');
+					$('body').removeClass('insync');
+					//save data
+					app.save('last_push_data',md5(fetchEntries));
+				}
+			});
 		}
 	});
 //
@@ -692,7 +704,7 @@ function insertOrUpdate(rows, callback) {
 //## SYNC ENTRIES ##//
 //##//////////////##//
 function syncEntries() {
-app.timeout('syncEntries',3000,function() {
+app.timeout('syncEntries',2000,function() {
 	if(app.read('facebook_logged'))   { updateFoodDb(); }
 	if(!app.read('facebook_logged'))  { return; }
 	if(!app.read('facebook_userid'))  { return; }
@@ -711,7 +723,10 @@ app.timeout('syncEntries',3000,function() {
 		app.globals.syncRunning = true;
 		$('body').addClass('insync');
 		//get remote sql
-		$.get('https://kcals.net/sync.php?uid=' + userId,function(sql) {
+		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/sync.php?uid=' + userId, error: function(xhr, statusText) { 
+			$('body').removeClass('insync');
+		}, success: function(sql) {
+
 			if(app.beenDev) {
 				app.timer.start('sync');	
 			}
@@ -751,7 +766,7 @@ app.timeout('syncEntries',3000,function() {
 					});
 				},0);
 			}
-		});
+		}});
 	}
 //
 });
@@ -1111,7 +1126,7 @@ function afterHide(cmd) {
 		//////////////
 		app.handlers.fade(0,'body',function() {
 			if(app.read('facebook_logged') && cmd == 'clear') {
-				$.post('https://kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
+				$.post(app.https + 'kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
 					setTimeout(function() {
 						app.reboot(cmd);
 					},200);
@@ -1233,7 +1248,7 @@ function updateFoodDb(callback) {
 			}
 			function doImport(callback) {
 				spinner();
-				var databaseHost = app.read('config_autoupdate', 'on') ? 'https://kcals.net/' : hostLocal;
+				var databaseHost = app.read('config_autoupdate', 'on') ? app.https + 'kcals.net/' : hostLocal;
 				if (callback == 'retry') {
 					databaseHost = '';
 				}
@@ -2057,6 +2072,10 @@ function getNiceScroll(target,timeout,callback) {
 	if(!$.nicescroll)		{ return; }
 	if(!app.exists(target)) { return; }
 	if(!timeout)	  		{ timeout = 0; }
+	//force is.scrollable on #appHistory for android
+	if(app.device.android) {
+		app.is.scrollable  = document.getElementById('appHistory') ? true : false;
+	}	
 	//quick scrolling / prevent scrollbar
 	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
 		//$('.overthrow').removeClass('overthrow');
@@ -2590,7 +2609,7 @@ function getLoginEmail() {
 				$.ajax({
 					type : 'GET',
 					dataType : 'text',
-					url : 'https://kcals.net/auth.php?user=' + usrMailStore,
+					url : app.https + 'kcals.net/auth.php?user=' + usrMailStore,
 					error : function (xhr, statusText) {
 						errorHandler('error: ' + xhr + statusText);
 					},
@@ -2636,7 +2655,7 @@ function getLoginEmail() {
 			$.ajax({
 				type : 'GET',
 				dataType : 'text',
-				url : 'https://kcals.net/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore,
+				url : app.https + 'kcals.net/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore,
 				error : function (xhr, statusText) {
 					errorHandler('error: ' + xhr + statusText);
 				},
