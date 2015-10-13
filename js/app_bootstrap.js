@@ -91,28 +91,24 @@ function InitializeLocalSuperBlock(opt) {
 //#///////////////////#//
 //# REMOTE SUPERBLOCK #//
 //#///////////////////#//
-var remoteBlockTimer;
 function buildRemoteSuperBlock(opt) {
-	clearTimeout(remoteBlockTimer);
-	remoteBlockTimer = setTimeout(function() {
-	if($('body').hasClass('loading')) { return; }
-	//
-	var https = /https/i.test(window.location.protocol) ? 'https://' : 'http://';
-	var dataJS  = '';
-	var dataCSS = '';
-	var hostLocal2 = 'https://kcals.net/';
-	if(window.localStorage.getItem('config_debug') == 'active') {
-		hostLocal2 = 'http://192.168.1.5/';
-	}
-	//retrieve ajax check
-	if(typeof cssLoadCount === 'undefined') { return; }
-	cssLoadCount(0,0);
-	$('body').removeClass('loading');
-	$('body').removeClass('uptodate');
-	$('body').removeClass('pending');
-	$('body').removeClass('corrupted');
-	//update.php
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=min', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
+	app.timeout('buildRemoteSuperBlock',3000,function() {
+		if($('body').hasClass('loading')) { return; }
+		//
+		var dataJS  = '';
+		var dataCSS = '';
+		var hostLocal2 = 'https://kcals.net/';
+		if(window.localStorage.getItem('config_debug') == 'active') {
+			hostLocal2 = 'http://192.168.1.5/';
+		}
+		//retrieve ajax check
+		if(typeof cssLoadCount === 'undefined') { return; }
+		cssLoadCount(0,0);
+		$('body').removeClass('loading uptodate pending corrupted');
+		////////////////
+		// update.php //
+		////////////////
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=min', error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
 		//null
 		if(hash == '') { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
 		var hashObj = hash.split(',');
@@ -128,104 +124,110 @@ function buildRemoteSuperBlock(opt) {
 				return;
 			}
 		}
-	$('body').addClass('loading');
-	cssLoadCount(0,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_lib.js',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
-	cssLoadCount(1,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_lang.js',        error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
-	cssLoadCount(2,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_setup.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
-	cssLoadCount(3,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_macro.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
-	cssLoadCount(4,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_build.js',       error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
-	cssLoadCount(5,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_static.js',      error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
-	cssLoadCount(6,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_dynamic.js',     error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
-	cssLoadCount(7,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_custom_core.js', error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
-	cssLoadCount(8,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/index.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
-	cssLoadCount(9,10);
-	$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/fonts.css',         error: function(xhr, statusText) { console.log('Error: '+statusText); $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
-	cssLoadCount(10,10);
-	/////////////////////
-	// INTEGRITY CHECK //
-	/////////////////////
-	cssLoadCount(0,0);
-	if(!isCacheValid(dataJS + dataCSS)) { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
-	//store original hash
-	window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
-	//MOZ~IE CSS
-	if((/Firefox/i).test(navigator.userAgent)) {
-		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
-		dataCSS = dataCSS.split('-webkit-').join('-moz-');
-	}
-	if((/trident|IEMobile/i).test(navigator.userAgent))	{
-		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
-		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
-		dataCSS = dataCSS.split('-webkit-').join('-ms-');
-	}
-	////////////////////
-	// UPDATE PENDING //
-	////////////////////
-	var updatePending = 0;
-	//QUOTA
-	if (dataJS != window.localStorage.getItem('remoteSuperBlockJS')) {
-		window.localStorage.setItem('remoteSuperBlockJS', dataJS);
-		updatePending = 1;
-	}
-	if (dataCSS != window.localStorage.getItem('remoteSuperBlockCSS')) {
-		window.localStorage.setItem('remoteSuperBlockCSS', dataCSS);
-		updatePending = 1;
-	}
-	////////////////////
-	// RESTART DIALOG //
-	////////////////////
-	if (updatePending == 1) {
-		setTimeout(function () {
-			if (typeof app !== 'undefined') {
-				if (typeof app.analytics === 'function') {
-					app.analytics('autoupdate');
-				}
-			}
-		}, 5000);
-		$('body').removeClass('loading');
-		$('body').addClass('pending');
-		if (typeof appBuild !== 'undefined') {
-			window.localStorage.setItem('app_build', appBuild);
+		//////////////////
+		// AJAX LOADING //
+		//////////////////
+		$('body').addClass('loading');
+		cssLoadCount(0,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_lib.js',         error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+		cssLoadCount(1,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_lang.js',        error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+		cssLoadCount(2,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_setup.js',       error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+		cssLoadCount(3,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_macro.js',       error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+		cssLoadCount(4,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_build.js',       error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+		cssLoadCount(5,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_static.js',      error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+		cssLoadCount(6,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_dynamic.js',     error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+		cssLoadCount(7,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'js/app_custom_core.js', error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataJS  = dataJS  + raw;
+		cssLoadCount(8,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/index.css',         error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+		cssLoadCount(9,10);
+		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'css/fonts.css',         error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(raw) { dataCSS = dataCSS + raw;
+		cssLoadCount(10,10);
+		/////////////////////
+		// INTEGRITY CHECK //
+		/////////////////////
+		cssLoadCount(0,0);
+		if(!isCacheValid(dataJS + dataCSS)) { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
+		//store original hash
+		window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
+		//MOZ~IE CSS
+		if((/Firefox/i).test(navigator.userAgent)) {
+			dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
+			dataCSS = dataCSS.split('-webkit-').join('-moz-');
 		}
-		window.localStorage.setItem('app_restart_pending', true);
-		if (window.localStorage.getItem('app_notify_update')) {
+		if((/trident|IEMobile/i).test(navigator.userAgent))	{
+			dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
+			dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
+			dataCSS = dataCSS.split('-webkit-').join('-ms-');
+		}
+		////////////////////
+		// UPDATE PENDING //
+		////////////////////
+		var updatePending = 0;
+		//QUOTA
+		if (dataJS != window.localStorage.getItem('remoteSuperBlockJS')) {
+			window.localStorage.setItem('remoteSuperBlockJS', dataJS);
+			updatePending = 1;
+		}
+		if (dataCSS != window.localStorage.getItem('remoteSuperBlockCSS')) {
+			window.localStorage.setItem('remoteSuperBlockCSS', dataCSS);
+			updatePending = 1;
+		}
+		////////////////////
+		// RESTART DIALOG //
+		////////////////////
+		if (updatePending == 1) {
 			setTimeout(function () {
-				if (typeof appConfirm == 'function') {
-					function quickReboot(button) {
-						if (button === 2) {
-							afterHide();
-						} else {
-							window.localStorage.setItem('app_restart_pending', true);
-						}
+				if (typeof app !== 'undefined') {
+					if (typeof app.analytics === 'function') {
+						app.analytics('autoupdate');
 					}
-					appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
 				}
-			}, 2000);
-		}
-	} else {
-		$('body').removeClass('loading');
-		if (isCurrentCacheValid == 1) {
-			$('body').addClass('uptodate');
+			}, 5000);
+			$('body').removeClass('loading');
+			$('body').addClass('pending');
+			if (typeof appBuild !== 'undefined') {
+				window.localStorage.setItem('app_build', appBuild);
+			}
+			window.localStorage.setItem('app_restart_pending', true);
+			if (window.localStorage.getItem('app_notify_update')) {
+				setTimeout(function () {
+					if (typeof appConfirm == 'function') {
+						function quickReboot(button) {
+							if (button === 2) {
+								afterHide();
+							} else {
+								window.localStorage.setItem('app_restart_pending', true);
+							}
+						}
+						appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
+					}
+				}, 2000);
+			}
 		} else {
-			$('body').addClass('corrupted');
+			$('body').removeClass('loading');
+			if (isCurrentCacheValid == 1) {
+				$('body').addClass('uptodate');
+			} else {
+				$('body').addClass('corrupted');
+			}
 		}
-	}
-	//
-	}});}});
-	}});}});}});
-	}});}});}});
-	}});}});
-	}});
-	},2000);
+		//
+		}});}});
+		}});}});}});
+		}});}});}});
+		}});}});
+		}});
+	/////////////////
+	// END TIMEOUT //
+	/////////////////
+	});
 }
 //#///////////////////#//
 //# APPEND SUPERBLOCK #//
