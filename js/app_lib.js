@@ -45,7 +45,7 @@ var app = {
 	},
 	ua:   navigator.userAgent,
 	http: /http/i.test(window.location.protocol) ? true : false,
-	https: /https/i.test(window.location.protocol) ? 'https://' : 'http://',
+	https: /https/i.test(window.location.protocol) ? 'https://' : !/https/i.test(window.location.protocol) ? 'https://' : 'http://',
 	now: function() {
 		return new Date().getTime();
 	},
@@ -439,7 +439,8 @@ app.is.scrollable = false;
 if($.nicescroll) {
 	if(app.device.desktop)								{ app.is.scrollable = true; }
 	if(app.device.linux)								{ app.is.scrollable = true; }
-	if(app.device.android && app.device.android < 4.4)	{ app.is.scrollable = true; }
+	//if(app.device.android)								{ app.is.scrollable = true; }
+	if(app.device.android && app.device.android < 4.4){ app.is.scrollable = true; }
 }
 //////////////////
 // APP.REBOOT() //
@@ -2176,7 +2177,7 @@ app.trackInstall = function () {
 //# ONLINE USERS #//
 //#//////////////#//
 app.online = function () {
-	$.ajax({type: 'GET', dataType: 'text', url: 'https://kcals.net/' + 'update.php?type=usr', success: function(onlineUsers) {
+	$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/' + 'update.php?type=usr', success: function(onlineUsers) {
 		app.save('online_users',onlineUsers);
 		if(app.read('app_last_tab','tab1')) {
 			$('#onlineUsers span').html2(app.read('online_users'));
@@ -2375,7 +2376,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	if (usrMsg && usrMail) {
 		$.ajax({
 			type : 'POST',
-			url : 'https://kcals.net/mail.php',
+			url : app.https + 'kcals.net/mail.php',
 			data : {
 				mail: usrMail,
 				msg: usrMsg,
