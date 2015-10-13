@@ -1293,9 +1293,9 @@ function getEntryEdit(eid) {
 		//////////////
 		var getEntryHandler = function() {
 			// CLEAR HIGHTLIGHT //
-			setTimeout(function() {
-				$('.longHold').removeClass('longHold');
-			},600);
+			//setTimeout(function() {
+			//	$('.longHold').removeClass('longHold');
+			//},600);
 			//food/exercise
 			if($('#getEntryTitle').val() >= 0) {
 				$('#divEntryTitle').addClass('food');
@@ -1333,6 +1333,8 @@ function getEntryEdit(eid) {
 				useShortLabels: true
 			});
 			}
+			/*
+			//Hold unused
 			//HOLD FLICKER
 			if(app.device.android) {
 				$('body').append2('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
@@ -1340,6 +1342,7 @@ function getEntryEdit(eid) {
 				$('#dummyInput').blur();
 				$('#dummyInput').remove();
 			}
+			*/
 			//SET
 			$('#getEntryDate').scroller('setDate',new Date(parseInt($('#getEntryDate').val())), true);
 			//SAVE IF CHANGED
@@ -1710,7 +1713,7 @@ function buildAdvancedMenu() {
 	};
 	//GET VERSION.TXT WITH FALLBACK
 	app.handlers.activeRow('#advancedChangelog','button',function(evt) {
-		$.ajax({type: 'GET', dataType: 'text', url: 'https://kcals.net/' + 'version.txt',
+		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/' + 'version.txt',
 			error: function(xhr, statusText) {
 				//RETRY LOCAL
 				$.ajax({type: 'GET', dataType: 'text', url: 'version.txt',
