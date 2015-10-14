@@ -3,7 +3,7 @@
 
 	<content src="index.html" />
 
-	<access origin="*" />
+	<access origin="*" subdomains="true" />
 	<!-- <access subdomains="true" uri="*" origin="*" /> -->
 
 	<name>KCals Calorie Counter</name>
@@ -35,6 +35,7 @@
 	<preference name="splash-screen-duration" value="0" />
 	<preference name="KeepRunning" value="true" />
 	<preference name="AndroidLaunchMode" value="singleTop" />
+	<preference name="loadUrlTimeoutValue" value="60000" />
 	<!-- Preferences for Android -->
 	
 	<!-- Preferences for iOS -->
