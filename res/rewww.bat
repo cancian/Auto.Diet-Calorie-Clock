@@ -29,12 +29,12 @@ cd k:\platforms\android\kcals\src\main\assets\www
 call reswww 
  
 rem "android-eclipse" 
-REM cd\ 
-REM deltree /y /z /s /q /t k:\platforms\android-eclipse\assets\www 
-REM rd /s /q k:\platforms\android-eclipse\assets\www 
-REM mkdir k:\platforms\android-eclipse\assets\www 
-REM cd k:\platforms\android-eclipse\assets\www 
-REM call reswww 
+cd\ 
+deltree /y /z /s /q /t k:\platforms\android-eclipse\assets\www 
+rd /s /q k:\platforms\android-eclipse\assets\www 
+mkdir k:\platforms\android-eclipse\assets\www 
+cd k:\platforms\android-eclipse\assets\www 
+call reswww 
  
 rem "ios"
 rem cd\ 
@@ -108,16 +108,16 @@ rd /s /q k:\platforms\bb10\platforms\blackberry10\build
 rem "config.xml"
 rem cd\ 
 del /q k:\platforms\android\kcals\src\main\res\xml\config.xml 
-REM del /q k:\platforms\android-eclipse\res\xml\config.xml 
+del /q k:\platforms\android-eclipse\res\xml\config.xml 
 del /q k:\platforms\ios\kcals\config.xml 
-REM del /q k:\platforms\windows10\config.xml 
+del /q k:\platforms\windows10\config.xml 
 del /q k:\platforms\windows8\config.xml 
 del /q k:\platforms\wp8\config.xml 
 del /q k:\platforms\bb10\config.xml
 del /q K:\platforms\playbook\www\config.xml
 
 copy /y k:\www\config.xml k:\platforms\android\kcals\src\main\res\xml\config.xml 
-REM copy /y k:\www\config.xml k:\platforms\android-eclipse\res\xml\config.xml 
+copy /y k:\www\config.xml k:\platforms\android-eclipse\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml 
 REM copy /y k:\www\config.xml k:\platforms\windows10\config.xml 
 copy /y k:\www\config.xml k:\platforms\windows8\config.xml 
@@ -234,18 +234,18 @@ copy /y k:\www\res\icon\android\96.png k:\platforms\android\kcals\src\main\res\d
 copy /y k:\www\res\icon\android\144.png k:\platforms\android\kcals\src\main\res\drawable-xxhdpi\icon.png 
  
  
-REM del /q k:\platforms\android-eclipse\res\drawable\icon.png 
-REM del /q k:\platforms\android-eclipse\res\drawable-ldpi\icon.png 
-REM del /q k:\platforms\android-eclipse\res\drawable-mdpi\icon.png 
-REM del /q k:\platforms\android-eclipse\res\drawable-hdpi\icon.png 
-REM del /q k:\platforms\android-eclipse\res\drawable-xhdpi\icon.png 
-REM del /q k:\platfo#rms\android-eclipse\res\drawable-xxhdpi\icon.png 
-REM copy /y k:\www\res\icon\android\144.png k:\platforms\android-eclipse\res\drawable\icon.png 
-REM copy /y k:\www\res\icon\android\36.png k:\platforms\android-eclipse\res\drawable-ldpi\icon.png 
-REM copy /y k:\www\res\icon\android\48.png k:\platforms\android-eclipse\res\drawable-mdpi\icon.png 
-REM copy /y k:\www\res\icon\android\72.png k:\platforms\android-eclipse\res\drawable-hdpi\icon.png 
-REM copy /y k:\www\res\icon\android\96.png k:\platforms\android-eclipse\res\drawable-xhdpi\icon.png 
-REM copy /y k:\www\res\icon\android\144.png k:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
+del /q k:\platforms\android-eclipse\res\drawable\icon.png 
+del /q k:\platforms\android-eclipse\res\drawable-ldpi\icon.png 
+del /q k:\platforms\android-eclipse\res\drawable-mdpi\icon.png 
+del /q k:\platforms\android-eclipse\res\drawable-hdpi\icon.png 
+del /q k:\platforms\android-eclipse\res\drawable-xhdpi\icon.png 
+del /q k:\platfo#rms\android-eclipse\res\drawable-xxhdpi\icon.png 
+copy /y k:\www\res\icon\android\144.png k:\platforms\android-eclipse\res\drawable\icon.png 
+copy /y k:\www\res\icon\android\36.png k:\platforms\android-eclipse\res\drawable-ldpi\icon.png 
+copy /y k:\www\res\icon\android\48.png k:\platforms\android-eclipse\res\drawable-mdpi\icon.png 
+copy /y k:\www\res\icon\android\72.png k:\platforms\android-eclipse\res\drawable-hdpi\icon.png 
+copy /y k:\www\res\icon\android\96.png k:\platforms\android-eclipse\res\drawable-xhdpi\icon.png 
+copy /y k:\www\res\icon\android\144.png k:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
 
 rem start /realtime takeown /r /d y /f d:\
 rem start /realtime takeown /r /d y /f d:\home
