@@ -35,7 +35,6 @@
 	<preference name="splash-screen-duration" value="0" />
 	<preference name="KeepRunning" value="true" />
 	<preference name="AndroidLaunchMode" value="singleTop" />
-	<preference name="loadUrlTimeoutValue" value="60000" />
 	<!-- Preferences for Android -->
 	
 	<!-- Preferences for iOS -->
