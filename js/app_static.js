@@ -897,30 +897,33 @@ app.define('calcForm#pA6N','kilograms');
 // FONT UNLOCKER //
 ///////////////////
 function unlockApp() {
-	//////////////
-	// DEV LOCK //
-	//////////////
-	if(app.dev) {
-		app.save('been_dev',1);
-	}
-	appResizer(100);
-	//start scrolling
-	setTimeout(function() {
-		getNiceScroll('#appContent');
-		niceResizer();
-	},300);
-	$('body').removeClass('unloaded');
-	$('body').addClass('started');
-	$('body').css('opacity',1);
-	$('body').show();
-	$('#fontTest').remove();
-	//clear safe-loader
+	///////////////////////
+	// clear safe loader //
+	///////////////////////
 	if (typeof fontTestInterval !== 'undefined') {
 		clearInterval(fontTestInterval);
 	}
 	if (typeof loadTimeout !== 'undefined') {
 		clearInterval(loadTimeout);
 	}
+	//////////////
+	// DEV LOCK //
+	//////////////
+	if(app.dev) {
+		app.save('been_dev',1);
+	}
+	//start scrolling
+	setTimeout(function() {
+		getNiceScroll('#appContent');
+		appResizer(100);
+	},300);
+	$('#fontTest').remove();
+	//
+	$('body').removeClass('unloaded');
+	$('body').addClass('started');
+	$('body').css('opacity',1);
+	$('body').show();
+	appResizer(0);
 }
 /////////////////
 // SAFE-LOADER //
@@ -931,19 +934,15 @@ var loadTimeout = setTimeout(function() {
 //////////////////
 // ON FONT LOAD //
 //////////////////
-var timerFont = 5;
-if(!$('#fontTest').length) {
+if(!document.getElementById('fontTest')) {
 	$('body').append2('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
 	var fontTestInterval = setInterval(function() {
 		if($('#fontTest').width() == 80) {
 			clearInterval(fontTestInterval);
 			clearInterval(loadTimeout);
 			unlockApp();
-		} else {
-			//decelerate
-			//timerFont++;
 		}
-	},timerFont);
+	},1);
 }
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
@@ -999,10 +998,6 @@ if(app.is.scrollable) {
 // refresh entrylist time & online users //
 ///////////////////////////////////////////
 (function entryRetimer() {
-	//PARSE ERRORS
-	setTimeout(function() {
-		app.parseErrorLog();
-	},6000);
 	//every 45s
 	setTimeout(function() {
 		updateEntriesTime();
@@ -1011,6 +1006,11 @@ if(app.is.scrollable) {
 	setTimeout(function() {
 		app.online();
 	},2000);
+	//PARSE ERRORS
+	setTimeout(function() {
+		app.parseErrorLog();
+	},6000);
+	//
 	setTimeout(entryRetimer,(45*1000));
 })();
 /////////////////////////////
