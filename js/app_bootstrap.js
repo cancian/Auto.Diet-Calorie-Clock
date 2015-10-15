@@ -91,8 +91,10 @@ function InitializeLocalSuperBlock(opt) {
 //#///////////////////#//
 //# REMOTE SUPERBLOCK #//
 //#///////////////////#//
+var remoteSuperBlockTimer;
 function buildRemoteSuperBlock(opt) {
-	app.timeout('buildRemoteSuperBlock',3000,function() {
+	clearTimeout(remoteSuperBlockTimer);
+	remoteSuperBlockTimer = setTimeout(function() {
 		if($('body').hasClass('loading')) { return; }
 		//
 		var dataJS  = '';
@@ -227,7 +229,7 @@ function buildRemoteSuperBlock(opt) {
 	/////////////////
 	// END TIMEOUT //
 	/////////////////
-	});
+	},3000);
 }
 //#///////////////////#//
 //# APPEND SUPERBLOCK #//
