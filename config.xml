@@ -43,7 +43,7 @@
 	<preference name="KeepRunning" value="true" />
 	<preference name="LoadUrlTimeoutValue" value="10000"/>
 	<preference name="InAppBrowserStorageEnabled" value="true"/>
-	<preference name="AndroidLaunchMode" value="singleTask"/>
+	<preference name="AndroidLaunchMode" value="singleTop"/>
 	<!-- Preferences for Android -->
 	
 	<!-- Preferences for iOS -->

@@ -50,9 +50,7 @@ $(document).ready(function() {
 		// LOAD DB //
 		/////////////
 		localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
-		setTimeout(function() {
-			initDB();
-		},0);
+		initDB();
 		/////////////////////
 		// REBOOT ON ERROR //
 		/////////////////////
