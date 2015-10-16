@@ -22,7 +22,6 @@
 	<icon src="icon.png" />
 
 	<!-- Preferences for Android -->
-	<preference name="permissions" value="none" />
 	<preference name="phonegap-version" value="3.6" />
 	<preference name="orientation" value="default" />
 	<preference name="target-device" value="universal" />
@@ -33,17 +32,17 @@
 	<preference name="exit-on-suspend" value="false" />
 	<preference name="auto-hide-splash-screen" value="true" />
 	<preference name="disable-cursor" value="false" />
-	<preference name="android-minSdkVersion" value="7" />
+	<preference name="android-minSdkVersion" value="10" />
 	<preference name="android-installLocation" value="auto" />
 	<preference name="BackgroundColor" value="0xffffffff" />
 	<preference name="webviewbounce" value="false" />
 	<preference name="stay-in-webview" value="false" />
 	<preference name="show-splash-screen-spinner" value="false" />
-	<preference name="splash-screen-duration" value="0" />
+	<preference name="splash-screen-duration" value="1" />
 	<preference name="KeepRunning" value="true" />
-	<preference name="LoadUrlTimeoutValue" value="10000"/>
+	<preference name="LoadUrlTimeoutValue" value="20000"/>
 	<preference name="InAppBrowserStorageEnabled" value="true"/>
-	<preference name="AndroidLaunchMode" value="singleTop"/>
+	<preference name="AndroidLaunchMode" value="singleTop" />
 	<!-- Preferences for Android -->
 	
 	<!-- Preferences for iOS -->
@@ -52,8 +51,9 @@
 	<preference name="BackupWebStorage" value="local" />
 	<preference name="DisallowOverscroll" value="true" />
 	<preference name="EnableViewportScale" value="false" />
-	<preference name="FadeSplashScreen" value="false" />
-	<preference name="FadeSplashScreenDuration" value="0" />
+	<preference name="FadeSplashScreen" value="true" />
+	<preference name="FadeSplashScreenDuration" value="1" />
+	<preference name="SplashScreenDelay" value="1" />
 	<preference name="HideKeyboardFormAccessoryBar" value="false" />
 	<preference name="KeyboardDisplayRequiresUserAction" value="true" />
 	<preference name="KeyboardShrinksView" value="false" />
@@ -61,17 +61,14 @@
 	<preference name="ShowSplashScreenSpinner" value="false" />
 	<preference name="SuppressesIncrementalRendering" value="true" />
 	<preference name="TopActivityIndicator" value="gray" />
-	<preference name="SplashScreenDelay" value="0" />
+
 	<!-- Preferences for iOS -->
 
 	<!-- Preferences for BB10 -->
 	<preference name="DiskCache" value="enable" />
-	<preference name="Orientation" value="default" />
 	<preference name="WebSecurity" value="disable" />
 	<preference name="ChildBrowser" value="enable" />
 	<preference name="PopupBlocker" value="disable" />
-	<preference name="AutoHideSplashScreen" value="true" />
-	<preference name="HideKeyboardFormAccessoryBar" value="false" />
 	<!-- Preferences for BB10 -->
 
 	<!-- Preferences for PLAYBOOK 
