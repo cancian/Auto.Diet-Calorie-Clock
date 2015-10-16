@@ -5,7 +5,14 @@
 
 	<access origin="*" subdomains="true" />
 	<!-- <access subdomains="true" uri="*" origin="*" /> -->
-
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-intent href="market:*" />
+	
 	<name>KCals Calorie Counter</name>
 
 	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>

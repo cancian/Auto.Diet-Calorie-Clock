@@ -1,22 +1,30 @@
-﻿if (typeof cordova !== 'undefined') {
-	//BB10 ~ inappbrowser
-	var BBINAPP = /BB10/.test(navigator.userAgent) ? '' : { 
-		'file' : 'plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js',
-		'id' : 'org.apache.cordova.inappbrowser.inappbrowser',
-		'clobbers' : ['window.open'] 
-	};
-	//CORDOVA
-	cordova.define('cordova/plugin_list', function (require, exports, module) {
-		module.exports = [{
-				'file' : 'plugins/org.apache.cordova.dialogs/www/notification.js',
-				'id' : 'org.apache.cordova.dialogs.notification',
-				'merges' : ['navigator.notification']
-			}, {
-				'file' : 'plugins/org.apache.cordova.dialogs/www/android/notification.js',
-				'id' : 'org.apache.cordova.dialogs.notification_android',
-				'merges' : ['navigator.notification']
-			}, 
-			BBINAPP
-		];
-	});
-}
+﻿cordova.define('cordova/plugin_list', function (require, exports, module) {
+	module.exports = [{
+			"file" : "plugins/cordova-plugin-dialogs/www/notification.js",
+			"id" : "cordova-plugin-dialogs.notification",
+			"merges" : [
+				"navigator.notification"
+			]
+		}, {
+			"file" : "plugins/cordova-plugin-dialogs/www/android/notification.js",
+			"id" : "cordova-plugin-dialogs.notification_android",
+			"merges" : [
+				"navigator.notification"
+			]
+		}, {
+			"file" : "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+			"id" : "cordova-plugin-inappbrowser.inappbrowser",
+			"clobbers" : [
+				"cordova.InAppBrowser.open",
+				"window.open"
+			]
+		}
+	];
+	module.exports.metadata =
+	// TOP OF METADATA
+	{
+		"cordova-plugin-dialogs" : "1.1.2-dev",
+		"cordova-plugin-inappbrowser" : "1.0.2-dev"
+	}
+	// BOTTOM OF METADATA
+});
