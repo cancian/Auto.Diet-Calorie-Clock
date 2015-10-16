@@ -1450,7 +1450,7 @@ app.safeExec = function (callback) {
 ///////////////////
 // ERROR HANDLER //
 ///////////////////
-function errorHandler(error) {
+function errorHandler(error,callback) {
 	if(typeof error === 'undefined') {
 		error = '';
 	}
@@ -1480,6 +1480,12 @@ function errorHandler(error) {
 		app.save('error_log_handled','handled log: ' + error)
 		//TRACK
 		app.analytics('error','handled: ' + error);
+	}
+	//////////////
+	// CALLBACK //
+	//////////////
+	if (typeof callback === 'function') {
+		callback();
 	}
 }
 /////////////////
