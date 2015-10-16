@@ -24,13 +24,13 @@ var openFB = (function () {
         baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
 
     // Default OAuth redirect URL. Can be overriden in init()
-        oauthRedirectURL = baseURL + '/oauthcallback.html',
+        oauthRedirectURL = 'https://kcals.net/oauthcallback.html',
 
     // Default Cordova OAuth redirect URL. Can be overriden in init()
         cordovaOAuthRedirectURL = "https://www.facebook.com/connect/login_success.html",
 
     // Default Logout redirect URL. Can be overriden in init()
-        logoutRedirectURL = baseURL + '/logoutcallback.html',
+        logoutRedirectURL = 'https://kcals.net/logoutcallback.html',
 
     // Because the OAuth login spans multiple processes, we need to keep the login callback function as a variable
     // inside the module instead of keeping it local within the login function.
@@ -49,19 +49,6 @@ var openFB = (function () {
         runningInCordova = true;
     }, false);
 
-    /**
-     * Initialize the OpenFB module. You must use this function and initialize the module with an appId before you can
-     * use any other function.
-     * @param params - init paramters
-     *  appId: (Required) The id of the Facebook app,
-     *  tokenStore: (optional) The store used to save the Facebook token. If not provided, we use sessionStorage.
-     *  loginURL: (optional) The OAuth login URL. Defaults to https://www.facebook.com/dialog/oauth.
-     *  logoutURL: (optional) The logout URL. Defaults to https://www.facebook.com/logout.php.
-     *  oauthRedirectURL: (optional) The OAuth redirect URL. Defaults to [baseURL]/oauthcallback.html.
-     *  cordovaOAuthRedirectURL: (optional) The OAuth redirect URL. Defaults to https://www.facebook.com/connect/login_success.html.
-     *  logoutRedirectURL: (optional) The logout redirect URL. Defaults to [baseURL]/logoutcallback.html.
-     *  accessToken: (optional) An already authenticated access token.
-     */
     function init(params) {
 
         if (params.appId) {
@@ -86,10 +73,6 @@ var openFB = (function () {
 
     }
 
-    /**
-     * Checks if the user has logged in with openFB and currently has a session api token.
-     * @param callback the function that receives the loginstatus
-     */
     function getLoginStatus(callback) {
         var token = tokenStore.fbAccessToken,
             loginStatus = {};
@@ -102,15 +85,6 @@ var openFB = (function () {
         if (callback) callback(loginStatus);
     }
 
-    /**
-     * Login to Facebook using OAuth. If running in a Browser, the OAuth workflow happens in a a popup window.
-     * If running in Cordova container, it happens using the In-App Browser. Don't forget to install the In-App Browser
-     * plugin in your Cordova project: cordova plugins add org.apache.cordova.inappbrowser.
-     *
-     * @param callback - Callback function to invoke when the login process succeeds
-     * @param options - options.scope: The set of Facebook permissions requested
-     * @returns {*}
-     */
     function login(callback, options) {
 
         var loginWindow,
@@ -168,12 +142,6 @@ var openFB = (function () {
 
     }
 
-    /**
-     * Called either by oauthcallback.html (when the app is running the browser) or by the loginWindow loadstart event
-     * handler defined in the login() function (when the app is running in the Cordova/PhoneGap container).
-     * @param url - The oautchRedictURL called by Facebook with the access_token in the querystring at the ned of the
-     * OAuth workflow.
-     */
     function oauthCallback(url) {
         // Parse the OAuth data received from Facebook
         var queryString,
@@ -194,16 +162,11 @@ var openFB = (function () {
         }
     }
 
-    /**
-     * Logout from Facebook, and remove the token.
-     * IMPORTANT: For the Facebook logout to work, the logoutRedirectURL must be on the domain specified in "Site URL" in your Facebook App Settings
-     *
-     */
     function logout(callback) {
         var logoutWindow,
             token = tokenStore.fbAccessToken;
 
-        /* Remove token. Will fail silently if does not exist */
+        //Remove token. Will fail silently if does not exist
         tokenStore.removeItem('fbAccessToken');
 
         if (token) {
@@ -221,15 +184,6 @@ var openFB = (function () {
 
     }
 
-    /**
-     * Lets you make any Facebook Graph API request.
-     * @param obj - Request configuration object. Can include:
-     *  method:  HTTP method: GET, POST, etc. Optional - Default is 'GET'
-     *  path:    path in the Facebook graph: /me, /me.friends, etc. - Required
-     *  params:  queryString parameters as a map - Optional
-     *  success: callback function when operation succeeds - Optional
-     *  error:   callback function when operation fails - Optional
-     */
     function api(obj) {
 
         var method = obj.method || 'GET',
@@ -256,12 +210,6 @@ var openFB = (function () {
         xhr.send();
     }
 
-    /**
-     * Helper function to de-authorize the app
-     * @param success
-     * @param error
-     * @returns {*}
-     */
     function revokePermissions(success, error) {
         return api({method: 'DELETE',
             path: '/me/permissions',
