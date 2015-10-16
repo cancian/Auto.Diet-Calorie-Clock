@@ -27,7 +27,7 @@ var app = {
 	is: {},
 	config: {},
 	db: {
-		indexedDB    : 'indexedDB' in window || typeof window.indexedDB !== 'undefined' || typeof window.webkitIndexedDB !== 'undefined' || typeof window.mozIndexedDB !== 'undefined' || typeof window.OIndexedDB !== 'undefined' || typeof window.msIndexedDB !== 'undefined' ? true : false,
+		indexedDB    : typeof window.indexedDB === 'undefined' ? false : true,
 		webSQL       : !window.openDatabase ? false : true,
 		localStorage : !window.localStorage ? false : true,
 	},
