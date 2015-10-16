@@ -8,20 +8,20 @@ window.applicationCache.addEventListener('error', function(err) {
 // DOCUMENT READY //
 ////////////////////
 $(document).ready(function() {
-	app.ready(function() {
+	try {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
-		var webSQL       = 'webSQLStorage'       || localforage.WEBSQL;
-		var indexedDB    = 'asyncStorage'        || localforage.INDEXEDDB;
-		var localStorage = 'localStorageWrapper' || localforage.LOCALSTORAGE;
+		var webSQL       = localforage.WEBSQL;
+		var indexedDB    = localforage.INDEXEDDB;
+		var localStorage = localforage.LOCALSTORAGE;
 		var dbDriver;
 		/////////////////////
 		// FORCE DB ENGINE //
 		/////////////////////
-		     if(app.read('app_database','asyncStorage'))		{ dbDriver = [indexedDB,webSQL,localStorage]; }
-		else if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL,indexedDB,localStorage]; }
-		else if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,webSQL,indexedDB]; }
+		if(app.read('app_database','asyncStorage'))			{ dbDriver = [indexedDB,webSQL,localStorage]; }
+		if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL,indexedDB,localStorage]; }
+		if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,webSQL,indexedDB]; }
 		//////////////////////////////
 		// MOZ FALLBACK ~ INCOGNITO //
 		//////////////////////////////
@@ -49,12 +49,16 @@ $(document).ready(function() {
 		/////////////
 		// LOAD DB //
 		/////////////
-		localforage.config({name: 'localforage', storeName: 'KCals'});
-		localforage.setDriver(dbDriver);
-		setTimeout(function() {
-			initDB();
-		},0);
-	});
+		localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
+		initDB();
+		/////////////////////
+		// REBOOT ON ERROR //
+		/////////////////////
+	} catch(error) {
+		errorHandler(error,function() {
+			app.reboot('now');
+		});
+	}
 });
 ////////////////
 // RESUME EVT //
