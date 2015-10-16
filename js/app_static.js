@@ -14,19 +14,19 @@ $(document).ready(function() {
 		///////////////////
 		var webSQL       = 'webSQLStorage'       || localforage.WEBSQL;
 		var indexedDB    = 'asyncStorage'        || localforage.INDEXEDDB;
-		var localStorage = 'localStorageWrapper' || localforage.LOCALSTORAGE;		
-		var dbDriver     = [webSQL,indexedDB,localStorage];
+		var localStorage = 'localStorageWrapper' || localforage.LOCALSTORAGE;
+		var dbDriver;
 		/////////////////////
 		// FORCE DB ENGINE //
 		/////////////////////
-		if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL,indexedDB,localStorage]; }
-		if(app.read('app_database','asyncStorage'))			{ dbDriver = [indexedDB,webSQL,localStorage]; }
-		if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,webSQL,indexedDB]; }
+		     if(app.read('app_database','asyncStorage'))		{ dbDriver = [indexedDB,webSQL,localStorage]; }
+		else if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL,indexedDB,localStorage]; }
+		else if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,webSQL,indexedDB]; }
 		//////////////////////////////
 		// MOZ FALLBACK ~ INCOGNITO //
 		//////////////////////////////
 		app.remove('config_force_localstorage');
-		if(vendorClass == 'moz') {
+		if(vendorClass == 'moz' && app.device.desktop) {
 			detectPrivateMode(function(incognito) { 
 				if(incognito) {
 					app.incognito = true;
@@ -49,8 +49,11 @@ $(document).ready(function() {
 		/////////////
 		// LOAD DB //
 		/////////////
-		localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
-		initDB();
+		localforage.config({name: 'localforage', storeName: 'KCals'});
+		localforage.setDriver(dbDriver);
+		setTimeout(function() {
+			initDB();
+		},0);
 	});
 });
 ////////////////
