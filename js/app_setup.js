@@ -2423,10 +2423,22 @@ function getTokenFB(result) {
 //////////////////
 function getLoginFB() {
 	try {
-		/////////////////
-		// IOS/ANDROID //
-		/////////////////
-		if(app.device.cordova && (app.device.android || app.device.ios)) {
+		////////////////////
+		// ANDROID OPENFB //
+		////////////////////
+		if(app.device.android) {
+			if (typeof openFB !== 'undefined') {
+				openFB.init({appId: '577673025616946'});
+				openFB.login(function (response) {
+					if(response.authResponse) {
+						getTokenFB(response.authResponse.accessToken);
+					}
+				});
+			}
+		////////////////////
+		// IOS CDV PLUGIN //
+		////////////////////
+		} else if(app.device.cordova && app.device.ios) {
 			if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') {
 				FB.init({ appId : '577673025616946', nativeInterface : CDV.FB, useCachedDialogs : false });
 				FB.login(function (response) {
