@@ -8,6 +8,9 @@
 • Water tracker
 • Daily tips
 
+# 1.9.11 [2015/10/16]
+• Faster results when searching for foods/exercises
+
 # 1.9.10 [2015/10/06]
 • Enhanced data integrity verification for the Backup & Synchronization feature
 • Prevent new diary entries from being added via return (enter) while editing an existing entry

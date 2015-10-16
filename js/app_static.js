@@ -15,13 +15,13 @@ $(document).ready(function() {
 		var webSQL       = localforage.WEBSQL;
 		var indexedDB    = localforage.INDEXEDDB;
 		var localStorage = localforage.LOCALSTORAGE;
-		var dbDriver;
+		var dbDriver     = [indexedDB,webSQL,localStorage];
 		/////////////////////
 		// FORCE DB ENGINE //
 		/////////////////////
 		if(app.read('app_database','asyncStorage'))			{ dbDriver = [indexedDB,webSQL,localStorage]; }
 		if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL,indexedDB,localStorage]; }
-		if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,webSQL,indexedDB]; }
+		if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,indexedDB,webSQL]; }
 		//////////////////////////////
 		// MOZ FALLBACK ~ INCOGNITO //
 		//////////////////////////////
@@ -50,7 +50,9 @@ $(document).ready(function() {
 		// LOAD DB //
 		/////////////
 		localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
-		initDB();
+		setTimeout(function() {
+			initDB();
+		},0);
 		/////////////////////
 		// REBOOT ON ERROR //
 		/////////////////////

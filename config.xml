@@ -23,8 +23,8 @@
 
 	<!-- Preferences for Android -->
 	<preference name="permissions" value="none" />
-	<preference name="phonegap-version" value="3.9.0" />
-	<preference name="orientation" value="portrait" />
+	<preference name="phonegap-version" value="3.6" />
+	<preference name="orientation" value="default" />
 	<preference name="target-device" value="universal" />
 	<preference name="fullscreen" value="false" />
 	<preference name="prerendered-icon" value="true" />
@@ -41,7 +41,9 @@
 	<preference name="show-splash-screen-spinner" value="false" />
 	<preference name="splash-screen-duration" value="0" />
 	<preference name="KeepRunning" value="true" />
-	<preference name="AndroidLaunchMode" value="singleTop" />
+	<preference name="LoadUrlTimeoutValue" value="10000"/>
+	<preference name="InAppBrowserStorageEnabled" value="true"/>
+	<preference name="AndroidLaunchMode" value="singleTask"/>
 	<!-- Preferences for Android -->
 	
 	<!-- Preferences for iOS -->
