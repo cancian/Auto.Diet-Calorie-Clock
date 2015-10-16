@@ -99,7 +99,7 @@ function buildRemoteSuperBlock(opt) {
 		//
 		var dataJS  = '';
 		var dataCSS = '';
-		var hostLocal2 = 'https://kcals.net/';
+		var hostLocal2 = https + 'kcals.net/';
 		if(window.localStorage.getItem('config_debug') == 'active') {
 			hostLocal2 = 'http://192.168.1.5/';
 		}

@@ -24,14 +24,14 @@ var openFB = (function () {
         baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
 
     // Default OAuth redirect URL. Can be overriden in init()
-        oauthRedirectURL = 'https://kcals.net/oauthcallback.html',
-
-    // Default Cordova OAuth redirect URL. Can be overriden in init()
+        //oauthRedirectURL = 'https://kcals.net/oauthcallback.html',
+		oauthRedirectURL = baseURL + '/oauthcallback.html',
+     // Default Cordova OAuth redirect URL. Can be overriden in init()
         cordovaOAuthRedirectURL = "https://www.facebook.com/connect/login_success.html",
 
     // Default Logout redirect URL. Can be overriden in init()
-        logoutRedirectURL = 'https://kcals.net/logoutcallback.html',
-
+        //logoutRedirectURL = 'https://kcals.net/logoutcallback.html',
+		logoutRedirectURL = baseURL + '/logoutcallback.html',
     // Because the OAuth login spans multiple processes, we need to keep the login callback function as a variable
     // inside the module instead of keeping it local within the login function.
         loginCallback,
