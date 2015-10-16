@@ -28,12 +28,12 @@ mkdir k:\platforms\android\kcals\src\main\assets\www
 cd k:\platforms\android\kcals\src\main\assets\www 
 call reswww 
  
-rem "android-eclipse" 
+rem "android-gradle" 
 cd\ 
-deltree /y /z /s /q /t k:\platforms\android-eclipse\assets\www 
-rd /s /q k:\platforms\android-eclipse\assets\www 
-mkdir k:\platforms\android-eclipse\assets\www 
-cd k:\platforms\android-eclipse\assets\www 
+deltree /y /z /s /q /t k:\platforms\android-gradle\assets\www 
+rd /s /q k:\platforms\android-gradle\assets\www 
+mkdir k:\platforms\android-gradle\assets\www 
+cd k:\platforms\android-gradle\assets\www 
 call reswww 
  
 rem "ios"
@@ -108,7 +108,7 @@ rd /s /q k:\platforms\bb10\platforms\blackberry10\build
 rem "config.xml"
 rem cd\ 
 del /q k:\platforms\android\kcals\src\main\res\xml\config.xml 
-del /q k:\platforms\android-eclipse\res\xml\config.xml 
+del /q k:\platforms\android-gradle\res\xml\config.xml 
 del /q k:\platforms\ios\kcals\config.xml 
 del /q k:\platforms\windows10\config.xml 
 del /q k:\platforms\windows8\config.xml 
@@ -117,7 +117,7 @@ del /q k:\platforms\bb10\config.xml
 del /q K:\platforms\playbook\www\config.xml
 
 copy /y k:\www\config.xml k:\platforms\android\kcals\src\main\res\xml\config.xml 
-copy /y k:\www\config.xml k:\platforms\android-eclipse\res\xml\config.xml 
+copy /y k:\www\config.xml k:\platforms\android-gradle\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml 
 REM copy /y k:\www\config.xml k:\platforms\windows10\config.xml 
 copy /y k:\www\config.xml k:\platforms\windows8\config.xml 
@@ -234,18 +234,18 @@ copy /y k:\www\res\icon\android\96.png k:\platforms\android\kcals\src\main\res\d
 copy /y k:\www\res\icon\android\144.png k:\platforms\android\kcals\src\main\res\drawable-xxhdpi\icon.png 
  
  
-del /q k:\platforms\android-eclipse\res\drawable\icon.png 
-del /q k:\platforms\android-eclipse\res\drawable-ldpi\icon.png 
-del /q k:\platforms\android-eclipse\res\drawable-mdpi\icon.png 
-del /q k:\platforms\android-eclipse\res\drawable-hdpi\icon.png 
-del /q k:\platforms\android-eclipse\res\drawable-xhdpi\icon.png 
-del /q k:\platfo#rms\android-eclipse\res\drawable-xxhdpi\icon.png 
-copy /y k:\www\res\icon\android\144.png k:\platforms\android-eclipse\res\drawable\icon.png 
-copy /y k:\www\res\icon\android\36.png k:\platforms\android-eclipse\res\drawable-ldpi\icon.png 
-copy /y k:\www\res\icon\android\48.png k:\platforms\android-eclipse\res\drawable-mdpi\icon.png 
-copy /y k:\www\res\icon\android\72.png k:\platforms\android-eclipse\res\drawable-hdpi\icon.png 
-copy /y k:\www\res\icon\android\96.png k:\platforms\android-eclipse\res\drawable-xhdpi\icon.png 
-copy /y k:\www\res\icon\android\144.png k:\platforms\android-eclipse\res\drawable-xxhdpi\icon.png 
+del /q k:\platforms\android-gradle\res\drawable\icon.png 
+del /q k:\platforms\android-gradle\res\drawable-ldpi\icon.png 
+del /q k:\platforms\android-gradle\res\drawable-mdpi\icon.png 
+del /q k:\platforms\android-gradle\res\drawable-hdpi\icon.png 
+del /q k:\platforms\android-gradle\res\drawable-xhdpi\icon.png 
+del /q k:\platfo#rms\android-gradle\res\drawable-xxhdpi\icon.png 
+copy /y k:\www\res\icon\android\144.png k:\platforms\android-gradle\res\drawable\icon.png 
+copy /y k:\www\res\icon\android\36.png k:\platforms\android-gradle\res\drawable-ldpi\icon.png 
+copy /y k:\www\res\icon\android\48.png k:\platforms\android-gradle\res\drawable-mdpi\icon.png 
+copy /y k:\www\res\icon\android\72.png k:\platforms\android-gradle\res\drawable-hdpi\icon.png 
+copy /y k:\www\res\icon\android\96.png k:\platforms\android-gradle\res\drawable-xhdpi\icon.png 
+copy /y k:\www\res\icon\android\144.png k:\platforms\android-gradle\res\drawable-xxhdpi\icon.png 
 
 rem start /realtime takeown /r /d y /f d:\
 rem start /realtime takeown /r /d y /f d:\home
