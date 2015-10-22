@@ -144,14 +144,16 @@ function initJS() {
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
+	if (!/http/i.test(window.location.protocol)) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
+	}
 	////////
 	// FB //
 	////////
-	if (!/http/i.test(window.location.protocol) && /iPhone|iPod|iPad|Android/i.test(navigator.userAgent)) {
+	if (!/http/i.test(window.location.protocol) && /iPhone|iPod|iPad/i.test(navigator.userAgent)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.js" id="facebookcordovaJS"><\/script>');
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-connect.js" id="facebookconnectJS"><\/script>');
-	} else if (/IEMobile/i.test(navigator.userAgent) && !IsMsApp) {
+	} else if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp) || !/http/i.test(window.location.protocol) && /Android/i.test(navigator.userAgent)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
 	} else if (/IEMobile/i.test(navigator.userAgent) && IsMsApp) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
