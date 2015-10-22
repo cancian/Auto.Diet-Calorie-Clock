@@ -83,6 +83,8 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 .msie.newwindow #appContent			{ /*overflow: hidden;*/ }
 body.android #appContent			{ /*background-image: -webkit-linear-gradient(#fff,#fefefe);*/ }
 body.android2 #appContent			{ /*top: 0; border-top: 65px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0);*/ }
+/*kitkat scrollbar*/
+body.android ::-webkit-scrollbar	{ display: none; }
 /*webkit scrollbar*/
 /*
 ::-webkit-scrollbar							{ display: none; }
