@@ -1,13 +1,16 @@
 ##############
 ## PHONEGAP ##
 ##############
-FM-{*
+FM-*.ico
+fm-*.ico
+
 # MINIFIED CONTENT
 js/min/
 css/min/
 desktop.ini
 _gsdata_/
 userdata/
+
 # ANDROID / ECLIPSE
 com.cancian.mylivediet
 /fontawesome.ttf
