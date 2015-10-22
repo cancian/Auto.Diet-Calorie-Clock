@@ -3,7 +3,8 @@
 ##############
 FM-*.ico
 fm-*.ico
-
+*}.ico
+*{*}.ico
 # MINIFIED CONTENT
 js/min/
 css/min/
