@@ -130,8 +130,7 @@
  */
 
 
-
-(function (factory) {
+;(function (factory) {
     if (typeof define === 'function' && define.amd && define.amd.jQuery) {
         // AMD. Register as anonymous module.
         define(['jquery'], factory);
@@ -245,11 +244,11 @@
 		longTap:null, 		
 		hold:null, 
 		triggerOnTouchEnd: true, 
-		triggerOnTouchLeave:false, 
+		triggerOnTouchLeave:true, 
 		allowPageScroll: "auto", 
 		fallbackToMouseEvents: true,	
 		excludedElements:"label, button, input, select, textarea, a, .noSwipe",
-		preventDefaultEvents:true
+		preventDefaultEvents:false
 	};
 
 
