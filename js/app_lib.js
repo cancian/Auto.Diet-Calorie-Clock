@@ -2355,7 +2355,11 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	// CORDOVA PLUGIN //
 	////////////////////
 	} else if (typeof navigator.notification !== 'undefined') {
-		navigator.notification.confirm(msg, callback, title, okCancel);
+		try {
+			navigator.notification.confirm(msg, callback, title, okCancel);
+		} catch(e) {
+			navigator.notification.confirm(msg, callback, title, okCancel);	
+		}
 	//////////////
 	// FALLBACK //
 	//////////////

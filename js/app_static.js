@@ -8,7 +8,7 @@ window.applicationCache.addEventListener('error', function(err) {
 // DOCUMENT READY //
 ////////////////////
 $(document).ready(function() {
-	try {
+	setTimeout(function() {
 		///////////////////
 		// OPEN DATABASE //
 		///////////////////
@@ -51,14 +51,7 @@ $(document).ready(function() {
 		/////////////
 		localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
 		initDB();
-		/////////////////////
-		// REBOOT ON ERROR //
-		/////////////////////
-	} catch(error) {
-		errorHandler(error,function() {
-			app.reboot('now');
-		});
-	}
+	},0);
 });
 ////////////////
 // RESUME EVT //
