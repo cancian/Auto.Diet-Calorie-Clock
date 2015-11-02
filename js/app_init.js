@@ -81,12 +81,8 @@ window.onerror = function (err, url, line) {
 	if (/Exception 18/i.test(err)) {
 		setTimeout(function () {
 			//RELOAD
-			if(typeof window.MyReload !== 'undefined') {
-				try { window.location.reload(true); } catch(err) { window.MyReload.reloadActivity(); }
-			} else {
-				window.location.reload(true);
-			}
-		}, 0);
+			window.location.reload(true);
+		},0);
 	}
 	return true;
 };

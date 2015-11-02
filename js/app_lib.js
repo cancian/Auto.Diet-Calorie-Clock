@@ -458,15 +458,7 @@ app.reboot = function(type,error) {
 	}
 	setTimeout(function() {
 		//RELOAD
-		if(app.device.android >= 3) {
-			if(typeof window.MyReload !== 'undefined') {
-				window.MyReload.reloadActivity();
-			} else {
-				window.location.reload(true);
-			}
-		} else {
-			window.location.reload(true);
-		}
+		window.location.reload(true);
 	},timeout);
 	if(error) {
 		throw error;
