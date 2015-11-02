@@ -942,7 +942,7 @@ if(!document.getElementById('fontTest')) {
 			clearInterval(loadTimeout);
 			unlockApp();
 		}
-	},1);
+	},5);
 }
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
