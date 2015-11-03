@@ -2357,9 +2357,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	} else if (typeof navigator.notification !== 'undefined') {
 		try {
 			navigator.notification.confirm(msg, callback, title, okCancel);
-		} catch(e) {
-			navigator.notification.confirm(msg, callback, title, okCancel);	
-		}
+		} catch(err) { errorHandler(err); }
 	//////////////
 	// FALLBACK //
 	//////////////
