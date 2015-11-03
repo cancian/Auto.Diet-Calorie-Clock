@@ -2423,10 +2423,10 @@ function getTokenFB(result) {
 //////////////////
 function getLoginFB() {
 	try {
-		////////////////////
-		// ANDROID OPENFB //
-		////////////////////
-		if(app.device.android) {
+		////////////////////////
+		// OPENFB ANDROID/IOS //
+		////////////////////////
+		if(app.device.cordova && (app.device.ios || app.device.android)) {
 			if (typeof openFB !== 'undefined') {
 				openFB.init({appId: '577673025616946'});
 				openFB.login(function (response) {
@@ -2438,7 +2438,8 @@ function getLoginFB() {
 		////////////////////
 		// IOS CDV PLUGIN //
 		////////////////////
-		} else if(app.device.cordova && app.device.ios) {
+		/*
+		} else if( && ) {
 			if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') {
 				FB.init({ appId : '577673025616946', nativeInterface : CDV.FB, useCachedDialogs : false });
 				FB.login(function (response) {
@@ -2447,6 +2448,7 @@ function getLoginFB() {
 					}
 				}, { scope : 'email' });
 			}
+		*/
 		/////////
 		// WP8 //
 		/////////

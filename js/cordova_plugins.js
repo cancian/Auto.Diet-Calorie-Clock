@@ -6,12 +6,6 @@
 				"navigator.notification"
 			]
 		}, {
-			"file" : "plugins/cordova-plugin-dialogs/www/android/notification.js",
-			"id" : "cordova-plugin-dialogs.notification_android",
-			"merges" : [
-				"navigator.notification"
-			]
-		}, {
 			"file" : "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
 			"id" : "cordova-plugin-inappbrowser.inappbrowser",
 			"clobbers" : [

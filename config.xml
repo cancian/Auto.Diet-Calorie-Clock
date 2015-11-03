@@ -5,14 +5,20 @@
 
 	<access origin="*" subdomains="true" />
 	<!-- <access subdomains="true" uri="*" origin="*" /> -->
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <allow-intent href="market:*" />
-	
+	<allow-intent href="http://*/*" />
+	<allow-intent href="https://*/*" />
+	<allow-intent href="tel:*" />
+	<allow-intent href="sms:*" />
+	<allow-intent href="mailto:*" />
+	<allow-intent href="geo:*" />
+	<platform name="android">
+		<allow-intent href="market:*" />
+	</platform>
+	<platform name="ios">
+		<allow-intent href="itms:*" />
+		<allow-intent href="itms-apps:*" />
+	</platform>
+
 	<name>KCals Calorie Counter</name>
 
 	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>
@@ -111,23 +117,21 @@
 		<param name="wp-package" value="InAppBrowser" />
 	</feature>
 
-	<feature name="org.apache.cordova.facebook.Connect">
-		<param name="ios-package" value="FacebookConnectPlugin" />
-	</feature>
-	
-	<feature name="LongPressFix">
-		<param name="ios-package" value="LongPressFix"/>
-		<param name="onload" value="true"/>
-	</feature>
-
 	<feature name="App">
 		<param name="android-package" value="org.apache.cordova.App"/>
 	</feature>
 
-    <feature name="Whitelist" >
-        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin"/>
-        <param name="onload" value="true" />
-    </feature>
+	<feature name="Whitelist">
+		<param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin"/>
+		<param name="onload" value="true" />
+	</feature>
+
+	<platform name="ios">
+		<feature name="LongPressFix">
+			<param name="ios-package" value="LongPressFix"/>
+			<param name="onload" value="true"/>
+		</feature>
+	</platform>
 	<!-- CORDOVA PLUGINS -->
 	
 </widget>
