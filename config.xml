@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="com.cancian.kcals" version="1.9.11" versionCode="191104" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+<widget id="com.cancian.kcals" version="1.9.12" versionCode="191200" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
 
 	<access origin="*" subdomains="true" />
 	<!-- <access subdomains="true" uri="*" origin="*" /> -->
-	<allow-intent href="http://*/*" />
-	<allow-intent href="https://*/*" />
-	<allow-intent href="tel:*" />
-	<allow-intent href="sms:*" />
-	<allow-intent href="mailto:*" />
-	<allow-intent href="geo:*" />
-	<platform name="android">
-		<allow-intent href="market:*" />
-	</platform>
-	<platform name="ios">
-		<allow-intent href="itms:*" />
-		<allow-intent href="itms-apps:*" />
-	</platform>
 
 	<name>KCals Calorie Counter</name>
 
@@ -52,6 +39,8 @@
 	<!-- Preferences for Android -->
 	
 	<!-- Preferences for iOS -->
+	<preference name="SuppressesLongPressGesture" value="true" />
+	<preference name="Suppresses3DTouchGesture" value="true" />
 	<preference name="AllowInlineMediaPlayback" value="false" />
 	<preference name="AutoHideSplashScreen" value="true" />
 	<preference name="BackupWebStorage" value="local" />
@@ -67,7 +56,6 @@
 	<preference name="ShowSplashScreenSpinner" value="false" />
 	<preference name="SuppressesIncrementalRendering" value="true" />
 	<preference name="TopActivityIndicator" value="gray" />
-
 	<!-- Preferences for iOS -->
 
 	<!-- Preferences for BB10 -->
@@ -116,26 +104,6 @@
 		<param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
 		<param name="wp-package" value="InAppBrowser" />
 	</feature>
-
-	<platform name="android">
-		<feature name="App">
-			<param name="android-package" value="org.apache.cordova.App"/>
-		</feature>
-		<feature name="Whitelist">
-			<param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin"/>
-			<param name="onload" value="true" />
-		</feature>
-	</platform>
-
-	<platform name="ios">
-		<feature name="LocalStorage">
-			<param name="ios-package" value="CDVLocalStorage" />
-		</feature>	
-		<feature name="LongPressFix">
-			<param name="ios-package" value="LongPressFix"/>
-			<param name="onload" value="true"/>
-		</feature>
-	</platform>
 	<!-- CORDOVA PLUGINS -->
 	
 </widget>

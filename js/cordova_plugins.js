@@ -14,11 +14,18 @@
 			]
 		}
 	];
+	////////////////////
+	// BB10 EXCEPTION //
+	////////////////////
+	if (/BB10|playbook/i.test(navigator.userAgent)) {
+		module.exports = [module.exports[0]];
+	}
+	//
 	module.exports.metadata =
-	// TOP OF METADATA
+		// TOP OF METADATA
 	{
-		"cordova-plugin-dialogs": "1.1.1",
-		"cordova-plugin-inappbrowser": "1.0.1"
+		"cordova-plugin-dialogs" : "1.1.1",
+		"cordova-plugin-inappbrowser" : "1.0.1",
 	}
 	// BOTTOM OF METADATA
 });
