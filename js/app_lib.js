@@ -149,7 +149,7 @@ var app = {
 		//localforage wrapper
 		if(/diary_entry|diary_food/i.test(key)) {
 			app.returner(type,value);
-			app.timeout(key,1000,function() {
+			app.timeout(key,500,function() {
 				localforage.setItem(key,value);
 			});
 			return;
@@ -2355,9 +2355,11 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	// CORDOVA PLUGIN //
 	////////////////////
 	} else if (typeof navigator.notification !== 'undefined') {
-		try {
-			navigator.notification.confirm(msg, callback, title, okCancel);
-		} catch(err) { errorHandler(err); }
+		app.timeout('dialogs',100,function() {
+			navigator.notification.confirm(msg, function(button) { 
+													setTimeout(function() { callback(button); }, 0); 
+												}, title, okCancel);
+		});
 	//////////////
 	// FALLBACK //
 	//////////////
