@@ -137,6 +137,10 @@ function initJS() {
 	// MSAPP //
 	///////////
 	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
+	////////////////////
+	// LOCALFORAGE DB //
+	////////////////////
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
@@ -146,10 +150,6 @@ function initJS() {
 	////////
 	// FB //
 	////////
-	//	if (!/http/i.test(window.location.protocol) && //i.test(navigator.userAgent)) {
-	//		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-js-sdk.js" id="facebookcordovaJS"><\/script>');
-	//		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-connect.js" id="facebookconnectJS"><\/script>');
-	//	} else 
 		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent))) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
 	} else if (/IEMobile/i.test(navigator.userAgent) && IsMsApp) {
@@ -162,8 +162,6 @@ function initJS() {
 	////////
 	//ISCROLL
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
-	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');

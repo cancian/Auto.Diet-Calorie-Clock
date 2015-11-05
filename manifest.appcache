@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# v191105 - 2015-11-02
+# v191200 - 2015-11-05
 
 index.html
 #JS
@@ -10,13 +10,13 @@ js/app_bootstrap.js
 js/cordova.js
 js/cordova_plugins.js
 js/plugins/cordova-plugin-dialogs/www/notification.js
-js/plugins/cordova-plugin-dialogs/www/android/notification.js
 js/plugins/cordova-plugin-inappbrowser/www/inappbrowser.js
 
+#DB
+js/localforage.js
+
 #FACEBOOK
-js/facebook-js-sdk.js
-js/facebook-js-sdk.min.js
-js/facebook-connect.js
+js/facebook-sdk.js
 js/openfb.js
 js/winfb.js
 
@@ -24,9 +24,6 @@ js/winfb.js
 js/jquery.js
 js/jquery.nicescroll.js
 js/jquery.touchswipe.js
-
-#DB
-js/localforage.js
 
 #UTILS
 js/galocalstorage.js
