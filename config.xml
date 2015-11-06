@@ -3,7 +3,8 @@
 
 	<content src="index.html" />
 
-	<access origin="*" subdomains="true" />
+	<access origin="*" subdomains="true" launch-external="yes" />
+	<allow-intent href="*" />
 	<!-- <access subdomains="true" uri="*" origin="*" /> -->
 
 	<name>KCals Calorie Counter</name>

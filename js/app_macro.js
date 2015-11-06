@@ -1756,7 +1756,8 @@ function buildAdvancedMenu() {
 	//# CONTACT #//
 	//#/////////#//
 	app.handlers.activeRow('#advancedContact','button',function(evt) {
-		app.url('mailto:cancian@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')');
+		//app.url('mailto:cancian@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')');
+		window.location.href = 'mailto:cancian@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')';
 	});
 	//#////////////////#//
 	//# SUGGESTION BOX #//

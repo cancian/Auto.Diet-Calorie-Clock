@@ -16,7 +16,7 @@ js/plugins/cordova-plugin-inappbrowser/www/inappbrowser.js
 js/localforage.js
 
 #FACEBOOK
-js/facebook-sdk.js
+js/facebook-all.js
 js/openfb.js
 js/winfb.js
 

@@ -8,6 +8,9 @@
 • Water tracker
 • Daily tips
 
+# 1.9.12 [2015/11/05]
+• Improved performance
+
 # 1.9.11 [2015/10/16]
 • Faster results when searching for foods/exercises
 
