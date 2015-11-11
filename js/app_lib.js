@@ -2355,11 +2355,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	// CORDOVA PLUGIN //
 	////////////////////
 	} else if (typeof navigator.notification !== 'undefined') {
-		app.timeout('dialogs',100,function() {
-			navigator.notification.confirm(msg, function(button) { 
-													setTimeout(function() { callback(button); }, 0); 
-												}, title, okCancel);
-		});
+			navigator.notification.confirm(msg, function(button) { setTimeout(function() { callback(button); }, 0); }, title, okCancel);
 	//////////////
 	// FALLBACK //
 	//////////////

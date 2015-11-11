@@ -106,6 +106,14 @@
 		<param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
 		<param name="wp-package" value="InAppBrowser" />
 	</feature>
+
+	<feature name="App">
+		<param name="android-package" value="org.apache.cordova.App"/>
+	</feature>
+	
+	<feature name="LocalStorage">
+		<param name="ios-package" value="CDVLocalStorage" />
+	</feature>
 	<!-- CORDOVA PLUGINS -->
 	
 </widget>
