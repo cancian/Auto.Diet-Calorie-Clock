@@ -1833,21 +1833,22 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	//# RELOAD FOOD DB #//
 	//#////////////////#//
-	app.handlers.activeRow('#advancedReload','false',function() {
-		function onConfirmReloadDB(button) {
-			if(button === 2) {
-				app.remove('foodDbLoaded');
-				app.remove('startLock');
-				updateFoodDb();
-				return false;
-			}
-		}
+	app.handlers.activeRow('#advancedReload','button',function() {
 		//SHOW DIALOG
-		appConfirm(LANG.REBUILD_FOOD_DB[lang], LANG.ARE_YOU_SURE[lang], onConfirmReloadDB, LANG.OK[lang], LANG.CANCEL[lang]);
+		appConfirm(LANG.REBUILD_FOOD_DB[lang], LANG.ARE_YOU_SURE[lang], 
+			function(button) {
+				if(button === 2) {
+					app.remove('foodDbLoaded');
+					app.remove('startLock');
+					updateFoodDb();
+				}
+			}, LANG.OK[lang], LANG.CANCEL[lang]
+		);
 	});
 	///////////////////////////////
 	// ALTERNATIVE DEBUG ENABLER //
 	///////////////////////////////
+	/*
 	$('#advancedReload').on('longhold',function(evt) {
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
@@ -1857,6 +1858,7 @@ function buildAdvancedMenu() {
 			afterHide();
 		}
 	});
+	*/
 	//#////////////////#//
 	//# RESET SETTINGS #//
 	//#////////////////#//
@@ -1866,7 +1868,6 @@ function buildAdvancedMenu() {
 			if(button === 2) {
 				$('#advancedReset').off();
 				deSetup();
-				return false;
 			}
 		}, LANG.OK[lang], LANG.CANCEL[lang]);
 	});
@@ -1908,18 +1909,15 @@ function buildAdvancedMenu() {
 			<label for="appAutoUpdateToggle"></label>\
 		</div>\
 	');
-	/////////////////////////////
-	// MANUAL RESTART SHORTCUT //
-	/////////////////////////////
+	/////////////////////////
+	// MANUAL RESTART ICON //
+	/////////////////////////
 	app.handlers.activeRow('#appAutoUpdateButton','button',function(evt) {
-	//$('#appAutoUpdateButton').on(tap,function(evt) {
-		//evt.stopPropagation();
-		function quickReboot(button) {
+		appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], function(button) {
 			if(button === 2) {
 				afterHide();
 			}
-		}
-		appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
+		}, LANG.OK[lang], LANG.CANCEL[lang]);
 	});
 	//////////////////
 	// read changes //

@@ -303,16 +303,19 @@ if(app.device.wp8) {
 // MENU BUTTON //
 /////////////////
 $(document).on('menubutton', function(evt) {
-		if($('#timerDailyInput').is(':focus') || $('#skipIntro').length) {
-			$('#timerDailyInput').trigger('blur');
-			return false;
-		}
-		evt.preventDefault();
-		if($('#pageSlideFood').hasClass('busy') || $('#pageSlideFood').hasClass('open') || $('#screenInfo').length) {
-			$(document).trigger('backbutton');
-		} else {
-			$(document).trigger('pageReload');
-		}
+	//SPINNER
+	if($('body').hasClass('spinnerMask')) { return false; }
+	//INTRO
+	if($('#timerDailyInput').is(':focus') || $('#skipIntro').length) {
+		$('#timerDailyInput').trigger('blur');
+		return false;
+	}
+	//TOGGLE~MENU
+	if($('#pageSlideFood').hasClass('busy') || $('#pageSlideFood').hasClass('open') || $('#screenInfo').length) {
+		$(document).trigger('backbutton');
+	} else {
+		$(document).trigger('pageReload');
+	}
 });
 ////////////////////////
 // BACK BUTTON (+ESC) //
