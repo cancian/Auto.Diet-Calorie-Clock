@@ -709,24 +709,24 @@
 			
 
 			if ( (fingerCount === options.fingers || options.fingers === ALL_FINGERS) || !touches || hasPinches() ) {
-				
-				direction = calculateDirection(currentFinger.start, currentFinger.end);
-				
-				//Check if we need to prevent default event (page scroll / pinch zoom) or not
-				validateDefaultEvent(jqEvent, direction);
-
-				//Distance and duration are all off the main finger
-				distance = calculateDistance(currentFinger.start, currentFinger.end);
-				duration = calculateDuration();
-
-                //Cache the maximum distance we made in this direction
-                setMaxDistance(direction, distance);
-
-
-				if (options.swipeStatus || options.pinchStatus) {
-					ret = triggerHandler(event, phase);
-				}
-				
+				//TWEAK
+				try {
+					direction = calculateDirection(currentFinger.start, currentFinger.end);
+					
+					//Check if we need to prevent default event (page scroll / pinch zoom) or not
+					validateDefaultEvent(jqEvent, direction);
+					
+					//Distance and duration are all off the main finger
+					distance = calculateDistance(currentFinger.start, currentFinger.end);
+					duration = calculateDuration();
+					
+        	        //Cache the maximum distance we made in this direction
+    	            setMaxDistance(direction, distance);
+					
+					if (options.swipeStatus || options.pinchStatus) {
+						ret = triggerHandler(event, phase);
+					}
+				} catch(e) {}
 				
 				//If we trigger end events when threshold are met, or trigger events when touch leaves element
 				if(!options.triggerOnTouchEnd || options.triggerOnTouchLeave) {
