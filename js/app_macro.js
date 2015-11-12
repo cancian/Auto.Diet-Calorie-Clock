@@ -1830,6 +1830,18 @@ function buildAdvancedMenu() {
 		var suggestionBoxClose = function() {};
 		getNewWindow('Suggestion Box',suggestionBoxHtml,suggestionBoxHandlers,suggestionBoxConfirm,suggestionBoxClose);
 	});
+	///////////////////////////////
+	// ALTERNATIVE DEBUG ENABLER //
+	///////////////////////////////
+	$('#advancedReload').on('longhold',function(evt) {
+		if(app.read('config_debug','active')) {
+			app.remove('config_debug');
+			afterHide();
+		} else {
+			app.save('config_debug','active');
+			afterHide();
+		}
+	});
 	//#////////////////#//
 	//# RELOAD FOOD DB #//
 	//#////////////////#//
@@ -1845,20 +1857,6 @@ function buildAdvancedMenu() {
 			}, LANG.OK[lang], LANG.CANCEL[lang]
 		);
 	});
-	///////////////////////////////
-	// ALTERNATIVE DEBUG ENABLER //
-	///////////////////////////////
-	/*
-	$('#advancedReload').on('longhold',function(evt) {
-		if(app.read('config_debug','active')) {
-			app.remove('config_debug');
-			afterHide();
-		} else {
-			app.save('config_debug','active');
-			afterHide();
-		}
-	});
-	*/
 	//#////////////////#//
 	//# RESET SETTINGS #//
 	//#////////////////#//

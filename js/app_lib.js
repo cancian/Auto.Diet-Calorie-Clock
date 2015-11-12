@@ -88,15 +88,10 @@ var app = {
 			}
 		}
 		*/
-		//
 		//localforage wrapper
 		if(/diary_entry|diary_food/i.test(key)) {
-			localforage.getItem(key,function(err, rows) {
-				if(err) {
-					errorHandler(err);
-				} else {
-					app.returner(value,rows);
-				}
+			localforage.getItem(key).then(function(rows) {
+				app.returner(value,rows);
 			});
 			return;
 		}
@@ -149,7 +144,7 @@ var app = {
 		//localforage wrapper
 		if(/diary_entry|diary_food/i.test(key)) {
 			app.returner(type,value);
-			app.timeout(key,500,function() {
+			app.timeout('dbTimeout_' + key,1000,function() {
 				localforage.setItem(key,value);
 			});
 			return;
