@@ -137,19 +137,15 @@ function initJS() {
 	// MSAPP //
 	///////////
 	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
-	////////////////////
-	// LOCALFORAGE DB //
-	////////////////////
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
 	if (!/http/i.test(window.location.protocol)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
 	}
-	////////
-	// FB //
-	////////
+	//////////////
+	// FACEBOOK //
+	//////////////
 		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent))) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
 	} else if (/IEMobile/i.test(navigator.userAgent) && IsMsApp) {
@@ -164,15 +160,16 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
+	//DB
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	//UTILS
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
-
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//

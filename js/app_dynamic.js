@@ -459,6 +459,7 @@ $(document).on("pageload", function (evt) {
 		// REUSE //
 		///////////
 		if (evt.target.id == 'reuse') {
+			$('#' + evt.target.id).addClass('button');
 			getEntry($(target).parent('div').attr('id'), function (data) {
 				data.reuse = true;
 				saveEntry(data, function (newRowId) {
@@ -484,6 +485,7 @@ $(document).on("pageload", function (evt) {
 		// EDIT //
 		//////////
 		if (evt.target.id == 'edit') {
+			$('#' + evt.target.id).addClass('button');
 			var editedEntry = $(target).parent('div').attr('id');
 			getEntryEdit(editedEntry);
 			setTimeout(function () {
@@ -495,6 +497,7 @@ $(document).on("pageload", function (evt) {
 		// DELETE //
 		////////////
 		if (evt.target.id == 'delete') {
+			$('#' + evt.target.id).addClass('button');
 			var rowId = $(target).parent('div').attr('id');
 			var rowTime = $(target).parent('div').attr('name');
 			//no jump
