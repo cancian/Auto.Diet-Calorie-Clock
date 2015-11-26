@@ -137,6 +137,10 @@ function initJS() {
 	// MSAPP //
 	///////////
 	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
+	////////
+	// DB //
+	////////
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
@@ -162,8 +166,6 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
-	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	//UTILS
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
