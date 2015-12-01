@@ -1,19 +1,19 @@
 ﻿CACHE MANIFEST
-# v191204 - 2015-11-14
+# v191205 - 2015-11-29
 
 index.html
 #JS
 js/app_init.js
 js/app_bootstrap.js
 
+#DB
+js/localforage.js
+
 #CORDOVA
 js/cordova.js
 js/cordova_plugins.js
 js/plugins/cordova-plugin-dialogs/www/notification.js
 js/plugins/cordova-plugin-inappbrowser/www/inappbrowser.js
-
-#DB
-js/localforage.js
 
 #FACEBOOK
 js/facebook-all.js
