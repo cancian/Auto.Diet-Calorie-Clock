@@ -1694,6 +1694,7 @@
 			f.end.y = evt.pageY||evt.clientY;
 
 			return f;
+			//END TWEAK
 			} catch(err) { errorHandler(err); }
 		}
 		
