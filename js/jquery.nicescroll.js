@@ -1,6 +1,6 @@
 ﻿/* jquery.nicescroll
--- version 3.6.6
--- copyright 2015-11-17 InuYaksa*2015
+-- version 3.6.0
+-- copyright 2014-11-21 InuYaksa*2014
 -- licensed under the MIT
 --
 -- http://nicescroll.areaaperta.com/
@@ -12,9 +12,6 @@
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as anonymous module.
 		define(['jquery'], factory);
-	} else if (typeof exports === 'object') {
-		// Node/CommonJS.
-		module.exports = factory(require('jquery'));
 	} else {
 		// Browser globals.
 		factory(jQuery);
@@ -95,7 +92,7 @@
 		enablekeyboard: true,
 		smoothscroll: true,
 		sensitiverail: false,
-		enablemouselockapi: true,
+		enablemouselockapi: false,
 		//cursormaxheight:false,
 		cursorfixedheight: false,
 		directionlockdeadzone: 6,
@@ -215,8 +212,7 @@
 				if (_style.cursor == p) return p;
 			}
 			//TWEAK
-			return 'url(css/openhand.cur),n-resize';
-			//return 'url(//mail.google.com/mail/images/2/openhand.cur),n-resize'; // thank you google for custom cursor!
+			return 'url(css/openhand.cur),n-resize'; // thank you google for custom cursor!
 		}
 		d.cursorgrabvalue = detectCursorGrab();
 
@@ -235,7 +231,7 @@
 
 		var self = this;
 
-		this.version = '3.6.6';
+		this.version = '3.6.0';
 		this.name = 'nicescroll';
 
 		this.me = me;
@@ -390,11 +386,13 @@
 			var dd = self.delaylist[name];
 			self.delaylist[name] = fn;
 			if (!dd) {
-				self.debouncedelayed = setTimeout(function() {
-					if (!self) return;
-					var fn = self.delaylist[name];
-					self.delaylist[name] = false;
-					fn.call(self);
+				setTimeout(function() {
+					//TWEAK
+					if (self) {
+						var fn = self.delaylist[name];
+						self.delaylist[name] = false;
+						fn.call(self);
+					}
 				}, tm);
 			}
 		};
@@ -568,12 +566,10 @@
 				}
 			};
 			this.setScrollTop = function(val) {
-				return setTimeout(function() {
-					//TWEAK
-					if (self) {
-						self.docscroll.scrollTop(val)
-					}
-				}, 1);
+				//TWEAK
+				if (self) {
+					return self.docscroll.scrollTop(val);
+				}
 			};
 			this.getScrollLeft = function() {
 				//TWEAK
@@ -583,12 +579,10 @@
 				}
 			};
 			this.setScrollLeft = function(val) {
-				return setTimeout(function() {
-					//TWEAK
-					if (self) {
-						self.docscroll.scrollLeft((self.detected.ismozilla && self.isrtlmode) ? -val : val)
-					}
-				}, 1);
+				//TWEAK
+				if (self) {
+					return self.docscroll.scrollLeft((self.detected.ismozilla && self.isrtlmode) ? -val : val);
+				}
 			};
 		}
 
@@ -684,7 +678,7 @@
 				var off = self.opt.railoffset;
 				if (off) {
 					if (off.top) pos.top += off.top;
-					if (off.left) pos.left += off.left;
+					if (self.rail.align && off.left) pos.left += off.left;
 				}
 
 				if (!self.railslocked) self.rail.css({
@@ -718,6 +712,7 @@
 						width: self.railh.width
 					});
 				}
+
 			}
 		};
 
@@ -1515,9 +1510,12 @@
 							});
 
 							return self.cancelEvent(e);
-						} else {
-							self.checkarea = 0;
 						}
+						/*
+							else {
+							self.checkarea = true;
+							}
+							 */
 					};
 
 					if (cap.cantouch || self.opt.touchbehavior) {
@@ -1587,18 +1585,19 @@
 						}
 
 						self.onselectionstart = function(e) {
-						/* More testing - severe chrome issues
-						if (!self.haswrapper&&(e.which&&e.which==2)) { // fool browser to manage middle button scrolling
-							self.win.css({'overflow':'auto'});
-							setTimeout(function(){
+							/*  More testing - severe chrome issues
+								if (!self.haswrapper&&(e.which&&e.which==2)) {  // fool browser to manage middle button scrolling
+								self.win.css({'overflow':'auto'});
+								setTimeout(function(){
 								self.win.css({'overflow':''});
-							},10);
-							return true;
-						}
-						*/
+								},10);
+								return true;
+								}
+								 */
 							if (self.ispage) return;
 							self.selectiondrag = self.win.offset();
 						};
+
 
 						self.onselectionend = function(e) {
 							self.selectiondrag = false;
@@ -1722,6 +1721,8 @@
 							self.bind(self.cursorh, "mousedown", function(e) {
 								self.onmousedown(e, true)
 							});
+
+
 							self.bind(self.cursorh, "mouseup", self.onmouseup);
 						}
 
@@ -1939,7 +1940,7 @@
 					self.observerbody = new ClsMutationObserver(function(mutations) {
 						mutations.forEach(function(mut) {
 							if (mut.type == "attributes") {
-								return ($("body").hasClass("modal-open") && !$.contains($('.modal-dialog')[0], self.doc[0])) ? self.hide() : self.show(); // Support for Bootstrap modal; Added check if the nice scroll element is inside a modal
+								return ($("body").hasClass("modal-open")) ? self.hide() : self.show(); // Support for Bootstrap modal
 							}
 						});
 						if (document.body.scrollHeight != self.page.maxh) return self.lazyResize(30);
@@ -1997,6 +1998,8 @@
 				//
 
 				if (!self.ispage && self.opt.boxzoom) self.bind(window, "resize", self.resizeZoom);
+				//if (self.istextarea) self.bind(self.win, "mouseup", self.lazyResize);
+				//TWEAK
 				if (self.istextarea) {
 					self.bind(self.win, "keydown", self.lazyResize);
 					self.bind(self.win, "mouseup", self.lazyResize);
@@ -2169,11 +2172,12 @@
 			self.showCursor(py, px);
 			if (!self.rail.active) self.hideCursor(tm);
 		};
-
+		
+		//TWEAK
 		this.getContentSize = (self.ispage) ? function() {
 			return {
-				w : Math.max(document.body.scrollWidth, document.documentElement.scrollWidth),
-				h : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
+				w : Math.max(document.body.scrollWidth, document.documentElement.scrollWidth) + (self.opt.railpadding.left + self.opt.railpadding.right),
+				h : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) + (self.opt.railpadding.top + self.opt.railpadding.bottom)
 			}
 		} : (self.haswrapper) ? function() {
 			return {
@@ -2245,6 +2249,7 @@
 				self.rail.scrollable = true;
 			}
 
+
 			if (self.page.maxw == 0) {
 				self.hideRailHr();
 				self.scrollvaluemaxw = 0;
@@ -2252,12 +2257,16 @@
 				self.scrollratio.x = 0;
 				self.cursorwidth = 0;
 				self.setScrollLeft(0);
+				//TWEAK
 				if (self.railh) {
 					self.railh.scrollable = false;
 				}
 			} else {
 				self.page.maxw -= (self.opt.railpadding.left + self.opt.railpadding.right); //**
-				if (self.railh) self.railh.scrollable = (self.opt.horizrailenabled);
+				//TWEAK
+				if (self.railh) {
+					self.railh.scrollable = true;
+				}
 			}
 
 			self.railslocked = (self.locked) || ((self.page.maxh == 0) && (self.page.maxw == 0));
@@ -2290,8 +2299,8 @@
 				self.checkrtlmode = false;
 				if (self.opt.rtlmode&&self.scroll.x==0) self.setScrollLeft(self.page.maxw);
 			}
-			*/
-			
+			 */
+
 			if (!self.ispage) self.updateScrollBar(self.view);
 
 			self.scrollratio = {
@@ -2366,7 +2375,7 @@
 			var el = ("jquery" in dom) ? dom[0] : dom;
 
 			if (name == 'mousewheel') {
-				if ("onwheel" in self.win) { // modern brosers & IE9 detection fix
+				if (window.addEventListener || 'onwheel' in document) { // modern brosers & IE9 detection fix
 					self._bind(el, "wheel", fn, bubble || false);
 				} else {
 					var wname = (typeof document.onmousewheel != "undefined") ? "mousewheel" : "DOMMouseScroll"; // older IE/Firefox
@@ -2517,6 +2526,7 @@
 			self.hidden = false;
 			self.railslocked = false;
 			return self.showRail().showRailHr();
+
 		};
 
 		this.hide = function() {
@@ -2532,7 +2542,6 @@
 		this.remove = function() {
 			self.stop();
 			if (self.cursortimeout) clearTimeout(self.cursortimeout);
-			if (self.debouncedelayed) clearTimeout(self.debouncedelayed);
 			self.doZoomOut();
 			self.unbindAll();
 
