@@ -38,10 +38,10 @@ if(window.location.hash) {
 	lang = window.location.hash.substr(1).toLowerCase()
 }
 
-$.ajax({type: 'GET', dataType: 'text', url: 'descriptions.txt', success: function(desc) {
+$.ajax({type: 'GET', dataType: 'text', url: 'desc.txt', success: function(desc) {
 desc  = desc.split('–' + hash)[1];
 desc  = desc.split(hash + '–')[0];
-desc = '<strong>:: ' + LANG.THE_ONLY[lang].toUpperCase() + '</strong>' + desc;
+//desc = '<strong>:: ' + LANG.THE_ONLY[lang].toUpperCase() + '</strong>' + desc;
 desc  = desc.split('$KCALS$').join('<strong style="color: #c30;">' + LANG.CALORIE_COUNTER_FULL_TITLE[lang] + '</strong>');
 desc += '1 - ' + LANG.INTRO_SLIDE_1[lang] + '\r\n&nbsp;<br>';
 desc += '2 - ' + LANG.INTRO_SLIDE_2[lang] + '\r\n&nbsp;<br>';
@@ -58,20 +58,19 @@ desc  = trim(desc);
 // KEY DUMP //
 //////////////
 var keyList = 
+LANG.WEIGHT_LOSS[lang]     + ',' +
+LANG.LOSE_WEIGHT[lang]     + ',' +
+LANG.CALORIC_BALANCE[lang] + ',' +
+LANG.EXERCISE[lang]        + ',' +
+LANG.DAILY_CALORIES[lang]  + ',' +
+LANG.CALORIC_INTAKE[lang]  + ',' +
+LANG.METABOLISM[lang]      + ',' +
+LANG.NUTRIENT_TITLE[lang]  + ',' +
+LANG.GAIN_WEIGHT[lang]     + ',' +
 LANG.PROTEIN[lang]         + ',' +
 LANG.CARBOHYDRATE[lang]    + ',' +
 LANG.FATT[lang]            + ',' +
-LANG.FIBER[lang]           + ',' +
-LANG.SUGAR[lang]           + ',' +
-LANG.SODIUM[lang]          + ',' +
-LANG.METABOLISM[lang]      + ',' +
-LANG.WEIGHT_LOSS[lang]     + ',' +
-'cancian'                  + ',' +
-LANG.NUTRIENT_TITLE[lang]  + ',' +
-LANG.PER_WEEK[lang].split(' ')[1] + ',' +
-LANG.FEMALE[lang]          + ',' +
-LANG.MALE[lang]            + ',' +
-LANG.CALORIC_BALANCE[lang];
+LANG.FIBER[lang];
 
 keyList = keyList.split('undefined').join('');
 keyList = keyList.split(' ').join(',');
@@ -83,6 +82,7 @@ keyList = keyList.split(',');
 keyList0 = '';
 
   for (var i = 0; i < keyList.length; i++) {
+	  keyList[i] = keyList[i].split(':').join('');
         if (!keyList0.contains(keyList[i])) {
             keyList0 = keyList0 + keyList[i] + ',';
         }
@@ -92,7 +92,7 @@ var keyList1 = keyList0.slice(0,100);
 var keyList2 = keyList0.slice(100,-1);
 
 desc = desc + '<div id="bottom"><br /><br /><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br /><br />';
-desc = desc + '' + LANG.THE_ONLY[lang] + '<br /><br /></div>';
+desc = desc + '' + '' + '<br /><br /></div>';
 
 document.getElementById('desc').innerHTML = trim(desc);
 
