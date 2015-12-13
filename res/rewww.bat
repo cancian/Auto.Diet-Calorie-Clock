@@ -6,7 +6,7 @@ rem rebuild junctions
 call k:\[bin]\resgradle.bat 
 
 rem minify js/css
-call k:\[bin]\minify.bat
+rem call k:\[bin]\minify.bat
 
 attrib k:\platforms\*.* -r -h -a /s
 attrib k:\www\*.* -r -h -a /s
