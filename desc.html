@@ -82,8 +82,8 @@ keyList = keyList.split(',');
 keyList0 = '';
 
   for (var i = 0; i < keyList.length; i++) {
-	  keyList[i] = keyList[i].split(':').join('');
-        if (!keyList0.contains(keyList[i])) {
+	  keyList[i] = keyList[i].split(':').join('').split('：').join('');
+        if (!keyList0.contains(keyList[i]) && keyList[i].length > 1) {
             keyList0 = keyList0 + keyList[i] + ',';
         }
   }
