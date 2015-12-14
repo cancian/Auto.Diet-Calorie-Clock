@@ -2253,7 +2253,7 @@ function getRateDialog() {
 	//first use
 	app.define('getRate',app.now());
 	//return
-	if(app.read('getRate','locked')) { return; }
+	//if(app.read('getRate','locked')) { return; }
 	////////////
 	// 5 DAYS //
 	////////////
@@ -2261,20 +2261,20 @@ function getRateDialog() {
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
-			if(app.read('getRate','locked')) { return; }
+			//if(app.read('getRate','locked')) { return; }
+			//app.save('getRate','locked');
+			app.save('getRate',app.now());
 			//SHOW DIALOG
 			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function(button) {
-				//on action
-				if(button > 0) {
-					//app.save('getRate','locked');
-					app.save('getRate',app.now());
-					app.analytics('rate');
-				}
-				//launch
 				if(button === 2) {
+					//launch
 					app.analytics('vote');
 					app.url();
+				} else if(button === 1) {
+					//on action
+					app.analytics('vote-no');
 				}
+
 			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
 		},2000);
 	}

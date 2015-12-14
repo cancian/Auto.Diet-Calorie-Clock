@@ -11,6 +11,7 @@
 # 1.9.13 [2015/12/14]
 • Improved database engine
 • Updated touch events handler
+• Revised store links
 
 # 1.9.12 [2015/11/12]
 • Improved performance
