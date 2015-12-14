@@ -68,6 +68,7 @@ $(document).on('resume',function(evt) {
 	}
 	//
 	app.timeout('resume',4000,function() {
+		getRateDialog();
 		app.analytics('resume');
 		updateLoginStatus(1);
 		setTimeout(function() {
@@ -133,7 +134,6 @@ setTimeout(function() {
 		clearTimeout(bodyTimer);
 	}
 	app.remove('app_restart_pending');
-	app.analytics('init');
 	// BLOCK PIRACY
 	app.piracy();
 },50);
@@ -141,12 +141,14 @@ setTimeout(function() {
 // MARK BOOT SUCCESS //
 ///////////////////////
 setTimeout(function() {
+	app.analytics('init');
 	app.remove('consecutive_reboots');
 },2500);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
 setTimeout(function() {
+	getRateDialog();
 	app.trackInstall();
 	updateLoginStatus(1);
 	app.analytics('start');

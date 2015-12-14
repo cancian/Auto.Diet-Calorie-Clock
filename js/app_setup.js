@@ -937,7 +937,6 @@ function saveEntry(data,callback) {
 		app.save('diary_entry',app.rows.entry,function(rows) {
 			app.rows.entry = rows;
 			setPush();
-			getRateDialog();
 			app.analytics('add');
 			if(callback) {
 				callback();
@@ -952,7 +951,6 @@ function saveEntry(data,callback) {
 		app.save('diary_entry',app.rows.entry,function(rows) {
 			app.rows.entry = rows;
 			setPush();
-			getRateDialog();
 			app.analytics('add');
 			if(callback) {
 				callback();
@@ -2250,24 +2248,29 @@ function sanitizeSql(str) {
 var rateTimer;
 function getRateDialog() {
 	//appstore enabled
-	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos) { return; }
+	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook) { return; }
 	if(app.get.platform() == 'web')	{ return; }
 	//first use
 	app.define('getRate',app.now());
 	//return
 	if(app.read('getRate','locked')) { return; }
-	///////////////
-	// IF 1 WEEK //
-	//////////////
-	var timeRate = 36 * 60 * 60 * 1000;
+	////////////
+	// 5 DAYS //
+	////////////
+	var timeRate = 120 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
 			if(app.read('getRate','locked')) { return; }
 			//SHOW DIALOG
 			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function(button) {
-				app.save('getRate','locked');
-				app.analytics('rate');
+				//on action
+				if(button > 0) {
+					//app.save('getRate','locked');
+					app.define('getRate',app.now());
+					app.analytics('rate');
+				}
+				//launch
 				if(button === 2) {
 					app.analytics('vote');
 					app.url();
