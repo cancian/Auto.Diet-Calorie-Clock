@@ -2267,7 +2267,7 @@ function getRateDialog() {
 				//on action
 				if(button > 0) {
 					//app.save('getRate','locked');
-					app.define('getRate',app.now());
+					app.save('getRate',app.now());
 					app.analytics('rate');
 				}
 				//launch
@@ -2276,7 +2276,7 @@ function getRateDialog() {
 					app.url();
 				}
 			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-		},5000);
+		},2000);
 	}
 }
 ///////////////////
