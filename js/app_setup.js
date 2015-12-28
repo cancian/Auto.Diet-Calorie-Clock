@@ -2257,7 +2257,7 @@ function getRateDialog() {
 	////////////
 	// 5 DAYS //
 	////////////
-	var timeRate = 120 * 60 * 60 * 1000;
+	var timeRate = 160 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
