@@ -1,13 +1,9 @@
 ###############
 ## KCALS.NET ##
 ###############
-## ENCODING ##
 SetEnv TZ America/Sao_Paulo
 AddDefaultCharset UTF-8
 Options -Indexes
-
-## COMPRESS ##
-SetOutputFilter DEFLATE
 
 ## MIME ##
 AddType font/ttf .ttf
@@ -63,3 +59,5 @@ AddType application/x-web-app-manifest+json .webapp
 	Deny from all
 </Files>
 
+## COMPRESS ##
+SetOutputFilter DEFLATE

@@ -19,6 +19,7 @@ sudo apt-get install nautilus-open-terminal
 sudo apt-get install nautilus-actions
 nautilus -q && nautilus
 
+
 //#//////////////////#//
 //# PERMANENT SHARES #//
 //#//////////////////#//
