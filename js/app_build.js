@@ -899,14 +899,16 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// ARROW BUTTONS //
 	///////////////////
 	$('#sliderNum').on(tap, function(evt) {
-		if(document.getElementById('slider')) {
-			document.getElementById('slider').slider.setValue(0);
-			if(parseInt($('#lid').val()) != 0) {
-				slider.lid(0);
+		if($('#entryTitle').val() != 0) {
+			if(document.getElementById('slider')) {
+				document.getElementById('slider').slider.setValue(0);
+				if(parseInt($('#lid').val()) != 0) {
+					slider.lid(0);
+				}
+				$('#lid').val(0);
+				$('#entryTitle').val('0');
+				//return false;
 			}
-			$('#lid').val(0);
-			$('#entryTitle').val('0');
-			return false;
 		}
 	});
 	////////////////////////////////
@@ -925,12 +927,14 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//#//////////////#//
 	//# HOLD TO EDIT #//
 	//#//////////////#//
-	$('#entryTitle, #sliderNum').click(function(evt) {
-		//evt.preventDefault();
-		//evt.stopPropagation();
+	$('#entryTitle, #sliderNum').on(touchstart,function(evt) {
+
 		if($('#entryTitle').val() == '' || $('#entryTitle').val() == 0) {
 			$('#entryTitle').removeAttr('readonly');
 			$('#entryTitle').focus();
+			$('#entryTitle').val('');
+			evt.preventDefault();
+			evt.stopPropagation();
 		}
 	});
 	//CORE VALIDATION
