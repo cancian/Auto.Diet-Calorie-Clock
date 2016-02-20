@@ -8,50 +8,44 @@ window.applicationCache.addEventListener('error', function(err) {
 // DOCUMENT READY //
 ////////////////////
 $(document).ready(function() {
-	setTimeout(function() {
-		///////////////////
-		// OPEN DATABASE //
-		///////////////////
-		var webSQL       = localforage.WEBSQL;
-		var indexedDB    = localforage.INDEXEDDB;
-		var localStorage = localforage.LOCALSTORAGE;
-		var dbDriver     = [indexedDB,webSQL,localStorage];
-		/////////////////////
-		// FORCE DB ENGINE //
-		/////////////////////
-		if(app.read('app_database','asyncStorage'))			{ dbDriver = [indexedDB,webSQL,localStorage]; }
-		if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL,indexedDB,localStorage]; }
-		if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,indexedDB,webSQL]; }
-		//////////////////////////////
-		// MOZ FALLBACK ~ INCOGNITO //
-		//////////////////////////////
-		app.remove('config_force_localstorage');
-		if(vendorClass == 'moz' && app.device.desktop) {
-			detectPrivateMode(function(incognito) { 
-				if(incognito) {
-					app.incognito = true;
-					dbDriver = [localStorage];
-				}
-			});
-		}
-		//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
-		//if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) {
-		//	app.remove('config_force_localstorage');
-		//}
-		/*
-		// ~ FORCE DB (USER CHOICE) ~ //
-		// ~ MULTIUSER ~ //
-		var UserDB = 'KCals';
-		if(!/mud_default/i.test(app.user)) {
-			UserDB = UserDB + '_' + app.user[0];
-		}
-		*/
-		/////////////
-		// LOAD DB //
-		/////////////
-		localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
-		initDB();
-	},0);
+	///////////////////
+	// OPEN DATABASE //
+	///////////////////
+	var webSQL       = localforage.WEBSQL;
+	var indexedDB    = localforage.INDEXEDDB;
+	var localStorage = localforage.LOCALSTORAGE;
+	var dbDriver     = [indexedDB,webSQL,localStorage];
+	/////////////////////
+	// FORCE DB ENGINE //
+	/////////////////////
+	if(app.read('app_database','asyncStorage'))			{ dbDriver = [indexedDB,webSQL,localStorage]; }
+	if(app.read('app_database','webSQLStorage'))		{ dbDriver = [webSQL,indexedDB,localStorage]; }
+	if(app.read('app_database','localStorageWrapper'))	{ dbDriver = [localStorage,indexedDB,webSQL]; }
+	//////////////////////////////
+	// MOZ FALLBACK ~ INCOGNITO //
+	//////////////////////////////
+	app.remove('config_force_localstorage');
+	if(vendorClass == 'moz' && app.device.desktop) {
+		detectPrivateMode(function(incognito) { 
+			if(incognito) {
+				app.incognito = true;
+				dbDriver = [localStorage];
+			}
+		});
+	}
+
+	//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
+	//if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) { app.remove('config_force_localstorage'); }
+
+	//FORCE DB (USER CHOICE) ~ MULTIUSER
+	//var UserDB = 'KCals';
+	//if(!/mud_default/i.test(app.user)) { UserDB = UserDB + '_' + app.user[0]; }
+
+	/////////////
+	// LOAD DB //
+	/////////////
+	localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
+	initDB();
 });
 ////////////////
 // RESUME EVT //
@@ -82,7 +76,7 @@ $(document).on('resume',function(evt) {
 		}
 		//BLOCK PIRACY
 		if(!app.device.desktop) {
-			app.piracy();
+			//app.piracy();
 		}
 	},3000);
 });
@@ -135,7 +129,7 @@ setTimeout(function() {
 	}
 	app.remove('app_restart_pending');
 	// BLOCK PIRACY
-	app.piracy();
+	//app.piracy();
 },50);
 ///////////////////////
 // MARK BOOT SUCCESS //

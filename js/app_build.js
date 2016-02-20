@@ -927,14 +927,22 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	//#//////////////#//
 	//# HOLD TO EDIT #//
 	//#//////////////#//
-	$('#entryTitle, #sliderNum').on(touchstart,function(evt) {
+	//ios propagation fix
+	$('#sliderNum, #entryTitle').on(touchstart,function(evt) {
+		if(app.device.ios) {
+			evt.preventDefault();
+			//evt.stopPropagation();
+		}
+	});
+	$('#sliderNum').on(tap,function(evt) {
 
-		if($('#entryTitle').val() == '' || $('#entryTitle').val() == 0) {
+			if($('#entryTitle').val() == '' || $('#entryTitle').val() == 0) {
 			$('#entryTitle').removeAttr('readonly');
+			if(!app.device.desktop) {
+				$('#entryTitle').attr('type','number');
+			}
 			$('#entryTitle').focus();
 			$('#entryTitle').val('');
-			evt.preventDefault();
-			evt.stopPropagation();
 		}
 	});
 	//CORE VALIDATION
@@ -947,12 +955,16 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		}
 	},function() {
 		//FOCUS
-		if($('#entryTitle').attr('readonly')) {
-			$('#entryTitle').blur();
-		}
+		$('#entryTitle').val(''); 
 	},function() {
 		//BLUR
+		$('#entryTitle').attr('type','text');
 		$('#entryTitle').attr('readonly','readonly');
+		if($('#entryTitle').val() == '') {
+			$('#lid').val(0);
+			$('#entryTitle').val(0);
+			document.getElementById('slider').slider.setValue(0);
+		}
 	});
 	//////////////////
 	// DEV KEYCODES //
@@ -1017,7 +1029,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			///////////////////
 			// SUPPORTED DBS //
 			///////////////////
-			if (/devdbs/i.test($('#entryBody').val())) {
+			if (/devdb/i.test($('#entryBody').val())) {
 				$('#entryBody').val('devdb');
 				$('#entryBody').blur();
 				alert('indexedDB: ' + app.db.indexedDB + ' | webSQL: ' + app.db.webSQL + ' | localStorage: ' + app.db.localStorage);	
@@ -1192,7 +1204,6 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#entryTime').blur();
 		$('#entryBody').blur();
 		$('#entryTitle').blur();
-		$('#entryTitle').attr('readonly','readonly');
 		$(document).trigger('pageReload');
 	});
 	$('#entryListForm,#go,#entryListWrapper').on(tap,function(evt) {
@@ -1214,10 +1225,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if(!$('#entryBody').is(':focus')) {
 				$('#entryBody').blur();
 			}
-			console.log(evt.target.id);
-			if(/entryList|go|header/i.test(evt.target.id) && /entryList|go|header/i.test($(this).attr('id'))) {
+			if(/entryListForm|go|entryListWrapper/i.test(evt.target.id)) {
 				$('#entryTitle').blur();
-				//$('#entryTitle').attr('readonly','readonly');
 			}
 		}
 	});

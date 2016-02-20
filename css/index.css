@@ -1046,8 +1046,8 @@ div#sliderNum					{ padding: 6px 0 0 40px; font-size: 12px; line-height: 13px; m
 .zoomx1 .ios #sliderNum,
 .zoomx1 .osxapp #sliderNum		{ padding: 6px 0 0 41px; }
 */
-div#sliderNum					{ margin-right: -46px; text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; right: 50%; top: 30px; display: block; width: 90px; white-space: nowrap; color: #999999; text-align: left;  padding: 3px 3px 6px 3px;  font-size: 9pt; }
-.ios #sliderNum					{ margin-right: -47px; }
+div#sliderNum					{ margin-right: -46px; text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; right: 50%; top: 30px; display: block; width: 100px; white-space: nowrap; color: #999999; text-align: left;  padding: 3px 3px 6px 3px; font-size: 9pt; background-color: rgba(0,0,0,0); border-left: 10px solid rgba(0,0,0,0); }
+.ios #sliderNum					{ margin-right: -47px; } 
 .moz #sliderNum,
 .android4lt #sliderNum			{ margin-right: -47px; }
 input#entryTitle				{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 50px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: rgba(0,0,0,0); padding: 0 2px 0 0; border-radius: 0; text-indent: 0; margin: 0; border: none; }

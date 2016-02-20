@@ -2610,7 +2610,7 @@ var md5=function(r){function n(r,n){return r<<n|r>>>32-n}function t(r,n){var t,o
 //# OPENFB #//
 //#////////#//
 if(typeof openFB === 'undefined') { 
-	var openFB = '';
+	var openFB;
 }
 
 /**
