@@ -1227,7 +1227,7 @@ function updateFoodDb(callback) {
 					app.remove('startLock');
 					spinner('stop');
 					//////////////////////////////////////////
-					if (callback != 'retry') {
+					if (callback != 'retry' && !app.device.desktop) {
 						//retry
 						//alert('Error downloading database', 'Importing local database instead.');
 						app.timeout('retryDB',500,function() {
