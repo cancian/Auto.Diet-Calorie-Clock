@@ -5,7 +5,7 @@ if(typeof hostLocal === 'undefined') {
 	var hostLocal = window.localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
 }
 var staticVendor = ''; //'amazon';
-var baseVersion  = 1.914;
+var baseVersion  = 1.9;
 var initTime     = new Date().getTime();
 var UsrAgt       = navigator.userAgent;
 var IsMsApp      = (/MSApp/i).test(UsrAgt) ? true : false;
@@ -160,6 +160,10 @@ function initJS() {
 	// ISCROLL //
 	/////////////
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
+	/////////////////
+	// LOCALFORAGE //
+	/////////////////
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');	
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
@@ -179,8 +183,6 @@ function initJS() {
 	////////
 	// JS //
 	////////
-	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
