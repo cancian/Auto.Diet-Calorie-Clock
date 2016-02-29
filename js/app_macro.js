@@ -1556,9 +1556,9 @@ function buildAdvancedMenu() {
 		$('#optIndexedDB').hide();
 	}
 	//GET CURRENT ENGINE
-	if (localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
-	if (localforage._driver == 'webSQLStorage')			{ app.save('app_database','webSQLStorage'); $('#optWebSQL').addClass('toggle');		} 
-	if (localforage._driver == 'localStorageWrapper')	{ app.save('app_database','localStorageWrapper'); $('#optLocalStorage').addClass('toggle');	}
+	if (window.localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
+	if (window.localforage._driver == 'webSQLStorage')			{ app.save('app_database','webSQLStorage'); $('#optWebSQL').addClass('toggle');		} 
+	if (window.localforage._driver == 'localStorageWrapper')	{ app.save('app_database','localStorageWrapper'); $('#optLocalStorage').addClass('toggle');	}
 	//PARSE DB STYLE
 	function styleResetDB() {
 	$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');

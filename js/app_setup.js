@@ -182,7 +182,7 @@ function initDB(t) {
 	////////////
 	// DEFINE //
 	////////////
-	app.define('app_database',localforage._driver);
+	app.define('app_database',window.localforage._driver);
 	app.define('config_install_time',app.now());
 	app.define('app_last_tab','tab1');
 	app.define('config_start_time',app.now());
@@ -217,7 +217,7 @@ function initDB(t) {
 ////////////////////
 function deSetup(callback) {
 	blockAlerts = 1;
-	localforage.clear(function() {
+	window.localforage.clear(function() {
 		afterHide('clear');
 	});
 }

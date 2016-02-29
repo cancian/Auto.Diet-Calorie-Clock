@@ -11,9 +11,9 @@ $(document).ready(function() {
 	///////////////////
 	// OPEN DATABASE //
 	///////////////////
-	var webSQL       = localforage.WEBSQL;
-	var indexedDB    = localforage.INDEXEDDB;
-	var localStorage = localforage.LOCALSTORAGE;
+	var webSQL       = window.localforage.WEBSQL;
+	var indexedDB    = window.localforage.INDEXEDDB;
+	var localStorage = window.localforage.LOCALSTORAGE;
 	var dbDriver     = [indexedDB,webSQL,localStorage];
 	/////////////////////
 	// FORCE DB ENGINE //
@@ -44,7 +44,7 @@ $(document).ready(function() {
 	/////////////
 	// LOAD DB //
 	/////////////
-	localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
+	window.localforage.config({driver: dbDriver, name: 'localforage', storeName: 'KCals'});
 	initDB();
 });
 ////////////////
