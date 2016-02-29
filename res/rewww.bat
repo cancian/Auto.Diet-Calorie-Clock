@@ -12,7 +12,7 @@ attrib k:\platforms\*.* -r -h -a /s
 attrib k:\www\*.* -r -h -a /s
 k:\[bin]\embed k:\www\css\kcals.ttf 
 
-rem "android-gradle" 
+REM "ANDROID-GRADLE" 
 rem cd\ 
 rem deltree /y /z /s /q /t k:\platforms\android\assets\www 
 rem rd /s /q k:\platforms\android\assets\www 
@@ -20,39 +20,51 @@ rem mkdir k:\platforms\android\assets\www
 rem cd k:\platforms\android\assets\www 
 rem call reswww 
 
-rem "android-imported-gradle"
+REM "ANDROID-IMPORTED-GRADLE"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\android\kcals\src\main\assets\www 
 rd /s /q k:\platforms\android\kcals\src\main\assets\www 
 mkdir k:\platforms\android\kcals\src\main\assets\www 
 cd k:\platforms\android\kcals\src\main\assets\www 
 call reswww 
- 
-rem "android-gradle" 
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\android\kcals\src\main\assets\www\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\android\kcals\src\main\assets\www\manifest.appcache
+
+REM "ANDROID-GRADLE" 
 cd\ 
 deltree /y /z /s /q /t k:\platforms\android-gradle\assets\www 
 rd /s /q k:\platforms\android-gradle\assets\www 
 mkdir k:\platforms\android-gradle\assets\www 
 cd k:\platforms\android-gradle\assets\www 
 call reswww 
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\android-gradle\assets\www\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\android-gradle\assets\www\manifest.appcache
  
-rem "ios"
+REM "IOS"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\ios\www 
 rd /s /q k:\platforms\ios\www 
 mkdir k:\platforms\ios\www 
 cd k:\platforms\ios\www 
 call reswww 
- 
-rem "osx"
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\ios\www\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\ios\www\manifest.appcache
+
+REM "OSX"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\osx\public 
 rd /s /q k:\platforms\osx\public 
 mkdir k:\platforms\osx\public 
 cd k:\platforms\osx\public 
 call reswww 
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\osx\public\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\osx\public\manifest.appcache
 
-rem "windows10"
+REM "WINDOWS10"
 rem cd\ 
 REM deltree /y /z /s /q /t k:\platforms\windows10\www 
 REM rd /s /q k:\platforms\windows10\www 
@@ -60,42 +72,54 @@ REM mkdir k:\platforms\windows10\www
 REM cd k:\platforms\windows10\www 
 REM call reswww 
  
-rem "windows8"
+rem "WINDOWS 8.1 / WINDOWS PHONE 8.1"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\windows8\www 
 rd /s /q k:\platforms\windows8\www 
 mkdir k:\platforms\windows8\www 
 cd k:\platforms\windows8\www 
 call reswww 
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\windows8\www\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\windows8\www\manifest.appcache
 
-rem "w8"
+rem "WP 8.0"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\wp8\www 
 rd /s /q k:\platforms\wp8\www 
 mkdir k:\platforms\wp8\www 
 cd k:\platforms\wp8\www 
 call reswww 
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\wp8\www\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\wp8\www\manifest.appcache
 
 REM PLAYBOOK
 deltree /y /z /s /q /t K:\platforms\playbook\www
 rd /s /q K:\platforms\playbook\www
 mkdir K:\platforms\playbook\www
-cd K:\platforms\playbook\www
+cd k:\platforms\playbook\www
 call reswww 
 cp -R K:\platforms\playbook\lib\cordova.2.9.0\ext-air K:\platforms\playbook\www
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\playbook\www\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\playbook\www\manifest.appcache
 
 REM CP OVER CDVJS
 REM del /q K:\platforms\playbook\www\js\cordova.js
 REM copy /y K:\platforms\playbook\lib\cordova.2.9.0\javascript\cordova.js K:\platforms\playbook\www\js\cordova.js
 
-rem "bb10"
+REM "BLACKBERRY 10"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\bb10\www
 rd /s /q k:\platforms\bb10\www 
 mkdir k:\platforms\bb10\www
 cd k:\platforms\bb10\www
 call reswww 
-
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\bb10\www\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\bb10\www\manifest.appcache
+REM "PLATFORM / BB10"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\bb10\platforms\blackberry10\www
 rd /s /q k:\platforms\bb10\platforms\blackberry10\www
@@ -104,8 +128,11 @@ cd k:\platforms\bb10\platforms\blackberry10\www
 call reswww 
 deltree /y /z /s /q /t k:\platforms\bb10\platforms\blackberry10\build
 rd /s /q k:\platforms\bb10\platforms\blackberry10\build
+rem ## REMOVE CHACHE ##
+del /q k:\platforms\bb10\platforms\blackberry10\www\manifest.appcache
+cp k:\www\res\empty.txt k:\platforms\bb10\platforms\blackberry10\www\manifest.appcache
 
-rem "config.xml"
+REM "CONFIG.XML"
 rem cd\ 
 del /q k:\platforms\android\kcals\src\main\res\xml\config.xml 
 del /q k:\platforms\android-gradle\res\xml\config.xml 
@@ -125,14 +152,13 @@ copy /y k:\www\config.xml k:\platforms\wp8\config.xml
 copy /y k:\www\config.xml k:\platforms\bb10\config.xml 
 copy /y K:\platforms\playbook\config.playbook.xml k:\platforms\playbook\www\config.xml 
 
-
 REM "PLAYBOOK ASSETS" 
 del /q K:\platforms\playbook\www\80.png 
 del /q K:\platforms\playbook\www\225.png 
 copy /y k:\www\res\icon\playbook\80.png K:\platforms\playbook\www\80.png 
 copy /y k:\www\res\icon\playbook\225.png K:\platforms\playbook\www\225.png
 
-rem "wp8 assets" 
+REM "WP8 ASSETS" 
 del /q k:\platforms\wp8\159.png 
 del /q k:\platforms\wp8\336.png 
 del /q k:\platforms\wp8\691x336.png 
@@ -141,7 +167,7 @@ copy /y k:\www\res\icon\wp8\336.png k:\platforms\wp8\336.png
 copy /y k:\www\res\icon\wp8\691x336.png k:\platforms\wp8\691x336.png 
  
 rem cd\ 
-rem "windows 8 assets" 
+REM "WINDOWS 8 ASSETS" 
 deltree /y /z /s /q /t k:\platforms\windows8\images 
 rd /s /q k:\platforms\windows8\images 
 mkdir k:\platforms\windows8\images 
