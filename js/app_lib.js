@@ -19,6 +19,7 @@ if(/MSApp/i.test(navigator.userAgent) && typeof Windows !== 'undefined') {
 	var applicationData = Windows.Storage.ApplicationData.current;
 	var localSettings   = applicationData.localSettings;
 	var localFolder     = applicationData.localFolder;
+	var dataVersion     = applicationData.version;
 }
 //////////////
 // SET USER //
