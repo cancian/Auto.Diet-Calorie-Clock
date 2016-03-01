@@ -1032,7 +1032,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if (/devdb/i.test($('#entryBody').val())) {
 				$('#entryBody').val('devdb');
 				$('#entryBody').blur();
-				alert('indexedDB: ' + app.db.indexedDB + ' | webSQL: ' + app.db.webSQL + ' | localStorage: ' + app.db.localStorage);	
+				alert(JSON.stringify(app.db));
 			}
 			////////////
 			// DRIVER //
