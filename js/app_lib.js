@@ -1,26 +1,8 @@
-﻿$.ajaxSetup({ cache: false, crossDomain: true, async: true });
+﻿$.ajaxSetup({cache: false, crossDomain: true, async: true});
 //#////////////#//
 //# APP OBJECT #//
 //#////////////#//
 var isMobile = 'isCurrentCacheValid';
-/*
-function _createBlob(r, e) { r = r || [], e = e || {}; try { return new Blob(r, e) } catch (A) { if ("TypeError" !== A.name) throw A; for (var t = globalObject.BlobBuilder || globalObject.MSBlobBuilder || globalObject.MozBlobBuilder || globalObject.WebKitBlobBuilder, R = new t, E = 0; E < r.length; E += 1) R.append(r[E]); return R.getBlob(e.type) } } function serialize(r, e) { var A = ""; if (r && (A = r.toString()), r && ("[object ArrayBuffer]" === r.toString() || r.buffer && "[object ArrayBuffer]" === r.buffer.toString())) { var t, R = SERIALIZED_MARKER; r instanceof ArrayBuffer ? (t = r, R += TYPE_ARRAYBUFFER) : (t = r.buffer, "[object Int8Array]" === A ? R += TYPE_INT8ARRAY : "[object Uint8Array]" === A ? R += TYPE_UINT8ARRAY : "[object Uint8ClampedArray]" === A ? R += TYPE_UINT8CLAMPEDARRAY : "[object Int16Array]" === A ? R += TYPE_INT16ARRAY : "[object Uint16Array]" === A ? R += TYPE_UINT16ARRAY : "[object Int32Array]" === A ? R += TYPE_INT32ARRAY : "[object Uint32Array]" === A ? R += TYPE_UINT32ARRAY : "[object Float32Array]" === A ? R += TYPE_FLOAT32ARRAY : "[object Float64Array]" === A ? R += TYPE_FLOAT64ARRAY : e(new Error("Failed to get type for BinaryArray"))), e(R + bufferToString(t)) } else if ("[object Blob]" === A) { var E = new FileReader; E.onload = function () { var A = BLOB_TYPE_PREFIX + r.type + "~" + bufferToString(this.result); e(SERIALIZED_MARKER + TYPE_BLOB + A) }, E.readAsArrayBuffer(r) } else try { e(JSON.stringify(r)) } catch (n) { console.error("Couldn't convert value into a JSON string: ", r), e(null, n) } } function deserialize(r) { if (r.substring(0, SERIALIZED_MARKER_LENGTH) !== SERIALIZED_MARKER) return JSON.parse(r); var e, A = r.substring(TYPE_SERIALIZED_MARKER_LENGTH), t = r.substring(SERIALIZED_MARKER_LENGTH, TYPE_SERIALIZED_MARKER_LENGTH); if (t === TYPE_BLOB && BLOB_TYPE_PREFIX_REGEX.test(A)) { var R = A.match(BLOB_TYPE_PREFIX_REGEX); e = R[1], A = A.substring(R[0].length) } var E = stringToBuffer(A); switch (t) { case TYPE_ARRAYBUFFER: return E; case TYPE_BLOB: return _createBlob([E], { type: e }); case TYPE_INT8ARRAY: return new Int8Array(E); case TYPE_UINT8ARRAY: return new Uint8Array(E); case TYPE_UINT8CLAMPEDARRAY: return new Uint8ClampedArray(E); case TYPE_INT16ARRAY: return new Int16Array(E); case TYPE_UINT16ARRAY: return new Uint16Array(E); case TYPE_INT32ARRAY: return new Int32Array(E); case TYPE_UINT32ARRAY: return new Uint32Array(E); case TYPE_FLOAT32ARRAY: return new Float32Array(E); case TYPE_FLOAT64ARRAY: return new Float64Array(E); default: throw new Error("Unkown type: " + t) } } function stringToBuffer(r) { var e, A, t, R, E, n = .75 * r.length, a = r.length, _ = 0; "=" === r[r.length - 1] && (n--, "=" === r[r.length - 2] && n--); var T = new ArrayBuffer(n), i = new Uint8Array(T); for (e = 0; a > e; e += 4) A = BASE_CHARS.indexOf(r[e]), t = BASE_CHARS.indexOf(r[e + 1]), R = BASE_CHARS.indexOf(r[e + 2]), E = BASE_CHARS.indexOf(r[e + 3]), i[_++] = A << 2 | t >> 4, i[_++] = (15 & t) << 4 | R >> 2, i[_++] = (3 & R) << 6 | 63 & E; return T } function bufferToString(r) { var e, A = new Uint8Array(r), t = ""; for (e = 0; e < A.length; e += 3) t += BASE_CHARS[A[e] >> 2], t += BASE_CHARS[(3 & A[e]) << 4 | A[e + 1] >> 4], t += BASE_CHARS[(15 & A[e + 1]) << 2 | A[e + 2] >> 6], t += BASE_CHARS[63 & A[e + 2]]; return A.length % 3 === 2 ? t = t.substring(0, t.length - 1) + "=" : A.length % 3 === 1 && (t = t.substring(0, t.length - 2) + "=="), t } var BASE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", BLOB_TYPE_PREFIX = "~~local_forage_type~", BLOB_TYPE_PREFIX_REGEX = /^~~local_forage_type~([^~]+)~/, SERIALIZED_MARKER = "__lfsc__:", SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER.length, TYPE_ARRAYBUFFER = "arbf", TYPE_BLOB = "blob", TYPE_INT8ARRAY = "si08", TYPE_UINT8ARRAY = "ui08", TYPE_UINT8CLAMPEDARRAY = "uic8", TYPE_INT16ARRAY = "si16", TYPE_INT32ARRAY = "si32", TYPE_UINT16ARRAY = "ur16", TYPE_UINT32ARRAY = "ui32", TYPE_FLOAT32ARRAY = "fl32", TYPE_FLOAT64ARRAY = "fl64", TYPE_SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER_LENGTH + TYPE_ARRAYBUFFER.length, globalObject = this; 
-serializer = { 
-	serialize: serialize, 
-	deserialize: deserialize, 
-	stringToBuffer: stringToBuffer, 
-	bufferToString: bufferToString
-};
-*/
-//#///////////////#//
-//# MSAPP STORAGE #//
-//#///////////////#//
-if(/MSApp/i.test(navigator.userAgent) && typeof Windows !== 'undefined') {
-	var applicationData = Windows.Storage.ApplicationData.current;
-	var localSettings   = applicationData.localSettings;
-	var localFolder     = applicationData.localFolder;
-	var dataVersion     = applicationData.version;
-}
 //////////////
 // SET USER //
 //////////////
@@ -106,28 +88,11 @@ var app = {
 			}
 		}
 		*/
-		/////////////////////////
-		// localforage wrapper //READ
-		/////////////////////////
+		//localforage wrapper
 		if(/diary_entry|diary_food/i.test(key)) {
-			/*
-			if(/MSApp/i.test(navigator.userAgent) && typeof Windows !== 'undefined') {
-				localFolder.getFileAsync(key + "_dataFile.txt")
-				.then(function (sampleFile) {
-					return Windows.Storage.FileIO.readTextAsync(sampleFile);
-				}).done(function (timestamp) {
-					app.returner(value, serializer.deserialize(timestamp));
-					// Data is contained in timestamp
-				}, function (err) {
-					// Timestamp not found
-					app.returner(value,null);
-				});
-			} else {
-			*/
-				window.localforage.getItem(key).then(function(rows) {
-					app.returner(value,rows);
-				});
-			//}
+			localforage.getItem(key).then(function(rows) {
+				app.returner(value,rows);
+			});
 			return;
 		}
 		//
@@ -140,9 +105,11 @@ var app = {
 			if(value == '') {
 				//return whole object
 				return JSON.parse(keyValue);
+				//return keyValue && JSON.parse(keyValue);
 			} else {
 				//return key's value
 				return JSON.parse(keyValue)[value];
+				//return keyValue[value] && JSON.parse(keyValue)[value];
 			}
 		}
 		//
@@ -178,18 +145,7 @@ var app = {
 		if(/diary_entry|diary_food/i.test(key)) {
 			app.returner(type,value);
 			app.timeout('dbTimeout_' + key,1000,function() {
-				/*
-				if(/MSApp/i.test(navigator.userAgent) && typeof Windows !== 'undefined') {
-					localFolder.createFileAsync(key + "_dataFile.txt", Windows.Storage.CreationCollisionOption.replaceExisting).then(function (sampleFile) {
-						//SERIALIZE, SAVE ON CALLBACK
-						serializer.serialize(value,function(valueString) {
-							Windows.Storage.FileIO.writeTextAsync(sampleFile, valueString);
-						});
-					});
-				} else {
-				*/
-					window.localforage.setItem(key,value);
-				//}
+				localforage.setItem(key,value);
 			});
 			return;
 		}
@@ -1075,6 +1031,7 @@ app.handlers = {
 				data[i].fii  = Math.round(data[i].fii  * 100) / 100;
 				data[i].sug  = Math.round(data[i].sug  * 100) / 100;
 				data[i].sod  = Math.round(data[i].sod  * 100) / 100;
+
 				data[i].fib  = (data[i].fib).split('diary_food').join('');
 				//////////////
 				// ROW HTML //
