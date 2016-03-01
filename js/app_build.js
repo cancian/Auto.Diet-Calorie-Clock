@@ -1040,8 +1040,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if (/devdriver/i.test($('#entryBody').val())) {
 				$('#entryBody').val('devdrive');
 				$('#entryBody').blur();
-				if (window.localforage) {
-					alert(window.localforage._driver);
+				if (localforage) {
+					alert(localforage._driver);
 				}
 
 			}
