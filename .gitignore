@@ -1,6 +1,7 @@
 ##############
 ## PHONEGAP ##
 ##############
+_dev/
 # MINIFIED CONTENT
 js/min/
 css/min/
