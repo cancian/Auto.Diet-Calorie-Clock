@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html manifest="manifest.appcache" id="KCalsHTML">
+﻿<!doctype html>
+<html manifest="manifest.appcache">
 <head>
 <title>KCals Calorie Counter</title>
 <meta charset="utf-8" />
@@ -81,13 +81,6 @@ body.unloaded * {
 <!--##########################################-->
 <script type="text/javascript">
 /////////////////////////
-// MANIFEST AUTOREMOVE //
-/////////////////////////
-if(!/http/i.test(window.location.protocol)) {
-	document.getElementById('KCalsHTML').setAttribute('manifest','');
-	document.getElementById('KCalsHTML').removeAttribute('manifest');
-}
-/////////////////////////
 // MSAPP CONFIRM LAYER //
 /////////////////////////
 if (/MSApp/i.test(navigator.userAgent) && typeof window.confirm === 'undefined') {
@@ -138,6 +131,12 @@ if (/MSApp/i.test(navigator.userAgent) && typeof window.confirm === 'undefined')
 			MSDialog2 = false;
 		}
 	}
+}
+////////////////
+// HTTP CACHE //
+////////////////
+if(!/http/i.test(window.location.protocol) || window.localStorage.getItem('config_debug') == 'active') {
+	document.getElementsByTagName('html')[0].removeAttribute('manifest');
 }
 ////////////////////	
 // DETECT OFFLINE //
@@ -226,17 +225,15 @@ var bootLoopBreaker = function () {
 		}
 	}
 };
-///////////////////
-// PRE-LISTENERS //
-///////////////////
+//PRE-LISTENERS
 setTimeout(function() {
 	window.addEventListener('mousedown', bootLoopBreaker, false);
 	window.addEventListener('touchstart', bootLoopBreaker, false);
 },0);
 </script>
 <!--###########################################-->
-<style type="text/css" id="CSSPlaceholder"> </style>
-<script type="text/javascript" id="JSPlaceholder"> </script>
+<style type="text/css" id="CSSPlaceholder"></style>
+<script type="text/javascript" id="JSPlaceholder"></script>
 <!--###########################################-->
 <script type="text/javascript">
 ///////////////
@@ -282,9 +279,9 @@ function bootStraper() {
 }
 if(!/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 	bootStraper();
-} 
-</script> 
-</head> 
+}
+</script>
+</head>
 <body class="unloaded">
 <div id="loadMask"><span></span></div>
 <div id="fb-root"></div>
