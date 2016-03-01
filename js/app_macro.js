@@ -1247,6 +1247,7 @@ function getElapsed(swap) {
 		if(app.read('appStatus','running')) {
 			weightLoss = ((((app.read('calcForm#pA6G')) * ((app.now() - (app.read('config_start_time'))) / (60*60*24*7))) / 1000)).toFixed(7);
 		} else {
+
 			weightLoss = '0.0000000';
 		}
 		//DATA
@@ -1556,9 +1557,9 @@ function buildAdvancedMenu() {
 		$('#optIndexedDB').hide();
 	}
 	//GET CURRENT ENGINE
-	if (window.localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
-	if (window.localforage._driver == 'webSQLStorage')			{ app.save('app_database','webSQLStorage'); $('#optWebSQL').addClass('toggle');		} 
-	if (window.localforage._driver == 'localStorageWrapper')	{ app.save('app_database','localStorageWrapper'); $('#optLocalStorage').addClass('toggle');	}
+	if (localforage._driver == 'asyncStorage')			{ app.save('app_database','asyncStorage'); $('#optIndexedDB').addClass('toggle');	} 
+	if (localforage._driver == 'webSQLStorage')			{ app.save('app_database','webSQLStorage'); $('#optWebSQL').addClass('toggle');		} 
+	if (localforage._driver == 'localStorageWrapper')	{ app.save('app_database','localStorageWrapper'); $('#optLocalStorage').addClass('toggle');	}
 	//PARSE DB STYLE
 	function styleResetDB() {
 	$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
