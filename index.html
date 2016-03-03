@@ -1,6 +1,5 @@
-﻿st<!-- <?php function callback($buffer) { return (str_replace("<html>", "<html manifest=\"manifest.appcache\">", $buffer)); } ob_start("callback"); ?> -->
-<!doctype html>
-<html>
+﻿<!DOCTYPE html>
+<html manifest="manifest.appcache">
 <head>
 <meta charset="utf-8">
 <title>KCals Calorie Counter</title>
@@ -289,4 +288,3 @@ if(/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 <div id="fb-root"></div>
 </body>
 </html>
-<!-- <?php ob_end_flush(); ?> -->

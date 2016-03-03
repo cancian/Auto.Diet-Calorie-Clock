@@ -13,8 +13,6 @@ AddType text/plain .sql
 AddType text/cache-manifest .appcache
 AddType text/cache-manifest .manifest
 AddType application/x-web-app-manifest+json .webapp
-AddType application/x-httpd-php .html
-#AddHandler application/x-httpd-php .html
 ###################
 ## DIRECT ACCESS ##
 ###################
