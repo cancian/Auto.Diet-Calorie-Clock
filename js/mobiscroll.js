@@ -1,4 +1,7 @@
-﻿(function (e) {
+﻿////////////////
+// MOBISCROLL //
+////////////////
+(function (e) {
 	function t(e) {
 		var t;
 		for (t in e) {
@@ -1836,3 +1839,4 @@
 		btnMinusClass : "mbsc-ic mbsc-ic-arrow-up5"
 	}
 })(jQuery);
+

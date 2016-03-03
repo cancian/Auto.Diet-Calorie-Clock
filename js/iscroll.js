@@ -1,4 +1,7 @@
-﻿!(function (window, document, Math) {
+﻿/////////////
+// ISCROLL //
+/////////////
+!(function (window, document, Math) {
 var rAF = window.requestAnimationFrame	||
 	window.webkitRequestAnimationFrame	||
 	window.mozRequestAnimationFrame		||
@@ -1990,3 +1993,4 @@ if ( typeof module != 'undefined' && module.exports ) {
 }
 
 })(window, document, Math);
+

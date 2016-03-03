@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/////////////////////
+// GA-LOCALSTORATE //
+/////////////////////
+(function () {
 	var VERSION = '1.6';
 	var IS_DEBUG = false;
 	var Local_Storage = function (key, initial_value) {
@@ -328,3 +331,4 @@
 		};
 	};
 })();
+

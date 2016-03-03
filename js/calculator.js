@@ -1,4 +1,19 @@
-﻿function recalc_onclick(e) {
+﻿////////////////////////
+// PROFILE CALCULATOR //
+////////////////////////
+var co = [];
+var eeisus = 1;
+var eetrue = "TRUE";
+var eefalse = "FALSE";
+var eedec = ".";
+var eeth = ",";
+var eedecreg = new RegExp("[.]", "g");
+var eethreg = new RegExp(",", "g");
+var eeparseFloatVreg = new RegExp("^ *-?[0-9.]+ *$");
+////////////////////
+// RECALC ONCLICK //
+////////////////////
+function recalc_onclick(e) {
 	co.pA1B = $("#pA1B").val();
 	co.pA2B = eeparseFloat($("#pA2B").val());
 	co.pA2C = $("#pA2C").val();
@@ -38,6 +53,7 @@
 	$("#pA10L").val(eedisplayFloatND(co.pA10L, 2));
 	$("#pA10N").val(eedisplayFloatND(co.pA10N, 2))
 }
+
 function calc(e) {
 	var t = e.pA1B;
 	var n = e.pA2B;
@@ -208,12 +224,4 @@ function eeparseFloatV(e) {
 		return t
 	}
 }
-var co = [];
-var eeisus = 1;
-var eetrue = "TRUE";
-var eefalse = "FALSE";
-var eedec = ".";
-var eeth = ",";
-var eedecreg = new RegExp("[.]", "g");
-var eethreg = new RegExp(",", "g");
-var eeparseFloatVreg = new RegExp("^ *-?[0-9.]+ *$");
+

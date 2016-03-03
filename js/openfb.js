@@ -1,12 +1,4 @@
-﻿/**
- * OpenFB is a micro-library that lets you integrate your JavaScript application with Facebook.
- * OpenFB works for both BROWSER-BASED apps and CORDOVA/PHONEGAP apps.
- * This library has no dependency: You don't need (and shouldn't use) the Facebook SDK with this library. Whe running in
- * Cordova, you also don't need the Facebook Cordova plugin. There is also no dependency on jQuery.
- * OpenFB allows you to login to Facebook and execute any Facebook Graph API request.
- * @author Christophe Coenraets @ccoenraets
- * @version 0.5
- */
+﻿/* OpenFB is a micro-library that lets you integrate your JavaScript application with Facebook. */
 var openFB = (function () {
 
     var loginURL = 'https://www.facebook.com/dialog/oauth',
@@ -252,3 +244,4 @@ var openFB = (function () {
     }
 
 }());
+

@@ -8,8 +8,9 @@
 • Water tracker
 • Daily tips
 
-# 1.9.14 [2016/02/18]
+# 1.9.14 [2016/03/03]
 • Enter calories manually by tapping the diary input (below the slider)
+• Several stability improvements
 
 # 1.9.13 [2015/12/14]
 • Improved database engine

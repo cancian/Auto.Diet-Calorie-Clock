@@ -1,4 +1,7 @@
-﻿(function () {
+﻿///////////
+// WINFB //
+///////////
+(function () {
 	"use strict";
 	/////////////////////
 	// SAMPLE-UTILS.JS //
@@ -276,3 +279,4 @@
 		authzInProgress = false;
 	}
 })();
+

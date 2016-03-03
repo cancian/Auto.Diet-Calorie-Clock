@@ -1,4 +1,7 @@
-﻿var appName = 'KCals';
+﻿/////////////////////
+// LANGUAGE ENGINE //
+/////////////////////
+var appName = 'KCals';
 var appVersion = '1.9.14 (191405)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
@@ -7168,31 +7171,24 @@ var LANG = {
 		}
 	},
 	HELP_TOPICS_ARRAY : {
-		en : {
+		en : { 
 'What is KCals?' :
 '<p>KCals is a cross-platform web app that allows you to count your calories from anywhere.</p>\
 <p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, KCals works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
 <p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p>\
 <p id="tabHelp" class="hidden">For more information on how to take full advantage of this app, be sure to check the<span id="openHelp" class="blue bold"> help section</span>.</p>',
-
 'Getting started' :
 '<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? KCals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p><p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p><p>Then you should define a weight loss rate, given in lb/kg per week.</p><p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p><p>Now hit start, and the app will show how many calories you have burned over time, so you’ll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p><p>For instance:</p><p>2400 per day / 24 hours = 100 calories per hour</p><p>So, after 30 minutes, the counter will indicate your caloric balance is “-50”. Its that simple!</p><p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>',
-
 'The Status Bar' :
 '<p>The status bar displays your actual calorie balance as well as your daily intake. Your calorie balance is the difference between the calories you burn and the calories you consume. Calorie balance has three states: deficit, surplus, and balanced.</p><p>A calorie deficit means that you have burned more calories than you have consumed. It is displayed in your status bar as a red bar. </p><p>A calorie surplus means that you have consumed more calories than you have burned. It is displayed as green in your status bar. </p><p>A calorie balance means that you have burned the same or nearly equal amount of calories as you have consumed. It is displayed as blue in your status bar. </p><p><strong>Balanced:</strong> between -300 and +300 calories </p><p><strong>Deficit:</strong> below -300 calories </p><p><strong>Surplus:</strong> above +300 calories </p><p>When the counter hits +/-600, the “caloric balance” block will be highlighted to indicate you are getting too distant from the balanced state. The value 600 was chosen as default because it is usually the highest amount of calories recommend per meal.</p><p>You can customize that value to anything between 100 and 9999 by tapping the “Caloric Balance” block on the Status tab.</p>',
-
 'Today Overview' :
 '<p>The <strong>Today Overview</strong> status incorporates several aspects of your daily calorie intake, so it is worth taking the time to interpret it.</p><p>The circle has 5 colors:</p><p><strong style="color: #2F7ED8">Blue</strong> = Total calories consumed from food (absolute value).<br /><br /><strong style="color: #1EB618">Green</strong> = Number of calories that exceeded your daily intake.<br /><br /><strong style="color: #EE704E">Red</strong> = Number of calories you spent with exercise, but haven’t yet compensated by eating an equal amount of calories.<br /><br /><strong style="color: #9947F0">Purple</strong> = Number of calories you spent with exercise that have been compensated by consuming an equal amount of calories.<br /><br /><strong style="color: #777">Grey</strong> = Calories you still have to consume to fulfill your daily intake.</p><p>Now, let&rsquo;s put that in a practical perspective.</p><p>You start the app, and tap the &ldquo;Today Overview&rdquo; circle. You&rsquo;ll notice that all the variables described above will correspond to zero, except the grey one, which will indicate the calories left for the day (2000 for instance).</p><p>Then if you eat, say 600 calories, the circle will be partially filled in blue, with the number &ldquo;600&rdquo; right next to the blue portion of the circle.</p><p>The grey area will now shrink a little bit, showing you still have &ldquo;1400&rdquo; calories left.</p><p>Now let&rsquo;s say you do some exercise, burning 400 calories. That means your daily intake, for the sake of maintenance, has changed from 2000 to 2400.</p><p>To account for that, there will be a red portion of the circle indicating &ldquo;400&rdquo; calories. As explained, red means the calories you have burned, but have not yet compensated (you have not eaten 400 extra calories to make up for what you spent).</p><p>Now suppose you eventually eat all the 2400 calories you needed.</p><p>The red section will turn purple, indicating that the calories you burned from exercise have been compensated (you ate accordingly to the extra calories you spent).</p><p>Finally, if you go over your daily intake, there will appear a green portion on the circle, specifying by how many calories you exceeded your daily intake.</p><p>Naturally, this situation is reversible.</p><p>You can simply do some more exercise, and this green portion will decrease accordingly, until you return to the perfect balance between eating and exercising.</p><p>Therefore, it doesn&rsquo;t really matter how much you eat or exercise in a day. As long as you make up for it, keeping both things balanced, you can do anything you want.</p><p>This method gives you an extraordinary amount of freedom on how to approach your personal goals.</p><p>For instance, this means you don&rsquo;t necessarily have to eat very little in order to lose weight.</p><p>If you like to eat a lot, you can eat a lot. No problem! As long as you make up for it by exercising accordingly. This way you can eat a lot, and still lose weight! Awesome!</p>',
-
 'Changing the start date' :
 '<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
-
 'Calculating calories' :
 '<p>The weight loss rate (kg/lb per week) is calculated using a simple formula based on the number of calories in a pound (3500) or kilogram (7700) of fat. </p><p>Let us say you need 2000 daily calories in order to keep your current weight, and you want to lose 0.5 kg per week.</p><p>Divide 7700 by 2 to get the total calories in 0.5 kg of fat:</p><p>7700 / 2 = 3850</p><p>Then divide that value by 7 to get how many daily calories you need to cut back:</p><p>3850 / 7 = 550</p><p>Now subtract that value from your daily intake:</p><p>2000 – 550 = 1450</p><p>That’s how many you have to consume daily in order to lose 0.5 kg a week.</p>',
-
 'Data synchronization':
 '<p>By enabling Backup & Synchronization, your data and personal settings are stored at Kcals.net. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at Kcals.net, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
-
 'Synchronizing two devices' : 
 '<p>If you wish to synchronize two or more devices, it’s safer to use one device at time, to avoid data conflicts.</p>\
 <p>The app synchronization routine is very simple. It downloads the existing data from the cloud, merges it with the local data, then sends the whole package back to the cloud.</p>\
@@ -7200,18 +7196,13 @@ var LANG = {
 <p>If you wish to force a synchronization, you can either restart the app, or tap the “last sync” date on the bottom of the settings tab.</p>\
 <p>This will trigger a full synchronization cycle. The existing data will be downloaded, merged, then pushed back to the cloud.</p>\
 <p>Now repeat this process on the other devices you wish to synchronize, and they should match each other perfectly.</p>',
-
 'Nutrient ratio':
 '<p>When you add a food that includes nutritional information, the app will use this data to calculate the average percentage of calories you are getting from each nutrient (proteins, carbs and fats).</p><p>The ratio of each nutrient is calculated by total calories, not by weight. So it is important to remember that while proteins and carbs have 4 kcal per gram, fats have 9 kcal.</p><p>The default nutrient ratio is 25% proteins / 50% carbs / 25% fats. You can change these values by tapping the nutrition bars on the status tab.</p>',
-
 'Elapsed Time / Relative Time':
 '<p><strong class="blue">Elapsed Time</strong> means the total time since you pressed Start.</p><p><strong class="blue">Relative Time</strong> indicates how long you have to wait until your caloric balance returns to zero. </p><p>The “Relative Time” is particularly useful to calculate when you should have your next meal. </p><p>For instance, if you have eaten 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p><p class="blue bold">500 kcal = 1/4 of your daily intake</p><p class="blue bold">6 hours = 1/4 of the day</p><p>Therefore:</p><p class="blue bold">500 kcal = 6 hours </p><p>Simply put, calories are converted into time.</p><p>In practical terms, this means that within 6 hours (1/4 of the day) your body will have burned the 500 calories you consumed (1/4 of your daily intake).</p><p>As you can see, more than just counting calories, KCals helps you to reeducate your eating habits, keeping you in sync with your body.</p>',
-
 'Cyclical Mode':
 '<p>The <strong>Cyclical Mode</strong> allows you to alternate between two different caloric values along a period of four days.</p><p>Days <strong>(A, B, C)</strong> will use the first value, while day <strong>(D)</strong> will use the second.</p><p>This configuration is typically used to accommodate a “rest day” (maintenance level) in a dieting plan.</p><p>The reason for this is mostly the psychological comfort of having some kind of “reward” to look forward to, making it easier to endure the dieting days.</p><p>A second reason is that the change in calories (theoretically) keeps your body guessing, and make it harder for your body to adjust its metabolism.</p>',
-
 'Supported platforms':
 '<p>KCals is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 8<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (kcals.net)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};
 
- 

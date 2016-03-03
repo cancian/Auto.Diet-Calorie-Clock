@@ -6,8 +6,7 @@
 -- http://nicescroll.areaaperta.com/
 -- https://github.com/inuyaksa/jquery.nicescroll
 --
- */
-
+*/
 (function(factory) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as anonymous module.
@@ -3694,3 +3693,4 @@
 	}
 
 }));
+

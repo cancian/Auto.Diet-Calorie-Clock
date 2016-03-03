@@ -1,4 +1,5 @@
-﻿(function () {
+﻿
+(function () {
 	function r() {
 		if (document.getElementById("slider")) {
 			var e = parseInt($("#entryTitle").val());
@@ -599,3 +600,4 @@
 		i()
 	})
 })();
+
