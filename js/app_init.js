@@ -2,7 +2,7 @@
 // SAFE EXEC //
 ///////////////
 if(typeof hostLocal === 'undefined') {
-	var hostLocal = window.localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
+	var hostLocal = localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
 }
 var staticVendor = ''; //'amazon';
 var baseVersion  = 1.9;
@@ -44,7 +44,7 @@ window.onerror = function (err, url, line) {
 	//LOG
 	console.log('unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
 	//SAVE
-	window.localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
+	localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
 	//TRACK
 	if (typeof app !== 'undefined') {
 		if (typeof app.analytics !== 'undefined') {
@@ -55,7 +55,7 @@ window.onerror = function (err, url, line) {
 		spinner('stop');
 	}
 	//DEV ALERT
-	if (window.localStorage.getItem('config_debug') === 'active' && blockAlerts == 0 && !(/InvalidStateError/i).test(err)) {
+	if (localStorage.getItem('config_debug') === 'active' && blockAlerts == 0 && !(/InvalidStateError/i).test(err)) {
 		if (IsMsApp) {
 			if (typeof alert !== 'undefined') {
 				alert('onerror: ' + err + ' URL: ' + url + ' Line: ' + line);
@@ -70,8 +70,8 @@ window.onerror = function (err, url, line) {
 	}
 	//disable ff db
 	/*
-	if ((/InvalidStateError/i).test(err) && !window.localStorage.getItem('config_force_localstorage')) {
-		window.localStorage.setItem('config_force_localstorage',true);
+	if ((/InvalidStateError/i).test(err) && !localStorage.getItem('config_force_localstorage')) {
+		localStorage.setItem('config_force_localstorage',true);
 		setTimeout(function () {
 			window.location.reload(true);
 		}, 0);
@@ -131,7 +131,7 @@ function isCacheValid(input) {
 //##/////////##//
 function initJS() {
 	if(typeof hostLocal === 'undefined') {
-		var hostLocal = window.localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
+		var hostLocal = localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
 	}
 	///////////
 	// MSAPP //
@@ -140,7 +140,9 @@ function initJS() {
 	/////////////
 	// ISCROLL //
 	/////////////
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
+	if(!localStorage.getItem('intro_dismissed')) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
+	}
 	/////////////////////
 	// CORDOVA/DESKTOP //
 	/////////////////////
@@ -164,19 +166,19 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');	
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
 	//UTILS
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
-	if (window.localStorage.getItem('config_autoupdate') == 'on' || (IsMsApp && window.localStorage.getItem('config_debug') == 'active')) {
-		if(isCacheValid(window.localStorage.getItem('remoteSuperBlockJS') + window.localStorage.getItem('remoteSuperBlockCSS'))) {
+	if (localStorage.getItem('config_autoupdate') == 'on' || (IsMsApp && localStorage.getItem('config_debug') == 'active')) {
+		if(isCacheValid(localStorage.getItem('remoteSuperBlockJS') + localStorage.getItem('remoteSuperBlockCSS'))) {
 			isCurrentCacheValid = 1;
 		}
 		//DEFINE VALIDITY
@@ -185,15 +187,17 @@ function initJS() {
 			if(!document.getElementById('superBlockCSS')) {
 				//to head
 				if(document.getElementById('CSSPlaceholder')) {
-					document.getElementById('CSSPlaceholder').innerHTML = window.localStorage.getItem('remoteSuperBlockCSS');
+					document.getElementById('CSSPlaceholder').innerHTML = localStorage.getItem('remoteSuperBlockCSS');
 				} else {
-					document.write('<style type="text/css" id="superBlockCSS">' + window.localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
+					document.write('<style type="text/css" id="superBlockCSS">' + localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
 				}
 				//JS
 				document.addEventListener('DOMContentLoaded', function() {
 					setTimeout(function() {
-						$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
-					},0);
+						try {
+							$.globalEval(';' + localStorage.getItem('remoteSuperBlockJS') + ';');
+						} catch(err) { throw(err); }
+					},5);
 				},false);
 			}
 		}
