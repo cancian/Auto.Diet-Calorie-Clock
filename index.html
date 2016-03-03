@@ -1,5 +1,6 @@
-﻿<!doctype html>
-<html manifest="manifest.appcache">
+﻿st<!-- <?php function callback($buffer) { return (str_replace("<html>", "<html manifest=\"manifest.appcache\">", $buffer)); } ob_start("callback"); ?> -->
+<!doctype html>
+<html>
 <head>
 <meta charset="utf-8">
 <title>KCals Calorie Counter</title>
@@ -130,69 +131,65 @@ if (/MSApp/i.test(navigator.userAgent) && typeof window.confirm === 'undefined')
 		}
 	}
 }
-////////////////
-// HTTP CACHE //
-////////////////
-if(!/http/i.test(window.location.protocol) || window.localStorage.getItem('config_debug') == 'active') {
-	document.getElementsByTagName('html')[0].removeAttribute('manifest');
-}
 ////////////////////	
 // DETECT OFFLINE //
 ////////////////////
 var bodyTimer = setTimeout(function() {
-	if((typeof updateTimer != 'function') && ((!/http/i.test(window.location.protocol)) || (window.localStorage.getItem('remoteSuperBlockJS') || window.localStorage.getItem('remoteSuperBlockCSS')))) {
-		window.localStorage.removeItem('config_debug');
-		window.localStorage.removeItem('remoteSuperBlockJS');
-		window.localStorage.removeItem('remoteSuperBlockCSS');
-		window.localStorage.removeItem('app_autoupdate_hash');
+	if((typeof updateTimer != 'function') && ((!/http/i.test(window.location.protocol)) || (localStorage.getItem('remoteSuperBlockJS') || localStorage.getItem('remoteSuperBlockCSS')))) {
+		localStorage.removeItem('config_debug');
+		localStorage.removeItem('remoteSuperBlockJS');
+		localStorage.removeItem('remoteSuperBlockCSS');
+		localStorage.removeItem('app_autoupdate_hash');
 		window.location.reload(true);
 	}
 },10000);
 ////////////////////
 // BREAK BOOTLOOP //
 ////////////////////
-setTimeout(function() {
-	if(!window.localStorage.getItem('consecutive_reboots')) {
-		window.localStorage.setItem('consecutive_reboots',0);
-	} else if(window.localStorage.getItem('consecutive_reboots') > 5) {
-		window.localStorage.removeItem('app_database');
-		window.localStorage.removeItem('config_debug');
-		window.localStorage.removeItem('remoteSuperBlockJS');
-		window.localStorage.removeItem('remoteSuperBlockCSS');
-		window.localStorage.removeItem('app_autoupdate_hash');
+setTimeout(function () {
+	if (!localStorage.getItem('consecutive_reboots')) {
+		localStorage.setItem('consecutive_reboots', 0);
+	} else if (localStorage.getItem('consecutive_reboots') > 3) {
+		localStorage.removeItem('app_database');
+		localStorage.removeItem('config_debug');
+		localStorage.removeItem('remoteSuperBlockJS');
+		localStorage.removeItem('remoteSuperBlockCSS');
+		localStorage.removeItem('app_autoupdate_hash');
 		//RESTART
 		console.log('erasing cache...');
-		window.localStorage.removeItem('consecutive_reboots');
+		localStorage.removeItem('consecutive_reboots');
 		window.location.reload(true);
 	} else {
-		window.localStorage.setItem('consecutive_reboots',window.localStorage.getItem('consecutive_reboots')+1);
+		localStorage.setItem('consecutive_reboots', localStorage.getItem('consecutive_reboots') + 1);
 	}
-},0);
+}, 0);
 /////////////////////////
 // WIPE CACHE FUNCTION //
 /////////////////////////
 function wipeCache(button) {
-	if(button == 2) {
-	setTimeout(function () {
-		//ERASE
-		window.localStorage.removeItem('app_database');
-		window.localStorage.removeItem('config_debug');
-		window.localStorage.removeItem('config_autoupdate');
-		window.localStorage.removeItem('remoteSuperBlockJS');
-		window.localStorage.removeItem('remoteSuperBlockCSS');
-		window.localStorage.removeItem('app_autoupdate_hash');
-		window.localStorage.removeItem('consecutive_reboots');
-		//HALT
-		//document.getElementsByTagName('head')[0].innerHTML = '';
-		if(document.body) {
-			document.body.innerHTML = '';
-		}
-		//RELOAD
-		alert('erasing cache...');
-		window.location.reload(true);
-	}, 50);
+	if (button == 2) {
+		setTimeout(function () {
+			//ERASE
+			localStorage.removeItem('app_database');
+			localStorage.removeItem('config_debug');
+			localStorage.removeItem('config_autoupdate');
+			localStorage.removeItem('remoteSuperBlockJS');
+			localStorage.removeItem('remoteSuperBlockCSS');
+			localStorage.removeItem('app_autoupdate_hash');
+			localStorage.removeItem('consecutive_reboots');
+			//HALT
+			//document.getElementsByTagName('head')[0].innerHTML = '';
+			if (document.body) {
+				document.body.innerHTML = '';
+			}
+			//RELOAD
+			if (typeof alert !== 'undefined') {
+				alert('erasing cache...');
+			}
+			window.location.reload(true);
+		}, 50);
 	} else {
-		if(document.getElementById('loadMask')) {
+		if (document.getElementById('loadMask')) {
 			document.getElementById('loadMask').style.backgroundColor = '#ffffff';
 		}
 	}
@@ -223,6 +220,8 @@ var bootLoopBreaker = function () {
 		}
 	}
 };
+//INITIALIZE LOCALSTORAGE
+localStorage.setItem('last_boot_time',new Date().getTime());
 //PRE-LISTENERS
 setTimeout(function() {
 	window.addEventListener('mousedown', bootLoopBreaker, false);
@@ -230,7 +229,6 @@ setTimeout(function() {
 },0);
 </script>
 <style type="text/css" id="CSSPlaceholder"></style>
-<script type="text/javascript" id="JSPlaceholder"></script>
 <script type="text/javascript">
 ///////////////
 // BOOTSTRAP //
@@ -243,7 +241,7 @@ function bootStraper() {
 		bootLoopBreaker = function() {}
 	},5);
 	//
-	if(window.localStorage.getItem('config_debug') == 'active') { hostLocal = 'http://192.168.1.5/'; }
+	if(localStorage.getItem('config_debug') == 'active') { hostLocal = 'http://192.168.1.5/'; }
 	//INIT
 	if (/MSApp/i.test(navigator.userAgent)) {
 		if(typeof MSApp !== 'undefined' && /MSAppHost\/3.0/i.test(navigator.userAgent)) {
@@ -279,8 +277,6 @@ if(!/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 </script>
 </head>
 <body class="unloaded">
-<div id="loadMask"><span></span></div>
-<div id="fb-root"></div>
 <script type="text/javascript">
 ///////////////
 // BOOTSTRAP //
@@ -289,6 +285,8 @@ if(/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 	bootStraper();
 }
 </script>
+<div id="loadMask"><span></span></div>
+<div id="fb-root"></div>
 </body>
 </html>
-
+<!-- <?php ob_end_flush(); ?> -->
