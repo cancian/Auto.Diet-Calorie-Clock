@@ -2,7 +2,7 @@
 //# BOOTSTRAP #//
 //#///////////#//
 $.support.cors = true;
-$.ajaxSetup({cache: false, crossDomain: true, async:true, error: function(jqXHR, exception) {
+$.ajaxSetup({cache: false, crossDomain: true, async: true, error: function(jqXHR, exception) {
 		 if(jqXHR.status === 0)           { console.log('Not connect.\n Verify Network.');         }
 	else if (jqXHR.status == 404)         { console.log('Requested page not found. [404]');        }
 	else if (jqXHR.status == 500)         { console.log('Internal Server Error [500].');           }
@@ -40,7 +40,7 @@ function InitializeLocalSuperBlock(opt) {
 	$.ajax({type: 'GET', dataType: 'text', url: 'css/fonts.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	$.ajax({type: 'GET', dataType: 'text', url: 'css/index.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	//GET SIZE
-	window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
+	localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
 	//MOZIE CSS CONVERT
 	if((/Firefox/i).test(navigator.userAgent)) {
 		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
@@ -74,11 +74,11 @@ function InitializeLocalSuperBlock(opt) {
 		}
 		setTimeout(function() {
 			//WRITE RESULTS
-			if(dataJS != window.localStorage.getItem('remoteSuperBlockJS')) {
-				window.localStorage.setItem('remoteSuperBlockJS',dataJS);
+			if(dataJS != localStorage.getItem('remoteSuperBlockJS')) {
+				localStorage.setItem('remoteSuperBlockJS',dataJS);
 			}
-			if(dataCSS != window.localStorage.getItem('remoteSuperBlockCSS')) {
-				window.localStorage.setItem('remoteSuperBlockCSS',dataCSS);
+			if(dataCSS != localStorage.getItem('remoteSuperBlockCSS')) {
+				localStorage.setItem('remoteSuperBlockCSS',dataCSS);
 			}
 		},0);
 	} catch(err) { throw(err); }
@@ -100,7 +100,7 @@ function buildRemoteSuperBlock(opt) {
 		var dataJS  = '';
 		var dataCSS = '';
 		var hostLocal2 = https + 'kcals.net/';
-		if(window.localStorage.getItem('config_debug') == 'active') {
+		if(localStorage.getItem('config_debug') == 'active') {
 			hostLocal2 = 'http://192.168.1.5/';
 		}
 		//retrieve ajax check
@@ -117,8 +117,8 @@ function buildRemoteSuperBlock(opt) {
 		//length
 		if(parseInt(hashObj[1]) > 1000) {
 			//diff
-			if(parseInt(hashObj[0]) == window.localStorage.getItem('app_build') && window.localStorage.getItem('app_autoupdate_hash') == hashObj[1]) {
-				if(window.localStorage.getItem('app_restart_pending')) {
+			if(parseInt(hashObj[0]) == localStorage.getItem('app_build') && localStorage.getItem('app_autoupdate_hash') == hashObj[1]) {
+				if(localStorage.getItem('app_restart_pending')) {
 					$('body').addClass('pending');
 				} else {
 					$('body').addClass('uptodate');
@@ -157,7 +157,7 @@ function buildRemoteSuperBlock(opt) {
 		cssLoadCount(0,0);
 		if(!isCacheValid(dataJS + dataCSS)) { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
 		//store original hash
-		window.localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
+		localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
 		//MOZ~IE CSS
 		if((/Firefox/i).test(navigator.userAgent)) {
 			dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
@@ -173,12 +173,12 @@ function buildRemoteSuperBlock(opt) {
 		////////////////////
 		var updatePending = 0;
 		//QUOTA
-		if (dataJS != window.localStorage.getItem('remoteSuperBlockJS')) {
-			window.localStorage.setItem('remoteSuperBlockJS', dataJS);
+		if (dataJS != localStorage.getItem('remoteSuperBlockJS')) {
+			localStorage.setItem('remoteSuperBlockJS', dataJS);
 			updatePending = 1;
 		}
-		if (dataCSS != window.localStorage.getItem('remoteSuperBlockCSS')) {
-			window.localStorage.setItem('remoteSuperBlockCSS', dataCSS);
+		if (dataCSS != localStorage.getItem('remoteSuperBlockCSS')) {
+			localStorage.setItem('remoteSuperBlockCSS', dataCSS);
 			updatePending = 1;
 		}
 		////////////////////
@@ -195,17 +195,17 @@ function buildRemoteSuperBlock(opt) {
 			$('body').removeClass('loading');
 			$('body').addClass('pending');
 			if (typeof appBuild !== 'undefined') {
-				window.localStorage.setItem('app_build', appBuild);
+				localStorage.setItem('app_build', appBuild);
 			}
-			window.localStorage.setItem('app_restart_pending', true);
-			if (window.localStorage.getItem('app_notify_update')) {
+			localStorage.setItem('app_restart_pending', true);
+			if (localStorage.getItem('app_notify_update')) {
 				setTimeout(function () {
 					if (typeof appConfirm == 'function') {
 						function quickReboot(button) {
 							if (button === 2) {
 								afterHide();
 							} else {
-								window.localStorage.setItem('app_restart_pending', true);
+								localStorage.setItem('app_restart_pending', true);
 							}
 						}
 						appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
@@ -234,10 +234,10 @@ function buildRemoteSuperBlock(opt) {
 //#///////////////////#//
 //# APPEND SUPERBLOCK #//
 //#///////////////////#//
-if(!window.localStorage.getItem('config_autoupdate')) {
-	window.localStorage.setItem('config_autoupdate','on');
+if(!localStorage.getItem('config_autoupdate')) {
+	localStorage.setItem('config_autoupdate','on');
 }
-if(window.localStorage.getItem('config_autoupdate') == 'on') {
+if(localStorage.getItem('config_autoupdate') == 'on') {
 	//IF SUPERBLOCK MISSING
 	if(isCurrentCacheValid != 1) {
 		//BUILD LOCAL SUPERBLOCK
@@ -248,14 +248,14 @@ if(window.localStorage.getItem('config_autoupdate') == 'on') {
 	//CHECK UPDATES
 	$(document).ready(function() {
 		//SAVE REQUEST
-		if(!window.localStorage.getItem('remoteSuperBlockJS') || !window.localStorage.getItem('remoteSuperBlockCSS')) {
+		if(!localStorage.getItem('remoteSuperBlockJS') || !localStorage.getItem('remoteSuperBlockCSS')) {
 			setTimeout(function() {
 				if(/http/i.test(window.location.protocol)) {
 					InitializeLocalSuperBlock();
 				}
 			},2500);
 		}
-		var cacheTimeout = window.localStorage.getItem('config_debug') == 'active' ? 0 : 6000;
+		var cacheTimeout = localStorage.getItem('config_debug') == 'active' ? 0 : 6000;
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
 		},cacheTimeout);

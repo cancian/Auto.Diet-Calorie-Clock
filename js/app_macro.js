@@ -1594,16 +1594,6 @@ function buildAdvancedMenu() {
 	//#//////////////////////#//
 	//#// DB ENGINE PICKER //#//
 	//#//////////////////////#//
-	//READ CURRENT
-	/*
-	if (localforage._driver == 'asyncStorage') {
-		$('#optIndexedDB').addClass('toggle');
-	} else if(localforage._driver == 'webSQLStorage') {
-		$('#optWebSQL').addClass('toggle');
-	} else {
-		$('#optLocalStorage').addClass('toggle');
-	}
-	*/
 	// INDEXEDDB ~ asyncStorage //
 	app.handlers.activeRow('#optIndexedDB','button',function(evt) {
 		//STYLE

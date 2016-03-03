@@ -1049,7 +1049,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// CLEAR //
 			///////////
 			if (/devclear/i.test($('#entryBody').val())) {
-				window.localStorage.clear();
+				app.clear();
 				$('#entryBody').val('devclea');
 				$('#entryBody').blur();
 			}
@@ -2119,13 +2119,13 @@ console.log(finalBMI);
 //height*height*
 
 /*
-if(!window.localStorage.getItem("calcForm#pA3B")) {
+if(!app.read("calcForm#pA3B")) {
 	var totalWeight = 80;
 } else {
-				var totalWeight = Number(window.localStorage.getItem("calcForm#pA3B"));
+				var totalWeight = Number(app.read("calcForm#pA3B"));
 			}
 			//convert to kg
-			if(window.localStorage.getItem("calcForm#pA3C") == "pounds") {
+			if(app.read("calcForm#pA3C") == "pounds") {
 				var totalWeight = Math.round( (totalWeight) / (2.2) );
 			}
 }

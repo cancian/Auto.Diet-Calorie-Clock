@@ -1914,7 +1914,7 @@ var langListString = [];
 $.each(LANG, function(i, langCode) {
 	langListString.push(langCode[lang]);
 });
-window.localStorage.setItem('langDump',JSON.stringify(langListString));
+app.save('langDump',JSON.stringify(langListString));
 */
 //pre-process
 var langListArray = [];
@@ -1950,7 +1950,7 @@ function buildLangMenu(opt) {
 		}
 	}
 	//mark current
-	//window.localStorage.setItem("devSetLang",lang);
+	//app.save("devSetLang",lang);
 	if(app.read('devSetLang')) {
 		$('#set' + lang).addClass('set');
 	} else {
