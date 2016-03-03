@@ -1,10 +1,4 @@
 ﻿////////////////////
-// CACHE LISTENER //
-////////////////////
-window.applicationCache.addEventListener('error', function(err) {
-	errorHandler('Error fetching cache: ' + JSON.stringify(err));
-});
-////////////////////
 // DOCUMENT READY //
 ////////////////////
 $(document).ready(function() {
