@@ -33,10 +33,10 @@
 		}
 	}
 	var e = function () {
-		if (!window.localStorage.getItem("app_zoom")) {
-			window.localStorage.setItem("app_zoom", 1)
+		if (!localStorage.getItem("app_zoom")) {
+			localStorage.setItem("app_zoom", 1)
 		}
-		return parseFloat(window.localStorage.getItem("app_zoom"))
+		return parseFloat(localStorage.getItem("app_zoom"))
 	};
 	var t,
 	n;
