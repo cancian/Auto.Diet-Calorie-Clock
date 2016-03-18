@@ -1,6 +1,6 @@
-﻿/////////////////////
-// CORDOVA PLUGINS //
-/////////////////////
+﻿//#/////////////////#//
+//# CORDOVA PLUGINS #//
+//#/////////////////#//
 cordova.define('cordova/plugin_list', function (require, exports, module) {
 	module.exports = [{
 			"file" : "plugins/cordova-plugin-dialogs/www/notification.js",
@@ -17,16 +17,22 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
 			]
 		}
 	];
+	/////////////////////
+	// TOP OF METADATA //
+	/////////////////////
+	module.exports.metadata = {
+		"cordova-plugin-dialogs"      : "1.1.1",
+		"cordova-plugin-inappbrowser" : "1.0.1"
+	};
 	////////////////////
 	// BB10 EXCEPTION //
 	////////////////////
 	if (/BB10|playbook/i.test(navigator.userAgent)) {
-		module.exports = [module.exports[0]];
-	}
-	// TOP OF METADATA
-	module.exports.metadata = {
-		"cordova-plugin-dialogs" : "1.1.1",
-		"cordova-plugin-inappbrowser" : "1.0.1"
+		module.exports          = [
+			module.exports[0]];
+		module.exports.metadata = { 
+			"cordova-plugin-dialogs" : "1.1.1" 
+		};
 	}
 	////////////////
 	// MSAPP FILE //
@@ -175,10 +181,12 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
 				"runs" : true
 			}
 		];
-	}
-	// TOP OF METADATA
-	module.exports.metadata = {
-		"cordova-plugin-file" : "4.0.1-dev"
+		/////////////////////
+		// TOP OF METADATA //
+		/////////////////////
+		module.exports.metadata = {
+			"cordova-plugin-file" : "4.0.1-dev"
+		}
 	}
 //////
 }); //
