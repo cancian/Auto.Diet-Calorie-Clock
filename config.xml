@@ -2,19 +2,24 @@
 <widget id="com.cancian.kcals" version="1.9.14" versionCode="191404" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
-
+	<!-- ### -->
+	<access origin="*" />
 	<access origin="*" subdomains="true" launch-external="yes" />
-	<allow-intent href="*" />
 	<!-- <access subdomains="true" uri="*" origin="*" /> -->
-
-	<name>KCals Calorie Counter</name>
-
-	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>
-	
-	<description>KCals is a real-time calorie counter that simulates the human metabolism.</description>
-
+	<!-- ### -->
+	<allow-intent href="http://*/*" />
+	<allow-intent href="https://*/*" />	
+	<allow-intent href="*" />
+	<!-- ### -->
+	<allow-navigation href="http://*/*" />
+	<allow-navigation href="https://*/*" />
+	<allow-navigation href="data:*" />
+	<allow-navigation href="*" />
+	<!-- ### -->
 	<icon src="icon.png" />
-
+	<name>KCals Calorie Counter</name>
+	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>
+	<description>KCals is a real-time calorie counter that simulates the human metabolism.</description>
 	<!-- Preferences for Android -->
 	<preference name="permissions" value="none" />
 	<preference name="phonegap-version" value="4.1.1" />
@@ -113,6 +118,11 @@
 	
 	<feature name="LocalStorage">
 		<param name="ios-package" value="CDVLocalStorage" />
+	</feature>
+	
+	<feature name="Whitelist">
+		<param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+		<param name="onload" value="true" />
 	</feature>
 	<!-- CORDOVA PLUGINS -->
 	

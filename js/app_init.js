@@ -189,8 +189,10 @@ function initJS() {
 				var superBlockJS = localStorage.getItem('remoteSuperBlockJS');
 				document.addEventListener('DOMContentLoaded', function() {
 					setTimeout(function() {
-						$.globalEval(superBlockJS);
-					},0);
+						try {
+							$.globalEval(superBlockJS);
+						} catch(err) { console.log('globalEval: ' + err); }
+					},5);
 				},false);
 				//CSS APPEND
 				if(document.getElementById('CSSPlaceholder')) {

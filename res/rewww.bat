@@ -27,9 +27,6 @@ rd /s /q k:\platforms\android\kcals\src\main\assets\www
 mkdir k:\platforms\android\kcals\src\main\assets\www 
 cd k:\platforms\android\kcals\src\main\assets\www 
 call reswww 
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\android\kcals\src\main\assets\www\manifest.appcache
-REM cp k:\w\platforms\android\kcals\src\main\assets\www\manifest.appcache
 
 REM "ANDROID-GRADLE" 
 cd\ 
@@ -38,9 +35,6 @@ rd /s /q k:\platforms\android-gradle\assets\www
 mkdir k:\platforms\android-gradle\assets\www 
 cd k:\platforms\android-gradle\assets\www 
 call reswww 
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\android-gradle\assets\www\manifest.appcache
-REM cp k:\w\platforms\android-gradle\assets\www\manifest.appcache
  
 REM "IOS"
 rem cd\ 
@@ -49,9 +43,6 @@ rd /s /q k:\platforms\ios\www
 mkdir k:\platforms\ios\www 
 cd k:\platforms\ios\www 
 call reswww 
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\ios\www\manifest.appcache
-REM cp k:\w\platforms\ios\www\manifest.appcache
 
 REM "OSX"
 rem cd\ 
@@ -60,9 +51,6 @@ rd /s /q k:\platforms\osx\public
 mkdir k:\platforms\osx\public 
 cd k:\platforms\osx\public 
 call reswww 
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\osx\public\manifest.appcache
-REM cp k:\w\platforms\osx\public\manifest.appcache
 
 REM "WINDOWS10"
 rem cd\ 
@@ -79,9 +67,6 @@ rd /s /q k:\platforms\windows8\www
 mkdir k:\platforms\windows8\www 
 cd k:\platforms\windows8\www 
 call reswww 
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\windows8\www\manifest.appcache
-REM cp k:\w\platforms\windows8\www\manifest.appcache
 
 rem "WP 8.0"
 rem cd\ 
@@ -90,9 +75,6 @@ rd /s /q k:\platforms\wp8\www
 mkdir k:\platforms\wp8\www 
 cd k:\platforms\wp8\www 
 call reswww 
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\wp8\www\manifest.appcache
-REM cp k:\w\platforms\wp8\www\manifest.appcache
 
 REM PLAYBOOK
 deltree /y /z /s /q /t K:\platforms\playbook\www
@@ -101,9 +83,6 @@ mkdir K:\platforms\playbook\www
 cd k:\platforms\playbook\www
 call reswww 
 cp -R K:\platforms\playbook\lib\cordova.2.9.0\ext-air K:\platforms\playbook\www
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\playbook\www\manifest.appcache
-REM cp k:\w\platforms\playbook\www\manifest.appcache
 
 REM CP OVER CDVJS
 REM del /q K:\platforms\playbook\www\js\cordova.js
@@ -116,9 +95,7 @@ rd /s /q k:\platforms\bb10\www
 mkdir k:\platforms\bb10\www
 cd k:\platforms\bb10\www
 call reswww 
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\bb10\www\manifest.appcache
-REM cp k:\w\platforms\bb10\www\manifest.appcache
+
 REM "PLATFORM / BB10"
 rem cd\ 
 deltree /y /z /s /q /t k:\platforms\bb10\platforms\blackberry10\www
@@ -128,9 +105,6 @@ cd k:\platforms\bb10\platforms\blackberry10\www
 call reswww 
 deltree /y /z /s /q /t k:\platforms\bb10\platforms\blackberry10\build
 rd /s /q k:\platforms\bb10\platforms\blackberry10\build
-rem ## REMOVE CHACHE ##
-del /q k:\platforms\bb10\platforms\blackberry10\www\manifest.appcache
-REM cp k:\w\platforms\bb10\platforms\blackberry10\www\manifest.appcache
 
 REM "CONFIG.XML"
 rem cd\ 
