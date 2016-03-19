@@ -5,28 +5,28 @@
 	var VERSION = '1.6';
 	var IS_DEBUG = false;
 	var Local_Storage = function (key, initial_value) {
-		if (window.sessionStorage.getItem(key) == null && initial_value != null) {
-			window.sessionStorage.setItem(key, initial_value);
+		if (localStorage.getItem(key) == null && initial_value != null) {
+			localStorage.setItem(key, initial_value);
 		}
 		this._get = function () {
-			return window.sessionStorage.getItem(key);
+			return localStorage.getItem(key);
 		};
 		this._set = function (value) {
-			return window.sessionStorage.setItem(key, value);
+			return localStorage.setItem(key, value);
 		};
 		this._remove = function () {
-			return window.sessionStorage.removeItem(key);
+			return localStorage.removeItem(key);
 		};
 		this.toString = function () {
 			return this._get();
 		};
 	};
 	ga_storage = new function () {
-		var https = 'https://'; //window.location.protocol.indexOf('https') !== -1 ? 'https://' : 'http://';
+		var https = 'https://';
 		var that = this;
 		var initialized = false;
 		var tracking_code_url = https + 'www.google-analytics.com/analytics.js';
-		var beacon_url = https + 'www.google-analytics.com/__utm.gif';
+		var beacon_url        = https + 'www.google-analytics.com/__utm.gif';
 		var last_url = '/';
 		var last_nav_url = '/';
 		var last_page_title = '-';
@@ -35,7 +35,7 @@
 		var utmhn = false;
 		var utmwv = '4.3';
 		var utmcs = 'UTF-8';
-		var utmul = window.navigator.language || window.navigator.browserLanguage;
+		var utmul = navigator.language || navigator.browserLanguage;
 		if (utmul.length) {
 			utmul = utmul.slice(0, 2).toLowerCase();
 		} else {
@@ -331,4 +331,3 @@
 		};
 	};
 })();
-

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="com.cancian.kcals" version="1.9.14" versionCode="191404" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+<widget id="com.cancian.kcals" version="1.9.14" versionCode="191406" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
+	
 	<!-- ### -->
 	<access origin="*" />
 	<access origin="*" subdomains="true" launch-external="yes" />
@@ -16,10 +17,14 @@
 	<allow-navigation href="data:*" />
 	<allow-navigation href="*" />
 	<!-- ### -->
-	<icon src="icon.png" />
+		
+	<!-- ## APP DATA ## -->
 	<name>KCals Calorie Counter</name>
-	<author email="cancian@kcals.net" href="http://kcals.net">Andre Cancian</author>
 	<description>KCals is a real-time calorie counter that simulates the human metabolism.</description>
+	<author href="http://kcals.net" email="cancian@kcals.net">Andre Cancian</author>
+	<icon src="icon.png" />
+	<!-- ## APP DATA ## -->
+	
 	<!-- Preferences for Android -->
 	<preference name="permissions" value="none" />
 	<preference name="phonegap-version" value="4.1.1" />
