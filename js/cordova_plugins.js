@@ -21,22 +21,21 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
 	// TOP OF METADATA //
 	/////////////////////
 	module.exports.metadata = {
-		"cordova-plugin-dialogs"      : "1.1.1",
+		"cordova-plugin-dialogs" : "1.1.1",
 		"cordova-plugin-inappbrowser" : "1.0.1"
 	};
-	////////////////////
-	// BB10 EXCEPTION //
-	////////////////////
+	//////////
+	// BB10 //
+	//////////
 	if (/BB10|playbook/i.test(navigator.userAgent)) {
-		module.exports          = [
-			module.exports[0]];
-		module.exports.metadata = { 
-			"cordova-plugin-dialogs" : "1.1.1" 
+		module.exports = [module.exports[0]];
+		module.exports.metadata = {
+			"cordova-plugin-dialogs" : "1.1.1"
 		};
 	}
-	////////////////
-	// MSAPP FILE //
-	////////////////
+	///////////
+	// MSAPP //
+	///////////
 	if (/MSApp/i.test(navigator.userAgent)) {
 		module.exports = [{
 				"file" : "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -191,4 +190,3 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
 //////
 }); //
 //////
-
