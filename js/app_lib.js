@@ -37,6 +37,7 @@ app = {
 		indexedDB    : typeof window.indexedDB === 'undefined' ? false : true,
 		webSQL       : !window.openDatabase ? false : true,
 		localStorage : !window.localStorage ? false : true,
+		SQLiteDriver : !window.cordovaSQLiteDriver ? false : true
 	},
 	tab: {},
 	get: {},
@@ -1368,12 +1369,14 @@ app.updateColorPicker();
 //# TOUCH ? CLICK #//
 //#///////////////#//
 //test
+/*
 try {
 	document.createEvent('TouchEvent');
 	app.touch = true;
 } catch (err) {
 	app.touch = false;
 }
+*/
 //
 function isCordova() {
 	return isMobileCordova;
