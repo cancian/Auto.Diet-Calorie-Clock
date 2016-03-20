@@ -199,12 +199,12 @@ function initJS() {
 				// JS EVAL //
 				/////////////
 				var superBlockJS = localStorage.getItem('remoteSuperBlockJS');
-				var globalEval   = window.eval;
+				//var blockEval    = eval;
 				//var applyEval function(data) { try { eval.apply(null, [data]); } catch(err) { console.log('eval.apply: ' + err); }}
 				document.addEventListener('DOMContentLoaded', function() {
-					try {
-						globalEval(superBlockJS);
-					} catch(err) { 	throw(err); }
+					var scriptBlock  = document.createElement( "script" );
+					scriptBlock.text = superBlockJS;
+					document.head.appendChild( scriptBlock ).parentNode.removeChild( scriptBlock );					
 				},false);
 			}
 		}

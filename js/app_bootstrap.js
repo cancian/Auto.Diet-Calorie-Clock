@@ -68,7 +68,6 @@ function InitializeLocalSuperBlock(opt) {
 					$('#coreCss,#coreFonts').remove();
 					$('head').append('<style id="superBlockCSS">' + dataCSS + '<\/style>');
 					$('head').append('<script id="superBlockJS">' + dataJS  + '<\/script>');
-					//$.globalEval(dataJS);
 				});
 			},0);
 		}
