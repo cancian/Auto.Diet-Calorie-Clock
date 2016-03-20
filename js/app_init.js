@@ -181,25 +181,31 @@ function initJS() {
 		if(isCacheValid(localStorage.getItem('remoteSuperBlockJS') + localStorage.getItem('remoteSuperBlockCSS'))) {
 			isCurrentCacheValid = 1;
 		}
-		//DEFINE VALIDITY
+		/////////////////////
+		// DEFINE VALIDITY //
+		/////////////////////
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
 		if(isCurrentCacheValid == 1) {
 			if(!document.getElementById('superBlockCSS')) {
-				//JS EVAL
-				var superBlockJS = localStorage.getItem('remoteSuperBlockJS');
-				document.addEventListener('DOMContentLoaded', function() {
-					setTimeout(function() {
-						try {
-							$.globalEval(superBlockJS);
-						} catch(err) { console.log('globalEval: ' + err); }
-					},5);
-				},false);
-				//CSS APPEND
+				////////////////
+				// CSS APPEND //
+				////////////////
 				if(document.getElementById('CSSPlaceholder')) {
 					document.getElementById('CSSPlaceholder').innerHTML = localStorage.getItem('remoteSuperBlockCSS');
 				} else {
 					document.write('<style type="text/css" id="superBlockCSS">' + localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
 				}
+				/////////////
+				// JS EVAL //
+				/////////////
+				var superBlockJS = localStorage.getItem('remoteSuperBlockJS');
+				var globalEval   = window.eval;
+				//var applyEval function(data) { try { eval.apply(null, [data]); } catch(err) { console.log('eval.apply: ' + err); }}
+				document.addEventListener('DOMContentLoaded', function() {
+					try {
+						globalEval(superBlockJS);
+					} catch(err) { 	throw(err); }
+				},false);
 			}
 		}
 	} else {

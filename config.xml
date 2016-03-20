@@ -46,6 +46,7 @@
 	<preference name="splash-screen-duration" value="0" />
 	<preference name="KeepRunning" value="true" />
 	<preference name="AndroidLaunchMode" value="singleTop" />
+	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
 	<!-- Preferences for Android -->
 	
 	<!-- Preferences for iOS -->
