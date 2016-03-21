@@ -13,6 +13,7 @@
 • Several stability optimizations
 • Improved boot-time, and read/write performance
 • Enhanced security, code hardening
+• Fixed rare issue with database being wiped after app update
 
 # 1.9.13 [2015/12/14]
 • Improved database engine
