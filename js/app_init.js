@@ -198,13 +198,10 @@ function initJS() {
 				/////////////
 				// JS EVAL //
 				/////////////
-				var superBlockJS = localStorage.getItem('remoteSuperBlockJS');
-				//var blockEval    = eval;
-				//var applyEval function(data) { try { eval.apply(null, [data]); } catch(err) { console.log('eval.apply: ' + err); }}
+				var scriptBlock  = document.createElement('script');
+				scriptBlock.text = localStorage.getItem('remoteSuperBlockJS');;
 				document.addEventListener('DOMContentLoaded', function() {
-					var scriptBlock  = document.createElement( "script" );
-					scriptBlock.text = superBlockJS;
-					document.head.appendChild( scriptBlock ).parentNode.removeChild( scriptBlock );					
+					document.head.appendChild(scriptBlock);
 				},false);
 			}
 		}
