@@ -2144,7 +2144,7 @@ function getNiceScroll(target,timeout,callback) {
 		},0);
 	}
 	//
-	niceResizer(100);
+	niceResizer(120);
 	},timeout);
 }
 //#/////////////#//

@@ -227,7 +227,7 @@
 	*/
 	var defaults = {
 		fingers: 1, 		
-		threshold: 75, 	
+		threshold: 50, 	
 		cancelThreshold:null,	
 		pinchThreshold:20,
 		maxTimeThreshold: null, 
@@ -249,11 +249,11 @@
 		longTap:null, 		
 		hold:null, 
 		triggerOnTouchEnd: true, 
-		triggerOnTouchLeave:false, 
-		allowPageScroll: "auto", 
+		triggerOnTouchLeave:true, 
+		allowPageScroll: "vertical", 
 		fallbackToMouseEvents: true,	
 		excludedElements:"label, button, input, select, textarea, a, .noSwipe",
-		preventDefaultEvents:true
+		preventDefaultEvents:false
 	};
 
 
