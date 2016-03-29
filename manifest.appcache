@@ -1,13 +1,10 @@
 ﻿CACHE MANIFEST
-# v191406 - 2016-03-19
+# v191408 - 2016-03-29
 
 index.html
 #JS
 js/app_init.js
 js/app_bootstrap.js
-
-#DB
-js/localforage.js
 
 #CORDOVA
 js/cordova.js
@@ -24,6 +21,9 @@ js/winfb.js
 js/jquery.js
 js/jquery.nicescroll.js
 js/jquery.touchswipe.js
+
+#DB
+js/localforage.js
 
 #UTILS
 js/galocalstorage.js

@@ -16,7 +16,6 @@ if(!app.storage.getItem('app_current_user')) {
 //#////////////#//
 if(typeof app === 'undefined') { var app = {}; }
 app.storage = localStorage;
-app.forage  = localforage;
 app.ua      = navigator.userAgent;
 app = {
 	width: window.innerWidth,
@@ -26,7 +25,6 @@ app = {
 	timers: {},
 	vars: {},
 	storage: localStorage,
-	forage: localforage,
 	base64: {characters:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(a){var r=(Base64.characters,""),e=0;do{var c=a.charCodeAt(e++),t=a.charCodeAt(e++),h=a.charCodeAt(e++);c=c?c:0,t=t?t:0,h=h?h:0;var s=c>>2&63,n=(3&c)<<4|t>>4&15,d=(15&t)<<2|h>>6&3,o=63&h;t?h||(o=64):d=o=64,r+=Base64.characters.charAt(s)+Base64.characters.charAt(n)+Base64.characters.charAt(d)+Base64.characters.charAt(o)}while(e<a.length);return r},decode:function(a){var r=(Base64.characters,""),e=0;do{var c=Base64.characters.indexOf(a.charAt(e++)),t=Base64.characters.indexOf(a.charAt(e++)),h=Base64.characters.indexOf(a.charAt(e++)),s=Base64.characters.indexOf(a.charAt(e++)),n=(63&c)<<2|t>>4&3,d=(15&t)<<4|h>>2&15,o=(3&h)<<6|63&s;r+=String.fromCharCode(n)+(d?String.fromCharCode(d):"")+(o?String.fromCharCode(o):"")}while(e<a.length);return r}},
 	//user: app.storage.getItem('app_current_user').split('###'),
 	dev: app.storage.getItem('config_debug') === 'active' ? true : false,
@@ -98,7 +96,7 @@ app = {
 		*/
 		//localforage wrapper
 		if(/diary_entry|diary_food/i.test(key)) {
-			app.forage.getItem(key).then(function(rows) {
+			localforage.getItem(key).then(function(rows) {
 				app.returner(value,rows);
 			});
 			return;
@@ -153,7 +151,7 @@ app = {
 		if(/diary_entry|diary_food/i.test(key)) {
 			app.returner(type,value);
 			app.timeout('dbTimeout_' + key,750,function() {
-				app.forage.setItem(key,value);
+				localforage.setItem(key,value);
 			});
 			return;
 		}
