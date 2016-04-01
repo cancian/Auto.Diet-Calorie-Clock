@@ -2348,7 +2348,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 			});
 		} catch (err) {
 			MSDialog = false;
-			errorHandler(err);
+			//errorHandler(err);
 		}
 	//////////////
 	// PLAYBOOK //

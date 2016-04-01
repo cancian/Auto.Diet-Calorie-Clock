@@ -1,9 +1,15 @@
 ﻿CACHE MANIFEST
-# v191408 - 2016-03-29
+# v191409 - 2016-03-30
 
 index.html
+
 #JS
 js/app_init.js
+
+#JQUERY
+js/jquery.js
+
+#BOOT
 js/app_bootstrap.js
 
 #CORDOVA
@@ -17,13 +23,10 @@ js/facebook-all.js
 js/openfb.js
 js/winfb.js
 
-#JQUERY
-js/jquery.js
-js/jquery.nicescroll.js
-js/jquery.touchswipe.js
-
 #DB
 js/localforage.js
+js/jquery.nicescroll.js
+js/jquery.touchswipe.js
 
 #UTILS
 js/galocalstorage.js
