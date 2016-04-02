@@ -142,12 +142,15 @@
 			o = e.style[s],
 			u = document.defaultView;
 			if (!o || isNaN(o)) {
-				if (u && u.getComputedStyle) {
-					r = u.getComputedStyle(e, null);
-					i = r ? r[s] : null
-				} else if (e.currentStyle) {
-					i = e.currentStyle[s]
-				}
+				//TWEAK
+				try {
+					if (u && u.getComputedStyle) {
+						r = u.getComputedStyle(e, null);
+						i = r ? r[s] : null
+					} else if (e.currentStyle) {
+						i = e.currentStyle[s]
+						}
+				} catch(e) { }
 			} else {
 				i = o
 			}
