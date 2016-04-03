@@ -82,7 +82,7 @@ app.tab.settings = function(keepOpen) {
 		// HANDLER //
 		/////////////
 		var aboutHandler = function() {
-			app.handlers.activeRow('#b000','button',function() { app.url('www');        });
+			app.handlers.activeRow('#b000','button',function() { app.url('http://kcals.net/static.html'); });
 			app.handlers.activeRow('#b100','button',function() { app.url('android');    });
 			app.handlers.activeRow('#b200','button',function() { app.url('ios');        });
 			app.handlers.activeRow('#b300','button',function() { app.url('wp8');        });
