@@ -850,9 +850,12 @@ function Sizzle( selector, context, results, seed ) {
 
 				if ( newSelector ) {
 					try {
-						push.apply( results,
-							newContext.querySelectorAll( newSelector )
-						);
+						//TWEAK
+						if(!/MSApp/i.test(navigator.userAgent)) {
+							push.apply( results,
+								newContext.querySelectorAll( newSelector )
+							);
+						}
 						return results;
 					} catch ( qsaError ) {
 					} finally {
@@ -1244,7 +1247,10 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Opera 10-11 does not throw on post-comma invalid pseudos
-			div.querySelectorAll("*,:x");
+			//TWEAK
+			if(!/MSApp/i.test(navigator.userAgent)) {
+				div.querySelectorAll("*,:x");
+			}
 			rbuggyQSA.push(",.*:");
 		});
 	}
@@ -1262,7 +1268,10 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// This should fail with an exception
 			// Gecko does not error, returns false instead
-			matches.call( div, "[s!='']:x" );
+			//TWEAK
+			if(!/MSApp/i.test(navigator.userAgent)) {
+				matches.call( div, "[s!='']:x" );
+			}
 			rbuggyMatches.push( "!=", pseudos );
 		});
 	}
@@ -1420,14 +1429,13 @@ Sizzle.matchesSelector = function( elem, expr ) {
 		( !rbuggyQSA     || !rbuggyQSA.test( expr ) ) ) {
 
 		try {
-			var ret = matches.call( elem, expr );
-
-			// IE 9's matchesSelector returns false on disconnected nodes
-			if ( ret || support.disconnectedMatch ||
-					// As well, disconnected nodes are said to be in a document
-					// fragment in IE 9
-					elem.document && elem.document.nodeType !== 11 ) {
-				return ret;
+			//TWEAK
+			if(!/MSApp/i.test(navigator.userAgent)) {
+				var ret = matches.call( elem, expr );
+				// IE 9's matchesSelector returns false on disconnected nodes
+				if ( ret || support.disconnectedMatch || elem.document && elem.document.nodeType !== 11 ) {
+					return ret;
+				}
 			}
 		} catch (e) {}
 	}
