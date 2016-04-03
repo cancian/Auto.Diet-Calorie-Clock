@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>KCals Calorie Counter</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
 <meta name="HandheldFriendly" content="True" />
 <meta name="format-detection" content="telephone=no" />
 <meta name="msapplication-tap-highlight" content="no" />
@@ -78,62 +78,6 @@ body.unloaded * {
 }
 </style>
 <script type="text/javascript">
-////////////
-// BASE64 //
-////////////
-var base64 = {characters:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(a){var r=(Base64.characters,""),e=0;do{var c=a.charCodeAt(e++),t=a.charCodeAt(e++),h=a.charCodeAt(e++);c=c?c:0,t=t?t:0,h=h?h:0;var s=c>>2&63,n=(3&c)<<4|t>>4&15,d=(15&t)<<2|h>>6&3,o=63&h;t?h||(o=64):d=o=64,r+=Base64.characters.charAt(s)+Base64.characters.charAt(n)+Base64.characters.charAt(d)+Base64.characters.charAt(o)}while(e<a.length);return r},decode:function(a){var r=(Base64.characters,""),e=0;do{var c=Base64.characters.indexOf(a.charAt(e++)),t=Base64.characters.indexOf(a.charAt(e++)),h=Base64.characters.indexOf(a.charAt(e++)),s=Base64.characters.indexOf(a.charAt(e++)),n=(63&c)<<2|t>>4&3,d=(15&t)<<4|h>>2&15,o=(3&h)<<6|63&s;r+=String.fromCharCode(n)+(d?String.fromCharCode(d):"")+(o?String.fromCharCode(o):"")}while(e<a.length);return r}};
-/////////////////////////
-// MSAPP CONFIRM LAYER //
-/////////////////////////
-if (/MSApp/i.test(navigator.userAgent) && typeof window.confirm === 'undefined') {
-	var MSDialog2;
-	var MSNext2 = [];
-	function MSAppConfirm(title, msg, callback, ok, cancel) {
-		//STORE NEXT
-		if (MSDialog2 == true) {
-			var isRepeated = 0;
-			//NOREPEAT
-			$.each(MSNext2, function (key, value) {
-				if (title == MSNext2[key][0]) {
-					isRepeated = 1;
-				}
-			});
-			if (isRepeated == 0) {
-				MSNext2.push([title, msg, callback, 'ok', 'cancel']);
-			}
-			return;
-		}
-		// SHOW
-		try {
-			MSDialog2 = true;
-			var md = new Windows.UI.Popups.MessageDialog(msg, title);
-			md.commands.append(new Windows.UI.Popups.UICommand('ok'));
-			if (cancel != "hide") {
-				md.commands.append(new Windows.UI.Popups.UICommand('cancel'));
-			}
-			md.showAsync()
-			.then(function (command) {
-				if(typeof command !== 'undefined' && typeof command !== 'null') {
-					if (command.label == 'ok') {
-						callback(2);
-					}
-					if (command.label == 'cancel') {
-						callback(1);
-					}
-				}
-			})
-			.done(function () {
-				MSDialog2 = false;
-				if (MSNext2.length) {
-					appConfirm(MSNext2[0][0], MSNext2[0][1], MSNext2[0][2], MSNext2[0][3], MSNext2[0][4]);
-					MSNext2.shift();
-				}
-			});
-		} catch (err) {
-			MSDialog2 = false;
-		}
-	}
-}
 ////////////////////	
 // DETECT OFFLINE //
 ////////////////////
@@ -189,7 +133,9 @@ function wipeCache(button) {
 			if (typeof alert !== 'undefined') {
 				alert('erasing cache...');
 			}
-			window.location.reload(true);
+			setTimeout(function() {
+				window.location.reload(true);
+			},50);
 		}, 50);
 	} else {
 		if (document.getElementById('loadMask')) {
@@ -214,10 +160,9 @@ var bootLoopBreaker = function () {
 					} else {
 						wipeCache(1);	
 					}
-				} else if (/MSApp/i.test(navigator.userAgent) && typeof confirm === 'undefined') {
-					MSAppConfirm('*** KCALS RECOVERY SYSTEM ***','Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.', function(button) {
-						wipeCache(button);
-					});
+				} else {
+					//JUST CLEAN
+					wipeCache(2);
 				}
 			}
 		}
@@ -248,9 +193,11 @@ function bootStraper() {
 	//INIT
 	if (/MSApp/i.test(navigator.userAgent)) {
 		if(typeof MSApp !== 'undefined' && /MSAppHost\/3.0/i.test(navigator.userAgent)) {
-			MSApp.execUnsafeLocalFunction = function(callback) {
-				if(typeof callback === 'function') {
-					callback();
+			if(typeof MSApp.execUnsafeLocalFunction === 'undefined') {
+				MSApp.execUnsafeLocalFunction = function(callback) {
+					if(typeof callback === 'function') {
+						callback();
+					}
 				}
 			}
 		}
@@ -260,10 +207,10 @@ function bootStraper() {
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/base.js"><\/script>');
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/ui.js"><\/script>');
 			}
-			if(/MSAppHost\/3.0/i.test(navigator.userAgent) && (/Mobile/i).test(navigator.userAgent)) {
+			//if(/MSAppHost\/3.0/i.test(navigator.userAgent) && (/Mobile/i).test(navigator.userAgent)) {
 				//document.write('<script src="WinJS/js/base.js"><\/script>');
 				//document.write('<script src="WinJS/js/ui.js"><\/script>');
-			}
+			//}
 			//MSAPP
 			hostLocal = '';
 			document.write('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}<\/style>');
@@ -280,6 +227,7 @@ if(!/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 </script>
 </head>
 <body class="unloaded">
+<div id="loadMask"><span></span></div>
 <script type="text/javascript">
 ///////////////
 // BOOTSTRAP //
@@ -288,7 +236,6 @@ if(/http/i.test(window.location.protocol) && bootLoopBroken == false) {
 	bootStraper();
 }
 </script>
-<div id="loadMask"><span></span></div>
 <div id="fb-root"></div>
 </body>
 </html>
