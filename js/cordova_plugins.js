@@ -36,6 +36,7 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
 	///////////
 	// MSAPP //
 	///////////
+/*
 	if (/MSApp/i.test(navigator.userAgent)) {
 		module.exports = [{
 				"file" : "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -187,6 +188,7 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
 			"cordova-plugin-file" : "4.0.1-dev"
 		}
 	}
+*/
 //////
 }); //
 //////
