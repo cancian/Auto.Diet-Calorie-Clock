@@ -2,7 +2,8 @@
 // WINFB //
 ///////////
 (function () {
-	"use strict";
+	//"use strict";
+
 	/////////////////////
 	// SAMPLE-UTILS.JS //
 	/////////////////////
@@ -107,8 +108,8 @@
 	////////////////
 	// DEFAULT.JS //
 	////////////////
-	var app = WinJS.Application;
-	var nav = WinJS.Navigation;
+	var appx = WinJS.Application;
+	var navx = WinJS.Navigation;
 	var activationKinds = Windows.ApplicationModel.Activation.ActivationKind;
 
 	function activated(eventObject) {
@@ -129,16 +130,16 @@
 					// before suspension or termination.
 					var url = "index.html";
 					var initialState = {};
-					var navHistory = app.sessionState.navigationHistory;
+					var navHistory = appx.sessionState.navigationHistory;
 					if (navHistory) {
-						nav.history = navHistory;
+						navx.history = navHistory;
 						url = navHistory.current.location;
 						initialState = navHistory.current.state || initialState;
 					}
 					initialState.activationKind = activationKind;
 					initialState.activatedEventArgs = activatedEventArgs;
-					nav.history.current.initialPlaceholder = true;
-					return nav.navigate(url, initialState);
+					navx.history.current.initialPlaceholder = true;
+					return navx.navigate(url, initialState);
 				});
 
 			// Calling done on a promise chain allows unhandled exceptions to propagate.
@@ -173,22 +174,22 @@
 				return WinJS.UI.Pages.render(url, host, eventObject.detail.state);
 			}).
 			then(function () {
-				var navHistory = nav.history;
-				app.sessionState.navigationHistory = {
+				var navHistory = navx.history;
+				appx.sessionState.navigationHistory = {
 					backStack : navHistory.backStack.slice(0),
 					forwardStack : navHistory.forwardStack.slice(0),
 					current : navHistory.current
 				};
-				app.sessionState.lastUrl = url;
+				appx.sessionState.lastUrl = url;
 				return animations.entrance(host.children);
 			});
 		p.done();
 		eventObject.detail.setPromise(p);
 	}
 
-	nav.addEventListener("navigating", navigating);
-	app.addEventListener("activated", activated, false);
-	app.start();
+	navx.addEventListener("navigating", navigating);
+	appx.addEventListener("activated", activated, false);
+	appx.start();
 
 	//////////////////////
 	// OAUTHFACEBOOK.JS //
@@ -278,5 +279,5 @@
 		}
 		authzInProgress = false;
 	}
-})();
 
+})();
