@@ -35,10 +35,10 @@ window.onerror = function (err, url, line) {
 	if(typeof err !== 'string') {
 		err  = JSON.stringify(err);
 	}
-	if(typeof url === 'string') {
+	if(typeof url !== 'string') {
 		url  = JSON.stringify(url);
 	}
-	if(!typeof line === 'string') {
+	if(typeof line !== 'string') {
 		line = JSON.stringify(line);
 	}
 	//LOG
