@@ -2436,7 +2436,7 @@ function getLoginFB() {
 		////////////////////////
 		// OPENFB ANDROID/IOS //
 		////////////////////////
-		if(app.device.cordova && (app.device.ios || app.device.android)) {
+		if(app.device.cordova && (app.device.ios || app.device.android) && !app.device.msapp) {
 			if (typeof openFB !== 'undefined') {
 				openFB.init({appId: '577673025616946'});
 				openFB.login(function (response) {
