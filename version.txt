@@ -8,6 +8,10 @@
 • Water tracker
 • Daily tips
 
+# 1.9.15 [2016/04/05]
+• Fixed insertion loop that would slow down the app over time
+• Revised touch handlers
+
 # 1.9.14 [2016/03/19]
 • Enter calories manually by tapping the diary input (below the slider)
 • Several stability optimizations
