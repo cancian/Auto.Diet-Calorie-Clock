@@ -393,7 +393,7 @@ $(document).on('backbutton', function(evt) {
 	} else {
 		if(app.dev) {
 			afterHide();
-		} else if(app.device.windows8) {
+		} else if(app.device.msapp) {
 			backer = 1;
 		} else if(app.device.wp8) {
 			$(document).off('backbutton');
@@ -411,7 +411,7 @@ $(document).on('backbutton', function(evt) {
 //////////////////////
 // WINJS BACKBUTTON //
 //////////////////////
-if (app.device.windows8) {
+if (app.device.msapp) {
 	if (typeof WinJS !== 'undefined') {
 		WinJS.Application.onbackclick = function (arg) {
 			$(document).trigger('backbutton');
