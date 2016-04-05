@@ -209,13 +209,13 @@ function bootStraper() {
 			}
 			//WP10 (backbutton)
 			if (/MSAppHost\/3.0/i.test(navigator.userAgent) && /Windows Phone 10/i.test(navigator.userAgent)) {
-				document.write('<script src="WinJS/js/base.js"><\/script>');
-				document.write('<script src="WinJS/js/ui.js"><\/script>');
+				document.write('<script src="../WinJS/js/base.js"><\/script>');
+				//document.write('<script src="../WinJS/js/ui.js"><\/script>');
 			}
 			//MSAPP
 			hostLocal = '';
 			//WP8.1 viewport fix ~ no WP10
-			if (/MSAppHost\/3.0/i.test(navigator.userAgent) && /Windows Phone 10/i.test(navigator.userAgent)) {
+			if (/MSApp/i.test(navigator.userAgent) && !/Windows Phone 10/i.test(navigator.userAgent)) {
 				document.write('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}<\/style>');
 			}
 			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
