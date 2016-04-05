@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>KCals Calorie Counter</title>
-<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="HandheldFriendly" content="True" />
 <meta name="format-detection" content="telephone=no" />
 <meta name="msapplication-tap-highlight" content="no" />
@@ -207,13 +207,17 @@ function bootStraper() {
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/base.js"><\/script>');
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/ui.js"><\/script>');
 			}
-			//if(/MSAppHost\/3.0/i.test(navigator.userAgent) && (/Mobile/i).test(navigator.userAgent)) {
-				//document.write('<script src="WinJS/js/base.js"><\/script>');
-				//document.write('<script src="WinJS/js/ui.js"><\/script>');
-			//}
+			//WP10 (backbutton)
+			if (/MSAppHost\/3.0/i.test(navigator.userAgent) && /Windows Phone 10/i.test(navigator.userAgent)) {
+				document.write('<script src="WinJS/js/base.js"><\/script>');
+				document.write('<script src="WinJS/js/ui.js"><\/script>');
+			}
 			//MSAPP
 			hostLocal = '';
-			document.write('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}<\/style>');
+			//WP8.1 viewport fix ~ no WP10
+			if (/MSAppHost\/3.0/i.test(navigator.userAgent) && /Windows Phone 10/i.test(navigator.userAgent)) {
+				document.write('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}<\/style>');
+			}
 			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
 			document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } <\/style>');
 		});
