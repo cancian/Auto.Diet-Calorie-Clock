@@ -1411,8 +1411,8 @@ var doubletap   = hasTap() ? 'doubleTap'   : 'dblclick';
 var touchcancel = hasTap() ? 'touchcancel' : 'touchcancel';
 var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
 var touchout    = hasTap() ? 'touchout'    : 'mouseout';
-
-if(window.PointerEvent) {
+/*
+if (window.PointerEvent) {
 	//IE11
 	touchend    = 'pointerup';
 	touchstart  = 'pointerdown';
@@ -1420,17 +1420,19 @@ if(window.PointerEvent) {
 	touchcancel = 'pointercancel';
 	touchleave  = 'pointerleave';
 	touchout    = 'pointerout';
-} else if (window.MSPointerEvent) {
+} else
+*/
+if (window.MSPointerEvent) {
 	//IE10
 	touchend    = 'MSPointerUp';
 	touchstart  = 'MSPointerDown';
 	touchmove   = 'MSPointerMove';
-	touchcancel = 'MSPointerOver';
+	touchcancel = 'MSPointerCancel';
 	touchleave  = 'MSPointerLeave';
 	touchout    = 'MSPointerOut';
 }
 //
-if (app.device.firefoxos || app.device.blackberry) {
+if (app.device.firefoxos || app.device.blackberry || app.device.msapp) {
 	tap = 'click';
 }
 ///////////////
