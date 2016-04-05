@@ -135,7 +135,7 @@
 	<feature name="LocalStorage">
 		<param name="ios-package" value="CDVLocalStorage"/>
 	</feature>
-    
+    <!--
 	<feature name="HandleOpenUrl">
 		<param name="ios-package" value="CDVHandleOpenURL"/>
 		<param name="onload" value="true"/>
@@ -150,6 +150,7 @@
 		<param name="ios-package" value="CDVGestureHandler"/>
 		<param name="onload" value="true"/>
 	</feature>
+	-->
 	<!-- CORDOVA PLUGINS -->
 
 </widget>
