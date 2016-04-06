@@ -142,67 +142,67 @@ copy /y k:\www\res\icon\wp8\691x336.png k:\platforms\wp8\691x336.png
  
 rem cd\ 
 REM "WINDOWS 8 ASSETS" 
-deltree /y /z /s /q /t k:\platforms\windows8\images 
-rd /s /q k:\platforms\windows8\images 
-mkdir k:\platforms\windows8\images 
-copy /y k:\www\res\icon\windows8\16.png k:\platforms\windows8\images\smalllogo.targetsize-16.png 
-copy /y k:\www\res\icon\windows8\24.png k:\platforms\windows8\images\smalllogo.scale-80.png 
-copy /y k:\www\res\icon\windows8\30.png k:\platforms\windows8\images\smalllogo.scale-100.png 
-copy /y k:\www\res\icon\windows8\32.png k:\platforms\windows8\images\smalllogo.targetsize-32.png 
-copy /y k:\www\res\icon\windows8\42.png k:\platforms\windows8\images\smalllogo.scale-140.png 
-copy /y k:\www\res\icon\windows8\44.png k:\platforms\windows8\images\square44x44logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\48.png k:\platforms\windows8\images\smalllogo.targetsize-48.png 
-copy /y k:\www\res\icon\windows8\50.png k:\platforms\windows8\images\storelogo.scale-100.png 
-copy /y k:\www\res\icon\windows8\54.png k:\platforms\windows8\images\smalllogo.scale-180.png 
-copy /y k:\www\res\icon\windows8\56.png k:\platforms\windows8\images\square70x70logo.scale-80.png 
-copy /y k:\www\res\icon\windows8\62.png k:\platforms\windows8\images\square44x44logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\70.png k:\platforms\windows8\images\square70x70logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\70.png k:\platforms\windows8\images\storelogo.scale-140.png 
-copy /y k:\www\res\icon\windows8\71.png k:\platforms\windows8\images\square71x71logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\90.png k:\platforms\windows8\images\storelogo.scale-180.png 
-copy /y k:\www\res\icon\windows8\98.png k:\platforms\windows8\images\square70x70logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\99.png k:\platforms\windows8\images\square71x71logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\106.png k:\platforms\windows8\images\square44x44logo.scale-240.png 
-copy /y k:\www\res\icon\windows8\120.png k:\platforms\windows8\images\logo.scale-80.png 
-copy /y k:\www\res\icon\windows8\126.png k:\platforms\windows8\images\square70x70logo.scale-180.png 
-copy /y k:\www\res\icon\windows8\150.png k:\platforms\windows8\images\logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\170.png k:\platforms\windows8\images\square71x71logo.scale-240.png 
-copy /y k:\www\res\icon\windows8\210.png k:\platforms\windows8\images\logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\210x120.png k:\platforms\windows8\images\wide310x150logo.scale-80.png 
-copy /y k:\www\res\icon\windows8\248.png k:\platforms\windows8\images\square310x310logo.scale-80.png 
-copy /y k:\www\res\icon\windows8\248x120.png k:\platforms\windows8\images\wide310x150logo.scale-80.png 
-copy /y k:\www\res\icon\windows8\256.png k:\platforms\windows8\images\smalllogo.targetsize-256.png 
-copy /y k:\www\res\icon\windows8\270.png k:\platforms\windows8\images\logo.scale-180.png 
-copy /y k:\www\res\icon\windows8\210x150.png k:\platforms\windows8\images\wide310x150logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\310.png k:\platforms\windows8\images\square310x310logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\310x150.png k:\platforms\windows8\images\wide310x150logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\360.png k:\platforms\windows8\images\square150x150logo.scale-240.png 
-copy /y k:\www\res\icon\windows8\434x210.png k:\platforms\windows8\images\wide310x150logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\434.png k:\platforms\windows8\images\square310x310logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\558x270.png k:\platforms\windows8\images\wide310x150logo.scale-180.png 
-copy /y k:\www\res\icon\windows8\558.png k:\platforms\windows8\images\square310x310logo.scale-180.png 
-copy /y k:\www\res\icon\windows8\620x300.png k:\platforms\windows8\images\splashscreen.scale-100.png 
-copy /y k:\www\res\icon\windows8\868x420.png k:\platforms\windows8\images\splashscreen.scale-140.png 
-copy /y k:\www\res\icon\windows8\1116x540.png k:\platforms\windows8\images\splashscreen.scale-180.png 
-copy /y k:\www\res\icon\windows8\480x800.png k:\platforms\windows8\images\wp8_splashscreen.scale-100.png 
-copy /y k:\www\res\icon\windows8\672x1120.png k:\platforms\windows8\images\wp8_splashscreen.scale-140.png 
-copy /y k:\www\res\icon\windows8\1152x1920.png k:\platforms\windows8\images\wp8_splashscreen.scale-240.png 
-copy /y k:\www\res\icon\windows8\120.png k:\platforms\windows8\images\storelogo.scale-240.png 
-copy /y k:\www\res\icon\windows8\44.png k:\platforms\windows8\images\square44x44logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\50.png k:\platforms\windows8\images\storelogo.scale-100.png 
-copy /y k:\www\res\icon\windows8\62.png k:\platforms\windows8\images\square44x44logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\70.png k:\platforms\windows8\images\storelogo.scale-140.png 
-copy /y k:\www\res\icon\windows8\71.png k:\platforms\windows8\images\square71x71logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\99.png k:\platforms\windows8\images\square71x71logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\106.png k:\platforms\windows8\images\square44x44logo.scale-240.png 
-copy /y k:\www\res\icon\windows8\120.png k:\platforms\windows8\images\storelogo.scale-240.png 
-copy /y k:\www\res\icon\windows8\150.png k:\platforms\windows8\images\square150x150logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\170.png k:\platforms\windows8\images\square71x71logo.scale-240.png 
-copy /y k:\www\res\icon\windows8\210.png k:\platforms\windows8\images\square150x150logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\310x150.png k:\platforms\windows8\images\wide310x150logo.scale-100.png 
-copy /y k:\www\res\icon\windows8\360.png k:\platforms\windows8\images\square150x150logo.scale-240.png 
-copy /y k:\www\res\icon\windows8\434x210.png k:\platforms\windows8\images\wide310x150logo.scale-140.png 
-copy /y k:\www\res\icon\windows8\744x360.png k:\platforms\windows8\images\wide310x150logo.scale-240.png 
+rem deltree /y /z /s /q /t k:\platforms\windows8\images 
+rem rd /s /q k:\platforms\windows8\images 
+rem mkdir k:\platforms\windows8\images 
+rem copy /y k:\www\res\icon\windows8\16.png k:\platforms\windows8\images\smalllogo.targetsize-16.png 
+rem copy /y k:\www\res\icon\windows8\24.png k:\platforms\windows8\images\smalllogo.scale-80.png 
+rem copy /y k:\www\res\icon\windows8\30.png k:\platforms\windows8\images\smalllogo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\32.png k:\platforms\windows8\images\smalllogo.targetsize-32.png 
+rem copy /y k:\www\res\icon\windows8\42.png k:\platforms\windows8\images\smalllogo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\44.png k:\platforms\windows8\images\square44x44logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\48.png k:\platforms\windows8\images\smalllogo.targetsize-48.png 
+rem copy /y k:\www\res\icon\windows8\50.png k:\platforms\windows8\images\storelogo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\54.png k:\platforms\windows8\images\smalllogo.scale-180.png 
+rem copy /y k:\www\res\icon\windows8\56.png k:\platforms\windows8\images\square70x70logo.scale-80.png 
+rem copy /y k:\www\res\icon\windows8\62.png k:\platforms\windows8\images\square44x44logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\70.png k:\platforms\windows8\images\square70x70logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\70.png k:\platforms\windows8\images\storelogo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\71.png k:\platforms\windows8\images\square71x71logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\90.png k:\platforms\windows8\images\storelogo.scale-180.png 
+rem copy /y k:\www\res\icon\windows8\98.png k:\platforms\windows8\images\square70x70logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\99.png k:\platforms\windows8\images\square71x71logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\106.png k:\platforms\windows8\images\square44x44logo.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\120.png k:\platforms\windows8\images\logo.scale-80.png 
+rem copy /y k:\www\res\icon\windows8\126.png k:\platforms\windows8\images\square70x70logo.scale-180.png 
+rem copy /y k:\www\res\icon\windows8\150.png k:\platforms\windows8\images\logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\170.png k:\platforms\windows8\images\square71x71logo.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\210.png k:\platforms\windows8\images\logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\210x120.png k:\platforms\windows8\images\wide310x150logo.scale-80.png 
+rem copy /y k:\www\res\icon\windows8\248.png k:\platforms\windows8\images\square310x310logo.scale-80.png 
+rem copy /y k:\www\res\icon\windows8\248x120.png k:\platforms\windows8\images\wide310x150logo.scale-80.png 
+rem copy /y k:\www\res\icon\windows8\256.png k:\platforms\windows8\images\smalllogo.targetsize-256.png 
+rem copy /y k:\www\res\icon\windows8\270.png k:\platforms\windows8\images\logo.scale-180.png 
+rem copy /y k:\www\res\icon\windows8\210x150.png k:\platforms\windows8\images\wide310x150logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\310.png k:\platforms\windows8\images\square310x310logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\310x150.png k:\platforms\windows8\images\wide310x150logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\360.png k:\platforms\windows8\images\square150x150logo.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\434x210.png k:\platforms\windows8\images\wide310x150logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\434.png k:\platforms\windows8\images\square310x310logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\558x270.png k:\platforms\windows8\images\wide310x150logo.scale-180.png 
+rem copy /y k:\www\res\icon\windows8\558.png k:\platforms\windows8\images\square310x310logo.scale-180.png 
+rem copy /y k:\www\res\icon\windows8\620x300.png k:\platforms\windows8\images\splashscreen.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\868x420.png k:\platforms\windows8\images\splashscreen.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\1116x540.png k:\platforms\windows8\images\splashscreen.scale-180.png 
+rem copy /y k:\www\res\icon\windows8\480x800.png k:\platforms\windows8\images\wp8_splashscreen.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\672x1120.png k:\platforms\windows8\images\wp8_splashscreen.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\1152x1920.png k:\platforms\windows8\images\wp8_splashscreen.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\120.png k:\platforms\windows8\images\storelogo.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\44.png k:\platforms\windows8\images\square44x44logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\50.png k:\platforms\windows8\images\storelogo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\62.png k:\platforms\windows8\images\square44x44logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\70.png k:\platforms\windows8\images\storelogo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\71.png k:\platforms\windows8\images\square71x71logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\99.png k:\platforms\windows8\images\square71x71logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\106.png k:\platforms\windows8\images\square44x44logo.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\120.png k:\platforms\windows8\images\storelogo.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\150.png k:\platforms\windows8\images\square150x150logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\170.png k:\platforms\windows8\images\square71x71logo.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\210.png k:\platforms\windows8\images\square150x150logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\310x150.png k:\platforms\windows8\images\wide310x150logo.scale-100.png 
+rem copy /y k:\www\res\icon\windows8\360.png k:\platforms\windows8\images\square150x150logo.scale-240.png 
+rem copy /y k:\www\res\icon\windows8\434x210.png k:\platforms\windows8\images\wide310x150logo.scale-140.png 
+rem copy /y k:\www\res\icon\windows8\744x360.png k:\platforms\windows8\images\wide310x150logo.scale-240.png 
  
  
 rem cd\ 
@@ -239,7 +239,7 @@ del /q k:\platforms\android-gradle\res\drawable-ldpi\icon.png
 del /q k:\platforms\android-gradle\res\drawable-mdpi\icon.png 
 del /q k:\platforms\android-gradle\res\drawable-hdpi\icon.png 
 del /q k:\platforms\android-gradle\res\drawable-xhdpi\icon.png 
-del /q k:\platfo#rms\android-gradle\res\drawable-xxhdpi\icon.png 
+del /q k:\platforms\android-gradle\res\drawable-xxhdpi\icon.png 
 copy /y k:\www\res\icon\android\144.png k:\platforms\android-gradle\res\drawable\icon.png 
 copy /y k:\www\res\icon\android\36.png k:\platforms\android-gradle\res\drawable-ldpi\icon.png 
 copy /y k:\www\res\icon\android\48.png k:\platforms\android-gradle\res\drawable-mdpi\icon.png 
