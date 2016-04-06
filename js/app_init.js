@@ -137,6 +137,16 @@ function initJS() {
 	// MSAPP //
 	///////////
 	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
+	//////////////
+	// FACEBOOK //
+	//////////////
+		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent) && !IsMsApp)) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
+	} else if (/IEMobile|Windows Phone 10/i.test(navigator.userAgent) && IsMsApp) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
+	} else if (!IsMsApp) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-all.js" id="facebookJS"><\/script>');
+	}
 	/////////////
 	// ISCROLL //
 	/////////////
@@ -148,22 +158,10 @@ function initJS() {
 	/////////////////////
 	if (!/http/i.test(window.location.protocol)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
-	}
-	//////////////
-	// FACEBOOK //
-	//////////////
-		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent) && !IsMsApp)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
-	} else if (/IEMobile|Windows Phone 10/i.test(navigator.userAgent) && IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
-	} else if (!IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-all.js" id="facebookJS"><\/script>');
-	}
+	}	
 	////////
 	// JS //
 	////////
-	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
@@ -174,6 +172,8 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
+	//DB
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
@@ -202,7 +202,8 @@ function initJS() {
 				scriptBlock.text = localStorage.getItem('remoteSuperBlockJS');
 				document.addEventListener('DOMContentLoaded', function() {
 					setTimeout(function() {
-						document.head.appendChild(scriptBlock);
+						$.globalEval(scriptBlock.text);
+						//document.head.appendChild(scriptBlock);
 					},0);
 				},false);
 			}
