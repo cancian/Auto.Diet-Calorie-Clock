@@ -1088,6 +1088,8 @@ function balanceMeter(kcalsInput,update) {
 //## LIMIT MENU ##//
 //##/////////////##//
 function getLimitMenu() {
+	//CLEAR PREVIOUS
+	$('.sp-container').remove();
 	//////////
 	// HTML //
 	//////////
