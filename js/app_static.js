@@ -150,7 +150,7 @@ setTimeout(function() {
 setTimeout(function() {
 	app.analytics('init');
 	app.remove('consecutive_reboots');
-},2500);
+},3500);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
