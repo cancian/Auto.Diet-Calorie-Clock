@@ -1411,27 +1411,37 @@ var doubletap   = hasTap() ? 'doubleTap'   : 'dblclick';
 var touchcancel = hasTap() ? 'touchcancel' : 'touchcancel';
 var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
 var touchout    = hasTap() ? 'touchout'    : 'mouseout';
-/*
-if (window.PointerEvent) {
-	//IE11
-	touchend    = 'pointerup';
-	touchstart  = 'pointerdown';
-	touchmove   = 'pointermove';
-	touchcancel = 'pointercancel';
-	touchleave  = 'pointerleave';
-	touchout    = 'pointerout';
-} else
-*/
-if (window.MSPointerEvent) {
-	//IE10
-	touchend    = 'MSPointerUp';
-	touchstart  = 'MSPointerDown';
-	touchmove   = 'MSPointerMove';
-	touchcancel = 'MSPointerCancel';
-	touchleave  = 'MSPointerLeave';
-	touchout    = 'MSPointerOut';
+///////////////
+// MSPOINTER //
+///////////////
+function msPointerSet(prefix) {
+	if(prefix === 1) {
+		touchstart  = 'MSPointerDown';
+		touchend    = 'MSPointerUp';
+		touchmove   = 'MSPointerMove';
+		touchcancel = 'MSPointerCancel';
+		touchleave  = 'MSPointerLeave';
+		touchout    = 'MSPointerOut';
+	} else {
+		touchstart  = 'pointerdown';
+		touchend    = 'pointerup';
+		touchmove   = 'pointermove';
+		touchcancel = 'pointercancel';
+		touchleave  = 'pointerleave';
+		touchout    = 'pointerout';
+	}
 }
-//
+//SETPOINTER
+if (window.PointerEvent || window.MSPointerEvent) {
+	if((app.device.wp8) && !app.device.wp10 && !app.device.desktop) {
+		//WP81 ON WP81 && WP10
+		msPointerSet(1);
+	} else {
+		//NO PREFIX
+		msPointerSet(0);
+	}
+}
+//OVERRIDE TAP
 if (app.device.firefoxos || app.device.blackberry || app.device.msapp) {
 	tap = 'click';
 }
