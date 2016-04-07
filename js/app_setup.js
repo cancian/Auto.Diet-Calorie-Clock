@@ -6,7 +6,7 @@ function showIntro() {
 	///////////////////////////////////////
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
-	if(window.innerHeight < 350 && app.device.blackberry) {
+	if((window.innerHeight < 350 && app.device.blackberry) || /Windows Phone/i.test(app.ua)) {
 		return;
 	}
 	//////////////////
