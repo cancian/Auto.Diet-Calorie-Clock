@@ -164,7 +164,7 @@ setTimeout(function() {
 ////////////////
 // PARSED CSS //
 ////////////////
-if(app.device.msapp && !app.device.wp10 && !document.getElementById('wp81ViewportFix')) {
+if (/MSAppHost\/2.0/i.test(navigator.userAgent) && /Windows Phone 8.1/i.test(navigator.userAgent) && !document.getElementById('wp81ViewportFix')) {
 	$('head').append2('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}</style>');
 }
 $('head').append2('<style type="text/css" id="cssStartDate"> #startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; } </style>');
