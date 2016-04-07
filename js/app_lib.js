@@ -1433,7 +1433,7 @@ function msPointerSet(prefix) {
 }
 //SETPOINTER
 if (window.PointerEvent || window.MSPointerEvent) {
-	if((app.device.wp8) && !app.device.wp10 && !app.device.desktop) {
+	if(app.device.wp8 && !app.device.wp10 && !app.device.desktop) {
 		//WP81 ON WP81 && WP10
 		msPointerSet(1);
 	} else {
@@ -1441,6 +1441,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 		msPointerSet(0);
 	}
 }
+
 //OVERRIDE TAP
 if (app.device.firefoxos || app.device.blackberry || app.device.msapp) {
 	tap = 'click';

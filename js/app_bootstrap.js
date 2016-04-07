@@ -43,21 +43,15 @@ function InitializeLocalSuperBlock(opt) {
 	$.ajax({type: 'GET', dataType: 'text', url: 'css/index.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	//GET SIZE
 	localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
-	//MOZIE CSS CONVERT
+	//MOZ~IE CSS
 	if((/Firefox/i).test(navigator.userAgent)) {
 		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 		dataCSS = dataCSS.split('-webkit-').join('-moz-');
 	}
-	if((/edge|trident|IEMobile|MSAppHost\/3.0/i).test(navigator.userAgent)) {
+	if((/trident|IEMobile/i).test(navigator.userAgent))	{
 		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 		dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
-		if(/MSAppHost\/3.0/i.test(navigator.userAgent)) {
-			//MSAPP3
-			dataCSS = dataCSS.split('-webkit-').join('');
-		} else {
-			//MSAPP2
-			dataCSS = dataCSS.split('-webkit-').join('-ms-');
-		}
+		dataCSS = dataCSS.split('-webkit-').join('-ms-');
 	}
 	//QUOTA
 	try {
