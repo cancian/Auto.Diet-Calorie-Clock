@@ -1087,35 +1087,20 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 					}
 				}
 			}
+			//////////////
+			// DEVINTRO //
+			//////////////
+			if (/devintro/i.test($('#entryBody').val())) {
+				app.remove('intro_dismissed','done');
+				$('#entryBody').val('devintr');
+				$('#entryBody').blur();
+			}
 			///////////
 			// DEVUA //
 			///////////
 			if (/devua/i.test($('#entryBody').val())) {
 				alert(navigator.userAgent);
 				$('#entryBody').val(navigator.userAgent);
-				$('#entryBody').blur();
-			}
-			///////////
-			// INTRO //
-			///////////
-			if ($('#entryBody').val().length == 10 && /devintro/i.test($('#entryBody').val())) {
-				var introLang = 'en';
-				if ((langArray).test($('#entryBody').val().toLowerCase().split('devintro').join(''))) {
-					introLang = $('#entryBody').val().split('devintro').join('');
-				}
-				//text
-				var introValue = '';
-				introValue += LANG.INTRO_SLIDE_1[introLang] + '\n';
-				introValue += LANG.INTRO_SLIDE_2[introLang] + '\n';
-				introValue += LANG.INTRO_SLIDE_3[introLang] + '\n';
-				introValue += LANG.INTRO_SLIDE_4[introLang] + '\n';
-				introValue += LANG.INTRO_SLIDE_5[introLang] + '\n';
-				introValue += LANG.INTRO_SLIDE_6[introLang] + '\n';
-				//output
-				console.log(introValue);
-				alert(introValue);
-				//reset
-				$('#entryBody').val('devintro');
 				$('#entryBody').blur();
 			}
 			////////////
