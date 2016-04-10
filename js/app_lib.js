@@ -1258,7 +1258,7 @@ if($('#loadMask').html() == '') {
   </tbody>\
 </table>');
 }
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function() {
 	$('body').addClass('domcontentloaded');
 },false);
 //#///////////////#//

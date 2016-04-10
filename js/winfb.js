@@ -200,9 +200,11 @@
 				//resetSessionState();
 				// Continuation handlers are specific to Windows Phone.
 				if (options && options.activationKind === Windows.ApplicationModel.Activation.ActivationKind.webAuthenticationBrokerContinuation) {
-					continueWebAuthentication(options.activatedEventArgs);
+					//WP10 fix
+					$(document).ready(function() {
+						continueWebAuthentication(options.activatedEventArgs);
+					});
 				}
-
 			}
 		});
 
@@ -268,10 +270,16 @@
 	//
 	function continueWebAuthentication(args) {
 		var result = args[0].webAuthenticationResult;
-
 		if (result.responseStatus === Windows.Security.Authentication.Web.WebAuthenticationStatus.success) {
 			//document.getElementById("FacebookReturnedToken").value = result.responseData;
-			getTokenFB(result);
+			//WP10 fix
+			setTimeout(function() {
+				try {
+					getTokenFB(result);
+				} catch(err) {
+					console.log(err);
+				}
+			}, 400);
 		} else if (result.responseStatus === Windows.Security.Authentication.Web.WebAuthenticationStatus.errorHttp) {
 			//console.log("Error returned: " + result.responseErrorDetail);
 		} else {

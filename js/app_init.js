@@ -137,16 +137,6 @@ function initJS() {
 	// MSAPP //
 	///////////
 	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
-	//////////////
-	// FACEBOOK //
-	//////////////
-		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent) && !IsMsApp)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
-	} else if (/IEMobile|Windows Phone 10/i.test(navigator.userAgent) && IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
-	} else if (!IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-all.js" id="facebookJS"><\/script>');
-	}
 	/////////////
 	// ISCROLL //
 	/////////////
@@ -158,7 +148,7 @@ function initJS() {
 	/////////////////////
 	if (!/http/i.test(window.location.protocol)) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
-	}	
+	}
 	////////
 	// JS //
 	////////
@@ -166,6 +156,16 @@ function initJS() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
+	//////////////
+	// FACEBOOK //
+	//////////////
+		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent) && !IsMsApp)) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
+	} else if (/IEMobile|Windows Phone 10/i.test(navigator.userAgent) && IsMsApp) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
+	} else if (!IsMsApp) {
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-all.js" id="facebookJS"><\/script>');
+	}
 	//UTILS
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
