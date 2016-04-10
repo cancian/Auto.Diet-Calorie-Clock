@@ -1286,19 +1286,13 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 					dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 					dataCSS = dataCSS.split('-webkit-').join('-moz-');
 				}
-				if(vendorClass == 'msie') {
+				if((/trident|IEMobile/i).test(navigator.userAgent))	{
 					dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
-					if(/MSAppHost\/3.0/i.test(app.ua)) {
-						//MSAPP3
-						dataCSS = dataCSS.split('-webkit-').join('');
-					} else {
-						//MSAPP2
-						dataCSS = dataCSS.split('-webkit-').join('-ms-');
-					}
+					dataCSS = dataCSS.split('-webkit-').join('-ms-');
 				}
 				$("#coreCss").remove();
-				$("#coreFonts").prepend2("<style type='text/css' id='coreCss'></style>");
+				$("#coreFonts").before2("<style type='text/css' id='coreCss'></style>");
 				$("#coreCss").html2(dataCSS);
 			}
 		});
