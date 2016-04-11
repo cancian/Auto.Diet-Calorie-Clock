@@ -1508,7 +1508,7 @@ function isNumberKey(evt){
 	return true;
 }
 app.handlers.validate = function(target,config,preProcess,postProcess,focusProcess,blurProcess) {
-	var inputHandler = (app.device.android == 4.1 || app.device.wp8) ? 'keydown' : 'keypress';
+	var inputHandler = (app.device.android == 4.1 || app.device.wp8 || app.device.windows10 || app.device.wp10) ? 'keydown' : 'keypress';
 	//SETTINGS
 	if(!config)           { config = {}; }
 	if(!config.maxValue)  { config.maxValue  = 9999; }
