@@ -97,21 +97,26 @@ $(document).on('resume',function(evt) {
 // VISIBILITY CHANGE //
 ///////////////////////
 $(document).on('visibilitychange focus', function (evt) {
-	clearTimeout(app.repeaterLoop);
-	if (window.hidden == false || window.visibilityState == 'visible' || evt.type == 'focus') {
-		if (app.device.desktop) {
-			$(document).trigger('resume');
-		} else if (app.device.osxapp) {
-			$(document).trigger('resume');
-		}
-		if(app.device.firefoxos) {
-			screen.mozLockOrientation('portrait-primary');
-			$(document).trigger('resume');
+	if(app) {
+		clearTimeout(app.repeaterLoop);
+		//
+		if (window.hidden == false || window.visibilityState == 'visible' || evt.type == 'focus') {
+			if (app.device.desktop) {
+				$(document).trigger('resume');
+			} else if (app.device.osxapp) {
+				$(document).trigger('resume');
+			}
+			if(app.device.firefoxos) {
+				screen.mozLockOrientation('portrait-primary');
+				$(document).trigger('resume');
+			}
 		}
 	}
 });
 $(window).on('pause',function() {
-	clearTimeout(app.repeaterLoop);
+	if(app) {
+		clearTimeout(app.repeaterLoop);
+	}
 });
 //###############//
 //## START APP ##//
