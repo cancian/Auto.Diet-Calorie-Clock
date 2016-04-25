@@ -1,21 +1,18 @@
-﻿/////////////////////
-// GA-LOCALSTORATE //
-/////////////////////
-(function () {
+﻿(function () {
 	var VERSION = '1.6';
 	var IS_DEBUG = false;
-	var Local_Storage = function (key, initial_value) {
-		if (window.sessionStorage.getItem(key) == null && initial_value != null) {
-			window.sessionStorage.setItem(key, initial_value);
+	var LocalStorage = function (key, initial_value) {
+		if (window.localStorage.getItem(key) == null && initial_value != null) {
+			window.localStorage.setItem(key, initial_value);
 		}
 		this._get = function () {
-			return window.sessionStorage.getItem(key);
+			return window.localStorage.getItem(key);
 		};
 		this._set = function (value) {
-			return window.sessionStorage.setItem(key, value);
+			return window.localStorage.setItem(key, value);
 		};
 		this._remove = function () {
-			return window.sessionStorage.removeItem(key);
+			return window.localStorage.removeItem(key);
 		};
 		this.toString = function () {
 			return this._get();
@@ -59,13 +56,13 @@
 				event : 'PopupFocused'
 			}
 		};
-		var uid = new Local_Storage('ga_storage_uid');
-		var uid_rand = new Local_Storage('ga_storage_uid_rand');
-		var session_cnt = new Local_Storage('ga_storage_session_cnt');
-		var f_session = new Local_Storage('ga_storage_f_session');
-		var l_session = new Local_Storage('ga_storage_l_session');
-		var first_run = new Local_Storage('ga_storage_first_run');
-		var visitor_custom_vars = new Local_Storage('ga_storage_visitor_custom_vars');
+		var uid = new LocalStorage('ga_storage_uid');
+		var uid_rand = new LocalStorage('ga_storage_uid_rand');
+		var session_cnt = new LocalStorage('ga_storage_session_cnt');
+		var f_session = new LocalStorage('ga_storage_f_session');
+		var l_session = new LocalStorage('ga_storage_l_session');
+		var first_run = new LocalStorage('ga_storage_first_run');
+		var visitor_custom_vars = new LocalStorage('ga_storage_visitor_custom_vars');
 		var c_session = 0;
 		var custom_vars = visitor_custom_vars._get() ? JSON.parse(visitor_custom_vars._get()) : ['dummy'];
 		var request_cnt = 0;
@@ -331,4 +328,3 @@
 		};
 	};
 })();
-
