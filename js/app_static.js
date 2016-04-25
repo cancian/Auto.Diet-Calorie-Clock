@@ -525,7 +525,7 @@ $(document).keyup(function(evt) {
 	//////////////////
 	// NOT ON FOCUS //
 	//////////////////
-	if($('input,input[type="number"]select,textarea').is(':focus')) { return; }
+	if($('input, input[type="number"], select, textarea').is(':focus')) { return; }
 	//////////////////
 	// FAVS KEY NAV //
 	//////////////////
@@ -650,7 +650,7 @@ window.onresize = function(evt) {
 		appResizer(0);
 	}
 	//ALWAYS RESIZE NON-MOBILE BROWSER
-	if(app.device.windows8) {
+	if(app.device.windows8 || app.device.windows81 || app.device.windows10) {
 		//resize triggers blur on orientation change
 		if(window.innerWidth == initialScreenHeight && orientationSwitched == 0) {
 			appResizer(0);
