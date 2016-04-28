@@ -2198,7 +2198,8 @@ app.online = function () {
 //# BLOCK PIRACY #//
 //#//////////////#//
 app.piracy = function (force) {
-	if (force == 1 || typeof baseVersion === 'undefined' || typeof LANG.BACKUP_AND_SYNC === 'undefined' || baseVersion < 1.9) {
+	
+	if ((force == 1 || typeof baseVersion === 'undefined' || typeof LANG.BACKUP_AND_SYNC === 'undefined' || baseVersion < 1.9) && !app.device.desktop) {
 		app.analytics('blocked');
 		clearTimeout(app.timers['popTimer']);
 		app.timers['popTimer'] = setTimeout(function () {

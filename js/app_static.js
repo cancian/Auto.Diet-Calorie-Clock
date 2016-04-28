@@ -89,7 +89,7 @@ $(document).on('resume',function(evt) {
 		}
 		//BLOCK PIRACY
 		if(!app.device.desktop) {
-			//app.piracy();
+			app.piracy();
 		}
 	},3000);
 });
@@ -147,7 +147,7 @@ setTimeout(function() {
 	}
 	app.remove('app_restart_pending');
 	// BLOCK PIRACY
-	//app.piracy();
+	app.piracy();
 },50);
 ///////////////////////
 // MARK BOOT SUCCESS //

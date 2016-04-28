@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'KCals';
-var appVersion = '1.9.15 (191502)';
+var appVersion = '1.9.15 (191503)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
@@ -85,34 +85,6 @@ var LANG = {
 		vi : '',
 		zh : '',
 		zt : ''
-	},
-	THE_ONLY : { //PENDING
-		en : 'The only real-time calorie counter',
-		pt : 'O único contador de calorias em tempo real',
-		ar : 'عداد السُعرات الحرارية الوحيدة في الوقت الحقيقي',
-		bg : 'Единственото реално време брояч на калории',
-		cs : 'Pouze reálném čase počítadlo kalorií',
-		da : 'Den eneste realtid kalorietæller',
-		de : 'Die einzige Echtzeit-Kalorienzähler',
-		el : 'Το μόνο θερμιδομετρητής σε πραγματικό χρόνο',
-		es : 'El único contador de calorías en tiempo real',
-		fi : 'Vain tosiaikainen kalorilaskuri',
-		fr : 'Le seul compteur de calories en temps réel',
-		hu : 'Az egyetlen valós idejű kalóriaszámláló',
-		it : 'L\'unico conta calorie in tempo reale',
-		id : 'Satu-satunya real-time penghitung kalori',
-		ja : '唯一のリアルタイムカロリーカウンター',
-		ko : '단지 실시간 칼로리 카운터',
-		nl : 'De enige real-time calorieënteller',
-		nb : 'Den eneste sanntids kaloriteller',
-		pl : 'Tylko licznik kalorii w czasie rzeczywistym',
-		ro : 'Numai contor de calorii în timp real',
-		ru : 'Только в режиме реального времени счетчик калорий',
-		sv : 'Den enda realtid kaloriräknare',
-		tr : 'Sadece gerçek zamanlı kalori hesaplayıcı',
-		vi : 'Các chỉ thời gian thực truy cập calo',
-		zh : '唯一的实时卡路里计数器',
-		zt : '唯一的實時卡路里計數器'
 	},
 	MANAGE_USERS : {
 		en : 'Manage users',
@@ -619,7 +591,7 @@ var LANG = {
 		zt : ''
 	},
 	STATUS_TAB : {
-		en : 'The blocks on the status tab contain lots of relevant, real-time information. Be sure to keep an eye on them. If you want to further configure the information displayed, just tap the corresponding block to reveal additional settings.',
+		en : 'The blocks on the status tab contain lots of relevant information. Be sure to keep an eye on them. If you want to further configure the information displayed, just tap the corresponding block to reveal additional settings.',
 		pt : '',
 		ar : '',
 		bg : '',
@@ -2074,7 +2046,7 @@ var LANG = {
 		zh : 'Regressive',
 		zt : 'Regressive'
 	},
-	CALORIE_USAGE : { //PENDING
+	CALORIE_USAGE : {
 		en : 'Calorie usage',
 		pt : 'Gasto calórico',
 		ar : 'استهلاكك من السعرات الحرارية',
@@ -3474,7 +3446,7 @@ var LANG = {
 		zh : '脂肪',
 		zt : '脂肪'
 	},
-	FIBER : { //PENDING
+	FIBER : {
 		en : 'fiber',
 		pt : 'fibra',
 		ar : 'ليف',
@@ -3502,7 +3474,7 @@ var LANG = {
 		zh : '纤维',
 		zt : '纖維'
 	},
-	SUGAR : { //PENDING
+	SUGAR : {
 		en : 'sugar',
 		pt : 'açúcar',
 		ar : 'سكر',
@@ -3530,7 +3502,7 @@ var LANG = {
 		zh : '糖',
 		zt : '糖'
 	},
-	SODIUM : { //PENDING
+	SODIUM : {
 		en : 'sodium',
 		pt : 'sódio',
 		ar : 'صوديوم',
@@ -3642,7 +3614,7 @@ var LANG = {
 		zh : '脂肪',
 		zt : '脂肪'
 	},
-	FIB : { //PENDING
+	FIB : {
 		en : 'fib',
 		pt : 'fib',
 		ar : 'ليف',
@@ -3670,7 +3642,7 @@ var LANG = {
 		zh : '纤维',
 		zt : '纖維'
 	},
-	SUG : { //PENDING
+	SUG : {
 		en : 'sug',
 		pt : 'açú',
 		ar : 'سكر',
@@ -3698,7 +3670,7 @@ var LANG = {
 		zh : '糖',
 		zt : '糖'
 	},
-	SOD : { //PENDING
+	SOD : {
 		en : 'sod',
 		pt : 'sód',
 		ar : 'صود',
@@ -6422,7 +6394,7 @@ var LANG = {
 			'1300' : 'Beef',
 			'1400' : 'Drinks',
 			'1500' : 'Fish and seafood',
-			'1600' : 'Legumes',
+			'1600' : 'Legumens',
 			'1700' : 'Lamb, Veal & others',
 			'1800' : 'Bread and bakery',
 			'1900' : 'Sweets',

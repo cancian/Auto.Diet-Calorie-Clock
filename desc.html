@@ -61,20 +61,29 @@ var keyList =
 LANG.WEIGHT_LOSS[lang]     + ',' +
 LANG.LOSE_WEIGHT[lang]     + ',' +
 LANG.CALORIC_BALANCE[lang] + ',' +
-LANG.EXERCISE[lang]        + ',' +
-LANG.DAILY_CALORIES[lang]  + ',' +
-LANG.CALORIC_INTAKE[lang]  + ',' +
-LANG.METABOLISM[lang]      + ',' +
 LANG.NUTRIENT_TITLE[lang]  + ',' +
+LANG.METABOLISM[lang]      + ',' +
+LANG.FATT[lang]            + ',' +
+LANG.CALORIC_INTAKE[lang]  + ',' +
+LANG.DAILY_CALORIES[lang]  + ',' +
+LANG.EXERCISE[lang]        + ',' +
 LANG.GAIN_WEIGHT[lang]     + ',' +
 LANG.PROTEIN[lang]         + ',' +
+LANG.FIBER[lang]           + ',' +
 LANG.CARBOHYDRATE[lang]    + ',' +
-LANG.FATT[lang]            + ',' +
-LANG.FIBER[lang];
+LANG.STATUS_BAL_0[lang]    + ',' +
+LANG.MENU_DIARY[lang]      + ',' +
+LANG.MENU_STATUS[lang]     + ',' +
+LANG.MENU_PROFILE[lang];
+
+//////////////
 
 keyList = keyList.split('undefined').join('');
 keyList = keyList.split(' ').join(',');
 keyList = keyList.split(',,').join(',');
+keyList = keyList.split(',de,').join(',');
+keyList = keyList.split(',du,').join(',');
+keyList = keyList.split(',di,').join(',');
 keyList = trim(keyList.toLowerCase());
 
 keyList = keyList.split(',');
