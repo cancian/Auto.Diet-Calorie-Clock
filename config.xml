@@ -2,7 +2,6 @@
 <widget id="com.cancian.kcals" version="1.9.14" versionCode="191408" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
-	
 	<!-- ### -->
 	<access origin="*" />
 	<access origin="*" subdomains="true" launch-external="yes" />
@@ -37,7 +36,7 @@
 	<preference name="exit-on-suspend" value="false" />
 	<preference name="auto-hide-splash-screen" value="true" />
 	<preference name="disable-cursor" value="false" />
-	<preference name="android-minSdkVersion" value="8" />
+	<preference name="android-minSdkVersion" value="7" />
 	<preference name="android-installLocation" value="auto" />
 	<preference name="BackgroundColor" value="0xffffffff" />
 	<preference name="webviewbounce" value="false" />
@@ -47,6 +46,7 @@
 	<preference name="KeepRunning" value="true" />
 	<preference name="AndroidLaunchMode" value="singleTop" />
 	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
+	<preference name="loadUrlTimeoutValue" value="700000" />
 	<!-- Preferences for Android -->
 	
 	<!-- Preferences for iOS -->
