@@ -75,21 +75,23 @@ $(document).on('resume',function(evt) {
 	}
 	//
 	app.timeout('resume',4000,function() {
-		getRateDialog();
-		app.analytics('resume');
-		updateLoginStatus(1);
-		setTimeout(function() {
-			if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
-				buildRemoteSuperBlock('cached');
+		if(typeof app !== 'undefined') {
+			getRateDialog();
+			app.analytics('resume');
+			updateLoginStatus(1);
+			setTimeout(function() {
+				if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
+					buildRemoteSuperBlock('cached');
+				}
+			},2000);
+			//ONLINE USERS
+			if(typeof app.online === 'function') {
+				app.online();
 			}
-		},2000);
-		//ONLINE USERS
-		if(typeof app.online === 'function') {
-			app.online();
-		}
-		//BLOCK PIRACY
-		if(!app.device.desktop) {
-			app.piracy();
+			//BLOCK PIRACY
+			if(!app.device.desktop) {
+				app.piracy();
+			}
 		}
 	},3000);
 });

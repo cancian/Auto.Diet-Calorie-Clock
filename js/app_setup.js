@@ -6,7 +6,8 @@ function showIntro() {
 	///////////////////////////////////////
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
-	if((window.innerHeight < 350 && app.device.blackberry) || /Windows Phone 8.1/i.test(app.ua)) {
+	//& wp8.1 under wp10
+	if((window.innerHeight < 350 && app.device.blackberry) || (/Windows Phone 8.1/i.test(app.ua) && /Trident\/8/i.test(app.ua)) ) {
 		return;
 	}
 	//////////////////
@@ -2337,7 +2338,8 @@ app.analytics = function(target,desc) {
 		var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')';
 		//track page/event
 		if(target == 'error') {
-			if(!/800a139e/i.test(desc) && !/isTrusted/i.test(desc)) {
+			//skip irrelevant
+			if(!/800a139e/i.test(desc) && !/isTrusted/i.test(desc) && !/UnknownError/i.test(desc)) {
 				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
 				ga_storage._trackEvent(appOS, target, desc, baseVersion);
 			}

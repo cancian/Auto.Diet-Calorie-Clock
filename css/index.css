@@ -767,8 +767,10 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #totalChartWrapper #circlePercentInner	{ top: 115px; position: absolute; left: 0; right: 0; text-align: center; font-size: 24px; line-height: 24px; font-weight: 400; color: #bababa; z-index: 2; }
 .osxapp #totalChartWrapper #circlePercentInner,
 .android #totalChartWrapper #circlePercentInner,
-.ios #totalChartWrapper #circlePercentInner		{ top: 130px; }
-.msie #totalChartWrapper #circlePercentInner	{ top: 96px; }
+.ios #totalChartWrapper #circlePercentInner			{ top: 130px; }
+.msie #totalChartWrapper #circlePercentInner		{ top: 96px; }
+.firefoxos #totalChartWrapper #circlePercentInner	{ top: 122px; }
+.wp10 #totalChartWrapper #circlePercentInner		{ top: 130px; }
 #totalChartWrapper						{ width: 100%; text-align: center; }
 #totalChart								{ margin: 0 auto; display: inline-block; width: 280px; overflow: hidden; }
 #circlePercent,
