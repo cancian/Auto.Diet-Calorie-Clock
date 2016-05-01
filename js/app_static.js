@@ -76,7 +76,7 @@ $(document).on('resume',function(evt) {
 	//
 	app.timeout('resume',4000,function() {
 		if(typeof app !== 'undefined') {
-			getRateDialog();
+			//getRateDialog();
 			app.analytics('resume');
 			updateLoginStatus(1);
 			setTimeout(function() {
@@ -162,7 +162,7 @@ setTimeout(function() {
 // TRIGGER SYNC ETC //
 //////////////////////
 setTimeout(function() {
-	getRateDialog();
+	//getRateDialog();
 	app.trackInstall();
 	updateLoginStatus(1);
 	app.analytics('start');

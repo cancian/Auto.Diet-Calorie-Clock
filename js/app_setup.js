@@ -891,6 +891,7 @@ function saveEntry(data,callback) {
 		app.save('diary_entry',app.rows.entry,function(rows) {
 			app.rows.entry = rows;
 			setPush();
+			getRateDialog();
 			if(callback) {
 				callback(saveTime);
 			}
@@ -939,6 +940,7 @@ function saveEntry(data,callback) {
 			app.rows.entry = rows;
 			setPush();
 			app.analytics('add');
+			getRateDialog();
 			if(callback) {
 				callback();
 			}
@@ -953,6 +955,7 @@ function saveEntry(data,callback) {
 			app.rows.entry = rows;
 			setPush();
 			app.analytics('add');
+			getRateDialog();
 			if(callback) {
 				callback();
 			}
@@ -2256,7 +2259,7 @@ function sanitizeSql(str) {
 var rateTimer;
 function getRateDialog() {
 	//appstore enabled
-	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook) { return; }
+	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook) { return; }
 	if(app.get.platform() == 'web')	{ return; }
 	//first use
 	app.define('getRate',app.now());

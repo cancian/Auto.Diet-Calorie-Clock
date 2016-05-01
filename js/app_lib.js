@@ -726,27 +726,27 @@ app.url = function(url) {
 		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533'
 	};
 	//SHORTCUT
-	     if((!url && app.device.ios)        || url == 'ios')        { url = store.ios;        }
-	else if((!url && app.device.amazon)     || url == 'amazon')     { url = store.amazon; store.android = store.amazon; }
-	else if((!url && app.device.blackberry) || url == 'blackberry') { url = store.blackberry; }
-	else if((!url && app.device.playbook)   || url == 'playbook')   { url = store.playbook; }
-	else if((!url && app.device.android)    || url == 'android')    { url = store.android;    }
-	else if((!url && app.device.wp8)        || url == 'wp8')        { url = store.wp8;        }
-	else if((!url && app.device.windows8)   || url == 'windows8')   { url = store.windows8;   }
-	else if((!url && app.device.firefoxos)  || url == 'firefoxos')  { url = store.firefoxos;  }
-	else if((!url && app.device.osxapp)     || url == 'osxapp')     { url = store.osxapp;     }
-	else if((!url && app.device.chromeos)   || url == 'chromeos')   { url = store.chromeos;   }
-	else if(url == 'www')											{ url = store.web;        }
+	     if((!url && app.device.ios)        || url == 'ios')         { url = store.ios;        }
+	else if((!url && app.device.amazon)     || url == 'amazon')      { url = store.amazon; store.android = store.amazon; }
+	else if((!url && app.device.blackberry) || url == 'blackberry')  { url = store.blackberry; }
+	else if((!url && app.device.playbook)   || url == 'playbook')    { url = store.playbook;   }
+	else if((!url && app.device.android)    || url == 'android')     { url = store.android;    }
+	else if((!url && (app.device.wp8 || app.device.wp10))           || url == 'wp8')        { url = store.wp8;        }
+	else if((!url && (app.device.windows8 || app.device.windows10)) || url == 'windows8')   { url = store.windows8;   }
+	else if((!url && app.device.firefoxos)  || url == 'firefoxos')   { url = store.firefoxos;  }
+	else if((!url && app.device.osxapp)     || url == 'osxapp')      { url = store.osxapp;     }
+	else if((!url && app.device.chromeos)   || url == 'chromeos')    { url = store.chromeos;   }
+	else if(url == 'www')										 	 { url = store.web;        }
 	//OPEN
 	if(url) {
-		     if(app.device.ios)			{ window.open(url, '_system', 'location=yes');								}
-		else if(app.device.android)		{ window.open(url, '_system', 'location=yes');								}
-		else if(app.device.wp8)			{ ref = window.open(url, '_blank', 'location=no');							}
-		else if(app.device.msapp)		{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(url));	}
-		else if(app.device.firefoxos)	{ ref = window.open(url, '_system', 'location=yes');						}
-		else if(app.device.osxapp)		{ macgap.app.open(url);														}
-		else if(app.device.playbook)	{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (err) { errorHandler('url: ' + err); }}
-		else 							{ window.open(url, '_blank'); }
+		     if(app.device.ios)								{ window.open(url, '_system', 'location=yes');								}
+		else if(app.device.android)							{ window.open(url, '_system', 'location=yes');								}
+		else if(app.device.wp8 || app.device.wp10)			{ ref = window.open(url, '_blank', 'location=no');							}
+		else if(app.device.msapp)							{ Windows.System.Launcher.launchUriAsync(new Windows.Foundation.Uri(url));	}
+		else if(app.device.firefoxos)						{ ref = window.open(url, '_system', 'location=yes');						}
+		else if(app.device.osxapp)							{ macgap.app.open(url);														}
+		else if(app.device.playbook)						{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (err) { errorHandler('url: ' + err); }}
+		else 												{ window.open(url, '_blank'); }
 	}
 };
 //////////////
