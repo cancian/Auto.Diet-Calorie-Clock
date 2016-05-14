@@ -1200,13 +1200,18 @@ function updateFoodDb(callback) {
 						app.save('foodDbVersion', 5);
 						app.remove('startLock');
 						niceResizer(300);
-						if (app.read('facebook_userid')) {
-							syncEntries();
-						} else {
+						//save delay
+						app.timeout('saveFoodItem',2000,function() {
+							//push update
+							if (app.read('facebook_userid')) {
+								setPush();
+								//syncEntries();
+							}
+							//update listing
 							setTimeout(function () {
 								updateCustomList('all');
-							}, 100);
-						}
+							}, 200);
+						});
 						//////////////
 						// CALLBACK //
 						//////////////
