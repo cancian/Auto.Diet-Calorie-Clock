@@ -99,26 +99,23 @@ $(document).on('resume',function(evt) {
 ///////////////////////
 // VISIBILITY CHANGE //
 ///////////////////////
-$(document).on('visibilitychange focus', function (evt) {
+$(document).on('visibilitychange', function (evt) {
 	if(app) {
-		clearTimeout(app.repeaterLoop);
-		//
-		if (window.hidden == false || window.visibilityState == 'visible' || evt.type == 'focus') {
-			if (app.device.desktop) {
-				$(document).trigger('resume');
-			} else if (app.device.osxapp) {
-				$(document).trigger('resume');
+		app.timeout('browserResume',4000,function() {
+			clearTimeout(app.repeaterLoop);
+			//
+			if (window.hidden == false || window.visibilityState == 'visible' || evt.type == 'focus') {
+				if (app.device.desktop) {
+					$(document).trigger('resume');
+				} else if (app.device.osxapp) {
+					$(document).trigger('resume');
+				}
+				if(app.device.firefoxos) {
+					screen.mozLockOrientation('portrait-primary');
+					$(document).trigger('resume');
+				}
 			}
-			if(app.device.firefoxos) {
-				screen.mozLockOrientation('portrait-primary');
-				$(document).trigger('resume');
-			}
-		}
-	}
-});
-$(window).on('pause',function() {
-	if(app) {
-		clearTimeout(app.repeaterLoop);
+		});
 	}
 });
 //###############//
@@ -158,7 +155,7 @@ setTimeout(function() {
 setTimeout(function() {
 	app.analytics('init');
 	app.remove('consecutive_reboots');
-},3500);
+},6000);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
@@ -168,7 +165,7 @@ setTimeout(function() {
 	updateLoginStatus(1);
 	app.analytics('start');
 	clearTimeout(app.timers.resume);
-},5000);
+},9000);
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -336,7 +333,7 @@ $(document).on('menubutton', function(evt) {
 });
 ////////////////////////
 // BACK BUTTON (+ESC) //
-//////////////////////// backclick?
+////////////////////////
 var backer = 0;
 $(document).on('backbutton', function(evt) {
 	//CHAIN
@@ -1056,7 +1053,7 @@ if(app.is.scrollable) {
 	///////////////////
 	// every 5+5 min //
 	///////////////////
-	setTimeout(updateChecker, (5 * 60 * 1000));
+	setTimeout(updateChecker, (60 * 60 * 1000));
 })();
 /////////////////////
 // check last push //
@@ -1190,7 +1187,7 @@ if(app.is.scrollable) {
 					intakeHistory();
 					setTimeout(function() {
 						setPush();
-					},1000);
+					},100);
 				}
 			});
 			return;

@@ -1201,16 +1201,17 @@ function updateFoodDb(callback) {
 						app.remove('startLock');
 						niceResizer(300);
 						//save delay
-						app.timeout('saveFoodItem',2000,function() {
+						app.timeout('saveFoodItem',200,function() {
 							//push update
 							if (app.read('facebook_userid')) {
-								setPush();
-								//syncEntries();
-							}
+								//setPush();
+								syncEntries();
+							} else {
 							//update listing
 							setTimeout(function () {
 								updateCustomList('all');
 							}, 200);
+							}
 						});
 						//////////////
 						// CALLBACK //
