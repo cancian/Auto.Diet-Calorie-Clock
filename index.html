@@ -87,7 +87,8 @@ var bodyTimer = setTimeout(function() {
 		localStorage.removeItem('remoteSuperBlockJS');
 		localStorage.removeItem('remoteSuperBlockCSS');
 		localStorage.removeItem('app_autoupdate_hash');
-		window.location.reload(true);
+		//window.location.reload(true);
+		window.location.replace(window.location.href);
 	}
 },10000);
 ////////////////////
@@ -105,7 +106,8 @@ setTimeout(function () {
 		//RESTART
 		console.log('erasing cache...');
 		localStorage.removeItem('consecutive_reboots');
-		window.location.reload(true);
+		//window.location.reload(true);
+		window.location.replace(window.location.href);
 	} else {
 		localStorage.setItem('consecutive_reboots', localStorage.getItem('consecutive_reboots') + 1);
 	}
@@ -134,7 +136,8 @@ function wipeCache(button) {
 				alert('erasing cache...');
 			}
 			setTimeout(function() {
-				window.location.reload(true);
+				//window.location.reload(true);
+				window.location.replace(window.location.href);
 			},50);
 		}, 50);
 	} else {

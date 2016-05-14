@@ -285,7 +285,8 @@ app.switchUser = function(switchTo) {
 		$('body').css('opacity',0);
 		noTimer = 'active';
 		setTimeout(function() {
-			window.location.reload(true);
+			//window.location.reload(true);
+			window.location.replace(window.location.href);
 		},0);
 	}
 };
@@ -461,7 +462,8 @@ app.reboot = function(type,error) {
 	}
 	setTimeout(function() {
 		//RELOAD
-		window.location.reload(true);
+		//window.location.reload(true);
+		window.location.replace(window.location.href);
 	},timeout);
 	if(error) {
 		throw error;

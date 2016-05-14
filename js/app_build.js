@@ -1059,7 +1059,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if (/devreload/i.test($('#entryBody').val())) {
 				$('#entryBody').val('');
 				$('#entryBody').blur();
-				window.location.reload(true);
+				//window.location.reload(true);
+				window.location.replace(window.location.href);
 			}
 			/////////////////
 			// INSTALLTIME //

@@ -73,7 +73,8 @@ window.onerror = function (err, url, line) {
 	if ((/InvalidStateError/i).test(err) && !localStorage.getItem('config_force_localstorage')) {
 		localStorage.setItem('config_force_localstorage',true);
 		setTimeout(function () {
-			window.location.reload(true);
+			//window.location.reload(true);
+			window.location.replace(window.location.href);
 		}, 0);
 	}
 	*/
@@ -81,7 +82,8 @@ window.onerror = function (err, url, line) {
 	if (/Exception 18/i.test(err)) {
 		setTimeout(function () {
 			//RELOAD
-			window.location.reload(true);
+			//window.location.reload(true);
+			window.location.replace(window.location.href);
 		},0);
 	}
 	return true;

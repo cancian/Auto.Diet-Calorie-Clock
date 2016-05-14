@@ -1,7 +1,8 @@
 ﻿////////////////////
 // DOCUMENT READY //
 ////////////////////
-$(document).ready(function () {
+jQuery(document).ready(function($) {
+//$(document).ready(function () {
 	setTimeout(function () {
 		///////////////////
 		// OPEN DATABASE //
