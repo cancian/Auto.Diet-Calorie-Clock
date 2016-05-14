@@ -99,9 +99,9 @@ $(document).on('resume',function(evt) {
 ///////////////////////
 // VISIBILITY CHANGE //
 ///////////////////////
-$(document).on('visibilitychange', function (evt) {
+$(document).on('visibilitychange focus', function (evt) {
 	if(app) {
-		app.timeout('browserResume',4000,function() {
+		app.timeout('browserResume',5000,function() {
 			clearTimeout(app.repeaterLoop);
 			//
 			if (window.hidden == false || window.visibilityState == 'visible' || evt.type == 'focus') {
