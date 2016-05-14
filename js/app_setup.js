@@ -989,6 +989,7 @@ function setFood(data, callback) {
 		callback();
 		app.save('diary_food',app.rows.food,function(rows) {
 			app.rows.food = rows;
+			setPush();
 		});
 	} else {
 	//INSERT
@@ -1010,6 +1011,7 @@ function setFood(data, callback) {
 		callback();
 		app.save('diary_food',app.rows.food,function(rows) {
 			app.rows.food = rows;
+			setPush();		
 		});
 	}
 }
@@ -1042,6 +1044,7 @@ function delFood(foodId, callback) {
 	}
 	app.save('diary_food',rowsArray,function(rows) {
 		app.rows.food = rows;
+		setPush();
 	});
 }
 /////////////////////
@@ -1110,6 +1113,7 @@ function setFav(data, callback) {
 	callback();
 	app.save('diary_food',app.rows.food,function(rows) {
 		app.rows.food = rows;
+		setPush();
 	});
 }
 ///////////////
