@@ -79,6 +79,14 @@ $(document).on('resume',function(evt) {
 		if(typeof app !== 'undefined') {
 			//getRateDialog();
 			app.analytics('resume');
+			//
+			updateCustomList('fav');
+			updateCustomList('items');
+			updateTodayOverview();
+			intakeHistory();
+			setTimeout(function() {
+				//setPush();
+			},100);
 			setTimeout(function() {
 			updateLoginStatus(1);
 				if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
@@ -105,7 +113,14 @@ $(document).on('visibilitychange focus', function (evt) {
 			clearTimeout(app.repeaterLoop);
 			//
 			if (window.hidden == false || window.visibilityState == 'visible' || evt.type == 'focus') {
-				setPush();
+				//
+				updateCustomList('fav');
+				updateCustomList('items');
+				updateTodayOverview();
+				intakeHistory();
+				setTimeout(function() {
+					setPush();
+				},100);
 				if (app.device.desktop) {
 					$(document).trigger('resume');
 				} else if (app.device.osxapp) {
