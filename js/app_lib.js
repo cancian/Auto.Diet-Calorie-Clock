@@ -718,8 +718,10 @@ app.url = function(url) {
 		web:        'https://kcals.net',
 		ios:        'https://itunes.apple.com/app/id732382802',
 		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
-		wp8:        'http://www.windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e',
-		windows8:   'https://www.microsoft.com/store/apps/9wzdncrdkhz5',
+		wp8:        'http://windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e',
+		wp10:       'https://www.microsoft.com/store/apps/9wzdncrdkhz5',
+		windows8:   'http://apps.microsoft.com/windows/app/27631189-ce9d-444e-a46b-31b8f294f14e',
+		windows10:  'https://www.microsoft.com/store/apps/9wzdncrdkhz5',
 		firefoxos:  'https://marketplace.firefox.com/app/kcals',
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc',
@@ -733,8 +735,10 @@ app.url = function(url) {
 	else if((!url && app.device.blackberry) || url == 'blackberry')  { url = store.blackberry; }
 	else if((!url && app.device.playbook)   || url == 'playbook')    { url = store.playbook;   }
 	else if((!url && app.device.android)    || url == 'android')     { url = store.android;    }
-	else if((!url && (app.device.wp8 || app.device.wp10))           || url == 'wp8')        { url = store.wp8;        }
-	else if((!url && (app.device.windows8 || app.device.windows10)) || url == 'windows8')   { url = store.windows8;   }
+	else if((!url && app.device.wp10)       || url == 'wp10')        { url = store.wp10;       }
+	else if((!url && app.device.wp8)        || url == 'wp8')         { url = store.wp8;        }
+	else if((!url && app.device.windows10)  || url == 'windows10')   { url = store.windows10;  }	
+	else if((!url && app.device.windows8)   || url == 'windows8')    { url = store.windows8;   }
 	else if((!url && app.device.firefoxos)  || url == 'firefoxos')   { url = store.firefoxos;  }
 	else if((!url && app.device.osxapp)     || url == 'osxapp')      { url = store.osxapp;     }
 	else if((!url && app.device.chromeos)   || url == 'chromeos')    { url = store.chromeos;   }
@@ -1439,7 +1443,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 }
 
 //OVERRIDE TAP
-if (app.device.firefoxos || app.device.blackberry || app.device.msapp) { //|| app.device.android
+if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
 	tap = 'click';
 }
 ///////////////

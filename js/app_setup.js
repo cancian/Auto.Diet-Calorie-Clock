@@ -1011,7 +1011,7 @@ function setFood(data, callback) {
 		callback();
 		app.save('diary_food',app.rows.food,function(rows) {
 			app.rows.food = rows;
-			setPush();		
+			setPush();
 		});
 	}
 }
@@ -2341,8 +2341,10 @@ app.analytics = function(target,desc) {
 		else if(app.device.blackberry) { appOS = 'blackberry'; if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.playbook)   { appOS = 'playbook';   if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.android)	   { appOS = 'android';    if(app.device.cordova) { deviceType = 'app'; } }
-		else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.wp10)	   { appOS = 'wp10';       if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.wp81)	   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; } }
+		else if(app.device.windows10)  { appOS = 'windows10';  if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.windows8)   { appOS = 'windows8';   if(app.device.cordova) { deviceType = 'app'; } }
 		else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
 		else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
@@ -2352,7 +2354,9 @@ app.analytics = function(target,desc) {
 		//track page/event
 		if(target == 'error') {
 			//skip irrelevant
-			if(!/800a139e/i.test(desc) && !/isTrusted/i.test(desc) && !/UnknownError/i.test(desc)) {
+			if(/800a139e|isTrusted|UnknownError/i.test(desc)) {
+				//
+			} else {
 				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
 				ga_storage._trackEvent(appOS, target, desc, baseVersion);
 			}
