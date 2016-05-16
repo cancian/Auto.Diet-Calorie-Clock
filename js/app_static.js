@@ -1,7 +1,7 @@
 ﻿////////////////////
 // DOCUMENT READY //
 ////////////////////
-jQuery(document).ready(function($) {
+jQuery(document).ready(function() {
 //$(document).ready(function () {
 	setTimeout(function () {
 		///////////////////
@@ -59,7 +59,7 @@ jQuery(document).ready(function($) {
 		/////////////
 		localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
 		initDB();
-	}, 0);
+	}, 1);
 });
 ////////////////
 // RESUME EVT //
