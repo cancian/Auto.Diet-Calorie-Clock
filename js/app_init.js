@@ -5,7 +5,7 @@ if(typeof hostLocal === 'undefined') {
 	var hostLocal = localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
 }
 var staticVendor = ''; //'amazon';
-var baseVersion  = 1.9;
+var baseVersion  = 2.0;
 var initTime     = new Date().getTime();
 var UsrAgt       = navigator.userAgent;
 var IsMsApp      = /MSApp/i.test(UsrAgt) ? true : false;
@@ -55,7 +55,7 @@ window.onerror = function (err, url, line) {
 		spinner('stop');
 	}
 	//DEV ALERT
-	if (localStorage.getItem('config_debug') === 'active' && blockAlerts == 0 && !(/InvalidStateError/i).test(err)) {
+	if (localStorage.getItem('config_debug') === 'active' && blockAlerts == 0 && !/800a139e|isTrusted|InvalidStateError|UnknownError/i.test(err)) {
 		if (IsMsApp) {
 			if (typeof alert !== 'undefined') {
 				alert('onerror: ' + err + ' URL: ' + url + ' Line: ' + line);

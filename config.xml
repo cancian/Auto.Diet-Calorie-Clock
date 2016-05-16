@@ -15,6 +15,7 @@
     <allow-intent href="geo:*" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <allow-intent href="market:*" />
 	<allow-intent href="*" />
 	<!-- ### -->
 	<allow-navigation href="http://*/*" />
@@ -35,7 +36,7 @@
 	<preference name="phonegap-version" value="4.1.1" />
 	<preference name="orientation" value="portrait" />
 	<preference name="target-device" value="universal" />
-	<!--<preference name="fullscreen" value="false" />-->
+	<preference name="fullscreen" value="false" />
 	<preference name="prerendered-icon" value="true" />
 	<preference name="ios-statusbarstyle" value="black-opaque" />
 	<preference name="detect-data-types" value="true" />
@@ -129,33 +130,37 @@
 		<param name="wp-package" value="InAppBrowser" />
 	</feature>
 
-	<feature name="App">
-		<param name="android-package" value="org.apache.cordova.App"/>
-	</feature>
-	
-	<feature name="Whitelist">
-		<param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-		<param name="onload" value="true" />
-	</feature>
+    <platform name="android">
+		<feature name="App">
+			<param name="android-package" value="org.apache.cordova.App"/>
+		</feature>
 
-	<feature name="LocalStorage">
-		<param name="ios-package" value="CDVLocalStorage" />
-	</feature>
+		<feature name="Whitelist">
+			<param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+			<param name="onload" value="true" />
+		</feature>
+    </platform>
 
-	<feature name="HandleOpenUrl">
-		<param name="ios-package" value="CDVHandleOpenURL" />
-		<param name="onload" value="true" />
-	</feature>
+    <platform name="ios">
+		<feature name="LocalStorage">
+			<param name="ios-package" value="CDVLocalStorage" />
+		</feature>
 
-	<feature name="IntentAndNavigationFilter">
-		<param name="ios-package" value="CDVIntentAndNavigationFilter" />
-		<param name="onload" value="true" />
-	</feature>
+		<feature name="HandleOpenUrl">
+			<param name="ios-package" value="CDVHandleOpenURL" />
+			<param name="onload" value="true" />
+		</feature>
 
-	<feature name="GestureHandler">
-		<param name="ios-package" value="CDVGestureHandler" />
-		<param name="onload" value="true" />
-	</feature>
+		<feature name="IntentAndNavigationFilter">
+			<param name="ios-package" value="CDVIntentAndNavigationFilter" />
+			<param name="onload" value="true" />
+		</feature>
+
+		<feature name="GestureHandler">
+			<param name="ios-package" value="CDVGestureHandler" />
+			<param name="onload" value="true" />
+		</feature>
+    </platform>
 	<!-- CORDOVA PLUGINS -->
 
 </widget>

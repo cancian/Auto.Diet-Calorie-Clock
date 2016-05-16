@@ -2354,9 +2354,7 @@ app.analytics = function(target,desc) {
 		//track page/event
 		if(target == 'error') {
 			//skip irrelevant
-			if(/800a139e|isTrusted|UnknownError/i.test(desc)) {
-				//
-			} else {
+			if(!/800a139e|isTrusted|InvalidStateError|UnknownError/i.test(JSON.stringify(desc))) {
 				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
 				ga_storage._trackEvent(appOS, target, desc, baseVersion);
 			}

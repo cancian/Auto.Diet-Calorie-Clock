@@ -1465,6 +1465,9 @@ function errorHandler(error,callback) {
 	if(typeof error === 'undefined') {
 		error = '';
 	}
+	//FILTER
+	if(/800a139e|isTrusted|InvalidStateError|UnknownError/i.test(error)) { return; }
+	
 	//STRINGIFY
 	if(typeof error !== 'string') {
 		error = JSON.stringify(error);

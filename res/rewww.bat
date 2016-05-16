@@ -20,15 +20,6 @@ rem mkdir k:\platforms\android\assets\www
 rem cd k:\platforms\android\assets\www 
 rem call reswww 
 
-REM "ANDROID-IMPORTED-GRADLE"
-rem cd\ 
-deltree /y /z /s /q /t k:\platforms\android\kcals\src\main\assets\www 
-rd /s /q k:\platforms\android\kcals\src\main\assets\www 
-mkdir k:\platforms\android\kcals\src\main\assets\www 
-cd k:\platforms\android\kcals\src\main\assets\www 
-sleep 1
-call reswww 
-
 REM "ANDROID-GRADLE" 
 cd\ 
 deltree /y /z /s /q /t k:\platforms\android-gradle\assets\www 
@@ -118,8 +109,7 @@ rd /s /q k:\platforms\bb10\platforms\blackberry10\build
 sleep 1
 REM "CONFIG.XML"
 rem cd\ 
-del /q K:\platforms\android\kcals\src\main\res\xml\config.xml 
-del /q K:\platforms\android-gradle\res\xml\config.xml 
+rem del /q K:\platforms\android-gradle\res\xml\config.xml 
 del /q K:\platforms\ios\kcals\config.xml 
 del /q K:\platforms\windows10\config.xml 
 del /q K:\platforms\windows8\config.xml 
@@ -129,8 +119,7 @@ del /q K:\platforms\playbook\www\config.xml
 
 sleep 1
 
-copy /y k:\www\config.xml k:\platforms\android\kcals\src\main\res\xml\config.xml 
-copy /y k:\www\config.xml k:\platforms\android-gradle\res\xml\config.xml 
+rem copy /y k:\www\config.xml k:\platforms\android-gradle\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml 
 REM copy /y k:\www\config.xml k:\platforms\windows10\config.xml 
 copy /y k:\www\config.xml k:\platforms\windows8\config.xml 
@@ -234,21 +223,6 @@ cd K:\www\res\icon\osx\AppIcon.appiconset
 copy *.* k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset
 sleep 1
 
- 
-rem cd\ 
-del /q k:\platforms\android\kcals\src\main\res\drawable\icon.png 
-del /q k:\platforms\android\kcals\src\main\res\drawable-ldpi\icon.png 
-del /q k:\platforms\android\kcals\src\main\res\drawable-mdpi\icon.png 
-del /q k:\platforms\android\kcals\src\main\res\drawable-hdpi\icon.png 
-del /q k:\platforms\android\kcals\src\main\res\drawable-xhdpi\icon.png 
-del /q k:\platforms\android\kcals\src\main\res\drawable-xxhdpi\icon.png 
-copy /y k:\www\res\icon\android\144.png k:\platforms\android\kcals\src\main\res\drawable\icon.png 
-copy /y k:\www\res\icon\android\36.png k:\platforms\android\kcals\src\main\res\drawable-ldpi\icon.png 
-copy /y k:\www\res\icon\android\48.png k:\platforms\android\kcals\src\main\res\drawable-mdpi\icon.png 
-copy /y k:\www\res\icon\android\72.png k:\platforms\android\kcals\src\main\res\drawable-hdpi\icon.png 
-copy /y k:\www\res\icon\android\96.png k:\platforms\android\kcals\src\main\res\drawable-xhdpi\icon.png 
-copy /y k:\www\res\icon\android\144.png k:\platforms\android\kcals\src\main\res\drawable-xxhdpi\icon.png 
- 
  
 del /q k:\platforms\android-gradle\res\drawable\icon.png 
 del /q k:\platforms\android-gradle\res\drawable-ldpi\icon.png 
