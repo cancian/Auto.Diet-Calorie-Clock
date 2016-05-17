@@ -64,7 +64,7 @@
 	<preference name="AutoHideSplashScreen" value="true" />
 	<preference name="BackupWebStorage" value="local" />
 	<preference name="DisallowOverscroll" value="true" />
-	<preference name="EnableViewportScale" value="false" />
+	<preference name="EnableViewportScale" value="true" />
 	<preference name="FadeSplashScreen" value="false" />
 	<preference name="FadeSplashScreenDuration" value="0" />
 	<preference name="HideKeyboardFormAccessoryBar" value="false" />

@@ -849,14 +849,16 @@ if(app.device.osxapp) {
 		errorHandler('macgap.menu: ' + err);
 	}
 	//CLOSE ON MINIMIZE
-	$(document).on('visibilitychange', function () {
-		clearTimeout(app.timers.terminate);
-		app.timers.terminate = setTimeout(function() {
-			if (document.hidden == true || document.visibilityState == 'hidden') {
-				macgap.app.terminate();
-			}
-		},1000);
-	});
+	if(reviewMode === true) {
+		$(document).on('visibilitychange', function () {
+			clearTimeout(app.timers.terminate);
+			app.timers.terminate = setTimeout(function() {
+				if (document.hidden == true || document.visibilityState == 'hidden') {
+					macgap.app.terminate();
+				}
+			},1000);
+		});
+	}
 }
 ///////////
 // LINUX //

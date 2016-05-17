@@ -397,8 +397,10 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 div#optionWebsite								{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-shadow: rgba(255,255,255,.5) 0 1px 0; display: block; }
 div#optionWebsite.activeRow						{ color: #999; }
 /*OSX*/
+/*
 .osxapp.appLang-en div#optionWebsite.activeRow	{ color: #bbb !important; }
 .osxapp.appDebug div#optionWebsite.activeRow	{ color: #999 !important; }
+*/
 /*///////////////////
 // SETTINGS: SHARE //
 ///////////////////*/
@@ -439,7 +441,9 @@ div#optionReset.activeRow			{ background-color: #E86401; color: #fff; }
 #advancedReload.activeRow				{ background-color: #007aff !important; color: #fff; }
 #advancedReset							{ margin-bottom: 28px; color: #F22323; }
 #advancedReset.activeRow				{ background-color: #E86401 !important; color: #fff; }
+/*
 .osxapp.appLang-en #advancedAbout		{ display: none; }
+*/
 #advancedReload							{ margin-bottom: 28px; color: #007aff; }
 /*//////////////////
 // MULTIUSER MENU //
@@ -927,10 +931,12 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 .pending #appStatusReload			{ -webkit-animation: pulse 4000ms infinite linear; color: #080; }
 @-webkit-keyframes pulse			{ 0% { color: #080; } 60% { color: #080; } 70% { color: #0f0; } 100% { color: #080; } }
 /*OSXAPP*/
+/*
 .osxapp.appLang-en.pending #appStatusReload	{ color: inherit; -webkit-animation: null 0 0; }
 .osxapp.appLang-en #advancedAutoUpdate		{ display: none; }
 .appDebug.osxapp.pending #appStatusReload	{ color: #080; -webkit-animation: pulse infinite 4s; }
 .appDebug.osxapp #advancedAutoUpdate		{ display: block; }
+*/
 /*date sub div*/
 #startDateBar						{ width: 100%; position: relative; display: block; height: 44px; overflow: hidden; }
 span#startDateSpan					{ position: relative; height: 44px; }
