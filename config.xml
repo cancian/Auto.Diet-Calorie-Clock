@@ -5,6 +5,7 @@
 	<!-- ### -->
 	<access origin="*" />
 	<access origin="*" subdomains="true" launch-external="yes" />
+	<access origin="mailto:*" launch-external="true" />
 	<!-- <access subdomains="true" uri="*" origin="*" /> -->
 	<!-- ### -->
     <allow-intent href="http://*/*" />

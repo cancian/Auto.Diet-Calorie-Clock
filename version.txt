@@ -8,6 +8,12 @@
 • Water tracker
 • Daily tips
 
+# 1.9.16 [2016/05/17]
+• Fully revised coding
+• Optimized core frameworks, featuring cutting edge web technology
+• Fixed some synchronization inconsistencies affecting desktop browsers
+• The project is now open source, available on GitHub. The source code is free for personal use. For commercial purposes, authorization is required.
+
 # 1.9.15 [2016/04/05]
 • Fixed insertion loop that would slow down the app over time
 • Revised touch handlers
