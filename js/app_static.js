@@ -638,6 +638,13 @@ $(window).on('orientationchange', function(evt) {
 	appResizer(100);
 	appResizer(300);
 	appResizer(600);
+	//METAZOOM UPDATE
+	if(typeof metaZoom === 'function') {
+		metaZoom();
+		setTimeout(function() {
+			metaZoom();
+		},300);
+	}
 });
 ////////////
 // RESIZE //

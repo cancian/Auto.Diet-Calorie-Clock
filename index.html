@@ -15,6 +15,19 @@
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
 <link rel="apple-touch-icon-precomposed" sizes="256x256" href="icon.png">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<script type="text/javascript">
+function metaZoom() {
+	if (/iPad|Tablet/i.test(navigator.userAgent)) {
+		var screenHeight = screen.height;
+		var screenWidth  = screen.width;
+		var zoomRatio    = (screenWidth + screenHeight)/2000;
+		if(((screenWidth + screenHeight)/2) > 1000) {
+			document.getElementById("viewPort").setAttribute('content','user-scalable=no, initial-scale='+zoomRatio+', maximum-scale='+zoomRatio+', minimum-scale='+zoomRatio+', width='+screenWidth+', height='+screenHeight+'');
+		}
+	}
+}
+metaZoom();
+</script>
 <style type="text/css">
 body.started #loadMask {
 	display: none;
