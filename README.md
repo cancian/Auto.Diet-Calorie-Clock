@@ -1,4 +1,4 @@
-﻿KCals Calorie Counter - Cordova Cross-Platform App
+﻿KCals Calorie Counter - Cordova App
 ====================================================
 This project is now open source. The code is free for personal use only. For commercial purposes, authorization is required.
 
