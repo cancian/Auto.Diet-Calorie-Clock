@@ -2204,8 +2204,11 @@ function appResizer(time,callback) {
 			$('head').append2('<style type="text/css" id="entryListHeight"></style>');
 		}
 		//IF NEEDED
+		var keepMinHeight = wrapperMinH;
 		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
 		$('#entryListHeight').html2(wrapperMinH);
+		//kept		
+		$('#entryListWrapper').css('min-height',keepMinHeight+'px !important');
 		//
 		$('#appHelper').height($('#appContent').height());
 		$('#appSubHelper').height($('#appContent').height());
