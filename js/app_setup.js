@@ -2195,7 +2195,7 @@ function appResizer(time,callback) {
 		////////////////////////
 		// WRAPPER MIN-HEIGHT //
 		////////////////////////
-		var wrapperMinH = (app.relHeight) - (154 + $('#appHeader').height() + $('#appFooter').height());
+		var wrapperMinH = (app.height) - (154 + $('#appHeader').height() + $('#appFooter').height());
 		if(wrapperMinH < 0) {
 			wrapperMinH = 0;
 		}

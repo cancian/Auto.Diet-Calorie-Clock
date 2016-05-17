@@ -727,8 +727,8 @@ app.url = function(url) {
 		firefoxos:  'https://marketplace.firefox.com/app/kcals',
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc',
-		blackberry: 'https://appworld.blackberry.com/webstore/vendor/90460', //https://appworld.blackberry.com/webstore/content/59937667
-		playbook:   'https://appworld.blackberry.com/webstore/vendor/90460', //https://appworld.blackberry.com/webstore/content/59937667
+		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'https://appworld.blackberry.com/webstore/content/59937667',
+		playbook:   'https://appworld.blackberry.com/webstore/content/59937667',
 		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533'
 	};
 	//SHORTCUT
@@ -754,6 +754,7 @@ app.url = function(url) {
 		else if(app.device.firefoxos)						{ ref = window.open(url, '_system', 'location=yes');						}
 		else if(app.device.osxapp)							{ macgap.app.open(url);														}
 		else if(app.device.playbook)						{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (err) { errorHandler('url: ' + err); }}
+		else if(app.device.blackberry)						{ try { blackberry.invoke.invoke({ "uri": url, "action": "bb.action.OPEN", "action_type": "ALL" }); } catch (err) { errorHandler('url: ' + err); }}
 		else 												{ ref = window.open(url, '_blank'); }
 	}
 };
@@ -2213,9 +2214,9 @@ app.piracy = function (force) {
 	if (force == 1)									{ blockIt = 1; }
 	if (!baseVersion) 								{ blockIt = 1; }
 	if (baseVersion < 1.9)							{ blockIt = 1; }
-	if (baseVersion < 2.0 && app.device.android)	{ blockIt = 1; }
+	//if (baseVersion < 2.0 && app.device.android)	{ blockIt = 1; }
 	if (app.device.desktop)							{ blockIt = 0; }
-	if(blockIt == 1) {
+	if (blockIt == 1) {
 		//log only once
 		if(!app.read('seenBlockNotice')) {
 			app.analytics('blocked 2.0 (' + app.get.platform(1) + ')');
