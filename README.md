@@ -1,10 +1,7 @@
-﻿com.cancian.kcals
-======================
+﻿KCals Calorie Counter - Cordova Cross-Platform App
+====================================================
+This project is now open source. The code is free for personal use only. For commercial purposes, authorization is required.
 
-This is the www/ folder of my phonegap/cordova app "KCals Calorie Counter".
-
-I published this just in case it helps anyone who's also into html5 apps development.
-
----
-
-Web version http://kcals.net
+PROJECT STATUS:
+I'm currently trying to port the App to Apple Watch, Google Watch, and Android widgets.
+If you'd like to help make this happen, drop me a line at cancian@ateus.net
