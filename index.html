@@ -12,99 +12,23 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0"/>
 <meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+<script type="text/javascript">
+//IPAD
+//	<meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=2.0, maximum-scale=2.0, minimum-scale=2.0' />
+//	document.getElementById("view").setAttribute('content','user-scalable=yes, width=device-width, minimum-scale=1, maximum-scale=10');
+//	if (/iPad|Tablet/i.test(navigator.userAgent)) {
+//	var screenHeight = screen.height;
+//	var screenWidth  = screen.width;
+//	var zoomRatio    = (screenWidth + screenHeight)/2000;
+//	if(((screenWidth + screenHeight)/2) > 1000) {
+//	document.getElementById("viewPort").setAttribute('content','user-scalable=no, initial-scale='+zoomRatio+', maximum-scale='+zoomRatio+', minimum-scale='+zoomRatio+', width='+screenWidth+', height='+screenHeight+'');
+//	document.getElementById('viewPort').setAttribute('content','user-scalable=yes, initial-scale='+zoomRatio+', maximum-scale='+zoomRatio+', minimum-scale='+zoomRatio);
+//	document.getElementById('viewPort').setAttribute('content','width=device-width,initial-scale='+zoomRatio+', maximum-scale='+zoomRatio+', minimum-scale='+zoomRatio);
+//	}
+</script>
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
 <link rel="apple-touch-icon-precomposed" sizes="256x256" href="icon.png">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<script type="text/javascript">
-function metaZoom() {
-	if (/iPad|Tablet/i.test(navigator.userAgent)) {
-		var screenHeight = screen.height;
-		var screenWidth  = screen.width;
-		var zoomRatio    = (screenWidth + screenHeight)/2000;
-		alert('screenHeight: ' + screenHeight)
-		alert('screenWidth: ' + screenWidth)
-		alert('zoomRatio: ' + zoomRatio)		
-		if(((screenWidth + screenHeight)/2) > 1000) {
-			//document.getElementById("viewPort").setAttribute('content','user-scalable=no, initial-scale='+zoomRatio+', maximum-scale='+zoomRatio+', minimum-scale='+zoomRatio+', width='+screenWidth+', height='+screenHeight+'');
-			//document.getElementById('viewPort').setAttribute('content','user-scalable=yes, initial-scale='+zoomRatio+', maximum-scale='+zoomRatio+', minimum-scale='+zoomRatio);
-			document.getElementById('viewPort').setAttribute('content','width=device-width,initial-scale='+zoomRatio+', maximum-scale='+zoomRatio+', minimum-scale='+zoomRatio);
-
-		//	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
-		}
-	}
-}
-metaZoom();
-
-
-
-
-
-
-
-
-
-
-
-/*! A fix for the iOS orientationchange zoom bug.
- Script by @scottjehl, rebound by @wilto.
- MIT / GPLv2 License.
-*/
-(function(w){
-	
-	// This fix addresses an iOS bug, so return early if the UA claims it's something else.
-	var ua = navigator.userAgent;
-	if( !( /iPhone|iPad|iPod/.test( navigator.platform ) && /OS [1-5]_[0-9_]* like Mac OS X/i.test(ua) && ua.indexOf( "AppleWebKit" ) > -1 ) ){
-		return;
-	}
-
-    var doc = w.document;
-
-    if( !doc.querySelector ){ return; }
-
-    var meta = doc.querySelector( "meta[name=viewport]" ),
-        initialContent = meta && meta.getAttribute( "content" ),
-        disabledZoom = initialContent + ",maximum-scale=1",
-        enabledZoom = initialContent + ",maximum-scale=10",
-        enabled = true,
-		x, y, z, aig;
-
-    if( !meta ){ return; }
-
-    function restoreZoom(){
-        meta.setAttribute( "content", enabledZoom );
-        enabled = true;
-    }
-
-    function disableZoom(){
-        meta.setAttribute( "content", disabledZoom );
-        enabled = false;
-    }
-	
-    function checkTilt( e ){
-		aig = e.accelerationIncludingGravity;
-		x = Math.abs( aig.x );
-		y = Math.abs( aig.y );
-		z = Math.abs( aig.z );
-				
-		// If portrait orientation and in one of the danger zones
-        if( (!w.orientation || w.orientation === 180) && ( x > 7 || ( ( z > 6 && y < 8 || z < 8 && y > 6 ) && x > 5 ) ) ){
-			if( enabled ){
-				disableZoom();
-			}        	
-        }
-		else if( !enabled ){
-			restoreZoom();
-        }
-    }
-	
-	w.addEventListener( "orientationchange", restoreZoom, false );
-	w.addEventListener( "devicemotion", checkTilt, false );
-
-})( this );
-
-
-
-</script>
 <style type="text/css">
 body.started #loadMask {
 	display: none;

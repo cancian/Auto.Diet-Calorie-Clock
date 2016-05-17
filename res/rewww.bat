@@ -26,7 +26,7 @@ deltree /y /z /s /q /t k:\platforms\android-gradle\assets\www
 rd /s /q k:\platforms\android-gradle\assets\www 
 mkdir k:\platforms\android-gradle\assets\www 
 cd k:\platforms\android-gradle\assets\www 
-sleep 1
+sleep 0
 call reswww 
  
 REM "IOS"
@@ -35,7 +35,7 @@ deltree /y /z /s /q /t k:\platforms\ios\www
 rd /s /q k:\platforms\ios\www 
 mkdir k:\platforms\ios\www 
 cd k:\platforms\ios\www 
-sleep 1
+sleep 0
 call reswww 
 
 REM "OSX"
@@ -44,7 +44,7 @@ deltree /y /z /s /q /t k:\platforms\osx\public
 rd /s /q k:\platforms\osx\public 
 mkdir k:\platforms\osx\public 
 cd k:\platforms\osx\public 
-sleep 1
+sleep 0
 call reswww 
 
 REM "WINDOWS10"
@@ -61,7 +61,7 @@ deltree /y /z /s /q /t k:\platforms\windows8\www
 rd /s /q k:\platforms\windows8\www 
 mkdir k:\platforms\windows8\www 
 cd k:\platforms\windows8\www 
-sleep 1
+sleep 0
 call reswww 
 
 rem "WP 8.0"
@@ -70,7 +70,7 @@ deltree /y /z /s /q /t k:\platforms\wp8\www
 rd /s /q k:\platforms\wp8\www 
 mkdir k:\platforms\wp8\www 
 cd k:\platforms\wp8\www 
-sleep 1
+sleep 0
 call reswww 
 
 REM PLAYBOOK
@@ -78,7 +78,7 @@ deltree /y /z /s /q /t K:\platforms\playbook\www
 rd /s /q K:\platforms\playbook\www
 mkdir K:\platforms\playbook\www
 cd k:\platforms\playbook\www
-sleep 1
+sleep 0
 call reswww 
 cp -R K:\platforms\playbook\lib\cordova.2.9.0\ext-air K:\platforms\playbook\www
 
@@ -92,7 +92,7 @@ deltree /y /z /s /q /t k:\platforms\bb10\www
 rd /s /q k:\platforms\bb10\www 
 mkdir k:\platforms\bb10\www
 cd k:\platforms\bb10\www
-sleep 1
+sleep 0
 call reswww 
 
 REM "PLATFORM / BB10"
@@ -101,12 +101,12 @@ deltree /y /z /s /q /t k:\platforms\bb10\platforms\blackberry10\www
 rd /s /q k:\platforms\bb10\platforms\blackberry10\www
 mkdir k:\platforms\bb10\platforms\blackberry10\www
 cd k:\platforms\bb10\platforms\blackberry10\www
-sleep 1
+sleep 0
 call reswww 
 deltree /y /z /s /q /t k:\platforms\bb10\platforms\blackberry10\build
 rd /s /q k:\platforms\bb10\platforms\blackberry10\build
 
-sleep 1
+sleep 0
 REM "CONFIG.XML"
 rem cd\ 
 rem del /q K:\platforms\android-gradle\res\xml\config.xml 
@@ -117,7 +117,7 @@ del /q K:\platforms\wp8\config.xml
 del /q K:\platforms\bb10\config.xml
 del /q K:\platforms\playbook\www\config.xml
 
-sleep 1
+sleep 0
 
 rem copy /y k:\www\config.xml k:\platforms\android-gradle\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml 
@@ -127,7 +127,7 @@ copy /y k:\www\config.xml k:\platforms\wp8\config.xml
 copy /y k:\www\config.xml k:\platforms\bb10\config.xml 
 copy /y K:\platforms\playbook\config.playbook.xml k:\platforms\playbook\www\config.xml 
 
-sleep 1
+sleep 0
 
 REM "PLAYBOOK ASSETS" 
 del /q K:\platforms\playbook\www\80.png 
@@ -221,7 +221,7 @@ rm -r k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset
 mkdir k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
 cd K:\www\res\icon\osx\AppIcon.appiconset
 copy *.* k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset
-sleep 1
+sleep 0
 
  
 del /q k:\platforms\android-gradle\res\drawable\icon.png 

@@ -2176,15 +2176,15 @@ function appResizer(time,callback) {
 	app.timeout('appResizer',time,function() {
 		app.width  = window.innerWidth;
 		app.height = window.innerHeight;
-		app.relWidth  = app.width  / app.read('app_zoom');
-		app.relHeight =  app.height / app.read('app_zoom');
+		//app.relWidth  = app.width  / app.read('app_zoom');
+		//app.relHeight =  app.height / app.read('app_zoom');
 		/*
 		if(vendorClass == 'moz' || vendorClass == 'msie') {
 			$('body').css('width', app.relWidth + 'px');
 			$('body').css('height', app.relHeight + 'px');
 		}
 		*/
-		if(!app.device.msapp && !app.device.desktop && !app.device.linux) {
+		if(!app.device.msapp && !app.device.desktop && !app.device.linux && !app.device.ios) {
 			$('body').css('min-height', app.height);
 		}
 		//unlock top white gap
