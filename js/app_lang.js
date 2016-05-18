@@ -7145,13 +7145,28 @@ var LANG = {
 	},
 	HELP_TOPICS_ARRAY : {
 		en : { 
-'What is KCals?' :
-'<p>KCals is a cross-platform web app that allows you to count your calories from anywhere.</p>\
-<p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, KCals works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
-<p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p>\
+'KCals: A Metabolism Simulator' : '\
+<p>KCals was originally developed to help me count calories, but it helped me so much, I thought I should share it with you!</p>\
+<p>Most health and fitness tools come with a bunch of unnecessary features. My goal was to make KCals a simple and effective calorie counter that didn’t have any of the clutter of most weight loss applications.</p>\
+<p>You start by setting a daily calorie intake for yourself. That’s your baseline: The amount of calories you need to eat to keep your current weight.</p>\
+<p>Now, in case you want to lose weight, just pick the amount you’d like to lose per week. The app will show how many calories you need to subtract from your daily baseline in order to reach that goal.</p>\
+<p>Once you hit “Start”, your caloric balance, like a “Calorie Clock”, will decrease passively throughout the day. This represents the calories your body burns over time.</p>\
+<p>Whenever you eat, add the item to your diary, so the app can compensate for the calories you’ve used. The same goes for exercises.</p>\
+<p>Keeping track of calories this way encourages eating conscientiously, according to what your body actually needs at any given moment.</p>\
+<p>Now comes the fun part. Since your daily intake already includes the caloric deficit, what you see is what you need. No overthinking. No boring calculations. What you need to know comes down to a single number.</p>\
+<p>As long as you keep your caloric balance somewhat close to zero, you’re losing weight. Simple as that!</p>\
+<p>Keeping track of calories used to be a chore, but not anymore!</p>\
 <p id="tabHelp" class="hidden">For more information on how to take full advantage of this app, be sure to check the<span id="openHelp" class="blue bold"> help section</span>.</p>',
-'Getting started' :
-'<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? KCals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p><p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p><p>Then you should define a weight loss rate, given in lb/kg per week.</p><p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p><p>Now hit start, and the app will show how many calories you have burned over time, so you’ll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p><p>For instance:</p><p>2400 per day / 24 hours = 100 calories per hour</p><p>So, after 30 minutes, the counter will indicate your caloric balance is “-50”. Its that simple!</p><p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>',
+'What’s so unique about KCals?' : '\
+<p>KCals is a cross-platform web app that allows you to count your calories from anywhere.</p>\
+<p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, KCals works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
+<p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p>',
+'Getting used to real-time' :
+'<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? KCals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
+<p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
+<p>Then you should define a weight loss rate, given in lb/kg per week.</p>\
+<p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p>\
+<p>Now hit start, and the app will show how many calories you have burned over time, so you’ll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p><p>For instance:</p><p>2400 per day / 24 hours = 100 calories per hour</p><p>So, after 30 minutes, the counter will indicate your caloric balance is “-50”. Its that simple!</p><p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>',
 'The Status Bar' :
 '<p>The status bar displays your actual calorie balance as well as your daily intake. Your calorie balance is the difference between the calories you burn and the calories you consume. Calorie balance has three states: deficit, surplus, and balanced.</p><p>A calorie deficit means that you have burned more calories than you have consumed. It is displayed in your status bar as a red bar. </p><p>A calorie surplus means that you have consumed more calories than you have burned. It is displayed as green in your status bar. </p><p>A calorie balance means that you have burned the same or nearly equal amount of calories as you have consumed. It is displayed as blue in your status bar. </p><p><strong>Balanced:</strong> between -300 and +300 calories </p><p><strong>Deficit:</strong> below -300 calories </p><p><strong>Surplus:</strong> above +300 calories </p><p>When the counter hits +/-600, the “caloric balance” block will be highlighted to indicate you are getting too distant from the balanced state. The value 600 was chosen as default because it is usually the highest amount of calories recommend per meal.</p><p>You can customize that value to anything between 100 and 9999 by tapping the “Caloric Balance” block on the Status tab.</p>',
 'Today Overview' :
@@ -7176,6 +7191,6 @@ var LANG = {
 'Cyclical Mode':
 '<p>The <strong>Cyclical Mode</strong> allows you to alternate between two different caloric values along a period of four days.</p><p>Days <strong>(A, B, C)</strong> will use the first value, while day <strong>(D)</strong> will use the second.</p><p>This configuration is typically used to accommodate a “rest day” (maintenance level) in a dieting plan.</p><p>The reason for this is mostly the psychological comfort of having some kind of “reward” to look forward to, making it easier to endure the dieting days.</p><p>A second reason is that the change in calories (theoretically) keeps your body guessing, and make it harder for your body to adjust its metabolism.</p>',
 'Supported platforms':
-'<p>KCals is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 8<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (kcals.net)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
+'<p>KCals is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (kcals.net)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};
 

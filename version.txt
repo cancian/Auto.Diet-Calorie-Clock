@@ -12,6 +12,7 @@
 • Integration with the iOS Health Kit (distant goal)
 
 # 1.9.16 [2016/05/17]
+• New help topics
 • Fully revised coding
 • Optimized core frameworks, featuring cutting edge web technology
 • Fixed some synchronization inconsistencies affecting desktop browsers

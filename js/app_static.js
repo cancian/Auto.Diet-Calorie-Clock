@@ -1131,7 +1131,7 @@ if(app.is.scrollable) {
 			if($('#advancedMenu').length)				{ return; }
 			if($('#pageSlideFood').length)				{ return; }
 			if($('#appHeader').hasClass('blockInfo'))	{ return; }
-			getNewWindow('Help: What is KCals?','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['What is KCals?'] + '</div>',function() {
+			getNewWindow('KCals: A Metabolism Simulator','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['KCals: A Metabolism Simulator'] + '</div>',function() {
 				$('#tabHelp').removeClass('hidden');
 				app.handlers.activeRow('#openHelp','button',function(evt) {
 					appFooter('tab4',0,function() {
