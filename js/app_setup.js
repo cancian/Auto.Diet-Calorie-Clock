@@ -2120,7 +2120,10 @@ function getNiceScroll(target,timeout,callback) {
 		cursorwidth: '4px',
 		horizrailenabled: false,
 		hwacceleration: true,
-		zindex: 100
+		rtlmode: false,
+		railalign: 'right',
+		railvalign: 'bottom',
+		zindex: 50
 	};
 	//HORIZONTAL
 	if($('#appHistory').html()) {
@@ -2184,7 +2187,7 @@ function appResizer(time,callback) {
 			$('body').css('height', app.relHeight + 'px');
 		}
 		*/
-		if(!app.device.msapp && !app.device.desktop && !app.device.linux && !app.device.ios) {
+		if(!app.device.msapp && !app.device.desktop && !app.device.linux && !app.device.ipad) {
 			$('body').css('min-height', app.height);
 		}
 		//unlock top white gap
@@ -2204,11 +2207,8 @@ function appResizer(time,callback) {
 			$('head').append2('<style type="text/css" id="entryListHeight"></style>');
 		}
 		//IF NEEDED
-		var keepMinHeight = wrapperMinH;
 		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
 		$('#entryListHeight').html2(wrapperMinH);
-		//kept		
-		$('#entryListWrapper').css('min-height',keepMinHeight+'px !important');
 		//
 		$('#appHelper').height($('#appContent').height());
 		$('#appSubHelper').height($('#appContent').height());

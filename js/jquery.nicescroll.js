@@ -101,7 +101,7 @@
 		overflowx: true,
 		overflowy: true,
 		cursordragspeed: 0.3,
-		rtlmode: "auto",
+		rtlmode: false,
 		cursordragontouch: false,
 		oneaxismousemode: "auto",
 		scriptpath: getScriptPath(),

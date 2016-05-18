@@ -103,9 +103,9 @@ app.tab.settings = function(keepOpen) {
 		getNewWindow('KCals ' + appVersion, aboutHtml, aboutHandler);
 	};
 	app.handlers.activeRow('#optionWebsite','activeRow',function(evt) {
-		if(!app.device.osxapp || (app.device.osxapp && lang != 'en' || reviewMode === true) || app.dev) {
+		//if(!app.device.osxapp || (app.device.osxapp && lang != 'en' || reviewMode === true) || app.dev) {
 			app.about();
-		}
+		//}
 	});
 	//////////////
 	// HELP TAP //
