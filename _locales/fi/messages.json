@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals-kalorilaskin"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "KCals on kehitetty auttamaan kalorien saannin kontrolloimisessa."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

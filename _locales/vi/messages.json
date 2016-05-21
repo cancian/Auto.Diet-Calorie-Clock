@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Truy Cập Calo"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "KCals được thiết kế để giúp kiểm soát lượng calo của bạn."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "(KCals عداد السُعرات الحرارية)"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "تم تصميم (KCals) لمساعدتك على السيطرة على السعرات الحرارية التي تدخل جسمك."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

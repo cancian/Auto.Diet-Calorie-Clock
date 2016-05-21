@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "Θερμιδομετρητής KCals"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "Το KCals σχεδιάστηκε για να σας βοηθήσει να ελέγξετε την πρόσληψη θερμίδων που κάνετε."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

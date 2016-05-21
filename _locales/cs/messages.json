@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Počítadlo Kalorií"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "KCals je navržen tak, aby vám pomůže kontrolovat svůj příjem kalorií."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

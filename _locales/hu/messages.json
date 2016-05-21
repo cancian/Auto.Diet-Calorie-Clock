@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals kalóriaszámláló"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "A KCals lényege, hogy segít figyelni az Ön kalóriabevitelét."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

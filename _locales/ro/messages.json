@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Contor de Calorii"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "KCals este proiectat pentru a te ajuta să controlezi aportul de calorii."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

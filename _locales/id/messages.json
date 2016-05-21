@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Penghitung Kalori"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "KCals dirancang untuk membantu Anda mengontrol asupan kalori Anda."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

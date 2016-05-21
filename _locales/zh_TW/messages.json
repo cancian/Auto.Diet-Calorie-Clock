@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals 卡路里計算機"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "KCals 是為了説明您控制卡路里攝入而設計的。"
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

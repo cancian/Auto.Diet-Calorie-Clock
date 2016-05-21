@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Брояч на калории"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "KCals има за цел да ви помогне да контролирате приема на калории."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }

@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Kalorienzähler"
+		"message" : "KCals Calorie Clock"
 
 	},
 	"appDesc" : {
-		"message" : "KCals wurde entwickelt, um Ihnen bei der Kontrolle Ihrer Kalorienzufuhr behilflich zu sein."
+		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
 	}
 }
