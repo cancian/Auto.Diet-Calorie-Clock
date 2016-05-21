@@ -1,6 +1,6 @@
 ﻿/*!
  * @fileOverview TouchSwipe - jQuery Plugin
- * @version 1.6.16
+ * @version 1.6.18
  *
  * @author Matt Bryson http://www.github.com/mattbryson
  * @see https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
@@ -124,6 +124,10 @@
  * $Date: 2016-04-29 (Fri, 29 April 2016) $
  * $version 1.6.16    - Swipes with 0 distance now allow default events to trigger.  So tapping any form elements or A tags will allow default interaction, but swiping will trigger a swipe.
                         Removed the a, input, select etc from the excluded Children list as the 0 distance tap solves that issue.
+* $Date: 2016-05-19  (Fri, 29 April 2016) $
+* $version 1.6.17     - Fixed context issue when calling instance methods via $("selector").swipe("method");
+* $version 1.6.18     - now honors fallbackToMouseEvents=false for MS Pointer events when a Mouse is used.
+
  */
 
 /**
@@ -159,7 +163,7 @@
   "use strict";
 
   //Constants
-  var VERSION = "1.6.15",
+  var VERSION = "1.6.18",
     LEFT = "left",
     RIGHT = "right",
     UP = "up",
@@ -239,7 +243,7 @@
   */
   var defaults = {
     fingers: 1,
-    threshold: 50,
+    threshold: 40,
     cancelThreshold: null,
     pinchThreshold: 20,
     maxTimeThreshold: null,
@@ -290,7 +294,7 @@
     //Check if we are already instantiated and trying to execute a method
     if (plugin && typeof method === 'string') {
       if (plugin[method]) {
-        return plugin[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        return plugin[method].apply(plugin, Array.prototype.slice.call(arguments, 1));
       } else {
         $.error('Method ' + method + ' does not exist on jQuery.swipe');
       }
@@ -298,7 +302,7 @@
 
     //Else update existing plugin with new options hash
     else if (plugin && typeof method === 'object') {
-      plugin['option'].apply(this, arguments);
+      plugin['option'].apply(plugin, arguments);
     }
 
     //Else not instantiated and trying to pass init object (or nothing)
@@ -616,6 +620,12 @@
       //As we use Jquery bind for events, we need to target the original event object
       //If these events are being programmatically triggered, we don't have an original event object, so use the Jq one.
       var event = jqEvent.originalEvent ? jqEvent.originalEvent : jqEvent;
+
+
+      //If we have a pointer event, whoes type is 'mouse' and we have said NO mouse events, then dont do anything.
+      if(event.pointerType && event.pointerType=="mouse" && options.fallbackToMouseEvents==false) {
+        return;
+      };
 
       var ret,
         touches = event.touches,
