@@ -11,12 +11,13 @@
 • Create an Android Widget, as well as a Live Tile for Windows Phone.
 • Integration with the iOS Health Kit (distant goal)
 
-# 1.9.16 [2016/05/17]
+# 1.9.16 [2016/05/20]
 • New help topics
 • Fully revised coding
 • Optimized core frameworks, featuring cutting edge web technology
 • Fixed some synchronization inconsistencies affecting desktop browsers
 • This project is now open source. The code is free for personal use only. For commercial purposes, authorization is required.
+• The app has been renamed to KCals Calorie Clock.
 
 # 1.9.15 [2016/04/05]
 • Fixed insertion loop that would slow down the app over time
