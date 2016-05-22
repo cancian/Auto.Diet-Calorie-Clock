@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'KCals';
-var appVersion = '1.9.16 (191607)';
+var appVersion = '1.9.16 (191608)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -172,9 +172,37 @@ var LANG = {
 		zt : 'zt'
 	},
 	CALORIE_COUNTER_FULL_TITLE : {
+		en : 'KCals Calorie Clock',
+		pt : 'KCals Calorie Clock',
+		ar : 'KCals Calorie Clock',
+		bg : 'KCals Calorie Clock',
+		cs : 'KCals Calorie Clock',
+		da : 'KCals Calorie Clock',
+		de : 'KCals Calorie Clock',
+		el : 'KCals Calorie Clock',
+		es : 'KCals Calorie Clock',
+		fi : 'KCals Calorie Clock',
+		fr : 'KCals Calorie Clock',
+		hu : 'KCals Calorie Clock',
+		it : 'KCals Calorie Clock',
+		id : 'KCals Calorie Clock',
+		ja : 'KCals Calorie Clock',
+		ko : 'KCals Calorie Clock',
+		nl : 'KCals Calorie Clock',
+		nb : 'KCals Calorie Clock',
+		pl : 'KCals Calorie Clock',
+		ro : 'KCals Calorie Clock',
+		ru : 'KCals Calorie Clock',
+		sv : 'KCals Calorie Clock',
+		tr : 'KCals Calorie Clock',
+		vi : 'KCals Calorie Clock',
+		zh : 'KCals Calorie Clock',
+		zt : 'KCals Calorie Clock'
+	},
+	CALORIE_COUNTER_FULL_TITLE_2 : {
 		en : 'KCals Calorie Counter',
 		pt : 'KCals Contador de Calorias',
-		ar : '(KCals عداد السُعرات الحرارية)',
+		ar : 'KCals عداد السُعرات الحرارية',
 		bg : 'KCals Брояч на калории',
 		cs : 'Počítadlo kalorií KCals',
 		da : 'KCals kalorietæller',
@@ -676,7 +704,7 @@ var LANG = {
 		zt : ''
 	},
 	HUMAN_METABOLISM : {
-		en : 'KCals is a real-time calorie counter that simulates the human metabolism.',
+		en : 'A real-time calorie counter that emulates the human metabolism.',
 		pt : '',
 		ar : '',
 		bg : '',

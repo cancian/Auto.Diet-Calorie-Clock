@@ -1,7 +1,7 @@
 ﻿{
-	"version" : "1.9.15",
-	"name" : "Calorie Counter",
-	"description" : "KCals is a real-time calorie counter.",
+	"version" : "1.9.16",
+	"name" : "KCals Calorie Clock",
+	"description" : "KCals is a real-time calorie counter that emulates the human metabolism.",
 	"launch_path" : "/index.html",
 	"appcache_path": "/manifest.appcache",
 	"orientation": ["portrait-primary"],
@@ -21,49 +21,49 @@
 	"developer" :
 	{
 		"name" : "André Cancian",
-		"url" : "http://kcals.net"
+		"url" : "https://kcals.net"
 	},
 	"installs_allowed_from" : [
 		"*"
 	],
 	"permissions": {
 		"systemXHR": {
-			"description": "Required for Facebook desktop app authentication."
+			"description": "Required for Facebook authentication."
 		}
 	},
 	"default_locale" : "en-us",
 	"size": 1884555,
 	"locales" :
 	{
-		"en" :    { "name": "Calorie Counter"		},
-		"en-us" : { "name": "Calorie Counter"		},
-		"pt" :    { "name": "Contador de Calorias"	},
-		"pt-br" : { "name": "Contador de Calorias"	},
-		"ar" :    { "name": "(عداد السُعرات الحرارية)"		},
-		"bg" :    { "name": "Брояч на калории"		},
-		"cs" :    { "name": "Počítadlo Kalorií"		},
-		"da" :    { "name": "Kalorietæller"			},
-		"de" :    { "name": "Kalorienzähler"		},
-		"el" :    { "name": "Θερμιδομετρητής"			},
-		"es" :    { "name": "Contador de Calorías"	},
-		"fi" :    { "name": "Kalorilaskin"			},
-		"fr" :    { "name": "Compteur de Calories"	},
-		"hu" :    { "name": "Kalóriaszámláló"		},
-		"it" :    { "name": "Contacalorie"			},
-		"id" :    { "name": "Penghitung Kalori"		},
-		"ja" :    { "name": "カロリーカウンター"			},
-		"ko" :    { "name": "칼로리 카운터"			},     
-		"nl" :    { "name": "Calorie Teller"		},
-		"nb-no" : { "name": "Kaloriteller"			},
-		"pl" :    { "name": "Licznik Kalorii"		},
-		"ro" :    { "name": "Contor de Calorii"		},
-		"ru" :    { "name": "Счётчик Калорий"		},
-		"sv" :    { "name": "Kaloriräknare"			},
-		"tr" :    { "name": "Kalori Hesaplayıcı"	},
-		"vi" :    { "name": "Truy Cập Calo"	},
-		"zh" :    { "name": "卡路里计算器"			},
-		"zh-cn" : { "name": "卡路里计算器"			},
-		"zh-tw" : { "name": "卡路里計算機"			}
+		"en" :    { "name": "KCals Calorie Clock"	},
+		"en-us" : { "name": "KCals Calorie Clock"	},
+		"en-gb" : { "name": "KCals Calorie Clock"	},		
+		"pt" :    { "name": "KCals Calorie Clock"	},
+		"pt-br" : { "name": "KCals Calorie Clock"	},
+		"ar" :    { "name": "KCals Calorie Clock"	},
+		"bg" :    { "name": "KCals Calorie Clock"	},
+		"cs" :    { "name": "KCals Calorie Clock"	},
+		"da" :    { "name": "KCals Calorie Clock"	},
+		"de" :    { "name": "KCals Calorie Clock"	},
+		"el" :    { "name": "KCals Calorie Clock"	},
+		"es" :    { "name": "KCals Calorie Clock"	},
+		"fi" :    { "name": "KCals Calorie Clock"	},
+		"fr" :    { "name": "KCals Calorie Clock"	},
+		"hu" :    { "name": "KCals Calorie Clock"	},
+		"it" :    { "name": "KCals Calorie Clock"	},
+		"id" :    { "name": "KCals Calorie Clock"	},
+		"ja" :    { "name": "KCals Calorie Clock"	},
+		"ko" :    { "name": "KCals Calorie Clock"	},     
+		"nl" :    { "name": "KCals Calorie Clock"	},
+		"nb-no" : { "name": "KCals Calorie Clock"	},
+		"pl" :    { "name": "KCals Calorie Clock"	},
+		"ro" :    { "name": "KCals Calorie Clock"	},
+		"ru" :    { "name": "KCals Calorie Clock"	},
+		"sv" :    { "name": "KCals Calorie Clock"	},
+		"tr" :    { "name": "KCals Calorie Clock"	},
+		"vi" :    { "name": "KCals Calorie Clock"	},
+		"zh" :    { "name": "KCals Calorie Clock"	},
+		"zh-cn" : { "name": "KCals Calorie Clock"	},
+		"zh-tw" : { "name": "KCals Calorie Clock"	}
 	}
 }
-
