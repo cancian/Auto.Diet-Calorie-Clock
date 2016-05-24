@@ -2316,18 +2316,15 @@ app.analytics = function(target,desc) {
 		if(typeof desc !== 'string') {
 			desc = JSON.stringify(desc);
 		}
-		if(app.beenDev) {
-			console.log('Analytics Log: ' + desc);
-		}
 	}
 	//PREVENT DEV
 	if(typeof ga_storage === 'undefined')				 { return; }
 	if(typeof baseVersion === 'undefined')				 { return; }
-	if(app.dev || app.read('been_dev'))					 { return; }
-	if(app.read('facebook_userid',1051211303))			 { return; }
+	if(app.dev || app.read('been_dev'))					 { app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
+	if(/local.kcals|192.168.1.5/i.test(document.URL))	 { app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(app.read('facebook_userid','cancian@ateus.net'))	 { return; }
 	if(app.read('facebook_userid','cancian@kcals.net'))	 { return; }
-	if(/local.kcals|192.168.1.5/i.test(document.URL))	 { return; }
+	if(app.read('facebook_userid',1051211303))			 { return; }
 	//////////
 	// INIT //
 	//////////
@@ -2356,6 +2353,9 @@ app.analytics = function(target,desc) {
 		var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')';
 		//track page/event
 		if(target == 'error') {
+			//delete logs
+			app.remove('error_log_handled');
+			app.remove('error_log_unhandled');
 			//skip irrelevant
 			if(!/800a139e|isTrusted|InvalidStateError|UnknownError/i.test(JSON.stringify(desc))) {
 				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');

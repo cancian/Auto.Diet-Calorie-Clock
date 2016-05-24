@@ -180,6 +180,7 @@ setTimeout(function() {
 	app.trackInstall();
 	updateLoginStatus(1);
 	app.analytics('start');
+	app.parseErrorLog();
 	clearTimeout(app.timers.resume);
 },9000);
 ////////////////
