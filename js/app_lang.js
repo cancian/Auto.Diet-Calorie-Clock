@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'KCals';
-var appVersion = '1.9.16 (191608)';
+var appVersion = '1.9.16 (191609)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -199,7 +199,7 @@ var LANG = {
 		zh : 'KCals Calorie Clock',
 		zt : 'KCals Calorie Clock'
 	},
-	CALORIE_COUNTER_FULL_TITLE_2 : {
+	CALORIE_COUNTER_FULL_TITLE_LOCALIZED : {
 		en : 'KCals Calorie Counter',
 		pt : 'KCals Contador de Calorias',
 		ar : 'KCals عداد السُعرات الحرارية',

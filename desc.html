@@ -58,6 +58,7 @@ desc  = trim(desc);
 // KEY DUMP //
 //////////////
 var keyList = 
+'kcal'                     + ',' +
 LANG.WEIGHT_LOSS[lang]     + ',' +
 LANG.LOSE_WEIGHT[lang]     + ',' +
 LANG.CALORIC_BALANCE[lang] + ',' +
@@ -91,7 +92,7 @@ keyList = keyList.split(',');
 keyList0 = '';
 
   for (var i = 0; i < keyList.length; i++) {
-	  keyList[i] = keyList[i].split(':').join('').split('：').join('');
+	  keyList[i] = searchalize(keyList[i].split(':').join('').split('：').join(''));
         if (!keyList0.contains(keyList[i]) && keyList[i].length > 1) {
             keyList0 = keyList0 + keyList[i] + ',';
         }

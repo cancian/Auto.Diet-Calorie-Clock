@@ -32,9 +32,6 @@ KCals is available on 10 different platforms, so no matter which device you use,
 
 And to get a feel for how KCals works, go to Kcals.net and you can get started right away. Then later on, you can send the data back to your mobile device.
 
-
-KCals Calorie Clock
-
 :: MAIN FEATURES
 • Real time calorie counting
 • Translated into 26 languages
