@@ -1,8 +1,11 @@
 ﻿////////////////////
 // DOCUMENT READY //
 ////////////////////
-jQuery(document).ready(function() {
+function appReady(id) {
 //$(document).ready(function () {
+	if(app.dev) {
+		console.log(id);
+	}
 	setTimeout(function () {
 		///////////////////
 		// OPEN DATABASE //
@@ -59,8 +62,17 @@ jQuery(document).ready(function() {
 		/////////////
 		localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
 		initDB();
-	}, 1);
-});
+	}, 0);
+}
+//});
+////////////////
+// INITIALIZE //
+////////////////
+app.initialize    = function()   { this.bindEvents(); };
+app.bindEvents    = function()   { app.device.cordova ? document.addEventListener('deviceready', this.onDeviceReady, false) : $(document).ready(this.onDeviceReady); };
+app.onDeviceReady = function()   { app.receivedEvent('deviceready'); };
+app.receivedEvent = function(id) { appReady(id); };
+app.initialize();
 ////////////////
 // RESUME EVT //
 ////////////////
