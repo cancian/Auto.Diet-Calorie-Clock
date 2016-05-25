@@ -1958,6 +1958,13 @@ function buildAdvancedMenu() {
 		}
 		setPush();
 	});
+	/////////////////////
+	// HIDE AUTOUPDATE //
+	/////////////////////
+	if(app.device.osxapp && reviewMode === true) {
+		$('#advancedAutoUpdate').hide();	
+	}
+
 }
 //##//////////////////##//
 //## GET CATEGORY~IES ##//

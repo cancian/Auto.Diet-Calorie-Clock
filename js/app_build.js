@@ -102,11 +102,16 @@ app.tab.settings = function(keepOpen) {
 		/////////////////
 		getNewWindow('KCals ' + appVersion, aboutHtml, aboutHandler);
 	};
-	app.handlers.activeRow('#optionWebsite','activeRow',function(evt) {
-		//if(!app.device.osxapp || (app.device.osxapp && lang != 'en' || reviewMode === true) || app.dev) {
+	///////////
+	// ABOUT //
+	///////////
+	if(app.device.osxapp && reviewMode === true) {
+		$('#optionWebsite').css('pointer-events','none');
+	} else {
+		app.handlers.activeRow('#optionWebsite','activeRow',function(evt) {
 			app.about();
-		//}
-	});
+		});
+	}
 	//////////////
 	// HELP TAP //
 	//////////////
