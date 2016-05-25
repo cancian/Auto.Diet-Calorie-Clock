@@ -9,7 +9,6 @@
 • Daily tips
 • Port the app to Apple Watch, and Google Watch.
 • Create an Android Widget, as well as a Live Tile for Windows Phone.
-• Integration with the iOS Health Kit (distant goal)
 
 # 1.9.16 [2016/05/20]
 • New help topics
