@@ -704,7 +704,7 @@ var LANG = {
 		zt : ''
 	},
 	HUMAN_METABOLISM : {
-		en : 'A real-time calorie counter that emulates the human metabolism.',
+		en : 'A real-time calorie counter that simulates the human metabolism.',
 		pt : '',
 		ar : '',
 		bg : '',
