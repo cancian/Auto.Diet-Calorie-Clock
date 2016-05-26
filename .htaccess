@@ -70,14 +70,11 @@ AddType application/x-web-app-manifest+json .webapp
 	#RewriteCond %{HTTP_HOST} ^kcals\.net  [NC]
 	#RewriteCond %{SERVER_PORT} 80
 	#RewriteRule ^(.*)$ https://kcals.net/$1 [L,QSA]
-	#RewriteEngine On 
 	#RewriteRule ^(.*)$ https://www.example.com/$1 [R,L]
-	#RewriteEngine On
-	RewriteCond %{SERVER_PORT} 80 
 	#RewriteCond %{HTTPS} off
-	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
-	
-	
+	##
+	RewriteCond %{SERVER_PORT} 80 
+	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
 </IfModule>
 #############
 ## DEFLATE ##
