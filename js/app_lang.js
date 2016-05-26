@@ -7230,7 +7230,7 @@ var LANG = {
 	HELP_TOPICS_ARRAY : {
 		en : { 
 'KCals: A Metabolism Simulator' : '\
-<p>KCals was originally developed to help me count calories, but it helped me so much, I thought I should share it with you!</p>\
+<p>KCals Calorie Clock was originally developed to help me count calories. I wanted something precise, intuitive, yet flexible. So I figured: why not build a real-time calorie counter? After all, that’s how our body works. It was intended just to help me with my daily life, but it helped me so much, I thought I should share it with you!</p>\
 <p>Most health and fitness tools come with a bunch of unnecessary features. My goal was to make a simple and effective calorie counter that didn’t have any of the clutter of most weight loss applications.</p>\
 <p>You start by setting a daily calorie intake for yourself. That’s your baseline: The amount of calories you need to eat to keep your current weight.</p>\
 <p>Now, in case you want to lose weight, just pick the amount you’d like to lose per week. The app will show how many calories you need to subtract from your daily baseline in order to reach that goal.</p>\
