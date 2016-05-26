@@ -1788,27 +1788,26 @@ function decimalize(val,p) {
 /////////////
 // TOASCII //
 /////////////
-function toAscii(strAccents) {
-	var strAccents = strAccents.split('');
-	var strAccentsOut = new Array();
-	var strAccentsLen = strAccents.length;
+function toAscii(str) {
+	if(!str || str == '')	{ return ''; }
 	var accents    = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
 	var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
-	for (var y = 0; y < strAccentsLen; y++) {
-		if (accents.indexOf(strAccents[y]) != -1) {
-			strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
-		} else
-			strAccentsOut[y] = strAccents[y];
+	str = str.split('');
+	var strLen = str.length;
+	var i,x;
+	for (i = 0; i < strLen; i++) {
+		if ((x = accents.indexOf(str[i])) != -1) {
+			str[i] = accentsOut[x];
+		}
 	}
-	strAccentsOut = strAccentsOut.join('');
-	return strAccentsOut;
+	return str.join('');
 }
 ////////////////////
 // STRING.TOASCII //
 ////////////////////
 String.prototype.toAscii = function() {
 	var translate_re = /[ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž]/g;
-	var translate    = 'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
+	var translate    =  'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
 	return (this.replace(translate_re, function(match){
 		return translate.substr(translate_re.source.indexOf(match)-1, 1); })
 	);
