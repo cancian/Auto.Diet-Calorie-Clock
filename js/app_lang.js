@@ -2,10 +2,10 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'KCals';
-var appVersion = '1.9.16 (191609)';
+var appVersion = '1.9.16 (191610)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = true;
+var reviewMode = false;
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';
@@ -591,6 +591,62 @@ var LANG = {
 		zh : '通过食物保持卡路里计数器接近零。',
 		zt : '通過食物保持卡路里計數器接近零。'
 	},
+	TRANSLATE_DATABASE : {
+		en : 'Translate database?',
+		pt : 'Traduzir banco de dados?',
+		ar : 'ترجمة قاعدة البيانات؟',
+		bg : 'Превод на база данни?',
+		cs : 'Přeložit databázi?',
+		da : 'Oversæt database?',
+		de : 'Übersetzen Datenbank?',
+		el : 'Μετάφραση της βάσης δεδομένων;',
+		es : 'Traducir base de datos?',
+		fi : 'Käännä tietokanta?',
+		fr : 'Traduire base de données?',
+		hu : 'Fordítás adatbázisban?',
+		it : 'Tradurre database?',
+		id : 'Menerjemahkan Database?',
+		ja : 'データベースを翻訳？',
+		ko : '데이터베이스를 번역?',
+		nl : 'Vertaal database?',
+		nb : 'Oversett database?',
+		pl : 'Przekłada bazy danych?',
+		ro : 'Traduceți bază de date?',
+		ru : 'Перевести базу данных?',
+		sv : 'Översätta databas?',
+		tr : 'Veritabanı çevirmek?',
+		vi : 'Dịch các cơ sở dữ liệu?',
+		zh : '翻译过的数据库？',
+		zt : '翻譯過的資料庫？'
+	},	
+	ORIGINAL_DATABASE_ENGLISH : {
+		en : 'The original database is in English.',
+		pt : 'O banco de dados original é em inglês.',
+		ar : 'قاعدة البيانات الأصلية باللغة الإنجليزية.',
+		bg : 'В оригиналната база данни е на английски език.',
+		cs : 'Původní databáze je v angličtině.',
+		da : 'Den oprindelige database er på engelsk.',
+		de : 'Die ursprüngliche Datenbank ist in englischer Sprache.',
+		el : 'Η αρχική βάση δεδομένων είναι στα αγγλικά.',
+		es : 'La base de datos original está en Inglés.',
+		fi : 'Alkuperäinen tietokanta on Englanti.',
+		fr : 'La base de données originale est en anglais.',
+		hu : 'Az eredeti adatbázis angol nyelvű.',
+		it : 'Il database originale è in inglese.',
+		id : 'Database asli dalam bahasa Inggris.',
+		ja : '元のデータベースは英語です。',
+		ko : '원본 데이터베이스는 영어로되어 있습니다.',
+		nl : 'De oorspronkelijke database is in het Engels.',
+		nb : 'Den opprinnelige databasen er på engelsk.',
+		pl : 'Oryginalna baza danych jest w języku angielskim.',
+		ro : 'Baza de date original este în limba engleză.',
+		ru : 'Исходной базы данных на английском языке.',
+		sv : 'Den ursprungliga databasen är på engelska.',
+		tr : 'Özgün veritabanı İngilizcedir.',
+		vi : 'Các cơ sở dữ liệu ban đầu là trong tiếng Anh.',
+		zh : '原始数据库是英文的。',
+		zt : '原始資料庫是英文的。'
+	},	
 	FISRT_TIME : {
 		en : 'Is this your first time using the app? Here is a suggestion: Wait until you’re a bit hungry, then press Start. Eat a regular meal, add it to the diary, and then wait until your caloric balance returns to zero before eating again. That’s all!',
 		pt : '',

@@ -10,13 +10,14 @@
 • Port the app to Apple Watch, and Google Watch.
 • Create an Android Widget, as well as a Live Tile for Windows Phone.
 
-# 1.9.16 [2016/05/20]
+# 1.9.16 [2016/05/25]
 • New help topics
 • Fully revised coding
+• The app has been renamed to KCals Calorie Clock.
 • Optimized core frameworks, featuring cutting edge web technology
 • Fixed some synchronization inconsistencies affecting desktop browsers
-• This project is now open source. The code is free for personal use only. For commercial purposes, authorization is required.
-• The app has been renamed to KCals Calorie Clock.
+• Users are now prompted to choose between the original English database, or it's translated version.
+• This project is now open source. The source code is hosted at <a href="https://github.com/cancian/kcals-calorie-clock" target="_blank">GibHub</a>, and it's free for personal use. For commercial purposes, authorization is required.
 
 # 1.9.15 [2016/04/05]
 • Fixed insertion loop that would slow down the app over time

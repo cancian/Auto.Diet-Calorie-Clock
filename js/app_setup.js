@@ -1171,6 +1171,8 @@ function updateFoodDb(callback) {
 	if (app.read('foodDbLoaded', 'done') && !app.read('foodDbVersion')) { app.remove('foodDbLoaded'); }
 	if (app.read('foodDbLoaded', 'done')) { return; }
 	if (!app.read('foodDbLoaded', 'done') && !app.read('startLock', 'running')) {
+		//LANGDB		
+		var langDB = (lang == 'en' && app.read('config_measurement', 'metric')) ? 'em' : lang;
 		//GLOBALS
 		app.globals.foodDbRunning = false;
 		//reset blocks
@@ -1179,10 +1181,6 @@ function updateFoodDb(callback) {
 			//start
 			app.globals.foodDbRunning = true;
 			app.save('startLock', 'running');
-			/////////////////////////
-			// PING DEFINE DB PATH //
-			/////////////////////////
-			var langDB = (lang == 'en' && app.read('config_measurement', 'metric')) ? 'em' : lang;
 			////////////
 			// IMPORT //
 			////////////
@@ -1328,7 +1326,14 @@ function updateFoodDb(callback) {
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
-		doImport(callback);
+		if(/en|em/.test(langDB)) {
+			doImport(callback);
+		} else {
+			appConfirm(LANG.TRANSLATE_DATABASE[lang], LANG.ORIGINAL_DATABASE_ENGLISH[lang], function(trad) {
+				langDB = trad == 2 ? lang : 'em';
+				doImport(callback);
+			}, LANG.LANGUAGE_NAME[lang], LANG.LANGUAGE_NAME['en']);
+		}
 	}
 }
 ///////////////////
