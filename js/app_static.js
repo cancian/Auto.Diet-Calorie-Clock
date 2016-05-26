@@ -1046,20 +1046,20 @@ if(app.is.scrollable) {
 // refresh entrylist time & online users //
 ///////////////////////////////////////////
 (function entryRetimer() {
-	//every 45s
+	//every 60s
 	setTimeout(function() {
 		updateEntriesTime();
 	},0);
 	//online users ~ wait wifi
 	setTimeout(function() {
 		app.online();
-	},2000);
+	},6000);
 	//PARSE ERRORS
 	setTimeout(function() {
 		app.parseErrorLog();
 	},6000);
 	//
-	setTimeout(entryRetimer,(45*1000));
+	setTimeout(entryRetimer,(120*1000));
 })();
 /////////////////////////////
 // check updates regularly //
@@ -1071,20 +1071,12 @@ if(app.is.scrollable) {
 		/////////////////
 		setTimeout(function () {
 			buildRemoteSuperBlock('cached');
-		}, (5 * 60 * 1000));
+		}, (120 * 1000));
 	}
-	///////////////
-	// AUTO SYNC //
-	///////////////
-	/*
-	setTimeout(function () {
-		updateLoginStatus(1);
-	}, (5 * 60 * 1000));
-	*/
 	///////////////////
 	// every 5+5 min //
 	///////////////////
-	setTimeout(updateChecker, (60 * 60 * 1000));
+	setTimeout(updateChecker, (360 * 1000));
 })();
 /////////////////////
 // check last push //
