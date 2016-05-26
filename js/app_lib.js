@@ -1788,21 +1788,20 @@ function decimalize(val,p) {
 /////////////
 // TOASCII //
 /////////////
-function toAscii(str) {
-	if(!str || str == '')	{ return ''; }
-	if(str === null)		{ return ''; }
+function toAscii(strAccents) {
+	var strAccents = strAccents.split('');
+	var strAccentsOut = new Array();
+	var strAccentsLen = strAccents.length;
 	var accents    = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
 	var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
-	str = str.split('');
-	var strLen = str.length;
-	var i,
-	x;
-	for (i = 0; i < strLen; i++) {
-		if ((x = accents.indexOf(str[i])) != -1) {
-			str[i] = accentsOut[x];
-		}
+	for (var y = 0; y < strAccentsLen; y++) {
+		if (accents.indexOf(strAccents[y]) != -1) {
+			strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
+		} else
+			strAccentsOut[y] = strAccents[y];
 	}
-	return str.join('');
+	strAccentsOut = strAccentsOut.join('');
+	return strAccentsOut;
 }
 ////////////////////
 // STRING.TOASCII //
@@ -2240,6 +2239,7 @@ app.online = function () {
 //# BLOCK PIRACY #//
 //#//////////////#//
 app.piracy = function (force) {
+	/*
 	//catchers
 	var blockIt = 0;
 	if (force == 1)									{ blockIt = 1; }
@@ -2282,6 +2282,7 @@ app.piracy = function (force) {
 			}, LANG.OK[lang], LANG.CANCEL[lang]);
 		}, 2000);
 	}
+	*/
 };
 /////////////////
 // MSAPP METRO //
