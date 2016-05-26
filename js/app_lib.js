@@ -1789,6 +1789,14 @@ function decimalize(val,p) {
 // TOASCII //
 /////////////
 function toAscii(str) {
+	var translate_re = /[àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŕŕžš]/g;
+	var translate    =  'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyrrzs';
+	return (str.replace(translate_re, function(match){
+		return translate.substr(translate_re.source.indexOf(match)-1, 1); })
+	);
+};
+/*
+function toAscii(str) {
 	if(!str || str == '')	{ return ''; }
 	var accents    = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
 	var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
@@ -1802,12 +1810,13 @@ function toAscii(str) {
 	}
 	return str.join('');
 }
+*/
 ////////////////////
 // STRING.TOASCII //
 ////////////////////
 String.prototype.toAscii = function() {
-	var translate_re = /[ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž]/g;
-	var translate    =  'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
+	var translate_re = /[àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŕŕžš]/g;
+	var translate    =  'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyrrzs';
 	return (this.replace(translate_re, function(match){
 		return translate.substr(translate_re.source.indexOf(match)-1, 1); })
 	);
