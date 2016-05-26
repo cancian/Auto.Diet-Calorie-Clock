@@ -2,7 +2,7 @@
 // SAFE EXEC //
 ///////////////
 if(typeof hostLocal === 'undefined') {
-	var hostLocal = localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
+	var hostLocal = localStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
 }
 var staticVendor = ''; //'amazon';
 var baseVersion  = 2.0;
@@ -196,7 +196,7 @@ function isCacheValid(input) {
 //##/////////##//
 function initJS() {
 	if(typeof hostLocal === 'undefined') {
-		var hostLocal = localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
+		var hostLocal = localStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
 	}
 	///////////
 	// MSAPP //

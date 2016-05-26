@@ -60,6 +60,24 @@ AddType application/x-web-app-manifest+json .webapp
 	#RewriteCond %{HTTPS} !=on
 	#RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
 	#RewriteRule index.html static.html [L,QSA]
+	#################
+	## FORCE HTTPS ##
+	#################
+	#RewriteEngine On 
+	#RewriteCond %{HTTP_HOST} ^192\.168\.1\.5  [NC]
+	#RewriteCond %{SERVER_PORT} 80
+	#RewriteRule ^(.*)$ https://192.168.1.5/$1 [L,QSA]
+	#RewriteCond %{HTTP_HOST} ^kcals\.net  [NC]
+	#RewriteCond %{SERVER_PORT} 80
+	#RewriteRule ^(.*)$ https://kcals.net/$1 [L,QSA]
+	#RewriteEngine On 
+	#RewriteRule ^(.*)$ https://www.example.com/$1 [R,L]
+	#RewriteEngine On
+	RewriteCond %{SERVER_PORT} 80 
+	#RewriteCond %{HTTPS} off
+	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+	
+	
 </IfModule>
 #############
 ## DEFLATE ##
