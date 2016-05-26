@@ -24,29 +24,20 @@ AddType application/x-web-app-manifest+json .webapp
 	Order Allow,Deny
 	Deny from all
 </Files>
-##############
-## NO CACHE ##
-##############
-#<filesMatch "\.(html|htm|php|js|css|ttf|woff|cur|ico|jpg|png|gif|json|txt|db|sql|xml|appcache|manifest|webapp)$">
-	<ifModule mod_headers.c>
-		FileETag None
-		Header unset ETag
-		Header set Expires "Fri, 19 Feb 1982 03:00:00 GMT"
-		Header set Cache-Control "max-age=0"
-		#CORS
-		Header set Access-Control-Allow-Origin "*"
-		Header set Access-Control-Allow-Credentials "true"
-		Header set Access-Control-Allow-Methods "OPTIONS, GET, POST"
-		Header set Access-Control-Allow-Headers "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control"
-	</ifModule>
-#</filesMatch>
 #################
 ## MOD_REWRITE ##
 #################
 <IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteBase /
-	#JS
+	#################
+	## FORCE HTTPS ##
+	#################
+	#RewriteEngine On
+	#RewriteCond %{HTTP_HOST} ^kcals\.net  [NC]
+	#RewriteCond %{SERVER_PORT} 80 
+	#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+	########
+	## JS ##
+	########
 	#RewriteCond %{HTTP_HOST} !.kcals.net$  [NC]
 	#RewriteCond %{HTTP_HOST} !192.168.1.5$ [NC]
 	#RewriteCond %{REQUEST_URI} !js/min/
@@ -60,23 +51,21 @@ AddType application/x-web-app-manifest+json .webapp
 	#RewriteCond %{HTTPS} !=on
 	#RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
 	#RewriteRule index.html static.html [L,QSA]
-	#################
-	## FORCE HTTPS ##
-	#################
-	#RewriteEngine On 
-	#RewriteCond %{HTTP_HOST} ^192\.168\.1\.5  [NC]
-	#RewriteCond %{SERVER_PORT} 80
-	#RewriteRule ^(.*)$ https://192.168.1.5/$1 [L,QSA]
-	#RewriteCond %{HTTP_HOST} ^kcals\.net  [NC]
-	#RewriteCond %{SERVER_PORT} 80
-	#RewriteRule ^(.*)$ https://kcals.net/$1 [L,QSA]
-	#RewriteRule ^(.*)$ https://www.example.com/$1 [R,L]
-	#RewriteCond %{HTTPS} off
-	##
-	RewriteCond %{HTTP_HOST} ^kcals\.net  [NC]
-	RewriteCond %{SERVER_PORT} 80 
-	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
 </IfModule>
+##############
+## NO CACHE ##
+##############
+<ifModule mod_headers.c>
+	FileETag None
+	Header unset ETag
+	Header set Expires "Fri, 19 Feb 1982 03:00:00 GMT"
+	Header set Cache-Control "max-age=0"
+	#CORS
+	Header set Access-Control-Allow-Credentials "true"
+	Header set Access-Control-Allow-Methods "OPTIONS, GET, POST"
+	Header set Access-Control-Allow-Headers "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control"
+	Header set Access-Control-Allow-Origin "*"
+</ifModule>
 #############
 ## DEFLATE ##
 #############
