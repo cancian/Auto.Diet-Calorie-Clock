@@ -454,7 +454,8 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	app.tap('#entryList div' + tgt + ' span.delete', function (target, evt) {
+	$('#entryList div' + tgt + ' span.delete').on(tap, function (evt) {
+		var target = this;
 		///////////
 		// REUSE //
 		///////////
