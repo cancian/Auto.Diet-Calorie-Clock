@@ -2372,25 +2372,25 @@
 
     this.resize = self.onResize;
 
-		this.hlazyresize = 0;
+	//	this.hlazyresize = 0;
 		
     this.lazyResize = function(tm) { // event debounce
 	//TWEAK (causes flicker on firefox, reverting to method used on 3.6.6)
-	if (self.detected.ismozilla) {	
+	//if (self.detected.ismozilla) {	
       tm = (isNaN(tm)) ? 30 : tm;
       self.debounced('resize', self.resize, tm);
-	} else {
-
-//			if (!self.haswrapper&&self.opt.autohidemode!==false) self.hide();	
+//	} else {
+				/*
+			//if (!self.haswrapper&&self.opt.autohidemode!==false) self.hide();	
 			if (!self.haswrapper) self.hide();	
 			if (self.hlazyresize) clearTimeout(self.hlazyresize);
 			self.hlazyresize = setTimeout(function(){
 				self && self.show().resize();
 			},240);
-			
+			*/
       return self;
     };
-	}//TWEAK END
+	//}//TWEAK END
     // modified by MDN https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/wheel
     function _modernWheelEvent(dom, name, fn, bubble) {
       self._bind(dom, name, function(e) {
