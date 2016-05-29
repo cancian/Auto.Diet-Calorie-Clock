@@ -1,78 +1,63 @@
 ﻿////////////////////
 // DOCUMENT READY //
 ////////////////////
-function appReady(id) {
-//$(document).ready(function () {
-	if(app.dev) {
-		console.log(id);
-	}
-	setTimeout(function () {
-		///////////////////
-		// OPEN DATABASE //
-		///////////////////
-		var webSQL       = localforage.WEBSQL;
-		var indexedDB    = localforage.INDEXEDDB;
-		var localStorage = localforage.LOCALSTORAGE;
-		var dbDriver     = [indexedDB, webSQL, localStorage];
-		/////////////////////
-		// FORCE DB ENGINE //
-		/////////////////////
-		if (app.read('app_database', 'asyncStorage'))			{ dbDriver = [indexedDB, webSQL, localStorage]; }
-		if (app.read('app_database', 'webSQLStorage'))			{ dbDriver = [webSQL, indexedDB, localStorage]; }
-		if (app.read('app_database', 'localStorageWrapper'))	{ dbDriver = [localStorage, indexedDB, webSQL]; }
-		//////////////////////////////
-		// MOZ FALLBACK ~ INCOGNITO //
-		//////////////////////////////
-		app.remove('config_force_localstorage');
-		if (vendorClass == 'moz' && app.device.desktop) {
-			detectPrivateMode(function (incognito) {
-				if (incognito) {
-					app.incognito = true;
-					dbDriver = [localStorage];
-				}
-			});
-		}
-		/*
-		localforage.defineDriver(window.cordovaSQLiteDriver).then(function() {
-		return localforage.setDriver([
-		window.cordovaSQLiteDriver._driver,
-		localforage.INDEXEDDB,
-		localforage.WEBSQL,
-		localforage.LOCALSTORAGE
-		]);
-		}).then(function() {
-		 */
-		//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
-		//if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) { app.remove('config_force_localstorage'); }
-		//FORCE DB (USER CHOICE) ~ MULTIUSER
-		//var UserDB = 'KCals';
-		//if(!/mud_default/i.test(app.user)) { UserDB = UserDB + '_' + app.user[0]; }
-		//INSTANCE
-		/*
-		app.forage = localforage.createInstance({
-		driver      : dbDriver,
-		name        : 'localforage',
-		storeName   : 'KCals',
-		description : 'KCals storage engine',
-		version     : 1.0,
+(function () {
+	///////////////////
+	// OPEN DATABASE //
+	///////////////////
+	var webSQL       = localforage.WEBSQL;
+	var indexedDB    = localforage.INDEXEDDB;
+	var localStorage = localforage.LOCALSTORAGE;
+	var dbDriver     = [indexedDB, webSQL, localStorage];
+	/////////////////////
+	// FORCE DB ENGINE //
+	/////////////////////
+	if (app.read('app_database', 'asyncStorage'))			{ dbDriver = [indexedDB, webSQL, localStorage]; }
+	if (app.read('app_database', 'webSQLStorage'))			{ dbDriver = [webSQL, indexedDB, localStorage]; }
+	if (app.read('app_database', 'localStorageWrapper'))	{ dbDriver = [localStorage, indexedDB, webSQL]; }
+	//////////////////////////////
+	// MOZ FALLBACK ~ INCOGNITO //
+	//////////////////////////////
+	app.remove('config_force_localstorage');
+	if (vendorClass == 'moz' && app.device.desktop) {
+		detectPrivateMode(function (incognito) {
+			if (incognito) {
+				app.incognito = true;
+				dbDriver = [localStorage];
+			}
 		});
-		 */
-		/////////////
-		// LOAD DB //
-		/////////////
-		localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
-		initDB();
-	}, 0);
-}
-//});
-////////////////
-// INITIALIZE //
-////////////////
-app.initialize    = function()   { this.bindEvents(); };
-app.bindEvents    = function()   { app.device.cordova ? document.addEventListener('deviceready', this.onDeviceReady, false) : $(document).ready(this.onDeviceReady); };
-app.onDeviceReady = function()   { app.receivedEvent('deviceready'); };
-app.receivedEvent = function(id) { appReady(id); };
-app.initialize();
+	}
+	/*
+	localforage.defineDriver(window.cordovaSQLiteDriver).then(function() {
+	return localforage.setDriver([
+	window.cordovaSQLiteDriver._driver,
+	localforage.INDEXEDDB,
+	localforage.WEBSQL,
+	localforage.LOCALSTORAGE
+	]);
+	}).then(function() {
+	 */
+	//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
+	//if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) { app.remove('config_force_localstorage'); }
+	//FORCE DB (USER CHOICE) ~ MULTIUSER
+	//var UserDB = 'KCals';
+	//if(!/mud_default/i.test(app.user)) { UserDB = UserDB + '_' + app.user[0]; }
+	//INSTANCE
+	/*
+	app.forage = localforage.createInstance({
+	driver      : dbDriver,
+	name        : 'localforage',
+	storeName   : 'KCals',
+	description : 'KCals storage engine',
+	version     : 1.0,
+	});
+	 */
+	/////////////
+	// LOAD DB //
+	/////////////
+	localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
+	initDB();
+})();
 ////////////////
 // RESUME EVT //
 ////////////////
@@ -183,7 +168,7 @@ setTimeout(function() {
 setTimeout(function() {
 	app.analytics('init');
 	app.remove('consecutive_reboots');
-},6000);
+},1000);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
@@ -194,7 +179,7 @@ setTimeout(function() {
 	app.analytics('start');
 	app.parseErrorLog();
 	clearTimeout(app.timers.resume);
-},9000);
+},5000);
 ////////////////
 // PARSED CSS //
 ////////////////

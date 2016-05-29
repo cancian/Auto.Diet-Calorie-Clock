@@ -266,10 +266,15 @@ function initJS() {
 				var scriptBlock  = document.createElement('script');
 				scriptBlock.text = localStorage.getItem('remoteSuperBlockJS');
 				document.addEventListener('DOMContentLoaded', function() {
-					setTimeout(function() {
-						$.globalEval(scriptBlock.text);
-						//document.head.appendChild(scriptBlock);
-					},0);
+					(function() {
+						try {
+							document.head.appendChild(scriptBlock);
+						} catch(e) {
+							setTimeout(function() { 
+								$.globalEval(scriptBlock.text);
+							},0);
+						};
+					})();
 				},false);
 			}
 		}
