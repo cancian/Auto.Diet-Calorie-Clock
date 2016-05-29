@@ -338,20 +338,6 @@ app.swipe = function (elem, callback) {
 		//triggerOnTouchLeave: true
 	});
 };
-///////////////
-// TAP EVENT //
-///////////////
-app.tap = function (elem, callback) {
-	//$(elem).swipe('destroy');
-	$(elem).swipe({
-		tap : function(evt) {
-			if (typeof callback === 'function') {
-				var that = this;
-				callback(that,evt);
-			}
-		}
-	});
-};
 //////////////////
 // TOTAL WEIGHT //
 //////////////////
@@ -1273,6 +1259,9 @@ if($('#loadMask').html() == '') {
   </tbody>\
 </table>');
 }
+//#//////////////////#//
+//# DOMContentLoaded #//
+//#//////////////////#//
 document.addEventListener("DOMContentLoaded", function() {
 	$('body').addClass('domcontentloaded');
 },false);
