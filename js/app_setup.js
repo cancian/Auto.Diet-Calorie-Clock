@@ -142,31 +142,6 @@ function showIntro() {
 		}
 	}, 400);
 }
-///////////////////
-// INITIAL CACHE //
-///////////////////
-function loadDatabase() {
-	app.read('diary_entry',function(rows) {
-		app.rows.entry = rows;
-		app.read('diary_food',function(rows) {
-			app.rows.food = rows;
-			setTimeout(function() {
-				//INIT
-				startApp();
-				/////////////////////////
-				// REBUILD OUTDATED DB //
-				/////////////////////////
-				if(app.read('foodDbLoaded','done') && app.read('foodDbVersion') > 0 && app.read('foodDbVersion') != 5) {
-					app.remove('foodDbLoaded','done');
-					$('body').addClass('updtdb');
-					setTimeout(function() {
-						updateFoodDb();
-					},100);
-				}
-			},0);
-		});
-	});
-}
 /////////////
 // INIT DB //
 /////////////
@@ -210,8 +185,25 @@ function initDB(t) {
 	///////////
 	// START //
 	///////////
-	loadDatabase();
-}
+	(function () {
+		app.read('diary_entry', function (rows) {
+			app.rows.entry = rows;
+			app.read('diary_food', function (rows) {
+				app.rows.food = rows;
+				// GO STATIC //
+				startApp();
+				// REBUILD OUTDATED DB //
+				if (app.read('foodDbLoaded', 'done') && app.read('foodDbVersion') > 0 && app.read('foodDbVersion') != 5) {
+					app.remove('foodDbLoaded', 'done');
+					$('body').addClass('updtdb');
+					setTimeout(function () {
+						updateFoodDb();
+					}, 100);
+				}
+			});
+		});
+	})();
+};
 ////////////////////
 // RESET DATA+SQL //
 ////////////////////
@@ -1782,7 +1774,7 @@ function buildHelpMenu(args) {
 				setTimeout(function() {
 					$('#appHelper').css('width','100%');
 					//restore visibility
-					$('.nicescroll-rails').css('display','block');
+					//$('.nicescroll-rails').css('display','block');
 				},100);
 			//IF OPENED
 			} else {
@@ -2130,6 +2122,11 @@ function getNiceScroll(target,timeout,callback) {
 		railvalign: 'bottom',
 		zindex: 50
 	};
+	//HIDE FIRST HELPER
+	if(/appHelper/i.test(target)) {
+		NSettings.zindex = -1;
+		NSettings.cursorcolor = 'rgba(0,0,0,0)';
+	}
 	//HORIZONTAL
 	if($('#appHistory').html()) {
 		NSettings.horizrailenabled = true;

@@ -11,7 +11,7 @@ var UsrAgt       = navigator.userAgent;
 var IsMsApp      = /MSApp/i.test(UsrAgt) ? true : false;
 //safeExec
 function safeExec(callback) {
-	if (/MSApp/i.test(UsrAgt)) {
+	if (IsMsApp) {
 		MSApp.execUnsafeLocalFunction(function () {
 			if(typeof callback === 'function') {
 				callback();
@@ -191,115 +191,113 @@ function isCacheValid(input) {
 	//ISVALID
 	return isValid;
 }
-//##/////////##//
-//## INIT JS ##//
-//##/////////##//
-function initJS() {
-	if(typeof hostLocal === 'undefined') {
-		var hostLocal = localStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
-	}
-	///////////
-	// MSAPP //
-	///////////
-	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
-	/////////////
-	// ISCROLL //
-	/////////////
-	if(!localStorage.getItem('intro_dismissed')) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
-	}
-	/////////////////////
-	// CORDOVA/DESKTOP //
-	/////////////////////
-	if (!/http/i.test(window.location.protocol)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
-	}
-	////////
-	// JS //
-	////////
-	//JQUERY
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
-	//////////////
-	// FACEBOOK //
-	//////////////
-		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent) && !IsMsApp)) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
-	} else if (/IEMobile|Windows Phone 10/i.test(navigator.userAgent) && IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
-	} else if (!IsMsApp) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-all.js" id="facebookJS"><\/script>');
-	}
-	//UTILS
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
-	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
-	//#/////////////////#//
-	//# APP MODE LOADER #//
-	//#/////////////////#//
-	if (localStorage.getItem('config_autoupdate') == 'on' || (IsMsApp && localStorage.getItem('config_debug') == 'active')) {
-		if(isCacheValid(localStorage.getItem('remoteSuperBlockJS') + localStorage.getItem('remoteSuperBlockCSS'))) {
-			isCurrentCacheValid = 1;
-		}
-		/////////////////////
-		// DEFINE VALIDITY //
-		/////////////////////
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
-		if(isCurrentCacheValid == 1) {
-			if(!document.getElementById('superBlockCSS')) {
-				////////////////
-				// CSS APPEND //
-				////////////////
-				if(document.getElementById('CSSPlaceholder')) {
-					document.getElementById('CSSPlaceholder').innerHTML = localStorage.getItem('remoteSuperBlockCSS');
-				} else {
-					document.write('<style type="text/css" id="superBlockCSS">' + localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
-				}
-				/////////////
-				// JS EVAL //
-				/////////////
-				var scriptBlock  = document.createElement('script');
-				scriptBlock.text = localStorage.getItem('remoteSuperBlockJS');
-				document.addEventListener('DOMContentLoaded', function() {
-					(function() {
-						try {
-							document.head.appendChild(scriptBlock);
-						} catch(e) {
-							setTimeout(function() { 
-								$.globalEval(scriptBlock.text);
-							},0);
-						};
-					})();
-				},false);
-			}
-		}
-	} else {
-		/////////
-		// CSS //
-		/////////
-		document.write('<link rel="stylesheet" type="text/css" id="coreCss"   href="' + hostLocal + 'css/index.css" />');
-		document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/fonts.css" />');
-		////////
-		// JS //
-		////////
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lib.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lang.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_setup.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js" id="plainLoad"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_macro.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_build.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_static.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_dynamic.js"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_custom_core.js"><\/script>');
-	}
-}
 //#//////////////#//
 //# JS KICKSTART #//
 //#//////////////#//
-safeExec(initJS);
+safeExec(function () {
+		if (typeof hostLocal === 'undefined') {
+			var hostLocal = localStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
+		}
+		///////////
+		// MSAPP //
+		///////////
+		if (/MSApp/i.test(navigator.userAgent)) {
+			hostLocal = '';
+		}
+		/////////////
+		// ISCROLL //
+		/////////////
+		if (!localStorage.getItem('intro_dismissed')) {
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
+		}
+		/////////////////////
+		// CORDOVA/DESKTOP //
+		/////////////////////
+		if (!/http/i.test(window.location.protocol)) {
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
+		}
+		////////
+		// JS //
+		////////
+		//JQUERY
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
+		//////////////
+		// FACEBOOK //
+		//////////////
+		if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent) && !IsMsApp)) {
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
+		} else if (/IEMobile|Windows Phone 10/i.test(navigator.userAgent) && IsMsApp) {
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
+		} else if (!IsMsApp) {
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-all.js" id="facebookJS"><\/script>');
+		}
+		//UTILS
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
+		//DB
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
+		//#/////////////////#//
+		//# APP MODE LOADER #//
+		//#/////////////////#//
+		if (localStorage.getItem('config_autoupdate') == 'on' || (IsMsApp && localStorage.getItem('config_debug') == 'active')) {
+			if (isCacheValid(localStorage.getItem('remoteSuperBlockJS') + localStorage.getItem('remoteSuperBlockCSS'))) {
+				isCurrentCacheValid = 1;
+			}
+			/////////////////////
+			// DEFINE VALIDITY //
+			/////////////////////
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
+			if (isCurrentCacheValid == 1) {
+				if (!document.getElementById('superBlockCSS')) {
+					////////////////
+					// CSS APPEND //
+					////////////////
+					if (document.getElementById('CSSPlaceholder')) {
+						document.getElementById('CSSPlaceholder').innerHTML = localStorage.getItem('remoteSuperBlockCSS');
+					} else {
+						document.write('<style type="text/css" id="superBlockCSS">' + localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
+					}
+					/////////////
+					// JS EVAL //
+					/////////////
+					document.addEventListener('DOMContentLoaded', function () {
+						(function () {
+							try {
+								var scriptBlock  = document.createElement('script');
+								scriptBlock.text = localStorage.getItem('remoteSuperBlockJS');
+								document.head.appendChild(scriptBlock);
+							} catch (err) {
+								setTimeout(function () {
+									$.globalEval(localStorage.getItem('remoteSuperBlockJS'));
+								}, 0);
+							};
+						})();
+					}, false);
+				}
+			}
+		} else {
+			/////////
+			// CSS //
+			/////////
+			document.write('<link rel="stylesheet" type="text/css" id="coreCss"   href="' + hostLocal + 'css/index.css" />');
+			document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/fonts.css" />');
+			////////
+			// JS //
+			////////
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lib.js"><\/script>');
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lang.js"><\/script>');
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_setup.js"><\/script>');
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js" id="plainLoad"><\/script>');
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_macro.js"><\/script>');
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_build.js"><\/script>');
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_static.js"><\/script>');
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_dynamic.js"><\/script>');
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_custom_core.js"><\/script>');
+	}
+});
 
