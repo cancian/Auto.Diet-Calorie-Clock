@@ -3,7 +3,7 @@
 	"short_name" : "__MSG_appName__",
 	"description" : "__MSG_appDesc__",
 	"default_locale" : "en",
-	"version" : "1.9.16",
+	"version" : "1.9.17",
 	"manifest_version" : 2,
 	"offline_enabled": true,
 	"icons" : {
@@ -20,10 +20,10 @@
 	},
 	"app" : {
 		"urls" : [
-			"http://kcals.net/"
+			"https://kcals.net/"
 		],
 		"launch" : {
-			"web_url" : "http://kcals.net/"
+			"web_url" : "https://kcals.net/"
 		}
 	}
 }

@@ -13,6 +13,7 @@ AddType text/plain .sql
 AddType text/cache-manifest .appcache
 AddType text/cache-manifest .manifest
 AddType application/x-web-app-manifest+json .webapp
+AddType image/vnd.microsoft.icon .cur
 ###################
 ## DIRECT ACCESS ##
 ###################
