@@ -135,6 +135,7 @@ $(document).on('visibilitychange focus', function (evt) {
 //## START APP ##//
 //###############//
 function startApp() {
+try {
 	//fix locked dbs
 	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
 		app.remove('startLock');
@@ -162,17 +163,18 @@ setTimeout(function() {
 	// BLOCK PIRACY
 	app.piracy();
 },50);
-///////////////////////
-// MARK BOOT SUCCESS //
-///////////////////////
+/////////////////////////
+// KICKSTART ANALYTICS //
+/////////////////////////
 setTimeout(function() {
 	app.analytics('init');
-	app.remove('consecutive_reboots');
-},1000);
+},2500);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
 setTimeout(function() {
+	// MARK BOOT SUCCESS
+	app.remove('consecutive_reboots');
 	//getRateDialog();
 	app.trackInstall();
 	updateLoginStatus(1);
@@ -1318,26 +1320,47 @@ if(app.is.scrollable) {
 		}
 	});
 	//#/////////////#//
-	//# TAP HANDLER #//
-	//#/////////////#//
+	//# TAP HANDLER #// Version: 0.2.9
+	//#/////////////#// https://github.com/BR0kEN-/jTap
 	(function ($, _) {
-		//"use strict";
+		//'use strict';
+		/**
+		 * @param (object) ev - extending object, which contain event properties.
+		 *  - (string) start - start event depending of @isTap.
+		 *  - (string) end - start event depending of @isTap.
+		 */
 		var ev = {
 			start : touchstart,
-			end : touchend
+			end   : touchend
 		};
+
 		$.event.special[_] = {
 			setup : function () {
 				$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
+					/**
+					 * Adding jQuery event to @ev object depending of @isTap.
+					 *
+					 * Attention: value of this property will change two time
+					 * per event: first time - on start, second - on end.
+					 */
+					//TWEAK
 					if(e) {
 						if(e.originalEvent) {
 							ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
 						}
 					}
 				}).on(ev.start, function (e) {
+					/**
+					 * Function stop if event is simulate by mouse.
+					 */
 					if (e.which && e.which !== 1) {
 						return;
 					}
+
+					/**
+					 * Extend @ev object from event properties of initial phase.
+					 */
+ 					//TWEAK
 					if(ev) {
 						if(ev.E) {
 							ev.target = e.target;
@@ -1347,22 +1370,33 @@ if(app.is.scrollable) {
 						}
 					}
 				}).on(ev.end, function (e) {
-					if (ev.target === e.target && ((new Date().getTime() - ev.time) < 750) && (ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
-							if(ev) {
-							if(ev.E) {
-								e.type = _;
-								e.pageX = ev.E.pageX;
-								e.pageY = ev.E.pageY;
-								$.event.dispatch.call(this, e);
-							}
-						}
+					/**
+					 * Compare property values of initial phase with properties
+					 * of this, final, phase. Execute event if values will be
+					 * within the acceptable and set new properties for event.
+					 */
+					if (
+						ev.target === e.target &&
+						((new Date().getTime() - ev.time) < 750) &&
+						(ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
+
+						e.type = _;
+						e.pageX = ev.E.pageX;
+						e.pageY = ev.E.pageY;
+
+						$.event.dispatch.call(this, e);
 					}
 				});
 			},
+
+			/**
+			 * Disassembling event.
+			 */
 			remove : function () {
 				$(this).off(ev.start + ' ' + ev.end);
 			}
 		};
+
 		$.fn[_] = function (fn) {
 			return this[fn ? 'on' : 'trigger'](_, fn);
 		};
@@ -1375,6 +1409,15 @@ if(app.is.scrollable) {
 			app.toast('boot: ' + ((new Date().getTime()) - initTime) + ' ms');
 		}
 	}
+///////////////////
+// CATCH 5 TIMES //
+///////////////////
+} catch(err) {
+	var bootError = err;
+	errorHandler(bootError,function() {
+		app.reboot('now');	
+	});
+}
 ////#//
 } //#//
 ////#//
