@@ -317,7 +317,9 @@ app.tab.status = function(keepOpen) {
 	//
 	//PRE
 	getElapsed();
-	updateNutriBars();
+	if(typeof updateNutriBars === 'function') {
+		updateNutriBars();
+	}
 	balanceMeter(timerKcals);
 	updateTodayOverview();
 	intakeHistory();
