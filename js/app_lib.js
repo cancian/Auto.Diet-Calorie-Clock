@@ -1460,19 +1460,20 @@ app.safeExec = function (callback) {
 // ERROR HANDLER //
 ///////////////////
 function errorHandler(error,callback) {
-	if(typeof error === 'undefined') {
-		error = '';
+	if(typeof error === 'undefined' || !error.length) {
+		return;
 	}
 	//FILTER
-	if(/800a139e|isTrusted|InvalidStateError|UnknownError/i.test(error)) { return; }
-	
+	if(/800a139e|isTrusted|InvalidStateError|UnknownError/i.test(JSON.stringify(error))) { 
+		return; 
+	}
 	//STRINGIFY
 	if(typeof error !== 'string') {
 		error = JSON.stringify(error);
 	}
 	//DEV
 	if(app.beenDev) {
-		console.log('errorHandler Log: ' + error);
+		console.log('errorHandler Dev Log: ' + error);
 	}
 	//DEV ALERT
 	if (app.dev && blockAlerts == 0) {
@@ -2425,137 +2426,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			}
 		});
 	}
-};
-///////////////////////
-// CUSTOM JQUERY TAP //
-///////////////////////
-$.prototype.tap = function (style, callback, callbackCondition) {
-	var target = this.selector;
-	var t = searchalize(target);
-	var isButton = style == 'button' ? 40 : 40;
-	if (app.is.scrollable && app.device.desktop) {
-		isButton = 1;
-	}
-	//RESET
-	app.handlers.activeRowTouches[t] = 0;
-	app.handlers.activeRowBlock[t] = 0;
-	app.handlers.activeLastId[t] = '';
-	clearTimeout(app.handlers.activeRowTimer[t]);
-	////////////////
-	// SET PARENT //
-	////////////////
-	var targetParent = target;
-	if (target.match(' ')) {
-		targetParent = target.split(' ')[0] + ', ' + target;
-	}
-	//////////////
-	// TOUCHEND //
-	//////////////
-	$(target).on(touchend, function (evt) {
-		if ($(this).hasClass(style) && app.handlers.activeRowBlock[t] == 0) {
-			if (typeof callback === 'function') {
-				app.handlers.activeRowBlock[t] = 1;
-				if (style == 'button') {
-					callback(evt, style);
-				} else {
-					callback($(this).attr('id'), style);
-				}
-				$(this).addClass(style);
-				app.handlers.activeLastId[t] = this;
-				app.handlers.activeRowTouches[t] = 0;
-				app.handlers.activeRowBlock[t] = 0;
-				clearTimeout(app.handlers.activeRowTimer[t]);
-				if (style != 'activeOverflow') {
-					$(app.handlers.activeLastId[t]).removeClass(style);
-				}
-			}
-		} else {
-			app.handlers.activeRowTouches[t] = 0;
-			app.handlers.activeRowBlock[t] = 0;
-			clearTimeout(app.handlers.activeRowTimer[t]);
-		}
-		if (style == 'false') {
-			var falseThis = this;
-			$(falseThis).css('pointer-events', 'none');
-			app.timeout('tapSelect', 500, function () {
-				$(falseThis).css('pointer-events', 'auto');
-			});
-		}
-	});
-	////////////////
-	// TOUCHSTART //
-	////////////////
-	setTimeout(function () {
-		$(target).on(touchstart, function (evt) {
-			if (!$(this).hasClass(style)) {
-				$(app.handlers.activeLastId[t]).removeClass(style);
-			}
-			var localTarget = this;
-			app.handlers.activeRowTouches[t] = 0;
-			clearTimeout(app.handlers.activeRowTimer[t]);
-			app.handlers.activeRowTimer[t] = setTimeout(function () {
-					if (app.handlers.activeRowTouches[t] == 0 && app.handlers.activeRowBlock[t] == 0) {
-						$(localTarget).addClass(style);
-						app.handlers.activeLastId[t] = localTarget;
-					} else {
-						$(app.handlers.activeLastId[t]).removeClass(style);
-					}
-				}, isButton);
-			//CALLBACK CONDITION
-			if (callbackCondition) {
-				if (callbackCondition() === false) {
-					clearTimeout(app.handlers.activeRowTimer[t]);
-				}
-			}
-			//no drag
-			//if(style == 'button') {
-			//	return false;
-			//}
-		});
-	}, 400);
-	//////////////////////
-	// ROW LEAVE CANCEL //
-	//////////////////////
-	if (app.device.windows8) {
-		$(target).on(touchout + ' ' + touchleave + ' ' + touchcancel, function (evt) {
-			$(app.handlers.activeLastId[t]).removeClass(style);
-			clearTimeout(app.handlers.activeRowTimer[t]);
-		});
-	} else {
-		$(targetParent).on(touchout + ' ' + touchleave + ' ' + touchcancel, function (evt) {
-			app.handlers.activeRowTouches[t]++;
-			if (!app.device.wp8 && style != 'activeOverflow') {
-				clearTimeout(app.handlers.activeRowTimer[t]);
-				$(app.handlers.activeLastId[t]).removeClass(style);
-			}
-		});
-	}
-	////////////////////////
-	// SCROLL/MOVE CANCEL //
-	////////////////////////
-	if (!app.device.windows8) {
-		var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
-		$(targetParent).on('scroll ' + moveCancel, function (evt) {
-			app.handlers.activeRowTouches[t]++;
-			clearTimeout(app.handlers.activeRowTimer[t]);
-			if (app.handlers.activeRowTouches[t] > 7 || (app.handlers.activeRowTouches[t] > 1 && app.device.android)) {
-				$(app.handlers.activeLastId[t]).removeClass(style);
-				if (app.device.osxapp || app.device.osx) {
-					$('.activeOverflow').removeClass(style);
-				}
-				app.handlers.activeRowTouches[t] = 0;
-			}
-		});
-	}
-	///////////////////////
-	// SCROLL TIME BLOCK //
-	///////////////////////
-	$(targetParent).on('scroll', function (evt) {
-		app.handlers.activeRowBlock[t] = 1;
-		setTimeout(function () {
-			app.handlers.activeRowBlock[t] = 0;
-		}, 100);
-	});
 };
 //#/////////////////////#//
 //# DETECT PRIVATE MODE #//
