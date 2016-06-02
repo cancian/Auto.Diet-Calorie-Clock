@@ -2283,7 +2283,7 @@ function getRateDialog() {
 	////////////
 	// 5 DAYS //
 	////////////
-	var timeRate = 160 * 60 * 60 * 1000;
+	var timeRate = 7 * 24 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
@@ -2295,7 +2295,9 @@ function getRateDialog() {
 				if(button === 2) {
 					//launch
 					app.analytics('vote');
-					app.url();
+					setTimeout(function() {
+						app.url();
+					},500);
 				} else if(button === 1) {
 					//on action
 					app.analytics('vote-no');
