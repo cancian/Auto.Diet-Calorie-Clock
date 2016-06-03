@@ -216,6 +216,14 @@ safeExec(function () {
 		if (!/http/i.test(window.location.protocol)) {
 			document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
 		}
+		////////
+		// JS //
+		////////
+		//JQUERY
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
+		//
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
 		//////////////
 		// FACEBOOK //
 		//////////////
@@ -226,18 +234,6 @@ safeExec(function () {
 		} else if (!IsMsApp) {
 			document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-all.js" id="facebookJS"><\/script>');
 		}
-		////////
-		// JS //
-		////////
-		//JQUERY
-		if(localStorage.getItem('config_debug') == 'active' || localStorage.getItem('been_dev')) {
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery3.js" id="jqueryJS"><\/script>');
-		} else {
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
-		}
-		//
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.touchswipe.js" id="touchswipeJS"><\/script>');
 		//UTILS
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
