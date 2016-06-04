@@ -1682,7 +1682,7 @@ app.fixSql = function(fetchEntries) {
 //////////
 // TRIM //
 //////////
-function trim(str, charlist) {
+function trim(str) {
 	if(!str.length) { return ''; }
 	str = str.replace(/^\s+/, '');
 	str = str.replace(/(^[ \t]*\n)/gm, "");
