@@ -146,14 +146,6 @@ function showIntro() {
 // INIT DB //
 /////////////
 function initDB(t) {
-	///////////////////////
-	// TRACK NEW INSTALL //
-	///////////////////////
-	if(!app.read('intro_dismissed')) {
-		showIntro();
-	} else {
-		$('#iScrollTag').remove();
-	}
 	////////////
 	// DEFINE //
 	////////////
@@ -190,9 +182,21 @@ function initDB(t) {
 			app.rows.entry = rows;
 			app.read('diary_food', function (rows) {
 				app.rows.food = rows;
+				///////////////
 				// GO STATIC //
+				///////////////
 				startApp();
+				////////////////
+				// SHOW INTRO //
+				////////////////
+				if(!app.read('intro_dismissed')) {
+					showIntro();
+				} else {
+					$('#iScrollTag').remove();
+				}
+				/////////////////////////
 				// REBUILD OUTDATED DB //
+				/////////////////////////
 				if (app.read('foodDbLoaded', 'done') && app.read('foodDbVersion') > 0 && app.read('foodDbVersion') != 5) {
 					app.remove('foodDbLoaded', 'done');
 					$('body').addClass('updtdb');
