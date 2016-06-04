@@ -1683,24 +1683,19 @@ app.fixSql = function(fetchEntries) {
 // TRIM //
 //////////
 function trim(str) {
-	if(str) {
-		if(str.length) {
-			str = str.replace(/^\s+/, '');
-			str = str.replace(/(^[ \t]*\n)/gm, "");
-			for(var i = str.length - 1; i >= 0; i--) {
-				if(/\S/i.test(str.charAt(i))) {
-				str = str.substring(0, i + 1);
-				break;
-			}
-		}
-		return str;
-		}
+	if(str.length) {
+		str = str.replace(/(^[ \t]*\n)/gm, '');
+		var	str = str.replace(/^\s\s*/, ''),
+			ws = /\s/,
+			i = str.length;
+		while (ws.test(str.charAt(--i)));
+		return str.slice(0, i + 1);
 	}
 	return '';
 }
-function trimDot(x) {
-	if(x.length) {
-		return x.replace(/\.$/, '').replace(/\,$/, '');
+function trimDot(str) {
+	if(str.length) {
+		return str.replace(/\.$/, '').replace(/\,$/, '');
 	}
 }
 ///////////////
