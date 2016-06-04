@@ -1682,21 +1682,21 @@ app.fixSql = function(fetchEntries) {
 //////////
 // TRIM //
 //////////
-function trim(str) {
-	if(str.length) {
-		str = str.replace(/(^[ \t]*\n)/gm, '');
-		var	str = str.replace(/^\s\s*/, ''),
-			ws = /\s/,
-			i = str.length;
-		while (ws.test(str.charAt(--i)));
-		return str.slice(0, i + 1);
+function trim(str, charlist) {
+	if(!str.length) { return ''; }
+	str = str.replace(/^\s+/, '');
+	str = str.replace(/(^[ \t]*\n)/gm, "");
+		for(var i = str.length - 1; i >= 0; i--) {
+			if(/\S/i.test(str.charAt(i))) {
+			str = str.substring(0, i + 1);
+			break;
+		}
 	}
-	return '';
+	return str;
 }
 function trimDot(str) {
-	if(str.length) {
+	if(!str.length) { return ''; }
 		return str.replace(/\.$/, '').replace(/\,$/, '');
-	}
 }
 ///////////////
 // ISEMPTY() //
@@ -1710,16 +1710,57 @@ function isEmpty(val){
 }
 //////////////////////
 // PROTOTYPE.TRIM() //
-//////////////////////
-if (!String.prototype.trim) {
-	String.prototype.trim = function () {
-		if (typeof this !== 'undefined') {
-			if (this.length) {
-				return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+////////////////////// https://github.com/kvz/locutus/blob/master/src/php/strings/trim.js
+String.prototype.trim = function (charlist) {
+	var str = this;
+	if (!str) {
+		return '';
+	}
+	var whitespace = [
+		' ',
+		'\n',
+		'\r',
+		'\t',
+		'\f',
+		'\x0b',
+		'\xa0',
+		'\u2000',
+		'\u2001',
+		'\u2002',
+		'\u2003',
+		'\u2004',
+		'\u2005',
+		'\u2006',
+		'\u2007',
+		'\u2008',
+		'\u2009',
+		'\u200a',
+		'\u200b',
+		'\u2028',
+		'\u2029',
+		'\u3000'
+	].join('')
+	var l = 0
+		var i = 0
+		str += ''
+		if (charlist) {
+			whitespace = (charlist + '').replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^:])/g, '$1')
+		}
+		l = str.length
+		for (i = 0; i < l; i++) {
+			if (whitespace.indexOf(str.charAt(i)) === -1) {
+				str = str.substring(i)
+					break
 			}
 		}
-		return '';
-	};
+		l = str.length
+		for (i = l - 1; i >= 0; i--) {
+			if (whitespace.indexOf(str.charAt(i)) === -1) {
+				str = str.substring(0, i + 1)
+					break
+			}
+		}
+		return whitespace.indexOf(str.charAt(0)) === -1 ? str : ''
 }
 ///////////////
 // HIGHLIGHT //
