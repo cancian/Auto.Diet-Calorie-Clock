@@ -182,10 +182,6 @@ function initDB(t) {
 			app.rows.entry = rows;
 			app.read('diary_food', function (rows) {
 				app.rows.food = rows;
-				///////////////
-				// GO STATIC //
-				///////////////
-				startApp();
 				////////////////
 				// SHOW INTRO //
 				////////////////
@@ -194,6 +190,10 @@ function initDB(t) {
 				} else {
 					$('#iScrollTag').remove();
 				}
+				///////////////
+				// GO STATIC //
+				///////////////
+				startApp();
 				/////////////////////////
 				// REBUILD OUTDATED DB //
 				/////////////////////////
