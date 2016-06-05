@@ -2215,15 +2215,25 @@ function kickDown(el) {
 // TRACK INSTALL //
 ///////////////////
 app.trackInstall = function () {
-	if (!app.read('app_installed') && app.read('intro_dismissed','done')) {
-		if (!app.http && (app.device.ios || app.device.android || app.device.blackberry || app.device.playbook || app.device.cordova || app.device.wp10 || app.device.wp8 || app.device.msapp || app.device.windows10 || app.device.windows8 || app.device.osxapp || app.device.amazon)) {
-			app.analytics('install');
-		} else {
-			//WEBINSTALL
-			app.analytics('webinstall');
-		}
-		//LOCK
-		app.save('app_installed', 'installed');
+	//CHECK
+	if (app.read('app_installed','installed')) { return; }
+	//LOCK
+	app.save('app_installed', 'installed');
+	//////////
+	//TRACK //
+	//////////
+	if (app.http) {
+		//WEBINSTALL
+		app.analytics('webinstall');
+	} else if(app.device.android && baseVersion < 2.0) {
+		//ANDROID BOGUS
+		app.analytics('bogus');
+	} else if(app.device.cordova || app.device.osxapp) {
+		//INSTALL
+		app.analytics('install');
+	} else {
+		//BOGUS
+		app.analytics('bogus');
 	}
 };
 //#//////////////#//
@@ -2241,50 +2251,21 @@ app.online = function () {
 //# BLOCK PIRACY #//
 //#//////////////#//
 app.piracy = function (force) {
-	/*
-	//catchers
-	var blockIt = 0;
-	if (force == 1)									{ blockIt = 1; }
-	if (!baseVersion) 								{ blockIt = 1; }
-	if (baseVersion < 1.9)							{ blockIt = 1; }
-	//if (baseVersion < 2.0 && app.device.android)	{ blockIt = 1; }
-	if (app.device.desktop)							{ blockIt = 0; }
-	if (blockIt == 1) {
+	if (baseVersion < 2 && app.device.android && app.device.cordova) {
 		//log only once
-		if(!app.read('seenBlockNotice')) {
-			app.analytics('blocked 2.0 (' + app.get.platform(1) + ')');
-			app.save('seenBlockNotice',true);
+		if (!app.read('seenBlockNotice')) {
+			app.analytics('blocked');
+			app.save('seenBlockNotice', true);
 		}
 		//GOTO
-		app.timeout('popTimer',2000,function() {
+		app.timeout('popTimer', 2000, function () {
 			appConfirm('Warning! Critical Update!', 'This version of KCals is built on a distribution of Apache Cordova that contains security vulnerabilities. Please update now!', function (button) {
 				if (button) {
-					if (app.device.android) {
-						app.url('android');
-					} else if (app.device.ios) {
-						app.url('ios');
-					} else if (app.device.wp10) {
-						app.url('wp10');
-					} else if (app.device.wp8) {
-						app.url('wp8');
-					} else if (app.device.amazon) {
-						app.url('amazon');
-					} else if (app.device.windows10) {
-						app.url('windows10');
-					} else if (app.device.windows8) {
-						app.url('windows8');
-					} else if (app.device.blackberry) {
-						app.url('blackberry');
-					} else if (app.device.playbook) {
-						app.url('playbook');
-					} else {
-						app.url('web');
-					}
+					app.url('android');
 				}
 			}, LANG.OK[lang], LANG.CANCEL[lang]);
 		}, 2000);
 	}
-	*/
 };
 /////////////////
 // MSAPP METRO //

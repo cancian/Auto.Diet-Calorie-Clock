@@ -168,17 +168,20 @@ setTimeout(function() {
 /////////////////////////
 setTimeout(function() {
 	app.analytics('init');
-},2500);
+	setTimeout(function() {
+		app.analytics('start');	
+	},6000);
+	setTimeout(function() {
+		app.trackInstall();
+	},12000);
+},2000);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
 setTimeout(function() {
 	// MARK BOOT SUCCESS
 	app.remove('consecutive_reboots');
-	//getRateDialog();
-	app.trackInstall();
 	updateLoginStatus(1);
-	app.analytics('start');
 	app.parseErrorLog();
 	clearTimeout(app.timers.resume);
 },5000);

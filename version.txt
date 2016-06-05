@@ -7,19 +7,17 @@
 • Custom portion sizes
 • Water tracker
 • Daily tips
-• Port the app to Apple Watch, and Google Watch.
-• Create an Android Widget, as well as a Live Tile for Windows Phone.
 
-# 1.9.17 [2016/05/26]
-• Search/replace algorithm is now much faster
+# 1.9.17 [2016/05/06]
+• New help topics
+• Faster start-up
+• Improved search algorithm
 • Users are now prompted to choose between the original English database, or it's translated version
 
 # 1.9.16 [2016/05/20]
-• The app has been renamed to <underline>KCals Calorie Clock</underline>
-• New help topics
+• The app has been renamed to KCals Calorie Clock
 • Optimized core frameworks, featuring cutting edge web technology
 • Fixed some synchronization inconsistencies affecting desktop browsers
-• This project is now open source. The source code is hosted at <a href="https://github.com/cancian/kcals-calorie-clock" target="_blank">GibHub</a>, and it's free for personal use.
 
 # 1.9.15 [2016/04/05]
 • Fixed insertion loop that would slow down the app over time

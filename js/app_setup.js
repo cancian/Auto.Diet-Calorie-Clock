@@ -76,8 +76,6 @@ function showIntro() {
 					$('#iScrollTag').remove();
 				},600);
 			});
-			//track install
-			app.trackInstall();
 		}
 		evt.preventDefault();
 	});
