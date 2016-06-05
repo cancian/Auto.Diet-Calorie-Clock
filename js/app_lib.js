@@ -38,7 +38,6 @@ app = {
 		indexedDB    : typeof window.indexedDB === 'undefined' ? false : true,
 		webSQL       : !window.openDatabase ? false : true,
 		localStorage : !window.localStorage ? false : true,
-		SQLiteDriver : !window.cordovaSQLiteDriver ? false : true
 	},
 	tab: {},
 	get: {},
