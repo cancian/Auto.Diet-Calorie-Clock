@@ -141,7 +141,7 @@ function isCacheValid(input) {
 //##/////////##//
 safeExec(function() {
 	if(typeof hostLocal === 'undefined') {
-		var hostLocal = localStorage.getItem('config_debug') == 'active' ? 'http://192.168.1.5/' : '';
+		var hostLocal = localStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
 	}
 	///////////
 	// MSAPP //
@@ -211,11 +211,11 @@ safeExec(function() {
 					document.addEventListener('DOMContentLoaded', function () {
 						setTimeout(function() {
 							try {
-								$.globalEval(localStorage.getItem('remoteSuperBlockJS'));
-							} catch (err) {
 								var scriptBlock  = document.createElement('script');
 								scriptBlock.text = localStorage.getItem('remoteSuperBlockJS');
 								document.head.appendChild(scriptBlock);
+							} catch (err) {
+								$.globalEval(localStorage.getItem('remoteSuperBlockJS'));
 							};
 						},0);
 					}, false);
