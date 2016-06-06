@@ -15,6 +15,7 @@
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
 <link rel="apple-touch-icon-precomposed" sizes="256x256" href="icon.png">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
 <style type="text/css">
 body.started #loadMask {
 	display: none;
@@ -74,6 +75,7 @@ body.unloaded #loadMask span {
 @keyframes rotate			{ 0% { transform: rotate(0deg);  	    } 100% { transform: rotate(360deg);         }}
 body.unloaded *				{ /*-ms-touch-action: none;*/ overflow: hidden; }
 </style>
+
 <script type="text/javascript">
 /////////////////////////
 // MSAPP CONFIRM LAYER //
@@ -234,7 +236,9 @@ setTimeout(function() {
 	}
 },0);
 </script>
+
 <style type="text/css" id="CSSPlaceholder"></style>
+
 <script type="text/javascript">
 ///////////////
 // BOOTSTRAP //
@@ -285,19 +289,23 @@ function bootStraper() {
 ///////////////
 // BOOTSTRAP //
 ///////////////
-if(!/http/i.test(window.location.protocol) && bootLoopBroken == false) { bootStraper(); }
+if (!/http/i.test(window.location.protocol) && bootLoopBroken == false) { bootStraper(); }
 ///////////////
 </script>
+
 </head>
 <body class="unloaded">
+
 <script type="text/javascript">
 ///////////////
 // BOOTSTRAP //
 ///////////////
-if(/http/i.test(window.location.protocol) && bootLoopBroken == false) { bootStraper(); }
+if (/http/i.test(window.location.protocol) && bootLoopBroken == false) { bootStraper(); }
 ///////////////
 </script>
+
 <div id="loadMask"><span></span></div>
 <div id="fb-root"></div>
+
 </body>
 </html>

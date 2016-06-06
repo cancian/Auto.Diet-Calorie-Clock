@@ -2364,8 +2364,10 @@ app.analytics = function(target,desc) {
 			//delete logs
 			app.remove('error_log_handled');
 			app.remove('error_log_unhandled');
-			//skip irrelevant
-			if(!/800a139e|isTrusted|InvalidStateError|UnknownError|Out of stack space/i.test(JSON.stringify(desc))) {
+			// skip irrelevant //
+			if(/800a139e|isTrusted|InvalidStateError|UnknownError|Out of stack space/i.test(JSON.stringify(desc))) {
+				//ignore
+			} else {
 				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
 				ga_storage._trackEvent(appOS, target, desc, baseVersion);
 			}
