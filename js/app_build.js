@@ -76,13 +76,12 @@ app.tab.settings = function(keepOpen) {
 			<span id="b800"></span>\
 			<span id="b900"></span>\
 		</div>\
-		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">cancian@kcals.net</span></div>\
-		';
+		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">cancian@kcals.net</span></div>';
 		/////////////
 		// HANDLER //
 		/////////////
 		var aboutHandler = function() {
-			app.handlers.activeRow('#b000','button',function() { app.url('http://kcals.net/static.html'); });
+			app.handlers.activeRow('#b000','button',function() { app.url('https://kcals.net/static.html'); });
 			app.handlers.activeRow('#b100','button',function() { app.url('android');    });
 			app.handlers.activeRow('#b200','button',function() { app.url('ios');        });
 			app.handlers.activeRow('#b300','button',function() { app.url('wp8');        });
@@ -94,7 +93,8 @@ app.tab.settings = function(keepOpen) {
 			app.handlers.activeRow('#b900','button',function() { app.url('amazon'); });
 			//CONTACT
 			app.handlers.activeRow('#developedBy','button',function(evt) {
-				app.url('mailto:cancian@kcals.net?Subject=KCals%20-%20Dev Support%20(' + app.get.platform(1) + ')');
+				//app.url('mailto:cancian@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')');
+				window.location.href = 'mailto:cancian@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')';
 			});
 		};
 		/////////////////
