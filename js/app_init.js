@@ -210,12 +210,6 @@ safeExec(function () {
 		if (!localStorage.getItem('intro_dismissed')) {
 			document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
 		}
-		/////////////////////
-		// CORDOVA/DESKTOP //
-		/////////////////////
-		if (!/http/i.test(window.location.protocol)) {
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
-		}
 		////////////
 		// JQUERY //
 		////////////
@@ -231,7 +225,15 @@ safeExec(function () {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
-		//DB
+		/////////////////////
+		// CORDOVA/DESKTOP //
+		/////////////////////
+		if (!/http/i.test(window.location.protocol)) {
+			document.write('<script type="text/javascript" src="' + hostLocal + 'js/cordova.js" id="cordovaJS"><\/script>');
+		}
+		/////////////////
+		// LOCALFORAGE //
+		/////////////////
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 		//////////////
 		// FACEBOOK //
