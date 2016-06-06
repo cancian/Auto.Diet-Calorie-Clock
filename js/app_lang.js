@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'KCals';
-var appVersion = '1.9.17 (191707)';
+var appVersion = '1.9.17 (191708)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -7260,25 +7260,22 @@ var LANG = {
 //////////////////
 'Today Overview' :
 '<p>The <strong>Today Overview</strong> status incorporates several aspects of your daily calorie intake, so it is worth taking the time to interpret it.</p><p>The circle has 5 colors:</p><p><strong style="color: #2F7ED8">Blue</strong> = Total calories consumed from food (absolute value).<br /><br /><strong style="color: #1EB618">Green</strong> = Number of calories that exceeded your daily intake.<br /><br /><strong style="color: #EE704E">Red</strong> = Number of calories you spent with exercise, but haven’t yet compensated by eating an equal amount of calories.<br /><br /><strong style="color: #9947F0">Purple</strong> = Number of calories you spent with exercise that have been compensated by consuming an equal amount of calories.<br /><br /><strong style="color: #777">Grey</strong> = Calories you still have to consume to fulfill your daily intake.</p><p>Now, let&rsquo;s put that in a practical perspective.</p><p>You start the app, and tap the &ldquo;Today Overview&rdquo; circle. You&rsquo;ll notice that all the variables described above will correspond to zero, except the grey one, which will indicate the calories left for the day (2000 for instance).</p><p>Then if you eat, say 600 calories, the circle will be partially filled in blue, with the number &ldquo;600&rdquo; right next to the blue portion of the circle.</p><p>The grey area will now shrink a little bit, showing you still have &ldquo;1400&rdquo; calories left.</p><p>Now let&rsquo;s say you do some exercise, burning 400 calories. That means your daily intake, for the sake of maintenance, has changed from 2000 to 2400.</p><p>To account for that, there will be a red portion of the circle indicating &ldquo;400&rdquo; calories. As explained, red means the calories you have burned, but have not yet compensated (you have not eaten 400 extra calories to make up for what you spent).</p><p>Now suppose you eventually eat all the 2400 calories you needed.</p><p>The red section will turn purple, indicating that the calories you burned from exercise have been compensated (you ate accordingly to the extra calories you spent).</p><p>Finally, if you go over your daily intake, there will appear a green portion on the circle, specifying by how many calories you exceeded your daily intake.</p><p>Naturally, this situation is reversible.</p><p>You can simply do some more exercise, and this green portion will decrease accordingly, until you return to the perfect balance between eating and exercising.</p><p>Therefore, it doesn&rsquo;t really matter how much you eat or exercise in a day. As long as you make up for it, keeping both things balanced, you can do anything you want.</p><p>This method gives you an extraordinary amount of freedom on how to approach your personal goals.</p><p>For instance, this means you don&rsquo;t necessarily have to eat very little in order to lose weight.</p><p>If you like to eat a lot, you can eat a lot. No problem! As long as you make up for it by exercising accordingly. This way you can eat a lot, and still lose weight! Awesome!</p>',
-///////////////////////////
-'Changing the start date' :
-'<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
 //////////////////////////
 'How much (less) should I eat?' :
 '<p>If you’re planning to lose weight, you should consume <strong>fewer calories than your maintenance level</strong> (what you need keep your current weight).</p>\
 <p>The amount of calories below your maintenance level is called <strong>calorie deficit</strong>.</p>\
-<p>If you don’t know exactly where to begin, the numbers below are a good reference.</p>\
-<p class="blue">15-20% below maintenance calories = conservative deficit</p>\
-<p class="blue">20-25% below maintenance calories = moderate deficit</p>\
-<p class="blue">25-30% below maintenance calories = aggressive deficit</p>\
-<p class="blue">30-40% below maintenance calories = very aggressive deficit (risky)</p>\
-<p class="blue">50%+ below maintenance calories = semi starvation/starvation (potentially dangerous and unhealthy)</p>\
-<p>On a 2000 kcal diet, that would correspond to:</p>\
-<p class="blue">300-400 (1700/day)</p>\
-<p class="blue">400-500 (1600/day)</p>\
-<p class="blue">500-600 (1500/day)</p>\
-<p class="blue">600-800 (1400/day)</p>\
-<p class="blue">1000+ (1000/day)</p>\
+<p>If you don’t know exactly where to begin, the values below are a good reference.</p>\
+<p class="blue"><strong>15-20%</strong> below maintenance calories = <strong>conservative deficit</strong></p>\
+<p class="blue"><strong>20-25%</strong> below maintenance calories = <strong>moderate deficit</strong></p>\
+<p class="blue"><strong>25-30%</strong> below maintenance calories = <strong>aggressive deficit</strong></p>\
+<p class="blue"><strong>30-40%</strong> below maintenance calories = <strong>very aggressive deficit (risky)</strong></p>\
+<p class="blue"><strong>50%+</strong> below maintenance calories = <strong>semi starvation (potentially dangerous and unhealthy)</strong></p>\
+<p>On a 2000 kcal diet, that would correspond to a daily reduction of:</p>\
+<p class="blue bold">300-400 (1700/day)</p>\
+<p class="blue bold">400-500 (1600/day)</p>\
+<p class="blue bold">500-600 (1500/day)</p>\
+<p class="blue bold">600-800 (1400/day)</p>\
+<p class="blue bold">1000+ (1000/day)</p>\
 <p>Note that your dietary needs will change as you lose weight. As you get lighter, your caloric needs will decrease. On the other hand, your body’s ability to tolerate a low calorie intake will increase.</p>\
 <p><strong>Your weight affects your daily intake, and how many calories you burn during exercise.</strong> Keep that in mind while planning your diet, and be sure to keep your profile updated.</p>',
 ////////////////////////
@@ -7295,6 +7292,9 @@ var LANG = {
 <p>If you wish to force a synchronization, you can either restart the app, or tap the “last sync” date on the bottom of the settings tab.</p>\
 <p>This will trigger a full synchronization cycle. The existing data will be downloaded, merged, then pushed back to the cloud.</p>\
 <p>Now repeat this process on the other devices you wish to synchronize, and they should match each other perfectly.</p>',
+///////////////////////////
+'Changing the start date' :
+'<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
 /////////////////
 'Nutrient ratio':
 '<p>When you add a food that includes nutritional information, the app will use this data to calculate the average percentage of calories you are getting from each nutrient (proteins, carbs and fats).</p><p>The ratio of each nutrient is calculated by total calories, not by weight. So it is important to remember that while proteins and carbs have 4 kcal per gram, fats have 9 kcal.</p><p>The default nutrient ratio is 25% proteins / 50% carbs / 25% fats. You can change these values by tapping the nutrition bars on the status tab.</p>',

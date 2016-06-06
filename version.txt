@@ -8,11 +8,12 @@
 • Water tracker
 • Daily tips
 
-# 1.9.17 [2016/05/06]
+# 1.9.17 [2016/06/06]
 • New help topics
 • Faster start-up
 • Improved search algorithm
-• Users are now prompted to choose between the original English database, or it's translated version
+• Fixed bootloop issue affecting certain devices
+• Users are now prompted to choose between the original English database, or its translated version
 
 # 1.9.16 [2016/05/20]
 • The app has been renamed to KCals Calorie Clock
@@ -52,7 +53,7 @@
 • Added an info icon next to the "Backup & Synchronization" option, linking to the corresponding help topic
 
 # 1.9.9 [2015/09/25]
-• Improved synchronization speed, specially for users with large custom databases
+• Improved synchronization speed, particularly for users with large custom databases
 • Filter unnecessary data synchronization requests
 • Users can manually change the data storage engine used by the app for performance tweaking purposes (indexedDB, webSQL, localStorage, as available on the device)
 • More detailed charts for easier reading
@@ -84,7 +85,7 @@
 • Use metric system as default for all users
 • "Save as new" now shows on the top-left
 • Information tooltip on app header
-• Supressed +/- inline buttons when editing diary entries
+• Suppressed +/- inline buttons when editing diary entries
 
 # 1.9.5 [2015/06/18]
 • Filter redundant DOM updates to improve overall performance
@@ -93,7 +94,7 @@
 • Import local food database if no internet connection is available
 • Toggle between help/content on Today Overview and Cyclical Mode menus
 • Fixed issue with decimals being incorrectly rounded to zero for values below 1
-• The Status tab can be scrolled (for smalls screens)
+• The Status tab can be scrolled (for small screens)
 • Optimized transitions (CSS)
 
 # 1.9.4 [2015/05/15]
@@ -193,7 +194,7 @@
 • Reduced CPU usage (saves battery)
 • New date picker
 • More consistent cache handling
-• Option to restart manually when the app gets updated
+• Option to restart manually when the app is updated
 
 # 1.3.0 [2014/07/11]
 • Automatic Updates
@@ -201,7 +202,7 @@
 # 1.2.9 [2014/07/05]
 • The database now has food categories 
 • Personalized items share the same tab 
-• Favorite Items get highlighted in the listing 
+• Favorite Items are highlighted in the listing 
 • Improved header navigation
 
 # 1.2.8 [2014/06/28]
