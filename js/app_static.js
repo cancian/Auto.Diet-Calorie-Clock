@@ -1,7 +1,7 @@
 ﻿////////////////////
 // DOCUMENT READY //
 ////////////////////
-document.addEventListener("DOMContentLoaded", function() {
+$(document).ready(function() {
 	///////////////////
 	// OPEN DATABASE //
 	///////////////////
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	/////////////
 	localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
 	initDB();
-},false);
+});
 ////////////////
 // RESUME EVT //
 ////////////////
