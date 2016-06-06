@@ -227,6 +227,11 @@ localStorage.setItem('last_boot_time',new Date().getTime());
 setTimeout(function() {
 	window.addEventListener('mousedown', bootLoopBreaker, false);
 	window.addEventListener('touchstart', bootLoopBreaker, false);
+	//MSAPP POINTER
+	if (window.PointerEvent || window.MSPointerEvent) {
+		window.addEventListener('MSPointerDown', bootLoopBreaker, false);	
+		window.addEventListener('pointerdown', bootLoopBreaker, false);	
+	}
 },0);
 </script>
 <style type="text/css" id="CSSPlaceholder"></style>
@@ -258,6 +263,7 @@ function bootStraper() {
 			//WINJS
 			if ((/IEMobile/i).test(navigator.userAgent)) {
 				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/base.js"><\/script>');
+				document.write('<script src="//Microsoft.Phone.WinJS.2.1/js/ui.js"><\/script>');
 			}
 			//WP10 (backbutton)
 			if (/MSAppHost\/3.0/i.test(navigator.userAgent)) {
