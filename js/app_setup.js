@@ -2111,13 +2111,13 @@ function getNiceScroll(target,timeout,callback) {
 	setTimeout(function() {
 		//SETTINGS
 		var NSettings = {
-		touchbehavior: false,
-		nativeparentscrolling: false,
+		touchbehavior: true,
+		nativeparentscrolling: true,
 		cursorcolor: 'rgba(0,0,0,1)',
-		cursorborderradius: '0px',
+		cursorborderradius: '0',
 		railpadding: { right: 1,  bottom: 0, top: 2 },
 		cursorborder: '1px solid rgba(255,255,255,0)',
-		cursoropacitymax: .666,
+		cursoropacitymax: .7,
 		cursorwidth: '4px',
 		horizrailenabled: false,
 		hwacceleration: true,
