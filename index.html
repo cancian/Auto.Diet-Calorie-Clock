@@ -83,7 +83,7 @@ body.unloaded *				{ /*-ms-touch-action: none;*/ overflow: hidden; }
 if (/MSApp/i.test(navigator.userAgent)) {
 	var MSDialog2;
 	var MSNext2 = [];
-	function MSAppConfirm(title, msg, callback, ok, cancel) {
+	function MSAppIndexConfirm(title, msg, callback, ok, cancel) {
 		//STORE NEXT
 		if (MSDialog2 == true) {
 			var isRepeated = 0;
@@ -108,13 +108,12 @@ if (/MSApp/i.test(navigator.userAgent)) {
 			}
 			md.showAsync()
 			.then(function (command) {
-				if(typeof command !== 'undefined' && typeof command !== 'null') {
-					if (command.label == 'ok') {
-						callback(2);
-					}
-					if (command.label == 'cancel') {
-						callback(1);
-					}
+				if(!command) { callback(1); return; }
+				if (command.label == 'ok') {
+					callback(2);
+				}
+				if (command.label == 'cancel') {
+					callback(1);
 				}
 			})
 			.done(function () {
@@ -215,7 +214,7 @@ var bootLoopBreaker = function () {
 						wipeCache(1);	
 					}
 				} else if (/MSApp/i.test(navigator.userAgent)) {
-					MSAppConfirm('*** KCALS RECOVERY SYSTEM ***','Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.', function(button) {
+					MSAppIndexConfirm('*** KCALS RECOVERY SYSTEM ***','Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.', function(button) {
 						wipeCache(button);
 					});
 				}

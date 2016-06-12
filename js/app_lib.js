@@ -2435,9 +2435,8 @@ function appConfirm(title, msg, callback, ok, cancel) {
 			}
 			md.showAsync()
 			.then(function (command) {
-				if(typeof command !== 'undefined' && typeof command !== 'null') {
-					if (command.label == ok) { callback(2); } else if (command.label == cancel) { callback(1); }
-				}
+				if(!command) { callback(1); return; }
+				if (command.label == ok) { callback(2); } else if (command.label == cancel) { callback(1); }
 			})
 			.done(function () {
 				MSDialog = false;
