@@ -162,9 +162,9 @@ safeExec(function() {
 	//////////////
 	// FACEBOOK //
 	//////////////
-		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent))) {
+		   if ((/IEMobile/i.test(navigator.userAgent) && !IsMsApp && !/http/i.test(window.location.protocol)) || (!/http/i.test(window.location.protocol) && /Android|iPhone|iPod|iPad/i.test(navigator.userAgent) && !/MSApp/i.test(navigator.userAgent))) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/openfb.js" id="openfbJS"><\/script>');
-	} else if (/IEMobile/i.test(navigator.userAgent) && IsMsApp) {
+	} else if (/IEMobile|Windows Phone/i.test(navigator.userAgent) && IsMsApp) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/winfb.js"id="winfbJS" ><\/script>');
 	} else if (!IsMsApp) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/facebook-all.js" id="facebookJS"><\/script>');
