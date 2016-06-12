@@ -241,7 +241,7 @@ if(localStorage.getItem('config_autoupdate') == 'on') {
 		}
 	}
 	//CHECK UPDATES
-	$(document).ready(function() {
+	$(function() {
 		//SAVE REQUEST
 		if(!localStorage.getItem('remoteSuperBlockJS') || !localStorage.getItem('remoteSuperBlockCSS')) {
 			setTimeout(function() {
@@ -256,8 +256,8 @@ if(localStorage.getItem('config_autoupdate') == 'on') {
 		},cacheTimeout);
 	});
 }
-// BACKWARDS COMP
-$(document).ready(function() {
+// BACKWARDS COMPAT //
+$(function() {
 	setTimeout(function() {
 		if(/http/i.test(window.location.protocol)) {
 			$('body').addClass('started');

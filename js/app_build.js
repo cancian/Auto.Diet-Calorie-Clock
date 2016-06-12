@@ -1814,7 +1814,7 @@ $('#formc select').on(touchstart,function(evt) {
 		$(thisInput).attr('disabled','disabled');
 		setTimeout(function() {
 			$(thisInput).removeAttr('disabled');
-			$(thisInput).removeAttr('readonly','readonly');
+			$(thisInput).removeAttr('readonly');
 		},0);
 	}
 	//prevent drag
@@ -1828,7 +1828,7 @@ $('#formc select').focus(function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 		$(thisInput).removeAttr('disabled');
-		$(thisInput).removeAttr('readonly','readonly');
+		$(thisInput).removeAttr('readonly');
 		$(thisInput).blur();
 	}
 });
@@ -1841,7 +1841,7 @@ $('#formc select').on(touchend,function(evt) {
 	var thisInput = this;
 	setTimeout(function() {
 		$(thisInput).removeAttr('disabled');
-		$(thisInput).removeAttr('readonly','readonly');
+		$(thisInput).removeAttr('readonly');
 	},400);
 	if(evt.target.id == 'pA1B') {
 		$(this).attr('readonly','readonly');
