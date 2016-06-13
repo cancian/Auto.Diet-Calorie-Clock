@@ -2281,7 +2281,7 @@ app.trackInstall = function () {
 	} else if(app.device.android && baseVersion < 2.0) {
 		//ANDROID BOGUS
 		app.analytics('bogus');
-	} else if(app.device.cordova || app.device.osxapp) {
+	} else if(app.device.cordova || app.device.msapp || app.device.osxapp) {
 		//INSTALL
 		app.analytics('install');
 	} else {
