@@ -310,6 +310,7 @@ function localStorageSql() {
 	return keyList;
 }
 ///////////////////////////
+
 // REBUILD LOCAL STORAGE //
 ///////////////////////////
 function rebuildLocalStorage(lsp) {
@@ -1069,6 +1070,7 @@ function getCustomList(listType,filter) {
 	//////////////
 	} else if(listType == 'fav') {
 		var rowsArray = [];
+
 		for(var i=0, len=app.rows.food.length; i<len; i++) {
 			if(app.rows.food[i]) {
 				if(app.rows.food[i].fib) {
@@ -1821,6 +1823,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		bottom = 'flush';
 	}
 	//
+
 	if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return; }
 	//FLOOD
 	if($('#' + newWindow + 'Wrapper').html()) { return; }
@@ -2266,7 +2269,7 @@ function sanitize(str) {
 //////////////////
 function sanitizeSql(str) {
 	if(str) {
-		var result = trimSpace(str.split("'").join("’").split('"').join("”").split(";").join(",").split("\\"));
+		var result = str.split("'").join("’").split('"').join("”").split(";").join(",").split("\\").join(" ").split("  ").join(" ").split("  ").join(" ");
 		return result;
 	}
 }
@@ -2326,7 +2329,7 @@ app.analytics = function(target,desc) {
 		}
 	}
 	//PREVENT DEV
-	if(typeof ga_storage  === 'undefined')				 { return; }
+	if(typeof ga_storage === 'undefined')				 { return; }
 	if(typeof baseVersion === 'undefined')				 { return; }
 	if(app.dev || app.read('been_dev'))					 { app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(/local.kcals|192.168.1.5/i.test(document.URL))	 { app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
