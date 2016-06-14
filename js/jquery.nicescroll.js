@@ -15,8 +15,7 @@
 		// Browser globals.
 		factory(jQuery);
 	}
-}
-(function(jQuery) {
+}(function(jQuery) {
 	"use strict";
 
 	// globals
@@ -403,9 +402,9 @@
 			function requestSync() {
 				if (_onsync) return;
 				setAnimationFrame(function() {
-					_onsync = false;
 					//TWEAK
 					if (self) {
+						_onsync = false;
 						for (var nn in self.synclist) {
 							var fn = self.synclist[nn];
 							if (fn) fn.call(self);
