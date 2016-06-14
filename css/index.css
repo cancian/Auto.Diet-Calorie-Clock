@@ -1512,13 +1512,11 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 /**/
 #addNewFood					{ right: 50%; }
 #addNewExercise				{ left:  50%; }
-#addNewWrapper				{ position: absolute; top: 75px; bottom: 54px; left: 12px; right: 12px; background-color: #fff; display: block; z-index: 99; display: block; -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); box-shadow: 1px 1px 6px rgba(0,0,0,.5); min-height: 325px; }
+#addNewWrapper				{ position: absolute; top: 75px; bottom: 54px; left: 12px; right: 12px; background-color: #fff; display: block; z-index: 99; display: block; -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); box-shadow: 1px 1px 6px rgba(0,0,0,.5); min-height: 44px; }
 #addNewListWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
-
 .ios7 #addNewWrapper		{ top: 91px; }
 #addNewConfirm				{ position: absolute; bottom: 12px; left: 12px; right: 50%; background-color: #4D9AE5; font-size: 18px; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: normal; }
-#addNewCancel				{ position: absolute; bottom: 12px; right: 12px; left: 50%; background-color: #eeeeee; font-size: 18px; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: normal; 
-}
+#addNewCancel				{ position: absolute; bottom: 12px; right: 12px; left: 50%; background-color: #eeeeee; font-size: 18px; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: normal; }
 #addNewConfirm.done,
 #addNewConfirm:active		{ color: #ccc !important; }
 ul#addNewList				{ padding: 9px 0 22px 12px; }
