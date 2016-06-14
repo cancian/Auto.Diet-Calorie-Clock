@@ -289,7 +289,7 @@ appFooter = function (id,keepOpen,callback) {
 	else if(tabId == 'tab2') { app.exec.updateEntries('','','callback',keepOpen); }
 	else if(tabId == 'tab3') { app.tab.profile(keepOpen);  }
 	else if(tabId == 'tab4') { app.tab.settings(keepOpen); updateFoodDb(); }
-	$('body').removeClass('tab1 tab2 tab3 tab4 newwindow'.split(id).join(''));
+	$('body').removeClass('tab1 tab2 tab3 tab4 newwindow');
 	$('body').addClass(tabId);
 	if(typeof callback === 'function') {
 		setTimeout(function() {
