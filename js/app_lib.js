@@ -1695,7 +1695,15 @@ function trim(str) {
 }
 function trimDot(str) {
 	if(!str.length) { return ''; }
-		return str.replace(/\.$/, '').replace(/\,$/, '');
+	return str.replace(/\.$/, '').replace(/\,$/, '');
+}
+function trimSpace(str) {
+	if(!str.length) { return ''; }
+	return str.replace(/\s\s+/g, ' ');
+}
+function trimSpaceAll(str) {
+	if(!str.length) { return ''; }
+	return str.replace(/  +/g, ' ');
 }
 /////////////////
 // STR_REPLACE //

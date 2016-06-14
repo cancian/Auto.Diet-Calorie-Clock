@@ -2266,7 +2266,7 @@ function sanitize(str) {
 //////////////////
 function sanitizeSql(str) {
 	if(str) {
-		var result = str.split("'").join("’").split('"').join("”").split(";").join(",").split("\\").join(" ").split("  ").join(" ").split("  ").join(" ");
+		var result = trimSpace(str.split("'").join("’").split('"').join("”").split(";").join(",").split("\\"));
 		return result;
 	}
 }
@@ -2326,7 +2326,7 @@ app.analytics = function(target,desc) {
 		}
 	}
 	//PREVENT DEV
-	if(typeof ga_storage === 'undefined')				 { return; }
+	if(typeof ga_storage  === 'undefined')				 { return; }
 	if(typeof baseVersion === 'undefined')				 { return; }
 	if(app.dev || app.read('been_dev'))					 { app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(/local.kcals|192.168.1.5/i.test(document.URL))	 { app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }

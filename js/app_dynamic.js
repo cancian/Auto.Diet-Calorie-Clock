@@ -184,14 +184,14 @@ $(document).on("pageload", function (evt) {
 							},
 							change : function () {
 								//save changes
-								var editableValue = $("#editableInput").val().split("  ").join(" ").split("  ").join(" ").split("  ").join(" ");
+								var editableValue = trimSpace($('#editableInput').val());
 								saveEntry({
 									body : editableValue,
-									id : $(this).closest('div').data("id")
+									id : $(this).closest('div').data('id')
 								});
 								//set blur
-								if (!$("#entryList div").is(':animated')) {
-									$("#editableInput").blur();
+								if (!$('#entryList div').is(':animated')) {
+									$('#editableInput').blur();
 								}
 							}
 						});
@@ -317,27 +317,27 @@ $(document).on("pageload", function (evt) {
 					//////////////////////////////////
 					// prevent empty list highlight //
 					//////////////////////////////////
-					if (!isNaN($(this).closest("div").prop("id"))) {
-						var editableValue = $("#editableInput").val();
+					if (!isNaN($(this).closest('div').prop('id'))) {
+						var editableValue = $('#editableInput').val();
 						if (editableValue == LANG.FOOD[lang] || editableValue == LANG.EXERCISE[lang]) {
-							$("#editableInput").val('');
+							$('#editableInput').val('');
 						}
 						//remove double spaces
-						$("#editableInput").val($("#editableInput").val().split("  ").join(" ").split("  ").join(" ").split("  ").join(" "));
+						$('#editableInput').val( trimSpace($('#editableInput').val()) );
 						// FOCUS, THEN SET VALUE
-						//$("#editableInput").select();
-						$("#editableInput").focus();
-						var closeTarget = $(this).closest("div");
+						//$('#editableInput').select();
+						$('#editableInput').focus();
+						var closeTarget = $(this).closest('div');
 						app.highlight(closeTarget,300,'#fff','#ffc');
-						closeTarget.addClass("editing");
-						$("#sliderBlock").remove();
-						$("#entryListForm").prepend2("<div id='sliderBlock'></div>");
+						closeTarget.addClass('editing');
+						$('#sliderBlock').remove();
+						$('#entryListForm').prepend2("<div id='sliderBlock'></div>");
 						//blur block
-						$("#sliderBlock").on(touchstart, function (evt) {
+						$('#sliderBlock').on(touchstart, function (evt) {
 							evt.preventDefault();
 							evt.stopPropagation();
-							if (!$("#entryList div").is(':animated')) {
-								$("#editableInput").blur();
+							if (!$('#entryList div').is(':animated')) {
+								$('#editableInput').blur();
 							}
 						});
 					}
