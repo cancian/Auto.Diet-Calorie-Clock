@@ -310,7 +310,6 @@ function localStorageSql() {
 	return keyList;
 }
 ///////////////////////////
-
 // REBUILD LOCAL STORAGE //
 ///////////////////////////
 function rebuildLocalStorage(lsp) {
@@ -1070,7 +1069,6 @@ function getCustomList(listType,filter) {
 	//////////////
 	} else if(listType == 'fav') {
 		var rowsArray = [];
-
 		for(var i=0, len=app.rows.food.length; i<len; i++) {
 			if(app.rows.food[i]) {
 				if(app.rows.food[i].fib) {
@@ -1823,7 +1821,6 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		bottom = 'flush';
 	}
 	//
-
 	if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return; }
 	//FLOOD
 	if($('#' + newWindow + 'Wrapper').html()) { return; }
