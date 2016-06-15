@@ -1061,7 +1061,7 @@ if(app.is.scrollable && app.device.desktop) {
 		/////////////////
 		setTimeout(function () {
 			buildRemoteSuperBlock('cached');
-		}, (120 * 1000));
+		}, (360 * 1000));
 	}
 	///////////////////
 	// every 5+5 min //

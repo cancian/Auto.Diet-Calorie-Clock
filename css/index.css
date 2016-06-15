@@ -77,7 +77,7 @@ p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-aft
 /*///////////////////////////
 // preserve text selection //
 ///////////////////////////*/
-*				{ user-select: none; -webkit-user-select: none; -webkit-user-callout: none; -webkit-touch-callout: none; -webkit-user-drag: none; }
+body *			{ user-select: none; -webkit-user-select: none; -webkit-user-callout: none; -webkit-touch-callout: none; -webkit-user-drag: none; }
 input, textarea { -webkit-user-select: text !important; -webkit-user-callout: default !important; -webkit-touch-callout: default !important; }
 /*#/////////////#//
 //# APP CONTENT #//
@@ -91,7 +91,7 @@ body.android2 #appContent			{ /*top: 0; border-top: 65px solid rgba(0,0,0,0); -w
 /*kitkat scrollbar*/
 body.android44 ::-webkit-scrollbar	{ display: none; }
 /*webkit scrollbar*/
-/*.ios ::-webkit-scrollbar					{ display: none; }*/
+/*.ios ::-webkit-scrollbar			{ display: none; }*/
 /*#////////////#//
 //# APP HEADER #//
 //#////////////#*/
