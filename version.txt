@@ -8,84 +8,88 @@
 • Water tracker
 • Daily tips
 
-# 1.9.17 [2016/06/14]
+# 1.9.18 [2016/06/16]
+• User interface improvements
+• Better text handling
+• More efficient, and less frequent, data connections (saves battery)
+• Smarter autofix for bootloop-related issues
+
+# 1.9.17 [2016/06/10]
 • New help topics
 • Faster start-up
 • Improved search algorithm
 • Fixed bootloop issue affecting certain devices
-• Users are now prompted to choose between the original English database, or its translated version
+• Users are now prompted to choose between the original English database, or its (automatically) translated version
 
 # 1.9.16 [2016/05/20]
-• The app has been renamed to KCals Calorie Clock
-• Optimized core frameworks, featuring cutting edge web technology
-• Fixed some synchronization inconsistencies affecting desktop browsers
+• App renamed to <strong>KCals Calorie Clock</strong>
+• Optimized core frameworks, featuring cutting edge web technologies
+• Fixed some synchronization inconsistencies affecting desktop users
 
 # 1.9.15 [2016/04/05]
 • Fixed insertion loop that would slow down the app over time
-• Revised touch handlers
+• Revised touch/click handlers
 
 # 1.9.14 [2016/03/19]
-• Enter calories manually by tapping the diary input (below the slider)
-• Several stability optimizations
-• Improved boot-time, and read/write performance
-• Enhanced security, code hardening
+• Users can enter calories manually by tapping the diary input (below the slider)
+• Many stability improvements
+• Improved read/write performance
+• Hardened security
 • Fixed rare issue with database being wiped after app update
 
 # 1.9.13 [2015/12/14]
 • Improved database engine
-• Updated touch events handler
+• Updated touch/click handler
 • Revised store links
 
 # 1.9.12 [2015/11/12]
 • Improved performance
+• Most errors are handled graciously, instead of crashing the app
 
 # 1.9.11 [2015/10/16]
-• Faster results when searching for foods/exercises
+• Faster results when searching foods/exercises
 
 # 1.9.10 [2015/10/06]
 • Enhanced data integrity verification for the Backup & Synchronization feature
 • Prevent new diary entries from being added via return (enter) while editing an existing entry
 • Improved stability, error handling, and crash prevention methods
-• Fixed the "Recent entries" category not showing
+• Fixed the “Recent entries” category not showing
 • The weight limit on the food dialog would only reach 745 grams, instead of 750
-• Synchronization now uses md5 hashes, instead of cached data, to determine whether local or remote data has changed
-• New help topic: "Synchronizing two devices"
-• Added an info icon next to the "Backup & Synchronization" option, linking to the corresponding help topic
+• Synchronization now uses MD5 hashes, instead of cached data, to determine whether local or remote data has changed
+• New help topic: “Synchronizing two devices”
+• Added an info icon next to the “Backup & Synchronization” option, linking to the corresponding help topic
 
 # 1.9.9 [2015/09/25]
 • Improved synchronization speed, particularly for users with large custom databases
 • Filter unnecessary data synchronization requests
-• Users can manually change the data storage engine used by the app for performance tweaking purposes (indexedDB, webSQL, localStorage, as available on the device)
-• More detailed charts for easier reading
-• Intro slides now require manual dismissing
-• Fixed minor propagation issue on status tab affecting the info icon
+• Users can manually change the data storage engine used by the app, for performance tweaking purposes (indexedDB, webSQL, localStorage, as available on the device)
+• More detailed charts
+• Intro slides now require manual dismissal
+• Fixed minor propagation issue on status tab
 • Fixed some issues with the tap (click) handler
-• Fixed unusual behavior on the horizontal scrollbar (full scale chart)
+• Fixed unusual behavior affecting the horizontal scrollbar (full scale chart)
 
 # 1.9.8 [2015/09/01]
-• Users can now customize the colors of the caloric balance status (deficit/balanced/surplus)
-• Added a "Counting Mode" option to settings, allowing users to switch between the caloric balance as a Count Up ("calories available") or as a Countdown ("calorie usage"). The app defaults to Countdown mode. (English-only, translations are in progress)
-• Fixed scrollbar issue that sometimes caused it to show behind the content
+• Users can customize the colors of the caloric balance status (deficit/balanced/surplus)
+• Added a “Counting Mode” option to settings, allowing users to switch between the caloric balance as a Count Up (“calories available”) or as a Countdown (“calorie usage”).
+• Fixed scrollbar issue where it would get hidden behind content
 
 # 1.9.7 [2015/08/13]
-• Added a video to the help section showing how to use the app
 • KCals was awarded the Bootstrap track by the FbStart program
 • Added e-mail authentication for users who do not use Facebook
 • The nutrient time span is now a synchronized setting
 • Fixed an issue with the viewport being rendered incorrectly
 • Added future dates to the diary dropdown so entries can be scheduled (future dates shown in red)
 • Replicated entries now inherit the date specified in the diary dropdown
-• Fixed some minor synchronization inconsistencies between running and stopped apps
+• Fixed minor synchronization inconsistencies between running and stopped apps
 • Fixed an issue with the nutrients bar not showing correctly
 • Added a few self-healing methods for corrupted database entries
 
 # 1.9.6 [2015/07/20]
 • Fixed an issue with favorites disappearing during synchronization
 • Improved cache handling
-• Use metric system as default for all users
-• "Save as new" now shows on the top-left
-• Information tooltip on app header
-• Suppressed +/- inline buttons when editing diary entries
+• Utilize metric system as default for all users
+• “Save as new” now shows on the top-left
 
 # 1.9.5 [2015/06/18]
 • Filter redundant DOM updates to improve overall performance
@@ -93,26 +97,25 @@
 • Users can request new features via Suggestion Box
 • Import local food database if no internet connection is available
 • Toggle between help/content on Today Overview and Cyclical Mode menus
-• Fixed issue with decimals being incorrectly rounded to zero for values below 1
-• The Status tab can be scrolled (for small screens)
-• Optimized transitions (CSS)
+• Fixed issue with decimals being incorrectly rounded down to zero
+• The Status tab now supports scrolling (for very small screens)
+• Optimized animations/transitions (CSS)
 
 # 1.9.4 [2015/05/15]
 • Bootloop recovery system: users now can manually erase corrupted application cache by tapping the screen while the app is loading
 • Top bar displays real-time tips about your caloric balance
 • Status tab now shows how many users are using the app worldwide
-• New help topic: "Today Overview"
-• Vietnamese translation
+• New help topic: “Today Overview”
+• Vietnamese translation added
 
 # 1.9.3 [2015/04/07]
 • Translation proofreading: Dutch, Swedish, Danish, French, Czech, Turkish, Polish, Italian, Greek, Arabic, Bulgarian, Finnish, Romanian, Japanese, Korean, Indonesian, Hungarian
-• Fixed propagation issue with information boxes
+• Fixed propagation issue affecting information boxes
 • Improved code compression algorithm
 • Minor cosmetic improvements to header fonts
-• Online users counter
 
 # 1.9 [2015/01/31]
-• Source code optimization for maximum performance and faster downloads
+• Source code optimization
 • Fixed Copy/Paste not working under certain circumstances
 • Mitigated some scrolling inconsistencies on slower devices
 • Database updates are now deferred (asynchronous) to improve the overall app responsiveness while saving large amounts of data
@@ -121,30 +124,30 @@
 # 1.8.2 [2015/01/10]
 • Faster start-up time
 • Update cache is preserved upon full data reset
-• "Automatic Backup" has been renamed to "Backup & Synchronization"
-• Fixed an issue with the "Daily Intake" input triggering unnecessary synchronization requests
+• “Automatic Backup” has been renamed to “Backup & Synchronization”
+• Fixed an issue with the “Daily Intake” input triggering unnecessary synchronization requests
 • Fixed custom items not being selectable when marked as favorites
 • Elapsed time now remains paused while the counter is stopped
  
 # 1.8 [2014/12/27]
-• Better protection against download failure
+• Better protection against download failures
 • Shorter names rank slightly better on search results (other things being equal)
 • Fixed issue where custom items with empty names would not be deletable
 • Added a few information boxes to help users get started
 
 # 1.7 [2014/12/12]
-• The "Getting started" slides are more informative
-• Improved "Today overview" section (tap for detailed statistics)
+• “Getting started” slides are more informative
+• Improved “Today overview” section (tap for detailed statistics)
 • Fixed issue with non-ascii search queries
-• Dropped support for: Thai, Persian, Hindi, Hebrew, Catalan, Estonian, Croatian, Lithuanian, Latvian, Malay, Slovak, Slovenian, Serbian, Ukrainian, Vietnamese
+• Dropped support for: Thai, Persian, Hindi, Hebrew, Catalan, Estonian, Croatian, Lithuanian, Latvian, Malay, Slovak, Slovenian, Serbian, Ukrainian
 
 # 1.6.9 [2014/11/02]
 • Macronutrient average can be calculated by weight (g) or by total calories (kcal)
 • Fixed an issue with foods/favorites not being synced
 • New sync indicator (spinner)
 • Confirmation prompt default format changed to: (cancel) (ok)
-• Checks for locked databases on startup
-• Additional data integrity verification when importing food database
+• The app checks for locked databases on startup
+• Additional data integrity verification when importing the food database
 • Fixed some click events not being handled properly
 
 # 1.6.3 [2014/10/08]
@@ -152,22 +155,21 @@
 
 # 1.6.2 [2014/09/25]
 • Automatic weight/height recalculation when measurement system is changed
-• Today's overview no longer considers expired entries
+• Today’s overview no longer considers expired entries
 
 # 1.6.1 [2014/09/25]
-• Added "Recent items" section to categories
+• Added “Recent items” section to categories
 • Slightly sharper text/icons
 • Improved app resizing
 • Fixed issue with app synchronization resetting diary slider/description unnecessarily
-• Automatic measurement system switching (profile tab)
 
 # 1.6 [2014/09/14]
 • Diary entries can be quickly reused, edited or deleted (swipe left to reveal options)
 • Prevent page scrolling while swiping (Diary)
 • Numeric inputs now have +/- buttons
-• New "add food/exercise" buttons on search menu
-• Option to "save as new" when editing existing foods
-• Fixed minor issue when multiple entries are set to the same time
+• New “add food/exercise” buttons on search menu
+• Option to “save as new” when editing existing items
+• Fixed minor issue when multiple entries are manually set to the same time
 
 # 1.5 [2014/08/27]
 • Standardized touch events
@@ -176,7 +178,6 @@
 
 # 1.4 [2014/08/13]
 • Improved database engine
-• Calories can be entered manually on slider input (tap & hold to focus)
 • Bug fixes
 
 # 1.3.3 [2014/07/30]
@@ -187,14 +188,13 @@
 • Fixed db import issue
 • Improved input validation
 • Fixed toggle issues
-• Bug fixes
 
 # 1.3.1 [2014/07/20]
 • Improved performance and stability
 • Reduced CPU usage (saves battery)
 • New date picker
 • More consistent cache handling
-• Option to restart manually when the app is updated
+• Option to restart the app manually after updates finish downloading
 
 # 1.3.0 [2014/07/11]
 • Automatic Updates
@@ -203,27 +203,24 @@
 • The database now has food categories 
 • Personalized items share the same tab 
 • Favorite Items are highlighted in the listing 
-• Improved header navigation
 
 # 1.2.8 [2014/06/28]
-• Added: "Advanced settings" section
+• Added “Advanced settings” section
 • Header navigation (slide to switch tabs)
 • Optional colored border to indicate time (Diary)
 • Translated and expanded food database
 
 # 1.2.7 [2014/06/20]
-• Full entry edit, including custom date
+• Full entry editing, including custom date
 • Dropped support for Armenian and Irish
-• Improved stability
 • Fixed issue with Daylight Savings while on Cyclic Mode
 
 # 1.2.6 [2014/06/13]
 • New feature: Cyclical Mode
 • Added full Statistics
-• Added "Relative Time" option
-• Added "Daily Overview"
+• Added “Relative Time” option
+• Added “Daily Overview”
 • Calorie Threshold is now customizable
-• Improved responsiveness
 
 # 1.2.5 [2014/06/08]
 • Nutrient ratio is now customizable
@@ -238,27 +235,23 @@
 
 # 1.2.2 [2014/05/08]
 • More detailed nutritional data 
-• Improved overall performance 
 • Smarter management for long lists 
-• Fixed an issue where Spinner does not disappear after the end of the task 
-• Translated into Serbian, Traditional Chinese, Catalan, Hebrew, Lithuanian, Latvian 
-• Minor bug fixes
+• Fixed an issue where the Spinner would not disappear after the end of the task 
 
 # 1.2.1 [2014/04/18]
 • Status now displays statistics
 • Users can define display language manually
-• Translated into: Malay, Slovak, Slovenian, Vietnamese.
-• Fixed an issue where app would start before setting some initial values
+• Fixed an issue where the app would start before setting some initial values
 • Improved profile validation
 
 # 1.2 [2014/04/09]
 • Use metric system as default for non-English users
-• Translation for the following languages: Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish, Estonian, finish, French, Irish, Hindi, Croatian, Hungarian, Armenian, Italian, Indonesian, Japanese, Korean, Dutch, Norwegian, polish, Romanian, Russian, Swedish, Thai, Turkish, Ukrainian, Chinese.
+• Translation for the following languages: Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish, Finnish, French, Hungarian, Italian, Indonesian, Japanese, Korean, Dutch, Norwegian, Polish, Romanian, Russian, Swedish, Turkish, Chinese.
 
 # 1.1.7 [2014/03/08]
-• Diary list now displays date and daily sum for food/exercise
+• Diary list now displays dates, and a daily sum of foods/exercises
 • Cleaner interface
-• Added help section on Settings tab
+• Added help section to Settings tab
 • Improved slider visual feedback
 • Improved input handling
 • Fixed flicker when adding/removing favorite items
@@ -268,24 +261,24 @@
 # 1.1.6 [2014/02/11]
 • Faster start-up and overall responsiveness
 • Slider is now more precise
-• Improved auto-save function (data sync)
+• Improved auto-save function (regarding data synchronization)
 • Fixed diary input not allowing text selection
 • Fixed an issue where logging to Facebook before loading food database would cause partial data loss
-• Automatic data re-sync when resuming app
-• Ability to sync manually by tapping last sync date on settings menu
+• Automatic data re-sync when resuming the app
+• Manually trigger data synchronization by tapping the “last sync” date on settings menu
 • Fixed log-out not being triggered under certain circumstances
 
 # 1.1.5 [2014/02/04]
-• Entries, custom items, and personal settings can be backed up online and synced across multiple devices (via Facebook account)
-• Counter now prompts for auto start when adding new entries
-• Added "clear all" option to diary
+• Entries, custom items, and personal settings can be backed up online and synchronized across multiple devices (via Facebook account)
+• Counter now prompts for auto-start when a new entry is added
+• Added “clear all” option to Diary
 
 # 1.1.4 [2014/01/25]
 • Bug fixes
 
 # 1.1.3 [2014/01/19]
 • Quick nutrition info on status screen
-• Simple notepad added to diary
+• Simple notepad added to Diary
 • Fixed issue where favorite entries would not be searchable
 • Tap diary entries time to view full date
 • Several stability improvements
@@ -293,7 +286,7 @@
 # 1.1.2 [2014/01/14]
 • Support for custom foods and exercises
 • All items are now fully editable (both custom and default)
-• Added support for "favorite" items
+• Added support for “favorite” items
 • Slider knob now changes color when active
 • Fixed issue with pre-fill not triggering menu autoclose
 • Improved interface overall responsiveness
@@ -311,10 +304,8 @@
 # 1.1.0 [2013/12/25]
 • Improved user interface
 • Fixed calorie calculator minor bugs
-• Fixed slider reset issue on keyboard focus
+• Fixed slider reset issue triggered by keyboard focus
 • Fixed blur issue while editing entry description
-• Fixed settings save issue for non-English users
-• Performance and stability improvements
 
 # 1.0.5 [2013/12/12]
 • Faster search
@@ -334,16 +325,14 @@
 • Performance and stability improvements
 
 # 1.0.2 [2013/12/03]
-• Added Brazilian Portuguese support
+• Added Brazilian Portuguese translation
 • Fixed start date toggle issue
 • Fixed slider font issue
 • Improved responsiveness
-• Performance and stability improvements
 
 # 1.0.1 [2013/12/01]
 • Expired entries now appear faded
-• Prevent empty rows in entry history
-• Performance and stability improvements
+• Prevent empty rows from being added to Diary
 
 # 1.0 [2013/11/01]
 • Public release
