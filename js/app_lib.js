@@ -1440,7 +1440,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 }
 
 //OVERRIDE TAP
-if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
+if (app.device.firefoxos || app.device.blackberry || app.device.msapp) {
 	tap = 'click';
 }
 ///////////////
@@ -2286,10 +2286,7 @@ app.trackInstall = function () {
 	if (app.http) {
 		//WEBINSTALL
 		app.analytics('webinstall');
-	} else if(app.device.android && baseVersion < 2.0) {
-		//ANDROID BOGUS
-		app.analytics('bogus');
-	} else if(app.device.cordova || app.device.msapp || app.device.osxapp) {
+	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook) {
 		//INSTALL
 		app.analytics('install');
 	} else {
@@ -2307,26 +2304,6 @@ app.online = function () {
 			$('#onlineUsers span').html2(app.read('online_users'));
 		}
 	}});
-};
-//#//////////////#//
-//# BLOCK PIRACY #//
-//#//////////////#//
-app.piracy = function (force) {
-	if (baseVersion < 2 && app.device.android && app.device.cordova) {
-		//log only once
-		if (!app.read('seenBlockNotice')) {
-			app.analytics('blocked');
-			app.save('seenBlockNotice', true);
-		}
-		//GOTO
-		app.timeout('popTimer', 2000, function () {
-			appConfirm('Warning! Critical Update!', 'This version of KCals is built on a distribution of Apache Cordova that contains security vulnerabilities. Please update now!', function (button) {
-				if (button) {
-					app.url('android');
-				}
-			}, LANG.OK[lang], LANG.CANCEL[lang]);
-		}, 2000);
-	}
 };
 /////////////////
 // MSAPP METRO //

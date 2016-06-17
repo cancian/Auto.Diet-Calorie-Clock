@@ -82,10 +82,7 @@ $(document).on('resume',function(evt) {
 			updateTodayOverview();
 			intakeHistory();
 			setTimeout(function() {
-				//setPush();
-			},100);
-			setTimeout(function() {
-			updateLoginStatus(1);
+				updateLoginStatus(1);
 				if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
 					buildRemoteSuperBlock('cached');
 				}
@@ -93,10 +90,6 @@ $(document).on('resume',function(evt) {
 			//ONLINE USERS
 			if(typeof app.online === 'function') {
 				app.online();
-			}
-			//BLOCK PIRACY
-			if(!app.device.desktop) {
-				app.piracy();
 			}
 		}
 	},3000);
@@ -160,10 +153,6 @@ setTimeout(function() {
 		clearTimeout(bodyTimer);
 	}
 	app.remove('app_restart_pending');
-	// BLOCK PIRACY
-	app.piracy();
-	// START ANALYTICS
-	app.analytics('init');
 },50);
 /////////////////////////
 // KICKSTART ANALYTICS //
@@ -174,11 +163,11 @@ setTimeout(function() {
 		//TRACK START
 		app.analytics('start');
 		//TRACK INSTALL
-		if(app.read('intro_dismissed','done')) {
+		if(app.read('intro_dismissed')) {
 			app.trackInstall();
 		}
-	},5000);
-},50);
+	},4000);
+},1000);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
@@ -975,7 +964,7 @@ var fontTestInterval = setInterval(function() {
 	if($('#fontTest').width() == 80) {
 		unlockApp();
 	}
-},10);
+},20);
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
 ////////////////////////////
