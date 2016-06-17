@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v191801 - 2016-06-16
+# v191801 - 2016-06-17
 
 #LOAD
 index.html
@@ -13,13 +13,13 @@ js/jquery.js
 #BOOT
 js/app_bootstrap.js
 
-#CORDOVA
+#CDV
 js/cordova.js
 js/cordova_plugins.js
 js/plugins/cordova-plugin-dialogs/www/notification.js
 js/plugins/cordova-plugin-inappbrowser/www/inappbrowser.js
 
-#FACEBOOK
+#FB
 js/facebook-all.js
 js/openfb.js
 js/winfb.js
@@ -29,13 +29,16 @@ js/localforage.js
 js/jquery.nicescroll.js
 js/jquery.touchswipe.js
 
-#UTILS
+#UTIL
 js/galocalstorage.js
 js/carpe_slider.js
 js/calculator.js
 js/highcharts.js
 js/mobiscroll.js
 js/iscroll.js
+
+#ICO
+favicon.ico
 
 NETWORK:
 *
