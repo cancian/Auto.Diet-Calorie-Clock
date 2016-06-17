@@ -199,7 +199,7 @@ updateEntriesSum();
 ///////////////
 // SET TITLE //
 ///////////////
-$('title').html2(LANG.CALORIE_COUNTER_FULL_TITLE[lang]);
+$('title').html2(LANG.FULL_TITLE[lang]);
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
@@ -906,6 +906,13 @@ app.define('calcForm#pA6N','kilograms');
 //###########################//
 //####   START WORKING   ####//
 //###########################//
+/////////////////
+// SAFE-LOADER //
+/////////////////
+var fontTestInterval = '';
+var loadTimeout = setTimeout(function() {
+	unlockApp();
+},999);
 ///////////////////
 // FONT UNLOCKER //
 ///////////////////
@@ -925,46 +932,32 @@ function unlockApp() {
 	if(app.dev) {
 		app.save('been_dev',1);
 	}
+	//start scrolling
+	setTimeout(function() {
+		getNiceScroll('#appContent');
+		appResizer(100);
+	},300);
+	$('#fontTest').remove();
 	//
 	$('body').removeClass('unloaded');
 	$('body').addClass('started');
 	$('body').css('opacity',1);
 	$('body').show();
 	appResizer(0);
-	//start scrolling
-	setTimeout(function() {
-		getNiceScroll('#appContent');
-		appResizer(100);
-		$('#fontTest').remove();
-	},300);
-	//////////
-	// DONE //
-	//////////
-	if(app.dev) {
-		console.log('done');
-	}
 }
-/////////////////
-// SAFE-LOADER //
-/////////////////
-var loadTimeout = setTimeout(function() {
-	unlockApp();
-	console.log('forced unlock');
-},999);
 //////////////////
 // ON FONT LOAD //
 //////////////////
 if(!document.getElementById('fontTest')) {
 	$('body').append2('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
 }
-var fontTestInterval = setInterval(function() {
-	if(app.dev) {
-		console.log('try');
-	}
-	if($('#fontTest').width() == 80) {
+fontTestInterval = setInterval(function() {
+	if($('#fontTest').width() == Math.parseInt(80)) {
+		clearInterval(fontTestInterval);
+		clearTimeout(loadTimeout);
 		unlockApp();
 	}
-},20);
+},10);
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
 ////////////////////////////

@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'KCals';
-var appVersion = '1.9.18 (191800)';
+var appVersion = '1.9.18 (191802)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -226,6 +226,62 @@ var LANG = {
 		vi : 'KCals Truy Cập Calo',
 		zh : 'KCals 卡路里计算器',
 		zt : 'KCals 卡路里計算機'
+	},
+	METABOLISM_SIMULATOR : {
+		en : 'Metabolism Simulator',
+		pt : 'Simulador de Metabolismo',
+		ar : 'الأيض محاكاة',
+		bg : 'Метаболизъм Симулатор',
+		cs : 'Metabolismus Simulátor',
+		da : 'Metabolisme Simulator',
+		de : 'Stoffwechsel-Simulator',
+		el : 'Προσομοιωτή Μεταβολισμός',
+		es : 'Simulador de Metabolismo',
+		fi : 'Aineenvaihdunta Simulaattori',
+		fr : 'Simulateur de Métabolisme',
+		hu : 'Anyagcsere Szimulátor',
+		it : 'Simulatore di Metabolismo',
+		id : 'Metabolisme Simulator',
+		ja : '代謝シミュレータ',
+		ko : '신진 대사 시뮬레이터',
+		nl : 'Metabolisme Simulator',
+		nb : 'Metabolisme Simulator',
+		pl : 'Symulator Metabolizm',
+		ro : 'Simulator de Metabolism',
+		ru : 'Метаболизм Симулятор',
+		sv : 'Ämnesomsättningen Simulator',
+		tr : 'Metabolizma Simülatörü',
+		vi : 'Chuyển Hóa Mô Phỏng',
+		zh : '代谢模拟器',
+		zt : '代謝模擬器'
+	},
+		CALORIE_COUNTER : {
+		en : 'Calorie Counter',
+		pt : 'Contador de Calorias',
+		ar : 'عداد السُعرات الحرارية',
+		bg : 'Брояч на Калории',
+		cs : 'Počítadlo Kalorií',
+		da : 'Kalorietæller',
+		de : 'Kalorienzähler',
+		el : 'Θερμιδομετρητής',
+		es : 'Contador de Calorías',
+		fi : 'Kalorilaskin',
+		fr : 'Compteur de Calories',
+		hu : 'Kalóriaszámláló',
+		it : 'Conta Calorie',
+		id : 'Penghitung Kalori',
+		ja : 'カロリーカウンター',
+		ko : '칼로리 카운터',
+		nl : 'Calorie Teller',
+		nb : 'Kaloriteller',
+		pl : 'Licznik Kalorii',
+		ro : 'Contor de Calorii',
+		ru : 'Счетчик Калорий',
+		sv : 'Kaloriräknare',
+		tr : 'Kalori Hesaplayıcı',
+		vi : 'Truy Cập Calo',
+		zh : '卡路里计算器',
+		zt : '卡路里計算機'
 	},
 	LANGUAGE_NAME : {
 		en : 'English',
@@ -7308,4 +7364,9 @@ var LANG = {
 'Supported platforms' :
 '<p>KCals is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (kcals.net)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};
+//////////////
+//FULL TITLE//
+//////////////
+LANG.FULL_TITLE = 'KCals – ' + LANG.CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang];
+//////////////
 

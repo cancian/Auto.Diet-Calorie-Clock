@@ -15,7 +15,8 @@
 		// Browser globals.
 		factory(jQuery);
 	}
-}(function(jQuery) {
+}
+(function(jQuery) {
 	"use strict";
 
 	// globals
@@ -52,7 +53,7 @@
 	var _globaloptions = {
 		zindex: "auto",
 		cursoropacitymin: 0,
-		cursoropacitymax: .7,
+		cursoropacitymax: .666,
 		cursorcolor: "rgba(0,0,0,0)",
 		cursorwidth: "4px",
 		cursorborder: "1px solid rgba(255,255,255,0)",
@@ -402,9 +403,9 @@
 			function requestSync() {
 				if (_onsync) return;
 				setAnimationFrame(function() {
+					_onsync = false;
 					//TWEAK
 					if (self) {
-						_onsync = false;
 						for (var nn in self.synclist) {
 							var fn = self.synclist[nn];
 							if (fn) fn.call(self);
@@ -3692,3 +3693,4 @@
 	}
 
 }));
+
