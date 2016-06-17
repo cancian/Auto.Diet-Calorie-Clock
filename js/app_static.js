@@ -162,6 +162,8 @@ setTimeout(function() {
 	app.remove('app_restart_pending');
 	// BLOCK PIRACY
 	app.piracy();
+	// START ANALYTICS
+	app.analytics('init');
 },50);
 /////////////////////////
 // KICKSTART ANALYTICS //
@@ -169,12 +171,14 @@ setTimeout(function() {
 setTimeout(function() {
 	app.analytics('init');
 	setTimeout(function() {
-		app.analytics('start');	
-	},6000);
-	setTimeout(function() {
-		app.trackInstall();
-	},12000);
-},2000);
+		//TRACK START
+		app.analytics('start');
+		//TRACK INSTALL
+		if(app.read('intro_dismissed','done')) {
+			app.trackInstall();
+		}
+	},5000);
+},50);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
@@ -184,7 +188,7 @@ setTimeout(function() {
 	updateLoginStatus(1);
 	app.parseErrorLog();
 	clearTimeout(app.timers.resume);
-},5000);
+},6000);
 ////////////////
 // PARSED CSS //
 ////////////////
@@ -332,24 +336,6 @@ if(app.device.wp8) {
 		$('html,body').css('position','absolute');
 	});
 }
-/////////////////
-// MENU BUTTON //
-/////////////////
-$(document).on('menubutton', function(evt) {
-	//SPINNER
-	if($('body').hasClass('spinnerMask')) { return false; }
-	//INTRO
-	if($('#timerDailyInput').is(':focus') || $('#skipIntro').length) {
-		$('#timerDailyInput').trigger('blur');
-		return false;
-	}
-	//TOGGLE~MENU
-	if($('#pageSlideFood').hasClass('busy') || $('#pageSlideFood').hasClass('open') || $('#screenInfo').length) {
-		$(document).trigger('backbutton');
-	} else {
-		$(document).trigger('pageReload');
-	}
-});
 ////////////////////////
 // BACK BUTTON (+ESC) //
 ////////////////////////
@@ -942,7 +928,7 @@ function unlockApp() {
 		clearInterval(fontTestInterval);
 	}
 	if (typeof loadTimeout !== 'undefined') {
-		clearInterval(loadTimeout);
+		clearTimeout(loadTimeout);
 	}
 	//////////////
 	// DEV LOCK //
@@ -950,38 +936,46 @@ function unlockApp() {
 	if(app.dev) {
 		app.save('been_dev',1);
 	}
-	//start scrolling
-	setTimeout(function() {
-		getNiceScroll('#appContent');
-		appResizer(100);
-	},300);
-	$('#fontTest').remove();
 	//
 	$('body').removeClass('unloaded');
 	$('body').addClass('started');
 	$('body').css('opacity',1);
 	$('body').show();
 	appResizer(0);
+	//start scrolling
+	setTimeout(function() {
+		getNiceScroll('#appContent');
+		appResizer(100);
+		$('#fontTest').remove();
+	},300);
+	//////////
+	// DONE //
+	//////////
+	if(app.dev) {
+		console.log('done');
+	}
 }
 /////////////////
 // SAFE-LOADER //
 /////////////////
 var loadTimeout = setTimeout(function() {
 	unlockApp();
+	console.log('forced unlock');
 },999);
 //////////////////
 // ON FONT LOAD //
 //////////////////
 if(!document.getElementById('fontTest')) {
 	$('body').append2('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
-	var fontTestInterval = setInterval(function() {
-		if($('#fontTest').width() == 80) {
-			clearInterval(fontTestInterval);
-			clearInterval(loadTimeout);
-			unlockApp();
-		}
-	},5);
 }
+var fontTestInterval = setInterval(function() {
+	if(app.dev) {
+		console.log('try');
+	}
+	if($('#fontTest').width() == 80) {
+		unlockApp();
+	}
+},10);
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
 ////////////////////////////
