@@ -728,7 +728,7 @@ app.url = function(url) {
 	else if((!url && app.device.blackberry) || url == 'blackberry')  { url = store.blackberry; }
 	else if((!url && app.device.playbook)   || url == 'playbook')    { url = store.playbook;   }
 	else if((!url && app.device.android)    || url == 'android')     { url = store.android;    }
-	else if((!url && app.device.wp10)       || url == 'wp10')        { url = store.wp10;       }
+	else if((!url && app.device.wp10)       || url == 'wp10')        { url = store.wp8;        } //wp10
 	else if((!url && app.device.wp8)        || url == 'wp8')         { url = store.wp8;        }
 	else if((!url && app.device.windows10)  || url == 'windows10')   { url = store.windows10;  }	
 	else if((!url && app.device.windows8)   || url == 'windows8')    { url = store.windows8;   }
