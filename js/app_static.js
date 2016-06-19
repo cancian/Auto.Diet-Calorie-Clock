@@ -167,7 +167,7 @@ setTimeout(function() {
 			app.trackInstall();
 		}
 	},4000);
-},1000);
+},2000);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
@@ -950,14 +950,14 @@ function unlockApp() {
 //////////////////
 if(!document.getElementById('fontTest')) {
 	$('body').append2('<div id="fontTest" style="font-family: KCals; font-size: 16px; position: absolute; top: -999px; left: -999px; opacity: 0; display: inline-block;">K+k+K</div>');
+	fontTestInterval = setInterval(function() {
+		if($('#fontTest').width() == 80) {
+			clearInterval(fontTestInterval);
+			clearTimeout(loadTimeout);
+			unlockApp();
+		}
+	},10);
 }
-fontTestInterval = setInterval(function() {
-	if($('#fontTest').width() == Math.parseInt(80)) {
-		clearInterval(fontTestInterval);
-		clearTimeout(loadTimeout);
-		unlockApp();
-	}
-},10);
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
 ////////////////////////////

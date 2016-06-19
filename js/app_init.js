@@ -42,7 +42,7 @@ window.onerror = function (err, url, line) {
 		line = JSON.stringify(line);
 	}
 	//IGNORE BASIC
-	if(/800a139e|isTrusted|InvalidStateError|UnknownError|Out of stack space/i.test(err)) {
+	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space/i.test(err)) {
 		return; 
 	}
 	//LOG
