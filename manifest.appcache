@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v191802 - 2016-06-17
+# v191803 - 2016-06-19
 
 #LOAD
 index.html
@@ -9,6 +9,8 @@ js/app_init.js
 
 #JQUERY
 js/jquery.js
+js/jquery.touchswipe.js
+js/jquery.nicescroll.js
 
 #BOOT
 js/app_bootstrap.js
@@ -26,8 +28,6 @@ js/winfb.js
 
 #DB
 js/localforage.js
-js/jquery.nicescroll.js
-js/jquery.touchswipe.js
 
 #UTIL
 js/galocalstorage.js
