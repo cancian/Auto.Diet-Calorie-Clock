@@ -446,7 +446,6 @@ $(document).on("pageload", function (evt) {
 			}
 		});
 	}
-	//HIDE HANDLERS
 	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').click(function (evt) {
 		hideEntry(evt);
 	});
@@ -456,7 +455,8 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	$('#entryList div' + tgt + ' span.delete').on(tap, function (evt) {
+	//$('#entryList div' + tgt + ' span.delete').on(tap, function (evt) {
+	$('#entryList div' + tgt + ' span.delete').swipe({tap : function (evt) {
 		var target = this;
 		///////////
 		// REUSE //
@@ -527,7 +527,12 @@ $(document).on("pageload", function (evt) {
 			});
 			return;
 		}
-});
+	
+	},
+		preventDefaultEvents: false,
+		triggerOnTouchLeave: false,
+		allowPageScroll: 'none'
+	});
 //////#//
 }); //#//
 //////#//

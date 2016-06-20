@@ -1440,7 +1440,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 }
 
 //OVERRIDE TAP
-if (app.device.firefoxos || app.device.blackberry || app.device.msapp) {
+if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
 	tap = 'click';
 }
 ///////////////
