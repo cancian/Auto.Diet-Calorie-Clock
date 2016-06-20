@@ -432,23 +432,25 @@ $(document).on("pageload", function (evt) {
 	// GLOBAL HIDE //
 	/////////////////
 	function hideEntry(evt) {
-		if (!app.device.android) {
-			evt.preventDefault();
-		}
-		if (!$('.active').hasClass('busy')) {
-			$('.active').addClass('busy');
-			$('.active').removeClass('open');
-			$('.active').on(transitionend, function (evt) {
-				$('.active').removeClass('busy');
-			});
-			$('.active').removeClass('active');
-		}
+		if(!app.read('app_last_tab','tab2'))	{ return; }
+		if(!app.device.android)					{ evt.preventDefault(); }
+		//PREVENT MULTIPLE
+		app.timeout('hideEntry',1,function(evt) {
+			if (!$('.active').hasClass('busy')) {
+				$('.active').addClass('busy');
+				$('.active').removeClass('open');
+				$('.active').on(transitionend, function (evt) {
+					$('.active').removeClass('busy');
+				});
+				$('.active').removeClass('active');
+			}
+		});
 	}
 	//HIDE HANDLERS
-	$('#entryListForm, #go, #sliderBlock, #entryListWrapper, #appHeader').click(function (evt) {
+	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').click(function (evt) {
 		hideEntry(evt);
 	});
-	$('#entryListForm, #go, #sliderBlock, #entryListWrapper, #appHeader').on(tap + ' swipeLeft swipeRight', function (evt) {
+	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').on(tap + ' swipeLeft swipeRight', function (evt) {
 		hideEntry(evt);
 	});
 	//////////////
