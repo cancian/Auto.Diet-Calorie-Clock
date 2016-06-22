@@ -1823,32 +1823,46 @@ function buildAdvancedMenu() {
 		var suggestionBoxClose = function() {};
 		getNewWindow('Suggestion Box',suggestionBoxHtml,suggestionBoxHandlers,suggestionBoxConfirm,suggestionBoxClose);
 	});
-	///////////////////////////////
-	// ALTERNATIVE DEBUG ENABLER //
-	///////////////////////////////
-	$('#advancedReload').on('longhold',function(evt) {
-		if(app.read('config_debug','active')) {
-			app.remove('config_debug');
-			afterHide();
-		} else {
-			app.save('config_debug','active');
-			afterHide();
-		}
-	});
-	//#////////////////#//
-	//# RELOAD FOOD DB #//
-	//#////////////////#//
-	app.handlers.activeRow('#advancedReload','button',function() {
-		//SHOW DIALOG
-		appConfirm(LANG.REBUILD_FOOD_DB[lang], LANG.ARE_YOU_SURE[lang], 
-			function(button) {
-				if(button === 2) {
-					app.remove('foodDbLoaded');
-					app.remove('startLock');
-					updateFoodDb();
-				}
-			}, LANG.OK[lang], LANG.CANCEL[lang]
+	//#///////////////////////////#//
+	//# ALTERNATIVE DEBUG ENABLER #//
+	//#///////////////////////////#//
+	$('#advancedReload').swipe({
+		//#/////////////#//
+		//# HOLD TOGGLE #//
+		//#/////////////#//
+		hold: function (evt) {
+			if(app.read('config_debug','active')) {
+				app.remove('config_debug');
+				afterHide();
+			} else {
+				app.save('config_debug','active');
+				afterHide();
+			}
+		},
+		//#////////////////#//
+		//# RELOAD FOOD DB #//
+		//#////////////////#//
+		tap: function(evt) {
+			//SHOW DIALOG
+			appConfirm(LANG.REBUILD_FOOD_DB[lang], LANG.ARE_YOU_SURE[lang], 
+				function(button) {
+					if(button === 2) {
+						app.remove('foodDbLoaded');
+						app.remove('startLock');
+						updateFoodDb();
+					}
+				}, LANG.OK[lang], LANG.CANCEL[lang]
 		);
+		},
+		//OPTIONS
+		fingers: 1,
+		threshold: 32,
+		cancelThreshold: 32,
+		longTapThreshold: 2000,
+		fingerReleaseThreshold: 2000,
+		preventDefaultEvents: true,
+		triggerOnTouchLeave: false,
+		//triggerOnTouchEnd: false,
 	});
 	//#////////////////#//
 	//# RESET SETTINGS #//

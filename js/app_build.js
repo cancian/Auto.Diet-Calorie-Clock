@@ -491,25 +491,39 @@ app.tab.status = function(keepOpen) {
 			return false;
 		}
 	});
-	//////////////////
-	// ENABLE DEBUG //
-	//////////////////
-	$('#appStatusReload').on('longhold',function(evt) {
-		if(app.read('config_debug','active')) {
-			app.remove('config_debug');
+	//#//////////////#//
+	//# ENABLE DEBUG #//
+	//#//////////////#//
+	$('#appStatusReload').swipe({
+		//#/////////////#//
+		//# HOLD TOGGLE #//
+		//#/////////////#//
+		hold: function (evt) {
+			if(app.read('config_debug','active')) {
+				app.remove('config_debug');
+				afterHide();
+			} else {
+				app.save('config_debug','active');
+				afterHide();
+			}
+		},
+		//#/////////////#//
+		//# RELOAD ICON #//
+		//#/////////////#//
+		tap: function(evt) {
+			$('#startDateBar').hide();
+			$('#appStatusReload').swipe('disable');
 			afterHide();
-		} else {
-			app.save('config_debug','active');
-			afterHide();
-		}
-	});
-	/////////////////
-	// RELOAD ICON //
-	/////////////////
-	app.handlers.activeRow('#appStatusReload','button',function(evt) {
-		$('#startDateBar').hide();
-		$('#appStatusReload').off('longhold');
-		afterHide();
+		},
+		//OPTIONS
+		fingers: 1,
+		threshold: 32,
+		cancelThreshold: 32,
+		longTapThreshold: 2000,
+		fingerReleaseThreshold: 2000,
+		preventDefaultEvents: true,
+		triggerOnTouchLeave: false,
+		//triggerOnTouchEnd: false,
 	});
 	////////////////////
 	// SHOW STARTDATE //
@@ -985,14 +999,6 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				window.location.href = 'http://' + $('#entryBody').val().toLowerCase().split('devgoto').join('');
 				$('#entryBody').val('');
 				$('#entryBody').blur();
-			}
-			///////////
-			// JTEST //
-			///////////
-			if (/devjtest/i.test($('#entryBody').val())) {
-				$('#entryBody').val('devjtes');
-				$('#entryBody').blur();
-				window.location.href = 'http://jsperf.com/speed-comparison-of-jquery-versions/92';
 			}
 			///////////
 			// DEBUG //
