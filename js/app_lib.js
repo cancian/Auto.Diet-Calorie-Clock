@@ -53,7 +53,7 @@ app = {
 	},
 	ua:   navigator.userAgent,
 	http: /http/i.test(window.location.protocol) ? true : false,
-	https: /http:/i.test(window.location.protocol) ? 'http://' : 'https://',
+	https: /http:/i.test(window.location.protocol) || (localStorage.getItem('config_debug') == 'active') ? 'http://' : 'https://',
 	now: function() {
 		return new Date().getTime();
 	},

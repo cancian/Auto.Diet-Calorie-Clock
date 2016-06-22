@@ -243,7 +243,7 @@ setTimeout(function() {
 // BOOTSTRAP //
 ///////////////
 var hostLocal = '';
-var https     = /http:/i.test(window.location.protocol) ? 'http://' : 'https://';
+var https     = /http:/i.test(window.location.protocol) || (localStorage.getItem('config_debug') == 'active') ? 'http://' : 'https://';
 function bootStraper() {
 	//CLEAR RECOVERY
 	setTimeout(function() {
