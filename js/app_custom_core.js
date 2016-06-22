@@ -168,7 +168,7 @@ function timeToKcals(startTime) {
 	}
 	var content = [];
 		content.push('simple');
-		content.push(((kcalsSinceStart/1) + (app.read('config_entry_sum'))).toFixed(2));
+		content.push(((Number(kcalsSinceStart)/1) + (Number(app.read('config_entry_sum')))).toFixed(2));
 		content.push(kcalsSinceStart);
 	return content;
 }
