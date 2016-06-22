@@ -53,7 +53,7 @@ app = {
 	},
 	ua:   navigator.userAgent,
 	http: /http/i.test(window.location.protocol) ? true : false,
-	https: /https/i.test(window.location.protocol) ? 'https://' : 'http://',
+	https: /http:/i.test(window.location.protocol) ? 'http://' : 'https://',
 	now: function() {
 		return new Date().getTime();
 	},
@@ -2045,19 +2045,19 @@ if (!Array.prototype.map) {
 		return A;
 	};
 }
-//////////////
-// INCLUDES //
-//////////////
+//////////////////////
+// INCLUDES (ARRAY) //
+//////////////////////
 if (!Array.prototype.includes) {
 	Array.prototype.includes = function (searchElement /*, fromIndex*/
 	) {
 		'use strict';
 		var O = Object(this);
-		var len = parseInt(O.length) || 0;
+		var len = parseInt(O.length, 10) || 0;
 		if (len === 0) {
 			return false;
 		}
-		var n = parseInt(arguments[1]) || 0;
+		var n = parseInt(arguments[1], 10) || 0;
 		var k;
 		if (n >= 0) {
 			k = n;
@@ -2068,15 +2068,35 @@ if (!Array.prototype.includes) {
 			}
 		}
 		var currentElement;
+		var searchIsNaN = isNaN(searchElement);
 		while (k < len) {
 			currentElement = O[k];
-			if (searchElement === currentElement ||
-				(searchElement !== searchElement && currentElement !== currentElement)) {
+			// SameValueZero algorithm has to treat NaN as equal to itself, but
+			// NaN === NaN is false, so check explicitly
+			// SameValueZero treats 0 and -0 as equal, as does ===, so we're fine there
+			if (searchElement === currentElement || (searchIsNaN && isNaN(currentElement))) {
 				return true;
 			}
 			k++;
 		}
 		return false;
+	};
+}
+///////////////////////
+// INCLUDES (STRING) //
+///////////////////////
+if (!String.prototype.includes) {
+	String.prototype.includes = function (search, start) {
+		'use strict';
+		if (typeof start !== 'number') {
+			start = 0;
+		}
+
+		if (start + search.length > this.length) {
+			return false;
+		} else {
+			return this.indexOf(search, start) !== -1;
+		}
 	};
 }
 //////////////
