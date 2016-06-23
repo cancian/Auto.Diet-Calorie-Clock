@@ -177,7 +177,7 @@ setTimeout(function() {
 	updateLoginStatus(1);
 	app.parseErrorLog();
 	clearTimeout(app.timers.resume);
-},6000);
+},5000);
 ////////////////
 // PARSED CSS //
 ////////////////

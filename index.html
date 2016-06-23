@@ -128,62 +128,32 @@ if (/MSApp/i.test(navigator.userAgent)) {
 		}
 	}
 }
-////////////////////	
-// DETECT OFFLINE //
-////////////////////
-var bodyTimer = setTimeout(function() {
-	if((typeof updateTimer != 'function') && ((!/http/i.test(window.location.protocol)) || (localStorage.getItem('remoteSuperBlockJS') || localStorage.getItem('remoteSuperBlockCSS')))) {
-		localStorage.removeItem('config_debug');
-		localStorage.removeItem('remoteSuperBlockJS');
-		localStorage.removeItem('remoteSuperBlockCSS');
-		localStorage.removeItem('app_autoupdate_hash');
-		//window.location.reload(true);
-		window.location.replace(window.location.href);
-	}
-},10000);
-////////////////////
-// BREAK BOOTLOOP //
-////////////////////
-setTimeout(function () {
-	if (!localStorage.getItem('consecutive_reboots')) {
-		localStorage.setItem('consecutive_reboots', 0);
-	} else if (localStorage.getItem('consecutive_reboots') >= 5) {
-		localStorage.removeItem('app_database');
-		localStorage.removeItem('config_debug');
-		localStorage.removeItem('remoteSuperBlockJS');
-		localStorage.removeItem('remoteSuperBlockCSS');
-		localStorage.removeItem('app_autoupdate_hash');
-		//RESTART
-		console.log('erasing cache...');
-		localStorage.removeItem('consecutive_reboots');
-		//window.location.reload(true);
-		window.location.replace(window.location.href);
-	} else {
-		localStorage.setItem('consecutive_reboots', localStorage.getItem('consecutive_reboots') + 1);
-	}
-}, 0);
 /////////////////////////
 // WIPE CACHE FUNCTION //
 /////////////////////////
-function wipeCache(button) {
+function wipeCache(button,silent,msg) {
 	if (button == 2) {
 		setTimeout(function () {
 			//ERASE
 			localStorage.removeItem('app_database');
 			localStorage.removeItem('config_debug');
 			localStorage.removeItem('config_autoupdate');
-			localStorage.removeItem('remoteSuperBlockJS');
-			localStorage.removeItem('remoteSuperBlockCSS');
+			localStorage.removeItem('app_autoupdate_hash');
 			localStorage.removeItem('app_autoupdate_hash');
 			localStorage.removeItem('consecutive_reboots');
+			localStorage.removeItem('remoteSuperBlockCSS');
+			localStorage.removeItem('remoteSuperBlockJS');
 			//HALT
 			//document.getElementsByTagName('head')[0].innerHTML = '';
 			if (document.body) {
 				document.body.innerHTML = '';
 			}
 			//RELOAD
-			if (typeof alert !== 'undefined') {
+			if (typeof alert !== 'undefined' && silent !== 1) {
 				alert('erasing cache...');
+			}
+			if(!msg) {
+				console.log('erasing cache...');
 			}
 			setTimeout(function() {
 				//window.location.reload(true);
@@ -196,6 +166,32 @@ function wipeCache(button) {
 		}
 	}
 }
+////////////////////	
+// DETECT OFFLINE //
+////////////////////
+var bodyTimer = setTimeout(function() {
+	if((typeof updateTimer != 'function') && ((!/http/i.test(window.location.protocol)) || (localStorage.getItem('remoteSuperBlockJS') || localStorage.getItem('remoteSuperBlockCSS')))) {
+		/////////////
+		// RESTART //
+		/////////////
+		wipeCache(2,1,'erasing cache... (bodyTimer > 9999)');
+	}
+},9999);
+////////////////////
+// BREAK BOOTLOOP //
+////////////////////
+setTimeout(function () {
+	if (!localStorage.getItem('consecutive_reboots')) {
+		localStorage.setItem('consecutive_reboots', 0);
+	} else if (parseInt(localStorage.getItem('consecutive_reboots')) >= 5) {
+		/////////////
+		// RESTART //
+		/////////////
+		wipeCache(2,1,'erasing cache (consecutive reboots...)');
+	} else {
+		localStorage.setItem('consecutive_reboots', parseInt(localStorage.getItem('consecutive_reboots')) + 1);
+	}
+}, 0);
 ////////////////////
 // MANUAL BREAKER //
 ////////////////////
