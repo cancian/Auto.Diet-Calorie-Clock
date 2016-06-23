@@ -153,6 +153,10 @@ setTimeout(function() {
 		clearTimeout(bodyTimer);
 	}
 	app.remove('app_restart_pending');
+	//DEV VIEW REBOOTS
+	if(app.dev) {
+		console.log(app.read('consecutive_reboots'));	
+	}
 },50);
 /////////////////////////
 // KICKSTART ANALYTICS //
@@ -167,7 +171,7 @@ setTimeout(function() {
 			app.trackInstall();
 		}
 	},4000);
-},2000);
+},1000);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
