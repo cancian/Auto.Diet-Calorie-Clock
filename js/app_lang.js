@@ -7364,9 +7364,4 @@ var LANG = {
 'Supported platforms' :
 '<p>KCals is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (kcals.net)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};
-//////////////
-//FULL TITLE//
-//////////////
-LANG.FULL_TITLE = 'KCals – ' + LANG.CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang];
-//////////////
 

@@ -199,7 +199,7 @@ updateEntriesSum();
 ///////////////
 // SET TITLE //
 ///////////////
-$('title').html2(LANG.FULL_TITLE[lang]);
+$('title').html2('KCals – ' + LANG.CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang]);
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//

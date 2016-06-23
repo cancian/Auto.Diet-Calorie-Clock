@@ -2029,7 +2029,7 @@ function buildLangMenu(opt) {
 				//start date
 				$('#cssStartDate').html2("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
 				//page title
-				$('title').html2(LANG.FULL_TITLE[lang]);
+				$('title').html2('KCals – ' + LANG.CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang]);
 				//heading sum
 				updateEntriesSum();
 				//update cat list cache
