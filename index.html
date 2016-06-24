@@ -73,7 +73,7 @@ body.unloaded #loadMask span {
 @-moz-keyframes rotate		{ 0% { -moz-transform: rotate(0deg);    } 100% { -moz-transform: rotate(360deg);    }}
 @-ms-keyframes rotate		{ 0% { -ms-transform: rotate(0deg);     } 100% { -ms-transform: rotate(360deg);     }}
 @keyframes rotate			{ 0% { transform: rotate(0deg);  	    } 100% { transform: rotate(360deg);         }}
-body.unloaded *				{ /*-ms-touch-action: none;*/ overflow: hidden; }
+body.unloaded *				{ overflow: hidden; }
 </style>
 
 <script type="text/javascript">
@@ -134,29 +134,46 @@ if (/MSApp/i.test(navigator.userAgent)) {
 function wipeCache(button,silent,msg) {
 	if (button == 2) {
 		setTimeout(function () {
-			//ERASE
+			/////////////////
+			// ERASE CACHE //
+			/////////////////
 			localStorage.removeItem('app_database');
 			localStorage.removeItem('config_debug');
 			localStorage.removeItem('config_autoupdate');
 			localStorage.removeItem('app_autoupdate_hash');
-			localStorage.removeItem('app_autoupdate_hash');
 			localStorage.removeItem('consecutive_reboots');
 			localStorage.removeItem('remoteSuperBlockCSS');
 			localStorage.removeItem('remoteSuperBlockJS');
-			//HALT
+			//////////
+			// HALT //
+			//////////
 			//document.getElementsByTagName('head')[0].innerHTML = '';
-			if (document.body) {
-				document.body.innerHTML = '';
+			try {
+				if (document.body) {
+					document.body.innerHTML = '';
+				}
+			} catch(err) {
+				//	
 			}
-			//RELOAD
+			/////////////////
+			// CONSOLE.LOG //
+			/////////////////
+			if(!msg) {
+				console.log('erasing cache...');
+			} else {
+				console.log(msg);				
+			}
+			///////////
+			// ALERT //
+			///////////
 			if (typeof alert !== 'undefined' && silent !== 1) {
 				alert('erasing cache...');
 			}
-			if(!msg) {
-				console.log('erasing cache...');
-			}
+			////////////
+			// RELOAD //
+			////////////
 			setTimeout(function() {
-				//window.location.reload(true);
+				window.location.reload(true);
 				window.location.replace(window.location.href);
 			},50);
 		}, 50);
@@ -195,7 +212,7 @@ setTimeout(function () {
 ////////////////////
 // MANUAL BREAKER //
 ////////////////////
-var bootLoopBroken = false;
+var bootLoopBroken  = false;
 var bootLoopBreaker = function () {
 	if (document.body && document.getElementById('loadMask')) {
 		if (document.body.classList) {

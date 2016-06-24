@@ -156,13 +156,15 @@ $(document).on("pageload", function (evt) {
 								var new_value = $(this).val();
 								//VALIDATE
 								if (this.value == "") {
-									if (Number(document.getElementById('kcalsDiv').innerHTML) > 0) {
-										new_value = LANG.FOOD[lang];
-									} else if (Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
-										new_value = LANG.EXERCISE[lang];
-									} else {
-										new_value = "";
-									}
+									try {
+										if (Number(document.getElementById('kcalsDiv').innerHTML) > 0) {
+											new_value = LANG.FOOD[lang];
+										} else if (Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
+											new_value = LANG.EXERCISE[lang];
+										} else {
+											new_value = "";
+										}
+									} catch(err) { errorHandler(err); }
 								}
 								$(this).replaceWith(new_value);
 								$('#kcalsAdjust').remove();
