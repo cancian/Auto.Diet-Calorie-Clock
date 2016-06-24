@@ -494,36 +494,23 @@ app.tab.status = function(keepOpen) {
 	//#//////////////#//
 	//# ENABLE DEBUG #//
 	//#//////////////#//
-	$('#appStatusReload').swipe({
-		//#/////////////#//
-		//# HOLD TOGGLE #//
-		//#/////////////#//
-		hold: function (evt) {
-			if(app.read('config_debug','active')) {
-				app.remove('config_debug');
-				afterHide();
-			} else {
-				app.save('config_debug','active');
-				afterHide();
-			}
-		},
-		//#/////////////#//
-		//# RELOAD ICON #//
-		//#/////////////#//
-		tap: function(evt) {
-			$('#startDateBar').hide();
-			$('#appStatusReload').swipe('disable');
+	$('#appStatusReload').on('taphold',function(evt) {
+		if(app.read('config_debug','active')) {
+			app.remove('config_debug');
 			afterHide();
-		},
-		//OPTIONS
-		fingers: 1,
-		threshold: 32,
-		cancelThreshold: 32,
-		longTapThreshold: 2000,
-		fingerReleaseThreshold: 2000,
-		preventDefaultEvents: true,
-		triggerOnTouchLeave: false,
-		//triggerOnTouchEnd: false,
+		} else {
+			app.save('config_debug','active');
+			afterHide();
+		}
+	});
+	//#/////////////#//
+	//# RELOAD ICON #//
+	//#/////////////#//
+	app.handlers.activeRow('#appStatusReload','false',function(evt) {
+	//$('#appStatusReload').on('tap',function(evt) {
+		//$('#appStatusReload').off('taphold');
+		$('#startDateBar').hide();
+		afterHide();
 	});
 	////////////////////
 	// SHOW STARTDATE //
