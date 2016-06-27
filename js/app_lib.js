@@ -1508,7 +1508,8 @@ function isNumberKey(evt){
 	if(keyCode == 8 || keyCode == 13 || keyCode == 16 || keyCode == 37 || keyCode == 39) {
 		return true;
 	}
-	if(keyCode != 46 && keyCode > 31 && (keyCode < 48 || keyCode > 57)) {
+	//46 dot / 190 wpdot
+	if(keyCode != 46 && (keyCode != 190) && keyCode > 31 && (keyCode < 48 || keyCode > 57)) {
 		return false;
 	}
 	return true;
@@ -1538,12 +1539,12 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		// CONFIG //
 		////////////
 		//ENTER
-		if(keyCode == 13)								{ $(this).blur(); return true; }
+		if(keyCode == 13)													{ $(this).blur(); return true; }
 		//MINUS INVERTER
-		if(keyCode == 45 && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
-		if(keyCode == 46 && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
+		if(keyCode == 45 && config.inverter == true)						{ $(this).val( $(this).val()*-1 ); return false; }
+		if((keyCode == 46 || keyCode == 190) && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
 		//DOT
-		if(keyCode == 46 || (keyCode == 190 && app.device.wp8)) {
+		if(keyCode == 46 || (keyCode == 190 && (app.device.wp8 || app.device.wp81 || app.device.wp10))) {
 			if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) {
 				return false;
 			}
