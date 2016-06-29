@@ -330,11 +330,25 @@ app.swipe = function (elem, callback) {
 				}
 			}
 		},
-		fingers:1,
-		threshold : 32,
+		fingers: 1,
+		threshold: 32,
 		allowPageScroll: 'vertical',
 		preventDefaultEvents: false,
 		//triggerOnTouchLeave: true
+	});
+};
+///////////////
+// TAP EVENT //
+///////////////
+app.tap = function (elem, callback) {
+	//$(elem).swipe('destroy');
+	$(elem).swipe({
+		tap : function(evt) {
+			if (typeof callback === 'function') {
+				var that = this;
+				callback(that,evt);
+			}
+		}
 	});
 };
 //////////////////
@@ -1403,7 +1417,7 @@ function hasTap() {
 var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
 var touchend    = hasTap() ? 'touchend'    : 'mouseup';
 var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
-var tap         = hasTap() ? 'tap'         : 'tap';
+var tap         = hasTap() ? 'tap'         : 'click';
 var touchcancel = hasTap() ? 'touchcancel' : 'touchcancel';
 var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
 var touchout    = hasTap() ? 'touchout'    : 'mouseout';
@@ -1439,7 +1453,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 }
 
 //OVERRIDE TAP
-if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
+if (app.device.firefoxos || app.device.blackberry || app.device.msapp) {
 	tap = 'click';
 }
 ///////////////
@@ -2585,81 +2599,84 @@ function detectPrivateMode(callback) {
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.2.9
 //#/////////////#// https://github.com/BR0kEN-/jTap
-(function ($, _) {
-	//'use strict';
+if (tap !== 'click') {
+//if (!app.is.scrollable && hasTap()) {
+	(function ($, _) {
+		//'use strict';
 
-	var ev = {
-		start : touchstart,
-		end : touchend
-	};
+		var ev = {
+			start : touchstart,
+			end : touchend
+		};
 
-	$.event.special[_] = {
-		setup : function () {
-			$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
+		$.event.special[_] = {
+			setup : function () {
+				$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
 
-				//
-				// Adding jQuery event to @ev object depending of @isTap.
-				//
-				// Attention: value of this property will change two time
-				// per event: first time - on start, second - on end.
-				//
+					//
+					// Adding jQuery event to @ev object depending of @isTap.
+					//
+					// Attention: value of this property will change two time
+					// per event: first time - on start, second - on end.
+					//
 
-				//TWEAK
-				if (e) {
-					if (e.originalEvent) {
-						ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
+					//TWEAK
+					if (e) {
+						if (e.originalEvent) {
+							ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
+						}
 					}
-				}
-			}).on(ev.start, function (e) {
-				//
-				// Function stop if event is simulate by mouse.
-				//
-				if (e.which && e.which !== 1) {
-					return;
-				}
-
-				//
-				// Extend @ev object from event properties of initial phase.
-				//
-
-				//TWEAK
-				if (ev) {
-					if (ev.E) {
-						ev.target = e.target;
-						ev.time = new Date().getTime();
-						ev.X = ev.E.pageX;
-						ev.Y = ev.E.pageY;
+				}).on(ev.start, function (e) {
+					//
+					// Function stop if event is simulate by mouse.
+					//
+					if (e.which && e.which !== 1) {
+						return;
 					}
-				}
-			}).on(ev.end, function (e) {
 
-				// Compare property values of initial phase with properties
-				// of this, final, phase. Execute event if values will be
-				// within the acceptable and set new properties for event.
-				if (
-					ev.target === e.target &&
-					((new Date().getTime() - ev.time) < 750) &&
-					(ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
+					//
+					// Extend @ev object from event properties of initial phase.
+					//
 
-					e.type = _;
-					e.pageX = ev.E.pageX;
-					e.pageY = ev.E.pageY;
+					//TWEAK
+					if (ev) {
+						if (ev.E) {
+							ev.target = e.target;
+							ev.time = new Date().getTime();
+							ev.X = ev.E.pageX;
+							ev.Y = ev.E.pageY;
+						}
+					}
+				}).on(ev.end, function (e) {
 
-					$.event.dispatch.call(this, e);
-				}
-			});
-		},
+					// Compare property values of initial phase with properties
+					// of this, final, phase. Execute event if values will be
+					// within the acceptable and set new properties for event.
+					if (
+						ev.target === e.target &&
+						((new Date().getTime() - ev.time) < 750) &&
+						(ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
 
-		//Disassembling event.
-		remove : function () {
-			$(this).off(ev.start + ' ' + ev.end);
-		}
-	};
+						e.type = _;
+						e.pageX = ev.E.pageX;
+						e.pageY = ev.E.pageY;
 
-	$.fn[_] = function (fn) {
-		return this[fn ? 'on' : 'trigger'](_, fn);
-	};
-})(jQuery, 'tap');
+						$.event.dispatch.call(this, e);
+					}
+				});
+			},
+
+			//Disassembling event.
+			remove : function () {
+				$(this).off(ev.start + ' ' + ev.end);
+			}
+		};
+
+		$.fn[_] = function (fn) {
+			return this[fn ? 'on' : 'trigger'](_, fn);
+		};
+	})(jQuery, 'tap');
+}
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt

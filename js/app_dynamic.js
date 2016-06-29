@@ -83,8 +83,7 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// TAP EDIT //
 	//////////////
-	$("#entryList div" + tgt).on(tap, function (event) {
-		//$("#entryList div" + tgt).swipe({tap:function(event) {
+	$('#entryList div' + tgt).on(tap, function (event) {
 		event.preventDefault();
 		//////////////
 		// TAP DATE //
@@ -457,8 +456,7 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	//$('#entryList div' + tgt + ' span.delete').on(tap, function (evt) {
-	$('#entryList div' + tgt + ' span.delete').swipe({tap : function (evt) {
+	$('#entryList div' + tgt + ' span.delete').on(tap, function (evt) {
 		var target = this;
 		///////////
 		// REUSE //
@@ -529,11 +527,6 @@ $(document).on("pageload", function (evt) {
 			});
 			return;
 		}
-	
-	},
-		preventDefaultEvents: false,
-		triggerOnTouchLeave: false,
-		allowPageScroll: 'none'
 	});
 //////#//
 }); //#//

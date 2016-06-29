@@ -1,4 +1,5 @@
-﻿#################
+﻿
+#################
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
@@ -8,7 +9,8 @@
 • Water tracker
 • Daily tips
 
-# 1.9.18 [2016/06/16]
+# 1.9.18 [2016/06/27]
+• Fixed issue with some users not being able to type dots for decimal values
 • User interface improvements
 • Better text handling
 • More efficient, and less frequent, data connections (saves battery)
