@@ -1191,7 +1191,7 @@ if(app.is.scrollable && app.device.desktop) {
 	///////////////////////////
 	// blur edit / entrybody //
 	/////////////////////////// BETA ~ ~ ~
-	$('#appHeader,#appContent').on(touchstart, function(evt) {
+	$('#appHeader').on(touchstart, function(evt) {
 		$('#appContent').show();
 		if(evt.target.id != 'timerDailyInput' && $('#timerDailyInput').is(':focus')) {
 			//triggers setpush
@@ -1202,7 +1202,7 @@ if(app.is.scrollable && app.device.desktop) {
 			$('#entryBody').blur();
 		}
 	});
-	$('#appHeader,#appContent').on(tap, function(evt) {
+	$('#appHeader').on(tap, function(evt) {
 		if(!app.read('app_last_tab','tab4')) {
 			evt.preventDefault();
 		}

@@ -1417,7 +1417,7 @@ function hasTap() {
 var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
 var touchend    = hasTap() ? 'touchend'    : 'mouseup';
 var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
-var tap         = hasTap() ? 'tap'         : 'click';
+var tap         = hasTap() ? 'tap'         : 'tap';
 var touchcancel = hasTap() ? 'touchcancel' : 'touchcancel';
 var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
 var touchout    = hasTap() ? 'touchout'    : 'mouseout';

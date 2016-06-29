@@ -1193,8 +1193,10 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$(document).trigger('pageReload');
 	});
 	$('#entryListForm,#go,#entryListWrapper').on(tap,function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
+		if(!app.device.desktop) {
+			evt.preventDefault();
+			evt.stopPropagation();
+		}
 		if($('#entryBody').is(':focus') && evt.target.id == 'entryTime') {
 			$('#entryTime').focus();
 		} else if($('#entryTime').is(':focus') && evt.target.id == 'entryBody') {

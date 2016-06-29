@@ -447,10 +447,10 @@ $(document).on("pageload", function (evt) {
 			}
 		});
 	}
-	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').click(function (evt) {
+	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').on(tap + ' swipeLeft swipeRight', function (evt) {
 		hideEntry(evt);
 	});
-	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').on(tap + ' swipeLeft swipeRight', function (evt) {
+	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').click(function (evt) {
 		hideEntry(evt);
 	});
 	//////////////
