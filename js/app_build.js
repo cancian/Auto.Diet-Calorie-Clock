@@ -1145,6 +1145,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				alert('dumped: ' + targetLang);
 				console.log(JSON.stringify(LANGa));
 			}
+			////////////////
+			// REMOVE DEV //
+			////////////////
+			if (/redev/i.test($('#entryBody').val())) {
+				app.remove('config_debug');
+				app.remove('been_dev');
+			}
 			////////////
 			// REWIPE //
 			////////////
