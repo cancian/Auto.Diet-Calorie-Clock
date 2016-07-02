@@ -1848,7 +1848,7 @@ function buildAdvancedMenu() {
 	//#//////////////////////////#//
 	//# GENERIC CHECKBOX HANDLER #//
 	//#//////////////////////////#//
-	app.handlers.activeRow('#advancedMenu li','button',function(evt) {
+	$('#advancedMenu li').on(tap,function(evt) {
 		if((/checkbox/).test($('#' + evt.target.id).html())) {
 			if($('input[type=checkbox]', '#' + evt.target.id).prop('checked') == true) {
 				$('input[type=checkbox]', '#' + evt.target.id).prop('checked',false);
@@ -1983,9 +1983,6 @@ function getCategory(catId, callback) {
 			}
 		}
 		callback(rowsArray.sortbyattr('time', 'asc'));
-		//if(app.dev) {
-		//	app.save(app.get.kcals('key'),app.now() - startCat);
-		//}
 		//////////////////
 		// REGULAR DUMP //
 		//////////////////
@@ -1998,9 +1995,6 @@ function getCategory(catId, callback) {
 			}
 		}
 		callback(rowsArray.sortbyattr('term', 'desc'));
-		//if(app.dev) {
-		//	app.save(app.get.kcals('key'),app.now() - startCat);
-		//}
 	}
 }
 ///////////////////
