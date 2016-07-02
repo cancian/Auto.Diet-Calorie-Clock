@@ -1253,13 +1253,11 @@ if(app.is.scrollable) { // && app.device.desktop) {
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //
 	//////////////////////////
-	if(app.device.ios) {
-		$('#timerDailyInput').on(touchstart, function(evt) {
-			if(!$('#timerDailyInput').is(':focus')) {
-				$('#timerDailyInput').focus();
-			}
-		});
-	}
+	$('#timerDailyInput').on(tap, function(evt) {
+		if(!$('#timerDailyInput').is(':focus')) {
+			$('#timerDailyInput').focus();
+		}
+	});
 	if(app.device.desktop) {
 		$('#timerDailyInput').prop('type','text');
 	}
