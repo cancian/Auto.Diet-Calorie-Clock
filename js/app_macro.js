@@ -1295,10 +1295,6 @@ function getEntryEdit(eid) {
 		// HANDLERS //
 		//////////////
 		var getEntryHandler = function() {
-			// CLEAR HIGHTLIGHT //
-			//setTimeout(function() {
-			//	$('.longHold').removeClass('longHold');
-			//},600);
 			//food/exercise
 			if($('#getEntryTitle').val() >= 0) {
 				$('#divEntryTitle').addClass('food');
@@ -1336,16 +1332,6 @@ function getEntryEdit(eid) {
 				useShortLabels: true
 			});
 			}
-			/*
-			//Hold unused
-			//HOLD FLICKER
-			if(app.device.android) {
-				$('body').append2('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
-				$('#dummyInput').focus();
-				$('#dummyInput').blur();
-				$('#dummyInput').remove();
-			}
-			*/
 			//SET
 			$('#getEntryDate').scroller('setDate',new Date(parseInt($('#getEntryDate').val())), true);
 			//SAVE IF CHANGED
@@ -1705,7 +1691,7 @@ function buildAdvancedMenu() {
 		getNewWindow(LANG.CHANGELOG[lang], logContent, logHandler, '', logCloser);
 	};
 	//GET VERSION.TXT WITH FALLBACK
-	app.handlers.activeRow('#advancedChangelog','button',function(evt) {
+	app.handlers.activeRow('#advancedChangelog','activeRow',function(evt) {
 		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/' + 'version.txt',
 			error: function(xhr, statusText) {
 				//RETRY LOCAL
@@ -1726,7 +1712,7 @@ function buildAdvancedMenu() {
 	//#///////#//
 	//# ABOUT #//
 	//#///////#//
-	app.handlers.activeRow('#advancedAbout','button',function(evt) {
+	app.handlers.activeRow('#advancedAbout','activeRow',function(evt) {
 		app.about();
 	});
 	//#//////#//
@@ -1748,14 +1734,14 @@ function buildAdvancedMenu() {
 	//#/////////#//
 	//# CONTACT #//
 	//#/////////#//
-	app.handlers.activeRow('#advancedContact','button',function(evt) {
+	app.handlers.activeRow('#advancedContact','activeRow',function(evt) {
 		//app.url('mailto:cancian@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')');
 		window.location.href = 'mailto:cancian@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')';
 	});
 	//#////////////////#//
 	//# SUGGESTION BOX #//
 	//#////////////////#//
-	app.handlers.activeRow('#advancedSuggestion','button',function(evt) {
+	app.handlers.activeRow('#advancedSuggestion','activeRow',function(evt) {
 		var suggestionBoxHtml     = '<div id="suggestionBox"><label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail"><label for="usrMsg" class="usrMsg">Message:</label><textarea name="usrMsg" id="usrMsg"></textarea></div>';
 		var suggestionBoxHandlers = function() {
 			$('#saveButton').html2('Send');
@@ -1826,7 +1812,7 @@ function buildAdvancedMenu() {
 	//#///////////////////////////#//
 	//# ALTERNATIVE DEBUG ENABLER #//
 	//#///////////////////////////#//
-	$('#advancedReload').on('taphold', function (evt) {
+	$('#advancedReload').on(hold, function (evt) {
 		if(app.read('config_debug','active')) {
 			app.remove('config_debug');
 			afterHide();
@@ -1838,7 +1824,7 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	//# RELOAD FOOD DB #//
 	//#////////////////#//
-	app.handlers.activeRow('#advancedReload','false',function(evt) {
+	app.handlers.activeRow('#advancedReload','activeRow',function(evt) {
 		//SHOW DIALOG
 		appConfirm(LANG.REBUILD_FOOD_DB[lang], LANG.ARE_YOU_SURE[lang], function(button) {
 			if(button === 2) {
@@ -1851,11 +1837,10 @@ function buildAdvancedMenu() {
 	//#////////////////#//
 	//# RESET SETTINGS #//
 	//#////////////////#//
-	app.handlers.activeRow('#advancedReset','false',function(evt) {
+	app.handlers.activeRow('#advancedReset','activeRow',function(evt) {
 		//SHOW DIALOG
 		appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
 			if(button === 2) {
-				$('#advancedReset').off();
 				deSetup();
 			}
 		}, LANG.OK[lang], LANG.CANCEL[lang]);
@@ -1878,7 +1863,7 @@ function buildAdvancedMenu() {
 	//# REVIEW #//
 	//#////////#//
 	if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.msapp || app.device.firefoxos || app.device.osxapp || app.device.chromeos || app.device.blackberry || app.device.playbook) {
-		app.handlers.activeRow('#advancedReview','button',function(evt) {
+		app.handlers.activeRow('#advancedReview','activeRow',function(evt) {
 			app.url();
 		});
 	} else {
