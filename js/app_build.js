@@ -399,51 +399,28 @@ app.tab.status = function(keepOpen) {
 	//#/////////////#//
 	//# ADD BUTTONS #//
 	//#/////////////#//
-	/*
-	app.handlers.activeRow('#appStatusAddLeft,#appStatusAddRight','clicked',function(targetId) {
-		if(targetId == 'appStatusAddLeft') {
-			app.save('searchType','food');
-		} else {
-			app.save('searchType','exercise');
-		}
-		$(document).trigger('pageReload');
-	},function() {
-		if($('#editable').is(':visible') || $('#pageSlideFood').hasClass('busy')) {
-			$('#editable').trigger('blur');
-			return false;
-		}
-	});
-	*/
-	app.handlers.activeRow('#appStatusAddLeft','button',function(evt) {
+	app.handlers.activeRow('#appStatusAddLeft','activeRow',function(evt) {
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		//evt.preventDefault();
-		if(!$('#pageSlideFood').hasClass('busy')) {
-			app.save('searchType','food');
-		} else {
-			//return false;
-		}
+		app.save('searchType','food');
 		//OPEN
 		$(document).trigger('pageReload');
 		//KEEP ACTIVE
-		$('#appStatusAddLeft').addClass('activeButton');
+		$('#appStatusAddLeft').addClass('activeRow');
 		app.timeout('appStatusAddLeft',700,function() {
-			$('#appStatusAddLeft').removeClass('activeButton');
+			$('#appStatusAddLeft').removeClass('activeRow');
 		});
 	});
-	app.handlers.activeRow('#appStatusAddRight','button',function(evt) {
+	app.handlers.activeRow('#appStatusAddRight','activeRow',function(evt) {
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		//evt.preventDefault();
-		if(!$('#pageSlideFood').hasClass('busy')) {
-			app.save('searchType','exercise');
-		} else {
-			//return false;
-		}
+		app.save('searchType','exercise');
 		//OPEN
 		$(document).trigger('pageReload');
 		//KEEP ACTIVE
-		$('#appStatusAddRight').addClass('activeButton');
+		$('#appStatusAddRight').addClass('activeRow');
 		app.timeout('appStatusAddRight',700,function() {
-			$('#appStatusAddRight').removeClass('activeButton');
+			$('#appStatusAddRight').removeClass('activeRow');
 		});
 	});
 	//#/////////////////////#//
@@ -491,26 +468,27 @@ app.tab.status = function(keepOpen) {
 			return false;
 		}
 	});
-	//#//////////////#//
-	//# ENABLE DEBUG #//
-	//#//////////////#//
-	$('#appStatusReload').on('taphold',function(evt) {
-		if(app.read('config_debug','active')) {
-			app.remove('config_debug');
+	//#/////////////////#//
+	//# RELOAD APP ICON #//
+	//#/////////////////#//
+	$('#appStatusReload').on(tap + ' ' + hold,function(evt) {
+		if(evt.type == tap) {
+			$('#appStatusReload').off(hold);
+			$('#startDateBar').hide();
 			afterHide();
-		} else {
-			app.save('config_debug','active');
-			afterHide();
+			//HOLD TRIGGER ~ TOUCHSTART
+		} else if(evt.type == touchstart) {
+			//#//////////////#//
+			//# ENABLE DEBUG #//
+			//#//////////////#//
+			if(app.read('config_debug','active')) {
+				app.remove('config_debug');
+				afterHide();
+			} else {
+				app.save('config_debug','active');
+				afterHide();
+			}
 		}
-	});
-	//#/////////////#//
-	//# RELOAD ICON #//
-	//#/////////////#//
-	//app.handlers.activeRow('#appStatusReload','button',function(evt) {
-	$('#appStatusReload').on('tap',function(evt) {
-		$('#appStatusReload').off('taphold');
-		$('#startDateBar').hide();
-		afterHide();
 	});
 	////////////////////
 	// SHOW STARTDATE //
