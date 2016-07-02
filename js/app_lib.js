@@ -1491,7 +1491,6 @@ if (window.PointerEvent || window.MSPointerEvent) {
 		msPointerSet(0);
 	}
 }
-
 //OVERRIDE TAP
 //if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
 //	tap = 'click';
@@ -2702,7 +2701,7 @@ function detectPrivateMode(callback) {
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
 (function ($) {
 	var TAP_AND_HOLD_TRIGGER_TIMER = 2000;
-	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 40;
+	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 10;
 
 	var TOUCHSTART = touchstart;
 	var TOUCHEND   = touchend;

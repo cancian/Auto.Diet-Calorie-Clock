@@ -506,9 +506,9 @@ app.tab.status = function(keepOpen) {
 	//#/////////////#//
 	//# RELOAD ICON #//
 	//#/////////////#//
-	app.handlers.activeRow('#appStatusReload','false',function(evt) {
-	//$('#appStatusReload').on('tap',function(evt) {
-		//$('#appStatusReload').off('taphold');
+	//app.handlers.activeRow('#appStatusReload','button',function(evt) {
+	$('#appStatusReload').on('tap',function(evt) {
+		$('#appStatusReload').off('taphold');
 		$('#startDateBar').hide();
 		afterHide();
 	});
