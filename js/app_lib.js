@@ -337,20 +337,6 @@ app.swipe = function (elem, callback) {
 		//triggerOnTouchLeave: true
 	});
 };
-///////////////
-// TAP EVENT //
-///////////////
-app.tap = function (elem, callback) {
-	//$(elem).swipe('destroy');
-	$(elem).swipe({
-		tap : function(evt) {
-			if (typeof callback === 'function') {
-				var that = this;
-				callback(that,evt);
-			}
-		}
-	});
-};
 //////////////////
 // TOTAL WEIGHT //
 //////////////////
@@ -968,7 +954,7 @@ app.handlers = {
 			$(targetParent).on(moveCancel, function (evt) {
 				app.handlers.activeRowTouches[t]++;
 				app.timeout(t,'clear');
-				if (app.handlers.activeRowTouches[t] > 7) {
+				if (app.handlers.activeRowTouches[t] > 12) {
 					$(app.handlers.activeLastId[t]).removeClass(style);
 					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
@@ -979,7 +965,7 @@ app.handlers = {
 			$(target).on(moveCancel, function (evt) {
 				app.handlers.activeRowTouches[t]++;
 				app.timeout(t,'clear');
-				if (app.handlers.activeRowTouches[t] > 7) {
+				if (app.handlers.activeRowTouches[t] > 12) {
 					$(app.handlers.activeLastId[t]).removeClass(style);
 					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
@@ -994,7 +980,7 @@ app.handlers = {
 				/////////
 				app.handlers.activeRowTouches[t]++;
 				app.timeout(t,'clear');
-				if (app.handlers.activeRowTouches[t] > 7) {
+				if (app.handlers.activeRowTouches[t] > 12) {
 					$(app.handlers.activeLastId[t]).removeClass(style);
 					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
@@ -1008,7 +994,7 @@ app.handlers = {
 			$(target).scroll(function (evt) {
 				app.handlers.activeRowTouches[t]++;
 				app.timeout(t,'clear');
-				if (app.handlers.activeRowTouches[t] > 7) {
+				if (app.handlers.activeRowTouches[t] > 12) {
 					$(app.handlers.activeLastId[t]).removeClass(style);
 					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
@@ -1023,7 +1009,7 @@ app.handlers = {
 		$(targetParent).scroll(function (evt) {
 			////////////
 			app.handlers.activeRowBlock[t] = 1;
-			app.timeout('_' + t, 100, function () {
+			app.timeout('_' + t, 50, function () {
 				app.handlers.activeRowBlock[t] = 0;
 			});
 		});
@@ -1454,7 +1440,11 @@ var varHasTap = ((('ontouchstart' in document) || ('ontouchstart' in window)) &&
 function hasTap() {
 	return varHasTap;
 }
+////////////////////
+// TOUCH HANDLERS //
+////////////////////
 var tap         = hasTap() ? 'tap'         : 'tap';
+var hold        = hasTap() ? 'hold'        : 'hold';
 var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
 var touchend    = hasTap() ? 'touchend'    : 'mouseup';
 var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
@@ -1492,9 +1482,9 @@ if (window.PointerEvent || window.MSPointerEvent) {
 	}
 }
 //OVERRIDE TAP
-//if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
-//	tap = 'click';
-//}
+if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
+	//tap = 'click';
+}
 ///////////////
 // SAFE EXEC //
 ///////////////
@@ -2639,19 +2629,15 @@ function detectPrivateMode(callback) {
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
 (function ($, specialEventName, touchStart, touchEnd) {
-	'use strict';
+	//'use strict';
 	var nativeEvent = Object.create(null);
 	var getTime = function () {
 		return new Date().getTime();
 	};
 	nativeEvent.original = 'click';
-	//if ('ontouchstart' in document) {
-		nativeEvent.start = touchStart;
-		nativeEvent.end   = touchEnd;
-	//} else {
-		//nativeEvent.start = 'mousedown';
-		//nativeEvent.end   = 'mouseup';
-	//}
+	nativeEvent.start    = touchstart;
+	nativeEvent.end      = touchend;
+
 	$.event.special[specialEventName] = {
 		setup : function (data, namespaces, eventHandle) {
 			var $element = $(this);
@@ -2675,9 +2661,10 @@ function detectPrivateMode(callback) {
 						eventData.pageY  = eventData.event.pageY;
 						eventData.time   = getTime();
 					}
-				}
+				}   
 			}).on(nativeEvent.end, function (event) {
-				if (eventData.target === event.target && getTime() - eventData.time < 750 && (eventData.pageX === eventData.event.pageX && eventData.pageY === eventData.event.pageY)) {
+				if (eventData.target === event.target && getTime() - eventData.time < 500 && (eventData.pageX === eventData.event.pageX && eventData.pageY === eventData.event.pageY)) {
+				//if (eventData.target === event.target && getTime() - eventData.time < 750) {
 					event.type = specialEventName;
 					event.pageX = eventData.event.pageX;
 					event.pageY = eventData.event.pageY;
@@ -2695,13 +2682,13 @@ function detectPrivateMode(callback) {
 	$.fn[specialEventName] = function (fn) {
 		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
 	};
-})(jQuery, 'tap', touchstart, touchend);
+})(jQuery, 'tap');
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
 (function ($) {
 	var TAP_AND_HOLD_TRIGGER_TIMER = 2000;
-	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 10;
+	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 40;
 
 	var TOUCHSTART = touchstart;
 	var TOUCHEND   = touchend;
@@ -2783,7 +2770,7 @@ function detectPrivateMode(callback) {
 		clear.call(this);
 	};
 
-	$.event.special["taphold"] = {
+	$.event.special["hold"] = {
 		setup : function () {},
 
 		add : function (handleObj) {
