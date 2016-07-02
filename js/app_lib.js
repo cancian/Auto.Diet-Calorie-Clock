@@ -1454,11 +1454,11 @@ var varHasTap = ((('ontouchstart' in document) || ('ontouchstart' in window)) &&
 function hasTap() {
 	return varHasTap;
 }
+var tap         = hasTap() ? 'tap'         : 'tap';
 var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
 var touchend    = hasTap() ? 'touchend'    : 'mouseup';
 var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
-var tap         = hasTap() ? 'tap'         : 'tap';
-var touchcancel = hasTap() ? 'touchcancel' : 'touchcancel';
+var touchcancel = hasTap() ? 'touchcancel' : 'mouseup';
 var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
 var touchout    = hasTap() ? 'touchout'    : 'mouseout';
 ///////////////
@@ -1493,9 +1493,9 @@ if (window.PointerEvent || window.MSPointerEvent) {
 }
 
 //OVERRIDE TAP
-if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
-	tap = 'click';
-}
+//if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
+//	tap = 'click';
+//}
 ///////////////
 // SAFE EXEC //
 ///////////////
@@ -2637,86 +2637,66 @@ function detectPrivateMode(callback) {
 	});
 }
 //#/////////////#//
-//# TAP HANDLER #// Version: 0.2.9
+//# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
-if (tap !== 'click') {
-//if (!app.is.scrollable && hasTap()) {
-	(function ($, _) {
-		//'use strict';
-
-		var ev = {
-			start : touchstart,
-			end : touchend
-		};
-
-		$.event.special[_] = {
-			setup : function () {
-				$(this).off('click').on(ev.start + ' ' + ev.end, function (e) {
-
-					//
-					// Adding jQuery event to @ev object depending of @isTap.
-					//
-					// Attention: value of this property will change two time
-					// per event: first time - on start, second - on end.
-					//
-
-					//TWEAK
-					if (e) {
-						if (e.originalEvent) {
-							ev.E = e.originalEvent.changedTouches ? e.originalEvent.changedTouches[0] : e;
-						}
+(function ($, specialEventName, touchStart, touchEnd) {
+	'use strict';
+	var nativeEvent = Object.create(null);
+	var getTime = function () {
+		return new Date().getTime();
+	};
+	nativeEvent.original = 'click';
+	//if ('ontouchstart' in document) {
+		nativeEvent.start = touchStart;
+		nativeEvent.end   = touchEnd;
+	//} else {
+		//nativeEvent.start = 'mousedown';
+		//nativeEvent.end   = 'mouseup';
+	//}
+	$.event.special[specialEventName] = {
+		setup : function (data, namespaces, eventHandle) {
+			var $element = $(this);
+			var eventData = {};
+			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end, function (event) {
+				//TWEAK
+				if(event) {
+					if(event.originalEvent) {
+						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
 					}
-				}).on(ev.start, function (e) {
-					//
-					// Function stop if event is simulate by mouse.
-					//
-					if (e.which && e.which !== 1) {
-						return;
+				}
+			}).on(nativeEvent.start, function (event) {
+				if (event.which && event.which !== 1) {
+					return;
+				}
+				//TWEAK
+				if (eventData) {
+					if (eventData.event) {
+						eventData.target = event.target;
+						eventData.pageX  = eventData.event.pageX;
+						eventData.pageY  = eventData.event.pageY;
+						eventData.time   = getTime();
 					}
-
-					//
-					// Extend @ev object from event properties of initial phase.
-					//
-
-					//TWEAK
-					if (ev) {
-						if (ev.E) {
-							ev.target = e.target;
-							ev.time = new Date().getTime();
-							ev.X = ev.E.pageX;
-							ev.Y = ev.E.pageY;
-						}
+				}
+			}).on(nativeEvent.end, function (event) {
+				if (eventData.target === event.target && getTime() - eventData.time < 750 && (eventData.pageX === eventData.event.pageX && eventData.pageY === eventData.event.pageY)) {
+					event.type = specialEventName;
+					event.pageX = eventData.event.pageX;
+					event.pageY = eventData.event.pageY;
+					eventHandle.call(this, event);
+					if (!event.isDefaultPrevented()) {
+						$element.off(nativeEvent.original).trigger(nativeEvent.original);
 					}
-				}).on(ev.end, function (e) {
-
-					// Compare property values of initial phase with properties
-					// of this, final, phase. Execute event if values will be
-					// within the acceptable and set new properties for event.
-					if (
-						ev.target === e.target &&
-						((new Date().getTime() - ev.time) < 750) &&
-						(ev.X === ev.E.pageX && ev.Y === ev.E.pageY)) {
-
-						e.type = _;
-						e.pageX = ev.E.pageX;
-						e.pageY = ev.E.pageY;
-
-						$.event.dispatch.call(this, e);
-					}
-				});
-			},
-
-			//Disassembling event.
-			remove : function () {
-				$(this).off(ev.start + ' ' + ev.end);
-			}
-		};
-
-		$.fn[_] = function (fn) {
-			return this[fn ? 'on' : 'trigger'](_, fn);
-		};
-	})(jQuery, 'tap');
-}
+				}
+			});
+		},
+		remove : function () {
+			$(this).off(nativeEvent.start + ' ' + nativeEvent.end);
+		}
+	};
+	$.fn[specialEventName] = function (fn) {
+		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
+	};
+})(jQuery, 'tap', touchstart, touchend);
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
@@ -2827,7 +2807,6 @@ if (tap !== 'click') {
 
 		teardown : function () {}
 	};
-
 })(jQuery);
 //#////////#//
 //# OPENFB #//
