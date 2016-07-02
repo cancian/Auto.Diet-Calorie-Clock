@@ -847,19 +847,17 @@ app.handlers = {
 	////////////////
 	activeRowTouches : [],
 	activeRowBlock   : [],
-	activeRowTimer   : [],
 	activeLastId     : [],
 	activeRow : function (target, style, callback,callbackCondition) {
 		var t = searchalize(target);
 		var isButton = style == 'button' ? 1 : 40;
-		if(app.device.osxapp) {
+		if(app.device.osxapp || app.device.osx) {
 			isButton = 1;
 		}
 		//RESET
 		app.handlers.activeRowTouches[t] = 0;
 		app.handlers.activeRowBlock[t]   = 0;
 		app.handlers.activeLastId[t]     = '';
-		//clearTimeout(app.handlers.activeRowTimer[t]);
 		////////////////
 		// SET PARENT //
 		////////////////
@@ -925,12 +923,13 @@ app.handlers = {
 						app.timeout(t,'clear');
 					}
 				}
-				//no drag
+				//no scrolling for buttons
 				//if(style == 'button') {
-				//	return false;
+					//return false;
+					//evt.preventDefault();
 				//}
 			});
-		}, 350);
+		}, 320);
 		//////////////////////
 		// ROW LEAVE CANCEL //
 		//////////////////////
@@ -948,26 +947,21 @@ app.handlers = {
 				}
 			});
 		}
-		////////////////////////
-		// SCROLL/MOVE CANCEL //
-		////////////////////////
+		//#////////////////////#//
+		//# SCROLL/MOVE CANCEL #//
+		//#////////////////////#//
+		//higher thresold for android
+		var TouchLimit = app.device.android ? 10 : 30;
+		//
 		if(!app.device.windows8) {
 			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
+			/////////////////
+			// MOVE CANCEL //
+			/////////////////
 			$(targetParent).on(moveCancel, function (evt) {
 				app.handlers.activeRowTouches[t]++;
 				app.timeout(t,'clear');
-				if (app.handlers.activeRowTouches[t] > 12) {
-					$(app.handlers.activeLastId[t]).removeClass(style);
-					if(app.device.osxapp || app.device.osx) {
-						$('.activeOverflow').removeClass(style);
-					}
-					app.handlers.activeRowTouches[t] = 0;
-				}
-			});
-			$(target).on(moveCancel, function (evt) {
-				app.handlers.activeRowTouches[t]++;
-				app.timeout(t,'clear');
-				if (app.handlers.activeRowTouches[t] > 12) {
+				if (app.handlers.activeRowTouches[t] > TouchLimit) {
 					$(app.handlers.activeLastId[t]).removeClass(style);
 					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
@@ -978,11 +972,13 @@ app.handlers = {
 			///////////////////
 			// SCROLL CANCEL //
 			///////////////////
-			$(targetParent).scroll(function (evt) {
-				/////////
+			$(targetParent).on('scroll', function (evt) {
+				/////
 				app.handlers.activeRowTouches[t]++;
+				app.handlers.activeRowTouches[t]++;
+				/////
 				app.timeout(t,'clear');
-				if (app.handlers.activeRowTouches[t] > 12) {
+				if (app.handlers.activeRowTouches[t] > TouchLimit) {
 					$(app.handlers.activeLastId[t]).removeClass(style);
 					if(app.device.osxapp || app.device.osx) {
 						$('.activeOverflow').removeClass(style);
@@ -990,30 +986,19 @@ app.handlers = {
 					app.handlers.activeRowTouches[t] = 0;
 				}
 			});
-			///////////////////
-			// SCROLL CANCEL //
-			///////////////////
-			$(target).scroll(function (evt) {
-				app.handlers.activeRowTouches[t]++;
-				app.timeout(t,'clear');
-				if (app.handlers.activeRowTouches[t] > 12) {
-					$(app.handlers.activeLastId[t]).removeClass(style);
-					if(app.device.osxapp || app.device.osx) {
-						$('.activeOverflow').removeClass(style);
-					}
-					app.handlers.activeRowTouches[t] = 0;
-				}
-			});		
 		}
 		///////////////////////
 		// SCROLL TIME BLOCK //
 		///////////////////////
-		$(targetParent).scroll(function (evt) {
+		var timeBlock;
+		$(targetParent).on('scroll',function (evt) {
 			////////////
 			app.handlers.activeRowBlock[t] = 1;
-			app.timeout('_' + t, 50, function () {
+			//ASYNC TIMEOUT
+			clearTimeout(timeBlock);
+			timeBlock = setTimeout(function () {
 				app.handlers.activeRowBlock[t] = 0;
-			});
+			}, 50);
 		});
 	},
 	///////////////////
@@ -2613,8 +2598,11 @@ function detectPrivateMode(callback) {
 					}
 				}   
 			}).on(nativeEvent.end, function (event) {
-				if (eventData.target === event.target && getTime() - eventData.time < 500 && (eventData.pageX === eventData.event.pageX && eventData.pageY === eventData.event.pageY)) {
-				//if (eventData.target === event.target && getTime() - eventData.time < 750) {
+				//TWEAK ~ round decimals for android
+				diffX = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
+				diffY = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
+				//
+				if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
 					event.type = specialEventName;
 					event.pageX = eventData.event.pageX;
 					event.pageY = eventData.event.pageY;
@@ -2638,7 +2626,7 @@ function detectPrivateMode(callback) {
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
 (function ($) {
 	var TAP_AND_HOLD_TRIGGER_TIMER = 2000;
-	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 40;
+	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 30;
 
 	var TOUCHSTART = touchstart;
 	var TOUCHEND   = touchend;
