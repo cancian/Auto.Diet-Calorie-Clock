@@ -482,24 +482,22 @@ $(document).on("pageload", function (evt) {
 				});
 				$('.active').removeClass('active');
 			});
-			return;
 		}
 		//////////
 		// EDIT //
 		//////////
-		if (evt.target.id == 'edit') {
+		else if (evt.target.id == 'edit') {
 			$('#' + evt.target.id).addClass('button');
 			var editedEntry = $(target).parent('div').attr('id');
 			getEntryEdit(editedEntry);
 			setTimeout(function () {
 				$('#' + editedEntry).trigger('swipeLeft');
 			}, 300);
-			return;
 		}
 		////////////
 		// DELETE //
 		////////////
-		if (evt.target.id == 'delete') {
+		else if (evt.target.id == 'delete') {
 			$('#' + evt.target.id).addClass('button');
 			var rowId = $(target).parent('div').attr('id');
 			var rowTime = $(target).parent('div').attr('name');
@@ -525,7 +523,6 @@ $(document).on("pageload", function (evt) {
 				//force error
 				niceResizer();
 			});
-			return;
 		}
 	});
 //////#//

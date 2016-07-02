@@ -1570,15 +1570,15 @@ function buildAdvancedMenu() {
 			app.handlers.fade(0,'#advancedMenuWrapper');
 		});
 	//ADD ACTIVE
-	$('#advancedMenu li').on(touchstart,function(evt) {
-		if(!(/checkbox/).test($(this).html())) {
-			$(this).addClass('activeRow');
-		}
-	});
+	//$('#advancedMenu li').on(touchstart,function(evt) {
+	//	if(!(/checkbox/).test($(this).html())) {
+	//		$(this).addClass('activeRow');
+	//	}
+	//});
 	//REMOVE ACTIVE
-	$('#advancedMenu, #advancedMenu li').on(touchend + ' ' + touchmove + ' mouseout scroll',function(evt) {
-		$('.activeRow').removeClass('activeRow');
-	});
+	//$('#advancedMenu, #advancedMenu li').on(touchend + ' ' + touchmove + ' mouseout scroll',function(evt) {
+	//	$('.activeRow').removeClass('activeRow');
+	//});
 	//#//////////////////////#//
 	//#// DB ENGINE PICKER //#//
 	//#//////////////////////#//
