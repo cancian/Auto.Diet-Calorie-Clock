@@ -142,20 +142,18 @@ $(document).on("pageload", function (evt) {
 								var nowBlur = new Date().getTime();
 								if (app.device.android || app.device.firefoxos) {
 									if (nowBlur - timedBlur < 600) {
-										var blurVal = $("#editableInput").val();
-										$("#editableInput").focus();
-										//$("#editableInput").val('');
+										var blurVal = $('editableInput').val();
+										$('#editableInput').focus();
 										setTimeout(function () {
-											$("#editableInput").focus();
-											//$("#editableInput").val(blurVal);
+											$('#editableInput').focus();
 										}, 0);
 										return;
 									}
 								}
 								var new_value = $(this).val();
 								//VALIDATE
-								if (this.value == "") {
-									try {
+								if (this.value == '') {
+									if(document.getElementById('kcalsDiv')) {
 										if (Number(document.getElementById('kcalsDiv').innerHTML) > 0) {
 											new_value = LANG.FOOD[lang];
 										} else if (Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
@@ -163,7 +161,7 @@ $(document).on("pageload", function (evt) {
 										} else {
 											new_value = "";
 										}
-									} catch(err) { errorHandler(err); }
+									}
 								}
 								$(this).replaceWith(new_value);
 								$('#kcalsAdjust').remove();
@@ -570,6 +568,7 @@ $(document).on("pageReload", function (evt) {
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+						///////////////////////
 						// PAGESLIDEFOOD DIV //
 						///////////////////////
 						$('#pageSlideFood').remove();
@@ -1151,8 +1150,9 @@ function addNewItem(addnew) {
 		} else {
 			addnew.name = $('#inputNewName').val();
 		}
+		addnew.name = trimSpace(addnew.name).trim();
 		//READ INPUT VALUES
-		addnew.term = sanitize(addnew.name);
+		addnew.term = searchalize(addnew.name);
 		addnew.kcal = $('#inputNewKcal').val();
 		addnew.pro  = $('#inputNewPro').val();
 		addnew.car  = $('#inputNewCar').val();
@@ -1585,7 +1585,7 @@ function getModalWindow(itemId) {
 			///////////////
 			// ADD ENTRY //
 			///////////////
-			saveEntry({
+			({
 				title     : saveTitle,
 				body      : saveBody,
 				published : saveTime,

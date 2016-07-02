@@ -2287,7 +2287,7 @@ function getRateDialog() {
 	////////////
 	// 5 DAYS //
 	////////////
-	var timeRate = 7 * 24 * 60 * 60 * 1000;
+	var timeRate = 5 * 24 * 60 * 60 * 1000;
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		clearTimeout(rateTimer);
 		rateTimer = setTimeout(function() {
@@ -2308,7 +2308,7 @@ function getRateDialog() {
 				}
 
 			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-		},2000);
+		},3500);
 	}
 }
 ///////////////////

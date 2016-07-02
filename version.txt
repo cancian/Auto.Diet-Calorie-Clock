@@ -8,12 +8,13 @@
 • Water tracker
 • Daily tips
 
-# 1.9.18 [2016/06/27]
+# 1.9.18 [2016/07/02]
 • Fixed issue with some users not being able to type dots for decimal values
 • User interface improvements
 • Better text handling
 • More efficient, and less frequent, data connections (saves battery)
 • Smarter autofix for bootloop-related issues
+• Multiple spaces now get filtered on food/exercise titles
 
 # 1.9.17 [2016/06/10]
 • New help topics
