@@ -378,7 +378,9 @@ app.device = {
 	android2   : (/Android/i).test(app.ua) && app.get.androidVersion() < 4 ? true : false,
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
-	ios8       : (/OS [8-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
+	ios8       : (/OS [8](.*)   like Mac OS X/i).test(app.ua) ? true : false,
+	ios9       : (/OS [9](.*)   like Mac OS X/i).test(app.ua) ? true : false,
+	ios10      : (/OS [10](.*)  like Mac OS X/i).test(app.ua) ? true : false,	
 	ipad       : (/iPad/i).test(app.ua) ? true : false,
 	tablet     : (/iPad|tablet|surface/i).test(app.ua) ? true : false,
 	linux      : (/X11|Linux|Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
@@ -928,7 +930,7 @@ app.handlers = {
 				//	return false;
 				//}
 			});
-		}, 400);
+		}, 350);
 		//////////////////////
 		// ROW LEAVE CANCEL //
 		//////////////////////
@@ -1747,58 +1749,6 @@ function trimSpace(str) {
 function trimSpaceAll(str) {
 	if(!str.length) { return ''; }
 	return str.replace(/  +/g, ' ');
-}
-/////////////////
-// STR_REPLACE //
-/////////////////
-function str_replace(search, replace, subject, countObj) {
-	var i = 0
-		var j = 0
-		var temp = ''
-		var repl = ''
-		var sl = 0
-		var fl = 0
-		var f = [].concat(search)
-		var r = [].concat(replace)
-		var s = subject
-		var ra = Object.prototype.toString.call(r) === '[object Array]'
-		var sa = Object.prototype.toString.call(s) === '[object Array]'
-		s = [].concat(s)
-
-		var $global = (typeof window !== 'undefined' ? window : GLOBAL)
-		$global.$locutus = $global.$locutus || {}
-	var $locutus = $global.$locutus
-		$locutus.php = $locutus.php || {}
-
-	if (typeof(search) === 'object' && typeof(replace) === 'string') {
-		temp = replace
-			replace = []
-			for (i = 0; i < search.length; i += 1) {
-				replace[i] = temp
-			}
-			temp = ''
-			r = [].concat(replace)
-			ra = Object.prototype.toString.call(r) === '[object Array]'
-	}
-
-	if (typeof countObj !== 'undefined') {
-		countObj.value = 0
-	}
-
-	for (i = 0, sl = s.length; i < sl; i++) {
-		if (s[i] === '') {
-			continue
-		}
-		for (j = 0, fl = f.length; j < fl; j++) {
-			temp = s[i] + ''
-				repl = ra ? (r[j] !== undefined ? r[j] : '') : r[0]
-				s[i] = (temp).split(f[j]).join(repl)
-				if (typeof countObj !== 'undefined') {
-					countObj.value += ((temp.split(f[j])).length - 1)
-				}
-		}
-	}
-	return sa ? s : s[0]
 }
 ///////////////
 // ISEMPTY() //

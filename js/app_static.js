@@ -723,6 +723,12 @@ app.read('config_kcals_type','cyclic') ? $('body').addClass('cyclic') : $('body'
 /////////////
 // IOS 7/8 //
 /////////////
+if(app.device.ios10 && app.device.cordova) {
+	$('body').addClass('ios10');
+}
+if(app.device.ios9 && app.device.cordova) {
+	$('body').addClass('ios9');
+}
 if(app.device.ios8 && app.device.cordova) {
 	$('body').addClass('ios8');
 }
