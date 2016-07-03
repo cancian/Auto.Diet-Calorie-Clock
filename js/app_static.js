@@ -231,7 +231,6 @@ $('body').prepend2('\
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
-var releaseFooter;
 var lastTab = 0;
 preTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
@@ -275,7 +274,7 @@ afterTab = function(keepOpen) {
 };
 appFooter = function (id,keepOpen,callback) {
 	//FLOOD
-	if(app.now() - lastTab < 275) { lastTab = app.now(); return; }
+	if(app.now() - lastTab < 50) { lastTab = app.now(); return; }
 	lastTab = app.now();
 	var tabId = id;
 	$('#appFooter li').removeClass('selected');
@@ -303,20 +302,23 @@ appFooter(app.read('app_last_tab'));
 ///////////////////////
 // LISTEN FOR CLICKS //
 ///////////////////////
-$('#appFooter li').on(touchstart, function(evt) {
-	evt.preventDefault();
-	evt.stopPropagation();
-	//not while editing
-	if($('#editableInput').is(':visible')) {
-		$('#editableInput').blur();
-		kickDown();
-		return false;
-	}
-	//
-	appFooter($(this).attr('id'));
-	if($('#timerDailyInput').is(':focus')) {
-		$('#timerDailyInput').blur();
-	}
+$('#appFooter li').on(touchstart + ' mousedown', function(evt) {
+	app.globals.app_last_tab = evt.target.id;
+	//DE-REPEATER
+	app.timeout('lastFooterId', 50, function(evt) {
+		//not while editing
+		if($('#timerDailyInput').is(':focus')) {
+			$('#timerDailyInput').blur();
+		}
+		//~
+		if($('#editableInput').is(':visible')) {
+			$('#editableInput').blur();
+			kickDown();
+			return false;
+		}
+		//CHANGE TAB
+		appFooter(app.globals.app_last_tab);
+	});
 });
 ////////////////////////
 // WINDOWS OVERSCROLL //
@@ -971,7 +973,8 @@ if(!document.getElementById('fontTest')) {
 ////////////////////////////
 // ALLOW HORIZONTAL SWIPE //
 ////////////////////////////
-if(app.is.scrollable) { // && app.device.desktop) {
+/*
+if(app.is.scrollable && app.device.desktop) {
 	app.globals.X     = 0;
 	app.globals.Y     = 0;
 	app.globals.MX    = 0;
@@ -1005,6 +1008,7 @@ if(app.is.scrollable) { // && app.device.desktop) {
 		}
 	});
 }
+*/
 ////////////////
 // MAIN TIMER //
 ////////////////
