@@ -1469,7 +1469,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 	}
 }
 //OVERRIDE TAP
-if (app.device.firefoxos || app.device.blackberry || app.device.msapp || app.device.android) {
+if (app.device.msapp) {
 	//tap = 'click';
 }
 ///////////////
@@ -2563,7 +2563,7 @@ function detectPrivateMode(callback) {
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
-(function ($, specialEventName, touchStart, touchEnd) {
+(function ($, specialEventName) {
 	//'use strict';
 	var nativeEvent = Object.create(null);
 	var getTime = function () {
@@ -2599,13 +2599,25 @@ function detectPrivateMode(callback) {
 				}   
 			}).on(nativeEvent.end, function (event) {
 				//TWEAK ~ round decimals for android
-				diffX = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
-				diffY = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
+				var diffX  = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
+				var diffY  = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
+				//swipe
+				var startX = parseInt(eventData.pageX);
+				var startY = parseInt(eventData.pageY);
+				var endX   = parseInt(eventData.event.pageX);
+				var endY   = parseInt(eventData.event.pageY);
 				//
 				if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-					event.type = specialEventName;
-					event.pageX = eventData.event.pageX;
-					event.pageY = eventData.event.pageY;
+					event.type    = specialEventName;
+					event.pageX   = eventData.event.pageX;
+					event.pageY   = eventData.event.pageY;
+					//
+					event.startX  = startX;
+					event.startY  = startY;
+					event.endX    = endX;
+					event.endY    = endY;
+					event.diffX   = diffX;
+					event.diffY   = diffY;
 					eventHandle.call(this, event);
 					if (!event.isDefaultPrevented()) {
 						$element.off(nativeEvent.original).trigger(nativeEvent.original);
@@ -2625,7 +2637,7 @@ function detectPrivateMode(callback) {
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
 (function ($) {
-	var TAP_AND_HOLD_TRIGGER_TIMER = 2000;
+	var TAP_AND_HOLD_TRIGGER_TIMER = 1750;
 	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 30;
 
 	var TOUCHSTART = touchstart;
