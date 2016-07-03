@@ -8,7 +8,7 @@
 • Water tracker
 • Daily tips
 
-# 1.9.18 [2016/07/02]
+# 1.9.18 [2016/07/03]
 • Fixed issue with some users not being able to type dots for decimal values
 • User interface improvements
 • Better text handling

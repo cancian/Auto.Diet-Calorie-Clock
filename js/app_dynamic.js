@@ -1585,7 +1585,7 @@ function getModalWindow(itemId) {
 			///////////////
 			// ADD ENTRY //
 			///////////////
-			({
+			saveEntry({
 				title     : saveTitle,
 				body      : saveBody,
 				published : saveTime,
