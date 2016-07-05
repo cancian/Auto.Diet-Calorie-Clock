@@ -1538,8 +1538,8 @@ function isNumberKey(evt){
 	if(keyCode == 8 || keyCode == 13 || keyCode == 16 || keyCode == 37 || keyCode == 39) {
 		return true;
 	}
-	//46 dot / 190 wpdot
-	if(keyCode != 46 && (keyCode != 190) && keyCode > 31 && (keyCode < 48 || keyCode > 57)) {
+	//46 dot / 110 numlock dot / 190 wpdot 
+	if((keyCode != 46 && keyCode != 190 && keyCode != 110) && keyCode > 31 && (keyCode < 48 || keyCode > 57)) {
 		return false;
 	}
 	return true;
@@ -1569,17 +1569,12 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		// CONFIG //
 		////////////
 		//ENTER
-		if(keyCode == 13)													{ $(this).blur(); return true; }
+		if(keyCode == 13)																	{ $(this).blur(); return true; }
 		//MINUS INVERTER
-		if(keyCode == 45 && config.inverter == true)						{ $(this).val( $(this).val()*-1 ); return false; }
-		if((keyCode == 46 || keyCode == 190) && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
+		if(keyCode == 45 && config.inverter == true)										{ $(this).val( $(this).val()*-1 ); return false; }
+		if((keyCode == 46 || keyCode == 110 || keyCode == 190) && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
 		//DOT
-		if(keyCode == 46 || (keyCode == 190 && (app.device.wp8 || app.device.wp81 || app.device.wp10))) {
-			if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) {
-				return false;
-			}
-			return true;
-		}
+		if(keyCode == 46 || keyCode == 110 || keyCode == 190) { if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) {	return false; } else { return true; }}
 		///////////////////
 		// ENFORCE LIMIT //
 		///////////////////
@@ -1616,7 +1611,8 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		}
 		//limit to 2 decimals
 		if(($(this).val()).contains('.')) {
-			var number = $(this).val().split('.');
+			var number = $(this).val().split(',').join('.');
+				number = $(this).val().split('.');
 			if (number[1].length > 2) {
 				$(this).val( parseFloat(number[0] + '.' + number[1].slice(0,2)) );
 			}
@@ -2598,29 +2594,34 @@ function detectPrivateMode(callback) {
 					}
 				}   
 			}).on(nativeEvent.end, function (event) {
-				//TWEAK ~ round decimals for android
-				var diffX  = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
-				var diffY  = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
-				//swipe
-				var startX = parseInt(eventData.pageX);
-				var startY = parseInt(eventData.pageY);
-				var endX   = parseInt(eventData.event.pageX);
-				var endY   = parseInt(eventData.event.pageY);
-				//
-				if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-					event.type    = specialEventName;
-					event.pageX   = eventData.event.pageX;
-					event.pageY   = eventData.event.pageY;
-					//
-					event.startX  = startX;
-					event.startY  = startY;
-					event.endX    = endX;
-					event.endY    = endY;
-					event.diffX   = diffX;
-					event.diffY   = diffY;
-					eventHandle.call(this, event);
-					if (!event.isDefaultPrevented()) {
-						$element.off(nativeEvent.original).trigger(nativeEvent.original);
+				//TWEAK
+				if (eventData) {
+					if (eventData.event) {
+						//TWEAK ~ round decimals for android
+						var diffX  = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
+						var diffY  = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
+						//swipe
+						var startX = parseInt(eventData.pageX);
+						var startY = parseInt(eventData.pageY);
+						var endX   = parseInt(eventData.event.pageX);
+						var endY   = parseInt(eventData.event.pageY);
+						//
+						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
+							event.type    = specialEventName;
+							event.pageX   = eventData.event.pageX;
+							event.pageY   = eventData.event.pageY;
+							//
+							event.startX  = startX;
+							event.startY  = startY;
+							event.endX    = endX;
+							event.endY    = endY;
+							event.diffX   = diffX;
+							event.diffY   = diffY;
+							eventHandle.call(this, event);
+							if (!event.isDefaultPrevented()) {
+								$element.off(nativeEvent.original).trigger(nativeEvent.original);
+							}
+						}
 					}
 				}
 			});
