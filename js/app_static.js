@@ -466,7 +466,24 @@ $(document).on('pressenter', function(evt) {
 //////////////////////
 // KEYCODE LISTENER //
 //////////////////////
+$(document).keypress(function(evt) {
+	//DEV KEYCODE
+	if (app.beenDev) {
+		var ev = evt;
+		setTimeout(function() {
+			app.toast(ev.type + ': ' + ev.which || ev.keyCode);
+		}, 0);
+	}
+});
 $(document).keydown(function(evt) {
+	//DEV KEYCODE
+	if (app.beenDev) {
+		var ev = evt;
+		setTimeout(function() {
+			app.toast(ev.type + ': ' + ev.which || ev.keyCode);
+		}, 0);
+	}
+	//
 	if((/18|81/).test(evt.keyCode)) {
 		app.timers.keystrokeLock = 1;
 	}
@@ -477,7 +494,14 @@ $(document).keydown(function(evt) {
 	}
 });
 $(document).keyup(function(evt) {
-	//CONSOLE(evt.keyCode);
+	//DEV KEYCODE
+	if (app.beenDev) {
+		var ev = evt;
+		setTimeout(function() {
+			app.toast(ev.type + ': ' + ev.which || ev.keyCode);
+		}, 0);
+	}
+	//
 	if(evt.keyCode == 81) {
 		app.timers.keystrokeLock = 0;
 	}
