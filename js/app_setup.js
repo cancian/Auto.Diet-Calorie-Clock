@@ -1344,8 +1344,9 @@ function pageLoad(target,content,published) {
 		arr.push(published);
 		//build array from time on 'name'
 		$('#entryList').children().each(function() {
-			if($(this).prop('name')) {
-				arr.push($(this).prop('name'));
+			//use attr, not prop
+			if($(this).attr('name')) {
+				arr.push($(this).attr('name'));
 			}
 		});
 		//sort it
