@@ -651,10 +651,10 @@ function getNutriSliders() {
 		$('#sliderTimeSpan div').on(touchstart,function(evt) {
 			$('.activeOption').removeClass('activeOption');
 			$(this).addClass('activeOption');
-				 if($(this).attr('id') == 'divTimeSpan1') { app.save('appNutrientTimeSpan',1);  }
-		    else if($(this).attr('id') == 'divTimeSpan2') { app.save('appNutrientTimeSpan',7);  }
-			else if($(this).attr('id') == 'divTimeSpan3') { app.save('appNutrientTimeSpan',30); }
-			else if($(this).attr('id') == 'divTimeSpan4') { app.save('appNutrientTimeSpan',0);  }
+				 if($(this).prop('id') == 'divTimeSpan1') { app.save('appNutrientTimeSpan',1);  }
+		    else if($(this).prop('id') == 'divTimeSpan2') { app.save('appNutrientTimeSpan',7);  }
+			else if($(this).prop('id') == 'divTimeSpan3') { app.save('appNutrientTimeSpan',30); }
+			else if($(this).prop('id') == 'divTimeSpan4') { app.save('appNutrientTimeSpan',0);  }
 			return false;
 		});
 		//READ STORED

@@ -693,7 +693,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		app.globals.MX    = 0;
 		app.globals.MY    = 500;
 		//NOT WHILE MANUAL
-		if(!$('#entryTitle').attr('readonly')) { return; }
+		if(!$('#entryTitle').prop('readonly')) { return; }
 		/////////////////////
 		// CACHE SELECTORS //
 		/////////////////////

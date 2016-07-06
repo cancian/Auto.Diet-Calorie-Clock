@@ -316,27 +316,6 @@ app.parseErrorLog = function() {
 		//app.remove('error_log_handled')
 	}
 };
-/////////////////
-// SWIPE EVENT //
-/////////////////
-app.swipe = function (elem, callback) {
-	//$(elem).swipe('destroy');
-	$(elem).swipe({
-		swipe : function (evt, direction) {
-			if (direction == 'left' || direction == 'right') {
-				if (typeof callback === 'function') {
-					var that = this;
-					callback(that,evt,direction);
-				}
-			}
-		},
-		fingers: 1,
-		threshold: 32,
-		allowPageScroll: 'vertical',
-		preventDefaultEvents: false,
-		//triggerOnTouchLeave: true
-	});
-};
 //////////////////
 // TOTAL WEIGHT //
 //////////////////
@@ -375,7 +354,7 @@ app.get.isDesktop = function() {};
 app.device = {
 	cordova    : ((typeof cordova || typeof Cordova) !== 'undefined') ? true : false,
 	android    : (/Android/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? app.get.androidVersion() : false,
-	android2   : (/Android/i).test(app.ua) && app.get.androidVersion() < 4 ? true : false,
+	android2   : (/Android/i).test(app.ua) && !(/MSApp/i).test(app.ua) && app.get.androidVersion() < 4 ? true : false,
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8](.*)   like Mac OS X/i).test(app.ua) ? true : false,
@@ -685,7 +664,7 @@ app.ready = function(callback) {
 	// VIEWPORT //
 	//////////////
 	if(app.device.ios) {
-		$('#viewPort').attr('content', $('#viewPort').attr('content').split('height=device-height').join('minimal-ui') );
+		$('#viewPort').prop('content', $('#viewPort').prop('content').split('height=device-height').join('minimal-ui') );
 	}
 	//////////////
 	// CALLBACK //
@@ -875,7 +854,7 @@ app.handlers = {
 					if(style == 'button') {
 						callback(evt);
 					} else {
-						callback($(this).attr('id'));
+						callback($(this).prop('id'));
 					}
 					$(this).addClass(style);
 					app.handlers.activeLastId[t] = this;
@@ -1371,8 +1350,7 @@ body.error.deficit #timerDaily span	{ color: #E54B1D !important; text-shadow: 0 
 body.error.surplus #timerKcalsInput,\
 body.error.surplus #timerKcals span,\
 body.error.surplus #timerDailyInput,\
-body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }\
-';
+body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 0 1px rgba(255,255,255,.4) !important; }';
 	//VENDOR PREFIX
 	if(vendorClass == 'moz') {
 		pickerCss = pickerCss.split('-webkit-').join('-moz-');
@@ -1392,16 +1370,6 @@ app.updateColorPicker();
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
-//test
-/*
-try {
-	document.createEvent('TouchEvent');
-	app.touch = true;
-} catch (err) {
-	app.touch = false;
-}
-*/
-//
 function isCordova() {
 	return isMobileCordova;
 }
@@ -1574,7 +1542,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		if(keyCode == 45 && config.inverter == true)										{ $(this).val( $(this).val()*-1 ); return false; }
 		if((keyCode == 46 || keyCode == 110 || keyCode == 190) && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
 		//DOT
-		if(keyCode == 46 || keyCode == 110 || keyCode == 190) { if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) {	return false; } else { return true; }}
+		if(keyCode == 46 || keyCode == 110 || keyCode == 190) { if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) {	return false; } return true; }
 		///////////////////
 		// ENFORCE LIMIT //
 		///////////////////
@@ -2076,12 +2044,12 @@ if (!String.prototype.includes) {
 //////////////
 // CONTAINS //
 //////////////
-// ARRAY //
+//ARRAY
 Array.prototype.contains = function(obj) {
 	return (JSON.stringify(this)).indexOf(JSON.stringify(obj)) > -1;
 	//return JSON.stringify(this).indexOf(obj) > -1;
 };
-// STRING //
+//STRING
 String.prototype.contains = function () {
 	return String.prototype.indexOf.apply(this, arguments) !== -1;
 };
@@ -2164,8 +2132,10 @@ function dayFormat(input) {
 // DATEDIFF //
 //////////////
 function dateDiff(date1,date2) {
-	//no future dates
+	
+	//no future dates ~ implemented
 	//if(date1 > date2) { date1 = new Date().getTime(); }
+	
 	if(!LANG) { return; }
 
 	//Get 1 day in milliseconds
@@ -2556,6 +2526,204 @@ function detectPrivateMode(callback) {
 		callback(is_private);
 	});
 }
+//#///////////////#// 
+//# SWIPE HANDLER #// Pointy.js
+//#///////////////#// https://github.com/vistaprint/PointyJS
+(function ($) {
+
+	$.event.delegateSpecial = function (setup) {
+		return function (handleObj) {
+			var thisObject = this,
+			data = jQuery._data(thisObject);
+
+			if (!data.pointerEvents) {
+				data.pointerEvents = {};
+			}
+
+			if (!data.pointerEvents[handleObj.type]) {
+				data.pointerEvents[handleObj.type] = [];
+			}
+
+			if (!data.pointerEvents[handleObj.type].length) {
+				setup.call(thisObject, handleObj);
+			}
+
+			data.pointerEvents[handleObj.type].push(handleObj);
+		};
+	};
+
+	$.event.delegateSpecial.remove = function (teardown) {
+		return function (handleObj) {
+			var handlers,
+			thisObject = this,
+			data = jQuery._data(thisObject);
+
+			if (!data.pointerEvents) {
+				data.pointerEvents = {};
+			}
+
+			handlers = data.pointerEvents[handleObj.type];
+
+			handlers.splice(indexOfArray(handlers, handleObj), 1);
+
+			if (!handlers.length) {
+				teardown.call(thisObject, handleObj);
+			}
+		};
+	};
+
+	var indexOfArray = function (arr, obj) {
+		if (arr.indexOf) {
+			return arr.indexOf(obj);
+		}
+
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i] === obj) {
+				return i;
+			}
+		}
+		
+		return -1;
+	};
+
+	// return a cloned copy of a given event that has been slightly modified
+	function copyEvent(originaljQEvent, type, extras) {
+		var event = originaljQEvent; // TODO: this should clone the originaljQEvent object
+
+		event.type = type;
+		event.isPropagationStopped = function () {
+			return false;
+		};
+		event.isDefaultPrevented = function () {
+			return false;
+		};
+
+		if (extras) {
+			$.extend(event, extras);
+		}
+
+		return event;
+	}
+
+	// also handles sweepleft, sweepright
+	$.event.special.sweep = {
+		// More than this horizontal displacement, and we will suppress scrolling.
+		scrollSupressionThreshold : 30,
+
+		// More time than this, and it isn't a sweep (swipe) it's a "hold" gesture.
+		durationThreshold : 750,
+
+		// Sweep horizontal displacement must be more than this.
+		horizontalDistanceThreshold : 30,
+
+		// Sweep vertical displacement must be less than this.
+		verticalDistanceThreshold : 75,
+
+		start : function (event) {
+			return {
+				time : +new Date(),
+				coords : [event.pageX, event.pageY],
+				origin : $(event.target)
+			};
+		},
+
+		stop : function (event) {
+			return {
+				time : +new Date(),
+				coords : [event.pageX, event.pageY]
+			};
+		},
+
+		isSweep : function (start, stop, checkTime) {
+			return (checkTime ? stop.time - start.time < $.event.special.sweep.durationThreshold : true) &&
+			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.sweep.horizontalDistanceThreshold &&
+			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.sweep.verticalDistanceThreshold;
+		},
+
+		add : $.event.delegateSpecial(function (handleObj) {
+			var thisObject = this,
+			$this = $(thisObject);
+
+			handleObj.pointerdown = function (event) {
+				var start = $.event.special.sweep.start(event),
+				stop;
+
+				// we need to call prevent default because on IE browsers,
+				// dragging anything with a mouse will start dragging the
+				// element for "copy and paste" functionality
+				// on other browsers, it will start selecting text
+				// event.preventDefault();
+
+				function move(event) {
+					if (!start) {
+						return;
+					}
+
+					stop = $.event.special.sweep.stop(event);
+
+					// prevent scrolling on touch devices
+					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.sweep.scrollSupressionThreshold) {
+						event.preventDefault();
+					}
+				}
+
+				function up() {
+					$this.off(touchmove, move);
+
+					if (start && stop && $.event.special.sweep.isSweep(start, stop, true)) {
+						var dir = start.coords[0] > stop.coords[0] ? "left" : "right";
+
+						$.event.dispatch.call(thisObject, copyEvent(event, "sweep", {
+								direction : dir
+							}));
+						$.event.dispatch.call(thisObject, copyEvent(event, "sweep" + dir, {
+								direction : dir
+							}));
+					}
+
+					start = stop = undefined;
+				}
+
+				$this
+				.on(touchmove, move)
+				.one(touchend, up);
+
+				// set a timeout to ensure we cleanup, in case the "touchend" isn't fired
+				setTimeout(function () {
+					$this
+					.off(touchmove, handleObj.selector, move)
+					.off(touchend, handleObj.selector, up);
+				}, $.event.special.sweep.durationThreshold);
+			};
+
+			$this.on(touchstart, handleObj.selector, handleObj.pointerdown);
+		}),
+
+		remove : $.event.delegateSpecial.remove(function (handleObj) {
+			$(this).off(touchstart, handleObj.selector, handleObj.pointerdown);
+		})
+	};
+
+	// sweepleft and sweepright are just dummies, we have to
+	// setup the handler for sweep so attach a dummy event
+	$.each(["sweepleft", "sweepright"], function (i, event) {
+		$.event.special[event] = {
+			add : $.event.delegateSpecial(function (handleObj) {
+				handleObj.noop = $.noop;
+				$(this).on("sweep", handleObj.selector, handleObj.noop);
+			}),
+
+			remove : $.event.delegateSpecial.remove(function (handleObj) {
+				$(this).off("sweep", handleObj.selector, handleObj.noop);
+			})
+		};
+	});
+
+	// utility to return the scroll-y position
+	function scrollY() {
+		return window.scrollY || $(window).scrollTop();
+	}
+})(jQuery);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap

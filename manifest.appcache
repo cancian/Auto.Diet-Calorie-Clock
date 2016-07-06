@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v191811 - 2016-07-03
+# v191812 - 2016-07-06
 
 #LOAD
 index.html
@@ -9,7 +9,6 @@ js/app_init.js
 
 #JQUERY
 js/jquery.js
-js/jquery.touchswipe.js
 js/jquery.nicescroll.js
 
 #BOOT

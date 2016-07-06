@@ -29,7 +29,7 @@ $(document).on("pageload", function (evt) {
 		entryReturn = true;
 		deKeyboard = 1;
 		if (cancelEdit == 0) {
-			getEntryEdit($(this).attr('id'));
+			getEntryEdit($(this).prop('id'));
 		}
 	});
 	var isHoldMove = app.device.windows8 ? '' : touchmove;
@@ -123,7 +123,7 @@ $(document).on("pageload", function (evt) {
 					var value = trim($('.entriesBody', this).text());
 					var kcals = $('.entriesTitle', this).html();
 					var timedBlur = new Date().getTime();
-					$('.entriesTitle', this).attr('id', 'kcalsDiv');
+					$('.entriesTitle', this).prop('id', 'kcalsDiv');
 					var input = $('<input/>', {
 							'type' : 'text',
 							'id' : 'editableInput',
@@ -350,7 +350,8 @@ $(document).on("pageload", function (evt) {
 	//#///////////////#//
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
-	app.swipe("#entryList div" + tgt, function (swippen,evt) {
+	$("#entryList div" + tgt).on('sweep',function (evt) {
+		var swippen = this;
 		//HIDE ACTIVE
 		if (!$('.delete').hasClass('busy')) {
 			$('.active').addClass('busy');
@@ -391,7 +392,7 @@ $(document).on("pageload", function (evt) {
 			evt.stopPropagation();
 			//ID MATCH
 			if (!$("#entryList div").is(':animated')) {
-				if ($(this).attr("id") != $("#editableInput").closest("div").attr("id")) {
+				if ($(this).prop("id") != $("#editableInput").closest("div").prop("id")) {
 					$("#editableInput").blur();
 					evt.preventDefault();
 					evt.stopPropagation();
@@ -445,10 +446,7 @@ $(document).on("pageload", function (evt) {
 			}
 		});
 	}
-	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').on(tap + ' swipeLeft swipeRight', function (evt) {
-		hideEntry(evt);
-	});
-	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').click(function (evt) {
+	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').on('tap click sweep', function (evt) {
 		hideEntry(evt);
 	});
 	//////////////
@@ -461,7 +459,7 @@ $(document).on("pageload", function (evt) {
 		///////////
 		if (evt.target.id == 'reuse') {
 			$('#' + evt.target.id).addClass('button');
-			getEntry($(target).parent('div').attr('id'), function (data) {
+			getEntry($(target).parent('div').prop('id'), function (data) {
 				data.reuse = true;
 				saveEntry(data, function (newRowId) {
 					setTimeout(function () {
@@ -486,10 +484,10 @@ $(document).on("pageload", function (evt) {
 		//////////
 		else if (evt.target.id == 'edit') {
 			$('#' + evt.target.id).addClass('button');
-			var editedEntry = $(target).parent('div').attr('id');
+			var editedEntry = $(target).parent('div').prop('id');
 			getEntryEdit(editedEntry);
 			setTimeout(function () {
-				$('#' + editedEntry).trigger('swipeLeft');
+				$('#' + editedEntry).trigger('sweepleft');
 			}, 300);
 		}
 		////////////
@@ -497,8 +495,8 @@ $(document).on("pageload", function (evt) {
 		////////////
 		else if (evt.target.id == 'delete') {
 			$('#' + evt.target.id).addClass('button');
-			var rowId = $(target).parent('div').attr('id');
-			var rowTime = $(target).parent('div').attr('name');
+			var rowId = $(target).parent('div').prop('id');
+			var rowTime = $(target).parent('div').prop('name');
 			//no jump
 			$('#appContent').scrollTop($('#appContent').scrollTop());
 			$('#' + rowId).hide();
@@ -603,7 +601,7 @@ $(document).on("pageReload", function (evt) {
 						buildFoodMenu();
 						//remember search type
 						if (app.read('searchType','exercise')) {
-							$("#foodSearch").attr('placeholder', LANG.EXERCISE_SEARCH[lang]);
+							$("#foodSearch").prop('placeholder', LANG.EXERCISE_SEARCH[lang]);
 							$("#foodSearch,#pageSlideFood").addClass("exerciseType");
 						}
 						////////////////////
@@ -1017,7 +1015,7 @@ function buildFoodMenu() {
 	$('#menuTopBar h3').on(touchstart, function (evt) {
 		evt.preventDefault();
 		$('#foodList').scrollTop(0);
-		app.save('lastInfoTab',$(this).attr('id'));
+		app.save('lastInfoTab',$(this).prop('id'));
 		$("div.activeOverflow").removeClass("activeOverflow");
 		////////////
 		// TAB #1 //
@@ -1681,10 +1679,10 @@ function getModalWindow(itemId) {
 					setTimeout(function() {
 						delFood(modal.id,function() {
 							$('.' + modal.id).each(function(row) {
-								if ($('#' + $(this).parent('div').attr('id') + ' div.searcheable').length == 1) {
+								if ($('#' + $(this).parent('div').prop('id') + ' div.searcheable').length == 1) {
 									$(this).parent('div').append2('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
 								}
-								$('#' + $(this).parent('div').attr('id') + ' .' + modal.id).remove();
+								$('#' + $(this).parent('div').prop('id') + ' .' + modal.id).remove();
 							});
 						});
 					},100);

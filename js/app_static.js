@@ -336,82 +336,84 @@ if(app.device.wp8) {
 ////////////////////////
 var backer = 0;
 $(document).on('backbutton', function(evt) {
-	//CHAIN
-	if($('body').hasClass('spinnerMask')) { return false; }
-	//
-	if($('#langSelect').length) {
-		$('.preset').addClass('set');
-		$('.preset').trigger(touchend);
-	} else if($('#skipIntro').length && myScroll.x) {
-		if(typeof myScroll !== 'undefined') {
-			myScroll.prev();
-		}
-	} else if(ref) {
-		ref.close();
-		ref = '';
-	} else if($('#addNewCancel').length || $('#modalCancel').length) {
-		$('#addNewCancel').trigger(touchstart);
-		$('#modalCancel').trigger(touchstart);
-	} else if($('#closeButton').length) {
-		$('#closeButton').trigger(touchend);
-	} else if($('#subBackButton').length) {
-		$('#subBackButton').addClass('button');
-		$('#subBackButton').trigger(touchend);
-	} else if($('#backButton').length && $('#backButton').is(':visible')) {
-		if($('.dwo').length) {
-			$('#getEntryDate').mobiscroll('cancel');
-		} else {
-			$('#backButton').addClass('button');
-			$('#backButton').trigger(touchend);
-		}
-	} else if($('#advBackButton').length) {
-			$('#advBackButton').addClass('button');
-			$('#advBackButton').trigger(touchend);
-	} else if($('#iconClear').is(':visible')) {
-		$('#iconClear').trigger(touchstart);
-	} else if($('#pageSlideFood').hasClass('open')) {
-		if(app.read('foodDbLoaded','done')) {
-			$('#appHeader').trigger(touchstart);
-		}
-	} else if($('#timerDailyInput').is(':focus')) {
-		$('#timerDailyInput').trigger('blur');
-	} else if($('#diaryNotesButton').length) {
-		$('#diaryNotesButton').trigger(touchstart);
-	} else if($('#appStatusFix').hasClass('open')) {
-		$('#appStatusFix').removeClass('open');
-		$('#startDate').mobiscroll('cancel');
-	} else if($('.delete').hasClass('active')) {
-		$('#go').trigger(tap);
-	} else if($('#editableInput').is(':visible')) {
-		$('#editableInput').trigger('focus');
-		$('#editableInput').trigger('blur');
-	} else if($('input,select').is(':focus')) {
-		$('input,select,textarea').trigger('blur');
-	} else if(!app.read('app_last_tab','tab1')) {
-		if(app.read('app_last_tab','tab4')) {
-			appFooter('tab3');
-		} else if(app.read('app_last_tab','tab3')) {
-			appFooter('tab2');
-		} else {
-			appFooter('tab1');
-		}
-	} else {
-		if(app.dev) {
-			afterHide();
-		} else if(app.device.msapp) {
-			backer = 1;
-		} else if(app.device.wp8) {
-			$(document).off('backbutton');
-			blockAlerts = 1;
-			throw '';
-		} else if(typeof navigator.app !== 'undefined') {
-			if(typeof navigator.app.exitApp !== 'undefined') {
-				navigator.app.exitApp();
+	app.timeout('backbuttonTimer',10,function() {
+		//CHAIN
+		if($('body').hasClass('spinnerMask')) { return false; }
+		//
+		if($('#langSelect').length) {
+			$('.preset').addClass('set');
+			$('.preset').trigger(touchend);
+		} else if($('#skipIntro').length && myScroll.x) {
+			if(typeof myScroll !== 'undefined') {
+				myScroll.prev();
+			}
+		} else if(ref) {
+			ref.close();
+			ref = '';
+		} else if($('#addNewCancel').length || $('#modalCancel').length) {
+			$('#addNewCancel').trigger(touchstart);
+			$('#modalCancel').trigger(touchstart);
+		} else if($('#closeButton').length) {
+			$('#closeButton').trigger(touchend);
+		} else if($('#subBackButton').length) {
+			$('#subBackButton').addClass('button');
+			$('#subBackButton').trigger(touchend);
+		} else if($('#backButton').length && $('#backButton').is(':visible')) {
+			if($('.dwo').length) {
+				$('#getEntryDate').mobiscroll('cancel');
+			} else {
+				$('#backButton').addClass('button');
+				$('#backButton').trigger(touchend);
+			}
+		} else if($('#advBackButton').length) {
+				$('#advBackButton').addClass('button');
+				$('#advBackButton').trigger(touchend);
+		} else if($('#iconClear').is(':visible')) {
+			$('#iconClear').trigger(touchstart);
+		} else if($('#pageSlideFood').hasClass('open')) {
+			if(app.read('foodDbLoaded','done')) {
+				$('#appHeader').trigger(touchstart);
+			}
+		} else if($('#timerDailyInput').is(':focus')) {
+			$('#timerDailyInput').trigger('blur');
+		} else if($('#diaryNotesButton').length) {
+			$('#diaryNotesButton').trigger(touchstart);
+		} else if($('#appStatusFix').hasClass('open')) {
+			$('#appStatusFix').removeClass('open');
+			$('#startDate').mobiscroll('cancel');
+		} else if($('.delete').hasClass('active')) {
+			$('#go').trigger(tap);
+		} else if($('#editableInput').is(':visible')) {
+			$('#editableInput').trigger('focus');
+			$('#editableInput').trigger('blur');
+		} else if($('input,select').is(':focus')) {
+			$('input,select,textarea').trigger('blur');
+		} else if(!app.read('app_last_tab','tab1')) {
+			if(app.read('app_last_tab','tab4')) {
+				appFooter('tab3');
+			} else if(app.read('app_last_tab','tab3')) {
+				appFooter('tab2');
+			} else {
+				appFooter('tab1');
 			}
 		} else {
-			afterHide();
+			if(app.dev) {
+				afterHide();
+			} else if(app.device.msapp) {
+				backer = 1;
+			} else if(app.device.wp8) {
+				$(document).off('backbutton');
+				blockAlerts = 1;
+				throw '';
+			} else if(typeof navigator.app !== 'undefined') {
+				if(typeof navigator.app.exitApp !== 'undefined') {
+					navigator.app.exitApp();
+				}
+			} else {
+				afterHide();
+			}
 		}
-	}
+	});
 });
 //////////////////////
 // WINJS BACKBUTTON //
@@ -1165,7 +1167,7 @@ if(app.is.scrollable && app.device.desktop) {
 		//DEFER
 		if(targetId == 'timerDailyInput' && ($('#pageSlideFood').html() || $('#newWindow').html())) {
 			//inactive
-			$('#timerDailyInput').attr('readonly','readonly');
+			$('#timerDailyInput').prop('readonly','readonly');
 			$('#timerDailyInput').addClass('dull');
 			setTimeout(function() {
 				$('#timerDailyInput').blur();
@@ -1261,22 +1263,22 @@ if(app.is.scrollable && app.device.desktop) {
 	//////////////////
 	var headerSwipe;
 	var headerSwipeBlock = 0;
-	app.swipe('#appHeader',function(that,evt,direction) {
-			if(direction === 'left') {
-				clearTimeout(headerSwipe);
-				kickDown();
-			         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
-			} else {
-				clearTimeout(headerSwipe);
-				kickDown();
-			         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
-				else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
-			}
+	$('#appHeader').on('sweep',function(evt) {
+		if(/left/i.test(evt.direction)) {
+			clearTimeout(headerSwipe);
+			kickDown();
+		         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
+			else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
+			else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
+			else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
+		} else {
+			clearTimeout(headerSwipe);
+			kickDown();
+		         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
+			else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
+			else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }
+			else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
+		}
 	});
 	//////////////////////////
 	// AJAX IN-PLACE EDITOR //

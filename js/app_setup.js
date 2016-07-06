@@ -1344,8 +1344,8 @@ function pageLoad(target,content,published) {
 		arr.push(published);
 		//build array from time on 'name'
 		$('#entryList').children().each(function() {
-			if($(this).attr('name')) {
-				arr.push($(this).attr('name'));
+			if($(this).prop('name')) {
+				arr.push($(this).prop('name'));
 			}
 		});
 		//sort it
@@ -1376,7 +1376,7 @@ function pageLoad(target,content,published) {
 			}
 
 		//target [div#partial] ~time's parent div id as target
-		var page = $('#entryList div' + '#' + $('#t' + published).parent('div').attr('id'));
+		var page = $('#entryList div' + '#' + $('#t' + published).parent('div').prop('id'));
 	// FULL DIV REPLACE //
 	} else {
 		//check existence
