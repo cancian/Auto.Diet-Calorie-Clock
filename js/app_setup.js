@@ -2127,9 +2127,14 @@ function getNiceScroll(target,timeout,callback) {
 		railvalign: 'bottom',
 		zindex: 50
 	};
+	//ADDNEW Z-INDEX (99)
+	if(/addNewWrapper/i.test(target)) {
+		NSettings.zindex = 100;
+		NSettings.railpadding.bottom = 1;
+	}
 	//HIDE FIRST HELPER
 	if(/appHelper/i.test(target)) {
-		NSettings.zindex = -1;
+		//NSettings.zindex = -1;
 		NSettings.cursorcolor = 'rgba(0,0,0,0)';
 	}
 	//HORIZONTAL

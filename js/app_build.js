@@ -477,7 +477,7 @@ app.tab.status = function(keepOpen) {
 			$('#startDateBar').hide();
 			afterHide();
 			//HOLD TRIGGER ~ TOUCHSTART
-		} else if(evt.type == touchstart) {
+		} else if(evt.type == touchstart || evt.type == hold) {
 			//#//////////////#//
 			//# ENABLE DEBUG #//
 			//#//////////////#//

@@ -517,7 +517,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 .windows8 #newWindowWrapper			{ -webkit-backface-visibility: hidden; }
 .android #newWindow					{ /*-webkit-backface-visibility: hidden;*/ -webkit-perspective: 800; }
 #newWindow							{ position: absolute; top: 44px; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; }
-#newWindowHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
+#newWindowHeader					{ display: block; position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; z-index: 52; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: 'KCals'; content: '\f104'; }
 #newWindowHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; display: block; color: #007AFF; text-align: center; display: block; z-index: 99; font-weight: bold; text-indent: 0px; text-transform: uppercase; }
