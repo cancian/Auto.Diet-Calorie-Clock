@@ -1132,8 +1132,8 @@ if(app.is.scrollable && app.device.desktop) {
 		})
 	});
 	// HANDLER
-	app.handlers.activeRow('#appHeader','button',function(evt) {
-		if(app.infoX < 132 && app.infoY < 72) {
+	$('#appHeader').on(tap, function(evt) {
+		if(evt.pageX < 132 && evt.pageY < 72) {
 			if($('#appHelper').length)					{ return; }
 			if($('#advancedMenu').length)				{ return; }
 			if($('#backButton').length)					{ return; }
@@ -1263,7 +1263,7 @@ if(app.is.scrollable && app.device.desktop) {
 	//////////////////
 	var headerSwipe;
 	var headerSwipeBlock = 0;
-	$('#appHeader').on('sweep',function(evt) {
+	$('#appHeader').on(swipe,function(evt) {
 		if(/left/i.test(evt.direction)) {
 			clearTimeout(headerSwipe);
 			kickDown();
