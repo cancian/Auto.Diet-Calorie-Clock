@@ -140,7 +140,8 @@ $(document).on("pageload", function (evt) {
 								});
 								
 								var nowBlur = new Date().getTime();
-								if (app.device.android || app.device.firefoxos) {
+								//prevent keyboard jump
+								if (app.device.android || app.device.firefoxos || app.device.wp8 || app.device.msapp) {
 									if (nowBlur - timedBlur < 600) {
 										var blurVal = $('editableInput').val();
 										$('#editableInput').focus();
@@ -350,7 +351,7 @@ $(document).on("pageload", function (evt) {
 	//#///////////////#//
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
-	$("#entryList div" + tgt).on('sweep',function (evt) {
+	$('#entryList div' + tgt).on(swipe,function (evt) {
 		var swippen = this;
 		//HIDE ACTIVE
 		if (!$('.delete').hasClass('busy')) {
@@ -362,7 +363,7 @@ $(document).on("pageload", function (evt) {
 			$('.active').removeClass('active');
 		}
 		//SHOW
-		if (!$('#entryList div:animated').length && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
+		if (!$('#entryList div:animated').length && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && (!$('#entryBody').is(':focus') || app.device.desktop) && (!$('#entryTime').is(':focus') || app.device.desktop)) {
 			$('.delete', swippen).addClass('busy');
 			setTimeout(function () {
 				$('.delete', swippen).addClass('active');
@@ -402,12 +403,12 @@ $(document).on("pageload", function (evt) {
 	});
 	//wrapper click
 	$("#entryListWrapper").on(touchstart, function (evt) {
-		if ($('.editableInput').is(':visible')) {
-			//ALLOW ENTRY INPUT RETINA FOCUS
-			//evt.preventDefault();
-			//evt.stopPropagation();
-		}
-
+		//allow unfocus on list click
+		$("#timerDailyInput").blur();
+		$("#entryTitle").blur();
+		$("#entryBody").blur();
+		$("#entryTime").blur();
+		//
 		if (evt.target.id == "entryListWrapper") {
 			if (!$("#entryList div").is(':animated')) {
 				$("#editableInput").blur();
@@ -446,20 +447,23 @@ $(document).on("pageload", function (evt) {
 			}
 		});
 	}
-	$('#entryListForm, #go, #sliderBlock, #entryListWrapper').on('tap click sweep', function (evt) {
+	$('#entryListForm, #entryList div, #go, #sliderBlock, #entryListWrapper').on(tap + ' ' + swipe, function (evt) {
 		hideEntry(evt);
 	});
 	//////////////
 	// SPAN TAP //
 	//////////////
-	$('#entryList div' + tgt + ' span.delete').on(tap, function (evt) {
-		var target = this;
+
+	//////////////
+	// SPAN TAP //
+	//////////////
+	$('#entryList div' + tgt + ' .delete').on(tap, function (evt) {
 		///////////
 		// REUSE //
 		///////////
 		if (evt.target.id == 'reuse') {
 			$('#' + evt.target.id).addClass('button');
-			getEntry($(target).parent('div').prop('id'), function (data) {
+			getEntry($(this).parent('div').prop('id'), function (data) {
 				data.reuse = true;
 				saveEntry(data, function (newRowId) {
 					setTimeout(function () {
@@ -484,7 +488,7 @@ $(document).on("pageload", function (evt) {
 		//////////
 		else if (evt.target.id == 'edit') {
 			$('#' + evt.target.id).addClass('button');
-			var editedEntry = $(target).parent('div').prop('id');
+			var editedEntry = $(this).parent('div').prop('id');
 			getEntryEdit(editedEntry);
 			setTimeout(function () {
 				$('#' + editedEntry).trigger('sweepleft');
@@ -495,8 +499,8 @@ $(document).on("pageload", function (evt) {
 		////////////
 		else if (evt.target.id == 'delete') {
 			$('#' + evt.target.id).addClass('button');
-			var rowId = $(target).parent('div').prop('id');
-			var rowTime = $(target).parent('div').prop('name');
+			var rowId   = $(this).parent('div').prop('id');
+			var rowTime = $(this).parent('div').prop('name');
 			//no jump
 			$('#appContent').scrollTop($('#appContent').scrollTop());
 			$('#' + rowId).hide();
