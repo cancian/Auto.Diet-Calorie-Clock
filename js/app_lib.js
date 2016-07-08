@@ -826,7 +826,8 @@ app.handlers = {
 	////////////////
 	activeRowTouches : [],
 	activeRowBlock   : [],
-	activeLastId     : [],
+	activeRowTimer   : [],	
+	activeLastObj    : [],
 	activeRow : function (target, style, callback,callbackCondition) {
 		var t = searchalize(target);
 		var isButton = style == 'button' ? 1 : 40;
@@ -836,7 +837,7 @@ app.handlers = {
 		//RESET
 		app.handlers.activeRowTouches[t] = 0;
 		app.handlers.activeRowBlock[t]   = 0;
-		app.handlers.activeLastId[t]     = '';
+		app.handlers.activeLastObj[t]    = '';
 		////////////////
 		// SET PARENT //
 		////////////////
@@ -850,24 +851,21 @@ app.handlers = {
 		$(target).on(touchend, function (evt) {
 			if($(this).hasClass(style) && app.handlers.activeRowBlock[t] == 0) {
 				if (typeof callback === 'function') {
-					app.handlers.activeRowBlock[t] = 1;
-					if(style == 'button') {
-						callback(evt);
-					} else {
-						callback($(this).prop('id'));
-					}
+					//app.handlers.activeRowBlock[t] = 1;
+					//
+					callback($(this).attr('id'), evt);
 					$(this).addClass(style);
-					app.handlers.activeLastId[t] = this;
+					app.handlers.activeLastObj[t] = this;
 					app.handlers.activeRowTouches[t] = 0;
-					app.handlers.activeRowBlock[t]   = 0;
+					//app.handlers.activeRowBlock[t] = 0;
 					app.timeout(t,'clear');
 					if(style != 'activeOverflow') {
-						$(app.handlers.activeLastId[t]).removeClass(style);
+						$(app.handlers.activeLastObj[t]).removeClass(style);
 					}
 				}
 			} else {
 				app.handlers.activeRowTouches[t] = 0;
-				app.handlers.activeRowBlock[t]   = 0;
+				//app.handlers.activeRowBlock[t] = 0;
 				app.timeout(t,'clear');
 			}
 			if(style == 'false') {
@@ -884,16 +882,16 @@ app.handlers = {
 		setTimeout(function () {
 			$(target).on(touchstart, function (evt) {
 				if(!$(this).hasClass(style)) {
-					$(app.handlers.activeLastId[t]).removeClass(style);
+					$(app.handlers.activeLastObj[t]).removeClass(style);
 				}
 				var localTarget = this;
 				app.handlers.activeRowTouches[t] = 0;
 				app.timeout(t,isButton,function (evt) {
 					if (app.handlers.activeRowTouches[t] == 0 && app.handlers.activeRowBlock[t] == 0) {
 						$(localTarget).addClass(style);
-						app.handlers.activeLastId[t] = localTarget;
+						app.handlers.activeLastObj[t] = localTarget;
 					} else {
-						$(app.handlers.activeLastId[t]).removeClass(style);
+						$(app.handlers.activeLastObj[t]).removeClass(style);
 					}
 				});
 				//CALLBACK CONDITION
@@ -902,19 +900,14 @@ app.handlers = {
 						app.timeout(t,'clear');
 					}
 				}
-				//no scrolling for buttons
-				//if(style == 'button') {
-					//return false;
-					//evt.preventDefault();
-				//}
 			});
-		}, 320);
+		}, 300);
 		//////////////////////
 		// ROW LEAVE CANCEL //
 		//////////////////////
 		if(app.device.windows8) {
 			$(target).on(touchout + ' ' + touchleave + ' ' + touchcancel, function (evt) {
-				$(app.handlers.activeLastId[t]).removeClass(style);
+				$(app.handlers.activeLastObj[t]).removeClass(style);
 				app.timeout(t,'clear');
 			});
 		} else {
@@ -922,7 +915,7 @@ app.handlers = {
 				app.handlers.activeRowTouches[t]++;
 				if(!app.device.wp8 && style != 'activeOverflow') {
 					app.timeout(t,'clear');
-					$(app.handlers.activeLastId[t]).removeClass(style);
+					$(app.handlers.activeLastObj[t]).removeClass(style);
 				}
 			});
 		}
@@ -930,10 +923,10 @@ app.handlers = {
 		//# SCROLL/MOVE CANCEL #//
 		//#////////////////////#//
 		//higher thresold for android
-		var TouchLimit = app.device.android ? 10 : 30;
+		var TouchLimit = app.device.android ? 20 : 40;
 		//
 		if(!app.device.windows8) {
-			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
+			var moveCancel =  touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel; //app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
 			/////////////////
 			// MOVE CANCEL //
 			/////////////////
@@ -941,27 +934,18 @@ app.handlers = {
 				app.handlers.activeRowTouches[t]++;
 				app.timeout(t,'clear');
 				if (app.handlers.activeRowTouches[t] > TouchLimit) {
-					$(app.handlers.activeLastId[t]).removeClass(style);
-					if(app.device.osxapp || app.device.osx) {
-						$('.activeOverflow').removeClass(style);
-					}
+					$(app.handlers.activeLastObj[t]).removeClass(style);
 					app.handlers.activeRowTouches[t] = 0;
 				}
 			});
 			///////////////////
 			// SCROLL CANCEL //
 			///////////////////
-			$(targetParent).on('scroll', function (evt) {
-				/////
+			$(targetParent).on('scroll',function (evt) {
 				app.handlers.activeRowTouches[t]++;
-				app.handlers.activeRowTouches[t]++;
-				/////
 				app.timeout(t,'clear');
 				if (app.handlers.activeRowTouches[t] > TouchLimit) {
-					$(app.handlers.activeLastId[t]).removeClass(style);
-					if(app.device.osxapp || app.device.osx) {
-						$('.activeOverflow').removeClass(style);
-					}
+					$(app.handlers.activeLastObj[t]).removeClass(style);
 					app.handlers.activeRowTouches[t] = 0;
 				}
 			});
@@ -969,15 +953,15 @@ app.handlers = {
 		///////////////////////
 		// SCROLL TIME BLOCK //
 		///////////////////////
-		var timeBlock;
 		$(targetParent).on('scroll',function (evt) {
-			////////////
+			//BLOCK
 			app.handlers.activeRowBlock[t] = 1;
-			//ASYNC TIMEOUT
-			clearTimeout(timeBlock);
-			timeBlock = setTimeout(function () {
+			//UNBLOCK
+			clearTimeout(app.handlers.activeRowTimer[t]);
+			//TIMEOUT
+			app.handlers.activeRowTimer[t] = setTimeout(function () {
 				app.handlers.activeRowBlock[t] = 0;
-			}, 50);
+			}, 100);
 		});
 	},
 	///////////////////
@@ -1121,7 +1105,7 @@ app.handlers = {
 		///////////////
 		// AUTOCLEAR //
 		///////////////
-		var clearActions = touchend + ' mouseout mouseleave touchleave touchcancel';
+		var clearActions = touchend + ' ' + touchout + ' ' + touchleave + ' ' + touchcancel;
 		$(target).off(clearActions).on(clearActions, function (evt) {
 			if(!app.device.ios && !app.device.firefoxos) {
 				evt.preventDefault();
@@ -1398,17 +1382,19 @@ function hasTap() {
 ////////////////////
 // TOUCH HANDLERS //
 ////////////////////
-var tap         = hasTap() ? 'tap'         : 'tap';
-var hold        = hasTap() ? 'hold'        : 'hold';
-var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
-var touchend    = hasTap() ? 'touchend'    : 'mouseup';
-var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
-var touchcancel = hasTap() ? 'touchcancel' : 'mouseup';
-var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
-var touchout    = hasTap() ? 'touchout'    : 'mouseout';
+var tap         = 'tap';
+var hold        = 'hold';
+var swipe       = 'sweep';
+var touchstart  = 'pointerdown';   //hasTap() ? 'touchstart'  : 'mousedown';
+var touchend    = 'pointerup';     //hasTap() ? 'touchend'    : 'mouseup';
+var touchmove   = 'pointermove';   //hasTap() ? 'touchmove'   : 'mousemove';
+var touchcancel = 'pointercancel'; //hasTap() ? 'touchcancel' : 'mouseup';
+var touchleave  = 'pointerleave';  //hasTap() ? 'touchleave'  : 'mouseleave';
+var touchout    = 'pointerout';    //hasTap() ? 'touchout'    : 'mouseout';
 ///////////////
 // MSPOINTER //
 ///////////////
+/*
 function msPointerSet(prefix) {
 	if(prefix === 1) {
 		touchstart  = 'MSPointerDown';
@@ -1440,6 +1426,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 if (app.device.msapp) {
 	//tap = 'click';
 }
+*/
 ///////////////
 // SAFE EXEC //
 ///////////////
@@ -2526,216 +2513,26 @@ function detectPrivateMode(callback) {
 		callback(is_private);
 	});
 }
-//#///////////////#// 
-//# SWIPE HANDLER #// Pointy.js
-//#///////////////#// https://github.com/vistaprint/PointyJS
-(function ($) {
-
-	$.event.delegateSpecial = function (setup) {
-		return function (handleObj) {
-			var thisObject = this,
-			data = jQuery._data(thisObject);
-
-			if (!data.pointerEvents) {
-				data.pointerEvents = {};
-			}
-
-			if (!data.pointerEvents[handleObj.type]) {
-				data.pointerEvents[handleObj.type] = [];
-			}
-
-			if (!data.pointerEvents[handleObj.type].length) {
-				setup.call(thisObject, handleObj);
-			}
-
-			data.pointerEvents[handleObj.type].push(handleObj);
-		};
-	};
-
-	$.event.delegateSpecial.remove = function (teardown) {
-		return function (handleObj) {
-			var handlers,
-			thisObject = this,
-			data = jQuery._data(thisObject);
-
-			if (!data.pointerEvents) {
-				data.pointerEvents = {};
-			}
-
-			handlers = data.pointerEvents[handleObj.type];
-
-			handlers.splice(indexOfArray(handlers, handleObj), 1);
-
-			if (!handlers.length) {
-				teardown.call(thisObject, handleObj);
-			}
-		};
-	};
-
-	var indexOfArray = function (arr, obj) {
-		if (arr.indexOf) {
-			return arr.indexOf(obj);
-		}
-
-		for (var i = 0; i < arr.length; i++) {
-			if (arr[i] === obj) {
-				return i;
-			}
-		}
-		
-		return -1;
-	};
-
-	// return a cloned copy of a given event that has been slightly modified
-	function copyEvent(originaljQEvent, type, extras) {
-		var event = originaljQEvent; // TODO: this should clone the originaljQEvent object
-
-		event.type = type;
-		event.isPropagationStopped = function () {
-			return false;
-		};
-		event.isDefaultPrevented = function () {
-			return false;
-		};
-
-		if (extras) {
-			$.extend(event, extras);
-		}
-
-		return event;
-	}
-
-	// also handles sweepleft, sweepright
-	$.event.special.sweep = {
-		// More than this horizontal displacement, and we will suppress scrolling.
-		scrollSupressionThreshold : 30,
-
-		// More time than this, and it isn't a sweep (swipe) it's a "hold" gesture.
-		durationThreshold : 750,
-
-		// Sweep horizontal displacement must be more than this.
-		horizontalDistanceThreshold : 30,
-
-		// Sweep vertical displacement must be less than this.
-		verticalDistanceThreshold : 75,
-
-		start : function (event) {
-			return {
-				time : +new Date(),
-				coords : [event.pageX, event.pageY],
-				origin : $(event.target)
-			};
-		},
-
-		stop : function (event) {
-			return {
-				time : +new Date(),
-				coords : [event.pageX, event.pageY]
-			};
-		},
-
-		isSweep : function (start, stop, checkTime) {
-			return (checkTime ? stop.time - start.time < $.event.special.sweep.durationThreshold : true) &&
-			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.sweep.horizontalDistanceThreshold &&
-			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.sweep.verticalDistanceThreshold;
-		},
-
-		add : $.event.delegateSpecial(function (handleObj) {
-			var thisObject = this,
-			$this = $(thisObject);
-
-			handleObj.pointerdown = function (event) {
-				var start = $.event.special.sweep.start(event),
-				stop;
-
-				// we need to call prevent default because on IE browsers,
-				// dragging anything with a mouse will start dragging the
-				// element for "copy and paste" functionality
-				// on other browsers, it will start selecting text
-				// event.preventDefault();
-
-				function move(event) {
-					if (!start) {
-						return;
-					}
-
-					stop = $.event.special.sweep.stop(event);
-
-					// prevent scrolling on touch devices
-					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.sweep.scrollSupressionThreshold) {
-						event.preventDefault();
-					}
-				}
-
-				function up() {
-					$this.off(touchmove, move);
-
-					if (start && stop && $.event.special.sweep.isSweep(start, stop, true)) {
-						var dir = start.coords[0] > stop.coords[0] ? "left" : "right";
-
-						$.event.dispatch.call(thisObject, copyEvent(event, "sweep", {
-								direction : dir
-							}));
-						$.event.dispatch.call(thisObject, copyEvent(event, "sweep" + dir, {
-								direction : dir
-							}));
-					}
-
-					start = stop = undefined;
-				}
-
-				$this
-				.on(touchmove, move)
-				.one(touchend, up);
-
-				// set a timeout to ensure we cleanup, in case the "touchend" isn't fired
-				setTimeout(function () {
-					$this
-					.off(touchmove, handleObj.selector, move)
-					.off(touchend, handleObj.selector, up);
-				}, $.event.special.sweep.durationThreshold);
-			};
-
-			$this.on(touchstart, handleObj.selector, handleObj.pointerdown);
-		}),
-
-		remove : $.event.delegateSpecial.remove(function (handleObj) {
-			$(this).off(touchstart, handleObj.selector, handleObj.pointerdown);
-		})
-	};
-
-	// sweepleft and sweepright are just dummies, we have to
-	// setup the handler for sweep so attach a dummy event
-	$.each(["sweepleft", "sweepright"], function (i, event) {
-		$.event.special[event] = {
-			add : $.event.delegateSpecial(function (handleObj) {
-				handleObj.noop = $.noop;
-				$(this).on("sweep", handleObj.selector, handleObj.noop);
-			}),
-
-			remove : $.event.delegateSpecial.remove(function (handleObj) {
-				$(this).off("sweep", handleObj.selector, handleObj.noop);
-			})
-		};
-	});
-
-	// utility to return the scroll-y position
-	function scrollY() {
-		return window.scrollY || $(window).scrollTop();
-	}
-})(jQuery);
+//#///////////#//
+//# POINTY.JS #//
+//#///////////#// https://github.com/vistaprint/PointyJS
+!function(a,b,c,d){function e(d,e,f){f=f||b.event;var g=new jQuery.Event(f);g.type=e;var h,i=a.event.props.concat(a.event.pointerHooks.props);for(h=i.length;h--;){var j=i[h];g[j]=f[j]}return g.target||(g.target=f.srcElement||c),3===g.target.nodeType&&(g.target=g.target.parentNode),g.metaKey=!!g.metaKey,g=a.event.pointerHooks.filter(g,f),a.isArray(g)?a.each(g,function(b,c){a.event.dispatch.call(d,c)}):a.event.dispatch.call(d,g),g}function f(b,c,d,e){d?(e._pointerEventWrapper=function(a){return e.call(b,a.originalEvent)},a(b).on(c,d,e._pointerEventWrapper)):b.addEventListener?b.addEventListener(c,e,!1):b.attachEvent&&(e._pointerEventWrapper=function(a){return e.call(b,a)},b.attachEvent("on"+c,e._pointerEventWrapper))}function g(b,c,d,e){e._pointerEventWrapper&&(e=e._pointerEventWrapper),d?a(b).off(c,d,e):a.removeEvent(b,c,e)}function h(a){if(a.buttons)return a.buttons;var b=a.which;return b||a.button===d||(b=1&a.button?1:2&a.button?3:4&a.button?2:0),0===b?0:1===b?1:2===b?4:3===b?2:0}function i(){return!1}function j(){return!0}var k={touch:"ontouchend"in c,pointer:!(!navigator.pointerEnabled&&!navigator.msPointerEnabled)};a.extend(a.support,k);var l="unavailable",m="touch",n="pen",o="mouse",p=null,q=0,r=[];a.event.pointerHooks={props:"pointerType pointerId pressure buttons clientX clientY relatedTarget fromElement offsetX offsetY pageX pageY screenX screenY width height toElement".split(" "),filter:function(b,e){if(!e.touches&&null==b.pageX&&null!=e.clientX){var f=b.target.ownerDocument||c,g=f.documentElement,k=f.body;b.pageX=e.clientX+(g&&g.scrollLeft||k&&k.scrollLeft||0)-(g&&g.clientLeft||k&&k.clientLeft||0),b.pageY=e.clientY+(g&&g.scrollTop||k&&k.scrollTop||0)-(g&&g.clientTop||k&&k.clientTop||0)}if(!b.relatedTarget&&e.fromElement&&(b.relatedTarget=e.fromElement===b.target?e.toElement:e.fromElement),b.pointerType&&"number"!=typeof b.pointerType||(2==b.pointerType?b.pointerType=m:3==b.pointerType?b.pointerType=n:4==b.pointerType?b.pointerType=o:/^touch/i.test(e.type)?(b.pointerType=m,b.buttons="touchend"===e.type||"touchcancel"===e.type?0:1):/^mouse/i.test(e.type)||"click"===e.type?(b.pointerId=1,b.pointerType=o,b.buttons="mouseup"===e.type?0:h(e)):(b.pointerType=l,b.buttons=0)),"pointerdown"!==b.type&&"mouse"===b.pointerType&&null===p&&q!==b.buttons&&(b.buttons=q),b.pressure||(b.pressure=b.buttons>0?.5:0),(b.width===d||b.height===d)&&(b.width=b.height=0),b.preventClick=function(){b.isClickPrevented=j,a(b.target).one("click",i)},b.isClickPrevented=i,e.touches&&"pointercancel"!==b.type){var s,t,u,v=e.touches,w=[];if("pointerup"===b.type){for(r=Array.prototype.slice.call(r),t=0;t<e.touches.length;t++)for(u=0;u<r.length;u++)r[u].identifier===e.touches[t].identifier&&r.splice(u,1);if(1===r.length)return b.pointerId=r[0].identifier,r=e.touches,b}else if("pointerdown"===b.type)for(v=Array.prototype.slice.call(e.touches),t=0;t<v.length;t++)for(u=0;u<r.length;u++)v[t].identifier===r[u].identifier&&v.splice(t,1);for(t=0;t<e.touches.length;t++){var x=e.touches[t];s=a.extend({},b),s.clientX=x.clientX,s.clientY=x.clientY,s.pageX=x.pageX,s.pageY=x.pageY,s.screenX=x.screenX,s.screenY=x.screenY,s.pointerId=x.identifier,w.push(s)}return r=e.touches,w}return b}},a.event.delegateSpecial=function(a){return function(b){var c=this,d=jQuery._data(c);d.pointerEvents||(d.pointerEvents={}),d.pointerEvents[b.type]||(d.pointerEvents[b.type]=[]),d.pointerEvents[b.type].length||a.call(c,b),d.pointerEvents[b.type].push(b)}};var s=function(a,b){if(a.indexOf)return a.indexOf(b);for(var c=0;c<a.length;c++)if(a[c]===b)return c;return-1};if(a.event.delegateSpecial.remove=function(a){return function(b){var c,d=this,e=jQuery._data(d);e.pointerEvents||(e.pointerEvents={}),c=e.pointerEvents[b.type],c.splice(s(c,b),1),c.length||a.call(d,b)}},a.extend(a.event.fixHooks,{pointerdown:a.event.pointerHooks,pointerup:a.event.pointerHooks,pointermove:a.event.pointerHooks,pointerover:a.event.pointerHooks,pointerout:a.event.pointerHooks,pointercancel:a.event.pointerHooks}),k.pointer)navigator.msPointerEnabled&&!navigator.pointerEnabled&&(a.extend(a.event.special,{pointerdown:{delegateType:"MSPointerDown",bindType:"MSPointerDown"},pointerup:{delegateType:"MSPointerUp",bindType:"MSPointerUp"},pointermove:{delegateType:"MSPointerMove",bindType:"MSPointerMove"},pointerover:{delegateType:"MSPointerOver",bindType:"MSPointerOver"},pointerout:{delegateType:"MSPointerOut",bindType:"MSPointerOut"},pointercancel:{delegateType:"MSPointerCancel",bindType:"MSPointerCancel"}}),a.extend(a.event.fixHooks,{MSPointerDown:a.event.pointerHooks,MSPointerUp:a.event.pointerHooks,MSPointerMove:a.event.pointerHooks,MSPointerOver:a.event.pointerHooks,MSPointerOut:a.event.pointerHooks,MSPointerCancel:a.event.pointerHooks}));else{var t,u=function(){return Math.floor(b.scrollY||a(b).scrollTop())};a.event.special.pointerdown={touch:function(a){p=a.timeStamp,e(this,"pointerdown",a),t=u()},mouse:function(a){if("number"!=typeof p){p=null;var b=h(a),c=0!==q;return q|=b,c&&q!==b?void e(this,"pointermove",a):void e(this,"pointerdown",a)}},add:a.event.delegateSpecial(function(b){k.touch&&f(this,"touchstart",b.selector,a.event.special.pointerdown.touch),f(this,"mousedown",b.selector,a.event.special.pointerdown.mouse),b.pointerup=a.noop,a(this).on("pointerup",b.selector,b.pointerup)}),remove:a.event.delegateSpecial.remove(function(b){k.touch&&g(this,"touchstart",b.selector,a.event.special.pointerdown.touch),g(this,"mousedown",b.selector,a.event.special.pointerdown.mouse),b.pointerup&&a(this).off("pointerup",b.selector,b.pointerup)})},a.event.special.pointerup={touch:function(b){if(b.preventDefault(),null!==p){var c=p,d=e(this,"pointerup",b);if(!b.target)return void(p=!1);if(t!==u())return void(p=!1);var f=setTimeout(function(){ if(d.isClickPrevented !== 'function') { return; } return p===c&&(p=!1),d.isClickPrevented()?void a(b.target).off("click",i):void(b.target.click?b.target.click():a(b.target).click())},300);a(b.target).one("click",function(){p===c&&(p=!1),f&&clearTimeout(f)})}},mouse:function(a){null===p&&(q^=h(a),0===q?e(this,"pointerup",a):e(this,"pointermove",a))},add:a.event.delegateSpecial(function(b){k.touch&&f(this,"touchend",b.selector,a.event.special.pointerup.touch),f(this,"mouseup",b.selector,a.event.special.pointerup.mouse)}),remove:a.event.delegateSpecial.remove(function(b){k.touch&&g(this,"touchend",b.selector,a.event.special.pointerup.touch),g(this,"mouseup",b.selector,a.event.special.pointerup.mouse)})},a.event.special.pointermove={touch:function(a){e(this,"pointermove",a)},mouse:function(a){"number"!=typeof p&&e(this,"pointermove",a)},add:a.event.delegateSpecial(function(b){k.touch&&f(this,"touchmove",b.selector,a.event.special.pointermove.touch),f(this,"mousemove",b.selector,a.event.special.pointermove.mouse)}),remove:a.event.delegateSpecial.remove(function(b){k.touch&&g(this,"touchmove",b.selector,a.event.special.pointermove.touch),g(this,"mousemove",b.selector,a.event.special.pointermove.mouse)})},jQuery.each({pointerover:{mouse:"mouseover"},pointerout:{mouse:"mouseout"},pointercancel:{touch:"touchcancel"}},function(b,c){function d(a){"touchcancel"===a.type&&(p=null,q=0),e(this,b,a)}function h(a){e(this,b,a)}a.event.special[b]={setup:function(){k.touch&&c.touch&&f(this,c.touch,null,d),c.mouse&&f(this,c.mouse,null,h)},teardown:function(){k.touch&&c.touch&&g(this,c.touch,null,d),c.mouse&&g(this,c.mouse,null,h)}}})}(!k.pointer||navigator.msPointerEnabled&&!navigator.pointerEnabled)&&jQuery.each({pointerenter:navigator.msPointerEnabled?"MSPointerOver":"mouseover",pointerleave:navigator.msPointerEnabled?"MSPointerOut":"mouseout"},function(a,b){jQuery.event.special[a]={delegateType:b,bindType:b,handle:function(a){var c,d=this,e=a.relatedTarget,f=a.handleObj;return(!e||e!==d&&!jQuery.contains(d,e))&&(a.type=f.origType,c=f.handler.apply(this,arguments),a.type=b),c}}})}(jQuery,window,document);
+//////////////
+// GESTURES //
+////////////// ~ sweep press presshold
+!function(a){function b(b,c,d){var e=b;return e.type=c,e.isPropagationStopped=function(){return!1},e.isDefaultPrevented=function(){return!1},d&&a.extend(e,d),e}function c(){return window.scrollY||a(window).scrollTop()}a.event.special.sweep={scrollSupressionThreshold:30,durationThreshold:750,horizontalDistanceThreshold:30,verticalDistanceThreshold:75,start:function(b){return{time:+new Date,coords:[b.pageX,b.pageY],origin:a(b.target)}},stop:function(a){return{time:+new Date,coords:[a.pageX,a.pageY]}},isSweep:function(b,c,d){return(d?c.time-b.time<a.event.special.sweep.durationThreshold:!0)&&Math.abs(b.coords[0]-c.coords[0])>a.event.special.sweep.horizontalDistanceThreshold&&Math.abs(b.coords[1]-c.coords[1])<a.event.special.sweep.verticalDistanceThreshold},add:a.event.delegateSpecial(function(c){var d=this,e=a(d);c.pointerdown=function(f){function g(b){j&&(i=a.event.special.sweep.stop(b),Math.abs(j.coords[0]-i.coords[0])>a.event.special.sweep.scrollSupressionThreshold&&b.preventDefault())}function h(){if(e.off("pointermove",g),j&&i&&a.event.special.sweep.isSweep(j,i,!0)){var c=j.coords[0]>i.coords[0]?"left":"right";a.event.dispatch.call(d,b(f,"sweep",{direction:c})),a.event.dispatch.call(d,b(f,"sweep"+c,{direction:c}))}j=i=void 0}var i,j=a.event.special.sweep.start(f);e.on("pointermove",g).one("pointerup",h),setTimeout(function(){e.off("pointermove",c.selector,g).off("pointerup",c.selector,h)},a.event.special.sweep.durationThreshold)},e.on("pointerdown",c.selector,c.pointerdown)}),remove:a.event.delegateSpecial.remove(function(b){a(this).off("pointerdown",b.selector,b.pointerdown)})},a.each(["sweepleft","sweepright"],function(b,c){a.event.special[c]={add:a.event.delegateSpecial(function(b){b.noop=a.noop,a(this).on("sweep",b.selector,b.noop)}),remove:a.event.delegateSpecial.remove(function(b){a(this).off("sweep",b.selector,b.noop)})}}),a.event.special.press={pressholdThreshold:750,add:a.event.delegateSpecial(function(d){var e=this;d.pointerdown=function(d){function f(b){h=a.event.special.sweep.stop(b)}function g(d){clearTimeout(i),n.off("pointermove",f),Math.abs(k-c())>5||h&&a.event.special.sweep.isSweep(j,h)||(m||l!==d.target?m&&d.stopPropagation():a.event.dispatch.call(e,b(d,"press")))}var h,i,j=a.event.special.sweep.start(d),k=c(),l=d.target,m=!1,n=a(this);n.on("pointermove",f).one("pointerup",g),i=setTimeout(function(){n.off("pointermove",f),m=!0,Math.abs(k-c())>5||h&&a.event.special.sweep.isSweep(j,h)||l===d.target&&a.event.dispatch.call(e,b(d,"presshold"))},a.event.special.press.pressholdThreshold)},a(e).on("pointerdown",d.selector,d.pointerdown)}),remove:a.event.delegateSpecial.remove(function(b){a(this).off("pointerdown",b.selector,b.pointerdown)})},a.event.special.presshold={add:a.event.delegateSpecial(function(b){b.noop=a.noop,a(this).on("press",b.selector,b.noop)}),remove:a.event.delegateSpecial.remove(function(b){a(this).off("press",b.selector,b.noop)})}}(jQuery);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
 (function ($, specialEventName) {
-	//'use strict';
+	'use strict';
 	var nativeEvent = Object.create(null);
 	var getTime = function () {
 		return new Date().getTime();
 	};
 	nativeEvent.original = 'click';
-	nativeEvent.start    = touchstart;
-	nativeEvent.end      = touchend;
+	nativeEvent.start    = 'pointerdown';
+	nativeEvent.end      = 'pointerup';
 
 	$.event.special[specialEventName] = {
 		setup : function (data, namespaces, eventHandle) {
@@ -2768,23 +2565,12 @@ function detectPrivateMode(callback) {
 						//TWEAK ~ round decimals for android
 						var diffX  = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
 						var diffY  = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
-						//swipe
-						var startX = parseInt(eventData.pageX);
-						var startY = parseInt(eventData.pageY);
-						var endX   = parseInt(eventData.event.pageX);
-						var endY   = parseInt(eventData.event.pageY);
 						//
 						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-							event.type    = specialEventName;
-							event.pageX   = eventData.event.pageX;
-							event.pageY   = eventData.event.pageY;
+							event.type  = specialEventName;
+							event.pageX = eventData.event.pageX;
+							event.pageY = eventData.event.pageY;
 							//
-							event.startX  = startX;
-							event.startY  = startY;
-							event.endX    = endX;
-							event.endY    = endY;
-							event.diffX   = diffX;
-							event.diffY   = diffY;
 							eventHandle.call(this, event);
 							if (!event.isDefaultPrevented()) {
 								$element.off(nativeEvent.original).trigger(nativeEvent.original);
@@ -2802,16 +2588,112 @@ function detectPrivateMode(callback) {
 		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
 	};
 })(jQuery, 'tap');
+//#///////////////#//
+//# CLACK HANDLER #//
+//#///////////////#//
+/*
+(function ($, specialEventName) {
+	'use strict';
+	var nativeEvent = Object.create(null);
+	var getTime = function () {
+		return new Date().getTime();
+	};
+	nativeEvent.original = 'click';
+	nativeEvent.move     = 'pointermove scroll';
+	nativeEvent.start    = 'pointerdown';
+	nativeEvent.end      = 'pointerup';
+
+	$.event.special[specialEventName] = {
+		setup : function (data, namespaces, eventHandle) {
+			var nativeTimer;
+			var moveTracker = 0;
+			var $element = $(this);
+			var eventData = {};
+			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end + ' ' + nativeEvent.move, function (event) {
+				//TWEAK
+				if(event) {
+					if(event.originalEvent) {
+						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
+					}
+				}
+			}).on(nativeEvent.start, function (event) {
+				if (event.which && event.which !== 1) {
+					return;
+				}
+				//TWEAK
+				if (eventData) {
+					if (eventData.event) {
+						$element.addClass('hidden');
+						eventData.target = event.target;
+						eventData.pageX  = eventData.event.pageX;
+						eventData.pageY  = eventData.event.pageY;
+						eventData.time   = getTime();
+						//
+						moveTracker = 0;
+						clearTimeout(nativeTimer);
+						nativeTimer = setTimeout(function() {
+							$element.removeClass('hidden');
+						}, 750);
+					}
+				}   
+			}).on(nativeEvent.move, function (event) {
+				moveTracker++;
+				if(moveTracker > 30) {
+					clearTimeout(nativeTimer);
+					$element.removeClass('hidden');
+					moveTracker = 0;
+				}
+				
+			}).on(nativeEvent.end, function (event) {
+				//TWEAK
+				clearTimeout(nativeTimer);
+				if (eventData) {
+					if (eventData.event) {
+						moveTracker = 0;
+						//TWEAK ~ round decimals for android
+						//var diffX  = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
+						//var diffY  = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
+						//
+						if (eventData.target === event.target && getTime() - eventData.time < 750 && $element.hasClass('hidden')) {
+							clearTimeout(nativeTimer);
+							$element.removeClass('hidden');
+							event.type  = specialEventName;
+							event.pageX = eventData.event.pageX;
+							event.pageY = eventData.event.pageY;
+							//
+							eventHandle.call(this, event);
+							if (!event.isDefaultPrevented()) {
+								$element.off(nativeEvent.original).trigger(nativeEvent.original);
+							}
+						} else {
+							moveTracker = 0;
+							$element.removeClass('hidden');
+							clearTimeout(nativeTimer);
+						}
+					}
+				}
+			});
+		},
+		remove : function () {
+			$(this).off(nativeEvent.start + ' ' + nativeEvent.end + ' ' + nativeEvent.move);
+		}
+	};
+	$.fn[specialEventName] = function (fn) {
+		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
+	};
+})(jQuery, 'clack');
+*/
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
 (function ($) {
+	'use strict';
 	var TAP_AND_HOLD_TRIGGER_TIMER = 1750;
-	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 30;
+	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 10;
 
-	var TOUCHSTART = touchstart;
-	var TOUCHEND   = touchend;
-	var TOUCHMOVE  = touchmove;
+	var TOUCHSTART = 'pointerdown';
+	var TOUCHEND   = 'pointerup';
+	var TOUCHMOVE  = 'pointermove';
 
 	var tapAndHoldTimer = null;
 
@@ -2916,9 +2798,7 @@ function detectPrivateMode(callback) {
 //#////////#//
 //# OPENFB #//
 //#////////#//
-if(typeof openFB === 'undefined') { 
-	var openFB;
-}
+if(typeof openFB === 'undefined') { var openFB; }
 openFB=function(){function e(e){if(!e.appId)throw"appId parameter not set in init()";u=e.appId,e.tokenStore&&(k=e.tokenStore),e.accessToken&&(k.fbAccessToken=e.accessToken),f=e.loginURL||f,h=e.logoutURL||h,v=e.oauthRedirectURL||v,w=e.cordovaOAuthRedirectURL||w,g=e.logoutRedirectURL||g}function o(e){var o=k.fbAccessToken,t={};o?(t.status="connected",t.authResponse={accessToken:o}):t.status="unknown",e&&e(t)}function t(e,o){function t(e){var o=e.url;if(o.indexOf("access_token=")>0||o.indexOf("error=")>0){var t=600-((new Date).getTime()-a);setTimeout(function(){c.close()},t>0?t:0),n(o)}}function s(){console.log("exit and remove listeners"),p&&!l&&p({status:"user_cancelled"}),c.removeEventListener("loadstop",t),c.removeEventListener("exit",s),c=null,console.log("done removing listeners")}var c,a,r="",i=d?w:v;return u?(o&&o.scope&&(r=o.scope),p=e,l=!1,a=(new Date).getTime(),c=window.open(f+"?client_id="+u+"&redirect_uri="+i+"&response_type=token&scope="+r,"_blank","location=no,clearcache=yes"),void(d&&(c.addEventListener("loadstart",t),c.addEventListener("exit",s)))):e({status:"unknown",error:"Facebook App Id not set."})}function n(e){var o,t;l=!0,e.indexOf("access_token=")>0?(o=e.substr(e.indexOf("#")+1),t=r(o),k.fbAccessToken=t.access_token,p&&p({status:"connected",authResponse:{accessToken:t.access_token}})):e.indexOf("error=")>0?(o=e.substring(e.indexOf("?")+1,e.indexOf("#")),t=r(o),p&&p({status:"not_authorized",error:t.error})):p&&p({status:"not_authorized"})}function s(e){var o,t=k.fbAccessToken;k.removeItem("fbAccessToken"),t&&(o=window.open(h+"?access_token="+t+"&next="+g,"_blank","location=no,clearcache=yes"),d&&setTimeout(function(){o.close()},700)),e&&e()}function c(e){var o,t=e.method||"GET",n=e.params||{},s=new XMLHttpRequest;n.access_token=k.fbAccessToken,o="https://graph.facebook.com"+e.path+"?"+i(n),s.onreadystatechange=function(){if(4===s.readyState)if(200===s.status)e.success&&e.success(JSON.parse(s.responseText));else{var o=s.responseText?JSON.parse(s.responseText).error:{message:"An error has occurred"};e.error&&e.error(o)}},s.open(t,o,!0),s.send()}function a(e,o){return c({method:"DELETE",path:"/me/permissions",success:function(){e()},error:o})}function r(e){var o=decodeURIComponent(e),t={},n=o.split("&");return n.forEach(function(e){var o=e.split("=");t[o[0]]=o[1]}),t}function i(e){var o=[];for(var t in e)e.hasOwnProperty(t)&&o.push(encodeURIComponent(t)+"="+encodeURIComponent(e[t]));return o.join("&")}var u,p,d,l,f="https://www.facebook.com/dialog/oauth",h="https://www.facebook.com/logout.php",k=window.sessionStorage,m=window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/")),v=(location.protocol+"//"+location.hostname+(location.port?":"+location.port:"")+m,app.https+"kcals.net/oauthcallback.html"),w="https://www.facebook.com/connect/login_success.html",g=app.https+"kcals.net/logoutcallback.html";return document.addEventListener("deviceready",function(){d=!0},!1),{init:e,login:t,logout:s,revokePermissions:a,api:c,oauthCallback:n,getLoginStatus:o}}();
 //#//////////////#//
 //# COLOR PICKER #//
