@@ -1,7 +1,7 @@
 ﻿{
-	"version" : "1.9.17",
-	"name" : "Calorie Clock",
-	"description" : "KCals Calorie Clock is a real-time calorie counter that simulates the human metabolism.",
+	"version" : "1.9.19",
+	"name" : "Calorie Counter",
+	"description" : "KCals Calorie Counter is a calorie-burning chronometer that simulates the human metabolism in real-time.",
 	"launch_path" : "/index.html",
 	"appcache_path": "/manifest.appcache",
 	"orientation": ["portrait-primary"],
