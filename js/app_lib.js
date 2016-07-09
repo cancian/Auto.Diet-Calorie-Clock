@@ -354,7 +354,7 @@ app.get.isDesktop = function() {};
 app.device = {
 	cordova    : ((typeof cordova || typeof Cordova) !== 'undefined') ? true : false,
 	android    : (/Android/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? app.get.androidVersion() : false,
-	android2   : (/Android/i).test(app.ua) && !(/MSApp/i).test(app.ua) && app.get.androidVersion() < 4 ? true : false,
+	android2   : (/Android/i).test(app.ua) && app.get.androidVersion() < 4 ? true : false,
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8](.*)   like Mac OS X/i).test(app.ua) ? true : false,
@@ -664,7 +664,7 @@ app.ready = function(callback) {
 	// VIEWPORT //
 	//////////////
 	if(app.device.ios) {
-		$('#viewPort').prop('content', $('#viewPort').prop('content').split('height=device-height').join('minimal-ui') );
+		$('#viewPort').attr('content', $('#viewPort').attr('content').split('height=device-height').join('minimal-ui') );
 	}
 	//////////////
 	// CALLBACK //
@@ -1354,6 +1354,16 @@ app.updateColorPicker();
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
+//test
+/*
+try {
+	document.createEvent('TouchEvent');
+	app.touch = true;
+} catch (err) {
+	app.touch = false;
+}
+*/
+//
 function isCordova() {
 	return isMobileCordova;
 }
@@ -2054,7 +2064,7 @@ Array.prototype.sortbyattr = function(attr,order) {
 	});
 	return this;
 };
-// OBJECT
+//OBJECT
 function sortObject(obj) {
 	var arr = [];
 	for (var prop in obj) {
@@ -2431,96 +2441,1000 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		});
 	}
 };
-//#/////////////////////#//
-//# DETECT PRIVATE MODE #//
-//#/////////////////////#//
-function retry(isDone, next) {
-	var current_trial = 0,
-		max_retry = 50,
-		interval = 10,
-		is_timeout = false;
-	var id = window.setInterval(function() {
-		if (isDone()) {
-			window.clearInterval(id);
-			next(is_timeout);
+
+//##///////////##//
+//## POINTY.JS ##//
+//##///////////##//
+(function ($, window, document, undefined) {
+
+	var support = {
+		touch : "ontouchend" in document,
+		pointer : !!(navigator.pointerEnabled || navigator.msPointerEnabled)
+	};
+
+	$.extend($.support, support);
+
+	function triggerCustomEvent(elem, eventType, originalEvent) {
+		// support for IE7-IE8
+		originalEvent = originalEvent || window.event;
+
+		// Create a writable copy of the event object and normalize some properties
+		var event = new jQuery.Event(originalEvent);
+		event.type = eventType;
+
+		// Copy over properties for ease of access
+		var i,
+		copy = $.event.props.concat($.event.pointerHooks.props);
+		i = copy.length;
+		while (i--) {
+			var prop = copy[i];
+			event[prop] = originalEvent[prop];
 		}
-		if (current_trial++ > max_retry) {
-			window.clearInterval(id);
-			is_timeout = true;
-			next(is_timeout);
+
+		// Support: IE<9
+		// Fix target property (#1925)
+		if (!event.target) {
+			event.target = originalEvent.srcElement || document;
 		}
-	}, 10);
-}
-function isIE10OrLater(user_agent) {
-	var ua = user_agent.toLowerCase();
-	if (ua.indexOf('msie') === 0 && ua.indexOf('trident') === 0) {
+
+		// Support: Chrome 23+, Safari?
+		// Target should not be a text node (#504, #13143)
+		if (event.target.nodeType === 3) {
+			event.target = event.target.parentNode;
+		}
+
+		// Support: IE<9
+		// For mouse/key events, metaKey==false if it's undefined (#3368, #11328)
+		event.metaKey = !!event.metaKey;
+
+		// run the filter now
+		event = $.event.pointerHooks.filter(event, originalEvent);
+
+		// trigger the emulated pointer event
+		// the filter can return an array (only if the original was a touchmove),
+		// which means we need to trigger independent events
+		if ($.isArray(event)) {
+			$.each(event, function (i, ev) {
+				$.event.dispatch.call(elem, ev);
+			});
+		} else {
+			$.event.dispatch.call(elem, event);
+		}
+
+		// return the manipulated jQuery event
+		return event;
+	}
+
+	function addEvent(elem, type, selector, func) {
+		// when we have a selector, let jQuery do the delegation
+		if (selector) {
+			func._pointerEventWrapper = function (event) {
+				return func.call(elem, event.originalEvent);
+			};
+
+			$(elem).on(type, selector, func._pointerEventWrapper);
+		}
+
+		// if we do not have a selector, we optimize by cutting jQuery out
+		else {
+			if (elem.addEventListener) {
+				elem.addEventListener(type, func, false);
+			} else if (elem.attachEvent) {
+
+				// bind the function to correct "this" for IE8-
+				func._pointerEventWrapper = function (e) {
+					return func.call(elem, e);
+				};
+
+				elem.attachEvent("on" + type, func._pointerEventWrapper);
+			}
+		}
+	}
+
+	function removeEvent(elem, type, selector, func) {
+		// Make sure for IE8- we unbind the wrapper
+		if (func._pointerEventWrapper) {
+			func = func._pointerEventWrapper;
+		}
+
+		if (selector) {
+			$(elem).off(type, selector, func);
+		} else {
+			$.removeEvent(elem, type, func);
+		}
+	}
+
+	// get the standardized "buttons" property as per the Pointer Events spec from a mouse event
+	function getStandardizedButtonsProperty(event) {
+		// in the DOM LEVEL 3 spec there is a new standard for the "buttons" property
+		// sadly, no browser currently supports this and only sends us the single "button" property
+		if (event.buttons) {
+			return event.buttons;
+		}
+
+		// standardize "which" property for use
+		var which = event.which;
+		if (!which && event.button !== undefined) {
+			which = (event.button & 1 ? 1 : (event.button & 2 ? 3 : (event.button & 4 ? 2 : 0)));
+		}
+
+		// no button down (can happen on mousemove)
+		if (which === 0) {
+			return 0;
+		}
+		// left button
+		else if (which === 1) {
+			return 1;
+		}
+		// middle mouse
+		else if (which === 2) {
+			return 4;
+		}
+		// right mouse
+		else if (which === 3) {
+			return 2;
+		}
+
+		// unknown?
+		return 0;
+	}
+
+	function returnFalse() {
 		return false;
 	}
-	var match = /(?:msie|rv:)\s?([\d\.]+)/.exec(ua);
-	if (match && parseInt(match[1], 10) >= 10) {
+	function returnTrue() {
 		return true;
 	}
-	return false;
-}
-function detectPrivateMode(callback) {
-	var is_private;
-	if (window.webkitRequestFileSystem) {
-		window.webkitRequestFileSystem(window.TEMPORARY, 1, function() {
-			is_private = false;
-		}, function(e) {
-			console.log(e);
-			is_private = true;
-		});
-	} else if (window.indexedDB && /Firefox/.test(window.navigator.userAgent)) {
-		var db;
-		try {
-			db = window.indexedDB.open('test');
-		} catch (e) {
-			is_private = true;
-		}
-		if (typeof is_private === 'undefined') {
-			retry(function isDone() {
-				return db.readyState === 'done' ? true : false;
-			}, function next(is_timeout) {
-				if (!is_timeout) {
-					is_private = db.result ? false : true;
-				}
-			});
-		}
-	} else if (isIE10OrLater(window.navigator.userAgent)) {
-		is_private = false;
-		try {
-			if (!window.indexedDB) {
-				is_private = true;
+
+	var POINTER_TYPE_UNAVAILABLE = "unavailable";
+	var POINTER_TYPE_TOUCH = "touch";
+	var POINTER_TYPE_PEN = "pen";
+	var POINTER_TYPE_MOUSE = "mouse";
+
+	// indicator to mark whether touch events are in progress
+	// when null, it means we have never received a touch event
+	// when number, user is currently touching something
+	// when false, user just released their finger (reset on mousedown if needed)
+	var _touching = null;
+
+	// bitmask to identify which buttons are currently down
+	var _buttons = 0;
+
+	// storage of the last seen touches provided by the native touch events spec
+	var _lastTouches = [];
+
+	// ------ NOTE: THIS IS UNUSED, WE DO NOT ASSIGN BUTTON ------
+	// pointer events defines the "button" property as:
+	// mouse move (no buttons down)                         -1
+	// left mouse, touch contact and normal pen contact     0
+	// middle mouse                                         1
+	// right mouse, pen with barrel button pressed          2
+	// x1 (back button on mouse)                            3
+	// x2 (forward button on mouse)                         4
+	// pen contact with eraser button pressed               5
+	// ------ NOTE: THIS IS UNUSED, WE DO NOT ASSIGN BUTTON ------
+
+	// pointer events defines the "buttons" property as:
+	// mouse move (no buttons down)                         0
+	// left mouse, touch contact, and normal pen contact    1
+	// middle mouse                                         4
+	// right mouse, pen contact with barrel button pressed  2
+	// x1 (back) mouse                                      8
+	// x2 (forward) mouse                                   16
+	// pen contact with eraser button pressed               32
+
+	// add our own pointer event hook/filter
+	$.event.pointerHooks = {
+		props : "pointerType pointerId pressure buttons clientX clientY relatedTarget fromElement offsetX offsetY pageX pageY screenX screenY width height toElement".split(" "),
+		filter : function (event, original) {
+			// Calculate pageX/Y if missing and clientX/Y available
+			// this is just copied from jQuery's standard pageX/pageY fix
+			if (!original.touches && event.pageX == null && original.clientX != null) {
+				var eventDoc = event.target.ownerDocument || document;
+				var doc = eventDoc.documentElement;
+				var body = eventDoc.body;
+
+				event.pageX = original.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
+				event.pageY = original.clientY + (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);
 			}
-		} catch (e) {
-			is_private = true;
+
+			// Add relatedTarget, if necessary
+			// also copied from jQuery's standard event fix
+			if (!event.relatedTarget && original.fromElement) {
+				event.relatedTarget = original.fromElement === event.target ? original.toElement : original.fromElement;
+			}
+
+			// Add pointerType
+			if (!event.pointerType || typeof event.pointerType === "number") {
+				if (event.pointerType == 2) {
+					event.pointerType = POINTER_TYPE_TOUCH;
+				} else if (event.pointerType == 3) {
+					event.pointerType = POINTER_TYPE_PEN;
+				} else if (event.pointerType == 4) {
+					event.pointerType = POINTER_TYPE_MOUSE;
+				} else if (/^touch/i.test(original.type)) {
+					event.pointerType = POINTER_TYPE_TOUCH;
+					event.buttons = original.type === "touchend" || original.type === "touchcancel" ? 0 : 1;
+				} else if (/^mouse/i.test(original.type) || original.type === "click") {
+					event.pointerId = 1; // as per the pointer events spec, the mouse is always pointer id 1
+					event.pointerType = POINTER_TYPE_MOUSE;
+					event.buttons = original.type === "mouseup" ? 0 : getStandardizedButtonsProperty(original);
+				} else {
+					event.pointerType = POINTER_TYPE_UNAVAILABLE;
+					event.buttons = 0;
+				}
+			}
+
+			// if we have the bitmask for the depressed buttons from the mouse events polyfill, use it to mimic buttons for
+			// browsers that do not support the HTML DOM LEVEL 3 events spec
+			if (event.type !== "pointerdown" && event.pointerType === "mouse" && _touching === null && _buttons !== event.buttons) {
+				event.buttons = _buttons;
+			}
+
+			// standardize the pressure attribute
+			if (!event.pressure) {
+				event.pressure = event.buttons > 0 ? 0.5 : 0;
+			}
+
+			// standardize the width and height, these represent the contact geometry
+			if (event.width === undefined || event.height === undefined) {
+				event.width = event.height = 0;
+			}
+
+			// prevent the following native "click" event from occurring, can be used to prevent
+			// clicks on "pointerdown" or "pointerup" or from gestures like "press" and "presshold"
+			event.preventClick = function () {
+				event.isClickPrevented = returnTrue;
+				$(event.target).one("click", returnFalse);
+			};
+
+			event.isClickPrevented = returnFalse;
+
+			// touch events send an array of touches we need to convert to the pointer events format
+			// which means we need to fire multiple events per touch
+			if (original.touches && event.type !== "pointercancel") {
+				var touches = original.touches;
+				var events = [];
+				var ev,
+				i,
+				j;
+
+				// the problem with this is that on "touchend" it will remove the
+				// touch which has ended from the touches list, this means we do
+				// not want to fire "pointerup" for touches that are still there,
+				// we instead want to send a "pointerup" with the removed touch's identifier
+				if (event.type === "pointerup") {
+					// convert TouchList to a standard array
+					_lastTouches = Array.prototype.slice.call(_lastTouches);
+
+					// find the touch that was removed
+					for (i = 0; i < original.touches.length; i++) {
+						for (j = 0; j < _lastTouches.length; j++) {
+							if (_lastTouches[j].identifier === original.touches[i].identifier) {
+								_lastTouches.splice(j, 1);
+							}
+						}
+					}
+
+					// if we narrowed down the ended touch to one, then we found it
+					if (_lastTouches.length === 1) {
+						event.pointerId = _lastTouches[0].identifier;
+						_lastTouches = original.touches;
+						return event;
+					}
+				}
+				// on "pointerdown" we need to only trigger a new "pointerdown" for the new touches (fingers),
+				// and not the touches that were already active. Therefore we filter out all of the touches
+				// based on their identifier that we already knew were active before
+				else if (event.type === "pointerdown") {
+					// convert TouchList to a standard array
+					touches = Array.prototype.slice.call(original.touches);
+
+					// find the new touch that was just added
+					for (i = 0; i < touches.length; i++) {
+						// last touches will be a list with one less touch
+						for (j = 0; j < _lastTouches.length; j++) {
+							if (touches[i].identifier === _lastTouches[j].identifier) {
+								touches.splice(i, 1);
+							}
+						}
+					}
+				}
+
+				// this will be used on pointermove and pointerdown
+				for (i = 0; i < original.touches.length; i++) {
+					var touch = original.touches[i];
+					ev = $.extend({}, event);
+					// copy over information from the touch to the event
+					ev.clientX = touch.clientX;
+					ev.clientY = touch.clientY;
+					ev.pageX = touch.pageX;
+					ev.pageY = touch.pageY;
+					ev.screenX = touch.screenX;
+					ev.screenY = touch.screenY;
+					// the touch id on emulated touch events from chrome is always 0 (zero)
+					ev.pointerId = touch.identifier;
+					events.push(ev);
+				}
+
+				// do as little processing as you can here, this is done on touchmove and
+				// there can be a lot of those events firing quickly, we do not want the
+				// polyfill slowing down the application
+				_lastTouches = original.touches;
+				return events;
+			}
+
+			return event;
 		}
-	} else if (window.localStorage && /Safari/.test(window.navigator.userAgent)) {
-		try {
-			app.storage.setItem('test', 1);
-		} catch (e) {
-			is_private = true;
+	};
+
+	$.event.delegateSpecial = function (setup) {
+		return function (handleObj) {
+			var thisObject = this,
+			data = jQuery._data(thisObject);
+
+			if (!data.pointerEvents) {
+				data.pointerEvents = {};
+			}
+
+			if (!data.pointerEvents[handleObj.type]) {
+				data.pointerEvents[handleObj.type] = [];
+			}
+
+			if (!data.pointerEvents[handleObj.type].length) {
+				setup.call(thisObject, handleObj);
+			}
+
+			data.pointerEvents[handleObj.type].push(handleObj);
+		};
+	};
+
+	var indexOfArray = function (arr, obj) {
+		if (arr.indexOf) {
+			return arr.indexOf(obj);
 		}
-		if (typeof is_private === 'undefined') {
-			is_private = false;
-			app.storage.removeItem('test');
+
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i] === obj) {
+				return i;
+			}
 		}
-	}
-	retry(function isDone() {
-		return typeof is_private !== 'undefined' ? true : false;
-	}, function next(is_timeout) {
-		callback(is_private);
+
+		return -1;
+	};
+
+	$.event.delegateSpecial.remove = function (teardown) {
+		return function (handleObj) {
+			var handlers,
+			thisObject = this,
+			data = jQuery._data(thisObject);
+
+			if (!data.pointerEvents) {
+				data.pointerEvents = {};
+			}
+
+			handlers = data.pointerEvents[handleObj.type];
+
+			handlers.splice(indexOfArray(handlers, handleObj), 1);
+
+			if (!handlers.length) {
+				teardown.call(thisObject, handleObj);
+			}
+		};
+	};
+
+	// allow jQuery's native $.event.fix to find our pointer hooks
+	$.extend($.event.fixHooks, {
+		pointerdown : $.event.pointerHooks,
+		pointerup : $.event.pointerHooks,
+		pointermove : $.event.pointerHooks,
+		pointerover : $.event.pointerHooks,
+		pointerout : $.event.pointerHooks,
+		pointercancel : $.event.pointerHooks
 	});
-}
-//#///////////#//
-//# POINTY.JS #//
-//#///////////#// https://github.com/vistaprint/PointyJS
-!function(a,b,c,d){function e(d,e,f){f=f||b.event;var g=new jQuery.Event(f);g.type=e;var h,i=a.event.props.concat(a.event.pointerHooks.props);for(h=i.length;h--;){var j=i[h];g[j]=f[j]}return g.target||(g.target=f.srcElement||c),3===g.target.nodeType&&(g.target=g.target.parentNode),g.metaKey=!!g.metaKey,g=a.event.pointerHooks.filter(g,f),a.isArray(g)?a.each(g,function(b,c){a.event.dispatch.call(d,c)}):a.event.dispatch.call(d,g),g}function f(b,c,d,e){d?(e._pointerEventWrapper=function(a){return e.call(b,a.originalEvent)},a(b).on(c,d,e._pointerEventWrapper)):b.addEventListener?b.addEventListener(c,e,!1):b.attachEvent&&(e._pointerEventWrapper=function(a){return e.call(b,a)},b.attachEvent("on"+c,e._pointerEventWrapper))}function g(b,c,d,e){e._pointerEventWrapper&&(e=e._pointerEventWrapper),d?a(b).off(c,d,e):a.removeEvent(b,c,e)}function h(a){if(a.buttons)return a.buttons;var b=a.which;return b||a.button===d||(b=1&a.button?1:2&a.button?3:4&a.button?2:0),0===b?0:1===b?1:2===b?4:3===b?2:0}function i(){return!1}function j(){return!0}var k={touch:"ontouchend"in c,pointer:!(!navigator.pointerEnabled&&!navigator.msPointerEnabled)};a.extend(a.support,k);var l="unavailable",m="touch",n="pen",o="mouse",p=null,q=0,r=[];a.event.pointerHooks={props:"pointerType pointerId pressure buttons clientX clientY relatedTarget fromElement offsetX offsetY pageX pageY screenX screenY width height toElement".split(" "),filter:function(b,e){if(!e.touches&&null==b.pageX&&null!=e.clientX){var f=b.target.ownerDocument||c,g=f.documentElement,k=f.body;b.pageX=e.clientX+(g&&g.scrollLeft||k&&k.scrollLeft||0)-(g&&g.clientLeft||k&&k.clientLeft||0),b.pageY=e.clientY+(g&&g.scrollTop||k&&k.scrollTop||0)-(g&&g.clientTop||k&&k.clientTop||0)}if(!b.relatedTarget&&e.fromElement&&(b.relatedTarget=e.fromElement===b.target?e.toElement:e.fromElement),b.pointerType&&"number"!=typeof b.pointerType||(2==b.pointerType?b.pointerType=m:3==b.pointerType?b.pointerType=n:4==b.pointerType?b.pointerType=o:/^touch/i.test(e.type)?(b.pointerType=m,b.buttons="touchend"===e.type||"touchcancel"===e.type?0:1):/^mouse/i.test(e.type)||"click"===e.type?(b.pointerId=1,b.pointerType=o,b.buttons="mouseup"===e.type?0:h(e)):(b.pointerType=l,b.buttons=0)),"pointerdown"!==b.type&&"mouse"===b.pointerType&&null===p&&q!==b.buttons&&(b.buttons=q),b.pressure||(b.pressure=b.buttons>0?.5:0),(b.width===d||b.height===d)&&(b.width=b.height=0),b.preventClick=function(){b.isClickPrevented=j,a(b.target).one("click",i)},b.isClickPrevented=i,e.touches&&"pointercancel"!==b.type){var s,t,u,v=e.touches,w=[];if("pointerup"===b.type){for(r=Array.prototype.slice.call(r),t=0;t<e.touches.length;t++)for(u=0;u<r.length;u++)r[u].identifier===e.touches[t].identifier&&r.splice(u,1);if(1===r.length)return b.pointerId=r[0].identifier,r=e.touches,b}else if("pointerdown"===b.type)for(v=Array.prototype.slice.call(e.touches),t=0;t<v.length;t++)for(u=0;u<r.length;u++)v[t].identifier===r[u].identifier&&v.splice(t,1);for(t=0;t<e.touches.length;t++){var x=e.touches[t];s=a.extend({},b),s.clientX=x.clientX,s.clientY=x.clientY,s.pageX=x.pageX,s.pageY=x.pageY,s.screenX=x.screenX,s.screenY=x.screenY,s.pointerId=x.identifier,w.push(s)}return r=e.touches,w}return b}},a.event.delegateSpecial=function(a){return function(b){var c=this,d=jQuery._data(c);d.pointerEvents||(d.pointerEvents={}),d.pointerEvents[b.type]||(d.pointerEvents[b.type]=[]),d.pointerEvents[b.type].length||a.call(c,b),d.pointerEvents[b.type].push(b)}};var s=function(a,b){if(a.indexOf)return a.indexOf(b);for(var c=0;c<a.length;c++)if(a[c]===b)return c;return-1};if(a.event.delegateSpecial.remove=function(a){return function(b){var c,d=this,e=jQuery._data(d);e.pointerEvents||(e.pointerEvents={}),c=e.pointerEvents[b.type],c.splice(s(c,b),1),c.length||a.call(d,b)}},a.extend(a.event.fixHooks,{pointerdown:a.event.pointerHooks,pointerup:a.event.pointerHooks,pointermove:a.event.pointerHooks,pointerover:a.event.pointerHooks,pointerout:a.event.pointerHooks,pointercancel:a.event.pointerHooks}),k.pointer)navigator.msPointerEnabled&&!navigator.pointerEnabled&&(a.extend(a.event.special,{pointerdown:{delegateType:"MSPointerDown",bindType:"MSPointerDown"},pointerup:{delegateType:"MSPointerUp",bindType:"MSPointerUp"},pointermove:{delegateType:"MSPointerMove",bindType:"MSPointerMove"},pointerover:{delegateType:"MSPointerOver",bindType:"MSPointerOver"},pointerout:{delegateType:"MSPointerOut",bindType:"MSPointerOut"},pointercancel:{delegateType:"MSPointerCancel",bindType:"MSPointerCancel"}}),a.extend(a.event.fixHooks,{MSPointerDown:a.event.pointerHooks,MSPointerUp:a.event.pointerHooks,MSPointerMove:a.event.pointerHooks,MSPointerOver:a.event.pointerHooks,MSPointerOut:a.event.pointerHooks,MSPointerCancel:a.event.pointerHooks}));else{var t,u=function(){return Math.floor(b.scrollY||a(b).scrollTop())};a.event.special.pointerdown={touch:function(a){p=a.timeStamp,e(this,"pointerdown",a),t=u()},mouse:function(a){if("number"!=typeof p){p=null;var b=h(a),c=0!==q;return q|=b,c&&q!==b?void e(this,"pointermove",a):void e(this,"pointerdown",a)}},add:a.event.delegateSpecial(function(b){k.touch&&f(this,"touchstart",b.selector,a.event.special.pointerdown.touch),f(this,"mousedown",b.selector,a.event.special.pointerdown.mouse),b.pointerup=a.noop,a(this).on("pointerup",b.selector,b.pointerup)}),remove:a.event.delegateSpecial.remove(function(b){k.touch&&g(this,"touchstart",b.selector,a.event.special.pointerdown.touch),g(this,"mousedown",b.selector,a.event.special.pointerdown.mouse),b.pointerup&&a(this).off("pointerup",b.selector,b.pointerup)})},a.event.special.pointerup={touch:function(b){if(b.preventDefault(),null!==p){var c=p,d=e(this,"pointerup",b);if(!b.target)return void(p=!1);if(t!==u())return void(p=!1);var f=setTimeout(function(){ if(d.isClickPrevented !== 'function') { return; } return p===c&&(p=!1),d.isClickPrevented()?void a(b.target).off("click",i):void(b.target.click?b.target.click():a(b.target).click())},300);a(b.target).one("click",function(){p===c&&(p=!1),f&&clearTimeout(f)})}},mouse:function(a){null===p&&(q^=h(a),0===q?e(this,"pointerup",a):e(this,"pointermove",a))},add:a.event.delegateSpecial(function(b){k.touch&&f(this,"touchend",b.selector,a.event.special.pointerup.touch),f(this,"mouseup",b.selector,a.event.special.pointerup.mouse)}),remove:a.event.delegateSpecial.remove(function(b){k.touch&&g(this,"touchend",b.selector,a.event.special.pointerup.touch),g(this,"mouseup",b.selector,a.event.special.pointerup.mouse)})},a.event.special.pointermove={touch:function(a){e(this,"pointermove",a)},mouse:function(a){"number"!=typeof p&&e(this,"pointermove",a)},add:a.event.delegateSpecial(function(b){k.touch&&f(this,"touchmove",b.selector,a.event.special.pointermove.touch),f(this,"mousemove",b.selector,a.event.special.pointermove.mouse)}),remove:a.event.delegateSpecial.remove(function(b){k.touch&&g(this,"touchmove",b.selector,a.event.special.pointermove.touch),g(this,"mousemove",b.selector,a.event.special.pointermove.mouse)})},jQuery.each({pointerover:{mouse:"mouseover"},pointerout:{mouse:"mouseout"},pointercancel:{touch:"touchcancel"}},function(b,c){function d(a){"touchcancel"===a.type&&(p=null,q=0),e(this,b,a)}function h(a){e(this,b,a)}a.event.special[b]={setup:function(){k.touch&&c.touch&&f(this,c.touch,null,d),c.mouse&&f(this,c.mouse,null,h)},teardown:function(){k.touch&&c.touch&&g(this,c.touch,null,d),c.mouse&&g(this,c.mouse,null,h)}}})}(!k.pointer||navigator.msPointerEnabled&&!navigator.pointerEnabled)&&jQuery.each({pointerenter:navigator.msPointerEnabled?"MSPointerOver":"mouseover",pointerleave:navigator.msPointerEnabled?"MSPointerOut":"mouseout"},function(a,b){jQuery.event.special[a]={delegateType:b,bindType:b,handle:function(a){var c,d=this,e=a.relatedTarget,f=a.handleObj;return(!e||e!==d&&!jQuery.contains(d,e))&&(a.type=f.origType,c=f.handler.apply(this,arguments),a.type=b),c}}})}(jQuery,window,document);
-//////////////
-// GESTURES //
-////////////// ~ sweep press presshold
-!function(a){function b(b,c,d){var e=b;return e.type=c,e.isPropagationStopped=function(){return!1},e.isDefaultPrevented=function(){return!1},d&&a.extend(e,d),e}function c(){return window.scrollY||a(window).scrollTop()}a.event.special.sweep={scrollSupressionThreshold:30,durationThreshold:750,horizontalDistanceThreshold:30,verticalDistanceThreshold:75,start:function(b){return{time:+new Date,coords:[b.pageX,b.pageY],origin:a(b.target)}},stop:function(a){return{time:+new Date,coords:[a.pageX,a.pageY]}},isSweep:function(b,c,d){return(d?c.time-b.time<a.event.special.sweep.durationThreshold:!0)&&Math.abs(b.coords[0]-c.coords[0])>a.event.special.sweep.horizontalDistanceThreshold&&Math.abs(b.coords[1]-c.coords[1])<a.event.special.sweep.verticalDistanceThreshold},add:a.event.delegateSpecial(function(c){var d=this,e=a(d);c.pointerdown=function(f){function g(b){j&&(i=a.event.special.sweep.stop(b),Math.abs(j.coords[0]-i.coords[0])>a.event.special.sweep.scrollSupressionThreshold&&b.preventDefault())}function h(){if(e.off("pointermove",g),j&&i&&a.event.special.sweep.isSweep(j,i,!0)){var c=j.coords[0]>i.coords[0]?"left":"right";a.event.dispatch.call(d,b(f,"sweep",{direction:c})),a.event.dispatch.call(d,b(f,"sweep"+c,{direction:c}))}j=i=void 0}var i,j=a.event.special.sweep.start(f);e.on("pointermove",g).one("pointerup",h),setTimeout(function(){e.off("pointermove",c.selector,g).off("pointerup",c.selector,h)},a.event.special.sweep.durationThreshold)},e.on("pointerdown",c.selector,c.pointerdown)}),remove:a.event.delegateSpecial.remove(function(b){a(this).off("pointerdown",b.selector,b.pointerdown)})},a.each(["sweepleft","sweepright"],function(b,c){a.event.special[c]={add:a.event.delegateSpecial(function(b){b.noop=a.noop,a(this).on("sweep",b.selector,b.noop)}),remove:a.event.delegateSpecial.remove(function(b){a(this).off("sweep",b.selector,b.noop)})}}),a.event.special.press={pressholdThreshold:750,add:a.event.delegateSpecial(function(d){var e=this;d.pointerdown=function(d){function f(b){h=a.event.special.sweep.stop(b)}function g(d){clearTimeout(i),n.off("pointermove",f),Math.abs(k-c())>5||h&&a.event.special.sweep.isSweep(j,h)||(m||l!==d.target?m&&d.stopPropagation():a.event.dispatch.call(e,b(d,"press")))}var h,i,j=a.event.special.sweep.start(d),k=c(),l=d.target,m=!1,n=a(this);n.on("pointermove",f).one("pointerup",g),i=setTimeout(function(){n.off("pointermove",f),m=!0,Math.abs(k-c())>5||h&&a.event.special.sweep.isSweep(j,h)||l===d.target&&a.event.dispatch.call(e,b(d,"presshold"))},a.event.special.press.pressholdThreshold)},a(e).on("pointerdown",d.selector,d.pointerdown)}),remove:a.event.delegateSpecial.remove(function(b){a(this).off("pointerdown",b.selector,b.pointerdown)})},a.event.special.presshold={add:a.event.delegateSpecial(function(b){b.noop=a.noop,a(this).on("press",b.selector,b.noop)}),remove:a.event.delegateSpecial.remove(function(b){a(this).off("press",b.selector,b.noop)})}}(jQuery);
+
+	// if browser does not natively handle pointer events,
+	// create special custom events to mimic them
+	if (!support.pointer) {
+		// stores the scroll-y offest on "touchstart" and is compared
+		// on touchend to see if we should trigger a click event
+		var _startScrollOffset;
+
+		// utility to return the scroll-y position
+		var scrollY = function () {
+			return Math.floor(window.scrollY || $(window).scrollTop());
+		};
+
+		$.event.special.pointerdown = {
+			touch : function (event) {
+				// set the pointer as currently down to prevent chorded "pointerdown" events
+				_touching = event.timeStamp;
+
+				// trigger a new "pointerdown" event
+				triggerCustomEvent(this, "pointerdown", event);
+
+				// set the scroll offset which is compared on TouchEnd
+				_startScrollOffset = scrollY();
+
+				// no matter what, you cannot simply always call preventDefault() on "touchstart"
+				// this disables scrolling when touching the binded element, which is not appropriate.
+			},
+			mouse : function (event) {
+				// if we just had a "touchstart", ignore this "mousedown" event, to prevent double firing of "pointerdown"
+				if (typeof _touching === "number") {
+					return;
+				}
+
+				// we reset the touch to null, to indicate that we're listening to mouse events currently
+				_touching = null;
+
+				// update the _buttons bitmask
+				var button = getStandardizedButtonsProperty(event);
+				var wasAButtonDownAlready = _buttons !== 0;
+				_buttons |= button;
+
+				// do not trigger another "pointerdown" event if a button is currently down,
+				// this prevents chorded "pointerdown" events which is defined in the Pointer Events spec
+				if (wasAButtonDownAlready && _buttons !== button) {
+					// per the Pointer Events spec, when the active buttons change it fires only a "pointermove" event
+					triggerCustomEvent(this, "pointermove", event);
+					return;
+				}
+
+				triggerCustomEvent(this, "pointerdown", event);
+			},
+			add : $.event.delegateSpecial(function (handleObj) {
+				// bind to touch events, some devices (chromebook) can send both touch and mouse events
+				if (support.touch) {
+					addEvent(this, "touchstart", handleObj.selector, $.event.special.pointerdown.touch);
+				}
+
+				// bind to mouse events
+				addEvent(this, "mousedown", handleObj.selector, $.event.special.pointerdown.mouse);
+
+				// ensure we also bind to "pointerup" to properly clear signals and fire click event on "touchend"
+				handleObj.pointerup = $.noop;
+				$(this).on("pointerup", handleObj.selector, handleObj.pointerup);
+			}),
+			remove : $.event.delegateSpecial.remove(function (handleObj) {
+				// unbind touch events
+				if (support.touch) {
+					removeEvent(this, "touchstart", handleObj.selector, $.event.special.pointerdown.touch);
+				}
+
+				// unbind mouse events
+				removeEvent(this, "mousedown", handleObj.selector, $.event.special.pointerdown.mouse);
+
+				// unbind the special "pointerup" we added for cleanup
+				if (handleObj.pointerup) {
+					$(this).off("pointerup", handleObj.selector, handleObj.pointerup);
+				}
+			})
+		};
+
+		$.event.special.pointerup = {
+			touch : function (event) {
+				// prevent default to prevent the emulated "mouseup" event from being triggered
+				event.preventDefault();
+
+				// safety check, if _touching is null then we just had a mouse event and shouldn't
+				// listen to touch events right now
+				if (_touching === null) {
+					return;
+				}
+
+				// timeStamp of when the last "touchstart" event was triggered,
+				// used to prevent double fire issues on iOS 7+ devices when needed
+				var lastTouchStarted = _touching;
+
+				// trigger the emulated "pointerup" event, getting back the event
+				var jEvent = triggerCustomEvent(this, "pointerup", event);
+
+				// ensure we have a target before we attempt to deal with a "click" event
+				if (!event.target) {
+					_touching = false; // release the "pointerdown" lock
+					return;
+				}
+
+				// while you may think if we are preventing the next "click" event (see jEvent.isClickPrevented)
+				// we could simply not trigger one below, that turns out to be a bad assumption. Due to the
+				// complex issue of dealing with various devices, often a click event is triggered regardless of
+				// calling preventDefault on "touchend" so we have to still go on and determine if a "click"
+				// event was triggered, if so, render it noop, if not, we don't have to trigger one then.
+
+				// we confirm that the user did not scroll, as touch events are very related to scrolling on
+				// touch devices, it's possible we may mis-fire a click event on an <a> anchor tag causing
+				// navigation even though this was a scroll attempt. We let the browser's built in scrolling
+				// threshold prevent accidental scrolling so we only need to check if they scrolled at all.
+				if (_startScrollOffset !== scrollY()) {
+					_touching = false; // release the "pointerdown" lock
+					return;
+				}
+
+				// on "touchend", calling prevent default prevents the "mouseup" and "click" event
+				// however on native "mouseup" events preventing default does not cancel the "click" event
+				// as per the pointer event spec on "pointerup" preventing default should not cancel the "click" event
+				//
+				// so we really want to have a "click" event all the time. If a function binded to this emulated
+				// "poiunterup" calls prevent default it would result in preventing the "click" event, which would
+				// cause inconsistent behavior. To prevent the possibility of two click events though, we call
+				// prevent default all the time (see above) and then trigger a "click" event here.
+				//
+				// Additionally, we are currently looking at the "touchend" event, mobile devices usually add a 300ms
+				// delay before triggering click to check for double tap events (zooming action on most devices).
+				// In certain situations the mobile device will still fire a "click" event even if preventDefault is
+				// called on "touchend", so we wait the 300ms and look for a click, then only fire a click if none
+				// was fired by the browser
+				var clickTimer = setTimeout(function () {
+						if (_touching === lastTouchStarted) {
+							_touching = false; // release the "pointerdown" lock
+						}
+
+						// at this point, if no click event was triggered, and we don't want to to trigger a "click"
+						// event, we can simply not trigger one to begin with.
+						//TWEAK (FFOS)
+						if(typeof jEvent.isClickPrevented === 'function') {
+							if (jEvent.isClickPrevented()) {
+								$(event.target).off("click", returnFalse);
+								return;
+							}
+						}
+
+						if (event.target.click) {
+							event.target.click();
+						} else {
+							// iOS 5 and older Android browsers do not define native .click events on all elements
+							$(event.target).click();
+						}
+					}, 300);
+
+				$(event.target).one("click", function () {
+					if (_touching === lastTouchStarted) {
+						_touching = false;
+					}
+
+					if (clickTimer) {
+						clearTimeout(clickTimer);
+					}
+				});
+			},
+			mouse : function (event) {
+				// if originally we had a "touchstart" or we ended with a "touchend" event, ignore this "mouseup"
+				if (_touching !== null) {
+					return;
+				}
+
+				// on mouseup, the event.button will be the button that was just released
+				_buttons ^= getStandardizedButtonsProperty(event);
+
+				// we only trigger a "pointerup" event if no buttons are down, prevent chorded PointerDown events
+				if (_buttons === 0) {
+					triggerCustomEvent(this, "pointerup", event);
+				} else {
+					// per the Pointer Events spec, when the active buttons change it fires only a PointerMove event
+					triggerCustomEvent(this, "pointermove", event);
+				}
+
+				// Mouse Events spec shows that after a "mouseup" it fires a "mousemove", which will trigger
+				// the "pointermove" needed to follow the Pointer Events spec which describes the same thing
+			},
+			add : $.event.delegateSpecial(function (handleObj) {
+				// bind to touch events, some devices (chromebook) can send both touch and mouse events
+				if (support.touch) {
+					addEvent(this, "touchend", handleObj.selector, $.event.special.pointerup.touch);
+				}
+
+				// bind mouse events
+				addEvent(this, "mouseup", handleObj.selector, $.event.special.pointerup.mouse);
+			}),
+			remove : $.event.delegateSpecial.remove(function (handleObj) {
+				// unbind touch events
+				if (support.touch) {
+					removeEvent(this, "touchend", handleObj.selector, $.event.special.pointerup.touch);
+				}
+
+				// unbind mouse events
+				removeEvent(this, "mouseup", handleObj.selector, $.event.special.pointerup.mouse);
+			})
+		};
+
+		$.event.special.pointermove = {
+			touch : function (event) {
+				triggerCustomEvent(this, "pointermove", event);
+			},
+			mouse : function (event) {
+				// _touching will be a number if they currently have their finger (touch only) down
+				// because we cannot call preventDefault on the "touchmove" without preventing
+				// scrolling on most things, we do this check to ensure we don't double fire
+				// move events.
+				if (typeof _touching === "number") {
+					return;
+				}
+
+				triggerCustomEvent(this, "pointermove", event);
+			},
+			add : $.event.delegateSpecial(function (handleObj) {
+				// bind to touch events, some devices (chromebook) can send both touch and mouse events
+				if (support.touch) {
+					addEvent(this, "touchmove", handleObj.selector, $.event.special.pointermove.touch);
+				}
+
+				// bind mouse events
+				addEvent(this, "mousemove", handleObj.selector, $.event.special.pointermove.mouse);
+			}),
+			remove : $.event.delegateSpecial.remove(function (handleObj) {
+				// unbind touch events
+				if (support.touch) {
+					removeEvent(this, "touchmove", handleObj.selector, $.event.special.pointermove.touch);
+				}
+
+				// unbind mouse events
+				removeEvent(this, "mousemove", handleObj.selector, $.event.special.pointermove.mouse);
+			})
+		};
+
+		jQuery.each({
+			pointerover : {
+				mouse : "mouseover"
+			},
+			pointerout : {
+				mouse : "mouseout"
+			},
+			pointercancel : {
+				touch : "touchcancel"
+			}
+		}, function (pointerEventType, natives) {
+			function onTouch(event) {
+				// pointercancel, reset everything
+				if (event.type === "touchcancel") {
+					_touching = null;
+					_buttons = 0;
+				}
+
+				triggerCustomEvent(this, pointerEventType, event);
+			}
+
+			function onMouse(event) {
+				triggerCustomEvent(this, pointerEventType, event);
+			}
+
+			$.event.special[pointerEventType] = {
+				setup : function () {
+					if (support.touch && natives.touch) {
+						addEvent(this, natives.touch, null, onTouch);
+					}
+					if (natives.mouse) {
+						addEvent(this, natives.mouse, null, onMouse);
+					}
+				},
+				teardown : function () {
+					if (support.touch && natives.touch) {
+						removeEvent(this, natives.touch, null, onTouch);
+					}
+					if (natives.mouse) {
+						removeEvent(this, natives.mouse, null, onMouse);
+					}
+				}
+			};
+		});
+	}
+
+	// for IE10 specific, we proxy though events so we do not need to deal
+	// with the various names or renaming of events.
+	else if (navigator.msPointerEnabled && !navigator.pointerEnabled) {
+		$.extend($.event.special, {
+			pointerdown : {
+				delegateType : "MSPointerDown",
+				bindType : "MSPointerDown"
+			},
+			pointerup : {
+				delegateType : "MSPointerUp",
+				bindType : "MSPointerUp"
+			},
+			pointermove : {
+				delegateType : "MSPointerMove",
+				bindType : "MSPointerMove"
+			},
+			pointerover : {
+				delegateType : "MSPointerOver",
+				bindType : "MSPointerOver"
+			},
+			pointerout : {
+				delegateType : "MSPointerOut",
+				bindType : "MSPointerOut"
+			},
+			pointercancel : {
+				delegateType : "MSPointerCancel",
+				bindType : "MSPointerCancel"
+			}
+		});
+
+		$.extend($.event.fixHooks, {
+			MSPointerDown : $.event.pointerHooks,
+			MSPointerUp : $.event.pointerHooks,
+			MSPointerMove : $.event.pointerHooks,
+			MSPointerOver : $.event.pointerHooks,
+			MSPointerOut : $.event.pointerHooks,
+			MSPointerCancel : $.event.pointerHooks
+		});
+	}
+
+	// add support for pointerenter and pointerlave
+	// pointerenter and pointerleave were added in IE11, they do not exist in IE10
+	if (!support.pointer || (navigator.msPointerEnabled && !navigator.pointerEnabled)) {
+		// Create a wrapper similar to jQuery's mouseenter/leave events
+		// using pointer events (pointerover/out) and event-time checks
+		jQuery.each({
+			pointerenter : navigator.msPointerEnabled ? "MSPointerOver" : "mouseover",
+			pointerleave : navigator.msPointerEnabled ? "MSPointerOut" : "mouseout"
+		}, function (orig, fix) {
+			jQuery.event.special[orig] = {
+				delegateType : fix,
+				bindType : fix,
+				handle : function (event) {
+					var ret,
+					target = this,
+					related = event.relatedTarget,
+					handleObj = event.handleObj;
+
+					// For mousenter/leave call the handler if related is outside the target.
+					// NB: No relatedTarget if the mouse left/entered the browser window
+					if (!related || (related !== target && !jQuery.contains(target, related))) {
+						event.type = handleObj.origType;
+						ret = handleObj.handler.apply(this, arguments);
+						event.type = fix;
+					}
+					return ret;
+				}
+			};
+		});
+	}
+})(jQuery, window, document);
+//##//////////##// Pointy.js
+//## GESTURES ##// Pointer Events polyfill for jQuery
+//##//////////##// https://github.com/vistaprint/PointyJS
+(function ($) {
+
+	// return a cloned copy of a given event that has been slightly modified
+	function copyEvent(originaljQEvent, type, extras) {
+		var event = originaljQEvent; // TODO: this should clone the originaljQEvent object
+
+		event.type = type;
+		event.isPropagationStopped = function () {
+			return false;
+		};
+		event.isDefaultPrevented = function () {
+			return false;
+		};
+
+		if (extras) {
+			$.extend(event, extras);
+		}
+
+		return event;
+	}
+
+	// also handles sweepleft, sweepright
+	$.event.special.sweep = {
+		// More than this horizontal displacement, and we will suppress scrolling.
+		scrollSupressionThreshold : 10, //30,
+
+		// More time than this, and it isn't a sweep (swipe) it's a "hold" gesture.
+		durationThreshold : 750,
+
+		// Sweep horizontal displacement must be more than this.
+		horizontalDistanceThreshold : 32,
+
+		// Sweep vertical displacement must be less than this.
+		verticalDistanceThreshold : 75,
+
+		start : function (event) {
+			return {
+				time : +new Date(),
+				coords : [event.pageX, event.pageY],
+				origin : $(event.target)
+			};
+		},
+
+		stop : function (event) {
+			return {
+				time : +new Date(),
+				coords : [event.pageX, event.pageY]
+			};
+		},
+
+		isSweep : function (start, stop, checkTime) {
+			return (checkTime ? stop.time - start.time < $.event.special.sweep.durationThreshold : true) &&
+			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.sweep.horizontalDistanceThreshold &&
+			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.sweep.verticalDistanceThreshold;
+		},
+
+		add : $.event.delegateSpecial(function (handleObj) {
+			var thisObject = this,
+			$this = $(thisObject);
+
+			handleObj.pointerdown = function (event) {
+				var start = $.event.special.sweep.start(event),
+				stop;
+
+				// we need to call prevent default because on IE browsers,
+				// dragging anything with a mouse will start dragging the
+				// element for "copy and paste" functionality
+				// on other browsers, it will start selecting text
+				// event.preventDefault();
+
+				function move(event) {
+					if (!start) {
+						return;
+					}
+
+					stop = $.event.special.sweep.stop(event);
+
+					// prevent scrolling on touch devices
+					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.sweep.scrollSupressionThreshold) {
+						event.preventDefault();
+					}
+				}
+
+				function up() {
+					$this.off("pointermove", move);
+
+					if (start && stop && $.event.special.sweep.isSweep(start, stop, true)) {
+						var dir = start.coords[0] > stop.coords[0] ? "left" : "right";
+
+						$.event.dispatch.call(thisObject, copyEvent(event, "sweep", {
+								direction : dir
+							}));
+						$.event.dispatch.call(thisObject, copyEvent(event, "sweep" + dir, {
+								direction : dir
+							}));
+					}
+
+					start = stop = undefined;
+				}
+
+				$this
+				.on("pointermove", move)
+				.one("pointerup", up);
+
+				// set a timeout to ensure we cleanup, in case the "pointerup" isn't fired
+				setTimeout(function () {
+					$this
+					.off("pointermove", handleObj.selector, move)
+					.off("pointerup", handleObj.selector, up);
+				}, $.event.special.sweep.durationThreshold);
+			};
+
+			$this.on("pointerdown", handleObj.selector, handleObj.pointerdown);
+		}),
+
+		remove : $.event.delegateSpecial.remove(function (handleObj) {
+			$(this).off("pointerdown", handleObj.selector, handleObj.pointerdown);
+		})
+	};
+
+	// sweepleft and sweepright are just dummies, we have to
+	// setup the handler for sweep so attach a dummy event
+	$.each(["sweepleft", "sweepright"], function (i, event) {
+		$.event.special[event] = {
+			add : $.event.delegateSpecial(function (handleObj) {
+				handleObj.noop = $.noop;
+				$(this).on("sweep", handleObj.selector, handleObj.noop);
+			}),
+
+			remove : $.event.delegateSpecial.remove(function (handleObj) {
+				$(this).off("sweep", handleObj.selector, handleObj.noop);
+			})
+		};
+	});
+
+	// utility to return the scroll-y position
+	function scrollY() {
+		return window.scrollY || $(window).scrollTop();
+	}
+
+	// also handles presshold
+	$.event.special.press = {
+		pressholdThreshold : 750,
+
+		add : $.event.delegateSpecial(function (handleObj) {
+			var thisObject = this;
+
+			handleObj.pointerdown = function (event) {
+				var start = $.event.special.sweep.start(event),
+				startScroll = scrollY(),
+				stop,
+				timer,
+				origTarget = event.target,
+				isPresshold = false,
+				$this = $(this);
+
+				// check that on pointermove we haven't swiped beyond the threshold for sweep
+				function move(e) {
+					stop = $.event.special.sweep.stop(e);
+				}
+
+				// upon "pointerup", if we didn't trigger "presshold" then trigger a "press".
+				function up(event) {
+					clearTimeout(timer);
+					// $document.off("pointercancel", clearPressHandlers);
+
+					// unbind the pointer move
+					$this.off("pointermove", move);
+
+					// check to see if they scrolled, even 5 pixels
+					if (Math.abs(startScroll - scrollY()) > 5) {
+						return;
+					}
+
+					// check to see the action should be considered a a "sweep" event
+					if (stop && $.event.special.sweep.isSweep(start, stop)) {
+						return;
+					}
+
+					// Trigger a "press" event if the start target is the same as the stop target.
+					if (!isPresshold && origTarget === event.target) {
+						$.event.dispatch.call(thisObject, copyEvent(event, "press"));
+					}
+
+					// if this was a "presshold", prevent this "pointerup" event from causing more events
+					else if (isPresshold) {
+						event.stopPropagation();
+					}
+				}
+
+				$this
+				.on("pointermove", move)
+				.one("pointerup", up);
+
+				// TODO: if the pointer is canceled for some reason, we need to cleanup
+				// $document.on("pointercancel", clearPressHandlers);
+
+				timer = setTimeout(function () {
+						// unbind the pointer move
+						$this.off("pointermove", move);
+
+						// toggle signal to ensure when the "pointerup" event we stop propagation
+						isPresshold = true;
+
+						// check to see if they scrolled, even 5 pixels
+						if (Math.abs(startScroll - scrollY()) > 5) {
+							return;
+						}
+
+						// check to see the action should be considered a a "sweep" event
+						if (stop && $.event.special.sweep.isSweep(start, stop)) {
+							return;
+						}
+
+						// Trigger a "presshold" event if the start target is the same as the stop target.
+						if (origTarget === event.target) {
+							$.event.dispatch.call(thisObject, copyEvent(event, "presshold"));
+						}
+					}, $.event.special.press.pressholdThreshold);
+			};
+
+			$(thisObject).on("pointerdown", handleObj.selector, handleObj.pointerdown);
+		}),
+
+		remove : $.event.delegateSpecial.remove(function (handleObj) {
+			$(this).off("pointerdown", handleObj.selector, handleObj.pointerdown);
+		})
+	};
+
+	// presshold is just a dummy, it's handled by "press".
+	$.event.special.presshold = {
+		add : $.event.delegateSpecial(function (handleObj) {
+			handleObj.noop = $.noop;
+			$(this).on("press", handleObj.selector, handleObj.noop);
+		}),
+
+		remove : $.event.delegateSpecial.remove(function (handleObj) {
+			$(this).off("press", handleObj.selector, handleObj.noop);
+		})
+	};
+
+})(jQuery);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
@@ -2565,12 +3479,23 @@ function detectPrivateMode(callback) {
 						//TWEAK ~ round decimals for android
 						var diffX  = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
 						var diffY  = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
+						//PRE-SWIPE
+						//var startX = parseInt(eventData.pageX);
+						//var startY = parseInt(eventData.pageY);
+						//var endX   = parseInt(eventData.event.pageX);
+						//var endY   = parseInt(eventData.event.pageY);
 						//
 						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-							event.type  = specialEventName;
-							event.pageX = eventData.event.pageX;
-							event.pageY = eventData.event.pageY;
-							//
+							event.type   = specialEventName;
+							event.pageX  = eventData.event.pageX;
+							event.pageY  = eventData.event.pageY;
+							//PRE-SWIPE
+							//event.startX = startX;
+							//event.startY = startY;
+							//event.endX   = endX;
+							//event.endY   = endY;
+							//event.diffX  = diffX;
+							//event.diffY  = diffY;
 							eventHandle.call(this, event);
 							if (!event.isDefaultPrevented()) {
 								$element.off(nativeEvent.original).trigger(nativeEvent.original);
@@ -2588,112 +3513,16 @@ function detectPrivateMode(callback) {
 		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
 	};
 })(jQuery, 'tap');
-//#///////////////#//
-//# CLACK HANDLER #//
-//#///////////////#//
-/*
-(function ($, specialEventName) {
-	'use strict';
-	var nativeEvent = Object.create(null);
-	var getTime = function () {
-		return new Date().getTime();
-	};
-	nativeEvent.original = 'click';
-	nativeEvent.move     = 'pointermove scroll';
-	nativeEvent.start    = 'pointerdown';
-	nativeEvent.end      = 'pointerup';
-
-	$.event.special[specialEventName] = {
-		setup : function (data, namespaces, eventHandle) {
-			var nativeTimer;
-			var moveTracker = 0;
-			var $element = $(this);
-			var eventData = {};
-			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end + ' ' + nativeEvent.move, function (event) {
-				//TWEAK
-				if(event) {
-					if(event.originalEvent) {
-						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
-					}
-				}
-			}).on(nativeEvent.start, function (event) {
-				if (event.which && event.which !== 1) {
-					return;
-				}
-				//TWEAK
-				if (eventData) {
-					if (eventData.event) {
-						$element.addClass('hidden');
-						eventData.target = event.target;
-						eventData.pageX  = eventData.event.pageX;
-						eventData.pageY  = eventData.event.pageY;
-						eventData.time   = getTime();
-						//
-						moveTracker = 0;
-						clearTimeout(nativeTimer);
-						nativeTimer = setTimeout(function() {
-							$element.removeClass('hidden');
-						}, 750);
-					}
-				}   
-			}).on(nativeEvent.move, function (event) {
-				moveTracker++;
-				if(moveTracker > 30) {
-					clearTimeout(nativeTimer);
-					$element.removeClass('hidden');
-					moveTracker = 0;
-				}
-				
-			}).on(nativeEvent.end, function (event) {
-				//TWEAK
-				clearTimeout(nativeTimer);
-				if (eventData) {
-					if (eventData.event) {
-						moveTracker = 0;
-						//TWEAK ~ round decimals for android
-						//var diffX  = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
-						//var diffY  = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
-						//
-						if (eventData.target === event.target && getTime() - eventData.time < 750 && $element.hasClass('hidden')) {
-							clearTimeout(nativeTimer);
-							$element.removeClass('hidden');
-							event.type  = specialEventName;
-							event.pageX = eventData.event.pageX;
-							event.pageY = eventData.event.pageY;
-							//
-							eventHandle.call(this, event);
-							if (!event.isDefaultPrevented()) {
-								$element.off(nativeEvent.original).trigger(nativeEvent.original);
-							}
-						} else {
-							moveTracker = 0;
-							$element.removeClass('hidden');
-							clearTimeout(nativeTimer);
-						}
-					}
-				}
-			});
-		},
-		remove : function () {
-			$(this).off(nativeEvent.start + ' ' + nativeEvent.end + ' ' + nativeEvent.move);
-		}
-	};
-	$.fn[specialEventName] = function (fn) {
-		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
-	};
-})(jQuery, 'clack');
-*/
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
 (function ($) {
-	'use strict';
 	var TAP_AND_HOLD_TRIGGER_TIMER = 1750;
 	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 10;
 
-	var TOUCHSTART = 'pointerdown';
-	var TOUCHEND   = 'pointerup';
-	var TOUCHMOVE  = 'pointermove';
+	var TOUCHSTART = touchstart;
+	var TOUCHEND   = touchend;
+	var TOUCHMOVE  = touchmove;
 
 	var tapAndHoldTimer = null;
 
@@ -2795,6 +3624,13 @@ function detectPrivateMode(callback) {
 		teardown : function () {}
 	};
 })(jQuery);
+//#//////////////////////////////#//
+//# FIREFOX: DETECT PRIVATE MODE #//
+//#//////////////////////////////#//
+if (vendorClass == 'moz' && app.device.desktop) {
+	function retry(isDone,next){var current_trial=0,max_retry=50,interval=10,is_timeout=false;var id=window.setInterval(function(){if(isDone()){window.clearInterval(id);next(is_timeout)}if(current_trial++>max_retry){window.clearInterval(id);is_timeout=true;next(is_timeout)}},10)}function isIE10OrLater(user_agent){var ua=user_agent.toLowerCase();if(ua.indexOf('msie')===0&&ua.indexOf('trident')===0){return false}var match=/(?:msie|rv:)\s?([\d\.]+)/.exec(ua);if(match&&parseInt(match[1],10)>=10){return true}return false}function detectPrivateMode(callback){var is_private;if(window.webkitRequestFileSystem){window.webkitRequestFileSystem(window.TEMPORARY,1,function(){is_private=false},function(e){console.log(e);is_private=true})}else if(window.indexedDB&&/Firefox/.test(window.navigator.userAgent)){var db;try{db=window.indexedDB.open('test')}catch(e){is_private=true}if(typeof is_private==='undefined'){retry(function isDone(){return db.readyState==='done'?true:false},
+	function next(is_timeout){if(!is_timeout){is_private=db.result?false:true}})}}else if(isIE10OrLater(window.navigator.userAgent)){is_private=false;try{if(!window.indexedDB){is_private=true}}catch(e){is_private=true}}else if(window.localStorage&&/Safari/.test(window.navigator.userAgent)){try{app.storage.setItem('test',1)}catch(e){is_private=true}if(typeof is_private==='undefined'){is_private=false;app.storage.removeItem('test')}}retry(function isDone(){return typeof is_private!=='undefined'?true:false},function next(is_timeout){callback(is_private)})}
+}
 //#////////#//
 //# OPENFB #//
 //#////////#//
