@@ -1109,6 +1109,7 @@ if(app.is.scrollable && app.device.desktop) {
 	//# XY HEADER INFO #//
 	//#////////////////#//
 	//LISTENER
+	/*
 	document.getElementById('appHeader').addEventListener(touchstart, function(evt) {
 		if(evt) {
 			if (typeof evt.targetTouches !== 'undefined') {
@@ -1124,6 +1125,7 @@ if(app.is.scrollable && app.device.desktop) {
 			}
 		}
 	}, false);
+	*/
 	//NOT WHILE EDITING
 	$('#timerDailyInput').on('blur',function() {
 		$('#appHeader').addClass('blockInfo');
@@ -1131,8 +1133,14 @@ if(app.is.scrollable && app.device.desktop) {
 			$('#appHeader').removeClass('blockInfo');
 		})
 	});
-	// HANDLER
+	//INFO HANDLER
 	$('#appHeader').on(tap, function(evt) {
+		//FIX HEADER TAP PROPAGATION
+		$('#appHeader').css('pointer-events','none');
+		app.timeout('headerInfoBlocker', 500, function() {
+			$('#appHeader').css('pointer-events','auto');
+		});
+		//HANDLE WINDOW		
 		if(evt.pageX < 132 && evt.pageY < 72) {
 			if($('#appHelper').length)					{ return; }
 			if($('#advancedMenu').length)				{ return; }
@@ -1145,7 +1153,7 @@ if(app.is.scrollable && app.device.desktop) {
 			getNewWindow('KCals: A Metabolism Simulator','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['KCals: A Metabolism Simulator'] + '</div>',function() {
 				$('#tabHelp').removeClass('hidden');
 				app.handlers.activeRow('#openHelp','button',function(evt) {
-					appFooter('tab4',0,function() {
+					appFooter('tab4', 0, function() {
 						buildHelpMenu('direct');
 					});
 				});
