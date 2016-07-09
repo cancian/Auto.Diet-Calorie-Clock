@@ -56,7 +56,7 @@ $(document).on("pageload", function (evt) {
 		$('.longHold').removeClass('longHold');
 	});
 	*/
-	$("#entryList div" + tgt).on(touchstart, function (evt) {
+	$('#entryList div' + tgt).on(touchstart, function (evt) {
 		deMove = 0;
 		/*
 		clearTimeout(holdStart);
@@ -434,20 +434,19 @@ $(document).on("pageload", function (evt) {
 	/////////////////
 	function hideEntry(evt) {
 		if(!app.read('app_last_tab','tab2'))	{ return; }
-		if(!app.device.android)					{ evt.preventDefault(); }
 		//PREVENT MULTIPLE
-		app.timeout('hideEntry',1,function(evt) {
+		app.timeout('hideEntry',1,function() {
 			if (!$('.active').hasClass('busy')) {
 				$('.active').addClass('busy');
 				$('.active').removeClass('open');
-				$('.active').on(transitionend, function (evt) {
+				$('.active').on(transitionend, function () {
 					$('.active').removeClass('busy');
 				});
 				$('.active').removeClass('active');
 			}
 		});
 	}
-	$('#entryListForm, #entryList div, #go, #sliderBlock, #entryListWrapper').on(tap + ' ' + swipe, function (evt) {
+	$('#entryListForm, #entryList, #go, #sliderBlock, #entryListWrapper').on(tap + ' ' + swipe, function (evt) {
 		hideEntry(evt);
 	});
 	//////////////
@@ -457,13 +456,15 @@ $(document).on("pageload", function (evt) {
 	//////////////
 	// SPAN TAP //
 	//////////////
-	$('#entryList div' + tgt + ' .delete').on(tap, function (evt) {
+	$(tgt + ' .delete', '#entryList').on(tap, function (evt) {
+		var evtId     = evt.target.id;
+		var targetId  = '#' + evt.target.id;
+		var targetObj = this;
 		///////////
 		// REUSE //
 		///////////
-		if (evt.target.id == 'reuse') {
-			$('#' + evt.target.id).addClass('button');
-			getEntry($(this).parent('div').prop('id'), function (data) {
+		if (evtId == 'reuse') {
+			getEntry($(targetObj).parent('div').prop('id'), function (data) {
 				data.reuse = true;
 				saveEntry(data, function (newRowId) {
 					setTimeout(function () {
@@ -472,44 +473,36 @@ $(document).on("pageload", function (evt) {
 						updateEntriesSum();
 						updateEntriesTime();
 						//SCROLLBAR UPDATE
-						niceResizer(100);
-					}, 100);
+						niceResizer(150);
+					}, 150);
 				});
-				$('.active').addClass('busy');
-				$('.active').removeClass('open');
-				$('.active').on(transitionend, function (evt) {
-					$('.active').removeClass('busy');
-				});
-				$('.active').removeClass('active');
+				//HIDE
+				hideEntry();
 			});
 		}
 		//////////
 		// EDIT //
 		//////////
-		else if (evt.target.id == 'edit') {
-			$('#' + evt.target.id).addClass('button');
-			var editedEntry = $(this).parent('div').prop('id');
+		if (evtId == 'edit') {
+			var editedEntry = $(targetObj).parent('div').prop('id');
 			getEntryEdit(editedEntry);
 			setTimeout(function () {
-				$('#' + editedEntry).trigger('sweepleft');
+				hideEntry();
 			}, 300);
 		}
 		////////////
 		// DELETE //
 		////////////
-		else if (evt.target.id == 'delete') {
-			$('#' + evt.target.id).addClass('button');
-			var rowId   = $(this).parent('div').prop('id');
-			var rowTime = $(this).parent('div').prop('name');
+		if (evtId == 'delete') {
+			var rowId   = $(targetObj).parent('div').prop('id');
+			var rowTime = $(targetObj).parent('div').prop('name');
 			//no jump
 			$('#appContent').scrollTop($('#appContent').scrollTop());
-			$('#' + rowId).hide();
-			$('#' + rowId).remove();
+			$('#' + rowId).hide().remove();
 			//IF LAST ROW
 			if ($('#entryList .entryListRow').length == 0) {
 				$('#entryList').html2('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 				updateTimer();
-				//return false;
 			}
 			//UPDATE DB
 			deleteEntry({
@@ -520,7 +513,7 @@ $(document).on("pageload", function (evt) {
 				updateTimer();
 				updateEntriesTime();
 				updateEntriesSum();
-				//force error
+				//force error ~ 
 				niceResizer();
 			});
 		}
