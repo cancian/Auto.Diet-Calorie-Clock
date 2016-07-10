@@ -483,7 +483,7 @@ $(document).on("pageload", function (evt) {
 		//////////
 		// EDIT //
 		//////////
-		if (evtId == 'edit') {
+		else if (evtId == 'edit') {
 			var editedEntry = $(targetObj).parent('div').prop('id');
 			getEntryEdit(editedEntry);
 			setTimeout(function () {
@@ -493,7 +493,7 @@ $(document).on("pageload", function (evt) {
 		////////////
 		// DELETE //
 		////////////
-		if (evtId == 'delete') {
+		else if (evtId == 'delete') {
 			var rowId   = $(targetObj).parent('div').prop('id');
 			var rowTime = $(targetObj).parent('div').prop('name');
 			//no jump
