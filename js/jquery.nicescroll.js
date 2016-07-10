@@ -42,7 +42,7 @@
 		cursorwidth: "4px",
 		cursorborder: "2px solid rgba(0,0,0,0)",
 		cursorborderradius: "4px",
-		scrollspeed: 80,
+		scrollspeed: 60,
 		mousescrollstep: 8 * 6,
 		touchbehavior: true,
 		hwacceleration: true,

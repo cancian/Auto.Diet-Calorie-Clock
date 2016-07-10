@@ -170,8 +170,8 @@ setTimeout(function() {
 		if(app.read('intro_dismissed')) {
 			app.trackInstall();
 		}
-	},4000);
-},1000);
+	},2000);
+},5000);
 //////////////////////
 // TRIGGER SYNC ETC //
 //////////////////////
@@ -203,7 +203,7 @@ updateEntriesSum();
 ///////////////
 // SET TITLE //
 ///////////////
-$('title').html2('KCals – ' + LANG.CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang]);
+$('title').html2(LANG.FULL_TITLE[lang]);
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
