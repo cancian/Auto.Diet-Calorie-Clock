@@ -257,12 +257,22 @@ var utils = (function () {
 			ev;
 
 		if ( !(/(SELECT|INPUT|TEXTAREA)/i).test(target.tagName) ) {
-			ev = document.createEvent('MouseEvents');
-			ev.initMouseEvent('click', true, true, e.view, 1,
-				target.screenX, target.screenY, target.clientX, target.clientY,
-				e.ctrlKey, e.altKey, e.shiftKey, e.metaKey,
-				0, null);
-
+			// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/initMouseEvent
+			// initMouseEvent is deprecated.
+			ev = document.createEvent(window.MouseEvent ? 'MouseEvents' : 'Event');
+			ev.initEvent('click', true, true);
+			ev.view = e.view || window;
+			ev.detail = 1;
+			ev.screenX = target.screenX || 0;
+			ev.screenY = target.screenY || 0;
+			ev.clientX = target.clientX || 0;
+			ev.clientY = target.clientY || 0;
+			ev.ctrlKey = !!e.ctrlKey;
+			ev.altKey = !!e.altKey;
+			ev.shiftKey = !!e.shiftKey;
+			ev.metaKey = !!e.metaKey;
+			ev.button = 0;
+			ev.relatedTarget = null;
 			ev._constructed = true;
 			target.dispatchEvent(ev);
 		}
@@ -333,6 +343,13 @@ function IScroll (el, options) {
 
 	if ( this.options.tap === true ) {
 		this.options.tap = 'tap';
+	}
+
+	// https://github.com/cubiq/iscroll/issues/1029
+	if (!this.options.useTransition && !this.options.useTransform) {
+		if(!(/relative|absolute/i).test(this.scrollerStyle.position)) {
+			this.scrollerStyle.position = "relative";
+		}
 	}
 
 	if ( this.options.shrinkScrollbars == 'scale' ) {
@@ -755,7 +772,6 @@ IScroll.prototype = {
 			return;
 		}
 
-
 		var index = this._events[type].indexOf(fn);
 
 		if ( index > -1 ) {
@@ -836,9 +852,15 @@ IScroll.prototype = {
 	},
 
 	_transitionTime: function (time) {
+		if (!this.options.useTransition) {
+			return;
+		}
 		time = time || 0;
-
 		var durationProp = utils.style.transitionDuration;
+		if(!durationProp) {
+			return;
+		}
+
 		this.scrollerStyle[durationProp] = time + 'ms';
 
 		if ( !time && utils.isBadAndroid ) {
@@ -1368,25 +1390,23 @@ IScroll.prototype = {
 
 		//TWEAK
 		if (this.pages) {
+				
 			if ( x >= this.pages.length ) {
 				x = this.pages.length - 1;
 			} else if ( x < 0 ) {
 				x = 0;
 			}
-		}
 
-		//TWEAK
-		if (this.pages[x]) {
 			if ( y >= this.pages[x].length ) {
 				y = this.pages[x].length - 1;
 			} else if ( y < 0 ) {
 				y = 0;
 			}
+
+			var posX = this.pages[x][y].x,
+				posY = this.pages[x][y].y;		
 		}
-
-		var posX = this.pages[x][y].x,
-			posY = this.pages[x][y].y;
-
+		
 		time = time === undefined ? this.options.snapSpeed || Math.max(
 			Math.max(
 				Math.min(Math.abs(posX - this.x), 1000),
@@ -1724,6 +1744,9 @@ function Indicator (scroller, options) {
 	if ( this.options.fade ) {
 		this.wrapperStyle[utils.style.transform] = this.scroller.translateZ;
 		var durationProp = utils.style.transitionDuration;
+		if(!durationProp) {
+			return;
+		}
 		this.wrapperStyle[durationProp] = utils.isBadAndroid ? '0.0001ms' : '0ms';
 		// remove 0.0001ms
 		var self = this;
@@ -1886,12 +1909,17 @@ Indicator.prototype = {
 	transitionTime: function (time) {
 		time = time || 0;
 		var durationProp = utils.style.transitionDuration;
+		if(!durationProp) {
+			return;
+		}
+
 		this.indicatorStyle[durationProp] = time + 'ms';
 
 		if ( !time && utils.isBadAndroid ) {
 			this.indicatorStyle[durationProp] = '0.0001ms';
 			// remove 0.0001ms
 			var self = this;
+
 			rAF(function() {
 				if(self.indicatorStyle[durationProp] === '0.0001ms') {
 					self.indicatorStyle[durationProp] = '0s';
