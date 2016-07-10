@@ -997,16 +997,15 @@ if(!document.getElementById('fontTest')) {
 	},10);
 }
 ////////////////////////////
-// ALLOW HORIZONTAL SWIPE //
+// STABLE SCROLL ON SWIPE //
 ////////////////////////////
-/*
-if(app.is.scrollable && app.device.desktop) {
+if(app.is.scrollable) {
 	app.globals.X     = 0;
 	app.globals.Y     = 0;
 	app.globals.MX    = 0;
 	app.globals.MY    = 0;
 	app.globals.XLock = 0;
-	$('body').on(touchend + ' mouseup',function(evt) {
+	$('body').on(touchend,function(evt) {
 		app.globals.XLock = 0;
 		app.globals.X     = evt.pageX;
 		app.globals.Y     = evt.pageY;
@@ -1034,7 +1033,6 @@ if(app.is.scrollable && app.device.desktop) {
 		}
 	});
 }
-*/
 ////////////////
 // MAIN TIMER //
 ////////////////
