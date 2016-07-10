@@ -446,7 +446,7 @@ $(document).on("pageload", function (evt) {
 			}
 		});
 	}
-	$('#entryListForm, #entryList, #go, #sliderBlock, #entryListWrapper').on(tap + ' ' + swipe, function (evt) {
+	$('#entryListForm, #entryList, #entryList div, #go, #sliderBlock, #entryListWrapper').on(tap + ' ' + swipe, function (evt) {
 		hideEntry(evt);
 	});
 	//////////////
