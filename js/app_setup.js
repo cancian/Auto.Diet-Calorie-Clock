@@ -2303,7 +2303,7 @@ function getRateDialog() {
 			//SHOW DIALOG
 			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function(button) {
 				if(button === 2) {
-					//launch
+					//LAUNCH
 					app.analytics('vote');
 					setTimeout(function() {
 						app.url();
@@ -2312,9 +2312,14 @@ function getRateDialog() {
 					//on action
 					app.analytics('vote-no');
 				}
-
+				//FIX SPACE NOWRAP ON DIALOGS
+				if(app.device.bb10 || app.device.playbook) {
+					LANG.RATE_TITLE[lang] = (LANG.RATE_TITLE[lang]).split(' ').join('&nbsp;');
+					LANG.NO_THANKS[lang]  = (LANG.NO_THANKS[lang]).split(' ').join('&nbsp;');
+				}
+				//
 			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-		},3500);
+		},3666);
 	}
 }
 ///////////////////
