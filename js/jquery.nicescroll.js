@@ -58,7 +58,7 @@
 		preservenativescrolling: true,
 		railoffset: false,
 		railhoffset: false,
-		bouncescroll: true,
+		bouncescroll: false,
 		spacebarenabled: false,
 		railpadding: {
 			top: 0,
@@ -74,7 +74,7 @@
 		enablemousewheel: true,
 		enablekeyboard: true,
 		smoothscroll: true,
-		sensitiverail: true,
+		sensitiverail: false,
 		enablemouselockapi: true,
 		//cursormaxheight: 28,
 		cursorfixedheight: false,

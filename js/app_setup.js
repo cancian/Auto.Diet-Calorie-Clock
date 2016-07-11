@@ -2030,7 +2030,8 @@ function buildLangMenu(opt) {
 				//start date
 				$('#cssStartDate').html2("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
 				//page title
-				$('title').html2(LANG.FULL_TITLE[lang]);
+				//$('title').html2(appName + ' - ' + LANG.REALTIME_CALORIE_COUNTER[lang]);
+				$('title').html2(appName + ' - ' + LANG.REALTIME_CALORIES[lang]);				
 				//heading sum
 				updateEntriesSum();
 				//update cat list cache
@@ -2116,10 +2117,10 @@ function getNiceScroll(target,timeout,callback) {
 		nativeparentscrolling: true,
 		cursorcolor: 'rgba(0,0,0,1)',
 		cursorborderradius: '0',
-		railpadding: { right: 1,  bottom: 0, top: 2 },
+		railpadding: { right: 0,  bottom: 0, top: 2 },
 		cursorborder: '1px solid rgba(255,255,255,0)',
-		cursoropacitymax: .7,
-		cursorwidth: '4px',
+		cursoropacitymax: .666,
+		cursorwidth: '5px',
 		horizrailenabled: false,
 		hwacceleration: true,
 		rtlmode: false,
