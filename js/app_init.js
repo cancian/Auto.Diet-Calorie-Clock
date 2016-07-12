@@ -147,6 +147,10 @@ safeExec(function() {
 	// MSAPP //
 	///////////
 	if(/MSApp/i.test(navigator.userAgent)) { hostLocal = ''; }
+	/////////////////
+	// LOCALFORAGE //
+	/////////////////
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');
 	/////////////
 	// ISCROLL //
 	/////////////
@@ -172,17 +176,15 @@ safeExec(function() {
 	////////
 	// JS //
 	////////
-	//DB
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/localforage.js" id="localforageJS"><\/script>');	
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
 	//UTILS
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
@@ -190,40 +192,40 @@ safeExec(function() {
 			if (isCacheValid(localStorage.getItem('remoteSuperBlockJS') + localStorage.getItem('remoteSuperBlockCSS'))) {
 				isCurrentCacheValid = 1;
 			}
-			/////////////////////
-			// DEFINE VALIDITY //
-			/////////////////////
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
-			if (isCurrentCacheValid == 1) {
-				if (!document.getElementById('superBlockCSS')) {
-					////////////////
-					// CSS APPEND //
-					////////////////
-					if (document.getElementById('CSSPlaceholder')) {
-						document.getElementById('CSSPlaceholder').innerHTML = localStorage.getItem('remoteSuperBlockCSS');
-					} else {
-						document.write('<style type="text/css" id="superBlockCSS">' + localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
-					}
-					/////////////
-					// JS EVAL //
-					/////////////
-					document.addEventListener('DOMContentLoaded', function () {
-						setTimeout(function() {
-							try {
-								var scriptBlock  = document.createElement('script');
-								scriptBlock.text = localStorage.getItem('remoteSuperBlockJS');
-								document.head.appendChild(scriptBlock);
-							} catch (err) {
-								$.globalEval(localStorage.getItem('remoteSuperBlockJS'));
-							};
-						},0);
-					}, false);
+		/////////////////////
+		// DEFINE VALIDITY //
+		/////////////////////
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
+		if(isCurrentCacheValid == 1) {
+			if(!document.getElementById('superBlockCSS')) {
+				//to head
+				if(document.getElementById('CSSPlaceholder')) {
+					document.getElementById('CSSPlaceholder').innerHTML = window.localStorage.getItem('remoteSuperBlockCSS');
+				} else {
+					document.write('<style type="text/css" id="superBlockCSS">' + window.localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
 				}
+				/////////////
+				// JS EVAL //
+				/////////////
+				document.addEventListener('DOMContentLoaded', function() {
+					setTimeout(function() {
+						try {
+							//EVAL
+							$.globalEval(window.localStorage.getItem('remoteSuperBlockJS'));
+						} catch(err) {
+							//APPEND
+							var scriptBlock  = document.createElement('script');
+							scriptBlock.text = localStorage.getItem('remoteSuperBlockJS');
+							document.head.appendChild(scriptBlock);
+						}
+					},0);
+				},false);
 			}
-		} else {
-			/////////
-			// CSS //
-			/////////
+		}
+	} else {
+		/////////
+		// CSS //
+		/////////
 			document.write('<link rel="stylesheet" type="text/css" id="coreCss"   href="' + hostLocal + 'css/index.css" />');
 			document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/fonts.css" />');
 			////////
