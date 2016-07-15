@@ -42,7 +42,7 @@ $.ajax({type: 'GET', dataType: 'text', url: 'desc.txt', success: function(desc) 
 desc  = desc.split('–' + hash)[1];
 desc  = desc.split(hash + '–')[0];
 //desc = '<strong>:: ' + LANG.THE_ONLY[lang].toUpperCase() + '</strong>' + desc;
-desc  = desc.split('$KCALS$').join('<strong style="color: #c30;">KCals &ndash; ' + LANG.CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong>');
+desc  = desc.split('$KCALS$').join('<strong style="color: #c30;">ChronoBurn - ' + LANG.REALTIME_CALORIE_COUNTER[lang] + '</strong>');
 desc += '1 - ' + LANG.INTRO_SLIDE_1[lang] + '\r\n&nbsp;<br>';
 desc += '2 - ' + LANG.INTRO_SLIDE_2[lang] + '\r\n&nbsp;<br>';
 desc += '3 - ' + LANG.INTRO_SLIDE_3[lang] + '\r\n&nbsp;<br>';
@@ -58,15 +58,19 @@ desc  = trim(desc);
 // KEY DUMP //
 //////////////
 var keyList = 
-LANG.CALORIE_COUNTER_FULL_TITLE_LOCALIZED[lang].split('KCals').join('kcal,') + ',' +
+'kcal,' +
+LANG.CALORIE[lang]         + ',' +
+LANG.CALORIE_CLOCK[lang]   + ',' +
+LANG.FATT[lang]            + ',' +
 LANG.WEIGHT_LOSS[lang]     + ',' +
 LANG.LOSE_WEIGHT[lang]     + ',' +
-LANG.CALORIC_BALANCE[lang] + ',' +
-LANG.NUTRIENT_TITLE[lang]  + ',' +
 LANG.METABOLISM[lang]      + ',' +
-LANG.FATT[lang]            + ',' +
-LANG.CALORIC_INTAKE[lang]  + ',' +
 LANG.EXERCISE[lang]        + ',' +
+LANG.MENU_DIARY[lang]      + ',' +
+LANG.TIME[lang]            + ',' +
+LANG.NUTRIENT_TITLE[lang]  + ',' +
+LANG.CALORIC_BALANCE[lang] + ',' +
+LANG.CALORIC_INTAKE[lang]  + ',' +
 LANG.GAIN_WEIGHT[lang]     + ',' +
 LANG.PROTEIN[lang]         + ',' +
 LANG.FIBER[lang]           + ',' +
