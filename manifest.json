@@ -20,10 +20,10 @@
 	},
 	"app" : {
 		"urls" : [
-			"https://kcals.net/"
+			"https://chronoburn.com/"
 		],
 		"launch" : {
-			"web_url" : "https://kcals.net/"
+			"web_url" : "https://chronoburn.com/"
 		}
 	}
 }

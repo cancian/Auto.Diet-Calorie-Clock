@@ -1000,13 +1000,17 @@ if(!document.getElementById('fontTest')) {
 ////////////////////////////
 // STABLE SCROLL ON SWIPE //
 ////////////////////////////
-if(app.is.scrollable) {
+if(app.is.scrollable && app.device.desktop) {
 	app.globals.X     = 0;
 	app.globals.Y     = 0;
 	app.globals.MX    = 0;
 	app.globals.MY    = 0;
 	app.globals.XLock = 0;
 	$('body').on(touchend,function(evt) {
+		//NORMALIZE XY
+		evt.pageX = evt.changedTouches ? evt.changedTouches[0].pageX : evt.pageX;
+		evt.pageY = evt.changedTouches ? evt.changedTouches[0].pageY : evt.pageY;
+		//
 		app.globals.XLock = 0;
 		app.globals.X     = evt.pageX;
 		app.globals.Y     = evt.pageY;
@@ -1014,7 +1018,10 @@ if(app.is.scrollable) {
 		app.globals.MY    = 0;
 	});
 	$('body').on(touchmove,function(evt) {
-		//UPDATE POS
+		//NORMALIZE XY
+		evt.pageX = evt.changedTouches ? evt.changedTouches[0].pageX : evt.pageX;
+		evt.pageY = evt.changedTouches ? evt.changedTouches[0].pageY : evt.pageY;
+		//
 		app.globals.MX = app.globals.MX - (app.globals.X - evt.pageX);
 		app.globals.MY = app.globals.MY - Math.abs(app.globals.Y - evt.pageY);
 		//
@@ -1149,7 +1156,7 @@ if(app.is.scrollable) {
 			if($('#advancedMenu').length)				{ return; }
 			if($('#pageSlideFood').length)				{ return; }
 			if($('#appHeader').hasClass('blockInfo'))	{ return; }
-			getNewWindow('KCals: A Metabolism Simulator','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['KCals: A Metabolism Simulator'] + '</div>',function() {
+			getNewWindow('ChronoBurn: A Metabolism Simulator','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['ChronoBurn: A Metabolism Simulator'] + '</div>',function() {
 				$('#tabHelp').removeClass('hidden');
 				app.handlers.activeRow('#openHelp','button',function(evt) {
 					appFooter('tab4', 0, function() {
@@ -1271,7 +1278,7 @@ if(app.is.scrollable) {
 	var headerSwipe;
 	var headerSwipeBlock = 0;
 	$('#appHeader').on(swipe,function(evt) {
-		if(/left/i.test(evt.direction)) {
+		if(/left/i.test(evt.direction || evt.type)) {
 			clearTimeout(headerSwipe);
 			kickDown();
 		         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab3'); headerSwipeBlock = 0; }, 150); }

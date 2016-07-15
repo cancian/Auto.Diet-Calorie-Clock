@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '1.9.19 (191900)';
+var appVersion = '1.9.19 (191901)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -15,7 +15,14 @@ if (userLang) {
 } else {
 	userLang = 'en';
 }
-app.save('app_build', appBuild);
+////////////////
+// SAVE BUILD //
+////////////////
+if(app) {
+	if(typeof app.save === 'function') {
+		app.save('app_build', appBuild);
+	}
+}
 /////////////////////
 // DETECT LANGUAGE //
 /////////////////////
@@ -50,9 +57,13 @@ if (userLang) {
 /////////////////////
 // MANUAL OVERRIDE //
 /////////////////////
-if (app.read('devSetLang')) {
-	if ((langArray).test(app.read('devSetLang'))) {
-		lang = filterLocale(app.read('devSetLang'));
+if(app) {
+	if(typeof app.read === 'function') {
+		if (app.read('devSetLang')) {
+			if ((langArray).test(app.read('devSetLang'))) {
+				lang = filterLocale(app.read('devSetLang'));
+			}
+		}
 	}
 }
 //#////////////#//
@@ -238,7 +249,7 @@ var LANG = {
 		el : 'Θερμιδομετρητής',
 		es : 'Contador de Calorías',
 		fi : 'Kalorilaskin',
-		fr : 'Compteur de Calories KCals',
+		fr : 'Compteur de Calories',
 		hu : 'Kalóriaszámláló',
 		it : 'Conta Calorie',
 		id : 'Penghitung Kalori',
@@ -247,7 +258,7 @@ var LANG = {
 		nl : 'Calorie Teller',
 		nb : 'Kaloriteller',
 		pl : 'Licznik kalorii',
-		ro : 'KCals Contor de Calorii',
+		ro : 'Contor de Calorii',
 		ru : 'Счетчик Калорий',
 		sv : 'Kaloriräknare',
 		tr : 'Kalori Hesaplayıcı',
@@ -788,7 +799,7 @@ var LANG = {
 		zt : ''
 	},
 	CROSS_PLATFORM : {
-		en : '<p>KCals is a cross-platform web app that allows you to count your calories from anywhere.</p><p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, KCals works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p><p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p><p>For more information on how to take full advantage of this app, be sure to check the help section.</p>',
+		en : '<p>ChronoBurn is a cross-platform web app that allows you to count your calories from anywhere.</p><p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, ChronoBurn works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p><p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p><p>For more information on how to take full advantage of this app, be sure to check the help section.</p>',
 		pt : '',
 		ar : '',
 		bg : '',
@@ -872,32 +883,32 @@ var LANG = {
 		zt : '好，讓我們開始吧'
 	},
 	INTRO_SLIDE_1 : {
-		en : 'KCals is designed to help you control your calorie intake. Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your caloric balance.',
-		pt : 'KCals é projetado para ajudá-lo a controlar sua ingestão de calorias. Seja para manter, perder ou ganhar peso, este aplicativo vai ajudá-lo a focar no que importa: seu balanço calórico.',
-		ar : 'تم تصميم (KCals) لمساعدتك على السيطرة على السعرات الحرارية التي تدخل جسمك. سواء إذا كنت تريد الحفاظ على وزنك أو فقدانه، أو زيادته، فهذا التطبيق سيساعدك على التركيز على ما هو مهم: توازن السعرات الحرارية الخاصة بك.',
-		bg : 'KCals има за цел да ви помогне да контролирате приема на калории. Независимо дали искате да поддържате, загубите или да повишите теглото си, това приложение ще ви помогне да се съсредоточите върху това, което е важно: баланса на калории.',
-		cs : 'Aplikace KCals je navržena tak, aby vám pomohla kontrolovat příjem kalorií. Ať už si chcete udržet svou současnou váhu, zhubnout nebo naopak přibrat, tato aplikace vám pomůže zaměřit se na to podstatné: na vaši kalorickou rovnováhu.',
-		da : 'KCals er designet til at hjælpe dig med at styre din kalorieindtagelse. Ligegyldigt om du ønsker at opretholde din vægt, tabe dig eller stige i vægt, hjælper denne app dig med at fokusere på det, der er vigtigt: din kaloriebalance.',
-		de : 'KCals wurde entwickelt, um Ihnen bei der Kontrolle Ihrer Kalorienzufuhr behilflich zu sein. Ob Sie Ihr Gewicht halten, verringern oder erhöhen möchten, diese App hilft Ihnen dabei, sich auf das zu konzentireren, was wichtig ist: Ihre Kalorienbilanz.',
-		el : 'Το KCals σχεδιάστηκε για να σας βοηθήσει να ελέγξετε την πρόσληψη θερμίδων που κάνετε. Είτε θέλετε να διατηρήσετε, να χάσετε ή να πάρετε βάρος, η εφαρμογή αυτή θα σας βοηθήσει να εστιάσετε σε αυτό που είναι σημαντικό: την θερμιδική ισορροπία σας.',
-		es : 'KCals está diseñado para ayudarle a controlar su ingesta de calorías. Si usted quiere mantener, perder o ganar peso, esta aplicación le ayudará a centrarse en lo importante: Su balance calórico.',
-		fi : 'KCals on kehitetty auttamaan kalorien saannin kontrolloimisessa. Halusitpa sitten ylläpitää, pudottaa tai saada lisää painoa, tämä sovellus auttaa sinua keskittymään tärkeimpään: kaloritasapainoon.',
-		fr : 'KCals est conçu pour vous aider à contrôler votre apport calorique. Que vous souhaitiez vous stabiliser, perdre, ou gagner du poids, cette application vous aidera à vous concentrer sur ce qui est important : votre solde calorique.',
-		hu : 'A KCals lényege, hogy segít figyelni az Ön kalóriabevitelét. Az applikáció segít, ha fogyni szeretne, vagy szinten tartaná, esetleg gyarapítaná a súlyát. Az alkalmazással megtalálhatja a kalória-egyensúlyát.',
-		it : 'KCals è stato progettato per aiutare a controllare l’apporto calorico. Se si desidera mantenere invariato, perdere, o aumentare di peso, questa applicazione vi aiuterà a concentrarvi su ciò che è importante, ovvero: il vostro equilibrio calorico.',
-		id : 'KCals dirancang untuk membantu Anda mengontrol asupan kalori Anda. Jika Anda ingin mempertahankan, menurunkan, atau menambah berat badan, aplikasi ini akan membantu Anda berfokus pada hal yang penting: keseimbangan kalori Anda.',
-		ja : 'KCalsは、カロリー摂取量のコントロールおよびサポートをする事を目的として設計されています。体重維持、減量、および増量など、実現したい目的に合わせてアプリがあなたをサポートします：あなたのカロリーバランス。',
-		ko : 'KCals는 칼로리 섭취를 제어하는데 도움이 되도록 고안되어 있습니다. 체중을 유지, 감소 또는 증가할 경우, 이 애플리케이션이 칼로리 균형에 집중하도록 도와줍니다.',
-		nl : 'KCals is ontworpen om u meer controle te geven over uw calorie inname. Ongeacht of u uw gewicht wilt behouden, wilt afvallen of wilt aankomen, zal deze app u helpen met wat belangrijk is: uw calorie balans.',
-		nb : 'KCals er designet for å hjelpe deg med å kontrollere kaloriinntaket ditt. Enten du ønsker å opprettholde vekten din, eller gå ned eller opp i vekt, hjelper dette programmet deg med å fokusere på det viktigste: kaloribalansen din.',
-		pl : 'KCals ma na celu pomóc ci kontrolować ilość spożywanych kalorii. Niezależnie od tego, czy chcesz utrzymać wagę, czy też stracić lub zyskać na wadze, ta aplikacja pozwoli Ci skupić się na tym, co ważne: równowadze kalorycznej.',
-		ro : 'KCals este proiectat pentru a te ajuta să controlezi aportul de calorii. Fie că vrei să menții, să pierzi, sau să iei în greutate, această aplicație te va ajuta să te concentrezi pe ceea ce este important: echilibrul tău caloric.',
-		ru : 'Приложение KCals поможет вам контролировать потребление калорий. Если вы хотите сохранить, сбросить или набрать вес, это приложение поможет вам сосредоточиться на том, что важнее всего - на балансе калорий.',
-		sv : 'KCals är utformad för att hjälpa dig att kontrollera ditt kaloriintag. Oavsett om du vill bibehålla, gå ner eller gå upp i vikt kommer detta program att hjälpa dig att fokusera på vad som är viktigt: din kaloribalans.',
-		tr : 'KCals, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır. İster kilonuzu korumak isteyin, ister kilo vermek, ister almak; bu uygulama önemli olana yani kalori dengesine odaklanmanıza yardımcı olacaktır.',
-		vi : 'KCals được thiết kế để giúp kiểm soát lượng calo của bạn. Nếu bạn muốn duy trì, giảm hoặc tăng cân, ứng dụng này sẽ giúp bạn tập trung vào những gì cần thiết: cân bằng lượng calo của bạn.',
-		zh : 'KCals 是为了帮助您控制卡路里摄入而设计的。无论您是想维持体重、减重或增重，这款应用程序将帮助您专注于该过程中最重要的一点，即您的卡路里平衡。',
-		zt : 'KCals 是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的卡路里平衡。'
+		en : 'ChronoBurn is designed to help you control your calorie intake. Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your caloric balance.',
+		pt : 'ChronoBurn é projetado para ajudá-lo a controlar sua ingestão de calorias. Seja para manter, perder ou ganhar peso, este aplicativo vai ajudá-lo a focar no que importa: seu balanço calórico.',
+		ar : 'تم تصميم ChronoBurn لمساعدتك على السيطرة على السعرات الحرارية التي تدخل جسمك. سواء إذا كنت تريد الحفاظ على وزنك أو فقدانه، أو زيادته، فهذا التطبيق سيساعدك على التركيز على ما هو مهم: توازن السعرات الحرارية الخاصة بك.',
+		bg : 'ChronoBurn има за цел да ви помогне да контролирате приема на калории. Независимо дали искате да поддържате, загубите или да повишите теглото си, това приложение ще ви помогне да се съсредоточите върху това, което е важно: баланса на калории.',
+		cs : 'Aplikace ChronoBurn je navržena tak, aby vám pomohla kontrolovat příjem kalorií. Ať už si chcete udržet svou současnou váhu, zhubnout nebo naopak přibrat, tato aplikace vám pomůže zaměřit se na to podstatné: na vaši kalorickou rovnováhu.',
+		da : 'ChronoBurn er designet til at hjælpe dig med at styre din kalorieindtagelse. Ligegyldigt om du ønsker at opretholde din vægt, tabe dig eller stige i vægt, hjælper denne app dig med at fokusere på det, der er vigtigt: din kaloriebalance.',
+		de : 'ChronoBurn wurde entwickelt, um Ihnen bei der Kontrolle Ihrer Kalorienzufuhr behilflich zu sein. Ob Sie Ihr Gewicht halten, verringern oder erhöhen möchten, diese App hilft Ihnen dabei, sich auf das zu konzentireren, was wichtig ist: Ihre Kalorienbilanz.',
+		el : 'Το ChronoBurn σχεδιάστηκε για να σας βοηθήσει να ελέγξετε την πρόσληψη θερμίδων που κάνετε. Είτε θέλετε να διατηρήσετε, να χάσετε ή να πάρετε βάρος, η εφαρμογή αυτή θα σας βοηθήσει να εστιάσετε σε αυτό που είναι σημαντικό: την θερμιδική ισορροπία σας.',
+		es : 'ChronoBurn está diseñado para ayudarle a controlar su ingesta de calorías. Si usted quiere mantener, perder o ganar peso, esta aplicación le ayudará a centrarse en lo importante: Su balance calórico.',
+		fi : 'ChronoBurn on kehitetty auttamaan kalorien saannin kontrolloimisessa. Halusitpa sitten ylläpitää, pudottaa tai saada lisää painoa, tämä sovellus auttaa sinua keskittymään tärkeimpään: kaloritasapainoon.',
+		fr : 'ChronoBurn est conçu pour vous aider à contrôler votre apport calorique. Que vous souhaitiez vous stabiliser, perdre, ou gagner du poids, cette application vous aidera à vous concentrer sur ce qui est important : votre solde calorique.',
+		hu : 'A ChronoBurn lényege, hogy segít figyelni az Ön kalóriabevitelét. Az applikáció segít, ha fogyni szeretne, vagy szinten tartaná, esetleg gyarapítaná a súlyát. Az alkalmazással megtalálhatja a kalória-egyensúlyát.',
+		it : 'ChronoBurn è stato progettato per aiutare a controllare l’apporto calorico. Se si desidera mantenere invariato, perdere, o aumentare di peso, questa applicazione vi aiuterà a concentrarvi su ciò che è importante, ovvero: il vostro equilibrio calorico.',
+		id : 'ChronoBurn dirancang untuk membantu Anda mengontrol asupan kalori Anda. Jika Anda ingin mempertahankan, menurunkan, atau menambah berat badan, aplikasi ini akan membantu Anda berfokus pada hal yang penting: keseimbangan kalori Anda.',
+		ja : 'ChronoBurnは、カロリー摂取量のコントロールおよびサポートをする事を目的として設計されています。体重維持、減量、および増量など、実現したい目的に合わせてアプリがあなたをサポートします：あなたのカロリーバランス。',
+		ko : 'ChronoBurn 칼로리 섭취를 제어하는데 도움이 되도록 고안되어 있습니다. 체중을 유지, 감소 또는 증가할 경우, 이 애플리케이션이 칼로리 균형에 집중하도록 도와줍니다.',
+		nl : 'ChronoBurn is ontworpen om u meer controle te geven over uw calorie inname. Ongeacht of u uw gewicht wilt behouden, wilt afvallen of wilt aankomen, zal deze app u helpen met wat belangrijk is: uw calorie balans.',
+		nb : 'ChronoBurn er designet for å hjelpe deg med å kontrollere kaloriinntaket ditt. Enten du ønsker å opprettholde vekten din, eller gå ned eller opp i vekt, hjelper dette programmet deg med å fokusere på det viktigste: kaloribalansen din.',
+		pl : 'ChronoBurn ma na celu pomóc ci kontrolować ilość spożywanych kalorii. Niezależnie od tego, czy chcesz utrzymać wagę, czy też stracić lub zyskać na wadze, ta aplikacja pozwoli Ci skupić się na tym, co ważne: równowadze kalorycznej.',
+		ro : 'ChronoBurn este proiectat pentru a te ajuta să controlezi aportul de calorii. Fie că vrei să menții, să pierzi, sau să iei în greutate, această aplicație te va ajuta să te concentrezi pe ceea ce este important: echilibrul tău caloric.',
+		ru : 'Приложение ChronoBurn поможет вам контролировать потребление калорий. Если вы хотите сохранить, сбросить или набрать вес, это приложение поможет вам сосредоточиться на том, что важнее всего - на балансе калорий.',
+		sv : 'ChronoBurn är utformad för att hjälpa dig att kontrollera ditt kaloriintag. Oavsett om du vill bibehålla, gå ner eller gå upp i vikt kommer detta program att hjälpa dig att fokusera på vad som är viktigt: din kaloribalans.',
+		tr : 'ChronoBurn, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır. İster kilonuzu korumak isteyin, ister kilo vermek, ister almak; bu uygulama önemli olana yani kalori dengesine odaklanmanıza yardımcı olacaktır.',
+		vi : 'ChronoBurn được thiết kế để giúp kiểm soát lượng calo của bạn. Nếu bạn muốn duy trì, giảm hoặc tăng cân, ứng dụng này sẽ giúp bạn tập trung vào những gì cần thiết: cân bằng lượng calo của bạn.',
+		zh : 'ChronoBurn 是为了帮助您控制卡路里摄入而设计的。无论您是想维持体重、减重或增重，这款应用程序将帮助您专注于该过程中最重要的一点，即您的卡路里平衡。',
+		zt : 'ChronoBurn 是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的卡路里平衡。'
 	},
 	INTRO_SLIDE_2 : {
 		en : 'The idea is simple. Define a goal (daily calories) and keep yourself Balanced in the context of this goal. The app will indicate when you’ve eaten too much (surplus), or too little (deficit)',
@@ -6304,88 +6315,88 @@ var LANG = {
 		zt : '每週'
 	},
 	RATE_TITLE : {
-		en : 'Rate KCals',
-		pt : 'Avaliar o KCals',
-		ar : 'قيم KCals',
-		bg : 'Оцени KCals',
-		cs : 'Ohodnotit aplikaci KCals',
-		da : 'Bedøm KCals',
-		de : 'KCals bewerten',
-		el : 'Βαθμολογήστε το KCals',
-		es : 'Valorar KCals',
-		fi : 'Arvioi KCals',
-		fr : 'Évaluer KCals',
-		hu : 'KCals értékelése',
-		it : 'Valuta KCals',
-		id : 'Beri Nilai untuk KCals',
-		ja : 'KCals を評価する',
-		ko : 'KCals 평가하기',
-		nl : 'Beoordeel KCals',
-		nb : 'Gi KCals en karakter',
-		pl : 'Oceń KCals',
-		ro : 'Apreciază KCals',
-		ru : 'Оценить KCals',
-		sv : 'Betygsätt KCals',
-		tr : 'KCals uygulamasını değerlendirin',
-		vi : 'Đánh giá KCals',
-		zh : '评价 KCals',
-		zt : '評價 KCals'
+		en : 'Rate ChronoBurn',
+		pt : 'Avaliar o ChronoBurn',
+		ar : 'قيم ChronoBurn',
+		bg : 'Оцени ChronoBurn',
+		cs : 'Ohodnotit aplikaci ChronoBurn',
+		da : 'Bedøm ChronoBurn',
+		de : 'ChronoBurn bewerten',
+		el : 'Βαθμολογήστε το ChronoBurn',
+		es : 'Valorar ChronoBurn',
+		fi : 'Arvioi ChronoBurn',
+		fr : 'Évaluer ChronoBurn',
+		hu : 'ChronoBurn értékelése',
+		it : 'Valuta ChronoBurn',
+		id : 'Beri Nilai untuk ChronoBurn',
+		ja : 'ChronoBurn を評価する',
+		ko : 'ChronoBurn 평가하기',
+		nl : 'Beoordeel ChronoBurn',
+		nb : 'Gi ChronoBurn en karakter',
+		pl : 'Oceń ChronoBurn',
+		ro : 'Apreciază ChronoBurn',
+		ru : 'Оценить ChronoBurn',
+		sv : 'Betygsätt ChronoBurn',
+		tr : 'ChronoBurn uygulamasını değerlendirin',
+		vi : 'Đánh giá ChronoBurn',
+		zh : '评价 ChronoBurn',
+		zt : '評價 ChronoBurn'
 	},
 	RATE_MSG : {
-		en : 'If you like using KCals, support us with a positive review!',
-		pt : 'Se você gosta de usar o KCals, contribua com uma avaliação positiva!',
-		ar : 'إذا أعجبك استخدام KCals، فساعدنا عن طريق إعطاء تقييم إيجابي!',
-		bg : 'Ако харесвате KCals, подкрепете ни с положителен рейтинг!',
-		cs : 'PPokud KCals používáte rádi, podpořte nás pozitivním hodnocením!',
-		da : 'Hvis du kan lide at bruge KCals, så støt os med en positiv anmeldelse!',
-		de : 'Wenn Sie KCals mögen, unterstützen Sie uns durch eine positiven Bewertung!',
-		el : 'Εάν σας αρέσει να χρησιμοποιείτε το KCals, στηρίξτε μας με θετική κριτική!',
-		es : 'Si te gusta usar KCals, apoyarnos con una calificación positiva!',
-		fi : 'Jos pidät KCalsin käyttämisestä, tue meitä antamalla myönteinen arvostelu!',
-		fr : 'Si vous aimez KCals, soutenez-nous avec une note positive !',
-		hu : 'Ha szívesen használja a KCals-t, támogasson bennünket pozitív értékeléssel!',
-		it : 'Se ti piace KCals, dacci una valutazione positiva!',
-		id : 'Jika Anda senang menggunakan KCals, dukunglah kami dengan ulasan positif!',
-		ja : 'KCalsを気に入って頂けたなら、ポジティブなレビューでご支援頂けると幸いです！',
-		ko : 'KCals이 마음에 드시면, 좋은 평가와 별점으로 후원해 주세요!',
-		nl : 'Als u van KCals met plezier gebruik, steun ons dan met een positieve beoordeling!',
-		nb : 'Hvis du liker KCals, ber vi deg støtte oss med en positiv anmeldelse!',
-		pl : 'Jeśli podoba Ci się KCals, napisz pozytywną recenzję!',
-		ro : 'Dacă îți place să folosești KCals, susține-ne cu o recenzie pozitivă!',
-		ru : 'Если вам нравится KCals, поддержите нас, оставив положительный отзыв!',
-		sv : 'Om du gillar att använda KCals får du gärna stödja oss med ett positivt betyg!',
-		tr : 'Eğer KCals uygulamasını sevdiyseniz, olumlu bir yorum yaparak bizi destekleyebilirsiniz!',
-		vi : 'Nếu bạn thích KCals, hãy ủng hộ chúng tôi với những đánh giá tích cực!',
-		zh : '如果您喜欢 KCals，请积极评价，以支持我们！',
-		zt : '如果您喜歡 KCals，請積極評價，以支援我們！'
+		en : 'If you like using ChronoBurn, support us with a positive review!',
+		pt : 'Se você gosta de usar o ChronoBurn, contribua com uma avaliação positiva!',
+		ar : 'إذا أعجبك استخدام ChronoBurn، فساعدنا عن طريق إعطاء تقييم إيجابي!',
+		bg : 'Ако харесвате ChronoBurn, подкрепете ни с положителен рейтинг!',
+		cs : 'PPokud ChronoBurn používáte rádi, podpořte nás pozitivním hodnocením!',
+		da : 'Hvis du kan lide at bruge ChronoBurn, så støt os med en positiv anmeldelse!',
+		de : 'Wenn Sie ChronoBurn mögen, unterstützen Sie uns durch eine positiven Bewertung!',
+		el : 'Εάν σας αρέσει να χρησιμοποιείτε ChronoBurn, στηρίξτε μας με θετική κριτική!',
+		es : 'Si te gusta usar ChronoBurn, apoyarnos con una calificación positiva!',
+		fi : 'Jos pidät ChronoBurn in käyttämisestä, tue meitä antamalla myönteinen arvostelu!',
+		fr : 'Si vous aimez ChronoBurn, soutenez-nous avec une note positive !',
+		hu : 'Ha szívesen használja a ChronoBurn-t, támogasson bennünket pozitív értékeléssel!',
+		it : 'Se ti piace ChronoBurn, dacci una valutazione positiva!',
+		id : 'Jika Anda senang menggunakan ChronoBurn, dukunglah kami dengan ulasan positif!',
+		ja : 'ChronoBurnを気に入って頂けたなら、ポジティブなレビューでご支援頂けると幸いです！',
+		ko : 'ChronoBurn이 마음에 드시면, 좋은 평가와 별점으로 후원해 주세요!',
+		nl : 'Als u van ChronoBurn met plezier gebruik, steun ons dan met een positieve beoordeling!',
+		nb : 'Hvis du liker ChronoBurn, ber vi deg støtte oss med en positiv anmeldelse!',
+		pl : 'Jeśli podoba Ci się ChronoBurn, napisz pozytywną recenzję!',
+		ro : 'Dacă îți place să folosești ChronoBurn, susține-ne cu o recenzie pozitivă!',
+		ru : 'Если вам нравится ChronoBurn, поддержите нас, оставив положительный отзыв!',
+		sv : 'Om du gillar att använda ChronoBurn får du gärna stödja oss med ett positivt betyg!',
+		tr : 'Eğer ChronoBurn uygulamasını sevdiyseniz, olumlu bir yorum yaparak bizi destekleyebilirsiniz!',
+		vi : 'Nếu bạn thích ChronoBurn, hãy ủng hộ chúng tôi với những đánh giá tích cực!',
+		zh : '如果您喜欢 ChronoBurn，请积极评价，以支持我们！',
+		zt : '如果您喜歡 ChronoBurn，請積極評價，以支援我們！'
 	},
 	RATE_IT : {
-		en : 'Rate KCals',
-		pt : 'Avaliar KCals',
-		ar : 'قيِّم KCals',
-		bg : 'Оцени KCals',
-		cs : 'Ohodnotit KCals',
-		da : 'Bedøm KCals',
-		de : 'KCals bewerten',
-		el : 'Αξιολογήστε το KCals',
-		es : 'Valorar KCals',
-		fi : 'Arvioi KCals',
-		fr : 'Noter KCals',
-		hu : 'KCals értékelése',
-		it : 'Valuta KCals',
-		id : 'Beri Nilai untuk KCals',
-		ja : 'KCals を評価する',
-		ko : 'KCals 평가하기',
-		nl : 'Beoordeel KCals',
-		nb : 'Gi KCals en karakter',
-		pl : 'Oceń KCals',
-		ro : 'Apreciază KCals',
-		ru : 'Оценить KCals',
-		sv : 'Betygsätt KCals',
-		tr : 'KCals uygulamasını değerlendir',
-		vi : 'Đánh giá KCals',
-		zh : '评价 KCals',
-		zt : '評價 KCals'
+		en : 'Rate ChronoBurn',
+		pt : 'Avaliar ChronoBurn',
+		ar : 'قيِّم ChronoBurn',
+		bg : 'Оцени ChronoBurn',
+		cs : 'Ohodnotit ChronoBurn',
+		da : 'Bedøm ChronoBurn',
+		de : 'ChronoBurn bewerten',
+		el : 'Αξιολογήστε το ChronoBurn',
+		es : 'Valorar ChronoBurn',
+		fi : 'Arvioi ChronoBurn',
+		fr : 'Noter ChronoBurn',
+		hu : 'ChronoBurn értékelése',
+		it : 'Valuta ChronoBurn',
+		id : 'Beri Nilai untuk ChronoBurn',
+		ja : 'ChronoBurn を評価する',
+		ko : 'ChronoBurn 평가하기',
+		nl : 'Beoordeel ChronoBurn',
+		nb : 'Gi ChronoBurn en karakter',
+		pl : 'Oceń ChronoBurn',
+		ro : 'Apreciază ChronoBurn',
+		ru : 'Оценить ChronoBurn',
+		sv : 'Betygsätt ChronoBurn',
+		tr : 'ChronoBurn uygulamasını değerlendir',
+		vi : 'Đánh giá ChronoBurn',
+		zh : '评价 ChronoBurn',
+		zt : '評價 ChronoBurn'
 	},
 	NO_THANKS : {
 		en : 'No, thanks',
@@ -7286,8 +7297,8 @@ var LANG = {
 	HELP_TOPICS_ARRAY : {
 		en : { 
 /////////////////////////////////
-'KCals: A Metabolism Simulator' :
-'<p>KCals was originally developed as a personal tool. It was intended to help me keep track of what I ate, versus what I burned during exercises. I wanted something precise, intuitive, yet flexible. So I figured: instead of a simple diary, why not build a real-time calorie counter? After all, that is how our body actually works.<p>\
+'ChronoBurn: A Metabolism Simulator' :
+'<p>ChronoBurn was originally developed as a personal tool. It was intended to help me keep track of what I ate, versus what I burned during exercises. I wanted something precise, intuitive, yet flexible. So I figured: instead of a simple diary, why not build a real-time calorie counter? After all, that is how our body actually works.<p>\
 <p>Most health and fitness tools come with a bunch of unnecessary features. My goal was to make a simple and effective calorie counter that didn’t have any of the clutter of most weight loss applications.</p>\
 <p>You start by setting a daily calorie intake for yourself. That’s your baseline: The amount of calories you need to eat to keep your current weight.</p>\
 <p>Now, in case you want to lose weight, just pick the amount you’d like to lose per week. The app will show how many calories you need to subtract from your daily baseline in order to reach that goal.</p>\
@@ -7299,13 +7310,13 @@ var LANG = {
 <p>Keeping track of calories used to be a chore, but not anymore!</p>\
 <p id="tabHelp" class="hidden">For more information on how to take full advantage of this app, be sure to check the<span id="openHelp" class="blue bold"> help section</span>.</p>',
 /////////////////////////////////
-'What’s so unique about KCals?' :
-'<p>KCals is a cross-platform web app that allows you to count your calories from anywhere.</p>\
-<p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, KCals works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
+'What’s so unique about ChronoBurn?' :
+'<p>ChronoBurn is a cross-platform web app that allows you to count your calories from anywhere.</p>\
+<p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, ChronoBurn works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
 <p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p>',
 /////////////////////////////
 'Getting used to real-time' :
-'<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? KCals simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
+'<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? ChronoBurn simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
 <p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
 <p>Then you should define a weight loss rate, given in lb/kg per week.</p>\
 <p>The resulting value will include the necessary caloric restriction for you to achieve that goal.</p>\
@@ -7339,7 +7350,7 @@ var LANG = {
 '<p>The weight loss rate (kg/lb per week) is calculated using a simple formula based on the number of calories in a pound (3500) or kilogram (7700) of fat. </p><p>Let us say you need 2000 daily calories in order to keep your current weight, and you want to lose 0.5 kg per week.</p><p>Divide 7700 by 2 to get the total calories in 0.5 kg of fat:</p><p>7700 / 2 = 3850</p><p>Then divide that value by 7 to get how many daily calories you need to cut back:</p><p>3850 / 7 = 550</p><p>Now subtract that value from your daily intake:</p><p>2000 – 550 = 1450</p><p>That’s how many you have to consume daily in order to lose 0.5 kg a week.</p>',
 ////////////////////////
 'Data synchronization' :
-'<p>By enabling Backup & Synchronization, your data and personal settings are stored at Kcals.net. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at Kcals.net, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
+'<p>By enabling Backup & Synchronization, your data and personal settings are stored at ChronoBurn.com. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at ChronoBurn.com, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
 /////////////////////////////
 'Synchronizing two devices' :
 '<p>If you wish to synchronize two or more devices, it’s safer to use one device at time, to avoid data conflicts.</p>\
@@ -7353,7 +7364,7 @@ var LANG = {
 '<p>When you add a food that includes nutritional information, the app will use this data to calculate the average percentage of calories you are getting from each nutrient (proteins, carbs and fats).</p><p>The ratio of each nutrient is calculated by total calories, not by weight. So it is important to remember that while proteins and carbs have 4 kcal per gram, fats have 9 kcal.</p><p>The default nutrient ratio is 25% proteins / 50% carbs / 25% fats. You can change these values by tapping the nutrition bars on the status tab.</p>',
 ///////////////////////////////
 'Elapsed Time / Relative Time' :
-'<p><strong class="blue">Elapsed Time</strong> means the total time since you pressed Start.</p><p><strong class="blue">Relative Time</strong> indicates how long you have to wait until your caloric balance returns to zero. </p><p>The “Relative Time” is particularly useful to calculate when you should have your next meal. </p><p>For instance, if you have eaten 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p><p class="blue bold">500 kcal = 1/4 of your daily intake</p><p class="blue bold">6 hours = 1/4 of the day</p><p>Therefore:</p><p class="blue bold">500 kcal = 6 hours </p><p>Simply put, calories are converted into time.</p><p>In practical terms, this means that within 6 hours (1/4 of the day) your body will have burned the 500 calories you consumed (1/4 of your daily intake).</p><p>As you can see, more than just counting calories, KCals helps you to reeducate your eating habits, keeping you in sync with your body.</p>',
+'<p><strong class="blue">Elapsed Time</strong> means the total time since you pressed Start.</p><p><strong class="blue">Relative Time</strong> indicates how long you have to wait until your caloric balance returns to zero. </p><p>The “Relative Time” is particularly useful to calculate when you should have your next meal. </p><p>For instance, if you have eaten 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p><p class="blue bold">500 kcal = 1/4 of your daily intake</p><p class="blue bold">6 hours = 1/4 of the day</p><p>Therefore:</p><p class="blue bold">500 kcal = 6 hours </p><p>Simply put, calories are converted into time.</p><p>In practical terms, this means that within 6 hours (1/4 of the day) your body will have burned the 500 calories you consumed (1/4 of your daily intake).</p><p>As you can see, more than just counting calories, ChronoBurn helps you to reeducate your eating habits, keeping you in sync with your body.</p>',
 /////////////////
 'Cyclical Mode' :
 '<p>The <strong>Cyclical Mode</strong> allows you to alternate between two different caloric values along a period of four days.</p><p>Days <strong>(A, B, C)</strong> will use the first value, while day <strong>(D)</strong> will use the second.</p><p>This configuration is typically used to accommodate a “rest day” (maintenance level) in a dieting plan.</p><p>The reason for this is mostly the psychological comfort of having some kind of “reward” to look forward to, making it easier to endure the dieting days.</p><p>A second reason is that the change in calories (theoretically) keeps your body guessing, and make it harder for your body to adjust its metabolism.</p>',
@@ -7362,6 +7373,6 @@ var LANG = {
 '<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
 ///////////////////////
 'Supported platforms' :
-'<p>KCals is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (kcals.net)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
+'<p>ChronoBurn is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (cronoburn.com)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};
 

@@ -8,6 +8,9 @@
 • Water tracker
 • Daily tips
 
+# 2.0.0 [2016/07/15]
+• <strong class="blue">KCals</strong> has been renamed to <strong class="red">ChronoBurn</strong>, in order to reflect its purpose more accurately
+
 # 1.9.18 [2016/07/05]
 • Fixed issue with some users not being able to type dots for decimal values
 • Coordinates of tap events sometimes returned undefined
@@ -25,7 +28,6 @@
 • Users are now prompted to choose between the original English database, or its (automatically) translated version
 
 # 1.9.16 [2016/05/20]
-• App renamed to <strong>KCals Calorie Clock</strong>
 • Optimized core frameworks, featuring cutting edge web technologies
 • Fixed some synchronization inconsistencies affecting desktop users
 
@@ -78,7 +80,7 @@
 • Fixed scrollbar issue where it would get hidden behind content
 
 # 1.9.7 [2015/08/13]
-• KCals was awarded the Bootstrap track by the FbStart program
+• The app was awarded the Bootstrap track by the FbStart program
 • Added e-mail authentication for users who do not use Facebook
 • The nutrient time span is now a synchronized setting
 • Fixed an issue with the viewport being rendered incorrectly
