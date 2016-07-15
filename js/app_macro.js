@@ -1735,7 +1735,7 @@ function buildAdvancedMenu() {
 	//# CONTACT #//
 	//#/////////#//
 	app.handlers.activeRow('#advancedContact','activeRow',function(evt) {
-		//app.url('mailto:cancian@kcals.net?Subject=KCals%20-%20Support%20(' + app.get.platform(1) + ')');
+		//app.url('mailto:cancian@chronoburn.com?Subject=ChronoBurn%20-%20Support%20(' + app.get.platform(1) + ')');
 		window.location.href = 'mailto:cancian@chronoburn.com?Subject=ChronoBurn%20-%20Support%20(' + app.get.platform(1) + ')';
 	});
 	//#////////////////#//
