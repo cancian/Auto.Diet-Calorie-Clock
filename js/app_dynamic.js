@@ -479,21 +479,25 @@ $(document).on("pageload", function (evt) {
 				//HIDE
 				hideEntry();
 			});
+			//
+			return;
 		}
 		//////////
 		// EDIT //
 		//////////
-		else if (evtId == 'edit') {
+		if (evtId == 'edit') {
 			var editedEntry = $(targetObj).parent('div').prop('id');
 			getEntryEdit(editedEntry);
 			setTimeout(function () {
 				hideEntry();
 			}, 300);
+			//
+			return;
 		}
 		////////////
 		// DELETE //
 		////////////
-		else if (evtId == 'delete') {
+		if (evtId == 'delete') {
 			var rowId   = $(targetObj).parent('div').prop('id');
 			var rowTime = $(targetObj).parent('div').prop('name');
 			//no jump
@@ -516,6 +520,8 @@ $(document).on("pageload", function (evt) {
 				//force error ~ 
 				niceResizer();
 			});
+			//
+			return;
 		}
 	});
 //////#//
@@ -1358,6 +1364,10 @@ function addNewItem(addnew) {
 	///////////////////////////////////////////
 	// android input blur blank viewport bug //
 	///////////////////////////////////////////
+	$('#addNewWrapper input').on(tap,function() {
+		$(this).focus();
+	});
+	/*
 	if (app.device.android) {
 		//preset wrapper min-height
 		//$('#addNewWrapper').css('min-height', $('#addNewWrapper').height() + 'px');
@@ -1378,7 +1388,7 @@ function addNewItem(addnew) {
 		$('#addNewWrapper input').on('focus', function (evt) {
 			//clearTimeout(newBlurGap);
 		});
-	}
+	}*/
 	///////////////////////////
 	// autohide keyboard tap //
 	///////////////////////////
