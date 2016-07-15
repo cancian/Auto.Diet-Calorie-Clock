@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
-<title>KCals Calorie Clock</title>
-<meta name="Description" content="A real-time calorie counter that simulates the human metabolism.">
+<title>ChronoBurn - Real-Time Calorie Counter</title>
+<meta name="Description" content="ChronoBurn is a real-time calorie counter that simulates the human metabolism.">
 <meta charset="utf-8" />
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="css/index.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/fonts.css" type="text/css" media="all" />
 <style type="text/css">
-html {
+html, body {
 	overflow: auto !important;
 	zoom: 1;
 }
@@ -16,6 +16,11 @@ html {
 	color: #000 !important;
 	text-decoration: none;
 }
+#developedBy,
+#developedBy a	{ text-decoration: none; position: static; }
+
+#developedBy	{ padding-top: 16px !important; height: 60px !important; display: block; border-top: 1px solid #ccc; background-color: #f5f5f5; font-weight: bold; }
+
 #appStores span {
 	font-size: 16px;
 }
@@ -28,12 +33,10 @@ h1, h1 a {
 	text-decoration: underline !important;
 	color: #000 !important;
 }
-h1 a:hover {
-	color: #0000CC !important;
-}
+
 h2 {
 	padding-top: 5px;
-	font-size: 20px;
+	font-size: 24px;
 }
 #icons {
 	display: block;
@@ -46,17 +49,54 @@ body {
 #appStores span:before {
 	font-size: 48px !important;
 }
-}
+#helpTopics { margin: 24px; display: block; }
+.title		{ border-bottom: 3px solid #000; font-weight: bold; font-size: 32px; display: block; line-height: 36px; margin-bottom: 32px; margin-top: 32px; }
+.topic		{ font-weight: bold !important; font-size: 18px !important; display: block !important; height: 24px !important; color: #22E !important; margin-top: 32px !important; margin-bottom: 14px; }
+.content	{ font-weight: normal!important; font-size: 12px!important; display: block !important; line-height: 160% !important; color: #000!important; }
+p			{ display: block !important; }
+p+p			{ margin-top: 12px !important; }
 </style>
 </head>
 <body>
 <div style="padding: 16px;">
-  <h1><a href="index.html">KCals Calorie Clock</a></h1>
-  <h2>A real-time calorie counter that simulates the human metabolism.</h2>
+  <h1><a href="index.html">ChronoBurn</a></h1>
+  <h2>Real-Time Calorie Counter</h2>
 </div>
 <div id="icons" style="position:absolute; width: 100%; display: block; top: 120px; left: 0; right: 0; bottom: 0;">
   <div id="appStores"> <a href="index.html" alt="webapp"><span id="b000"></span></a> <a href="https://play.google.com/store/apps/details?id=com.cancian.kcals" alt="Android Marketplace" target="_blank"><span id="b100"><strong>Android</strong></span></a> <a href="https://itunes.apple.com/app/id732382802" alt="Apple App Store (iPhone, iPad, iPod)" target="_blank"><span id="b200"><strong>iOS</strong></span></a> <a href="https://www.microsoft.com/en-us/store/apps/kcals-calorie-counter/9wzdncrdkhz5" alt="Windows Store (mobile)" target="_blank"><span id="b300"><strong>Windows Phone</strong></span></a> <a href="https://www.microsoft.com/en-us/store/apps/kcals-calorie-counter/9wzdncrdkhz5" alt="Windows Store (desktop)" target="_blank"><span id="b400"><strong>Windows 10</strong></span></a> <a href="https://marketplace.firefox.com/app/kcals" alt="Firefox Marketplace" target="_blank"><span id="b500"><strong>FirefoxOS</strong></span></a> <a href="https://itunes.apple.com/us/app/kcals-calorie-counter/id898749118?mt=12" alt="Mac App Store (Macbook)" target="_blank"><span id="b600"><strong>Mac OSX</strong></span></a> <a href="https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc" alt="Chrome web store" target="_blank"><span id="b700"><strong>ChromeOS</strong></span></a> <a href="http://appworld.blackberry.com/webstore/content/59937667" alt="BlackBerry World (bb10, playbook)" target="_blank"><span id="b800"><strong>BlackBerry</strong></span></a> <a href="http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533" alt="Amazon Appstore (android)" target="_blank"><span id="b900"><strong>Amazon Store</strong></span></a> </div>
-  <div id="developedBy">Developed by <a href="http://www.amazon.com.br/s?_encoding=UTF8&field-author=Andre%20Cancian&search-alias=digital-text" target="_blank">André Cancian</a><span id="contactDeveloper"><a href="mailto:cancian@kcals.net">cancian@kcals.net</a></span></div>
+<div id="helpTopics"></div>
+<script type="text/javascript">
+var app = {};
+</script>
+<script type="text/javascript" src="js/app_lang.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+//BUILD CONTENT ARRAY
+$(function() {
+var app;
+var helpTopics = LANG.HELP_TOPICS_ARRAY['en'];
+var helpHtml   = '';
+$.each(helpTopics, function(key, value) {
+	if(key && value) {
+		helpHtml = helpHtml + '<div class="topic">' + key + '</div><div class="content">' + value + '</div>';
+	}
+});
+/////////////////////
+// RE-INSERT INTRO //
+/////////////////////
+var introValue = '<p>' + LANG.INTRO_SLIDE_1[lang].split('.').join('. ') + '</p>\
+<p>' + LANG.INTRO_SLIDE_2[lang].split('.').join('. ') + '</p>\
+<p>' + LANG.INTRO_SLIDE_3[lang].split('.').join('. ') + '</p>\
+<p>' + LANG.INTRO_SLIDE_4[lang].split('.').join('. ') + '</p>\
+<p>' + LANG.INTRO_SLIDE_5[lang].split('.').join('. ') + '</p>\
+<p>' + LANG.INTRO_SLIDE_6[lang].split('.').join('. ') + '</p>';
+helpHtml = '<div class="topic">' + LANG.INTRO[lang] + '</div><div class="content">' + introValue + '</div>' + helpHtml;
+$('#helpTopics').html('<div class="title">' + LANG.SETTINGS_HELP['en'] + '</div>' + helpHtml);
+});
+///////////////////////
+</script>
+
+<div id="developedBy">Developed by <a href="http://www.amazon.com.br/s?_encoding=UTF8&field-author=Andre%20Cancian&search-alias=digital-text" target="_blank">André Cancian</a><span id="contactDeveloper"><a href="mailto:cancian@kcals.net">cancian@chronoburn.com</a></span></div>
 </div>
 <div alt="KCals on Facebook" style="position: absolute; top: 28px; z-index: 500; left: 80%; text-align: left; width: 160px; display: block; height: 31px; overflow: hidden; text-align: left;">
   <iframe src="http://www.facebook.com/plugins/like.php?href=https://www.facebook.com/kcals.net&amp;layout=button_count&amp;show_faces=false&amp;width=85&amp;action=like&amp;colorscheme=light&amp;height=31" scrolling="no" style="border:none; overflow: hidden; width:160px; height: 35px;" allowtransparency="true" frameborder="0"></iframe>
