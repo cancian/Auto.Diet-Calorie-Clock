@@ -35,7 +35,7 @@ body.osx								{ -webkit-user-select: none !important; user-select: none !impor
 /*allow input text select ~ flicker*/
 input, select, textarea,
 input[type='number'],
-input[type='text']						{ -webkit-user-select: text !important; user-select: text !important; -webkit-user-callout: default !important; -webkit-touch-callout: default !important; -webkit-box-shadow: none; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-image: none; background-color: rgba(255,255,255,0); color: #000; -webkit-transform-style: preserve-3d; -webkit-backface-visibility: hidden; }
+input[type='text']						{ -webkit-user-select: text !important; user-select: text !important; -webkit-user-callout: default !important; -webkit-touch-callout: default !important; -webkit-box-shadow: none; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-image: none; background-color: rgba(255,255,255,0); color: #000; /* -webkit-backface-visibility: hidden; */ }
 body.moz input,
 body.moz select,
 body.moz textarea						{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
