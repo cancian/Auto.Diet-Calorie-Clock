@@ -1,9 +1,9 @@
 ﻿{
 	"appName" : {
-		"message" : "KCals Calorie Clock"
+		"message" : "ChronoBurn"
 
 	},
 	"appDesc" : {
-		"message" : "KCals is a real-time calorie counter that emulates the human metabolism."
+		"message" : "Sanntid Kaloriteller & Metabolisme Simulator"
 	}
 }
