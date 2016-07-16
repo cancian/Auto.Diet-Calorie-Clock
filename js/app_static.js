@@ -203,8 +203,7 @@ updateEntriesSum();
 ///////////////
 // SET TITLE //
 ///////////////
-//$('title').html2(appName + ' - ' + LANG.REALTIME_CALORIE_COUNTER[lang]);
-$('title').html2(appName + ' - ' + LANG.REALTIME_CALORIES[lang]);
+$('title').html2(appName + ' - ' + LANG.REALTIME_CALORIE_COUNTER[lang]);
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//

@@ -2030,8 +2030,7 @@ function buildLangMenu(opt) {
 				//start date
 				$('#cssStartDate').html2("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
 				//page title
-				//$('title').html2(appName + ' - ' + LANG.REALTIME_CALORIE_COUNTER[lang]);
-				$('title').html2(appName + ' - ' + LANG.REALTIME_CALORIES[lang]);				
+				$('title').html2(appName + ' - ' + LANG.REALTIME_CALORIE_COUNTER[lang]);
 				//heading sum
 				updateEntriesSum();
 				//update cat list cache
