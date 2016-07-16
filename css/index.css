@@ -182,7 +182,7 @@ body.android44 input#timerDailyInput		{ margin-top: 0px; padding-right: 0px; }
 #appFooter								{ position: absolute; bottom: 0; left: 0; right: 0; width: 100%; border-top: 1px solid #dfdfdf; height: 45px; max-height: 45px; margin: 0; padding: 0; list-style: none; background-color: #f5f5f5; text-align: center; z-index: 20; -webkit-user-select: none; user-select: none; }
 #appFooter li							{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal; -webkit-backface-visibility: hidden; position: relative; color: #656565; float: left; width: 25%; height: 44px; line-height: 18px; }
 /*footer icons*/
-#appFooter li:before					{ display: block; font-family: 'KCals'; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; pointer-events: none; }
+#appFooter li:before					{ display: block; font-family: KCals; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; pointer-events: none; }
 #appFooter li#tab1:before				{ content: '\f080'; }
 #appFooter li#tab2:before				{ content: '\f0f5'; }
 #appFooter li#tab3:before				{ content: '\f007'; }
@@ -292,7 +292,7 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 #slide3 p:before,
 #slide4 p:before,
 #slide5 p:before,
-#slide6 p:before		{ font-family: 'KCals'; line-height: 96px; color: #09F; position: absolute; left: 0; right: 0; height: 100px; text-align: center; -webkit-perspective: 800; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
+#slide6 p:before		{ font-family: KCals; line-height: 96px; color: #09F; position: absolute; left: 0; right: 0; height: 100px; text-align: center; -webkit-perspective: 800; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 .slide p				{ display: block; max-width: 548px; margin: 0 auto; background-color: #fff; padding: 0 14px; }
 .appLang-el .slide p	{ font-size: 15px; }
 #indicator				{ position: absolute; width: 170px; height: 20px; margin: 0; bottom: 74px; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUBAMAAABohZD3AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUGCDYztyDUJgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAGFBMVEUAAADNzc3Nzc3Nzc3Nzc3Nzc3Nzc3///8aWwwLAAAABnRSTlMAX5Ks3/nRD0HIAAAAAWJLR0QHFmGI6wAAAFtJREFUGFdjYGBgEHYNMWRAAJE0IHCEc5nSwEABxleD8JOgXMY0KBCA8FlgfAcIXwzGT4TwzWD8ZAjfDcZPgfDDYPxU7Hx09ejmoduH7h5096L7B8O/6OGBGl4APYg8TQ0XAScAAAAASUVORK5CYII=); }
@@ -308,7 +308,7 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 #nextDiv:active,
 #prevDiv:active			{ color: #ccc; }
 #nextDiv:before,
-#prevDiv:before			{ font-family: 'KCals'; position: absolute; top: 43%; font-size: 48px; }
+#prevDiv:before			{ font-family: KCals; position: absolute; top: 43%; font-size: 48px; }
 #nextDiv:before			{ content: '\f105'; right: 0; }
 #prevDiv:before			{ content: '\f104'; left: 0; }
 #gettingStarted span#deficit, 
@@ -340,12 +340,12 @@ ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0
 #advancedCounterMode .contentTitle span strong { font-weight: 400 !important; color: #707070 !important; pointer-events: none; }
 
 /*icons*/
-#optionMeasure .contentTitle:before	{ content: '\E060'; font-family: 'KCals'; }
-#optionUser .contentTitle:before	{ content: '\f007'; font-family: 'KCals'; }
-#optionFacebook .contentTitle:before{ content: '\E050'; font-family: 'KCals'; }
-#optionLang .contentTitle:before	{ content: '\E030'; font-family: 'KCals'; }
-#optionHelp .contentTitle:before	{ content: '\E020'; font-family: 'KCals'; }
-#optionBuy .contentTitle:before		{ content: '\E040'; font-family: 'KCals'; }
+#optionMeasure .contentTitle:before	{ content: '\E060'; font-family: KCals; }
+#optionUser .contentTitle:before	{ content: '\f007'; font-family: KCals; }
+#optionFacebook .contentTitle:before{ content: '\E050'; font-family: KCals; }
+#optionLang .contentTitle:before	{ content: '\E030'; font-family: KCals; }
+#optionHelp .contentTitle:before	{ content: '\E020'; font-family: KCals; }
+#optionBuy .contentTitle:before		{ content: '\E040'; font-family: KCals; }
 .contentTitle:before				{ position: absolute; top: 3px; left: -8px; display: block; width: 60px; height: 46px; line-height: 41px; font-size: 24px; text-align: left; background-color: rgba(0,0,0,0); color: #000; font-weight: normal; text-indent: 23px; }
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
@@ -369,8 +369,8 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 #FacebookLogin			{ background-color: rgba(255,255,255,.62); right: 0px; }
 #FacebookLogin:after,
 #emailLogin:after		{ position: absolute; top: 0; font-size: 36px; line-height: 46px; color: #ccc; display: inline-block; }
-#FacebookLogin:after	{ font-family: 'KCals'; content: '\f082'; right: 20px; }
-#emailLogin:after		{ font-family: 'Arial'; content: '@'; right: 0px; font-size: 33px; line-height: 41px; }
+#FacebookLogin:after	{ font-family: KCals; content: '\f082'; right: 20px; }
+#emailLogin:after		{ font-family: Arial; content: '@'; right: 0px; font-size: 33px; line-height: 41px; }
 .playbook #FacebookLogin{ display: none; }
 .android2 #emailLogin	{ display: none; }
 /*sync info icon*/
@@ -409,8 +409,8 @@ div#optionWebsite.activeRow						{ color: #999; }
 #optionAdvanced 						{ position: absolute; bottom: 0; left: 0; right: 0; height: 46px; line-height: 48px; overflow: hidden; color: #555; background-color: #fff; border-top: 1px solid #eee; margin-left: 0; text-indent: 48px; display: block; }
 #optionAdvanced.activeRow				{ background-color: #eee; }
 #optionAdvanced:after 					{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: rgba(0,0,0,0); color: #bbb; }
-#optionAdvanced:after					{ content: '\f105'; font-family: 'KCals'; font-weight: normal; text-indent: 0px; }
-#optionAdvanced:before					{ content: '\E070'; font-family: 'KCals'; font-weight: normal; position: absolute; top: 3px; left: -8px; display: block; width: 60px; height: 46px; line-height: 41px; font-size: 22px; text-align: left; background-color: rgba(0,0,0,0); color: #555; text-indent: 27px; }
+#optionAdvanced:after					{ content: '\f105'; font-family: KCals; font-weight: normal; text-indent: 0px; }
+#optionAdvanced:before					{ content: '\E070'; font-family: KCals; font-weight: normal; position: absolute; top: 3px; left: -8px; display: block; width: 60px; height: 46px; line-height: 41px; font-size: 22px; text-align: left; background-color: rgba(0,0,0,0); color: #555; text-indent: 27px; }
 /**/
 #advancedMenuWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F2F5F6; -webkit-perspective: 800; }
 #advancedMenu							{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F2F5F6; -webkit-backface-visibility: hidden; }
@@ -425,7 +425,7 @@ div#optionWebsite.activeRow						{ color: #999; }
 #advancedMenuHeader						{ position: relative; width: 100%; background-color: #F8F8F8; height: 45px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; z-index: 1; }
 #advancedMenuHeader #advBackButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #advancedMenuHeader #advBackButton:active{ color: #ccc; }
-#advancedMenuHeader #advBackButton:before{ font-family: 'KCals'; content: '\f104'; }
+#advancedMenuHeader #advBackButton:before{ font-family: KCals; content: '\f104'; }
 #advancedMenuTitle						{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
 /*single options*/
 #advancedReload							{ margin-bottom: 28px; color: #007aff; }
@@ -449,7 +449,7 @@ div#optionWebsite.activeRow						{ color: #999; }
 #userWindow li.set						{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 #userWindow li.set:after				{ position: absolute; bottom: -1px; right: 0; left: 0px; height: 0; display: block; border-bottom: 1px solid #eee; content: ' ';  z-index: 99; }
 #userWindow li.preset					{ background-color: #fff !important; margin-left: 22px; text-indent: 0; }
-#userWindow li.preset:before			{ font-family: 'KCals'; content: '\A000'; position: absolute; bottom: -1px; right: 18px; font-size: 21px; color: #007aff; line-height: 47px; }
+#userWindow li.preset:before			{ font-family: KCals; content: '\A000'; position: absolute; bottom: -1px; right: 18px; font-size: 21px; color: #007aff; line-height: 47px; }
 #saveButton.addNewUser:before			{ content: '+'; font-family: KCals; font-size: 22px; display: block; color: #007AFF; margin-right: -20px; font-weight: normal; }
 /*#////////////#//
 //# CHANGE LOG #//
@@ -471,7 +471,7 @@ div#optionWebsite.activeRow						{ color: #999; }
 #advancedAutoUpdate,
 #advancedAutoUpdate input			{ -webkit-user-select: none; user-select: none; }
 #appAutoUpdateButton				{ position: absolute; top: 0px; right: 80px; color: #999; font-size: 28px; white-space: nowrap; line-height: 27px; width: 60px; display: none; background-color: rgba(0,0,0,0); height: 60px; padding-top: 10px; text-align: center; }
-#appAutoUpdateButton:before			{ font-family: 'KCals'; content: '\f01e'; }
+#appAutoUpdateButton:before			{ font-family: KCals; content: '\f01e'; }
 .pending #appAutoUpdateButton		{ display: block; }
 /*#//////////////////#//
 //# DATABASE OPTIONS #//
@@ -524,7 +524,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindow							{ position: absolute; top: 44px; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; }
 #newWindowHeader					{ display: block; position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; z-index: 52; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
-#newWindowHeader #backButton:before	{ font-family: 'KCals'; content: '\f104'; }
+#newWindowHeader #backButton:before	{ font-family: KCals; content: '\f104'; }
 #newWindowHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; display: block; color: #007AFF; text-align: center; display: block; z-index: 99; font-weight: bold; text-indent: 0px; text-transform: uppercase; }
 #saveButton.removeAll				{ color: rgba(0,0,0,0); }
 #saveButton.removeAll:before		{ content: '\f014'; font-family: KCals; font-size: 26px; display: block; color: #007AFF; margin-right: -20px; font-weight: normal; }
@@ -562,7 +562,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newSearch							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; }
 #newSearchHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newSearchHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
-#newSearchHeader #backButton:before	{ font-family: 'KCals'; content: '\f104'; }
+#newSearchHeader #backButton:before	{ font-family: KCals; content: '\f104'; }
 #newSearchHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; display: block; text-transform: uppercase; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 16px; font-weight: bold; text-indent: 0px; }
 #newSearchHeader #backButton:active,
 #newSearchHeader #saveButton:active	{ color: #ccc; }
@@ -660,8 +660,8 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 .android2 #getEntryWrapper input						{ left: 0; }
 #getEntryWrapper span									{ position: absolute; top: 0px; left: 0; padding: 16px 0; text-transform: capitalize; width: 100px; font-size: 18px; font-weight: 400; float: left; z-index: 100; color: #333; background-color: rgba(0,0,0,0); }
 #getEntryWrapper input:focus							{ color: #0072BC; }
-#getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 5px;  font-family: 'KCals'; content: '\F000'; color: #00c; }
-#getEntryWrapper #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 5px;  font-family: 'KCals'; content: '\F17D'; color: #c30; }
+#getEntryWrapper #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 5px;  font-family: KCals; content: '\F000'; color: #00c; }
+#getEntryWrapper #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 5px;  font-family: KCals; content: '\F17D'; color: #c30; }
 #getEntryWrapper input[type="text"]						{ border-right: 0; padding-right: 34px; }
 #getEntryWrapper strong 								{ font-weight: normal !important; text-transform: lowercase !important; }
 /*/////////////////////////
@@ -677,18 +677,18 @@ ul#langSelectList li.preset,
 ul#langSelectList li.set			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
 ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0px; height: 0; display: block; border-bottom: 1px solid #eee; content: ' ';  z-index: 99; }
 ul#langSelectList li.preset			{ background-color: #fff !important; margin-left: 22px; text-indent: 0; }
-ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; position: absolute; bottom: -1px; right: 18px; font-size: 21px; color: #007aff; line-height: 47px; }
+ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; position: absolute; bottom: -1px; right: 18px; font-size: 21px; color: #007aff; line-height: 47px; }
 /*//////////////////
 // SETTINGS: HELP //
 //////////////////*/
 #optionHelp:after 					{ position: absolute; top: 3px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: rgba(0,0,0,0); color: #bbb; }
-#optionHelp:after					{ font-family: 'KCals'; content: '\f105'; font-weight: normal; }
+#optionHelp:after					{ font-family: KCals; content: '\f105'; font-weight: normal; }
 /*///////////////////////
 // SETTINGS: HELP MENU //
 ///////////////////////*/
 #appHelper ul							{ padding: 0; margin: 0; text-indent: 0; }
 #appHelper ul li						{ position: relative; padding: 0 22px; border-bottom: 1px solid #eee; height: 45px; line-height: 45px; overflow: hidden; }
-#appHelper ul li:after 					{ content: '\f105'; font-family: 'KCals'; font-weight: normal; position: absolute; top: 2px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: rgba(0,0,0,0); color: #bbb; }
+#appHelper ul li:after 					{ content: '\f105'; font-family: KCals; font-weight: normal; position: absolute; top: 2px; right: 0; display: block; width: 60px; height: 46px; line-height: 40px; font-size: 40px; text-align: center; background-color: rgba(0,0,0,0); color: #bbb; }
 #appHelper ul li.activeRow				{ background-color: #f5f5f5; } 
 #helperWrapper,
 #appHelper								{ position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 100%; background-color: #fff; display: block; }
@@ -696,12 +696,12 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appHelper h2							{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #appHelper h2 #backButton				{ position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #appHelper h2 #backButton:active		{ color: #ccc; }
-#appHelper h2 #backButton:before		{ font-family: 'KCals'; content: '\f104'; -webkit-backface-visibility: hidden; }
+#appHelper h2 #backButton:before		{ font-family: KCals; content: '\f104'; -webkit-backface-visibility: hidden; }
 #appHelper h2 #helpTitle				{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
 #appSubHelper h2						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 0px solid #eee;  }
 #appSubHelper h2 #subBackButton			{ position: absolute; top: 0; left: 0; width: 76px; height: 44px; padding-top: 3px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #appSubHelper h2 #subBackButton:active	{ color: #ccc; }
-#appSubHelper h2 #subBackButton:before	{ font-family: 'KCals'; content: '\f104'; -webkit-backface-visibility: hidden; }
+#appSubHelper h2 #subBackButton:before	{ font-family: KCals; content: '\f104'; -webkit-backface-visibility: hidden; }
 #appSubHelper h2 #subHelpTitle			{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
 #appSubHelper #subHelpContent			{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
 #appSubHelper #subHelpContent p			{ display: block; }
@@ -780,7 +780,7 @@ ul#langSelectList li.preset:before	{ font-family: 'KCals'; content: '\A000'; pos
 #appStatusBlock2 #todayInfo				{ position: absolute; top: 0; right: 0; background-color: rgba(0,0,0,0); width: 44px; height: 32px; text-align: right !important; color: #aaa; z-index: 3; display: block; overflow: hidden; pointer-events: auto !important; }
 #appStatusBlock2 #todayInfo.button		{ color: #999; }
 body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
-#todayInfo:after						{ font-family: 'KCals'; content: '\A176'; padding-top: 1px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; z-index: 3; font-weight: bold; }
+#todayInfo:after						{ font-family: KCals; content: '\A176'; padding-top: 1px; padding-right: 2px; font-size: 16px; line-height: 16px; display: block; z-index: 3; font-weight: bold; }
 .highcharts-legend, 
 .highcharts-legend *					{ font-weight: 300 !important; }
 /*days~abcd*/
@@ -815,7 +815,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 .android2 #balanceBar:before	{ background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#EE8176), color-stop(25.5%,#3DB3E2), color-stop(73.9%,#3DB3E2), color-stop(73.9%,#63C980)); }
 #balanceBar:before				{ background: -webkit-linear-gradient(left,                                  #EE8176 25.5%,             #3DB3E2 25.5%,             #3DB3E2 73.9%,             #63C980 73.9%);
 								  content: ' '; position: absolute; bottom: 0px; left:  2px; right: -12px; height: 3px; padding: 0; }
-#balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: 'KCals'; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
+#balanceBar:after				{ position: absolute; bottom: 3px; left:  0px; font-family: KCals; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
 .deficit #appStatusBalance #balanceBar:after	{ color: #E54B1D; }
 /*.balanced #appStatusBalance #balanceBar:after	{ color: #007AFF; }*/
 .surplus #appStatusBalance #balanceBar:after	{ color: #2DB454; }
@@ -834,7 +834,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
 #appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
 #appStatusAddLeft div:before,
-#appStatusAddRight div:before	{ content: '+'; font-family: 'KCals'; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
+#appStatusAddRight div:before	{ content: '+'; font-family: KCals; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
 #appStatusAddLeft span,
 #appStatusAddRight span			{ display: inline-block; background-color: #D55621; text-align: center; font-size: 10px; text-transform: uppercase; }
 #appStatusAddLeft div,
@@ -933,11 +933,11 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 /*status reload*/
 #appStatusReload					{ position: absolute; bottom: 0px; left: 0; width: 59px; height: 45px; display: block; font-size: 28px; line-height: 28px; text-indent: 7px; padding-right: 11px; background-color: rgba(0,0,0,0); z-index: 1; }
 .android44 #appStatusReload			{ bottom: -1px; }
-#appStatusReload:before				{ content: '\f01e'; font-family: 'KCals'; display: inline-block; padding-top: 10px; pointer-events: none; }
+#appStatusReload:before				{ content: '\f01e'; font-family: KCals; display: inline-block; padding-top: 10px; pointer-events: none; }
 /*status arrow*/
 #appStatusToggle					{ position: absolute; bottom: 0; right: 0; width: 48px; height: 45px; display: inline-block; line-height: 49px; z-index: 10; background-color: rgba(255,255,255,0); }
 #appStatusFix #appStatusArrow		{ line-height: 30px; position: absolute; top: 3px; right: 32px; height: 0; width: 0; font-size: 30px; -webkit-backface-visibility: hidden; }
-#appStatusFix #appStatusArrow:before{ content: '\f107'; font-family: 'KCals'; position: absolute; top: 5px; right: 12px; height: 0; width: 0; display: inline-block; }
+#appStatusFix #appStatusArrow:before{ content: '\f107'; font-family: KCals; position: absolute; top: 5px; right: 12px; height: 0; width: 0; display: inline-block; }
 .android44 #appStatusFix #appStatusArrow:before { top: 6px; }
 #appStatusFix.open #appStatusArrow	{ -webkit-transform: scaleY(-1); }
 /*F106 up*/
@@ -976,7 +976,7 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 #calcForm #feet.metric					{ display: none !important; }
 /*select arrow*/
 #calcForm .selectArrow					{ position: relative; }
-#calcForm .selectArrow:after			{ content: '\f078'; font-family: 'KCals'; position: absolute; top: 18px; right: -10px; color: #666; font-size: 10px; line-height: 10px; }
+#calcForm .selectArrow:after			{ content: '\f078'; font-family: KCals; position: absolute; top: 18px; right: -10px; color: #666; font-size: 10px; line-height: 10px; }
 #calcForm .calcResult .selectArrow:after{ right: -12px; }
 /*
 .moz.desktop #calcForm .selectArrow:after,
@@ -1063,15 +1063,15 @@ div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; 
 .appLang-nl div#sliderPos,
 .appLang-nl div#sliderNeg		{ font-size: 13pt; line-height: 16pt; }
 div#sliderNeg:before,
-div#sliderPos:before			{ font-family: 'KCals'; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
+div#sliderPos:before			{ font-family: KCals; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
 div#sliderNeg:before			{ left: 0; content: '\F010'; }	
 div#sliderPos:before			{ right: 0; content: '\F020'; }
 .android div#sliderPos:before,
 .android div#sliderNeg:before	{ top: 3px; }
 .android44 div#sliderPos:before,
 .android44 div#sliderNeg:before	{ top: 5px; }
-div#sliderNeg.activeArrow:before{ color: #CB5220; font-family: 'KCals'; content: '\F001'; }
-div#sliderPos.activeArrow:before{ color: #2052CB; font-family: 'KCals'; content: '\F002'; }
+div#sliderNeg.activeArrow:before{ color: #CB5220; font-family: KCals; content: '\F001'; }
+div#sliderPos.activeArrow:before{ color: #2052CB; font-family: KCals; content: '\F002'; }
 /*MAIN FORM*/
 input#entryBody					{ position: absolute; margin-top: 6px; left: 16px; right: 63px; background-color: rgba(0,0,0,0); color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0px; border: none; font-size: 17px; -webkit-user-select: text; user-select: text; }
 input#entry.focusMe				{ top: -5px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 65px 0 0px 0; background-clip: padding-box; z-index: 998; }
@@ -1176,7 +1176,7 @@ div.editing p				{ opacity: 1; }
 .sidebar.afternoon #diarySidebar	{ color: #F29D50; }
 .sidebar.night #diarySidebar		{ color: #4486E5; }
 .sidebar.afterhours #diarySidebar	{ color: #4141D1; }
-#diarySidebar:before				{ font-family: 'KCals'; content: '\F025'; text-indent: 7px; display: block; }
+#diarySidebar:before				{ font-family: KCals; content: '\F025'; text-indent: 7px; display: block; }
 #diarySidebar						{ font-size: 18px; line-height: 19px; position: absolute; top: 0; left: 0; width: 88px; height: 35px; background-color: rgba(0,0,0,0); padding-top: 10px; overflow: hidden; text-align: left; }
 .android #diarySidebar				{ padding-top: 11px; }
 .sidebar #entryList div				{ border-bottom-width: 0; padding-bottom: 1px; }
@@ -1208,8 +1208,8 @@ div#noEntries						{ height: 45px !important; }
 // IN-LINE EDIT //
 ////////////////*/
 #kcalsAdjust							{ color: rgba(0,0,0,.1); }
-#adjustPos:before						{ content: '\f054'; font-family: 'KCals'; font-size: 20pt; line-height: 47px; margin-left: -10px; }
-#adjustNeg:before 						{ content: '\f053'; font-family: 'KCals'; font-size: 20pt; line-height: 47px; margin-right: -10px; }
+#adjustPos:before						{ content: '\f054'; font-family: KCals; font-size: 20pt; line-height: 47px; margin-left: -10px; }
+#adjustNeg:before 						{ content: '\f053'; font-family: KCals; font-size: 20pt; line-height: 47px; margin-right: -10px; }
 .mobile #adjustNegBlock,
 .mobile #adjustPosBlock					{ color: #007AFF; background-color: rgba(0,0,0,.1); }
 .mobile #adjustNegBlock.activeBlock,
@@ -1247,11 +1247,11 @@ div#noEntries						{ height: 45px !important; }
 // NOTES //
 /////////*/
 #diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 22px; color: #ddd; }
-#diaryNotes:before			{ content: '\f02d'; font-family: 'KCals'; display: inline-block; font-weight: normal; }
+#diaryNotes:before			{ content: '\f02d'; font-family: KCals; display: inline-block; font-weight: normal; }
 #diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
 #diaryNotesInput 			{ position: absolute; top: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(0,0,0,0); z-index: 98; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: text; user-select: text; -webkit-transform: translate3d(0, 0, 0); }
 #diaryNotesButton			{ position: fixed; top: 0; right: 0; width: 80px; height: 65px; background-color: rgba(255,255,255,0); display: block; z-index: 999; text-align: center; line-height: 65px; font-size: 32px; color: #007aff; -webkit-backface-visibility: hidden; }
-#diaryNotesButton:before	{ font-family: 'KCals'; content: '\F00D'; }
+#diaryNotesButton:before	{ font-family: KCals; content: '\F00D'; }
 .ios7 #diaryNotesButton		{ height: 80px; line-height: 95px; }
 /*kb closer*/
 .firefoxos #diaryCloser,
@@ -1259,7 +1259,7 @@ div#noEntries						{ height: 45px !important; }
 .mobile.android #diaryNotesInput:focus + #diaryCloser,
 .firefoxos #diaryNotesInput:focus + #diaryCloser	{ position: fixed; right: 0; bottom: 0; width: 80px; height: 80px; display: block; text-align: center; color: #007aff; z-index: 999; }
 .firefoxos #diaryCloser:after,
-.mobile.android #diaryCloser:after					{ font-family: 'KCals'; content: '\F00A'; line-height: 100px; font-size: 42px; }
+.mobile.android #diaryCloser:after					{ font-family: KCals; content: '\F00A'; line-height: 100px; font-size: 42px; }
 /*###########################
 ####   PAGE SLIDE FOOD   ####
 ############################*/
@@ -1298,7 +1298,7 @@ span#iconRefresh,
 span#iconClear			{ padding: 19px 25px 16px 22px; font-size: 28px; line-height: 28px; position: absolute; top: 0px; right: -2px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 9999; display: block; background-color: rgba(0,0,0,0); }
 span#iconClear			{ display: none; }
 span#iconClear:before,
-span#iconRefresh:before { font-family: 'KCals'; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
+span#iconRefresh:before { font-family: KCals; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
 span#iconRefresh:before { content: '\f021'; }
 span#iconClear:before	{ content: '\F00D'; }
 .searcheable .foodName	{ color: #2157D6; font-weight: bold; }
@@ -1324,7 +1324,7 @@ span.preSpan			{ font-size: 11px; padding-right: 4px; color: #2157D6; }
 .exerciseType span.foodFat,
 .exerciseType span.foodCar { color: #000; }
 /*header close arrow*/
-#appHeader:before					{ font-family: 'KCals'; content: '\f0a8'; color: rgba(255,255,255,.75); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; -webkit-backface-visibility: hidden; z-index: 7; }
+#appHeader:before					{ font-family: KCals; content: '\f0a8'; color: rgba(255,255,255,.75); position: absolute; top: 0; bottom: 0; right: 100px; width: 60px; display: block; text-align: right; font-size: 46px; line-height: 46px; padding-top: 9px; opacity: 0; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; -webkit-backface-visibility: hidden; z-index: 7; }
 body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .ios7 #appHeader:before 			{ padding-top: 24px; }
 .android44 #appHeader:before		{ padding-top: 11px; }
@@ -1348,7 +1348,7 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodCar,
 .searcheable.exercise span.foodFat	{ display: none; }
-.searcheable.favItem:before			{ content: '\f005'; font-family: 'KCals'; font-size: 28px; position: absolute; top: 0; right: 0; width: 44px; height: 56px; color: rgba(250,200,50,1); line-height: 58px; text-shadow: rgba(0,0,0,.24) 0px 0px 1px; -webkit-backface-visibility: hidden; opacity: .75; }
+.searcheable.favItem:before			{ content: '\f005'; font-family: KCals; font-size: 28px; position: absolute; top: 0; right: 0; width: 44px; height: 56px; color: rgba(250,200,50,1); line-height: 58px; text-shadow: rgba(0,0,0,.24) 0px 0px 1px; -webkit-backface-visibility: hidden; opacity: .75; }
 /*/////////////
 // MODAL BOX //
 /////////////*/
@@ -1374,7 +1374,7 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 #modalNeg				{ font-size: 24px; display: block; position: absolute; top: 8px; right: 27%; }
 #modalPos				{ font-size: 24px; display: block; position: absolute; top: 8px; left: 27%; }
 #modalNeg,
-#modalPos				{ font-family: 'KCals'; line-height: 39px; font-size: 39px; font-weight: normal; color: #007AFF; margin-top: -8px; display:block; }
+#modalPos				{ font-family: KCals; line-height: 39px; font-size: 39px; font-weight: normal; color: #007AFF; margin-top: -8px; display:block; }
 #modalNeg:before		{ content: '\f104'; }
 #modalPos:before		{ content: '\f105'; }
 #modalNegBlock.active,
@@ -1424,14 +1424,14 @@ span#fiiLabel			{ top:  0px; display: block; width: 22px; text-align: left; left
 span#sugLabel			{ top: 14px; display: block; width: 22px;text-align: left; left: auto; right: 30px; color: #666; }
 span#sodLabel			{ top: 28px; display: block; width: 22px;text-align: left; left: auto; right: 30px; color: #666; }
 /*modal delete*/
-#modalDelete:before			{ content: '\f014'; font-family: 'KCals'; font-size: 30px; position: absolute; top: -65px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
+#modalDelete:before			{ content: '\f014'; font-family: KCals; font-size: 30px; position: absolute; top: -65px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
 #modalDelete.button:before	{ color: #ccc; }
 /*modal edit*/
-#modalEdit:before			{ content: '\f040'; font-family: 'KCals'; font-size: 30px; position: absolute; top: -65px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
+#modalEdit:before			{ content: '\f040'; font-family: KCals; font-size: 30px; position: absolute; top: -65px; right: 72px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalEdit.button:before	{ color: #ccc; }
 /*modal fav*/
-#modalFav:before			{ content: '\f006'; font-family: 'KCals'; font-size: 32px; position: absolute; top: -65px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
-#modalFav.favorite:before	{ content: '\f005'; font-family: 'KCals'; }
+#modalFav:before			{ content: '\f006'; font-family: KCals; font-size: 32px; position: absolute; top: -65px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
+#modalFav.favorite:before	{ content: '\f005'; font-family: KCals; }
 #modalFav.button:before		{ color: #ccc; }
 /*modal conversions*/
 #modalConversions			{ display: block; width: 300px; height: 165px; position: absolute; bottom: 0; left: 20px; color: #fff; font-size: 16px; z-index: 98; pointer-events: none; text-shadow: rgba(0,0,0,1) 0 0 1px; }
@@ -1478,9 +1478,9 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #topBarItem-1 span:before,
 #topBarItem-2 span:before,
 #topBarItem-3 span:before	{ position: absolute; top: 10px; left: -4px; display: inline-block; font-size: 15px; line-height: 15px; font-weight: normal !important; }
-#topBarItem-1 span:before	{ font-family: 'KCals'; content: '\F028'; }
-#topBarItem-2 span:before	{ font-family: 'KCals'; content: '\F005'; }
-#topBarItem-3 span:before	{ font-family: 'KCals'; content: '\F029'; }
+#topBarItem-1 span:before	{ font-family: KCals; content: '\F028'; }
+#topBarItem-2 span:before	{ font-family: KCals; content: '\F005'; }
+#topBarItem-3 span:before	{ font-family: KCals; content: '\F029'; }
 /*min height*/
 #tabMyItemsBlock			{ position: relative;  -webkit-backface-visibility: hidden; }
 #tabMyItems					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; -webkit-backface-visibility: hidden; }
@@ -1523,8 +1523,8 @@ ul#addNewList input			{ position: absolute; top: 0; right: 120px; text-align: le
 #addNewList label								{ position: absolute; top: 0px; left: 0; padding: 15px 0; width: 100px; font-size: 15px; font-weight: 400; float: left; z-index: 100; color: #333; background-color: rgba(0,0,0,0); overflow: hidden; }
 #addNewList label.error							{ color: #D55621; }
 #addNewList input:focus							{ color: #0072BC; }
-#addNewList #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 2px;  font-family: 'KCals'; content: '\F000'; color: #00c; }
-#addNewList #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 2px;  font-family: 'KCals'; content: '\F17D'; color: #c30; }
+#addNewList #divEntryTitle.food span:before		{ position: absolute; top: 20px; font-size: 16px; line-height: 16px; right: 2px;  font-family: KCals; content: '\F000'; color: #00c; }
+#addNewList #divEntryTitle.exercise span:before	{ position: absolute; top: 19px; font-size: 16px; line-height: 16px; right: 2px;  font-family: KCals; content: '\F17D'; color: #c30; }
 #addNewList input:focus,
 #addNewList input:active						{ color: #0072BC; }
 #addNewList input[type="text"]					{ border-right: 0; padding-right: 34px; }
@@ -1561,10 +1561,10 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #tabMyCatsBlock li+li div			{ border-top: 1px solid #eee; }
 #tabMyCatsBlock li.activeRow		{ background-color: #eee; color: #555; }
 #tabMyCatsBlock li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: ' ';  z-index: 99; }
-#tabMyCatsBlock ul li:after			{ font-family: 'KCals'; content: '\f105'; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; text-indent: 0; }
+#tabMyCatsBlock ul li:after			{ font-family: KCals; content: '\f105'; position: absolute; top: 0px; right: 12px; font-size: 36px; line-height: 48px; height: 44px; width: 36px; color: #ccc; display: inline-block; text-indent: 0; }
 /*ICONS*/
 .searcheable:after,
-#tabMyCatsBlock div:before			{ font-family: 'KCals'; text-indent: 15px; font-size: 28px; width: 20px; color: #ABBFEC; position: absolute; top: 25%; left: 0; }
+#tabMyCatsBlock div:before			{ font-family: KCals; text-indent: 15px; font-size: 28px; width: 20px; color: #ABBFEC; position: absolute; top: 25%; left: 0; }
 #tabMyCatsBlock div:before			{ color: #000; top: 0; }
 #cat0300, #cat3500					{ display: none !important; }
 .cat0000:after,#cat0000 div:before	{ content: '\F17D'; top: -2px !important; color: #D55621; }
@@ -1601,7 +1601,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #appStores							{ position: relative; display: block; height: 90%; min-height: 250px; max-height: 920px; }
 #appStores span						{ position: relative; display: block; float: left; font-size: 36px; color: #222; width: 33.333%; height: 29%; text-align: center; }
 #appStores span.button				{ color: #ccc; }
-#appStores span:before				{ font-family: 'KCals'; display: block; position: absolute; top: 37%; left: 0; width: 100%; text-align: center; }
+#appStores span:before				{ font-family: KCals; display: block; position: absolute; top: 37%; left: 0; width: 100%; text-align: center; }
 #b000:before						{ content: '\B000'; }
 #b100:before						{ content: '\B100'; }
 #b200:before						{ content: '\B200'; }
@@ -1684,7 +1684,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 .ios7 #screenInfo.info_swipe_left #textBlock	{ top: 80px; }
 #screenInfo.info_swipe_left #circleFocus:before,
 #screenInfo.info_swipe_left #circleFocus:after	{ position: absolute; top: 220px !important; right: 80px!important; left: auto !important; }
-#screenInfo.info_swipe_left:before  			{ font-family: kcals; content: '\C099'; position: absolute; top: 232px; right: 96px; padding: 50px; display: block; color: #4285F4; font-size: 120px; -webkit-transform: scaleX(-1); }
+#screenInfo.info_swipe_left:before  			{ font-family: KCals; content: '\C099'; position: absolute; top: 232px; right: 96px; padding: 50px; display: block; color: #4285F4; font-size: 120px; -webkit-transform: scaleX(-1); }
 /*type food*/
 #screenInfo.info_type_food #circleFocus:before,
 #screenInfo.info_type_food #circleFocus:after				{ top: -25px !important; left: 12px !important; }

@@ -1692,7 +1692,7 @@ function buildAdvancedMenu() {
 	};
 	//GET VERSION.TXT WITH FALLBACK
 	app.handlers.activeRow('#advancedChangelog','activeRow',function(evt) {
-		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/' + 'version.txt',
+		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'chronoburn.com/' + 'version.txt',
 			error: function(xhr, statusText) {
 				//RETRY LOCAL
 				$.ajax({type: 'GET', dataType: 'text', url: 'version.txt',

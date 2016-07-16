@@ -843,11 +843,11 @@ if(app.device.osxapp) {
 	$('body').addClass('osxapp');
 	//ADD MENU (RESET SETTINGS)
 	try {
-		if(macgap.menu.getItem('KCals').submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
-			macgap.menu.getItem('KCals').submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
+		if(macgap.menu.getItem('ChronoBurn').submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
+			macgap.menu.getItem('ChronoBurn').submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
 		}
-		macgap.menu.getItem('KCals').submenu().addSeparator();
-		macgap.menu.getItem('KCals').submenu().addItem(LANG.SETTINGS_WIPE[lang], 'cmd+opt+r', function() {
+		macgap.menu.getItem('ChronoBurn').submenu().addSeparator();
+		macgap.menu.getItem('ChronoBurn').submenu().addItem(LANG.SETTINGS_WIPE[lang], 'cmd+opt+r', function() {
 			appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
 				if(button === 2) {
 					deSetup();

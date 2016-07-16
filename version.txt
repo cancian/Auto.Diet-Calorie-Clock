@@ -9,7 +9,7 @@
 • Daily tips
 
 # 2.0.0 [2016/07/15]
-• <strong class="blue">KCals</strong> has been renamed to <strong class="red">ChronoBurn</strong>, in order to reflect its purpose more accurately
+• <strong>KCals</strong> has been renamed to <strong class="red">ChronoBurn</strong>, in order to reflect its purpose more accurately
 
 # 1.9.18 [2016/07/05]
 • Fixed issue with some users not being able to type dots for decimal values

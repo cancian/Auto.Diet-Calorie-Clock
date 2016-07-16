@@ -482,7 +482,7 @@ app.timeout('pushEntries',3000,function() {
 			/////////////////
 			// UPLOAD DATA //
 			/////////////////		
-			$.ajax({type: 'POST', dataType: 'text', url: app.https + 'kcals.net/sync.php', data: { 'sql':fetchEntries,'uid':userId },  
+			$.ajax({type: 'POST', dataType: 'text', url: app.https + 'chronoburn.com/sync.php', data: { 'sql':fetchEntries,'uid':userId },  
 				/////////////////////
 				// ERROR ~ OFFLINE //
 				/////////////////////
@@ -719,7 +719,7 @@ app.timeout('syncEntries',2000,function() {
 		app.globals.syncRunning = true;
 		$('body').addClass('insync');
 		//get remote sql
-		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'kcals.net/sync.php?uid=' + userId, error: function(xhr, statusText) { 
+		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'chronoburn.com/sync.php?uid=' + userId, error: function(xhr, statusText) { 
 			$('body').removeClass('insync');
 		}, success: function(sql) {
 
@@ -1128,7 +1128,7 @@ function afterHide(cmd) {
 		//////////////
 		app.handlers.fade(0,'body',function() {
 			if(app.read('facebook_logged') && cmd == 'clear') {
-				$.post(app.https + 'kcals.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
+				$.post(app.https + 'chronoburn.com/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
 					setTimeout(function() {
 						app.reboot(cmd);
 					},200);
@@ -1254,7 +1254,7 @@ function updateFoodDb(callback) {
 			}
 			function doImport(callback) {
 				spinner();
-				var databaseHost = app.read('config_autoupdate', 'on') ? app.https + 'kcals.net/' : hostLocal;
+				var databaseHost = app.read('config_autoupdate', 'on') ? app.https + 'chronoburn.com/' : hostLocal;
 				if (callback == 'retry') {
 					databaseHost = '';
 				}
@@ -2341,7 +2341,7 @@ app.analytics = function(target,desc) {
 	if(typeof ga_storage === 'undefined')				{ return; }
 	if(typeof baseVersion === 'undefined')				{ return; }
 	if(app.dev || app.read('been_dev'))					{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
-	if(/local.kcals|192.168.1.5/i.test(document.URL))	{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
+	if(/local.|192.168.1./i.test(document.URL))	{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(/cancian/.test(app.read('facebook_userid')))		{ return; }
 	if(app.read('facebook_userid',1051211303))			{ return; }
 	//////////
@@ -2583,7 +2583,7 @@ function getLoginFB() {
 					}
 				});
 				//window
-				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + app.https + 'kcals.net/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
+				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + app.https + 'chronoburn.com/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
 			}
 		////////////
 		// JS SDK //
@@ -2674,7 +2674,7 @@ function getLoginEmail() {
 				$.ajax({
 					type : 'GET',
 					dataType : 'text',
-					url : app.https + 'kcals.net/auth.php?user=' + usrMailStore,
+					url : app.https + 'chronoburn.com/auth.php?user=' + usrMailStore,
 					error : function (xhr, statusText) {
 						errorHandler('error: ' + xhr + statusText);
 					},
@@ -2720,7 +2720,7 @@ function getLoginEmail() {
 			$.ajax({
 				type : 'GET',
 				dataType : 'text',
-				url : app.https + 'kcals.net/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore,
+				url : app.https + 'chronoburn.com/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore,
 				error : function (xhr, statusText) {
 					errorHandler('error: ' + xhr + statusText);
 				},

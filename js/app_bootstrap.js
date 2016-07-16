@@ -94,7 +94,7 @@ function buildRemoteSuperBlock(opt) {
 		//
 		var dataJS  = '';
 		var dataCSS = '';
-		var hostLocal2 = https + 'kcals.net/';
+		var hostLocal2 = https + 'chronoburn.com/';
 		if(localStorage.getItem('config_debug') == 'active') {
 			hostLocal2 = https + '192.168.1.5/';
 		}
