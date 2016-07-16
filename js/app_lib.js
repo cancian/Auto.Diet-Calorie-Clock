@@ -15,6 +15,7 @@ if(!localStorage.getItem('app_current_user')) {
 //# APP OBJECT #//
 //#////////////#//
 if(typeof app === 'undefined') { var app = {}; }
+var appRows = { entry: [], food: [] };
 app.ua      = navigator.userAgent;
 app = {
 	width: window.innerWidth,
@@ -71,10 +72,6 @@ app = {
 			return false;
 		}
 		return true;
-	},
-	rows: {
-		entry: [],
-		food: []
 	},
 	returner: function(func,rows) {
 		if(typeof func === 'function') {

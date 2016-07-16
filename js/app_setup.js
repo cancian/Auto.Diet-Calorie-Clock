@@ -177,9 +177,9 @@ function initDB(t) {
 	///////////
 	(function () {
 		app.read('diary_entry', function (rows) {
-			app.rows.entry = rows;
+			appRows.entry = rows;
 			app.read('diary_food', function (rows) {
-				app.rows.food = rows;
+				appRows.food = rows;
 				////////////////
 				// SHOW INTRO //
 				////////////////
@@ -221,11 +221,11 @@ function deSetup(callback) {
 // CLEAR ENTRIES //
 ///////////////////
 function clearEntries(callback) {
-	for(var i=0, len=app.rows.entry.length; i<len; i++) {
-		app.rows.entry[i].info = 'deleted';
+	for(var i=0, len=appRows.entry.length; i<len; i++) {
+		appRows.entry[i].info = 'deleted';
 	}
-	app.save('diary_entry',app.rows.entry,function(rows) {
-		app.rows.entry = rows;
+	app.save('diary_entry',appRows.entry,function(rows) {
+		appRows.entry = rows;
 		setPush();
 		callback();
 	});
@@ -335,7 +335,7 @@ function rebuildLocalStorage(lsp) {
 // FETCH ENTRIES //
 ///////////////////
 function fetchEntries(callback) {
-	callback(app.rows.entry.sortbyattr('published','desc'));
+	callback(appRows.entry.sortbyattr('published','desc'));
 }
 //#//////////////////////#//
 //# ONLINE: PUSH ENTRIES #//
@@ -562,9 +562,9 @@ function setComplete() {
 ///////////////
 function rowsLoop(sqlEntry, hive, callback) {
 	if (hive === 'diary_entry') {
-		rows = app.rows.entry;
+		rows = appRows.entry;
 	} else {
-		rows = app.rows.food;
+		rows = appRows.food;
 		hive = 'diary_food';
 	}
 	//////////////////
@@ -600,9 +600,9 @@ function rowsLoop(sqlEntry, hive, callback) {
 	}
 	//UPDATE CACHE
 	if (hive === 'diary_entry') {
-		app.rows.entry = rows;
+		appRows.entry = rows;
 	} else {
-		app.rows.food  = rows;
+		appRows.food  = rows;
 	}
 	////////////////////
 	// WRITE CALLBACK //
@@ -771,10 +771,10 @@ app.timeout('syncEntries',2000,function() {
 // GET ENTRIES //
 /////////////////
 function getEntries(callback) {
-	var rowsArray = app.rows.entry;
+	var rowsArray = appRows.entry;
 
-	if (app.rows.entry) {
-		if (app.rows.entry.length) {
+	if (appRows.entry) {
+		if (appRows.entry.length) {
 			rowsArray = rowsArray.filter(function (row) {
 				if (row.info !== 'deleted') {
 					return row;
@@ -783,9 +783,9 @@ function getEntries(callback) {
 		}
 	}
 	/*
-	for (var i = 0, len = app.rows.entry.length; i < len; i++) {
-		if (app.rows.entry[i].info !== 'deleted') {
-			rowsArray.push(app.rows.entry[i]);
+	for (var i = 0, len = appRows.entry.length; i < len; i++) {
+		if (appRows.entry[i].info !== 'deleted') {
+			rowsArray.push(appRows.entry[i]);
 		}
 	}
 	*/
@@ -795,9 +795,9 @@ function getEntries(callback) {
 // GET ENTRY //
 ///////////////
 function getEntry(eid,callback) {
-	for(var i=0, len=app.rows.entry.length; i<len; i++) {
-		if(app.rows.entry[i].id == eid) {
-			callback(app.rows.entry[i]);
+	for(var i=0, len=appRows.entry.length; i<len; i++) {
+		if(appRows.entry[i].id == eid) {
+			callback(appRows.entry[i]);
 			break;
 		}
 	}
@@ -811,27 +811,27 @@ function updateEntry(data,callback) {
 	if(endDate == '0000') {
 		data.published = data.published.split(endDate).join(endId);
 	}
-	for(var i=0, len=app.rows.entry.length; i<len; i++) {
-		if(app.rows.entry[i].id == data.id) {
-			app.rows.entry[i].id        = data.id;
-			app.rows.entry[i].title     = parseInt(data.title);
-			app.rows.entry[i].body      = data.body;
-			app.rows.entry[i].published = parseInt(data.published);
-			app.rows.entry[i].info      = '';
-			app.rows.entry[i].kcal      = '';
-			app.rows.entry[i].pro       = data.pro;
-			app.rows.entry[i].car       = data.car;
-			app.rows.entry[i].fat       = data.fat;
-			app.rows.entry[i].fib       = '';
-			app.rows.entry[i].fii       = data.fii;
-			app.rows.entry[i].sug       = data.sug;
-			app.rows.entry[i].sod       = data.sod;
+	for(var i=0, len=appRows.entry.length; i<len; i++) {
+		if(appRows.entry[i].id == data.id) {
+			appRows.entry[i].id        = data.id;
+			appRows.entry[i].title     = parseInt(data.title);
+			appRows.entry[i].body      = data.body;
+			appRows.entry[i].published = parseInt(data.published);
+			appRows.entry[i].info      = '';
+			appRows.entry[i].kcal      = '';
+			appRows.entry[i].pro       = data.pro;
+			appRows.entry[i].car       = data.car;
+			appRows.entry[i].fat       = data.fat;
+			appRows.entry[i].fib       = '';
+			appRows.entry[i].fii       = data.fii;
+			appRows.entry[i].sug       = data.sug;
+			appRows.entry[i].sod       = data.sod;
 			break;
 		}
 	}
 	//return id/date pair
 	callback(data.id,data.published);
-	app.save('diary_entry',app.rows.entry,function(rows) {
+	app.save('diary_entry',appRows.entry,function(rows) {
 		setPush();
 	});
 }
@@ -839,14 +839,14 @@ function updateEntry(data,callback) {
 //# DB: DELETE ENTRY #//
 //#//////////////////#//
 function deleteEntry(entry,callback) {
-	for(var i=0, len=app.rows.entry.length; i<len; i++) {
-		if(app.rows.entry[i].id == entry.id) {
-			app.rows.entry[i].info = 'deleted';
+	for(var i=0, len=appRows.entry.length; i<len; i++) {
+		if(appRows.entry[i].id == entry.id) {
+			appRows.entry[i].info = 'deleted';
 			break;
 		}
 	}
-	app.save('diary_entry',app.rows.entry,function(rows) {
-		//app.rows.entry = rows;
+	app.save('diary_entry',appRows.entry,function(rows) {
+		//appRows.entry = rows;
 		setPush();
 		if(callback) {
 			callback();
@@ -862,9 +862,9 @@ function saveEntry(data,callback) {
 	////////////////
 	if(data.raw == true) {
 		//SAVE
-		app.rows.entry.push(data);
-		app.save('diary_entry',app.rows.entry,function(rows) {
-			app.rows.entry = rows;
+		appRows.entry.push(data);
+		app.save('diary_entry',appRows.entry,function(rows) {
+			appRows.entry = rows;
 			setPush();
 			if(callback) {
 				callback();
@@ -883,9 +883,9 @@ function saveEntry(data,callback) {
 			//schedule
 			saveTime = saveTime + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
 		}
-		app.rows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib, fii: data.fii, sug: data.sug, sod: data.sod});
-		app.save('diary_entry',app.rows.entry,function(rows) {
-			app.rows.entry = rows;
+		appRows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib, fii: data.fii, sug: data.sug, sod: data.sod});
+		app.save('diary_entry',appRows.entry,function(rows) {
+			appRows.entry = rows;
 			setPush();
 			getRateDialog();
 			if(callback) {
@@ -896,14 +896,14 @@ function saveEntry(data,callback) {
 	// UPDATE BODY //
 	/////////////////
 	} else if(data.id && !data.title) {
-		for(var i=0, len=app.rows.entry.length; i<len; i++) {
-			if(app.rows.entry[i].id == data.id) {
-				app.rows.entry[i].body = data.body;
+		for(var i=0, len=appRows.entry.length; i<len; i++) {
+			if(appRows.entry[i].id == data.id) {
+				appRows.entry[i].body = data.body;
 				break;
 			}
 		}
-		app.save('diary_entry',app.rows.entry,function(rows) {
-			app.rows.entry = rows;
+		app.save('diary_entry',appRows.entry,function(rows) {
+			appRows.entry = rows;
 			setPush();
 			if(callback) {
 				callback();
@@ -913,14 +913,14 @@ function saveEntry(data,callback) {
 	//////////////////
 	// UPDATE TITLE //
 	//////////////////
-		for(var i=0, len=app.rows.entry.length; i<len; i++) {
-			if(app.rows.entry[i].id == data.id) {
-				app.rows.entry[i].title = data.title;
+		for(var i=0, len=appRows.entry.length; i<len; i++) {
+			if(appRows.entry[i].id == data.id) {
+				appRows.entry[i].title = data.title;
 				break;
 			}
 		}
-		app.save('diary_entry',app.rows.entry,function(rows) {
-			app.rows.entry = rows;
+		app.save('diary_entry',appRows.entry,function(rows) {
+			appRows.entry = rows;
 			setPush();
 			if(callback) {
 				callback();
@@ -930,10 +930,10 @@ function saveEntry(data,callback) {
 	/////////////////
 	// INSERT FULL //
 	/////////////////
-		app.rows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: '', fii: data.fii, sug: data.sug, sod: data.sod});
+		appRows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: '', fii: data.fii, sug: data.sug, sod: data.sod});
 		//SAVE
-		app.save('diary_entry',app.rows.entry,function(rows) {
-			app.rows.entry = rows;
+		app.save('diary_entry',appRows.entry,function(rows) {
+			appRows.entry = rows;
 			setPush();
 			app.analytics('add');
 			getRateDialog();
@@ -945,10 +945,10 @@ function saveEntry(data,callback) {
 	//////////////////
 	// INSERT QUICK //
 	//////////////////
-		app.rows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: '', car: '', fat: '', fib: '', fii: '', sug: '', sod: ''});
+		appRows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: '', car: '', fat: '', fib: '', fii: '', sug: '', sod: ''});
 		//SAVE
-		app.save('diary_entry',app.rows.entry,function(rows) {
-			app.rows.entry = rows;
+		app.save('diary_entry',appRows.entry,function(rows) {
+			appRows.entry = rows;
 			setPush();
 			app.analytics('add');
 			getRateDialog();
@@ -964,32 +964,32 @@ function saveEntry(data,callback) {
 function setFood(data, callback) {
 	if(data.act == 'update') {
 		//UPDATE
-		for(var i=0, len=app.rows.food.length; i<len; i++) {
-			if(app.rows.food[i].id == data.id) {
-				app.rows.food[i].id   = data.id;
-				app.rows.food[i].type = data.type;
-				app.rows.food[i].code = data.code;
-				app.rows.food[i].name = data.name;
-				app.rows.food[i].term = data.term;
-				app.rows.food[i].kcal = data.kcal;
-				app.rows.food[i].pro  = data.pro;
-				app.rows.food[i].car  = data.car;
-				app.rows.food[i].fat  = data.fat;
-				app.rows.food[i].fib  = data.fib;
-				app.rows.food[i].fii  = data.fii;
-				app.rows.food[i].sug  = data.sug;
-				app.rows.food[i].sod  = data.sod;
+		for(var i=0, len=appRows.food.length; i<len; i++) {
+			if(appRows.food[i].id == data.id) {
+				appRows.food[i].id   = data.id;
+				appRows.food[i].type = data.type;
+				appRows.food[i].code = data.code;
+				appRows.food[i].name = data.name;
+				appRows.food[i].term = data.term;
+				appRows.food[i].kcal = data.kcal;
+				appRows.food[i].pro  = data.pro;
+				appRows.food[i].car  = data.car;
+				appRows.food[i].fat  = data.fat;
+				appRows.food[i].fib  = data.fib;
+				appRows.food[i].fii  = data.fii;
+				appRows.food[i].sug  = data.sug;
+				appRows.food[i].sod  = data.sod;
 				break;
 			}
 		}
 		callback();
-		app.save('diary_food',app.rows.food,function(rows) {
-			app.rows.food = rows;
+		app.save('diary_food',appRows.food,function(rows) {
+			appRows.food = rows;
 			setPush();
 		});
 	} else {
 	//INSERT
-		app.rows.food.push({
+		appRows.food.push({
 			id:   data.id,
 			type: data.type,
 			code: data.code,
@@ -1005,8 +1005,8 @@ function setFood(data, callback) {
 			sod:  data.sod,
 		});
 		callback();
-		app.save('diary_food',app.rows.food,function(rows) {
-			app.rows.food = rows;
+		app.save('diary_food',appRows.food,function(rows) {
+			appRows.food = rows;
 			setPush();
 		});
 	}
@@ -1015,9 +1015,9 @@ function setFood(data, callback) {
 // GET FOOD //
 //////////////
 function getFood(foodId,callback) {
-	for(var i=0, len=app.rows.food.length; i<len; i++) {
-		if(app.rows.food[i].id == foodId) {
-			callback(app.rows.food[i]);
+	for(var i=0, len=appRows.food.length; i<len; i++) {
+		if(appRows.food[i].id == foodId) {
+			callback(appRows.food[i]);
 			break;
 		}
 	}
@@ -1027,19 +1027,19 @@ function getFood(foodId,callback) {
 /////////////////
 function delFood(foodId, callback) {
 	var rowsArray = [];
-	for(var i=0, len=app.rows.food.length; i<len; i++) {
-		if(app.rows.food[i]) {
-			if(!foodId.contains(app.rows.food[i].id)) {
-				rowsArray.push(app.rows.food[i]);
+	for(var i=0, len=appRows.food.length; i<len; i++) {
+		if(appRows.food[i]) {
+			if(!foodId.contains(appRows.food[i].id)) {
+				rowsArray.push(appRows.food[i]);
 			}
 		}
 	}
-	app.rows.food = rowsArray;
+	appRows.food = rowsArray;
 	if(callback) {
 		callback();
 	}
 	app.save('diary_food',rowsArray,function(rows) {
-		app.rows.food = rows;
+		appRows.food = rows;
 		setPush();
 	});
 }
@@ -1055,11 +1055,11 @@ function getCustomList(listType,filter) {
 		if(listType == '9999') { orType = 'food';     }
 		if(listType == '0000') { orType = 'exercise'; }
 		var rowsArray = [];
-		var i = app.rows.food.length;
+		var i = appRows.food.length;
 		while(i--) {
-			if(app.rows.food[i]) {
-				if(app.rows.food[i].type === listType || app.rows.food[i].type === orType) {
-					rowsArray.push(app.rows.food[i]);
+			if(appRows.food[i]) {
+				if(appRows.food[i].type === listType || appRows.food[i].type === orType) {
+					rowsArray.push(appRows.food[i]);
 				}
 			}
 		}
@@ -1069,11 +1069,11 @@ function getCustomList(listType,filter) {
 	//////////////
 	} else if(listType == 'fav') {
 		var rowsArray = [];
-		for(var i=0, len=app.rows.food.length; i<len; i++) {
-			if(app.rows.food[i]) {
-				if(app.rows.food[i].fib) {
-					if(app.rows.food[i].fib === 'fav') {
-						rowsArray.push(app.rows.food[i]);
+		for(var i=0, len=appRows.food.length; i<len; i++) {
+			if(appRows.food[i]) {
+				if(appRows.food[i].fib) {
+					if(appRows.food[i].fib === 'fav') {
+						rowsArray.push(appRows.food[i]);
 					}
 				}
 			}
@@ -1084,11 +1084,11 @@ function getCustomList(listType,filter) {
 	////////////////////////
 	} else {
 		var rowsArray = [];
-		for(var i=0, len=app.rows.food.length; i<len; i++) {
-			if(app.rows.food[i]) {
-				if(app.rows.food[i].id) {
-					if((JSON.stringify(app.rows.food[i].id)).length >= 13) {
-						rowsArray.push(app.rows.food[i]);
+		for(var i=0, len=appRows.food.length; i<len; i++) {
+			if(appRows.food[i]) {
+				if(appRows.food[i].id) {
+					if((JSON.stringify(appRows.food[i].id)).length >= 13) {
+						rowsArray.push(appRows.food[i]);
 					}
 				}
 			}
@@ -1100,15 +1100,15 @@ function getCustomList(listType,filter) {
 // SET FAV //
 /////////////
 function setFav(data, callback) {
-	for(var i=0, len=app.rows.food.length; i<len; i++) {
-		if(app.rows.food[i].id == data.id) {
-			app.rows.food[i].fib = data.fib;
+	for(var i=0, len=appRows.food.length; i<len; i++) {
+		if(appRows.food[i].id == data.id) {
+			appRows.food[i].fib = data.fib;
 			break;
 		}
 	}
 	callback();
-	app.save('diary_food',app.rows.food,function(rows) {
-		app.rows.food = rows;
+	app.save('diary_food',appRows.food,function(rows) {
+		appRows.food = rows;
 		setPush();
 	});
 }
@@ -1189,7 +1189,7 @@ function updateFoodDb(callback) {
 				if (trim(app.read('customFavSql')) != '') {
 					postCustom += trim(app.read('customFavSql'));
 				}
-				app.rows.food = rowsArray;
+				appRows.food = rowsArray;
 				app.save('diary_food', rowsArray, function () {
 					insertOrUpdate(postCustom, function () {
 						//success

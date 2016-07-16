@@ -777,7 +777,7 @@ $(document).on("pageReload", function (evt) {
 //#/////////////////#//
 function searchFood(searchSQL, callback) {
 	var typeTerm = app.read('searchType','exercise') ? 'exercise' : 'food';
-	var dato = app.rows.food;
+	var dato = appRows.food;
 	var keyJunk = 0;
 	var keyScore = 0;
 	var mi = [];

@@ -1961,7 +1961,7 @@ function getCategory(catId, callback) {
 		orType = 'exercise';
 	}
 	var rowsArray = [];
-	var i = app.rows.food.length;
+	var i = appRows.food.length;
 	////////////
 	// RECENT //
 	////////////
@@ -1969,9 +1969,9 @@ function getCategory(catId, callback) {
 		//var recentArray = app.read('app_recent_items');
 		var recentArray = app.read('app_recent_items', '', 'object');
 		while (i--) {
-			if (recentArray.length > 0 && app.rows.food[i]) {
-				if (recentArray.contains('#' + app.rows.food[i].id + '#')) {
-					var recentRow = app.rows.food[i];
+			if (recentArray.length > 0 && appRows.food[i]) {
+				if (recentArray.contains('#' + appRows.food[i].id + '#')) {
+					var recentRow = appRows.food[i];
 					for (var r = 0, len = recentArray.length; r < len; r++) {
 						if ('#' + recentRow.id + '#' == recentArray[r].id) {
 							recentRow.time = recentArray[r].time;
@@ -1988,9 +1988,9 @@ function getCategory(catId, callback) {
 		//////////////////
 	} else {
 		while (i--) {
-			if (app.rows.food[i]) {
-				if (app.rows.food[i].type === catId || app.rows.food[i].type === orType) {
-					rowsArray.push(app.rows.food[i]);
+			if (appRows.food[i]) {
+				if (appRows.food[i].type === catId || appRows.food[i].type === orType) {
+					rowsArray.push(appRows.food[i]);
 				}
 			}
 		}
