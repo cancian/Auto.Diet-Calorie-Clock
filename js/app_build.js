@@ -902,8 +902,12 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// SAVE ENTRY (SUBMIT BUTTON) //
 	////////////////////////////////
 	$('#entrySubmit').on(touchstart, function(evt) {
-		evt.preventDefault();
+		app.suspend('.carpe-slider-knob',600);
+		$('.carpe-slider-knob').trigger(touchcancel);
 		slider.save();
+		$(window).trigger('resize');
+		slider.reset();
+		$('#loadingDiv').css('opacity',0);
 	});
 	/////////////////////////
 	// SLIDER UPDATE EVENT //
