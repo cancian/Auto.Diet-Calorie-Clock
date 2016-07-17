@@ -2,14 +2,18 @@
 <html>
 <head>
 <title>ChronoBurn - Real-Time Calorie Counter</title>
-<meta name="Description" content="ChronoBurn is a real-time calorie counter that simulates the human metabolism.">
 <meta charset="utf-8" />
+<meta name="Description" content="Real-Time Calorie Counter and Metabolism Simulator">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="css/index.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/fonts.css" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-html, body {
+body {
 	overflow: auto !important;
+	overflow-x: hidden !important;
+	overflow-y: auto !important;
+	-webkit-overflow-scrolling: touch !important;
 }
 #developedBy, a {
 	color: #000 !important;
@@ -21,35 +25,46 @@ html, body {
 #developedBy	{ padding-top: 16px !important; height: 60px !important; display: block; border-top: 1px solid #ccc; background-color: #f5f5f5; font-weight: bold; }
 
 #appStores span {
+	height: 115px;
 	font-size: 16px;
+	white-space: nowrap;
 }
 #appStores span:before {
 	font-size: 36px;
-	margin-top: -20px;
+	margin-top: -15px;
 }
 h1, h1 a {
 	white-space: nowrap;
 	text-decoration: underline !important;
-	color: #000 !important;
+	color: #111 !important;
 }
 
 h2 {
 	padding-top: 5px;
 	font-size: 24px;
+	white-space:nowrap;
 }
 #icons {
 	display: block;
 }
+
+#b000 { display: none !important; }
 
 #appStores span:before {
 	font-size: 48px !important;
 }
 #helpTopics { margin: 24px; display: block; }
 .title		{ border-bottom: 3px solid #000; font-weight: bold; font-size: 32px; display: block; line-height: 42px; margin-bottom: 36px; margin-top: 36px; }
-.topic		{ font-weight: bold !important; font-size: 24px !important; display: block !important; line-height: 42px; color: #22E !important; margin-top: 44px !important; margin-bottom: 10px; }
-.content	{ font-weight: normal!important; font-size: 18px!important; display: block !important; line-height: 154% !important; color: #000 !important; }
+.topic		{ font-weight: bold !important; font-size: 18px !important; display: block !important; line-height: 28px; color: #22E !important; margin-top: 48px !important; margin-bottom: 8px; }
+.content	{ font-weight: normal!important; font-size: 14px!important; display: block !important; line-height: 154% !important; color: #000 !important; }
 p			{ display: block !important; }
 p+p			{ margin-top: 12px !important; }
+
+@media all and (max-width: 1024px) {
+body			{ zoom: 1.3 !important; }
+#appStores span { font-size: 12px; }
+h2				{ font-size: 18px; }
+}
 </style>
 </head>
 <body>
@@ -93,7 +108,7 @@ $('#helpTopics').html('<div class="title">' + LANG.SETTINGS_HELP['en'] + '</div>
 
 <div id="developedBy">Developed by <a href="http://www.amazon.com.br/s?_encoding=UTF8&field-author=Andre%20Cancian&search-alias=digital-text" target="_blank">André Cancian</a><span id="contactDeveloper"><a href="mailto:cancian@kcals.net">cancian@chronoburn.com</a></span></div>
 </div>
-<div alt="KCals on Facebook" style="position: absolute; top: 28px; z-index: 500; right: 0px; text-align: left; width: 120px; display: block; height: 31px; overflow: hidden; text-align: left;">
+<div alt="KCals on Facebook" style="position: absolute; top: 28px; z-index: 500; left: 230px; text-align: left; width: 100px; display: block; height: 31px; overflow: hidden; text-align: left;">
   <iframe src="https://www.facebook.com/plugins/like.php?href=https://www.facebook.com/kcals.net&amp;layout=button_count&amp;show_faces=false&amp;width=85&amp;action=like&amp;colorscheme=light&amp;height=31" scrolling="no" style="border:none; overflow: hidden; width:160px; height: 35px;" allowtransparency="true" frameborder="0"></iframe>
 </div>
 </body>
