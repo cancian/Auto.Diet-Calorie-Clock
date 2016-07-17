@@ -58,9 +58,12 @@ desc  = trim(desc);
 // KEY DUMP //
 //////////////
 var keyList = 
-'kcal,' +
+//'kcal,' +
 LANG.CALORIE[lang]         + ',' +
 LANG.CALORIE_CLOCK[lang]   + ',' +
+LANG.CALORIE_COUNTER[lang] + ',' +
+LANG.REALTIME_CALORIES[lang] + ',' +
+LANG.REALTIME_CALORIE_COUNTER[lang] + ',' +
 LANG.FATT[lang]            + ',' +
 LANG.WEIGHT_LOSS[lang]     + ',' +
 LANG.LOSE_WEIGHT[lang]     + ',' +
@@ -85,7 +88,7 @@ LANG.MENU_PROFILE[lang];
 keyList = keyList.split('undefined').join('');
 keyList = keyList.split(' ').join(',');
 keyList = keyList.split(',,').join(',');
-keyList = keyList.split('-').join('');
+//keyList = keyList.split('-').join('');
 keyList = keyList.split(',de,').join(',');
 keyList = keyList.split(',du,').join(',');
 keyList = keyList.split(',di,').join(',');
