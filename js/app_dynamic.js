@@ -531,6 +531,15 @@ $(document).on("pageload", function (evt) {
 //# DYNAMIC HANDLERS 2.0 #//
 //#//////////////////////#//
 $(document).on("pageReload", function (evt) {
+	//Windows 8.1 crashes if db loads here
+	if (app.device.desktop && app.device.windows81 && !app.device.windows10 && !app.read('foodDbLoaded','done')) {
+		updateFoodDb();
+		app.timeout('pageReload',100,function() {
+			$(document).trigger("pageReload");
+		});
+		return;
+	}
+	//
 	evt.preventDefault();
 	//PREVENT DOUBLE LOAD
 	if($('#pageSlideFood').hasClass("busy") && $('#pageSlideFood').hasClass('open')) {
