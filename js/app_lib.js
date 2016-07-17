@@ -409,8 +409,8 @@ app.get.platform = function(noweb) {
 // GLOBAL BOOLEAN //
 ////////////////////
 app.is.scrollable = false;
-if($.nicescroll) {
-	if(app.device.desktop)								{ app.is.scrollable = true; }
+if($.nicescroll && !app.device.msapp && vendorClass != 'msie') {
+	if(app.device.desktop && !app.device.msapp)			{ app.is.scrollable = true; }
 	if(app.device.linux)								{ app.is.scrollable = true; }
 	if(app.device.android && app.device.android < 4.4)	{ app.is.scrollable = true; }
 }
@@ -1428,7 +1428,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 }
 //OVERRIDE TAP
 if (app.device.msapp) {
-	//tap = 'click';
+	tap = 'click';
 }
 ///////////////
 // SAFE EXEC //
@@ -2755,7 +2755,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	var getTime = function () {
 		return new Date().getTime();
 	};
-	nativeEvent.original = app.is.scrollable ? 'click' : 'tap';
+	nativeEvent.original = 'click';
 	nativeEvent.start    = touchstart;
 	nativeEvent.end      = touchend;
 
