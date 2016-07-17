@@ -430,43 +430,42 @@ app.tab.status = function(keepOpen) {
 	// DATEPICKER //
 	////////////////
 	if($.mobiscroll) {
-	$('#startDate').mobiscroll().datetime({
-		preset: 'datetime',
-		minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
-		maxDate: new Date(),
-		theme: 'ios7',
-		lang: 'en',
-		dateFormat: 'yyyy/mm/dd',
-		dateOrder:  'dd MM yy',
-		timeWheels: 'HH:ii',
-	    timeFormat: 'HH:ii',
-		setText: LANG.OK[lang].capitalize(),
-		closeText: LANG.CANCEL[lang].capitalize(),
-		cancelText: LANG.CANCEL[lang].capitalize(),
-		dayText: LANG.DAY[lang].capitalize(),
-		monthText: LANG.MONTH[lang].capitalize(),
-		yearText: LANG.YEAR[lang].capitalize(),
-		hourText: LANG.HOURS[lang].capitalize(),
-		minuteText: LANG.MINUTES[lang].capitalize(),
-		display: 'modal',
-		stepMinute: 1,
-		animate: 'none',
-		monthNames: LANG.MONTH_SHORT[lang].split(', '),
-		monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
-		mode: 'scroller',
-		showLabel: true,
-		useShortLabels: true
-    });
+		$('#startDate').mobiscroll().datetime({
+			preset: 'datetime',
+			minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
+			maxDate: new Date(),
+			theme: 'ios7',
+			lang: 'en',
+			dateFormat: 'yyyy/mm/dd',
+			dateOrder:  'dd MM yy',
+			timeWheels: 'HH:ii',
+		    timeFormat: 'HH:ii',
+			setText: LANG.OK[lang].capitalize(),
+			closeText: LANG.CANCEL[lang].capitalize(),
+			cancelText: LANG.CANCEL[lang].capitalize(),
+			dayText: LANG.DAY[lang].capitalize(),
+			monthText: LANG.MONTH[lang].capitalize(),
+			yearText: LANG.YEAR[lang].capitalize(),
+			hourText: LANG.HOURS[lang].capitalize(),
+			minuteText: LANG.MINUTES[lang].capitalize(),
+			display: 'modal',
+			stepMinute: 1,
+			animate: 'none',
+			monthNames: LANG.MONTH_SHORT[lang].split(', '),
+			monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
+			mode: 'scroller',
+			showLabel: true,
+			useShortLabels: true
+	    });
 	}
-	app.handlers.activeRow('#startDate','button',function(evt) {
-		if(app.device.android && app.device.android < 4.4)  {
-			//
-		} else {
-			//evt.preventDefault();
-			//evt.stopPropagation();
+	/////////////////
+	// DATE PICKER //
+	///////////////// propagation fix
+	$('#startDate',tap,function(evt) {
+		evt.stopPropagation();		
+		app.timeout('startDate',300,function() {
 			$('#startDate').click();
-			return false;
-		}
+		});
 	});
 	//#/////////////////#//
 	//# RELOAD APP ICON #//
