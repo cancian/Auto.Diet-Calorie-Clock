@@ -105,9 +105,9 @@ body.loadingMask #loadMask span {
 body.loadingMask #loadMask:before {
 	display: none;
 }
-/*/////////////////////////////// https://github.com/bgrins/spectrum
-// Spectrum Colorpicker v1.7.1 //
-///////////////////////////////*/ 
+/*///////////////////////////// https://github.com/bgrins/spectrum
+// Spectrum Colorpicker v1.8 //
+/////////////////////////////*/ 
 .sp-container 				{ position:absolute; top:0; left:0; display:inline-block; *display: inline; *zoom: 1; z-index: 9999994; overflow: hidden; }
 .sp-container.sp-flat		{ position: relative; }
 .sp-container,
