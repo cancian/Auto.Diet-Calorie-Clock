@@ -2106,81 +2106,93 @@ function getNiceScroll(target,timeout,callback) {
 		//$('.overthrow').removeClass('overthrow');
 		$(target).addClass('overthrow');
 		$(target).css('overflow','auto');
-		$(target).css('-webkit-overflow-scrolling','touch');
-	}
-	//NICESCROLL
-	setTimeout(function() {
-		//SETTINGS
-		var NSettings = {
-		touchbehavior: false,
-		nativeparentscrolling: true,
-		cursorcolor: 'rgba(0,0,0,1)',
-		cursorborderradius: '0',
-		railpadding: { right: 0,  bottom: 0, top: 2 },
-		cursorborder: '1px solid rgba(255,255,255,0)',
-		cursoropacitymax: .666,
-		cursorwidth: '5px',
-		horizrailenabled: false,
-		hwacceleration: true,
-		rtlmode: false,
-		railalign: 'right',
-		railvalign: 'bottom',
-		zindex: 50
-	};
-	//ADDNEW Z-INDEX (99)
-	if(/addNewWrapper/i.test(target)) {
-		NSettings.zindex = 100;
-		NSettings.railpadding.bottom = 1;
-	}
-	//HIDE FIRST HELPER
-	if(/appHelper/i.test(target)) {
-		//NSettings.zindex = -1;
-		NSettings.cursorcolor = 'rgba(0,0,0,0)';
-	}
-	//HORIZONTAL
-	if($('#appHistory').html()) {
-		NSettings.horizrailenabled = true;
-	}
-	if(app.device.desktop) {
-		NSettings.touchbehavior = true;
-	}
-	//UPDATE LIST
-	if(!app.globals.scrollerList) {
-		app.globals.scrollerList = target;
-	}
-	if(!(app.globals.scrollerList).contains(target)) {
-		app.globals.scrollerList += ',' + target;
-	}
-	//NOTES
-	if(target == '#diaryNotesInput') {
-		if(!app.device.wp8 && !app.device.windows8) {
-			$(target).removeClass('overthrow');
-			$(target).css('overflow','hidden');
-			$(target).niceScroll(NSettings);
-		} else {
-			$(target).addClass('overthrow');
-			$(target).css('overflow','auto');
-		}
-	//APPLY
-	} else {
-		if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
-			$(target).removeClass('overthrow');
-			$(target).css('overflow','hidden');
-			$(target).niceScroll(NSettings);
-		} else {
-			$(target).addClass('overthrow');
-			$(target).css('overflow','auto');
+		if(app.device.ios) {
 			$(target).css('-webkit-overflow-scrolling','touch');
 		}
 	}
-	//CALLBACK
-	if(typeof callback === 'function') {
-		setTimeout(function() {
-			callback();
-		},0);
-	}
-	//
-	niceResizer(120);
+	////////////////
+	// NICESCROLL //
+	////////////////
+	setTimeout(function() {
+		///////////////
+		// NSETTINGS //
+		///////////////
+		var NSettings = {
+			touchbehavior: false,
+			nativeparentscrolling: true,
+			cursorcolor: '#000',
+			cursorborderradius: 0,
+			railpadding: { right: 1,  bottom: 2, top: 2 },
+			cursorborder: '1px solid rgba(0,0,0,.6)',
+			cursoropacitymax: .6,
+			cursorwidth: 3,
+			horizrailenabled: false,
+			autohidemode: true,
+			hidecursordelay: 450,
+			hwacceleration: true,
+			rtlmode: false,
+			railalign: 'right',
+			railvalign: 'bottom',
+			zindex: 50
+		};
+		//ADDNEW Z-INDEX (99)
+		if(/addNewWrapper|lang/i.test(target)) {
+			NSettings.zindex = 100;
+			NSettings.railpadding.bottom = 1;
+		}
+		//HIDE FIRST HELPER
+		if(/appHelper/i.test(target)) {
+			//NSettings.zindex = -1;
+			NSettings.cursorcolor = 'rgba(0,0,0,0)';
+		}
+		//HORIZONTAL
+		if($('#appHistory').html()) {
+			NSettings.horizrailenabled = true;
+		}
+		if(app.device.desktop) {
+			NSettings.touchbehavior = true;
+		}
+		//UPDATE LIST
+		if(!app.globals.scrollerList) {
+			app.globals.scrollerList = target;
+		}
+		if(!(app.globals.scrollerList).contains(target)) {
+			app.globals.scrollerList += ',' + target;
+		}
+		//NOTES
+		if(target == '#diaryNotesInput') {
+			if(!app.device.wp8 && !app.device.windows8) {
+				$(target).removeClass('overthrow');
+				$(target).css('overflow','hidden');
+				$(target).niceScroll(NSettings);
+			} else {
+				$(target).addClass('overthrow');
+				$(target).css('overflow','auto');
+			}
+		//APPLY
+		} else {
+			if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
+				$(target).removeClass('overthrow');
+				$(target).css('overflow','hidden');
+				$(target).niceScroll(NSettings);
+			} else {
+				$(target).addClass('overthrow');
+				$(target).css('overflow','auto');
+				if(app.device.ios) {
+					$(target).css('-webkit-overflow-scrolling','touch');
+				}
+			}
+		}
+		//////////////
+		// CALLBACK //
+		//////////////
+		if(typeof callback === 'function') {
+			setTimeout(function() {
+				callback();
+			},0);
+		}
+		//
+		niceResizer(120);
 	},timeout);
 }
 //#/////////////#//

@@ -2,7 +2,7 @@
 //## JQUERY.NICESCROLL 3.6.0 ##//
 ///##////////////////////////##// https://github.com/inuyaksa/jquery.nicescroll
 (function ($) {
-	//
+	
 	'use strict';
 	
 	// globals
@@ -39,8 +39,8 @@
 	var _globaloptions = {
 		zindex: "auto",
 		cursoropacitymin: 0,
-		cursoropacitymax: .5,
-		cursorcolor: "rgba(0,0,0,0)",
+		cursoropacitymax: .666,
+		cursorcolor: "rgba(0,0,0,.7)",
 		cursorwidth: "4px",
 		cursorborder: "1px solid rgba(255,255,255,0)",
 		cursorborderradius: "0",
@@ -61,7 +61,7 @@
 		railoffset: false,
 		railhoffset: false,
 		bouncescroll: false,
-		spacebarenabled: true,
+		spacebarenabled: false,
 		railpadding: {
 			top: 0,
 			right: 0,
@@ -81,8 +81,8 @@
 		//cursormaxheight:false,
 		cursorfixedheight: false,
 		directionlockdeadzone: 6,
-		hidecursordelay: 350,
-		nativeparentscrolling: false,
+		hidecursordelay: 400,
+		nativeparentscrolling: true,
 		enablescrollonselection: false,
 		overflowx: true,
 		overflowy: true,
