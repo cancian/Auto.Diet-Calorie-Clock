@@ -691,12 +691,12 @@ app.url = function(url) {
 		wp10:       'https://www.microsoft.com/store/apps/9wzdncrdkhz5',
 		windows8:   'http://apps.microsoft.com/windows/app/27631189-ce9d-444e-a46b-31b8f294f14e',
 		windows10:  'https://www.microsoft.com/store/apps/9wzdncrdkhz5',
-		firefoxos:  'https://marketplace.firefox.com/app/kcals',
+		firefoxos:  'https://marketplace.firefox.com/app/chronoburn',
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
-		chromeos:   'https://chrome.google.com/webstore/detail/kcals-calorie-counter/ipifmjfbmblepifflinikiiboakalboc',
+		chromeos:   'https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc',
 		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'https://appworld.blackberry.com/webstore/content/59937667',
 		playbook:   'https://appworld.blackberry.com/webstore/content/59937667',
-		amazon:     'http://www.amazon.com/Kcals-net-KCals-Calorie-Counter/dp/B00NDSQIHK/qid=1411265533'
+		amazon:     'https://www.amazon.com/dp/B00NDSQIHK/qid=1411265533'
 	};
 	//SHORTCUT
 	     if((!url && app.device.ios)        || url == 'ios')         { url = store.ios;        }
