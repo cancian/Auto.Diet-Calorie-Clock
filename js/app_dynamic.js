@@ -534,7 +534,7 @@ $(document).on("pageReload", function (evt) {
 	//pre-load db, then open
 	if (!app.read('foodDbLoaded','done')) {
 		updateFoodDb();
-		app.timeout('pageReload',100,function() {
+		app.timeout('pageReload',200,function() {
 			$(document).trigger("pageReload");
 		});
 		return;
