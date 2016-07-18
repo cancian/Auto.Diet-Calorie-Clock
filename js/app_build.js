@@ -426,38 +426,38 @@ app.tab.status = function(keepOpen) {
 	//#/////////////////////#//
 	//# APP STATUS/DATE BAR #//
 	//#/////////////////////#//
-	////////////////
 	// DATEPICKER //
-	////////////////
-	if($.mobiscroll) {
-		$('#startDate').mobiscroll().datetime({
-			preset: 'datetime',
-			minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
-			maxDate: new Date(),
-			theme: 'ios7',
-			lang: 'en',
-			dateFormat: 'yyyy/mm/dd',
-			dateOrder:  'dd MM yy',
-			timeWheels: 'HH:ii',
-		    timeFormat: 'HH:ii',
-			setText: LANG.OK[lang].capitalize(),
-			closeText: LANG.CANCEL[lang].capitalize(),
-			cancelText: LANG.CANCEL[lang].capitalize(),
-			dayText: LANG.DAY[lang].capitalize(),
-			monthText: LANG.MONTH[lang].capitalize(),
-			yearText: LANG.YEAR[lang].capitalize(),
-			hourText: LANG.HOURS[lang].capitalize(),
-			minuteText: LANG.MINUTES[lang].capitalize(),
-			display: 'modal',
-			stepMinute: 1,
-			animate: 'none',
-			monthNames: LANG.MONTH_SHORT[lang].split(', '),
-			monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
-			mode: 'scroller',
-			showLabel: true,
-			useShortLabels: true
-	    });
-	}
+	app.loadDatePicker = function() {
+		if($.mobiscroll) {
+			$('#startDate').mobiscroll().datetime({
+				preset: 'datetime',
+				minDate: new Date((new Date().getFullYear() - 1),1,1, 0, 0), //LAST YEAR'S START
+				maxDate: new Date(),
+				theme: 'ios7',
+				lang: 'en',
+				dateFormat: 'yyyy/mm/dd',
+				dateOrder:  'dd MM yy',
+				timeWheels: 'HH:ii',
+			    timeFormat: 'HH:ii',
+				setText: LANG.OK[lang].capitalize(),
+				closeText: LANG.CANCEL[lang].capitalize(),
+				cancelText: LANG.CANCEL[lang].capitalize(),
+				dayText: LANG.DAY[lang].capitalize(),
+				monthText: LANG.MONTH[lang].capitalize(),
+				yearText: LANG.YEAR[lang].capitalize(),
+				hourText: LANG.HOURS[lang].capitalize(),
+				minuteText: LANG.MINUTES[lang].capitalize(),
+				display: 'modal',
+				stepMinute: 1,
+				animate: 'none',
+				monthNames: LANG.MONTH_SHORT[lang].split(', '),
+				monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
+				mode: 'scroller',
+				showLabel: true,
+				useShortLabels: true
+		    });
+		}
+	};
 	/////////////////
 	// DATE PICKER //
 	///////////////// propagation fix
@@ -498,10 +498,10 @@ app.tab.status = function(keepOpen) {
 			$('#startDate').blur();
 			$('#appStatusFix').removeClass('open');
 		} else {
+			app.loadDatePicker();
 			$('#appStatusFix').addClass('open');
+			$('#startDate').scroller('setDate',new Date(app.read('config_start_time')), true);
 		}
-		$('#startDate').scroller('setDate',new Date(app.read('config_start_time')), true);
-		return false;
 	});
 	// ON BLUR //
 	var onChange = 0;
