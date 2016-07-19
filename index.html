@@ -77,6 +77,12 @@ body.unloaded *				{ overflow: hidden; }
 </style>
 
 <script type="text/javascript">
+////////////////////////////
+// REDIRECT NEW WEB USERS //
+////////////////////////////
+if(/http/i.test(window.location.protocol) && /kcals.net|clock/i.test(location.hostname) && !/local/i.test(location.hostname) && !localStorage.getItem('intro_dismissed')) {
+	window.location.replace('https://chronoburn.com');
+}
 /////////////////////////
 // MSAPP CONFIRM LAYER //
 /////////////////////////
