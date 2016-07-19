@@ -80,7 +80,7 @@ body.unloaded *				{ overflow: hidden; }
 ////////////////////////////
 // REDIRECT NEW WEB USERS //
 ////////////////////////////
-if(/http/i.test(window.location.protocol) && /kcals.net|clock/i.test(location.hostname) && !/local/i.test(location.hostname) && !localStorage.getItem('intro_dismissed')) {
+if(/http/i.test(window.location.protocol) && /kcals.net|clock/i.test(location.hostname) && !/192|local/i.test(location.hostname) && !localStorage.getItem('intro_dismissed')) {
 	window.location.replace('https://chronoburn.com');
 }
 /////////////////////////
