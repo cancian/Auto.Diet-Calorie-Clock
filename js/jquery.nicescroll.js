@@ -83,7 +83,7 @@
 		directionlockdeadzone: 6,
 		hidecursordelay: 400,
 		nativeparentscrolling: true,
-		enablescrollonselection: false,
+		enablescrollonselection: true,
 		overflowx: true,
 		overflowy: true,
 		cursordragspeed: 0.3,

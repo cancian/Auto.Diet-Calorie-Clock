@@ -47,6 +47,10 @@ script, style, head						{ display: none; }
 ::-ms-selection							{ background-color: rgba(0,0,0,0); color: inherit; }
 ::-moz-selection						{ background-color: rgba(0,0,0,0); color: inherit; }
 ::-webkit-selection						{ background-color: rgba(0,0,0,0); color: inherit; }
+p::selection							{ background-color: rgba(0,0,0,.1); color: inherit; -webkit-user-select: text !important; user-select: text !important; -webkit-user-callout: default !important; -webkit-touch-callout: default !important; }
+p::-ms-selection						{ background-color: rgba(0,0,0,.1); color: inherit; -webkit-user-select: text !important; user-select: text !important; -webkit-user-callout: default !important; -webkit-touch-callout: default !important; }
+p::-moz-selection						{ background-color: rgba(0,0,0,.1); color: inherit; -webkit-user-select: text !important; user-select: text !important; -webkit-user-callout: default !important; -webkit-touch-callout: default !important; }
+p::-webkit-selection					{ background-color: rgba(0,0,0,.1); color: inherit; -webkit-user-select: text !important; user-select: text !important; -webkit-user-callout: default !important; -webkit-touch-callout: default !important; }
 input::selection						{ background-color: rgba(0,0,0,.1); color: inherit; }
 input::-ms-selection					{ background-color: rgba(0,0,0,.1); color: inherit; }
 input::-moz-selection					{ background-color: rgba(0,0,0,.1); color: inherit; }
@@ -699,12 +703,14 @@ ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; posit
 #appHelper h2 #backButton:active		{ color: #ccc; }
 #appHelper h2 #backButton:before		{ font-family: KCals; content: '\f104'; -webkit-backface-visibility: hidden; }
 #appHelper h2 #helpTitle				{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; }
-#appSubHelper h2						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 0px solid #eee;  }
+#appSubHelper h2						{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 0px solid #eee; }
+#appSubHelper h2 *						{  -webkit-user-select: text !important; user-select: text !important; }	
 #appSubHelper h2 #subBackButton			{ position: absolute; top: 0; left: 0; width: 76px; height: 44px; padding-top: 3px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #appSubHelper h2 #subBackButton:active	{ color: #ccc; }
 #appSubHelper h2 #subBackButton:before	{ font-family: KCals; content: '\f104'; -webkit-backface-visibility: hidden; }
 #appSubHelper h2 #subHelpTitle			{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
 #appSubHelper #subHelpContent			{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
+#appSubHelper #subHelpContent *			{ -webkit-user-select: text !important; user-select: text !important; }
 #appSubHelper #subHelpContent p			{ display: block; }
 #appSubHelper #subHelpContent p + p		{ margin-top: 18px; }
 .android #appHelper,

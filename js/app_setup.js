@@ -2156,6 +2156,7 @@ function getNiceScroll(target,timeout,callback) {
 		//HIDE FIRST HELPER
 		if(/appHelper/i.test(target)) {
 			//NSettings.zindex = -1;
+			NSettings.cursorborder = '1px solid rgba(0,0,0,0)';
 			NSettings.cursorcolor = 'rgba(0,0,0,0)';
 		}
 		//HORIZONTAL
@@ -2164,6 +2165,10 @@ function getNiceScroll(target,timeout,callback) {
 		}
 		if(app.device.desktop) {
 			NSettings.touchbehavior = true;
+		}
+		if(/subhelp/i.test(target)) {
+			NSettings.touchbehavior = false;
+			NSettings.enablescrollonselection = true;
 		}
 		//UPDATE LIST
 		if(!app.globals.scrollerList) {

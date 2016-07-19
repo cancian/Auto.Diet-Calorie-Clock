@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.0 (200001)';
+var appVersion = '2.0 (200002)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -7426,7 +7426,7 @@ var LANG = {
 '<p>The <strong>Cyclical Mode</strong> allows you to alternate between two different caloric values along a period of four days.</p><p>Days <strong>(A, B, C)</strong> will use the first value, while day <strong>(D)</strong> will use the second.</p><p>This configuration is typically used to accommodate a “rest day” (maintenance level) in a dieting plan.</p><p>The reason for this is mostly the psychological comfort of having some kind of “reward” to look forward to, making it easier to endure the dieting days.</p><p>A second reason is that the change in calories (theoretically) keeps your body guessing, and make it harder for your body to adjust its metabolism.</p>',
 ///////////////////////////
 'Changing the start date' :
-'<p>The default behaviour of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
+'<p>The default behavior of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
 ///////////////////////
 'Supported platforms' :
 '<p>ChronoBurn is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (cronoburn.com)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
