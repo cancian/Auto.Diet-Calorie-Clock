@@ -1235,19 +1235,32 @@ function updateFoodDb(callback) {
 					app.remove('startLock');
 					spinner('stop');
 					//////////////////////////////////////////
-					if (callback != 'retry' && !app.device.desktop) {
-						//retry
-						//alert('Error downloading database', 'Importing local database instead.');
-						app.timeout('retryDB',500,function() {
+					if (callback != 'retry') {
+						//OFFLINE.APP
+						if(!/http/i.test(window.location.protocol)) {
+							//RETRY LOCAL
 							updateFoodDb('retry');
-							//errorHandler('error: ajax get | xhr: ' + xhr + ' | statusText: ' + statusText);
-						});
-					} else {
-						//give up
-						app.timeout('giveUpDB',500,function() {						
-							errorHandler('error: ajax retry failed | statusText:  Error creating database');
-							alert('Error creating database', 'Please connect to the internet and try again.');
-						});
+							//
+							app.timeout('retryDB',200,function() {
+								//IMPORT LOCAL
+								setTimeout(function() {
+									alert('Error downloading database', 'Importing local database instead.');
+								},100);
+							});
+						} else {
+							//OFFLINE.WEB ~ SKIP
+							if(typeof pageReloads !== 'undefined') {
+								pageReloads = 100;
+							}							
+							app.timeout('giveUpDB',200,function() {						
+								setTimeout(function() {
+									alert('Error downloading database', 'Please connect to the internet and try again.');
+									if(typeof pageReloads !== 'undefined') {
+										pageReloads = 0;
+									}				
+								},100);
+							});
+						}
 					}
 					//////////////////////////////////////////
 				});

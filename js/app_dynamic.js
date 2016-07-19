@@ -530,14 +530,21 @@ $(document).on("pageload", function (evt) {
 //#//////////////////////#//
 //# DYNAMIC HANDLERS 2.0 #//
 //#//////////////////////#//
+var pageReloads = 0;
 $(document).on("pageReload", function (evt) {
 	//pre-load db, then open
 	if (!app.read('foodDbLoaded','done')) {
+		if(pageReloads > 20) { console.log('giving up'); return; }
 		updateFoodDb();
 		app.timeout('pageReload',200,function() {
+			pageReloads++;
+			console.log('trying ' + pageReloads);
 			$(document).trigger("pageReload");
 		});
 		return;
+	} else {
+		//SUCCESS
+		pageReloads = 0;
 	}
 	//
 	evt.preventDefault();
