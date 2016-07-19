@@ -44,42 +44,54 @@ if(window.location.hash) {
 	hash = window.location.hash.substr(1).toUpperCase();
 	lang = window.location.hash.substr(1).toLowerCase()
 }
-
+//★
 $.ajax({type: 'GET', dataType: 'text', url: 'desc.txt', success: function(desc) {
 desc  = desc.split('–' + hash)[1];
 desc  = desc.split(hash + '–')[0];
-//desc = '<strong>:: ' + LANG.THE_ONLY[lang].toUpperCase() + '</strong>' + desc;
+//desc = '<strong>★ ' + LANG.THE_ONLY[lang].toUpperCase() + '</strong>' + desc;
 desc  = desc.split('$KCALS$').join('<strong style="color: #e22;">ChronoBurn</strong>');
-desc += '1 - ' + LANG.INTRO_SLIDE_1[lang] + '\r\n&nbsp;<br>';
-desc += '2 - ' + LANG.INTRO_SLIDE_2[lang] + '\r\n&nbsp;<br>';
-desc += '3 - ' + LANG.INTRO_SLIDE_3[lang] + '\r\n&nbsp;<br>';
-desc += '4 - ' + LANG.INTRO_SLIDE_4[lang] + '\r\n&nbsp;<br>';
-desc += '5 - ' + LANG.INTRO_SLIDE_5[lang] + '\r\n&nbsp;<br>';
+desc += '1 - ' + LANG.INTRO_SLIDE_1[lang] + '<br><br>';
+desc += '2 - ' + LANG.INTRO_SLIDE_2[lang] + '<br><br>';
+desc += '3 - ' + LANG.INTRO_SLIDE_3[lang] + '<br><br>';
+desc += '4 - ' + LANG.INTRO_SLIDE_4[lang] + '<br><br>';
+desc += '5 - ' + LANG.INTRO_SLIDE_5[lang] + '<br><br>';
 desc += '6 - ' + LANG.INTRO_SLIDE_6[lang];
 desc  = desc.split('XXXX').join(LANG.PROTEINS[lang].toLowerCase() + ', ' + LANG.CARBS[lang].toLowerCase() + ', ' + LANG.FATS[lang].toLowerCase());
 desc  = desc.split('XXX').join(LANG.FIBER[lang].toLowerCase() + ', ' + LANG.SUGAR[lang].toLowerCase() + ', ' + LANG.SODIUM[lang].toLowerCase());
 desc  = trim(desc);
-desc  = desc.split('\r\n').join('\r\n&nbsp;<br>');
+desc  = desc.split('\r\n').join('<br>');
+desc  = desc.split('<br><br><br>').join('<br><br>');
+desc  = desc.split('<br><br><br>').join('<br><br>');
+desc  = desc.split('<br><br><br>').join('<br><br>');
+desc  = desc.split(':: ').join('★ ');
+desc  = desc.split('::').join('★');
+desc  = trim(desc);
+desc  = ('<strong>★ ' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong ><br />').toUpperCase() + desc;
+desc  = desc.trim();
+desc  = trimSpace(desc);
+desc  = trimSpaceAll(desc);
+desc  = desc.trim();
 desc  = trim(desc);
 //////////////
 // KEY DUMP //
 //////////////
 var keyList = 
 'cal,kcals,' +
-//LANG.CALORIE[lang]         + ',' +
+LANG.CALORIE[lang]         + ',' +
 LANG.CALORIE_CLOCK[lang]   + ',' +
 LANG.CALORIE_COUNTER[lang] + ',' +
-LANG.REALTIME_CALORIES[lang] + ',' +
-LANG.REALTIME_CALORIE_COUNTER[lang] + ',' +
-LANG.FATT[lang]            + ',' +
 LANG.WEIGHT_LOSS[lang]     + ',' +
 LANG.LOSE_WEIGHT[lang]     + ',' +
+LANG.REALTIME[lang] + ',' +
+LANG.REALTIME_CALORIES[lang] + ',' +
+LANG.REALTIME_CALORIE_COUNTER[lang] + ',' +
+LANG.CALORIC_BALANCE[lang] + ',' +
+LANG.FATT[lang]            + ',' +
 LANG.METABOLISM[lang] + ',' +
 LANG.TIME[lang]            + ',' +
-LANG.MENU_DIARY[lang]      + ',' +
 LANG.EXERCISE[lang]        + ',' +
+LANG.MENU_DIARY[lang]      + ',' +
 LANG.NUTRIENT_TITLE[lang]  + ',' +
-LANG.CALORIC_BALANCE[lang] + ',' +
 LANG.CALORIC_INTAKE[lang]  + ',' +
 LANG.GAIN_WEIGHT[lang]     + ',' +
 LANG.PROTEIN[lang]         + ',' +
@@ -89,31 +101,29 @@ LANG.STATUS_BAL_0[lang]    + ',' +
 LANG.MENU_DIARY[lang]      + ',' +
 LANG.MENU_STATUS[lang]     + ',' +
 LANG.MENU_PROFILE[lang];
-
 //////////////
-
 keyList = keyList.split('undefined').join('');
-keyList = keyList.split(' ').join(',');
+//keyList = keyList.split(' ').join(',');
 keyList = keyList.split(',,').join(',');
 //keyList = keyList.split('-').join('');
-keyList = keyList.split(',de,').join(',');
-keyList = keyList.split(',en,').join(',');
-keyList = keyList.split(',du,').join(',');
-keyList = keyList.split(',em,').join(',');
+//keyList = keyList.split(',de,').join(',');
+//keyList = keyList.split(',en,').join(',');
+//keyList = keyList.split(',du,').join(',');
+//keyList = keyList.split(',em,').join(',');
 //keyList = keyList.split(',XXX,').join(',');
 //keyList = keyList.split(',XXX,').join(',');
 //keyList = keyList.split(',XXX,').join(',');
 //keyList = keyList.split(',XXX,').join(',');
 //keyList = keyList.split(',XXX,').join(',');
-keyList = keyList.split(',di,').join(',');
+//keyList = keyList.split(',di,').join(',');
 keyList = trim(keyList.toLowerCase());
 
-keyList = keyList.split(',');
 
+////////////////////////////////////////////////////////
+keyList  = keyList.split(',');
 keyList0 = '';
-
   for (var i = 0; i < keyList.length; i++) {
-	  keyList[i] = searchalize(keyList[i].split(':').join('').split('：').join(''));
+	  keyList[i] = keyList[i].split(':').join('').split('：').join('').latinize();
         if (!keyList0.contains(keyList[i]) && keyList[i].length > 1) {
             keyList0 = keyList0 + keyList[i] + ',';
         }
@@ -122,10 +132,10 @@ keyList0 = '';
 var keyList1 = keyList0.slice(0,100);
 var keyList2 = keyList0.slice(100,-1);
 
-desc = desc + '<div id="bottom"><br /><br /><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br /><br />';
-desc = desc + '' + '' + '<br /><strong>ChronoBurn - ' + LANG.REALTIME_CALORIE_COUNTER[lang] + '</strong>\
-<br /><strong>ChronoBurn - ' + LANG.REALTIME_CALORIES[lang] + '</strong><br />\
-<br /><strong>' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong><br /></div>';
+desc = desc + '<div id="bottom"><br><br><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br><br>';
+desc = desc + '' + '' + '<br><strong>ChronoBurn - ' + LANG.REALTIME_CALORIE_COUNTER[lang] + '</strong>\
+<br><strong>ChronoBurn - ' + LANG.REALTIME_CALORIES[lang] + '</strong><br>\
+<br><strong>' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong><br></div>';
 
 document.getElementById('desc').innerHTML = trim(desc);
 
