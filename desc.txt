@@ -1,4 +1,4 @@
-–EN
+﻿–EN
 $KCALS$ is a new way for you to control your calorie intake.
 It displays your calorie usage in real time, and at a glance $KCALS$ will show you how much to eat every day.
  
