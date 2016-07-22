@@ -67,6 +67,7 @@ desc  = desc.split(':: ').join('★ ');
 desc  = desc.split('::').join('★');
 desc  = trim(desc);
 desc  = ('<strong>★ ' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong ><br />').toUpperCase() + desc;
+desc  = desc.split('★').join('::');
 desc  = desc.trim();
 desc  = trimSpace(desc);
 desc  = trimSpaceAll(desc);

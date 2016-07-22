@@ -52,7 +52,7 @@ app = {
 	},
 	ua:   navigator.userAgent,
 	http: /http/i.test(window.location.protocol) ? true : false,
-	https: /http:/i.test(window.location.protocol) ? 'http://' : 'https://',
+	https: /http:/i.test(window.location.protocol) || (localStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://',
 	now: function() {
 		return new Date().getTime();
 	},
@@ -917,8 +917,8 @@ app.handlers = {
 		//#////////////////////#//
 		//# SCROLL/MOVE CANCEL #//
 		//#////////////////////#//
-		//higher thresold for android
-		var TouchLimit = app.device.android ? 20 : 40;
+		//lower thresold for android
+		var TouchLimit = app.device.android ? 10 : 20;
 		//
 		if(!app.device.windows8) {
 			var moveCancel =  touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel; //app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
@@ -2437,7 +2437,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //##/////////////////##// Pointy.js
 //## POINTY GESTURES ##// Pointer Events polyfill for jQuery
 //##/////////////////##// https://github.com/vistaprint/PointyJS
-(function ($) {
+(function ($,touch_start,touch_end,touch_move) {
+	'use strict';
 	///////////////
 	// POINTY.JS //
 	///////////////
@@ -2518,18 +2519,17 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	//////////////
 	// GESTURES //
 	//////////////
-	// also handles sweepleft, sweepright
 	$.event.special.swipe = {
 		// More than this horizontal displacement, and we will suppress scrolling.
-		scrollSupressionThreshold : 10, //30,
+		scrollSupressionThreshold : 30,
 
-		// More time than this, and it isn't a sweep (swipe) it's a "hold" gesture.
+		// More time than this, and it isn't a swipe it's a "hold" gesture.
 		durationThreshold : 750,
 
-		// Sweep horizontal displacement must be more than this.
+		// swipe horizontal displacement must be more than this.
 		horizontalDistanceThreshold : 32,
 
-		// Sweep vertical displacement must be less than this.
+		// swipe vertical displacement must be less than this.
 		verticalDistanceThreshold : 75,
 
 		start : function (event) {
@@ -2587,7 +2587,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				}
 
 				function up() {
-					$this.off(touchmove, move);
+					$this.off(touch_move, move);
 
 					if (start && stop && $.event.special.swipe.isSweep(start, stop, true)) {
 						var dir = start.coords[0] > stop.coords[0] ? "left" : "right";
@@ -2604,22 +2604,22 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				}
 
 				$this
-				.on(touchmove, move)
-				.one(touchend, up);
+				.on(touch_move, move)
+				.one(touch_end, up);
 
 				// set a timeout to ensure we cleanup, in case the "pointerup" isn't fired
 				setTimeout(function () {
 					$this
-					.off(touchmove, handleObj.selector, move)
-					.off(touchend, handleObj.selector, up);
+					.off(touch_move, handleObj.selector, move)
+					.off(touch_end, handleObj.selector, up);
 				}, $.event.special.swipe.durationThreshold);
 			};
 
-			$this.on(touchstart, handleObj.selector, handleObj.pointerdown);
+			$this.on(touch_start, handleObj.selector, handleObj.pointerdown);
 		}),
 
 		remove : $.event.delegateSpecial.remove(function (handleObj) {
-			$(this).off(touchstart, handleObj.selector, handleObj.pointerdown);
+			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
 		})
 	};
 
@@ -2643,7 +2643,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		return window.scrollY || $(window).scrollTop();
 	}
 	
-	/*
 	// also handles presshold
 	$.event.special.press = {
 		pressholdThreshold : 750,
@@ -2652,7 +2651,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			var thisObject = this;
 
 			handleObj.pointerdown = function (event) {
-				var start = $.event.special.sweep.start(event),
+				var start = $.event.special.swipe.start(event),
 				startScroll = scrollY(),
 				stop,
 				timer,
@@ -2660,9 +2659,9 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				isPresshold = false,
 				$this = $(this);
 
-				// check that on pointermove we haven't swiped beyond the threshold for sweep
+				// check that on pointermove we haven't swiped beyond the threshold for swipe
 				function move(e) {
-					stop = $.event.special.sweep.stop(e);
+					stop = $.event.special.swipe.stop(e);
 				}
 
 				// upon "pointerup", if we didn't trigger "presshold" then trigger a "press".
@@ -2671,15 +2670,15 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					// $document.off("pointercancel", clearPressHandlers);
 
 					// unbind the pointer move
-					$this.off("pointermove", move);
+					$this.off(touch_move, move);
 
 					// check to see if they scrolled, even 5 pixels
 					if (Math.abs(startScroll - scrollY()) > 5) {
 						return;
 					}
 
-					// check to see the action should be considered a a "sweep" event
-					if (stop && $.event.special.sweep.isSweep(start, stop)) {
+					// check to see the action should be considered a a "swipe" event
+					if (stop && $.event.special.swipe.isSweep(start, stop)) {
 						return;
 					}
 
@@ -2695,15 +2694,15 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				}
 
 				$this
-				.on("pointermove", move)
-				.one("pointerup", up);
+				.on(touch_move, move)
+				.one(touch_end, up);
 
 				// TODO: if the pointer is canceled for some reason, we need to cleanup
 				// $document.on("pointercancel", clearPressHandlers);
 
 				timer = setTimeout(function () {
 						// unbind the pointer move
-						$this.off("pointermove", move);
+						$this.off(touch_move, move);
 
 						// toggle signal to ensure when the "pointerup" event we stop propagation
 						isPresshold = true;
@@ -2713,8 +2712,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 							return;
 						}
 
-						// check to see the action should be considered a a "sweep" event
-						if (stop && $.event.special.sweep.isSweep(start, stop)) {
+						// check to see the action should be considered a a "swipe" event
+						if (stop && $.event.special.swipe.isSweep(start, stop)) {
 							return;
 						}
 
@@ -2725,11 +2724,11 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					}, $.event.special.press.pressholdThreshold);
 			};
 
-			$(thisObject).on("pointerdown", handleObj.selector, handleObj.pointerdown);
+			$(thisObject).on(touch_start, handleObj.selector, handleObj.pointerdown);
 		}),
 
 		remove : $.event.delegateSpecial.remove(function (handleObj) {
-			$(this).off("pointerdown", handleObj.selector, handleObj.pointerdown);
+			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
 		})
 	};
 
@@ -2744,20 +2743,20 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$(this).off("press", handleObj.selector, handleObj.noop);
 		})
 	};
-	*/
-})(jQuery);
+
+})(jQuery,touchstart,touchend,touchmove);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
-(function ($, specialEventName) {
-	//'use strict';
+(function ($, specialEventName,touch_start,touch_end) {
+	'use strict';
 	var nativeEvent = Object.create(null);
 	var getTime = function () {
 		return new Date().getTime();
 	};
 	nativeEvent.original = 'click';
-	nativeEvent.start    = touchstart;
-	nativeEvent.end      = touchend;
+	nativeEvent.start    = touch_start;
+	nativeEvent.end      = touch_end;
 
 	$.event.special[specialEventName] = {
 		setup : function (data, namespaces, eventHandle) {
@@ -2823,17 +2822,18 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	$.fn[specialEventName] = function (fn) {
 		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
 	};
-})(jQuery, 'tap');
+})(jQuery, 'tap', touchstart, touchend);
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
-(function ($) {
+(function ($,touch_start,touch_end,touch_move) {
+	'use strict';
 	var TAP_AND_HOLD_TRIGGER_TIMER = 1750;
 	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 10;
 
-	var TOUCHSTART = touchstart;
-	var TOUCHEND   = touchend;
-	var TOUCHMOVE  = touchmove;
+	var TOUCHSTART = touch_start;
+	var TOUCHEND   = touch_end;
+	var TOUCHMOVE  = touch_move;
 
 	var tapAndHoldTimer = null;
 
@@ -2934,7 +2934,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		teardown : function () {}
 	};
-})(jQuery);
+})(jQuery,touchstart,touchend,touchmove);
 //#//////////////////////////////#//
 //# FIREFOX: DETECT PRIVATE MODE #//
 //#//////////////////////////////#//

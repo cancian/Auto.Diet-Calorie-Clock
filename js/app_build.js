@@ -965,9 +965,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			// GOTO //
 			//////////
 			if (/devgoto/i.test($('#entryBody').val())) {
-				window.location.href = 'http://' + $('#entryBody').val().toLowerCase().split('devgoto').join('');
 				$('#entryBody').val('');
 				$('#entryBody').blur();
+				window.location.replace((($('#entryBody').val()).split('devgoto').join('')).toLowerCase());
 			}
 			///////////
 			// DEBUG //
@@ -1734,11 +1734,11 @@ app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
 		$('#timerDailyInput').val(app.read(app.get.kcals('key')));
 		//HIGHLIGH INPUT
 		$('#timerDailyInput').css(prefix + 'transition-duration','0s');
-		$('#timerDailyInput').css('color','rgba(255,255,255,1');
+		$('#timerDailyInput').addClass('yellow');
 		setTimeout(function() {
-			$('#timerDailyInput').css(prefix + 'transition-duration','.3s');
-			$('#timerDailyInput').css('color','rgba(255,255,255,.72');
-		},200);
+			$('#timerDailyInput').css(prefix + 'transition-duration','400ms');
+			$('#timerDailyInput').removeClass('yellow');
+		}, 400);
 		//HIGHLIGHT
 		$('#' + thisId).addClass('tapActive');
 		app.highlight('#' + thisId,1000,'rgba(255,240,0,0.4)');
