@@ -8,13 +8,14 @@
 • Water tracker
 • Daily tips
 
-# 2.0.0 [2016/07/19]
+# 2.0.0 [2016/07/23]
 • <strong class="blue">KCals</strong> has been renamed to <strong class="red">ChronoBurn</strong>, in order to reflect its purpose more accurately
 • Fixed issue with some users not being able to type dots for decimal values
 • Coordinates of tap events sometimes returned undefined
 • Fixed opacity issue with the scrollbar
 • The app would loop on DB download error via web (no local copy)
-• Enabled text selection for the content of help topics (ie. allow copy/paste)
+• Make the text content of help topics selectable (i.e. copy/paste)
+• The daily intake input would handle the tap/focus event erratically on some devices
 
 # 1.9.18 [2016/07/05]
 • Better text handling
