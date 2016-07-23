@@ -447,7 +447,7 @@ $(document).on('pressenter', function(evt) {
 		}
 		$('#closeButton').trigger(touchend);
 		$('#editableInput').trigger('blur');
-		$('#entrySubmit').trigger(touchstart);
+		$('#entrySubmit').trigger(tap);
 		$('#modalOk').trigger(touchstart);
 		$('#addNewConfirm').trigger(touchstart);
 		if($('#langSelect').length) {

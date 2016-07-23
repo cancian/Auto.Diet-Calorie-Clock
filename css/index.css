@@ -1340,8 +1340,10 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .android44 #appHeader:before		{ padding-top: 11px; }
 #appHeader.open:before				{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*hide background while searching*/
+/*
 .closer #appContent					{ z-index: -1; visibility: hidden; -webkit-transform: translate3d(-99999px,0,0); -webkit-perspective: 800; overflow: hidden; opacity: 0; pointer-events: none; }
 .closer #appContent *				{ pointer-events: none; }
+*/
 /*search nutri colors*/
 .searcheable.food span.preSpan		{ color: #2157D6; }
 .searcheable.food div.foodName		{ color: #2157D6; }
