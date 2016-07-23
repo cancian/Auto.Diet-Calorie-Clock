@@ -925,7 +925,6 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		}
 	});
 	$('#sliderNum').on(tap,function(evt) {
-
 			if($('#entryTitle').val() == '' || $('#entryTitle').val() == 0) {
 			$('#entryTitle').removeAttr('readonly');
 			if(!app.device.desktop) {

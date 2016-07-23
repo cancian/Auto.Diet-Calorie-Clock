@@ -211,7 +211,7 @@ $('body').prepend2('\
 	<div id="appHeader">\
 		<div id="timerKcals"><input id="timerKcalsInput" readonly="readonly" type="text" /><span>' + LANG.CALORIC_BALANCE[lang] + '</span></div>\
 		<div id="timerBlocks">\
-			<div id="timerDaily"><input id="timerDailyInput" type="number" value="' + app.get.kcals() + '" /><span>' + LANG.DAILY_CALORIES[lang] + '</span></div>\
+			<div id="timerDaily"><input id="timerDailyInput" type="' + (app.device.desktop ? 'text' : 'number') + '" value="' + app.get.kcals() + '" /><span>' + LANG.DAILY_CALORIES[lang] + '</span></div>\
 		</div>\
 		<div id="appHeaderIcon"><span></span><p></p></div>\
 		<div id="appStatusTips"></div>\
@@ -470,23 +470,14 @@ $(document).on('pressenter', function(evt) {
 //////////////////////
 $(document).keypress(function(evt) {
 	//DEV KEYCODE
-	if (app.beenDev) {
-		var ev = evt;
-		setTimeout(function() {
-			app.toast(ev.type + ': ' + ev.which || ev.keyCode);
-		}, 0);
-	}
+	//if (app.beenDev) { var ev = evt; setTimeout(function() { app.toast(ev.type + ': ' + ev.which || ev.keyCode); }, 0); }
 });
 $(document).keydown(function(evt) {
 	//DEV KEYCODE
-	if (app.beenDev) {
-		var ev = evt;
-		setTimeout(function() {
-			app.toast(ev.type + ': ' + ev.which || ev.keyCode);
-		}, 0);
-	}
-	//
-	if((/18|81/).test(evt.keyCode)) {
+	//if (app.beenDev) { var ev = evt; setTimeout(function() { app.toast(ev.type + ': ' + ev.which || ev.keyCode); }, 0); }
+
+	//MODIFIER KEYS
+	if((/18|81/).test(evt.which || evt.keyCode)) {
 		app.timers.keystrokeLock = 1;
 	}
 	if(app.device.osxapp && app.timers.keystrokeLock !== 1) {
@@ -497,35 +488,31 @@ $(document).keydown(function(evt) {
 });
 $(document).keyup(function(evt) {
 	//DEV KEYCODE
-	if (app.beenDev) {
-		var ev = evt;
-		setTimeout(function() {
-			app.toast(ev.type + ': ' + ev.which || ev.keyCode);
-		}, 0);
-	}
-	//
-	if(evt.keyCode == 81) {
+	//if (app.beenDev) { var ev = evt; setTimeout(function() { app.toast(ev.type + ': ' + ev.which || ev.keyCode); }, 0); }	//
+
+	//UNSET MODIFIER KEYS
+	if((/18|81/).test(evt.which || evt.keyCode)) {
 		app.timers.keystrokeLock = 0;
 	}
-	if($('body').hasClass('spinnerMask'))		 { return false; }
-	if(evt.keyCode == 37 && $('#usrMsg').length) { return true; }
-	if(evt.keyCode == 13) 						 { $(document).trigger('pressenter'); }
-	if(evt.keyCode == 27)						 { $(document).trigger('backbutton'); }
+	if($('body').hasClass('spinnerMask'))							{ return false; }
+	if(/37/.test(evt.which || evt.keyCode) && $('#usrMsg').length)	{ return true;  }
+	if(/13/.test(evt.which || evt.keyCode))							{ $(document).trigger('pressenter'); }
+	if(/27/.test(evt.which || evt.keyCode))							{ $(document).trigger('backbutton'); }
 	///////////////////
 	// MENU BACK KEY //
 	///////////////////
-	if($('#closeButton').length) { return; }
+	if($('#closeButton').length)  { return; }
 	if($('#modalWrapper').length) { return; }
-	if(evt.keyCode == 37 || evt.keyCode == 39) {
+	if(/37|39/.test(evt.which || evt.keyCode)) {
 		if($('#subBackButton').length) {
-			if(evt.keyCode == 37) {
+			if(evt.which || evt.keyCode == 37) {
 				$('#subBackButton').addClass('button');
 				$('#subBackButton').trigger(touchend);
 			}
 			return false;
 		}
 		if($('#backButton').length && $('#backButton').is(':visible')) {
-			if(evt.keyCode == 37) {
+			if(evt.which || evt.keyCode == 37) {
 				if(!$('.dwo').length) {
 					$('#backButton').addClass('button');
 					$('#backButton').trigger(touchend);
@@ -534,14 +521,14 @@ $(document).keyup(function(evt) {
 			return false;
 		}
 		if($('#advBackButton').length) {
-			if(evt.keyCode == 37) {
+			if(evt.which || evt.keyCode == 37) {
 				$('#advBackButton').addClass('button');
 				$('#advBackButton').trigger(touchend);
 			}
 			return false;
 		}
 		if($('#langSelect').length) {
-			if(evt.keyCode == 37) {
+			if(evt.which || evt.keyCode == 37) {
 				$('.preset').addClass('set');
 				$('.preset').trigger(touchend);
 			}
@@ -556,12 +543,12 @@ $(document).keyup(function(evt) {
 	// FAVS KEY NAV //
 	//////////////////
 	if($('#menuTopBar').is(':visible') && !$('#modalWrapper').length) {
-		if(evt.keyCode == 37) {
+		if(/37/.test(evt.which || evt.keyCode)) {
 		         if(app.read('lastInfoTab','topBarItem-3')) { $('#topBarItem-2').trigger(touchstart); }
 			else if(app.read('lastInfoTab','topBarItem-2')) { $('#topBarItem-1').trigger(touchstart); }
 			else if(app.read('lastInfoTab','topBarItem-1')) { $('#topBarItem-3').trigger(touchstart); }
 		}
-		if(evt.keyCode == 39) {
+		if(/39/.test(evt.which || evt.keyCode)) {
 		         if(app.read('lastInfoTab','topBarItem-3')) { $('#topBarItem-1').trigger(touchstart); }
 			else if(app.read('lastInfoTab','topBarItem-2')) { $('#topBarItem-3').trigger(touchstart); }
 			else if(app.read('lastInfoTab','topBarItem-1')) { $('#topBarItem-2').trigger(touchstart); }
@@ -572,13 +559,13 @@ $(document).keyup(function(evt) {
 	// TAB KEY NAV //
 	/////////////////
 	if(!$('input, textarea, select').is(':focus') && !$('#gettingStarted').html() && !$('.dwo').length && !$('#modalWrapper').length) {
-		if(evt.keyCode == 37) {
+		if(/37/.test(evt.which || evt.keyCode)) {
 		         if(app.read('app_last_tab','tab4')) { appFooter('tab3'); }
 			else if(app.read('app_last_tab','tab3')) { appFooter('tab2'); }
 			else if(app.read('app_last_tab','tab2')) { appFooter('tab1'); }
 			else if(app.read('app_last_tab','tab1')) { appFooter('tab4'); }
 		}
-		if(evt.keyCode == 39) {
+		if(/39/.test(evt.which || evt.keyCode)) {
 		         if(app.read('app_last_tab','tab4')) { appFooter('tab1'); }
 			else if(app.read('app_last_tab','tab3')) { appFooter('tab4'); }
 			else if(app.read('app_last_tab','tab2')) { appFooter('tab3'); }
@@ -1110,6 +1097,10 @@ if(app.is.scrollable && app.device.desktop) {
 	}
 	setTimeout(lastEntryPush,3000);
 })();
+	////////////////////
+	// YUI COMPRESSOR // legacy
+	////////////////////
+	var dummyYUI = 'var editableTimeout';
 	//#////////////////#//
 	//# XY HEADER INFO #//
 	//#////////////////#//
@@ -1132,19 +1123,22 @@ if(app.is.scrollable && app.device.desktop) {
 	}, false);
 	*/
 	//NOT WHILE EDITING
+	/*
 	$('#timerDailyInput').on('blur',function() {
 		$('#appHeader').addClass('blockInfo');
 		app.timeout('blockInfo',1000,function() {
 			$('#appHeader').removeClass('blockInfo');
 		})
 	});
-	//INFO HANDLER
+	*/
+
+	/////////////////////////////////
+	// HEADER INFO ICON XY HANDLER //
+	/////////////////////////////////
 	$('#appHeader').on(tap, function(evt) {
-		//FIX HEADER TAP PROPAGATION
-		$('#appHeader').css('pointer-events','none');
-		app.timeout('headerInfoBlocker', 500, function() {
-			$('#appHeader').css('pointer-events','auto');
-		});
+		if($('#timerDailyInput').is(':focus')) {
+			$('#timerDailyInput').trigger('blur'); return false;
+		}
 		//HANDLE WINDOW		
 		if(evt.pageX < 132 && evt.pageY < 72) {
 			if($('#appHelper').length)					{ return; }
@@ -1155,6 +1149,10 @@ if(app.is.scrollable && app.device.desktop) {
 			if($('#advancedMenu').length)				{ return; }
 			if($('#pageSlideFood').length)				{ return; }
 			if($('#appHeader').hasClass('blockInfo'))	{ return; }
+			if($('#timerDailyInput').is(':focus'))		{ return; }
+			if($('#timerDailyInput').is(':animated'))	{ return; }
+			//COLOR ANIMATION VALUE
+			if(Number($('#timerDailyInput').css('color').split("rgba(255, 255, 255, ").join("").split(")").join("")) > 0.8) { return; }
 			getNewWindow('ChronoBurn: A Metabolism Simulator','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['ChronoBurn: A Metabolism Simulator'] + '</div>',function() {
 				$('#tabHelp').removeClass('hidden');
 				app.handlers.activeRow('#openHelp','button',function(evt) {
@@ -1250,9 +1248,9 @@ if(app.is.scrollable && app.device.desktop) {
 		}
 	});
 	$('#appHeader').on(tap, function(evt) {
-		if(!app.read('app_last_tab','tab4')) {
+		//if(!app.read('app_last_tab','tab4')) {
 			evt.preventDefault();
-		}
+		//}
 		if($('#entryBody').is(':focus') && evt.target.id == 'entryTime') {
 			$('#entryTime').focus();
 		} else if($('#entryTime').is(':focus') && evt.target.id == 'entryBody') {
@@ -1293,52 +1291,79 @@ if(app.is.scrollable && app.device.desktop) {
 			else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
 		}
 	});
-	//////////////////////////
-	// AJAX IN-PLACE EDITOR //
-	//////////////////////////
-	$('#timerDailyInput').on(tap, function(evt) {
-		if(!$('#timerDailyInput').is(':focus')) {
-			$('#timerDailyInput').focus();
+	//#/////////////////////////#//
+	//# DAILY INTAKE KILL FOCUS #//
+	//#/////////////////////////#// NOT WHILE THIS ~
+	$('#appHeader').on(touchstart, function(evt) {
+		if((app.width - (app.globals.X || evt.pageX)) < 100 && (app.globals.Y || evt.pageY) < $('#appHeader').height()) {
+			if($('#appHelper').length)					{ return; }
+			if($('#advancedMenu').length)				{ return; }
+			if($('#backButton').length)					{ return; }
+			if($('#subBackButton').length)				{ return; }
+			if($('#langSelect').length)					{ return; }
+			if($('#advancedMenu').length)				{ return; }
+			if($('#pageSlideFood').length)				{ return; }
+			if($('#appHeader').hasClass('blockInfo'))	{ return; }
 		}
 	});
-	if(app.device.desktop) {
-		$('#timerDailyInput').prop('type','text');
-	}
-	//YUI COMPRESSOR
-	var dummyYUI = 'var editableTimeout';
-
-	app.handlers.validate('#timerDailyInput',{minValue: 100, defaultValue: function() { return app.get.kcals('reset'); }},'',function() {
-		if($('#pageSlideFood').html() || $('#newWindow').html()) {
-			$('#timerDailyInput').trigger('focus');
-			$('#timerDailyInput').trigger('blur');
+	///////////////////
+	// TRIGGER FOCUS // ~ ASYNC (TAP)
+	///////////////////
+	$('#appHeader').on(tap, function(evt) {
+		//TRIGGER ONCE
+		if(!$('#timerDailyInput').is(':focus')) {
+			// FOCUS VIA XY
+			if((app.width - (app.globals.X || evt.pageX)) < 100 && (app.globals.Y || evt.pageY) < $('#appHeader').height()) {
+				if(!$('#timerDailyInput').is(':focus')) {
+					$('#timerDailyInput').focus();
+				}
+			}
 		}
-	},function() {
-		//FOCUS
+	});
+	//////////////
+	// VALIDATE //
+	//////////////
+	app.handlers.validate('#timerDailyInput',{ 
+		minValue: 100, defaultValue: function() { return app.get.kcals('reset'); }
+	});
+	///////////
+	// FOCUS //
+	///////////
+	$('#timerDailyInput').on('focus', function(evt) {
 		if(app.device.desktop) {
 			$('#timerDailyInput').prop('type','number');
 		}
-		if($('#pageSlideFood').html() || $('#newWindow').html()) {
-			$('#timerDailyInput').trigger('blur');
-		}
-	},function() {
-		//UPDATE TODAY'S
-		setTimeout(function() {
+	});
+	//#//////#//
+	//# BLUR #//
+	//#//////#//
+	$('#timerDailyInput').on('blur', function(evt) {
+		///////////////////
+		// UPDATE BLOCKS //
+		///////////////////
+		app.timeout('updateBlocksBlur',1000,function() {
 			updateTodayOverview();
 			updateNutriBars();
 			intakeHistory();
 			setPush();
-		},1000);
-		//BLUR
+		});
+		/////////////////////////////////
+		//REVERT DESKTOP INPUT TO TEXT //
+		/////////////////////////////////
 		if(app.device.desktop) {
-			setTimeout(function() {
+			app.timeout('revertDesktopInput',420,function() {
+				//VERIFY REFOCUS
 				if(!$('#timerDailyInput').is(':focus')) {
 					$('#timerDailyInput').prop('type','text');
 				}
-			},420);
+			});
 		}
+		/////////////////
+		// UPDATE DATA //
+		/////////////////
 		app.save(app.get.kcals('key'),$('#timerDailyInput').val());
 		updateTimer();
-		// BACKUPDATE
+		// BACKUPDATE CYCLIC
 		if(app.read('config_kcals_type','cyclic')) {
 			if(app.read('config_kcals_day','d')) {
 				$('#appCyclic2').val(app.read('config_kcals_day_2'));
@@ -1346,13 +1371,14 @@ if(app.is.scrollable && app.device.desktop) {
 				$('#appCyclic1').val(app.read('config_kcals_day_1'));
 			}
 		}
+		//END BLUR/
 	});
-	///////////////
-	// DEV TIMER //
-	///////////////
+	////////////////////
+	// DEV BOOT TIMER //
+	////////////////////
 	if (typeof initTime !== 'undefined') {
-		if (app.beenDev) {
-			app.toast('boot: ' + ((new Date().getTime()) - initTime) + ' ms');
+		if (app.dev) {
+			app.toast(((new Date().getTime()) - initTime) + ' ms');
 		}
 	}
 ///////////////////
