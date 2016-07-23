@@ -2137,7 +2137,7 @@ function getNiceScroll(target,timeout,callback) {
 			cursorborderradius: 0,
 			railpadding: { right: 1,  bottom: 2, top: 2 },
 			cursorborder: '#000',
-			cursoropacitymax: .6,
+			cursoropacitymax: .666,
 			cursorwidth: 3,
 			horizrailenabled: false,
 			autohidemode: true,

@@ -1234,9 +1234,9 @@ if(app.is.scrollable && app.device.desktop) {
 		}
 	});
 	///////////////////////////
-	// blur edit / entrybody //
-	/////////////////////////// BETA ~ ~ ~
-	$('#appHeader').on(touchstart, function(evt) {
+	// blur edit / entrybody // #appContent removedd ~ save resources
+	/////////////////////////// BETA ~ ~ ~ 
+	$('#appHeader').on(tap, function(evt) {
 		$('#appContent').show();
 		if(evt.target.id != 'timerDailyInput' && $('#timerDailyInput').is(':focus')) {
 			//triggers setpush
@@ -1249,7 +1249,6 @@ if(app.is.scrollable && app.device.desktop) {
 	});
 	$('#appHeader').on(tap, function(evt) {
 		//if(!app.read('app_last_tab','tab4')) {
-			evt.preventDefault();
 		//}
 		if($('#entryBody').is(':focus') && evt.target.id == 'entryTime') {
 			$('#entryTime').focus();
@@ -1269,12 +1268,21 @@ if(app.is.scrollable && app.device.desktop) {
 			}
 		}
 	});
-	//////////////////
-	// HEADER SWIPE //
-	//////////////////
+	/////////////////////////////////////////////
+	// APPCONTENT GLOBAL UNFOCUS (DAILY INPUT) //
+	/////////////////////////////////////////////
+	$('#appContent').on(touchend, function(evt) {
+		$('#timerDailyInput').blur();
+	});
+	//##//////////////##//
+	//## HEADER SWIPE ##//
+	//##//////////////##//
 	var headerSwipe;
 	var headerSwipeBlock = 0;
 	$('#appHeader').on(swipe,function(evt) {
+		//tap on header does not blur
+		$('#timerDailyInput').blur();
+		//LEFT SWIPE
 		if(/left/i.test(evt.direction || evt.type)) {
 			clearTimeout(headerSwipe);
 			kickDown();
@@ -1291,32 +1299,25 @@ if(app.is.scrollable && app.device.desktop) {
 			else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
 		}
 	});
-	//#/////////////////////////#//
-	//# DAILY INTAKE KILL FOCUS #//
-	//#/////////////////////////#// NOT WHILE THIS ~
-	$('#appHeader').on(touchstart, function(evt) {
+	//##///////////////////////////##//
+	//## DAILY INPUT TRIGGER FOCUS ##//
+	//##///////////////////////////##//
+	$('#appHeader').on(app.device.desktop ? tap : touchstart, function(evt) {
+		evt.stopPropagation();
+		//NOT WHILE THIS ~
+		if($('#pageSlideFood').is(':animated'))		{ return false; }
+		if($('#appHelper').length)					{ return false; }
+		if($('#advancedMenu').length)				{ return false; }
+		if($('#backButton').length)					{ return false; }
+		if($('#subBackButton').length)				{ return false; }
+		if($('#langSelect').length)					{ return false; }
+		if($('#advancedMenu').length)				{ return false; }
+		if($('#pageSlideFood').length)				{ return false; }
+		if($('#appHeader').hasClass('blockInfo'))	{ return false; }
+		// FOCUS VIA XY
 		if((app.width - (app.globals.X || evt.pageX)) < 100 && (app.globals.Y || evt.pageY) < $('#appHeader').height()) {
-			if($('#appHelper').length)					{ return; }
-			if($('#advancedMenu').length)				{ return; }
-			if($('#backButton').length)					{ return; }
-			if($('#subBackButton').length)				{ return; }
-			if($('#langSelect').length)					{ return; }
-			if($('#advancedMenu').length)				{ return; }
-			if($('#pageSlideFood').length)				{ return; }
-			if($('#appHeader').hasClass('blockInfo'))	{ return; }
-		}
-	});
-	///////////////////
-	// TRIGGER FOCUS // ~ ASYNC (TAP)
-	///////////////////
-	$('#appHeader').on(tap, function(evt) {
-		//TRIGGER ONCE
-		if(!$('#timerDailyInput').is(':focus')) {
-			// FOCUS VIA XY
-			if((app.width - (app.globals.X || evt.pageX)) < 100 && (app.globals.Y || evt.pageY) < $('#appHeader').height()) {
-				if(!$('#timerDailyInput').is(':focus')) {
-					$('#timerDailyInput').focus();
-				}
+			if(!$('#timerDailyInput').is(':focus')) {
+				$('#timerDailyInput').focus();
 			}
 		}
 	});
@@ -1351,7 +1352,7 @@ if(app.is.scrollable && app.device.desktop) {
 		//REVERT DESKTOP INPUT TO TEXT //
 		/////////////////////////////////
 		if(app.device.desktop) {
-			app.timeout('revertDesktopInput',420,function() {
+			app.timeout('revertDesktopInput',300,function() {
 				//VERIFY REFOCUS
 				if(!$('#timerDailyInput').is(':focus')) {
 					$('#timerDailyInput').prop('type','text');
@@ -1376,11 +1377,13 @@ if(app.is.scrollable && app.device.desktop) {
 	////////////////////
 	// DEV BOOT TIMER //
 	////////////////////
+	/*
 	if (typeof initTime !== 'undefined') {
 		if (app.dev) {
 			app.toast(((new Date().getTime()) - initTime) + ' ms');
 		}
 	}
+	*/
 ///////////////////
 // CATCH 5 TIMES //
 ///////////////////
