@@ -900,9 +900,14 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	////////////////////////////////
 	// SAVE ENTRY (SUBMIT BUTTON) //
 	////////////////////////////////
-	$('#entrySubmit').on(touchstart, function(evt) {
-		app.suspend('.carpe-slider-knob',600);
-		$('.carpe-slider-knob').trigger(touchcancel);
+	$('#entrySubmit').on(tap, function(evt) {
+		evt.stopPropagation();
+		app.suspend('#entryListForm',600);
+		//app.suspend('.carpe-slider-knob',600);
+		//app.suspend('.carpe-slider-box', 600);
+		$('#entryListForm').trigger(touchcancel);
+		//$('.carpe-slider-knob').trigger(touchcancel);
+		//$('.carpe-slider-box').trigger(touchcancel);
 		slider.save();
 		$(window).trigger('resize');
 		slider.reset();
@@ -1664,13 +1669,10 @@ afterTab(keepOpen);
 // FIX ANDROID 2 SELECT //
 //////////////////////////
 android2Select();
-var topLocko = 0;
-var topTimero;
-$('#appContent').scroll(function() {
-	clearTimeout(topTimero);
-	topTimero = setTimeout(function() {
+$('#appContent').on('scroll',function() {
+	app.timeout('topTimero',100,function() {
 		android2Select();
-	},100);
+	});
 });
 //#//////////#//
 //# HANDLERS #//
@@ -1765,7 +1767,11 @@ $('#calcForm input, #calcForm select').on('blur',function(evt) {
 	}
 });
 $('#calcForm').on(touchend, function(evt) {
+	//		
 	if(evt.target.id == '') {
+		//BLUR DAILY !INPUT
+		$('#timerDailyInput').blur();
+		//
 		evt.preventDefault();
 		if(app.device.ios) {
 			evt.stopPropagation();
