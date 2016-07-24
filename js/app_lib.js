@@ -996,7 +996,8 @@ app.handlers = {
 			/////////////////////
 			// FILTER REPEATED //
 			/////////////////////
-			if (data[i].id) {
+			if (data[i].id && !rowHtml.contains(data[i].id)) {
+				data[i].id = Number(data[i].id);
 				var favClass = (data[i].fib === 'fav') ? ' favItem' : '';
 				if((JSON.stringify(data[i].id)).length >= 13) {
 					favClass = favClass + ' customItem';
@@ -1048,8 +1049,7 @@ app.handlers = {
 				///////////////
 				if(filter) {
 					if(!rowSql.contains(data[i].id)) {
-						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(#^#" + Number(data[i].id) + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";
-					}
+						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(#^#" + Number(data[i].id) + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";					}
 				}
 			}
 		}
@@ -1058,11 +1058,7 @@ app.handlers = {
 		///////////////
 		if(filter) {
 			//PREPARE
-			if(rowSql == '') {
-				rowSql = ' ';
-			} else {
-				rowSql = app.fixSql(rowSql);
-			}
+			rowSql = app.fixSql(rowSql);
 			///////////////////
 			// FIX MALFORMED //
 			///////////////////
@@ -1626,7 +1622,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 	});
 };
 app.fixSql = function(fetchEntries) {
-	if(!fetchEntries) { return ''; }
+	if(!fetchEntries) { return ' '; }
 	//NULL
 	fetchEntries = fetchEntries.split('undefined').join('');
 	fetchEntries = fetchEntries.split('NaN').join('');
@@ -1659,7 +1655,7 @@ app.fixSql = function(fetchEntries) {
 	fetchEntries = fetchEntries.split(",',").join(",'',");
 	//RESTORE
 	fetchEntries = fetchEntries.split("#^#").join("");
-	//
+	//RETURN
 	return fetchEntries;
 };
 //////////
