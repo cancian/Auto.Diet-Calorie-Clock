@@ -254,8 +254,8 @@ afterTab = function(keepOpen) {
 	$('#diaryNotesWrapper').remove();
 	//
 	if(!$('#pageSlideFood').is(':animated')) {
-		$('#timerDailyInput').removeAttr('readonly');
-		$('#timerDailyInput').removeClass('dull');
+		//$('#timerDailyInput').removeAttr('readonly');
+		//$('#timerDailyInput').removeClass('dull');
 		$('#pageSlideFood').remove();
 		$('#appHeader').removeClass('open');
 		$('body').removeClass('closer');
@@ -1101,46 +1101,15 @@ if(app.is.scrollable && app.device.desktop) {
 	// YUI COMPRESSOR // legacy
 	////////////////////
 	var dummyYUI = 'var editableTimeout';
-	//#////////////////#//
-	//# XY HEADER INFO #//
-	//#////////////////#//
-	//LISTENER
-	/*
-	document.getElementById('appHeader').addEventListener(touchstart, function(evt) {
-		if(evt) {
-			if (typeof evt.targetTouches !== 'undefined') {
-				//TOUCH
-				if (typeof evt.targetTouches[0] !== 'undefined') {
-					app.infoX = evt.targetTouches[0].pageX;
-					app.infoY = evt.targetTouches[0].pageY;
-				}
-			} else {
-				//CLICK
-				app.infoX = evt.pageX;
-				app.infoY = evt.pageY;
-			}
-		}
-	}, false);
-	*/
-	//NOT WHILE EDITING
-	/*
-	$('#timerDailyInput').on('blur',function() {
-		$('#appHeader').addClass('blockInfo');
-		app.timeout('blockInfo',1000,function() {
-			$('#appHeader').removeClass('blockInfo');
-		})
-	});
-	*/
-
 	/////////////////////////////////
 	// HEADER INFO ICON XY HANDLER //
 	/////////////////////////////////
 	$('#appHeader').on(tap, function(evt) {
-		if($('#timerDailyInput').is(':focus')) {
-			$('#timerDailyInput').trigger('blur'); return false;
-		}
 		//HANDLE WINDOW		
 		if(evt.pageX < 132 && evt.pageY < 72) {
+			if($('#timerDailyInput').is(':focus')) {
+				$('#timerDailyInput').trigger('blur'); return false;
+			}
 			if($('#appHelper').length)					{ return; }
 			if($('#advancedMenu').length)				{ return; }
 			if($('#backButton').length)					{ return; }
@@ -1172,10 +1141,11 @@ if(app.is.scrollable && app.device.desktop) {
 		if(!$('#pageSlideFood').html() && !$('#newWindow').html()) {
 			$('#appHeader').removeClass('closer');
 			$('body').removeClass('closer');
-			$('#timerDailyInput').removeAttr('readonly');
-			$('#timerDailyInput').removeClass('dull');
+			//$('#timerDailyInput').removeAttr('readonly');
+			//$('#timerDailyInput').removeClass('dull');
 		}
 		//DEFER
+		/*
 		if(targetId == 'timerDailyInput' && ($('#pageSlideFood').html() || $('#newWindow').html())) {
 			//inactive
 			$('#timerDailyInput').prop('readonly','readonly');
@@ -1194,6 +1164,7 @@ if(app.is.scrollable && app.device.desktop) {
 			},200);
 			return false;
 		}
+		*/
 		if($('#subBackButton').length)	{ $(document).trigger('backbutton'); return; }
 		if($('#backButton').length)		{ $(document).trigger('backbutton'); return; }
 		if($('#advancedMenu').length)	{ $(document).trigger('backbutton'); return; }
@@ -1248,8 +1219,6 @@ if(app.is.scrollable && app.device.desktop) {
 		}
 	});
 	$('#appHeader').on(tap, function(evt) {
-		//if(!app.read('app_last_tab','tab4')) {
-		//}
 		if($('#entryBody').is(':focus') && evt.target.id == 'entryTime') {
 			$('#entryTime').focus();
 		} else if($('#entryTime').is(':focus') && evt.target.id == 'entryBody') {

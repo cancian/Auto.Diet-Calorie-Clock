@@ -165,12 +165,16 @@ body.android #appHeader				{ z-index: 50 !important; }
 .appLang-nl #timerDaily span,
 .appLang-fr #timerDaily span,
 .appLang-el #timerDaily span{ font-size: 7px !important; }
-#editableBlock			{ position: absolute; right: 0; width: 120px; height: 15px; background-color: rgba(0,0,0,0); z-index: 2000; }
+/*
 body.newwindow #timerDailyInput,
 body.closer #timerDailyInput	{ pointer-events: none; -webkit-user-select: none; user-select: none; touch-action: none; -ms-touch-action: none; }
 #timerDailyInput.dull			{ color: rgba(255,255,255,.78) !important; pointer-events: none; -webkit-user-select: none; user-select: none; touch-action: none; -ms-touch-action: none; }
+*/
 #timerDailyInput				{ -webkit-transition: all ease 300ms; color: rgba(255,255,255,.78); -webkit-transition-delay: 0; }
 #timerDailyInput:focus			{ -webkit-transition: all ease 300ms; color: rgba(255,255,255,1);   -webkit-transition-delay: 0; }
+/*nulled span*/
+#appHeader span,
+#timerDaily span				{ pointer-events: none; -webkit-user-select: none; user-select: none; touch-action: none; -ms-touch-action: none; }
 /*//////////////////////////////
 // DAILY CALORIES INPUT ALIGN //
 //////////////////////////////*/
@@ -1114,6 +1118,7 @@ div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; 
 #editableInput				{ -webkit-user-select: text; user-select: text; background-color: rgba(0,0,0,0) !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; }
 .moz.mobile #editableInput,
 .ios #editableInput,
+.wp10 #editableInput,
 .android #editableInput		{ margin-left : -1px; }
 .android44 #editableInput,
 .ios7 #editableInput 		{ margin-left : 0; }
@@ -1340,10 +1345,8 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .android44 #appHeader:before		{ padding-top: 11px; }
 #appHeader.open:before				{ opacity: .25; -webkit-transition-timing-function: linear; -webkit-transition-duration: .2s; }
 /*hide background while searching*/
-/*
 .closer #appContent					{ z-index: -1; visibility: hidden; -webkit-transform: translate3d(-99999px,0,0); -webkit-perspective: 800; overflow: hidden; opacity: 0; pointer-events: none; }
 .closer #appContent *				{ pointer-events: none; }
-*/
 /*search nutri colors*/
 .searcheable.food span.preSpan		{ color: #2157D6; }
 .searcheable.food div.foodName		{ color: #2157D6; }
