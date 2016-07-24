@@ -918,10 +918,10 @@ app.handlers = {
 		//# SCROLL/MOVE CANCEL #//
 		//#////////////////////#//
 		//lower thresold for android
-		var TouchLimit = app.device.android ? 10 : 20;
+		var TouchLimit = app.device.android ? 6 : 12;
 		//
 		if(!app.device.windows8) {
-			var moveCancel =  touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel; //app.device.osxapp || app.device.osx ? 'mouseout' : touchmove;
+			var moveCancel =  touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel;
 			/////////////////
 			// MOVE CANCEL //
 			/////////////////
@@ -956,7 +956,7 @@ app.handlers = {
 			//TIMEOUT
 			app.handlers.activeRowTimer[t] = setTimeout(function () {
 				app.handlers.activeRowBlock[t] = 0;
-			}, 100);
+			}, 50);
 		});
 	},
 	///////////////////
@@ -2517,13 +2517,13 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	//////////////
 	$.event.special.swipe = {
 		// More than this horizontal displacement, and we will suppress scrolling.
-		scrollSupressionThreshold : 30,
+		scrollSupressionThreshold : 200,
 
 		// More time than this, and it isn't a swipe it's a "hold" gesture.
 		durationThreshold : 750,
 
 		// swipe horizontal displacement must be more than this.
-		horizontalDistanceThreshold : 32,
+		horizontalDistanceThreshold : 20,
 
 		// swipe vertical displacement must be less than this.
 		verticalDistanceThreshold : 75,
@@ -2641,7 +2641,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	
 	// also handles presshold
 	$.event.special.press = {
-		pressholdThreshold : 750,
+		pressholdThreshold : 1750,
 
 		add : $.event.delegateSpecial(function (handleObj) {
 			var thisObject = this;
@@ -2669,7 +2669,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					$this.off(touch_move, move);
 
 					// check to see if they scrolled, even 5 pixels
-					if (Math.abs(startScroll - scrollY()) > 5) {
+					if (Math.abs(startScroll - scrollY()) > 10) {
 						return;
 					}
 
