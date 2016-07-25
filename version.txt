@@ -2,11 +2,13 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
-• Weight tracker
-• Multi-user support
-• Custom portion sizes
-• Water tracker
-• Daily tips
+★ Weight tracker
+★ Shoutbox for users to interact
+
+# 2.0.1 [2016/07/25]
+• Desktop browsers would sometimes trigger errors after window resize event
+• The daily intake input would handle the tap/focus event erratically on some devices
+• Fixed issue where custom entries would sometimes get duplicated after synchronization
 
 # 2.0.0 [2016/07/24]
 • <strong class="blue">KCals</strong> has been renamed to <strong class="red">ChronoBurn</strong>, in order to reflect its purpose more accurately
@@ -15,8 +17,6 @@
 • Fixed opacity issue with the scrollbar
 • The app would loop on DB download error via web (no local copy)
 • Make the text content of help topics selectable (i.e. copy/paste)
-• The daily intake input would handle the tap/focus event erratically on some devices
-• Fixed issue where custom entries would sometimes get duplicated after synchronization
 
 # 1.9.18 [2016/07/05]
 • Better text handling
