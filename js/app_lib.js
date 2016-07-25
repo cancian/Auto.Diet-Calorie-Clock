@@ -2517,16 +2517,16 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	//////////////
 	$.event.special.swipe = {
 		// More than this horizontal displacement, and we will suppress scrolling.
-		scrollSupressionThreshold : 200,
+		scrollSupressionThreshold : 30,
 
 		// More time than this, and it isn't a swipe it's a "hold" gesture.
 		durationThreshold : 750,
 
 		// swipe horizontal displacement must be more than this.
-		horizontalDistanceThreshold : 20,
+		horizontalDistanceThreshold : 30,
 
 		// swipe vertical displacement must be less than this.
-		verticalDistanceThreshold : 75,
+		verticalDistanceThreshold : 30,
 
 		start : function (event) {
 			var evt = event.originalEvent;
@@ -2618,7 +2618,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
 		})
 	};
-
+	/*
 	// sweepleft and sweepright are just dummies, we have to
 	// setup the handler for sweep so attach a dummy event
 	$.each(["swipeleft", "swiperight"], function (i, event) {
@@ -2739,7 +2739,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$(this).off("press", handleObj.selector, handleObj.noop);
 		})
 	};
-
+	*/
 })(jQuery,touchstart,touchend,touchmove);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
