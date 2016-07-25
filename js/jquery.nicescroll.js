@@ -1932,7 +1932,12 @@
 								return($("body").hasClass("modal-open")) ? self.hide() : self.show(); // Support for Bootstrap modal
 							}
 						});
-						if(document.body.scrollHeight != self.page.maxh) return self.lazyResize(30);
+						//TWEAK
+						if(typeof document.body !== 'undefined') {
+							if(typeof document.body.scrollHeight !== 'undefined') {
+								if(document.body.scrollHeight != self.page.maxh) return self.lazyResize(30);
+							}
+						}
 					});
 					self.observerbody.observe(document.body, {
 						childList: true,
