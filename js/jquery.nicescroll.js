@@ -3356,6 +3356,7 @@
 		this.reset = function (px, py) {
 			self.stop();
 			var now = self.time();
+
 			self.steptime = 0;
 			self.lasttime = now;
 			self.speedx = 0;
@@ -3694,4 +3695,3 @@
 	}
 
 })(jQuery);
-
