@@ -133,15 +133,15 @@ h2 {
   <a href="https://appworld.blackberry.com/webstore/content/59937667" alt="BlackBerry World (bb10, playbook)" target="_blank"><span id="b800"><strong>BlackBerry</strong></span></a>
   <a href="https://www.amazon.com/dp/B00NDSQIHK/qid=1411265533" alt="Amazon Appstore (android)" target="_blank"><span id="b900"><strong>Amazon Store</strong></span></a>
 </div>
-  <div id="helpTopics"></div>
-  <script type="text/javascript">
-var app = {};
-</script> 
-  <script type="text/javascript" src="js/app_lang.js"></script> 
-  <script type="text/javascript" src="js/jquery.js"></script> 
-  <script type="text/javascript">
-//BUILD CONTENT ARRAY
-/*
+<!--
+<script type="text/javascript"> var app = {}; </script> 
+<script type="text/javascript" src="js/app_lang.js"></script> 
+<script type="text/javascript" src="js/jquery.js"></script> 
+<script type="text/javascript">
+/////////////////////////
+// BUILD CONTENT ARRAY //
+/////////////////////////
+//<div id="helpTopics"></div>
 $(function() {
 var app;
 var helpTopics = LANG.HELP_TOPICS_ARRAY['en'];
@@ -163,9 +163,9 @@ var introValue = '<p>' + LANG.INTRO_SLIDE_1[lang].split('.').join('. ') + '</p>\
 helpHtml = '<div class="topic">' + LANG.INTRO[lang] + '</div><div class="content">' + introValue + '</div>' + helpHtml;
 $('#helpTopics').html('<div class="title">' + LANG.SETTINGS_HELP['en'] + '</div>' + helpHtml);
 });
-*/
 ///////////////////////
 </script>
+-->
   <div id="helpTopics">
     <div class="title">Help</div>
     <div class="topic">Introduction</div>
