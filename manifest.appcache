@@ -1,15 +1,15 @@
 CACHE MANIFEST
-# v200100 - 2016-07-25
+# v200101 - 2016-07-26
 
 #LOAD
 index.html
 
-#JS
-js/app_init.js
-
 #JQUERY
 js/jquery.js
 js/jquery.nicescroll.js
+
+#JS
+js/app_init.js
 
 #BOOT
 js/app_bootstrap.js
