@@ -1,5 +1,4 @@
-﻿
-(function () {
+﻿;(function () {
 	function r() {
 		if (document.getElementById("slider")) {
 			var e = parseInt($("#entryTitle").val());
@@ -206,11 +205,14 @@
 				break
 			}
 			if (r) {
-				i.initMouseEvent(r, s, o, u, a, n.screenX, n.screenY, n.clientX, n.clientY, false, false, false, false, 0, null);
-				n.target.dispatchEvent(i)
+				//TWEAK
+				try {
+					i.initMouseEvent(r, s, o, u, a, n.screenX, n.screenY, n.clientX, n.clientY, false, false, false, false, 0, null);
+					n.target.dispatchEvent(i);
+				} catch(err) {}
 			}
 			e.preventDefault();
-			return
+			return;
 		},
 		addListener : function () {
 			var e;

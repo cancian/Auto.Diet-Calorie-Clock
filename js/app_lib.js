@@ -438,9 +438,14 @@ app.reboot = function(type,error) {
 		throw error;
 	}
 };
-///////////////////
-// CUSTOM JQUERY //
-///////////////////
+/////////////////
+// SWIPE DUMMY //
+/////////////////
+app.swipe         = function() {};
+$.prototype.swipe = function() {};
+//////////////////////////////////
+// MODIFIED JQUERY W/ CALLLBACK //
+//////////////////////////////////
 $.prototype.html2 = function (data, callback) {
 	var obj = $(this);
 	if($(obj).length) {
