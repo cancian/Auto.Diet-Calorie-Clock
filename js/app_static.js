@@ -407,12 +407,12 @@ $(document).on('backbutton', function (evt) {
 		/////////////////////////
 		if(app.dev) {
 			afterHide();
-		} else if (app.device.msapp || !app.device.desktop) {
-			backer = 1;
-		} else if (app.device.wp8) {
-			$(document).off('backbutton');
-			blockAlerts = 1;
-			throw '';
+		//} else if (app.device.msapp || !app.device.desktop) {
+		//	backer = 1;
+		//} else if (app.device.wp8) {
+		//	$(document).off('backbutton');
+		//	blockAlerts = 1;
+		//	throw '';
 		} else if (typeof navigator.app !== 'undefined') {
 			if (typeof navigator.app.exitApp !== 'undefined') {
 				navigator.app.exitApp();
