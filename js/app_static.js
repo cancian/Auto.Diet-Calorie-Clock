@@ -335,85 +335,92 @@ if(app.device.wp8) {
 // BACK BUTTON (+ESC) //
 ////////////////////////
 var backer = 0;
-$(document).on('backbutton', function(evt) {
-	app.timeout('backbuttonTimer',10,function() {
-		//CHAIN
-		if($('body').hasClass('spinnerMask')) { return false; }
-		//
-		if($('#langSelect').length) {
-			$('.preset').addClass('set');
-			$('.preset').trigger(touchend);
-		} else if($('#skipIntro').length && myScroll.x) {
-			if(typeof myScroll !== 'undefined') {
-				myScroll.prev();
-			}
-		} else if(ref) {
-			ref.close();
-			ref = '';
-		} else if($('#addNewCancel').length || $('#modalCancel').length) {
-			$('#addNewCancel').trigger(touchstart);
-			$('#modalCancel').trigger(touchstart);
-		} else if($('#closeButton').length) {
-			$('#closeButton').trigger(touchend);
-		} else if($('#subBackButton').length) {
-			$('#subBackButton').addClass('button');
-			$('#subBackButton').trigger(touchend);
-		} else if($('#backButton').length && $('#backButton').is(':visible')) {
-			if($('.dwo').length) {
-				$('#getEntryDate').mobiscroll('cancel');
-			} else {
-				$('#backButton').addClass('button');
-				$('#backButton').trigger(touchend);
-			}
-		} else if($('#advBackButton').length) {
-				$('#advBackButton').addClass('button');
-				$('#advBackButton').trigger(touchend);
-		} else if($('#iconClear').is(':visible')) {
-			$('#iconClear').trigger(touchstart);
-		} else if($('#pageSlideFood').hasClass('open')) {
-			if(app.read('foodDbLoaded','done')) {
-				$('#appHeader').trigger(touchstart);
-			}
-		} else if($('#timerDailyInput').is(':focus')) {
-			$('#timerDailyInput').trigger('blur');
-		} else if($('#diaryNotesButton').length) {
-			$('#diaryNotesButton').trigger(touchstart);
-		} else if($('#appStatusFix').hasClass('open')) {
-			$('#appStatusFix').removeClass('open');
-			$('#startDate').mobiscroll('cancel');
-		} else if($('.delete').hasClass('active')) {
-			$('#go').trigger(tap);
-		} else if($('#editableInput').is(':visible')) {
-			$('#editableInput').trigger('focus');
-			$('#editableInput').trigger('blur');
-		} else if($('input,select').is(':focus')) {
-			$('input,select,textarea').trigger('blur');
-		} else if(!app.read('app_last_tab','tab1')) {
-			if(app.read('app_last_tab','tab4')) {
-				appFooter('tab3');
-			} else if(app.read('app_last_tab','tab3')) {
-				appFooter('tab2');
-			} else {
-				appFooter('tab1');
+$(document).on('backbutton', function (evt) {
+	//
+	backer = 0
+	///////////////////
+	// TRIGGER CHAIN //
+	///////////////////
+	if ($('body').hasClass('spinnerMask')) {
+		return false;
+	}
+	//
+	if ($('#langSelect').length) {
+		$('.preset').addClass('set');
+		$('.preset').trigger(touchend);
+	} else if ($('#skipIntro').length && myScroll.x) {
+		if (typeof myScroll !== 'undefined') {
+			myScroll.prev();
+		}
+	} else if (ref) {
+		ref.close();
+		ref = '';
+	} else if ($('#addNewCancel').length || $('#modalCancel').length) {
+		$('#addNewCancel').trigger(touchstart);
+		$('#modalCancel').trigger(touchstart);
+	} else if ($('#closeButton').length) {
+		$('#closeButton').trigger(touchend);
+	} else if ($('#subBackButton').length) {
+		$('#subBackButton').addClass('button');
+		$('#subBackButton').trigger(touchend);
+	} else if ($('#backButton').length && $('#backButton').is(':visible')) {
+		if ($('.dwo').length) {
+			$('#getEntryDate').mobiscroll('cancel');
+		} else {
+			$('#backButton').addClass('button');
+			$('#backButton').trigger(touchend);
+		}
+	} else if ($('#advBackButton').length) {
+		$('#advBackButton').addClass('button');
+		$('#advBackButton').trigger(touchend);
+	} else if ($('#iconClear').is(':visible')) {
+		$('#iconClear').trigger(touchstart);
+	} else if ($('#pageSlideFood').hasClass('open')) {
+		if (app.read('foodDbLoaded', 'done')) {
+			$('#appHeader').trigger(touchstart);
+		}
+	} else if ($('#timerDailyInput').is(':focus')) {
+		$('#timerDailyInput').trigger('blur');
+	} else if ($('#diaryNotesButton').length) {
+		$('#diaryNotesButton').trigger(touchstart);
+	} else if ($('#appStatusFix').hasClass('open')) {
+		$('#appStatusFix').removeClass('open');
+		$('#startDate').mobiscroll('cancel');
+	} else if ($('.delete').hasClass('active')) {
+		$('#go').trigger(tap);
+	} else if ($('#editableInput').is(':visible')) {
+		$('#editableInput').trigger('focus');
+		$('#editableInput').trigger('blur');
+	} else if ($('input,select').is(':focus')) {
+		$('input,select,textarea').trigger('blur');
+	} else if (!app.read('app_last_tab', 'tab1')) {
+		if (app.read('app_last_tab', 'tab4')) {
+			appFooter('tab3');
+		} else if (app.read('app_last_tab', 'tab3')) {
+			appFooter('tab2');
+		} else {
+			appFooter('tab1');
+		}
+	} else {
+		/////////////////////////
+		// FALLBACK TO DEFAULT //
+		/////////////////////////
+		if(app.dev) {
+			afterHide();
+		} else if (app.device.msapp || !app.device.desktop) {
+			backer = 1;
+		} else if (app.device.wp8) {
+			$(document).off('backbutton');
+			blockAlerts = 1;
+			throw '';
+		} else if (typeof navigator.app !== 'undefined') {
+			if (typeof navigator.app.exitApp !== 'undefined') {
+				navigator.app.exitApp();
 			}
 		} else {
-			if(app.dev) {
-				afterHide();
-			} else if(app.device.msapp) {
-				backer = 1;
-			} else if(app.device.wp8) {
-				$(document).off('backbutton');
-				blockAlerts = 1;
-				throw '';
-			} else if(typeof navigator.app !== 'undefined') {
-				if(typeof navigator.app.exitApp !== 'undefined') {
-					navigator.app.exitApp();
-				}
-			} else {
-				afterHide();
-			}
+			afterHide();
 		}
-	});
+	}
 });
 //////////////////////
 // WINJS BACKBUTTON //
@@ -421,13 +428,18 @@ $(document).on('backbutton', function(evt) {
 if (app.device.msapp) {
 	if (typeof WinJS !== 'undefined') {
 		WinJS.Application.onbackclick = function (arg) {
+			backer = 0;
+			//LET EVENT HANDLE VALUE MODIFICATION
 			$(document).trigger('backbutton');
 			if(backer == 0) {
-				//prevent default
+				//use backbutton event
+				//return true prevents default
    			   	return true;
+			} else {
+				//allow default behavior once (exit app) && re-enable backbutton
+				//return nothing allows default event
+				backer = 0;
 			}
-			//allow default once && re-enable
-			backer = 0;
 		};
 	}
 }
