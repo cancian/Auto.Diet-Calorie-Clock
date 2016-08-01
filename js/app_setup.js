@@ -2314,19 +2314,18 @@ function sanitizeSql(str) {
 var rateTimer;
 function getRateDialog() {
 	//appstore enabled
-	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook) { return; }
+	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.msapp && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook) { return; }
 	if(app.get.platform() == 'web')	{ return; }
 	//first use
 	app.define('getRate',app.now());
 	//return
 	//if(app.read('getRate','locked')) { return; }
 	////////////
-	// 5 DAYS //
+	// 6 DAYS //
 	////////////
-	var timeRate = 5 * 24 * 60 * 60 * 1000;
+	var timeRate = 6 * (24*60*60*1000);
 	if((app.now() - app.read('getRate')) > (timeRate)) {
-		clearTimeout(rateTimer);
-		rateTimer = setTimeout(function() {
+		app.timer('rateTimer',3000,function() {
 			//if(app.read('getRate','locked')) { return; }
 			//app.save('getRate','locked');
 			app.save('getRate',app.now());
@@ -2337,19 +2336,14 @@ function getRateDialog() {
 					app.analytics('vote');
 					setTimeout(function() {
 						app.url();
-					},500);
+					},1000);
 				} else if(button === 1) {
 					//on action
 					app.analytics('vote-no');
 				}
-				//FIX SPACE NOWRAP ON DIALOGS
-				if(app.device.bb10 || app.device.playbook) {
-					LANG.RATE_TITLE[lang] = (LANG.RATE_TITLE[lang]).split(' ').join('&nbsp;');
-					LANG.NO_THANKS[lang]  = (LANG.NO_THANKS[lang]).split(' ').join('&nbsp;');
-				}
 				//
-			}, LANG.RATE_TITLE[lang], LANG.NO_THANKS[lang]);
-		},3666);
+			}, (app.device.bb10||app.device.playbook) ? LANG.OK[lang] : LANG.RATE_TITLE[lang], (app.device.bb10||app.device.playbook) ? LANG.CANCEL[lang] : LANG.RATE_TITLE[lang]);
+		});
 	}
 }
 ///////////////////
