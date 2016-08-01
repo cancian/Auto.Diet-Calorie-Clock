@@ -2613,9 +2613,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		isSweep : function (start, stop, checkTime) {
 			return (stop.time - start.time < $.event.special.swipe.durationThreshold) 
-			//XY
 			&& (calculateEuclideanDistance(start.coords[0],start.coords[1],stop.coords[0],stop.coords[1]) >= 30) 
-			//Y
 			&& Math.abs(start.coords[1] - stop.coords[1]) < 30;
 		},
 
@@ -2703,7 +2701,9 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end, function (event) {
 				//TWEAK
 				if(event) {
-					eventData.event = event;
+					if(event.originalEvent) {
+						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
+					}
 				}
 			}).on(nativeEvent.start, function (event) {
 				if (event.which && event.which !== 1) {
