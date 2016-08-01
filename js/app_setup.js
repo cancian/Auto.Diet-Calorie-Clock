@@ -2325,7 +2325,7 @@ function getRateDialog() {
 	////////////
 	var timeRate = 6 * (24*60*60*1000);
 	if((app.now() - app.read('getRate')) > (timeRate)) {
-		app.timer('rateTimer',3000,function() {
+		app.timeout('rateTimer',3000,function() {
 			//if(app.read('getRate','locked')) { return; }
 			//app.save('getRate','locked');
 			app.save('getRate',app.now());
