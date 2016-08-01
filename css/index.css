@@ -1107,14 +1107,15 @@ div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; 
 /*//////////////
 // ENTRY LIST //
 //////////////*/
-#entryList					{ width: 100%; font-size: 13px; /*-webkit-transform: translate3d(0, 0, 0);*/ }
-#entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; border-top: 0px solid #fff; /*overflow: hidden;*/ }
-#entryList div				{ -webkit-transition-duration: 0s; }
-#entryList div.longHold		{ -webkit-transition-timing-function: ease; -webkit-transition-duration: 1.1s; background-color: #ffff86 !important; }
-.msie #entryList div		{ padding: 15px 0 1px 0; height: 29px; }
-.ios #entryList div			{ padding: 15px 0 1px 0; }
-#entryList					{ width: 100%; min-height: 45px; }
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
+#entryList					{ width: 100%; font-size: 13px; width: 100%; min-height: 45px; }
+#entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; border-top: 0px solid #fff; /*overflow: hidden;*/ }
+/*
+#entryList div				{ -webkit-transition-duration: 0s; }
+#entryList div.hold			{ -webkit-transition-timing-function: ease; -webkit-transition-duration: 1.1s; background-color: #ff8 !important; }
+*/
+.msie #entryList div		{ padding: 15px 0 1px 0; height: 29px; background-color: rgba(0,0,0,.0); }
+.ios #entryList div			{ padding: 15px 0 1px 0; }
 #editableInput				{ -webkit-user-select: text; user-select: text; background-color: rgba(0,0,0,0) !important; padding: 0; margin: 0; border: 0px solid #ccc; display: block; width: 100%; color: #000; }
 .moz.mobile #editableInput,
 .ios #editableInput,
