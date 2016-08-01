@@ -2582,9 +2582,9 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					stop = $.event.special.swipe.stop(event);
 
 					// prevent scrolling on touch devices
-					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
-						event.preventDefault();
-					}
+					//if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+						//event.preventDefault();
+					//}
 				}
 
 				function up() {
@@ -2623,128 +2623,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
 		})
 	};
-	/*
-	// sweepleft and sweepright are just dummies, we have to
-	// setup the handler for sweep so attach a dummy event
-	$.each(["swipeleft", "swiperight"], function (i, event) {
-		$.event.special[event] = {
-			add : $.event.delegateSpecial(function (handleObj) {
-				handleObj.noop = $.noop;
-				$(this).on("swipe", handleObj.selector, handleObj.noop);
-			}),
 
-			remove : $.event.delegateSpecial.remove(function (handleObj) {
-				$(this).off("swipe", handleObj.selector, handleObj.noop);
-			})
-		};
-	});
-
-	// utility to return the scroll-y position
-	function scrollY() {
-		return window.scrollY || $(window).scrollTop();
-	}
-	
-	// also handles presshold
-	$.event.special.press = {
-		pressholdThreshold : 1750,
-
-		add : $.event.delegateSpecial(function (handleObj) {
-			var thisObject = this;
-
-			handleObj.pointerdown = function (event) {
-				var start = $.event.special.swipe.start(event),
-				startScroll = scrollY(),
-				stop,
-				timer,
-				origTarget = event.target,
-				isPresshold = false,
-				$this = $(this);
-
-				// check that on pointermove we haven't swiped beyond the threshold for swipe
-				function move(e) {
-					stop = $.event.special.swipe.stop(e);
-				}
-
-				// upon "pointerup", if we didn't trigger "presshold" then trigger a "press".
-				function up(event) {
-					clearTimeout(timer);
-					// $document.off("pointercancel", clearPressHandlers);
-
-					// unbind the pointer move
-					$this.off(touch_move, move);
-
-					// check to see if they scrolled, even 5 pixels
-					if (Math.abs(startScroll - scrollY()) > 10) {
-						return;
-					}
-
-					// check to see the action should be considered a a "swipe" event
-					if (stop && $.event.special.swipe.isSweep(start, stop)) {
-						return;
-					}
-
-					// Trigger a "press" event if the start target is the same as the stop target.
-					if (!isPresshold && origTarget === event.target) {
-						$.event.dispatch.call(thisObject, copyEvent(event, "press"));
-					}
-
-					// if this was a "presshold", prevent this "pointerup" event from causing more events
-					else if (isPresshold) {
-						event.stopPropagation();
-					}
-				}
-
-				$this
-				.on(touch_move, move)
-				.one(touch_end, up);
-
-				// TODO: if the pointer is canceled for some reason, we need to cleanup
-				// $document.on("pointercancel", clearPressHandlers);
-
-				timer = setTimeout(function () {
-						// unbind the pointer move
-						$this.off(touch_move, move);
-
-						// toggle signal to ensure when the "pointerup" event we stop propagation
-						isPresshold = true;
-
-						// check to see if they scrolled, even 5 pixels
-						if (Math.abs(startScroll - scrollY()) > 5) {
-							return;
-						}
-
-						// check to see the action should be considered a a "swipe" event
-						if (stop && $.event.special.swipe.isSweep(start, stop)) {
-							return;
-						}
-
-						// Trigger a "presshold" event if the start target is the same as the stop target.
-						if (origTarget === event.target) {
-							$.event.dispatch.call(thisObject, copyEvent(event, "presshold"));
-						}
-					}, $.event.special.press.pressholdThreshold);
-			};
-
-			$(thisObject).on(touch_start, handleObj.selector, handleObj.pointerdown);
-		}),
-
-		remove : $.event.delegateSpecial.remove(function (handleObj) {
-			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
-		})
-	};
-
-	// presshold is just a dummy, it's handled by "press".
-	$.event.special.presshold = {
-		add : $.event.delegateSpecial(function (handleObj) {
-			handleObj.noop = $.noop;
-			$(this).on("press", handleObj.selector, handleObj.noop);
-		}),
-
-		remove : $.event.delegateSpecial.remove(function (handleObj) {
-			$(this).off("press", handleObj.selector, handleObj.noop);
-		})
-	};
-	*/
 })(jQuery,touchstart,touchend,touchmove);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
