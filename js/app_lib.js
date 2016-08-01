@@ -2612,7 +2612,11 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		},
 
 		isSweep : function (start, stop, checkTime) {
-			return (stop.time - start.time < $.event.special.swipe.durationThreshold) && (calculateEuclideanDistance(start.coords[0],start.coords[1],stop.coords[0],stop.coords[1]) >= 30);
+			return (stop.time - start.time < $.event.special.swipe.durationThreshold) 
+			//XY
+			&& (calculateEuclideanDistance(start.coords[0],start.coords[1],stop.coords[0],stop.coords[1]) >= 30) 
+			//Y
+			&& Math.abs(start.coords[1] - stop.coords[1]) < 30;
 		},
 
 		add : $.event.delegateSpecial(function (handleObj) {
