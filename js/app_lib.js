@@ -2435,6 +2435,63 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		});
 	}
 };
+//#/////////////////////#//
+//# POINTER XY POLYFILL #// jquery.event.pointertouch
+//#/////////////////////#// https://github.com/timmywil/jquery.event.pointertouch
+(function(window, $) {
+	'use strict';
+	// Common properties to lift for touch or pointer events
+	var list = 'over out down up move enter leave cancel'.split(' ');
+	var hook = $.extend({}, $.event.mouseHooks);
+	var events = {};
+
+	// Support pointer events in IE11+ if available
+	if ( window.PointerEvent ) {
+		$.each(list, function( i, name ) {
+			// Add event name to events property and add fixHook
+			$.event.fixHooks[
+				(events[name] = 'pointer' + name)
+			] = hook;
+		});
+	} else {
+		var mouseProps = hook.props;
+		// Add touch properties for the touch hook
+		hook.props = mouseProps.concat(['touches', 'changedTouches', 'targetTouches', 'altKey', 'ctrlKey', 'metaKey', 'shiftKey']);
+
+		// Support: Android
+		// Android sets pageX/Y to 0 for any touch event
+		// Attach first touch's pageX/pageY and clientX/clientY if not set correctly
+		hook.filter = function( event, originalEvent ) {
+			var touch;
+			var i = mouseProps.length;
+			if ( !originalEvent.pageX && originalEvent.touches && (touch = originalEvent.touches[0]) ) {
+				// Copy over all mouse properties
+				while(i--) {
+					event[mouseProps[i]] = touch[mouseProps[i]];
+				}
+			}
+			return event;
+		};
+
+		$.each(list, function( i, name ) {
+			// No equivalent touch events for over and out
+			if (i < 2) {
+				events[ name ] = 'mouse' + name;
+			} else {
+				var touch = 'touch' +
+					(name === 'down' ? 'start' : name === 'up' ? 'end' : name);
+				// Add fixHook
+				$.event.fixHooks[ touch ] = hook;
+				// Add event names to events property
+				events[ name ] = touch + ' mouse' + name;
+			}
+		});
+	}
+
+	$.pointertouch = events;
+
+	return events;
+})(window, jQuery);
 //##/////////////////##// Pointy.js
 //## POINTY GESTURES ##// Pointer Events polyfill for jQuery
 //##/////////////////##// https://github.com/vistaprint/PointyJS
@@ -2520,6 +2577,12 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	//////////////
 	// GESTURES //
 	//////////////
+	function calculateEuclideanDistance(x1, y1, x2, y2) {
+		var diffX = (x2 - x1);
+		var diffY = (y2 - y1);
+		return Math.round(Math.sqrt((diffX * diffX) + (diffY * diffY)));
+	};
+
 	$.event.special.swipe = {
 		// More than this horizontal displacement, and we will suppress scrolling.
 		scrollSupressionThreshold : 30,
@@ -2531,33 +2594,28 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		horizontalDistanceThreshold : 30,
 
 		// swipe vertical displacement must be less than this.
-		verticalDistanceThreshold : 30,
+		verticalDistanceThreshold : 60,
 
 		start : function (event) {
-			var evt = event.originalEvent;
-			var evtX = (evt && evt.changedTouches) ? evt.changedTouches[0].pageX : event.pageX;
-			var evtY = (evt && evt.changedTouches) ? evt.changedTouches[0].pageY : event.pageY;
 			return {
 				time : +new Date(),
-				coords : [evtX,evtY],
+				coords : [event.pageX,event.pageY],
 				origin : $(event.target)
 			};
 		},
 
 		stop : function (event) {
-			var evt = event.originalEvent;
-			var evtX = (evt && evt.changedTouches) ? evt.changedTouches[0].pageX : event.pageX;
-			var evtY = (evt && evt.changedTouches) ? evt.changedTouches[0].pageY : event.pageY;
 			return {
 				time : +new Date(),
-				coords : [evtX,evtY]
+				coords : [event.pageX,event.pageY],
 			};
 		},
 
 		isSweep : function (start, stop, checkTime) {
-			return (checkTime ? stop.time - start.time < $.event.special.swipe.durationThreshold : true) &&
-			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold &&
-			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold;
+			return (stop.time - start.time < $.event.special.swipe.durationThreshold) && (calculateEuclideanDistance(start.coords[0],start.coords[1],stop.coords[0],stop.coords[1]) >= 30);
+			//Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold &&
+			//Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold;
+
 		},
 
 		add : $.event.delegateSpecial(function (handleObj) {
@@ -2581,10 +2639,10 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 					stop = $.event.special.swipe.stop(event);
 
-					// prevent scrolling on touch devices
-					//if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
-						//event.preventDefault();
-					//}
+					//prevent scrolling on touch devices
+					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+						event.preventDefault();
+					}
 				}
 
 				function up() {
@@ -2743,8 +2801,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		}
 
 		var e = event.originalEvent;
-		var x = (e.changedTouches) ? e.changedTouches[0].pageX : e.pageX;
-		var y = (e.changedTouches) ? e.changedTouches[0].pageY : e.pageY;
+		var x = e.pageX;
+		var y = e.pageY;
 
 		var tapAndHoldPoint = $(this).data("taphold.point");
 		var euclideanDistance = calculateEuclideanDistance(tapAndHoldPoint.x, tapAndHoldPoint.y, x, y);
@@ -2781,8 +2839,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		// Stores tap x & y
 		var e = event.originalEvent;
 		var tapAndHoldPoint = {};
-		tapAndHoldPoint.x = (e.changedTouches) ? e.changedTouches[0].pageX : e.pageX;
-		tapAndHoldPoint.y = (e.changedTouches) ? e.changedTouches[0].pageY : e.pageY;
+		tapAndHoldPoint.x = e.pageX;
+		tapAndHoldPoint.y = e.pageY;
 		$(this).data("taphold.point", tapAndHoldPoint);
 	};
 
