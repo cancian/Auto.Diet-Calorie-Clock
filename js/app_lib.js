@@ -2613,9 +2613,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		isSweep : function (start, stop, checkTime) {
 			return (stop.time - start.time < $.event.special.swipe.durationThreshold) && (calculateEuclideanDistance(start.coords[0],start.coords[1],stop.coords[0],stop.coords[1]) >= 30);
-			//Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold &&
-			//Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold;
-
 		},
 
 		add : $.event.delegateSpecial(function (handleObj) {
@@ -2681,7 +2678,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
 		})
 	};
-
 })(jQuery,touchstart,touchend,touchmove);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
@@ -2703,9 +2699,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end, function (event) {
 				//TWEAK
 				if(event) {
-					if(event.originalEvent) {
-						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
-					}
+					eventData.event = event;
 				}
 			}).on(nativeEvent.start, function (event) {
 				if (event.which && event.which !== 1) {
