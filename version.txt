@@ -5,6 +5,9 @@
 ★ Weight tracker
 ★ Shoutbox for users to interact
 
+# 2.0.2 [2016/08/02]
+• Refined user touch responses
+
 # 2.0.1 [2016/07/25]
 • Desktop browsers would sometimes trigger errors after window resize event
 • The daily intake input would handle the tap/focus event erratically on some devices

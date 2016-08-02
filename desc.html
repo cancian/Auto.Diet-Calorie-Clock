@@ -16,6 +16,7 @@ background-color: #eee; font-size: 14px; font-family: Verdana; height: 22px; lin
 li			{ display: inline-block; float: left; width: 3.5%; text-align: center; text-transform: uppercase; white-space: nowrap; }
 li+li		{ border-left: 1px solid #ccc; }
 li:hover	{ background-color: #007aff; color: #fff }
+#pottom		{ position: absolute; widht: 50%; display: block; border: 0px solid #000; height: 200px; top: 54px; right: 9px; padding: 30px; background-color: #eee; opacity: .4; }
 </style>
 <ul><li>en</li><li>pt</li><li>ar</li><li>bg</li><li>cs</li><li>da</li><li>de</li><li>el</li><li>es</li><li>fi</li><li>fr</li><li>hu</li><li>it</li><li>id</li><li>ja</li><li>ko</li><li>nl</li><li>nb</li><li>pl</li><li>ro</li><li>ru</li><li>sv</li><li>tr</li><li>vi</li><li>zh</li><li>zt</li></ul>
 <div id='desc'></div>
@@ -118,24 +119,27 @@ keyList0 = '';
 var keyList1 = keyList0.slice(0,100);
 var keyList2 = keyList0.slice(100,-1);
 
-desc = desc + '<div id="bottom"><br><br><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br><br>';
+desc = desc + '<div id="pottom"><div id="bottom"><br><br><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br><br>';
 desc = desc + '' + '' + '\
 <br><strong>' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong><br>\
 <br><strong>ChronoBurn: ' + LANG.CALORIE_COUNTER[lang] + '</strong>\
 <br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIES[lang] + '</strong>\
 <br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIE_COUNTER[lang] + '</strong>\
 <br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong><br>\
-</div>';
+</div></div>';
 
 
 document.getElementById('desc').innerHTML = trim(desc);
 
 //toggle keywords
 $('#bottom').css('user-select','none');
+$('#pottom').css('user-select','none');
 $('#bottom').css('background-color','#fff');
 $('#bottom').on('dblclick',function() {
 	if($('#bottom').css('user-select') == 'none') {
+	$('#pottom').css('opacity',1);
 		$('#bottom').css('user-select','auto');
+		$('#pottom').css('user-select','auto');
 		$('#bottom').css('background-color','#eee');
 	} else {
 //		$('#bottom').css('user-select','none');
