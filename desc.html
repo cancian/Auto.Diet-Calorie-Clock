@@ -77,45 +77,31 @@ desc  = trim(desc);
 // KEY DUMP //
 //////////////
 var keyList = 
-'cal,kcals,' +
-LANG.CALORIE[lang]         + ',' +
-LANG.CALORIE_CLOCK[lang]   + ',' +
+'cal,kcal,' +
 LANG.CALORIE_COUNTER[lang] + ',' +
+LANG.CALORIE_CLOCK[lang]   + ',' +
+LANG.CALCULATOR[lang]      + ',' +
+LANG.CHRONOMETER[lang]     + ',' +
+LANG.REALTIME[lang]        + ',' +
+LANG.CALORIE[lang]         + ',' +
+LANG.METABOLISM[lang]      + ',' +
+LANG.FATT[lang]            + ',' +
 LANG.WEIGHT_LOSS[lang]     + ',' +
 LANG.LOSE_WEIGHT[lang]     + ',' +
-LANG.REALTIME[lang] + ',' +
-//LANG.REALTIME_CALORIES[lang] + ',' +
-//LANG.REALTIME_CALORIE_COUNTER[lang] + ',' +
-LANG.CALORIC_BALANCE[lang] + ',' +
-LANG.FATT[lang]            + ',' +
-LANG.METABOLISM[lang] + ',' +
-LANG.TIME[lang]            + ',' +
-LANG.EXERCISE[lang]        + ',' +
-LANG.MENU_DIARY[lang]      + ',' +
-LANG.NUTRIENT_TITLE[lang]  + ',' +
-LANG.CALORIC_INTAKE[lang]  + ',' +
 LANG.GAIN_WEIGHT[lang]     + ',' +
-LANG.PROTEIN[lang]         + ',' +
-LANG.FIBER[lang]           + ',' +
-LANG.CARBOHYDRATE[lang]    + ',' +
 LANG.MENU_DIARY[lang]      + ',' +
-LANG.MENU_STATUS[lang]     + ',' +
-LANG.MENU_PROFILE[lang];
+LANG.EXERCISE[lang]        + ',' +
+LANG.CARBOHYDRATE[lang];
 //////////////
 keyList = keyList.split('undefined').join('');
-//keyList = keyList.split(' ').join(',');
-keyList = keyList.split(',,').join(',');
+keyList = keyList.split(' ').join(',');
 //keyList = keyList.split('-').join('');
-//keyList = keyList.split(',de,').join(',');
-//keyList = keyList.split(',en,').join(',');
-//keyList = keyList.split(',du,').join(',');
-//keyList = keyList.split(',em,').join(',');
-//keyList = keyList.split(',XXX,').join(',');
-//keyList = keyList.split(',XXX,').join(',');
-//keyList = keyList.split(',XXX,').join(',');
-//keyList = keyList.split(',XXX,').join(',');
-//keyList = keyList.split(',XXX,').join(',');
-//keyList = keyList.split(',di,').join(',');
+keyList = keyList.split(',de,').join(',');
+keyList = keyList.split(',en,').join(',');
+keyList = keyList.split(',du,').join(',');
+keyList = keyList.split(',em,').join(',');
+keyList = keyList.split(',di,').join(',');
+keyList = keyList.split(',,').join(',');
 keyList = trim(keyList.toLowerCase());
 
 
