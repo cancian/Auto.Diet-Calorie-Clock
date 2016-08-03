@@ -6,6 +6,7 @@
 .desktop.webkit ::after					{ font-weight: 300 !important; }
 /*native scroll*/
 .overthrow								{ overflow: auto !important; }
+.webkit.overthrow,
 .ios.overthrow							{ -webkit-overflow-scrolling: touch; }
 .msie.overthrow							{ -ms-touch-action: pan-y; touch-action: pan-y; }
 .desktop,
@@ -99,11 +100,17 @@ strong									{ font-weight: bold !important;  }
 #appContent							{ position: absolute; top: 0; left: 0; width: 100%; max-width: 100%; min-width: 100%; bottom: 46px; display: block; overflow: hidden; background-color: #fff; border-top: 65px solid rgba(255,255,255,1); margin: 0; padding: 0; touch-action: none; -ms-touch-action: none; }
 */
 .ios #appContent					{ border-top: none; top: 65px; }
-/*android scrollbar*/
+/*android scrollbar
 .android44 ::-webkit-scrollbar							{ width: 3px; -webkit-backface-visibility: hidden; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
 .android44 ::-webkit-scrollbar-track					{ background-color: rgba(0,0,0,.066); }
 .android44 ::-webkit-scrollbar-thumb					{ background-color: rgba(0,0,0,.555); border-right: 1px solid #fff; min-height: 28px; }
 .android44 ::-webkit-scrollbar-thumb:window-inactive	{ background-color: rgba(0,0,0,.066); }
+*/
+/*android scrollbar*/
+::-webkit-scrollbar										{ width: 3px; -webkit-backface-visibility: hidden; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
+::-webkit-scrollbar-track								{ background-color: rgba(0,0,0,.066); }
+::-webkit-scrollbar-thumb								{ background-color: rgba(0,0,0,.555); border-right: 1px solid #fff; min-height: 28px; }
+::-webkit-scrollbar-thumb:window-inactive				{ background-color: rgba(0,0,0,.066); }
 /*#////////////#//
 //# APP HEADER #//
 //#////////////#*/
