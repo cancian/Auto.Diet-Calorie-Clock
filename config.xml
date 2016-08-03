@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="com.cancian.chronoburn" version="2.0.2" versionCode="200200" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+<widget id="com.cancian.kcals" version="2.0.2" versionCode="200200" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
 	<!-- ### -->
@@ -30,7 +30,7 @@
 		
 	<!-- ## APP DATA ## -->
 	<name>ChronoBurn</name>
-	<description>ChronoBurn is a real-time calorie counter</description>
+	<description>Real-Time Calorie Counter</description>
 	<author href="https://chronoburn.com" email="cancian@chronoburn.com">Andre Cancian</author>
 	<icon src="icon.png" />
 	<!-- ## APP DATA ## -->
