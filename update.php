@@ -8,7 +8,7 @@
 //////////////////
 $ip      = $_SERVER['REMOTE_ADDR'];
 $time    = time();
-$minutes = 60 * 60 * 24 * 240; //10 days
+$minutes = 60 * 60 * 24 * 10; //10 days
 $found   = 0;
 $users   = 0;
 $user    = '';
