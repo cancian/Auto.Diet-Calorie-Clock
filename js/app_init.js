@@ -27,18 +27,6 @@ function safeExec(callback) {
 //## DEV DEBUGER ##//
 //##/////////////##//
 var blockAlerts = 0;
-/////////////////////
-// STRINFIGY ERROR //
-/////////////////////
-if (typeof stringifyError === 'undefined') {
-	var stringifyError = function (err) {
-		var plainObject = {};
-		Object.getOwnPropertyNames(err).forEach(function (key) {
-			plainObject[key] = err[key];
-		});
-		return JSON.stringify(plainObject);
-	};
-}
 /////////////
 // ONERROR //
 /////////////
@@ -48,13 +36,13 @@ window.onerror = function (err, url, line) {
 	if(!line) { line = ''; }
 	//STRINGIFY
 	if(typeof err !== 'string') {
-		err  = stringifyError(err);
+		err  = JSON.stringify(err);
 	}
 	if(typeof url !== 'string') {
-		url  = stringifyError(url);
+		url  = JSON.stringify(url);
 	}
 	if(typeof line !== 'string') {
-		line = stringifyError(line);
+		line = JSON.stringify(line);
 	}
 	//IGNORE BASIC
 	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space/i.test(err)) {
