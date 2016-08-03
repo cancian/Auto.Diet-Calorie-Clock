@@ -1070,10 +1070,24 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 					try {
 						eval( $('#entryBody').val().split('deveva').join(''));
 					} catch(err) {
-						alert(JSON.stringify(err));
+						console.log(stringifyError(err));
+						alert(stringifyError(err));
 					}
 				}
 			}
+			///////////
+			// THROW //
+			///////////
+			if ((/devthrow/i).test($('#entryBody').val())) {
+				if($('#entryBody').val().split('devthrow').join('') != '') {
+					$('#entryBody').val( $('#entryBody').val().split('devthrow').join('devthro') );
+					try {
+						eval( $('#entryBody').val().split('devthro').join(''));
+					} catch(err) {
+						throw(err);
+					}
+				}
+			}			
 			//////////////
 			// DEVINTRO //
 			//////////////
