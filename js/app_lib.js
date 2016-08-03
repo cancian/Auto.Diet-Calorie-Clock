@@ -1462,7 +1462,7 @@ function errorHandler(error,callback) {
 	}
 	//STRINGIFY
 	if(typeof error !== 'string') {
-		error = JSON.stringify(error);
+		error = stringifyError(error);
 	}
 	//DEV
 	if(app.beenDev) {
@@ -1785,6 +1785,18 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 		}, duration);
 	}, 0);
 };
+/////////////////////
+// STRINFIGY ERROR //
+/////////////////////
+if (typeof stringifyError === 'undefined') {
+	var stringifyError = function (err) {
+		var plainObject = {};
+		Object.getOwnPropertyNames(err).forEach(function (key) {
+			plainObject[key] = err[key];
+		});
+		return JSON.stringify(plainObject);
+	};
+}
 ////////////////
 // CAPITALIZE //
 ////////////////
@@ -2406,7 +2418,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	// CORDOVA PLUGIN //
 	////////////////////
 	} else if (typeof navigator.notification !== 'undefined') {
-			navigator.notification.confirm(msg, function(button) { setTimeout(function() { callback(button); }, 0); }, title, okCancel);
+		navigator.notification.confirm(msg, function(button) { setTimeout(function() { callback(button); }, 0); }, title, okCancel);
 	//////////////
 	// FALLBACK //
 	//////////////

@@ -2320,12 +2320,12 @@ function getRateDialog() {
 	app.define('getRate',app.now());
 	//return
 	//if(app.read('getRate','locked')) { return; }
-	////////////
-	// 6 DAYS //
-	////////////
-	var timeRate = 6 * (24*60*60*1000);
+	//////////////////
+	// DAYS TO WAIT //
+	//////////////////
+	var timeRate = 6.666 * (24*60*60*1000);
 	if((app.now() - app.read('getRate')) > (timeRate)) {
-		app.timeout('rateTimer',3000,function() {
+		app.timeout('rateTimer',2500,function() {
 			//if(app.read('getRate','locked')) { return; }
 			//app.save('getRate','locked');
 			app.save('getRate',app.now());
@@ -2334,15 +2334,15 @@ function getRateDialog() {
 				if(button === 2) {
 					//LAUNCH
 					app.analytics('vote');
-					setTimeout(function() {
+					app.timeout('voteyes',1250,function() {
 						app.url();
-					},1000);
+					});
 				} else if(button === 1) {
 					//on action
-					app.analytics('vote-no');
+					app.analytics('vote-no');					
 				}
 				//
-			}, (app.device.bb10||app.device.playbook) ? LANG.OK[lang] : LANG.RATE_TITLE[lang], (app.device.bb10||app.device.playbook) ? LANG.CANCEL[lang] : LANG.RATE_TITLE[lang]);
+			}, LANG.OK[lang], LANG.CANCEL[lang]);
 		});
 	}
 }
@@ -2352,19 +2352,17 @@ function getRateDialog() {
 app.analytics = function(target,desc) {
 	//ERROR
 	if(target == 'error') {
-		if(typeof desc === 'undefined') {
-			desc = '';
-		}
-		//CONSOLE
-		if(typeof desc !== 'string') {
-			desc = JSON.stringify(desc);
+		if(!desc || !desc.length) {
+			return;
 		}
 	}
-	//PREVENT DEV
+	////////////////
+	// FILTER DEV //
+	////////////////
 	if(typeof ga_storage === 'undefined')				{ return; }
 	if(typeof baseVersion === 'undefined')				{ return; }
 	if(app.dev || app.read('been_dev'))					{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
-	if(/local.|192.168.1./i.test(document.URL))	{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
+	if(/local.|192.168.1./i.test(document.URL))			{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(/cancian/.test(app.read('facebook_userid')))		{ return; }
 	if(app.read('facebook_userid',1051211303))			{ return; }
 	//////////
@@ -2400,14 +2398,16 @@ app.analytics = function(target,desc) {
 			app.remove('error_log_unhandled');
 			// skip irrelevant //
 			if(/800a139e|isTrusted|InvalidStateError|UnknownError|space/i.test(JSON.stringify(desc))) {
-				//ignore
+				//IGNORE
 			} else {
-				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
+				//ERROR EVENT
 				ga_storage._trackEvent(appOS, target, desc, baseVersion);
+				//ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
 			}
 		} else {
-			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')');
+			//REGULAR EVENT
 			ga_storage._trackEvent(appOS, target, lang, baseVersion);
+			//ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')');
 		}
 	}
 };

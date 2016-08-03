@@ -23,23 +23,38 @@ function safeExec(callback) {
 		}
 	}
 }
-/////////////////
-// DEV DEBUGER //
-/////////////////
+//##/////////////##//
+//## DEV DEBUGER ##//
+//##/////////////##//
 var blockAlerts = 0;
+/////////////////////
+// STRINFIGY ERROR //
+/////////////////////
+if (typeof stringifyError === 'undefined') {
+	var stringifyError = function (err) {
+		var plainObject = {};
+		Object.getOwnPropertyNames(err).forEach(function (key) {
+			plainObject[key] = err[key];
+		});
+		return JSON.stringify(plainObject);
+	};
+}
+/////////////
+// ONERROR //
+/////////////
 window.onerror = function (err, url, line) {
 	if(!err)  { err  = ''; }
 	if(!url)  { url  = ''; }
 	if(!line) { line = ''; }
 	//STRINGIFY
 	if(typeof err !== 'string') {
-		err  = JSON.stringify(err);
+		err  = stringifyError(err);
 	}
 	if(typeof url !== 'string') {
-		url  = JSON.stringify(url);
+		url  = stringifyError(url);
 	}
 	if(typeof line !== 'string') {
-		line = JSON.stringify(line);
+		line = stringifyError(line);
 	}
 	//IGNORE BASIC
 	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space/i.test(err)) {
