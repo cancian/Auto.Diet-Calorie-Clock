@@ -52,7 +52,7 @@ app = {
 	},
 	ua:   navigator.userAgent,
 	http: /http/i.test(window.location.protocol) ? true : false,
-	https: /http:/i.test(window.location.protocol) || (localStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://',
+	https: /http:/i.test(window.location.protocol) || /BB10|BlackBerry|All Touch|PlayBook/i.test(navigator.userAgent) || (localStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://',
 	now: function() {
 		return new Date().getTime();
 	},
@@ -250,6 +250,12 @@ app = {
 		end   : function(str,txt) { if(!str) { str = 'generic'; }; if(txt) { txt = txt + ': '; } else { txt = 'total: '; }; app.toast(txt + (Number((app.now() - app.globals[str]))) + ' ms', 'timer_' + (JSON.stringify(app.globals[str]))); }
 	}
 };
+/////////////////////////////////////
+// UPDATE HARDCODED HTTP/HTTPS VAR //
+/////////////////////////////////////~BB10
+if(typeof https !== 'undefined') {
+	https = app.https;
+}
 /////////////////
 // SWITCH USER //
 /////////////////
