@@ -13,11 +13,19 @@
 </head>
 <body>
 <style type="text/css">
-/*non-js version for web crawlers*/
-/*
-@font-face			{ font-family: 'FontAwesome'; src: url('css/font/fontawesome-webfont.eot?v=4.0.3'); src: url('css/font/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('css/font/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('css/font/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('css/font/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3') format('svg'); font-weight: normal; font-style: normal; -webkit-backface-visibility: hidden; }
-*/
-body				{ overflow: auto; }
+* {
+	touch-action: auto !important;
+	user-select: text !important;
+	-webkit-user-select: text !important;
+}
+html, body {
+	touch-action: auto !important;
+	position: static !important;
+	overflow: auto !important;
+	overflow-x: hidden !important;
+	overflow-y: auto !important;
+	-webkit-overflow-scrolling: touch !important;
+}
 #noScript			{ display: block; }
 #appLogo			{ font-family: "Helvetica Neue", Helvetica, Arial; color: #000; position: relative; width: 585px; margin: 32px auto 0 auto; padding: 265px 0 12px 0; background-image:url(icon.png); background-position: top right; background-repeat: no-repeat; }
 #appLogo h1 		{ margin-bottom: 9px; font-size: 26px; display: block; }

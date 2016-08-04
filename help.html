@@ -9,11 +9,14 @@
 <link rel="stylesheet" href="css/fonts.css" type="text/css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-body * {
+* {
+	touch-action: auto !important;
 	user-select: text !important;
 	-webkit-user-select: text !important;
 }
-body {
+html, body {
+	touch-action: auto !important;
+	position: static !important;
 	overflow: auto !important;
 	overflow-x: hidden !important;
 	overflow-y: auto !important;
@@ -47,10 +50,10 @@ body {
 h1, h1 a {
 	white-space: nowrap;
 	text-decoration: underline !important;
-	color: #E22 !important;
+	color: #22E !important;
 }
 h2 {
-	color: #D22;
+	color: #22D;
 	padding-top: 5px;
 	font-size: 24px;
 	white-space: nowrap;
@@ -117,7 +120,7 @@ h2 {
 </head>
 <body>
 <div style="padding: 16px;">
-  <h1><a href="/" title="ChronoBurn - Real-Time Calorie Counter">ChronoBurn</a></h1>
+  <h1><a href="/" title="ChronoBurn: Real-Time Calorie Counter">ChronoBurn</a></h1>
   <h2>Real-Time Calorie Counter</h2>
 </div>
 <div id="icons" style="position:absolute; width: 100%; display: block; top: 120px; left: 0; right: 0; bottom: 0;">
