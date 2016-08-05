@@ -929,7 +929,7 @@ app.handlers = {
 		//# SCROLL/MOVE CANCEL #//
 		//#////////////////////#//
 		//lower thresold for android
-		var TouchLimit = app.device.android ? 6 : 12;
+		var TouchLimit = app.device.android ? 8 : 16;
 		//
 		if(!app.device.windows8) {
 			var moveCancel =  touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel;
@@ -967,7 +967,7 @@ app.handlers = {
 			//TIMEOUT
 			app.handlers.activeRowTimer[t] = setTimeout(function () {
 				app.handlers.activeRowBlock[t] = 0;
-			}, 50);
+			}, 65);
 		});
 	},
 	///////////////////
@@ -1457,7 +1457,7 @@ function errorHandler(error,callback) {
 		return;
 	}
 	//FILTER
-	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space/i.test(JSON.stringify(error))) { 
+	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile/i.test(JSON.stringify(error))) { 
 		return; 
 	}
 	//STRINGIFY
@@ -2342,7 +2342,8 @@ app.prompt = function(title,content,callback) {
 		callback(usrPrompt);
 	}
 };
-/*window.navigator.notification.prompt(
+/*
+window.navigator.notification.prompt(
     new String(), // message
     function(answer) {
         if (answer.buttonIndex === 1) {
@@ -2357,7 +2358,8 @@ app.prompt = function(title,content,callback) {
     "ADD CATEGORY", //title
     ["Ok", "Exit"], // button titles
     new String() // defaultText
-);*/
+);
+*/
 //##///////////////////##//
 //## APP CONFIRM LAYER ##//
 //##///////////////////##// appConfirm(title, msg, callback, LANG.OK[lang], LANG.CANCEL[lang]);
@@ -2578,13 +2580,14 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		var event = originaljQEvent; // TODO: this should clone the originaljQEvent object
 
 		event.type = type;
+		/*
 		event.isPropagationStopped = function () {
 			return false;
 		};
 		event.isDefaultPrevented = function () {
 			return false;
 		};
-
+		*/
 		if (extras) {
 			$.extend(event, extras);
 		}
@@ -2655,11 +2658,11 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					}
 
 					stop = $.event.special.swipe.stop(event);
-
+					
 					//prevent scrolling on touch devices
-					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
-						event.preventDefault();
-					}
+					//if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+					//	event.preventDefault();
+					//}
 				}
 
 				function up() {

@@ -98,7 +98,7 @@ $(document).on('resume',function(evt) {
 // VISIBILITY CHANGE //
 ///////////////////////
 $(document).on('visibilitychange focus', function (evt) {
-	if(app) {
+	if(typeof app !== 'undefined') {
 		app.timeout('browserResume',5000,function() {
 			clearTimeout(app.repeaterLoop);
 			//
@@ -297,8 +297,10 @@ appFooter = function (id,keepOpen,callback) {
 		app.analytics('tab');
 	});
 };
-//READ STORED
-appFooter(app.read('app_last_tab'));
+/////////////////////
+// READ STORED TAB //
+//////////////////// (VANILLA METHOD)
+appFooter(localStorage.getItem('app_last_tab') ? localStorage.getItem('app_last_tab') : 'tab1');
 ///////////////////////
 // LISTEN FOR CLICKS //
 ///////////////////////
@@ -839,7 +841,9 @@ if(app.device.osx) {
 }
 if(app.device.osxapp) {
 	$('body').addClass('osxapp');
-	//ADD MENU (RESET SETTINGS)
+	///////////////////
+	// ADD MENU ITEM //
+	/////////////////// (RESET SETTINGS)
 	try {
 		if(macgap.menu.getItem('ChronoBurn').submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
 			macgap.menu.getItem('ChronoBurn').submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
@@ -856,15 +860,16 @@ if(app.device.osxapp) {
 	} catch(err) {
 		errorHandler('macgap.menu: ' + err);
 	}
-	//CLOSE ON MINIMIZE
+	//////////////////////
+	// QUIT ON MINIMIZE //
+	//////////////////////
 	if(reviewMode === true) {
 		$(document).on('visibilitychange', function () {
-			clearTimeout(app.timers.terminate);
-			app.timers.terminate = setTimeout(function() {
+			app.timeout('macgapAppTerminate',1200,function() {
 				if (document.hidden == true || document.visibilityState == 'hidden') {
 					macgap.app.terminate();
 				}
-			},1000);
+			});
 		});
 	}
 }
@@ -993,7 +998,7 @@ if(!document.getElementById('fontTest')) {
 			clearTimeout(loadTimeout);
 			unlockApp();
 		}
-	},10);
+	},12);
 }
 ////////////////////////////
 // STABLE SCROLL ON SWIPE //

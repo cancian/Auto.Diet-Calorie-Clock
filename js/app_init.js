@@ -45,11 +45,11 @@ window.onerror = function (err, url, line) {
 		line = JSON.stringify(line);
 	}
 	//IGNORE BASIC
-	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space/i.test(err)) {
+	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile/i.test(err)) {
 		return; 
 	}
 	//LOG
-	console.log('unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
+	console.log('window.onerror: ' + err + ' URL: ' + url + ' Line: ' + line);
 	//SAVE
 	localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
 	//TRACK
@@ -181,14 +181,14 @@ safeExec(function() {
 	////////
 	//JQUERY
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
+	//PLUGINS
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
 	//UTILS
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
-	//PLUGINS
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//

@@ -2,17 +2,14 @@
 //## JQUERY.NICESCROLL 3.6.0 ##//
 ///##////////////////////////##// https://github.com/inuyaksa/jquery.nicescroll
 (function ($) {
-	
 	'use strict';
-	
+
 	// globals
 	var domfocus = false;
 	var mousefocus = false;
 	var tabindexcounter = 0;
 	var ascrailcounter = 2000;
 	var globalmaxzindex = 0;
-
-	var $ = jQuery; // sandbox
 
 	// http://stackoverflow.com/questions/2161159/get-script-path
 	function getScriptPath() {
@@ -1932,20 +1929,23 @@
 								return($("body").hasClass("modal-open")) ? self.hide() : self.show(); // Support for Bootstrap modal
 							}
 						});
-						//TWEAK
-						if(typeof document.body !== 'undefined') {
-							if(typeof document.body.scrollHeight !== 'undefined') {
-								if(document.body.scrollHeight != self.page.maxh) return self.lazyResize(30);
-							}
-						}
-					});
-					self.observerbody.observe(document.body, {
-						childList: true,
-						subtree: true,
-						characterData: false,
-						attributes: true,
-						attributeFilter: ['class']
-					});
+					//TWEAK
+					if(typeof document.body !== 'undefined' ) {
+						try {
+							if(document.body.scrollHeight != self.page.maxh) { return self.lazyResize(30); }
+						} catch(e) {}
+					}
+				});
+					//TWEAK
+					if(typeof document.body !== 'undefined' ) {
+						self.observerbody.observe(document.body, {
+							childList: true,
+							subtree: true,
+							characterData: false,
+							attributes: true,
+							attributeFilter: ['class']
+						});
+					}
 				}
 
 				if(!self.ispage && !self.haswrapper) {
@@ -2315,15 +2315,29 @@
 
 			return self;
 		};
-
-		this.resize = self.onResize;
-
-		this.lazyResize = function (tm) { // event debounce
-			tm = (isNaN(tm)) ? 30 : tm;
-			self.debounced('resize', self.resize, tm);
-			return self;
-		};
-
+		
+		//TWEAK#0
+		try {
+			this.resize = self.onResize;
+			
+			//TWEAK#1
+			var lazyTimeout;
+			this.lazyResize = function (tm) { // event debounce
+				tm = (isNaN(tm)) ? 30 : tm;
+				//TWEAK#2
+				clearTimeout(lazyTimeout);;
+				lazyTimeout = setTimeout(function() {
+					if(typeof self !== 'undefined') {
+						self.debounced('resize', self.resize, tm);
+						return self;
+					}
+				//TWEAK#2
+				},tm);
+			};
+			//TWEAK#1
+		} catch(err) {}
+		//TWEAK#0
+		
 		// modified by MDN https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/wheel
 		function _modernWheelEvent(dom, name, fn, bubble) {
 			self._bind(dom, name, function (e) {
@@ -3523,9 +3537,9 @@
 
 	// override jQuery scrollTop
 
-	var _scrollTop = jQuery.fn.scrollTop; // preserve original function
+	var _scrollTop = $.fn.scrollTop; // preserve original function
 
-	jQuery.cssHooks["pageYOffset"] = {
+	$.cssHooks["pageYOffset"] = {
 		get: function (elem, computed, extra) {
 			var nice = $.data(elem, '__nicescroll') || false;
 			return(nice && nice.ishwscroll) ? nice.getScrollTop() : _scrollTop.call(elem);
@@ -3543,7 +3557,7 @@
 		};
 		 */
 
-	jQuery.fn.scrollTop = function (value) {
+	$.fn.scrollTop = function (value) {
 		if(typeof value == "undefined") {
 			var nice = (this[0]) ? $.data(this[0], '__nicescroll') || false : false;
 			return(nice && nice.ishwscroll) ? nice.getScrollTop() : _scrollTop.call(this);
@@ -3557,7 +3571,7 @@
 
 	// override jQuery scrollLeft
 
-	var _scrollLeft = jQuery.fn.scrollLeft; // preserve original function
+	var _scrollLeft = $.fn.scrollLeft; // preserve original function
 
 	$.cssHooks.pageXOffset = {
 		get: function (elem, computed, extra) {
@@ -3577,7 +3591,7 @@
 		};
 		 */
 
-	jQuery.fn.scrollLeft = function (value) {
+	$.fn.scrollLeft = function (value) {
 		if(typeof value == "undefined") {
 			var nice = (this[0]) ? $.data(this[0], '__nicescroll') || false : false;
 			return(nice && nice.ishwscroll) ? nice.getScrollLeft() : _scrollLeft.call(this);
@@ -3638,7 +3652,7 @@
 			};
 		});
 
-	jQuery.fn.getNiceScroll = function (index) {
+	$.fn.getNiceScroll = function (index) {
 		if(typeof index == "undefined") {
 			return new NiceScrollArray(this);
 		} else {
@@ -3647,7 +3661,7 @@
 		}
 	};
 
-	jQuery.extend(jQuery.expr[':'], {
+	$.extend($.expr[':'], {
 		nicescroll: function (a) {
 			return($.data(a, '__nicescroll')) ? true : false;
 		}
@@ -3685,7 +3699,7 @@
 
 	window.NiceScroll = {
 		getjQuery: function () {
-			return jQuery
+			return $;
 		}
 	};
 
@@ -3693,5 +3707,5 @@
 		$.nicescroll = new NiceScrollArray();
 		$.nicescroll.options = _globaloptions;
 	}
-
 })(jQuery);
+
