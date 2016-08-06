@@ -717,13 +717,18 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		//////////////////
 		// CHECK SUBMIT //
 		//////////////////
-		if(inputValue > -1 && inputValue < 1) {
-			if($('#entrySubmit').hasClass('submitActive')) {
+		if (inputValue > -1 && inputValue < 1) {
+			if ($('#entrySubmit').hasClass('submitActive')) {
 				$('#entrySubmit').removeClass('submitActive');
 			}
 		} else {
-			if(!$('#entrySubmit').hasClass('submitActive')) {
-				$('#entrySubmit').addClass('submitActive');
+			if (!$('#entrySubmit').hasClass('submitActive')) {
+				//wait resize to respond
+				app.timeout('addSubmitClass', 100, function () {
+					if (Math.abs($('#entryTitle').val()) >= 1) {
+						$('#entrySubmit').addClass('submitActive');
+					}
+				});
 			}
 		}
 		////////////
