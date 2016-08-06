@@ -2328,8 +2328,10 @@
 				clearTimeout(lazyTimeout);;
 				lazyTimeout = setTimeout(function() {
 					if(typeof self !== 'undefined') {
-						self.debounced('resize', self.resize, tm);
-						return self;
+						if(typeof self.debounced !== 'undefined') {
+							self.debounced('resize', self.resize, tm);
+							return self;
+						}
 					}
 				//TWEAK#2
 				},tm);

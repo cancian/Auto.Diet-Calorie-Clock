@@ -2515,7 +2515,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //##/////////////////##// Pointy.js
 //## POINTY GESTURES ##// Pointer Events polyfill for jQuery
 //##/////////////////##// https://github.com/vistaprint/PointyJS
-(function ($,touch_start,touch_end,touch_move) {
+(function ($, touch_start, touch_end, touch_move) {
 	'use strict';
 	///////////////
 	// POINTY.JS //
@@ -2580,14 +2580,13 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		var event = originaljQEvent; // TODO: this should clone the originaljQEvent object
 
 		event.type = type;
-		/*
 		event.isPropagationStopped = function () {
 			return false;
 		};
 		event.isDefaultPrevented = function () {
 			return false;
 		};
-		*/
+
 		if (extras) {
 			$.extend(event, extras);
 		}
@@ -2598,6 +2597,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	//////////////
 	// GESTURES //
 	//////////////
+	var isTouchDevice = 'ontouchstart' in window;
 	function calculateEuclideanDistance(x1, y1, x2, y2) {
 		var diffX = (x2 - x1);
 		var diffY = (y2 - y1);
@@ -2620,7 +2620,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		start : function (event) {
 			return {
 				time : +new Date(),
-				coords : [event.pageX,event.pageY],
+				coords : [event.pageX, event.pageY],
 				origin : $(event.target)
 			};
 		},
@@ -2628,14 +2628,14 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		stop : function (event) {
 			return {
 				time : +new Date(),
-				coords : [event.pageX,event.pageY],
+				coords : [event.pageX, event.pageY],
 			};
 		},
 
 		isSweep : function (start, stop, checkTime) {
-			return (stop.time - start.time < $.event.special.swipe.durationThreshold) 
-			&& (calculateEuclideanDistance(start.coords[0],start.coords[1],stop.coords[0],stop.coords[1]) >= 30) 
-			&& Math.abs(start.coords[1] - stop.coords[1]) < 30;
+			return (stop.time - start.time < $.event.special.swipe.durationThreshold)
+			 && (calculateEuclideanDistance(start.coords[0], start.coords[1], stop.coords[0], stop.coords[1]) >= 30)
+			 && Math.abs(start.coords[1] - stop.coords[1]) < 30;
 		},
 
 		add : $.event.delegateSpecial(function (handleObj) {
@@ -2658,11 +2658,13 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					}
 
 					stop = $.event.special.swipe.stop(event);
-					
+
 					//prevent scrolling on touch devices
-					//if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
-					//	event.preventDefault();
-					//}
+					if (isTouchDevice) {
+						if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+							event.preventDefault();
+						}
+					}
 				}
 
 				function up() {
@@ -2682,9 +2684,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					start = stop = undefined;
 				}
 
-				$this
-				.on(touch_move, move)
-				.one(touch_end, up);
+				$this.on(touch_move, move).one(touch_end, up);
 
 				// set a timeout to ensure we cleanup, in case the "pointerup" isn't fired
 				setTimeout(function () {
@@ -2701,19 +2701,19 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
 		})
 	};
-})(jQuery,touchstart,touchend,touchmove);
+})(jQuery, touchstart, touchend, touchmove);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
-(function ($, specialEventName,touch_start,touch_end) {
+(function ($, specialEventName, touch_start, touch_end) {
 	'use strict';
 	var nativeEvent = Object.create(null);
 	var getTime = function () {
 		return new Date().getTime();
 	};
 	nativeEvent.original = 'click';
-	nativeEvent.start    = touch_start;
-	nativeEvent.end      = touch_end;
+	nativeEvent.start = touch_start;
+	nativeEvent.end = touch_end;
 
 	$.event.special[specialEventName] = {
 		setup : function (data, namespaces, eventHandle) {
@@ -2721,8 +2721,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			var eventData = {};
 			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end, function (event) {
 				//TWEAK
-				if(event) {
-					if(event.originalEvent) {
+				if (event) {
+					if (event.originalEvent) {
 						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
 					}
 				}
@@ -2734,18 +2734,18 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				if (eventData) {
 					if (eventData.event) {
 						eventData.target = event.target;
-						eventData.pageX  = eventData.event.pageX;
-						eventData.pageY  = eventData.event.pageY;
-						eventData.time   = getTime();
+						eventData.pageX = eventData.event.pageX;
+						eventData.pageY = eventData.event.pageY;
+						eventData.time = getTime();
 					}
-				}   
+				}
 			}).on(nativeEvent.end, function (event) {
 				//TWEAK
 				if (eventData) {
 					if (eventData.event) {
 						//TWEAK ~ round decimals for android
-						var diffX  = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
-						var diffY  = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
+						var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
+						var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
 						//PRE-SWIPE
 						//var startX = parseInt(eventData.pageX);
 						//var startY = parseInt(eventData.pageY);
@@ -2753,9 +2753,9 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 						//var endY   = parseInt(eventData.event.pageY);
 						//
 						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-							event.type   = specialEventName;
-							event.pageX  = eventData.event.pageX;
-							event.pageY  = eventData.event.pageY;
+							event.type = specialEventName;
+							event.pageX = eventData.event.pageX;
+							event.pageY = eventData.event.pageY;
 							//PRE-SWIPE
 							//event.startX = startX;
 							//event.startY = startY;
@@ -2783,14 +2783,14 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
-(function ($,touch_start,touch_end,touch_move) {
+(function ($, touch_start, touch_end, touch_move) {
 	'use strict';
 	var TAP_AND_HOLD_TRIGGER_TIMER = 1750;
 	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 10;
 
 	var TOUCHSTART = touch_start;
-	var TOUCHEND   = touch_end;
-	var TOUCHMOVE  = touch_move;
+	var TOUCHEND = touch_end;
+	var TOUCHMOVE = touch_move;
 
 	var tapAndHoldTimer = null;
 
@@ -2891,7 +2891,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		teardown : function () {}
 	};
-})(jQuery,touchstart,touchend,touchmove);
+})(jQuery, touchstart, touchend, touchmove);
 //#//////////////////////////////#//
 //# FIREFOX: DETECT PRIVATE MODE #//
 //#//////////////////////////////#//
