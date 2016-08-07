@@ -427,7 +427,7 @@ $(document).on('backbutton', function (evt) {
 //////////////////////
 // WINJS BACKBUTTON //
 //////////////////////
-if (app.device.msapp) {
+if (app.device.msapp && !app.device.cordova) {
 	if (typeof WinJS !== 'undefined') {
 		WinJS.Application.onbackclick = function (arg) {
 			backer = 0;
