@@ -534,11 +534,14 @@ var pageReloads = 0;
 $(document).on("pageReload", function (evt) {
 	//pre-load db, then open
 	if (!app.read('foodDbLoaded','done')) {
-		if(pageReloads > 20) { console.log('giving up'); return; }
+		if(pageReloads > 20) {
+			if(app.dev) { console.log('giving up'); }
+			return;
+		}
 		updateFoodDb();
-		app.timeout('pageReload',200,function() {
+		app.timeout('pageReload', 200, function() {
 			pageReloads++;
-			console.log('trying ' + pageReloads);
+			if(app.dev) { console.log('trying ' + pageReloads); }
 			$(document).trigger("pageReload");
 		});
 		return;
@@ -549,16 +552,16 @@ $(document).on("pageReload", function (evt) {
 	//
 	evt.preventDefault();
 	//PREVENT DOUBLE LOAD
-	if($('#pageSlideFood').hasClass("busy") && $('#pageSlideFood').hasClass('open')) {
+	if($('#pageSlideFood').hasClass('busy') && $('#pageSlideFood').hasClass('open')) {
 		return;
 	} else {
-		$("#pageSlideFood").remove();
+		$('#pageSlideFood').remove();
 	}
-	if($("#pageSlideFood").length) {
-		if($("#pageSlideFood").is(":animated")) {
+	if($('#pageSlideFood').length) {
+		if($("#pageSlideFood").is(':animated')) {
 			return;
 		} else {
-			$("#pageSlideFood").remove();
+			$('#pageSlideFood').remove();
 		}
 	}
 	//evt.stopPropagation();
