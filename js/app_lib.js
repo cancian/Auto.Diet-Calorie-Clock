@@ -150,7 +150,7 @@ app = {
 		///////////////////////// 
 		if(/diary_entry|diary_food/i.test(key)) {
 			app.returner(type,value);
-			app.timeout('dbTimeout_' + key,750,function() {
+			app.timeout('dbTimeout_' + key,300,function() {
 				localforage.setItem(key,value);
 			});
 			return;
@@ -189,7 +189,7 @@ app = {
 			//cached keys
 			if (!/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i.test(keys[i]) || localStorage.getItem('config_autoupdate') !== 'on') {
 				//protected keys
-				if(!/autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_installed/i.test(keys[i])) {
+				if(!/ga_storage|autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_installed/i.test(keys[i])) {
 					//MULTIUSER
 					/*
 					//remove current user settings
