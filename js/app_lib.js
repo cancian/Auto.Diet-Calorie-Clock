@@ -2509,78 +2509,37 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			}
 		});
 	}
-	//
 	$.pointertouch = events;
 	return events;
 })(window, jQuery);
-//#///////////////#//
-//# SWIPE HANDLER #//
-//#///////////////#//
-(function ($) {
-	$.event.special['swipe'] = {
-		setup : function (data, namespaces, eventHandle) {
-			var $element = $(this);
-			var eventData = {};
-			$element.on(touchstart, function (event) {
-				//TWEAK
-				eventData.id     = $(this).prop('id');
-				eventData.target = $(this);
-				eventData.pageX  = event.pageX;
-				eventData.pageY  = event.pageY;
-				eventData.time   = app.now();
-			}).on(touchend, function (event) {
-				//TWEAK
-				if (eventData.id || eventData.target) {
-					//TWEAK ~ round decimals for android
-					var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(event.pageX));
-					var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(event.pageY));
-					//SWIPE COORDS
-					var startX = parseInt(eventData.pageX);
-					var endX   = parseInt(event.pageX);
-					//SWIPE THRESHOLD
-					if ((eventData.id === $(this).prop('id') || eventData.target === $(this)) && (app.now() - eventData.time < 750) && diffX > 30 && diffY < 30) {
-						//MODIFY EVENT
-						event.type      = 'swipe';
-						event.direction = startX > endX ? 'left' : 'right';
-						eventHandle.call(this, event);
-					}
-				}
-			});
-		},
-		remove : function () {
-			$(this).off(touchstart + ' ' + touchend);
-		}
-	};
-	$.fn['swipe'] = function (fn) {
-		return this[fn ? 'on' : 'trigger']('swipe', fn);
-	};
-})(jQuery);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
 (function ($) {
 	$.event.special['tap'] = {
 		setup : function (data, namespaces, eventHandle) {
-			var $element = $(this);
-			var eventData = {};
-			$element.on(touchstart, function (event) {
-				//TWEAK
-				eventData.id     = $(this).prop('id');
-				eventData.target = $(this);
-				eventData.pageX  = event.pageX;
-				eventData.pageY  = event.pageY;
-				eventData.time   = app.now();
+			var tapElem = $(this);
+			var tapData = {};
+			tapElem.on(touchstart, function (event) {
+				if (event.which && event.which !== 1) { return; }
+				//DATA
+				tapData.target = event.target;
+				tapData.pageX  = event.pageX;
+				tapData.pageY  = event.pageY;
+				tapData.time   = app.now();
 			}).on(touchend, function (event) {
-				//TWEAK
-				if (eventData.id || eventData.target) {
-					//TWEAK ~ round decimals for android
-					var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(event.pageX));
-					var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(event.pageY));
-					//SWIPE THRESHOLD
-					if ((eventData.id === $(this).prop('id') || eventData.target === $(this)) && (app.now() - eventData.time < 750) && diffX < 10 && diffY < 10) {
-						//MODIFY EVENT
-						event.type = 'tap';
-						eventHandle.call(this, event);
+				if (tapData.target || tapData.id) {
+					//SAME TARGET
+					if (tapElem.prop('id') === $(this).prop('id') || tapData.target === event.target) {
+						//TWEAK ~ round decimals for android
+						var diffX = Math.abs(parseInt(tapData.pageX) - parseInt(event.pageX));
+						var diffY = Math.abs(parseInt(tapData.pageY) - parseInt(event.pageY));
+						//EVENT THRESHOLD
+						if (app.now() - tapData.time < 750 && diffX < 10 && diffY < 10) {
+							//MODIFY EVENT
+							event.type = 'tap';
+							eventHandle.call(this, event);
+						}
 					}
 				}
 			});
@@ -2591,6 +2550,50 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	};
 	$.fn['tap'] = function (fn) {
 		return this[fn ? 'on' : 'trigger']('tap', fn);
+	};
+})(jQuery);
+//#///////////////#//
+//# SWIPE HANDLER #//
+//#///////////////#//
+(function ($) {
+	$.event.special['swipe'] = {
+		setup : function (data, namespaces, eventHandle) {
+			var swipeElem = $(this);
+			var swipeData = {};
+			swipeElem.on(touchstart, function (event) {
+				if (event.which && event.which !== 1) { return; }
+				//DATA
+				swipeData.target = event.target;
+				swipeData.pageX  = event.pageX;
+				swipeData.pageY  = event.pageY;
+				swipeData.time   = app.now();
+			}).on(touchend, function (event) {
+				if (swipeData.pageX || event.target) {
+					//SAME TARGET
+					if (swipeElem.prop('id') === $(this).prop('id') || swipeData.target === event.target) {
+						//TWEAK ~ round decimals for android
+						var diffX = Math.abs(parseInt(swipeData.pageX) - parseInt(event.pageX));
+						var diffY = Math.abs(parseInt(swipeData.pageY) - parseInt(event.pageY));
+						//SWIPE START/END POS
+						var startX = parseInt(swipeData.pageX);
+						var endX   = parseInt(event.pageX);
+						//EVENT THRESHOLD
+						if (app.now() - swipeData.time < 750 && diffX > 30 && diffY < 30) {
+							//MODIFY EVENT
+							event.type      = 'swipe';
+							event.direction = startX > endX ? 'left' : 'right';
+							eventHandle.call(this, event);
+						}
+					}
+				}
+			});
+		},
+		remove : function () {
+			$(this).off(touchstart + ' ' + touchend);
+		}
+	};
+	$.fn['swipe'] = function (fn) {
+		return this[fn ? 'on' : 'trigger']('swipe', fn);
 	};
 })(jQuery);
 //#////////////#//

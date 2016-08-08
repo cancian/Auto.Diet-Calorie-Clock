@@ -365,7 +365,7 @@ $(document).on("pageload", function (evt) {
 		//SHOW
 		if (!$('#entryList div:animated').length && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && (!$('#entryBody').is(':focus') || app.device.desktop) && (!$('#entryTime').is(':focus') || app.device.desktop)) {
 			$('.delete', swippen).addClass('busy');
-			app.timeout('openRowSwipe', 0, function () {
+			setTimeout(function () {
 				$('.delete', swippen).addClass('active');
 				$('.delete', swippen).addClass('open');
 				$('.delete', swippen).on(transitionend, function (evt) {
@@ -376,7 +376,7 @@ $(document).on("pageload", function (evt) {
 				app.timeout('removeSwipeBusy',200,function() {
 					$('.delete').removeClass('busy');
 				});
-			});
+			}, 0);
 		}
 	});
 	/////////////////////
