@@ -52,7 +52,7 @@ app = {
 	},
 	ua:   navigator.userAgent,
 	http: /http/i.test(window.location.protocol) ? true : false,
-	https: /http:/i.test(window.location.protocol) || /BB10|BlackBerry|All Touch|PlayBook/i.test(navigator.userAgent) || (localStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://',
+	https: /http:/i.test(window.location.protocol) || (localStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://',
 	now: function() {
 		return new Date().getTime();
 	},
@@ -250,12 +250,6 @@ app = {
 		end   : function(str,txt) { if(!str) { str = 'generic'; }; if(txt) { txt = txt + ': '; } else { txt = 'total: '; }; app.toast(txt + (Number((app.now() - app.globals[str]))) + ' ms', 'timer_' + (JSON.stringify(app.globals[str]))); }
 	}
 };
-/////////////////////////////////////
-// UPDATE HARDCODED HTTP/HTTPS VAR //
-/////////////////////////////////////~BB10
-if(typeof https !== 'undefined') {
-	https = app.https;
-}
 /////////////////
 // SWITCH USER //
 /////////////////
@@ -411,9 +405,20 @@ app.get.platform = function(noweb) {
 	else if(app.device.chromeos)			{ return 'ChromeOS';         }
 	else									{ return 'web'; }
 };
-////////////////////
-// GLOBAL BOOLEAN //
-////////////////////
+//#/////////////////////////////#//
+//# UPDATE HARDCODED SSL MARKER #//~Let's encrypt denied?
+//#/////////////////////////////#//~BB10
+if(typeof https !== 'undefined') {
+	https = app.https;
+}
+//MANUAL OVERRIDES (DISABLE)
+if(app.device.blackberry || app.device.playbook || app.device.android2) {
+	app.https = 'http://';
+	https = app.https;	
+}
+//#///////////////////#//
+//# APP.IS.SCROLLABLE #//
+//#///////////////////#//
 app.is.scrollable = false;
 if($.nicescroll && !app.device.msapp && vendorClass != 'msie') {
 	if(app.device.desktop && !app.device.msapp)			{ app.is.scrollable = true; }
