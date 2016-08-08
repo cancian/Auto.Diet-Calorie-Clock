@@ -2217,6 +2217,8 @@ function android2Select() {
 // CSS LOAD COUNT //
 ////////////////////
 function cssLoadCount(num,total) {
+	if(typeof LANG === 'undefined') { return; }
+	//
 	var loadCounter = " (" + num + "/" + total + ")";
 	if(num == 0 && total == 0) { loadCounter = ''; }
 	$("#cssAutoUpdate").html2("\
