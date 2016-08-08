@@ -2509,151 +2509,90 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			}
 		});
 	}
-
+	//
 	$.pointertouch = events;
-
 	return events;
 })(window, jQuery);
 //#///////////////#//
-//# SWIPE HANDLER #// Version: 0.3.1
-//#///////////////#// https://github.com/BR0kEN-/jTap
-(function ($, specialEventName, touch_start, touch_end) {
-	'use strict';
-	var nativeEvent = Object.create(null);
-	var getTime = function () {
-		return new Date().getTime();
-	};
-	
-	nativeEvent.original = 'click';
-	nativeEvent.start    = touch_start;
-	nativeEvent.end      = touch_end;
-
-	$.event.special[specialEventName] = {
+//# SWIPE HANDLER #//
+//#///////////////#//
+(function ($) {
+	$.event.special['swipe'] = {
 		setup : function (data, namespaces, eventHandle) {
 			var $element = $(this);
 			var eventData = {};
-			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end, function (event) {
+			$element.on(touchstart, function (event) {
 				//TWEAK
-				if (event) {
-					if (event.originalEvent) {
-						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
-					}
-				}
-			}).on(nativeEvent.start, function (event) {
-				if (event.which && event.which !== 1) {
-					return;
-				}
+				eventData.id     = $(this).prop('id');
+				eventData.target = $(this);
+				eventData.pageX  = event.pageX;
+				eventData.pageY  = event.pageY;
+				eventData.time   = app.now();
+			}).on(touchend, function (event) {
 				//TWEAK
-				if (eventData) {
-					if (eventData.event) {
-						eventData.target = event.target;
-						eventData.pageX  = eventData.event.pageX;
-						eventData.pageY  = eventData.event.pageY;
-						eventData.time   = getTime();
-					}
-				}
-			}).on(nativeEvent.end, function (event) {
-				//TWEAK
-				if (eventData) {
-					if (eventData.event) {
-						//TWEAK ~ round decimals for android
-						var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
-						var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
-						//SWIPE COORDS
-						var startX = parseInt(eventData.pageX);
-						var endX   = parseInt(eventData.event.pageX);
-						//SWIPE THRESHOLD
-						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX > 30 && diffY < 30) {
-							//MODIFY EVENT
-							event.type      = specialEventName;
-							event.pageX     = eventData.event.pageX;
-							event.pageY     = eventData.event.pageY;
-							event.direction = startX > endX ? 'left' : 'right';
-							eventHandle.call(this, event);
-							if (!event.isDefaultPrevented()) {
-								$element.off(nativeEvent.original).trigger(nativeEvent.original);
-							}
-						}
+				if (eventData.id || eventData.target) {
+					//TWEAK ~ round decimals for android
+					var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(event.pageX));
+					var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(event.pageY));
+					//SWIPE COORDS
+					var startX = parseInt(eventData.pageX);
+					var endX   = parseInt(event.pageX);
+					//SWIPE THRESHOLD
+					if ((eventData.id === $(this).prop('id') || eventData.target === $(this)) && (app.now() - eventData.time < 750) && diffX > 30 && diffY < 30) {
+						//MODIFY EVENT
+						event.type      = 'swipe';
+						event.direction = startX > endX ? 'left' : 'right';
+						eventHandle.call(this, event);
 					}
 				}
 			});
 		},
 		remove : function () {
-			$(this).off(nativeEvent.start + ' ' + nativeEvent.end);
+			$(this).off(touchstart + ' ' + touchend);
 		}
 	};
-	$.fn[specialEventName] = function (fn) {
-		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
+	$.fn['swipe'] = function (fn) {
+		return this[fn ? 'on' : 'trigger']('swipe', fn);
 	};
-})(jQuery, 'swipe', touchstart, touchend);
+})(jQuery);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
-(function ($, specialEventName, touch_start, touch_end) {
-	'use strict';
-	var nativeEvent = Object.create(null);
-	var getTime = function () {
-		return new Date().getTime();
-	};
-	
-	nativeEvent.original = 'click';
-	nativeEvent.start    = touch_start;
-	nativeEvent.end      = touch_end;
-
-	$.event.special[specialEventName] = {
+(function ($) {
+	$.event.special['tap'] = {
 		setup : function (data, namespaces, eventHandle) {
 			var $element = $(this);
 			var eventData = {};
-			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end, function (event) {
+			$element.on(touchstart, function (event) {
 				//TWEAK
-				if (event) {
-					if (event.originalEvent) {
-						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
-					}
-				}
-			}).on(nativeEvent.start, function (event) {
-				if (event.which && event.which !== 1) {
-					return;
-				}
+				eventData.id     = $(this).prop('id');
+				eventData.target = $(this);
+				eventData.pageX  = event.pageX;
+				eventData.pageY  = event.pageY;
+				eventData.time   = app.now();
+			}).on(touchend, function (event) {
 				//TWEAK
-				if (eventData) {
-					if (eventData.event) {
-						eventData.target = event.target;
-						eventData.pageX  = eventData.event.pageX;
-						eventData.pageY  = eventData.event.pageY;
-						eventData.time   = getTime();
-					}
-				}
-			}).on(nativeEvent.end, function (event) {
-				//TWEAK
-				if (eventData) {
-					if (eventData.event) {
-						//TWEAK ~ round decimals for android
-						var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
-						var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
-						//TAP THRESHOLD
-						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-							//MODIFY EVENT
-							event.type = specialEventName;
-							event.pageX = eventData.event.pageX;
-							event.pageY = eventData.event.pageY;
-							eventHandle.call(this, event);
-							if (!event.isDefaultPrevented()) {
-								$element.off(nativeEvent.original).trigger(nativeEvent.original);
-							}
-						}
+				if (eventData.id || eventData.target) {
+					//TWEAK ~ round decimals for android
+					var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(event.pageX));
+					var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(event.pageY));
+					//SWIPE THRESHOLD
+					if ((eventData.id === $(this).prop('id') || eventData.target === $(this)) && (app.now() - eventData.time < 750) && diffX < 10 && diffY < 10) {
+						//MODIFY EVENT
+						event.type = 'tap';
+						eventHandle.call(this, event);
 					}
 				}
 			});
 		},
 		remove : function () {
-			$(this).off(nativeEvent.start + ' ' + nativeEvent.end);
+			$(this).off(touchstart + ' ' + touchend);
 		}
 	};
-	$.fn[specialEventName] = function (fn) {
-		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
+	$.fn['tap'] = function (fn) {
+		return this[fn ? 'on' : 'trigger']('tap', fn);
 	};
-})(jQuery, 'tap', touchstart, touchend);
+})(jQuery);
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
