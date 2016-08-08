@@ -2571,7 +2571,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 							event.direction = startX > endX ? 'left' : 'right';
 							eventHandle.call(this, event);
 							if (!event.isDefaultPrevented()) {
-								event.preventDefault();
 								$element.off(nativeEvent.original).trigger(nativeEvent.original);
 							}
 						}
