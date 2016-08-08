@@ -929,7 +929,7 @@ app.handlers = {
 		//# SCROLL/MOVE CANCEL #//
 		//#////////////////////#//
 		//lower thresold for android
-		var TouchLimit = app.device.android ? 8 : 16;
+		var TouchLimit = app.device.android ? 5 : 10;
 		//
 		if(!app.device.windows8) {
 			var moveCancel =  touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel;
