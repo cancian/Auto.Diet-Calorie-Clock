@@ -352,7 +352,7 @@ $(document).on("pageload", function (evt) {
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
 	$('#entryList div' + tgt).on(swipe,function (evt) {
-		var swippen = this;
+		var swippen = $(this);
 		//HIDE ACTIVE
 		if (!$('.delete').hasClass('busy')) {
 			$('.active').addClass('busy');
@@ -363,19 +363,20 @@ $(document).on("pageload", function (evt) {
 			$('.active').removeClass('active');
 		}
 		//SHOW
-		if (!$('#entryList div:animated').length && !$('.delete').hasClass('busy') && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && (!$('#entryBody').is(':focus') || app.device.desktop) && (!$('#entryTime').is(':focus') || app.device.desktop)) {
+		if (!$('#entryList div:animated').length && !$('.delete').hasClass('busy') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('.editableInput').is(':focus') && (!$('#entryBody').is(':focus') || app.device.desktop) && (!$('#entryTime').is(':focus') || app.device.desktop)) {
 			$('.delete', swippen).addClass('busy');
-			setTimeout(function () {
+			app.timeout('openRowSwipe', 0, function () {
 				$('.delete', swippen).addClass('active');
 				$('.delete', swippen).addClass('open');
 				$('.delete', swippen).on(transitionend, function (evt) {
 					$('.delete').removeClass('busy');
+					app.timeout('removeSwipeBusy','clear');
 				});
 				//ffos
-				setTimeout(function () {
+				app.timeout('removeSwipeBusy',200,function() {
 					$('.delete').removeClass('busy');
-				}, 200);
-			}, 0);
+				});
+			});
 		}
 	});
 	/////////////////////
@@ -446,7 +447,7 @@ $(document).on("pageload", function (evt) {
 			}
 		});
 	}
-	$('#entryListForm, #entryList, #entryList div, #go, #sliderBlock, #entryListWrapper').on(tap + ' ' + swipe, function (evt) {
+	$('#entryListForm, #entryList, #entryList div, #go, #sliderBlock, #entryListWrapper').on(tap, function (evt) {
 		hideEntry(evt);
 	});
 	//////////////
