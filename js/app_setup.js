@@ -2350,7 +2350,6 @@ function getRateDialog() {
 // GET ANALYTICS //
 ///////////////////
 app.analytics = function(target,desc) {
-	/*
 	//ERROR
 	if(target == 'error') {
 		if(!desc || !desc.length) {
@@ -2366,7 +2365,6 @@ app.analytics = function(target,desc) {
 	if(/local.|192.168.1./i.test(document.URL))			{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(/cancian/.test(app.read('facebook_userid')))		{ return; }
 	if(app.read('facebook_userid',1051211303))			{ return; }
-	*/
 	/////////
 	// TRY //
 	/////////
