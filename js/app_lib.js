@@ -2514,208 +2514,19 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 	return events;
 })(window, jQuery);
-//##/////////////////##// Pointy.js
-//## POINTY GESTURES ##// Pointer Events polyfill for jQuery
-//##/////////////////##// https://github.com/vistaprint/PointyJS
-(function ($, touch_start, touch_end, touch_move) {
-	'use strict';
-	///////////////
-	// POINTY.JS //
-	///////////////
-	$.event.delegateSpecial = function (setup) {
-		return function (handleObj) {
-			var thisObject = this,
-			data = jQuery._data(thisObject);
-
-			if (!data.pointerEvents) {
-				data.pointerEvents = {};
-			}
-
-			if (!data.pointerEvents[handleObj.type]) {
-				data.pointerEvents[handleObj.type] = [];
-			}
-
-			if (!data.pointerEvents[handleObj.type].length) {
-				setup.call(thisObject, handleObj);
-			}
-
-			data.pointerEvents[handleObj.type].push(handleObj);
-		};
-	};
-
-	var indexOfArray = function (arr, obj) {
-		if (arr.indexOf) {
-			return arr.indexOf(obj);
-		}
-
-		for (var i = 0; i < arr.length; i++) {
-			if (arr[i] === obj) {
-				return i;
-			}
-		}
-
-		return -1;
-	};
-
-	$.event.delegateSpecial.remove = function (teardown) {
-		return function (handleObj) {
-			var handlers,
-			thisObject = this,
-			data = jQuery._data(thisObject);
-
-			if (!data.pointerEvents) {
-				data.pointerEvents = {};
-			}
-
-			handlers = data.pointerEvents[handleObj.type];
-
-			handlers.splice(indexOfArray(handlers, handleObj), 1);
-
-			if (!handlers.length) {
-				teardown.call(thisObject, handleObj);
-			}
-		};
-	};
-
-	// return a cloned copy of a given event that has been slightly modified
-	function copyEvent(originaljQEvent, type, extras) {
-		var event = originaljQEvent; // TODO: this should clone the originaljQEvent object
-
-		event.type = type;
-		event.isPropagationStopped = function () {
-			return false;
-		};
-		event.isDefaultPrevented = function () {
-			return false;
-		};
-
-		if (extras) {
-			$.extend(event, extras);
-		}
-
-		return event;
-	}
-
-	//////////////
-	// GESTURES //
-	//////////////
-	var isTouchDevice = 'ontouchstart' in window;
-	function calculateEuclideanDistance(x1, y1, x2, y2) {
-		var diffX = (x2 - x1);
-		var diffY = (y2 - y1);
-		return Math.round(Math.sqrt((diffX * diffX) + (diffY * diffY)));
-	};
-
-	$.event.special.swipe = {
-		// More than this horizontal displacement, and we will suppress scrolling.
-		scrollSupressionThreshold : 30,
-
-		// More time than this, and it isn't a swipe it's a "hold" gesture.
-		durationThreshold : 750,
-
-		// swipe horizontal displacement must be more than this.
-		horizontalDistanceThreshold : 30,
-
-		// swipe vertical displacement must be less than this.
-		verticalDistanceThreshold : 60,
-
-		start : function (event) {
-			return {
-				time : +new Date(),
-				coords : [event.pageX, event.pageY],
-				origin : $(event.target)
-			};
-		},
-
-		stop : function (event) {
-			return {
-				time : +new Date(),
-				coords : [event.pageX, event.pageY],
-			};
-		},
-
-		isSweep : function (start, stop, checkTime) {
-			return (stop.time - start.time < $.event.special.swipe.durationThreshold)
-			 && (calculateEuclideanDistance(start.coords[0], start.coords[1], stop.coords[0], stop.coords[1]) >= 30)
-			 && Math.abs(start.coords[1] - stop.coords[1]) < 30;
-		},
-
-		add : $.event.delegateSpecial(function (handleObj) {
-			var thisObject = this,
-			$this = $(thisObject);
-
-			handleObj.pointerdown = function (event) {
-				var start = $.event.special.swipe.start(event),
-				stop;
-
-				// we need to call prevent default because on IE browsers,
-				// dragging anything with a mouse will start dragging the
-				// element for "copy and paste" functionality
-				// on other browsers, it will start selecting text
-				// event.preventDefault();
-
-				function move(event) {
-					if (!start) {
-						return;
-					}
-
-					stop = $.event.special.swipe.stop(event);
-
-					//prevent scrolling on touch devices
-					if (isTouchDevice) {
-						if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
-							event.preventDefault();
-						}
-					}
-				}
-
-				function up() {
-					$this.off(touch_move, move);
-
-					if (start && stop && $.event.special.swipe.isSweep(start, stop, true)) {
-						var dir = start.coords[0] > stop.coords[0] ? "left" : "right";
-
-						$.event.dispatch.call(thisObject, copyEvent(event, "swipe", {
-								direction : dir
-							}));
-						$.event.dispatch.call(thisObject, copyEvent(event, "swipe" + dir, {
-								direction : dir
-							}));
-					}
-
-					start = stop = undefined;
-				}
-
-				$this.on(touch_move, move).one(touch_end, up);
-
-				// set a timeout to ensure we cleanup, in case the "pointerup" isn't fired
-				setTimeout(function () {
-					$this
-					.off(touch_move, handleObj.selector, move)
-					.off(touch_end, handleObj.selector, up);
-				}, $.event.special.swipe.durationThreshold);
-			};
-
-			$this.on(touch_start, handleObj.selector, handleObj.pointerdown);
-		}),
-
-		remove : $.event.delegateSpecial.remove(function (handleObj) {
-			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
-		})
-	};
-})(jQuery, touchstart, touchend, touchmove);
-//#/////////////#//
-//# TAP HANDLER #// Version: 0.3.1
-//#/////////////#// https://github.com/BR0kEN-/jTap
+//#///////////////#//
+//# SWIPE HANDLER #// Version: 0.3.1
+//#///////////////#// https://github.com/BR0kEN-/jTap
 (function ($, specialEventName, touch_start, touch_end) {
 	'use strict';
 	var nativeEvent = Object.create(null);
 	var getTime = function () {
 		return new Date().getTime();
 	};
+	
 	nativeEvent.original = 'click';
-	nativeEvent.start = touch_start;
-	nativeEvent.end = touch_end;
+	nativeEvent.start    = touch_start;
+	nativeEvent.end      = touch_end;
 
 	$.event.special[specialEventName] = {
 		setup : function (data, namespaces, eventHandle) {
@@ -2736,9 +2547,9 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				if (eventData) {
 					if (eventData.event) {
 						eventData.target = event.target;
-						eventData.pageX = eventData.event.pageX;
-						eventData.pageY = eventData.event.pageY;
-						eventData.time = getTime();
+						eventData.pageX  = eventData.event.pageX;
+						eventData.pageY  = eventData.event.pageY;
+						eventData.time   = getTime();
 					}
 				}
 			}).on(nativeEvent.end, function (event) {
@@ -2748,23 +2559,85 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 						//TWEAK ~ round decimals for android
 						var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
 						var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
-						//PRE-SWIPE
-						//var startX = parseInt(eventData.pageX);
-						//var startY = parseInt(eventData.pageY);
-						//var endX   = parseInt(eventData.event.pageX);
-						//var endY   = parseInt(eventData.event.pageY);
-						//
+						//SWIPE COORDS
+						var startX = parseInt(eventData.pageX);
+						var endX   = parseInt(eventData.event.pageX);
+						//SWIPE THRESHOLD
+						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX > 30 && diffY < 30) {
+							//MODIFY EVENT
+							event.type      = specialEventName;
+							event.pageX     = eventData.event.pageX;
+							event.pageY     = eventData.event.pageY;
+							event.direction = startX > endX ? 'left' : 'right';
+							eventHandle.call(this, event);
+							if (!event.isDefaultPrevented()) {
+								event.preventDefault();
+								$element.off(nativeEvent.original).trigger(nativeEvent.original);
+							}
+						}
+					}
+				}
+			});
+		},
+		remove : function () {
+			$(this).off(nativeEvent.start + ' ' + nativeEvent.end);
+		}
+	};
+	$.fn[specialEventName] = function (fn) {
+		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
+	};
+})(jQuery, 'swipe', touchstart, touchend);
+//#/////////////#//
+//# TAP HANDLER #// Version: 0.3.1
+//#/////////////#// https://github.com/BR0kEN-/jTap
+(function ($, specialEventName, touch_start, touch_end) {
+	'use strict';
+	var nativeEvent = Object.create(null);
+	var getTime = function () {
+		return new Date().getTime();
+	};
+	
+	nativeEvent.original = 'click';
+	nativeEvent.start    = touch_start;
+	nativeEvent.end      = touch_end;
+
+	$.event.special[specialEventName] = {
+		setup : function (data, namespaces, eventHandle) {
+			var $element = $(this);
+			var eventData = {};
+			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end, function (event) {
+				//TWEAK
+				if (event) {
+					if (event.originalEvent) {
+						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
+					}
+				}
+			}).on(nativeEvent.start, function (event) {
+				if (event.which && event.which !== 1) {
+					return;
+				}
+				//TWEAK
+				if (eventData) {
+					if (eventData.event) {
+						eventData.target = event.target;
+						eventData.pageX  = eventData.event.pageX;
+						eventData.pageY  = eventData.event.pageY;
+						eventData.time   = getTime();
+					}
+				}
+			}).on(nativeEvent.end, function (event) {
+				//TWEAK
+				if (eventData) {
+					if (eventData.event) {
+						//TWEAK ~ round decimals for android
+						var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
+						var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
+						//TAP THRESHOLD
 						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
+							//MODIFY EVENT
 							event.type = specialEventName;
 							event.pageX = eventData.event.pageX;
 							event.pageY = eventData.event.pageY;
-							//PRE-SWIPE
-							//event.startX = startX;
-							//event.startY = startY;
-							//event.endX   = endX;
-							//event.endY   = endY;
-							//event.diffX  = diffX;
-							//event.diffY  = diffY;
 							eventHandle.call(this, event);
 							if (!event.isDefaultPrevented()) {
 								$element.off(nativeEvent.original).trigger(nativeEvent.original);
