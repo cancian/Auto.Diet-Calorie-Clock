@@ -1011,8 +1011,8 @@ if(app.is.scrollable && app.device.desktop) {
 	app.globals.XLock = 0;
 	$('body').on(touchend,function(evt) {
 		//NORMALIZE XY
-		evt.pageX = evt.changedTouches ? evt.changedTouches[0].pageX : evt.pageX;
-		evt.pageY = evt.changedTouches ? evt.changedTouches[0].pageY : evt.pageY;
+		evt.pageX = app.pointer(evt).x;
+		evt.pageY = app.pointer(evt).y;
 		//
 		app.globals.XLock = 0;
 		app.globals.X     = evt.pageX;
@@ -1022,8 +1022,8 @@ if(app.is.scrollable && app.device.desktop) {
 	});
 	$('body').on(touchmove,function(evt) {
 		//NORMALIZE XY
-		evt.pageX = evt.changedTouches ? evt.changedTouches[0].pageX : evt.pageX;
-		evt.pageY = evt.changedTouches ? evt.changedTouches[0].pageY : evt.pageY;
+		evt.pageX = app.pointer(evt).x;
+		evt.pageY = app.pointer(evt).y;
 		//
 		app.globals.MX = app.globals.MX - (app.globals.X - evt.pageX);
 		app.globals.MY = app.globals.MY - Math.abs(app.globals.Y - evt.pageY);
