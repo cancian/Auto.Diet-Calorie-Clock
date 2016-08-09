@@ -2740,11 +2740,13 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					//DIFF
 					var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(app.pointer(event).x));
 					var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(app.pointer(event).y));
+					var endX = parseInt(app.pointer(event).x); 
+					var endY = parseInt(app.pointer(event).y);
 					//THRESHOLD
 					if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
 							event.type  = specialEventName;
-							event.pageX = parseInt(app.pointer(event).x);
-							event.pageY = parseInt(app.pointer(event).y);
+							event.pageX = eventData.pageX || endX;
+							event.pageY = eventData.pageY || endY;
 							//TRIGGER
 							eventHandle.call(this, event);
 						}
