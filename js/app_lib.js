@@ -31,6 +31,7 @@ app = {
 	//user: localStorage.getItem('app_current_user').split('###'),
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
+	pointer: function(e) { var out = {x:0, y:0}; if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') { var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]; out.x = touch.pageX; out.y = touch.pageY; } else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover'|| e.type=='mouseout' || e.type=='mouseenter' || e.type=='mouseleave') { out.x = e.pageX; out.y = e.pageY; } return out; },
 	is: {},
 	config: {},
 	db: {
@@ -2462,61 +2463,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		});
 	}
 };
-//#/////////////////////#//
-//# POINTER XY POLYFILL #// jquery.event.pointertouch
-//#/////////////////////#// https://github.com/timmywil/jquery.event.pointertouch
-(function (window, $) {
-	'use strict';
-	// Common properties to lift for touch or pointer events
-	var list = 'over out down up move enter leave cancel'.split(' ');
-	var hook = $.extend({}, $.event.mouseHooks);
-	var events = {};
-
-	// Support pointer events in IE11+ if available
-	if (window.PointerEvent) {
-		$.each(list, function (i, name) {
-			// Add event name to events property and add fixHook
-			$.event.fixHooks[
-				(events[name] = 'pointer' + name)
-			] = hook;
-		});
-	} else {
-		var mouseProps = hook.props;
-		// Add touch properties for the touch hook
-		hook.props = mouseProps.concat(['touches', 'changedTouches', 'targetTouches', 'altKey', 'ctrlKey', 'metaKey', 'shiftKey']);
-
-		// Support: Android
-		// Android sets pageX/Y to 0 for any touch event
-		// Attach first touch's pageX/pageY and clientX/clientY if not set correctly
-		hook.filter = function (event, originalEvent) {
-			var touch;
-			var i = mouseProps.length;
-			if (!originalEvent.pageX && originalEvent.touches && (touch = originalEvent.touches[0])) {
-				// Copy over all mouse properties
-				while (i--) {
-					event[mouseProps[i]] = touch[mouseProps[i]];
-				}
-			}
-			return event;
-		};
-
-		$.each(list, function (i, name) {
-			// No equivalent touch events for over and out
-			if (i < 2) {
-				events[name] = 'mouse' + name;
-			} else {
-				var touch = 'touch' +
-					(name === 'down' ? 'start' : name === 'up' ? 'end' : name);
-				// Add fixHook
-				$.event.fixHooks[touch] = hook;
-				// Add event names to events property
-				events[name] = touch + ' mouse' + name;
-			}
-		});
-	}
-	$.pointertouch = events;
-	return events;
-})(window, jQuery);
 //##/////////////////##// Pointy.js
 //## POINTY GESTURES ##// Pointer Events polyfill for jQuery
 //##/////////////////##// https://github.com/vistaprint/PointyJS
@@ -2598,17 +2544,10 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		return event;
 	}
-
-	//////////////
-	// GESTURES //
-	//////////////
-	var isTouchDevice = 'ontouchstart' in window;
-	function calculateEuclideanDistance(x1, y1, x2, y2) {
-		var diffX = (x2 - x1);
-		var diffY = (y2 - y1);
-		return Math.round(Math.sqrt((diffX * diffX) + (diffY * diffY)));
-	};
-
+	
+	///////////////////
+	// SWIPE HANDLER //
+	///////////////////
 	$.event.special.swipe = {
 		// More than this horizontal displacement, and we will suppress scrolling.
 		scrollSupressionThreshold : 30,
@@ -2623,24 +2562,25 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		verticalDistanceThreshold : 30,
 
 		start : function (event) {
+			var pos = app.pointer(event);
 			return {
 				time : +new Date(),
-				coords : [event.pageX, event.pageY],
+				coords : [pos.x, pos.y],
 				origin : $(event.target)
 			};
 		},
 
 		stop : function (event) {
+			var pos = app.pointer(event);
 			return {
 				time : +new Date(),
-				coords : [event.pageX, event.pageY],
+				coords : [pos.x, pos.y],
 			};
 		},
 
-		isSweep : function (start, stop, checkTime) {
-			return (stop.time - start.time < $.event.special.swipe.durationThreshold)
-			 && (calculateEuclideanDistance(start.coords[0], start.coords[1], stop.coords[0], stop.coords[1]) > app.device.android ? 15 : 30)
-			 && Math.abs(start.coords[1] - stop.coords[1]) < 30;
+		isSweep : function (start, stop, checkTime) { return (stop.time - start.time < $.event.special.swipe.durationThreshold) 
+			&& Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold 
+			&& Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold;
 		},
 
 		add : $.event.delegateSpecial(function (handleObj) {
@@ -2665,7 +2605,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					stop = $.event.special.swipe.stop(event);
 
 					//prevent scrolling on touch devices
-					if (isTouchDevice) {
+					if ('ontouchstart' in window) {
 						if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
 							event.preventDefault();
 						}
@@ -2716,65 +2656,40 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	var getTime = function () {
 		return new Date().getTime();
 	};
-	nativeEvent.original = 'click';
+	//nativeEvent.original = 'click';
 	nativeEvent.start = touch_start;
-	nativeEvent.end = touch_end;
+	nativeEvent.end   = touch_end;
 
 	$.event.special[specialEventName] = {
 		setup : function (data, namespaces, eventHandle) {
 			var $element = $(this);
 			var eventData = {};
-			$element.off(nativeEvent.original).on(nativeEvent.original, false).on(nativeEvent.start + ' ' + nativeEvent.end, function (event) {
-				//TWEAK
-				if (event) {
-					if (event.originalEvent) {
-						eventData.event = event.originalEvent.changedTouches ? event.originalEvent.changedTouches[0] : event;
-					}
-				}
-			}).on(nativeEvent.start, function (event) {
+			$element.on(nativeEvent.start, function (event) {
 				if (event.which && event.which !== 1) {
 					return;
 				}
 				//TWEAK
-				if (eventData) {
-					if (eventData.event) {
-						eventData.target = event.target;
-						eventData.pageX = eventData.event.pageX;
-						eventData.pageY = eventData.event.pageY;
-						eventData.time = getTime();
-					}
+				if (event) {
+					eventData.target = event.target;
+					eventData.pageX  = app.pointer(event).x;
+					eventData.pageY  = app.pointer(event).y;
+					eventData.time   = getTime();
 				}
 			}).on(nativeEvent.end, function (event) {
 				//TWEAK
 				if (eventData) {
-					if (eventData.event) {
-						//TWEAK ~ round decimals for android
-						var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(eventData.event.pageX));
-						var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(eventData.event.pageY));
-						//PRE-SWIPE
-						//var startX = parseInt(eventData.pageX);
-						//var startY = parseInt(eventData.pageY);
-						//var endX   = parseInt(eventData.event.pageX);
-						//var endY   = parseInt(eventData.event.pageY);
-						//
-						if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-							event.type = specialEventName;
-							event.pageX = eventData.event.pageX;
-							event.pageY = eventData.event.pageY;
-							//PRE-SWIPE
-							//event.startX = startX;
-							//event.startY = startY;
-							//event.endX   = endX;
-							//event.endY   = endY;
-							//event.diffX  = diffX;
-							//event.diffY  = diffY;
+					//DIFF
+					var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(app.pointer(event).x));
+					var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(app.pointer(event).y));
+					//THRESHOLD
+					if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
+							event.type  = specialEventName;
+							event.pageX = parseInt(app.pointer(event).x);
+							event.pageY = parseInt(app.pointer(event).y);
+							//TRIGGER
 							eventHandle.call(this, event);
-							if (!event.isDefaultPrevented()) {
-								$element.off(nativeEvent.original).trigger(nativeEvent.original);
-							}
 						}
 					}
-				}
 			});
 		},
 		remove : function () {
