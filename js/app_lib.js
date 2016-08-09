@@ -2463,6 +2463,64 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		});
 	}
 };
+//#////////////////////#//
+//# JQUERY.EVENT.SWIPE #//
+//#////////////////////#//
+(function ($) {
+	var add = $.event.add,
+	remove = $.event.remove,
+	start = {},
+	// Just sugar, so we can have arguments in the same order as add and remove.
+	trigger = function (node, type, data) {
+		$.event.trigger(type, data, node);
+	};
+	//START
+	function movestart(e) {
+		var pos = app.pointer(e);
+		//EVT
+		start = {
+			x : pos.x,
+			y : pos.y,
+			target : e.target,
+			time : app.now()
+		};
+	}
+	//END
+	function moveend(e) {
+		var pos = app.pointer(e);
+		//var w   = e.target.offsetWidth;
+		var event = {
+			x : pos.x,
+			y : pos.y,
+			target : $(e.target),
+		};
+
+		if (start.target) {
+			if ($(start.target) === $(event.target) || $(start.target).attr('id') === $(event.target).attr('id')) {
+				if (app.now() - start.time < 750) {
+					if (Math.abs(start.x - event.x) > 30) {
+						event.type = 'swipe';
+						event.direction = start.x > event.x ? 'left' : 'right';
+						event.pageX = pos.x || start.x;
+						event.pageY = pos.y || start.y;
+						trigger(e.target, event);
+					}
+				}
+			}
+		}
+	}
+	//REGISTER EVENT
+	$.event.special.swipe = {
+		setup : function (data, namespaces, eventHandle) {
+			add(this, touchstart, movestart);
+			add(this, touchend, moveend);
+		},
+		teardown : function () {
+			remove(this, touchstart, movestart);
+			remove(this, touchend, moveend);
+		},
+	};
+})(jQuery);
 //#/////////////////////#//
 //# POINTER XY POLYFILL #// jquery.event.pointertouch
 //#/////////////////////#// https://github.com/timmywil/jquery.event.pointertouch
@@ -2525,6 +2583,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //##/////////////////##// Pointy.js
 //## POINTY GESTURES ##// Pointer Events polyfill for jQuery
 //##/////////////////##// https://github.com/vistaprint/PointyJS
+/*
 (function ($, touch_start, touch_end, touch_move) {
 	'use strict';
 	///////////////
@@ -2706,6 +2765,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		})
 	};
 })(jQuery, touchstart, touchend, touchmove);
+*/
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
