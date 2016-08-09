@@ -31,7 +31,7 @@ app = {
 	//user: localStorage.getItem('app_current_user').split('###'),
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
-	pointer: function(e) { var out = {x:0, y:0}; if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') { var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]; out.x = touch.pageX; out.y = touch.pageY; } else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover'|| e.type=='mouseout' || e.type=='mouseenter' || e.type=='mouseleave') { out.x = e.pageX; out.y = e.pageY; } return out; },
+	pointer: function(e) { var out = {x:0, y:0}; if(/touch/i.test(e.type)) { var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]; out.x = touch.pageX; out.y = touch.pageY; } else { out.x = e.pageX; out.y = e.pageY; } return out; },
 	is: {},
 	config: {},
 	db: {
@@ -2463,6 +2463,65 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		});
 	}
 };
+//#/////////////////////#//
+//# POINTER XY POLYFILL #// jquery.event.pointertouch
+//#/////////////////////#// https://github.com/timmywil/jquery.event.pointertouch
+/*
+(function(window, $) {
+	'use strict';
+	// Common properties to lift for touch or pointer events
+	var list = 'over out down up move enter leave cancel'.split(' ');
+	var hook = $.extend({}, $.event.mouseHooks);
+	var events = {};
+
+	// Support pointer events in IE11+ if available
+	if ( window.PointerEvent ) {
+		$.each(list, function( i, name ) {
+			// Add event name to events property and add fixHook
+			$.event.fixHooks[
+				(events[name] = 'pointer' + name)
+			] = hook;
+		});
+	} else {
+		var mouseProps = hook.props;
+		// Add touch properties for the touch hook
+		hook.props = mouseProps.concat(['touches', 'changedTouches', 'targetTouches', 'altKey', 'ctrlKey', 'metaKey', 'shiftKey']);
+
+		// Support: Android
+		// Android sets pageX/Y to 0 for any touch event
+		// Attach first touch's pageX/pageY and clientX/clientY if not set correctly
+		hook.filter = function( event, originalEvent ) {
+			var touch;
+			var i = mouseProps.length;
+			if ( !originalEvent.pageX && originalEvent.touches && (touch = originalEvent.touches[0]) ) {
+				// Copy over all mouse properties
+				while(i--) {
+					event[mouseProps[i]] = touch[mouseProps[i]];
+				}
+			}
+			return event;
+		};
+
+		$.each(list, function( i, name ) {
+			// No equivalent touch events for over and out
+			if (i < 2) {
+				events[ name ] = 'mouse' + name;
+			} else {
+				var touch = 'touch' +
+					(name === 'down' ? 'start' : name === 'up' ? 'end' : name);
+				// Add fixHook
+				$.event.fixHooks[ touch ] = hook;
+				// Add event names to events property
+				events[ name ] = touch + ' mouse' + name;
+			}
+		});
+	}
+
+	$.pointertouch = events;
+
+	return events;
+})(window, jQuery);
+*/
 //##/////////////////##// Pointy.js
 //## POINTY GESTURES ##// Pointer Events polyfill for jQuery
 //##/////////////////##// https://github.com/vistaprint/PointyJS
