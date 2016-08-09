@@ -2365,54 +2365,51 @@ app.analytics = function(target,desc) {
 	if(/local.|192.168.1./i.test(document.URL))			{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(/cancian/.test(app.read('facebook_userid')))		{ return; }
 	if(app.read('facebook_userid',1051211303))			{ return; }
-	/////////
-	// TRY //
-	/////////
-	try {
-		//INIT
+	//////////
+	// INIT //
+	//////////
+	if(!app.globals.initGA) {
 		ga_storage._setAccount('UA-46450510-2');
-		////////////////
-		// TRACK VARS //
-		////////////////
-		var deviceType = 'web';
-		var appOS      = vendorClass;
-		     if(app.device.ios)		   { appOS = 'ios';        if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.amazon)     { appOS = 'amazon';     if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.blackberry) { appOS = 'blackberry'; if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.playbook)   { appOS = 'playbook';   if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.android)	   { appOS = 'android';    if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.wp10)	   { appOS = 'wp10';       if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.wp81)	   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.windows10)  { appOS = 'windows10';  if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.windows8)   { appOS = 'windows8';   if(app.device.cordova) { deviceType = 'app'; }}
-		else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
-		else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
-		else if(app.device.chromeos)   { appOS = 'chromeos';   deviceType = 'app'; }
-		//string
-		var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')';
-		//track page/event
-		if(target == 'error') {
-		//delete logs
-			app.remove('error_log_handled');
-			app.remove('error_log_unhandled');
-			//skip irrelevant
-			if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile/i.test(JSON.stringify(desc))) {
-				//IGNORE
-			} else {
-				//ERROR EVENT
-				ga_storage._trackEvent(appOS, target, desc, baseVersion);
-				ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
-			}
+		app.globals.initGA = true;
+	}
+	////////////////
+	// TRACK VARS //
+	////////////////
+	var deviceType = 'web';
+	var appOS      = vendorClass;
+	     if(app.device.ios)		   { appOS = 'ios';        if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.amazon)     { appOS = 'amazon';     if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.blackberry) { appOS = 'blackberry'; if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.playbook)   { appOS = 'playbook';   if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.android)	   { appOS = 'android';    if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.wp10)	   { appOS = 'wp10';       if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.wp81)	   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.windows10)  { appOS = 'windows10';  if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.windows8)   { appOS = 'windows8';   if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
+	else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
+	else if(app.device.chromeos)   { appOS = 'chromeos';   deviceType = 'app'; }
+	//string
+	var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')';
+	//track page/event
+	if(target == 'error') {
+	//delete logs
+		app.remove('error_log_handled');
+		app.remove('error_log_unhandled');
+		//skip irrelevant
+		if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile/i.test(JSON.stringify(desc))) {
+			//IGNORE
 		} else {
-			//REGULAR EVENT
-			ga_storage._trackEvent(appOS, target, lang, baseVersion);
-			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')');
+			//ERROR EVENT
+			ga_storage._trackEvent(appOS, target, desc, baseVersion);
+			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
 		}
-	///////////
-	// CATCH //
-	///////////
-	} catch (err) { errorHandler(err); }
+	} else {
+		//REGULAR EVENT
+		ga_storage._trackEvent(appOS, target, lang, baseVersion);
+		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')');
+	}
 };
 //BACKWARDS C.
 function getAnalytics(action) {
