@@ -685,10 +685,10 @@ app.ready = function(callback) {
 		callback();
 	}
 };
-///////////////////
-// APPEND SCRIPT //
-///////////////////
-app.appendScript = function(url) {
+////////////////
+// ADD SCRIPT //
+////////////////
+app.addScript = function(url) {
 	var script   = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = url;
@@ -1205,7 +1205,9 @@ app.screenshot = function() {
 		app.exec.updateEntries();
 	});
 };
-//KCALS
+///////////
+// KCALS //
+///////////
 app.get.kcals = function(opt) {
 	if(app.read('config_kcals_type','cyclic')) {
 		if(app.read('config_kcals_day','d')) {
@@ -1243,9 +1245,9 @@ var isItDesktop = getIsDesktop;
 function isDesktop() {
 	return isItDesktop;
 }
-///////////
+////////////
 // LOADER //
-///////////
+////////////
 if($('#loadMask').html() == '') {
 	$('#loadMask').html2('\
 <table width="100%" height="100%" border="0">\
@@ -1275,13 +1277,13 @@ else												{ prefix = '-webkit-'; transitionend = 'webkitTransitionEnd'; ve
 ///////////////////////////////////
 // STANDALONE CONVERT CSS PREFIX //
 ///////////////////////////////////
-if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheValid !== 1) {
-	if (vendorClass == "moz" || vendorClass == "msie") {
+if (!$('#plainLoad').length && !$('#superBlockCSS').length && isCurrentCacheValid !== 1) {
+	if (vendorClass == 'moz' || vendorClass == 'msie') {
 		var cssPath = 'css/index.css';
 		$.support.cors = true;
 		$.ajax({
 			url : hostLocal + cssPath,
-			dataType : "text",
+			dataType : 'text',
 			success : function (dataCSS) {
 				if(vendorClass == 'moz') {
 					dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
@@ -1292,9 +1294,9 @@ if (!$("#plainLoad").length && !$("#superBlockCSS").length && isCurrentCacheVali
 					dataCSS = dataCSS.split('-webkit-box-sizing').join('box-sizing');
 					dataCSS = dataCSS.split('-webkit-').join('-ms-');
 				}
-				$("#coreCss").remove();
-				$("#coreFonts").before2("<style type='text/css' id='coreCss'></style>");
-				$("#coreCss").html2(dataCSS);
+				$('#coreCss').remove();
+				$('#coreFonts').before2('<style type="text/css" id="coreCss"></style>');
+				$('#coreCss').html2(dataCSS);
 			}
 		});
 	}
@@ -1358,20 +1360,13 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 	}
 	$('#colorPickerStyle').html2(pickerCss);
 };
-app.updateColorPicker();
+//AUTOEXEC
+(function() {
+	app.updateColorPicker(); 
+})();
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
-//test
-/*
-try {
-	document.createEvent('TouchEvent');
-	app.touch = true;
-} catch (err) {
-	app.touch = false;
-}
-*/
-//
 function isCordova() {
 	return isMobileCordova;
 }
@@ -1638,6 +1633,9 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		evt.preventDefault();
 	});
 };
+////////////////////
+// FIX/FORMAT SQL //
+////////////////////
 app.fixSql = function(fetchEntries) {
 	if(!fetchEntries) { return ' '; }
 	//NULL
@@ -1794,15 +1792,13 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 /////////////////////
 // STRINFIGY ERROR //
 /////////////////////
-if (typeof stringifyError === 'undefined') {
-	var stringifyError = function (err) {
-		var plainObject = {};
-		Object.getOwnPropertyNames(err).forEach(function (key) {
-			plainObject[key] = err[key];
-		});
-		return JSON.stringify(plainObject);
-	};
-}
+var stringifyError = function (err) {
+	var plainObject = {};
+	Object.getOwnPropertyNames(err).forEach(function (key) {
+		plainObject[key] = err[key];
+	});
+	return JSON.stringify(plainObject);
+};
 ////////////////
 // CAPITALIZE //
 ////////////////
@@ -2082,7 +2078,9 @@ Array.prototype.sortbyattr = function(attr,order) {
 	});
 	return this;
 };
-//OBJECT
+////////////////
+// SORTOBJECT //
+////////////////
 function sortObject(obj) {
 	var arr = [];
 	for (var prop in obj) {
@@ -2107,29 +2105,29 @@ Array.prototype.pushUnique = function (item) {
 // DATE FORMAT //
 /////////////////
 function dtFormat(input) {
-    if(!input) { return ""; }
+    if(!input) { return ''; }
 	input        = new Date(input);
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
 	var hour     = input.getHours();
     var minute   = input.getMinutes(); //+1;
-    if(minute < 10)   { minute = "0" + minute; }
-	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
-	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
+    if(minute < 10)   { minute = '0' + minute; }
+	if(gotMonth < 10) { gotMonth = '0' + gotMonth; }
+	if(gotDate  < 10) { gotDate  = '0' + gotDate;  }
 	//
-	return input.getFullYear() + "/" + gotMonth + "/" + gotDate + ' - ' + hour + ":" + minute;
+	return input.getFullYear() + '/' + gotMonth + '/' + gotDate + ' - ' + hour + ':' + minute;
 }
 ////////////////////
 // DAY UTC FORMAT //
 ////////////////////
 function DayUtcFormat(input) {
-    if(!input) { return ""; }
+    if(!input) { return ''; }
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
-	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
-	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
-	return input.getFullYear() + "/" + gotMonth + "/" + gotDate;
+	if(gotMonth < 10) { gotMonth = '0' + gotMonth; }
+	if(gotDate  < 10) { gotDate  = '0' + gotDate;  }
+	return input.getFullYear() + '/' + gotMonth + '/' + gotDate;
 }
 ////////////////
 // DAY FORMAT //
@@ -2139,9 +2137,9 @@ function dayFormat(input) {
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
-	if(gotMonth < 10) { gotMonth = "0" + gotMonth; }
-	if(gotDate  < 10) { gotDate  = "0" + gotDate;  }
-	return input.getFullYear() + "/" + gotMonth + "/" + gotDate;
+	if(gotMonth < 10) { gotMonth = '0' + gotMonth; }
+	if(gotDate  < 10) { gotDate  = '0' + gotDate;  }
+	return input.getFullYear() + '/' + gotMonth + '/' + gotDate;
 }
 //////////////
 // DATEDIFF //
@@ -2172,28 +2170,28 @@ function dateDiff(date1,date2) {
 	var hours     = Math.floor(difference_ms % 24);
 	var days      = Math.floor(difference_ms/24);
 
-	var lMinutes = " " + LANG.MINUTES[lang] + " ";
-	var lHours   = " " + LANG.HOURS[lang] + " ";
-	var lDays    = " " + LANG.DAYS[lang] + " ";
+	var lMinutes = ' ' + LANG.MINUTES[lang] + ' ';
+	var lHours   = ' ' + LANG.HOURS[lang]   + ' ';
+	var lDays    = ' ' + LANG.DAYS[lang]    + ' ';
 
-	if(minutes == 0) { lMinutes = ""; minutes = ""; }
-	if(hours   == 0) { lHours   = ""; hours   = ""; }
-	if(days    == 0) { lDays    = ""; days    = ""; }
+	if(minutes == 0) { lMinutes = ''; minutes = ''; }
+	if(hours   == 0) { lHours   = ''; hours   = ''; }
+	if(days    == 0) { lDays    = ''; days    = ''; }
 
-	if(minutes == 1) { lMinutes = " " + LANG.MINUTE[lang] + " "; }
-	if(hours   == 1) { lHours   = " " + LANG.HOUR[lang] + " ";   }
-	if(days    == 1) { lDays    = " " + LANG.DAY[lang] + " ";    }
+	if(minutes == 1) { lMinutes = ' ' + LANG.MINUTE[lang] + ' '; }
+	if(hours   == 1) { lHours   = ' ' + LANG.HOUR[lang]   + ' ';   }
+	if(days    == 1) { lDays    = ' ' + LANG.DAY[lang]    + ' ';    }
 
-	if(days    > 3)                             { lHours   = ""; hours   = ""; }
-	if(days    > 0)                             { lMinutes = ""; minutes = ""; }
-	if(days    > 0 && hours   > 0)              { lDays    = lDays  + LANG.AND[lang] + " "; }
-	if(hours   > 0 && minutes > 0)              { lHours   = lHours + LANG.AND[lang] + " "; }
-	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; lMinutes = " " + LANG.MINUTES[lang] + " "; }
+	if(days    > 3)                             { lHours   = ''; hours   = ''; }
+	if(days    > 0)                             { lMinutes = ''; minutes = ''; }
+	if(days    > 0 && hours   > 0)              { lDays    = lDays  + LANG.AND[lang] + ' '; }
+	if(hours   > 0 && minutes > 0)              { lHours   = lHours + LANG.AND[lang] + ' '; }
+	if(days == 0 && hours == 0 && minutes == 0) { minutes = 0; lMinutes = ' ' + LANG.MINUTES[lang] + ' '; }
 
 	if(showAgo == true) {
-		return LANG.PREAGO[lang] + " " + days + lDays + hours + lHours + minutes + lMinutes + " " + LANG.AGO[lang] + " ";
-	} else
-		return days + lDays + hours + lHours + minutes + lMinutes + " "; {
+		return LANG.PREAGO[lang] + ' ' + days + lDays + hours + lHours + minutes + lMinutes + ' ' + LANG.AGO[lang] + ' ';
+	} else {
+		return days + lDays + hours + lHours + minutes + lMinutes + ' ';
 	}
 
 }
@@ -2202,10 +2200,10 @@ function dateDiff(date1,date2) {
 ////////////////////////
 function getOrientation() {
 	if(window.orientation == 90 || window.orientation == -90) {
-		return "landscape";
+		return 'landscape';
 	}
 	else if (window.orientation == 0 || window.orientation == 180) {
-		return "portrait";
+		return 'portrait';
 	}
 }
 //////////////////////
@@ -2860,9 +2858,9 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			return;
 		}
 
-		var e = event.originalEvent;
-		var x = e.pageX;
-		var y = e.pageY;
+		var e = app.pointer(event);
+		var x = e.x;
+		var y = e.y;
 
 		var tapAndHoldPoint = $(this).data("taphold.point");
 		var euclideanDistance = calculateEuclideanDistance(tapAndHoldPoint.x, tapAndHoldPoint.y, x, y);
@@ -2897,10 +2895,10 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			}, TAP_AND_HOLD_TRIGGER_TIMER);
 
 		// Stores tap x & y
-		var e = event.originalEvent;
+		var e = app.pointer(event);
 		var tapAndHoldPoint = {};
-		tapAndHoldPoint.x = e.pageX;
-		tapAndHoldPoint.y = e.pageY;
+		tapAndHoldPoint.x = e.x;
+		tapAndHoldPoint.y = e.y;
 		$(this).data("taphold.point", tapAndHoldPoint);
 	};
 
