@@ -31,7 +31,7 @@ app = {
 	//user: localStorage.getItem('app_current_user').split('###'),
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
-	pointer: function(e) { 'use strict'; var out = {x:0, y:0, e: e}; if(e.target) { out.target = $(e.target) || e.target; if(e.target.id) { out.id = $(out.target).prop('id') || out.target.id; }} if(/touch/i.test(e.type)) { var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]; out.x = touch.pageX; out.y = touch.pageY; } else { out.x = e.pageX; out.y = e.pageY; } return out; },
+	pointer: function(e) { 'use strict'; var out = {x:0, y:0, e: e}; if(e.target) { out.target = $(e.target) || e.target; if(e.target.id) { out.id = $(out.target).prop('id') || out.target.id; }} if(/touch/i.test(e.type) && e.originalEvent) { var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]; out.x = touch.pageX; out.y = touch.pageY; } else { out.x = e.pageX; out.y = e.pageY; } return out; },
 	is: {},
 	config: {},
 	db: {

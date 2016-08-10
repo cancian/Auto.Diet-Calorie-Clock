@@ -162,15 +162,12 @@ setTimeout(function() {
 // KICKSTART ANALYTICS //
 /////////////////////////
 setTimeout(function() {
-	app.analytics('init');
-	setTimeout(function() {
-		//TRACK START
-		app.analytics('start');
-		//TRACK INSTALL
-		if(app.read('intro_dismissed')) {
-			app.trackInstall();
-		}
-	},2000);
+	//TRACK START
+	app.analytics('start');
+	//TRACK INSTALL
+	if(app.read('intro_dismissed')) {
+		app.trackInstall();
+	}
 },5000);
 //////////////////////
 // TRIGGER SYNC ETC //
