@@ -31,7 +31,7 @@ app = {
 	//user: localStorage.getItem('app_current_user').split('###'),
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
-	pointer: function(e) { var out = {x:0, y:0}; if(/touch/i.test(e.type)) { var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]; out.x = touch.pageX; out.y = touch.pageY; } else { out.x = e.pageX; out.y = e.pageY; } return out; },
+	pointer: function(e) { 'use strict'; var out = {x:0, y:0, e: e}; if(e.target) { out.target = $(e.target) || e.target; if(e.target.id) { out.id = $(out.target).prop('id') || out.target.id; }} if(/touch/i.test(e.type)) { var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]; out.x = touch.pageX; out.y = touch.pageY; } else { out.x = e.pageX; out.y = e.pageY; } return out; },
 	is: {},
 	config: {},
 	db: {
@@ -2466,6 +2466,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //#////////////////////#//
 //# JQUERY.EVENT.SWIPE #//
 //#////////////////////#//
+/*
 (function ($) {
 	var add = $.event.add,
 	remove = $.event.remove,
@@ -2521,6 +2522,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		},
 	};
 })(jQuery);
+*/
 //#/////////////////////#//
 //# POINTER XY POLYFILL #// jquery.event.pointertouch
 //#/////////////////////#// https://github.com/timmywil/jquery.event.pointertouch
@@ -2583,7 +2585,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //##/////////////////##// Pointy.js
 //## POINTY GESTURES ##// Pointer Events polyfill for jQuery
 //##/////////////////##// https://github.com/vistaprint/PointyJS
-/*
 (function ($, touch_start, touch_end, touch_move) {
 	'use strict';
 	///////////////
@@ -2765,7 +2766,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		})
 	};
 })(jQuery, touchstart, touchend, touchmove);
-*/
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
