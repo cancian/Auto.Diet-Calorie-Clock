@@ -2334,7 +2334,7 @@ function getRateDialog() {
 				if(button === 2) {
 					//LAUNCH
 					app.analytics('vote');
-					app.timeout('voteyes',1250,function() {
+					app.timeout('voteyes',1000,function() {
 						app.url();
 					});
 				} else if(button === 1) {
@@ -2346,25 +2346,19 @@ function getRateDialog() {
 		});
 	}
 }
-///////////////////
-// GET ANALYTICS //
-///////////////////
+//#///////////////#//
+//# GET ANALYTICS #//
+//#///////////////#//
 app.analytics = function(target, desc) {
-	//ERROR
-	if(target == 'error') {
-		if(!desc || !desc.length) {
-			return;
-		}
-	}
-	////////////////
-	// FILTER DEV //
-	////////////////
+	///////////////////////
+	// FILTER DEV & NULL //
+	///////////////////////
+	if(target === 'error' && !desc)						{ return; }
 	if(typeof ga_storage === 'undefined')				{ return; }
-	if(typeof baseVersion === 'undefined')				{ return; }
 	if(app.dev || app.read('been_dev'))					{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(/local.|192.168.1./i.test(document.URL))			{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
-	if(/cancian/.test(app.read('facebook_userid')))		{ return; }
-	if(app.read('facebook_userid',1051211303))			{ return; }
+	if(/cancian/.test(app.read('facebook_userid')))		{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
+	if(app.read('facebook_userid',1051211303))			{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	//////////
 	// INIT //
 	//////////
@@ -2391,23 +2385,19 @@ app.analytics = function(target, desc) {
 	else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
 	else if(app.device.chromeos)   { appOS = 'chromeos';   deviceType = 'app'; }
 	//string
-	var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')';
+	var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ')';
 	//track page/event
-	if(target == 'error') {
-	//delete logs
-		app.remove('error_log_handled');
-		app.remove('error_log_unhandled');
+	if(target === 'error') {
 		//skip irrelevant
 		if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile/i.test(JSON.stringify(desc))) {
 			return;	
 		}
 		//ERROR EVENT
-		ga_storage._trackEvent(appOS, target, desc, Number(appBuild));
-		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ')');
+		ga_storage._trackEvent(appOS, target, desc);
 	} else {
-		//REGULAR EVENT
-		ga_storage._trackEvent(appOS, target, typeof desc === 'number' ? desc : lang, typeof desc === 'number' ? desc : Number(appBuild));
-		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ')' + desc ? ' (' + desc + ')' : '');
+		//REGULAR EVENT ~ plus loadTIme
+		ga_storage._trackEvent(appOS, target, (typeof desc === 'number') ? desc : lang);
+		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ')');
 	}
 };
 //BACKWARDS C.

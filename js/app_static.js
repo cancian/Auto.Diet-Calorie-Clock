@@ -62,37 +62,35 @@ $(function() {
 // RESUME EVT //
 ////////////////
 $(document).on('resume',function(evt) {
+	//SHOW
 	clearTimeout(app.repeaterLoop);
-	$('body').css('opacity',1);
-	$('body').show();
+	$('body').css('opacity',1).show();
 	//fix locked dbs ~ mobile
 	if (!app.device.desktop) {
 		if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
 			app.remove('startLock');
 		}
 	}
-	//
-	app.timeout('resume',4000,function() {
+	//RESUME
+	app.timeout('resume',5000,function() {
 		if(typeof app !== 'undefined') {
-			//getRateDialog();
-			app.analytics('resume');
-			//
-			updateCustomList('fav');
-			updateCustomList('items');
+			//REFRESH
 			updateTodayOverview();
 			intakeHistory();
-			setTimeout(function() {
-				updateLoginStatus(1);
-				if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
-					buildRemoteSuperBlock('cached');
-				}
-			},2000);
-			//ONLINE USERS
-			if(typeof app.online === 'function') {
-				app.online();
+			//TRIGGER SYNC
+			updateLoginStatus(1);
+			//AUTOUPDATE
+			if(typeof buildRemoteSuperBlock !== 'undefined' && app.read('config_autoupdate','on')) {
+				buildRemoteSuperBlock('cached');
 			}
+			//UPDATE
+			app.online();
+			//TRACK
+			app.trackInstall();
+			app.parseErrorLog();
+			app.analytics('resume');
 		}
-	},3000);
+	});
 });
 ///////////////////////
 // VISIBILITY CHANGE //
@@ -162,12 +160,6 @@ setTimeout(function() {
 // TRIGGER SYNC/ANALYTICS/ETC //
 ////////////////////////////////
 setTimeout(function() {
-	//TRACK START
-	app.analytics('start');
-	//TRACK INSTALL
-	app.trackInstall();
-	//PARSE ERROR LOGS
-	app.parseErrorLog();
 	//MARK BOOT SUCCESS
 	app.remove('consecutive_reboots');
 	//TRIGGER SYNC
@@ -297,24 +289,23 @@ appFooter(localStorage.getItem('app_last_tab') ? localStorage.getItem('app_last_
 ///////////////////////
 // LISTEN FOR CLICKS //
 ///////////////////////
-$('#appFooter li').on(touchstart + ' mousedown', function(evt) {
-	app.globals.app_last_tab = evt.target.id;
-	//DE-REPEATER
-	app.timeout('lastFooterId', 50, function(evt) {
+(function() {
+	$('#appFooter li').on(touchstart, function(evt) {
+		app.globals.app_last_tab = evt.target.id || $(this).prop('id');
 		//not while editing
 		if($('#timerDailyInput').is(':focus')) {
-			$('#timerDailyInput').blur();
+			$('#timerDailyInput').trigger('blur');
 		}
 		//~
-		if($('#editableInput').is(':visible')) {
-			$('#editableInput').blur();
+		if(document.getElementById('editableInput')) {
+			$('#editableInput').trigger('blur');
 			kickDown();
 			return false;
 		}
 		//CHANGE TAB
 		appFooter(app.globals.app_last_tab);
 	});
-});
+})();
 ////////////////////////
 // WINDOWS OVERSCROLL //
 ////////////////////////
@@ -1354,23 +1345,16 @@ if(app.is.scrollable && app.device.desktop) {
 		//END BLUR/
 	});
 	/////////////////////////
-	// TEMP GA INIT TESTER //
+	// PAGELOAD GA TRACKER //
 	/////////////////////////
-	app.analytics('test: 0ms');
-	setTimeout(function() { app.analytics('test: 0s'); },0);
-	setTimeout(function() { app.analytics('test: 1s'); },1000);
-	setTimeout(function() { app.analytics('test: 2s'); },2000);
-	setTimeout(function() { app.analytics('test: 3s'); },3000);
-	setTimeout(function() { app.analytics('test: 4s'); },4000);
-	setTimeout(function() { app.analytics('test: 5s'); },5000);	
-	///////////////////
-	// LOG INIT TIME //
-	///////////////////
+	//INSTALL
+	app.trackInstall();
+	//ERROR LOGS
+	app.parseErrorLog();
+	//LOAD TIME
 	if (typeof initTime !== 'undefined') {
 		var loadTime = app.now() - initTime;
-		setTimeout(function() {
-			app.analytics('init',loadTime);
-		},3000);
+		app.analytics('init',loadTime);
 		if (app.beenDev) {
 			app.toast(loadTime + ' ms');
 		}

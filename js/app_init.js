@@ -50,14 +50,15 @@ window.onerror = function (err, url, line) {
 	}
 	//LOG
 	console.log('window.onerror: ' + err + ' URL: ' + url + ' Line: ' + line);
-	//SAVE
-	localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
-	//TRACK
+	//TRACK UNHANDLED
 	if (typeof app !== 'undefined') {
 		if (typeof app.analytics !== 'undefined') {
 			app.analytics('error','unhandled: ' + err + ' URL: ' + url + ' Line: ' + line);
 		}
 	}
+	//SAVE ERROR LOG
+	localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
+	//SPINNER STOP
 	if (typeof spinner !== 'undefined') {
 		spinner('stop');
 	}

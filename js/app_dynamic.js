@@ -397,20 +397,20 @@ $(document).on("pageload", function (evt) {
 	/////////////////////
 	// STOP ENTRY EDIT //
 	/////////////////////
-	$("#entryListForm,#go,#sliderBlock,#entryList div,#entryListBottomBar").on(touchstart, function (evt) {
+	$('#entryListForm,#go,#sliderBlock,#entryList div,#entryListBottomBar').on(touchstart, function (evt) {
 		if (!$('.editableInput').is(':visible')) {
 			return;
 		}
-		if ($('.editableInput').is(':visible') && ($("#editableInput").is(":focus") || app.device.wp8)) {
+		if ($('.editableInput').is(':visible') && ($('#editableInput').is(':focus') || app.device.wp8)) {
 			//dismiss protection
 			//if($("#entryList div" + tgt).is(':animated')) { return; }
 			//ALLOW ENTRY INPUT RETINA FOCUS
 			//evt.preventDefault();
 			evt.stopPropagation();
 			//ID MATCH
-			if (!$("#entryList div").is(':animated')) {
-				if ($(this).prop("id") != $("#editableInput").closest("div").prop("id")) {
-					$("#editableInput").blur();
+			if (!$('#entryList div').is(':animated')) {
+				if ($(this).prop('id') != $('#editableInput').closest('div').prop('id')) {
+					$('#editableInput').blur();
 					evt.preventDefault();
 					evt.stopPropagation();
 				}
@@ -418,23 +418,23 @@ $(document).on("pageload", function (evt) {
 		}
 	});
 	//wrapper click
-	$("#entryListWrapper").on(touchstart, function (evt) {
+	$('#entryListWrapper').on(touchstart, function (evt) {
 		//allow unfocus on list click
-		$("#timerDailyInput").blur();
-		$("#entryTitle").blur();
-		$("#entryBody").blur();
-		$("#entryTime").blur();
+		$('#timerDailyInput').blur();
+		$('#entryTitle').blur();
+		$('#entryBody').blur();
+		$('#entryTime').blur();
 		//
-		if (evt.target.id == "entryListWrapper") {
-			if (!$("#entryList div").is(':animated')) {
-				$("#editableInput").blur();
+		if (evt.target.id == 'entryListWrapper') {
+			if (!$('#entryList div').is(':animated')) {
+				$('#editableInput').blur();
 				//rekeyboarding on entrywrapper tap dismiss
 				if (app.device.ios) {
 					//evt.preventDefault();
 					//evt.stopPropagation();
-					$("#entryListForm").prepend2("<div id='sliderBlock'></div>");
-					$("#sliderBlock").fadeOut(700, function (evt) {
-						$("#sliderBlock").remove();
+					$('#entryListForm').prepend2('<div id="sliderBlock"></div>');
+					$('#sliderBlock').fadeOut(700, function (evt) {
+						$('#sliderBlock').remove();
 					});
 				}
 				//whitegap mitigation

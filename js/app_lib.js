@@ -295,21 +295,17 @@ app.switchUser = function(switchTo) {
 // LOG ERROR //
 ///////////////
 app.parseErrorLog = function() {
-	//UNHANDLED
+	//SEND UNHANDLED LOG
 	if(app.read('error_log_unhandled')) {
-		var unhandledError = app.read('error_log_unhandled');
-		setTimeout(function() {
-			app.analytics('error',unhandledError);
-		},0);
-		//app.remove('error_log_unhandled')
+		app.analytics('error',app.read('error_log_unhandled'));
+		//ERASE LOG
+		app.remove('error_log_unhandled');
 	}
-	//HANDLED
+	//SEND HANDLED LOG
 	if(app.read('error_log_handled')) {
-		var handledError = app.read('error_log_handled');
-		setTimeout(function() {
-			app.analytics('error',handledError);
-		},0);
-		//app.remove('error_log_handled')
+		app.analytics('error',app.read('error_log_handled'));
+		//ERASE LOG
+		app.remove('error_log_handled');
 	}
 };
 //////////////////
@@ -1471,7 +1467,7 @@ app.safeExec = function (callback) {
 // ERROR HANDLER //
 ///////////////////
 function errorHandler(error,callback) {
-	if(typeof error === 'undefined' || !error.length) {
+	if(!error || !error.length || typeof error === 'undefined') {
 		return;
 	}
 	//FILTER
@@ -1484,7 +1480,7 @@ function errorHandler(error,callback) {
 	}
 	//DEV
 	if(app.beenDev) {
-		console.log('errorHandler Dev Log: ' + error);
+		console.log('errorHandler[dev log]: ' + error);
 	}
 	//DEV ALERT
 	if (app.dev && blockAlerts == 0) {
@@ -1500,10 +1496,10 @@ function errorHandler(error,callback) {
 			}
 		}
 	} else {
-		//LOG ERROR
-		app.save('error_log_handled','handled log: ' + error)
 		//TRACK
 		app.analytics('error','handled: ' + error);
+		//LOG ERROR
+		app.save('error_log_handled','handled log: ' + error)
 	}
 	//////////////
 	// CALLBACK //
@@ -2284,13 +2280,15 @@ function kickDown(el) {
 // TRACK INSTALL //
 ///////////////////
 app.trackInstall = function () {
-	//CHECK
-	if (app.read('app_installed','installed')) { return; }
+	//REAL USERS
+	if(!app.read('intro_dismissed'))			{ return; }
+	//FIRST RUN
+	if(app.read('app_installed','installed'))	{ return; }
 	//LOCK
 	app.save('app_installed', 'installed');
-	//////////
-	//TRACK //
-	//////////
+	///////////
+	// TRACK //
+	///////////
 	if (app.http) {
 		//WEBINSTALL
 		app.analytics('webinstall');
