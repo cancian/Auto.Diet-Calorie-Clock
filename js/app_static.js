@@ -158,25 +158,21 @@ setTimeout(function() {
 		console.log(app.read('consecutive_reboots'));	
 	}
 },50);
-/////////////////////////
-// KICKSTART ANALYTICS //
-/////////////////////////
+////////////////////////////////
+// TRIGGER SYNC/ANALYTICS/ETC //
+////////////////////////////////
 setTimeout(function() {
 	//TRACK START
 	app.analytics('start');
 	//TRACK INSTALL
-	if(app.read('intro_dismissed')) {
-		app.trackInstall();
-	}
-},5000);
-//////////////////////
-// TRIGGER SYNC ETC //
-//////////////////////
-setTimeout(function() {
-	// MARK BOOT SUCCESS
-	app.remove('consecutive_reboots');
-	updateLoginStatus(1);
+	app.trackInstall();
+	//PARSE ERROR LOGS
 	app.parseErrorLog();
+	//MARK BOOT SUCCESS
+	app.remove('consecutive_reboots');
+	//TRIGGER SYNC
+	updateLoginStatus(1);
+	//CLEAR RESUME
 	clearTimeout(app.timers.resume);
 },5000);
 ////////////////
