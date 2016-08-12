@@ -7408,20 +7408,20 @@ var LANG = {
 	},
 	HELP_TOPICS_ARRAY : {
 		en : { 
-/////////////////////////////////
+//////////////////////////////////////
 'ChronoBurn: A Metabolism Simulator' :
-'<p>ChronoBurn was originally developed as a personal tool. It was intended to help me keep track of what I ate, versus what I burned during exercises. I wanted something precise, intuitive, yet flexible. So I figured: instead of a simple diary, why not build a real-time calorie counter? After all, that is how our body actually works.<p>\
+'<p>ChronoBurn was originally developed as a personal tool. It was intended to help me keep track of what I ate, versus what I burned during exercises. I wanted something precise, intuitive, yet flexible. So I figured: instead of a simple diary, why not build a real-time calorie counter? After all, that’s how the human body actually works.<p>\
 <p>Most health and fitness tools come with a bunch of unnecessary features. My goal was to make a simple and effective calorie counter that didn’t have any of the clutter of most weight loss applications.</p>\
-<p>You start by setting a daily calorie intake for yourself. That’s your baseline: The amount of calories you need to eat to keep your current weight.</p>\
+<p>I kept everything as straightforward as possible. You start by setting a daily calorie intake for yourself. That’s your baseline: The amount of calories you need to eat to keep your current weight.</p>\
 <p>Now, in case you want to lose weight, just pick the amount you’d like to lose per week. The app will show how many calories you need to subtract from your daily baseline in order to reach that goal.</p>\
 <p>Once you hit “Start”, your caloric balance, like a “Calorie Clock”, will decrease passively throughout the day. This represents the calories your body burns over time.</p>\
-<p>Whenever you eat, add the item to your diary, so the app can compensate for the calories you’ve used. The same goes for exercises.</p>\
+<p>Whenever you eat, add the item to your diary, so the app can adjust itself to reflect the calories you’ve consumed. The same goes for exercises.</p>\
 <p>Keeping track of calories this way encourages eating conscientiously, according to what your body actually needs at any given moment.</p>\
 <p>Now comes the fun part. Since your daily intake already includes the caloric deficit, what you see is what you need. No overthinking. No boring calculations. What you need to know comes down to a single number.</p>\
 <p>As long as you keep your caloric balance somewhat close to zero, you’re losing weight. Simple as that!</p>\
 <p>Keeping track of calories used to be a chore, but not anymore!</p>\
 <p id="tabHelp" class="hidden">For more information on how to take full advantage of this app, be sure to check the<span id="openHelp" class="blue bold"> help section</span>.</p>',
-/////////////////////////////////
+//////////////////////////////////////
 'What’s so unique about ChronoBurn?' :
 '<p>ChronoBurn is a cross-platform web app that allows you to count your calories from anywhere.</p>\
 <p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, ChronoBurn works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
@@ -7474,7 +7474,7 @@ var LANG = {
 //////////////////
 'Nutrient ratio' :
 '<p>When you add a food that includes nutritional information, the app will use this data to calculate the average percentage of calories you are getting from each nutrient (proteins, carbs and fats).</p><p>The ratio of each nutrient is calculated by total calories, not by weight. So it is important to remember that while proteins and carbs have 4 kcal per gram, fats have 9 kcal.</p><p>The default nutrient ratio is 25% proteins / 50% carbs / 25% fats. You can change these values by tapping the nutrition bars on the status tab.</p>',
-///////////////////////////////
+////////////////////////////////
 'Elapsed Time / Relative Time' :
 '<p><strong class="blue">Elapsed Time</strong> means the total time since you pressed Start.</p><p><strong class="blue">Relative Time</strong> indicates how long you have to wait until your caloric balance returns to zero. </p><p>The “Relative Time” is particularly useful to calculate when you should have your next meal. </p><p>For instance, if you have eaten 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p><p class="blue bold">500 kcal = 1/4 of your daily intake</p><p class="blue bold">6 hours = 1/4 of the day</p><p>Therefore:</p><p class="blue bold">500 kcal = 6 hours </p><p>Simply put, calories are converted into time.</p><p>In practical terms, this means that within 6 hours (1/4 of the day) your body will have burned the 500 calories you consumed (1/4 of your daily intake).</p><p>As you can see, more than just counting calories, ChronoBurn helps you to reeducate your eating habits, keeping you in sync with your body.</p>',
 /////////////////
@@ -7487,4 +7487,3 @@ var LANG = {
 'Supported platforms' :
 '<p>ChronoBurn is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (cronoburn.com)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};
-
