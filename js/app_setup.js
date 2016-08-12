@@ -2349,7 +2349,7 @@ function getRateDialog() {
 ///////////////////
 // GET ANALYTICS //
 ///////////////////
-app.analytics = function(target,desc) {
+app.analytics = function(target, desc) {
 	//ERROR
 	if(target == 'error') {
 		if(!desc || !desc.length) {
@@ -2399,16 +2399,15 @@ app.analytics = function(target,desc) {
 		app.remove('error_log_unhandled');
 		//skip irrelevant
 		if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile/i.test(JSON.stringify(desc))) {
-			//IGNORE
-		} else {
-			//ERROR EVENT
-			ga_storage._trackEvent(appOS, target, desc, baseVersion);
-			ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ') (' + baseVersion + ')');
+			return;	
 		}
+		//ERROR EVENT
+		ga_storage._trackEvent(appOS, target, desc, Number(appBuild));
+		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') ( ' + desc + ') (' + appBuild + ')');
 	} else {
 		//REGULAR EVENT
-		ga_storage._trackEvent(appOS, target, lang, baseVersion);
-		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ') (' + baseVersion + ')');
+		ga_storage._trackEvent(appOS, target, typeof desc === 'number' ? desc : lang, typeof desc === 'number' ? desc : Number(appBuild));
+		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ')' + desc ? ' (' + desc + ')' : '');
 	}
 };
 //BACKWARDS C.

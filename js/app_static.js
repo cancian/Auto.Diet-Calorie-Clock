@@ -1353,23 +1353,35 @@ if(app.is.scrollable && app.device.desktop) {
 		}
 		//END BLUR/
 	});
-	////////////////////
-	// DEV BOOT TIMER //
-	////////////////////
-	/*
+	/////////////////////////
+	// TEMP GA INIT TESTER //
+	/////////////////////////
+	app.analytics('test: 0ms');
+	setTimeout(function() { app.analytics('test: 0s'); },0);
+	setTimeout(function() { app.analytics('test: 1s'); },1000);
+	setTimeout(function() { app.analytics('test: 2s'); },2000);
+	setTimeout(function() { app.analytics('test: 3s'); },3000);
+	setTimeout(function() { app.analytics('test: 4s'); },4000);
+	setTimeout(function() { app.analytics('test: 5s'); },5000);	
+	///////////////////
+	// LOG INIT TIME //
+	///////////////////
 	if (typeof initTime !== 'undefined') {
-		if (app.dev) {
-			app.toast(((new Date().getTime()) - initTime) + ' ms');
+		var loadTime = app.now() - initTime;
+		setTimeout(function() {
+			app.analytics('init',loadTime);
+		},3000);
+		if (app.beenDev) {
+			app.toast(loadTime + ' ms');
 		}
 	}
-	*/
 ///////////////////
 // CATCH 5 TIMES //
 ///////////////////
 } catch(err) {
 	var bootError = err;
 	errorHandler(bootError,function() {
-		app.reboot('now');	
+		app.reboot('now');
 	});
 }
 ////#//
