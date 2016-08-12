@@ -1,5 +1,5 @@
-﻿ChronoBurn is a calorie counter based on the Cordova Framework
-==============================================================
+﻿ChronoBurn is a calorie counter based on Apache Cordova
+=======================================================
 
 It's developed by André Cancian (cancian@chronoburn.com) since 2013.
 
