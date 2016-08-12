@@ -1791,6 +1791,7 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 	//
 	$(target).css(prefix + 'transition', 'background linear 0s');
 	$(target).css('background-color', startColor);	
+	$(target).addClass('appHighlight');
 	setTimeout(function () {
 		$(target).css(prefix + 'transition', 'background linear ' + JSON.stringify(duration) + 'ms');
 		$(target).css('background-color', endColor);
@@ -1799,6 +1800,7 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 		setTimeout(function () {
 			$(target).css(prefix + 'transition', 'background linear 0s');
 			$(target).css('pointer-events','auto');
+			$(target).removeClass('appHighlight');			
 			//
 			if (typeof callback === 'function') {
 				callback();
