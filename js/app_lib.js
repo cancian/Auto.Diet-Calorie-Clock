@@ -2120,6 +2120,16 @@ Array.prototype.pushUnique = function (item) {
 	}
 	return false;
 };
+///////////////
+// ISNUMERIC //
+///////////////
+function isNumeric(num) {
+	return (typeof num == 'string' || typeof num == 'number') && !isNaN(num - 0) && num !== '';
+};
+//ISNUMBER
+function isNumber(num) {
+	return (typeof num == 'number') && !isNaN(num - 0) && num !== '';
+};
 /////////////////
 // DATE FORMAT //
 /////////////////
