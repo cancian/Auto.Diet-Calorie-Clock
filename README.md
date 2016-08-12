@@ -1,7 +1,10 @@
-﻿KCals Calorie Clock - Cordova App
-====================================================
-This project is now open source. The code is free for personal use only. For commercial purposes, authorization is required.
+﻿ChronoBurn is a real-time calorie counter based on the Cordova Framework
+========================================================================
 
-I'm currently trying to port the App to Apple Watch, Google Watch, and Android widgets. 
+It's developed by André Cancian (cancian@chronoburn.com) since 2013.
 
-If you'd like to help, drop me a line at cancian@kcals.net
+If you're into calorie counting, check its web version at https://chronoburn.com.
+
+The source code has been made available at https://github.com/cancian/ChronoBurn as a contribution to the Apache Cordova community.
+
+This project is not free to distribute.
