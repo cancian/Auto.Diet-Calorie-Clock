@@ -5,8 +5,9 @@
 ★ Weight tracker
 ★ Shoutbox for users to interact
 
-# 2.0.2 [2016/08/02]
+# 2.0.2 [2016/08/13]
 • Refined user touch responses
+• Users can manually dismiss the “loading database” spinner dialog (in case it gets stuck)
 
 # 2.0.1 [2016/07/25]
 • Desktop browsers would sometimes trigger errors after window resize event

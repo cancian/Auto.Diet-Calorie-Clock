@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.0.2 (200212)';
+var appVersion = '2.0.2 (200213)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -1583,7 +1583,7 @@ var LANG = {
 		zt : '正在更新資料庫'
 	},
 	DATABASE_UPDATE : {
-		en : 'Database Upgrade',
+		en : 'Database Update',
 		pt : 'Atualização do banco de dados',
 		ar : 'تحديث قاعدة البيانات',
 		bg : 'Надграждане на базата данни',

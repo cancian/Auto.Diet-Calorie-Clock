@@ -373,10 +373,13 @@ $(document).on("pageload", function (evt) {
 	//#///////////////#//
 	$('#entryList div' + tgt).on(swipe,function (evt) {
 		var swippen = $(this);
-		//HIDE ACTIVE
+		//HIDE
 		if ($('.delete').hasClass('open') && !$('.delete').hasClass('busy')) {
 			hideEntry(evt);
-		} else if (!$('#entryList div').hasClass('appHighlight') && !$('.delete').hasClass('busy') && !$('#editableInput').length && !$('#editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
+			return;
+		}
+		//SHOW
+		if (!$('#entryList div').hasClass('appHighlight') && !$('.delete').hasClass('busy') && !$('#editableInput').length && !$('#editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#editableInput').is(':focus') && !$('#entryBody').is(':focus') && !$('#entryTime').is(':focus')) {
 			$('.delete', swippen).addClass('busy');
 			setTimeout(function () {
 				$('.delete', swippen).addClass('active');
@@ -390,8 +393,6 @@ $(document).on("pageload", function (evt) {
 					$('.delete').removeClass('busy');
 				});
 			}, 0);
-		} else {
-			hideEntry(evt);
 		}
 	});
 	/////////////////////

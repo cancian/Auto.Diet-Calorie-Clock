@@ -105,10 +105,27 @@ body.loadingMask #loadMask span {
 body.loadingMask #loadMask:before {
 	display: none;
 }
+#loadMask:after {
+	font-family: KCals;
+	content: '\F00D';
+	position: absolute;
+	width: 54px;
+	height: 46px;
+	bottom: 46px;
+	right: 28px;
+	color: #333;
+	padding-top: 8px;
+	font-size: 32px;
+	line-height: 32px;
+	text-align: center;
+	background-color: rgba(0,0,0,0);
+	display: block !important;
+	
+}
 /*///////////////////////////// https://github.com/bgrins/spectrum
 // Spectrum Colorpicker v1.8 //
 /////////////////////////////*/ 
-.sp-container 				{ position:absolute; top:0; left:0; display:inline-block; *display: inline; *zoom: 1; z-index: 9999994; overflow: hidden; }
+.sp-container 				{ position:absolute; top:0; left:0; display:inline-block; display: inline; zoom: 1; z-index: 9999994; overflow: hidden; }
 .sp-container.sp-flat		{ position: relative; }
 .sp-container,
 .sp-container *				{ -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; }

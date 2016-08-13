@@ -1155,8 +1155,28 @@ function spinner(action,target) {
 		$('body').removeClass('updtdb');
 	} else {
 		$('body').addClass(target);
+		$('#loadMask').css('pointer-events','auto')
 		$('#loadMask').off().on(touchstart,function(evt) {
-			return false;
+			var pos = app.pointer(evt);
+			//USE :AFTER COORDS
+			if(app.width - pos.x < 120 && app.height - pos.y < 120) {
+				//DIALOG
+				appConfirm(LANG.CANCEL[lang].toUpperCase() + ' (' + (LANG.DATABASE_UPDATE[lang]).toLowerCase() + ')', LANG.ARE_YOU_SURE[lang].capitalize(), function(button) {
+					//$('#loadMask').css('pointer-events','none')
+					if(button === 2) { 
+						//KILL SPINNER
+						if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
+							app.remove('startLock');
+						}
+						spinner('stop');
+					} else {
+						//do nothing
+					}
+				}, LANG.OK[lang], LANG.CANCEL[lang]);
+			} else {
+				//BLOCK TOUCHSTART
+				return false;	
+			}
 		});
 	}
 }
@@ -2396,7 +2416,7 @@ app.analytics = function(target, desc) {
 		ga_storage._trackEvent(appOS, target, desc);
 	} else {
 		//REGULAR EVENT ~ plus loadTIme
-		ga_storage._trackEvent(appOS, target, (typeof desc === 'number') ? desc : lang);
+		ga_storage._trackEvent(appOS, target, (typeof desc === 'number') ? desc : lang, (typeof desc === 'number') ? desc : 0);
 		ga_storage._trackPageview(trackString, appOS + ' (' + lang + ') (' + appBuild + ')');
 	}
 };
