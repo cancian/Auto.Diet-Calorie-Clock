@@ -109,18 +109,22 @@ body.loadingMask #loadMask:before {
 	font-family: KCals;
 	content: '\F00D';
 	position: absolute;
-	width: 54px;
-	height: 46px;
-	bottom: 46px;
-	right: 28px;
-	color: #333;
-	padding-top: 8px;
+	width: 56px;
+	height: 42px;
+	bottom: 48px;
+	right: 48px;
+	margin: 0;
+	padding: 0;
+	text-indent: 0;
 	font-size: 32px;
 	line-height: 32px;
 	text-align: center;
-	background-color: rgba(0,0,0,0);
 	display: block !important;
-	
+	background-color: rgba(0,0,0,0);
+	color: #bbb;
+}
+body.started #loadMask:after {
+	color: #999;
 }
 /*///////////////////////////// https://github.com/bgrins/spectrum
 // Spectrum Colorpicker v1.8 //
