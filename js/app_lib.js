@@ -701,9 +701,9 @@ app.url = function(url) {
 		web:        'https://chronoburn.com',
 		ios:        'https://itunes.apple.com/app/id732382802',
 		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
-		wp8:        'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews', //'http://windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e',
-		wp10:       'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews', //'http://windowsphone.com/s?appid=9cfeccf8-a0dd-43ca-b104-34aed9ae0d3e',
-		windows8:   'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews', //https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5
+		wp8:        'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
+		wp10:       'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
+		windows8:   'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
 		windows10:  'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
 		firefoxos:  'https://marketplace.firefox.com/app/chronoburn',
 		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
@@ -718,7 +718,7 @@ app.url = function(url) {
 	else if((!url && app.device.blackberry) || url == 'blackberry')  { url = store.blackberry; }
 	else if((!url && app.device.playbook)   || url == 'playbook')    { url = store.playbook;   }
 	else if((!url && app.device.android)    || url == 'android')     { url = store.android;    }
-	else if((!url && app.device.wp10)       || url == 'wp10')        { url = store.wp8;        } //wp10
+	else if((!url && app.device.wp10)       || url == 'wp10')        { url = store.wp10;       }
 	else if((!url && app.device.wp8)        || url == 'wp8')         { url = store.wp8;        }
 	else if((!url && app.device.windows10)  || url == 'windows10')   { url = store.windows10;  }	
 	else if((!url && app.device.windows8)   || url == 'windows8')    { url = store.windows8;   }
