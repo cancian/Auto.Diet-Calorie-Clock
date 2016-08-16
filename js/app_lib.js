@@ -31,45 +31,7 @@ app = {
 	//user: localStorage.getItem('app_current_user').split('###'),
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
-	pointer : function (e) {
-		var out = {
-			x : 0,
-			y : 0
-		};
-		//EVENT
-		if (e) {
-			out.e = e;
-			//TARGET
-			if (e.target) {
-				out.target = $(e.target) || e.target;
-				//TARGET ID
-				if (e.target.id) {
-					out.id = $(e.target).attr('id') || e.target.id;
-				}
-			}
-			//TOUCH EVENT
-			if (/touch/i.test(e.type) && typeof e.originalEvent !== 'undefined') {
-				var touch = e.originalEvent.touches || e.originalEvent.changedTouches;
-				if (typeof touch !== 'undefined') {
-					if (typeof touch[0] !== 'undefined') {
-						//RETURN
-						out.x = touch[0].pageX;
-						out.y = touch[0].pageY;
-						return out;
-					}
-				}
-			}
-			//REGULAR EVENT
-			if (typeof e.pageX !== 'undefined' && typeof e.pageY !== 'undefined') {
-				//RETURN
-				out.x = e.pageX;
-				out.y = e.pageY;
-				return out;
-			}
-		}
-		//NULL
-		return out;
-	},
+	pointer: function(e) { 'use strict'; var out = {x:0, y:0, e: e}; if(e.target) { out.target = $(e.target) || e.target; if(e.target.id) { out.id = $(out.target).prop('id') || out.target.id; }} if(/touch/i.test(e.type) && e.originalEvent) { var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0]; out.x = touch.pageX; out.y = touch.pageY; } else { out.x = e.pageX; out.y = e.pageY; } return out; },
 	is: {},
 	config: {},
 	db: {
