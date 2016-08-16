@@ -41,10 +41,10 @@ app = {
 			out.e = e;
 			//TARGET
 			if (e.target) {
-				out.target = $(e.target);
+				out.target = $(e.target) || e.target;
 				//TARGET ID
 				if (e.target.id) {
-					out.id = $(out.target).attr('id');
+					out.id = $(e.target).attr('id') || e.target.id;
 				}
 			}
 			//TOUCH EVENT
