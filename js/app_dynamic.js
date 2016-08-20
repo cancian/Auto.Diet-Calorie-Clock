@@ -371,7 +371,7 @@ $(document).on("pageload", function (evt) {
 	//#///////////////#//
 	//# IOS ROW SWIPE #//
 	//#///////////////#//
-	$('#entryList div' + tgt).on(swipe,function (evt) {
+	$('#entryList div' + tgt).on(swipe + ' ' + hold,function (evt) {
 		var swippen = $(this);
 		//HIDE
 		if ($('.delete').hasClass('open') && !$('.delete').hasClass('busy')) {
