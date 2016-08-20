@@ -5,6 +5,11 @@
 ★ Weight tracker
 ★ Shoutbox for users to interact
 
+# 2.0.3 [2016/08/20]
+• Faster search results
+• Holding a diary entry for 1.5 seconds also reveals the editing options (the default gesture being a quick swipe)
+• Increased line height on help topics for better readability
+
 # 2.0.2 [2016/08/13]
 • Refined user touch responses
 • Users can manually dismiss the “loading database” spinner dialog (in case it gets stuck)
