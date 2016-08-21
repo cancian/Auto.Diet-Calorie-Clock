@@ -1520,6 +1520,9 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #addNewExerciseTitle span	{ position: absolute; top: 0px; left: -18px; width: 10px; height: 10px; text-align: left; font-size: 13px; font-family: KCals; display: inline-block; color: #007aff; }
 #addNewFood.active *,
 #addNewExercise.active *	{ color: #444; }
+/*white bar background*/
+#addNewFood,
+#addNewExercise				{ background-color: rgba(255,255,255,.93); }
 /**/
 #addNewFood					{ right: 50%; }
 #addNewExercise				{ left:  50%; }
