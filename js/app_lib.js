@@ -2630,20 +2630,24 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		verticalDistanceThreshold : 30,
 
 		start : function (event) {
-			var pos = app.pointer(event);
-			return {
-				time : +new Date(),
-				coords : [pos.x, pos.y],
-				origin : $(event.target)
-			};
+			if(event) {
+				var pos = app.pointer(event);
+				return {
+					time : +new Date(),
+					coords : [pos.x, pos.y],
+					origin : $(event.target)
+				};
+			}
 		},
 
 		stop : function (event) {
-			var pos = app.pointer(event);
-			return {
-				time : +new Date(),
-				coords : [pos.x, pos.y],
-			};
+			if(event) {
+				var pos = app.pointer(event);
+				return {
+					time : +new Date(),
+					coords : [pos.x, pos.y],
+				};
+			}
 		},
 
 		isSweep : function (start, stop, checkTime) { return (stop.time - start.time < $.event.special.swipe.durationThreshold) 
@@ -2738,14 +2742,16 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				}
 				//TWEAK
 				if (event) {
-					eventData.target = event.target;
-					eventData.pageX  = app.pointer(event).x;
-					eventData.pageY  = app.pointer(event).y;
-					eventData.time   = getTime();
+					if (event.target) {
+						eventData.target = event.target;
+						eventData.pageX  = app.pointer(event).x;
+						eventData.pageY  = app.pointer(event).y;
+						eventData.time   = getTime();
+					}
 				}
 			}).on(nativeEvent.end, function (event) {
 				//TWEAK
-				if (eventData) {
+				if (eventData && event) {
 					//DIFF
 					var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(app.pointer(event).x));
 					var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(app.pointer(event).y));
@@ -2785,13 +2791,14 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	var tapAndHoldTimer = null;
 
 	function calculateEuclideanDistance(x1, y1, x2, y2) {
+		if (!x1)	{ return; }
 		var diffX = (x2 - x1);
 		var diffY = (y2 - y1);
 		return Math.sqrt((diffX * diffX) + (diffY * diffY));
 	};
 
 	function onTouchStart(event) {
-		var e = event.originalEvent ? event.originalEvent : event;
+		var e = app.pointer(event).e;
 
 		// Only start detector if and only if one finger is over the widget
 		if (!e.touches || (e.targetTouches.length === 1 && e.touches.length === 1)) {
@@ -2812,8 +2819,12 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		var e = app.pointer(event);
 		var x = e.x;
 		var y = e.y;
+		if(!x || !y) { return; }
 
-		var tapAndHoldPoint = $(this).data("taphold.point");
+		var tapAndHoldPoint = $(this).data('taphold.point');
+		if (!tapAndHoldPoint)	{ return; }
+		if (!tapAndHoldPoint.x) { return; }
+		if (!tapAndHoldPoint.y) { return; }
 		var euclideanDistance = calculateEuclideanDistance(tapAndHoldPoint.x, tapAndHoldPoint.y, x, y);
 
 		if (euclideanDistance > MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT) {
@@ -2848,9 +2859,10 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		// Stores tap x & y
 		var e = app.pointer(event);
 		var tapAndHoldPoint = {};
+		if(!e.x || !e.y) { return; }
 		tapAndHoldPoint.x = e.x;
 		tapAndHoldPoint.y = e.y;
-		$(this).data("taphold.point", tapAndHoldPoint);
+		$(this).data('taphold.point', tapAndHoldPoint);
 	};
 
 	function stopTapAndHoldDetector() {
@@ -2858,11 +2870,11 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		clear.call(this);
 	};
 
-	$.event.special["hold"] = {
+	$.event.special['hold'] = {
 		setup : function () {},
 
 		add : function (handleObj) {
-			$(this).data("taphold.handler", handleObj.handler);
+			$(this).data('taphold.handler', handleObj.handler);
 			if (handleObj.data) {
 				$(this).bind(TOUCHSTART, handleObj.data, onTouchStart);
 			} else {
