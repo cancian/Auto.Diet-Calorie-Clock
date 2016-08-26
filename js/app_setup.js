@@ -259,10 +259,6 @@ app.resetCounter = function(pusher) {
 //////////////////////////////
 function localStorageSql() {
 	var keyList = '';
-	//dom reset
-	if(app.read('appStatus','stopped')) {
-		app.resetCounter();
-	}
 	//daily
 	if(app.read('config_kcals_type'))	{ keyList = keyList + '#@@@#' + 'config_kcals_type'  + '#@@#' + app.read('config_kcals_type');  }
 	if(app.read('config_kcals_day_0'))	{ keyList = keyList + '#@@@#' + 'config_kcals_day_0' + '#@@#' + app.read('config_kcals_day_0'); }
@@ -305,6 +301,10 @@ function localStorageSql() {
 	//start
 	keyList = keyList + '#@@@#' + 'appStatus' + '#@@#'         + app.read('appStatus');
 	keyList = keyList + '#@@@#' + 'config_start_time' + '#@@#' + app.read('config_start_time');
+	//dom reset
+	if(app.read('appStatus','stopped')) {
+		app.resetCounter();
+	}
 	//return
 	if(keyList != '') { keyList = '/*' + keyList + '*/'; }
 	return keyList;
@@ -321,9 +321,15 @@ function rebuildLocalStorage(lsp) {
 	for(i=0; i<lsp.length; i++) {
 		lsPart = lsp[i].split('#@@#');
 		if(lsPart[0]) {
-			if(lsPart[0] == 'appNotes') {
+				   if(lsPart[0] === 'appNotes') {
 				app.save(lsPart[0],lsPart[1].split('#@#').join('\n'));
-			} else {
+			//} else if(lsPart[0] === 'config_start_time') {
+				//update start time if changed > 10s
+			//	if(app.now() - (Math.abs(app.read('config_start_time')) > 5*1000)) {
+			//		alert(app.now() - Math.abs(app.read('config_start_time')));
+			//		app.save(lsPart[0],lsPart[1]);
+			//	}
+			//} else {
 				app.save(lsPart[0],lsPart[1]);
 			}
 		}
@@ -452,9 +458,9 @@ app.timeout('pushEntries',3000,function() {
 		//////////////////
 		// ADD SETTINGS //
 		//////////////////
-		if(localStorageSql()) {
+		//if(localStorageSql()) {
 			fetchEntries = fetchEntries + '\n' + trim(localStorageSql());
-		}
+		//}
 		//////////////////
 		// BASIC FILTER //
 		//////////////////
