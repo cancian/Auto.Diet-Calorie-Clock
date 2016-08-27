@@ -350,7 +350,6 @@ ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0
 .contentTitle span					{ display: block; font-weight: normal; opacity: 1; color: #aaa; font-size: 10px; white-space: nowrap; line-height: 13px;}
 #advancedCounterMode .contentTitle	{ pointer-events: none; color: #000; }
 #advancedCounterMode .contentTitle span strong { font-weight: 400 !important; color: #707070 !important; pointer-events: none; }
-
 /*icons*/
 #optionMeasure .contentTitle:before	{ content: '\E060'; font-family: KCals; }
 #optionUser .contentTitle:before	{ content: '\f007'; font-family: KCals; }
@@ -732,7 +731,7 @@ ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; posit
 .windows8 #appHelperWrapper				{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; display: block; width: 100%; height: 100%; background-color: #f8f8f8; -webkit-backface-visibility: hidden; z-index: auto; }
 #appHelperWrapper strong				{ font-weight: bold !important; }
 /*title ellipsis ~ help content */
-#subHelpTitle							{ position: absolute; top: 0; left: 50px !important; right: 5px !important; width: auto !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#subHelpTitle							{ position: absolute; top: 0; left: 0 !important; text-indent: 50px; right: 5px !important; width: auto !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /*video media query*/
 @media all and (min-width: 240px)		{ #appVideo { width: 220px; height: 130px; display: block; }}
 @media all and (min-width: 320px)		{ #appVideo { width: 280px; height: 165px; display: block; }}
