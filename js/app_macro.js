@@ -11,6 +11,7 @@ function getFullHistory() {
 	var months      = ['January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December'];
 	var monthName   = months[new Date().getMonth()];
 	var todaysTime  = Date.parse(new Date(monthName + ' ' +  new Date().getDate() + ', ' + new Date().getFullYear()));
+	var globalDayArray;
 	/////////////////
 	// GET ENTRIES //
 	/////////////////
@@ -74,6 +75,8 @@ function getFullHistory() {
 			//while
 			countBack = countBack - day;
 		}
+		//update global
+		globalDayArray = dayArray;
 		//////////////
 		// HANDLERS //
 		//////////////
@@ -221,6 +224,21 @@ function getFullHistory() {
 				//remove top-bottom grid lines
 				$('.highcharts-grid path:eq(3)').remove();
 		    	$('.highcharts-grid path:last').remove();
+				////////////////////
+				// globalDayArray //
+				////////////////////
+				//console.log(dayFormat(Number(globalDayArray[0][0])));
+				//console.log(dayFormat(Number(globalDayArray[globalDayArray.length-1][0])));
+				var dateStart = dayFormat(Number(globalDayArray[0][0]));
+				var dateEnd   = dayFormat(Number(globalDayArray[globalDayArray.length-1][0]));
+				//
+				$('#highcharts-date-start').remove();
+				$('#highcharts-date-end').remove();				
+				$('#appHistory .highcharts-container').append('<div id="highcharts-date-start">'
+				+ dateStart +
+				'</div><div id="highcharts-date-end">'
+				+ dateEnd +
+				'</div>');
 			};
 			/////////////
 			// EXECUTE //
