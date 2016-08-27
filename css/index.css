@@ -718,7 +718,7 @@ ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; posit
 #appSubHelper h2 #subHelpTitle			{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
 #appSubHelper #subHelpContent			{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
 #appSubHelper #subHelpContent *			{ -webkit-user-select: text !important; user-select: text !important; }
-#appSubHelper #subHelpContent p			{ display: block; line-height: 150%; }
+#appSubHelper #subHelpContent p			{ display: block; line-height: 145%; }
 #appSubHelper #subHelpContent p + p		{ margin-top: 18px; }
 .android #appHelper,
 .android #appSubHelper					{ -webkit-perspective: 800; }
@@ -731,6 +731,8 @@ ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; posit
 .topicContent							{ display: none; }
 .windows8 #appHelperWrapper				{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; display: block; width: 100%; height: 100%; background-color: #f8f8f8; -webkit-backface-visibility: hidden; z-index: auto; }
 #appHelperWrapper strong				{ font-weight: bold !important; }
+/*title ellipsis ~ help content */
+#subHelpTitle							{ position: absolute; top: 0; left: 50px !important; right: 5px !important; width: auto !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /*video media query*/
 @media all and (min-width: 240px)		{ #appVideo { width: 220px; height: 130px; display: block; }}
 @media all and (min-width: 320px)		{ #appVideo { width: 280px; height: 165px; display: block; }}
