@@ -17,7 +17,7 @@ app.tab.settings = function(keepOpen) {
 					</div>\
 				</div>\
 			</li>\
-			<li id="optionFacebook"><div><p><p class="contentTitle">' + LANG.BACKUP_AND_SYNC[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></p></div><p id="emailLogin"></p><p id="FacebookLogin"></p><p id="syncInfo"></p></li>\
+			<li id="optionFacebook"><div><p><p class="contentTitle">' + LANG.BACKUP_AND_SYNC[lang]   + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang]   + '</span></p></p></div><p id="emailLogin"></p><p id="FacebookLogin"></p><p id="syncInfo"></p></li>\
 			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
 		</ul>\

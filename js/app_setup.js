@@ -321,7 +321,7 @@ function rebuildLocalStorage(lsp) {
 	for(i=0; i<lsp.length; i++) {
 		lsPart = lsp[i].split('#@@#');
 		if(lsPart[0]) {
-				   if(lsPart[0] === 'appNotes') {
+			if(lsPart[0] === 'appNotes') {
 				app.save(lsPart[0],lsPart[1].split('#@#').join('\n'));
 			//} else if(lsPart[0] === 'config_start_time') {
 				//update start time if changed > 10s
@@ -329,7 +329,7 @@ function rebuildLocalStorage(lsp) {
 			//		alert(app.now() - Math.abs(app.read('config_start_time')));
 			//		app.save(lsPart[0],lsPart[1]);
 			//	}
-			//} else {
+			} else {
 				app.save(lsPart[0],lsPart[1]);
 			}
 		}
@@ -458,9 +458,10 @@ app.timeout('pushEntries',3000,function() {
 		//////////////////
 		// ADD SETTINGS //
 		//////////////////
-		//if(localStorageSql()) {
-			fetchEntries = fetchEntries + '\n' + trim(localStorageSql());
-		//}
+		var storageSqlData = localStorageSql();
+		if(storageSqlData) {
+			fetchEntries = fetchEntries + '\n' + trim(storageSqlData);
+		}
 		//////////////////
 		// BASIC FILTER //
 		//////////////////
@@ -513,19 +514,18 @@ app.timeout('pushEntries',3000,function() {
 });
 }
 function setPush(msg) {
+	//force load db
 	if(app.read('facebook_logged')) {
 		updateFoodDb();
 	}
+	//next push time
 	app.save('lastEntryPush',app.now());
-	if(msg && app.dev) {
-		console.log(msg);
-	}
 }
 //#///////////////////#//
 //# AUX: SYNC ENTRIES #//
 //#///////////////////#//
 function setComplete() {
-	//nprogress
+	//clear previous
 	$('body').removeClass('insync');
 	//set complete
 	app.remove('pendingSync');

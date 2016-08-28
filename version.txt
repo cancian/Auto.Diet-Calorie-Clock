@@ -5,8 +5,11 @@
 ★ Weight tracker
 ★ Shoutbox for users to interact
 
-# 2.0.3 [2016/08/20]
+# 2.0.3 [2016/08/27]
 • Faster search results
+• Added clearly visible start/end dates to the full history chart
+• A few performance tweaks on the database engine
+• Fixed some inconsistencies with the swipe gesture
 • Increased line height on help topics for better readability
 
 # 2.0.2 [2016/08/13]
