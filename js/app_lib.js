@@ -170,6 +170,7 @@ app = {
 		}
 	},
 	save: function(key,value,type) {
+		if(!value) { return; }
 		//MULTIUSER
 		/*
 		if(!/mud_default/i.test(app.user)) {
@@ -189,16 +190,15 @@ app = {
 			});
 			return;
 		}
-		//OBJECT
-		if(type == 'object') {
-			if(value) {
-				localStorage.setItem(key,JSON.stringify(value));
-			}
-			return;
-		}
-		//
+		//DIFF CHECK
 		if(localStorage.getItem(key) != value) {
-			localStorage.setItem(key,value);
+			if(type == 'object') {
+				//OBJECT
+				localStorage.setItem(key,JSON.stringify(value));
+			} else {
+				//STRING
+				localStorage.setItem(key,value);
+			}
 		}
 	},
 	remove: function(key) {
