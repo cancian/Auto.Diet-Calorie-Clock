@@ -295,8 +295,10 @@ function cyclicTimeToKcals(startTime) {
 //#///////////////////#//
 function updateNutriBars() {
 	if(!app.read('app_last_tab','tab1'))	{ return; }
-	if($('body').hasClass('closer')) 		{ return; }
+	if(app.read('appStatus','stopped'))		{ return; }
+	if($('body').hasClass('closer'))		{ return; }
 	if(!$('#appStatusBars').length)			{ return; }
+	//
 	var tPro = app.read('tPro');
 	var tCar = app.read('tCar');
 	var tFat = app.read('tFat');
