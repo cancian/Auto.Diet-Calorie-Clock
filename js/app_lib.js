@@ -353,15 +353,9 @@ app.get.totalweight = function() {
 	}
 	return app.read('calcForm#pA3B');
 };
-app.get.androidVersion = function() {
-	if((/Android/i).test(app.ua) && !app.http) {
-		//android L
-		if((/Build\/L/i).test(app.ua)) { return 4.4; }
-		return parseFloat(app.ua.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
-	} else {
-		return false;
-	}
-};
+//ANDROID VERSION
+app.get.androidVersion = /Android/i.test(app.ua) && !app.http ? parseFloat((app.ua).match(/Android [\d+\.]{3,5}/)[0].replace('Android ','')) : false;
+//CHROMEAPP
 app.get.isChromeApp = function() {
 	if(typeof chrome !== 'undefined') {
 		if(typeof chrome.app !== 'undefined') {
@@ -378,8 +372,8 @@ app.get.isDesktop = function() {};
 ////////////////
 app.device = {
 	cordova    : ((typeof cordova || typeof Cordova) !== 'undefined') ? true : false,
-	android    : (/Android/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? app.get.androidVersion() : false,
-	android2   : (/Android/i).test(app.ua) && app.get.androidVersion() < 4 ? true : false,
+	android    : (/Android/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? app.get.androidVersion : false,
+	android2   : (/Android/i).test(app.ua) && app.get.androidVersion < 4 ? true : false,
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	ios7       : (/OS [7-9](.*) like Mac OS X/i).test(app.ua) || (/OS [10](.*) like Mac OS X/i).test(app.ua) ? true : false,
 	ios8       : (/OS [8](.*)   like Mac OS X/i).test(app.ua) ? true : false,
@@ -2541,6 +2535,11 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		touch_end   = 'touchend';
 		touch_move  = 'touchmove';
 	}
+	if(app.device.android44) {
+		touch_start = 'mousedown';
+		touch_end   = 'mouseup';
+		touch_move  = 'mousemove';
+	}	
 	///////////////
 	// POINTY.JS //
 	///////////////
