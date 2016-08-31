@@ -2538,80 +2538,12 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	///////////////
 	// POINTY.JS //
 	///////////////
-	$.event.delegateSpecial = function (setup) {
-		return function (handleObj) {
-			var thisObject = this,
-			data = jQuery._data(thisObject);
-
-			if (!data.pointerEvents) {
-				data.pointerEvents = {};
-			}
-
-			if (!data.pointerEvents[handleObj.type]) {
-				data.pointerEvents[handleObj.type] = [];
-			}
-
-			if (!data.pointerEvents[handleObj.type].length) {
-				setup.call(thisObject, handleObj);
-			}
-
-			data.pointerEvents[handleObj.type].push(handleObj);
-		};
-	};
-
-	var indexOfArray = function (arr, obj) {
-		if (arr.indexOf) {
-			return arr.indexOf(obj);
-		}
-
-		for (var i = 0; i < arr.length; i++) {
-			if (arr[i] === obj) {
-				return i;
-			}
-		}
-
-		return -1;
-	};
-
-	$.event.delegateSpecial.remove = function (teardown) {
-		return function (handleObj) {
-			var handlers,
-			thisObject = this,
-			data = jQuery._data(thisObject);
-
-			if (!data.pointerEvents) {
-				data.pointerEvents = {};
-			}
-
-			handlers = data.pointerEvents[handleObj.type];
-
-			handlers.splice(indexOfArray(handlers, handleObj), 1);
-
-			if (!handlers.length) {
-				teardown.call(thisObject, handleObj);
-			}
-		};
-	};
-
-	// return a cloned copy of a given event that has been slightly modified
-	function copyEvent(originaljQEvent, type, extras) {
-		var event = originaljQEvent; // TODO: this should clone the originaljQEvent object
-
-		event.type = type;
-		event.isPropagationStopped = function () {
-			return false;
-		};
-		event.isDefaultPrevented = function () {
-			return false;
-		};
-
-		if (extras) {
-			$.extend(event, extras);
-		}
-
-		return event;
+	function copyEvent(originalEvent, type, dir) {
+		var ev = originalEvent;
+		ev.type = type;
+		ev.direction = dir;
+		return ev;
 	}
-	
 	///////////////////
 	// SWIPE HANDLER //
 	///////////////////
@@ -2632,7 +2564,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			if(event) {
 				var pos = app.pointer(event);
 				return {
-					time : +new Date(),
+					time : app.now(),
 					coords : [pos.x, pos.y],
 					origin : $(event.target)
 				};
@@ -2643,18 +2575,19 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			if(event) {
 				var pos = app.pointer(event);
 				return {
-					time : +new Date(),
+					time : app.now(),
 					coords : [pos.x, pos.y],
 				};
 			}
 		},
 
-		isSweep : function (start, stop, checkTime) { return (stop.time - start.time < $.event.special.swipe.durationThreshold) 
-			&& Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold 
-			&& Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold;
+		isSweep : function (start, stop, checkTime) {
+			return stop.time - start.time < $.event.special.swipe.durationThreshold && 
+			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold && 
+			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold
 		},
 
-		add : $.event.delegateSpecial(function (handleObj) {
+		add : function (handleObj) {
 			var thisObject = this,
 			$this = $(thisObject);
 
@@ -2676,10 +2609,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					stop = $.event.special.swipe.stop(event);
 
 					//prevent scrolling on touch devices
-					if ('ontouchstart' in window) {
-						if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
-							event.preventDefault();
-						}
+					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+						event.preventDefault();
 					}
 				}
 
@@ -2687,14 +2618,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					$this.off(touch_move, move);
 
 					if (start && stop && $.event.special.swipe.isSweep(start, stop, true)) {
-						var dir = start.coords[0] > stop.coords[0] ? "left" : "right";
-
-						$.event.dispatch.call(thisObject, copyEvent(event, "swipe", {
-								direction : dir
-							}));
-						$.event.dispatch.call(thisObject, copyEvent(event, "swipe" + dir, {
-								direction : dir
-							}));
+						var dir = start.coords[0] > stop.coords[0] ? 'left' : 'right';
+						$.event.dispatch.call(thisObject, copyEvent(event, 'swipe', dir));
 					}
 
 					start = stop = undefined;
@@ -2711,11 +2636,11 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			};
 
 			$this.on(touch_start, handleObj.selector, handleObj.pointerdown);
-		}),
+		},
 
-		remove : $.event.delegateSpecial.remove(function (handleObj) {
+		remove : function (handleObj) {
 			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
-		})
+		}
 	};
 })(jQuery, touchstart, touchend, touchmove);
 //#/////////////#//
