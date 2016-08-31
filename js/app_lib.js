@@ -2535,11 +2535,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		touch_end   = 'touchend';
 		touch_move  = 'touchmove';
 	}
-	if(app.device.android44) {
-		touch_start = 'mousedown';
-		touch_end   = 'mouseup';
-		touch_move  = 'mousemove';
-	}	
 	///////////////
 	// POINTY.JS //
 	///////////////
@@ -2728,6 +2723,11 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //#/////////////#// https://github.com/BR0kEN-/jTap
 (function ($, specialEventName, touch_start, touch_end) {
 	'use strict';
+	if(app.device.wp10) {
+		touch_start = 'touchstart';
+		touch_end   = 'touchend';
+		touch_move  = 'touchmove';
+	}
 	var nativeEvent = Object.create(null);
 	var getTime = function () {
 		return new Date().getTime();
