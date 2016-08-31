@@ -2726,16 +2726,14 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	if(app.device.wp10) {
 		touch_start = 'touchstart';
 		touch_end   = 'touchend';
-		touch_move  = 'touchmove';
 	}
-	var nativeEvent = Object.create(null);
 	var getTime = function () {
 		return new Date().getTime();
 	};
-	//nativeEvent.original = 'click';
-	nativeEvent.start = touch_start;
-	nativeEvent.end   = touch_end;
-
+	var nativeEvent = {
+		start : touch_start,
+		end : touch_end
+	};
 	$.event.special[specialEventName] = {
 		setup : function (data, namespaces, eventHandle) {
 			var $element = $(this);
