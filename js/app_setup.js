@@ -237,8 +237,9 @@ app.resetCounter = function(pusher) {
 	$('#appStatus').removeClass('reset');
 	$('#appStatus').addClass('start');
 	$('#appStatusTitle').html2(LANG.START[lang]);
-	app.save('appStatus','stopped');
+	//STOP COUNTER
 	app.save('config_start_time',app.now());
+	app.save('appStatus','stopped');
 	//RESET BACKPORT
 	app.save('config_entry_sum',0);
 	app.save('config_entry_f-sum',0);
