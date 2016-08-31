@@ -170,7 +170,7 @@ app = {
 		}
 	},
 	save: function(key,value,type) {
-		if(!value) { return; }
+		if(typeof value === 'undefined') { return; }
 		//MULTIUSER
 		/*
 		if(!/mud_default/i.test(app.user)) {
