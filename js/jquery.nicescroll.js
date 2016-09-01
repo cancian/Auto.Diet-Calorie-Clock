@@ -1,82 +1,9 @@
 ﻿//##/////////##//
 //## FASTDOM ##//
 ///##////////##// https://github.com/wilsonpage/fastdom
-!function (t) {
-	'use strict';
-	function e() {
-		var e = this;
-		e.reads = [],
-		e.writes = [],
-		e.raf = a.bind(t)
-	}
-	function n(t) {
-		t.scheduled || (t.scheduled = !0, t.raf(i.bind(null, t)))
-	}
-	function i(t) {
-		var e,
-		i = t.writes,
-		o = t.reads;
-		try {
-			r(o),
-			r(i)
-		} catch (s) {
-			e = s
-		}
-		if (t.scheduled = !1, (o.length || i.length) && n(t), e) {
-			if (!t["catch"])
-				throw e;
-			t["catch"](e)
-		}
-	}
-	function r(t) {
-		for (var e; e = t.shift(); )
-			e()
-	}
-	function o(t, e) {
-		var n = t.indexOf(e);
-		return !!~n && !!t.splice(n, 1)
-	}
-	function s(t, e) {
-		for (var n in e)
-			e.hasOwnProperty(n) && (t[n] = e[n])
-	}
-	var a = t.requestAnimationFrame || t.webkitRequestAnimationFrame || t.mozRequestAnimationFrame || t.msRequestAnimationFrame || function (t) {
-		return setTimeout(t, 16)
-	};
-	e.prototype = {
-		constructor : e,
-		measure : function (t, e) {
-			var i = e ? t.bind(e) : t;
-			return this.reads.push(i),
-			n(this),
-			i
-		},
-		mutate : function (t, e) {
-			var i = e ? t.bind(e) : t;
-			return this.writes.push(i),
-			n(this),
-			i
-		},
-		clear : function (t) {
-			return o(this.reads, t) || o(this.writes, t)
-		},
-		extend : function (t) {
-			if ("object" != typeof t)
-				throw new Error("expected object");
-			var e = Object.create(this);
-			return s(e, t),
-			e.fastdom = this,
-			e.initialize && e.initialize(),
-			e
-		},
-		"catch" : null
-	};
-	var exports = t.fastdom = t.fastdom || new e;
-	"f" == (typeof define)[0] ? define(function () {
-		return exports
-	}) : "o" == (typeof module)[0] && (module.exports = exports)
+if(!/Android/i.test(navigator.userAgent) && !/MSApp/i.test(navigator.userAgent)) {
+eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d.raf=c.bind(a),b("initialized",d)}function e(a){a.scheduled||(a.scheduled=!0,a.raf(f.bind(null,a)),b("flush scheduled"))}function f(a){b("flush");var f,c=a.writes,d=a.reads;try{b("flushing reads",d.length),g(d),b("flushing writes",c.length),g(c)}catch(a){f=a}if(a.scheduled=!1,(d.length||c.length)&&e(a),f){if(b("task errored",f.message),!a.catch)throw f;a.catch(f)}}function g(a){b("run tasks");for(var c;c=a.shift();)c()}function h(a,b){var c=a.indexOf(b);return!!~c&&!!a.splice(c,1)}function i(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])}var b=function(){},c=a.requestAnimationFrame||a.webkitRequestAnimationFrame||a.mozRequestAnimationFrame||a.msRequestAnimationFrame||function(a){return setTimeout(a,16)};d.prototype={version:1,constructor:d,measure:function(a,c){b("measure");var d=c?a.bind(c):a;return this.reads.push(d),e(this),d},mutate:function(a,c){b("mutate");var d=c?a.bind(c):a;return this.writes.push(d),e(this),d},clear:function(a){return b("clear",a),h(this.reads,a)||h(this.writes,a)},extend:function(a){if(b("extend",a),"object"!=typeof a)throw new Error("expected object");var c=Object.create(this);return i(c,a),c.fastdom=this,c.initialize&&c.initialize(),c},catch:null};var j=function(){var b=a.fastdom||a.__fastdom__;if(b){var c=b.version||(b.defer?0:1),e=c===d.prototype.version;e?b:new d;if(e)return b;console.warn("[fastdom] Multiple incompatible versions detected (this could impact performance)")}return new d}();"f"==(typeof define)[0]?define(function(){return j}):"o"==(typeof module)[0]?module.exports=j:a.fastdom=j,a.__fastdom__=j}(window||this);');
 }
-(window || this);
 //##/////////////////////////##//
 //## JQUERY.NICESCROLL 3.6.0 ##//
 ///##////////////////////////##// https://github.com/inuyaksa/jquery.nicescroll
@@ -4059,4 +3986,3 @@
 	}
 
 })(jQuery);
-
