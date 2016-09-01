@@ -2559,14 +2559,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		return event;
 	}
-	/*
-	function copyEvent(originalEvent, type, dir) {
-		var ev = originalEvent;
-		ev.type = type;
-		ev.direction = dir;
-		return ev;
-	}
-	*/
 	///////////////////
 	// SWIPE HANDLER //
 	///////////////////
