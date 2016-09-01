@@ -31,39 +31,20 @@ app = {
 	//user: localStorage.getItem('app_current_user').split('###'),
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
-	pointer : function (e) {
+	pointer : function (e) { //http://www.jacklmoore.com/notes/mouse-position/
 		'use strict';
-		var out = {
-			x : 0,
-			y : 0
+		e = e || window.event;
+		e = jQuery.event.fix(e);
+		var target = e.target || e.srcElement,
+		rect       = target.getBoundingClientRect(),
+		offsetX    = e.clientX - rect.left,
+		offsetY    = e.clientY - rect.top;
+		return {
+			e : e,
+			x : parseInt(offsetX),
+			y : parseInt(offsetY),
+			target : e.target || e.srcElement
 		};
-		//EVENT
-		if (!e) {
-			return out;
-		} else {
-			out.e = e;	
-		}
-		//TARGET
-		if ($(e.target)) {
-			out.target = $(e.target);
-			//ID
-			if ($(e.target).prop('id')) {
-				out.id = $(e.target).prop('id');
-			}
-		}
-		//TOUCH EVENT
-		if (/touch/i.test(e.type) && e.originalEvent) {
-			if(e.originalEvent.touches || e.originalEvent.changedTouches) {
-				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-				out.x = parseInt(touch.pageX);
-				out.y = parseInt(touch.pageY);
-				return out;
-			}
-		}
-		//REGULAR EVENT
-		out.x = parseInt(e.pageX);
-		out.y = parseInt(e.pageY);
-		return out;
 	},
 	is: {},
 	config: {},
@@ -962,7 +943,7 @@ app.handlers = {
 		var TouchLimit = app.device.android ? 5 : 10;
 		//
 		if(!app.device.windows8) {
-			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : 'mouseout ' + touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel;
+			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel;
 			/////////////////
 			// MOVE CANCEL //
 			/////////////////
