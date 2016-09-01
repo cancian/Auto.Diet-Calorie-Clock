@@ -31,20 +31,43 @@ app = {
 	//user: localStorage.getItem('app_current_user').split('###'),
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
-	pointer : function (e) { //http://www.jacklmoore.com/notes/mouse-position/
+	pointer : function (e) {
 		'use strict';
+		//FIX
 		e = e || window.event;
-		e = jQuery.event.fix(e);
-		var target = e.target || e.srcElement,
-		rect       = target.getBoundingClientRect(),
-		offsetX    = e.clientX - rect.left,
-		offsetY    = e.clientY - rect.top;
-		return {
-			e : e,
-			x : parseInt(offsetX),
-			y : parseInt(offsetY),
-			target : e.target || e.srcElement
+		e = $.event.fix(e);
+		//DEFINE
+		var out = {
+			x : 0,
+			y : 0
 		};
+		//EVENT
+		if (!e) {
+			return out;
+		} else {
+			out.e = e;	
+		}
+		//TARGET
+		if ($(e.target)) {
+			out.target = $(e.target);
+			//ID
+			if ($(e.target).prop('id')) {
+				out.id = $(e.target).prop('id');
+			}
+		}
+		//TOUCH EVENT
+		if (/touch/i.test(e.type) && e.originalEvent) {
+			if(e.originalEvent.touches || e.originalEvent.changedTouches) {
+				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+				out.x = parseInt(touch.screenX || touch.pageX);
+				out.y = parseInt(touch.screenY || touch.pageY);
+				return out;
+			}
+		}
+		//REGULAR EVENT
+		out.x = parseInt(e.screenX || e.pageX);
+		out.y = parseInt(e.screenY || e.pageY);
+		return out;
 	},
 	is: {},
 	config: {},
