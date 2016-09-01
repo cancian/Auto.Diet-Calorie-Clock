@@ -2078,7 +2078,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 									return ($("body").hasClass("modal-open") && $("body").hasClass("modal-dialog") && !$.contains($('.modal-dialog')[0], self.doc[0])) ? self.hide() : self.show(); // Support for Bootstrap modal; Added check if the nice scroll element is inside a modal
 								}
 							});
-							if (fastdom) {
+							if (typeof fastdom !== 'undefined') {
 								fastdom.measure(function () {
 									if (self) {
 										if (document.body.scrollHeight != self.page.maxh) {
