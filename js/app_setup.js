@@ -2134,7 +2134,7 @@ function getNiceScroll(target,timeout,callback) {
 	if(!app.exists(target)) { return; }
 	if(!timeout)	  		{ timeout = 0; }
 	//force is.scrollable on #appHistory for android
-	if(app.device.android && app.device.android >= 4.4) {
+	if(app.device.android && app.device.android >= 5) {
 		app.is.scrollable  = document.getElementById('appHistory') ? true : false;
 	}	
 	//quick scrolling / prevent scrollbar

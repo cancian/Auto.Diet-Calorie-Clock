@@ -452,7 +452,7 @@ app.is.scrollable = false;
 if($.nicescroll && !app.device.msapp && vendorClass != 'msie') {
 	if(app.device.desktop && !app.device.msapp)			{ app.is.scrollable = true; }
 	if(app.device.linux)								{ app.is.scrollable = true; }
-	if(app.device.android && app.device.android < 4.4)	{ app.is.scrollable = true; }
+	if(app.device.android && app.device.android < 5)	{ app.is.scrollable = true; }
 }
 //////////////////
 // APP.REBOOT() //
@@ -1400,24 +1400,7 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
-function isCordova() {
-	return isMobileCordova;
-}
-function getAndroidVersion() {
-	if((/Android/i).test(userAgent) && !app.http) {
-		//android L
-		if((/Build\/L/i).test(userAgent)) { return 4.4; }
-		return parseFloat(userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ',''));
-	} else {
-		return -1;
-	}
-}
-var gotAndroidVersion = getAndroidVersion();
-var androidVersion = function() {
-	return gotAndroidVersion;
-};
-
-var varHasTouch = !app.http && (/(iPhone|iPod|iPad|Android|BlackBerry|PlayBook)/).test(userAgent);
+var varHasTouch = !app.http && /iPhone|iPod|iPad|Android|BlackBerry|PlayBook/i.test(app.ua);
 function hasTouch() {
 	return varHasTouch;
 }
@@ -2544,23 +2527,18 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	///////////////
 	// POINTY.JS //
 	///////////////
-	function copyEvent(originaljQEvent, type, dir) {
-		var event = originaljQEvent;
-		//
+	function copyEvent(event, type, dir) {
 		event.type      = type;
 		event.direction = dir;
-		//			
-		event.isPropagationStopped = function () {
-			return false;
-		};
-		event.isDefaultPrevented = function () {
-			return false;
-		};
-
+		//event.isPropagationStopped = function () {
+		//	return false;
+		//};
+		//event.isDefaultPrevented = function () {
+		//	return false;
+		//};
 		//if (extras) {
 		//	$.extend(event, extras);
 		//}
-
 		return event;
 	}
 	///////////////////
