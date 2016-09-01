@@ -962,7 +962,7 @@ app.handlers = {
 		var TouchLimit = app.device.android ? 5 : 10;
 		//
 		if(!app.device.windows8) {
-			var moveCancel =  touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel;
+			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : 'mouseout ' + touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel;
 			/////////////////
 			// MOVE CANCEL //
 			/////////////////
@@ -971,7 +971,9 @@ app.handlers = {
 				app.timeout(t,'clear');
 				if (app.handlers.activeRowTouches[t] > TouchLimit) {
 					$(app.handlers.activeLastObj[t]).removeClass(style);
-					app.handlers.activeRowTouches[t] = 0;
+					if(app.device.osxapp || app.device.osx) {
+						$('.activeOverflow').removeClass(style);
+					}
 				}
 			});
 			///////////////////
@@ -2538,12 +2540,33 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	///////////////
 	// POINTY.JS //
 	///////////////
+	function copyEvent(originaljQEvent, type, dir) {
+		var event = originaljQEvent;
+		//
+		event.type      = type;
+		event.direction = dir;
+		//			
+		event.isPropagationStopped = function () {
+			return false;
+		};
+		event.isDefaultPrevented = function () {
+			return false;
+		};
+
+		//if (extras) {
+		//	$.extend(event, extras);
+		//}
+
+		return event;
+	}
+	/*
 	function copyEvent(originalEvent, type, dir) {
 		var ev = originalEvent;
 		ev.type = type;
 		ev.direction = dir;
 		return ev;
 	}
+	*/
 	///////////////////
 	// SWIPE HANDLER //
 	///////////////////
@@ -2648,17 +2671,17 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //#/////////////#// https://github.com/BR0kEN-/jTap
 (function ($, specialEventName, touch_start, touch_end) {
 	'use strict';
+	
 	if(app.device.wp10) {
 		touch_start = 'touchstart';
 		touch_end   = 'touchend';
 	}
-	var getTime = function () {
-		return new Date().getTime();
-	};
+	
 	var nativeEvent = {
 		start : touch_start,
 		end : touch_end
 	};
+	
 	$.event.special[specialEventName] = {
 		setup : function (data, namespaces, eventHandle) {
 			var $element = $(this);
@@ -2673,7 +2696,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 						eventData.target = event.target;
 						eventData.pageX  = app.pointer(event).x;
 						eventData.pageY  = app.pointer(event).y;
-						eventData.time   = getTime();
+						eventData.time   = app.now();
 					}
 				}
 			}).on(nativeEvent.end, function (event) {
@@ -2685,10 +2708,10 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					var endX = parseInt(app.pointer(event).x); 
 					var endY = parseInt(app.pointer(event).y);
 					//THRESHOLD
-					if (eventData.target === event.target && getTime() - eventData.time < 750 && diffX < 10 && diffY < 10) {
+					if (eventData.target === event.target && app.now() - eventData.time < 750 && diffX < 10 && diffY < 10) {
 							event.type  = specialEventName;
-							event.pageX = eventData.pageX || endX;
-							event.pageY = eventData.pageY || endY;
+							event.pageX = endX;
+							event.pageY = endY;
 							//TRIGGER
 							eventHandle.call(this, event);
 						}

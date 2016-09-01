@@ -1273,7 +1273,7 @@ if(app.is.scrollable && app.device.desktop) {
 	//## DAILY INPUT TRIGGER FOCUS ##//
 	//##///////////////////////////##//
 	$('#appHeader').on(app.device.desktop ? tap : touchstart, function(evt) {
-		evt.stopPropagation();
+		//evt.stopPropagation();
 		//NOT WHILE THIS ~
 		if($('#pageSlideFood').is(':animated'))		{ return false; }
 		if($('#appHelper').length)					{ return false; }
