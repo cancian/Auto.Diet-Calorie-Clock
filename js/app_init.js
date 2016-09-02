@@ -45,7 +45,7 @@ window.onerror = function (err, url, line) {
 		line = JSON.stringify(line);
 	}
 	//IGNORE BASIC
-	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile/i.test(err)) {
+	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile|NS_ERROR/i.test(err)) {
 		return; 
 	}
 	//LOG
