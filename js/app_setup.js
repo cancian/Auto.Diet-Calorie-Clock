@@ -2162,9 +2162,9 @@ function getNiceScroll(target,timeout,callback) {
 			nativeparentscrolling: true,
 			cursorcolor: '#000',
 			cursorborderradius: 0,
-			railpadding: { right: 1,  bottom: 2, top: 2 },
-			cursorborder: '#000',
-			cursoropacitymax: .666,
+			railpadding: { right: 1,  bottom: 0, top: 0 },
+			cursorborder: 'rgba(0,0,0,.5)',
+			cursoropacitymax: .5,
 			cursorwidth: 3,
 			horizrailenabled: false,
 			autohidemode: true,
@@ -2178,7 +2178,7 @@ function getNiceScroll(target,timeout,callback) {
 		//ADDNEW Z-INDEX (99)
 		if(/addNewWrapper|lang/i.test(target)) {
 			NSettings.zindex = 100;
-			NSettings.railpadding.bottom = 1;
+			//NSettings.railpadding.bottom = 1;
 		}
 		//HIDE FIRST HELPER
 		if(/appHelper/i.test(target)) {
