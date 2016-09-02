@@ -1285,7 +1285,7 @@ if(app.is.scrollable && app.device.desktop) {
 		if($('#pageSlideFood').length)				{ return false; }
 		if($('#appHeader').hasClass('blockInfo'))	{ return false; }
 		// FOCUS VIA XY
-		if((app.width - (app.pointer(evt).x)) < 100 && (app.pointer(evt).y) < $('#appHeader').height()) {
+		if((app.width - (app.globals.X || evt.pageX)) < 100 && (app.globals.Y || evt.pageY) < $('#appHeader').height()) {
 			if(!$('#timerDailyInput').is(':focus')) {
 				$('#timerDailyInput').focus();
 			}
