@@ -1,7 +1,10 @@
 ﻿//##/////////##//
 //## FASTDOM ##//
 ///##////////##// https://github.com/wilsonpage/fastdom
-if(!/Android/i.test(navigator.userAgent) && !/MSApp/i.test(navigator.userAgent)) {
+var androidVersion = /Android/i.test(navigator.userAgent) ? parseFloat(navigator.userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ','')) : false;
+var android2       = /Android/i.test(navigator.userAgent) && androidVersion < 4 ? true : false;
+//ANDROID2 HARD CUT
+if(!android2 && !/MSApp/i.test(navigator.userAgent)) {
 eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d.raf=c.bind(a),b("initialized",d)}function e(a){a.scheduled||(a.scheduled=!0,a.raf(f.bind(null,a)),b("flush scheduled"))}function f(a){b("flush");var f,c=a.writes,d=a.reads;try{b("flushing reads",d.length),g(d),b("flushing writes",c.length),g(c)}catch(a){f=a}if(a.scheduled=!1,(d.length||c.length)&&e(a),f){if(b("task errored",f.message),!a.catch)throw f;a.catch(f)}}function g(a){b("run tasks");for(var c;c=a.shift();)c()}function h(a,b){var c=a.indexOf(b);return!!~c&&!!a.splice(c,1)}function i(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])}var b=function(){},c=a.requestAnimationFrame||a.webkitRequestAnimationFrame||a.mozRequestAnimationFrame||a.msRequestAnimationFrame||function(a){return setTimeout(a,16)};d.prototype={version:1,constructor:d,measure:function(a,c){b("measure");var d=c?a.bind(c):a;return this.reads.push(d),e(this),d},mutate:function(a,c){b("mutate");var d=c?a.bind(c):a;return this.writes.push(d),e(this),d},clear:function(a){return b("clear",a),h(this.reads,a)||h(this.writes,a)},extend:function(a){if(b("extend",a),"object"!=typeof a)throw new Error("expected object");var c=Object.create(this);return i(c,a),c.fastdom=this,c.initialize&&c.initialize(),c},catch:null};var j=function(){var b=a.fastdom||a.__fastdom__;if(b){var c=b.version||(b.defer?0:1),e=c===d.prototype.version;e?b:new d;if(e)return b;console.warn("[fastdom] Multiple incompatible versions detected (this could impact performance)")}return new d}();"f"==(typeof define)[0]?define(function(){return j}):"o"==(typeof module)[0]?module.exports=j:a.fastdom=j,a.__fastdom__=j}(window||this);');
 }
 //##/////////////////////////##//
