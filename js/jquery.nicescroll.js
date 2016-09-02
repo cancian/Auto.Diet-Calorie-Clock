@@ -2500,8 +2500,10 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 
 		this.lazyResize = function (tm) { // event debounce
 			tm = (isNaN(tm)) ? 30 : tm;
-			self.debounced('resize', self.resize, tm);
-			return self;
+			if(self) {
+				self.debounced('resize', self.resize, tm);
+				return self;
+			}
 		};
 
 		// modified by MDN https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/wheel
