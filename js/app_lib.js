@@ -59,14 +59,14 @@ app = {
 		if (/touch/i.test(e.type) && e.originalEvent) {
 			if(e.originalEvent.touches || e.originalEvent.changedTouches) {
 				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-				out.x = parseInt(touch.screenX || touch.pageX);
-				out.y = parseInt(touch.screenY || touch.pageY);
+				out.x = parseInt(touch.pageX || touch.screenX);
+				out.y = parseInt(touch.pageY || touch.screenY);
 				return out;
 			}
 		}
 		//REGULAR EVENT
-		out.x = parseInt(e.screenX || e.pageX);
-		out.y = parseInt(e.screenY || e.pageY);
+		out.x = parseInt(e.pageX);
+		out.y = parseInt(e.pageY);
 		return out;
 	},
 	is: {},

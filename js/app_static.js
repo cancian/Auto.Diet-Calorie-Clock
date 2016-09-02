@@ -1107,7 +1107,7 @@ if(app.is.scrollable && app.device.desktop) {
 	/////////////////////////////////
 	$('#appHeader').on(tap, function(evt) {
 		//HANDLE WINDOW		
-		if(evt.pageX < 132 && evt.pageY < 72) {
+		if(app.pointer(evt).x < 132) {
 			if($('#timerDailyInput').is(':focus')) {
 				$('#timerDailyInput').trigger('blur'); return false;
 			}
@@ -1285,8 +1285,8 @@ if(app.is.scrollable && app.device.desktop) {
 		if($('#pageSlideFood').length)				{ return false; }
 		if($('#appHeader').hasClass('blockInfo'))	{ return false; }
 		// FOCUS VIA XY
-		if((app.width - (app.globals.X || evt.pageX)) < 100 && (app.globals.Y || evt.pageY) < $('#appHeader').height()) {
-			if(!$('#timerDailyInput').is(':focus')) {
+		if(app.width - app.pointer(evt).x < 100) {
+				if(!$('#timerDailyInput').is(':focus')) {
 				$('#timerDailyInput').focus();
 			}
 		}
