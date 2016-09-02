@@ -779,7 +779,7 @@ ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; posit
 .osxapp #totalChartWrapper #circlePercentInner,
 .android #totalChartWrapper #circlePercentInner,
 .ios #totalChartWrapper #circlePercentInner			{ top: 130px; }
-.msie #totalChartWrapper #circlePercentInner		{ top: 96px; }
+.msie #totalChartWrapper #circlePercentInner		{ top: 96px;  }
 .firefoxos #totalChartWrapper #circlePercentInner	{ top: 122px; }
 .wp10 #totalChartWrapper #circlePercentInner		{ top: 130px; }
 #totalChartWrapper						{ width: 100%; text-align: center; }
@@ -803,7 +803,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #highcharts-date-start					{ position: absolute; bottom: 40px; left: 3px;  text-align: left;  }
 #highcharts-date-end					{ position: absolute; bottom: 40px; right: 6px; text-align: right; }
 .ios #highcharts-date-start,
-.ios #highcharts-date-end				{ bottom: 42px; }
+.ios #highcharts-date-end				{ bottom: 44px; }
 .android #highcharts-date-start,
 .android #highcharts-date-end			{ bottom: 47px; }
 /*days~abcd*/
@@ -1300,7 +1300,7 @@ div#noEntries						{ height: 45px !important; }
 #pageSlideFood				{ -webkit-transform: translate3d(0, 100%, 0); -webkit-transition: all ease .3s; }
 #pageSlideFood.open			{ -webkit-transform: translate3d(0,    0, 0); }
 /*msie blink*/
-.msie #pageSlideFood.busy #foodList { overflow: hidden !important; /*-webkit-backface-visibility: hidden;*/ }
+.msie #pageSlideFood.busy #foodList { overflow: hidden !important; }
 /*food search*/
 input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: text; user-select: text; margin: 0; overflow: hidden; background-color: #fff; }
 #foodSearchLabel:before		{ content: '\F050'; font-family: KCals; display: inline-block; position: absolute; left: 5px; top: 20px; color: #007aff; z-index: 1000; font-size: 20px; }
