@@ -1,13 +1,4 @@
-﻿//##/////////##//
-//## FASTDOM ##//
-///##////////##// https://github.com/wilsonpage/fastdom
-var androidVersion = /Android/i.test(navigator.userAgent) ? parseFloat(navigator.userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ','')) : false;
-var android2       = /Android/i.test(navigator.userAgent) && androidVersion < 4 ? true : false;
-//ANDROID2 HARD CUT
-if(!android2 && !/MSApp/i.test(navigator.userAgent)) {
-eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d.raf=c.bind(a),b("initialized",d)}function e(a){a.scheduled||(a.scheduled=!0,a.raf(f.bind(null,a)),b("flush scheduled"))}function f(a){b("flush");var f,c=a.writes,d=a.reads;try{b("flushing reads",d.length),g(d),b("flushing writes",c.length),g(c)}catch(a){f=a}if(a.scheduled=!1,(d.length||c.length)&&e(a),f){if(b("task errored",f.message),!a.catch)throw f;a.catch(f)}}function g(a){b("run tasks");for(var c;c=a.shift();)c()}function h(a,b){var c=a.indexOf(b);return!!~c&&!!a.splice(c,1)}function i(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c])}var b=function(){},c=a.requestAnimationFrame||a.webkitRequestAnimationFrame||a.mozRequestAnimationFrame||a.msRequestAnimationFrame||function(a){return setTimeout(a,16)};d.prototype={version:1,constructor:d,measure:function(a,c){b("measure");var d=c?a.bind(c):a;return this.reads.push(d),e(this),d},mutate:function(a,c){b("mutate");var d=c?a.bind(c):a;return this.writes.push(d),e(this),d},clear:function(a){return b("clear",a),h(this.reads,a)||h(this.writes,a)},extend:function(a){if(b("extend",a),"object"!=typeof a)throw new Error("expected object");var c=Object.create(this);return i(c,a),c.fastdom=this,c.initialize&&c.initialize(),c},catch:null};var j=function(){var b=a.fastdom||a.__fastdom__;if(b){var c=b.version||(b.defer?0:1),e=c===d.prototype.version;e?b:new d;if(e)return b;console.warn("[fastdom] Multiple incompatible versions detected (this could impact performance)")}return new d}();"f"==(typeof define)[0]?define(function(){return j}):"o"==(typeof module)[0]?module.exports=j:a.fastdom=j,a.__fastdom__=j}(window||this);');
-}
-//##/////////////////////////##//
+﻿//##/////////////////////////##//
 //## JQUERY.NICESCROLL 3.6.0 ##//
 ///##////////////////////////##// https://github.com/inuyaksa/jquery.nicescroll
 (function ($) {
@@ -24,7 +15,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 	// http://stackoverflow.com/questions/2161159/get-script-path
 	function getScriptPath() {
 		var scripts = document.getElementsByTagName('script');
-		var path = scripts[scripts.length - 1].src.split('?')[0];
+		var path = scripts.length ? scripts[scripts.length - 1].src.split('?')[0] : '';
 		return (path.split('/').length > 0) ? path.split('/').slice(0, -1).join('/') + '/' : '';
 	}
 
@@ -49,13 +40,13 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 		zindex : "auto",
 		cursoropacitymin : 0,
 		cursoropacitymax : .666,
-		cursorcolor : "#000",
-		cursorwidth : "3px",
-		cursorborder : "1px solid #000",
-		cursorborderradius : 0,
-		scrollspeed : 100,
-		mousescrollstep : 8 * 5,
-		touchbehavior : false,
+		cursorcolor : "rgba(0,0,0,0)",
+		cursorwidth : "4px",
+		cursorborder : "1px solid rgba(255,255,255,0)",
+		cursorborderradius : "5px",
+		scrollspeed : 50,
+		mousescrollstep : 8 * 6,
+		touchbehavior : true,
 		hwacceleration : true,
 		usetransition : true,
 		boxzoom : false,
@@ -86,17 +77,17 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 		enablekeyboard : true,
 		smoothscroll : true,
 		sensitiverail : false,
-		enablemouselockapi : false,
+		enablemouselockapi : true,
 		//cursormaxheight:false,
 		cursorfixedheight : false,
 		directionlockdeadzone : 6,
 		hidecursordelay : 400,
-		nativeparentscrolling : true,
-		enablescrollonselection : true,
+		nativeparentscrolling : false,
+		enablescrollonselection : false,
 		overflowx : true,
 		overflowy : true,
 		cursordragspeed : 0.3,
-		rtlmode : "auto",
+		rtlmode : false,
 		cursordragontouch : false,
 		oneaxismousemode : "auto",
 		scriptpath : getScriptPath(),
@@ -129,6 +120,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 		d.isie9 = d.isie && ("performance" in window) && (document.documentMode >= 9);
 		d.isie10 = d.isie && ("performance" in window) && (document.documentMode == 10);
 		d.isie11 = ("msRequestFullscreen" in _el) && (document.documentMode >= 11); // IE11+
+		d.isieedge = (navigator.userAgent.match(/Edge\/12\./));
 
 		d.isie9mobile = /iemobile.9/i.test(_agent); //wp 7.1 mango
 		if (d.isie9mobile)
@@ -145,7 +137,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 
 		d.cantouch = ("ontouchstart" in document.documentElement) || ("ontouchstart" in window); // detection for Chrome Touch Emulation
 		d.hasmstouch = (window.MSPointerEvent || false); // IE10 pointer events
-		d.hasw3ctouch = (window.PointerEvent || false); //IE11 pointer events, following W3C Pointer Events spec
+		d.hasw3ctouch = (window.PointerEvent || false) && ((navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)); //IE11 pointer events, following W3C Pointer Events spec
 
 		d.ismac = /^mac$/i.test(_platform);
 
@@ -170,7 +162,6 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 			if (typeof _style[check[a]] != "undefined") {
 				d.trstyle = check[a];
 				break;
-
 			}
 		}
 		d.hastransform = (!!d.trstyle);
@@ -198,7 +189,6 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 		}
 
 		d.hastransition = (d.transitionstyle);
-
 
 		function detectCursorGrab() {
 			var lst = ['-webkit-grab', '-moz-grab', 'grab'];
@@ -379,8 +369,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 		}
 
 		/* deprecated
-		this.delayed = function(name, fn, tm, lazy) {
-		};
+		this.delayed = function(name, fn, tm, lazy) {};
 		 */
 
 		this.debounced = function (name, fn, tm) {
@@ -866,7 +855,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 
 				var v,
 				a,
-				kp = ["left", "right", "top", "bottom"]; //**
+				kp = ["left", "right", "top", "bottom"];
 				for (var n in kp) {
 					a = kp[n];
 					v = self.opt.railpadding[a];
@@ -1311,12 +1300,10 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 									if (!ip) {
 										//TWEAK
 										if (typeof tg.setCapture !== 'undefined') {
-											if (!self.ispage && cap.hasmousecapture) {
+											if (!self.ispage && cap.hasmousecapture)
 												tg.setCapture();
-											}
 										}
 										if (self.opt.touchbehavior) {
-
 											if (tg.onclick && !(tg._onclick || false)) { // intercept DOM0 onclick event
 												tg._onclick = tg.onclick;
 												tg.onclick = function (e) {
@@ -1457,7 +1444,6 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 										} else if (nx > self.page.maxw) {
 											nx = self.page.maxw + Math.round((nx - self.page.maxw) / 2);
 											//fx = 0;
-
 										}
 									} else {
 										if (nx < 0) {
@@ -1549,9 +1535,8 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 						var tg = self.getTarget(e);
 						//TWEAK
 						if (typeof tg.setCapture !== 'undefined') {
-							if (!self.ispage && cap.hasmousecapture) {
+							if (!self.ispage && cap.hasmousecapture)
 								tg.setCapture();
-							}
 						}
 						if (self.isiframe && !cap.hasmousecapture) {
 							self.saved.csspointerevents = self.doc.css("pointer-events");
@@ -1700,8 +1685,8 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 						}
 
 						self.onselectionstart = function (e) {
-							/* More testing - severe chrome issues
-							if (!self.haswrapper&&(e.which&&e.which==2)) { // fool browser to manage middle button scrolling
+							/*  More testing - severe chrome issues
+							if (!self.haswrapper&&(e.which&&e.which==2)) {  // fool browser to manage middle button scrolling
 							self.win.css({'overflow':'auto'});
 							setTimeout(function(){
 							self.win.css({'overflow':''});
@@ -1845,6 +1830,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 							self.bind(self.cursorh, "mousedown", function (e) {
 								self.onmousedown(e, true)
 							});
+
 							self.bind(self.cursorh, "mouseup", self.onmouseup);
 						}
 
@@ -2036,8 +2022,11 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 
 				self.bind(document, "keydown", function (e) {
 					var ctrl = e.ctrlKey || false;
-					if (ctrl)
-						self.wheelprevented = true;
+					//TWEAK
+					if (self) {
+						if (ctrl)
+							self.wheelprevented = true;
+					}
 				});
 				self.bind(document, "keyup", function (e) {
 					var ctrl = e.ctrlKey || false;
@@ -2074,27 +2063,17 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 					self.lazyResize(self.isieold ? 250 : 30);
 				};
 
-				if ((!self.isie11) && (ClsMutationObserver !== false)) { // IE11 crashes #568
+				if (ClsMutationObserver !== false) {
 					self.observerbody = new ClsMutationObserver(function (mutations) {
 							mutations.forEach(function (mut) {
 								if (mut.type == "attributes") {
-									return ($("body").hasClass("modal-open") && $("body").hasClass("modal-dialog") && !$.contains($('.modal-dialog')[0], self.doc[0])) ? self.hide() : self.show(); // Support for Bootstrap modal; Added check if the nice scroll element is inside a modal
+									return ($("body").hasClass("modal-open")) ? self.hide() : self.show(); // Support for Bootstrap modal
 								}
 							});
-							if (typeof fastdom !== 'undefined') {
-								fastdom.measure(function () {
-									if (self) {
-										if (document.body.scrollHeight != self.page.maxh) {
-											return self.lazyResize(30);
-										}
-
-									}
-								});
-							} else {
-								if (self) {
-									if (document.body.scrollHeight != self.page.maxh) {
-										return self.lazyResize(30);
-									}
+							//TWEAK
+							if(self) {
+								if (document.body.scrollHeight != self.page.maxh) {
+									return self.lazyResize(30); 
 								}
 							}
 						});
@@ -2123,8 +2102,13 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 								mutations.forEach(function (mo) {
 									if (mo.removedNodes.length > 0) {
 										for (var dd in mo.removedNodes) {
-											if (!!self && (mo.removedNodes[dd] == self.win[0]))
-												return self.remove();
+											//TWEAK
+											if (self) {
+												if (self.win) {
+													if (!!self && (mo.removedNodes[dd] == self.win[0]))
+														return self.remove();
+												}
+											}
 										}
 									}
 								});
@@ -2150,11 +2134,12 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 
 				if (!self.ispage && self.opt.boxzoom)
 					self.bind(window, "resize", self.resizeZoom);
+				//if (self.istextarea) self.bind(self.win, "mouseup", self.lazyResize);
+				//TWEAK
 				if (self.istextarea) {
 					self.bind(self.win, "keydown", self.lazyResize);
 					self.bind(self.win, "mouseup", self.lazyResize);
 				}
-
 				//self.checkrtlmode = true;
 				self.lazyResize(30);
 
@@ -2339,8 +2324,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 		};
 
 		//TWEAK
-		this.getContentSize = (self.ispage) ?
-		function () {
+		this.getContentSize = (self.ispage) ? function () {
 			return {
 				w : Math.max(document.body.scrollWidth, document.documentElement.scrollWidth) + (self.opt.railpadding.left + self.opt.railpadding.right),
 				h : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) + (self.opt.railpadding.top + self.opt.railpadding.bottom)
@@ -2415,7 +2399,8 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 				self.scrollratio.y = 0;
 				self.cursorheight = 0;
 				self.setScrollTop(0);
-				self.rail.scrollable = false;
+				if (self.rail)
+					self.rail.scrollable = false;
 			} else {
 				self.page.maxh -= (self.opt.railpadding.top + self.opt.railpadding.bottom); //**
 				self.rail.scrollable = true;
@@ -2449,7 +2434,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 
 			if (!self.hidden && !self.visibility) {
 				self.showRail().showRailHr();
-			} else if (!self.hidden && !self.railh.visibility)
+			} else if (self.railh && (!self.hidden && !self.railh.visibility))
 				self.showRailHr();
 
 			if (self.istextarea && self.win.css('resize') && self.win.css('resize') != 'none')
@@ -2503,10 +2488,10 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 
 		this.lazyResize = function (tm) { // event debounce
 			tm = (isNaN(tm)) ? 30 : tm;
-			if(self) {
-				self.debounced('resize', self.resize, tm);
-				return self;
-			}
+			//TWEAK
+			if(!self) { return; }
+			self.debounced('resize', self.resize, tm);
+			return self;
 		};
 
 		// modified by MDN https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/wheel
@@ -3212,9 +3197,8 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 				}
 				if (px < 0) {
 					px = 0
-				} else if (px > self.page.maxw) {
+				} else if (px > self.page.maxw)
 					px = self.page.maxw;
-				}
 				if ((py != self.newscrolly) || (px != self.newscrollx))
 					return self.doScrollPos(px, py, self.opt.snapbackspeed);
 
@@ -3460,7 +3444,6 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 			if (self.bouncescroll) {
 				var haf = Math.round(self.view.w / 2);
 				if (nx < -haf)
-
 					nx = -haf;
 				else if (nx > (self.page.maxw + haf))
 					nx = (self.page.maxw + haf);
@@ -3644,7 +3627,6 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 		this.reset = function (px, py) {
 			self.stop();
 			var now = self.time();
-
 			self.steptime = 0;
 			self.lasttime = now;
 			self.speedx = 0;
@@ -3793,9 +3775,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 								self.nc.hideCursor();
 								self.doSnapy(nx, ny);
 							}
-
 						});
-
 						if (self.demulxy < 1) {
 							self.timer = setTimeout(onscroll, tm);
 						} else {
@@ -3810,13 +3790,10 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 			} else {
 				self.doSnapy(self.nc.getScrollLeft(), self.nc.getScrollTop());
 			}
-
 		}
-
 	};
 
 	// override jQuery scrollTop
-
 	var _scrollTop = jQuery.fn.scrollTop; // preserve original function
 
 	jQuery.cssHooks["pageYOffset"] = {
