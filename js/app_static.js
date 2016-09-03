@@ -1249,7 +1249,7 @@ if(app.is.scrollable && app.device.desktop) {
 	//##//////////////##//
 	var headerSwipe;
 	var headerSwipeBlock = 0;
-	$('#appHeader').on(swipe,function(evt) {
+	$('#timerBlocks').on(swipe,function(evt) {
 		//tap on header does not blur
 		$('#timerDailyInput').blur();
 		//LEFT SWIPE

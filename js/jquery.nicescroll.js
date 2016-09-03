@@ -2071,9 +2071,10 @@
 								}
 							});
 							//TWEAK
-							if(self) {
-								if (document.body.scrollHeight != self.page.maxh) {
-									return self.lazyResize(30); 
+							if (self) {
+								//if (document.body.scrollHeight != self.page.maxh) {
+								if (self.me && self.page) {
+									if (self.me.clientWidth != self.page.width || self.me.clientHeight != self.page.height) { return self.lazyResize(30); }
 								}
 							}
 						});
@@ -2141,7 +2142,11 @@
 					self.bind(self.win, "mouseup", self.lazyResize);
 				}
 				//self.checkrtlmode = true;
-				self.lazyResize(30);
+				
+				//TWEAK
+				if (self) {
+					self.lazyResize(30);
+				}
 
 			}
 
@@ -2186,7 +2191,11 @@
 						var hh = Math.max(doc.getElementsByTagName('html')[0].scrollHeight, doc.body.scrollHeight);
 						self.doc.height(hh);
 					}
-					self.lazyResize(30);
+					
+					//TWEAK
+					if (self) {
+						self.lazyResize(30);
+					}
 
 					if (cap.isie7)
 						self.css($(self.iframe.html), {
