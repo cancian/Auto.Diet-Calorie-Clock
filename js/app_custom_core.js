@@ -103,13 +103,13 @@ function appTimer(content) {
 	//UPDATE TIPS
 	if(!app.read('appStatus','running')) {
 		if($('#appStatusTips').is(':visible')) {
-			$('#timerKcalsInput').css('font-size','32px');
+			$('#timerKcalsInput').css2('font-size','32px');
 			$('#appStatusTips').hide();
 		}
 	} else {
 		if(!$('#appStatusTips').is(':visible')) {
 			$('#appStatusTips').show();
-			$('#timerKcalsInput').css('font-size','24px');
+			$('#timerKcalsInput').css2('font-size','24px');
 		}
 	}
 	//
@@ -335,7 +335,7 @@ function updateNutriBars() {
 		$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase());
 		$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase());
 		$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase());
-		$('#appStatusBars p').css('width',0);
+		$('#appStatusBars p').css2('width',0);
 		$('#appStatusBarsPro span').html2('0%');
 		$('#appStatusBarsCar span').html2('0%');
 		$('#appStatusBarsFat span').html2('0%');
@@ -381,7 +381,7 @@ function updateNutriBars() {
 	}
 	$('#appStatusBarsPro p').removeClass('danger warn over normal');
 	$('#appStatusBarsPro p').addClass(nProPerClass);
-	$('#appStatusBarsPro p').css('width',Math.round(nProPerWidth) + '%');
+	$('#appStatusBarsPro p').css2('width',Math.round(nProPerWidth) + '%');
 	//car bar css
 	if(nCarPerRatio > 200) {
 		nCarPerWidth = 100;
@@ -398,7 +398,7 @@ function updateNutriBars() {
 	}
 	$('#appStatusBarsCar p').removeClass('danger warn over normal');
 	$('#appStatusBarsCar p').addClass(nCarPerClass);
-	$('#appStatusBarsCar p').css('width',Math.round(nCarPerWidth) + '%');
+	$('#appStatusBarsCar p').css2('width',Math.round(nCarPerWidth) + '%');
 	//fat bar css
 	if(nFatPerRatio > 200) {
 		nFatPerWidth = 100;
@@ -416,7 +416,7 @@ function updateNutriBars() {
 	//UPDATE BARS
 	$('#appStatusBarsFat p').removeClass('danger warn over normal');
 	$('#appStatusBarsFat p').addClass(nFatPerClass);
-	$('#appStatusBarsFat p').css('width',Math.round(nFatPerWidth) + '%');
+	$('#appStatusBarsFat p').css2('width',Math.round(nFatPerWidth) + '%');
 	//relative percentage
 	$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
 	$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');

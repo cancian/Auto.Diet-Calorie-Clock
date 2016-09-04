@@ -220,7 +220,7 @@ $(document).on("pageload", function (evt) {
 							timedBlur = new Date().getTime();
 							if (button === 2) {
 								$("#" + thisRowId + " " + ".entriesTitle").html2("0");
-								$("#" + thisRowId + " " + ".entriesTitle").css("color", "#333");
+								$("#" + thisRowId + " " + ".entriesTitle").css2("color", "#333");
 								//save
 								saveEntry({
 									title : '0',
@@ -257,7 +257,7 @@ $(document).on("pageload", function (evt) {
 								titleVal = 9999;
 							}
 							if (titleVal >= 0) {
-								$('#kcalsDiv').css('color','#333');
+								$('#kcalsDiv').css2('color','#333');
 							}
 							//update dom
 							$('#kcalsDiv').html2(titleVal);
@@ -297,7 +297,7 @@ $(document).on("pageload", function (evt) {
 								titleVal = -9999;
 							}
 							if (titleVal < 0) {
-								$('#kcalsDiv').css('color','#C00');
+								$('#kcalsDiv').css2('color','#C00');
 							}
 							//update dom
 							$('#kcalsDiv').html2(titleVal);
@@ -594,8 +594,8 @@ $(document).on("pageReload", function (evt) {
 						///////////////////////
 						$('#pageSlideFood').remove();
 						$('body').append2("<div id='pageSlideFood'></div>");
-						$('#pageSlideFood').css("height", ($('body').height() - $('#appHeader').height()) + "px");
-						$('#pageSlideFood').css("top", $('#appHeader').height() + "px");
+						$('#pageSlideFood').css2("height", ($('body').height() - $('#appHeader').height()) + "px");
+						$('#pageSlideFood').css2("top", $('#appHeader').height() + "px");
 						///////////////
 						// CREATE DB //
 						///////////////
@@ -630,11 +630,11 @@ $(document).on("pageReload", function (evt) {
 						////////////////////
 						// RESULTS HEIGHT //
 						////////////////////
-						$('#menuTopBar').css("top", "61px");
-						//$('#foodList').css("margin-top","61px");
-						//$('#foodList').css("min-height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
-						//$('#foodList').css("height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
-						//$('#foodList').css("top",($('#appHeader').height()) + "px");
+						$('#menuTopBar').css2("top", "61px");
+						//$('#foodList').css2("margin-top","61px");
+						//$('#foodList').css2("min-height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
+						//$('#foodList').css2("height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
+						//$('#foodList').css2("top",($('#appHeader').height()) + "px");
 						getNiceScroll('#foodList',200,function() {
 							niceResizer(200);
 						});
@@ -650,7 +650,7 @@ $(document).on("pageReload", function (evt) {
 										app.show('#addNewFood,#addNewExercise');
 									}, 1000);
 								} else {
-									if ($('#addNewFood').css('opacity') == 0) {
+									if ($('#addNewFood').css2('opacity') == 0) {
 										app.hide('#addNewFood,#addNewExercise');
 										clearTimeout(app.timers.foodlist);
 										app.timers.foodlist = setTimeout(function () {
@@ -728,7 +728,7 @@ $(document).on("pageReload", function (evt) {
 						//////////////////////
 						$('#iconRefresh').on(touchstart, function (evt) {
 							//toggle -if not animated
-							$('#iconRefresh').css('pointer-events','none');
+							$('#iconRefresh').css2('pointer-events','none');
 							$("#foodSearch").toggleClass("exerciseType");
 							$("#pageSlideFood").toggleClass("exerciseType");
 							//enforce iconClear
@@ -746,14 +746,14 @@ $(document).on("pageReload", function (evt) {
 								app.highlight('#foodSearch',500,'#BBE4FF','#fff','',500);
 							}
 							app.timeout('#iconRefresh',500,function() {
-								$('#iconRefresh').css('pointer-events','auto');
+								$('#iconRefresh').css2('pointer-events','auto');
 							});
 						});
 						/////////////////////////////////////////
 						// FOODSEARCH (QUICKFOCUS) SETOVERFLOW //
 						/////////////////////////////////////////
 						//$("#foodSearch").on(touchstart, function (evt) {
-						//	$(".foodName").css("overflow", "hidden");
+						//	$(".foodName").css2("overflow", "hidden");
 						//	$("#activeOverflow").removeAttr("id");
 						//	$(".activeOverflow").removeClass("activeOverflow");
 						//});
@@ -763,7 +763,7 @@ $(document).on("pageReload", function (evt) {
 						//show
 						$("#entryBody").blur();
 						$("#entryTime").blur();
-						//$('#pageSlideFood').css("opacity",".925");
+						//$('#pageSlideFood').css2("opacity",".925");
 						$('#pageSlideFood').addClass('busy');
 						//open directly on first load
 						if (!app.read('foodDbLoaded','done')) {
@@ -916,7 +916,7 @@ function doSearch(rawInput) {
 				$('#searchContents').html2(foodList);
 			}
 			//chrome height fix
-			$('#searchContents').css('min-height',$('#pageSlideFood').height() + 'px');
+			$('#searchContents').css2('min-height',$('#pageSlideFood').height() + 'px');
 			//
 			$('#searchContents').show();
 			niceResizer(200);
@@ -1390,7 +1390,7 @@ function addNewItem(addnew) {
 	/*
 	if (app.device.android) {
 		//preset wrapper min-height
-		//$('#addNewWrapper').css('min-height', $('#addNewWrapper').height() + 'px');
+		//$('#addNewWrapper').css2('min-height', $('#addNewWrapper').height() + 'px');
 		//trigger on touchmove if not focused (closing-touch white gap)
 		$('#addNewWrapper').on('touchmove', function (evt) {
 			if (!$('#addNewWrapper input').is(':focus')) {

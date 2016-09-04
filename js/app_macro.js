@@ -406,7 +406,7 @@ function intakeHistory() {
 		////////////////////
 		// GENERATE CHART //
 		////////////////////
-		$('#appStatusIntake div').css('padding-top', '0px');
+		$('#appStatusIntake div').css2('padding-top', '0px');
 		var spacingBottom = Highcharts.version.contains('4.') ? 0 : -12;
 		if(app.device.android2) { spacingBottom = Highcharts.version.contains('4.') ? -4 : -16; }
 		//check exists
@@ -549,7 +549,7 @@ function intakeHistory() {
 		});
 		//write cache
 		app.save('appStatusIntake',$('#appStatusIntake').html());
-		$('#appStatusIntake div').css('padding-top', '0px');
+		$('#appStatusIntake div').css2('padding-top', '0px');
 		if($('body').hasClass('reCloser')) {
 			$('body').removeClass('reCloser');
 			$('body').addClass('closer');
@@ -1096,10 +1096,10 @@ function balanceMeter(kcalsInput,update) {
 	//////////////////////
 	// UPDATE NO-REPEAT //
 	//////////////////////
-	var roundedBar = (Math.round(parseFloat($('#balanceBar').css('text-indent')) * 100) / 100);
+	var roundedBar = (Math.round(parseFloat($('#balanceBar').css2('text-indent')) * 100) / 100);
 	var roundedNum = (Math.round(parseFloat(balancePos) * 100) / 100);
 	if(roundedBar != roundedNum || update == 'now') {
-		$('#balanceBar').css('text-indent',roundedNum + '%');
+		$('#balanceBar').css2('text-indent',roundedNum + '%');
 	}
 }
 //##/////////////##//
@@ -1134,11 +1134,11 @@ function getLimitMenu() {
 	var appLimitHandlers = function() {
 		$('#saveButton').hide();
 		//prevent propagation focus
-		$('#appLimit1').css('pointer-events','none');
-		$('#appLimit2').css('pointer-events','none');
+		$('#appLimit1').css2('pointer-events','none');
+		$('#appLimit2').css2('pointer-events','none');
 		setTimeout(function() {
-			$('#appLimit1').css('pointer-events','auto');
-			$('#appLimit2').css('pointer-events','auto');
+			$('#appLimit1').css2('pointer-events','auto');
+			$('#appLimit2').css2('pointer-events','auto');
 		},500);
 		//////////////////
 		// COLOR PICKER //
@@ -1363,10 +1363,10 @@ function getEntryEdit(eid) {
 				if($('#getEntryWrapper input').is(':focus')) {
 					kickDown();
 					$('#getEntryWrapper input').blur();
-					$('#getEntryWrapper input').css('pointer-events','none');
+					$('#getEntryWrapper input').css2('pointer-events','none');
 					setTimeout(function() {
 						$('#getEntryDate').click();
-						$('#getEntryWrapper input').css('pointer-events','auto');
+						$('#getEntryWrapper input').css2('pointer-events','auto');
 					},900);
 				} else {
 					$('#getEntryDate').click();
@@ -1421,9 +1421,9 @@ function getEntryEdit(eid) {
 					kickDown();
 					//HARD PROPAGATION FIX
 					$('#getEntryWrapper input').blur();
-					$('#getEntryWrapper input').css('pointer-events','none');
+					$('#getEntryWrapper input').css2('pointer-events','none');
 					setTimeout(function() {
-						$('#getEntryWrapper input').css('pointer-events','auto');
+						$('#getEntryWrapper input').css2('pointer-events','auto');
 					},300);
 				}
 			});
@@ -1517,8 +1517,8 @@ function buildAdvancedMenu() {
 	</div>");
 	$('#advancedMenuWrapper').hide();
 	//WRAPPER HEIGHT
-	$('#advancedMenuWrapper').css('top',($('#appHeader').height()) + 'px');
-	$('#advancedMenuWrapper').css('bottom',($('#appFooter').height()) + 'px');
+	$('#advancedMenuWrapper').css2('top',($('#appHeader').height()) + 'px');
+	$('#advancedMenuWrapper').css2('bottom',($('#appFooter').height()) + 'px');
 	$('#advancedMenuWrapper').height($('#appContent').height());
 	///////////////
 	// CORE HTML //
@@ -1575,7 +1575,7 @@ function buildAdvancedMenu() {
 	};
 	styleResetDB();
 	//CONTENT HEIGHT
-	$("#advancedMenu").css("top",($("#advancedMenuHeader").height()+1) + "px");
+	$("#advancedMenu").css2("top",($("#advancedMenuHeader").height()+1) + "px");
 	$("#advancedMenuWrapper").height($("#appContent").height());
 	//SHOW
 	app.handlers.fade(1,'#advancedMenuWrapper',function() {
@@ -1763,7 +1763,7 @@ function buildAdvancedMenu() {
 		var suggestionBoxHtml     = '<div id="suggestionBox"><label for="usrMail" class="usrMail">E-mail:</label><input type="text" name="usrMail" id="usrMail"><label for="usrMsg" class="usrMsg">Message:</label><textarea name="usrMsg" id="usrMsg"></textarea></div>';
 		var suggestionBoxHandlers = function() {
 			$('#saveButton').html2('Send');
-			$('#saveButton').css('text-transform','capitalize');
+			$('#saveButton').css2('text-transform','capitalize');
 			//
 			$('#suggestionBox').on(touchstart,function(evt) {
 				if(evt.target.id === 'suggestionBox') {
@@ -1772,11 +1772,11 @@ function buildAdvancedMenu() {
 				}
 			});
 			//prevent propagation focus
-			$('#usrMail').css('pointer-events','none');
-			$('#usrMsg').css('pointer-events','none');
+			$('#usrMail').css2('pointer-events','none');
+			$('#usrMsg').css2('pointer-events','none');
 			setTimeout(function() {
-				$('#usrMail').css('pointer-events','auto');
-				$('#usrMsg').css('pointer-events','auto');
+				$('#usrMail').css2('pointer-events','auto');
+				$('#usrMsg').css2('pointer-events','auto');
 			},400);
 		};
 		/////////////
@@ -1786,33 +1786,33 @@ function buildAdvancedMenu() {
 			var result = false;
 			//MSG
 			if((trim($('#usrMsg').val())).length > 1) {
-				$('.usrMsg').css('color','#000');
+				$('.usrMsg').css2('color','#000');
 			} else {
-				$('.usrMsg').css('color','#c30');
+				$('.usrMsg').css2('color','#c30');
 			}
 			//MAIL
 			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test($('#usrMail').val())) {
-				$('.usrMail').css('color','#000');
+				$('.usrMail').css2('color','#000');
 			} else {
-				$('.usrMail').css('color','#c30');
+				$('.usrMail').css2('color','#c30');
 			}
 			//VALIDATE
 			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test($('#usrMail').val()) && (trim($('#usrMsg').val())).length > 1) {
 				//send mail
-				$('#saveButton').css('pointer-events','none');
-				$('#saveButton').css('color','#ccc');
+				$('#saveButton').css2('pointer-events','none');
+				$('#saveButton').css2('color','#ccc');
 				var usrMailStore = $('#usrMail').val();
 				var usrMsgStore = $('#usrMsg').val();
 				app.sendmail(usrMailStore,usrMsgStore,function(result) {
 					if(result == true) {
 						alert('Submitted Successfully', 'Thanks for the feedback.');
-						$('#saveButton').css('pointer-events','auto');
+						$('#saveButton').css2('pointer-events','auto');
 						$(document).trigger('backbutton');
 						return true;
 					} else {
 						alert('Error submitting', 'Please check your internet connection and try again.');
-						$('#saveButton').css('pointer-events','auto');
-						$('#saveButton').css('color','#007aff');
+						$('#saveButton').css2('pointer-events','auto');
+						$('#saveButton').css2('color','#007aff');
 						return false;
 					}
 				});

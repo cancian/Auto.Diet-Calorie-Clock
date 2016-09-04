@@ -110,7 +110,7 @@ function showIntro() {
 	///////////////
 	$(window).on('resize',function() {
 		if($('#indicator').length) {
-			$('#indicator').css('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
+			$('#indicator').css2('left',( ($('body').width() - $('#indicator').width()) / 2) + 'px');
 		}
 	});
 	$(window).trigger('resize');
@@ -246,7 +246,7 @@ app.resetCounter = function(pusher) {
 	app.save('config_entry_e-sum',0);
 	app.save('config_ttf',0);
 	app.save('config_tte',0);
-	$('#appStatusBars p').css('width',0);
+	$('#appStatusBars p').css2('width',0);
 	$('#appStatusBars span').html2('0%');
 	$('#appStatusBalance div p').html2(LANG.BALANCED[lang]);
 	updateTodayOverview();
@@ -1128,7 +1128,7 @@ function afterHide(cmd) {
 	opaLock = 2;
 	clearTimeout(afterHidden);
 	afterHidden = setTimeout(function() {
-		$('*').css('pointer-events','none');
+		$('*').css2('pointer-events','none');
 		blockAlerts = 1;
 		//////////////
 		// FADE OUT //
@@ -1162,14 +1162,14 @@ function spinner(action,target) {
 		$('body').removeClass('updtdb');
 	} else {
 		$('body').addClass(target);
-		$('#loadMask').css('pointer-events','auto')
+		$('#loadMask').css2('pointer-events','auto')
 		$('#loadMask').off().on(touchstart,function(evt) {
 			var pos = app.pointer(evt);
 			//USE :AFTER COORDS
 			if(app.width - pos.x < 120 && app.height - pos.y < 120) {
 				//DIALOG
 				appConfirm(LANG.CANCEL[lang].toUpperCase() + ' (' + (LANG.DATABASE_UPDATE[lang]).toLowerCase() + ')', LANG.ARE_YOU_SURE[lang].capitalize(), function(button) {
-					//$('#loadMask').css('pointer-events','none')
+					//$('#loadMask').css2('pointer-events','none')
 					if(button === 2) { 
 						//KILL SPINNER
 						if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
@@ -1731,9 +1731,9 @@ function buildHelpMenu(args) {
 	$('body').append2('<div id="appHelperWrapper"><div id="appHelper"></div></div>');
 
 	$('#appHelper').hide();
-	$('#appHelper').css('top',($('#appHeader').height()) + 'px');
+	$('#appHelper').css2('top',($('#appHeader').height()) + 'px');
 	$('#appHelper').height($('#appContent').height());
-	$('#appHelper').css('bottom',($('#appFooter').height()) + 'px');
+	$('#appHelper').css2('bottom',($('#appFooter').height()) + 'px');
 	$('#appHelper').show();
 
 	//STARTLOCK
@@ -1764,7 +1764,7 @@ function buildHelpMenu(args) {
 	$('#appHelper').html2('<h2><span id="backButton"> </span><div id="helpTitle">' + LANG.SETTINGS_HELP[lang] + '</div></h2><ul>' + helpHtml + '</ul>');
 	//FADE IN
 	setTimeout(function() {
-		$('#appHelper').css('opacity','1');
+		$('#appHelper').css2('opacity','1');
 		//$('#appHelper').height($('#appContent').height());
 	},0);
 	//SCROLLER
@@ -1790,9 +1790,9 @@ function buildHelpMenu(args) {
 			$('#appHelper').after('<div id="appSubHelper"><h2><span id="subBackButton"></span><div id="subHelpTitle">' + subTitle + '</div></h2><div id="subHelpContent">' + subContent + '</div></div>');
 		});
 		$('#appSubHelper').hide();
-		$('#appSubHelper').css('top',($('#appHeader').height()) + 'px');
+		$('#appSubHelper').css2('top',($('#appHeader').height()) + 'px');
 		$('#appSubHelper').height($('#appContent').height());
-		$('#appSubHelper').css('bottom',($('#appFooter').height()) + 'px');
+		$('#appSubHelper').css2('bottom',($('#appFooter').height()) + 'px');
 		$('#appSubHelper').show();
 		/////////////
 		// SUBHIDE //
@@ -1817,9 +1817,9 @@ function buildHelpMenu(args) {
 			if(!$('#appSubHelper').hasClass('open')) {
 				$('#appSubHelper').remove();
 				setTimeout(function() {
-					$('#appHelper').css('width','100%');
+					$('#appHelper').css2('width','100%');
 					//restore visibility
-					//$('.nicescroll-rails').css('display','block');
+					//$('.nicescroll-rails').css2('display','block');
 				},100);
 			//IF OPENED
 			} else {
@@ -1828,7 +1828,7 @@ function buildHelpMenu(args) {
 				getNiceScroll('#appSubHelper');
 			}
 			setTimeout(function() {
-				$('#appSubHelper').css('width','100%');
+				$('#appSubHelper').css2('width','100%');
 			},100);
 		});
 		//SUB-CONTENT HANDLERS
@@ -1838,17 +1838,17 @@ function buildHelpMenu(args) {
 			$('#appSubHelper').removeClass('open');
 			$('#appHelper').removeClass('out');
 			//hide on transision
-			$('.nicescroll-rails').css('display','none');
+			$('.nicescroll-rails').css2('display','none');
 		});
 		//////////////////////
 		// OPEN SUB-CONTENT //
 		//////////////////////
 		setTimeout(function() {
 			//smooth transition (wp8)
-			$('#appSubHelper').css('overflow','hidden');
+			$('#appSubHelper').css2('overflow','hidden');
 			$('#appSubHelper').addClass('open');
 			$('#appHelper').addClass('out');
-			$('.nicescroll-rails').css('display','none');
+			$('.nicescroll-rails').css2('display','none');
 		},50);
 	});
 }
@@ -1890,9 +1890,9 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		$('#saveButton').remove();
 	}
 	if(bottom == 'flush') {
-		$('#' + newWindow + 'Wrapper').css('bottom','0px');
+		$('#' + newWindow + 'Wrapper').css2('bottom','0px');
 	}
-	$('#' + newWindow + 'Wrapper').css('top',($('#appHeader').height()) + 'px');
+	$('#' + newWindow + 'Wrapper').css2('top',($('#appHeader').height()) + 'px');
 	//////////////
 	// HANDLERS //
 	//////////////
@@ -1927,24 +1927,24 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 			if(closer) {
 				closer();
 			}
-			$('#appContent, #foodSearch, #' + newWindow + 'Wrapper').css('pointer-events','none');
+			$('#appContent, #foodSearch, #' + newWindow + 'Wrapper').css2('pointer-events','none');
 			if($.nicescroll) {
 				$('#' + newWindow).getNiceScroll().remove();
 			}
 			setTimeout(function() {
 				$('#' + newWindow + 'Wrapper').removeClass('open');
-				$('#' + newWindow + 'Wrapper').css('opacity',0);
+				$('#' + newWindow + 'Wrapper').css2('opacity',0);
 			},50);
 			$('#' + newWindow + 'Wrapper').off().on(transitionend,function() {
 				$('#' + newWindow + 'Wrapper').remove();
-				$('#appContent, #foodSearch').css('pointer-events','auto');
+				$('#appContent, #foodSearch').css2('pointer-events','auto');
 				$('body').removeClass(newClass);
 				clearTimeout(timerCloser);
 				setPush();
 			});
 			timerCloser = setTimeout(function() {
 				$('#' + newWindow + 'Wrapper').remove();
-				$('#appContent, #foodSearch').css('pointer-events','auto');
+				$('#appContent, #foodSearch').css2('pointer-events','auto');
 				$('body').removeClass(newClass);
 				setPush();
 			},500);
@@ -1999,16 +1999,16 @@ function buildLangMenu(opt) {
 	$('#langSelect').hide();
 	//intro
 	if(opt !== 'intro') {
-		$('#langSelect').css('top',($('#appHeader').height()) + 'px');
-		$('#langSelect').css('bottom',($('#appFooter').height()) + 'px');
+		$('#langSelect').css2('top',($('#appHeader').height()) + 'px');
+		$('#langSelect').css2('bottom',($('#appFooter').height()) + 'px');
 		$('#langSelect').height($('#appContent').height());
 	}
 	//intro
 	if(opt == 'intro') {
-		$('#langSelect').css('z-index',100);
+		$('#langSelect').css2('z-index',100);
 		//pad
 		if($('body').hasClass('ios7')) {
-			$('#langSelect').css('padding-top','24px');
+			$('#langSelect').css2('padding-top','24px');
 		}
 	}
 	//mark current
@@ -2141,13 +2141,13 @@ function getNiceScroll(target,timeout,callback) {
 	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
 		//$('.overthrow').removeClass('overthrow');
 		$(target).removeClass('overthrow');
-		$(target).css('overflow','hidden');
+		$(target).css2('overflow','hidden');
 	} else {
 		//$('.overthrow').removeClass('overthrow');
 		$(target).addClass('overthrow');
-		$(target).css('overflow','auto');
+		$(target).css2('overflow','auto');
 		if(app.device.ios) {
-			$(target).css('-webkit-overflow-scrolling','touch');
+			$(target).css2('-webkit-overflow-scrolling','touch');
 		}
 	}
 	////////////////
@@ -2208,23 +2208,23 @@ function getNiceScroll(target,timeout,callback) {
 		if(target == '#diaryNotesInput') {
 			if(!app.device.wp8 && !app.device.windows8) {
 				$(target).removeClass('overthrow');
-				$(target).css('overflow','hidden');
+				$(target).css2('overflow','hidden');
 				$(target).niceScroll(NSettings);
 			} else {
 				$(target).addClass('overthrow');
-				$(target).css('overflow','auto');
+				$(target).css2('overflow','auto');
 			}
 		//APPLY
 		} else {
 			if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
 				$(target).removeClass('overthrow');
-				$(target).css('overflow','hidden');
+				$(target).css2('overflow','hidden');
 				$(target).niceScroll(NSettings);
 			} else {
 				$(target).addClass('overthrow');
-				$(target).css('overflow','auto');
+				$(target).css2('overflow','auto');
 				if(app.device.ios) {
-					$(target).css('-webkit-overflow-scrolling','touch');
+					$(target).css2('-webkit-overflow-scrolling','touch');
 				}
 			}
 		}
@@ -2252,12 +2252,12 @@ function appResizer(time,callback) {
 		//app.relHeight =  app.height / app.read('app_zoom');
 		/*
 		if(vendorClass == 'moz' || vendorClass == 'msie') {
-			$('body').css('width', app.relWidth + 'px');
-			$('body').css('height', app.relHeight + 'px');
+			$('body').css2('width', app.relWidth + 'px');
+			$('body').css2('height', app.relHeight + 'px');
 		}
 		*/
 		if(!app.device.msapp && !app.device.desktop && !app.device.linux && !app.device.ipad) {
-			$('body').css('min-height', app.height);
+			$('body').css2('min-height', app.height);
 		}
 		//unlock top white gap
 		$('body').trigger('touchmove');
@@ -2299,9 +2299,9 @@ function appResizer(time,callback) {
 		//FAST RESIZE
 		$('#pageSlideFood').hide();
 		$('#pageSlideFood').height($('body').height() - ($('#appHeader').height()));
-		//$('#pageSlideFood').css('min-height',($('body').height() - ($('#appHeader').height())) + 'px');
+		//$('#pageSlideFood').css2('min-height',($('body').height() - ($('#appHeader').height())) + 'px');
 		$('#pageSlideFood').show();
-		//$('#tabMyItemsBlock').css('min-height', ($('#foodList').height() - 128) + 'px');
+		//$('#tabMyItemsBlock').css2('min-height', ($('#foodList').height() - 128) + 'px');
 		//chrome v32 input width
 		if(app.device.desktop || app.device.windows8 || app.device.firefoxos || app.device.android) {
 			$('#entryBody').width( $('body').width() -105);
@@ -2667,7 +2667,7 @@ function getLoginEmail() {
 	//////////////
 	var suggestionBoxHandlers = function () {
 		$('#saveButton').html2(LANG.OK[lang]);
-		$('#saveButton').css('text-transform', 'uppercase');
+		$('#saveButton').css2('text-transform', 'uppercase');
 		//
 		$('#suggestionBox').on(touchstart, function (evt) {
 			if (evt.target.id === 'suggestionBox') {
@@ -2676,13 +2676,13 @@ function getLoginEmail() {
 			}
 		});
 		//prevent propagation focus
-		$('#usrMail').css('pointer-events', 'none');
-		$('#usrPass').css('pointer-events', 'none');
-		$('#resetPass').css('pointer-events', 'none');
+		$('#usrMail').css2('pointer-events', 'none');
+		$('#usrPass').css2('pointer-events', 'none');
+		$('#resetPass').css2('pointer-events', 'none');
 		setTimeout(function () {
-			$('#usrMail').css('pointer-events', 'auto');
-			$('#usrPass').css('pointer-events', 'auto');
-			$('#resetPass').css('pointer-events', 'auto');
+			$('#usrMail').css2('pointer-events', 'auto');
+			$('#usrPass').css2('pointer-events', 'auto');
+			$('#resetPass').css2('pointer-events', 'auto');
 		}, 400);
 		// SAVE LAST EMAIL
 		$('#usrMail').on('keyup', function(evt) {
@@ -2700,14 +2700,14 @@ function getLoginEmail() {
 		app.handlers.activeRow('#resetPass', 'button', function (evt) {
 			//validate e-mail
 			if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val()))) {
-				$('.usrMail').css('color', '#c30');
+				$('.usrMail').css2('color', '#c30');
 				setTimeout(function () {
 					alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
 				}, 50);
 				return false;
 			} else {
 				//send mail
-				$('.usrMail').css('color', '#000');
+				$('.usrMail').css2('color', '#000');
 				var usrMailStore = (trim($('#usrMail').val())).toLowerCase();
 				var usrPassStore = md5(trim($('#usrPass').val()));
 				$.ajax({
@@ -2738,21 +2738,21 @@ function getLoginEmail() {
 		var result = false;
 		//MSG
 		if ((trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
-			$('.usrPass').css('color', '#000');
+			$('.usrPass').css2('color', '#000');
 		} else {
-			$('.usrPass').css('color', '#c30');
+			$('.usrPass').css2('color', '#c30');
 		}
 		//MAIL
 		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val()))) {
-			$('.usrMail').css('color', '#000');
+			$('.usrMail').css2('color', '#000');
 		} else {
-			$('.usrMail').css('color', '#c30');
+			$('.usrMail').css2('color', '#c30');
 		}
 		//VALIDATE
 		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val())) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
 			//send mail
-			$('#saveButton').css('pointer-events', 'none');
-			$('#saveButton').css('color', '#ccc');
+			$('#saveButton').css2('pointer-events', 'none');
+			$('#saveButton').css2('color', '#ccc');
 			var usrMailStore = (trim($('#usrMail').val())).toLowerCase();
 			var usrPassStore = md5(trim($('#usrPass').val()));
 
@@ -2783,8 +2783,8 @@ function getLoginEmail() {
 						$(document).trigger('backbutton');
 					} else if (reply == 'error') {
 						setTimeout(function () {
-							$('#saveButton').css('pointer-events', 'auto');
-							$('#saveButton').css('color', '#007aff');
+							$('#saveButton').css2('pointer-events', 'auto');
+							$('#saveButton').css2('color', '#007aff');
 							alert(LANG.ERROR[lang], LANG.WRONG_PASSWORD[lang]);
 						}, 50);
 					}
@@ -2792,8 +2792,8 @@ function getLoginEmail() {
 			});
 		} else {
 			setTimeout(function () {
-				$('#saveButton').css('pointer-events', 'auto');
-				$('#saveButton').css('color', '#007aff');
+				$('#saveButton').css2('pointer-events', 'auto');
+				$('#saveButton').css2('color', '#007aff');
 				alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
 			}, 50);
 			return false;

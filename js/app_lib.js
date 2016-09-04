@@ -245,9 +245,9 @@ app = {
 		}
 	},
 	show: function(target,callback) {
-		$(target).css('pointer-events','auto');
-		$(target).css(prefix + 'transition', 'opacity ease .32s');
-		$(target).css('opacity',1);
+		$(target).css2('pointer-events','auto');
+		$(target).css2(prefix + 'transition', 'opacity ease .32s');
+		$(target).css2('opacity',1);
 		setTimeout(function() {
 			if(typeof callback === 'function') {
 				callback(target);
@@ -255,9 +255,9 @@ app = {
 		},320);
 	},
 	hide: function(target,callback) {
-		$(target).css('pointer-events','none');
-		$(target).css(prefix + 'transition', 'opacity ease .12s');
-		$(target).css('opacity',0);
+		$(target).css2('pointer-events','none');
+		$(target).css2(prefix + 'transition', 'opacity ease .12s');
+		$(target).css2('opacity',0);
 		setTimeout(function() {
 			if(typeof callback === 'function') {
 				callback(target);
@@ -275,12 +275,12 @@ app = {
 	},
 	suspend: function(target,time,callback) {
 		clearTimeout(app.timers[searchalize(target)]);
-		$(target).css('pointer-events','none');
+		$(target).css2('pointer-events','none');
 		app.timers[app.timers[searchalize(target)]] = setTimeout(function() {
 			if(typeof callback === 'function') {
 				callback();
 			}
-			$(target).css('pointer-events','auto');
+			$(target).css2('pointer-events','auto');
 		}, time);
 	},
 	timer: {
@@ -320,7 +320,7 @@ app.switchUser = function(switchTo) {
 			}
 		}
 		//
-		$('body').css('opacity',0);
+		$('body').css2('opacity',0);
 		noTimer = 'active';
 		setTimeout(function() {
 			//window.location.reload(true);
@@ -487,6 +487,7 @@ $.prototype.swipe = function() {};
 // MODIFIED JQUERY W/ CALLLBACK //
 //////////////////////////////////
 $.prototype.html2 = function (data, callback) {
+	if(typeof this === 'undefined') { return; }
 	var obj = $(this);
 	if($(obj).length) {
 		if (app.device.msapp) {
@@ -502,7 +503,32 @@ $.prototype.html2 = function (data, callback) {
 		callback();
 	}
 };
+//////////
+// CCS2 //
+//////////
+$.prototype.css2 = function (attr, value) {
+	//FILTER
+	if(typeof this === 'undefined') { return; }
+	if(typeof attr === 'undefined') { return; }
+	//VARS
+	var thisObj  = $(this);
+	var thisAttr = thisObj.css(attr);
+	//get/set
+	if (typeof value === 'undefined') {
+		//get value
+		return thisAttr;
+	} else {
+		//set value
+		if (thisAttr !== value) {
+			thisObj.css(attr, value);
+		}
+	}
+};
+/////////////
+// APPEND2 //
+/////////////
 $.prototype.append2 = function (data, callback) {
+	if(typeof this === 'undefined') { return; }
 	var obj = $(this);
 	if($(obj).length) {
 		if (app.device.msapp) {
@@ -520,6 +546,7 @@ $.prototype.append2 = function (data, callback) {
 
 };
 $.prototype.prepend2 = function (data, callback) {
+	if(typeof this === 'undefined') { return; }
 	var obj = $(this);
 	if($(obj).length) {
 		if (app.device.msapp) {
@@ -536,6 +563,7 @@ $.prototype.prepend2 = function (data, callback) {
 	}
 };
 $.prototype.before2 = function (data, callback) {
+	if(typeof this === 'undefined') { return; }
 	var obj = $(this);
 	if($(obj).length) {
 		if (app.device.msapp) {
@@ -552,6 +580,7 @@ $.prototype.before2 = function (data, callback) {
 	}
 };
 $.prototype.after2 = function (data, callback) {
+	if(typeof this === 'undefined') { return; }
 	var obj = $(this);
 	if($(obj).length) {
 		if (app.device.msapp) {
@@ -610,14 +639,14 @@ app.zoom = function(ratio) {
 		$('html').removeClass('zoomx1 zoomx2');
 		app.save('app_zoom',1.4);
 	}
-	//$('body').css('zoom',Math.round(app.read('app_zoom') * 100) + '%');
-	//$('body').css('zoom',app.read('app_zoom'));
-	//$('body').css('-moz-transform','scale(' + app.read('app_zoom') + ',' + app.read('app_zoom') + ')');
+	//$('body').css2('zoom',Math.round(app.read('app_zoom') * 100) + '%');
+	//$('body').css2('zoom',app.read('app_zoom'));
+	//$('body').css2('-moz-transform','scale(' + app.read('app_zoom') + ',' + app.read('app_zoom') + ')');
 	if(typeof appResizer == 'function') {
-		$('.nicescroll-rails').css('display','none');
+		$('.nicescroll-rails').css2('display','none');
 		appResizer();
 		app.timeout('zoomHideScrollar',400,function() {
-			$('.nicescroll-rails').css('display','block');
+			$('.nicescroll-rails').css2('display','block');
 		});
 	}
 };
@@ -821,8 +850,8 @@ app.handlers = {
 		}
 		//PRE-HIDE FADE-IN
 		if(inOut == 1) {
-			$(target).css(prefix + 'transition-duration', '0s');
-			$(target).css('opacity',0);
+			$(target).css2(prefix + 'transition-duration', '0s');
+			$(target).css2('opacity',0);
 			$(target).hide();
 		}
 		////////////////////
@@ -833,7 +862,7 @@ app.handlers = {
 				$(target).remove();
 			} else {
 				//fast resizing
-				$(target).css(prefix + 'transition-duration', '0s');
+				$(target).css2(prefix + 'transition-duration', '0s');
 			}
 			if(typeof callback === 'function') {
 				callback();
@@ -843,7 +872,7 @@ app.handlers = {
 		//////////////////
 		// SET ANIMATED //
 		//////////////////
-		$(target).css(prefix + 'transition', 'opacity ease ' + (duration/1000) + 's');
+		$(target).css2(prefix + 'transition', 'opacity ease ' + (duration/1000) + 's');
 		///////////////////////////////////
 		// SET OPACITY ~ ENFORCE REMOVAL //
 		///////////////////////////////////
@@ -851,7 +880,7 @@ app.handlers = {
 			$(target).show();
 		}
 		//setTimeout(function() {
-			$(target).css('opacity',inOut);
+			$(target).css2('opacity',inOut);
 			setTimeout(function() {
 				if($(target).length && callback !== '') {
 					$(target).trigger(transitionend);
@@ -910,9 +939,9 @@ app.handlers = {
 			}
 			if(style == 'false') {
 				var falseThis = this;
-				$(falseThis).css('pointer-events','none');
+				$(falseThis).css2('pointer-events','none');
 				app.timeout('tapSelect',500,function() {
-					$(falseThis).css('pointer-events','auto');
+					$(falseThis).css2('pointer-events','auto');
 				});
 			}
 		});
@@ -1013,11 +1042,11 @@ app.handlers = {
 		$(target).removeClass('activeOverflow');
 		$(target).addClass('yellow');
 		setTimeout(function () {
-			$(target).css(prefix + 'transition','background linear .5s');
+			$(target).css2(prefix + 'transition','background linear .5s');
 			setTimeout(function () {
 				$(target).removeClass('yellow');
 				setTimeout(function () {
-					$(target).css(prefix + 'transition','background linear 0s');
+					$(target).css2(prefix + 'transition','background linear 0s');
 					if(typeof callback === 'function') {
 						callback();
 					}
@@ -1788,17 +1817,17 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 	if (!endColor)   { endColor   = 'rgba(255,255,255,0)'; }
 	if (!duration)   { duration   = 1000; }
 	//
-	$(target).css(prefix + 'transition', 'background linear 0s');
-	$(target).css('background-color', startColor);	
+	$(target).css2(prefix + 'transition', 'background linear 0s');
+	$(target).css2('background-color', startColor);	
 	$(target).addClass('appHighlight');
 	setTimeout(function () {
-		$(target).css(prefix + 'transition', 'background linear ' + JSON.stringify(duration) + 'ms');
-		$(target).css('background-color', endColor);
-		$(target).css('pointer-events','none');
+		$(target).css2(prefix + 'transition', 'background linear ' + JSON.stringify(duration) + 'ms');
+		$(target).css2('background-color', endColor);
+		$(target).css2('pointer-events','none');
 		//WAIT TO DISABLE
 		setTimeout(function () {
-			$(target).css(prefix + 'transition', 'background linear 0s');
-			$(target).css('pointer-events','auto');
+			$(target).css2(prefix + 'transition', 'background linear 0s');
+			$(target).css2('pointer-events','auto');
 			$(target).removeClass('appHighlight');			
 			//
 			if (typeof callback === 'function') {

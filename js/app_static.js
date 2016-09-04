@@ -64,7 +64,8 @@ $(function() {
 $(document).on('resume',function(evt) {
 	//SHOW
 	clearTimeout(app.repeaterLoop);
-	$('body').css('opacity',1).show();
+	$('body').css2('opacity',1)
+	$('body').show();
 	//fix locked dbs ~ mobile
 	if (!app.device.desktop) {
 		if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
@@ -226,9 +227,9 @@ preTab = function(keepOpen) {
 };
 afterTab = function(keepOpen) {
 	if(keepOpen == 1) { return; }
-	$('#appContent').css('display','block');
-	$('#appContent').css('visibility','visible');
-	$('#appContent').css('pointer-events','auto');
+	$('#appContent').css2('display','block');
+	$('#appContent').css2('visibility','visible');
+	$('#appContent').css2('pointer-events','auto');
 	$('body').removeClass('newwindow');
 	//
 	$('.sp-picker-container').remove();
@@ -311,10 +312,10 @@ appFooter(localStorage.getItem('app_last_tab') ? localStorage.getItem('app_last_
 ////////////////////////
 if(app.device.wp8) {
 	$('input').on('focus', function(evt) {
-		$('html,body').css('position','fixed');
+		$('html,body').css2('position','fixed');
 	});
 	$('input').on('blur', function(evt) {
-		$('html,body').css('position','absolute');
+		$('html,body').css2('position','absolute');
 	});
 }
 ////////////////////////
@@ -688,7 +689,7 @@ window.onresize = function(evt) {
 			if($.nicescroll) {
 				$('#diaryNotesInput').getNiceScroll().resize();
 			}
-			$('#diaryNotesButton span').css('top',($('body').height()/2) + 'px');
+			$('#diaryNotesButton span').css2('top',($('body').height()/2) + 'px');
 		}
 	}
 	if(app.read('app_last_tab','tab1')) {
@@ -967,7 +968,7 @@ function unlockApp() {
 	//
 	$('body').removeClass('unloaded');
 	$('body').addClass('started');
-	$('body').css('opacity',1);
+	$('body').css2('opacity',1);
 	$('body').show();
 	appResizer(0);
 }
@@ -1122,7 +1123,7 @@ if(app.is.scrollable && app.device.desktop) {
 			if($('#timerDailyInput').is(':focus'))		{ return; }
 			if($('#timerDailyInput').is(':animated'))	{ return; }
 			//COLOR ANIMATION VALUE
-			if(Number($('#timerDailyInput').css('color').split("rgba(255, 255, 255, ").join("").split(")").join("")) > 0.8) { return; }
+			if(Number($('#timerDailyInput').css2('color').split("rgba(255, 255, 255, ").join("").split(")").join("")) > 0.8) { return; }
 			getNewWindow('ChronoBurn: A Metabolism Simulator','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['ChronoBurn: A Metabolism Simulator'] + '</div>',function() {
 				$('#tabHelp').removeClass('hidden');
 				app.handlers.activeRow('#openHelp','button',function(evt) {
@@ -1184,7 +1185,7 @@ if(app.is.scrollable && app.device.desktop) {
 			$('#appHeader').removeClass('closer');
 			$('body').removeClass('closer');
 			$('#pageSlideFood').removeClass('open');
-			$('#pageSlideFood').css('opacity',0);
+			$('#pageSlideFood').css2('opacity',0);
 			$('#pageSlideFood').on(transitionend,function(evt) {
 				$('#pageSlideFood').removeClass('busy');
 				$('#appHeader').removeClass('closer');

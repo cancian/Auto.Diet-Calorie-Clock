@@ -2,10 +2,10 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
-★ Weight tracker
+★ Weight tracker (in progress)
 ★ Shoutbox for users to interact
 
-# 2.0.3 [2016/08/27]
+# 2.0.3 [2016/09/04]
 • Faster search results
 • Added clearly visible start/end dates to the full history chart
 • A few performance tweaks on the database engine

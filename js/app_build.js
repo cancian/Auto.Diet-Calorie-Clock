@@ -106,7 +106,7 @@ app.tab.settings = function(keepOpen) {
 	// ABOUT //
 	///////////
 	if(app.device.osxapp && reviewMode === true) {
-		$('#optionWebsite').css('pointer-events','none');
+		$('#optionWebsite').css2('pointer-events','none');
 	} else {
 		app.handlers.activeRow('#optionWebsite','activeRow',function(evt) {
 			app.about();
@@ -746,11 +746,11 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		clearTimeout(app.globals.lidTimer);
 		clearTimeout(app.globals.lidInnerTimer);
 		app.globals.lidTimer = setTimeout(function() {
-			$('#loadingDiv').css(prefix + 'transition-duration','.2s');
+			$('#loadingDiv').css2(prefix + 'transition-duration','.2s');
 			setTimeout(function() {
-				$('#loadingDiv').css('opacity',0);
+				$('#loadingDiv').css2('opacity',0);
 				app.globals.lidInnerTimer = setTimeout(function() {
-					$('#loadingDiv').css('display','none');
+					$('#loadingDiv').css2('display','none');
 					//POST SUBMIT RESET
 					if($('#entryTitle').val() == 0) {
 						$('#lid').val(0);
@@ -764,9 +764,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		}
 		//faded~show
 		if(lidValue != 0) {
-			$('#loadingDiv').css(prefix + 'transition-duration','0s');
-			$('#loadingDiv').css('opacity',.66);
-			$('#loadingDiv').css('display','block');
+			$('#loadingDiv').css2(prefix + 'transition-duration','0s');
+			$('#loadingDiv').css2('opacity',.66);
+			$('#loadingDiv').css2('display','block');
 		}
 	};
 	////////////////////
@@ -916,7 +916,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		slider.save();
 		$(window).trigger('resize');
 		slider.reset();
-		$('#loadingDiv').css('opacity',0);
+		$('#loadingDiv').css2('opacity',0);
 	});
 	/////////////////////////
 	// SLIDER UPDATE EVENT //
@@ -1408,15 +1408,15 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 				$('#diaryNotesInput').blur();
 			}
 			app.save('appNotes',$('#diaryNotesInput').val());
-			$('#appHeader, #appContent').css('pointer-events','none');
-			$('#diaryNotesWrapper').css(prefix + 'transition-duration','.2s');
-			$('#diaryNotesWrapper').css(prefix + 'transition-timing-function','linear');
+			$('#appHeader, #appContent').css2('pointer-events','none');
+			$('#diaryNotesWrapper').css2(prefix + 'transition-duration','.2s');
+			$('#diaryNotesWrapper').css2(prefix + 'transition-timing-function','linear');
 			setTimeout(function() {
-				$('#diaryNotesWrapper').css('opacity', 0);
+				$('#diaryNotesWrapper').css2('opacity', 0);
 			}, 0);
 			setTimeout(function() {
 				$('#diaryNotesWrapper').remove();
-				$('#appHeader, #appContent').css('pointer-events','auto');
+				$('#appHeader, #appContent').css2('pointer-events','auto');
 				setPush();
 			}, 400);
 		});
@@ -1753,10 +1753,10 @@ app.handlers.activeRow('#pA7B,#pA7F,#pA7L','active',function(thisId) {
 		app.save(app.get.kcals('key'),calcResult);
 		$('#timerDailyInput').val(app.read(app.get.kcals('key')));
 		//HIGHLIGH INPUT
-		$('#timerDailyInput').css(prefix + 'transition-duration','0s');
+		$('#timerDailyInput').css2(prefix + 'transition-duration','0s');
 		$('#timerDailyInput').addClass('yellow');
 		setTimeout(function() {
-			$('#timerDailyInput').css(prefix + 'transition-duration','400ms');
+			$('#timerDailyInput').css2(prefix + 'transition-duration','400ms');
 			$('#timerDailyInput').removeClass('yellow');
 		}, 400);
 		//HIGHLIGHT
