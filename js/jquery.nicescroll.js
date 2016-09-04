@@ -2066,18 +2066,33 @@
 
 				if (ClsMutationObserver !== false) {
 					self.observerbody = new ClsMutationObserver(function (mutations) {
-							mutations.forEach(function (mut) {
-								if (mut.type == "attributes") {
-									return ($("body").hasClass("modal-open")) ? self.hide() : self.show(); // Support for Bootstrap modal
+						
+						mutations.forEach(function (mut) {
+							if (mut.type == "attributes") {
+								return ($("body").hasClass("modal-open")) ? self.hide() : self.show(); // Support for Bootstrap modal
+							}
+						});
+						
+						//TWEAK
+						if (typeof fastdom !== 'undefined') {
+							fastdom.measure(function() {
+								//TWEAK FASTDOM
+								if(self) {
+									if (document.body.scrollHeight != self.page.maxh) {
+										return self.lazyResize(30); 
+									}
 								}
 							});
-							//TWEAK
+						} else {
+							//TWEAK REGULAR
 							if(self) {
 								if (document.body.scrollHeight != self.page.maxh) {
 									return self.lazyResize(30); 
 								}
 							}
-						});
+						}
+					});
+
 					self.observerbody.observe(document.body, {
 						childList : true,
 						subtree : true,
