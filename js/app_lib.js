@@ -520,9 +520,7 @@ $.prototype.css2 = function (attr, value) {
 	} else {
 		//set value
 		if (thisAttr !== value) {
-			app.fastDom('mutate', function() {
-				thisObj.css(attr, value);
-			});
+			thisObj.css(attr, value);
 		}
 	}
 };
@@ -2868,6 +2866,7 @@ var md5=function(r){function n(r,n){return r<<n|r>>>32-n}function t(r,n){var t,o
 //##/////////##//
 //## FASTDOM ##//
 ///##////////##// https://github.com/wilsonpage/fastdom
+/*
 var androidVersion = /Android/i.test(navigator.userAgent) ? parseFloat(navigator.userAgent.match(/Android [\d+\.]{3,5}/)[0].replace('Android ','')) : false;
 var android2       = /Android/i.test(navigator.userAgent) && androidVersion < 4 ? true : false;
 //ANDROID2 HARD CUT
@@ -2906,7 +2905,7 @@ eval('!function(a){"use strict";function d(){var d=this;d.reads=[],d.writes=[],d
 			}
 		}
 	}
-}///////////////
+*///////////////
 ///////////////
 //////////////
 /////////////
