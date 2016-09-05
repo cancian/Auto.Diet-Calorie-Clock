@@ -290,6 +290,7 @@ app.tab.status = function(keepOpen) {
 				<div id="appStatusBarsSod"><p>' + LANG.SODIUM[lang].toUpperCase() + '</p><div>0 / 600mg</div></div>\
 			</div>\
 		</div>\
+\
 		<div id="onlineUsers">' + LANG.ACTIVE_USERS[lang] + ': <span>' + app.read("online_users") + '<span></div>\
 		<div id="appStatusAddLeft"><div>'  + LANG.FOOD[lang]     + '</div></div>\
 		<div id="appStatusAddRight"><div>' + LANG.EXERCISE[lang] + '</div></div>\
@@ -303,6 +304,7 @@ app.tab.status = function(keepOpen) {
 			</div>\
 		</div>\
 	</div>';
+	//<div id="shoutboxWrapper"><iframe src="chat/index.php" id="shoutBox" frameborder="0" /></div>\
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
