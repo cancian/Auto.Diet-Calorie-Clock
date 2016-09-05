@@ -864,7 +864,8 @@
 			return (sel + "").replace(rcssescape, fcssescape);
 		};
 		Sizzle.error = function (msg) {
-			throw new Error("Syntax error, unrecognized expression: " + msg);
+			//throw new Error("Syntax error, unrecognized expression: " + msg);
+			console.log("Syntax error, unrecognized expression: " + msg);
 		};
 		Sizzle.uniqueSort = function (results) {
 			var elem,
