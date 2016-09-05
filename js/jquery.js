@@ -674,6 +674,8 @@
 							i = 0;
 							while ((elem = elems[i++])) {
 								node = elem.getAttributeNode("id");
+
+
 								if (node && node.value === id) {
 									return [elem];
 								}
@@ -865,7 +867,6 @@
 		};
 		Sizzle.error = function (msg) {
 			//throw new Error("Syntax error, unrecognized expression: " + msg);
-			console.log("Syntax error, unrecognized expression: " + msg);
 		};
 		Sizzle.uniqueSort = function (results) {
 			var elem,
@@ -1575,17 +1576,20 @@
 				if (!match) {
 					match = tokenize(selector);
 				}
-				i = match.length;
-				while (i--) {
-					cached = matcherFromTokens(match[i]);
-					if (cached[expando]) {
-						setMatchers.push(cached);
-					} else {
-						elementMatchers.push(cached);
+				//TWEAK
+				if (typeof match !== 'undefined') {
+					i = match.length;
+					while (i--) {
+						cached = matcherFromTokens(match[i]);
+						if (cached[expando]) {
+							setMatchers.push(cached);
+						} else {
+							elementMatchers.push(cached);
+						}
 					}
+					cached = compilerCache(selector, matcherFromGroupMatchers(elementMatchers, setMatchers));
+					cached.selector = selector;
 				}
-				cached = compilerCache(selector, matcherFromGroupMatchers(elementMatchers, setMatchers));
-				cached.selector = selector;
 			}
 			return cached;
 		};
@@ -1598,32 +1602,35 @@
 			compiled = typeof selector === "function" && selector,
 			match = !seed && tokenize((selector = compiled.selector || selector));
 			results = results || [];
-			if (match.length === 1) {
-				tokens = match[0] = match[0].slice(0);
-				if (tokens.length > 2 && (token = tokens[0]).type === "ID" && context.nodeType === 9 && documentIsHTML && Expr.relative[tokens[1].type]) {
-					context = (Expr.find["ID"](token.matches[0].replace(runescape, funescape), context) || [])[0];
-					if (!context) {
-						return results;
-					} else if (compiled) {
-						context = context.parentNode;
+			//TWEAK
+			if (typeof match !== 'undefined') {
+				if (match.length === 1) {
+					tokens = match[0] = match[0].slice(0);
+					if (tokens.length > 2 && (token = tokens[0]).type === "ID" && context.nodeType === 9 && documentIsHTML && Expr.relative[tokens[1].type]) {
+						context = (Expr.find["ID"](token.matches[0].replace(runescape, funescape), context) || [])[0];
+						if (!context) {
+							return results;
+						} else if (compiled) {
+							context = context.parentNode;
+						}
+						selector = selector.slice(tokens.shift().value.length);
 					}
-					selector = selector.slice(tokens.shift().value.length);
-				}
-				i = matchExpr["needsContext"].test(selector) ? 0 : tokens.length;
-				while (i--) {
-					token = tokens[i];
-					if (Expr.relative[(type = token.type)]) {
-						break;
-					}
-					if ((find = Expr.find[type])) {
-						if ((seed = find(token.matches[0].replace(runescape, funescape), rsibling.test(tokens[0].type) && testContext(context.parentNode) || context))) {
-							tokens.splice(i, 1);
-							selector = seed.length && toSelector(tokens);
-							if (!selector) {
-								push.apply(results, seed);
-								return results;
-							}
+					i = matchExpr["needsContext"].test(selector) ? 0 : tokens.length;
+					while (i--) {
+						token = tokens[i];
+						if (Expr.relative[(type = token.type)]) {
 							break;
+						}
+						if ((find = Expr.find[type])) {
+							if ((seed = find(token.matches[0].replace(runescape, funescape), rsibling.test(tokens[0].type) && testContext(context.parentNode) || context))) {
+								tokens.splice(i, 1);
+								selector = seed.length && toSelector(tokens);
+								if (!selector) {
+									push.apply(results, seed);
+									return results;
+								}
+								break;
+							}
 						}
 					}
 				}
@@ -1786,6 +1793,7 @@
 					if (rsingleTag.test(match[1]) && jQuery.isPlainObject(context)) {
 						for (match in context) {
 							if (jQuery.isFunction(this[match])) {
+
 								this[match](context[match]);
 							} else {
 								this.attr(match, context[match]);
@@ -3371,6 +3379,7 @@
 	}
 	function fixInput(src, dest) {
 		var nodeName = dest.nodeName.toLowerCase();
+
 		if (nodeName === "input" && rcheckableType.test(src.type)) {
 			dest.checked = src.checked;
 		} else if (nodeName === "input" || nodeName === "textarea") {
@@ -3789,6 +3798,7 @@
 			}
 		}
 		return val;
+
 	}
 	function getWidthOrHeight(elem, name, extra) {
 		var val,
@@ -4795,6 +4805,7 @@
 			elem,
 			cur,
 			curValue,
+
 			clazz,
 			j,
 			finalValue,
@@ -5343,6 +5354,7 @@
 			for (conv in s.converters) {
 				converters[conv.toLowerCase()] = s.converters[conv];
 			}
+
 		}
 		current = dataTypes.shift();
 		while (current) {
