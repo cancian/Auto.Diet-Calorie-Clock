@@ -1635,8 +1635,11 @@
 					}
 				}
 			}
-			(compiled || compile(selector, match))(seed, context, !documentIsHTML, results, !context || rsibling.test(selector) && testContext(context.parentNode) || context);
-			return results;
+			//TWEAK
+			try {
+				(compiled || compile(selector, match))(seed, context, !documentIsHTML, results, !context || rsibling.test(selector) && testContext(context.parentNode) || context);
+				return results;
+			} catch(err) {  }
 		};
 		support.sortStable = expando.split("").sort(sortOrder).join("") === expando;
 		support.detectDuplicates = !!hasDuplicate;
