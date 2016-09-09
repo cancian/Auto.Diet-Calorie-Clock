@@ -532,10 +532,7 @@ function _checkBlobSupport(idb) {
     if (typeof supportsBlobs === 'boolean') {
         return Promise$1.resolve(supportsBlobs);
     }
-	//TWEAK
-	var txn = idb.transaction(DETECT_BLOB_SUPPORT_STORE, 'readwrite');
-	return _checkBlobSupportWithoutCaching(txn).then(function (value) {
-    //return _checkBlobSupportWithoutCaching(idb).then(function (value) {
+    return _checkBlobSupportWithoutCaching(idb).then(function (value) {
         supportsBlobs = value;
         return supportsBlobs;
     });
@@ -2303,3 +2300,4 @@ module.exports = localforage_js;
 
 },{"3":3}]},{},[4])(4)
 });
+
