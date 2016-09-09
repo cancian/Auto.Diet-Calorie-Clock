@@ -1260,6 +1260,7 @@
 								if (self.ispage || !self.opt.directionlockdeadzone) {
 									self.rail.drag.dl = "f";
 
+
 								} else {
 
 									var view = {
@@ -2064,34 +2065,23 @@
 					self.lazyResize(self.isieold ? 250 : 30);
 				};
 
-				if (ClsMutationObserver !== false) {
+				if (ClsMutationObserver != false) {
 					self.observerbody = new ClsMutationObserver(function (mutations) {
-						
-						mutations.forEach(function (mut) {
-							if (mut.type == "attributes") {
-								return ($("body").hasClass("modal-open")) ? self.hide() : self.show(); // Support for Bootstrap modal
-							}
-						});
-						
-						//TWEAK
-						if (typeof fastdom !== 'undefined') {
-							fastdom.measure(function() {
-								//TWEAK FASTDOM
-								if(self) {
-									if (document.body.scrollHeight != self.page.maxh) {
-										return self.lazyResize(30); 
-									}
+
+							mutations.forEach(function (mut) {
+								if (mut.type == "attributes") {
+									return ($("body").hasClass("modal-open")) ? self.hide() : self.show(); // Support for Bootstrap modal
 								}
 							});
-						} else {
-							//TWEAK REGULAR
-							if(self) {
-								if (document.body.scrollHeight != self.page.maxh) {
-									return self.lazyResize(30); 
+
+							//TWEAK
+							if (self) {
+								//if (document.body.scrollHeight !== self.page.maxh) {
+								if (self.me.clientWidth !== self.page.width || self.me.clientHeight !== self.page.height) {
+									return self.lazyResize(30);
 								}
 							}
-						}
-					});
+						});
 
 					self.observerbody.observe(document.body, {
 						childList : true,
@@ -2505,7 +2495,9 @@
 		this.lazyResize = function (tm) { // event debounce
 			tm = (isNaN(tm)) ? 30 : tm;
 			//TWEAK
-			if(!self) { return; }
+			if (!self) {
+				return;
+			}
 			self.debounced('resize', self.resize, tm);
 			return self;
 		};
@@ -2957,7 +2949,7 @@
 				}
 			}
 
-			var nw = + (new Date());
+			var nw =  + (new Date());
 			var chk = false;
 			if (self.opt.preservenativescrolling && ((self.checkarea + 600) < nw)) {
 				self.nativescrollingarea = self.isScrollable(e);
@@ -2980,7 +2972,7 @@
 			if (self.rail.drag)
 				return self.cancelEvent(e);
 
-			var nw = + (new Date());
+			var nw =  + (new Date());
 			var chk = false;
 			if (self.opt.preservenativescrolling && ((self.checkarea + 600) < nw)) {
 				self.nativescrollingarea = self.isScrollable(e);
