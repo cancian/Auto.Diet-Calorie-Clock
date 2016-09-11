@@ -488,7 +488,7 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 $.prototype.html2 = function (data, callback) {
 	if(typeof this === 'undefined') { return; }
-	var obj = $(this);
+	var obj = this;
 	if($(obj).length) {
 		if (app.device.msapp) {
 			MSApp.execUnsafeLocalFunction(function () {
@@ -507,16 +507,20 @@ $.prototype.html2 = function (data, callback) {
 // CCS2 //
 //////////
 $.prototype.css2 = function (attr, value) {
+	'use strict';
 	//FILTER
-	if(typeof this === 'undefined') { return; }
-	if(typeof attr === 'undefined') { return; }
+	if (typeof this === 'undefined' || typeof attr === 'undefined') {
+		return;
+	}
 	//VARS
-	var thisObj  = $(this);
+	var thisObj  = this;
 	var thisAttr = thisObj.css(attr);
 	//get/set
 	if (typeof value === 'undefined') {
 		//get value
-		return thisAttr;
+		if(typeof thisAttr !== 'undefined') {
+			return thisAttr;
+		}
 	} else {
 		//set value
 		if (thisAttr !== value) {
@@ -528,8 +532,9 @@ $.prototype.css2 = function (attr, value) {
 // APPEND2 //
 /////////////
 $.prototype.append2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
-	var obj = $(this);
+	var obj = this;
 	if($(obj).length) {
 		if (app.device.msapp) {
 			MSApp.execUnsafeLocalFunction(function () {
@@ -546,8 +551,9 @@ $.prototype.append2 = function (data, callback) {
 
 };
 $.prototype.prepend2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
-	var obj = $(this);
+	var obj = this;
 	if($(obj).length) {
 		if (app.device.msapp) {
 			MSApp.execUnsafeLocalFunction(function () {
@@ -563,8 +569,9 @@ $.prototype.prepend2 = function (data, callback) {
 	}
 };
 $.prototype.before2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
-	var obj = $(this);
+	var obj = this;
 	if($(obj).length) {
 		if (app.device.msapp) {
 			MSApp.execUnsafeLocalFunction(function () {
@@ -580,8 +587,9 @@ $.prototype.before2 = function (data, callback) {
 	}
 };
 $.prototype.after2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
-	var obj = $(this);
+	var obj = this;
 	if($(obj).length) {
 		if (app.device.msapp) {
 			MSApp.execUnsafeLocalFunction(function () {
