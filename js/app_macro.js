@@ -419,7 +419,7 @@ function intakeHistory() {
 				spacingRight  : $('#appStatusIntake').width() / -7.2,
 				spacingTop    : -1,
 				spacingBottom : spacingBottom,
-				height : (hasTap() || app.device.osx) ? 64 : 66,
+				height : (app.touch || app.device.osx) ? 64 : 66,
 				width : $('#appStatusIntake').width()
 			},
 			credits : {

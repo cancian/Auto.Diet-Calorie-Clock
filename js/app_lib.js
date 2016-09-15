@@ -34,8 +34,8 @@ app = {
 	pointer : function (e) {
 		'use strict';
 		//FIX
-		e = e || window.event;
-		e = $.event.fix(e);
+		//e = e || window.event;
+		//e = $.event.fix(e);
 		//DEFINE
 		var out = {
 			x : 0,
@@ -59,8 +59,8 @@ app = {
 		if (/touch/i.test(e.type) && e.originalEvent) {
 			if(e.originalEvent.touches || e.originalEvent.changedTouches) {
 				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-				out.x = parseInt(touch.pageX || touch.screenX);
-				out.y = parseInt(touch.pageY || touch.screenY);
+				out.x = parseInt(touch.pageX);
+				out.y = parseInt(touch.pageY);
 				return out;
 			}
 		}
@@ -1437,26 +1437,19 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
-var varHasTouch = !app.http && /iPhone|iPod|iPad|Android|BlackBerry|PlayBook/i.test(app.ua);
-function hasTouch() {
-	return varHasTouch;
-}
-var varHasTap = 'ontouchend' in document && !app.device.linux ? true : false;
-function hasTap() {
-	return varHasTap;
-}
+app.touch = 'ontouchstart' in window && !app.device.chrome ? true : false;
 ////////////////////
 // TOUCH HANDLERS //
 ////////////////////
 var tap         = 'tap';
 var hold        = 'hold';
 var swipe       = 'swipe';
-var touchstart  = hasTap() ? 'touchstart'  : 'mousedown';
-var touchend    = hasTap() ? 'touchend'    : 'mouseup';
-var touchmove   = hasTap() ? 'touchmove'   : 'mousemove';
-var touchcancel = hasTap() ? 'touchcancel' : 'mouseup';
-var touchleave  = hasTap() ? 'touchleave'  : 'mouseleave';
-var touchout    = hasTap() ? 'touchout'    : 'mouseout';
+var touchstart  = app.touch ? 'touchstart'  : 'mousedown';
+var touchend    = app.touch ? 'touchend'    : 'mouseup';
+var touchmove   = app.touch ? 'touchmove'   : 'mousemove';
+var touchcancel = app.touch ? 'touchcancel' : 'mouseup';
+var touchleave  = app.touch ? 'touchleave'  : 'mouseleave';
+var touchout    = app.touch ? 'touchout'    : 'mouseout';
 ///////////////
 // MSPOINTER //
 ///////////////
@@ -2704,7 +2697,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				//TWEAK
 				if (event) {
 					if (event.target) {
-						eventData.target = event.target;
+						eventData.target = event.target || $element;
 						eventData.pageX  = app.pointer(event).x;
 						eventData.pageY  = app.pointer(event).y;
 						eventData.time   = app.now();
@@ -2712,21 +2705,21 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				}
 			}).on(nativeEvent.end, function (event) {
 				//TWEAK
-				if (eventData && event) {
+				if (eventData) {
 					//DIFF
-					var diffX = Math.abs(parseInt(eventData.pageX) - parseInt(app.pointer(event).x));
-					var diffY = Math.abs(parseInt(eventData.pageY) - parseInt(app.pointer(event).y));
-					var endX = parseInt(app.pointer(event).x); 
-					var endY = parseInt(app.pointer(event).y);
+					var diffX = Math.abs(eventData.pageX - app.pointer(event).x);
+					var diffY = Math.abs(eventData.pageY - app.pointer(event).y);
+					var endX = app.pointer(event).x; 
+					var endY = app.pointer(event).y;
 					//THRESHOLD
-					if (eventData.target === event.target && app.now() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-							event.type  = specialEventName;
-							event.pageX = endX;
-							event.pageY = endY;
-							//TRIGGER
-							eventHandle.call(this, event);
-						}
+					if ((eventData.target === event.target || eventData.target === $(this)) && app.now() - eventData.time < 750 && diffX < 10 && diffY < 10) {
+						event.type  = specialEventName;
+						event.pageX = endX;
+						event.pageY = endY;
+						//TRIGGER
+						eventHandle.call(this, event);
 					}
+				}
 			});
 		},
 		remove : function () {
