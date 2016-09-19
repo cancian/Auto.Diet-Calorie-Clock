@@ -906,6 +906,7 @@ app.handlers = {
 	activeRowTimer   : [],	
 	activeLastObj    : [],
 	activeRow : function (target, style, callback,callbackCondition) {
+		'use strict';
 		var t = searchalize(target);
 		var isButton = style == 'button' ? 1 : 40;
 		if(app.device.osxapp || app.device.osx) {

@@ -5,7 +5,7 @@
 ★ Weight tracker (in progress)
 ★ Shoutbox for users to interact
 
-# 2.0.3 [2016/09/15]
+# 2.0.3 [2016/09/19]
 • Normalized touch events
 • Fixed unusual css selector exception while changing database engine
 • Optimized rendering engine for faster and smoother user experience
