@@ -1555,11 +1555,11 @@ function buildAdvancedMenu() {
 	</ul>\
 	');
 	//PARSE DB CONFIG
-	if(app.db.webSQL       !== true) { $('#optWebSQL').hide();       }
-	if(app.db.indexedDB    !== true) { $('#optIndexedDB').hide();    }
-	if(app.db.localStorage !== true) { $('#optLocalStorage').hide(); }
+	if(!app.db.webSQL)		{ $('#optWebSQL').hide();       }
+	if(!app.db.indexedDB)	{ $('#optIndexedDB').hide();    }
+	if(!app.db.localStorage)	{ $('#optLocalStorage').hide(); }
 	//HIDE UNSTABLE
-	if(app.device.ios || app.device.osxapp || app.device.blackberry || app.incognito) { 
+	if((app.device.ios && !app.device.ios10) || app.device.osxapp || app.device.blackberry || app.incognito) { 
 		$('#optIndexedDB').hide();
 	}
 	//GET CURRENT ENGINE
@@ -1568,7 +1568,9 @@ function buildAdvancedMenu() {
 	if (localforage._driver == 'localStorageWrapper')	{ app.save('app_database','localStorageWrapper'); $('#optLocalStorage').addClass('toggle');	}
 	//PARSE DB STYLE
 	function styleResetDB() {
-	$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
+		$('#optIndexedDB').removeClass('toggle');
+		$('#optWebSQL').removeClass('toggle');		
+		$('#optLocalStorage').removeClass('toggle');
 		if (app.read('app_database','asyncStorage'))		{ $('#optIndexedDB').addClass('toggle');	} 
 		if (app.read('app_database','webSQLStorage'))		{ $('#optWebSQL').addClass('toggle');		} 
 		if (app.read('app_database','localStorageWrapper')) { $('#optLocalStorage').addClass('toggle');	}
