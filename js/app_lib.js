@@ -32,7 +32,6 @@ app = {
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
-		'use strict';
 		//FIX
 		//e = e || window.event;
 		//e = $.event.fix(e);
@@ -906,7 +905,6 @@ app.handlers = {
 	activeRowTimer   : [],	
 	activeLastObj    : [],
 	activeRow : function (target, style, callback,callbackCondition) {
-		'use strict';
 		var t = searchalize(target);
 		var isButton = style == 'button' ? 1 : 40;
 		if(app.device.osxapp || app.device.osx) {
