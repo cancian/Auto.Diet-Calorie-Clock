@@ -1,5 +1,5 @@
 ﻿//##/////////////////////////##//
-//## JQUERY.NICESCROLL 3.6.0 ##//
+//## JQUERY.NICESCROLL 3.6.0 ##// 2016-09-cancian-fix
 ///##////////////////////////##// https://github.com/inuyaksa/jquery.nicescroll
 (function ($) {
 	'use strict';

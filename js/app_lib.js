@@ -18,23 +18,18 @@ if(typeof app === 'undefined') { var app = {}; }
 var appRows = { entry: [], food: [] };
 app.ua      = navigator.userAgent;
 app = {
-	width: window.innerWidth,
-	height: window.innerHeight,
+	width: function() { return parseInt(Math.max(document.documentElement.clientWidth, window.innerWidth  || 0)); },
+	height: function() { return parseInt(Math.max(document.documentElement.clientHeight, window.innerHeight || 0)); },
 	globals: {},
 	handlers: {},
 	timers: {},
 	vars: {},
-	//base64: {
-	//	encode: function (e){if("undefined"==typeof window)return new Buffer(e).toString("base64");if("undefined"!=typeof window.btoa)return window.btoa(escape(encodeURIComponent(e)));var n,t,o,r,a,c,d,i,f="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",h=0,u=0,w="",A=[];if(!e)return e;e=unescape(encodeURIComponent(e));do n=e.charCodeAt(h++),t=e.charCodeAt(h++),o=e.charCodeAt(h++),i=n<<16|t<<8|o,r=i>>18&63,a=i>>12&63,c=i>>6&63,d=63&i,A[u++]=f.charAt(r)+f.charAt(a)+f.charAt(c)+f.charAt(d);while(h<e.length);w=A.join("");var p=e.length%3;return(p?w.slice(0,p-3):w)+"===".slice(p||3)},
-	//	decode: function (e){if("undefined"==typeof window)return new Buffer(e,"base64").toString("utf-8");if("undefined"!=typeof window.atob)return decodeURIComponent(unescape(window.atob(e)));var n,r,o,t,d,i,f,a,c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",u=0,h=0,w="",C=[];if(!e)return e;e+="";do t=c.indexOf(e.charAt(u++)),d=c.indexOf(e.charAt(u++)),i=c.indexOf(e.charAt(u++)),f=c.indexOf(e.charAt(u++)),a=t<<18|d<<12|i<<6|f,n=a>>16&255,r=a>>8&255,o=255&a,64===i?C[h++]=String.fromCharCode(n):64===f?C[h++]=String.fromCharCode(n,r):C[h++]=String.fromCharCode(n,r,o);while(u<e.length);return w=C.join(""),decodeURIComponent(escape(w.replace(/\0+$/,"")))}
-	//},
 	//user: localStorage.getItem('app_current_user').split('###'),
 	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
 		//FIX
-		//e = e || window.event;
-		//e = $.event.fix(e);
+		e = $.event.fix(e);
 		//DEFINE
 		var out = {
 			x : 0,
@@ -823,12 +818,12 @@ var storeEntry;
 var storeFood;
 var hasSql              = (window.openDatabase && localStorage.getItem('config_nodb') !== 'active') ? true : false;
 var AND                 = ' ';
-var initialScreenWidth  = window.innerWidth;
-var initialScreenHeight = window.innerHeight;
+var initialScreenWidth  = app.width;
+var initialScreenHeight = app.height;
 var orientationSwitched = 0;
-var initialScreenSize   = window.innerHeight;
-var lastScreenSize      = window.innerHeight;
-var lastScreenResize    = window.innerHeight;
+var initialScreenSize   = app.height;
+var lastScreenSize      = app.height;
+var lastScreenResize    = app.height;
 var opaLock             = 0;
 var loadingDivTimer;
 var timerPerf           = (new Date().getTime());
@@ -1863,9 +1858,9 @@ function isOdd(val) {
 ////////////////
 function decimalize(val,p) {
 	if((Math.round(Number(val) *  10) / 10)  == 0 && p == -1) { return '0';    }
-	if((Math.round(Number(val) *  10) / 10)  == 0 && p ==  1)  { return '0.0';  }
+	if((Math.round(Number(val) *  10) / 10)  == 0 && p ==  1) { return '0.0';  }
 	if((Math.round(Number(val) * 100) / 100) == 0)			  { return '0.00'; }
-	if(p == 1)				{
+	if(p == 1) {
 		return Math.round(Number(val) * 10) / 10;
 	}
 	return Math.round(Number(val) * 100) / 100;
@@ -2303,33 +2298,36 @@ function android2Select() {
 function cssLoadCount(num,total) {
 	if(typeof LANG === 'undefined') { return; }
 	//
-	var loadCounter = " (" + num + "/" + total + ")";
+	var loadCounter = ' (' + num + '/' + total + ')';
 	if(num == 0 && total == 0) { loadCounter = ''; }
-	$("#cssAutoUpdate").html2("\
-		.loading #advancedAutoUpdate:before	  { content: '" + LANG.DOWNLOADING[lang]     + loadCounter + "'; }\
-		.pending #advancedAutoUpdate:before	  { content: '" + LANG.RESTART_PENDING[lang] + "'; }\
-		.uptodate #advancedAutoUpdate:before  { content: '" + LANG.UP_TO_DATE[lang]      + "'; }\
-		.corrupted #advancedAutoUpdate:before { content: '" + LANG.CORRUPTED[lang]       + "'; }\
-		.spinnerMask #loadMask:before		  { content: '" + LANG.PREPARING_DB[lang]    + "'; }\
-		.spinnerMask.updtdb #loadMask:before  { content: '" + LANG.UPDATING_DB[lang]     + "'; }\
-	");
+	$('#cssAutoUpdate').html2('\
+		.loading #advancedAutoUpdate:before	  { content: "' + LANG.DOWNLOADING[lang]     + loadCounter + '"; }\
+		.pending #advancedAutoUpdate:before	  { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
+		.uptodate #advancedAutoUpdate:before  { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\
+		.corrupted #advancedAutoUpdate:before { content: "' + LANG.CORRUPTED[lang]       + '"; }\
+		.spinnerMask #loadMask:before		  { content: "' + LANG.PREPARING_DB[lang]    + '"; }\
+		.spinnerMask.updtdb #loadMask:before  { content: "' + LANG.UPDATING_DB[lang]     + '"; }\
+	');
 }
 //////////////
 // KICKDOWN //
 //////////////
 function kickDown(el) {
 	if(!el) { el = '#appContent'; }
-	if(!$('body').hasClass('android2')) {
-		if(!app.device.desktop || app.device.windows8) {
-			window.scrollTo(0, 0);
-			if(document.body) {
-				document.body.scrollTop = 0;
+	//
+	try {
+		if(!$('body').hasClass('android2')) {
+			if(!app.device.desktop || app.device.windows8) {
+				window.scrollTo(0, 0);
+				if(document.body) {
+					document.body.scrollTop = 0;
+				}
+				//window.scroll($(el)[0].scrollTop,0,0);
 			}
-			//window.scroll($(el)[0].scrollTop,0,0);
+		} else {
+			$(el).scrollTop($(el).scrollTop());
 		}
-	} else {
-		$(el).scrollTop($(el).scrollTop());
-	}
+	} catch(err) { errorHandler(err); }
 }
 ///////////////////
 // TRACK INSTALL //

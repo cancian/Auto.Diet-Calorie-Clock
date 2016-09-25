@@ -640,8 +640,8 @@ $(window).on('orientationchange', function(evt) {
 ////////////
 app.globals.recentResize = 0;
 window.onresize = function(evt) {
-	app.width  = window.innerWidth;
-	app.height = window.innerHeight;
+	//app.width  = app.width;
+	//app.height = app.height;
 	app.globals.recentResize = 1;
 	clearTimeout(app.timers.recentResize);
 	app.timers.recentResize = setTimeout(function() {
@@ -652,7 +652,7 @@ window.onresize = function(evt) {
 	//unlock top white gap
 	$('body').trigger('touchmove');
 	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
-	//if(window.innerHeight > $('body').height()) {
+	//if(app.height > $('body').height()) {
 	if(initialScreenSize > $('body').height() && !app.device.windows8) {
 		//IOS re-scrolling bug
 		if(app.device.ios) {
@@ -664,11 +664,11 @@ window.onresize = function(evt) {
 	//ALWAYS RESIZE NON-MOBILE BROWSER
 	if(app.device.windows8 || app.device.windows81 || app.device.windows10) {
 		//resize triggers blur on orientation change
-		if(window.innerWidth == initialScreenHeight && orientationSwitched == 0) {
+		if(app.width == initialScreenHeight && orientationSwitched == 0) {
 			appResizer(0);
 			appResizer(300);
 			orientationSwitched = 1;
-		} else if(window.innerWidth == initialScreenWidth && orientationSwitched == 1) {
+		} else if(app.width == initialScreenWidth && orientationSwitched == 1) {
 			appResizer(0);
 			appResizer(300);
 			orientationSwitched = 0;
@@ -680,7 +680,7 @@ window.onresize = function(evt) {
 	} else if(app.device.desktop) {
 		appResizer(0);
 	}
-	//notepad (ios6 fix)(window.innerHeight)
+	//notepad (ios6 fix)(app.height)
 	if($('#diaryNotesInput').length) {
 		if($('#diaryNotesInput').length && !app.device.wp8 && !app.device.windows8) {
 			$('#diaryNotesInput').scrollTop($('#diaryNotesInput').scrollTop());

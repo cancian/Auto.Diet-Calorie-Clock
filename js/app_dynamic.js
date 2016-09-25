@@ -632,8 +632,8 @@ $(document).on("pageReload", function (evt) {
 						////////////////////
 						$('#menuTopBar').css2("top", "61px");
 						//$('#foodList').css2("margin-top","61px");
-						//$('#foodList').css2("min-height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
-						//$('#foodList').css2("height", (window.innerHeight - ($('#appHeader').height() + 61)) + "px");
+						//$('#foodList').css2("min-height", (app.height - ($('#appHeader').height() + 61)) + "px");
+						//$('#foodList').css2("height", (app.height - ($('#appHeader').height() + 61)) + "px");
 						//$('#foodList').css2("top",($('#appHeader').height()) + "px");
 						getNiceScroll('#foodList',200,function() {
 							niceResizer(200);

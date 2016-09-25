@@ -7,7 +7,7 @@ function showIntro() {
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
 	//& wp8.1 under wp10
-	if((window.innerHeight < 350 && app.device.blackberry) || (/Windows Phone 8.1/i.test(app.ua) && /Trident\/8/i.test(app.ua)) ) {
+	if((app.height < 350 && app.device.blackberry) || (/Windows Phone 8.1/i.test(app.ua) && /Trident\/8/i.test(app.ua)) ) {
 		return;
 	}
 	//////////////////
@@ -2246,8 +2246,8 @@ function getNiceScroll(target,timeout,callback) {
 function appResizer(time,callback) {
 	if(!time) { time = 0; }
 	app.timeout('appResizer',time,function() {
-		app.width  = window.innerWidth;
-		app.height = window.innerHeight;
+		//app.width  = app.width;
+		//app.height = app.height;
 		//app.relWidth  = app.width  / app.read('app_zoom');
 		//app.relHeight =  app.height / app.read('app_zoom');
 		/*
