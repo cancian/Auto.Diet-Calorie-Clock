@@ -7,7 +7,7 @@ function showIntro() {
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
 	//& wp8.1 under wp10
-	if((app.height < 350 && app.device.blackberry) || (/Windows Phone 8.1/i.test(app.ua) && /Trident\/8/i.test(app.ua)) ) {
+	if((app.height() < 350 && app.device.blackberry) || (/Windows Phone 8.1/i.test(app.ua) && /Trident\/8/i.test(app.ua)) ) {
 		return;
 	}
 	//////////////////
@@ -1166,7 +1166,7 @@ function spinner(action,target) {
 		$('#loadMask').off().on(touchstart,function(evt) {
 			var pos = app.pointer(evt);
 			//USE :AFTER COORDS
-			if(app.width - pos.x < 120 && app.height - pos.y < 120) {
+			if(app.width() - pos.x < 120 && app.height() - pos.y < 120) {
 				//DIALOG
 				appConfirm(LANG.CANCEL[lang].toUpperCase() + ' (' + (LANG.DATABASE_UPDATE[lang]).toLowerCase() + ')', LANG.ARE_YOU_SURE[lang].capitalize(), function(button) {
 					//$('#loadMask').css2('pointer-events','none')
@@ -2246,10 +2246,8 @@ function getNiceScroll(target,timeout,callback) {
 function appResizer(time,callback) {
 	if(!time) { time = 0; }
 	app.timeout('appResizer',time,function() {
-		//app.width  = app.width;
-		//app.height = app.height;
-		//app.relWidth  = app.width  / app.read('app_zoom');
-		//app.relHeight =  app.height / app.read('app_zoom');
+		//app.relWidth  = app.width()  / app.read('app_zoom');
+		//app.relHeight =  app.height() / app.read('app_zoom');
 		/*
 		if(vendorClass == 'moz' || vendorClass == 'msie') {
 			$('body').css2('width', app.relWidth + 'px');
@@ -2257,7 +2255,7 @@ function appResizer(time,callback) {
 		}
 		*/
 		if(!app.device.msapp && !app.device.desktop && !app.device.linux && !app.device.ipad) {
-			$('body').css2('min-height', app.height);
+			$('body').css2('min-height', app.height());
 		}
 		//unlock top white gap
 		$('body').trigger('touchmove');
@@ -2267,7 +2265,7 @@ function appResizer(time,callback) {
 		////////////////////////
 		// WRAPPER MIN-HEIGHT //
 		////////////////////////
-		var wrapperMinH = (app.height) - (154 + $('#appHeader').height() + $('#appFooter').height());
+		var wrapperMinH = (app.height()) - (154 + $('#appHeader').height() + $('#appFooter').height());
 		if(wrapperMinH < 0) {
 			wrapperMinH = 0;
 		}
