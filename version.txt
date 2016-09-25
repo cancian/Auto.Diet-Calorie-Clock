@@ -5,6 +5,9 @@
 ★ Weight tracker (in progress)
 ★ Shoutbox for users to interact
 
+# 2.0.4 [2016/09/25]
+• Fixed minor resize flicker on diary tab
+
 # 2.0.3 [2016/09/19]
 • Normalized touch events
 • Fixed unusual css selector exception while changing database engine

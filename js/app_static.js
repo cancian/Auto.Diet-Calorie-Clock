@@ -1357,7 +1357,9 @@ if(app.is.scrollable && app.device.desktop) {
 	//LOAD TIME
 	if (typeof initTime !== 'undefined') {
 		var loadTime = app.now() - initTime;
-		app.analytics('init',loadTime);
+		setTimeout(function() {
+			app.analytics('init',loadTime);
+		}, 2000);
 		if (app.beenDev) {
 			app.toast(loadTime + ' ms');
 		}
