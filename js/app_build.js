@@ -670,9 +670,10 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	/////////////
 	// SIDEBAR //
 	/////////////
-	app.define('config_sidebar',1);
-	if(app.read('config_sidebar') == 1) {
-		$('body').addClass('sidebar');
+	app.define('config_sidebar', 1);
+	//
+	if(app.read('config_sidebar')) {
+		$('body').addClass('sidebar')
 	} else {
 		$('body').removeClass('sidebar');
 	}
@@ -687,6 +688,15 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		}
 		return false;
 	});
+	///////////////////////////////////////////
+	// ENTRYWRAPPER UNFLICKER INITIAL RESIZE //
+	///////////////////////////////////////////
+	if(typeof app.wrapperMinHeight !== 'undefined') {
+		app.wrapperMinHeight()
+		setTimeout(function() {
+			app.wrapperMinHeight();
+		}, 0);
+	}
 	/////////////////////
 	// SLIDER.UPDATE() //
 	/////////////////////

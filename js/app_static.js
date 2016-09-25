@@ -651,7 +651,7 @@ window.onresize = function(evt) {
 	$('body').trigger('touchmove');
 	//IF WINDOW > BODY (PREVENT KEYBOARD COLAPSE)
 	//if(app.height() > $('body').height()) {
-	if(initialScreenSize > $('body').height() && !app.device.windows8) {
+	if(initialScreenSize > $('body').height() && !app.device.windows8 && !app.device.windows10) {
 		//IOS re-scrolling bug
 		if(app.device.ios) {
 			$('#entryListWrapper').height( $('#entryListWrapper').height() + 1);
@@ -677,6 +677,10 @@ window.onresize = function(evt) {
 		}
 	} else if(app.device.desktop) {
 		appResizer(0);
+	}
+	//WRAPPER MIN-HEIGHT
+	if(typeof app.wrapperMinHeight !== 'undefined') {
+		app.wrapperMinHeight();
 	}
 	//notepad (ios6 fix)(app.height())
 	if($('#diaryNotesInput').length) {

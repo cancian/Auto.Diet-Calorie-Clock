@@ -8,8 +8,8 @@ call k:\[bin]\resgradle.bat
 rem minify js/css
 rem call k:\[bin]\minify.bat
 
-attrib k:\platforms\*.* -r -h -a /s
-attrib k:\www\*.* -r -h -a /s
+rem attrib k:\platforms\*.* -r -h -a /s
+rem attrib k:\www\*.* -r -h -a /s
 k:\[bin]\embed k:\www\css\kcals.ttf 
 
 REM "ANDROID-GRADLE" 

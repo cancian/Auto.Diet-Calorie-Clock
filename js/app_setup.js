@@ -2240,6 +2240,22 @@ function getNiceScroll(target,timeout,callback) {
 		niceResizer(120);
 	},timeout);
 }
+///////////////////////////////
+// UPDATE WRAPPER MIN-HEIGHT //
+///////////////////////////////
+app.wrapperMinHeight = function() {
+	var wrapperMinH = (app.height()) - (154 + $('#appHeader').height() + $('#appFooter').height());
+	if(wrapperMinH < 0) {
+		wrapperMinH = 0;
+	}
+	//HOLDER
+	if(!$('#entryListHeight').length) {
+		$('head').append2('<style type="text/css" id="entryListHeight"></style>');
+	}
+	//IF NEEDED
+	$('#entryListHeight').html2('#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }');
+	//$('#entryListWrapper').css2('min-height', wrapperMinH + 'px');
+};
 //#/////////////#//
 //# APP RESIZER #//
 //#/////////////#//
@@ -2262,23 +2278,11 @@ function appResizer(time,callback) {
 		//SCROLLBAR UPDATE
 		niceResizer();
 		niceResizer(400);
-		////////////////////////
-		// WRAPPER MIN-HEIGHT //
-		////////////////////////
-		var wrapperMinH = (app.height()) - (154 + $('#appHeader').height() + $('#appFooter').height());
-		if(wrapperMinH < 0) {
-			wrapperMinH = 0;
-		}
-		//HOLDER
-		if(!$('#entryListHeight').length) {
-			$('head').append2('<style type="text/css" id="entryListHeight"></style>');
-		}
-		//IF NEEDED
-		wrapperMinH = '#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }';
-		$('#entryListHeight').html2(wrapperMinH);
+		//WRAPPER MIN-HEIGHT
+		app.wrapperMinHeight();
 		//
 		$('#appHelper').height($('#appContent').height());
-		$('#appSubHelper').height($('#appContent').height());
+		$('#appSubHelper').height($('#appContent').height());		
 		//
 		//$('#newWindowWrapper').hide();
 		//if($('#newWindowWrapper').hasClass('sideload')) {
