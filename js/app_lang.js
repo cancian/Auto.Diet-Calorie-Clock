@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.0.4 (200402)';
+var appVersion = '2.0.4 (200403)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -185,7 +185,7 @@ var LANG = {
 	CALORIE_COUNTER : {
 		en : 'Calorie Counter',
 		pt : 'Contador de Calorias',
-		ar : 'عداد السُعرات الحرارية',
+		ar : 'عداد السعرات', //'عداد السُعرات الحرارية',
 		bg : 'Брояч на Калории',
 		cs : 'Počítadlo Kalorií',
 		da : 'Kalorietæller',

@@ -1,11 +1,11 @@
 ﻿html, body								{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%; overflow: hidden; margin: 0; background-color: #fff; -ms-touch-action: none; touch-action: none; }
-*, ::before, ::after					{ -webkit-box-sizing: border-box; -webkit-user-select: none; user-select: none; padding: 0; margin: 0; outline: 0; border: 0; border-radius: 0; -webkit-user-callout: none !important; -webkit-touch-callout: none !important; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
+*, *::before, *::after					{ -webkit-box-sizing: border-box; -webkit-user-select: none; user-select: none; padding: 0; margin: 0; outline: 0; border: 0; border-radius: 0; -webkit-user-callout: none !important; -webkit-touch-callout: none !important; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 .osx *, .osx *::before, .osx *::after,
 .ios *, .ios *::before, .ios *::after	{ -webkit-perspective: 0 !important; font-weight: 400; }
-.desktop.webkit ::before, 
-.desktop.webkit ::after					{ font-weight: 300 !important; }
+.desktop.webkit *::before, 
+.desktop.webkit *::after				{ -webkit-perspective: 0 !important; font-weight: 300 !important; }
 /*native scroll*/
-.overthrow								{ overflow: auto !important; }
+.overthrow								{ overflow: auto !important; /*-webkit-transform: rotateZ(360deg);*/ }
 .ios.overthrow							{ -webkit-overflow-scrolling: touch; }
 .msie.overthrow							{ -ms-touch-action: pan-y; touch-action: pan-y; }
 .desktop,
@@ -16,6 +16,8 @@ html.wp81,
 html.wp10,
 html.windows8,
 html.windows10							{ -ms-touch-action: pan-x; touch-action: pan-x; }
+.tboost									{ -webkit-backface-visibility: hidden; -webkit-perspective: 1000; -webkit-transform: translate3d(0,0,0); }
+.zboost									{ -webkit-transform: translateZ(0); -webkit-transform: rotateZ(360deg); }
 /* fonts */
 html, body, input, select, textarea,
 input[type='number'], input[type='text']{ font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
