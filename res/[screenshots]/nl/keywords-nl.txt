@@ -1,1 +1,1 @@
-﻿calorie,calorieteller,gewichtsverlies,kcal,kcals,teller,gewicht,verlies,gezonde,dieet,klok,real time
+﻿calorie,calorieteller,gewichtsverlies,kcal,kcals,teller,gewicht,verlies,gezonde,dieet,klok,real,time

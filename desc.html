@@ -38,7 +38,6 @@ function trim(str) {
 //burn, cal, calculator, caloric, calorie, calorie clock, calorie counter, counter, fat, fitness, kcal, kcals, lose, loss, metabolism, real-time, time, timer, tracker, weight 
 
 
-
 var hash = 'EN';
 var lang = 'en';
 if(window.location.hash) {
@@ -93,7 +92,66 @@ LANG.GAIN_WEIGHT[lang]     + ',' +
 LANG.MENU_DIARY[lang]      + ',' +
 LANG.EXERCISE[lang]        + ',' +
 LANG.CARBOHYDRATE[lang];
-//////////////
+///////////////////////////////////////////////////////////
+if(lang == 'en') {
+keyList = "kcal,kcals,tracker,caloric,calculator,weight,loss,lose,gain,health,diet,fat,clock,real,time,burn,fit,shape,fitness,metabolism"; //EN
+} else if(lang == 'pt') {
+keyList = "kcal,kcals,tracker,calorico,calculadora,peso,perda,perder,emagrecer,ganhar,saúde,dieta,gordura,forma,relógio,real,tempo,queimar,fitness,metabolismo";	//PT
+} else if(lang == 'ar') {
+keyList = "kcal,kcals,tracker,عدَّاد,السعرات,الحرارية,انقاص,وزنه,حمية,السعرات,الحرارية,عداد,السعرات,الحرارية،,السعرات,الحرارية،,سعرات,حرارية،,تعقب،,آلة,حاسبة،,والوزن،,وفقدان،,وتفقد،,وزيادة،,والصحة،,والنظام,الغذائي،,والدهون،,على,مدار,الساعة،,الحقيقي،,والوقت،,وحرق،,وصالح،,والشكل،,واللياقة,البدنية،,والتمثيل,الغذائي";	//AR
+} else if(lang == 'bg') {
+keyList = "kcal,kcals,tracker,калории,ккал,ккал,тракер,калкулатор,тегло,загуба,губят,печалба,здраве,диета,мазнини,часовник,реално,време,горят,добре,форма,фитнес,обмяната,веществата"; //BG
+} else if(lang == 'cs') {
+keyList = "kcal,kcals,tracker,kalkulačka,hmotnost,ztráta,ztratit,zisk,zdraví,stravě,tuku,hodiny,skutečný,čas,hoří,fit,tvar,fitness,metabolismus"; //CS
+} else if(lang == 'da') {
+keyList = "kcal,kcals,tracker,lommeregner,vægt,tab,taber,gain,sundhed,kost,fedt,ur,real,tid,brænde,fit,form,fitness,stofskifte"; //DA
+} else if(lang == 'de') {
+keyList = "kcal,kcals,tracker,kalorie,taschenrechner,gewicht,verlust,verlieren,gewinnen,gesundheit,ernährung,fett,uhr,real,zeit,brennen,fit,form,fitness,stoffwechsel"; //DE
+} else if(lang == 'el') {
+keyList = "kcal,kcals,tracker,θερμίδων,αριθμομηχανή,το,βάρος,απώλεια,χάνουν,το,κέρδος,την,υγεία,τη,διατροφή,το,λίπος,το,ρολόι,το,πραγματικό,το,χρόνο,έγκαυμα,τακτοποίηση,το,σχήμα,γυμναστήριο,μεταβολισμό"; //EL
+} else if(lang == 'es') {
+keyList = "kcal,kcals,tracker,calórica,calculadora,pérdida,de,peso,peso,ganar,salud,dieta,grasa,reloj,tiempo,forma,real,metabolismo"; //ES
+} else if(lang == 'fi') {
+keyList = "kcal,kcals,tracker,kalori,laskin,paino,menetys,menettää,gain,terveys,ruokavalio,rasvaa,kello,todellinen,aika,polttaa,fit,muoto,kunto,aineenvaihdunta"; //FI
+} else if(lang == 'fr') {
+keyList = "kcal,kcals,tracker,calculatrice,poids,perte,perdre,le,gain,la,santé,graisse,horloge,vrai,temps,brûlure,ajustement,forme,fitness,métabolisme"; //FR
+} else if(lang == 'hu') {
+keyList = "kcal,kcals,tracker,kalória,számológép,tömeg,veszteség,veszít,erősítés,egészség,diéta,kövér,óra,igazi,időben,éget,fit,alak,fitness,anyagcsere"; //HU
+} else if(lang == 'it') {
+keyList = "kcal,kcals,tracker,calorie,calcolatrice,peso,perdita,perdere,il,guadagno,la,salute,la,dieta,grasso,orologio,reale,tempo,bruciare,in,forma,la,forma,il,fitness,il,metabolismo"; //IT
+} else if(lang == 'id') {
+keyList = "kcal,kcals,tracker,kalori,kalkulator,berat,badan,kehilangan,kehilangan,gain,kesehatan,diet,lemak,jam,nyata,waktu,membakar,fit,bentuk,kebugaran,metabolisme"; //ID
+} else if(lang == 'ja') {
+keyList = "kcal,kcals,tracker,トラッカー,カロリー,トラッカー,電卓,重量,損失,ゲイン,健康,ダイエット,脂肪,クロック,実数,時間,火傷を失い,フィット感,形状,フィットネス,代謝"; //JA
+} else if(lang == 'ko') {
+keyList = "kcal,kcals,tracker,추적,칼로리,추적,계산기,무게,손실,이득,건강,다이어트,지방,시계,진짜,시간,레코딩을,잃고,적합,모양,피트니스,신진,대사"; //KO
+} else if(lang == 'nl') {
+keyList = "kcal,kcals,tracker,calculator,gewicht,verlies,winst,gezondheid,voeding,vet,klok,echt,tijd,branden,pasvorm,vorm,fitness,metabolisme"; //NL
+} else if(lang == 'nb') {
+keyList = "kcal,kcals,tracker,kalori,kalkulator,vekt,tap,tape,vinning,helse,kosthold,fett,klokke,real,tid,brenne,passform,,form,kondisjon,metabolisme"; //NB
+} else if(lang == 'pl') {
+keyList = "kcal,kcals,tracker,kalkulator,masy,ciała,utrata,tracą,zysk,zdrowie,dieta,tłuszcz,zegar,prawdziwy,czas,palić,dopasowanie,kształt,fitness,metabolizm"; //PL
+} else if(lang == 'ro') {
+keyList = "kcal,kcals,tracker,calculator,greutate,pierdere,pierde,câștig,sănătate,dietă,grăsimi,ceas,real,timp,arde,se,potrivesc,forma,sala,de,fitness,metabolismul"; //RO
+} else if(lang == 'ru') {
+keyList = "kcal,kcals,tracker,трекер,калории,трекер,калькулятор,вес,потеря,потерять,усиление,здоровье,диета,жир,часы,реальное,время,записывайте,подходят,форма,фитнес,обмен,веществ"; //RU
+} else if(lang == 'sv') {
+keyList = "kcal,kcals,tracker,kalorier,kalkylator,vikt,förlust,förlora,vinst,hälsa,kost,fett,klocka,verklig,tid,bränna,passform,form,fitness,metabolism"; //SV
+} else if(lang == 'tr') {
+keyList = "kcal,kcals,tracker,izci,izci,hesap,makinesi,kilo,kaybı,kazanç,sağlık,diyet,yağ,saat,gerçek,zaman,yanık,kaybetmek,uyum,şekil,fitness,metabolizma"; //TR
+} else if(lang == 'zh') {
+keyList = "kcal,kcals,tracker,跟踪器,卡路里,跟踪器,计算器,重量,损失,失去,增益,健康,饮食,脂肪,时钟,实数,时间,烧伤,适合,形状,健身,新陈代谢"; //ZH
+} else if(lang == 'zt') {
+keyList = "kcal,kcals,tracker,跟踪器,卡路里,跟踪器,計算器,重量,損失,失去,增益,健康,飲食,脂肪,時鐘,實數,時間,燒傷,適合,形狀,健身,新陳代謝"; //ZT
+} else if(lang == 'vi') {
+keyList = "kcal,kcals,calo,theo,dõi,tính,toán,cân,nặng,mất,mát,mất,đạt,được,sức,khỏe,chế,độ,ăn,uống,chất,béo,đồng,hồ,thực,tế,thời,gian,ghi,phù,hợp,hình,dạng,tập,thể,dục,sự,trao,đổi,chất"; //VI
+}
+//
+if(LANG.CALORIE_COUNTER[lang].indexOf(LANG.CALORIE[lang]) !== -1) {
+	keyList = LANG.CALORIE[lang] + ',' + keyList;
+}
+//
+///////////////////////////////////////////////////////////
 keyList = keyList.split('undefined').join('');
 keyList = keyList.split(' ').join(',');
 //keyList = keyList.split('-').join('');
@@ -104,7 +162,7 @@ keyList = keyList.split(',em,').join(',');
 keyList = keyList.split(',di,').join(',');
 keyList = keyList.split(',,').join(',');
 keyList = trim(keyList.toLowerCase());
-
+////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////
 keyList  = keyList.split(',');

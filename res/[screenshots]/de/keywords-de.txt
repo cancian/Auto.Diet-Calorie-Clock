@@ -1,1 +1,1 @@
-﻿Kalorien,Kalorien,kcal,kcals,Zähler,tracker,Gewicht,Verlust,verlieren,gesund,Echtzeit
+﻿kalorien,kalorien,kcal,kcals,zähler,tracker,gewicht,verlust,verlieren,gesund,echtzeit

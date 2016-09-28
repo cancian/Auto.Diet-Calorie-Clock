@@ -1,1 +1,1 @@
-﻿caloria,calórico,kcal,kcals,contador,peso,perda,perder,ganhar,saudável,dieta,relógio,tempo real
+﻿caloria,calorico,kcal,kcals,contador,peso,perda,perder,ganhar,saudavel,dieta,relogio,tempo,real

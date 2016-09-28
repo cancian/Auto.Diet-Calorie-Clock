@@ -1,1 +1,1 @@
-﻿kalori,kaloriler,kcal,kcals,sayacı,kilo,kaybı,kazanç,sağlıklı,beslenme,diyet,saat,gerçek zamanlı
+﻿kalori,kaloriler,kcal,kcals,sayacı,kilo,kaybı,kazanç,saglıklı,beslenme,diyet,saat,gercek,zamanlı

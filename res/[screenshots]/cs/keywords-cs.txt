@@ -1,0 +1,5 @@
+﻿Počítadlo kalorií 
+hubnout 
+Hubnutí 
+strava 
+kalorie

@@ -1,1 +1,1 @@
-﻿kalori,caloric,kcal,kalorier,teller,tracker,vekt,tap,tape,gevinst,sunt,kosthold,klokke,sanntid
+﻿kalori,caloric,kcal,kcals,kalorier,teller,tracker,vekt,tap,tape,gevinst,sunt,kosthold,klokke,sanntid
