@@ -29,7 +29,7 @@ app = {
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
 		//FIX
-		//e = $.event.fix(e);
+		e = $.event.fix(e);
 		//DEFINE
 		var out = {
 			x : 0,
@@ -50,7 +50,7 @@ app = {
 			}
 		}
 		//TOUCH EVENT
-		if (/touch|pointer/i.test(e.type) && e.originalEvent) {
+		if (/touch/i.test(e.type) && e.originalEvent) {
 			if(e.originalEvent.touches || e.originalEvent.changedTouches) {
 				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 				out.x = parseInt(touch.pageX);
@@ -1455,6 +1455,7 @@ function msPointerSet(prefix) {
 		touchcancel = 'MSPointerCancel';
 		touchleave  = 'MSPointerLeave';
 		touchout    = 'MSPointerOut';
+		app.save('config_autoupdate','off');
 	} else {
 		touchstart  = 'pointerdown';
 		touchend    = 'pointerup';
