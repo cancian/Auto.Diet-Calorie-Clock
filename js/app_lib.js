@@ -480,6 +480,18 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 // MODIFIED JQUERY W/ CALLLBACK //
 //////////////////////////////////
+// EACH2 //
+/////////// http://benalman.com/projects/jquery-misc-plugins/#each2
+var jq = $([1]);
+$.fn.each = function (fn) {
+	var i = -1;
+	while ((jq.context = jq[0] = this[++i]) && fn.call(jq[0], i, jq) !== false) {}
+	//chainability.
+	return this;
+};
+///////////
+// HTML2 //
+///////////
 $.prototype.html2 = function (data, callback) {
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
