@@ -5,9 +5,10 @@
 ★ Weight tracker (in progress)
 ★ Shoutbox for users to interact
 
-# 2.0.4 [2016/09/26]
+# 2.0.4 [2016/09/30]
 • Fixed minor resize flicker on diary tab
 • Accessibility improvements
+• Faster data parsing during sync
 
 # 2.0.3 [2016/09/19]
 • Normalized touch events
