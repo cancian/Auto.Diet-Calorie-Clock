@@ -44,8 +44,8 @@ AddType image/vnd.microsoft.icon .cur
 	####################
 	## STATIC CONTENT ##
 	####################
-	RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
-	RewriteRule index.html help.html [L,QSA]
+	#RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
+	#RewriteRule index.html help.html [L,QSA]
 	#################
 	## FORCE HTTPS ## 
 	################# *.HTML
@@ -59,9 +59,7 @@ AddType image/vnd.microsoft.icon .cur
 	RewriteCond %{REQUEST_URI} !.txt
 	RewriteCond %{HTTP_HOST} chronoburn\.com$ [NC]
 	RewriteRule ^ https://chronoburn.com%{REQUEST_URI} [R,L]
-	########
-	## JS ##
-	########
+	#JS
 	#RewriteCond %{HTTP_HOST} !.kcals.net$  [NC]
 	#RewriteCond %{HTTP_HOST} !192.168.1.5$ [NC]
 	#RewriteCond %{REQUEST_URI} !js/min/
@@ -88,8 +86,4 @@ AddType image/vnd.microsoft.icon .cur
 ## DEFLATE ##
 #############
 SetOutputFilter DEFLATE
-
-##########################
-## CHRONOBURN .HTACCESS ##
-##########################
 
