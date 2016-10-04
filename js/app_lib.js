@@ -1446,7 +1446,7 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
-app.touch = (('ontouchstart' in window) || ('onmsgesturechange' in window)) && !app.device.chrome ? true : false;
+app.touch = (('ontouchend' in document) || ('ontouchstart' in window) || ('onmsgesturechange' in window)) && !app.device.chrome ? true : false;
 ////////////////////
 // TOUCH HANDLERS //
 ////////////////////
