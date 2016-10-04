@@ -50,12 +50,9 @@ app = {
 			}
 		}
 		//TOUCH EVENT
-		if(!e.originalEvent) {
-			e.originalEvent	= out.e;
-		}
-		if (/touch|pointer/i.test(e.type)) {
-			if(e.originalEvent.touches || e.originalEvent.changedTouches) {
-				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+		if (/touch|pointer/i.test(e.type) && e.originalEvent) {
+			if(e.originalEvent.changedTouches) {
+				var touch = e.originalEvent.changedTouches[0];
 				if(typeof touch !== 'undefined') {
 					out.x = parseInt(touch.pageX);
 					out.y = parseInt(touch.pageY);
@@ -1449,7 +1446,7 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//
-app.touch = 'ontouchstart' in window && !app.device.chrome ? true : false;
+app.touch = (('ontouchstart' in window) || ('onmsgesturechange' in window)) && !app.device.chrome ? true : false;
 ////////////////////
 // TOUCH HANDLERS //
 ////////////////////
