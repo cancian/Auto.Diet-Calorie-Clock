@@ -50,12 +50,17 @@ app = {
 			}
 		}
 		//TOUCH EVENT
-		if (/touch/i.test(e.type) && e.originalEvent) {
+		if(!e.originalEvent) {
+			e.originalEvent	= out.e;
+		}
+		if (/touch|pointer/i.test(e.type)) {
 			if(e.originalEvent.touches || e.originalEvent.changedTouches) {
 				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-				out.x = parseInt(touch.pageX);
-				out.y = parseInt(touch.pageY);
-				return out;
+				if(typeof touch !== 'undefined') {
+					out.x = parseInt(touch.pageX);
+					out.y = parseInt(touch.pageY);
+					return out;
+				}
 			}
 		}
 		//REGULAR EVENT
@@ -379,9 +384,10 @@ app.device = {
 	ios10      : (/OS [10-19](.*) like Mac OS X/i).test(app.ua) ? true : false,	
 	ipad       : (/iPad/i).test(app.ua) ? true : false,
 	tablet     : (/iPad|tablet|surface/i).test(app.ua) ? true : false,
-	linux      : (/X11|Linux|Ubuntu/i).test(navigator.userAgent) && !(/Android/i).test(navigator.userAgent) ? true : false,
+	linux      : (/X11|Linux|Ubuntu/i).test(app.ua) && !(/Android/i).test(app.ua) ? true : false,
 	msapp      : (/MSApp/i).test(app.ua) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? true : false,
+	wp80       : (/IEMobile/i).test(app.ua) && !(/MSApp/i).test(app.ua) && (/Windows Phone 8.0/i).test(app.ua) ? true : false,
 	wp81       : (/Mobile/i).test(app.ua) && (/MSApp/i).test(app.ua)  ? true : false,
 	wp10       : (/MSAppHost\/3.0/i).test(app.ua) && (/Windows Phone 10/i).test(app.ua) ? true : false,
 	windows8   : (/MSApp/i).test(app.ua) && !(/IE___Mobile/i).test(app.ua) ? true : false,
@@ -1467,7 +1473,8 @@ function msPointerSet(prefix) {
 		touchcancel = 'MSPointerCancel';
 		touchleave  = 'MSPointerLeave';
 		touchout    = 'MSPointerOut';
-		app.save('config_autoupdate','off');
+		//BLOCK WP80 UPDATE 
+		if(!app.dev && app.device.wp80) { app.save('config_autoupdate','off'); }
 	} else {
 		touchstart  = 'pointerdown';
 		touchend    = 'pointerup';
@@ -1477,10 +1484,12 @@ function msPointerSet(prefix) {
 		touchout    = 'pointerout';
 	}
 }
-//SETPOINTER
-if (window.PointerEvent || window.MSPointerEvent) {
-	if(app.device.wp8 && !app.device.wp10 && !app.device.desktop) {
+//SETPOINTER (touchswipe ~ app.touch)
+if (window.navigator.pointerEnabled || window.navigator.msPointerEnabled && !app.touch) {
+	if(window.navigator.msPointerEnabled && !window.navigator.pointerEnabled && !app.touch) {
+	//if(app.device.wp8 && !app.device.wp10 && !app.device.desktop) {
 		//WP81 ON WP81 && WP10
+		//PREFFIX
 		msPointerSet(1);
 	} else {
 		//NO PREFIX
@@ -1488,7 +1497,7 @@ if (window.PointerEvent || window.MSPointerEvent) {
 	}
 }
 //OVERRIDE TAP
-if (app.device.msapp) {
+if (app.device.msapp || app.device.wp80) {
 	tap = 'click';
 }
 ///////////////
