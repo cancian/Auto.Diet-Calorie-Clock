@@ -1,7 +1,7 @@
 ﻿//#///////////#//
 //# BOOTSTRAP #//
 //#///////////#//
-if(typeof $ !== 'undefined') {
+if(typeof $ !== 'undefined' && typeof $.ajaxSetup !== 'undefined') {
 	$.support.cors = true;
 	$.ajaxSetup({cache: false, crossDomain: true, async: true, error: function(jqXHR, exception) {
 			 if(jqXHR.status === 0)           { console.log('Not connect.\n Verify Network.');         }
