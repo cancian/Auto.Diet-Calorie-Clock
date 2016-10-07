@@ -1694,6 +1694,7 @@ function getModalWindow(itemId) {
 			//UPDATE DB
 			setFav(modal,function() {
 				updateCustomList('fav');
+				setPush();
 			});
 		};
 		////////////////////
@@ -1712,6 +1713,7 @@ function getModalWindow(itemId) {
 								$('#' + $(this).parent('div').prop('id') + ' .' + modal.id).remove();
 							});
 						});
+						setPush();
 					},100);
 				}
 			}, LANG.OK[lang], LANG.CANCEL[lang]);
