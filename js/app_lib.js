@@ -483,16 +483,6 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 // MODIFIED JQUERY W/ CALLLBACK //
 //////////////////////////////////
-// EACH2 //
-/////////// http://benalman.com/projects/jquery-misc-plugins/#each2
-var jq = $([1]);
-$.fn.each = function (fn) {
-	var i = -1;
-	while ((jq.context = jq[0] = this[++i]) && fn.call(jq[0], i, jq) !== false) {}
-	//chainability.
-	return this;
-};
-///////////
 // HTML2 //
 ///////////
 $.prototype.html2 = function (data, callback) {
@@ -516,7 +506,6 @@ $.prototype.html2 = function (data, callback) {
 // CCS2 //
 //////////
 $.prototype.css2 = function (attr, value) {
-	'use strict';
 	//FILTER
 	if (typeof this === 'undefined' || typeof attr === 'undefined') {
 		return;
@@ -541,7 +530,6 @@ $.prototype.css2 = function (attr, value) {
 // APPEND2 //
 /////////////
 $.prototype.append2 = function (data, callback) {
-	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
@@ -560,7 +548,6 @@ $.prototype.append2 = function (data, callback) {
 
 };
 $.prototype.prepend2 = function (data, callback) {
-	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
@@ -578,7 +565,6 @@ $.prototype.prepend2 = function (data, callback) {
 	}
 };
 $.prototype.before2 = function (data, callback) {
-	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
@@ -596,7 +582,6 @@ $.prototype.before2 = function (data, callback) {
 	}
 };
 $.prototype.after2 = function (data, callback) {
-	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
