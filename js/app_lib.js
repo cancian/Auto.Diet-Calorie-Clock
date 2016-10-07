@@ -483,6 +483,16 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 // MODIFIED JQUERY W/ CALLLBACK //
 //////////////////////////////////
+// EACH2 //
+/////////// http://benalman.com/projects/jquery-misc-plugins/#each2
+var jq = $([1]);
+$.fn.each = function (fn) {
+	var i = -1;
+	while ((jq.context = jq[0] = this[++i]) && fn.call(jq[0], i, jq) !== false) {}
+	//chainability.
+	return this;
+};
+///////////
 // HTML2 //
 ///////////
 $.prototype.html2 = function (data, callback) {
@@ -1075,7 +1085,7 @@ app.handlers = {
 			// FILTER REPEATED //
 			/////////////////////
 			if (data[i].id && !rowHtml.contains(data[i].id)) {
-				data[i].id = Number(data[i].id);
+				data[i].id = data[i].id;
 				var favClass = (data[i].fib === 'fav') ? ' favItem' : '';
 				if((JSON.stringify(data[i].id)).length >= 13) {
 					favClass = favClass + ' customItem';
@@ -1127,7 +1137,7 @@ app.handlers = {
 				///////////////
 				if(filter) {
 					if(!rowSql.contains(data[i].id)) {
-						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(#^#" + Number(data[i].id) + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";					}
+						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(#^#" + data[i].id + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";					}
 				}
 			}
 		}
