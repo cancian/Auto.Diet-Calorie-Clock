@@ -5,10 +5,14 @@
 ★ Weight tracker (in progress)
 ★ Shoutbox for users to interact
 
-# 2.0.4 [2016/09/30]
+# 2.0.4 [2016/10/21]
+• Fixed the info screen showing without background (browser)
+
+# 2.0.4 [2016/10/11]
 • Fixed minor resize flicker on diary tab
 • Accessibility improvements
 • Faster data parsing during sync
+• Start-up time reduced by 30%
 
 # 2.0.3 [2016/09/19]
 • Normalized touch events
@@ -24,7 +28,7 @@
 • Refined user touch responses
 • Users can manually dismiss the “loading database” spinner dialog (in case it gets stuck)
 
-# 2.0.1 [2016/07/25]
+# 2.0.1 [2016/07/30]
 • Desktop browsers would sometimes trigger errors after window resize event
 • The daily intake input would handle the tap/focus event erratically on some devices
 • Fixed issue where custom entries would sometimes get duplicated after synchronization
