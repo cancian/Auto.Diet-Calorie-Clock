@@ -394,6 +394,7 @@ app.device = {
 	firefoxos  : (/firefox/i).test(app.ua) && (/mobile|tablet/i).test(app.ua) && (/gecko/i).test(app.ua) ? true : false,
 	osx        : (/Macintosh|Mac OS X/i).test(app.ua) && !(/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
 	osxapp     : (/MacGap/i).test(app.ua) ? true : false,
+	safari     : (/AppleWebKit/i.test(app.ua) && /macintosh|windows/i.test(app.ua) && /safari/i.test(app.ua) && !/mobile/i.test(app.ua) && !/chrome/i.test(app.ua)) ? true : false,
 	chrome     : (/chrome/i.test(app.ua) && /windows|macintosh|linux/i.test(app.ua) && !/mobile/i.test(app.ua) && !/nexus/i.test(app.ua)) ? true : false,
 	chromeos   : (app.get.isChromeApp()) ? true : false,
 	blackberry : (/BB10|BlackBerry|All Touch/i).test(app.ua) && !/(PlayBook)/i.test(app.ua) ? true : false,
@@ -668,10 +669,10 @@ app.zoom();
 // APP.INFO() //
 ////////////////
 app.info = function (title, msg, preHandler, postHandler) {
-	if($('#skipIntro').length)	   { return; }
-	if($(document).height() < 350) { return; }
-	if(app.globals.blockInfo == 1) { return; }
-	if (app.read('info_' + title)) { // && !app.dev) {
+	if($('#skipIntro').length)		{ return; }
+	if($(document).height() < 350)	{ return; }
+	if(app.globals.blockInfo == 1)	{ return; }
+	if (app.read('info_' + title))	{ // && !app.dev) {
 		return;
 	}
 	$('#screenInfo').remove();
@@ -758,9 +759,9 @@ app.ready = function(callback) {
 // ADD SCRIPT //
 ////////////////
 app.getScript = function(url) {
-	var script   = document.createElement('script');
+	var script  = document.createElement('script');
 	script.type = 'text/javascript';
-	script.src = url;
+	script.src  = url;
 	document.getElementsByTagName('head')[0].appendChild(script);
 };
 /////////
@@ -814,7 +815,6 @@ app.url = function(url) {
 //////////////
 // APP INFO //
 //////////////
-var userAgent           = navigator.userAgent;
 var appBalance;
 var appBalanceOver;
 var appStatus;
@@ -2359,13 +2359,18 @@ app.trackInstall = function () {
 	if (app.http) {
 		//WEBINSTALL
 		app.analytics('webinstall');
+		return;
 	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook) {
 		//INSTALL
-		app.analytics('install');
-	} else {
-		//BOGUS
-		app.analytics('bogus');
+		if(typeof baseVersion !== 'undefined') {
+			if(baseVersion > 2.0) {
+				app.analytics('install 2.1');
+				return;
+			}
+		}
 	}
+	//BOGUS ~ UNCAUGHT
+	app.analytics('bogus');
 };
 //#//////////////#//
 //# ONLINE USERS #//

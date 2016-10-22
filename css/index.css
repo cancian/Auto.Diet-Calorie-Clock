@@ -1708,6 +1708,8 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #screenInfo #circleFocus						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow:hidden;  display: block; -webkit-transform: translate3d(0, 0, 0); }
 #screenInfo #circleFocus:before,
 #screenInfo #circleFocus:after					{ content:''; position: absolute; border-radius: 900px; top: -124px; left: -54px; width: 230px; height: 230px; -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); }
+.safari #screenInfo #circleFocus:before,
+.safari #screenInfo #circleFocus:after			{ -webkit-box-shadow: 0 0 0 1900px rgba(0, 0, 0,.4) !important; box-shadow: 0 0 0 1900px rgba(0, 0, 0,.4) !important; }
 /*tweaks*/
 .ios #screenInfo #circleFocus:before,
 .ios #screenInfo #circleFocus:after,

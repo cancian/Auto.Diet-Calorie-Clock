@@ -823,6 +823,9 @@ $('body').addClass('appLang-' + lang);
 /////////
 // OSX //
 /////////
+if(app.device.safari) {
+	$('body').addClass('safari');
+}
 if(app.device.osx) {
 	$('body').addClass('osx');
 }
