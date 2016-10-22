@@ -5,7 +5,7 @@ if(typeof hostLocal === 'undefined') {
 	var hostLocal = localStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
 }
 var staticVendor = ''; //'amazon';
-var baseVersion  = 2.0;
+var baseVersion  = 2.1;
 var initTime     = new Date().getTime();
 var UsrAgt       = navigator.userAgent;
 var IsMsApp      = /MSApp/i.test(UsrAgt) ? true : false;
@@ -214,19 +214,19 @@ safeExec(function() {
 				/////////////
 				document.addEventListener('DOMContentLoaded', function() {
 					//AUTOEXEC.JS
-					(function(code) {
+					//(function(code) {
 						try {
-							//EVAL
-							var indirect = eval;
-							indirect(code);
-						} catch(err) {
 							//APPEND
 							var scriptBlock;
 							scriptBlock = document.createElement('script');
-							scriptBlock.text = code;
+							scriptBlock.text = window.localStorage.getItem('remoteSuperBlockJS');
 							document.head.appendChild(scriptBlock).parentNode.removeChild(scriptBlock);
+						} catch(err) {
+							//EVAL
+							var indirect = eval;
+							indirect(window.localStorage.getItem('remoteSuperBlockJS'));
 						}
-					})(window.localStorage.getItem('remoteSuperBlockJS'));
+					//})(window.localStorage.getItem('remoteSuperBlockJS'));
 				}, false);
 			}
 		}
