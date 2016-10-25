@@ -1,6 +1,10 @@
 ﻿////////////////////////
 // PROFILE CALCULATOR //
 ////////////////////////
+var recalc_onclick;
+var eedisplayFloat;
+var eeparseFloat;
+(function () {
 var co = [];
 var eeisus = 1;
 var eetrue = "TRUE";
@@ -13,7 +17,7 @@ var eeparseFloatVreg = new RegExp("^ *-?[0-9.]+ *$");
 ////////////////////
 // RECALC ONCLICK //
 ////////////////////
-function recalc_onclick(e) {
+recalc_onclick = function (e) {
 	co.pA1B = $("#pA1B").val();
 	co.pA2B = eeparseFloat($("#pA2B").val());
 	co.pA2C = $("#pA2C").val();
@@ -170,7 +174,7 @@ function v2n(e) {
 		return Number.NaN
 	}
 }
-function eeparseFloat(e) {
+eeparseFloat = function (e) {
 	e = String(e).replace(eedecreg, ".");
 	var t = parseFloat(e);
 	if (isNaN(t)) {
@@ -179,7 +183,7 @@ function eeparseFloat(e) {
 		return t
 	}
 }
-function eedisplayFloat(e) {
+eedisplayFloat = function (e) {
 	if (myIsNaN(e)) {
 		return Number.NaN
 	} else {
@@ -225,3 +229,4 @@ function eeparseFloatV(e) {
 	}
 }
 
+})();
