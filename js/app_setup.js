@@ -1773,9 +1773,9 @@ function buildHelpMenu(args) {
 	});
 	//LIST CLOSER HANDLER
 	app.handlers.activeRow('#backButton','button',function(evt) {
-	app.handlers.fade(0,'#appHelperWrapper',function() {
-		$('#appHelperWrapper').remove();
-	});
+		app.handlers.fade(0,'#appHelperWrapper',function() {
+			$('#appHelperWrapper').remove();
+		});
 	});
 	//////////////////////////////////
 	// CONTENT-BUILDER SELF-HANDLER //
@@ -1923,6 +1923,7 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 		// GLOBAL CLOSER //
 		///////////////////
 		var timerCloser;
+		var windowTitle = title;
 		function windowCloser() {
 			if(closer) {
 				closer();
@@ -1940,13 +1941,17 @@ function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
 				$('#appContent, #foodSearch').css2('pointer-events','auto');
 				$('body').removeClass(newClass);
 				clearTimeout(timerCloser);
-				setPush();
+				if(!/help|chronoburn/i.test(windowTitle)) {
+					setPush();
+				}
 			});
 			timerCloser = setTimeout(function() {
 				$('#' + newWindow + 'Wrapper').remove();
 				$('#appContent, #foodSearch').css2('pointer-events','auto');
 				$('body').removeClass(newClass);
-				setPush();
+				if(!/help|chronoburn/i.test(windowTitle)) {				
+					setPush();
+				}
 			},500);
 		}
 		///////////////////////////////////
