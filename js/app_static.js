@@ -1248,7 +1248,9 @@ if(app.is.scrollable && app.device.desktop) {
 	// APPCONTENT GLOBAL UNFOCUS (DAILY INPUT) //
 	/////////////////////////////////////////////
 	$('#appContent').on(touchend, function(evt) {
-		$('#timerDailyInput').blur();
+		if($('#timerDailyInput').is(':focus')) {
+			$('#timerDailyInput').blur();
+		}
 	});
 	//##//////////////##//
 	//## HEADER SWIPE ##//
@@ -1266,7 +1268,7 @@ if(app.is.scrollable && app.device.desktop) {
 			else if(app.read('app_last_tab','tab3')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab2'); headerSwipeBlock = 0; }, 150); }
 			else if(app.read('app_last_tab','tab2')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
 			else if(app.read('app_last_tab','tab1')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab4'); headerSwipeBlock = 0; }, 150); }
-		} else {
+		} else if(/right/i.test(evt.direction || evt.type)) {
 			clearTimeout(headerSwipe);
 			kickDown();
 		         if(app.read('app_last_tab','tab4')) { headerSwipeBlock = 1; headerSwipe = setTimeout(function() { appFooter('tab1'); headerSwipeBlock = 0; }, 150); }
