@@ -139,21 +139,17 @@ function appTimer(content) {
 	// self adjust refresh rate based on perfomance //
 	//////////////////////////////////////////////////
 	//sensibility
-	timerDiff = (app.now() - timerPerf) * 5;
+	timerDiff = (app.now() - timerPerf) * 10;
 	timerWait = timerDiff;
-	timerDiff = Math.round((timerDiff/2) + (timerWait/2));
-	if(app.device.wp8 || app.device.android) {
-		timerDiff = timerDiff*10;
+	timerDiff = Math.round((timerDiff * 0.5) + (timerWait * 0.5));
+	if(app.device.wp8 || app.device.msapp || app.device.android || app.device.blackberry) {
+		timerDiff = timerDiff*15;
 	} else {
-		timerDiff = timerDiff*10;
+		timerDiff = timerDiff*15;
 	}
 	//THROTTLE LIMIT
-	if(timerDiff > 600)		{ timerDiff = 600; }
-	if(app.device.mobile) {
-		if(timerDiff < 200) { timerDiff = 200; }
-	} else {
-		if(timerDiff < 100)	{ timerDiff = 100; }
-	}
+	if(timerDiff > 500)	{ timerDiff = 5000; }
+	if(timerDiff < 100)	{ timerDiff = 100;  }
 }
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//
