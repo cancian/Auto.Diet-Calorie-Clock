@@ -29,7 +29,7 @@ app = {
 	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
 		//FIX
-		e = $.event.fix(e);
+		//e = $.event.fix(e);
 		//DEFINE
 		var out = {
 			x : 0,
@@ -1142,7 +1142,7 @@ app.handlers = {
 				///////////////
 				if(filter) {
 					if(!rowSql.contains(data[i].id)) {
-						rowSql += "INSERT OR REPLACE INTO \"diary_food\" VALUES(#^#" + data[i].id + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";					}
+						rowSql += "\"diary_food\" VALUES(#^#" + data[i].id + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";					}
 				}
 			}
 		}

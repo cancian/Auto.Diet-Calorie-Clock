@@ -68,12 +68,14 @@ function getWeightTracker() {
 			/////////////
 			//CANCEL
 			$('#appTrackerButtonCancel').on(tap,function(evt) {
+				evt.stopPropagation();
 				app.handlers.fade(0,'#appTrackerEditWrapper', 300);
 			});
 			//////////
 			// SAVE //
 			//////////
 			$('#appTrackerButtonSave').on(tap,function(evt) {
+				evt.stopPropagation();
 				weightData = app.read('weight_tracker','','object').sort();
 				var weightInput = parseInt($('#appTrackerEditInput').val());
 				var dateInput   = toTime($('#appTrackerInputDate').val());
@@ -103,6 +105,7 @@ function getWeightTracker() {
 			// DELETE //
 			////////////
 			$('#appTrackerButtonDelete').on(tap,function(evt) {
+				evt.stopPropagation();
 				var weightInput = parseInt($('#appTrackerEditInput').val());
 				var dateInput = toTime($('#appTrackerInputDate').val());
 					//loop
@@ -182,14 +185,15 @@ function getWeightTracker() {
 			// TRIGGER DATEPICKER //
 			////////////////////////
 			$('#appTrackerInputDateWrapper').on(tap,function(evt) {
-				evt.stopPropagation();		
-				$('#appTrackerInputDate').click();
+				evt.stopPropagation();
+				setTimeout(function() {
+					$('#appTrackerInputDate').click();
+				},100);
 			});
 			/////////////////
 			// SHOW EDITOR //
 			/////////////////	
 			app.handlers.fade(1, '#appTrackerEditWrapper', 300);
-		
 		});
 		//#/////////////////////////#//
 		//# REBUILD HISTORY SNIPPET #//

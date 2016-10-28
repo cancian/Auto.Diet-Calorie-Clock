@@ -7,7 +7,7 @@
 ★ Shoutbox for users to interact (under development)
 
 # 2.0.4 [2016/10/29]
-• Weight tracker
+• Weight tracker (profile tab)
 • Fixed the info screen showing without background (browser)
 
 # 2.0.4 [2016/10/11]

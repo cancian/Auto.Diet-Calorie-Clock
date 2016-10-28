@@ -392,7 +392,7 @@ app.timeout('pushEntries',3000,function() {
 		// BUILD SQL ROW //
 		///////////////////
 		for(var i=0, len=data.length; i<len; i++) {
-			if(data[i].id) {
+			if(!isNaN(data[i].id)) {
 				id        = data[i].id;
 				title     = data[i].title;
 				body      = sanitizeSql(data[i].body);
@@ -420,7 +420,7 @@ app.timeout('pushEntries',3000,function() {
 				if(!sod)  { sod  = ''; }
 				//INSERT
 				if(id != '' && published != '') {
-					newLineFetch = "INSERT OR REPLACE INTO \"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "','" + fii + "','" + sug + "','" + sod + "');\n";
+					newLineFetch = "\"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "','" + fii + "','" + sug + "','" + sod + "');\n";
 					fetchEntries += newLineFetch;
 				}
 				////////////////
