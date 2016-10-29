@@ -90,7 +90,7 @@ app = {
 	now: function() {
 		return new Date().getTime();
 	},
-	define: function(key,value) {
+	define: function(key,value,type) {
 		//MULTIUSER
 		/*
 		if(!/mud_default/i.test(app.user)) {
@@ -102,8 +102,13 @@ app = {
 		*/
 		//
 		if(!localStorage.getItem(key)) {
-			localStorage.setItem(key,value);
-			return false;
+			if(type == 'object' || type == 'array') {
+				//OBJECT
+				localStorage.setItem(key,JSON.stringify(value));
+			} else {
+				//STRING
+				localStorage.setItem(key,value);
+			}
 		}
 		return true;
 	},
@@ -136,7 +141,7 @@ app = {
 		}
 		//
 		//OBJECT
-		if(type == 'object') {
+		if(type == 'object' || type == 'array') {
 			if(!localStorage.getItem(key)) {
 				return [];
 			}
@@ -192,7 +197,7 @@ app = {
 		}
 		//DIFF CHECK
 		if(localStorage.getItem(key) != value) {
-			if(type == 'object') {
+			if(type == 'object' || type == 'array') {
 				//OBJECT
 				localStorage.setItem(key,JSON.stringify(value));
 			} else {
@@ -486,13 +491,13 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 // EACH2 //
 /////////// http://benalman.com/projects/jquery-misc-plugins/#each2
-var jq = $([1]);
-$.fn.each = function (fn) {
-	var i = -1;
-	while ((jq.context = jq[0] = this[++i]) && fn.call(jq[0], i, jq) !== false) {}
-	//chainability.
-	return this;
-};
+//var jq = $([1]);
+//$.fn.each = function (fn) {
+//	var i = -1;
+//	while ((jq.context = jq[0] = this[++i]) && fn.call(jq[0], i, jq) !== false) {}
+//	//chainability.
+//	return this;
+//};
 ///////////
 // HTML2 //
 ///////////
@@ -622,10 +627,10 @@ app.toast = function (msg, tag) {
 	//DISMISS
 	setTimeout(function() {
 		$('.' + tag).on(tap, function () {
-			app.handlers.fade(0, '.' + tag, '', 300);
+			app.handlers.fade(0, '.' + tag, 300);
 		});
 		setTimeout(function() { 
-			app.handlers.fade(0, '.' + tag, '', 300);
+			app.handlers.fade(0, '.' + tag, 300);
 		},2000);
 	},0);
 };
@@ -1235,14 +1240,14 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 		if(inputValue >= minValue + 1) {
 			inputValue = inputValue - 1;
 		} else {
-			inputValue = 0;
+			inputValue = minValue;
 		}
 		$(target).val(decimalize(inputValue,-1));
 	});
 	//POS
 	app.handlers.repeater(target + 'Pos','active',400,25,function() {
 		if($(target).val() == '') {
-			$(target).val(0);
+			$(target).val(minValue);
 		}
 		var inputValue = valueType == 'int' ? parseInt($(target).val()) : parseFloat($(target).val());
 		if(inputValue <= maxValue - 1) {
@@ -2209,7 +2214,7 @@ function dtFormat(input) {
 ////////////////////
 // DAY UTC FORMAT //
 ////////////////////
-function DayUtcFormat(input) {
+var DayUtcFormat = function(input) {
     if(!input) { return ''; }
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
@@ -2218,6 +2223,16 @@ function DayUtcFormat(input) {
 	if(gotDate  < 10) { gotDate  = '0' + gotDate;  }
 	return input.getFullYear() + '/' + gotMonth + '/' + gotDate;
 }
+var toDate = DayUtcFormat;
+/////////////////////
+// CONVERT TO TIME //
+/////////////////////
+var toTime = function (input){
+	if(!input) { return; }
+	var datum = Date.parse(input);
+	return datum;
+}
+
 ////////////////
 // DAY FORMAT //
 ////////////////
