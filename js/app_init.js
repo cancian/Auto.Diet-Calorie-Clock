@@ -213,7 +213,6 @@ safeExec(function() {
 				// JS EVAL //
 				/////////////
 				document.addEventListener('DOMContentLoaded', function() {
-					'use strict';
 					try {
 						//APPEND
 						var scriptBlock;
