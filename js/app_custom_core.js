@@ -143,13 +143,14 @@ function appTimer(content) {
 	timerWait = timerDiff;
 	timerDiff = Math.round((timerDiff * 0.5) + (timerWait * 0.5));
 	if(app.device.wp8 || app.device.msapp || app.device.android || app.device.blackberry) {
-		timerDiff = timerDiff*15;
+		timerDiff = timerDiff*10;
 	} else {
-		timerDiff = timerDiff*15;
+		timerDiff = timerDiff*8;
 	}
 	//THROTTLE LIMIT
-	if(timerDiff > 500)	{ timerDiff = 5000; }
-	if(timerDiff < 100)	{ timerDiff = 100;  }
+	     if(timerDiff > 1000)	{ timerDiff = 5000; }
+	else if(timerDiff > 500)	{ timerDiff = 2000; }
+	else if(timerDiff < 100)	{ timerDiff = 100;  }
 }
 //#////////////////////////#//
 //# *LINEAR* TIME TO KCALS #//
