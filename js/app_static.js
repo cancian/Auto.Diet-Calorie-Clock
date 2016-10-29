@@ -102,14 +102,12 @@ $(document).on('visibilitychange focus', function (evt) {
 			clearTimeout(app.repeaterLoop);
 			//
 			if (window.hidden == false || window.visibilityState == 'visible' || evt.type == 'focus') {
-				//
+				//SYNC CACHE
 				updateCustomList('fav');
 				updateCustomList('items');
 				updateTodayOverview();
 				intakeHistory();
-				setTimeout(function() {
-					setPush();
-				},100);
+				//TRIGGER RESUME
 				if (app.device.desktop) {
 					$(document).trigger('resume');
 				} else if (app.device.osxapp) {
@@ -1102,7 +1100,7 @@ if(app.is.scrollable && app.device.desktop) {
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,3000);
+	setTimeout(lastEntryPush,4000);
 })();
 	////////////////////
 	// YUI COMPRESSOR // legacy
