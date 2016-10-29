@@ -268,6 +268,8 @@ function localStorageSql() {
 	if(app.read('config_measurement'))	{ keyList = keyList + '#@@@#' + 'config_measurement' + '#@@#' + app.read('config_measurement'); }
 	if(app.read('config_limit_1'))		{ keyList = keyList + '#@@@#' + 'config_limit_1'     + '#@@#' + app.read('config_limit_1');     }
 	if(app.read('config_limit_2'))		{ keyList = keyList + '#@@@#' + 'config_limit_2'     + '#@@#' + app.read('config_limit_2');     }
+	//weight tracker
+	if(app.read('weight_tracker'))		{ keyList = keyList + '#@@@#' + 'weight_tracker'     + '#@@#' + app.read('weight_tracker');     }
 	//counter mode
 	if(app.read('app_counter_mode'))	{ keyList = keyList + '#@@@#' + 'app_counter_mode' + '#@@#' + app.read('app_counter_mode');		}
 	if(app.read('colorDeficit'))		{ keyList = keyList + '#@@@#' + 'colorDeficit'     + '#@@#' + app.read('colorDeficit');			}
