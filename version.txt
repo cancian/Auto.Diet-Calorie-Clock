@@ -2,10 +2,12 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
-★ Weight tracker (in progress)
-★ Shoutbox for users to interact
+★ Missing something? You can ask for new features via the Suggestion Box
+★ Switch to a more compact database model to store sync data (in progress)
+★ Shoutbox for users to interact (under development)
 
-# 2.0.4 [2016/10/21]
+# 2.0.4 [2016/10/29]
+• Weight tracker
 • Fixed the info screen showing without background (browser)
 
 # 2.0.4 [2016/10/11]

@@ -1,11 +1,13 @@
 ﻿/////////////////////
 // LANGUAGE ENGINE //
 /////////////////////
+//lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcals,diet,fitness,health,shape,training
+//lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcal,track,diet,fitness,health,shape,it
 var appName = 'ChronoBurn';
-var appVersion = '2.0.5 (200501)';
+var appVersion = '2.0.5 (200502)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = false;
+var reviewMode = 1;
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';

@@ -1,5 +1,2289 @@
 ﻿////////////////
 // MOBISCROLL //
+//////////////// v2.9.0
+(function ($) {
+
+	function testProps(props) {
+		var i;
+		for (i in props) {
+			if (mod[props[i]] !== undefined) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	function testPrefix() {
+		var prefixes = ['Webkit', 'Moz', 'O', 'ms'],
+		p;
+
+		for (p in prefixes) {
+			if (testProps([prefixes[p] + 'Transform'])) {
+				return '-' + prefixes[p].toLowerCase() + '-';
+			}
+		}
+		return '';
+	}
+
+	function getCoord(e, c) {
+		var org = e.originalEvent,
+		ct = e.changedTouches;
+		return ct || (org && org.changedTouches) ? (org ? org.changedTouches[0]['page' + c] : ct[0]['page' + c]) : e['page' + c];
+	}
+
+	function init(that, options, args) {
+		var ret = that;
+
+		// Init
+		if (typeof options === 'object') {
+			return that.each(function () {
+				if (!this.id) {
+					this.id = 'mobiscroll' + (++id);
+				}
+				if (instances[this.id]) {
+					instances[this.id].destroy();
+				}
+				new $.mobiscroll.classes[options.component || 'Scroller'](this, options);
+			});
+		}
+
+		// Method call
+		if (typeof options === 'string') {
+			that.each(function () {
+				var r,
+				inst = instances[this.id];
+
+				if (inst && inst[options]) {
+					r = inst[options].apply(this, Array.prototype.slice.call(args, 1));
+					if (r !== undefined) {
+						ret = r;
+						return false;
+					}
+				}
+			});
+		}
+
+		return ret;
+	}
+
+	function testTouch(e) {
+		if (e.type == 'touchstart') {
+			touches[e.target] = true;
+		} else if (touches[e.target]) {
+			delete touches[e.target];
+			return false;
+		}
+		return true;
+	}
+
+	var id = +new Date,
+	touches = {},
+	instances = {},
+	extend = $.extend,
+	mod = document.createElement('modernizr').style,
+	has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
+	prefix = testPrefix(),
+	pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
+
+	$.fn.mobiscroll = function (method) {
+		extend(this, $.mobiscroll.components);
+		return init(this, method, arguments);
+	};
+
+	$.mobiscroll = $.mobiscroll || {
+		util : {
+			prefix : prefix,
+			jsPrefix : pr,
+			has3d : has3d,
+			getCoord : getCoord,
+			testTouch : testTouch
+		},
+		presets : {},
+		themes : {},
+		i18n : {},
+		instances : instances,
+		classes : {},
+		components : {},
+		defaults : {},
+		setDefaults : function (o) {
+			extend(defaults, o);
+		},
+		presetShort : function (name, c) {
+			this.components[name] = function (s) {
+				return init(this, extend(s, {
+						component : c,
+						preset : name
+					}), arguments);
+			};
+		}
+	};
+
+	$.scroller = $.scroller || $.mobiscroll;
+	$.fn.scroller = $.fn.scroller || $.fn.mobiscroll;
+
+})(jQuery);
+/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
+(function ($) {
+
+	$.mobiscroll.classes.Scroller = function (elem, settings) {
+		var m,
+		hi,
+		v,
+		dw,
+		persp,
+		overlay,
+		ww, // Window width
+		wh, // Window height
+		mw, // Modal width
+		mh, // Modal height
+		lock,
+		anim,
+		theme,
+		lang,
+		click,
+		hasButtons,
+		scrollable,
+		moved,
+		start,
+		startTime,
+		stop,
+		p,
+		min,
+		max,
+		modal,
+		target,
+		index,
+		timer,
+		readOnly,
+		preventChange,
+		preventPos,
+		wndw,
+		doc,
+		buttons,
+		btn,
+		that = this,
+		e = elem,
+		elm = $(e),
+		s = extend({}, defaults),
+		pres = {},
+		iv = {},
+		pos = {},
+		pixels = {},
+		wheels = [],
+		elmList = [],
+		input = elm.is('input'),
+		visible = false,
+		onStart = function (e) {
+			// Scroll start
+			if (testTouch(e) && !move && !click && !btn && !isReadOnly(this)) {
+				// Prevent touch highlight
+				e.preventDefault();
+
+				move = true;
+				scrollable = s.mode != 'clickpick';
+				target = $('.dw-ul', this);
+				setGlobals(target);
+				moved = iv[index] !== undefined; // Don't allow tap, if still moving
+				p = moved ? getCurrentPosition(target) : pos[index];
+				start = getCoord(e, 'Y');
+				startTime = new Date();
+				stop = start;
+				scroll(target, index, p, 0.001);
+
+				if (scrollable) {
+					target.closest('.dwwl').addClass('dwa');
+				}
+
+				$(document).on(MOVE_EVENT, onMove).on(END_EVENT, onEnd);
+			}
+		},
+		onMove = function (e) {
+			if (scrollable) {
+				// Prevent scroll
+				e.preventDefault();
+				e.stopPropagation();
+				stop = getCoord(e, 'Y');
+				scroll(target, index, constrain(p + (start - stop) / hi, min - 1, max + 1));
+			}
+			if (start !== stop) {
+				moved = true;
+			}
+		},
+		onEnd = function (e) {
+			var time = new Date() - startTime,
+			val = constrain(p + (start - stop) / hi, min - 1, max + 1),
+			speed,
+			dist,
+			tindex,
+			ttop = target.offset().top;
+
+			if (time < 300) {
+				speed = (stop - start) / time;
+				dist = (speed * speed) / s.speedUnit;
+				if (stop - start < 0) {
+					dist = -dist;
+				}
+			} else {
+				dist = stop - start;
+			}
+
+			tindex = Math.round(p - dist / hi);
+
+			if (!dist && !moved) { // this is a "tap"
+				var idx = Math.floor((stop - ttop) / hi),
+				li = $($('.dw-li', target)[idx]),
+				hl = scrollable;
+				if (event('onValueTap', [li]) !== false) {
+					tindex = idx;
+				} else {
+					hl = true;
+				}
+
+				if (hl) {
+					li.addClass('dw-hl'); // Highlight
+					setTimeout(function () {
+						li.removeClass('dw-hl');
+					}, 200);
+				}
+			}
+
+			if (scrollable) {
+				calc(target, tindex, 0, true, Math.round(val));
+			}
+
+			move = false;
+			target = null;
+
+			$(document).off(MOVE_EVENT, onMove).off(END_EVENT, onEnd);
+		},
+		onBtnStart = function (e) {
+			if (btn) {
+				btn.removeClass('dwb-a');
+			}
+			btn = $(this);
+			$(document).on(END_EVENT, onBtnEnd);
+			// Active button
+			if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
+				btn.addClass('dwb-a');
+			}
+			// +/- buttons
+			if (btn.hasClass('dwwb')) {
+				if (testTouch(e)) {
+					step(e, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
+				}
+			}
+		},
+		onBtnEnd = function (e) {
+			if (click) {
+				clearInterval(timer);
+				click = false;
+			}
+			if (btn) {
+				btn.removeClass('dwb-a');
+				btn = null;
+			}
+			$(document).off(END_EVENT, onBtnEnd);
+		},
+		onKeyDown = function (e) {
+			if (e.keyCode == 38) { // up
+				step(e, $(this), minus);
+			} else if (e.keyCode == 40) { // down
+				step(e, $(this), plus);
+			}
+		},
+		onKeyUp = function (e) {
+			if (click) {
+				clearInterval(timer);
+				click = false;
+			}
+		},
+		onScroll = function (e) {
+			if (!isReadOnly(this)) {
+				e.preventDefault();
+				e = e.originalEvent || e;
+				var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
+				t = $('.dw-ul', this);
+
+				setGlobals(t);
+				calc(t, Math.round(pos[index] - delta), delta < 0 ? 1 : 2);
+			}
+		};
+
+		// Private functions
+
+		function step(e, w, func) {
+			e.stopPropagation();
+			e.preventDefault();
+			if (!click && !isReadOnly(w) && !w.hasClass('dwa')) {
+				click = true;
+				// + Button
+				var t = w.find('.dw-ul');
+
+				setGlobals(t);
+				clearInterval(timer);
+				timer = setInterval(function () {
+						func(t);
+					}, s.delay);
+				func(t);
+			}
+		}
+
+		function isReadOnly(wh) {
+			if ($.isArray(s.readonly)) {
+				var i = $('.dwwl', dw).index(wh);
+				return s.readonly[i];
+			}
+			return s.readonly;
+		}
+
+		function generateWheelItems(i) {
+			var html = '<div class="dw-bf">',
+			ww = wheels[i],
+			w = ww.values ? ww : convert(ww),
+			l = 1,
+			labels = w.labels || [],
+			values = w.values,
+			keys = w.keys || values;
+
+			$.each(values, function (j, v) {
+				if (l % 20 == 0) {
+					html += '</div><div class="dw-bf">';
+				}
+				html += '<div role="option" aria-selected="false" class="dw-li dw-v" data-val="' + keys[j] + '"' + (labels[j] ? ' aria-label="' + labels[j] + '"' : '') + ' style="height:' + hi + 'px;line-height:' + hi + 'px;"><div class="dw-i">' + v + '</div></div>';
+				l++;
+			});
+
+			html += '</div>';
+			return html;
+		}
+
+		function setGlobals(t) {
+			min = $('.dw-li', t).index($('.dw-v', t).eq(0));
+			max = $('.dw-li', t).index($('.dw-v', t).eq(-1));
+			index = $('.dw-ul', dw).index(t);
+		}
+
+		function formatHeader(v) {
+			var t = s.headerText;
+			return t ? (typeof t === 'function' ? t.call(e, v) : t.replace(/\{value\}/i, v)) : '';
+		}
+
+		function read() {
+			that.temp = that.values ? that.values.slice(0) : s.parseValue(elm.val() || '', that);
+			setVal();
+		}
+
+		function getCurrentPosition(t) {
+			var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
+			matrix,
+			px;
+
+			if (has3d) {
+				$.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
+					if (style[v + 'ransform'] !== undefined) {
+						matrix = style[v + 'ransform'];
+						return false;
+					}
+				});
+				matrix = matrix.split(')')[0].split(', ');
+				px = matrix[13] || matrix[5];
+			} else {
+				px = style.top.replace('px', '');
+			}
+
+			return Math.round(m - (px / hi));
+		}
+
+		function ready(t, i) {
+			clearTimeout(iv[i]);
+			delete iv[i];
+			t.closest('.dwwl').removeClass('dwa');
+		}
+
+		function scroll(t, index, val, time, active) {
+			var px = (m - val) * hi,
+			style = t[0].style,
+			i;
+
+			if (px == pixels[index] && iv[index]) {
+				return;
+			}
+
+			if (time && px != pixels[index]) {
+				// Trigger animation start event
+				event('onAnimStart', [dw, index, time]);
+			}
+
+			pixels[index] = px;
+
+			style[pr + 'Transition'] = 'all ' + (time ? time.toFixed(3) : 0) + 's ease-out';
+
+			if (has3d) {
+				style[pr + 'Transform'] = 'translate3d(0,' + px + 'px,0)';
+			} else {
+				style.top = px + 'px';
+			}
+
+			if (iv[index]) {
+				ready(t, index);
+			}
+
+			if (time && active) {
+				t.closest('.dwwl').addClass('dwa');
+				iv[index] = setTimeout(function () {
+						ready(t, index);
+					}, time * 1000);
+			}
+
+			pos[index] = val;
+		}
+
+		function getValid(val, t, dir) {
+			var cell = $('.dw-li[data-val="' + val + '"]', t),
+			cells = $('.dw-li', t),
+			v = cells.index(cell),
+			l = cells.length;
+
+			// Scroll to a valid cell
+			if (!cell.hasClass('dw-v')) {
+				var cell1 = cell,
+				cell2 = cell,
+				dist1 = 0,
+				dist2 = 0;
+				while (v - dist1 >= 0 && !cell1.hasClass('dw-v')) {
+					dist1++;
+					cell1 = cells.eq(v - dist1);
+				}
+				while (v + dist2 < l && !cell2.hasClass('dw-v')) {
+					dist2++;
+					cell2 = cells.eq(v + dist2);
+				}
+
+				// If we have direction (+/- or mouse wheel), the distance does not count
+				if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || (v - dist1 < 0) || dir == 1) && cell2.hasClass('dw-v')) {
+					cell = cell2;
+					v = v + dist2;
+				} else {
+					cell = cell1;
+					v = v - dist1;
+				}
+			}
+
+			return {
+				cell : cell,
+				v : v,
+				val : cell.attr('data-val')
+			};
+		}
+
+		function scrollToPos(time, index, manual, dir, active) {
+			// Call validation event
+			if (event('validate', [dw, index, time, dir]) !== false) {
+				// Set scrollers to position
+				$('.dw-ul', dw).each(function (i) {
+					var t = $(this),
+					sc = i == index || index === undefined,
+					res = getValid(that.temp[i], t, dir),
+					cell = res.cell;
+
+					if (!(cell.hasClass('dw-sel')) || sc) {
+						// Set valid value
+						that.temp[i] = res.val;
+
+						if (!s.multiple) {
+							$('.dw-sel', t).removeAttr('aria-selected');
+							cell.attr('aria-selected', 'true');
+						}
+
+						// Add selected class to cell
+						$('.dw-sel', t).removeClass('dw-sel');
+						cell.addClass('dw-sel');
+
+						// Scroll to position
+						scroll(t, i, res.v, sc ? time : 0.1, sc ? active : false);
+					}
+				});
+
+				// Reformat value if validation changed something
+				v = s.formatResult(that.temp);
+				if (that.live) {
+					setVal(manual, manual, 0, true);
+				}
+
+				$('.dwv', dw).html(formatHeader(v));
+
+				if (manual) {
+					event('onChange', [v]);
+				}
+			}
+
+		}
+
+		function event(name, args) {
+			var ret;
+			args.push(that);
+			$.each([theme, pres, settings], function (i, v) {
+				if (v && v[name]) { // Call preset event
+					ret = v[name].apply(e, args);
+				}
+			});
+			return ret;
+		}
+
+		function calc(t, val, dir, anim, orig) {
+			val = constrain(val, min, max);
+
+			var cell = $('.dw-li', t).eq(val),
+			o = orig === undefined ? val : orig,
+			active = orig !== undefined,
+			idx = index,
+			time = anim ? (val == o ? 0.1 : Math.abs((val - o) * s.timeUnit)) : 0;
+
+			// Set selected scroller value
+			that.temp[idx] = cell.attr('data-val');
+
+			scroll(t, idx, val, time, active);
+
+			setTimeout(function () {
+				// Validate
+				scrollToPos(time, idx, true, dir, active);
+			}, 10);
+		}
+
+		function plus(t) {
+			var val = pos[index] + 1;
+			calc(t, val > max ? min : val, 1, true);
+		}
+
+		function minus(t) {
+			var val = pos[index] - 1;
+			calc(t, val < min ? max : val, 2, true);
+		}
+
+		function setVal(fill, change, time, noscroll, temp, manual) {
+			if (visible && !noscroll) {
+				scrollToPos(time, undefined, manual);
+			}
+
+			v = s.formatResult(that.temp);
+
+			if (!temp) {
+				that.values = that.temp.slice(0);
+				that.val = v;
+			}
+
+			if (fill) {
+				if (input) {
+					elm.val(v);
+					if (change) {
+						preventChange = true;
+						elm.change();
+					}
+				}
+
+				event('onValueFill', [v, change]);
+			}
+		}
+
+		function attachPosition(ev, checkLock) {
+			var debounce;
+			wndw.on(ev, function (e) {
+				clearTimeout(debounce);
+				debounce = setTimeout(function () {
+						if ((lock && checkLock) || !checkLock) {
+							that.position(!checkLock);
+						}
+					}, 200);
+			});
+		}
+
+		// Public functions
+
+		/**
+		 * Positions the scroller on the screen.
+		 */
+		that.position = function (check) {
+
+			var nw = persp.width(), // To get the width without scrollbar
+			nh = wndw[0].innerHeight || wndw.innerHeight();
+
+			if (!(ww === nw && wh === nh && check) && !preventPos && (event('onPosition', [dw, nw, nh]) !== false) && modal) {
+				var w,
+				l,
+				t,
+				aw, // anchor width
+				ah, // anchor height
+				ap, // anchor position
+				at, // anchor top
+				al, // anchor left
+				arr, // arrow
+				arrw, // arrow width
+				arrl, // arrow left
+				dh,
+				scroll,
+				totalw = 0,
+				minw = 0,
+
+				sl = wndw.scrollLeft(),
+				st = wndw.scrollTop(),
+				wr = $('.dwwr', dw),
+				d = $('.dw', dw),
+				css = {},
+				anchor = s.anchor === undefined ? elm : s.anchor;
+
+				if (/modal|bubble/.test(s.display)) {
+					$('.dwc', dw).each(function () {
+						w = $(this).outerWidth(true);
+						totalw += w;
+						minw = (w > minw) ? w : minw;
+					});
+					w = totalw > nw ? minw : totalw;
+					wr.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
+				}
+
+				mw = d.outerWidth();
+				mh = d.outerHeight(true);
+				lock = mh <= nh && mw <= nw;
+
+				that.scrollLock = lock;
+
+				if (s.display == 'modal') {
+					l = (nw - mw) / 2;
+					t = st + (nh - mh) / 2;
+				} else if (s.display == 'bubble') {
+					scroll = true;
+					arr = $('.dw-arrw-i', dw);
+					ap = anchor.offset();
+					at = Math.abs($(s.context).offset().top - ap.top);
+					al = Math.abs($(s.context).offset().left - ap.left);
+
+					// horizontal positioning
+					aw = anchor.outerWidth();
+					ah = anchor.outerHeight();
+					l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 3, nw - mw - 3);
+
+					// vertical positioning
+					t = at - mh; // above the input
+					if ((t < st) || (at > st + nh)) { // if doesn't fit above or the input is out of the screen
+						d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
+						t = at + ah; // below the input
+					} else {
+						d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
+					}
+
+					// Calculate Arrow position
+					arrw = arr.outerWidth();
+					arrl = constrain(al + aw / 2 - (l + (mw - arrw) / 2) - sl, 0, arrw);
+
+					// Limit Arrow position
+					$('.dw-arr', dw).css({
+						left : arrl
+					});
+				} else {
+					if (s.display == 'top') {
+						t = st;
+					} else if (s.display == 'bottom') {
+						t = st + nh - mh;
+					}
+				}
+
+				css.top = t < 0 ? 0 : t;
+				css.left = l;
+				d.css(css);
+
+				// If top + modal height > doc height, increase doc height
+				persp.height(0);
+				dh = Math.max(t + mh, s.context == 'body' ? $(document).height() : doc.scrollHeight);
+				persp.css({
+					height : dh,
+					left : sl
+				});
+
+				// Scroll needed
+				if (scroll && ((t + mh > st + nh) || (at > st + nh))) {
+					preventPos = true;
+					setTimeout(function () {
+						preventPos = false;
+					}, 300);
+					wndw.scrollTop(Math.min(t + mh - nh, dh - nh));
+				}
+			}
+
+			ww = nw;
+			wh = nh;
+		};
+
+		/**
+		 * Enables the scroller and the associated input.
+		 */
+		that.enable = function () {
+			s.disabled = false;
+			if (input) {
+				elm.prop('disabled', false);
+			}
+		};
+
+		/**
+		 * Disables the scroller and the associated input.
+		 */
+		that.disable = function () {
+			s.disabled = true;
+			if (input) {
+				elm.prop('disabled', true);
+			}
+		};
+
+		/**
+		 * Gets the selected wheel values, formats it, and set the value of the scroller instance.
+		 * If input parameter is true, populates the associated input element.
+		 * @param {Array} values Wheel values.
+		 * @param {Boolean} [fill=false] Also set the value of the associated input element.
+		 * @param {Number} [time=0] Animation time
+		 * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
+		 */
+		that.setValue = function (values, fill, time, temp, change) {
+			that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
+			setVal(fill, change === undefined ? fill : change, time, false, temp, fill);
+		};
+
+		/**
+		 * Return the selected wheel values.
+		 */
+		that.getValue = function () {
+			return that.values;
+		};
+
+		/**
+		 * Return selected values, if in multiselect mode.
+		 */
+		that.getValues = function () {
+			var ret = [],
+			i;
+
+			for (i in that._selectedValues) {
+				ret.push(that._selectedValues[i]);
+			}
+			return ret;
+		};
+
+		/**
+		 * Changes the values of a wheel, and scrolls to the correct position
+		 * @param {Array} idx Indexes of the wheels to change.
+		 * @param {Number} [time=0] Animation time when scrolling to the selected value on the new wheel.
+		 * @param {Boolean} [manual=false] Indicates that the change was triggered by the user or from code.
+		 */
+		that.changeWheel = function (idx, time, manual) {
+			if (dw) {
+				var i = 0,
+				nr = idx.length;
+
+				$.each(s.wheels, function (j, wg) {
+					$.each(wg, function (k, w) {
+						if ($.inArray(i, idx) > -1) {
+							wheels[i] = w;
+							$('.dw-ul', dw).eq(i).html(generateWheelItems(i));
+							nr--;
+							if (!nr) {
+								that.position();
+								scrollToPos(time, undefined, manual);
+								return false;
+							}
+						}
+						i++;
+					});
+					if (!nr) {
+						return false;
+					}
+				});
+			}
+		};
+
+		/**
+		 * Return true if the scroller is currently visible.
+		 */
+		that.isVisible = function () {
+			return visible;
+		};
+
+		/**
+		 * Attach tap event to the given element.
+		 */
+		that.tap = function (el, handler) {
+			var startX,
+			startY;
+
+			if (s.tap) {
+				el.on('touchstart.dw mousedown.dw', function (e) {
+					e.preventDefault();
+					startX = getCoord(e, 'X');
+					startY = getCoord(e, 'Y');
+				}).on('touchend.dw', function (e) {
+					// If movement is less than 20px, fire the click event handler
+					if (Math.abs(getCoord(e, 'X') - startX) < 20 && Math.abs(getCoord(e, 'Y') - startY) < 20) {
+						handler.call(this, e);
+					}
+					setTap();
+				});
+			}
+
+			el.on('click.dw', function (e) {
+				if (!tap) {
+					// If handler was not called on touchend, call it on click;
+					handler.call(this, e);
+				}
+				e.preventDefault();
+			});
+
+		};
+
+		/**
+		 * Shows the scroller instance.
+		 * @param {Boolean} prevAnim - Prevent animation if true
+		 */
+		that.show = function (prevAnim) {
+			// Create wheels
+			var lbl,
+			l = 0,
+			mAnim = '';
+
+			if (s.disabled || visible) {
+				return;
+			}
+
+			if (s.display == 'top') {
+				anim = 'slidedown';
+			}
+
+			if (s.display == 'bottom') {
+				anim = 'slideup';
+			}
+
+			// Parse value from input
+			read();
+
+			event('onBeforeShow', []);
+
+			if (anim && !prevAnim) {
+				mAnim = 'dw-' + anim + ' dw-in';
+			}
+
+			// Create wheels containers
+			var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix.replace(/\-$/, '') : '') + (hasButtons ? '' : ' dw-nobtn') + '"><div class="dw-persp">' + (!modal ? '<div class="dw dwbg dwi">' : '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>') + '<div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div><div class="dwcc">',
+			isMinw = $.isArray(s.minWidth),
+			isMaxw = $.isArray(s.maxWidth),
+			isFixw = $.isArray(s.fixedWidth);
+
+			$.each(s.wheels, function (i, wg) { // Wheel groups
+				html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
+				$.each(wg, function (j, w) { // Wheels
+					wheels[l] = w;
+					lbl = w.label !== undefined ? w.label : j;
+					html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<a href="#" tabindex="-1" class="dwb-e dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></a><a href="#" tabindex="-1" class="dwb-e dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></a>' : '') + '<div class="dwl">' + lbl + '</div><div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww"><div class="dww" style="height:' + (s.rows * hi) + 'px;' + (s.fixedWidth ? ('width:' + (isFixw ? s.fixedWidth[l] : s.fixedWidth) + 'px;') : (s.minWidth ? ('min-width:' + (isMinw ? s.minWidth[l] : s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') + (s.maxWidth ? ('max-width:' + (isMaxw ? s.maxWidth[l] : s.maxWidth) + 'px;') : '')) + '"><div class="dw-ul">';
+					// Create wheel values
+					html += generateWheelItems(l);
+					html += '</div><div class="dwwol"></div></div><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
+					l++;
+				});
+
+				html += '</tr></table></div></div>';
+			});
+
+			html += '</div>';
+
+			if (modal && hasButtons) {
+				html += '<div class="dwbc">';
+				$.each(buttons, function (i, b) {
+					b = (typeof b === 'string') ? that.buttons[b] : b;
+					html += '<span' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + 
+					' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
+				});
+				html += '</div>';
+			}
+			html += '</div></div></div></div>';
+
+			dw = $(html);
+			persp = $('.dw-persp', dw);
+			overlay = $('.dwo', dw);
+
+			visible = true;
+
+			scrollToPos();
+
+			event('onMarkupReady', [dw]);
+
+			// Show
+			if (modal) {
+
+				dw.appendTo(s.context);
+				if (anim && !prevAnim) {
+					dw.addClass('dw-trans');
+					// Remove animation class
+					setTimeout(function () {
+						dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
+					}, 350);
+				}
+			} else if (elm.is('div')) {
+				elm.html(dw);
+			} else {
+				dw.insertAfter(elm);
+			}
+
+			event('onMarkupInserted', [dw]);
+
+			if (modal) {
+				// Enter / ESC
+				$(window).on('keydown.dw', function (e) {
+					if (e.keyCode == 13) {
+						that.select();
+					} else if (e.keyCode == 27) {
+						that.cancel();
+					}
+				});
+
+				// Prevent scroll if not specified otherwise
+				if (s.scrollLock) {
+					dw.on('touchmove', function (e) {
+						if (lock) {
+							e.preventDefault();
+						}
+					});
+				}
+
+				// Disable inputs to prevent bleed through (Android bug) and set autocomplete to off (for Firefox)
+				$('input,select,button', doc).each(function () {
+					if (!this.disabled) {
+						if ($(this).attr('autocomplete')) {
+							$(this).data('autocomplete', $(this).attr('autocomplete'));
+						}
+						$(this).addClass('dwtd').prop('disabled', true).attr('autocomplete', 'off');
+					}
+				});
+
+				attachPosition('scroll.dw', true);
+			}
+
+			// Set position
+			that.position();
+			attachPosition('orientationchange.dw resize.dw', false);
+
+			// Events
+			dw.on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
+			.on('keydown', '.dwwl', onKeyDown)
+			.on('keyup', '.dwwl', onKeyUp)
+			.on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
+			.on('click', '.dwb-e', prevdef)
+			.on('touchend', function () {
+				if (s.tap) {
+					setTap();
+				}
+			})
+			.on('keydown', '.dwb-e', function (e) {
+				if (e.keyCode == 32) { // Space
+					e.preventDefault();
+					e.stopPropagation();
+					$(this).click();
+				}
+			});
+
+			setTimeout(function () {
+				// Init buttons
+				$.each(buttons, function (i, b) {
+					that.tap($('.dwb' + i, dw), function (e) {
+						b = (typeof b === 'string') ? that.buttons[b] : b;
+						b.handler.call(this, e, that);
+					});
+				});
+
+				if (s.closeOnOverlay) {
+					that.tap(overlay, function () {
+						that.cancel();
+					});
+				}
+
+				dw.on(START_EVENT, '.dwwl', onStart).on(START_EVENT, '.dwb-e', onBtnStart);
+
+			}, 300);
+
+			event('onShow', [dw, v]);
+		};
+
+		/**
+		 * Hides the scroller instance.
+		 */
+		that.hide = function (prevAnim, btn, force) {
+			// If onClose handler returns false, prevent hide
+			if (!visible || (!force && event('onClose', [v, btn]) === false)) {
+				return;
+			}
+
+			// Re-enable temporary disabled fields
+			$('.dwtd', doc).each(function () {
+				$(this).prop('disabled', false).removeClass('dwtd');
+				if ($(this).data('autocomplete')) {
+					$(this).attr('autocomplete', $(this).data('autocomplete'));
+				} else {
+					$(this).removeAttr('autocomplete');
+				}
+			});
+
+			// Hide wheels and overlay
+			if (dw) {
+				var doAnim = modal && anim && !prevAnim;
+				if (doAnim) {
+					dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
+				}
+				if (prevAnim) {
+					dw.remove();
+				} else {
+					setTimeout(function () {
+						dw.remove();
+						if (activeElm) {
+							preventShow = true;
+							activeElm.focus();
+						}
+					}, doAnim ? 350 : 1);
+				}
+
+				// Stop positioning on window resize
+				wndw.off('.dw');
+			}
+
+			pixels = {};
+			visible = false;
+		};
+
+		/**
+		 * Set button handler.
+		 */
+		that.select = function () {
+			if (that.hide(false, 'set') !== false) {
+				setVal(true, true, 0, true);
+				event('onSelect', [that.val]);
+			}
+		};
+
+		/**
+		 * Show mobiscroll on focus and click event of the parameter.
+		 * @param {jQuery} elm - Events will be attached to this element.
+		 * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
+		 */
+		that.attachShow = function (elm, beforeShow) {
+			elmList.push(elm);
+			if (s.display !== 'inline') {
+				elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
+					if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !tap) {
+						if (beforeShow) {
+							beforeShow();
+						}
+						activeElm = elm;
+						that.show();
+					}
+					setTimeout(function () {
+						preventShow = false;
+					}, 300); // With jQuery < 1.9 focus is fired twice in IE
+				});
+			}
+		};
+
+		/**
+		 * Cancel and hide the scroller instance.
+		 */
+		that.cancel = function () {
+			if (that.hide(false, 'cancel') !== false) {
+				event('onCancel', [that.val]);
+			}
+		};
+
+		/**
+		 * Scroller initialization.
+		 */
+		that.init = function (ss) {
+			// Get theme defaults
+			theme = ms.themes[ss.theme || s.theme];
+
+			// Get language defaults
+			lang = ms.i18n[ss.lang || s.lang];
+
+			extend(settings, ss); // Update original user settings
+
+			event('onThemeLoad', [lang, settings]);
+
+			extend(s, theme, lang, settings);
+
+			// Add default buttons
+			s.buttons = s.buttons || ['set', 'cancel'];
+
+			// Hide header text in inline mode by default
+			s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
+
+			that.settings = s;
+
+			// Unbind all events (if re-init)
+			elm.off('.dw');
+
+			var preset = ms.presets[s.preset];
+
+			if (preset) {
+				pres = preset.call(e, that);
+				extend(s, pres, settings); // Load preset settings
+			}
+
+			// Set private members
+			m = Math.floor(s.rows / 2);
+			hi = s.height;
+			anim = s.animate;
+			modal = s.display !== 'inline';
+			buttons = s.buttons;
+			wndw = $(s.context == 'body' ? window : s.context);
+			doc = $(s.context)[0];
+
+			if (!s.setText) {
+				buttons.splice($.inArray('set', buttons), 1);
+			}
+			if (!s.cancelText) {
+				buttons.splice($.inArray('cancel', buttons), 1);
+			}
+			if (s.button3) {
+				buttons.splice($.inArray('set', buttons) + 1, 0, {
+					text : s.button3Text,
+					handler : s.button3
+				});
+			}
+
+			that.context = wndw;
+			that.live = !modal || ($.inArray('set', buttons) == -1);
+			that.buttons.set = {
+				text : s.setText,
+				css : 'dwb-s',
+				handler : that.select
+			};
+			that.buttons.cancel = {
+				text : (that.live) ? s.closeText : s.cancelText,
+				css : 'dwb-c',
+				handler : that.cancel
+			};
+			that.buttons.clear = {
+				text : s.clearText,
+				css : 'dwb-cl',
+				handler : function () {
+					that.trigger('onClear', [dw]);
+					elm.val('');
+					if (!that.live) {
+						that.hide();
+					}
+				}
+			};
+
+			hasButtons = buttons.length > 0;
+
+			if (visible) {
+				that.hide(true, false, true);
+			}
+
+			if (modal) {
+				read();
+				if (input) {
+					// Set element readonly, save original state
+					if (readOnly === undefined) {
+						readOnly = e.readOnly;
+					}
+					e.readOnly = true;
+				}
+				that.attachShow(elm);
+			} else {
+				that.show();
+			}
+
+			if (input) {
+				elm.on('change.dw', function () {
+					if (!preventChange) {
+						that.setValue(elm.val(), false, 0.2);
+					}
+					preventChange = false;
+				});
+			}
+		};
+
+		/**
+		 * Sets one ore more options.
+		 */
+		that.option = function (opt, value) {
+			var obj = {};
+			if (typeof opt === 'object') {
+				obj = opt;
+			} else {
+				obj[opt] = value;
+			}
+			that.init(obj);
+		};
+
+		/**
+		 * Destroys the mobiscroll instance.
+		 */
+		that.destroy = function () {
+			that.hide(true, false, true);
+			// Remove all events from elements
+			$.each(elmList, function (i, v) {
+				v.off('.dw');
+			});
+			// Remove events from window
+			$(window).off('.dwa');
+			// Reset original readonly state
+			if (input) {
+				e.readOnly = readOnly;
+			}
+			// Delete scroller instance
+			delete instances[e.id];
+			event('onDestroy', []);
+		};
+
+		/**
+		 * Returns the mobiscroll instance.
+		 */
+		that.getInst = function () {
+			return that;
+		};
+
+		/**
+		 * Returns the closest valid cell.
+		 */
+		that.getValidCell = getValid;
+
+		/**
+		 * Triggers a mobiscroll event.
+		 */
+		that.trigger = event;
+
+		instances[e.id] = that;
+
+		that.values = null;
+		that.val = null;
+		that.temp = null;
+		that.buttons = {};
+		that._selectedValues = {};
+
+		that.init(settings);
+	}
+
+	function setTap() {
+		tap = true;
+		setTimeout(function () {
+			tap = false;
+		}, 300);
+	}
+
+	function constrain(val, min, max) {
+		return Math.max(min, Math.min(val, max));
+	}
+
+	function convert(w) {
+		var ret = {
+			values : [],
+			keys : []
+		};
+		$.each(w, function (k, v) {
+			ret.keys.push(k);
+			ret.values.push(v);
+		});
+		return ret;
+	}
+
+	var activeElm,
+	move,
+	tap,
+	preventShow,
+	ms = $.mobiscroll,
+	instances = ms.instances,
+	util = ms.util,
+	prefix = util.prefix,
+	pr = util.jsPrefix,
+	has3d = util.has3d,
+	getCoord = util.getCoord,
+	testTouch = util.testTouch,
+	empty = function () {},
+	prevdef = function (e) {
+		e.preventDefault();
+	},
+	extend = $.extend,
+	START_EVENT = 'touchstart mousedown',
+	MOVE_EVENT = 'touchmove mousemove',
+	END_EVENT = 'touchend mouseup',
+	defaults = extend(ms.defaults, {
+			// Options
+			width : 70,
+			height : 40,
+			rows : 3,
+			delay : 300,
+			disabled : false,
+			readonly : false,
+			closeOnOverlay : true,
+			showOnFocus : true,
+			showOnTap : true,
+			showLabel : true,
+			wheels : [],
+			theme : '',
+			display : 'modal',
+			mode : 'scroller',
+			preset : '',
+			lang : 'en-US',
+			context : 'body',
+			scrollLock : true,
+
+			tap : true,
+			btnWidth : true,
+			speedUnit : 0.0012,
+			timeUnit : 0.1,
+			formatResult : function (d) {
+				return d.join(' ');
+			},
+			parseValue : function (value, inst) {
+				var val = value.split(' '),
+				ret = [],
+				i = 0,
+				keys;
+
+				$.each(inst.settings.wheels, function (j, wg) {
+					$.each(wg, function (k, w) {
+						w = w.values ? w : convert(w);
+						keys = w.keys || w.values;
+						if ($.inArray(val[i], keys) !== -1) {
+							ret.push(val[i]);
+						} else {
+							ret.push(keys[0]);
+						}
+						i++;
+					});
+				});
+				return ret;
+			}
+		});
+
+	// English language module
+	ms.i18n.en = ms.i18n['en-US'] = {
+		setText : 'Set',
+		selectedText : 'Selected',
+		closeText : 'Close',
+		cancelText : 'Cancel',
+		clearText : 'Clear'
+	};
+
+	// Prevent re-show on window focus
+	$(window).on('focus', function () {
+		if (activeElm) {
+			preventShow = true;
+		}
+	});
+
+	$(document).on('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
+		if (tap) {
+			e.stopPropagation();
+			e.preventDefault();
+			return false;
+		}
+	});
+
+})(jQuery);
+/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
+(function ($) {
+
+	var ms = $.mobiscroll,
+	date = new Date(),
+	defaults = {
+		startYear : date.getFullYear() - 100,
+		endYear : date.getFullYear() + 1,
+		shortYearCutoff : '+10',
+		showNow : false,
+		stepHour : 1,
+		stepMinute : 1,
+		stepSecond : 1,
+		separator : ' '
+	},
+	/**
+	 * @class Mobiscroll.datetime
+	 * @extends Mobiscroll
+	 * Mobiscroll Datetime component
+	 */
+	preset = function (inst) {
+		var that = $(this),
+		html5def = {},
+		format;
+		// Force format for html5 date inputs (experimental)
+		if (that.is('input')) {
+			switch (that.attr('type')) {
+			case 'date':
+				format = 'yy-mm-dd';
+				break;
+			case 'datetime':
+				format = 'yy-mm-ddTHH:ii:ssZ';
+				break;
+			case 'datetime-local':
+				format = 'yy-mm-ddTHH:ii:ss';
+				break;
+			case 'month':
+				format = 'yy-mm';
+				html5def.dateOrder = 'mmyy';
+				break;
+			case 'time':
+				format = 'HH:ii:ss';
+				break;
+			}
+			// Check for min/max attributes
+			var min = that.attr('min'),
+			max = that.attr('max');
+			if (min) {
+				html5def.minDate = ms.parseDate(format, min);
+			}
+			if (max) {
+				html5def.maxDate = ms.parseDate(format, max);
+			}
+		}
+
+		// Set year-month-day order
+		var i,
+		k,
+		keys,
+		values,
+		wg,
+		start,
+		end,
+		invalid,
+		hasTime,
+		orig = $.extend({}, inst.settings),
+		s = $.extend(inst.settings, defaults, html5def, orig),
+		offset = 0,
+		wheels = [],
+		ord = [],
+		o = {},
+		f = {
+			y : 'getFullYear',
+			m : 'getMonth',
+			d : 'getDate',
+			h : getHour,
+			i : getMinute,
+			s : getSecond,
+			a : getAmPm
+		},
+		p = s.preset,
+		dord = s.dateOrder,
+		tord = s.timeWheels,
+		regen = dord.match(/D/),
+		ampm = tord.match(/a/i),
+		hampm = tord.match(/h/),
+		hformat = p == 'datetime' ? s.dateFormat + s.separator + s.timeFormat : p == 'time' ? s.timeFormat : s.dateFormat,
+		defd = new Date(),
+		stepH = s.stepHour,
+		stepM = s.stepMinute,
+		stepS = s.stepSecond,
+		mind = s.minDate || new Date(s.startYear, 0, 1),
+		maxd = s.maxDate || new Date(s.endYear, 11, 31, 23, 59, 59);
+
+		format = format || hformat;
+
+		if (p.match(/date/i)) {
+
+			// Determine the order of year, month, day wheels
+			$.each(['y', 'm', 'd'], function (j, v) {
+				i = dord.search(new RegExp(v, 'i'));
+				if (i > -1) {
+					ord.push({
+						o : i,
+						v : v
+					});
+				}
+			});
+			ord.sort(function (a, b) {
+				return a.o > b.o ? 1 : -1;
+			});
+			$.each(ord, function (i, v) {
+				o[v.v] = i;
+			});
+
+			wg = [];
+			for (k = 0; k < 3; k++) {
+				if (k == o.y) {
+					offset++;
+					values = [];
+					keys = [];
+					start = mind.getFullYear();
+					end = maxd.getFullYear();
+					for (i = start; i <= end; i++) {
+						keys.push(i);
+						values.push(dord.match(/yy/i) ? i : (i + '').substr(2, 2));
+					}
+					addWheel(wg, keys, values, s.yearText);
+				} else if (k == o.m) {
+					offset++;
+					values = [];
+					keys = [];
+					for (i = 0; i < 12; i++) {
+						var str = dord.replace(/[dy]/gi, '').replace(/mm/, i < 9 ? '0' + (i + 1) : i + 1).replace(/m/, (i + 1));
+						keys.push(i);
+						values.push(str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i] + '</span>'));
+					}
+					addWheel(wg, keys, values, s.monthText);
+				} else if (k == o.d) {
+					offset++;
+					values = [];
+					keys = [];
+					for (i = 1; i < 32; i++) {
+						keys.push(i);
+						values.push(dord.match(/dd/i) && i < 10 ? '0' + i : i);
+					}
+					addWheel(wg, keys, values, s.dayText);
+				}
+			}
+			wheels.push(wg);
+		}
+
+		if (p.match(/time/i)) {
+			hasTime = true;
+
+			// Determine the order of hours, minutes, seconds wheels
+			ord = [];
+			$.each(['h', 'i', 's', 'a'], function (i, v) {
+				i = tord.search(new RegExp(v, 'i'));
+				if (i > -1) {
+					ord.push({
+						o : i,
+						v : v
+					});
+				}
+			});
+			ord.sort(function (a, b) {
+				return a.o > b.o ? 1 : -1;
+			});
+			$.each(ord, function (i, v) {
+				o[v.v] = offset + i;
+			});
+
+			wg = [];
+			for (k = offset; k < offset + 4; k++) {
+				if (k == o.h) {
+					offset++;
+					values = [];
+					keys = [];
+					for (i = 0; i < (hampm ? 12 : 24); i += stepH) {
+						keys.push(i);
+						values.push(hampm && i == 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
+					}
+					addWheel(wg, keys, values, s.hourText);
+				} else if (k == o.i) {
+					offset++;
+					values = [];
+					keys = [];
+					for (i = 0; i < 60; i += stepM) {
+						keys.push(i);
+						values.push(tord.match(/ii/) && i < 10 ? '0' + i : i);
+					}
+					addWheel(wg, keys, values, s.minuteText);
+				} else if (k == o.s) {
+					offset++;
+					values = [];
+					keys = [];
+					for (i = 0; i < 60; i += stepS) {
+						keys.push(i);
+						values.push(tord.match(/ss/) && i < 10 ? '0' + i : i);
+					}
+					addWheel(wg, keys, values, s.secText);
+				} else if (k == o.a) {
+					offset++;
+					var upper = tord.match(/A/);
+					addWheel(wg, [0, 1], upper ? ['AM', 'PM'] : ['am', 'pm'], s.ampmText);
+				}
+			}
+
+			wheels.push(wg);
+		}
+
+		function get(d, i, def) {
+			if (o[i] !== undefined) {
+				return +d[o[i]];
+			}
+			if (def !== undefined) {
+				return def;
+			}
+			return defd[f[i]] ? defd[f[i]]() : f[i](defd);
+		}
+
+		function addWheel(wg, k, v, lbl) {
+			wg.push({
+				values : v,
+				keys : k,
+				label : lbl
+			});
+		}
+
+		function step(v, st) {
+			return Math.floor(v / st) * st;
+		}
+
+		function getHour(d) {
+			var hour = d.getHours();
+			hour = hampm && hour >= 12 ? hour - 12 : hour;
+			return step(hour, stepH);
+		}
+
+		function getMinute(d) {
+			return step(d.getMinutes(), stepM);
+		}
+
+		function getSecond(d) {
+			return step(d.getSeconds(), stepS);
+		}
+
+		function getAmPm(d) {
+			return ampm && d.getHours() > 11 ? 1 : 0;
+		}
+
+		function getDate(d) {
+			var hour = get(d, 'h', 0);
+			return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+		}
+
+		function getIndex(t, v) {
+			return $('.dw-li', t).index($('.dw-li[data-val="' + v + '"]', t));
+		}
+
+		function getValidIndex(t, v, max, add) {
+			if (v < 0) {
+				return 0;
+			}
+			if (v > max) {
+				return $('.dw-li', t).length;
+			}
+			return getIndex(t, v) + add;
+		}
+
+		// Extended methods
+		// ---
+
+		/**
+		 * Sets the selected date
+		 *
+		 * @param {Date} d Date to select.
+		 * @param {Boolean} [fill=false] Also set the value of the associated input element. Default is true.
+		 * @param {Number} [time=0] Animation time to scroll to the selected date.
+		 * @param {Boolean} [temp=false] Set temporary value only.
+		 * @param {Boolean} [change=fill] Trigger change on input element.
+		 */
+		inst.setDate = function (d, fill, time, temp, change) {
+			var i;
+
+			// Set wheels
+			for (i in o) {
+				inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
+			}
+			inst.setValue(inst.temp, fill, time, temp, change);
+		};
+
+		/**
+		 * Returns the currently selected date.
+		 *
+		 * @param {Boolean} [temp=false] If true, return the currently shown date on the picker, otherwise the last selected one.
+		 * @return {Date}
+		 */
+		inst.getDate = function (temp) {
+			return getDate(temp ? inst.temp : inst.values);
+		};
+
+		inst.convert = function (obj) {
+			var x = obj;
+
+			if (!$.isArray(obj)) { // Convert from old format
+				x = [];
+				$.each(obj, function (i, o) {
+					$.each(o, function (j, o) {
+						if (i === 'daysOfWeek') {
+							if (o.d) {
+								o.d = 'w' + o.d;
+							} else {
+								o = 'w' + o;
+							}
+						}
+						x.push(o);
+					});
+				});
+			}
+
+			return x;
+		};
+
+		inst.format = hformat;
+		inst.buttons.now = {
+			text : s.nowText,
+			css : 'dwb-n',
+			handler : function () {
+				inst.setDate(new Date(), false, 0.3, true, true);
+			}
+		};
+
+		if (s.showNow) {
+			s.buttons.splice($.inArray('set', s.buttons) + 1, 0, 'now');
+		}
+
+		invalid = s.invalid ? inst.convert(s.invalid) : false;
+
+		// ---
+
+		return {
+			wheels : wheels,
+			headerText : s.headerText ? function (v) {
+				return ms.formatDate(hformat, getDate(inst.temp), s);
+			}
+			 : false,
+			formatResult : function (d) {
+				return ms.formatDate(format, getDate(d), s);
+			},
+			parseValue : function (val) {
+				var d = ms.parseDate(format, val, s),
+				i,
+				result = [];
+
+				// Set wheels
+				for (i in o) {
+					result[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
+				}
+				return result;
+			},
+			validate : function (dw, i, time, dir) {
+				var temp = inst.temp, //.slice(0),
+				mins = {
+					y : mind.getFullYear(),
+					m : 0,
+					d : 1,
+					h : 0,
+					i : 0,
+					s : 0,
+					a : 0
+				},
+				maxs = {
+					y : maxd.getFullYear(),
+					m : 11,
+					d : 31,
+					h : step(hampm ? 11 : 23, stepH),
+					i : step(59, stepM),
+					s : step(59, stepS),
+					a : 1
+				},
+				steps = {
+					h : stepH,
+					i : stepM,
+					s : stepS,
+					a : 1
+				},
+				y = get(temp, 'y'),
+				m = get(temp, 'm'),
+				minprop = true,
+				maxprop = true;
+
+				$.each(['y', 'm', 'd', 'a', 'h', 'i', 's'], function (x, i) {
+					if (o[i] !== undefined) {
+						var min = mins[i],
+						max = maxs[i],
+						maxdays = 31,
+						val = get(temp, i),
+						t = $('.dw-ul', dw).eq(o[i]);
+
+						if (i == 'd') {
+							maxdays = 32 - new Date(y, m, 32).getDate();
+							max = maxdays;
+							if (regen) {
+								$('.dw-li', t).each(function () {
+									var that = $(this),
+									d = that.data('val'),
+									w = new Date(y, m, d).getDay(),
+									str = dord.replace(/[my]/gi, '').replace(/dd/, d < 10 ? '0' + d : d).replace(/d/, d);
+									$('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
+								});
+							}
+						}
+						if (minprop && mind) {
+							min = mind[f[i]] ? mind[f[i]]() : f[i](mind);
+						}
+						if (maxprop && maxd) {
+							max = maxd[f[i]] ? maxd[f[i]]() : f[i](maxd);
+						}
+						if (i != 'y') {
+							var i1 = getIndex(t, min),
+							i2 = getIndex(t, max);
+							$('.dw-li', t).removeClass('dw-v').slice(i1, i2 + 1).addClass('dw-v');
+							if (i == 'd') { // Hide days not in month
+								$('.dw-li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
+							}
+						}
+						if (val < min) {
+							val = min;
+						}
+						if (val > max) {
+							val = max;
+						}
+						if (minprop) {
+							minprop = val == min;
+						}
+						if (maxprop) {
+							maxprop = val == max;
+						}
+						// Disable some days
+						if (invalid && i == 'd') {
+							var d,
+							j,
+							k,
+							v,
+							first = new Date(y, m, 1).getDay(),
+							idx = [];
+
+							for (j = 0; j < invalid.length; j++) {
+								d = invalid[j];
+								v = d + '';
+								if (!d.start) {
+									if (d.getTime) { // Exact date
+										if (d.getFullYear() == y && d.getMonth() == m) {
+											idx.push(d.getDate() - 1);
+										}
+									} else if (!v.match(/w/i)) { // Day of month
+										v = v.split('/');
+										if (v[1]) {
+											if (v[0] - 1 == m) {
+												idx.push(v[1] - 1);
+											}
+										} else {
+											idx.push(v[0] - 1);
+										}
+									} else { // Day of week
+										v = +v.replace('w', '');
+										for (k = v - first; k < maxdays; k += 7) {
+											if (k >= 0) {
+												idx.push(k);
+											}
+										}
+									}
+								}
+							}
+							$.each(idx, function (i, v) {
+								$('.dw-li', t).eq(v).removeClass('dw-v');
+							});
+
+							val = inst.getValidCell(val, t, dir).val;
+						}
+
+						// Set modified value
+						temp[o[i]] = val;
+					}
+				});
+
+				// Invalid times
+				if (hasTime && invalid) {
+
+					var dd,
+					v,
+					val,
+					str,
+					parts1,
+					parts2,
+					j,
+					v1,
+					v2,
+					i1,
+					i2,
+					prop1,
+					prop2,
+					target,
+					add,
+					remove,
+					spec = {},
+					d = get(temp, 'd'),
+					day = new Date(y, m, d),
+					w = ['a', 'h', 'i', 's'];
+
+					$.each(invalid, function (i, obj) {
+						if (obj.start) {
+							obj.apply = false;
+							dd = obj.d;
+							v = dd + '';
+							str = v.split('/');
+							if (dd && ((dd.getTime && y == dd.getFullYear() && m == dd.getMonth() && d == dd.getDate()) || // Exact date
+									(!v.match(/w/i) && ((str[1] && d == str[1] && m == str[0] - 1) || (!str[1] && d == str[0]))) || // Day of month
+									(v.match(/w/i) && day.getDay() == +v.replace('w', '')) // Day of week
+								)) {
+								obj.apply = true;
+								spec[day] = true; // Prevent applying generic rule on day, if specific exists
+							}
+						}
+					});
+
+					$.each(invalid, function (i, obj) {
+						if (obj.start && (obj.apply || (!obj.d && !spec[day]))) {
+
+							parts1 = obj.start.split(':');
+							parts2 = obj.end.split(':');
+
+							for (j = 0; j < 3; j++) {
+								if (parts1[j] === undefined) {
+									parts1[j] = 0;
+								}
+								if (parts2[j] === undefined) {
+									parts2[j] = 59;
+								}
+								parts1[j] = +parts1[j];
+								parts2[j] = +parts2[j];
+							}
+
+							parts1.unshift(parts1[0] > 11 ? 1 : 0);
+							parts2.unshift(parts2[0] > 11 ? 1 : 0);
+
+							if (hampm) {
+								if (parts1[1] >= 12) {
+									parts1[1] = parts1[1] - 12;
+								}
+
+								if (parts2[1] >= 12) {
+									parts2[1] = parts2[1] - 12;
+								}
+							}
+
+							prop1 = true;
+							prop2 = true;
+							$.each(w, function (i, v) {
+								if (o[v] !== undefined) {
+									val = get(temp, v);
+									add = 0;
+									remove = 0;
+									i1 = 0;
+									i2 = undefined;
+									target = $('.dw-ul', dw).eq(o[v]);
+
+									// Look ahead if next wheels should be disabled completely
+									for (j = i + 1; j < 4; j++) {
+										if (parts1[j] > 0) {
+											add = steps[v];
+										}
+										if (parts2[j] < maxs[w[j]]) {
+											remove = steps[v];
+										}
+									}
+
+									// Calculate min and max values
+									v1 = step(parts1[i] + add, steps[v]);
+									v2 = step(parts2[i] - remove, steps[v]);
+
+									if (prop1) {
+										i1 = getValidIndex(target, v1, maxs[v], 0);
+									}
+
+									if (prop2) {
+										i2 = getValidIndex(target, v2, maxs[v], 1);
+									}
+
+									// Disable values
+									if (prop1 || prop2) {
+										$('.dw-li', target).slice(i1, i2).removeClass('dw-v');
+									}
+
+									// Get valid value
+									val = inst.getValidCell(val, target, dir).val;
+
+									prop1 = prop1 && val == step(parts1[i], steps[v]);
+									prop2 = prop2 && val == step(parts2[i], steps[v]);
+
+									// Set modified value
+									temp[o[v]] = val;
+								}
+							});
+
+						}
+					});
+				}
+			}
+		};
+	};
+
+	ms.i18n.en = $.extend(ms.i18n.en, {
+			dateFormat : 'mm/dd/yy',
+			dateOrder : 'mmddy',
+			timeWheels : 'hhiiA',
+			timeFormat : 'hh:ii A',
+			monthNames : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+			monthNamesShort : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+			dayNames : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+			dayNamesShort : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+			monthText : 'Month',
+			dayText : 'Day',
+			yearText : 'Year',
+			hourText : 'Hours',
+			minuteText : 'Minutes',
+			secText : 'Seconds',
+			ampmText : '&nbsp;',
+			nowText : 'Now'
+		});
+
+	$.each(['date', 'time', 'datetime'], function (i, v) {
+		ms.presets[v] = preset;
+		ms.presetShort(v);
+	});
+
+	/**
+	 * Format a date into a string value with a specified format.
+	 * @param {String} format Output format.
+	 * @param {Date} date Date to format.
+	 * @param {Object} [settings={}] Settings.
+	 * @return {String} Returns the formatted date string.
+	 */
+	ms.formatDate = function (format, date, settings) {
+		if (!date) {
+			return null;
+		}
+		var s = $.extend({}, defaults, settings),
+		look = function (m) { // Check whether a format character is doubled
+			var n = 0;
+			while (i + 1 < format.length && format.charAt(i + 1) == m) {
+				n++;
+				i++;
+			}
+			return n;
+		},
+		f1 = function (m, val, len) { // Format a number, with leading zero if necessary
+			var n = '' + val;
+			if (look(m)) {
+				while (n.length < len) {
+					n = '0' + n;
+				}
+			}
+			return n;
+		},
+		f2 = function (m, val, s, l) { // Format a name, short or long as requested
+			return (look(m) ? l[val] : s[val]);
+		},
+		i,
+		output = '',
+		literal = false;
+
+		for (i = 0; i < format.length; i++) {
+			if (literal) {
+				if (format.charAt(i) == "'" && !look("'")) {
+					literal = false;
+				} else {
+					output += format.charAt(i);
+				}
+			} else {
+				switch (format.charAt(i)) {
+				case 'd':
+					output += f1('d', date.getDate(), 2);
+					break;
+				case 'D':
+					output += f2('D', date.getDay(), s.dayNamesShort, s.dayNames);
+					break;
+				case 'o':
+					output += f1('o', (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000, 3);
+					break;
+				case 'm':
+					output += f1('m', date.getMonth() + 1, 2);
+					break;
+				case 'M':
+					output += f2('M', date.getMonth(), s.monthNamesShort, s.monthNames);
+					break;
+				case 'y':
+					output += (look('y') ? date.getFullYear() : (date.getYear() % 100 < 10 ? '0' : '') + date.getYear() % 100);
+					break;
+				case 'h':
+					var h = date.getHours();
+					output += f1('h', (h > 12 ? (h - 12) : (h == 0 ? 12 : h)), 2);
+					break;
+				case 'H':
+					output += f1('H', date.getHours(), 2);
+					break;
+				case 'i':
+					output += f1('i', date.getMinutes(), 2);
+					break;
+				case 's':
+					output += f1('s', date.getSeconds(), 2);
+					break;
+				case 'a':
+					output += date.getHours() > 11 ? 'pm' : 'am';
+					break;
+				case 'A':
+					output += date.getHours() > 11 ? 'PM' : 'AM';
+					break;
+				case "'":
+					if (look("'")) {
+						output += "'";
+					} else {
+						literal = true;
+					}
+					break;
+				default:
+					output += format.charAt(i);
+				}
+			}
+		}
+		return output;
+	};
+
+	/**
+	 * Extract a date from a string value with a specified format.
+	 * @param {String} format Input format.
+	 * @param {String} value String to parse.
+	 * @param {Object} [settings={}] Settings.
+	 * @return {Date} Returns the extracted date.
+	 */
+	ms.parseDate = function (format, value, settings) {
+		var s = $.extend({}, defaults, settings),
+		def = s.defaultValue || new Date();
+
+		if (!format || !value) {
+			return def;
+		}
+
+		value = (typeof value == 'object' ? value.toString() : value + '');
+
+		var shortYearCutoff = s.shortYearCutoff,
+		year = def.getFullYear(),
+		month = def.getMonth() + 1,
+		day = def.getDate(),
+		doy = -1,
+		hours = def.getHours(),
+		minutes = def.getMinutes(),
+		seconds = 0, //def.getSeconds(),
+		ampm = -1,
+		literal = false, // Check whether a format character is doubled
+		lookAhead = function (match) {
+			var matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) == match);
+			if (matches) {
+				iFormat++;
+			}
+			return matches;
+		},
+		getNumber = function (match) { // Extract a number from the string value
+			lookAhead(match);
+			var size = (match == '@' ? 14 : (match == '!' ? 20 : (match == 'y' ? 4 : (match == 'o' ? 3 : 2)))),
+			digits = new RegExp('^\\d{1,' + size + '}'),
+			num = value.substr(iValue).match(digits);
+
+			if (!num) {
+				return 0;
+			}
+			iValue += num[0].length;
+			return parseInt(num[0], 10);
+		},
+		getName = function (match, s, l) { // Extract a name from the string value and convert to an index
+			var names = (lookAhead(match) ? l : s),
+			i;
+
+			for (i = 0; i < names.length; i++) {
+				if (value.substr(iValue, names[i].length).toLowerCase() == names[i].toLowerCase()) {
+					iValue += names[i].length;
+					return i + 1;
+				}
+			}
+			return 0;
+		},
+		checkLiteral = function () {
+			iValue++;
+		},
+		iValue = 0,
+		iFormat;
+
+		for (iFormat = 0; iFormat < format.length; iFormat++) {
+			if (literal) {
+				if (format.charAt(iFormat) == "'" && !lookAhead("'")) {
+					literal = false;
+				} else {
+					checkLiteral();
+				}
+			} else {
+				switch (format.charAt(iFormat)) {
+				case 'd':
+					day = getNumber('d');
+					break;
+				case 'D':
+					getName('D', s.dayNamesShort, s.dayNames);
+					break;
+				case 'o':
+					doy = getNumber('o');
+					break;
+				case 'm':
+					month = getNumber('m');
+					break;
+				case 'M':
+					month = getName('M', s.monthNamesShort, s.monthNames);
+					break;
+				case 'y':
+					year = getNumber('y');
+					break;
+				case 'H':
+					hours = getNumber('H');
+					break;
+				case 'h':
+					hours = getNumber('h');
+					break;
+				case 'i':
+					minutes = getNumber('i');
+					break;
+				case 's':
+					seconds = getNumber('s');
+					break;
+				case 'a':
+					ampm = getName('a', ['am', 'pm'], ['am', 'pm']) - 1;
+					break;
+				case 'A':
+					ampm = getName('A', ['am', 'pm'], ['am', 'pm']) - 1;
+					break;
+				case "'":
+					if (lookAhead("'")) {
+						checkLiteral();
+					} else {
+						literal = true;
+					}
+					break;
+				default:
+					checkLiteral();
+				}
+			}
+		}
+		if (year < 100) {
+			year += new Date().getFullYear() - new Date().getFullYear() % 100 +
+			(year <= (typeof shortYearCutoff != 'string' ? shortYearCutoff : new Date().getFullYear() % 100 + parseInt(shortYearCutoff, 10)) ? 0 : -100);
+		}
+		if (doy > -1) {
+			month = 1;
+			day = doy;
+			do {
+				var dim = 32 - new Date(year, month - 1, 32).getDate();
+				if (day <= dim) {
+					break;
+				}
+				month++;
+				day -= dim;
+			} while (true);
+		}
+		hours = (ampm == -1) ? hours : ((ampm && hours < 12) ? (hours + 12) : (!ampm && hours == 12 ? 0 : hours));
+		var date = new Date(year, month - 1, day, hours, minutes, seconds);
+		if (date.getFullYear() != year || date.getMonth() + 1 != month || date.getDate() != day) {
+			return def; // Invalid date
+		}
+		return date;
+	};
+
+})(jQuery);
 ////////////////
-!function(e){function t(e){var t;for(t in e)if(void 0!==c[e[t]])return!0;return!1}function a(){var e,a=["Webkit","Moz","O","ms"];for(e in a)if(t([a[e]+"Transform"]))return"-"+a[e].toLowerCase()+"-";return""}function n(e,t){var a=e.originalEvent,n=e.changedTouches;return n||a&&a.changedTouches?a?a.changedTouches[0]["page"+t]:n[0]["page"+t]:e["page"+t]}function s(t,a,n){var s=t;return"object"==typeof a?t.each(function(){this.id||(this.id="mobiscroll"+ ++o),l[this.id]&&l[this.id].destroy(),new e.mobiscroll.classes[a.component||"Scroller"](this,a)}):("string"==typeof a&&t.each(function(){var e,t=l[this.id];return t&&t[a]&&(e=t[a].apply(this,Array.prototype.slice.call(n,1)),void 0!==e)?(s=e,!1):void 0}),s)}function i(e){if("touchstart"==e.type)r[e.target]=!0;else if(r[e.target])return delete r[e.target],!1;return!0}var o=+new Date,r={},l={},d=e.extend,c=document.createElement("modernizr").style,u=t(["perspectiveProperty","WebkitPerspective","MozPerspective","OPerspective","msPerspective"]),h=a(),f=h.replace(/^\-/,"").replace(/\-$/,"").replace("moz","Moz");e.fn.mobiscroll=function(t){return d(this,e.mobiscroll.components),s(this,t,arguments)},e.mobiscroll=e.mobiscroll||{util:{prefix:h,jsPrefix:f,has3d:u,getCoord:n,testTouch:i},presets:{},themes:{},i18n:{},instances:l,classes:{},components:{},defaults:{},setDefaults:function(e){d(defaults,e)},presetShort:function(e,t){this.components[e]=function(a){return s(this,d(a,{component:t,preset:e}),arguments)}}},e.scroller=e.scroller||e.mobiscroll,e.fn.scroller=e.fn.scroller||e.fn.mobiscroll}(jQuery),function(e){function t(){o=!0,setTimeout(function(){o=!1},300)}function a(e,t,a){return Math.max(t,Math.min(e,a))}function n(t){var a={values:[],keys:[]};return e.each(t,function(e,t){a.keys.push(e),a.values.push(t)}),a}e.mobiscroll.classes.Scroller=function(c,T){function D(e,t,a){if(e.stopPropagation(),e.preventDefault(),!ee&&!C(t)&&!t.hasClass("dwa")){ee=!0;var n=t.find(".dw-ul");M(n),clearInterval(fe),fe=setInterval(function(){a(n)},Ce.delay),a(n)}}function C(t){if(e.isArray(Ce.readonly)){var a=e(".dwwl",E).index(t);return Ce.readonly[a]}return Ce.readonly}function k(t){var a='<div class="dw-bf">',s=Fe[t],i=s.values?s:n(s),o=1,r=i.labels||[],l=i.values,d=i.keys||l;return e.each(l,function(e,t){o%20==0&&(a+='</div><div class="dw-bf">'),a+='<div role="option" aria-selected="false" class="dw-li dw-v" data-val="'+d[e]+'"'+(r[e]?' aria-label="'+r[e]+'"':"")+' style="height:'+R+"px;line-height:"+R+'px;"><div class="dw-i">'+t+"</div></div>",o++}),a+="</div>"}function M(t){le=e(".dw-li",t).index(e(".dw-v",t).eq(0)),de=e(".dw-li",t).index(e(".dw-v",t).eq(-1)),he=e(".dw-ul",E).index(t)}function A(e){var t=Ce.headerText;return t?"function"==typeof t?t.call(Te,e):t.replace(/\{value\}/i,e):""}function S(){xe.temp=xe.values?xe.values.slice(0):Ce.parseValue(De.val()||"",xe),j()}function F(t){var a,n,s=window.getComputedStyle?getComputedStyle(t[0]):t[0].style;return f?(e.each(["t","webkitT","MozT","OT","msT"],function(e,t){return void 0!==s[t+"ransform"]?(a=s[t+"ransform"],!1):void 0}),a=a.split(")")[0].split(", "),n=a[13]||a[5]):n=s.top.replace("px",""),Math.round(I-n/R)}function Y(e,t){clearTimeout(Me[t]),delete Me[t],e.closest(".dwwl").removeClass("dwa")}function W(e,t,a,n,s){var i=(I-a)*R,o=e[0].style;i==Se[t]&&Me[t]||(n&&i!=Se[t]&&O("onAnimStart",[E,t,n]),Se[t]=i,o[h+"Transition"]="all "+(n?n.toFixed(3):0)+"s ease-out",f?o[h+"Transform"]="translate3d(0,"+i+"px,0)":o.top=i+"px",Me[t]&&Y(e,t),n&&s&&(e.closest(".dwwl").addClass("dwa"),Me[t]=setTimeout(function(){Y(e,t)},1e3*n)),Ae[t]=a)}function H(t,a,n){var s=e('.dw-li[data-val="'+t+'"]',a),i=e(".dw-li",a),o=i.index(s),r=i.length;if(!s.hasClass("dw-v")){for(var l=s,d=s,c=0,u=0;o-c>=0&&!l.hasClass("dw-v");)c++,l=i.eq(o-c);for(;r>o+u&&!d.hasClass("dw-v");)u++,d=i.eq(o+u);(c>u&&u&&2!==n||!c||0>o-c||1==n)&&d.hasClass("dw-v")?(s=d,o+=u):(s=l,o-=c)}return{cell:s,v:o,val:s.attr("data-val")}}function N(t,a,n,s,i){O("validate",[E,a,t,s])!==!1&&(e(".dw-ul",E).each(function(n){var o=e(this),r=n==a||void 0===a,l=H(xe.temp[n],o,s),d=l.cell;(!d.hasClass("dw-sel")||r)&&(xe.temp[n]=l.val,Ce.multiple||(e(".dw-sel",o).removeAttr("aria-selected"),d.attr("aria-selected","true")),e(".dw-sel",o).removeClass("dw-sel"),d.addClass("dw-sel"),W(o,n,l.v,r?t:.1,r?i:!1))}),z=Ce.formatResult(xe.temp),xe.live&&j(n,n,0,!0),e(".dwv",E).html(A(z)),n&&O("onChange",[z]))}function O(t,a){var n;return a.push(xe),e.each([G,ke,T],function(e,s){s&&s[t]&&(n=s[t].apply(Te,a))}),n}function V(t,n,s,i,o){n=a(n,le,de);var r=e(".dw-li",t).eq(n),l=void 0===o?n:o,d=void 0!==o,c=he,u=i?n==l?.1:Math.abs((n-l)*Ce.timeUnit):0;xe.temp[c]=r.attr("data-val"),W(t,c,n,u,d),setTimeout(function(){N(u,c,!0,s,d)},10)}function P(e){var t=Ae[he]+1;V(e,t>de?le:t,1,!0)}function L(e){var t=Ae[he]-1;V(e,le>t?de:t,2,!0)}function j(e,t,a,n,s,i){He&&!n&&N(a,void 0,i),z=Ce.formatResult(xe.temp),s||(xe.values=xe.temp.slice(0),xe.val=z),e&&(We&&(De.val(z),t&&(me=!0,De.change())),O("onValueFill",[z,t]))}function q(e,t){var a;ve.on(e,function(e){clearTimeout(a),a=setTimeout(function(){($&&t||!t)&&xe.position(!t)},200)})}var I,R,z,E,J,U,Q,_,B,X,$,Z,G,K,ee,te,ae,ne,se,ie,oe,re,le,de,ce,ue,he,fe,we,me,pe,ve,be,ye,ge,xe=this,Te=c,De=e(Te),Ce=v({},x),ke={},Me={},Ae={},Se={},Fe=[],Ye=[],We=De.is("input"),He=!1,Ne=function(t){!m(t)||i||ee||ge||C(this)||(t.preventDefault(),i=!0,ae="clickpick"!=Ce.mode,ue=e(".dw-ul",this),M(ue),ne=void 0!==Me[he],re=ne?F(ue):Ae[he],se=w(t,"Y"),ie=new Date,oe=se,W(ue,he,re,.001),ae&&ue.closest(".dwwl").addClass("dwa"),e(document).on(y,Oe).on(g,Ve))},Oe=function(e){ae&&(e.preventDefault(),e.stopPropagation(),oe=w(e,"Y"),W(ue,he,a(re+(se-oe)/R,le-1,de+1))),se!==oe&&(ne=!0)},Ve=function(t){var n,s,o,r=new Date-ie,l=a(re+(se-oe)/R,le-1,de+1),d=ue.offset().top;if(300>r?(n=(oe-se)/r,s=n*n/Ce.speedUnit,0>oe-se&&(s=-s)):s=oe-se,o=Math.round(re-s/R),!s&&!ne){var c=Math.floor((oe-d)/R),u=e(e(".dw-li",ue)[c]),h=ae;O("onValueTap",[u])!==!1?o=c:h=!0,h&&(u.addClass("dw-hl"),setTimeout(function(){u.removeClass("dw-hl")},200))}ae&&V(ue,o,0,!0,Math.round(l)),i=!1,ue=null,e(document).off(y,Oe).off(g,Ve)},Pe=function(t){ge&&ge.removeClass("dwb-a"),ge=e(this),e(document).on(g,Le),ge.hasClass("dwb-d")||ge.hasClass("dwb-nhl")||ge.addClass("dwb-a"),ge.hasClass("dwwb")&&m(t)&&D(t,ge.closest(".dwwl"),ge.hasClass("dwwbp")?P:L)},Le=function(t){ee&&(clearInterval(fe),ee=!1),ge&&(ge.removeClass("dwb-a"),ge=null),e(document).off(g,Le)},je=function(t){38==t.keyCode?D(t,e(this),L):40==t.keyCode&&D(t,e(this),P)},qe=function(e){ee&&(clearInterval(fe),ee=!1)},Ie=function(t){if(!C(this)){t.preventDefault(),t=t.originalEvent||t;var a=t.wheelDelta?t.wheelDelta/120:t.detail?-t.detail/3:0,n=e(".dw-ul",this);M(n),V(n,Math.round(Ae[he]-a),0>a?1:2)}};xe.position=function(t){var n=J.width(),s=ve[0].innerHeight||ve.innerHeight();if((Q!==n||_!==s||!t)&&!pe&&O("onPosition",[E,n,s])!==!1&&ce){var i,o,r,l,d,c,u,h,f,w,m,p,v,b=0,y=0,g=ve.scrollLeft(),x=ve.scrollTop(),T=e(".dwwr",E),D=e(".dw",E),C={},k=void 0===Ce.anchor?De:Ce.anchor;/modal|bubble/.test(Ce.display)&&(e(".dwc",E).each(function(){i=e(this).outerWidth(!0),b+=i,y=i>y?i:y}),i=b>n?y:b,T.width(i).css("white-space",b>n?"":"nowrap")),B=D.outerWidth(),X=D.outerHeight(!0),$=s>=X&&n>=B,xe.scrollLock=$,"modal"==Ce.display?(o=(n-B)/2,r=x+(s-X)/2):"bubble"==Ce.display?(v=!0,f=e(".dw-arrw-i",E),c=k.offset(),u=Math.abs(e(Ce.context).offset().top-c.top),h=Math.abs(e(Ce.context).offset().left-c.left),l=k.outerWidth(),d=k.outerHeight(),o=a(h-(D.outerWidth(!0)-l)/2-g,3,n-B-3),r=u-X,x>r||u>x+s?(D.removeClass("dw-bubble-top").addClass("dw-bubble-bottom"),r=u+d):D.removeClass("dw-bubble-bottom").addClass("dw-bubble-top"),w=f.outerWidth(),m=a(h+l/2-(o+(B-w)/2)-g,0,w),e(".dw-arr",E).css({left:m})):"top"==Ce.display?r=x:"bottom"==Ce.display&&(r=x+s-X),C.top=0>r?0:r,C.left=o,D.css(C),J.height(0),p=Math.max(r+X,"body"==Ce.context?e(document).height():be.scrollHeight),J.css({height:p,left:g}),v&&(r+X>x+s||u>x+s)&&(pe=!0,setTimeout(function(){pe=!1},300),ve.scrollTop(Math.min(r+X-s,p-s)))}Q=n,_=s},xe.enable=function(){Ce.disabled=!1,We&&De.prop("disabled",!1)},xe.disable=function(){Ce.disabled=!0,We&&De.prop("disabled",!0)},xe.setValue=function(t,a,n,s,i){xe.temp=e.isArray(t)?t.slice(0):Ce.parseValue.call(Te,t+"",xe),j(a,void 0===i?a:i,n,!1,s,a)},xe.getValue=function(){return xe.values},xe.getValues=function(){var e,t=[];for(e in xe._selectedValues)t.push(xe._selectedValues[e]);return t},xe.changeWheel=function(t,a,n){if(E){var s=0,i=t.length;e.each(Ce.wheels,function(o,r){return e.each(r,function(o,r){return e.inArray(s,t)>-1&&(Fe[s]=r,e(".dw-ul",E).eq(s).html(k(s)),i--,!i)?(xe.position(),N(a,void 0,n),!1):void s++}),i?void 0:!1})}},xe.isVisible=function(){return He},xe.tap=function(e,a){var n,s;Ce.tap&&e.on("touchstart.dw mousedown.dw",function(e){e.preventDefault(),n=w(e,"X"),s=w(e,"Y")}).on("touchend.dw",function(e){Math.abs(w(e,"X")-n)<20&&Math.abs(w(e,"Y")-s)<20&&a.call(this,e),t()}),e.on("click.dw",function(e){o||a.call(this,e),e.preventDefault()})},xe.show=function(a){var n,s=0,i="";if(!Ce.disabled&&!He){"top"==Ce.display&&(Z="slidedown"),"bottom"==Ce.display&&(Z="slideup"),S(),O("onBeforeShow",[]),Z&&!a&&(i="dw-"+Z+" dw-in");var o='<div role="dialog" class="'+Ce.theme+" dw-"+Ce.display+(u?" dw"+u.replace(/\-$/,""):"")+(te?"":" dw-nobtn")+'"><div class="dw-persp">'+(ce?'<div class="dwo"></div><div class="dw dwbg '+i+'"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>':'<div class="dw dwbg dwi">')+'<div class="dwwr"><div aria-live="assertive" class="dwv'+(Ce.headerText?"":" dw-hidden")+'"></div><div class="dwcc">',r=e.isArray(Ce.minWidth),l=e.isArray(Ce.maxWidth),d=e.isArray(Ce.fixedWidth);e.each(Ce.wheels,function(t,a){o+='<div class="dwc'+("scroller"!=Ce.mode?" dwpm":" dwsc")+(Ce.showLabel?"":" dwhl")+'"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>',e.each(a,function(e,t){Fe[s]=t,n=void 0!==t.label?t.label:e,o+='<td><div class="dwwl dwrc dwwl'+s+'">'+("scroller"!=Ce.mode?'<a href="#" tabindex="-1" class="dwb-e dwwb dwwbp" style="height:'+R+"px;line-height:"+R+'px;"><span>+</span></a><a href="#" tabindex="-1" class="dwb-e dwwb dwwbm" style="height:'+R+"px;line-height:"+R+'px;"><span>&ndash;</span></a>':"")+'<div class="dwl">'+n+'</div><div tabindex="0" aria-live="off" aria-label="'+n+'" role="listbox" class="dwww"><div class="dww" style="height:'+Ce.rows*R+"px;"+(Ce.fixedWidth?"width:"+(d?Ce.fixedWidth[s]:Ce.fixedWidth)+"px;":(Ce.minWidth?"min-width:"+(r?Ce.minWidth[s]:Ce.minWidth)+"px;":"min-width:"+Ce.width+"px;")+(Ce.maxWidth?"max-width:"+(l?Ce.maxWidth[s]:Ce.maxWidth)+"px;":""))+'"><div class="dw-ul">',o+=k(s),o+='</div><div class="dwwol"></div></div><div class="dwwo"></div></div><div class="dwwol"></div></div></td>',s++}),o+="</tr></table></div></div>"}),o+="</div>",ce&&te&&(o+='<div class="dwbc">',e.each(ye,function(e,t){t="string"==typeof t?xe.buttons[t]:t,o+="<span"+(Ce.btnWidth?' style="width:'+100/ye.length+'%"':"")+' class="dwbw '+t.css+'"><a href="#" class="dwb dwb'+e+' dwb-e" role="button">'+t.text+"</a></span>"}),o+="</div>"),o+="</div></div></div></div>",E=e(o),J=e(".dw-persp",E),U=e(".dwo",E),He=!0,N(),O("onMarkupReady",[E]),ce?(E.appendTo(Ce.context),Z&&!a&&(E.addClass("dw-trans"),setTimeout(function(){E.removeClass("dw-trans").find(".dw").removeClass(i)},350))):De.is("div")?De.html(E):E.insertAfter(De),O("onMarkupInserted",[E]),ce&&(e(window).on("keydown.dw",function(e){13==e.keyCode?xe.select():27==e.keyCode&&xe.cancel()}),Ce.scrollLock&&E.on("touchmove",function(e){$&&e.preventDefault()}),e("input,select,button",be).each(function(){this.disabled||(e(this).attr("autocomplete")&&e(this).data("autocomplete",e(this).attr("autocomplete")),e(this).addClass("dwtd").prop("disabled",!0).attr("autocomplete","off"))}),q("scroll.dw",!0)),xe.position(),q("orientationchange.dw resize.dw",!1),E.on("DOMMouseScroll mousewheel",".dwwl",Ie).on("keydown",".dwwl",je).on("keyup",".dwwl",qe).on("selectstart mousedown",p).on("click",".dwb-e",p).on("touchend",function(){Ce.tap&&t()}).on("keydown",".dwb-e",function(t){32==t.keyCode&&(t.preventDefault(),t.stopPropagation(),e(this).click())}),setTimeout(function(){e.each(ye,function(t,a){xe.tap(e(".dwb"+t,E),function(e){a="string"==typeof a?xe.buttons[a]:a,a.handler.call(this,e,xe)})}),Ce.closeOnOverlay&&xe.tap(U,function(){xe.cancel()}),E.on(b,".dwwl",Ne).on(b,".dwb-e",Pe)},300),O("onShow",[E,z])}},xe.hide=function(t,a,n){if(He&&(n||O("onClose",[z,a])!==!1)){if(e(".dwtd",be).each(function(){e(this).prop("disabled",!1).removeClass("dwtd"),e(this).data("autocomplete")?e(this).attr("autocomplete",e(this).data("autocomplete")):e(this).removeAttr("autocomplete")}),E){var i=ce&&Z&&!t;i&&E.addClass("dw-trans").find(".dw").addClass("dw-"+Z+" dw-out"),t?E.remove():setTimeout(function(){E.remove(),s&&(r=!0,s.focus())},i?350:1),ve.off(".dw")}Se={},He=!1}},xe.select=function(){xe.hide(!1,"set")!==!1&&(j(!0,!0,0,!0),O("onSelect",[xe.val]))},xe.attachShow=function(e,t){Ye.push(e),"inline"!==Ce.display&&e.on((Ce.showOnFocus?"focus.dw":"")+(Ce.showOnTap?" click.dw":""),function(a){"focus"===a.type&&("focus"!==a.type||r)||o||(t&&t(),s=e,xe.show()),setTimeout(function(){r=!1},300)})},xe.cancel=function(){xe.hide(!1,"cancel")!==!1&&O("onCancel",[xe.val])},xe.init=function(t){G=l.themes[t.theme||Ce.theme],K=l.i18n[t.lang||Ce.lang],v(T,t),O("onThemeLoad",[K,T]),v(Ce,G,K,T),Ce.buttons=Ce.buttons||["set","cancel"],Ce.headerText=void 0===Ce.headerText?"inline"!==Ce.display?"{value}":!1:Ce.headerText,xe.settings=Ce,De.off(".dw");var a=l.presets[Ce.preset];a&&(ke=a.call(Te,xe),v(Ce,ke,T)),I=Math.floor(Ce.rows/2),R=Ce.height,Z=Ce.animate,ce="inline"!==Ce.display,ye=Ce.buttons,ve=e("body"==Ce.context?window:Ce.context),be=e(Ce.context)[0],Ce.setText||ye.splice(e.inArray("set",ye),1),Ce.cancelText||ye.splice(e.inArray("cancel",ye),1),Ce.button3&&ye.splice(e.inArray("set",ye)+1,0,{text:Ce.button3Text,handler:Ce.button3}),xe.context=ve,xe.live=!ce||-1==e.inArray("set",ye),xe.buttons.set={text:Ce.setText,css:"dwb-s",handler:xe.select},xe.buttons.cancel={text:xe.live?Ce.closeText:Ce.cancelText,css:"dwb-c",handler:xe.cancel},xe.buttons.clear={text:Ce.clearText,css:"dwb-cl",handler:function(){xe.trigger("onClear",[E]),De.val(""),xe.live||xe.hide()}},te=ye.length>0,He&&xe.hide(!0,!1,!0),ce?(S(),We&&(void 0===we&&(we=Te.readOnly),Te.readOnly=!0),xe.attachShow(De)):xe.show(),We&&De.on("change.dw",function(){me||xe.setValue(De.val(),!1,.2),me=!1})},xe.option=function(e,t){var a={};"object"==typeof e?a=e:a[e]=t,xe.init(a)},xe.destroy=function(){xe.hide(!0,!1,!0),e.each(Ye,function(e,t){t.off(".dw")}),e(window).off(".dwa"),We&&(Te.readOnly=we),delete d[Te.id],O("onDestroy",[])},xe.getInst=function(){return xe},xe.getValidCell=H,xe.trigger=O,d[Te.id]=xe,xe.values=null,xe.val=null,xe.temp=null,xe.buttons={},xe._selectedValues={},xe.init(T)};var s,i,o,r,l=e.mobiscroll,d=l.instances,c=l.util,u=c.prefix,h=c.jsPrefix,f=c.has3d,w=c.getCoord,m=c.testTouch,p=function(e){e.preventDefault()},v=e.extend,b="touchstart mousedown",y="touchmove mousemove",g="touchend mouseup",x=v(l.defaults,{width:70,height:40,rows:3,delay:300,disabled:!1,readonly:!1,closeOnOverlay:!0,showOnFocus:!0,showOnTap:!0,showLabel:!0,wheels:[],theme:"",display:"modal",mode:"scroller",preset:"",lang:"en-US",context:"body",scrollLock:!0,tap:!0,btnWidth:!0,speedUnit:.0012,timeUnit:.1,formatResult:function(e){return e.join(" ")},parseValue:function(t,a){var s,i=t.split(" "),o=[],r=0;return e.each(a.settings.wheels,function(t,a){e.each(a,function(t,a){a=a.values?a:n(a),s=a.keys||a.values,-1!==e.inArray(i[r],s)?o.push(i[r]):o.push(s[0]),r++})}),o}});l.i18n.en=l.i18n["en-US"]={setText:"Set",selectedText:"Selected",closeText:"Close",cancelText:"Cancel",clearText:"Clear"},e(window).on("focus",function(){s&&(r=!0)}),e(document).on("mouseover mouseup mousedown click",function(e){return o?(e.stopPropagation(),e.preventDefault(),!1):void 0})}(jQuery),function(e){var t=e.mobiscroll,a=new Date,n={startYear:a.getFullYear()-100,endYear:a.getFullYear()+1,shortYearCutoff:"+10",showNow:!1,stepHour:1,stepMinute:1,stepSecond:1,separator:" "},s=function(a){function s(e,t,a){return void 0!==N[t]?+e[N[t]]:void 0!==a?a:z[O[t]]?z[O[t]]():O[t](z)}function i(e,t,a,n){e.push({values:a,keys:t,label:n})}function o(e,t){return Math.floor(e/t)*t}function r(e){var t=e.getHours();return t=I&&t>=12?t-12:t,o(t,E)}function l(e){return o(e.getMinutes(),J)}function d(e){return o(e.getSeconds(),U)}function c(e){return q&&e.getHours()>11?1:0}function u(e){var t=s(e,"h",0);return new Date(s(e,"y"),s(e,"m"),s(e,"d",1),s(e,"a")?t+12:t,s(e,"i",0),s(e,"s",0))}function h(t,a){return e(".dw-li",t).index(e('.dw-li[data-val="'+a+'"]',t))}function f(t,a,n,s){return 0>a?0:a>n?e(".dw-li",t).length:h(t,a)+s}var w,m=e(this),p={};if(m.is("input")){switch(m.attr("type")){case"date":w="yy-mm-dd";break;case"datetime":w="yy-mm-ddTHH:ii:ssZ";break;case"datetime-local":w="yy-mm-ddTHH:ii:ss";break;case"month":w="yy-mm",p.dateOrder="mmyy";break;case"time":w="HH:ii:ss"}var v=m.attr("min"),b=m.attr("max");v&&(p.minDate=t.parseDate(w,v)),b&&(p.maxDate=t.parseDate(w,b))}var y,g,x,T,D,C,k,M,A,S=e.extend({},a.settings),F=e.extend(a.settings,n,p,S),Y=0,W=[],H=[],N={},O={y:"getFullYear",m:"getMonth",d:"getDate",h:r,i:l,s:d,a:c},V=F.preset,P=F.dateOrder,L=F.timeWheels,j=P.match(/D/),q=L.match(/a/i),I=L.match(/h/),R="datetime"==V?F.dateFormat+F.separator+F.timeFormat:"time"==V?F.timeFormat:F.dateFormat,z=new Date,E=F.stepHour,J=F.stepMinute,U=F.stepSecond,Q=F.minDate||new Date(F.startYear,0,1),_=F.maxDate||new Date(F.endYear,11,31,23,59,59);if(w=w||R,V.match(/date/i)){for(e.each(["y","m","d"],function(e,t){y=P.search(new RegExp(t,"i")),y>-1&&H.push({o:y,v:t})}),H.sort(function(e,t){return e.o>t.o?1:-1}),e.each(H,function(e,t){N[t.v]=e}),D=[],g=0;3>g;g++)if(g==N.y){for(Y++,T=[],x=[],C=Q.getFullYear(),k=_.getFullYear(),y=C;k>=y;y++)x.push(y),T.push(P.match(/yy/i)?y:(y+"").substr(2,2));i(D,x,T,F.yearText)}else if(g==N.m){for(Y++,T=[],x=[],y=0;12>y;y++){var B=P.replace(/[dy]/gi,"").replace(/mm/,9>y?"0"+(y+1):y+1).replace(/m/,y+1);x.push(y),T.push(B.match(/MM/)?B.replace(/MM/,'<span class="dw-mon">'+F.monthNames[y]+"</span>"):B.replace(/M/,'<span class="dw-mon">'+F.monthNamesShort[y]+"</span>"))}i(D,x,T,F.monthText)}else if(g==N.d){for(Y++,T=[],x=[],y=1;32>y;y++)x.push(y),T.push(P.match(/dd/i)&&10>y?"0"+y:y);i(D,x,T,F.dayText)}W.push(D)}if(V.match(/time/i)){for(A=!0,H=[],e.each(["h","i","s","a"],function(e,t){e=L.search(new RegExp(t,"i")),e>-1&&H.push({o:e,v:t})}),H.sort(function(e,t){return e.o>t.o?1:-1}),e.each(H,function(e,t){N[t.v]=Y+e}),D=[],g=Y;Y+4>g;g++)if(g==N.h){for(Y++,T=[],x=[],y=0;(I?12:24)>y;y+=E)x.push(y),T.push(I&&0==y?12:L.match(/hh/i)&&10>y?"0"+y:y);i(D,x,T,F.hourText)}else if(g==N.i){for(Y++,T=[],x=[],y=0;60>y;y+=J)x.push(y),T.push(L.match(/ii/)&&10>y?"0"+y:y);i(D,x,T,F.minuteText)}else if(g==N.s){for(Y++,T=[],x=[],y=0;60>y;y+=U)x.push(y),T.push(L.match(/ss/)&&10>y?"0"+y:y);i(D,x,T,F.secText)}else if(g==N.a){Y++;var X=L.match(/A/);i(D,[0,1],X?["AM","PM"]:["am","pm"],F.ampmText)}W.push(D)}return a.setDate=function(e,t,n,s,i){var o;for(o in N)a.temp[N[o]]=e[O[o]]?e[O[o]]():O[o](e);a.setValue(a.temp,t,n,s,i)},a.getDate=function(e){return u(e?a.temp:a.values)},a.convert=function(t){var a=t;return e.isArray(t)||(a=[],e.each(t,function(t,n){e.each(n,function(e,n){"daysOfWeek"===t&&(n.d?n.d="w"+n.d:n="w"+n),a.push(n)})})),a},a.format=R,a.buttons.now={text:F.nowText,css:"dwb-n",handler:function(){a.setDate(new Date,!1,.3,!0,!0)}},F.showNow&&F.buttons.splice(e.inArray("set",F.buttons)+1,0,"now"),M=F.invalid?a.convert(F.invalid):!1,{wheels:W,headerText:F.headerText?function(e){return t.formatDate(R,u(a.temp),F)}:!1,formatResult:function(e){return t.formatDate(w,u(e),F)},parseValue:function(e){var a,n=t.parseDate(w,e,F),s=[];for(a in N)s[N[a]]=n[O[a]]?n[O[a]]():O[a](n);return s},validate:function(t,n,i,r){var l=a.temp,d={y:Q.getFullYear(),m:0,d:1,h:0,i:0,s:0,a:0},c={y:_.getFullYear(),m:11,d:31,h:o(I?11:23,E),i:o(59,J),s:o(59,U),a:1},u={h:E,i:J,s:U,a:1},w=s(l,"y"),m=s(l,"m"),p=!0,v=!0;if(e.each(["y","m","d","a","h","i","s"],function(n,i){if(void 0!==N[i]){var o=d[i],u=c[i],f=31,b=s(l,i),y=e(".dw-ul",t).eq(N[i]);if("d"==i&&(f=32-new Date(w,m,32).getDate(),u=f,j&&e(".dw-li",y).each(function(){var t=e(this),a=t.data("val"),n=new Date(w,m,a).getDay(),s=P.replace(/[my]/gi,"").replace(/dd/,10>a?"0"+a:a).replace(/d/,a);e(".dw-i",t).html(s.match(/DD/)?s.replace(/DD/,'<span class="dw-day">'+F.dayNames[n]+"</span>"):s.replace(/D/,'<span class="dw-day">'+F.dayNamesShort[n]+"</span>"))})),p&&Q&&(o=Q[O[i]]?Q[O[i]]():O[i](Q)),v&&_&&(u=_[O[i]]?_[O[i]]():O[i](_)),"y"!=i){var g=h(y,o),x=h(y,u);e(".dw-li",y).removeClass("dw-v").slice(g,x+1).addClass("dw-v"),"d"==i&&e(".dw-li",y).removeClass("dw-h").slice(f).addClass("dw-h")}if(o>b&&(b=o),b>u&&(b=u),p&&(p=b==o),v&&(v=b==u),M&&"d"==i){var T,D,C,k,A=new Date(w,m,1).getDay(),S=[];for(D=0;D<M.length;D++)if(T=M[D],k=T+"",!T.start)if(T.getTime)T.getFullYear()==w&&T.getMonth()==m&&S.push(T.getDate()-1);else if(k.match(/w/i))for(k=+k.replace("w",""),C=k-A;f>C;C+=7)C>=0&&S.push(C);else k=k.split("/"),k[1]?k[0]-1==m&&S.push(k[1]-1):S.push(k[0]-1);e.each(S,function(t,a){e(".dw-li",y).eq(a).removeClass("dw-v")}),b=a.getValidCell(b,y,r).val}l[N[i]]=b}}),A&&M){var b,y,g,x,T,D,C,k,S,Y,W,H,V,L,q,R,z={},B=s(l,"d"),X=new Date(w,m,B),$=["a","h","i","s"];e.each(M,function(e,t){t.start&&(t.apply=!1,b=t.d,y=b+"",x=y.split("/"),b&&(b.getTime&&w==b.getFullYear()&&m==b.getMonth()&&B==b.getDate()||!y.match(/w/i)&&(x[1]&&B==x[1]&&m==x[0]-1||!x[1]&&B==x[0])||y.match(/w/i)&&X.getDay()==+y.replace("w",""))&&(t.apply=!0,z[X]=!0))}),e.each(M,function(n,i){if(i.start&&(i.apply||!i.d&&!z[X])){for(T=i.start.split(":"),D=i.end.split(":"),C=0;3>C;C++)void 0===T[C]&&(T[C]=0),void 0===D[C]&&(D[C]=59),T[C]=+T[C],D[C]=+D[C];T.unshift(T[0]>11?1:0),D.unshift(D[0]>11?1:0),I&&(T[1]>=12&&(T[1]=T[1]-12),D[1]>=12&&(D[1]=D[1]-12)),H=!0,V=!0,e.each($,function(n,i){if(void 0!==N[i]){for(g=s(l,i),q=0,R=0,Y=0,W=void 0,L=e(".dw-ul",t).eq(N[i]),C=n+1;4>C;C++)T[C]>0&&(q=u[i]),D[C]<c[$[C]]&&(R=u[i]);k=o(T[n]+q,u[i]),S=o(D[n]-R,u[i]),H&&(Y=f(L,k,c[i],0)),V&&(W=f(L,S,c[i],1)),(H||V)&&e(".dw-li",L).slice(Y,W).removeClass("dw-v"),g=a.getValidCell(g,L,r).val,H=H&&g==o(T[n],u[i]),V=V&&g==o(D[n],u[i]),l[N[i]]=g}})}})}}}};t.i18n.en=e.extend(t.i18n.en,{dateFormat:"mm/dd/yy",dateOrder:"mmddy",timeWheels:"hhiiA",timeFormat:"hh:ii A",monthNames:["January","February","March","April","May","June","July","August","September","October","November","December"],monthNamesShort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],dayNames:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],dayNamesShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],monthText:"Month",dayText:"Day",yearText:"Year",hourText:"Hours",minuteText:"Minutes",secText:"Seconds",ampmText:"&nbsp;",nowText:"Now"}),e.each(["date","time","datetime"],function(e,a){t.presets[a]=s,t.presetShort(a)}),t.formatDate=function(t,a,s){if(!a)return null;var i,o=e.extend({},n,s),r=function(e){for(var a=0;i+1<t.length&&t.charAt(i+1)==e;)a++,i++;return a},l=function(e,t,a){var n=""+t;if(r(e))for(;n.length<a;)n="0"+n;return n},d=function(e,t,a,n){return r(e)?n[t]:a[t]},c="",u=!1;for(i=0;i<t.length;i++)if(u)"'"!=t.charAt(i)||r("'")?c+=t.charAt(i):u=!1;else switch(t.charAt(i)){case"d":c+=l("d",a.getDate(),2);break;case"D":c+=d("D",a.getDay(),o.dayNamesShort,o.dayNames);break;case"o":c+=l("o",(a.getTime()-new Date(a.getFullYear(),0,0).getTime())/864e5,3);break;case"m":c+=l("m",a.getMonth()+1,2);break;case"M":c+=d("M",a.getMonth(),o.monthNamesShort,o.monthNames);break;case"y":c+=r("y")?a.getFullYear():(a.getYear()%100<10?"0":"")+a.getYear()%100;break;case"h":var h=a.getHours();c+=l("h",h>12?h-12:0==h?12:h,2);break;case"H":c+=l("H",a.getHours(),2);break;case"i":c+=l("i",a.getMinutes(),2);break;case"s":c+=l("s",a.getSeconds(),2);break;case"a":c+=a.getHours()>11?"pm":"am";break;case"A":c+=a.getHours()>11?"PM":"AM";break;case"'":r("'")?c+="'":u=!0;break;default:c+=t.charAt(i)}return c},t.parseDate=function(t,a,s){var i=e.extend({},n,s),o=i.defaultValue||new Date;if(!t||!a)return o;a="object"==typeof a?a.toString():a+"";var r,l=i.shortYearCutoff,d=o.getFullYear(),c=o.getMonth()+1,u=o.getDate(),h=-1,f=o.getHours(),w=o.getMinutes(),m=0,p=-1,v=!1,b=function(e){var a=r+1<t.length&&t.charAt(r+1)==e;return a&&r++,a},y=function(e){b(e);var t="@"==e?14:"!"==e?20:"y"==e?4:"o"==e?3:2,n=new RegExp("^\\d{1,"+t+"}"),s=a.substr(T).match(n);return s?(T+=s[0].length,parseInt(s[0],10)):0},g=function(e,t,n){var s,i=b(e)?n:t;for(s=0;s<i.length;s++)if(a.substr(T,i[s].length).toLowerCase()==i[s].toLowerCase())return T+=i[s].length,s+1;return 0},x=function(){T++},T=0;for(r=0;r<t.length;r++)if(v)"'"!=t.charAt(r)||b("'")?x():v=!1;else switch(t.charAt(r)){case"d":u=y("d");break;case"D":g("D",i.dayNamesShort,i.dayNames);break;case"o":h=y("o");break;case"m":c=y("m");break;case"M":c=g("M",i.monthNamesShort,i.monthNames);break;case"y":d=y("y");break;case"H":f=y("H");break;case"h":f=y("h");break;case"i":w=y("i");break;case"s":m=y("s");break;case"a":p=g("a",["am","pm"],["am","pm"])-1;break;case"A":p=g("A",["am","pm"],["am","pm"])-1;break;case"'":b("'")?x():v=!0;break;default:x()}if(100>d&&(d+=(new Date).getFullYear()-(new Date).getFullYear()%100+(d<=("string"!=typeof l?l:(new Date).getFullYear()%100+parseInt(l,10))?0:-100)),h>-1)for(c=1,u=h;;){var D=32-new Date(d,c-1,32).getDate();if(D>=u)break;c++,u-=D}f=-1==p?f:p&&12>f?f+12:p||12!=f?f:0;var C=new Date(d,c-1,u,f,w,m);return C.getFullYear()!=d||C.getMonth()+1!=c||C.getDate()!=u?o:C}}(jQuery),function(e){e.mobiscroll.themes.ios7={display:"modal",dateOrder:"MMdyy",rows:5,width:70,height:30,headerText:!0,showLabel:!0,btnWidth:!1,selectedLineHeight:!1,selectedLineBorder:0,useShortLabels:!0,btnCalPrevClass:"mbsc-ic mbsc-ic-arrow-left5",btnCalNextClass:"mbsc-ic mbsc-ic-arrow-right5",btnPlusClass:"mbsc-ic mbsc-ic-arrow-down5",btnMinusClass:"mbsc-ic mbsc-ic-arrow-up5"}}(jQuery);
+// IOS7 THEME //
+////////////////
+(function ($) {
+	$.mobiscroll.themes.ios7 = {
+		display : "modal",
+		dateOrder : "MMdyy",
+		rows : 5,
+		width : 70,
+		height : 30,
+		headerText : !0,
+		showLabel : !0,
+		btnWidth : !1,
+		selectedLineHeight : !1,
+		selectedLineBorder : 0,
+		useShortLabels : !0,
+		btnCalPrevClass : "mbsc-ic mbsc-ic-arrow-left5",
+		btnCalNextClass : "mbsc-ic mbsc-ic-arrow-right5",
+		btnPlusClass : "mbsc-ic mbsc-ic-arrow-down5",
+		btnMinusClass : "mbsc-ic mbsc-ic-arrow-up5"
+	};
+})(jQuery);
 
