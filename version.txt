@@ -2,7 +2,7 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
-★ Missing something? You can ask for new features via the Suggestion Box
+<span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
 
 ★ Switch to a more compact database model to store sync data (in progress)
 ★ Shoutbox for users to interact (under development)
