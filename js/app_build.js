@@ -1474,6 +1474,7 @@ var profileHtml = '\
 					<option value="Female">' + LANG.FEMALE[lang] + '</option>\
 				</select>\
 			</span>\
+			<div id="profileTracker">'+'Weight Tracker'+'</div>\
 		</div>\
 		<div class="calcRow">\
 			<label>' + LANG.YOUR_HEIGHT[lang] + '</label>\
@@ -1696,6 +1697,13 @@ var profileHtml = '\
 preTab(keepOpen);
 $('#appContent').html2(profileHtml);
 afterTab(keepOpen);
+////////////////////
+// WEIGHT TRACKER //
+////////////////////
+$('#profileTracker').on(tap,function(evt) {
+	app.suspend('#timerDailyInput',400);
+	getWeightTracker();
+});
 //////////////////////////
 // FIX ANDROID 2 SELECT //
 //////////////////////////

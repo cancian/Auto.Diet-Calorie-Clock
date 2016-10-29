@@ -1,4 +1,408 @@
-﻿//##/////////////////##//
+﻿//##//////////////////##//
+//## GetWeightTracker ##//
+//##//////////////////##//
+function getWeightTracker() {
+	var buildTracker;
+	var measureUnit = app.read('calcForm#pA3C','pounds') ? LANG.LB[lang] : LANG.KG[lang];
+	//tokg
+	//totalWeight = Math.round(totalWeight) / (2.2));
+	/////////////////////
+	// DATA PROCESSING //
+	/////////////////////
+	var day = 24*60*60*1000;
+	var currWeight = parseInt($('#pA3B').val());
+	//new Date(1474855200000);
+	//new Date(app.read('config_start_time'));
+	var initVal = app.now() - day < app.read('config_start_time') ? app.now() - day : app.read('config_start_time');
+	//
+	//alert(app.read('weight_tracker','','object')[0][1]);
+	//alert(new Date(app.read('weight_tracker')));
+	//INITIAL DATAFILL
+	//app.remove('weight_tracker');
+	app.define('weight_tracker',[[toTime(toDate(app.now())),currWeight]],'object');
+	var weightData = app.read('weight_tracker','','object').sort();
+	//////////////////////
+	// FIND LOWEST TIME //
+	//////////////////////
+	var lowestTime = toTime(toDate(app.now() - day));
+	
+	$.each(weightData,function(key,value) {
+		if(value[0] < lowestTime) {
+			lowestTime = value[0];
+		}
+	});
+	//////////////
+	// HANDLERS //
+	//////////////
+	var appTrackerHandlers = function () {
+		//add plus icon
+		$('#saveButton').html2('');
+		$('#saveButton').addClass('getAdd');
+		///////////////////
+		// APPEND EDITOR //
+		///////////////////
+		$('#saveButton').on(tap,function() {
+			if(document.getElementById('appTrackerEditWrapper')) {
+				app.handlers.fade(0, '#appTrackerEditWrapper', 300);
+				return;
+			}
+			$('#appTracker').append2('\
+			<div id="appTrackerEditWrapper">\
+				<div id="appTrackerInputWrapper">\
+					<span>' + measureUnit + '</span>\
+					<input id="appTrackerEditInput" type="text" value="' + currWeight + '" />\
+					<div id="appTrackerInputDateWrapper"><input type="text" id="appTrackerInputDate"></div>\
+				</div>\
+				<div id="appTrackerButtonWrapper">\
+					<div id="appTrackerButtonDelete">' + LANG.DELETE[lang] + '</div>\
+					<div id="appTrackerButtonCancel">' + LANG.CANCEL[lang] + '</div>\
+					<div id="appTrackerButtonSave">' + LANG.SAVE[lang] + '</div>\
+				</div>\
+			</div>');
+			/////////////
+			// ADD +/- //
+			/////////////
+			app.handlers.addRemove('#appTrackerEditInput',1,999,'int');
+			/////////////
+			// BUTTONS //
+			/////////////
+			//CANCEL
+			$('#appTrackerButtonCancel').on(tap,function(evt) {
+				app.handlers.fade(0,'#appTrackerEditWrapper', 300);
+			});
+			//////////
+			// SAVE //
+			//////////
+			$('#appTrackerButtonSave').on(tap,function(evt) {
+				weightData = app.read('weight_tracker','','object').sort();
+				var weightInput = parseInt($('#appTrackerEditInput').val());
+				var dateInput   = toTime($('#appTrackerInputDate').val());
+				//////////////////
+				// UPDATE ARRAY //
+				//////////////////
+				if(!weightData.contains(dateInput)) {
+					//insert new
+					weightData.push([dateInput,weightInput]);
+				} else {
+					//loop
+					$.each(weightData,function(key,value) {
+						//update
+						if(typeof value !== 'undefined') {
+							if(value[0] == dateInput) {
+								weightData[key] = [dateInput,weightInput];
+							}
+						}
+					});
+				}
+				//SAVE
+				app.save('weight_tracker',weightData.sort(),'object');
+				//UPDATE CHART
+				buildTracker();
+			});
+			////////////
+			// DELETE //
+			////////////
+			$('#appTrackerButtonDelete').on(tap,function(evt) {
+				var weightInput = parseInt($('#appTrackerEditInput').val());
+				var dateInput = toTime($('#appTrackerInputDate').val());
+					//loop
+					if(weightData.length > 1 && $('#appTrackerInputDate').val() != toDate(app.now())) {
+						var tempData = [];
+						$.each(weightData, function(key,value) {
+							//update
+							if(typeof value !== 'undefined') {
+								if(value[0] === dateInput) {
+									//delete weightData[key];
+								} else {
+									tempData.push([value[0],value][1]);
+								}
+							}
+						});
+					}
+				//////////
+				// SAVE //
+				//////////
+				app.save('weight_tracker',tempData,'object');
+				//UPDATE CHART
+				buildTracker();
+			});			
+			////////////////////////////
+			// READ EXISTING ONCHANGE //
+			////////////////////////////
+			$('#appTrackerInputDate').on('change',function(evt) {
+				weightData = app.read('weight_tracker','','object').sort();
+				var dateInput = toTime($('#appTrackerInputDate').val());				
+				$.each(weightData, function(key,value) {
+					//update match
+					if(typeof value !== 'undefined') {
+						if(typeof value[0] !== 'undefined') {						
+							if(value[0] == dateInput) {
+								$('#appTrackerEditInput').val(value[1]);
+							}
+						}
+					}
+				});	
+			});
+			/////////////////
+			// DATE PICKER //
+			/////////////////
+			$('#appTrackerInputDate').mobiscroll().date({
+				preset: 'datetime',
+				minDate: new Date(initVal - day*2),
+				maxDate: new Date(),
+				theme: 'ios7',
+				lang: 'en',
+				dateFormat: 'yyyy/mm/dd',
+				dateOrder:  'dd MM yy',
+				timeWheels: 'HH:ii',
+			    timeFormat: 'HH:ii',
+				setText: LANG.OK[lang].capitalize(),
+				closeText: LANG.CANCEL[lang].capitalize(),
+				cancelText: LANG.CANCEL[lang].capitalize(),
+				dayText: LANG.DAY[lang].capitalize(),
+				monthText: LANG.MONTH[lang].capitalize(),
+				yearText: LANG.YEAR[lang].capitalize(),
+				hourText: LANG.HOURS[lang].capitalize(),
+				minuteText: LANG.MINUTES[lang].capitalize(),
+				display: 'modal',
+				stepMinute: 1,
+				animate: 'none',
+				monthNames: LANG.MONTH_SHORT[lang].split(', '),
+				monthNamesShort: LANG.MONTH_SHORT[lang].split(', '),
+				mode: 'scroller',
+				showLabel: true,
+				useShortLabels: true
+		    });
+			//////////////////////
+			// SET INITIAL DATE //
+			//////////////////////
+			$('#appTrackerInputDate').scroller('setDate',new Date(), true);
+			//$('#appTrackerInputDate').html(DayUtcFormat(app.now()));
+			////////////////////////
+			// TRIGGER DATEPICKER //
+			////////////////////////
+			$('#appTrackerInputDateWrapper').on(tap,function(evt) {
+				evt.stopPropagation();		
+				$('#appTrackerInputDate').click();
+			});
+			/////////////////
+			// SHOW EDITOR //
+			/////////////////	
+			app.handlers.fade(1, '#appTrackerEditWrapper', 300);
+		
+		});
+		//#/////////////////////////#//
+		//# REBUILD HISTORY SNIPPET #//
+		//#/////////////////////////#//
+
+
+			buildTracker = function () {
+				
+/*
+
+   var weightOptions = {
+        chart: {
+            type: 'area',
+            renderTo: 'chart_container'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            type : 'datetime',
+            title : {
+                text: null
+            }
+        },
+        yAxis: {
+            title: {
+                text: measureUnit
+            }
+        },
+		credits : {
+			enabled : false
+		},
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                lineWidth: 1,
+                marker: {
+                    enabled: false
+                },
+                shadow: false,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
+            }
+        },
+		series : [{
+						//	type : 'area',
+						//	name : LANG.KCAL[lang],
+						//	animation : false,
+						//	lineColor : '#317FD8',
+							//fillColor : '#EAF3FB',
+							data : weightData //[[1474768800000,110],[1474855200000,111],[1474941600000,109],[1475028000000,109],[1475114400000,108],[1475200800000,106],[1475287200000,105],[1475373600000,104],[1475460000000,103],
+						}
+					]
+    };
+	*/
+	
+				//##////////////////##//
+				//## HIGHCHART CODE ##//
+				//##////////////////##//
+				Highcharts.setOptions({
+					lang : {
+						shortMonths : LANG.MONTH_SHORT[lang].split(', '),
+						weekdays : LANG.WEEKDAY_SHORT[lang].split(', ')
+					}
+				});
+				////////////////
+				// STATISTICS //
+				////////////////
+
+				$('#appTracker').highcharts({
+					chart : {
+						reflow : true,
+						spacingLeft : 2,
+						spacingRight : 12,
+						spacingTop : 24,
+						spacingBottom : 9,
+						height : $('#newWindow').height() - ($('body').hasClass('android2') ? 19 : 9),
+						//width : $('#newWindow').width()
+					},
+					credits : {
+						enabled : false
+					},
+					legend : {
+						enabled : false
+					},
+					title : {
+						text : ''
+					},
+					tooltip : {
+						enabled : true
+					},
+					subtitle : {
+						text : ''
+					},
+					yAxis : {
+						title : {
+							text : measureUnit,
+								style : {
+									"font-size" : '16px',
+									"font-weight" : 'bold'
+								},
+						},
+						//tickPositions : [0, 7, 75],
+						gridLineColor : 'rgba(0,0,0,.25)',
+						gridZIndex: 4,
+						gridLineDashStyle : 'longdash',
+						labels : {
+							enabled : true,
+							align : 'left',
+							x : 4,
+							y : -3,
+							style : {
+							color: '#aaa',
+							fontSize : '10px'
+							},
+						},
+					},
+					xAxis : {
+           // endOnTick: true,
+           // showFirstLabel: true,
+            startOnTick: true,
+            type : 'datetime',
+						minTickInterval: 24 * 60 * 60 * 1000,
+					},
+					plotOptions : {
+						series : {
+							dataLabels : {
+								enabled : true,
+								style : {
+									textShadow : '0 0 3px white',
+									fontSize : '11px',
+									color: '#c30',
+									fontWeight: 'normal'
+								},
+								x : 0,
+								y : -3,
+							},
+							marker : {
+								enabled : true,
+								lineWidth : 2,
+								lineColor : '#317FD8',
+								fillColor : 'white',
+								states : {
+									hover : {
+										lineWidth : 2
+									}
+								}
+							},
+							allowPointSelect : false,
+							lineWidth : 2,
+							states : {
+								hover : {
+									lineWidth : 2
+								}
+							}
+						}
+					},
+					series : [{
+							type : 'area',
+							name : measureUnit,
+							animation : false,
+							lineColor : '#317FD8',
+							fillColor : '#fff',
+							data : app.read('weight_tracker','','object').sort() //[[toTime('2016/10/11'),110],[toTime('2016/10/12'),111]]
+							//[[toTime('2016/10/11'),110],[toTime('2016/10/12'),111]]
+							//,[1474941600000,109],[1475028000000,109],[1475114400000,108],[1475200800000,106],[1475287200000,105],[1475373600000,104],[1475460000000,103],
+							//[1475546400000,102],[1475632800000,107],[1475719200000,105],[1475805600000,105],[1475892000000,104],[1475978400000,103],[1476064800000,0],[1476151200000,105],[1476237600000,102],[1476324000000,0],
+							//[1476410400000,101],[1476496800000,100],[1476583200000,100],[1476669600000,99],[1476756000000,99],[1476842400000,98],[1476928800000,99],[1477015200000,100]
+							//[1477101600000,101],[1477188000000,0],[1477274400000,0],[1477360800000,101],[1477447200000,102]] //dayArray.sort()
+						}
+					]
+				});
+
+				//remove top-bottom grid lines
+				//$('.highcharts-grid path:eq(3)').remove();
+		    	$('.highcharts-grid path:last').remove();
+		}
+		buildTracker();
+	};
+	//////////
+	// HTML //
+	//////////
+	var appTrackerHtml = '<div id="appTracker"></div>';
+	//////////
+	// SAVE //
+	//////////
+	var appTrackerSave = function() {
+		//if(parseInt(document.getElementById('sliderProInput').value) + parseInt(document.getElementById('sliderCarInput').value) + parseInt(document.getElementById('sliderFatInput').value) == 100) {
+			//app.save('appNutrients',parseInt(document.getElementById('sliderProInput').value) + '|' + parseInt(document.getElementById('sliderCarInput').value) + '|' + parseInt(document.getElementById('sliderFatInput').value));
+			//updateNutriRatio();
+			//return true;
+		//} else {
+			//alert(LANG.TOTAL_ERROR[lang],LANG.PLEASE_REVIEW[lang]);
+			return false;
+		//}
+	};
+	/////////////////
+	// CALL WINDOW //
+	/////////////////
+	getNewWindow('Weight Tracker',appTrackerHtml,appTrackerHandlers,appTrackerSave);
+	
+}
+//##/////////////////##//
 //## GET FULLHISTORY ##//
 //##/////////////////##//
 function getFullHistory() {
@@ -8,7 +412,7 @@ function getFullHistory() {
 	var day         = 60*60*24*1000;
 	var week        = day*7;
 	var month       = day*30;
-	var months      = ['January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December'];
+	var months      = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 	var monthName   = months[new Date().getMonth()];
 	var todaysTime  = Date.parse(new Date(monthName + ' ' +  new Date().getDate() + ', ' + new Date().getFullYear()));
 	var globalDayArray;
@@ -1267,7 +1671,6 @@ function getElapsed(swap) {
 		if(app.read('appStatus','running')) {
 			weightLoss = ((((app.read('calcForm#pA6G')) * ((app.now() - (app.read('config_start_time'))) / (60*60*24*7))) / 1000)).toFixed(7);
 		} else {
-
 			weightLoss = '0.0000000';
 		}
 		//DATA
