@@ -780,24 +780,28 @@ app.timeout('syncEntries',2000,function() {
 // GET ENTRIES //
 /////////////////
 function getEntries(callback) {
-	var rowsArray = appRows.entry;
-
-	if (appRows.entry) {
-		if (appRows.entry.length) {
-			rowsArray = rowsArray.filter(function (row) {
-				if (row.info !== 'deleted') {
-					return row;
-				}
-			});
-		}
-	}
 	/*
-	for (var i = 0, len = appRows.entry.length; i < len; i++) {
-		if (appRows.entry[i].info !== 'deleted') {
-			rowsArray.push(appRows.entry[i]);
-		}
+	var rowsArray = appRows.entry;
+	
+	if (rowsArray.length) {
+		rowsArray = rowsArray.filter(function (row) {
+			if (row.info !== 'deleted') {
+				return row;
+			}
+		});
 	}
 	*/
+	var rowsArray = [];
+	var loopVar;
+	if (appRows.entry) {
+		for (var i = 0, len = appRows.entry.length; i < len; i++) {
+			loopVar = appRows.entry[i];
+			if (loopVar.info !== 'deleted') {
+				rowsArray.push(loopVar);
+			}
+		}
+	}
+	//
 	callback(rowsArray);
 }
 ///////////////
@@ -1679,6 +1683,9 @@ function updateNutriRatio() {
 //# NUTRI TIME SPAN #//
 //#/////////////////#//
 function getNutriTimeSpan(entryTime) {
+	//
+	app.define('app_last_tab','tab1');
+	//
 	var now        = app.now();
 	var day        = 60 * 60 * 24 * 1000;
 	var todaysTime = (new Date(dayFormat(now))).getTime();

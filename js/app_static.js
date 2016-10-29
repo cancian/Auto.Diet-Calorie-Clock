@@ -991,6 +991,7 @@ if(!document.getElementById('fontTest')) {
 ////////////////////////////
 // STABLE SCROLL ON SWIPE //
 ////////////////////////////
+/*
 if(app.is.scrollable && app.device.desktop) {
 	app.globals.X     = 0;
 	app.globals.Y     = 0;
@@ -1032,6 +1033,7 @@ if(app.is.scrollable && app.device.desktop) {
 		}
 	});
 }
+*/
 ////////////////
 // MAIN TIMER //
 ////////////////
@@ -1290,11 +1292,16 @@ if(app.is.scrollable && app.device.desktop) {
 		if($('#advancedMenu').length)				{ return false; }
 		if($('#pageSlideFood').length)				{ return false; }
 		if($('#appHeader').hasClass('blockInfo'))	{ return false; }
+		if($('body').hasClass('newwindow'))			{ return false; }
 		// FOCUS VIA XY
-		if(app.width() - app.pointer(evt).x < 100) {
-			if(!$('#timerDailyInput').is(':focus')) {
-				$('#timerDailyInput').focus();
-			}
+		if(app.width() - app.pointer(evt).x < 100 && app.pointer(evt).y < $('#appHeader').height() - 12) {
+			app.timeout('headerInputFocus',100,function() {
+				if(!$('body').hasClass('newwindow')) {
+					if(!$('#timerDailyInput').is(':focus')) {
+						$('#timerDailyInput').focus();
+					}
+				}
+			});
 		}
 	});
 	//////////////
