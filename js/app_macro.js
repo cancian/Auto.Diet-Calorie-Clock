@@ -1964,9 +1964,9 @@ function buildAdvancedMenu() {
 	//PARSE DB CONFIG
 	if(!app.db.webSQL)		{ $('#optWebSQL').hide();       }
 	if(!app.db.indexedDB)	{ $('#optIndexedDB').hide();    }
-	if(!app.db.localStorage)	{ $('#optLocalStorage').hide(); }
+	if(!app.db.localStorage){ $('#optLocalStorage').hide(); }
 	//HIDE UNSTABLE
-	if((app.device.ios && !app.device.ios10) || app.device.osxapp || app.device.blackberry || app.incognito) { 
+	if((app.device.ios && !app.device.ios10) || app.device.blackberry || app.incognito) { 
 		$('#optIndexedDB').hide();
 	}
 	//GET CURRENT ENGINE
@@ -1984,8 +1984,8 @@ function buildAdvancedMenu() {
 	};
 	styleResetDB();
 	//CONTENT HEIGHT
-	$("#advancedMenu").css2("top",($("#advancedMenuHeader").height()+1) + "px");
-	$("#advancedMenuWrapper").height($("#appContent").height());
+	$('#advancedMenu').css2('top',($('#advancedMenuHeader').height()+1) + 'px');
+	$('#advancedMenuWrapper').height($('#appContent').height());
 	//SHOW
 	app.handlers.fade(1,'#advancedMenuWrapper',function() {
 		getNiceScroll('#advancedMenu');
