@@ -2059,71 +2059,22 @@ if (!Array.prototype.map) {
 		return A;
 	};
 }
-//////////////////////
-// INCLUDES (ARRAY) //
-//////////////////////
-if (!Array.prototype.includes) {
-	Array.prototype.includes = function (searchElement /*, fromIndex*/
-	) {
-		'use strict';
-		var O = Object(this);
-		var len = parseInt(O.length, 10) || 0;
-		if (len === 0) {
-			return false;
-		}
-		var n = parseInt(arguments[1], 10) || 0;
-		var k;
-		if (n >= 0) {
-			k = n;
-		} else {
-			k = len + n;
-			if (k < 0) {
-				k = 0;
-			}
-		}
-		var currentElement;
-		var searchIsNaN = isNaN(searchElement);
-		while (k < len) {
-			currentElement = O[k];
-			// SameValueZero algorithm has to treat NaN as equal to itself, but
-			// NaN === NaN is false, so check explicitly
-			// SameValueZero treats 0 and -0 as equal, as does ===, so we're fine there
-			if (searchElement === currentElement || (searchIsNaN && isNaN(currentElement))) {
-				return true;
-			}
-			k++;
-		}
-		return false;
-	};
-}
-///////////////////////
-// INCLUDES (STRING) //
-///////////////////////
-if (!String.prototype.includes) {
-	String.prototype.includes = function (search, start) {
-		'use strict';
-		if (typeof start !== 'number') {
-			start = 0;
-		}
-
-		if (start + search.length > this.length) {
-			return false;
-		} else {
-			return this.indexOf(search, start) !== -1;
-		}
-	};
-}
 //////////////
 // CONTAINS //
 //////////////
 //ARRAY
-Array.prototype.contains = function(obj) {
-	return (JSON.stringify(this)).indexOf(JSON.stringify(obj)) > -1;
-	//return JSON.stringify(this).indexOf(obj) > -1;
+Array.prototype.contains = function(str) {
+	if(!str) { return false; }
+	var regexCache = (new RegExp(JSON.stringify(str)))
+	var result = regexCache.test(JSON.stringify(this));
+	return result;
 };
 //STRING
-String.prototype.contains = function () {
-	return String.prototype.indexOf.apply(this, arguments) !== -1;
+String.prototype.contains = function (str) {
+	if(!str) { return false; }
+	var regexCache = (new RegExp(str));
+	var result = regexCache.test(this);
+	return result;
 };
 ////////////////
 // SORTBYATTR //
@@ -2232,7 +2183,6 @@ var toTime = function (input){
 	var datum = Date.parse(input);
 	return datum;
 }
-
 ////////////////
 // DAY FORMAT //
 ////////////////
