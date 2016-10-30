@@ -783,6 +783,7 @@ app.timeout('syncEntries',2000,function() {
 // GET ENTRIES //
 /////////////////
 function getEntries(callback) {
+	/*	
 	var rowsArray = appRows.entry;
 	//
 	if (rowsArray.length) {
@@ -792,7 +793,7 @@ function getEntries(callback) {
 			}
 		});
 	}
-	/*	
+	*/
 	var rowsArray = [];
 	var loopVar;
 	if (appRows.entry) {
@@ -803,7 +804,7 @@ function getEntries(callback) {
 			}
 		}
 	}
-	*/
+	//
 	callback(rowsArray);
 }
 ///////////////

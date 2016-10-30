@@ -1638,8 +1638,10 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		if(($(this).val()).contains('.')) {
 			var number = $(this).val().split(',').join('.');
 				number = $(this).val().split('.');
-			if (number[1].length > 2) {
-				$(this).val( parseFloat(number[0] + '.' + number[1].slice(0,2)) );
+			if(number) {
+				if (number[1].length > 2) {
+					$(this).val( parseFloat(number[0] + '.' + number[1].slice(0,2)) );
+				}
 			}
 		}
 		//POST HANDLERS
@@ -2063,19 +2065,29 @@ if (!Array.prototype.map) {
 // CONTAINS //
 //////////////
 //ARRAY
+Array.prototype.contains = function(obj) {
+	return (JSON.stringify(this)).indexOf(JSON.stringify(obj)) > -1;
+}
+/*
 Array.prototype.contains = function(str) {
 	if(!str) { return false; }
 	var regexCache = (new RegExp(JSON.stringify(str)))
 	var result = regexCache.test(JSON.stringify(this));
 	return result;
 };
+*/
 //STRING
+String.prototype.contains = function () {
+	return String.prototype.indexOf.apply(this, arguments) !== -1;
+};
+/*
 String.prototype.contains = function (str) {
 	if(!str) { return false; }
 	var regexCache = (new RegExp(str));
 	var result = regexCache.test(this);
 	return result;
 };
+*/
 ////////////////
 // SORTBYATTR //
 ////////////////
