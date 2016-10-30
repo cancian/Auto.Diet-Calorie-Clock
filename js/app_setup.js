@@ -570,6 +570,7 @@ function setComplete() {
 // ROWS LOOP //
 ///////////////
 function rowsLoop(sqlEntry, hive, callback) {
+	var rows;
 	if (hive === 'diary_entry') {
 		rows = appRows.entry;
 	} else {
@@ -589,21 +590,23 @@ function rowsLoop(sqlEntry, hive, callback) {
 	/////////////////////
 	// UPDATE ROW LOOP //
 	/////////////////////
+	var sqlEntryCache;
 	for (var i = 0, len = sqlEntry.length; i < len; i++) {
-		if (sqlEntry[i]) {
-			var lookFor    = (hive === 'diary_entry') ? sqlEntry[i].id : sqlEntry[i].code;
+		sqlEntryCache = sqlEntry[i];
+		if (sqlEntryCache) {
+			var lookFor    = (hive === 'diary_entry') ? sqlEntryCache.id : sqlEntryCache.code;
 			var indexedRow = indexedRows[lookFor];
 			//////////////////////
 			// INSERT OR UPDATE //
 			//////////////////////
 			if(typeof indexedRow !== 'undefined') {
 				// UPDATE ON DIFF //
-				if(rows[indexedRow.index] !== sqlEntry[i]) {
-					rows[indexedRow.index] = sqlEntry[i];
+				if(rows[indexedRow.index] !== sqlEntryCache) {
+					rows[indexedRow.index] = sqlEntryCache;
 				}
 			} else {
 				// INSERT NEW //
-				rows.push(sqlEntry[i]);	
+				rows.push(sqlEntryCache);	
 			}
 		}
 	}
