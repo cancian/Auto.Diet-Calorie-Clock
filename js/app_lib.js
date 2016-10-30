@@ -1494,7 +1494,7 @@ if (window.navigator.pointerEnabled || window.navigator.msPointerEnabled && !app
 	}
 }
 //OVERRIDE TAP
-if (app.device.msapp || app.device.wp80) {
+if (app.device.wp80) { //app.device.msapp
 	tap = 'click';
 }
 ///////////////
