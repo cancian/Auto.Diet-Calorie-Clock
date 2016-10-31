@@ -697,7 +697,7 @@ function insertOrUpdate(rows, callback) {
 		   if(/diary_entry/.test(rowsI)){ 
 		   		sqlEntry.push(rowsJson); 
 			} else if(/diary_food/.test(rowsI))	{
-				qlFood.push(rowsJson); 
+				sqlFood.push(rowsJson); 
 			}
 		}
 	}
