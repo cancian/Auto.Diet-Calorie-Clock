@@ -690,12 +690,14 @@ function insertOrUpdate(rows, callback) {
 	var sqlEntry = [];
 	var sqlFood  = [];
 	for (var i = 0, len = rows.length;i < len; i++) {
-		if (rows[i] && rows[i].length > 5) {
-			if((/diary_entry/).test(rows[i])) {
-				sqlEntry.push(sqlToJson(rows[i]));
-			}
-			if((/diary_food/).test(rows[i])) {
-				sqlFood.push(sqlToJson(rows[i]));
+		var rowsI = rows[i];
+		var rowsJson = sqlToJson(rowsI);
+		//
+		if (rowsI && rowsI.length > 5) {
+		   if(/diary_entry/.test(rowsI)){ 
+		   		sqlEntry.push(rowsJson); 
+			} else if(/diary_food/.test(rowsI))	{ s
+				qlFood.push(rowsJson); 
 			}
 		}
 	}

@@ -10,12 +10,12 @@
 • Weight tracker (profile tab)
 • Fixed the info screen showing without background (browser)
 • Refresh rate is progressively decreased for large lists in order to keep the interface responsive and fluid
-• Improvements to error handling and prevention
+• Improvements in error prevention and handling
 
 # 2.0.4 [2016/10/11]
 • Fixed minor resize flicker on diary tab
 • Accessibility improvements
-• Faster data parsing during sync
+• Faster data parsing during synchronization
 • Start-up time reduced by 30%
 
 # 2.0.3 [2016/09/19]

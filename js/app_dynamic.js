@@ -429,7 +429,7 @@ $(document).on("pageload", function (evt) {
 	//wrapper click
 	$('#entryListWrapper').on(touchstart, function (evt) {
 		//allow unfocus on list click
-		$('#timerDailyInput').blur();
+		//$('#timerDailyInput').blur();
 		$('#entryTitle').blur();
 		$('#entryBody').blur();
 		$('#entryTime').blur();

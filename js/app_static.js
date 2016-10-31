@@ -1325,7 +1325,7 @@ if(app.is.scrollable && app.device.desktop) {
 		///////////////////
 		// UPDATE BLOCKS //
 		///////////////////
-		app.timeout('updateBlocksBlur',1000,function() {
+		app.timeout('updateBlocksBlur',2000,function() {
 			updateTodayOverview();
 			updateNutriBars();
 			intakeHistory();
