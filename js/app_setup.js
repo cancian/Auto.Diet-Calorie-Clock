@@ -479,7 +479,8 @@ app.timeout('pushEntries',3000,function() {
 		////////////////
 		// CHECK DIFF //
 		////////////////
-		if(md5(fetchEntries) == app.read('last_push_data')) {
+		var md4Fetch = md4(fetchEntries);
+		if(md4Fetch == app.read('last_push_data')) {
 			//fake success ~ disable spinner
 			$('body').removeClass('setpush');
 			$('body').removeClass('insync');
@@ -508,7 +509,7 @@ app.timeout('pushEntries',3000,function() {
 					$('body').removeClass('setpush');
 					$('body').removeClass('insync');
 					//save data
-					app.save('last_push_data',md5(fetchEntries));
+					app.save('last_push_data',md4Fetch);
 				}
 			});
 		}
@@ -754,7 +755,8 @@ app.timeout('syncEntries',2000,function() {
 			///////////////////////
 			// FAKE VALID RESULT // empty but valid result ~ trigger success
 			/////////////////////// return for no diff
-			if(!sql || sql.trim() == '' || md5(sql) == app.read('last_sync_data')) {
+			var md4Sql = md4(sql);
+			if(!sql || sql.trim() == '' || md4Sql == app.read('last_sync_data')) {
 				app.globals.syncRunning = false;
 				app.remove('pendingSync');
 				//NO DIFF
@@ -765,7 +767,7 @@ app.timeout('syncEntries',2000,function() {
 				setComplete();
 			} else {
 				//SAVE CACHE DIFF
-				app.save('last_sync_data',md5(sql));
+				app.save('last_sync_data',md4Sql);
 				//////////////////////
 				// FULLY PARSE DATA //
 				//////////////////////
