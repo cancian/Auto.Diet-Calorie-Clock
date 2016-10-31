@@ -696,7 +696,7 @@ function insertOrUpdate(rows, callback) {
 		if (rowsI && rowsI.length > 5) {
 		   if(/diary_entry/.test(rowsI)){ 
 		   		sqlEntry.push(rowsJson); 
-			} else if(/diary_food/.test(rowsI))	{ s
+			} else if(/diary_food/.test(rowsI))	{
 				qlFood.push(rowsJson); 
 			}
 		}
