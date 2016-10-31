@@ -4,7 +4,7 @@
 //lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcals,diet,fitness,health,shape,training
 //lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcal,track,diet,fitness,health,shape,it
 var appName = 'ChronoBurn';
-var appVersion = '2.0.5 (200503)';
+var appVersion = '2.0.5 (200504)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;

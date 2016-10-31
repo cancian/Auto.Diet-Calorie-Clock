@@ -536,13 +536,13 @@ $(document).on("pageReload", function (evt) {
 	//pre-load db, then open
 	if (!app.read('foodDbLoaded','done')) {
 		if(pageReloads > 20) {
-			if(app.dev) { console.log('giving up'); }
+			//if(app.dev) { console.log('giving up'); }
 			return;
 		}
 		updateFoodDb();
 		app.timeout('pageReload', 200, function() {
 			pageReloads++;
-			if(app.dev) { console.log('trying ' + pageReloads); }
+			//if(app.dev) { console.log('trying ' + pageReloads); }
 			$(document).trigger("pageReload");
 		});
 		return;

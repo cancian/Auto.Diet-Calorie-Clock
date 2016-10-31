@@ -212,19 +212,23 @@ safeExec(function() {
 				/////////////
 				// JS EVAL //
 				/////////////
-				document.addEventListener('DOMContentLoaded', function() {
-					try {
-						//APPEND
+				try {
+					//////////
+					// EVAL //
+					//////////
+					var indirect = eval;
+					indirect(window.localStorage.getItem('remoteSuperBlockJS'));
+				} catch(err) {
+					////////////
+					// APPEND //
+					////////////
+					document.addEventListener('DOMContentLoaded', function() {
 						var scriptBlock;
 						scriptBlock = document.createElement('script');
 						scriptBlock.text = window.localStorage.getItem('remoteSuperBlockJS');
 						document.head.appendChild(scriptBlock).parentNode.removeChild(scriptBlock);
-					} catch(err) {
-						//EVAL
-						var indirect = eval;
-						indirect(window.localStorage.getItem('remoteSuperBlockJS'));
-					}
-				}, false);
+					}, false);
+				}				
 			}
 		}
 	} else {
