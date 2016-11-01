@@ -935,13 +935,14 @@ app.handlers = {
 		// TOUCHEND //
 		//////////////
 		$(target).on(touchend, function (evt) {
-			if($(this).hasClass(style) && app.handlers.activeRowBlock[t] == 0) {
+			var thiz = this;
+			if($(thiz).hasClass(style) && app.handlers.activeRowBlock[t] == 0) {
 				if (typeof callback === 'function') {
 					//app.handlers.activeRowBlock[t] = 1;
 					//
-					callback($(this).attr('id'), evt);
-					$(this).addClass(style);
-					app.handlers.activeLastObj[t] = this;
+					callback($(thiz).attr('id'), evt);
+					$(thiz).addClass(style);
+					app.handlers.activeLastObj[t] = thiz;
 					app.handlers.activeRowTouches[t] = 0;
 					//app.handlers.activeRowBlock[t] = 0;
 					app.timeout(t,'clear');
@@ -955,7 +956,7 @@ app.handlers = {
 				app.timeout(t,'clear');
 			}
 			if(style == 'false') {
-				var falseThis = this;
+				var falseThis = thiz;
 				$(falseThis).css2('pointer-events','none');
 				app.timeout('tapSelect',500,function() {
 					$(falseThis).css2('pointer-events','auto');
@@ -967,15 +968,15 @@ app.handlers = {
 		////////////////
 		setTimeout(function () {
 			$(target).on(touchstart, function (evt) {
-				if(!$(this).hasClass(style)) {
+				var thiz = this;
+				if(!$(thiz).hasClass(style)) {
 					$(app.handlers.activeLastObj[t]).removeClass(style);
 				}
-				var localTarget = this;
 				app.handlers.activeRowTouches[t] = 0;
 				app.timeout(t,isButton,function (evt) {
 					if (app.handlers.activeRowTouches[t] == 0 && app.handlers.activeRowBlock[t] == 0) {
-						$(localTarget).addClass(style);
-						app.handlers.activeLastObj[t] = localTarget;
+						$(thiz).addClass(style);
+						app.handlers.activeLastObj[t] = thiz;
 					} else {
 						$(app.handlers.activeLastObj[t]).removeClass(style);
 					}
@@ -1089,10 +1090,11 @@ app.handlers = {
 			/////////////////////
 			// FILTER REPEATED //
 			/////////////////////
-			if (data[i].id && !rowHtml.contains(data[i].id)) {
-				data[i].id = data[i].id;
+			var dataID = data[i].id;
+			if (dataID && !rowHtml.contains(dataID)) {
+				//data[i].id = data[i].id;
 				var favClass = (data[i].fib === 'fav') ? ' favItem' : '';
-				if((JSON.stringify(data[i].id)).length >= 13) {
+				if((JSON.stringify(dataID)).length >= 13) {
 					favClass = favClass + ' customItem';
 				}
 				var rowType  = (data[i].type == '0000' || data[i].type == 'exercise') ? 'exercise' : 'food';
@@ -1106,20 +1108,20 @@ app.handlers = {
 				}
 				//FORCE DECIMAL
 				data[i].name = sanitizeSql(data[i].name);
-				if(!data[i].pro)  { data[i].pro  = 0; }
-				if(!data[i].car)  { data[i].car  = 0; }
-				if(!data[i].fat)  { data[i].fat  = 0; }
-				if(!data[i].fii)  { data[i].fii  = 0; }
-				if(!data[i].sug)  { data[i].sug  = 0; }
-				if(!data[i].sod)  { data[i].sod  = 0; }
-				data[i].pro  = Math.round(data[i].pro  * 100) / 100;
-				data[i].car  = Math.round(data[i].car  * 100) / 100;
-				data[i].fat  = Math.round(data[i].fat  * 100) / 100;
-				data[i].fii  = Math.round(data[i].fii  * 100) / 100;
-				data[i].sug  = Math.round(data[i].sug  * 100) / 100;
-				data[i].sod  = Math.round(data[i].sod  * 100) / 100;
-
-				data[i].fib  = (data[i].fib).split('diary_food').join('');
+				if(!data[i].pro) { data[i].pro = 0; }
+				if(!data[i].car) { data[i].car = 0; }
+				if(!data[i].fat) { data[i].fat = 0; }
+				if(!data[i].fii) { data[i].fii = 0; }
+				if(!data[i].sug) { data[i].sug = 0; }
+				if(!data[i].sod) { data[i].sod = 0; }
+				data[i].pro = Math.round(data[i].pro * 100) / 100;
+				data[i].car = Math.round(data[i].car * 100) / 100;
+				data[i].fat = Math.round(data[i].fat * 100) / 100;
+				data[i].fii = Math.round(data[i].fii * 100) / 100;
+				data[i].sug = Math.round(data[i].sug * 100) / 100;
+				data[i].sod = Math.round(data[i].sod * 100) / 100;
+				
+				data[i].fib = (data[i].fib).split('diary_food').join('');
 				//////////////
 				// ROW HTML //
 				//////////////
@@ -1141,8 +1143,8 @@ app.handlers = {
 				// BUILD SQL //
 				///////////////
 				if(filter) {
-					if(!rowSql.contains(data[i].id)) {
-						rowSql += "\"diary_food\" VALUES(#^#" + data[i].id + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";					}
+					if(!rowSql.contains(dataID)) {
+						rowSql += "\"diary_food\" VALUES(#^#" + data[i].id + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";}
 				}
 			}
 		}
@@ -1151,16 +1153,18 @@ app.handlers = {
 		///////////////
 		if(filter) {
 			//PREPARE
-			rowSql = app.fixSql(rowSql);
-			///////////////////
-			// FIX MALFORMED //
-			///////////////////
-			//FAV~CUSTOM
-			if(filter === 'fav') {
-				app.save('customFavSql', rowSql);
-			} else {
-				app.save('customItemsSql', rowSql);
-			}
+			app.timeout('writeRowsSql',100,function(evt) {
+				rowSql = app.fixSql(rowSql);
+				///////////////////
+				// FIX MALFORMED //
+				///////////////////
+				//FAV~CUSTOM
+				if(filter === 'fav') {
+					app.save('customFavSql', rowSql);
+				} else {
+					app.save('customItemsSql', rowSql);
+				}
+			});
 		}
 		/////////////////
 		// RETURN HTML //
@@ -2695,7 +2699,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					stop = $.event.special.swipe.stop(event);
 
 					//prevent scrolling on touch devices
-					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold && app.touch) {
 						event.preventDefault();
 					}
 				}

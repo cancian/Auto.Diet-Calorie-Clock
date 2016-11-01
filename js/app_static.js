@@ -991,7 +991,6 @@ if(!document.getElementById('fontTest')) {
 ////////////////////////////
 // STABLE SCROLL ON SWIPE //
 ////////////////////////////
-/*
 if(app.is.scrollable && app.device.desktop) {
 	app.globals.X     = 0;
 	app.globals.Y     = 0;
@@ -1033,7 +1032,6 @@ if(app.is.scrollable && app.device.desktop) {
 		}
 	});
 }
-*/
 ////////////////
 // MAIN TIMER //
 ////////////////
