@@ -1085,14 +1085,16 @@ app.handlers = {
 		////////////////
 		var rowHtml = '';
 		var rowSql  = '';
+		var dataID  = '';
+		var rowIDs  = [];
 		var i = data.length;
 		while(i--) {
 			/////////////////////
 			// FILTER REPEATED //
 			/////////////////////
-			var dataID = data[i].id;
-			if (dataID) { // && !rowHtml.contains(dataID)) {
-				//data[i].id = data[i].id;
+			dataID = data[i].id;
+			if (dataID && !rowIDs.contains(dataID)) {
+				//
 				var favClass = (data[i].fib === 'fav') ? ' favItem' : '';
 				if((JSON.stringify(dataID)).length >= 13) {
 					favClass = favClass + ' customItem';
@@ -1125,6 +1127,9 @@ app.handlers = {
 				//////////////
 				// ROW HTML //
 				//////////////
+				//RowIDs no-repeat
+				rowIDs.push(dataID);
+				//
 				rowHtml += '\
 				<div class="searcheable' + favClass + ' ' + rowType + ' ' + data[i].id + ' ' + catClass + '" id="' + data[i].id + '">\
 				<div class="foodName ' + rowType + '">' + data[i].name + '</div>\
@@ -1143,8 +1148,7 @@ app.handlers = {
 				// BUILD SQL //
 				///////////////
 				if(filter) {
-					if(!rowSql.contains(dataID)) {
-						rowSql += "\"diary_food\" VALUES(#^#" + data[i].id + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";}
+					rowSql += "\"diary_food\" VALUES(#^#" + data[i].id + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";
 				}
 			}
 		}
@@ -1153,18 +1157,16 @@ app.handlers = {
 		///////////////
 		if(filter) {
 			//PREPARE
-			app.timeout('writeRowsSql',100,function(evt) {
-				rowSql = app.fixSql(rowSql);
-				///////////////////
-				// FIX MALFORMED //
-				///////////////////
-				//FAV~CUSTOM
-				if(filter === 'fav') {
-					app.save('customFavSql', rowSql);
-				} else {
-					app.save('customItemsSql', rowSql);
-				}
-			});
+			rowSql = app.fixSql(rowSql);
+			///////////////////
+			// FIX MALFORMED //
+			///////////////////
+			//FAV~CUSTOM
+			if(filter === 'fav') {
+				app.save('customFavSql', rowSql);
+			} else {
+				app.save('customItemsSql', rowSql);
+			}
 		}
 		/////////////////
 		// RETURN HTML //
