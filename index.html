@@ -244,15 +244,13 @@ var bootLoopBreaker = function () {
 //INITIALIZE LOCALSTORAGE
 localStorage.setItem('last_boot_time',new Date().getTime());
 //PRE-LISTENERS
-setTimeout(function() {
-	window.addEventListener('mousedown', bootLoopBreaker, false);
-	window.addEventListener('touchstart', bootLoopBreaker, false);
-	//MSAPP POINTER
-	if (/MSApp/i.test(navigator.userAgent)) {
-		window.addEventListener('MSPointerUp', bootLoopBreaker, false);
-		window.addEventListener('pointerup', bootLoopBreaker, false);
-	}
-},0);
+document.addEventListener('mousedown', bootLoopBreaker, false);
+document.addEventListener('touchstart', bootLoopBreaker, false);
+//MSAPP POINTER
+if (/MSApp/i.test(navigator.userAgent)) {
+	document.addEventListener('MSPointerUp', bootLoopBreaker, false);
+	document.addEventListener('pointerup', bootLoopBreaker, false);
+}
 </script>
 
 <style type="text/css" id="CSSPlaceholder"></style>
@@ -268,14 +266,14 @@ function bootStraper() {
 	//CLEAR RECOVERY
 	setTimeout(function() {
 		//REMOVE LISTENERS
-		window.removeEventListener('mousedown', bootLoopBreaker, false);
-		window.removeEventListener('touchstart', bootLoopBreaker, false);
+		document.removeEventListener('mousedown', bootLoopBreaker, false);
+		document.removeEventListener('touchstart', bootLoopBreaker, false);
 		//MSAPP POINTER
 		if (/MSApp/i.test(navigator.userAgent)) {
-			window.removeEventListener('MSPointerUp', bootLoopBreaker, false);
-			window.removeEventListener('pointerup', bootLoopBreaker, false);
+			document.removeEventListener('MSPointerUp', bootLoopBreaker, false);
+			document.removeEventListener('pointerup', bootLoopBreaker, false);
 		}
-	},5);
+	},500);
 	//
 	if(localStorage.getItem('config_debug') == 'active') { hostLocal = https + '192.168.1.5/'; }
 	//INIT
