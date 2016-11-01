@@ -705,11 +705,17 @@ function insertOrUpdate(rows, callback) {
 	//////////////////
 	// ENTRIES LOOP //
 	//////////////////
-	rowsLoop(sqlEntry, 'diary_entry', function () {
-		rowsLoop(sqlFood, 'diary_food', function () {
-			callback();
+	setTimeout(function () {
+		rowsLoop(sqlEntry, 'diary_entry', function () {
+			setTimeout(function () {
+				rowsLoop(sqlFood, 'diary_food', function () {
+					setTimeout(function () {
+						callback();
+					}, 0);
+				});
+			}, 0);
 		});
-	});
+	}, 0);
 }
 //##//////////////##//
 //## SYNC ENTRIES ##//
