@@ -940,7 +940,7 @@ app.handlers = {
 				if (typeof callback === 'function') {
 					//app.handlers.activeRowBlock[t] = 1;
 					//
-					callback($(thiz).attr('id'), evt);
+					callback($(thiz).attr('id'), evt, thiz);
 					$(thiz).addClass(style);
 					app.handlers.activeLastObj[t] = thiz;
 					app.handlers.activeRowTouches[t] = 0;
@@ -2673,8 +2673,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		isSweep : function (start, stop, checkTime) {
 			return stop.time - start.time < $.event.special.swipe.durationThreshold && 
-			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold
-			//&& Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold
+			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold &&
+			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold
 		},
 
 		add : function (handleObj) {
