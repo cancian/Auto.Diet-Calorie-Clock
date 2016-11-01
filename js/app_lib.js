@@ -1091,7 +1091,7 @@ app.handlers = {
 			// FILTER REPEATED //
 			/////////////////////
 			var dataID = data[i].id;
-			if (dataID && !rowHtml.contains(dataID)) {
+			if (dataID) { // && !rowHtml.contains(dataID)) {
 				//data[i].id = data[i].id;
 				var favClass = (data[i].fib === 'fav') ? ' favItem' : '';
 				if((JSON.stringify(dataID)).length >= 13) {
