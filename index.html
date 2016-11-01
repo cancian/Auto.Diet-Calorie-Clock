@@ -244,13 +244,15 @@ var bootLoopBreaker = function () {
 //INITIALIZE LOCALSTORAGE
 localStorage.setItem('last_boot_time',new Date().getTime());
 //PRE-LISTENERS
-document.addEventListener('mousedown', bootLoopBreaker, false);
-document.addEventListener('touchstart', bootLoopBreaker, false);
-//MSAPP POINTER
-if (/MSApp/i.test(navigator.userAgent)) {
-	document.addEventListener('MSPointerUp', bootLoopBreaker, false);
-	document.addEventListener('pointerup', bootLoopBreaker, false);
-}
+setTimeout(function () {
+	document.addEventListener('mousedown', bootLoopBreaker, false);
+	document.addEventListener('touchstart', bootLoopBreaker, false);
+	//MSAPP POINTER
+	if (/MSApp/i.test(navigator.userAgent)) {
+		document.addEventListener('MSPointerUp', bootLoopBreaker, false);
+		document.addEventListener('pointerup', bootLoopBreaker, false);
+	}
+}, 0);
 </script>
 
 <style type="text/css" id="CSSPlaceholder"></style>
