@@ -315,6 +315,16 @@ app.tab.status = function(keepOpen) {
 	//# HANDLERS #//
 	//#//////////#//
 	
+	
+	
+	////////////////////////
+	// LIVEZILLA SUPPORT //
+	///////////////////////
+	//app.handlers.activeRow('#statusWrapper','button',function(evt) {
+	//	getNewWindow('Elapsed Time / Relative Time','<div id="bckInfo"><iframe src="https://chronoburn.com/livezilla/chat.php?s=1" style="width: 100%; height: '+ $('#statusWrapper').height()-1 + 'px; border: 0;"></iframe></div>','');
+	//});
+	
+	
 	//test events
 	//
 	//PRE
@@ -1439,13 +1449,12 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	app.globals.topLock = 0;
 	$('#appContent').scroll(function() {
 		blockModal = true;
-		clearTimeout(app.globals.topTimer);
-		app.globals.topTimer = setTimeout(function() {
+		app.timeout('topTimer',300,function() {
 			blockModal = false;
+			if(app.globals.topLock != 0)	  { return; }
+			if($('#go').hasClass('scrolled')) { return; }
 			//HEIGHT
 			var entryListHeight = $('#entryList').height() * 0.5;
-			if(app.globals.topLock != 0)         { return; }
-			if($('#go').hasClass('scrolled')) { return; }
 			if($('#appContent').scrollTop()+500 > entryListHeight) {
 				app.globals.topLock = 1;
 				$('#go').addClass('scrolled');
@@ -1453,7 +1462,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			}
 			//FIX
 			android2Select();
-		},300);
+		});
 	});
 };
 /*##############################
