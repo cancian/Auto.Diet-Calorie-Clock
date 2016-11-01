@@ -1447,6 +1447,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// SLIDER ENDSCROLL //
 	//////////////////////
 	app.globals.topLock = 0;
+	var entryListHeight = $('#entryList').height() * 0.5;
+	//
 	$('#appContent').scroll(function() {
 		blockModal = true;
 		app.timeout('topTimer',300,function() {
@@ -1454,11 +1456,13 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if(app.globals.topLock != 0)	  { return; }
 			if($('#go').hasClass('scrolled')) { return; }
 			//HEIGHT
-			var entryListHeight = $('#entryList').height() * 0.5;
 			if($('#appContent').scrollTop()+500 > entryListHeight) {
 				app.globals.topLock = 1;
 				$('#go').addClass('scrolled');
-				app.exec.updateEntries('','full');
+				//LOAD REMAINING
+				setTimeout(function() {
+					app.exec.updateEntries('','full');
+				}, 0);
 			}
 			//FIX
 			android2Select();
