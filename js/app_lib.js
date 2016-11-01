@@ -2234,15 +2234,16 @@ function isNumber(num) {
 function dtFormat(input) {
     if(!input) { return ''; }
 	input        = new Date(input);
+	var gotYear  = input.getFullYear();
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
 	var hour     = input.getHours();
-    var minute   = input.getMinutes(); //+1;
+    var minute   = input.getMinutes();
     if(minute < 10)   { minute = '0' + minute; }
 	if(gotMonth < 10) { gotMonth = '0' + gotMonth; }
 	if(gotDate  < 10) { gotDate  = '0' + gotDate;  }
 	//
-	return input.getFullYear() + '/' + gotMonth + '/' + gotDate + ' - ' + hour + ':' + minute;
+	return gotYear + '/' + gotMonth + '/' + gotDate + ' - ' + hour + ':' + minute;
 }
 ////////////////////
 // DAY UTC FORMAT //
@@ -2252,9 +2253,10 @@ var DayUtcFormat = function(input) {
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
+	var gotYear  = input.getFullYear();
 	if(gotMonth < 10) { gotMonth = '0' + gotMonth; }
 	if(gotDate  < 10) { gotDate  = '0' + gotDate;  }
-	return input.getFullYear() + '/' + gotMonth + '/' + gotDate;
+	return gotYear + '/' + gotMonth + '/' + gotDate;
 }
 var toDate = DayUtcFormat;
 /////////////////////
@@ -2273,9 +2275,10 @@ function dayFormat(input) {
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
+	var gotYear  = input.getFullYear();
 	if(gotMonth < 10) { gotMonth = '0' + gotMonth; }
 	if(gotDate  < 10) { gotDate  = '0' + gotDate;  }
-	return input.getFullYear() + '/' + gotMonth + '/' + gotDate;
+	return gotYear + '/' + gotMonth + '/' + gotDate;
 }
 //////////////
 // DATEDIFF //
