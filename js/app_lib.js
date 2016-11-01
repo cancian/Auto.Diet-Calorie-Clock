@@ -2669,8 +2669,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		isSweep : function (start, stop, checkTime) {
 			return stop.time - start.time < $.event.special.swipe.durationThreshold && 
-			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold && 
-			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold
+			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold
+			//&& Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold
 		},
 
 		add : function (handleObj) {
@@ -2756,20 +2756,22 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				//TWEAK
 				if (event) {
 					if (event.target) {
+						var appXY = app.pointer(event);
 						eventData.target = event.target || $element;
-						eventData.pageX  = app.pointer(event).x;
-						eventData.pageY  = app.pointer(event).y;
+						eventData.pageX  = appXY.x;
+						eventData.pageY  = appXY.y;
 						eventData.time   = app.now();
 					}
 				}
 			}).on(nativeEvent.end, function (event) {
 				//TWEAK
 				if (eventData) {
+					var appXY = app.pointer(event);
 					//DIFF
-					var diffX = Math.abs(eventData.pageX - app.pointer(event).x);
-					var diffY = Math.abs(eventData.pageY - app.pointer(event).y);
-					var endX = app.pointer(event).x; 
-					var endY = app.pointer(event).y;
+					var diffX = Math.abs(eventData.pageX - appXY.x);
+					var diffY = Math.abs(eventData.pageY - appXY.y);
+					var endX = appXY.x; 
+					var endY = appXY.y;
 					//THRESHOLD
 					if ((eventData.target === event.target || eventData.target === $(this)) && app.now() - eventData.time < 750 && diffX < 10 && diffY < 10) {
 						event.type  = specialEventName;
