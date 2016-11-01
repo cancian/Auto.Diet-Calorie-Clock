@@ -2304,7 +2304,7 @@ function dateDiff(date1,date2) {
 	var minutes   = Math.floor(difference_ms % 60);
 	difference_ms = difference_ms/60;
 	var hours     = Math.floor(difference_ms % 24);
-	var days      = Math.floor(difference_ms/24);
+	var days      = Math.floor(difference_ms / 24);
 
 	var lMinutes = ' ' + LANG.MINUTES[lang] + ' ';
 	var lHours   = ' ' + LANG.HOURS[lang]   + ' ';

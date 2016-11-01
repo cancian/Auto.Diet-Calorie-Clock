@@ -267,7 +267,14 @@ var https     = /http:/i.test(window.location.protocol) || (localStorage.getItem
 function bootStraper() {
 	//CLEAR RECOVERY
 	setTimeout(function() {
-		bootLoopBreaker = function() {}
+		//REMOVE LISTENERS
+		window.removeEventListener('mousedown', bootLoopBreaker, false);
+		window.removeEventListener('touchstart', bootLoopBreaker, false);
+		//MSAPP POINTER
+		if (/MSApp/i.test(navigator.userAgent)) {
+			window.removeEventListener('MSPointerUp', bootLoopBreaker, false);
+			window.removeEventListener('pointerup', bootLoopBreaker, false);
+		}
 	},5);
 	//
 	if(localStorage.getItem('config_debug') == 'active') { hostLocal = https + '192.168.1.5/'; }
