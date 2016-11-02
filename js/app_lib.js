@@ -916,7 +916,7 @@ app.handlers = {
 	activeLastObj    : [],
 	activeRow : function (target, style, callback,callbackCondition) {
 		var t = searchalize(target);
-		var isButton = style == 'button' ? 1 : 40;
+		var isButton = style == 'button' ? 1 : 30;
 		if(app.device.osxapp || app.device.osx) {
 			isButton = 1;
 		}
@@ -988,7 +988,7 @@ app.handlers = {
 					}
 				}
 			});
-		}, 300);
+		}, 200);
 		//////////////////////
 		// ROW LEAVE CANCEL //
 		//////////////////////
@@ -1010,7 +1010,7 @@ app.handlers = {
 		//# SCROLL/MOVE CANCEL #//
 		//#////////////////////#//
 		//lower thresold for android
-		var TouchLimit = app.device.android ? 5 : 10;
+		var TouchLimit = app.device.android ? 8 : 12;
 		//
 		if(!app.device.windows8) {
 			var moveCancel = app.device.osxapp || app.device.osx ? 'mouseout' : touchmove + ' ' + touchout  + ' ' + touchleave  + ' ' + touchcancel;
@@ -1050,7 +1050,7 @@ app.handlers = {
 			//TIMEOUT
 			app.handlers.activeRowTimer[t] = setTimeout(function () {
 				app.handlers.activeRowBlock[t] = 0;
-			}, 65);
+			}, 60);
 		});
 	},
 	///////////////////
