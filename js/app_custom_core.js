@@ -493,22 +493,22 @@ function updateTimer() {
 					if(getNutriTimeSpan(Number(data[i].published))) {
 						//total pro/car/fat
 						if(Number(data[i].pro) > 0) {
-							tPro = tPro + parseFloat(data[i].pro);
+							tPro = decimalize(tPro + parseFloat(data[i].pro));
 						}
 						if(Number(data[i].car) > 0) {
-							tCar = tCar + parseFloat(data[i].car);
+							tCar = decimalize(tCar + parseFloat(data[i].car));
 						}
 						if(Number(data[i].fat) > 0) {
-							tFat = tFat + parseFloat(data[i].fat);
+							tFat = decimalize(tFat + parseFloat(data[i].fat));
 						}
 						if(Number(data[i].fii) > 0) {
-							tFii = tFii + parseFloat(data[i].fii);
+							tFii = decimalize(tFii + parseFloat(data[i].fii));
 						}
 						if(Number(data[i].sug) > 0) {
-							tSug = tSug + parseFloat(data[i].sug);
+							tSug = decimalize(tSug + parseFloat(data[i].sug));
 						}
 						if(Number(data[i].sod) > 0) {
-							tSod = tSod + parseFloat(data[i].sod);
+							tSod = decimalize(tSod + parseFloat(data[i].sod));
 						}
 					}
 				}
