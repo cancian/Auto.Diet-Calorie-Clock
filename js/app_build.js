@@ -21,7 +21,7 @@ app.tab.settings = function(keepOpen) {
 			<li id="optionLang"><div><p class="contentTitle">'     + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]          + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'     + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]     + '</span></p></div></li>\
 			<li id="liveZilla">\
-			<div style="position: absolute; text-indent: 0; margin: 0; padding: 0; left: 16px; top: 4px;"><img src="https://chronoburn.com/livezilla/image.php?id=1&amp;type=inlay&amp;cb=1478126598043&amp;time='+app.now()+'" style="border:0px;" alt="LiveZilla Live Chat Software" height="22" width="22"></div>\
+			<div style="position: absolute; text-indent: 0; margin: 0; padding: 0; left: 16px; top: 4px;"><img src="https://chronoburn.com/livezilla/image.php?id=1&amp;type=inlay&amp;cb=1478126598043&amp;time='+app.now()+'" style="border:0px;" alt=" " height="22" width="22"></div>\
 			<div><p class="contentTitle">'                         + 'Chat support'                  + '<span>' + 'Talk to an operator'             + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite"><span>' + appName + "</span> for " + app.get.platform() + '</div>\
