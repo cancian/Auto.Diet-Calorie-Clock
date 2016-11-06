@@ -8,7 +8,7 @@
 
 
 var appName = 'ChronoBurn';
-var appVersion = '2.0.6 (200600)';
+var appVersion = '2.0.6 (200601)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = true;
