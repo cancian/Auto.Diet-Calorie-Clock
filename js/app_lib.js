@@ -1449,7 +1449,9 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 			success : function (spectrumData) {
 				$.globalEval(spectrumData);
 				app.updateColorPicker();
-				app.analytics('spectrum');
+				if(typeof app.analytics !== 'undefined') {
+					app.analytics('spectrum');
+				}
 			}
 		});
 	} else {
