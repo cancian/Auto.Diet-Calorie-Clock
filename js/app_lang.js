@@ -5,10 +5,8 @@
 //lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcal,track,diet,fitness,health,shape,it
 //real time calorie monitor calculator intake restriction clock counter burn burner fat loss diet tracker online chart deficit  counting 
 //real,time,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,tracker,diary,gain,deficit,kcal
-
-
 var appName = 'ChronoBurn';
-var appVersion = '2.0.6 (200601)';
+var appVersion = '2.0.6 (200602)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = true;
