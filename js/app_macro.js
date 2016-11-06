@@ -647,6 +647,8 @@ function getFullHistory() {
 				'</div><div id="highcharts-date-end">'
 				+ dateEnd +
 				'</div>');
+				//LEFT AUTOSCROLL
+				$('#newWindow').scrollLeft($('.highcharts-container','#appHistory').width());
 			};
 			/////////////
 			// EXECUTE //
