@@ -42,7 +42,7 @@ function InitializeLocalSuperBlock(opt) {
 	$.ajax({type: 'GET', dataType: 'text', url: 'css/fonts.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	$.ajax({type: 'GET', dataType: 'text', url: 'css/index.css',         success: function(raw) { dataCSS = dataCSS + raw;
 	//GET SIZE
-	localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
+	appStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
 	//MOZ~IE CSS
 	if((/Firefox/i).test(navigator.userAgent)) {
 		dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
@@ -65,17 +65,17 @@ function InitializeLocalSuperBlock(opt) {
 					$('head').append('<style id="superBlockCSS">' + dataCSS + '<\/style>');
 					$('head').append('<script id="superBlockJS">' + dataJS  + '<\/script>');
 				});
-			},0);
+			}, 0);
 		}
 		setTimeout(function() {
 			//WRITE RESULTS
-			if(dataJS != localStorage.getItem('remoteSuperBlockJS')) {
-				localStorage.setItem('remoteSuperBlockJS',dataJS);
+			if(dataJS != appStorage.getItem('remoteSuperBlockJS')) {
+				appStorage.setItem('remoteSuperBlockJS',dataJS);
 			}
-			if(dataCSS != localStorage.getItem('remoteSuperBlockCSS')) {
-				localStorage.setItem('remoteSuperBlockCSS',dataCSS);
+			if(dataCSS != appStorage.getItem('remoteSuperBlockCSS')) {
+				appStorage.setItem('remoteSuperBlockCSS',dataCSS);
 			}
-		},0);
+		}, 0);
 	} catch(err) { throw(err); }
 	//
 	}});}});}});}});
@@ -95,7 +95,7 @@ function buildRemoteSuperBlock(opt) {
 		var dataJS  = '';
 		var dataCSS = '';
 		var hostLocal2 = https + 'chronoburn.com/';
-		if(localStorage.getItem('config_debug') == 'active') {
+		if(appStorage.getItem('config_debug') == 'active') {
 			hostLocal2 = https + '192.168.1.5/';
 		}
 		//retrieve ajax check
@@ -112,8 +112,8 @@ function buildRemoteSuperBlock(opt) {
 		//length
 		if(parseInt(hashObj[1]) > 1000) {
 			//diff
-			if(parseInt(hashObj[0]) == localStorage.getItem('app_build') && localStorage.getItem('app_autoupdate_hash') == hashObj[1]) {
-				if(localStorage.getItem('app_restart_pending')) {
+			if(parseInt(hashObj[0]) == appStorage.getItem('app_build') && appStorage.getItem('app_autoupdate_hash') == hashObj[1]) {
+				if(appStorage.getItem('app_restart_pending')) {
 					$('body').addClass('pending');
 				} else {
 					$('body').addClass('uptodate');
@@ -152,7 +152,7 @@ function buildRemoteSuperBlock(opt) {
 		cssLoadCount(0,0);
 		if(!isCacheValid(dataJS + dataCSS)) { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
 		//store original hash
-		localStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
+		appStorage.setItem('app_autoupdate_hash',(dataJS + dataCSS).length);
 		//MOZ~IE CSS
 		if((/Firefox/i).test(navigator.userAgent)) {
 			dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
@@ -168,12 +168,12 @@ function buildRemoteSuperBlock(opt) {
 		////////////////////
 		var updatePending = 0;
 		//QUOTA
-		if (dataJS != localStorage.getItem('remoteSuperBlockJS')) {
-			localStorage.setItem('remoteSuperBlockJS', dataJS);
+		if (dataJS != appStorage.getItem('remoteSuperBlockJS')) {
+			appStorage.setItem('remoteSuperBlockJS', dataJS);
 			updatePending = 1;
 		}
-		if (dataCSS != localStorage.getItem('remoteSuperBlockCSS')) {
-			localStorage.setItem('remoteSuperBlockCSS', dataCSS);
+		if (dataCSS != appStorage.getItem('remoteSuperBlockCSS')) {
+			appStorage.setItem('remoteSuperBlockCSS', dataCSS);
 			updatePending = 1;
 		}
 		////////////////////
@@ -190,17 +190,17 @@ function buildRemoteSuperBlock(opt) {
 			$('body').removeClass('loading');
 			$('body').addClass('pending');
 			if (typeof appBuild !== 'undefined') {
-				localStorage.setItem('app_build', appBuild);
+				appStorage.setItem('app_build', appBuild);
 			}
-			localStorage.setItem('app_restart_pending', true);
-			if (localStorage.getItem('app_notify_update')) {
+			appStorage.setItem('app_restart_pending', true);
+			if (appStorage.getItem('app_notify_update')) {
 				setTimeout(function () {
 					if (typeof appConfirm == 'function') {
 						function quickReboot(button) {
 							if (button === 2) {
 								afterHide();
 							} else {
-								localStorage.setItem('app_restart_pending', true);
+								appStorage.setItem('app_restart_pending', true);
 							}
 						}
 						appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
@@ -229,10 +229,10 @@ function buildRemoteSuperBlock(opt) {
 //#///////////////////#//
 //# APPEND SUPERBLOCK #//
 //#///////////////////#//
-if(!localStorage.getItem('config_autoupdate')) {
-	localStorage.setItem('config_autoupdate','on');
+if(!appStorage.getItem('config_autoupdate')) {
+	appStorage.setItem('config_autoupdate','on');
 }
-if(localStorage.getItem('config_autoupdate') == 'on') {
+if(appStorage.getItem('config_autoupdate') == 'on') {
 	//IF SUPERBLOCK MISSING
 	if(isCurrentCacheValid != 1) {
 		//BUILD LOCAL SUPERBLOCK
@@ -243,14 +243,14 @@ if(localStorage.getItem('config_autoupdate') == 'on') {
 	//CHECK UPDATES
 	$(function() {
 		//SAVE REQUEST
-		if(!localStorage.getItem('remoteSuperBlockJS') || !localStorage.getItem('remoteSuperBlockCSS')) {
+		if(!appStorage.getItem('remoteSuperBlockJS') || !appStorage.getItem('remoteSuperBlockCSS')) {
 			setTimeout(function() {
 				if(/http/i.test(window.location.protocol)) {
 					InitializeLocalSuperBlock();
 				}
 			},2500);
 		}
-		var cacheTimeout = localStorage.getItem('config_debug') == 'active' ? 0 : 6000;
+		var cacheTimeout = appStorage.getItem('config_debug') == 'active' ? 0 : 6000;
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
 		},cacheTimeout);

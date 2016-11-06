@@ -1,8 +1,9 @@
 ﻿///////////////
 // SAFE EXEC //
 ///////////////
-if(typeof hostLocal === 'undefined') {
-	var hostLocal = localStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
+if(typeof appStorage === 'undefined') { var appStorage = window.localStorage; }
+if(typeof hostLocal === 'undefined')  {
+	var hostLocal = appStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
 }
 var staticVendor = ''; //'amazon';
 var baseVersion  = 2.1;
@@ -57,13 +58,13 @@ window.onerror = function (err, url, line) {
 		}
 	}
 	//SAVE ERROR LOG
-	localStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
+	appStorage.setItem('error_log_unhandled','unhandled log: ' + err + ' URL: ' + url + ' Line: ' + line);
 	//SPINNER STOP
 	if (typeof spinner !== 'undefined') {
 		spinner('stop');
 	}
 	//DEV ALERT
-	if (localStorage.getItem('config_debug') === 'active' && blockAlerts == 0) {
+	if (appStorage.getItem('config_debug') === 'active' && blockAlerts == 0) {
 		if (IsMsApp) {
 			if (typeof alert !== 'undefined') {
 				alert('onerror: ' + err + ' URL: ' + url + ' Line: ' + line);
@@ -78,8 +79,8 @@ window.onerror = function (err, url, line) {
 	}
 	//disable ff db
 	/*
-	if ((/InvalidStateError/i).test(err) && !localStorage.getItem('config_force_localstorage')) {
-		localStorage.setItem('config_force_localstorage',true);
+	if ((/InvalidStateError/i).test(err) && !appStorage.getItem('config_force_localstorage')) {
+		appStorage.setItem('config_force_localstorage',true);
 		setTimeout(function () {
 			//window.location.reload(true);
 			window.location.replace(window.location.href);
@@ -145,7 +146,7 @@ function isCacheValid(input) {
 //##/////////##//
 safeExec(function() {
 	if(typeof hostLocal === 'undefined') {
-		var hostLocal = localStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
+		var hostLocal = appStorage.getItem('config_debug') == 'active' ? https + '192.168.1.5/' : '';
 	}
 	///////////
 	// MSAPP //
@@ -158,7 +159,7 @@ safeExec(function() {
 	/////////////
 	// ISCROLL //
 	/////////////
-	if(!localStorage.getItem('intro_dismissed')) {
+	if(!appStorage.getItem('intro_dismissed')) {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/iscroll.js" id="iscrollJS"><\/script>');
 	}
 	/////////////////////
@@ -193,8 +194,8 @@ safeExec(function() {
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
-		if (localStorage.getItem('config_autoupdate') == 'on' || (IsMsApp && localStorage.getItem('config_debug') == 'active')) {
-			if (isCacheValid(localStorage.getItem('remoteSuperBlockJS') + localStorage.getItem('remoteSuperBlockCSS'))) {
+		if (appStorage.getItem('config_autoupdate') == 'on' || (IsMsApp && appStorage.getItem('config_debug') == 'active')) {
+			if (isCacheValid(appStorage.getItem('remoteSuperBlockJS') + appStorage.getItem('remoteSuperBlockCSS'))) {
 				isCurrentCacheValid = 1;
 			}
 		/////////////////////
@@ -205,9 +206,9 @@ safeExec(function() {
 			if(!document.getElementById('superBlockCSS')) {
 				//to head
 				if(document.getElementById('CSSPlaceholder')) {
-					document.getElementById('CSSPlaceholder').innerHTML = window.localStorage.getItem('remoteSuperBlockCSS');
+					document.getElementById('CSSPlaceholder').innerHTML = appStorage.getItem('remoteSuperBlockCSS');
 				} else {
-					document.write('<style type="text/css" id="superBlockCSS">' + window.localStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
+					document.write('<style type="text/css" id="superBlockCSS">' + appStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
 				}
 				/////////////
 				// JS EVAL //
@@ -219,14 +220,14 @@ safeExec(function() {
 						////////////
 						var scriptBlock;
 						scriptBlock = document.createElement('script');
-						scriptBlock.text = window.localStorage.getItem('remoteSuperBlockJS');
+						scriptBlock.text = appStorage.getItem('remoteSuperBlockJS');
 						document.head.appendChild(scriptBlock).parentNode.removeChild(scriptBlock);
 					} catch(err) {
 						//////////
 						// EVAL //
 						//////////
 						var indirect = eval;
-						indirect(window.localStorage.getItem('remoteSuperBlockJS'));
+						indirect(appStorage.getItem('remoteSuperBlockJS'));
 					}				
 				}, false);
 			}

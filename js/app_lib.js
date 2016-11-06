@@ -6,15 +6,16 @@ var isMobile = 'isCurrentCacheValid';
 // SET USER //
 //////////////
 var appUser = ('mud_default###default').split('###');
-if(!localStorage.getItem('app_current_user')) {
-	localStorage.setItem('app_current_user','mud_default###default###' + new Date().getTime());
+if(!appStorage.getItem('app_current_user')) {
+	appStorage.setItem('app_current_user','mud_default###default###' + new Date().getTime());
 } else {
-	appUser = localStorage.getItem('app_current_user').split('###');
+	appUser = appStorage.getItem('app_current_user').split('###');
 }*/
 //#////////////#//
 //# APP OBJECT #//
 //#////////////#//
-if(typeof app === 'undefined') { var app = {}; }
+if(typeof app === 'undefined')		  { var app = {}; }
+if(typeof appStorage === 'undefined') { var appStorage = window.localStorage; }
 var appRows = { entry: [], food: [] };
 app.ua      = navigator.userAgent;
 app = {
@@ -24,9 +25,9 @@ app = {
 	handlers: {},
 	timers: {},
 	vars: {},
-	//user: localStorage.getItem('app_current_user').split('###'),
-	dev: localStorage.getItem('config_debug') === 'active' ? true : false,
-	beenDev: localStorage.getItem('config_debug') === 'active' || localStorage.getItem('been_dev') ? true : false,
+	//user: appStorage.getItem('app_current_user').split('###'),
+	dev: appStorage.getItem('config_debug') === 'active' ? true : false,
+	beenDev: appStorage.getItem('config_debug') === 'active' || appStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
 		//FIX
 		//e = $.event.fix(e);
@@ -90,7 +91,7 @@ app = {
 	},
 	ua:   navigator.userAgent,
 	http: /http/i.test(window.location.protocol) ? true : false,
-	https: /http:/i.test(window.location.protocol) || (localStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://',
+	https: /http:/i.test(window.location.protocol) || (appStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://',
 	now: function() {
 		return new Date().getTime();
 	},
@@ -105,13 +106,13 @@ app = {
 		}
 		*/
 		//
-		if(!localStorage.getItem(key)) {
+		if(!appStorage.getItem(key)) {
 			if(type == 'object' || type == 'array') {
 				//OBJECT
-				localStorage.setItem(key,JSON.stringify(value));
+				appStorage.setItem(key,JSON.stringify(value));
 			} else {
 				//STRING
-				localStorage.setItem(key,value);
+				appStorage.setItem(key,value);
 			}
 		}
 		return true;
@@ -146,10 +147,10 @@ app = {
 		//
 		//OBJECT
 		if(type == 'object' || type == 'array') {
-			if(!localStorage.getItem(key)) {
+			if(!appStorage.getItem(key)) {
 				return [];
 			}
-			var keyValue = localStorage.getItem(key);
+			var keyValue = appStorage.getItem(key);
 			if(value == '') {
 				//return whole object
 				return JSON.parse(keyValue);
@@ -162,19 +163,19 @@ app = {
 		}
 		//
 		if(typeof value != 'undefined') {
-			if(localStorage.getItem(key) == value) {
+			if(appStorage.getItem(key) == value) {
 				return true;
 			} else {
 				return false;
 			}
 		}
-		if(!localStorage.getItem(key)) {
+		if(!appStorage.getItem(key)) {
 			return false;
 		} else {
-			if(isNaN(Number(localStorage.getItem(key)))) {
-				return localStorage.getItem(key);
+			if(isNaN(Number(appStorage.getItem(key)))) {
+				return appStorage.getItem(key);
 			} else {
-				return Number(localStorage.getItem(key));
+				return Number(appStorage.getItem(key));
 			}
 		}
 	},
@@ -200,13 +201,13 @@ app = {
 			return;
 		}
 		//DIFF CHECK
-		if(localStorage.getItem(key) != value) {
+		if(appStorage.getItem(key) != value) {
 			if(type == 'object' || type == 'array') {
 				//OBJECT
-				localStorage.setItem(key,JSON.stringify(value));
+				appStorage.setItem(key,JSON.stringify(value));
 			} else {
 				//STRING
-				localStorage.setItem(key,value);
+				appStorage.setItem(key,value);
 			}
 		}
 	},
@@ -221,30 +222,30 @@ app = {
 		}
 		*/
 		//
-		if(localStorage.getItem(key)) {
-			localStorage.removeItem(key);
+		if(appStorage.getItem(key)) {
+			appStorage.removeItem(key);
 		}
 	},
 	clear : function () {
 		app.define('config_install_time', app.now());
-		var keys = Object.keys(localStorage);
+		var keys = Object.keys(appStorage);
 		for (var i = 0; i < keys.length; i++) {
 			//cached keys
-			if (!/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i.test(keys[i]) || localStorage.getItem('config_autoupdate') !== 'on') {
+			if (!/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i.test(keys[i]) || appStorage.getItem('config_autoupdate') !== 'on') {
 				//protected keys
 				if(!/ga_storage|autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_installed/i.test(keys[i])) {
 					//MULTIUSER
 					/*
 					//remove current user settings
 					if (keys[i].contains(app.user[0])) {
-						localStorage.removeItem(keys[i]);
+						appStorage.removeItem(keys[i]);
 					}
 					//remove default user settings
 					if(app.user.id === 'mud_default' && !keys[i].contains(app.user.id)) {
-						localStorage.removeItem(keys[i]);
+						appStorage.removeItem(keys[i]);
 					}
 					*/
-					localStorage.removeItem(keys[i]);
+					appStorage.removeItem(keys[i]);
 				}
 			}
 		}
@@ -304,7 +305,7 @@ app.switchUser = function(switchTo) {
 		var newUserLine = 'mui_' + searchalize(switchTo) + '###' + switchTo + '###' + app.now() + '\r\n';
 		//default
 		if(switchTo == 'mud_default') {
-				localStorage.removeItem('app_current_user');
+				appStorage.removeItem('app_current_user');
 		//first use
 		} else if(!app.read('app_userlist')) {
 			app.save('app_userlist',newUserLine);
@@ -835,7 +836,7 @@ var lib;
 var lib2;
 var storeEntry;
 var storeFood;
-var hasSql              = (window.openDatabase && localStorage.getItem('config_nodb') !== 'active') ? true : false;
+var hasSql              = (window.openDatabase && appStorage.getItem('config_nodb') !== 'active') ? true : false;
 var AND                 = ' ';
 var initialScreenWidth  = app.width();
 var initialScreenHeight = app.height();

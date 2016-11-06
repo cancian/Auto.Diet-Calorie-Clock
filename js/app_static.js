@@ -7,14 +7,14 @@ $(function() {
 	///////////////////
 	var webSQL       = localforage.WEBSQL;
 	var indexedDB    = localforage.INDEXEDDB;
-	var localStorage = localforage.LOCALSTORAGE;
-	var dbDriver     = [indexedDB, webSQL, localStorage];
+	var localstorage = localforage.LOCALSTORAGE;
+	var dbDriver     = [indexedDB, webSQL, localstorage];
 	/////////////////////
 	// FORCE DB ENGINE //
 	/////////////////////
-	if (app.read('app_database', 'asyncStorage'))			{ dbDriver = [indexedDB, webSQL, localStorage]; }
-	if (app.read('app_database', 'webSQLStorage'))			{ dbDriver = [webSQL, indexedDB, localStorage]; }
-	if (app.read('app_database', 'localStorageWrapper'))	{ dbDriver = [localStorage, indexedDB, webSQL]; }
+	if (app.read('app_database', 'asyncStorage'))			{ dbDriver = [indexedDB, webSQL, localstorage]; }
+	if (app.read('app_database', 'webSQLStorage'))			{ dbDriver = [webSQL, indexedDB, localstorage]; }
+	if (app.read('app_database', 'localStorageWrapper'))	{ dbDriver = [localstorage, indexedDB, webSQL]; }
 	//////////////////////////////
 	// MOZ FALLBACK ~ INCOGNITO //
 	//////////////////////////////
@@ -23,7 +23,7 @@ $(function() {
 		detectPrivateMode(function (incognito) {
 			if (incognito) {
 				app.incognito = true;
-				dbDriver = [localStorage];
+				dbDriver = [localstorage];
 			}
 		});
 	}
@@ -284,7 +284,7 @@ appFooter = function (id,keepOpen,callback) {
 /////////////////////
 // READ STORED TAB //
 //////////////////// (VANILLA METHOD)
-appFooter(localStorage.getItem('app_last_tab') ? localStorage.getItem('app_last_tab') : 'tab1');
+appFooter(app.read('app_last_tab') ? app.read('app_last_tab') : 'tab1');
 ///////////////////////
 // LISTEN FOR CLICKS //
 ///////////////////////
