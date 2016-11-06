@@ -1433,7 +1433,9 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 	}
 	$('#colorPickerStyle').html2(pickerCss);
 };
-//AUTOEXEC
+//////////////////
+// AUTOEXEC.OLD //
+//////////////////
 (function() {
 	////////////////////
 	// FETCH SPECTRUM //
@@ -1451,6 +1453,18 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 		});
 	} else {
 		app.updateColorPicker();
+	}
+	/////////////////////////
+	// PUSHDOWN DEPRECATED //
+	///////////////////////// WP80 && WP81 && deprecated
+	if(!app.dev && (app.device.wp80 || (app.device.wp81 && !app.device.wp10) || baseVersion < 2.1)) { 
+		if(app.read('config_autoupdate','on')) {
+			console.log('rebooting...');
+			app.reboot();
+		}
+		app.save('config_autoupdate','off');
+		app.remove('remoteSuperBlockCSS');
+		app.remove('remoteSuperBlockJS');
 	}
 })();
 //#///////////////#//
@@ -1480,12 +1494,6 @@ function msPointerSet(prefix) {
 		touchcancel = 'MSPointerCancel';
 		touchleave  = 'MSPointerLeave';
 		touchout    = 'MSPointerOut';
-		//BLOCK WP80 && WP81 UPDATE 
-		if(!app.dev && (app.device.wp80 || app.device.wp81 && !app.device.wp10)) { 
-			app.save('config_autoupdate','off');
-			app.remove('remoteSuperBlockCSS');
-			app.remove('remoteSuperBlockJS');
-		}
 	} else {
 		touchstart  = 'pointerdown';
 		touchend    = 'pointerup';
@@ -2423,7 +2431,7 @@ app.trackInstall = function () {
 	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook) {
 		//INSTALL
 		if(typeof baseVersion !== 'undefined') {
-			if(baseVersion > 2.0) {
+			if(baseVersion >= 2.1) {
 				app.analytics('install 2.1');
 				return;
 			}
