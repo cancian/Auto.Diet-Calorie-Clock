@@ -2761,64 +2761,65 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
 (function ($, specialEventName, touch_start, touch_end) {
+	
 	'use strict';
-
+	
 	if (app.device.wp10) {
 		touch_start = 'touchstart';
 		touch_end = 'touchend';
 	}
-	/*
+	
 	var nativeEvent = {
-	start : touch_start,
-	end : touch_end
+		start : touch_start,
+		end   : touch_end
 	};
 
 	$.event.special[specialEventName] = {
-	setup : function (data, namespaces, eventHandle) {
-	var $element = $(this);
-	var eventData = {};
-	$element.on(nativeEvent.start, function (event) {
-	if (event.which && event.which !== 1) {
-	return;
-	}
-	//TWEAK
-	if (event) {
-	if (event.target) {
-	var appXY = app.pointer(event);
-	eventData.target = event.target || $element;
-	eventData.pageX  = appXY.x;
-	eventData.pageY  = appXY.y;
-	eventData.time   = app.now();
-	}
-	}
-	}).on(nativeEvent.end, function (event) {
-	//TWEAK
-	if (eventData) {
-	var appXY = app.pointer(event);
-	//DIFF
-	var diffX = Math.abs(eventData.pageX - appXY.x);
-	var diffY = Math.abs(eventData.pageY - appXY.y);
-	var endX = appXY.x;
-	var endY = appXY.y;
-	//THRESHOLD
-	if ((eventData.target === event.target || eventData.target === $(this)) && app.now() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-	event.type  = specialEventName;
-	event.pageX = endX;
-	event.pageY = endY;
-	//TRIGGER
-	eventHandle.call(this, event);
-	}
-	}
-	});
-	},
-	remove : function () {
-	$(this).off(nativeEvent.start + ' ' + nativeEvent.end);
-	}
+		setup : function (data, namespaces, eventHandle) {
+			var $element = $(this);
+			var eventData = {};
+			$element.on(nativeEvent.start, function (event) {
+				if (event.which && event.which !== 1) {
+					return;
+				}
+				//TWEAK
+				if (event) {
+					if (event.target) {
+						var appXY = app.pointer(event);
+						eventData.target = event.target || $element;
+						eventData.pageX = appXY.x;
+						eventData.pageY = appXY.y;
+						eventData.time = app.now();
+					}
+				}
+			}).on(nativeEvent.end, function (event) {
+				//TWEAK
+				if (eventData) {
+					var appXY = app.pointer(event);
+					//DIFF
+					var diffX = Math.abs(eventData.pageX - appXY.x);
+					var diffY = Math.abs(eventData.pageY - appXY.y);
+					var endX = appXY.x;
+					var endY = appXY.y;
+					//THRESHOLD
+					if ((eventData.target === event.target || eventData.target === $(this)) && app.now() - eventData.time < 750 && diffX < 10 && diffY < 10) {
+						event.type = specialEventName;
+						event.pageX = endX;
+						event.pageY = endY;
+						//TRIGGER
+						eventHandle.call(this, event);
+					}
+				}
+			});
+		},
+		remove : function () {
+			$(this).off(nativeEvent.start + ' ' + nativeEvent.end);
+		}
 	};
 	$.fn[specialEventName] = function (fn) {
-	return this[fn ? 'on' : 'trigger'](specialEventName, fn);
+		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
 	};
-	 */
+	/*
 	$.event.special.tap = {
 		setup : function () {
 			var thisObject = this,
@@ -2891,6 +2892,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$(this).off(touch_start, $(this).data.callee1).off(touch_end, $(this).data.callee2);
 		}
 	}
+	*/
 })(jQuery, 'tap', touchstart, touchend);
 //#////////////#//
 //# TAPHOLD.JS #//
@@ -2898,7 +2900,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 (function ($, touch_start, touch_end, touch_move) {
 	'use strict';
 	var TAP_AND_HOLD_TRIGGER_TIMER = 1500;
-	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 10;
+	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 15;
 
 	var TOUCHSTART = touch_start;
 	var TOUCHEND = touch_end;
