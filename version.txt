@@ -4,6 +4,9 @@
 # Upcoming&nbsp;features [0000/00/00]
 <span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
 
+# 2.0.7 [2016/11/07]
+• Faster tap handler
+
 # 2.0.6 [2016/11/02]
 • History chart now opens pointing to the current day by default
 • Real-time chat support (settings tab)
