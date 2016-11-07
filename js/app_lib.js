@@ -29,8 +29,6 @@ app = {
 	dev: appStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: appStorage.getItem('config_debug') === 'active' || appStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
-		//FIX
-		//e = $.event.fix(e);
 		//DEFINE
 		var out = {
 			x : 0,
@@ -50,6 +48,8 @@ app = {
 				out.id = $(e.target).prop('id');
 			}
 		}
+		//TIME
+		out.time = app.now();
 		//TOUCH EVENT
 		if (/touch|pointer/i.test(e.type) && e.originalEvent) {
 			if(e.originalEvent.changedTouches) {
@@ -2636,6 +2636,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //##/////////////////##// https://github.com/vistaprint/PointyJS
 (function ($, touch_start, touch_end, touch_move) {
 	'use strict';
+
 	if(app.device.wp10) {
 		touch_start = 'touchstart';
 		touch_end   = 'touchend';
@@ -2760,66 +2761,10 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
-(function ($, specialEventName, touch_start, touch_end) {
-	
+(function ($) {
 	'use strict';
-	
-	if (app.device.wp10) {
-		touch_start = 'touchstart';
-		touch_end = 'touchend';
-	}
-	
-	var nativeEvent = {
-		start : touch_start,
-		end   : touch_end
-	};
 
-	$.event.special[specialEventName] = {
-		setup : function (data, namespaces, eventHandle) {
-			var $element = $(this);
-			var eventData = {};
-			$element.on(nativeEvent.start, function (event) {
-				if (event.which && event.which !== 1) {
-					return;
-				}
-				//TWEAK
-				if (event) {
-					if (event.target) {
-						var appXY = app.pointer(event);
-						eventData.target = event.target || $element;
-						eventData.pageX = appXY.x;
-						eventData.pageY = appXY.y;
-						eventData.time = app.now();
-					}
-				}
-			}).on(nativeEvent.end, function (event) {
-				//TWEAK
-				if (eventData) {
-					var appXY = app.pointer(event);
-					//DIFF
-					var diffX = Math.abs(eventData.pageX - appXY.x);
-					var diffY = Math.abs(eventData.pageY - appXY.y);
-					var endX = appXY.x;
-					var endY = appXY.y;
-					//THRESHOLD
-					if ((eventData.target === event.target || eventData.target === $(this)) && app.now() - eventData.time < 750 && diffX < 10 && diffY < 10) {
-						event.type = specialEventName;
-						event.pageX = endX;
-						event.pageY = endY;
-						//TRIGGER
-						eventHandle.call(this, event);
-					}
-				}
-			});
-		},
-		remove : function () {
-			$(this).off(nativeEvent.start + ' ' + nativeEvent.end);
-		}
-	};
-	$.fn[specialEventName] = function (fn) {
-		return this[fn ? 'on' : 'trigger'](specialEventName, fn);
-	};
-	/*
+	//SETUP
 	$.event.special.tap = {
 		setup : function () {
 			var thisObject = this,
@@ -2830,70 +2775,43 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			start_pos = {
 				x : 0,
 				y : 0
-			},
-			touches;
-
-			$this.on(touch_start, function tapFunc1(e) {
-				$this.data('callee1', tapFunc1);
-
+			};
+			//START
+			$this.on(touchstart, function (e) {
 				if (e.which && e.which !== 1) {
 					return false;
 				} else {
+					var startPos = app.pointer(e);
 					started = true;
-					start_pos.x = app.pointer(e).x;
-					start_pos.y = app.pointer(e).y;
+					start_pos.x = startPos.x;
+					start_pos.y = startPos.y;
 					start_time = Date.now();
 					origTarget = e.target;
-
-					touches = app.pointer(e).e;
 					return true;
 				}
-			}).on(touch_end, function tapFunc2(e) {
-				$this.data('callee2', tapFunc2);
-
+				//END
+			}).on(touchend, function (e) {
+				var endPos = app.pointer(e);
+				var end_x = endPos.x;
+				var end_y = endPos.y;
+				var diff_x = (start_pos.x - end_x);
+				var diff_y = (start_pos.y - end_y);
 				// Only trigger if they've started, and the target matches:
-				var end_x = app.pointer(e).x,
-				end_y = app.pointer(e).y,
-				diff_x = (start_pos.x - end_x),
-				diff_y = (start_pos.y - end_y),
-				eventName;
-
 				if (origTarget == e.target && started && ((Date.now() - start_time) < 750) && ((start_pos.x == end_x && start_pos.y == end_y) || (diff_x >=  - (20) && diff_x <= 20 && diff_y >=  - (20) && diff_y <= 20))) {
-					var origEvent = e.originalEvent;
-					var touchData = [];
-
-					for (var i = 0; i < touches.length; i++) {
-						var touch = {
-							'position' : {
-								'x' : app.pointer(e).x,
-								'y' : app.pointer(e).y
-							},
-							'offset' : {
-								'x' : app.pointer(e).x,
-								'y' : app.pointer(e).y
-							},
-							'time' : Date.now(),
-							'target' : e.target
-						};
-
-						touchData.push(touch);
-					}
-
 					e.type = 'tap';
 					e.pageX = end_x;
 					e.pageY = end_y;
-					$.event.dispatch.call(thisObject, e, touchData);
-
+					//TRIGGER
+					$.event.dispatch.call(thisObject, e);
 				}
 			});
 		},
-
+		//REMOVE
 		remove : function () {
-			$(this).off(touch_start, $(this).data.callee1).off(touch_end, $(this).data.callee2);
+			$(this).off(touchstart).off(touchend);
 		}
 	}
-	*/
-})(jQuery, 'tap', touchstart, touchend);
+})(jQuery);
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
