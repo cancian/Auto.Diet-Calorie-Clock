@@ -2767,11 +2767,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 					//prevent scrolling on touch devices
 					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
-						if(app.is.scrollable) {
-							event.stopPropagation();
-						} else {
-							event.preventDefault();
-						}
+						event.preventDefault();
 					}
 				}
 
