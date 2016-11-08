@@ -2742,7 +2742,6 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$this = $(thisObject);
 
 			handleObj.pointerdown = function (event) {
-				event = app.pointer(event).e;
 				var start = $.event.special.swipe.start(event),
 				stop;
 
@@ -2753,10 +2752,11 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				// event.preventDefault();
 
 				function move(event) {
-					event = app.pointer(event).e;
 					if (!start) {
 						return;
 					}
+					//FIX
+					event = app.pointer(event).e;
 
 					stop = $.event.special.swipe.stop(event);
 
