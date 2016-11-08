@@ -59,8 +59,15 @@ app = {
 				if(typeof touch !== 'undefined') {
 					out.x = parseInt(touch.pageX);
 					out.y = parseInt(touch.pageY);
+					//~
 					out.pageX = out.x;
 					out.pageY = out.y;
+					//add data to event
+					out.e = e.originalEvent
+					out.e.pageX = out.x;
+					out.e.pageY = out.y;
+					out.e.x = out.x;
+					out.e.y = out.y;
 					return out;
 				}
 			}
@@ -68,8 +75,14 @@ app = {
 		//REGULAR EVENT
 		out.x = parseInt(e.pageX);
 		out.y = parseInt(e.pageY);
+		//~
 		out.pageX = out.x;
 		out.pageY = out.y;
+		//add data to event
+		out.e.pageX = out.x;
+		out.e.pageY = out.y;
+		out.e.x = out.x;
+		out.e.y = out.y;
 		return out;
 	},
 	is: {},
@@ -459,8 +472,11 @@ if(app.device.blackberry || app.device.playbook || app.device.android2) {
 //# APP.IS.SCROLLABLE #//
 //#///////////////////#//
 app.is.scrollable = false;
-if($.nicescroll && !app.device.msapp && vendorClass != 'msie') {
-	if(app.device.desktop && !app.device.msapp)			{ app.is.scrollable = true; }
+if($.nicescroll) {
+	if(app.device.msapp && app.desktop)					{ app.is.scrollable = true; }
+	if(app.device.wp80)									{ app.is.scrollable = true; }
+	if(app.device.wp81 && !app.device.wp10)				{ app.is.scrollable = true; }
+	if(app.device.desktop)								{ app.is.scrollable = true; }
 	if(app.device.linux)								{ app.is.scrollable = true; }
 	if(app.device.android && app.device.android < 5)	{ app.is.scrollable = true; }
 }
@@ -2726,6 +2742,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 			$this = $(thisObject);
 
 			handleObj.pointerdown = function (event) {
+				event = app.pointer(event).e;
 				var start = $.event.special.swipe.start(event),
 				stop;
 
@@ -2736,6 +2753,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				// event.preventDefault();
 
 				function move(event) {
+					event = app.pointer(event).e;
 					if (!start) {
 						return;
 					}
