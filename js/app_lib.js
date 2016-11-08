@@ -2674,6 +2674,12 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //##/////////////////##// https://github.com/vistaprint/PointyJS
 (function ($) {
 	'use strict';
+
+	if(app.device.wp10) {
+		touch_start = 'touchstart';
+		touch_end   = 'touchend';
+		touch_move  = 'touchmove';
+	}
 	///////////////
 	// POINTY.JS //
 	///////////////
