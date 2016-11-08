@@ -2672,7 +2672,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //##/////////////////##//
 //## POINTY GESTURES ##// Pointy.js
 //##/////////////////##// https://github.com/vistaprint/PointyJS
-(function ($) {
+(function ($, touch_start, touch_end, touch_move) {
 	'use strict';
 
 	if(app.device.wp10) {
@@ -2770,7 +2770,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				}
 
 				function up() {
-					$this.off(touchmove, move);
+					$this.off(touch_move, move);
 
 					if (start && stop && $.event.special.swipe.isSweep(start, stop, true)) {
 						var dir = start.coords[0] > stop.coords[0] ? 'left' : 'right';
@@ -2780,24 +2780,24 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					start = stop = undefined;
 				}
 
-				$this.on(touchmove, move).one(touchend, up);
+				$this.on(touch_move, move).one(touch_end, up);
 
 				// set a timeout to ensure we cleanup, in case the "pointerup" isn't fired
 				setTimeout(function () {
 					$this
-					.off(touchmove, handleObj.selector, move)
-					.off(touchend, handleObj.selector, up);
+					.off(touch_move, handleObj.selector, move)
+					.off(touch_end, handleObj.selector, up);
 				}, $.event.special.swipe.durationThreshold);
 			};
 
-			$this.on(touchstart, handleObj.selector, handleObj.pointerdown);
+			$this.on(touch_start, handleObj.selector, handleObj.pointerdown);
 		},
 
 		remove : function (handleObj) {
-			$(this).off(touchstart, handleObj.selector, handleObj.pointerdown);
+			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
 		}
 	};
-})(jQuery);
+})(jQuery, touchstart, touchend, touchmove);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
