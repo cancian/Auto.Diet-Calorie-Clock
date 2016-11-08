@@ -2165,7 +2165,7 @@ function getNiceScroll(target,timeout,callback) {
 		app.is.scrollable  = document.getElementById('appHistory') ? true : false;
 	}	
 	//quick scrolling / prevent scrollbar
-	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
+	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.msapp || app.device.firefoxos))) {
 		//$('.overthrow').removeClass('overthrow');
 		$(target).removeClass('overthrow');
 		$(target).css2('overflow','hidden');

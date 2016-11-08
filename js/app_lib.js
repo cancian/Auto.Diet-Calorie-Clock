@@ -464,21 +464,24 @@ if(typeof https !== 'undefined') {
 	https = app.https;
 }
 //MANUAL OVERRIDES (DISABLE)
+/*
 if(app.device.blackberry || app.device.playbook || app.device.android2) {
 	app.https = 'http://';
 	https = app.https;	
 }
+*/
 //#///////////////////#//
 //# APP.IS.SCROLLABLE #//
 //#///////////////////#//
 app.is.scrollable = false;
 if($.nicescroll) {
-	if(app.device.msapp && app.desktop)					{ app.is.scrollable = true; }
-	if(app.device.wp80)									{ app.is.scrollable = true; }
-	if(app.device.wp81 && !app.device.wp10)				{ app.is.scrollable = true; }
-	if(app.device.desktop)								{ app.is.scrollable = true; }
-	if(app.device.linux)								{ app.is.scrollable = true; }
-	if(app.device.android && app.device.android < 5)	{ app.is.scrollable = true; }
+	if(app.device.msapp)								{ app.is.scrollable = true;  }
+	if(app.device.wp80)									{ app.is.scrollable = true;  }
+	if(app.device.wp81)									{ app.is.scrollable = true;  }
+	if(app.device.wp10)									{ app.is.scrollable = false; }
+	if(app.device.linux)								{ app.is.scrollable = true;  }
+	if(app.device.desktop)								{ app.is.scrollable = true;  }
+	if(app.device.android && app.device.android < 5)	{ app.is.scrollable = true;  }
 }
 //////////////////
 // APP.REBOOT() //
@@ -2669,14 +2672,8 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //##/////////////////##//
 //## POINTY GESTURES ##// Pointy.js
 //##/////////////////##// https://github.com/vistaprint/PointyJS
-(function ($, touch_start, touch_end, touch_move) {
+(function ($) {
 	'use strict';
-
-	if(app.device.wp10 || app.device.wp81) {
-		touch_start = 'touchstart';
-		touch_end   = 'touchend';
-		touch_move  = 'touchmove';
-	}
 	///////////////
 	// POINTY.JS //
 	///////////////
@@ -2767,7 +2764,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				}
 
 				function up() {
-					$this.off(touch_move, move);
+					$this.off(touchmove, move);
 
 					if (start && stop && $.event.special.swipe.isSweep(start, stop, true)) {
 						var dir = start.coords[0] > stop.coords[0] ? 'left' : 'right';
@@ -2777,30 +2774,29 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					start = stop = undefined;
 				}
 
-				$this.on(touch_move, move).one(touch_end, up);
+				$this.on(touchmove, move).one(touchend, up);
 
 				// set a timeout to ensure we cleanup, in case the "pointerup" isn't fired
 				setTimeout(function () {
 					$this
-					.off(touch_move, handleObj.selector, move)
-					.off(touch_end, handleObj.selector, up);
+					.off(touchmove, handleObj.selector, move)
+					.off(touchend, handleObj.selector, up);
 				}, $.event.special.swipe.durationThreshold);
 			};
 
-			$this.on(touch_start, handleObj.selector, handleObj.pointerdown);
+			$this.on(touchstart, handleObj.selector, handleObj.pointerdown);
 		},
 
 		remove : function (handleObj) {
-			$(this).off(touch_start, handleObj.selector, handleObj.pointerdown);
+			$(this).off(touchstart, handleObj.selector, handleObj.pointerdown);
 		}
 	};
-})(jQuery, touchstart, touchend, touchmove);
+})(jQuery);
 //#/////////////#//
 //# TAP HANDLER #// Version: 0.3.1
 //#/////////////#// https://github.com/BR0kEN-/jTap
 (function ($) {
 	'use strict';
-
 	//SETUP
 	$.event.special.tap = {
 		setup : function () {
@@ -2852,14 +2848,14 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
-(function ($, touch_start, touch_end, touch_move) {
+(function ($) {
 	'use strict';
 	var TAP_AND_HOLD_TRIGGER_TIMER = 1500;
 	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 15;
 
-	var TOUCHSTART = touch_start;
-	var TOUCHEND = touch_end;
-	var TOUCHMOVE = touch_move;
+	var TOUCHSTART = touchstart;
+	var TOUCHEND = touchend;
+	var TOUCHMOVE = touchmove;
 
 	var tapAndHoldTimer = null;
 
@@ -2966,7 +2962,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 
 		teardown : function () {}
 	};
-})(jQuery, touchstart, touchend, touchmove);
+})(jQuery);
 //#//////////////////////////////#//
 //# FIREFOX: DETECT PRIVATE MODE #//
 //#//////////////////////////////#//
