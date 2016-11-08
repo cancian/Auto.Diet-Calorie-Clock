@@ -29,6 +29,8 @@ app = {
 	dev: appStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: appStorage.getItem('config_debug') === 'active' || appStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
+		//FIX
+		e = $.event.fix(e);
 		//DEFINE
 		var out = {
 			x : 0,
