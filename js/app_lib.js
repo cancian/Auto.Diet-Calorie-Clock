@@ -498,13 +498,30 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 // EACH2 //
 /////////// http://benalman.com/projects/jquery-misc-plugins/#each2
-//var jq = $([1]);
-//$.fn.each = function (fn) {
-//	var i = -1;
-//	while ((jq.context = jq[0] = this[++i]) && fn.call(jq[0], i, jq) !== false) {}
-//	//chainability.
-//	return this;
-//};
+/*
+(function ($) {
+	// Create a placeholder jQuery object with a length of 1. The single item
+	// is completely arbitrary and will be replaced.
+	var jq = $([1]);
+
+	$.fn.each2 = function (fn) {
+		var i = -1;
+		while (
+			// Set both the first element AND context property of the placeholder
+			// jQuery object to the DOM element. When i has been incremented past the
+			// end, this[++i] will return undefined and abort the while loop.
+			(jq.context = jq[0] = this[++i])
+
+			// Invoke the callback function in the context of the DOM element,
+			// passing both the index and the placeholder jQuery object in. Like
+			// .each, if the callback returns `false`, abort the while loop.
+			 && fn.call(jq[0], i, jq) !== false) {}
+
+		// Return the initial jQuery object for chainability.
+		return this;
+	};
+})(jQuery);
+*/
 ///////////
 // HTML2 //
 ///////////
@@ -2639,7 +2656,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 (function ($, touch_start, touch_end, touch_move) {
 	'use strict';
 
-	if(app.device.wp10) {
+	if(app.device.wp10 || app.device.wp81) {
 		touch_start = 'touchstart';
 		touch_end   = 'touchend';
 		touch_move  = 'touchmove';
