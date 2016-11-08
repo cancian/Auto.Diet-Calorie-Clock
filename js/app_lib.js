@@ -2680,6 +2680,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		touch_end   = 'touchend';
 		touch_move  = 'touchmove';
 	}
+	
 	///////////////
 	// POINTY.JS //
 	///////////////
@@ -2758,14 +2759,19 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 					if (!start) {
 						return;
 					}
+					
 					//FIX
 					event = app.pointer(event).e;
 
 					stop = $.event.special.swipe.stop(event);
 
 					//prevent scrolling on touch devices
-					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold && app.touch) {
-						event.preventDefault();
+					if (Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.scrollSupressionThreshold) {
+						if(app.is.scrollable) {
+							event.stopPropagation();
+						} else {
+							event.preventDefault();
+						}
 					}
 				}
 
