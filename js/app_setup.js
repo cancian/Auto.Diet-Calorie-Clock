@@ -2275,13 +2275,14 @@ app.wrapperMinHeight = function() {
 	if(wrapperMinH < 0) {
 		wrapperMinH = 0;
 	}
-	//HOLDER
-	if(!$('#entryListHeight').length) {
-		$('head').append2('<style type="text/css" id="entryListHeight"></style>');
+	if($('#entryListWrapper').height() < wrapperMinH) {
+		//HOLDER
+		if(!$('#entryListHeight').length) {
+			$('head').append2('<style type="text/css" id="entryListHeight"></style>');
+		}
+		//IF NEEDED
+		$('#entryListHeight').html2('#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }');
 	}
-	//IF NEEDED
-	$('#entryListHeight').html2('#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }');
-	//$('#entryListWrapper').css2('min-height', wrapperMinH + 'px');
 };
 //#/////////////#//
 //# APP RESIZER #//
