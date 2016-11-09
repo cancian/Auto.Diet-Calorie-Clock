@@ -30,7 +30,7 @@ app = {
 	beenDev: appStorage.getItem('config_debug') === 'active' || appStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
 		//FIX
-		e = $.event.fix(e);
+		//e = $.event.fix(e);
 		//DEFINE
 		var out = {
 			x : 0,
@@ -63,7 +63,7 @@ app = {
 					out.pageX = out.x;
 					out.pageY = out.y;
 					//add data to event
-					out.e = e.originalEvent
+					//out.e = e.originalEvent
 					out.e.pageX = out.x;
 					out.e.pageY = out.y;
 					out.e.x = out.x;

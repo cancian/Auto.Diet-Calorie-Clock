@@ -1,10 +1,16 @@
 ﻿/////////////////////
 // LANGUAGE ENGINE //
 /////////////////////
+//# BB10 #// burn,calorie,counter,calculator,tracker,easy,diet,diary,weight,myfitnesspal
+//# FFOS #// burn,calorie,counter,calculator,tracker,easy,diet,diary,weight,myfitnesspal,lose,loss,fat,track,monitor,intake,deficit,counting,women,kcals
+//# MSIE #// calorie counter,weight loss,diet,tracker,fat,burn,myfitnesspal
+//# IOS  #// food,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,track,tracker,diary,easy,deficit,lose
+//
 //lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcals,diet,fitness,health,shape,training
 //lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcal,track,diet,fitness,health,shape,it
 //real time calorie monitor calculator intake restriction clock counter burn burner fat loss diet tracker online chart deficit  counting 
 //real,time,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,tracker,diary,gain,deficit,kcal
+//
 var appName = 'ChronoBurn';
 var appVersion = '2.0.7 (200700)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
