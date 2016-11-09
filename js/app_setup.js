@@ -2190,9 +2190,9 @@ function getNiceScroll(target,timeout,callback) {
 			cursorcolor: '#000',
 			cursorborderradius: 0,
 			railpadding: { right: 1,  bottom: 0, top: 0 },
-			cursorborder: 'rgba(0,0,0,.5)',
+			cursorborder: '0px solid #ffffff',
 			cursoropacitymax: .5,
-			cursorwidth: 3,
+			cursorwidth: 4,
 			horizrailenabled: false,
 			autohidemode: true,
 			hidecursordelay: 450,
@@ -2210,7 +2210,7 @@ function getNiceScroll(target,timeout,callback) {
 		//HIDE FIRST HELPER
 		if(/appHelper/i.test(target)) {
 			//NSettings.zindex = -1;
-			NSettings.cursorborder = '1px solid rgba(0,0,0,0)';
+			NSettings.cursorborder = '0px solid rgba(0,0,0,0)';
 			NSettings.cursorcolor = 'rgba(0,0,0,0)';
 		}
 		//HORIZONTAL
@@ -2219,6 +2219,10 @@ function getNiceScroll(target,timeout,callback) {
 		}
 		if(app.device.desktop) {
 			NSettings.touchbehavior = true;
+		}
+		//NO HAND CURSOR
+		if(app.device.desktop && (vendorClass == 'msie' || app.device.msapp)) {
+			NSettings.grabcursorenabled = false;
 		}
 		if(/subhelp/i.test(target)) {
 			NSettings.touchbehavior = false;
