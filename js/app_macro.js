@@ -305,9 +305,9 @@ function getWeightTracker() {
 							},
 							marker : {
 								enabled : true,
-								lineWidth : 2,
+								lineWidth : 0,
 								lineColor : '#317FD8',
-								fillColor : 'white',
+								fillColor : 'blue',
 								states : {
 									hover : {
 										lineWidth : 2

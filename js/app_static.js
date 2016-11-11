@@ -445,6 +445,7 @@ $(document).on('pressenter', function(evt) {
 			$('#saveButton').trigger(touchend);
 		}
 		if($('#appTrackerButtonSave').length) {
+			//if(!$('.dwo').length) {
 			$('#appTrackerButtonSave').trigger(tap);		
 		}
 		$('#closeButton').trigger(touchend);
