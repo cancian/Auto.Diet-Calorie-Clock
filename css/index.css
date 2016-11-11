@@ -572,7 +572,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #saveButton.getAdd					{ color: rgba(0,0,0,0); }
 #saveButton.getAdd:before			{ content: '+'; font-family: KCals; font-size: 22px; line-height: 22px; height: 44px; padding-top: 12px; display: block; color: #007AFF; margin-right: -20px; font-weight: normal; background-color: rgba(255,255,255,0); }
 /**/
-#appTrackerEditWrapper				{ position: absolute; top: 0; left: 0; right: 0; height: 142px; display: block; overflow: hidden; background-color: rgba(255,255,255,1);border-bottom: 1px solid #ccc; -webkit-box-shadow: 2px 0px 8px rgba(0,0,0,.2); box-shadow: 2px 0px 8px rgba(0,0,0,.2); }
+#appTrackerEditWrapper				{ position: fixed; top: 44px; left: 0; right: 0; height: 142px; display: block; overflow: hidden; background-color: rgba(255,255,255,1);border-bottom: 1px solid #ccc; -webkit-box-shadow: 2px 0px 8px rgba(0,0,0,.2); box-shadow: 2px 0px 8px rgba(0,0,0,.2); }
 /**/
 #appTrackerInputWrapper				{ position: absolute; top: 20px; width: 320px; border: 0px solid #eee; left: 50%; margin-left: -160px; overflow: hidden; height: 80px; background-color: rgba(0,0,0,0); }
 #appTrackerEditInput				{ position: absolute; top: 4px; left: 40%; width: 80px; height: 40px; font-size: 22px; line-height: 16px; color: #03c; text-align: center; border: 0px solid #000; }

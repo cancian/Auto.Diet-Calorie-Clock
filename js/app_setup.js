@@ -2163,9 +2163,10 @@ function getNiceScroll(target,timeout,callback) {
 	//force is.scrollable on #appHistory for android
 	if(app.device.android && app.device.android >= 5) {
 		app.is.scrollable  = document.getElementById('appHistory') ? true : false;
+		app.is.scrollable  = document.getElementById('appTracker') ? true : false;
 	}	
 	//quick scrolling / prevent scrollbar
-	if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.msapp || app.device.firefoxos))) {
+	if(app.is.scrollable || (($('#appHistory').html() || $('#appTracker').html()) && (app.device.wp8 || app.device.msapp || app.device.firefoxos))) {
 		//$('.overthrow').removeClass('overthrow');
 		$(target).removeClass('overthrow');
 		$(target).css2('overflow','hidden');
@@ -2214,7 +2215,7 @@ function getNiceScroll(target,timeout,callback) {
 			NSettings.cursorcolor = 'rgba(0,0,0,0)';
 		}
 		//HORIZONTAL
-		if($('#appHistory').html()) {
+		if($('#appHistory').html() || $('#appTracker').html()) {
 			NSettings.horizrailenabled = true;
 		}
 		if(app.device.desktop) {
@@ -2247,7 +2248,7 @@ function getNiceScroll(target,timeout,callback) {
 			}
 		//APPLY
 		} else {
-			if(app.is.scrollable || ($('#appHistory').html() && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
+			if(app.is.scrollable || (($('#appHistory').html() || $('#appTracker').html()) && (app.device.wp8 || app.device.windows8 || app.device.firefoxos))) {
 				$(target).removeClass('overthrow');
 				$(target).css2('overflow','hidden');
 				$(target).niceScroll(NSettings);

@@ -1,8 +1,8 @@
 ﻿//##//////////////////##//
 //## GetWeightTracker ##//
 //##//////////////////##//
+var buildTracker;
 function getWeightTracker() {
-	var buildTracker;
 	var measureUnit = app.read('calcForm#pA3C','pounds') ? LANG.LB[lang] : LANG.KG[lang];
 	//tokg
 	//totalWeight = Math.round(totalWeight) / (2.2));
@@ -68,14 +68,16 @@ function getWeightTracker() {
 			/////////////
 			//CANCEL
 			$('#appTrackerButtonCancel').on(tap,function(evt) {
-				evt.stopPropagation();
+				//evt.stopPropagation();
+				evt.preventDefault();
 				app.handlers.fade(0,'#appTrackerEditWrapper', 300);
 			});
 			//////////
 			// SAVE //
 			//////////
 			$('#appTrackerButtonSave').on(tap,function(evt) {
-				evt.stopPropagation();
+				//evt.stopPropagation();
+				evt.preventDefault();
 				weightData = app.read('weight_tracker','','object').sort();
 				var weightInput = parseFloat($('#appTrackerEditInput').val());
 				var dateInput   = toTime($('#appTrackerInputDate').val());
@@ -105,7 +107,8 @@ function getWeightTracker() {
 			// DELETE //
 			////////////
 			$('#appTrackerButtonDelete').on(tap,function(evt) {
-				evt.stopPropagation();
+				//evt.stopPropagation();
+				evt.preventDefault();
 				var weightInput = parseInt($('#appTrackerEditInput').val());
 				var dateInput = toTime($('#appTrackerInputDate').val());
 					//loop
@@ -185,7 +188,8 @@ function getWeightTracker() {
 			// TRIGGER DATEPICKER //
 			////////////////////////
 			$('#appTrackerInputDateWrapper').on(tap,function(evt) {
-				evt.stopPropagation();
+				//evt.stopPropagation();
+				evt.preventDefault();
 				setTimeout(function() {
 					$('#appTrackerInputDate').click();
 				}, 100);
@@ -208,19 +212,32 @@ function getWeightTracker() {
 						weekdays : LANG.WEEKDAY_SHORT[lang].split(', ')
 					}
 				});
+				///////////////
+				// MIN WIDTH //
+				///////////////
+				var minWidth = $('#appContent').width() / ((app.now() - lowestTime) / day);
+				if (minWidth < 50) {
+					minWidth = 50;
+				}
+				if (minWidth > 100) {
+					minWidth = 100;
+				}
+				minWidth = ((app.now() - lowestTime) / day) * minWidth;
+				if (minWidth < $('#appContent').width()) {
+					minWidth = $('#appContent').width();
+				}
 				////////////////
 				// STATISTICS //
 				////////////////
-
 				$('#appTracker').highcharts({
 					chart : {
-						reflow : true,
+						reflow : false,
 						spacingLeft : 2,
 						spacingRight : 12,
 						spacingTop : 24,
 						spacingBottom : 9,
 						height : $('#newWindow').height() - ($('body').hasClass('android2') ? 19 : 9),
-						//width : $('#newWindow').width()
+						width : minWidth
 					},
 					credits : {
 						enabled : false
@@ -273,7 +290,7 @@ function getWeightTracker() {
 								enabled : true,
 								style : {
 									textShadow : '0 0 3px white',
-									fontSize : '11px',
+									fontSize : '10px',
 									color: '#c30',
 									fontWeight: 'normal'
 								},
@@ -313,6 +330,8 @@ function getWeightTracker() {
 				//remove top-bottom grid lines
 				//$('.highcharts-grid path:eq(3)').remove();
 		    	$('.highcharts-grid path:last').remove();
+				//LEFT AUTOSCROLL
+				$('#newWindow').scrollLeft($('.highcharts-container','#appTracker').width());
 		}
 		buildTracker();
 	};
@@ -334,6 +353,7 @@ function getWeightTracker() {
 //##/////////////////##//
 //## GET FULLHISTORY ##//
 //##/////////////////##//
+var rebuildHistory;
 function getFullHistory() {
 	var fullArray   = [];
 	var oldestEntry = new Date().getTime();

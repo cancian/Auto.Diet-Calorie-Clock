@@ -890,7 +890,6 @@ var noTimer;
 var preTab;
 var afterTab;
 var timerKcals;
-var rebuildHistory;
 var blockModal = false;
 var modalTimer;
 function voidThis()   { }

@@ -704,12 +704,17 @@ window.onresize = function(evt) {
 	if($('#closeDiv').html()) {
 		appResizer(0);
 	}
-	//resize statistics
-	setTimeout(function() {
-		if($('#appHistory').html() && typeof rebuildHistory == 'function') {
+	//RESIZE CHARTS
+	app.timeout('resizeCharts',100,function() {
+		//HISTORY CHART
+		if($('#appHistory').html() && typeof rebuildHistory === 'function') {
 			rebuildHistory();
 		}
-	},100);
+		//WEIGHT TRACKER
+		if($('#appTracker').html() && typeof buildTracker === 'function') {
+			buildTracker();
+		}
+	});
 	niceResizer(300);
 	//ffos portrait reinforce
 	if(app.device.firefoxos) {
