@@ -46,7 +46,7 @@ function getWeightTracker() {
 				app.handlers.fade(0, '#appTrackerEditWrapper', 300);
 				return;
 			}
-			$('#appTracker').append2('\
+			$('#newWindowWrapper').append2('\
 			<div id="appTrackerEditWrapper">\
 				<div id="appTrackerInputWrapper">\
 					<span>' + measureUnit + '</span>\
@@ -59,6 +59,7 @@ function getWeightTracker() {
 					<div id="appTrackerButtonSave">' + LANG.SAVE[lang] + '</div>\
 				</div>\
 			</div>');
+			//$('#appTrackerEditWrapper').css2('left',$('#newWindow').scrollLeft + 'px');
 			/////////////
 			// ADD +/- //
 			/////////////
@@ -100,8 +101,11 @@ function getWeightTracker() {
 				}
 				//SAVE
 				app.save('weight_tracker',weightData.sort(),'object');
+				//FADE EDITOR
+				app.handlers.fade(0,'#appTrackerEditWrapper', 300);
 				//UPDATE CHART
 				buildTracker();
+				
 			});
 			////////////
 			// DELETE //
@@ -129,6 +133,8 @@ function getWeightTracker() {
 				// SAVE //
 				//////////
 				app.save('weight_tracker',tempData,'object');
+				//FADE EDITOR
+				app.handlers.fade(0,'#appTrackerEditWrapper', 300);
 				//UPDATE CHART
 				buildTracker();
 			});			
