@@ -204,6 +204,13 @@ safeExec(function() {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
 		if(isCurrentCacheValid == 1) {
 			if(!document.getElementById('superBlockCSS')) {
+				/*
+				var styleElement;
+				styleElement = document.createElement('style');
+				styleElement.setAttribute('type', 'text/css');
+				styleElement.textContent = appStorage.getItem('remoteSuperBlockCSS');
+				document.head.appendChild(styleElement);
+				*/
 				//to head
 				if(document.getElementById('CSSPlaceholder')) {
 					document.getElementById('CSSPlaceholder').innerHTML = appStorage.getItem('remoteSuperBlockCSS');
