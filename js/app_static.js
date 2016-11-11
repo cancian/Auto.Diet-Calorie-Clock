@@ -343,6 +343,8 @@ $(document).on('backbutton', function (evt) {
 	} else if ($('#addNewCancel').length || $('#modalCancel').length) {
 		$('#addNewCancel').trigger(touchstart);
 		$('#modalCancel').trigger(touchstart);
+	} else if ($('#appTrackerButtonCancel').length) {
+		$('#appTrackerButtonCancel').trigger(tap);		
 	} else if ($('#closeButton').length) {
 		$('#closeButton').trigger(touchend);
 	} else if ($('#subBackButton').length) {
@@ -441,6 +443,9 @@ $(document).on('pressenter', function(evt) {
 		if($('#saveButton').length) {
 			$('#saveButton').addClass('button');
 			$('#saveButton').trigger(touchend);
+		}
+		if($('#appTrackerButtonSave').length) {
+			$('#appTrackerButtonSave').trigger(tap);		
 		}
 		$('#closeButton').trigger(touchend);
 		$('#editableInput').trigger('blur');
@@ -705,7 +710,7 @@ window.onresize = function(evt) {
 		appResizer(0);
 	}
 	//RESIZE CHARTS
-	app.timeout('resizeCharts',100,function() {
+	setTimeout(function() {
 		//HISTORY CHART
 		if($('#appHistory').html() && typeof rebuildHistory === 'function') {
 			rebuildHistory();
@@ -714,7 +719,7 @@ window.onresize = function(evt) {
 		if($('#appTracker').html() && typeof buildTracker === 'function') {
 			buildTracker();
 		}
-	});
+	}, 100);
 	niceResizer(300);
 	//ffos portrait reinforce
 	if(app.device.firefoxos) {

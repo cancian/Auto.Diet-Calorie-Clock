@@ -6,6 +6,7 @@
 
 # 2.0.7 [2016/11/11]
 • Weight tracker now handles decimal values
+• Added scrolling and more flexibe resizing to weight tracker chart
 • Faster tap handler
 
 # 2.0.6 [2016/11/02]
