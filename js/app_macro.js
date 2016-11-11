@@ -25,7 +25,7 @@ function getWeightTracker() {
 	// FIND LOWEST TIME //
 	//////////////////////
 	var lowestTime = toTime(toDate(app.now() - day));
-	
+	//
 	$.each(weightData,function(key,value) {
 		if(value[0] < lowestTime) {
 			lowestTime = value[0];
@@ -62,7 +62,7 @@ function getWeightTracker() {
 			/////////////
 			// ADD +/- //
 			/////////////
-			app.handlers.addRemove('#appTrackerEditInput',1,999,'int');
+			app.handlers.addRemove('#appTrackerEditInput',1,999,'dec');
 			/////////////
 			// BUTTONS //
 			/////////////
@@ -77,7 +77,7 @@ function getWeightTracker() {
 			$('#appTrackerButtonSave').on(tap,function(evt) {
 				evt.stopPropagation();
 				weightData = app.read('weight_tracker','','object').sort();
-				var weightInput = parseInt($('#appTrackerEditInput').val());
+				var weightInput = parseFloat($('#appTrackerEditInput').val());
 				var dateInput   = toTime($('#appTrackerInputDate').val());
 				//////////////////
 				// UPDATE ARRAY //
@@ -188,7 +188,7 @@ function getWeightTracker() {
 				evt.stopPropagation();
 				setTimeout(function() {
 					$('#appTrackerInputDate').click();
-				},100);
+				}, 100);
 			});
 			/////////////////
 			// SHOW EDITOR //
@@ -198,68 +198,7 @@ function getWeightTracker() {
 		//#/////////////////////////#//
 		//# REBUILD HISTORY SNIPPET #//
 		//#/////////////////////////#//
-
-
 			buildTracker = function () {
-				
-/*
-
-   var weightOptions = {
-        chart: {
-            type: 'area',
-            renderTo: 'chart_container'
-        },
-        title: {
-            text: ''
-        },
-        xAxis: {
-            type : 'datetime',
-            title : {
-                text: null
-            }
-        },
-        yAxis: {
-            title: {
-                text: measureUnit
-            }
-        },
-		credits : {
-			enabled : false
-		},
-        plotOptions: {
-            area: {
-                fillColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
-                    stops: [
-                        [0, Highcharts.getOptions().colors[0]],
-                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                    ]
-                },
-                lineWidth: 1,
-                marker: {
-                    enabled: false
-                },
-                shadow: false,
-                states: {
-                    hover: {
-                        lineWidth: 1
-                    }
-                },
-                threshold: null
-            }
-        },
-		series : [{
-						//	type : 'area',
-						//	name : LANG.KCAL[lang],
-						//	animation : false,
-						//	lineColor : '#317FD8',
-							//fillColor : '#EAF3FB',
-							data : weightData //[[1474768800000,110],[1474855200000,111],[1474941600000,109],[1475028000000,109],[1475114400000,108],[1475200800000,106],[1475287200000,105],[1475373600000,104],[1475460000000,103],
-						}
-					]
-    };
-	*/
-	
 				//##////////////////##//
 				//## HIGHCHART CODE ##//
 				//##////////////////##//
@@ -367,16 +306,10 @@ function getWeightTracker() {
 							animation : false,
 							lineColor : '#317FD8',
 							fillColor : '#fff',
-							data : app.read('weight_tracker','','object').sort() //[[toTime('2016/10/11'),110],[toTime('2016/10/12'),111]]
-							//[[toTime('2016/10/11'),110],[toTime('2016/10/12'),111]]
-							//,[1474941600000,109],[1475028000000,109],[1475114400000,108],[1475200800000,106],[1475287200000,105],[1475373600000,104],[1475460000000,103],
-							//[1475546400000,102],[1475632800000,107],[1475719200000,105],[1475805600000,105],[1475892000000,104],[1475978400000,103],[1476064800000,0],[1476151200000,105],[1476237600000,102],[1476324000000,0],
-							//[1476410400000,101],[1476496800000,100],[1476583200000,100],[1476669600000,99],[1476756000000,99],[1476842400000,98],[1476928800000,99],[1477015200000,100]
-							//[1477101600000,101],[1477188000000,0],[1477274400000,0],[1477360800000,101],[1477447200000,102]] //dayArray.sort()
+							data : app.read('weight_tracker','','object').sort()
 						}
 					]
 				});
-
 				//remove top-bottom grid lines
 				//$('.highcharts-grid path:eq(3)').remove();
 		    	$('.highcharts-grid path:last').remove();
@@ -391,20 +324,12 @@ function getWeightTracker() {
 	// SAVE //
 	//////////
 	var appTrackerSave = function() {
-		//if(parseInt(document.getElementById('sliderProInput').value) + parseInt(document.getElementById('sliderCarInput').value) + parseInt(document.getElementById('sliderFatInput').value) == 100) {
-			//app.save('appNutrients',parseInt(document.getElementById('sliderProInput').value) + '|' + parseInt(document.getElementById('sliderCarInput').value) + '|' + parseInt(document.getElementById('sliderFatInput').value));
-			//updateNutriRatio();
-			//return true;
-		//} else {
-			//alert(LANG.TOTAL_ERROR[lang],LANG.PLEASE_REVIEW[lang]);
-			return false;
-		//}
+		return false;
 	};
 	/////////////////
 	// CALL WINDOW //
 	/////////////////
-	getNewWindow('Weight Tracker',appTrackerHtml,appTrackerHandlers,appTrackerSave);
-	
+	getNewWindow('Weight Tracker',appTrackerHtml,appTrackerHandlers,appTrackerSave);	
 }
 //##/////////////////##//
 //## GET FULLHISTORY ##//

@@ -1284,8 +1284,8 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 	//NEG
 	app.handlers.repeater(target + 'Neg','active',400,25,function() {
 		var inputValue = valueType == 'int' ? parseInt($(target).val()) : parseFloat($(target).val());
-		if(inputValue >= minValue + 1) {
-			inputValue = inputValue - 1;
+		if(inputValue >= minValue + (valueType == 'dec' ? 0.1 : 1)) {
+			inputValue = inputValue - (valueType == 'dec' ? 0.1 : 1);
 		} else {
 			inputValue = minValue;
 		}
@@ -1297,10 +1297,10 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 			$(target).val(minValue);
 		}
 		var inputValue = valueType == 'int' ? parseInt($(target).val()) : parseFloat($(target).val());
-		if(inputValue <= maxValue - 1) {
-			inputValue = inputValue + 1;
+		if(inputValue <= maxValue - (valueType == 'dec' ? 0.1 : 1)) {
+			inputValue = inputValue + (valueType == 'dec' ? 0.1 : 1);
 		}
-		$(target).val( decimalize(inputValue,-1) );
+		$(target).val( decimalize(inputValue,-1));
 	});
 };
 /////////////
