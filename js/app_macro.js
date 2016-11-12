@@ -235,14 +235,15 @@ function getWeightTracker() {
 				////////////////
 				// STATISTICS //
 				////////////////
+				var heightAdjust = $('body').hasClass('android2') ? 19 : 9;
 				$('#appTracker').highcharts({
 					chart : {
 						reflow : false,
 						spacingLeft : 2,
 						spacingRight : 12,
-						spacingTop : 24,
+						spacingTop : 0,
 						spacingBottom : 9,
-						height : $('#newWindow').height() - ($('body').hasClass('android2') ? 19 : 9),
+						height : $('#newWindow').height() - heightAdjust,
 						width : minWidth
 					},
 					credits : {
