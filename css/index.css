@@ -568,7 +568,9 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindow.getInfo p				{ margin: 24px; }
 #newWindow.getInfo p				{ display: block; }
 #newWindow.getInfo p + p			{ margin-top: 18px; }
-/*weight tracker editor*/
+/*/////////////////////////
+// weight tracker editor //
+/////////////////////////*/
 #saveButton.getAdd					{ color: rgba(0,0,0,0); }
 #saveButton.getAdd:before			{ content: '+'; font-family: KCals; font-size: 22px; line-height: 22px; height: 44px; padding-top: 12px; display: block; color: #007AFF; margin-right: -20px; font-weight: normal; background-color: rgba(255,255,255,0); }
 /**/
@@ -588,13 +590,20 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 /**/
 #appTrackerInputWrapper p.neg		{  }
 #appTrackerInputWrapper p.pos		{  }
+/*chart full/compact buttons*/
+#chartToggle						{ position: absolute; top: 50px; left: 30px; width: 60px; height: 24px;
+ border: 1px solid #eee; background-color: #fff; color: #ccc; font-size: 15px; line-height: 20px;
+ display: block; text-align: center; font-family: verdana;
+}
+#chartToggle.active					{ border-color: #eee; background-color: #f5f5f5 !important; color: #007aff !important; }
 /**************/
+/*
 #newSearchWrapper					{ display: block; position: absolute; top: 65px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 55; }
 #newSearchWrapper.busy				{ pointer-events: none; overflow: hidden; }
 .ios7 #newSearchWrapper				{ top: 80px; }
 #newSearchWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
 .windows8 #newSearchWrapper			{ -webkit-backface-visibility: hidden; }
-.android #newSearch					{ /*-webkit-backface-visibility: hidden;*/ -webkit-perspective: 800; }
+.android #newSearch					{ -webkit-perspective: 800; }
 #newSearch							{ position: absolute; top: 0; bottom: 0; left: 0; width: 100%; display: block; background-color: #fff; overflow: hidden; }
 #newSearchHeader					{ position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; }
 #newSearchHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
@@ -603,6 +612,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newSearchHeader #backButton:active,
 #newSearchHeader #saveButton:active	{ color: #ccc; }
 #newSearchTitle						{ position: absolute; top: 0; left: 50px; right: 50px; height: 44px; color: #555; text-align: center; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+*/
 /*#///////////////#//
 //# NUTRI SLIDERS #//
 //#///////////////#*/

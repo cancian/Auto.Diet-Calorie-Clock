@@ -34,7 +34,33 @@ function getWeightTracker() {
 	//////////////
 	// HANDLERS //
 	//////////////
-	var appTrackerHandlers = function () {
+	var appTrackerHandlers = function () {	
+		/////////////////////////////
+		// FULL-COMPACT CONTROLLER //
+		/////////////////////////////			
+		if(!document.getElementById('chartWidth')) {
+			$('#newWindowWrapper').append2('<div id="chartToggle">•—•—•</div>');
+		}
+		//TOGGLE full/compact
+		app.define('weight_chart','full');
+		var chartFull = app.read('weight_chart','full') ? true : false;
+		if(chartFull == true) { $('#chartToggle').addClass('active'); }
+		//
+		$('#chartToggle').on(tap,function() {
+			if(!$('#chartToggle').hasClass('active')) {
+				//FULL
+				app.save('weight_chart','full');	
+				$('#chartToggle').addClass('active');
+				chartFull = true;
+			} else {
+				//COMPACT
+				app.save('weight_chart','base');	
+				$('#chartToggle').removeClass('active');
+				chartFull = false;
+			}
+			//UPDATE CHART
+			buildTracker();
+		});
 		//add plus icon
 		$('#saveButton').html2('');
 		$('#saveButton').addClass('getAdd');
@@ -58,8 +84,7 @@ function getWeightTracker() {
 					<div id="appTrackerButtonCancel">' + LANG.CANCEL[lang] + '</div>\
 					<div id="appTrackerButtonSave">' + LANG.SAVE[lang] + '</div>\
 				</div>\
-			</div>');
-			//$('#appTrackerEditWrapper').css2('left',$('#newWindow').scrollLeft + 'px');
+			</div>');		
 			/////////////
 			// ADD +/- //
 			/////////////
@@ -104,8 +129,7 @@ function getWeightTracker() {
 				//FADE EDITOR
 				app.handlers.fade(0,'#appTrackerEditWrapper', 300);
 				//UPDATE CHART
-				buildTracker();
-				
+				buildTracker();		
 			});
 			////////////
 			// DELETE //
@@ -235,16 +259,16 @@ function getWeightTracker() {
 				////////////////
 				// STATISTICS //
 				////////////////
-				var heightAdjust = $('body').hasClass('android2') ? 19 : 9;
+				var heightAdjust = $('body').hasClass('android2') ? 10 : 0;
 				$('#appTracker').highcharts({
 					chart : {
 						reflow : false,
 						spacingLeft : 2,
 						spacingRight : 12,
-						spacingTop : 0,
+						spacingTop : 32,
 						spacingBottom : 9,
 						height : $('#newWindow').height() - heightAdjust,
-						width : minWidth
+						width : chartFull ? minWidth : $('#appContent').width()
 					},
 					credits : {
 						enabled : false
@@ -294,18 +318,18 @@ function getWeightTracker() {
 					plotOptions : {
 						series : {
 							dataLabels : {
-								enabled : true,
+								enabled : chartFull ? true : false,
 								style : {
 									textShadow : '0 0 3px white',
 									fontSize : '10px',
-									color: '#c30',
+									color: '#cc3300',
 									fontWeight: 'normal'
 								},
 								x : 0,
 								y : -3,
 							},
 							marker : {
-								enabled : true,
+								enabled : chartFull ? true : false,
 								lineWidth : 0,
 								lineColor : '#317FD8',
 								fillColor : '#007aff',
@@ -328,8 +352,9 @@ function getWeightTracker() {
 							type : 'area',
 							name : measureUnit,
 							animation : false,
-							lineColor : '#317FD8',
-							fillColor : '#fff',
+							lineColor : '#007aff',
+							lineWidth: 2,
+							fillColor : 'rgba(0,122,255,.0)',
 							data : app.read('weight_tracker','','object').sort()
 						}
 					]
