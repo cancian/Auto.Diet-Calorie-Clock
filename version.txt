@@ -1,12 +1,13 @@
-﻿#################
+#################
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
 <span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.0.7 [2016/11/11]
+# 2.0.7 [2016/11/15]
 • Weight tracker now handles decimal values
-• Added scrolling and more flexibe resizing to weight tracker chart
+• Added scrolling and more flexible resizing to weight tracker chart
+• Option to toggle between full/compact views on weight tracker
 • Faster tap handler
 
 # 2.0.6 [2016/11/02]

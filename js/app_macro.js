@@ -184,7 +184,7 @@ function getWeightTracker() {
 			/////////////////
 			$('#appTrackerInputDate').mobiscroll().date({
 				preset: 'datetime',
-				minDate: new Date(initVal - day*2),
+				minDate: new Date(initVal - day*3),
 				maxDate: new Date(),
 				theme: 'ios7',
 				lang: 'en',
@@ -259,14 +259,15 @@ function getWeightTracker() {
 				////////////////
 				// STATISTICS //
 				////////////////
-				var heightAdjust = $('body').hasClass('android2') ? 10 : 0;
+				var heightAdjust = $('body').hasClass('android2') ? 19 : 9;
 				$('#appTracker').highcharts({
 					chart : {
 						reflow : false,
 						spacingLeft : 2,
 						spacingRight : 12,
-						spacingTop : 32,
+						spacingTop : 0,
 						spacingBottom : 9,
+						marginTop: 52,
 						height : $('#newWindow').height() - heightAdjust,
 						width : chartFull ? minWidth : $('#appContent').width()
 					},
