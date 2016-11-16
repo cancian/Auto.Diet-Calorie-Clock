@@ -57,9 +57,13 @@ function getWeightTracker() {
 				app.save('weight_chart','base');	
 				$('#chartToggle').removeClass('active');
 				chartFull = false;
+				$('#appTracker').html('');
+				$('#newWindow').scrollLeft(0);
 			}
 			//UPDATE CHART
-			buildTracker();
+			setTimeout(function() {
+				buildTracker();
+			}, 0);
 		});
 		//add plus icon
 		$('#saveButton').html2('');
