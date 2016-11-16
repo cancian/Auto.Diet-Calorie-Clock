@@ -57,8 +57,10 @@ function getWeightTracker() {
 				app.save('weight_chart','base');	
 				$('#chartToggle').removeClass('active');
 				chartFull = false;
-				$('#appTracker').html('');
-				$('#newWindow').scrollLeft(0);
+				//fix flicker
+				//$('#appTracker').html('');
+				//$('#newWindow').scrollLeft(0);
+				buildTracker();
 			}
 			//UPDATE CHART
 			setTimeout(function() {
@@ -188,7 +190,7 @@ function getWeightTracker() {
 			/////////////////
 			$('#appTrackerInputDate').mobiscroll().date({
 				preset: 'datetime',
-				minDate: new Date(initVal - day*3),
+				minDate: new Date(initVal - day * 10),
 				maxDate: new Date(),
 				theme: 'ios7',
 				lang: 'en',
