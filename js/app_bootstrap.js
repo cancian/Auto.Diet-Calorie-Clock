@@ -224,7 +224,7 @@ function buildRemoteSuperBlock(opt) {
 	/////////////////
 	// END TIMEOUT //
 	/////////////////
-	},3000);
+	}, 3000);
 }
 //#///////////////////#//
 //# APPEND SUPERBLOCK #//

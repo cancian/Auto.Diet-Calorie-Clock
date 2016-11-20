@@ -88,7 +88,7 @@ function getWeightTracker() {
 				<div id="appTrackerButtonWrapper">\
 					<div id="appTrackerButtonDelete">' + LANG.DELETE[lang] + '</div>\
 					<div id="appTrackerButtonCancel">' + LANG.CANCEL[lang] + '</div>\
-					<div id="appTrackerButtonSave">' + LANG.SAVE[lang] + '</div>\
+					<div id="appTrackerButtonSave">'   + LANG.SAVE[lang]   + '</div>\
 				</div>\
 			</div>');		
 			/////////////
