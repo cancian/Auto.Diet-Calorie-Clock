@@ -2,6 +2,7 @@
 // APP TIMER REFRESH DATA //
 ////////////////////////////
 function appTimer(content) {
+	'use strict';
 	var kcalsType  = content[0];
 	var kcalsInput = content[1];
 	var kcalsAll   = content[2];
@@ -156,6 +157,7 @@ function appTimer(content) {
 //# *LINEAR* TIME TO KCALS #//
 //#////////////////////////#//
 function timeToKcals(startTime) {
+	'use strict';
 	var timeSinceStart  = (app.now() - startTime) / 1000;
 	var kcalsPerDay     = app.read('config_kcals_day_0');
 	var KcalsTimeRatio  = 60*60*24 / kcalsPerDay;
@@ -173,6 +175,7 @@ function timeToKcals(startTime) {
 //# *CYCLIC* TIME TO KCALS #//
 //#////////////////////////#//
 function cyclicTimeToKcals(startTime) {
+	'use strict';
 	//TIME VARS
 	var now        = new Date().getTime();
 	var hour       = 60*60*1000;
@@ -206,6 +209,7 @@ function cyclicTimeToKcals(startTime) {
 	// ABSOLUTE CURRENT CYCLE DAY // ~ absolute 0 messes offset, use equivalent date parse
 	//////////////////////////////// //DEFINE DAYS SINCE absolute 0, LOOPING ABCD (15930~ days)
 	var cycleDay = 'a';
+	var currentDay;
 	for(var dietDay = Date.UTC(2009,1,1) + ((((new Date()).getTimezoneOffset()) * 60 * 1000)); dietDay < now; dietDay = dietDay + day) {
 			 if(cycleDay == 'a') { currentDay = 'a'; /*PUSH TO NEXT*/ cycleDay = 'b'; }
 		else if(cycleDay == 'b') { currentDay = 'b'; /*PUSH TO NEXT*/ cycleDay = 'c'; }
@@ -241,6 +245,7 @@ function cyclicTimeToKcals(startTime) {
 	////////////////////////////////////
 	// ADD PARTIAL TIME FROM LAST DAY //
 	//////////////////////////////////// IF (START DATE) < (TIME ELAPSED TODAY), DO NOT COUNT FROM TODAYS START TIME, BUT FROM DIET START TIME
+	var StartTimeOrTimeElapsed;
 	if(timeSinceStarted > timeElapsedFirstDay) {
 		StartTimeOrTimeElapsed = timeElapsedToday;
 	} else {
@@ -291,6 +296,7 @@ function cyclicTimeToKcals(startTime) {
 //# UPDATE NUTRI BARS #//
 //#///////////////////#//
 function updateNutriBars() {
+	'use strict';
 	if(!app.read('app_last_tab','tab1'))	{ return; }
 	if(app.read('appStatus','stopped'))		{ return; }
 	if($('body').hasClass('closer'))		{ return; }
@@ -328,7 +334,7 @@ function updateNutriBars() {
 	}
 	//return null
 	var doReturn = 0;
-	if(tPro + tCar + tFat == 0) {
+	if((tPro + tCar + tFat) == 0) {
 		$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase());
 		$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase());
 		$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase());
@@ -338,7 +344,7 @@ function updateNutriBars() {
 		$('#appStatusBarsFat span').html2('0%');
 		doReturn++;
 	}
-	if(tFii + tSug + tSod == 0) {
+	if((tFii + tSug + tSod) == 0) {
 		$('#appStatusBarsFib div').html2('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSug div').html2('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSod div').html2('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
@@ -450,9 +456,10 @@ function updateNutriBars() {
 //##################//
 var timeLock = 0;
 function updateTimer() {
+	'use strict';	
 	if(noTimer == 'active') { return; }
 	//MAKE SUM
-	today = dayFormat(app.now());
+	var today = dayFormat(app.now());
 	getEntries(function(data) {
 		////////////////
 		// TIMER LOCK //

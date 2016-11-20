@@ -12,6 +12,7 @@ var UsrAgt       = navigator.userAgent;
 var IsMsApp      = /MSApp/i.test(UsrAgt) ? true : false;
 //safeExec
 function safeExec(callback) {
+	'use strict';
 	if (IsMsApp) {
 		MSApp.execUnsafeLocalFunction(function () {
 			if(typeof callback === 'function') {
@@ -32,6 +33,7 @@ var blockAlerts = 0;
 // ONERROR //
 /////////////
 window.onerror = function (err, url, line) {
+	'use strict';
 	if(!err)  { err  = ''; }
 	if(!url)  { url  = ''; }
 	if(!line) { line = ''; }
