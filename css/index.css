@@ -555,9 +555,11 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowWrapper.sideload							{ -webkit-transform: translate3d(100%, 0, 0); z-index: 60; background-color: #fff; overflow: hidden; }
 .ios7 #newWindowWrapper.sideload					{ top: 80px; }
 #newWindowWrapper.open.sideload						{ -webkit-transform: translate3d(0, 0, 0); }
-.wp8 #newWindow.firstLoad div:nth-of-type(1n+15)	{ display: none !important; }
-#newWindow.firstLoad div:nth-of-type(1n+100)		{ display: none; }
+.wp8 #newWindow.firstLoad div:nth-of-type(1n+16)	{ display: none !important; }
+#newWindow.firstLoad div:nth-of-type(1n+101)		{ display: none; }
 .android4lt #newWindow div:nth-of-type(1n+750)		{ display: none; }
+/*recent limit*/
+#newWindow.recentLimit div:nth-of-type(1n+101)		{ display: none !important; }
 /*getInfo*/
 #saveButton.getInfo					{ color: rgba(0,0,0,0); }
 #saveButton.getInfo:before			{ content: '\A175'; font-family: KCals; font-size: 22px; display: block; color: #007aff; margin-right: -22px; font-weight: normal; margin-top: 0; }

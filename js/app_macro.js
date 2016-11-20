@@ -2472,6 +2472,7 @@ function getCatList(callback) {
 				//////////////////////
 				if(catCode == '0001') {
 					$('#newWindow').removeClass('firstLoad');
+					$('#newWindow').addClass('recentLimit');
 					$('#saveButton').html2('');
 					$('#saveButton').addClass('removeAll');
 				}
@@ -2533,14 +2534,16 @@ function getCatList(callback) {
 			// CONFIRM //
 			/////////////
 			var catListConfirm = (catCode == '0001') ? function() {
-				appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
-					if(button === 2) {
-						$('#newWindow div.searcheable').remove();
-						$('#newWindow').prepend2('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
-						app.remove('app_recent_items');
-						setPush();
-					}
-				}, LANG.OK[lang], LANG.CANCEL[lang]);
+				app.timeout('catListConfirm',100,function() {
+					appConfirm(LANG.CLEAR_ALL_TITLE[lang], LANG.ARE_YOU_SURE[lang],function(button) {
+						if(button === 2) {
+							$('#newWindow div.searcheable').remove();
+							$('#newWindow').prepend2('<div class="searcheable noContent"><div><em>' + LANG.NO_ENTRIES[lang] + '</em></div></div>');
+							app.remove('app_recent_items');
+							setPush();
+						}
+					}, LANG.OK[lang], LANG.CANCEL[lang]);
+				});
 			} : '';
 			/////////////////
 			// CALL WINDOW //
