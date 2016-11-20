@@ -350,16 +350,19 @@ $(document).on('backbutton', function (evt) {
 	} else if ($('#subBackButton').length) {
 		$('#subBackButton').addClass('button');
 		$('#subBackButton').trigger(touchend);
+		$('#subBackButton').trigger(tap);
 	} else if ($('#backButton').length && $('#backButton').is(':visible')) {
 		if ($('.dwo').length) {
 			$('#getEntryDate').mobiscroll('cancel');
 		} else {
 			$('#backButton').addClass('button');
 			$('#backButton').trigger(touchend);
+			$('#backButton').trigger(tap);
 		}
 	} else if ($('#advBackButton').length) {
 		$('#advBackButton').addClass('button');
 		$('#advBackButton').trigger(touchend);
+		$('#advBackButton').trigger(tap);
 	} else if ($('#iconClear').is(':visible')) {
 		$('#iconClear').trigger(touchstart);
 	} else if ($('#pageSlideFood').hasClass('open')) {
@@ -443,6 +446,7 @@ $(document).on('pressenter', function(evt) {
 		if($('#saveButton').length) {
 			$('#saveButton').addClass('button');
 			$('#saveButton').trigger(touchend);
+			$('#saveButton').trigger(tap);
 		}
 		if($('#appTrackerButtonSave').length) {
 			//if(!$('.dwo').length) {
@@ -511,6 +515,7 @@ $(document).keyup(function(evt) {
 			if(evt.which || evt.keyCode == 37) {
 				$('#subBackButton').addClass('button');
 				$('#subBackButton').trigger(touchend);
+				$('#subBackButton').trigger(tap);
 			}
 			return false;
 		}
@@ -519,6 +524,7 @@ $(document).keyup(function(evt) {
 				if(!$('.dwo').length) {
 					$('#backButton').addClass('button');
 					$('#backButton').trigger(touchend);
+					$('#backButton').trigger(tap);
 				}
 			}
 			return false;
@@ -527,6 +533,7 @@ $(document).keyup(function(evt) {
 			if(evt.which || evt.keyCode == 37) {
 				$('#advBackButton').addClass('button');
 				$('#advBackButton').trigger(touchend);
+				$('#advBackButton').trigger(tap);
 			}
 			return false;
 		}

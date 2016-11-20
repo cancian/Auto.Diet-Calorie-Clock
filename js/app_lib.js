@@ -955,6 +955,17 @@ app.handlers = {
 	activeRowTimer   : [],	
 	activeLastObj    : [],
 	activeRow : function (target, style, callback,callbackCondition) {
+		'use strict';
+		//ANDROID TAP ONLY
+		if(app.device.android) {
+			$(target).on(tap, function (evt) {
+				if(typeof callback === 'function') {
+					callback($(this).attr('id'), evt, this);
+				}
+			});
+			return;
+		}
+		//
 		var t = searchalize(target);
 		var isButton = style == 'button' ? 1 : 30;
 		if(app.device.osxapp || app.device.osx) {
