@@ -369,6 +369,9 @@ function updateNutriBars() {
 	var nCarPerRatio = Math.round( (nPerCar / carRatio) * 100);
 	var nFatPerRatio = Math.round( (nPerFat / fatRatio) * 100);
 	//pro bar css
+	var nProPerWidth;
+	var nProPerClass;
+	//
 	if(nProPerRatio > 200) {
 		nProPerWidth = 100;
 		nProPerClass = 'danger';
@@ -386,6 +389,9 @@ function updateNutriBars() {
 	$('#appStatusBarsPro p').addClass(nProPerClass);
 	$('#appStatusBarsPro p').css2('width',Math.round(nProPerWidth) + '%');
 	//car bar css
+	var nCarPerWidth;
+	var nCarPerClass;
+	//
 	if(nCarPerRatio > 200) {
 		nCarPerWidth = 100;
 		nCarPerClass = 'danger';
@@ -403,6 +409,9 @@ function updateNutriBars() {
 	$('#appStatusBarsCar p').addClass(nCarPerClass);
 	$('#appStatusBarsCar p').css2('width',Math.round(nCarPerWidth) + '%');
 	//fat bar css
+	var nFatPerWidth;
+	var nFatPerClass;
+	//
 	if(nFatPerRatio > 200) {
 		nFatPerWidth = 100;
 		nFatPerClass = 'danger';
