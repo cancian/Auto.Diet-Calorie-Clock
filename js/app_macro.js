@@ -446,6 +446,10 @@ function getFullHistory() {
 			}
 		}
 
+		//AVERAGE
+		var totalCalories = 0
+		var totalCalDays  = 0;
+		//
 		while(oldestEntry-(day*1) < countBack) {
 			var daySum = 0;
 			//dump all day data in date array
@@ -464,15 +468,35 @@ function getFullHistory() {
 			}
 			//insert
 			dayArray.push([countBack,daySum]);
+			//average data
+			if(daySum != 0) {
+				totalCalories = totalCalories + daySum;
+				totalCalDays++;
+			}
 			//while
 			countBack = countBack - day;
 		}
 		//update global
 		globalDayArray = dayArray;
+		//GLOBAL AVERAGE
+		var globalAverage = 0;
+		if(totalCalDays) {
+			globalAverage = Math.round(totalCalories / totalCalDays);
+		}
 		//////////////
 		// HANDLERS //
 		//////////////
 		var appHistoryHandlers = function () {
+			//CSS AVERAGE BUTTON
+			$('#saveButton').removeClass('button');
+			$('#saveButton').css2('color','#666');
+			$('#saveButton').css2('width','50%');
+			//$('#saveButton').css2('font-weight','normal');
+			$('#saveButton').css2('text-align','right');
+			$('#saveButton').css2('padding-right','4px');
+			$('#saveButton').css2('text-transform','lowercase');
+			$('#saveButton').css2('font-size','11px');
+			$('#saveButton').html('' + globalAverage + ' / ' + LANG.DAY[lang]);
 			//#/////////////////////////#//
 			//# REBUILD HISTORY SNIPPET #//
 			//#/////////////////////////#//
@@ -643,10 +667,12 @@ function getFullHistory() {
 		// HTML //
 		//////////
 		var appHistoryHtml = '<div id="appHistory"></div>';
+		//DUMMY CLOSER
+		var appHistoryCloser = function () { return false; }
 		/////////////////
 		// CALL WINDOW //
 		/////////////////
-		getNewWindow(LANG.STATISTICS[lang],appHistoryHtml,appHistoryHandlers);
+		getNewWindow(LANG.STATISTICS[lang],appHistoryHtml,appHistoryHandlers,appHistoryCloser);
 	});
 }
 //##////////////////##//
