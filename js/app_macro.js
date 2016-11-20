@@ -1927,9 +1927,9 @@ function buildAdvancedMenu() {
 			<div class="contentToggleTitle">\
 				<p class="contentTitle" id="contentToggleTitle">' + LANG.DATABASE[lang] + '<span>' + LANG.APP_STORAGE[lang] + '</span></p>\
 				<div id="tapSwitchDB">\
-					<div id="optLocalStorage"><span>' + 'localStorage' + ' </span></div>\
-					<div id="optWebSQL"><span>'       + 'webSQL'       + ' </span></div>\
-					<div id="optIndexedDB"><span>'    + 'indexedDB'    + ' </span></div>\
+					<div id="optLocalStorage">' + 'localStorage' + ' </div>\
+					<div id="optWebSQL">'       + 'webSQL'       + ' </div>\
+					<div id="optIndexedDB">'    + 'indexedDB'    + ' </div>\
 				</div>\
 			</div>\
 		</li>\
@@ -1952,7 +1952,7 @@ function buildAdvancedMenu() {
 	if(!app.db.indexedDB)	{ $('#optIndexedDB').hide();    }
 	if(!app.db.localStorage){ $('#optLocalStorage').hide(); }
 	//HIDE UNSTABLE
-	if((app.device.ios && !app.device.ios10) || app.device.blackberry || app.incognito) { 
+	if((app.device.ios && !app.device.ios10) || app.device.blackberry || app.incognito || app.device.safari) { 
 		$('#optIndexedDB').hide();
 	}
 	//GET CURRENT ENGINE
@@ -1996,7 +1996,7 @@ function buildAdvancedMenu() {
 	//#// DB ENGINE PICKER //#//
 	//#//////////////////////#//
 	// INDEXEDDB ~ asyncStorage //
-	app.handlers.activeRow('#optIndexedDB','button',function(evt) {
+	$('#optIndexedDB').on(tap,function(evt) {
 		//STYLE
 		$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
 		$('#optIndexedDB').addClass('toggle');
@@ -2013,7 +2013,7 @@ function buildAdvancedMenu() {
 		});
 	});
 	// WEBSQL ~ webSQLStorage //
-	app.handlers.activeRow('#optWebSQL','button',function(evt) {
+	$('#optWebSQL').on(tap,function(evt) {
 		//STYLE
 		$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
 		$('#optWebSQL').addClass('toggle');
@@ -2030,7 +2030,7 @@ function buildAdvancedMenu() {
 		});
 	});
 	// LOCALSTORAGE ~ localStorageWrapper //
-	app.handlers.activeRow('#optLocalStorage','button',function(evt) {
+	$('#optLocalStorage').on(tap,function(evt) {
 		//STYLE
 		$('#optIndexedDB, #optWebSQL, #optLocalStorage').removeClass('toggle');
 		$('#optLocalStorage').addClass('toggle');
