@@ -1151,7 +1151,7 @@ if(app.is.scrollable) {
 			if($('#timerDailyInput').is(':animated'))	{ return; }
 			//COLOR ANIMATION VALUE
 			if(Number($('#timerDailyInput').css2('color').split("rgba(255, 255, 255, ").join("").split(")").join("")) > 0.8) { return; }
-			getNewWindow('ChronoBurn: A Metabolism Simulator','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['ChronoBurn: A Metabolism Simulator'] + '</div>',function() {
+			getNewWindow('Getting used to real-time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Getting used to real-time'] + '</div>',function() {
 				$('#tabHelp').removeClass('hidden');
 				app.handlers.activeRow('#openHelp','button',function(evt) {
 					appFooter('tab4', 0, function() {
