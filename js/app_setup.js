@@ -2286,7 +2286,7 @@ app.wrapperMinHeight = function() {
 	if(wrapperMinH < 0) {
 		wrapperMinH = 0;
 	}
-	if($('#entryListWrapper').height() < wrapperMinH) {
+	if($('#entryListWrapper').height() < app.height()) {
 		//HOLDER
 		if(!$('#entryListHeight').length) {
 			$('head').append2('<style type="text/css" id="entryListHeight"></style>');
