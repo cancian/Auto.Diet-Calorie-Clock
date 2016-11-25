@@ -560,8 +560,38 @@ app.tab.status = function(keepOpen) {
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
 app.tab.diary = function(entryListHtml,keepOpen) {
+	//ENDSCROLL FUNCTION
+	app.endScroll = function() {
+		//////////////////////
+		// SLIDER ENDSCROLL //
+		//////////////////////
+		app.globals.topLock = 0;
+		var entryListHeight = $('#entryList').height() * 0.5;
+		//
+		$('#appContent').scroll(function() {
+			blockModal = true;
+			app.timeout('topTimer',300,function() {
+				blockModal = false;
+				if(app.globals.topLock != 0)	  { return; }
+				if($('#go').hasClass('scrolled')) { return; }
+				//HEIGHT
+				if($('#appContent').scrollTop()+500 > entryListHeight) {
+					app.globals.topLock = 1;
+					$('#go').addClass('scrolled');
+					//LOAD REMAINING
+					setTimeout(function() {
+						app.exec.updateEntries('','full');
+					}, 0);
+				}
+				//FIX
+				android2Select();
+			});
+		});
+	};
+	//KEEPOPEN
 	if(keepOpen == 1) {
 		app.exec.updateEntries();
+		app.endScroll();
 		return;
 	}
 	if(!entryListHtml) { return; }
@@ -1446,31 +1476,8 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			}, 400);
 		});
 	});
-	//////////////////////
-	// SLIDER ENDSCROLL //
-	//////////////////////
-	app.globals.topLock = 0;
-	var entryListHeight = $('#entryList').height() * 0.5;
-	//
-	$('#appContent').scroll(function() {
-		blockModal = true;
-		app.timeout('topTimer',300,function() {
-			blockModal = false;
-			if(app.globals.topLock != 0)	  { return; }
-			if($('#go').hasClass('scrolled')) { return; }
-			//HEIGHT
-			if($('#appContent').scrollTop()+500 > entryListHeight) {
-				app.globals.topLock = 1;
-				$('#go').addClass('scrolled');
-				//LOAD REMAINING
-				setTimeout(function() {
-					app.exec.updateEntries('','full');
-				}, 0);
-			}
-			//FIX
-			android2Select();
-		});
-	});
+	//ENDSCROLL
+	app.endScroll();
 };
 /*##############################
 ## HTML BUILDS ~ OPEN PROFILE ##
