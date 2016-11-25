@@ -13,7 +13,7 @@
 //real,time,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,tracker,diary,gain,deficit,kcal
 //
 var appName = 'ChronoBurn';
-var appVersion = '2.1 (210000)';
+var appVersion = '2.1 (210001)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
