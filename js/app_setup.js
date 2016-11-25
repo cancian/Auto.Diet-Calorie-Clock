@@ -1464,8 +1464,8 @@ function fillDate(timestamp,element) {
 //////////////////////
 var partial = '';
 app.exec.updateEntries = function(partial,range,callback,keepOpen) {
-	var totalEntryS       = app.read('totalEntries');
-	var totalRecentEntryS = app.read('totalRecentEntries');
+	//var totalEntryS       = app.read('totalEntries');
+	//var totalRecentEntryS = app.read('totalRecentEntries');
 	//////////////
 	// GET LOOP //
 	//////////////
@@ -1481,10 +1481,10 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 		var langExer = LANG.EXERCISE[lang];
 		var langDel  = LANG.DELETE[lang];
 		var langKcal = LANG.KCAL[lang];
-		var totalEntries       = 0;
-		var totalRecentEntries = 0;
-		var totalEntried       = app.read('totalEntries');
-		var totalRecentEntried = app.read('totalRecentEntries');
+		//var totalEntries       = 0;
+		//var totalRecentEntries = 0;
+		//var totalEntried       = app.read('totalEntries');
+		//var totalRecentEntried = app.read('totalRecentEntries');
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = parseInt(data[i].title);
@@ -1517,22 +1517,25 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 				<p class="entriesTitle">' + dataTitle + '</p>\
 				<p class="entriesKcals">' + langKcal + '</p>\
 				<p class="entriesBody">' + dataBody + '</p>\
-				<p id="t' + dataPublished + '" class="entriesPublished"> ' + dateDiff(dataPublished,app.now()) + '</p>\
+				<p id="t' + dataPublished + '" class="entriesPublished">lll' +
+				 //+ dateDiff(dataPublished,app.now()) +
+				 '</p>\
 				<span class="delete"><span id="reuse"></span><span id="edit"></span><span id="delete"></span></span>\
 			</div>';
 			///////////////////
 			// ROW PRELOADER //
 			///////////////////
-			totalEntries++;
-			if((app.now() - dataPublished) < 60*60*24*5*1000) {
-				totalRecentEntries++;
-			}
-			if(((app.now() - dataPublished) < 60*60*24*5*1000) || totalEntried < 50 || totalRecentEntried < 20 || range == 'full') {
-				totalArray.push({dati:dataPublished , dato: dataHandler});
-			}
+			//totalEntries++;
+			//if((app.now() - dataPublished) < 60*60*24*5*1000) {
+			//	totalRecentEntries++;
+			//}
+			//BUILD ARRAY WITH DATES FOR SORTING
+			//if(((app.now() - dataPublished) < 60*60*24*5*1000) || totalEntries < 50 || totalRecentEntried < 20 || range == 'full') {
+			totalArray.push({dati:dataPublished , dato: dataHandler});
+			//}
 			lastPub = parseInt(data[i].published);
 			//partial == last row time
-			if(partial == parseInt(data[i].published)) {
+			if(partial == lastPub) {
 				lastRow = dataHandler;
 				lastId  = data[i].id;
 			}
@@ -1543,7 +1546,10 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 		totalArray = totalArray.sortbyattr('dati','desc');
 		//BUILD OUTPUT
 		for(var t=0, ten=totalArray.length; t<ten; t++) {
-			s += totalArray[t].dato;
+			//LIMIT FIRST OUTPUT TO 100 ROWS
+			if(t < 100 || range == 'full') {
+				s += totalArray[t].dato;
+			}
 		}
 		//////////////
 		// CALLBACK //
@@ -1580,8 +1586,8 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 			$('#entryList').html2('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 		}}
 		//N# OF ENTRIES
-		app.save('totalEntries',totalEntries);
-		app.save('totalRecentEntries',totalRecentEntries);
+		//app.save('totalEntries',totalEntries);
+		//app.save('totalRecentEntries',totalRecentEntries);
 	});
 	updateEntriesTime();
 };
