@@ -4,7 +4,7 @@
 # Upcoming&nbsp;features [0000/00/00]
 <span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.1 [2016/11/25]
+# 2.1 [2016/11/30]
 • History chart displays average daily intake on the top right
 • Recent items category has been limited to 100 rows
 • Prevent confirmation dialog from firing twice on Recent items list
