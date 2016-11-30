@@ -65,6 +65,7 @@ function getWeightTracker() {
 			//UPDATE CHART
 			setTimeout(function() {
 				buildTracker();
+				niceResizer(300);
 			}, 0);
 		});
 		//add plus icon

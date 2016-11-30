@@ -10,6 +10,7 @@
 • Prevent confirmation dialog from firing twice on Recent items list
 • Unless scrolled down, the Diary list will display only the first 100 items
 • Fixed an issue where synchronization would disable the post-loading scroll mechanism after refreshing diary list
+• Weight tracker scrollbar would not resize correctly under certain circumstances
 
 # 2.0.7 [2016/11/16]
 • Weight tracker now handles decimal values
