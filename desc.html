@@ -39,6 +39,20 @@ function trim(str) {
 //burn, cal, calculator, caloric, calorie, calorie clock, calorie counter, counter, fat, fitness, kcal, kcals, lose, loss, metabolism, real-time, time, timer, tracker, weight 
 
 
+/////////////////////
+//# BB10 #// burn,calorie,counter,calculator,tracker,easy,diet,diary,weight,myfitnesspal
+//# FFOS #// burn,calorie,counter,calculator,tracker,easy,diet,diary,weight,myfitnesspal,lose,loss,fat,track,monitor,intake,deficit,counting,women,kcals
+//# MSIE #// calorie counter,weight loss,diet,tracker,fat,burn,myfitnesspal
+//# IOS  #// food,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,track,tracker,diary,easy,deficit,lose
+//# IOS2 #// calorie,counter,intake,clock,weight,fat,loss,diet,track,tracker,diary,easy,deficit,lose,myfitnesspal
+//
+//lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcals,diet,fitness,health,shape,training
+//lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcal,track,diet,fitness,health,shape,it
+//real time calorie monitor calculator intake restriction clock counter burn burner fat loss diet tracker online chart deficit  counting 
+//real,time,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,tracker,diary,gain,deficit,kcal
+//
+
+
 var hash = 'EN';
 var lang = 'en';
 if(window.location.hash) {
@@ -78,22 +92,19 @@ desc  = trim(desc);
 // KEY DUMP //
 //////////////
 var keyList = 
-'cal,kcal,' +
-LANG.CALORIE_COUNTER[lang] + ',' +
-LANG.CALORIE_CLOCK[lang]   + ',' +
-LANG.CALCULATOR[lang]      + ',' +
-LANG.CHRONOMETER[lang]     + ',' +
-LANG.REALTIME[lang]        + ',' +
-LANG.CALORIE[lang]         + ',' +
-LANG.METABOLISM[lang]      + ',' +
-LANG.FATT[lang]            + ',' +
-LANG.WEIGHT_LOSS[lang]     + ',' +
-LANG.LOSE_WEIGHT[lang]     + ',' +
-LANG.GAIN_WEIGHT[lang]     + ',' +
-LANG.MENU_DIARY[lang]      + ',' +
-LANG.EXERCISE[lang]        + ',' +
-LANG.CARBOHYDRATE[lang];
+LANG.EXERCISE[lang]  + ',' +
+LANG.HEALTH[lang]    + ',' +
+LANG.WOMEN[lang]     + ',' +
+LANG.DIET[lang]      + ',' +
+LANG.FITNESS[lang] + ',' +
+LANG.NUTRITION[lang] + ',' +
+LANG.BURN[lang] + ',' +
+LANG.FAT_[lang] + ',' +
+LANG.WEIGHT_[lang] + ',' +
+LANG.LOSE_[lang] + ',' +
+'kcals,chrono,burn,tracker,track,kcal,cal';
 ///////////////////////////////////////////////////////////
+/*
 if(lang == 'en') {
 keyList = "kcal,kcals,tracker,caloric,calculator,weight,loss,lose,gain,health,diet,fat,clock,real,time,burn,fit,shape,fitness,metabolism"; //EN
 } else if(lang == 'pt') {
@@ -147,15 +158,13 @@ keyList = "kcal,kcals,tracker,跟踪器,卡路里,跟踪器,計算器,重量,損
 } else if(lang == 'vi') {
 keyList = "kcal,kcals,calo,theo,dõi,tính,toán,cân,nặng,mất,mát,mất,đạt,được,sức,khỏe,chế,độ,ăn,uống,chất,béo,đồng,hồ,thực,tế,thời,gian,ghi,phù,hợp,hình,dạng,tập,thể,dục,sự,trao,đổi,chất"; //VI
 }
-//
-if(LANG.CALORIE_COUNTER[lang].indexOf(LANG.CALORIE[lang]) !== -1) {
-	keyList = LANG.CALORIE[lang] + ',' + keyList;
-}
-//
+*/
+
 ///////////////////////////////////////////////////////////
 keyList = keyList.split('undefined').join('');
-keyList = keyList.split(' ').join(',');
-//keyList = keyList.split('-').join('');
+//
+//keyList = keyList.split(' ').join(',');
+//
 keyList = keyList.split(',de,').join(',');
 keyList = keyList.split(',en,').join(',');
 keyList = keyList.split(',du,').join(',');
@@ -170,7 +179,7 @@ keyList  = keyList.split(',');
 keyList0 = '';
   for (var i = 0; i < keyList.length; i++) {
 	  keyList[i] = keyList[i].split(':').join('').split('：').join('').latinize();
-        if (!keyList0.contains(keyList[i]) && keyList[i].length > 1) {
+        if (!(',' + keyList0 + ',').contains(',' + keyList[i] + ',') && keyList[i].length > 1) {
             keyList0 = keyList0 + keyList[i] + ',';
         }
   }
