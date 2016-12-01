@@ -52,20 +52,27 @@ function getWeightTracker() {
 				app.save('weight_chart','full');	
 				$('#chartToggle').addClass('active');
 				chartFull = true;
+				//SHOW
+				$('#newWindow').getNiceScroll().show();
 			} else {
 				//COMPACT
 				app.save('weight_chart','base');	
 				$('#chartToggle').removeClass('active');
 				chartFull = false;
+				//HIDE
+				$('#newWindow').getNiceScroll().hide();
 				//fix flicker
-				//$('#appTracker').html('');
-				//$('#newWindow').scrollLeft(0);
 				buildTracker();
 			}
 			//UPDATE CHART
 			setTimeout(function() {
 				buildTracker();
-				niceResizer(300);
+				//force resize on not scrollable
+				setTimeout(function() {
+					if($.nicescroll) {
+						$('#newWindow').getNiceScroll().resize();
+					}
+				},300);
 			}, 0);
 		});
 		//add plus icon
