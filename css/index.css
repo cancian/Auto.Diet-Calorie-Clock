@@ -387,6 +387,9 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 #emailLogin:after		{ position: absolute; top: 0; font-size: 36px; line-height: 46px; color: #ccc; display: inline-block; }
 #FacebookLogin:after	{ font-family: KCals; content: '\f082'; right: 20px; }
 #emailLogin:after		{ font-family: Arial; content: '@'; right: 0px; font-size: 33px; line-height: 41px; }
+/*hide login button*/
+.tizen #emailLogin		{ right: 20px !important; }
+.tizen #FacebookLogin,
 .playbook #FacebookLogin{ display: none; }
 .android2 #emailLogin	{ display: none; }
 /*sync info icon*/
