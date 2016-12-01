@@ -910,6 +910,12 @@ if(app.device.playbook) {
 if(app.device.amazon) {
 	$('body').addClass('amazon');
 }
+///////////
+// TIZEN //
+///////////
+if(app.device.tizen) {
+	$('body').addClass('tizen');
+}
 /////////////
 // CORDOVA //
 /////////////

@@ -407,6 +407,7 @@ app.device = {
 	ipad       : (/iPad/i).test(app.ua) ? true : false,
 	tablet     : (/iPad|tablet|surface/i).test(app.ua) ? true : false,
 	linux      : (/X11|Linux|Ubuntu/i).test(app.ua) && !(/Android/i).test(app.ua) ? true : false,
+	tizen      : (/Tizen/i).test(app.ua) ? true : false,
 	msapp      : (/MSApp/i).test(app.ua) ? true : false,
 	wp8        : (/IEMobile/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? true : false,
 	wp80       : (/IEMobile/i).test(app.ua) && !(/MSApp/i).test(app.ua) && (/Windows Phone 8.0/i).test(app.ua) ? true : false,
@@ -440,6 +441,7 @@ app.get.platform = function(noweb) {
 	     if(app.device.ios && app.http)		{ return 'web';              }
 	else if(app.device.android && app.http)	{ return 'web';              }
 	else if(app.device.wp8 && app.http)		{ return 'web';              }
+	else if(app.device.tizen)				{ return 'Tizen';            }
 	else if(app.device.linux)				{ return 'Linux';            }
 	else if(app.device.ios)					{ return 'iOS';              }
 	else if(app.device.amazon)				{ return 'Android (Amazon)'; }

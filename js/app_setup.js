@@ -2449,6 +2449,7 @@ app.analytics = function(target, desc) {
 	else if(app.device.wp8)		   { appOS = 'wp8';        if(app.device.cordova) { deviceType = 'app'; }}
 	else if(app.device.windows10)  { appOS = 'windows10';  if(app.device.cordova) { deviceType = 'app'; }}
 	else if(app.device.windows8)   { appOS = 'windows8';   if(app.device.cordova) { deviceType = 'app'; }}
+	else if(app.device.tizen)      { appOS = 'tizen';      deviceType = 'app'; }
 	else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
 	else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
 	else if(app.device.chromeos)   { appOS = 'chromeos';   deviceType = 'app'; }
@@ -2557,10 +2558,14 @@ function getLoginFB() {
 		////////////////////////
 		// OPENFB ANDROID/IOS //
 		////////////////////////
-		if(app.device.cordova && (app.device.ios || app.device.android) && !app.device.msapp) {
+		if(app.device.tizen || (app.device.cordova && (app.device.ios || app.device.android) && !app.device.msapp)) {
 			if (typeof openFB !== 'undefined') {
 				openFB.init({appId: '577673025616946'});
 				openFB.login(function (response) {
+					alert('mi' );
+					
+					alert(window.sessionStorage['fbtoken']);
+					
 					if(response.authResponse) {
 						getTokenFB(response.authResponse.accessToken);
 					}
