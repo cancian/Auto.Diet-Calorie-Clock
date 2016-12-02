@@ -1185,7 +1185,7 @@ function spinner(action,target) {
 		$('#loadMask').off().on(touchstart,function(evt) {
 			var pos = app.pointer(evt);
 			//USE :AFTER COORDS
-			if(app.width() - pos.x < 120 && app.height() - pos.y < 120 && document.getElementById('saveButton')) {
+			if(app.width() - pos.x < 120 && app.height() - pos.y < 120 && !document.getElementById('saveButton')) {
 				//DIALOG
 				appConfirm(LANG.CANCEL[lang].toUpperCase() + ' (' + (LANG.DATABASE_UPDATE[lang]).toLowerCase() + ')', LANG.ARE_YOU_SURE[lang].capitalize(), function(button) {
 					//$('#loadMask').css2('pointer-events','none')
