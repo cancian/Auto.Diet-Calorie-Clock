@@ -434,6 +434,17 @@ if (app.device.msapp && !app.device.cordova) {
 		};
 	}
 }
+//////////////////////
+// TIZEN BACKBUTTON //
+//////////////////////
+if(app.device.tizen) {
+	document.addEventListener('tizenhwkey', function(e) {
+		if(e.keyName === 'back' ) {
+			$(document).trigger('backbutton');
+			//tizen.application.getCurrentApplication().exit();
+		}
+	});
+}
 /////////////////
 // PRESS ENTER //
 /////////////////
