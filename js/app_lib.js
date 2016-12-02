@@ -2479,7 +2479,7 @@ app.trackInstall = function () {
 		//WEBINSTALL
 		app.analytics('webinstall');
 		return;
-	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook) {
+	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook || app.device.tizen) {
 		//INSTALL
 		if(typeof baseVersion !== 'undefined') {
 			if(baseVersion >= 2.1) {
