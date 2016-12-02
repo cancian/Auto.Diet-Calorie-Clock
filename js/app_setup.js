@@ -2558,33 +2558,15 @@ function getLoginFB() {
 		////////////////////////
 		// OPENFB ANDROID/IOS //
 		////////////////////////
-		if(app.device.tizen || (app.device.cordova && (app.device.ios || app.device.android) && !app.device.msapp)) {
+		if(app.device.cordova && (app.device.ios || app.device.android) && !app.device.msapp) {
 			if (typeof openFB !== 'undefined') {
 				openFB.init({appId: '577673025616946'});
 				openFB.login(function (response) {
-					alert('mi' );
-					
-					alert(window.sessionStorage['fbtoken']);
-					
 					if(response.authResponse) {
 						getTokenFB(response.authResponse.accessToken);
 					}
 				});
 			}
-		////////////////////
-		// IOS CDV PLUGIN //
-		////////////////////
-		/*
-		} else if( && ) {
-			if(typeof FB !== 'undefined' && typeof CDV !== 'undefined') {
-				FB.init({ appId : '577673025616946', nativeInterface : CDV.FB, useCachedDialogs : false });
-				FB.login(function (response) {
-					if(response.authResponse) {
-						getTokenFB(response.authResponse.accessToken);
-					}
-				}, { scope : 'email' });
-			}
-		*/
 		/////////
 		// WP8 //
 		/////////
@@ -2622,7 +2604,7 @@ function getLoginFB() {
 		//////////
 		// BB10 //
 		//////////
-		} else if(app.device.blackberry || app.device.playbook) {
+		} else if(app.device.tizen || app.device.blackberry || app.device.playbook) {
 			FB.init({ appId : '577673025616946', status : true, version: 'v2.1', cookie : true, xfbml : true });
 			var callback = 'https://www.facebook.com/connect/login_success.html';
 			var facebookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&response_type=token&redirect_uri=' + encodeURIComponent(callback);
