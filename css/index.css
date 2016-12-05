@@ -85,7 +85,7 @@ strong									{ font-weight: bold !important;  }
 .noOverflow								{ overflow: hidden !important; }
 .clicked								{ opacity: .6; -webkit-filter: grayscale(10%); -moz-filter: grayscale(10%); filter: grayscale(10%); }
 #fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
-#appToast								{ position: absolute; top: 25px; left: 142px; right: 108px; height: 34px; min-width: 154px; display: block; overflow: hidden; z-index: 99; text-align: left; padding: 8px; background-color: rgba(100,100,100,.666); border: 0px solid #000; font-size: 16px; line-height: 17px; color: #fff; z-index: 9999; border-radius: 3px; white-space: nowrap; pointer-events: none; white-space: nowrap; }
+#appToast								{ position: absolute; top: 25px; left: 142px; right: 108px; height: 34px; min-width: 154px; display: block; overflow: hidden; text-align: left; padding: 8px; background-color: rgba(100,100,100,.666); border: 0px solid #000; font-size: 16px; line-height: 17px; color: #fff; z-index: 9999; border-radius: 3px; pointer-events: none; white-space: nowrap; }
 .ios7 #appToast							{ top: 40px; }
 @media all and (orientation:portrait)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 @media all and (orientation:landscape)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
@@ -125,9 +125,10 @@ strong									{ font-weight: bold !important;  }
 ////////////////*/
 #onlineUsers				{ position: absolute; bottom: 97px; right: 3px; display: block; width: 150px; height: 15px; font-size: 10px; line-height: 10px; color: #aaa; text-align: right; pointer-events: none; white-space: nowrap; }
 #onlineUsers span			{ color: #777; }
-
-#shoutboxWrapper	{ display: block; position: absolute; top: 224px; left: 0; right: 0; bottom: 115px; background-color: #fe; border: 1px solid #eee !important; overflow: hidden; border-radius: 9px; }
-#shoutBox			{ width: 100%; height: 100%; overflow: hidden !important; border: 0; }
+/*
+#shoutboxWrapper			{ display: block; position: absolute; top: 224px; left: 0; right: 0; bottom: 115px; background-color: #fefefe; border: 1px solid #eee !important; overflow: hidden; border-radius: 9px; }
+#shoutBox					{ width: 100%; height: 100%; overflow: hidden !important; border: 0; }
+*/
 /*///////////////
 // status tips //
 ///////////////*/
@@ -154,7 +155,7 @@ body.android #appHeader				{ z-index: 50 !important; }
 #timerKcals						{ position: absolute; bottom: 0px; left: 19px; font-size: 32px; line-height: normal; width: 100px; white-space: nowrap; font-weight: 300; border-bottom: 16px solid rgba(0,0,0,0); background-color: rgba(0,0,0,0); display: block; height: 100px; pointer-events: none; }
 #timerKcalsInput				{ pointer-events: none !important; -webkit-user-select: none !important; user-select: none !important; touch-action: none; -ms-touch-action: none; border: 0; padding: 0; position: absolute; bottom: 0; left: 0; color: #fff; line-height: 32px; font-size: 24px; width: 200px; white-space: nowrap; font-weight: 300; background-color: rgba(0,0,0,0); -webkit-appearance: none; z-index: 4; text-shadow: 0 0 1px rgba(0,0,0,.1); }
 #timerKcals span				{ position: absolute; bottom: -9px; left: 0px; font-size: 9px; line-height: normal; text-transform: uppercase; font-weight: 400; padding-top: 2px; color: #fff; background-color: rgba(0,0,0,0); z-index: 5; text-shadow: 0 0 1px rgba(0,0,0,.1); }
-#timerKcals span:after			{ content: '\A175'; font-family: KCals; font-size: 13px; display: block; font-weight: normal; margin-top: 0; position: absolute; bottom: -1px; right: -18px; color: #fff; font-size: 14px; line-height: 13px; display: block; z-index: 3; font-weight: bold; opacity: .55; }
+#timerKcals span:after			{ content: '\A175'; font-family: KCals; display: block; margin-top: 0; position: absolute; bottom: -1px; right: -18px; color: #fff; font-size: 14px; line-height: 13px; z-index: 3; font-weight: bold; opacity: .55; }
 #openHelp.button				{ color: #ccc !important; }
 /*info spinner for dev*/
 .appDebug.pending #timerKcals span:after	{ content: '\f01e'; opacity: 1 !important; color: rgba(255,255,255,.99) !important; -webkit-animation: rotate infinite 1.5s; font-weight: bold !important; text-shadow: none !important; font-size: 12.5px; line-height: 12.5px !important; display: inline-block; border: 1.5px solid rgba(0,0,0,0); }
@@ -546,11 +547,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader					{ display: block; position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; z-index: 52; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: KCals; content: '\f104'; }
-#newWindowHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px;
- display: block; color: #007AFF; text-align: center; display: block; z-index: 99; font-weight: bold; text-indent: 0px; text-transform: uppercase; 
-whitespace: nowrap;
-
-}
+#newWindowHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; display: block; color: #007AFF; text-align: center; z-index: 99; font-weight: bold; text-indent: 0px; text-transform: uppercase; whitespace: nowrap; }
 #saveButton.removeAll				{ color: rgba(0,0,0,0); }
 #saveButton.removeAll:before		{ content: '\f014'; font-family: KCals; font-size: 26px; display: block; color: #007AFF; margin-right: -20px; font-weight: normal; }
 #saveButton.removeAll:active:before,
@@ -591,7 +588,7 @@ whitespace: nowrap;
 #appTrackerEditInput				{ position: absolute; top: 4px; left: 40%; width: 80px; height: 40px; font-size: 22px; line-height: 16px; color: #03c; text-align: center; border: 0px solid #000; }
 #appTrackerInputWrapper	span		{ position: absolute; top: 4px; left: 40%; width: 80px; height: 60px; background-color: rgba(0,0,0,.0); color: #777; text-align: center; padding-top: 35px; z-index: 99;  }
 /*datetime*/
-#appTrackerInputDateWrapper			{ position: absolute; top: 0; width: 150px; left: 0; height: 50px; overflow: hidden; text-align: center; z-index: 99; background-color: rgba(0,0,0,0); color: #000; z-index: 99; }
+#appTrackerInputDateWrapper			{ position: absolute; top: 0; width: 150px; left: 0; height: 50px; overflow: hidden; text-align: center; background-color: rgba(0,0,0,0); color: #000; z-index: 99; }
 #appTrackerInputDate				{ text-align: center; width: 100px; font-size: 15px; line-height: 15px; background-color: #fff; color: 000; pointer-events: none; z-index: 0; margin-top: 16px; }
 /**/
 #appTrackerButtonWrapper			{ position: absolute; top: 100px; left: 0; right: 0; border-top: 1px solid #ddd; }
@@ -705,7 +702,7 @@ whitespace: nowrap;
 //# GET ENTRY #//
 //#///////////#*/
 #getEntryWrapper										{ font-size: 16px; position: relative; padding-top: 6px; }
-#getEntryWrapper div									{ position: relative; display: block; margin-left: 24px; display: block; height: 36px; margin-bottom: 15px; white-space: nowrap; border-bottom: 1px solid #eee; }
+#getEntryWrapper div									{ position: relative; display: block; margin-left: 24px; height: 36px; margin-bottom: 15px; white-space: nowrap; border-bottom: 1px solid #eee; }
 #getEntryWrapper div + div								{ border-top: 1px solid #eee; }
 #getEntryWrapper input									{ position: absolute; top: 0px; right: 0; width: 100%; border-left: 100px solid rgba(0,0,0,0); font-size: 18px; color: #999; background-color: #fff; border-top: 16px solid rgba(0,0,0,0); border-bottom: 16px solid rgba(0,0,0,0); border-right: 120px solid rgba(0,0,0,0); }
 .android #getEntryWrapper input							{ border-right: 0; }
@@ -898,7 +895,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
 #appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
 #appStatusAddLeft div:before,
-#appStatusAddRight div:before	{ content: '+'; font-family: KCals; font-weight: normal; font-size: 14px; display: block; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
+#appStatusAddRight div:before	{ content: '+'; font-family: KCals; font-weight: normal; font-size: 14px; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
 #appStatusAddLeft span,
 #appStatusAddRight span			{ display: inline-block; background-color: #D55621; text-align: center; font-size: 10px; text-transform: uppercase; }
 #appStatusAddLeft div,
@@ -1178,7 +1175,7 @@ div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; 
 // ENTRY LIST //
 //////////////*/
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
-#entryList					{ width: 100%; font-size: 13px; width: 100%; min-height: 45px; }
+#entryList					{ width: 100%; font-size: 13px; min-height: 45px; }
 #entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; border-top: 0px solid #fff; /*overflow: hidden;*/ }
 /*
 #entryList div				{ -webkit-transition-duration: 0s; }
@@ -1535,8 +1532,8 @@ span#sodLabel			{ top: 28px; display: block; width: 22px;text-align: left; left:
 /*///////////
 // SPINNER //
 ///////////*/
-div#spinnerWrapper			{ display: none; position: absolute; display: block; height: 100px; width: 100px; z-index: 9999; }
-span#spinnerMsg				{ display: none; color: #000; text-align: center; width: 100%; display: block; position: absolute; bottom: 25%; left: 0; font-size: 11pt; z-index: 999; padding: 12px 0 12px 0; background-color: rgba(255,255,255,.5); }
+div#spinnerWrapper			{ position: absolute; display: block; height: 100px; width: 100px; z-index: 9999; }
+span#spinnerMsg				{ color: #000; text-align: center; width: 100%; display: block; position: absolute; bottom: 25%; left: 0; font-size: 11pt; z-index: 999; padding: 12px 0 12px 0; background-color: rgba(255,255,255,.5); }
 div#spinner					{ position: relative; width: 45px; height: 45px; display: inline-block; }
 /*#//////////////#//
 //# MENU TOP BAR #//
@@ -1596,7 +1593,7 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 /**/
 #addNewFood					{ right: 50%; }
 #addNewExercise				{ left:  50%; }
-#addNewWrapper				{ position: absolute; top: 75px; bottom: 54px; left: 12px; right: 12px; background-color: #fff; display: block; z-index: 99; display: block; -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); box-shadow: 1px 1px 6px rgba(0,0,0,.5); min-height: 44px; }
+#addNewWrapper				{ position: absolute; top: 75px; bottom: 54px; left: 12px; right: 12px; background-color: #fff; display: block; z-index: 99; -webkit-box-shadow: 1px 1px 6px rgba(0,0,0,.5); box-shadow: 1px 1px 6px rgba(0,0,0,.5); min-height: 44px; }
 #addNewListWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
 .ios7 #addNewWrapper		{ top: 91px; }
 #addNewConfirm				{ position: absolute; bottom: 12px; left: 12px; right: 50%; background-color: #4D9AE5; font-size: 18px; height: 44px; line-height: 44px; color: #fff; display: block; z-index: 99; text-align: center; font-weight: normal; }
@@ -1611,7 +1608,7 @@ ul#addNewList label			{ color: #333; display: inline-block; float: left;  text-a
 ul#addNewList label.error	{ color: #D55621; }
 ul#addNewList input			{ position: absolute; top: 0; right: 120px; text-align: left; color: #888; background-color: rgba(0,0,0,0); display: inline-block; font-size: 15px; height: 44px; }
 */
-#addNewList li									{ position: relative; display: block; margin-left: 9px; display: block; height: 34px; margin-bottom: 10px; white-space: nowrap; border-bottom: 1px solid #eee; }
+#addNewList li									{ position: relative; display: block; margin-left: 9px; height: 34px; margin-bottom: 10px; white-space: nowrap; border-bottom: 1px solid #eee; }
 #addNewList li + li 							{ border-top: 1px solid #eee; }
 #addNewList input								{ position: absolute; top: 0px; left: 0; width: 100%; border-left: 108px solid rgba(0,0,0,0); font-size: 18px; color: #999; background-color: #fff; border-top: 15px solid rgba(0,0,0,0); border-bottom: 16px solid rgba(0,0,0,0); border-right: 100px solid rgba(0,0,0,0); }
 .android #addNewList input						{ border-right: 0; }
