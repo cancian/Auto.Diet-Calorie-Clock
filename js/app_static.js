@@ -63,9 +63,10 @@ $(function() {
 // RESUME EVT //
 ////////////////
 $(document).on('resume',function(evt) {
+	'use strict';
 	//SHOW
 	clearTimeout(app.repeaterLoop);
-	$('body').css2('opacity',1)
+	$('body').css2('opacity',1);
 	$('body').show();
 	//fix locked dbs ~ mobile
 	if (!app.device.desktop) {
@@ -98,6 +99,7 @@ $(document).on('resume',function(evt) {
 // VISIBILITY CHANGE //
 ///////////////////////
 $(document).on('visibilitychange focus', function (evt) {
+	'use strict';
 	if(typeof app !== 'undefined') {
 		app.timeout('browserResume',5000,function() {
 			clearTimeout(app.repeaterLoop);
@@ -126,6 +128,7 @@ $(document).on('visibilitychange focus', function (evt) {
 //## START APP ##//
 //###############//
 function startApp() {
+	'use strict';
 try {
 	//fix locked dbs
 	if(app.read('startLock','running') && !app.read('foodDbLoaded','done')) {
@@ -211,8 +214,7 @@ $('body').prepend2('\
 			<li id="tab3">' + LANG.MENU_PROFILE[lang].capitalize()  + '</li>\
 			<li id="tab4">' + LANG.MENU_SETTINGS[lang].capitalize() + '</li>\
 		</ul>\
-	</div>\
-');
+	</div>');
 //#////////////#//
 //# APP FOOTER #//
 //#////////////#//
@@ -323,7 +325,7 @@ if(app.device.wp8) {
 var backer = 0;
 $(document).on('backbutton', function (evt) {
 	//
-	backer = 0
+	backer = 0;
 	///////////////////
 	// TRIGGER CHAIN //
 	///////////////////
@@ -399,7 +401,11 @@ $(document).on('backbutton', function (evt) {
 		if(app.dev) {
 			afterHide();
 		//} else if (app.device.msapp || !app.device.desktop) {
-		//	backer = 1;
+		} else if (app.device.tizen) {			
+			//backer = 0;
+			try {
+				tizen.application.getCurrentApplication().exit();
+			} catch(err) {}
 		//} else if (app.device.wp8) {
 		//	$(document).off('backbutton');
 		//	blockAlerts = 1;
@@ -441,7 +447,6 @@ if(app.device.tizen) {
 	document.addEventListener('tizenhwkey', function(e) {
 		if(e.keyName === 'back' ) {
 			$(document).trigger('backbutton');
-			//tizen.application.getCurrentApplication().exit();
 		}
 	});
 }
@@ -763,7 +768,7 @@ if(app.read('facebook_logged')) {
 /////////////
 //set default
 app.define('config_kcals_type','simple');
-app.read('config_kcals_type','cyclic') ? $('body').addClass('cyclic') : $('body').addClass('simple');
+if(app.read('config_kcals_type','cyclic')) { $('body').addClass('cyclic'); } else { $('body').addClass('simple'); }
 /////////////
 // IOS 7/8 //
 /////////////
@@ -977,12 +982,12 @@ app.define('calcForm#pA6N','kilograms');
 /////////////////
 var fontTestInterval = '';
 var loadTimeout = setTimeout(function() {
-	unlockApp();
+	app.unlockApp();
 },999);
 ///////////////////
 // FONT UNLOCKER //
 ///////////////////
-function unlockApp() {
+app.unlockApp = function() {
 	///////////////////////
 	// clear safe loader //
 	///////////////////////
@@ -1010,7 +1015,7 @@ function unlockApp() {
 	$('body').css2('opacity',1);
 	$('body').show();
 	appResizer(0);
-}
+};
 //////////////////
 // ON FONT LOAD //
 //////////////////
@@ -1020,7 +1025,7 @@ if(!document.getElementById('fontTest')) {
 		if($('#fontTest').width() == 80) {
 			clearInterval(fontTestInterval);
 			clearTimeout(loadTimeout);
-			unlockApp();
+			app.unlockApp();
 		}
 	},12);
 }
