@@ -705,6 +705,8 @@ window.onresize = function(evt) {
 		}
 	} else if(app.device.desktop) {
 		appResizer(0);
+	} else if(app.device.tizen) {
+		appResizer(300);		
 	}
 	//WRAPPER MIN-HEIGHT
 	if(typeof app.wrapperMinHeight !== 'undefined') {
