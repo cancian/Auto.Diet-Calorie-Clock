@@ -1,22 +1,11 @@
 ﻿/////////////////////
 // LANGUAGE ENGINE //
 /////////////////////
-//# BB10 #// burn,calorie,counter,calculator,tracker,easy,diet,diary,weight,myfitnesspal
-//# FFOS #// burn,calorie,counter,calculator,tracker,easy,diet,diary,weight,myfitnesspal,lose,loss,fat,track,monitor,intake,deficit,counting,women,kcals
-//# MSIE #// calorie counter,weight loss,diet,tracker,fat,burn,myfitnesspal
-//# IOS  #// food,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,track,tracker,diary,easy,deficit,lose
-//# IOS2 #// calorie,counter,intake,clock,weight,fat,loss,diet,track,tracker,diary,easy,deficit,lose,myfitnesspal
-//
-//lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcals,diet,fitness,health,shape,training
-//lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcal,track,diet,fitness,health,shape,it
-//real time calorie monitor calculator intake restriction clock counter burn burner fat loss diet tracker online chart deficit  counting 
-//real,time,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,tracker,diary,gain,deficit,kcal
-//
 var appName = 'ChronoBurn';
-var appVersion = '2.1 (210002)';
+var appVersion = '2.1 (210003)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = true;
+var reviewMode = false;
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';
@@ -38,6 +27,7 @@ if(app) {
 // DETECT LANGUAGE //
 /////////////////////
 function filterLocale(locale) {
+	'use strict';
 	//SAFETY
 	if (!(langArray).test(locale)) {
 		locale = 'en';
