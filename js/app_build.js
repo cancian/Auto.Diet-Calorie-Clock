@@ -3,6 +3,7 @@
 ###################function openSettings*/
 app.globals.settingsHtml = 'var settingsHtml';
 app.tab.settings = function(keepOpen) {
+	'use strict';
 	//HTTPX
 	var httpx = app.device.android2 || app.device.blackberry || app.device.playbook ? 'http://' : 'https://';
 	//RAW HTML
@@ -246,7 +247,8 @@ app.tab.settings = function(keepOpen) {
 ####    HTML BUILDS ~ OPEN STATUS    ####
 #######################################*/
 app.tab.status = function(keepOpen) {
-//function openStatus(keepOpen) {
+	'use strict';
+	//function openStatus(keepOpen) {
 	////////////////////
 	// TODAY OVERVIEW //
 	////////////////////
@@ -387,15 +389,8 @@ app.tab.status = function(keepOpen) {
 	//#///////////#//
 	app.handlers.activeRow('#appStatusTitle','button',function(evt) {
 		if(app.read('appStatus','running')) {
-			function appReset(button) {
-				//ON CONFIRM
-				if(button === 2) {
-					app.resetCounter(1);
-				}
-				return false;
-			}
 			//SHOW DIALOG
-			appConfirm(LANG.RESET_COUNTER_TITLE[lang], LANG.ARE_YOU_SURE[lang], appReset, LANG.OK[lang], LANG.CANCEL[lang]);
+			appConfirm(LANG.RESET_COUNTER_TITLE[lang], LANG.ARE_YOU_SURE[lang], function (button) { if(button === 2) { app.resetCounter(1); } return false; }, LANG.OK[lang], LANG.CANCEL[lang]);
 		} else {
 			updateNutriBars();
 			$('#appStatus').removeClass('start');
@@ -562,6 +557,7 @@ app.tab.status = function(keepOpen) {
 app.tab.diary = function(entryListHtml,keepOpen) {
 	//ENDSCROLL FUNCTION
 	app.endScroll = function() {
+		'use strict';
 		//////////////////////
 		// SLIDER ENDSCROLL //
 		//////////////////////
@@ -716,7 +712,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	app.define('config_sidebar', 1);
 	//
 	if(app.read('config_sidebar')) {
-		$('body').addClass('sidebar')
+		$('body').addClass('sidebar');
 	} else {
 		$('body').removeClass('sidebar');
 	}
@@ -735,7 +731,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	// ENTRYWRAPPER UNFLICKER INITIAL RESIZE //
 	///////////////////////////////////////////
 	if(typeof app.wrapperMinHeight !== 'undefined') {
-		app.wrapperMinHeight()
+		app.wrapperMinHeight();
 		setTimeout(function() {
 			app.wrapperMinHeight();
 		}, 0);
@@ -1483,6 +1479,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 ## HTML BUILDS ~ OPEN PROFILE ##
 ##############################*/
 app.tab.profile = function(keepOpen) {
+'use strict';
 //RAW HTML
 var profileHtml = '\
 <a name="top"></a>\
