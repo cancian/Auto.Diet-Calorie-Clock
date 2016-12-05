@@ -3,6 +3,7 @@
 ////////////////
 var myScroll;
 function showIntro() {
+	'use strict';
 	///////////////////////////////////////
 	// SKIP INTRO FOR VERY SMALL DEVICES //
 	///////////////////////////////////////
@@ -144,6 +145,7 @@ function showIntro() {
 // INIT DB //
 /////////////
 function initDB(t) {
+	'use strict';
 	////////////
 	// DEFINE //
 	////////////
@@ -207,11 +209,12 @@ function initDB(t) {
 			});
 		});
 	})();
-};
+}
 ////////////////////
 // RESET DATA+SQL //
 ////////////////////
 function deSetup(callback) {
+	'use strict';
 	blockAlerts = 1;
 	localforage.clear(function() {
 		afterHide('clear');
@@ -221,6 +224,7 @@ function deSetup(callback) {
 // CLEAR ENTRIES //
 ///////////////////
 function clearEntries(callback) {
+	'use strict';
 	for(var i=0, len=appRows.entry.length; i<len; i++) {
 		appRows.entry[i].info = 'deleted';
 	}
@@ -234,6 +238,7 @@ function clearEntries(callback) {
 // RESET COUNTER //
 ///////////////////
 app.resetCounter = function(pusher) {
+	'use strict';
 	$('#appStatus').removeClass('reset');
 	$('#appStatus').addClass('start');
 	$('#appStatusTitle').html2(LANG.START[lang]);
@@ -259,6 +264,7 @@ app.resetCounter = function(pusher) {
 // SQL-ENCODE LOCAL STORAGE //
 //////////////////////////////
 function localStorageSql() {
+	'use strict';
 	var keyList = '';
 	//daily
 	if(app.read('config_kcals_type'))	{ keyList = keyList + '#@@@#' + 'config_kcals_type'  + '#@@#' + app.read('config_kcals_type');  }
@@ -316,12 +322,13 @@ function localStorageSql() {
 // REBUILD LOCAL STORAGE //
 ///////////////////////////
 function rebuildLocalStorage(lsp) {
+	'use strict';
 	if(!lsp.match('#@@@#')) { return; }
 	//comments
 	lsp = lsp.split('/*').join('').split('*/').join('');
 	lsp = lsp.split('#@@@#');
 	var lsPart;
-	for(i=0; i<lsp.length; i++) {
+	for(var i=0; i<lsp.length; i++) {
 		lsPart = lsp[i].split('#@@#');
 		if(lsPart[0]) {
 			if(lsPart[0] === 'appNotes') {
@@ -344,12 +351,14 @@ function rebuildLocalStorage(lsp) {
 // FETCH ENTRIES //
 ///////////////////
 function fetchEntries(callback) {
+	'use strict';
 	callback(appRows.entry.sortbyattr('published','desc'));
 }
 //#//////////////////////#//
 //# ONLINE: PUSH ENTRIES #//
 //#//////////////////////#//
 function pushEntries() {
+	'use strict';
 app.timeout('pushEntries',3000,function() {
 	if(!app.read('facebook_logged'))	{ return; }
 	if($('body').hasClass('insync'))	{ return; }	
@@ -518,6 +527,7 @@ app.timeout('pushEntries',3000,function() {
 });
 }
 function setPush(msg) {
+	'use strict';
 	//force load db
 	if(app.read('facebook_logged')) {
 		updateFoodDb();
@@ -529,6 +539,7 @@ function setPush(msg) {
 //# AUX: SYNC ENTRIES #//
 //#///////////////////#//
 function setComplete() {
+	'use strict';
 	//clear previous
 	$('body').removeClass('insync');
 	//set complete
@@ -571,6 +582,7 @@ function setComplete() {
 // ROWS LOOP //
 ///////////////
 function rowsLoop(sqlEntry, hive, callback) {
+	'use strict';
 	var rows;
 	if (hive === 'diary_entry') {
 		rows = appRows.entry;
@@ -628,6 +640,7 @@ function rowsLoop(sqlEntry, hive, callback) {
 // SQL TO JSON //
 /////////////////
 function sqlToJson(row) {
+	'use strict';
 	if(!row)           { return ''; }
 	if(row.length < 5) { return ''; }
 	var jsonRow = '';
@@ -674,6 +687,7 @@ function sqlToJson(row) {
 // INSERT OR UPDATE //
 //////////////////////
 function insertOrUpdate(rows, callback) {
+	'use strict';
 	if (!rows || rows == '') {
 		callback();
 		return;
@@ -721,6 +735,7 @@ function insertOrUpdate(rows, callback) {
 //## SYNC ENTRIES ##//
 //##//////////////##//
 function syncEntries() {
+	'use strict';
 app.timeout('syncEntries',2000,function() {
 	if(app.read('facebook_logged'))   { updateFoodDb(); }
 	if(!app.read('facebook_logged'))  { return; }
@@ -793,6 +808,7 @@ app.timeout('syncEntries',2000,function() {
 // GET ENTRIES //
 /////////////////
 function getEntries(callback) {
+	'use strict';
 	/*	
 	var rowsArray = appRows.entry;
 	//
@@ -821,6 +837,7 @@ function getEntries(callback) {
 // GET ENTRY //
 ///////////////
 function getEntry(eid,callback) {
+	'use strict';
 	for(var i=0, len=appRows.entry.length; i<len; i++) {
 		if(appRows.entry[i].id == eid) {
 			callback(appRows.entry[i]);
@@ -832,6 +849,7 @@ function getEntry(eid,callback) {
 //# DB: UPDATE ENTRY #//
 //#//////////////////#//
 function updateEntry(data,callback) {
+	'use strict';
 	var endDate = (data.published.toString()).slice((data.published.toString()).length-4,(data.published.toString()).length);
 	var endId   = (data.id.toString()).slice((data.id.toString()).length-4,(data.id.toString()).length);
 	if(endDate == '0000') {
@@ -865,6 +883,7 @@ function updateEntry(data,callback) {
 //# DB: DELETE ENTRY #//
 //#//////////////////#//
 function deleteEntry(entry,callback) {
+	'use strict';
 	for(var i=0, len=appRows.entry.length; i<len; i++) {
 		if(appRows.entry[i].id == entry.id) {
 			appRows.entry[i].info = 'deleted';
@@ -883,6 +902,7 @@ function deleteEntry(entry,callback) {
 // SAVE ENTRY //
 ////////////////
 function saveEntry(data,callback) {
+	'use strict';
 	////////////////
 	// RAW INSERT //
 	////////////////
@@ -939,9 +959,9 @@ function saveEntry(data,callback) {
 	//////////////////
 	// UPDATE TITLE //
 	//////////////////
-		for(var i=0, len=appRows.entry.length; i<len; i++) {
-			if(appRows.entry[i].id == data.id) {
-				appRows.entry[i].title = data.title;
+		for(var t=0, ten=appRows.entry.length; t<ten; t++) {
+			if(appRows.entry[t].id == data.id) {
+				appRows.entry[t].title = data.title;
 				break;
 			}
 		}
@@ -988,6 +1008,7 @@ function saveEntry(data,callback) {
 // SET FOOD //
 //////////////
 function setFood(data, callback) {
+	'use strict';
 	if(data.act == 'update') {
 		//UPDATE
 		for(var i=0, len=appRows.food.length; i<len; i++) {
@@ -1041,6 +1062,7 @@ function setFood(data, callback) {
 // GET FOOD //
 //////////////
 function getFood(foodId,callback) {
+	'use strict';
 	for(var i=0, len=appRows.food.length; i<len; i++) {
 		if(appRows.food[i].id == foodId) {
 			callback(appRows.food[i]);
@@ -1052,6 +1074,7 @@ function getFood(foodId,callback) {
 // DELETE FOOD //
 /////////////////
 function delFood(foodId, callback) {
+	'use strict';
 	var rowsArray = [];
 	for(var i=0, len=appRows.food.length; i<len; i++) {
 		if(appRows.food[i]) {
@@ -1073,6 +1096,7 @@ function delFood(foodId, callback) {
 // GET CUSTOM LIST //
 /////////////////////
 function getCustomList(listType,filter) {
+	'use strict';
 	//////////////
 	// CAT LIST //
 	//////////////
@@ -1119,13 +1143,14 @@ function getCustomList(listType,filter) {
 				}
 			}
 		}
-		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'),filter)
+		return app.handlers.buildRows(rowsArray.sortbyattr('term','desc'),filter);
 	}
 }
 /////////////
 // SET FAV //
 /////////////
 function setFav(data, callback) {
+	'use strict';
 	for(var i=0, len=appRows.food.length; i<len; i++) {
 		if(appRows.food[i].id == data.id) {
 			appRows.food[i].fib = data.fib;
@@ -1143,6 +1168,7 @@ function setFav(data, callback) {
 ///////////////
 var afterHidden;
 function afterHide(cmd) {
+	'use strict';
 	noTimer = 'active';
 	opaLock = 2;
 	clearTimeout(afterHidden);
@@ -1171,6 +1197,8 @@ function afterHide(cmd) {
 // SPINNER //
 /////////////
 function spinner(action,target) {
+	'use strict';
+
 	if(!target) { target = 'spinnerMask'; }
 
 	if(!$('#loadMask').length)		{ $('body').prepend2('<div id="loadMask"><span></span></div>'); }
@@ -1181,7 +1209,7 @@ function spinner(action,target) {
 		$('body').removeClass('updtdb');
 	} else {
 		$('body').addClass(target);
-		$('#loadMask').css2('pointer-events','auto')
+		$('#loadMask').css2('pointer-events','auto');
 		$('#loadMask').off().on(touchstart,function(evt) {
 			var pos = app.pointer(evt);
 			//USE :AFTER COORDS
@@ -1210,6 +1238,7 @@ function spinner(action,target) {
 // FOOD DB IMPORT //
 ////////////////////
 function updateFoodDb(callback) {
+	'use strict';
 	if (app.read('foodDbLoaded', 'done') && !app.read('foodDbVersion')) { app.remove('foodDbLoaded'); }
 	if (app.read('foodDbLoaded', 'done')) { return; }
 	if (!app.read('foodDbLoaded', 'done') && !app.read('startLock', 'running')) {
@@ -1226,7 +1255,7 @@ function updateFoodDb(callback) {
 			////////////
 			// IMPORT //
 			////////////
-			function saveParsed(rowsArray, callback) {
+			app.saveParsed = function(rowsArray, callback) {
 				//REINSERT
 				var postCustom = '';
 				if (trim(app.read('customItemsSql')) != '') {
@@ -1273,7 +1302,7 @@ function updateFoodDb(callback) {
 			///////////////
 			// UNLOCK DB //
 			///////////////
-			function unlockDb(callback) {
+			app.unlockDb = function (callback) {
 				app.timeout('unlockDb', 500, function (callback) {
 					//failure
 					app.globals.foodDbRunning = false;
@@ -1310,8 +1339,8 @@ function updateFoodDb(callback) {
 					}
 					//////////////////////////////////////////
 				});
-			}
-			function doImport(callback) {
+			};
+			app.doImport = function (callback) {
 				spinner();
 				var databaseHost = app.read('config_autoupdate', 'on') ? app.https + 'chronoburn.com/' : hostLocal;
 				if (callback == 'retry') {
@@ -1325,11 +1354,11 @@ function updateFoodDb(callback) {
 							url : databaseHost + 'sql/searchdb_' + langDB + '.db',
 							error : function (xhr, statusText) {
 								//CONNECTION ERROR
-								unlockDb(callback);
+								app.unlockDb(callback);
 							},
 							success : function (ls) {
 								if (ls.length < 15000) {
-									unlockDb(callback);
+									app.unlockDb(callback);
 									return false;
 								}
 								var rowsArray = [];
@@ -1352,7 +1381,7 @@ function updateFoodDb(callback) {
 									dataType : 'text',
 									url : databaseHost + 'sql/searchdb.db',
 									error : function (xhr, statusText) {
-										unlockDb(callback);
+										app.unlockDb(callback);
 									},
 									success : function (sdb) {
 										//////////////////
@@ -1365,7 +1394,7 @@ function updateFoodDb(callback) {
 												rowsArray[s].term = searchalize(rowsArray[s].name);
 											} catch (err) { }
 										}
-										saveParsed(rowsArray, callback);
+										app.saveParsed(rowsArray, callback);
 									}
 								});
 							}
@@ -1373,20 +1402,20 @@ function updateFoodDb(callback) {
 					} catch (err) {
 						//failure
 						errorHandler('db parse catch: ' + err);
-						unlockDb(callback);
+						app.unlockDb(callback);
 					}
 				});
-			}
+			};
 		}
 		//////////////////////
 		// CALLBACK TRIGGER //
 		//////////////////////
 		if(/en|em/.test(langDB)) {
-			doImport(callback);
+			app.doImport(callback);
 		} else {
 			appConfirm(LANG.TRANSLATE_DATABASE[lang], LANG.ORIGINAL_DATABASE_ENGLISH[lang], function(trad) {
 				langDB = trad == 2 ? lang : 'em';
-				doImport(callback);
+				app.doImport(callback);
 			}, LANG.LANGUAGE_NAME[lang], LANG.LANGUAGE_NAME['en']);
 		}
 	}
@@ -1395,6 +1424,7 @@ function updateFoodDb(callback) {
 // PAGE LOAD MOD //
 ///////////////////
 function pageLoad(target,content,published) {
+	'use strict';
 	//if partial
 	if(published) {
 		var arr = [];
@@ -1453,6 +1483,7 @@ function pageLoad(target,content,published) {
 // FILL DATE //
 ///////////////
 function fillDate(timestamp,element) {
+	'use strict';
 	//time [ datetime-local / 2013-01-01T00:00 ]
 	var d = (timestamp != '') ? new Date(Number(timestamp)) : new Date();
 	//fill
@@ -1464,6 +1495,7 @@ function fillDate(timestamp,element) {
 //////////////////////
 var partial = '';
 app.exec.updateEntries = function(partial,range,callback,keepOpen) {
+	'use strict';
 	//var totalEntryS       = app.read('totalEntries');
 	//var totalRecentEntryS = app.read('totalRecentEntries');
 	//////////////
@@ -1595,6 +1627,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 // UPDATE ENTRYLIST *TIME* //
 /////////////////////////////
 function updateEntriesTime() {
+	'use strict';
 	getEntries(function(data) {
 		for(var i=0, len=data.length; i<len; i++) {
 			var dataPublished = parseInt(data[i].published);
@@ -1608,6 +1641,7 @@ function updateEntriesTime() {
 	});
 	//SIDEBAR TIME CLASS
 	var currentHour = new Date().getHours();
+	var rowClass;
          if(currentHour <  6) { rowClass = "afterhours"; }
 	else if(currentHour < 12) { rowClass = "morning";    }
 	else if(currentHour < 18) { rowClass = "afternoon";  }
@@ -1619,6 +1653,7 @@ function updateEntriesTime() {
 // UPDATE CSS HEADING *SUM* //
 //////////////////////////////
 function updateEntriesSum() {
+	'use strict';
 	var pushTitle = [];
 	var lToday    = LANG.TODAY[lang];
 	var lFood     = LANG.FOOD[lang];
@@ -1675,6 +1710,7 @@ function updateEntriesSum() {
 //# UPDATE NUTRI RATIO PSEUDOS #//
 //#////////////////////////////#//
 function updateNutriRatio() {
+	'use strict';
 	var appNutrients = app.read('appNutrients').split('|');
 	var proRatio = parseInt(appNutrients[0]);
 	var carRatio = parseInt(appNutrients[1]);
@@ -1702,6 +1738,7 @@ function updateNutriRatio() {
 //# NUTRI TIME SPAN #//
 //#/////////////////#//
 function getNutriTimeSpan(entryTime) {
+	'use strict';
 	//
 	app.define('app_last_tab','tab1');
 	//
@@ -1752,6 +1789,7 @@ function getNutriTimeSpan(entryTime) {
 //##/////////////////##//
 var subHelperTimer;
 function buildHelpMenu(args) {
+	'use strict';
 	//insert menu
 	if(args !== 'direct') {
 		$('#optionHelp').addClass('activeRow');
@@ -1884,6 +1922,7 @@ function buildHelpMenu(args) {
 //## GETNEWwINDOW ##//
 //##//////////////##//
 function getNewWindow(title,content,handlers,save,closer,direction,bottom,top) {
+	'use strict';
 	var newWindow = (title == 'newSearch') ? 'newSearch' : 'newWindow';
 	var newClass  = (title == 'newSearch') ? 'newsearch' : 'newwindow';
 	if(title == 'newSearch') {
@@ -2014,16 +2053,19 @@ app.save('langDump',JSON.stringify(langListString));
 //pre-process
 var langListArray = [];
 $.each(LANG.LANGUAGE, function(i, langCode) {
+	'use strict';
 	langListArray.push('<li id="set' + langCode + '">'+ LANG.LANGUAGE_NAME[langCode] +'</li>');
 });
 //BUILD ORDERED HTML
 langListArray.sort();
 var langListCore  = '';
 $.each(langListArray, function(l, Langline) {
+	'use strict';
 	langListCore = langListCore + Langline;
 });
 var langSelectTap;
 function buildLangMenu(opt) {
+	'use strict';
 	$('#langSelect').remove();
 	/////////////////
 	// APPEND HTML //
@@ -2149,6 +2191,7 @@ function buildLangMenu(opt) {
 // NICE RESIZER //
 //////////////////
 function niceResizer(timeout,callback) {
+	'use strict';
 	if(!timeout) { timeout = 100; }
 	app.timeout('niceResizer',timeout,function() {
 		if(app.is.scrollable && app.globals.scrollerList) {
@@ -2163,6 +2206,7 @@ function niceResizer(timeout,callback) {
 // GETNICESCROLL //
 ///////////////////
 function getNiceScroll(target,timeout,callback) {
+	'use strict';
 	if(!$.nicescroll)		{ return; }
 	if(!app.exists(target)) { return; }
 	if(!timeout)	  		{ timeout = 0; }
@@ -2282,6 +2326,7 @@ function getNiceScroll(target,timeout,callback) {
 // UPDATE WRAPPER MIN-HEIGHT //
 ///////////////////////////////
 app.wrapperMinHeight = function() {
+	'use strict';
 	var wrapperMinH = (app.height()) - (154 + $('#appHeader').height() + $('#appFooter').height());
 	if(wrapperMinH < 0) {
 		wrapperMinH = 0;
@@ -2299,6 +2344,7 @@ app.wrapperMinHeight = function() {
 //# APP RESIZER #//
 //#/////////////#//
 function appResizer(time,callback) {
+	'use strict';
 	if(!time) { time = 0; }
 	app.timeout('appResizer',time,function() {
 		//app.relWidth  = app.width()  / app.read('app_zoom');
@@ -2360,6 +2406,7 @@ function appResizer(time,callback) {
 // SANITIZE //
 //////////////
 function sanitize(str) {
+	'use strict';
 	if(str) {
 		var result = str.split(" ").join("").split("’").join("").split("”").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
 		return result;
@@ -2369,6 +2416,7 @@ function sanitize(str) {
 // SANITIZE SQL //
 //////////////////
 function sanitizeSql(str) {
+	'use strict';
 	if(str) {
 		var result = str.split("'").join("’").split('"').join("”").split(";").join(",").split("\\").join(" ").split("  ").join(" ").split("  ").join(" ");
 		return result;
@@ -2381,6 +2429,7 @@ function sanitizeSql(str) {
 ///////////////
 var rateTimer;
 function getRateDialog() {
+	'use strict';
 	//appstore enabled
 	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.msapp && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook) { return; }
 	if(app.get.platform() == 'web')	{ return; }
@@ -2418,6 +2467,7 @@ function getRateDialog() {
 //# GET ANALYTICS #//
 //#///////////////#//
 app.analytics = function(target, desc) {
+	'use strict';
 	///////////////////////
 	// FILTER DEV & NULL //
 	///////////////////////
@@ -2471,6 +2521,7 @@ app.analytics = function(target, desc) {
 };
 //BACKWARDS C.
 function getAnalytics(action) {
+	'use strict';
 	app.analytics(action);
 }
 //#//////////////////////#//
@@ -2480,6 +2531,7 @@ function getAnalytics(action) {
 // GET LOGOUT FB //
 ///////////////////
 function getLogoutFB(button) {
+	'use strict';
 	$('body').removeClass('insync');
 	$('body').removeClass('setpush');
 	if(button === 2) {
@@ -2495,6 +2547,7 @@ function getLogoutFB(button) {
 // UPDATE LOGIN STATUS //
 /////////////////////////
 function updateLoginStatus(sync) {
+	'use strict';
 	if(app.read('facebook_logged') && app.read('facebook_userid') && app.read('facebook_username')) {
 		$('body').addClass('appFacebook');
 		if(/@/i.test(app.read('facebook_username'))) {
@@ -2510,6 +2563,7 @@ function updateLoginStatus(sync) {
 // GET TOKEN FB //
 //////////////////
 function getTokenFB(result) {
+	'use strict';
 	try {
 		var access_token;
 		var expires_in;
@@ -2554,6 +2608,7 @@ function getTokenFB(result) {
 // GET LOGIN FB //
 //////////////////
 function getLoginFB() {
+	'use strict';
 	try {
 		////////////////////////
 		// OPENFB ANDROID/IOS //
@@ -2575,7 +2630,7 @@ function getLoginFB() {
 				openFB.init('577673025616946');
 				openFB.login('email',
 					function() {
-						getTokenFB(window.sessionStorage['fbtoken']);
+						getTokenFB(window.sessionStorage.fbtoken);
 					},
 					function (err) {
 						errorHandler(err);
@@ -2611,14 +2666,14 @@ function getLoginFB() {
 			//open
 			var childWindow = window.open(facebookURL, '_blank');
 			//INTERVAL CHECKER
-			app.timers['bbtoken'] = setInterval(function () {
+			app.timers.bbtoken = setInterval(function () {
 				try {
 					var currentURL  = childWindow.window.location.href;
 					var callbackURL = callback;
 					var inCallback  = currentURL.indexOf(callbackURL);
 					//TOKEN
 					if (inCallback == 0) {
-						clearInterval(app.timers['bbtoken']);
+						clearInterval(app.timers.bbtoken);
 						var tokenURL = childWindow.document.URL;
 						tokenURL = tokenURL.split('access_token=')[1];
 						tokenURL = tokenURL.split('&expires_in=')[0];
@@ -2629,7 +2684,7 @@ function getLoginFB() {
 						}, 200);
 					}
 				} catch(err) {					
-					clearInterval(app.timers['bbtoken']);
+					clearInterval(app.timers.bbtoken);
 					errorHandler('error: bbtoken setInterval | catch: ' + err);
 				}
 			}, 100);
@@ -2684,6 +2739,7 @@ function getLoginFB() {
 // GET LOGIN EMAIL //
 /////////////////////
 function getLoginEmail() {
+	'use strict';
 	var suggestionBoxHtml = '<div id="suggestionBox">\
 			<label for="usrMail" class="usrMail">' + LANG.EMAIL[lang] + ':</label><input type="text" name="usrMail" id="usrMail" value="">\
 			<label for="usrPass" class="usrPass">' + LANG.PASSWORD[lang] + ':</label><input type="password" name="usrPass" id="usrPass" value="">\
