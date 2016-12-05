@@ -19,8 +19,8 @@ if(typeof appStorage === 'undefined') { var appStorage = window.localStorage; }
 var appRows = { entry: [], food: [] };
 app.ua      = navigator.userAgent;
 app = {
-	width: function() { return parseInt(Math.max(document.documentElement.clientWidth, window.innerWidth  || 0)); },
-	height: function() { return parseInt(Math.max(document.documentElement.clientHeight, window.innerHeight || 0)); },
+	width:  function() { 'use strict'; return parseInt(Math.max(document.documentElement.clientWidth,  window.innerWidth  || 0)); },
+	height: function() { 'use strict'; return parseInt(Math.max(document.documentElement.clientHeight, window.innerHeight || 0)); },
 	globals: {},
 	handlers: {},
 	timers: {},
@@ -29,8 +29,7 @@ app = {
 	dev: appStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: appStorage.getItem('config_debug') === 'active' || appStorage.getItem('been_dev') ? true : false,
 	pointer : function (e) {
-		//FIX
-		//e = $.event.fix(e);
+		'use strict';
 		//DEFINE
 		var out = {
 			x : 0,
@@ -98,6 +97,7 @@ app = {
 	exec: {},
 	info: {},
 	exists: function(targetId) {
+		'use strict';
 		if($(targetId).length) {
 			return true;
 		} else {
@@ -108,9 +108,11 @@ app = {
 	http: /http/i.test(window.location.protocol) ? true : false,
 	https: /http:/i.test(window.location.protocol) || (appStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://',
 	now: function() {
+		'use strict';
 		return new Date().getTime();
 	},
 	define: function(key,value,type) {
+		'use strict';
 		//MULTIUSER
 		/*
 		if(!/mud_default/i.test(app.user)) {
@@ -133,6 +135,7 @@ app = {
 		return true;
 	},
 	returner: function(func,rows) {
+		'use strict';
 		if(typeof func === 'function') {
 			if(rows == null) {
 				rows = [];
@@ -141,6 +144,7 @@ app = {
 		}
 	},
 	read: function(key,value,type) {
+		'use strict';
 		//MULTIUSER
 		/*
 		if(!/mud_default/i.test(app.user)) {
@@ -161,7 +165,7 @@ app = {
 		}
 		//
 		//OBJECT
-		if(type == 'object' || type == 'array') {
+		if(type === 'object' || type === 'array') {
 			if(!appStorage.getItem(key)) {
 				return [];
 			}
@@ -195,6 +199,7 @@ app = {
 		}
 	},
 	save: function(key,value,type) {
+		'use strict';
 		if(typeof value === 'undefined') { return; }
 		//MULTIUSER
 		/*
@@ -227,6 +232,7 @@ app = {
 		}
 	},
 	remove: function(key) {
+		'use strict';
 		//MULTIUSER
 		/*
 		if(!/mud_default/i.test(app.user)) {
@@ -242,6 +248,7 @@ app = {
 		}
 	},
 	clear : function () {
+		'use strict';
 		app.define('config_install_time', app.now());
 		var keys = Object.keys(appStorage);
 		for (var i = 0; i < keys.length; i++) {
@@ -266,6 +273,7 @@ app = {
 		}
 	},
 	show: function(target,callback) {
+		'use strict';
 		$(target).css2('pointer-events','auto');
 		$(target).css2(prefix + 'transition', 'opacity ease .32s');
 		$(target).css2('opacity',1);
@@ -276,6 +284,7 @@ app = {
 		},320);
 	},
 	hide: function(target,callback) {
+		'use strict';
 		$(target).css2('pointer-events','none');
 		$(target).css2(prefix + 'transition', 'opacity ease .12s');
 		$(target).css2('opacity',0);
@@ -286,6 +295,7 @@ app = {
 		},120);
 	},
 	timeout: function(gid,time,callback) {
+		'use strict';
 		clearTimeout(app.timers[gid]);
 		if(time == 'clear') { return; }
 		app.timers[gid] = setTimeout(function() {
@@ -295,6 +305,7 @@ app = {
 		}, time);
 	},
 	suspend: function(target,time,callback) {
+		'use strict';
 		clearTimeout(app.timers[searchalize(target)]);
 		$(target).css2('pointer-events','none');
 		app.timers[app.timers[searchalize(target)]] = setTimeout(function() {
@@ -305,14 +316,15 @@ app = {
 		}, time);
 	},
 	timer: {
-		start : function(str)     { if(!str) { str = 'generic'; }; app.globals[str] = app.now(); },
-		end   : function(str,txt) { if(!str) { str = 'generic'; }; if(txt) { txt = txt + ': '; } else { txt = 'total: '; }; app.toast(txt + (Number((app.now() - app.globals[str]))) + ' ms', 'timer_' + (JSON.stringify(app.globals[str]))); }
+		start : function(str)     { 'use strict'; if(!str) { str = 'generic'; } app.globals[str] = app.now(); },
+		end   : function(str,txt) { 'use strict'; if(!str) { str = 'generic'; } if(txt) { txt = txt + ': '; } else { txt = 'total: '; } app.toast(txt + (Number((app.now() - app.globals[str]))) + ' ms', 'timer_' + (JSON.stringify(app.globals[str]))); }
 	}
 };
 /////////////////
 // SWITCH USER //
 /////////////////
 app.switchUser = function(switchTo) {
+	'use strict';
 	if(switchTo) {
 		if(searchalize(switchTo).length == 0) { return; }
 		//
@@ -353,6 +365,7 @@ app.switchUser = function(switchTo) {
 // LOG ERROR //
 ///////////////
 app.parseErrorLog = function() {
+	'use strict';
 	//SEND UNHANDLED LOG
 	if(app.read('error_log_unhandled')) {
 		app.analytics('error',app.read('error_log_unhandled'));
@@ -370,6 +383,7 @@ app.parseErrorLog = function() {
 // TOTAL WEIGHT //
 //////////////////
 app.get.totalweight = function() {
+	'use strict';
 	if (!app.read('calcForm#pA3B')) {
 		return 80;
 	}
@@ -382,6 +396,7 @@ app.get.totalweight = function() {
 app.get.androidVersion = /Android/i.test(app.ua) && !app.http ? parseFloat((app.ua).match(/Android [\d+\.]{3,5}/)[0].replace('Android ','')) : false;
 //CHROMEAPP
 app.get.isChromeApp = function() {
+	'use strict';
 	if(typeof chrome !== 'undefined') {
 		if(typeof chrome.app !== 'undefined') {
 			if(chrome.app.isInstalled) {
@@ -438,6 +453,7 @@ if(typeof staticVendor !== 'undefined') {
 // GLOBAL SHORTCUTS //
 //////////////////////
 app.get.platform = function(noweb) {
+	'use strict';
 	     if(app.device.ios && app.http)		{ return 'web';              }
 	else if(app.device.android && app.http)	{ return 'web';              }
 	else if(app.device.wp8 && app.http)		{ return 'web';              }
@@ -482,11 +498,13 @@ if($.nicescroll) {
 	if(app.device.linux)								{ app.is.scrollable = true;  }
 	if(app.device.desktop)								{ app.is.scrollable = true;  }
 	if(app.device.android && app.device.android < 5)	{ app.is.scrollable = true;  }
+	if(app.device.tizen)								{ app.is.scrollable = false; }
 }
 //////////////////
 // APP.REBOOT() //
 //////////////////
 app.reboot = function(type,error) {
+	'use strict';
 	var timeout = type == 'now' ? 0 : 500;
 	//CLEAR CACHE
 	if(type == 'reset') {
@@ -545,6 +563,7 @@ $.prototype.swipe = function() {};
 // HTML2 //
 ///////////
 $.prototype.html2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
@@ -565,6 +584,7 @@ $.prototype.html2 = function (data, callback) {
 // CCS2 //
 //////////
 $.prototype.css2 = function (attr, value) {
+	'use strict';
 	//FILTER
 	if (typeof this === 'undefined' || typeof attr === 'undefined') {
 		return;
@@ -589,6 +609,7 @@ $.prototype.css2 = function (attr, value) {
 // APPEND2 //
 /////////////
 $.prototype.append2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
@@ -607,6 +628,7 @@ $.prototype.append2 = function (data, callback) {
 
 };
 $.prototype.prepend2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
@@ -624,6 +646,7 @@ $.prototype.prepend2 = function (data, callback) {
 	}
 };
 $.prototype.before2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
@@ -641,6 +664,7 @@ $.prototype.before2 = function (data, callback) {
 	}
 };
 $.prototype.after2 = function (data, callback) {
+	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
 	if($(obj).length) {
@@ -661,6 +685,7 @@ $.prototype.after2 = function (data, callback) {
 // TOAST //
 ///////////
 app.toast = function (msg, tag) {
+	'use strict';
 	if(!msg)		{ msg = ''; }
 	if(!tag)		{ tag = 'appToast' + JSON.stringify(app.now()); }
 	////////////
@@ -717,6 +742,7 @@ app.zoom();
 // APP.INFO() //
 ////////////////
 app.info = function (title, msg, preHandler, postHandler) {
+	'use strict';
 	if($('#skipIntro').length)		{ return; }
 	if($(document).height() < 350)	{ return; }
 	if(app.globals.blockInfo == 1)	{ return; }
@@ -788,6 +814,7 @@ app.info = function (title, msg, preHandler, postHandler) {
 // APP READY //
 ///////////////
 app.ready = function(callback) {
+	'use strict';
 	//READY
 	$('body').addClass('ready');
 	//////////////
@@ -807,6 +834,7 @@ app.ready = function(callback) {
 // ADD SCRIPT //
 ////////////////
 app.getScript = function(url) {
+	'use strict';
 	var script  = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src  = url;
@@ -817,6 +845,7 @@ app.getScript = function(url) {
 /////////
 var ref;
 app.url = function(url) {
+	'use strict';
 	//STORES
 	var store = {
 		web:        'https://chronoburn.com',
@@ -904,6 +933,7 @@ app.handlers = {
 	// CSS FADE OUT //
 	//////////////////
 	fade : function(inOut,target,callback,duration) {
+		'use strict';
 		if(!duration) {
 			duration = 200;
 		}
@@ -1110,6 +1140,7 @@ app.handlers = {
 	// HIGHLIGHT ROW //
 	///////////////////
 	highlight: function(target,callback) {
+		'use strict';
 		$(target).removeClass('activeOverflow');
 		$(target).addClass('yellow');
 		setTimeout(function () {
@@ -1129,6 +1160,7 @@ app.handlers = {
 	// BUILD ROW //
 	///////////////
 	buildRows: function(data,filter) {
+		'use strict';
 		//////////////////
 		// TOTAL WEIGHT //
 		//////////////////
@@ -1242,6 +1274,7 @@ app.handlers = {
 	repeaterTrigger: '',
 	repeaterLoop:    '',
 	repeater: function(target,style,triggerMs,repeatMs,callback) {
+		'use strict';
 		$(target).removeClass(style);
 		clearTimeout(app.repeaterTrigger);
 		clearTimeout(app.repeaterLoop);
@@ -1287,6 +1320,7 @@ app.handlers = {
 // ADD/REMOVE //
 ////////////////
 app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
+	'use strict';
 	if(!minValue) { minValue = 0;    }
 	if(!maxValue) { maxValue = 9999; }
 	//HTML
@@ -1322,7 +1356,8 @@ app.handlers.addRemove = function(target,minValue,maxValue,valueType) {
 // SCREENSHOT //
 ////////////////
 app.screenshot = function() {
-//SCREENSHOT
+	'use strict';
+	//SCREENSHOT
 	var day = 60 * 60 * 24 * 1000;
 	clearEntries(function() {
 		saveEntry({raw: true, id: app.now()-(0*day), title: 1300, body: '', published: app.now()-(0*day), info: '', kcal: '', pro: 12, car: 19, fat: 4, fib: '', fii: 2, sug: 1, sod: 9});
@@ -1344,6 +1379,7 @@ app.screenshot = function() {
 // KCALS //
 ///////////
 app.get.kcals = function(opt) {
+	'use strict';
 	if(app.read('config_kcals_type','cyclic')) {
 		if(app.read('config_kcals_day','d')) {
 			if(opt == 'reset') {
@@ -1378,12 +1414,14 @@ app.get.kcals = function(opt) {
 function getIsDesktop() {}
 var isItDesktop = getIsDesktop;
 function isDesktop() {
+	'use strict';
 	return isItDesktop;
 }
 //#//////////////////#//
 //# DOMContentLoaded #//
 //#//////////////////#//
 document.addEventListener("DOMContentLoaded", function() {
+	'use strict';
 	$('body').addClass('domcontentloaded');
 },false);
 //#///////////////#//
@@ -1407,6 +1445,7 @@ if (!$('#plainLoad').length && !$('#superBlockCSS').length && isCurrentCacheVali
 			url : hostLocal + cssPath,
 			dataType : 'text',
 			success : function (dataCSS) {
+				'use strict';
 				if(vendorClass == 'moz') {
 					dataCSS = dataCSS.split('-webkit-box-shadow').join('box-shadow');
 					dataCSS = dataCSS.split('-webkit-').join('-moz-');
@@ -1427,6 +1466,7 @@ if (!$('#plainLoad').length && !$('#superBlockCSS').length && isCurrentCacheVali
 // UPDATE USER COLORS //
 ////////////////////////
 app.updateColorPicker = function() {
+	'use strict';
 	if(!document.getElementById('colorPickerStyle')) {
 		$('head').append2('<style type="text/css" id="colorPickerStyle"></style>');
 	}
@@ -1486,6 +1526,7 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 // AUTOEXEC.OLD //
 //////////////////
 (function() {
+	'use strict';
 	////////////////////
 	// FETCH SPECTRUM //
 	////////////////////
@@ -1538,6 +1579,7 @@ var touchout    = app.touch ? 'touchout'    : 'mouseout';
 // MSPOINTER //
 ///////////////
 function msPointerSet(prefix) {
+	'use strict';
 	if(prefix === 1) {
 		touchstart  = 'MSPointerDown';
 		touchend    = 'MSPointerUp';
@@ -1574,6 +1616,7 @@ if (app.device.wp80) { //app.device.msapp
 // SAFE EXEC //
 ///////////////
 app.safeExec = function (callback) {
+	'use strict';
 	if (app.device.msapp) {
 		MSApp.execUnsafeLocalFunction(function () {
 			callback();
@@ -1586,6 +1629,7 @@ app.safeExec = function (callback) {
 // ERROR HANDLER //
 ///////////////////
 function errorHandler(error,callback) {
+	'use strict';
 	if(!error || !error.length || typeof error === 'undefined') {
 		return;
 	}
@@ -1618,7 +1662,7 @@ function errorHandler(error,callback) {
 		//TRACK
 		app.analytics('error','handled: ' + error);
 		//LOG ERROR
-		app.save('error_log_handled','handled log: ' + error)
+		app.save('error_log_handled','handled log: ' + error);
 	}
 	//////////////
 	// CALLBACK //
@@ -1631,6 +1675,7 @@ function errorHandler(error,callback) {
 // NUMBER ONLY //
 /////////////////
 function isNumberKey(evt){
+	'use strict';
 	var keyCode = (evt.which) ? evt.which : evt.keyCode;
 	//backspace, enter, shift, left, right
 	if(keyCode == 8 || keyCode == 13 || keyCode == 16 || keyCode == 37 || keyCode == 39) {
@@ -1643,6 +1688,7 @@ function isNumberKey(evt){
 	return true;
 }
 app.handlers.validate = function(target,config,preProcess,postProcess,focusProcess,blurProcess) {
+	'use strict';
 	var inputHandler = (app.device.android == 4.1 || app.device.wp8 || app.device.windows10 || app.device.wp10) ? 'keydown' : 'keypress';
 	//SETTINGS
 	if(!config)           { config = {}; }
@@ -1771,6 +1817,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 // FIX/FORMAT SQL //
 ////////////////////
 app.fixSql = function(fetchEntries) {
+	'use strict';
 	if(!fetchEntries) { return ' '; }
 	//NULL
 	fetchEntries = fetchEntries.split('undefined').join('');
@@ -1811,6 +1858,7 @@ app.fixSql = function(fetchEntries) {
 // TRIM //
 //////////
 function trim(str) {
+	'use strict';
 	if(!str.length) { return ''; }
 	str = str.replace(/^\s+/, '');
 	str = str.replace(/(^[ \t]*\n)/gm, "");
@@ -1823,14 +1871,17 @@ function trim(str) {
 	return str;
 }
 function trimDot(str) {
+	'use strict';
 	if(!str.length) { return ''; }
 	return str.replace(/\.$/, '').replace(/\,$/, '');
 }
 function trimSpace(str) {
+	'use strict';
 	if(!str.length) { return ''; }
 	return str.replace(/\s\s+/g, ' ');
 }
 function trimSpaceAll(str) {
+	'use strict';
 	if(!str.length) { return ''; }
 	return str.replace(/  +/g, ' ');
 }
@@ -1838,6 +1889,7 @@ function trimSpaceAll(str) {
 // ISEMPTY() //
 ///////////////
 function isEmpty(val){
+	'use strict';
 	if (typeof val === 'undefined' || !val) {
 		return true;
 	} else {
@@ -1848,6 +1900,7 @@ function isEmpty(val){
 // PROTOTYPE.TRIM() //
 ////////////////////// https://github.com/kvz/locutus/blob/master/src/php/strings/trim.js
 String.prototype.trim = function (charlist) {
+	'use strict';
 	var str = this;
 	if (!str) {
 		return '';
@@ -1875,33 +1928,34 @@ String.prototype.trim = function (charlist) {
 		'\u2028',
 		'\u2029',
 		'\u3000'
-	].join('')
-	var l = 0
-		var i = 0
-		str += ''
+	].join('');
+	var l = 0;
+		var i = 0;
+		str += '';
 		if (charlist) {
-			whitespace = (charlist + '').replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^:])/g, '$1')
+			whitespace = (charlist + '').replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^:])/g, '$1');
 		}
-		l = str.length
+		l = str.length;
 		for (i = 0; i < l; i++) {
 			if (whitespace.indexOf(str.charAt(i)) === -1) {
-				str = str.substring(i)
-					break
+				str = str.substring(i);
+					break;
 			}
 		}
-		l = str.length
+		l = str.length;
 		for (i = l - 1; i >= 0; i--) {
 			if (whitespace.indexOf(str.charAt(i)) === -1) {
-				str = str.substring(0, i + 1)
-					break
+				str = str.substring(0, i + 1);
+					break;
 			}
 		}
-		return whitespace.indexOf(str.charAt(0)) === -1 ? str : ''
-}
+		return whitespace.indexOf(str.charAt(0)) === -1 ? str : '';
+};
 ///////////////
 // HIGHLIGHT //
 ///////////////
 app.highlight = function (target, duration, startColor, endColor, callback, forceWait) {
+	'use strict';
 	if (!startColor) { startColor = 'rgba(255,200,0,0.5)'; }
 	if (!endColor)   { endColor   = 'rgba(255,255,255,0)'; }
 	if (!duration)   { duration   = 1000; }
@@ -1929,6 +1983,7 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 // STRINFIGY ERROR //
 /////////////////////
 var stringifyError = function (err) {
+	'use strict';
 	var plainObject = {};
 	Object.getOwnPropertyNames(err).forEach(function (key) {
 		plainObject[key] = err[key];
@@ -1939,18 +1994,21 @@ var stringifyError = function (err) {
 // CAPITALIZE //
 ////////////////
 String.prototype.capitalize = function() {
+	'use strict';
 	return this.charAt(0).toUpperCase() + this.slice(1);
 };
 ///////////
 // isOdd //
 ///////////
 function isOdd(val) {
+	'use strict';
 	return val % Math.round(2);
 }
 ////////////////
 // DECIMALIZE //
 ////////////////
 function decimalize(val,p) {
+	'use strict';
 	if((Math.round(Number(val) *  10) / 10)  == 0 && p == -1) { return '0';    }
 	if((Math.round(Number(val) *  10) / 10)  == 0 && p ==  1) { return '0.0';  }
 	if((Math.round(Number(val) * 100) / 100) == 0)			  { return '0.00'; }
@@ -1963,11 +2021,12 @@ function decimalize(val,p) {
 // TOASCII //
 /////////////
 var latin_map = {'á':'a','ă':'a','ắ':'a','ặ':'a','ằ':'a','ẳ':'a','ẵ':'a','ǎ':'a','â':'a','ấ':'a','ậ':'a','ầ':'a','ẩ':'a','ẫ':'a','ä':'a','ǟ':'a','ǡ':'a','ạ':'a','ȁ':'a','à':'a','ả':'a','ȃ':'a','ā':'a','ą':'a','å':'a','ǻ':'a','ḁ':'a','ã':'a','æ':'ae','ǽ':'ae','ǣ':'ae','ḃ':'b','ḅ':'b','ɓ':'b','ḇ':'b','ƃ':'b','ć':'c','č':'c','ç':'c','ḉ':'c','ĉ':'c','ċ':'c','ƈ':'c','ď':'d','ḑ':'d','ḓ':'d','ḋ':'d','ḍ':'d','ɗ':'d','ḏ':'d','ǲ':'d','ǅ':'d','đ':'d','ƌ':'d','ǳ':'dz','ǆ':'dz','é':'e','ĕ':'e','ě':'e','ḝ':'e','ê':'e','ế':'e','ệ':'e','ề':'e','ể':'e','ễ':'e','ḙ':'e','ë':'e','ė':'e','ẹ':'e','ȅ':'e','è':'e','ẻ':'e','ȇ':'e','ē':'e','ḗ':'e','ḕ':'e','ę':'e','ẽ':'e','ḛ':'e','ḟ':'f','ƒ':'f','ǵ':'g','ğ':'g','ǧ':'g','ģ':'g','ĝ':'g','ġ':'g','ɠ':'g','ḡ':'g','ǥ':'g','ḫ':'h','ḩ':'h','ĥ':'h','ḧ':'h','ḣ':'h','ḥ':'h','ħ':'h','í':'i','ĭ':'i','ǐ':'i','î':'i','ï':'i','ḯ':'i','İ':'i','ị':'i','ȉ':'i','ì':'i','ỉ':'i','ȋ':'i','ī':'i','į':'i','ɨ':'i','ĩ':'i','ḭ':'i','ĵ':'j','ḱ':'k','ǩ':'k','ķ':'k','ḳ':'k','ƙ':'k','ḵ':'k','ĺ':'l','ľ':'l','ļ':'l','ḽ':'l','ḷ':'l','ḹ':'l','ḻ':'l','ŀ':'l','ǈ':'l','ł':'l','ǉ':'lj','ḿ':'m','ṁ':'m','ṃ':'m','ń':'n','ň':'n','ņ':'n','ṋ':'n','ṅ':'n','ṇ':'n','ɲ':'n','ṉ':'n','ǋ':'n','ñ':'n','ǌ':'nj','ó':'o','ŏ':'o','ǒ':'o','ô':'o','ố':'o','ộ':'o','ồ':'o','ổ':'o','ỗ':'o','ö':'o','ọ':'o','ő':'o','ȍ':'o','ò':'o','ỏ':'o','ơ':'o','ớ':'o','ợ':'o','ờ':'o','ở':'o','ỡ':'o','ȏ':'o','ō':'o','ṓ':'o','ṑ':'o','ɵ':'o','ǫ':'o','ǭ':'o','ø':'o','ǿ':'o','õ':'o','ṍ':'o','ṏ':'o','ƣ':'oi','ɛ':'e','ɔ':'o','ṕ':'p','ṗ':'p','ƥ':'p','ŕ':'r','ř':'r','ŗ':'r','ṙ':'r','ṛ':'r','ṝ':'r','ȑ':'r','ȓ':'r','ṟ':'r','ǝ':'e','ś':'s','ṥ':'s','š':'s','ṧ':'s','ş':'s','ŝ':'s','ṡ':'s','ṣ':'s','ṩ':'s','ț':'t','ť':'t','ţ':'t','ṱ':'t','ṫ':'t','ṭ':'t','ƭ':'t','ṯ':'t','ʈ':'t','ŧ':'t','ɯ':'m','ú':'u','ŭ':'u','ǔ':'u','û':'u','ṷ':'u','ü':'u','ǘ':'u','ǚ':'u','ǜ':'u','ǖ':'u','ṳ':'u','ụ':'u','ű':'u','ȕ':'u','ù':'u','ủ':'u','ư':'u','ứ':'u','ự':'u','ừ':'u','ử':'u','ữ':'u','ȗ':'u','ū':'u','ṻ':'u','ų':'u','ů':'u','ũ':'u','ṹ':'u','ṵ':'u','ṿ':'v','ʋ':'v','ṽ':'v','ẃ':'w','ŵ':'w','ẅ':'w','ẇ':'w','ẉ':'w','ẁ':'w','ẍ':'x','ẋ':'x','ý':'y','ŷ':'y','ÿ':'y','ẏ':'y','ỵ':'y','ỳ':'y','ƴ':'y','ỷ':'y','ỹ':'y','ź':'z','ž':'z','ẑ':'z','ż':'z','ẓ':'z','ẕ':'z','ƶ':'z','ĳ':'ij','œ':'oe','ʙ':'b','ɢ':'g','ʛ':'g','ʜ':'h','ɪ':'i','ʁ':'r','ʟ':'l','ɴ':'n','ɶ':'oe','ʀ':'r','ʏ':'y','ẚ':'a','ƀ':'b','ɕ':'c','ɖ':'d','ı':'i','ɟ':'j','ʄ':'j','ɦ':'h','ẖ':'h','ƕ':'hv','ǰ':'j','ʝ':'j','ƚ':'l','ɬ':'l','ɫ':'l','ɭ':'l','ſ':'s','ẛ':'s','ɱ':'m','ƞ':'n','ɳ':'n','ʠ':'q','ɾ':'r','ɼ':'r','ɽ':'r','ɘ':'e','ɿ':'r','ʂ':'s','ɡ':'g','ẗ':'t','ƫ':'t','ɐ':'a','ɥ':'h','ʞ':'k','ɰ':'m','ɹ':'r','ɻ':'r','ɺ':'r','ʇ':'t','ʌ':'v','ʍ':'w','ʎ':'y','ẘ':'w','ẙ':'y','ʑ':'z','ʐ':'z','ﬀ':'ff','ﬃ':'ffi','ﬄ':'ffl','ﬁ':'fi','ﬂ':'fl','ﬆ':'st'};
-String.prototype.latinize=function(){return this.replace(/[^A-Za-z0-9\[\] ]/g,function(char){'use strict';return latin_map[char]||char})};
+String.prototype.latinize=function(){return this.replace(/[^A-Za-z0-9\[\] ]/g,function(char){'use strict';return latin_map[char]||char;});};
 /////////////////
 // SEARCHALIZE //
 /////////////////
 function searchalize(str) {
+	'use strict';
 	if(!str || str == '')	{ return ''; }
 	if(str === null)		{ return ''; }
 	str = str.split('	').join('');
@@ -2030,6 +2089,7 @@ function searchalize(str) {
 ////////////////
 if (!Array.prototype.find) {
 	Array.prototype.find = function (predicate) {
+		'use strict';
 		if (this === null) {
 			throw new TypeError('Array.prototype.find called on null or undefined');
 		}
@@ -2055,6 +2115,7 @@ if (!Array.prototype.find) {
 /////////////////////
 if (!Array.prototype.findIndex) {
 	Array.prototype.findIndex = function (predicate) {
+		'use strict';
 		if (this === null) {
 			throw new TypeError('Array.prototype.findIndex called on null or undefined');
 		}
@@ -2107,6 +2168,7 @@ if (!Array.prototype.filter) {
 ///////////////
 if (!Array.prototype.map) {
 	Array.prototype.map = function (callback, thisArg) {
+		'use strict';
 		var T,A,k;
 		if (this == null) {
 			throw new TypeError(' this is null or not defined');
@@ -2139,8 +2201,9 @@ if (!Array.prototype.map) {
 //////////////
 //ARRAY
 Array.prototype.contains = function(obj) {
+	'use strict';
 	return (JSON.stringify(this)).indexOf(JSON.stringify(obj)) > -1;
-}
+};
 /*
 Array.prototype.contains = function(str) {
 	if(!str) { return false; }
@@ -2151,6 +2214,7 @@ Array.prototype.contains = function(str) {
 */
 //STRING
 String.prototype.contains = function () {
+	'use strict';
 	return String.prototype.indexOf.apply(this, arguments) !== -1;
 };
 /*
@@ -2168,33 +2232,34 @@ String.prototype.contains = function (str) {
 ///////////
 function empty(mixedVar) {
 	'use strict';
-	var undef
-	var key
-	var i
-	var len
-	var emptyValues = [undef, null, false, 0, '', '0']
+	var undef;
+	var key;
+	var i;
+	var len;
+	var emptyValues = [undef, null, false, 0, '', '0'];
 
 	for (i = 0, len = emptyValues.length; i < len; i++) {
 		if (mixedVar === emptyValues[i]) {
-			return true
+			return true;
 		}
 	}
 
 	if (typeof mixedVar === 'object') {
 		for (key in mixedVar) {
 			if (mixedVar.hasOwnProperty(key)) {
-				return false
+				return false;
 			}
 		}
-		return true
+		return true;
 	}
 
-	return false
+	return false;
 }
 ////////////////
 // SORTBYATTR //
 ////////////////
 Array.prototype.sortbyattr = function(attr,order) {
+	'use strict';
 	// NORMAL ATTR SORT
 	this.sort(function(a, b) {
 		if(order == 'desc') {
@@ -2209,6 +2274,7 @@ Array.prototype.sortbyattr = function(attr,order) {
 // SORTOBJECT //
 ////////////////
 function sortObject(obj) {
+	'use strict';
 	var arr = [];
 	for (var prop in obj) {
 		if (obj.hasOwnProperty(prop)) {
@@ -2221,6 +2287,7 @@ function sortObject(obj) {
 // PUSH UNIQUE //
 /////////////////
 Array.prototype.pushUnique = function (item) {
+	'use strict';
 	if (this.indexOf(item) == -1) {
 		//if(jQuery.inArray(item, this) == -1) {
 		this.push(item);
@@ -2232,12 +2299,13 @@ Array.prototype.pushUnique = function (item) {
 // RETURN UNIQUES //
 ////////////////////
 function unique(obj) {
+	'use strict';
 	var uniques = [];
 	var stringify = {};
 	for (var i = 0; i < obj.length; i++) {
 		var keys = Object.keys(obj[i]);
 		keys.sort(function (a, b) {
-			return a - b
+			return a - b;
 		});
 		var str = '';
 		for (var j = 0; j < keys.length; j++) {
@@ -2254,7 +2322,8 @@ function unique(obj) {
 ////////////////
 // IS_NUMERIC //
 ////////////////
-function is_numeric(mixedVar) { // eslint-disable-line camelcase
+function is_numeric(mixedVar) {
+	'use strict';
 	var whitespace = [
 		' ',
 		'\n',
@@ -2278,29 +2347,32 @@ function is_numeric(mixedVar) { // eslint-disable-line camelcase
 		'\u2028',
 		'\u2029',
 		'\u3000'
-	].join('')
+	].join('');
 
 	// @todo: Break this up using many single conditions with early returns
 	return (typeof mixedVar === 'number' ||
 		(typeof mixedVar === 'string' &&
 			whitespace.indexOf(mixedVar.slice(-1)) === -1)) &&
 	mixedVar !== '' &&
-	!isNaN(mixedVar)
+	!isNaN(mixedVar);
 }
 ///////////////
 // ISNUMERIC //
 ///////////////
 function isNumeric(num) {
+	'use strict';
 	return (typeof num == 'string' || typeof num == 'number') && !isNaN(num - 0) && num !== '';
-};
+}
 //ISNUMBER
 function isNumber(num) {
+	'use strict';
 	return (typeof num == 'number') && !isNaN(num - 0) && num !== '';
-};
+}
 /////////////////
 // DATE FORMAT //
 /////////////////
 function dtFormat(input) {
+	'use strict';
     if(!input) { return ''; }
 	input        = new Date(input);
 	var gotYear  = input.getFullYear();
@@ -2318,6 +2390,7 @@ function dtFormat(input) {
 // DAY UTC FORMAT //
 ////////////////////
 var DayUtcFormat = function(input) {
+	'use strict';
     if(!input) { return ''; }
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
@@ -2326,20 +2399,22 @@ var DayUtcFormat = function(input) {
 	if(gotMonth < 10) { gotMonth = '0' + gotMonth; }
 	if(gotDate  < 10) { gotDate  = '0' + gotDate;  }
 	return gotYear + '/' + gotMonth + '/' + gotDate;
-}
+};
 var toDate = DayUtcFormat;
 /////////////////////
 // CONVERT TO TIME //
 /////////////////////
 var toTime = function (input){
+	'use strict';
 	if(!input) { return; }
 	var datum = Date.parse(input);
 	return datum;
-}
+};
 ////////////////
 // DAY FORMAT //
 ////////////////
 function dayFormat(input) {
+	'use strict';
     if(!input) { return ""; }
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
@@ -2353,7 +2428,7 @@ function dayFormat(input) {
 // DATEDIFF //
 //////////////
 function dateDiff(date1,date2) {
-	
+	'use strict';
 	//no future dates ~ implemented
 	//if(date1 > date2) { date1 = new Date().getTime(); }
 	
@@ -2401,12 +2476,12 @@ function dateDiff(date1,date2) {
 	} else {
 		return days + lDays + hours + lHours + minutes + lMinutes + ' ';
 	}
-
 }
 ////////////////////////
 // WINDOW ORIENTATION //
 ////////////////////////
 function getOrientation() {
+	'use strict';
 	if(window.orientation == 90 || window.orientation == -90) {
 		return 'landscape';
 	}
@@ -2418,6 +2493,7 @@ function getOrientation() {
 // ANDROID 2 SELECT //
 //////////////////////
 function android2Select() {
+	'use strict';
 	if(app.device.android && app.device.android < 4) {
 		$('body').append2('<input type="number" id="dummyInput" style="opacity: 0.001;" />');
 		$('#dummyInput').focus();
@@ -2429,6 +2505,7 @@ function android2Select() {
 // CSS LOAD COUNT //
 ////////////////////
 function cssLoadCount(num,total) {
+	'use strict';
 	if(typeof LANG === 'undefined') { return; }
 	//
 	var loadCounter = ' (' + num + '/' + total + ')';
@@ -2446,6 +2523,7 @@ function cssLoadCount(num,total) {
 // KICKDOWN //
 //////////////
 function kickDown(el) {
+	'use strict';
 	if(!el) { el = '#appContent'; }
 	//
 	try {
@@ -2466,6 +2544,7 @@ function kickDown(el) {
 // TRACK INSTALL //
 ///////////////////
 app.trackInstall = function () {
+	'use strict';
 	//REAL USERS
 	if(!app.read('intro_dismissed'))			{ return; }
 	//FIRST RUN
@@ -2495,6 +2574,7 @@ app.trackInstall = function () {
 //# ONLINE USERS #//
 //#//////////////#//
 app.online = function () {
+	'use strict';
 	$.ajax({type: 'GET', dataType: 'text', url: app.https + 'chronoburn.com/' + 'update.php?type=usr', success: function(onlineUsers) {
 		app.save('online_users',onlineUsers);
 		if(app.read('app_last_tab','tab1')) {
@@ -2510,6 +2590,7 @@ if(app.device.windows8) {
 	// METRO ALERT //
 	/////////////////
 	(function() {
+		'use strict';
 		var alertsToShow = [];
 		var dialogVisible = false;
 		function showPendingAlerts() {
@@ -2537,6 +2618,7 @@ if(app.device.windows8) {
 window.azert = window.alert;
 window.alert = {};
 window.alert = function (title, msg, button, callback) {
+	'use strict';
 	if (typeof title    !== 'undefined' && typeof msg === 'undefined') { msg  = ' '; }
 	if (typeof title    === 'undefined') { title  = 'alert';       }
 	if (typeof msg      === 'undefined') { msg    = 'msg';         }
@@ -2551,16 +2633,18 @@ window.alert = function (title, msg, button, callback) {
 		navigator.notification.alert(msg, callback, title, button);
 	} else {
 		if ((msg != 'msg' && msg != ' ') || title == 'alert') { msg = '\n' + msg; }
-		if (window.azert(title + '\n' + msg))
-		setTimeout(function () {
-			callback();
-		}, 0);
+		if (window.azert(title + '\n' + msg)) {
+			setTimeout(function () {
+				callback();
+			}, 0);
+		}
 	}
 };
 //##//////////////##//
 //## APP.PROMPT() ##//
 //##//////////////##// prompt: function(message, resultCallback, title, buttonLabels, defaultText) {
 app.prompt = function(title,content,callback) {
+	'use strict';
 	var usrPrompt = window.prompt(title,content);
 	if(usrPrompt !== null) {
 		callback(usrPrompt);
@@ -2590,6 +2674,7 @@ window.navigator.notification.prompt(
 var MSDialog;
 var MSNext = [];
 function appConfirm(title, msg, callback, ok, cancel) {
+	'use strict';
 	var okCancel = (cancel == 'hide') ? [ok] : [cancel, ok];
 	///////////
 	// MSAPP //
@@ -2660,6 +2745,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 // SENDMAIL //
 //////////////
 app.sendmail = function (usrMail, usrMsg, callback) {
+	'use strict';
 	if (usrMsg && usrMail) {
 		$.ajax({
 			type : 'POST',
@@ -2748,7 +2834,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 		isSweep : function (start, stop, checkTime) {
 			return stop.time - start.time < $.event.special.swipe.durationThreshold && 
 			Math.abs(start.coords[0] - stop.coords[0]) > $.event.special.swipe.horizontalDistanceThreshold &&
-			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold
+			Math.abs(start.coords[1] - stop.coords[1]) < $.event.special.swipe.verticalDistanceThreshold;
 		},
 
 		add : function (handleObj) {
@@ -3046,13 +3132,14 @@ $.event.special.swipe = {
 		remove : function () {
 			$(this).off(touchstart).off(touchend);
 		}
-	}
+	};
 })(jQuery);
 //#////////////#//
 //# TAPHOLD.JS #//
 //#////////////#// https://svn.stylite.de/egwdoc/phpgwapi/js/jquery/jquery-tap-and-hold/jquery.tapandhold.js.source.txt
 (function ($) {
 	'use strict';
+	
 	var TAP_AND_HOLD_TRIGGER_TIMER = 1500;
 	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 15;
 
@@ -3067,21 +3154,21 @@ $.event.special.swipe = {
 		var diffX = (x2 - x1);
 		var diffY = (y2 - y1);
 		return Math.sqrt((diffX * diffX) + (diffY * diffY));
-	};
+	}
 
 	function onTouchStart(event) {
 		var e = app.pointer(event).e;
 
 		// Only start detector if and only if one finger is over the widget
 		if (!e.touches || (e.targetTouches.length === 1 && e.touches.length === 1)) {
-			startTapAndHoldDetector.call(this, event)
+			startTapAndHoldDetector.call(this, event);
 			var element = $(this);
 			element.bind(TOUCHMOVE, onTouchMove);
 			element.bind(TOUCHEND, onTouchEnd);
 		} else {
 			stopTapAndHoldDetector.call(this);
 		}
-	};
+	}
 
 	function onTouchMove(event) {
 		if (tapAndHoldTimer == null) {
@@ -3102,22 +3189,22 @@ $.event.special.swipe = {
 		if (euclideanDistance > MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT) {
 			stopTapAndHoldDetector.call(this);
 		}
-	};
+	}
 
 	function onTouchEnd(event) {
 		stopTapAndHoldDetector.call(this);
-	};
+	}
 
 	function onTapAndHold(event) {
 		clear.call(this);
 		$(this).data("taphold.handler").call(this, event);
-	};
+	}
 
 	function clear() {
 		tapAndHoldTimer = null;
 		$(this).unbind(TOUCHMOVE, onTouchMove);
 		$(this).unbind(TOUCHEND, onTouchEnd);
-	};
+	}
 
 	function startTapAndHoldDetector(event) {
 		if (tapAndHoldTimer != null) {
@@ -3125,7 +3212,7 @@ $.event.special.swipe = {
 		}
 		var self = this;
 		tapAndHoldTimer = setTimeout(function () {
-				onTapAndHold.call(self, event)
+				onTapAndHold.call(self, event);
 			}, TAP_AND_HOLD_TRIGGER_TIMER);
 
 		// Stores tap x & y
@@ -3135,14 +3222,14 @@ $.event.special.swipe = {
 		tapAndHoldPoint.x = e.x;
 		tapAndHoldPoint.y = e.y;
 		$(this).data('taphold.point', tapAndHoldPoint);
-	};
+	}
 
 	function stopTapAndHoldDetector() {
 		clearTimeout(tapAndHoldTimer);
 		clear.call(this);
-	};
+	}
 
-	$.event.special['hold'] = {
+	$.event.special.hold = {
 		setup : function () {},
 
 		add : function (handleObj) {
@@ -3182,21 +3269,24 @@ openFB=function(){function e(e){if(!e.appId)throw"appId parameter not set in ini
 //# MD5 #//
 //#/////#//
 !function(a){if("object"==typeof exports)module.exports=a();else if("function"==typeof define&&define.amd)define(a);else{var b;try{b=window}catch(a){b=self}b.SparkMD5=a()}}(function(a){"use strict";function d(a,c,d,e,f,g){return c=b(b(c,a),b(e,g)),b(c<<f|c>>>32-f,d)}function e(a,b,c,e,f,g,h){return d(b&c|~b&e,a,b,f,g,h)}function f(a,b,c,e,f,g,h){return d(b&e|c&~e,a,b,f,g,h)}function g(a,b,c,e,f,g,h){return d(b^c^e,a,b,f,g,h)}function h(a,b,c,e,f,g,h){return d(c^(b|~e),a,b,f,g,h)}function i(a,c){var d=a[0],i=a[1],j=a[2],k=a[3];d=e(d,i,j,k,c[0],7,-680876936),k=e(k,d,i,j,c[1],12,-389564586),j=e(j,k,d,i,c[2],17,606105819),i=e(i,j,k,d,c[3],22,-1044525330),d=e(d,i,j,k,c[4],7,-176418897),k=e(k,d,i,j,c[5],12,1200080426),j=e(j,k,d,i,c[6],17,-1473231341),i=e(i,j,k,d,c[7],22,-45705983),d=e(d,i,j,k,c[8],7,1770035416),k=e(k,d,i,j,c[9],12,-1958414417),j=e(j,k,d,i,c[10],17,-42063),i=e(i,j,k,d,c[11],22,-1990404162),d=e(d,i,j,k,c[12],7,1804603682),k=e(k,d,i,j,c[13],12,-40341101),j=e(j,k,d,i,c[14],17,-1502002290),i=e(i,j,k,d,c[15],22,1236535329),d=f(d,i,j,k,c[1],5,-165796510),k=f(k,d,i,j,c[6],9,-1069501632),j=f(j,k,d,i,c[11],14,643717713),i=f(i,j,k,d,c[0],20,-373897302),d=f(d,i,j,k,c[5],5,-701558691),k=f(k,d,i,j,c[10],9,38016083),j=f(j,k,d,i,c[15],14,-660478335),i=f(i,j,k,d,c[4],20,-405537848),d=f(d,i,j,k,c[9],5,568446438),k=f(k,d,i,j,c[14],9,-1019803690),j=f(j,k,d,i,c[3],14,-187363961),i=f(i,j,k,d,c[8],20,1163531501),d=f(d,i,j,k,c[13],5,-1444681467),k=f(k,d,i,j,c[2],9,-51403784),j=f(j,k,d,i,c[7],14,1735328473),i=f(i,j,k,d,c[12],20,-1926607734),d=g(d,i,j,k,c[5],4,-378558),k=g(k,d,i,j,c[8],11,-2022574463),j=g(j,k,d,i,c[11],16,1839030562),i=g(i,j,k,d,c[14],23,-35309556),d=g(d,i,j,k,c[1],4,-1530992060),k=g(k,d,i,j,c[4],11,1272893353),j=g(j,k,d,i,c[7],16,-155497632),i=g(i,j,k,d,c[10],23,-1094730640),d=g(d,i,j,k,c[13],4,681279174),k=g(k,d,i,j,c[0],11,-358537222),j=g(j,k,d,i,c[3],16,-722521979),i=g(i,j,k,d,c[6],23,76029189),d=g(d,i,j,k,c[9],4,-640364487),k=g(k,d,i,j,c[12],11,-421815835),j=g(j,k,d,i,c[15],16,530742520),i=g(i,j,k,d,c[2],23,-995338651),d=h(d,i,j,k,c[0],6,-198630844),k=h(k,d,i,j,c[7],10,1126891415),j=h(j,k,d,i,c[14],15,-1416354905),i=h(i,j,k,d,c[5],21,-57434055),d=h(d,i,j,k,c[12],6,1700485571),k=h(k,d,i,j,c[3],10,-1894986606),j=h(j,k,d,i,c[10],15,-1051523),i=h(i,j,k,d,c[1],21,-2054922799),d=h(d,i,j,k,c[8],6,1873313359),k=h(k,d,i,j,c[15],10,-30611744),j=h(j,k,d,i,c[6],15,-1560198380),i=h(i,j,k,d,c[13],21,1309151649),d=h(d,i,j,k,c[4],6,-145523070),k=h(k,d,i,j,c[11],10,-1120210379),j=h(j,k,d,i,c[2],15,718787259),i=h(i,j,k,d,c[9],21,-343485551),a[0]=b(d,a[0]),a[1]=b(i,a[1]),a[2]=b(j,a[2]),a[3]=b(k,a[3])}function j(a){var c,b=[];for(c=0;c<64;c+=4)b[c>>2]=a.charCodeAt(c)+(a.charCodeAt(c+1)<<8)+(a.charCodeAt(c+2)<<16)+(a.charCodeAt(c+3)<<24);return b}function k(a){var c,b=[];for(c=0;c<64;c+=4)b[c>>2]=a[c]+(a[c+1]<<8)+(a[c+2]<<16)+(a[c+3]<<24);return b}function l(a){var d,e,f,g,h,k,b=a.length,c=[1732584193,-271733879,-1732584194,271733878];for(d=64;d<=b;d+=64)i(c,j(a.substring(d-64,d)));for(a=a.substring(d-64),e=a.length,f=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],d=0;d<e;d+=1)f[d>>2]|=a.charCodeAt(d)<<(d%4<<3);if(f[d>>2]|=128<<(d%4<<3),d>55)for(i(c,f),d=0;d<16;d+=1)f[d]=0;return g=8*b,g=g.toString(16).match(/(.*?)(.{0,8})$/),h=parseInt(g[2],16),k=parseInt(g[1],16)||0,f[14]=h,f[15]=k,i(c,f),c}function m(a){var d,e,f,g,h,j,b=a.length,c=[1732584193,-271733879,-1732584194,271733878];for(d=64;d<=b;d+=64)i(c,k(a.subarray(d-64,d)));for(a=d-64<b?a.subarray(d-64):new Uint8Array(0),e=a.length,f=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],d=0;d<e;d+=1)f[d>>2]|=a[d]<<(d%4<<3);if(f[d>>2]|=128<<(d%4<<3),d>55)for(i(c,f),d=0;d<16;d+=1)f[d]=0;return g=8*b,g=g.toString(16).match(/(.*?)(.{0,8})$/),h=parseInt(g[2],16),j=parseInt(g[1],16)||0,f[14]=h,f[15]=j,i(c,f),c}function n(a){var d,b="";for(d=0;d<4;d+=1)b+=c[a>>8*d+4&15]+c[a>>8*d&15];return b}function o(a){var b;for(b=0;b<a.length;b+=1)a[b]=n(a[b]);return a.join("")}function p(a){return/[\u0080-\uFFFF]/.test(a)&&(a=unescape(encodeURIComponent(a))),a}function q(a,b){var f,c=a.length,d=new ArrayBuffer(c),e=new Uint8Array(d);for(f=0;f<c;f+=1)e[f]=a.charCodeAt(f);return b?e:d}function r(a){return String.fromCharCode.apply(null,new Uint8Array(a))}function s(a,b,c){var d=new Uint8Array(a.byteLength+b.byteLength);return d.set(new Uint8Array(a)),d.set(new Uint8Array(b),a.byteLength),c?d:d.buffer}function t(a){var d,b=[],c=a.length;for(d=0;d<c-1;d+=2)b.push(parseInt(a.substr(d,2),16));return String.fromCharCode.apply(String,b)}function u(){this.reset()}var b=function(a,b){return a+b&4294967295},c=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];return"5d41402abc4b2a76b9719d911017c592"!==o(l("hello"))&&(b=function(a,b){var c=(65535&a)+(65535&b),d=(a>>16)+(b>>16)+(c>>16);return d<<16|65535&c}),"undefined"==typeof ArrayBuffer||ArrayBuffer.prototype.slice||!function(){function b(a,b){return a=0|a||0,a<0?Math.max(a+b,0):Math.min(a,b)}ArrayBuffer.prototype.slice=function(c,d){var h,i,j,k,e=this.byteLength,f=b(c,e),g=e;return d!==a&&(g=b(d,e)),f>g?new ArrayBuffer(0):(h=g-f,i=new ArrayBuffer(h),j=new Uint8Array(i),k=new Uint8Array(this,f,h),j.set(k),i)}}(),u.prototype.append=function(a){return this.appendBinary(p(a)),this},u.prototype.appendBinary=function(a){this._buff+=a,this._length+=a.length;var c,b=this._buff.length;for(c=64;c<=b;c+=64)i(this._hash,j(this._buff.substring(c-64,c)));return this._buff=this._buff.substring(c-64),this},u.prototype.end=function(a){var d,f,b=this._buff,c=b.length,e=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];for(d=0;d<c;d+=1)e[d>>2]|=b.charCodeAt(d)<<(d%4<<3);return this._finish(e,c),f=o(this._hash),a&&(f=t(f)),this.reset(),f},u.prototype.reset=function(){return this._buff="",this._length=0,this._hash=[1732584193,-271733879,-1732584194,271733878],this},u.prototype.getState=function(){return{buff:this._buff,length:this._length,hash:this._hash}},u.prototype.setState=function(a){return this._buff=a.buff,this._length=a.length,this._hash=a.hash,this},u.prototype.destroy=function(){delete this._hash,delete this._buff,delete this._length},u.prototype._finish=function(a,b){var d,e,f,c=b;if(a[c>>2]|=128<<(c%4<<3),c>55)for(i(this._hash,a),c=0;c<16;c+=1)a[c]=0;d=8*this._length,d=d.toString(16).match(/(.*?)(.{0,8})$/),e=parseInt(d[2],16),f=parseInt(d[1],16)||0,a[14]=e,a[15]=f,i(this._hash,a)},u.hash=function(a,b){return u.hashBinary(p(a),b)},u.hashBinary=function(a,b){var c=l(a),d=o(c);return b?t(d):d},u.ArrayBuffer=function(){this.reset()},u.ArrayBuffer.prototype.append=function(a){var d,b=s(this._buff.buffer,a,!0),c=b.length;for(this._length+=a.byteLength,d=64;d<=c;d+=64)i(this._hash,k(b.subarray(d-64,d)));return this._buff=d-64<c?new Uint8Array(b.buffer.slice(d-64)):new Uint8Array(0),this},u.ArrayBuffer.prototype.end=function(a){var e,f,b=this._buff,c=b.length,d=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];for(e=0;e<c;e+=1)d[e>>2]|=b[e]<<(e%4<<3);return this._finish(d,c),f=o(this._hash),a&&(f=t(f)),this.reset(),f},u.ArrayBuffer.prototype.reset=function(){return this._buff=new Uint8Array(0),this._length=0,this._hash=[1732584193,-271733879,-1732584194,271733878],this},u.ArrayBuffer.prototype.getState=function(){var a=u.prototype.getState.call(this);return a.buff=r(a.buff),a},u.ArrayBuffer.prototype.setState=function(a){return a.buff=q(a.buff,!0),u.prototype.setState.call(this,a)},u.ArrayBuffer.prototype.destroy=u.prototype.destroy,u.ArrayBuffer.prototype._finish=u.prototype._finish,u.ArrayBuffer.hash=function(a,b){var c=m(new Uint8Array(a)),d=o(c);return b?t(d):d},u});
-var md5 = function(str) { if(str) { return SparkMD5.hash(str); }}
+var md5 = function(str) { 'use strict'; if(str) { return SparkMD5.hash(str); }};
 //#/////#//
 //# MD5 #//
 //#/////#//
 var md4 = function (str) {
+	'use strict';
 	var hash = 0;
-	if (str.length == 0)
+	var char;
+	if (str.length == 0) {
 		return hash;
-	for (i = 0; i < str.length; i++) {
+	}
+	for (var i=0; i<str.length; i++) {
 		char = str.charCodeAt(i);
 		hash = ((hash << 5) - hash) + char;
 		hash = hash & hash;
 	}
 	return hash;
-}
+};
 ////////////////
 ///////////////
 //////////////
