@@ -271,7 +271,7 @@
 				event += ')';
 			}
 			if (value) {
-				event += '(' + value + ')'
+				event += '(' + value + ')';
 			}
 			if (custom_vars.length > 1) {
 				var names = '';

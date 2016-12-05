@@ -1263,7 +1263,7 @@
 		that._selectedValues = {};
 
 		that.init(settings);
-	}
+	};
 
 	function setTap() {
 		tap = true;

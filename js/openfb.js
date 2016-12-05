@@ -241,7 +241,7 @@ var openFB = (function () {
         api: api,
         oauthCallback: oauthCallback,
         getLoginStatus: getLoginStatus
-    }
+    };
 
 }());
 

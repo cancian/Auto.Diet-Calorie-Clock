@@ -5,6 +5,7 @@ var recalc_onclick;
 var eedisplayFloat;
 var eeparseFloat;
 (function () {
+'use strict';
 var co = [];
 var eeisus = 1;
 var eetrue = "TRUE";
@@ -55,8 +56,8 @@ recalc_onclick = function (e) {
 	$("#pA10F").val(eedisplayFloatND(co.pA10F, 2));
 	$("#pA10H").val(eedisplayFloatND(co.pA10H, 2));
 	$("#pA10L").val(eedisplayFloatND(co.pA10L, 2));
-	$("#pA10N").val(eedisplayFloatND(co.pA10N, 2))
-}
+	$("#pA10N").val(eedisplayFloatND(co.pA10N, 2));
+};
 
 function calc(e) {
 	var t = e.pA1B;
@@ -126,30 +127,30 @@ function calc(e) {
 	e.pA10F = H;
 	e.pA10H = R;
 	e.pA10L = B;
-	e.pA10N = U
+	e.pA10N = U;
 }
 function str_eq(e, t) {
 	if (!e || !t) {
-		return
+		return;
 	}
-	return e.toLowerCase() == t.toLowerCase()
+	return e.toLowerCase() == t.toLowerCase();
 }
 function myIsNaN(e) {
-	return isNaN(e) || typeof e == "number" && !isFinite(e)
+	return isNaN(e) || typeof e == "number" && !isFinite(e);
 }
 function round(e, t) {
 	if (isFinite(e) && isFinite(t)) {
 		var n = e < 0 ? -1 : 1;
 		var r = Math.abs(e);
 		var i = Math.pow(10, t);
-		return n * Math.round(r * i) / i
+		return n * Math.round(r * i) / i;
 	} else {
-		return NaN
+		return NaN;
 	}
 }
 function s2n(e) {
 	e = String(e).replace(eedecreg, ".");
-	return parseFloat(e)
+	return parseFloat(e);
 }
 function v2n(e) {
 	switch (typeof e) {
@@ -161,38 +162,38 @@ function v2n(e) {
 		return e ? 1 : 0;
 	case "object":
 		if (e.constructor == Number) {
-			return e
+			return e;
 		}
 		if (e.constructor == String) {
-			return s2n(e)
+			return s2n(e);
 		}
 		if (e.constructor == Boolean) {
-			return e ? 1 : 0
+			return e ? 1 : 0;
 		}
 		return Number.NaN;
 	default:
-		return Number.NaN
+		return Number.NaN;
 	}
 }
 eeparseFloat = function (e) {
 	e = String(e).replace(eedecreg, ".");
 	var t = parseFloat(e);
 	if (isNaN(t)) {
-		return 0
+		return 0;
 	} else {
-		return t
+		return t;
 	}
-}
+};
 eedisplayFloat = function (e) {
 	if (myIsNaN(e)) {
-		return Number.NaN
+		return Number.NaN;
 	} else {
-		return String(e).replace(/\./g, eedec)
+		return String(e).replace(/\./g, eedec);
 	}
-}
+};
 function eedisplayFloatND(e, t) {
 	if (myIsNaN(e)) {
-		return Number.NaN
+		return Number.NaN;
 	} else {
 		var n = round(e, t);
 		if (t > 0) {
@@ -204,13 +205,13 @@ function eedisplayFloatND(e, t) {
 			var i = r.split(".");
 			if (i.length < 2) {
 				var s = "00000000000000".substring(0, t);
-				return i[0].toString() + eedec + s
+				return i[0].toString() + eedec + s;
 			} else {
 				var s = (i[1].toString() + "00000000000000").substring(0, t);
-				return i[0].toString() + eedec + s
+				return i[0].toString() + eedec + s;
 			}
 		} else {
-			return n
+			return n;
 		}
 	}
 }
@@ -219,13 +220,13 @@ function eeparseFloatV(e) {
 		return e;
 	e = String(e).replace(eedecreg, ".");
 	if (!eeparseFloatVreg.test(e)) {
-		return e
+		return e;
 	}
 	var t = parseFloat(e);
 	if (isNaN(t)) {
-		return e
+		return e;
 	} else {
-		return t
+		return t;
 	}
 }
 
