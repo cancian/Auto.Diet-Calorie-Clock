@@ -334,7 +334,7 @@ function updateNutriBars() {
 	}
 	//return null
 	var doReturn = 0;
-	if((tPro + tCar + tFat) == 0) {
+	if((tPro + tCar + tFat) === 0) {
 		$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase());
 		$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase());
 		$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase());
@@ -344,7 +344,7 @@ function updateNutriBars() {
 		$('#appStatusBarsFat span').html2('0%');
 		doReturn++;
 	}
-	if((tFii + tSug + tSod) == 0) {
+	if((tFii + tSug + tSod) === 0) {
 		$('#appStatusBarsFib div').html2('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSug div').html2('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSod div').html2('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);

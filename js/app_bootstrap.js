@@ -4,6 +4,7 @@
 if(typeof $ !== 'undefined' && typeof $.ajaxSetup !== 'undefined') {
 	$.support.cors = true;
 	$.ajaxSetup({cache: false, crossDomain: true, async: true, error: function(jqXHR, exception) {
+		'use strict';
 			 if(jqXHR.status === 0)           { console.log('Not connect.\n Verify Network.');         }
 		else if (jqXHR.status == 404)         { console.log('Requested page not found. [404]');        }
 		else if (jqXHR.status == 500)         { console.log('Internal Server Error [500].');           }
@@ -28,7 +29,8 @@ if(typeof $ !== 'undefined' && typeof $.ajaxSetup !== 'undefined') {
 //# LOCAL SUPERBLOCK #//
 //#//////////////////#//
 function InitializeLocalSuperBlock(opt) {
-	if(opt == 'cached') { return; }
+	'use strict';
+	if(opt === 'cached') { return; }
 	var dataJS  = '';
 	var dataCSS = '';
 	$.ajax({type: 'GET', dataType: 'text', url: 'js/app_lib.js',         success: function(raw) { dataJS  = dataJS  + raw;
@@ -69,10 +71,10 @@ function InitializeLocalSuperBlock(opt) {
 		}
 		setTimeout(function() {
 			//WRITE RESULTS
-			if(dataJS != appStorage.getItem('remoteSuperBlockJS')) {
+			if(dataJS !== appStorage.getItem('remoteSuperBlockJS')) {
 				appStorage.setItem('remoteSuperBlockJS',dataJS);
 			}
-			if(dataCSS != appStorage.getItem('remoteSuperBlockCSS')) {
+			if(dataCSS !== appStorage.getItem('remoteSuperBlockCSS')) {
 				appStorage.setItem('remoteSuperBlockCSS',dataCSS);
 			}
 		}, 0);
@@ -88,6 +90,7 @@ function InitializeLocalSuperBlock(opt) {
 //#///////////////////#//
 var remoteSuperBlockTimer;
 function buildRemoteSuperBlock(opt) {
+	'use strict';
 	clearTimeout(remoteSuperBlockTimer);
 	remoteSuperBlockTimer = setTimeout(function() {
 		if($('body').hasClass('loading')) { return; }
@@ -95,7 +98,7 @@ function buildRemoteSuperBlock(opt) {
 		var dataJS  = '';
 		var dataCSS = '';
 		var hostLocal2 = https + 'chronoburn.com/';
-		if(appStorage.getItem('config_debug') == 'active') {
+		if(appStorage.getItem('config_debug') === 'active') {
 			hostLocal2 = https + '192.168.1.5/';
 		}
 		//retrieve ajax check
@@ -107,7 +110,7 @@ function buildRemoteSuperBlock(opt) {
 		////////////////
 		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=min', error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
 		//null
-		if(hash == '') { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
+		if(hash === '') { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
 		var hashObj = hash.split(',');
 		//length
 		if(parseInt(hashObj[1]) > 1000) {
@@ -168,18 +171,18 @@ function buildRemoteSuperBlock(opt) {
 		////////////////////
 		var updatePending = 0;
 		//QUOTA
-		if (dataJS != appStorage.getItem('remoteSuperBlockJS')) {
+		if (dataJS !== appStorage.getItem('remoteSuperBlockJS')) {
 			appStorage.setItem('remoteSuperBlockJS', dataJS);
 			updatePending = 1;
 		}
-		if (dataCSS != appStorage.getItem('remoteSuperBlockCSS')) {
+		if (dataCSS !== appStorage.getItem('remoteSuperBlockCSS')) {
 			appStorage.setItem('remoteSuperBlockCSS', dataCSS);
 			updatePending = 1;
 		}
 		////////////////////
 		// RESTART DIALOG //
 		////////////////////
-		if (updatePending == 1) {
+		if (updatePending === 1) {
 			setTimeout(function () {
 				if (typeof app !== 'undefined') {
 					if (typeof app.analytics === 'function') {
@@ -195,21 +198,20 @@ function buildRemoteSuperBlock(opt) {
 			appStorage.setItem('app_restart_pending', true);
 			if (appStorage.getItem('app_notify_update')) {
 				setTimeout(function () {
-					if (typeof appConfirm == 'function') {
-						function quickReboot(button) {
+					if (typeof appConfirm === 'function') {
+						appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], function (button) {
 							if (button === 2) {
 								afterHide();
 							} else {
 								appStorage.setItem('app_restart_pending', true);
 							}
-						}
-						appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], quickReboot, LANG.OK[lang], LANG.CANCEL[lang]);
+						}, LANG.OK[lang], LANG.CANCEL[lang]);
 					}
 				}, 2000);
 			}
 		} else {
 			$('body').removeClass('loading');
-			if (isCurrentCacheValid == 1) {
+			if (isCurrentCacheValid === 1) {
 				$('body').addClass('uptodate');
 			} else {
 				$('body').addClass('corrupted');
@@ -232,9 +234,9 @@ function buildRemoteSuperBlock(opt) {
 if(!appStorage.getItem('config_autoupdate')) {
 	appStorage.setItem('config_autoupdate','on');
 }
-if(appStorage.getItem('config_autoupdate') == 'on') {
+if(appStorage.getItem('config_autoupdate') === 'on') {
 	//IF SUPERBLOCK MISSING
-	if(isCurrentCacheValid != 1) {
+	if(isCurrentCacheValid !== 1) {
 		//BUILD LOCAL SUPERBLOCK
 		if(!$('#plainLoad').length) {
 			InitializeLocalSuperBlock();
@@ -242,6 +244,7 @@ if(appStorage.getItem('config_autoupdate') == 'on') {
 	}
 	//CHECK UPDATES
 	$(function() {
+		'use strict';
 		//SAVE REQUEST
 		if(!appStorage.getItem('remoteSuperBlockJS') || !appStorage.getItem('remoteSuperBlockCSS')) {
 			setTimeout(function() {
@@ -250,14 +253,15 @@ if(appStorage.getItem('config_autoupdate') == 'on') {
 				}
 			},2500);
 		}
-		var cacheTimeout = appStorage.getItem('config_debug') == 'active' ? 0 : 6000;
+		var cacheTimeout = appStorage.getItem('config_debug') === 'active' ? 0 : 6000;
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		},cacheTimeout);
+		}, cacheTimeout);
 	});
 }
 // BACKWARDS COMPAT //
 $(function() {
+	'use strict';
 	setTimeout(function() {
 		if(/http/i.test(window.location.protocol)) {
 			$('body').addClass('started');
