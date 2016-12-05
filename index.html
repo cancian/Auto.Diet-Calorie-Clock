@@ -94,7 +94,8 @@ if(/http/i.test(window.location.protocol) && /kcals.net|clock/i.test(location.ho
 if (/MSApp/i.test(navigator.userAgent)) {
 	var MSDialog2;
 	var MSNext2 = [];
-	function MSAppIndexConfirm(title, msg, callback, ok, cancel) {
+	var MSAppIndexConfirm = function (title, msg, callback, ok, cancel) {
+		'use strict';
 		//STORE NEXT
 		if (MSDialog2 == true) {
 			var isRepeated = 0;
@@ -137,12 +138,13 @@ if (/MSApp/i.test(navigator.userAgent)) {
 		} catch (err) {
 			MSDialog2 = false;
 		}
-	}
+	};
 }
 /////////////////////////
 // WIPE CACHE FUNCTION //
 /////////////////////////
 function wipeCache(button,silent,msg) {
+	'use strict';
 	if (button == 2) {
 		setTimeout(function () {
 			/////////////////
@@ -198,6 +200,7 @@ function wipeCache(button,silent,msg) {
 // DETECT OFFLINE //
 ////////////////////
 var bodyTimer = setTimeout(function() {
+	'use strict';
 	if((typeof updateTimer != 'function') && ((!/http/i.test(window.location.protocol)) || (appStorage.getItem('remoteSuperBlockJS') || appStorage.getItem('remoteSuperBlockCSS')))) {
 		/////////////
 		// RESTART //
@@ -209,6 +212,7 @@ var bodyTimer = setTimeout(function() {
 // BREAK BOOTLOOP //
 ////////////////////
 setTimeout(function () {
+	'use strict';
 	if (!appStorage.getItem('consecutive_reboots')) {
 		appStorage.setItem('consecutive_reboots', 0);
 	} else if (parseInt(appStorage.getItem('consecutive_reboots')) >= 5) {
@@ -225,6 +229,7 @@ setTimeout(function () {
 ////////////////////
 var bootLoopBroken  = false;
 var bootLoopBreaker = function () {
+	'use strict';
 	if (document.body && document.getElementById('loadMask')) {
 		if (document.body.classList) {
 			if (/unloaded/i.test(document.body.classList) && bootLoopBroken == false) {
@@ -232,7 +237,7 @@ var bootLoopBreaker = function () {
 				bootLoopBroken = true;
 				document.getElementById('loadMask').style.backgroundColor = '#FBF01F';
 				if(typeof confirm !== 'undefined' && !/MSApp/i.test(navigator.userAgent)) {
-					if (confirm('*** RECOVERY SYSTEM ***\n\Would you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
+					if (confirm('*** RECOVERY SYSTEM ***\nWould you like to erase the application cache?\n\nThis fixes most boot-related issues, and won\'t affect any of your data.')) {
 						wipeCache(2);
 					} else {
 						wipeCache(1);	
@@ -266,6 +271,7 @@ var hostLocal = '';
 var https     = /http:/i.test(window.location.protocol) || (appStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://';
 
 function bootStraper() {
+	'use strict';
 	//CLEAR RECOVERY
 	setTimeout(function() {
 		//REMOVE LISTENERS
@@ -276,7 +282,7 @@ function bootStraper() {
 			window.removeEventListener('MSPointerUp', bootLoopBreaker, false);
 			window.removeEventListener('pointerup', bootLoopBreaker, false);
 		}
-	}, 1000);
+	}, 3000);
 	//
 	if(appStorage.getItem('config_debug') == 'active') { hostLocal = https + '192.168.1.5/'; }
 	//INIT
@@ -287,7 +293,7 @@ function bootStraper() {
 					if(typeof callback === 'function') {
 						callback();
 					}
-				}
+				};
 			}
 		}
 		MSApp.execUnsafeLocalFunction(function() { 
