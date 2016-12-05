@@ -2,6 +2,7 @@
 //## DYNAMIC HANDLERS ##//
 //##//////////////////##//
 $(document).on("pageload", function (evt) {
+	'use strict';
 	// PREVENT++ //
 	var tgt = (evt.target.id > 0) ? '#' + evt.target.id : '';
 	var entryReturn = false;
@@ -169,7 +170,7 @@ $(document).on("pageload", function (evt) {
 								$('#kcalsDiv').parent("div").removeClass("editing");
 								var highTarget = $('#kcalsDiv').parent("div");
 								app.highlight(highTarget,300,'#ffc','#fff',function () {
-									eP = 0;
+									//eP = 0;
 									deKeyboard = (new Date()).getTime();
 									return false;
 								});
@@ -533,6 +534,7 @@ $(document).on("pageload", function (evt) {
 //#//////////////////////#//
 var pageReloads = 0;
 $(document).on("pageReload", function (evt) {
+	'use strict';
 	//pre-load db, then open
 	if (!app.read('foodDbLoaded','done')) {
 		if(pageReloads > 20) {
@@ -796,6 +798,7 @@ $(document).on("pageReload", function (evt) {
 //# CORE SQL SEARCH #//
 //#/////////////////#//
 function searchFood(searchSQL, callback) {
+	'use strict';
 	var typeTerm = app.read('searchType','exercise') ? 'exercise' : 'food';
 	var dato = appRows.food;
 	var keyJunk = 0;
@@ -839,6 +842,7 @@ function searchFood(searchSQL, callback) {
 //# SUB FUNCION: DO SEARCH #//
 //#////////////////////////#//
 function doSearch(rawInput) {
+	'use strict';
 	//ignore null searches
 	if (rawInput == '') {
 		rawInput = '•••';
@@ -854,17 +858,17 @@ function doSearch(rawInput) {
 		//partial sql syntax
 		var searchSQL = searchQuery.split(" ");
 		//prevent multiple identical searches
-		app.save('lastSearchTerm"', searchQuery);
+		app.save('lastSearchTerm', searchQuery);
 		//#/////////////////////#//
 		//# BUILD KEYWORD ARRAY #//
 		//#/////////////////////#//
 		var keywordArray = [];
-		searchArray = searchQuery;
+		//searchArray = searchQuery;
 		//check for multiple keywords
 		if (searchQuery.search(' ') > -1) {
 			searchQuery = searchQuery.split(" ");
 			//loop each key into array
-			for (i = 0; i < searchQuery.length; i++) {
+			for (var i = 0; i < searchQuery.length; i++) {
 				//not null
 				if (searchQuery[i] != "") {
 					//filter duplicates
@@ -941,6 +945,7 @@ function doSearch(rawInput) {
 //#  UPDATE CUSTOM LIST  #//
 //#//////////////////////#//
 function updateCustomList(filter,callback) {
+	'use strict';
 	if(/cat|all/i.test(filter)) {
 		getCatList();
 	}
@@ -977,6 +982,7 @@ function updateCustomList(filter,callback) {
 //##    CORE: BUILD FOOD LAYER   ##//
 //##/////////////////////////////##//
 function buildFoodMenu() {
+	'use strict';
 	var recentBlock = '\
 		<div id="infoContents" class="infoContents">\
 		<div id="tabMyCats">\
@@ -1077,6 +1083,7 @@ function buildFoodMenu() {
 //##    CORE: ADD NEW ITEM    ##//
 //##//////////////////////////##//
 function addNewItem(addnew) {
+	'use strict';
 	if (!addnew) {
 		return;
 	}
@@ -1455,6 +1462,7 @@ function addNewItem(addnew) {
 //#    MODAL WINDOW    #//
 //#////////////////////#//
 function getModalWindow(itemId) {
+	'use strict';
 	if (!itemId) {
 		return;
 	}
@@ -1521,23 +1529,25 @@ function getModalWindow(itemId) {
 		// MODAL.ADD() //
 		/////////////////
 		modal.add = function() {
+			var modalAmount;
+			var modalTotal;
 			if (isFoodRow) {
 				//FOOD
-				var modalAmount = parseInt($("#modalAmount").html()) + 5;
-				var modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
+				modalAmount = parseInt($('#modalAmount').html()) + 5;
+				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount < 755 && modalTotal < 9999) {
-					$("#modalAmount").html2(modalAmount);
-					$("#modalTotal").html2(modalTotal);
+					$('#modalAmount').html2(modalAmount);
+					$('#modalTotal').html2(modalTotal);
 					modal.updatenutrients();
 					modal.checkactive();
 				}
 			} else {
 				//EXERCISE
-				var modalAmount = parseInt($("#modalAmount").html()) + 1;
-				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
+				modalAmount = parseInt($('#modalAmount').html()) + 1;
+				modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
 				if (modalAmount < 361 && modalTotal < 9999) {
-					$("#modalAmount").html2(modalAmount);
-					$("#modalTotal").html2(modalTotal);
+					$('#modalAmount').html2(modalAmount);
+					$('#modalTotal').html2(modalTotal);
 					modal.checkactive();
 				}
 			}
@@ -1546,23 +1556,25 @@ function getModalWindow(itemId) {
 		// MODAL.REM() //
 		/////////////////
 		modal.rem = function() {
+			var modalAmount;
+			var modalTotal;
 			if (isFoodRow) {
 				//FOOD
-				var modalAmount = parseInt($("#modalAmount").html()) - 5;
-				var modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
+				modalAmount = parseInt($('#modalAmount').html()) - 5;
+				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount >= 0) {
-					$("#modalAmount").html2(modalAmount);
-					$("#modalTotal").html2(modalTotal);
+					$('#modalAmount').html2(modalAmount);
+					$('#modalTotal').html2(modalTotal);
 					modal.updatenutrients();
 					modal.checkactive();
 				}
 			} else {
 				//EXERCISE
-				var modalAmount = parseInt($("#modalAmount").html()) - 1;
-				var modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
+				modalAmount = parseInt($('#modalAmount').html()) - 1;
+				modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
 				if (modalAmount >= 0) {
-					$("#modalAmount").html2(modalAmount);
-					$("#modalTotal").html2(modalTotal);
+					$('#modalAmount').html2(modalAmount);
+					$('#modalTotal').html2(modalTotal);
 					modal.checkactive();
 				}
 			}
@@ -1615,12 +1627,12 @@ function getModalWindow(itemId) {
 				body      : saveBody,
 				published : saveTime,
 				type      : modal.type,
-				pro       : parseFloat($("#proData p").html()),
-				car       : parseFloat($("#carData p").html()),
-				fat       : parseFloat($("#fatData p").html()),
-				fii       : parseFloat($("#fiiData p").html()),
-				sug       : parseFloat($("#sugData p").html()),
-				sod       : parseFloat($("#sodData p").html()),
+				pro       : parseFloat($('#proData p').html()),
+				car       : parseFloat($('#carData p').html()),
+				fat       : parseFloat($('#fatData p').html()),
+				fii       : parseFloat($('#fiiData p').html()),
+				sug       : parseFloat($('#sugData p').html()),
+				sod       : parseFloat($('#sodData p').html()),
 			},function() {
 				$('#addNewConfirm').addClass('done');
 				//////////////
@@ -1728,7 +1740,7 @@ function getModalWindow(itemId) {
 			setTimeout(function() {
 				appFooter('tab2',0,function() {
 					app.suspend('#entryListForm',300);
-					$("#entryBody").val(modal.name);
+					$('#entryBody').val(modal.name);
 					setTimeout(function () {
 						$('#appHeader').trigger(touchstart);
 					}, 300);
