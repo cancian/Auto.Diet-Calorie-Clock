@@ -3,6 +3,7 @@
 //##//////////////////##//
 var buildTracker;
 function getWeightTracker() {
+	'use strict';
 	var measureUnit = app.read('calcForm#pA3C','pounds') ? LANG.LB[lang] : LANG.KG[lang];
 	//tokg
 	//totalWeight = Math.round(totalWeight) / (2.2));
@@ -44,7 +45,7 @@ function getWeightTracker() {
 		//TOGGLE full/compact
 		app.define('weight_chart','full');
 		var chartFull = app.read('weight_chart','full') ? true : false;
-		if(chartFull == true) { $('#chartToggle').addClass('active'); }
+		if(chartFull === true) { $('#chartToggle').addClass('active'); }
 		//
 		$('#chartToggle').on(tap,function() {
 			if(!$('#chartToggle').hasClass('active')) {
@@ -153,24 +154,24 @@ function getWeightTracker() {
 				evt.preventDefault();
 				var weightInput = parseInt($('#appTrackerEditInput').val());
 				var dateInput = toTime($('#appTrackerInputDate').val());
-					//loop
-					if(weightData.length > 1 && $('#appTrackerInputDate').val() != toDate(app.now())) {
-						var tempData = [];
-						$.each(weightData, function(key,value) {
-							//update
-							if(typeof value !== 'undefined') {
-								if(value[0] === dateInput) {
-									//delete weightData[key];
-								} else {
-									tempData.push([value[0],value][1]);
-								}
+				//loop
+				if(weightData.length > 1 && $('#appTrackerInputDate').val() != toDate(app.now())) {
+					var tempData = [];
+					$.each(weightData, function(key,value) {
+						//update
+						if(typeof value !== 'undefined') {
+							if(value[0] === dateInput) {
+								//delete weightData[key];
+							} else {
+								tempData.push([value[0],value][1]);
 							}
-						});
-					}
-				//////////
-				// SAVE //
-				//////////
-				app.save('weight_tracker',tempData,'object');
+						}
+					});
+					//////////
+					// SAVE //
+					//////////
+					app.save('weight_tracker',tempData,'object');
+				}
 				//FADE EDITOR
 				app.handlers.fade(0,'#appTrackerEditWrapper', 300);
 				//UPDATE CHART
@@ -379,7 +380,7 @@ function getWeightTracker() {
 		    	$('.highcharts-grid path:last').remove();
 				//LEFT AUTOSCROLL
 				$('#newWindow').scrollLeft($('.highcharts-container','#appTracker').width());
-		}
+		};
 		buildTracker();
 	};
 	//////////
@@ -402,6 +403,7 @@ function getWeightTracker() {
 //##/////////////////##//
 var rebuildHistory;
 function getFullHistory() {
+	'use strict';
 	var fullArray   = [];
 	var oldestEntry = new Date().getTime();
 	var now         = new Date().getTime();
@@ -455,7 +457,7 @@ function getFullHistory() {
 		}
 
 		//AVERAGE
-		var totalCalories = 0
+		var totalCalories = 0;
 		var totalCalDays  = 0;
 		//
 		while(oldestEntry-(day*1) < countBack) {
@@ -658,11 +660,7 @@ function getFullHistory() {
 				//
 				$('#highcharts-date-start').remove();
 				$('#highcharts-date-end').remove();				
-				$('#appHistory .highcharts-container').append('<div id="highcharts-date-start">'
-				+ dateStart +
-				'</div><div id="highcharts-date-end">'
-				+ dateEnd +
-				'</div>');
+				$('#appHistory .highcharts-container').append('<div id="highcharts-date-start">' + dateStart + '</div><div id="highcharts-date-end">' + dateEnd + '</div>');
 				//LEFT AUTOSCROLL
 				$('#newWindow').scrollLeft($('.highcharts-container','#appHistory').width());
 			};
@@ -676,7 +674,7 @@ function getFullHistory() {
 		//////////
 		var appHistoryHtml = '<div id="appHistory"></div>';
 		//DUMMY CLOSER
-		var appHistoryCloser = function () { return false; }
+		var appHistoryCloser = function () { return false; };
 		/////////////////
 		// CALL WINDOW //
 		/////////////////
@@ -687,6 +685,7 @@ function getFullHistory() {
 //## INTAKE HISTORY ##//
 //##////////////////##//
 function intakeHistory() {
+	'use strict';
 	//check exists
 	if(!app.read('app_last_tab','tab1'))	{ return; }
 	if(!$('#appStatusIntake').html())		{ return; }
@@ -992,6 +991,7 @@ function intakeHistory() {
 //## GET NUTRI SLIDERS ##//
 //##///////////////////##//
 function getNutriSliders() {
+	'use strict';
 	///////////////////
 	// AUTOFIX RATIO //
 	///////////////////
@@ -1080,7 +1080,7 @@ function getNutriSliders() {
 				}
 				//update total
 				document.getElementById('sliderTotalInput').value = LANG.TOTAL[lang] + ': ' + (parseInt(document.getElementById('sliderFatRange').value) + parseInt(document.getElementById('sliderProRange').value) + parseInt(document.getElementById('sliderCarRange').value)) + '%';
-			};
+			}
 		};
 		}
 		/////////////////
@@ -1168,6 +1168,7 @@ function getNutriSliders() {
 //## TODAYOVERVIEW ##//
 //##///////////////##//
 function updateTodayOverview(fullWindow) {
+	'use strict';
 	if (!app.read('app_last_tab', 'tab1')) {
 		return;
 	}
@@ -1338,6 +1339,7 @@ function updateTodayOverview(fullWindow) {
 //## CYCLIC MENU ##//
 //##/////////////##//
 function getCyclicMenu() {
+	'use strict';
 	//////////
 	// HTML //
 	//////////
@@ -1482,6 +1484,7 @@ function getCyclicMenu() {
 //## BALANCE METER ##//
 //##///////////////##//
 function balanceMeter(kcalsInput,update) {
+	'use strict';
 	if(!app.read('app_last_tab','tab1')) { return false; }
 	if(isNaN(parseInt(kcalsInput)))		 { return false; }
 	if(!kcalsInput)						 { return false; }
@@ -1534,6 +1537,7 @@ function balanceMeter(kcalsInput,update) {
 //## LIMIT MENU ##//
 //##/////////////##//
 function getLimitMenu() {
+	'use strict';
 	//CLEAR PREVIOUS
 	$('.sp-container').remove();
 	//////////
@@ -1648,6 +1652,7 @@ function getLimitMenu() {
 //## GET ELAPSED ##//
 //##/////////////##//
 function getElapsed(swap) {
+	'use strict';
 	if(!app.read('app_last_tab','tab1')) { return false; }
 	if($('body').hasClass('newwindow'))  { return false; }
 	////////////////
@@ -1734,6 +1739,7 @@ function getElapsed(swap) {
 //## GET ENTRY EDIT ##//
 //##////////////////##//
 function getEntryEdit(eid) {
+	'use strict';
 	//swap food/exercise button
 	getEntry(eid,function(data) {
 		//////////////
@@ -1933,6 +1939,7 @@ function getEntryEdit(eid) {
 //## ADVANCED MENU ##//
 //##///////////////##//
 function buildAdvancedMenu() {
+	'use strict';
 	$('#advancedMenuWrapper').remove();
 	$('body').append2("\
 	<div id='advancedMenuWrapper'>\
@@ -2001,7 +2008,7 @@ function buildAdvancedMenu() {
 		if (app.read('app_database','asyncStorage'))		{ $('#optIndexedDB').addClass('toggle');	} 
 		if (app.read('app_database','webSQLStorage'))		{ $('#optWebSQL').addClass('toggle');		} 
 		if (app.read('app_database','localStorageWrapper')) { $('#optLocalStorage').addClass('toggle');	}
-	};
+	}
 	styleResetDB();
 	//CONTENT HEIGHT
 	$('#advancedMenu').css2('top',($('#advancedMenuHeader').height()+1) + 'px');
@@ -2399,6 +2406,7 @@ function buildAdvancedMenu() {
 //## GET CATEGORY~IES ##//
 //##//////////////////##//
 function getCategory(catId, callback) {
+	'use strict';
 	//var startCat = app.now();
 	var orType = '';
 	if (catId == '9999') {
@@ -2449,6 +2457,7 @@ function getCategory(catId, callback) {
 ///////////////////
 var catListCache;
 function buildCatListMenu() {
+	'use strict';
 	//STARTLOCK
 	var startLock = 1;
 	//BUILD CONTENT ARRAY
@@ -2458,7 +2467,7 @@ function buildCatListMenu() {
 	var h = helpTopics.length;
 	while(h--) {
 		helpHtml = helpHtml + '<li id="cat' + helpTopics[h][0] + '"><div>' + helpTopics[h][1] + '</div></li>';
-	};
+	}
 	//RECENT ROW
 	helpHtml = '<li id="cat0001"><div>' + LANG.RECENT_ENTRIES[lang] + '</div></li>' + helpHtml;
 	///////////////////////
@@ -2471,6 +2480,7 @@ buildCatListMenu();
 // CATLIST OPENER //
 ////////////////////
 function getCatList(callback) {
+	'use strict';
 	//STARTLOCK
 	var startLock = 1;
 	///////////////////////
@@ -2494,7 +2504,7 @@ function getCatList(callback) {
 			//////////
 			// HTML //
 			//////////
-			catListHtml = app.handlers.buildRows(data);
+			var catListHtml = app.handlers.buildRows(data);
 			/////////////
 			// HANDLER //
 			/////////////
@@ -2552,8 +2562,8 @@ function getCatList(callback) {
 			// CLOSER //
 			////////////
 			var catListCloser = function () {
-				catMoveCount = 0;
-				catBlockTap = false;
+				//catMoveCount = 0;
+				//catBlockTap = false;
 				$('div.activeRow').removeClass('activeRow');
 				if(app.device.wp8) {
 					$('#tabMyCatsBlock').removeClass('out');
@@ -2595,6 +2605,7 @@ function getCatList(callback) {
 // USERWINDOW //
 ////////////////
 function getUserWindow() {
+	'use strict';
 	//////////
 	// HTML //
 	//////////
