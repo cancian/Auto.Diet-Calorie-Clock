@@ -167,8 +167,9 @@
 		d.hastransition = false;
 		d.transitionend = false;
 
+		var a;
 		var check = ['transform', 'msTransform', 'webkitTransform', 'MozTransform', 'OTransform'];
-		for (var a = 0; a < check.length; a++) {
+		for (a = 0; a < check.length; a++) {
 			if (typeof domtest.style[check[a]] != "undefined") {
 				d.trstyle = check[a];
 				break;
@@ -183,10 +184,10 @@
 		d.transitionstyle = false;
 		d.prefixstyle = '';
 		d.transitionend = false;
-		var check = ['transition', 'webkitTransition', 'MozTransition', 'OTransition', 'OTransition', 'msTransition', 'KhtmlTransition'];
+		check = ['transition', 'webkitTransition', 'MozTransition', 'OTransition', 'OTransition', 'msTransition', 'KhtmlTransition'];
 		var prefix = ['', '-webkit-', '-moz-', '-o-', '-o', '-ms-', '-khtml-'];
 		var evs = ['transitionend', 'webkitTransitionEnd', 'transitionend', 'otransitionend', 'oTransitionEnd', 'msTransitionEnd', 'KhtmlTransitionEnd'];
-		for (var a = 0; a < check.length; a++) {
+		for (a = 0; a < check.length; a++) {
 			if (check[a]in domtest.style) {
 				d.transitionstyle = check[a];
 				d.prefixstyle = prefix[a];
