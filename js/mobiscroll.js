@@ -2,7 +2,7 @@
 // MOBISCROLL //
 //////////////// v2.9.0
 (function ($) {
-
+	'use strict';
 	function testProps(props) {
 		var i;
 		for (i in props) {
