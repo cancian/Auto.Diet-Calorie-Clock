@@ -12,7 +12,7 @@
 <script>
 if((document.URL).match('access_token')) {
 	var token = (document.URL).split('access_token=')[1].split('&expires_in=')[0];
-	if (macgap) { macgap.userDefaults.setString('macgap_token', token); }
+	if (typeof macgap !== 'undefined') { macgap.userDefaults.setString('macgap_token', token); }
 }
 </script>
 </head>
