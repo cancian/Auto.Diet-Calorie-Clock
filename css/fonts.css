@@ -151,7 +151,7 @@ body.started #loadMask:after {
 .sp-alpha-inner				{ border: solid 1px #333; }
 .sp-clear 					{ display: none; }
 .sp-clear.sp-clear-display	{ background-position: center; }
-.sp-clear-enabled .sp-clear { display: block; position:absolute; top:0px; right:0; bottom:0; left:84%; height: 28px; }
+.sp-clear-enabled .sp-clear { display: block; position:absolute; top:0; right:0; bottom:0; left:84%; height: 28px; }
 /* Don't allow text selection */
 .sp-container, .sp-replacer, .sp-preview, .sp-dragger, .sp-slider, .sp-alpha, .sp-clear, .sp-alpha-handle, .sp-container.sp-dragging .sp-input, .sp-container button  { -webkit-user-select:none; -moz-user-select: -moz-none; -o-user-select:none; user-select: none; }
 .sp-container.sp-input-disabled .sp-input-container { display: none; }
