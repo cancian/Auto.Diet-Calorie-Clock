@@ -555,9 +555,9 @@ app.tab.status = function(keepOpen) {
 ## HTML BUILDS ~ OPEN DIARY ##
 ############################*/
 app.tab.diary = function(entryListHtml,keepOpen) {
+	'use strict';
 	//ENDSCROLL FUNCTION
 	app.endScroll = function() {
-		'use strict';
 		//////////////////////
 		// SLIDER ENDSCROLL //
 		//////////////////////
