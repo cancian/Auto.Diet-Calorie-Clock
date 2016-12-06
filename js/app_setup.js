@@ -1425,10 +1425,11 @@ function updateFoodDb(callback) {
 ///////////////////
 function pageLoad(target,content,published) {
 	'use strict';
-	//if partial
+	var page;
+	var arr = [];
+	var entryPos;
+	//
 	if(published) {
-		var arr = [];
-		var entryPos;
 		//push 'published' into array
 		arr.push(published);
 		//build array from time on 'name'
@@ -1448,7 +1449,6 @@ function pageLoad(target,content,published) {
 		}
 		// INSERT PARTIAL
 		//overwrite 'no entries'
-
 			if(i == 1) {
 				$('#entryList').html2(content,function() {
 					app.highlight('#entryList div',1000,'#ffffcc');
@@ -1466,14 +1466,16 @@ function pageLoad(target,content,published) {
 			}
 
 		//target [div#partial] ~time's parent div id as target
-		var page = $('#entryList div' + '#' + $('#t' + published).parent('div').prop('id'));
+		page = $('#entryList div' + '#' + $('#t' + published).parent('div').prop('id'));
 	// FULL DIV REPLACE //
 	} else {
 		//check existence
 		$(target).html2(content);
-		var page = $('#entryList');
+		page = $('#entryList');
 	}
+	/////////////////////
 	// RELOAD HANDLERS //
+	/////////////////////
 	if(page[0]) {
 		$(page).trigger('pageload');
 	}
