@@ -2748,19 +2748,22 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	'use strict';
 	if (usrMsg && usrMail) {
 		$.ajax({
-			type : 'POST',
-			url : app.https + 'chronoburn.com/mail.php',
+			type: 'POST',
 			data : {
 				mail: usrMail,
 				msg: usrMsg,
 				usr: app.get.platform() + ' - ' + lang
 			},
-			dataType : 'text'
-		}).error(function(xhr, statusText) {
-			callback(false);
-		}).success(function (result) {
-			if (typeof callback === 'function') {
-				callback(true);
+			dataType: 'text',
+			url: app.https + 'chronoburn.com/mail.php',
+			error: function(xhr, statusText) {
+				if (typeof callback === 'function') {
+					callback(false);
+				}
+			}, success: function(result) { 
+				if (typeof callback === 'function') {
+					callback(true);
+				}
 			}
 		});
 	}
