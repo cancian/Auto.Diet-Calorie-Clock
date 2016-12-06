@@ -17,7 +17,7 @@
 		factory(jQuery);
 	}
 }(function (jQuery) {
-
+	"use strict";
 	// globals
 	var domfocus = false;
 	var mousefocus = false;
@@ -117,9 +117,11 @@
 		if (browserdetected)
 			return browserdetected;
 
-		var domtest = document.createElement('DIV');
-
-		var d = {};
+		var domtest = document.createElement('DIV'),
+		_style = domtest.style,
+		_agent = navigator.userAgent,
+		_platform = navigator.platform,
+		d = {};
 
 		d.haspointerlock = "pointerLockElement" in document || "mozPointerLockElement" in document || "webkitPointerLockElement" in document;
 
@@ -371,7 +373,6 @@
 		}
 
 		//## disable MouseLock API on user request
-
 		if (!self.opt.enablemouselockapi) {
 			cap.hasmousecapture = false;
 			cap.haspointerlock = false;
@@ -423,6 +424,7 @@
 
 		var _onsync = false;
 
+
 		this.synched = function (name, fn) {
 
 			function requestSync() {
@@ -441,7 +443,7 @@
 					}
 				});
 				_onsync = true;
-			};
+			}
 
 			self.synclist[name] = fn;
 			requestSync();
@@ -469,8 +471,9 @@
 		};
 
 		// derived by by Dan Pupius www.pupius.net
-		BezierClass = function (st, ed, spd, p1, p2, p3, p4) {
-			this.st = st;
+		var BezierClass = function (st, ed, spd, p1, p2, p3, p4) {
+			
+            this.st = st;
 			this.ed = ed;
 			this.spd = spd;
 
@@ -484,13 +487,13 @@
 		};
 		BezierClass.prototype = {
 			B2 : function (t) {
-				return 3 * t * t * (1 - t)
+				return 3 * t * t * (1 - t);
 			},
 			B3 : function (t) {
-				return 3 * t * (1 - t) * (1 - t)
+				return 3 * t * (1 - t) * (1 - t);
 			},
 			B4 : function (t) {
-				return (1 - t) * (1 - t) * (1 - t)
+				return (1 - t) * (1 - t) * (1 - t);
 			},
 			getNow : function () {
 				var nw = (new Date()).getTime();
@@ -522,13 +525,13 @@
 				this.doc.css("-webkit-backface-visibility", "hidden"); // prevent flickering http://stackoverflow.com/questions/3461441/
 
 			//derived from http://stackoverflow.com/questions/11236090/
-			function getMatrixValues() {
+			var getMatrixValues = function() {
 				var tr = self.doc.css(cap.trstyle);
 				if (tr && (tr.substr(0, 6) == "matrix")) {
 					return tr.replace(/^.*\((.*)\)$/g, "$1").replace(/px/g, '').split(/, +/);
 				}
 				return false;
-			}
+			};
 
 			this.getScrollTop = function (last) {
 				if (!last) {
@@ -664,7 +667,7 @@
 				dom = dom.parent();
 			}
 			return false;
-		};
+		}
 
 		//inspired by http://forum.jquery.com/topic/width-includes-border-width-when-set-to-thin-medium-thick-in-ie
 		var _convertBorderWidth = {
@@ -672,6 +675,7 @@
 			"medium" : 3,
 			"thick" : 5
 		};
+        
 		function getWidthToPixel(dom, prop, chkheight) {
 			var wd = dom.css(prop);
 			var px = parseFloat(wd);
@@ -683,7 +687,7 @@
 				return (brd) ? px : 0;
 			}
 			return px;
-		};
+		}
 
 		this.getOffset = function () {
 			if (self.isfixed)
@@ -801,12 +805,12 @@
 
 		if (!self.hasanimationframe) {
 			setAnimationFrame = function (fn) {
-				return setTimeout(fn, 15 - Math.floor((+new Date) / 1000) % 16)
+				return setTimeout(fn, 15 - Math.floor((+new Date) / 1000) % 16);
 			}; // 1000/60)};
 			clearAnimationFrame = clearInterval;
 		} else if (!self.hascancelanimationframe)
 			clearAnimationFrame = function () {
-				self.cancelAnimationFrame = true
+				self.cancelAnimationFrame = true;
 			};
 
 		this.init = function () {
@@ -839,14 +843,6 @@
 				self.zindex = "auto";
 			}
 
-			/*
-			self.ispage = true;
-			self.haswrapper = true;
-			//      self.win = $(window);
-			self.docscroll = $("body");
-			//      self.doc = $("body");
-			 */
-
 			if (!self.ispage || (!cap.cantouch && !cap.isieold && !cap.isie9mobile)) {
 
 				var cont = self.docscroll;
@@ -862,6 +858,7 @@
 					if (self.doc[0].nodeName == 'BODY')
 						self.css($("html"), {
 							'overflow-y' : 'hidden'
+
 						}); //IE7 double scrollbar issue
 					else if (self.doc[0].nodeName == 'HTML')
 						self.css($("body"), {
@@ -954,7 +951,8 @@
 				// init HORIZ
 
 				self.railh = false;
-
+				var railh;
+                
 				if (self.opt.horizrailenabled) {
 
 					self.css(cont, {
@@ -978,7 +976,7 @@
 					cursor.wborder = parseFloat(cursor.outerWidth() - cursor.innerWidth());
 					self.cursorh = cursor;
 
-					var railh = $(document.createElement('div'));
+					railh = $(document.createElement('div'));
 					railh.attr('id', self.id + '-hr');
 					railh.addClass('nicescroll-rails');
 					railh.height = Math.max(parseFloat(self.opt.cursorwidth), cursor.outerHeight());
@@ -1035,6 +1033,7 @@
 								'position' : 'relative'
 							});
 						var bd = (self.win[0].nodeName == 'HTML') ? self.body : self.win;
+						$(bd).scrollTop(0).scrollLeft(0); // fix rail position if content already scrolled
 						if (self.zoom) {
 							self.zoom.css({
 								position : "absolute",
@@ -1151,34 +1150,12 @@
 
 					self.scrollmom = new ScrollMomentumClass2D(self);
 
-					/*
-					var trace = function(msg) {
-					var db = $("#debug");
-					if (isNaN(msg)&&(typeof msg != "string")) {
-					var x = [];
-					for(var a in msg) {
-					x.push(a+":"+msg[a]);
-					}
-					msg ="{"+x.join(",")+"}";
-					}
-					if (db.children().length>0) {
-					db.children().eq(0).before("<div>"+msg+"</div>");
-					} else {
-					db.append("<div>"+msg+"</div>");
-					}
-					}
-					window.onerror = function(msg,url,ln) {
-					trace("ERR: "+msg+" at "+ln);
-					}
-					 */
-
-					self.onmangotouch = function (e) {
+					self.onmangotouch = function () {
 						var py = self.getScrollTop();
 						var px = self.getScrollLeft();
 
 						if ((py == self.scrollmom.lastscrolly) && (px == self.scrollmom.lastscrollx))
 							return true;
-						//            $("#debug").html('DRAG:'+py);
 
 						var dfy = py - self.mangotouch.sy;
 						var dfx = px - self.mangotouch.sx;
@@ -1194,7 +1171,6 @@
 							clearTimeout(self.mangotouch.lazy);
 
 						if (((tm - self.mangotouch.tm) > 80) || (self.mangotouch.dry != dry) || (self.mangotouch.drx != drx)) {
-							//              trace('RESET+'+(tm-self.mangotouch.tm));
 							self.scrollmom.stop();
 							self.scrollmom.reset(px, py);
 							self.mangotouch.sy = py;
@@ -1208,10 +1184,7 @@
 
 							self.scrollmom.stop();
 							self.scrollmom.update(self.mangotouch.sx - dfx, self.mangotouch.sy - dfy);
-							var gap = tm - self.mangotouch.tm;
 							self.mangotouch.tm = tm;
-
-							//              trace('MOVE:'+df+" - "+gap);
 
 							var ds = Math.max(Math.abs(self.mangotouch.ly - py), Math.abs(self.mangotouch.lx - px));
 							self.mangotouch.ly = py;
@@ -1219,7 +1192,6 @@
 
 							if (ds > 2) {
 								self.mangotouch.lazy = setTimeout(function () {
-										//                  trace('END:'+ds+'+'+gap);
 										self.mangotouch.lazy = false;
 										self.mangotouch.dry = 0;
 										self.mangotouch.drx = 0;
@@ -1259,8 +1231,9 @@
 
 							if (!self.locked) {
 
+								var tg;
 								if (cap.hasmstouch) {
-									var tg = (e.target) ? e.target : false;
+									tg = (e.target) ? e.target : false;
 									while (tg) {
 										var nc = $(tg).getNiceScroll();
 										if ((nc.length > 0) && (nc[0].me == self.me))
@@ -1275,7 +1248,7 @@
 
 								self.cancelScroll();
 
-								var tg = self.getTarget(e);
+								tg = self.getTarget(e);
 
 								if (tg) {
 									var skp = (/INPUT/i.test(tg.nodeName)) && (/range/i.test(tg.type));
@@ -1290,7 +1263,7 @@
 
 								if (self.forcescreen) {
 									var le = e;
-									var e = {
+									e = {
 										"original" : (e.original) ? e.original : e
 									};
 									e.clientX = le.screenX;
@@ -1360,11 +1333,10 @@
 													if (self.hasmoving)
 														return false;
 													tg._onclick.call(this, e);
-												}
+												};
 											}
 											return self.cancelEvent(e);
 										}
-
 										return self.stopPropagation(e);
 									}
 
@@ -1429,14 +1401,16 @@
 
 								if (self.forcescreen) {
 									var le = e;
-									var e = {
+									e = {
 										"original" : (e.original) ? e.original : e
 									};
 									e.clientX = le.screenX;
 									e.clientY = le.screenY;
 								}
 
-								var ofx = ofy = 0;
+									var ofy,
+									ofx;
+									ofx = ofy = 0;
 
 								if (moveneedoffset && !byiframe) {
 									var wp = self.win.position();
@@ -1462,16 +1436,17 @@
 								} else {
 									if (ny < 0) {
 										ny = 0;
-										fy = 0
+										fy = 0;
 									}
 									if (ny > self.page.maxh) {
 										ny = self.page.maxh;
-										fy = 0
+										fy = 0;
 									}
 								}
 
+								var nx;
 								if (self.railh && self.railh.scrollable) {
-									var nx = (self.isrtlmode) ? mx - self.rail.drag.sl : self.rail.drag.sl - mx;
+									nx = (self.isrtlmode) ? mx - self.rail.drag.sl : self.rail.drag.sl - mx;
 
 									if (self.ishwscroll && self.opt.bouncescroll) {
 										if (nx < 0) {
@@ -1484,11 +1459,11 @@
 									} else {
 										if (nx < 0) {
 											nx = 0;
-											fx = 0
+											fx = 0;
 										}
 										if (nx > self.page.maxw) {
 											nx = self.page.maxw;
-											fx = 0
+											fx = 0;
 										}
 									}
 
@@ -1680,7 +1655,7 @@
 
 					} else {
 
-						function checkSelectionScroll(e) {
+						var checkSelectionScroll = function (e) {
 							if (!self.selectiondrag)
 								return;
 
@@ -1697,7 +1672,6 @@
 								return;
 
 							var rt = -Math.floor(self.selectiondrag.df / 6) * 2;
-							//              self.doScrollTop(self.getScrollTop(true)+rt);
 							self.doScrollBy(rt);
 
 							self.debounced("doselectionscroll", function () {
@@ -1942,7 +1916,7 @@
 								self.hideCursor();
 						});
 
-					};
+					}
 
 				} // !ie9mobile
 
@@ -2109,7 +2083,6 @@
 							attributes : false,
 							subtree : false
 						});
-
 					} else {
 						self.bind(self.win, (cap.isie && !cap.isie9) ? "propertychange" : "DOMAttrModified", self.onAttributeChange);
 						if (cap.isie9)
@@ -2134,15 +2107,16 @@
 			}
 
 			if (this.doc[0].nodeName == 'IFRAME') {
-				function oniframeload(e) {
+				var oniframeload = function () {
 					self.iframexd = false;
+                    var doc;
 					try {
-						var doc = 'contentDocument' in this ? this.contentDocument : this.contentWindow.document;
+						doc = 'contentDocument' in this ? this.contentDocument : this.contentWindow.document;
 						var a = doc.domain;
 					} catch (e) {
 						self.iframexd = true;
 						doc = false
-					};
+					}
 
 					if (self.iframexd) {
 						if ("console" in window)
@@ -2848,6 +2822,7 @@
 					self.lastdeltax = 0;
 					if (!self.rail.drag) {
 						self.doScrollLeftBy(dt)
+
 					}
 				}, 15);
 			}
@@ -3273,6 +3248,7 @@
 					if (self.cancelAnimationFrame)
 						return true;
 
+
 					self.scrollrunning = true;
 
 					sync = 1 - sync;
@@ -3280,7 +3256,9 @@
 						return (self.timer = setAnimationFrame(scrolling) || 1);
 
 					var done = 0;
-
+					var sx,
+					sy;
+                        
 					var sc = sy = self.getScrollTop();
 					if (self.dst.ay) {
 						sc = (self.bzscroll) ? self.dst.py + (self.bzscroll.getNow() * self.dst.ay) : self.newscrolly;
@@ -3395,7 +3373,7 @@
 			}
 			self.cursorfreezed = false;
 
-			py = self.getScrollTop(true);
+			var py = self.getScrollTop(true);
 			if (ny < 0 && py <= 0)
 				return self.noticeCursor();
 			else if (ny > self.page.maxh && py >= self.page.maxh) {
@@ -3423,7 +3401,7 @@
 			}
 			self.cursorfreezed = false;
 
-			px = self.getScrollLeft(true);
+			var px = self.getScrollLeft(true);
 			if (nx < 0 && px <= 0)
 				return self.noticeCursor();
 			else if (nx > self.page.maxw && px >= self.page.maxw)
@@ -3948,3 +3926,4 @@
 	}
 
 }));
+
