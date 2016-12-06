@@ -104,16 +104,14 @@
 			return '?' + qa.join('&');
 		}
 		function reset_session(c_session) {
-			if (IS_DEBUG)
-				console.log('resetting session');
+			if (IS_DEBUG) { console.log('resetting session'); }
 			l_session._set(c_session);
 			request_cnt = 0;
 			utmhid = get_random();
 		}
 		function gainit() {
 			c_session = (new Date()).getTime();
-			if (IS_DEBUG)
-				console.log('gainit', c_session);
+			if (IS_DEBUG) { console.log('gainit', c_session); }
 			request_cnt = 0;
 			utmhid = get_random();
 			if (uid._get() == null) {
@@ -134,10 +132,8 @@
 			var state = 'hidden';
 			var latestState = '';
 			var handleState = function () {
-				if (!utmac || !utmhn)
-					return;
-				if (IS_DEBUG)
-					console.log('current state:', state, 'latest state:', latestState);
+				if (!utmac || !utmhn) { return; }
+				if (IS_DEBUG) {console.log('current state:', state, 'latest state:', latestState); }
 				switch (state) {
 				case 'shown':
 					if (latestState == 'hidden') {
@@ -168,26 +164,22 @@
 			customVarSlot = customVarSlot || 1;
 		};
 		this._setAccount = function (account_id) {
-			if (IS_DEBUG)
-				console.log(account_id);
+			if (IS_DEBUG) { console.log(account_id); }
 			utmac = account_id;
 			gainit();
 		};
 		this._setDomain = function (domain) {
-			if (IS_DEBUG)
-				console.log(domain);
+			if (IS_DEBUG) { console.log(domain); }
 			utmhn = domain;
 		};
 		this._setLocale = function (lng, country) {
 			lng = (typeof lng === 'string' && lng.match(/^[a-z][a-z]$/i)) ? lng.toLowerCase() : 'en';
 			country = (typeof country === 'string' && country.match(/^[a-z][a-z]$/i)) ? country.toLowerCase() : 'us';
 			utmul = lng + '-' + country;
-			if (IS_DEBUG)
-				console.log(utmul);
+			if (IS_DEBUG) { console.log(utmul); }
 		};
 		this._setCustomVar = function (index, name, value, opt_scope) {
-			if (index < 1 || index > 5)
-				return false;
+			if (index < 1 || index > 5) { return false; }
 			var params = {
 				name : name,
 				value : value,
@@ -199,15 +191,11 @@
 				vcv[index] = params;
 				visitor_custom_vars._set(JSON.stringify(vcv));
 			}
-			if (IS_DEBUG) {
-				console.log(custom_vars);
-			}
+			if (IS_DEBUG) { console.log(custom_vars); }
 			return true;
 		};
 		this._trackPageview = function (path, title, source, medium, campaign) {
-			if (IS_DEBUG) {
-				console.log('Track Page View', arguments);
-			}
+			if (IS_DEBUG) { console.log('Track Page View', arguments); }
 			clearTimeout(timer);
 			request_cnt++;
 			if (!path) {
