@@ -995,6 +995,11 @@ app.handlers = {
 					callback($(this).attr('id'), evt, this);
 				}
 			});
+			//TOUCHEND
+			//$(target).on(touchend + ' ' + touchout + ' ' + touchleave + ' ' + touchcancel, function (evt) { $(this).removeClass(style); });
+			//TOUCHSTART
+			//$(target).on(touchstart, function (evt) { $(this).addClass(style); });
+			//
 			return;
 		}
 		//
