@@ -1,6 +1,6 @@
 ﻿/* jquery.nicescroll
--- version 3.5.6
--- copyright 2014-10-09 InuYaksa*2014
+-- version 3.5.6 ~ 3.6.0
+-- copyright 2016-12-06 InuYaksa*2016
 -- licensed under the MIT
 --
 -- http://nicescroll.areaaperta.com/
@@ -9,7 +9,8 @@
  */
 
 (function (factory) {
-  if (typeof define === 'function' && define.amd) {
+	'use strict';
+	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as anonymous module.
 		define(['jquery'], factory);
 	} else {
@@ -17,7 +18,7 @@
 		factory(jQuery);
 	}
 }(function (jQuery) {
-	"use strict";
+	'use strict';
 	// globals
 	var domfocus = false;
 	var mousefocus = false;
@@ -391,10 +392,10 @@
 					tt : setTimeout(function () {
 						if (self || false) {
 							self.delaylist[name].tt = 0;
-							fn.call()
+							fn.call();
 						}
 					}, tm)
-				}
+				};
 			} else if (!dd || !dd.tt) {
 				self.delaylist[name] = {
 					last : nw,
@@ -1627,7 +1628,7 @@
 								self.preventclick = false;
 								return self.cancelEvent(e);
 							}
-						}
+						};
 
 						//            self.onmousedown = self.ontouchstart;
 						//            self.onmouseup = self.ontouchend;
@@ -1675,7 +1676,7 @@
 							self.doScrollBy(rt);
 
 							self.debounced("doselectionscroll", function () {
-								checkSelectionScroll()
+								checkSelectionScroll();
 							}, 50);
 						};
 
@@ -1706,7 +1707,7 @@
 								return;
 							if (self.hasTextSelected())
 								self.debounced("selectionscroll", function () {
-									checkSelectionScroll(e)
+									checkSelectionScroll(e);
 								}, 250);
 						};
 
@@ -1724,10 +1725,10 @@
 						self.bind(document, "MSPointerUp", self.ontouchend);
 						self.bind(document, "MSPointerMove", self.ontouchmove);
 						self.bind(self.cursor, "MSGestureHold", function (e) {
-							e.preventDefault()
+							e.preventDefault();
 						});
 						self.bind(self.cursor, "contextmenu", function (e) {
-							e.preventDefault()
+							e.preventDefault();
 						});
 					}
 
@@ -1743,7 +1744,7 @@
 
 					if (self.railh) {
 						self.bind(self.cursorh, "mousedown", function (e) {
-							self.onmousedown(e, true)
+							self.onmousedown(e, true);
 						});
 
 						self.bind(self.cursorh, "mouseup", self.onmouseup);
@@ -1785,16 +1786,16 @@
 
 						if (self.opt.sensitiverail) {
 							self.bind(self.rail, "click", function (e) {
-								self.doRailClick(e, false, false)
+								self.doRailClick(e, false, false);
 							});
 							self.bind(self.rail, "dblclick", function (e) {
-								self.doRailClick(e, true, false)
+								self.doRailClick(e, true, false);
 							});
 							self.bind(self.cursor, "click", function (e) {
-								self.cancelEvent(e)
+								self.cancelEvent(e);
 							});
 							self.bind(self.cursor, "dblclick", function (e) {
-								self.cancelEvent(e)
+								self.cancelEvent(e);
 							});
 						}
 
@@ -1814,16 +1815,16 @@
 
 							if (self.opt.sensitiverail) {
 								self.bind(self.railh, "click", function (e) {
-									self.doRailClick(e, false, true)
+									self.doRailClick(e, false, true);
 								});
 								self.bind(self.railh, "dblclick", function (e) {
-									self.doRailClick(e, true, true)
+									self.doRailClick(e, true, true);
 								});
 								self.bind(self.cursorh, "click", function (e) {
-									self.cancelEvent(e)
+									self.cancelEvent(e);
 								});
 								self.bind(self.cursorh, "dblclick", function (e) {
-									self.cancelEvent(e)
+									self.cancelEvent(e);
 								});
 							}
 
@@ -1871,7 +1872,7 @@
 							self.bind(self.cursor, "mousedown", self.onmousedown);
 							self.bind(self.cursor, "mousemove", self.onmousemove);
 							self.cursorh && self.bind(self.cursorh, "mousedown", function (e) {
-								self.onmousedown(e, true)
+								self.onmousedown(e, true);
 							});
 							self.cursorh && self.bind(self.cursorh, "mousemove", self.onmousemove);
 						}
@@ -2039,7 +2040,7 @@
 					var ww = parseFloat(self.win.css("width")) + 1;
 					self.win.css('width', ww);
 					self.synched("chromefix", function () {
-						self.win.attr("style", tmp)
+						self.win.attr("style", tmp);
 					});
 				}
 
@@ -2115,7 +2116,7 @@
 						var a = doc.domain;
 					} catch (e) {
 						self.iframexd = true;
-						doc = false
+						doc = false;
 					}
 
 					if (self.iframexd) {
@@ -2180,7 +2181,7 @@
 					if (cap.cantouch || self.opt.touchbehavior) {
 						self.bind(doc, "mousedown", self.ontouchstart);
 						self.bind(doc, "mousemove", function (e) {
-							self.ontouchmove(e, true)
+							self.ontouchmove(e, true);
 						});
 						if (self.opt.grabcursorenabled && cap.cursorgrabvalue)
 							self.css($(doc.body), {
@@ -2200,7 +2201,7 @@
 
 				if (this.doc[0].readyState && this.doc[0].readyState == "complete") {
 					setTimeout(function () {
-						oniframeload.call(self.doc[0], false)
+						oniframeload.call(self.doc[0], false);
 					}, 500);
 				}
 				self.bind(this.doc, "load", oniframeload);
@@ -2290,20 +2291,20 @@
 			return {
 				w : Math.max(document.body.scrollWidth, document.documentElement.scrollWidth),
 				h : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
-			}
+			};
 		}
 		 : (self.haswrapper) ?
 		function () {
 			return {
 				w : self.doc.outerWidth() + parseInt(self.win.css('paddingLeft')) + parseInt(self.win.css('paddingRight')),
 				h : self.doc.outerHeight() + parseInt(self.win.css('paddingTop')) + parseInt(self.win.css('paddingBottom'))
-			}
+			};
 		}
 		 : function () {
 			return {
 				w : self.docscroll[0].scrollWidth,
 				h : self.docscroll[0].scrollHeight
-			}
+			};
 		};
 
 		this.onResize = function (e, page) {
@@ -2485,7 +2486,7 @@
 
 				return fn.call(dom, event);
 			}, bubble);
-		};
+		}
 
 		this._bind = function (el, name, fn, bubble) { // primitive bind
 			self.events.push({
@@ -2792,7 +2793,7 @@
 				}
 			};
 			self.onscrollend.call(self, info);
-		}
+		};
 
 		function execScrollWheel(e, hr, chkscroll) {
 			var px,
@@ -2814,14 +2815,14 @@
 
 			if (px) {
 				if (self.scrollmom) {
-					self.scrollmom.stop()
+					self.scrollmom.stop();
 				}
 				self.lastdeltax += px;
 				self.debounced("mousewheelx", function () {
 					var dt = self.lastdeltax;
 					self.lastdeltax = 0;
 					if (!self.rail.drag) {
-						self.doScrollLeftBy(dt)
+						self.doScrollLeftBy(dt);
 
 					}
 				}, 15);
@@ -2837,22 +2838,22 @@
 					}
 				}
 				if (self.scrollmom) {
-					self.scrollmom.stop()
+					self.scrollmom.stop();
 				}
 				self.lastdeltay += py;
 				self.debounced("mousewheely", function () {
 					var dt = self.lastdeltay;
 					self.lastdeltay = 0;
 					if (!self.rail.drag) {
-						self.doScrollBy(dt)
+						self.doScrollBy(dt);
 					}
 				}, 15);
 			}
 
 			e.stopImmediatePropagation();
 			return e.preventDefault();
-			//      return self.cancelEvent(e);
-		};
+			//return self.cancelEvent(e);
+		}
 
 		this.onmousewheel = function (e) {
 			if (self.wheelprevented)
@@ -3072,7 +3073,7 @@
 							};
 							if (!self.cursorfreezed)
 								self.timerscroll.tm = setInterval(function () {
-										self.showCursor(self.getScrollTop(), self.getScrollLeft())
+										self.showCursor(self.getScrollTop(), self.getScrollLeft());
 									}, 60);
 
 						}
@@ -3134,12 +3135,12 @@
 				self.cursorfreezed = false;
 
 				if (py < 0) {
-					py = 0
+					py = 0;
 				} else if (py > self.page.maxh) {
 					py = self.page.maxh;
 				}
 				if (px < 0) {
-					px = 0
+					px = 0;
 				} else if (px > self.page.maxw) {
 					px = self.page.maxw;
 				}
@@ -3312,7 +3313,7 @@
 					} else {
 						self.timer = setAnimationFrame(scrolling) || 1;
 					}
-				};
+				}
 				self.cancelAnimationFrame = false;
 				self.timer = 1;
 
@@ -3358,7 +3359,7 @@
 		this.doScrollBy = function (stp, relative) {
 			var ny = 0;
 			if (relative) {
-				ny = Math.floor((self.scroll.y - stp) * self.scrollratio.y)
+				ny = Math.floor((self.scroll.y - stp) * self.scrollratio.y);
 			} else {
 				var sy = (self.timer) ? self.newscrolly : self.getScrollTop(true);
 				ny = sy - stp;
@@ -3366,7 +3367,7 @@
 			if (self.bouncescroll) {
 				var haf = Math.round(self.view.h / 2);
 				if (ny < -haf) {
-					ny = -haf
+					ny = -haf;
 				} else if (ny > (self.page.maxh + haf)) {
 					ny = (self.page.maxh + haf);
 				}
@@ -3387,7 +3388,7 @@
 		this.doScrollLeftBy = function (stp, relative) {
 			var nx = 0;
 			if (relative) {
-				nx = Math.floor((self.scroll.x - stp) * self.scrollratio.x)
+				nx = Math.floor((self.scroll.x - stp) * self.scrollratio.x);
 			} else {
 				var sx = (self.timer) ? self.newscrollx : self.getScrollLeft(true);
 				nx = sx - stp;
@@ -3747,7 +3748,7 @@
 				self.doSnapy(self.nc.getScrollLeft(), self.nc.getScrollTop());
 			}
 
-		}
+		};
 
 	};
 
@@ -3846,7 +3847,7 @@
 					this[this.length] = nice;
 					this.length++;
 				}
-			};
+			}
 		}
 
 		return this;
@@ -3855,7 +3856,7 @@
 	function mplex(el, lst, fn) {
 		for (var a = 0; a < lst.length; a++)
 			fn(el, lst[a]);
-	};
+	}
 	mplex(
 		NiceScrollArray.prototype,
 		['show', 'hide', 'toggle', 'onResize', 'resize', 'remove', 'stop', 'doScrollPos'],
@@ -3916,7 +3917,7 @@
 
 	window.NiceScroll = {
 		getjQuery : function () {
-			return jQuery
+			return jQuery;
 		}
 	};
 
