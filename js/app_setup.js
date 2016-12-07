@@ -2771,7 +2771,7 @@ function getLoginEmail() {
 			$('#resetPass').css2('pointer-events', 'auto');
 		}, 400);
 		// SAVE LAST EMAIL
-		$('#usrMail').on('keyup', function(evt) {
+		$('#usrMail').on('input blur keyup keypress', function(evt) {
 			app.save('usrMail',trim($('#usrMail').val()));
 		});
 		//PRE-FILL
