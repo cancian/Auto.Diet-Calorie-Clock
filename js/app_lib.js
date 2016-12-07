@@ -993,12 +993,18 @@ app.handlers = {
 			$(target).on(tap, function (evt) {
 				if(typeof callback === 'function') {
 					callback($(this).attr('id'), evt, this);
+					$(this).removeClass(style);
 				}
 			});
 			//TOUCHEND
-			//$(target).on(touchend + ' ' + touchout + ' ' + touchleave + ' ' + touchcancel, function (evt) { $(this).removeClass(style); });
+			$(target).on(touchend + ' ' + touchout + ' ' + touchleave + ' ' + touchcancel, function (evt) { $(this).removeClass(style); });
 			//TOUCHSTART
-			//$(target).on(touchstart, function (evt) { $(this).addClass(style); });
+			$(target).on(touchstart, function (evt) {
+				$(this).addClass(style); 
+				var Thiz = this;
+				var Ztyle = style;
+				setTimeout(function() { $(Thiz).removeClass(Ztyle); },700);
+			});
 			//
 			return;
 		}
