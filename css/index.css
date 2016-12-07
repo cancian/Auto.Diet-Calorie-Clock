@@ -1357,7 +1357,7 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .appLang-bg input#foodSearch,
 .appLang-fr input#foodSearch			{ font-size: 16px; }
 #foodListWrapper						{ width: 100%; overflow: hidden; z-index: 2; background-color: #fff; }
-.searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px; float: left; display: block; width: 100%; }
+.searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px; float: left; display: block; width: 100%; overflow-x: hidden; }
 .searcheable:nth-child(even)			{ background-color: #f8f8f8; }
 .searcheable.activeOverflow				{ background-color: #e4e4e4; }
 .searcheable.yellow						{ background-color: rgba(255,200,0,.8); }
