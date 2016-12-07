@@ -2227,13 +2227,13 @@ function buildAdvancedMenu() {
 				$('.usrMsg').css2('color','#c30');
 			}
 			//MAIL
-			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test($('#usrMail').val())) {
+			if(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test($('#usrMail').val())) {
 				$('.usrMail').css2('color','#000');
 			} else {
 				$('.usrMail').css2('color','#c30');
 			}
 			//VALIDATE
-			if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test($('#usrMail').val()) && (trim($('#usrMsg').val())).length > 1) {
+			if(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test($('#usrMail').val()) && (trim($('#usrMsg').val())).length > 1) {
 				//send mail
 				$('#saveButton').css2('pointer-events','none');
 				$('#saveButton').css2('color','#ccc');

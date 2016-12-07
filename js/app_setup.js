@@ -2776,7 +2776,7 @@ function getLoginEmail() {
 		});
 		//PRE-FILL
 		if(app.read('usrMail')) {
-			if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim(app.read('usrMail')))) {
+			if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(trim(app.read('usrMail')))) {
 				$('#usrMail').val(trim(app.read('usrMail')));
 			}
 		}
@@ -2785,7 +2785,7 @@ function getLoginEmail() {
 		////////////////////
 		app.handlers.activeRow('#resetPass', 'button', function (evt) {
 			//validate e-mail
-			if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val()))) {
+			if (!/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(trim($('#usrMail').val()))) {
 				$('.usrMail').css2('color', '#c30');
 				setTimeout(function () {
 					alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
@@ -2829,13 +2829,13 @@ function getLoginEmail() {
 			$('.usrPass').css2('color', '#c30');
 		}
 		//MAIL
-		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val()))) {
+		if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(trim($('#usrMail').val()))) {
 			$('.usrMail').css2('color', '#000');
 		} else {
 			$('.usrMail').css2('color', '#c30');
 		}
 		//VALIDATE
-		if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/i.test(trim($('#usrMail').val())) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
+		if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(trim($('#usrMail').val())) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
 			//send mail
 			$('#saveButton').css2('pointer-events', 'none');
 			$('#saveButton').css2('color', '#ccc');
