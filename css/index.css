@@ -11,36 +11,36 @@
 .desktop,
 .windows8,
 .windows10								{ overflow: hidden !important; }
-html.wp8,
-html.wp81,
-html.wp10,
-html.windows8,
-html.windows10							{ -ms-touch-action: pan-x; touch-action: pan-x; }
+.wp8,
+.wp81,
+.wp10,
+.windows8,
+.windows10								{ -ms-touch-action: pan-x; touch-action: pan-x; }
 .tboost									{ -webkit-backface-visibility: hidden; -webkit-perspective: 1000; -webkit-transform: translate3d(0,0,0); }
 .zboost									{ -webkit-transform: translateZ(0); -webkit-transform: rotateZ(360deg); }
 /* fonts */
 html, body, input, select, textarea,
 input[type='number'], input[type='text']{ font-family: 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; line-height: normal; }
-div#sliderNeg, div#sliderPos			{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; }
-body.msie.thin							{ letter-spacing: 0.02em; }
-body.msie								{ -webkit-perspective: 800; }
-body.msie #appContent,
-body.msie #foodList						{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
-body.ios,
-body.android,
-body.wp8,
-body.msie,
-body.blackberry,
-body.playbook,
-body.wekbit,
-body.osx								{ -webkit-user-select: none !important; user-select: none !important; -webkit-user-callout: none !important; -webkit-touch-callout: none !important; }
+#sliderNeg, #sliderPos					{ font-family: 'Futura', 'Helvetica Neue', Helvetica, 'Open Sans', 'Segoe WP', Arial, sans-serif; }
+.msie.thin								{ letter-spacing: 0.02em; }
+.msie									{ -webkit-perspective: 800; }
+.msie #appContent,
+.msie #foodList							{ -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); -webkit-transform-style: preserve-3d; }
+.ios,
+.android,
+.wp8,
+.msie,
+.blackberry,
+.playbook,
+.wekbit,
+.osx									{ -webkit-user-select: none !important; user-select: none !important; -webkit-user-callout: none !important; -webkit-touch-callout: none !important; }
 /*allow input text select ~ flicker*/
 input, select, textarea,
 input[type='number'],
 input[type='text']						{ -webkit-user-select: text !important; user-select: text !important; -webkit-user-callout: default !important; -webkit-touch-callout: default !important; -webkit-box-shadow: none; -webkit-appearance: none; -webkit-tap-highlight-color: rgba(0,0,0,0); outline: 0; padding: 0; margin: 0; text-indent: 0; border: 0; border-radius: 0; background-image: none; background-color: rgba(255,255,255,0); color: #000; /* -webkit-backface-visibility: hidden; */ }
-body.moz input,
-body.moz select,
-body.moz textarea						{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
+.moz input,
+.moz select,
+.moz textarea							{ background-color: rgba(0,0,0,0); background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)); }
 select									{ -moz-appearance: none; text-indent: 0.01px !important; text-overflow: ''; }
 select::-ms-expand						{ display: none; }
 input::-ms-clear						{ display: none; width: 0; height: 0; }
@@ -64,8 +64,8 @@ textarea::-webkit-selection				{ background-color: rgba(0,0,0,.1); color: inheri
 textarea								{ -webkit-user-modify: read-write-plaintext-only; }
 input[type='text']						{ -webkit-user-modify: read-write-plaintext-only; -webkit-user-select: text; user-select: text; outline: 0; }
 input[readonly]							{ pointer-events: none; -webkit-user-select: none !important; user-select: none !important; -webkit-user-callout: none !important; -webkit-touch-callout: none !important; -webkit-appearance: none; -ms-touch-action: none; }
-input:focus,select:focus,:focus			{ outline: none; }
-body.android40 input[type='number']		{ text-indent: 0 !important; }
+input:focus,select:focus,:focus,*:focus	{ outline: none; }
+.android40 input[type='number']		{ text-indent: 0 !important; }
 ul										{ padding: 0; margin: 0; text-indent: 0; list-style: none; }
 p										{ margin: 0; padding: 0; -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 /*GENERIC*/
@@ -201,23 +201,23 @@ body.android44 input#timerDailyInput		{ margin-top: 0px; padding-right: 0px; }
 #appFooter li							{ display: block; text-transform: capitalize; font-size: 10px; font-weight: normal; -webkit-backface-visibility: hidden; position: relative; color: #656565; float: left; width: 25%; height: 44px; line-height: 18px; }
 /*footer icons*/
 #appFooter li:before					{ display: block; font-family: KCals; font-size: 20px; padding: 8px 0 0 0; -webkit-backface-visibility: hidden; font-weight: normal; pointer-events: none; }
-#appFooter li#tab1:before				{ content: '\f080'; }
-#appFooter li#tab2:before				{ content: '\f0f5'; }
-#appFooter li#tab3:before				{ content: '\f007'; }
-#appFooter li#tab4:before				{ content: '\f013'; }
+#appFooter #tab1:before					{ content: '\f080'; }
+#appFooter #tab2:before					{ content: '\f0f5'; }
+#appFooter #tab3:before					{ content: '\f007'; }
+#appFooter #tab4:before					{ content: '\f013'; }
 /*selected*/
-body.tab1 #appFooter li#tab1,
-body.tab2 #appFooter li#tab2,
-body.tab3 #appFooter li#tab3,
-body.tab4 #appFooter li#tab4			{ color: #007AFF; }
-body.tab1.surplus #appFooter li#tab1,
-body.tab2.surplus #appFooter li#tab2,
-body.tab3.surplus #appFooter li#tab3,
-body.tab4.surplus #appFooter li#tab4	{ color: #2DB454; }
-body.tab1.deficit #appFooter li#tab1,
-body.tab2.deficit #appFooter li#tab2,
-body.tab3.deficit #appFooter li#tab3,
-body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
+body.tab1 #appFooter #tab1,
+body.tab2 #appFooter #tab2,
+body.tab3 #appFooter #tab3,
+body.tab4 #appFooter #tab4			{ color: #007AFF; }
+body.tab1.surplus #appFooter #tab1,
+body.tab2.surplus #appFooter #tab2,
+body.tab3.surplus #appFooter #tab3,
+body.tab4.surplus #appFooter #tab4	{ color: #2DB454; }
+body.tab1.deficit #appFooter #tab1,
+body.tab2.deficit #appFooter #tab2,
+body.tab3.deficit #appFooter #tab3,
+body.tab4.deficit #appFooter #tab4	{ color: #C85834; }
 /*sync icon*/
 @-webkit-keyframes scaleout		{ 0% { opacity: 1; } 25% { -webkit-transform: scale(1.0); } 100% {  -webkit-transform: scale(0); } }
 #appHeaderIcon					{ display: none; }
@@ -276,12 +276,12 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 #slide4 p:after,
 #slide5 p:after				{ background: -webkit-linear-gradient(left,                                  #EE8176 25.5%,             #09F 25.5%,             #09F 73.9%,             #63C980 73.9%);
 							  content: ' '; position: absolute; top: 81px; left: 10%; right: 10%; height: 3px; padding: 0; }
-#gettingStarted span#deficit, 
-#gettingStarted span#balanced,
-#gettingStarted span#surplus				{ position: absolute; top: 88px; font-size: 12px; color: #EE8176; display: block; line-height: 12px; padding: 0; text-indent: 0; }
-#gettingStarted span#deficit				{ left: 10%; color: #EE8176; }
-#gettingStarted span#balanced				{ left: 0; right: 0; text-align: center; color: #09F; }
-#gettingStarted span#surplus				{ right: 10%; color: #63C980; }
+#gettingStarted #deficit, 
+#gettingStarted #balanced,
+#gettingStarted #surplus	{ position: absolute; top: 88px; font-size: 12px; color: #EE8176; display: block; line-height: 12px; padding: 0; text-indent: 0; }
+#gettingStarted #deficit	{ left: 10%; color: #EE8176; }
+#gettingStarted #balanced	{ left: 0; right: 0; text-align: center; color: #09F; }
+#gettingStarted #surplus	{ right: 10%; color: #63C980; }
 /*+-600 kcal*/
 #slide2 #deficit:before		{ content: '- 600 kcal'; white-space: nowrap; display: inline-block; position: absolute; font-size: 18px; line-height: 18px; top: -64px;  left: -12px ; color: #EE8176; opacity: .76; }
 #slide2 #surplus:before		{ content: '+ 600 kcal'; white-space: nowrap; display: inline-block; position: absolute; font-size: 18px; line-height: 18px; top: -64px; right: -12px; color: #63C980; opacity: .76; }
@@ -329,9 +329,9 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 #prevDiv:before			{ font-family: KCals; position: absolute; top: 43%; font-size: 48px; }
 #nextDiv:before			{ content: '\f105'; right: 0; }
 #prevDiv:before			{ content: '\f104'; left: 0; }
-#gettingStarted span#deficit, 
-#gettingStarted span#balanced,
-#gettingStarted span#surplus			{ font-size: 16px; line-height: 16px; }
+#gettingStarted #deficit, 
+#gettingStarted #balanced,
+#gettingStarted #surplus{ font-size: 16px; line-height: 16px; }
 }
 /*
 @media all and (max-height: 438px) {
@@ -343,12 +343,12 @@ body.tab4.deficit #appFooter li#tab4	{ color: #C85834; }
 #################################*/
 #settingsWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; font-size: 13px; -webkit-backface-visibility: hidden; min-height: 267px; }
 /*list*/
-ul#settingsList						{ display: block; background-color: #fff; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; }
-ul#settingsList li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden;  }
-ul#settingsList li div				{ margin-left: 45px; /*-webkit-backface-visibility: hidden;*/ }
-ul#settingsList li+li div			{ border-top: 1px solid #eee; }
-ul#settingsList li.activeRow		{ background-color: #eee; color: #555; }
-ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: ' ';  z-index: 99; }
+#settingsList						{ display: block; background-color: #fff; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; }
+#settingsList li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden;  }
+#settingsList li div				{ margin-left: 45px; /*-webkit-backface-visibility: hidden;*/ }
+#settingsList li+li div				{ border-top: 1px solid #eee; }
+#settingsList li.activeRow			{ background-color: #eee; color: #555; }
+#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: ' ';  z-index: 99; }
 /*////////////////////////
 // titles and subtitles //
 ////////////////////////*/
@@ -367,9 +367,9 @@ ul#settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0
 /*/////////////////////////
 // SETTINGS: UNIT TOGGLE //
 /////////////////////////*/
-li#optionMeasure					{ position: relative; background-color: #fff !important; }
-li#optionMeasure.activeRow			{ position: relative; background-color: #fff !important; }
-ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
+#optionMeasure						{ position: relative; background-color: #fff !important; }
+#optionMeasure.activeRow			{ position: relative; background-color: #fff !important; }
+#settingsList #optionMeasure.activeRow:before { display: none; border: 0; }
 #tapSwitch							{ width: 137px; position: absolute; right: 15px; top: 0; display: block; height: 29px; text-align: center; font-size: 12px; font-weight: bold; }
 #tapSwitch #leftOption,
 #tapSwitch #rightOption				{ height: 29px; line-height: 29px; color: #aaa; background-color: #eee; border: 0; text-shadow: 0 1px 0 rgba(255,255,255,.2); display: inline-block; float: left; width: 48%; overflow: hidden; }
@@ -418,8 +418,8 @@ ul#settingsList li#optionMeasure.activeRow:before { display: none; border: 0; }
 /*/////////////////////
 // SETTINGS: WEBSITE //
 /////////////////////*/
-div#optionWebsite								{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-shadow: rgba(255,255,255,.5) 0 1px 0; display: block; }
-div#optionWebsite.activeRow						{ color: #999; }
+#optionWebsite						{ position: absolute; bottom: 53px; right: 0; left: 0; text-align: center; color: #bbb; font-size: 11px; line-height: 60px; height: 44px; text-shadow: rgba(255,255,255,.5) 0 1px 0; display: block; }
+#optionWebsite.activeRow			{ color: #999; }
 /*OSX*/
 /*
 .osxapp.appLang-en div#optionWebsite.activeRow	{ color: #bbb !important; }
@@ -436,7 +436,7 @@ div#optionWebsite.activeRow						{ color: #999; }
 /**/
 #advancedMenuWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F2F5F6; -webkit-perspective: 800; }
 #advancedMenu							{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #F2F5F6; -webkit-backface-visibility: hidden; }
-#advancedMenuList						{	}
+/*#advancedMenuList						{	}*/
 #advancedMenu ul						{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
 #advancedMenu ul:before					{ position: absolute; bottom: 0; left: 0; width: 100%; height: 0; background-color: #eee; display: block; content: ''; border-bottom: 1px solid #eee; z-index: 1; }
 #advancedMenu ul li						{ position: relative; height: 45px; margin-left: 22px; font-size: 15px; line-height: 46px; background-color: #fff; white-space: nowrap; overflow: hidden; }
@@ -547,7 +547,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #newWindowHeader					{ display: block; position: relative; width: 100%; background-color: #F8F8F8; height: 44px; margin: 0; padding: 0; line-height: 48px; overflow: hidden; font-size: 16px; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; z-index: 52; }
 #newWindowHeader #backButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; left: 0; width: 76px; padding-top: 3px; height: 44px; line-height: 40px; color: #007AFF; text-align: center; display: block; z-index: 99; font-size: 40px; font-weight: normal; text-indent: -10px; }
 #newWindowHeader #backButton:before	{ font-family: KCals; content: '\f104'; }
-#newWindowHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; display: block; color: #007AFF; text-align: center; z-index: 99; font-weight: bold; text-indent: 0; text-transform: uppercase; whitespace: nowrap; }
+#newWindowHeader #saveButton		{ -webkit-backface-visibility: hidden; position: absolute; top: 0; right: 0; width: 76px; height: 44px; line-height: 49px; font-size: 16px; display: block; color: #007AFF; text-align: center; z-index: 99; font-weight: bold; text-indent: 0; text-transform: uppercase; white-space: nowrap; }
 #saveButton.removeAll				{ color: rgba(0,0,0,0); }
 #saveButton.removeAll:before		{ content: '\f014'; font-family: KCals; font-size: 26px; display: block; color: #007AFF; margin-right: -20px; font-weight: normal; }
 #saveButton.removeAll:active:before,
@@ -718,15 +718,15 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 /////////////////////////*/
 #langSelect							{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); -webkit-perspective: 800; z-index: 5; }
 .windows8 #langSelect:before		{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; display: block; width: 100%; height: 100%; background-color: #fff; content: ''; }
-ul#langSelectList					{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
-ul#langSelectList li				{ position: relative; height: 49px; margin-left: 22px; font-size: 15px; line-height: 47px; background-color: #fff; }
-ul#langSelectList li:first-child	{ height: 51px; line-height: 56px; }
-ul#langSelectList li+li				{ border-top: 1px solid #eee; padding-top: 2px; }
-ul#langSelectList li.preset,
-ul#langSelectList li.set			{ background-color: #eee; margin-left: 0; text-indent: 22px; }
-ul#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: ' ';  z-index: 99; }
-ul#langSelectList li.preset			{ background-color: #fff !important; margin-left: 22px; text-indent: 0; }
-ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; position: absolute; bottom: -1px; right: 18px; font-size: 21px; color: #007aff; line-height: 47px; }
+#langSelectList						{ display: block; background-color: #fff; -webkit-backface-visibility: hidden; -webkit-transform: translate3d(0, 0, 0); }
+#langSelectList li					{ position: relative; height: 49px; margin-left: 22px; font-size: 15px; line-height: 47px; background-color: #fff; }
+#langSelectList li:first-child		{ height: 51px; line-height: 56px; }
+#langSelectList li+li				{ border-top: 1px solid #eee; padding-top: 2px; }
+#langSelectList li.preset,
+#langSelectList li.set				{ background-color: #eee; margin-left: 0; text-indent: 22px; }
+#langSelectList li.set:after		{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 1px solid #eee; content: ' ';  z-index: 99; }
+#langSelectList li.preset			{ background-color: #fff !important; margin-left: 22px; text-indent: 0; }
+#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; position: absolute; bottom: -1px; right: 18px; font-size: 21px; color: #007aff; line-height: 47px; }
 /*//////////////////
 // SETTINGS: HELP //
 //////////////////*/
@@ -783,7 +783,7 @@ ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; posit
 /*###############################
 ####    BUILD: APP STATUS    ####
 ###############################*/
-#statusWrapper							{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; widht: 100%; height: 100%; display: block; border: 9px solid rgba(0,0,0,0); line-height: 16px; min-height: 354px; }
+#statusWrapper							{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; display: block; border: 9px solid rgba(0,0,0,0); line-height: 16px; min-height: 354px; }
 /**/
 #appStatusElapsed						{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusElapsed div					{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
@@ -798,9 +798,9 @@ ul#langSelectList li.preset:before	{ font-family: KCals; content: '\A000'; posit
 #elapsedIndicators div					{ text-align: left; width: 14px; height: 0; position: absolute; left: 50%; bottom: 8px; color: #ddd; font-size: 16px; line-height: 16px; font-family: Arial; }
 #elapsedIndicators div:before			{ border: 2px solid #ddd; border-radius: 20px; width: 0; height: 0; padding: 0; display: block; content: ''; }
 #elapsedIndicators div.activeSwap:before{ border-color: #39F; }
-#elapsedIndicators div#ind1				{ margin-left: -14px; }
-#elapsedIndicators div#ind2				{ margin-left: -2px;  }
-#elapsedIndicators div#ind3				{ margin-left: 10px;  }
+#elapsedIndicators #ind1				{ margin-left: -14px; }
+#elapsedIndicators #ind2				{ margin-left: -2px;  }
+#elapsedIndicators #ind3				{ margin-left: 10px;  }
 /*///////////
 // BLOCK 2 // 
 ///////////*/
@@ -885,8 +885,8 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; z-index: 1; }
 #appStatusIntake div			{ padding-top: 0; display: block; font-size: 14px; position: relative; }
 #appStatusIntake span			{ display: block; font-size: 10px; text-transform: uppercase; color: #999; border: 0 solid #000; }
-#appStatusIntake div#entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
-#appStatusIntake div#entry_e-sum{ width: 20%; text-align: left; float: right; color: #D55621; position: absolute; top: 0; right: 24%; }
+#appStatusIntake #entry_f-sum{ width: 20%; text-align: left; float: left; color: #0000cc; position: absolute; top: 0; left: 15%; } 
+#appStatusIntake #entry_e-sum{ width: 20%; text-align: left; float: right; color: #D55621; position: absolute; top: 0; right: 24%; }
 #appStatusIntake .highcharts-container { pointer-events: none; }
 #appStatusIntakeOver			{ background-color: rgba(0,0,0,.0); z-index: 2; }
 /**/
@@ -988,8 +988,8 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 */
 /*date sub div*/
 #startDateBar						{ width: 100%; position: relative; display: block; height: 44px; overflow: hidden; }
-span#startDateSpan					{ position: relative; height: 44px; }
-span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weight: bold; font-size: 11px; text-transform: uppercase; display: block; white-space: nowrap; pointer-events: none; }
+#startDateSpan						{ position: relative; height: 44px; }
+#startDateSpan:before				{ position: absolute; top: -12px; left: 0; font-weight: bold; font-size: 11px; text-transform: uppercase; display: block; white-space: nowrap; pointer-events: none; }
 #startDate 							{ height: 44px; line-height: 61px; background-color: rgba(0,0,0,0); border: 0; padding: 0; text-indent: 0; margin: 0; font-size: 13pt; color: #555; -webkit-appearance: none; pointer-events: auto !important; }
 /*status reload*/
 #appStatusReload					{ position: absolute; bottom: 0; left: 0; width: 59px; height: 45px; display: block; font-size: 28px; line-height: 28px; text-indent: 7px; padding-right: 11px; background-color: rgba(0,0,0,0); z-index: 1; }
@@ -1049,8 +1049,8 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 /*activity select*/
 #calcForm #yourActivity					{ padding-top: 12px !important; margin-bottom: 14px; }
 #calcForm #yourActivity .selectArrow:after{ right: 0; top: 21px; }
-#calcForm select#pA5B					{ min-width: 280px; max-width: 318px !important; width: 90%; margin-top: 3px; text-indent: 0; }
-#calcForm select#pA5B					{ min-width: 280px; max-width: 290px !important; width: 90%; margin-top: 3px; text-indent: 0; }
+#calcForm #pA5B							{ min-width: 280px; max-width: 318px !important; width: 90%; margin-top: 3px; text-indent: 0; }
+#calcForm #pA5B							{ min-width: 280px; max-width: 290px !important; width: 90%; margin-top: 3px; text-indent: 0; }
 /*h2 a.b.c.*/
 #calcForm h2							{ padding: 0; margin: 0 0 9px 0; font-size: 22px; line-height: 32px; margin-left: 0; background-color: #fff; padding-top: 16px; padding-left: 12px; font-weight: normal; color: #000; border-bottom: 0 solid #ccc; display: block; text-align: left; white-space: nowrap; border-top: 38px solid #f2f4f6; }
 #calcForm h2 span						{ color: #bbb; padding-right: 1px; text-align: left; }
@@ -1066,8 +1066,8 @@ span#startDateSpan:before			{ position: absolute; top: -12px; left: 0; font-weig
 #calcForm  input[readonly]				{ pointer-events: auto; }
 #calcForm .tapSelect input.tapActive	{ color: #cc0000 !important; pointer-events: none; -webkit-user-select: none; user-select: none; }
 /*by/unit width*/
-#calcForm select#pA1B,
-#calcForm select#pA4B					{ min-width: 66px; width: 66px; }
+#calcForm #pA1B,
+#calcForm #pA4B							{ min-width: 66px; width: 66px; }
 /*gender/age width*/
 #calcForm #pA6G,
 #calcForm #pA6M							{ min-width: 56px; width: 56px; }
@@ -1107,44 +1107,44 @@ div#sliderNum					{ padding: 6px 0 0 40px; font-size: 12px; line-height: 13px; m
 .zoomx1 .ios #sliderNum,
 .zoomx1 .osxapp #sliderNum		{ padding: 6px 0 0 41px; }
 */
-div#sliderNum					{ margin-right: -46px; text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; right: 50%; top: 30px; display: block; width: 100px; white-space: nowrap; color: #999999; text-align: left;  padding: 3px 3px 6px 3px; font-size: 9pt; background-color: rgba(0,0,0,0); border-left: 10px solid rgba(0,0,0,0); }
+#sliderNum						{ margin-right: -46px; text-shadow: rgba(255,255,255,.35) 0 1px 0; position: absolute; right: 50%; top: 30px; display: block; width: 100px; white-space: nowrap; color: #999999; text-align: left;  padding: 3px 3px 6px 3px; font-size: 9pt; background-color: rgba(0,0,0,0); border-left: 10px solid rgba(0,0,0,0); }
 .ios #sliderNum					{ margin-right: -47px; } 
 .moz #sliderNum,
 .android4lt #sliderNum			{ margin-right: -47px; }
-input#entryTitle				{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 50px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: rgba(0,0,0,0); padding: 0 2px 0 0; border-radius: 0; text-indent: 0; margin: 0; border: none; }
-div#sliderNeg					{ position: absolute; left:  14px; top: 27px; display: block; width: 116px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 14pt; height: 36px; padding-left: 26px; padding-top: 3px; }
-div#sliderPos					{ position: absolute; right: 14px; top: 27px; display: block; width: 106px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 14pt; height: 36px; padding-right: 26px; padding-top: 3px; }
-.appLang-bg div#sliderPos,
-.appLang-bg div#sliderNeg,
-.appLang-de div#sliderPos,
-.appLang-de div#sliderNeg,
-.appLang-ja div#sliderPos,
-.appLang-ja div#sliderNeg,
-.appLang-ru div#sliderPos,
-.appLang-ru div#sliderNeg		{ font-size: 10.5pt; line-height: 16pt; }
-.appLang-pl div#sliderPos,
-.appLang-pl div#sliderNeg,
-.appLang-nl div#sliderPos,
-.appLang-nl div#sliderNeg		{ font-size: 13pt; line-height: 16pt; }
-div#sliderNeg:before,
-div#sliderPos:before			{ font-family: KCals; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
-div#sliderNeg:before			{ left: 0; content: '\F010'; }	
-div#sliderPos:before			{ right: 0; content: '\F020'; }
-.android div#sliderPos:before,
-.android div#sliderNeg:before	{ top: 3px; }
-.android44 div#sliderPos:before,
-.android44 div#sliderNeg:before	{ top: 5px; }
-div#sliderNeg.activeArrow:before{ color: #CB5220; font-family: KCals; content: '\F001'; }
-div#sliderPos.activeArrow:before{ color: #2052CB; font-family: KCals; content: '\F002'; }
+#entryTitle						{ text-shadow: rgba(255,255,255,.36) 0 1px 0; width: 50px; font-size: 18px; font-weight: bold; color: #888; text-align: right; background-color: rgba(0,0,0,0); padding: 0 2px 0 0; border-radius: 0; text-indent: 0; margin: 0; border: none; }
+#sliderNeg						{ position: absolute; left:  14px; top: 27px; display: block; width: 116px; white-space: nowrap; color: #D55621; text-align: left;  font-size: 14pt; line-height: 14pt; height: 36px; padding-left: 26px; padding-top: 3px; }
+#sliderPos						{ position: absolute; right: 14px; top: 27px; display: block; width: 106px; white-space: nowrap; color: #316ADC; text-align: right; font-size: 14pt; line-height: 14pt; height: 36px; padding-right: 26px; padding-top: 3px; }
+.appLang-bg #sliderPos,
+.appLang-bg #sliderNeg,
+.appLang-de #sliderPos,
+.appLang-de #sliderNeg,
+.appLang-ja #sliderPos,
+.appLang-ja #sliderNeg,
+.appLang-ru #sliderPos,
+.appLang-ru #sliderNeg			{ font-size: 10.5pt; line-height: 16pt; }
+.appLang-pl #sliderPos,
+.appLang-pl #sliderNeg,
+.appLang-nl #sliderPos,
+.appLang-nl #sliderNeg			{ font-size: 13pt; line-height: 16pt; }
+#sliderNeg:before,
+#sliderPos:before				{ font-family: KCals; position: absolute; top: 5px; display: block; width: 80px; font-size: 18px; line-height: 18px; }
+#sliderNeg:before				{ left: 0; content: '\F010'; }	
+#sliderPos:before				{ right: 0; content: '\F020'; }
+.android #sliderPos:before,
+.android #sliderNeg:before		{ top: 3px; }
+.android44 #sliderPos:before,
+.android44 #sliderNeg:before	{ top: 5px; }
+#sliderNeg.activeArrow:before 	{ color: #CB5220; font-family: KCals; content: '\F001'; }
+#sliderPos.activeArrow:before 	{ color: #2052CB; font-family: KCals; content: '\F002'; }
 /*MAIN FORM*/
-input#entryBody					{ position: absolute; margin-top: 6px; left: 16px; right: 63px; background-color: rgba(0,0,0,0); color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0; border: none; font-size: 17px; -webkit-user-select: text; user-select: text; }
-input#entry.focusMe				{ top: -5px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 65px 0 0 0; background-clip: padding-box; z-index: 998; }
-input#entry.focusMy				{ top: 46px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 14px 0 0 0; background-clip: padding-box; z-index: 998; }
-div#entryBodySearch				{ position: absolute; top: 67px; right: 15px; width: 50px; height: 33px; text-align: center; display: block; background-color: rgba(0,0,0,0); z-index: 99; font-size: 30px; line-height: 32px; color: #ccc; }
+#entryBody						{ position: absolute; margin-top: 6px; left: 16px; right: 63px; background-color: rgba(0,0,0,0); color: #444;  font-weight: normal; border-radius: 0; padding: 7px 13px 5px 12px; text-indent: 0; border: none; font-size: 17px; -webkit-user-select: text; user-select: text; }
+#entry.focusMe					{ top: -5px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 65px 0 0 0; background-clip: padding-box; z-index: 998; }
+#entry.focusMy					{ top: 46px; border: 1px solid rgba(0,0,0,0); border-color: rgba(0,0,0,0); -webkit-backface-visibility: hidden; border-width: 14px 0 0 0; background-clip: padding-box; z-index: 998; }
+#entryBodySearch				{ position: absolute; top: 67px; right: 15px; width: 50px; height: 33px; text-align: center; display: block; background-color: rgba(0,0,0,0); z-index: 99; font-size: 30px; line-height: 32px; color: #ccc; }
 #entryBodySearch:before			{ content: '\F050'; font-family: KCals; display: inline-block; position: absolute; right: 0; left: 0;}
-div#entryBodySearch:active		{ color: #eee; }
-select#entryTime				{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; text-indent: 0; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: text !important; user-select: text !important; }
-.ios select#entryTime			{ padding: 6px 4px 5px 7px; }
+#entryBodySearch:active			{ color: #eee; }
+#entryTime						{ position: absolute; right: 17px; top: 110px; width: 100px; color: #777; font-size: 12px; line-height: 16px; opacity: .7; border-radius: 0; padding: 5px 4px 4px 7px; text-indent: 0; border: 1px solid #bbb; -webkit-appearance: none; -webkit-user-select: text !important; user-select: text !important; }
+.ios #entryTime					{ padding: 6px 4px 5px 7px; }
 #entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; opacity: 1;  padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; white-space: nowrap; }
 div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; opacity: 1; }
 #loadingDiv						{ position: absolute; top: 18px; left: 0; width: 100%; z-index: 99; text-align:center; text-indent: 57px; display: none; opacity: 0; -webkit-transition-timing-function: linear; -webkit-user-select: none; user-select: none; pointer-events: none; -ms-touch-action: none; }
@@ -1225,15 +1225,15 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 .editing .entriesKcals,
 .editing .entriesBody		{ pointer-events: auto !important; }
 /*GENERIC*/
-div#noEntries				{ border-left: 5px solid rgba(0,0,0,0); pointer-events: none; height: 45px; }
+#noEntries					{ border-left: 5px solid rgba(0,0,0,0); pointer-events: none; height: 45px; }
 #noEntries span				{ font-style: italic; color: #999; padding-left: 24px; font-size: 12px; }
 .heading					{ -webkit-user-select: none; user-select: none; -ms-touch-action: none; z-index: 0; width: 100%; border-bottom: 1px solid #eee; border-top: 1px solid #fff; font-size: 16px; color: #555; text-indent: 7px; padding: 10px 0 8px 9px; background-color: #fff; font-weight: normal; margin: 0; text-align: left; text-transform: uppercase; letter-spacing: 3px; line-height: 1; }
 .appLang-el .heading		{ font-size: 14px; letter-spacing: 2px; }
 .appLang-it .heading,
 .appLang-es .heading		{ font-size: 16px; letter-spacing: 2px; }
 /*EXPIRED*/
-div.expired p				{ opacity: .3; }
-div.editing p				{ opacity: 1; }
+.expired p					{ opacity: .3; }
+.editing p					{ opacity: 1; }
 /*ROW BORDER*/
 .rowMorning,
 .e-rowMorning,
@@ -1258,8 +1258,8 @@ div.editing p				{ opacity: 1; }
 .sidebar.msie #entryList div		{ padding: 15px 0 2px 0; }
 .sidebar #entryList					{ -webkit-box-shadow: 1px 1px 3px 0 rgba(0,0,0,.1); box-shadow: 1px 1px 3px 0 rgba(0,0,0,.1); }
 /*no colapse*/
-div#noEntries						{ height: 45px !important; }
-.sidebar div#noEntries				{ border-left: 3px solid #ccc; padding-left: 3px !important; }
+#noEntries							{ height: 45px !important; }
+.sidebar #noEntries					{ border-left: 3px solid #ccc; padding-left: 3px !important; }
 .sidebar .rowMorning,
 .sidebar .e-rowMorning				{ color: #000; border-left: 3px solid #FFEC3C; }
 .sidebar .rowAfternoon,
@@ -1343,19 +1343,19 @@ div#noEntries						{ height: 45px !important; }
 /*msie blink*/
 .msie #pageSlideFood.busy #foodList { overflow: hidden !important; }
 /*food search*/
-input#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: text; user-select: text; margin: 0; overflow: hidden; background-color: #fff; }
+#foodSearch			{ position: relative; left: 0; right: 0; top: 0; font-size: 18px; line-height: 18px; border: 0; border-bottom: 1px solid #eee; display: block; padding: 22px 26px 16px 30px; z-index: 999; -webkit-user-select: text; user-select: text; margin: 0; overflow: hidden; background-color: #fff; }
 #foodSearchLabel:before		{ content: '\F050'; font-family: KCals; display: inline-block; position: absolute; left: 5px; top: 20px; color: #007aff; z-index: 1000; font-size: 20px; }
 /*exercise color switch*/
 #pageSlideFood.exerciseType #foodSearchLabel:before { color: #D55621 !important }
 /**/
-.moz input1#foodSearch		{ line-height: 24px; }
-.newwindow input#foodSearch	{ pointer-events: none; }
-input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-height: 21px; }
-.appLang-pl input#foodSearch,
-.appLang-id input#foodSearch,
-.appLang-el input#foodSearch,
-.appLang-bg input#foodSearch,
-.appLang-fr input#foodSearch			{ font-size: 16px; }
+.moz #foodSearch						{ line-height: 24px; }
+.newwindow #foodSearch					{ pointer-events: none; }
+#foodSearch::-webkit-input-placeholder 	{ color: rgba(0,0,0,.35); line-height: 21px; }
+.appLang-pl #foodSearch,
+.appLang-id #foodSearch,
+.appLang-el #foodSearch,
+.appLang-bg #foodSearch,
+.appLang-fr #foodSearch					{ font-size: 16px; }
 #foodListWrapper						{ width: 100%; overflow: hidden; z-index: 2; background-color: #fff; }
 .searcheable							{ position: relative; margin: 0; padding: 12px 9px 9px 53px; min-height: 60px; float: left; display: block; width: 100%; overflow-x: hidden; }
 .searcheable:nth-child(even)			{ background-color: #f8f8f8; }
@@ -1363,23 +1363,23 @@ input#foodSearch::-webkit-input-placeholder { color: rgba(0,0,0,.35); line-heigh
 .searcheable.yellow						{ background-color: rgba(255,200,0,.8); }
 /*blank*/
 .noContent em							{ color: #999; font-style: normal !important; }
-span#noMatches							{ color: #999; margin-top: 19px; }
+#noMatches								{ color: #999; margin-top: 19px; }
 .searcheable.activeOverflow.noContent	{ background-color: rgba(0,0,0,0) !important; }
 /*food sub itens*/
-span#noMatches			{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
-span#iconRefresh,
-span#iconClear			{ padding: 19px 25px 16px 22px; font-size: 28px; line-height: 28px; position: absolute; top: 0; right: -2px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 9999; display: block; background-color: rgba(0,0,0,0); }
-span#iconClear			{ display: none; }
-span#iconClear:before,
-span#iconRefresh:before { font-family: KCals; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
-span#iconRefresh:before { content: '\f021'; }
-span#iconClear:before	{ content: '\F00D'; }
+#noMatches				{ color: #999; position: absolute; top: 15px; left: 33px; overflow: hidden; }
+#iconRefresh,
+#iconClear				{ padding: 19px 25px 16px 22px; font-size: 28px; line-height: 28px; position: absolute; top: 0; right: -2px; text-shadow: rgba(255,255,255,0) 0 1px 0; -webkit-backface-visibility: hidden; z-index: 9999; display: block; background-color: rgba(0,0,0,0); }
+#iconClear				{ display: none; }
+#iconClear:before,
+#iconRefresh:before 	{ font-family: KCals; color: rgba(0,0,0,1); opacity: .2; display: inline-block; -webkit-backface-visibility: hidden; }
+#iconRefresh:before 	{ content: '\f021'; }
+#iconClear:before		{ content: '\F00D'; }
 .searcheable .foodName	{ color: #2157D6; font-weight: bold; }
 /*align fix*/
 .android4lt #foodSearch,
-.android4lt #foodSearch		{ padding: 25px 26px 14px 30px; }
-.android4lt span#iconRefresh,
-.android4lt span#iconClear	{ top: -3px; }
+.android4lt #foodSearch	{ padding: 25px 26px 14px 30px; }
+.android4lt #iconRefresh,
+.android4lt #iconClear	{ top: -3px; }
 /**/
 span.foodKcal			{ float: left; min-width: 61px; padding-top: 0; padding-right: 4px; font-size: 12px; color: #000; font-weight: bold; padding-left: 3px; }
 span.foodPro			{ float: left; min-width: 64px; padding-top: 0; padding-right: 4px; font-size: 12px; color: #000; font-weight: bold; }
@@ -1460,42 +1460,42 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 #modalTotalBlock		{ position: absolute; top: 48px; left: 0; display: block; width: 100%; text-align: center; font-variant: small-caps; height: 36px; padding-top: 8px; font-size: 16pt; background-color: #fff; }
 #modalTotal				{ float: left; width: 50%; display: block; text-align: right; background-color: #fff; }
 #modalTotalType			{ text-align: left; float: right; text-indent: 1px; font-size: 16pt; width: 50%; display: block; }
-span#proLabel,
-span#carLabel,
-span#fatLabel,
-span#fiiLabel,
-span#sugLabel,
-span#sodLabel,
-span#proData,
-span#carData,
-span#fatData,
-span#fiiData,
-span#sugData,
-span#sodData			{ font-size: 11px; position: absolute; top: 0; left: 30px; text-align: left; text-transform: lowercase; }
-span#proData p,
-span#carData p,
-span#fatData p,
-span#fiiData p,
-span#sugData p,
-span#sodData p			{ font-weight: normal; color: #666; padding-left: 0; float: left; }
-span#proData span,
-span#carData span,
-span#fatData span,
-span#fiiData span,
-span#sugData span,
-span#sodData span		{ font-weight: normal; color: #999; padding-left: 1px; float: left; }
-span#proData			{ top:  0; font-variant: normal; color: #666; }
-span#carData			{ top: 14px; font-variant: normal; color: #666; }
-span#fatData			{ top: 28px; font-variant: normal; color: #666; }
-span#proLabel			{ top: 0; text-align: left; left: 67px; color: #666; }
-span#carLabel			{ top: 14px; text-align: left; left: 67px; color: #666; }
-span#fatLabel			{ top: 28px; text-align: left; left: 67px; color: #666; }
-span#fiiData			{ top: 0; font-variant: normal; color: #666; left: auto; right: 67px; }
-span#sugData			{ top: 14px; font-variant: normal; color: #666; left: auto; right: 67px; }
-span#sodData			{ top: 28px; font-variant: normal; color: #666; left: auto; right: 67px; }
-span#fiiLabel			{ top: 0; display: block; width: 22px; text-align: left; left: auto; right: 30px; color: #666; }
-span#sugLabel			{ top: 14px; display: block; width: 22px;text-align: left; left: auto; right: 30px; color: #666; }
-span#sodLabel			{ top: 28px; display: block; width: 22px;text-align: left; left: auto; right: 30px; color: #666; }
+#proLabel,
+#carLabel,
+#fatLabel,
+#fiiLabel,
+#sugLabel,
+#sodLabel,
+#proData,
+#carData,
+#fatData,
+#fiiData,
+#sugData,
+#sodData			{ font-size: 11px; position: absolute; top: 0; left: 30px; text-align: left; text-transform: lowercase; }
+#proData p,
+#carData p,
+#fatData p,
+#fiiData p,
+#sugData p,
+#sodData p			{ font-weight: normal; color: #666; padding-left: 0; float: left; }
+#proData span,
+#carData span,
+#fatData span,
+#fiiData span,
+#sugData span,
+#sodData span		{ font-weight: normal; color: #999; padding-left: 1px; float: left; }
+#proData			{ top:  0; font-variant: normal; color: #666; }
+#carData			{ top: 14px; font-variant: normal; color: #666; }
+#fatData			{ top: 28px; font-variant: normal; color: #666; }
+#proLabel			{ top: 0; text-align: left; left: 67px; color: #666; }
+#carLabel			{ top: 14px; text-align: left; left: 67px; color: #666; }
+#fatLabel			{ top: 28px; text-align: left; left: 67px; color: #666; }
+#fiiData			{ top: 0; font-variant: normal; color: #666; left: auto; right: 67px; }
+#sugData			{ top: 14px; font-variant: normal; color: #666; left: auto; right: 67px; }
+#sodData			{ top: 28px; font-variant: normal; color: #666; left: auto; right: 67px; }
+#fiiLabel			{ top: 0; display: block; width: 22px; text-align: left; left: auto; right: 30px; color: #666; }
+#sugLabel			{ top: 14px; display: block; width: 22px;text-align: left; left: auto; right: 30px; color: #666; }
+#sodLabel			{ top: 28px; display: block; width: 22px;text-align: left; left: auto; right: 30px; color: #666; }
 /*modal delete*/
 #modalDelete:before			{ content: '\f014'; font-family: KCals; font-size: 30px; position: absolute; top: -65px; right: 6px; width: 60px; height: 56px; color: #FF3B30; background-color: #fff; text-align: center; line-height: 58px; }
 #modalDelete.button:before	{ color: #ccc; }
@@ -1509,15 +1509,15 @@ span#sodLabel			{ top: 28px; display: block; width: 22px;text-align: left; left:
 /*modal conversions*/
 #modalConversions			{ display: block; width: 300px; height: 165px; position: absolute; bottom: 0; left: 20px; color: #fff; font-size: 16px; z-index: 98; pointer-events: none; text-shadow: rgba(0,0,0,1) 0 0 1px; }
 #modalConversions div		{ height: 21px; }
-#modalConversions span		{  }
+/*#modalConversions span	{  }*/
 #modalConversionsTitle		{ text-transform: uppercase; font-size: 16px; padding-bottom: 2px; }
 #modalConversions span+span { padding-left: 4px; }
 /*///////////
 // SPINNER //
 ///////////*/
-div#spinnerWrapper			{ position: absolute; display: block; height: 100px; width: 100px; z-index: 9999; }
-span#spinnerMsg				{ color: #000; text-align: center; width: 100%; display: block; position: absolute; bottom: 25%; left: 0; font-size: 11pt; z-index: 999; padding: 12px 0 12px 0; background-color: rgba(255,255,255,.5); }
-div#spinner					{ position: relative; width: 45px; height: 45px; display: inline-block; }
+#spinnerWrapper				{ position: absolute; display: block; height: 100px; width: 100px; z-index: 9999; }
+#spinnerMsg					{ color: #000; text-align: center; width: 100%; display: block; position: absolute; bottom: 25%; left: 0; font-size: 11pt; z-index: 999; padding: 12px 0 12px 0; background-color: rgba(255,255,255,.5); }
+#spinner					{ position: relative; width: 45px; height: 45px; display: inline-block; }
 /*#//////////////#//
 //# MENU TOP BAR #//
 //#//////////////#*/
@@ -1583,7 +1583,7 @@ div#spinner					{ position: relative; width: 45px; height: 45px; display: inline
 #addNewCancel				{ position: absolute; bottom: 12px; right: 12px; left: 50%; background-color: #eeeeee; font-size: 18px; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: normal; }
 #addNewConfirm.done,
 #addNewConfirm:active		{ color: #ccc !important; }
-ul#addNewList				{ padding: 9px 0 22px 12px; }
+#addNewList				{ padding: 9px 0 22px 12px; }
 /*
 ul#addNewList li			{ display: block; height: 45px; line-height: 45px; position: relative; }
 ul#addNewList li+li			{ border-top: 1px solid #eee; }
@@ -1618,11 +1618,11 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 .ios7 #editableDiv,
 .ios7 #appHeader				{ height: 80px; }
 .ios7 #appContent				{ top: 80px; }
-.ios7 span#subKcalsDay			{ top: 21px; }
-.ios7 span#timerFood 			{ margin-top: 14px; }
-.ios7 span#timerExercise 		{ margin-bottom: -4px; }
-.ios7 span#timerFood:after		{ bottom: 2px; }
-.ios7 span#timerExercise:after	{ bottom: 2px; }
+.ios7 #subKcalsDay				{ top: 21px; }
+.ios7 #timerFood 				{ margin-top: 14px; }
+.ios7 #timerExercise 			{ margin-bottom: -4px; }
+.ios7 #timerFood:after			{ bottom: 2px; }
+.ios7 #timerExercise:after		{ bottom: 2px; }
 /*#////////////////#//
 //#// CATEGORIES //#//
 //#////////////////#*/
@@ -1689,7 +1689,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #b800:before						{ content: '\B800'; }
 #b900:before						{ content: '\B900'; }
 #appStores #b000					{ position: absolute; bottom: 0; left: 0; width: 100%; display: block; height: 50px; background-color: rgba(0,0,0,0);  }
-#b000:before						{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: block; content: 'ChronoBurn.com'; font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif !important; text-align: center; line-height: 0; padding: 0; margin: 0; min-height: auto; font-weight: 400; font-size: 20px; }
+#b000:before						{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: block; content: 'ChronoBurn.com'; font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif !important; text-align: center; line-height: 0; padding: 0; margin: 0; min-height: inherit; font-weight: 400; font-size: 20px; }
 #developedBy						{ position: absolute; bottom: 0; left: 0; right: 0; display: block; text-align: center; font-size: 13px; color: #aaa; height: 44px; line-height: 16px; }
 #contactDeveloper 					{ color: #777; display: block; padding-top: 3px; }
 #developedBy.button span			{ color: #bbb; }

@@ -1422,12 +1422,10 @@ function getCyclicMenu() {
 		//ON CHANGE
 		$('#appModeToggle').on('change',function(obj) {
 			if($('#appModeToggle').prop('checked')) {
-				appMode = 'cyclic';
 				app.save('config_kcals_type','cyclic');
 				$('body').removeClass('simple');
 				$('body').addClass('cyclic');
 			} else {
-				appMode = 'simple';
 				app.save('config_kcals_type','simple');
 				$('body').removeClass('cyclic');
 				$('body').addClass('simple');
