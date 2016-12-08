@@ -14,7 +14,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0"/>
 <meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
-<meta name="Description" content="Real-Time Calorie Counter that simulates the human metabolism. Available in 10 platforms.">
 <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
 <link rel="apple-touch-icon-precomposed" sizes="256x256" href="icon.png">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
@@ -115,7 +114,7 @@ if (/MSApp/i.test(navigator.userAgent)) {
 			MSDialog2 = true;
 			var md = new Windows.UI.Popups.MessageDialog(msg, title);
 			md.commands.append(new Windows.UI.Popups.UICommand('ok'));
-			if (cancel != "hide") {
+			if (cancel != 'hide') {
 				md.commands.append(new Windows.UI.Popups.UICommand('cancel'));
 			}
 			md.showAsync()
@@ -252,12 +251,12 @@ var bootLoopBreaker = function () {
 	}
 };
 //PRE-LISTENERS
-window.addEventListener('mousedown', bootLoopBreaker, false);
-window.addEventListener('touchstart', bootLoopBreaker, false);
+document.addEventListener('mousedown', bootLoopBreaker, false);
+document.addEventListener('touchstart', bootLoopBreaker, false);
 //MSAPP POINTER
 if (/MSApp/i.test(navigator.userAgent)) {
-	window.addEventListener('MSPointerUp', bootLoopBreaker, false);
-	window.addEventListener('pointerup', bootLoopBreaker, false);
+	document.addEventListener('MSPointerDown', bootLoopBreaker, false);
+	document.addEventListener('pointerdown', bootLoopBreaker, false);
 }
 </script>
 
@@ -269,20 +268,9 @@ if (/MSApp/i.test(navigator.userAgent)) {
 ///////////////
 var hostLocal = '';
 var https     = /http:/i.test(window.location.protocol) || (appStorage.getItem('config_debug') == 'active' && !/http/i.test(window.location.protocol)) ? 'http://' : 'https://';
-
+///////////////
 function bootStraper() {
 	'use strict';
-	//CLEAR RECOVERY
-	setTimeout(function() {
-		//REMOVE LISTENERS
-		window.removeEventListener('mousedown', bootLoopBreaker, false);
-		window.removeEventListener('touchstart', bootLoopBreaker, false);
-		//MSAPP POINTER
-		if (/MSApp/i.test(navigator.userAgent)) {
-			window.removeEventListener('MSPointerUp', bootLoopBreaker, false);
-			window.removeEventListener('pointerup', bootLoopBreaker, false);
-		}
-	}, 3000);
 	//
 	if(appStorage.getItem('config_debug') == 'active') { hostLocal = https + '192.168.1.5/'; }
 	//INIT
@@ -318,6 +306,19 @@ function bootStraper() {
 	} else {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>');
 	}
+	////////////////////
+	// CLEAR RECOVERY //
+	////////////////////
+	setTimeout(function() {
+		//REMOVE LISTENERS
+		document.removeEventListener('mousedown', bootLoopBreaker, false);
+		document.removeEventListener('touchstart', bootLoopBreaker, false);
+		//MSAPP POINTER
+		if (/MSApp/i.test(navigator.userAgent)) {
+			document.removeEventListener('MSPointerDown', bootLoopBreaker, false);
+			document.removeEventListener('pointerdown', bootLoopBreaker, false);
+		}
+	}, 5000);
 }
 ///////////////
 // BOOTSTRAP //
