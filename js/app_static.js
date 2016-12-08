@@ -448,7 +448,7 @@ if(app.device.tizen) {
 		if(e.keyName === 'back' ) {
 			$(document).trigger('backbutton');
 		}
-	});
+	}, false);
 }
 /////////////////
 // PRESS ENTER //

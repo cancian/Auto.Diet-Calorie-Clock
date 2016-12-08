@@ -2667,6 +2667,15 @@ function getLoginFB() {
 			var facebookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&response_type=token&redirect_uri=' + encodeURIComponent(callback);
 			//open
 			var childWindow = window.open(facebookURL, '_blank');
+			//TIZEN WINDOW CLOSER
+			if(app.device.tizen) {
+				childWindow.addEventListener('tizenhwkey', function(e) {
+					if(e.keyName === 'back' ) {
+						clearInterval(app.timers.bbtoken);
+						childWindow.close();
+					}
+				});
+			}
 			//INTERVAL CHECKER
 			app.timers.bbtoken = setInterval(function () {
 				try {
@@ -2687,7 +2696,6 @@ function getLoginFB() {
 					}
 				} catch(err) {					
 					clearInterval(app.timers.bbtoken);
-					errorHandler('error: bbtoken setInterval | catch: ' + err);
 				}
 			}, 100);
 		////////////
