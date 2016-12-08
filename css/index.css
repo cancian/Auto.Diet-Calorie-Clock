@@ -1232,8 +1232,9 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 .appLang-it .heading,
 .appLang-es .heading		{ font-size: 16px; letter-spacing: 2px; }
 /*EXPIRED*/
-.expired p					{ opacity: .3; }
+.expired p					{ opacity: .4; }
 .editing p					{ opacity: 1; }
+.expired 					{ -webkit-transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; }
 /*ROW BORDER*/
 .rowMorning,
 .e-rowMorning,
