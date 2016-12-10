@@ -1,4 +1,5 @@
 ﻿–EN
+:: REAL TIME CALORIE COUNTING
 $KCALS$ is a new way for you to control your calorie intake.
 It displays your calorie usage in real time, and at a glance $KCALS$ will show you how much to eat every day.
  
@@ -53,6 +54,7 @@ And to get a feel for how $KCALS$ works, go to ChronoBurn.com and you can get st
 EN–
  
 –PT
+:: CONTAGEM DE CALORIAS EM TEMPO REAL
 $KCALS$ é uma nova forma de controlar sua ingestão de calorias.
 O app mostra seu gasto calórico em tempo real, e num relance você já sabe quanto deve comer a cada dia.
  
@@ -107,6 +109,7 @@ Para ter uma ideia de como o $KCALS$ funciona, visite ChronoBurn.com e comece ag
 PT–
 
 –AR
+:: حساب عدد السعرات الحرارية في الحال
 $KCALS$ هو وسيلة جديدة لمراقبة استهلاكك من السعرات الحرارية.
 البرنامج يعرض استهلاكك من السعرات الحرارية أولا بأول و بشكل مستمر، و بلمحة سريعة سوف يعطيك مُقترحا لكمية الطعام التى عليك تناولها كل يوم.
  
@@ -137,7 +140,7 @@ $KCALS$ متاح لـــ 10 منصات تشغيل مختلفة، لذلك بغ�
 لتتعرف على كيفية عمل $KCALS$، اذهب إلى ChronoBurn.com وستجد هناك كل ما تحتاجه. يمكنك لاحقاً ارسال البيانات الى هاتفك المحمول.
  
 :: السمات الرئيسية
-• حساب عدد السعرات الحرارية في الحال.
+• حساب عدد السعرات الحرارية في الحال
 • مُترجم إلى 26 لغة
 • متوفر لـــ 10 منصات تشغيل مختلفة
 • واجهة بسيطة وواضحة ومريحة
@@ -162,6 +165,7 @@ $KCALS$ متاح لـــ 10 منصات تشغيل مختلفة، لذلك بغ�
 AR– 
 
 –BG
+:: БРОЕНЕ НА КАЛОРИИ В РЕАЛНО ВРЕМЕ
 $KCALS$ е нов начин да контролирате Вашия прием на калории.
 Той показва Вашата употреба на калории в реално време, а също така и с един поглед $KCALS$ ще Ви покаже колко да ядете всеки ден.
  
@@ -216,6 +220,7 @@ $KCALS$ е достъпна на 10 различни платформи, так�
 BG–
 
 –CS
+:: POČÍTÁNÍ KALORIÍ V REÁLNÉM ČASE
 $KCALS$ je nový způsob, jak můžete kontrolovat svůj příjem kalorií.
 Ukazuje vaši spotřebu kalorií v reálném čase a na první pohled vám $KCALS$ ukáže, kolik máte každý den jíst.
  
@@ -270,6 +275,7 @@ Pro dokreslení toho, jak aplikace $KCALS$ funguje, přejděte na ChronoBurn.com
 CS–
 
 –DA
+:: KALORIETÆLLING I REALTID
 $KCALS$ er en ny måde, hvor du kan styre din kalorieindtagelse.
 Den viser dit kalorieforbrug i realtid, og $KCALS$ viser dig en hurtig oversigt over, hvor meget du skal spise hver dag.
  
@@ -324,6 +330,7 @@ Gå til ChronoBurn.com, så du får en idé om, hvordan $KCALS$ fungerer, og du 
 DA–
 
 –DE
+:: ECHTZEIT KALORIENZÄHLUNG
 $KCALS$ ist eine neue Methode, die eigene Kalorienzufuhr zu kontrollieren.
 Er zeigt Ihnen die aufgenommenen Kalorien in Echtzeit an und somit liefert $KCALS$ Ihnen auf einen Schlag eine Übersicht, wieviel Sie am Tag essen.
  
@@ -378,6 +385,7 @@ Und um ein Gefühl dafür zu bekommen, wie $KCALS$ funktioniert, gehen Sie auf C
 DE– 
 
 –EL
+:: ΚΑΤΑΜΈΤΡΗΣΗ ΘΕΡΜΊΔΩΝ ΣΕ ΠΡΑΓΜΑΤΙΚΌ ΧΡΌ
 Ο $KCALS$ είναι ένας νέος τρόπος για να ελέγχετε την πρόσληψη θερμίδων σας.
 Εμφανίζει τη κατανάλωση θερμίδων σας σε πραγματικό χρόνο και, με μια ματιά, ο $KCALS$ θα σας δείξει πόσο να τρώτε κάθε μέρα.
  
@@ -432,6 +440,7 @@ DE–
 EL–
 
 –ES
+:: CONTEO DE CALORÍAS EN TIEMPO REAL 
 $KCALS$ es una nueva forma de controlar su consumo de calorías.
 La aplicación muestra su gasto de energía en tiempo real, y de un vistazo ya sabes cuánto debes comer cada día.
 
@@ -486,6 +495,7 @@ Para tener una idea de cómo funciona $KCALS$, vaya a ChronoBurn.com y empezar a
 ES–
 
 –FI
+:: TOSIAIKAINEN KALORILASKURI
 $KCALS$ on uusi tapa kontrolloida kalorien saantia.
 Se näyttää kalorien kulutuksen tosiaikaisesti, ja $KCALS$ näyttää yhdellä silmäyksellä, miten paljon päivittäin tulee syödä.
  
@@ -540,6 +550,7 @@ Ja kun haluat katsoa, miten $KCALS$ toimii, siirry osoitteeseen ChronoBurn.com j
 FI–
  
 –FR
+:: COMPTAGE DE CALORIES EN TEMPS RÉEL
 $KCALS$ est une nouvelle méthode pour contrôler votre apport calorique.
 Il affiche votre consommation de calories en temps réel, et en bref $KCALS$ va vous expliquer ce que vous devriez manger chaque jour.
  
@@ -594,6 +605,7 @@ Pour avoir une idée de la façon dont fonctionne $KCALS$, visitez le site Chron
 FR–
 
 –HU
+:: VALÓS IDEJŰ KALÓRIASZÁMLÁLÁS
 A $KCALS$ a legújabb módszer, hogy kézben tartsa a kalóriabevitelét.
 Valós időben naplózza az Ön kalóriafelhasználását, és egy pillanat alatt megmutatja, mennyit ehet egy nap.
 
@@ -648,6 +660,7 @@ Ha szeretné megnézni, hogyan is működik a $KCALS$, látogassa meg a ChronoBu
 HU–
 
 –IT
+:: CONTEGGIO DELLE CALORIE IN TEMPO REALE
 $KCALS$ è un nuovo modo per controllare l’apporto calorico.
 L’applicazione mostra l’assunzione di calorie in tempo reale, e su una schermata vi mostrerà quanto mangiare ogni giorno.
  
@@ -702,6 +715,7 @@ E per avere un’idea di come $KCALS$ funziona, vai a ChronoBurn.com e potrai in
 IT–
  
 –ID
+:: REAL-TIME MENGHITUNG KALORI
 $KCALS$ adalah cara baru bagi Anda untuk mengontrol asupan kalori Anda.
 Aplikasi ini menampilkan penggunaan kalori Anda secara real time, dan dengan sepintas $KCALS$ akan menunjukkan berapa banyak makanan yang harus Anda konsumsi setiap hari.
  
@@ -731,7 +745,7 @@ $KCALS$ tersedia pada 10 platform yang berbeda, jadi dengan perangkat apa pun ya
 Dan untuk mencoba cara kerja $KCALS$, silakan buka ChronoBurn.com dan Anda dapat langsung memulai. Kemudian, Anda dapat mengirimkan data ke perangkat mobile Anda.
  
 :: FITUR UTAMA
-• Menghitung kalori Real time
+• Real-time menghitung kalori
 • Diterjemahkan ke dalam 26 bahasa
 • Tersedia dalam 10 platform yang berbeda
 • Antarmuka yang sederhana, bersih dan intuitif
@@ -756,6 +770,7 @@ Dan untuk mencoba cara kerja $KCALS$, silakan buka ChronoBurn.com dan Anda dapat
 ID–
 
 –JA
+:: リアルタイムカロリー計算
 $KCALS$ は、あなたのカロリー摂取量を制御するための新しい方法です。
 これは、リアルタイムであなたのカロリー使用状況を表示し、$KCALS$は毎日どれだけ食べるべきかをひと目でわかるように示します。
  
@@ -810,6 +825,7 @@ $KCALS$は、10種類のプラットフォームで使用できますので、�
 JA–
 
 –KO
+:: 실시간 칼로리 계산
 $KCALS$ 칼로리 섭취를 제어하는 새로운 방법입니다.
 칼로리 사용을 실시간으로 표시하며, 매일 먹는 양을 $KCALS$가 한 눈에 알아볼 수 있도록 보여줍니다.
  
@@ -864,6 +880,7 @@ $KCALS$가 어떻게 작동하는지 알아 보시려면, ChronoBurn.com으로 �
 KO–
 
 –NL
+:: REAL-TIME CALORIETELLER
 $KCALS$ is een nieuwe manier om uw calorie inname te beheersen.
 De app toont u uw calorie verbruik in real time, en $KCALS$ laat in een oogopslag zien hoeveel te eten elke dag.
  
@@ -893,7 +910,7 @@ $KCALS$ is beschikbaar op 10 verschillende platformen, dus het maakt niet uit we
 Om een idee te krijgen van hoe $KCALS$ werkt, ga dan naar ChronoBurn.com en je kan meteen aan de slag. Vervolgens kun je later de gegevens synchroniseren naar uw favoriete mobiele apparaat!
  
 :: BELANGRIJKSTE KENMERKEN
-• Real-time calorieteller (dit doet geen enkele andere app!)
+• Real-time calorieteller
 • Vertaald naar 26 talen
 • Verkrijgbaar op 10 verschillende platformen (inclusief gratis web versie)
 • Simpel, strak en intuïtieve vormgeving 
@@ -918,6 +935,7 @@ Om een idee te krijgen van hoe $KCALS$ werkt, ga dan naar ChronoBurn.com en je k
 NL–
 
 –NB
+:: KALORITELLING I SANNTID
 $KCALS$ er en ny måte å styre kaloriinntaket på.
 Den viser kaloriforbruket ditt i sanntid, og $KCALS$ viser en raskt oversikt over hvor mye du skal spise hver dag.
 
@@ -972,6 +990,7 @@ Gå til ChronoBurn.com, så du får en idé om hvordan $KCALS$ fungerer, og du k
 NB–
 
 –PL
+:: LICZENIE KALORII W CZASIE RZECZYWISTYM
 $KCALS$ to nowy sposób kontrolować ilość spożywanych kalorii.
 Pokazuje zużycie kalorii w czasie rzeczywistym, i w mgnieniu oka $KCALS$ pokaże ile jeść codziennie.
  
@@ -1026,6 +1045,7 @@ Aby poczuć, jak $KCALS$ działa, odwiedź stronę ChronoBurn.com, na której mo
 PL–
 
 –RO
+:: NUMĂRAREA CALORIILOR ÎN TIMP REAL
 $KCALS$ este un nou mod de a controla aportul de calorii.
 Afișează consumul de calorii în timp real, și dintr-o privire $KCALS$ vă va arăta cât de mult să mâncaţi în fiecare zi.
  
@@ -1080,6 +1100,7 @@ $KCALS$ este disponibil pe 10 platforme diferite, astfel încât, indiferent de 
 RO–
 
 –RU
+:: ПОДСЧЁТ КАЛОРИЙ В РЕЖИМЕ РЕАЛЬНОГО ВРЕМЕНИ
 $KCALS$ это новый способ контролировать потребление калорий.
 $KCALS$ отображает расход калорий в режиме реального времени. Вы с первого взгляда поймёте, сколько вам нужно есть каждый день.
  
@@ -1134,6 +1155,7 @@ $KCALS$ доступен на 10 различных платформах, поэ
 RU–
  
 –SV
+:: RÄKNING AV KALORIER I REAL TID
 $KCALS$ är ett nytt sätt för dig att styra ditt kaloriintag.
 Den visar din kalorianvändning i realtid, och med en överblick så visar $KCALS$ dig hur mycket du ska äta varje dag.
 
@@ -1188,6 +1210,7 @@ Och för att få en känsla för hur $KCALS$ fungerar, gå till ChronoBurn.com o
 SV–
 
 –TR
+:: GERÇEK ZAMANLı KALORI SAYMA
 $KCALS$ aldığınız kalorileri kontrol etmeniz için yeni bir yöntem.
 $KCALS$ gerçek zamanlı olarak kalori kullanımınızı görüntüler ve bir bakışta her gün ne kadar yemeniz gerektiğini gösterir.
 
@@ -1242,6 +1265,7 @@ $KCALS$'ın nasıl çalıştığına dair bir fikir almak için, ChronoBurn.com 
 TR–
  
 –VI
+:: TÍNH LƯỢNG CALO THEO THỜI GIAN THỰC
 $KCALS$ là một cách mới để bạn có thể kiểm soát lượng calo của bạn.
 Nó hiển thị lượng calo sử dụng của bạn theo thời gian thực, và nhanh chóng, Kclas sẽ cho bạn biết bạn nên ăn bao nhiêu mỗi ngày.
  
@@ -1296,6 +1320,7 @@ Và để có được một cảm nhận về cách làm việc của Klals, h�
 VI–
 
 –ZH
+:: 实时计算卡路里
 $KCALS$ 是您控制卡路里摄入量的新途径。
 它会显示您的实时卡路里消耗量，只需一眼，$KCALS$就让您每天可进食的数量一目了然。
 
@@ -1309,7 +1334,7 @@ $KCALS$是一款很容易理解的工具 - 它就像一个卡路里记录表。
 
 减肥从未像这般简单！
 
-:: 针对多种设备的同步数据终端:: 
+:: 针对多种设备的同步数据终端
 $KCALS$还具有自动备份和数据同步的功能。
 
 在多个设备之间轻松同步您的数据，并保持登录状态！
@@ -1350,6 +1375,7 @@ $KCALS$可应用于10个不同的平台，所以无论您使用何种设备，�
 ZH–
 
 –ZT
+:: 即時計算卡路里
 $KCALS$ 是您控制卡路里攝入量的新途徑。
 它會顯示您的即時卡路里消耗量，只需一眼，$KCALS$就讓您每天可進食的數量一目了然。
 
