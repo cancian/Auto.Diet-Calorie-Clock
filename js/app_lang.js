@@ -1,11 +1,17 @@
 ﻿/////////////////////
 // LANGUAGE ENGINE //
 /////////////////////
+//OPT  - my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,web,md,lose,it,calorie,counter,tracker,diary,burn
+//W10  - calorie counter, weight loss, lose weight, burn fat, weight tracker, kcals, myfitnesspal
+//IOS  - calorie,counter,weight,loss,lose,burn,fat,tracker,bmi,calculator,fit,cycling,myfitnesspal,healthbook
+//BB10 - calorie counter | weight loss | lose weight | burn fat | weight tracker | bmi calculator | cycling | kcals | plate | myfitnesspal
+//plate,meal,carb
+/////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.1.1 (210102)';
+var appVersion = '2.1.1 (210103)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = false;
+var reviewMode = true;
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';
