@@ -20,6 +20,15 @@ rem mkdir k:\platforms\android\assets\www
 rem cd k:\platforms\android\assets\www 
 rem call reswww 
 
+REM "TIZEN" 
+cd\ 
+deltree /y /z /s /q /t k:\platforms\tizen\js
+deltree /y /z /s /q /t k:\platforms\tizen\css
+deltree /y /z /s /q /t k:\platforms\tizen\sql
+cd k:\platforms\tizen
+sleep 0
+call reswwwt
+
 REM "ANDROID-GRADLE" 
 cd\ 
 deltree /y /z /s /q /t k:\platforms\android-gradle\assets\www 
