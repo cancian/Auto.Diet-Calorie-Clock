@@ -9,7 +9,7 @@
 //plate,meal,carb
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.1.1 (210103)';
+var appVersion = '2.1.1 (210104)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = true;
