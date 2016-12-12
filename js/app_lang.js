@@ -7695,7 +7695,7 @@ var LANG = {
 <p>Now hit start, and the app will show how many calories you have burned over time, so you’ll always know exactly how many calories you should consume at any given moment - with the caloric restriction calculation already included.</p>\
 <p>For instance:</p><p>2400 per day / 24 hours = 100 calories per hour</p><p>So, after 60 minutes, the counter will indicate your caloric balance is “-100”. Its that simple!</p>\
 <p>All you have to do is keep the counter around zero, and you will be automatically walking towards your goal!</p>\
-<p>Of course, reality is more complex than that, but the point of this app is to keep things simple.</p>\
+<p>Of course, reality is more complex than that, but the point here is to keep things simple.</p>\
 <p>It is well known that keeping a consistent calorie deficit over time is the most important part to weight loss – so let’s focus on that!</p>',
 //////////////////
 'The Status Bar' :
