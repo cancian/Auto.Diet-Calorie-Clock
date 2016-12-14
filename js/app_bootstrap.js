@@ -182,7 +182,7 @@ function buildRemoteSuperBlock(opt) {
 		////////////////////
 		// RESTART DIALOG //
 		////////////////////
-		if (updatePending === 1) {
+		if (updatePending == 1) {
 			setTimeout(function () {
 				if (typeof app !== 'undefined') {
 					if (typeof app.analytics === 'function') {
@@ -196,22 +196,9 @@ function buildRemoteSuperBlock(opt) {
 				appStorage.setItem('app_build', appBuild);
 			}
 			appStorage.setItem('app_restart_pending', true);
-			if (appStorage.getItem('app_notify_update')) {
-				setTimeout(function () {
-					if (typeof appConfirm === 'function') {
-						appConfirm(LANG.APP_UPDATED[lang], LANG.RESTART_NOW[lang], function (button) {
-							if (button === 2) {
-								afterHide();
-							} else {
-								appStorage.setItem('app_restart_pending', true);
-							}
-						}, LANG.OK[lang], LANG.CANCEL[lang]);
-					}
-				}, 2000);
-			}
 		} else {
 			$('body').removeClass('loading');
-			if (isCurrentCacheValid === 1) {
+			if (isCurrentCacheValid == 1) {
 				$('body').addClass('uptodate');
 			} else {
 				$('body').addClass('corrupted');
@@ -234,25 +221,27 @@ function buildRemoteSuperBlock(opt) {
 if(!appStorage.getItem('config_autoupdate')) {
 	appStorage.setItem('config_autoupdate','on');
 }
+//LOCAL
 if(appStorage.getItem('config_autoupdate') === 'on') {
 	//IF SUPERBLOCK MISSING
-	if(isCurrentCacheValid !== 1) {
+	if(isCurrentCacheValid != 1) {
 		//BUILD LOCAL SUPERBLOCK
-		if(!$('#plainLoad').length) {
+		if(!document.getElementById('plainLoad')) {
 			InitializeLocalSuperBlock();
 		}
 	}
 	//CHECK UPDATES
 	$(function() {
 		'use strict';
-		//SAVE REQUEST
-		if(!appStorage.getItem('remoteSuperBlockJS') || !appStorage.getItem('remoteSuperBlockCSS')) {
-			setTimeout(function() {
-				if(/http/i.test(window.location.protocol)) {
+		//SAVE WEB REQUEST IF UP TO DATE
+		if(/http/i.test(window.location.protocol)) {
+			if(!appStorage.getItem('remoteSuperBlockJS') || !appStorage.getItem('remoteSuperBlockCSS')) {
+				setTimeout(function() {
 					InitializeLocalSuperBlock();
-				}
-			},2500);
+				}, 2000);
+			}
 		}
+		//
 		var cacheTimeout = appStorage.getItem('config_debug') === 'active' ? 0 : 6000;
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
@@ -267,6 +256,6 @@ $(function() {
 			$('body').addClass('started');
 			$('body').removeClass('unloaded');
 		}
-	},9999);
+	}, 9999);
 });
 
