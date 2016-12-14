@@ -886,6 +886,7 @@ app.url = function(url) {
 		else if(app.device.osxapp)								{ macgap.app.open(url);								 }
 		else if(app.device.playbook)							{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (err) { errorHandler('url: ' + err); }}
 		else if(app.device.blackberry)							{ if(/appworld/i.test(url)) { window.location.href=url; } else { ref = window.open(url, '_blank'); }}
+		else if(app.device.tizen)								{ ref = window.open(url, '_blank'); ref.addEventListener('tizenhwkey', function(e) { if(e.keyName === 'back' && ref) { ref.close(); }}); }
 		else 													{ window.open(url, '_blank'); }
 	}
 };
