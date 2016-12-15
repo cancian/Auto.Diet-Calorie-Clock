@@ -1545,7 +1545,7 @@ function getLimitMenu() {
 	<div id="appLimit">\
 		<div id="appLimitEnable">\
 			<input id="appLimit1" type="number" value="' + Math.abs(app.read('config_limit_1')) + '" />\
-			<div id="appLimit1Title">" + LANG.LIMIT_LOWER[lang] + " <span>(" + LANG.DEFICIT[lang] + ")</span></div>\
+			<div id="appLimit1Title">' + LANG.LIMIT_LOWER[lang] + ' <span>(' + LANG.DEFICIT[lang] + ')</span></div>\
 			<input id="appLimit2" type="number" value="' + app.read('config_limit_2') + '" />\
 			<div id="appLimit2Title">' + LANG.LIMIT_UPPER[lang] + ' <span>(' + LANG.SURPLUS[lang] + ')</span></div>\
 			<div id="appLimitInfo"><p>*' + LANG.LIMIT_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + '</p></div>\
@@ -1557,7 +1557,8 @@ function getLimitMenu() {
 				<span><input id="colorSurplus"  /><div id="appColorPickerSurplus">'  + LANG.SURPLUS[lang]  + '</div></span>\
 			</div>\
 		</div>\
-	</div>';
+	</div>\
+	';
 	//////////////
 	// HANDLERS //
 	//////////////
