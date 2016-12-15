@@ -860,7 +860,8 @@ app.url = function(url) {
 		chromeos:   'https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc',
 		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'https://appworld.blackberry.com/webstore/content/59937667',
 		playbook:   'https://appworld.blackberry.com/webstore/content/59937667',
-		amazon:     'https://www.amazon.com/dp/B00NDSQIHK/qid=1411265533'
+		amazon:     'https://www.amazon.com/dp/B00NDSQIHK/qid=1411265533',
+		tizen:      'tizenstore://ProductDetail/000000084298' //http://www.tizenstore.com/event/event_ajax.as?contentId=000000084298
 	};
 	//SHORTCUT
 	     if((!url && app.device.ios)        || url == 'ios')         { url = store.ios;        }
@@ -875,6 +876,7 @@ app.url = function(url) {
 	else if((!url && app.device.firefoxos)  || url == 'firefoxos')   { url = store.firefoxos;  }
 	else if((!url && app.device.osxapp)     || url == 'osxapp')      { url = store.osxapp;     }
 	else if((!url && app.device.chromeos)   || url == 'chromeos')    { url = store.chromeos;   }
+	else if((!url && app.device.tizen)      || url == 'tizen')       { url = store.tizen;      }
 	else if(url == 'www')										 	 { url = store.web;        }
 	//OPEN
 	if(url) {
