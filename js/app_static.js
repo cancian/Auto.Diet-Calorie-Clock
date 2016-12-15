@@ -1408,6 +1408,7 @@ if(app.is.scrollable) {
 	// PAGELOAD GA TRACKER //
 	/////////////////////////
 	//LIVEZILLA
+	/*
 	safeExec(function() {
 		setTimeout(function() {
 			try {
@@ -1423,6 +1424,7 @@ if(app.is.scrollable) {
 			} catch(err) {}
 		}, 1000);
 	});
+	*/
 	//INSTALL
 	app.trackInstall();
 	//ERROR LOGS
