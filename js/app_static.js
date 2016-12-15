@@ -1407,6 +1407,22 @@ if(app.is.scrollable) {
 	/////////////////////////
 	// PAGELOAD GA TRACKER //
 	/////////////////////////
+	//LIVEZILLA
+	safeExec(function() {
+		setTimeout(function() {
+			try {
+				$('body').append2('<div id="livezilla_tracking" style="display:none"></div>');
+				var script = document.createElement('script');
+				script.id = 'lz_r_scr';
+				script.lz_code_id = '08ce38bce27682fec9467b667d71e9d4';
+				script.async = true;
+				script.type='text/javascript';
+				var src = 'https://chronoburn.com/livezilla7/server.php?rqst=track&output=jcrpt&el=ZW4_&hinv=MQ__&nse='+Math.random();
+				script.src = src;
+				document.getElementById('livezilla_tracking').appendChild(script);
+			} catch(err) {}
+		}, 1000);
+	});
 	//INSTALL
 	app.trackInstall();
 	//ERROR LOGS
