@@ -3,6 +3,7 @@
 /////////////////////
 //OPTM - my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,bmi,kg,lose,it,calorie,counter,tracker,diary,burn
 //OPT  - my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,web,md,lose,it,calorie,counter,tracker,diary,burn
+//LAST - exercise,health,women,diet,fitness,nutrition,burn,fat,weight,lose,kcals,chrono,tracker,track,kcal,cal
 //W10  - calorie counter, weight loss, lose weight, burn fat, weight tracker, kcals, myfitnesspal
 //IOS  - calorie,counter,weight,loss,lose,burn,fat,tracker,bmi,calculator,fit,cycling,myfitnesspal,healthbook
 //BB10 - calorie counter | weight loss | lose weight | burn fat | weight tracker | bmi calculator | cycling | kcals | plate | myfitnesspal
