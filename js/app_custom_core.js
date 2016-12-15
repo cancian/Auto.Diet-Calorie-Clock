@@ -49,7 +49,7 @@ function appTimer(content) {
 		timerKcals = kcalsInput;
 	}
 	if($('#timerDailyInput').val() != eqPerDay) {
-		if(!$('#timerDailyInput').is(':focus') && !$('#timerDailyInput').is(':animated')) {
+		if(!$('#timerDailyInput').is(':focus')) {
 			$('#timerDailyInput').val(eqPerDay);
 		}
 	}
@@ -299,7 +299,7 @@ function updateNutriBars() {
 	'use strict';
 	if(!app.read('app_last_tab','tab1'))	{ return; }
 	if(app.read('appStatus','stopped'))		{ return; }
-	if($('body').hasClass('closer'))		{ return; }
+	//if($('body').hasClass('closer'))		{ return; }
 	if(!$('#appStatusBars').length)			{ return; }
 	//
 	var tPro = app.read('tPro');
@@ -368,10 +368,9 @@ function updateNutriBars() {
 	var nProPerRatio = Math.round( (nPerPro / proRatio) * 100);
 	var nCarPerRatio = Math.round( (nPerCar / carRatio) * 100);
 	var nFatPerRatio = Math.round( (nPerFat / fatRatio) * 100);
-	//pro bar css
+	//PRO
 	var nProPerWidth;
 	var nProPerClass;
-	//
 	if(nProPerRatio > 200) {
 		nProPerWidth = 100;
 		nProPerClass = 'danger';
@@ -385,13 +384,11 @@ function updateNutriBars() {
 		nProPerWidth = nProPerRatio;
 		nProPerClass = 'normal';
 	}
-	$('#appStatusBarsPro p').removeClass('danger warn over normal');
-	$('#appStatusBarsPro p').addClass(nProPerClass);
-	$('#appStatusBarsPro p').css2('width',Math.round(nProPerWidth) + '%');
-	//car bar css
+	//update
+	$('#appStatusBarsPro p').removeClass('danger warn over normal').addClass(nProPerClass).css2('width',Math.round(nProPerWidth) + '%');
+	//CAR
 	var nCarPerWidth;
 	var nCarPerClass;
-	//
 	if(nCarPerRatio > 200) {
 		nCarPerWidth = 100;
 		nCarPerClass = 'danger';
@@ -405,13 +402,11 @@ function updateNutriBars() {
 		nCarPerWidth = nCarPerRatio;
 		nCarPerClass = 'normal';
 	}
-	$('#appStatusBarsCar p').removeClass('danger warn over normal');
-	$('#appStatusBarsCar p').addClass(nCarPerClass);
-	$('#appStatusBarsCar p').css2('width',Math.round(nCarPerWidth) + '%');
-	//fat bar css
+	//update
+	$('#appStatusBarsCar p').removeClass('danger warn over normal').addClass(nCarPerClass).css2('width',Math.round(nCarPerWidth) + '%');
+	//FAT
 	var nFatPerWidth;
 	var nFatPerClass;
-	//
 	if(nFatPerRatio > 200) {
 		nFatPerWidth = 100;
 		nFatPerClass = 'danger';
@@ -425,11 +420,11 @@ function updateNutriBars() {
 		nFatPerWidth = nFatPerRatio;
 		nFatPerClass = 'normal';
 	}
-	//UPDATE BARS
-	$('#appStatusBarsFat p').removeClass('danger warn over normal');
-	$('#appStatusBarsFat p').addClass(nFatPerClass);
-	$('#appStatusBarsFat p').css2('width',Math.round(nFatPerWidth) + '%');
-	//relative percentage
+	//
+	$('#appStatusBarsFat p').removeClass('danger warn over normal').addClass(nFatPerClass).css2('width',Math.round(nFatPerWidth) + '%');
+	/////////////////////////
+	// RELATIVE PERCENTAGE //
+	/////////////////////////
 	$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase() + ' (' + Math.round(tPro) + LANG.G[lang] + ')');
 	$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
 	$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');

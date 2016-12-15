@@ -1,7 +1,7 @@
-﻿//##//////////////////##//
-//## DYNAMIC HANDLERS ##//
-//##//////////////////##//
-$(document).on("pageload", function (evt) {
+﻿//##//////////////////////////##//
+//##     DYNAMIC HANDLERS     ##//
+//##$(document).on("pageload")##//
+$(document).on('pageload', function (evt) {
 	'use strict';
 	// PREVENT++ //
 	var tgt = (evt.target.id > 0) ? '#' + evt.target.id : '';
@@ -93,7 +93,7 @@ $(document).on("pageload", function (evt) {
 			if(!$('.editableInput').is(':visible')) {
 				$('#' + event.target.id).html2(dtFormat(Number(event.target.id.replace('t', ''))));
 				setTimeout(function () {
-					$("#" + event.target.id).html2(dateDiff(event.target.id.replace('t', ''), (new Date()).getTime()));
+					$('#' + event.target.id).html2(dateDiff(event.target.id.replace('t', ''), (new Date()).getTime()));
 				},2000);
 			}
 			entryReturn = true;
@@ -161,21 +161,21 @@ $(document).on("pageload", function (evt) {
 										} else if (Number(document.getElementById('kcalsDiv').innerHTML) < 0) {
 											new_value = LANG.EXERCISE[lang];
 										} else {
-											new_value = "";
+											new_value = '';
 										}
 									}
 								}
 								$(this).replaceWith(new_value);
 								$('#kcalsAdjust').remove();
-								$('#kcalsDiv').parent("div").removeClass("editing");
-								var highTarget = $('#kcalsDiv').parent("div");
+								$('#kcalsDiv').parent('div').removeClass('editing');
+								var highTarget = $('#kcalsDiv').parent('div');
 								app.highlight(highTarget,300,'#ffc','#fff',function () {
 									//eP = 0;
 									deKeyboard = (new Date()).getTime();
 									return false;
 								});
 								$('#kcalsDiv').removeAttr('id');
-								$("#sliderBlock").fadeOut(500);
+								$('#sliderBlock').fadeOut(500);
 								//whitegap fix
 								setTimeout(function () {
 									updateEntriesSum();
@@ -203,25 +203,25 @@ $(document).on("pageload", function (evt) {
 						<span id="adjustNegBlock"><span id="adjustNeg"></span></span>\
 						<span id="adjustPosBlock"><span id="adjustPos"></span></span>\
 						</p>');
-					$("#editableInput").focus();
+					$('#editableInput').focus();
 					///////////////////////
 					// RESET ENTRY VALUE //
 					///////////////////////
-					$("#kcalsDiv").off(touchstart).on(touchstart, function (evt) {
+					$('#kcalsDiv').off(touchstart).on(touchstart, function (evt) {
 						evt.preventDefault();
 						timedBlur = new Date().getTime() - 6 * 1000;
 						//no reset block
-						if (!$(this).parent('div').hasClass("editing")) {
+						if (!$(this).parent('div').hasClass('editing')) {
 							return;
 						}
-						var thisRowId = $(this).closest('div').data("id");
+						var thisRowId = $(this).closest('div').data('id');
 						//INTOTHEVOID
 						function intoTheVoid(button) {
 							//ON CONFIRM
 							timedBlur = new Date().getTime();
 							if (button === 2) {
-								$("#" + thisRowId + " " + ".entriesTitle").html2("0");
-								$("#" + thisRowId + " " + ".entriesTitle").css2("color", "#333");
+								$('#' + thisRowId + ' ' + '.entriesTitle').html2('0');
+								$('#' + thisRowId + ' ' + '.entriesTitle').css2('color', '#333');
 								//save
 								saveEntry({
 									title : '0',
@@ -332,7 +332,7 @@ $(document).on("pageload", function (evt) {
 						app.highlight(closeTarget,300,'#fff','#ffc');
 						closeTarget.addClass('editing');
 						$('#sliderBlock').remove();
-						$('#entryListForm').prepend2("<div id='sliderBlock'></div>");
+						$('#entryListForm').prepend2('<div id="sliderBlock"></div>');
 						//blur block
 						$('#sliderBlock').on(touchstart, function (evt) {
 							evt.preventDefault();
@@ -533,7 +533,7 @@ $(document).on("pageload", function (evt) {
 //# DYNAMIC HANDLERS 2.0 #//
 //#//////////////////////#//
 var pageReloads = 0;
-$(document).on("pageReload", function (evt) {
+$(document).on('pageReload', function (evt) {
 	'use strict';
 	//pre-load db, then open
 	if (!app.read('foodDbLoaded','done')) {
@@ -545,7 +545,7 @@ $(document).on("pageReload", function (evt) {
 		app.timeout('pageReload', 200, function() {
 			pageReloads++;
 			//if(app.dev) { console.log('trying ' + pageReloads); }
-			$(document).trigger("pageReload");
+			$(document).trigger('pageReload');
 		});
 		return;
 	} else {
@@ -561,7 +561,7 @@ $(document).on("pageReload", function (evt) {
 		$('#pageSlideFood').remove();
 	}
 	if($('#pageSlideFood').length) {
-		if($("#pageSlideFood").is(':animated')) {
+		if($('#pageSlideFood').is(':animated')) {
 			return;
 		} else {
 			$('#pageSlideFood').remove();
@@ -569,7 +569,7 @@ $(document).on("pageReload", function (evt) {
 	}
 	//evt.stopPropagation();
 	//not while editing ~
-	if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#appStatusFix').hasClass('open')) {
+	if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$('#timerDailyInput').is(':focus') && !$('#appStatusFix').hasClass('open')) {
 		//NO SWIPE OVERLAP
 		if (!$('.active').hasClass('open')) {
 			$('.active').addClass('busy');
@@ -580,11 +580,11 @@ $(document).on("pageReload", function (evt) {
 			$('.active').removeClass('active');
 			if (!$('.delete').hasClass('busy')) {
 				//hide
-				if ($('#pageSlideFood').hasClass("open") && !$('#pageSlideFood').hasClass("busy")) {
+				if ($('#pageSlideFood').hasClass('open') && !$('#pageSlideFood').hasClass('busy')) {
 					$('#pageSlideFood').addClass('busy');
 					$('#pageSlideFood').on(transitionend, function (evt) {
 						$('#pageSlideFood').removeClass('busy');
-						$("#foodSearch").blur();
+						$('#foodSearch').blur();
 					});
 				} else {
 					if (!$('#pageSlideFood').hasClass('busy')) {
@@ -595,9 +595,9 @@ $(document).on("pageReload", function (evt) {
 						// PAGESLIDEFOOD DIV //
 						///////////////////////
 						$('#pageSlideFood').remove();
-						$('body').append2("<div id='pageSlideFood'></div>");
-						$('#pageSlideFood').css2("height", ($('body').height() - $('#appHeader').height()) + "px");
-						$('#pageSlideFood').css2("top", $('#appHeader').height() + "px");
+						$('body').append2('<div id="pageSlideFood"></div>');
+						$('#pageSlideFood').css2('height', ($('body').height() - $('#appHeader').height()) + 'px');
+						$('#pageSlideFood').css2('top', $('#appHeader').height() + 'px');
 						///////////////
 						// CREATE DB //
 						///////////////
@@ -607,9 +607,9 @@ $(document).on("pageReload", function (evt) {
 								clearTimeout(app.globals.foodListCloser);
 								app.globals.foodListCloser = setTimeout(function() {
 									updateFoodDb();
-									if($('#pageSlideFood').html() && !$('#pageSlideFood').is(":animated")) {
-										$("#appHeader").addClass("closer");
-										$("body").addClass("closer");
+									if($('#pageSlideFood').html() && !$('#pageSlideFood').is(':animated')) {
+										$('#appHeader').addClass('closer');
+										$('body').addClass('closer');
 									}
 									setTimeout(function() {
 										$('#pageSlideFood').off(transitionend);
@@ -620,19 +620,19 @@ $(document).on("pageReload", function (evt) {
 						///////////////
 						// FOOD HTML //
 						///////////////
-						$("#pageSlideFood").html2('<div id="sideMenuFood"><label id="foodSearchLabel" for="foodSearch"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG.FOOD_SEARCH[lang] + '" /></label><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG.NO_MATCHES[lang] + '</span></div></div></div>');
+						$('#pageSlideFood').html2('<div id="sideMenuFood"><label id="foodSearchLabel" for="foodSearch"><input tabindex="-2" type="text" id="foodSearch" placeholder="' + LANG.FOOD_SEARCH[lang] + '" /></label><span id="iconClear"></span><span id="iconRefresh" class="icon-refresh"></span><div id="foodListWrapper"><div id="foodList"><span id="noMatches">' + LANG.NO_MATCHES[lang] + '</span></div></div></div>');
 						//PRE-ADJUST RESULTS HEIGHT
 						$('#foodSearch').width($('body').width() - 55);
 						buildFoodMenu();
 						//remember search type
 						if (app.read('searchType','exercise')) {
-							$("#foodSearch").prop('placeholder', LANG.EXERCISE_SEARCH[lang]);
-							$("#foodSearch,#pageSlideFood").addClass("exerciseType");
+							$('#foodSearch').prop('placeholder', LANG.EXERCISE_SEARCH[lang]);
+							$('#foodSearch,#pageSlideFood').addClass('exerciseType');
 						}
 						////////////////////
 						// RESULTS HEIGHT //
 						////////////////////
-						$('#menuTopBar').css2("top", "61px");
+						$('#menuTopBar').css2('top', '61px');
 						//$('#foodList').css2("margin-top","61px");
 						//$('#foodList').css2("min-height", (app.height() - ($('#appHeader').height() + 61)) + "px");
 						//$('#foodList').css2("height", (app.height() - ($('#appHeader').height() + 61)) + "px");
@@ -675,10 +675,10 @@ $(document).on("pageReload", function (evt) {
 						//#/////////////////////////////////////#//
 						var timer;
 						var inputEvent = app.device.wp8 ? 'keyup' : 'input';
-						$("#foodSearch").on(inputEvent,function() {
+						$('#foodSearch').on(inputEvent,function() {
 						//document.getElementById('foodSearch').addEventListener(inputEvent, function () {
 							//CLEAR ICON
-							if (JSON.stringify($("#foodSearch").val()).length == 0) {
+							if (JSON.stringify($('#foodSearch').val()).length == 0) {
 								$('#iconClear').hide();
 								$('#iconRefresh').show();
 							} else {
@@ -706,9 +706,9 @@ $(document).on("pageReload", function (evt) {
 							var val = this.value;
 							//DO SEARCH
 							timer = setTimeout(function () {
-									doSearch($("#foodSearch").val());
+									doSearch($('#foodSearch').val());
 									//CLEAR ICON
-									if ($("#foodSearch").val().length == 0) {
+									if ($('#foodSearch').val().length == 0) {
 										$('#iconClear').hide();
 										$('#iconRefresh').show();
 									} else {
@@ -720,10 +720,10 @@ $(document).on("pageReload", function (evt) {
 						///////////////////
 						// HIDE KEYBOARD //
 						///////////////////
-						$("#foodList").on(tap, function (evt) {
+						$('#foodList').on(tap, function (evt) {
 							evt.preventDefault();
-							$("#entryBody").blur();
-							$("#foodSearch").blur();
+							$('#entryBody').blur();
+							$('#foodSearch').blur();
 						});
 						//////////////////////
 						// SEARCH TYPE ICON //
@@ -731,20 +731,20 @@ $(document).on("pageReload", function (evt) {
 						$('#iconRefresh').on(touchstart, function (evt) {
 							//toggle -if not animated
 							$('#iconRefresh').css2('pointer-events','none');
-							$("#foodSearch").toggleClass("exerciseType");
-							$("#pageSlideFood").toggleClass("exerciseType");
+							$('#foodSearch').toggleClass('exerciseType');
+							$('#pageSlideFood').toggleClass('exerciseType');
 							//enforce iconClear
 							$('#searchContents').hide();
 							$('#menuTopBar').show();
 							$('#infoContents').show();
 							//update placeholder n' animate
-							if ($("#foodSearch").hasClass("exerciseType")) {
+							if ($('#foodSearch').hasClass('exerciseType')) {
 								app.save('searchType','exercise');
-								$("#foodSearch").prop('placeholder', LANG.EXERCISE_SEARCH[lang]);
+								$('#foodSearch').prop('placeholder', LANG.EXERCISE_SEARCH[lang]);
 								app.highlight('#foodSearch',500,'#FECEC6','#fff','',500);
 							} else {
 								app.remove('searchType');
-								$("#foodSearch").prop('placeholder', LANG.FOOD_SEARCH[lang]);
+								$('#foodSearch').prop('placeholder', LANG.FOOD_SEARCH[lang]);
 								app.highlight('#foodSearch',500,'#BBE4FF','#fff','',500);
 							}
 							app.timeout('#iconRefresh',500,function() {
@@ -763,26 +763,26 @@ $(document).on("pageReload", function (evt) {
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						//show
-						$("#entryBody").blur();
-						$("#entryTime").blur();
+						$('#entryBody').blur();
+						$('#entryTime').blur();
 						//$('#pageSlideFood').css2("opacity",".925");
 						$('#pageSlideFood').addClass('busy');
 						//open directly on first load
 						if (!app.read('foodDbLoaded','done')) {
-							$('#pageSlideFood').addClass("open");
+							$('#pageSlideFood').addClass('open');
 						}
 						setTimeout(function() {
-							if(!$('#pageSlideFood').is(":animated")) {
-								$('#pageSlideFood').addClass("open");
-								if(!$('#appHeader').hasClass("open")) {
-									$('#appHeader').removeClass("closer");
-									$('body').removeClass("closer");
+							if(!$('#pageSlideFood').is(':animated')) {
+								$('#pageSlideFood').addClass('open');
+								if(!$('#appHeader').hasClass('open')) {
+									$('#appHeader').removeClass('closer');
+									$('body').removeClass('closer');
 								}
 							}
 						},0);
 						//
 						$('#loadingDiv').hide();
-						$('#appHeader').addClass("open");
+						$('#appHeader').addClass('open');
 						$('#pageSlideFood').on(transitionend, function (evt) {
 							$('#pageSlideFood').removeClass('busy');
 						});
@@ -810,7 +810,7 @@ function searchFood(searchSQL, callback) {
 	while(z--) {
 		keyScore = 0;
 		keyJunk = 0;
-		if ((/0000|exercise/i.test(dato[z].type) && typeTerm == "exercise") || (!/0000|exercise/i.test(dato[z].type) && typeTerm == "food")) {
+		if ((/0000|exercise/i.test(dato[z].type) && typeTerm == 'exercise') || (!/0000|exercise/i.test(dato[z].type) && typeTerm == 'food')) {
 			var k = searchSQL.length;
 			while(k--) {
 				if (dato[z].term.indexOf(searchSQL[k]) != -1 && keyJunk == 0) {
@@ -856,7 +856,7 @@ function doSearch(rawInput) {
 		//sanitize user input
 		var searchQuery = rawInput;
 		//partial sql syntax
-		var searchSQL = searchQuery.split(" ");
+		var searchSQL = searchQuery.split(' ');
 		//prevent multiple identical searches
 		app.save('lastSearchTerm', searchQuery);
 		//#/////////////////////#//
@@ -866,11 +866,11 @@ function doSearch(rawInput) {
 		//searchArray = searchQuery;
 		//check for multiple keywords
 		if (searchQuery.search(' ') > -1) {
-			searchQuery = searchQuery.split(" ");
+			searchQuery = searchQuery.split(' ');
 			//loop each key into array
 			for (var i = 0; i < searchQuery.length; i++) {
 				//not null
-				if (searchQuery[i] != "") {
+				if (searchQuery[i] != '') {
 					//filter duplicates
 					//if($.inArray(trim(searchQuery[i]), keywordArray )) {
 					if (keywordArray.indexOf(trim(searchQuery[i])) == -1) {
@@ -885,7 +885,7 @@ function doSearch(rawInput) {
 	///////////////////////////////////////////////////////////
 	// PREVENT EMPTY STRING ON MULTIPLE KEYWORD SEARCH ARRAY //
 	///////////////////////////////////////////////////////////
-	if (keywordArray != "") {
+	if (keywordArray != '') {
 		//#///////////////#//
 		//# QUERY FOOD DB #//
 		//#///////////////#//
@@ -999,13 +999,12 @@ function buildFoodMenu() {
 	//////////////
 	// TOP MENU //
 	//////////////
-	$("#foodList").before2("<div id='menuTopBar'>\
-		<h3 id='topBarItem-1'><span>" + LANG.CATEGORIES[lang] + "</span></h3>\
-		<h3 id='topBarItem-2'><span>" + LANG.FAVORITES[lang] + "</span></h3>\
-		<h3 id='topBarItem-3'><span>" + LANG.MY_ITEMS[lang] + "</span></h3>\
-		</div>\
-		");
-	$("#foodList").html2(recentBlock);
+	$('#foodList').before2('<div id="menuTopBar">\
+		<h3 id="topBarItem-1"><span>' + LANG.CATEGORIES[lang] + '</span></h3>\
+		<h3 id="topBarItem-2"><span>' + LANG.FAVORITES[lang] + '</span></h3>\
+		<h3 id="topBarItem-3"><span>' + LANG.MY_ITEMS[lang] + '</span></h3>\
+		</div>');
+	$('#foodList').html2(recentBlock);
 	//first load db spinner
 	if(!app.read('foodDbLoaded','done')) {
 		setTimeout(function() {
@@ -1045,27 +1044,27 @@ function buildFoodMenu() {
 		evt.preventDefault();
 		$('#foodList').scrollTop(0);
 		app.save('lastInfoTab',$(this).prop('id'));
-		$("div.activeOverflow").removeClass("activeOverflow");
+		$('div.activeOverflow').removeClass('activeOverflow');
 		////////////
 		// TAB #1 //
 		////////////
 		if (app.read('lastInfoTab','topBarItem-1')) {
-			$("#topBarItem-2,#topBarItem-3,#tabMyFavs,#tabMyItems").removeClass("onFocus");
-			$("#topBarItem-1,#tabMyCats").addClass("onFocus");
+			$('#topBarItem-2,#topBarItem-3,#tabMyFavs,#tabMyItems').removeClass('onFocus');
+			$('#topBarItem-1,#tabMyCats').addClass('onFocus');
 		}
 		////////////
 		// TAB #2 //
 		////////////
 		else if (app.read('lastInfoTab','topBarItem-2')) {
-			$("#topBarItem-1,#topBarItem-3,#tabMyCats,#tabMyItems").removeClass("onFocus");
-			$("#topBarItem-2,#tabMyFavs").addClass("onFocus");
+			$('#topBarItem-1,#topBarItem-3,#tabMyCats,#tabMyItems').removeClass('onFocus');
+			$('#topBarItem-2,#tabMyFavs').addClass('onFocus');
 		}
 		////////////
 		// TAB #3 //
 		////////////
 		else if (app.read('lastInfoTab','topBarItem-3')) {
-			$("#topBarItem-1,#topBarItem-2,#tabMyCats,#tabMyFavs").removeClass("onFocus");
-			$("#topBarItem-3,#tabMyItems").addClass("onFocus");
+			$('#topBarItem-1,#topBarItem-2,#tabMyCats,#tabMyFavs').removeClass('onFocus');
+			$('#topBarItem-3,#tabMyItems').addClass('onFocus');
 		}
 		niceResizer(0);
 		return false;
@@ -1504,7 +1503,7 @@ function getModalWindow(itemId) {
 		/////////////////////////////
 		modal.updatenutrients = function() {
 			if (isFoodRow) {
-				var modalAmount = parseInt($("#modalAmount").html());
+				var modalAmount = parseInt($('#modalAmount').html());
 				$('#proData p').html2(decimalize((modal.pro/100)*modalAmount,1));
 				$('#carData p').html2(decimalize((modal.car/100)*modalAmount,1));
 				$('#fatData p').html2(decimalize((modal.fat/100)*modalAmount,1));
@@ -1777,20 +1776,20 @@ function getModalWindow(itemId) {
 		////////////////////
 		if (isFoodRow) {
 			$('#modalAmountType').html2(LANG.GRAMS[lang]);
-			$('#modalTotalType').after2("\
-				<span id='proData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
-				<span id='carData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
-				<span id='fatData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
-				<span id='fiiData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
-				<span id='sugData'><p>0.0</p><span>" + LANG.G[lang] + "</span></span>\
-				<span id='sodData'><p>0.0</p><span>" + LANG.MG[lang] + "</span></span>\
-				<span id='proLabel'>" + LANG.PRO[lang] + "</span>\
-				<span id='carLabel'>" + LANG.CAR[lang] + "</span>\
-				<span id='fatLabel'>" + LANG.FAT[lang] + "</span>\
-				<span id='fiiLabel'>" + LANG.FIB[lang] + "</span>\
-				<span id='sugLabel'>" + LANG.SUG[lang] + "</span>\
-				<span id='sodLabel'>" + LANG.SOD[lang] + "</span>\
-			");
+			$('#modalTotalType').after2('\
+				<span id="proData"><p>0.0</p><span>' + LANG.G[lang] + '</span></span>\
+				<span id="carData"><p>0.0</p><span>' + LANG.G[lang] + '</span></span>\
+				<span id="fatData"><p>0.0</p><span>' + LANG.G[lang] + '</span></span>\
+				<span id="fiiData"><p>0.0</p><span>' + LANG.G[lang] + '</span></span>\
+				<span id="sugData"><p>0.0</p><span>' + LANG.G[lang] + '</span></span>\
+				<span id="sodData"><p>0.0</p><span>' + LANG.MG[lang] + '</span></span>\
+				<span id="proLabel">' + LANG.PRO[lang] + '</span>\
+				<span id="carLabel">' + LANG.CAR[lang] + '</span>\
+				<span id="fatLabel">' + LANG.FAT[lang] + '</span>\
+				<span id="fiiLabel">' + LANG.FIB[lang] + '</span>\
+				<span id="sugLabel">' + LANG.SUG[lang] + '</span>\
+				<span id="sodLabel">' + LANG.SOD[lang] + '</span>\
+			');
 			//APROX CONVERSIONS
 			$('#modalWrapper').append2('\
 			<div id="modalConversions">\

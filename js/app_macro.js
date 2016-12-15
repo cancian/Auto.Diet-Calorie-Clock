@@ -305,8 +305,8 @@ function getWeightTracker() {
 						title : {
 							text : measureUnit,
 								style : {
-									"font-size" : '16px',
-									"font-weight" : 'bold'
+									'font-size' : '16px',
+									'font-weight' : 'bold'
 								},
 						},
 						//tickPositions : [0, 7, 75],
@@ -1344,18 +1344,18 @@ function getCyclicMenu() {
 	// HTML //
 	//////////
 	var isCyclic = app.read('config_kcals_type','cyclic') ? 'checked' : '';
-	var appModeHtml = "\
-	<div id='appMode'>\
-		<input id='appModeToggle' class='toggle' type='checkbox' " + isCyclic + ">\
-		<label for='appModeToggle'></label>\
-		<div id='appModeEnable'>\
-			<input id='appCyclic1' type='number' value='" + app.read('config_kcals_day_1') + "' />\
-			<div id='appCyclic1Title'>" + LANG.DAYS[lang] + " A B C</div>\
-			<input id='appCyclic2' type='number' value='" + app.read('config_kcals_day_2') + "' />\
-			<div id='appCyclic2Title'>" + LANG.DAY[lang] + " D</div>\
-			<div id='appModeEnableInfo'><p>" + LANG.CYCLIC_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + "</p></div>\
+	var appModeHtml = '\
+	<div id="appMode">\
+		<input id="appModeToggle" class="toggle" type="checkbox" ' + isCyclic + '>\
+		<label for="appModeToggle"></label>\
+		<div id="appModeEnable">\
+			<input id="appCyclic1" type="number" value="' + app.read('config_kcals_day_1') + '" />\
+			<div id="appCyclic1Title">' + LANG.DAYS[lang] + ' A B C</div>\
+			<input id="appCyclic2" type="number" value="' + app.read('config_kcals_day_2') + '" />\
+			<div id="appCyclic2Title">' + LANG.DAY[lang] + ' D</div>\
+			<div id="appModeEnableInfo"><p>' + LANG.CYCLIC_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + '</p></div>\
 		</div>\
-	</div>";
+	</div>';
 	//////////////
 	// HANDLERS //
 	//////////////
@@ -1541,23 +1541,23 @@ function getLimitMenu() {
 	//////////
 	// HTML //
 	//////////
-	var appLimitHtml = "\
-	<div id='appLimit'>\
-		<div id='appLimitEnable'>\
-			<input id='appLimit1' type='number' value='" + Math.abs(app.read('config_limit_1')) + "' />\
-			<div id='appLimit1Title'>" + LANG.LIMIT_LOWER[lang] + " <span>(" + LANG.DEFICIT[lang] + ")</span></div>\
-			<input id='appLimit2' type='number' value='" + app.read('config_limit_2') + "' />\
-			<div id='appLimit2Title'>" + LANG.LIMIT_UPPER[lang] + " <span>(" + LANG.SURPLUS[lang] + ")</span></div>\
-			<div id='appLimitInfo'><p>*" + LANG.LIMIT_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + "</p></div>\
+	var appLimitHtml = '\
+	<div id="appLimit">\
+		<div id="appLimitEnable">\
+			<input id="appLimit1" type="number" value="' + Math.abs(app.read('config_limit_1')) + '" />\
+			<div id="appLimit1Title">" + LANG.LIMIT_LOWER[lang] + " <span>(" + LANG.DEFICIT[lang] + ")</span></div>\
+			<input id="appLimit2" type="number" value="' + app.read('config_limit_2') + '" />\
+			<div id="appLimit2Title">' + LANG.LIMIT_UPPER[lang] + ' <span>(' + LANG.SURPLUS[lang] + ')</span></div>\
+			<div id="appLimitInfo"><p>*' + LANG.LIMIT_INFO[lang].split('. ').join('_').split('.').join('.</p><p>').split('_').join('. ') + '</p></div>\
 		</div>\
-		<div id='appColorPicker'>\
-			<div id='appColorPickerInputs'>\
-				<span><input id='colorDeficit'  /><div id='appColorPickerDeficit'>"  + LANG.DEFICIT[lang]  + "</div></span>\
-				<span><input id='colorBalanced' /><div id='appColorPickerBalanced'>" + LANG.BALANCED[lang] + "</div></span>\
-				<span><input id='colorSurplus'  /><div id='appColorPickerSurplus'>"  + LANG.SURPLUS[lang]  + "</div></span>\
+		<div id="appColorPicker">\
+			<div id="appColorPickerInputs">\
+				<span><input id="colorDeficit"  /><div id="appColorPickerDeficit">'  + LANG.DEFICIT[lang]  + '</div></span>\
+				<span><input id="colorBalanced" /><div id="appColorPickerBalanced">' + LANG.BALANCED[lang] + '</div></span>\
+				<span><input id="colorSurplus"  /><div id="appColorPickerSurplus">'  + LANG.SURPLUS[lang]  + '</div></span>\
 			</div>\
 		</div>\
-	</div>";
+	</div>';
 	//////////////
 	// HANDLERS //
 	//////////////
@@ -1939,14 +1939,14 @@ function getEntryEdit(eid) {
 function buildAdvancedMenu() {
 	'use strict';
 	$('#advancedMenuWrapper').remove();
-	$('body').append2("\
-	<div id='advancedMenuWrapper'>\
-		<div id='advancedMenuHeader'>\
-			<div id='advBackButton'></div>\
-			<div id='advancedMenuTitle'>" + LANG.SETTINGS_ADVANCED[lang] + "</div>\
+	$('body').append2('\
+	<div id="advancedMenuWrapper">\
+		<div id="advancedMenuHeader">\
+			<div id="advBackButton"></div>\
+			<div id="advancedMenuTitle">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 		</div>\
-		<div id='advancedMenu'></div>\
-	</div>");
+		<div id="advancedMenu"></div>\
+	</div>');
 	$('#advancedMenuWrapper').hide();
 	//WRAPPER HEIGHT
 	$('#advancedMenuWrapper').css2('top',($('#appHeader').height()) + 'px');
@@ -2645,7 +2645,7 @@ function getUserWindow() {
 	// CONFIRM //
 	/////////////
 	var multiUserConfirm = function() {
-		app.prompt("Please enter your name", "Harry Potter",function(input) {
+		app.prompt('Please enter your name', 'Harry Potter',function(input) {
 			app.switchUser(input);
 		});
 	};

@@ -904,7 +904,6 @@ var lib;
 var lib2;
 var storeEntry;
 var storeFood;
-var hasSql              = (window.openDatabase && appStorage.getItem('config_nodb') !== 'active') ? true : false;
 var AND                 = ' ';
 var initialScreenWidth  = app.width();
 var initialScreenHeight = app.height();
@@ -1245,7 +1244,9 @@ app.handlers = {
 				// BUILD SQL //
 				///////////////
 				if(filter) {
+					/*jshint ignore:start*/
 					rowSql += "\"diary_food\" VALUES(#^#" + data[i].id + "#^#,'" + data[i].type + "','" + data[i].code + "','" + data[i].name + "','" + sanitize(data[i].name) + "','" + Number(data[i].kcal) + "','" + Number(data[i].pro) + "','" + Number(data[i].car) + "','" + Number(data[i].fat) + "','" + data[i].fib + "','" + Number(data[i].fii) + "','" + Number(data[i].sug) + "','" + Number(data[i].sod) + "');\n";
+					/*jshint ignore:end*/
 				}
 			}
 		}
@@ -1432,7 +1433,7 @@ function isDesktop() {
 //#//////////////////#//
 //# DOMContentLoaded #//
 //#//////////////////#//
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
 	'use strict';
 	$('body').addClass('domcontentloaded');
 },false);
@@ -1828,6 +1829,7 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 ////////////////////
 // FIX/FORMAT SQL //
 ////////////////////
+/*jshint ignore:start*/
 app.fixSql = function(fetchEntries) {
 	'use strict';
 	if(!fetchEntries) { return ' '; }
@@ -1866,6 +1868,7 @@ app.fixSql = function(fetchEntries) {
 	//RETURN
 	return fetchEntries;
 };
+/*jshint ignore:end*/
 //////////
 // TRIM //
 //////////
@@ -1873,7 +1876,7 @@ function trim(str) {
 	'use strict';
 	if(!str.length) { return ''; }
 	str = str.replace(/^\s+/, '');
-	str = str.replace(/(^[ \t]*\n)/gm, "");
+	str = str.replace(/(^[ \t]*\n)/gm, '');
 		for(var i = str.length - 1; i >= 0; i--) {
 			if(/\S/i.test(str.charAt(i))) {
 			str = str.substring(0, i + 1);
@@ -2064,9 +2067,9 @@ function searchalize(str) {
 	str = str.split('"').join('');
 	str = str.split('“').join('');
 	str = str.split('”').join('');
-	str = str.split("'").join('');
+	str = str.split('\'').join('');
 	str = str.split('‘').join('');
-	str = str.split("’").join('');
+	str = str.split('’').join('');
 	str = str.split('(').join('');
 	str = str.split(')').join('');
 	str = str.split('{').join('');
@@ -2096,118 +2099,6 @@ function searchalize(str) {
 	str = str.split('、').join('');
 	return trim(str);
 }
-////////////////
-// ARRAY FIND //
-////////////////
-if (!Array.prototype.find) {
-	Array.prototype.find = function (predicate) {
-		'use strict';
-		if (this === null) {
-			throw new TypeError('Array.prototype.find called on null or undefined');
-		}
-		if (typeof predicate !== 'function') {
-			throw new TypeError('predicate must be a function');
-		}
-		var list = Object(this);
-		var length = list.length >>> 0;
-		var thisArg = arguments[1];
-		var value;
-
-		for (var i = 0; i < length; i++) {
-			value = list[i];
-			if (predicate.call(thisArg, value, i, list)) {
-				return value;
-			}
-		}
-		return undefined;
-	};
-}
-/////////////////////
-// ARRAY FINDINDEX //
-/////////////////////
-if (!Array.prototype.findIndex) {
-	Array.prototype.findIndex = function (predicate) {
-		'use strict';
-		if (this === null) {
-			throw new TypeError('Array.prototype.findIndex called on null or undefined');
-		}
-		if (typeof predicate !== 'function') {
-			throw new TypeError('predicate must be a function');
-		}
-		var list = Object(this);
-		var length = list.length >>> 0;
-		var thisArg = arguments[1];
-		var value;
-
-		for (var i = 0; i < length; i++) {
-			value = list[i];
-			if (predicate.call(thisArg, value, i, list)) {
-				return i;
-			}
-		}
-		return -1;
-	};
-}
-//////////////////
-// ARRAY FILTER //
-//////////////////
-if (!Array.prototype.filter) {
-	Array.prototype.filter = function (fun) {
-		'use strict';
-		if (this === void 0 || this === null) {
-			throw new TypeError();
-		}
-		var t = Object(this);
-		var len = t.length >>> 0;
-		if (typeof fun !== 'function') {
-			throw new TypeError();
-		}
-		var res = [];
-		var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-		for (var i = 0; i < len; i++) {
-			if (i in t) {
-				var val = t[i];
-				if (fun.call(thisArg, val, i, t)) {
-					res.push(val);
-				}
-			}
-		}
-		return res;
-	};
-}
-///////////////
-// ARRAY MAP //
-///////////////
-if (!Array.prototype.map) {
-	Array.prototype.map = function (callback, thisArg) {
-		'use strict';
-		var T,A,k;
-		if (this == null) {
-			throw new TypeError(' this is null or not defined');
-		}
-		var O = Object(this);
-		var len = O.length >>> 0;
-		if (typeof callback !== 'function') {
-			throw new TypeError(callback + ' is not a function');
-		}
-		if (arguments.length > 1) {
-			T = thisArg;
-		}
-		A = new Array(len);
-		k = 0;
-		while (k < len) {
-			var kValue,
-			mappedValue;
-			if (k in O) {
-				kValue = O[k];
-				mappedValue = callback.call(T, kValue, k, O);
-				A[k] = mappedValue;
-			}
-			k++;
-		}
-		return A;
-	};
-}
 //////////////
 // CONTAINS //
 //////////////
@@ -2216,29 +2107,11 @@ Array.prototype.contains = function(obj) {
 	'use strict';
 	return (JSON.stringify(this)).indexOf(JSON.stringify(obj)) > -1;
 };
-/*
-Array.prototype.contains = function(str) {
-	if(!str) { return false; }
-	var regexCache = (new RegExp(JSON.stringify(str)))
-	var result = regexCache.test(JSON.stringify(this));
-	return result;
-};
-*/
 //STRING
 String.prototype.contains = function () {
 	'use strict';
 	return String.prototype.indexOf.apply(this, arguments) !== -1;
 };
-/*
-String.prototype.contains = function (str) {
-	if(!str) { return false; }
-	var regexCache = (new RegExp(str));
-	var result = regexCache.test(this);
-	return result;
-};
-*/
-
-
 ///////////
 // EMPTY //
 ///////////
@@ -2274,7 +2147,7 @@ Array.prototype.sortbyattr = function(attr,order) {
 	'use strict';
 	// NORMAL ATTR SORT
 	this.sort(function(a, b) {
-		if(order == 'desc') {
+		if(order === 'desc') {
 			return (b[attr] > a[attr]) ? 1 : ((b[attr] < a[attr]) ? -1 : 0);
 		} else {
 			return (a[attr] > b[attr]) ? 1 : ((a[attr] < b[attr]) ? -1 : 0);
@@ -2330,43 +2203,6 @@ function unique(obj) {
 		}
 	}
 	return uniques;
-}
-////////////////
-// IS_NUMERIC //
-////////////////
-function is_numeric(mixedVar) {
-	'use strict';
-	var whitespace = [
-		' ',
-		'\n',
-		'\r',
-		'\t',
-		'\f',
-		'\x0b',
-		'\xa0',
-		'\u2000',
-		'\u2001',
-		'\u2002',
-		'\u2003',
-		'\u2004',
-		'\u2005',
-		'\u2006',
-		'\u2007',
-		'\u2008',
-		'\u2009',
-		'\u200a',
-		'\u200b',
-		'\u2028',
-		'\u2029',
-		'\u3000'
-	].join('');
-
-	// @todo: Break this up using many single conditions with early returns
-	return (typeof mixedVar === 'number' ||
-		(typeof mixedVar === 'string' &&
-			whitespace.indexOf(mixedVar.slice(-1)) === -1)) &&
-	mixedVar !== '' &&
-	!isNaN(mixedVar);
 }
 ///////////////
 // ISNUMERIC //
@@ -2427,7 +2263,7 @@ var toTime = function (input){
 ////////////////
 function dayFormat(input) {
 	'use strict';
-    if(!input) { return ""; }
+    if(!input) { return ''; }
 	input = new Date(input);
 	var gotMonth = input.getMonth()+1;
 	var gotDate  = input.getDate();
@@ -2711,7 +2547,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 			MSDialog = true;
 			var md = new Windows.UI.Popups.MessageDialog(msg, title);
 			md.commands.append(new Windows.UI.Popups.UICommand(ok));
-			if (cancel != "hide") {
+			if (cancel != 'hide') {
 				md.commands.append(new Windows.UI.Popups.UICommand(cancel));
 			}
 			md.showAsync()
@@ -2746,7 +2582,7 @@ function appConfirm(title, msg, callback, ok, cancel) {
 	// FALLBACK //
 	//////////////
 	} else {
-		if (window.confirm(title + "\n" + msg)) {
+		if (window.confirm(title + '\n' + msg)) {
 			callback(2);
 		} else {
 			callback(1);
@@ -3164,14 +3000,14 @@ $.event.special.swipe = {
 
 	var tapAndHoldTimer = null;
 
-	function calculateEuclideanDistance(x1, y1, x2, y2) {
+	var calculateEuclideanDistance = function(x1, y1, x2, y2) {
 		if (!x1)	{ return; }
 		var diffX = (x2 - x1);
 		var diffY = (y2 - y1);
 		return Math.sqrt((diffX * diffX) + (diffY * diffY));
 	}
 
-	function onTouchStart(event) {
+	var onTouchStart = function(event) {
 		var e = app.pointer(event).e;
 
 		// Only start detector if and only if one finger is over the widget
@@ -3185,7 +3021,7 @@ $.event.special.swipe = {
 		}
 	}
 
-	function onTouchMove(event) {
+	var onTouchMove = function(event) {
 		if (tapAndHoldTimer == null) {
 			return;
 		}
@@ -3206,22 +3042,22 @@ $.event.special.swipe = {
 		}
 	}
 
-	function onTouchEnd(event) {
+	var onTouchEnd = function(event) {
 		stopTapAndHoldDetector.call(this);
 	}
 
-	function onTapAndHold(event) {
+	var onTapAndHold = function(event) {
 		clear.call(this);
-		$(this).data("taphold.handler").call(this, event);
+		$(this).data('taphold.handler').call(this, event);
 	}
 
-	function clear() {
+	var clear = function() {
 		tapAndHoldTimer = null;
 		$(this).unbind(TOUCHMOVE, onTouchMove);
 		$(this).unbind(TOUCHEND, onTouchEnd);
 	}
 
-	function startTapAndHoldDetector(event) {
+	var startTapAndHoldDetector = function(event) {
 		if (tapAndHoldTimer != null) {
 			return;
 		}
@@ -3239,7 +3075,7 @@ $.event.special.swipe = {
 		$(this).data('taphold.point', tapAndHoldPoint);
 	}
 
-	function stopTapAndHoldDetector() {
+	var stopTapAndHoldDetector = function() {
 		clearTimeout(tapAndHoldTimer);
 		clear.call(this);
 	}
@@ -3268,6 +3104,7 @@ $.event.special.swipe = {
 		teardown : function () {}
 	};
 })(jQuery);
+/*jshint ignore:start*/
 //#//////////////////////////////#//
 //# FIREFOX: DETECT PRIVATE MODE #//
 //#//////////////////////////////#//
@@ -3302,6 +3139,7 @@ var md4 = function (str) {
 	}
 	return hash;
 };
+/*jshint ignore:end*/
 ////////////////
 ///////////////
 //////////////

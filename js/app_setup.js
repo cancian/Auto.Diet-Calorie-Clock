@@ -429,7 +429,9 @@ app.timeout('pushEntries',3000,function() {
 				if(!sod)  { sod  = ''; }
 				//INSERT
 				if(id != '' && published != '') {
+					/*jshint ignore:start*/
 					newLineFetch = "\"diary_entry\" VALUES(" + id + ",'" + title + "','" + body + "','" + published + "','" + info + "','" + kcal + "','" + pro + "','" + car + "','" + fat + "','" + fib + "','" + fii + "','" + sug + "','" + sod + "');\n";
+					/*jshint ignore:end*/
 					fetchEntries += newLineFetch;
 				}
 				////////////////
@@ -645,7 +647,9 @@ function sqlToJson(row) {
 	if(row.length < 5) { return ''; }
 	var jsonRow = '';
 	if ((/diary_entry|diary_food/).test(row)) {
+		/*jshint ignore:start*/
 		row = row.replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','");
+		/*jshint ignore:end*/
 		if((/diary_entry/).test(row)) {
 			jsonRow = {
 				id        : row[1],
@@ -809,17 +813,6 @@ app.timeout('syncEntries',2000,function() {
 /////////////////
 function getEntries(callback) {
 	'use strict';
-	/*	
-	var rowsArray = appRows.entry;
-	//
-	if (rowsArray.length) {
-		rowsArray = rowsArray.filter(function (row) {
-			if (row.info !== 'deleted') {
-				return row;
-			}
-		});
-	}
-	*/
 	var rowsArray = [];
 	var loopVar;
 	if (appRows.entry) {
@@ -1097,6 +1090,7 @@ function delFood(foodId, callback) {
 /////////////////////
 function getCustomList(listType,filter) {
 	'use strict';
+	var rowsArray,i,len;
 	//////////////
 	// CAT LIST //
 	//////////////
@@ -1104,8 +1098,8 @@ function getCustomList(listType,filter) {
 		var orType = '';
 		if(listType == '9999') { orType = 'food';     }
 		if(listType == '0000') { orType = 'exercise'; }
-		var rowsArray = [];
-		var i = appRows.food.length;
+		rowsArray = [];
+		i = appRows.food.length;
 		while(i--) {
 			if(appRows.food[i]) {
 				if(appRows.food[i].type === listType || appRows.food[i].type === orType) {
@@ -1118,8 +1112,8 @@ function getCustomList(listType,filter) {
 	// FAV LIST //
 	//////////////
 	} else if(listType == 'fav') {
-		var rowsArray = [];
-		for(var i=0, len=appRows.food.length; i<len; i++) {
+		rowsArray = [];
+		for(i=0, len=appRows.food.length; i<len; i++) {
 			if(appRows.food[i]) {
 				if(appRows.food[i].fib) {
 					if(appRows.food[i].fib === 'fav') {
@@ -1133,8 +1127,8 @@ function getCustomList(listType,filter) {
 	// FOOD~EXERCISE LIST //
 	////////////////////////
 	} else {
-		var rowsArray = [];
-		for(var i=0, len=appRows.food.length; i<len; i++) {
+		rowsArray = [];
+		for(i=0, len=appRows.food.length; i<len; i++) {
 			if(appRows.food[i]) {
 				if(appRows.food[i].id) {
 					if((JSON.stringify(appRows.food[i].id)).length >= 13) {
@@ -1368,9 +1362,9 @@ function updateFoodDb(callback) {
 								ls = ls.split('।').join('');
 								ls = ls.split('。').join('');
 								ls = ls.split('"').join('”');
-								ls = ls.split("'").join('’');
-								ls = ls.split("、").join(',');
-								ls = ls.split(",,").join(',');
+								ls = ls.split('\'').join('’');
+								ls = ls.split('、').join(',');
+								ls = ls.split(',,').join(',');
 								ls = ls.split('  ').join(' ');
 								ls = ls.split(' %').join('%');
 								ls = ls.split(' / ').join('/');
@@ -1644,10 +1638,10 @@ function updateEntriesTime() {
 	//SIDEBAR TIME CLASS
 	var currentHour = new Date().getHours();
 	var rowClass;
-         if(currentHour <  6) { rowClass = "afterhours"; }
-	else if(currentHour < 12) { rowClass = "morning";    }
-	else if(currentHour < 18) { rowClass = "afternoon";  }
-	else if(currentHour < 24) { rowClass = "night";      }
+         if(currentHour <  6) { rowClass = 'afterhours'; }
+	else if(currentHour < 12) { rowClass = 'morning';    }
+	else if(currentHour < 18) { rowClass = 'afternoon';  }
+	else if(currentHour < 24) { rowClass = 'night';      }
 	$('body').removeClass(('morning afternoon night afterhours').replace(rowClass));
 	$('body').addClass(rowClass);
 }
@@ -1694,7 +1688,7 @@ function updateEntriesSum() {
 			} else {
 				thisDay = eachDay[d];
 			}
-
+			/*jshint ignore:start*/
 			reStyle = reStyle + '\
 			#entryList div.day' + eachDay[d] + ' { border-top: 21px solid #eee; min-height: 66px; }\
 			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ' { margin-top: 0px; min-height: 45px; border-top: 0px solid #eee; }\
@@ -1703,6 +1697,7 @@ function updateEntriesSum() {
 			#entryList div.day' + eachDay[d] + ':after { content: "' + thisDay.split("x").join("/") +'"; color: #999; position: absolute; top: -18px; left: 15px; font-size: 12px; line-height: 16px; }\
 			#entryList div.day' + eachDay[d] + ' ~ div.day' + eachDay[d] + ':after { content: "";  }\
 			';
+			/*jshint ignore:end*/
 		}
 		//OUTPUT
 		$('#daySum').html2(reStyle);
@@ -2145,7 +2140,7 @@ function buildLangMenu(opt) {
 				$('#timerDailyInput').trigger('blur');
 				appFooter(app.read('app_last_tab'),0);
 				//start date
-				$('#cssStartDate').html2("#startDateSpan:before { content: '" + LANG.START_DATE[lang] + "'; }");
+				$('#cssStartDate').html2('#startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; }');
 				//page title
 				$('title').html2(appName + ': ' + LANG.REALTIME_CALORIE_COUNTER[lang]);
 				//heading sum
@@ -2410,7 +2405,9 @@ function appResizer(time,callback) {
 function sanitize(str) {
 	'use strict';
 	if(str) {
+		/*jshint ignore:start*/
 		var result = str.split(" ").join("").split("’").join("").split("”").join("").split("~").join("").split("*").join("").split("-").join("").split("(").join("").split(")").join("").split(":").join("").split("/").join("").split("\\").join("").split("&").join("").split("â").join("a").split("ê").join("e").split("ô").join("o").split("ã").join("a").split("ç").join("c").split("á").join("a").split("é").join("e").split("í").join("i").split("ó").join("o").split("ú").join("u").split("à").join("a").split("õ").join("o").split("%").join("").split("'").join("").split('"').join("").split(".").join("").split(";").join("").split(',').join(" ").split(' ').join("").toLowerCase();
+		/*jshint ignore:end*/
 		return result;
 	}
 }
@@ -2420,7 +2417,9 @@ function sanitize(str) {
 function sanitizeSql(str) {
 	'use strict';
 	if(str) {
+		/*jshint ignore:start*/
 		var result = str.split("'").join("’").split('"').join("”").split(";").join(",").split("\\").join(" ").split("  ").join(" ").split("  ").join(" ");
+		/*jshint ignore:end*/
 		return result;
 	}
 }
@@ -2670,10 +2669,10 @@ function getLoginFB() {
 			}
 			//INIT
 			FB.init({ appId : '577673025616946', status : true, version: 'v2.1', cookie : true, xfbml : true });
-			var callback = 'https://www.facebook.com/connect/login_success.html';
-			var facebookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&response_type=token&redirect_uri=' + encodeURIComponent(callback);
+			var callBackURL = 'https://www.facebook.com/connect/login_success.html';
+			var faceBookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&response_type=token&redirect_uri=' + encodeURIComponent(callBackURL);
 			//open
-			var childWindow = window.open(facebookURL, '_blank');
+			var childWindow = window.open(faceBookURL, '_blank');
 			//TIZEN WINDOW CLOSER
 			if(app.device.tizen) {
 				childWindow.addEventListener('tizenhwkey', function(e) {

@@ -196,10 +196,10 @@ safeExec(function() {
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
-		if (appStorage.getItem('config_autoupdate') == 'on' || (IsMsApp && appStorage.getItem('config_debug') == 'active')) {
-			if (isCacheValid(appStorage.getItem('remoteSuperBlockJS') + appStorage.getItem('remoteSuperBlockCSS'))) {
-				isCurrentCacheValid = 1;
-			}
+	if (appStorage.getItem('config_autoupdate') === 'on' || (IsMsApp && appStorage.getItem('config_debug') === 'active')) {
+		if (isCacheValid(appStorage.getItem('remoteSuperBlockJS') + appStorage.getItem('remoteSuperBlockCSS'))) {
+			isCurrentCacheValid = 1;
+		}
 		/////////////////////
 		// DEFINE VALIDITY //
 		/////////////////////
@@ -245,20 +245,20 @@ safeExec(function() {
 		/////////
 		// CSS //
 		/////////
-			document.write('<link rel="stylesheet" type="text/css" id="coreCss"   href="' + hostLocal + 'css/index.css" />');
-			document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/fonts.css" />');
-			////////
-			// JS //
-			////////
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lib.js"><\/script>');
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lang.js"><\/script>');
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_setup.js"><\/script>');
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js" id="plainLoad"><\/script>');
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_macro.js"><\/script>');
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_build.js"><\/script>');
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_static.js"><\/script>');
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_dynamic.js"><\/script>');
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_custom_core.js"><\/script>');
+		document.write('<link rel="stylesheet" type="text/css" id="coreCss"   href="' + hostLocal + 'css/index.css" />');
+		document.write('<link rel="stylesheet" type="text/css" id="coreFonts" href="' + hostLocal + 'css/fonts.css" />');
+		////////
+		// JS //
+		////////
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lib.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_lang.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_setup.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js" id="plainLoad"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_macro.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_build.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_static.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_dynamic.js"><\/script>');
+		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_custom_core.js"><\/script>');
 	}
 });
 

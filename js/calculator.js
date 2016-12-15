@@ -8,55 +8,55 @@ var eeparseFloat;
 	'use strict';
 	var co = [];
 	var eeisus = 1;
-	var eetrue = "TRUE";
-	var eefalse = "FALSE";
-	var eedec = ".";
-	var eeth = ",";
-	var eedecreg = new RegExp("[.]", "g");
-	var eethreg = new RegExp(",", "g");
-	var eeparseFloatVreg = new RegExp("^ *-?[0-9.]+ *$");
+	var eetrue = 'TRUE';
+	var eefalse = 'FALSE';
+	var eedec = '.';
+	var eeth = ',';
+	var eedecreg = new RegExp('[.]', 'g');
+	var eethreg = new RegExp(',', 'g');
+	var eeparseFloatVreg = new RegExp('^ *-?[0-9.]+ *$');
 	////////////////////
 	// RECALC ONCLICK //
 	////////////////////
 	recalc_onclick = function (e) {
-		co.pA1B = $("#pA1B").val();
-		co.pA2B = eeparseFloat($("#pA2B").val());
-		co.pA2C = $("#pA2C").val();
-		co.pA3B = eeparseFloat($("#pA3B").val());
-		co.pA3C = $("#pA3C").val();
-		co.pA4B = eeparseFloatV($("#pA4B").val());
-		co.pA5B = $("#pA5B").val();
-		co.pA6G = eeparseFloat($("#pA6G").val());
-		co.pA6H = $("#pA6H").val();
-		co.pA6M = eeparseFloat($("#pA6M").val());
-		co.pA6N = $("#pA6N").val();
+		co.pA1B = $('#pA1B').val();
+		co.pA2B = eeparseFloat($('#pA2B').val());
+		co.pA2C = $('#pA2C').val();
+		co.pA3B = eeparseFloat($('#pA3B').val());
+		co.pA3C = $('#pA3C').val();
+		co.pA4B = eeparseFloatV($('#pA4B').val());
+		co.pA5B = $('#pA5B').val();
+		co.pA6G = eeparseFloat($('#pA6G').val());
+		co.pA6H = $('#pA6H').val();
+		co.pA6M = eeparseFloat($('#pA6M').val());
+		co.pA6N = $('#pA6N').val();
 		calc(co);
-		$("#pA2D").val(eedisplayFloat(co.pA2D));
-		$("#pA3D").val(eedisplayFloat(co.pA3D));
-		$("#pA6B").val(eedisplayFloatND(co.pA6B, 2));
-		$("#pA6J").val(eedisplayFloat(co.pA6J));
-		$("#pA6O").val(eedisplayFloat(co.pA6O));
-		$("#pA7B").val(eedisplayFloatND(co.pA7B, 2));
-		$("#pA7F").val(eedisplayFloatND(co.pA7F, 2));
-		$("#pA7L").val(eedisplayFloatND(co.pA7L, 2));
-		$("#pA8B").val(eedisplayFloatND(co.pA8B, 2));
-		$("#pA8D").val(eedisplayFloatND(co.pA8D, 2));
-		$("#pA8F").val(eedisplayFloatND(co.pA8F, 2));
-		$("#pA8H").val(eedisplayFloatND(co.pA8H, 2));
-		$("#pA8L").val(eedisplayFloatND(co.pA8L, 2));
-		$("#pA8N").val(eedisplayFloatND(co.pA8N, 2));
-		$("#pA9B").val(eedisplayFloatND(co.pA9B, 2));
-		$("#pA9D").val(eedisplayFloatND(co.pA9D, 2));
-		$("#pA9F").val(eedisplayFloatND(co.pA9F, 2));
-		$("#pA9H").val(eedisplayFloatND(co.pA9H, 2));
-		$("#pA9L").val(eedisplayFloatND(co.pA9L, 2));
-		$("#pA9N").val(eedisplayFloatND(co.pA9N, 2));
-		$("#pA10B").val(eedisplayFloatND(co.pA10B, 2));
-		$("#pA10D").val(eedisplayFloatND(co.pA10D, 2));
-		$("#pA10F").val(eedisplayFloatND(co.pA10F, 2));
-		$("#pA10H").val(eedisplayFloatND(co.pA10H, 2));
-		$("#pA10L").val(eedisplayFloatND(co.pA10L, 2));
-		$("#pA10N").val(eedisplayFloatND(co.pA10N, 2));
+		$('#pA2D').val(eedisplayFloat(co.pA2D));
+		$('#pA3D').val(eedisplayFloat(co.pA3D));
+		$('#pA6B').val(eedisplayFloatND(co.pA6B, 2));
+		$('#pA6J').val(eedisplayFloat(co.pA6J));
+		$('#pA6O').val(eedisplayFloat(co.pA6O));
+		$('#pA7B').val(eedisplayFloatND(co.pA7B, 2));
+		$('#pA7F').val(eedisplayFloatND(co.pA7F, 2));
+		$('#pA7L').val(eedisplayFloatND(co.pA7L, 2));
+		$('#pA8B').val(eedisplayFloatND(co.pA8B, 2));
+		$('#pA8D').val(eedisplayFloatND(co.pA8D, 2));
+		$('#pA8F').val(eedisplayFloatND(co.pA8F, 2));
+		$('#pA8H').val(eedisplayFloatND(co.pA8H, 2));
+		$('#pA8L').val(eedisplayFloatND(co.pA8L, 2));
+		$('#pA8N').val(eedisplayFloatND(co.pA8N, 2));
+		$('#pA9B').val(eedisplayFloatND(co.pA9B, 2));
+		$('#pA9D').val(eedisplayFloatND(co.pA9D, 2));
+		$('#pA9F').val(eedisplayFloatND(co.pA9F, 2));
+		$('#pA9H').val(eedisplayFloatND(co.pA9H, 2));
+		$('#pA9L').val(eedisplayFloatND(co.pA9L, 2));
+		$('#pA9N').val(eedisplayFloatND(co.pA9N, 2));
+		$('#pA10B').val(eedisplayFloatND(co.pA10B, 2));
+		$('#pA10D').val(eedisplayFloatND(co.pA10D, 2));
+		$('#pA10F').val(eedisplayFloatND(co.pA10F, 2));
+		$('#pA10H').val(eedisplayFloatND(co.pA10H, 2));
+		$('#pA10L').val(eedisplayFloatND(co.pA10L, 2));
+		$('#pA10N').val(eedisplayFloatND(co.pA10N, 2));
 	};
 
 	function calc(e) {
@@ -71,16 +71,16 @@ var eeparseFloat;
 		var f = e.pA6H;
 		var l = e.pA6M;
 		var c = e.pA6N;
-		var h = "Sedentary (little or no exercise, desk job)";
-		var p = "Lightly active (light exercise/sports 1-3 days/wk)";
-		var d = "Moderately active (moderate exercise/sports 3-5 days/wk)";
-		var v = "Very active (hard exercise/sports 6-7 days/wk)";
-		var m = "Extremely active (hard daily exercise/sports & physical job)";
-		var g = str_eq(r, "centimetres") ? n : n * 2.54;
-		var y = str_eq(s, "kilograms") ? i : i * .4536;
-		var b = str_eq(t, "Male") ? 66 + 13.7 * y + 5 * g - 6.8 * v2n(o) : 655 + 9.6 * y + 1.8 * g - 4.7 * v2n(o);
-		var w = str_eq(f, "pounds") ? a : a * 2.2;
-		var E = str_eq(c, "pounds") ? l : l * 2.2;
+		var h = 'Sedentary (little or no exercise, desk job)';
+		var p = 'Lightly active (light exercise/sports 1-3 days/wk)';
+		var d = 'Moderately active (moderate exercise/sports 3-5 days/wk)';
+		var v = 'Very active (hard exercise/sports 6-7 days/wk)';
+		var m = 'Extremely active (hard daily exercise/sports & physical job)';
+		var g = str_eq(r, 'centimetres') ? n : n * 2.54;
+		var y = str_eq(s, 'kilograms') ? i : i * .4536;
+		var b = str_eq(t, 'Male') ? 66 + 13.7 * y + 5 * g - 6.8 * v2n(o) : 655 + 9.6 * y + 1.8 * g - 4.7 * v2n(o);
+		var w = str_eq(f, 'pounds') ? a : a * 2.2;
+		var E = str_eq(c, 'pounds') ? l : l * 2.2;
 		var S = str_eq(u, h) ? b * 1.2 : str_eq(u, p) ? b * 1.375 : str_eq(u, d) ? b * 1.55 : str_eq(u, v) ? b * 1.725 : str_eq(u, m) ? b * 1.9 : 0;
 		var x = S - 500 * w;
 		var T = S + 500 * E;
@@ -136,7 +136,7 @@ var eeparseFloat;
 		return e.toLowerCase() == t.toLowerCase();
 	}
 	function myIsNaN(e) {
-		return isNaN(e) || typeof e == "number" && !isFinite(e);
+		return isNaN(e) || typeof e == 'number' && !isFinite(e);
 	}
 	function round(e, t) {
 		if (isFinite(e) && isFinite(t)) {
@@ -149,18 +149,18 @@ var eeparseFloat;
 		}
 	}
 	function s2n(e) {
-		e = String(e).replace(eedecreg, ".");
+		e = String(e).replace(eedecreg, '.');
 		return parseFloat(e);
 	}
 	function v2n(e) {
 		switch (typeof e) {
-		case "number":
+		case 'number':
 			return e;
-		case "string":
+		case 'string':
 			return s2n(e);
-		case "boolean":
+		case 'boolean':
 			return e ? 1 : 0;
-		case "object":
+		case 'object':
 			if (e.constructor == Number) {
 				return e;
 			}
@@ -176,7 +176,7 @@ var eeparseFloat;
 		}
 	}
 	eeparseFloat = function (e) {
-		e = String(e).replace(eedecreg, ".");
+		e = String(e).replace(eedecreg, '.');
 		var t = parseFloat(e);
 		if (isNaN(t)) {
 			return 0;
@@ -198,19 +198,19 @@ var eeparseFloat;
 			var n = round(e, t);
 			if (t > 0) {
 				var r = String(n);
-				if (r.indexOf("e") != -1) {
+				if (r.indexOf('e') != -1) {
 					return r;
 				}
-				if (r.indexOf("E") != -1) {
+				if (r.indexOf('E') != -1) {
 					return r;
 				}
-				var i = r.split(".");
+				var i = r.split('.');
 				var s;
 				if (i.length < 2) {
-					s = "00000000000000".substring(0, t);
+					s = '00000000000000'.substring(0, t);
 					return i[0].toString() + eedec + s;
 				} else {
-					s = (i[1].toString() + "00000000000000").substring(0, t);
+					s = (i[1].toString() + '00000000000000').substring(0, t);
 					return i[0].toString() + eedec + s;
 				}
 			} else {
@@ -219,10 +219,10 @@ var eeparseFloat;
 		}
 	}
 	function eeparseFloatV(e) {
-		if (e == "") {
+		if (e == '') {
 			return e;
 		}
-		e = String(e).replace(eedecreg, ".");
+		e = String(e).replace(eedecreg, '.');
 		if (!eeparseFloatVreg.test(e)) {
 			return e;
 		}

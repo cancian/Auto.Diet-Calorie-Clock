@@ -27,7 +27,7 @@ app.tab.settings = function(keepOpen) {
 			<div style="position: absolute; text-indent: 0; margin: 0; padding: 0; left: 16px; top: 4px;"><img src="' + httpx + 'chronoburn.com/livezilla7/image.php?a=7b892&amp;id=1&amp;type=inlay&amp;time='+app.now()+'" style="border:0px;" alt=" " height="22" width="22"></div>\
 			<div><p class="contentTitle">'                         + 'Chat support'                  + '<span>' + 'Get help online'             + '</span></p></div></li>\
 		</ul>\
-		<div id="optionWebsite"><span>' + appName + "</span> for " + app.get.platform() + '</div>\
+		<div id="optionWebsite"><span>' + appName + '</span> for ' + app.get.platform() + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
 		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 	</div>\
@@ -309,7 +309,7 @@ app.tab.status = function(keepOpen) {
 			</div>\
 		</div>\
 \
-		<div id="onlineUsers">' + LANG.ACTIVE_USERS[lang] + ': <span>' + app.read("online_users") + '<span></div>\
+		<div id="onlineUsers">' + LANG.ACTIVE_USERS[lang] + ': <span>' + app.read('online_users') + '<span></div>\
 		<div id="appStatusAddLeft"><div>'  + LANG.FOOD[lang]     + '</div></div>\
 		<div id="appStatusAddRight"><div>' + LANG.EXERCISE[lang] + '</div></div>\
 		<div id="appStatusFix">\
