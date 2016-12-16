@@ -1239,7 +1239,7 @@ function updateTodayOverview(fullWindow) {
 			spacingTop : (fullWindow == 1) ? 10 : -5,
 			spacingBottom : (fullWindow == 1) ? 20 : 0,
 			height : (fullWindow == 1) ? 390 : 56,
-			width : (fullWindow == 1) ? 280 : 60,
+			width : (fullWindow == 1) ? 300 : 60,
 			plotBackgroundColor : '#fff',
 			plotBorderWidth : 0,
 			plotShadow : false
@@ -1261,10 +1261,13 @@ function updateTodayOverview(fullWindow) {
 					softConnector : false,
 					enabled : (fullWindow == 1) ? true : false,
 					format : '{point.y}',
-					fontWeight: 'normal'
+					style : {
+						fontWeight: 'normal',
+						fontSize: '12px'
+					},
 				},
 				showInLegend : (fullWindow == 1) ? true : false
-			}
+			},
 		},
 		legend : {
 			enabled : (fullWindow == 1) ? true : false,

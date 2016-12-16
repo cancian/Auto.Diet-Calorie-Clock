@@ -820,7 +820,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 .firefoxos #totalChartWrapper #circlePercentInner	{ top: 122px; }
 .wp10 #totalChartWrapper #circlePercentInner		{ top: 130px; }
 #totalChartWrapper						{ width: 100%; text-align: center; }
-#totalChart								{ margin: 0 auto; display: inline-block; width: 280px; overflow: hidden; }
+#totalChart								{ margin: 0 auto; display: block; width: 300px; /*overflow: hidden;*/ }
 #circlePercent,
 #newWindow #totalChart,
 .highcharts-legend-item					{ pointer-events: none; z-index: 2; }
