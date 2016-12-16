@@ -834,8 +834,8 @@ function intakeHistory() {
 		// GENERATE CHART //
 		////////////////////
 		$('#appStatusIntake div').css2('padding-top', '0px');
-		var spacingBottom = Highcharts.version.contains('4.') ? 0 : -12;
-		if(app.device.android2) { spacingBottom = Highcharts.version.contains('4.') ? -4 : -16; }
+		var spacingBottom = Highcharts.version.contains('4.') ? 0 : -8;
+		if(app.device.android2) { spacingBottom = Highcharts.version.contains('4.') ? -4 : -12; }
 		//check exists
 		if(!app.read('app_last_tab','tab1'))	{ return; }
 		if(!$('#appStatusIntake').html())		{ return; }

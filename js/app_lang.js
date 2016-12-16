@@ -9,10 +9,22 @@
 //W10  - calorie counter, weight loss, lose weight, burn fat, weight tracker, kcals, myfitnesspal
 //IOS  - calorie,counter,weight,loss,lose,burn,fat,tracker,bmi,calculator,fit,cycling,myfitnesspal,healthbook
 //BB10 - calorie counter | weight loss | lose weight | burn fat | weight tracker | bmi calculator | cycling | kcals | plate | myfitnesspal
-//plate,meal,carb
+//RAND - food,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,track,tracker,diary,easy,deficit,lose
+//RAND - burn,cal,calculator,calorie,carbohydrate,chronometer,clock,counter,diary,diet,exercise,fat,gain,kcal,kcals,lose,loss,metabolism,real-time,weight
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//IOS9 @@@ my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,bmi,kg,lose,it,calorie,counter,tracker,diary,burn
+//BB10 @@@ calorie counter weight tracker fitbit myplate loseit fatsecret runkeeper myfitnesspal
+//MSIE @@@ calorie counter, weight tracker, fitbit, loseit, myplate, fatsecret, myfitnesspal 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// loseit    	21.400.000 
+// fitbit    	50.400.000 
+// myplate   	 6.820.000 
+// fatsecret 	 2.620.000 
+// runkeeper 	 2.080.000 
+// myfitnesspal 10,100,000
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.1.1 (210105)';
+var appVersion = '2.1.1 (210106)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
