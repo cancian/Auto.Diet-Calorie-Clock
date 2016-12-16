@@ -1,6 +1,8 @@
 ﻿/////////////////////
 // LANGUAGE ENGINE //
 /////////////////////
+//AMAZ - bit, bmi, burn, calorie, counter, diary, fat, fit, fitness, it, keeper, kg, lose, my, pal, plate, run, secret, tracker
+//MMAZ - bit, bmi, burn, cal, calorie, chrono, counter, diary, diet, exercise, fat, fit, fitness, health, it, kcal, kcals, keeper, kg, lose, my, nutrition, pal, plate, run, secret, track, tracker, weight, women
 //OPTM - my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,bmi,kg,lose,it,calorie,counter,tracker,diary,burn
 //OPT  - my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,web,md,lose,it,calorie,counter,tracker,diary,burn
 //LAST - exercise,health,women,diet,fitness,nutrition,burn,fat,weight,lose,kcals,chrono,tracker,track,kcal,cal

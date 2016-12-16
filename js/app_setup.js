@@ -2432,7 +2432,7 @@ var rateTimer;
 function getRateDialog() {
 	'use strict';
 	//appstore enabled
-	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.msapp && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook) { return; }
+	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.msapp && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook && !app.device.tizen) { return; }
 	if(app.get.platform() == 'web')	{ return; }
 	//first use
 	app.define('getRate',app.now());
@@ -2757,8 +2757,8 @@ function getLoginFB() {
 function getLoginEmail() {
 	'use strict';
 	var suggestionBoxHtml = '<div id="suggestionBox">\
-			<label for="usrMail" class="usrMail">' + LANG.EMAIL[lang] + ':</label><input type="text" name="usrMail" id="usrMail" value="">\
-			<label for="usrPass" class="usrPass">' + LANG.PASSWORD[lang] + ':</label><input type="password" name="usrPass" id="usrPass" value="">\
+			<label for="usrMail" class="usrMail">' + LANG.EMAIL[lang] + ':</label><input type="text" name="usrMail" id="usrMail" />\
+			<label for="usrPass" class="usrPass">' + LANG.PASSWORD[lang] + ':</label><input type="password" name="usrPass" id="usrPass" />\
 			<div id="resetPass">' + LANG.RESET_PASSWORD[lang] + '</div>\
 			<div id="newUsers">*If you don’t have an account yet, it will be automatically created the first time you login.</div>\
 			</div>';
@@ -2786,7 +2786,9 @@ function getLoginEmail() {
 		}, 400);
 		// SAVE LAST EMAIL
 		$('#usrMail').on('input blur keyup keypress', function(evt) {
-			app.save('usrMail',trim($('#usrMail').val()));
+			if($('#usrMail').val().length) {
+				app.save('usrMail',(trim($('#usrMail').val()).toLowerCase()));
+			}
 		});
 		//PRE-FILL
 		if(app.read('usrMail')) {
@@ -2843,17 +2845,17 @@ function getLoginEmail() {
 			$('.usrPass').css2('color', '#c30');
 		}
 		//MAIL
-		if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(trim($('#usrMail').val()))) {
+		if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(app.read('usrMail'))) {
 			$('.usrMail').css2('color', '#000');
 		} else {
 			$('.usrMail').css2('color', '#c30');
 		}
 		//VALIDATE
-		if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(trim($('#usrMail').val())) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
+		if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(app.read('usrMail')) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
 			//send mail
 			$('#saveButton').css2('pointer-events', 'none');
 			$('#saveButton').css2('color', '#ccc');
-			var usrMailStore = (trim($('#usrMail').val())).toLowerCase();
+			var usrMailStore = app.read('usrMail').toLowerCase();
 			var usrPassStore = md5(trim($('#usrPass').val()));
 
 			$.ajax({

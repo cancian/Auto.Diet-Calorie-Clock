@@ -2315,7 +2315,7 @@ function buildAdvancedMenu() {
 	//#////////#//
 	//# REVIEW #//
 	//#////////#//
-	if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.msapp || app.device.firefoxos || app.device.osxapp || app.device.chromeos || app.device.blackberry || app.device.playbook) {
+	if(app.device.ios || app.device.android || app.device.wp8 || app.device.windows8 || app.device.msapp || app.device.firefoxos || app.device.osxapp || app.device.chromeos || app.device.blackberry || app.device.playbook || app.device.tizen) {
 		app.handlers.activeRow('#advancedReview','activeRow',function(evt) {
 			app.url();
 		});
