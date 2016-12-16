@@ -15,7 +15,12 @@
 //IOS9 @@@ my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,bmi,kg,lose,it,calorie,counter,tracker,diary,burn
 //BB10 @@@ calorie counter weight tracker fitbit myplate loseit fatsecret runkeeper myfitnesspal
 //MSIE @@@ calorie counter, weight tracker, fitbit, loseit, myplate, fatsecret, myfitnesspal 
+//FFOS @@@ bmi, burn, calculator, calorie, counter, diary, diet, exercise, fat, fatsecret, fitbit, health, lose, loseit, loss, myfitnesspal, myplate, runkeeper, tracker, weight 
+//TIZN @@@ calorie counter weight tracker fitbit loseit myplate fatsecret myfitnesspal runkeeper loss lose fat burn diet monitor diary calculator bmi gain carb cycling health exercise food fitness fit kcals kcal calories calorific healthbook app web free 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 // loseit    	21.400.000 
 // fitbit    	50.400.000 
 // myplate   	 6.820.000 
