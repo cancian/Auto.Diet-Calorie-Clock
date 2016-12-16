@@ -1,5 +1,5 @@
 ﻿var a = {
-	WEIGHT : {
+	EMPTY : {
 		en : '',
 		pt : '',
 		ar : '',
@@ -27,7 +27,7 @@
 		zh : '',
 		zt : ''
 	},
-	LOSE : {
+	EMPTY : {
 		en : '',
 		pt : '',
 		ar : '',
