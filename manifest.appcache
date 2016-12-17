@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v210107 - 2016-12-16
+# v210200 - 2016-12-17
 
 #LOAD
 index.html
@@ -32,10 +32,10 @@ js/localforage.js
 #UTIL
 js/galocalstorage.js
 js/carpe_slider.js
-js/highcharts5.js
 js/highcharts.js
 js/calculator.js
 js/mobiscroll.js
+js/underscore.js
 js/iscroll.js
 
 #ICO
