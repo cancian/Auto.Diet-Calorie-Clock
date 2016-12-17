@@ -127,6 +127,7 @@ app.tab.settings = function(keepOpen) {
 				if(bananaTaps >= 5) {
 					$('#newWindowTitle').addClass('banana');
 					$('#newWindowTitle').html2('The answer is 42');
+					app.analytics('banana');
 				}
 			})
 		};
