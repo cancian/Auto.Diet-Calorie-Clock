@@ -113,6 +113,22 @@ app.tab.settings = function(keepOpen) {
 				//app.url('mailto:cancian@chronoburn.com?Subject=ChronoBurn%20-%20Support%20(' + app.get.platform(1) + ')');
 				window.location.href = 'mailto:cancian@chronoburn.com?Subject=ChronoBurn%20-%20Support%20(' + app.get.platform(1) + ')';
 			});
+			///////////////////////
+			// BANANA EASTER EGG //
+			///////////////////////
+			var bananaTaps = 0;
+			app.handlers.activeRow('#newWindowTitle','red',function() {
+				bananaTaps++;
+				//5s RESET TAPS 
+				app.timeout('banana',1000,function(evt) {
+					bananaTaps = 0;
+				});
+				//TRIGGER
+				if(bananaTaps >= 5) {
+					$('#newWindowTitle').addClass('banana');
+					$('#newWindowTitle').html2('The answer is 42');
+				}
+			})
 		};
 		/////////////////
 		// CALL WINDOW //
