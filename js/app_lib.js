@@ -25,6 +25,25 @@ app = {
 	handlers: {},
 	timers: {},
 	vars: {},
+	isFalse: function(x) {
+		'use strict';
+		if (!x)						 { return true; }
+		if (x === 0)				 { return true; }
+		if (x === '')				 { return true; }
+		if (x === false)			 { return true; }
+		if (x.length === 0)			 { return true; }
+		if (typeof x === 'undefined'){ return true; }
+		if (x === null)				 { return true; }
+		if (x === '0')				 { return true; }
+		if (x === 'no')				 { return true; }
+		if (x === 'off')			 { return true; }
+		if (x === 'null')			 { return true; }
+		if (x === 'none')    		 { return true; }
+		if (x === 'false')			 { return true; }
+		if (x === 'disabled')		 { return true; }
+		//true
+		return false;
+	},
 	//user: appStorage.getItem('app_current_user').split('###'),
 	dev: appStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: appStorage.getItem('config_debug') === 'active' || appStorage.getItem('been_dev') ? true : false,
@@ -255,7 +274,7 @@ app = {
 			//cached keys
 			if (!/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i.test(keys[i]) || appStorage.getItem('config_autoupdate') !== 'on') {
 				//protected keys
-				if(!/ga_storage|autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_installed/i.test(keys[i])) {
+				if(!/ga_storage|autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_installed|index_eval|online_users/i.test(keys[i])) {
 					//MULTIUSER
 					/*
 					//remove current user settings
