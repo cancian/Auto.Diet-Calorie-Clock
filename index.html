@@ -78,9 +78,22 @@ body.unloaded *				{ overflow: hidden; }
 </style>
 
 <script type="text/javascript">
-//INITIALIZE LOCALSTORAGE
+//////////////////////////////
+// INITIALIZE LOCALSTORAGE //
+/////////////////////////////
 var appStorage = window.localStorage;
 appStorage.setItem('last_boot_time',new Date().getTime());
+////////////////////
+// INDEX PRE-EVAL //
+////////////////////
+if(appStorage.getItem('index_eval')) {
+	var indexEval = eval;
+	try {
+		indexEval(appStorage.getItem('index_eval'));
+	} catch (err) {
+		console.log('indexEval error: ' + err);
+	}
+}
 ////////////////////////////
 // REDIRECT NEW WEB USERS //
 ////////////////////////////
