@@ -199,11 +199,11 @@ app = {
 		}
 		*/
 		/////////////////////////
-		// localforage wrapper // READ
-		/////////////////////////
-		if(/diary_entry|diary_food/i.test(key)) {
-			localforage.getItem(key).then(function(rows) {
-				app.returner(value,rows);
+		// localforage wrapper //
+		///////////////////////// READ
+		if(/diary_/i.test(key)) {
+			localforage.getItem(key,function (err, rows) {
+				app.returner(value, rows);
 			});
 			return;
 		}

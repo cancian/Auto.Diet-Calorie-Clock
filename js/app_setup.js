@@ -646,7 +646,7 @@ function sqlToJson(row) {
 	if(!row)           { return ''; }
 	if(row.length < 5) { return ''; }
 	var jsonRow = '';
-	if ((/diary_entry|diary_food/).test(row)) {
+	if ((/diary_/).test(row)) {
 		/*jshint ignore:start*/
 		row = row.replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','");
 		/*jshint ignore:end*/
