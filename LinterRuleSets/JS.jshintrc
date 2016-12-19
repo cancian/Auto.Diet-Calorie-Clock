@@ -1,11 +1,12 @@
 {
-    "maxerr"        : 200,       
-    "bitwise"       : true,    
+    "globals"       : {},    
+	"maxerr"        : 500,    
+    "bitwise"       : false,    
     "camelcase"     : false,   
-    "curly"         : false,    
+    "curly"         : false,        
     "eqeqeq"        : false,
-    "forin"         : true,    
-    "freeze"        : true,    
+    "forin"         : false,    
+    "freeze"        : false,    
     "immed"         : false,   
     "indent"        : 4,       
     "latedef"       : false,   
@@ -67,8 +68,7 @@
     "worker"        : true,    
     "wsh"           : false,    
     "yui"           : false,    
-    "globals"       : {},
-	"-W100"         : false,
-	"-W041"         : false,
-	"-W008"         : false
+	"-W100"         : false,    
+	"-W041"         : false,    
+	"-W008"         : false    
 }
