@@ -4,13 +4,13 @@
   "known-properties": false,
   "box-sizing": false,
   "box-model": false,
-  "overqualified-elements": false,
-  "display-property-grouping": false,
+  "overqualified-elements": true,
+  "display-property-grouping": true,
   "bulletproof-font-face": false,
   "compatible-vendor-prefixes": false,
   "regex-selectors": false,
-  "errors": false,
-  "duplicate-background-images": false,
+  "errors": true,
+  "duplicate-background-images": true,
   "duplicate-properties": true,
   "empty-rules": false,
   "selector-max-approaching": false,
@@ -31,7 +31,7 @@
   "text-indent": false,
   "unique-headings": false,
   "universal-selector": false,
-  "unqualified-attributes": false,
-  "vendor-prefix": true,
-  "zero-units": false
+  "unqualified-attributes": true,
+  "vendor-prefix": false,
+  "zero-units": true
 }

@@ -87,15 +87,16 @@ strong									{ font-weight: bold !important;  }
 #fb-root 								{ -webkit-backface-visibility: hidden; z-index: -1; overflow: hidden }
 #appToast								{ position: absolute; top: 25px; left: 142px; right: 108px; height: 34px; min-width: 154px; display: block; overflow: hidden; text-align: left; padding: 8px; background-color: rgba(100,100,100,.666); border: 0 solid #000; font-size: 16px; line-height: 17px; color: #fff; z-index: 9999; border-radius: 3px; pointer-events: none; white-space: nowrap; }
 .ios7 #appToast							{ top: 40px; }
+@media all								{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
+/*
 @media all and (orientation:portrait)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
 @media all and (orientation:landscape)	{ @-ms-viewport { user-zoom: fixed; max-zoom: 1; min-zoom: 1; }}
-/*
 @media (max-width: 600px)				{ @-ms-viewport { width: 80%; }}
 */
 /*#/////////////#//
 //# APP CONTENT #//
 //#/////////////#*/
-#contentWrapper								{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; background-color: #fff; user-zoom: fixed; margin: 0; padding: 0; border: 0; user-zoom: fixed; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
+#contentWrapper								{ position: absolute; top: 0; left: 0; /*right: 0; bottom: 0;*/ display: block; overflow: hidden; background-color: #fff; user-zoom: fixed; margin: 0; padding: 0; border: 0; touch-action: none; -ms-touch-action: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; width: 100%; height: 100%; }
 #appContent									{ position: absolute; top: 0; left: 0; right: 0; bottom: 44px; display: block; border-top: 65px solid rgba(0,0,0,0); -webkit-transform: translate3d(0, 0, 0); }
 /*
 #appContent									{ position: absolute; top: 0; left: 0; width: 100%; max-width: 100%; min-width: 100%; bottom: 46px; display: block; overflow: hidden; background-color: #fff; border-top: 65px solid rgba(255,255,255,1); margin: 0; padding: 0; touch-action: none; -ms-touch-action: none; }
@@ -372,7 +373,7 @@ body.tab4.deficit #appFooter #tab4	{ color: #C85834; }
 #settingsList #optionMeasure.activeRow:before { display: none; border: 0; }
 #tapSwitch							{ width: 137px; position: absolute; right: 15px; top: 0; display: block; height: 29px; text-align: center; font-size: 12px; font-weight: bold; }
 #tapSwitch #leftOption,
-#tapSwitch #rightOption				{ height: 29px; line-height: 29px; color: #aaa; background-color: #eee; border: 0; text-shadow: 0 1px 0 rgba(255,255,255,.2); display: inline-block; float: left; width: 48%; overflow: hidden; }
+#tapSwitch #rightOption				{ height: 29px; line-height: 29px; color: #aaa; background-color: #eee; border: 0; text-shadow: 0 1px 0 rgba(255,255,255,.2); display: inherit; float: left; width: 48%; overflow: hidden; }
 #tapSwitch #leftOption				{ position: absolute; top: 9px; right: 65px; border-radius: 4px 0 0 4px; }
 #tapSwitch #rightOption				{ position: absolute; top: 9px; right: 0;    border-radius: 0 4px 4px 0; }
 #tapSwitch #leftOption.toggle		{ color: #fff; background-color: #5ED872; }
@@ -397,10 +398,10 @@ body.tab4.deficit #appFooter #tab4	{ color: #C85834; }
 /*sync info icon*/
 #optionFacebook div p	{ display: block; float: left; max-width: 90%; overflow: hidden; }
 #optionFacebook *		{ white-space: nowrap; }
-#syncInfo				{ width: 18px; height: 24px; float: left; text-align: center; font-size: 16px; line-height: 24px; display: inline-block; color: #007aff; font-weight: normal; background-color: rgba(0,0,0,0); z-index: 0; white-space: nowrap; }
+#syncInfo				{ width: 18px; height: 24px; float: left; text-align: center; font-size: 16px; line-height: 24px; display: inherit; color: #007aff; font-weight: normal; background-color: rgba(0,0,0,0); z-index: 0; white-space: nowrap; }
 /*squash*/
 @media all and (min-width: 400px) {
-#syncInfo				{ width: 34px; height: 44px; float: left; text-align: center; font-size: 20px; line-height: 45px; display: inline-block; color: #007aff; font-weight: normal; background-color: rgba(0,0,0,0); z-index: 0; }
+#syncInfo				{ width: 34px; height: 44px; float: left; text-align: center; font-size: 20px; line-height: 45px; display: inherit; color: #007aff; font-weight: normal; background-color: rgba(0,0,0,0); z-index: 0; }
 }
 #syncInfo.button		{ color: #ccc; }
 #syncInfo:before		{ content: '\A175' !important; font-family: KCals; }
@@ -502,7 +503,7 @@ body.tab4.deficit #appFooter #tab4	{ color: #C85834; }
 /**/
 #optLocalStorage,
 #optIndexedDB,
-#optWebSQL							{ padding: 0 5px; margin-left: 4px; color: #777; background-color: #eee; display: inline-block; float: right; height: 44px; border: 6px solid rgba(255,255,255,0); border-width: 7px 0; z-index: 30; background-clip: padding-box; }
+#optWebSQL							{ padding: 0 5px; margin-left: 4px; color: #777; background-color: #eee; display: inherit; float: right; height: 44px; border: 6px solid rgba(255,255,255,0); border-width: 7px 0; z-index: 30; background-clip: padding-box; }
 /*nochange current*/
 #optLocalStorage.button,
 #optIndexedDB.button,
@@ -650,7 +651,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #divTimeSpan2						{ left: 25%; }
 #divTimeSpan3						{ left: 50%; }
 #divTimeSpan4						{ left: 75%; }
-#sliderTimeSpan div.activeOption	{ /*background-color: #f6f6f6;*/ border-top: 2px solid rgba(0,122,255,.6); }
+#sliderTimeSpan .activeOption	{ /*background-color: #f6f6f6;*/ border-top: 2px solid rgba(0,122,255,.6); }
 .appLang-fr #sliderTimeSpan			{ font-size: 13px; }
 /*ratio by*/
 #sliderRatioBy						{ position: absolute; top: 59px; right: 13px; width: 127px; height: 18px; display: block; font-size: 13px; z-index: 100; overflow: hidden; }
@@ -796,7 +797,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 /*swap*/
 #elapsedIndicators div					{ text-align: left; width: 14px; height: 0; position: absolute; left: 50%; bottom: 8px; color: #ddd; font-size: 16px; line-height: 16px; font-family: Arial; }
 #elapsedIndicators div:before			{ border: 2px solid #ddd; border-radius: 20px; width: 0; height: 0; padding: 0; display: block; content: ''; }
-#elapsedIndicators div.activeSwap:before{ border-color: #39F; }
+#elapsedIndicators .activeSwap:before	{ border-color: #39F; }
 #elapsedIndicators #ind1				{ margin-left: -14px; }
 #elapsedIndicators #ind2				{ margin-left: -2px;  }
 #elapsedIndicators #ind3				{ margin-left: 10px;  }
@@ -1063,7 +1064,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #calcForm .tapSelect span				{ display: block; position: absolute; top: 20px; left: 128px; color: #aaa; white-space: nowrap; }
 #calcForm .tapSelect input				{ position: absolute; top: -9px; left: 0; display: block; width: 100%; height: 73px; padding: 15px 0 14px 0; text-indent: 30px; font-size: 18px; font-weight: normal; color: #000 !important; background-color: rgba(100,100,100,.0); text-align: left; z-index: 5; -ms-user-select: none; -moz-user-select: none; user-select: none; }
 #calcForm  input[readonly]				{ pointer-events: auto; }
-#calcForm .tapSelect input.tapActive	{ color: #cc0000 !important; pointer-events: none; -webkit-user-select: none; user-select: none; }
+#calcForm .tapSelect .tapActive			{ color: #cc0000 !important; pointer-events: none; -webkit-user-select: none; user-select: none; }
 /*by/unit width*/
 #calcForm #pA1B,
 #calcForm #pA4B							{ min-width: 66px; width: 66px; }
@@ -1202,8 +1203,8 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 .windows8 span.delete.active{ -webkit-transform: translate3d(0, 0, 0); right: -180px; }
 .windows8 span.delete.open	{ -webkit-transform: translate3d(0, 0, 0); right: 0; }
 /*ROW STYLE*/
-.entriesTitle				{ display: inline; float: left; width: 40px;  text-align: right; font-weight: bold; }
-.entriesKcals				{ display: inline; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
+.entriesTitle				{ display: inherit; float: left; width: 40px;  text-align: right; font-weight: bold; }
+.entriesKcals				{ display: inherit; float: left; width: 36px;  text-align: left; color: #999; text-indent: 3px; }
 .entriesBody				{ display: block; text-align: left; color: #666; font-size: 10pt; text-indent: 0; overflow: hidden; white-space: nowrap; padding-left: 2px; margin-right: 9px; height: 16px; line-height: 16px; }
 .entriesBody input			{ display: block; font-size: 10pt; height: 16px; }
 .entriesBody				{ font-size: 10pt; height: 18px; line-height: 16px;  }
@@ -1319,7 +1320,7 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 /*/////////
 // NOTES //
 /////////*/
-#diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inline-block; float: right; font-size: 22px; color: #ddd; }
+#diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inherit; float: right; font-size: 22px; color: #ddd; }
 #diaryNotes:before			{ content: '\f02d'; font-family: KCals; display: inline-block; font-weight: normal; }
 #diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
 #diaryNotesInput 			{ position: absolute; top: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(0,0,0,0); z-index: 98; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: text; user-select: text; -webkit-transform: translate3d(0, 0, 0); }
