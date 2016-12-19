@@ -57,14 +57,14 @@ function filterLocale(locale) {
 		locale = 'en';
 	}
 	//multiple codes
-	if (locale == 'in') {
+	if (locale === 'in') {
 		locale = 'id';
 	}
-	if (locale == 'no') {
+	if (locale === 'no') {
 		locale = 'nb';
 	}
 	//chinese
-	if (locale == 'zh') {
+	if (locale === 'zh') {
 		if ((/tw|hk|mo|hant/i).test(userLang)) {
 			locale = 'zt';
 		}

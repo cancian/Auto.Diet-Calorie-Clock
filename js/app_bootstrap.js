@@ -5,13 +5,13 @@ if(typeof $ !== 'undefined' && typeof $.ajaxSetup !== 'undefined') {
 	$.support.cors = true;
 	$.ajaxSetup({cache: false, crossDomain: true, async: true, error: function(jqXHR, exception) {
 		'use strict';
-			 if(jqXHR.status === 0)           { console.log('Not connect.\n Verify Network.');         }
-		else if (jqXHR.status == 404)         { console.log('Requested page not found. [404]');        }
-		else if (jqXHR.status == 500)         { console.log('Internal Server Error [500].');           }
-		else if (exception === 'parsererror') { console.log('Requested JSON parse failed.');           }
-		else if (exception === 'timeout')     { console.log('Time out error.');                        }
-		else if (exception === 'abort')       { console.log('Ajax request aborted.');                  }
-		else                                  { console.log('Uncaught Error.\n' + jqXHR.responseText); }
+			 if(jqXHR.status == 0)           { console.log('Not connect. Verify Network.');          }
+		else if (jqXHR.status == 404)        { console.log('Requested page not found. [404]');       }
+		else if (jqXHR.status == 500)        { console.log('Internal Server Error [500].');          }
+		else if (exception == 'parsererror') { console.log('Requested JSON parse failed.');          }
+		else if (exception == 'timeout')     { console.log('Timeout error.');                        }
+		else if (exception == 'abort')       { console.log('Ajax request aborted.');                 }
+		else                                 { console.log('Uncaught Error: ' + jqXHR.responseText); }
 		setTimeout(function() {
 			if(typeof spinner === 'function') {
 				$('body').removeClass('insync');
@@ -182,7 +182,7 @@ function buildRemoteSuperBlock(opt) {
 		////////////////////
 		// RESTART DIALOG //
 		////////////////////
-		if (updatePending == 1) {
+		if (updatePending === 1) {
 			setTimeout(function () {
 				if (typeof app !== 'undefined') {
 					if (typeof app.analytics === 'function') {
@@ -198,7 +198,7 @@ function buildRemoteSuperBlock(opt) {
 			appStorage.setItem('app_restart_pending', true);
 		} else {
 			$('body').removeClass('loading');
-			if (isCurrentCacheValid == 1) {
+			if (isCurrentCacheValid === 1) {
 				$('body').addClass('uptodate');
 			} else {
 				$('body').addClass('corrupted');
@@ -224,7 +224,7 @@ if(!appStorage.getItem('config_autoupdate')) {
 //LOCAL
 if(appStorage.getItem('config_autoupdate') === 'on') {
 	//IF SUPERBLOCK MISSING
-	if(isCurrentCacheValid != 1) {
+	if(isCurrentCacheValid !== 1) {
 		//BUILD LOCAL SUPERBLOCK
 		if(!document.getElementById('plainLoad')) {
 			InitializeLocalSuperBlock();

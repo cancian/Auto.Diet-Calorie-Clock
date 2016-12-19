@@ -41,7 +41,32 @@ app = {
 		if (x === 'none')    		 { return true; }
 		if (x === 'false')			 { return true; }
 		if (x === 'disabled')		 { return true; }
-		//true
+		//default
+		return false;
+	},
+	isEmpty: function (mixedVar) {
+		'use strict';
+		var undef;
+		var key;
+		var i;
+		var len;
+		var emptyValues = [undef, null, false, 0, '', '0'];
+		//VALUES
+		for (i = 0, len = emptyValues.length; i < len; i++) {
+			if (mixedVar === emptyValues[i]) {
+				return true;
+			}
+		}
+		//OBJECTS
+		if (typeof mixedVar === 'object') {
+			for (key in mixedVar) {
+				if (mixedVar.hasOwnProperty(key)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		//default
 		return false;
 	},
 	//user: appStorage.getItem('app_current_user').split('###'),

@@ -10,8 +10,8 @@ function appTimer(content) {
 	var getKcalsKey  = 'config_kcals_day_0';
 	var getKcalsItem = app.read('config_kcals_day_0');
 	var eqPerDay     = app.read('config_kcals_day_0');
-	if(kcalsType == 'cyclic') {
-		if(currentDay == 'd') {
+	if(kcalsType === 'cyclic') {
+		if(currentDay === 'd') {
 			getKcalsKey  = 'config_kcals_day_2';
 			getKcalsItem = app.read('config_kcals_day_2');
 			eqPerDay     = app.read('config_kcals_day_2');
