@@ -165,10 +165,12 @@
 		var p = animations.exit(host.children).
 			then(function () {
 				// Call unload and dispose methods on current scenario, if any exist
+				/*
 				if (host.winControl) {
 					host.winControl.unload && host.winControl.unload();
 					host.winControl.dispose && host.winControl.dispose();
 				}
+				*/
 				WinJS.Utilities.disposeSubTree(host);
 				WinJS.Utilities.empty(host);
 				return WinJS.UI.Pages.render(url, host, eventObject.detail.state);
@@ -221,13 +223,13 @@
 	function launchFacebookWebAuth() {
 		var facebookURL = "https://www.facebook.com/dialog/oauth?client_id=";
 
-		var clientID = '577673025616946';
+		var clientID = "577673025616946";
 		if (clientID === null || clientID === "") {
 			//WinJS.log("Enter a ClientID", "Web Authentication SDK Sample", "error");
 			return;
 		}
 
-		var callbackURL = 'https://www.facebook.com/connect/login_success.html';
+		var callbackURL = "https://www.facebook.com/connect/login_success.html";
 		if (!isValidUriString(callbackURL)) {
 			////WinJS.log("Enter a valid Callback URL for Facebook", "Web Authentication SDK Sample", "error");
 			return;
@@ -289,3 +291,4 @@
 	}
 
 })();
+

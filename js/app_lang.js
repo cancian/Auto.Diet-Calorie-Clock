@@ -19,14 +19,14 @@
 //TIZN @@@ calorie counter weight tracker fitbit loseit myplate fatsecret myfitnesspal runkeeper loss lose fat burn diet monitor diary calculator bmi gain carb cycling health exercise food fitness fit kcals kcal calories calorific healthbook app web free 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // loseit    	21.400.000 
-// fitbit    	50.400.000 
-// myplate   	 6.820.000 
-// fatsecret 	 2.620.000 
-// runkeeper 	 2.080.000 
+// fitbit    	50.400.000
+// myplate   	 6.820.000
+// fatsecret 	 2.620.000
+// runkeeper 	 2.080.000
 // myfitnesspal 10,100,000
 //////////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.1.2 (210201)';
+var appVersion = '2.1.2 (210202)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;

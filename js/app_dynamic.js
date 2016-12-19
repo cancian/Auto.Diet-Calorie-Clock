@@ -9,7 +9,7 @@ $(document).on('pageload', function (evt) {
 	//#///////////#//
 	//# HOLD EDIT #//
 	//#///////////#//
-	var holdStart;
+	//var holdStart;
 	var deMove = 0;
 	var cancelEdit = 0;
 	var deKeyboard = 0;
@@ -68,7 +68,7 @@ $(document).on('pageload', function (evt) {
 			if (!$('.editableInput').is(':visible')) {
 				if (!$(this).has('input').length) {
 					var value = trim($('.entriesBody', this).text());
-					var kcals = $('.entriesTitle', this).html();
+					//var kcals = $('.entriesTitle', this).html();
 					var timedBlur = new Date().getTime();
 					$('.entriesTitle', this).prop('id', 'kcalsDiv');
 					var input = $('<input/>', {
@@ -90,7 +90,7 @@ $(document).on('pageload', function (evt) {
 								//prevent keyboard jump
 								if (app.device.android || app.device.firefoxos || app.device.wp8 || app.device.msapp) {
 									if (nowBlur - timedBlur < 600) {
-										var blurVal = $('editableInput').val();
+										//var blurVal = $('editableInput').val();
 										$('#editableInput').focus();
 										setTimeout(function () {
 											$('#editableInput').focus();
@@ -406,7 +406,7 @@ $(document).on('pageload', function (evt) {
 	//////////////
 	$(tgt + ' .delete', '#entryList').on(tap, function (evt) {
 		var evtId     = evt.target.id;
-		var targetId  = '#' + evt.target.id;
+		//var targetId  = '#' + evt.target.id;
 		var targetObj = this;
 		///////////
 		// REUSE //
@@ -750,8 +750,8 @@ function searchFood(searchSQL, callback) {
 	var keyJunk = 0;
 	var keyScore = 0;
 	var mi = [];
-	var limited = 0;
-	var results = 0;
+	//var limited = 0;
+	//var results = 0;
 	var z = dato.length;
 	while(z--) {
 		keyScore = 0;
@@ -777,7 +777,7 @@ function searchFood(searchSQL, callback) {
 	mi = mi.sortbyattr('id');
 
 	var mou = [];
-	for (var u = 0, lenu = mi.length; u < 100; u++) {
+	for (var u = 0; u < 125; u++) {
 		if (mi[u]) {
 			mou.push(mi[u].value);
 		}
@@ -797,8 +797,8 @@ function doSearch(rawInput) {
 	/////////////////
 	// FETCH INPUT //
 	/////////////////
-	var timerStart = new Date().getTime();
-	var lastSearch = app.read('lastSearchTerm');
+	//var timerStart = new Date().getTime();
+	//var lastSearch = app.read('lastSearchTerm');
 		//sanitize user input
 		var searchQuery = rawInput;
 		//partial sql syntax

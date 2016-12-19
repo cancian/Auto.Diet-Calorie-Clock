@@ -27,7 +27,7 @@
 		zh : '',
 		zt : ''
 	},
-	EMPTY : {
+	EMPTY_ : {
 		en : '',
 		pt : '',
 		ar : '',

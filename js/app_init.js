@@ -2,7 +2,7 @@
 // SAFE EXEC //
 ///////////////
 if(typeof appStorage === 'undefined') { var appStorage = window.localStorage; }
-if(typeof hostLocal === 'undefined')  {
+if(typeof hostLocal  === 'undefined') {
 	var hostLocal = appStorage.getItem('config_debug') === 'active' ? https + '192.168.1.5/' : '';
 }
 var staticVendor = ''; //'amazon';

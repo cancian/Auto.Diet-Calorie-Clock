@@ -3051,7 +3051,7 @@ $.event.special.swipe = {
 		var diffX = (x2 - x1);
 		var diffY = (y2 - y1);
 		return Math.sqrt((diffX * diffX) + (diffY * diffY));
-	}
+	};
 
 	var onTouchStart = function(event) {
 		var e = app.pointer(event).e;
@@ -3065,7 +3065,7 @@ $.event.special.swipe = {
 		} else {
 			stopTapAndHoldDetector.call(this);
 		}
-	}
+	};
 
 	var onTouchMove = function(event) {
 		if (tapAndHoldTimer == null) {
@@ -3086,22 +3086,22 @@ $.event.special.swipe = {
 		if (euclideanDistance > MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT) {
 			stopTapAndHoldDetector.call(this);
 		}
-	}
+	};
 
 	var onTouchEnd = function(event) {
 		stopTapAndHoldDetector.call(this);
-	}
+	};
 
 	var onTapAndHold = function(event) {
 		clear.call(this);
 		$(this).data('taphold.handler').call(this, event);
-	}
+	};
 
 	var clear = function() {
 		tapAndHoldTimer = null;
 		$(this).unbind(TOUCHMOVE, onTouchMove);
 		$(this).unbind(TOUCHEND, onTouchEnd);
-	}
+	};
 
 	var startTapAndHoldDetector = function(event) {
 		if (tapAndHoldTimer != null) {
@@ -3119,12 +3119,12 @@ $.event.special.swipe = {
 		tapAndHoldPoint.x = e.x;
 		tapAndHoldPoint.y = e.y;
 		$(this).data('taphold.point', tapAndHoldPoint);
-	}
+	};
 
 	var stopTapAndHoldDetector = function() {
 		clearTimeout(tapAndHoldTimer);
 		clear.call(this);
-	}
+	};
 
 	$.event.special.hold = {
 		setup : function () {},

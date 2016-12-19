@@ -1,7 +1,8 @@
 ﻿//#/////////////////#//
 //# CORDOVA PLUGINS #//
 //#/////////////////#//
-cordova.define('cordova/plugin_list', function (require, exports, module) {
+cordova.define("cordova/plugin_list", function (require, exports, module) {
+	"use strict";
 	module.exports = [{
 			"file" : "plugins/cordova-plugin-dialogs/www/notification.js",
 			"id" : "cordova-plugin-dialogs.notification",
