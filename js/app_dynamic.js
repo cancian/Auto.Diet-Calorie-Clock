@@ -14,63 +14,9 @@ $(document).on('pageload', function (evt) {
 	var cancelEdit = 0;
 	var deKeyboard = 0;
 	app.globals.blockEntrylist = false;
-	/*
-	$("#entryList div" + tgt).on("longhold", function (evt) {
-		clearTimeout(holdStart);
-		deMove = 0;
-		if (!$("#entryList div" + tgt + " .entriesTitle").html()) {
-			return;
-		}
-		if (!$(this).hasClass("longHold")) {
-			return;
-		}
-		if ($("#editableInput").is(":visible")) {
-			return;
-		}
-		entryReturn = true;
-		deKeyboard = 1;
-		if (cancelEdit == 0) {
-			getEntryEdit($(this).prop('id'));
-		}
-	});
-	var isHoldMove = app.device.windows8 ? '' : touchmove;
-	$("#entryList div, #appContent").on(isHoldMove + ' mouseleave mouseout mouseup ' + touchend, function (evt) {
-		deMove++;
-		if (deMove > 40 || (app.device.android && deMove > 1)) {
-			cancelEdit = 1;
-			clearTimeout(holdStart);
-			$('.longHold').removeClass('longHold');
-		}
-	});
-
-	$("#appContent").scroll(function () {
-		deKeyboard = 1;
-		deMove++;
-		//cancelEdit = 1;
-	});
-	//////////////////
-	// FORCE RETURN //
-	//////////////////
-	$("#entryList div" + tgt).on(touchend, function (evt) {
-		deMove = 0;
-		clearTimeout(holdStart);
-		$('.longHold').removeClass('longHold');
-	});
-	*/
+	//
 	$('#entryList div' + tgt).on(touchstart, function (evt) {
 		deMove = 0;
-		/*
-		clearTimeout(holdStart);
-		var holdThis = this;
-		if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
-			holdStart = setTimeout(function() {
-				if (!$('#entryList div').is(':animated') && !$('.editableInput').is(':visible') && !$("#timerDailyInput").is(":focus") && !$('#appStatusFix').hasClass('open') && !$(".delete").hasClass("active")) {
-					$(holdThis).addClass('longHold');
-					entryReturn = true;
-				}
-			},200);
-		}
-		*/
 		if ($('#entryTime').is(':focus')) {
 			entryReturn = true;
 		}

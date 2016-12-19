@@ -1,7 +1,7 @@
 ﻿////////////////////
 // DOCUMENT READY //
 ////////////////////
-$(function() {
+(function() {
 	'use strict';
 	///////////////////
 	// OPEN DATABASE //
@@ -28,37 +28,12 @@ $(function() {
 			}
 		});
 	}
-	/*
-	localforage.defineDriver(window.cordovaSQLiteDriver).then(function() {
-	return localforage.setDriver([
-	window.cordovaSQLiteDriver._driver,
-	localforage.INDEXEDDB,
-	localforage.WEBSQL,
-	localforage.LOCALSTORAGE
-	]);
-	}).then(function() {
-	 */
-	//CHECK FOR ANOTHER OS GIVING THE SAME ERROR AS FIREFOX ON PRIVATE MODE
-	//if(app.read('config_force_localstorage') && (vendorClass !== 'moz' || !app.device.desktop)) { app.remove('config_force_localstorage'); }
-	//FORCE DB (USER CHOICE) ~ MULTIUSER
-	//var UserDB = 'KCals';
-	//if(!/mud_default/i.test(app.user)) { UserDB = UserDB + '_' + app.user[0]; }
-	//INSTANCE
-	/*
-	app.forage = localforage.createInstance({
-	driver      : dbDriver,
-	name        : 'localforage',
-	storeName   : 'KCals',
-	description : 'KCals storage engine',
-	version     : 1.0,
-	});
-	 */
 	/////////////
 	// LOAD DB //
 	/////////////
 	localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
 	initDB();
-});
+})();
 ////////////////
 // RESUME EVT //
 ////////////////

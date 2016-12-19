@@ -129,7 +129,7 @@ app.tab.settings = function(keepOpen) {
 					$('#newWindowTitle').html2('The answer is 42');
 					app.analytics('banana');
 				}
-			})
+			});
 		};
 		/////////////////
 		// CALL WINDOW //
