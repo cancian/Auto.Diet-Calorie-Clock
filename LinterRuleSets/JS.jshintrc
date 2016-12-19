@@ -1,6 +1,6 @@
 {
     "maxerr"        : 200,       
-    "bitwise"       : false,    
+    "bitwise"       : true,    
     "camelcase"     : false,   
     "curly"         : false,    
     "eqeqeq"        : false,
@@ -15,7 +15,7 @@
     "nonbsp"        : true,    
     "nonew"         : false,   
     "plusplus"      : false,   
-    "quotmark"      : false,   
+    "quotmark"      : true,   
     "undef"         : false,     
     "unused"        : false,     
     "strict"        : true,     
