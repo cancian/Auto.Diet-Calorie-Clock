@@ -7,9 +7,9 @@
 <span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
 
 # 2.1.2 [2016/12/19]
-• New and more strict methods to handle empty/null variables
+• New and stricter methods to handle empty/null variables
 • Added an Easter egg to the app, good luck finding it!
-• Added more rules to backbutton behavior
+• Added more rules to back button behavior
 • Minor upgrades to data storage engine
 • Improved new window handling
 
@@ -51,7 +51,7 @@
 
 # 2.0.3 [2016/09/19]
 • Normalized touch events
-• Fixed unusual css selector exception while changing database engine
+• Fixed unusual CSS selector exception while changing database engine
 • Optimized rendering engine for faster and smoother user experience
 • Added clearly visible start/end dates to the full history chart
 • A few performance tweaks on the database engine
@@ -79,7 +79,7 @@
 # 1.9.18 [2016/07/05]
 • Better text handling
 • More efficient, and less frequent, data connections (saves battery)
-• Smarter autofix for bootloop-related issues
+• Smarter self-fix method for bootloop related issues
 • Multiple spaces are now filtered on food/exercise titles
 
 # 1.9.17 [2016/06/10]
