@@ -311,8 +311,8 @@ $(document).on('backbutton', function (evt) {
 	if ($('#langSelect').length) {
 		$('.preset').addClass('set');
 		$('.preset').trigger(touchend);
-	} else if ($('#skipIntro').length && myScroll.x) {
-		if (typeof myScroll !== 'undefined') {
+	} else if ($('#skipIntro').length && typeof myScroll !== 'undefined') {
+		if (typeof myScroll.x !== 'undefined') {
 			myScroll.prev();
 		}
 	} else if (ref) {
