@@ -107,10 +107,11 @@ app = {
 					out.pageY = out.y;
 					//add data to event
 					//out.e = e.originalEvent
-					out.e.pageX = out.x;
-					out.e.pageY = out.y;
+					//out.e.pageX = out.x;
+					//out.e.pageY = out.y;
 					out.e.x = out.x;
 					out.e.y = out.y;
+					//
 					return out;
 				}
 			}
@@ -122,10 +123,11 @@ app = {
 		out.pageX = out.x;
 		out.pageY = out.y;
 		//add data to event
-		out.e.pageX = out.x;
-		out.e.pageY = out.y;
+		//out.e.pageX = out.x;
+		//out.e.pageY = out.y;
 		out.e.x = out.x;
 		out.e.y = out.y;
+		//
 		return out;
 	},
 	is: {},
@@ -3018,8 +3020,8 @@ $.event.special.swipe = {
 				// Only trigger if they've started, and the target matches:
 				if (origTarget == e.target && started && ((Date.now() - start_time) < 750) && ((start_pos.x == end_x && start_pos.y == end_y) || (diff_x >=  - (20) && diff_x <= 20 && diff_y >=  - (20) && diff_y <= 20))) {
 					e.type = 'tap';
-					e.pageX = end_x;
-					e.pageY = end_y;
+					//e.pageX = end_x;
+					//e.pageY = end_y;
 					//TRIGGER
 					$.event.dispatch.call(thisObject, e);
 				}

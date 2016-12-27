@@ -179,12 +179,7 @@ safeExec(function() {
 	// JS //
 	////////
 	//JQUERY
-	var isAndroid2 = (/Android/i.test(UsrAgt) && parseFloat((UsrAgt).match(/Android [\d+\.]{3,5}/)[0].replace('Android ','')) < 4);
-	if(isAndroid2) {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
-	} else {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery3.js" id="jqueryJS"><\/script>');
-	}
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.js" id="jqueryJS"><\/script>');
 	//PLUGINS
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');

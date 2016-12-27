@@ -1016,15 +1016,18 @@ if(app.is.scrollable) {
 	app.globals.MY    = 0;
 	app.globals.XLock = 0;
 	//
+	var evtPageX;
+	var evtPageY;
+	//
 	$('body').on(touchend,function(evt) {
 		if(app.read('app_last_tab','tab2')) {
 			//NORMALIZE XY
-			evt.pageX = app.pointer(evt).x;
-			evt.pageY = app.pointer(evt).y;
+			evtPageX = app.pointer(evt).x;
+			evtPageY = app.pointer(evt).y;
 			//
 			app.globals.XLock = 0;
-			app.globals.X     = evt.pageX;
-			app.globals.Y     = evt.pageY;
+			app.globals.X     = evtPageX;
+			app.globals.Y     = evtPageY;
 			app.globals.MX    = 0;
 			app.globals.MY    = 0;
 		}
@@ -1033,14 +1036,14 @@ if(app.is.scrollable) {
 	$('body').on(touchmove,function(evt) {
 		if(app.read('app_last_tab','tab2')) {
 			//NORMALIZE XY
-			evt.pageX = app.pointer(evt).x;
-			evt.pageY = app.pointer(evt).y;
+			evtPageX = app.pointer(evt).x;
+			evtPageY = app.pointer(evt).y;
 			//
-			app.globals.MX = app.globals.MX - (app.globals.X - evt.pageX);
-			app.globals.MY = app.globals.MY - Math.abs(app.globals.Y - evt.pageY);
+			app.globals.MX = app.globals.MX - (app.globals.X - evtPageX);
+			app.globals.MY = app.globals.MY - Math.abs(app.globals.Y - evtPageY);
 			//
-			app.globals.X = evt.pageX;
-			app.globals.Y = evt.pageY;
+			app.globals.X = evtPageX;
+			app.globals.Y = evtPageY;
 			//ENABLE LOCK
 			if(Math.abs(app.globals.MY) < 30 && Math.abs(app.globals.MX) > 5) {
 				app.globals.XLock = 1;
