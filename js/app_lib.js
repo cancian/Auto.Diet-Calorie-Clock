@@ -1058,9 +1058,9 @@ app.handlers = {
 		}
 		//
 		var t = searchalize(target);
-		var isButton = style == 'button' ? 1 : 30;
-		if(app.device.osxapp || app.device.osx) {
-			isButton = 1;
+		var isButton = style == 'button' ? 0 : 30;
+		if(app.device.osxapp) {
+			isButton = 0;
 		}
 		//RESET
 		app.handlers.activeRowTouches[t] = 0;
