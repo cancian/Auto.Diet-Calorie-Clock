@@ -301,6 +301,9 @@ var backer = 0;
 $(document).on('backbutton', function (evt) {
 	//
 	backer = 0;
+	// Safe iScroll detection
+	var backDot = typeof myScroll !== 'undefined' ? (myScroll.x ? true : false) : false;
+	//
 	///////////////////
 	// TRIGGER CHAIN //
 	///////////////////
@@ -311,10 +314,8 @@ $(document).on('backbutton', function (evt) {
 	if ($('#langSelect').length) {
 		$('.preset').addClass('set');
 		$('.preset').trigger(touchend);
-	} else if ($('#skipIntro').length && typeof myScroll !== 'undefined') {
-		if (typeof myScroll.x !== 'undefined') {
-			myScroll.prev();
-		}
+	} else if ($('#skipIntro').length && backDot) {
+		myScroll.prev();
 	} else if (ref) {
 		ref.close();
 		ref = '';

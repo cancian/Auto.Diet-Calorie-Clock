@@ -6,7 +6,7 @@
 • Update food database to the latest USDA release
 <span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.1.2 [2016/12/19]
+# 2.1.2 [2016/12/27]
 • New and stricter methods to handle empty/null variables
 • Added an Easter egg to the app, good luck finding it!
 • Added more rules to back button behavior
