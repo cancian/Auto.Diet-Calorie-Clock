@@ -11,7 +11,7 @@ var openFB = (function () {
     // The Facebook App Id. Required. Set using init().
         fbAppId,
 
-        context = window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/")),
+        context = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')),
 
         baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
 
@@ -19,7 +19,7 @@ var openFB = (function () {
         //oauthRedirectURL = 'https://kcals.net/oauthcallback.html',
 		oauthRedirectURL = baseURL + '/oauthcallback.html',
      // Default Cordova OAuth redirect URL. Can be overriden in init()
-        cordovaOAuthRedirectURL = "https://www.facebook.com/connect/login_success.html",
+        cordovaOAuthRedirectURL = 'https://www.facebook.com/connect/login_success.html',
 
     // Default Logout redirect URL. Can be overriden in init()
         //logoutRedirectURL = 'https://kcals.net/logoutcallback.html',
@@ -37,7 +37,7 @@ var openFB = (function () {
     // MAKE SURE YOU INCLUDE <script src="cordova.js"></script> IN YOUR index.html, OTHERWISE runningInCordova will always by false.
     // You don't need to (and should not) add the actual cordova.js file to your file system: it will be added automatically
     // by the Cordova build process
-    document.addEventListener("deviceready", function () {
+    document.addEventListener('deviceready', function () {
         runningInCordova = true;
     }, false);
 
@@ -74,7 +74,7 @@ var openFB = (function () {
         } else {
             loginStatus.status = 'unknown';
         }
-        if (callback) callback(loginStatus);
+        if (callback) { callback(loginStatus); }
     }
 
     function login(callback, options) {
@@ -91,7 +91,7 @@ var openFB = (function () {
         // Inappbrowser load start handler: Used when running in Cordova only
         function loginWindow_loadStartHandler(event) {
             var url = event.url;
-            if (url.indexOf("access_token=") > 0 || url.indexOf("error=") > 0) {
+            if (url.indexOf('access_token=') > 0 || url.indexOf('error=') > 0) {
                 // When we get the access token fast, the login window (inappbrowser) is still opening with animation
                 // in the Cordova app, and trying to close it while it's animating generates an exception. Wait a little...
                 var timeout = 600 - (new Date().getTime() - startTime);
@@ -106,7 +106,7 @@ var openFB = (function () {
         function loginWindow_exitHandler() {
             console.log('exit and remove listeners');
             // Handle the situation where the user closes the login window manually before completing the login process
-            if (loginCallback && !loginProcessed) loginCallback({status: 'user_cancelled'});
+            if (loginCallback && !loginProcessed) { loginCallback({status: 'user_cancelled'}); }
             loginWindow.removeEventListener('loadstop', loginWindow_loadStartHandler);
             loginWindow.removeEventListener('exit', loginWindow_exitHandler);
             loginWindow = null;
@@ -140,17 +140,17 @@ var openFB = (function () {
             obj;
 
         loginProcessed = true;
-        if (url.indexOf("access_token=") > 0) {
+        if (url.indexOf('access_token=') > 0) {
             queryString = url.substr(url.indexOf('#') + 1);
             obj = parseQueryString(queryString);
             tokenStore.fbAccessToken = obj['access_token'];
-            if (loginCallback) loginCallback({status: 'connected', authResponse: {accessToken: obj['access_token']}});
-        } else if (url.indexOf("error=") > 0) {
+            if (loginCallback) { loginCallback({status: 'connected', authResponse: {accessToken: obj['access_token']}}); }
+        } else if (url.indexOf('error=') > 0) {
             queryString = url.substring(url.indexOf('?') + 1, url.indexOf('#'));
             obj = parseQueryString(queryString);
-            if (loginCallback) loginCallback({status: 'not_authorized', error: obj.error});
+            if (loginCallback) { loginCallback({status: 'not_authorized', error: obj.error}); }
         } else {
-            if (loginCallback) loginCallback({status: 'not_authorized'});
+            if (loginCallback) { loginCallback({status: 'not_authorized'}); }
         }
     }
 
@@ -190,10 +190,10 @@ var openFB = (function () {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    if (obj.success) obj.success(JSON.parse(xhr.responseText));
+                    if (obj.success) { obj.success(JSON.parse(xhr.responseText)); }
                 } else {
                     var error = xhr.responseText ? JSON.parse(xhr.responseText).error : {message: 'An error has occurred'};
-                    if (obj.error) obj.error(error);
+                    if (obj.error) { obj.error(error); }
                 }
             }
         };
@@ -226,10 +226,10 @@ var openFB = (function () {
         var parts = [];
         for (var i in obj) {
             if (obj.hasOwnProperty(i)) {
-                parts.push(encodeURIComponent(i) + "=" + encodeURIComponent(obj[i]));
+                parts.push(encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]));
             }
         }
-        return parts.join("&");
+        return parts.join('&');
     }
 
     // The public API
