@@ -391,8 +391,9 @@ body.tab4.deficit #appFooter #tab4	{ color: #C85834; }
 #emailLogin:after		{ position: absolute; top: 0; font-size: 36px; line-height: 46px; color: #ccc; display: inline-block; }
 #FacebookLogin:after	{ font-family: KCals; content: '\f082'; right: 20px; }
 #emailLogin:after		{ font-family: Arial; content: '@'; right: 0; font-size: 33px; line-height: 41px; }
-/*tizen hide email login*/
+/*tizen hide email login
 .tizen #emailLogin			{ display: none; }
+*/
 .tizen.appDebug #emailLogin	{ display: block !important; }
 /**/
 .playbook #FacebookLogin{ display: none; }

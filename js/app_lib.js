@@ -31,9 +31,9 @@ app = {
 		if (x === 0)				 { return true; }
 		if (x === '')				 { return true; }
 		if (x === false)			 { return true; }
-		if (x.length === 0)			 { return true; }
-		if (typeof x === 'undefined'){ return true; }
 		if (x === null)				 { return true; }
+		if (typeof x === 'undefined'){ return true; }
+		if (x.length === 0)			 { return true; }
 		if (x === '0')				 { return true; }
 		if (x === 'no')				 { return true; }
 		if (x === 'off')			 { return true; }
@@ -544,7 +544,7 @@ if($.nicescroll) {
 	if(app.device.linux)								{ app.is.scrollable = true;  }
 	if(app.device.desktop)								{ app.is.scrollable = true;  }
 	if(app.device.android && app.device.android < 5)	{ app.is.scrollable = true;  }
-	if(app.device.tizen)								{ app.is.scrollable = false; }
+	if(app.device.tizen)								{ app.is.scrollable = true;  } 
 }
 //////////////////
 // APP.REBOOT() //
@@ -1037,7 +1037,7 @@ app.handlers = {
 	activeRow : function (target, style, callback,callbackCondition) {
 		'use strict';
 		//ANDROID TAP ONLY
-		if(app.device.android) {
+		if(app.device.android || app.device.tizen) {
 			$(target).on(tap, function (evt) {
 				if(typeof callback === 'function') {
 					callback($(this).attr('id'), evt, this);

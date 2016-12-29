@@ -50,7 +50,7 @@ app.tab.settings = function(keepOpen) {
 		return false;
 	});
 	*/
-	////////////////////////
+	///////////////////////
 	// LIVEZILLA SUPPORT //
 	///////////////////////
 	app.handlers.activeRow('#liveZilla','activeRow',function(evt) {
