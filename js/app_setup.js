@@ -2686,7 +2686,7 @@ function getLoginFB() {
 			app.timers.bbtoken = setInterval(function () {
 				try {
 					var currentURL  = childWindow.window.location.href;
-					var callbackURL = callback;
+					var callbackURL = 'https://www.facebook.com/connect/login_success.html';
 					var inCallback  = currentURL.indexOf(callbackURL);
 					//TOKEN
 					if (inCallback == 0) {

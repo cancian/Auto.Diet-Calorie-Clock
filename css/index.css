@@ -226,10 +226,12 @@ body.tab4.deficit #appFooter #tab4	{ color: #C85834; }
 .appFacebook #appHeaderIcon		{ display: block; }
 #appHeaderIcon					{ position: absolute; top: 4px; right: 3px; width: 18px; height: 18px; z-index: 100; /*overflow: hidden; -webkit-backface-visibility: hidden;*/ -webkit-user-select: none; user-select: none; -ms-user-select: none; pointer-events: none; }
 .started #appHeaderIcon span	{ -webkit-animation: rotate 1000ms infinite linear; -webkit-animation-play-state: paused; border: 2px solid rgba(255,255,255,.28); border-top-color: #fff; border-left-color: #fff; /*-webkit-animation-fill-mode: forwards; -webkit-backface-visibility: hidden;*/ position: absolute; display: block; top: 0; left: 0; width: 0; height: 0; padding: 5px; border-radius: 100px; }
+.tizen #appHeaderIcon span,
 .android #appHeaderIcon span	{ -webkit-animation-name: bug; }
 .insync #appHeaderIcon span		{ -webkit-animation: rotate 1000ms infinite linear; -webkit-animation-play-state: running; }
 .ios7 #appHeaderIcon			{ top: 18px; }
 .started #appHeaderIcon p		{ -webkit-animation-fill-mode: forwards; /*-webkit-backface-visibility: hidden;*/ position: absolute; display: block; top: 3px; right: 7px; width: 0; height: 0; padding: 3px; border-radius: 9px; background-color: #fff; border: 1px solid #fff; }
+.tizen #appHeaderIcon p,
 .android #appHeaderIcon p		{ -webkit-animation-name: bug; }
 .setpush #appHeaderIcon p		{ -webkit-animation: scaleout 1000ms infinite linear; }
 .appDebug #appHeaderIcon p		{ background-color: #0f0; border: 1px solid #0c0; }
