@@ -15,14 +15,33 @@
 	"module"        : true,
 	"debug"         : true,
 	"eqnull"        : true,
-	"notypeof"      : true,
-	
+	"bitwise"       : true,
+	"nocomma"       : true,
+	"nonbsp"        : true,
+		
 	"-W100"         : false,
 	"-W041"         : false,
 	"-W008"         : false,
-	
 
-	"bitwise"       : false,
+	"unused"        : false,
+	"undef"         : false,
+	"predef_"       : ["app","appStorage","localforage","lang","LANG","decimalize","touchstart","touchend","touchmove","touchcancel","touchout","touchleave","swipe","tap","spinner",
+	                  "dtFormat","timerDiff","getElapsed","timerKcals","appBalance","appBalanceOver","DayUtcFormat","timerWait","balanceMeter","timerPerf","updateTodayOverview",
+					  "intakeHistory","updateNutriRatio","dayFormat","getEntries","getNutriTimeSpan","noTimer","dateDiff","appRows","MSApp","https","cssLoadCount","appBuild",
+					  "isCurrentCacheValid","isCacheValid","appConfirm","getNewWindow","preTab","afterTab","transitionend","updateEntriesSum","saveEntry","trim","startApp",
+					  "vendorClass","staticVendor","trimSpace","kickDown","updateTimer","blockModal","getEntry","updateEntriesTime","niceResizer","getEntryEdit","deleteEntry",
+					  "updateFoodDb","getNiceScroll","searchalize","getCatList","getCustomList","setFood","getFood","setPush","setFav","delFood","appFooter","detectPrivateMode",
+					  "initDB","updateLoginStatus","buildRemoteSuperBlock","updateCustomList","bodyTimer","appName","myScroll","appResizer","buildTracker","ref","tizen","WinJS",
+					  "afterHide","lastScreenResize","lastScreenSize","initialScreenSize","initialScreenHeight","orientationSwitched","initialScreenWidth","rebuildHistory","macgap",
+					  "chrome","safeExec","hostLocal","toTime","syncEntries","deSetup","errorHandler","reviewMode","pushEntries","buildHelpMenu","timeBomb","updateNutriBars","initTime",
+					  "appVersion","buildLangMenu","getLogoutFB","getLoginFB","getLoginEmail","buildAdvancedMenu","getLimitMenu","getCyclicMenu","getFullHistory","getNutriSliders","hold",
+					  "android2Select","prefix","pageLoad","stringifyError","clearEntries","getWeightTracker","eedisplayFloat","eeparseFloat","recalc_onclick","IScroll","blockAlerts","md4",
+					  "opaLock","pageReloads","trimDot","ga_storage","md5","FB","defaultLang","toDate","Highcharts","updateEntry","sortObject","Windows","blackberry","sanitizeSql","openFB",
+					  "buildCatListMenu","getModalWindow","","","","","","","","","",""],
+
+	"funcscope"     : false,
+	"notypeof"      : false,
+	"withstmt"      : false,
 	"camelcase"     : false,
 	"eqeqeq"        : false,
 	"forin"         : false,
@@ -31,11 +50,8 @@
 	"latedef"       : false,
 	"newcap"        : false,
 	"noempty"       : false,
-	"nonbsp"        : false,
 	"nonew"         : false,
 	"plusplus"      : false,
-	"undef"         : false,
-	"unused"        : false,
 	"maxparams"     : false,
 	"maxdepth"      : false,
 	"maxstatements" : false,
@@ -47,7 +63,6 @@
 	"esnext"        : false,
 	"moz"           : false,
 	"expr"          : false,
-	"funcscope"     : false,
 	"globalstrict"  : false,
 	"iterator"      : false,
 	"lastsemic"     : false,
@@ -76,6 +91,4 @@
 	"wsh"           : false,
 	"yui"           : false,
 	"globals"       : {}
-
 }
-

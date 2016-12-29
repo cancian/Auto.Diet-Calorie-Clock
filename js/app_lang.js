@@ -26,7 +26,7 @@
 // myfitnesspal 10,100,000
 //////////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.1.2 (210203)';
+var appVersion = '2.1.2 (210204)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -4406,6 +4406,34 @@ var LANG = {
 		vi : 'oz',
 		zh : '盎司',
 		zt : '盎司'
+	},
+	BMI : {
+		en : 'BMI',
+		pt : 'IMC',
+		ar : 'مؤشر كتلة الجسم',
+		bg : 'ИТМ',
+		cs : 'BMI',
+		da : 'BMI',
+		de : 'BMI',
+		el : 'ΔΜΣ',
+		es : 'IMC',
+		fi : 'BMI',
+		fr : 'IMC',
+		hu : 'BMI',
+		it : 'IMC',
+		id : 'BMI',
+		ja : 'BMI',
+		ko : 'BMI',
+		nl : 'BMI',
+		nb : 'BMI',
+		pl : 'BMI',
+		ro : 'IMC',
+		ru : 'ИМТ',
+		sv : 'BMI',
+		tr : 'BMI',
+		vi : 'BMI',
+		zh : 'BMI',
+		zt : 'BMI'
 	},
 	NUTRIENT_TITLE : {
 		en : 'Nutrients',
