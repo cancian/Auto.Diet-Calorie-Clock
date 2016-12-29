@@ -528,7 +528,7 @@ if(typeof https !== 'undefined') {
 	https = app.https;
 }
 //MANUAL OVERRIDES (DISABLE)
-if(app.device.android2) { //|| app.device.blackberry || app.device.playbook) {
+if(app.device.android2 || app.device.blackberry || app.device.playbook) {
 	app.https = 'http://';
 	https = app.https;	
 }
