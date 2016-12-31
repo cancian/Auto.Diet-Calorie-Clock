@@ -137,6 +137,8 @@ app = {
 		webSQL       : !window.openDatabase ? false : true,
 		localStorage : !window.localStorage ? false : true,
 	},
+	checkMail:  function (email) { 'use strict'; if(!email) { return false; } else { email = email.toLowerCase(); } var em = /^[+a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i.test(email); return em.test(email); }, // /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+	checkEmail: function (email) { 'use strict'; if(!email) { return false; } else { email = email.toLowerCase(); } var em = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email); return em.test(email); },
 	tab: {},
 	get: {},
 	call: {},
@@ -544,7 +546,7 @@ if($.nicescroll) {
 	if(app.device.linux)								{ app.is.scrollable = true;  }
 	if(app.device.desktop)								{ app.is.scrollable = true;  }
 	if(app.device.android && app.device.android < 5)	{ app.is.scrollable = true;  }
-	if(app.device.tizen)								{ app.is.scrollable = true;  } 
+	if(app.device.tizen)								{ app.is.scrollable = false; } 
 }
 //////////////////
 // APP.REBOOT() //

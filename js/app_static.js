@@ -1,7 +1,7 @@
 ﻿////////////////////
 // DOCUMENT READY //
 ////////////////////
-(function() {
+$(function() {
 	'use strict';
 	///////////////////
 	// OPEN DATABASE //
@@ -33,7 +33,7 @@
 	/////////////
 	localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
 	initDB();
-})();
+});
 ////////////////
 // RESUME EVT //
 ////////////////
