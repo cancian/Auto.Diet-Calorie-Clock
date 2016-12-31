@@ -1137,11 +1137,13 @@ if(app.is.scrollable) {
 	/////////////////////////////////
 	// HEADER INFO ICON XY HANDLER //
 	/////////////////////////////////
-	$('#appHeader').on(tap, function(evt) {
-		//HANDLE WINDOW		
-		if(app.pointer(evt).x < 132) {
+	$('#appHeader').on(tap + (app.device.android && !app.is.scrollable ? ' click' : ''), function(evt) {
+		//HANDLE WINDOW
+		var xTap = parseInt(app.pointer(evt).x);
+		if(xTap < 120 && xTap > 0) {
 			if($('#timerDailyInput').is(':focus')) {
-				$('#timerDailyInput').trigger('blur'); return false;
+				$('#timerDailyInput').trigger('blur');
+				return;
 			}
 			if($('#appHelper').length)					{ return; }
 			if($('#advancedMenu').length)				{ return; }
@@ -1155,13 +1157,14 @@ if(app.is.scrollable) {
 			if($('#timerDailyInput').is(':animated'))	{ return; }
 			//COLOR ANIMATION VALUE
 			if(Number($('#timerDailyInput').css2('color').split('rgba(255, 255, 255, ').join('').split(')').join('')) > 0.8) { return; }
+			//INFO WINDOW
 			getNewWindow('Getting used to real-time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Getting used to real-time'] + '</div>',function() {
-				$('#tabHelp').removeClass('hidden');
-				app.handlers.activeRow('#openHelp','button',function(evt) {
-					appFooter('tab4', 0, function() {
-						buildHelpMenu('direct');
-					});
-				});
+				//$('#tabHelp').removeClass('hidden');
+				//app.handlers.activeRow('#openHelp','button',function(evt) {
+				//	appFooter('tab4', 0, function() {
+				//		buildHelpMenu('direct');
+				//	});
+				//});
 			});
 		}
 	});
