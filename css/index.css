@@ -1,11 +1,12 @@
-﻿html, body								{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%; overflow: hidden; margin: 0; background-color: #fff; -ms-touch-action: none; touch-action: none; }
+﻿html, body								{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; max-width: 100%; max-height: 100%; overflow: hidden; margin: 0; background-color: #fff; -ms-touch-action: none; touch-action: none; will-change: transform; }
+html									{ position: relative !important; }
 *, *::before, *::after					{ -webkit-box-sizing: border-box; -webkit-user-select: none; user-select: none; padding: 0; margin: 0; outline: 0; border: 0; border-radius: 0; -webkit-user-callout: none !important; -webkit-touch-callout: none !important; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 .osx *, .osx *::before, .osx *::after,
 .ios *, .ios *::before, .ios *::after	{ -webkit-perspective: 0 !important; font-weight: 400; }
 .desktop.webkit *::before, 
 .desktop.webkit *::after				{ -webkit-perspective: 0 !important; font-weight: 300 !important; }
 /*native scroll*/
-.overthrow								{ overflow: auto !important; /*-webkit-transform: rotateZ(360deg);*/ }
+.overthrow								{ overflow: auto !important; -webkit-overflow-scrolling: touch; will-change: transform; }
 .ios.overthrow							{ -webkit-overflow-scrolling: touch; }
 .msie.overthrow							{ -ms-touch-action: pan-y; touch-action: pan-y; }
 .desktop,
@@ -29,7 +30,9 @@ input[type='number'], input[type='text']{ font-family: 'Helvetica Neue', Helveti
 .ios,
 .android,
 .wp8,
+.wp10,
 .msie,
+.tizen,
 .blackberry,
 .playbook,
 .wekbit,
@@ -101,12 +104,13 @@ strong									{ font-weight: bold !important;  }
 /*
 #appContent									{ position: absolute; top: 0; left: 0; width: 100%; max-width: 100%; min-width: 100%; bottom: 46px; display: block; overflow: hidden; background-color: #fff; border-top: 65px solid rgba(255,255,255,1); margin: 0; padding: 0; touch-action: none; -ms-touch-action: none; }
 */
+.blackberry #appContent,
 .ios #appContent							{ border-top: none; top: 65px; }
 /*android scrollbar*/
-::-webkit-scrollbar							{ width: 3px; -webkit-backface-visibility: hidden; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
-::-webkit-scrollbar-track					{ background-color: rgba(0,0,0,.066); }
-::-webkit-scrollbar-thumb					{ background-color: rgba(0,0,0,.555); border-right: 1px solid #fff; min-height: 28px; }
-::-webkit-scrollbar-thumb:window-inactive	{ background-color: rgba(0,0,0,.066); }
+.android ::-webkit-scrollbar						{ width: 3px; -webkit-backface-visibility: hidden; -webkit-perspective: 800; -webkit-transform: translate3d(0, 0, 0); }
+.android ::-webkit-scrollbar-track					{ background-color: rgba(0,0,0,.066); }
+.android ::-webkit-scrollbar-thumb					{ background-color: rgba(0,0,0,.555); border-right: 1px solid #fff; min-height: 28px; }
+.android ::-webkit-scrollbar-thumb:window-inactive	{ background-color: rgba(0,0,0,.066); }
 /*#////////////#//
 //# APP HEADER #//
 //#////////////#*/
@@ -540,7 +544,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 /*##///////////##//
 //## newWindow ##//
 //##///////////##*/
-#newWindowWrapper					{ display: block; position: absolute; top: 65px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 52;}
+#newWindowWrapper					{ display: block; position: absolute; top: 65px; bottom: 44px; left: 0; width: 100%; background-color: #fff; overflow: hidden; -webkit-transform: translate3d(0, 100%, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; -webkit-perspective: 800; z-index: 52; will-change: transform, opacity; }
 #newWindowWrapper.busy				{ -webkit-user-select: none; user-select: none; -ms-user-select: none; pointer-events: none !important; overflow: hidden; }
 .ios7 #newWindowWrapper				{ top: 80px; }
 #newWindowWrapper.open				{ display: block; -webkit-transform: translate3d(0, 0, 0); -webkit-transition-timing-function: ease; -webkit-transition-duration: .3s; }
@@ -1163,6 +1167,7 @@ div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; 
 #entryListWrapper			{ width: 100%; position: relative; min-height: 180px; padding: 0; background-color: #fff; overflow: hidden; padding-bottom: 44px; }
 #entryList					{ width: 100%; font-size: 13px; min-height: 45px; }
 #entryList div				{ position: relative; width: auto; padding: 16px 0 0 0; margin: 0; border-bottom: 1px solid #eee; border-top: 0 solid #fff; /*overflow: hidden;*/ }
+#entryList p				{ will-change: all; }
 /*
 #entryList div				{ -webkit-transition-duration: 0s; }
 #entryList div.hold			{ -webkit-transition-timing-function: ease; -webkit-transition-duration: 1.1s; background-color: #ff8 !important; }
@@ -1237,7 +1242,7 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 /*EXPIRED*/
 .expired p					{ opacity: .4; }
 .editing p					{ opacity: 1; }
-.expired 					{ -webkit-transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; }
+.expired 					{ -webkit-transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; will-change: all; }
 /*ROW BORDER*/
 .rowMorning,
 .e-rowMorning,
