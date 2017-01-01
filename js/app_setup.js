@@ -2433,7 +2433,7 @@ function getRateDialog() {
 	'use strict';
 	//appstore enabled
 	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.msapp && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook && !app.device.tizen) { return; }
-	if(app.get.platform() == 'web')	{ return; }
+	if(app.get.platform() === 'web') { return; }
 	//first use
 	app.define('getRate',app.now());
 	//return
@@ -2792,7 +2792,7 @@ function getLoginEmail() {
 		});
 		//PRE-FILL
 		if(app.read('usrMail')) {
-			if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(trim(app.read('usrMail')))) {
+			if (app.checkEmail(app.read('usrMail'))) {
 				$('#usrMail').val(trim(app.read('usrMail')));
 			}
 		}
@@ -2801,7 +2801,7 @@ function getLoginEmail() {
 		////////////////////
 		app.handlers.activeRow('#resetPass', 'button', function (evt) {
 			//validate e-mail
-			if (!/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(trim($('#usrMail').val()))) {
+			if (!app.checkEmail($('#usrMail').val())) {
 				$('.usrMail').css2('color', '#c30');
 				setTimeout(function () {
 					alert(LANG.BLANK_FIELD_TITLE[lang], LANG.BLANK_FIELD_DIALOG[lang]);
@@ -2845,19 +2845,20 @@ function getLoginEmail() {
 			$('.usrPass').css2('color', '#c30');
 		}
 		//MAIL
-		if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(app.read('usrMail'))) {
+		if (app.checkEmail(app.read('usrMail'))) {
 			$('.usrMail').css2('color', '#000');
 		} else {
 			$('.usrMail').css2('color', '#c30');
 		}
+		//STORE VALUES
+		var usrMailStore = app.read('usrMail').toLowerCase();
+		var usrPassStore = md5(trim($('#usrPass').val()));
 		//VALIDATE
-		if (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(app.read('usrMail')) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
+		if (app.checkEmail(app.read('usrMail')) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
 			//send mail
 			$('#saveButton').css2('pointer-events', 'none');
 			$('#saveButton').css2('color', '#ccc');
-			var usrMailStore = app.read('usrMail').toLowerCase();
-			var usrPassStore = md5(trim($('#usrPass').val()));
-
+			//AJAX
 			$.ajax({
 				type : 'GET',
 				dataType : 'text',
