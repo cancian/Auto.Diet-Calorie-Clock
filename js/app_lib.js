@@ -137,7 +137,6 @@ app = {
 		webSQL       : !window.openDatabase ? false : true,
 		localStorage : !window.localStorage ? false : true,
 	},
-	//checkEMail:  function (email) { 'use strict'; if(!email) { return false; } else { email = email.toLowerCase(); } var em = /^[+a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i.test(email); return em.test(email); }, // /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
 	checkEmail: function (email) { 'use strict'; if(!email) { return false; } else { email = email.toLowerCase(); } return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email); },
 	tab: {},
 	get: {},

@@ -70,7 +70,7 @@ body.spinnerMask #loadMask span {
 	padding: 20px;
 	margin-top: -20px;
 	margin-left: -20px;
-	border-radius: 48px;
+	border-radius: 60px;
 }
 @-webkit-keyframes rotate	{ 0% { -webkit-transform: rotate(0deg) } 100% { -webkit-transform: rotate(360deg) } }
 
@@ -178,7 +178,7 @@ body.started #loadMask:after {
 .sp-cf:after	{ content: ""; display: table; }
 .sp-cf:after	{ clear: both; }
 .sp-cf			{ *zoom: 1; }
-.sp-dragger			{ border-radius: 5px; height: 5px; width: 5px; border: 1px solid #fff; background: #000; cursor: pointer; position:absolute; top:0; left: 0; }
+.sp-dragger		{ border-radius: 5px; height: 5px; width: 5px; border: 1px solid #fff; background: #000; cursor: pointer; position:absolute; top:0; left: 0; }
 .sp-slider { position: absolute; top:0; cursor:pointer; height: 3px; left: -1px; right: -1px; border: 1px solid #000; background: white; opacity: .8; }
 .sp-container { border-radius: 0; background-color: #ECECEC; border: solid 1px #f0c49B; padding: 0; }
 .sp-container, .sp-container button, .sp-container input, .sp-color, .sp-hue, .sp-clear { font: normal 12px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
