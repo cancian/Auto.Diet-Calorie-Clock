@@ -26,7 +26,7 @@
 // myfitnesspal 10,100,000
 //////////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.1.2 (210205)';
+var appVersion = '2.1.3 (210300)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
