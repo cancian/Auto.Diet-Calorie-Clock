@@ -1725,11 +1725,8 @@ function updateNutriRatio() {
 	if(!document.getElementById('appNutrients')) {
 		$('head').append2('<style type="text/css" id="appNutrients"></style>');
 	}
-	//UPDATE CHANGED
-	app.globals.appNutrientsHtml = $('#appNutrients').html();
-	if(app.globals.appNutrientsHtml != nutrientsStyle) {
-		$('#appNutrients').html2(nutrientsStyle);
-	}
+	//UPDATE
+	$('#appNutrients').html2(nutrientsStyle);
 }
 //#/////////////////#//
 //# NUTRI TIME SPAN #//

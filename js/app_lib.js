@@ -25,50 +25,6 @@ app = {
 	handlers: {},
 	timers: {},
 	vars: {},
-	isFalse: function(x) {
-		'use strict';
-		if (!x)						 { return true; }
-		if (x === 0)				 { return true; }
-		if (x === '')				 { return true; }
-		if (x === false)			 { return true; }
-		if (x === null)				 { return true; }
-		if (typeof x === 'undefined'){ return true; }
-		if (x.length === 0)			 { return true; }
-		if (x === '0')				 { return true; }
-		if (x === 'no')				 { return true; }
-		if (x === 'off')			 { return true; }
-		if (x === 'null')			 { return true; }
-		if (x === 'none')    		 { return true; }
-		if (x === 'false')			 { return true; }
-		if (x === 'disabled')		 { return true; }
-		//default
-		return false;
-	},
-	isEmpty: function (mixedVar) {
-		'use strict';
-		var undef;
-		var key;
-		var i;
-		var len;
-		var emptyValues = [undef, null, false, 0, '', '0'];
-		//VALUES
-		for (i = 0, len = emptyValues.length; i < len; i++) {
-			if (mixedVar === emptyValues[i]) {
-				return true;
-			}
-		}
-		//OBJECTS
-		if (typeof mixedVar === 'object') {
-			for (key in mixedVar) {
-				if (mixedVar.hasOwnProperty(key)) {
-					return false;
-				}
-			}
-			return true;
-		}
-		//default
-		return false;
-	},
 	//user: appStorage.getItem('app_current_user').split('###'),
 	dev: appStorage.getItem('config_debug') === 'active' ? true : false,
 	beenDev: appStorage.getItem('config_debug') === 'active' || appStorage.getItem('been_dev') ? true : false,
@@ -158,6 +114,52 @@ app = {
 		'use strict';
 		return new Date().getTime();
 	},
+	//
+	isFalse: function(x) {
+		'use strict';
+		if (!x)						 { return true; }
+		if (x === 0)				 { return true; }
+		if (x === '')				 { return true; }
+		if (x === false)			 { return true; }
+		if (x === null)				 { return true; }
+		if (typeof x === 'undefined'){ return true; }
+		if (x.length === 0)			 { return true; }
+		if (x === '0')				 { return true; }
+		if (x === 'no')				 { return true; }
+		if (x === 'off')			 { return true; }
+		if (x === 'null')			 { return true; }
+		if (x === 'none')    		 { return true; }
+		if (x === 'false')			 { return true; }
+		if (x === 'disabled')		 { return true; }
+		//default
+		return false;
+	},
+	isEmpty: function (mixedVar) {
+		'use strict';
+		var undef;
+		var key;
+		var i;
+		var len;
+		var emptyValues = [undef, null, false, 0, '', '0'];
+		//VALUES
+		for (i = 0, len = emptyValues.length; i < len; i++) {
+			if (mixedVar === emptyValues[i]) {
+				return true;
+			}
+		}
+		//OBJECTS
+		if (typeof mixedVar === 'object') {
+			for (key in mixedVar) {
+				if (mixedVar.hasOwnProperty(key)) {
+					return false;
+				}
+			}
+			return true;
+		}
+		//default
+		return false;
+	},
+	//STORAGE DATA
 	define: function(key,value,type) {
 		'use strict';
 		//MULTIUSER
@@ -611,20 +613,23 @@ $.prototype.swipe = function() {};
 ///////////
 $.prototype.html2 = function (data, callback) {
 	'use strict';
-	if(typeof this === 'undefined') { return; }
-	var obj = this;
-	if($(obj).length) {
-		if (app.device.msapp) {
-			MSApp.execUnsafeLocalFunction(function () {
+	if(typeof this !== 'undefined') {
+		var obj     = this; 
+		var objData = obj.html();
+		//FILTER EQUAL
+		if(objData !== data) {
+			if (app.device.msapp) {
+				MSApp.execUnsafeLocalFunction(function () {
+					obj.html(data);
+				});
+			} else {
 				obj.html(data);
-			});
-		} else {
-			obj.html(data);
+			}
+		} 
+		//CALLBACK
+		if (typeof callback === 'function') {
+			callback();
 		}
-	}
-	//CALLBACK
-	if (typeof callback === 'function') {
-		callback();
 	}
 };
 //////////
