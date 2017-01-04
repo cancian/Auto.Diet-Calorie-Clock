@@ -1592,19 +1592,26 @@ function getModalWindow(itemId) {
 					var r = recentArray.length;
 					while(r--) {
 						if(recentArray[r].id == '#' + itemId + '#') {
+							//UPDATE TIME
 							recentArray[r].time = app.now();
+							//UPDATE COUNT
 							if(!recentArray[r].count) {
 								recentArray[r].count = 1;
+							} else {
+								recentArray[r].count = recentArray[r].count + 1;
 							}
-							recentArray[r].count = recentArray[r].count + 1;
+							//FOUND, STOP
 							break;
 						}
 					}
 				} else {
 					//INSERT NEW
-					recentArray.push({id: '#' + itemId + '#', time: app.now(),count: 1});
+					recentArray.push({id: '#' + itemId + '#', time: app.now(), count: 1});
 				}
-				app.save('app_recent_items',recentArray,'object');
+				//SORT
+				var orderCut = recentArray.sortbyattr('time', 'desc');
+				//WRITE
+				app.save('app_recent_items',orderCut.slice(0,100),'object');
 				///////////////////////
 				// PROMPT AUTO START //
 				///////////////////////

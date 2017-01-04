@@ -2423,7 +2423,6 @@ function getCategory(catId, callback) {
 	// RECENT //
 	////////////
 	if (catId == '0001') {
-		//var recentArray = app.read('app_recent_items');
 		var recentArray = app.read('app_recent_items', '', 'object');
 		while (i--) {
 			if (recentArray.length > 0 && appRows.food[i]) {
