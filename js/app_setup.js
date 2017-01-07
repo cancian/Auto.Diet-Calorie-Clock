@@ -740,73 +740,78 @@ function insertOrUpdate(rows, callback) {
 //##//////////////##//
 function syncEntries() {
 	'use strict';
-app.timeout('syncEntries',2000,function() {
-	if(app.read('facebook_logged'))   { updateFoodDb(); }
-	if(!app.read('facebook_logged'))  { return; }
-	if(!app.read('facebook_userid'))  { return; }
-	if($('body').hasClass('insync'))  { return; }
-	if($('body').hasClass('setpush')) { return; }
-	////////////////
-	// SET USERID //
-	////////////////
-	var userId = app.read('facebook_userid');
-	/////////////////////
-	// OK, UPDATE TIME //
-	/////////////////////
-	app.save('pendingSync',app.now());
-	app.globals.syncRunning = false;
-	if(!app.globals.syncRunning) {
-		app.globals.syncRunning = true;
-		$('body').addClass('insync');
-		//get remote sql
-		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'chronoburn.com/sync.php?uid=' + userId, error: function(xhr, statusText) { 
-			$('body').removeClass('insync');
-		}, success: function(sql) {
-
-			if(app.beenDev) {
-				app.timer.start('sync');	
-			}
-			//////////////////
-			// prepare data //
-			//////////////////
-			if(sql) {
-				sql = sql.split('undefined').join('');
-			}
-			//local storage slice
-			if(sql.match('#@@@#')) {
-				rebuildLocalStorage(sql.split('\n').pop());
-				sql = sql.split('\n\r\n\r').join('\n\r').split('\n\r\n\r').join('\n\r');
-			}
-			///////////////////////
-			// FAKE VALID RESULT // empty but valid result ~ trigger success
-			/////////////////////// return for no diff
-			var md4Sql = md4(sql);
-			if(!sql || sql.trim() == '' || md4Sql == app.read('last_sync_data')) {
-				app.globals.syncRunning = false;
-				app.remove('pendingSync');
-				//NO DIFF
-				if(app.beenDev) {
-					app.globals.noSyncDiff = 1;
-					app.timer.end('sync','no diff');
-				}
-				setComplete();
-			} else {
-				//SAVE CACHE DIFF
-				app.save('last_sync_data',md4Sql);
-				//////////////////////
-				// FULLY PARSE DATA //
-				//////////////////////
-				setTimeout(function() {
-					insertOrUpdate(sql,function() {
+	app.timeout('syncEntries', 2000, function () {
+		if (app.read('facebook_logged'))	{ updateFoodDb(); }
+		if (!app.read('facebook_logged'))	{ return; }
+		if (!app.read('facebook_userid'))	{ return; }
+		if ($('body').hasClass('insync'))	{ return; }
+		if ($('body').hasClass('setpush'))	{ return; }
+		////////////////
+		// SET USERID //
+		////////////////
+		var userId = app.read('facebook_userid');
+		/////////////////////
+		// OK, UPDATE TIME //
+		/////////////////////
+		app.save('pendingSync', app.now());
+		app.globals.syncRunning = false;
+		if (!app.globals.syncRunning) {
+			app.globals.syncRunning = true;
+			$('body').addClass('insync');
+			//get remote sql
+			$.ajax({
+				type : 'GET',
+				dataType : 'text',
+				url : app.https + 'chronoburn.com/sync.php?uid=' + userId,
+				error : function (xhr, statusText) {
+					$('body').removeClass('insync');
+				},
+				success : function (sql) {
+					if (app.beenDev) {
+						app.timer.start('sync');
+					}
+					//////////////////
+					// prepare data //
+					//////////////////
+					if (sql) {
+						sql = sql.split('undefined').join('');
+					}
+					//local storage slice
+					if (sql.match('#@@@#')) {
+						rebuildLocalStorage(sql.split('\n').pop());
+						sql = sql.split('\n\r\n\r').join('\n\r').split('\n\r\n\r').join('\n\r');
+					}
+					///////////////////////
+					// FAKE VALID RESULT // empty but valid result ~ trigger success
+					/////////////////////// return for no diff
+					var md4Sql = md4(sql);
+					if (!sql || sql.trim() == '' || md4Sql == app.read('last_sync_data')) {
 						app.globals.syncRunning = false;
+						app.remove('pendingSync');
+						//NO DIFF
+						if (app.beenDev) {
+							app.globals.noSyncDiff = 1;
+							app.timer.end('sync', 'no diff');
+						}
 						setComplete();
-					});
-				},0);
-			}
-		}});
-	}
-//
-});
+					} else {
+						//SAVE CACHE DIFF
+						app.save('last_sync_data', md4Sql);
+						//////////////////////
+						// FULLY PARSE DATA //
+						//////////////////////
+						setTimeout(function () {
+							insertOrUpdate(sql, function () {
+								app.globals.syncRunning = false;
+								setComplete();
+							});
+						}, 0);
+					}
+				}
+			});
+		}
+		//
+	});
 }
 /////////////////
 // GET ENTRIES //
@@ -886,7 +891,7 @@ function deleteEntry(entry,callback) {
 	app.save('diary_entry',appRows.entry,function(rows) {
 		//appRows.entry = rows;
 		setPush();
-		if(callback) {
+		if(typeof callback === 'function') {
 			callback();
 		}
 	});
@@ -905,7 +910,7 @@ function saveEntry(data,callback) {
 		app.save('diary_entry',appRows.entry,function(rows) {
 			appRows.entry = rows;
 			setPush();
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback();
 			}
 		});
@@ -927,7 +932,7 @@ function saveEntry(data,callback) {
 			appRows.entry = rows;
 			setPush();
 			getRateDialog();
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback(saveTime);
 			}
 		});
@@ -944,7 +949,7 @@ function saveEntry(data,callback) {
 		app.save('diary_entry',appRows.entry,function(rows) {
 			appRows.entry = rows;
 			setPush();
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback();
 			}
 		});
@@ -961,7 +966,7 @@ function saveEntry(data,callback) {
 		app.save('diary_entry',appRows.entry,function(rows) {
 			appRows.entry = rows;
 			setPush();
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback();
 			}
 		});
@@ -976,7 +981,7 @@ function saveEntry(data,callback) {
 			setPush();
 			app.analytics('add');
 			getRateDialog();
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback();
 			}
 		});
@@ -991,7 +996,7 @@ function saveEntry(data,callback) {
 			setPush();
 			app.analytics('add');
 			getRateDialog();
-			if(callback) {
+			if(typeof callback === 'function') {
 				callback();
 			}
 		});
@@ -1417,51 +1422,68 @@ function updateFoodDb(callback) {
 ///////////////////
 // PAGE LOAD MOD //
 ///////////////////
-function pageLoad(target,content,published) {
+function pageLoad(target, content, published) {
 	'use strict';
 	var page;
 	var arr = [];
 	var entryPos;
-	//
-	if(published) {
+	//PARTIAL
+	if (published) {
 		//push 'published' into array
 		arr.push(published);
-		//build array from time on 'name'
-		$('#entryList').children().each(function() {
+		//USE DOM (build array from time on 'name')
+		var nameAttr;
+		$('#entryList div').each(function () {
 			//use attr, not prop
-			if($(this).attr('name')) {
-				arr.push($(this).attr('name'));
+			nameAttr = $(this).attr('name');
+			if (nameAttr) {
+				arr.pushUnique(Number(nameAttr));
 			}
 		});
+		/*
+		//DIRECT (pull db)
+		var dRows = appRows.entry;
+		for(var d=0, den=dRows.length; d<den; d++) {
+			nameAttr = dRows[d].published;
+			if(nameAttr) {
+				arr.pushUnique(nameAttr);
+			}
+		}
+		//console.log(JSON.stringify(arr));
+		*/
 		//sort it
 		var entryArr = arr.sort().reverse();
 		//find new row position in current list
-		for(var i=0, len=entryArr.length; i<len; i++) {
-			if(entryArr[i] == published) {
+		for (var i = 0, len = entryArr.length; i < len; i++) {
+			if (entryArr[i] == published) {
 				entryPos = i;
 			}
 		}
-		// INSERT PARTIAL
+		////////////////////
+		// INSERT PARTIAL //
+		////////////////////
 		//overwrite 'no entries'
-			if(i == 1) {
-				$('#entryList').html2(content,function() {
-					app.highlight('#entryList div',1000,'#ffffcc');
-				});
+		if (i == 1) {
+			$('#entryList').html2(content, function () {
+				app.highlight('#entryList div', 1000, '#ffffcc');
+			});
 			//match div before
-			} else if($('#entryList>div:eq(' + entryPos + ')').html()) {
-				$('#entryList>div:eq(' + entryPos + ')').before2(content,function() {
-					app.highlight('#entryList>div:eq(' + entryPos + ')',1000,'#ffffcc');
-				});
-			} else {
-				//append if none
-				$('#entryList').append2(content,function() {
-					app.highlight('#' + published,1000,'#ffffcc');
-				});
-			}
+		} else if ($('#entryList>div:eq(' + entryPos + ')').html()) {
+			$('#entryList>div:eq(' + entryPos + ')').before2(content, function () {
+				app.highlight('#entryList>div:eq(' + entryPos + ')', 1000, '#ffffcc');
+			});
+		} else {
+			//append if none
+			$('#entryList').append2(content, function () {
+				app.highlight('#' + published, 1000, '#ffffcc');
+			});
+		}
 
 		//target [div#partial] ~time's parent div id as target
 		page = $('#entryList div' + '#' + $('#t' + published).parent('div').prop('id'));
-	// FULL DIV REPLACE //
+		//////////////////////
+		// FULL DIV REPLACE //
+		//////////////////////
 	} else {
 		//check existence
 		$(target).html2(content);
@@ -1470,7 +1492,7 @@ function pageLoad(target,content,published) {
 	/////////////////////
 	// RELOAD HANDLERS //
 	/////////////////////
-	if(page[0]) {
+	if (page[0]) {
 		$(page).trigger('pageload');
 	}
 	return;
@@ -1492,8 +1514,6 @@ function fillDate(timestamp,element) {
 var partial = '';
 app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 	'use strict';
-	//var totalEntryS       = app.read('totalEntries');
-	//var totalRecentEntryS = app.read('totalRecentEntries');
 	//////////////
 	// GET LOOP //
 	//////////////
@@ -1509,10 +1529,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 		var langExer = LANG.EXERCISE[lang];
 		var langDel  = LANG.DELETE[lang];
 		var langKcal = LANG.KCAL[lang];
-		//var totalEntries       = 0;
-		//var totalRecentEntries = 0;
-		//var totalEntried       = app.read('totalEntries');
-		//var totalRecentEntried = app.read('totalRecentEntries');
+		//
 		for(var i=0, len=data.length; i<len; i++) {
 			// description autofill
 			var dataTitle     = parseInt(data[i].title);
@@ -1534,8 +1551,9 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
                  if(rowHour <  6) { rowClass = 'rowAfterhours'; }
 			else if(rowHour < 12) { rowClass = 'rowMorning';    }
 			else if(rowHour < 18) { rowClass = 'rowAfternoon';  }
-			else if(rowHour < 24) { rowClass = 'rowNight';      }
-
+			//else if(rowHour < 24) { rowClass = 'rowNight';    }
+			else				  { rowClass = 'rowNight';      }
+			//
 			if(dataTitle < 0)	{ rowClass = 'e-' + rowClass; }
 			// EXPIRED
 			if(app.read('config_start_time') > dataPublished || !app.read('appStatus','running')) { rowClass = rowClass + ' expired'; }
@@ -1545,9 +1563,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 				<p class="entriesTitle">' + dataTitle + '</p>\
 				<p class="entriesKcals">' + langKcal + '</p>\
 				<p class="entriesBody">' + dataBody + '</p>\
-				<p id="t' + dataPublished + '" class="entriesPublished">lll' +
-				 //+ dateDiff(dataPublished,app.now()) +
-				 '</p>\
+				<p id="t' + dataPublished + '" class="entriesPublished">' + dateDiff(dataPublished,app.now()) + '</p>\
 				<span class="delete"><span id="reuse"></span><span id="edit"></span><span id="delete"></span></span>\
 			</div>';
 			///////////////////
@@ -1559,7 +1575,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 			//}
 			//BUILD ARRAY WITH DATES FOR SORTING
 			//if(((app.now() - dataPublished) < 60*60*24*5*1000) || totalEntries < 50 || totalRecentEntried < 20 || range == 'full') {
-			totalArray.push({dati:dataPublished , dato: dataHandler});
+			totalArray.push({dati:dataPublished, dato: dataHandler});
 			//}
 			lastPub = parseInt(data[i].published);
 			//partial == last row time
@@ -1613,11 +1629,8 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 			//PRE-FILL
 			$('#entryList').html2('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 		}}
-		//N# OF ENTRIES
-		//app.save('totalEntries',totalEntries);
-		//app.save('totalRecentEntries',totalRecentEntries);
 	});
-	updateEntriesTime();
+	//updateEntriesTime();
 };
 /////////////////////////////
 // UPDATE ENTRYLIST *TIME* //
@@ -1641,7 +1654,8 @@ function updateEntriesTime() {
          if(currentHour <  6) { rowClass = 'afterhours'; }
 	else if(currentHour < 12) { rowClass = 'morning';    }
 	else if(currentHour < 18) { rowClass = 'afternoon';  }
-	else if(currentHour < 24) { rowClass = 'night';      }
+	//else if(currentHour < 24) { rowClass = 'night';    }
+	else 					  { rowClass = 'night';      }	
 	$('body').removeClass(('morning afternoon night afterhours').replace(rowClass));
 	$('body').addClass(rowClass);
 }
@@ -1658,19 +1672,19 @@ function updateEntriesSum() {
 		for(var m=0, men=data.length; m<men; m++) {
 			pushTitle.push({ date: dayFormat(parseInt(data[m].published)).split('/').join('x'),val: data[m].title});
 		}
-
+		//
 		var eachDay  = [];
 		for(var p=0, pen=pushTitle.length; p<pen; p++) {
 			if(eachDay.indexOf(pushTitle[p].date) == -1) {
 				eachDay.push(pushTitle[p].date);
 			}
 		}
-
+		//
 		var totalDayF;
 		var totalDayE;
 		var reStyle = '';
 		var thisDay;
-
+		//
 		for(var d=0, den=eachDay.length; d<den; d++) {
 			totalDayF = 0;
 			totalDayE = 0;
@@ -2438,9 +2452,9 @@ function getRateDialog() {
 	//////////////////
 	// DAYS TO WAIT //
 	//////////////////
-	var timeRate = 6.666 * (24*60*60*1000);
+	var timeRate = 6 * (24*60*60*1000);
 	if((app.now() - app.read('getRate')) > (timeRate)) {
-		app.timeout('rateTimer',2500,function() {
+		app.timeout('rateTimer',3000,function() {
 			//if(app.read('getRate','locked')) { return; }
 			//app.save('getRate','locked');
 			app.save('getRate',app.now());
