@@ -4,6 +4,12 @@ CACHE MANIFEST
 #LOAD
 index.html
 
+#CSS
+css/index.css
+css/fonts.css
+css/kcals.ttf
+css/openhand.cur
+
 #JQUERY
 js/jquery.js
 js/jquery.nicescroll.js
