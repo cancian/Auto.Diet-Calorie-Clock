@@ -5,24 +5,20 @@ if(typeof $ !== 'undefined' && typeof $.ajaxSetup !== 'undefined') {
 	$.support.cors = true;
 	$.ajaxSetup({cache: false, crossDomain: true, async: true, error: function(jqXHR, exception) {
 		'use strict';
-			 if(jqXHR.status == 0)           { console.log('Not connect. Verify Network.');          }
+			 if(jqXHR.status  ==   0)        { console.log('Not connect. Verify Network.');          }
 		else if (jqXHR.status == 404)        { console.log('Requested page not found. [404]');       }
 		else if (jqXHR.status == 500)        { console.log('Internal Server Error [500].');          }
 		else if (exception == 'parsererror') { console.log('Requested JSON parse failed.');          }
 		else if (exception == 'timeout')     { console.log('Timeout error.');                        }
 		else if (exception == 'abort')       { console.log('Ajax request aborted.');                 }
 		else                                 { console.log('Uncaught Error: ' + jqXHR.responseText); }
+		//AUTOCLEAN
 		setTimeout(function() {
 			if(typeof spinner === 'function') {
-				$('body').removeClass('insync');
-				$('body').removeClass('setpush');
+				$('body').removeClass('insync setpush loading uptodate pending corrupted');
 				spinner('stop');
-				$('body').removeClass('loading');
-				$('body').removeClass('uptodate');
-				$('body').removeClass('pending');
-				$('body').removeClass('corrupted');
 			}
-		},6000);
+		}, 6000);
 	}});
 }
 //#//////////////////#//
@@ -78,7 +74,9 @@ function InitializeLocalSuperBlock(opt) {
 				appStorage.setItem('remoteSuperBlockCSS',dataCSS);
 			}
 		}, 0);
-	} catch(err) { throw(err); }
+	} catch(err) { 
+		//throw(err);
+	}
 	//
 	}});}});}});}});
 	}});}});}});
@@ -110,7 +108,7 @@ function buildRemoteSuperBlock(opt) {
 		////////////////
 		$.ajax({type: 'GET', dataType: 'text', url: hostLocal2 + 'update.php?type=min', error: function(xhr, statusText) { $('body').removeClass('loading'); InitializeLocalSuperBlock(opt); }, success: function(hash) {
 		//null
-		if(hash === '') { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
+		if(!hash || hash == '' || hash == null) { $('body').removeClass('loading'); $('body').addClass('corrupted'); isCurrentCacheValid = 0; return; }
 		var hashObj = hash.split(',');
 		//length
 		if(parseInt(hashObj[1]) > 1000) {
@@ -233,7 +231,7 @@ if(appStorage.getItem('config_autoupdate') === 'on') {
 	//CHECK UPDATES
 	$(function() {
 		'use strict';
-		//SAVE WEB REQUEST IF UP TO DATE
+		//AVOID WEB REQUEST IF UP TO DATE
 		if(/http/i.test(window.location.protocol)) {
 			if(!appStorage.getItem('remoteSuperBlockJS') || !appStorage.getItem('remoteSuperBlockCSS')) {
 				setTimeout(function() {
