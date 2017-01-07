@@ -62,11 +62,11 @@ app = {
 					out.pageX = out.x;
 					out.pageY = out.y;
 					//add data to event
-					//out.e = e.originalEvent
+					out.e = e.originalEvent;
 					//out.e.pageX = out.x;
 					//out.e.pageY = out.y;
-					out.e.x = out.x;
-					out.e.y = out.y;
+					//out.e.x = out.x;
+					//out.e.y = out.y;
 					//
 					return out;
 				}
@@ -81,8 +81,8 @@ app = {
 		//add data to event
 		//out.e.pageX = out.x;
 		//out.e.pageY = out.y;
-		out.e.x = out.x;
-		out.e.y = out.y;
+		//out.e.x = out.x;
+		//out.e.y = out.y;
 		//
 		return out;
 	},
@@ -173,7 +173,7 @@ app = {
 		*/
 		//
 		if(!appStorage.getItem(key)) {
-			if(type == 'object' || type == 'array') {
+			if(type === 'object' || type === 'array') {
 				//OBJECT
 				appStorage.setItem(key,JSON.stringify(value));
 			} else {
@@ -230,7 +230,7 @@ app = {
 			}
 		}
 		//
-		if(typeof value != 'undefined') {
+		if(typeof value !== 'undefined') {
 			if(appStorage.getItem(key) == value) {
 				return true;
 			} else {
@@ -240,10 +240,12 @@ app = {
 		if(!appStorage.getItem(key)) {
 			return false;
 		} else {
-			if(isNaN(Number(appStorage.getItem(key)))) {
+			var numberedValue = Number(appStorage.getItem(key));
+			//
+			if(isNaN(numberedValue)) {
 				return appStorage.getItem(key);
 			} else {
-				return Number(appStorage.getItem(key));
+				return numberedValue;
 			}
 		}
 	},
@@ -262,7 +264,7 @@ app = {
 		/////////////////////////
 		// localforage wrapper // SAVE
 		///////////////////////// 
-		if(/diary_entry|diary_food/i.test(key)) {
+		if(/diary_/i.test(key)) {
 			app.returner(type,value);
 			app.timeout('dbTimeout_' + key,300,function() {
 				localforage.setItem(key,value);
@@ -271,7 +273,7 @@ app = {
 		}
 		//DIFF CHECK
 		if(appStorage.getItem(key) != value) {
-			if(type == 'object' || type == 'array') {
+			if(type === 'object' || type === 'array') {
 				//OBJECT
 				appStorage.setItem(key,JSON.stringify(value));
 			} else {
@@ -372,6 +374,7 @@ app = {
 /////////////////
 // SWITCH USER //
 /////////////////
+/*
 app.switchUser = function(switchTo) {
 	'use strict';
 	if(switchTo) {
@@ -410,6 +413,7 @@ app.switchUser = function(switchTo) {
 		},0);
 	}
 };
+*/
 ///////////////
 // LOG ERROR //
 ///////////////
@@ -494,7 +498,7 @@ app.device = {
 };
 //STATIC
 if(typeof staticVendor !== 'undefined') {
-	if(staticVendor == 'amazon' && (/Android/i).test(app.ua)) {
+	if(staticVendor === 'amazon' && (/Android/i).test(app.ua)) {
 		app.device.amazon = true;
 	}
 }
@@ -582,33 +586,6 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 // MODIFIED JQUERY W/ CALLLBACK //
 //////////////////////////////////
-// EACH2 //
-/////////// http://benalman.com/projects/jquery-misc-plugins/#each2
-/*
-(function ($) {
-	// Create a placeholder jQuery object with a length of 1. The single item
-	// is completely arbitrary and will be replaced.
-	var jq = $([1]);
-
-	$.fn.each2 = function (fn) {
-		var i = -1;
-		while (
-			// Set both the first element AND context property of the placeholder
-			// jQuery object to the DOM element. When i has been incremented past the
-			// end, this[++i] will return undefined and abort the while loop.
-			(jq.context = jq[0] = this[++i])
-
-			// Invoke the callback function in the context of the DOM element,
-			// passing both the index and the placeholder jQuery object in. Like
-			// .each, if the callback returns `false`, abort the while loop.
-			 && fn.call(jq[0], i, jq) !== false) {}
-
-		// Return the initial jQuery object for chainability.
-		return this;
-	};
-})(jQuery);
-*/
-///////////
 // HTML2 //
 ///////////
 $.prototype.html2 = function (data, callback) {
@@ -664,14 +641,13 @@ $.prototype.append2 = function (data, callback) {
 	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
-	if($(obj).length) {
-		if (app.device.msapp) {
-			MSApp.execUnsafeLocalFunction(function () {
-				obj.append(data);
-			});
-		} else {
+	//
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
 			obj.append(data);
-		}
+		});
+	} else {
+		obj.append(data);
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {
@@ -683,14 +659,13 @@ $.prototype.prepend2 = function (data, callback) {
 	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
-	if($(obj).length) {
-		if (app.device.msapp) {
-			MSApp.execUnsafeLocalFunction(function () {
-				obj.prepend(data);
-			});
-		} else {
+	//
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
 			obj.prepend(data);
-		}
+		});
+	} else {
+		obj.prepend(data);
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {
@@ -701,14 +676,13 @@ $.prototype.before2 = function (data, callback) {
 	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
-	if($(obj).length) {
-		if (app.device.msapp) {
-			MSApp.execUnsafeLocalFunction(function () {
-				obj.before(data);
-			});
-		} else {
+	//
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
 			obj.before(data);
-		}
+		});
+	} else {
+		obj.before(data);
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {
@@ -719,14 +693,13 @@ $.prototype.after2 = function (data, callback) {
 	'use strict';
 	if(typeof this === 'undefined') { return; }
 	var obj = this;
-	if($(obj).length) {
-		if (app.device.msapp) {
-			MSApp.execUnsafeLocalFunction(function () {
-				obj.after(data);
-			});
-		} else {
+	//
+	if (app.device.msapp) {
+		MSApp.execUnsafeLocalFunction(function () {
 			obj.after(data);
-		}
+		});
+	} else {
+		obj.after(data);
 	}
 	//CALLBACK
 	if (typeof callback === 'function') {
@@ -1255,7 +1228,7 @@ app.handlers = {
 				// AJUST WEIGHT EXERCISE //
 				///////////////////////////
 				var kcals = data[i].kcal;
-				if (rowType == 'exercise') {
+				if (rowType === 'exercise') {
 					kcals = Math.round(((data[i].kcal * totalWeight) / 60) * 30);
 				}
 				//FORCE DECIMAL
@@ -1616,14 +1589,14 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 	/////////////////////////
 	// PUSHDOWN DEPRECATED //
 	///////////////////////// WP80 && WP81 && deprecated
-	if(app.device.wp80 || (app.device.wp81 && !app.device.wp10)) { // || baseVersion < 2.1)) { 
-		if(app.read('config_autoupdate','on')) {
-			console.log('rebooting...');
-			app.reboot();
-		}
-		app.save('config_autoupdate','off');
+	if(app.device.tizen || app.device.wp80 || (app.device.wp81 && !app.device.wp10)) { // || baseVersion < 2.1)) { 
 		app.remove('remoteSuperBlockCSS');
 		app.remove('remoteSuperBlockJS');
+		//REBOOT
+		if(app.read('config_autoupdate','on')) {
+			app.save('config_autoupdate','off');
+			app.reboot();
+		}
 	}
 })();
 //#///////////////#//
