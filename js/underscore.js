@@ -1,6 +1,6 @@
 ﻿//     Underscore.js 1.8.3
 //     http://underscorejs.org
-//     (c) 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+//     (c) 2009-2017 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Underscore may be freely distributed under the MIT license.
 
 (function() {
@@ -13,7 +13,8 @@
   // instead of `window` for `WebWorker` support.
   var root = typeof self == 'object' && self.self === self && self ||
             typeof global == 'object' && global.global === global && global ||
-            this;
+            this ||
+            {};
 
   // Save the previous value of the `_` variable.
   var previousUnderscore = root._;
@@ -215,6 +216,7 @@
       }
       for (; index >= 0 && index < length; index += dir) {
         var currentKey = keys ? keys[index] : index;
+
         memo = iteratee(memo, obj[currentKey], currentKey, obj);
       }
       return memo;
