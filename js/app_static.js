@@ -86,9 +86,10 @@ $(document).on('visibilitychange focus', function (evt) {
 				updateTodayOverview();
 				intakeHistory();
 				//TRIGGER RESUME
-				if (app.device.desktop) {
-					$(document).trigger('resume');
-				} else if (app.device.osxapp) {
+				//if (app.device.desktop) {
+				//	$(document).trigger('resume');
+				//} else 
+				if (app.device.osxapp) {
 					$(document).trigger('resume');
 				}
 				if(app.device.firefoxos) {
