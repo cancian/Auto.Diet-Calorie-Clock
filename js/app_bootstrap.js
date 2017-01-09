@@ -75,7 +75,17 @@ function InitializeLocalSuperBlock(opt) {
 			}
 		}, 0);
 	} catch(err) { 
-		//throw(err);
+		///////////////////////////
+		// DOM STORAGE AUTOLIMIT //
+		///////////////////////////
+		appStorage.removeItem('remoteSuperBlockCSS');
+		appStorage.removeItem('remoteSuperBlockJS');
+		//DISABLE AUTOUPDATE
+		if(appStorage.getItem('config_autoupdate') === 'on') {
+			appStorage.setItem('config_autoupdate','off');
+			//REBOOT
+			window.location.replace(window.location.href);
+		}
 	}
 	//
 	}});}});}});}});
@@ -168,14 +178,29 @@ function buildRemoteSuperBlock(opt) {
 		// UPDATE PENDING //
 		////////////////////
 		var updatePending = 0;
-		//QUOTA
-		if (dataJS !== appStorage.getItem('remoteSuperBlockJS')) {
-			appStorage.setItem('remoteSuperBlockJS', dataJS);
-			updatePending = 1;
-		}
-		if (dataCSS !== appStorage.getItem('remoteSuperBlockCSS')) {
-			appStorage.setItem('remoteSuperBlockCSS', dataCSS);
-			updatePending = 1;
+		///////////////
+		// QUOTA TRY //
+		///////////////
+		try {
+			if (dataJS !== appStorage.getItem('remoteSuperBlockJS')) {
+				appStorage.setItem('remoteSuperBlockJS', dataJS);
+				updatePending = 1;
+			}
+			if (dataCSS !== appStorage.getItem('remoteSuperBlockCSS')) {
+				appStorage.setItem('remoteSuperBlockCSS', dataCSS);
+				updatePending = 1;
+			}
+		} catch(err) {
+			///////////////////////////
+			// DOM STORAGE AUTOLIMIT //
+			///////////////////////////
+			appStorage.removeItem('remoteSuperBlockCSS');
+			appStorage.removeItem('remoteSuperBlockJS');
+			//DISABLE AUTOUPDATE
+			if(appStorage.getItem('config_autoupdate') === 'on') {
+				appStorage.setItem('config_autoupdate','off');
+				//DISABLE AUTOREBOOT FOR REMOTESUPERBLOCK
+			}
 		}
 		////////////////////
 		// RESTART DIALOG //
@@ -216,10 +241,16 @@ function buildRemoteSuperBlock(opt) {
 //#///////////////////#//
 //# APPEND SUPERBLOCK #//
 //#///////////////////#//
+//DEFAULT ENABLE AUTOUPDATE
 if(!appStorage.getItem('config_autoupdate')) {
 	appStorage.setItem('config_autoupdate','on');
 }
-//LOCAL
+//DISABLED AUTOUPDATE REMOVES CACHE
+if(appStorage.getItem('config_autoupdate') === 'off') {
+	appStorage.removeItem('remoteSuperBlockCSS');
+	appStorage.removeItem('remoteSuperBlockJS');
+}
+//LOCAL SUPERBLOCK SYNC READ ~ REMOTE ASYNC SUPERBLOCK DOWNLOAD
 if(appStorage.getItem('config_autoupdate') === 'on') {
 	//IF SUPERBLOCK MISSING
 	if(isCurrentCacheValid !== 1) {
@@ -236,14 +267,13 @@ if(appStorage.getItem('config_autoupdate') === 'on') {
 			if(!appStorage.getItem('remoteSuperBlockJS') || !appStorage.getItem('remoteSuperBlockCSS')) {
 				setTimeout(function() {
 					InitializeLocalSuperBlock();
-				}, 2000);
+				}, (appStorage.getItem('config_debug') === 'active') ? 200 : 2000);
 			}
 		}
-		//
-		var cacheTimeout = appStorage.getItem('config_debug') === 'active' ? 0 : 6000;
+		//CALL 
 		setTimeout(function() {
 			buildRemoteSuperBlock('cached');
-		}, cacheTimeout);
+		}, (appStorage.getItem('config_debug') === 'active') ? 500 : 5000);
 	});
 }
 // BACKWARDS COMPAT //

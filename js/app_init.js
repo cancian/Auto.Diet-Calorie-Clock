@@ -47,6 +47,19 @@ window.onerror = function (err, url, line) {
 	if(typeof line !== 'string') {
 		line = JSON.stringify(line);
 	}
+	////////////////////////////
+	// DOM STORAGE AUTOREMOVE //
+	////////////////////////////
+	if (/QUOTA|EXCEEDED|REACHED|STORAGE|EXCEPTION 22|2147024882/i.test(err)) {
+		appStorage.removeItem('remoteSuperBlockCSS');
+		appStorage.removeItem('remoteSuperBlockJS');
+		//DISABLE AUTOUPDATE
+		if(appStorage.getItem('config_autoupdate') === 'on') {
+			appStorage.setItem('config_autoupdate','off');
+			//NO REBOOT
+		}
+		return;
+	}
 	//IGNORE BASIC
 	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile|NS_ERROR/i.test(err)) {
 		return; 
@@ -89,7 +102,9 @@ window.onerror = function (err, url, line) {
 		}, 0);
 	}
 	*/
-	//auto restart android
+	//////////////////////////
+	// auto restart android //
+	//////////////////////////
 	if (/Exception 18/i.test(err)) {
 		setTimeout(function () {
 			//RELOAD
@@ -97,6 +112,7 @@ window.onerror = function (err, url, line) {
 			window.location.replace(window.location.href);
 		},0);
 	}
+	//COOL
 	return true;
 };
 //##//////////////##
