@@ -7,10 +7,12 @@
 • BMI calculator on profile
 <span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.1.3 [2017/01/07]
+# 2.1.3 [2017/01/11]
 • Fixed some SSL issues affecting authentication on older devices
 • The recent entries list would not get updated when the item added was from the recent list itself
-• Several minor performance tweaks
+• Fixed font smoothing inconsistency
+• Several performance improvements
+• Updated color picker
 
 # 2.1.2 [2016/12/27]
 • New and stricter methods to handle empty/null variables
