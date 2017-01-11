@@ -58,7 +58,7 @@ function showIntro() {
 	//////////////
 	// HANDLERS //
 	//////////////
-	$('#skipIntro, #closeDiv').on(touchend,function(evt) {
+	$('#skipIntro, #closeDiv').on(touchend + ' click',function(evt) {
 		evt.stopPropagation();
 		//manually dismissed
 		app.save('intro_dismissed','done');
