@@ -2,9 +2,9 @@
 html									{ position: relative !important; }
 *, *::before, *::after					{ -webkit-box-sizing: border-box; -webkit-user-select: none; user-select: none; padding: 0; margin: 0; outline: 0; border: 0; border-radius: 0; -webkit-user-callout: none !important; -webkit-touch-callout: none !important; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-focus-ring-color: rgba(0,0,0,0); -webkit-margin-before: 0; -webkit-margin-after: 0; -webkit-margin-start: 0; -webkit-margin-end: 0; }
 .osx *, .osx *::before, .osx *::after,
-.ios *, .ios *::before, .ios *::after	{ -webkit-perspective: 0 !important; font-weight: 400; }
+.ios *, .ios *::before, .ios *::after	{ -webkit-font-smoothing: antialiased; -webkit-perspective: 0 !important; font-weight: 400; }
 .desktop.webkit *::before, 
-.desktop.webkit *::after				{ -webkit-perspective: 0 !important; font-weight: 300 !important; }
+.desktop.webkit *::after				{ -webkit-font-smoothing: antialiased; -webkit-perspective: 0 !important; font-weight: 300 !important; }
 /*native scroll*/
 .overthrow								{ overflow: auto !important; -webkit-overflow-scrolling: touch; will-change: transform; }
 .ios.overthrow							{ -webkit-overflow-scrolling: touch; }
