@@ -561,7 +561,7 @@ if($.nicescroll) {
 	if(app.device.linux)								{ app.is.scrollable = true;  }
 	if(app.device.desktop)								{ app.is.scrollable = true;  }
 	if(app.device.android && app.device.android < 5)	{ app.is.scrollable = true;  }
-	if(app.device.tizen)								{ app.is.scrollable = true;  } 
+	if(app.device.tizen)								{ app.is.scrollable = false; } 
 }
 //////////////////
 // APP.REBOOT() //
