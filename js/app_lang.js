@@ -13,6 +13,7 @@
 //RAND - burn,cal,calculator,calorie,carbohydrate,chronometer,clock,counter,diary,diet,exercise,fat,gain,kcal,kcals,lose,loss,metabolism,real-time,weight
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //IOS9 @@@ my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,bmi,kg,lose,it,calorie,counter,tracker,diary,burn
+//IOSX @@@ calorie,counter,fat,burn,tracker,fitbit,loseit,myplate,fatsecret,myfitnesspal,runkeeper,healthbook
 //BB10 @@@ calorie counter weight tracker fitbit myplate loseit fatsecret runkeeper myfitnesspal
 //MSIE @@@ calorie counter, weight tracker, fitbit, loseit, myplate, fatsecret, myfitnesspal 
 //FFOS @@@ bmi, burn, calculator, calorie, counter, diary, diet, exercise, fat, fatsecret, fitbit, health, lose, loseit, loss, myfitnesspal, myplate, runkeeper, tracker, weight 
@@ -29,7 +30,7 @@ var appName = 'ChronoBurn';
 var appVersion = '2.1.3 (210303)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = false;
+var reviewMode = true;
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';
