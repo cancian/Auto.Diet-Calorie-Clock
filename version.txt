@@ -7,6 +7,9 @@
 • BMI calculator on profile
 <span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
 
+# 2.1.4 [2017/01/14]
+• Language select menu was not responding consistently to close/back commands
+
 # 2.1.3 [2017/01/11]
 • Fixed some SSL issues affecting authentication on older devices
 • The recent entries list would not get updated when the item added was from the recent list itself
