@@ -2135,7 +2135,7 @@ function buildLangMenu(opt) {
 					lang = defaultLang;
 				}
 				$('body').addClass('appLang-' + lang);
-				if(lang != 'en' && lang != 'pt') {
+				if(lang != 'en') {
 					LANG.HELP_TOPICS_ARRAY[lang] = LANG.HELP_TOPICS_ARRAY['en'];
 				}
 				//FOOTER
