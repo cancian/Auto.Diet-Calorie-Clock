@@ -7,7 +7,7 @@
 	ignorecase = false
 	hideDotFiles = dotGitOnly
 [remote "origin"]
-	url = https://github.com/cancian/www.git
+	url = https://github.com/cancian/chronoburn.git
 	fetch = +refs/heads/*:refs/remotes/origin/*
 	smartgitID = 826b7de4
 [branch "master"]
