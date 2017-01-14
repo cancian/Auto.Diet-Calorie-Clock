@@ -1137,10 +1137,10 @@ if(app.is.scrollable) {
 	/////////////////////////////////
 	// HEADER INFO ICON XY HANDLER //
 	/////////////////////////////////
-	$('#appHeader').on(tap + ' click', function(evt) {
+	$('#appHeader').on(tap + app.device.android ? ' click' : '', function(evt) {
 		//HANDLE WINDOW
 		var xTap = parseInt(app.pointer(evt).x);
-		if(xTap < 122 && xTap > 0) {
+		if(xTap < 125 && xTap > 0) {
 			if($('#timerDailyInput').is(':focus')) {
 				$('#timerDailyInput').trigger('blur');
 				return;
