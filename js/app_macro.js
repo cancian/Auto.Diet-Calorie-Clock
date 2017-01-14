@@ -1574,37 +1574,43 @@ function getLimitMenu() {
 			$('#appLimit1').css2('pointer-events','auto');
 			$('#appLimit2').css2('pointer-events','auto');
 		},500);
-		//////////////////
-		// COLOR PICKER //
-		//////////////////
-		var pickerSettings = JSON.stringify({ color: '#XXXXXX', allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput' });
-		//INIT
-		$('#colorDeficit').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join(app.read('colorDeficit'))));
-		$('#colorBalanced').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join(app.read('colorBalanced'))));
-		$('#colorSurplus').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join(app.read('colorSurplus'))));
-		//ONCHANGE
+		///////////////////////
+		// COLOR PICKER INIT //
+		///////////////////////
+		//DEFICIT
+		$('#colorDeficit').spectrum({ color: app.read('colorDeficit'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerDeficit' });
+		//BALANCED
+		$('#colorBalanced').spectrum({ color: app.read('colorBalanced'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerBalanced' });
+		//SURPLUS
+		$('#colorSurplus').spectrum({ color: app.read('colorSurplus'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerSurplus' });
+		//////////////
+		// ONCHANGE //
+		//////////////
+		//DEFICIT
 		$('#colorDeficit').on('change',function () {
 			if(!this.value) {
 				app.save('colorDeficit','#E54B1D');
-				$('#colorDeficit').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#E54B1D')));
+				$('#colorDeficit').spectrum({ color: app.read('colorDeficit'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerDeficit' });
 			} else {
 				app.save('colorDeficit',$('#colorDeficit').val());
 			}
 			app.updateColorPicker();
 		});
+		//BALANCED
 		$('#colorBalanced').on('change',function () {
 			if(!this.value) {
 				app.save('colorBalanced','#007AFF');
-				$('#colorBalanced').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#007AFF')));
+				$('#colorBalanced').spectrum({ color: app.read('colorBalanced'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerBalanced' });
 			} else {
 				app.save('colorBalanced',$('#colorBalanced').val());
 			}
 			app.updateColorPicker();
 		});
+		//SURPLUS
 		$('#colorSurplus').on('change',function () {
 			if(!this.value) {
 				app.save('colorSurplus','#2DB454');
-				$('#colorSurplus').spectrum(JSON.parse(pickerSettings.split('#XXXXXX').join('#2DB454')));
+				$('#colorSurplus').spectrum({ color: app.read('colorSurplus'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerSurplus' });
 			} else {
 				app.save('colorSurplus',$('#colorSurplus').val());
 			}

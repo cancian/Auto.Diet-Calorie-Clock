@@ -7795,5 +7795,5 @@ var LANG = {
 '<p>The default behavior of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
 ///////////////////////
 'Supported platforms' :
-'<p>ChronoBurn is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Desktop (Chronoburn.com)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
+'<p>ChronoBurn is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS (Android runtime)<br />• Tizen<br />• Desktop (Chronoburn.com)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};
