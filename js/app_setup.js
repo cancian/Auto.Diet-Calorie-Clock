@@ -1431,8 +1431,8 @@ function pageLoad(target, content, published) {
 	if (published) {
 		//push 'published' into array
 		arr.push(published);
-		//USE DOM (build array from time on 'name')
-		var nameAttr;
+		//USE DOM
+		/*
 		$('#entryList div').each(function () {
 			//use attr, not prop
 			nameAttr = $(this).attr('name');
@@ -1440,8 +1440,9 @@ function pageLoad(target, content, published) {
 				arr.pushUnique(Number(nameAttr));
 			}
 		});
-		/*
+		*/
 		//DIRECT (pull db)
+		var nameAttr;
 		var dRows = appRows.entry;
 		for(var d=0, den=dRows.length; d<den; d++) {
 			nameAttr = dRows[d].published;
@@ -1449,8 +1450,6 @@ function pageLoad(target, content, published) {
 				arr.pushUnique(nameAttr);
 			}
 		}
-		//console.log(JSON.stringify(arr));
-		*/
 		//sort it
 		var entryArr = arr.sort().reverse();
 		//find new row position in current list
