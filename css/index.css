@@ -1327,7 +1327,7 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 /*/////////
 // NOTES //
 /////////*/
-#diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inherit; float: right; font-size: 22px; color: #ddd; }
+#diaryNotes					{ position: absolute; right: 0; top: 0; height: 36px; width: 46px; text-align: center; line-height: 38px; display: inherit; float: right; font-size: 22px; color: #007aff; }
 #diaryNotes:before			{ content: '\f02d'; font-family: KCals; display: inline-block; font-weight: normal; }
 #diaryNotesWrapper			{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(255,255,255,.84); z-index: 98; width: 100%; height: 100%; overflow: hidden; -webkit-backface-visibility: hidden; }
 #diaryNotesInput 			{ position: absolute; top: 0; right: 0; bottom: 0; margin: 0; background-color: rgba(0,0,0,0); z-index: 98; width: 100%; height: 100%; overflow: hidden; padding: 32px 0 0 0; left: 24px; border: 0; line-height: 25px; font-size: 16px; display: block; -webkit-user-select: text; user-select: text; -webkit-transform: translate3d(0, 0, 0); }
