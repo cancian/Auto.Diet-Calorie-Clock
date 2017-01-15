@@ -1422,67 +1422,51 @@ function updateFoodDb(callback) {
 ///////////////////
 // PAGE LOAD MOD //
 ///////////////////
-function pageLoad(target, content, published) {
+function pageLoad(target,content,published) {
 	'use strict';
 	var page;
 	var arr = [];
 	var entryPos;
-	//PARTIAL
-	if (published) {
+	//
+	if(published) {
 		//push 'published' into array
 		arr.push(published);
-		//USE DOM
-		/*
-		$('#entryList div').each(function () {
+		//build array from time on 'name'
+		$('#entryList').children().each(function() {
 			//use attr, not prop
-			nameAttr = $(this).attr('name');
-			if (nameAttr) {
-				arr.pushUnique(Number(nameAttr));
+			if($(this).attr('name')) {
+				arr.push($(this).attr('name'));
 			}
 		});
-		*/
-		//DIRECT (pull db)
-		var nameAttr;
-		var dRows = appRows.entry;
-		for(var d=0, den=dRows.length; d<den; d++) {
-			nameAttr = dRows[d].published;
-			if(nameAttr) {
-				arr.pushUnique(nameAttr);
-			}
-		}
 		//sort it
 		var entryArr = arr.sort().reverse();
 		//find new row position in current list
-		for (var i = 0, len = entryArr.length; i < len; i++) {
-			if (entryArr[i] == published) {
+		for(var i=0, len=entryArr.length; i<len; i++) {
+			if(entryArr[i] == published) {
 				entryPos = i;
 			}
 		}
-		////////////////////
-		// INSERT PARTIAL //
-		////////////////////
+		// INSERT PARTIAL
 		//overwrite 'no entries'
-		if (i == 1) {
-			$('#entryList').html2(content, function () {
-				app.highlight('#entryList div', 1000, '#ffffcc');
-			});
+			if(i == 1) {
+				$('#entryList').html2(content,function() {
+					app.highlight('#entryList div',1000,'#ffffcc');
+				});
 			//match div before
-		} else if ($('#entryList>div:eq(' + entryPos + ')').html()) {
-			$('#entryList>div:eq(' + entryPos + ')').before2(content, function () {
-				app.highlight('#entryList>div:eq(' + entryPos + ')', 1000, '#ffffcc');
-			});
-		} else {
-			//append if none
-			$('#entryList').append2(content, function () {
-				app.highlight('#' + published, 1000, '#ffffcc');
-			});
-		}
+			} else if($('#entryList>div:eq(' + entryPos + ')').html()) {
+				$('#entryList>div:eq(' + entryPos + ')').before2(content,function() {
+					app.highlight('#entryList>div:eq(' + entryPos + ')',1000,'#ffffcc');
+				});
+			} else {
+				//append if none
+				$('#entryList').append2(content,function() {
+					app.highlight('#' + published,1000,'#ffffcc');
+				});
+			}
 
 		//target [div#partial] ~time's parent div id as target
 		page = $('#entryList div' + '#' + $('#t' + published).parent('div').prop('id'));
-		//////////////////////
-		// FULL DIV REPLACE //
-		//////////////////////
+	// FULL DIV REPLACE //
 	} else {
 		//check existence
 		$(target).html2(content);
@@ -1491,7 +1475,7 @@ function pageLoad(target, content, published) {
 	/////////////////////
 	// RELOAD HANDLERS //
 	/////////////////////
-	if (page[0]) {
+	if(page[0]) {
 		$(page).trigger('pageload');
 	}
 	return;
