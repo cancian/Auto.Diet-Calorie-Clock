@@ -895,7 +895,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusIntake #entry_e-sum{ width: 20%; text-align: left; float: right; color: #D55621; position: absolute; top: 0; right: 24%; }
 #appStatusIntake .highcharts-container { pointer-events: none; }
 #appStatusIntakeOver			{ background-color: rgba(0,0,0,.0); z-index: 2; }
-/**/
+/* +food +exercise */
 #appStatusAddLeft,
 #appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; color: #fff; font-size: 18px; line-height: 18px; display: inline-block; padding-top: 2px; white-space: nowrap; z-index: 10; }
 #appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
@@ -916,22 +916,6 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
 #appStatusBarsCar				{ position: absolute; top: 31px; left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
 #appStatusBarsFat				{ position: absolute; top: 52px; left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
-/*fib sug sod*/
-#appStatusBarsSubwrap			{ position: absolute; right: 0; top: 0; width: 70px; height: 70px; background-color: rgba(255,255,255,0); z-index: 5; }
-#appStatusBarsFib,
-#appStatusBarsSug,
-#appStatusBarsSod				{ position: absolute; right: 1px; width: 56px; height: 20px; margin: 0; background-color: #fff; display: block; border: 0 solid rgba(255,255,255,0); font-size: 13px; line-height: 16px; text-indent: 2px; color: #555; }
-#appStatusBarsFib				{ top: 5px;  border-bottom: 8px solid #DB704D; }
-#appStatusBarsSug				{ top: 26px; border-bottom: 8px solid #4D4DDB; }
-#appStatusBarsSod				{ top: 47px; border-bottom: 8px solid #4DB84D;  }
-#appStatusBarsFib div,
-#appStatusBarsSug div,
-#appStatusBarsSod div			{ position: absolute; top: 0; left: 0; font-size: 8px; line-height: 15px; text-shadow: rgba(0,0,0,.25) 0 1px 0; }
-#appStatusBarsFib p,
-#appStatusBarsSug p,
-#appStatusBarsSod p				{ position: absolute; top: 9px; left: 0; font-size: 8px; line-height: 15px; color: #fff; text-shadow: rgba(255,255,255,.5) 0 1px 0; }
-.wp8 #appStatusBarsFib p,
-.wp8 #appStatusBarsSug p		{ line-height: 14px; }
 /**/
 #appStatusBarsPro p,
 #appStatusBarsCar p,
@@ -962,6 +946,104 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusBarsFat p.danger		{ background-color: rgba(246,123,59,.32); background-image: -webkit-linear-gradient(left,rgba(246,123,59,.32) 0%,rgba(206,100,49,.32) 100%); }
 #appStatusBars p,
 #appStatusBars span				{ -webkit-backface-visibility: hidden; }
+/*fib sug sod*/
+#appStatusBarsSubwrap			{ position: absolute; right: 0; top: 0; width: 70px; height: 70px; background-color: rgba(255,255,255,0); z-index: 5; }
+#appStatusBarsFib,
+#appStatusBarsSug,
+#appStatusBarsSod				{ position: absolute; right: 1px; width: 56px; height: 20px; margin: 0; background-color: #fff; display: block; border: 0 solid rgba(255,255,255,0); font-size: 13px; line-height: 16px; text-indent: 2px; color: #555; }
+#appStatusBarsFib				{ top: 5px;  border-bottom: 8px solid #DB704D; }
+#appStatusBarsSug				{ top: 26px; border-bottom: 8px solid #4D4DDB; }
+#appStatusBarsSod				{ top: 47px; border-bottom: 8px solid #4DB84D;  }
+#appStatusBarsFib div,
+#appStatusBarsSug div,
+#appStatusBarsSod div			{ position: absolute; top: 0; left: 0; font-size: 8px; line-height: 15px; text-shadow: rgba(0,0,0,.25) 0 1px 0; }
+#appStatusBarsFib p,
+#appStatusBarsSug p,
+#appStatusBarsSod p				{ position: absolute; top: 9px; left: 0; font-size: 8px; line-height: 15px; color: #fff; text-shadow: rgba(255,255,255,.5) 0 1px 0; }
+.wp8 #appStatusBarsFib p,
+.wp8 #appStatusBarsSug p		{ line-height: 14px; }
+/*//////////////////////
+//// LARGER NUTRIBARS //
+//////////////////////*/
+/*
+@media all and (min-height: 500px) {
+
+#appStatusAddLeft,
+#appStatusAddRight				{ position: absolute; text-align: center; bottom: 55px; left: 50%; right: 0; padding-right: 5px; height: 44px; background-color: #4285F4; color: #fff; font-size: 18px; line-height: 18px; display: inline-block; padding-top: 2px; white-space: nowrap; z-index: 10; }
+#appStatusAddLeft				{ left: 0;   right: 50%; margin-right: 6px; }
+#appStatusAddRight				{ left: 50%; right: 0;   margin-left: 6px; }
+#appStatusAddLeft div:before,
+#appStatusAddRight div:before	{ content: '+'; font-family: KCals; font-weight: normal; font-size: 14px; line-height: 14px; display: inline-block; padding-right: 3px; position: absolute; top: 0; left: 0; width: 45px; height: 42px; text-align: left; padding-top: 14px; background-color: rgba(0,0,0,0); color: #fff; }
+#appStatusAddLeft span,
+#appStatusAddRight span			{ display: inline-block; background-color: #D55621; text-align: center; font-size: 10px; text-transform: uppercase; }
+#appStatusAddLeft div,
+#appStatusAddRight div			{ text-align: center; display: inline-block; font-size: 18px; margin: 0 auto; position: relative; padding-left: 19px; text-indent: 3px; padding-top: 11px; }
+
+
+#appStatusAddLeft.activeRow,
+#appStatusAddRight.activeRow,
+#appStatusAddLeft.activeRow,
+#appStatusAddRight.activeRow	{ background-color: #2F72F2; }
+
+
+#appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 71px; padding: 0; display: block; margin-left: 0; background-color: rgba(0,0,0,0.1); white-space: nowrap; }
+#appStatusBarsPro				{ position: absolute; top: 10px;  left: 0; right: 61px; 
+height: 20px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
+#appStatusBarsCar				{ position: absolute; top: 35px;  left: 0; right: 61px; 
+height: 20px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
+#appStatusBarsFat				{ position: absolute; top: 60px;  left: 0; right: 61px; 
+height: 20px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
+
+
+#appStatusBarsPro p,
+#appStatusBarsCar p,
+#appStatusBarsFat p				{ position: absolute; top: 0; left: 0; 
+height: 18px; margin: 0; background-color: #00ff00; text-indent: 4px; opacity: 1; color: rgba(0,0,0,.75); line-height: 15px; font-size: 8px; background: -webkit-linear-gradient(left,#00ff00 0%,#00cc00 100%); }
+#appStatusBarsPro span,
+#appStatusBarsCar span,
+#appStatusBarsFat span			{ position: absolute; top: 0; right: 50%; margin-right: -42px; text-align: right; opacity: .42; color: #000; line-height: 14px; font-size: 10.5px;  }
+.msie.mobile #appStatusBarsPro span,
+.msie.mobile #appStatusBarsCar span,
+.msie.mobile #appStatusBarsFat span	{ margin-right: -38px; }
+#appStatusBarsPro span:after	{ content: ' (25%)'; opacity: .6; }
+#appStatusBarsCar span:after	{ content: ' (50%)'; opacity: .6; }
+#appStatusBarsFat span:after	{ content: ' (25%)'; opacity: .6; }
+#appStatusBarsPro p,
+#appStatusBarsCar p,
+#appStatusBarsFat p				{ width: 0; }
+#appStatusBarsPro p.normal,
+#appStatusBarsCar p.normal,
+#appStatusBarsFat p.normal		{ background-color: rgba(0,255,0,.32); background-image: -webkit-linear-gradient(left,rgba(0,255,0,.32) 0%,rgba(0,204,0,.32) 100%); }
+#appStatusBarsPro p.over,
+#appStatusBarsCar p.over,
+#appStatusBarsFat p.over		{ background-color: rgba(0,204,0,.32); background-image: -webkit-linear-gradient(left,rgba(0,204,0,.32) 0%,rgba(0,153,0,.32) 100%); }
+#appStatusBarsPro p.warn,
+#appStatusBarsCar p.warn,
+#appStatusBarsFat p.warn		{ background-color: rgba(255,233,0,.32); background-image: -webkit-linear-gradient(left,rgba(255,233,0,.32) 0%,rgba(255,207,0,.32) 100%); }
+#appStatusBarsPro p.danger,
+#appStatusBarsCar p.danger,
+#appStatusBarsFat p.danger		{ background-color: rgba(246,123,59,.32); background-image: -webkit-linear-gradient(left,rgba(246,123,59,.32) 0%,rgba(206,100,49,.32) 100%); }
+#appStatusBars p,
+#appStatusBars span				{ -webkit-backface-visibility: hidden; }
+
+
+#appStatusBarsSubwrap			{ position: absolute; right: 0; top: 0; width: 70px; height: 70px; background-color: rgba(255,255,255,0); z-index: 5; }
+#appStatusBarsFib,
+#appStatusBarsSug,
+#appStatusBarsSod				{ position: absolute; right: 1px; width: 56px; height: 20px; margin: 0; background-color: #fff; display: block; border: 0 solid rgba(255,255,255,0); font-size: 13px; line-height: 16px; text-indent: 2px; color: #555; }
+#appStatusBarsFib				{ top: 5px;  border-bottom: 8px solid #DB704D; }
+#appStatusBarsSug				{ top: 26px; border-bottom: 8px solid #4D4DDB; }
+#appStatusBarsSod				{ top: 47px; border-bottom: 8px solid #4DB84D;  }
+#appStatusBarsFib div,
+#appStatusBarsSug div,
+#appStatusBarsSod div			{ position: absolute; top: 0; left: 0; font-size: 8px; line-height: 15px; text-shadow: rgba(0,0,0,.25) 0 1px 0; }
+#appStatusBarsFib p,
+#appStatusBarsSug p,
+#appStatusBarsSod p				{ position: absolute; top: 9px; left: 0; font-size: 8px; line-height: 15px; color: #fff; text-shadow: rgba(255,255,255,.5) 0 1px 0; }
+.wp8 #appStatusBarsFib p,
+.wp8 #appStatusBarsSug p		{ line-height: 14px; }	
+}
+*/
 /*#////////////////#//
 //# START DATE BAR #//
 //#////////////////#*/

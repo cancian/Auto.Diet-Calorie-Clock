@@ -626,8 +626,8 @@ body.started #loadMask:after {
 /*/////////////
 // CANCEL/OK //
 /////////////*/
-.sp-cancel			{ font-size: 14px; color: #666 !important; padding: 4px; margin-right: 6px; text-decoration:none; vertical-align: middle; line-height: 28px; }
-.sp-cancel:active	{ color: #999 !important; }
+.sp-cancel			{ font-size: 14px; color: #666 !important; padding: 4px; margin-right: 6px; text-decoration:none; vertical-align: middle; line-height: 28px; display: none !important }
+.sp-cancel:active	{ color: #999; }
 /*/////////////////////////////////////
 // Spectrum Colorpicker old gradient //
 /////////////////////////////////////*/

@@ -1578,11 +1578,11 @@ function getLimitMenu() {
 		// COLOR PICKER INIT //
 		///////////////////////
 		//DEFICIT
-		$('#colorDeficit').spectrum({ color: app.read('colorDeficit'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerDeficit' });
+		$('#colorDeficit').spectrum({move: function(color) { app.save('colorDeficit',color); app.updateColorPicker(); }, color: app.read('colorDeficit'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerDeficit' });
 		//BALANCED
-		$('#colorBalanced').spectrum({ color: app.read('colorBalanced'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerBalanced' });
+		$('#colorBalanced').spectrum({ move: function(color) { app.save('colorBalanced',color); app.updateColorPicker(); }, color: app.read('colorBalanced'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerBalanced' });
 		//SURPLUS
-		$('#colorSurplus').spectrum({ color: app.read('colorSurplus'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerSurplus' });
+		$('#colorSurplus').spectrum({ move: function(color) { app.save('colorSurplus',color); app.updateColorPicker(); }, color: app.read('colorSurplus'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerSurplus' });
 		//////////////
 		// ONCHANGE //
 		//////////////
@@ -1590,7 +1590,7 @@ function getLimitMenu() {
 		$('#colorDeficit').on('change',function () {
 			if(!this.value) {
 				app.save('colorDeficit','#E54B1D');
-				$('#colorDeficit').spectrum({ color: app.read('colorDeficit'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerDeficit' });
+				$('#colorDeficit').spectrum({ move: function(color) { app.save('colorDeficit',color); app.updateColorPicker(); }, color: app.read('colorDeficit'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerDeficit' });
 			} else {
 				app.save('colorDeficit',$('#colorDeficit').val());
 			}
@@ -1600,7 +1600,7 @@ function getLimitMenu() {
 		$('#colorBalanced').on('change',function () {
 			if(!this.value) {
 				app.save('colorBalanced','#007AFF');
-				$('#colorBalanced').spectrum({ color: app.read('colorBalanced'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerBalanced' });
+				$('#colorBalanced').spectrum({ move: function(color) { app.save('colorBalanced',color); app.updateColorPicker(); }, color: app.read('colorBalanced'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerBalanced' });
 			} else {
 				app.save('colorBalanced',$('#colorBalanced').val());
 			}
@@ -1610,7 +1610,7 @@ function getLimitMenu() {
 		$('#colorSurplus').on('change',function () {
 			if(!this.value) {
 				app.save('colorSurplus','#2DB454');
-				$('#colorSurplus').spectrum({ color: app.read('colorSurplus'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerSurplus' });
+				$('#colorSurplus').spectrum({ move: function(color) { app.save('colorSurplus',color); app.updateColorPicker(); }, color: app.read('colorSurplus'), allowEmpty: true, preferredFormat: 'hex', chooseText: LANG.OK[lang], cancelText: LANG.CANCEL[lang], containerClassName: 'colorPickerInput pickerSurplus' });
 			} else {
 				app.save('colorSurplus',$('#colorSurplus').val());
 			}
