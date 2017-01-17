@@ -1138,9 +1138,13 @@ if(app.is.scrollable) {
 	// HEADER INFO ICON XY HANDLER //
 	/////////////////////////////////
 	var headerInfoHandler = app.device.android ? 'click ' + tap : tap;
-	$('#appHeader').on(headerInfoHandler, function(evt) {
+	var xTap;
+	$('#appHeader').on(touchstart + ' ' + headerInfoHandler, function(evt) {
 		//HANDLE WINDOW
-		var xTap = parseInt(app.pointer(evt).x);
+		if(evt.type === touchstart) {
+			xTap = parseInt(app.pointer(evt).x);
+			return;
+		}
 		if(xTap < 125 && xTap > 0) {
 			if($('#timerDailyInput').is(':focus')) {
 				$('#timerDailyInput').trigger('blur');
@@ -1158,7 +1162,9 @@ if(app.is.scrollable) {
 			//COLOR ANIMATION VALUE
 			if(parseFloat($('#timerDailyInput').css2('color').split('rgba(255, 255, 255, ').join('').split(')').join('')) > 0.8) { return; }
 			//INFO WINDOW
-			getNewWindow('Getting used to real-time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Getting used to real-time'] + '</div>');
+			getNewWindow('Getting used to real-time','<div id="blockInfo">' + LANG.HELP_TOPICS_ARRAY['en']['Getting used to real-time'] + '</div>',function() {
+				xTap = 0;
+			});
 		}
 	});
 	//////////////////////
