@@ -2845,8 +2845,12 @@ function getLoginEmail() {
 			$('.usrMail').css2('color', '#c30');
 		}
 		//STORE VALUES
-		var usrMailStore = app.read('usrMail').toLowerCase();
+		var usrMailStore = app.read('usrMail');
 		var usrPassStore = md5(trim($('#usrPass').val()));
+		//LOWERCASE EMAIL
+		if(usrMailStore.length) {
+			usrMailStore = usrMailStore.toLowerCase();
+		}
 		//VALIDATE
 		if (app.checkEmail(app.read('usrMail')) && (trim(JSON.stringify($('#usrPass').val()))).length >= 4) {
 			//send mail

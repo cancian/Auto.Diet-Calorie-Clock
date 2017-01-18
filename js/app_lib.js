@@ -1599,7 +1599,7 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 	/////////////////////////
 	// PUSHDOWN DEPRECATED //
 	///////////////////////// WP80 && WP81 && deprecated
-	if(app.device.tizen || app.device.wp80 || (app.device.wp81 && !app.device.wp10)) { // || baseVersion < 2.1)) { 
+	if(app.device.wp80 || (app.device.wp81 && !app.device.wp10)) { // || baseVersion < 2.1)) { 
 		app.remove('remoteSuperBlockCSS');
 		app.remove('remoteSuperBlockJS');
 		//REBOOT
