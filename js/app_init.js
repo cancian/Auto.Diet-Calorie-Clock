@@ -204,7 +204,6 @@ safeExec(function() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/underscore.js" id="underscoreJS"><\/script>');
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//

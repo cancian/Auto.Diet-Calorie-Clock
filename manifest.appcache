@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v210400 - 2017-01-14
+# v210401 - 2017-01-19
 
 #LOAD
 index.html
@@ -40,7 +40,6 @@ js/carpe_slider.js
 js/highcharts.js
 js/calculator.js
 js/mobiscroll.js
-js/underscore.js
 js/iscroll.js
 
 #ICO
