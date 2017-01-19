@@ -93,7 +93,7 @@ app = {
 		webSQL       : !window.openDatabase ? false : true,
 		localStorage : !window.localStorage ? false : true,
 	},
-	checkEmail: function (email) { 'use strict'; if(!email) { return false; } else { email = email.toLowerCase(); } return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email); },
+	checkEmail: function (email) { 'use strict'; if(!email) { return false; } if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) { return email; } else { return false; }},
 	tab: {},
 	get: {},
 	call: {},
@@ -2148,6 +2148,23 @@ Array.prototype.contains = function(obj) {
 String.prototype.contains = function () {
 	'use strict';
 	return String.prototype.indexOf.apply(this, arguments) !== -1;
+};
+////////////////////////////////
+// PROTECT NATIVE TOLOWERCASE //
+////////////////////////////////
+String.prototype.toLowerCase = function() {
+	'use strict';
+	if(this) {
+		return this.toLocaleLowerCase();
+	}
+	return ''; 
+};
+Number.prototype.toLowerCase = function() {
+	'use strict';
+	if(this) {
+		return Number((this.toString()).toLocaleLowerCase());
+	}
+	return ''; 
 };
 ///////////
 // EMPTY //

@@ -19,6 +19,21 @@
 //FFOS @@@ bmi, burn, calculator, calorie, counter, diary, diet, exercise, fat, fatsecret, fitbit, health, lose, loseit, loss, myfitnesspal, myplate, runkeeper, tracker, weight 
 //TIZN @@@ calorie counter weight tracker fitbit loseit myplate fatsecret myfitnesspal runkeeper loss lose fat burn diet monitor diary calculator bmi gain carb cycling health exercise food fitness fit kcals kcal calories calorific healthbook app web free 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// OSX //
+/////////
+//calorie
+//counter
+//fat
+//burn    <<<
+//tracker <<< 
+//fitbit  <<< fit
+//loseit
+//myplate
+//fatsecret <<< workout
+//myfitnesspal
+//runkeeper
+//healthbook
+//////////////////////////
 // loseit    	21.400.000 
 // fitbit    	50.400.000
 // myplate   	 6.820.000
@@ -27,7 +42,7 @@
 // myfitnesspal 10,100,000
 //////////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.1.4 (210400)';
+var appVersion = '2.1.4 (210401)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -4239,6 +4254,34 @@ var LANG = {
 		vi : 'nat',
 		zh : '钠',
 		zt : '鈉'
+	},
+	WATER : {
+		en : 'water',
+		pt : 'água',
+		ar : 'ماء',
+		bg : 'вода',
+		cs : 'voda',
+		da : 'vand',
+		de : 'Wasser',
+		el : 'νερό',
+		es : 'agua',
+		fi : 'vesi',
+		fr : 'eau',
+		hu : 'víz',
+		it : 'acqua',
+		id : 'air',
+		ja : '水',
+		ko : '물',
+		nl : 'water',
+		nb : 'vann',
+		pl : 'woda',
+		ro : 'apă',
+		ru : 'воды',
+		sv : 'vatten',
+		tr : 'su',
+		vi : 'nước',
+		zh : '水',
+		zt : '水'
 	},
 	APROX_CONVERSIONS : {
 		en : 'Approximate conversions',
