@@ -210,8 +210,8 @@ safeExec(function() {
 	//#/////////////////#//
 	if (appStorage.getItem('config_autoupdate') === 'on' || (IsMsApp && appStorage.getItem('config_debug') === 'active')) {
 		//CACHE
-		var storeJS  = appStorage.getItem('remoteSuperBlockJS') 
-		var storeCSS = appStorage.getItem('remoteSuperBlockCSS')
+		var storeJS  = appStorage.getItem('remoteSuperBlockJS');
+		var storeCSS = appStorage.getItem('remoteSuperBlockCSS');
 		//VALIDATE
 		if (isCacheValid(storeJS + storeCSS)) {
 			isCurrentCacheValid = 1;
