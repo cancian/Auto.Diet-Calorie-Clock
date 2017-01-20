@@ -367,8 +367,9 @@ app = {
 		}, time);
 	},
 	timer: {
-		start : function(str)     { 'use strict'; if(!str) { str = 'generic'; } app.globals[str] = app.now(); },
-		end   : function(str,txt) { 'use strict'; if(!str) { str = 'generic'; } if(txt) { txt = txt + ': '; } else { txt = 'total: '; } app.toast(txt + (Number((app.now() - app.globals[str]))) + ' ms', 'timer_' + (JSON.stringify(app.globals[str]))); }
+		id : (new Date().getTime()).toString(),
+		start : function(str)     { 'use strict'; if(!str) { str = app.timer.id; } app.globals[str] = app.now(); },
+		end   : function(str,txt) { 'use strict'; if(!str) { str = app.timer.id; } if(txt) { txt = txt + ': '; } else { txt = 'timer: '; } app.toast(txt + (Number((app.now() - app.globals[str]))) + ' ms', 'timer_' + (JSON.stringify(app.globals[str]))); }
 	}
 };
 /////////////////
@@ -727,6 +728,7 @@ app.toast = function (msg, tag) {
 	// INSERT //
 	////////////
 	$('body').append2('<div id="appToast" class="' + tag + '">' + msg + '</div>');
+	console.log('[apptoast] ' + msg.toUpperCase());
 	//DISMISS
 	setTimeout(function() {
 		$('.' + tag).on(tap, function () {
