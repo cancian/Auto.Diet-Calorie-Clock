@@ -200,15 +200,20 @@ safeExec(function() {
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/jquery.nicescroll.js" id="nicescrollJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/highcharts.js" id="highchartsJS"><\/script>');
 	//UTILS
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
-	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/calculator.js" id="calculatorJS"><\/script>');
 	document.write('<script type="text/javascript" src="' + hostLocal + 'js/mobiscroll.js" id="mobiscrollJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/carpe_slider.js" id="carpesliderJS"><\/script>');
+	document.write('<script type="text/javascript" src="' + hostLocal + 'js/galocalstorage.js" id="galocalstorageJS"><\/script>');
+
 	//#/////////////////#//
 	//# APP MODE LOADER #//
 	//#/////////////////#//
 	if (appStorage.getItem('config_autoupdate') === 'on' || (IsMsApp && appStorage.getItem('config_debug') === 'active')) {
-		if (isCacheValid(appStorage.getItem('remoteSuperBlockJS') + appStorage.getItem('remoteSuperBlockCSS'))) {
+		//CACHE
+		var storeJS  = appStorage.getItem('remoteSuperBlockJS') 
+		var storeCSS = appStorage.getItem('remoteSuperBlockCSS')
+		//VALIDATE
+		if (isCacheValid(storeJS + storeCSS)) {
 			isCurrentCacheValid = 1;
 		}
 		/////////////////////
@@ -217,37 +222,31 @@ safeExec(function() {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_bootstrap.js"><\/script>');
 		if(isCurrentCacheValid == 1) {
 			if(!document.getElementById('superBlockCSS')) {
-				/*
-				var styleElement;
-				styleElement = document.createElement('style');
-				styleElement.setAttribute('type', 'text/css');
-				styleElement.textContent = appStorage.getItem('remoteSuperBlockCSS');
-				document.head.appendChild(styleElement);
-				*/
 				//to head
 				if(document.getElementById('CSSPlaceholder')) {
-					document.getElementById('CSSPlaceholder').innerHTML = appStorage.getItem('remoteSuperBlockCSS');
+					document.getElementById('CSSPlaceholder').innerHTML = storeCSS;
 				} else {
-					document.write('<style type="text/css" id="superBlockCSS">' + appStorage.getItem('remoteSuperBlockCSS') + '<\/style>');
+					document.write('<style type="text/css" id="superBlockCSS">' + storeCSS + '<\/style>');
 				}
 				/////////////
 				// JS EVAL //
 				/////////////
 				document.addEventListener('DOMContentLoaded', function() {
 					try {
-						//////////
-						// EVAL //
-						//////////
-						var indirect = eval;
-						indirect(appStorage.getItem('remoteSuperBlockJS'));
-					} catch(err) {
 						////////////
 						// APPEND //
 						////////////
 						var scriptBlock;
 						scriptBlock = document.createElement('script');
-						scriptBlock.text = appStorage.getItem('remoteSuperBlockJS');
+						scriptBlock.text = storeJS;
 						document.head.appendChild(scriptBlock).parentNode.removeChild(scriptBlock);
+						scriptBlock = '';
+					} catch(err) {
+						//////////
+						// EVAL //
+						//////////
+						var indirect = eval;
+						indirect(storeJS);
 					}				
 				}, false);
 			}
