@@ -5,7 +5,7 @@ app.globals.settingsHtml = 'var settingsHtml';
 app.tab.settings = function(keepOpen) {
 	'use strict';
 	//HTTPX
-	var httpx = app.device.android2 || app.device.blackberry || app.device.playbook ? 'http://' : 'https://';
+	var httpx = app.device.android2 ? 'http://' : 'https://';
 	//RAW HTML
 	var settingsHtml = '\
 	<a name="top"></a>\

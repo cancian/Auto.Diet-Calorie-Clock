@@ -340,19 +340,14 @@ body.tab4.deficit #appFooter #tab4	{ color: #C85834; }
 #gettingStarted #balanced,
 #gettingStarted #surplus{ font-size: 16px; line-height: 16px; }
 }
-/*
-@media all and (max-height: 438px) {
-	#appStatusBars		{ display: none !important; }
-}
-*/
 /*#################################
 ####    BUILD: APP SETTINGS    ####
 #################################*/
-#settingsWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; font-size: 13px; -webkit-backface-visibility: hidden; min-height: 267px; }
+#settingsWrapper					{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; color: #999; background-color: #f2f4f6; font-size: 13px; -webkit-backface-visibility: hidden; min-height: 330px; }
 /*list*/
 #settingsList						{ display: block; background-color: #fff; border-bottom: 1px solid #eee; -webkit-backface-visibility: hidden; }
-#settingsList li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden;  }
-#settingsList li div				{ margin-left: 45px; /*-webkit-backface-visibility: hidden;*/ }
+#settingsList li					{ position: relative; display: block; height: 46px; line-height: 49px; color: #555; -webkit-backface-visibility: hidden; }
+#settingsList li div				{ margin-left: 45px; }
 #settingsList li+li div				{ border-top: 1px solid #eee; }
 #settingsList li.activeRow			{ background-color: #eee; color: #555; }
 #settingsList li.activeRow:before	{ position: absolute; bottom: -1px; right: 0; left: 0; height: 0; display: block; border-bottom: 2px solid #eee; content: ' ';  z-index: 99; }
