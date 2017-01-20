@@ -1,0 +1,460 @@
+<div class ="ancalc">
+  <form id="formc" name="formc" action="" method="post">
+    <table cellspacing="0" cellpadding="2" border="0">
+<tr>
+        <th colspan="2" class="top">Kalkulator potrošnje kalorija </th>
+      </tr>
+      <tr>
+        <th colspan="2">Unesite podatke </th>
+      </tr>
+      <tr>
+        <td width="175">Spol</td>
+        <td width="517">
+          <select name="pA1B" id="pA1B" size="1" onchange="recalc_onclick('pA1B')" tabindex="1" >
+            <option value="Male" selected="selected">Muški</option>
+            <option value="Female" >Ženski</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Unesite vašu visinu </td>
+        <td>                <input name="pA2B" id="pA2B" type="text" value="180"
+
+			      onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick('pA2B')" tabindex="2"
+
+			      style='width:45pt' size="8"
+
+	    class=ee101 >
+              <select name="pA2C" id="pA2C" size="1" onchange="recalc_onclick('pA2C')" tabindex="3"  >
+                <option value="centimetres" selected>centimetara</option>
+                <option value="inches" >inča</option>
+              </select>
+              <input name="pA2D" id="pA2D" type="text"
+
+			      readonly="true"
+
+			      
+
+	    class=ee101 size="4" style="visibility: hidden; width: 5" >
+</td>
+      </tr>
+      <tr>
+        <td>Vaša trenutna težina: </td>
+        <td>
+              <input name="pA3B" id="pA3B" type="text" value="80"
+
+			      onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick('pA3B')" tabindex="4"
+
+			      style='width:45pt' size="8"
+
+	     >
+              <select name="pA3C" id="pA3C" size="1" onchange="recalc_onclick('pA3C')" tabindex="5"  >
+                <option value="kilograms" selected>kilogram</option>
+                <option value="pounds" >pound</option>
+              </select>
+              <input name="pA3D" id="pA3D" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class=ee101 size="4" style="visibility: hidden; width: 5" >
+          
+        </td>
+      </tr>
+      <tr>
+        <td>Odaberite koliko imate godina: </td>
+        <td>
+          <select name="pA4B" id="pA4B" size="1" onchange="recalc_onclick('pA4B')" tabindex="6"  class="ee100"  style='width:45pt'>
+            <option value="10" >10</option>
+            <option value="11" >11</option>
+            <option value="12" >12</option>
+            <option value="13" >13</option>
+            <option value="14" >14</option>
+            <option value="15" >15</option>
+            <option value="16" >16</option>
+            <option value="17" >17</option>
+            <option value="18" >18</option>
+            <option value="19" >19</option>
+            <option value="20" >20</option>
+            <option value="21" >21</option>
+            <option value="22" >22</option>
+            <option value="23" >23</option>
+            <option value="24" >24</option>
+            <option value="25" >25</option>
+            <option value="26" >26</option>
+            <option value="27" >27</option>
+            <option value="28" >28</option>
+            <option value="29" >29</option>
+            <option value="30" selected="selected">30</option>
+            <option value="31" >31</option>
+            <option value="32" >32</option>
+            <option value="33" >33</option>
+            <option value="34" >34</option>
+            <option value="35" >35</option>
+            <option value="36" >36</option>
+            <option value="37" >37</option>
+            <option value="38" >38</option>
+            <option value="39" >39</option>
+            <option value="40" >40</option>
+            <option value="41" >41</option>
+            <option value="42" >42</option>
+            <option value="43" >43</option>
+            <option value="44" >44</option>
+            <option value="45" >45</option>
+            <option value="46" >46</option>
+            <option value="47" >47</option>
+            <option value="48" >48</option>
+            <option value="49" >49</option>
+            <option value="50" >50</option>
+            <option value="51" >51</option>
+            <option value="52" >52</option>
+            <option value="53" >53</option>
+            <option value="54" >54</option>
+            <option value="55" >55</option>
+            <option value="56" >56</option>
+            <option value="57" >57</option>
+            <option value="58" >58</option>
+            <option value="59" >59</option>
+            <option value="60" >60</option>
+            <option value="61" >61</option>
+            <option value="62" >62</option>
+            <option value="63" >63</option>
+            <option value="64" >64</option>
+            <option value="65" >65</option>
+            <option value="66" >66</option>
+            <option value="67" >67</option>
+            <option value="68" >68</option>
+            <option value="69" >69</option>
+            <option value="70" >70</option>
+            <option value="71" >71</option>
+            <option value="72" >72</option>
+            <option value="73" >73</option>
+            <option value="74" >74</option>
+            <option value="75" >75</option>
+            <option value="76" >76</option>
+            <option value="77" >77</option>
+            <option value="78" >78</option>
+            <option value="79" >79</option>
+            <option value="80" >80</option>
+            <option value="81" >81</option>
+            <option value="82" >82</option>
+            <option value="83" >83</option>
+            <option value="84" >84</option>
+            <option value="85" >85</option>
+            <option value="86" >86</option>
+            <option value="87" >87</option>
+            <option value="88" >88</option>
+            <option value="89" >89</option>
+            <option value="90" >90</option>
+            <option value="91" >91</option>
+            <option value="92" >92</option>
+            <option value="93" >93</option>
+            <option value="94" >94</option>
+            <option value="95" >95</option>
+            <option value="96" >96</option>
+            <option value="97" >97</option>
+            <option value="98" >98</option>
+            <option value="99" >99</option>
+            <option value="100" >100</option>
+          </select>
+        godina </td>
+      </tr>
+      <tr>
+        <td>Vaša dnevna aktivnost? </td>
+        <td>
+          <select name="pA5B" id="pA5B" size="1" onchange="recalc_onclick('pA5B')" tabindex="7"  >
+            <option value="Sedentary (little or no exercise, desk job)" >Sjedeća, s vrlo malo ili bez aktivnosti (uredski posao)</option>
+            <option value="Lightly active (light exercise/sports 1-3 days/wk)" >Donekle aktivan/aktivna, bavim se vježbom 1-3 dana tjedno</option>
+            <option value="Moderately active (moderate exercise/sports 3-5 days/wk)" selected="selected">Srednje aktivno, srednje intenzivne vježbe 3-5 dana tjedno</option>
+            <option value="Very active (hard exercise/sports 6-7 days/wk)" >Vrlo aktivno - zahtjevne vježbe 6-7 dana u tjednu</option>
+            <option value="Extremely active (hard daily exercise/sports &amp; physical job)" >Jako aktivno - sportaš, teški fizički posao</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">                <input type="checkbox" checked name="automatic_recalc" value="ON">
+            Automatic recalculation&nbsp;
+            <input type="button" value="Preračunaj" name="do_recalc" onclick="recalc_onclick('')">
+&nbsp;</td>
+      </tr>
+      <tr>
+        <th colspan="2">Rezultati </th>
+      </tr>
+      <tr>
+        <td colspan="2" class="head">Osnovni metabolizam:            
+          <input name="pA6B" id="pA6B" type="text" value="0"
+
+			      readonly="true"
+
+			       size="8"
+
+	    class="ee101" /></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="head">A. Zahtjevi za održavanje težine</td>
+      </tr>
+      <tr>
+        <td>Kalorije</td>
+        <td>
+          <input name="pA7B" id="pA7B" type="text" value="0"
+
+			      readonly="true"
+
+			       size="7"
+
+	    class="ee101" />
+cal </td>
+      </tr>
+      <tr>
+        <td>Ugljikohidrati (55%) </td>
+        <td>
+          <input name="pA8B" id="pA8B" type="text" value="0"
+
+			      readonly="true"
+
+			       size="7"
+
+	    class="ee101" />
+cal =
+<input name="pA8D" id="pA8D" type="text" value="0"
+
+			      readonly="true"
+
+			       size="6" />
+gm</td>
+      </tr>
+      <tr>
+        <td>Bjelančevine (15%) </td>
+        <td>
+          <input name="pA9B" id="pA9B" type="text" value="0"
+
+			      readonly="true"
+
+			       size="7"
+
+	    class="ee101" />
+cal =
+<input name="pA9D" id="pA9D2" type="text" value="0"
+
+			      readonly="true"
+
+			       size="6" />
+gm</td>
+      </tr>
+      <tr>
+        <td>Masti (30%) </td>
+        <td><input name="pA10B" id="pA10B" type="text" value="0"
+
+			      readonly="true"
+
+			       size="7"
+
+	    class="ee101" />
+cal =
+  <input name="pA10D" id="pA10D2" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="6" />
+  gm</td>
+      </tr>
+      <tr>
+        <td colspan="2"class="head">B. Zahtjevi za gubitak težine za &nbsp; <input name="pA6G" id="pA6G" type="text" value="1"
+
+			      onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick('pA6G')" tabindex="8"
+
+			      size="2"
+
+	    class="ee101" style="width: 30" />
+          <input name="pA6J" id="pA6J2" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="2" style="visibility: hidden; width: 5" />
+          <select name="pA6H" id="select" size="1" onchange="recalc_onclick('pA6H')" tabindex="9"  >
+            <option value="kilograms" >kilograma</option>
+            <option value="pounds" selected="selected">pounda</option>
+          </select>
+        tjedno* </td>
+      </tr>
+      <tr>
+        <td>Calories</td>
+        <td>
+          <input name="pA7F" id="pA7F" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+cal </td>
+      </tr>
+      <tr>
+        <td>Ugljikohidrati (55%) </td>
+        <td>
+          <input name="pA8F" id="pA8F" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+cal =
+<input name="pA8H" id="pA8H2" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+gm</td>
+      </tr>
+      <tr>
+        <td>Bjelančevine (15%) </td>
+        <td>
+          <input name="pA9F" id="pA9F" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+cal =
+<input name="pA9H" id="pA9H2" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+gm</td>
+      </tr>
+      <tr>
+        <td>Masti (30%) </td>
+        <td><input name="pA10F" id="pA10F" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+cal =
+  <input name="pA10H" id="pA10H2" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+  gm</td>
+      </tr>
+      <tr>
+        <td colspan="2"class="head">C. Zahtjevi za dobivanje na težini za by&nbsp; 
+          <input name="pA6M" id="pA6M2" type="text" value="1"
+
+			      onblur="this.value=eedisplayFloat(eeparseFloat(this.value));recalc_onclick('pA6M')" tabindex="10"
+
+			       size="2"
+
+	    class="ee101" style="width: 30" />
+          <input name="pA6O" id="pA6O2" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="2" style="visibility: hidden; width: 5" />
+          
+          <select name="pA6N" id="select2" size="1" onchange="recalc_onclick('pA6N')" tabindex="11"  >
+            <option value="kilograma" >kilograms</option>
+            <option value="pounda" selected="selected">pounds</option>
+          </select>
+        tjedno </td>
+      </tr>
+      <tr>
+        <td>Kalorija</td>
+        <td><input name="pA7L" id="pA7L" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+cal </td>
+      </tr>
+      <tr>
+        <td>Ugljikohidrata (55%) </td>
+        <td>
+          <input name="pA8L" id="pA8L" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+cal =
+<input name="pA8N" id="pA8N2" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+gm</td>
+      </tr>
+      <tr>
+        <td>Bjelančevina (15%) </td>
+        <td>
+          <input name="pA9L" id="pA9L" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+cal =
+<input name="pA9N" id="pA9N2" type="text" value="0"
+
+			      readonly="true"
+
+			      
+
+	    class="ee101" size="7" />
+gm</td>
+      </tr>
+      <tr>
+        <td>Masti (30%) </td>
+        <td><input name="pA10L" id="pA10L" type="text" value="0" readonly="true" size="7" />
+cal =
+  <input name="pA10N" id="pA10N2" type="text" value="0" readonly="true" size="7" />
+  gm</td>
+      </tr>
+      <tr>
+        <td colspan="2">     
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">*Da bi izgubili na težini 500 kalorija se oduzima dnevno za svakih 0,5 kilograma koji želite izgubiti u tjedan dana. Da bi dobili na težini potrebno je dodati 500 kalorija dnevno za svakih 0,5 kilograma. Međutim ne preporuča se dnevni unos manji od &lt; 1200 kalorija i gubitak veći od 1 kilogram tjedno!
+        <p>Za balansiraniji pristup gubitku 0,5 kg tjedno preporuča se povećanje vaše dnevne aktivnosti! Smanjite dnevni unos za 250 kalorija i vježbom potrošite ostalih 250 kalorija. Ovaj pristup je bolji jer djeluje na ubrzanje vašeg metabolizma i povećanje mišićne mase u tijelu. </p></td>
+      </tr>
+      <tr>
+        <td colspan="2"><a href="http://kako-ne-zaraditi.jedanklik.com/" style="font-size:9px;"> Kako ne zaraditi - izbjegnite greške zbog kojih 99% ljudi ostane bez zarade na internetu. Saznajte kako zaraditi kod kuće - honorarni posao, posao kod kuće!</a></td>
+      </tr>
+    </table>
+    <p>
+    </p>
+<script language="JavaScript" type="text/javascript">recalc_onclick('');  </script>  
+    <noscript>
+    The browser does not support JavaScript. The calculations will not work.
+    </noscript>
+  </form>
+  
+  
+</div>
+
+
