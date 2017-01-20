@@ -634,9 +634,11 @@ function rowsLoop(sqlEntry, hive, callback) {
 	////////////////////
 	// WRITE CALLBACK //
 	////////////////////
-	app.save(hive, rows, function (rows) {
-		callback();
-	});
+	setTimeout(function() {
+		app.save(hive, rows, function (rows) {
+			callback();
+		});
+	}, 0);
 }
 /////////////////
 // SQL TO JSON //
@@ -646,11 +648,11 @@ function sqlToJson(row) {
 	if(!row)           { return ''; }
 	if(row.length < 5) { return ''; }
 	var jsonRow = '';
-	if ((/diary_/).test(row)) {
+	if (/diary_/.test(row)) {
 		/*jshint ignore:start*/
 		row = row.replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','");
 		/*jshint ignore:end*/
-		if((/diary_entry/).test(row)) {
+		if(/_entry/.test(row)) {
 			jsonRow = {
 				id        : row[1],
 				title     : row[2],
@@ -667,7 +669,7 @@ function sqlToJson(row) {
 				sod       : row[13],
 			};
 		}
-		else if((/diary_food/).test(row)) {
+		else { //if((/diary_food/).test(row)) {
 			jsonRow = {
 				id   : row[1],
 				type : row[2],
@@ -725,17 +727,17 @@ function insertOrUpdate(rows, callback) {
 	//////////////////
 	// ENTRIES LOOP //
 	//////////////////
-	setTimeout(function () {
-		rowsLoop(sqlEntry, 'diary_entry', function () {
-			setTimeout(function () {
-				rowsLoop(sqlFood, 'diary_food', function () {
-					setTimeout(function () {
-						callback();
-					}, 0);
-				});
-			}, 0);
-		});
-	}, 0);
+	//setTimeout(function () {
+	rowsLoop(sqlEntry, 'diary_entry', function () {
+		setTimeout(function () {
+			rowsLoop(sqlFood, 'diary_food', function () {
+				//setTimeout(function () {
+				callback();
+				//}, 0);
+			});
+		}, 0);
+	});
+	//}, 0);
 }
 //##//////////////##//
 //## SYNC ENTRIES ##//
