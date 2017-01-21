@@ -825,14 +825,16 @@ function getEntries(callback) {
 	var rowsArray = [];
 	var loopVar;
 	if (appRows.entry) {
-		for (var i = 0, len = appRows.entry.length; i < len; i++) {
+		//LENGTH CACHE
+		var appRowsLen = appRows.entry.length;
+		for (var i = 0; i < appRowsLen; i++) {
 			loopVar = appRows.entry[i];
 			if (loopVar.info !== 'deleted') {
 				rowsArray.push(loopVar);
 			}
 		}
 	}
-	//
+	//RETURN ROWS
 	callback(rowsArray);
 }
 ///////////////

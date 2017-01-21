@@ -94,6 +94,19 @@ app = {
 		localStorage : !window.localStorage ? false : true,
 	},
 	checkEmail: function (email) { 'use strict'; if(!email) { return false; } if(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) { return email; } else { return false; }},
+	loop: function(array,action) {
+		'use strict';
+		if(!array || !action) { return; }
+		//
+		var val;
+		var len = array.length;
+		//
+		for (val = 0; val < len; val++) {
+			array[val] = action(array[val]);	
+		}
+		//
+		return array;
+	},
 	tab: {},
 	get: {},
 	call: {},
@@ -1613,8 +1626,8 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 })();
 //#///////////////#//
 //# TOUCH ? CLICK #//
-//#///////////////#//
-app.touch = (('ontouchend' in document) || ('ontouchstart' in window) || ('onmsgesturechange' in window)) && !app.device.chrome ? true : false;
+//#///////////////#//																															 //NO DESKTOP CHROME
+app.touch = ('ontouchend' in document || 'ontouchstart' in window || 'onmsgesturechange' in window || 'msmaxtouchpoints' in window.navigator) && !app.device.chrome ? true : false;
 ////////////////////
 // TOUCH HANDLERS //
 ////////////////////
