@@ -256,6 +256,13 @@ app.resetCounter = function(pusher) {
 	$('#appStatusBalance div p').html2(LANG.BALANCED[lang]);
 	updateTodayOverview();
 	updateNutriBars();
+	/////////////////////
+	// RELOAD ON RESET //
+	/////////////////////
+	app.save('waterConsumed',0);
+	if(app.read('app_last_tab') === 'tab1') {
+		appFooter('tab1');
+	}
 	if(pusher == 1) {
 		setPush();
 	}
@@ -287,6 +294,8 @@ function localStorageSql() {
 	if(app.read('appNutrients'))		{ keyList = keyList + '#@@@#' + 'appNutrients' + '#@@#' + app.read('appNutrients');             }
 	if(app.read('appRatioBy'))			{ keyList = keyList + '#@@@#' + 'appRatioBy'   + '#@@#' + app.read('appRatioBy');               }
 	if(!isNaN(app.read('appNutrientTimeSpan'))) { keyList = keyList + '#@@@#' + 'appNutrientTimeSpan' +'#@@#'+ JSON.stringify(app.read('appNutrientTimeSpan')); }
+	//water
+	if(app.read('waterConsumed'))		{ keyList = keyList + '#@@@#' + 'waterConsumed' + '#@@#' + app.read('waterConsumed');           }
 	//notes
 	if(app.read('appNotes')) {
 		keyList = keyList + '#@@@#' + 'appNotes' + '#@@#' + app.read('appNotes').replace(/(\n|\r\n)/g, '#@#').split('/*').join('/ *');
@@ -1720,6 +1729,7 @@ function updateNutriRatio() {
 		#appStatusBarsPro span:after	{ content: " (' + proRatio + '%)" !important; }\
 		#appStatusBarsCar span:after	{ content: " (' + carRatio + '%)" !important; }\
 		#appStatusBarsFat span:after	{ content: " (' + fatRatio + '%)" !important; }\
+		#appStatusBarsWat span:after	{ content: " (' + LANG.DAY[lang] + ')" !important; }\
 	';
 	//////////
 	// EXEC //
