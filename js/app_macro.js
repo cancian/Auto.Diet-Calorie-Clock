@@ -1,4 +1,46 @@
-﻿//##//////////////////##//
+﻿//#/////////////////#//
+//# CALCULATE WATER #//
+//#/////////////////#//
+////////////////
+app.calculateWater = function () {
+	/////////////////
+	// DEFINE BASE // 
+	///////////////// 30~35ml/kg
+	app.define('waterConsumed', 0);
+	//TO KG
+	var weight = app.read('calcForm#pA3B');
+	if (!app.read('calcForm#pA3C', 'kilograms')) {
+		weight = Math.round(weight * 0.454)
+	}
+	//SAVE PER KG CALCULATION
+	var dailyWaterIntake = Math.round(weight * 35);
+	//app.save('dailyWaterIntake',dailyWaterIntake);
+
+	//NOTHING TO UPDATE
+	if (app.read('waterConsumed') == 0) {
+		console.log('nothing');
+		$('#appStatusBarsWot div').html2('0 / ' + dailyWaterIntake + ' ' + LANG.ML[lang]);
+		//ZERO on the middle percent value
+		$('#appStatusBarsWat span').html2('0%');
+		//
+		return;
+	}
+	////////////////
+	// UPDATE DOM //
+	////////////////
+	var waterConsumed = app.read('waterConsumed');
+	//FILL MINIBAR
+	$('#appStatusBarsWot p').html2(LANG.WATER[lang].toUpperCase());
+	$('#appStatusBarsWot div').html2(waterConsumed + ' / ' + dailyWaterIntake + ' ' + LANG.ML[lang]);
+	//FULL BAR
+	$('#appStatusBarsWat p').html2(LANG.WATER[lang].toUpperCase() + ' (' + waterConsumed + ' ' + LANG.ML[lang] + ')');
+	//PERCENT VALUE
+	var waterPercent = Math.round((waterConsumed / dailyWaterIntake) * 100);
+	//CENTER PERCENT
+	$('#appStatusBarsWat span').html2(waterPercent + '%');
+	$('#appStatusBarsWat p').css2('width', waterPercent + '%');
+};
+//##//////////////////##//
 //## GetWeightTracker ##//
 //##//////////////////##//
 var buildTracker;
