@@ -319,6 +319,8 @@ $(document).on('backbutton', function (evt) {
 	} else if (ref) {
 		ref.close();
 		ref = '';
+	} else if($('#addWaterMenu').length) {
+		app.handlers.fade(0,'#addWaterMenu', 300);
 	} else if ($('#addNewCancel').length || $('#modalCancel').length) {
 		$('#addNewCancel').trigger(touchstart);
 		$('#modalCancel').trigger(touchstart);
@@ -445,6 +447,7 @@ $(document).on('pressenter', function(evt) {
 			//if(!$('.dwo').length) {
 			$('#appTrackerButtonSave').trigger(tap);		
 		}
+		$('#waterButtonSave').trigger(tap);
 		$('#closeButton').trigger(touchend);
 		$('#editableInput').trigger('blur');
 		$('#entrySubmit').trigger(tap);
@@ -1140,6 +1143,8 @@ if(app.is.scrollable) {
 	var headerInfoHandler = app.device.android ? 'click ' + tap : tap;
 	var xTap;
 	$('#appHeader').on(touchstart + ' ' + headerInfoHandler, function(evt) {
+		//close water
+		if($('#addWater').length)	{ app.handlers.fade(0,'#addWaterMenu', 300); }
 		//HANDLE WINDOW
 		if(evt.type === touchstart) {
 			xTap = parseInt(app.pointer(evt).x);
@@ -1254,6 +1259,9 @@ if(app.is.scrollable) {
 	// APPCONTENT GLOBAL UNFOCUS (DAILY INPUT) //
 	/////////////////////////////////////////////
 	$('#appContent').on(touchend, function(evt) {
+		//water closer
+		if(!/water/i.test(evt.target.id))	{ app.handlers.fade(0,'#addWaterMenu', 300); return; }
+		//
 		if($('#timerDailyInput').is(':focus')) {
 			$('#timerDailyInput').blur();
 		}
