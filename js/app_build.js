@@ -316,22 +316,24 @@ app.tab.status = function(keepOpen) {
 		<div id="appStatusIntake">' + app.read('appStatusIntake') + '</div>\
 		<div id="appStatusBars">\
 			<div id="appStatusBarsPro"><p>' + LANG.PROTEINS[lang].toUpperCase() + '</p><span>0%</span></div>\
-			<div id="appStatusBarsCar"><p>' + LANG.CARBS[lang].toUpperCase() + '</p><span>0%</span></div>\
-			<div id="appStatusBarsFat"><p>' + LANG.FATS[lang].toUpperCase() + '</p><span>0%</span></div>\
+			<div id="appStatusBarsCar"><p>' + LANG.CARBS[lang].toUpperCase()    + '</p><span>0%</span></div>\
+			<div id="appStatusBarsFat"><p>' + LANG.FATS[lang].toUpperCase()     + '</p><span>0%</span></div>\
+			<div id="appStatusBarsWat"><p>' + LANG.WATER[lang].toUpperCase()    + '</p><span>0%</span></div>\
 			<div id="appStatusBarsSubwrap">\
-				<div id="appStatusBarsFib"><p>' + LANG.FIBER[lang].toUpperCase() + '</p><div>0 / 30g</div></div>\
-				<div id="appStatusBarsSug"><p>' + LANG.SUGAR[lang].toUpperCase() + '</p><div>0 / 20g</div></div>\
+				<div id="appStatusBarsFib"><p>' + LANG.FIBER[lang].toUpperCase()  + '</p><div>0 / 30g</div></div>\
+				<div id="appStatusBarsSug"><p>' + LANG.SUGAR[lang].toUpperCase()  + '</p><div>0 / 20g</div></div>\
 				<div id="appStatusBarsSod"><p>' + LANG.SODIUM[lang].toUpperCase() + '</p><div>0 / 600mg</div></div>\
+				<div id="appStatusBarsWot"><p>' + LANG.WATER[lang].toUpperCase()  + '</p><div>0 / 2000ml</div></div>\
 			</div>\
 		</div>\
-\
-		<div id="onlineUsers">' + LANG.ACTIVE_USERS[lang] + ': <span>' + app.read('online_users') + '<span></div>\
-		<div id="appStatusAddLeft"><div>'  + LANG.FOOD[lang]     + '</div></div>\
-		<div id="appStatusAddRight"><div>' + LANG.EXERCISE[lang] + '</div></div>\
+		<div id="addFood"><div>'                + LANG.FOOD[lang]         + '</div></div>\
+		<div id="addExercise"><div>'            + LANG.EXERCISE[lang]     + '</div></div>\
+		<div id="addWater"><div id="divWater">' + LANG.WATER[lang]        + '</div></div>\
+		<div id="onlineUsers">'                 + LANG.ACTIVE_USERS[lang] + ': <span>' + app.read('online_users') + '<span></div>\
 		<div id="appStatusFix">\
 			<div id="startDateBar"><span id="startDateSpan"><input id="startDate" tabindex="-1" readonly /></span></div>\
 			<div id="appStatusToggle"></div>\
-			<div id="appStatus" class="' + appStatusClass + '">\
+			<div id="appStatus" class="'   + appStatusClass + '">\
 				<div id="appStatusTitle">' + appStatusTitle + '</div>\
 				<div id="appStatusArrow"></div>\
 				<div id="appStatusReload"></div>\
@@ -408,12 +410,12 @@ app.tab.status = function(keepOpen) {
 			//SHOW DIALOG
 			appConfirm(LANG.RESET_COUNTER_TITLE[lang], LANG.ARE_YOU_SURE[lang], function (button) { if(button === 2) { app.resetCounter(1); } return false; }, LANG.OK[lang], LANG.CANCEL[lang]);
 		} else {
-			updateNutriBars();
 			$('#appStatus').removeClass('start');
 			$('#appStatus').addClass('reset');
 			$('#appStatusTitle').html2(LANG.RESET[lang]);
 			app.save('appStatus','running');
 			app.save('config_start_time',app.now());
+			app.save('waterConsumed',0);
 			/////////////////////////
 			// INFO: CLOSE TO ZERO //
 			/////////////////////////
@@ -423,30 +425,115 @@ app.tab.status = function(keepOpen) {
 		//evt.preventDefault();
 	});
 	//#/////////////#//
-	//# ADD BUTTONS #//
+	//# ADD BUTTONS #// BLUE
 	//#/////////////#//
-	app.handlers.activeRow('#appStatusAddLeft','activeRow',function(evt) {
+	//////////
+	// FOOD //
+	//////////
+	app.handlers.activeRow('#addFood','activeRow',function(evt) {
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		//evt.preventDefault();
 		app.save('searchType','food');
 		//OPEN
 		$(document).trigger('pageReload');
 		//KEEP ACTIVE
-		$('#appStatusAddLeft').addClass('activeRow');
-		app.timeout('appStatusAddLeft',700,function() {
-			$('#appStatusAddLeft').removeClass('activeRow');
+		$('#addFood').addClass('activeRow');
+		app.timeout('addFood',750,function() {
+			$('#addFood').removeClass('activeRow');
 		});
 	});
-	app.handlers.activeRow('#appStatusAddRight','activeRow',function(evt) {
+	//////////////
+	// EXERCISE //
+	//////////////
+	app.handlers.activeRow('#addExercise','activeRow',function(evt) {
 		if($('#timerDailyInput').is(':focus')) { $('#timerDailyInput').trigger('blur'); return false; }
 		//evt.preventDefault();
 		app.save('searchType','exercise');
 		//OPEN
 		$(document).trigger('pageReload');
 		//KEEP ACTIVE
-		$('#appStatusAddRight').addClass('activeRow');
-		app.timeout('appStatusAddRight',700,function() {
-			$('#appStatusAddRight').removeClass('activeRow');
+		$('#addExercise').addClass('activeRow');
+		app.timeout('addExercise',750,function() {
+			$('#addExercise').removeClass('activeRow');
+		});
+	});
+	///////////
+	// WATER //
+	///////////
+	app.handlers.activeRow('#addWater', 'activeRow', function (evt) {
+		if (document.getElementById('addWaterMenu')) {
+			app.handlers.fade(0, '#addWaterMenu', 300);
+			return;
+		}
+		//HTML
+		$('#addWater').after2('\
+			<div id="addWaterMenu">\
+				<div id="waterEditInputWrapper">\
+					<input id="waterEditInput" type="text" value="0" />\
+					<span>' + LANG.ML[lang] + '</span>\
+				</div>\
+				<div id="waterButtonWrapper">\
+					<div id="waterButtonSave"></div>\
+				</div>\
+			</div>');
+		/////////////
+		// ADD +/- //
+		/////////////
+		app.handlers.addRemove('#waterEditInput', 0, 999);
+		//////////////////
+		// SAVE HANDLER // TAP
+		//////////////////
+		$('#waterButtonSave').on(tap, function (evt) {
+			//GET WATER
+			var currentWater = app.read('waterConsumed'); //DO NOT PARSEINT!
+			//ASK START
+			if (!app.read('appStatus', 'running')) {
+				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function (button) {
+					if (button === 2) {
+						app.save('config_start_time', app.now());
+						app.save('appStatus', 'running');
+						$('#appStatusTitle').html2(LANG.RESET[lang]);
+						$('#appStatus').removeClass('start');
+						$('#appStatus').addClass('reset');
+						app.exec.updateEntries(app.now());
+						setPush();
+					}
+				}, LANG.OK[lang], LANG.CANCEL[lang]);
+			}
+			///////////////////////
+			// SAVE~or~ADD VALUE //
+			///////////////////////
+			app.save('waterConsumed', (currentWater + parseInt($('#waterEditInput').val())));
+			//////////////////
+			// CLOSE EDITOR //
+			//////////////////
+			app.handlers.fade(0, '#addWaterMenu');
+			/////////////////
+			// UPDATE BARS //
+			/////////////////
+			setTimeout(function () {
+				if (typeof updateNutriBars === 'function') {
+					app.flashColor('#addWater', 600, 'rgba(255,200,0,1)', '#4285F4',
+						//REMOVE JUNK STYLE
+						function () {
+						setTimeout(function () {
+							$('#addWater').attr('style', '');
+							updateNutriBars();
+							setPush();
+						}, 800);
+						//wait 200ms before animation
+					}, 200)
+				}
+			}, 0);
+		});
+		/////////////////
+		// SHOW EDITOR //
+		/////////////////
+		app.handlers.fade(1, '#addWaterMenu', 300);
+		//KEEP ACTIVE
+		$('#addWater').addClass('activeRow');
+		app.timeout('addWater', 750, function () {
+			$('#addWater').removeClass('activeRow');
 		});
 	});
 	//#/////////////////////#//
@@ -1994,14 +2081,14 @@ function writeCalcValues() {
 	app.save(preffix + '#pA1B',$('#pA1B').val());
 	//height (hidden)
 	if(!isNaN(parseInt($('#pA2B').val()))) {
-		$('#pA2B').val( Math.abs(parseInt($('#pA2B').val())) );
+		$('#pA2B').val(Math.abs(parseInt($('#pA2B').val())));
 		app.save(preffix + '#pA2B',parseInt($('#pA2B').val()));
 	}
 	//cm/in
 	app.save(preffix + '#pA2C',$('#pA2C').val());
 	//weight
 	if(!isNaN(parseInt($('#pA3B').val()))) {
-		$('#pA3B').val( Math.abs(parseInt($('#pA3B').val())) );
+		$('#pA3B').val(Math.abs(parseInt($('#pA3B').val())));
 		app.save(preffix + '#pA3B',parseInt($('#pA3B').val()));
 	}
 	//kg/lb
@@ -2020,11 +2107,11 @@ function writeCalcValues() {
 	app.save(preffix + '#pA6N',$('#pA6N').val());
 	//measure
 	if(!isNaN(parseInt($('#feet').val()))) {
-		$('#feet').val( Math.abs(parseInt($('#feet').val())) );
+		$('#feet').val(Math.abs(parseInt($('#feet').val())));
 		app.save(preffix + '#feet',parseInt($('#feet').val()));
 	}
 	if(!isNaN(parseInt($('#inches').val()))) {
-		$('#inches').val( Math.abs(parseInt($('#inches').val())) );
+		$('#inches').val( Math.abs(parseInt($('#inches').val())));
 		app.save(preffix + '#inches',parseInt($('#inches').val()));
 	}
 }
