@@ -42,6 +42,7 @@ app = {
 			out.e = e;	
 		}
 		//TARGET
+		/*
 		if ($(e.target)) {
 			out.target = $(e.target);
 			//ID
@@ -51,6 +52,7 @@ app = {
 		}
 		//TIME
 		out.time = app.now();
+		*/
 		//TOUCH EVENT
 		if (/touch|pointer/i.test(e.type) && e.originalEvent) {
 			if(e.originalEvent.changedTouches) {
@@ -2044,8 +2046,10 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 				callback();
 			}
 		}, duration);
-	}, 0);
+	}, forceWait ? forceWait : 0);
 };
+//duplicate
+app.flashColor = app.highlight;
 /////////////////////
 // STRINFIGY ERROR //
 /////////////////////
@@ -2178,6 +2182,23 @@ Number.prototype.toLowerCase = function() {
 	'use strict';
 	if(this) {
 		return Number((this.toString()).toLocaleLowerCase());
+	}
+	return ''; 
+};
+////////////////////////////////
+// PROTECT NATIVE TOUPPERCASE //
+////////////////////////////////
+String.prototype.toUpperCase = function() {
+	'use strict';
+	if(this) {
+		return this.toLocaleUpperCase();
+	}
+	return ''; 
+};
+Number.prototype.toUpperCase = function() {
+	'use strict';
+	if(this) {
+		return Number((this.toString()).toLocaleUpperCase());
 	}
 	return ''; 
 };
@@ -2856,8 +2877,12 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				// Only trigger if they've started, and the target matches:
 				if (origTarget == e.target && started && ((Date.now() - start_time) < 750) && ((start_pos.x == end_x && start_pos.y == end_y) || (diff_x >=  - (20) && diff_x <= 20 && diff_y >=  - (20) && diff_y <= 20))) {
 					e.type = 'tap';
-					//e.pageX = end_x;
-					//e.pageY = end_y;
+					if(!e.pageX || !e.pageY) {
+						e.pageX = end_x;
+						e.pageY = end_y;
+					}
+					e.x = end_x;
+					e.y = end_y;					
 					//TRIGGER
 					$.event.dispatch.call(thisObject, e);
 				}
