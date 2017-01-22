@@ -2,38 +2,39 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
+• Make app easier to read (i.e. auto-adjust font size for larger screens)
 • Manually set portion size by fixing number of grams
 • Update food database to the latest USDA release
 • BMI calculator on profile
-<span class="red">★</span> Missing something? You can ask for new features via the <strong>Suggestion Box</strong>
+<span class=“red”>★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.1.4 [2017/01/20]
+# 2.1.4 [2017/01/22]
+• Implemented water tracking feature (+Water button)
 • Language selection menu was not responding consistently to close/back commands
-• Fixed row overlapping issue on settings tab
+• Fixed row overlapping issue on settings tab (mostly for landscape orientation usability)
 • Performance improvements
 
 # 2.1.3 [2017/01/11]
 • Fixed some SSL issues affecting authentication on older devices
 • The recent entries list would not get updated when the item added was from the recent list itself
 • Fixed font smoothing inconsistency
-• Several performance improvements
-• Updated color picker
+• Updated color picker (colors now change in real-time)
 
 # 2.1.2 [2016/12/27]
 • New and stricter methods to handle empty/null variables
-• Added an Easter egg to the app, good luck finding it!
+• Added an Easter egg to the app, try to find it!
 • Added more rules to back button behavior
 • Minor upgrades to data storage engine
 • Improved new window handling
 
 # 2.1.1 [2016/12/06]
 • Revised code using strict standards
-• Fixed small issue with Suggestion Box not showing the "success" dialog after message was sent
+• Fixed small issue with Suggestion Box not showing the “success” dialog after message was sent
 
 # 2.1 [2016/12/05]
 • History chart displays average daily intake on the top right
 • Recent items category has been limited to 100 rows
-• Prevent confirmation dialog from firing twice on Recent items list
+• Prevent confirmation dialog from firing twice on recent items list
 • Unless scrolled down, the Diary list will display only the first 100 items
 • Fixed an issue where synchronization would disable the post-loading scroll mechanism after refreshing diary list
 • Weight tracker scrollbar would not resize correctly under certain circumstances
@@ -82,7 +83,7 @@
 • Fixed issue where custom entries would sometimes get duplicated after synchronization
 
 # 2.0.0 [2016/07/24]
-• <strong class="blue">KCals</strong> has been renamed to <strong class="red">ChronoBurn</strong>, in order to reflect its purpose more accurately
+• <strong class=“blue”>KCals</strong> has been renamed to <strong class=“red”>ChronoBurn</strong>, in order to reflect its purpose more accurately
 • Fixed issue with some users not being able to type dots for decimal values
 • Coordinates of tap events sometimes returned undefined
 • Fixed opacity issue with the scrollbar
@@ -208,7 +209,7 @@
 • Fixed an issue with the “Daily Intake” input triggering unnecessary synchronization requests
 • Fixed custom items not being selectable when marked as favorites
 • Elapsed time now remains paused while the counter is stopped
- 
+
 # 1.8 [2014/12/27]
 • Better protection against download failures
 • Shorter names rank slightly better on search results (other things being equal)
@@ -280,9 +281,9 @@
 • Automatic Updates
 
 # 1.2.9 [2014/07/05]
-• The database now has food categories 
-• Personalized items share the same tab 
-• Favorite Items are highlighted in the listing 
+• The database now has food categories
+• Personalized items share the same tab
+• Favorite Items are highlighted in the listing
 
 # 1.2.8 [2014/06/28]
 • Added “Advanced settings” section
@@ -314,9 +315,9 @@
 • Minor bug fixes
 
 # 1.2.2 [2014/05/08]
-• More detailed nutritional data 
-• Smarter management for long lists 
-• Fixed an issue where the Spinner would not disappear after the end of the task 
+• More detailed nutritional data
+• Smarter management for long lists
+• Fixed an issue where the Spinner would not disappear after the end of the task
 
 # 1.2.1 [2014/04/18]
 • Status now displays statistics
