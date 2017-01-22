@@ -522,7 +522,7 @@ app.tab.status = function(keepOpen) {
 							setPush();
 						}, 800);
 						//wait 200ms before animation
-					}, 200)
+					}, 200);
 				}
 			}, 0);
 		});

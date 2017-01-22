@@ -3,6 +3,7 @@
 //#/////////////////#//
 ////////////////
 app.calculateWater = function () {
+	'use strict';
 	/////////////////
 	// DEFINE BASE // 
 	///////////////// 30~35ml/kg
@@ -10,7 +11,7 @@ app.calculateWater = function () {
 	//TO KG
 	var weight = app.read('calcForm#pA3B');
 	if (!app.read('calcForm#pA3C', 'kilograms')) {
-		weight = Math.round(weight * 0.454)
+		weight = Math.round(weight * 0.454);
 	}
 	//SAVE PER KG CALCULATION
 	var dailyWaterIntake = Math.round(weight * 35);
