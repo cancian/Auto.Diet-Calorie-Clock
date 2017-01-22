@@ -133,6 +133,10 @@ function appTimer(content) {
 			}
 		}
 		app.save('lastToday',DayUtcFormat(app.now()));
+		//RESET WATER / UPDATE NUTRIBARS
+		app.save('waterConsumed',0);
+		updateNutriBars();
+		//UPDATE TODAY DATA
 		updateTodayOverview();
 		intakeHistory();
 	}
@@ -299,9 +303,13 @@ function updateNutriBars() {
 	'use strict';
 	if(!app.read('app_last_tab','tab1'))	{ return; }
 	if(app.read('appStatus','stopped'))		{ return; }
-	//if($('body').hasClass('closer'))		{ return; }
-	if(!$('#appStatusBars').length)			{ return; }
-	//
+	//HOOK WATER UPDATE
+	if(typeof app.calculateWater === 'function') {
+		setTimeout(function() {
+			app.calculateWater();
+		}, 100);
+	}
+	//READ VALUES
 	var tPro = app.read('tPro');
 	var tCar = app.read('tCar');
 	var tFat = app.read('tFat');
@@ -334,17 +342,19 @@ function updateNutriBars() {
 	}
 	//return null
 	var doReturn = 0;
-	if((tPro + tCar + tFat) === 0) {
+	if((tPro + tCar + tFat) == 0) {
 		$('#appStatusBarsPro p').html2(LANG.PROTEINS[lang].toUpperCase());
 		$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase());
 		$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase());
-		$('#appStatusBars p').css2('width',0);
+		$('#appStatusBarsPro p').css2('width',0);
+		$('#appStatusBarsCar p').css2('width',0);
+		$('#appStatusBarsFat p').css2('width',0);
 		$('#appStatusBarsPro span').html2('0%');
 		$('#appStatusBarsCar span').html2('0%');
 		$('#appStatusBarsFat span').html2('0%');
 		doReturn++;
 	}
-	if((tFii + tSug + tSod) === 0) {
+	if((tFii + tSug + tSod) == 0) {
 		$('#appStatusBarsFib div').html2('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSug div').html2('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
 		$('#appStatusBarsSod div').html2('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
