@@ -304,11 +304,7 @@ function updateNutriBars() {
 	if(!app.read('app_last_tab','tab1'))	{ return; }
 	if(app.read('appStatus','stopped'))		{ return; }
 	//HOOK WATER UPDATE
-	if(typeof app.calculateWater === 'function') {
-		setTimeout(function() {
-			app.calculateWater();
-		}, 100);
-	}
+	app.calculateWater();
 	//READ VALUES
 	var tPro = app.read('tPro');
 	var tCar = app.read('tCar');

@@ -469,7 +469,7 @@ app.tab.status = function(keepOpen) {
 		$('#addWater').after2('\
 			<div id="addWaterMenu">\
 				<div id="waterEditInputWrapper">\
-					<input id="waterEditInput" type="text" value="0" />\
+					<input id="waterEditInput" type="text" value="300" />\
 					<span>' + LANG.ML[lang] + '</span>\
 				</div>\
 				<div id="waterButtonWrapper">\
