@@ -39,7 +39,7 @@ app.calculateWater = function () {
 	var waterPercent = Math.round((waterConsumed / dailyWaterIntake) * 100);
 	//CENTER PERCENT
 	$('#appStatusBarsWat span').html2(waterPercent + '%');
-	$('#appStatusBarsWat p').css2('width', waterPercent + '%');
+	$('#appStatusBarsWat p').css2('width',(waterPercent > 100 ? 100 : waterPercent) + '%');
 };
 //##//////////////////##//
 //## GetWeightTracker ##//
