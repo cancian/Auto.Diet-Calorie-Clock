@@ -902,8 +902,8 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #waterEditInputNeg,
 #waterEditInputPos			{ margin-top: 9px; display: inline-block;  }
 #waterEditInputPos			{ margin-right: 12px; }
-#waterButtonSave			{ position: absolute; top: 0; right: 0; bottom: 20px; background-color: rgba(0,0,0,.05); display: block; min-width: 20px; width: 30%; z-index: 1000; }
-#waterButtonSave:active 	{ background-color: rgba(0,0,0,.08); }
+#waterButtonSave			{ position: absolute; top: 0; right: 0; bottom: 20px; background-color: #F3F3F3; display: block; min-width: 20px; width: 30%; z-index: 1000; }
+#waterButtonSave:active 	{ background-color: #eee; }
 #waterButtonSave:after		{ content: '»'; position: absolute; top: -2px; height: 30px; left: 0; width: 100%; min-width: 20px; font-size: 24px; line-height: 24px; text-align: center; color: #007aff; right: 0; }
 #addFood div:before,
 #addExercise div:before,
