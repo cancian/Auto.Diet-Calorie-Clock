@@ -6,7 +6,7 @@
 • Manually set portion size by fixing number of grams
 • Update food database to the latest USDA release
 • BMI calculator on profile
-<span class=“red”>★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
+<span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
 # 2.1.4 [2017/01/22]
 • Implemented water tracking feature (+Water button)
@@ -29,7 +29,7 @@
 
 # 2.1.1 [2016/12/06]
 • Revised code using strict standards
-• Fixed small issue with Suggestion Box not showing the “success” dialog after message was sent
+• Fixed small issue with Suggestion Box not showing the "success" dialog after message was sent
 
 # 2.1 [2016/12/05]
 • History chart displays average daily intake on the top right
@@ -75,7 +75,7 @@
 
 # 2.0.2 [2016/08/13]
 • Refined user touch responses
-• Users can manually dismiss the “loading database” spinner dialog (in case it gets stuck)
+• Users can manually dismiss the "loading database" spinner dialog (in case it gets stuck)
 
 # 2.0.1 [2016/07/30]
 • Desktop browsers would sometimes trigger errors after window resize event
@@ -83,7 +83,7 @@
 • Fixed issue where custom entries would sometimes get duplicated after synchronization
 
 # 2.0.0 [2016/07/24]
-• <strong class=“blue”>KCals</strong> has been renamed to <strong class=“red”>ChronoBurn</strong>, in order to reflect its purpose more accurately
+• <strong class="blue">KCals</strong> has been renamed to <strong class="red">ChronoBurn</strong>, in order to reflect its purpose more accurately
 • Fixed issue with some users not being able to type dots for decimal values
 • Coordinates of tap events sometimes returned undefined
 • Fixed opacity issue with the scrollbar
@@ -134,11 +134,11 @@
 • Enhanced data integrity verification for the Backup & Synchronization feature
 • Prevent new diary entries from being added via return (enter) while editing an existing entry
 • Improved stability, error handling, and crash prevention methods
-• Fixed the “Recent entries” category not showing
+• Fixed the "Recent entries" category not showing
 • The weight limit on the food dialog would only reach 745 grams, instead of 750
 • Synchronization now uses MD5 hashes, instead of cached data, to determine whether local or remote data has changed
-• New help topic: “Synchronizing two devices”
-• Added an info icon next to the “Backup & Synchronization” option, linking to the corresponding help topic
+• New help topic: "Synchronizing two devices"
+• Added an info icon next to the "Backup & Synchronization" option, linking to the corresponding help topic
 
 # 1.9.9 [2015/09/25]
 • Improved synchronization speed, particularly for users with large custom databases
@@ -152,7 +152,7 @@
 
 # 1.9.8 [2015/09/01]
 • Users can customize the colors of the caloric balance status (deficit/balanced/surplus)
-• Added a “Counting Mode” option to settings, allowing users to switch between the caloric balance as a Count Up (“calories available”) or as a Countdown (“calorie usage”).
+• Added a "Counting Mode" option to settings, allowing users to switch between the caloric balance as a Count Up ("calories available") or as a Countdown ("calorie usage").
 • Fixed scrollbar issue where it would get hidden behind content
 
 # 1.9.7 [2015/08/13]
@@ -170,7 +170,7 @@
 • Fixed an issue with favorites disappearing during synchronization
 • Improved cache handling
 • Utilize metric system as default for all users
-• “Save as new” now shows on the top-left
+• "Save as new" now shows on the top-left
 
 # 1.9.5 [2015/06/18]
 • Filter redundant DOM updates to improve overall performance
@@ -186,7 +186,7 @@
 • Bootloop recovery system: users now can manually erase corrupted application cache by tapping the screen while the app is loading
 • Top bar displays real-time tips about your caloric balance
 • Status tab now shows how many users are using the app worldwide
-• New help topic: “Today Overview”
+• New help topic: "Today Overview"
 • Vietnamese translation added
 
 # 1.9.3 [2015/04/07]
@@ -205,8 +205,8 @@
 # 1.8.2 [2015/01/10]
 • Faster start-up time
 • Update cache is preserved upon full data reset
-• “Automatic Backup” has been renamed to “Backup & Synchronization”
-• Fixed an issue with the “Daily Intake” input triggering unnecessary synchronization requests
+• "Automatic Backup" has been renamed to "Backup & Synchronization"
+• Fixed an issue with the "Daily Intake" input triggering unnecessary synchronization requests
 • Fixed custom items not being selectable when marked as favorites
 • Elapsed time now remains paused while the counter is stopped
 
@@ -217,8 +217,8 @@
 • Added a few information boxes to help users get started
 
 # 1.7 [2014/12/12]
-• “Getting started” slides are more informative
-• Improved “Today overview” section (tap for detailed statistics)
+• "Getting started" slides are more informative
+• Improved "Today overview" section (tap for detailed statistics)
 • Fixed issue with non-ascii search queries
 • Dropped support for: Thai, Persian, Hindi, Hebrew, Catalan, Estonian, Croatian, Lithuanian, Latvian, Malay, Slovak, Slovenian, Serbian, Ukrainian
 
@@ -236,10 +236,10 @@
 
 # 1.6.2 [2014/09/25]
 • Automatic weight/height recalculation when measurement system is changed
-• Today’s overview no longer considers expired entries
+• Today's overview no longer considers expired entries
 
 # 1.6.1 [2014/09/25]
-• Added “Recent items” section to categories
+• Added "Recent items" section to categories
 • Slightly sharper text/icons
 • Improved app resizing
 • Fixed issue with app synchronization resetting diary slider/description unnecessarily
@@ -248,8 +248,8 @@
 • Diary entries can be quickly reused, edited or deleted (swipe left to reveal options)
 • Prevent page scrolling while swiping (Diary)
 • Numeric inputs now have +/- buttons
-• New “add food/exercise” buttons on search menu
-• Option to “save as new” when editing existing items
+• New "add food/exercise" buttons on search menu
+• Option to "save as new" when editing existing items
 • Fixed minor issue when multiple entries are manually set to the same time
 
 # 1.5 [2014/08/27]
@@ -286,7 +286,7 @@
 • Favorite Items are highlighted in the listing
 
 # 1.2.8 [2014/06/28]
-• Added “Advanced settings” section
+• Added "Advanced settings" section
 • Header navigation (slide to switch tabs)
 • Optional colored border to indicate time (Diary)
 • Translated and expanded food database
@@ -299,8 +299,8 @@
 # 1.2.6 [2014/06/13]
 • New feature: Cyclical Mode
 • Added full Statistics
-• Added “Relative Time” option
-• Added “Daily Overview”
+• Added "Relative Time" option
+• Added "Daily Overview"
 • Calorie Threshold is now customizable
 
 # 1.2.5 [2014/06/08]
@@ -346,13 +346,13 @@
 • Fixed diary input not allowing text selection
 • Fixed an issue where logging to Facebook before loading food database would cause partial data loss
 • Automatic data re-sync when resuming the app
-• Manually trigger data synchronization by tapping the “last sync” date on settings menu
+• Manually trigger data synchronization by tapping the "last sync" date on settings menu
 • Fixed log-out not being triggered under certain circumstances
 
 # 1.1.5 [2014/02/04]
 • Entries, custom items, and personal settings can be backed up online and synchronized across multiple devices (via Facebook account)
 • Counter now prompts for auto-start when a new entry is added
-• Added “clear all” option to Diary
+• Added "clear all" option to Diary
 
 # 1.1.4 [2014/01/25]
 • Bug fixes
@@ -367,7 +367,7 @@
 # 1.1.2 [2014/01/14]
 • Support for custom foods and exercises
 • All items are now fully editable (both custom and default)
-• Added support for “favorite” items
+• Added support for "favorite" items
 • Slider knob now changes color when active
 • Fixed issue with pre-fill not triggering menu autoclose
 • Improved interface overall responsiveness
