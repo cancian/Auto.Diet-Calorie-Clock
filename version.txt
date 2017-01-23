@@ -282,13 +282,12 @@
 
 # 1.2.9 [2014/07/05]
 • The database now has food categories
-• Personalized items share the same tab
 • Favorite Items are highlighted in the listing
 
 # 1.2.8 [2014/06/28]
 • Added "Advanced settings" section
-• Header navigation (slide to switch tabs)
-• Optional colored border to indicate time (Diary)
+• Header navigation (swipe left/right to switch tabs)
+• Optional colored border on Diary tab as a quick visual indication of when the entry was added (Morning/yellow, Afternoon/orange, Evening/blue, Night/purple)
 • Translated and expanded food database
 
 # 1.2.7 [2014/06/20]
@@ -298,7 +297,7 @@
 
 # 1.2.6 [2014/06/13]
 • New feature: Cyclical Mode
-• Added full Statistics
+• Added full Statistics chart
 • Added "Relative Time" option
 • Added "Daily Overview"
 • Calorie Threshold is now customizable
@@ -308,7 +307,7 @@
 • Updated help contents
 • Bug fixes
 
-# 1.2.3/4 [2014/05/15]
+# 1.2.3 [2014/05/15]
 • Improved data synchronization
 • Fixed an issue with favorites being duplicated
 • Improved performance
@@ -337,7 +336,7 @@
 • Improved input handling
 • Fixed flicker when adding/removing favorite items
 • Fixed height adjust on tab switch
-• Caloric balance indicator on status screen
+• Caloric balance gradient indicator on status screen
 
 # 1.1.6 [2014/02/11]
 • Faster start-up and overall responsiveness
@@ -346,7 +345,7 @@
 • Fixed diary input not allowing text selection
 • Fixed an issue where logging to Facebook before loading food database would cause partial data loss
 • Automatic data re-sync when resuming the app
-• Manually trigger data synchronization by tapping the "last sync" date on settings menu
+• Manually trigger data synchronization cycle by tapping the "last sync" date on settings menu (bottom right)
 • Fixed log-out not being triggered under certain circumstances
 
 # 1.1.5 [2014/02/04]
@@ -366,7 +365,7 @@
 
 # 1.1.2 [2014/01/14]
 • Support for custom foods and exercises
-• All items are now fully editable (both custom and default)
+• All database items are now fully editable (both custom and default)
 • Added support for "favorite" items
 • Slider knob now changes color when active
 • Fixed issue with pre-fill not triggering menu autoclose
@@ -377,7 +376,7 @@
 • Faster search system
 • Improved scrolling
 • Improved language detection
-• Fixed calorie calculator recalculation issues
+• Fixed calorie calculator recalculation issues (Profile)
 • Fixed diary focus issues
 • Fixed form style issues
 • Improved text handling
@@ -395,7 +394,7 @@
 
 # 1.0.4 [2013/12/10]
 • Cleaner interface
-• More detailed numeric display
+• More detailed numeric display (Header)
 • Improved input handling
 • Menu height fix
 • Start date overlap fix
