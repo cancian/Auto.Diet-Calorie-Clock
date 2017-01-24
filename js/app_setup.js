@@ -831,20 +831,20 @@ function syncEntries() {
 /////////////////
 function getEntries(callback) {
 	'use strict';
-	var rowsArray = [];
-	var loopVar;
-	if (appRows.entry) {
-		//LENGTH CACHE
-		var appRowsLen = appRows.entry.length;
-		for (var i = 0; i < appRowsLen; i++) {
-			loopVar = appRows.entry[i];
-			if (loopVar.info !== 'deleted') {
-				rowsArray.push(loopVar);
-			}
+	var rowsArray = appRows.entry;
+	var newArray = [];
+	if (rowsArray) {
+		if (rowsArray.length) {
+			newArray = rowsArray.filter(function (row) {
+					if (row.info !== 'deleted') {
+						return row;
+					}
+				});
 		}
 	}
-	//RETURN ROWS
-	callback(rowsArray);
+	if (typeof callback === 'function') {
+		callback(newArray);
+	}
 }
 ///////////////
 // GET ENTRY //
