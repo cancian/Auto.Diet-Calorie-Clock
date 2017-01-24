@@ -19,7 +19,6 @@ app.calculateWater = function () {
 
 	//NOTHING TO UPDATE
 	if (app.read('waterConsumed') == 0) {
-		console.log('nothing');
 		$('#appStatusBarsWot div').html2('0 / ' + dailyWaterIntake + ' ' + LANG.ML[lang]);
 		//ZERO on the middle percent value
 		$('#appStatusBarsWat span').html2('0%');
