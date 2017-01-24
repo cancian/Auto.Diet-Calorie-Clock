@@ -23,7 +23,8 @@ app.calculateWater = function () {
 		$('#appStatusBarsWot div').html2('0 / ' + dailyWaterIntake + ' ' + LANG.ML[lang]);
 		//ZERO on the middle percent value
 		$('#appStatusBarsWat span').html2('0%');
-		//
+		//RESET BAR CSS (NEW DAY)
+		$('#appStatusBarsWat p').css2('width','0%');
 		return;
 	}
 	////////////////
