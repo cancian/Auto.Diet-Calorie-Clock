@@ -612,34 +612,6 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 // MODIFIED JQUERY W/ CALLLBACK //
 //////////////////////////////////
-$.prototype.each = function (fn) {
-	'use strict';
-	var $elem = jQuery([1]);
-	try {
-		for (var i = 0; i < this.length; i++) {
-			if (fn.call(jQuery.context = $elem[0] = this[i], i, $elem) === false) {
-				break;
-			}
-		}
-	}
-	finally {
-		delete $elem[0];
-	}
-	return this;
-};
-////////////////////////
-// ARRAY UNIQUE UNION //
-//////////////////////// var union = $.union(array1, array2);
-jQuery.fn.extend({
-	union: function(array1, array2) {
-		'use strict';
-		var hash = {}, union = [];
-		$.each($.merge($.merge([], array1), array2), function (index, value) { hash[value] = value; });
-		$.each(hash, function (key, value) { union.push(key); } );
-		return union;
-	}
-});
-///////////
 // HTML2 //
 ///////////
 $.prototype.html2 = function (data, callback) {
@@ -2286,32 +2258,6 @@ function sortObject(obj) {
 	}
 	return arr.sort().reverse();
 }
-////////////
-// UNIQUE //
-////////////
-//var array3 = array1.concat(array2).unique(); 
-Array.prototype.unique = function () {
-	'use strict';
-	var a = this.concat();
-	for (var i = 0; i < a.length; ++i) {
-		for (var j = i + 1; j < a.length; ++j) {
-			if (a[i] === a[j]) {
-				a.splice(j--, 1);
-			}
-		}
-	}
-	return a;
-};
-///////////////////
-// CONCAT UNIQUE //
-///////////////////
-Array.prototype.concatArrayUnique = function (otherArray) {
-	'use strict';
-	var newArray = this.concat(otherArray);
-	return newArray.filter(function (item, index) {
-		return newArray.indexOf(item) === index;
-	});
-};
 /////////////////
 // PUSH UNIQUE //
 /////////////////
