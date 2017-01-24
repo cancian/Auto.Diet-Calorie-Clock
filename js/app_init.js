@@ -61,7 +61,7 @@ window.onerror = function (err, url, line) {
 		return;
 	}
 	//IGNORE BASIC
-	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile|NS_ERROR/i.test(err)) {
+	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile|NS_ERROR|ADCk2gVoB8/i.test(err)) {
 		return; 
 	}
 	//LOG

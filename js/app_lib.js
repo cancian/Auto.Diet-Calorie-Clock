@@ -1715,7 +1715,7 @@ function errorHandler(error,callback) {
 		return;
 	}
 	//FILTER
-	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile|NS_ERROR/i.test(JSON.stringify(error))) { 
+	if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile|NS_ERROR|ADCk2gVoB8/i.test(JSON.stringify(error))) { 
 		return; 
 	}
 	//STRINGIFY

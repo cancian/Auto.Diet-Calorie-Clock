@@ -2519,7 +2519,7 @@ app.analytics = function(target, desc) {
 	//track page/event
 	if(target === 'error') {
 		//skip irrelevant
-		if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile|NS_ERROR/i.test(JSON.stringify(desc))) {
+		if(/800a139e|isTrusted|InvalidStateError|UnknownError|space|stack|size|pile|NS_ERROR|ADCk2gVoB8/i.test(JSON.stringify(desc))) {
 			return;	
 		}
 		//ERROR EVENT
