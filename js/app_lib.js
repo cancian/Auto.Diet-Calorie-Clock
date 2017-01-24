@@ -612,6 +612,20 @@ $.prototype.swipe = function() {};
 //////////////////////////////////
 // MODIFIED JQUERY W/ CALLLBACK //
 //////////////////////////////////
+$.prototype.each = function (fn) {
+	var $elem = jQuery([1]);
+	try {
+		for (var i = 0; i < this.length; i++) {
+			if (fn.call(jQuery.context = $elem[0] = this[i], i, $elem) === false) {
+				break;
+			}
+		}
+	}
+	finally {
+		delete $elem[0];
+	}
+	return this;
+};
 // HTML2 //
 ///////////
 $.prototype.html2 = function (data, callback) {
