@@ -958,6 +958,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusBarsCar p.danger,
 #appStatusBarsFat p.danger		{ background-color: rgba(246,123,59,.32); background-image: -webkit-linear-gradient(left,rgba(246,123,59,.32) 0%,rgba(206,100,49,.32) 100%); }
 #appStatusBarsWat p				{ background-color: #B8DFFF; background-image: -webkit-linear-gradient(left,#B8DFFF 0%,#B8DFFF 100%); }
+#appStatusBarsWat p.over		{ background-color: #A1D3FF; background-image: -webkit-linear-gradient(left,#A1D3FF 0%,#A1D3FF 100%); }
 #appStatusBars p,
 #appStatusBars span				{ -webkit-backface-visibility: hidden; }
 /*///////////////

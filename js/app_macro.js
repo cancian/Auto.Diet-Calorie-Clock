@@ -40,6 +40,11 @@ app.calculateWater = function () {
 	//CENTER PERCENT
 	$('#appStatusBarsWat span').html2(waterPercent + '%');
 	$('#appStatusBarsWat p').css2('width',(waterPercent > 100 ? 100 : waterPercent) + '%');
+	if(waterPercent > 100) {
+		$('#appStatusBarsWat p').addClass('over');
+	} else {
+		$('#appStatusBarsWat p').removeClass('over');
+	}
 };
 //##//////////////////##//
 //## GetWeightTracker ##//
