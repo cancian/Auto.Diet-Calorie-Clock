@@ -790,7 +790,7 @@ function searchFood(searchSQL, callback) {
 function doSearch(rawInput) {
 	'use strict';
 	//ignore null searches
-	if (rawInput == '') {
+	if (!rawInput || rawInput == '') {
 		rawInput = '•••';
 	}
 	rawInput = (searchalize(rawInput.split(' ').join('xxxyyzyyxxx'))).split('xxxyyzyyxxx').join(' ');
