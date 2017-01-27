@@ -657,7 +657,7 @@ function sqlToJson(row) {
 	if(!row)           { return ''; }
 	if(row.length < 5) { return ''; }
 	var jsonRow = '';
-	if (/diary_/.test(row)) {
+	if (/diary_/i.test(row)) {
 		/*jshint ignore:start*/
 		row = row.replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','");
 		/*jshint ignore:end*/
@@ -677,8 +677,7 @@ function sqlToJson(row) {
 				sug       : row[12],
 				sod       : row[13],
 			};
-		}
-		else { //if((/diary_food/).test(row)) {
+		} else { //if((/diary_food/).test(row)) {
 			jsonRow = {
 				id   : row[1],
 				type : row[2],
