@@ -561,7 +561,7 @@ if(typeof https !== 'undefined') {
 	https = app.https;
 }
 //MANUAL OVERRIDES (DISABLE)
-if(app.device.android2 || app.device.blackberry || app.device.playbook) {
+if(app.device.android2) { //|| app.device.blackberry || app.device.playbook) {
 	app.https = 'http://';
 	https = app.https;	
 }
@@ -2492,11 +2492,11 @@ app.trackInstall = function () {
 	///////////
 	// TRACK //
 	///////////
-	if (app.http) {
+	if (app.http || app.device.tizen) {
 		//WEBINSTALL
 		app.analytics('webinstall');
 		return;
-	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook || app.device.tizen) {
+	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook) {
 		//INSTALL
 		if(typeof baseVersion !== 'undefined') {
 			if(baseVersion >= 2.1) {
