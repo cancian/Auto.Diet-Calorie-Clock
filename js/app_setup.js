@@ -500,7 +500,7 @@ app.timeout('pushEntries',3000,function() {
 		// CHECK DIFF //
 		////////////////
 		var md4Fetch = md4(fetchEntries);
-		if(md4Fetch == app.read('last_push_data')) {
+		if(md4Fetch == app.read('last_push_data' && !app.beenDev)) {
 			//fake success ~ disable spinner
 			$('body').removeClass('setpush');
 			$('body').removeClass('insync');
@@ -558,10 +558,14 @@ function setComplete() {
 	if(!app.read('foodDbLoaded','done')) {
 		updateFoodDb();
 	}
-	//update DOM
-	updateEntriesSum();
-	updateNutriRatio();
-	appFooter(app.read('app_last_tab'),1);
+	//////////////////////
+	// DEFER DOM update //
+	//////////////////////
+	//updateEntriesSum();
+	//updateNutriRatio();
+	setTimeout(function() {
+		appFooter(app.read('app_last_tab'), 1); //keepopen
+	}, 0);
 	//dump custom data to sql
 	setTimeout(function() {
 		if(app.read('foodDbLoaded','done')) {
@@ -573,7 +577,7 @@ function setComplete() {
 			}
 			setPush();
 		}
-	},100);
+	}, 100);
 	//update last sync date
 	app.save('lastSync',app.now());
 	$('#optionLastSync span').html2( dateDiff( app.read('lastSync'), app.now()) );
@@ -735,17 +739,11 @@ function insertOrUpdate(rows, callback) {
 	//////////////////
 	// ENTRIES LOOP //
 	//////////////////
-	//setTimeout(function () {
 	rowsLoop(sqlEntry, 'diary_entry', function () {
-		setTimeout(function () {
-			rowsLoop(sqlFood, 'diary_food', function () {
-				//setTimeout(function () {
-				callback();
-				//}, 0);
-			});
-		}, 0);
+		rowsLoop(sqlFood, 'diary_food', function () {
+			callback();
+		});
 	});
-	//}, 0);
 }
 //##//////////////##//
 //## SYNC ENTRIES ##//
@@ -797,7 +795,7 @@ function syncEntries() {
 					// FAKE VALID RESULT // empty but valid result ~ trigger success
 					/////////////////////// return for no diff
 					var md4Sql = md4(sql);
-					if (!sql || sql.trim() == '' || md4Sql == app.read('last_sync_data')) {
+					if (!sql || sql.trim() == '' || (md4Sql == app.read('last_sync_data') && !app.beenDev)) {
 						app.globals.syncRunning = false;
 						app.remove('pendingSync');
 						//NO DIFF
