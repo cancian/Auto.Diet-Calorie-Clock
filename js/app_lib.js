@@ -387,6 +387,11 @@ app = {
 		end   : function(str,txt) { 'use strict'; if(!str) { str = app.timer.id; } if(txt) { txt = txt + ': '; } else { txt = 'timer: '; } app.toast(txt + (Number((app.now() - app.globals[str]))) + ' ms', 'timer_' + (JSON.stringify(app.globals[str]))); }
 	}
 };
+/////////////////////
+// TIMER SHORTCUTS //
+/////////////////////
+var START = function(str) { if(app.beenDev) { app.timer.start(str);   }};
+var END   = function(str) { if(app.beenDev) { app.timer.end(str,str); }};
 /////////////////
 // SWITCH USER //
 /////////////////
