@@ -139,6 +139,7 @@ function appTimer(content) {
 		//UPDATE TODAY DATA
 		updateTodayOverview();
 		intakeHistory();
+		setPush();
 	}
 	//////////////////////////////////////////////////
 	// self adjust refresh rate based on perfomance //
