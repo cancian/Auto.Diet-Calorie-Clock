@@ -1452,7 +1452,7 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 .searcheable.exercise span.foodPro,
 .searcheable.exercise span.foodCar,
 .searcheable.exercise span.foodFat	{ display: none; }
-.searcheable.favItem:before			{ content: '\f005'; font-family: KCals; font-size: 28px; position: absolute; top: 0; right: 0; width: 44px; height: 56px; color: rgba(250,200,50,1); line-height: 58px; text-shadow: rgba(0,0,0,.24) 0 0 1px; -webkit-backface-visibility: hidden; opacity: .75; }
+.searcheable.favItem:before			{ content: '\f005'; font-family: KCals; font-size: 28px; position: absolute; top: 0; right: 0; width: 44px; height: 56px; color: rgba(250,200,50,1); line-height: 58px; text-shadow: rgba(0,0,0,.2) 0 0 1px; -webkit-backface-visibility: hidden; opacity: .5; }
 /*/////////////
 // MODAL BOX //
 /////////////*/
