@@ -174,6 +174,8 @@ function initDB(t) {
 	app.define('colorDeficit','#E54B1D');
 	app.define('colorBalanced','#007AFF');
 	app.define('colorSurplus','#2DB454');
+	app.define('waterConsumed', 0);
+	app.define('waterLastDay',DayUtcFormat(app.now()));
 	///////////
 	// START //
 	///////////
