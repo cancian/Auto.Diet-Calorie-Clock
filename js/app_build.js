@@ -504,6 +504,7 @@ app.tab.status = function(keepOpen) {
 			// SAVE~or~ADD VALUE //
 			///////////////////////
 			app.save('waterConsumed', (currentWater + parseInt($('#waterEditInput').val())));
+			app.save('waterLastDay', DayUtcFormat(app.now()));
 			//////////////////
 			// CLOSE EDITOR //
 			//////////////////

@@ -134,9 +134,10 @@ function appTimer(content) {
 		}
 		app.save('lastToday',DayUtcFormat(app.now()));
 		//RESET WATER / UPDATE NUTRIBARS
-		app.save('waterConsumed',0);
-		updateNutriBars();
+		app.save('waterConsumed', 0);
+		app.save('waterLastDay',DayUtcFormat(app.now()));
 		//UPDATE TODAY DATA
+		updateNutriBars();
 		updateTodayOverview();
 		intakeHistory();
 		setPush();

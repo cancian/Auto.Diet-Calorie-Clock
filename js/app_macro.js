@@ -7,6 +7,7 @@ app.calculateWater = function () {
 	// DEFINE BASE // 
 	///////////////// 30~35ml/kg
 	app.define('waterConsumed', 0);
+	app.define('waterLastDay',DayUtcFormat(app.now()));
 	//TO KG
 	var weight = app.read('calcForm#pA3B');
 	if (!app.read('calcForm#pA3C', 'kilograms')) {

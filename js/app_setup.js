@@ -295,6 +295,7 @@ function localStorageSql() {
 	if(app.read('appRatioBy'))			{ keyList = keyList + '#@@@#' + 'appRatioBy'   + '#@@#' + app.read('appRatioBy');               }
 	if(!isNaN(app.read('appNutrientTimeSpan'))) { keyList = keyList + '#@@@#' + 'appNutrientTimeSpan' +'#@@#'+ JSON.stringify(app.read('appNutrientTimeSpan')); }
 	//water
+	if(app.read('waterLastDay'))		{ keyList = keyList + '#@@@#' + 'waterLastDay'  + '#@@#' + app.read('waterLastDay');            }
 	if(app.read('waterConsumed'))		{ keyList = keyList + '#@@@#' + 'waterConsumed' + '#@@#' + app.read('waterConsumed');           }
 	//notes
 	if(app.read('appNotes')) {
@@ -337,17 +338,23 @@ function rebuildLocalStorage(lsp) {
 	lsp = lsp.split('/*').join('').split('*/').join('');
 	lsp = lsp.split('#@@@#');
 	var lsPart;
+	var ignoreWater = false;
 	for(var i=0; i<lsp.length; i++) {
 		lsPart = lsp[i].split('#@@#');
 		if(lsPart[0]) {
 			if(lsPart[0] === 'appNotes') {
 				app.save(lsPart[0],lsPart[1].split('#@#').join('\n'));
-			//} else if(lsPart[0] === 'config_start_time') {
-				//update start time if changed > 10s
-			//	if(app.now() - (Math.abs(app.read('config_start_time')) > 5*1000)) {
-			//		alert(app.now() - Math.abs(app.read('config_start_time')));
-			//		app.save(lsPart[0],lsPart[1]);
-			//	}
+			//WATER
+			} else if(lsPart[0] === 'waterLastDay') {
+				if(app.read('waterLastDay') !== app.read('lastToday')) {
+					ignoreWater = true;
+				}
+			//ADD/IGNORE
+			} else if(lsPart[0] === 'waterConsumed') {
+				if(ignoreWater !== true) {
+					app.save(lsPart[0],lsPart[1]);
+				}
+			//ALL
 			} else {
 				app.save(lsPart[0],lsPart[1]);
 			}
@@ -564,8 +571,9 @@ function setComplete() {
 	//updateEntriesSum();
 	//updateNutriRatio();
 	setTimeout(function() {
+		app.updateColorPicker();
 		appFooter(app.read('app_last_tab'), 1); //keepopen
-	}, 0);
+	}, 200);
 	//dump custom data to sql
 	setTimeout(function() {
 		if(app.read('foodDbLoaded','done')) {
@@ -658,56 +666,63 @@ function rowsLoop(sqlEntry, hive, callback) {
 /////////////////
 function sqlToJson(row) {
 	'use strict';
-	if(!row)           { return ''; }
-	if(row.length < 5) { return ''; }
-	var jsonRow = '';
-	if (/diary_/i.test(row)) {
-		/*jshint ignore:start*/
-		row = row.replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','");
-		/*jshint ignore:end*/
-		if(/_entry/.test(row)) {
-			jsonRow = {
-				id        : row[1],
-				title     : row[2],
-				body      : row[3],
-				published : row[4],
-				info      : row[5],
-				kcal      : row[6],
-				pro       : row[7],
-				car       : row[8],
-				fat       : row[9],
-				fib       : row[10],
-				fii       : row[11],
-				sug       : row[12],
-				sod       : row[13],
-			};
-		} else { //if((/diary_food/).test(row)) {
-			jsonRow = {
-				id   : row[1],
-				type : row[2],
-				code : row[3],
-				name : row[4],
-				term : row[5],
-				kcal : row[6],
-				pro  : row[7],
-				car  : row[8],
-				fat  : row[9],
-				fib  : row[10],
-				fii  : row[11],
-				sug  : row[12],
-				sod  : row[13],
-			};
-		}
+	if (!row)			{ return ''; }
+	if (row.length < 5) { return ''; }
+	/*jshint ignore:start*/
+	row = row.replace(",'", "','").split("');").join("").split('INSERT OR REPLACE INTO "').join('').split('" VALUES(').join("','").split("','");
+	/*jshint ignore:end*/
+	///////////
+	// ENTRY //
+	///////////
+	if (row[0].indexOf('_entry') !== -1) {
+		return {
+			id        : row[1],
+			title     : row[2],
+			body      : row[3],
+			published : row[4],
+			info      : row[5],
+			kcal      : row[6],
+			pro       : row[7],
+			car       : row[8],
+			fat       : row[9],
+			fib       : row[10],
+			fii       : row[11],
+			sug       : row[12],
+			sod       : row[13],
+		};
 	}
-	return jsonRow;
+	//////////
+	// FOOD //
+	//////////
+	if (row[0].indexOf('_food') !== -1) {
+		return {
+			id   : row[1],
+			type : row[2],
+			code : row[3],
+			name : row[4],
+			term : searchalize(row[5]),
+			kcal : row[6],
+			pro  : row[7],
+			car  : row[8],
+			fat  : row[9],
+			fib  : row[10],
+			fii  : row[11],
+			sug  : row[12],
+			sod  : row[13],
+		};
+	}
+	return '';
 }
+
 //////////////////////
 // INSERT OR UPDATE //
 //////////////////////
 function insertOrUpdate(rows, callback) {
 	'use strict';
 	if (!rows || rows == '') {
-		callback();
+		if(typeof callback === 'function') {
+			callback();
+		}
 		return;
 	}
 	/////////////////////
@@ -720,19 +735,27 @@ function insertOrUpdate(rows, callback) {
 		rows = [];
 		rows.push(ctts);
 	}
+	///////////////
+	// LOOP VARS //
+	///////////////
 	var sqlEntry = [];
 	var sqlFood  = [];
 	var rowsI;
 	var rowsJson;
-	for (var i = 0, len = rows.length;i < len; i++) {
-		rowsI = rows[i];
+	var rowsLength = rows.length;
+	for (var i = 0; i < rowsLength; i++) {
+		rowsI    = rows[i];
 		rowsJson = sqlToJson(rowsI);
-		//
-		if (rowsI.length) {
-		   if(/_entry/.test(rowsI)) { 
-		   		sqlEntry.push(rowsJson); 
-			} else {
-				sqlFood.push(rowsJson); 
+		///////////////
+		// PUSH LOOP //
+		///////////////
+		if(rowsJson != '') {
+			if (rowsI.length) {
+			   if(rowsI.indexOf('_entry') !== -1) { 
+			   		sqlEntry.push(rowsJson); 
+				} else {
+					sqlFood.push(rowsJson); 
+				}
 			}
 		}
 	}
@@ -741,7 +764,9 @@ function insertOrUpdate(rows, callback) {
 	//////////////////
 	rowsLoop(sqlEntry, 'diary_entry', function () {
 		rowsLoop(sqlFood, 'diary_food', function () {
-			callback();
+			if(typeof callback === 'function') {
+				callback();
+			}
 		});
 	});
 }
