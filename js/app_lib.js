@@ -390,8 +390,8 @@ app = {
 /////////////////////
 // TIMER SHORTCUTS //
 /////////////////////
-var START = function(str) { if(app.beenDev) { app.timer.start(str);   }};
-var END   = function(str) { if(app.beenDev) { app.timer.end(str,str); }};
+var START = function(str) { 'use strict'; if(app.beenDev) { app.timer.start(str);   }};
+var END   = function(str) { 'use strict'; if(app.beenDev) { app.timer.end(str,str); }};
 /////////////////
 // SWITCH USER //
 /////////////////
