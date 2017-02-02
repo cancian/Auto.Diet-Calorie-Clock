@@ -1076,6 +1076,18 @@ if(app.is.scrollable) {
 		setTimeout(startTimer,timerDiff);
 	}
 })();
+////////////////////////
+// DIE-TIME REFRESHER //
+////////////////////////
+app.die = function () {
+	START();
+	setTimeout(function () {
+		END();
+		setTimeout(function () {
+			app.die();
+		}, 200);
+	}, 0);
+};
 ///////////////////////////////////////////
 // refresh entrylist time & online users //
 ///////////////////////////////////////////
