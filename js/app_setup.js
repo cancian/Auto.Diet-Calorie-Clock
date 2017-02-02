@@ -855,6 +855,18 @@ function syncEntries() {
 /////////////////
 function getEntries(callback) {
 	'use strict';
+	var newArray    = [];
+	var rowsArray   = appRows.entry;
+	var arrayLength = rowsArray.length;
+	for (var i = 0; i < arrayLength; i++) {
+		if (rowsArray[i].info !== 'deleted') {
+			newArray.push(rowsArray[i]);
+		}
+	}
+	if (typeof callback === 'function') {
+		callback(newArray);
+	}
+	/*
 	var rowsArray = appRows.entry;
 	var newArray = [];
 	if (rowsArray) {
@@ -869,6 +881,7 @@ function getEntries(callback) {
 	if (typeof callback === 'function') {
 		callback(newArray);
 	}
+	*/
 }
 ///////////////
 // GET ENTRY //
