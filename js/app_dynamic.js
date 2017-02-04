@@ -787,10 +787,11 @@ function searchFood(searchSQL, callback) {
 //#////////////////////////#//
 //# SUB FUNCION: DO SEARCH #//
 //#////////////////////////#//
-function doSearch(rawInput) {
+function doSearch(input) {
 	'use strict';
+	var rawInput = input;
 	//ignore null searches
-	if (!rawInput || rawInput == '') {
+	if (!rawInput || rawInput == '' || rawInput.length == 0 || typeof rawInput === 'undefined') {
 		rawInput = '•••';
 	}
 	rawInput = (searchalize(rawInput.split(' ').join('xxxyyzyyxxx'))).split('xxxyyzyyxxx').join(' ');
@@ -804,7 +805,7 @@ function doSearch(rawInput) {
 		//partial sql syntax
 		var searchSQL = searchQuery.split(' ');
 		//prevent multiple identical searches
-		app.save('lastSearchTerm', searchQuery);
+		//app.save('lastSearchTerm', searchQuery);
 		//#/////////////////////#//
 		//# BUILD KEYWORD ARRAY #//
 		//#/////////////////////#//
