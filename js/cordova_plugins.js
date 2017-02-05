@@ -2,7 +2,7 @@
 //# CORDOVA PLUGINS #//
 //#/////////////////#//
 cordova.define("cordova/plugin_list", function (require, exports, module) {
-	"use strict";
+	//"use strict";
 	module.exports = [{
 			"file" : "plugins/cordova-plugin-dialogs/www/notification.js",
 			"id" : "cordova-plugin-dialogs.notification",
