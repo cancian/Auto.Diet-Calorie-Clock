@@ -1409,6 +1409,42 @@ app.die = function () {
 		app.reboot('now');
 	});
 }
+//#/////////////#//
+//# APPLE WATCH #//
+//#/////////////#//
+if (app.device.ios && app.device.cordova) {
+	try {
+		if (window.cordova && window.cordova.plugins && window.cordova.plugins.Watch) {
+			//////////
+			// INIT //
+			//////////
+			var Watch = window.cordova.plugins.Watch;
+			Watch.initialize('group.cancian.chronoburn', 'wormhole');
+			/////////////
+			// UPDATER //
+			/////////////
+			(function appleWatchTimer() {
+				try {
+					//SEND
+					Watch.sendMessage($('#timerKcalsInput').val(), 'chronoburn.send');
+					//LISTEN
+					Watch.listen('chronoburn.reply', function (message) {
+						if (app.dev) {
+							app.toast('receive: ' + message);
+						}
+					});
+				//ABORT ON ERROR
+				} catch (e) {
+					return;
+				}
+				//REPEAT
+				setTimeout(appleWatchTimer, 5000);
+			})();
+		}
+	} catch (e) {}
+}
+
+/////////////////////////////
 ////#//
 } //#//
 ////#//

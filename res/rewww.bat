@@ -225,6 +225,13 @@ cd k:\www\res\icon\ios\AppIcon.appiconset
 copy *.* k:\platforms\ios\kcals\images.xcassets\AppIcon.appiconset
  
 rem cd\ 
+deltree /y /z /s /q /t "k:\platforms\ios\KCals WatchKit App\Images.xcassets\WatchIcon.appiconset"
+rm -r "k:\platforms\ios\KCals WatchKit App\Images.xcassets\WatchIcon.appiconset" 
+mkdir "k:\platforms\ios\KCals WatchKit App\Images.xcassets\WatchIcon.appiconset" 
+cd K:\www\res\icon\ios\WatchIcon.appiconset
+copy *.* "k:\platforms\ios\KCals WatchKit App\Images.xcassets\WatchIcon.appiconset"
+ 
+rem cd\ 
 deltree /y /z /s /q /t k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
 rm -r k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
 mkdir k:\platforms\osx\kcals\images.xcassets\AppIcon.appiconset 
