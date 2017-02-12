@@ -390,6 +390,7 @@ app = {
 /////////////////////
 // TIMER SHORTCUTS //
 /////////////////////
+app.today = function(str) { 'use strict'; return DayUtcFormat(app.now()); };
 var START = function(str) { 'use strict'; if(app.beenDev) { app.timer.start(str);   }};
 var END   = function(str) { 'use strict'; if(app.beenDev) { app.timer.end(str,str); }};
 /////////////////

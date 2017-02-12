@@ -123,8 +123,8 @@ function appTimer(content) {
 	/////////////////////////////////////
 	// CHECK DAY CHANGE, ADJUST INTAKE //
 	/////////////////////////////////////
-	app.define('lastToday',DayUtcFormat(app.now()));
-	if(!app.read('lastToday',DayUtcFormat(app.now()))) {
+	app.define('lastToday',app.today());
+	if(!app.read('lastToday',app.today())) {
 		if(app.read('config_kcals_type','cyclic')) {
 			if(app.read('config_kcals_day','d')) {
 				$('#timerDailyInput').val(app.read('config_kcals_day_2'));
@@ -132,11 +132,10 @@ function appTimer(content) {
 				$('#timerDailyInput').val(app.read('config_kcals_day_1'));
 			}
 		}
-		app.save('lastToday',DayUtcFormat(app.now()));
+		app.save('lastToday',app.today());
 		//RESET WATER / UPDATE NUTRIBARS
 		app.save('waterConsumed', 0);
-		app.save('waterLastDay',DayUtcFormat(app.now()));
-		localStorageSql();
+		app.save('waterLastDay',app.today());
 		//UPDATE TODAY DATA
 		if(app.read('app_last_tab',1)) {
 			appFooter('tab1',1);			

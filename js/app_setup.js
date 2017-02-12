@@ -175,7 +175,7 @@ function initDB(t) {
 	app.define('colorBalanced','#007AFF');
 	app.define('colorSurplus','#2DB454');
 	app.define('waterConsumed', 0);
-	app.define('waterLastDay',DayUtcFormat(app.now()));
+	app.define('waterLastDay',app.today());
 	///////////
 	// START //
 	///////////
@@ -348,10 +348,12 @@ function rebuildLocalStorage(lsp) {
 				app.save(lsPart[0],lsPart[1].split('#@#').join('\n'));
 			//WATER
 			} else if(lsPart[0] === 'waterLastDay') {
-				if(app.read('waterLastDay') !== app.read('lastToday')) {
+				if(lsPart[1] !== app.today()) {
 					ignoreWater = true;
+				} else {
+					app.save(lsPart[0],lsPart[1]);	
 				}
-			//ADD/IGNORE
+			//ADD?IGNORE
 			} else if(lsPart[0] === 'waterConsumed') {
 				if(ignoreWater !== true) {
 					app.save(lsPart[0],lsPart[1]);
