@@ -2261,6 +2261,10 @@ function getNiceScroll(target,timeout,callback) {
 		app.is.scrollable  = document.getElementById('appHistory') ? true : false;
 		app.is.scrollable  = document.getElementById('appTracker') ? true : false;
 	}	
+	//BB10 for nutrients
+	if(app.device.blackberry) {
+		app.is.scrollable = document.getElementById('addNewWrapper') ? true : false;
+	}
 	//quick scrolling / prevent scrollbar
 	if(app.is.scrollable || (($('#appHistory').html() || $('#appTracker').html()) && (app.device.wp8 || app.device.msapp || app.device.firefoxos))) {
 		//$('.overthrow').removeClass('overthrow');
