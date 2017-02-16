@@ -1755,7 +1755,7 @@ function isNumberKey(evt){
 		return true;
 	}
 	//46 dot / 110 numlock dot / 190 wpdot 
-	if((keyCode != 46 && keyCode != 190 && keyCode != 110) && keyCode > 31 && (keyCode < 48 || keyCode > 57)) {
+	if((keyCode != 46 && keyCode != 190 && keyCode != 191 && keyCode != 110) && keyCode > 31 && (keyCode < 48 || keyCode > 57)) {
 		return false;
 	}
 	return true;
@@ -1786,12 +1786,12 @@ app.handlers.validate = function(target,config,preProcess,postProcess,focusProce
 		// CONFIG //
 		////////////
 		//ENTER
-		if(keyCode == 13)																	{ $(this).blur(); return true; }
+		if(keyCode == 13)																						{ $(this).blur(); return true; }
 		//MINUS INVERTER
-		if(keyCode == 45 && config.inverter == true)										{ $(this).val( $(this).val()*-1 ); return false; }
-		if((keyCode == 46 || keyCode == 110 || keyCode == 190) && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
+		if(keyCode == 45 && config.inverter == true)															{ $(this).val( $(this).val()*-1 ); return false; }
+		if((keyCode == 46 || keyCode == 110 || keyCode == 190 || keyCode == 191) && config.inverter == true)	{ $(this).val( $(this).val()*-1 ); return false; }
 		//DOT
-		if(keyCode == 46 || keyCode == 110 || keyCode == 190) { if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) {	return false; } return true; }
+		if(keyCode == 46 || keyCode == 110 || keyCode == 190 || keyCode == 191)									{ if(config.allowDots != true || keydownValue.split('.').join('').length < keydownValue.length) { return false; } return true; }
 		///////////////////
 		// ENFORCE LIMIT //
 		///////////////////
