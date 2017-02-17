@@ -754,6 +754,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #appSubHelper h2 #subBackButton:active	{ color: #ccc; }
 #appSubHelper h2 #subBackButton:before	{ font-family: KCals; content: '\f104'; -webkit-backface-visibility: hidden; }
 #appSubHelper h2 #subHelpTitle			{ position: absolute; top: 0; left: 0; width: 100%; height: 44px; color: #555; text-align: center; font-weight: bold; background-color: #fff; }
+.ios #appSubHelper h2 #subHelpTitle		{ left: 44px !important; text-indent: 0 !important; }
 #appSubHelper #subHelpContent			{ padding: 32px 23px 38px 23px; font-size: 16px; line-height: 22px; }
 #appSubHelper #subHelpContent *			{ -webkit-user-select: text !important; user-select: text !important; }
 #appSubHelper #subHelpContent p			{ display: block; line-height: 145%; }
