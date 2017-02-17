@@ -1,4 +1,4 @@
-cordova.define("de.twentysteps.cordova.watch.watch", function(require, exports, module) {
+﻿cordova.define("de.twentysteps.cordova.watch.watch", function(require, exports, module) {
 /*
 Copyright 2015 20steps - Digital Full Service Boutique
 
