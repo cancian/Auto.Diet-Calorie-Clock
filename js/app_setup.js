@@ -2262,7 +2262,7 @@ function getNiceScroll(target,timeout,callback) {
 		app.is.scrollable  = document.getElementById('appTracker') ? true : false;
 	}	
 	//BB10 for nutrients
-	if(app.device.blackberry) {
+	if(app.device.blackberry || app.device.tizen) {
 		app.is.scrollable = document.getElementById('addNewWrapper') ? true : false;
 	}
 	//quick scrolling / prevent scrollbar
