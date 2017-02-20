@@ -8,8 +8,9 @@
 • BMI calculator on profile
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.1.6 [2017/02/16]
+# 2.1.6 [2017/02/19]
 • Fixed input mapping for decimal values on Russian keyboards
+• New help topic
 
 # 2.1.5 [2017/02/12]
 • Optimized synchronization performance (downloaded data is parsed faster)

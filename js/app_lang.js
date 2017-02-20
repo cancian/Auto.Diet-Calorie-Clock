@@ -2,10 +2,10 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.1.6 (210600)';
+var appVersion = '2.1.6 (210601)';
 var appBuild = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = true;
+var reviewMode = false;
 var langArray = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';
@@ -7773,6 +7773,20 @@ var LANG = {
 ////////////////////////
 'Calculating calories' :
 '<p>The weight loss rate (kg/lb per week) is calculated using a simple formula based on the number of calories in a pound (3500) or kilogram (7700) of fat. </p><p>Let us say you need 2000 daily calories in order to keep your current weight, and you want to lose 0.5 kg per week.</p><p>Divide 7700 by 2 to get the total calories in 0.5 kg of fat:</p><p>7700 / 2 = 3850</p><p>Then divide that value by 7 to get how many daily calories you need to cut back:</p><p>3850 / 7 = 550</p><p>Now subtract that value from your daily intake:</p><p>2000 – 550 = 1450</p><p>That’s how many you have to consume daily in order to lose 0.5 kg a week.</p>',
+////////////////////////
+'Water intake: why not simpler?' :
+'<p>The reason ChronoBurn counts calories continuously isn’t because real-time is fancy. That doesn’t really matter. What matters is that this mechanism mimics how the body actually handles calories: in a cumulative fashion.</p>\
+<p>For instance, If you eat an excess of 200 calories per day for over a year, you will gain weight every single day. Every single calorie, from the first day, will remain with you. Calories do not expire.</p>\
+<p>On the other hand, if you think about water, the situation is very different. Water consumption is not cumulative. If you consume a 500ml excess of water for over a year, you won’t end up bloated, with an extra 200kg of water weight.</p>\
+<p>Instead, your body will simply eliminate the excess water. That is why the water intake is reset daily: because your body works like that.</p>\
+<p>It would certainly be possible to design a real-time water tracker that works like the calorie balance mechanism.</p>\
+<p>That would look like a cool feature, for sure. However, it would not be a good representation of your body.</p>\
+<p>Not only would it be a useless parameter: it would actually misguide the user regarding his water intake.</p>\
+<p>ChronoBurn takes pride in never compromising precision for eye candy.</p>\
+<p>Sure, the app might look a little complicated at first, but that’s because our bodies are complicated.</p>\
+<p>In our view, the solution is to understand our bodies, and learn how it handles things in real life. Not to bloat the app with meaningless fancy data.</p>\
+<p>Our bodies are hard to monitor, and the goal of the app is to facilitate that monitoring as much as possible, and nothing else.</p>\
+<p>Like Albert Einstein said: “Everything should be made as simple as possible, but not simpler”.</p>',
 ////////////////////////
 'Data synchronization' :
 '<p>By enabling Backup & Synchronization, your data and personal settings are stored at Chronoburn.com. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at Chronoburn.com, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
