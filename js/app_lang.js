@@ -7784,8 +7784,8 @@ var LANG = {
 <p>Not only would it be a useless parameter: it would actually misguide the user regarding his water intake.</p>\
 <p>ChronoBurn takes pride in never compromising precision for eye candy.</p>\
 <p>Sure, the app might look a little complicated at first, but that’s because our bodies are complicated.</p>\
-<p>In our view, the solution is to understand our bodies, and learn how it handles things in real life. Not to bloat the app with meaningless fancy data.</p>\
-<p>Our bodies are hard to monitor, and the goal of the app is to facilitate that monitoring as much as possible, and nothing else.</p>\
+<p>In our view, the solution is to understand our bodies, and learn how it handles things in real life. Not to bloat the app with meaningless fancy data for “motivational” purposes.</p>\
+<p>Our bodies are hard to monitor, and the goal of the app is to facilitate that monitoring as much as possible. Period.</</p>\
 <p>Like Albert Einstein said: “Everything should be made as simple as possible, but not simpler”.</p>',
 ////////////////////////
 'Data synchronization' :
