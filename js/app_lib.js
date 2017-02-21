@@ -748,16 +748,18 @@ app.toast = function (msg, tag) {
 	////////////
 	// INSERT //
 	////////////
-	$('body').append2('<div id="appToast" class="' + tag + '">' + msg + '</div>');
-	console.log('[apptoast] ' + msg.toUpperCase());
+	try {
+		$('body').append2('<div id="appToast" class="' + tag + '">' + msg + '</div>');
+		console.log('[apptoast] ' + msg.toUpperCase());
+	} catch(e) {}
 	//DISMISS
 	setTimeout(function() {
-		$('.' + tag).on(tap, function () {
-			app.handlers.fade(0, '.' + tag, 300);
-		});
+		//$('.' + tag).on(tap, function () {
+		//	app.handlers.fade(0, '.' + tag, 300);
+		//});
 		setTimeout(function() { 
-			app.handlers.fade(0, '.' + tag, 300);
-		},2000);
+			app.handlers.fade(0, '.' + tag, 200);
+		},1750);
 	},0);
 };
 //////////
