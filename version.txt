@@ -8,9 +8,11 @@
 • BMI calculator on profile
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.1.6 [2017/02/19]
+# 2.1.6 [2017/02/21]
+• The app was once again awarded by the FbStart program
 • Fixed input mapping for decimal values on Russian keyboards
 • New help topic: "Water intake: why not simpler?"
+• Improved timeout handling during searches
 
 # 2.1.5 [2017/02/12]
 • Optimized synchronization performance (downloaded data is parsed faster)
