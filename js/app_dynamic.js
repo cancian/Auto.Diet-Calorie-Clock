@@ -619,7 +619,6 @@ $(document).on('pageReload', function (evt) {
 						//#/////////////////////////////////////#//
 						//# KEYUP LISTENER SEARCH TIMER-LIMITER #//
 						//#/////////////////////////////////////#//
-						var timer;
 						var inputEvent = app.device.wp8 ? 'keyup' : 'input';
 						$('#foodSearch').on(inputEvent,function() {
 						//document.getElementById('foodSearch').addEventListener(inputEvent, function () {
@@ -632,7 +631,7 @@ $(document).on('pageReload', function (evt) {
 								$('#iconClear').show();
 							}
 							$('#iconClear').on(touchstart, function (evt) {
-								clearTimeout(timer);
+								app.timeout('searchTimer','clear');
 								$('#foodSearch').val('');
 								$('#iconClear').hide();
 								$('#iconRefresh').show();
@@ -643,7 +642,6 @@ $(document).on('pageReload', function (evt) {
 								return false;
 							});
 							//SET TIMER
-							clearTimeout(timer);
 							var ms = 250; //275;
 							//faster desktop
 							if (!app.device.mobile) {
@@ -651,17 +649,17 @@ $(document).on('pageReload', function (evt) {
 							}
 							var val = this.value;
 							//DO SEARCH
-							timer = setTimeout(function () {
-									doSearch($('#foodSearch').val());
-									//CLEAR ICON
-									if ($('#foodSearch').val().length == 0) {
-										$('#iconClear').hide();
-										$('#iconRefresh').show();
-									} else {
-										$('#iconRefresh').hide();
-										$('#iconClear').show();
-									}
-								}, ms);
+							app.timeout('searchTimer', ms, function() {
+								doSearch($('#foodSearch').val());
+								//CLEAR ICON
+								if ($('#foodSearch').val().length == 0) {
+									$('#iconClear').hide();
+									$('#iconRefresh').show();
+								} else {
+									$('#iconRefresh').hide();
+									$('#iconClear').show();
+								}
+							});
 						});
 						///////////////////
 						// HIDE KEYBOARD //
