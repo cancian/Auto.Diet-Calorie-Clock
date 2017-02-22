@@ -1118,11 +1118,10 @@ function getFood(foodId,callback) {
 	//SEARCH ONLINE RESULTS
 	if(app.read('online_results')) {
 		var onlineRows = app.read('online_results','','object');
-		for(var i=0, len=onlineRows.length; i<len; i++) {
-			if(onlineRows[i].id == foodId) {
-				callback(onlineRows[i]);
-				break;
-				return;			
+		for(var o=0, lon=onlineRows.length; o<lon; o++) {
+			if(onlineRows[o].id == foodId) {
+				callback(onlineRows[o]);
+				return;
 			}
 		}
 	}
