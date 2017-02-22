@@ -6,7 +6,7 @@ if(typeof hostLocal  === 'undefined') {
 	var hostLocal = appStorage.getItem('config_debug') === 'active' ? https + '192.168.1.5/' : '';
 }
 var staticVendor = ''; //'amazon';
-var baseVersion  = 2.1;
+var baseVersion  = 2.2;
 var initTime     = new Date().getTime();
 var UsrAgt       = navigator.userAgent;
 var IsMsApp      = /MSApp/i.test(UsrAgt) ? true : false;

@@ -2507,13 +2507,22 @@ app.trackInstall = function () {
 	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook) {
 		//INSTALL
 		if(typeof baseVersion !== 'undefined') {
-			if(baseVersion >= 2.1) {
+			if(baseVersion >= 2.2) {
+				//2.2
+				app.analytics('install 2.2');
+				return;
+				//2.1
+			} else if(baseVersion >= 2.1) {
 				app.analytics('install 2.1');
+				return;
+			} else {
+				//BOGUS
+				app.analytics('bogus');
 				return;
 			}
 		}
 	}
-	//BOGUS ~ UNCAUGHT
+	//BOGUS
 	app.analytics('bogus');
 };
 //#//////////////#//
