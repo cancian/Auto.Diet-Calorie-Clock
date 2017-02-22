@@ -631,7 +631,9 @@ $(document).on('pageReload', function (evt) {
 								$('#iconClear').show();
 							}
 							$('#iconClear').on(touchstart, function (evt) {
-								app.timeout('searchTimer','clear');
+								//CLEAR TIMEOUT
+								app.timeout('searchTimer', 'clear');
+								//
 								$('#foodSearch').val('');
 								$('#iconClear').hide();
 								$('#iconRefresh').show();
@@ -775,7 +777,7 @@ function searchFood(searchSQL, callback) {
 	mi = mi.sortbyattr('id');
 
 	var mou = [];
-	for (var u = 0; u < 125; u++) {
+	for (var u = 0; u <= 50; u++) {
 		if (mi[u]) {
 			mou.push(mi[u].value);
 		}
@@ -788,27 +790,26 @@ function searchFood(searchSQL, callback) {
 function doSearch(input) {
 	'use strict';
 	var rawInput = input;
-	//ignore null searches
-	if (!rawInput || rawInput == '' || rawInput.length == 0 || typeof rawInput === 'undefined') {
-		rawInput = '•••';
-	}
-	rawInput = (searchalize(rawInput.split(' ').join('xxxyyzyyxxx'))).split('xxxyyzyyxxx').join(' ');
-	/////////////////
-	// FETCH INPUT //
-	/////////////////
-	//var timerStart = new Date().getTime();
-	//var lastSearch = app.read('lastSearchTerm');
-		//sanitize user input
+	/////////////////////////
+	// APP.TIMEOUT LIMITER //
+	/////////////////////////
+	app.timeout('doSearchLimiter', 100, function () {
+		//////////////////////////
+		// ignore null searches //
+		//////////////////////////
+		if (!rawInput || rawInput == '' || rawInput.length == 0 || typeof rawInput === 'undefined') {
+			rawInput = '•••';
+		}
+		rawInput = (searchalize(rawInput.split(' ').join('xxxyyzyyxxx'))).split('xxxyyzyyxxx').join(' ');
+		/////////////////
+		// FETCH INPUT //
+		/////////////////
 		var searchQuery = rawInput;
-		//partial sql syntax
 		var searchSQL = searchQuery.split(' ');
-		//prevent multiple identical searches
-		//app.save('lastSearchTerm', searchQuery);
 		//#/////////////////////#//
 		//# BUILD KEYWORD ARRAY #//
 		//#/////////////////////#//
 		var keywordArray = [];
-		//searchArray = searchQuery;
 		//check for multiple keywords
 		if (searchQuery.search(' ') > -1) {
 			searchQuery = searchQuery.split(' ');
@@ -817,7 +818,6 @@ function doSearch(input) {
 				//not null
 				if (searchQuery[i] != '') {
 					//filter duplicates
-					//if($.inArray(trim(searchQuery[i]), keywordArray )) {
 					if (keywordArray.indexOf(trim(searchQuery[i])) == -1) {
 						keywordArray.push(trim(searchQuery[i]));
 					}
@@ -827,64 +827,142 @@ function doSearch(input) {
 			//single term array
 			keywordArray.push(searchQuery);
 		}
-	///////////////////////////////////////////////////////////
-	// PREVENT EMPTY STRING ON MULTIPLE KEYWORD SEARCH ARRAY //
-	///////////////////////////////////////////////////////////
-	if (keywordArray != '') {
-		//#///////////////#//
-		//# QUERY FOOD DB #//
-		//#///////////////#//
-		var foodList = '';
-		///////////////////
-		// EXECUTE QUERY //
-		///////////////////
-		searchFood(searchSQL, function (data) {
-			// LOOP RESULTS //
-			foodList = app.handlers.buildRows(data.reverse());
-			/////////////////////
-			// DISPLAY RESULTS //
-			/////////////////////
-			//matches number
-			$('#menuTopBar').hide();
-			$('#infoContents').hide();
-			//prevent overflow blinking
-			$('#searchContents').hide();
-			$('#searchContents').html2('');
-			//if empty
-			//if (foodList == '') {
-			if (foodList.contains('noContent')) {
-				if ($('#foodSearch').val() != '') {
-					$('#searchContents').html2('<span id="noMatches"> ' + LANG.NO_MATCHES[lang] + ' </span>');
+		//PREVENT EMPTY STRING ON MULTIPLE KEYWORD SEARCH ARRAY
+		if (keywordArray != '') {
+			var foodList = '';
+			//##/////////////////////////////////##//
+			//## SEARCHFOOD CORE ~ EXECUTE QUERY ##//
+			//##/////////////////////////////////##//
+			searchFood(searchSQL, function (data) {
+				var sss;
+				var lineLoop;
+				var lineArray = [];
+				var onlineList = '';
+				//##///////////////##//
+				//## ONLINE SEARCH ##//
+				//##///////////////##//
+				if (!$('#pageSlideFood').hasClass('exerciseType')) {
+					////////////////
+					// AJAX QUERY //
+					////////////////
+					$.ajax({
+						type: 'GET',
+						dataType: 'text',
+						url: app.https + 'chronoburn.com/search.php?k=' + searchSQL,
+						error: function (xhr, statusText) {
+							errorHandler(statusText);
+						},
+						success: function (sdb) {
+							//TRY
+							try {
+								if (!sdb) {
+									return;
+								}
+								//////////////
+								// EVAL 3:) //
+								//////////////
+								sss = eval(sdb);
+								///////////////
+								// LOOP DATA //
+								///////////////
+								for (var s = 0, slen = sss.length; s < slen; s++) {
+									if (sss) {
+										if (sss[s]) {
+											lineLoop = sss[s];
+											lineLoop.term = searchalize(lineLoop.name);
+											//PREVENT NULL KCAL (SUPPLEMENTS)
+											if (lineLoop.kcal != 0) {
+												lineArray.push(lineLoop);
+											}
+										}
+									}
+								}
+								////////////////
+								// BUILD ROWS //
+								////////////////
+								if (lineArray) {
+									onlineList = app.handlers.buildRows(lineArray.reverse());
+									app.save('online_results', lineArray, 'object');
+								}
+								///////////////////
+								// DOM STRUCTURE //
+								///////////////////
+								if (!onlineList.contains('noContent')) {
+									//CLEAR ICON
+									if ($('#foodSearch').val().length != 0) {
+										$('#iconRefresh').hide();
+										$('#iconClear').show();
+										$('.noContent').remove();
+										$('#noMatches').remove();
+										$('#searchContents .catxxxx').remove();
+										$('#searchContents').append2(onlineList);
+										niceResizer(200);
+										app.handlers.activeRow('#searchContents div.searcheable.catxxxx', 'activeOverflow', function (rowId) {
+											getModalWindow(rowId);
+										});
+									} else {
+										$('#iconClear').hide();
+										$('#iconRefresh').show();
+										$('#searchContents').hide();
+									}
+								}
+							//CATCH
+							} catch (err) { errorHandler(err); }
+						} //END SUCCESS
+					}); //END AJAX
+				} // END FOOD ONLY (ONLINE)
+
+				//
+				// END ONLINE
+				//
+				
+				//##////////////////##//
+				//## REGULAR SEARCH ##//
+				//##////////////////##//
+				foodList = app.handlers.buildRows(data.reverse());
+				// DISPLAY RESULTS
+				//matches number
+				$('#menuTopBar').hide();
+				$('#infoContents').hide();
+				//prevent overflow blinking
+				$('#searchContents').hide();
+				$('#searchContents').html2('');
+				//if empty
+				if (foodList.contains('noContent')) {
+					if ($('#foodSearch').val() != '') {
+						$('#noMatches').remove();
+						$('#searchContents').html2('<span id="noMatches"> ' + LANG.NO_MATCHES[lang] + ' </span>');
+					} else {
+						//buildFoodMenu();
+						$('#searchContents').hide();
+						$('#menuTopBar').show();
+						$('#infoContents').show();
+					}
 				} else {
-					//buildFoodMenu();
-					$('#searchContents').hide();
-					$('#menuTopBar').show();
-					$('#infoContents').show();
+					$('#searchContents').html2(foodList);
 				}
-			} else {
-				$('#searchContents').html2(foodList);
-			}
-			//chrome height fix
-			$('#searchContents').css2('min-height',$('#pageSlideFood').height() + 'px');
-			//
-			$('#searchContents').show();
-			niceResizer(200);
-			//enforce clearIcon display
-			if ($('#foodSearch').val().length != 0) {
-				$('#iconRefresh').hide();
-				$('#iconClear').show();
-			} else {
-				$('#iconRefresh').show();
-				$('#iconClear').hide();
-			}
-			////////////////////////
-			// OVERFLOW ON-DEMAND //
-			////////////////////////
-			app.handlers.activeRow('#searchContents div.searcheable','activeOverflow',function(rowId) {
-				getModalWindow(rowId);
+				//chrome height fix
+				$('#searchContents').css2('min-height', $('#pageSlideFood').height() + 'px');
+				//
+				$('#searchContents').show();
+				niceResizer(200);
+				//enforce clearIcon display
+				if ($('#foodSearch').val().length != 0) {
+					$('#iconRefresh').hide();
+					$('#iconClear').show();
+				} else {
+					$('#iconRefresh').show();
+					$('#iconClear').hide();
+				}
+				//////////////////////
+				// GET MODAL WINDOW //
+				//////////////////////
+				app.handlers.activeRow('#searchContents div.searcheable', 'activeOverflow', function (rowId) {
+					getModalWindow(rowId);
+				});
 			});
-		});//END QUERY CONTEXT
-	}
+		} //END APP.TIMEOUT
+	});
 }
 //#//////////////////////#//
 //#  UPDATE CUSTOM LIST  #//
