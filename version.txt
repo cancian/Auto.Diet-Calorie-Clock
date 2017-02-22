@@ -2,14 +2,16 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
-• Make app easier to read (i.e. auto-adjust font size for larger screens)
-• Manually set portion size by fixing number of grams
-• Update food database to the latest USDA release
 • BMI calculator on profile
+• Manually set portion size by fixing number of grams
+• Auto-adjust layout and font size for larger screens
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.1.6 [2017/02/21]
+# 2.2 [2017/02/22]
+• Food search now includes online results, added below the regular results (online items have a red icon)
 • The app was once again awarded by the FbStart program
+
+# 2.1.6 [2017/02/20]
 • Fixed input mapping for decimal values on Russian keyboards
 • New help topic: "Water intake: why not simpler?"
 • Improved timeout handling during searches
@@ -165,7 +167,7 @@
 
 # 1.9.8 [2015/09/01]
 • Users can customize the colors of the caloric balance status (deficit/balanced/surplus)
-• Added a "Counting Mode" option to settings, allowing users to switch between the caloric balance as a Count Up ("calories available") or as a Countdown ("calorie usage").
+• Added a "Counting Mode" option to settings, allowing users to switch between the caloric balance as a Count Up ("calories available") or as a Countdown ("calorie usage")
 • Fixed scrollbar issue where it would get hidden behind content
 
 # 1.9.7 [2015/08/13]
@@ -339,7 +341,7 @@
 
 # 1.2 [2014/04/09]
 • Use metric system as default for non-English users
-• Translation for the following languages: Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish, Finnish, French, Hungarian, Italian, Indonesian, Japanese, Korean, Dutch, Norwegian, Polish, Romanian, Russian, Swedish, Turkish, Chinese.
+• Translation for the following languages: Arabic, Bulgarian, Czech, Danish, German, Greek, Spanish, Finnish, French, Hungarian, Italian, Indonesian, Japanese, Korean, Dutch, Norwegian, Polish, Romanian, Russian, Swedish, Turkish, Chinese
 
 # 1.1.7 [2014/03/08]
 • Diary list now displays dates, and a daily sum of foods/exercises
