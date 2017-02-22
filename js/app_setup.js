@@ -1115,6 +1115,18 @@ function setFood(data, callback) {
 //////////////
 function getFood(foodId,callback) {
 	'use strict';
+	//SEARCH ONLINE RESULTS
+	if(app.read('online_results')) {
+		var onlineRows = app.read('online_results','','object');
+		for(var i=0, len=onlineRows.length; i<len; i++) {
+			if(onlineRows[i].id == foodId) {
+				callback(onlineRows[i]);
+				break;
+				return;			
+			}
+		}
+	}
+	//SEARCH REGULAR RESULTS
 	for(var i=0, len=appRows.food.length; i<len; i++) {
 		if(appRows.food[i].id == foodId) {
 			callback(appRows.food[i]);
