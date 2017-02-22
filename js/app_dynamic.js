@@ -850,7 +850,8 @@ function doSearch(input) {
 						dataType: 'text',
 						url: app.https + 'chronoburn.com/search.php?k=' + searchSQL,
 						error: function (xhr, statusText) {
-							errorHandler(statusText);
+							//offline//
+							//errorHandler(statusText);
 						},
 						success: function (sdb) {
 							//TRY
