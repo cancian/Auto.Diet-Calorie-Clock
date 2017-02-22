@@ -1677,6 +1677,8 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #cat0300, #cat3500					{ display: none !important; }
 .cat0000:after,#cat0000 div:before	{ content: '\F17D'; top: -2px !important; color: #D55621; }
 .cat0000:after						{ top: 24% !important; color: #ECBEAB; }
+.catxxxx:after,#catxxxx div:before	{ content: '\E030'; top: -2px !important; color: #D55621; }
+.catxxxx:after						{ top: 24% !important; color: #ECBEAB; }
 .cat0100:after,#cat0100 div:before { content: '\C010'; }
 .cat0200:after,#cat0200 div:before { content: '\C020'; }
 .cat0300:after,#cat0300 div:before { content: '\C030'; }
