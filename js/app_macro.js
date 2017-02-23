@@ -1920,12 +1920,12 @@ function getEntryEdit(eid) {
 			// ADD/REMOVE //
 			////////////////
 			app.handlers.addRemove('#getEntryTitle',0,9999,'int');
-			app.handlers.addRemove('#getEntryPro',0,999);
-			app.handlers.addRemove('#getEntryCar',0,999);
-			app.handlers.addRemove('#getEntryFat',0,999);
-			app.handlers.addRemove('#getEntryFii',0,999);
-			app.handlers.addRemove('#getEntrySug',0,999);
-			app.handlers.addRemove('#getEntrySod',0,9999.99);
+			app.handlers.addRemove('#getEntryPro',0,999,'dec');
+			app.handlers.addRemove('#getEntryCar',0,999,'dec');
+			app.handlers.addRemove('#getEntryFat',0,999,'dec');
+			app.handlers.addRemove('#getEntryFii',0,999,'dec');
+			app.handlers.addRemove('#getEntrySug',0,999,'dec');
+			app.handlers.addRemove('#getEntrySod',0,9999,'dec');
 		};
 		/////////////
 		// CONFIRM //

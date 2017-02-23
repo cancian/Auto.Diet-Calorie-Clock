@@ -1376,12 +1376,12 @@ function addNewItem(addnew) {
 	////////////////
 	app.handlers.addRemove('#inputNewAmount',0,999,'int');
 	app.handlers.addRemove('#inputNewKcal',0,9999,'int');
-	app.handlers.addRemove('#inputNewPro',0,999);
-	app.handlers.addRemove('#inputNewCar',0,999);
-	app.handlers.addRemove('#inputNewFat',0,999);
-	app.handlers.addRemove('#inputNewFii',0,999);
-	app.handlers.addRemove('#inputNewSug',0,999);
-	app.handlers.addRemove('#inputNewSod',0,9999);
+	app.handlers.addRemove('#inputNewPro',0,999,'dec');
+	app.handlers.addRemove('#inputNewCar',0,999,'dec');
+	app.handlers.addRemove('#inputNewFat',0,999,'dec');
+	app.handlers.addRemove('#inputNewFii',0,999,'dec');
+	app.handlers.addRemove('#inputNewSug',0,999,'dec');
+	app.handlers.addRemove('#inputNewSod',0,9999,'dec');
 	/////////////////////
 	// POPULATE INPUTS //
 	/////////////////////

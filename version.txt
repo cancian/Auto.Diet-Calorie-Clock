@@ -10,6 +10,7 @@
 # 2.2 [2017/02/22]
 • Food search now includes online results, added below the regular results (online items have a red icon)
 • The app was once again awarded by the FbStart program
+• Add/Remove buttons for nutrients¹ (not calories) now work by decimal increments (¹proteins, fibers, and such)
 
 # 2.1.6 [2017/02/20]
 • Fixed input mapping for decimal values on Russian keyboards
