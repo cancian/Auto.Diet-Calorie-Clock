@@ -12,11 +12,11 @@ html									{ position: relative !important; }
 .desktop,
 .windows8,
 .windows10								{ overflow: hidden !important; }
-.wp8,
-.wp81,
-.wp10,
-.windows8,
-.windows10								{ -ms-touch-action: pan-x; touch-action: pan-x; }
+html.wp8,
+html.wp81,
+html.wp10,
+html.windows8,
+html.windows10							{ -ms-touch-action: pan-x; touch-action: pan-x; }
 .tboost									{ -webkit-backface-visibility: hidden; -webkit-perspective: 1000; -webkit-transform: translate3d(0,0,0); }
 .zboost									{ -webkit-transform: translateZ(0); -webkit-transform: rotateZ(360deg); }
 /* fonts */
