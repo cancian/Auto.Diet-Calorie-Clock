@@ -16,6 +16,7 @@
 • Fixed input mapping for decimal values on Russian keyboards
 • New help topic: "Water intake: why not simpler?"
 • Improved timeout handling during searches
+• Basic support for wearables
 
 # 2.1.5 [2017/02/12]
 • Optimized synchronization performance (downloaded data is parsed faster)
