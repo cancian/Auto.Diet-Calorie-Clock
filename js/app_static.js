@@ -438,7 +438,7 @@ $(document).on('pressenter', function(evt) {
 		$('#closeButton').trigger(touchend);
 	} else {
 		$('#timerDailyInput').trigger('blur');
-		if($('#saveButton').length) {
+		if($('#saveButton').length && !$('#saveButton').hasClass('removeAll')) {
 			$('#saveButton').addClass('button');
 			$('#saveButton').trigger(touchend);
 			$('#saveButton').trigger(tap);
