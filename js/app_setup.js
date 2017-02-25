@@ -541,6 +541,7 @@ app.timeout('pushEntries',3000,function() {
 					$('body').removeClass('insync');
 					//save data
 					app.save('last_push_data',md4Fetch);
+					if(app.beenDev) { app.toast('push ended'); }
 				}
 			});
 		}
@@ -1770,6 +1771,8 @@ function updateEntriesSum() {
 //#////////////////////////////#//
 function updateNutriRatio() {
 	'use strict';
+	app.define('dailyWaterIntake',2000);
+	//
 	var appNutrients = app.read('appNutrients').split('|');
 	var proRatio = parseInt(appNutrients[0]);
 	var carRatio = parseInt(appNutrients[1]);
@@ -1779,7 +1782,7 @@ function updateNutriRatio() {
 		#appStatusBarsPro span:after	{ content: " (' + proRatio + '%)" !important; }\
 		#appStatusBarsCar span:after	{ content: " (' + carRatio + '%)" !important; }\
 		#appStatusBarsFat span:after	{ content: " (' + fatRatio + '%)" !important; }\
-		#appStatusBarsWat span:after	{ content: " (' + LANG.DAY[lang] + ')" !important; }\
+		#appStatusBarsWat span:after	{ content: " (' + app.read('dailyWaterIntake') + '' + LANG.ML[lang] + ')" !important; }\
 	';
 	//////////
 	// EXEC //

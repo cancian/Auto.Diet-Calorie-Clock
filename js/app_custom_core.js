@@ -353,9 +353,9 @@ function updateNutriBars() {
 		doReturn++;
 	}
 	if((tFii + tSug + tSod) == 0) {
-		$('#appStatusBarsFib div').html2('0 / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
-		$('#appStatusBarsSug div').html2('0 / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
-		$('#appStatusBarsSod div').html2('0 / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
+		$('#appStatusBarsFib div').html2('0 / ' + Math.round(dailyFib) + '' + LANG.G[lang]);
+		$('#appStatusBarsSug div').html2('0 / ' + Math.round(dailySug) + '' + LANG.G[lang]);
+		$('#appStatusBarsSod div').html2('0 / ' + Math.round(dailySod) + '' + LANG.MG[lang]);
 		doReturn++;
 	}
 	if(doReturn == 2) {
@@ -437,11 +437,17 @@ function updateNutriBars() {
 	$('#appStatusBarsCar p').html2(LANG.CARBS[lang].toUpperCase()    + ' (' + Math.round(tCar) + LANG.G[lang] + ')');
 	$('#appStatusBarsFat p').html2(LANG.FATS[lang].toUpperCase()     + ' (' + Math.round(tFat) + LANG.G[lang] + ')');
 	//
+	nPerPro = isNaN(nPerPro) ? 0 : nPerPro;
+	nPerCar = isNaN(nPerCar) ? 0 : nPerCar;
 	$('#appStatusBarsPro span').html2(Math.round(nPerPro*1)/1 + '%');
 	$('#appStatusBarsCar span').html2(Math.round(nPerCar*1)/1 + '%');
 	//$('#appStatusBarsFat span').html2(Math.round(nPerFat*1)/1 + '%');
 	//by exclusion
-	$('#appStatusBarsFat span').html2((100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
+	if(isNaN(nPerFat)) { 
+		nPerFat = 0; 
+	} else {
+		$('#appStatusBarsFat span').html2((100 - parseFloat($('#appStatusBarsPro span').html()) - parseFloat($('#appStatusBarsCar span').html())) + '%');
+	}
 	//subNutrients
 	var elapsedDays = Math.ceil( (app.now() - app.read('config_start_time')) / (60 * 60 * 24 * 1000) );
 	//average for timespan
@@ -459,9 +465,9 @@ function updateNutriBars() {
 		tSod = tSod / elapsedDays;
 	}
 	//UPDATE SUB
-	$('#appStatusBarsFib div').html2(Math.round(tFii) + ' / ' + Math.round(dailyFib) + ' ' + LANG.G[lang]);
-	$('#appStatusBarsSug div').html2(Math.round(tSug) + ' / ' + Math.round(dailySug) + ' ' + LANG.G[lang]);
-	$('#appStatusBarsSod div').html2(Math.round(tSod) + ' / ' + Math.round(dailySod) + ' ' + LANG.MG[lang]);
+	$('#appStatusBarsFib div').html2(Math.round(tFii) + ' / ' + Math.round(dailyFib) + '' + LANG.G[lang]);
+	$('#appStatusBarsSug div').html2(Math.round(tSug) + ' / ' + Math.round(dailySug) + '' + LANG.G[lang]);
+	$('#appStatusBarsSod div').html2(Math.round(tSod) + ' / ' + Math.round(dailySod) + '' + LANG.MG[lang]);
 }
 //##################//
 //## UPDATE TIMER ##//

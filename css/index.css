@@ -921,11 +921,11 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 /*//////////////////
 // nutrition bars //
 //////////////////*/
-#appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 90px; padding: 0; display: block; margin-left: 0; background-color: rgba(0,0,0,0); white-space: nowrap; }
-#appStatusBarsPro				{ position: absolute; top: 10px; left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
-#appStatusBarsCar				{ position: absolute; top: 31px; left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
-#appStatusBarsFat				{ position: absolute; top: 52px; left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
-#appStatusBarsWat				{ position: absolute; top: 73px; left: 0; right: 61px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
+#appStatusBars					{ position: absolute; top: 144px; left: 0; right: 0; height: 90px; padding: 0; display: block; margin-left: 0; background-color: rgba(0,0,0,0); white-space: nowrap; opacity: .88; }
+#appStatusBarsPro				{ position: absolute; top: 10px; left: 0; right: 80px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
+#appStatusBarsCar				{ position: absolute; top: 31px; left: 0; right: 80px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
+#appStatusBarsFat				{ position: absolute; top: 52px; left: 0; right: 80px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
+#appStatusBarsWat				{ position: absolute; top: 73px; left: 0; right: 80px; height: 16px; margin: 0; background-color: #fff; display: block; color: #999; border: 1px solid #eee; }
 #appStatusBarsPro p,
 #appStatusBarsCar p,
 #appStatusBarsFat p,
@@ -933,7 +933,8 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusBarsPro span,
 #appStatusBarsCar span,
 #appStatusBarsFat span,
-#appStatusBarsWat span			{ position: absolute; top: 0; right: 50%; margin-right: -42px; text-align: right; opacity: .42; color: #000; line-height: 14px; font-size: 10.5px; }
+#appStatusBarsWat span			{ position: absolute; top: 0; right: 50%; margin-right: -62px !important; text-align: right; opacity: .42; color: #000; line-height: 14px; font-size: 10.5px; }
+#appStatusBarsWat span			{ margin-right: -75px !important; }
 .msie.mobile #appStatusBarsPro span,
 .msie.mobile #appStatusBarsCar span,
 .msie.mobile #appStatusBarsFat span,
@@ -941,7 +942,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusBarsPro span:after	{ content: ' (25%)'; opacity: .6; }
 #appStatusBarsCar span:after	{ content: ' (50%)'; opacity: .6; }
 #appStatusBarsFat span:after	{ content: ' (25%)'; opacity: .6; }
-#appStatusBarsWat span:after	{ content: ' (50%)'; opacity: .6; }
+#appStatusBarsWat span:after	{ content: ' (2000ml)'; opacity: .6; }
 #appStatusBarsPro p,
 #appStatusBarsCar p,
 #appStatusBarsFat p,
@@ -959,7 +960,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusBarsCar p.danger,
 #appStatusBarsFat p.danger		{ background-color: rgba(246,123,59,.32); background-image: -webkit-linear-gradient(left,rgba(246,123,59,.32) 0%,rgba(206,100,49,.32) 100%); }
 #appStatusBarsWat p				{ background-color: #B8DFFF; background-image: -webkit-linear-gradient(left,#B8DFFF 0%,#B8DFFF 100%); }
-#appStatusBarsWat p.over		{ background-color: #A1D3FF; background-image: -webkit-linear-gradient(left,#A1D3FF 0%,#A1D3FF 100%); }
+#appStatusBarsWat p.over		{ background-color: #7EBFFF; background-image: -webkit-linear-gradient(left,#7EBFFF 0%,#7EBFFF 100%); }
 #appStatusBars p,
 #appStatusBars span				{ -webkit-backface-visibility: hidden; }
 /*///////////////
@@ -969,19 +970,19 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 #appStatusBarsFib,
 #appStatusBarsSug,
 #appStatusBarsSod,
-#appStatusBarsWot				{ position: absolute; right: 1px; width: 56px; height: 20px; margin: 0; background-color: #fff; display: block; border: 0 solid rgba(255,255,255,0); font-size: 13px; line-height: 16px; text-indent: 2px; color: #555; }
-#appStatusBarsFib				{ top: 5px;  border-bottom: 8px solid #DB704D; }
-#appStatusBarsSug				{ top: 26px; border-bottom: 8px solid #EABE34; }
-#appStatusBarsSod				{ top: 47px; border-bottom: 8px solid #4DB84D; }
-#appStatusBarsWot				{ top: 68px; border-bottom: 8px solid #4D4DDB; }
+#appStatusBarsWot				{ position: absolute; right: 1px; width: 76px;  height: 20px; margin: 0; background-color: #fff; display: block; border: 0 solid rgba(255,255,255,0); font-size: 13px; line-height: 16px; text-indent: 2px; color: #555; }
+#appStatusBarsFib				{ top: 10px; border-bottom: 13px solid #DB704D; }
+#appStatusBarsSug				{ top: 38px; border-bottom: 13px solid #4D4DDB; }
+#appStatusBarsSod				{ top: 67px; border-bottom: 13px solid #4DB84D; }
+#appStatusBarsWot				{ top: 68px; border-bottom: 13px solid #4D4DDB; }
 #appStatusBarsFib div,
 #appStatusBarsSug div,
 #appStatusBarsSod div,
-#appStatusBarsWot div			{ position: absolute; top: 0; left: 0; font-size: 8px; line-height: 15px; text-shadow: rgba(0,0,0,.25) 0 1px 0; }
+#appStatusBarsWot div			{ position: absolute; top: -4px; left: 0; font-size: 11px; line-height: 10px; text-shadow: rgba(0,0,0,.1) 0 1px 0; }
 #appStatusBarsFib p,
 #appStatusBarsSug p,
 #appStatusBarsSod p,
-#appStatusBarsWot p				{ position: absolute; top: 9px; left: 0; font-size: 8px; line-height: 15px; color: #fff; text-shadow: rgba(255,255,255,.5) 0 1px 0; }
+#appStatusBarsWot p				{ position: absolute; top: 9px; left: 0; font-size: 10px; line-height: 10px; color: #fff; text-shadow: rgba(255,255,255,.25) 0 1px 0; }
 .wp8 #appStatusBarsFib p,
 .wp8 #appStatusBarsSug p,
 .wp8 #appStatusBarsSod p,

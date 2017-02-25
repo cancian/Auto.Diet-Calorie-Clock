@@ -323,7 +323,6 @@ app.tab.status = function(keepOpen) {
 				<div id="appStatusBarsFib"><p>' + LANG.FIBER[lang].toUpperCase()  + '</p><div>0 / 30g</div></div>\
 				<div id="appStatusBarsSug"><p>' + LANG.SUGAR[lang].toUpperCase()  + '</p><div>0 / 20g</div></div>\
 				<div id="appStatusBarsSod"><p>' + LANG.SODIUM[lang].toUpperCase() + '</p><div>0 / 600mg</div></div>\
-				<div id="appStatusBarsWot"><p>' + LANG.WATER[lang].toUpperCase()  + '</p><div>0 / 2000ml</div></div>\
 			</div>\
 		</div>\
 		<div id="addFood"><div>'                + LANG.FOOD[lang]         + '</div></div>\

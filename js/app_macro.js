@@ -8,6 +8,7 @@ app.calculateWater = function () {
 	///////////////// 30~35ml/kg
 	app.define('waterConsumed', 0);
 	app.define('waterLastDay',app.today());
+	//app.define('dailyWaterIntake',2000);
 	//TO KG
 	var weight = app.read('calcForm#pA3B');
 	if (!app.read('calcForm#pA3C', 'kilograms')) {
@@ -15,11 +16,14 @@ app.calculateWater = function () {
 	}
 	//SAVE PER KG CALCULATION
 	var dailyWaterIntake = Math.round(weight * 35);
-	//app.save('dailyWaterIntake',dailyWaterIntake);
+	app.save('dailyWaterIntake', dailyWaterIntake);
+
+	updateNutriRatio();
 
 	//NOTHING TO UPDATE
 	if (app.read('waterConsumed') == 0) {
-		$('#appStatusBarsWot div').html2('0 / ' + dailyWaterIntake + ' ' + LANG.ML[lang]);
+		//update empty water after start		
+		//$('#appStatusBarsWot div').html2(app.read('dailyWaterIntake') + '' + LANG.ML[lang] );
 		//ZERO on the middle percent value
 		$('#appStatusBarsWat span').html2('0%');
 		//RESET BAR CSS (NEW DAY)
@@ -31,10 +35,10 @@ app.calculateWater = function () {
 	////////////////
 	var waterConsumed = app.read('waterConsumed');
 	//FILL MINIBAR
-	$('#appStatusBarsWot p').html2(LANG.WATER[lang].toUpperCase());
-	$('#appStatusBarsWot div').html2(waterConsumed + ' / ' + dailyWaterIntake + ' ' + LANG.ML[lang]);
+	//$('#appStatusBarsWot p').html2(LANG.WATER[lang].toUpperCase());
+	//$('#appStatusBarsWot div').html2(waterConsumed + ' / ' + dailyWaterIntake + ' ' + LANG.ML[lang]);
 	//FULL BAR
-	$('#appStatusBarsWat p').html2(LANG.WATER[lang].toUpperCase() + ' (' + waterConsumed + ' ' + LANG.ML[lang] + ')');
+	$('#appStatusBarsWat p').html2(LANG.WATER[lang].toUpperCase() + ' (' + waterConsumed + '' + LANG.ML[lang] + ')');
 	//PERCENT VALUE
 	var waterPercent = Math.round((waterConsumed / dailyWaterIntake) * 100);
 	//CENTER PERCENT
