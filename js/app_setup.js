@@ -379,7 +379,7 @@ function fetchEntries(callback) {
 //#//////////////////////#//
 function pushEntries() {
 	'use strict';
-app.timeout('pushEntries',3000,function() {
+//app.timeout('pushEntries',3000,function() {
 	if(!app.read('facebook_logged'))	{ return; }
 	if($('body').hasClass('insync'))	{ return; }	
 	if(app.read('pendingSync'))			{ return; }
@@ -547,7 +547,7 @@ app.timeout('pushEntries',3000,function() {
 		}
 	});
 //
-});
+//});
 }
 function setPush(msg) {
 	'use strict';
