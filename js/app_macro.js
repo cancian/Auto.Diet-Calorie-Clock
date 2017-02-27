@@ -16,6 +16,13 @@ app.calculateWater = function () {
 	}
 	//SAVE PER KG CALCULATION
 	var dailyWaterIntake = Math.round(weight * 35);
+	
+	//CHECK OVERRIDE
+	if(app.read('override_water','on')) {
+		dailyWaterIntake = app.read('override_water_value');
+	}
+	
+	//SAVE
 	app.save('dailyWaterIntake', dailyWaterIntake);
 
 	updateNutriRatio();
@@ -1057,11 +1064,27 @@ function getNutriSliders() {
 		if(parseInt(document.getElementById('sliderProInput').value) + parseInt(document.getElementById('sliderCarInput').value) + parseInt(document.getElementById('sliderFatInput').value) == 100) {
 			app.save('appNutrients',parseInt(document.getElementById('sliderProInput').value) + '|' + parseInt(document.getElementById('sliderCarInput').value) + '|' + parseInt(document.getElementById('sliderFatInput').value));
 			updateNutriRatio();
+			//SAVE OVERRIDES
+			$('#personalNutriWaterToggle').trigger('change');
+			$('#personalNutriFiberToggle').trigger('change');
+			$('#personalNutriSugarToggle').trigger('change');
+			$('#personalNutriSodiumToggle').trigger('change');
+			//
 			return true;
 		} else {
 			alert(LANG.TOTAL_ERROR[lang],LANG.PLEASE_REVIEW[lang]);
 			return false;
 		}
+	};
+	/////////////////////
+	// CLOSER CALLBACK //
+	/////////////////////
+	var closer = function() {
+		//SAVE OVERRIDES
+		$('#personalNutriWaterToggle').trigger('change');
+		$('#personalNutriFiberToggle').trigger('change');
+		$('#personalNutriSugarToggle').trigger('change');
+		$('#personalNutriSodiumToggle').trigger('change');
 	};
 	///////////////////////
 	// HANDLERS CALLBACK //
@@ -1179,6 +1202,102 @@ function getNutriSliders() {
 		} else {
 			$('#sliderRatioByKcal').addClass('active');
 		}
+		//#////////////////////#//
+		//# OVERRRIDES SECTION #//
+		//#////////////////////#//
+		app.handlers.addRemove('#personalNutriWaterInput', 1,9999,'int');
+		app.handlers.addRemove('#personalNutriFiberInput', 1,9999,'int');
+		app.handlers.addRemove('#personalNutriSugarInput', 1,9999,'int');
+		app.handlers.addRemove('#personalNutriSodiumInput',1,9999,'int');
+		
+		//WATER PER KG CALCULATION
+		var weight = app.read('calcForm#pA3B');
+		if (!app.read('calcForm#pA3C', 'kilograms')) {
+			weight = Math.round(weight * 0.454);
+		}
+		//FIBER/SUGAR/SODIUM
+		var intake = app.read('config_kcals_day_0');
+		if(app.read('config_kcals_type','cyclic')) {
+			intake = Math.round(((app.read('config_kcals_day_0')*3) + app.read('config_kcals_day_2'))/4);
+		}
+		//DEFINE
+		app.define('override_water_value',  Math.round(weight * 35));
+		app.define('override_fiber_value',  Math.round(intake * 0.014));
+		app.define('override_sugar_value',  Math.round(intake * 0.025));
+		app.define('override_sodium_value', Math.round(intake * 0.0325)*10);
+		//READ
+		$('#personalNutriWaterInput').val(app.read('override_water_value'));
+		$('#personalNutriFiberInput').val(app.read('override_fiber_value'));
+		$('#personalNutriSugarInput').val(app.read('override_sugar_value'));
+		$('#personalNutriSodiumInput').val(app.read('override_sodium_value'));
+		/////////////////////
+		// CHANGE HANDLERS //
+		/////////////////////
+		///////////
+		// WATER //
+		///////////
+		//READ SAVED
+		if(app.read('override_water','on')) { $('#personalNutriWaterToggle').prop('checked',true); }
+		//SAVE CHANGES
+		$('#personalNutriWaterToggle').on('change',function() {
+			//ON
+			if($('#personalNutriWaterToggle').prop('checked')) {
+				app.save('override_water','on');
+			} else {
+				app.save('override_water','off');
+			}
+			//
+			app.save('override_water_value',$('#personalNutriWaterInput').val());
+		});
+		///////////
+		// FIBER //
+		///////////
+		//READ SAVED
+		if(app.read('override_fiber','on')) { $('#personalNutriFiberToggle').prop('checked',true); }
+		//SAVE CHANGES
+		$('#personalNutriFiberToggle').on('change',function() {
+			//ON
+			if($('#personalNutriFiberToggle').prop('checked')) {
+				app.save('override_fiber','on');
+			} else {
+				app.save('override_fiber','off');
+			}
+			//
+			app.save('override_fiber_value',$('#personalNutriFiberInput').val());
+		});
+		///////////
+		// SUGAR //
+		///////////
+		//READ SAVED
+		if(app.read('override_sugar','on')) { $('#personalNutriSugarToggle').prop('checked',true); }
+		//SAVE CHANGES
+		$('#personalNutriSugarToggle').on('change',function() {
+			//ON
+			if($('#personalNutriSugarToggle').prop('checked')) {
+				app.save('override_sugar','on');
+			} else {
+				app.save('override_sugar','off');
+			}
+			//
+			app.save('override_sugar_value',$('#personalNutriSugarInput').val());
+		});
+		////////////
+		// SODIUM //
+		////////////
+		//READ SAVED
+		if(app.read('override_sodium','on')) { $('#personalNutriSodiumToggle').prop('checked',true); }
+		//SAVE CHANGES
+		$('#personalNutriSodiumToggle').on('change',function() {
+			//ON
+			if($('#personalNutriSodiumToggle').prop('checked')) {
+				app.save('override_sodium','on');
+			} else {
+				app.save('override_sodium','off');
+			}
+			//
+			app.save('override_sodium_value',$('#personalNutriSodiumInput').val());
+		});
+		////////////////////////
 	};
 	////////////////
 	// HTML BLOCK //
@@ -1210,11 +1329,35 @@ function getNutriSliders() {
 			<div id="sliderFatLabel">' + LANG.FATS[lang] + '</div>\
 			<div id="sliderFatWrapper"><input id="sliderFatRange" type="range" min="0" max="100" step="1" value="0" data-carpe-targets="sliderFatInput" data-carpe-decimals="0" /></div>\
 		</div>\
+		<div id="personalNutriWrapper">\
+		<div id="personalNutri">\
+		<div id="personalNutriWater">\
+			<input id="personalNutriWaterInput" type="text"><span class="nutriTitle">'+ LANG.WATER[lang] +'</span>\
+			<input id="personalNutriWaterToggle" class="toggle" type="checkbox">\
+			<label for="personalNutriWaterToggle"></label>\
+		</div>\
+		<div id="personalNutriFiber">\
+			<input id="personalNutriFiberInput" type="text"><span class="nutriTitle">'+ LANG.FIBER[lang] +'</span>\
+			<input id="personalNutriFiberToggle" class="toggle" type="checkbox">\
+			<label for="personalNutriFiberToggle"></label>\
+		</div>\
+		<div id="personalNutriSugar">\
+			<input id="personalNutriSugarInput" type="text"><span class="nutriTitle">'+ LANG.SUGAR[lang] +'</span>\
+			<input id="personalNutriSugarToggle" class="toggle" type="checkbox">\
+			<label for="personalNutriSugarToggle"></label>\
+		</div>\
+		<div id="personalNutriSodium">\
+			<input id="personalNutriSodiumInput" type="text"><span class="nutriTitle">'+ LANG.SODIUM[lang] +'</span>\
+			<input id="personalNutriSodiumToggle" class="toggle" type="checkbox">\
+			<label for="personalNutriSodiumToggle"></label>\
+		</div>\
+		</div>\
+		</div>\
 	';
 	/////////////////////
 	// CALL NEW WINDOW //
 	/////////////////////
-	getNewWindow(LANG.NUTRIENT_TITLE[lang],htmlContent,handlers,save);
+	getNewWindow(LANG.NUTRIENT_TITLE[lang],htmlContent,handlers,save,closer);
 }
 //##///////////////##//
 //## TODAYOVERVIEW ##//

@@ -662,6 +662,27 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #sliderRatioByKcal.active,
 #sliderRatioByG.active				{ color: #fff; background-color: #007aff; }
 #sliderRatioBy div + div			{ border-right: 0; }
+/*/////////////////////////////////////
+// OVERRIDE WATER/FIBER/SUGAR/SODIUM //
+/////////////////////////////////////*/
+#personalNutriWrapper			{ margin: 9px 9px 22px 9px; display: block; border: 1px solid #ddd; padding: 6px 6px 14px 6px; background-color: #f9f9f9; }
+#personalNutriWater,
+#personalNutriSodium,
+#personalNutriSugar,
+#personalNutriFiber				{ display: block; border: 0px solid #000; position: relative; height: 44px; }
+#personalNutriWaterInput,
+#personalNutriSodiumInput,
+#personalNutriSugarInput,
+#personalNutriFiberInput		{ position: absolute; top: 10px; left: 12px; border: 0px solid #aaa; width: 100px; font-size: 22px; line-height: 22px; color: #444; pointer-events: none; }
+#personalNutriWaterInputPos,
+#personalNutriFiberInputPos,
+#personalNutriSugarInputPos,
+#personalNutriSodiumInputPos	{ right: auto; left: 150px; top: -1px; }
+#personalNutriWaterInputNeg,
+#personalNutriFiberInputNeg,
+#personalNutriSugarInputNeg,
+#personalNutriSodiumInputNeg	{ right: auto; left: 100px; top: -1px; }
+span.nutriTitle					{ position: absolute; bottom: -2px; left: 12px; font-variant: small-caps; font-size: 16px; line-height: 16px; color: #309030; }
 /*#////////////#//
 //# APP CYCLIC #//
 //#////////////#*/

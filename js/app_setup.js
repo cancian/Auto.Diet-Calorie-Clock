@@ -299,6 +299,15 @@ function localStorageSql() {
 	//water
 	if(app.read('waterLastDay'))		{ keyList = keyList + '#@@@#' + 'waterLastDay'  + '#@@#' + app.read('waterLastDay');            }
 	if(app.read('waterConsumed'))		{ keyList = keyList + '#@@@#' + 'waterConsumed' + '#@@#' + app.read('waterConsumed');           }
+	//overrides ~ water/fiber/sugar/sodium
+	if(app.read('override_water'))		{ keyList = keyList + '#@@@#' + 'override_water'        + '#@@#' + app.read('override_water');        }
+	if(app.read('override_water_value')){ keyList = keyList + '#@@@#' + 'override_water_value'  + '#@@#' + app.read('override_water_value');  }
+	if(app.read('override_fiber'))		{ keyList = keyList + '#@@@#' + 'override_fiber'        + '#@@#' + app.read('override_fiber');        }
+	if(app.read('override_fiber_value')){ keyList = keyList + '#@@@#' + 'override_fiber_value'  + '#@@#' + app.read('override_fiber_value');  }
+	if(app.read('override_sugar'))		{ keyList = keyList + '#@@@#' + 'override_sugar'        + '#@@#' + app.read('override_sugar');        }
+	if(app.read('override_sugar_value')){ keyList = keyList + '#@@@#' + 'override_sugar_value'  + '#@@#' + app.read('override_sugar_value');  }
+	if(app.read('override_sodium'))		{ keyList = keyList + '#@@@#' + 'override_sodium'       + '#@@#' + app.read('override_sodium');       }
+	if(app.read('override_sodium_value')){keyList = keyList + '#@@@#' + 'override_sodium_value' + '#@@#' + app.read('override_sodium_value'); }
 	//notes
 	if(app.read('appNotes')) {
 		keyList = keyList + '#@@@#' + 'appNotes' + '#@@#' + app.read('appNotes').replace(/(\n|\r\n)/g, '#@#').split('/*').join('/ *');

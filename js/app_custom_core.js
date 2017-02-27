@@ -338,6 +338,21 @@ function updateNutriBars() {
 	if(dailySod > 1500) {
 		dailySod = 1500;
 	}
+	/////////////////////
+	// CHECK OVERRIDES //
+	/////////////////////
+	//FIBER
+	if(app.read('override_fiber','on')) {
+		dailyFib = app.read('override_fiber_value');
+	}
+	//FIBER
+	if(app.read('override_sugar','on')) {
+		dailySug = app.read('override_sugar_value');
+	}
+	//FIBER
+	if(app.read('override_sodium','on')) {
+		dailySod = app.read('override_sodium_value');
+	}
 	//return null
 	var doReturn = 0;
 	if((tPro + tCar + tFat) == 0) {
