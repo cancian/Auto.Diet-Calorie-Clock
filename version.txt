@@ -3,11 +3,11 @@
 #################
 # Upcoming&nbsp;features [0000/00/00]
 • BMI calculator on profile
-• Allow user to define his own daily values for fiber, sugar, sodium, and water
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2 [2017/02/24]
-• Food search now includes online results, added below the regular results (online items have a red icon)
+# 2.2 [2017/02/27]
+• Food search now includes online results, added below the regular ones (online items have a red icon)
+• Users can modify the default values for water, fiber, sugar, and sodium (tap nutrients bar for options)
 • The app was once again awarded by the FbStart program
 • Add/Remove buttons for nutrients (not calories) now work by decimal increments
 • Fixed issue with initial slides not scrolling properly
