@@ -2744,7 +2744,7 @@ function getLoginFB() {
 				}
 			}
 			//INIT
-			FB.init({ appId : '577673025616946', status : true, version: 'v2.1', cookie : true, xfbml : true });
+			FB.init({ appId : '577673025616946', status : true, version: 'v2.3', cookie : true, xfbml : true });
 			var callBackURL = 'https://www.facebook.com/connect/login_success.html';
 			var faceBookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&response_type=token&redirect_uri=' + encodeURIComponent(callBackURL);
 			//open
@@ -2804,7 +2804,7 @@ function getLoginFB() {
 		////////////
 		} else {
 			if(typeof FB !== 'undefined') {
-				FB.init({ appId : '577673025616946', status : true, version: 'v2.1', cookie : true, xfbml : true });
+				FB.init({ appId : '577673025616946', status : true, version: 'v2.3', cookie : true, xfbml : true });
 				//check status
 				FB.getLoginStatus(function(response) {
 					//already logged

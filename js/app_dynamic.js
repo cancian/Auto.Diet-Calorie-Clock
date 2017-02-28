@@ -1528,12 +1528,12 @@ function getModalWindow(itemId) {
 		modal.updatenutrients = function() {
 			if (isFoodRow) {
 				var modalAmount = parseInt($('#modalAmount').html());
-				$('#proData p').html2(decimalize((modal.pro/100)*modalAmount,1));
-				$('#carData p').html2(decimalize((modal.car/100)*modalAmount,1));
-				$('#fatData p').html2(decimalize((modal.fat/100)*modalAmount,1));
-				$('#fiiData p').html2(decimalize((modal.fii/100)*modalAmount,1));
-				$('#sugData p').html2(decimalize((modal.sug/100)*modalAmount,1));
-				$('#sodData p').html2(decimalize((modal.sod/100)*modalAmount,1));
+				$('#proData').find('p').html2(decimalize((modal.pro/100)*modalAmount,1));
+				$('#carData').find('p').html2(decimalize((modal.car/100)*modalAmount,1));
+				$('#fatData').find('p').html2(decimalize((modal.fat/100)*modalAmount,1));
+				$('#fiiData').find('p').html2(decimalize((modal.fii/100)*modalAmount,1));
+				$('#sugData').find('p').html2(decimalize((modal.sug/100)*modalAmount,1));
+				$('#sodData').find('p').html2(decimalize((modal.sod/100)*modalAmount,1));
 			}
 		};
 		/////////////////////////
@@ -1556,9 +1556,9 @@ function getModalWindow(itemId) {
 			var modalTotal;
 			if (isFoodRow) {
 				//FOOD
-				modalAmount = parseInt($('#modalAmount').html()) + 5;
+				modalAmount = parseInt($('#modalAmount').html()) + 1;
 				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
-				if (modalAmount < 755 && modalTotal < 9999) {
+				if (modalAmount < 751 && modalTotal < 9999) {
 					$('#modalAmount').html2(modalAmount);
 					$('#modalTotal').html2(modalTotal);
 					modal.updatenutrients();
@@ -1583,7 +1583,7 @@ function getModalWindow(itemId) {
 			var modalTotal;
 			if (isFoodRow) {
 				//FOOD
-				modalAmount = parseInt($('#modalAmount').html()) - 5;
+				modalAmount = parseInt($('#modalAmount').html()) - 1;
 				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount >= 0) {
 					$('#modalAmount').html2(modalAmount);
@@ -1845,10 +1845,10 @@ function getModalWindow(itemId) {
 			// HANDLERS //
 			//////////////
 			//REPEATERS
-			app.handlers.repeater('#modalPosBlock','active',400,50,function() {
+			app.handlers.repeater('#modalPosBlock', 'active', 400, isFoodRow ? 20 : 40, function() {
 				modal.add();
 			});
-			app.handlers.repeater('#modalNegBlock','active',400,50,function() {
+			app.handlers.repeater('#modalNegBlock', 'active', 400, isFoodRow ? 20 : 40, function() {
 				modal.rem();
 			});
 			//SAVE
