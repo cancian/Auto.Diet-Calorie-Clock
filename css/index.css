@@ -683,6 +683,7 @@ input.toggle + label				{ position: absolute; top: 20%; right: 18px; }
 #personalNutriSugarInputNeg,
 #personalNutriSodiumInputNeg	{ right: auto; left: 100px; top: -1px; }
 span.nutriTitle					{ position: absolute; bottom: -2px; left: 12px; font-variant: small-caps; font-size: 16px; line-height: 16px; color: #309030; }
+span.nutriTitle span			{ text-transform: lowercase !important; font-variant: normal !important; font-size: 10px !important; }
 /*#////////////#//
 //# APP CYCLIC #//
 //#////////////#*/
@@ -807,7 +808,7 @@ span.nutriTitle					{ position: absolute; bottom: -2px; left: 12px; font-variant
 ####    BUILD: APP STATUS    ####
 ###############################*/
 #statusWrapper							{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; display: block; border: 9px solid rgba(0,0,0,0); line-height: 16px; min-height: 367px; }
-/* */
+/**/
 #appStatusElapsed						{ position: absolute; top: 0; left: 0; right: 50%; height: 66px; margin-right: 6px; background-color: #fff; color: #777; border: 1px solid #eee; }
 #appStatusElapsed div					{ margin-top: 18px; text-align: center; display: block; font-size: 13px; white-space: nowrap; }
 #appStatusElapsed span					{ display: block; text-align: center; font-size: 10px; text-transform: uppercase; color: #999; }
@@ -861,7 +862,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 .highcharts-legend *					{ font-weight: 300 !important; }
 #highcharts-date-start,
 #highcharts-date-end					{ background-color: rgba(0,0,0,0); color: rgba(0,0,0,.666); color: #7CB5EC; display: inline-block; font-size: 11px; line-height: 11px; }
-#highcharts-date-start					{ position: absolute; bottom: 40px; left: 3px;  text-align: left;  }
+#highcharts-date-start					{ position: absolute; bottom: 40px; left: 3px;  text-align: left; }
 #highcharts-date-end					{ position: absolute; bottom: 40px; right: 6px; text-align: right; }
 .ios #highcharts-date-start,
 .ios #highcharts-date-end				{ bottom: 44px; }
