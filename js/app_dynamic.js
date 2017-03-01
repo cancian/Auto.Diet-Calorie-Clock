@@ -1551,12 +1551,19 @@ function getModalWindow(itemId) {
 		/////////////////
 		// MODAL.ADD() //
 		/////////////////
+		//STEP GLOBALS
+		var addStep = 1;
+		var remStep = 1;
+		//
 		modal.add = function() {
 			var modalAmount;
 			var modalTotal;
+			app.timeout('addStep',200,function() {
+				addStep = 1;
+			});
 			if (isFoodRow) {
 				//FOOD
-				modalAmount = parseInt($('#modalAmount').html()) + 1;
+				modalAmount = parseInt($('#modalAmount').html()) + addStep;
 				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount < 751 && modalTotal < 9999) {
 					$('#modalAmount').html2(modalAmount);
@@ -1581,9 +1588,12 @@ function getModalWindow(itemId) {
 		modal.rem = function() {
 			var modalAmount;
 			var modalTotal;
+			app.timeout('remStep',200,function() {
+				remStep = 1;
+			});
 			if (isFoodRow) {
 				//FOOD
-				modalAmount = parseInt($('#modalAmount').html()) - 1;
+				modalAmount = parseInt($('#modalAmount').html()) - remStep;
 				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount >= 0) {
 					$('#modalAmount').html2(modalAmount);
@@ -1844,12 +1854,19 @@ function getModalWindow(itemId) {
 			//////////////
 			// HANDLERS //
 			//////////////
-			//REPEATERS
-			app.handlers.repeater('#modalPosBlock', 'active', 400, isFoodRow ? 20 : 40, function() {
-				modal.add();
+			//STEP CHANGER
+			$('#modalNeg').on('hold',function(evt) {
+				remStep = 5;
 			});
-			app.handlers.repeater('#modalNegBlock', 'active', 400, isFoodRow ? 20 : 40, function() {
+			$('#modalPos').on('hold',function(evt) {
+				addStep = 5;
+			});
+			//REPEATERS
+			app.handlers.repeater('#modalNegBlock', 'active', 400, isFoodRow ? 50 : 50, function() {
 				modal.rem();
+			});
+			app.handlers.repeater('#modalPosBlock', 'active', 400, isFoodRow ? 50 : 50, function() {
+				modal.add();
 			});
 			//SAVE
 			$('#modalOk').on(touchstart, function (evt) {
