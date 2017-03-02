@@ -1558,12 +1558,20 @@ function getModalWindow(itemId) {
 		modal.add = function() {
 			var modalAmount;
 			var modalTotal;
+			var lastDigit;
 			app.timeout('addStep',200,function() {
 				addStep = 1;
 			});
 			if (isFoodRow) {
 				//FOOD
-				modalAmount = parseInt($('#modalAmount').html()) + addStep;
+				modalAmount = parseInt($('#modalAmount').html());
+				//next 0 or 5
+				lastDigit   = modalAmount.toString().split('').pop();
+				var smooth = false;
+				if(addStep == 5 && lastDigit != 5 && lastDigit != 0) {
+					smooth = true;
+				}
+				modalAmount = modalAmount + (smooth ? 1 : addStep);
 				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount < 751 && modalTotal < 9999) {
 					$('#modalAmount').html2(modalAmount);
@@ -1588,12 +1596,20 @@ function getModalWindow(itemId) {
 		modal.rem = function() {
 			var modalAmount;
 			var modalTotal;
+			var lastDigit;
 			app.timeout('remStep',200,function() {
 				remStep = 1;
 			});
 			if (isFoodRow) {
+				//next 0 or 5
+				modalAmount = parseInt($('#modalAmount').html());
+				lastDigit   = modalAmount.toString().split('').pop();
+				var smooth = false;
+				if(remStep == 5 && lastDigit != 5 && lastDigit != 0) {
+					smooth = true;
+				}
 				//FOOD
-				modalAmount = parseInt($('#modalAmount').html()) - remStep;
+				modalAmount = modalAmount - (smooth ? 1 : remStep);
 				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount >= 0) {
 					$('#modalAmount').html2(modalAmount);
