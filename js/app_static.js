@@ -13,7 +13,7 @@ $(function() {
 	//////////////////////////////
 	// ANDROID WEBSQL PREFERRED //
 	//////////////////////////////
-	if(app.device.android) {
+	if(app.device.android || app.db.webSQL) {
 		dbDriver = [webSQL, indexedDB, localstorage];
 	}
 	/////////////////////
