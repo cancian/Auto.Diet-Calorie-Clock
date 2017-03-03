@@ -3,7 +3,7 @@
 	function r() {
 		if (document.getElementById('slider')) {
 			var e = parseInt($('#entryTitle').val());
-			$('#sliderWrapper').html('<input id="slider" type="range" min="-750" max="750" step="1" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="8" />');
+			$('#sliderWrapper').html('<input id="slider" type="range" min="-750" max="750" step="1" value="0" data-carpe-targets="entryTitle" data-carpe-decimals="0" />');
 			t.sliders.init();
 			document.getElementById('slider').slider.setValue(e);
 			$('#entryTitle').val(e);
@@ -316,7 +316,7 @@
 			v.linkTitleTouch = c + '\n' + (d['data-carpe-link-title-touch'] ? d['data-carpe-link-title-touch'].value : f);
 			v.linkTitle = t.touch ? v.linkTitleTouch : v.linkTitle;
 			v.targets = d['data-carpe-targets'] && d['data-carpe-targets'].value ? d['data-carpe-targets'].value.toString().split(/\s+/) : [];
-			v.decimals = d['data-carpe-decimals'] && !isNaN(d['data-carpe-decimals'].value) ? d['data-carpe-decimals'].value : 14;
+			v.decimals = d['data-carpe-decimals'] && !isNaN(d['data-carpe-decimals'].value) ? d['data-carpe-decimals'].value : 0;
 			v.vertical = e.className.indexOf('vertical') > -1;
 			v.sizeProp = v.vertical ? 'height' : 'width';
 			v.dir = v.vertical ? 'y' : 'x';
