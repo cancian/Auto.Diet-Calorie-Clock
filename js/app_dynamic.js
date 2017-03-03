@@ -647,7 +647,7 @@ $(document).on('pageReload', function (evt) {
 							var ms = 250; //275;
 							//faster desktop
 							if (!app.device.mobile) {
-								ms = 25;
+								ms = 50;
 							}
 							var val = this.value;
 							//DO SEARCH
@@ -872,8 +872,8 @@ function doSearch(input) {
 											lineLoop = sss[s];
 											lineLoop.term = searchalize(lineLoop.name);
 											//PREVENT NULL KCAL (SUPPLEMENTS)
-											if (lineLoop.kcal != 0) {
-												lineArray.push(lineLoop);
+											if (lineLoop.kcal != 0 && lineLoop.id) {
+												lineArray.pushUnique(lineLoop);
 											}
 										}
 									}
@@ -881,7 +881,7 @@ function doSearch(input) {
 								////////////////
 								// BUILD ROWS //
 								////////////////
-								if (lineArray) {
+								if (lineArray.length) {
 									onlineList = app.handlers.buildRows(lineArray.reverse());
 									app.save('online_results', lineArray, 'object');
 								}
