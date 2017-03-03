@@ -5,7 +5,7 @@
 • BMI calculator on profile
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2 [2017/03/01]
+# 2.2 [2017/03/03]
 • Food search now includes online results, added below the regular ones (online items have a red icon)
 • Users can modify the default values for water, fiber, sugar, and sodium (tap nutrients bar for options)
 • The app was once again awarded by the FbStart program
