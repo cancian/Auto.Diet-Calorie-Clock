@@ -10,6 +10,12 @@ $(function() {
 	var indexedDB    = localforage.INDEXEDDB;
 	var localstorage = localforage.LOCALSTORAGE;
 	var dbDriver     = [indexedDB, webSQL, localstorage];
+	//////////////////////////////
+	// ANDROID WEBSQL PREFERRED //
+	//////////////////////////////
+	if(app.device.android) {
+		dbDriver = [webSQL, indexedDB, localstorage];
+	}
 	/////////////////////
 	// FORCE DB ENGINE //
 	/////////////////////
