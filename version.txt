@@ -5,7 +5,7 @@
 • BMI calculator on profile
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2 [2017/03/03]
+# 2.2 [2017/03/05]
 • Food search now includes online results, added below the regular ones (online items have a red icon)
 • Users can modify the default values for water, fiber, sugar, and sodium (tap nutrients bar for options)
 • The app was once again awarded by the FbStart program
@@ -15,6 +15,7 @@
 • Increased the size of the remaining secondary bars for better readability
 • Changed the default food increment step from 5g to 1g when adding diary entries (via the modal dialog)
 • The food increment step will change from 1g to 5g after the add/remove button has been pressed for 1.5 seconds
+• Online search results were showing with switched values for fat and protein
 
 # 2.1.6 [2017/02/20]
 • Fixed input mapping for decimal values on Russian keyboards
