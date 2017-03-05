@@ -2309,7 +2309,7 @@ function getNiceScroll(target,timeout,callback) {
 		// NSETTINGS //
 		///////////////
 		var NSettings = {
-			touchbehavior: false,
+			touchbehavior: true,
 			nativeparentscrolling: true,
 			cursorcolor: '#000',
 			cursorborderradius: 0,
@@ -2341,7 +2341,7 @@ function getNiceScroll(target,timeout,callback) {
 		if($('#appHistory').html() || $('#appTracker').html()) {
 			NSettings.horizrailenabled = true;
 		}
-		if(app.device.desktop) {
+		if(app.device.desktop || app.device.linux) {
 			NSettings.touchbehavior = true;
 		}
 		//NO HAND CURSOR
@@ -2552,7 +2552,7 @@ app.analytics = function(target, desc) {
 	if(typeof ga_storage === 'undefined')				{ return; }
 	if(app.dev || app.read('been_dev'))					{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(/local.|192.168.1./i.test(document.URL))			{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
-	if(/cancian/.test(app.read('facebook_userid')))		{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
+	if(/cancian/i.test(app.read('facebook_userid')))	{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	if(app.read('facebook_userid',1051211303))			{ app.remove('error_log_handled'); app.remove('error_log_unhandled'); return; }
 	//////////
 	// INIT //
@@ -2580,6 +2580,7 @@ app.analytics = function(target, desc) {
 	else if(app.device.firefoxos)  { appOS = 'firefoxos';  deviceType = 'app'; }
 	else if(app.device.osxapp)     { appOS = 'osxapp';     deviceType = 'app'; }
 	else if(app.device.chromeos)   { appOS = 'chromeos';   deviceType = 'app'; }
+	else if(app.device.linux)      { appOS = 'linux';      deviceType = 'app'; }
 	//string
 	var trackString = appOS + '.' + deviceType  + '/#' + target + ' (' + lang + ') (' + appBuild + ')';
 	//track page/event

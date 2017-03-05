@@ -1637,7 +1637,7 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 //#///////////////#//
 //# TOUCH ? CLICK #//
 //#///////////////#//																															 //NO DESKTOP CHROME
-app.touch = ('ontouchend' in document || 'ontouchstart' in window || 'onmsgesturechange' in window || 'msmaxtouchpoints' in window.navigator) && !app.device.chrome ? true : false;
+app.touch = ('ontouchend' in document || 'ontouchstart' in window || 'onmsgesturechange' in window || 'msmaxtouchpoints' in window.navigator) && !app.device.chrome && !app.device.linux ? true : false;
 ////////////////////
 // TOUCH HANDLERS //
 ////////////////////
@@ -2500,7 +2500,7 @@ app.trackInstall = function () {
 	///////////
 	// TRACK //
 	///////////
-	if (app.http || app.device.tizen) {
+	if (app.http || app.device.tizen || app.device.linux) {
 		//WEBINSTALL
 		app.analytics('webinstall');
 		return;
@@ -2567,6 +2567,28 @@ if(app.device.windows8) {
 		};
 	})();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //##/////////////##//
 //## APP.ALERT() ##//
 //##/////////////##//
@@ -2579,8 +2601,23 @@ window.alert = function (title, msg, button, callback) {
 	if (typeof msg      === 'undefined') { msg    = 'msg';         }
 	if (typeof button   === 'undefined') { button = LANG.OK[lang]; }
 	if (typeof callback !== 'function')  { callback = voidThis;    }
-	//
-	if (app.device.playbook) {
+	////////////
+	// UBUNTU //
+	////////////
+	if(app.device.linux) {
+		dialog.alert({'title': title, 'message': msg, 'button': button, 'required': false, 'callback':
+			function(button) {
+				if(button == true) {
+					if(typeof callback === 'function') {
+						callback();
+					}
+				}
+			}
+		});
+	//////////////
+	// PLAYBOOK //
+	//////////////
+	} else if (app.device.playbook) {
 		try {
 			blackberry.ui.dialog.customAskAsync(msg, [button], function(button) { callback(button+1); }, {title : title});
 		} catch(err) { errorHandler(err); }
@@ -2631,10 +2668,24 @@ var MSNext = [];
 function appConfirm(title, msg, callback, ok, cancel) {
 	'use strict';
 	var okCancel = (cancel == 'hide') ? [ok] : [cancel, ok];
+	////////////
+	// UBUNTU //
+	////////////window.confirm
+	if(app.device.linux) {	
+		dialog.confirm({'title': title, 'message': msg, 'button': ok, 'cancel': cancel, 'required': true, 'callback': function(button) {
+			if(button == true) {
+				if(typeof callback === 'function') {
+					callback(2);
+				} else {
+					callback(1);	
+				}
+			}
+		}
+	});
 	///////////
 	// MSAPP //
 	///////////
-	if (app.device.windows8) {
+	} else if (app.device.windows8) {
 		//STORE NEXT
 		if (MSDialog == true) {
 			var isRepeated = 0;
@@ -3031,6 +3082,10 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	};
 })(jQuery);
 /*jshint ignore:start*/
+////////////////////
+// JQUERY DIALOG '//
+////////////////////
+var dialog={defaultParams:{title:"",message:"",button:"Ok",cancel:"Cancel",required:!1,position:"fixed",animation:"scale",input:{type:"text"},validate:function(a){},callback:function(a){}},transitionEnd:"transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd",alert:function(a){dialog.appendDialogHolder();var a=$.extend(!0,{},dialog.defaultParams,a),b=dialog.generateRandomId(),c='<div class="dialog-alert" id="'+b+'">';c+='<div class="dialog-border"></div>',c+='<div class="dialog-title">'+a.title+"</div>",c+='<div class="dialog-message">'+a.message+"</div>",c+='<div class="dialog-close">&times;</div>',c+='<div class="dialog-confirm">'+a.button+"</div>",c+='<div class="dialog-clearFloat"></div>',c+="</div>",dialog.holder.find("td").append(c);var d=$("#"+b),e=d.find(".dialog-confirm"),f=d.find(".dialog-close");a.required===!0&&f.remove(),d.attr("data-dialog-position",a.position),d.attr("data-dialog-animation",a.animation),dialog.injectDialog(),e.one("click.dialog",function(){a.callback(!0)}),f.one("click.dialog",function(){a.callback(null)})},prompt:function(a){dialog.appendDialogHolder();var a=$.extend(!0,{},dialog.defaultParams,a),b=dialog.generateRandomId(),c="";for(var d in a.input)c+=" "+d+'="'+a.input[d]+'" ';var e='<div class="dialog-alert" id="'+b+'">';e+='<div class="dialog-border"></div>',e+='<div class="dialog-title">'+a.title+"</div>",e+='<div class="dialog-message">'+a.message+"</div>",e+="<label><input "+c+" /></label>",e+='<div class="dialog-close">&times;</div>',e+='<div class="dialog-confirm">'+a.button+"</div>",e+='<div class="dialog-clearFloat"></div>',e+="</div>",dialog.holder.find("td").append(e);var f=$("#"+b),g=f.find(".dialog-confirm"),h=f.find(".dialog-close"),i=f.find("input");a.required===!0&&h.remove(),f.attr("data-dialog-position",a.position),f.attr("data-dialog-animation",a.animation),dialog.injectDialog(),g.bind("click.dialog",function(){var b=i.val(),c=a.validate(b)!==!1;return a.required===!0&&""===b&&(c=!1),c?void a.callback(b):(f.one("webkitAnimationEnd oanimationend msAnimationEnd animationend",function(a){f.removeClass("dialog-shaking")}).addClass("dialog-shaking"),!1)}),h.one("click.dialog",function(){a.callback(null)})},confirm:function(a){dialog.appendDialogHolder();var a=$.extend(!0,{},dialog.defaultParams,a),b=dialog.generateRandomId(),c='<div class="dialog-alert" id="'+b+'">';c+='<div class="dialog-border"></div>',c+='<div class="dialog-title">'+a.title+"</div>",c+='<div class="dialog-message">'+a.message+"</div>",c+='<div class="dialog-close">&times;</div>',c+='<div class="dialog-cancel">'+a.cancel+"</div>",c+='<div class="dialog-confirm">'+a.button+"</div>",c+='<div class="dialog-clearFloat"></div>',c+="</div>",dialog.holder.find("td").append(c);var d=$("#"+b),e=d.find(".dialog-confirm"),f=d.find(".dialog-cancel"),g=d.find(".dialog-close");a.required===!0&&g.remove(),d.attr("data-dialog-position",a.position),d.attr("data-dialog-animation",a.animation),dialog.injectDialog(),e.one("click.dialog",function(){a.callback(!0)}),f.one("click.dialog",function(){a.callback(!1)}),g.one("click.dialog",function(){a.callback(null)})},generateRandomId:function(){return Math.floor(1e6*Math.random())+1+(new Date).getTime()},showDialog:function(){$(":focus").blur();var a=$(".dialog-alert:first");"absolute"===a.attr("data-dialog-position")?(dialog.holder.removeClass("dialog-fixed"),dialog.holder.css("top",$(window).scrollTop())):(dialog.holder.addClass("dialog-fixed"),dialog.holder.css("top","")),$(window).trigger("resize.dialog"),$(".dialog-alert").hide(),a.show(),setTimeout(function(){a.bind(dialog.transitionEnd,function(b){$(b.target).is(this)&&(a.unbind(dialog.transitionEnd),dialog.focusElement(a.find("input")[0],!0))}).addClass("dialog-visible")},1)},injectDialog:function(){0===$(".dialog-alert:visible").length?dialog.showDialog():$(".dialog-alert:last").hide(),dialog.overlay.addClass("dialog-visible")},focusElement:function(a,b){a&&($(a).one("blur.dialog",function(){dialog.focusElement(a,!1)}),a.focus(),b&&(void 0!==a.selectionStart&&a.setSelectionRange(a.value.length,a.value.length),a.scrollLeft=a.scrollWidth))},appendDialogHolder:function(){dialog.holder||($("body").append('<div id="dialog-overlay"></div><div id="dialog-holder"><table id="dialog-center"><tr><td></td></tr></table></div>'),dialog.overlay=$("#dialog-overlay"),dialog.holder=$("#dialog-holder"),dialog.bindDialogGlobalEvents())},removeDialogHolder:function(){dialog.unbindDialogGlobalEvents(),dialog.overlay.remove(),dialog.holder.remove(),dialog.overlay=void 0,dialog.holder=void 0},close:function(){var a=$(".dialog-alert:not(.dialog-closing):first");a.addClass("dialog-closing").bind(dialog.transitionEnd,function(b){$(b.target).is(this)&&(a.unbind(dialog.transitionEnd),a.remove(),0===$(".dialog-alert").length?dialog.overlay.addClass("dialog-closing").bind(dialog.transitionEnd,function(a){$(a.target).is(this)&&(dialog.overlay.unbind(dialog.transitionEnd),dialog.removeDialogHolder())}).removeClass("dialog-visible"):dialog.showDialog())}).removeClass("dialog-visible")},bindDialogGlobalEvents:function(){dialog.holder.add(dialog.overlay).bind("click.dialog",function(a){$(a.target).closest(".dialog-alert").is(".dialog-alert")||$(".dialog-close:visible").trigger("click")}),$(document).on("click.dialog",".dialog-confirm, .dialog-cancel, .dialog-close",function(a){return dialog.close(),!1}),$(document).bind("keyup.dialog",function(a){27==a.keyCode&&$(".dialog-alert").is(":visible")&&$(".dialog-close:visible").trigger("click")}),$(document).bind("keydown.dialog",function(a){var b=$(".dialog-alert:visible");if(0!==b.length)return 13==a.keyCode?(b.find(".dialog-confirm").trigger("click"),!1):void 0}),$(window).bind("resize.dialog",function(){dialog.overlay.height("100%"),dialog.overlay.height($(document).height())})},unbindDialogGlobalEvents:function(){dialog.overlay.off(".dialog"),dialog.holder.off(".dialog"),$(document).off(".dialog"),$(window).off(".dialog")}};
 //#//////////////////////////////#//
 //# FIREFOX: DETECT PRIVATE MODE #//
 //#//////////////////////////////#//
