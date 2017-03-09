@@ -524,7 +524,7 @@ app.timeout('pushEntries', 4000, function() {
 			//fake success ~ disable spinner
 			$('body').removeClass('setpush');
 			$('body').removeClass('insync');
-			app.remove('lastEntryPush');
+			//app.remove('lastEntryPush');
 			// END TIMER //
 			if(app.beenDev) { app.timer.end('push','not pushing'); }
 			return;
