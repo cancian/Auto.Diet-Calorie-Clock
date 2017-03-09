@@ -388,7 +388,7 @@ function fetchEntries(callback) {
 //#//////////////////////#//
 function pushEntries() {
 	'use strict';
-//app.timeout('pushEntries',3000,function() {
+app.timeout('pushEntries', 4000, function() {
 	if(!app.read('facebook_logged'))	{ return; }
 	if($('body').hasClass('insync'))	{ return; }	
 	if(app.read('pendingSync'))			{ return; }
@@ -401,14 +401,14 @@ function pushEntries() {
 	// USERID //
 	////////////
 	var userId = app.read('facebook_userid');
-	///////////
-	// TIMER //
-	///////////
-	if(app.beenDev) {
-		app.timer.start('push');
-	}
 	fetchEntries(function(data) {
 		if(!data) { return; }
+		///////////
+		// TIMER //
+		///////////
+		if(app.beenDev) {
+			app.timer.start('push');
+		}
 		//VARTS
 		var fetchEntries = '';
 		var newLineFetch = '';
@@ -513,9 +513,9 @@ function pushEntries() {
 		/////////////////////////////////////
 		// AUTO RETRY IN 30s, not every 5s //
 		/////////////////////////////////////
-		if(app.read('lastEntryPush')) {
-			app.save('lastEntryPush',app.now() + (30000));
-		}
+		//if(app.read('lastEntryPush')) {
+		//	app.save('lastEntryPush',app.now() + (30000));
+		//}
 		////////////////
 		// CHECK DIFF //
 		////////////////
@@ -524,6 +524,7 @@ function pushEntries() {
 			//fake success ~ disable spinner
 			$('body').removeClass('setpush');
 			$('body').removeClass('insync');
+			app.remove('lastEntryPush');
 			// END TIMER //
 			if(app.beenDev) { app.timer.end('push','not pushing'); }
 			return;
@@ -539,7 +540,9 @@ function pushEntries() {
 				/////////////////////
 				error: function(xhr, statusText) { 
 					$('body').removeClass('setpush');
-					app.save('lastEntryPush',app.now() + (30000));
+					//app.save('lastEntryPush',app.now() + (30000));
+					app.remove('lastEntryPush');
+					if(app.beenDev) { app.toast('push error'); }
 				//////////////////
 				// SUCCESS PUSH //
 				//////////////////
@@ -556,7 +559,7 @@ function pushEntries() {
 		}
 	});
 //
-//});
+});
 }
 function setPush(msg) {
 	'use strict';
@@ -565,7 +568,9 @@ function setPush(msg) {
 		updateFoodDb();
 	}
 	//next push time
-	app.save('lastEntryPush',app.now());
+	app.timeout('setPushPrimary', 1000, function() {
+		app.save('lastEntryPush', app.now());
+	});
 }
 //#///////////////////#//
 //# AUX: SYNC ENTRIES #//

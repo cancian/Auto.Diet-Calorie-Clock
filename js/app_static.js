@@ -1144,12 +1144,12 @@ app.die = function () {
 	}
 	//push lock
 	if(app.read('facebook_username') && app.read('facebook_logged') && app.read('lastEntryPush')) {
-		if(now - app.read('lastEntryPush') > 500 && app.read('foodDbLoaded','done')) {
+		if(now - app.read('lastEntryPush') > 500 && app.read('foodDbLoaded','done') && !$('body').hasClass('setpush')) {
 			pushEntries();
 			app.save('lastEntryPush',app.read('lastEntryPush') + 30000);
 		}
 	}
-	setTimeout(lastEntryPush,4000);
+	setTimeout(lastEntryPush, 2000);
 })();
 	////////////////////
 	// YUI COMPRESSOR // legacy
