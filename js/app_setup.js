@@ -520,7 +520,7 @@ app.timeout('pushEntries', 4000, function() {
 		// CHECK DIFF //
 		////////////////
 		var md4Fetch = md4(fetchEntries);
-		if(md4Fetch == app.read('last_push_data' && !app.dev)) {
+		if(md4Fetch == app.read('last_push_data')) {
 			//fake success ~ disable spinner
 			$('body').removeClass('setpush');
 			$('body').removeClass('insync');
@@ -839,7 +839,7 @@ function syncEntries() {
 					// FAKE VALID RESULT // empty but valid result ~ trigger success
 					/////////////////////// return for no diff
 					var md4Sql = md4(sql);
-					if (!sql || sql.trim() == '' || (md4Sql == app.read('last_sync_data') && !app.dev)) {
+					if (!sql || sql.trim() == '' || (md4Sql == app.read('last_sync_data'))) {
 						app.globals.syncRunning = false;
 						app.remove('pendingSync');
 						//NO DIFF
