@@ -1901,9 +1901,10 @@ function getElapsed(swap) {
 		var weightLoss;
 		var weightLossUnit = app.read('calcForm#pA6H','kilograms') ? LANG.KG[lang] : LANG.LB[lang];
 		if(app.read('appStatus','running')) {
-			weightLoss = ((((app.read('calcForm#pA6G')) * ((app.now() - (app.read('config_start_time'))) / (60*60*24*7))) / 1000)).toFixed(7);
+			weightLoss = ((((app.read('calcForm#pA6G')) * ((app.now() - (app.read('config_start_time'))) / (60*60*24*7))) / 1000)).toFixed(6);
+			weightLoss = weightLoss.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		} else {
-			weightLoss = '0.0000000';
+			weightLoss = '0.000,000';
 		}
 		//DATA
 		swapData = weightLoss + ' ' + weightLossUnit;
