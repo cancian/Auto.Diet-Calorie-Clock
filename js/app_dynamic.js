@@ -654,7 +654,7 @@ $(document).on('pageReload', function (evt) {
 							app.timeout('searchTimer', ms, function() {
 								doSearch($('#foodSearch').val());
 								//CLEAR ICON
-								if ($('#foodSearch').val().length == 0) {
+								if (document.getElementById('foodSearch') && $('#foodSearch').val().length == 0) {
 									$('#iconClear').hide();
 									$('#iconRefresh').show();
 								} else {
@@ -948,7 +948,7 @@ function doSearch(input) {
 				$('#searchContents').show();
 				niceResizer(200);
 				//enforce clearIcon display
-				if ($('#foodSearch').val().length != 0) {
+				if (document.getElementById('foodSearch') && $('#foodSearch').val().length != 0) {
 					$('#iconRefresh').hide();
 					$('#iconClear').show();
 				} else {
