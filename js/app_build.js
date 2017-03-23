@@ -1727,6 +1727,10 @@ var profileHtml = '\
 			<option value="Very active (hard exercise/sports 6-7 days/wk)">'                  + LANG.YOUR_ACTIVITY_OPTION4[lang] + '</option>\
 		</select></span>\
 </div>\
+\
+<div id="profileBMI"><p>0</p><span>' + LANG.BMI[lang] + '</span></div>\
+<div id="profileAdvanced"><span>Advanced settings</span></div>\
+\
 <div class="invisible"><input type="checkbox" checked="checked" value="ON" name="automatic_recalc" /><label>Automatic recalculation</label></div>\
 <div class="invisible"><input onclick="recalc_onclick(&#39;&#39;)" type="button" value="Recalculate" name="do_recalc" id="do_recalc" /></div>\
 <div class="invisible"><label>BMR</label><input class="ee101" id="pA6B" readonly size="8" value="0" name="pA6B" /></div>\
@@ -1820,6 +1824,38 @@ var profileHtml = '\
 preTab(keepOpen);
 $('#appContent').html2(profileHtml);
 afterTab(keepOpen);
+/////////
+// BMI //
+/////////
+function updateBMI() {
+	var bmi = 0;
+	//RAW DATA
+	var weight = app.read('calcForm#pA3B'); //$('#pA3B').val();
+	var height = app.read('calcForm#pA2B') / 100;
+	//convert
+	if(weight && height) {
+		//IMPERIAL
+		if(app.read('config_measurement','imperial')) {
+			//KG
+			weight = Number(weight/2.2);
+			//CM
+			height = Number(height*2.54);
+		}
+		//BMI CALC
+		bmi = weight / (height * height);
+	}
+	//min
+	if(isNaN(bmi) || bmi < 1) {
+		bmi = 0;
+	}
+	//max
+	if(bmi > 999) {
+		bmi = 999;	
+	}
+	//UPDATE	
+	$('#profileBMI p').html2(Math.round(bmi));
+}
+updateBMI();
 ////////////////////
 // WEIGHT TRACKER //
 ////////////////////
@@ -2114,6 +2150,8 @@ function writeCalcValues() {
 		$('#inches').val( Math.abs(parseInt($('#inches').val())));
 		app.save(preffix + '#inches',parseInt($('#inches').val()));
 	}
+	//BMI UPDATE
+	updateBMI();
 }
 /////////////////
 // LOAD VALUES //

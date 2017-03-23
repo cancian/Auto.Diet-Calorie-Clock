@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.2.1 (221001)';
+var appVersion = '2.2.1 (221002)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -4414,7 +4414,7 @@ var LANG = {
 	BMI : {
 		en : 'BMI',
 		pt : 'IMC',
-		ar : 'مؤشر كتلة الجسم',
+		ar : 'BMI',//'مؤشر كتلة الجسم',
 		bg : 'ИТМ',
 		cs : 'BMI',
 		da : 'BMI',
