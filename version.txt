@@ -8,7 +8,7 @@
 # 2.2.1 [2017/03/23]
 • BMI calculator on profile
 • Improved synchronization consistency when sending data
-• Added comma to current weight loss total, for better readability ("1.222,333 kg" now reads "1 kg, 222 grams, and 333 milligrams")
+• Added comma separator to current weight loss total, for better readability ("1.222,333 kg" now reads "1 kg, 222 grams, and 333 milligrams")
 
 # 2.2 [2017/03/08]
 • Food search now includes online results, added below the regular ones (online items have a red icon)
