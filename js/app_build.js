@@ -1856,6 +1856,19 @@ function updateBMI() {
 	$('#profileBMI p').html2(Math.round(bmi));
 }
 updateBMI();
+/////////////////////
+// BMI INFO WINDOW //
+/////////////////////
+$('#profileBMI').on(tap,function(evt) {
+	//HTML
+	var bmiHtml = '<div id="bmiNewWindow"></div>';
+	//HANDLERS
+	var bmiHandlers = function() {
+		//	
+	};
+	//CALL WINDOW
+	getNewWindow(LANG.BMI[lang], bmiHtml, bmiHandlers);
+});
 ////////////////////
 // WEIGHT TRACKER //
 ////////////////////
