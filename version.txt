@@ -5,8 +5,9 @@
 • tap BMI value for more information
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2.1 [2017/03/23]
+# 2.2.1 [2017/03/25]
 • BMI calculator on profile
+• Tap the BMI value to reveal a basic scale chart
 • Improved synchronization consistency when sending data
 • Added comma separator to current weight loss total, for better readability ("1.222,333 kg" now reads "1 kg, 222 grams, and 333 milligrams")
 

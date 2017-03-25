@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.2.1 (221002)';
+var appVersion = '2.2.1 (221003)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
