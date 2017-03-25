@@ -1392,21 +1392,17 @@ app.die = function () {
 	/////////////////////////
 	// PAGELOAD GA TRACKER //
 	/////////////////////////
-	setTimeout(function() {
-		//INSTALL
-		app.trackInstall();
-		//ERROR LOGS
-		app.parseErrorLog();
-	}, 6000);
+	//INSTALL
+	app.trackInstall();
+	//ERROR LOGS
+	app.parseErrorLog();
 	//LOAD TIME
 	if (typeof initTime !== 'undefined') {
 		var loadTime = app.now() - initTime;
 		loadTime = (loadTime/1000).toFixed(1);
-		setTimeout(function() {
-			app.analytics('init',loadTime);
-		}, 2000);
+		app.analytics('init',parseFloat(loadTime));
 		if (app.beenDev) {
-			app.toast(loadTime + 's');
+			app.toast(parseFloat(loadTime) + 's');
 		}
 	}
 ///////////////////

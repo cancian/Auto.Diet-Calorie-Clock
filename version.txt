@@ -2,7 +2,7 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
-• tap BMI value for more information
+• Advanced settings for calorie intake customization
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
 # 2.2.1 [2017/03/25]
