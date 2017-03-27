@@ -1754,7 +1754,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #b800:before						{ content: '\B800'; }
 #b900:before						{ content: '\B900'; }
 #appStores #b000					{ position: absolute; bottom: 0; left: 0; width: 100%; display: block; height: 38px; background-color: rgba(0,0,0,0); }
-#b000:before						{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: block; content: 'ChronoBurn.com'; font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif !important; text-align: center; line-height: 0; padding: 0; margin: 0; min-height: inherit; font-weight: 400; font-size: 20px; }
+#b000:before						{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: block; content: 'chronoburn.com'; font-family: 'Helvetica Neue', Helvetica, 'Segoe WP', Arial, sans-serif !important; text-align: center; line-height: 0; padding: 0; margin: 0; min-height: inherit; font-weight: 400; font-size: 20px; }
 #developedBy						{ width: 100%; display: block; text-align: center; font-size: 13px; color: #aaa; height: 44px; line-height: 16px; }
 #contactDeveloper 					{ color: #777; display: block; padding-top: 3px; }
 #developedBy.button span			{ color: #bbb; }
@@ -1762,9 +1762,9 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #suggestionBox						{ padding: 24px; }
 #suggestionBox label				{ color: #000; }
 #usrMsg,
-#usrMail							{ display: block; width: 100%; max-width: 600px; background-color: #f5f5f5; color: #444; padding: 6px 4px; line-height: 18px; font-size: 14px; text-transform: lowercase; }
+#usrMail							{ display: block; width: 100%; max-width: 600px; background-color: #f5f5f5; color: #444; padding: 6px 4px; line-height: 18px; font-size: 14px; }
 #usrMsg								{ height: 180px; }
-#usrMail							{ margin-bottom: 24px; }
+#usrMail							{ margin-bottom: 24px; text-transform: lowercase; }
 #usrPass							{ display: block; width: 100%; max-width: 600px; background-color: #f5f5f5; color: #444; padding: 6px 4px; line-height: 18px; font-size: 14px; }
 #resetPass							{ display: block; width: 100%; max-width: 600px; color: #007aff; background-color: #fff; padding: 9px; margin-top: 20px; line-height: 18px; font-size: 13px; text-align: center; }
 #resetPass.button					{ color: #ccc; }
@@ -1807,7 +1807,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 #screenInfo										{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; -webkit-transform: translate3d(0, 0, 0); background-color: rgba(0,0,0,0); }
 #screenInfo #circleFocus						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow:hidden; display: block; -webkit-transform: translate3d(0, 0, 0); }
 #screenInfo #circleFocus:before,
-#screenInfo #circleFocus:after					{ content:''; position: absolute; border-radius: 900px; top: -124px; left: -54px; width: 230px; height: 230px; -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); }
+#screenInfo #circleFocus:after					{ content: ''; position: absolute; border-radius: 900px; top: -124px; left: -54px; width: 230px; height: 230px; -webkit-box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); box-shadow: 0 0 0 9000px rgba(0, 0, 0,.4); }
 .safari #screenInfo #circleFocus:before,
 .safari #screenInfo #circleFocus:after			{ -webkit-box-shadow: 0 0 0 1900px rgba(0, 0, 0,.4) !important; box-shadow: 0 0 0 1900px rgba(0, 0, 0,.4) !important; }
 /*tweaks*/

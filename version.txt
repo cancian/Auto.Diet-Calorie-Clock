@@ -5,11 +5,12 @@
 • Advanced settings for calorie intake customization
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2.1 [2017/03/25]
+# 2.2.1 [2017/03/26]
 • BMI calculator on profile
 • Tap the BMI value to reveal a basic scale chart
 • Improved synchronization consistency when sending data
 • Added comma separator to current weight loss total, for better readability ("1.222,333 kg" now reads "1 kg, 222 grams, and 333 milligrams")
+• Suggestion Box would not allow capital letters
 
 # 2.2 [2017/03/08]
 • Food search now includes online results, added below the regular ones (online items have a red icon)
