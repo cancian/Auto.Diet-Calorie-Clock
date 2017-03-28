@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.2.1 (221005)';
+var appVersion = '2.2.2 (222000)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -5782,6 +5782,34 @@ var LANG = {
 		vi : 'Giới thiệu về chúng tôi',
 		zh : '关于',
 		zt : '關於'
+	},
+	ZOOM : {
+		en : 'Zoom',
+		pt : 'Zoom',
+		ar : 'التكبير',
+		bg : 'Мащабиране',
+		cs : 'Zvětšení',
+		da : 'Zoom',
+		de : 'Zoom',
+		el : 'Ζουμ',
+		es : 'Zoom',
+		fi : 'Zoomaus',
+		fr : 'Zoom',
+		hu : 'Nagyítás',
+		it : 'Zoom',
+		id : 'Zoom',
+		ja : 'ズーム',
+		ko : '줌 레벨',
+		nl : 'Zoom',
+		nb : 'Zoom',
+		pl : 'Zoom',
+		ro : 'Zoom',
+		ru : 'Масштаб',
+		sv : 'Zoomnivå',
+		tr : 'Yakınlaştırma',
+		vi : 'Mức thu phóng',
+		zh : '缩放级别',
+		zt : '縮放級別'
 	},
 	CHANGELOG : {
 		en : 'Version History',
