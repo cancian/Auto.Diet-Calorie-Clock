@@ -765,8 +765,8 @@ app.toast = function (msg, tag) {
 //////////
 // ZOOM //
 //////////
-/*
 app.zoom = function(ratio) {
+	app.define('app_zoom',1);
 	if(!ratio) {
 		//ratio = app.read('app_zoom');
 	}
@@ -797,7 +797,6 @@ app.zoom = function(ratio) {
 	}
 };
 app.zoom();
-*/
 ////////////////
 // APP.INFO() //
 ////////////////

@@ -2425,16 +2425,16 @@ function appResizer(time,callback) {
 	'use strict';
 	if(!time) { time = 0; }
 	app.timeout('appResizer',time,function() {
-		//app.relWidth  = app.width()  / app.read('app_zoom');
-		//app.relHeight =  app.height() / app.read('app_zoom');
-		/*
+		app.relWidth  = app.width()  / app.read('app_zoom');
+		app.relHeight =  app.height() / app.read('app_zoom');
+
 		if(vendorClass == 'moz' || vendorClass == 'msie') {
 			$('body').css2('width', app.relWidth + 'px');
 			$('body').css2('height', app.relHeight + 'px');
 		}
-		*/
+
 		if(!app.device.msapp && !app.device.desktop && !app.device.linux && !app.device.ipad) {
-			$('body').css2('min-height', app.height());
+			$('body').css2('max-height', app.relHeight);
 		}
 		//unlock top white gap
 		$('body').trigger('touchmove');

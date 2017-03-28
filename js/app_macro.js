@@ -1902,7 +1902,7 @@ function getElapsed(swap) {
 		var weightLossUnit = app.read('calcForm#pA6H','kilograms') ? LANG.KG[lang] : LANG.LB[lang];
 		if(app.read('appStatus','running')) {
 			weightLoss = ((((app.read('calcForm#pA6G')) * ((app.now() - (app.read('config_start_time'))) / (60*60*24*7))) / 1000)).toFixed(6);
-			weightLoss = weightLoss.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			weightLoss = weightLoss.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		} else {
 			weightLoss = '0.000,000';
 		}
@@ -2168,6 +2168,7 @@ function buildAdvancedMenu() {
 		((app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang])).capitalize() + '</strong> (' +
 		((app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang])).toLowerCase() +
 		')</span></p></li>\
+		<li id="advancedZoom"><span id="zoomx1"></span><span id="zoomx2"></span><span id="zoomx3"></span>' + LANG.ZOOM[lang] + '</li>\
 		<li id="advancedDatabase">\
 			<div class="contentToggleTitle">\
 				<p class="contentTitle" id="contentToggleTitle">' + LANG.DATABASE[lang] + '<span>' + LANG.APP_STORAGE[lang] + '</span></p>\
@@ -2376,19 +2377,15 @@ function buildAdvancedMenu() {
 	//#//////#//
 	//# ZOOM #//
 	//#//////#//
-	/*
-	//<li id='advancedZoom'><span id='zoomx1'></span><span id='zoomx2'></span><span id='zoomx3'></span>zoom</li>\
-
-	app.handlers.activeRow('#zoomx1','button',function(evt) {
+	$('#zoomx1').on(tap,function(evt) {
 		app.zoom(1);
 	});
-	app.handlers.activeRow('#zoomx2','button',function(evt) {
+	$('#zoomx2').on(tap,function(evt) {
 		app.zoom(2);
 	});
-	app.handlers.activeRow('#zoomx3','button',function(evt) {
+	$('#zoomx3').on(tap,function(evt) {
 		app.zoom(3);
 	});
-	*/
 	//#/////////#//
 	//# CONTACT #//
 	//#/////////#//
