@@ -1793,16 +1793,9 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 .ios7 #screenInfo.info_slider_quick_add #circleFocus:before,
 .ios7 #screenInfo.info_slider_quick_add #circleFocus:after	{ top: 5px !important; }
 .ios7 #screenInfo.info_slider_quick_add #textBlock			{ top: 230px; }
-
-
-
-
 /*////////
 // ZOOM //
 ////////*/
-
-
-
 #advancedZoom.activeRow		{ background-color: #fff !important; }
 #zoomx1,
 #zoomx2,
@@ -1810,17 +1803,13 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 .zoomx1 #zoomx1,
 .zoomx2 #zoomx2,
 .zoomx3 #zoomx3				{ color: #007aff !important; }
-.zoomx1						{ zoom: 100%; zoom: 1; -ms-transform: scale(1,1); -ms-transform-origin: 0 0; -moz-transform: scale(1,1); -moz-transform-origin: 0 0; }
-.zoomx2						{ zoom: 120%; zoom: 1.2; -ms-transform: scale(1.2,1.2); -ms-transform-origin: 0 0; -moz-transform: scale(1.2,1.2); -moz-transform-origin: 0 0; }
-.zoomx3						{ zoom: 140%; zoom: 1.4; -ms-transform: scale(1.4,1.4); -ms-transform-origin: 0 0; -moz-transform: scale(1.4,1.4); -moz-transform-origin: 0 0; }
+.zoomx1						{ zoom: 100%; zoom: 1;    -ms-transform: scale(1,1);       -ms-transform-origin: 0 0; -moz-transform: scale(1,1);       -moz-transform-origin: 0 0; }
+.zoomx2						{ zoom: 120%; zoom: 1.2;  -ms-transform: scale(1.2,1.2);   -ms-transform-origin: 0 0; -moz-transform: scale(1.2,1.2);   -moz-transform-origin: 0 0; }
+.zoomx3						{ zoom: 133%; zoom: 1.33; -ms-transform: scale(1.33,1.33); -ms-transform-origin: 0 0; -moz-transform: scale(1.33,1.33); -moz-transform-origin: 0 0; }
 #zoomx3						{ right: 20px; }
 #zoomx2						{ right: 60px; }
 #zoomx1						{ right: 100px; }
 #zoomx1:before				{ content: 'x1'; }
 #zoomx2:before				{ content: 'x2'; }
 #zoomx3:before				{ content: 'x3'; }
-
-
-
-
 
