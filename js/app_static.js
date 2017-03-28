@@ -455,8 +455,10 @@ $(document).on('pressenter', function(evt) {
 		}
 		$('#waterButtonSave').trigger(tap);
 		$('#closeButton').trigger(touchend);
+		if($('#slider').val() != 0 && !document.getElementById('editableInput')) {
+			$('#entrySubmit').trigger(tap);
+		}
 		$('#editableInput').trigger('blur');
-		$('#entrySubmit').trigger(tap);
 		$('#modalOk').trigger(touchstart);
 		$('#addNewConfirm').trigger(touchstart);
 		if($('#langSelect').length) {
