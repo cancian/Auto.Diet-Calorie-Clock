@@ -2379,15 +2379,12 @@ function buildAdvancedMenu() {
 	//#//////#//
 	$('#zoomx1').on(tap,function(evt) {
 		app.zoom(1);
-		evt.stopPropagation();
 	});
 	$('#zoomx2').on(tap,function(evt) {
 		app.zoom(2);
-		evt.stopPropagation();
 	});
 	$('#zoomx3').on(tap,function(evt) {
 		app.zoom(3);
-		evt.stopPropagation();
 	});
 	//#/////////#//
 	//# CONTACT #//
