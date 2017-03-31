@@ -2405,11 +2405,11 @@ function getNiceScroll(target,timeout,callback) {
 ///////////////////////////////
 app.wrapperMinHeight = function() {
 	'use strict';
-	var wrapperMinH = (app.height()) - (154 + $('#appHeader').height() + $('#appFooter').height());
+	var wrapperMinH = (app.relHeight) - (154 + $('#appHeader').height() + $('#appFooter').height());
 	if(wrapperMinH < 0) {
 		wrapperMinH = 0;
 	}
-	if($('#entryListWrapper').height() < app.height()) {
+	if($('#entryListWrapper').height() < app.relHeight) {
 		//HOLDER
 		if(!$('#entryListHeight').length) {
 			$('head').append2('<style type="text/css" id="entryListHeight"></style>');
