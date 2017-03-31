@@ -414,15 +414,15 @@ $(document).on('pageload', function (evt) {
 		if (evtId == 'reuse') {
 			getEntry($(targetObj).parent('div').prop('id'), function (data) {
 				data.reuse = true;
-				saveEntry(data, function (newRowId) {
-					setTimeout(function () {
+				app.timeout('reuseEntry',200,function () {
+					saveEntry(data, function (newRowId) {
 						app.exec.updateEntries(newRowId);
 						updateTimer();
 						updateEntriesSum();
 						updateEntriesTime();
 						//SCROLLBAR UPDATE
 						niceResizer(150);
-					}, 150);
+					});
 				});
 				//HIDE
 				hideEntry();
