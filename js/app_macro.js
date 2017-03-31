@@ -133,7 +133,7 @@ function getWeightTracker() {
 						$('#newWindow').getNiceScroll().resize();
 					}
 				},300);
-			}, 0);
+			}, 100);
 		});
 		//add plus icon
 		$('#saveButton').html2('');
