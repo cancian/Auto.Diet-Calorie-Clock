@@ -1102,8 +1102,12 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 /*/////// #oo7aff
 // BMI // background-color: rgba(0,122,255,.2);
 ///////*/
-#profileBMI			{ position: absolute; top: 137px; right: 11px; background-color: #fff; width: 50px; height: 50px; text-align: center; display: block; border: 1px solid #007aff; padding-top: 9px; border-radius: 500px; font-size: 19px; line-height: 19px; font-weight: 300; color: #007aff; }
-#profileBMI span	{ position: absolute; top: 26px; width: 100%; text-align: center; font-weight: normal; font-variant: small-caps; text-transform: lowercase; font-size: 13px; line-height: 13px; color: #007aff; display: block; }
+#profileBMI				{ position: absolute; top: 137px; right: 11px; background-color: #fff; width: 50px; height: 50px; text-align: center; display: block; border: 1px solid #007aff; padding-top: 9px; border-radius: 500px; font-size: 19px; line-height: 19px; font-weight: 300; color: #007aff; }
+#profileBMI span		{ position: absolute; top: 26px; width: 100%; text-align: center; font-weight: normal; font-variant: small-caps; text-transform: lowercase; font-size: 13px; line-height: 13px; color: #007aff; display: block; }
+/*gray highlight*/
+#profileBMI.button		{ color: #0036FF; color: #aaa; border: 1px solid #aaa; }
+#profileBMI.button span	{ color: #0036FF; color: #aaa; }
+/*png background*/
 #bmiNewWindow		{ display: block; height: 364px; text-align: center; margin: 20px 5px 15px 5px; background-repeat: no-repeat; background-position: top center; background-size: contain; }
 /*profile ~ advanced options*/
 #profileAdvanced	{ position: absolute; bottom: 350px; right: 0; background-color: rgba(0,0,0,.0); height: 38px; display: block; width: 250px; font-size: 13px; line-height: 13px; text-align: right; padding: 13px 10px 0 0; color: #007aff; font-weight: 300; white-space: nowrap; display: none; }

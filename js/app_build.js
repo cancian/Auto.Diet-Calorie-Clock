@@ -1859,7 +1859,7 @@ updateBMI();
 /////////////////////
 // BMI INFO WINDOW //
 /////////////////////
-$('#profileBMI').on(tap,function(evt) {
+app.handlers.activeRow('#profileBMI','button',function(evt) {
 	//HTML
 	var bmiHtml = '<div id="bmiNewWindow"></div>';
 	//HANDLERS
