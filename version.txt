@@ -5,8 +5,9 @@
 • Advanced settings for calorie intake customization
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2.2 [2017/03/28]
+# 2.2.2 [2017/03/31]
 • Zoom level is now adjustable (Advanced Settings)
+• Fixed occasional weight tracker glitch on resize
 
 # 2.2.1 [2017/03/26]
 • BMI calculator on profile
