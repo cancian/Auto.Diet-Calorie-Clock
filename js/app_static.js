@@ -1419,6 +1419,7 @@ app.die = function () {
 //#/////////////#//
 //# APPLE WATCH #//
 //#/////////////#//
+app.define('appleWatch','off');
 if (app.device.ios && app.device.cordova) {
 	try {
 		if (window.cordova && window.cordova.plugins && window.cordova.plugins.Watch) {
@@ -1436,6 +1437,12 @@ if (app.device.ios && app.device.cordova) {
 					Watch.sendMessage($('#timerKcalsInput').val(), 'chronoburn.send');
 					//LISTEN
 					Watch.listen('chronoburn.reply', function (message) {
+						//track once
+						if(app.read('appleWatch','off')) {
+							app.save('appleWatch','on');							
+							app.analytics('appleWatch');
+						}
+						//toast
 						if (app.dev) {
 							app.toast('receive: ' + message);
 						}

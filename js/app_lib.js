@@ -321,7 +321,7 @@ app = {
 			//cached keys
 			if (!/app_build|app_autoupdate_hash|remoteSuperBlockCSS|remoteSuperBlockJS/i.test(keys[i]) || appStorage.getItem('config_autoupdate') !== 'on') {
 				//protected keys
-				if(!/ga_storage|autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_installed|index_eval|online_users/i.test(keys[i])) {
+				if(!/ga_storage|autoupdate|debug|been_dev|config_install_time|app_current_user|app_userlist|app_restart_pending|consecutive_reboots|app_installed|index_eval|online_users|appleWatch/i.test(keys[i])) {
 					//MULTIUSER
 					/*
 					//remove current user settings
