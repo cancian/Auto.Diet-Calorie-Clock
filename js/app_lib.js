@@ -778,10 +778,10 @@ app.zoom = function(ratio) {
 		$('html').removeClass('zoomx1 zoomx3');
 		app.save('app_zoom',1.1);
 	}
-	if(ratio == 3 || app.read('app_zoom',1.2)) {
+	if(ratio == 3 || app.read('app_zoom',1.18)) {
 		$('html').addClass('zoomx3');
 		$('html').removeClass('zoomx1 zoomx2');
-		app.save('app_zoom',1.2);
+		app.save('app_zoom',1.18);
 	}
 	//$('body').css2('zoom',Math.round(app.read('app_zoom') * 100) + '%');
 	//$('body').css2('zoom',app.read('app_zoom'));
