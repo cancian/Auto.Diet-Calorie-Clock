@@ -848,7 +848,7 @@ $('body').addClass('appLang-' + lang);
 if(app.device.safari) {
 	$('body').addClass('safari');
 }
-if(app.device.osx) {
+if(app.device.osx && vendorClass !== 'moz') {
 	$('body').addClass('osx');
 }
 if(app.device.osxapp) {
