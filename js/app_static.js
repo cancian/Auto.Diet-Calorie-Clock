@@ -514,7 +514,8 @@ $(document).keyup(function(evt) {
 	///////////////////
 	if($('#closeButton').length)  { return; }
 	if($('#modalWrapper').length) { return; }
-	if(/37|39/.test(evt.which || evt.keyCode)) {
+	/*
+	if(/X37|X39/.test(evt.which || evt.keyCode)) {
 		if($('#subBackButton').length) {
 			if(evt.which || evt.keyCode == 37) {
 				$('#subBackButton').addClass('button');
@@ -548,7 +549,7 @@ $(document).keyup(function(evt) {
 			}
 			return false;
 		}
-	}
+	}*/
 	//////////////////
 	// NOT ON FOCUS //
 	//////////////////
@@ -572,7 +573,9 @@ $(document).keyup(function(evt) {
 	/////////////////
 	// TAB KEY NAV //
 	/////////////////
-	if(!$('input, textarea, select').is(':focus') && !$('#gettingStarted').html() && !$('.dwo').length && !$('#modalWrapper').length) {
+	if($('input, input[type="number"], select, textarea').is(':focus') || $('#gettingStarted').html() || $('.dwo').length || $('#modalWrapper').length) {
+		//dummy
+	} else {
 		if(/37/.test(evt.which || evt.keyCode)) {
 		         if(app.read('app_last_tab','tab4')) { appFooter('tab3'); }
 			else if(app.read('app_last_tab','tab3')) { appFooter('tab2'); }
