@@ -768,7 +768,7 @@ app.toast = function (msg, tag) {
 app.zoom = function(ratio) {
 	app.define('app_zoom',1);
 	//legacy zoom values
-	if(app.read('app_zoom',1) || app.read('app_zoom',1.1) || app.read('app_zoom',1.18)) {
+	if(!app.read('app_zoom',1) && !app.read('app_zoom',1.1) && !app.read('app_zoom',1.18)) {
 		app.save('app_zoom',1);
 	}
 	//set zoom
