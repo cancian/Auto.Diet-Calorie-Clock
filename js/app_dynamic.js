@@ -1413,8 +1413,8 @@ function addNewItem(addnew) {
 	}
 	///////////////////////////////////////////
 	// android input blur blank viewport bug //
-	///////////////////////////////////////////
-	$('#addNewWrapper input').on(tap,function() {
+	/////////////////////////////////////////// ~ use click instead of tap ~ ios propagation bug
+	$('#addNewWrapper input').on('click',function() {
 		$(this).focus();
 	});
 	/*

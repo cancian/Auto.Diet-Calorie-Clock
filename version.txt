@@ -5,11 +5,12 @@
 • Advanced settings for calorie intake customization
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2.2 [2017/04/04]
+# 2.2.2 [2017/04/05]
 • Zoom level is now adjustable (Advanced Settings)
 • Fixed occasional weight tracker glitch on resize
 • Prevent keyboard left/right (tab navigation) when an input has focus
 • Added Ubuntu as a supported platform, both for Ubuntu Phone, and as a snap package for Desktops
+• Fixed minor propagation issue on "add new food" window
 
 # 2.2.1 [2017/03/26]
 • BMI calculator on profile
