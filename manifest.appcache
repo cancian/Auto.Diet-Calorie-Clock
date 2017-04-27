@@ -7,8 +7,9 @@ index.html
 #CSS
 css/index.css
 css/fonts.css
-css/kcals.ttf
 css/openhand.cur
+css/chronoburn.ttf
+css/kcals.ttf
 
 #JQUERY
 js/jquery.js
