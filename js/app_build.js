@@ -777,7 +777,9 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		<input type="text" id="entryBody" placeholder="' + LANG.DESCRIPTION[lang] + '" tabindex="-1" />\
 		<div id="entryBodySearch"><div></div></div>\
 		' + formSelect + '\
-		<div id="entrySubmit">' + LANG.ADD_ENTRY[lang] + '</div>\
+		<div id="entrySubmit">' + LANG.ADD_ENTRY[lang] + '\
+			<div id="entrySubmitPlanner"></div>\
+		</div>\
 	</div>\
 	<div id="entryListWrapper">\
 		<div class="heading" id="go">' + LANG.ACTIVITY_LOG[lang] + '<div id="diarySidebar"></div><div id="diaryNotes"></div></div>\
@@ -976,10 +978,11 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 	///////////////////
 	// SLIDER.SAVE() //
 	///////////////////
-	slider.save = function() {
+	slider.save = function(evt) {
 		var title     = $('#entryTitle').val();
 		var body      = $('#entryBody').val();
 		var published = new Date().getTime();
+		var planned   = (evt.target.id === 'entrySubmitPlanner') ? true : false;
 		//not null
 		if(title == 0) { return; }
 		//not while editing
@@ -998,12 +1001,19 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		////////////////
 		// SAVE ENTRY //
 		////////////////
-		saveEntry({title:title,body:body,published:published},function() {
+		var dataSave = {title:title,body:body,published:published};
+		//planned
+		if(planned === true) {
+			dataSave.published = dataSave.published + (5000 * 60 * 60 * 24 * 1000);
+			dataSave.info      = 'planned';
+		}
+		//
+		saveEntry(dataSave,function() {
 			//RESET
 			slider.reset();
 			slider.lid(title);
 			//REFRESH DATA
-			app.exec.updateEntries(published);
+			app.exec.updateEntries(dataSave.published);
 			updateTimer();
 			updateEntriesSum();
 			updateEntriesTime();
@@ -1016,7 +1026,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if(app.read('appStatus') != 'running') {
 				appConfirm(LANG.NOT_RUNNING_TITLE[lang], LANG.NOT_RUNNING_DIALOG[lang], function(button) {
 					if(button === 2) {
-						app.save('config_start_time',published);
+						app.save('config_start_time',dataSave.published);
 						app.save('appStatus','running');
 						app.exec.updateEntries();
 						setPush();
@@ -1067,7 +1077,7 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		$('#entryListForm').trigger(touchcancel);
 		//$('.carpe-slider-knob').trigger(touchcancel);
 		//$('.carpe-slider-box').trigger(touchcancel);
-		slider.save();
+		slider.save(evt);
 		$(window).trigger('resize');
 		slider.reset();
 		$('#loadingDiv').css2('opacity',0);

@@ -928,7 +928,7 @@ function updateEntry(data,callback) {
 			appRows.entry[i].title     = parseInt(data.title);
 			appRows.entry[i].body      = data.body;
 			appRows.entry[i].published = parseInt(data.published);
-			appRows.entry[i].info      = '';
+			appRows.entry[i].info      = data.info ? data.info : '',
 			appRows.entry[i].kcal      = '';
 			appRows.entry[i].pro       = data.pro;
 			appRows.entry[i].car       = data.car;
@@ -996,7 +996,7 @@ function saveEntry(data,callback) {
 			//schedule
 			saveTime = saveTime + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
 		}
-		appRows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: data.info, kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib, fii: data.fii, sug: data.sug, sod: data.sod});
+		appRows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: '', kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib, fii: data.fii, sug: data.sug, sod: data.sod});
 		app.save('diary_entry',appRows.entry,function(rows) {
 			appRows.entry = rows;
 			setPush();
@@ -1043,7 +1043,7 @@ function saveEntry(data,callback) {
 	/////////////////
 	// INSERT FULL //
 	/////////////////
-		appRows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: '', fii: data.fii, sug: data.sug, sod: data.sod});
+		appRows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: data.info, kcal: '', pro: data.pro, car: data.car, fat: data.fat, fib: '', fii: data.fii, sug: data.sug, sod: data.sod});
 		//SAVE
 		app.save('diary_entry',appRows.entry,function(rows) {
 			appRows.entry = rows;
@@ -1058,7 +1058,7 @@ function saveEntry(data,callback) {
 	//////////////////
 	// INSERT QUICK //
 	//////////////////
-		appRows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: '', kcal: '', pro: '', car: '', fat: '', fib: '', fii: '', sug: '', sod: ''});
+		appRows.entry.push({id: parseInt(data.published), title: data.title, body: data.body, published: parseInt(data.published), info: data.info, kcal: '', pro: '', car: '', fat: '', fib: '', fii: '', sug: '', sod: ''});
 		//SAVE
 		app.save('diary_entry',appRows.entry,function(rows) {
 			appRows.entry = rows;
@@ -1693,7 +1693,7 @@ app.exec.updateEntries = function(partial,range,callback,keepOpen) {
 			$('#entryList').html2('<div id="noEntries"><span>' + LANG.NO_ENTRIES[lang] + '</span></div>');
 		}}
 	});
-	//updateEntriesTime();
+	updateEntriesTime();
 };
 /////////////////////////////
 // UPDATE ENTRYLIST *TIME* //
@@ -1708,6 +1708,13 @@ function updateEntriesTime() {
 				$('#t' + dataPublished).addClass('scheduled');
 			} else {
 				$('#t' + dataPublished).removeClass('scheduled');
+			}
+			//planned
+			if(data[i].info === 'planned'){
+				$('#t' + dataPublished).html2(LANG.PLANNED[lang]);
+				$('#t' + dataPublished).addClass('planned');
+			} else {
+				$('#t' + dataPublished).removeClass('planned');
 			}
 		}
 	});
@@ -1731,6 +1738,7 @@ function updateEntriesSum() {
 	var lToday    = LANG.TODAY[lang];
 	var lFood     = LANG.FOOD[lang];
 	var lExe      = LANG.EXERCISE[lang];
+	var lPlanned  = LANG.PLANNED[lang];
 	getEntries(function(data) {
 		for(var m=0, men=data.length; m<men; m++) {
 			pushTitle.push({ date: dayFormat(parseInt(data[m].published)).split('/').join('x'),val: data[m].title});
@@ -1760,9 +1768,17 @@ function updateEntriesSum() {
 					}
 				}
 			}
-			if(eachDay[d] == dayFormat(app.now()).split('/').join('x')) {
+			//set dates row sum
+			var SumDateTime = Date.parse(eachDay[d].split('x').join('/'));
+			var plannedDate = app.now()+(4000*24*60*60*1000);
+			if(SumDateTime > plannedDate) {
+				//planned
+				thisDay = lPlanned;				
+			} else if(eachDay[d] == dayFormat(app.now()).split('/').join('x')) {
+				//today
 				thisDay = lToday;
 			} else {
+				//regular days
 				thisDay = eachDay[d];
 			}
 			/*jshint ignore:start*/

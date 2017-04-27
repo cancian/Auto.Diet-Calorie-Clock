@@ -7,6 +7,7 @@
 
 # 2.2.3 [2017/04/27]
 • Added Daily Planner functionality. Now users can enter any number of regular activities beforehand, as a "planned" diary entry (via the hourglass icon). They are marked by a red "down arrow" in the Diary tab, and will become regular entries when tapped.
+• Fixed entries with future dates not being highlighted consistently
 
 # 2.2.2 [2017/04/22]
 • Zoom level is now adjustable (Advanced Settings)

@@ -2092,6 +2092,7 @@ function getEntryEdit(eid) {
 				fii:parseFloat($('#getEntryFii').val())            + '',
 				sug:parseFloat($('#getEntrySug').val())            + '',
 				sod:parseFloat($('#getEntrySod').val())            + '',
+				info: $('#t' + parseInt($('#getEntryDateHidden').val()) ).hasClass('planned') ? 'planned' : ''
 			},function(removeId,insertDate) {
 				//REFRESH DATA
 				setTimeout(function() {

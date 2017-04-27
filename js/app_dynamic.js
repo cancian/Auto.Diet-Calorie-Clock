@@ -32,6 +32,28 @@ $(document).on('pageload', function (evt) {
 	//////////////
 	$('#entryList div' + tgt).on(tap, function (event) {
 		event.preventDefault();
+		///////////////////////
+		// planned quick add //
+		///////////////////////
+		if ($('#' + event.target.id).hasClass('planned')) {
+			getEntry($('#' + event.target.id).parent('div').prop('id'), function (data) {
+				//data.reuse = true;
+				data.info = '';
+				var newId = app.now();
+				data.published = newId;
+				app.timeout('reusePlannedEntry', 200, function () {
+					saveEntry(data, function () {
+						app.exec.updateEntries(newId);
+						updateTimer();
+						updateEntriesSum();
+						updateEntriesTime();
+						//SCROLLBAR UPDATE
+						niceResizer(150);
+					});
+				});
+			});
+			return;
+		} //end planned
 		//////////////
 		// TAP DATE //
 		//////////////
@@ -414,7 +436,7 @@ $(document).on('pageload', function (evt) {
 		if (evtId == 'reuse') {
 			getEntry($(targetObj).parent('div').prop('id'), function (data) {
 				data.reuse = true;
-				app.timeout('reuseEntry',200,function () {
+				app.timeout('reuseEntry',200,function () {					
 					saveEntry(data, function (newRowId) {
 						app.exec.updateEntries(newRowId);
 						updateTimer();
@@ -1657,6 +1679,7 @@ function getModalWindow(itemId) {
 			var saveTitle = isFoodRow ? parseInt($('#modalTotal').html()) : parseInt($('#modalTotal').html()) * -1;
 			var saveUnit  = isFoodRow ? LANG.G[lang] : ' ' + LANG.MIN[lang];
 			var saveBody  = modal.name + ' (' + $('#modalAmount').html() + saveUnit + ')';
+			modal.info    = $('#modalPlanned').hasClass('plannedItem') ? 'planned' : '';
 			////////////////
 			// ENTRY TIME //
 			////////////////
@@ -1667,6 +1690,9 @@ function getModalWindow(itemId) {
 			} else if(Number($('#entryTime').val()) > 0) {
 				//schedule
 				saveTime = saveTime + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
+			}
+			if(modal.info == 'planned') {
+				saveTime = saveTime + (5000 * 24 * 60 * 60 * 1000);	
 			}
 			///////////////
 			// ADD ENTRY //
@@ -1682,6 +1708,7 @@ function getModalWindow(itemId) {
 				fii       : parseFloat($('#fiiData p').html()),
 				sug       : parseFloat($('#sugData p').html()),
 				sod       : parseFloat($('#sodData p').html()),
+				info      : modal.info
 			},function() {
 				$('#addNewConfirm').addClass('done');
 				//////////////
@@ -1765,6 +1792,17 @@ function getModalWindow(itemId) {
 				setPush();
 			});
 		};
+		/////////////////////
+		// MODAL.PLANNED() //
+		/////////////////////
+		modal.planned = function() {
+			//TOGGLE PLANNED
+			if($('#modalPlanned').hasClass('plannedItem')) {
+				$('#modalPlanned').removeClass('plannedItem');
+			} else {
+				$('#modalPlanned').addClass('plannedItem');
+			}
+		};		
 		////////////////////
 		// MODAL.REMOVE() //
 		////////////////////
@@ -1815,6 +1853,7 @@ function getModalWindow(itemId) {
 				<div id="modalDelete"></div>\
 				<div id="modalEdit"></div>\
 				<div id="modalFav"></div>\
+				<div id="modalPlanned"></div>\
 				<div id="modalContent">' + modal.name + '&nbsp; <span>&nbsp;' + LANG.PRE_FILL[lang] + '</span></div>\
 				<div id="modalButtons">\
 					<span id="modalOk">'     + LANG.ADD[lang]    + '</span>\
@@ -1918,6 +1957,9 @@ function getModalWindow(itemId) {
 			//$('#modalFav').on(touchend, function (evt) {
 			app.handlers.activeRow('#modalFav','button',function(evt) {
 				modal.fav();
+			});
+			app.handlers.activeRow('#modalPlanned','button',function(evt) {
+				modal.planned();
 			});
 			//DELETE
 			//$('#modalDelete').on(touchend, function (evt) {
