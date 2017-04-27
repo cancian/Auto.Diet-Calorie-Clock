@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2017 by original authors @ fontello.com</metadata>
+<defs>
+<font id="chronoburn" horiz-adv-x="1000" >
+<font-face font-family="chronoburn" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="down-circle" unicode="&#xa100;" d="M1000 349q0-136-67-251t-182-182-251-67-251 67-182 182-67 251 67 251 182 182 251 67 251-67 182-182 67-251z m-500-186l232 233-71 71-161-161-161 161-71-71z" horiz-adv-x="1000" />
+
+<glyph glyph-name="1493304580_sand_clock" unicode="&#xa101;" d="M500 342c5 0 8 3 8 8 0 67 47 107 92 147 44 37 89 76 107 144h-414c18-68 63-107 107-144 45-40 92-80 92-147 0-5 3-8 8-8z m291-407h-25v55c0 136-74 200-133 251-42 36-75 65-75 109s33 73 75 109c59 51 133 115 133 251v55h25c22 0 41 19 41 42s-19 41-41 41h-581c-23 0-42-18-42-41s19-42 42-42h24v-55c0-136 74-200 133-251 42-36 75-65 75-109s-33-73-75-109c-59-51-133-115-133-251v-55h-24c-23 0-42-19-42-42s19-41 42-41h581c22 0 41 18 41 41s-19 42-41 42z m-59 0h-464v55c0 121 64 177 121 226 44 39 86 75 86 134s-42 96-86 134c-57 49-121 105-121 226v55h464v-55c0-121-64-177-121-226-44-38-86-75-86-134s42-95 86-134c57-49 121-105 121-226v-55z m-246 157l-188-131c-8-5-6-9 3-9h398c9 0 11 4 3 9l-188 131c-8 5-20 5-28 0z" horiz-adv-x="1000" />
+</font>
+</defs>
+</svg>

@@ -11,6 +11,7 @@ rem call k:\[bin]\minify.bat
 rem attrib k:\platforms\*.* -r -h -a /s
 rem attrib k:\www\*.* -r -h -a /s
 k:\[bin]\embed k:\www\css\kcals.ttf 
+k:\[bin]\embed k:\www\css\chronoburn.ttf 
 
 REM "ANDROID-GRADLE" 
 rem cd\ 
