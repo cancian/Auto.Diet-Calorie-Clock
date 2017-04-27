@@ -1183,7 +1183,7 @@ div#sliderNum					{ padding: 6px 0 0 40px; font-size: 12px; line-height: 13px; m
 #entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; opacity: 1; padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; white-space: nowrap; }
 div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; opacity: 1; }
 /*planner*/
-#entrySubmitPlanner:before					{ content: '\A101'; font-family: chronoburn; position: absolute; right: -38px; top: -1px; bottom: -1px; font-size: 22px; line-height: 22px; background-color: #fff; border: 1px solid #ddd; color: #cbcbcb; width: 14ppx; padding: 3px 5px; display: block; }
+#entrySubmitPlanner:before					{ content: '\A101'; font-family: chronoburn; position: absolute; right: -38px; top: -1px; bottom: -1px; font-size: 22px; line-height: 22px; background-color: #fff; border: 1px solid #ddd; color: #cbcbcb; padding: 3px 5px; display: block; }
 div.submitActive #entrySubmitPlanner:before	{ color: #fff !important; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; opacity: 1; }
 /**/
 #loadingDiv						{ position: absolute; top: 18px; left: 0; width: 100%; z-index: 99; text-align:center; text-indent: 57px; display: none; opacity: 0; -webkit-transition-timing-function: linear; -webkit-user-select: none; user-select: none; pointer-events: none; -ms-touch-action: none; }
