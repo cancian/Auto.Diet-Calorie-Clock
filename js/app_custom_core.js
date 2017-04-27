@@ -3,10 +3,6 @@
 ////////////////////////////
 function appTimer(content) {
 	'use strict';
-	//prevent future start time
-	if(app.read('config_start_time') > app.now() + (60 * 1000)) {
-		app.save('config_start_time',app.now());
-	}
 	//
 	var kcalsType  = content[0];
 	var kcalsInput = content[1];
@@ -494,7 +490,12 @@ function updateNutriBars() {
 //##################//
 var timeLock = 0;
 function updateTimer() {
-	'use strict';	
+	'use strict';
+	//prevent future start time
+	if(app.read('config_start_time') > app.now() + (60 * 1000)) {
+		app.save('config_start_time',app.now());
+	}
+	//
 	if(noTimer == 'active') { return; }
 	//MAKE SUM
 	var today = dayFormat(app.now());
