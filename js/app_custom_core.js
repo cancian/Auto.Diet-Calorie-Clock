@@ -4,7 +4,7 @@
 function appTimer(content) {
 	'use strict';
 	//prevent future start time
-	if(app.read('config_start_time') > app.now() + (30 * 60 * 1000)) {
+	if(app.read('config_start_time') > app.now() + (60 * 1000)) {
 		app.save('config_start_time',app.now());
 	}
 	//
