@@ -5,7 +5,10 @@
 • Advanced settings for calorie intake customization
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2.2 [2017/04/26]
+# 2.2.3 [2017/04/27]
+• Added Daily Planner functionality. Now users can enter any number of regular activities beforehand, as a "planned" diary entry (via the hourglass icon). They are marked by a red "down arrow" in the Diary tab, and will become regular entries when tapped.
+
+# 2.2.2 [2017/04/22]
 • Zoom level is now adjustable (Advanced Settings)
 • Fixed occasional weight tracker glitch on resize
 • Prevent keyboard left/right (tab navigation) when an input has focus

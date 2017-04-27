@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.2.2 (222002)';
+var appVersion = '2.2.3 (223000)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false;
@@ -1443,6 +1443,34 @@ var LANG = {
 		zh : '跳过',
 		zt : '跳過'
 	},
+	PLANNED : {
+		en : 'planned',
+		pt : 'planejada',
+		ar : 'المخطط لها',
+		bg : 'планирано',
+		cs : 'plánovaný',
+		da : 'planlagt',
+		de : 'geplante',
+		el : 'προγραμματισμένη',
+		es : 'programado',
+		fi : 'suunnitteilla',
+		fr : 'prévu',
+		hu : 'tervezett',
+		it : 'previsto',
+		id : 'direncanakan',
+		ja : '予定の',
+		ko : '계획된',
+		nl : 'geplande',
+		nb : 'planlagt',
+		pl : 'zaplanowane',
+		ro : 'planificată',
+		ru : 'планируемый',
+		sv : 'planerad',
+		tr : 'planlandı',
+		vi : 'lên kế hoạch ',
+		zh : '计划',
+		zt : '計劃'
+	},	
 	FOOD : {
 		en : 'food',
 		pt : 'alimento',
