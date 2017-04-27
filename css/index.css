@@ -1182,6 +1182,10 @@ div#sliderNum					{ padding: 6px 0 0 40px; font-size: 12px; line-height: 13px; m
 .ios #entryTime					{ padding: 6px 4px 5px 7px; }
 #entrySubmit					{ position: absolute; left: 15px; top: 110px; font-size: 11pt; border: 1px solid #ddd; color: #cbcbcb; opacity: 1; padding: 6px 28px 6px 28px; background-color: #fff; line-height: 1; white-space: nowrap; }
 div.submitActive				{ color: #fff !important; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; opacity: 1; }
+/*planner*/
+#entrySubmitPlanner:before					{ content: '\A101'; font-family: chronoburn; position: absolute; right: -38px; top: -1px; bottom: -1px; font-size: 22px; line-height: 22px; background-color: #fff; border: 1px solid #ddd; color: #cbcbcb; width: 14ppx; padding: 3px 5px; display: block; }
+div.submitActive #entrySubmitPlanner:before	{ color: #fff !important; border-color: #4285F4 !important; background-color: #4285F4 !important; border: 1px solid #4285F4 !important; opacity: 1; }
+/**/
 #loadingDiv						{ position: absolute; top: 18px; left: 0; width: 100%; z-index: 99; text-align:center; text-indent: 57px; display: none; opacity: 0; -webkit-transition-timing-function: linear; -webkit-user-select: none; user-select: none; pointer-events: none; -ms-touch-action: none; }
 #appHeader.open + #loadingDiv	{ display: none !important; } 
 .ios7 #loadingDiv				{ top: 31px; }
@@ -1250,9 +1254,11 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 .appLang-ar .entriesTitle	{ margin-right: 16px; }
 .appLang-ja .entriesKcals	{ width: 51px; font-size: 11px; color: #999; padding-top: 1px; }
 .appLang-ko .entriesKcals	{ width: 48px; font-size: 10pt; color: #aaa; padding-top: 1px; }
-.entriesPublished			{ padding-top: 28px; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; white-space: nowrap; }
+.entriesPublished			{ padding-top: 28px; display: inline; text-align: right; position: absolute; bottom: -1px; right: 8px; font-size: 9px; color: #4787DE; line-height: normal; white-space: nowrap; min-width: 50px; }
 .editing .entriesPublished	{ opacity: 0; display: none; pointer-events: auto; }
 .scheduled 					{ color: #cc3300; }
+/*planner*/
+.entriesPublished.planned:before { position: absolute; content: '\A100'; font-family: chronoburn; font-size: 20px; line-height: 20px; right: 0; top: 2px; display: block; width: 20px; height: 40px; text-align: center; -webkit-backface-visibility: hidden; }
 /*enswipe*/
 .entriesTitle,
 .entriesKcals,
@@ -1543,6 +1549,10 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 #modalFav:before			{ content: '\f006'; font-family: KCals; font-size: 32px; position: absolute; top: -65px; right: 138px; width: 60px; height: 56px; color: #007EE5; background-color: #fff; text-align: center; line-height: 58px; }
 #modalFav.favorite:before	{ content: '\f005'; font-family: KCals; }
 #modalFav.button:before		{ color: #ccc; }
+/*modal planner*/
+#modalPlanned:before			{ content: '\A101'; font-family: chronoburn; font-size: 32px; position: absolute; top: -65px; right: 204px; width: 60px; height: 56px !important; color: #ccc !important; background-color: #fff; text-align: center; line-height: 60px; }
+#modalPlanned.plannedItem:before{ color: #007EE5 !important; }
+#modalPlanned.button:before		{ color: #ccc !important; }
 /*modal conversions*/
 #modalConversions			{ display: block; width: 300px; height: 165px; position: absolute; bottom: 0; left: 20px; color: #fff; font-size: 16px; z-index: 98; pointer-events: none; text-shadow: rgba(0,0,0,1) 0 0 1px; }
 #modalConversions div		{ height: 21px; }
