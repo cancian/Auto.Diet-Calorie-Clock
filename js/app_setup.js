@@ -2545,7 +2545,8 @@ function getRateDialog() {
 			//app.save('getRate','locked');
 			app.save('getRate',app.now());
 			//SHOW DIALOG
-			appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function(button) {
+			var rateText = 'If you like this app, remember that you can help in its development by sending suggestions to help us improve it even further!\n\n\Another great way to help is to leave an honest review in the app store.\n\n\Your support makes this a better app - for you, and for thousands of others!';
+			appConfirm('Show you love this app!', rateText, function(button) {
 				if(button === 2) {
 					//LAUNCH
 					app.analytics('vote');
