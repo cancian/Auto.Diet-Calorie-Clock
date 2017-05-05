@@ -2538,15 +2538,15 @@ function getRateDialog() {
 	//////////////////
 	// DAYS TO WAIT //
 	//////////////////
-	var timeRate = 6 * (24*60*60*1000);
+	var timeRate = 6.666 * (24*60*60*1000);
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		app.timeout('rateTimer',3000,function() {
 			//if(app.read('getRate','locked')) { return; }
 			//app.save('getRate','locked');
 			app.save('getRate',app.now());
 			//SHOW DIALOG
-			var rateText = 'If you like this app, remember that you can help in its development by sending suggestions to help us improve it even further!\n\n\Another great way to help is to leave an honest review in the app store.\n\n\Your support makes this a better app - for you, and for thousands of others!';
-			appConfirm('Show you love this app!', rateText, function(button) {
+			var rateText = 'Let others know!'; //'If you like this app, remember that you can help in its development by sending suggestions to help us improve it even further!\n\n\Another great way to help is to leave an honest review in the app store.\n\n\Your support makes this a better app - for you, and for thousands of others!';
+			appConfirm('Love this app?', rateText, function(button) {
 				if(button === 2) {
 					//LAUNCH
 					app.analytics('vote');
