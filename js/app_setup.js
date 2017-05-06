@@ -2538,7 +2538,7 @@ function getRateDialog() {
 	//////////////////
 	// DAYS TO WAIT //
 	//////////////////
-	var timeRate = 6.666 * (24*60*60*1000);
+	var timeRate = 3.14159265358979323846264338327950 * (24*60*60*1000);
 	if((app.now() - app.read('getRate')) > (timeRate)) {
 		app.timeout('rateTimer',3000,function() {
 			//if(app.read('getRate','locked')) { return; }
