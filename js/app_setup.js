@@ -996,7 +996,7 @@ function saveEntry(data,callback) {
 			//schedule
 			saveTime = saveTime + (Number($('#entryTime').val()) * (60 * 60 * 1000) );
 		}
-		appRows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: '', kcal: data.kcal, pro: data.pro, car: data.pro, fat: data.fat, fib: data.fib, fii: data.fii, sug: data.sug, sod: data.sod});
+		appRows.entry.push({id: saveTime, title: data.title, body: data.body, published: saveTime, info: '', kcal: data.kcal, pro: data.pro, car: data.car, fat: data.fat, fib: data.fib, fii: data.fii, sug: data.sug, sod: data.sod});
 		app.save('diary_entry',appRows.entry,function(rows) {
 			appRows.entry = rows;
 			setPush();
