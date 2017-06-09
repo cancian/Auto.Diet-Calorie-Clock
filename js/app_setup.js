@@ -2450,7 +2450,12 @@ function appResizer(time,callback) {
 		}
 
 		if(!app.device.msapp && !app.device.desktop && !app.device.linux && !app.device.ipad) {
-			$('body').css2('max-height', app.relHeight);
+			if(app.device.android) {
+				//old method for android ~ prevent kb colapse
+				$('body').css2('min-height', app.relHeight + 'px');
+			}
+			//regular method
+			$('body').css2('max-height', app.relHeight + 'px');
 		}
 		//unlock top white gap
 		$('body').trigger('touchmove');
