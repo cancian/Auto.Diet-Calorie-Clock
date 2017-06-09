@@ -5,7 +5,8 @@
 • Advanced settings for calorie intake customization
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.2.3 [2017/06/02]
+# 2.2.3 [2017/06/08]
+• Minor corrections to nutrient ratio calculation 
 • Fixed carbohydrate value being overwritten by protein value when duplicating diary entry
 • Added Daily Planner functionality. Now users can enter any number of regular activities beforehand, as a "planned" diary entry (via the hourglass icon). They are marked by a red "down arrow" in the Diary tab, and will become regular entries when tapped.
 • Fixed entries with future dates not being highlighted consistently

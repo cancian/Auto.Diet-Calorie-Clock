@@ -467,15 +467,15 @@ function updateNutriBars() {
 	//subNutrients
 	var elapsedDays = Math.ceil( (app.now() - app.read('config_start_time')) / (60 * 60 * 24 * 1000) );
 	//average for timespan
-	if(app.read('appNutrientTimeSpan',7) && elapsedDays > 7) {
-		tFii = tFii / 7;
-		tSug = tSug / 7;
-		tSod = tSod / 7;
-	} else if(app.read('appNutrientTimeSpan',30) && elapsedDays > 30)  {
+	if(app.read('appNutrientTimeSpan',30) && elapsedDays >= 30) {
 		tFii = tFii / 30;
 		tSug = tSug / 30;
 		tSod = tSod / 30;
-	} else if(app.read('appNutrientTimeSpan',0)) {
+	} else if(app.read('appNutrientTimeSpan',7) && elapsedDays >= 7)  {
+		tFii = tFii / 7;
+		tSug = tSug / 7;
+		tSod = tSod / 7;
+	} else if(!app.read('appNutrientTimeSpan',1) && elapsedDays >= 1) {
 		tFii = tFii / elapsedDays;
 		tSug = tSug / elapsedDays;
 		tSod = tSod / elapsedDays;
