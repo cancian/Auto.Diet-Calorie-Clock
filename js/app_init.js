@@ -236,9 +236,6 @@ safeExec(function() {
 						//////////
 						// EVAL //
 						//////////
-						var indirect = eval;
-						indirect(storeJS);
-					} catch(err) {
 						////////////
 						// APPEND //
 						////////////
@@ -247,6 +244,9 @@ safeExec(function() {
 						scriptBlock.text = storeJS;
 						document.head.appendChild(scriptBlock).parentNode.removeChild(scriptBlock);
 						scriptBlock = '';
+					} catch(err) {
+						var indirect = eval;
+						indirect(storeJS);
 					}				
 				}, false);
 			}
