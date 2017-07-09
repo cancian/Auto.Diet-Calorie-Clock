@@ -2949,7 +2949,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 	'use strict';
 	
 	var TAP_AND_HOLD_TRIGGER_TIMER = 1500;
-	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 15;
+	var MAX_DISTANCE_ALLOWED_IN_TAP_AND_HOLD_EVENT = 150;
 
 	var TOUCHSTART = touchstart;
 	var TOUCHEND = touchend;
