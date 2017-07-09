@@ -5,6 +5,10 @@
 • Advanced settings for calorie intake customization
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
+# 2.3 [2017/06/22]
+• Ongoing cosmetic improvements for better data visibility
+• Icons for food now show as blue on planned entries
+
 # 2.2.3 [2017/06/08]
 • Minor corrections to nutrient ratio calculation 
 • Fixed carbohydrate value being overwritten by protein value when duplicating diary entry
