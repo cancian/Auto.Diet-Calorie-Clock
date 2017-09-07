@@ -513,17 +513,16 @@ app.tab.status = function(keepOpen) {
 			/////////////////
 			setTimeout(function () {
 				if (typeof updateNutriBars === 'function') {
-					app.flashColor('#appStatusBarsWat p', 600, 'rgba(255,200,0,1)', $('#appStatusBarsWat p').css2('background-color'),
+					app.flashColor('#addWater', 600, 'rgba(255,200,0,1)', '#4285F4',
 						//REMOVE JUNK STYLE
 						function () {
 						setTimeout(function () {
-							//$('#addWater').attr('style', '');
-							$('#appStatusBarsWat p').attr('style', '');
+							$('#addWater').attr('style', '');
 							updateNutriBars();
 							setPush();
-						}, 200);
+						}, 800);
 						//wait 200ms before animation
-					}, 100);
+					}, 200);
 				}
 			}, 0);
 		});
