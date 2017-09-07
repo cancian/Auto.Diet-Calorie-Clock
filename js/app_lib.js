@@ -1547,9 +1547,9 @@ app.updateColorPicker = function() {
 	if(!document.getElementById('colorPickerStyle')) {
 		$('head').append2('<style type="text/css" id="colorPickerStyle"></style>');
 	}
-	var deficitColor  = app.read('colorDeficit');
-	var balancedColor = app.read('colorBalanced');
-	var surplusColor  = app.read('colorSurplus');
+	var deficitColor  = app.read('colorDeficit');  //'#F20950'
+	var balancedColor = app.read('colorBalanced'); //'#4285F4'
+	var surplusColor  = app.read('colorSurplus');  //'#05F5B7'
 
 var pickerCss = '\
 body.tab1 #appFooter li#tab1,\
@@ -1569,8 +1569,8 @@ body.deficit #appHeader,\
 body.over.deficit #appHeader	{ background-color: ' + deficitColor  +  '!important; }\
 body.surplus #appHeader,\
 body.over.surplus #appHeader	{ background-color: ' + surplusColor  +  '!important; }\
-.android2 #balanceBar:before	{ background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,' + deficitColor + '), color-stop(25.5%,' + balancedColor + '), color-stop(73.9%,' + balancedColor + '), color-stop(73.9%,'+surplusColor+')); }\
-#balanceBar:before				{ background: -webkit-linear-gradient(left,                                  ' + deficitColor + ' 25.5%,             ' + balancedColor + ' 25.5%,             ' + balancedColor + ' 73.9%,             '+surplusColor+' 73.9%); }\
+.android2 #balanceBar:before	{ background: -webkit-gradient(linear, left top, right top, color-stop(15%,'  + deficitColor + '), color-stop(35%,' + balancedColor + '), color-stop(70%,' + balancedColor + '), color-stop(80%, '+surplusColor+')); }\
+#balanceBar:before				{ background: -webkit-linear-gradient(left,      '  + deficitColor + ' 15%,             ' + balancedColor + ' 35%,             ' + balancedColor + ' 70%,                  '+surplusColor+' 80%); }\
 body.deficit #appStatusBalance #balanceBar:after	{ color: ' + deficitColor + '!important; }\
 body.surplus #appStatusBalance #balanceBar:after	{ color: ' + surplusColor + '!important; }\
 body.error.surplus #appHeader,\
@@ -2040,11 +2040,11 @@ app.highlight = function (target, duration, startColor, endColor, callback, forc
 	if (!duration)   { duration   = 1000; }
 	//
 	$(target).css2(prefix + 'transition', 'background linear 0s');
-	$(target).css2('background-color', startColor);	
+	$(target).css2('background', startColor);	
 	$(target).addClass('appHighlight');
 	setTimeout(function () {
 		$(target).css2(prefix + 'transition', 'background linear ' + JSON.stringify(duration) + 'ms');
-		$(target).css2('background-color', endColor);
+		$(target).css2('background', endColor);
 		$(target).css2('pointer-events','none');
 		//WAIT TO DISABLE
 		setTimeout(function () {
