@@ -1404,10 +1404,10 @@ app.die = function () {
 	//LOAD TIME
 	if (typeof initTime !== 'undefined') {
 		var loadTime = app.now() - initTime;
-		loadTime = (loadTime/1000).toFixed(1);
-		app.analytics('init',parseFloat(loadTime));
+		loadTime = (loadTime/1000).toFixed(0);
+		app.analytics('init',parseFloat(loadTime) + '.0s');
 		if (app.beenDev) {
-			app.toast(parseFloat(loadTime) + 's');
+			app.toast(parseFloat(loadTime) + '.0s');
 		}
 	}
 ///////////////////
