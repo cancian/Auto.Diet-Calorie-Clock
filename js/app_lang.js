@@ -2,10 +2,10 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.2.3 (223004)';
+var appVersion = '2.3 (230000)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = false;
+var reviewMode = true;
 var langArray  = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';
