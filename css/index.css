@@ -1319,7 +1319,17 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 .e-rowAfterhours p.entriesTitle,
 .e-rowMorning p.entriesTitle,
 .e-rowAfternoon p.entriesTitle,
-.e-rowNight p.entriesTitle			{ color: #C00; }
+.e-rowNight p.entriesTitle			{ color: #c00; }
+/*blue icon for planned food*/
+.rowAfterhours .scheduled.entriesPublished,
+.rowMorning .scheduled.entriesPublished,
+.rowAfternoon .scheduled.entriesPublished,
+.rowNight .scheduled.entriesPublished	{ color: #c30 !important; }
+/**/
+.rowAfterhours .planned.entriesPublished,
+.rowMorning .planned.entriesPublished,
+.rowAfternoon .planned.entriesPublished,
+.rowNight .planned.entriesPublished	{ color: #007aff !important; }
 /*////////////////
 // IN-LINE EDIT //
 ////////////////*/
