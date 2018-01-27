@@ -1392,7 +1392,9 @@ app.die = function () {
 				$('#appCyclic1').val(app.read('config_kcals_day_1'));
 			}
 		}
-		//END BLUR/
+		////////////
+		//END BLUR//
+		////////////
 	});
 	/////////////////////////
 	// PAGELOAD GA TRACKER //
@@ -1404,10 +1406,10 @@ app.die = function () {
 	//LOAD TIME
 	if (typeof initTime !== 'undefined') {
 		var loadTime = app.now() - initTime;
-		loadTime = (loadTime/1000).toFixed(0);
-		app.analytics('init',parseFloat(loadTime) + '.0s');
+		loadTime = (loadTime/1000).toFixed(1);
+		app.analytics('init',parseInt(loadTime));
 		if (app.beenDev) {
-			app.toast(parseFloat(loadTime) + '.0s');
+			app.toast(parseInt(loadTime) + '.0s');		
 		}
 	}
 ///////////////////
