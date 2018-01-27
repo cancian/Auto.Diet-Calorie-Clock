@@ -2,8 +2,10 @@
 ## VERSION LOG ##
 #################
 # Upcoming&nbsp;features [0000/00/00]
-• Advanced settings for calorie intake customization
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
+
+# 2.3.2 [2018/01/27]
+• Improved startup time calculation
 
 # 2.3.1 [2017/12/16]
 • Minor compatibility updates
