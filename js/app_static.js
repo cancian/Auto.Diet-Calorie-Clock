@@ -1399,19 +1399,25 @@ app.die = function () {
 	/////////////////////////
 	// PAGELOAD GA TRACKER //
 	/////////////////////////
-	//INSTALL
-	app.trackInstall();
-	//ERROR LOGS
-	app.parseErrorLog();
-	//LOAD TIME
-	if (typeof initTime !== 'undefined') {
-		var loadTime = app.now() - initTime;
-		loadTime = (loadTime/1000).toFixed(1);
-		app.analytics('init',parseInt(loadTime));
-		if (app.beenDev) {
-			app.toast(parseInt(loadTime) + '.0s');		
-		}
-	}
+	app.timeout('trackInstall', 1000, function () {
+		//INSTALL
+		app.trackInstall();
+		app.timeout('parseErrorLog', 1000, function () {
+			//ERROR LOGS
+			app.parseErrorLog();
+			//LOAD TIME
+			app.timeout('initTime', 1000, function () {
+				if (typeof initTime !== 'undefined') {
+					var loadTime = app.now() - initTime;
+					loadTime = loadTime / 1000;
+					app.analytics('init', Math.ceil(loadTime));
+					if (app.beenDev) {
+						app.toast(Math.ceil(loadTime) + '.0s');
+					}
+				}
+			});
+		});
+	});
 ///////////////////
 // CATCH 5 TIMES //
 ///////////////////
@@ -1424,6 +1430,7 @@ app.die = function () {
 //#/////////////#//
 //# APPLE WATCH #//
 //#/////////////#//
+/*
 app.define('appleWatch','off');
 if (app.device.ios && app.device.cordova) {
 	try {
@@ -1462,6 +1469,7 @@ if (app.device.ios && app.device.cordova) {
 		}
 	} catch (e) {}
 }
+*/
 ///////////////////
 ////#//
 } //#//
