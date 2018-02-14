@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2018-01-27
+# 2018-02-14 - v2.3.3
 
 CACHE:
 index.html
@@ -26,7 +26,6 @@ js/app_bootstrap.js
 #js/cordova_plugins.js
 #js/plugins/cordova-plugin-dialogs/www/notification.js
 #js/plugins/cordova-plugin-inappbrowser/www/inappbrowser.js
-#js/plugins/de.twentysteps.cordova.watch/www/watch.js
 
 #FB
 js/facebook-all.js
