@@ -1399,25 +1399,23 @@ app.die = function () {
 	/////////////////////////
 	// PAGELOAD GA TRACKER //
 	/////////////////////////
+	//INSTALL
 	app.timeout('trackInstall', 1000, function () {
-		//INSTALL
 		app.trackInstall();
-		app.timeout('parseErrorLog', 1000, function () {
-			//ERROR LOGS
-			app.parseErrorLog();
-			//LOAD TIME
-			app.timeout('initTime', 1000, function () {
-				if (typeof initTime !== 'undefined') {
-					var loadTime = app.now() - initTime;
-					loadTime = loadTime / 1000;
-					app.analytics('init', Math.ceil(loadTime));
-					if (app.beenDev) {
-						app.toast(Math.ceil(loadTime) + '.0s');
-					}
-				}
-			});
-		});
 	});
+	//ERROR LOGS
+	app.timeout('parseErrorLog', 2000, function () {
+		app.parseErrorLog();
+	});
+	//LOAD TIME
+	if (typeof initTime !== 'undefined') {
+		var loadTime = app.now() - initTime;
+		loadTime = loadTime / 1000;
+		app.analytics('init', Math.ceil(loadTime));
+		if (app.beenDev) {
+			app.toast(Math.ceil(loadTime) + '.0s');
+		}
+	}
 ///////////////////
 // CATCH 5 TIMES //
 ///////////////////
