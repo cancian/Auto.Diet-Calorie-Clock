@@ -71,6 +71,8 @@ for ($i = 0; $i < $length; $i++) {
 //# OUTPUT FORMATED FOOD ARRAY #//
 //#////////////////////////////#//
 $datum = str_replace("}{", "},{", $datum);
+$datum = str_replace("g',", "',", $datum);
+$datum = str_replace("cals", "", $datum);
 print "[" . $datum . "]";
 /////////
 // END //
