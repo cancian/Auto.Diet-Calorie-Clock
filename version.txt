@@ -4,7 +4,7 @@
 # Upcoming&nbsp;features [0000/00/00]
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
-# 2.3.3 [2018/02/19]
+# 2.3.3 [2018/02/27]
 • Fixed issue with search results returning invalid data
 • Removed some unused code
 
