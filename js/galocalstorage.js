@@ -33,9 +33,9 @@
 
 	var ga_storage = new function () {
 		var https = 'https://'; //window.location.protocol.indexOf('https') !== -1 ? 'https://' : 'http://';
-		if(/BB10|BlackBerry|PlayBook|All Touch/i.test(navigator.userAgent)) {
-			https = 'http://';	
-		}
+		//if(/BB10|BlackBerry|PlayBook|All Touch/i.test(navigator.userAgent)) {
+		//	https = 'http://';	
+		//}
 		var that = this;
 		var initialized = false;
 		var tracking_code_url = https + 'www.google-analytics.com/analytics.js';

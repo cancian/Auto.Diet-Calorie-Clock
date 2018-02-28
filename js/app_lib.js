@@ -2502,11 +2502,11 @@ app.trackInstall = function () {
 	///////////
 	// TRACK //
 	///////////
-	if (app.http || app.device.tizen || app.device.linux) {
+	if (app.http || app.device.tizen || app.device.linux || app.device.blackberry || app.device.playbook) {
 		//WEBINSTALL
 		app.analytics('webinstall');
 		return;
-	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp || app.device.blackberry || app.device.playbook) {
+	} else if(app.device.cordova || app.device.msapp || app.device.ios || app.device.android || app.device.wp8 || app.device.wp10 || app.device.windows8 || app.device.windows10 || app.device.osxapp) {
 		//INSTALL
 		if(typeof baseVersion !== 'undefined') {
 			if(baseVersion >= 2.2) {

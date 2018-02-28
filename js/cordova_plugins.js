@@ -25,24 +25,9 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.3.1",
-    "de.twentysteps.cordova.watch": "0.1.",
     "cordova-plugin-dialogs": "1.3.1",
     "cordova-plugin-inappbrowser": "1.6.1"
 };
-	///////////////
-	// IOS WATCH //
-	///////////////
-	if (/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
-    	var watchPlugin = {
-	        "id": "de.twentysteps.cordova.watch.watch",
-        	"file": "plugins/de.twentysteps.cordova.watch/www/watch.js",
-    	    "pluginId": "de.twentysteps.cordova.watch",
-	        "clobbers": [
-        	    "cordova.plugins.Watch"
-    	    ]
-	    };
-		module.exports.push(watchPlugin);
-	}
 	//////////
 	// BB10 //
 	//////////
