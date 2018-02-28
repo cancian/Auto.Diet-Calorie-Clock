@@ -928,7 +928,7 @@ function updateEntry(data,callback) {
 			appRows.entry[i].title     = parseInt(data.title);
 			appRows.entry[i].body      = data.body;
 			appRows.entry[i].published = parseInt(data.published);
-			appRows.entry[i].info      = data.info ? data.info : '',
+			appRows.entry[i].info      = data.info ? data.info : '';
 			appRows.entry[i].kcal      = '';
 			appRows.entry[i].pro       = data.pro;
 			appRows.entry[i].car       = data.car;
