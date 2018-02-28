@@ -1,0 +1,32 @@
+name: chronoburn
+version: '2.2'
+summary: ChronoBurn Calorie Counter
+description: |
+  ChronoBurn is a real-time calorie counter that simulates the human metabolism.
+
+grade: stable
+confinement: strict
+
+apps:
+  chronoburn:
+    command: webapp-launcher --webappUrlPatterns=https://chronoburn.com/* https://chronoburn.com/
+    plugs:
+      - browser-sandbox
+      - network
+      - opengl
+      - unity7
+
+plugs:
+  browser-sandbox:
+    interface: browser-support
+    allow-sandbox: false
+  platform:
+    interface: content
+    content: ubuntu-app-platform1
+    target: ubuntu-app-platform
+    default-provider: ubuntu-app-platform
+
+parts:
+  webapp-container:
+    after: [desktop-ubuntu-app-platform,webapp-helper]
+    plugin: nil
