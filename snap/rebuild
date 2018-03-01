@@ -1,7 +1,0 @@
-snapcraft clean
-snapcraft snap
-sudo snap remove chronoburn
-sudo snap install --dangerous ./chronoburn*amd64.snap
-sudo snap install ubuntu-app-platform
-sudo snap connect chronoburn:platform ubuntu-app-platform:platform
-chronoburn
