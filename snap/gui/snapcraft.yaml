@@ -23,10 +23,6 @@ apps:
     environment:
       TMPDIR: $XDG_RUNTIME_DIR
 
-apps:
-  chronoburn:
-    command: env TMPDIR=$XDG_RUNTIME_DIR $SNAP/bin/chronoburn
-
 parts:
   electron-app:
     source: .

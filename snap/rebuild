@@ -3,6 +3,9 @@
 rm -R out
 rm *.snap
 rm -R chronoburn-linux-x64
+
+npm install
+
 time electron-packager . 
 echo " "
 echo "building snap..."
