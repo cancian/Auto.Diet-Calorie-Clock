@@ -20,7 +20,7 @@
     "tracker"
   ],
   "author": "Andre Cancian",
-  "license": "Personal use",
+  "license": "MIT",
   "devDependencies": {
     "electron": "~1.8.2"
   }
