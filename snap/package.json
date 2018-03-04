@@ -1,5 +1,5 @@
 {
-  "name": "Chronoburn Calorie Counter",
+  "name": "chronoburn",
   "productName": "chronoburn",
   "version": "2.3.5",
   "description": "ChronoBurn is a real-time calorie counter that simulates the human metabolism",
@@ -7,7 +7,7 @@
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/cancian/snap.git",
+  "repository": "https://github.com/cancian/snap",
   "keywords": [
     "chronoburn",
     "calorie",
