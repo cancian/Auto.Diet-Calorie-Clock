@@ -1,0 +1,1 @@
+﻿Basic framework to compile a ChronoBurn as a snap package.

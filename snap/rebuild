@@ -1,0 +1,13 @@
+#!/bin/bash
+
+rm -R out
+rm *.snap
+rm -R chronoburn-linux-x64
+time electron-packager . 
+echo " "
+echo "building snap..."
+echo " "
+time electron-installer-snap --src=chronoburn-linux-x64
+echo " "
+echo "sudo snap remove chronoburn && sudo snap install *.snap --dangerous --devmode "
+echo " "

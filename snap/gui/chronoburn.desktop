@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=ChronoBurn Calorie Counter
+Icon=icon.png
+Categories=Health;Diet;Nutrition;
+Exec=chronoburn
+Terminal=false
