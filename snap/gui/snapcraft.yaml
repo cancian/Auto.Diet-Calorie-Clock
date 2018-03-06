@@ -1,0 +1,38 @@
+name: chronoburn
+version: '2.3.5'
+summary: ChronoBurn is a real-time calorie counter
+description: |
+ ChronoBurn is a real-time calorie counter that simulates the human metabolism.
+ 
+confinement: strict
+grade: stable
+
+apps:
+  electron-app:
+    plugs:
+    - browser-support
+    - desktop
+    - desktop-legacy
+    - gsettings
+    - home
+    - mount-observe
+    - network
+    - network-bind
+    - unity7
+    - x11
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+
+parts:
+  electron-app:
+    source: .
+    plugin: dump
+    stage-packages:
+    - libgconf2-4
+    - libnotify4
+    - libnss3
+    - libpcre3
+    - libxss1
+    - libxtst6
+    after:
+    - desktop-gtk2

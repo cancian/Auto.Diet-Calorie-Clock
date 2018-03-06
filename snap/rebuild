@@ -1,16 +1,26 @@
 #!/bin/bash
 
-rm -R out
-rm *.snap
-rm -R chronoburn-linux-x64
+echo "#RM"
+rm -R chronoburn-linux-x64 *.snap
 
+echo "#NPM"
+echo " "
 time npm install
+echo " "
 
+echo "#PACK"
+echo " "
 time electron-packager . 
+echo " "
+
+echo "#BUILD"
 echo " "
 echo "building snap..."
 echo " "
 time electron-installer-snap --src=chronoburn-linux-x64
+echo " "
+
+"#INSTALL"
 echo " "
 echo "sudo snap remove chronoburn && sudo snap install *.snap --dangerous --devmode "
 echo " "
