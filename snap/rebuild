@@ -1,7 +1,8 @@
 #!/bin/bash
 
-echo "#RM"
+echo " "
 rm -R chronoburn-linux-x64 *.snap
+echo " "
 
 echo "#NPM"
 echo " "
@@ -20,7 +21,14 @@ echo " "
 time electron-installer-snap --src=chronoburn-linux-x64
 echo " "
 
-"#INSTALL"
+echo "#INSTALL"
 echo " "
-echo "sudo snap remove chronoburn && sudo snap install *.snap --dangerous --devmode "
+echo "sudo snap remove chronoburn && sudo snap install *.snap --dangerous --devmode"
 echo " "
+
+echo "#UPLOAD"
+echo " "
+echo "snapcraft login"
+echo "time snapcraft push *.snap"
+echo " "
+
