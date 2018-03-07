@@ -1,27 +1,26 @@
 {
-  "name": "chronoburn",
-  "productName": "chronoburn",
-  "version": "2.3.5",
-  "description": "ChronoBurn is a real-time calorie counter that simulates the human metabolism",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "repository": "https://github.com/cancian/snap",
-  "keywords": [
-    "chronoburn",
-    "calorie",
-    "counter",
-    "realtime",
-    "weight",
-    "diet",
-    "burn",
-    "diary",
-    "tracker"
-  ],
-  "author": "Andre Cancian",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "~1.8.2"
-  }
+	"name": "chronoburn",
+	"productName": "chronoburn",
+	"version": "2.3.7",
+	"description": "ChronoBurn is a real-time calorie counter that simulates the human metabolism",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron ."
+	},
+	"keywords": [
+		"chronoburn",
+		"calorie",
+		"counter",
+		"realtime",
+		"weight",
+		"diet",
+		"burn",
+		"diary",
+		"tracker"
+	],
+	"author": "Andre Cancian",
+	"license": "MIT",
+	"devDependencies": {
+		"electron": "~1.8.2"
+	}
 }
