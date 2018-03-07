@@ -1,3 +1,10 @@
 node_modules
 *.snap
-chronoburn-linux*
+chronoburn-linux-*
+desktop.ini
+folderhighlight*
+FM-*
+*.zip
+*.rar
+*.7z
+*.tar.*
