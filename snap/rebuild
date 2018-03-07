@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo " "
-sudo renice -20 -u cancian root
 rm -R chronoburn-linux-x64 *.snap
 echo " "
 
@@ -14,14 +13,16 @@ echo "#PACK"
 echo " "
 time electron-packager . 
 echo " "
-
+echo "running execstack --clear-execstack"
+execstack --clear-execstack ./chronoburn-linux-x64/chronoburn
+execstack --clear-execstack ./node_modules/electron/dist/electron
+echo " "
 echo "#BUILD"
 echo " "
 echo "building snap..."
 echo " "
 time electron-installer-snap --src=chronoburn-linux-x64
 echo " "
-
 echo "#INSTALL"
 echo " "
 sudo snap remove chronoburn && sudo snap install *.snap --dangerous --devmode

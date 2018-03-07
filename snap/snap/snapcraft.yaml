@@ -3,51 +3,16 @@ version: '2.3.7'
 summary: ChronoBurn is a real-time calorie counter
 description: |
   ChronoBurn is a real-time calorie counter that simulates the human metabolism. 
-  Visit the online version at https://chronoburn.com
-
+    
+  Visit the free web version at https://chronoburn.com
+  
 confinement: strict
 grade: stable
- 
-icon: icon.png
-apps:
-  chronoburn:
-    #use npm or .desktop?
-    command: ${PATH}/bin/desktop-launch $SNAP/chronoburn/chronoburn
-    desktop: chronoburn/resources/app/gui/chronoburn.desktop
-  plugs:
-    - bluez
-    - browser-support
-    - gsettings
-    - home
-    - mount-observe
-    - network
-    - network-bind
-    - opengl
-    - pulseaudio
-    # Get access to notifications, systray etc..
-    - unity7
-	# not sure
-    - desktop
-    - desktop-legacy
-    - wayland
-    - x11
-    environment:
-      TMPDIR: $XDG_RUNTIME_DIR
+
 parts:
   chronoburn:
     source: .
-	#when stable
-    #source: https://github.com/cancian/snap
-    #source-type: git
     plugin: dump
-    build-packages:
-      - execstack
-    prepare: |
-      #testing ico path replace
-      sed -i 's|Icon=icon|Icon=\${SNAP}/meta/gui/icon.png|' chronoburn/resources/app/gui/chronoburn.desktop
-	  #clear stack
-      execstack --clear-execstack chronoburn/chronoburn
-      execstack --clear-execstack node_modules/electron/dist/electron
     stage-packages:
       - libasound2
       - libgconf2-4
@@ -58,4 +23,27 @@ parts:
       - libxss1
       - libxtst6
     after:
-    - desktop-gtk2
+      - desktop-gtk2
+
+apps:
+  chronoburn:
+    icon: icon.png
+    plugs:
+      - bluez
+      - browser-support
+      - gsettings
+      - home
+      - mount-observe
+      - network
+      - network-bind
+      - opengl
+      - pulseaudio
+      - unity7
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+  
+  
