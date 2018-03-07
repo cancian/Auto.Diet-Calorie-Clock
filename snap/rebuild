@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo " "
+sudo renice -20 -u cancian root
 rm -R chronoburn-linux-x64 *.snap
 echo " "
 
@@ -23,11 +24,14 @@ echo " "
 
 echo "#INSTALL"
 echo " "
-echo "sudo snap remove chronoburn && sudo snap install *.snap --dangerous --devmode"
+sudo snap remove chronoburn && sudo snap install *.snap --dangerous --devmode
 echo " "
 
-echo "#UPLOAD"
+echo "running chronoburn async..."
+chronoburn &
 echo " "
+
+echo "#UPLOAD INSTRUCTIONS:"
 echo "snapcraft login"
 echo "time snapcraft push *.snap"
 echo " "
