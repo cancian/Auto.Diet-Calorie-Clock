@@ -88,9 +88,9 @@ app.tab.settings = function(keepOpen) {
 			<span id="b400"></span>\
 			<span id="b500"></span>\
 			<span id="b600"></span>\
-			<span id="b700"></span>\
+			<span id="b700"><span id="ico-linux"></span></span>\
 			<span id="b800"></span>\
-			<span id="b900"></span>\
+			<span id="b900"><span id="ico-tizen"></span></span>\
 		</div>\
 		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">cancian@chronoburn.com</span></div>';
 		/////////////
