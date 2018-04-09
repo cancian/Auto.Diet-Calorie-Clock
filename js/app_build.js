@@ -2016,6 +2016,9 @@ $('#calcForm').on(touchend, function(evt) {
 // SELECT MEASURE SWITCHER //
 /////////////////////////////
 $('#formc select').on(touchstart,function(evt) {
+	//TIZEN FIX SELECT TOGGLE
+	if(app.device.tizen) { return; }
+	//
 	var thisInput = this;
 	if(/male|inches|pounds|centimetres|kilograms/i.test($(this).val())) {
 		evt.preventDefault();
