@@ -23,14 +23,16 @@ app.tab.settings = function(keepOpen) {
 			<li id="optionFacebook"><div><p><p class="contentTitle">' + LANG.BACKUP_AND_SYNC[lang]      + '<span>' + LANG.SETTINGS_BACKUP_INFO[lang] + '</span></p></p></div><p id="emailLogin"></p><p id="FacebookLogin"></p><p id="syncInfo"></p></li>\
 			<li id="optionLang"><div><p class="contentTitle">'        + LANG.SETTINGS_SYSTEM_LANG[lang] + '<span>' + LANG.LANGUAGE_NAME[lang]        + '</span></p></div></li>\
 			<li id="optionHelp"><div><p class="contentTitle">'        + LANG.SETTINGS_HELP[lang]        + '<span>' + LANG.SETTINGS_HELP_INFO[lang]   + '</span></p></div></li>\
-			<li id="liveZilla">\
-			<div style="position: absolute; text-indent: 0; margin: 0; padding: 0; left: 16px; top: 4px;"><img src="' + httpx + 'chronoburn.com/livezilla/image.php?a=7b892&amp;id=1&amp;type=inlay&amp;time='+app.now()+'" style="border:0px;" alt=" " height="22" width="22"></div>\
-			<div><p class="contentTitle">'                         + 'Chat support'                  + '<span>' + 'Get help online'             + '</span></p></div></li>\
 		</ul>\
 		<div id="optionWebsite"><span>' + appName + '</span> for ' + app.get.platform() + '</div>\
 		<div id="optionLastSync">' + LANG.LAST_SYNC[lang]  + '<span>--</span></div>\
 		<div id="optionAdvanced">' + LANG.SETTINGS_ADVANCED[lang] + '</div>\
 	</div>';
+		/*
+		<li id="liveZilla">\
+		<div style="position: absolute; text-indent: 0; margin: 0; padding: 0; left: 16px; top: 4px;"><img src="' + httpx + 'chronoburn.com/livezilla/image.php?a=7b892&amp;id=1&amp;type=inlay&amp;time='+app.now()+'" style="border:0px;" alt=" " height="22" width="22"></div>\
+		<div><p class="contentTitle">'                         + 'Chat support'                  + '<span>' + 'Get help online'             + '</span></p></div></li>\
+		*/
 	//#////////#//
 	//# OUTPUT #//
 	//#////////#//
