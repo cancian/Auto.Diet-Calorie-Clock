@@ -1549,7 +1549,7 @@ function getModalWindow(itemId) {
 		/////////////////////////////
 		modal.updatenutrients = function() {
 			if (isFoodRow) {
-				var modalAmount = parseInt($('#modalAmount').html());
+				var modalAmount = parseInt($('#modalAmount').val());
 				$('#proData').find('p').html2(decimalize((modal.pro/100)*modalAmount,1));
 				$('#carData').find('p').html2(decimalize((modal.car/100)*modalAmount,1));
 				$('#fatData').find('p').html2(decimalize((modal.fat/100)*modalAmount,1));
@@ -1586,7 +1586,7 @@ function getModalWindow(itemId) {
 			});
 			if (isFoodRow) {
 				//FOOD
-				modalAmount = parseInt($('#modalAmount').html());
+				modalAmount = parseInt($('#modalAmount').val());
 				//next 0 or 5
 				lastDigit   = modalAmount.toString().split('').pop();
 				var smooth = false;
@@ -1596,17 +1596,17 @@ function getModalWindow(itemId) {
 				modalAmount = modalAmount + (smooth ? 1 : addStep);
 				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount < 751 && modalTotal < 9999) {
-					$('#modalAmount').html2(modalAmount);
+					$('#modalAmount').val(modalAmount);
 					$('#modalTotal').html2(modalTotal);
 					modal.updatenutrients();
 					modal.checkactive();
 				}
 			} else {
 				//EXERCISE
-				modalAmount = parseInt($('#modalAmount').html()) + 1;
+				modalAmount = parseInt($('#modalAmount').val()) + 1;
 				modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
 				if (modalAmount < 361 && modalTotal < 9999) {
-					$('#modalAmount').html2(modalAmount);
+					$('#modalAmount').val(modalAmount);
 					$('#modalTotal').html2(modalTotal);
 					modal.checkactive();
 				}
@@ -1624,7 +1624,7 @@ function getModalWindow(itemId) {
 			});
 			if (isFoodRow) {
 				//next 0 or 5
-				modalAmount = parseInt($('#modalAmount').html());
+				modalAmount = parseInt($('#modalAmount').val());
 				lastDigit   = modalAmount.toString().split('').pop();
 				var smooth = false;
 				if(remStep == 5 && lastDigit != 5 && lastDigit != 0) {
@@ -1634,22 +1634,55 @@ function getModalWindow(itemId) {
 				modalAmount = modalAmount - (smooth ? 1 : remStep);
 				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
 				if (modalAmount >= 0) {
-					$('#modalAmount').html2(modalAmount);
+					$('#modalAmount').val(modalAmount);
 					$('#modalTotal').html2(modalTotal);
 					modal.updatenutrients();
 					modal.checkactive();
 				}
 			} else {
 				//EXERCISE
-				modalAmount = parseInt($('#modalAmount').html()) - 1;
+				modalAmount = parseInt($('#modalAmount').val()) - 1;
 				modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
 				if (modalAmount >= 0) {
-					$('#modalAmount').html2(modalAmount);
+					$('#modalAmount').val(modalAmount);
 					$('#modalTotal').html2(modalTotal);
 					modal.checkactive();
 				}
 			}
 		};
+		////////////////////
+		// MODAL.update() //
+		////////////////////
+		modal.update = function() {
+			var modalAmount;
+			var modalTotal;
+			var lastDigit;
+			//app.timeout('remStep',200,function() {
+			//	remStep = 1;
+			//});
+			if (isFoodRow) {
+				//next 0 or 5
+				modalAmount = parseInt($('#modalAmount').val());
+				//FOOD
+				//modalAmount = modalAmount - (smooth ? 1 : remStep);
+				modalTotal  = Math.round((modal.kcal / 100) * modalAmount);
+				if (modalAmount >= 0) {
+					$('#modalAmount').val(modalAmount);
+					$('#modalTotal').html2(modalTotal);
+					modal.updatenutrients();
+					modal.checkactive();
+				}
+			} else {
+				//EXERCISE
+				modalAmount = parseInt($('#modalAmount').val());
+				modalTotal  = Math.round(((modal.kcal * totalWeight) / 60) * modalAmount);
+				if (modalAmount >= 0) {
+					$('#modalAmount').val(modalAmount);
+					$('#modalTotal').html2(modalTotal);
+					modal.checkactive();
+				}
+			}
+		};		
 		///////////////////
 		// MODAL.CLOSE() //
 		///////////////////
@@ -1678,7 +1711,7 @@ function getModalWindow(itemId) {
 			/////////////////////
 			var saveTitle = isFoodRow ? parseInt($('#modalTotal').html()) : parseInt($('#modalTotal').html()) * -1;
 			var saveUnit  = isFoodRow ? LANG.G[lang] : ' ' + LANG.MIN[lang];
-			var saveBody  = modal.name + ' (' + $('#modalAmount').html() + saveUnit + ')';
+			var saveBody  = modal.name + ' (' + $('#modalAmount').val() + saveUnit + ')';
 			modal.info    = $('#modalPlanned').hasClass('plannedItem') ? 'planned' : '';
 			////////////////
 			// ENTRY TIME //
@@ -1846,6 +1879,7 @@ function getModalWindow(itemId) {
 		////////////////
 		// HTML FRAME //
 		////////////////
+		var modalTextOrNumber = app.device.desktop || app.device.android ? 'text' : 'number';
 		$('body').append2('\
 		<div id="modalWrapper">\
 			<div id="modalOverlay"></div>\
@@ -1854,7 +1888,7 @@ function getModalWindow(itemId) {
 				<div id="modalEdit"></div>\
 				<div id="modalFav"></div>\
 				<div id="modalPlanned"></div>\
-				<div id="modalContent">' + modal.name + '&nbsp; <span>&nbsp;' + LANG.PRE_FILL[lang] + '</span></div>\
+				<div id="modalContent">'     + modal.name        + '&nbsp; <span>&nbsp;' + LANG.PRE_FILL[lang] + '</span></div>\
 				<div id="modalButtons">\
 					<span id="modalOk">'     + LANG.ADD[lang]    + '</span>\
 					<span id="modalCancel">' + LANG.CANCEL[lang] + '</span>\
@@ -1862,7 +1896,8 @@ function getModalWindow(itemId) {
 				<div id="modalAdjust">\
 					<span id="modalNegBlock"><span id="modalNeg"></span></span>\
 					<span id="modalPosBlock"><span id="modalPos"></span></span>\
-					<span id="modalAmountBlock"><span id="modalAmount">0</span><span id="modalAmountType">' + LANG.MINUTES[lang] + '</span></span>\
+					<span id="modalAmountBlock"><input type="' + modalTextOrNumber + '" id="modalAmount" value="0" />\
+					<span id="modalAmountType">' + LANG.MINUTES[lang] + '</span></span>\
 					<span id="modalTotalBlock"><span id="modalTotal">0</span><span id="modalTotalType">'    + LANG.KCAL[lang]    + '</span></span>\
 				</div>\
 			</div>\
@@ -1909,7 +1944,30 @@ function getModalWindow(itemId) {
 			//////////////
 			// HANDLERS //
 			//////////////
-			//STEP CHANGER
+			// VALIDATE MANUAL INPUT //
+			app.handlers.validate('#modalAmount',{maxLength:3,inverter:0},'',function() {
+				//KEYUP
+				modal.update();
+			},function() {
+				//FOCUS
+				modal.update();
+				//
+				if($('#modalAmount').val() == '' || $('#modalAmount').val() == 0) {
+					$('#modalAmount').val(''); 
+				}
+			},function() {
+				//BLUR
+				//$('#modalAmount').attr('type','text');
+				//$('#modalAmount').attr('readonly','readonly');
+				if($('#modalAmount').val() == '') {
+					//$('#lid').val(0);
+					$('#modalAmount').val(0);
+					//document.getElementById('slider').slider.setValue(0);
+				}
+				modal.update();
+				//modal.updatenutrients();
+			});
+			// STEP CHANGER //
 			$('#modalNeg').on('hold',function(evt) {
 				remStep = 5;
 			});

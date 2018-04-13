@@ -4,6 +4,9 @@
 # Upcoming&nbsp;features [0000/00/00]
 <span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
 
+# 2.3.4 [2018/04/13]
+• Allow manual input on add modal dialog
+
 # 2.3.3 [2018/04/09]
 • Fixed select focus issue on profile tab
 • Fixed issue with search results returning invalid data

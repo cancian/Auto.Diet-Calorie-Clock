@@ -1508,7 +1508,7 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 #modalNegBlock.active #modalNeg,
 #modalPosBlock.active #modalPos	{ color: #ccc; }
 #modalAmountBlock		{ position: absolute; top: 5px; left: 25%; display: block; width: 50%; height: 42px; border: 1px solid #eee; border-width: 1px 0 1px 0; }
-#modalAmount			{ display: block; width: 100%; text-align: center; font-size: 12pt; line-height: 10pt; font-weight: bold; padding-top: 7px; }
+#modalAmount			{ display: block; width: 100%; text-align: center; font-size: 11pt; line-height: 11pt; border: 0; font-weight: bold; padding: 5px 0 0 0; margin: 0; height: 22px; overflow: hidden; }
 #modalAmountType		{ display: block; width: 100%; text-align: center; font-size: 10pt; font-variant: small-caps; }
 #modalTotalBlock		{ position: absolute; top: 48px; left: 0; display: block; width: 100%; text-align: center; font-variant: small-caps; height: 36px; padding-top: 8px; font-size: 16pt; background-color: #fff; }
 #modalTotal				{ float: left; width: 50%; display: block; text-align: right; background-color: #fff; }
