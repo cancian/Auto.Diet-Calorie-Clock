@@ -893,6 +893,7 @@ function doSearch(input) {
 										if (sss[s]) {
 											lineLoop = sss[s];
 											lineLoop.term = searchalize(lineLoop.name);
+											lineLoop.id = 'o' + lineLoop.id;
 											//PREVENT NULL KCAL (SUPPLEMENTS)
 											if (lineLoop.kcal != 0 && lineLoop.id) {
 												lineArray.pushUnique(lineLoop);
