@@ -58,12 +58,12 @@ sleep 0
 call reswww 
 
 REM "WINDOWS10"
-rem cd\ 
-REM deltree /y /z /s /q /t k:\platforms\windows10\www 
-REM rd /s /q k:\platforms\windows10\www 
-REM mkdir k:\platforms\windows10\www 
-REM cd k:\platforms\windows10\www 
-REM call reswww 
+cd\ 
+deltree /y /z /s /q /t k:\platforms\windows10\www 
+rd /s /q k:\platforms\windows10\www 
+mkdir k:\platforms\windows10\www 
+cd k:\platforms\windows10\www 
+call reswww 
  
 rem "WINDOWS 8.1 / WINDOWS PHONE 8.1"
 rem cd\ 
@@ -131,7 +131,7 @@ sleep 0
 
 rem copy /y k:\www\config.xml k:\platforms\android-gradle\res\xml\config.xml 
 copy /y k:\www\config.xml k:\platforms\ios\kcals\config.xml 
-REM copy /y k:\www\config.xml k:\platforms\windows10\config.xml 
+copy /y k:\www\config.xml k:\platforms\windows10\config.xml 
 copy /y k:\www\config.xml k:\platforms\windows8\config.xml 
 copy /y k:\www\config.xml k:\platforms\wp8\config.xml 
 copy /y k:\www\config.xml k:\platforms\bb10\config.xml 
