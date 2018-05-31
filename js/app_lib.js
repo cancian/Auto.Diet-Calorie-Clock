@@ -500,8 +500,11 @@ app.device = {
 	android    : (/Android/i).test(app.ua) && !(/MSApp/i).test(app.ua) ? app.get.androidVersion : false,
 	android2   : (/Android/i).test(app.ua) && app.get.androidVersion < 4 ? true : false,
 	ios        : (/iPhone|iPad|iPod/i).test(app.ua) ? true : false,
-	ios7       : (/OS 0[7-9]|1[0-0](.*) like Mac OS X/i).test(app.ua) ? true : false,
-	ios11      : (/OS 1[1-9](.*) like Mac OS X/i).test(app.ua) ? true : false,
+	ios7       : (/OS 0[7-9]|1[0-0](.*) like Mac OS X/i).test(app.ua) ? true : false, //7-10
+	ios8       : (/OS [8](.*) like Mac OS X/i).test(app.ua) ? true : false, //
+	ios9       : (/OS [9](.*) like Mac OS X/i).test(app.ua) ? true : false, //
+	ios10      : (/OS 1[0-9](.*) like Mac OS X/i).test(app.ua) ? true : false, //10+
+	ios11      : (/OS 1[1-9](.*) like Mac OS X/i).test(app.ua) ? true : false, //11+
 	ipad       : (/iPad/i).test(app.ua) ? true : false,
 	tablet     : (/iPad|tablet|surface/i).test(app.ua) ? true : false,
 	linux      : (/X11|Linux|Ubuntu/i).test(app.ua) && !(/Android/i).test(app.ua) ? true : false,

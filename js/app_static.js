@@ -767,6 +767,15 @@ if(app.read('config_kcals_type','cyclic')) { $('body').addClass('cyclic'); } els
 if(app.device.ios11 && app.device.cordova) {
 	$('body').addClass('ios11');
 }
+if(app.device.ios10 && app.device.cordova) {
+	$('body').addClass('ios10');
+}
+if(app.device.ios9 && app.device.cordova) {
+	$('body').addClass('ios9');
+}
+if(app.device.ios8 && app.device.cordova) {
+	$('body').addClass('ios8');
+}
 if(app.device.ios7 && app.device.cordova) {
 	$('body').addClass('ios7');
 }
