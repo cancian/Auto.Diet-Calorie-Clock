@@ -762,17 +762,8 @@ if(app.read('facebook_logged')) {
 app.define('config_kcals_type','simple');
 if(app.read('config_kcals_type','cyclic')) { $('body').addClass('cyclic'); } else { $('body').addClass('simple'); }
 /////////////
-// IOS 7/8 //
+// IOS 7-9 //
 /////////////
-if(app.device.ios10 && app.device.cordova) {
-	$('body').addClass('ios10');
-}
-if(app.device.ios9 && app.device.cordova) {
-	$('body').addClass('ios9');
-}
-if(app.device.ios8 && app.device.cordova) {
-	$('body').addClass('ios8');
-}
 if(app.device.ios7 && app.device.cordova) {
 	$('body').addClass('ios7');
 }
