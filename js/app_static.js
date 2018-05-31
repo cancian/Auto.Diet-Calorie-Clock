@@ -764,6 +764,9 @@ if(app.read('config_kcals_type','cyclic')) { $('body').addClass('cyclic'); } els
 /////////////
 // IOS 7-9 //
 /////////////
+if(app.device.ios11 && app.device.cordova) {
+	$('body').addClass('ios11');
+}
 if(app.device.ios7 && app.device.cordova) {
 	$('body').addClass('ios7');
 }
