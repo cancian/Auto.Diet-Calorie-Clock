@@ -1,8 +1,9 @@
 #################
 ## VERSION LOG ##
 #################
-# Upcoming&nbsp;features [0000/00/00]
-<span class="red">★</span> Missing something? Ask for new features via the <strong>Suggestion Box</strong>
+
+# 2.4 [2018/06/01]
+• Fixed missing plugin file
 
 # 2.3.4 [2018/05/31]
 • Fixed header height inconsistency on some devices
