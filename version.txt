@@ -1,6 +1,8 @@
 #################
 ## VERSION LOG ##
 #################
+# New&nbsp;features [0000/00/00]
+<span class="red">★</span> If you miss some functionality on the app, feel free to request it via <a href='mailto:cancian@chronoburn.com?Subject=ChronoBurn Support'>cancian@chronoburn.com</a>. Most suggestions are implemented in a few days.
 
 # 2.4 [2018/06/01]
 • Fixed issue preventing links from working properly
