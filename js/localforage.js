@@ -1,6 +1,6 @@
 ﻿/*!
     localForage -- Offline Storage, Improved
-    Version 1.7.1
+    Version 1.7.2
     https://localforage.github.io/localForage
     (c) 2013-2017 Mozilla, Apache License 2.0
 */
@@ -90,7 +90,7 @@ var REJECTED = ['REJECTED'];
 var FULFILLED = ['FULFILLED'];
 var PENDING = ['PENDING'];
 
-module.exports = exports = Promise;
+module.exports = Promise;
 
 function Promise(resolver) {
   if (typeof resolver !== 'function') {
@@ -196,7 +196,7 @@ handlers.reject = function (self, error) {
 function getThen(obj) {
   // Make sure we only access the accessor once as required by the spec
   var then = obj && obj.then;
-  if (obj && typeof obj === 'object' && typeof then === 'function') {
+  if (obj && (typeof obj === 'object' || typeof obj === 'function') && typeof then === 'function') {
     return function appyThen() {
       then.apply(obj, arguments);
     };
@@ -244,7 +244,7 @@ function tryCatch(func, value) {
   return out;
 }
 
-exports.resolve = resolve;
+Promise.resolve = resolve;
 function resolve(value) {
   if (value instanceof this) {
     return value;
@@ -252,13 +252,13 @@ function resolve(value) {
   return handlers.resolve(new this(INTERNAL), value);
 }
 
-exports.reject = reject;
+Promise.reject = reject;
 function reject(reason) {
   var promise = new this(INTERNAL);
   return handlers.reject(promise, reason);
 }
 
-exports.all = all;
+Promise.all = all;
 function all(iterable) {
   var self = this;
   if (Object.prototype.toString.call(iterable) !== '[object Array]') {
@@ -297,7 +297,7 @@ function all(iterable) {
   }
 }
 
-exports.race = race;
+Promise.race = race;
 function race(iterable) {
   var self = this;
   if (Object.prototype.toString.call(iterable) !== '[object Array]') {
@@ -769,7 +769,6 @@ function _tryReconnect(dbInfo) {
         }
         return db;
     }).then(function (db) {
-
         // store the latest db reference
         // in case the db was upgraded
         dbInfo.db = dbContext.db = db;
@@ -1710,7 +1709,7 @@ function _initStorage$1(options) {
 function tryExecuteSql(t, dbInfo, sqlStatement, args, callback, errorCallback) {
     t.executeSql(sqlStatement, args, callback, function (t, error) {
         if (error.code === error.SYNTAX_ERR) {
-            t.executeSql('SELECT name FROM sqlite_master ' + "WHERE type='table' AND name = ?", [name], function (t, results) {
+            t.executeSql('SELECT name FROM sqlite_master ' + "WHERE type='table' AND name = ?", [dbInfo.storeName], function (t, results) {
                 if (!results.rows.length) {
                     // if the table is missing (was deleted)
                     // re-create it table and retry
@@ -1927,6 +1926,7 @@ function length$1(callback) {
     executeCallback(promise, callback);
     return promise;
 }
+
 
 // Return the key located at key index X; essentially gets the key from a
 // `WHERE id = ?`. This is the most efficient way I can think to implement
@@ -2796,3 +2796,5 @@ module.exports = localforage_js;
 
 },{"3":3}]},{},[4])(4)
 });
+
+
