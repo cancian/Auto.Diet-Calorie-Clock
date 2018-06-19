@@ -2,10 +2,8 @@
 // SAFE EXEC //
 ///////////////
 if(typeof appStorage === 'undefined') { var appStorage = window.localStorage; }
-if(typeof hostLocal  === 'undefined') {
-	var hostLocal = appStorage.getItem('config_debug') === 'active' ? https + '192.168.1.5/' : '';
-}
-var staticVendor = ''; //'amazon';
+if(typeof hostLocal  === 'undefined') { var hostLocal  = appStorage.getItem('config_debug') === 'active' ? https + '192.168.1.5/' : ''; }
+var staticVendor = '';
 var baseVersion  = 2.2;
 var initTime     = new Date().getTime();
 var UsrAgt       = navigator.userAgent;
@@ -232,22 +230,28 @@ safeExec(function() {
 				// JS EVAL //
 				/////////////
 				document.addEventListener('DOMContentLoaded', function() {
-					try {
-						//////////
-						// EVAL //
-						//////////
-						////////////
-						// APPEND //
-						////////////
-						var scriptBlock;
-						scriptBlock = document.createElement('script');
-						scriptBlock.text = storeJS;
-						document.head.appendChild(scriptBlock).parentNode.removeChild(scriptBlock);
-						scriptBlock = '';
-					} catch(err) {
-						var indirect = eval;
-						indirect(storeJS);
-					}				
+					//setTimeout(function() {
+						try {
+							//////////
+							// EVAL //
+							//////////
+							var indirect = eval;
+							indirect(storeJS);
+							indirect = '';
+						} catch(err) {
+							////////////
+							// APPEND //
+							////////////
+							setTimeout(function() {
+								var scriptBlock;
+								scriptBlock = document.createElement('script');
+								scriptBlock.text = storeJS;
+								document.head.appendChild(scriptBlock).parentNode.removeChild(scriptBlock);
+								scriptBlock = '';
+							},0);
+						}
+					//},0);
+				//DOMReady
 				}, false);
 			}
 		}
