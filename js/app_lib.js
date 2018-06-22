@@ -478,7 +478,14 @@ app.get.totalweight = function() {
 	return app.read('calcForm#pA3B');
 };
 //ANDROID VERSION
-app.get.androidVersion = /Android/i.test(app.ua) && !app.http ? parseFloat((app.ua).match(/Android [\d+\.]{3,5}/)[0].replace('Android ','')) : false;
+function getAndroidVersion(ua) {
+	ua = (ua || navigator.userAgent).toLowerCase();
+	var match = ua.match(/android\s([0-9\.]*)/);
+	return match ? match[1] : false;
+};
+//safe version detect ~ Fixes undefined android 9
+app.get.androidVersion = /Android/i.test(app.ua) && !app.http ? parseFloat(getAndroidVersion(app.ua)) : false;
+
 //CHROMEAPP
 app.get.isChromeApp = function() {
 	'use strict';
