@@ -1112,7 +1112,7 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 /*png background*/
 #bmiNewWindow		{ display: block; height: 364px; text-align: center; margin: 20px 5px 15px 5px; background-repeat: no-repeat; background-position: top center; background-size: contain; }
 /*profile ~ advanced options*/
-#profileAdvanced	{ position: absolute; bottom: 350px; right: 0; background-color: rgba(0,0,0,.0); height: 38px; display: block; width: 250px; font-size: 13px; line-height: 13px; text-align: right; padding: 13px 10px 0 0; color: #007aff; font-weight: 300; white-space: nowrap; display: none; }
+#profileAdvanced	{ position: absolute; bottom: 350px; right: 0; background-color: rgba(0,0,0,.0); height: 38px;  width: 250px; font-size: 13px; line-height: 13px; text-align: right; padding: 13px 10px 0 0; color: #007aff; font-weight: 300; white-space: nowrap; display: none; }
 /*shake animation*/
 @-webkit-keyframes shake { 
 	 0% { -webkit-transform: translateX(0);    } 
