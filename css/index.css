@@ -1642,7 +1642,7 @@ body.appLang-fr #appHeader:before	{ right: 110px; width: 60px; }
 #addNewCancel				{ position: absolute; bottom: 12px; right: 12px; left: 50%; background-color: #eeeeee; font-size: 18px; height: 44px; line-height: 44px; display: block; z-index: 99; text-align: center; font-weight: normal; }
 #addNewConfirm.done,
 #addNewConfirm:active		{ color: #ccc !important; }
-#addNewList				{ padding: 9px 0 22px 12px; }
+#addNewList					{ padding: 9px 0 22px 12px; }
 /*
 ul#addNewList li			{ display: block; height: 45px; line-height: 45px; position: relative; }
 ul#addNewList li+li			{ border-top: 1px solid #eee; }
@@ -1736,7 +1736,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 .cat0001:after,#cat0001 div:before { content: '\C000'; color:#007aff; font-size: 27px; }
 /*STORES*/
 #appStores							{ position: relative; display: block; height: 90%; min-height: 250px; max-height: 920px; }
-#appStores span						{ position: relative; display: block; float: left; font-size: 36px; color: #222; width: 33.333%; height: 29%; text-align: center; }
+#appStores span						{ position: relative; display: block; float: left; font-size: 36px; color: #222; width: 33.333%; height: 39%; text-align: center; }
 #appStores span.button				{ color: #ccc; }
 #appStores span:before				{ font-family: KCals; display: block; position: absolute; top: 37%; left: 0; width: 100%; text-align: center; }
 #b000:before						{ content: '\B000'; }
@@ -1778,8 +1778,6 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 .pos:before		{ position: absolute; top: 0; right: 0; font-family: KCals; width: 60px; height: 50px; text-align: center; }
 .neg:before		{ content: '\B002'; }
 .pos:before		{ content: '\B001'; }
-
-
 /*SCREEN INFO*/
 #screenInfo										{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 100; display: block; -webkit-transform: translate3d(0, 0, 0); background-color: rgba(0,0,0,0); }
 #screenInfo #circleFocus						{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow:hidden; display: block; -webkit-transform: translate3d(0, 0, 0); }

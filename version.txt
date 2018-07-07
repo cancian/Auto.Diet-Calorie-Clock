@@ -5,7 +5,8 @@
 # 2.4.3 [2018/07/06]
 • Removed links to discontinued platforms (FirefoxOS, Chrome Store)
 • Fixed issue that would cause the app display an error when resuming
-• Code linting
+• Changed default database engine
+• Some code linting
 
 # 2.4.2 [2018/06/22]
 • Fixed issue preventing links from working properly
