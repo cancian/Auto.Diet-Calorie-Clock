@@ -2,7 +2,7 @@
 ## VERSION LOG ##
 #################
 
-# 2.4.3 [2018/07/06]
+# 2.4.3 [2018/07/07]
 • Removed links to discontinued platforms (FirefoxOS, Chrome Store)
 • Fixed issue that would cause the app display an error when resuming
 • Changed default database engine

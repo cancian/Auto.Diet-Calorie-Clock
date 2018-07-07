@@ -1736,7 +1736,7 @@ body.appLang-fr #saveAsNew						{ font-size: 14px; }
 .cat0001:after,#cat0001 div:before { content: '\C000'; color:#007aff; font-size: 27px; }
 /*STORES*/
 #appStores							{ position: relative; display: block; height: 90%; min-height: 250px; max-height: 920px; }
-#appStores span						{ position: relative; display: block; float: left; font-size: 36px; color: #222; width: 33.333%; height: 39%; text-align: center; }
+#appStores span						{ position: relative; display: block; float: left; font-size: 42px; color: #222; width: 33.333%; height: 39%; text-align: center; }
 #appStores span.button				{ color: #ccc; }
 #appStores span:before				{ font-family: KCals; display: block; position: absolute; top: 37%; left: 0; width: 100%; text-align: center; }
 #b000:before						{ content: '\B000'; }
