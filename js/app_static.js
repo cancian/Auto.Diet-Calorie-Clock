@@ -9,7 +9,7 @@ $(function() {
 	var webSQL       = localforage.WEBSQL;
 	var indexedDB    = localforage.INDEXEDDB;
 	var localstorage = localforage.LOCALSTORAGE;
-	var dbDriver     = [indexedDB, webSQL, localstorage];
+	var dbDriver     = [webSQL, indexedDB, localstorage];
 	//////////////////////////////
 	// ANDROID WEBSQL PREFERRED //
 	//////////////////////////////
