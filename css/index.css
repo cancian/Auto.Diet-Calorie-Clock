@@ -1260,7 +1260,7 @@ span.delete #delete:active	{ color: #ccc !important; -webkit-transition-timing-f
 .editing .entriesPublished	{ opacity: 0; display: none; pointer-events: auto; }
 .scheduled 					{ color: #cc3300; }
 /*planner*/
-.entriesPublished.planned:before { position: absolute; content: '\A100'; font-family: kcals; font-size: 20px; line-height: 20px; right: 0; top: 2px; display: block; width: 20px; height: 40px; text-align: center; -webkit-backface-visibility: hidden; }
+.entriesPublished.planned:before { position: absolute; content: '\A100'; font-family: kcals; font-size: 20px; line-height: 20px; right: 0; top: -1px; display: block; width: 20px; height: 40px; text-align: center; -webkit-backface-visibility: hidden; }
 /*enswipe*/
 .entriesTitle,
 .entriesKcals,
