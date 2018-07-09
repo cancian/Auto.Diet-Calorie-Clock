@@ -2,10 +2,13 @@
 ## VERSION LOG ##
 #################
 
-# 2.4.3 [2018/07/08]
+# 2.4.4 [2018/07/08]
+• Restored the "live chat support" feature (settings tab)
+
+# 2.4.3 [2018/07/07]
 • Some files were combined for improved performance
 • Removed links to discontinued platforms (FirefoxOS, Chrome Store)
-• Fixed issue that would cause the app display an error when resuming
+• Fixed: the app would sometimes display an error message while resuming
 • Changed default database engine
 • Some code linting
 
