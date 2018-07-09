@@ -53,7 +53,7 @@ app.tab.settings = function(keepOpen) {
 	// LIVEZILLA SUPPORT //
 	///////////////////////
 	app.handlers.activeRow('#liveZilla','activeRow',function(evt) {
-		getNewWindow('Online Support','<iframe id="liveZillaIframe" src="' + httpx + 'chronoburn.com/livezilla/chat.php?a=fd1e5&amp;el=ZW4_" scrolling="no" width="100%" height="'+($('#appContent').height()-44)+'" style="width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; background-color: #fff; border: 0; overflow: hidden !important;"></iframe>',function() {
+		getNewWindow('Online Support','<iframe id="liveZillaIframe" src="' + httpx + 'chronoburn.com/livezilla/chat.php?dl=1&amp;a=fd1e5&amp;el=ZW4_" scrolling="no" width="100%" height="'+($('#appContent').height()-44)+'" style="width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; background-color: #fff; border: 0; overflow: hidden !important;"></iframe>',function() {
 			$('#liveZillaIframe').css('height',($('#appContent').height()-44)+'px');
 			$(window).on('resize',function() {
 				$('#liveZillaIframe').css('height',($('#appContent').height()-44)+'px');
