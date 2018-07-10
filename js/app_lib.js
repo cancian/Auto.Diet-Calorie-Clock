@@ -281,9 +281,9 @@ app = {
 		///////////////////////// 
 		if(/diary_/i.test(key)) {
 			app.returner(type,value);
-			app.timeout('dbTimeout_' + key,300,function() {
+			//app.timeout('dbTimeout_' + key,300,function() {
 				localforage.setItem(key,value);
-			});
+			//});
 			return;
 		}
 		//DIFF CHECK
