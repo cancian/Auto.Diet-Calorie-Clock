@@ -4,6 +4,7 @@
 
 # 2.4.4 [2018/07/08]
 • Restored the "live chat support" feature (settings tab)
+• Changed write delay for large databases
 
 # 2.4.3 [2018/07/07]
 • Some files were combined for improved performance
