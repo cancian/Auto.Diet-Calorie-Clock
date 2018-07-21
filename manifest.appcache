@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2018-07-08 - v2.4.4
+# 2018-07-21 - v2.4.5
 
 CACHE:
 index.html
@@ -8,7 +8,6 @@ index.html
 css/index.css
 css/fonts.css
 css/openhand.cur
-css/chronoburn.ttf
 css/kcals.ttf
 
 #JQUERY
