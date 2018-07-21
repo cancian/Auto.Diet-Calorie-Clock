@@ -2,6 +2,11 @@
 ## VERSION LOG ##
 #################
 
+# 2.4.5 [2018/07/21]
+• Fixed app crashing on some devices
+• Fixed issue with header height
+• Improved database stability
+
 # 2.4.4 [2018/07/08]
 • Restored the "live chat support" feature (settings tab)
 • Changed write delay for large databases
