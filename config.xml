@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="com.cancian.kcals" version="2.4.5" versionCode="244000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+<widget id="com.cancian.kcals" version="2.4.6" versionCode="246000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
 	<!-- ### -->
 	<access origin="*" />
 	<access origin="*" subdomains="true" launch-external="yes" />
-  	<!-- ### -->
+  	<!-- ### fix ios6 crash
 	<access subdomains="true" uri="file:///store/home" />
 	<access subdomains="true" uri="file:///SDCard" />
 	<access subdomains="true" uri="*" />
+	-->
   	<!-- ### -->
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -31,7 +32,7 @@
 	<!-- ## APP DATA ## -->
 	<name>ChronoBurn</name>
 	<description>Real-Time Calorie Counter</description>
-	<author href="https://chronoburn.com" email="cancian@chronoburn.com">Andre Cancian</author>
+	<author href="https://chronoburn.com" email="cancian@chronoburn.com">André Cancian</author>
 	<icon src="icon.png" />
 	<!-- ## APP DATA ## -->
 	
@@ -167,17 +168,17 @@
 			<param name="ios-package" value="CDVGestureHandler" />
 			<param name="onload" value="true" />
 		</feature>
-		<!--
-		<feature name="Watch">
-			<param name="ios-package" value="CDVWatch" />
-		</feature>
-		-->
+        
+        <feature name="LongPressFix">
+            <param name="ios-package" value="LongPressFix" />
+            <param name="onload" value="true" />
+        </feature>
+        <!--
+        <feature name="CDVWKWebViewEngine">
+           <param name="ios-package" value="CDVWKWebViewEngine" />
+        </feature>
+        -->
     </platform>
-	<!-- 
-	<feature name="CDVWKWebViewEngine">
-		<param name="ios-package" value="CDVWKWebViewEngine" />
-	</feature>
-	-->
 	<!-- CORDOVA PLUGINS -->
 
 </widget>
