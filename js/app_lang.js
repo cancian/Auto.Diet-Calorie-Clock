@@ -2,10 +2,10 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'ChronoBurn';
-var appVersion = '2.4.5 (245000)';
+var appVersion = '2.4.6 (246000)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = false; // true false
+var reviewMode = true; // true false
 var langArray  = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';
@@ -67,6 +67,14 @@ if(app) {
 		}
 	}
 }
+//#////////////#//
+//# REVIEW MSG #//
+//#////////////#//
+/*
+Thanks for using ChronoBurn! We’re always working hard to make the app faster and better than ever.
+Did you know you can also use the browser version of the app via chronoburn.com? Give it a try!
+Love the app? Rate us! Your feedback is music to our ears, and it helps us make ChronoBurn even better. Got a question? Talk to us anytime at cancian@chronoburn.com.
+*/
 //#////////////#//
 //# LANG ARRAY #//
 //#////////////#//
