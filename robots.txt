@@ -1,0 +1,9 @@
+﻿User-Agent: *
+Disallow: 
+Allow: /
+Disallow: /stats
+Disallow: /status
+Disallow: /userdata
+Disallow: /phpmyadmin
+Disallow: /pma
+
