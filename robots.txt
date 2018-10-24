@@ -4,6 +4,6 @@ Allow: /
 Disallow: /stats
 Disallow: /status
 Disallow: /userdata
+Disallow: /livezilla
 Disallow: /phpmyadmin
 Disallow: /pma
-
