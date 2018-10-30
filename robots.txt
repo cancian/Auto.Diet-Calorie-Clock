@@ -7,3 +7,4 @@ Disallow: /userdata
 Disallow: /livezilla
 Disallow: /phpmyadmin
 Disallow: /pma
+Disallow: /sql
