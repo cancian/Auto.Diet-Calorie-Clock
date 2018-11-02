@@ -2,8 +2,9 @@
 ## VERSION LOG ##
 #################
 
-# 2.4.9 [2018/10/19]
+# 2.4.9 [2018/11/02]
 • Fixed statusbar height showing incorrectly on some devices
+• Updated metadata and a help topic
 
 # 2.4.5 [2018/07/21]
 • Fixed app crashing on some devices
