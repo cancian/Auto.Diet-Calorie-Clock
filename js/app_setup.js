@@ -258,6 +258,8 @@ app.resetCounter = function(pusher) {
 	$('#appStatusBalance div p').html2(LANG.BALANCED[lang]);
 	updateTodayOverview();
 	updateNutriBars();
+	//TRACKER
+	app.analytics('reset');
 	/////////////////////
 	// RELOAD ON RESET //
 	/////////////////////
