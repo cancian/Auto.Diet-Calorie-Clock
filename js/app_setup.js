@@ -2444,7 +2444,7 @@ function appResizer(time,callback) {
 	if(!time) { time = 0; }
 	app.timeout('appResizer',time,function() {
 		app.relWidth  = app.width()  / app.read('app_zoom');
-		app.relHeight =  app.height() / app.read('app_zoom');
+		app.relHeight = app.height() / app.read('app_zoom');
 
 		if(vendorClass == 'moz' || vendorClass == 'msie') {
 			$('body').css2('width', app.relWidth + 'px');

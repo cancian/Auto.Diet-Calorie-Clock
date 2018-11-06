@@ -890,7 +890,7 @@ app.ready = function(callback) {
 	$('body').addClass('ready');
 	//////////////
 	// VIEWPORT //
-	//////////////
+	////////////// ~ FIXES IOS8 IPAD RESIZE
 	if(app.device.ios) {
 		$('#viewPort').attr('content', $('#viewPort').attr('content').split('height=device-height').join('minimal-ui') );
 	}

@@ -3,42 +3,44 @@
 ////////////////////
 $(function() {
 	'use strict';
-	///////////////////
-	// OPEN DATABASE //
-	///////////////////
-	var webSQL       = localforage.WEBSQL;
-	var indexedDB    = localforage.INDEXEDDB;
-	var localstorage = localforage.LOCALSTORAGE;
-	var dbDriver     = [webSQL, indexedDB, localstorage];
-	//////////////////////////////
-	// ANDROID WEBSQL PREFERRED //
-	//////////////////////////////
-	if(app.device.android || app.db.webSQL) {
-		dbDriver = [webSQL, indexedDB, localstorage];
-	}
-	/////////////////////
-	// FORCE DB ENGINE //
-	/////////////////////
-	if (app.read('app_database', 'asyncStorage'))			{ dbDriver = [indexedDB, webSQL, localstorage]; }
-	if (app.read('app_database', 'webSQLStorage'))			{ dbDriver = [webSQL, indexedDB, localstorage]; }
-	if (app.read('app_database', 'localStorageWrapper'))	{ dbDriver = [localstorage, indexedDB, webSQL]; }
-	//////////////////////////////
-	// MOZ FALLBACK ~ INCOGNITO //
-	//////////////////////////////
-	app.remove('config_force_localstorage');
-	if (vendorClass == 'moz' && app.device.desktop) {
-		detectPrivateMode(function (incognito) {
-			if (incognito) {
-				app.incognito = true;
-				dbDriver = [localstorage];
-			}
-		});
-	}
-	/////////////
-	// LOAD DB //
-	/////////////
-	localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
-	initDB();
+	app.ready(function () {
+		///////////////////
+		// OPEN DATABASE //
+		///////////////////
+		var webSQL       = localforage.WEBSQL;
+		var indexedDB    = localforage.INDEXEDDB;
+		var localstorage = localforage.LOCALSTORAGE;
+		var dbDriver     = [webSQL, indexedDB, localstorage];
+		//////////////////////////////
+		// ANDROID WEBSQL PREFERRED //
+		//////////////////////////////
+		if(app.device.android || app.db.webSQL) {
+			dbDriver = [webSQL, indexedDB, localstorage];
+		}
+		/////////////////////
+		// FORCE DB ENGINE //
+		/////////////////////
+		if (app.read('app_database', 'asyncStorage'))			{ dbDriver = [indexedDB, webSQL, localstorage]; }
+		if (app.read('app_database', 'webSQLStorage'))			{ dbDriver = [webSQL, indexedDB, localstorage]; }
+		if (app.read('app_database', 'localStorageWrapper'))	{ dbDriver = [localstorage, indexedDB, webSQL]; }
+		//////////////////////////////
+		// MOZ FALLBACK ~ INCOGNITO //
+		//////////////////////////////
+		app.remove('config_force_localstorage');
+		if (vendorClass == 'moz' && app.device.desktop) {
+			detectPrivateMode(function (incognito) {
+				if (incognito) {
+					app.incognito = true;
+					dbDriver = [localstorage];
+				}
+			});
+		}
+		/////////////
+		// LOAD DB //
+		/////////////
+		localforage.config({driver : dbDriver, name : 'localforage', storeName : 'KCals'});
+		initDB();
+	});
 });
 ////////////////
 // RESUME EVT //
