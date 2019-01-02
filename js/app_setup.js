@@ -2536,36 +2536,60 @@ var rateTimer;
 function getRateDialog() {
 	'use strict';
 	//appstore enabled
-	if(!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.msapp && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook && !app.device.tizen) { return; }
-	if(app.get.platform() === 'web') { return; }
+	if (!app.device.ios && !app.device.android && !app.device.wp8 && !app.device.msapp && !app.device.windows8 && !app.device.wp10 && !app.device.windows10 && !app.device.firefoxos && !app.device.osxapp && !app.device.chromeos && !app.device.blackberry && !app.device.playbook && !app.device.tizen) {
+		return;
+	}
+	if (app.get.platform() === 'web') {
+		return;
+	}
 	//first use
-	app.define('getRate',app.now());
+	app.define('getRate', app.now());
 	//return
 	//if(app.read('getRate','locked')) { return; }
 	//////////////////
-	// DAYS TO WAIT //
+	// DAYS TO WAIT // 1 ~ 7 days
 	//////////////////
-	var timeRate = (24*60*60*1000) * 6.666; //3.14159265358979323846264338327950;
-	if((app.now() - app.read('getRate')) > (timeRate)) {
-		app.timeout('rateTimer',3000,function() {
+	var daysToWait = app.read('notFirstTime') ? 7 : 1;
+	var timeRate = (24 * 60 * 60 * 1000) * daysToWait;
+	//app.toast('wait: ' + daysToWait + ' days');
+	//
+	if ((app.now() - app.read('getRate')) > (timeRate)) {
+		app.timeout('rateTimer', 3000, function () {
 			//if(app.read('getRate','locked')) { return; }
 			//app.save('getRate','locked');
-			app.save('getRate',app.now());
-			//SHOW DIALOG
-			var rateText = 'Let others know!'; //'If you like this app, remember that you can help in its development by sending suggestions to help us improve it even further!\n\n\Another great way to help is to leave an honest review in the app store.\n\n\Your support makes this a better app - for you, and for thousands of others!';
-			appConfirm('Love this app?', rateText, function(button) {
-				if(button === 2) {
-					//LAUNCH
-					app.analytics('vote');
-					app.timeout('voteyes',1500,function() {
-						app.url();
-					});
-				} else if(button === 1) {
-					//on action
-					app.analytics('vote-no');					
-				}
+			app.save('getRate', app.now());
+			app.save('notFirstTime', app.now());			
+			//SHOW IOS NATIVE RATING DIALOG
+			if (app.device.ios && typeof LaunchReview !== 'undefined') {
+				LaunchReview.rating(function (status) {
+					if (status === "requested") {
+						//app.toast('requested');
+					} else if (status === "shown") {
+						app.analytics('vote');
+					} else if (status === "dismissed") {
+						app.analytics('vote-no');
+					}
+				}, function (err) {
+					errorHandler('vote: ' + err);
+				});
+			} else {
+			//SHOW REGULAR DIALOG
+				var rateText = 'Let others know!';
+				appConfirm('Love this app?', rateText, function (button) {
+					if (button === 2) {
+						//LAUNCH
+						app.analytics('vote');
+						app.timeout('voteyes', 1500, function () {
+							app.url();
+						});
+					} else if (button === 1) {
+						//on action
+						app.analytics('vote-no');
+					}
+					//
+				}, LANG.OK[lang], LANG.CANCEL[lang]);
 				//
-			}, LANG.OK[lang], LANG.CANCEL[lang]);
+			}
 		});
 	}
 }

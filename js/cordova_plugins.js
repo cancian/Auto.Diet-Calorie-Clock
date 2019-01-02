@@ -17,15 +17,23 @@ cordova.define("cordova/plugin_list", function (require, exports, module) {
 				"cordova.InAppBrowser.open",
 				"window.open"
 			]
-		}
-	];
+		},
+		{
+			"id": "cordova-launch-review.LaunchReview",
+			"file": "plugins/cordova-launch-review/www/launchreview.js",
+			"pluginId": "cordova-launch-review",
+			"clobbers": [
+				"LaunchReview"
+		]
+	}];
 	//////////////
 	// METADATA //
 	//////////////
 	module.exports.metadata =
 	{
 		"cordova-plugin-dialogs": "1.3.1",
-		"cordova-plugin-inappbrowser": "1.6.1"
+		"cordova-plugin-inappbrowser": "1.6.1",
+		"cordova-launch-review": "3.1.1"
 	};
 	//////////
 	// BB10 //
