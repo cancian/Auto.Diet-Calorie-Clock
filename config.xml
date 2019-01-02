@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="com.cancian.kcals" version="2.4.9" versionCode="249000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+<widget id="com.cancian.kcals" version="2.5" versionCode="250000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
 	<!-- ### -->
@@ -168,17 +168,21 @@
 			<param name="ios-package" value="CDVGestureHandler" />
 			<param name="onload" value="true" />
 		</feature>
-        
-        <feature name="LongPressFix">
-            <param name="ios-package" value="LongPressFix" />
-            <param name="onload" value="true" />
-        </feature>
-        <!--
-        <feature name="CDVWKWebViewEngine">
-           <param name="ios-package" value="CDVWKWebViewEngine" />
-        </feature>
-        -->
-    </platform>
+
+		<feature name="LongPressFix">
+			<param name="ios-package" value="LongPressFix" />
+			<param name="onload" value="true" />
+		</feature>
+		
+		<feature name="LaunchReview">
+			<param name="ios-package" value="LaunchReview" />
+		</feature>
+		<!--
+		<feature name="CDVWKWebViewEngine">
+			<param name="ios-package" value="CDVWKWebViewEngine" />
+		</feature>
+		-->
+	</platform>
 	<!-- CORDOVA PLUGINS -->
 
 </widget>
