@@ -168,7 +168,6 @@ function initDB(t) {
 	app.define('config_tte',0);
 	app.define('config_limit_1',-600);
 	app.define('config_limit_2',600);
-	app.define('app_zoom',1);
 	app.define('appStatus','stopped');
 	app.define('app_counter_mode','regressive');
 	app.define('colorDeficit','#E54B1D');

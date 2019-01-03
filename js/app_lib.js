@@ -776,7 +776,18 @@ app.toast = function (msg, tag) {
 //////////
 app.zoom = function(ratio) {
 	'use strict';
-	app.define('app_zoom',1);
+	//AUTO RESIZER
+	var screenSize = 1;
+	//iphone se
+	if(app.width() > 640) {
+		screenSize = 1.1;
+	}
+	//iphone 7
+	if(app.width() > 750) {
+		screenSize = 1.18;
+	}
+	//SET DEFAULT
+	app.define('app_zoom',screenSize);
 	//legacy zoom values
 	if(!app.read('app_zoom',1) && !app.read('app_zoom',1.1) && !app.read('app_zoom',1.18)) {
 		app.save('app_zoom',1);
@@ -809,6 +820,16 @@ app.zoom = function(ratio) {
 	}
 };
 app.zoom();
+//FIX ISCROLL DOT POSITION (INTRO)
+if(!app.read('intro_dismissed') && !app.read('app_zoom',1)) {
+	setTimeout(function() {
+		$(window).trigger('resize');
+		setTimeout(function() {
+			$(window).trigger('resize');
+		},300);
+	},300);
+}
+//},300);
 ////////////////
 // APP.INFO() //
 ////////////////

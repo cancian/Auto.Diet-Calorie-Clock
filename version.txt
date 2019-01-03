@@ -2,8 +2,9 @@
 ## VERSION LOG ##
 #################
 
-# 2.5 [2018/11/05]
+# 2.5 [2019/01/03]
 • Fixed rare window resize issue
+• Auto-adjust initial zoom level based on screen size
 
 # 2.4.9 [2018/11/02]
 • Fixed statusbar height showing incorrectly on some devices
@@ -23,7 +24,6 @@
 • Removed links to discontinued platforms (FirefoxOS, Chrome Store)
 • Fixed: the app would sometimes display an error message while resuming
 • Changed default database engine
-• Some code linting
 
 # 2.4.2 [2018/06/22]
 • Fixed issue preventing links from working properly
