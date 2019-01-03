@@ -2574,8 +2574,7 @@ function getRateDialog() {
 				});
 			} else {
 			//SHOW REGULAR DIALOG
-				var rateText = 'Let others know!';
-				appConfirm('Love this app?', rateText, function (button) {
+				appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function (button) {
 					if (button === 2) {
 						//LAUNCH
 						app.analytics('vote');
@@ -2587,7 +2586,7 @@ function getRateDialog() {
 						app.analytics('vote-no');
 					}
 					//
-				}, LANG.OK[lang], LANG.CANCEL[lang]);
+				}, LANG.YES_RATE[lang], LANG.NO_THANKS[lang]);
 				//
 			}
 		});
