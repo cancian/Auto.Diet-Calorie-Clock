@@ -915,12 +915,17 @@ app.getScript = function(url) {
 // URL //
 /////////
 var ref;
+//parse version
+var iOSVersion;
+iOSVersion = navigator.userAgent.match(/OS\s+([\d\_]+)/i)[0].replace(/_/g, '.').replace('OS ', '').split('.');
+iOSVersion = parseInt(iOSVersion[0]) + (parseInt(iOSVersion[1]) || 0) / 10;
+//
 app.url = function(url) {
 	'use strict';
 	//STORES
 	var store = {
 		web:        'https://chronoburn.com',
-		ios:        'https://itunes.apple.com/app/viewContentsUserReviews/id732382802?action=write-review', //IOS8 = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=";
+		ios:        iOSVersion > 8 ? 'https://itunes.apple.com/app/viewContentsUserReviews/id732382802?action=write-review' : 'https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=732382802',
 		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
 		wp8:        'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
 		wp10:       'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
