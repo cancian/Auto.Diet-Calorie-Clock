@@ -850,6 +850,12 @@ if(app.device.firefoxos) {
 ////////////
 $('body').addClass(vendorClass);
 $('body').addClass('appLang-' + lang);
+///////////////////////////////////
+// FIXES FIREFOX SCREEN OVERFLOW //
+///////////////////////////////////
+if(vendorClass == 'moz') {
+	$('html').addClass('moz');
+}
 /////////
 // OSX //
 /////////
