@@ -920,7 +920,7 @@ app.url = function(url) {
 	//STORES
 	var store = {
 		web:        'https://chronoburn.com',
-		ios:        'https://itunes.apple.com/app/id732382802',
+		ios:        'https://itunes.apple.com/app/viewContentsUserReviews/id732382802?action=write-review', //IOS8 = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?pageNumber=0&sortOrdering=1&type=Purple+Software&mt=8&id=";
 		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
 		wp8:        'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
 		wp10:       'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
