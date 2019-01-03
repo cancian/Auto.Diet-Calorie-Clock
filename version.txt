@@ -6,6 +6,7 @@
 • Fixed rare window resize issue
 • Auto-adjust initial zoom level based on screen size
 • Fixed zoom causing screen overflow on some devices
+• Added a fourth zoom level (4x) for large high-res screens
 
 # 2.4.9 [2018/11/02]
 • Fixed statusbar height showing incorrectly on some devices

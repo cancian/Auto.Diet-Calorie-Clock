@@ -2169,7 +2169,7 @@ function buildAdvancedMenu() {
 		((app.read('app_counter_mode','progressive') ? LANG.PROGRESSIVE[lang] : LANG.REGRESSIVE[lang])).capitalize() + '</strong> (' +
 		((app.read('app_counter_mode','progressive') ? LANG.CALORIES_AVAILABLE[lang] : LANG.CALORIE_USAGE[lang])).toLowerCase() +
 		')</span></p></li>\
-		<li id="advancedZoom"><span id="zoomx1"></span><span id="zoomx2"></span><span id="zoomx3"></span>' + LANG.ZOOM[lang] + '</li>\
+		<li id="advancedZoom"><span id="zoomx1"></span><span id="zoomx2"></span><span id="zoomx3"></span><span id="zoomx4"></span>' + LANG.ZOOM[lang] + '</li>\
 		<li id="advancedDatabase">\
 			<div class="contentToggleTitle">\
 				<p class="contentTitle" id="contentToggleTitle">' + LANG.DATABASE[lang] + '<span>' + LANG.APP_STORAGE[lang] + '</span></p>\
@@ -2386,6 +2386,9 @@ function buildAdvancedMenu() {
 	});
 	$('#zoomx3').on(tap,function(evt) {
 		app.zoom(3);
+	});
+	$('#zoomx4').on(tap,function(evt) {
+		app.zoom(4);
 	});
 	//#/////////#//
 	//# CONTACT #//

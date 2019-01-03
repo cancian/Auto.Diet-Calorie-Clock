@@ -786,28 +786,37 @@ app.zoom = function(ratio) {
 	if(app.width() > 750) {
 		screenSize = 1.18;
 	}
+	//iphone 7
+	if(app.width() > 1024) {
+		screenSize = 1.28;
+	}
 	//SET DEFAULT
 	app.define('app_zoom',screenSize);
 	//legacy zoom values
-	if(!app.read('app_zoom',1) && !app.read('app_zoom',1.1) && !app.read('app_zoom',1.18)) {
+	if(!app.read('app_zoom',1) && !app.read('app_zoom',1.1) && !app.read('app_zoom',1.18) && !app.read('app_zoom',1.28)) {
 		app.save('app_zoom',1);
 	}
 	//set zoom
 	if(ratio == 1 || app.read('app_zoom',1)) {
 		$('html').addClass('zoomx1');
-		$('html').removeClass('zoomx2 zoomx3');
+		$('html').removeClass('zoomx2 zoomx3 zoomx4');
 		app.save('app_zoom',1);
 	}
 	if(ratio == 2 || app.read('app_zoom',1.1)) {
 		$('html').addClass('zoomx2');
-		$('html').removeClass('zoomx1 zoomx3');
+		$('html').removeClass('zoomx1 zoomx3 zoomx4');
 		app.save('app_zoom',1.1);
 	}
 	if(ratio == 3 || app.read('app_zoom',1.18)) {
 		$('html').addClass('zoomx3');
-		$('html').removeClass('zoomx1 zoomx2');
+		$('html').removeClass('zoomx1 zoomx2 zoomx4');
 		app.save('app_zoom',1.18);
 	}
+	if(ratio == 4 || app.read('app_zoom',1.28)) {
+		$('html').addClass('zoomx4');
+		$('html').removeClass('zoomx1 zoomx2 zoomx3');
+		app.save('app_zoom',1.28);
+	}	
 	//$('body').css2('zoom',Math.round(app.read('app_zoom') * 100) + '%');
 	//$('body').css2('zoom',app.read('app_zoom'));
 	//$('body').css2('-moz-transform','scale(' + app.read('app_zoom') + ',' + app.read('app_zoom') + ')');
