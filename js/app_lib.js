@@ -779,15 +779,15 @@ app.zoom = function(ratio) {
 	//AUTO RESIZER
 	var screenSize = 1;
 	//iphone se
-	if(app.width() > 640) {
+	if(app.width() > 320) {
 		screenSize = 1.1;
 	}
 	//iphone 7
-	if(app.width() > 750) {
+	if(app.width() > 480) {
 		screenSize = 1.18;
 	}
 	//iphone 7
-	if(app.width() > 1024) {
+	if(app.width() > 640) {
 		screenSize = 1.28;
 	}
 	//SET DEFAULT
