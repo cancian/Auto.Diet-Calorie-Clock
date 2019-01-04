@@ -2564,12 +2564,40 @@ function getRateDialog() {
 					if (status === "requested") {
 						//app.toast('requested');
 					} else if (status === "shown") {
+						//app.toast('shown');
 						app.analytics('vote');
 					} else if (status === "dismissed") {
+						//app.toast('dismissed');
 						app.analytics('vote-no');
 					}
-				}, function (err) {
+					//STORE LAST RESULT
+					var lastStatus = status;
+					//IF NO MORES CREDITS, REVERT TO REGULAR DIALOG
+					app.timeout('regularDialog', 3000, function () {
+					//app.toast('last status' + lastStatus);					
+					//AFTER 3s, CHECK IT THE LAST RETURNTED STATUS WAS 'REQUESTED' (BLOCKED), 
+					if(lastStatus === 'requested') {
+						//SHOW REGULAR DIALOG
+						appConfirm(LANG.RATE_TITLE[lang], LANG.RATE_MSG[lang], function (button) {
+							if (button === 2) {
+								//LAUNCH
+								app.analytics('vote');
+								app.timeout('voteyes', 1500, function () {
+									app.url();
+								});
+							} else if (button === 1) {
+								//on action
+								app.analytics('vote-no');
+							}
+							//
+						}, LANG.YES_RATE[lang], LANG.NO_THANKS[lang]);
+						//
+					}
+				});
+			//ERROR ~ END OF FUNCTION
+			}, function (err) {
 					errorHandler('vote: ' + err);
+					//app.toast('err');
 				});
 			} else {
 			//SHOW REGULAR DIALOG
