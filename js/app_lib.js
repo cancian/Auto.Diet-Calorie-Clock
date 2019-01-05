@@ -966,19 +966,19 @@ app.url = function(url) {
 	var store = {
 		web:        'https://chronoburn.com',
 		ios:        iosURL,
-		android:    app.device.android ? 'market://details?id=com.cancian.kcals' : 'https://play.google.com/store/apps/details?id=com.cancian.kcals',
+		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
 		wp8:        'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
 		wp10:       'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
 		windows8:   'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
 		windows10:  'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
 		firefoxos:  'https://marketplace.firefox.com/app/chronoburn',
-		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118?action=write-review' : 'https://itunes.apple.com/app/id898749118?action=write-review',
+		osxapp:     app.device.osx ? 'macappstores://itunes.apple.com/app/id898749118' : 'https://itunes.apple.com/app/id898749118',
 		chromeos:   'https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc',
 		blackberry: app.device.blackberry ? 'appworld://content/59937667' : 'https://appworld.blackberry.com/webstore/content/59937667',
 		playbook:   'https://appworld.blackberry.com/webstore/content/59937667',
 		amazon:     'https://www.amazon.com/dp/B00NDSQIHK/qid=1411265533',
 		tizen:      'tizenstore://ProductDetail/000000084298' //http://www.tizenstore.com/event/event_ajax.as?contentId=000000084298
-	};
+};
 	//SHORTCUT
 	     if((!url && app.device.ios)        || url == 'ios')         { url = store.ios;        }
 	else if((!url && app.device.amazon)     || url == 'amazon')      { url = store.amazon; store.android = store.amazon; }
