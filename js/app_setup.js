@@ -2548,7 +2548,7 @@ function getRateDialog() {
 	//////////////////
 	// DAYS TO WAIT // 1 ~ 7 days
 	//////////////////
-	var daysToWait = app.read('notFirstTime') ? 7 : 1;
+	var daysToWait = app.read('notFirstTime') ? 7 : 2;
 	var timeRate = (24 * 60 * 60 * 1000) * daysToWait;
 	//app.toast('wait: ' + daysToWait + ' days');
 	//
