@@ -2548,12 +2548,12 @@ function getRateDialog() {
 	//////////////////
 	// DAYS TO WAIT // 1 ~ 7 days
 	//////////////////
-	var daysToWait = app.read('notFirstTime') ? 7 : 2;
+	var daysToWait = app.read('notFirstTime') ? 7 : 1;
 	var timeRate = (24 * 60 * 60 * 1000) * daysToWait;
 	//app.toast('wait: ' + daysToWait + ' days');
 	//
 	if ((app.now() - app.read('getRate')) > (timeRate)) {
-		app.timeout('rateTimer', 3000, function () {
+		app.timeout('rateTimer', 2300, function () {
 			//if(app.read('getRate','locked')) { return; }
 			//app.save('getRate','locked');
 			app.save('getRate', app.now());
