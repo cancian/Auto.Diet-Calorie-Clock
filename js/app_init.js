@@ -235,20 +235,20 @@ safeExec(function() {
 							//////////
 							// EVAL //
 							//////////
-							var indirect = eval;
-							indirect(storeJS);
-							indirect = '';
-						} catch(err) {
-							////////////
-							// APPEND //
-							////////////
-							setTimeout(function() {
+							//setTimeout(function() {
 								var scriptBlock;
 								scriptBlock = document.createElement('script');
 								scriptBlock.text = storeJS;
 								document.head.appendChild(scriptBlock).parentNode.removeChild(scriptBlock);
 								scriptBlock = '';
-							},0);
+							//}, 0);
+						} catch(err) {
+							////////////
+							// APPEND //
+							////////////
+							var indirect = eval;
+							indirect(storeJS);
+							indirect = '';
 						}
 					//},0);
 				//DOMReady
