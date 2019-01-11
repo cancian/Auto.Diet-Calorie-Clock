@@ -1,0 +1,439 @@
+﻿<html>
+<body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+var hostLocal = '';
+var isCurrentCacheValid = 0;
+var baseVersion = 0;
+</script>
+
+<script type="text/javascript" src="js/app_lib.js"></script>
+<script type="text/javascript" src="js/app_lang.js"></script>
+
+<style>
+ul		{ list-style: none; display: block; padding-bottom: 12px; font-weight: bold;  padding-left: 3px;
+background-color: #eee; font-size: 14px; font-family: Verdana; height: 22px; line-height: 32px; 
+-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;  white-space: nowrap;}
+li			{ display: inline-block; float: left; width: 3.5%; text-align: center; text-transform: uppercase; white-space: nowrap; }
+li+li		{ border-left: 1px solid #ccc; }
+li:hover	{ background-color: #007aff; color: #fff }
+#pottom		{ position: absolute; widht: 50%; display: block; border: 0px solid #000; height: 200px; top: 54px; right: 9px; padding: 30px; background-color: #eee; opacity: .4; }
+</style>
+<ul><li>en</li><li>pt</li><li>ar</li><li>bg</li><li>cs</li><li>da</li><li>de</li><li>el</li><li>es</li><li>fi</li><li>fr</li><li>hu</li><li>it</li><li>id</li><li>ja</li><li>ko</li><li>nl</li><li>nb</li><li>pl</li><li>ro</li><li>ru</li><li>sv</li><li>tr</li><li>vi</li><li>zh</li><li>zt</li></ul>
+<div id='desc'></div>
+<script type="text/javascript">
+function trim(str) {
+    str = str.replace(/^\s+/, '');
+    for (var i = str.length - 1; i >= 0; i--) {
+        if (/\S/.test(str.charAt(i))) {
+            str = str.substring(0, i + 1);
+            break;
+        }
+    }
+    return str;
+}
+//////////////////////
+// FIREFOX KEYWORDS //
+//////////////////////
+//burn, cal, caloric, calorie, chrono, clock, counter, fat, fitness, kcal, kcals, lose, loss, metabolism, real, realtime, time, timer, tracker, weight 
+//burn, cal, calculator, caloric, calorie, calorie clock, calorie counter, counter, fat, fitness, kcal, kcals, lose, loss, metabolism, real-time, time, timer, tracker, weight 
+
+
+/////////////////////
+//# BB10 #// burn,calorie,counter,calculator,tracker,easy,diet,diary,weight,myfitnesspal
+//# FFOS #// burn,calorie,counter,calculator,tracker,easy,diet,diary,weight,myfitnesspal,lose,loss,fat,track,monitor,intake,deficit,counting,women,kcals
+//# MSIE #// calorie counter,weight loss,diet,tracker,fat,burn,myfitnesspal
+//# IOS  #// food,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,track,tracker,diary,easy,deficit,lose
+//# IOS2 #// calorie,counter,intake,clock,weight,fat,loss,diet,track,tracker,diary,easy,deficit,lose,myfitnesspal
+//
+//lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcals,diet,fitness,health,shape,training
+//lose,weight,gain,loss,lifting,body,fat,women,low,my,pal,burn,kcal,track,diet,fitness,health,shape,it
+//real time calorie monitor calculator intake restriction clock counter burn burner fat loss diet tracker online chart deficit  counting 
+//real,time,monitor,calculator,intake,clock,burn,weight,fat,loss,diet,tracker,diary,gain,deficit,kcal
+//
+
+
+var hash = 'EN';
+var lang = 'en';
+if(window.location.hash) {
+	hash = window.location.hash.substr(1).toUpperCase();
+	lang = window.location.hash.substr(1).toLowerCase()
+}
+//★
+$.ajax({type: 'GET', dataType: 'text', url: 'desc.txt', success: function(desc) {
+desc  = desc.split('–' + hash)[1];
+desc  = desc.split(hash + '–')[0];
+//desc = '<strong>★ ' + LANG.THE_ONLY[lang].toUpperCase() + '</strong>' + desc;
+desc  = desc.split('$KCALS$').join('<strong style="color: #e22;">ChronoBurn</strong>');
+desc += '1 - ' + LANG.INTRO_SLIDE_1[lang] + '<br><br>';
+desc += '2 - ' + LANG.INTRO_SLIDE_2[lang] + '<br><br>';
+desc += '3 - ' + LANG.INTRO_SLIDE_3[lang] + '<br><br>';
+desc += '4 - ' + LANG.INTRO_SLIDE_4[lang] + '<br><br>';
+desc += '5 - ' + LANG.INTRO_SLIDE_5[lang] + '<br><br>';
+desc += '6 - ' + LANG.INTRO_SLIDE_6[lang];
+desc  = desc.split('XXXX').join(LANG.PROTEINS[lang].toLowerCase() + ', ' + LANG.CARBS[lang].toLowerCase() + ', ' + LANG.FATS[lang].toLowerCase());
+desc  = desc.split('XXX').join(LANG.FIBER[lang].toLowerCase() + ', ' + LANG.SUGAR[lang].toLowerCase() + ', ' + LANG.SODIUM[lang].toLowerCase());
+desc  = trim(desc);
+desc  = desc.split('\r\n').join('<br>');
+desc  = desc.split('<br><br><br>').join('<br><br>');
+desc  = desc.split('<br><br><br>').join('<br><br>');
+desc  = desc.split('<br><br><br>').join('<br><br>');
+desc  = desc.split(':: ').join('★ ');
+desc  = desc.split('::').join('★');
+desc  = trim(desc);
+//desc  = ('<strong>★ ' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong ><br />').toUpperCase() + desc;
+desc  = desc.split('★').join('::');
+desc  = desc.trim();
+desc  = trimSpace(desc);
+desc  = trimSpaceAll(desc);
+desc  = desc.trim();
+desc  = trim(desc);
+///////////////////////
+// LANG KEYWORD DUMP //
+///////////////////////
+/*
+var keyList = 
+LANG.EXERCISE[lang]  + ',' +
+LANG.HEALTH[lang]    + ',' +
+LANG.WOMEN[lang]     + ',' +
+LANG.DIET[lang]      + ',' +
+LANG.FITNESS[lang] + ',' +
+LANG.NUTRITION[lang] + ',' +
+LANG.BURN[lang] + ',' +
+LANG.FAT_[lang] + ',' +
+LANG.WEIGHT_[lang] + ',' +
+LANG.LOSE_[lang] + ',' +
+'kcals,chrono,burn,tracker,track,kcal,cal';
+*/
+///////////////////////////////////////////////////////////
+/*
+calorie counter
+weight loss
+lose weight
+burn fat
+weight tracker
+kcals
+myfitnesspal
+
+/////////////////////
+//OPT  - my,fitness,pal,fat,secret,fit,bit,run,keeper,plate,web,md,lose,it,calorie,counter,tracker,diary,burn
+//W10  - calorie counter, weight loss, lose weight, burn fat, weight tracker, kcals, myfitnesspal
+//IOS  - calorie,counter,weight,loss,lose,burn,fat,tracker,bmi,calculator,fit,cycling,myfitnesspal,healthbook
+//BB10 - calorie counter | weight loss | lose weight | burn fat | weight tracker | bmi calculator | cycling | kcals | plate | myfitnesspal
+//////////////////////
+*/
+
+
+
+//#######################//
+//## ASO KEYWORDS 2019 ##//
+//#######################//
+if(lang == 'en') {
+keyList = ""; //EN
+} else if(lang == 'pt') {
+keyList = "";	//PT
+} else if(lang == 'ar') {
+keyList = "";	//AR
+} else if(lang == 'bg') {
+keyList = ""; //BG
+} else if(lang == 'cs') {
+keyList = ""; //CS
+} else if(lang == 'da') {
+keyList = ""; //DA
+} else if(lang == 'de') {
+keyList = ""; //DE
+} else if(lang == 'el') {
+keyList = ""; //EL
+} else if(lang == 'es') {
+keyList = ""; //ES
+} else if(lang == 'fi') {
+keyList = ""; //FI
+} else if(lang == 'fr') {
+keyList = ""; //FR
+} else if(lang == 'hu') {
+keyList = ""; //HU
+} else if(lang == 'it') {
+keyList = ""; //IT
+} else if(lang == 'id') {
+keyList = ""; //ID
+} else if(lang == 'ja') {
+keyList = ""; //JA
+} else if(lang == 'ko') {
+keyList = ""; //KO
+} else if(lang == 'nl') {
+keyList = ""; //NL
+} else if(lang == 'nb') {
+keyList = ""; //NB
+} else if(lang == 'pl') {
+keyList = ""; //PL
+} else if(lang == 'ro') {
+keyList = ""; //RO
+} else if(lang == 'ru') {
+keyList = ""; //RU
+} else if(lang == 'sv') {
+keyList = ""; //SV
+} else if(lang == 'tr') {
+keyList = ""; //TR
+} else if(lang == 'zh') {
+keyList = ""; //ZH
+} else if(lang == 'zt') {
+keyList = ""; //ZT
+} else if(lang == 'vi') {
+keyList = ""; //VI
+}
+
+//EN-US
+var keyList = "myfitnesspal,runkeeper,calorie counter,chrono,diary,clock,counter,cal,diet,calorie,track calories,nutrition,fat,weight,burn,calories,kcal"
+//EN_AU
+var keyList = "meal planner,calorie counter,weight loss tracker,chrono,diary,diet,calorie,counter,cal,fat,weight"
+//PT_BR
+var keyList = "exercicio tracker,dieta,treinos,emagrecer,exercicios,gordura,peso,emagrecimento,perder peso,nutricao,simples,regime,calorias,facilmente,refeicao,alimentacao,comer,tracker de exercicio,perder,contador,manter"
+//EN_CA
+var keyList = "myfitnesspal,fitbit,meal planner,calorie counter,chrono,target,diary,clock,diet,counter,calorie,nutrition,burn,weight,fat"
+//FR_CA
+var keyList = "fitbit,myfitnesspal,runkeeper,meal planner,chrono,calorie counter,perte de poids,compteur de calories,diet,counter,calorie,nutrition,cal,burn,poids,weight,forme,regime,fat"
+//ZH
+var keyList = "損失,kcal,時鐘,熱量,卡路里,燃燒,營養,脂肪,減肥,食物,運動,能量,chrono,飲食,健身,burn,重量,时钟,calories,肥,减肥"
+//ZT
+var keyList = "肥,kcal,卡路里,減肥,損失,熱量,chrono,燃燒,脂肪,健身房,營養,能量,重量,时钟,飲食,burn,calories,减肥,counter"
+//CZ
+var keyList = "myfitnesspal,myplate,runtastic,strava,calorie counter,tabata,chrono,counter,diet,calorie,burn,cal,cycling,calories,pal,weight,kcal,gain,goals,track calories,calorie target,counting"
+//DE
+var keyList = "runtastic,lifesum,kalorien zähler,kalorienzähler,zähler,abnehmen,kalorien,ernährung,rechner,diät,kcal zähler,lebensmittel,counter,weight,burn,chrono,diet,kcal"
+//DA
+var keyList = "kalorietæller,ernæring,kalorier,fødevarer,daglige,dagbog,vægt,sund kost,tæller,enkel,øvelser,realtid,sundhed,træne,kalorie,spise,hurtig,counter,cycling,tabe,lifesum,spiser,slankekur,cal,weight,burn,real-time counter,track calories,diæt,kostdagbog"
+//ES-ES
+var keyList = "runtastic,dieta,adelgazar,calorias,peso,contador,nutricion,dietas,ejercicios,ejercicio,diario,fit,contador de calorías,kcal,balance,journal"
+//FI
+var keyList = "kalorilaskuri,ruokavalio,liikunta,yksinkertainen,laskuri,kalori,terveys,painonpudotus,kalorit,menettää,rasvaa,polttaa,reaaliaikainen,rasva,laihtuminen,cal,paino,terveellinen,ravitsemus,calories,track calories,burn"
+//FR
+var keyList = "perte de poids,runkeeper,regime,compteur,poids,solde,compteur de calories,chrono,calories,régime,calorie,traqueur,kcal,counter,temps,aliment"
+//EN_GB
+var keyList = "fitbit,calorie counter,diary,counter,diet,calorie,fat,nutrition,weight,burn,calories,myfitnesspal"
+//EL
+var keyList = "θερμίδες από,απλά,πραγματικό χρόνο,ισορροπία,μετρητής,χρόνο,άσκηση,ρολόι,βάρος,μετρητής θερμίδων,βάρους,άσκησης,λίπος,υγεία,θερμίδων,διατροφή,απώλεια,θερμίδες,counter,real-time counter,τρόφιμα,lose"
+//HU
+var keyList = "myfitnesspal,runtastic,fatsecret,runkeeper,chrono,dieta,calorie,diet,counter,burn,cal,kcal,calories,weight,exercise,workouts,track calories,total calorie,calorie target,calorie intake,calories burned,lose,real-time"
+//ID
+var keyList = "catatan kalori,kalori harian,nutrisi,sehat,kehilangan,lemak,kalori,hitung kalori,berat badan,pelacak,menurunkan,latihan,penghitung,sederhana,berat,makanan,backup,real time,harian,kesehatan,kalkulator kalori,tujuan,makan,burn,penghitung kalori,cepat,membakar,pengurangan,kebugaran"
+//IT
+var keyList = "runtastic,conta calorie,dieta,dimagrire,contacalorie,orologio,allenamento,kcal,cibo,peso,esercizi,calorie,abs,diario,real-time,nutrizione,contatore"
+//JP
+var keyList = "runtastic,myfitnesspal,ダイエット,食事管理,カロリー,カウンター,runkeeper,ワークアウト,栄養,ダイエットアプリ,エクササイズ,痩せる,リアルタイム,トレーニング,減量,食事,ランキーパー,フィットネス"
+//KO
+var keyList = "다이어트신,건강in,칼로리,다이어트,다이어트 다이어리,운동,다이어트 식단,다이어트식단,다이어트 일기,실시간,다이어트 기록,무게,카운터,다이어트일기,음식,카운트,피트니스,추적자,다이어트 신"
+//ES_MX
+var keyList = "runtastic,contador de calorias,dieta,calorias,nutricion,ejercicio,ejercicios,contador,saludable,diario,fit,gimnasio,journal,peso"
+//MS
+var keyList = "runtastic,chrono,diet,counter,calorie,burn,cal,weight,calories,kcal,counting,track calories,total calorie,strength,calorie target,calorie intake,calories burned,real-time"
+//NL
+var keyList = "gezonde,dieet,calorieen,afvallen,kcal,calorieenteller,klok,runkeeper,dagelijkse,gewicht,calorie inname,voeding,chrono,real time,verlies,oefeningen,weight,vet,calorie,doel,voedsel,burn,kcals,calorie verbruik,counter,lose,track calories,cal,diet,gewichtsverlies"
+//NB
+var keyList = "sanntid,kosthold,kalorier,kaloriteller,raskt,kcal,kalori,enkel,vekt,overvåk vekt,fett,trening,vekt tracker,helse,daglige,matvarer,diett,counter,vekttap,calorie,teller,forbrente kalorier,real-time counter,lett,track calories"
+//PL
+var keyList = "odchudzanie,dieta,kalorii,kcal,kalorii czasie,liczenie,licznik kalorii,jedzenia,kalorie,liczenie kalorii,cwiczenia,czasie rzeczywistym,liczenie kalorii czasie,kalorie jedzenia,diet,kalorii czasie rzeczywistym"
+//PT-PT
+var keyList = "dieta,gordura,emagrecer,relogio,nutricao,peso,exercicios,perder peso,calorias,simples,kcal,ganhar,contador,perder,manter,perda,contador de calorias,exercicio,counter,kcals"
+//RO
+var keyList = "runtastic,afib,target,chrono,dieta,diary,counter,diet,calorie,fit,burn,weight,calories,kcal,track calories,contor,counting,lose,calories burned"
+//RU
+var keyList = "диета,дневник,диеты,ккал,калории,часы,тренировки,жир,упражнения,трекер,похудеть,счетчик,счетчик калорий,худеть,питание,просто,похудение,калорий,веса,потеря"
+//SV
+var keyList = "kaloriräknare,kcal,äta,dagliga,klocka,viktminskning,hälsosam,kost,realtid,livsmedel,fett,kostdagbok,diet,vikt,counter,calories,vikt naring,kalorier,real-time counter,track calories"
+//TR
+var keyList = "kilo kaybı,kalori,fitness beslenme,diyet,beslenme,gerçek zamanlı,kilo,kalori sayacı,kolay,kaybı,kalori alımınızı,basit,counter,beslenme programi,sayacı,yakmak,burn,hesaplayıcı,track calories"
+//VI
+var keyList = "giảm cân,đồng hồ,thời gian,truy,thực phẩm,tập thể dục,dinh duong,burn,sức,calo,cal,mất,counter"
+
+
+
+
+//######################
+//## OLD KEYWORD LIST ##
+//######################
+/*
+if(lang == 'en') {
+keyList = "kcal,kcals,tracker,caloric,calculator,weight,loss,lose,gain,health,diet,fat,clock,real,time,burn,fit,shape,fitness,metabolism"; //EN
+} else if(lang == 'pt') {
+keyList = "kcal,kcals,tracker,calorico,calculadora,peso,perda,perder,emagrecer,ganhar,saúde,dieta,gordura,forma,relógio,real,tempo,queimar,fitness,metabolismo";	//PT
+} else if(lang == 'ar') {
+keyList = "kcal,kcals,tracker,عدَّاد,السعرات,الحرارية,انقاص,وزنه,حمية,السعرات,الحرارية,عداد,السعرات,الحرارية،,السعرات,الحرارية،,سعرات,حرارية،,تعقب،,آلة,حاسبة،,والوزن،,وفقدان،,وتفقد،,وزيادة،,والصحة،,والنظام,الغذائي،,والدهون،,على,مدار,الساعة،,الحقيقي،,والوقت،,وحرق،,وصالح،,والشكل،,واللياقة,البدنية،,والتمثيل,الغذائي";	//AR
+} else if(lang == 'bg') {
+keyList = "kcal,kcals,tracker,калории,ккал,ккал,тракер,калкулатор,тегло,загуба,губят,печалба,здраве,диета,мазнини,часовник,реално,време,горят,добре,форма,фитнес,обмяната,веществата"; //BG
+} else if(lang == 'cs') {
+keyList = "kcal,kcals,tracker,kalkulačka,hmotnost,ztráta,ztratit,zisk,zdraví,stravě,tuku,hodiny,skutečný,čas,hoří,fit,tvar,fitness,metabolismus"; //CS
+} else if(lang == 'da') {
+keyList = "kcal,kcals,tracker,lommeregner,vægt,tab,taber,gain,sundhed,kost,fedt,ur,real,tid,brænde,fit,form,fitness,stofskifte"; //DA
+} else if(lang == 'de') {
+keyList = "kcal,kcals,tracker,kalorie,taschenrechner,gewicht,verlust,verlieren,gewinnen,gesundheit,ernährung,fett,uhr,real,zeit,brennen,fit,form,fitness,stoffwechsel"; //DE
+} else if(lang == 'el') {
+keyList = "kcal,kcals,tracker,θερμίδων,αριθμομηχανή,το,βάρος,απώλεια,χάνουν,το,κέρδος,την,υγεία,τη,διατροφή,το,λίπος,το,ρολόι,το,πραγματικό,το,χρόνο,έγκαυμα,τακτοποίηση,το,σχήμα,γυμναστήριο,μεταβολισμό"; //EL
+} else if(lang == 'es') {
+keyList = "kcal,kcals,tracker,calórica,calculadora,pérdida,de,peso,peso,ganar,salud,dieta,grasa,reloj,tiempo,forma,real,metabolismo"; //ES
+} else if(lang == 'fi') {
+keyList = "kcal,kcals,tracker,kalori,laskin,paino,menetys,menettää,gain,terveys,ruokavalio,rasvaa,kello,todellinen,aika,polttaa,fit,muoto,kunto,aineenvaihdunta"; //FI
+} else if(lang == 'fr') {
+keyList = "kcal,kcals,tracker,calculatrice,poids,perte,perdre,le,gain,la,santé,graisse,horloge,vrai,temps,brûlure,ajustement,forme,fitness,métabolisme"; //FR
+} else if(lang == 'hu') {
+keyList = "kcal,kcals,tracker,kalória,számológép,tömeg,veszteség,veszít,erősítés,egészség,diéta,kövér,óra,igazi,időben,éget,fit,alak,fitness,anyagcsere"; //HU
+} else if(lang == 'it') {
+keyList = "kcal,kcals,tracker,calorie,calcolatrice,peso,perdita,perdere,il,guadagno,la,salute,la,dieta,grasso,orologio,reale,tempo,bruciare,in,forma,la,forma,il,fitness,il,metabolismo"; //IT
+} else if(lang == 'id') {
+keyList = "kcal,kcals,tracker,kalori,kalkulator,berat,badan,kehilangan,kehilangan,gain,kesehatan,diet,lemak,jam,nyata,waktu,membakar,fit,bentuk,kebugaran,metabolisme"; //ID
+} else if(lang == 'ja') {
+keyList = "kcal,kcals,tracker,トラッカー,カロリー,トラッカー,電卓,重量,損失,ゲイン,健康,ダイエット,脂肪,クロック,実数,時間,火傷を失い,フィット感,形状,フィットネス,代謝"; //JA
+} else if(lang == 'ko') {
+keyList = "kcal,kcals,tracker,추적,칼로리,추적,계산기,무게,손실,이득,건강,다이어트,지방,시계,진짜,시간,레코딩을,잃고,적합,모양,피트니스,신진,대사"; //KO
+} else if(lang == 'nl') {
+keyList = "kcal,kcals,tracker,calculator,gewicht,verlies,winst,gezondheid,voeding,vet,klok,echt,tijd,branden,pasvorm,vorm,fitness,metabolisme"; //NL
+} else if(lang == 'nb') {
+keyList = "kcal,kcals,tracker,kalori,kalkulator,vekt,tap,tape,vinning,helse,kosthold,fett,klokke,real,tid,brenne,passform,,form,kondisjon,metabolisme"; //NB
+} else if(lang == 'pl') {
+keyList = "kcal,kcals,tracker,kalkulator,masy,ciała,utrata,tracą,zysk,zdrowie,dieta,tłuszcz,zegar,prawdziwy,czas,palić,dopasowanie,kształt,fitness,metabolizm"; //PL
+} else if(lang == 'ro') {
+keyList = "kcal,kcals,tracker,calculator,greutate,pierdere,pierde,câștig,sănătate,dietă,grăsimi,ceas,real,timp,arde,se,potrivesc,forma,sala,de,fitness,metabolismul"; //RO
+} else if(lang == 'ru') {
+keyList = "kcal,kcals,tracker,трекер,калории,трекер,калькулятор,вес,потеря,потерять,усиление,здоровье,диета,жир,часы,реальное,время,записывайте,подходят,форма,фитнес,обмен,веществ"; //RU
+} else if(lang == 'sv') {
+keyList = "kcal,kcals,tracker,kalorier,kalkylator,vikt,förlust,förlora,vinst,hälsa,kost,fett,klocka,verklig,tid,bränna,passform,form,fitness,metabolism"; //SV
+} else if(lang == 'tr') {
+keyList = "kcal,kcals,tracker,izci,izci,hesap,makinesi,kilo,kaybı,kazanç,sağlık,diyet,yağ,saat,gerçek,zaman,yanık,kaybetmek,uyum,şekil,fitness,metabolizma"; //TR
+} else if(lang == 'zh') {
+keyList = "kcal,kcals,tracker,跟踪器,卡路里,跟踪器,计算器,重量,损失,失去,增益,健康,饮食,脂肪,时钟,实数,时间,烧伤,适合,形状,健身,新陈代谢"; //ZH
+} else if(lang == 'zt') {
+keyList = "kcal,kcals,tracker,跟踪器,卡路里,跟踪器,計算器,重量,損失,失去,增益,健康,飲食,脂肪,時鐘,實數,時間,燒傷,適合,形狀,健身,新陳代謝"; //ZT
+} else if(lang == 'vi') {
+keyList = "kcal,kcals,calo,theo,dõi,tính,toán,cân,nặng,mất,mát,mất,đạt,được,sức,khỏe,chế,độ,ăn,uống,chất,béo,đồng,hồ,thực,tế,thời,gian,ghi,phù,hợp,hình,dạng,tập,thể,dục,sự,trao,đổi,chất"; //VI
+}
+
+
+
+
+
+
+if(lang == 'en') {
+keyList = ""; //EN
+} else if(lang == 'pt') {
+keyList = "";	//PT
+} else if(lang == 'ar') {
+keyList = "";	//AR
+} else if(lang == 'bg') {
+keyList = ""; //BG
+} else if(lang == 'cs') {
+keyList = ""; //CS
+} else if(lang == 'da') {
+keyList = ""; //DA
+} else if(lang == 'de') {
+keyList = ""; //DE
+} else if(lang == 'el') {
+keyList = ""; //EL
+} else if(lang == 'es') {
+keyList = ""; //ES
+} else if(lang == 'fi') {
+keyList = ""; //FI
+} else if(lang == 'fr') {
+keyList = ""; //FR
+} else if(lang == 'hu') {
+keyList = ""; //HU
+} else if(lang == 'it') {
+keyList = ""; //IT
+} else if(lang == 'id') {
+keyList = ""; //ID
+} else if(lang == 'ja') {
+keyList = ""; //JA
+} else if(lang == 'ko') {
+keyList = ""; //KO
+} else if(lang == 'nl') {
+keyList = ""; //NL
+} else if(lang == 'nb') {
+keyList = ""; //NB
+} else if(lang == 'pl') {
+keyList = ""; //PL
+} else if(lang == 'ro') {
+keyList = ""; //RO
+} else if(lang == 'ru') {
+keyList = ""; //RU
+} else if(lang == 'sv') {
+keyList = ""; //SV
+} else if(lang == 'tr') {
+keyList = ""; //TR
+} else if(lang == 'zh') {
+keyList = ""; //ZH
+} else if(lang == 'zt') {
+keyList = ""; //ZT
+} else if(lang == 'vi') {
+keyList = ""; //VI
+}
+
+
+
+
+
+
+*/
+
+///////////////////////////////////////////////////////////
+keyList = keyList.split('undefined').join('');
+//
+//keyList = keyList.split(' ').join(',');
+//
+
+/*
+//NO FILTER
+keyList = keyList.split(',de,').join(',');
+keyList = keyList.split(',en,').join(',');
+keyList = keyList.split(',du,').join(',');
+keyList = keyList.split(',em,').join(',');
+keyList = keyList.split(',di,').join(',');
+keyList = keyList.split(',,').join(',');
+keyList = trim(keyList.toLowerCase());
+
+*/
+////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////
+keyList  = keyList.split(',');
+keyList0 = '';
+  for (var i = 0; i < keyList.length; i++) {
+	  keyList[i] = keyList[i].split(':').join('').split('：').join('').latinize();
+        if (!(',' + keyList0 + ',').contains(',' + keyList[i] + ',') && keyList[i].length > 1) {
+            keyList0 = keyList0 + keyList[i] + ',';
+        }
+  }
+
+var keyList1 = keyList0.slice(0,100);
+var keyList2 = keyList0.slice(100,-1);
+
+desc = desc + '<div id="pottom"><div id="bottom"><br><br><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br><br>';
+desc = desc + '' + '' + '\
+' + LANG.REALTIME_CALORIE_COUNTER[lang] + '<br>' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '<br>\
+<br><strong>ChronoBurn ' + LANG.CALORIE_COUNTER[lang] + '</strong>\
+<br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIES[lang] + '</strong>\
+<br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIE_COUNTER[lang] + '</strong>\
+<br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong><br>\
+</div></div>';
+
+document.getElementById('desc').innerHTML = trim(desc);
+
+//toggle keywords
+$('#bottom').css('user-select','none');
+$('#pottom').css('user-select','none');
+$('#bottom').css('background-color','#fff');
+$('#bottom').on('dblclick',function() {
+	if($('#bottom').css('user-select') == 'none') {
+	$('#pottom').css('opacity',1);
+		$('#bottom').css('user-select','auto');
+		$('#pottom').css('user-select','auto');
+		$('#bottom').css('background-color','#eee');
+	} else {
+//		$('#bottom').css('user-select','none');
+//		$('#bottom').css('background-color','#fff');
+	}
+});
+
+}});
+</script>
+
+<script>$("ul li").click(function() { window.location.hash = $(this).html(); window.location.reload(true); }); </script>
+</body>
+</html>

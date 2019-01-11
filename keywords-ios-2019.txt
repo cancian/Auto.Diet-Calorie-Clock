@@ -1,0 +1,71 @@
+﻿
+
+
+
+
+//EN-US
+"myfitnesspal,runkeeper,calorie counter,chrono,diary,clock,counter,cal,diet,calorie,track calories,nutrition,fat,weight,burn,calories,kcal"
+//EN_AU
+"meal planner,calorie counter,weight loss tracker,chrono,diary,diet,calorie,counter,cal,fat,weight"
+//PT_BR
+"exercicio tracker,dieta,treinos,emagrecer,exercicios,gordura,peso,emagrecimento,perder peso,nutricao,simples,regime,calorias,facilmente,refeicao,alimentacao,comer,tracker de exercicio,perder,contador,manter"
+//EN_CA
+"myfitnesspal,fitbit,meal planner,calorie counter,chrono,target,diary,clock,diet,counter,calorie,nutrition,burn,weight,fat"
+//FR_CA
+"fitbit,myfitnesspal,runkeeper,meal planner,chrono,calorie counter,perte de poids,compteur de calories,diet,counter,calorie,nutrition,cal,burn,poids,weight,forme,regime,fat"
+//ZH
+"損失,kcal,時鐘,熱量,卡路里,燃燒,營養,脂肪,減肥,食物,運動,能量,chrono,飲食,健身,burn,重量,时钟,calories,肥,减肥"
+//ZT
+"肥,kcal,卡路里,減肥,損失,熱量,chrono,燃燒,脂肪,健身房,營養,能量,重量,时钟,飲食,burn,calories,减肥,counter"
+//CZ
+"myfitnesspal,myplate,runtastic,strava,calorie counter,tabata,chrono,counter,diet,calorie,burn,cal,cycling,calories,pal,weight,kcal,gain,goals,track calories,calorie target,counting"
+//DE
+"runtastic,lifesum,kalorien zähler,kalorienzähler,zähler,abnehmen,kalorien,ernährung,rechner,diät,kcal zähler,lebensmittel,counter,weight,burn,chrono,diet,kcal"
+//DA
+"kalorietæller,ernæring,kalorier,fødevarer,daglige,dagbog,vægt,sund kost,tæller,enkel,øvelser,realtid,sundhed,træne,kalorie,spise,hurtig,counter,cycling,tabe,lifesum,spiser,slankekur,cal,weight,burn,real-time counter,track calories,diæt,kostdagbog"
+//ES-ES
+"runtastic,dieta,adelgazar,calorias,peso,contador,nutricion,dietas,ejercicios,ejercicio,diario,fit,contador de calorías,kcal,balance,journal"
+//FI
+"kalorilaskuri,ruokavalio,liikunta,yksinkertainen,laskuri,kalori,terveys,painonpudotus,kalorit,menettää,rasvaa,polttaa,reaaliaikainen,rasva,laihtuminen,cal,paino,terveellinen,ravitsemus,calories,track calories,burn"
+//FR
+"perte de poids,runkeeper,regime,compteur,poids,solde,compteur de calories,chrono,calories,régime,calorie,traqueur,kcal,counter,temps,aliment"
+//EN_GB
+"fitbit,calorie counter,diary,counter,diet,calorie,fat,nutrition,weight,burn,calories,myfitnesspal"
+//EL
+"θερμίδες από,απλά,πραγματικό χρόνο,ισορροπία,μετρητής,χρόνο,άσκηση,ρολόι,βάρος,μετρητής θερμίδων,βάρους,άσκησης,λίπος,υγεία,θερμίδων,διατροφή,απώλεια,θερμίδες,counter,real-time counter,τρόφιμα,lose"
+//HU
+"myfitnesspal,runtastic,fatsecret,runkeeper,chrono,dieta,calorie,diet,counter,burn,cal,kcal,calories,weight,exercise,workouts,track calories,total calorie,calorie target,calorie intake,calories burned,lose,real-time"
+//ID
+"catatan kalori,kalori harian,nutrisi,sehat,kehilangan,lemak,kalori,hitung kalori,berat badan,pelacak,menurunkan,latihan,penghitung,sederhana,berat,makanan,backup,real time,harian,kesehatan,kalkulator kalori,tujuan,makan,burn,penghitung kalori,cepat,membakar,pengurangan,kebugaran"
+//IT
+"runtastic,conta calorie,dieta,dimagrire,contacalorie,orologio,allenamento,kcal,cibo,peso,esercizi,calorie,abs,diario,real-time,nutrizione,contatore"
+//JP
+"runtastic,myfitnesspal,ダイエット,食事管理,カロリー,カウンター,runkeeper,ワークアウト,栄養,ダイエットアプリ,エクササイズ,痩せる,リアルタイム,トレーニング,減量,食事,ランキーパー,フィットネス"
+//KO
+"다이어트신,건강in,칼로리,다이어트,다이어트 다이어리,운동,다이어트 식단,다이어트식단,다이어트 일기,실시간,다이어트 기록,무게,카운터,다이어트일기,음식,카운트,피트니스,추적자,다이어트 신"
+//ES_MX
+"runtastic,contador de calorias,dieta,calorias,nutricion,ejercicio,ejercicios,contador,saludable,diario,fit,gimnasio,journal,peso"
+//MS
+"runtastic,chrono,diet,counter,calorie,burn,cal,weight,calories,kcal,counting,track calories,total calorie,strength,calorie target,calorie intake,calories burned,real-time"
+//NL
+"gezonde,dieet,calorieen,afvallen,kcal,calorieenteller,klok,runkeeper,dagelijkse,gewicht,calorie inname,voeding,chrono,real time,verlies,oefeningen,weight,vet,calorie,doel,voedsel,burn,kcals,calorie verbruik,counter,lose,track calories,cal,diet,gewichtsverlies"
+//NB
+"sanntid,kosthold,kalorier,kaloriteller,raskt,kcal,kalori,enkel,vekt,overvåk vekt,fett,trening,vekt tracker,helse,daglige,matvarer,diett,counter,vekttap,calorie,teller,forbrente kalorier,real-time counter,lett,track calories"
+//PL
+"odchudzanie,dieta,kalorii,kcal,kalorii czasie,liczenie,licznik kalorii,jedzenia,kalorie,liczenie kalorii,cwiczenia,czasie rzeczywistym,liczenie kalorii czasie,kalorie jedzenia,diet,kalorii czasie rzeczywistym"
+//PT-PT
+"dieta,gordura,emagrecer,relogio,nutricao,peso,exercicios,perder peso,calorias,simples,kcal,ganhar,contador,perder,manter,perda,contador de calorias,exercicio,counter,kcals"
+//RO
+"runtastic,afib,target,chrono,dieta,diary,counter,diet,calorie,fit,burn,weight,calories,kcal,track calories,contor,counting,lose,calories burned"
+//RU
+"диета,дневник,диеты,ккал,калории,часы,тренировки,жир,упражнения,трекер,похудеть,счетчик,счетчик калорий,худеть,питание,просто,похудение,калорий,веса,потеря"
+//SV
+"kaloriräknare,kcal,äta,dagliga,klocka,viktminskning,hälsosam,kost,realtid,livsmedel,fett,kostdagbok,diet,vikt,counter,calories,vikt naring,kalorier,real-time counter,track calories"
+//TR
+"kilo kaybı,kalori,fitness beslenme,diyet,beslenme,gerçek zamanlı,kilo,kalori sayacı,kolay,kaybı,kalori alımınızı,basit,counter,beslenme programi,sayacı,yakmak,burn,hesaplayıcı,track calories"
+//VI
+"giảm cân,đồng hồ,thời gian,truy,thực phẩm,tập thể dục,dinh duong,burn,sức,calo,cal,mất,counter"
+
+
+
+
