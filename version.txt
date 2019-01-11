@@ -2,6 +2,12 @@
 ## VERSION LOG ##
 #################
 
+# 2.5.1 [2019/01/11]
+• Improved deep-linking handling
+• Performance and stability improvements
+• Updated some language strings
+• Revised device detection methods
+
 # 2.5 [2019/01/04]
 • Fixed rare window resize issue
 • Auto-adjust initial zoom level based on screen size
