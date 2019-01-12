@@ -38,14 +38,14 @@ AddType image/vnd.microsoft.icon .cur
 	###################
 	## REDIRECT BOTS ##
 	###################
-	RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
-	RewriteCond %{HTTP_HOST} !chronoburn.com$ [NC]	
-	RewriteRule ^ https://chronoburn.com%{REQUEST_URI} [R=301,L,NE]
+	#RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
+	#RewriteCond %{HTTP_HOST} !chronoburn.com$ [NC]	
+	#RewriteRule ^ https://chronoburn.com%{REQUEST_URI} [R=301,L,NE]
 	####################
 	## STATIC CONTENT ##
 	####################
-	RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
-	RewriteRule index.html help.html [L,QSA]
+	#RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
+	#RewriteRule index.html help.html [L,QSA]
 	#################
 	## FORCE HTTPS ## 
 	################# *.HTML

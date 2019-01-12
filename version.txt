@@ -3,10 +3,9 @@
 #################
 
 # 2.5.1 [2019/01/11]
-• Improved deep-linking handling
+• Updated device detection methods
+• Removed some unused language strings
 • Performance and stability improvements
-• Updated some language strings
-• Revised device detection methods
 
 # 2.5 [2019/01/04]
 • Fixed rare window resize issue
