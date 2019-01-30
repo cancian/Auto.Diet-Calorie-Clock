@@ -1,9 +1,10 @@
 rem batch minifier-updater
+call reenv
 k:
 cd\
 
 rem rebuild junctions
-call k:\[bin]\resgradle.bat 
+rem call k:\[bin]\resgradle.bat 
 
 rem minify js/css
 rem call k:\[bin]\minify.bat
