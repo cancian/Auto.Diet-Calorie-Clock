@@ -1,12 +1,17 @@
-######################
-## CALORIECLOCK.APP ##
-######################
-AddHandler fcgid-script .php 
-FCGIWrapper "/dh/cgi-system/php56.cgi" .php
-
+###############
+## AUTO.DIET ##
+###############
 AddDefaultCharset UTF-8
 SetEnv TZ America/Sao_Paulo
 Options -Indexes
+
+#####################
+## PHP5.6 DH TWEAK ##
+#####################
+<IfModule mod_fastcgi.c>
+	AddHandler fcgid-script .php 
+	FCGIWrapper "/dh/cgi-system/php56.cgi" .php
+</ifModule>
 
 ##########
 ## MIME ##
