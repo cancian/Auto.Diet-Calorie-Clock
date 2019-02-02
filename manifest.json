@@ -20,10 +20,10 @@
 	},
 	"app" : {
 		"urls" : [
-			"https://chronoburn.com/"
+			"https://auto.diet/"
 		],
 		"launch" : {
-			"web_url" : "https://chronoburn.com/"
+			"web_url" : "https://auto.diet/"
 		}
 	}
 }

@@ -2,7 +2,7 @@
 <html manifest="manifest.appcache">
 <head>
 <meta charset="utf-8">
-<title>ChronoBurn Calorie Counter</title>
+<title>Auto.Diet Calorie Clock</title>
 <meta name="Description" content="Real-Time Calorie Counter that simulates the human metabolism to help you lose weight. Available for iOS, Android, and 10 other platforms.">
 <meta name="keywords" content="calorie,counter,food,sync,exercise,health,women,diet,fitness,nutrition,burn,fat,weight,lose,kcals,chrono,tracker,track,kcal,cal" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -98,7 +98,7 @@ if(appStorage.getItem('index_eval')) {
 // REDIRECT NEW WEB USERS //
 ////////////////////////////
 if(/http/i.test(window.location.protocol) && /kcals.net|clock/i.test(location.hostname) && !/192|local/i.test(location.hostname) && !appStorage.getItem('intro_dismissed')) {
-	window.location.replace('https://chronoburn.com');
+	window.location.replace('https://auto.diet');
 }
 /////////////////////////
 // MSAPP CONFIRM LAYER //
@@ -314,7 +314,7 @@ function bootStraper() {
 				document.write('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}<\/style>');
 			}
 			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
-			document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } @font-face { font-family: "chronoburn"; src: url("css/chronoburn.ttf") format("truetype"); } <\/style>');
+			document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } @font-face { font-family: "Auto.Dieturn"; src: url("css/Auto.Dieturn.ttf") format("truetype"); } <\/style>');
 		});
 	} else {
 		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>');

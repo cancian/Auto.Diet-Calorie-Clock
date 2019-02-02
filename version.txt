@@ -2,10 +2,8 @@
 ## VERSION LOG ##
 #################
 
-# 2.5.1 [2019/01/11]
-• Updated device detection methods
-• Removed some unused language strings
-• Performance and stability improvements
+# 3.0 [2019/02/02]
+• The app name has changed to “Auto.Diet”, which is also the new URL: https://auto.diet
 
 # 2.5 [2019/01/04]
 • Fixed rare window resize issue
