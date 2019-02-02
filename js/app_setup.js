@@ -2827,7 +2827,7 @@ function getLoginFB() {
 				}
 			}
 			//INIT
-			FB.init({ appId : '577673025616946', status : true, version: 'v2.3', cookie : true, xfbml : true });
+			FB.init({ appId : '577673025616946', status : true, version: 'v2.8', cookie : true, xfbml : true });
 			var callBackURL = 'https://www.facebook.com/connect/login_success.html';
 			var faceBookURL = 'https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&response_type=token&redirect_uri=' + encodeURIComponent(callBackURL);
 			//open
@@ -2883,11 +2883,11 @@ function getLoginFB() {
 				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + app.https + 'auto.diet/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
 			}
 		////////////
-		// JS SDK //
+		// JS SDK //v2.8 
 		////////////
 		} else {
 			if(typeof FB !== 'undefined') {
-				FB.init({ appId : '577673025616946', status : true, version: 'v2.3', cookie : true, xfbml : true });
+				FB.init({ appId : '577673025616946', status : true, version: 'v2.8', cookie : true, xfbml : true });
 				//check status
 				FB.getLoginStatus(function(response) {
 					//already logged
