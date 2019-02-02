@@ -1,8 +1,8 @@
 ﻿{
 	"appName" : {
-		"message" : "ChronoBurn"
+		"message" : "Auto.Diet"
 	},
 	"appDesc" : {
-		"message" : "实时 卡路里 计数器"
+		"message" : "Automatic Calorie Control for Dieting &amp; Weight Loss"
 	}
 }
