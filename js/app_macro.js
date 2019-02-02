@@ -2352,7 +2352,7 @@ function buildAdvancedMenu() {
 	};
 	//GET VERSION.TXT WITH FALLBACK
 	app.handlers.activeRow('#advancedChangelog','activeRow',function(evt) {
-		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'chronoburn.com/' + 'version.txt',
+		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'auto.diet/' + 'version.txt',
 			error: function(xhr, statusText) {
 				//RETRY LOCAL
 				$.ajax({type: 'GET', dataType: 'text', url: 'version.txt',
@@ -2394,8 +2394,7 @@ function buildAdvancedMenu() {
 	//# CONTACT #//
 	//#/////////#//
 	app.handlers.activeRow('#advancedContact','activeRow',function(evt) {
-		//app.url('mailto:cancian@chronoburn.com?Subject=ChronoBurn%20-%20Support%20(' + app.get.platform(1) + ')');
-		window.location.href = 'mailto:cancian@chronoburn.com?Subject=ChronoBurn%20-%20Support%20(' + app.get.platform(1) + ')';
+		window.location.href = 'mailto:cancian@auto.diet?Subject=Auto.Diet%20-%20Support%20(' + app.get.platform(1) + ')';
 	});
 	//#////////////////#//
 	//# SUGGESTION BOX #//

@@ -20,7 +20,7 @@ function showIntro() {
 		<div id="viewport">\
 			<div id="wrapper">\
 				<div id="scroller">\
-					<div class="slide" id="slide1"><p>' + LANG.INTRO_SLIDE_1[lang].split('.').join('. ') + '</p></div>\
+					<div class="slide" id="slide1"><p>' + LANG.INTRO_SLIDE_1[lang].split('.').join('. ').split('Auto. Diet').join('Auto.Diet') + '</p></div>\
 					<div class="slide" id="slide2"><p>' + LANG.INTRO_SLIDE_2[lang].split('.').join('. ') + '</p>\
 						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
 						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
@@ -1914,6 +1914,9 @@ function buildHelpMenu(args) {
 	<p>' + LANG.INTRO_SLIDE_4[lang].split('.').join('. ') + '</p>\
 	<p>' + LANG.INTRO_SLIDE_5[lang].split('.').join('. ') + '</p>\
 	<p>' + LANG.INTRO_SLIDE_6[lang].split('.').join('. ') + '</p>';
+	//TRIM SPACE INSERTED ON TITLE
+	introValue = introValue.split('Auto. Diet').join('Auto.Diet');
+	//
 	helpHtml = '<li id="topic' + (topicId+1) + '">' + LANG.INTRO[lang] + '<div class="topicTitle">' + LANG.INTRO[lang] + '</div><div class="topicContent">' + introValue + '</div></li>' + helpHtml;
 	///////////////////////
 	// INSERT TOPIC LIST //
