@@ -106,7 +106,6 @@ app.tab.settings = function(keepOpen) {
 			app.handlers.activeRow('#b900','button',function() { app.url('amazon'); });
 			//CONTACT
 			app.handlers.activeRow('#developedBy','button',function(evt) {
-				//app.url('mailto:cancian@chronoburn.com?Subject=ChronoBurn%20-%20Support%20(' + app.get.platform(1) + ')');
 				window.location.href = 'mailto:cancian@auto.diet?Subject=Auto.Diet%20-%20Support%20(' + app.get.platform(1) + ')';
 			});
 			///////////////////////
