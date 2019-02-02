@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget id="com.cancian.kcals" version="2.5" versionCode="250000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+<widget id="com.cancian.kcals" version="3.0" versionCode="300000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
 
 	<content src="index.html" />
 	<!-- ### -->
@@ -31,7 +31,7 @@
 		
 	<!-- ## APP DATA ## -->
 	<name>Auto.Diet Calorie Clock</name>
-	<description>Automatic Calorie Control for Dieting & Weight Loss</description>
+	<description>Automatic Calorie Control for Dieting &amp; Weight Loss</description>
 	<author href="https://auto.diet" email="cancian@auto.diet">Andre Cancian</author>
 	<icon src="icon.png" />
 	<!-- ## APP DATA ## -->

@@ -1,9 +1,8 @@
 ﻿{
 	"appName" : {
-		"message" : "ChronoBurn"
-
+		"message" : "Auto.Diet"
 	},
 	"appDesc" : {
-		"message" : "Sanntid Kaloriteller"
+		"message" : "Automatic Calorie Control for Dieting &amp; Weight Loss"
 	}
 }

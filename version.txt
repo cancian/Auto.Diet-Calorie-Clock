@@ -3,7 +3,7 @@
 #################
 
 # 3.0 [2019/02/02]
-• The app name has changed to “Auto.Diet”, which is also the new URL: https://auto.diet
+• The app name has changed to “Auto.Diet”, which conveniently is also its website URL: https://auto.diet
 
 # 2.5 [2019/01/04]
 • Fixed rare window resize issue
