@@ -1,11 +1,10 @@
-﻿Auto.Diet is a calorie counter based on Apache Cordova.
+﻿Auto.Diet is a calorie clock based on Apache Cordova.
 =======================================================
 
-It is developed by André Cancian (cancian@auto.diet) since 2013.
+André Cancian develops it since 2013. (cancian@auto.diet)
 
-If you’re into calorie counting, check the free web version at https://auto.diet.
+If you’re into scientific calorie control, check the free web version: https://auto.diet
 
-The source code has been made available at https://github.com/cancian/auto.diet-calorie-clock as a courtesy to the Apache Cordova community.
+The source code has been made available at https://github.com/cancian/auto.diet as a courtesy to the Apache Cordova community for making this project possible.
 
 This project, however, is not free to distribute.
-
