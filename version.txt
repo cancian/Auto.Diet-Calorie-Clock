@@ -4,6 +4,8 @@
 
 # 3.0 [2019/02/02]
 • The app name has changed to “Auto.Diet”, which conveniently is also its website URL: https://auto.diet
+• The title won’t change to the current language anymore. This only affects browser.
+• Updated the Facebook login API to the latest version required.
 
 # 2.5 [2019/01/04]
 • Fixed rare window resize issue
@@ -175,7 +177,7 @@
 • Fixed issue where custom entries would sometimes get duplicated after synchronization
 
 # 2.0.0 [2016/07/24]
-• <strong class="blue">KCals</strong> has been renamed to <strong class="red">ChronoBurn</strong>, in order to reflect its purpose more accurately
+• <strong>KCals</strong> has been renamed to <strong>ChronoBurn</strong>, in order to reflect its purpose more accurately
 • Fixed issue with some users not being able to type dots for decimal values
 • Coordinates of tap events sometimes returned undefined
 • Fixed opacity issue with the scrollbar
