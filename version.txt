@@ -4,7 +4,7 @@
 
 # 3.0 [2019/02/02]
 • The app name has changed to “Auto.Diet”, which conveniently is also its website URL: https://auto.diet
-• The title won’t change to the current language anymore. This only affects browser.
+• The title won’t change to the current language anymore. This only affects browsers.
 • Updated the Facebook login API to the latest version required.
 
 # 2.5 [2019/01/04]
