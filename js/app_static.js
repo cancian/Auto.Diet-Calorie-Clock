@@ -175,7 +175,7 @@ updateEntriesSum();
 ///////////////
 // SET TITLE //
 ///////////////
-$('title').html2(appName + ' ' + LANG.CALORIE_CLOCK[lang]);
+//$('title').html2(appName + ' ' + LANG.CALORIE_CLOCK[lang]);
 //#////////////#//
 //# INDEX.HTML #//
 //#////////////#//
