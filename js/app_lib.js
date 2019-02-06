@@ -572,13 +572,14 @@ app.get.platform = function(noweb) {
 //#/////////////////////////////#//
 //# UPDATE HARDCODED SSL MARKER #//~Let's encrypt denied?
 //#/////////////////////////////#//~BB10
-if(typeof https !== 'undefined') {
-	https = app.https;
-}
 //MANUAL OVERRIDES (DISABLE)
-if(app.device.android2) { //|| app.device.blackberry || app.device.playbook) {
+if(app.device.android2 || (app.device.blackberry && typeof https !== 'undefined') || (app.device.playbook && typeof https !== 'undefined') || (app.device.tizen && typeof https !== 'undefined')) {
+	//FIX BB10 SSL
 	app.https = 'http://';
 	https = app.https;	
+	//ALL OTHER SANE DEVICES
+} else if(typeof https !== 'undefined') {
+	https = app.https;
 }
 //#///////////////////#//
 //# APP.IS.SCROLLABLE #//
