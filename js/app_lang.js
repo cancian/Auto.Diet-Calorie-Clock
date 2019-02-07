@@ -5,7 +5,7 @@ var appName = 'Diet Clock';
 var appVersion = '3.0 (300001)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
-var reviewMode = false; // true false
+var reviewMode = true; // true false
 var langArray  = /en|pt|ar|bg|cs|da|de|el|es|fi|fr|hu|it|id|in|ja|ko|nl|no|nb|pl|ro|ru|sv|tr|vi|zh|zt/;
 var lang = 'en';
 var defaultLang = 'en';
@@ -23,6 +23,10 @@ if(app) {
 		app.save('app_build', appBuild);
 	}
 }
+/////////////////////
+// SET FIXED TITLE //
+/////////////////////
+$('title').html2('Scientific ' + appName + ' v' + appRelease);
 /////////////////////
 // DETECT LANGUAGE //
 /////////////////////
