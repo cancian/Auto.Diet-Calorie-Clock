@@ -65,9 +65,10 @@ AddType image/vnd.microsoft.icon .cur
 	RewriteCond %{REQUEST_URI} !.db
 	RewriteCond %{REQUEST_URI} !.sql
 	RewriteCond %{REQUEST_URI} !.txt
-	RewriteCond %{HTTP_HOST} auto\.diet$ [NC]
-	RewriteRule ^ https://auto.diet%{REQUEST_URI} [R,L]
+	RewriteCond %{HTTP_HOST} dietclock\.net$ [NC]
+	RewriteRule ^ https://dietclcock.net%{REQUEST_URI} [R,L]
 	#JS
+	#RewriteCond %{HTTP_HOST} !.auto.diet$  [NC]
 	#RewriteCond %{HTTP_HOST} !.kcals.net$  [NC]
 	#RewriteCond %{HTTP_HOST} !.chronoburn.com$  [NC]
 	#RewriteCond %{HTTP_HOST} !192.168.1.5$ [NC]
