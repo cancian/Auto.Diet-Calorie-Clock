@@ -3,7 +3,7 @@
 	"short_name" : "__MSG_appName__",
 	"description" : "__MSG_appDesc__",
 	"default_locale" : "en",
-	"version" : "2.1.2",
+	"version" : "3.0",
 	"manifest_version" : 2,
 	"offline_enabled": true,
 	"icons" : {
@@ -20,10 +20,10 @@
 	},
 	"app" : {
 		"urls" : [
-			"https://auto.diet/"
+			"https://dietclock.net/"
 		],
 		"launch" : {
-			"web_url" : "https://auto.diet/"
+			"web_url" : "https://dietclock.net/"
 		}
 	}
 }
