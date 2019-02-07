@@ -1,8 +1,8 @@
 ﻿/////////////////////
 // LANGUAGE ENGINE //
 /////////////////////
-var appName = 'Auto.Diet';
-var appVersion = '3.0 (300000)';
+var appName = 'Diet Clock';
+var appVersion = '3.0 (300001)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false; // true false
@@ -1164,7 +1164,7 @@ var LANG = {
 		zt : ''
 	},
 	CROSS_PLATFORM : {
-		en : '<p>Auto.Diet is a cross-platform web app that allows you to count your calories from anywhere.</p><p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, Auto.Diet works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p><p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p><p>For more information on how to take full advantage of this app, be sure to check the help section.</p>',
+		en : '<p>Diet Clock is a cross-platform web app that allows you to count your calories from anywhere.</p><p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, Diet Clock works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p><p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p><p>For more information on how to take full advantage of this app, be sure to check the help section.</p>',
 		pt : '',
 		ar : '',
 		bg : '',
@@ -1248,32 +1248,32 @@ var LANG = {
 		zt : '好，讓我們開始吧'
 	},
 	INTRO_SLIDE_1 : {
-		en : 'Auto.Diet is designed to help you control your calorie intake. Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your caloric balance.',
-		pt : 'Auto.Diet é projetado para ajudá-lo a controlar sua ingestão de calorias. Seja para manter, perder ou ganhar peso, este aplicativo vai ajudá-lo a focar no que importa: seu balanço calórico.',
-		ar : 'تم تصميم Auto.Diet لمساعدتك على السيطرة على السعرات الحرارية التي تدخل جسمك. سواء إذا كنت تريد الحفاظ على وزنك أو فقدانه، أو زيادته، فهذا التطبيق سيساعدك على التركيز على ما هو مهم: توازن السعرات الحرارية الخاصة بك.',
-		bg : 'Auto.Diet има за цел да ви помогне да контролирате приема на калории. Независимо дали искате да поддържате, загубите или да повишите теглото си, това приложение ще ви помогне да се съсредоточите върху това, което е важно: баланса на калории.',
-		cs : 'Aplikace Auto.Diet je navržena tak, aby vám pomohla kontrolovat příjem kalorií. Ať už si chcete udržet svou současnou váhu, zhubnout nebo naopak přibrat, tato aplikace vám pomůže zaměřit se na to podstatné: na vaši kalorickou rovnováhu.',
-		da : 'Auto.Diet er designet til at hjælpe dig med at styre din kalorieindtagelse. Ligegyldigt om du ønsker at opretholde din vægt, tabe dig eller stige i vægt, hjælper denne app dig med at fokusere på det, der er vigtigt: din kaloriebalance.',
-		de : 'Auto.Diet wurde entwickelt, um Ihnen bei der Kontrolle Ihrer Kalorienzufuhr behilflich zu sein. Ob Sie Ihr Gewicht halten, verringern oder erhöhen möchten, diese App hilft Ihnen dabei, sich auf das zu konzentireren, was wichtig ist: Ihre Kalorienbilanz.',
-		el : 'Το Auto.Diet σχεδιάστηκε για να σας βοηθήσει να ελέγξετε την πρόσληψη θερμίδων που κάνετε. Είτε θέλετε να διατηρήσετε, να χάσετε ή να πάρετε βάρος, η εφαρμογή αυτή θα σας βοηθήσει να εστιάσετε σε αυτό που είναι σημαντικό: την θερμιδική ισορροπία σας.',
-		es : 'Auto.Diet está diseñado para ayudarle a controlar su ingesta de calorías. Si usted quiere mantener, perder o ganar peso, esta aplicación le ayudará a centrarse en lo importante: Su balance calórico.',
-		fi : 'Auto.Diet on kehitetty auttamaan kalorien saannin kontrolloimisessa. Halusitpa sitten ylläpitää, pudottaa tai saada lisää painoa, tämä sovellus auttaa sinua keskittymään tärkeimpään: kaloritasapainoon.',
-		fr : 'Auto.Diet est conçu pour vous aider à contrôler votre apport calorique. Que vous souhaitiez vous stabiliser, perdre, ou gagner du poids, cette application vous aidera à vous concentrer sur ce qui est important : votre solde calorique.',
-		hu : 'A Auto.Diet lényege, hogy segít figyelni az Ön kalóriabevitelét. Az applikáció segít, ha fogyni szeretne, vagy szinten tartaná, esetleg gyarapítaná a súlyát. Az alkalmazással megtalálhatja a kalória-egyensúlyát.',
-		it : 'Auto.Diet è stato progettato per aiutare a controllare l’apporto calorico. Se si desidera mantenere invariato, perdere, o aumentare di peso, questa applicazione vi aiuterà a concentrarvi su ciò che è importante, ovvero: il vostro equilibrio calorico.',
-		id : 'Auto.Diet dirancang untuk membantu Anda mengontrol asupan kalori Anda. Jika Anda ingin mempertahankan, menurunkan, atau menambah berat badan, aplikasi ini akan membantu Anda berfokus pada hal yang penting: keseimbangan kalori Anda.',
-		ja : 'Auto.Dietは、カロリー摂取量のコントロールおよびサポートをする事を目的として設計されています。体重維持、減量、および増量など、実現したい目的に合わせてアプリがあなたをサポートします：あなたのカロリーバランス。',
-		ko : 'Auto.Diet 칼로리 섭취를 제어하는데 도움이 되도록 고안되어 있습니다. 체중을 유지, 감소 또는 증가할 경우, 이 애플리케이션이 칼로리 균형에 집중하도록 도와줍니다.',
-		nl : 'Auto.Diet is ontworpen om u meer controle te geven over uw calorie inname. Ongeacht of u uw gewicht wilt behouden, wilt afvallen of wilt aankomen, zal deze app u helpen met wat belangrijk is: uw calorie balans.',
-		nb : 'Auto.Diet er designet for å hjelpe deg med å kontrollere kaloriinntaket ditt. Enten du ønsker å opprettholde vekten din, eller gå ned eller opp i vekt, hjelper dette programmet deg med å fokusere på det viktigste: kaloribalansen din.',
-		pl : 'Auto.Diet ma na celu pomóc ci kontrolować ilość spożywanych kalorii. Niezależnie od tego, czy chcesz utrzymać wagę, czy też stracić lub zyskać na wadze, ta aplikacja pozwoli Ci skupić się na tym, co ważne: równowadze kalorycznej.',
-		ro : 'Auto.Diet este proiectat pentru a te ajuta să controlezi aportul de calorii. Fie că vrei să menții, să pierzi, sau să iei în greutate, această aplicație te va ajuta să te concentrezi pe ceea ce este important: echilibrul tău caloric.',
-		ru : 'Приложение Auto.Diet поможет вам контролировать потребление калорий. Если вы хотите сохранить, сбросить или набрать вес, это приложение поможет вам сосредоточиться на том, что важнее всего - на балансе калорий.',
-		sv : 'Auto.Diet är utformad för att hjälpa dig att kontrollera ditt kaloriintag. Oavsett om du vill bibehålla, gå ner eller gå upp i vikt kommer detta program att hjälpa dig att fokusera på vad som är viktigt: din kaloribalans.',
-		tr : 'Auto.Diet, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır. İster kilonuzu korumak isteyin, ister kilo vermek, ister almak; bu uygulama önemli olana yani kalori dengesine odaklanmanıza yardımcı olacaktır.',
-		vi : 'Auto.Diet được thiết kế để giúp kiểm soát lượng calo của bạn. Nếu bạn muốn duy trì, giảm hoặc tăng cân, ứng dụng này sẽ giúp bạn tập trung vào những gì cần thiết: cân bằng lượng calo của bạn.',
-		zh : 'Auto.Diet 是为了帮助您控制卡路里摄入而设计的。无论您是想维持体重、减重或增重，这款应用程序将帮助您专注于该过程中最重要的一点，即您的卡路里平衡。',
-		zt : 'Auto.Diet 是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的卡路里平衡。'
+		en : 'Diet Clock is designed to help you control your calorie intake. Whether you want to maintain, lose, or gain weight, this application will help you focus on what’s important: your caloric balance.',
+		pt : 'Diet Clock é projetado para ajudá-lo a controlar sua ingestão de calorias. Seja para manter, perder ou ganhar peso, este aplicativo vai ajudá-lo a focar no que importa: seu balanço calórico.',
+		ar : 'تم تصميم Diet Clock لمساعدتك على السيطرة على السعرات الحرارية التي تدخل جسمك. سواء إذا كنت تريد الحفاظ على وزنك أو فقدانه، أو زيادته، فهذا التطبيق سيساعدك على التركيز على ما هو مهم: توازن السعرات الحرارية الخاصة بك.',
+		bg : 'Diet Clock има за цел да ви помогне да контролирате приема на калории. Независимо дали искате да поддържате, загубите или да повишите теглото си, това приложение ще ви помогне да се съсредоточите върху това, което е важно: баланса на калории.',
+		cs : 'Aplikace Diet Clock je navržena tak, aby vám pomohla kontrolovat příjem kalorií. Ať už si chcete udržet svou současnou váhu, zhubnout nebo naopak přibrat, tato aplikace vám pomůže zaměřit se na to podstatné: na vaši kalorickou rovnováhu.',
+		da : 'Diet Clock er designet til at hjælpe dig med at styre din kalorieindtagelse. Ligegyldigt om du ønsker at opretholde din vægt, tabe dig eller stige i vægt, hjælper denne app dig med at fokusere på det, der er vigtigt: din kaloriebalance.',
+		de : 'Diet Clock wurde entwickelt, um Ihnen bei der Kontrolle Ihrer Kalorienzufuhr behilflich zu sein. Ob Sie Ihr Gewicht halten, verringern oder erhöhen möchten, diese App hilft Ihnen dabei, sich auf das zu konzentireren, was wichtig ist: Ihre Kalorienbilanz.',
+		el : 'Το Diet Clock σχεδιάστηκε για να σας βοηθήσει να ελέγξετε την πρόσληψη θερμίδων που κάνετε. Είτε θέλετε να διατηρήσετε, να χάσετε ή να πάρετε βάρος, η εφαρμογή αυτή θα σας βοηθήσει να εστιάσετε σε αυτό που είναι σημαντικό: την θερμιδική ισορροπία σας.',
+		es : 'Diet Clock está diseñado para ayudarle a controlar su ingesta de calorías. Si usted quiere mantener, perder o ganar peso, esta aplicación le ayudará a centrarse en lo importante: Su balance calórico.',
+		fi : 'Diet Clock on kehitetty auttamaan kalorien saannin kontrolloimisessa. Halusitpa sitten ylläpitää, pudottaa tai saada lisää painoa, tämä sovellus auttaa sinua keskittymään tärkeimpään: kaloritasapainoon.',
+		fr : 'Diet Clock est conçu pour vous aider à contrôler votre apport calorique. Que vous souhaitiez vous stabiliser, perdre, ou gagner du poids, cette application vous aidera à vous concentrer sur ce qui est important : votre solde calorique.',
+		hu : 'A Diet Clock lényege, hogy segít figyelni az Ön kalóriabevitelét. Az applikáció segít, ha fogyni szeretne, vagy szinten tartaná, esetleg gyarapítaná a súlyát. Az alkalmazással megtalálhatja a kalória-egyensúlyát.',
+		it : 'Diet Clock è stato progettato per aiutare a controllare l’apporto calorico. Se si desidera mantenere invariato, perdere, o aumentare di peso, questa applicazione vi aiuterà a concentrarvi su ciò che è importante, ovvero: il vostro equilibrio calorico.',
+		id : 'Diet Clock dirancang untuk membantu Anda mengontrol asupan kalori Anda. Jika Anda ingin mempertahankan, menurunkan, atau menambah berat badan, aplikasi ini akan membantu Anda berfokus pada hal yang penting: keseimbangan kalori Anda.',
+		ja : 'Diet Clockは、カロリー摂取量のコントロールおよびサポートをする事を目的として設計されています。体重維持、減量、および増量など、実現したい目的に合わせてアプリがあなたをサポートします：あなたのカロリーバランス。',
+		ko : 'Diet Clock 칼로리 섭취를 제어하는데 도움이 되도록 고안되어 있습니다. 체중을 유지, 감소 또는 증가할 경우, 이 애플리케이션이 칼로리 균형에 집중하도록 도와줍니다.',
+		nl : 'Diet Clock is ontworpen om u meer controle te geven over uw calorie inname. Ongeacht of u uw gewicht wilt behouden, wilt afvallen of wilt aankomen, zal deze app u helpen met wat belangrijk is: uw calorie balans.',
+		nb : 'Diet Clock er designet for å hjelpe deg med å kontrollere kaloriinntaket ditt. Enten du ønsker å opprettholde vekten din, eller gå ned eller opp i vekt, hjelper dette programmet deg med å fokusere på det viktigste: kaloribalansen din.',
+		pl : 'Diet Clock ma na celu pomóc ci kontrolować ilość spożywanych kalorii. Niezależnie od tego, czy chcesz utrzymać wagę, czy też stracić lub zyskać na wadze, ta aplikacja pozwoli Ci skupić się na tym, co ważne: równowadze kalorycznej.',
+		ro : 'Diet Clock este proiectat pentru a te ajuta să controlezi aportul de calorii. Fie că vrei să menții, să pierzi, sau să iei în greutate, această aplicație te va ajuta să te concentrezi pe ceea ce este important: echilibrul tău caloric.',
+		ru : 'Приложение Diet Clock поможет вам контролировать потребление калорий. Если вы хотите сохранить, сбросить или набрать вес, это приложение поможет вам сосредоточиться на том, что важнее всего - на балансе калорий.',
+		sv : 'Diet Clock är utformad för att hjälpa dig att kontrollera ditt kaloriintag. Oavsett om du vill bibehålla, gå ner eller gå upp i vikt kommer detta program att hjälpa dig att fokusera på vad som är viktigt: din kaloribalans.',
+		tr : 'Diet Clock, kalori alımınızı kontrol etmenize yardımcı olmak için tasarlanmıştır. İster kilonuzu korumak isteyin, ister kilo vermek, ister almak; bu uygulama önemli olana yani kalori dengesine odaklanmanıza yardımcı olacaktır.',
+		vi : 'Diet Clock được thiết kế để giúp kiểm soát lượng calo của bạn. Nếu bạn muốn duy trì, giảm hoặc tăng cân, ứng dụng này sẽ giúp bạn tập trung vào những gì cần thiết: cân bằng lượng calo của bạn.',
+		zh : 'Diet Clock 是为了帮助您控制卡路里摄入而设计的。无论您是想维持体重、减重或增重，这款应用程序将帮助您专注于该过程中最重要的一点，即您的卡路里平衡。',
+		zt : 'Diet Clock 是為了説明您控制卡路里攝入而設計的。無論您是想維持體重、減重或增重，這款應用程式將説明您專注于該過程中最重要的一點，即您的卡路里平衡。'
 	},
 	INTRO_SLIDE_2 : {
 		en : 'The idea is simple. Define a goal (daily calories) and keep yourself Balanced in the context of this goal. The app will indicate when you’ve eaten too much (surplus), or too little (deficit)',
@@ -6792,60 +6792,60 @@ var LANG = {
 		zt : '每週'
 	},
 	RATE_TITLE : {
-		en : 'Would you mind rating Auto.Diet?',
-		pt : 'Avaliar Auto.Diet',
-		ar : 'قيِّم Auto.Diet',
-		bg : 'Would you mind rating Auto.Diet?',
-		cs : 'Ohodnotit Auto.Diet',
-		da : 'Vurdér Auto.Diet',
-		de : 'Bewerte Auto.Diet',
-		el : 'Αξιολόγησε Auto.Diet',
-		es : 'Reseña Auto.Diet',
-		fi : 'Arvostele Auto.Diet',
-		fr : 'Notez Auto.Diet',
-		hu : 'Would you mind rating Auto.Diet?',
-		it : 'Valuta Auto.Diet',
-		id : 'Beri Nilai Auto.Diet',
-		ja : 'Auto.Dietの評価',
-		ko : 'Auto.Diet 평가하기',
-		nl : 'Beoordeel Auto.Diet',
-		nb : 'Vurder Auto.Diet',
-		pl : 'Oceń Auto.Diet',
-		ro : 'Would you mind rating Auto.Diet?',
-		ru : 'Оцените Auto.Diet',
-		sv : 'Betygsätt Auto.Diet',
-		tr : 'Oy Auto.Diet',
-		vi : 'Đánh giá Auto.Diet',
-		zh : '为“Auto.Diet”评分',
-		zt : '評分 Auto.Diet'
+		en : 'Would you mind rating Diet Clock?',
+		pt : 'Avaliar Diet Clock',
+		ar : 'قيِّم Diet Clock',
+		bg : 'Would you mind rating Diet Clock?',
+		cs : 'Ohodnotit Diet Clock',
+		da : 'Vurdér Diet Clock',
+		de : 'Bewerte Diet Clock',
+		el : 'Αξιολόγησε Diet Clock',
+		es : 'Reseña Diet Clock',
+		fi : 'Arvostele Diet Clock',
+		fr : 'Notez Diet Clock',
+		hu : 'Would you mind rating Diet Clock?',
+		it : 'Valuta Diet Clock',
+		id : 'Beri Nilai Diet Clock',
+		ja : 'Diet Clockの評価',
+		ko : 'Diet Clock 평가하기',
+		nl : 'Beoordeel Diet Clock',
+		nb : 'Vurder Diet Clock',
+		pl : 'Oceń Diet Clock',
+		ro : 'Would you mind rating Diet Clock?',
+		ru : 'Оцените Diet Clock',
+		sv : 'Betygsätt Diet Clock',
+		tr : 'Oy Diet Clock',
+		vi : 'Đánh giá Diet Clock',
+		zh : '为“Diet Clock”评分',
+		zt : '評分 Diet Clock'
 	},
 	RATE_MSG : {
 		en : 'It won’t take more than a minute and helps to promote our app. Thanks for your support!',
-		pt : 'Se você gostou de usar o Auto.Diet, você se importaria de avaliá-lo? Não vai demorar mais de um minuto. Obrigado por seu apoio!',
-		ar : 'إذا أعجبك برنامج Auto.Diet، هل تمانع من أخذ دقيقة لتقييمه؟ شكرا لدعمك',
+		pt : 'Se você gostou de usar o Diet Clock, você se importaria de avaliá-lo? Não vai demorar mais de um minuto. Obrigado por seu apoio!',
+		ar : 'إذا أعجبك برنامج Diet Clock، هل تمانع من أخذ دقيقة لتقييمه؟ شكرا لدعمك',
 		bg : 'It won’t take more than a minute and helps to promote our app. Thanks for your support!',
-		cs : 'Pokud se vám líbí Auto.Diet, našli byste si chvilku na ohodnocení aplikace? Nebude to trvat víc než minutu.\nDěkujeme za vaši podporu!',
-		da : 'Hvis du kan lide at bruge Auto.Diet, vil du så ikke bruge et øjeblik på at give en vurdering? Det tager ikke mere end et minut. Mange tak for hjælpen!',
-		de : 'Wenn dir Auto.Diet gefällt, würdest Du es bitte bewerten? Dies wird nicht länger als eine Minute dauern. Danke für die Unterstützung!',
-		el : 'Αν σ\' αρέσει η εφαρμογή Auto.Diet, θα μπορούσες να αφιερώσεις ένα δευτερόλεπτο για να την αξιολογήσεις; Ευχαριστούμε για την υποστήριξη!',
-		es : 'Si te gusta Auto.Diet, ¿podrías escribirnos una reseña? No te tomará más de un minuto. ¡Gracias por tu apoyo!',
-		fi : 'Jos tykkäät Auto.Diet sovelluksesta, haluatko kirjoittaa sille arvostelun? Arvostelun kirjoittamiseen ei mene montaa minuuttia. Kiitos tuestasi!',
-		fr : 'Si vous aimez utiliser Auto.Diet, n’oubliez pas de voter sur l’App Store. Cela ne prend qu’une minute. Merci d’avance pour votre soutien !',
+		cs : 'Pokud se vám líbí Diet Clock, našli byste si chvilku na ohodnocení aplikace? Nebude to trvat víc než minutu.\nDěkujeme za vaši podporu!',
+		da : 'Hvis du kan lide at bruge Diet Clock, vil du så ikke bruge et øjeblik på at give en vurdering? Det tager ikke mere end et minut. Mange tak for hjælpen!',
+		de : 'Wenn dir Diet Clock gefällt, würdest Du es bitte bewerten? Dies wird nicht länger als eine Minute dauern. Danke für die Unterstützung!',
+		el : 'Αν σ\' αρέσει η εφαρμογή Diet Clock, θα μπορούσες να αφιερώσεις ένα δευτερόλεπτο για να την αξιολογήσεις; Ευχαριστούμε για την υποστήριξη!',
+		es : 'Si te gusta Diet Clock, ¿podrías escribirnos una reseña? No te tomará más de un minuto. ¡Gracias por tu apoyo!',
+		fi : 'Jos tykkäät Diet Clock sovelluksesta, haluatko kirjoittaa sille arvostelun? Arvostelun kirjoittamiseen ei mene montaa minuuttia. Kiitos tuestasi!',
+		fr : 'Si vous aimez utiliser Diet Clock, n’oubliez pas de voter sur l’App Store. Cela ne prend qu’une minute. Merci d’avance pour votre soutien !',
 		hu : 'It won’t take more than a minute and helps to promote our app. Thanks for your support!',
-		it : 'Ti piace Auto.Diet? Puoi dare il tuo voto nello store. Ti basterà un minuto! Grazie!',
-		id : 'Jika anda senang menggunakan Auto.Diet, maukah anda memberikan nilai? Ini Hanya Sebentar. Terima kasih atas dukungan Anda!',
-		ja : 'Auto.Dietをお使いいただき大変ありがとうございます。もしよろしければ1分程で済みますので、このアプリの評価をお願いします。ご協力感謝いたします！',
-		ko : 'Auto.Diet 앱을 사용해 보신 소감이 어떠신가요? 리뷰 작성을 부탁 드립니다. 길어도 1분이면 작성하실 수 있을 것입니다. 도움 감사 드립니다.',
-		nl : 'Als het gebruik van Auto.Diet je bevalt, wil je dan een moment nemen om het te beoordelen? Het duurt nog geen minuut. Bedankt voor je steun!',
-		nb : 'Hvis du liker å bruke Auto.Diet, ville du vært grei å vurdere appen? Det vil ikke ta mer enn et minutt. Takk for hjelpen!',
-		pl : 'Jeśli lubisz Auto.Diet, czy mógłbyś poświęcić chwilę na ocenienie? To nie zajmie więcej niż minutę. Dziękujemy za wsparcie!',
+		it : 'Ti piace Diet Clock? Puoi dare il tuo voto nello store. Ti basterà un minuto! Grazie!',
+		id : 'Jika anda senang menggunakan Diet Clock, maukah anda memberikan nilai? Ini Hanya Sebentar. Terima kasih atas dukungan Anda!',
+		ja : 'Diet Clockをお使いいただき大変ありがとうございます。もしよろしければ1分程で済みますので、このアプリの評価をお願いします。ご協力感謝いたします！',
+		ko : 'Diet Clock 앱을 사용해 보신 소감이 어떠신가요? 리뷰 작성을 부탁 드립니다. 길어도 1분이면 작성하실 수 있을 것입니다. 도움 감사 드립니다.',
+		nl : 'Als het gebruik van Diet Clock je bevalt, wil je dan een moment nemen om het te beoordelen? Het duurt nog geen minuut. Bedankt voor je steun!',
+		nb : 'Hvis du liker å bruke Diet Clock, ville du vært grei å vurdere appen? Det vil ikke ta mer enn et minutt. Takk for hjelpen!',
+		pl : 'Jeśli lubisz Diet Clock, czy mógłbyś poświęcić chwilę na ocenienie? To nie zajmie więcej niż minutę. Dziękujemy za wsparcie!',
 		ro : 'It won’t take more than a minute and helps to promote our app. Thanks for your support!',
-		ru : 'Если вам нравится пользоваться Auto.Diet, не будете ли вы возражать против того, чтобы уделить минуту и оценить его?\nСпасибо вам за поддержку!',
-		sv : 'Gillar du Auto.Diet och kan tänka dig att betygsätta den? Det tar inte mer än en minut. Tack för ditt stöd!',
-		tr : 'Eğer Auto.Diet uygulamamız hoşunuza gittiyse, oy vermek ister misiniz? Bir dakikadan fazla sürmeyecektir. Desteğiniz için teşekkürler!',
-		vi : 'Nếu thích sử dụng Auto.Diet, bạn có muốn giành một chút thời gian để đánh giá nó? Sẽ không lâu hơn một phút. Cảm ơn sự hỗ trợ của bạn!',
-		zh : '如果您觉得“Auto.Diet”很好用，可否为其评一个分数？评分过程只需花费很少的时间。感谢您的支持！',
-		zt : '如果您喜歡用 Auto.Diet，是否願意花一些時間打個分數？其過程將不超過一分鐘。 謝謝您的支持！'
+		ru : 'Если вам нравится пользоваться Diet Clock, не будете ли вы возражать против того, чтобы уделить минуту и оценить его?\nСпасибо вам за поддержку!',
+		sv : 'Gillar du Diet Clock och kan tänka dig att betygsätta den? Det tar inte mer än en minut. Tack för ditt stöd!',
+		tr : 'Eğer Diet Clock uygulamamız hoşunuza gittiyse, oy vermek ister misiniz? Bir dakikadan fazla sürmeyecektir. Desteğiniz için teşekkürler!',
+		vi : 'Nếu thích sử dụng Diet Clock, bạn có muốn giành một chút thời gian để đánh giá nó? Sẽ không lâu hơn một phút. Cảm ơn sự hỗ trợ của bạn!',
+		zh : '如果您觉得“Diet Clock”很好用，可否为其评一个分数？评分过程只需花费很少的时间。感谢您的支持！',
+		zt : '如果您喜歡用 Diet Clock，是否願意花一些時間打個分數？其過程將不超過一分鐘。 謝謝您的支持！'
 	},
 	NO_THANKS : {
 		en : 'No, Thanks',
@@ -7746,8 +7746,8 @@ var LANG = {
 	HELP_TOPICS_ARRAY : {
 		en : { 
 //////////////////////////////////////
-'Auto.Diet: A Metabolism Simulator' :
-'<p>Auto.Diet was originally developed as a personal tool. It was intended to help me keep track of what I ate, versus what I burned during exercises. I wanted something precise, intuitive, yet flexible. So I figured: instead of a simple diary, why not build a real-time calorie counter? After all, that’s how the human body actually works.<p>\
+'Diet Clock: A Metabolism Simulator' :
+'<p>Diet Clock was originally developed as a personal tool. It was intended to help me keep track of what I ate, versus what I burned during exercises. I wanted something precise, intuitive, yet flexible. So I figured: instead of a simple diary, why not build a real-time calorie counter? After all, that’s how the human body actually works.<p>\
 <p>Most health and fitness tools come with a bunch of unnecessary features. My goal was to make a simple and effective calorie counter that didn’t have any of the clutter of most weight loss applications.</p>\
 <p>I kept everything as straightforward as possible. You start by setting a daily calorie intake for yourself. That’s your baseline: The amount of calories you need to eat to keep your current weight.</p>\
 <p>Now, in case you want to lose weight, just pick the amount you’d like to lose per week. The app will show how many calories you need to subtract from your daily baseline in order to reach that goal.</p>\
@@ -7759,13 +7759,13 @@ var LANG = {
 <p>Keeping track of calories used to be a chore, but not anymore!</p>\
 <p id="tabHelp" class="hidden">For more information on how to take full advantage of this app, be sure to check the<span id="openHelp" class="blue bold"> help section</span>.</p>',
 //////////////////////////////////////
-'What’s so unique about Auto.Diet?' :
-'<p>Auto.Diet is a cross-platform web app that allows you to count your calories from anywhere.</p>\
-<p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, Auto.Diet works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
+'What’s so unique about Diet Clock?' :
+'<p>Diet Clock is a cross-platform web app that allows you to count your calories from anywhere.</p>\
+<p>It uses an innovative approach to track calories: Instead of breaking your calorie intake into days, Diet Clock works as a simulation of your metabolism: it functions continuously, just like your body burns fuel all day long.</p>\
 <p>When you look at the app counter, what you see is your body using its fuel in real-time, so you’ll intuitively know what to do - how much to eat, when to eat, and even how much to exercise to make up for that little extra snack!</p>',
 /////////////////////////////
 'Getting used to real-time' :
-'<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? Auto.Diet simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
+'<p>Your body does not restart its calories every 24 hours, so why should your calorie counter? Diet Clock simulates the way the body actually uses energy, giving you a more realistic, real-time feedback.</p>\
 <p>First, fill your profile data. Based on this information, the app will calculate how many calories you need in order to keep your current weight.</p>\
 <p>Then you should define a weight loss rate, given in lb/kg per week.</p>\
 <p>The resulting value will reflect the necessary caloric restriction for you to achieve that goal.</p>\
@@ -7803,21 +7803,21 @@ var LANG = {
 '<p>The weight loss rate (kg/lb per week) is calculated using a simple formula based on the number of calories in a pound (3500) or kilogram (7700) of fat. </p><p>Let us say you need 2000 daily calories in order to keep your current weight, and you want to lose 0.5 kg per week.</p><p>Divide 7700 by 2 to get the total calories in 0.5 kg of fat:</p><p>7700 / 2 = 3850</p><p>Then divide that value by 7 to get how many daily calories you need to cut back:</p><p>3850 / 7 = 550</p><p>Now subtract that value from your daily intake:</p><p>2000 – 550 = 1450</p><p>That’s how many you have to consume daily in order to lose 0.5 kg a week.</p>',
 ////////////////////////
 'Water intake: why not simpler?' :
-'<p>The reason Auto.Diet counts calories continuously isn’t because real-time is fancy. That doesn’t really matter. What matters is that this mechanism mimics how the body actually handles calories: in a cumulative fashion.</p>\
+'<p>The reason Diet Clock counts calories continuously isn’t because real-time is fancy. That doesn’t really matter. What matters is that this mechanism mimics how the body actually handles calories: in a cumulative fashion.</p>\
 <p>For instance, If you eat an excess of 200 calories per day for over a year, you will gain weight every single day. Every single calorie, from the first day, will remain with you. Calories do not expire.</p>\
 <p>On the other hand, if you think about water, the situation is very different. Water consumption is not cumulative. If you consume a 500ml excess of water for over a year, you won’t end up bloated, with an extra 200kg of water weight.</p>\
 <p>Instead, your body will simply eliminate the excess water. That is why the water intake is reset daily: because your body works like that.</p>\
 <p>It would certainly be possible to design a real-time water tracker that works like the calorie balance mechanism.</p>\
 <p>That would look like a cool feature, for sure. However, it would not be a good representation of your body.</p>\
 <p>Not only would it be a useless parameter: it would actually misguide the user regarding his water intake.</p>\
-<p>Auto.Diet takes pride in never compromising precision for eye candy.</p>\
+<p>Diet Clock takes pride in never compromising precision for eye candy.</p>\
 <p>Sure, the app might look a little complicated at first, but that’s because our bodies are complicated.</p>\
 <p>In our view, the solution is to understand our bodies, and learn how it handles things in real life. Not to bloat the app with meaningless fancy data for “motivational” purposes.</p>\
 <p>Our bodies are hard to monitor, and the goal of the app is to facilitate that monitoring as much as possible. Period.</</p>\
 <p>Like Albert Einstein said: “Everything should be made as simple as possible, but not simpler”.</p>',
 ////////////////////////
 'Data synchronization' :
-'<p>By enabling Backup & Synchronization, your data and personal settings are stored at Auto.Diet.com. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at Auto.Diet.com, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
+'<p>By enabling Backup & Synchronization, your data and personal settings are stored at dietclock.net. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at dietclock.net, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
 /////////////////////////////
 'Synchronizing two devices' :
 '<p>If you wish to synchronize two or more devices, it’s safer to use one device at time, to avoid data conflicts.</p>\
@@ -7831,7 +7831,7 @@ var LANG = {
 '<p>When you add a food that includes nutritional information, the app will use this data to calculate the average percentage of calories you are getting from each nutrient (proteins, carbs and fats).</p><p>The ratio of each nutrient is calculated by total calories, not by weight. So it is important to remember that while proteins and carbs have 4 kcal per gram, fats have 9 kcal.</p><p>The default nutrient ratio is 25% proteins / 50% carbs / 25% fats. You can change these values by tapping the nutrition bars on the status tab.</p>',
 ////////////////////////////////
 'Elapsed Time / Relative Time' :
-'<p><strong class="blue">Elapsed Time</strong> means the total time since you pressed Start.</p><p><strong class="blue">Relative Time</strong> indicates how long you have to wait until your caloric balance returns to zero. </p><p>The “Relative Time” is particularly useful to calculate when you should have your next meal. </p><p>For instance, if you have eaten 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p><p class="blue bold">500 kcal = 1/4 of your daily intake</p><p class="blue bold">6 hours = 1/4 of the day</p><p>Therefore:</p><p class="blue bold">500 kcal = 6 hours </p><p>Simply put, calories are converted into time.</p><p>In practical terms, this means that within 6 hours (1/4 of the day) your body will have burned the 500 calories you consumed (1/4 of your daily intake).</p><p>As you can see, more than just counting calories, Auto.Diet helps you to reeducate your eating habits, keeping you in sync with your body.</p>',
+'<p><strong class="blue">Elapsed Time</strong> means the total time since you pressed Start.</p><p><strong class="blue">Relative Time</strong> indicates how long you have to wait until your caloric balance returns to zero. </p><p>The “Relative Time” is particularly useful to calculate when you should have your next meal. </p><p>For instance, if you have eaten 500 kcal, and your daily intake is 2000, the relative time will be 6 hours.</p><p class="blue bold">500 kcal = 1/4 of your daily intake</p><p class="blue bold">6 hours = 1/4 of the day</p><p>Therefore:</p><p class="blue bold">500 kcal = 6 hours </p><p>Simply put, calories are converted into time.</p><p>In practical terms, this means that within 6 hours (1/4 of the day) your body will have burned the 500 calories you consumed (1/4 of your daily intake).</p><p>As you can see, more than just counting calories, Diet Clock helps you to reeducate your eating habits, keeping you in sync with your body.</p>',
 /////////////////
 'Cyclical Mode' :
 '<p>The <strong>Cyclical Mode</strong> allows you to alternate between two different caloric values along a period of four days.</p><p>Days <strong>(A, B, C)</strong> will use the first value, while day <strong>(D)</strong> will use the second.</p><p>This configuration is typically used to accommodate a “rest day” (maintenance level) in a dieting plan.</p><p>The reason for this is mostly the psychological comfort of having some kind of “reward” to look forward to, making it easier to endure the dieting days.</p><p>A second reason is that the change in calories (theoretically) keeps your body guessing, and make it harder for your body to adjust its metabolism.</p>',
@@ -7840,5 +7840,5 @@ var LANG = {
 '<p>The default behavior of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
 ///////////////////////
 'Supported platforms' :
-'<p>Auto.Diet is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS<br />• Ubuntu<br />• Tizen<br />• Desktop (Auto.Diet.com)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
+'<p>Diet Clock is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS<br />• Ubuntu<br />• Tizen<br />• Desktop (dietclock.net)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};
