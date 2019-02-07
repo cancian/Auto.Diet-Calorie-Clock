@@ -1,5 +1,5 @@
 <?php ######################
-## AUTO.DIET UUID CHECKER ##
+## DIETCLOCK UUID CHECKER ##
 ############################
 @require_once('cors.php');
 ########################

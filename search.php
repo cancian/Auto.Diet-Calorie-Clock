@@ -1,8 +1,10 @@
-<?php ######################
-## CHRONOBURN FOOD SEARCH ##
-############################
-header('Content-Type: text/html; charset=utf-8');
-header('cache-control: no-cache');
+<?php #####################
+## DIETCLOCK PHP BACKEND ##
+###########################
+//header('Content-Type: text/html; charset=utf-8');
+//header('cache-control: no-cache');
+@require_once('cors.php');
+#######################
 ////////////////
 // ABORT NULL //
 ////////////////

@@ -1,5 +1,5 @@
 <?php #####################
-## AUTO.DIET PHP BACKEND ##
+## DIETCLOCK PHP BACKEND ##
 ###########################
 @require_once('cors.php');
 #######################

@@ -1,6 +1,6 @@
-<?php ##########
-## EMAIL AUTH ##
-################
+<?php ####################
+## DIETCLOCK EMAIL AUTH ##
+##########################
 @require_once('cors.php');
 //header('Content-Type: text/html; charset=utf-8');
 ################
@@ -93,14 +93,14 @@ if(strlen($_GET['user']) > 1) {
 		$userExists = explode('###',$userExists);
 		$resetMail = $userExists[1];
 		$resetHash = $userExists[2];
-		$resetLink = "https://auto.diet/auth.php?reset=".$resetMail."&key=".$resetHash;
-		$resetBody  = "<p>We have received a password reset request for your Auto.Diet account <strong>".$resetMail."</strong>.</p>";
+		$resetLink = "https://dietclock.net/auth.php?reset=".$resetMail."&key=".$resetHash;
+		$resetBody  = "<p>We have received a password reset request for your Diet Clock account <strong>".$resetMail."</strong>.</p>";
 		$resetBody .= "<p>If you made this request, then please click on the link below:</p>";
 		$resetBody .= "<p><a href='".$resetLink."'>".$resetLink."</a></p>";
-		mail($resetMail, "« Auto.Diet » Password Reset", $resetBody,
-		"From: cancian@auto.diet\r\n"
+		mail($resetMail, "« Diet Clock » Password Reset", $resetBody,
+		"From: cancian@dietclock.net\r\n"
 		."Content-type: text/html; charset=utf-8\r\n"
-		."Reply-To: cancian@auto.diet\r\n"
+		."Reply-To: dietclock.net\r\n"
 		."X-Mailer: PHP/" . phpversion());
 		echo "sent";
 	} else {
