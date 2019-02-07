@@ -20,7 +20,7 @@ function showIntro() {
 		<div id="viewport">\
 			<div id="wrapper">\
 				<div id="scroller">\
-					<div class="slide" id="slide1"><p>' + LANG.INTRO_SLIDE_1[lang].split('.').join('. ').split('Auto. Diet').join('Auto.Diet') + '</p></div>\
+					<div class="slide" id="slide1"><p>' + LANG.INTRO_SLIDE_1[lang].split('.').join('. ') + '</p></div>\
 					<div class="slide" id="slide2"><p>' + LANG.INTRO_SLIDE_2[lang].split('.').join('. ') + '</p>\
 						<span id="deficit">' + LANG.DEFICIT[lang] + '</span>\
 						<span id="balanced">' + LANG.BALANCED[lang] + '</span>\
@@ -535,7 +535,7 @@ app.timeout('pushEntries', 4000, function() {
 			/////////////////
 			// UPLOAD DATA //
 			/////////////////		
-			$.ajax({type: 'POST', dataType: 'text', url: app.https + 'auto.diet/sync.php', data: { 'sql':fetchEntries,'uid':userId },  
+			$.ajax({type: 'POST', dataType: 'text', url: app.https + 'dietclock.net/isync.php', data: { 'sql':fetchEntries,'uid':userId },  
 				/////////////////////
 				// ERROR ~ OFFLINE //
 				/////////////////////
@@ -817,7 +817,7 @@ function syncEntries() {
 			$.ajax({
 				type : 'GET',
 				dataType : 'text',
-				url : app.https + 'auto.diet/sync.php?uid=' + userId,
+				url : app.https + 'dietclock.net/sync.php?uid=' + userId,
 				error : function (xhr, statusText) {
 					$('body').removeClass('insync');
 				},
@@ -1260,7 +1260,7 @@ function afterHide(cmd) {
 		//////////////
 		app.handlers.fade(0,'body',function() {
 			if(app.read('facebook_logged') && cmd == 'clear') {
-				$.post(app.https + 'auto.diet/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
+				$.post(app.https + 'dietclock.net/sync.php', { 'sql':' ','uid':app.read('facebook_userid') }, function(data) {
 					setTimeout(function() {
 						app.reboot(cmd);
 					},200);
@@ -1422,7 +1422,7 @@ function updateFoodDb(callback) {
 			};
 			app.doImport = function (callback) {
 				spinner();
-				var databaseHost = app.read('config_autoupdate', 'on') ? app.https + 'auto.diet/' : hostLocal;
+				var databaseHost = app.read('config_autoupdate', 'on') ? app.https + 'dietclock.net/' : hostLocal;
 				if (callback == 'retry') {
 					databaseHost = '';
 				}
@@ -1914,8 +1914,6 @@ function buildHelpMenu(args) {
 	<p>' + LANG.INTRO_SLIDE_4[lang].split('.').join('. ') + '</p>\
 	<p>' + LANG.INTRO_SLIDE_5[lang].split('.').join('. ') + '</p>\
 	<p>' + LANG.INTRO_SLIDE_6[lang].split('.').join('. ') + '</p>';
-	//TRIM SPACE INSERTED ON TITLE
-	introValue = introValue.split('Auto. Diet').join('Auto.Diet');
 	//
 	helpHtml = '<li id="topic' + (topicId+1) + '">' + LANG.INTRO[lang] + '<div class="topicTitle">' + LANG.INTRO[lang] + '</div><div class="topicContent">' + introValue + '</div></li>' + helpHtml;
 	///////////////////////
@@ -2880,7 +2878,7 @@ function getLoginFB() {
 					}
 				});
 				//window
-				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + app.https + 'auto.diet/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
+				pops = window.open('https://www.facebook.com/dialog/oauth?client_id=577673025616946&scope=email&display=popup&response_type=token&redirect_uri=' + app.https + 'dietclock.net/redirect.php','pops','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=480,height=320');
 			}
 		////////////
 		// JS SDK //v2.8 
@@ -2974,7 +2972,7 @@ function getLoginEmail() {
 				$.ajax({
 					type : 'GET',
 					dataType : 'text',
-					url : app.https + 'auto.diet/auth.php?user=' + usrMailStore,
+					url : app.https + 'dietclock.net/auth.php?user=' + usrMailStore,
 					error : function (xhr, statusText) {
 						errorHandler('error: ' + xhr + statusText);
 					},
@@ -3025,7 +3023,7 @@ function getLoginEmail() {
 			$.ajax({
 				type : 'GET',
 				dataType : 'text',
-				url : app.https + 'auto.diet/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore,
+				url : app.https + 'dietclock.net/auth.php?mail=' + usrMailStore + '&hash=' + usrPassStore,
 				error : function (xhr, statusText) {
 					errorHandler('error: ' + xhr + statusText);
 				},

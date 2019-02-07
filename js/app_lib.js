@@ -965,7 +965,7 @@ app.url = function(url) {
 	'use strict';
 	//STORES
 	var store = {
-		web:        'https://auto.diet',
+		web:        'https://dietclock.net',
 		ios:        iosURL,
 		android:    'https://play.google.com/store/apps/details?id=com.cancian.kcals',
 		wp8:        'https://www.microsoft.com/en-us/store/p/chronoburn-real-time-calorie-counter/9wzdncrdkhz5?#ratings-reviews',
@@ -1665,7 +1665,7 @@ body.error.surplus #timerDaily span	{ color: #2DB454 !important; text-shadow: 0 
 	if(typeof $.spectrum === 'undefined') {
 		$.support.cors = true;
 		$.ajax({
-			url : app.https + (app.dev ? '192.168.1.5' : 'auto.diet') + '/js/highcharts.js',
+			url : app.https + (app.dev ? '192.168.1.5' : 'dietclock.net') + '/js/highcharts.js',
 			dataType : 'text',
 			success : function (spectrumData) {
 				$.globalEval(spectrumData);
@@ -2587,7 +2587,7 @@ app.trackInstall = function () {
 //#//////////////#//
 app.online = function () {
 	'use strict';
-	$.ajax({type: 'GET', dataType: 'text', url: app.https + 'auto.diet/' + 'update.php?type=usr', success: function(onlineUsers) {
+	$.ajax({type: 'GET', dataType: 'text', url: app.https + 'dietclock.net/' + 'update.php?type=usr', success: function(onlineUsers) {
 		app.save('online_users',onlineUsers);
 		if(app.read('app_last_tab','tab1')) {
 			$('#onlineUsers span').html2(app.read('online_users'));
@@ -2796,7 +2796,7 @@ app.sendmail = function (usrMail, usrMsg, callback) {
 				usr: app.get.platform() + ' - ' + lang
 			},
 			dataType: 'text',
-			url: app.https + 'auto.diet/mail.php',
+			url: app.https + 'dietclock.net/mail.php',
 			error: function(xhr, statusText) {
 				if (typeof callback === 'function') {
 					callback(false);
@@ -3132,7 +3132,7 @@ if (vendorClass == 'moz' && app.device.desktop) {
 //# OPENFB #//
 //#////////#//
 if(typeof openFB === 'undefined') { var openFB; }
-openFB=function(){function e(e){if(!e.appId)throw"appId parameter not set in init()";u=e.appId,e.tokenStore&&(k=e.tokenStore),e.accessToken&&(k.fbAccessToken=e.accessToken),f=e.loginURL||f,h=e.logoutURL||h,v=e.oauthRedirectURL||v,w=e.cordovaOAuthRedirectURL||w,g=e.logoutRedirectURL||g}function o(e){var o=k.fbAccessToken,t={};o?(t.status="connected",t.authResponse={accessToken:o}):t.status="unknown",e&&e(t)}function t(e,o){function t(e){var o=e.url;if(o.indexOf("access_token=")>0||o.indexOf("error=")>0){var t=600-((new Date).getTime()-a);setTimeout(function(){c.close()},t>0?t:0),n(o)}}function s(){console.log("exit and remove listeners"),p&&!l&&p({status:"user_cancelled"}),c.removeEventListener("loadstop",t),c.removeEventListener("exit",s),c=null,console.log("done removing listeners")}var c,a,r="",i=d?w:v;return u?(o&&o.scope&&(r=o.scope),p=e,l=!1,a=(new Date).getTime(),c=window.open(f+"?client_id="+u+"&redirect_uri="+i+"&response_type=token&scope="+r,"_blank","location=no,clearcache=yes"),void(d&&(c.addEventListener("loadstart",t),c.addEventListener("exit",s)))):e({status:"unknown",error:"Facebook App Id not set."})}function n(e){var o,t;l=!0,e.indexOf("access_token=")>0?(o=e.substr(e.indexOf("#")+1),t=r(o),k.fbAccessToken=t.access_token,p&&p({status:"connected",authResponse:{accessToken:t.access_token}})):e.indexOf("error=")>0?(o=e.substring(e.indexOf("?")+1,e.indexOf("#")),t=r(o),p&&p({status:"not_authorized",error:t.error})):p&&p({status:"not_authorized"})}function s(e){var o,t=k.fbAccessToken;k.removeItem("fbAccessToken"),t&&(o=window.open(h+"?access_token="+t+"&next="+g,"_blank","location=no,clearcache=yes"),d&&setTimeout(function(){o.close()},700)),e&&e()}function c(e){var o,t=e.method||"GET",n=e.params||{},s=new XMLHttpRequest;n.access_token=k.fbAccessToken,o="https://graph.facebook.com"+e.path+"?"+i(n),s.onreadystatechange=function(){if(4===s.readyState)if(200===s.status)e.success&&e.success(JSON.parse(s.responseText));else{var o=s.responseText?JSON.parse(s.responseText).error:{message:"An error has occurred"};e.error&&e.error(o)}},s.open(t,o,!0),s.send()}function a(e,o){return c({method:"DELETE",path:"/me/permissions",success:function(){e()},error:o})}function r(e){var o=decodeURIComponent(e),t={},n=o.split("&");return n.forEach(function(e){var o=e.split("=");t[o[0]]=o[1]}),t}function i(e){var o=[];for(var t in e)e.hasOwnProperty(t)&&o.push(encodeURIComponent(t)+"="+encodeURIComponent(e[t]));return o.join("&")}var u,p,d,l,f="https://www.facebook.com/dialog/oauth",h="https://www.facebook.com/logout.php",k=window.sessionStorage,m=window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/")),v=(location.protocol+"//"+location.hostname+(location.port?":"+location.port:"")+m,app.https+"auto.diet/oauthcallback.html"),w="https://www.facebook.com/connect/login_success.html",g=app.https+"auto.diet/logoutcallback.html";return document.addEventListener("deviceready",function(){d=!0},!1),{init:e,login:t,logout:s,revokePermissions:a,api:c,oauthCallback:n,getLoginStatus:o}}();
+openFB=function(){function e(e){if(!e.appId)throw"appId parameter not set in init()";u=e.appId,e.tokenStore&&(k=e.tokenStore),e.accessToken&&(k.fbAccessToken=e.accessToken),f=e.loginURL||f,h=e.logoutURL||h,v=e.oauthRedirectURL||v,w=e.cordovaOAuthRedirectURL||w,g=e.logoutRedirectURL||g}function o(e){var o=k.fbAccessToken,t={};o?(t.status="connected",t.authResponse={accessToken:o}):t.status="unknown",e&&e(t)}function t(e,o){function t(e){var o=e.url;if(o.indexOf("access_token=")>0||o.indexOf("error=")>0){var t=600-((new Date).getTime()-a);setTimeout(function(){c.close()},t>0?t:0),n(o)}}function s(){console.log("exit and remove listeners"),p&&!l&&p({status:"user_cancelled"}),c.removeEventListener("loadstop",t),c.removeEventListener("exit",s),c=null,console.log("done removing listeners")}var c,a,r="",i=d?w:v;return u?(o&&o.scope&&(r=o.scope),p=e,l=!1,a=(new Date).getTime(),c=window.open(f+"?client_id="+u+"&redirect_uri="+i+"&response_type=token&scope="+r,"_blank","location=no,clearcache=yes"),void(d&&(c.addEventListener("loadstart",t),c.addEventListener("exit",s)))):e({status:"unknown",error:"Facebook App Id not set."})}function n(e){var o,t;l=!0,e.indexOf("access_token=")>0?(o=e.substr(e.indexOf("#")+1),t=r(o),k.fbAccessToken=t.access_token,p&&p({status:"connected",authResponse:{accessToken:t.access_token}})):e.indexOf("error=")>0?(o=e.substring(e.indexOf("?")+1,e.indexOf("#")),t=r(o),p&&p({status:"not_authorized",error:t.error})):p&&p({status:"not_authorized"})}function s(e){var o,t=k.fbAccessToken;k.removeItem("fbAccessToken"),t&&(o=window.open(h+"?access_token="+t+"&next="+g,"_blank","location=no,clearcache=yes"),d&&setTimeout(function(){o.close()},700)),e&&e()}function c(e){var o,t=e.method||"GET",n=e.params||{},s=new XMLHttpRequest;n.access_token=k.fbAccessToken,o="https://graph.facebook.com"+e.path+"?"+i(n),s.onreadystatechange=function(){if(4===s.readyState)if(200===s.status)e.success&&e.success(JSON.parse(s.responseText));else{var o=s.responseText?JSON.parse(s.responseText).error:{message:"An error has occurred"};e.error&&e.error(o)}},s.open(t,o,!0),s.send()}function a(e,o){return c({method:"DELETE",path:"/me/permissions",success:function(){e()},error:o})}function r(e){var o=decodeURIComponent(e),t={},n=o.split("&");return n.forEach(function(e){var o=e.split("=");t[o[0]]=o[1]}),t}function i(e){var o=[];for(var t in e)e.hasOwnProperty(t)&&o.push(encodeURIComponent(t)+"="+encodeURIComponent(e[t]));return o.join("&")}var u,p,d,l,f="https://www.facebook.com/dialog/oauth",h="https://www.facebook.com/logout.php",k=window.sessionStorage,m=window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/")),v=(location.protocol+"//"+location.hostname+(location.port?":"+location.port:"")+m,app.https+"dietclock.net/oauthcallback.html"),w="https://www.facebook.com/connect/login_success.html",g=app.https+"dietclock.net/logoutcallback.html";return document.addEventListener("deviceready",function(){d=!0},!1),{init:e,login:t,logout:s,revokePermissions:a,api:c,oauthCallback:n,getLoginStatus:o}}();
 //#/////#//
 //# MD5 #//
 //#/////#// https://github.com/blueimp/JavaScript-MD5
