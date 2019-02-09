@@ -1267,7 +1267,7 @@ TR–
 –VI
 :: TÍNH LƯỢNG CALO THEO THỜI GIAN THỰC
 $KCALS$ là một cách mới để bạn có thể kiểm soát lượng calo của bạn.
-Nó hiển thị lượng calo sử dụng của bạn theo thời gian thực, và nhanh chóng, Kclas sẽ cho bạn biết bạn nên ăn bao nhiêu mỗi ngày.
+Nó hiển thị lượng calo sử dụng của bạn theo thời gian thực, và nhanh chóng, $KCALS$ sẽ cho bạn biết bạn nên ăn bao nhiêu mỗi ngày.
  
 $KCALS$ là rất dễ hiểu - Nó hoạt động giống như một thước đo lượng calo.
 - Năng lượng từ thực phẩm sẽ được thêm vào tổng số.
