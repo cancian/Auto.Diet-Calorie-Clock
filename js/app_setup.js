@@ -535,7 +535,7 @@ app.timeout('pushEntries', 4000, function() {
 			/////////////////
 			// UPLOAD DATA //
 			/////////////////		
-			$.ajax({type: 'POST', dataType: 'text', url: app.https + 'dietclock.net/isync.php', data: { 'sql':fetchEntries,'uid':userId },  
+			$.ajax({type: 'POST', dataType: 'text', url: app.https + 'dietclock.net/sync.php', data: { 'sql':fetchEntries,'uid':userId },  
 				/////////////////////
 				// ERROR ~ OFFLINE //
 				/////////////////////
