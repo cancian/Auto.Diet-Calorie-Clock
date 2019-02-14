@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'Diet Clock';
-var appVersion = '3.0 (300002)';
+var appVersion = '3.0 (300003)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = true; // true false
@@ -26,7 +26,7 @@ if(app) {
 /////////////////////
 // SET FIXED TITLE //
 /////////////////////
-$('title').html2('Scientific ' + appName + ' v' + appRelease);
+$('title').html2(appName + ' v' + appRelease);
 /////////////////////
 // DETECT LANGUAGE //
 /////////////////////

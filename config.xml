@@ -30,8 +30,8 @@
 	<!-- ### -->
 		
 	<!-- ## APP DATA ## -->
-	<name>Scientific Diet Clock</name>
-	<description>Automatic Calorie Control for Dieting &amp; Weight Loss</description>
+	<name>Diet Clock</name>
+	<description>A real-time calorie counter that simulates the human metabolism.</description>
 	<author href="https://dietclock.net" email="cancian@dietclock.net">André Cancian</author>
 	<icon src="icon.png" />
 	<!-- ## APP DATA ## -->
