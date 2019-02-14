@@ -3,7 +3,7 @@
 #################
 
 # 3.0 [2019/02/07]
-• The app name has changed to <strong>“Scientific Diet Clock”</strong>. The new website URL is https://dietclock.net
+• The app name has changed to <strong>“Diet Clock”</strong>. The new website URL is https://dietclock.net
 • The title won’t change to the current language anymore. This only affects browsers.
 • Updated the Facebook login API to the latest version required.
 • Fixed rare SSL issue, mostly affecting older devices
