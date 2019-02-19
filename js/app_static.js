@@ -871,11 +871,11 @@ if(app.device.osxapp) {
 	// ADD MENU ITEM //
 	/////////////////// (RESET SETTINGS)
 	try {
-		if(macgap.menu.getItem('ChronoBurn').submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
-			macgap.menu.getItem('ChronoBurn').submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
+		if(macgap.menu.getItem('Diet Clock').submenu().getItem(LANG.SETTINGS_WIPE[lang])) {
+			macgap.menu.getItem('Diet Clock').submenu().getItem(LANG.SETTINGS_WIPE[lang]).remove();
 		}
-		macgap.menu.getItem('ChronoBurn').submenu().addSeparator();
-		macgap.menu.getItem('ChronoBurn').submenu().addItem(LANG.SETTINGS_WIPE[lang], 'cmd+opt+r', function() {
+		macgap.menu.getItem('Diet Clock').submenu().addSeparator();
+		macgap.menu.getItem('Diet Clock').submenu().addItem(LANG.SETTINGS_WIPE[lang], 'cmd+opt+r', function() {
 			appConfirm(LANG.SETTINGS_WIPE_TITLE[lang], LANG.ARE_YOU_SURE[lang], function(button) {
 				if(button === 2) {
 					deSetup();
