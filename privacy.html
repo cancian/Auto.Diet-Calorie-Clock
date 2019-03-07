@@ -11,6 +11,14 @@
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <meta http-equiv="x-ua-compatible" content="IE=edge" />
 <link rel="stylesheet" type="text/css" href="css/index.css" />
+<script type="text/javascript">
+/////////////////////////////
+// REDIRECT CACHED SPIDERS //
+/////////////////////////////
+if(/http/i.test(window.location.protocol) && !/dietclock/i.test(window.location.hostname) && /googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor/i.test(navigator.userAgent)) {
+	window.location.replace('https://dietclock.net');
+}
+</script>
 </head>
 <body>
 <style type="text/css">

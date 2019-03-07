@@ -8,6 +8,14 @@
 <link rel="stylesheet" href="css/index.css" type="text/css" media="all" />
 <link rel="stylesheet" href="css/fonts.css" type="text/css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript">
+/////////////////////////////
+// REDIRECT CACHED SPIDERS //
+/////////////////////////////
+if(/http/i.test(window.location.protocol) && !/dietclock/i.test(window.location.hostname) && /googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor/i.test(navigator.userAgent)) {
+	window.location.replace('https://dietclock.net');
+}
+</script>
 <style type="text/css">
 * {
 	touch-action: auto !important;
