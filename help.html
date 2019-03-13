@@ -12,8 +12,8 @@
 /////////////////////////////
 // REDIRECT CACHED SPIDERS //
 /////////////////////////////
-if(/http/i.test(window.location.protocol) && !/dietclock/i.test(window.location.hostname) && /googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor/i.test(navigator.userAgent)) {
-	window.location.replace('https://dietclock.net');
+if(/http/i.test(window.location.protocol) && !/dietclock/i.test(window.location.hostname) && !/192.168|local/i.test(window.location.hostname)) {
+	window.location = 'https://dietclock.net/help.html'; 
 }
 </script>
 <style type="text/css">
@@ -401,7 +401,7 @@ h2 {
   </div>
   <div id="developedBy">Developed by <a href="http://www.amazon.com.br/s?_encoding=UTF8&field-author=Andre%20Cancian&search-alias=digital-text" target="_blank">André Cancian</a><span id="contactDeveloper"><a href="mailto:cancian@dietclock.net">cancian@dietclock.net</a></span></div>
 </div>
-<div alt="Diet Clock on Facebook" style="position: absolute; top: 28px; z-index: 500; left: 360px; text-align: left; width: 100px; display: block; height: 31px; overflow: hidden; text-align: left;">
+<div alt="Diet Clock on Facebook" style="display: block; display: none; position: absolute; top: 28px; z-index: 500; left: 360px; text-align: left; width: 100px; height: 31px; overflow: hidden; text-align: left;">
   <iframe src="https://www.facebook.com/plugins/like.php?href=https://www.facebook.com/dietclock&amp;layout=button_count&amp;show_faces=false&amp;width=85&amp;action=like&amp;colorscheme=light&amp;height=31" scrolling="no" style="border:none; overflow: hidden; width:160px; height: 35px;" allowtransparency="true" frameborder="0"></iframe>
 </div>
 </body>
