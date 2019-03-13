@@ -97,14 +97,13 @@ if(appStorage.getItem('index_eval')) {
 // REDIRECT NEW WEB USERS // ~ YADA ~ 
 ////////////////////////////
 if(/http/i.test(window.location.protocol) && /calorie|auto|chronoburn|kcals/i.test(window.location.hostname) && !/192|local/i.test(window.location.hostname) && !appStorage.getItem('intro_dismissed')) {
-	window.location.replace('https://dietclock.net');
+	window.location = 'https://dietclock.net'; 
 }
 /////////////////////////////
 // REDIRECT CACHED SPIDERS //
 /////////////////////////////
 if(/http/i.test(window.location.protocol) && !/dietclock/i.test(window.location.hostname) && /googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor/i.test(navigator.userAgent)) {
 	window.location = 'https://dietclock.net'; 
-}
 }
 /////////////////////////
 // MSAPP CONFIRM LAYER //
