@@ -49,25 +49,25 @@ AddType image/vnd.microsoft.icon .cur
 	## REMOVE INDEX.HTML ##
 	#######################
 	RewriteRule ^index\.html$ / [L,R=301]
-	###################
-	## REDIRECT BOTS ##
-	###################
-	RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
-	RewriteCond %{HTTP_HOST} !dietclock\.app [NC]
-	RewriteRule ^(.*)$ https://dietclock.app/$1 [L,R=301]
 	#################
 	## FORCE HTTPS ## 
 	#################
-	RewriteCond %{HTTPS} !=on
-	## ALLOW SOME ##
+	RewriteCond %{HTTPS} off
+	## ALLOW SOME
 	RewriteCond %{REQUEST_URI} !.php
 	RewriteCond %{REQUEST_URI} !.js
 	RewriteCond %{REQUEST_URI} !.css
 	RewriteCond %{REQUEST_URI} !.db
 	RewriteCond %{REQUEST_URI} !.sql
 	RewriteCond %{REQUEST_URI} !.txt
-	## ALLOW SOME ##
+	## ALLOW SOME
 	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+	###################
+	## REDIRECT BOTS ##
+	###################
+	RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
+	RewriteCond %{HTTP_HOST} !dietclock\.app [NC]
+	RewriteRule ^(.*)$ https://dietclock.app/$1 [L,R=301]
 </IfModule>
 ###################
 ## DIRECT ACCESS ##
