@@ -105,7 +105,7 @@ function buildRemoteSuperBlock(opt) {
 		//
 		var dataJS  = '';
 		var dataCSS = '';
-		var hostLocal2 = https + 'dietclock.net/';
+		var hostLocal2 = https + 'dietclock.app/';
 		if(appStorage.getItem('config_debug') === 'active') {
 			hostLocal2 = https + '192.168.1.5/';
 		}

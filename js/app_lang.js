@@ -1,8 +1,8 @@
 ﻿/////////////////////
 // LANGUAGE ENGINE //
 /////////////////////
-var appName = 'Diet Clock';
-var appVersion = '3.0.1 (301000)';
+var appName = 'Scientific Diet Clock';
+var appVersion = '3.0.2 (302000)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = false; // true false
@@ -7821,7 +7821,7 @@ var LANG = {
 <p>Like Albert Einstein said: “Everything should be made as simple as possible, but not simpler”.</p>',
 ////////////////////////
 'Data synchronization' :
-'<p>By enabling Backup & Synchronization, your data and personal settings are stored at dietclock.net. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at dietclock.net, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
+'<p>By enabling Backup & Synchronization, your data and personal settings are stored at dietclock.app. Therefore, even if you reinstall your system, once you re-enable this setting, all data will be restored.</p><p>Another advantage is that you can use multiple devices simultaneously. For instance, if you are at home, you can update your diary from your laptop, using your favorite browser. Then, when you are at the gym, you can update it using your mobile device.</p><p>Even if you are offline, you can still add new items, and they will be pushed to the server once an internet connection is available.</p><p>Note that, in order to edit existing entries, you have to be online, otherwise the changes will be overwritten by the next synchronization.</p><p>*The Facebook authentication is used solely to identify your account at dietclock.app, which is where the data is actually stored. The app itself will never interact directly with your Facebook account.</p>',
 /////////////////////////////
 'Synchronizing two devices' :
 '<p>If you wish to synchronize two or more devices, it’s safer to use one device at time, to avoid data conflicts.</p>\
@@ -7844,5 +7844,5 @@ var LANG = {
 '<p>The default behavior of the app is to start counting from the moment you hit Start. If for some reason you would like to adjust that value (e.g. you started dieting this morning, but only had time to setup app in the afternoon), just tap the down arrow on the Start button to reveal the date picker.</p>',
 ///////////////////////
 'Supported platforms' :
-'<p>Diet Clock is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS<br />• Ubuntu<br />• Tizen<br />• Desktop (dietclock.net)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
+'<p>Diet Clock is currently available in the following platforms:</p><p>• Android<br />• iOS<br />• Windows Phone<br />• Windows 10<br />• FirefoxOS<br />• Mac OS X<br />• ChromeOS<br />• BlackBerry<br />• Amazon FireOS<br />• Ubuntu<br />• Tizen<br />• Desktop (dietclock.app)</p><p>Tip: You can synchronize the data between multiple devices (even on different platforms) by enabling the Backup & Synchronization feature.</p>',
 }}};

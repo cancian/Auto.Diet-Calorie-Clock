@@ -870,7 +870,7 @@ function doSearch(input) {
 					$.ajax({
 						type: 'GET',
 						dataType: 'text',
-						url: app.https + 'dietclock.net/search.php?k=' + searchSQL,
+						url: app.https + 'dietclock.app/search.php?k=' + searchSQL,
 						error: function (xhr, statusText) {
 							//offline//
 							//errorHandler(statusText);

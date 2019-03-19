@@ -2352,7 +2352,7 @@ function buildAdvancedMenu() {
 	};
 	//GET VERSION.TXT WITH FALLBACK
 	app.handlers.activeRow('#advancedChangelog','activeRow',function(evt) {
-		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'dietclock.net/' + 'version.txt',
+		$.ajax({type: 'GET', dataType: 'text', url: app.https + 'dietclock.app/' + 'version.txt',
 			error: function(xhr, statusText) {
 				//RETRY LOCAL
 				$.ajax({type: 'GET', dataType: 'text', url: 'version.txt',
@@ -2394,7 +2394,7 @@ function buildAdvancedMenu() {
 	//# CONTACT #//
 	//#/////////#//
 	app.handlers.activeRow('#advancedContact','activeRow',function(evt) {
-		window.location.href = 'mailto:cancian@dietclock.net?Subject=Diet Clock%20-%20Support%20(' + app.get.platform(1) + ')';
+		window.location.href = 'mailto:cancian@dietclock.app?Subject=«%20dietclock.app%20»%20Support%20(' + app.get.platform(1) + ')';
 	});
 	//#////////////////#//
 	//# SUGGESTION BOX #//

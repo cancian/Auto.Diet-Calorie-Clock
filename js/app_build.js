@@ -33,7 +33,7 @@ app.tab.settings = function(keepOpen) {
 	///////////////////////////
 	/*
 	<li id="liveZilla">\
-	<div style="position: absolute; text-indent: 0; margin: 0; padding: 0; left: 16px; top: 4px;"><img src="' + httpx + 'dietclock.net/livezilla/image.php?a=7b892&amp;id=1&amp;type=inlay&amp;time='+app.now()+'" style="border:0px;" alt=" " height="22" width="22"></div>\
+	<div style="position: absolute; text-indent: 0; margin: 0; padding: 0; left: 16px; top: 4px;"><img src="' + httpx + 'dietclock.app/livezilla/image.php?a=7b892&amp;id=1&amp;type=inlay&amp;time='+app.now()+'" style="border:0px;" alt=" " height="22" width="22"></div>\
 	<div><p class="contentTitle">'                                + 'Support via chat'             + '<span>' + 'Need help? Talk to an operator'+ '</span></p></div></li>\
 	*/
 	//#////////#//
@@ -59,7 +59,7 @@ app.tab.settings = function(keepOpen) {
 	///////////////////////
 	/*
 	app.handlers.activeRow('#liveZilla','activeRow',function(evt) {
-		getNewWindow('Online Support','<iframe id="liveZillaIframe" src="' + httpx + 'dietclock.net/livezilla/chat.php?dl=1&amp;a=fd1e5&amp;el=ZW4_" scrolling="no" width="100%" height="'+($('#appContent').height()-44)+'" style="width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; background-color: #fff; border: 0; overflow: hidden !important;"></iframe>',function() {
+		getNewWindow('Online Support','<iframe id="liveZillaIframe" src="' + httpx + 'dietclock.app/livezilla/chat.php?dl=1&amp;a=fd1e5&amp;el=ZW4_" scrolling="no" width="100%" height="'+($('#appContent').height()-44)+'" style="width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; background-color: #fff; border: 0; overflow: hidden !important;"></iframe>',function() {
 			$('#liveZillaIframe').css('height',($('#appContent').height()-44)+'px');
 			$(window).on('resize',function() {
 				$('#liveZillaIframe').css('height',($('#appContent').height()-44)+'px');
@@ -96,12 +96,12 @@ app.tab.settings = function(keepOpen) {
 			<span id="b800"></span>\
 			<span id="b600"></span>\
 		</div>\
-		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">cancian@dietclock.net</span></div>';
+		<div id="developedBy">' + LANG.DEVELOPED_BY[lang] + '<span id="contactDeveloper">cancian@dietclock.app</span></div>';
 		/////////////
 		// HANDLER //
 		/////////////
 		var aboutHandler = function() {
-			app.handlers.activeRow('#b000','button',function() { app.url('https://dietclock.net'); });
+			app.handlers.activeRow('#b000','button',function() { app.url('https://dietclock.app'); });
 			app.handlers.activeRow('#b100','button',function() { app.url('android');    });
 			app.handlers.activeRow('#b200','button',function() { app.url('ios');        });
 			app.handlers.activeRow('#b300','button',function() { app.url('wp8');        });
@@ -113,7 +113,7 @@ app.tab.settings = function(keepOpen) {
 			app.handlers.activeRow('#b900','button',function() { app.url('amazon'); });
 			//CONTACT
 			app.handlers.activeRow('#developedBy','button',function(evt) {
-				window.location.href = 'mailto:cancian@dietclock.net?Subject=Diet Clock%20-%20Support%20(' + app.get.platform(1) + ')';
+				window.location.href = 'mailto:cancian@dietclock.app?Subject=«%20dietclock.app%20»%20Support%20(' + app.get.platform(1) + ')';
 			});
 			///////////////////////
 			// BANANA EASTER EGG //
