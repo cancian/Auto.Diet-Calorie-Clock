@@ -1,5 +1,5 @@
-﻿Scientific Diet Clock is a calorie counter based on Apache Cordova
-==================================================================
+﻿Scientific Diet Clock is a real-time calorie counter based on Apache Cordova
+============================================================================
 
 It's developed by André Cancian since 2013. (cancian@dietclock.app)
 
