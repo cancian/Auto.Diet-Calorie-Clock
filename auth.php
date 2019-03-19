@@ -93,14 +93,14 @@ if(strlen($_GET['user']) > 1) {
 		$userExists = explode('###',$userExists);
 		$resetMail = $userExists[1];
 		$resetHash = $userExists[2];
-		$resetLink = "https://dietclock.net/auth.php?reset=".$resetMail."&key=".$resetHash;
-		$resetBody  = "<p>We have received a password reset request for your Diet Clock account <strong>".$resetMail."</strong>.</p>";
+		$resetLink = "https://dietclock.app/auth.php?reset=".$resetMail."&key=".$resetHash;
+		$resetBody  = "<p>We have received a password reset request for your account <strong>".$resetMail."</strong>.</p>";
 		$resetBody .= "<p>If you made this request, then please click on the link below:</p>";
 		$resetBody .= "<p><a href='".$resetLink."'>".$resetLink."</a></p>";
-		mail($resetMail, "« Diet Clock » Password Reset", $resetBody,
-		"From: cancian@dietclock.net\r\n"
+		mail($resetMail, "« dietclock.app » Password Reset", $resetBody,
+		"From: cancian@dietclock.app\r\n"
 		."Content-type: text/html; charset=utf-8\r\n"
-		."Reply-To: dietclock.net\r\n"
+		."Reply-To: dietclock.app\r\n"
 		."X-Mailer: PHP/" . phpversion());
 		echo "sent";
 	} else {

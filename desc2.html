@@ -64,7 +64,7 @@ $.ajax({type: 'GET', dataType: 'text', url: 'desc.txt', success: function(desc) 
 desc  = desc.split('–' + hash)[1];
 desc  = desc.split(hash + '–')[0];
 //desc = '<strong>★ ' + LANG.THE_ONLY[lang].toUpperCase() + '</strong>' + desc;
-desc  = desc.split('$KCALS$').join('<strong style="color: #e22;">ChronoBurn</strong>');
+desc  = desc.split('$KCALS$').join('<strong style="color: #e22;">Diet Clock</strong>');
 desc += '1 - ' + LANG.INTRO_SLIDE_1[lang] + '<br><br>';
 desc += '2 - ' + LANG.INTRO_SLIDE_2[lang] + '<br><br>';
 desc += '3 - ' + LANG.INTRO_SLIDE_3[lang] + '<br><br>';
@@ -407,10 +407,10 @@ var keyList2 = keyList0.slice(100,-1);
 desc = desc + '<div id="pottom"><div id="bottom"><br><br><span style="color: #c30; font-weight: bold;">' + keyList1 + '</span>' + keyList2 + '<br><br>';
 desc = desc + '' + '' + '\
 ' + LANG.REALTIME_CALORIE_COUNTER[lang] + '<br>' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '<br>\
-<br><strong>ChronoBurn ' + LANG.CALORIE_COUNTER[lang] + '</strong>\
-<br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIES[lang] + '</strong>\
-<br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIE_COUNTER[lang] + '</strong>\
-<br><strong>ChronoBurn: ' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong><br>\
+<br><strong>Scientific Diet Clock ' + LANG.CALORIE_COUNTER[lang] + '</strong>\
+<br><strong>Scientific Diet Clock: ' + LANG.REALTIME_CALORIES[lang] + '</strong>\
+<br><strong>Scientific Diet Clock: ' + LANG.REALTIME_CALORIE_COUNTER[lang] + '</strong>\
+<br><strong>Scientific Diet Clock: ' + LANG.REALTIME_CALORIE_COUNTER[lang] + ' &amp; ' + LANG.METABOLISM_SIMULATOR[lang] + '</strong><br>\
 </div></div>';
 
 document.getElementById('desc').innerHTML = trim(desc);
