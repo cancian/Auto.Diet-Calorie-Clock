@@ -45,6 +45,10 @@ AddType image/vnd.microsoft.icon .cur
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 	RewriteBase /
+	#######################
+	## REMOVE INDEX.HTML ##
+	#######################
+	RewriteRule ^index\.html$ / [L,R=301]
 	###################
 	## REDIRECT BOTS ##
 	###################
@@ -54,17 +58,17 @@ AddType image/vnd.microsoft.icon .cur
 	#################
 	## FORCE HTTPS ## 
 	#################
-	RewriteCond %{HTTPS} off
+	RewriteCond %{HTTPS} !=on
+	## ALLOW SOME ##
 	RewriteCond %{REQUEST_URI} !.php
 	RewriteCond %{REQUEST_URI} !.js
 	RewriteCond %{REQUEST_URI} !.css
 	RewriteCond %{REQUEST_URI} !.db
 	RewriteCond %{REQUEST_URI} !.sql
 	RewriteCond %{REQUEST_URI} !.txt
-	RewriteCond %{HTTP_HOST} dietclock\.app [NC]
-	RewriteRule ^(.*)$ https://dietclock.app/$1 [L,R=301]
+	## ALLOW SOME ##
+	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
-
 ###################
 ## DIRECT ACCESS ##
 ###################
@@ -81,6 +85,7 @@ AddType image/vnd.microsoft.icon .cur
 ## DEFLATE ##
 #############
 SetOutputFilter DEFLATE
+
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/html
 AddOutputFilterByType DEFLATE text/xml
