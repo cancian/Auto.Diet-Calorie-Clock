@@ -49,8 +49,8 @@ AddType image/vnd.microsoft.icon .cur
 	## REDIRECT BOTS ##
 	###################
 	RewriteCond %{HTTP_USER_AGENT} (googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor) [NC]
-	RewriteCond %{HTTP_HOST} !dietclock\.net [NC]
-	RewriteRule ^(.*)$ https://dietclock.net/$1 [L,R=301]
+	RewriteCond %{HTTP_HOST} !dietclock\.app [NC]
+	RewriteRule ^(.*)$ https://dietclock.app/$1 [L,R=301]
 	#################
 	## FORCE HTTPS ## 
 	#################
@@ -61,8 +61,8 @@ AddType image/vnd.microsoft.icon .cur
 	RewriteCond %{REQUEST_URI} !.db
 	RewriteCond %{REQUEST_URI} !.sql
 	RewriteCond %{REQUEST_URI} !.txt
-	RewriteCond %{HTTP_HOST} dietclock\.net [NC]
-	RewriteRule ^(.*)$ https://dietclock.net/$1 [L,R=301]
+	RewriteCond %{HTTP_HOST} dietclock\.app [NC]
+	RewriteRule ^(.*)$ https://dietclock.app/$1 [L,R=301]
 </IfModule>
 
 ###################
