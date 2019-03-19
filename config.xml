@@ -30,9 +30,9 @@
 	<!-- ### -->
 		
 	<!-- ## APP DATA ## -->
-	<name>Diet Clock</name>
+	<name>Scientific Diet Clock</name>
 	<description>A real-time calorie counter that simulates the human metabolism.</description>
-	<author href="https://dietclock.net" email="cancian@dietclock.net">André Cancian</author>
+	<author href="https://dietclock.app" email="cancian@dietclock.app">André Cancian</author>
 	<icon src="icon.png" />
 	<!-- ## APP DATA ## -->
 	

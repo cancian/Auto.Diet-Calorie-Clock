@@ -20,10 +20,10 @@
 	},
 	"app" : {
 		"urls" : [
-			"https://dietclock.net/"
+			"https://dietclock.app/"
 		],
 		"launch" : {
-			"web_url" : "https://dietclock.net/"
+			"web_url" : "https://dietclock.app/"
 		}
 	}
 }

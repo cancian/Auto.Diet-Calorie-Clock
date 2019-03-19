@@ -1,8 +1,8 @@
 ﻿{
 	"appName" : {
-		"message" : "Diet Clock"
+		"message" : "Scientific Diet Clock"
 	},
 	"appDesc" : {
-		"message" : "Automatic Calorie Control for Dieting &amp; Weight Loss"
+		"message" : "A real-time calorie counter that simulates the human metabolism."
 	}
 }
