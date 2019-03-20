@@ -575,11 +575,11 @@ app.get.platform = function(noweb) {
 //MANUAL OVERRIDES (DISABLE)
 if(app.device.android2 || (app.device.blackberry && typeof https !== 'undefined') || (app.device.playbook && typeof https !== 'undefined') || (app.device.tizen && typeof https !== 'undefined')) {
 	//FIX BB10 SSL
-	app.https = 'http://';
+	app.https = 'https://';
 	https = app.https;	
 	//ALL OTHER SANE DEVICES
 } else if(typeof https !== 'undefined') {
-	https = app.https;
+	https = 'https://';
 }
 //#///////////////////#//
 //# APP.IS.SCROLLABLE #//
