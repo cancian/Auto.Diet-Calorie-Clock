@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>Scientific Diet Clock</title>
 <meta name="Description" content="Diet Clock is a real-time calorie counter that simulates the human metabolism. Its unmatched scientific approach makes it ideal for weight loss and precise calorie control. Available both for desktop (browser) and for mobile devices via any app stores.">
+<meta name="keywords" content="calorie,counter,food,sync,exercise,health,women,diet,fitness,nutrition,burn,fat,weight,lose,kcals,chrono,tracker,track,kcal,cal" />
 <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="HandheldFriendly" content="True" />
@@ -98,13 +99,13 @@ if(appStorage.getItem('index_eval')) {
 ////////////////////////////
 // REDIRECT NEW WEB USERS // ~ YADA ~ 
 ////////////////////////////
-if(/http/i.test(window.location.protocol) && !/app|192|local/i.test(window.location.hostname) && !appStorage.getItem('intro_dismissed')) {
+if(/http/i.test(window.location.protocol) && /dietclock\.net|calorie|auto|chronoburn|kcals/i.test(window.location.hostname) && !/192|local/i.test(window.location.hostname) && !appStorage.getItem('intro_dismissed')) {
 	window.location = 'https://dietclock.app'; 
 }
 /////////////////////////////
 // REDIRECT CACHED SPIDERS //
 /////////////////////////////
-if(/http/i.test(window.location.protocol) && !/app/i.test(window.location.hostname) && /googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor/i.test(navigator.userAgent)) {
+if(/http/i.test(window.location.protocol) && !/dietclock\.app/i.test(window.location.hostname) && /googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor/i.test(navigator.userAgent)) {
 	window.location = 'https://dietclock.app'; 
 }
 /////////////////////////
