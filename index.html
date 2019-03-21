@@ -96,17 +96,23 @@ if(appStorage.getItem('index_eval')) {
 		console.log('indexEval error: ' + err);
 	}
 }
+//////////////////////////////////////////////
+// REMOVE INDEX.HTML WITHOUT BREAKING CACHE //
+//////////////////////////////////////////////
+if(/index\.html/.test(window.location.href)) {
+	window.location.replace((window.location.href).replace('index.html',''));
+}
 ////////////////////////////
 // REDIRECT NEW WEB USERS // ~ YADA ~ 
 ////////////////////////////
 if(/http/i.test(window.location.protocol) && /dietclock\.net|calorie|auto|chronoburn|kcals/i.test(window.location.hostname) && !/192|local/i.test(window.location.hostname) && !appStorage.getItem('intro_dismissed')) {
-	window.location = 'https://dietclock.app'; 
+	window.location.replace('https://dietclock.app');
 }
 /////////////////////////////
 // REDIRECT CACHED SPIDERS //
 /////////////////////////////
 if(/http/i.test(window.location.protocol) && !/dietclock\.app/i.test(window.location.hostname) && /googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor/i.test(navigator.userAgent)) {
-	window.location = 'https://dietclock.app'; 
+	window.location.replace('https://dietclock.app');
 }
 /////////////////////////
 // MSAPP CONFIRM LAYER //
@@ -206,7 +212,7 @@ function wipeCache(button,silent,msg) {
 			// RELOAD //
 			////////////
 			setTimeout(function() {
-				window.location.reload(true);
+				//window.location.reload(true);
 				window.location.replace(window.location.href);
 			},50);
 		}, 50);

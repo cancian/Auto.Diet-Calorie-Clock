@@ -1,18 +1,18 @@
 CACHE MANIFEST
-# v3.0.3 2019-03-20
+# v3.0.3 2019-03-21
 
 CACHE:
 index.html
+
+#JQUERY
+js/jquery.js
+js/jquery.nicescroll.js
 
 #CSS
 css/index.css
 css/fonts.css
 css/openhand.cur
 css/kcals.ttf
-
-#JQUERY
-js/jquery.js
-js/jquery.nicescroll.js
 
 #JS
 js/app_init.js

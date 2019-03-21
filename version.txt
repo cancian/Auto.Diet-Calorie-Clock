@@ -2,8 +2,9 @@
 ## VERSION LOG ##
 #################
 
-# 3.0.3 [2019/03/20]
-• The website was optimized to work exclusively with the SSL protocol (https://)
+# 3.0.3 [2019/03/21]
+• The website was adjusted to use exclusively the SSL protocol (https://)
+• Some SEO optimizations for better visibility on search engines
 
 # 3.0 [2019/02/07]
 • The app name has changed to <strong>“Scientific Diet Clock”</strong>. The new website URL is https://dietclock.app
