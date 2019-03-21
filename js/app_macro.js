@@ -2394,7 +2394,7 @@ function buildAdvancedMenu() {
 	//# CONTACT #//
 	//#/////////#//
 	app.handlers.activeRow('#advancedContact','activeRow',function(evt) {
-		window.location.href = 'mailto:cancian@dietclock.app?Subject=«%20dietclock.app%20»%20Support%20(' + app.get.platform(1) + ')';
+		window.location.replace('mailto:cancian@dietclock.app?Subject=«%20dietclock.app%20»%20Support%20(' + app.get.platform(1) + ')');
 	});
 	//#////////////////#//
 	//# SUGGESTION BOX #//

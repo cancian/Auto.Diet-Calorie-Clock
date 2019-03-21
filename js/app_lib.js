@@ -1004,7 +1004,7 @@ app.url = function(url) {
 		else if(app.device.firefoxos)							{ ref = window.open(url, '_system', 'location=yes'); }
 		else if(app.device.osxapp)								{ macgap.app.open(url);								 }
 		else if(app.device.playbook)							{ try { blackberry.invoke.invoke(blackberry.invoke.APP_BROWSER, new blackberry.invoke.BrowserArguments(url)); } catch (err) { errorHandler('url: ' + err); }}
-		else if(app.device.blackberry)							{ if(/appworld/i.test(url)) { window.location.href=url; } else { ref = window.open(url, '_blank'); }}
+		else if(app.device.blackberry)							{ if(/appworld/i.test(url)) { window.location.replace(url); } else { ref = window.open(url, '_blank'); }}
 		else if(app.device.tizen)								{ if(/tizenstore/i.test(url)) { (function() { var service = new tizen.ApplicationControl('http://tizen.org/appcontrol/operation/view','tizenstore://ProductDetail/000000084298', null, null, null); var id = 'org.tizen.tizenstore'; try { tizen.application.launchAppControl(service, id, function (success) {}, function (err) { errorHandler(err); }, null); } catch (er) { errorHandler(er); }})(); } else { ref = window.open(url, '_top'); ref.addEventListener('tizenhwkey', function(e) { if(e.keyName === 'back' && ref) { ref.close(); }}); }}
 		else 													{ window.open(url, '_blank'); }
 	}

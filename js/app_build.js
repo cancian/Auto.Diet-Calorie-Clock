@@ -113,7 +113,7 @@ app.tab.settings = function(keepOpen) {
 			app.handlers.activeRow('#b900','button',function() { app.url('amazon'); });
 			//CONTACT
 			app.handlers.activeRow('#developedBy','button',function(evt) {
-				window.location.href = 'mailto:cancian@dietclock.app?Subject=«%20dietclock.app%20»%20Support%20(' + app.get.platform(1) + ')';
+				 window.location.replace('mailto:cancian@dietclock.app?Subject=«%20dietclock.app%20»%20Support%20(' + app.get.platform(1) + ')');
 			});
 			///////////////////////
 			// BANANA EASTER EGG //
@@ -1217,7 +1217,6 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 			if (/devreload/i.test($('#entryBody').val())) {
 				$('#entryBody').val('');
 				$('#entryBody').blur();
-				//window.location.reload(true);
 				window.location.replace(window.location.href);
 			}
 			/////////////////
