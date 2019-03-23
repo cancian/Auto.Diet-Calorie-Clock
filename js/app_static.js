@@ -158,11 +158,11 @@ setTimeout(function() {
 // PARSED CSS //
 ////////////////
 if (/MSAppHost\/2.0/i.test(navigator.userAgent) && /Windows Phone 8.1/i.test(navigator.userAgent) && !document.getElementById('wp81ViewportFix')) {
-	$('head').append2('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}</style>');
+	$('head').append2('<style id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}</style>');
 }
-$('head').append2('<style type="text/css" id="cssStartDate"> #startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; } </style>');
-$('head').append2('<style type="text/css" id="daySum"></style>');
-$('head').append2('<style type="text/css" id="cssAutoUpdate">\
+$('head').append2('<style id="cssStartDate"> #startDateSpan:before { content: "' + LANG.START_DATE[lang] + '"; } </style>');
+$('head').append2('<style id="daySum"></style>');
+$('head').append2('<style id="cssAutoUpdate">\
 	.loading #advancedAutoUpdate:before	    { content: "' + LANG.DOWNLOADING[lang]     + '"; }\
 	.pending #advancedAutoUpdate:before	    { content: "' + LANG.RESTART_PENDING[lang] + '"; }\
 	.uptodate #advancedAutoUpdate:before    { content: "' + LANG.UP_TO_DATE[lang]      + '"; }\

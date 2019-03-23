@@ -938,7 +938,7 @@ app.ready = function(callback) {
 app.getScript = function(url) {
 	'use strict';
 	var script  = document.createElement('script');
-	script.type = 'text/javascript';
+	//script.type = 'text/javascript'; //deprecated
 	script.src  = url;
 	document.getElementsByTagName('head')[0].appendChild(script);
 };
@@ -1588,7 +1588,7 @@ if (!$('#plainLoad').length && !$('#superBlockCSS').length && isCurrentCacheVali
 					dataCSS = dataCSS.split('-webkit-').join('-ms-');
 				}
 				$('#coreCss').remove();
-				$('#coreFonts').before2('<style type="text/css" id="coreCss"></style>');
+				$('#coreFonts').before2('<style id="coreCss"></style>');
 				$('#coreCss').html2(dataCSS);
 			}
 		});
@@ -1600,7 +1600,7 @@ if (!$('#plainLoad').length && !$('#superBlockCSS').length && isCurrentCacheVali
 app.updateColorPicker = function() {
 	'use strict';
 	if(!document.getElementById('colorPickerStyle')) {
-		$('head').append2('<style type="text/css" id="colorPickerStyle"></style>');
+		$('head').append2('<style id="colorPickerStyle"></style>');
 	}
 	var deficitColor  = app.read('colorDeficit');
 	var balancedColor = app.read('colorBalanced');

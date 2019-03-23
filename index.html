@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
-<html manifest="manifest.appcache">
+<html lang="en" manifest="manifest.appcache">
 <head>
 <meta charset="utf-8">
 <title>Scientific Diet Clock</title>
-<meta name="Description" content="Diet Clock is a real-time calorie counter that simulates the human metabolism. Its unmatched scientific approach makes it ideal for weight loss and precise calorie control. Available both for desktop (browser) and for mobile devices via any app stores.">
+<meta name="Description" content="Diet Clock is a real-time calorie counter that simulates the human metabolism. Its unmatched scientific approach makes it ideal for weight loss and precise calorie control. Available both for desktop (browser) and for mobile devices via any app stores." />
 <meta name="keywords" content="calorie,counter,food,sync,exercise,health,women,diet,fitness,nutrition,burn,fat,weight,lose,kcals,chrono,tracker,track,kcal,cal" />
-<meta http-equiv="Content-Security-Policy: default-src 'none';script-src 'self' 'unsafe-eval';style-src 'self' 'unsafe-inline';img-src 'self' data: blob:;font-src 'self';connect-src 'self';media-src 'self'">
+<meta http-equiv="Content-Security-Policy: default-src 'none';script-src 'self' 'unsafe-eval';style-src 'self' 'unsafe-inline';img-src 'self' data: blob:;font-src 'self';connect-src 'self';media-src 'self'" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="HandheldFriendly" content="True" />
 <meta name="format-detection" content="telephone=no" />
@@ -14,12 +14,12 @@
 <meta name="msApplication-ID" content="48310mylivediet.com.Kcals"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <meta name="google-site-verification" content="7kvTGeL6rDCeOemzlGqvUJaQ-EYBjAWng-_mpk5WNr4" />
-<meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0"/>
+<meta name="msApplication-PackageFamilyName" content="48310mylivediet.com.Kcals_hydbdpcrk5wt0" />
 <meta name="viewport" id="viewPort" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
-<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc">
+<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/ipifmjfbmblepifflinikiiboakalboc" />
 <link rel="apple-touch-icon-precomposed" sizes="256x256" href="icon.png">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<style type="text/css">
+<style>
 body.started #loadMask {
 	display: none;
 	pointer-events: none;
@@ -79,7 +79,7 @@ body.unloaded #loadMask span {
 body.unloaded *				{ overflow: hidden; }
 </style>
 
-<script type="text/javascript">
+<script>
 //////////////////////////////
 // INITIALIZE LOCALSTORAGE //
 /////////////////////////////
@@ -287,9 +287,9 @@ if (/MSApp/i.test(navigator.userAgent)) {
 }
 </script>
 
-<style type="text/css" id="CSSPlaceholder"></style>
+<style id="CSSPlaceholder"></style>
 
-<script type="text/javascript">
+<script>
 ///////////////
 // BOOTSTRAP //
 ///////////////
@@ -325,13 +325,13 @@ function bootStraper() {
 			hostLocal = '';
 			//WP8.1 viewport fix ~ no WP10
 			if (/MSAppHost\/2.0/i.test(navigator.userAgent) && /Windows Phone 8.1/i.test(navigator.userAgent)) {
-				document.write('<style type="text/css" id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}<\/style>');
+				document.write('<style  id="wp81ViewportFix">@media (min-width: 1px) { @-ms-viewport { width: 80%; }}<\/style>');
 			}
-			document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>'); 
-			document.write('<style type="text/css"> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } @font-face { font-family: "chronoburn"; src: url("css/chronoburn.ttf") format("truetype"); } <\/style>');
+			document.write('<script src="' + hostLocal + 'js/app_init.js"><\/script>'); 
+			document.write('<style> @font-face { font-family: "KCals"; src: url("css/kcals.ttf") format("truetype"); } @font-face { font-family: "chronoburn"; src: url("css/chronoburn.ttf") format("truetype"); } <\/style>');
 		});
 	} else {
-		document.write('<script type="text/javascript" src="' + hostLocal + 'js/app_init.js"><\/script>');
+		document.write('<script src="' + hostLocal + 'js/app_init.js"><\/script>');
 	}
 	////////////////////
 	// CLEAR RECOVERY //
@@ -356,7 +356,7 @@ if (!/http/i.test(window.location.protocol) && bootLoopBroken == false) { bootSt
 
 </head>
 <body class="unloaded">
-<script type="text/javascript">
+<script>
 ///////////////
 // BOOTSTRAP //
 ///////////////

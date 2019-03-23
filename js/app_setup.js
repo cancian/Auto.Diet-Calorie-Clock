@@ -1820,7 +1820,7 @@ function updateNutriRatio() {
 	//////////
 	//INSERT ONCE
 	if(!document.getElementById('appNutrients')) {
-		$('head').append2('<style type="text/css" id="appNutrients"></style>');
+		$('head').append2('<style id="appNutrients"></style>');
 	}
 	//UPDATE
 	$('#appNutrients').html2(nutrientsStyle);
@@ -2430,7 +2430,7 @@ app.wrapperMinHeight = function() {
 	if($('#entryListWrapper').height() < app.relHeight) {
 		//HOLDER
 		if(!$('#entryListHeight').length) {
-			$('head').append2('<style type="text/css" id="entryListHeight"></style>');
+			$('head').append2('<style id="entryListHeight"></style>');
 		}
 		//IF NEEDED
 		$('#entryListHeight').html2('#entryListWrapper { min-height: ' + wrapperMinH + 'px !important; }');
