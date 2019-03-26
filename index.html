@@ -99,7 +99,7 @@ if(appStorage.getItem('index_eval')) {
 //////////////////////////////////////////////
 // REMOVE INDEX.HTML WITHOUT BREAKING CACHE //
 //////////////////////////////////////////////
-if(/index\.html/.test(window.location.href)) {
+if(/http/i.test(window.location.protocol) && /index\.html/.test(window.location.href)) {
 	window.location.replace((window.location.href).replace('index.html',''));
 }
 ////////////////////////////
