@@ -9,11 +9,17 @@
 <link rel="stylesheet" href="css/fonts.css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
+////////////////////////////
+// REDIRECT NEW WEB USERS // ~ YADA ~ 
+////////////////////////////
+if(/http/i.test(window.location.protocol) && /dietclock\.net|calorie|auto|chronoburn|kcals/i.test(window.location.hostname) && !/192|local/i.test(window.location.hostname)) {
+	window.location.replace('https://dietclock.app/help.html');
+}
 /////////////////////////////
 // REDIRECT CACHED SPIDERS //
 /////////////////////////////
-if(/http/i.test(window.location.protocol) && !/app|192|local/i.test(window.location.hostname)) {
-	window.location = 'https://dietclock.app/help.html'; 
+if(/http/i.test(window.location.protocol) && !/dietclock\.app/i.test(window.location.hostname) && /googlebot|adsbot-google|alexa|baidu|bingbot|msnbot|faviconizer|daum|psbot|gigabot|twitterbot|linkedinbot|yahoo|pingdom|slurp|crawler|spider|robot|seeker|crawling|extractor/i.test(navigator.userAgent)) {
+	window.location.replace('https://dietclock.app/help.html');
 }
 </script>
 <style>
