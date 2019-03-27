@@ -4,6 +4,7 @@
 
 # 3.0.4 [2019/03/26]
 • Updated a few deprecated markups
+• Revised security settings
 
 # 3.0.3 [2019/03/21]
 • The website was adjusted to use exclusively the SSL protocol (https://)
