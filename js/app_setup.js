@@ -194,9 +194,9 @@ function initDB(t) {
 				///////////////
 				// GO STATIC //
 				///////////////
-				setTimeout(function() {
+				//setTimeout(function() {
 					startApp();
-				},0);
+				//},0);
 				/////////////////////////
 				// REBUILD OUTDATED DB //
 				/////////////////////////
