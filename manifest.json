@@ -1,29 +1,26 @@
 ﻿{
-	"name" : "__MSG_appName__",
-	"short_name" : "__MSG_appName__",
-	"description" : "__MSG_appDesc__",
-	"default_locale" : "en",
-	"version" : "3.0",
-	"manifest_version" : 2,
-	"offline_enabled": true,
-	"icons" : {
-		"32" :  "res/icon/ffos/32.png",
-		"36" :  "res/icon/ffos/36.png",
-		"48" :  "res/icon/ffos/48.png",
-		"60" :  "res/icon/ffos/60.png",
-		"72" :  "res/icon/ffos/72.png",
-		"90" :  "res/icon/ffos/90.png",
-		"96" :  "res/icon/ffos/96.png",
-		"120" : "res/icon/ffos/120.png",
-		"128" : "res/icon/ffos/128.png",
-		"256" : "res/icon/ffos/256.png"
-	},
-	"app" : {
-		"urls" : [
-			"https://dietclock.app/"
-		],
-		"launch" : {
-			"web_url" : "https://dietclock.app/"
-		}
-	}
+	"name": "Scientific Diet Clock",
+	"short_name": "Diet Clock",
+	"description": "A scientific calorie counter app that shows calories being burned in real-time.",
+	"default_locale": "en",
+	"version": "3.0",
+	"icons": [
+		{ "src": "res/icon/ffos/32.png",  "type": "image/png", "sizes": "32x32"   },
+		{ "src": "res/icon/ffos/48.png",  "type": "image/png", "sizes": "48x48"   },
+		{ "src": "res/icon/ffos/60.png",  "type": "image/png", "sizes": "60x60"   },
+		{ "src": "res/icon/ffos/72.png",  "type": "image/png", "sizes": "72x72"   },
+		{ "src": "res/icon/ffos/90.png",  "type": "image/png", "sizes": "90x90"   },
+		{ "src": "res/icon/ffos/96.png",  "type": "image/png", "sizes": "96x96"   },
+		{ "src": "res/icon/ffos/120.png", "type": "image/png", "sizes": "120x120" },
+		{ "src": "res/icon/ffos/128.png", "type": "image/png", "sizes": "128x128" },
+		{ "src": "res/icon/ffos/256.png", "type": "image/png", "sizes": "256x256" },
+		{ "src": "res/icon/ffos/512.png", "type": "image/png", "sizes": "512x512" }
+	],
+	"orientation" : "portrait",
+	"start_url": "/index.html",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#007aff",
+	"background_color": "#ffffff"	
 }
+
