@@ -1,3 +1,7 @@
+@echo off
+rundll32.exe user32.dll,SwapMouseButton
+
+@echo on
 rem batch minifier-updater
 call reenv
 k:

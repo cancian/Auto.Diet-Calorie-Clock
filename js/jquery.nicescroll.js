@@ -1445,6 +1445,15 @@
 								return false;
 							}
 
+							//TWEAK
+							//Uncaught TypeError: Cannot read property rail of null
+							if(!self || typeof self == 'undefined') {
+								return false;
+							}
+							if(!self.rail || typeof self.rail == 'undefined') {
+								return false;
+							}
+							//
 							if (self.rail.drag && (self.rail.drag.pt == 2)) {
 								if (cap.cantouch && (typeof e.original == 'undefined')) {
 									return true; // prevent ios 'ghost' events by clickable elements
