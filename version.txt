@@ -2,6 +2,9 @@
 ## VERSION LOG ##
 #################
 
+# 3.0.5 [2019/05/27]
+• Fixed position error in calorie balance pointer
+
 # 3.0.4 [2019/03/26]
 • Updated a few deprecated markups
 • Revised security settings

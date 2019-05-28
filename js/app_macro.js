@@ -1723,10 +1723,10 @@ function balanceMeter(kcalsInput,update) {
 	//////////////////////
 	// UPDATE NO-REPEAT //
 	//////////////////////
-	var roundedBar = (Math.round(parseFloat($('#balanceBar').css2('text-indent')) * 100) / 100);
+	var roundedBar = (Math.round(parseFloat($('#balancePointer').css2('left')) * 100) / 100);
 	var roundedNum = (Math.round(parseFloat(balancePos) * 100) / 100);
 	if(roundedBar != roundedNum || update == 'now') {
-		$('#balanceBar').css2('text-indent',roundedNum + '%');
+		$('#balancePointer').css2('left',roundedNum + '%');
 	}
 }
 //##/////////////##//

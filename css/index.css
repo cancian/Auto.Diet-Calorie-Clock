@@ -871,10 +871,11 @@ body.cyclic #appStatusBlock2 #todayInfo	{ color: #007aff; }
 .android2 #balanceBar:before	{ background: -webkit-gradient(linear, left top, right top, color-stop(25.5%,#EE8176), color-stop(25.5%,#3DB3E2), color-stop(73.9%,#3DB3E2), color-stop(73.9%,#63C980)); }
 #balanceBar:before				{ background: -webkit-linear-gradient(left,                                  #EE8176 25.5%,             #3DB3E2 25.5%,             #3DB3E2 73.9%,             #63C980 73.9%);
 								  content: ' '; position: absolute; bottom: 0; left: 2px; right: -12px; height: 3px; padding: 0; }
-#balanceBar:after				{ position: absolute; bottom: 3px; left: 0; font-family: KCals; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
-.deficit #appStatusBalance #balanceBar:after	{ color: #E54B1D; }
+#balancePointer					{ position: absolute; }
+#balancePointer:after			{ position: absolute; bottom: 3px; left: 0; font-family: KCals; content: '\f175'; font-size: 12px; line-height: 12px; padding: 0; color: #555; -webkit-font-smoothing: antialiased; }
+.deficit #appStatusBalance #balancePointer:after	{ color: #E54B1D; }
 /*.balanced #appStatusBalance #balanceBar:after	{ color: #007AFF; }*/
-.surplus #appStatusBalance #balanceBar:after	{ color: #2DB454; }
+.surplus #appStatusBalance #balancePointer:after	{ color: #2DB454; }
 /**/
 #appStatusIntakeOver,
 #appStatusIntake				{ position: absolute; top: 75px; left: 50%; right: 0; height: 66px; margin-left: 6px; white-space: nowrap; background-color: #fff; color: #777; border: 1px solid #eee; overflow: hidden; z-index: 1; }
