@@ -1077,10 +1077,16 @@ app.tab.diary = function(entryListHtml,keepOpen) {
 		app.suspend('#entryListForm',600);
 		//app.suspend('.carpe-slider-knob',600);
 		//app.suspend('.carpe-slider-box', 600);
-		$('#entryListForm').trigger(touchcancel);
 		//$('.carpe-slider-knob').trigger(touchcancel);
 		//$('.carpe-slider-box').trigger(touchcancel);
+		try {
+			$('#entryListForm').trigger(touchcancel);
+		} catch(e) {
+			//
+		}
+		//
 		slider.save(evt);
+		//
 		$(window).trigger('resize');
 		slider.reset();
 		$('#loadingDiv').css2('opacity',0);
