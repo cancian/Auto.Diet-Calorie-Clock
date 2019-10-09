@@ -2,7 +2,7 @@
 // LANGUAGE ENGINE //
 /////////////////////
 var appName = 'Scientific Diet Clock';
-var appVersion = '3.0.5 (305002)';
+var appVersion = '3.0.5 (305005)';
 var appBuild   = appVersion.split(' ')[1].replace('(', '').replace(')', ''); //appVersion.slice(7,-1);
 var appRelease = appVersion.split(' ')[0];
 var reviewMode = true; // true false
