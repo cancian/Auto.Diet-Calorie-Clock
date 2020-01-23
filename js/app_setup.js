@@ -2884,22 +2884,24 @@ function getLoginFB() {
 		// JS SDK //v2.8 
 		////////////
 		} else {
-			if(typeof FB !== 'undefined') {
-				FB.init({ appId : '577673025616946', status : true, version: 'v2.8', cookie : true, xfbml : true });
-				//check status
-				FB.getLoginStatus(function(response) {
-					//already logged
-					if(response.authResponse) {
-						getTokenFB(response.authResponse.accessToken);
-					}
-				});
-				FB.login(function (response) {
-					//auth dialog
-					if(response.authResponse) {
-						getTokenFB(response.authResponse.accessToken);
-					}
-				}, { scope : 'email' });
-			}
+			$.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
+				if(typeof FB !== 'undefined') {
+					FB.init({ appId : '577673025616946', status : true, version: 'v2.8', cookie : true, xfbml : true });
+					//check status
+					FB.getLoginStatus(function(response) {
+						//already logged
+						if(response.authResponse) {
+							getTokenFB(response.authResponse.accessToken);
+						}
+					});
+					FB.login(function (response) {
+						//auth dialog
+						if(response.authResponse) {
+							getTokenFB(response.authResponse.accessToken);
+						}
+					}, { scope : 'email' });
+				}
+			});
 		}
 	///////////
 	// CATCH //
