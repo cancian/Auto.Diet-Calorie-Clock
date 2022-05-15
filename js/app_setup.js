@@ -1431,7 +1431,7 @@ function updateFoodDb(callback) {
 						$.ajax({
 							type : 'GET',
 							dataType : 'text',
-							url : databaseHost + 'sql/searchdb_' + langDB + '.db',
+							url : databaseHost + 'sql/searchdb_' + langDB + '.txt',
 							error : function (xhr, statusText) {
 								//CONNECTION ERROR
 								app.unlockDb(callback);
@@ -1459,7 +1459,7 @@ function updateFoodDb(callback) {
 								$.ajax({
 									type : 'GET',
 									dataType : 'text',
-									url : databaseHost + 'sql/searchdb.db',
+									url : databaseHost + 'sql/searchdb.txt',
 									error : function (xhr, statusText) {
 										app.unlockDb(callback);
 									},
