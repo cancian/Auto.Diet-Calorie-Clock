@@ -100,7 +100,7 @@ if(strlen($_GET['user']) > 1) {
 		mail($resetMail, "« dietclock.app » Password Reset", $resetBody,
 		"From: cancian@dietclock.app\r\n"
 		."Content-type: text/html; charset=utf-8\r\n"
-		."Reply-To: dietclock.app\r\n"
+		."Reply-To: cancian@dietclock.app\r\n"
 		."X-Mailer: PHP/" . phpversion());
 		echo "sent";
 	} else {
